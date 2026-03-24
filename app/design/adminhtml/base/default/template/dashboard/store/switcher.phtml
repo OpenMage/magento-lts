@@ -46,10 +46,10 @@
         if(obj.switchParams){
             storeParam+= obj.switchParams;
         }
-        if ($('diagram_tab_orders_content').style.display != 'none') {
-            var select = $('order_orders_period');
-        } else if ($('diagram_tab_amounts_content').style.display != 'none') {
-            var select = $('order_amounts_period');
+        if (document.getElementById('diagram_tab_orders_content').style.display != 'none') {
+            var select = document.getElementById('order_orders_period');
+        } else if (document.getElementById('diagram_tab_amounts_content').style.display != 'none') {
+            var select = document.getElementById('order_amounts_period');
         }
         var periodParam = select.value ? 'period/'+select.value + '/' : '';
         setLocation('<?php echo $this->getSwitchUrl() ?>'+storeParam+periodParam);

@@ -8,23 +8,20 @@
 ?>
 <script type="text/javascript">
 //<![CDATA[
-var CountryModel = Class.create();
+var CountryModel = function() {
+    this.reload = false;
+    this.bindSpecificCountryRelation();
+};
 CountryModel.prototype = {
-    initialize : function()
-    {
-        this.reload = false;
-        this.bindSpecificCountryRelation();
-    },
     bindSpecificCountryRelation : function(parentId)
     {
         if(parentId) {
-            // todo: fix bug in IE
-            var applyCountryElements = $$('#'+parentId+' .shipping-applicable-country');
+            var applyCountryElements = document.querySelectorAll('#'+parentId+' .shipping-applicable-country');
         } else {
-            var applyCountryElements = $$('.shipping-applicable-country');
+            var applyCountryElements = document.querySelectorAll('.shipping-applicable-country');
         }
         for(var i=0;i<applyCountryElements.length; i++) {
-            Event.observe(applyCountryElements[i], 'change', this.checkSpecificCountry.bind(this));
+            applyCountryElements[i].addEventListener('change', this.checkSpecificCountry.bind(this));
             this.initSpecificCountry(applyCountryElements[i]);
         }
 
@@ -32,23 +29,23 @@ CountryModel.prototype = {
     initSpecificCountry : function(element){
         var applyCountryElement = element;
         if (applyCountryElement && applyCountryElement.id) {
-            var specifCountryElement  = $(applyCountryElement.id.replace(/sallowspecific/, 'specificcountry'));
-            var showMethodElement  = $(applyCountryElement.id.replace(/sallowspecific/, 'showmethod'));
-            //var specifErrMsgElement  = $(applyCountryElement.id.replace(/sallowspecific/, 'specificerrmsg'));
+            var specifCountryElement  = document.getElementById(applyCountryElement.id.replace(/sallowspecific/, 'specificcountry'));
+            var showMethodElement  = document.getElementById(applyCountryElement.id.replace(/sallowspecific/, 'showmethod'));
+            //var specifErrMsgElement  = document.getElementById(applyCountryElement.id.replace(/sallowspecific/, 'specificerrmsg'));
             if (specifCountryElement) {
                 if (applyCountryElement.value == 1) {
                    //if specific country element selected
-                   specifCountryElement.enable();
+                   specifCountryElement.disabled = false;
                    if (showMethodElement) {
-                       this.showElement(showMethodElement.up(1));
+                       this.showElement(showMethodElement.parentNode);
                    }
-                   //specifErrMsgElement.up(1).show();
+                   //specifErrMsgElement.parentNode.style.display = '';
                  } else {
-                   specifCountryElement.disable();
+                   specifCountryElement.disabled = true;
                    if (showMethodElement) {
-                       this.hideElement(showMethodElement.up(1));
+                       this.hideElement(showMethodElement.parentNode);
                    }
-                   //specifErrMsgElement.up(1).hide();
+                   //specifErrMsgElement.parentNode.style.display = 'none';
                 }
             }
         }
@@ -56,26 +53,26 @@ CountryModel.prototype = {
 
     checkSpecificCountry : function(event)
     {
-        var applyCountryElement = Event.element(event);
+        var applyCountryElement = event.target;
         if (applyCountryElement && applyCountryElement.id) {
-            var specifCountryElement  = $(applyCountryElement.id.replace(/sallowspecific/, 'specificcountry'));
-            var showMethodElement  = $(applyCountryElement.id.replace(/sallowspecific/, 'showmethod'));
-            //var specifErrMsgElement  = $(applyCountryElement.id.replace(/sallowspecific/, 'specificerrmsg'));
+            var specifCountryElement  = document.getElementById(applyCountryElement.id.replace(/sallowspecific/, 'specificcountry'));
+            var showMethodElement  = document.getElementById(applyCountryElement.id.replace(/sallowspecific/, 'showmethod'));
+            //var specifErrMsgElement  = document.getElementById(applyCountryElement.id.replace(/sallowspecific/, 'specificerrmsg'));
             if (specifCountryElement) {
                 if (applyCountryElement.value == 1) {
                    //if specific country element selected
-                   specifCountryElement.enable();
+                   specifCountryElement.disabled = false;
                    if (showMethodElement) {
-                       this.showElement(showMethodElement.up(1));
+                       this.showElement(showMethodElement.parentNode);
                    }
-                   //specifErrMsgElement.up(1).show();
+                   //specifErrMsgElement.parentNode.style.display = '';
                  } else {
                     this.unselectSpecificCountry(specifCountryElement);
-                    specifCountryElement.disable();
+                    specifCountryElement.disabled = true;
                     if (showMethodElement) {
-                        this.hideElement(showMethodElement.up(1));
+                        this.hideElement(showMethodElement.parentNode);
                     }
-                    //specifErrMsgElement.up(1).hide();
+                    //specifErrMsgElement.parentNode.style.display = 'none';
                 }
             }
         }
@@ -93,8 +90,8 @@ CountryModel.prototype = {
     showElement : function(elm)
     {
         if (elm) {
-            if (!elm.down('.shipping-skip-show')) {
-                elm.show();
+            if (!elm.querySelector('.shipping-skip-show')) {
+                elm.style.display = '';
             }
         }
     },
@@ -102,8 +99,8 @@ CountryModel.prototype = {
     hideElement : function(elm)
     {
         if (elm) {
-            if (!elm.down('.shipping-skip-hide')) {
-                elm.hide();
+            if (!elm.querySelector('.shipping-skip-hide')) {
+                elm.style.display = 'none';
             }
         }
     }

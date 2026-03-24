@@ -14,9 +14,9 @@
 var profileImportOnly = ['profile_number_of_records', 'profile_decimal_separator'];
 function showOption(select)
 {
-    select = $(select);
+    select = (typeof select === 'string') ? document.getElementById(select) : select;
     for (var i = 0, l = select.options.length; i<l; i++) {
-        $$('.'+select.id+'_'+select.options[i].value).each(function (el) {
+        document.querySelectorAll('.'+select.id+'_'+select.options[i].value).forEach(function (el) {
             el.style.display = select.selectedIndex==i ? '' : 'none';
         });
     }
@@ -25,13 +25,13 @@ function showOption(select)
 
 function addFieldMapping()
 {
-    var entityType = $('profile_entity_type').value;
-    Element.insert($('map_container_'+entityType), {bottom: $('map_template_'+entityType).innerHTML});
+    var entityType = document.getElementById('profile_entity_type').value;
+    document.getElementById('map_container_'+entityType).insertAdjacentHTML('beforeend', document.getElementById('map_template_'+entityType).innerHTML);
 }
 
 function removeFieldMapping(button)
 {
-    Element.remove(button.parentNode);
+    button.parentNode.remove();
 }
 
 function setMapFileField(select)
@@ -41,8 +41,8 @@ function setMapFileField(select)
 
 function toggleSelectOption(type, source, target, sourceValue, targetValue, targetText)
 {
-    source = $(source);
-    target = $(target);
+    source = (typeof source === 'string') ? document.getElementById(source) : source;
+    target = (typeof target === 'string') ? document.getElementById(target) : target;
 
     var i, ex, option, present;
     var selectValue = source.options[source.selectedIndex].value;
@@ -79,16 +79,16 @@ function toggleSelectOption(type, source, target, sourceValue, targetValue, targ
 
 function exportUrlField()
 {
-    var urlFieldEl = $('profile_add_url_field').up();
-    var entityType = $('profile_entity_type').value;
-    var direction  = $('profile_direction').value;
-    var storeId    = $('profile_store_id').value;
+    var urlFieldEl = document.getElementById('profile_add_url_field').parentNode;
+    var entityType = document.getElementById('profile_entity_type').value;
+    var direction  = document.getElementById('profile_direction').value;
+    var storeId    = document.getElementById('profile_store_id').value;
 
     if (entityType == 'product' && direction == 'export' && storeId > 0) {
-        urlFieldEl.show();
+        urlFieldEl.style.display = '';
     }
     else {
-        urlFieldEl.hide();
+        urlFieldEl.style.display = 'none';
     }
 }
 
@@ -105,28 +105,30 @@ function changeDirection()
 {
     toggleSelectOption('remove', 'profile_direction', 'profile_data_transfer', 'export', 'interactive', '<?php echo Mage::helper('core')->jsQuoteEscape($this->__('Interactive')) ?>');
     //showOption('profile_data_transfer');
-    if ($('profile_direction').value == 'import') {
-        profileImportOnly.each(function(id){if ($(id))$(id).up(1).show();});
+    if (document.getElementById('profile_direction').value == 'import') {
+        profileImportOnly.forEach(function(id){var el = document.getElementById(id); if (el) el.parentNode.style.display = '';});
     }
     else {
-        profileImportOnly.each(function(id){if ($(id))$(id).up(1).hide();});
+        profileImportOnly.forEach(function(id){var el = document.getElementById(id); if (el) el.parentNode.style.display = 'none';});
     }
     exportUrlField();
 }
 
 function updateRun(select)
 {
-    if ($('file_list') != null){
-        if ($(select).value=='interactive') {
-            $('file_list').show();
+    var fileList = document.getElementById('file_list');
+    if (fileList != null){
+        var selEl = (typeof select === 'string') ? document.getElementById(select) : select;
+        if (selEl.value=='interactive') {
+            fileList.style.display = '';
         } else {
-            $('file_list').hide();
+            fileList.style.display = 'none';
         }
     }
 }
 
-Event.observe(window, 'load', function(){
-    if($('profile_data_transfer')) {
+window.addEventListener('load', function(){
+    if(document.getElementById('profile_data_transfer')) {
         updateRun('profile_data_transfer');
     }
 });
@@ -529,27 +531,30 @@ Event.observe(window, 'load', function(){
 
 <script type="text/javascript">
 //<![CDATA[
-    $$('.option-control').each(showOption);
+    document.querySelectorAll('.option-control').forEach(showOption);
     changeEntityType();
 
     function showFeildMapping() {
-        var direction = $('profile_direction').options[$('profile_direction').options.selectedIndex].value;
-        var value = $('parse_fieldnames').options[$('parse_fieldnames').options.selectedIndex].value;
-        var map = $('map_only_specified').options[$('map_only_specified').options.selectedIndex].value;
+        var dirEl = document.getElementById('profile_direction');
+        var direction = dirEl.options[dirEl.options.selectedIndex].value;
+        var fnEl = document.getElementById('parse_fieldnames');
+        var value = fnEl.options[fnEl.options.selectedIndex].value;
+        var mapEl = document.getElementById('map_only_specified');
+        var map = mapEl.options[mapEl.options.selectedIndex].value;
 
         if (direction == 'export') {
             if (map) {
-                Element.show($('__fieldmapping'));
+                document.getElementById('__fieldmapping').style.display = '';
             } else {
                 deleteAllAddedMappingFields();
-                Element.hide($('__fieldmapping'));
+                document.getElementById('__fieldmapping').style.display = 'none';
             }
         } else {
             if (value) {
-                Element.hide($('__fieldmapping'));
+                document.getElementById('__fieldmapping').style.display = 'none';
                 deleteAllAddedMappingFields();
             } else {
-                Element.show($('__fieldmapping'));
+                document.getElementById('__fieldmapping').style.display = '';
             }
         }
 
@@ -557,30 +562,35 @@ Event.observe(window, 'load', function(){
 
     function deleteAllAddedMappingFields()
     {
-        var type = $('profile_entity_type').options[$('profile_entity_type').options.selectedIndex].value;
+        var typeEl = document.getElementById('profile_entity_type');
+        var type = typeEl.options[typeEl.options.selectedIndex].value;
 
-        var elems = $('map_container_'+type).childElements();
-        if (elems.length > 0) for (var idx in elems) {
+        var container = document.getElementById('map_container_'+type);
+        var elems = Array.from(container.children);
+        if (elems.length > 0) for (var idx = 0; idx < elems.length; idx++) {
             if (elems[idx] != undefined && elems[idx].tagName != undefined) {
                 elems[idx].remove();
             }
         }
     }
-    var direction = $('profile_direction').options[$('profile_direction').options.selectedIndex].value;
+    var dirEl = document.getElementById('profile_direction');
+    var direction = dirEl.options[dirEl.options.selectedIndex].value;
     if (direction == 'import') {
-        if ($('parse_fieldnames').options[$('parse_fieldnames').options.selectedIndex].value) {
-            Element.hide($('__fieldmapping'));
+        var fnEl = document.getElementById('parse_fieldnames');
+        if (fnEl.options[fnEl.options.selectedIndex].value) {
+            document.getElementById('__fieldmapping').style.display = 'none';
             deleteAllAddedMappingFields();
         } else {
-            Element.show($('__fieldmapping'));
+            document.getElementById('__fieldmapping').style.display = '';
         }
     } else {
-        var map = $('map_only_specified').options[$('map_only_specified').options.selectedIndex].value;
+        var mapEl = document.getElementById('map_only_specified');
+        var map = mapEl.options[mapEl.options.selectedIndex].value;
         if (map) {
-            Element.show($('__fieldmapping'));
+            document.getElementById('__fieldmapping').style.display = '';
         } else {
             deleteAllAddedMappingFields();
-            Element.hide($('__fieldmapping'));
+            document.getElementById('__fieldmapping').style.display = 'none';
         }
     }
 //]]>
