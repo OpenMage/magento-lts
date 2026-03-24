@@ -195,14 +195,11 @@ class Mage_Adminhtml_Cms_BlockController extends Mage_Adminhtml_Controller_Actio
         $blockIds = $this->getRequest()->getParam('block');
         if (!is_array($blockIds)) {
             $this->_getSession()->addError($this->__('Please select block(s).'));
-        } elseif (!empty($blockIds)) {
+        } elseif ($blockIds !== []) {
             try {
-                foreach ($blockIds as $blockId) {
-                    // phpcs:ignore Ecg.Performance.Loop.ModelLSD
-                    $block = Mage::getModel('cms/block')->load($blockId);
-                    // phpcs:ignore Ecg.Performance.Loop.ModelLSD
-                    $block->delete();
-                }
+                $collection = Mage::getResourceModel('cms/block_collection');
+                $collection->addFieldToFilter('block_id', ['in' => $blockIds]);
+                $collection->delete();
 
                 $this->_getSession()->addSuccess(
                     $this->__('Total of %d record(s) have been deleted.', count($blockIds)),
@@ -226,12 +223,10 @@ class Mage_Adminhtml_Cms_BlockController extends Mage_Adminhtml_Controller_Actio
                 $status = 0;
             }
 
-            foreach ($blockIds as $blockId) {
-                // phpcs:ignore Ecg.Performance.Loop.ModelLSD
-                $block = Mage::getModel('cms/block')->load($blockId);
-                // phpcs:ignore Ecg.Performance.Loop.ModelLSD
-                $block->setIsActive($status)->save();
-            }
+            $collection = Mage::getResourceModel('cms/block_collection');
+            $collection->addFieldToFilter('block_id', ['in' => $blockIds]);
+            $collection->walk('setIsActive', [$status]);
+            $collection->save();
 
             $this->_getSession()->addSuccess(
                 $this->__('Total of %d record(s) have been updated.', count($blockIds)),
