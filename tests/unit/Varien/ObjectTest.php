@@ -130,7 +130,7 @@ final class ObjectTest extends OpenMageTest
         self::assertFalse(self::$subject->offsetExists('off'));
     }
 
-    public function tearDown(): void
+    protected function tearDown(): void
     {
         self::$subject->unsetData();
     }
