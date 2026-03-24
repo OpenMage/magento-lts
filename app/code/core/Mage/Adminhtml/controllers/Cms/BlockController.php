@@ -189,4 +189,72 @@ class Mage_Adminhtml_Cms_BlockController extends Mage_Adminhtml_Controller_Actio
         // go to grid
         $this->_redirect('*/*/');
     }
+
+    public function massDeleteAction()
+    {
+        $blockIds = $this->getRequest()->getParam('block');
+        if (!is_array($blockIds)) {
+            $this->_getSession()->addError($this->__('Please select block(s).'));
+        } elseif (!empty($blockIds)) {
+            try {
+                foreach ($blockIds as $blockId) {
+                    // phpcs:ignore Ecg.Performance.Loop.ModelLSD
+                    $block = Mage::getModel('cms/block')->load($blockId);
+                    // phpcs:ignore Ecg.Performance.Loop.ModelLSD
+                    $block->delete();
+                }
+
+                $this->_getSession()->addSuccess(
+                    $this->__('Total of %d record(s) have been deleted.', count($blockIds)),
+                );
+            } catch (Throwable $exception) {
+                $this->_getSession()->addError($exception->getMessage());
+            }
+        }
+
+        $this->_redirect('*/*/index');
+    }
+
+    public function massStatusAction()
+    {
+        $blockIds = (array) $this->getRequest()->getParam('block');
+        $status   = (int) $this->getRequest()->getParam('status');
+
+        try {
+            // is_active/disabled is defined as 0
+            if ($status === 2) {
+                $status = 0;
+            }
+
+            foreach ($blockIds as $blockId) {
+                // phpcs:ignore Ecg.Performance.Loop.ModelLSD
+                $block = Mage::getModel('cms/block')->load($blockId);
+                // phpcs:ignore Ecg.Performance.Loop.ModelLSD
+                $block->setIsActive($status)->save();
+            }
+
+            $this->_getSession()->addSuccess(
+                $this->__('Total of %d record(s) have been updated.', count($blockIds)),
+            );
+        } catch (Throwable $exception) {
+            $this->_getSession()->addError($exception->getMessage());
+        }
+
+        $this->_redirect('*/*/index');
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function _isAllowed()
+    {
+        $action = strtolower($this->getRequest()->getActionName());
+        $aclPath = match ($action) {
+            'new', 'save', 'massstatus' => 'cms/block/save',
+            'delete', 'massdelete' => 'cms/block/delete',
+            default => 'cms/block',
+        };
+
+        return Mage::getSingleton('admin/session')->isAllowed($aclPath);
+    }
 }

@@ -201,6 +201,59 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
         $this->_redirect('*/*/');
     }
 
+    public function massDeleteAction()
+    {
+        $pageIds = $this->getRequest()->getParam('page');
+        if (!is_array($pageIds)) {
+            $this->_getSession()->addError($this->__('Please select page(s).'));
+        } elseif (!empty($pageIds)) {
+            try {
+                foreach ($pageIds as $pageId) {
+                    // phpcs:ignore Ecg.Performance.Loop.ModelLSD
+                    $page = Mage::getModel('cms/page')->load($pageId);
+                    // phpcs:ignore Ecg.Performance.Loop.ModelLSD
+                    $page->delete();
+                }
+
+                $this->_getSession()->addSuccess(
+                    $this->__('Total of %d record(s) have been deleted.', count($pageIds)),
+                );
+            } catch (Throwable $exception) {
+                $this->_getSession()->addError($exception->getMessage());
+            }
+        }
+
+        $this->_redirect('*/*/index');
+    }
+
+    public function massStatusAction()
+    {
+        $pageIds = (array) $this->getRequest()->getParam('page');
+        $status  = (int) $this->getRequest()->getParam('status');
+
+        try {
+            // is_active/disabled is defined as 0
+            if ($status === 2) {
+                $status = 0;
+            }
+
+            foreach ($pageIds as $pageId) {
+                // phpcs:ignore Ecg.Performance.Loop.ModelLSD
+                $block = Mage::getModel('cms/page')->load($pageId);
+                // phpcs:ignore Ecg.Performance.Loop.ModelLSD
+                $block->setIsActive($status)->save();
+            }
+
+            $this->_getSession()->addSuccess(
+                $this->__('Total of %d record(s) have been updated.', count($pageIds)),
+            );
+        } catch (Throwable $exception) {
+            $this->_getSession()->addError($exception->getMessage());
+        }
+
+        $this->_redirect('*/*/index');
+    }
+
     /**
      * Controller pre-dispatch method
      *
@@ -219,8 +272,8 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
     {
         $action = strtolower($this->getRequest()->getActionName());
         $aclPath = match ($action) {
-            'new', 'save' => 'cms/page/save',
-            'delete' => 'cms/page/delete',
+            'new', 'save', 'massstatus' => 'cms/page/save',
+            'delete', 'massdelete' => 'cms/page/delete',
             default => 'cms/page',
         };
 
