@@ -13,21 +13,21 @@
 //<![CDATA[
     Validation.add('required-synchronize', '<?php echo Mage::helper('core')->jsQuoteEscape($this->__('Synchronization is required.')) ?>', function(){
         storage = getConnectionName(
-            $('system_media_storage_configuration_media_storage').value,
-            $('system_media_storage_configuration_media_database').value
+            document.getElementById('system_media_storage_configuration_media_storage').value,
+            document.getElementById('system_media_storage_configuration_media_database').value
         );
 
-        return allowedStorages.include(storage);
+        return allowedStorages.indexOf(storage) !== -1;
     });
 
     defaultValues   = [];
-    defaultValues['system_media_storage_configuration_media_storage']   = $('system_media_storage_configuration_media_storage').value;
-    defaultValues['system_media_storage_configuration_media_database']  = $('system_media_storage_configuration_media_database').value;
+    defaultValues['system_media_storage_configuration_media_storage']   = document.getElementById('system_media_storage_configuration_media_storage').value;
+    defaultValues['system_media_storage_configuration_media_database']  = document.getElementById('system_media_storage_configuration_media_database').value;
 
     allowedStorages = [];
     addAllowedStorage(
-        $('system_media_storage_configuration_media_storage').value,
-        $('system_media_storage_configuration_media_database').value
+        document.getElementById('system_media_storage_configuration_media_storage').value,
+        document.getElementById('system_media_storage_configuration_media_database').value
     );
 
     <?php $syncStorageParams = $this->getSyncStorageParams() ?>
@@ -48,13 +48,13 @@
     {
         storage = getConnectionName(storageType, connection);
 
-        if (storage != '' && !allowedStorages.include(storage)) {
+        if (storage != '' && !allowedStorages.indexOf(storage) !== -1) {
             allowedStorages.push(storage);
         }
     }
 
     function checkButtonState(event) {
-        var element = Event.element(event);
+        var element = event.target;
 
         defaultStorage = getConnectionName(
             defaultValues['system_media_storage_configuration_media_storage'],
@@ -62,8 +62,8 @@
         );
 
         storage = getConnectionName(
-            $('system_media_storage_configuration_media_storage').value,
-            $('system_media_storage_configuration_media_database').value
+            document.getElementById('system_media_storage_configuration_media_storage').value,
+            document.getElementById('system_media_storage_configuration_media_database').value
         );
 
         if (defaultStorage != storage) {
@@ -74,101 +74,95 @@
     }
 
     function enableStorageSelection() {
-        $('system_media_storage_configuration_media_storage').enable('enabled');
-        $('system_media_storage_configuration_media_database').enable('enabled');
+        document.getElementById('system_media_storage_configuration_media_storage').disabled = false;
+        document.getElementById('system_media_storage_configuration_media_database').disabled = false;
     }
 
     function disableStorageSelection() {
-        $('system_media_storage_configuration_media_storage').disable('disabled');
-        $('system_media_storage_configuration_media_database').disable('disabled');
+        document.getElementById('system_media_storage_configuration_media_storage').disabled = true;
+        document.getElementById('system_media_storage_configuration_media_database').disabled = true;
     }
 
     function enableSyncButton() {
-        Form.Element.enable('synchronize_button');
-        $('synchronize_button').removeClassName('disabled');
+        document.getElementById('synchronize_button').disabled = false;
+        document.getElementById('synchronize_button').classList.remove('disabled');
     }
 
     function disableSyncButton() {
-        Form.Element.disable('synchronize_button');
-        $('synchronize_button').addClassName('disabled');
+        document.getElementById('synchronize_button').disabled = true;
+        document.getElementById('synchronize_button').classList.add('disabled');
     }
 
-    Event.observe(window, 'load', function(){
+    window.addEventListener('load', function(){
         disableStorageSelection();
         disableSyncButton();
         checkStatus();
     });
-    $('system_media_storage_configuration_media_storage').observe('change', checkButtonState);
-    $('system_media_storage_configuration_media_database').observe('change', checkButtonState);
+    document.getElementById('system_media_storage_configuration_media_storage').addEventListener('change', checkButtonState);
+    document.getElementById('system_media_storage_configuration_media_database').addEventListener('change', checkButtonState);
 
     function checkStatus() {
-        var u = new Ajax.PeriodicalUpdater('', '<?php echo $this->getAjaxStatusUpdateUrl() ?>', {
-            method:     'get',
-            frequency:  5,
-            loaderArea: false,
-
-            onSuccess: function(transport) {
-                var response;
-
+        var intervalId = setInterval(function() {
+            fetch('<?php echo $this->getAjaxStatusUpdateUrl() ?>', {
+                method: 'GET'
+            }).then(function(resp) { return resp.json(); }).then(function(response) {
                 try {
-                    response = transport.responseJSON || transport.responseText.evalJSON(true) || {};
                     if (response.state == '<?php echo Mage_Core_Model_File_Storage_Flag::STATE_RUNNING ?>'
                         && response.message
                     ) {
-                        if ($('sync_span').hasClassName('no-display')) {
-                            $('sync_span').removeClassName('no-display');
-                            $('sync_message_span').update(response.message);
+                        var syncSpan = document.getElementById('sync_span');
+                        if (syncSpan.classList.contains('no-display')) {
+                            syncSpan.classList.remove('no-display');
+                            document.getElementById('sync_message_span').innerHTML = response.message;
                         }
                     } else {
-                        u.stop();
+                        clearInterval(intervalId);
                         enableStorageSelection();
-                        $('sync_span').addClassName('no-display');
+                        document.getElementById('sync_span').classList.add('no-display');
 
                         if (response.state == '<?php echo Mage_Core_Model_File_Storage_Flag::STATE_NOTIFIED ?>') {
                             if (response.html && response.html != '') {
-                                $$('div.notification-global').each(function(e) {
-                                    if (!e.hasClassName('notification-global-notice')) {
-                                        e.hide();
+                                document.querySelectorAll('div.notification-global').forEach(function(e) {
+                                    if (!e.classList.contains('notification-global-notice')) {
+                                        e.style.display = 'none';
                                     }
                                 });
 
-                                Element.insert($('anchor-content'), {'before': response.html});
+                                document.getElementById('anchor-content').insertAdjacentHTML('beforebegin', response.html);
                             }
 
                             if (response.has_errors) {
                                 enableSyncButton();
                             } else {
                                 addAllowedStorage(
-                                    $('system_media_storage_configuration_media_storage').value,
-                                    $('system_media_storage_configuration_media_database').value
+                                    document.getElementById('system_media_storage_configuration_media_storage').value,
+                                    document.getElementById('system_media_storage_configuration_media_database').value
                                 );
                             }
                         }
                     }
-                } catch (e) {
-                    response = {};
-                }
-            }
-        });
+                } catch (e) {}
+            }).catch(function() {});
+        }, 5000);
     }
 
     function synchronize() {
-        var advice = Validation.getAdvice('required-synchronize', $('synchronize-validation-input'));
+        var advice = Validation.getAdvice('required-synchronize', document.getElementById('synchronize-validation-input'));
         if (advice) {
-            advice.hide();
+            advice.style.display = 'none';
         }
-        params = {
-            storage:    $('system_media_storage_configuration_media_storage').value,
-            connection: $('system_media_storage_configuration_media_database').value
-        }
+        var params = {
+            storage:    document.getElementById('system_media_storage_configuration_media_storage').value,
+            connection: document.getElementById('system_media_storage_configuration_media_database').value
+        };
 
-        new Ajax.Request('<?php echo $this->getAjaxSyncUrl() ?>', {
-            parameters:     params,
-            loaderArea:     false,
-            asynchronous:   true
+        fetch('<?php echo $this->getAjaxSyncUrl() ?>', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+            body: new URLSearchParams(params).toString()
         });
 
-        window.setTimeout('checkStatus()', 2011);
+        window.setTimeout(checkStatus, 2011);
 
         disableStorageSelection();
         disableSyncButton();

@@ -169,7 +169,7 @@ Ext.onReady(function()
 
     if (useMassaction) {
         tree<?php echo $this->getId() ?>.on('check', function(node) {
-            $('<?php echo $_divId; ?>').fire('node:changed', {node:node});
+            document.getElementById('<?php echo $_divId; ?>').dispatchEvent(new CustomEvent('node:changed', {bubbles:true, detail:{node:node}}));
         }, tree<?php echo $this->getId() ?>);
     }
 

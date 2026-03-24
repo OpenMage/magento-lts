@@ -17,57 +17,54 @@ function changeDiagramsPeriod(periodObj) {
 <?php foreach ($this->getChild('diagrams')->getTabsIds() as $tabId): ?>
     ajaxBlockParam = 'block/tab_<?php echo $tabId ?>/';
     ajaxBlockUrl = '<?php echo $this->getUrl('*/*/ajaxBlock', ['_current' => true, 'block' => '', 'period' => '']) ?>' + ajaxBlockParam + periodParam;
-    new Ajax.Request(ajaxBlockUrl, {
-        parameters: {isAjax: 'true', form_key: FORM_KEY},
-        onSuccess: function(transport) {
-            tabContentElementId = '<?php echo $this->getChild('diagrams')->getId() ?>_<?php echo $tabId ?>_content';
-            try {
-                if (transport.responseText.isJSON()) {
-                    var response = transport.responseText.evalJSON()
-                    if (response.error) {
-                        alert(response.message);
-                    }
-                    if(response.ajaxExpired && response.ajaxRedirect) {
-                        setLocation(response.ajaxRedirect);
-                    }
-                } else {
-                    $(tabContentElementId).update(transport.responseText);
-                }
+    fetch(ajaxBlockUrl, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        body: new URLSearchParams({isAjax: 'true', form_key: FORM_KEY}).toString()
+    }).then(function(r) { return r.text(); }).then(function(responseText) {
+        tabContentElementId = '<?php echo $this->getChild('diagrams')->getId() ?>_<?php echo $tabId ?>_content';
+        try {
+            var response = JSON.parse(responseText);
+            if (response.error) {
+                alert(response.message);
             }
-            catch (e) {
-                $(tabContentElementId).update(transport.responseText);
+            if(response.ajaxExpired && response.ajaxRedirect) {
+                setLocation(response.ajaxRedirect);
             }
+        }
+        catch (e) {
+            document.getElementById(tabContentElementId).innerHTML = responseText;
         }
     });
 <?php endforeach ?>
     ajaxBlockUrl = '<?php echo $this->getUrl('*/*/ajaxBlock', ['_current' => true, 'block' => 'totals', 'period' => '']) ?>' + periodParam;
-    new Ajax.Request(ajaxBlockUrl, {
-        parameters: {isAjax: 'true', form_key: FORM_KEY},
-        onSuccess: function(transport) {
-            tabContentElementId = 'dashboard_diagram_totals';
-            try {
-                if (transport.responseText.isJSON()) {
-                    var response = transport.responseText.evalJSON()
-                    if (response.error) {
-                        alert(response.message);
-                    }
-                    if(response.ajaxExpired && response.ajaxRedirect) {
-                        setLocation(response.ajaxRedirect);
-                    }
-                } else {
-                    $(tabContentElementId).replace(transport.responseText);
-                }
+    fetch(ajaxBlockUrl, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        body: new URLSearchParams({isAjax: 'true', form_key: FORM_KEY}).toString()
+    }).then(function(r) { return r.text(); }).then(function(responseText) {
+        tabContentElementId = 'dashboard_diagram_totals';
+        try {
+            var response = JSON.parse(responseText);
+            if (response.error) {
+                alert(response.message);
             }
-            catch (e) {
-                $(tabContentElementId).replace(transport.responseText);
+            if(response.ajaxExpired && response.ajaxRedirect) {
+                setLocation(response.ajaxRedirect);
             }
+        }
+        catch (e) {
+            var el = document.getElementById(tabContentElementId);
+            el.outerHTML = responseText;
         }
     });
 }
 
 function toggleCal(id) {
-    $('dashboard_'+id+'_cal_div').toggle();
-    $('dashboard_'+id+'_range_div').toggle();
+    var calDiv = document.getElementById('dashboard_'+id+'_cal_div');
+    var rangeDiv = document.getElementById('dashboard_'+id+'_range_div');
+    calDiv.style.display = calDiv.style.display === 'none' ? '' : 'none';
+    rangeDiv.style.display = rangeDiv.style.display === 'none' ? '' : 'none';
 }
 //]]>
 </script>

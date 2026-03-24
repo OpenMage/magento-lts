@@ -33,11 +33,11 @@ var fileListTemplate = '<span class="file-info">' +
                         '</span>';
 
 var Downloadable = {
-    uploaderObj : $H({}),
+    uploaderObj : new Map(),
     objCount : 0,
     setUploaderObj : function(type, key, obj){
         if (!this.uploaderObj.get(type)) {
-            this.uploaderObj.set(type, $H({}));
+            this.uploaderObj.set(type, new Map());
         }
         this.uploaderObj.get(type).set(key, obj);
     },
@@ -54,7 +54,7 @@ var Downloadable = {
     },
     unsetUploaderObj : function(type, key){
         try {
-            this.uploaderObj.get(type).unset(key);
+            this.uploaderObj.get(type).delete(key);
         } catch (e) {
             try {
                 console.log(e);
@@ -65,12 +65,12 @@ var Downloadable = {
     },
     massUploadByType : function(type){
         try {
-            this.uploaderObj.get(type).each(function(item){
-                var container = item.value.elements.container.up('tr');
+            this.uploaderObj.get(type).forEach(function(value, key){
+                var container = value.elements.container.closest('tr');
                 if (container.style.display !== 'none' && !container.classList.contains('no-display')) {
-                    item.value.upload();
+                    value.upload();
                 } else {
-                    Downloadable.unsetUploaderObj(type, item.key);
+                    Downloadable.unsetUploaderObj(type, key);
                 }
             });
         } catch (e) {
@@ -93,7 +93,7 @@ Downloadable.FileUploader.prototype = {
     idName : null, //id name of elements for unique uploader
     uploaderText: uploaderTemplate,
     uploaderSyntax : /(^|.|\r|\n)(\[\[(\w+)\]\])/,
-    uploaderObj : $H({}),
+    uploaderObj : new Map(),
     config : null,
     initialize: function (type, key, elmContainer, fileValueName, fileValue ,idName, config) {
         this.type = type;
@@ -118,7 +118,7 @@ Downloadable.FileUploader.prototype = {
                ? this.fileValue.toJSON()
                : Object.toJSON(this.fileValue);
         }
-        var uploaderConfig = (Object.isString(this.config) && this.config.evalJSON()) || this.config;
+        var uploaderConfig = (typeof this.config === 'string' ? JSON.parse(this.config) : this.config);
         Downloadable.setUploaderObj(
             this.type,
             this.key,
@@ -186,7 +186,9 @@ Downloadable.FileList.prototype = {
         }
     },
     handleButtonsSwap: function () {
-        $$(['#' + this.containerId+'-browse', '#'+this.containerId+'-delete']).invoke('toggle');
+        [document.getElementById(this.containerId+'-browse'), document.getElementById(this.containerId+'-delete')].forEach(function(el) {
+            if (el) el.style.display = el.style.display === 'none' ? '' : 'none';
+        });
     },
     handleFileSelect: function() {
         document.getElementById(this.containerId+'_type').checked = true;
@@ -195,8 +197,8 @@ Downloadable.FileList.prototype = {
         return document.getElementById(this.containerId + '_' + name);
     },
     handleUploadComplete: function (files) {
-        files.each(function(item) {
-           if (!item.response.isJSON()) {
+        files.forEach(function(item) {
+           try { JSON.parse(item.response); } catch(e) {
                 try {
                     console.log(item.response);
                 } catch (e2) {
@@ -221,7 +223,7 @@ Downloadable.FileList.prototype = {
         this.getElement('save').value = this.file.toJSON
             ? this.file.toJSON()
             : Object.toJSON(this.file);
-        this.file.each(function(row){
+        this.file.forEach(function(row){
             row.size = this.uploader.formatSize(row.size);
             document.getElementById(this.containerId + '-old').innerHTML = this.listTemplate.evaluate(row);
             document.getElementById(this.containerId + '-new').style.display = 'none';
@@ -234,10 +236,10 @@ var alertAlreadyDisplayed = false;
 
 Validation.addAllThese([
     ['validate-downloadable-file', 'Please upload a file.', function(v,element) {
-            linkType = element.up(0).down('input[value="file"]');
+            linkType = element.parentNode.querySelector('input[value="file"]');
             if (linkType.checked && (v == '' || v == '[]')) {
-                newFileContainer = element.up(0).down('div.new-file');
-                if (!alertAlreadyDisplayed && (newFileContainer.empty() || newFileContainer.style.display != 'none')) {
+                newFileContainer = element.parentNode.querySelector('div.new-file');
+                if (!alertAlreadyDisplayed && (!newFileContainer.innerHTML.trim() || newFileContainer.style.display != 'none')) {
                     alertAlreadyDisplayed = true;
                     alert('<?php echo $this->jsQuoteEscape($this->__('There are files that were selected but not uploaded yet. Please upload or remove them first'));?>');
                 }
@@ -249,7 +251,7 @@ Validation.addAllThese([
 
 Validation.addAllThese([
     ['validate-downloadable-url', 'Please specify Url.', function(v,element) {
-            linkType = element.up(0).down('input[value="url"]');
+            linkType = element.parentNode.querySelector('input[value="url"]');
             if (linkType.checked && v == '') {
                 return false;
             }

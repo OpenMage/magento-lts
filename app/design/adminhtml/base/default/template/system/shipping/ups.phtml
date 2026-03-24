@@ -52,14 +52,14 @@ if (!Mage::helper('usa')->validateUpsType($storedUpsType)) {
     function hideRowArrayElements(arr)
     {
         for (var a = 0; a < arr.length; a++) {
-            $(arr[a]).up(1).hide();
+            document.getElementById(arr[a]).parentNode.style.display = 'none';
         }
     }
 
     function showRowArrayElements(arr)
     {
         for (var a = 0; a < arr.length; a++) {
-            $(arr[a]).up(1).show();
+            document.getElementById(arr[a]).parentNode.style.display = '';
         }
     }
 
@@ -73,14 +73,11 @@ if (!Mage::helper('usa')->validateUpsType($storedUpsType)) {
         return false;
     }
 
-    var upsXml = Class.create();
-    upsXml.prototype = {
-        initialize: function()
-        {
-            this.carriersUpsTypeId = 'carriers_ups_type';
-            if (!$(this.carriersUpsTypeId)) {
-                return;
-            }
+    var upsXml = function() {
+        this.carriersUpsTypeId = 'carriers_ups_type';
+        if (!document.getElementById(this.carriersUpsTypeId)) {
+            return;
+        }
             
             this.checkingUpsXmlId = ['carriers_ups_gateway_xml_url','carriers_ups_username',
                 'carriers_ups_password','carriers_ups_access_license_number'];
