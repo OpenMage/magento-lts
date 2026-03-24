@@ -242,6 +242,9 @@ class Varien_Object implements ArrayAccess
             $this->_data = $key;
             $this->_addFullNames();
         } else {
+            if (is_null($key)) {
+                $key = '';
+            }
             $this->_data[$key] = $value;
             if (isset($this->_syncFieldsMap[$key])) {
                 $fullFieldName = $this->_syncFieldsMap[$key];
