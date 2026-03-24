@@ -9394,11 +9394,5 @@ https://github.com/sebastianbergmann/phpunit/pull/3687',
 	'count' => 1,
 	'path' => __DIR__ . '/tests/unit/OpenMageTest.php',
 ];
-$ignoreErrors[] = [
-	'rawMessage' => 'Trait OpenMage\\Tests\\Unit\\Traits\\DataProvider\\Base\\MageTrait is used zero times and is not analysed.',
-	'identifier' => 'trait.unused',
-	'count' => 1,
-	'path' => __DIR__ . '/tests/unit/Traits/DataProvider/Base/MageTrait.php',
-];
 
 return ['parameters' => ['ignoreErrors' => $ignoreErrors]];
