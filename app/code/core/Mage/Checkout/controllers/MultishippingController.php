@@ -84,14 +84,14 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
                 Mage_Checkout_Model_Session::CHECKOUT_STATE_BEGIN,
             );
         } elseif (!$checkoutSessionQuote->getIsMultiShipping()
-            && !in_array($action, ['login', 'register', 'success'])
+            && !in_array($action, ['login', 'register', 'success'], true)
         ) {
             $this->_redirect('*/*/index');
             $this->setFlag('', self::FLAG_NO_DISPATCH, true);
             return $this;
         }
 
-        if (!in_array($action, ['login', 'register'])) {
+        if (!in_array($action, ['login', 'register'], true)) {
             if (!Mage::getSingleton('customer/session')->authenticate($this, $this->_getHelper()->getMSLoginUrl())) {
                 $this->setFlag('', self::FLAG_NO_DISPATCH, true);
             }
@@ -110,7 +110,7 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
         }
 
         if ($this->_getCheckoutSession()->getCartWasUpdated(true)
-            && !in_array($action, ['index', 'login', 'register', 'addresses', 'success'])
+            && !in_array($action, ['index', 'login', 'register', 'addresses', 'success'], true)
         ) {
             $this->_redirectUrl($this->_getHelper()->getCartUrl());
             $this->setFlag('', self::FLAG_NO_DISPATCH, true);

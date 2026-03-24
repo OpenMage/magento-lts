@@ -89,7 +89,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
 
         $action = strtolower($this->getRequest()->getActionName());
         if (Mage::getSingleton('checkout/session')->getCartWasUpdated(true)
-            && !in_array($action, ['index', 'progress'])
+            && !in_array($action, ['index', 'progress'], true)
         ) {
             $this->_ajaxRedirectResponse();
             return true;

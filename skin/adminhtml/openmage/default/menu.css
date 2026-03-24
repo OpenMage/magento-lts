@@ -47,29 +47,29 @@
   text-align: left;
   float: left;
 }
-#nav li.over {
+#nav li:hover {
   z-index: 999;
 }
-#nav li.over a {
+#nav li:hover a {
   color: #d6e2e5;
 }
-#nav li.over ul {
+#nav li:hover ul {
   left: 0;
 }
-#nav li.over ul ul {
+#nav li:hover ul ul {
   left: -10000px;
 }
-#nav li.over ul a {
+#nav li:hover ul a {
   color: #202856;
   font-size: 12px;
 }
-#nav li.over ul li.over ul {
+#nav li:hover ul li:hover ul {
   left: 100px;
 }
-#nav li.over ul li.over ul ul {
+#nav li:hover ul li:hover ul ul {
   left: -10000px;
 }
-#nav li.over ul li.over ul li.over ul {
+#nav li:hover ul li:hover ul li:hover ul {
   left: 100px;
 }
 #nav li.active {
@@ -110,7 +110,7 @@
   border-width: 5px 0 5px 6px;
   border-color: transparent transparent transparent #c8c8c8;
 }
-#nav li.level0.over > a {
+#nav li.level0:hover > a {
   background: #293470;
   color: #fff;
 }
@@ -193,10 +193,10 @@
 #nav ul li.parent li a {
   background-image: none;
 }
-#nav ul li.over a {
+#nav ul li:hover a {
   font-weight: normal;
 }
-#nav ul li.over a:hover {
+#nav ul li:hover a:hover {
   font-weight: normal;
 }
 #nav ul a {
@@ -259,11 +259,11 @@
   line-height: 31px;
   padding: 0 10px;
 }
-#usermenu li.over ul {
+#usermenu li:hover ul {
   right: 27px;
   display: block;
 }
-#usermenu li.over ul a {
+#usermenu li:hover ul a {
   color: #000537;
   text-decoration: none;
   background: hsl(205, 52%, 95%);

@@ -491,7 +491,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
     {
         if (is_string($sql) && $this->getTransactionLevel() > 0) {
             $startSql = strtolower(substr(ltrim($sql), 0, 3));
-            if (in_array($startSql, $this->_ddlRoutines)
+            if (in_array($startSql, $this->_ddlRoutines, true)
                 && (preg_match($this->_tempRoutines, $sql) !== 1)
             ) {
                 throw new Varien_Db_Exception(Varien_Db_Adapter_Interface::ERROR_DDL_MESSAGE);
@@ -522,7 +522,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
             // Detect implicit rollback - MySQL SQLSTATE: ER_LOCK_WAIT_TIMEOUT or ER_LOCK_DEADLOCK
             if ($this->_transactionLevel > 0
                 && $exception->getPrevious() && isset($exception->getPrevious()->errorInfo[1])
-                && in_array($exception->getPrevious()->errorInfo[1], [1205, 1213])
+                && in_array($exception->getPrevious()->errorInfo[1], [1205, 1213], true)
             ) {
                 if ($this->_debug) {
                     $this->_debugWriteToFile('IMPLICIT ROLLBACK AFTER SQLSTATE: ' . $exception->getPrevious()->errorInfo[1]);
@@ -1823,7 +1823,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
              */
             $affected = ['tinyint', 'smallint', 'mediumint', 'int', 'bigint'];
             foreach ($ddl as $key => $columnData) {
-                if (($columnData['DEFAULT'] === '') && (in_array($columnData['DATA_TYPE'], $affected))) {
+                if (($columnData['DEFAULT'] === '') && (in_array($columnData['DATA_TYPE'], $affected, true))) {
                     $ddl[$key]['DEFAULT'] = null;
                 }
             }
@@ -2924,7 +2924,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
                 $result = $this->raw_query($query);
                 $cycle  = false;
             } catch (Exception $exception) {
-                if (in_array(strtolower($indexType), ['primary', 'unique'])) {
+                if (in_array(strtolower($indexType), ['primary', 'unique'], true)) {
                     $match = [];
                     if (preg_match('#SQLSTATE\[23000\]: [^:]+: 1062[^\']+\'([\d\-\.]+)\'#', $exception->getMessage(), $match)) {
                         $ids = explode('-', $match[1]);
