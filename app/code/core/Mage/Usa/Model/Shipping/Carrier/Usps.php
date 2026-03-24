@@ -308,7 +308,22 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
     {
         $url = $this->getConfigData('gateway_url');
 
-        // If no URL configured, determine from environment setting
+        // Validate admin-configured URL against USPS domain allowlist
+        if ($url) {
+            $parsed = parse_url($url);
+            $scheme = $parsed['scheme'] ?? '';
+            $host = $parsed['host'] ?? '';
+            if ($scheme !== 'https' || !preg_match('/\.usps\.com$/i', $host)) {
+                Mage::log(
+                    sprintf('USPS REST API: Rejected non-USPS gateway URL: %s', $url),
+                    Zend_Log::WARN,
+                    'usps_rest_api.log'
+                );
+                $url = null;
+            }
+        }
+
+        // If no URL configured or validation failed, determine from environment setting
         if (!$url) {
             $environment = $this->getConfigData('environment');
             /** @var Mage_Usa_Model_Shipping_Carrier_Usps_Source_Environment $envSource */
@@ -326,8 +341,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
      */
     protected function _getOAuthToken()
     {
-        $clientId = $this->getConfigData('client_id');
-        $clientSecret = $this->getConfigData('client_secret');
+        $clientId = Mage::helper('core')->decrypt($this->getConfigData('client_id'));
+        $clientSecret = Mage::helper('core')->decrypt($this->getConfigData('client_secret'));
         $baseUrl = $this->_getRestGatewayUrl();
 
         if (!$clientId || !$clientSecret) {
@@ -448,7 +463,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
                 'Authorization: Bearer ' . $accessToken
             ],
             CURLOPT_TIMEOUT => 30,
-            CURLOPT_SSL_VERIFYPEER => true
+            CURLOPT_SSL_VERIFYPEER => true,
+            CURLOPT_SSL_VERIFYHOST => 2
         ]);
 
         $response = curl_exec($ch);
@@ -607,6 +623,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
             curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($requestPayload));
             curl_setopt($ch, CURLOPT_TIMEOUT, 30);
             curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
 
             $responseBody = curl_exec($ch);
             $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
@@ -2130,7 +2147,9 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
                 'Authorization: Bearer ' . $oauthToken,
                 'X-Payment-Authorization-Token: ' . $paymentAuthToken
             ],
-            CURLOPT_TIMEOUT => 30
+            CURLOPT_TIMEOUT => 30,
+            CURLOPT_SSL_VERIFYPEER => true,
+            CURLOPT_SSL_VERIFYHOST => 2
         ]);
         
         $response = curl_exec($ch);

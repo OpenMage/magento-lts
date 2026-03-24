@@ -54,7 +54,8 @@ class Mage_Usa_Model_Shipping_Carrier_UspsAuth extends Mage_Usa_Model_Shipping_C
     public function getAccessToken(string $clientId, string $clientSecret, string $clientUrl)
     {
         $storeId = Mage::app()->getStore()->getId();
-        $cacheKey = self::CACHE_KEY_PREFIX . '_store_' . $storeId;
+        $credentialHash = substr(hash('sha256', $clientId . $clientSecret), 0, 8);
+        $cacheKey = self::CACHE_KEY_PREFIX . '_store_' . $storeId . '_' . $credentialHash;
         $cache = Mage::app()->getCache();
         $result = $cache->load($cacheKey);
 
@@ -94,6 +95,7 @@ class Mage_Usa_Model_Shipping_Carrier_UspsAuth extends Mage_Usa_Model_Shipping_C
         curl_setopt($ch, CURLOPT_POSTFIELDS, $authPayload);
         curl_setopt($ch, CURLOPT_TIMEOUT, 30);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
 
         try {
             $responseData = curl_exec($ch);

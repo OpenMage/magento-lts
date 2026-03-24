@@ -148,7 +148,12 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Service_Standards
             $cached = Mage::app()->getCache()->load($cacheKey);
 
             if ($cached !== false) {
-                $estimates[$mailClass] = unserialize($cached, ['allowed_classes' => false]);
+                $decoded = json_decode($cached, true);
+                if (is_array($decoded)) {
+                    $estimates[$mailClass] = $decoded;
+                } else {
+                    $uncached[] = $mailClass;
+                }
             } else {
                 $uncached[] = $mailClass;
             }
@@ -164,7 +169,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Service_Standards
                 // Cache the result
                 $cacheKey = $this->_getCacheKey($originZip, $destZip, $mailClass, $acceptDate);
                 Mage::app()->getCache()->save(
-                    serialize($estimate),
+                    json_encode($estimate),
                     $cacheKey,
                     array('usps_service_standards'),
                     self::CACHE_TTL

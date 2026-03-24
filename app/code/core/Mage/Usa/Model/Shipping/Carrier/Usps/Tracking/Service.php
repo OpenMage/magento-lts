@@ -106,6 +106,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Tracking_Service
                 curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
                 curl_setopt($ch, CURLOPT_TIMEOUT, 30);
                 curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
+                curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
 
                 $jsonResponse = curl_exec($ch);
 

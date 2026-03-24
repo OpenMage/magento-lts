@@ -309,6 +309,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
             CURLOPT_HTTPHEADER => $headers,
             CURLOPT_TIMEOUT => self::DEFAULT_TIMEOUT,
             CURLOPT_SSL_VERIFYPEER => true,
+            CURLOPT_SSL_VERIFYHOST => 2,
         ));
 
         switch ($method) {
