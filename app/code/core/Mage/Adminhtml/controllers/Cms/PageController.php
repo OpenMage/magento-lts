@@ -218,8 +218,8 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
                 $this->_getSession()->addSuccess(
                     $this->__('Total of %d record(s) have been deleted.', count($pageIds)),
                 );
-            } catch (Throwable $exception) {
-                $this->_getSession()->addError($exception->getMessage());
+            } catch (Throwable $throwable) {
+                $this->_getSession()->addError($throwable->getMessage());
             }
         }
 
@@ -247,8 +247,8 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
             $this->_getSession()->addSuccess(
                 $this->__('Total of %d record(s) have been updated.', count($pageIds)),
             );
-        } catch (Throwable $exception) {
-            $this->_getSession()->addError($exception->getMessage());
+        } catch (Throwable $throwable) {
+            $this->_getSession()->addError($throwable->getMessage());
         }
 
         $this->_redirect('*/*/index');
