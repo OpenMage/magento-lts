@@ -410,8 +410,19 @@
         var flags = 'g' + (pattern.ignoreCase ? 'i' : '') + (pattern.multiline ? 'm' : '');
         pattern = new RegExp(pattern.source, flags);
       }
-      var fn = typeof replacement === 'function' ? replacement : function () { return replacement; };
-      return this.replace(pattern, fn);
+      if (typeof replacement !== 'function') {
+        var tpl = replacement;
+        return this.replace(pattern, tpl);
+      }
+      // Prototype's gsub passes an array-like match object to the callback
+      return this.replace(pattern, function () {
+        var args = Array.prototype.slice.call(arguments);
+        var match = [args[0]]; // match[0] = full match
+        for (var gi = 1; gi < args.length - 2; gi++) {
+          match.push(args[gi]);
+        }
+        return replacement(match);
+      });
     },
     scan: function (pattern, iterator) {
       this.gsub(pattern, function (match) {
