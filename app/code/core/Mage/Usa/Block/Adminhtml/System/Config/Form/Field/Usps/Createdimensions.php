@@ -20,7 +20,6 @@ class Mage_Usa_Block_Adminhtml_System_Config_Form_Field_Usps_Createdimensions ex
     /**
      * Generate button HTML for creating dimension attributes
      *
-     * @param  Varien_Data_Form_Element_Abstract $element
      * @return string
      */
     protected function _getElementHtml(Varien_Data_Form_Element_Abstract $element)
@@ -110,7 +109,6 @@ JAVASCRIPT;
     /**
      * Remove scope info from field (not needed for button)
      *
-     * @param  Varien_Data_Form_Element_Abstract $element
      * @return string
      */
     protected function _renderScopeLabel(Varien_Data_Form_Element_Abstract $element)

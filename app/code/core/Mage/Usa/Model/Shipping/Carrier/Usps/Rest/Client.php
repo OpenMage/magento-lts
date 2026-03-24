@@ -139,15 +139,15 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
             return [
                 'success' => true,
                 'access_token' => $response['data']['access_token'],
-                'expires_in' => isset($response['data']['expires_in']) ? $response['data']['expires_in'] : 3600,
-                'token_type' => isset($response['data']['token_type']) ? $response['data']['token_type'] : 'Bearer',
+                'expires_in' => $response['data']['expires_in'] ?? 3600,
+                'token_type' => $response['data']['token_type'] ?? 'Bearer',
             ];
         }
 
         return [
             'success' => false,
-            'error' => isset($response['error']) ? $response['error'] : 'Authentication failed',
-            'error_description' => isset($response['data']['error_description']) ? $response['data']['error_description'] : null,
+            'error' => $response['error'] ?? 'Authentication failed',
+            'error_description' => $response['data']['error_description'] ?? null,
         ];
     }
 
@@ -236,12 +236,12 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
     public function verifyAddress(array $address)
     {
         $queryParams = http_build_query(array_filter([
-            'streetAddress' => isset($address['streetAddress']) ? $address['streetAddress'] : '',
-            'secondaryAddress' => isset($address['secondaryAddress']) ? $address['secondaryAddress'] : '',
-            'city' => isset($address['city']) ? $address['city'] : '',
-            'state' => isset($address['state']) ? $address['state'] : '',
-            'ZIPCode' => isset($address['ZIPCode']) ? $address['ZIPCode'] : '',
-            'ZIPPlus4' => isset($address['ZIPPlus4']) ? $address['ZIPPlus4'] : '',
+            'streetAddress' => $address['streetAddress'] ?? '',
+            'secondaryAddress' => $address['secondaryAddress'] ?? '',
+            'city' => $address['city'] ?? '',
+            'state' => $address['state'] ?? '',
+            'ZIPCode' => $address['ZIPCode'] ?? '',
+            'ZIPPlus4' => $address['ZIPPlus4'] ?? '',
         ]));
         $endpoint = 'addresses/v3/address?' . $queryParams;
         return $this->_get($endpoint, true);
@@ -318,6 +318,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
                 if ($data) {
                     curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
                 }
+
                 break;
             case 'DELETE':
                 curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'DELETE');
@@ -381,12 +382,15 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
             if (isset($responseData['error']['message'])) {
                 return $responseData['error']['message'];
             }
+
             if (isset($responseData['error_description'])) {
                 return $responseData['error_description'];
             }
+
             if (isset($responseData['errors'][0]['message'])) {
                 return $responseData['errors'][0]['message'];
             }
+
             if (isset($responseData['message'])) {
                 return $responseData['message'];
             }
@@ -483,7 +487,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
             // Don't sleep after the last attempt
             if ($attempt < $maxRetries) {
                 // Exponential backoff: 200ms, 400ms, 800ms
-                usleep(pow(2, $attempt) * 100000);
+                usleep(2 ** $attempt * 100000);
             }
         }
 

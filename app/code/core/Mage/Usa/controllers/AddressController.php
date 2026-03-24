@@ -25,6 +25,7 @@ class Mage_Usa_AddressController extends Mage_Core_Controller_Front_Action
         if ($this->_addressService === null) {
             $this->_addressService = Mage::getModel('usa/shipping_carrier_usps_address_service');
         }
+
         return $this->_addressService;
     }
 
@@ -99,7 +100,7 @@ class Mage_Usa_AddressController extends Mage_Core_Controller_Front_Action
             if ($verificationResult['success']) {
                 $status = $verificationResult['status'];
                 $result['status'] = $status;
-                $result['warnings'] = isset($verificationResult['warnings']) ? $verificationResult['warnings'] : [];
+                $result['warnings'] = $verificationResult['warnings'] ?? [];
 
                 if ($status === Mage_Usa_Model_Shipping_Carrier_Usps_Address_Service::MATCH_CORRECTED) {
                     // Address was corrected
@@ -116,13 +117,11 @@ class Mage_Usa_AddressController extends Mage_Core_Controller_Front_Action
                 }
             } else {
                 $result['status'] = 'error';
-                $result['message'] = isset($verificationResult['error'])
-                    ? $verificationResult['error']
-                    : $this->__('Address verification failed.');
+                $result['message'] = $verificationResult['error'] ?? $this->__('Address verification failed.');
             }
 
-        } catch (Exception $e) {
-            Mage::logException($e);
+        } catch (Exception $exception) {
+            Mage::logException($exception);
             $result['status'] = 'error';
             $result['message'] = $this->__('An error occurred during address verification.');
         }
@@ -166,17 +165,15 @@ class Mage_Usa_AddressController extends Mage_Core_Controller_Front_Action
             $applyResult = $addressService->applyCorrectionToQuote($correctedAddress);
 
             $result['success'] = $applyResult['success'];
-            $result['message'] = isset($applyResult['message'])
-                ? $applyResult['message']
-                : ($applyResult['success'] ? $this->__('Address updated.') : $this->__('Failed to update address.'));
+            $result['message'] = $applyResult['message'] ?? ($applyResult['success'] ? $this->__('Address updated.') : $this->__('Failed to update address.'));
 
             // Include updated form values for JS to populate
             if ($result['success']) {
                 $result['address'] = $correctedAddress;
             }
 
-        } catch (Exception $e) {
-            Mage::logException($e);
+        } catch (Exception $exception) {
+            Mage::logException($exception);
             $result['message'] = $this->__('An error occurred while applying the correction.');
         }
 
@@ -201,8 +198,8 @@ class Mage_Usa_AddressController extends Mage_Core_Controller_Front_Action
 
             if ($origValue !== $corrValue) {
                 $corrections[$field] = [
-                    'original' => isset($original[$field]) ? $original[$field] : '',
-                    'corrected' => isset($corrected[$field]) ? $corrected[$field] : '',
+                    'original' => $original[$field] ?? '',
+                    'corrected' => $corrected[$field] ?? '',
                 ];
             }
         }

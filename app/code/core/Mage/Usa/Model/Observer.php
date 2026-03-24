@@ -33,6 +33,7 @@ class Mage_Usa_Model_Observer
         if ($this->_addressService === null) {
             $this->_addressService = Mage::getModel('usa/shipping_carrier_usps_address_service');
         }
+
         return $this->_addressService;
     }
 
@@ -71,8 +72,8 @@ class Mage_Usa_Model_Observer
             // Build address data
             $street = $shippingAddress->getStreet();
             $addressData = [
-                'street1' => isset($street[0]) ? $street[0] : '',
-                'street2' => isset($street[1]) ? $street[1] : '',
+                'street1' => $street[0] ?? '',
+                'street2' => $street[1] ?? '',
                 'city' => $shippingAddress->getCity(),
                 'region' => $shippingAddress->getRegionCode(),
                 'postcode' => $shippingAddress->getPostcode(),
@@ -99,9 +100,9 @@ class Mage_Usa_Model_Observer
                 }
             }
 
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             // Never block checkout due to verification errors
-            Mage::logException($e);
+            Mage::logException($exception);
         }
 
         return $this;
@@ -145,8 +146,8 @@ class Mage_Usa_Model_Observer
             // Store verification flag on order for reference
             $order->setData('usps_address_verified', true);
 
-        } catch (Exception $e) {
-            Mage::logException($e);
+        } catch (Exception $exception) {
+            Mage::logException($exception);
         }
 
         return $this;
@@ -176,15 +177,15 @@ class Mage_Usa_Model_Observer
 
             // Check if USPS is the carrier for this shipment
             $shippingMethod = $order->getShippingMethod();
-            if (strpos($shippingMethod, 'usps_') !== 0) {
+            if (!str_starts_with($shippingMethod, 'usps_')) {
                 return $this;
             }
 
             // Mark shipment as eligible for USPS label
             $shipment->setData('usps_label_eligible', true);
 
-        } catch (Exception $e) {
-            Mage::logException($e);
+        } catch (Exception $exception) {
+            Mage::logException($exception);
         }
 
         return $this;

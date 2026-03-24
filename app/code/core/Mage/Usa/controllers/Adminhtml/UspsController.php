@@ -29,6 +29,7 @@ class Mage_Usa_Adminhtml_UspsController extends Mage_Adminhtml_Controller_Action
         if ($clientId === '******') {
             $clientId = $this->_getConfig('carriers/usps/client_id', $websiteCode, $storeCode);
         }
+
         if ($clientSecret === '******') {
             $clientSecret = $this->_getConfig('carriers/usps/client_secret', $websiteCode, $storeCode);
         }
@@ -71,16 +72,14 @@ class Mage_Usa_Adminhtml_UspsController extends Mage_Adminhtml_Controller_Action
                 }
             } else {
                 $errorData = json_decode($response, true);
-                $errorMsg = isset($errorData['error_description'])
-                    ? $errorData['error_description']
-                    : 'HTTP ' . $httpCode;
+                $errorMsg = $errorData['error_description'] ?? 'HTTP ' . $httpCode;
                 throw new Exception('Authentication failed: ' . $errorMsg);
             }
 
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $this->getResponse()->setBody(Mage::helper('core')->jsonEncode([
                 'success' => false,
-                'message' => 'Connection failed: ' . $e->getMessage(),
+                'message' => 'Connection failed: ' . $exception->getMessage(),
             ]));
         }
     }
@@ -123,8 +122,8 @@ class Mage_Usa_Adminhtml_UspsController extends Mage_Adminhtml_Controller_Action
             }
         }
 
-        if ($value && strpos($path, 'client_id') !== false || strpos($path, 'client_secret') !== false) {
-            $value = Mage::helper('core')->decrypt($value);
+        if ($value && str_contains($path, 'client_id') || str_contains($path, 'client_secret')) {
+            return Mage::helper('core')->decrypt($value);
         }
 
         return $value;
@@ -188,9 +187,9 @@ class Mage_Usa_Adminhtml_UspsController extends Mage_Adminhtml_Controller_Action
                 }
             }
 
-            if (count($created) > 0) {
+            if ($created !== []) {
                 $message = 'Created: ' . implode(', ', $created);
-                if (count($existing) > 0) {
+                if ($existing !== []) {
                     $message .= '. Existing: ' . implode(', ', $existing);
                 }
             } else {
@@ -202,11 +201,11 @@ class Mage_Usa_Adminhtml_UspsController extends Mage_Adminhtml_Controller_Action
                 'message' => $message,
             ]));
 
-        } catch (Exception $e) {
-            Mage::logException($e);
+        } catch (Exception $exception) {
+            Mage::logException($exception);
             $this->getResponse()->setBody(Mage::helper('core')->jsonEncode([
                 'success' => false,
-                'message' => 'Error: ' . $e->getMessage(),
+                'message' => 'Error: ' . $exception->getMessage(),
             ]));
         }
     }
@@ -228,6 +227,7 @@ class Mage_Usa_Adminhtml_UspsController extends Mage_Adminhtml_Controller_Action
         if ($clientId === '******') {
             $clientId = $this->_getConfig('carriers/usps/client_id', $websiteCode, $storeCode);
         }
+
         if ($clientSecret === '******') {
             $clientSecret = $this->_getConfig('carriers/usps/client_secret', $websiteCode, $storeCode);
         }
@@ -278,7 +278,7 @@ class Mage_Usa_Adminhtml_UspsController extends Mage_Adminhtml_Controller_Action
                 'height' => 2.0,
                 'mailClasses' => ['USPS_GROUND_ADVANTAGE', 'PRIORITY_MAIL', 'PRIORITY_MAIL_EXPRESS'],
                 'priceType' => 'COMMERCIAL',
-                'mailingDate' => date('Y-m-d'),
+                'mailingDate' => \Carbon\Carbon::now()->format('Y-m-d'),
             ];
 
             $ch = curl_init();
@@ -328,7 +328,7 @@ class Mage_Usa_Adminhtml_UspsController extends Mage_Adminhtml_Controller_Action
                 return (float) $a['price'] <=> (float) $b['price'];
             });
 
-            if (count($rates) > 0) {
+            if ($rates !== []) {
                 $this->getResponse()->setBody(Mage::helper('core')->jsonEncode([
                     'success' => true,
                     'message' => 'Found ' . count($rates) . ' rate(s)',
@@ -342,10 +342,10 @@ class Mage_Usa_Adminhtml_UspsController extends Mage_Adminhtml_Controller_Action
                 ]));
             }
 
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $this->getResponse()->setBody(Mage::helper('core')->jsonEncode([
                 'success' => false,
-                'message' => $e->getMessage(),
+                'message' => $exception->getMessage(),
             ]));
         }
     }

@@ -16,11 +16,11 @@ class Mage_Usa_Block_Adminhtml_System_Config_Form_Field_Usps_Testratequote exten
         $website = $this->getRequest()->getParam('website', '');
         $store = $this->getRequest()->getParam('store', '');
 
-        $html = '<button type="button" id="usps-test-rate-button" onclick="testUspsRateQuote(\'' . $ajaxUrl . '\', \'' . $website . '\', \'' . $store . '\')" class="scalable">'
+        $html = '<button type="button" id="usps-test-rate-button" onclick="testUspsRateQuote(\'' . $ajaxUrl . "', '" . $website . "', '" . $store . '\')" class="scalable">'
               . '<span>' . $buttonLabel . '</span></button>';
         $html .= '<div id="usps-rate-test-result" style="margin-top:10px;"></div>';
 
-        $html .= <<<'JAVASCRIPT'
+        return $html . <<<'JAVASCRIPT'
 <script type="text/javascript">
 //<![CDATA[
 function testUspsRateQuote(url, website, store) {
@@ -95,8 +95,6 @@ function testUspsRateQuote(url, website, store) {
 //]]>
 </script>
 JAVASCRIPT;
-
-        return $html;
     }
 
     protected function _renderScopeLabel(Varien_Data_Form_Element_Abstract $element)

@@ -21,7 +21,9 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service
      * Label format constants
      */
     public const FORMAT_PDF = 'LABEL_PDF';
+
     public const FORMAT_PDF_4X6 = 'LABEL_PDF_4X6';
+
     public const FORMAT_ZPL = 'LABEL_ZPL';
 
     /**
@@ -96,6 +98,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service
                 $this->_client->setAccessToken($token);
             }
         }
+
         return $this->_client;
     }
 
@@ -148,9 +151,9 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service
 
             return $this->_parseLabelResponse($response['data'], $result);
 
-        } catch (Exception $e) {
-            Mage::logException($e);
-            $result->setErrors($e->getMessage());
+        } catch (Exception $exception) {
+            Mage::logException($exception);
+            $result->setErrors($exception->getMessage());
             return $result;
         }
     }
@@ -189,9 +192,9 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service
 
             return $this->_parseInternationalLabelResponse($response['data'], $result);
 
-        } catch (Exception $e) {
-            Mage::logException($e);
-            $result->setErrors($e->getMessage());
+        } catch (Exception $exception) {
+            Mage::logException($exception);
+            $result->setErrors($exception->getMessage());
             return $result;
         }
     }
@@ -199,7 +202,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service
     /**
      * Build domestic label API request payload
      *
-     * @param  Varien_Object $request
      * @return array
      */
     protected function _buildDomesticLabelRequest(Varien_Object $request)
@@ -243,7 +245,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service
     /**
      * Build international label API request payload
      *
-     * @param  Varien_Object $request
      * @return array
      */
     protected function _buildInternationalLabelRequest(Varien_Object $request)
@@ -261,7 +262,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service
     /**
      * Build package description for API
      *
-     * @param  Varien_Object $request
      * @return array
      */
     protected function _buildPackageDescription(Varien_Object $request)
@@ -279,9 +279,11 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service
             if ($params->getLength()) {
                 $package['length'] = (float) $params->getLength();
             }
+
             if ($params->getWidth()) {
                 $package['width'] = (float) $params->getWidth();
             }
+
             if ($params->getHeight()) {
                 $package['height'] = (float) $params->getHeight();
             }
@@ -315,7 +317,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service
     /**
      * Build customs declaration for international labels
      *
-     * @param  Varien_Object $request
      * @return array
      */
     protected function _buildCustomsDeclaration(Varien_Object $request)
@@ -325,12 +326,12 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service
 
         foreach ($items as $item) {
             $customsItems[] = [
-                'description' => substr(isset($item['name']) ? $item['name'] : 'Merchandise', 0, 60),
-                'quantity' => (int) (isset($item['qty']) ? $item['qty'] : 1),
-                'value' => (float) (isset($item['customs_value']) ? $item['customs_value'] : (isset($item['price']) ? $item['price'] : 0)),
-                'weight' => (float) (isset($item['weight']) ? $item['weight'] : 0),
-                'HSCode' => isset($item['hs_code']) ? $item['hs_code'] : '',
-                'countryOfOrigin' => isset($item['country_of_manufacture']) ? $item['country_of_manufacture'] : 'US',
+                'description' => substr($item['name'] ?? 'Merchandise', 0, 60),
+                'quantity' => (int) ($item['qty'] ?? 1),
+                'value' => (float) ($item['customs_value'] ?? $item['price'] ?? 0),
+                'weight' => (float) ($item['weight'] ?? 0),
+                'HSCode' => $item['hs_code'] ?? '',
+                'countryOfOrigin' => $item['country_of_manufacture'] ?? 'US',
             ];
         }
 
@@ -345,7 +346,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service
      * Format address for API request
      *
      * @param  array|string  $street
-     * @param  Varien_Object $request
      * @param  string        $type    'shipper' or 'recipient'
      * @return array
      */
@@ -356,8 +356,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service
         $postalCode = preg_replace('/[^0-9]/', '', $request->getData($prefix . '_address_postal_code'));
 
         return [
-            'streetAddress' => isset($streetLines[0]) ? $streetLines[0] : '',
-            'secondaryAddress' => isset($streetLines[1]) ? $streetLines[1] : '',
+            'streetAddress' => $streetLines[0] ?? '',
+            'secondaryAddress' => $streetLines[1] ?? '',
             'city' => $request->getData($prefix . '_address_city'),
             'state' => $request->getData($prefix . '_address_state_or_province_code'),
             'ZIPCode' => substr($postalCode, 0, 5),
@@ -388,26 +388,23 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service
     protected function _mapServiceCode($methodCode)
     {
         $code = preg_replace('/^usps_/i', '', $methodCode);
-        $code = preg_replace('/_(SP|FE|FB|PL|FS|FP|FA|LFR|LR)$/', '', $code);
-        return $code;
+        return preg_replace('/_(SP|FE|FB|PL|FS|FP|FA|LFR|LR)$/', '', $code);
     }
 
     /**
      * Parse label creation API response
      *
-     * @param  array         $data
-     * @param  Varien_Object $result
      * @return Varien_Object
      */
     protected function _parseLabelResponse(array $data, Varien_Object $result)
     {
-        $trackingNumber = isset($data['trackingNumber']) ? $data['trackingNumber'] : null;
+        $trackingNumber = $data['trackingNumber'] ?? null;
         if (!$trackingNumber) {
             $result->setErrors('No tracking number in response');
             return $result;
         }
 
-        $labelImage = isset($data['labelImage']) ? $data['labelImage'] : null;
+        $labelImage = $data['labelImage'] ?? null;
         if (!$labelImage) {
             $result->setErrors('No label image in response');
             return $result;
@@ -431,8 +428,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service
     /**
      * Parse international label creation API response
      *
-     * @param  array         $data
-     * @param  Varien_Object $result
      * @return Varien_Object
      */
     protected function _parseInternationalLabelResponse(array $data, Varien_Object $result)
@@ -444,6 +439,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service
             if (is_string($customsForm) && preg_match('/^[A-Za-z0-9+\/=]+$/', $customsForm)) {
                 $customsForm = base64_decode($customsForm);
             }
+
             $result->setCustomsForm($customsForm);
         }
 
@@ -470,8 +466,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service
 
             return $response['success'];
 
-        } catch (Exception $e) {
-            Mage::logException($e);
+        } catch (Exception $exception) {
+            Mage::logException($exception);
             return false;
         }
     }
@@ -479,7 +475,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service
     /**
      * Extract error message from API response
      *
-     * @param  array  $response
      * @return string
      */
     protected function _extractErrorMessage(array $response)
@@ -502,7 +497,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service
     /**
      * Debug logging
      *
-     * @param  array $data
      * @return void
      */
     protected function _debug(array $data)

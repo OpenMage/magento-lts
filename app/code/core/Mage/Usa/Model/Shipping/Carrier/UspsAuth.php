@@ -152,8 +152,8 @@ class Mage_Usa_Model_Shipping_Carrier_UspsAuth extends Mage_Usa_Model_Shipping_C
             $cache->save($accessToken, $cacheKey, [], $cacheTtl);
 
             return $accessToken;
-        } catch (Exception $e) {
-            $this->_debug(self::ERROR_LOG_MESSAGE . ' ' . $e->getMessage());
+        } catch (Exception $exception) {
+            $this->_debug(self::ERROR_LOG_MESSAGE . ' ' . $exception->getMessage());
             return null;
         } finally {
             curl_close($ch);

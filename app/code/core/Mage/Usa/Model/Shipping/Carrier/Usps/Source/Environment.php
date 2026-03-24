@@ -63,14 +63,11 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Source_Environment
      */
     public function getUrlForEnvironment($environment)
     {
-        switch ($environment) {
-            case self::ENV_PRODUCTION:
-                return self::URL_PRODUCTION;
-            case self::ENV_SANDBOX:
-                return self::URL_SANDBOX;
-            default:
-                // Default to production for safety
-                return self::URL_PRODUCTION;
-        }
+        return match ($environment) {
+            self::ENV_PRODUCTION => self::URL_PRODUCTION,
+            self::ENV_SANDBOX => self::URL_SANDBOX,
+            // Default to production for safety
+            default => self::URL_PRODUCTION,
+        };
     }
 }

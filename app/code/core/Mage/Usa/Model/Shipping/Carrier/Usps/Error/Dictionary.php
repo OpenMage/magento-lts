@@ -123,7 +123,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Error_Dictionary
     public function getHttpStatusMessage($statusCode)
     {
         $statusCode = (int) $statusCode;
-        return isset($this->_httpStatusMessages[$statusCode]) ? $this->_httpStatusMessages[$statusCode] : null;
+        return $this->_httpStatusMessages[$statusCode] ?? null;
     }
 
     /**
@@ -135,7 +135,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Error_Dictionary
     public function getApiErrorMessage($errorCode)
     {
         $errorCode = strtoupper(trim((string) $errorCode));
-        return isset($this->_apiErrorCodes[$errorCode]) ? $this->_apiErrorCodes[$errorCode] : null;
+        return $this->_apiErrorCodes[$errorCode] ?? null;
     }
 
     /**
@@ -258,7 +258,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Error_Dictionary
             } elseif (isset($responseData['errors'][0]['code'])) {
                 $errorCode = $responseData['errors'][0]['code'];
             }
-            if (in_array(strtoupper($errorCode), ['TOKEN_EXPIRED', 'INVALID_TOKEN'])) {
+
+            if (in_array(strtoupper($errorCode), ['TOKEN_EXPIRED', 'INVALID_TOKEN'], true)) {
                 return true;
             }
         }

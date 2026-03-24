@@ -77,7 +77,6 @@ class Mage_Usa_Block_Checkout_Address_Verification extends Mage_Core_Block_Templ
     /**
      * Set original address
      *
-     * @param  array $address
      * @return $this
      */
     public function setOriginalAddress(array $address)
@@ -99,7 +98,6 @@ class Mage_Usa_Block_Checkout_Address_Verification extends Mage_Core_Block_Templ
     /**
      * Set corrected address
      *
-     * @param  array $address
      * @return $this
      */
     public function setCorrectedAddress(array $address)
@@ -121,7 +119,6 @@ class Mage_Usa_Block_Checkout_Address_Verification extends Mage_Core_Block_Templ
     /**
      * Set corrections list
      *
-     * @param  array $corrections
      * @return $this
      */
     public function setCorrections(array $corrections)
@@ -164,7 +161,6 @@ class Mage_Usa_Block_Checkout_Address_Verification extends Mage_Core_Block_Templ
     /**
      * Set warning messages
      *
-     * @param  array $warnings
      * @return $this
      */
     public function setWarnings(array $warnings)
@@ -218,7 +214,6 @@ class Mage_Usa_Block_Checkout_Address_Verification extends Mage_Core_Block_Templ
     /**
      * Format address for display
      *
-     * @param  array  $address
      * @return string HTML formatted address
      */
     public function formatAddressHtml(array $address)
@@ -228,6 +223,7 @@ class Mage_Usa_Block_Checkout_Address_Verification extends Mage_Core_Block_Templ
         if (isset($address['street1']) && $address['street1'] !== '') {
             $lines[] = $this->escapeHtml($address['street1']);
         }
+
         if (isset($address['street2']) && $address['street2'] !== '') {
             $lines[] = $this->escapeHtml($address['street2']);
         }
@@ -236,18 +232,20 @@ class Mage_Usa_Block_Checkout_Address_Verification extends Mage_Core_Block_Templ
         if (isset($address['city']) && $address['city'] !== '') {
             $cityStateZip[] = $this->escapeHtml($address['city']);
         }
+
         if (isset($address['region']) && $address['region'] !== '') {
             $cityStateZip[] = $this->escapeHtml($address['region']);
         }
+
         if (isset($address['postcode']) && $address['postcode'] !== '') {
             $cityStateZip[] = $this->escapeHtml($address['postcode']);
         }
 
-        if (count($cityStateZip) > 0) {
+        if ($cityStateZip !== []) {
             $lines[] = implode(', ', $cityStateZip);
         }
 
-        return implode('<br/>', array_map('strval', $lines));
+        return implode('<br/>', array_map(strval(...), $lines));
     }
 
     /**
@@ -277,14 +275,11 @@ class Mage_Usa_Block_Checkout_Address_Verification extends Mage_Core_Block_Templ
      */
     public function getModalTitle()
     {
-        switch ($this->_status) {
-            case 'corrected':
-                return $this->__('Address Verification');
-            case 'invalid':
-                return $this->__('Address Not Found');
-            default:
-                return $this->__('Verify Your Address');
-        }
+        return match ($this->_status) {
+            'corrected' => $this->__('Address Verification'),
+            'invalid' => $this->__('Address Not Found'),
+            default => $this->__('Verify Your Address'),
+        };
     }
 
     /**
@@ -294,13 +289,10 @@ class Mage_Usa_Block_Checkout_Address_Verification extends Mage_Core_Block_Templ
      */
     public function getModalMessage()
     {
-        switch ($this->_status) {
-            case 'corrected':
-                return $this->__('USPS suggests the following corrections to your address:');
-            case 'invalid':
-                return $this->__('The address you entered could not be verified. You may continue with your original address or make corrections.');
-            default:
-                return $this->__('Please verify your shipping address.');
-        }
+        return match ($this->_status) {
+            'corrected' => $this->__('USPS suggests the following corrections to your address:'),
+            'invalid' => $this->__('The address you entered could not be verified. You may continue with your original address or make corrections.'),
+            default => $this->__('Please verify your shipping address.'),
+        };
     }
 }

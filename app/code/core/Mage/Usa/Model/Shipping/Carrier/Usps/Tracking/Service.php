@@ -53,7 +53,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Tracking_Service
     /**
      * Set carrier model for configuration access
      *
-     * @param  Mage_Usa_Model_Shipping_Carrier_Usps                  $carrierModel
      * @return Mage_Usa_Model_Shipping_Carrier_Usps_Tracking_Service
      */
     public function setCarrierModel(Mage_Usa_Model_Shipping_Carrier_Usps $carrierModel)
@@ -169,7 +168,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Tracking_Service
 
         // Check for error response
         if (isset($responseData['error'])) {
-            $errorMessage = isset($responseData['error']['message']) ? $responseData['error']['message'] : $errorTitle;
+            $errorMessage = $responseData['error']['message'] ?? $errorTitle;
             $this->_setTrackingError($trackingValue, $errorMessage);
             return;
         }
@@ -181,14 +180,14 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Tracking_Service
         }
 
         // Parse tracking events
-        $trackingEvents = isset($responseData['trackingEvents']) ? $responseData['trackingEvents'] : [];
+        $trackingEvents = $responseData['trackingEvents'] ?? [];
 
         if (is_array($trackingEvents)) {
             foreach ($trackingEvents as $activityTag) {
                 $this->_processActivityRestTagInfo($activityTag, $packageProgress);
             }
 
-            $resultArr['track_summary'] = isset($responseData['statusSummary']) ? $responseData['statusSummary'] : '';
+            $resultArr['track_summary'] = $responseData['statusSummary'] ?? '';
             $resultArr['progressdetail'] = $packageProgress;
         }
 
@@ -219,11 +218,11 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Tracking_Service
         if (isset($activityTag['eventTimestamp'])) {
             try {
                 $eventTimestamp = new DateTime($activityTag['eventTimestamp']);
-            } catch (Exception $e) {
-                $eventTimestamp = new DateTime();
+            } catch (Exception) {
+                $eventTimestamp = \Carbon\Carbon::now();
             }
         } else {
-            $eventTimestamp = new DateTime();
+            $eventTimestamp = \Carbon\Carbon::now();
         }
 
         $date = $eventTimestamp->format('Y-m-d');
@@ -234,18 +233,21 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Tracking_Service
         if (isset($activityTag['eventCity'])) {
             $locationParts[] = $activityTag['eventCity'];
         }
+
         if (isset($activityTag['eventState'])) {
             $locationParts[] = $activityTag['eventState'];
         }
+
         if (isset($activityTag['eventZIP'])) {
             $locationParts[] = $activityTag['eventZIP'];
         }
+
         if (isset($activityTag['eventCountry'])) {
             $locationParts[] = $activityTag['eventCountry'];
         }
 
         $packageProgress[] = [
-            'activity' => (string) (isset($activityTag['eventType']) ? $activityTag['eventType'] : ''),
+            'activity' => (string) ($activityTag['eventType'] ?? ''),
             'deliverydate' => $date,
             'deliverytime' => $time,
             'deliverylocation' => implode(', ', $locationParts),
@@ -266,6 +268,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Tracking_Service
         $error->setCarrierTitle($this->_getCarrierTitle());
         $error->setTracking($trackingValue);
         $error->setErrorMessage($errorMessage);
+
         $this->_result->append($error);
     }
 
@@ -279,13 +282,13 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Tracking_Service
         if ($this->_carrierModel) {
             return $this->_carrierModel->getConfigData('title') ?: 'USPS';
         }
+
         return 'USPS';
     }
 
     /**
      * Debug logging
      *
-     * @param  array $debugData
      * @return void
      */
     protected function _debug(array $debugData)

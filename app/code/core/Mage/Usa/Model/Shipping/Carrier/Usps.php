@@ -106,14 +106,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
     protected $_customizableContainerTypes = ['VARIABLE', 'RECTANGULAR', 'NONRECTANGULAR'];
 
     /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
      * Collect and get rates
      *
      * @return null|bool|Mage_Shipping_Model_Rate_Result
@@ -259,8 +251,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
      */
     public function isActive()
     {
-        $active = parent::isActive();
-        return $active;
+        return null;
     }
 
     /**
@@ -437,10 +428,12 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
             if (array_key_exists('accountNumber', $role)) {
                 $role['accountNumber'] = '[REDACTED]';
             }
+
             if (array_key_exists('permitZIP', $role)) {
                 $role['permitZIP'] = '[REDACTED]';
             }
         }
+
         unset($role);
 
         $this->_debug([
@@ -676,10 +669,10 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
             $responseData = json_decode($responseBody, true);
             $hasValidRates = false;
 
-            if (isset($responseData['rateOptions']) && is_array($responseData['rateOptions']) && count($responseData['rateOptions']) > 0) {
+            if (isset($responseData['rateOptions']) && is_array($responseData['rateOptions']) && $responseData['rateOptions'] !== []) {
                 // Check if at least one rate option has rates
                 foreach ($responseData['rateOptions'] as $rateOption) {
-                    if (isset($rateOption['rates']) && is_array($rateOption['rates']) && count($rateOption['rates']) > 0) {
+                    if (isset($rateOption['rates']) && is_array($rateOption['rates']) && $rateOption['rates'] !== []) {
                         $hasValidRates = true;
                         break;
                     }
@@ -704,8 +697,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
             // Parse the single response containing all rates
             return $this->_parseRestRateResponse($responseBody, $isDomestic);
 
-        } catch (Exception $e) {
-            $this->_debug(['message' => 'USPS: Exception', 'error' => $e->getMessage()]);
+        } catch (Exception $exception) {
+            $this->_debug(['message' => 'USPS: Exception', 'error' => $exception->getMessage()]);
             $error = Mage::getModel('shipping/rate_result_error');
             $error->setCarrier('usps');
             $error->setCarrierTitle($this->getConfigData('title'));
@@ -752,7 +745,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
                 'destinationEntryFacilityType' => 'NONE',
                 'rateIndicator' => 'DR',
                 'priceType' => $priceType,
-                'mailingDate' => date('Y-m-d'),
+                'mailingDate' => \Carbon\Carbon::now()->format('Y-m-d'),
             ];
 
             // Add account info for commercial pricing
@@ -767,35 +760,31 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
             }
 
             return $request;
-        } else {
-            $request = [
-                'originZIPCode' => substr($r->getOrigPostal(), 0, 5),
-                'foreignPostalCode' => $r->getDestPostal() ?: '',
-                'destinationCountryCode' => $this->_getIso2CountryCode($r->getDestCountryId()),
-                'weight' => $weightInPounds > 0 ? $weightInPounds : 0.1,
-                'length' => (float) ($r->getLength() ?: 6),
-                'width' => (float) ($r->getWidth() ?: 4),
-                'height' => (float) ($r->getHeight() ?: 1),
-                'processingCategory' => $machinable,
-                'destinationEntryFacilityType' => 'NONE',
-                'rateIndicator' => 'SP',
-                'priceType' => $priceType,
-                'mailingDate' => date('Y-m-d'),
-            ];
-
-            // Add account info for commercial pricing
-            if ($priceType === 'COMMERCIAL' && $accountNumber) {
-                $request['accountType'] = $accountType;
-                $request['accountNumber'] = $accountNumber;
-            }
-
-            // Add optional item value for customs/insurance
-            if ($r->getValue() && $r->getValue() > 0) {
-                $request['itemValue'] = (float) $r->getValue();
-            }
-
-            return $request;
         }
+        $request = [
+            'originZIPCode' => substr($r->getOrigPostal(), 0, 5),
+            'foreignPostalCode' => $r->getDestPostal() ?: '',
+            'destinationCountryCode' => $this->_getIso2CountryCode($r->getDestCountryId()),
+            'weight' => $weightInPounds > 0 ? $weightInPounds : 0.1,
+            'length' => (float) ($r->getLength() ?: 6),
+            'width' => (float) ($r->getWidth() ?: 4),
+            'height' => (float) ($r->getHeight() ?: 1),
+            'processingCategory' => $machinable,
+            'destinationEntryFacilityType' => 'NONE',
+            'rateIndicator' => 'SP',
+            'priceType' => $priceType,
+            'mailingDate' => \Carbon\Carbon::now()->format('Y-m-d'),
+        ];
+        // Add account info for commercial pricing
+        if ($priceType === 'COMMERCIAL' && $accountNumber) {
+            $request['accountType'] = $accountType;
+            $request['accountNumber'] = $accountNumber;
+        }
+        // Add optional item value for customs/insurance
+        if ($r->getValue() && $r->getValue() > 0) {
+            $request['itemValue'] = (float) $r->getValue();
+        }
+        return $request;
     }
 
     /**
@@ -839,6 +828,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
             if (!is_array($a) || !is_array($b)) {
                 return 0;
             }
+
             return strcmp($a['sku'] ?? '', $b['sku'] ?? '');
         });
 
@@ -879,11 +869,12 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
         // getAllowedMethods() returns ['CODE' => 'Name', ...], so iterate over keys
         foreach (array_keys($allowedMethods) as $methodCode) {
             // Skip international methods for domestic shipments and vice versa
-            $hasInternational = strpos($methodCode, 'INTERNATIONAL') !== false
-                             || strpos($methodCode, 'GLOBAL_EXPRESS') !== false;
+            $hasInternational = str_contains($methodCode, 'INTERNATIONAL')
+                             || str_contains($methodCode, 'GLOBAL_EXPRESS');
             if ($isDomestic && $hasInternational) {
                 continue;
             }
+
             if (!$isDomestic && !$hasInternational) {
                 continue;
             }
@@ -895,7 +886,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
                 $mailClass = implode('_', array_slice($parts, 0, -1));
 
                 // Skip international-only classes for domestic shipments
-                if ($isDomestic && in_array($mailClass, $internationalOnlyClasses)) {
+                if ($isDomestic && in_array($mailClass, $internationalOnlyClasses, true)) {
                     continue;
                 }
 
@@ -1055,6 +1046,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
                 if (isset($deliveryEstimates[$method]['display']) && $deliveryEstimates[$method]['display'] !== '') {
                     $methodTitle .= ' (' . $deliveryEstimates[$method]['display'] . ')';
                 }
+
                 $rate->setMethodTitle($methodTitle);
 
                 $rate->setCost($costArr[$method]);
@@ -1094,10 +1086,10 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
 
         try {
             return $serviceStandards->getEstimates($originZip, $destZip, $methodCodes);
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $this->_debug([
                 'message' => 'Failed to get delivery estimates',
-                'error' => $e->getMessage(),
+                'error' => $exception->getMessage(),
             ]);
             return [];
         }
@@ -1582,10 +1574,11 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
                 'False'  => Mage::helper('usa')->__('Required'),
             ],
         ];
-
         if (!isset($codes[$type])) {
             return false;
-        } elseif ($code === '') {
+        }
+
+        if ($code === '') {
             return $codes[$type];
         }
 
@@ -1614,7 +1607,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
     /**
      * Get tracking via REST API
      *
-     * @param  array $trackingData
      * @return void
      */
     protected function _getRestTracking(array $trackingData)
@@ -1625,6 +1617,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
             if (!$this->_result) {
                 $this->_result = Mage::getModel('shipping/tracking_result');
             }
+
             $error = Mage::getModel('shipping/tracking_result_error');
             $error->setCarrier('usps');
             $error->setCarrierTitle($this->getConfigData('title'));
@@ -1652,19 +1645,21 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
                 if (!$this->_result) {
                     $this->_result = Mage::getModel('shipping/tracking_result');
                 }
+
                 $error = Mage::getModel('shipping/tracking_result_error');
                 $error->setCarrier('usps');
                 $error->setCarrierTitle($this->getConfigData('title'));
                 $error->setErrorMessage(Mage::helper('usa')->__('Unable to retrieve tracking'));
                 $this->_result->append($error);
             }
-        } catch (Exception $e) {
-            $debugData['error'] = $e->getMessage();
+        } catch (Exception $exception) {
+            $debugData['error'] = $exception->getMessage();
             $this->_debug($debugData);
 
             if (!$this->_result) {
                 $this->_result = Mage::getModel('shipping/tracking_result');
             }
+
             $error = Mage::getModel('shipping/tracking_result_error');
             $error->setCarrier('usps');
             $error->setCarrierTitle($this->getConfigData('title'));
@@ -2005,7 +2000,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
         ];
 
         foreach ($mailClasses as $mailClass) {
-            if (strpos($methodCode, $mailClass) === 0) {
+            if (str_starts_with($methodCode, $mailClass)) {
                 $rateIndicator = substr($methodCode, strlen($mailClass) + 1);
                 return [$mailClass, $rateIndicator ?: 'SP'];
             }
@@ -2026,7 +2021,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
      *
      * Creates shipping label via POST /labels/v3/label endpoint.
      *
-     * @param  Varien_Object $request
      * @return Varien_Object Label info with tracking number and image
      */
     protected function _doShipmentRequest(Varien_Object $request)
@@ -2107,7 +2101,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
                 'weightUOM' => 'lb',
                 'weight' => round($packageWeight, 2),
                 'processingCategory' => 'MACHINABLE',
-                'mailingDate' => date('Y-m-d'),
+                'mailingDate' => \Carbon\Carbon::now()->format('Y-m-d'),
                 'destinationEntryFacilityType' => 'NONE',
             ],
         ];
@@ -2248,9 +2242,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
         $countryRecipient = $params->getCountryRecipient();
         if ($this->_isUSCountry($countryRecipient)) {
             return $this->getCode('delivery_confirmation_types');
-        } else {
-            return [];
         }
+        return [];
     }
 
     /**
@@ -2261,7 +2254,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
      */
     public function isGirthAllowed($countyDest = null)
     {
-        return $this->_isUSCountry($countyDest) ? false : true;
+        return !$this->_isUSCountry($countyDest);
     }
 
     /**
@@ -2402,6 +2395,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
                 if (!$qty) {
                     $qty = $item->getQtyOrdered();
                 }
+
                 if (!$qty) {
                     $qty = 1;
                 }
@@ -2410,6 +2404,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
                 if ($length > $maxLength) {
                     $maxLength = $length;
                 }
+
                 if ($width > $maxWidth) {
                     $maxWidth = $width;
                 }
@@ -2435,5 +2430,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
             'width'  => $maxWidth > 0 ? $maxWidth : ($this->getConfigData('width') ?: 4),
         ];
     }
+
     // End @customization
 }

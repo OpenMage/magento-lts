@@ -22,8 +22,11 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Address_Service
      * Address match status constants
      */
     public const MATCH_EXACT = 'exact';
+
     public const MATCH_CORRECTED = 'corrected';
+
     public const MATCH_INVALID = 'invalid';
+
     public const MATCH_MULTIPLE = 'multiple';
 
     /**
@@ -74,6 +77,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Address_Service
                 $this->_client->setAccessToken($token);
             }
         }
+
         return $this->_client;
     }
 
@@ -296,8 +300,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Address_Service
 
             return ['success' => true, 'message' => 'Address updated successfully'];
 
-        } catch (Exception $e) {
-            Mage::logException($e);
+        } catch (Exception $exception) {
+            Mage::logException($exception);
             return ['success' => false, 'message' => 'Failed to update address'];
         }
     }
@@ -322,6 +326,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Address_Service
         if (isset($corrected['street2']) && $corrected['street2'] !== '') {
             $street[] = $corrected['street2'];
         }
+
         $address->setStreet($street);
 
         // Set other fields
@@ -344,7 +349,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Address_Service
 
         // Mark as verified
         $address->setData('usps_address_verified', true);
-        $address->setData('usps_address_verified_at', date('Y-m-d H:i:s'));
+        $address->setData('usps_address_verified_at', \Carbon\Carbon::now()->format('Y-m-d H:i:s'));
 
         $this->_debug([
             'action' => 'apply_correction',
@@ -357,7 +362,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Address_Service
     /**
      * Convert Magento address to array format
      *
-     * @param  Mage_Customer_Model_Address_Abstract $address
      * @return array
      */
     protected function _addressToArray(Mage_Customer_Model_Address_Abstract $address)
@@ -398,6 +402,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Address_Service
         if (strlen($postcode) >= 9) {
             return substr($postcode, 5, 4);
         }
+
         return '';
     }
 
@@ -413,6 +418,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Address_Service
         if ($zip4 !== '' && $zip4 !== null) {
             return $zip5 . '-' . $zip4;
         }
+
         return $zip5;
     }
 
@@ -432,7 +438,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Address_Service
     /**
      * Debug logging
      *
-     * @param  array $data
      * @return void
      */
     protected function _debug(array $data)

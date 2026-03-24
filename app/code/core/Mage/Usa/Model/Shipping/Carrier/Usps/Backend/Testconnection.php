@@ -20,7 +20,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Backend_Testconnection extends Mage_A
     /**
      * Generate button HTML for testing USPS API connection
      *
-     * @param  Varien_Data_Form_Element_Abstract $element
      * @return string
      */
     protected function _getElementHtml(Varien_Data_Form_Element_Abstract $element)
@@ -109,7 +108,6 @@ JAVASCRIPT;
     /**
      * Remove scope info from field (not needed for button)
      *
-     * @param  Varien_Data_Form_Element_Abstract $element
      * @return string
      */
     protected function _renderScopeLabel(Varien_Data_Form_Element_Abstract $element)

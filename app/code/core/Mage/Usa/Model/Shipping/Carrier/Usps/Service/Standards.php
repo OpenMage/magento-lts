@@ -90,6 +90,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Service_Standards
                 $this->_client->setAccessToken($token);
             }
         }
+
         return $this->_client;
     }
 
@@ -117,7 +118,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Service_Standards
     public function getEstimate($originZip, $destZip, $mailClass, $acceptDate = null)
     {
         $estimates = $this->getEstimates($originZip, $destZip, [$mailClass], $acceptDate);
-        return isset($estimates[$mailClass]) ? $estimates[$mailClass] : null;
+        return $estimates[$mailClass] ?? null;
     }
 
     /**
@@ -137,7 +138,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Service_Standards
 
         $originZip = $this->_cleanZip($originZip);
         $destZip = $this->_cleanZip($destZip);
-        $acceptDate = $acceptDate ?: date('Y-m-d');
+        $acceptDate = $acceptDate ?: \Carbon\Carbon::now()->format('Y-m-d');
 
         $estimates = [];
         $uncached = [];
@@ -185,7 +186,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Service_Standards
      *
      * @param  string $originZip
      * @param  string $destZip
-     * @param  array  $mailClasses
      * @param  string $acceptDate
      * @return array
      */
@@ -240,13 +240,13 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Service_Standards
      */
     protected function _parseEstimateResponse(array $data)
     {
-        $standard = isset($data[0]) ? $data[0] : $data;
+        $standard = $data[0] ?? $data;
 
-        $deliveryDays = isset($standard['serviceStandardMessage']) ? $standard['serviceStandardMessage'] : null;
-        $scheduledDate = isset($standard['scheduledDeliveryDate']) ? $standard['scheduledDeliveryDate'] : null;
+        $deliveryDays = $standard['serviceStandardMessage'] ?? null;
+        $scheduledDate = $standard['scheduledDeliveryDate'] ?? null;
 
         if ($scheduledDate) {
-            $today = new DateTime();
+            $today = \Carbon\Carbon::now();
             $delivery = new DateTime($scheduledDate);
             $diff = $today->diff($delivery);
             $days = $diff->days;
@@ -300,7 +300,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Service_Standards
             try {
                 $date = new DateTime($scheduledDate);
                 return $helper->__('Arrives by %s', $date->format('M j'));
-            } catch (Exception $e) {
+            } catch (Exception) {
                 // Fall through to days display
             }
         }
@@ -309,6 +309,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Service_Standards
             if ($minDays === 1) {
                 return $helper->__('1 business day');
             }
+
             return $helper->__('%d business days', $minDays);
         }
 
@@ -330,7 +331,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Service_Standards
         }
 
         foreach ($this->_mailClassMapping as $key => $value) {
-            if (stripos($baseClass, $key) !== false) {
+            if (stripos($baseClass, (string) $key) !== false) {
                 return $value;
             }
         }
@@ -371,7 +372,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Service_Standards
     /**
      * Debug logging
      *
-     * @param  array $data
      * @return void
      */
     protected function _debug(array $data)
