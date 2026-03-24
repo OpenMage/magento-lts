@@ -19,41 +19,41 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Tracking_Service
     /**
      * JSON content type for REST API
      */
-    const CONTENT_TYPE_JSON = 'application/json';
+    public const CONTENT_TYPE_JSON = 'application/json';
 
     /**
      * Authorization header prefix
      */
-    const AUTHORIZATION_BEARER = 'Bearer ';
+    public const AUTHORIZATION_BEARER = 'Bearer ';
 
     /**
      * REST API tracking endpoint
      */
-    const TRACKING_ENDPOINT = 'tracking/v3/tracking/';
+    public const TRACKING_ENDPOINT = 'tracking/v3/tracking/';
 
     /**
      * Default error message
      */
-    const ERROR_TITLE_DEFAULT = 'Unable to retrieve tracking info right now.';
+    public const ERROR_TITLE_DEFAULT = 'Unable to retrieve tracking info right now.';
 
     /**
      * Rate result object
      *
-     * @var Mage_Shipping_Model_Tracking_Result|null
+     * @var null|Mage_Shipping_Model_Tracking_Result
      */
     protected $_result = null;
 
     /**
      * Carrier model instance
      *
-     * @var Mage_Usa_Model_Shipping_Carrier_Usps|null
+     * @var null|Mage_Usa_Model_Shipping_Carrier_Usps
      */
     protected $_carrierModel = null;
 
     /**
      * Set carrier model for configuration access
      *
-     * @param Mage_Usa_Model_Shipping_Carrier_Usps $carrierModel
+     * @param  Mage_Usa_Model_Shipping_Carrier_Usps                  $carrierModel
      * @return Mage_Usa_Model_Shipping_Carrier_Usps_Tracking_Service
      */
     public function setCarrierModel(Mage_Usa_Model_Shipping_Carrier_Usps $carrierModel)
@@ -65,10 +65,10 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Tracking_Service
     /**
      * Get tracking information via REST API
      *
-     * @param array $trackingNumbers Array of tracking numbers to look up
-     * @param string $accessToken OAuth access token
-     * @param string $baseUrl USPS REST API base URL
-     * @return Mage_Shipping_Model_Tracking_Result|null
+     * @param  array                                    $trackingNumbers Array of tracking numbers to look up
+     * @param  string                                   $accessToken     OAuth access token
+     * @param  string                                   $baseUrl         USPS REST API base URL
+     * @return null|Mage_Shipping_Model_Tracking_Result
      */
     public function getRestTracking(array $trackingNumbers, $accessToken, $baseUrl)
     {
@@ -145,8 +145,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Tracking_Service
     /**
      * Parse REST tracking response
      *
-     * @param string $trackingValue Tracking number
-     * @param string $jsonResponse JSON response from REST API
+     * @param  string $trackingValue Tracking number
+     * @param  string $jsonResponse  JSON response from REST API
      * @return void
      */
     protected function _parseRestTrackingResponse($trackingValue, $jsonResponse)
@@ -208,7 +208,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Tracking_Service
     /**
      * Process activity tag from REST API response
      *
-     * @param array $activityTag Event data from response
+     * @param  array $activityTag     Event data from response
      * @param  array $packageProgress Reference to progress array
      * @return void
      */

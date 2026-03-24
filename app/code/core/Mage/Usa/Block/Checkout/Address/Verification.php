@@ -77,7 +77,7 @@ class Mage_Usa_Block_Checkout_Address_Verification extends Mage_Core_Block_Templ
     /**
      * Set original address
      *
-     * @param array $address
+     * @param  array $address
      * @return $this
      */
     public function setOriginalAddress(array $address)
@@ -99,7 +99,7 @@ class Mage_Usa_Block_Checkout_Address_Verification extends Mage_Core_Block_Templ
     /**
      * Set corrected address
      *
-     * @param array $address
+     * @param  array $address
      * @return $this
      */
     public function setCorrectedAddress(array $address)
@@ -121,7 +121,7 @@ class Mage_Usa_Block_Checkout_Address_Verification extends Mage_Core_Block_Templ
     /**
      * Set corrections list
      *
-     * @param array $corrections
+     * @param  array $corrections
      * @return $this
      */
     public function setCorrections(array $corrections)
@@ -153,7 +153,7 @@ class Mage_Usa_Block_Checkout_Address_Verification extends Mage_Core_Block_Templ
     /**
      * Escape string for use in JavaScript (wrapper for Magento 1 jsQuoteEscape)
      *
-     * @param string $string
+     * @param  string $string
      * @return string
      */
     public function escapeJs($string)
@@ -164,7 +164,7 @@ class Mage_Usa_Block_Checkout_Address_Verification extends Mage_Core_Block_Templ
     /**
      * Set warning messages
      *
-     * @param array $warnings
+     * @param  array $warnings
      * @return $this
      */
     public function setWarnings(array $warnings)
@@ -196,7 +196,7 @@ class Mage_Usa_Block_Checkout_Address_Verification extends Mage_Core_Block_Templ
     /**
      * Set verification status
      *
-     * @param string $status
+     * @param  string $status
      * @return $this
      */
     public function setStatus($status)
@@ -218,7 +218,7 @@ class Mage_Usa_Block_Checkout_Address_Verification extends Mage_Core_Block_Templ
     /**
      * Format address for display
      *
-     * @param array $address
+     * @param  array  $address
      * @return string HTML formatted address
      */
     public function formatAddressHtml(array $address)
@@ -253,7 +253,7 @@ class Mage_Usa_Block_Checkout_Address_Verification extends Mage_Core_Block_Templ
     /**
      * Get field label for display
      *
-     * @param string $field
+     * @param  string $field
      * @return string
      */
     public function getFieldLabel($field)

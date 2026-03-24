@@ -58,7 +58,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Source_Environment
     /**
      * Get REST API URL for given environment
      *
-     * @param string $environment
+     * @param  string $environment
      * @return string
      */
     public function getUrlForEnvironment($environment)

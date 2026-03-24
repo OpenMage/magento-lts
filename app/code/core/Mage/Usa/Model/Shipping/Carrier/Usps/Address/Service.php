@@ -21,10 +21,10 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Address_Service
     /**
      * Address match status constants
      */
-    const MATCH_EXACT = 'exact';
-    const MATCH_CORRECTED = 'corrected';
-    const MATCH_INVALID = 'invalid';
-    const MATCH_MULTIPLE = 'multiple';
+    public const MATCH_EXACT = 'exact';
+    public const MATCH_CORRECTED = 'corrected';
+    public const MATCH_INVALID = 'invalid';
+    public const MATCH_MULTIPLE = 'multiple';
 
     /**
      * @var Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
@@ -39,7 +39,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Address_Service
     /**
      * Constructor
      *
-     * @param Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client|null $client
+     * @param null|Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client $client
      */
     public function __construct($client = null)
     {
@@ -80,7 +80,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Address_Service
     /**
      * Check if address verification is enabled
      *
-     * @param int|null $storeId Store ID
+     * @param  null|int $storeId Store ID
      * @return bool
      */
     public function isEnabled($storeId = null)
@@ -92,15 +92,15 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Address_Service
     /**
      * Verify an address using USPS Address API
      *
-     * @param Mage_Customer_Model_Address_Abstract $address Address to verify
-     * @return array Verification result with keys:
-     *   - status: string (exact|corrected|invalid|multiple)
-     *   - original: array Original address data
-     *   - corrected: array|null Corrected address if available
-     *   - corrections: array List of corrections made (field => [original, corrected])
-     *   - warnings: array List of warning messages
-     *   - deliveryPoint: string|null Delivery point barcode
-     *   - dpvConfirmation: string|null DPV confirmation indicator
+     * @param  Mage_Customer_Model_Address_Abstract $address Address to verify
+     * @return array                                Verification result with keys:
+     *                                              - status: string (exact|corrected|invalid|multiple)
+     *                                              - original: array Original address data
+     *                                              - corrected: array|null Corrected address if available
+     *                                              - corrections: array List of corrections made (field => [original, corrected])
+     *                                              - warnings: array List of warning messages
+     *                                              - deliveryPoint: string|null Delivery point barcode
+     *                                              - dpvConfirmation: string|null DPV confirmation indicator
      */
     public function verify(Mage_Customer_Model_Address_Abstract $address)
     {
@@ -143,8 +143,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Address_Service
     /**
      * Parse USPS verification response into standardized format
      *
-     * @param array $data USPS API response data
-     * @param array $original Original address array
+     * @param  array $data     USPS API response data
+     * @param  array $original Original address array
      * @return array Verification result
      */
     protected function _parseVerificationResponse(array $data, array $original)
@@ -222,7 +222,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Address_Service
     /**
      * Verify an address from array format (for AJAX controller)
      *
-     * @param array $addressData Address data with keys: street1, street2, city, region, postcode
+     * @param  array $addressData Address data with keys: street1, street2, city, region, postcode
      * @return array Verification result
      */
     public function verifyFromArray(array $addressData)
@@ -272,7 +272,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Address_Service
     /**
      * Apply corrected address to checkout session quote
      *
-     * @param array $corrected Corrected address data array
+     * @param  array $corrected Corrected address data array
      * @return array Result with success flag and message
      */
     public function applyCorrectionToQuote(array $corrected)
@@ -307,9 +307,9 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Address_Service
      *
      * Automatically updates the address with USPS-corrected values.
      *
-     * @param Mage_Customer_Model_Address_Abstract $address Address to update
-     * @param array $corrected Corrected address array
-     * @return bool True on success
+     * @param  Mage_Customer_Model_Address_Abstract $address   Address to update
+     * @param  array                                $corrected Corrected address array
+     * @return bool                                 True on success
      */
     public function applyCorrection(Mage_Customer_Model_Address_Abstract $address, array $corrected)
     {
@@ -357,7 +357,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Address_Service
     /**
      * Convert Magento address to array format
      *
-     * @param Mage_Customer_Model_Address_Abstract $address
+     * @param  Mage_Customer_Model_Address_Abstract $address
      * @return array
      */
     protected function _addressToArray(Mage_Customer_Model_Address_Abstract $address)
@@ -377,7 +377,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Address_Service
     /**
      * Extract 5-digit ZIP from postcode
      *
-     * @param string $postcode
+     * @param  string $postcode
      * @return string
      */
     protected function _extractZip5($postcode)
@@ -389,7 +389,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Address_Service
     /**
      * Extract ZIP+4 from postcode
      *
-     * @param string $postcode
+     * @param  string $postcode
      * @return string
      */
     protected function _extractZip4($postcode)
@@ -404,8 +404,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Address_Service
     /**
      * Build formatted ZIP code
      *
-     * @param string $zip5
-     * @param string $zip4
+     * @param  string $zip5
+     * @param  string $zip4
      * @return string
      */
     protected function _buildZip($zip5, $zip4)
@@ -419,9 +419,9 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Address_Service
     /**
      * Get region ID from region code
      *
-     * @param string $regionCode
-     * @param string $countryId
-     * @return int|null
+     * @param  string   $regionCode
+     * @param  string   $countryId
+     * @return null|int
      */
     protected function _getRegionId($regionCode, $countryId)
     {
@@ -432,7 +432,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Address_Service
     /**
      * Debug logging
      *
-     * @param array $data
+     * @param  array $data
      * @return void
      */
     protected function _debug(array $data)
@@ -445,7 +445,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Address_Service
             'USPS AddressService: ' . json_encode($data),
             Zend_Log::DEBUG,
             'shipping_usps.log',
-            true
+            true,
         );
     }
 }

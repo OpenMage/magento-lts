@@ -15,13 +15,12 @@
  *
  * @package    Mage_Usa
  */
-class Mage_Usa_Model_Shipping_Carrier_Usps_Backend_Createdimensions
-    extends Mage_Adminhtml_Block_System_Config_Form_Field
+class Mage_Usa_Model_Shipping_Carrier_Usps_Backend_Createdimensions extends Mage_Adminhtml_Block_System_Config_Form_Field
 {
     /**
      * Generate button HTML for creating dimension attributes
      *
-     * @param Varien_Data_Form_Element_Abstract $element
+     * @param  Varien_Data_Form_Element_Abstract $element
      * @return string
      */
     protected function _getElementHtml(Varien_Data_Form_Element_Abstract $element)
@@ -81,7 +80,7 @@ JAVASCRIPT;
     /**
      * Remove scope info from field (not needed for button)
      *
-     * @param Varien_Data_Form_Element_Abstract $element
+     * @param  Varien_Data_Form_Element_Abstract $element
      * @return string
      */
     protected function _renderScopeLabel(Varien_Data_Form_Element_Abstract $element)

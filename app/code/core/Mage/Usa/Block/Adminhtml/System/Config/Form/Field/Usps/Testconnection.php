@@ -7,8 +7,7 @@
  * @package    Mage_Usa
  */
 
-class Mage_Usa_Block_Adminhtml_System_Config_Form_Field_Usps_Testconnection
-    extends Mage_Adminhtml_Block_System_Config_Form_Field
+class Mage_Usa_Block_Adminhtml_System_Config_Form_Field_Usps_Testconnection extends Mage_Adminhtml_Block_System_Config_Form_Field
 {
     protected function _getElementHtml(Varien_Data_Form_Element_Abstract $element)
     {

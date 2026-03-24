@@ -23,7 +23,7 @@ class Mage_Usa_Model_Shipping_Carrier_UspsAuth extends Mage_Usa_Model_Shipping_C
 
     /**
      * OAuth scopes required for USPS REST API operations
-     * 
+     *
      * Note: USPS OAuth automatically grants all authorized scopes when empty.
      * Requesting specific scopes causes authentication issues.
      */
@@ -45,10 +45,10 @@ class Mage_Usa_Model_Shipping_Carrier_UspsAuth extends Mage_Usa_Model_Shipping_C
      * Retrieves cached token if available, otherwise requests new token
      * from USPS OAuth endpoint and caches it with appropriate TTL.
      *
-     * @param string $clientId USPS Consumer Key
-     * @param string $clientSecret USPS Consumer Secret
-     * @param string $clientUrl OAuth token endpoint URL
-     * @return string|false|null Access token on success, false on API error, null on exception
+     * @param  string            $clientId     USPS Consumer Key
+     * @param  string            $clientSecret USPS Consumer Secret
+     * @param  string            $clientUrl    OAuth token endpoint URL
+     * @return null|false|string Access token on success, false on API error, null on exception
      * @throws Exception
      */
     public function getAccessToken(string $clientId, string $clientSecret, string $clientUrl)
@@ -104,9 +104,9 @@ class Mage_Usa_Model_Shipping_Carrier_UspsAuth extends Mage_Usa_Model_Shipping_C
                 $code = curl_errno($ch);
                 $description = curl_strerror($code);
                 $message = curl_error($ch);
-                
+
                 // Direct diagnostic logging
-                
+
                 $this->_debug([
                     'error' => "cURL Error: ($code) $description - \"$message\"",
                     '__pid' => getmypid(),
@@ -123,7 +123,7 @@ class Mage_Usa_Model_Shipping_Carrier_UspsAuth extends Mage_Usa_Model_Shipping_C
             $response = json_decode($responseData, true);
 
             if (isset($response['error'])) {
-                
+
                 $this->_debug([
                     'error' => $response['error'] . ': ' . ($response['error_description'] ?? 'Unknown error'),
                     '__pid' => getmypid(),
@@ -132,7 +132,7 @@ class Mage_Usa_Model_Shipping_Carrier_UspsAuth extends Mage_Usa_Model_Shipping_C
             }
 
             if (!isset($response['access_token'])) {
-                
+
                 $this->_debug([
                     'error' => 'No access_token in response',
                     'response' => $response,
@@ -146,7 +146,7 @@ class Mage_Usa_Model_Shipping_Carrier_UspsAuth extends Mage_Usa_Model_Shipping_C
 
             // Trim token to remove any whitespace that could cause invalid signature errors
             $accessToken = trim($accessToken);
-            
+
             // Cache the token with TTL slightly less than expiry to avoid edge cases
             $cacheTtl = max(1, $expiresIn - 60);
             $cache->save($accessToken, $cacheKey, [], $cacheTtl);

@@ -22,7 +22,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Error_Dictionary
      *
      * @var array
      */
-    protected $_httpStatusMessages = array(
+    protected $_httpStatusMessages = [
         400 => 'Invalid request. Please verify package details and try again.',
         401 => 'USPS authentication failed. Please check your API credentials in admin settings.',
         403 => 'Access denied. Your USPS account may not have permission for this operation.',
@@ -36,7 +36,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Error_Dictionary
         502 => 'USPS gateway error. Please try again later.',
         503 => 'USPS service is temporarily down for maintenance. Please try again later.',
         504 => 'USPS gateway timeout. Please try again later.',
-    );
+    ];
 
     /**
      * USPS API error code to message mapping
@@ -45,7 +45,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Error_Dictionary
      *
      * @var array
      */
-    protected $_apiErrorCodes = array(
+    protected $_apiErrorCodes = [
         // Authentication & Authorization
         'INVALID_TOKEN' => 'USPS authentication token is invalid or expired. Please check your credentials.',
         'TOKEN_EXPIRED' => 'USPS authentication token has expired. Please try again.',
@@ -95,14 +95,14 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Error_Dictionary
         'INVALID_COUNTRY' => 'The destination country is not recognized or not serviceable.',
         'EXPORT_LICENSE_REQUIRED' => 'An export license is required for this shipment. Please provide AES/ITN.',
         'PROHIBITED_DESTINATION' => 'Shipping to this destination is currently prohibited.',
-    );
+    ];
 
     /**
      * Common error message patterns to user-friendly translations
      *
      * @var array
      */
-    protected $_messagePatterns = array(
+    protected $_messagePatterns = [
         '/mailClass.*invalid/i' => 'The selected shipping method is not available. Please choose a different method.',
         '/weight.*exceed/i' => 'Package weight exceeds USPS limits for this shipping method.',
         '/dimension.*exceed/i' => 'Package dimensions exceed USPS limits for this shipping method.',
@@ -112,13 +112,13 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Error_Dictionary
         '/rate.*not.*found/i' => 'No shipping rates available for this configuration.',
         '/token.*expired/i' => 'USPS session expired. Please refresh and try again.',
         '/account.*not.*found/i' => 'USPS account configuration error. Please contact support.',
-    );
+    ];
 
     /**
      * Get user-friendly message for HTTP status code
      *
-     * @param int $statusCode HTTP status code
-     * @return string|null User-friendly message or null if not found
+     * @param  int         $statusCode HTTP status code
+     * @return null|string User-friendly message or null if not found
      */
     public function getHttpStatusMessage($statusCode)
     {
@@ -129,8 +129,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Error_Dictionary
     /**
      * Get user-friendly message for USPS API error code
      *
-     * @param string $errorCode USPS API error code
-     * @return string|null User-friendly message or null if not found
+     * @param  string      $errorCode USPS API error code
+     * @return null|string User-friendly message or null if not found
      */
     public function getApiErrorMessage($errorCode)
     {
@@ -141,8 +141,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Error_Dictionary
     /**
      * Translate API error message using pattern matching
      *
-     * @param string $apiMessage Raw API error message
-     * @return string|null User-friendly message
+     * @param  string      $apiMessage Raw API error message
+     * @return null|string User-friendly message
      */
     public function translateMessage($apiMessage)
     {
@@ -166,10 +166,10 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Error_Dictionary
      * 3. Message pattern matching
      * 4. Falls back to generic carrier error message
      *
-     * @param int $httpCode HTTP response code
-     * @param array|null $responseData Decoded JSON response
-     * @param string $fallbackMessage Default message if no translation found
-     * @return string User-friendly error message
+     * @param  int        $httpCode        HTTP response code
+     * @param  null|array $responseData    Decoded JSON response
+     * @param  string     $fallbackMessage Default message if no translation found
+     * @return string     User-friendly error message
      */
     public function getErrorMessage($httpCode, $responseData = null, $fallbackMessage = null)
     {
@@ -227,16 +227,16 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Error_Dictionary
 
         // Return fallback or generic message
         return $fallbackMessage ?: Mage::helper('usa')->__(
-            'Unable to retrieve shipping rates from USPS. Please try again or contact support.'
+            'Unable to retrieve shipping rates from USPS. Please try again or contact support.',
         );
     }
 
     /**
      * Check if error is transient and should be retried
      *
-     * @param int $httpCode HTTP response code
-     * @param array|null $responseData Decoded JSON response
-     * @return bool True if error is transient and operation can be retried
+     * @param  int        $httpCode     HTTP response code
+     * @param  null|array $responseData Decoded JSON response
+     * @return bool       True if error is transient and operation can be retried
      */
     public function isTransientError($httpCode, $responseData = null)
     {
@@ -258,7 +258,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Error_Dictionary
             } elseif (isset($responseData['errors'][0]['code'])) {
                 $errorCode = $responseData['errors'][0]['code'];
             }
-            if (in_array(strtoupper($errorCode), array('TOKEN_EXPIRED', 'INVALID_TOKEN'))) {
+            if (in_array(strtoupper($errorCode), ['TOKEN_EXPIRED', 'INVALID_TOKEN'])) {
                 return true;
             }
         }

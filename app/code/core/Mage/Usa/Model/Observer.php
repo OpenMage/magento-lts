@@ -41,7 +41,7 @@ class Mage_Usa_Model_Observer
      *
      * Event: checkout_controller_onepage_save_shipping_address
      *
-     * @param  Varien_Event_Observer $observer
+     * @param  Varien_Event_Observer   $observer
      * @return Mage_Usa_Model_Observer
      */
     public function logShippingAddressVerification($observer)
@@ -91,10 +91,10 @@ class Mage_Usa_Model_Observer
                     Mage::log(
                         sprintf(
                             'USPS Address Verification: Corrected address for quote %s',
-                            $quote->getId()
+                            $quote->getId(),
                         ),
                         Zend_Log::INFO,
-                        'usps_address_verification.log'
+                        'usps_address_verification.log',
                     );
                 }
             }
@@ -115,7 +115,7 @@ class Mage_Usa_Model_Observer
      * This provides a final check before order is placed.
      * If verification fails, we log but don't block (per business requirement).
      *
-     * @param  Varien_Event_Observer $observer
+     * @param  Varien_Event_Observer   $observer
      * @return Mage_Usa_Model_Observer
      */
     public function validateOrderAddress($observer)
@@ -157,7 +157,7 @@ class Mage_Usa_Model_Observer
      *
      * Event: sales_order_shipment_save_before
      *
-     * @param  Varien_Event_Observer $observer
+     * @param  Varien_Event_Observer   $observer
      * @return Mage_Usa_Model_Observer
      */
     public function prepareShipmentForLabels($observer)

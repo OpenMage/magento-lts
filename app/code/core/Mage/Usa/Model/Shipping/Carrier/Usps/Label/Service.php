@@ -20,9 +20,9 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service
     /**
      * Label format constants
      */
-    const FORMAT_PDF = 'LABEL_PDF';
-    const FORMAT_PDF_4X6 = 'LABEL_PDF_4X6';
-    const FORMAT_ZPL = 'LABEL_ZPL';
+    public const FORMAT_PDF = 'LABEL_PDF';
+    public const FORMAT_PDF_4X6 = 'LABEL_PDF_4X6';
+    public const FORMAT_ZPL = 'LABEL_ZPL';
 
     /**
      * @var Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
@@ -37,12 +37,12 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service
     /**
      * @var array Configuration data
      */
-    protected $_config = array();
+    protected $_config = [];
 
     /**
      * Constructor
      *
-     * @param Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client|null $client
+     * @param null|Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client $client
      */
     public function __construct($client = null)
     {
@@ -58,17 +58,17 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service
      */
     protected function _loadConfig()
     {
-        $this->_config = array(
+        $this->_config = [
             'crid' => Mage::getStoreConfig('carriers/usps/crid'),
             'mid' => Mage::getStoreConfig('carriers/usps/mid'),
             'manifest_mid' => Mage::getStoreConfig('carriers/usps/mmid'),
             'account_type' => Mage::getStoreConfig('carriers/usps/account_type'),
             'eps_account_number' => Mage::helper('core')->decrypt(
-                Mage::getStoreConfig('carriers/usps/eps_account_number')
+                Mage::getStoreConfig('carriers/usps/eps_account_number'),
             ),
             'permit_zip' => Mage::getStoreConfig('carriers/usps/permit_zip'),
             'aesitn' => Mage::getStoreConfig('carriers/usps/aesitn'),
-        );
+        ];
     }
 
     /**
@@ -102,7 +102,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service
     /**
      * Check if label generation is enabled and properly configured
      *
-     * @param int|null $storeId Store ID
+     * @param  null|int $storeId Store ID
      * @return bool
      */
     public function isEnabled($storeId = null)
@@ -117,8 +117,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service
     /**
      * Create a domestic shipping label
      *
-     * @param Varien_Object $request Shipment request with package/address data
-     * @return Varien_Object Result with label_content, tracking_number, etc.
+     * @param  Varien_Object $request Shipment request with package/address data
+     * @return Varien_Object result with label_content, tracking_number, etc
      */
     public function createDomesticLabel(Varien_Object $request)
     {
@@ -127,18 +127,18 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service
         try {
             $payload = $this->_buildDomesticLabelRequest($request);
 
-            $this->_debug(array(
+            $this->_debug([
                 'action' => 'create_domestic_label',
                 'request' => $payload,
-            ));
+            ]);
 
             $client = $this->_getClient();
             $response = $client->postWithRetry('labels/v3/label', $payload, true, 2);
 
-            $this->_debug(array(
+            $this->_debug([
                 'action' => 'create_domestic_label_response',
                 'response' => $response,
-            ));
+            ]);
 
             if (!$response['success']) {
                 $errorMsg = $this->_extractErrorMessage($response);
@@ -158,7 +158,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service
     /**
      * Create an international shipping label
      *
-     * @param Varien_Object $request Shipment request
+     * @param  Varien_Object $request Shipment request
      * @return Varien_Object Result with label_content, tracking_number, customs_form
      */
     public function createInternationalLabel(Varien_Object $request)
@@ -168,18 +168,18 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service
         try {
             $payload = $this->_buildInternationalLabelRequest($request);
 
-            $this->_debug(array(
+            $this->_debug([
                 'action' => 'create_international_label',
                 'request' => $payload,
-            ));
+            ]);
 
             $client = $this->_getClient();
             $response = $client->postWithRetry('international-labels/v3/label', $payload, true, 2);
 
-            $this->_debug(array(
+            $this->_debug([
                 'action' => 'create_international_label_response',
                 'response' => $response,
-            ));
+            ]);
 
             if (!$response['success']) {
                 $errorMsg = $this->_extractErrorMessage($response);
@@ -199,7 +199,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service
     /**
      * Build domestic label API request payload
      *
-     * @param Varien_Object $request
+     * @param  Varien_Object $request
      * @return array
      */
     protected function _buildDomesticLabelRequest(Varien_Object $request)
@@ -207,31 +207,31 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service
         $shipper = $request->getShipperAddressStreet() ?: $this->_getOriginAddress();
         $recipient = $request->getRecipientAddressStreet();
 
-        $payload = array(
-            'imageInfo' => array(
+        $payload = [
+            'imageInfo' => [
                 'imageType' => self::FORMAT_PDF_4X6,
                 'labelType' => 'SHIPPING_LABEL',
-            ),
+            ],
             'toAddress' => $this->_formatAddress($recipient, $request, 'recipient'),
             'fromAddress' => $this->_formatAddress($shipper, $request, 'shipper'),
-            'senderInfo' => array(
+            'senderInfo' => [
                 'firstName' => $request->getShipperContactPersonFirstName(),
                 'lastName' => $request->getShipperContactPersonLastName(),
                 'phone' => $request->getShipperContactPhoneNumber(),
                 'email' => $request->getShipperEmail(),
-            ),
-            'recipientInfo' => array(
+            ],
+            'recipientInfo' => [
                 'firstName' => $request->getRecipientContactPersonFirstName(),
                 'lastName' => $request->getRecipientContactPersonLastName(),
                 'phone' => $request->getRecipientContactPhoneNumber(),
                 'email' => $request->getRecipientEmail(),
-            ),
+            ],
             'packageDescription' => $this->_buildPackageDescription($request),
             'mailClass' => $this->_mapServiceCode($request->getShippingMethod()),
             'paymentInfo' => $this->_buildPaymentInfo(),
             'CRID' => $this->_config['crid'],
             'MID' => $this->_config['mid'],
-        );
+        ];
 
         if (isset($this->_config['manifest_mid']) && $this->_config['manifest_mid'] !== '' && $this->_config['manifest_mid'] !== null) {
             $payload['manifestMID'] = $this->_config['manifest_mid'];
@@ -243,7 +243,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service
     /**
      * Build international label API request payload
      *
-     * @param Varien_Object $request
+     * @param  Varien_Object $request
      * @return array
      */
     protected function _buildInternationalLabelRequest(Varien_Object $request)
@@ -261,7 +261,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service
     /**
      * Build package description for API
      *
-     * @param Varien_Object $request
+     * @param  Varien_Object $request
      * @return array
      */
     protected function _buildPackageDescription(Varien_Object $request)
@@ -270,10 +270,10 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service
         $params = $request->getPackageParams();
         $weightOz = $weight * 16;
 
-        $package = array(
+        $package = [
             'weightOZ' => round($weightOz, 2),
             'mailClass' => $this->_mapServiceCode($request->getShippingMethod()),
-        );
+        ];
 
         if ($params) {
             if ($params->getLength()) {
@@ -297,9 +297,9 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service
      */
     protected function _buildPaymentInfo()
     {
-        $payment = array(
+        $payment = [
             'paymentType' => $this->_config['account_type'],
-        );
+        ];
 
         if (isset($this->_config['eps_account_number']) && $this->_config['eps_account_number'] !== '' && $this->_config['eps_account_number'] !== null) {
             $payment['accountNumber'] = $this->_config['eps_account_number'];
@@ -315,47 +315,47 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service
     /**
      * Build customs declaration for international labels
      *
-     * @param Varien_Object $request
+     * @param  Varien_Object $request
      * @return array
      */
     protected function _buildCustomsDeclaration(Varien_Object $request)
     {
-        $items = $request->getPackageItems() ?: array();
-        $customsItems = array();
+        $items = $request->getPackageItems() ?: [];
+        $customsItems = [];
 
         foreach ($items as $item) {
-            $customsItems[] = array(
+            $customsItems[] = [
                 'description' => substr(isset($item['name']) ? $item['name'] : 'Merchandise', 0, 60),
                 'quantity' => (int) (isset($item['qty']) ? $item['qty'] : 1),
                 'value' => (float) (isset($item['customs_value']) ? $item['customs_value'] : (isset($item['price']) ? $item['price'] : 0)),
                 'weight' => (float) (isset($item['weight']) ? $item['weight'] : 0),
                 'HSCode' => isset($item['hs_code']) ? $item['hs_code'] : '',
                 'countryOfOrigin' => isset($item['country_of_manufacture']) ? $item['country_of_manufacture'] : 'US',
-            );
+            ];
         }
 
-        return array(
+        return [
             'contents' => 'MERCHANDISE',
             'nonDeliveryOption' => 'RETURN',
             'customsItems' => $customsItems,
-        );
+        ];
     }
 
     /**
      * Format address for API request
      *
-     * @param string|array $street
-     * @param Varien_Object $request
-     * @param string $type 'shipper' or 'recipient'
+     * @param  array|string  $street
+     * @param  Varien_Object $request
+     * @param  string        $type    'shipper' or 'recipient'
      * @return array
      */
     protected function _formatAddress($street, Varien_Object $request, $type)
     {
         $prefix = $type === 'shipper' ? 'shipper' : 'recipient';
-        $streetLines = is_array($street) ? $street : array($street);
+        $streetLines = is_array($street) ? $street : [$street];
         $postalCode = preg_replace('/[^0-9]/', '', $request->getData($prefix . '_address_postal_code'));
 
-        return array(
+        return [
             'streetAddress' => isset($streetLines[0]) ? $streetLines[0] : '',
             'secondaryAddress' => isset($streetLines[1]) ? $streetLines[1] : '',
             'city' => $request->getData($prefix . '_address_city'),
@@ -363,7 +363,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service
             'ZIPCode' => substr($postalCode, 0, 5),
             'ZIPPlus4' => strlen($postalCode) > 5 ? substr($postalCode, 5, 4) : null,
             'urbanization' => null,
-        );
+        ];
     }
 
     /**
@@ -373,16 +373,16 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service
      */
     protected function _getOriginAddress()
     {
-        return array(
+        return [
             Mage::getStoreConfig('shipping/origin/street_line1'),
             Mage::getStoreConfig('shipping/origin/street_line2'),
-        );
+        ];
     }
 
     /**
      * Map Magento shipping method code to USPS mail class
      *
-     * @param string $methodCode
+     * @param  string $methodCode
      * @return string
      */
     protected function _mapServiceCode($methodCode)
@@ -395,8 +395,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service
     /**
      * Parse label creation API response
      *
-     * @param array $data
-     * @param Varien_Object $result
+     * @param  array         $data
+     * @param  Varien_Object $result
      * @return Varien_Object
      */
     protected function _parseLabelResponse(array $data, Varien_Object $result)
@@ -431,8 +431,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service
     /**
      * Parse international label creation API response
      *
-     * @param array $data
-     * @param Varien_Object $result
+     * @param  array         $data
+     * @param  Varien_Object $result
      * @return Varien_Object
      */
     protected function _parseInternationalLabelResponse(array $data, Varien_Object $result)
@@ -453,7 +453,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service
     /**
      * Cancel a shipping label
      *
-     * @param string $trackingNumber
+     * @param  string $trackingNumber
      * @return bool
      */
     public function cancelLabel($trackingNumber)
@@ -462,11 +462,11 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service
             $client = $this->_getClient();
             $response = $client->cancelLabel($trackingNumber);
 
-            $this->_debug(array(
+            $this->_debug([
                 'action' => 'cancel_label',
                 'tracking_number' => $trackingNumber,
                 'response' => $response,
-            ));
+            ]);
 
             return $response['success'];
 
@@ -479,7 +479,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service
     /**
      * Extract error message from API response
      *
-     * @param array $response
+     * @param  array  $response
      * @return string
      */
     protected function _extractErrorMessage(array $response)
@@ -502,7 +502,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service
     /**
      * Debug logging
      *
-     * @param array $data
+     * @param  array $data
      * @return void
      */
     protected function _debug(array $data)
@@ -519,7 +519,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service
             'USPS LabelService: ' . json_encode($data),
             Zend_Log::DEBUG,
             'shipping_usps.log',
-            true
+            true,
         );
     }
 }

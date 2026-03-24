@@ -89,7 +89,7 @@ class Mage_Usa_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Define if we need girth parameter in the package window
      *
-     * @param string $shippingMethod
+     * @param  string $shippingMethod
      * @return bool
      */
     public function displayGirthValue($shippingMethod)
@@ -146,7 +146,7 @@ class Mage_Usa_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Check if USPS address verification is enabled
      *
-     * @param mixed $store
+     * @param  mixed $store
      * @return bool
      */
     public function isAddressVerificationEnabled($store = null)
@@ -157,7 +157,7 @@ class Mage_Usa_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Check if USPS delivery estimates are enabled
      *
-     * @param mixed $store
+     * @param  mixed $store
      * @return bool
      */
     public function isDeliveryEstimatesEnabled($store = null)
@@ -168,7 +168,7 @@ class Mage_Usa_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Check if USPS labels are enabled
      *
-     * @param mixed $store
+     * @param  mixed $store
      * @return bool
      */
     public function isLabelsEnabled($store = null)
@@ -179,7 +179,7 @@ class Mage_Usa_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get USPS API cache TTL
      *
-     * @param mixed $store
+     * @param  mixed $store
      * @return int
      */
     public function getCacheTtl($store = null)
@@ -188,6 +188,6 @@ class Mage_Usa_Helper_Data extends Mage_Core_Helper_Abstract
         if ($ttl === null || $ttl === '') {
             return 3600;
         }
-        return (int)$ttl;
+        return (int) $ttl;
     }
 }

@@ -81,8 +81,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Source_Accounttype
     /**
      * Check if account type is valid
      *
-     * @param string $accountType Account type to validate
-     * @return bool True if valid account type
+     * @param  string $accountType Account type to validate
+     * @return bool   True if valid account type
      */
     public function isValidAccountType($accountType)
     {
@@ -92,8 +92,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Source_Accounttype
     /**
      * Check if account type requires permit ZIP
      *
-     * @param string $accountType Account type to check
-     * @return bool True if permit ZIP is required
+     * @param  string $accountType Account type to check
+     * @return bool   True if permit ZIP is required
      */
     public function requiresPermitZip($accountType)
     {

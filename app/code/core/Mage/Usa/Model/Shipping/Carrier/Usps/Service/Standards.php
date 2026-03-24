@@ -21,12 +21,12 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Service_Standards
     /**
      * Cache key prefix for service standards
      */
-    const CACHE_KEY_PREFIX = 'usps_service_standards_';
+    public const CACHE_KEY_PREFIX = 'usps_service_standards_';
 
     /**
      * Cache TTL for service standards (24 hours default - these don't change often)
      */
-    const CACHE_TTL = 86400;
+    public const CACHE_TTL = 86400;
 
     /**
      * @var Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
@@ -43,7 +43,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Service_Standards
      *
      * @var array
      */
-    protected $_mailClassMapping = array(
+    protected $_mailClassMapping = [
         'USPS_GROUND_ADVANTAGE' => 'USPS_GROUND_ADVANTAGE',
         'PRIORITY_MAIL' => 'PRIORITY',
         'PRIORITY_MAIL_EXPRESS' => 'PRIORITY_MAIL_EXPRESS',
@@ -52,12 +52,12 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Service_Standards
         'MEDIA_MAIL' => 'MEDIA',
         'LIBRARY_MAIL' => 'LIBRARY',
         'BOUND_PRINTED_MATTER' => 'BPM',
-    );
+    ];
 
     /**
      * Constructor
      *
-     * @param Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client|null $client
+     * @param null|Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client $client
      */
     public function __construct($client = null)
     {
@@ -96,7 +96,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Service_Standards
     /**
      * Check if delivery estimates feature is enabled
      *
-     * @param int|null $storeId Store ID
+     * @param  null|int $storeId Store ID
      * @return bool
      */
     public function isEnabled($storeId = null)
@@ -108,39 +108,39 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Service_Standards
     /**
      * Get delivery estimate for a single mail class
      *
-     * @param string $originZip 5-digit origin ZIP code
-     * @param string $destZip 5-digit destination ZIP code
-     * @param string $mailClass Mail class code
-     * @param string|null $acceptDate Acceptance date (Y-m-d format)
-     * @return array|null
+     * @param  string      $originZip  5-digit origin ZIP code
+     * @param  string      $destZip    5-digit destination ZIP code
+     * @param  string      $mailClass  Mail class code
+     * @param  null|string $acceptDate Acceptance date (Y-m-d format)
+     * @return null|array
      */
     public function getEstimate($originZip, $destZip, $mailClass, $acceptDate = null)
     {
-        $estimates = $this->getEstimates($originZip, $destZip, array($mailClass), $acceptDate);
+        $estimates = $this->getEstimates($originZip, $destZip, [$mailClass], $acceptDate);
         return isset($estimates[$mailClass]) ? $estimates[$mailClass] : null;
     }
 
     /**
      * Get delivery estimates for multiple mail classes
      *
-     * @param string $originZip 5-digit origin ZIP code
-     * @param string $destZip 5-digit destination ZIP code
-     * @param array $mailClasses Array of mail class codes
-     * @param string|null $acceptDate Acceptance date (Y-m-d format)
-     * @return array Keyed by mail class code
+     * @param  string      $originZip   5-digit origin ZIP code
+     * @param  string      $destZip     5-digit destination ZIP code
+     * @param  array       $mailClasses Array of mail class codes
+     * @param  null|string $acceptDate  Acceptance date (Y-m-d format)
+     * @return array       Keyed by mail class code
      */
     public function getEstimates($originZip, $destZip, array $mailClasses, $acceptDate = null)
     {
         if ($mailClasses === [] || $mailClasses === null) {
-            return array();
+            return [];
         }
 
         $originZip = $this->_cleanZip($originZip);
         $destZip = $this->_cleanZip($destZip);
         $acceptDate = $acceptDate ?: date('Y-m-d');
 
-        $estimates = array();
-        $uncached = array();
+        $estimates = [];
+        $uncached = [];
 
         // Check cache first
         foreach ($mailClasses as $mailClass) {
@@ -171,8 +171,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Service_Standards
                 Mage::app()->getCache()->save(
                     json_encode($estimate),
                     $cacheKey,
-                    array('usps_service_standards'),
-                    self::CACHE_TTL
+                    ['usps_service_standards'],
+                    self::CACHE_TTL,
                 );
             }
         }
@@ -183,25 +183,25 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Service_Standards
     /**
      * Fetch estimates from USPS Service Standards API
      *
-     * @param string $originZip
-     * @param string $destZip
-     * @param array $mailClasses
-     * @param string $acceptDate
+     * @param  string $originZip
+     * @param  string $destZip
+     * @param  array  $mailClasses
+     * @param  string $acceptDate
      * @return array
      */
     protected function _fetchEstimatesFromApi($originZip, $destZip, array $mailClasses, $acceptDate)
     {
-        $estimates = array();
+        $estimates = [];
         $client = $this->_getClient();
 
         foreach ($mailClasses as $mailClass) {
             $apiMailClass = $this->_mapToApiMailClass($mailClass);
             if (!$apiMailClass) {
-                $this->_debug(array(
+                $this->_debug([
                     'action' => 'service_standards_skip',
                     'mail_class' => $mailClass,
                     'reason' => 'No API mapping',
-                ));
+                ]);
                 continue;
             }
 
@@ -210,16 +210,16 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Service_Standards
                 urlencode($originZip),
                 urlencode($destZip),
                 urlencode($apiMailClass),
-                urlencode($acceptDate)
+                urlencode($acceptDate),
             );
 
             $response = $client->getWithRetry($endpoint, true, 2);
 
-            $this->_debug(array(
+            $this->_debug([
                 'action' => 'service_standards_request',
                 'endpoint' => $endpoint,
                 'response' => $response,
-            ));
+            ]);
 
             if ($response['success'] && isset($response['data']) && $response['data'] !== [] && $response['data'] !== null) {
                 $estimate = $this->_parseEstimateResponse($response['data']);
@@ -235,8 +235,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Service_Standards
     /**
      * Parse USPS Service Standards API response
      *
-     * @param array $data API response data
-     * @return array|null Parsed estimate or null
+     * @param  array      $data API response data
+     * @return null|array Parsed estimate or null
      */
     protected function _parseEstimateResponse(array $data)
     {
@@ -251,34 +251,34 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Service_Standards
             $diff = $today->diff($delivery);
             $days = $diff->days;
 
-            return array(
+            return [
                 'min_days' => $days,
                 'max_days' => $days,
                 'scheduled_date' => $scheduledDate,
                 'display' => $this->_formatDeliveryDisplay($days, $days, $scheduledDate),
-            );
+            ];
         }
 
         if ($deliveryDays && preg_match('/(\d+)(?:-(\d+))?\s*(?:day|business day)/i', $deliveryDays, $matches)) {
             $minDays = (int) $matches[1];
             $maxDays = isset($matches[2]) ? (int) $matches[2] : $minDays;
 
-            return array(
+            return [
                 'min_days' => $minDays,
                 'max_days' => $maxDays,
                 'scheduled_date' => null,
                 'display' => $this->_formatDeliveryDisplay($minDays, $maxDays, null),
-            );
+            ];
         }
 
         if (isset($standard['deliveryDays']) && is_numeric($standard['deliveryDays'])) {
             $days = (int) $standard['deliveryDays'];
-            return array(
+            return [
                 'min_days' => $days,
                 'max_days' => $days,
                 'scheduled_date' => null,
                 'display' => $this->_formatDeliveryDisplay($days, $days, null),
-            );
+            ];
         }
 
         return null;
@@ -287,9 +287,9 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Service_Standards
     /**
      * Format delivery estimate for display
      *
-     * @param int $minDays
-     * @param int $maxDays
-     * @param string|null $scheduledDate
+     * @param  int         $minDays
+     * @param  int         $maxDays
+     * @param  null|string $scheduledDate
      * @return string
      */
     protected function _formatDeliveryDisplay($minDays, $maxDays, $scheduledDate)
@@ -318,8 +318,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Service_Standards
     /**
      * Map internal mail class to USPS API mail class
      *
-     * @param string $mailClass
-     * @return string|null
+     * @param  string      $mailClass
+     * @return null|string
      */
     protected function _mapToApiMailClass($mailClass)
     {
@@ -341,26 +341,26 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Service_Standards
     /**
      * Generate cache key for service standards
      *
-     * @param string $originZip
-     * @param string $destZip
-     * @param string $mailClass
-     * @param string $acceptDate
+     * @param  string $originZip
+     * @param  string $destZip
+     * @param  string $mailClass
+     * @param  string $acceptDate
      * @return string
      */
     protected function _getCacheKey($originZip, $destZip, $mailClass, $acceptDate)
     {
-        return self::CACHE_KEY_PREFIX . hash('sha256', implode('_', array(
+        return self::CACHE_KEY_PREFIX . hash('sha256', implode('_', [
             $originZip,
             $destZip,
             $mailClass,
             $acceptDate,
-        )));
+        ]));
     }
 
     /**
      * Clean ZIP code to 5 digits
      *
-     * @param string $zip
+     * @param  string $zip
      * @return string
      */
     protected function _cleanZip($zip)
@@ -371,7 +371,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Service_Standards
     /**
      * Debug logging
      *
-     * @param array $data
+     * @param  array $data
      * @return void
      */
     protected function _debug(array $data)
@@ -384,7 +384,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Service_Standards
             'USPS ServiceStandards: ' . json_encode($data),
             Zend_Log::DEBUG,
             'shipping_usps.log',
-            true
+            true,
         );
     }
 }

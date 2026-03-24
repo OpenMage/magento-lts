@@ -1,4 +1,5 @@
 <?php
+
 /**
  * USPS Address Verification Controller
  *
@@ -41,14 +42,14 @@ class Mage_Usa_AddressController extends Mage_Core_Controller_Front_Action
      */
     public function verifyAction()
     {
-        $result = array(
+        $result = [
             'status' => 'error',
             'message' => '',
-            'original' => array(),
+            'original' => [],
             'corrected' => null,
-            'corrections' => array(),
-            'warnings' => array()
-        );
+            'corrections' => [],
+            'warnings' => [],
+        ];
 
         try {
             // Validate form key
@@ -68,13 +69,13 @@ class Mage_Usa_AddressController extends Mage_Core_Controller_Front_Action
             }
 
             // Build address data from POST
-            $addressData = array(
+            $addressData = [
                 'street1' => trim($this->getRequest()->getPost('street1', '')),
                 'street2' => trim($this->getRequest()->getPost('street2', '')),
                 'city' => trim($this->getRequest()->getPost('city', '')),
                 'region' => trim($this->getRequest()->getPost('region', '')),
-                'postcode' => trim($this->getRequest()->getPost('postcode', ''))
-            );
+                'postcode' => trim($this->getRequest()->getPost('postcode', '')),
+            ];
 
             // Store original for comparison
             $result['original'] = $addressData;
@@ -98,7 +99,7 @@ class Mage_Usa_AddressController extends Mage_Core_Controller_Front_Action
             if ($verificationResult['success']) {
                 $status = $verificationResult['status'];
                 $result['status'] = $status;
-                $result['warnings'] = isset($verificationResult['warnings']) ? $verificationResult['warnings'] : array();
+                $result['warnings'] = isset($verificationResult['warnings']) ? $verificationResult['warnings'] : [];
 
                 if ($status === Mage_Usa_Model_Shipping_Carrier_Usps_Address_Service::MATCH_CORRECTED) {
                     // Address was corrected
@@ -138,10 +139,10 @@ class Mage_Usa_AddressController extends Mage_Core_Controller_Front_Action
      */
     public function applyAction()
     {
-        $result = array(
+        $result = [
             'success' => false,
-            'message' => ''
-        );
+            'message' => '',
+        ];
 
         try {
             // Validate form key
@@ -152,13 +153,13 @@ class Mage_Usa_AddressController extends Mage_Core_Controller_Front_Action
             }
 
             // Build corrected address from POST
-            $correctedAddress = array(
+            $correctedAddress = [
                 'street1' => trim($this->getRequest()->getPost('street1', '')),
                 'street2' => trim($this->getRequest()->getPost('street2', '')),
                 'city' => trim($this->getRequest()->getPost('city', '')),
                 'region' => trim($this->getRequest()->getPost('region', '')),
-                'postcode' => trim($this->getRequest()->getPost('postcode', ''))
-            );
+                'postcode' => trim($this->getRequest()->getPost('postcode', '')),
+            ];
 
             // Apply correction to quote via service
             $addressService = $this->_getAddressService();
@@ -185,24 +186,24 @@ class Mage_Usa_AddressController extends Mage_Core_Controller_Front_Action
     /**
      * Build corrections array showing what changed
      *
-     * @param array $original Original address
-     * @param array $corrected Corrected address
+     * @param  array $original  Original address
+     * @param  array $corrected Corrected address
      * @return array
      */
     protected function _buildCorrections($original, $corrected)
     {
-        $corrections = array();
-        $fields = array('street1', 'street2', 'city', 'region', 'postcode');
+        $corrections = [];
+        $fields = ['street1', 'street2', 'city', 'region', 'postcode'];
 
         foreach ($fields as $field) {
             $origValue = isset($original[$field]) ? strtoupper(trim($original[$field])) : '';
             $corrValue = isset($corrected[$field]) ? strtoupper(trim($corrected[$field])) : '';
 
             if ($origValue !== $corrValue) {
-                $corrections[$field] = array(
+                $corrections[$field] = [
                     'original' => isset($original[$field]) ? $original[$field] : '',
-                    'corrected' => isset($corrected[$field]) ? $corrected[$field] : ''
-                );
+                    'corrected' => isset($corrected[$field]) ? $corrected[$field] : '',
+                ];
             }
         }
 
@@ -212,7 +213,7 @@ class Mage_Usa_AddressController extends Mage_Core_Controller_Front_Action
     /**
      * Send JSON response and exit
      *
-     * @param array $data Response data
+     * @param  array $data Response data
      * @return void
      */
     protected function _sendJsonResponse($data)
