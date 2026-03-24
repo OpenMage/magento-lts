@@ -178,13 +178,13 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Address_Service
         }
 
         // Check for warnings/footnotes
-        if (isset($data['warnings']) && $data['warnings'] !== [] && $data['warnings'] !== null) {
+        if (isset($data['warnings']) && $data['warnings'] !== []) {
             $warnings = is_array($data['warnings']) ? $data['warnings'] : [$data['warnings']];
         }
 
         // Check for address errors
         $addressErrors = $data['addressErrors'] ?? [];
-        if ($addressErrors !== [] && $addressErrors !== null) {
+        if ($addressErrors !== []) {
             foreach ($addressErrors as $error) {
                 $warnings[] = $error['message'] ?? 'Unknown address error';
             }
@@ -194,7 +194,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Address_Service
         $dpvConfirmation = $address['DPVConfirmation'] ?? null;
         if ($dpvConfirmation === 'Y') {
             // Full delivery point validation
-            $status = ($corrections === [] || $corrections === null) ? self::MATCH_EXACT : self::MATCH_CORRECTED;
+            $status = ($corrections === []) ? self::MATCH_EXACT : self::MATCH_CORRECTED;
         } elseif ($dpvConfirmation === 'D' || $dpvConfirmation === 'S') {
             // Partial match
             $status = self::MATCH_CORRECTED;
@@ -204,7 +204,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Address_Service
             $warnings[] = 'Address not found in USPS database.';
         } else {
             // No DPV data - fallback to corrections check
-            $status = ($corrections === [] || $corrections === null) ? self::MATCH_EXACT : self::MATCH_CORRECTED;
+            $status = ($corrections === []) ? self::MATCH_EXACT : self::MATCH_CORRECTED;
         }
 
         return [
@@ -313,23 +313,23 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Address_Service
      */
     public function applyCorrection(Mage_Customer_Model_Address_Abstract $address, array $corrected)
     {
-        if ($corrected === [] || $corrected === null) {
+        if ($corrected === []) {
             return false;
         }
 
         // Handle street specially (combine street1 + street2)
         $street = [$corrected['street1'] ?? ''];
-        if (isset($corrected['street2']) && $corrected['street2'] !== '' && $corrected['street2'] !== null) {
+        if (isset($corrected['street2']) && $corrected['street2'] !== '') {
             $street[] = $corrected['street2'];
         }
         $address->setStreet($street);
 
         // Set other fields
-        if (isset($corrected['city']) && $corrected['city'] !== '' && $corrected['city'] !== null) {
+        if (isset($corrected['city']) && $corrected['city'] !== '') {
             $address->setCity($corrected['city']);
         }
 
-        if (isset($corrected['region']) && $corrected['region'] !== '' && $corrected['region'] !== null) {
+        if (isset($corrected['region']) && $corrected['region'] !== '') {
             $address->setRegion($corrected['region']);
             // Also set region_id if we can find it
             $regionId = $this->_getRegionId($corrected['region'], $corrected['country_id'] ?? 'US');
@@ -338,7 +338,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Address_Service
             }
         }
 
-        if (isset($corrected['postcode']) && $corrected['postcode'] !== '' && $corrected['postcode'] !== null) {
+        if (isset($corrected['postcode']) && $corrected['postcode'] !== '') {
             $address->setPostcode($corrected['postcode']);
         }
 

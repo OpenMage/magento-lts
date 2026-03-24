@@ -81,13 +81,13 @@ class Mage_Usa_AddressController extends Mage_Core_Controller_Front_Action
             $result['original'] = $addressData;
 
             // Validate required fields
-            if ($addressData['street1'] === '' || $addressData['street1'] === null) {
+            if ($addressData['street1'] === '') {
                 $result['message'] = $this->__('Street address is required.');
                 $this->_sendJsonResponse($result);
                 return;
             }
 
-            if (($addressData['city'] === '' || $addressData['city'] === null) && ($addressData['postcode'] === '' || $addressData['postcode'] === null)) {
+            if ($addressData['city'] === '' && $addressData['postcode'] === '') {
                 $result['message'] = $this->__('City or ZIP code is required.');
                 $this->_sendJsonResponse($result);
                 return;

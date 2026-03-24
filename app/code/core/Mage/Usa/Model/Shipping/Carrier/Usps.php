@@ -433,19 +433,15 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
 
         // Sanitize sensitive billing identifiers before logging
         $sanitizedPayload = $payload;
-        if (is_array($sanitizedPayload['roles'])) {
-            foreach ($sanitizedPayload['roles'] as &$role) {
-                if (is_array($role)) {
-                    if (array_key_exists('accountNumber', $role)) {
-                        $role['accountNumber'] = '[REDACTED]';
-                    }
-                    if (array_key_exists('permitZIP', $role)) {
-                        $role['permitZIP'] = '[REDACTED]';
-                    }
-                }
+        foreach ($sanitizedPayload['roles'] as &$role) {
+            if (array_key_exists('accountNumber', $role)) {
+                $role['accountNumber'] = '[REDACTED]';
             }
-            unset($role);
+            if (array_key_exists('permitZIP', $role)) {
+                $role['permitZIP'] = '[REDACTED]';
+            }
         }
+        unset($role);
 
         $this->_debug([
             'message' => 'Requesting USPS payment authorization token',
@@ -836,6 +832,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
             : $r->getBaseSubtotalInclTax();
 
         // Sort by SKU to ensure consistent hash regardless of item order
+        /** @phpstan-ignore argument.unresolvableType */
         usort($cartData, function ($a, $b) {
             /** @var array|mixed $a */
             /** @var array|mixed $b */
@@ -1030,7 +1027,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
 
         $this->_debug(['message' => 'Final price array', 'count' => count($priceArr)]);
 
-        if ($priceArr === [] || $priceArr === null) {
+        if ($priceArr === []) {
             $this->_debug(['message' => 'No rates found - returning error']);
             $error = Mage::getModel('shipping/rate_result_error');
             $error->setCarrier('usps');
@@ -1055,7 +1052,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
 
                 // Append delivery estimate to method title if available
                 $methodTitle = $serviceCodeToNameMap[$method];
-                if (isset($deliveryEstimates[$method]['display']) && $deliveryEstimates[$method]['display'] !== '' && $deliveryEstimates[$method]['display'] !== null) {
+                if (isset($deliveryEstimates[$method]['display']) && $deliveryEstimates[$method]['display'] !== '') {
                     $methodTitle .= ' (' . $deliveryEstimates[$method]['display'] . ')';
                 }
                 $rate->setMethodTitle($methodTitle);
@@ -1715,7 +1712,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
 
         foreach ($allowed as $code) {
             $code = trim($code);
-            if ($code === '' || $code === null) {
+            if ($code === '') {
                 continue;
             }
 
@@ -2185,7 +2182,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
             $this->_debug(['message' => 'Label available via broker', 'brokerID' => $data['labelBrokerID']]);
         }
 
-        if ($trackingNumber === '' || $trackingNumber === null) {
+        if ($trackingNumber === '') {
             return $result;
         }
 
@@ -2318,7 +2315,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
             }
         }
 
-        if (($zip5 === '' || $zip5 === null) && ($zip4 === '' || $zip4 === null) && $returnFull) {
+        if ($zip5 === '' && $zip4 === '' && $returnFull) {
             $zip5 = $zipString;
         }
 

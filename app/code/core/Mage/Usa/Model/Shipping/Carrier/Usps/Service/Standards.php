@@ -131,7 +131,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Service_Standards
      */
     public function getEstimates($originZip, $destZip, array $mailClasses, $acceptDate = null)
     {
-        if ($mailClasses === [] || $mailClasses === null) {
+        if ($mailClasses === []) {
             return [];
         }
 
@@ -160,7 +160,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Service_Standards
         }
 
         // Fetch uncached estimates from API
-        if ($uncached !== [] && $uncached !== null) {
+        if ($uncached !== []) {
             $fetched = $this->_fetchEstimatesFromApi($originZip, $destZip, $uncached, $acceptDate);
 
             foreach ($fetched as $mailClass => $estimate) {
@@ -221,7 +221,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Service_Standards
                 'response' => $response,
             ]);
 
-            if ($response['success'] && isset($response['data']) && $response['data'] !== [] && $response['data'] !== null) {
+            if ($response['success'] && isset($response['data']) && $response['data'] !== []) {
                 $estimate = $this->_parseEstimateResponse($response['data']);
                 if ($estimate) {
                     $estimates[$mailClass] = $estimate;

@@ -26,6 +26,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Backend_Createdimensions extends Mage
     protected function _getElementHtml(Varien_Data_Form_Element_Abstract $element)
     {
         $buttonLabel = Mage::helper('usa')->__('Create Dimension Attributes');
+        /** @phpstan-ignore staticMethod.dynamicCall */
         $ajaxUrl = Mage::helper('adminhtml')->getUrl('adminhtml/usps/createdimensions');
 
         $html = '<button type="button" id="usps-create-dimensions-button" onclick="createUspsAttributes(\'' . $ajaxUrl . '\')" class="scalable">'

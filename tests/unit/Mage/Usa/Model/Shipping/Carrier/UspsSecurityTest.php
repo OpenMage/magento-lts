@@ -174,7 +174,6 @@ final class UspsSecurityTest extends OpenMageTest
         $result = json_decode($corrupt, true);
 
         self::assertNull($result, 'json_decode on corrupt data must return null');
-        self::assertFalse(is_array($result), 'Corrupt cache data must not pass is_array check');
     }
 
     // ──────────────────────────────────────────────
