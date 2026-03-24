@@ -114,9 +114,7 @@ Downloadable.FileUploader.prototype = {
                 })
         );
         if (document.getElementById(this.idName+'_save')) {
-            document.getElementById(this.idName+'_save').value = this.fileValue.toJSON
-               ? this.fileValue.toJSON()
-               : Object.toJSON(this.fileValue);
+            document.getElementById(this.idName+'_save').value = JSON.stringify(this.fileValue);
         }
         var uploaderConfig = (typeof this.config === 'string' ? JSON.parse(this.config) : this.config);
         Downloadable.setUploaderObj(
@@ -145,21 +143,21 @@ Downloadable.FileList.prototype = {
         this.containerId  = containerId,
         this.container = document.getElementById(this.containerId);
         this.uploader = uploader;
-        document.on('uploader:fileSuccess', function(event) {
-            var memo = event.memo;
+        document.addEventListener('uploader:fileSuccess', function(event) {
+            var memo = event.memo || event.detail || {};
             if(this._checkCurrentContainer(memo.containerId)) {
                 this.handleUploadComplete([{response: memo.response}]);
                 this.handleButtonsSwap();
             }
         }.bind(this));
-        document.on('uploader:fileError', function(event) {
-            var memo = event.memo;
+        document.addEventListener('uploader:fileError', function(event) {
+            var memo = event.memo || event.detail || {};
             if(this._checkCurrentContainer(memo.containerId)) {
                 this.handleButtonsSwap();
             }
         }.bind(this));
-        document.on('upload:simulateDelete', this.handleFileRemoveAll.bind(this));
-        document.on('uploader:simulateNewUpload', this.handleFileNew.bind(this));
+        document.addEventListener('upload:simulateDelete', this.handleFileRemoveAll.bind(this));
+        document.addEventListener('uploader:simulateNewUpload', this.handleFileNew.bind(this));
         this.file = JSON.parse(this.getElement('save').value);
         this.listTemplate = new Template(this.fileListTemplate, this.templatePattern);
         this.updateFiles();
@@ -220,9 +218,7 @@ Downloadable.FileList.prototype = {
         this.updateFiles();
     },
     updateFiles: function() {
-        this.getElement('save').value = this.file.toJSON
-            ? this.file.toJSON()
-            : Object.toJSON(this.file);
+        this.getElement('save').value = JSON.stringify(this.file);
         this.file.forEach(function(row){
             row.size = this.uploader.formatSize(row.size);
             document.getElementById(this.containerId + '-old').innerHTML = this.listTemplate.evaluate(row);

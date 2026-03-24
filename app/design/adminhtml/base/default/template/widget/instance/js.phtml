@@ -12,8 +12,8 @@
 //<![CDATA[
 function setSettings(urlTemplate, typeElement, packageThemeElement) {
     if (editForm.validator && editForm.validator.validate()) {
-        typeElement = $F(typeElement).replace(/\//g, '-');
-        packageThemeElement = $F(packageThemeElement).split(/\//g);
+        typeElement = document.getElementById(typeElement).value.replace(/\//g, '-');
+        packageThemeElement = document.getElementById(packageThemeElement).value.split(/\//g);
 
         setLocation(new Template(urlTemplate, /(^|.|\r|\n)({{(\w+)}})/).evaluate({
             'type': typeElement,
@@ -26,7 +26,7 @@ function setSettings(urlTemplate, typeElement, packageThemeElement) {
 }
 
 function saveAndContinueEdit() {
-    editForm.submit($('edit_form').action + 'back/edit/');
+    editForm.submit(document.getElementById('edit_form').action + 'back/edit/');
 }
 //]]>
 </script>

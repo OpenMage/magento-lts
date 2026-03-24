@@ -167,10 +167,10 @@ $numColumns = count($this->getColumns());
     <?php echo $this->getJsObjectName() ?>.useAjax = '<?php echo $this->getUseAjax() ?>';
     <?php if($this->getDateFilterVisibility()):?>
     <?php echo $this->getJsObjectName() ?>.doFilterCallback = validateFilterDate;
-    var period_date_from = $('period_date_from');
-    var period_date_to   = $('period_date_to');
-    period_date_from.advaiceContainer = $('period_date_from_advaice');
-    period_date_to.advaiceContainer = $('period_date_to_advaice');
+    var period_date_from = document.getElementById('period_date_from');
+    var period_date_to   = document.getElementById('period_date_to');
+    period_date_from.advaiceContainer = document.getElementById('period_date_from_advaice');
+    period_date_to.advaiceContainer = document.getElementById('period_date_to_advaice');
 
     function validateFilterDate()
     {
@@ -200,8 +200,9 @@ $numColumns = count($this->getColumns());
         var switchURL = '<?php echo $this->getAbsoluteGridUrl(['_current' => false]); ?>'.replace(/(store|group|website)\/\d+\//,'');
 
         for(var i=0;i<formParam.length;i++){
-            if ($(formParam[i]).value && $(formParam[i]).name) {
-                paramURL+= $(formParam[i]).name + '=' + escape($(formParam[i]).value) + '&';
+            var fpEl = document.getElementById(formParam[i]);
+            if (fpEl && fpEl.value && fpEl.name) {
+                paramURL+= fpEl.name + '=' + escape(fpEl.value) + '&';
             }
         }
         setLocation(switchURL + storeParam + '?' + paramURL);
