@@ -119,7 +119,7 @@ class Mage_Sales_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
      */
     protected function _addGridAttribute($table, $attribute, $attr, $entityTypeId)
     {
-        if (in_array($entityTypeId, $this->_flatEntitiesGrid) && !empty($attr['grid']), true) {
+        if (in_array($entityTypeId, $this->_flatEntitiesGrid, true) && !empty($attr['grid'])) {
             $columnDefinition = $this->_getAttributeColumnDefinition($attribute, $attr);
             $this->getConnection()->addColumn($this->getTable($table . '_grid'), $attribute, $columnDefinition);
         }
