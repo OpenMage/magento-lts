@@ -649,14 +649,14 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      */
     protected function _prepareCollection()
     {
-        if ($collection = $this->getCollection()) {
+        if ($this->getCollection()) {
             Mage::dispatchEvent('adminhtml_widget_grid_prepare_collection', [
-                'collection' => $collection,
+                'collection' => $this->getCollection(),
             ]);
 
             if ($this->_eventPrefix !== '') {
                 Mage::dispatchEvent($this->_eventPrefix . '_prepare_collection', [
-                    'collection' => $collection,
+                    'collection' => $this->getCollection(),
                 ]);
             }
 
@@ -689,7 +689,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
 
             if (!$this->_isExport) {
                 $this->_beforeLoadCollection();
-                $collection->load();
+                $this->getCollection()->load();
                 $this->_afterLoadCollection();
             }
         }
