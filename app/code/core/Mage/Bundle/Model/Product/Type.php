@@ -526,9 +526,10 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
         $skipSaleableCheck = Mage::helper('catalog/product')->getSkipSaleableCheck();
         $_appendAllSelections = (bool) $product->getSkipCheckRequiredOption() || $skipSaleableCheck;
 
+        /** @var null|array<int, string|string[]> $options */
         $options = $buyRequest->getBundleOption();
         if (is_array($options)) {
-            $options = array_filter($options, \intval(...));
+            $options = array_filter($options, fn(mixed $o) => (int) $o !== 0);
             $qtys = $buyRequest->getBundleOptionQty();
             foreach ($options as $_optionId => $_selections) {
                 if (empty($_selections)) {
@@ -1001,11 +1002,13 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
      */
     public function processBuyRequest($product, $buyRequest)
     {
+        /** @var null|array<int, string|string[]> $option */
         $option     = $buyRequest->getBundleOption();
+        /** @var null|string[] $optionQty */
         $optionQty  = $buyRequest->getBundleOptionQty();
 
-        $option     = (is_array($option)) ? array_filter($option, \intval(...)) : [];
-        $optionQty  = (is_array($optionQty)) ? array_filter($optionQty, \intval(...)) : [];
+        $option     = (is_array($option)) ? array_filter($option, fn(mixed $o) => (int) $o !== 0) : [];
+        $optionQty  = (is_array($optionQty)) ? array_filter($optionQty, fn(mixed $o) => (float) $o !== 0.0) : [];
 
         return [
             'bundle_option'     => $option,

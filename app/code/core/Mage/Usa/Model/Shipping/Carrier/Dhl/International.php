@@ -926,7 +926,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
             if (str_starts_with(trim($response), '<?xml')) {
                 $xml = simplexml_load_string($response);
                 if (is_object($xml)) {
-                    if (in_array($xml->getName(), ['ErrorResponse', 'ShipmentValidateErrorResponse'])
+                    if (in_array($xml->getName(), ['ErrorResponse', 'ShipmentValidateErrorResponse'], true)
                         || isset($xml->GetQuoteResponse->Note->Condition)) {
                         $code = null;
                         $data = null;
