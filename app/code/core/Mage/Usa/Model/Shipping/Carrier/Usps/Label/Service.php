@@ -345,8 +345,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service
     /**
      * Format address for API request
      *
-     * @param  array|string  $street
-     * @param  string        $type    'shipper' or 'recipient'
+     * @param  array|string $street
+     * @param  string       $type   'shipper' or 'recipient'
      * @return array
      */
     protected function _formatAddress($street, Varien_Object $request, $type)

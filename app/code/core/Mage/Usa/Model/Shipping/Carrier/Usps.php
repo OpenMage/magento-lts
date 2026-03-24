@@ -245,16 +245,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
     }
 
     /**
-     * Check if carrier is active - override to add logging
-     *
-     * @return bool
-     */
-    public function isActive()
-    {
-        return null;
-    }
-
-    /**
      * @inheritDoc
      * Returns true if label generation is enabled and all required credentials are configured.
      * Requires: enable_labels=Yes, CRID, MID, and EPS Account Number.
