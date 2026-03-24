@@ -80,23 +80,23 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Tracking_Service
 
         foreach ($trackingNumbers as $tracking) {
             $url = rtrim($baseUrl, '/') . '/' . self::TRACKING_ENDPOINT . urlencode($tracking);
-            $queryString = '?' . http_build_query(array('expand' => 'DETAIL'));
+            $queryString = '?' . http_build_query(['expand' => 'DETAIL']);
 
-            $debugData = array(
-                'request' => array(
+            $debugData = [
+                'request' => [
                     'tracking_number' => $tracking,
                     'endpoint' => self::TRACKING_ENDPOINT . $tracking,
                     'expand' => 'DETAIL',
-                ),
+                ],
                 '__pid' => getmypid(),
-            );
+            ];
             $this->_debug($debugData);
 
             try {
-                $headers = array(
+                $headers = [
                     'Content-Type: ' . self::CONTENT_TYPE_JSON,
                     'Authorization: ' . self::AUTHORIZATION_BEARER . $accessToken,
-                );
+                ];
 
                 $ch = curl_init();
                 curl_setopt($ch, CURLOPT_URL, $url . $queryString);
@@ -112,10 +112,10 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Tracking_Service
                 if ($jsonResponse === false) {
                     $error = curl_error($ch);
                     curl_close($ch);
-                    $this->_debug(array(
+                    $this->_debug([
                         'error' => $error,
                         '__pid' => getmypid(),
-                    ));
+                    ]);
                     $this->_setTrackingError($tracking, 'Network error: ' . $error);
                     continue;
                 }
@@ -123,17 +123,17 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Tracking_Service
                 curl_close($ch);
 
                 // Log response
-                $this->_debug(array(
+                $this->_debug([
                     'result' => $jsonResponse,
                     '__pid' => getmypid(),
-                ));
+                ]);
 
                 $this->_parseRestTrackingResponse((string) $tracking, $jsonResponse);
             } catch (Exception $e) {
-                $this->_debug(array(
+                $this->_debug([
                     'error' => $e->getMessage(),
                     '__pid' => getmypid(),
-                ));
+                ]);
                 $this->_setTrackingError($tracking, self::ERROR_TITLE_DEFAULT);
             }
         }
@@ -151,8 +151,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Tracking_Service
     protected function _parseRestTrackingResponse($trackingValue, $jsonResponse)
     {
         $errorTitle = self::ERROR_TITLE_DEFAULT;
-        $resultArr = array();
-        $packageProgress = array();
+        $resultArr = [];
+        $packageProgress = [];
 
         if (!$jsonResponse) {
             $this->_setTrackingError($trackingValue, $errorTitle);
@@ -180,7 +180,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Tracking_Service
         }
 
         // Parse tracking events
-        $trackingEvents = isset($responseData['trackingEvents']) ? $responseData['trackingEvents'] : array();
+        $trackingEvents = isset($responseData['trackingEvents']) ? $responseData['trackingEvents'] : [];
 
         if (is_array($trackingEvents)) {
             foreach ($trackingEvents as $activityTag) {
@@ -208,7 +208,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Tracking_Service
      * Process activity tag from REST API response
      *
      * @param array $activityTag Event data from response
-     * @param array $packageProgress Reference to progress array
+     * @param  array $packageProgress Reference to progress array
      * @return void
      */
     protected function _processActivityRestTagInfo(array $activityTag, array &$packageProgress)
@@ -229,7 +229,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Tracking_Service
         $time = $eventTimestamp->format('H:i:s');
 
         // Build location string
-        $locationParts = array();
+        $locationParts = [];
         if (isset($activityTag['eventCity'])) {
             $locationParts[] = $activityTag['eventCity'];
         }
@@ -243,19 +243,19 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Tracking_Service
             $locationParts[] = $activityTag['eventCountry'];
         }
 
-        $packageProgress[] = array(
+        $packageProgress[] = [
             'activity' => (string) (isset($activityTag['eventType']) ? $activityTag['eventType'] : ''),
             'deliverydate' => $date,
             'deliverytime' => $time,
             'deliverylocation' => implode(', ', $locationParts),
-        );
+        ];
     }
 
     /**
      * Set tracking error result
      *
-     * @param string $trackingValue Tracking number
-     * @param string $errorMessage Error message
+     * @param  string $trackingValue Tracking number
+     * @param  string $errorMessage  Error message
      * @return void
      */
     protected function _setTrackingError($trackingValue, $errorMessage)
@@ -284,7 +284,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Tracking_Service
     /**
      * Debug logging
      *
-     * @param array $debugData
+     * @param  array $debugData
      * @return void
      */
     protected function _debug(array $debugData)

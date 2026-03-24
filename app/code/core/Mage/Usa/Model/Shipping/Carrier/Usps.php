@@ -1689,6 +1689,9 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
         
         // If no methods configured, return empty (force admin to configure)
         if ($configMethods === '' || $configMethods === null) {
+            return [];
+        }
+
         // Filter to only configured methods
         $allowed = explode(',', $configMethods);
         $arr = [];
@@ -2041,11 +2044,11 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
         $packageWeight = $request->getPackageWeight();
         
         // Convert weight to pounds if needed
-        if ($packageParams && $packageParams->getWeightUnits() && $packageParams->getWeightUnits() != Zend_Measure_Weight::POUND) {
+        if ($packageParams && $packageParams->getWeightUnits() && $packageParams->getWeightUnits() != Mage_Core_Helper_Measure_Weight::POUND) {
             $packageWeight = Mage::helper('usa')->convertMeasureWeight(
                 $packageWeight,
                 $packageParams->getWeightUnits(),
-                Zend_Measure_Weight::POUND
+                Mage_Core_Helper_Measure_Weight::POUND
             );
         }
         

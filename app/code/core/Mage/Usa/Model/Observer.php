@@ -41,7 +41,7 @@ class Mage_Usa_Model_Observer
      *
      * Event: checkout_controller_onepage_save_shipping_address
      *
-     * @param Varien_Event_Observer $observer
+     * @param  Varien_Event_Observer $observer
      * @return Mage_Usa_Model_Observer
      */
     public function logShippingAddressVerification($observer)
@@ -70,13 +70,13 @@ class Mage_Usa_Model_Observer
 
             // Build address data
             $street = $shippingAddress->getStreet();
-            $addressData = array(
+            $addressData = [
                 'street1' => isset($street[0]) ? $street[0] : '',
                 'street2' => isset($street[1]) ? $street[1] : '',
                 'city' => $shippingAddress->getCity(),
                 'region' => $shippingAddress->getRegionCode(),
-                'postcode' => $shippingAddress->getPostcode()
-            );
+                'postcode' => $shippingAddress->getPostcode(),
+            ];
 
             // Log verification attempt (don't block checkout if it fails)
             $result = $addressService->verifyFromArray($addressData);
@@ -115,7 +115,7 @@ class Mage_Usa_Model_Observer
      * This provides a final check before order is placed.
      * If verification fails, we log but don't block (per business requirement).
      *
-     * @param Varien_Event_Observer $observer
+     * @param  Varien_Event_Observer $observer
      * @return Mage_Usa_Model_Observer
      */
     public function validateOrderAddress($observer)
@@ -157,7 +157,7 @@ class Mage_Usa_Model_Observer
      *
      * Event: sales_order_shipment_save_before
      *
-     * @param Varien_Event_Observer $observer
+     * @param  Varien_Event_Observer $observer
      * @return Mage_Usa_Model_Observer
      */
     public function prepareShipmentForLabels($observer)
