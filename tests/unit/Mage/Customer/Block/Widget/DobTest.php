@@ -16,12 +16,12 @@ use OpenMage\Tests\Unit\OpenMageTest;
 
 final class DobTest extends OpenMageTest
 {
-    public Subject $subject;
+    private static Subject $subject;
 
-    protected function setUp(): void
+    public static function setUpBeforeClass(): void
     {
-        parent::setUp();
-        $this->subject = new Subject();
+        parent::setUpBeforeClass();
+        self::$subject = new Subject();
     }
 
     /**
@@ -33,8 +33,9 @@ final class DobTest extends OpenMageTest
      */
     public function testGetYear(string $expectedYear, string $date): void
     {
-        $this->subject->setDate($date);
-        self::assertSame($expectedYear, $this->subject->getYear());
+        $subject = new Subject();
+        $subject->setDate($date);
+        self::assertSame($expectedYear, $subject->getYear());
     }
 
     /**
@@ -59,6 +60,6 @@ final class DobTest extends OpenMageTest
      */
     public function testGetYearWithNoDate(): void
     {
-        self::assertSame('', $this->subject->getYear());
+        self::assertSame('', self::$subject->getYear());
     }
 }
