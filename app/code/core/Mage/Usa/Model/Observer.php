@@ -71,6 +71,9 @@ class Mage_Usa_Model_Observer
 
             // Build address data
             $street = $shippingAddress->getStreet();
+            if (!is_array($street)) {
+                $street = [(string) $street];
+            }
             $addressData = [
                 'street1' => $street[0] ?? '',
                 'street2' => $street[1] ?? '',

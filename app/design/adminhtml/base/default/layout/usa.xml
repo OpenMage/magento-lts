@@ -11,12 +11,9 @@
     <adminhtml_system_config_edit>
         <reference name="head">
             <action method="addItem">
-                <type>skin_js</type>
-                <name>js/mage/adminhtml/usps_config.js</name>
+                <type>js</type>
+                <name>mage/adminhtml/usps_config.js</name>
             </action>
-        </reference>
-        <reference name="content">
-            <block type="adminhtml/template" name="usps.config" template="system/shipping/usps.phtml" />
         </reference>
     </adminhtml_system_config_edit>
 </layout>

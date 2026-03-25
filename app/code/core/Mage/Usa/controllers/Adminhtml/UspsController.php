@@ -55,6 +55,7 @@ class Mage_Usa_Adminhtml_UspsController extends Mage_Adminhtml_Controller_Action
             ]));
             curl_setopt($ch, CURLOPT_TIMEOUT, 30);
             curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
 
             $response = curl_exec($ch);
             $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
@@ -122,7 +123,7 @@ class Mage_Usa_Adminhtml_UspsController extends Mage_Adminhtml_Controller_Action
             }
         }
 
-        if ($value && str_contains($path, 'client_id') || str_contains($path, 'client_secret')) {
+        if ($value && (str_contains($path, 'client_id') || str_contains($path, 'client_secret'))) {
             return Mage::helper('core')->decrypt($value);
         }
 
@@ -181,6 +182,25 @@ class Mage_Usa_Adminhtml_UspsController extends Mage_Adminhtml_Controller_Action
                         'note' => '',
                     ]);
                     $attribute->save();
+
+                    // Add to Default attribute set
+                    $entityTypeId = Mage::getModel('catalog/product')->getResource()->getTypeId();
+                    $defaultSetId = Mage::getModel('eav/entity_type')->load($entityTypeId)->getDefaultAttributeSetId();
+                    $generalGroupId = Mage::getResourceModel('eav/entity_attribute_group_collection')
+                        ->setAttributeSetFilter($defaultSetId)
+                        ->addFieldToFilter('attribute_group_name', 'General')
+                        ->getFirstItem()
+                        ->getId();
+                    if ($generalGroupId) {
+                        Mage::getModel('eav/entity_attribute')
+                            ->setEntityTypeId($entityTypeId)
+                            ->setAttributeSetId($defaultSetId)
+                            ->setAttributeGroupId($generalGroupId)
+                            ->setAttributeId($attribute->getId())
+                            ->setSortOrder(100)
+                            ->save();
+                    }
+
                     $created[] = $code;
                 } else {
                     $existing[] = $code;
@@ -217,6 +237,14 @@ class Mage_Usa_Adminhtml_UspsController extends Mage_Adminhtml_Controller_Action
 
     public function testRateQuoteAction()
     {
+        if (!$this->_validateFormKey()) {
+            $this->getResponse()->setBody(Mage::helper('core')->jsonEncode([
+                'success' => false,
+                'message' => 'Invalid form key. Please refresh the page and try again.',
+            ]));
+            return;
+        }
+
         $request = $this->getRequest();
         $environment = $request->getParam('environment');
         $clientId = $request->getParam('client_id');
@@ -252,6 +280,8 @@ class Mage_Usa_Adminhtml_UspsController extends Mage_Adminhtml_Controller_Action
                 'client_secret' => $clientSecret,
             ]));
             curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
 
             $tokenResponse = curl_exec($ch);
             $tokenHttpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
@@ -291,6 +321,8 @@ class Mage_Usa_Adminhtml_UspsController extends Mage_Adminhtml_Controller_Action
             ]);
             curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($rateRequest));
             curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
 
             $rateResponse = curl_exec($ch);
             $rateHttpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);

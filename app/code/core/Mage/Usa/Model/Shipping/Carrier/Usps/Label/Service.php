@@ -411,7 +411,12 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service
         }
 
         if (is_string($labelImage) && preg_match('/^[A-Za-z0-9+\/=]+$/', $labelImage)) {
-            $labelImage = base64_decode($labelImage);
+            $decoded = base64_decode($labelImage, true);
+            if ($decoded === false) {
+                $result->setErrors('Failed to decode label image');
+                return $result;
+            }
+            $labelImage = $decoded;
         }
 
         $result->setTrackingNumber($trackingNumber);
@@ -437,7 +442,10 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service
         if (isset($data['customsForm'])) {
             $customsForm = $data['customsForm'];
             if (is_string($customsForm) && preg_match('/^[A-Za-z0-9+\/=]+$/', $customsForm)) {
-                $customsForm = base64_decode($customsForm);
+                $decoded = base64_decode($customsForm, true);
+                if ($decoded !== false) {
+                    $customsForm = $decoded;
+                }
             }
 
             $result->setCustomsForm($customsForm);

@@ -81,6 +81,14 @@
                     </usa_prepare_shipment>
                 </observers>
             </sales_order_shipment_save_before>
+            <checkout_controller_onepage_save_shipping_address>
+                <observers>
+                    <usa_log_address_verification>
+                        <class>usa/observer</class>
+                        <method>logShippingAddressVerification</method>
+                    </usa_log_address_verification>
+                </observers>
+            </checkout_controller_onepage_save_shipping_address>
         </events>
     </global>
     <adminhtml>

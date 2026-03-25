@@ -166,9 +166,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
 
         $r->setGirth($girth);
 
-        // @customization Vitasalus: Calculate dimensions from product attributes
-        // instead of using request overrides. Falls back to config if no product
-        // dimensions found. See _calculatePackageDimensions() method below.
+        // Calculate dimensions from product attributes instead of using
+        // request overrides. Falls back to config if no product dimensions found.
         $dimensions = $this->_calculatePackageDimensions($request);
         $r->setHeight($dimensions['height']);
         $r->setLength($dimensions['length']);
@@ -2344,8 +2343,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
 
     /**
      * Calculate package dimensions from cart items
-     *
-     * @customization Vitasalus: Dynamic dimension calculation
      *
      * Iterates through cart items to determine package dimensions:
      * - Length/Width: Maximum of all items (largest item determines box size)

@@ -46,7 +46,9 @@ class Mage_Usa_Block_Adminhtml_System_Config_Form_Field_Usps_Createdimensions ex
 
         $ajaxUrl = Mage::helper('adminhtml')::getUrl('adminhtml/usps/createdimensions');
 
-        $html = '<button type="button" id="usps-create-dimensions-button" onclick="createUspsAttributes(\'' . $ajaxUrl . '\')" class="scalable">'
+        $html = '<button type="button" id="usps-create-dimensions-button"'
+              . ' data-ajax-url="' . $this->escapeUrl($ajaxUrl) . '"'
+              . ' class="scalable">'
               . '<span>' . $buttonLabel . '</span></button>';
         $html .= '<div id="usps-attr-result" style="margin-top:10px; font-weight:bold;">';
 
@@ -66,6 +68,16 @@ class Mage_Usa_Block_Adminhtml_System_Config_Form_Field_Usps_Createdimensions ex
         $html .= <<<'JAVASCRIPT'
 <script type="text/javascript">
 //<![CDATA[
+document.observe('dom:loaded', function() {
+    var button = document.getElementById('usps-create-dimensions-button');
+    if (button) {
+        button.onclick = function() {
+            var url = this.getAttribute('data-ajax-url');
+            createUspsAttributes(url);
+        };
+    }
+});
+
 function createUspsAttributes(url) {
     // Show loading message
     var resultDiv = document.getElementById('usps-attr-result');

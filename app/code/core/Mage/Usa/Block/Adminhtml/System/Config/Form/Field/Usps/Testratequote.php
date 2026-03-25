@@ -16,13 +16,29 @@ class Mage_Usa_Block_Adminhtml_System_Config_Form_Field_Usps_Testratequote exten
         $website = $this->getRequest()->getParam('website', '');
         $store = $this->getRequest()->getParam('store', '');
 
-        $html = '<button type="button" id="usps-test-rate-button" onclick="testUspsRateQuote(\'' . $ajaxUrl . "', '" . $website . "', '" . $store . '\')" class="scalable">'
+        $html = '<button type="button" id="usps-test-rate-button"'
+              . ' data-ajax-url="' . $this->escapeUrl($ajaxUrl) . '"'
+              . ' data-website="' . $this->escapeHtml($website) . '"'
+              . ' data-store="' . $this->escapeHtml($store) . '"'
+              . ' class="scalable">'
               . '<span>' . $buttonLabel . '</span></button>';
         $html .= '<div id="usps-rate-test-result" style="margin-top:10px;"></div>';
 
         return $html . <<<'JAVASCRIPT'
 <script type="text/javascript">
 //<![CDATA[
+document.observe('dom:loaded', function() {
+    var button = document.getElementById('usps-test-rate-button');
+    if (button) {
+        button.onclick = function() {
+            var url = this.getAttribute('data-ajax-url');
+            var website = this.getAttribute('data-website');
+            var store = this.getAttribute('data-store');
+            testUspsRateQuote(url, website, store);
+        };
+    }
+});
+
 function testUspsRateQuote(url, website, store) {
     var clientId = '';
     var clientSecret = '';

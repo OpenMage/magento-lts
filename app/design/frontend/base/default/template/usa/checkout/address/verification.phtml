@@ -352,25 +352,28 @@ document.observe('dom:loaded', function() {
 
 /**
  * Hook into onepage checkout to verify address before shipping save
+ *
+ * Only activates on onepage checkout pages (gated by window.checkout).
+ * On non-checkout pages the function returns immediately with no timers.
  */
 UspsAddressVerification.hookCheckout = function() {
     if (!this.config.enabled) return;
 
-    // Limit the number of attempts to avoid infinite polling on non-onepage pages
-    var attempts = 0;
-    var maxAttempts = 100; // 100 * 100ms = 10 seconds
+    // Gate: only proceed on onepage checkout pages
+    if (typeof window.checkout === 'undefined') return;
 
-    // Wait for shipping object to be available
+    // Shipping is normally available by DOM ready on onepage checkout.
+    // Short fallback retry (5 × 200ms = 1s) handles rare script-ordering cases.
+    var attempts = 0;
+    var maxAttempts = 5;
+
     var checkForShipping = function() {
         attempts++;
-
         if (typeof window.shipping !== 'undefined' && window.shipping.save) {
             this._hookShippingSave();
         } else if (attempts < maxAttempts) {
-            // Retry after a short delay while under the max attempt limit
-            setTimeout(checkForShipping, 100);
+            setTimeout(checkForShipping, 200);
         }
-        // If maxAttempts reached, stop polling silently (not a onepage checkout page)
     }.bind(this);
 
     checkForShipping();
