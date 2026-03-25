@@ -470,12 +470,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Sales/Order/Create/Form/Address.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Call to deprecated method isOutputEnabled() of class Mage_Adminhtml_Block_Template.',
-	'identifier' => 'method.deprecated',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Sales/Order/Create/Giftmessage.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Call to deprecated method getTaxAmount() of class Mage_Sales_Model_Quote_Item_Abstract.',
 	'identifier' => 'method.deprecated',
 	'count' => 2,
@@ -2367,13 +2361,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Product/Option/Type/File.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Call to deprecated method getQuoteItemOption() of class Mage_Catalog_Model_Product_Option_Type_Default:
-after 1.4.2.0',
-	'identifier' => 'method.deprecated',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Product/Option/Type/File.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 4,
@@ -3095,13 +3082,6 @@ $ignoreErrors[] = [
 	'identifier' => 'property.phpDocType',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/CatalogSearch/Model/Indexer/Fulltext.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Call to deprecated method getMinQueryLenght() of class Mage_CatalogSearch_Model_Query:
-after 1.3.2.3 use getMinQueryLength() instead',
-	'identifier' => 'method.deprecated',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/CatalogSearch/Model/Query.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
@@ -9025,12 +9005,6 @@ v19.4.16',
 	'identifier' => 'method.deprecated',
 	'count' => 1,
 	'path' => __DIR__ . '/tests/unit/Mage/AdminNotification/Helper/DataTest.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Call to deprecated method isOutputEnabled() of class Mage_Adminhtml_Block_Template.',
-	'identifier' => 'method.deprecated',
-	'count' => 1,
-	'path' => __DIR__ . '/tests/unit/Mage/Adminhtml/Block/TemplateTest.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Call to deprecated method getChartDataHash() of class Mage_Adminhtml_Helper_Dashboard_Data.',

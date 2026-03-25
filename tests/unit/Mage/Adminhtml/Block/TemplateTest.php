@@ -39,13 +39,13 @@ final class TemplateTest extends OpenMageTest
     }
 
     /**
-     * @covers Mage_Adminhtml_Block_Template::isOutputEnabled()
-     * @dataProvider provideIsOutputEnabled
+     * @covers Mage_Adminhtml_Block_Template::isModuleOutputEnabled()
+     * @dataProvider provideIsModuleOutputEnabledEnabledData
      * @group Block
      */
     public function testIsOutputEnabled(bool $expectedResult, ?string $moduleName): void
     {
-        self::assertSame($expectedResult, self::$subject->isOutputEnabled($moduleName));
+        self::assertSame($expectedResult, self::$subject->isModuleOutputEnabled($moduleName));
     }
 
     /**

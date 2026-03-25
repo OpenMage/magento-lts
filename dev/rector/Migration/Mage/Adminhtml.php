@@ -13,6 +13,7 @@ namespace OpenMage\Rector\Migration\Mage;
 
 use Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main;
 use Mage_Adminhtml_Block_Page_Footer;
+use Mage_Adminhtml_Block_Template;
 use Mage_Adminhtml_Block_Widget_Form;
 use Mage_Adminhtml_Block_Widget_Grid;
 use Mage_Adminhtml_Controller_Action;
@@ -32,6 +33,7 @@ final class Adminhtml
             new MethodCallRename(Mage_Adminhtml_Block_Page_Footer::class, 'getBugreportUrl', 'getReportIssuesUrl'),
             new MethodCallRename(Mage_Adminhtml_Block_Page_Footer::class, 'setConnectWithMagentoUrl', 'setOpenMageProjectUrl'),
             new MethodCallRename(Mage_Adminhtml_Block_Page_Footer::class, 'getConnectWithMagentoUrl', 'getOpenMageProjectUrl'),
+            new MethodCallRename(Mage_Adminhtml_Block_Template::class, 'isOutputEnabled', 'isModuleOutputEnabled'),
             new MethodCallRename(Mage_Adminhtml_Block_Widget_Form::class, 'getFormObject', 'getForm'),
             new MethodCallRename(Mage_Adminhtml_Controller_Action::class, '_sendUploadResponse', '_prepareDownloadResponse'),
         ];

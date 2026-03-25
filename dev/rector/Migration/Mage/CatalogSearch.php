@@ -11,11 +11,10 @@ declare(strict_types=1);
 
 namespace OpenMage\Rector\Migration\Mage;
 
-use Mage_Checkout_Block_Cart_Abstract;
-use Mage_Checkout_Model_Type_Onepage;
+use Mage_CatalogSearch_Model_Query;
 use Rector\Renaming\ValueObject\MethodCallRename;
 
-final class Checkout
+final class CatalogSearch
 {
     /**
      * @return MethodCallRename[]
@@ -23,8 +22,8 @@ final class Checkout
     public static function renameMethod(): array
     {
         return [
-            new MethodCallRename(Mage_Checkout_Block_Cart_Abstract::class, 'getItemRender', 'getItemRendererInfo'),
-            new MethodCallRename(Mage_Checkout_Model_Type_Onepage::class, 'getCheckoutMehod', 'getCheckoutMethod'),
+            new MethodCallRename(Mage_CatalogSearch_Model_Query::class, 'getMinQueryLenght', 'getMinQueryLength'),
+            new MethodCallRename(Mage_CatalogSearch_Model_Query::class, 'getMaxQueryLenght', 'getMaxQueryLength'),
         ];
     }
 }
