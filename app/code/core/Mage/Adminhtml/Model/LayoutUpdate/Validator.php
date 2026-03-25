@@ -27,7 +27,7 @@ class Mage_Adminhtml_Model_LayoutUpdate_Validator extends Mage_Core_Model_Valida
     /**
      * The Varien SimpleXml object
      *
-     * @var Varien_Simplexml_Element
+     * @inheritDoc
      */
     protected $_value;
 

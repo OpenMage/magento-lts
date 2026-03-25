@@ -31,7 +31,7 @@ class Mage_Core_Model_Layout_Validator extends Mage_Core_Model_Validate_Abstract
     /**
      * The Varien SimpleXml object
      *
-     * @var Varien_Simplexml_Element
+     * @inheritDoc
      */
     protected $_value;
 

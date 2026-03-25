@@ -38,7 +38,7 @@ class Mage_Core_Model_File_Validator_AvailablePath extends Mage_Core_Model_Valid
     /**
      * The path
      *
-     * @var string
+     * @inheritDoc
      */
     protected $_value;
 

@@ -17,7 +17,7 @@ abstract class Mage_Core_Model_Validate_Abstract implements Mage_Core_Model_Vali
     /**
      * The value to be validated
      *
-     * @var mixed
+     * @var string|Varien_Simplexml_Element
      */
     protected $_value;
 

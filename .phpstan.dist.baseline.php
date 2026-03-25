@@ -764,12 +764,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Model/Config/Data.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc type Varien_Simplexml_Element of property Mage_Adminhtml_Model_LayoutUpdate_Validator::$_value is not the same as PHPDoc type mixed of overridden property Mage_Core_Helper_Validate_Abstract::$_value.',
-	'identifier' => 'property.phpDocType',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Model/LayoutUpdate/Validator.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 13,
@@ -3566,18 +3560,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Core/Model/File/Uploader.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc type string of property Mage_Core_Model_File_Validator_AvailablePath::$_value is not the same as PHPDoc type mixed of overridden property Mage_Core_Helper_Validate_Abstract::$_value.',
-	'identifier' => 'property.phpDocType',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Core/Model/File/Validator/AvailablePath.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc type string of property Mage_Core_Model_File_Validator_NotProtectedExtension::$_value is not the same as PHPDoc type mixed of overridden property Mage_Core_Helper_Validate_Abstract::$_value.',
-	'identifier' => 'property.phpDocType',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Core/Model/File/Validator/NotProtectedExtension.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 4,
@@ -3642,12 +3624,6 @@ $ignoreErrors[] = [
 	'identifier' => 'empty.notAllowed',
 	'count' => 3,
 	'path' => __DIR__ . '/app/code/core/Mage/Core/Model/Layout/Update.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc type Varien_Simplexml_Element of property Mage_Core_Model_Layout_Validator::$_value is not the same as PHPDoc type mixed of overridden property Mage_Core_Helper_Validate_Abstract::$_value.',
-	'identifier' => 'property.phpDocType',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Core/Model/Layout/Validator.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',

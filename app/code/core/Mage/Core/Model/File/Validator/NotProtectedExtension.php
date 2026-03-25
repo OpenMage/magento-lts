@@ -19,7 +19,7 @@ class Mage_Core_Model_File_Validator_NotProtectedExtension extends Mage_Core_Mod
     /**
      * The file extension
      *
-     * @var string
+     * @inheritDoc
      */
     protected $_value;
 
