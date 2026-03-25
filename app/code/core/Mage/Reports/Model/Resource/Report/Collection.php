@@ -52,13 +52,6 @@ class Mage_Reports_Model_Resource_Report_Collection extends Varien_Data_Collecti
     protected $_intervals;
 
     /**
-     * Page size
-     *
-     * @inheritDoc
-     */
-    protected $_pageSize;
-
-    /**
      * Array of store ids
      *
      * @var array
@@ -212,23 +205,6 @@ class Mage_Reports_Model_Resource_Report_Collection extends Varien_Data_Collecti
     public function getSize()
     {
         return count($this->getIntervals());
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function setPageSize($size)
-    {
-        $this->_pageSize = $size;
-        return $this;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getPageSize()
-    {
-        return $this->_pageSize;
     }
 
     /**
