@@ -12,7 +12,10 @@ declare(strict_types=1);
 namespace OpenMage\Rector\Migration\Mage;
 
 use Mage_Catalog_CategoryController;
+use Mage_Catalog_Helper_Category_Flat;
+use Mage_Catalog_Model_Product_Flat_Flag;
 use Mage_Catalog_Model_Resource_Product_Collection;
+use Mage_Catalog_Model_Url;
 use Rector\Renaming\ValueObject\MethodCallRename;
 
 final class Catalog
@@ -24,8 +27,11 @@ final class Catalog
     {
         return [
             new MethodCallRename(Mage_Catalog_CategoryController::class, '_initCatagory', '_initCategory'),
+            new MethodCallRename(Mage_Catalog_Helper_Category_Flat::class, 'isRebuilt', 'isBuilt'),
+            new MethodCallRename(Mage_Catalog_Model_Product_Flat_Flag::class, 'setIsBuild', 'setIsBuilt'),
             new MethodCallRename(Mage_Catalog_Model_Resource_Product_Collection::class, 'addMinimalPrice', 'addPriceData'),
             new MethodCallRename(Mage_Catalog_Model_Resource_Product_Collection::class, 'addFinalPrice', 'addPriceData'),
+            new MethodCallRename(Mage_Catalog_Model_Url::class, 'getUnusedPath', 'getUnusedPathByUrlKey'),
         ];
     }
 }

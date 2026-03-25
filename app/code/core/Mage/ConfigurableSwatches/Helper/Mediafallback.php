@@ -25,22 +25,6 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
      *
      * @param  Mage_Catalog_Model_Product[] $parentProducts
      * @param  int                          $storeId
-     * @return void
-     * @throws Mage_Core_Exception
-     * @deprecated use $this->attachProductChildrenAttributeMapping() instead
-     */
-    public function attachConfigurableProductChildrenAttributeMapping(array $parentProducts, $storeId)
-    {
-        $this->attachProductChildrenAttributeMapping($parentProducts, $storeId);
-    }
-
-    /**
-     * Set child_attribute_label_mapping on products with attribute label -> product mapping
-     * Depends on following product data:
-     * - product must have children products attached
-     *
-     * @param  Mage_Catalog_Model_Product[] $parentProducts
-     * @param  int                          $storeId
      * @param  bool                         $onlyListAttributes
      * @return void
      * @throws Mage_Core_Exception
