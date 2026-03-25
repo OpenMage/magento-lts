@@ -283,13 +283,10 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Address_Service
     {
         try {
             $quote = Mage::getSingleton('checkout/session')->getQuote();
-            if (!$quote || !$quote->getId()) {
-                return ['success' => false, 'message' => 'No active quote found'];
-            }
+            $shippingAddress = $quote ? $quote->getShippingAddress() : null;
 
-            $shippingAddress = $quote->getShippingAddress();
-            if (!$shippingAddress) {
-                return ['success' => false, 'message' => 'No shipping address on quote'];
+            if (!$quote || !$quote->getId() || !$shippingAddress) {
+                return ['success' => false, 'message' => 'No active quote or shipping address found'];
             }
 
             // Apply corrections to quote shipping address
@@ -386,7 +383,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Address_Service
      */
     protected function _extractZip5($postcode)
     {
-        $postcode = preg_replace('/[^0-9]/', '', $postcode);
+        $postcode = preg_replace('/\D/', '', $postcode);
         return substr($postcode, 0, 5);
     }
 
@@ -398,7 +395,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Address_Service
      */
     protected function _extractZip4($postcode)
     {
-        $postcode = preg_replace('/[^0-9]/', '', $postcode);
+        $postcode = preg_replace('/\D/', '', $postcode);
         if (strlen($postcode) >= 9) {
             return substr($postcode, 5, 4);
         }

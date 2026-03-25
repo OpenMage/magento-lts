@@ -38,11 +38,11 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Backend_Createdimensions extends Mage
 //<![CDATA[
 function createUspsAttributes(url) {
     // Show loading message
-    var resultDiv = document.getElementById('usps-attr-result');
+    const resultDiv = document.getElementById('usps-attr-result');
     resultDiv.innerHTML = '<span style="color:gray;">Creating attributes...</span>';
 
     // Disable button during request
-    var button = document.getElementById('usps-create-dimensions-button');
+    const button = document.getElementById('usps-create-dimensions-button');
     button.disabled = true;
 
     // Make AJAX request
@@ -53,7 +53,7 @@ function createUspsAttributes(url) {
         onSuccess: function(response) {
             button.disabled = false;
             try {
-                var result = JSON.parse(response.responseText);
+                const result = JSON.parse(response.responseText);
                 if (result.success) {
                     resultDiv.innerHTML = '<span style="color:green;">✓ ' + result.message + '</span>';
                 } else {

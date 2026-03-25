@@ -36,7 +36,7 @@ class Mage_Usa_Adminhtml_UspsController extends Mage_Adminhtml_Controller_Action
 
         try {
             if ($clientId === '' || $clientId === null || $clientSecret === '' || $clientSecret === null || $environment === '' || $environment === null) {
-                throw new Exception('Client ID, Client Secret, and Environment are required.');
+                throw new Mage_Core_Exception('Client ID, Client Secret, and Environment are required.');
             }
 
             $gatewayUrl = ($environment === 'production')
@@ -68,12 +68,12 @@ class Mage_Usa_Adminhtml_UspsController extends Mage_Adminhtml_Controller_Action
                         'message' => 'Connection successful! Environment: ' . ucfirst($environment),
                     ]));
                 } else {
-                    throw new Exception('No access token in response');
+                    throw new Mage_Core_Exception('No access token in response');
                 }
             } else {
                 $errorData = json_decode($response, true);
                 $errorMsg = $errorData['error_description'] ?? 'HTTP ' . $httpCode;
-                throw new Exception('Authentication failed: ' . $errorMsg);
+                throw new Mage_Core_Exception('Authentication failed: ' . $errorMsg);
             }
 
         } catch (Exception $exception) {
@@ -234,7 +234,7 @@ class Mage_Usa_Adminhtml_UspsController extends Mage_Adminhtml_Controller_Action
 
         try {
             if ($clientId === '' || $clientId === null || $clientSecret === '' || $clientSecret === null || $environment === '' || $environment === null) {
-                throw new Exception('Client ID, Client Secret, and Environment are required.');
+                throw new Mage_Core_Exception('Client ID, Client Secret, and Environment are required.');
             }
 
             $gatewayUrl = ($environment === 'production')
@@ -259,14 +259,14 @@ class Mage_Usa_Adminhtml_UspsController extends Mage_Adminhtml_Controller_Action
 
             if ($tokenHttpCode !== 200) {
                 $errorData = json_decode($tokenResponse, true);
-                throw new Exception('Authentication failed: ' . ($errorData['error_description'] ?? 'HTTP ' . $tokenHttpCode));
+                throw new Mage_Core_Exception('Authentication failed: ' . ($errorData['error_description'] ?? 'HTTP ' . $tokenHttpCode));
             }
 
             $tokenData = json_decode($tokenResponse, true);
             $accessToken = $tokenData['access_token'] ?? null;
 
             if (!$accessToken) {
-                throw new Exception('No access token received');
+                throw new Mage_Core_Exception('No access token received');
             }
 
             $rateRequest = [
@@ -299,7 +299,7 @@ class Mage_Usa_Adminhtml_UspsController extends Mage_Adminhtml_Controller_Action
             if ($rateHttpCode !== 200) {
                 $errorData = json_decode($rateResponse, true);
                 $errorMsg = $errorData['error']['message'] ?? $errorData['message'] ?? 'HTTP ' . $rateHttpCode;
-                throw new Exception('Rate request failed: ' . $errorMsg);
+                throw new Mage_Core_Exception('Rate request failed: ' . $errorMsg);
             }
 
             $rateData = json_decode($rateResponse, true);

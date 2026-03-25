@@ -5,7 +5,7 @@
  * the selected REST API Environment (Production/Sandbox).
  */
 
-var UspsConfig = {
+const UspsConfig = {
     // URL mappings for each environment
     urls: {
         'production': 'https://apis.usps.com/',
@@ -17,8 +17,8 @@ var UspsConfig = {
      */
     init: function() {
         // Get the environment dropdown element
-        var envField = document.getElementById('carriers_usps_environment');
-        var urlField = document.getElementById('carriers_usps_gateway_url');
+        const envField = document.getElementById('carriers_usps_environment');
+        const urlField = document.getElementById('carriers_usps_gateway_url');
         
         if (!envField || !urlField) {
             return; // Fields not present on this page
@@ -28,7 +28,7 @@ var UspsConfig = {
         this.updateUrl(envField, urlField);
 
         // Add change event listener
-        var self = this;
+        const self = this;
         Event.observe(envField, 'change', function() {
             self.updateUrl(envField, urlField);
         });
@@ -38,8 +38,8 @@ var UspsConfig = {
      * Update the URL field based on selected environment
      */
     updateUrl: function(envField, urlField) {
-        var selectedEnv = envField.value;
-        var newUrl = this.urls[selectedEnv];
+        const selectedEnv = envField.value;
+        const newUrl = this.urls[selectedEnv];
         
         if (newUrl) {
             urlField.value = newUrl;

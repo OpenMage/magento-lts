@@ -353,7 +353,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service
     {
         $prefix = $type === 'shipper' ? 'shipper' : 'recipient';
         $streetLines = is_array($street) ? $street : [$street];
-        $postalCode = preg_replace('/[^0-9]/', '', $request->getData($prefix . '_address_postal_code'));
+        $postalCode = preg_replace('/\D/', '', $request->getData($prefix . '_address_postal_code'));
 
         return [
             'streetAddress' => $streetLines[0] ?? '',

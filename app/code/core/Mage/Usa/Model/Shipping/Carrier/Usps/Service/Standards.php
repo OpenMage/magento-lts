@@ -366,7 +366,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Service_Standards
      */
     protected function _cleanZip($zip)
     {
-        return substr(preg_replace('/[^0-9]/', '', $zip), 0, 5);
+        return substr(preg_replace('/\D/', '', $zip), 0, 5);
     }
 
     /**
