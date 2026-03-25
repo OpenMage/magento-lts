@@ -45,6 +45,7 @@ class Mage_Usa_Adminhtml_UspsController extends Mage_Adminhtml_Controller_Action
             if (!isset($allowedEnvironments[$environment])) {
                 throw new Mage_Core_Exception('Invalid environment: ' . $environment . '. Allowed: ' . implode(', ', array_keys($allowedEnvironments)));
             }
+
             $gatewayUrl = $allowedEnvironments[$environment];
 
             $ch = curl_init();
@@ -89,7 +90,7 @@ class Mage_Usa_Adminhtml_UspsController extends Mage_Adminhtml_Controller_Action
         }
     }
 
-    protected function _getConfig(string $path, string $websiteCode, string $storeCode): string|false
+    protected function _getConfig(string $path, string $websiteCode, string $storeCode): false|string
     {
         $scope = 'default';
         $scopeId = 0;
@@ -273,6 +274,7 @@ class Mage_Usa_Adminhtml_UspsController extends Mage_Adminhtml_Controller_Action
             if (!isset($allowedEnvironments[$environment])) {
                 throw new Mage_Core_Exception('Invalid environment: ' . $environment . '. Allowed: ' . implode(', ', array_keys($allowedEnvironments)));
             }
+
             $gatewayUrl = $allowedEnvironments[$environment];
 
             $ch = curl_init();

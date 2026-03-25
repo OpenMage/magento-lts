@@ -12,19 +12,14 @@ declare(strict_types=1);
  */
 class Mage_Usa_AddressController extends Mage_Core_Controller_Front_Action
 {
-    /**
-     * @var Mage_Usa_Model_Shipping_Carrier_Usps_Address_Service
-     */
     protected ?Mage_Usa_Model_Shipping_Carrier_Usps_Address_Service $_addressService = null;
 
     /**
      * Get address service instance
-     *
-     * @return Mage_Usa_Model_Shipping_Carrier_Usps_Address_Service
      */
     protected function _getAddressService(): Mage_Usa_Model_Shipping_Carrier_Usps_Address_Service
     {
-        if ($this->_addressService === null) {
+        if (!$this->_addressService instanceof Mage_Usa_Model_Shipping_Carrier_Usps_Address_Service) {
             $this->_addressService = Mage::getModel('usa/shipping_carrier_usps_address_service');
         }
 
@@ -40,8 +35,6 @@ class Mage_Usa_AddressController extends Mage_Core_Controller_Front_Action
      * - city: City name
      * - region: State/Province code
      * - postcode: ZIP code
-     *
-     * @return void
      */
     public function verifyAction(): void
     {
@@ -135,8 +128,6 @@ class Mage_Usa_AddressController extends Mage_Core_Controller_Front_Action
      * Apply address correction to session/quote
      *
      * POST parameters: Same as verifyAction
-     *
-     * @return void
      */
     public function applyAction(): void
     {
@@ -187,7 +178,6 @@ class Mage_Usa_AddressController extends Mage_Core_Controller_Front_Action
      *
      * @param  array $original  Original address
      * @param  array $corrected Corrected address
-     * @return array
      */
     protected function _buildCorrections(array $original, array $corrected): array
     {
@@ -213,7 +203,6 @@ class Mage_Usa_AddressController extends Mage_Core_Controller_Front_Action
      * Send JSON response and exit
      *
      * @param  array $data Response data
-     * @return void
      */
     protected function _sendJsonResponse(array $data): void
     {

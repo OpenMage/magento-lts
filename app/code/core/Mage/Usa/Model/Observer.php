@@ -20,19 +20,14 @@ declare(strict_types=1);
  */
 class Mage_Usa_Model_Observer
 {
-    /**
-     * @var Mage_Usa_Model_Shipping_Carrier_Usps_Address_Service
-     */
     protected ?Mage_Usa_Model_Shipping_Carrier_Usps_Address_Service $_addressService = null;
 
     /**
      * Get address service instance
-     *
-     * @return Mage_Usa_Model_Shipping_Carrier_Usps_Address_Service
      */
     protected function _getAddressService(): Mage_Usa_Model_Shipping_Carrier_Usps_Address_Service
     {
-        if ($this->_addressService === null) {
+        if (!$this->_addressService instanceof \Mage_Usa_Model_Shipping_Carrier_Usps_Address_Service) {
             $this->_addressService = Mage::getModel('usa/shipping_carrier_usps_address_service');
         }
 
@@ -43,9 +38,6 @@ class Mage_Usa_Model_Observer
      * Log address verification result for analytics
      *
      * Event: checkout_controller_onepage_save_shipping_address
-     *
-     * @param  Varien_Event_Observer   $observer
-     * @return Mage_Usa_Model_Observer
      */
     public function logShippingAddressVerification(Varien_Event_Observer $observer): self
     {
@@ -121,9 +113,6 @@ class Mage_Usa_Model_Observer
      *
      * This provides a final check before order is placed.
      * If verification fails, we log but don't block (per business requirement).
-     *
-     * @param  Varien_Event_Observer   $observer
-     * @return Mage_Usa_Model_Observer
      */
     public function validateOrderAddress(Varien_Event_Observer $observer): self
     {
@@ -163,9 +152,6 @@ class Mage_Usa_Model_Observer
      * Add USPS verification info to shipment for label generation
      *
      * Event: sales_order_shipment_save_before
-     *
-     * @param  Varien_Event_Observer   $observer
-     * @return Mage_Usa_Model_Observer
      */
     public function prepareShipmentForLabels(Varien_Event_Observer $observer): self
     {

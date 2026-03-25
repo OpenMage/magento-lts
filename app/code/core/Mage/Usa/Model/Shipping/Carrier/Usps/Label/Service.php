@@ -28,14 +28,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service
 
     public const FORMAT_ZPL = 'LABEL_ZPL';
 
-    /**
-     * @var Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
-     */
     protected ?Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client $_client = null;
 
-    /**
-     * @var bool
-     */
     protected bool $_debug = false;
 
     /**
@@ -45,8 +39,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service
 
     /**
      * Constructor
-     *
-     * @param null|Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client $client
      */
     public function __construct(?Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client $client = null)
     {
@@ -57,8 +49,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service
 
     /**
      * Load configuration from store config
-     *
-     * @return void
      */
     protected function _loadConfig(): void
     {
@@ -77,12 +67,10 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service
 
     /**
      * Get REST client instance
-     *
-     * @return Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
      */
     protected function _getClient(): Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
     {
-        if ($this->_client === null) {
+        if (!$this->_client instanceof \Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client) {
             $this->_client = Mage::getModel('usa/shipping_carrier_usps_rest_client');
 
             $baseUrl = Mage::getStoreConfig('carriers/usps/gateway_url');
@@ -108,7 +96,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service
      * Check if label generation is enabled and properly configured
      *
      * @param  null|int $storeId Store ID
-     * @return bool
      */
     public function isEnabled(?int $storeId = null): bool
     {
@@ -203,8 +190,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service
 
     /**
      * Build domestic label API request payload
-     *
-     * @return array
      */
     protected function _buildDomesticLabelRequest(Varien_Object $request): array
     {
@@ -246,8 +231,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service
 
     /**
      * Build international label API request payload
-     *
-     * @return array
      */
     protected function _buildInternationalLabelRequest(Varien_Object $request): array
     {
@@ -263,8 +246,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service
 
     /**
      * Build package description for API
-     *
-     * @return array
      */
     protected function _buildPackageDescription(Varien_Object $request): array
     {
@@ -296,8 +277,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service
 
     /**
      * Build payment info for API
-     *
-     * @return array
      */
     protected function _buildPaymentInfo(): array
     {
@@ -318,8 +297,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service
 
     /**
      * Build customs declaration for international labels
-     *
-     * @return array
      */
     protected function _buildCustomsDeclaration(Varien_Object $request): array
     {
@@ -347,9 +324,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service
     /**
      * Format address for API request
      *
-     * @param  array|string $street
      * @param  string       $type   'shipper' or 'recipient'
-     * @return array
      */
     protected function _formatAddress(array|string $street, Varien_Object $request, string $type): array
     {
@@ -370,8 +345,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service
 
     /**
      * Get origin (shipper) address from store configuration
-     *
-     * @return array
      */
     protected function _getOriginAddress(): array
     {
@@ -383,9 +356,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service
 
     /**
      * Map Magento shipping method code to USPS mail class
-     *
-     * @param  string $methodCode
-     * @return string
      */
     protected function _mapServiceCode(string $methodCode): string
     {
@@ -395,8 +365,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service
 
     /**
      * Parse label creation API response
-     *
-     * @return Varien_Object
      */
     protected function _parseLabelResponse(array $data, Varien_Object $result): Varien_Object
     {
@@ -435,8 +403,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service
 
     /**
      * Parse international label creation API response
-     *
-     * @return Varien_Object
      */
     protected function _parseInternationalLabelResponse(array $data, Varien_Object $result): Varien_Object
     {
@@ -459,9 +425,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service
 
     /**
      * Cancel a shipping label
-     *
-     * @param  string $trackingNumber
-     * @return bool
      */
     public function cancelLabel(string $trackingNumber): bool
     {
@@ -485,8 +448,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service
 
     /**
      * Extract error message from API response
-     *
-     * @return string
      */
     protected function _extractErrorMessage(array $response): string
     {
@@ -507,8 +468,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service
 
     /**
      * Debug logging
-     *
-     * @return void
      */
     protected function _debug(array $data): void
     {

@@ -36,29 +36,21 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
 
     /**
      * Base URL for API requests
-     *
-     * @var string
      */
     protected string $_baseUrl;
 
     /**
      * OAuth access token
-     *
-     * @var null|string
      */
     protected ?string $_accessToken = null;
 
     /**
      * Debug mode flag
-     *
-     * @var bool
      */
     protected bool $_debug = false;
 
     /**
      * Debug log array
-     *
-     * @var array
      */
     protected array $_debugLog = [];
 
@@ -78,7 +70,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
      * Set the OAuth access token for authenticated requests
      *
      * @param  string                                           $token Access token
-     * @return Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
      */
     public function setAccessToken(string $token): self
     {
@@ -88,8 +79,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
 
     /**
      * Get the current access token
-     *
-     * @return null|string
      */
     public function getAccessToken(): ?string
     {
@@ -100,7 +89,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
      * Set base URL
      *
      * @param  string                                           $url Base API URL
-     * @return Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
      */
     public function setBaseUrl(string $url): self
     {
@@ -110,8 +98,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
 
     /**
      * Get base URL
-     *
-     * @return string
      */
     public function getBaseUrl(): string
     {
@@ -219,7 +205,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
      *
      * @param  string $endpoint      API endpoint
      * @param  bool   $authenticated Include auth header
-     * @return array
      */
     protected function _get(string $endpoint, bool $authenticated = true): array
     {
@@ -232,7 +217,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
      * @param  string $endpoint      API endpoint
      * @param  array  $data          Request body data
      * @param  bool   $authenticated Include auth header
-     * @return array
      */
     protected function _post(string $endpoint, array $data, bool $authenticated = true): array
     {
@@ -244,7 +228,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
      *
      * @param  string $endpoint      API endpoint
      * @param  bool   $authenticated Include auth header
-     * @return array
      */
     protected function _delete(string $endpoint, bool $authenticated = true): array
     {
@@ -371,7 +354,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
      *
      * @param  string $type Log entry type
      * @param  array  $data Log data
-     * @return void
      */
     protected function _log(string $type, array $data): void
     {
@@ -388,8 +370,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
 
     /**
      * Get debug log
-     *
-     * @return array
      */
     public function getDebugLog(): array
     {
@@ -398,8 +378,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
 
     /**
      * Clear debug log
-     *
-     * @return Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
      */
     public function clearDebugLog(): self
     {
@@ -411,11 +389,10 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
      * Check if response indicates a transient error that can be retried
      *
      * @param  int  $httpCode HTTP status code
-     * @return bool
      */
     public function isTransientError(int $httpCode): bool
     {
-        return in_array($httpCode, [429, 500, 502, 503, 504]);
+        return in_array($httpCode, [429, 500, 502, 503, 504], true);
     }
 
     /**
@@ -467,7 +444,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
      * @param  string $endpoint      API endpoint
      * @param  bool   $authenticated Include auth header
      * @param  int    $maxRetries    Maximum retry attempts
-     * @return array
      */
     public function getWithRetry(string $endpoint, bool $authenticated = true, int $maxRetries = 3): array
     {
@@ -481,7 +457,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
      * @param  array  $data          Request body data
      * @param  bool   $authenticated Include auth header
      * @param  int    $maxRetries    Maximum retry attempts
-     * @return array
      */
     public function postWithRetry(string $endpoint, array $data, bool $authenticated = true, int $maxRetries = 3): array
     {

@@ -30,20 +30,12 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Service_Standards
      */
     public const CACHE_TTL = 86400;
 
-    /**
-     * @var Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
-     */
     protected ?Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client $_client = null;
 
-    /**
-     * @var bool
-     */
     protected bool $_debug = false;
 
     /**
      * Mail class to API service type mapping
-     *
-     * @var array
      */
     protected array $_mailClassMapping = [
         'USPS_GROUND_ADVANTAGE' => 'USPS_GROUND_ADVANTAGE',
@@ -58,8 +50,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Service_Standards
 
     /**
      * Constructor
-     *
-     * @param null|Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client $client
      */
     public function __construct(?Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client $client = null)
     {
@@ -69,12 +59,10 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Service_Standards
 
     /**
      * Get REST client instance
-     *
-     * @return Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
      */
     protected function _getClient(): Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
     {
-        if ($this->_client === null) {
+        if (!$this->_client instanceof \Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client) {
             $this->_client = Mage::getModel('usa/shipping_carrier_usps_rest_client');
 
             $baseUrl = Mage::getStoreConfig('carriers/usps/gateway_url');
@@ -100,7 +88,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Service_Standards
      * Check if delivery estimates feature is enabled
      *
      * @param  null|int $storeId Store ID
-     * @return bool
      */
     public function isEnabled(?int $storeId = null): bool
     {
@@ -115,7 +102,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Service_Standards
      * @param  string      $destZip    5-digit destination ZIP code
      * @param  string      $mailClass  Mail class code
      * @param  null|string $acceptDate Acceptance date (Y-m-d format)
-     * @return null|array
      */
     public function getEstimate(string $originZip, string $destZip, string $mailClass, ?string $acceptDate = null): ?array
     {
@@ -185,11 +171,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Service_Standards
 
     /**
      * Fetch estimates from USPS Service Standards API
-     *
-     * @param  string $originZip
-     * @param  string $destZip
-     * @param  string $acceptDate
-     * @return array
      */
     protected function _fetchEstimatesFromApi(string $originZip, string $destZip, array $mailClasses, string $acceptDate): array
     {
@@ -288,11 +269,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Service_Standards
 
     /**
      * Format delivery estimate for display
-     *
-     * @param  int         $minDays
-     * @param  int         $maxDays
-     * @param  null|string $scheduledDate
-     * @return string
      */
     protected function _formatDeliveryDisplay(int $minDays, int $maxDays, ?string $scheduledDate): string
     {
@@ -320,9 +296,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Service_Standards
 
     /**
      * Map internal mail class to USPS API mail class
-     *
-     * @param  string      $mailClass
-     * @return null|string
      */
     protected function _mapToApiMailClass(string $mailClass): ?string
     {
@@ -343,12 +316,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Service_Standards
 
     /**
      * Generate cache key for service standards
-     *
-     * @param  string $originZip
-     * @param  string $destZip
-     * @param  string $mailClass
-     * @param  string $acceptDate
-     * @return string
      */
     protected function _getCacheKey(string $originZip, string $destZip, string $mailClass, string $acceptDate): string
     {
@@ -362,9 +329,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Service_Standards
 
     /**
      * Clean ZIP code to 5 digits
-     *
-     * @param  string $zip
-     * @return string
      */
     protected function _cleanZip(string $zip): string
     {
@@ -373,8 +337,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Service_Standards
 
     /**
      * Debug logging
-     *
-     * @return void
      */
     protected function _debug(array $data): void
     {

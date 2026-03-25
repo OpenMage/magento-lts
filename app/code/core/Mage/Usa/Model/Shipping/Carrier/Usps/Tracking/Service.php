@@ -40,22 +40,16 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Tracking_Service
 
     /**
      * Rate result object
-     *
-     * @var null|Mage_Shipping_Model_Tracking_Result
      */
     protected ?Mage_Shipping_Model_Tracking_Result $_result = null;
 
     /**
      * Carrier model instance
-     *
-     * @var null|Mage_Usa_Model_Shipping_Carrier_Usps
      */
     protected ?Mage_Usa_Model_Shipping_Carrier_Usps $_carrierModel = null;
 
     /**
      * Set carrier model for configuration access
-     *
-     * @return Mage_Usa_Model_Shipping_Carrier_Usps_Tracking_Service
      */
     public function setCarrierModel(Mage_Usa_Model_Shipping_Carrier_Usps $carrierModel): self
     {
@@ -69,7 +63,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Tracking_Service
      * @param  array                                    $trackingNumbers Array of tracking numbers to look up
      * @param  string                                   $accessToken     OAuth access token
      * @param  string                                   $baseUrl         USPS REST API base URL
-     * @return null|Mage_Shipping_Model_Tracking_Result
      */
     public function getRestTracking(array $trackingNumbers, string $accessToken, string $baseUrl): ?Mage_Shipping_Model_Tracking_Result
     {
@@ -148,7 +141,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Tracking_Service
      *
      * @param  string $trackingValue Tracking number
      * @param  string $jsonResponse  JSON response from REST API
-     * @return void
      */
     protected function _parseRestTrackingResponse(string $trackingValue, string $jsonResponse): void
     {
@@ -211,7 +203,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Tracking_Service
      *
      * @param  array $activityTag     Event data from response
      * @param  array $packageProgress Reference to progress array
-     * @return void
      */
     protected function _processActivityRestTagInfo(array $activityTag, array &$packageProgress): void
     {
@@ -261,7 +252,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Tracking_Service
      *
      * @param  string $trackingValue Tracking number
      * @param  string $errorMessage  Error message
-     * @return void
      */
     protected function _setTrackingError(string $trackingValue, string $errorMessage): void
     {
@@ -276,8 +266,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Tracking_Service
 
     /**
      * Get carrier title from config
-     *
-     * @return string
      */
     protected function _getCarrierTitle(): string
     {
@@ -290,8 +278,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Tracking_Service
 
     /**
      * Debug logging
-     *
-     * @return void
      */
     protected function _debug(array $debugData): void
     {

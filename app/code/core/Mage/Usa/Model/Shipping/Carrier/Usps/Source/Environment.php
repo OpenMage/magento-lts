@@ -40,8 +40,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Source_Environment
 
     /**
      * Get option array for admin configuration
-     *
-     * @return array
      */
     public function toOptionArray(): array
     {
@@ -59,9 +57,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Source_Environment
 
     /**
      * Get REST API URL for given environment
-     *
-     * @param  string $environment
-     * @return string
      */
     public function getUrlForEnvironment(string $environment): string
     {

@@ -31,20 +31,12 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Address_Service
 
     public const MATCH_MULTIPLE = 'multiple';
 
-    /**
-     * @var Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
-     */
     protected ?Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client $_client = null;
 
-    /**
-     * @var bool
-     */
     protected bool $_debug = false;
 
     /**
      * Constructor
-     *
-     * @param null|Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client $client
      */
     public function __construct(?Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client $client = null)
     {
@@ -54,12 +46,10 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Address_Service
 
     /**
      * Get REST client instance
-     *
-     * @return Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
      */
     protected function _getClient(): Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
     {
-        if ($this->_client === null) {
+        if (!$this->_client instanceof \Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client) {
             $this->_client = Mage::getModel('usa/shipping_carrier_usps_rest_client');
 
             // Configure client
@@ -87,7 +77,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Address_Service
      * Check if address verification is enabled
      *
      * @param  null|int $storeId Store ID
-     * @return bool
      */
     public function isEnabled(?int $storeId = null): bool
     {
@@ -172,13 +161,13 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Address_Service
         // Compare original vs corrected to find differences
         $fieldsToCompare = ['street1', 'street2', 'city', 'region', 'postcode'];
         foreach ($fieldsToCompare as $field) {
-            $origValue = strtoupper(trim($original[$field] ?? ''));
-            $corrValue = strtoupper(trim($corrected[$field] ?? ''));
+            $origValue = strtoupper(trim((string) $original[$field]));
+            $corrValue = strtoupper(trim((string) $corrected[$field]));
 
             if ($origValue !== $corrValue) {
                 $corrections[$field] = [
-                    'original' => $original[$field] ?? '',
-                    'corrected' => $corrected[$field] ?? '',
+                    'original' => $original[$field],
+                    'corrected' => $corrected[$field],
                 ];
             }
         }
@@ -360,8 +349,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Address_Service
 
     /**
      * Convert Magento address to array format
-     *
-     * @return array
      */
     protected function _addressToArray(Mage_Customer_Model_Address_Abstract $address): array
     {
@@ -379,9 +366,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Address_Service
 
     /**
      * Extract 5-digit ZIP from postcode
-     *
-     * @param  string $postcode
-     * @return string
      */
     protected function _extractZip5(string $postcode): string
     {
@@ -391,9 +375,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Address_Service
 
     /**
      * Extract ZIP+4 from postcode
-     *
-     * @param  string $postcode
-     * @return string
      */
     protected function _extractZip4(string $postcode): string
     {
@@ -407,14 +388,10 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Address_Service
 
     /**
      * Build formatted ZIP code
-     *
-     * @param  string $zip5
-     * @param  string $zip4
-     * @return string
      */
     protected function _buildZip(string $zip5, string $zip4): string
     {
-        if ($zip4 !== '' && $zip4 !== null) {
+        if ($zip4 !== '') {
             return $zip5 . '-' . $zip4;
         }
 
@@ -423,10 +400,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Address_Service
 
     /**
      * Get region ID from region code
-     *
-     * @param  string   $regionCode
-     * @param  string   $countryId
-     * @return null|int
      */
     protected function _getRegionId(string $regionCode, string $countryId): ?int
     {
@@ -436,8 +409,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Address_Service
 
     /**
      * Debug logging
-     *
-     * @return void
      */
     protected function _debug(array $data): void
     {

@@ -21,8 +21,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Error_Dictionary
 {
     /**
      * HTTP status code to message mapping
-     *
-     * @var array
      */
     protected array $_httpStatusMessages = [
         400 => 'Invalid request. Please verify package details and try again.',
@@ -44,8 +42,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Error_Dictionary
      * USPS API error code to message mapping
      *
      * Error codes from USPS REST API responses (error.code field)
-     *
-     * @var array
      */
     protected array $_apiErrorCodes = [
         // Authentication & Authorization
@@ -101,8 +97,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Error_Dictionary
 
     /**
      * Common error message patterns to user-friendly translations
-     *
-     * @var array
      */
     protected array $_messagePatterns = [
         '/mailClass.*invalid/i' => 'The selected shipping method is not available. Please choose a different method.',
@@ -268,8 +262,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Error_Dictionary
 
     /**
      * Get all HTTP status messages for reference
-     *
-     * @return array
      */
     public function getAllHttpStatusMessages(): array
     {
@@ -278,8 +270,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Error_Dictionary
 
     /**
      * Get all API error codes for reference
-     *
-     * @return array
      */
     public function getAllApiErrorCodes(): array
     {

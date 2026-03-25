@@ -47,8 +47,6 @@ class Mage_Usa_Block_Checkout_Address_Verification extends Mage_Core_Block_Templ
 
     /**
      * Check if address verification feature is enabled
-     *
-     * @return bool
      */
     public function isEnabled(): bool
     {
@@ -58,8 +56,6 @@ class Mage_Usa_Block_Checkout_Address_Verification extends Mage_Core_Block_Templ
 
     /**
      * Get AJAX verification URL
-     *
-     * @return string
      */
     public function getVerifyUrl(): string
     {
@@ -68,8 +64,6 @@ class Mage_Usa_Block_Checkout_Address_Verification extends Mage_Core_Block_Templ
 
     /**
      * Get AJAX apply correction URL
-     *
-     * @return string
      */
     public function getApplyUrl(): string
     {
@@ -89,8 +83,6 @@ class Mage_Usa_Block_Checkout_Address_Verification extends Mage_Core_Block_Templ
 
     /**
      * Get original address
-     *
-     * @return array
      */
     public function getOriginalAddress(): array
     {
@@ -110,8 +102,6 @@ class Mage_Usa_Block_Checkout_Address_Verification extends Mage_Core_Block_Templ
 
     /**
      * Get corrected address
-     *
-     * @return array
      */
     public function getCorrectedAddress(): array
     {
@@ -131,8 +121,6 @@ class Mage_Usa_Block_Checkout_Address_Verification extends Mage_Core_Block_Templ
 
     /**
      * Get corrections list
-     *
-     * @return array
      */
     public function getCorrections(): array
     {
@@ -141,19 +129,14 @@ class Mage_Usa_Block_Checkout_Address_Verification extends Mage_Core_Block_Templ
 
     /**
      * Check if there are corrections
-     *
-     * @return bool
      */
     public function hasCorrections(): bool
     {
-        return count($this->_corrections) > 0;
+        return $this->_corrections !== [];
     }
 
     /**
      * Escape string for use in JavaScript (wrapper for Magento 1 jsQuoteEscape)
-     *
-     * @param  string $string
-     * @return string
      */
     public function escapeJs(string $string): string
     {
@@ -173,8 +156,6 @@ class Mage_Usa_Block_Checkout_Address_Verification extends Mage_Core_Block_Templ
 
     /**
      * Get warning messages
-     *
-     * @return array
      */
     public function getWarnings(): array
     {
@@ -183,18 +164,15 @@ class Mage_Usa_Block_Checkout_Address_Verification extends Mage_Core_Block_Templ
 
     /**
      * Check if there are warnings
-     *
-     * @return bool
      */
     public function hasWarnings(): bool
     {
-        return count($this->_warnings) > 0;
+        return $this->_warnings !== [];
     }
 
     /**
      * Set verification status
      *
-     * @param  string $status
      * @return $this
      */
     public function setStatus(string $status): self
@@ -205,8 +183,6 @@ class Mage_Usa_Block_Checkout_Address_Verification extends Mage_Core_Block_Templ
 
     /**
      * Get verification status
-     *
-     * @return string
      */
     public function getStatus(): string
     {
