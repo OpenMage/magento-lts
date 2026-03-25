@@ -15,7 +15,7 @@ use Mage_Core_Helper_Measure_Length;
 use Mage_Core_Helper_Measure_Weight;
 use Rector\Renaming\ValueObject\RenameClassAndConstFetch;
 
-final class Messure
+final class Measure
 {
     /**
      * @return RenameClassAndConstFetch[]
