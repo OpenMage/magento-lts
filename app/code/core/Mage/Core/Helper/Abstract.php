@@ -179,19 +179,6 @@ abstract class Mage_Core_Helper_Abstract
     }
 
     /**
-     * @param  string|string[]      $data
-     * @param  null|array           $allowedTags
-     * @return null|string|string[]
-     *
-     * @deprecated after 1.4.0.0-rc1
-     * @see self::escapeHtml()
-     */
-    public function htmlEscape($data, $allowedTags = null)
-    {
-        return $this->escapeHtml($data, $allowedTags);
-    }
-
-    /**
      * Escape html entities
      *
      * @param  string|string[]      $data
@@ -257,17 +244,6 @@ abstract class Mage_Core_Helper_Abstract
 
         $result = strip_tags($data, $allowableTags);
         return $escape ? $this->escapeHtml($result, $allowableTags) : $result;
-    }
-
-    /**
-     * @param  string $data
-     * @return string
-     * @deprecated after 1.4.0.0-rc1
-     * @see self::escapeHtml()
-     */
-    public function urlEscape($data)
-    {
-        return $this->escapeUrl($data);
     }
 
     /**
