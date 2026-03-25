@@ -7706,13 +7706,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/catalog/product/edit/websites.phtml',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Call to deprecated method getFormObject() of class Mage_Adminhtml_Block_Widget_Form:
-deprecated since version 1.2',
-	'identifier' => 'method.deprecated',
-	'count' => 1,
-	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/customer/tab/newsletter.phtml',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Call to deprecated method getGridUrl() of class Mage_Adminhtml_Block_Widget_Grid:
 after 1.3.2.3 Use getAbsoluteGridUrl() method instead',
 	'identifier' => 'method.deprecated',
