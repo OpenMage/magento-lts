@@ -14,6 +14,8 @@
  */
 class Mage_Adminhtml_Block_Dashboard_Tab_Products_Ordered extends Mage_Adminhtml_Block_Dashboard_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_dashboard_tab_products_ordered';
+
     public function __construct()
     {
         parent::__construct();

@@ -14,6 +14,8 @@
  */
 class Mage_Adminhtml_Block_Report_Product_Lowstock_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_report_product_lowstock_grid';
+
     public function __construct()
     {
         parent::__construct();

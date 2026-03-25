@@ -16,6 +16,8 @@
  */
 class Mage_Api2_Block_Adminhtml_Permissions_User_Edit_Tab_Roles extends Mage_Adminhtml_Block_Widget_Grid implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
+    protected string $_eventPrefix = 'api2_adminhtml_permissions_user_edit_tab_roles';
+
     /**
      * Selected API2 roles for grid
      *

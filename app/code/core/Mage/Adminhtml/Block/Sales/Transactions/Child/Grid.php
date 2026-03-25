@@ -14,6 +14,8 @@
  */
 class Mage_Adminhtml_Block_Sales_Transactions_Child_Grid extends Mage_Adminhtml_Block_Sales_Transactions_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_sales_transactions_child_grid';
+
     /**
      * Columns, that should be removed from grid
      *

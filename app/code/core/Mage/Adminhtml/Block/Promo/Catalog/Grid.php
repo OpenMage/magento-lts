@@ -14,6 +14,8 @@
  */
 class Mage_Adminhtml_Block_Promo_Catalog_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_promo_catalog_grid';
+
     public function __construct()
     {
         parent::__construct();

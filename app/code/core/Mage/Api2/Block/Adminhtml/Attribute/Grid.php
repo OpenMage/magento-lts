@@ -14,6 +14,8 @@
  */
 class Mage_Api2_Block_Adminhtml_Attribute_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'api2_adminhtml_attribute_grid';
+
     public function __construct($attributes = [])
     {
         parent::__construct($attributes);
