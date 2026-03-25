@@ -26,6 +26,8 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
 
     /**
      * ACL resource
+     *
+     * @var bool|string
      * @see Mage_Adminhtml_Controller_Action::_isAllowed()
      */
     public const ADMIN_RESOURCE = 'admin';
@@ -65,11 +67,13 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
 
     /**
      * Check current user permission on resource and privilege
-     *
-     * @return bool
      */
-    protected function _isAllowed()
+    protected function _isAllowed(): bool
     {
+        if (is_bool(static::ADMIN_RESOURCE)) {
+            return static::ADMIN_RESOURCE;
+        }
+
         return Mage::getSingleton('admin/session')->isAllowed(static::ADMIN_RESOURCE);
     }
 
