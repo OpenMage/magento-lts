@@ -228,11 +228,8 @@ class Mage_Usa_Block_Checkout_Address_Verification extends Mage_Core_Block_Templ
 
     /**
      * Get field label for display
-     *
-     * @param  string $field
-     * @return string
      */
-    public function getFieldLabel($field)
+    public function getFieldLabel(string $field): string
     {
         $labels = [
             'street1' => $this->__('Street Address'),
@@ -248,10 +245,8 @@ class Mage_Usa_Block_Checkout_Address_Verification extends Mage_Core_Block_Templ
 
     /**
      * Get modal title based on status
-     *
-     * @return string
      */
-    public function getModalTitle()
+    public function getModalTitle(): string
     {
         return match ($this->_status) {
             'corrected' => $this->__('Address Verification'),
@@ -262,10 +257,8 @@ class Mage_Usa_Block_Checkout_Address_Verification extends Mage_Core_Block_Templ
 
     /**
      * Get modal message based on status
-     *
-     * @return string
      */
-    public function getModalMessage()
+    public function getModalMessage(): string
     {
         return match ($this->_status) {
             'corrected' => $this->__('USPS suggests the following corrections to your address:'),

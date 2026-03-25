@@ -77,8 +77,8 @@ class Mage_Usa_Adminhtml_UspsController extends Mage_Adminhtml_Controller_Action
             }
         }
 
-        if ($value && (str_contains($path, 'client_id') || str_contains($path, 'client_secret'))) {
-            return Mage::helper('core')->decrypt($value);
+        if ($value !== false && (str_contains($path, 'client_id') || str_contains($path, 'client_secret'))) {
+            return Mage::helper('core')->decrypt((string) $value);
         }
 
         return $value;
@@ -217,8 +217,13 @@ class Mage_Usa_Adminhtml_UspsController extends Mage_Adminhtml_Controller_Action
             curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
 
             $rateResponse = curl_exec($ch);
-            $rateHttpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+            $rateHttpCode = (int) curl_getinfo($ch, CURLINFO_HTTP_CODE);
+            $rateCurlError = ($rateResponse === false) ? curl_error($ch) : '';
             curl_close($ch);
+
+            if ($rateResponse === false) {
+                throw new Mage_Core_Exception('Rate request failed: cURL error — ' . $rateCurlError);
+            }
 
             if ($rateHttpCode !== 200) {
                 $errorData = json_decode($rateResponse, true);
@@ -276,7 +281,9 @@ class Mage_Usa_Adminhtml_UspsController extends Mage_Adminhtml_Controller_Action
      */
     protected function _sendJson(array $data): void
     {
-        $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($data));
+        $this->getResponse()
+            ->setHeader('Content-Type', 'application/json', true)
+            ->setBody(Mage::helper('core')->jsonEncode($data));
     }
 
     /**
@@ -291,8 +298,8 @@ class Mage_Usa_Adminhtml_UspsController extends Mage_Adminhtml_Controller_Action
         $environment = $request->getParam('environment');
         $clientId = $request->getParam('client_id');
         $clientSecret = $request->getParam('client_secret');
-        $websiteCode = $request->getParam('website');
-        $storeCode = $request->getParam('store');
+        $websiteCode = (string) $request->getParam('website', '');
+        $storeCode = (string) $request->getParam('store', '');
 
         if ($clientId === '******') {
             $clientId = $this->_getConfig('carriers/usps/client_id', $websiteCode, $storeCode);
@@ -335,8 +342,13 @@ class Mage_Usa_Adminhtml_UspsController extends Mage_Adminhtml_Controller_Action
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
 
         $response = curl_exec($ch);
-        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        $httpCode = (int) curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        $curlError = ($response === false) ? curl_error($ch) : '';
         curl_close($ch);
+
+        if ($response === false) {
+            throw new Mage_Core_Exception('Authentication failed: cURL error — ' . $curlError);
+        }
 
         if ($httpCode !== 200) {
             $errorData = json_decode($response, true);

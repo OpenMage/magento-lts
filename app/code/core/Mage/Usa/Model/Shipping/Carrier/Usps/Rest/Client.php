@@ -409,6 +409,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
      */
     public function requestWithRetry(string $method, string $endpoint, ?array $data = null, bool $authenticated = true, int $maxRetries = 3): array
     {
+        $maxRetries = max(1, $maxRetries);
         $lastResponse = null;
 
         for ($attempt = 1; $attempt <= $maxRetries; $attempt++) {
