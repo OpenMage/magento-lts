@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Customer\Block\Widget;
 
 use Mage_Customer_Block_Widget_Dob as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Customer\Block\Widget\DobTrait;
 
 final class DobTest extends OpenMageTest
 {
+    use DobTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void
@@ -36,23 +39,6 @@ final class DobTest extends OpenMageTest
         $subject = new Subject();
         $subject->setDate($date);
         self::assertSame($expectedYear, $subject->getYear());
-    }
-
-    /**
-     * @return array<string, array{string, string}>
-     */
-    public static function provideGetYearData(): array
-    {
-        return [
-            // Jan 1, 2000 is in ISO week 52 of 1999 - must return 2000, not 1999
-            'jan-1-2000' => ['2000', '2000-01-01'],
-            // Jan 1, 1999 is in ISO week 53 of 1998 - must return 1999, not 1998
-            'jan-1-1999' => ['1999', '1999-01-01'],
-            // Jan 1, 2023 is in ISO week 52 of 2022 - must return 2023, not 2022
-            'jan-1-2023' => ['2023', '2023-01-01'],
-            // A mid-year date - no ambiguity
-            'mid-year'   => ['2000', '2000-06-15'],
-        ];
     }
 
     /**
