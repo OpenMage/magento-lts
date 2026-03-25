@@ -15,6 +15,12 @@
 class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
 {
     /**
+     * ACL resource
+     * @see Mage_Adminhtml_Controller_Action::_isAllowed()
+     */
+    public const ADMIN_RESOURCE = 'cms/page';
+
+    /**
      * Init actions
      *
      * @return $this
@@ -206,14 +212,11 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
         $pageIds = $this->getRequest()->getParam('page');
         if (!is_array($pageIds)) {
             $this->_getSession()->addError($this->__('Please select page(s).'));
-        } elseif (!empty($pageIds)) {
+        } elseif ($pageIds !== []) {
             try {
-                foreach ($pageIds as $pageId) {
-                    // phpcs:ignore Ecg.Performance.Loop.ModelLSD
-                    $page = Mage::getModel('cms/page')->load($pageId);
-                    // phpcs:ignore Ecg.Performance.Loop.ModelLSD
-                    $page->delete();
-                }
+                $collection = Mage::getResourceModel('cms/page_collection');
+                $collection->addFieldToFilter('page_id', ['in' => $pageIds]);
+                $collection->delete();
 
                 $this->_getSession()->addSuccess(
                     $this->__('Total of %d record(s) have been deleted.', count($pageIds)),
@@ -237,12 +240,10 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
                 $status = 0;
             }
 
-            foreach ($pageIds as $pageId) {
-                // phpcs:ignore Ecg.Performance.Loop.ModelLSD
-                $block = Mage::getModel('cms/page')->load($pageId);
-                // phpcs:ignore Ecg.Performance.Loop.ModelLSD
-                $block->setIsActive($status)->save();
-            }
+            $collection = Mage::getResourceModel('cms/page_collection');
+            $collection->addFieldToFilter('page_id', ['in' => $pageIds]);
+            $collection->walk('setIsActive', [$status]);
+            $collection->save();
 
             $this->_getSession()->addSuccess(
                 $this->__('Total of %d record(s) have been updated.', count($pageIds)),
@@ -272,9 +273,9 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
     {
         $action = strtolower($this->getRequest()->getActionName());
         $aclPath = match ($action) {
-            'new', 'save', 'massstatus' => 'cms/page/save',
-            'delete', 'massdelete' => 'cms/page/delete',
-            default => 'cms/page',
+            'new', 'save', 'massstatus' => self::ADMIN_RESOURCE . '/save',
+            'delete', 'massdelete' => self::ADMIN_RESOURCE . '/delete',
+            default => self::ADMIN_RESOURCE,
         };
 
         return Mage::getSingleton('admin/session')->isAllowed($aclPath);

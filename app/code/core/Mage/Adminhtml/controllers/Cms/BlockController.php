@@ -241,13 +241,13 @@ class Mage_Adminhtml_Cms_BlockController extends Mage_Adminhtml_Controller_Actio
     /**
      * @inheritDoc
      */
-    protected function _isAllowed()
+    protected function _isAllowed(): bool
     {
         $action = strtolower($this->getRequest()->getActionName());
         $aclPath = match ($action) {
-            'new', 'save', 'massstatus' => 'cms/block/save',
-            'delete', 'massdelete' => 'cms/block/delete',
-            default => 'cms/block',
+            'new', 'save', 'massstatus' => self::ADMIN_RESOURCE . '/save',
+            'delete', 'massdelete' => self::ADMIN_RESOURCE . '/delete',
+            default => self::ADMIN_RESOURCE,
         };
 
         return Mage::getSingleton('admin/session')->isAllowed($aclPath);
