@@ -135,18 +135,6 @@ final class DataTest extends OpenMageTest
     /**
      * @group Helper
      */
-    public function testGetTaxRatesByProductClass(): void
-    {
-        if (defined('DATA_MAY_CHANGED')) {
-            self::markTestSkipped(self::SKIP_WITH_LOCAL_DATA);
-        }
-
-        self::assertSame('{"value_2":8.25,"value_4":0}', self::$subject->getAllRatesByProductClass());
-    }
-
-    /**
-     * @group Helper
-     */
     public function testGetAllRatesByProductClass(): void
     {
         if (defined('DATA_MAY_CHANGED')) {
