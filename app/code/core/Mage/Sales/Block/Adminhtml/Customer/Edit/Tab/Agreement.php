@@ -14,6 +14,8 @@
  */
 class Mage_Sales_Block_Adminhtml_Customer_Edit_Tab_Agreement extends Mage_Sales_Block_Adminhtml_Billing_Agreement_Grid implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
+    protected string $_eventPrefix = 'sales_adminhtml_customer_edit_tab_agreement';
+
     /**
      * Columns, that should be removed from grid
      *

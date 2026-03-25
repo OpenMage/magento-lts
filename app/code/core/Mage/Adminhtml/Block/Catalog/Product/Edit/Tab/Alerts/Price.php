@@ -14,6 +14,8 @@
  */
 class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Alerts_Price extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_catalog_product_edit_tab_alerts_price';
+
     public function __construct()
     {
         parent::__construct();

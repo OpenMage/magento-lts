@@ -235,6 +235,8 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      */
     protected ?array $defaultColumnSettings = null;
 
+    protected string $_eventPrefix = '';
+
     /**
      * This array caches the status of the isAllowed() method, for every acl path
      *
@@ -246,6 +248,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     {
         parent::__construct($attributes);
         $this->setTemplate('widget/grid.phtml');
+        $this->setNoFilterMassactionColumn(false);
         $this->setRowClickCallback('openGridRow');
         $this->_emptyText = Mage::helper('adminhtml')->__('No records found.');
     }
@@ -647,6 +650,16 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     protected function _prepareCollection()
     {
         if ($this->getCollection()) {
+            Mage::dispatchEvent('adminhtml_widget_grid_prepare_collection', [
+                'collection' => $this->getCollection(),
+            ]);
+
+            if ($this->_eventPrefix !== '') {
+                Mage::dispatchEvent($this->_eventPrefix . '_prepare_collection', [
+                    'collection' => $this->getCollection(),
+                ]);
+            }
+
             $this->_preparePage();
 
             $columnId = $this->getParam($this->getVarNameSort(), $this->_defaultSort);
@@ -714,6 +727,16 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      */
     protected function _prepareColumns()
     {
+        Mage::dispatchEvent('adminhtml_widget_grid_prepare_columns', [
+            'grid' => $this,
+        ]);
+
+        if ($this->_eventPrefix !== '') {
+            Mage::dispatchEvent($this->_eventPrefix . '_prepare_columns', [
+                'grid' => $this,
+            ]);
+        }
+
         $this->sortColumnsByOrder();
         return $this;
     }
@@ -783,6 +806,16 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      */
     protected function _prepareGrid()
     {
+        Mage::dispatchEvent('adminhtml_widget_grid_prepare_grid', [
+            'grid' => $this,
+        ]);
+
+        if ($this->_eventPrefix !== '') {
+            Mage::dispatchEvent($this->_eventPrefix . '_prepare_grid', [
+                'grid' => $this,
+            ]);
+        }
+
         $this->_prepareColumns();
         $this->_prepareMassactionBlock();
         $this->_prepareCollection();

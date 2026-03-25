@@ -672,7 +672,7 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
     /**
      * @inheritDoc
      */
-    protected function _isAllowed()
+    protected function _isAllowed(): bool
     {
         $action = strtolower($this->getRequest()->getActionName());
         $aclResource = match ($action) {

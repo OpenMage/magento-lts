@@ -14,6 +14,8 @@
  */
 class Mage_Oauth_Block_Adminhtml_Oauth_Admin_Token_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'oauth_adminhtml_oauth_admin_token_grid';
+
     public function __construct()
     {
         parent::__construct();

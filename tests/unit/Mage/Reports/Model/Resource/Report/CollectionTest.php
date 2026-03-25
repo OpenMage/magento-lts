@@ -108,7 +108,7 @@ class CollectionTest extends OpenMageTest
      */
     public function testGetPageSize(): void
     {
-        self::assertNull(self::$subject->getPageSize());
+        self::assertFalse(self::$subject->getPageSize());
     }
 
     /**

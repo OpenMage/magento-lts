@@ -14,6 +14,8 @@
  */
 class Mage_Adminhtml_Block_Cms_Page_Widget_Chooser extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_cms_page_widget_chooser';
+
     public function __construct($arguments = [])
     {
         parent::__construct($arguments);

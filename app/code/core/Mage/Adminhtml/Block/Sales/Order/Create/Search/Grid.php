@@ -18,6 +18,8 @@
  */
 class Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_sales_order_create_search_grid';
+
     /**
      * @throws Exception
      */

@@ -14,6 +14,8 @@ use Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract as MassAction;
  */
 class Mage_Index_Block_Adminhtml_Process_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'index_adminhtml_process_grid';
+
     /**
      * Process model
      *
