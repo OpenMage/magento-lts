@@ -12,7 +12,7 @@
  *
  * @package    Mage_Core
  */
-class Mage_Core_Model_Url_Validator extends Mage_Core_Helper_Validate_Abstract
+class Mage_Core_Model_Url_Validator extends Mage_Core_Model_Validate_Abstract
 {
     /**
      * Error keys
