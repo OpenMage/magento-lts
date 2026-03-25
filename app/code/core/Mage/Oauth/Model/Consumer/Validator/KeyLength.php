@@ -12,7 +12,7 @@
  *
  * @package    Mage_Oauth
  */
-class Mage_Oauth_Model_Consumer_Validator_KeyLength extends Mage_Core_Helper_Validate_Abstract
+class Mage_Oauth_Model_Consumer_Validator_KeyLength extends Mage_Core_Model_Validate_Abstract
 {
     /**
      * Key name
