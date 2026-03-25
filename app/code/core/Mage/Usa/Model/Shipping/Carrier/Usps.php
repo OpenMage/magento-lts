@@ -751,6 +751,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
 
             return $request;
         }
+
         $request = [
             'originZIPCode' => substr($r->getOrigPostal(), 0, 5),
             'foreignPostalCode' => $r->getDestPostal() ?: '',
@@ -770,10 +771,12 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
             $request['accountType'] = $accountType;
             $request['accountNumber'] = $accountNumber;
         }
+
         // Add optional item value for customs/insurance
         if ($r->getValue() && $r->getValue() > 0) {
             $request['itemValue'] = (float) $r->getValue();
         }
+
         return $request;
     }
 
@@ -2233,6 +2236,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
         if ($this->_isUSCountry($countryRecipient)) {
             return $this->getCode('delivery_confirmation_types');
         }
+
         return [];
     }
 

@@ -36,12 +36,12 @@ final class UspsSecurityTest extends OpenMageTest
         // Both getConfigData calls must be wrapped in decrypt()
         self::assertStringContainsString(
             "Mage::helper('core')->decrypt(\$this->getConfigData('client_id'))",
-            $source,
+            (string) $source,
             '_getOAuthToken() must decrypt client_id before use',
         );
         self::assertStringContainsString(
             "Mage::helper('core')->decrypt(\$this->getConfigData('client_secret'))",
-            $source,
+            (string) $source,
             '_getOAuthToken() must decrypt client_secret before use',
         );
     }
@@ -136,12 +136,12 @@ final class UspsSecurityTest extends OpenMageTest
 
         self::assertStringNotContainsString(
             'unserialize(',
-            $source,
+            (string) $source,
             'Standards.php must use json_decode instead of unserialize',
         );
         self::assertStringNotContainsString(
             'serialize(',
-            $source,
+            (string) $source,
             'Standards.php must use json_encode instead of serialize',
         );
     }
@@ -198,22 +198,20 @@ final class UspsSecurityTest extends OpenMageTest
         }
     }
 
-    public static function provideGatewayUrls(): array
+    public static function provideGatewayUrls(): \Iterator
     {
-        return [
-            'production URL' => ['https://api.usps.com/', true],
-            'sandbox URL' => ['https://apis-sandbox.usps.com/', true],
-            'with path' => ['https://api.usps.com/some/path', true],
-            'SSRF evil.com' => ['https://evil.com/', false],
-            'SSRF with usps subdomain' => ['https://usps.com.evil.com/', false],
-            'non-HTTPS' => ['http://api.usps.com/', false],
-            'FTP scheme' => ['ftp://api.usps.com/', false],
-            'empty string' => ['', false],
-            'no scheme' => ['api.usps.com', false],
-            'bare IP' => ['https://192.168.1.1/', false],
-            'localhost' => ['https://localhost/', false],
-            'internal network' => ['https://10.0.0.1/', false],
-        ];
+        yield 'production URL' => ['https://api.usps.com/', true];
+        yield 'sandbox URL' => ['https://apis-sandbox.usps.com/', true];
+        yield 'with path' => ['https://api.usps.com/some/path', true];
+        yield 'SSRF evil.com' => ['https://evil.com/', false];
+        yield 'SSRF with usps subdomain' => ['https://usps.com.evil.com/', false];
+        yield 'non-HTTPS' => ['http://api.usps.com/', false];
+        yield 'FTP scheme' => ['ftp://api.usps.com/', false];
+        yield 'empty string' => ['', false];
+        yield 'no scheme' => ['api.usps.com', false];
+        yield 'bare IP' => ['https://192.168.1.1/', false];
+        yield 'localhost' => ['https://localhost/', false];
+        yield 'internal network' => ['https://10.0.0.1/', false];
     }
 
     // ──────────────────────────────────────────────
@@ -227,8 +225,8 @@ final class UspsSecurityTest extends OpenMageTest
     {
         $storeId = '1';
 
-        $keyA = 'usps_rest_api_token_store_' . $storeId . '_' . substr(hash('sha256', 'idA' . 'secretA'), 0, 8);
-        $keyB = 'usps_rest_api_token_store_' . $storeId . '_' . substr(hash('sha256', 'idB' . 'secretB'), 0, 8);
+        $keyA = 'usps_rest_api_token_store_' . $storeId . '_' . substr(hash('sha256', 'idAsecretA'), 0, 8);
+        $keyB = 'usps_rest_api_token_store_' . $storeId . '_' . substr(hash('sha256', 'idBsecretB'), 0, 8);
 
         self::assertNotSame($keyA, $keyB, 'Different credentials must produce different cache keys');
     }
@@ -259,12 +257,12 @@ final class UspsSecurityTest extends OpenMageTest
 
         self::assertStringContainsString(
             "hash('sha256'",
-            $source,
+            (string) $source,
             'UspsAuth must include credential hash in cache key',
         );
         self::assertStringContainsString(
             '$credentialHash',
-            $source,
+            (string) $source,
             'UspsAuth must compute credentialHash variable',
         );
     }
