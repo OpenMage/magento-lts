@@ -263,14 +263,18 @@ var UspsAddressVerification = {
      */
     useSuggestedAddress: function() {
         if (this.currentData && this.currentData.corrected) {
+            var corrected = this.currentData.corrected;
+            var cb = this.onCompleteCallback;
+            this.onCompleteCallback = null;
+
             // Apply correction via AJAX
             new Ajax.Request(this.config.applyUrl, {
                 method: 'post',
-                parameters: Object.extend({form_key: FORM_KEY}, this.currentData.corrected),
+                parameters: Object.extend({form_key: FORM_KEY}, corrected),
                 onComplete: function() {
                     this.hide();
-                    if (this.onCompleteCallback) {
-                        this.onCompleteCallback(true, this.currentData.corrected);
+                    if (cb) {
+                        cb(true, corrected);
                     }
                 }.bind(this)
             });
@@ -281,9 +285,11 @@ var UspsAddressVerification = {
      * User clicked "Keep My Address"
      */
     keepOriginalAddress: function() {
+        var cb = this.onCompleteCallback;
+        this.onCompleteCallback = null;
         this.hide();
-        if (this.onCompleteCallback) {
-            this.onCompleteCallback(false, null);
+        if (cb) {
+            cb(false, null);
         }
     },
 
@@ -328,11 +334,18 @@ var UspsAddressVerification = {
     },
 
     /**
-     * Hide the modal
+     * Hide the modal and invoke pending callback (treat as "Keep My Address")
      */
     hide: function() {
         $('usps-address-verification-overlay').hide();
         document.body.removeClassName('usps-av-modal-open');
+
+        // Treat dismiss as "Keep My Address" so checkout is not left stuck
+        if (this.onCompleteCallback) {
+            var cb = this.onCompleteCallback;
+            this.onCompleteCallback = null;
+            cb(false, null);
+        }
     },
 
     /**

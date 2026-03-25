@@ -47,8 +47,8 @@ class Mage_Usa_Adminhtml_UspsController extends Mage_Adminhtml_Controller_Action
             curl_setopt($ch, CURLOPT_URL, $gatewayUrl . 'oauth2/v3/token');
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($ch, CURLOPT_POST, true);
-            curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode([
+            curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/x-www-form-urlencoded']);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query([
                 'grant_type' => 'client_credentials',
                 'client_id' => $clientId,
                 'client_secret' => $clientSecret,
@@ -273,8 +273,8 @@ class Mage_Usa_Adminhtml_UspsController extends Mage_Adminhtml_Controller_Action
             curl_setopt($ch, CURLOPT_URL, $gatewayUrl . 'oauth2/v3/token');
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($ch, CURLOPT_POST, true);
-            curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode([
+            curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/x-www-form-urlencoded']);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query([
                 'grant_type' => 'client_credentials',
                 'client_id' => $clientId,
                 'client_secret' => $clientSecret,
