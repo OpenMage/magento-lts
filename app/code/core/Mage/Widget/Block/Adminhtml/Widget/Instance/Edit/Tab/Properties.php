@@ -73,7 +73,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Properties extends Ma
      *
      * @inheritDoc
      */
-    protected function _preparelayout()
+    protected function _prepareLayout()
     {
         $this->setWidgetType($this->getWidgetInstance()->getType())
             ->setWidgetValues($this->getWidgetInstance()->getWidgetParameters());
@@ -83,7 +83,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Properties extends Ma
     /**
      * Add field to Options form based on option configuration
      *
-     * @param Varien_Object $parameter
+     * @param  Varien_Object                           $parameter
      * @return false|Varien_Data_Form_Element_Abstract
      */
     protected function _addField($parameter)

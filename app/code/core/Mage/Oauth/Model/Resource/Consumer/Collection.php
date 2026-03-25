@@ -11,11 +11,13 @@
  * OAuth Application resource collection model
  *
  * @package    Mage_Oauth
+ *
+ * @extends Mage_Core_Model_Resource_Db_Collection_Abstract<Mage_Oauth_Model_Consumer>
  */
 class Mage_Oauth_Model_Resource_Consumer_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
     /**
-     * Initialize collection model
+     * @inheritDoc
      */
     protected function _construct()
     {

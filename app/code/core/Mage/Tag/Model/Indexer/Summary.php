@@ -13,23 +13,23 @@
  * @package    Mage_Tag
  *
  * @method Mage_Tag_Model_Resource_Indexer_Summary _getResource()
- * @method int getBasePopularity()
- * @method int getCustomers()
- * @method int getHistoricalUses()
- * @method int getPopularity()
- * @method int getProducts()
+ * @method int                                     getBasePopularity()
+ * @method int                                     getCustomers()
+ * @method int                                     getHistoricalUses()
+ * @method int                                     getPopularity()
+ * @method int                                     getProducts()
  * @method Mage_Tag_Model_Resource_Indexer_Summary getResource()
- * @method int getStoreId()
- * @method int getTagId()
- * @method int getUses()
- * @method $this setBasePopularity(int $value)
- * @method $this setCustomers(int $value)
- * @method $this setHistoricalUses(int $value)
- * @method $this setPopularity(int $value)
- * @method $this setProducts(int $value)
- * @method $this setStoreId(int $value)
- * @method $this setTagId(int $value)
- * @method $this setUses(int $value)
+ * @method int                                     getStoreId()
+ * @method int                                     getTagId()
+ * @method int                                     getUses()
+ * @method $this                                   setBasePopularity(int $value)
+ * @method $this                                   setCustomers(int $value)
+ * @method $this                                   setHistoricalUses(int $value)
+ * @method $this                                   setPopularity(int $value)
+ * @method $this                                   setProducts(int $value)
+ * @method $this                                   setStoreId(int $value)
+ * @method $this                                   setTagId(int $value)
+ * @method $this                                   setUses(int $value)
  */
 class Mage_Tag_Model_Indexer_Summary extends Mage_Index_Model_Indexer_Abstract
 {
@@ -50,6 +50,9 @@ class Mage_Tag_Model_Indexer_Summary extends Mage_Index_Model_Indexer_Abstract
         ],
     ];
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('tag/indexer_summary');

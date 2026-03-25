@@ -12,62 +12,58 @@
  *
  * @package    Mage_Sales
  *
- * @method Mage_Sales_Model_Resource_Quote_Payment _getResource()
- * @method string getAdditionalData()
- * @method string getCcCidEnc()
- * @method int getCcExpMonth()
- * @method int getCcExpYear()
- * @method string getCcLast4()
- * @method string getCcNumberEnc()
- * @method string getCcOwner()
- * @method string getCcSsIssue()
- * @method string getCcSsOwner()
- * @method int getCcSsStartMonth()
- * @method int getCcSsStartYear()
- * @method string getCcType()
+ * @method Mage_Sales_Model_Resource_Quote_Payment            _getResource()
+ * @method string                                             getAdditionalData()
+ * @method string                                             getCcCidEnc()
+ * @method int                                                getCcExpMonth()
+ * @method int                                                getCcExpYear()
+ * @method string                                             getCcLast4()
+ * @method string                                             getCcNumberEnc()
+ * @method string                                             getCcOwner()
+ * @method string                                             getCcSsIssue()
+ * @method string                                             getCcSsOwner()
+ * @method int                                                getCcSsStartMonth()
+ * @method int                                                getCcSsStartYear()
+ * @method string                                             getCcType()
  * @method Mage_Sales_Model_Resource_Quote_Payment_Collection getCollection()
- * @method string getCreatedAt()
- * @method int getCustomerPaymentId()
- * @method string getCybersourceToken()
- * @method string getIdealIssuerId()
- * @method string getIdealIssuerList()
- * @method string getMethod()
- * @method string getPaypalCorrelationId()
- * @method string getPaypalPayerId()
- * @method string getPaypalPayerStatus()
- * @method string getPoNumber()
- * @method int getQuoteId()
- * @method Mage_Sales_Model_Resource_Quote_Payment getResource()
+ * @method int                                                getCustomerPaymentId()
+ * @method string                                             getCybersourceToken()
+ * @method string                                             getIdealIssuerId()
+ * @method string                                             getIdealIssuerList()
+ * @method string                                             getMethod()
+ * @method string                                             getPaypalCorrelationId()
+ * @method string                                             getPaypalPayerId()
+ * @method string                                             getPaypalPayerStatus()
+ * @method string                                             getPoNumber()
+ * @method int                                                getQuoteId()
+ * @method Mage_Sales_Model_Resource_Quote_Payment            getResource()
  * @method Mage_Sales_Model_Resource_Quote_Payment_Collection getResourceCollection()
- * @method int getStoreId()
- * @method string getUpdatedAt()
- * @method $this setAdditionalData(string $value)
- * @method $this setCcCid(string $value)
- * @method $this setCcCidEnc(string $value)
- * @method $this setCcExpMonth(int $value)
- * @method $this setCcExpYear(int $value)
- * @method $this setCcLast4(string $value)
- * @method $this setCcNumber(string $value)
- * @method $this setCcNumberEnc(string $value)
- * @method $this setCcOwner(string $value)
- * @method $this setCcSsIssue(string $value)
- * @method $this setCcSsOwner(string $value)
- * @method $this setCcSsStartMonth(int $value)
- * @method $this setCcSsStartYear(int $value)
- * @method $this setCcType(string $value)
- * @method $this setCreatedAt(string $value)
- * @method $this setCustomerPaymentId(int $value)
- * @method $this setCybersourceToken(string $value)
- * @method $this setIdealIssuerId(string $value)
- * @method $this setIdealIssuerList(string $value)
- * @method $this setMethod(string $value)
- * @method $this setPaypalCorrelationId(string $value)
- * @method $this setPaypalPayerId(string $value)
- * @method $this setPaypalPayerStatus(string $value)
- * @method $this setPoNumber(string $value)
- * @method $this setQuoteId(int $value)
- * @method $this setStoreId(int $value)
- * @method $this setUpdatedAt(string $value)
+ * @method int                                                getStoreId()
+ * @method $this                                              setAdditionalData(string $value)
+ * @method $this                                              setCcCid(string $value)
+ * @method $this                                              setCcCidEnc(string $value)
+ * @method $this                                              setCcExpMonth(int $value)
+ * @method $this                                              setCcExpYear(int $value)
+ * @method $this                                              setCcLast4(string $value)
+ * @method $this                                              setCcNumber(string $value)
+ * @method $this                                              setCcNumberEnc(string $value)
+ * @method $this                                              setCcOwner(string $value)
+ * @method $this                                              setCcSsIssue(string $value)
+ * @method $this                                              setCcSsOwner(string $value)
+ * @method $this                                              setCcSsStartMonth(int $value)
+ * @method $this                                              setCcSsStartYear(int $value)
+ * @method $this                                              setCcType(string $value)
+ * @method $this                                              setCustomerPaymentId(int $value)
+ * @method $this                                              setCybersourceToken(string $value)
+ * @method $this                                              setIdealIssuerId(string $value)
+ * @method $this                                              setIdealIssuerList(string $value)
+ * @method $this                                              setMethod(string $value)
+ * @method $this                                              setPaypalCorrelationId(string $value)
+ * @method $this                                              setPaypalPayerId(string $value)
+ * @method $this                                              setPaypalPayerStatus(string $value)
+ * @method $this                                              setPoNumber(string $value)
+ * @method $this                                              setQuoteId(int $value)
+ * @method $this                                              setStoreId(int $value)
  */
 class Mage_Sales_Model_Quote_Payment extends Mage_Payment_Model_Info
 {
@@ -77,6 +73,9 @@ class Mage_Sales_Model_Quote_Payment extends Mage_Payment_Model_Info
 
     protected $_quote;
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('sales/quote_payment');
@@ -85,7 +84,7 @@ class Mage_Sales_Model_Quote_Payment extends Mage_Payment_Model_Info
     /**
      * Declare quote model instance
      *
-     * @return  $this
+     * @return $this
      */
     public function setQuote(Mage_Sales_Model_Quote $quote)
     {
@@ -112,8 +111,8 @@ class Mage_Sales_Model_Quote_Payment extends Mage_Payment_Model_Info
      * Method calls quote totals collect because payment method availability
      * can be related to quote totals
      *
-     * @return  $this
-     * @throws  Mage_Core_Exception
+     * @return $this
+     * @throws Mage_Core_Exception
      */
     public function importData(array $data)
     {

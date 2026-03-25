@@ -29,7 +29,7 @@ class Mage_Sales_Helper_Reorder extends Mage_Core_Helper_Data
     /**
      * Check if reorder is allowed for given store
      *
-     * @param null|int|Mage_Core_Model_Store $store
+     * @param  null|int|Mage_Core_Model_Store $store
      * @return bool
      */
     public function isAllowed($store = null)
@@ -52,8 +52,8 @@ class Mage_Sales_Helper_Reorder extends Mage_Core_Helper_Data
 
         if (Mage::getSingleton('customer/session')->isLoggedIn()) {
             return $order->canReorder();
-        } else {
-            return true;
         }
+
+        return true;
     }
 }

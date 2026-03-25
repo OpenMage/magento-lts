@@ -12,12 +12,51 @@
  *
  * @package    Mage_Cms
  *
- * @method Mage_Cms_Model_Resource_Page _getResource()
+ * @method Mage_Cms_Model_Resource_Page            _getResource()
  * @method Mage_Cms_Model_Resource_Page_Collection getCollection()
- * @method string getPreviewUrl()
- * @method Mage_Cms_Model_Resource_Page getResource()
+ * @method string                                  getContent()
+ * @method string                                  getContentHeading()
+ * @method string                                  getCreationTime()
+ * @method string                                  getCustomLayoutUpdateXml()
+ * @method string                                  getCustomRootTemplate()
+ * @method string                                  getCustomTheme()
+ * @method string                                  getCustomThemeFrom()
+ * @method string                                  getCustomThemeTo()
+ * @method string                                  getIdentifier()
+ * @method int                                     getIsActive()
+ * @method string                                  getLayoutUpdateXml()
+ * @method string                                  getMetaDescription()
+ * @method string                                  getMetaKeywords()
+ * @method string                                  getPreviewUrl()
+ * @method Mage_Cms_Model_Resource_Page            getResource()
  * @method Mage_Cms_Model_Resource_Page_Collection getResourceCollection()
- * @method bool hasStores()
+ * @method string                                  getRootTemplate()
+ * @method int                                     getSortOrder()
+ * @method string                                  getStoreCode()
+ * @method string                                  getStoreId()
+ * @method array                                   getStores()
+ * @method string                                  getTitle()
+ * @method string                                  getUpdateTime()
+ * @method bool                                    hasCreationTime()
+ * @method bool                                    hasStores()
+ * @method $this                                   setContent(string $value)
+ * @method $this                                   setContentHeading(string $value)
+ * @method $this                                   setCreationTime(string $value)
+ * @method $this                                   setCustomLayoutUpdateXml(string $value)
+ * @method $this                                   setCustomRootTemplate(string $value)
+ * @method $this                                   setCustomTheme(string $value)
+ * @method $this                                   setCustomThemeFrom(string $value)
+ * @method $this                                   setCustomThemeTo(string $value)
+ * @method $this                                   setIdentifier(string $value)
+ * @method $this                                   setIsActive(int $value)
+ * @method $this                                   setLayoutUpdateXml(string $value)
+ * @method $this                                   setMetaDescription(string $value)
+ * @method $this                                   setMetaKeywords(string $value)
+ * @method $this                                   setRootTemplate(string $value)
+ * @method $this                                   setSortOrder(int $value)
+ * @method $this                                   setStoreId(int $value)
+ * @method $this                                   setTitle(string $value)
+ * @method $this                                   setUpdateTime(string $value)
  */
 class Mage_Cms_Model_Page extends Mage_Core_Model_Abstract implements Mage_Cms_Api_Data_PageInterface
 {
@@ -41,8 +80,12 @@ class Mage_Cms_Model_Page extends Mage_Core_Model_Abstract implements Mage_Cms_A
      */
     protected $_eventPrefix = 'cms_page';
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
+        parent::_construct();
         $this->_init('cms/page');
     }
 
@@ -73,8 +116,8 @@ class Mage_Cms_Model_Page extends Mage_Core_Model_Abstract implements Mage_Cms_A
      * Check if page identifier exist for specific store
      * return page id if page exists
      *
-     * @param string $identifier
-     * @param int $storeId
+     * @param  string              $identifier
+     * @param  int                 $storeId
      * @return string
      * @throws Mage_Core_Exception
      */

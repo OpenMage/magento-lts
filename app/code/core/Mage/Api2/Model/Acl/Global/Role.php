@@ -12,16 +12,12 @@
  *
  * @package    Mage_Api2
  *
- * @method Mage_Api2_Model_Resource_Acl_Global_Role _getResource()
+ * @method Mage_Api2_Model_Resource_Acl_Global_Role            _getResource()
  * @method Mage_Api2_Model_Resource_Acl_Global_Role_Collection getCollection()
- * @method string getCreatedAt()
- * @method Mage_Api2_Model_Resource_Acl_Global_Role getResource()
+ * @method Mage_Api2_Model_Resource_Acl_Global_Role            getResource()
  * @method Mage_Api2_Model_Resource_Acl_Global_Role_Collection getResourceCollection()
- * @method string getRoleName()
- * @method string getUpdatedAt()
- * @method $this setCreatedAt() setCreatedAt(string $createdAt)
- * @method $this setRoleName() setRoleName(string $roleName)
- * @method $this setUpdatedAt() setUpdatedAt(string $updatedAt)
+ * @method string                                              getRoleName()
+ * @method $this                                               setRoleName() setRoleName(string $roleName)
  */
 class Mage_Api2_Model_Acl_Global_Role extends Mage_Core_Model_Abstract
 {
@@ -48,6 +44,9 @@ class Mage_Api2_Model_Acl_Global_Role extends Mage_Core_Model_Abstract
      */
     protected $_permissionModel;
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('api2/acl_global_role');
@@ -57,6 +56,7 @@ class Mage_Api2_Model_Acl_Global_Role extends Mage_Core_Model_Abstract
      * Before save actions
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     protected function _beforeSave()
     {
@@ -85,6 +85,7 @@ class Mage_Api2_Model_Acl_Global_Role extends Mage_Core_Model_Abstract
      * Perform checks before role delete
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     protected function _beforeDelete()
     {
@@ -131,8 +132,9 @@ class Mage_Api2_Model_Acl_Global_Role extends Mage_Core_Model_Abstract
     /**
      * Get role system belonging
      *
-     * @param Mage_Api2_Model_Acl_Global_Role $role
+     * @param  Mage_Api2_Model_Acl_Global_Role $role
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public static function isSystemRole($role)
     {
@@ -143,6 +145,7 @@ class Mage_Api2_Model_Acl_Global_Role extends Mage_Core_Model_Abstract
      * Get config node identifiers
      *
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function getConfigNodeName()
     {

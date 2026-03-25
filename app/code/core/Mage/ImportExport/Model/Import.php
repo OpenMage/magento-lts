@@ -111,7 +111,7 @@ class Mage_ImportExport_Model_Import extends Mage_ImportExport_Model_Abstract
     /**
      * Returns source adapter object.
      *
-     * @param string $sourceFile Full path to source file
+     * @param  string                                          $sourceFile Full path to source file
      * @return Mage_ImportExport_Model_Import_Adapter_Abstract
      */
     protected function _getSourceAdapter($sourceFile)
@@ -122,7 +122,7 @@ class Mage_ImportExport_Model_Import extends Mage_ImportExport_Model_Abstract
     /**
      * Return operation result messages
      *
-     * @param bool $validationResult
+     * @param  bool  $validationResult
      * @return array
      */
     public function getOperationResultMessages($validationResult)
@@ -176,11 +176,13 @@ class Mage_ImportExport_Model_Import extends Mage_ImportExport_Model_Abstract
         if ($attribute->usesSource()) {
             return $attribute->getFrontendInput() == 'multiselect'
                 ? 'multiselect' : 'select';
-        } elseif ($attribute->isStatic()) {
-            return $attribute->getFrontendInput() == 'date' ? 'datetime' : 'varchar';
-        } else {
-            return $attribute->getBackendType();
         }
+
+        if ($attribute->isStatic()) {
+            return $attribute->getFrontendInput() == 'date' ? 'datetime' : 'varchar';
+        }
+
+        return $attribute->getBackendType();
     }
 
     /**
@@ -384,7 +386,7 @@ class Mage_ImportExport_Model_Import extends Mage_ImportExport_Model_Abstract
     /**
      * Move uploaded file and create source adapter instance.
      *
-     * @return string Source file path
+     * @return string              Source file path
      * @throws Mage_Core_Exception
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
@@ -435,7 +437,7 @@ class Mage_ImportExport_Model_Import extends Mage_ImportExport_Model_Abstract
     /**
      * Validates source file and returns validation result.
      *
-     * @param string $sourceFile Full path to source file
+     * @param  string $sourceFile Full path to source file
      * @return bool
      */
     public function validateSource($sourceFile)

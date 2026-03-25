@@ -14,6 +14,9 @@
  */
 class Mage_CatalogSearch_Model_Resource_Advanced extends Mage_Core_Model_Resource_Db_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('catalog/product', 'entity_id');
@@ -23,7 +26,7 @@ class Mage_CatalogSearch_Model_Resource_Advanced extends Mage_Core_Model_Resourc
      * Prepare response object and dispatch prepare price event
      * Return response object
      *
-     * @param Varien_Db_Select $select
+     * @param  Varien_Db_Select $select
      * @return Varien_Object
      */
     protected function _dispatchPreparePriceEvent($select)
@@ -48,9 +51,9 @@ class Mage_CatalogSearch_Model_Resource_Advanced extends Mage_Core_Model_Resourc
     /**
      * Prepare search condition for attribute
      *
-     * @param Mage_Catalog_Model_Resource_Eav_Attribute $attribute
-     * @param array|string $value
-     * @param Mage_CatalogSearch_Model_Resource_Advanced_Collection $collection
+     * @param  Mage_Catalog_Model_Resource_Eav_Attribute             $attribute
+     * @param  array|string                                          $value
+     * @param  Mage_CatalogSearch_Model_Resource_Advanced_Collection $collection
      * @return array|false|string|string[]
      */
     public function prepareCondition($attribute, $value, $collection)
@@ -79,10 +82,10 @@ class Mage_CatalogSearch_Model_Resource_Advanced extends Mage_Core_Model_Resourc
     /**
      * Add filter by attribute rated price
      *
-     * @param Mage_CatalogSearch_Model_Resource_Advanced_Collection $collection
-     * @param Mage_Catalog_Model_Resource_Eav_Attribute $attribute
-     * @param array|string $value
-     * @param int $rate
+     * @param  Mage_CatalogSearch_Model_Resource_Advanced_Collection $collection
+     * @param  Mage_Catalog_Model_Resource_Eav_Attribute             $attribute
+     * @param  array|string                                          $value
+     * @param  int                                                   $rate
      * @return bool
      */
     public function addRatedPriceFilter($collection, $attribute, $value, $rate = 1)
@@ -125,9 +128,9 @@ class Mage_CatalogSearch_Model_Resource_Advanced extends Mage_Core_Model_Resourc
     /**
      * Add filter by indexable attribute
      *
-     * @param Mage_CatalogSearch_Model_Resource_Advanced_Collection $collection
-     * @param Mage_Catalog_Model_Resource_Eav_Attribute $attribute
-     * @param array|string $value
+     * @param  Mage_CatalogSearch_Model_Resource_Advanced_Collection $collection
+     * @param  Mage_Catalog_Model_Resource_Eav_Attribute             $attribute
+     * @param  array|string                                          $value
      * @return bool
      */
     public function addIndexableAttributeModifiedFilter($collection, $attribute, $value)

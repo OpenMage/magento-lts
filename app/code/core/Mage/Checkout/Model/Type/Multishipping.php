@@ -12,7 +12,7 @@
  *
  * @package    Mage_Checkout
  *
- * @method bool getCollectRatesFlag()
+ * @method bool  getCollectRatesFlag()
  * @method $this setCollectRatesFlag(bool $value)
  * @method setCustomerAddressId(int $getCustomerAddressId)
  * @method setProductOptions(array $getOrderOptions)
@@ -147,8 +147,8 @@ class Mage_Checkout_Model_Type_Multishipping extends Mage_Checkout_Model_Type_Ab
     /**
      * Remove item from address
      *
-     * @param int $addressId
-     * @param int $itemId
+     * @param  int   $addressId
+     * @param  int   $itemId
      * @return $this
      */
     public function removeAddressItem($addressId, $itemId)
@@ -200,7 +200,7 @@ class Mage_Checkout_Model_Type_Multishipping extends Mage_Checkout_Model_Type_Ab
      *      )
      * )
      *
-     * @param array $info
+     * @param  array $info
      * @return $this
      */
     public function setShippingItemsInformation($info)
@@ -279,8 +279,8 @@ class Mage_Checkout_Model_Type_Multishipping extends Mage_Checkout_Model_Type_Ab
     /**
      * Add quote item to specific shipping address based on customer address id
      *
-     * @param int $quoteItemId
-     * @param array $data array('qty'=>$qty, 'address'=>$customerAddressId)
+     * @param  int   $quoteItemId
+     * @param  array $data        array('qty'=>$qty, 'address'=>$customerAddressId)
      * @return $this
      */
     protected function _addShippingItem($quoteItemId, $data)
@@ -330,7 +330,7 @@ class Mage_Checkout_Model_Type_Multishipping extends Mage_Checkout_Model_Type_Ab
     /**
      * Reimport customer address info to quote shipping address
      *
-     * @param int $addressId customer address id
+     * @param  int   $addressId customer address id
      * @return $this
      */
     public function updateQuoteCustomerShippingAddress($addressId)
@@ -349,7 +349,7 @@ class Mage_Checkout_Model_Type_Multishipping extends Mage_Checkout_Model_Type_Ab
     /**
      * Reimport customer billing address to quote
      *
-     * @param int $addressId customer address id
+     * @param  int   $addressId customer address id
      * @return $this
      */
     public function setQuoteCustomerBillingAddress($addressId)
@@ -388,7 +388,7 @@ class Mage_Checkout_Model_Type_Multishipping extends Mage_Checkout_Model_Type_Ab
     /**
      * Set payment method info to quote payment
      *
-     * @param array $payment
+     * @param  array $payment
      * @return $this
      */
     public function setPaymentMethod($payment)
@@ -412,8 +412,8 @@ class Mage_Checkout_Model_Type_Multishipping extends Mage_Checkout_Model_Type_Ab
     /**
      * Prepare order based on quote address
      *
-     * @return  Mage_Sales_Model_Order
-     * @throws  Mage_Checkout_Exception
+     * @return Mage_Sales_Model_Order
+     * @throws Mage_Checkout_Exception
      */
     protected function _prepareOrder(Mage_Sales_Model_Quote_Address $address)
     {
@@ -598,7 +598,7 @@ class Mage_Checkout_Model_Type_Multishipping extends Mage_Checkout_Model_Type_Ab
     {
         $descr = Mage::getStoreConfig('sales/minimum_order/multi_address_description');
         if (empty($descr)) {
-            $descr = Mage::getStoreConfig('sales/minimum_order/description');
+            return Mage::getStoreConfig('sales/minimum_order/description');
         }
 
         return $descr;
@@ -611,7 +611,7 @@ class Mage_Checkout_Model_Type_Multishipping extends Mage_Checkout_Model_Type_Ab
     {
         $error = Mage::getStoreConfig('sales/minimum_order/multi_address_error_message');
         if (empty($error)) {
-            $error = Mage::getStoreConfig('sales/minimum_order/error_message');
+            return Mage::getStoreConfig('sales/minimum_order/error_message');
         }
 
         return $error;
@@ -633,7 +633,7 @@ class Mage_Checkout_Model_Type_Multishipping extends Mage_Checkout_Model_Type_Ab
     /**
      * Get order IDs created during checkout
      *
-     * @param bool $asAssoc
+     * @param  bool  $asAssoc
      * @return array
      */
     public function getOrderIds($asAssoc = false)

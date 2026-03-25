@@ -22,10 +22,13 @@ class Mage_Admin_Model_Resource_Block extends Mage_Core_Model_Resource_Db_Abstra
     /**
      * Disallowed names for block
      *
-     * @var array
+     * @var string[]
      */
     protected $disallowedBlockNames = ['install/end'];
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('admin/permission_block', 'block_id');

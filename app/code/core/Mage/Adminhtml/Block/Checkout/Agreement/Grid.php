@@ -16,15 +16,14 @@
  */
 class Mage_Adminhtml_Block_Checkout_Agreement_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
-    /**
-     * Mage_Adminhtml_Block_Checkout_Agreement_Grid constructor.
-     */
+    protected string $_eventPrefix = 'adminhtml_checkout_agreement_grid';
+
     public function __construct()
     {
         parent::__construct();
         $this->setDefaultSort('agreement_id');
         $this->setId('agreementGrid');
-        $this->setDefaultDir('asc');
+        $this->setDefaultDir('ASC');
         $this->setSaveParametersInSession(true);
     }
 
@@ -41,6 +40,7 @@ class Mage_Adminhtml_Block_Checkout_Agreement_Grid extends Mage_Adminhtml_Block_
 
     /**
      * @inheritDoc
+     * @throws Exception
      */
     protected function _prepareColumns()
     {
@@ -107,7 +107,7 @@ class Mage_Adminhtml_Block_Checkout_Agreement_Grid extends Mage_Adminhtml_Block_
 
     /**
      * @param Mage_Checkout_Model_Resource_Agreement_Collection $collection
-     * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
+     * @param Mage_Adminhtml_Block_Widget_Grid_Column           $column
      */
     protected function _filterStoreCondition($collection, $column)
     {
@@ -117,8 +117,9 @@ class Mage_Adminhtml_Block_Checkout_Agreement_Grid extends Mage_Adminhtml_Block_
     }
 
     /**
-     * @param Mage_Checkout_Model_Agreement $row
-     * @return string
+     * @inheritDoc
+     * @param  Mage_Checkout_Model_Agreement $row
+     * @throws Mage_Core_Exception
      */
     public function getRowUrl($row)
     {

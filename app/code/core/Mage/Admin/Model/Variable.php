@@ -12,17 +12,17 @@
  *
  * @package    Mage_Admin
  *
- * @method Mage_Admin_Model_Resource_Variable _getResource()
+ * @method Mage_Admin_Model_Resource_Variable            _getResource()
  * @method Mage_Admin_Model_Resource_Variable_Collection getCollection()
- * @method string getIsAllowed()
- * @method Mage_Admin_Model_Resource_Variable getResource()
+ * @method string                                        getIsAllowed()
+ * @method Mage_Admin_Model_Resource_Variable            getResource()
  * @method Mage_Admin_Model_Resource_Variable_Collection getResourceCollection()
- * @method string getVariableName()
+ * @method string                                        getVariableName()
  */
 class Mage_Admin_Model_Variable extends Mage_Core_Model_Abstract
 {
     /**
-     * Initialize variable model
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -30,37 +30,45 @@ class Mage_Admin_Model_Variable extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @return array|bool
+     * @return array|true
      * @throws Exception
-     * @throws Zend_Validate_Exception
      */
     public function validate()
     {
-        $errors = [];
+        $validator  = $this->getValidationHelper();
+        $violations = new ArrayObject();
 
-        if (!Zend_Validate::is($this->getVariableName(), 'NotEmpty')) {
-            $errors[] = Mage::helper('adminhtml')->__('Variable Name is required field.');
-        }
+        $variableName = $this->getVariableName();
 
-        if (!Zend_Validate::is($this->getVariableName(), 'Regex', ['/^[-_a-zA-Z0-9\/]*$/'])) {
-            $errors[] = Mage::helper('adminhtml')->__('Variable Name is incorrect.');
-        }
+        $violations->append($validator->validateNotEmpty(
+            value: $variableName,
+            message: Mage::helper('adminhtml')->__('Variable Name is required field.'),
+        ));
 
-        if (!in_array($this->getIsAllowed(), ['0', '1'])) {
-            $errors[] = Mage::helper('adminhtml')->__('Is Allowed is required field.');
-        }
+        $violations->append($validator->validateRegex(
+            value: $variableName,
+            pattern: '/^[-_a-zA-Z0-9\/]*$/',
+            message: Mage::helper('adminhtml')->__('Variable Name is incorrect.'),
+        ));
 
-        if (empty($errors)) {
+        $violations->append($validator->validateChoice(
+            value: $this->getIsAllowed(),
+            choices: ['0', '1'],
+            message: Mage::helper('adminhtml')->__('Is Allowed is required field.'),
+        ));
+
+        $errors = $validator->getErrorMessages($violations);
+        if (!$errors) {
             return true;
         }
 
-        return $errors;
+        return (array) $errors;
     }
 
     /**
      * Check is config directive with given path can be parsed via configDirective method
      *
-     * @param string $path
+     * @param  string $path
      * @return bool
      */
     public function isPathAllowed($path)

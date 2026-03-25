@@ -25,7 +25,7 @@ class Mage_Checkout_Block_Onepage_Payment_Methods extends Mage_Payment_Block_For
     /**
      * Check payment method model
      *
-     * @param null|Mage_Payment_Model_Method_Abstract $method
+     * @param  null|Mage_Payment_Model_Method_Abstract $method
      * @return bool
      */
     protected function _canUseMethod($method)

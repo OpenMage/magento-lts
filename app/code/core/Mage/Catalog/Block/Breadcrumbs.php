@@ -17,7 +17,7 @@ class Mage_Catalog_Block_Breadcrumbs extends Mage_Core_Block_Template
     /**
      * Retrieve HTML title value separator (with space)
      *
-     * @param mixed $store
+     * @param  mixed  $store
      * @return string
      */
     public function getTitleSeparator($store = null)

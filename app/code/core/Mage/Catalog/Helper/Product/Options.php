@@ -24,9 +24,9 @@ class Mage_Catalog_Helper_Product_Options extends Mage_Core_Helper_Abstract
      *  - 'size' - size of file
      *  - 'title' - user-friendly name of file (usually - original name as uploaded in Magento)
      *
-     * @param Mage_Core_Controller_Response_Http $response
-     * @param string $filePath
-     * @param array $info
+     * @param  Mage_Core_Controller_Response_Http $response
+     * @param  string                             $filePath
+     * @param  array                              $info
      * @return bool
      */
     public function downloadFileOption($response, $filePath, $info)

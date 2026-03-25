@@ -17,7 +17,7 @@ interface Mage_Core_Model_Url_Rewrite_Interface
     /**
      * Load rewrite information for request
      *
-     * @param array|string $path
+     * @param  array|string                          $path
      * @return Mage_Core_Model_Url_Rewrite_Interface
      */
     public function loadByRequestPath($path);

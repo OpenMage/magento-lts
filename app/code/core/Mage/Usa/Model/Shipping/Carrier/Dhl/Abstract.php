@@ -7,6 +7,8 @@
  * @package    Mage_Usa
  */
 
+use Carbon\Carbon;
+
 /**
  * DHL Abstract class
  *
@@ -32,7 +34,7 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Dhl_Abstract extends Mage_Usa_Mod
     /**
      * Get shipping date
      *
-     * @param bool $domestic
+     * @param  bool   $domestic
      * @return string
      */
     protected function _getShipDate($domestic = true)
@@ -46,8 +48,8 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Dhl_Abstract extends Mage_Usa_Mod
     /**
      * Determine shipping day according to configuration settings
      *
-     * @param string $shippingDays
-     * @param string $date
+     * @param  string $shippingDays
+     * @param  string $date
      * @return string
      */
     protected function _determineShippingDay($shippingDays, $date)
@@ -59,12 +61,12 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Dhl_Abstract extends Mage_Usa_Mod
         $shippingDays = explode(',', $shippingDays);
 
         $index = 0;
-        $weekday = date('D', strtotime($date));
+        $weekday = Carbon::parse($date)->format('D');
         while (!in_array($weekday, $shippingDays) && $index < 10) {
             $index++;
-            $weekday = date('D', strtotime("$date +$index day"));
+            $weekday = Carbon::parse("$date +$index day")->format('D');
         }
 
-        return date(self::REQUEST_DATE_FORMAT, strtotime("$date +$index day"));
+        return Carbon::parse("$date +$index day")->format(self::REQUEST_DATE_FORMAT);
     }
 }

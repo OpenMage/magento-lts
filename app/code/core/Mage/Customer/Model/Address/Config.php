@@ -48,7 +48,7 @@ class Mage_Customer_Model_Address_Config extends Mage_Core_Model_Config_Base
     private $_defaultType       = [];
 
     /**
-     * @param null|bool|int|Mage_Core_Model_Store|string $store
+     * @param  null|bool|int|Mage_Core_Model_Store|string $store
      * @return $this
      * @throws Mage_Core_Model_Store_Exception
      */
@@ -95,7 +95,7 @@ class Mage_Customer_Model_Address_Config extends Mage_Core_Model_Config_Base
                 $path = sprintf('%s%s', self::XML_PATH_ADDRESS_TEMPLATE, $typeCode);
                 $type = new Varien_Object();
                 $htmlEscape = strtolower((string) $typeConfig->htmlEscape);
-                $htmlEscape = !(in_array($htmlEscape, ['false', '0', 'no'])
+                $htmlEscape = !(in_array($htmlEscape, ['false', '0', 'no'], true)
                     || !strlen($htmlEscape));
                 $type->setCode($typeCode)
                     ->setTitle((string) $typeConfig->title)
@@ -146,7 +146,7 @@ class Mage_Customer_Model_Address_Config extends Mage_Core_Model_Config_Base
     /**
      * Retrieve address format by code
      *
-     * @param string $typeCode
+     * @param  string        $typeCode
      * @return Varien_Object
      */
     public function getFormatByCode($typeCode)

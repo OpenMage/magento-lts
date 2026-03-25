@@ -15,7 +15,7 @@
 class Mage_SalesRule_Model_Resource_Report_Rule_Createdat extends Mage_Reports_Model_Resource_Report_Abstract
 {
     /**
-     * Resource Report Rule constructor
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -25,8 +25,8 @@ class Mage_SalesRule_Model_Resource_Report_Rule_Createdat extends Mage_Reports_M
     /**
      * Aggregate Coupons data by order created at
      *
-     * @param mixed $from
-     * @param mixed $to
+     * @param  mixed $from
+     * @param  mixed $to
      * @return $this
      */
     public function aggregate($from = null, $to = null)
@@ -37,9 +37,9 @@ class Mage_SalesRule_Model_Resource_Report_Rule_Createdat extends Mage_Reports_M
     /**
      * Aggregate coupons reports by orders
      *
-     * @param string $aggregationField
-     * @param mixed $from
-     * @param mixed $to
+     * @param  string    $aggregationField
+     * @param  mixed     $from
+     * @param  mixed     $to
      * @return $this
      * @throws Exception
      */

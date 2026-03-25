@@ -12,32 +12,32 @@
  *
  * @package    Mage_Rule
  *
- * @method false|string getAttribute()
- * @method array|string getAttributeOption()
- * @method bool getExplicitApply()
- * @method false|string getIsValueParsed()
- * @method false|string getOperator()
- * @method array getOperatorByInputType()
- * @method array|string getOperatorOption()
- * @method array getOperatorOptions()
- * @method string getPrefix()
+ * @method false|string             getAttribute()
+ * @method array|string             getAttributeOption()
+ * @method bool                     getExplicitApply()
+ * @method false|string             getIsValueParsed()
+ * @method false|string             getOperator()
+ * @method array                    getOperatorByInputType()
+ * @method array|string             getOperatorOption()
+ * @method array                    getOperatorOptions()
+ * @method string                   getPrefix()
  * @method Mage_Rule_Model_Abstract getRule()
- * @method false|string getType()
- * @method string getValueAfterElementHtml()
- * @method string getValueElementChooserUrl()
- * @method array getValueOption()
- * @method bool hasValueOption()
- * @method bool hasValueParsed()
- * @method $this setAttribute(false|string $value)
- * @method $this setIsValueParsed(false|string $value)
- * @method $this setJsFormObject(string  $value)
- * @method $this setOperator(false|string $value)
- * @method $this setOperatorByInputType(array $value)
- * @method $this setOperatorOption(array $value)
- * @method $this setType(string $value)
- * @method $this setValue(false|string $value)
- * @method $this setValueOption(array $value)
- * @method $this setValueParsed(array $value)
+ * @method false|string             getType()
+ * @method string                   getValueAfterElementHtml()
+ * @method string                   getValueElementChooserUrl()
+ * @method array                    getValueOption()
+ * @method bool                     hasValueOption()
+ * @method bool                     hasValueParsed()
+ * @method $this                    setAttribute(false|string $value)
+ * @method $this                    setIsValueParsed(false|string $value)
+ * @method $this                    setJsFormObject(string  $value)
+ * @method $this                    setOperator(false|string $value)
+ * @method $this                    setOperatorByInputType(array $value)
+ * @method $this                    setOperatorOption(array $value)
+ * @method $this                    setType(string $value)
+ * @method $this                    setValue(false|string $value)
+ * @method $this                    setValueOption(array $value)
+ * @method $this                    setValueParsed(array $value)
  */
 abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implements Mage_Rule_Model_Condition_Interface
 {
@@ -200,7 +200,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
     }
 
     /**
-     * @param array|Mage_Rule_Model_Condition_Abstract $arr
+     * @param  array|Mage_Rule_Model_Condition_Abstract $arr
      * @return $this
      */
     public function loadArray($arr)
@@ -215,7 +215,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
     }
 
     /**
-     * @param SimpleXMLElement|string $xml
+     * @param  SimpleXMLElement|string $xml
      * @return $this
      */
     public function loadXml($xml)
@@ -297,7 +297,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
         $opt = [];
         $operatorByType = $this->getOperatorByInputType();
         foreach ($this->getOperatorOption() as $key => $value) {
-            if (!$operatorByType || in_array($key, $operatorByType[$type])) {
+            if (!$operatorByType || in_array($key, $operatorByType[$type], true)) {
                 $opt[] = ['value' => $key, 'label' => $value];
             }
         }
@@ -327,7 +327,8 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
      */
     public function getValueSelectOptions()
     {
-        $valueOption = $opt = [];
+        $valueOption = [];
+        $opt = [];
         if ($this->hasValueOption()) {
             $valueOption = (array) $this->getValueOption();
         }
@@ -368,7 +369,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
     public function isArrayOperatorType()
     {
         $operator = $this->getOperator();
-        return $operator === '()' || $operator === '!()' || in_array($this->getInputType(), $this->_arrayInputTypes);
+        return $operator === '()' || $operator === '!()' || in_array($this->getInputType(), $this->_arrayInputTypes, true);
     }
 
     /**
@@ -417,10 +418,10 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
 
         $options = $this->getValueSelectOptions();
         $valueArr = [];
-        if (!empty($options)) {
+        if ($options !== []) {
             foreach ($options as $option) {
                 if (is_array($value)) {
-                    if (in_array($option['value'], $value)) {
+                    if (in_array($option['value'], $value, true)) {
                         $valueArr[] = $option['label'];
                     }
                 } else {
@@ -439,8 +440,8 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
             }
         }
 
-        if (!empty($valueArr)) {
-            $value = implode(', ', $valueArr);
+        if ($valueArr !== []) {
+            return implode(', ', $valueArr);
         }
 
         return $value;
@@ -684,14 +685,14 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
         $url = $this->getValueElementChooserUrl();
         $html = '';
         if ($url) {
-            $html = '<div class="rule-chooser" url="' . $url . '"></div>';
+            return '<div class="rule-chooser" url="' . $url . '"></div>';
         }
 
         return $html;
     }
 
     /**
-     * @param string $format
+     * @param  string $format
      * @return string
      */
     public function asString($format = '')
@@ -700,7 +701,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
     }
 
     /**
-     * @param int $level
+     * @param  int    $level
      * @return string
      */
     public function asStringRecursive($level = 0)
@@ -711,8 +712,8 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
     /**
      * Validate product attribute value for condition
      *
-     * @param   mixed $validatedValue product attribute value
-     * @return  bool
+     * @param  mixed $validatedValue product attribute value
+     * @return bool
      */
     public function validateAttribute($validatedValue)
     {
@@ -743,7 +744,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
                 if (is_array($value)) {
                     if (is_array($validatedValue)) {
                         $result = array_intersect($value, $validatedValue);
-                        $result = !empty($result);
+                        $result = $result !== [];
                     } else {
                         return false;
                     }
@@ -759,9 +760,9 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
             case '>':
                 if (!is_scalar($validatedValue)) {
                     return false;
-                } else {
-                    $result = $validatedValue <= $value;
                 }
+
+                $result = $validatedValue <= $value;
 
                 break;
 
@@ -769,9 +770,9 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
             case '<':
                 if (!is_scalar($validatedValue)) {
                     return false;
-                } else {
-                    $result = $validatedValue >= $value;
                 }
+
+                $result = $validatedValue >= $value;
 
                 break;
 
@@ -787,12 +788,12 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
                 } elseif (is_array($value)) {
                     if (is_array($validatedValue)) {
                         $result = array_intersect($value, $validatedValue);
-                        $result = !empty($result);
+                        $result = $result !== [];
                     } else {
                         return false;
                     }
                 } elseif (is_array($validatedValue)) {
-                    $result = in_array($value, $validatedValue);
+                    $result = in_array($value, $validatedValue, true);
                 } else {
                     $result = $this->_compareValues($value, $validatedValue, false);
                 }
@@ -807,7 +808,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
                     $value = (array) $value;
                     $match = count(array_intersect($validatedValue, $value));
 
-                    if (in_array($operator, ['[]', '![]'])) {
+                    if (in_array($operator, ['[]', '![]'], true)) {
                         $result = $match == count($value);
                     } else {
                         $result = $match > 0;
@@ -825,8 +826,8 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
                 break;
         }
 
-        if (in_array($operator, ['!=', '>', '<', '!{}', '!()', '![]'])) {
-            $result = !$result;
+        if (in_array($operator, ['!=', '>', '<', '!{}', '!()', '![]'], true)) {
+            return !$result;
         }
 
         return $result;
@@ -835,24 +836,24 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
     /**
      * Case and type insensitive comparison of values
      *
-     * @param float|int|string $validatedValue
-     * @param float|int|string $value
-     * @param bool $strict
+     * @param  float|int|string $validatedValue
+     * @param  float|int|string $value
+     * @param  bool             $strict
      * @return bool
      */
     protected function _compareValues($validatedValue, $value, $strict = true)
     {
         if ($strict && is_numeric($validatedValue) && is_numeric($value)) {
             return $validatedValue == $value;
-        } else {
-            $validatedValue = $validatedValue ?? '';
-            $validatePattern = preg_quote($validatedValue, '~');
-            if ($strict) {
-                $validatePattern = '^' . $validatePattern . '$';
-            }
-
-            return (bool) preg_match('~' . $validatePattern . '~iu', $value);
         }
+
+        $validatedValue = $validatedValue ?? '';
+        $validatePattern = preg_quote($validatedValue, '~');
+        if ($strict) {
+            $validatePattern = '^' . $validatePattern . '$';
+        }
+
+        return (bool) preg_match('~' . $validatePattern . '~iu', $value);
     }
 
     /**

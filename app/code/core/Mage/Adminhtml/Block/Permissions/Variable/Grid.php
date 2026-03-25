@@ -14,17 +14,19 @@
  */
 class Mage_Adminhtml_Block_Permissions_Variable_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_permissions_variable_grid';
+
     public function __construct()
     {
         parent::__construct();
         $this->setId('permissionsVariableGrid');
         $this->setDefaultSort('variable_id');
-        $this->setDefaultDir('asc');
+        $this->setDefaultDir('ASC');
         $this->setUseAjax(true);
     }
 
     /**
-     * @return Mage_Adminhtml_Block_Widget_Grid
+     * @inheritDoc
      */
     protected function _prepareCollection()
     {
@@ -36,6 +38,7 @@ class Mage_Adminhtml_Block_Permissions_Variable_Grid extends Mage_Adminhtml_Bloc
 
     /**
      * @inheritDoc
+     * @throws Exception
      */
     protected function _prepareColumns()
     {
@@ -62,8 +65,9 @@ class Mage_Adminhtml_Block_Permissions_Variable_Grid extends Mage_Adminhtml_Bloc
     }
 
     /**
-     * @param Mage_Admin_Model_Variable $row
-     * @return string
+     * @inheritDoc
+     * @param  Mage_Admin_Model_Variable $row
+     * @throws Mage_Core_Exception
      */
     public function getRowUrl($row)
     {
@@ -71,7 +75,7 @@ class Mage_Adminhtml_Block_Permissions_Variable_Grid extends Mage_Adminhtml_Bloc
     }
 
     /**
-     * @return string
+     * @inheritDoc
      */
     public function getGridUrl()
     {

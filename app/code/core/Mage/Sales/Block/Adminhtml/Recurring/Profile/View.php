@@ -14,7 +14,7 @@
  * @package    Mage_Sales
  *
  * @method string getDestElementId()
- * @method $this setViewHtml(string $value)
+ * @method $this  setViewHtml(string $value)
  */
 class Mage_Sales_Block_Adminhtml_Recurring_Profile_View extends Mage_Adminhtml_Block_Widget_Container
 {

@@ -10,25 +10,25 @@
 /**
  * @package    Mage_Api
  *
- * @method Mage_Api_Model_Resource_Roles _getResource()
+ * @method Mage_Api_Model_Resource_Roles            _getResource()
  * @method Mage_Api_Model_Resource_Roles_Collection getCollection()
- * @method string getName()
- * @method int getParentId()
- * @method int getPid()
- * @method Mage_Api_Model_Resource_Roles getResource()
+ * @method string                                   getName()
+ * @method int                                      getParentId()
+ * @method int                                      getPid()
+ * @method Mage_Api_Model_Resource_Roles            getResource()
  * @method Mage_Api_Model_Resource_Roles_Collection getResourceCollection()
- * @method string getRoleName()
- * @method string getRoleType()
- * @method int getSortOrder()
- * @method int getTreeLevel()
- * @method int getUserId()
- * @method $this setName(string $name)
- * @method $this setParentId(int $value)
- * @method $this setRoleName(string $value)
- * @method $this setRoleType(string $value)
- * @method $this setSortOrder(int $value)
- * @method $this setTreeLevel(int $value)
- * @method $this setUserId(int $value)
+ * @method string                                   getRoleName()
+ * @method string                                   getRoleType()
+ * @method int                                      getSortOrder()
+ * @method int                                      getTreeLevel()
+ * @method int                                      getUserId()
+ * @method $this                                    setName(string $name)
+ * @method $this                                    setParentId(int $value)
+ * @method $this                                    setRoleName(string $value)
+ * @method $this                                    setRoleType(string $value)
+ * @method $this                                    setSortOrder(int $value)
+ * @method $this                                    setTreeLevel(int $value)
+ * @method $this                                    setUserId(int $value)
  */
 class Mage_Api_Model_Roles extends Mage_Core_Model_Abstract
 {
@@ -39,6 +39,9 @@ class Mage_Api_Model_Roles extends Mage_Core_Model_Abstract
      */
     protected $_filters;
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('api/roles');
@@ -94,11 +97,11 @@ class Mage_Api_Model_Roles extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @param null|string $parentName
-     * @param int $level
-     * @param null|bool $represent2Darray
-     * @param bool $rawNodes
-     * @param string $module
+     * @param  null|string                          $parentName
+     * @param  int                                  $level
+     * @param  null|bool                            $represent2Darray
+     * @param  bool                                 $rawNodes
+     * @param  string                               $module
      * @return array|false|Varien_Simplexml_Element
      */
     protected function _buildResourcesArray(
@@ -145,9 +148,9 @@ class Mage_Api_Model_Roles extends Mage_Core_Model_Abstract
         if (empty($children)) {
             if ($rawNodes) {
                 return $resource;
-            } else {
-                return $result;
             }
+
+            return $result;
         }
 
         foreach ($children as $child) {
@@ -156,9 +159,9 @@ class Mage_Api_Model_Roles extends Mage_Core_Model_Abstract
 
         if ($rawNodes) {
             return $resource;
-        } else {
-            return $result;
         }
+
+        return $result;
     }
 
     /**

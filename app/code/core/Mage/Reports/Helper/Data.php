@@ -7,6 +7,8 @@
  * @package    Mage_Reports
  */
 
+use Carbon\Carbon;
+
 /**
  * @package    Mage_Reports
  */
@@ -52,9 +54,9 @@ class Mage_Reports_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieve array of intervals
      *
-     * @param string $from
-     * @param string $to
-     * @param self::REPORT_PERIOD_TYPE_* $period
+     * @param  string                     $from
+     * @param  string                     $to
+     * @param  self::REPORT_PERIOD_TYPE_* $period
      * @return array
      * @throws Zend_Date_Exception
      */
@@ -74,11 +76,11 @@ class Mage_Reports_Helper_Data extends Mage_Core_Helper_Abstract
         }
 
         if ($period == self::REPORT_PERIOD_TYPE_MONTH) {
-            $dateStart = new Zend_Date(date('Y-m', $start->getTimestamp()), Varien_Date::DATE_INTERNAL_FORMAT);
+            $dateStart = new Zend_Date(Carbon::createFromTimestamp($start->getTimestamp())->format('Y-m'), Varien_Date::DATE_INTERNAL_FORMAT);
         }
 
         if ($period == self::REPORT_PERIOD_TYPE_YEAR) {
-            $dateStart = new Zend_Date(date('Y', $start->getTimestamp()), Varien_Date::DATE_INTERNAL_FORMAT);
+            $dateStart = new Zend_Date(Carbon::createFromTimestamp($start->getTimestamp())->format('Y'), Varien_Date::DATE_INTERNAL_FORMAT);
         }
 
         if (!$period || !$dateStart) {
@@ -112,9 +114,9 @@ class Mage_Reports_Helper_Data extends Mage_Core_Helper_Abstract
 
     /**
      * @param Varien_Data_Collection $collection
-     * @param string $from
-     * @param string $to
-     * @param string $periodType
+     * @param string                 $from
+     * @param string                 $to
+     * @param string                 $periodType
      */
     public function prepareIntervalsCollection($collection, $from, $to, $periodType = self::REPORT_PERIOD_TYPE_DAY)
     {

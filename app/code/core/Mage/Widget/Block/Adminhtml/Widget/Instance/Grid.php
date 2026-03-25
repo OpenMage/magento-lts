@@ -14,8 +14,10 @@
  */
 class Mage_Widget_Block_Adminhtml_Widget_Instance_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'widget_adminhtml_widget_instance_grid';
+
     /**
-     * Internal constructor
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -42,6 +44,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Grid extends Mage_Adminhtml_Bl
      * Prepare grid columns
      *
      * @inheritDoc
+     * @throws Exception
      */
     protected function _prepareColumns()
     {
@@ -123,10 +126,9 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Grid extends Mage_Adminhtml_Bl
     }
 
     /**
-     * Row click url
-     *
-     * @param Mage_Widget_Model_Widget_Instance $row
-     * @return string
+     * @inheritDoc
+     * @param  Mage_Widget_Model_Widget_Instance $row
+     * @throws Mage_Core_Exception
      */
     public function getRowUrl($row)
     {

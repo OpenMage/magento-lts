@@ -71,17 +71,16 @@ class Mage_Contacts_IndexController extends Mage_Core_Controller_Front_Action
                 $postObject = new Varien_Object();
                 $postObject->setData($post);
 
-                // check data
-                $error = false;
-                if (!Zend_Validate::is(trim($post['name']), 'NotEmpty')) {
-                    $error = true;
-                } elseif (!Zend_Validate::is(trim($post['comment']), 'NotEmpty')) {
-                    $error = true;
-                } elseif (!Zend_Validate::is(trim($post['email']), 'EmailAddress')) {
-                    $error = true;
-                }
+                /** @var Mage_Core_Helper_Validate $validator */
+                $validator  = Mage::helper('core/validate');
+                $violations = new ArrayObject();
 
-                if ($error) {
+                $violations->append($validator->validateNotEmpty(value: trim($post['name'])));
+                $violations->append($validator->validateNotEmpty(value: trim($post['comment'])));
+                $violations->append($validator->validateEmail(value: trim($post['email'])));
+
+                $errors = $validator->getErrorMessages($violations);
+                if ($errors) {
                     Mage::throwException($this->__('Unable to submit your request. Please, try again later'));
                 }
 

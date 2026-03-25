@@ -86,7 +86,7 @@ class Mage_Adminhtml_Helper_Dashboard_Data extends Mage_Core_Helper_Data
      * Create data hash to ensure that we got valid
      * data, and it is not changed by someone else.
      *
-     * @param string $data
+     * @param  string $data
      * @return string
      * @deprecated
      */

@@ -12,56 +12,56 @@
  *
  * @package    Mage_SalesRule
  *
- * @method Mage_SalesRule_Model_Resource_Rule _getResource()
- * @method int getApplyToShipping()
+ * @method Mage_SalesRule_Model_Resource_Rule            _getResource()
+ * @method int                                           getApplyToShipping()
  * @method Mage_SalesRule_Model_Resource_Rule_Collection getCollection()
- * @method string getCouponCode()
- * @method int getCouponType()
- * @method string getDescription()
- * @method float getDiscountQty()
- * @method int getDiscountStep()
- * @method string getFromDate()
- * @method int getIsActive()
- * @method int getIsAdvanced()
- * @method int getIsRss()
- * @method string getName()
- * @method string getProductIds()
- * @method Mage_SalesRule_Model_Resource_Rule getResource()
+ * @method string                                        getCouponCode()
+ * @method int                                           getCouponType()
+ * @method string                                        getDescription()
+ * @method float                                         getDiscountQty()
+ * @method int                                           getDiscountStep()
+ * @method string                                        getFromDate()
+ * @method int                                           getIsActive()
+ * @method int                                           getIsAdvanced()
+ * @method int                                           getIsRss()
+ * @method string                                        getName()
+ * @method string                                        getProductIds()
+ * @method Mage_SalesRule_Model_Resource_Rule            getResource()
  * @method Mage_SalesRule_Model_Resource_Rule_Collection getResourceCollection()
- * @method int getRuleId()
- * @method string getSimpleAction()
- * @method int getSimpleFreeShipping()
- * @method int getSortOrder()
- * @method int getStopRulesProcessing()
- * @method int getTimesUsed()
- * @method string getToDate()
- * @method int getUseAutoGeneration()
- * @method int getUsesPerCoupon()
- * @method int getUsesPerCustomer()
- * @method bool hasStoreLabels()
- * @method $this setApplyToShipping(int $value)
- * @method $this setCouponCode(string $value)
- * @method $this setCouponType(int $value)
- * @method $this setDescription(string $value)
- * @method $this setDiscountAmount(float $value)
- * @method $this setDiscountQty(float $value)
- * @method $this setDiscountStep(int $value)
- * @method $this setFromDate(string $value)
- * @method $this setIsActive(int $value)
- * @method $this setIsAdvanced(int $value)
- * @method $this setIsRss(int $value)
- * @method $this setName(string $value)
- * @method $this setProductIds(string $value)
- * @method $this setSimpleAction(string $value)
- * @method $this setSimpleFreeShipping(int $value)
- * @method $this setSortOrder(int $value)
- * @method $this setStopRulesProcessing(int $value)
- * @method $this setStoreLabels(array $value)
- * @method $this setTimesUsed(int $value)
- * @method $this setToDate(string $value)
- * @method $this setUseAutoGeneration(int $value)
- * @method $this setUsesPerCoupon(int $value)
- * @method $this setUsesPerCustomer(int $value)
+ * @method int                                           getRuleId()
+ * @method string                                        getSimpleAction()
+ * @method int                                           getSimpleFreeShipping()
+ * @method int                                           getSortOrder()
+ * @method int                                           getStopRulesProcessing()
+ * @method int                                           getTimesUsed()
+ * @method string                                        getToDate()
+ * @method int                                           getUseAutoGeneration()
+ * @method int                                           getUsesPerCoupon()
+ * @method int                                           getUsesPerCustomer()
+ * @method bool                                          hasStoreLabels()
+ * @method $this                                         setApplyToShipping(int $value)
+ * @method $this                                         setCouponCode(string $value)
+ * @method $this                                         setCouponType(int $value)
+ * @method $this                                         setDescription(string $value)
+ * @method $this                                         setDiscountAmount(float $value)
+ * @method $this                                         setDiscountQty(float $value)
+ * @method $this                                         setDiscountStep(int $value)
+ * @method $this                                         setFromDate(string $value)
+ * @method $this                                         setIsActive(int $value)
+ * @method $this                                         setIsAdvanced(int $value)
+ * @method $this                                         setIsRss(int $value)
+ * @method $this                                         setName(string $value)
+ * @method $this                                         setProductIds(string $value)
+ * @method $this                                         setSimpleAction(string $value)
+ * @method $this                                         setSimpleFreeShipping(int $value)
+ * @method $this                                         setSortOrder(int $value)
+ * @method $this                                         setStopRulesProcessing(int $value)
+ * @method $this                                         setStoreLabels(array $value)
+ * @method $this                                         setTimesUsed(int $value)
+ * @method $this                                         setToDate(string $value)
+ * @method $this                                         setUseAutoGeneration(int $value)
+ * @method $this                                         setUsesPerCoupon(int $value)
+ * @method $this                                         setUsesPerCustomer(int $value)
  */
 class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
 {
@@ -160,7 +160,7 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
     protected $_validatedAddresses = [];
 
     /**
-     * Set resource model and Id field name
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -321,10 +321,11 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
     {
         $storeId = Mage::app()->getStore($store)->getId();
         $labels = (array) $this->getStoreLabels();
-
         if (isset($labels[$storeId])) {
             return $labels[$storeId];
-        } elseif (isset($labels[0]) && $labels[0]) {
+        }
+
+        if (isset($labels[0]) && $labels[0]) {
             return $labels[0];
         }
 
@@ -392,7 +393,7 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
      * Acquire coupon instance
      *
      * @param bool $saveNewlyCreated Whether or not to save newly created coupon
-     * @param int $saveAttemptCount Number of attempts to save newly created coupon
+     * @param int  $saveAttemptCount Number of attempts to save newly created coupon
      *
      * @return null|Mage_SalesRule_Model_Coupon
      */
@@ -451,21 +452,21 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
     /**
      * Check cached validation result for specific address
      *
-     * @param   Mage_Sales_Model_Quote_Address $address
-     * @return  bool
+     * @param  Mage_Sales_Model_Quote_Address $address
+     * @return bool
      */
     public function hasIsValidForAddress($address)
     {
         $addressId = $this->_getAddressId($address);
-        return isset($this->_validatedAddresses[$addressId]) ? true : false;
+        return isset($this->_validatedAddresses[$addressId]);
     }
 
     /**
      * Set validation result for specific address to results cache
      *
-     * @param   Mage_Sales_Model_Quote_Address $address
-     * @param   bool $validationResult
-     * @return  $this
+     * @param  Mage_Sales_Model_Quote_Address $address
+     * @param  bool                           $validationResult
+     * @return $this
      */
     public function setIsValidForAddress($address, $validationResult)
     {
@@ -477,8 +478,8 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
     /**
      * Get cached validation result for specific address
      *
-     * @param   Mage_Sales_Model_Quote_Address $address
-     * @return  bool
+     * @param  Mage_Sales_Model_Quote_Address $address
+     * @return bool
      */
     public function getIsValidForAddress($address)
     {
@@ -489,8 +490,8 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
     /**
      * Return id for address
      *
-     * @param   Mage_Sales_Model_Quote_Address $address
-     * @return  string
+     * @param  Mage_Sales_Model_Quote_Address $address
+     * @return string
      */
     private function _getAddressId($address)
     {

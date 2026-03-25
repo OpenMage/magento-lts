@@ -12,10 +12,10 @@
  *
  * @package    Varien_Data
  *
- * @method bool getCanBeEmpty()
+ * @method bool   getCanBeEmpty()
  * @method string getDeselectAll()
  * @method string getSelectAll()
- * @method $this setSize(int $value)
+ * @method $this  setSize(int $value)
  */
 class Varien_Data_Form_Element_Multiselect extends Varien_Data_Form_Element_Abstract
 {
@@ -25,10 +25,10 @@ class Varien_Data_Form_Element_Multiselect extends Varien_Data_Form_Element_Abst
      */
     public function __construct($attributes = [])
     {
+        $attributes['size'] ??= 10;
         parent::__construct($attributes);
         $this->setType('select');
         $this->setExtType('multiple');
-        $this->setSize(10);
     }
 
     /**
@@ -141,8 +141,8 @@ class Varien_Data_Form_Element_Multiselect extends Varien_Data_Form_Element_Abst
     }
 
     /**
-     * @param array $option
-     * @param array $selected
+     * @param  array  $option
+     * @param  array  $selected
      * @return string
      */
     protected function _optionToHtml($option, $selected)

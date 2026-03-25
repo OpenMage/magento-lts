@@ -7,6 +7,9 @@
  * @package    Mage_ImportExport
  */
 
+use Carbon\Carbon;
+use Carbon\Exceptions\InvalidFormatException;
+
 /**
  * Import entity product model
  *
@@ -424,6 +427,10 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
      */
     protected $_urlKeyAttributeId;
 
+    /**
+     * @throws Exception
+     * @throws Mage_Core_Exception
+     */
     public function __construct()
     {
         parent::__construct();
@@ -441,6 +448,8 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
      * Delete products.
      *
      * @return $this
+     * @throws Mage_Core_Exception
+     * @throws Zend_Db_Adapter_Exception
      */
     protected function _deleteProducts()
     {
@@ -471,7 +480,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Create Product entity from raw data.
      *
-     * @return bool result of operation
+     * @return bool      result of operation
      * @throws Exception
      */
     protected function _importData()
@@ -496,6 +505,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
      * Initialize attribute sets code-to-id pairs.
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     protected function _initAttributeSets()
     {
@@ -524,8 +534,8 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
             $pathSize  = count($structure);
             if ($pathSize > 1) {
                 $path = [];
-                for ($i = 1; $i < $pathSize; $i++) {
-                    $path[] = $collection->getItemById($structure[$i])->getName();
+                for ($pathIndex = 1; $pathIndex < $pathSize; $pathIndex++) {
+                    $path[] = $collection->getItemById($structure[$pathIndex])->getName();
                 }
 
                 $rootCategoryName = array_shift($path);
@@ -562,6 +572,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
      * Initialize existent product SKUs.
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     protected function _initSkus()
     {
@@ -584,6 +595,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
      * Initialize stores hash.
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     protected function _initStores()
     {
@@ -636,6 +648,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
      * Initialize website values.
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     protected function _initWebsites()
     {
@@ -650,7 +663,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Check product category validity.
      *
-     * @param int $rowNum
+     * @param  int  $rowNum
      * @return bool
      */
     protected function _isProductCategoryValid(array $rowData, $rowNum)
@@ -673,7 +686,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Check product website belonging.
      *
-     * @param int $rowNum
+     * @param  int  $rowNum
      * @return bool
      */
     protected function _isProductWebsiteValid(array $rowData, $rowNum)
@@ -717,7 +730,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Check tier price data validity.
      *
-     * @param int $rowNum
+     * @param  int  $rowNum
      * @return bool
      */
     protected function _isTierPriceValid(array $rowData, $rowNum)
@@ -730,21 +743,24 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
             if (!isset($rowData['_tier_price_website']) || !isset($rowData['_tier_price_customer_group'])
                     || !isset($rowData['_tier_price_qty']) || !isset($rowData['_tier_price_price'])
                     || !strlen($rowData['_tier_price_website']) || !strlen($rowData['_tier_price_customer_group'])
-                    || !strlen($rowData['_tier_price_qty']) || !strlen($rowData['_tier_price_price'])
-            ) {
+                    || !strlen($rowData['_tier_price_qty']) || !strlen($rowData['_tier_price_price'])) {
                 $this->addRowError(self::ERROR_TIER_DATA_INCOMPLETE, $rowNum);
                 return false;
-            } elseif ($rowData['_tier_price_website'] != self::VALUE_ALL
-                    && !isset($this->_websiteCodeToId[$rowData['_tier_price_website']])
-            ) {
+            }
+
+            if ($rowData['_tier_price_website'] != self::VALUE_ALL
+                    && !isset($this->_websiteCodeToId[$rowData['_tier_price_website']])) {
                 $this->addRowError(self::ERROR_INVALID_TIER_PRICE_SITE, $rowNum);
                 return false;
-            } elseif ($rowData['_tier_price_customer_group'] != self::VALUE_ALL
-                    && !isset($this->_customerGroups[$rowData['_tier_price_customer_group']])
-            ) {
+            }
+
+            if ($rowData['_tier_price_customer_group'] != self::VALUE_ALL
+                    && !isset($this->_customerGroups[$rowData['_tier_price_customer_group']])) {
                 $this->addRowError(self::ERROR_INVALID_TIER_PRICE_GROUP, $rowNum);
                 return false;
-            } elseif ($rowData['_tier_price_qty'] <= 0 || $rowData['_tier_price_price'] <= 0) {
+            }
+
+            if ($rowData['_tier_price_qty'] <= 0 || $rowData['_tier_price_price'] <= 0) {
                 $this->addRowError(self::ERROR_INVALID_TIER_PRICE_QTY, $rowNum);
                 return false;
             }
@@ -756,7 +772,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Check group price data validity.
      *
-     * @param int $rowNum
+     * @param  int  $rowNum
      * @return bool
      */
     protected function _isGroupPriceValid(array $rowData, $rowNum)
@@ -767,18 +783,19 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
         ) {
             if (!isset($rowData['_group_price_website']) || !isset($rowData['_group_price_customer_group'])
                 || !strlen($rowData['_group_price_website']) || !strlen($rowData['_group_price_customer_group'])
-                || !strlen($rowData['_group_price_price'])
-            ) {
+                || !strlen($rowData['_group_price_price'])) {
                 $this->addRowError(self::ERROR_GROUP_PRICE_DATA_INCOMPLETE, $rowNum);
                 return false;
-            } elseif ($rowData['_group_price_website'] != self::VALUE_ALL
-                && !isset($this->_websiteCodeToId[$rowData['_group_price_website']])
-            ) {
+            }
+
+            if ($rowData['_group_price_website'] != self::VALUE_ALL
+                && !isset($this->_websiteCodeToId[$rowData['_group_price_website']])) {
                 $this->addRowError(self::ERROR_INVALID_GROUP_PRICE_SITE, $rowNum);
                 return false;
-            } elseif ($rowData['_group_price_customer_group'] != self::VALUE_ALL
-                && !isset($this->_customerGroups[$rowData['_group_price_customer_group']])
-            ) {
+            }
+
+            if ($rowData['_group_price_customer_group'] != self::VALUE_ALL
+                && !isset($this->_customerGroups[$rowData['_group_price_customer_group']])) {
                 $this->addRowError(self::ERROR_INVALID_GROUP_PRICE_GROUP, $rowNum);
                 return false;
             }
@@ -790,8 +807,8 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Check super products SKU
      *
-     * @param array $rowData
-     * @param int $rowNum
+     * @param  array $rowData
+     * @param  int   $rowNum
      * @return bool
      */
     protected function _isSuperProductsSkuValid($rowData, $rowNum)
@@ -812,7 +829,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Check product sku data.
      *
-     * @param int $rowNum
+     * @param  int  $rowNum
      * @return bool
      */
     protected function _isProductSkuValid(array $rowData, $rowNum)
@@ -829,6 +846,8 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
      * Custom options save.
      *
      * @return $this
+     * @throws Mage_Core_Exception
+     * @throws Zend_Db_Exception
      */
     protected function _saveCustomOptions()
     {
@@ -990,8 +1009,8 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
                             'option_type_id' => $nextValueId,
                             'sort_order'     => empty($rowData['_custom_option_row_sort'])
                                 ? 0 : abs($rowData['_custom_option_row_sort']),
-                            'sku'            => !empty($rowData['_custom_option_row_sku'])
-                                ? $rowData['_custom_option_row_sku'] : '',
+                            'sku'            => empty($rowData['_custom_option_row_sku'])
+                                ? '' : $rowData['_custom_option_row_sku'],
                         ];
                         if (!isset($customOptions[$typeTitleTable][$nextValueId][0])) { // ensure default title is set
                             $customOptions[$typeTitleTable][$nextValueId][0] = $rowData['_custom_option_row_title'];
@@ -1173,6 +1192,8 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
      * Must be called after ALL products saving done.
      *
      * @return $this
+     * @throws Mage_Core_Exception
+     * @throws Zend_Db_Select_Exception
      */
     protected function _saveLinks()
     {
@@ -1287,6 +1308,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
      * Save product attributes.
      *
      * @return $this
+     * @throws Zend_Db_Exception
      */
     protected function _saveProductAttributes(array $attributesData)
     {
@@ -1336,6 +1358,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
      * Save product categories.
      *
      * @return $this
+     * @throws Zend_Db_Exception
      */
     protected function _saveProductCategories(array $categoriesData)
     {
@@ -1376,9 +1399,11 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Update and insert data in entity table.
      *
-     * @param array $entityRowsIn Row for insert
-     * @param array $entityRowsUp Row for update
+     * @param  array               $entityRowsIn Row for insert
+     * @param  array               $entityRowsUp Row for update
      * @return $this
+     * @throws Mage_Core_Exception
+     * @throws Zend_Db_Exception
      */
     protected function _saveProductEntity(array $entityRowsIn, array $entityRowsUp)
     {
@@ -1414,6 +1439,8 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
      * Gather and save information about product entities.
      *
      * @return $this
+     * @throws Mage_Core_Exception
+     * @throws Zend_Db_Exception
      */
     protected function _saveProducts()
     {
@@ -1567,8 +1594,8 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
                 );
                 try {
                     $attributes = $this->_prepareAttributes($rowData, $rowScope, $attributes, $rowSku, $rowStore);
-                } catch (Exception $e) {
-                    Mage::logException($e);
+                } catch (Exception $exception) {
+                    Mage::logException($exception);
                     continue;
                 }
             }
@@ -1599,8 +1626,9 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Retrieve attribute by specified code
      *
-     * @param string $code
+     * @param  string                                   $code
      * @return Mage_Eav_Model_Entity_Attribute_Abstract
+     * @throws Mage_Core_Exception
      */
     protected function _getAttribute($code)
     {
@@ -1618,12 +1646,14 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Prepare attributes data
      *
-     * @param array $rowData
-     * @param int $rowScope
-     * @param array $attributes
-     * @param null|string $rowSku
-     * @param int $rowStore
+     * @param  array                           $rowData
+     * @param  int                             $rowScope
+     * @param  array                           $attributes
+     * @param  null|string                     $rowSku
+     * @param  int                             $rowStore
      * @return array
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
      */
     protected function _prepareAttributes($rowData, $rowScope, $attributes, $rowSku, $rowStore)
     {
@@ -1643,8 +1673,14 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
             $attrTable = $attribute->getBackend()->getTable();
             $storeIds = [0];
 
-            if ($attribute->getBackendType() === 'datetime' && strtotime($attrValue)) {
-                $attrValue = gmdate(Varien_Date::DATETIME_PHP_FORMAT, strtotime($attrValue));
+            try {
+                $timestamp = Carbon::parse($attrValue)->getTimestamp();
+            } catch (InvalidFormatException) {
+                $timestamp = false;
+            }
+
+            if ($attribute->getBackendType() === 'datetime' && $timestamp) {
+                $attrValue = gmdate(Varien_Date::DATETIME_PHP_FORMAT, $timestamp);
             } elseif ($attribute->getAttributeCode() === 'url_key') {
                 if (empty($attrValue)) {
                     $locale = Mage::getStoreConfig(Mage_Core_Model_Locale::XML_PATH_DEFAULT_LOCALE, $product->getStoreId());
@@ -1692,6 +1728,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
      * Save product tier prices.
      *
      * @return $this
+     * @throws Zend_Db_Exception
      */
     protected function _saveProductTierPrices(array $tierPriceData)
     {
@@ -1735,6 +1772,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
      * Save product group prices.
      *
      * @return $this
+     * @throws Zend_Db_Exception
      */
     protected function _saveProductGroupPrices(array $groupPriceData)
     {
@@ -1778,6 +1816,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
      * Returns an object for upload a media files
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
+     * @throws Mage_Core_Exception
      */
     protected function _getUploader()
     {
@@ -1808,7 +1847,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
      * Uploading files into the "catalog/product" media folder.
      * Return a new file name if the same file is already exists.
      *
-     * @param string $fileName
+     * @param  string $fileName
      * @return string
      */
     protected function _uploadMediaFiles($fileName)
@@ -1825,6 +1864,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
      * Save product media gallery.
      *
      * @return $this
+     * @throws Zend_Db_Exception
      */
     protected function _saveMediaGallery(array $mediaGalleryData)
     {
@@ -1906,6 +1946,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
      * Save product websites.
      *
      * @return $this
+     * @throws Zend_Db_Exception
      */
     protected function _saveProductWebsites(array $websiteData)
     {
@@ -1949,7 +1990,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Returns resource model
      *
-     * @param string $resourceModelName
+     * @param  string $resourceModelName
      * @return Object
      */
     protected function getResourceModel($resourceModelName)
@@ -1960,7 +2001,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Returns helper
      *
-     * @param string $helperName
+     * @param  string                    $helperName
      * @return Mage_Core_Helper_Abstract
      */
     protected function getHelper($helperName)
@@ -1971,7 +2012,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Returns model
      *
-     * @param string $modelName
+     * @param  string                        $modelName
      * @return bool|Mage_Core_Model_Abstract
      */
     protected function getModel($modelName)
@@ -1983,6 +2024,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
      * Stock item saving.
      *
      * @return $this
+     * @throws Zend_Db_Exception
      */
     protected function _saveStockItem()
     {
@@ -2161,11 +2203,13 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     {
         if (isset($rowData[self::COL_SKU]) && strlen(trim($rowData[self::COL_SKU]))) {
             return self::SCOPE_DEFAULT;
-        } elseif (empty($rowData[self::COL_STORE])) {
-            return self::SCOPE_NULL;
-        } else {
-            return self::SCOPE_STORE;
         }
+
+        if (empty($rowData[self::COL_STORE])) {
+            return self::SCOPE_NULL;
+        }
+
+        return self::SCOPE_STORE;
     }
 
     /**
@@ -2181,7 +2225,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Validate data row.
      *
-     * @param int $rowNum
+     * @param  int  $rowNum
      * @return bool
      */
     public function validateRow(array $rowData, $rowNum)
@@ -2281,8 +2325,8 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Common validation
      *
-     * @param array $rowData
-     * @param int $rowNum
+     * @param array             $rowData
+     * @param int               $rowNum
      * @param null|false|string $sku
      */
     protected function _validate($rowData, $rowNum, $sku)

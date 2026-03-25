@@ -40,7 +40,7 @@ class Mage_Adminhtml_Block_Widget extends Mage_Adminhtml_Block_Template
     /**
      * Get current url
      *
-     * @param array $params url parameters
+     * @param  array  $params url parameters
      * @return string current url
      */
     public function getCurrentUrl($params = [])
@@ -62,10 +62,10 @@ class Mage_Adminhtml_Block_Widget extends Mage_Adminhtml_Block_Template
     /**
      * Create button and return its html
      *
-     * @param string $label
-     * @param string $onclick
-     * @param string $class
-     * @param string $id
+     * @param  string $label
+     * @param  string $onclick
+     * @param  string $class
+     * @param  string $id
      * @return string
      */
     public function getButtonHtml($label, $onclick, $class = '', $id = null)

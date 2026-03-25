@@ -48,7 +48,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Action_Attribute_Tab_Inventory e
     /**
      * Get default config value
      *
-     * @param string $field
+     * @param  string $field
      * @return mixed
      */
     public function getDefaultConfigValue($field)

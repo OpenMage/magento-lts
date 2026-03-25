@@ -14,11 +14,16 @@
  */
 class Mage_Adminhtml_Model_System_Config_Backend_Email_Address extends Mage_Core_Model_Config_Data
 {
+    /**
+     * @throws Mage_Core_Exception
+     */
     protected function _beforeSave()
     {
-        $value = $this->getValue();
-        if (!Zend_Validate::is($value, 'EmailAddress')) {
-            Mage::throwException(Mage::helper('adminhtml')->__('Invalid email address "%s".', $value));
+        $email = $this->getValue();
+
+        $validator = $this->getValidationHelper();
+        if ($validator->validateEmail(value: $email)->count() > 0) {
+            Mage::throwException(Mage::helper('adminhtml')->__('Invalid email address "%s".', $email));
         }
 
         return $this;

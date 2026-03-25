@@ -39,10 +39,10 @@ abstract class Mage_Customer_Model_Api2_Customer_Rest extends Mage_Customer_Mode
 
         try {
             $customer->save();
-        } catch (Mage_Core_Exception $e) {
-            $this->_error($e->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
-        } catch (Exception $e) {
-            Mage::logException($e);
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_error($mageCoreException->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
+        } catch (Exception $exception) {
+            Mage::logException($exception);
             $this->_critical(self::RESOURCE_INTERNAL_ERROR);
         }
 
@@ -99,10 +99,10 @@ abstract class Mage_Customer_Model_Api2_Customer_Rest extends Mage_Customer_Mode
 
         try {
             $customer->save();
-        } catch (Mage_Core_Exception $e) {
-            $this->_error($e->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
-        } catch (Exception $e) {
-            Mage::logException($e);
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_error($mageCoreException->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
+        } catch (Exception $exception) {
+            Mage::logException($exception);
             $this->_critical(self::RESOURCE_INTERNAL_ERROR);
         }
     }
@@ -110,7 +110,7 @@ abstract class Mage_Customer_Model_Api2_Customer_Rest extends Mage_Customer_Mode
     /**
      * Load customer by id
      *
-     * @param int $id
+     * @param  int                          $id
      * @return Mage_Customer_Model_Customer
      * @throws Mage_Api2_Exception
      */

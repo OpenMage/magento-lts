@@ -13,14 +13,14 @@
  * @package    Mage_Catalog
  *
  * @method Mage_Catalog_Model_Resource_Product_Indexer_Eav _getResource()
- * @method int getAttributeId()
+ * @method int                                             getAttributeId()
  * @method Mage_Catalog_Model_Resource_Product_Indexer_Eav getResource()
- * @method int getStoreId()
- * @method int getValue()
- * @method $this setAttributeId(int $value)
- * @method $this setEntityId(int $value)
- * @method $this setStoreId(int $value)
- * @method $this setValue(int $value)
+ * @method int                                             getStoreId()
+ * @method int                                             getValue()
+ * @method $this                                           setAttributeId(int $value)
+ * @method $this                                           setEntityId(int $value)
+ * @method $this                                           setStoreId(int $value)
+ * @method $this                                           setValue(int $value)
  */
 class Mage_Catalog_Model_Product_Indexer_Eav extends Mage_Index_Model_Indexer_Abstract
 {
@@ -119,7 +119,7 @@ class Mage_Catalog_Model_Product_Indexer_Eav extends Mage_Index_Model_Indexer_Ab
     /**
      * Check is attribute indexable in EAV
      *
-     * @param Mage_Catalog_Model_Resource_Eav_Attribute|string $attribute
+     * @param  Mage_Catalog_Model_Resource_Eav_Attribute|string $attribute
      * @return bool
      */
     protected function _attributeIsIndexable($attribute)
@@ -135,7 +135,7 @@ class Mage_Catalog_Model_Product_Indexer_Eav extends Mage_Index_Model_Indexer_Ab
     /**
      * Check that attribute has an effects on other attributes
      *
-     * @param Mage_Catalog_Model_Resource_Eav_Attribute|string $attribute
+     * @param  Mage_Catalog_Model_Resource_Eav_Attribute|string $attribute
      * @return bool
      */
     protected function _attributeIsDependent($attribute)

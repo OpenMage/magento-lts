@@ -11,18 +11,27 @@
  * Adminhtml tax report grid block
  *
  * @package    Mage_Adminhtml
+ *
+ * @method Varien_Object getFilterData()
+ * @method string        getPeriodType()
+ * @method $this         setPeriodType(string $value)
  */
 class Mage_Adminhtml_Block_Report_Sales_Tax_Grid extends Mage_Adminhtml_Block_Report_Grid_Abstract
 {
+    protected string $_eventPrefix = 'adminhtml_report_sales_tax_grid';
+
     protected $_columnGroupBy = 'period';
 
     public function __construct()
     {
         parent::__construct();
-        $this->setCountTotals(true);
-        $this->setCountSubTotals(true);
+        $this->setCountTotals();
+        $this->setCountSubTotals();
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getResourceCollectionName()
     {
         return ($this->getFilterData()->getData('report_type') == 'updated_at_order')
@@ -30,6 +39,9 @@ class Mage_Adminhtml_Block_Report_Sales_Tax_Grid extends Mage_Adminhtml_Block_Re
             : 'tax/report_collection';
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _prepareColumns()
     {
         $this->addColumn('period', [
@@ -91,10 +103,9 @@ class Mage_Adminhtml_Block_Report_Sales_Tax_Grid extends Mage_Adminhtml_Block_Re
     }
 
     /**
-     * Preparing collection
      * Filter canceled statuses for orders in taxes
      *
-     *@return $this
+     * @inheritDoc
      */
     protected function _prepareCollection()
     {

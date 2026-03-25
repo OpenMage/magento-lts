@@ -20,7 +20,7 @@ class Mage_Sales_Model_Quote_Address_Total_Shipping extends Mage_Sales_Model_Quo
     /**
      * Collect totals information about shipping
      *
-     * @return  Mage_Sales_Model_Quote_Address_Total_Shipping
+     * @return Mage_Sales_Model_Quote_Address_Total_Shipping
      */
     public function collect(Mage_Sales_Model_Quote_Address $address)
     {

@@ -14,6 +14,9 @@
  */
 class Mage_Reports_Model_Resource_Customer_Totals_Collection extends Mage_Reports_Model_Resource_Order_Collection
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         parent::_construct();
@@ -23,8 +26,8 @@ class Mage_Reports_Model_Resource_Customer_Totals_Collection extends Mage_Report
     /**
      * Join fields
      *
-     * @param string $from
-     * @param string $to
+     * @param  string $from
+     * @param  string $to
      * @return $this
      */
     protected function _joinFields($from = '', $to = '')
@@ -39,8 +42,8 @@ class Mage_Reports_Model_Resource_Customer_Totals_Collection extends Mage_Report
     /**
      * Set date range
      *
-     * @param string $from
-     * @param string $to
+     * @param  string $from
+     * @param  string $to
      * @return $this
      */
     public function setDateRange($from, $to)
@@ -53,7 +56,7 @@ class Mage_Reports_Model_Resource_Customer_Totals_Collection extends Mage_Report
     /**
      * Set store filter collection
      *
-     * @param array $storeIds
+     * @param  array $storeIds
      * @return $this
      */
     public function setStoreIds($storeIds)

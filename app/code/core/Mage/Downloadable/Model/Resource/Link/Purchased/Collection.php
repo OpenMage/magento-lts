@@ -11,11 +11,13 @@
  * Downloadable links purchased resource collection
  *
  * @package    Mage_Downloadable
+ *
+ * @extends Mage_Core_Model_Resource_Db_Collection_Abstract<Mage_Downloadable_Model_Link_Purchased>
  */
 class Mage_Downloadable_Model_Resource_Link_Purchased_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
     /**
-     * Init resource model
+     * @inheritDoc
      */
     protected function _construct()
     {

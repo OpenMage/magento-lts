@@ -14,6 +14,9 @@
  */
 class Mage_CatalogInventory_Model_Resource_Stock_Item extends Mage_Core_Model_Resource_Db_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('cataloginventory/stock_item', 'item_id');
@@ -22,7 +25,7 @@ class Mage_CatalogInventory_Model_Resource_Stock_Item extends Mage_Core_Model_Re
     /**
      * Loading stock item data by product
      *
-     * @param int $productId
+     * @param  int   $productId
      * @return $this
      */
     public function loadByProductId(Mage_CatalogInventory_Model_Stock_Item $item, $productId)
@@ -41,9 +44,9 @@ class Mage_CatalogInventory_Model_Resource_Stock_Item extends Mage_Core_Model_Re
     /**
      * Retrieve select object and join it to product entity table to get type ids
      *
-     * @param string $field
-     * @param mixed $value
-     * @param Mage_CatalogInventory_Model_Stock_Item $object
+     * @param  string                                 $field
+     * @param  mixed                                  $value
+     * @param  Mage_CatalogInventory_Model_Stock_Item $object
      * @return Varien_Db_Select
      */
     protected function _getLoadSelect($field, $value, $object)
@@ -59,7 +62,7 @@ class Mage_CatalogInventory_Model_Resource_Stock_Item extends Mage_Core_Model_Re
     /**
      * Add join for catalog in stock field to product collection
      *
-     * @param Mage_Catalog_Model_Resource_Product_Collection $productCollection
+     * @param  Mage_Catalog_Model_Resource_Product_Collection $productCollection
      * @return $this
      */
     public function addCatalogInventoryToProductCollection($productCollection)
@@ -85,8 +88,8 @@ class Mage_CatalogInventory_Model_Resource_Stock_Item extends Mage_Core_Model_Re
     /**
      * Use qty correction for qty column update
      *
-     * @param Mage_CatalogInventory_Model_Stock_Item $object
-     * @param string $table
+     * @param  Mage_CatalogInventory_Model_Stock_Item $object
+     * @param  string                                 $table
      * @return array
      */
     protected function _prepareDataForTable(Varien_Object $object, $table)

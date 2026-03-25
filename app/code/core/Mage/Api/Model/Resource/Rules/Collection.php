@@ -15,7 +15,7 @@
 class Mage_Api_Model_Resource_Rules_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
     /**
-     * Resource collection initialization
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -25,7 +25,7 @@ class Mage_Api_Model_Resource_Rules_Collection extends Mage_Core_Model_Resource_
     /**
      * Retrieve rules by role
      *
-     * @param string $id
+     * @param  string $id
      * @return $this
      */
     public function getByRoles($id)

@@ -10,7 +10,7 @@ test.config = {
     _nav: '#nav-admin-catalog',
     _title: '#category-edit-container h3.icon-head',
     _button: base._button,
-    url: 'catalog_category/index',
+    url: 'admin/catalog_category',
     index: {},
 }
 

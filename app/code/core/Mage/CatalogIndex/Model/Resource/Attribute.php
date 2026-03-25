@@ -14,15 +14,18 @@
  */
 class Mage_CatalogIndex_Model_Resource_Attribute extends Mage_CatalogIndex_Model_Resource_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('catalogindex/eav', 'index_id');
     }
 
     /**
-     * @param Mage_Eav_Model_Entity_Attribute $attribute
-     * @param string $filter
-     * @param array|int $entityFilter
+     * @param  Mage_Eav_Model_Entity_Attribute $attribute
+     * @param  string                          $filter
+     * @param  array|int                       $entityFilter
      * @return array
      */
     public function getFilteredEntities($attribute, $filter, $entityFilter)
@@ -41,8 +44,8 @@ class Mage_CatalogIndex_Model_Resource_Attribute extends Mage_CatalogIndex_Model
     }
 
     /**
-     * @param Mage_Eav_Model_Entity_Attribute $attribute
-     * @param Zend_Db_Select $entitySelect
+     * @param  Mage_Eav_Model_Entity_Attribute $attribute
+     * @param  Zend_Db_Select                  $entitySelect
      * @return array
      */
     public function getCount($attribute, $entitySelect)
@@ -73,9 +76,9 @@ class Mage_CatalogIndex_Model_Resource_Attribute extends Mage_CatalogIndex_Model
     }
 
     /**
-     * @param Mage_Eav_Model_Resource_Entity_Attribute_Collection $collection
-     * @param Mage_Eav_Model_Entity_Attribute $attribute
-     * @param string $value
+     * @param  Mage_Eav_Model_Resource_Entity_Attribute_Collection $collection
+     * @param  Mage_Eav_Model_Entity_Attribute                     $attribute
+     * @param  string                                              $value
      * @return $this
      */
     public function applyFilterToCollection($collection, $attribute, $value)

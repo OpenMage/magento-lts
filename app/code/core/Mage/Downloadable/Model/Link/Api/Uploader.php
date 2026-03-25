@@ -29,7 +29,7 @@ class Mage_Downloadable_Model_Link_Api_Uploader extends Mage_Core_Model_File_Upl
     /**
      * Check if the uploaded file exists
      *
-     * @param array $file
+     * @param  array     $file
      * @throws Exception
      */
     public function __construct($file)
@@ -37,15 +37,15 @@ class Mage_Downloadable_Model_Link_Api_Uploader extends Mage_Core_Model_File_Upl
         $this->_setUploadFile($file);
         if (!file_exists($this->_file['tmp_name'])) {
             throw new Exception('file_not_uploaded');
-        } else {
-            $this->_fileExists = true;
         }
+
+        $this->_fileExists = true;
     }
 
     /**
      * Sets uploaded file info and decodes the file
      *
-     * @param array $fileInfo
+     * @param  array     $fileInfo
      * @throws Exception
      */
     private function _setUploadFile($fileInfo)
@@ -61,7 +61,7 @@ class Mage_Downloadable_Model_Link_Api_Uploader extends Mage_Core_Model_File_Upl
     /**
      * Decode uploaded file base64 encoded content
      *
-     * @param array $fileInfo
+     * @param  array $fileInfo
      * @return array
      */
     private function _decodeFile($fileInfo)
@@ -96,8 +96,8 @@ class Mage_Downloadable_Model_Link_Api_Uploader extends Mage_Core_Model_File_Upl
     /**
      * Moves a file
      *
-     * @param string $sourceFile
-     * @param string $destinationFile
+     * @param  string $sourceFile
+     * @param  string $destinationFile
      * @return bool
      */
     protected function _moveFile($sourceFile, $destinationFile)

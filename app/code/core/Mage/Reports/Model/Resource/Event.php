@@ -26,9 +26,9 @@ class Mage_Reports_Model_Resource_Event extends Mage_Core_Model_Resource_Db_Abst
     /**
      * Update customer type after customer login
      *
-     * @param int $visitorId
-     * @param int $customerId
-     * @param array $types
+     * @param  int   $visitorId
+     * @param  int   $customerId
+     * @param  array $types
      * @return $this
      */
     public function updateCustomerType(Mage_Reports_Model_Event $model, $visitorId, $customerId, $types = [])
@@ -53,10 +53,10 @@ class Mage_Reports_Model_Resource_Event extends Mage_Core_Model_Resource_Db_Abst
      * The collection id field is used without correlation, so it must be unique.
      * DESC ordering by event will be added to the collection
      *
-     * @param int $eventTypeId
-     * @param int $eventSubjectId
-     * @param int $subtype
-     * @param array $skipIds
+     * @param  int   $eventTypeId
+     * @param  int   $eventSubjectId
+     * @param  int   $subtype
+     * @param  array $skipIds
      * @return $this
      */
     public function applyLogToCollection(

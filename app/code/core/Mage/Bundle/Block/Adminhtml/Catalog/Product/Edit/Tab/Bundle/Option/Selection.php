@@ -12,8 +12,8 @@
  *
  * @package    Mage_Bundle
  *
- * @method bool getCanEditPrice()
- * @method bool getCanReadPrice()
+ * @method bool  getCanEditPrice()
+ * @method bool  getCanReadPrice()
  * @method $this setCanEditPrice(bool $value)
  * @method $this setCanReadPrice(bool $value)
  */

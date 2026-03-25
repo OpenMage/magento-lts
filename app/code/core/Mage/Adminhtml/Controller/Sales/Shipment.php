@@ -21,7 +21,7 @@ class Mage_Adminhtml_Controller_Sales_Shipment extends Mage_Adminhtml_Controller
     public const ADMIN_RESOURCE = 'sales/shipment';
 
     /**
-     * Additional initialization
+     * @inheritDoc
      */
     protected function _construct()
     {

@@ -81,7 +81,7 @@ class Mage_Customer_Model_Api2_Customer_Address_Validator extends Mage_Api2_Mode
     /**
      * Check region
      *
-     * @param array $data
+     * @param  array $data
      * @return bool
      */
     protected function _checkRegion($data, Mage_Directory_Model_Country $country)

@@ -25,10 +25,9 @@ final class AbstractTest extends OpenMageTest
 {
     use AbstractTrait;
 
-    /** @phpstan-ignore property.onlyWritten */
     private static Subject $subject;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         self::$subject = $this->getMockForAbstractClass(Subject::class);
     }
@@ -45,8 +44,6 @@ final class AbstractTest extends OpenMageTest
             self::assertFileDoesNotExist($filePath);
         }
 
-        self::markTestSkipped('wait...');
-        /** @phpstan-ignore deadCode.unreachable */
         self::assertSame($expectedResult, self::$subject->validateFileExension($filePath, $extension));
     }
 }

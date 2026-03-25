@@ -12,20 +12,20 @@
  *
  * @package    Mage_Tax
  *
- * @method Mage_Tax_Model_Resource_Calculation_Rule _getResource()
- * @method string getCode()
+ * @method Mage_Tax_Model_Resource_Calculation_Rule            _getResource()
+ * @method string                                              getCode()
  * @method Mage_Tax_Model_Resource_Calculation_Rule_Collection getCollection()
- * @method int getPosition()
- * @method int getPriority()
- * @method Mage_Tax_Model_Resource_Calculation_Rule getResource()
+ * @method int                                                 getPosition()
+ * @method int                                                 getPriority()
+ * @method Mage_Tax_Model_Resource_Calculation_Rule            getResource()
  * @method Mage_Tax_Model_Resource_Calculation_Rule_Collection getResourceCollection()
- * @method string getTaxCustomerClass()
- * @method string getTaxProductClass()
- * @method float getTaxRate()
- * @method $this setCalculateSubtotal(float $value)
- * @method $this setCode(string $value)
- * @method $this setPosition(int $value)
- * @method $this setPriority(int $value)
+ * @method string                                              getTaxCustomerClass()
+ * @method string                                              getTaxProductClass()
+ * @method float                                               getTaxRate()
+ * @method $this                                               setCalculateSubtotal(float $value)
+ * @method $this                                               setCode(string $value)
+ * @method $this                                               setPosition(int $value)
+ * @method $this                                               setPriority(int $value)
  */
 class Mage_Tax_Model_Calculation_Rule extends Mage_Core_Model_Abstract
 {
@@ -69,7 +69,7 @@ class Mage_Tax_Model_Calculation_Rule extends Mage_Core_Model_Abstract
     protected $_calculationModel    = null;
 
     /**
-     * Varien model constructor
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -167,9 +167,9 @@ class Mage_Tax_Model_Calculation_Rule extends Mage_Core_Model_Abstract
      * Fetches rules by rate, customer tax class and product tax class
      * and product tax class combination
      *
-     * @param array $rateId
-     * @param array $customerTaxClassId
-     * @param array $productTaxClassId
+     * @param  array $rateId
+     * @param  array $customerTaxClassId
+     * @param  array $productTaxClassId
      * @return array
      */
     public function fetchRuleCodes($rateId, $customerTaxClassId, $productTaxClassId)

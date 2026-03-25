@@ -14,6 +14,8 @@
  */
 class Mage_Adminhtml_Block_Dashboard_Searches_Last extends Mage_Adminhtml_Block_Dashboard_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_dashboard_searches_last';
+
     protected $_collection;
 
     public function __construct()
@@ -22,6 +24,9 @@ class Mage_Adminhtml_Block_Dashboard_Searches_Last extends Mage_Adminhtml_Block_
         $this->setId('lastSearchGrid');
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _prepareCollection()
     {
         if (!$this->isModuleEnabled('Mage_CatalogSearch')) {
@@ -49,6 +54,7 @@ class Mage_Adminhtml_Block_Dashboard_Searches_Last extends Mage_Adminhtml_Block_
     }
 
     /**
+     * @inheritDoc
      * @throws Exception
      */
     protected function _prepareColumns()
@@ -81,8 +87,9 @@ class Mage_Adminhtml_Block_Dashboard_Searches_Last extends Mage_Adminhtml_Block_
     }
 
     /**
-     * @param Mage_CatalogSearch_Model_Query $row
-     * @return string
+     * @inheritDoc
+     * @param  Mage_CatalogSearch_Model_Query $row
+     * @throws Mage_Core_Exception
      */
     public function getRowUrl($row)
     {

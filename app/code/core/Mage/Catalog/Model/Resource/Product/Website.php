@@ -14,6 +14,9 @@
  */
 class Mage_Catalog_Model_Resource_Product_Website extends Mage_Core_Model_Resource_Db_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('catalog/product_website', 'product_id');
@@ -32,8 +35,8 @@ class Mage_Catalog_Model_Resource_Product_Website extends Mage_Core_Model_Resour
     /**
      * Removes products from websites
      *
-     * @param array $websiteIds
-     * @param array $productIds
+     * @param  array     $websiteIds
+     * @param  array     $productIds
      * @return $this
      * @throws Exception
      */
@@ -67,8 +70,8 @@ class Mage_Catalog_Model_Resource_Product_Website extends Mage_Core_Model_Resour
     /**
      * Add products to websites
      *
-     * @param array $websiteIds
-     * @param array $productIds
+     * @param  array     $websiteIds
+     * @param  array     $productIds
      * @return $this
      * @throws Exception
      */
@@ -118,7 +121,7 @@ class Mage_Catalog_Model_Resource_Product_Website extends Mage_Core_Model_Resour
     /**
      * Retrieve product(s) website ids.
      *
-     * @param array $productIds
+     * @param  array $productIds
      * @return array
      */
     public function getWebsites($productIds)

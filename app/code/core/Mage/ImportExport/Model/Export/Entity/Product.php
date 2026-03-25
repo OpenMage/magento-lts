@@ -511,9 +511,9 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Update data row with information about categories. Return true, if data row was updated
      *
-     * @param array $dataRow
-     * @param array $rowCategories
-     * @param int $productId
+     * @param  array $dataRow
+     * @param  array $rowCategories
+     * @param  int   $productId
      * @return bool
      */
     protected function _updateDataWithCategoryColumns(&$dataRow, &$rowCategories, $productId)

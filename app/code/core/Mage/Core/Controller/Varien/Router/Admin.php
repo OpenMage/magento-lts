@@ -20,9 +20,9 @@ class Mage_Core_Controller_Varien_Router_Admin extends Mage_Core_Controller_Vari
         // set defaults
         $d = explode('/', $this->_getDefaultPath());
         $this->getFront()->setDefault([
-            'module'     => !empty($d[0]) ? $d[0] : '',
-            'controller' => !empty($d[1]) ? $d[1] : 'index',
-            'action'     => !empty($d[2]) ? $d[2] : 'index',
+            'module'     => empty($d[0]) ? '' : $d[0],
+            'controller' => empty($d[1]) ? 'index' : $d[1],
+            'action'     => empty($d[2]) ? 'index' : $d[2],
         ]);
     }
 
@@ -50,7 +50,7 @@ class Mage_Core_Controller_Varien_Router_Admin extends Mage_Core_Controller_Vari
                 // If it does, fail secure (possible database corruption/bypass)
                 Mage::log(
                     "Unable to parse custom admin URL host: {$adminUrl}. Access denied for security.",
-                    Zend_Log::ERR,
+                    \Monolog\Level::Error,
                     'system.log',
                 );
                 return false;
@@ -98,7 +98,7 @@ class Mage_Core_Controller_Varien_Router_Admin extends Mage_Core_Controller_Vari
     /**
      * Check whether URL for corresponding path should use https protocol
      *
-     * @param string $path
+     * @param  string $path
      * @return bool
      */
     protected function _shouldBeSecure($path)
@@ -111,7 +111,7 @@ class Mage_Core_Controller_Varien_Router_Admin extends Mage_Core_Controller_Vari
     /**
      * Retrieve current secure url
      *
-     * @param Mage_Core_Controller_Request_Http $request
+     * @param  Mage_Core_Controller_Request_Http $request
      * @return string
      */
     protected function _getCurrentSecureUrl($request)
@@ -124,7 +124,7 @@ class Mage_Core_Controller_Varien_Router_Admin extends Mage_Core_Controller_Vari
      * Emulate custom admin url
      *
      * @param string $configArea
-     * @param bool $useRouterName
+     * @param bool   $useRouterName
      */
     public function collectRoutes($configArea, $useRouterName)
     {
@@ -154,15 +154,15 @@ class Mage_Core_Controller_Varien_Router_Admin extends Mage_Core_Controller_Vari
         );
         if ($isExtensionsCompatibilityMode || ($frontName == $configRouterFrontName)) {
             return parent::addModule($frontName, $moduleName, $routeName);
-        } else {
-            return $this;
         }
+
+        return $this;
     }
 
     /**
      * Check if current controller instance is allowed in current router.
      *
-     * @param Mage_Core_Controller_Varien_Action $controllerInstance
+     * @param  Mage_Core_Controller_Varien_Action $controllerInstance
      * @return true
      */
     protected function _validateControllerInstance($controllerInstance)

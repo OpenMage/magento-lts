@@ -42,12 +42,27 @@ describe('Checks customer account create', () => {
         validation.validateFields(test.create, validation.requiredEntry);
     });
 
-    it('Submits valid form with random email', () => {
-        const email = cy.openmage.utils.generateRandomEmail();
-        const firstname = 'John';
-        const lastname = 'Doe';
-        const password = '12345678';
+    const email = cy.openmage.utils.generateRandomEmail();
+    const firstname = 'John';
+    const lastname = 'Doe';
 
+    it('Submits invalid form with weak password', () => {
+        const password = '12345678';
+        // see PR: https://github.com/OpenMage/magento-lts/pull/4617
+        // const message = 'Thank you for registering with Madison Island.';
+        const message = 'Password must include both numeric and alphabetic characters.';
+        const filename = 'message.customer.account.create.invalid.weakpassword';
+        cy.get(test.create.__fields.firstname._).type(firstname).should('have.value', firstname);
+        cy.get(test.create.__fields.lastname._).type(lastname).should('have.value', lastname);
+        cy.get(test.create.__fields.email_address._).type(email).should('have.value', email);
+        cy.get(test.create.__fields.password._).type(password).should('have.value', password);
+        cy.get(test.create.__fields.confirmation._).type(password).should('have.value', password);
+        tools.click(test._buttonSubmit);
+        validation.hasErrorMessage(message, { screenshot: false, filename: filename });
+    });
+
+    it('Submits valid form', () => {
+        const password = 'veryl0ngpassw0rd';
         // see PR: https://github.com/OpenMage/magento-lts/pull/4617
         // const message = 'Thank you for registering with Madison Island.';
         const message = 'Thank you for registering with ENV name default.';

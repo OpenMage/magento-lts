@@ -16,28 +16,25 @@ use Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract as MassAction;
  */
 class Mage_Adminhtml_Block_Newsletter_Subscriber_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
-    /**
-     * Set main configuration of grid
-     */
+    protected string $_eventPrefix = 'adminhtml_newsletter_subscriber_grid';
+
     public function __construct()
     {
         parent::__construct();
         $this->setId('subscriberGrid');
         $this->setUseAjax(true);
         $this->setDefaultSort('subscriber_id');
-        $this->setDefaultDir('desc');
+        $this->setSaveParametersInSession(true);
     }
 
     /**
-     * Prepare collection for grid
-     *
-     * @return Mage_Adminhtml_Block_Widget_Grid
+     * @inheritDoc
      * @throws Exception
      */
     protected function _prepareCollection()
     {
-        $collection = Mage::getResourceSingleton('newsletter/subscriber_collection');
         /** @var Mage_Newsletter_Model_Resource_Subscriber_Collection $collection */
+        $collection = Mage::getResourceSingleton('newsletter/subscriber_collection');
         $collection
             ->showCustomerInfo()
             ->addSubscriberTypeField()
@@ -82,19 +79,19 @@ class Mage_Adminhtml_Block_Newsletter_Subscriber_Grid extends Mage_Adminhtml_Blo
         $this->addColumn('firstname', [
             'header'    => Mage::helper('newsletter')->__('Customer First Name'),
             'index'     => 'customer_firstname',
-            'default'   =>    '----',
+            'default'   => '----',
         ]);
 
         $this->addColumn('middlename', [
             'header'    => Mage::helper('newsletter')->__('Customer Middle Name'),
             'index'     => 'customer_middlename',
-            'default'   =>    '----',
+            'default'   => '----',
         ]);
 
         $this->addColumn('lastname', [
             'header'    => Mage::helper('newsletter')->__('Customer Last Name'),
             'index'     => 'customer_lastname',
-            'default'   =>    '----',
+            'default'   => '----',
         ]);
 
         $this->addColumn('status', [
@@ -138,7 +135,7 @@ class Mage_Adminhtml_Block_Newsletter_Subscriber_Grid extends Mage_Adminhtml_Blo
     /**
      * Convert OptionsValue array to Options array
      *
-     * @param array $optionsArray
+     * @param  array $optionsArray
      * @return array
      */
     protected function _getOptions($optionsArray)
@@ -182,7 +179,7 @@ class Mage_Adminhtml_Block_Newsletter_Subscriber_Grid extends Mage_Adminhtml_Blo
     }
 
     /**
-     * @return $this
+     * @inheritDoc
      */
     protected function _prepareMassaction()
     {
@@ -200,6 +197,6 @@ class Mage_Adminhtml_Block_Newsletter_Subscriber_Grid extends Mage_Adminhtml_Blo
             'url'          => $this->getUrl('*/*/massDelete'),
         ]);
 
-        return $this;
+        return parent::_prepareMassaction();
     }
 }

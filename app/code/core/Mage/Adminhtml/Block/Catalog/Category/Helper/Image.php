@@ -14,13 +14,15 @@
  */
 class Mage_Adminhtml_Block_Catalog_Category_Helper_Image extends Varien_Data_Form_Element_Image
 {
+    /**
+     * @inheritDoc
+     */
     protected function _getUrl()
     {
-        $url = false;
         if ($this->getValue()) {
-            $url = Mage::getBaseUrl('media') . 'catalog/category/' . $this->getValue();
+            return Mage::getBaseUrl('media') . 'catalog/category/' . $this->getValue();
         }
 
-        return $url;
+        return null;
     }
 }

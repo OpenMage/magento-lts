@@ -24,7 +24,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Abstract extends Mage_Admin
     /**
      * Set column related to filter
      *
-     * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
+     * @param  Mage_Adminhtml_Block_Widget_Grid_Column $column
      * @return $this
      */
     public function setColumn($column)
@@ -68,7 +68,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Abstract extends Mage_Admin
     /**
      * Retrieve escaped value
      *
-     * @param mixed $index
+     * @param  mixed  $index
      * @return string
      */
     public function getEscapedValue($index = null)
@@ -89,7 +89,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Abstract extends Mage_Admin
     }
 
     /**
-     * @param array|string $value
+     * @param  array|string $value
      * @return array|string
      * @deprecated after 1.5.0.0
      */

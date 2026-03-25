@@ -7,29 +7,27 @@
  * @package    Mage_Oauth
  */
 
+use Carbon\Carbon;
+
 /**
  * Application model
  *
  * @package    Mage_Oauth
  *
- * @method Mage_Oauth_Model_Resource_Consumer _getResource()
- * @method string getCallbackUrl()
+ * @method Mage_Oauth_Model_Resource_Consumer            _getResource()
+ * @method string                                        getCallbackUrl()
  * @method Mage_Oauth_Model_Resource_Consumer_Collection getCollection()
- * @method string getCreatedAt()
- * @method string getKey()
- * @method string getName()
- * @method string getRejectedCallbackUrl()
- * @method Mage_Oauth_Model_Resource_Consumer getResource()
+ * @method string                                        getKey()
+ * @method string                                        getName()
+ * @method string                                        getRejectedCallbackUrl()
+ * @method Mage_Oauth_Model_Resource_Consumer            getResource()
  * @method Mage_Oauth_Model_Resource_Consumer_Collection getResourceCollection()
- * @method string getSecret()
- * @method string getUpdatedAt()
- * @method $this setCallbackUrl() setCallbackUrl(string $url)
- * @method $this setCreatedAt() setCreatedAt(string $date)
- * @method $this setKey() setKey(string $key)
- * @method $this setName() setName(string $name)
- * @method $this setRejectedCallbackUrl() setRejectedCallbackUrl(string $rejectedCallbackUrl)
- * @method $this setSecret() setSecret(string $secret)
- * @method $this setUpdatedAt() setUpdatedAt(string $date)
+ * @method string                                        getSecret()
+ * @method $this                                         setCallbackUrl(string $url)
+ * @method $this                                         setKey(string $key)
+ * @method $this                                         setName(string $name)
+ * @method $this                                         setRejectedCallbackUrl(string $rejectedCallbackUrl)
+ * @method $this                                         setSecret(string $secret)
  */
 class Mage_Oauth_Model_Consumer extends Mage_Core_Model_Abstract
 {
@@ -43,6 +41,9 @@ class Mage_Oauth_Model_Consumer extends Mage_Core_Model_Abstract
      */
     public const SECRET_LENGTH = 32;
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('oauth/consumer');
@@ -56,7 +57,7 @@ class Mage_Oauth_Model_Consumer extends Mage_Core_Model_Abstract
     protected function _beforeSave()
     {
         if (!$this->getId()) {
-            $this->setUpdatedAt(time());
+            $this->setUpdatedAt(Carbon::now()->getTimestamp());
         }
 
         $this->setCallbackUrl(trim($this->getCallbackUrl()));
@@ -70,24 +71,20 @@ class Mage_Oauth_Model_Consumer extends Mage_Core_Model_Abstract
      * Validate data
      *
      * @return bool
-     * @throw Mage_Core_Exception|Exception   Throw exception on fail validation
+     * @throws Mage_Core_Exception Throw exception on fail validation
      */
     public function validate()
     {
-        /** @var Mage_Oauth_Model_Consumer_Validator_KeyLength $validatorLength */
-        $validatorLength = Mage::getModel('oauth/consumer_validator_keyLength', ['length' => self::KEY_LENGTH]);
+        $validator = $this->getValidationHelper();
 
-        $validatorLength->setName('Consumer Key');
-        if (!$validatorLength->isValid($this->getKey())) {
-            $messages = $validatorLength->getMessages();
-            Mage::throwException(array_shift($messages));
+        $violations = $validator->validateLength(value: $this->getKey(), exactly: self::KEY_LENGTH);
+        if ($violations->count() > 0) {
+            Mage::throwException($violations->get(0)->getMessage());
         }
 
-        $validatorLength->setLength(self::SECRET_LENGTH);
-        $validatorLength->setName('Consumer Secret');
-        if (!$validatorLength->isValid($this->getSecret())) {
-            $messages = $validatorLength->getMessages();
-            Mage::throwException(array_shift($messages));
+        $violations = $validator->validateLength(value: $this->getSecret(), exactly: self::SECRET_LENGTH);
+        if ($violations->count() > 0) {
+            Mage::throwException($violations->get(0)->getMessage());
         }
 
         return true;

@@ -12,30 +12,33 @@
  *
  * @package    Mage_Catalog
  *
- * @method Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute _getResource()
- * @method string getAttributeCode()
- * @method int getAttributeId()
+ * @method Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute            _getResource()
+ * @method string                                                                     getAttributeCode()
+ * @method int                                                                        getAttributeId()
  * @method Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute_Collection getCollection()
- * @method int getPosition()
- * @method array getPrices()
- * @method Mage_Catalog_Model_Resource_Eav_Attribute getProductAttribute()
- * @method int getProductId()
- * @method Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute getResource()
+ * @method int                                                                        getPosition()
+ * @method array                                                                      getPrices()
+ * @method Mage_Catalog_Model_Resource_Eav_Attribute                                  getProductAttribute()
+ * @method int                                                                        getProductId()
+ * @method Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute            getResource()
  * @method Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute_Collection getResourceCollection()
- * @method int getStoreId()
- * @method int getUseDefault()
- * @method array getValues()
- * @method $this setAttributeId(int $value)
- * @method $this setLabel(string $value)
- * @method $this setPosition(int $value)
- * @method $this setPrices(array $value)
- * @method $this setProductAttribute(Mage_Catalog_Model_Resource_Eav_Attribute $value)
- * @method $this setProductId(int $value)
- * @method $this setStoreId(int $value)
- * @method $this setUseDefault(int $value)
+ * @method int                                                                        getStoreId()
+ * @method int                                                                        getUseDefault()
+ * @method array                                                                      getValues()
+ * @method $this                                                                      setAttributeId(int $value)
+ * @method $this                                                                      setLabel(string $value)
+ * @method $this                                                                      setPosition(int $value)
+ * @method $this                                                                      setPrices(array $value)
+ * @method $this                                                                      setProductAttribute(Mage_Catalog_Model_Resource_Eav_Attribute $value)
+ * @method $this                                                                      setProductId(int $value)
+ * @method $this                                                                      setStoreId(int $value)
+ * @method $this                                                                      setUseDefault(int $value)
  */
 class Mage_Catalog_Model_Product_Type_Configurable_Attribute extends Mage_Core_Model_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('catalog/product_type_configurable_attribute');
@@ -44,7 +47,7 @@ class Mage_Catalog_Model_Product_Type_Configurable_Attribute extends Mage_Core_M
     /**
      * Add price data to attribute
      *
-     * @param array $priceData
+     * @param  array $priceData
      * @return $this
      */
     public function addPrice($priceData)
@@ -68,7 +71,9 @@ class Mage_Catalog_Model_Product_Type_Configurable_Attribute extends Mage_Core_M
     {
         if ($this->getData('use_default') && $this->getProductAttribute()) {
             return $this->getProductAttribute()->getStoreLabel();
-        } elseif (is_null($this->getData('label')) && $this->getProductAttribute()) {
+        }
+
+        if (is_null($this->getData('label')) && $this->getProductAttribute()) {
             $this->setData('label', $this->getProductAttribute()->getStoreLabel());
         }
 

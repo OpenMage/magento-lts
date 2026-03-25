@@ -162,7 +162,7 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
     /**
      * Set option that define ability skip first catalog level.
      *
-     * @param mixed $skipRoot
+     * @param  mixed            $skipRoot
      * @return Mage_Archive_Tar
      */
     protected function _setSkipRoot($skipRoot)
@@ -174,7 +174,7 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
     /**
      * Set file which is packing.
      *
-     * @param string $file
+     * @param  string           $file
      * @return Mage_Archive_Tar
      */
     protected function _setCurrentFile($file)
@@ -186,7 +186,7 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
     /**
      * Set path to file where tarball should be placed
      *
-     * @param string $destinationFilePath
+     * @param  string           $destinationFilePath
      * @return Mage_Archive_Tar
      */
     protected function _setDestinationFilePath($destinationFilePath)
@@ -208,7 +208,7 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
     /**
      * Set path to file which is packing.
      *
-     * @param string $path
+     * @param  string           $path
      * @return Mage_Archive_Tar
      */
     protected function _setCurrentPath($path)
@@ -236,7 +236,7 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
      * Walk through directory and add to tar file or directory.
      * Result is packed string on TAR format.
      *
-     * @param bool $skipRoot
+     * @param  bool   $skipRoot
      * @return string
      * @deprecated after 1.7.0.0
      */
@@ -272,8 +272,8 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
     /**
      * Recursively walk through file tree and create tarball
      *
-     * @param bool $skipRoot
-     * @param bool $finalize
+     * @param  bool           $skipRoot
+     * @param  bool           $finalize
      * @throws Mage_Exception
      */
     protected function _createTar($skipRoot = false, $finalize = false)
@@ -339,7 +339,7 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
      * method breaks header into two pieces. First contains
      * header and data with long name. Second contain only header.
      *
-     * @param bool $long
+     * @param  bool   $long
      * @return string
      */
     protected function _composeHeader($long = false)
@@ -401,8 +401,8 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
      * Create files and directories information about described
      * in the string.
      *
-     * @param string $destination path to file is unpacked
-     * @return array list of files
+     * @param  string         $destination path to file is unpacked
+     * @return array          list of files
      * @throws Mage_Exception
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
@@ -455,7 +455,7 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
     /**
      * Get header from TAR string and unpacked it by format.
      *
-     * @param resource $pointer
+     * @param  resource    $pointer
      * @return array|false
      * @deprecated after 1.7.0.0
      */
@@ -496,15 +496,15 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
                 $headerMain = $this->_parseHeader($pointer);
                 $headerMain['name'] = $realName;
                 return $headerMain;
-            } else {
-                if ($header['size'] > 0) {
-                    $header['data'] = substr(fread($pointer, (int) (($header['size'] + 512 - 1) / 512) * 512), 0, $header['size']);
-                } else {
-                    $header['data'] = '';
-                }
-
-                return $header;
             }
+
+            if ($header['size'] > 0) {
+                $header['data'] = substr(fread($pointer, (int) (($header['size'] + 512 - 1) / 512) * 512), 0, $header['size']);
+            } else {
+                $header['data'] = '';
+            }
+
+            return $header;
         }
 
         return false;
@@ -568,7 +568,7 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
     /**
      * Extract next file from tarball by its $header information and save it to $destination
      *
-     * @param array $fileHeader
+     * @param array  $fileHeader
      * @param string $destination
      */
     protected function _extractAndWriteFile($fileHeader, $destination)
@@ -595,9 +595,9 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
     /**
      * Pack file to TAR (Tape Archiver).
      *
-     * @param string $source
-     * @param string $destination
-     * @param bool $skipRoot
+     * @param  string $source
+     * @param  string $destination
+     * @param  bool   $skipRoot
      * @return string
      */
     public function pack($source, $destination, $skipRoot = false)
@@ -618,8 +618,8 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
     /**
      * Unpack file from TAR (Tape Archiver).
      *
-     * @param string $source
-     * @param string $destination
+     * @param  string $source
+     * @param  string $destination
      * @return string
      */
     public function unpack($source, $destination)
@@ -637,9 +637,9 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
     /**
      * Extract one file from TAR (Tape Archiver).
      *
-     * @param string $file
-     * @param string $source
-     * @param string $destination
+     * @param  string $file
+     * @param  string $source
+     * @param  string $destination
      * @return string
      */
     public function extract($file, $source, $destination)

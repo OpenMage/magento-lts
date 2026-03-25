@@ -22,8 +22,8 @@ class Mage_Checkout_Model_Cart_Shipping_Api extends Mage_Checkout_Model_Api_Reso
     /**
      * Set an Shipping Method for Shopping Cart
      *
-     * @param  int $quoteId
-     * @param  string $shippingMethod
+     * @param  int        $quoteId
+     * @param  string     $shippingMethod
      * @param  int|string $store
      * @return bool
      */
@@ -54,7 +54,7 @@ class Mage_Checkout_Model_Cart_Shipping_Api extends Mage_Checkout_Model_Api_Reso
     /**
      * Get list of available shipping methods
      *
-     * @param  int $quoteId
+     * @param  int        $quoteId
      * @param  int|string $store
      * @return array
      */

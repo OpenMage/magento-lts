@@ -15,10 +15,10 @@
 class Mage_Core_Block_Text_List_Link extends Mage_Core_Block_Text
 {
     /**
-     * @param array $liParams
-     * @param array $aParams
-     * @param string $innerText
-     * @param string $afterText
+     * @param  array  $liParams
+     * @param  array  $aParams
+     * @param  string $innerText
+     * @param  string $afterText
      * @return $this
      */
     public function setLink($liParams, $aParams, $innerText, $afterText = '')
@@ -38,7 +38,7 @@ class Mage_Core_Block_Text_List_Link extends Mage_Core_Block_Text
     {
         $this->setText('<li');
         $params = $this->getLiParams();
-        if (!empty($params) && is_array($params)) {
+        if (is_array($params) && $params !== []) {
             foreach ($params as $key => $value) {
                 $this->addText(' ' . $key . '="' . addslashes($value) . '"');
             }
@@ -49,7 +49,7 @@ class Mage_Core_Block_Text_List_Link extends Mage_Core_Block_Text
         $this->addText('><a');
 
         $params = $this->getAParams();
-        if (!empty($params) && is_array($params)) {
+        if (is_array($params) && $params !== []) {
             foreach ($params as $key => $value) {
                 $this->addText(' ' . $key . '="' . addslashes($value) . '"');
             }

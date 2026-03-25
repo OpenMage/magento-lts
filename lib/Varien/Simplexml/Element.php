@@ -123,8 +123,8 @@ class Varien_Simplexml_Element extends SimpleXMLElement
      * @todo    Do we need to make it xpath look-a-like?
      * @todo    Check if we still need all this and revert to plain XPath if this makes any sense
      * @todo    param string $path Subset of xpath. Example: "child/grand[@attrName='attrValue']/subGrand"
-     * @param   array|string $path Example: "child/grand@attrName=attrValue/subGrand" (to make it faster without regex)
-     * @return  false|Varien_Simplexml_Element
+     * @param  array|string                   $path Example: "child/grand@attrName=attrValue/subGrand" (to make it faster without regex)
+     * @return false|Varien_Simplexml_Element
      */
     public function descend($path)
     {
@@ -139,7 +139,8 @@ class Varien_Simplexml_Element extends SimpleXMLElement
             $pathArr = explode('/', $path);
         } else {
             $regex = '#([^@/\\"]+(?:@[^=/]+=(?:\\"[^\\"]*\\"|[^/]*))?)/?#';
-            $pathArr = $pathMatches = [];
+            $pathArr = [];
+            $pathMatches = [];
             if (preg_match_all($regex, $path, $pathMatches)) {
                 $pathArr = $pathMatches[1];
             }
@@ -205,7 +206,7 @@ class Varien_Simplexml_Element extends SimpleXMLElement
     /**
      * Returns the node and children as an array
      *
-     * @param bool $isCanonical - whether to ignore attributes
+     * @param  bool         $isCanonical - whether to ignore attributes
      * @return array|string
      */
     protected function _asArray($isCanonical = false)
@@ -239,8 +240,8 @@ class Varien_Simplexml_Element extends SimpleXMLElement
     /**
      * Makes nicely formatted XML from the node
      *
-     * @param string $filename
-     * @param bool|int $level if false
+     * @param  string   $filename
+     * @param  bool|int $level    if false
      * @return string
      */
     public function asNiceXml($filename = '', $level = 0)
@@ -285,7 +286,7 @@ class Varien_Simplexml_Element extends SimpleXMLElement
     }
 
     /**
-     * @param int $level
+     * @param  int    $level
      * @return string
      */
     public function innerXml($level = 0)
@@ -323,7 +324,7 @@ class Varien_Simplexml_Element extends SimpleXMLElement
     /**
      * Appends $source to current node
      *
-     * @param Varien_Simplexml_Element $source
+     * @param  Varien_Simplexml_Element $source
      * @return Varien_Simplexml_Element
      */
     public function appendChild($source)
@@ -354,8 +355,8 @@ class Varien_Simplexml_Element extends SimpleXMLElement
      * If $overwrite is false will merge only missing nodes
      * Otherwise will overwrite existing nodes
      *
-     * @param Varien_Simplexml_Element $source
-     * @param bool $overwrite
+     * @param  Varien_Simplexml_Element $source
+     * @param  bool                     $overwrite
      * @return Varien_Simplexml_Element
      */
     public function extend($source, $overwrite = false)
@@ -374,8 +375,8 @@ class Varien_Simplexml_Element extends SimpleXMLElement
     /**
      * Extends one node
      *
-     * @param Varien_Simplexml_Element $source
-     * @param bool $overwrite
+     * @param  Varien_Simplexml_Element $source
+     * @param  bool                     $overwrite
      * @return Varien_Simplexml_Element
      */
     public function extendChild($source, $overwrite = false)

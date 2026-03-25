@@ -33,7 +33,7 @@ class Mage_Catalog_Block_Seo_Sitemap_Tree_Category extends Mage_Catalog_Block_Se
     /**
      * Initialize categories collection
      *
-     * @return Mage_Catalog_Block_Seo_Sitemap_Category
+     * @return $this
      */
     protected function _prepareLayout()
     {
@@ -158,8 +158,8 @@ class Mage_Catalog_Block_Seo_Sitemap_Tree_Category extends Mage_Catalog_Block_Se
     /**
      * Return level of indent
      *
-     * @param Mage_Catalog_Model_Category $item
-     * @param int $delta
+     * @param  Mage_Catalog_Model_Category $item
+     * @param  int                         $delta
      * @return int
      */
     public function getLevel($item, $delta = 1)

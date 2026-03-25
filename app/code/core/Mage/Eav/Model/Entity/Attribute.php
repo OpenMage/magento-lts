@@ -12,18 +12,18 @@
  *
  * @package    Mage_Eav
  *
- * @method Mage_Eav_Model_Resource_Entity_Attribute _getResource()
- * @method int getAttributeGroupId()
+ * @method Mage_Eav_Model_Resource_Entity_Attribute            _getResource()
+ * @method int                                                 getAttributeGroupId()
  * @method Mage_Eav_Model_Resource_Entity_Attribute_Collection getCollection()
- * @method int getEntityAttributeId()
- * @method array getFilterOptions()
- * @method Mage_Eav_Model_Resource_Entity_Attribute getResource()
+ * @method int                                                 getEntityAttributeId()
+ * @method array                                               getFilterOptions()
+ * @method Mage_Eav_Model_Resource_Entity_Attribute            getResource()
  * @method Mage_Eav_Model_Resource_Entity_Attribute_Collection getResourceCollection()
- * @method $this setDefaultValue(int $value)
- * @method $this setEntityAttributeId(int $value)
- * @method $this setFrontendLabel(string $value)
- * @method $this setIsFilterable(int $value)
- * @method $this unsIsVisible()
+ * @method $this                                               setDefaultValue(int $value)
+ * @method $this                                               setEntityAttributeId(int $value)
+ * @method $this                                               setFrontendLabel(string $value)
+ * @method $this                                               setIsFilterable(int $value)
+ * @method $this                                               unsIsVisible()
  */
 class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Abstract
 {
@@ -123,19 +123,20 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
      * Prepare data for save
      *
      * @inheritDoc
+     * @throws Mage_Core_Exception
      * @throws Mage_Eav_Exception
      */
     protected function _beforeSave()
     {
-        /**
+        /*
          * Check for maximum attribute_code length
          */
+        $validator = $this->getValidationHelper();
         if (isset($this->_data['attribute_code'])
-            && !Zend_Validate::is(
-                $this->_data['attribute_code'],
-                'StringLength',
-                ['max' => self::ATTRIBUTE_CODE_MAX_LENGTH],
-            )
+            && $validator->validateLength(
+                value: $this->_data['attribute_code'],
+                max: self::ATTRIBUTE_CODE_MAX_LENGTH,
+            )->count() > 0
         ) {
             throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('Maximum length of attribute code must be less then %s symbols', self::ATTRIBUTE_CODE_MAX_LENGTH));
         }
@@ -203,7 +204,7 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
     /**
      * Detect backend storage type using frontend input type
      *
-     * @param string $type frontend_input field value
+     * @param  string $type frontend_input field value
      * @return string backend_type field value
      */
     public function getBackendTypeByInput($type)
@@ -223,7 +224,7 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
     /**
      * Detect default value using frontend input type
      *
-     * @param string $type frontend_input field name
+     * @param  string $type frontend_input field name
      * @return string default_value field value
      */
     public function getDefaultValueByInput($type)
@@ -264,7 +265,7 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
     /**
      * Retrieve attribute codes by frontend type
      *
-     * @param string $type
+     * @param  string $type
      * @return array
      */
     public function getAttributeCodesByFrontendType($type)
@@ -290,7 +291,7 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
     /**
      * Return store label of attribute
      *
-     * @param int $storeId
+     * @param  int                             $storeId
      * @return string
      * @throws Mage_Core_Model_Store_Exception
      */

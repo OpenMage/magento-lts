@@ -12,10 +12,9 @@
  *
  * @package    Mage_Newsletter
  *
- * @method Mage_Newsletter_Model_Problem[] getItems()
- * @method Mage_Newsletter_Model_Problem[] getItemsByColumnValue(string $column, string $value)
  * @method $this setCustomerFirstName(string $value)
  * @method $this setCustomerLastName(string $value)
+ * @extends Mage_Core_Model_Resource_Db_Collection_Abstract<Mage_Newsletter_Model_Problem>
  */
 class Mage_Newsletter_Model_Resource_Problem_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
@@ -34,7 +33,7 @@ class Mage_Newsletter_Model_Resource_Problem_Collection extends Mage_Core_Model_
     protected $_problemGrouped             = false;
 
     /**
-     * Define resource model and model
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -115,8 +114,8 @@ class Mage_Newsletter_Model_Resource_Problem_Collection extends Mage_Core_Model_
     /**
      * Loads collection and adds customers info
      *
-     * @param bool $printQuery
-     * @param bool $logQuery
+     * @param  bool  $printQuery
+     * @param  bool  $logQuery
      * @return $this
      */
     public function load($printQuery = false, $logQuery = false)

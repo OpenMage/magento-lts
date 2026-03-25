@@ -15,7 +15,7 @@
 class Mage_Bundle_Block_Adminhtml_Sales_Order_View_Items_Renderer extends Mage_Adminhtml_Block_Sales_Order_View_Items_Renderer_Default
 {
     /**
-     * @param Mage_Sales_Model_Order_Item $item
+     * @param  Mage_Sales_Model_Order_Item $item
      * @return bool
      */
     public function isShipmentSeparately($item = null)
@@ -27,18 +27,18 @@ class Mage_Bundle_Block_Adminhtml_Sales_Order_View_Items_Renderer extends Mage_A
                         && $options['shipment_type'] == Mage_Catalog_Model_Product_Type_Abstract::SHIPMENT_SEPARATELY
                     ) {
                         return true;
-                    } else {
-                        return false;
                     }
+
+                    return false;
                 }
             } elseif ($options = $item->getProductOptions()) {
                 if (isset($options['shipment_type'])
                     && $options['shipment_type'] == Mage_Catalog_Model_Product_Type_Abstract::SHIPMENT_SEPARATELY
                 ) {
                     return false;
-                } else {
-                    return true;
                 }
+
+                return true;
             }
         }
 
@@ -54,7 +54,7 @@ class Mage_Bundle_Block_Adminhtml_Sales_Order_View_Items_Renderer extends Mage_A
     }
 
     /**
-     * @param Mage_Sales_Model_Order_Item $item
+     * @param  Mage_Sales_Model_Order_Item $item
      * @return bool
      */
     public function isChildCalculated($item = null)
@@ -66,18 +66,18 @@ class Mage_Bundle_Block_Adminhtml_Sales_Order_View_Items_Renderer extends Mage_A
                         && $options['product_calculations'] == Mage_Catalog_Model_Product_Type_Abstract::CALCULATE_CHILD
                     ) {
                         return true;
-                    } else {
-                        return false;
                     }
+
+                    return false;
                 }
             } elseif ($options = $item->getProductOptions()) {
                 if (isset($options['product_calculations'])
                     && $options['product_calculations'] == Mage_Catalog_Model_Product_Type_Abstract::CALCULATE_CHILD
                 ) {
                     return false;
-                } else {
-                    return true;
                 }
+
+                return true;
             }
         }
 
@@ -93,7 +93,7 @@ class Mage_Bundle_Block_Adminhtml_Sales_Order_View_Items_Renderer extends Mage_A
     }
 
     /**
-     * @param Mage_Sales_Model_Order_Item|Varien_Object $item
+     * @param  Mage_Sales_Model_Order_Item|Varien_Object $item
      * @return null|mixed
      */
     public function getSelectionAttributes($item)
@@ -135,7 +135,7 @@ class Mage_Bundle_Block_Adminhtml_Sales_Order_View_Items_Renderer extends Mage_A
     }
 
     /**
-     * @param Mage_Sales_Model_Order_Item $item
+     * @param  Mage_Sales_Model_Order_Item $item
      * @return string
      */
     public function getValueHtml($item)
@@ -157,7 +157,7 @@ class Mage_Bundle_Block_Adminhtml_Sales_Order_View_Items_Renderer extends Mage_A
     }
 
     /**
-     * @param Mage_Sales_Model_Order_Item $item
+     * @param  Mage_Sales_Model_Order_Item $item
      * @return bool
      */
     public function canShowPriceInfo($item)

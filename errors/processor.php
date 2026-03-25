@@ -91,7 +91,7 @@ class Error_Processor
         $this->_reportDir = dirname($this->_errorDir) . '/var/report/';
 
         if (!empty($_SERVER['SCRIPT_NAME'])) {
-            if (in_array(basename($_SERVER['SCRIPT_NAME'], '.php'), ['404','503','report'])) {
+            if (in_array(basename($_SERVER['SCRIPT_NAME'], '.php'), ['404','503','report'], true)) {
                 $this->_scriptName = dirname($_SERVER['SCRIPT_NAME']);
             } else {
                 $this->_scriptName = $_SERVER['SCRIPT_NAME'];
@@ -181,7 +181,7 @@ class Error_Processor
 
         if (!empty($_SERVER['SERVER_PORT'])
             && preg_match('/\d+/', $_SERVER['SERVER_PORT'])
-            && !in_array($_SERVER['SERVER_PORT'], [80, 433])
+            && !in_array($_SERVER['SERVER_PORT'], [80, 433], true)
             && !str_ends_with($host, ':' . $_SERVER['SERVER_PORT'])
         ) {
             $url .= ':' . $_SERVER['SERVER_PORT'];
@@ -273,7 +273,7 @@ class Error_Processor
     /**
      * Load xml file
      *
-     * @param string $xmlFile file name
+     * @param  string                $xmlFile file name
      * @return null|SimpleXMLElement
      */
     protected function _loadXml(string $xmlFile)
@@ -287,7 +287,7 @@ class Error_Processor
      */
     protected function _sendHeaders(int $statusCode)
     {
-        $serverProtocol = !empty($_SERVER['SERVER_PROTOCOL']) ? $_SERVER['SERVER_PROTOCOL'] : 'HTTP/1.0';
+        $serverProtocol = empty($_SERVER['SERVER_PROTOCOL']) ? 'HTTP/1.0' : $_SERVER['SERVER_PROTOCOL'];
         $description = match ($statusCode) {
             404 => 'Not Found',
             503 => 'Service Unavailable',
@@ -311,7 +311,7 @@ class Error_Processor
     /**
      * Find file path
      *
-     * @param null|array $directories
+     * @param  null|array  $directories
      * @return null|string
      */
     protected function _getFilePath(string $file, $directories = null)

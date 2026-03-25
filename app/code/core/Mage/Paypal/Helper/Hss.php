@@ -30,8 +30,8 @@ class Mage_Paypal_Helper_Hss extends Mage_Core_Helper_Abstract
     /**
      * Get template for button in order review page if HSS method was selected
      *
-     * @param string $name template name
-     * @param string $block buttons block name
+     * @param  string $name  template name
+     * @param  string $block buttons block name
      * @return string
      */
     public function getReviewButtonTemplate($name, $block)

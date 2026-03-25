@@ -182,11 +182,11 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
             }
 
             return;
-        } catch (Mage_Core_Exception $e) {
-            $this->_getSession()->addError($e->getMessage());
-        } catch (Exception $e) {
-            Mage::logException($e);
-            $this->_getSession()->addError($this->__('An error occurred during saving a widget: %s', $e->getMessage()));
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_getSession()->addError($mageCoreException->getMessage());
+        } catch (Exception $exception) {
+            Mage::logException($exception);
+            $this->_getSession()->addError($this->__('An error occurred during saving a widget: %s', $exception->getMessage()));
         }
 
         $this->_redirect('*/*/edit', ['_current' => true]);
@@ -316,8 +316,8 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
     /**
      * Validates update xml post data
      *
-     * @param Mage_Widget_Model_Widget_Instance $widgetInstance
-     * @param array $data
+     * @param  Mage_Widget_Model_Widget_Instance $widgetInstance
+     * @param  array                             $data
      * @return bool
      */
     protected function _validatePostData($widgetInstance, $data)

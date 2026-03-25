@@ -28,6 +28,9 @@ class Mage_Admin_Model_Resource_Roles extends Mage_Core_Model_Resource_Db_Abstra
      */
     protected $_ruleTable;
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('admin/role', 'role_id');
@@ -39,12 +42,14 @@ class Mage_Admin_Model_Resource_Roles extends Mage_Core_Model_Resource_Db_Abstra
     /**
      * Process role before saving
      *
-     * @param Mage_Admin_Model_Roles $object
+     * @param  Mage_Admin_Model_Roles $object
      * @return $this
      * @throws Mage_Core_Exception
      */
     protected function _beforeSave(Mage_Core_Model_Abstract $object)
     {
+        parent::_beforeSave($object);
+
         if ($object->getId() == '') {
             if ($object->getIdFieldName()) {
                 $object->unsetData($object->getIdFieldName());
@@ -76,29 +81,37 @@ class Mage_Admin_Model_Resource_Roles extends Mage_Core_Model_Resource_Db_Abstra
     /**
      * Process role after saving
      *
-     * @param Mage_Admin_Model_Roles $object
+     * @param  Mage_Admin_Model_Roles    $object
      * @return $this
+     * @throws Mage_Core_Exception
      * @throws Zend_Cache_Exception
+     * @throws Zend_Db_Adapter_Exception
      */
     protected function _afterSave(Mage_Core_Model_Abstract $object)
     {
-        $this->_updateRoleUsersAcl($object);
-        Mage::app()->getCache()->clean(
-            Zend_Cache::CLEANING_MODE_MATCHING_TAG,
-            [Mage_Adminhtml_Block_Page_Menu::CACHE_TAGS],
-        );
+        parent::_afterSave($object);
+
+        if ($this->_updateRoleUsersAcl($object)) {
+            Mage::app()->getCache()->clean(
+                Zend_Cache::CLEANING_MODE_MATCHING_TAG,
+                [Mage_Adminhtml_Block_Page_Menu::CACHE_TAGS],
+            );
+        }
+
         return $this;
     }
 
     /**
      * Process role after deleting
      *
-     * @param Mage_Admin_Model_Roles $object
+     * @param  Mage_Admin_Model_Roles $object
      * @return $this
      * @throws Mage_Core_Exception
      */
     protected function _afterDelete(Mage_Core_Model_Abstract $object)
     {
+        parent::_afterDelete($object);
+
         $adapter = $this->_getWriteAdapter();
         $adapter->delete($this->getMainTable(), ['parent_id = ?' => (int) $object->getId()]);
         $adapter->delete($this->_ruleTable, ['role_id = ?' => (int) $object->getId()]);
@@ -108,7 +121,7 @@ class Mage_Admin_Model_Resource_Roles extends Mage_Core_Model_Resource_Db_Abstra
     /**
      * Get role users
      *
-     * @return array
+     * @return string[]
      * @throws Mage_Core_Exception
      */
     public function getRoleUsers(Mage_Admin_Model_Roles $role)
@@ -125,11 +138,10 @@ class Mage_Admin_Model_Resource_Roles extends Mage_Core_Model_Resource_Db_Abstra
     /**
      * Update role users
      *
-     * @return bool
      * @throws Mage_Core_Exception
      * @throws Zend_Db_Adapter_Exception
      */
-    private function _updateRoleUsersAcl(Mage_Admin_Model_Roles $role)
+    private function _updateRoleUsersAcl(Mage_Admin_Model_Roles $role): bool
     {
         $users = $this->getRoleUsers($role);
         $rowsCount = 0;

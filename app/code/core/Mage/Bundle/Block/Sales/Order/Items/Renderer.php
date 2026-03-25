@@ -15,7 +15,7 @@
 class Mage_Bundle_Block_Sales_Order_Items_Renderer extends Mage_Sales_Block_Order_Item_Renderer_Default
 {
     /**
-     * @param null|Varien_Object $item
+     * @param  null|Varien_Object $item
      * @return bool
      */
     public function isShipmentSeparately($item = null)
@@ -31,18 +31,18 @@ class Mage_Bundle_Block_Sales_Order_Items_Renderer extends Mage_Sales_Block_Orde
                         && $options['shipment_type'] == Mage_Catalog_Model_Product_Type_Abstract::SHIPMENT_SEPARATELY
                     ) {
                         return true;
-                    } else {
-                        return false;
                     }
+
+                    return false;
                 }
             } elseif ($options = $item->getProductOptions()) {
                 if (isset($options['shipment_type'])
                     && $options['shipment_type'] == Mage_Catalog_Model_Product_Type_Abstract::SHIPMENT_SEPARATELY
                 ) {
                     return false;
-                } else {
-                    return true;
                 }
+
+                return true;
             }
         }
 
@@ -58,7 +58,7 @@ class Mage_Bundle_Block_Sales_Order_Items_Renderer extends Mage_Sales_Block_Orde
     }
 
     /**
-     * @param null|Varien_Object $item
+     * @param  null|Varien_Object $item
      * @return bool
      */
     public function isChildCalculated($item = null)
@@ -74,18 +74,18 @@ class Mage_Bundle_Block_Sales_Order_Items_Renderer extends Mage_Sales_Block_Orde
                         && $options['product_calculations'] == Mage_Catalog_Model_Product_Type_Abstract::CALCULATE_CHILD
                     ) {
                         return true;
-                    } else {
-                        return false;
                     }
+
+                    return false;
                 }
             } elseif ($options = $item->getProductOptions()) {
                 if (isset($options['product_calculations'])
                     && $options['product_calculations'] == Mage_Catalog_Model_Product_Type_Abstract::CALCULATE_CHILD
                 ) {
                     return false;
-                } else {
-                    return true;
                 }
+
+                return true;
             }
         }
 
@@ -101,7 +101,7 @@ class Mage_Bundle_Block_Sales_Order_Items_Renderer extends Mage_Sales_Block_Orde
     }
 
     /**
-     * @param Mage_Sales_Model_Order_Item|Varien_Object $item
+     * @param  Mage_Sales_Model_Order_Item|Varien_Object $item
      * @return null|mixed
      */
     public function getSelectionAttributes($item)
@@ -120,7 +120,7 @@ class Mage_Bundle_Block_Sales_Order_Items_Renderer extends Mage_Sales_Block_Orde
     }
 
     /**
-     * @param Mage_Sales_Model_Order_Item $item
+     * @param  Mage_Sales_Model_Order_Item $item
      * @return string
      */
     public function getValueHtml($item)
@@ -129,15 +129,15 @@ class Mage_Bundle_Block_Sales_Order_Items_Renderer extends Mage_Sales_Block_Orde
             return sprintf('%d', $attributes['qty']) . ' x '
                 . $this->escapeHtml($item->getName())
                 . ' ' . $this->getOrder()->formatPrice($attributes['price']);
-        } else {
-            return $this->escapeHtml($item->getName());
         }
+
+        return $this->escapeHtml($item->getName());
     }
 
     /**
      * Getting all available children for Invoice, Shipment or Credit Memo item
      *
-     * @param Varien_Object $item
+     * @param  Varien_Object $item
      * @return array
      */
     public function getChilds($item)
@@ -167,7 +167,7 @@ class Mage_Bundle_Block_Sales_Order_Items_Renderer extends Mage_Sales_Block_Orde
     }
 
     /**
-     * @param Mage_Sales_Model_Order_Invoice_Item $item
+     * @param  Mage_Sales_Model_Order_Invoice_Item $item
      * @return bool
      */
     public function canShowPriceInfo($item)

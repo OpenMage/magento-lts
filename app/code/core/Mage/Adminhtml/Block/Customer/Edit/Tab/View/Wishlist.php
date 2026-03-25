@@ -14,6 +14,8 @@
  */
 class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Wishlist extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_customer_edit_tab_view_wishlist_grid';
+
     public function __construct()
     {
         parent::__construct();
@@ -25,9 +27,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Wishlist extends Mage_Adminhtm
     }
 
     /**
-     * Prepare collection
-     *
-     * @return $this
+     * @inheritDoc
      */
     protected function _prepareCollection()
     {
@@ -35,7 +35,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Wishlist extends Mage_Adminhtm
             ->addCustomerIdFilter(Mage::registry('current_customer')->getId())
             ->addDaysInWishlist()
             ->addStoreData()
-            ->setInStockFilter(true);
+            ->setInStockFilter();
 
         $this->setCollection($collection);
 
@@ -43,9 +43,8 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Wishlist extends Mage_Adminhtm
     }
 
     /**
-     * Prepare columns
-     *
-     * @return $this
+     * @inheritDoc
+     * @throws Exception
      */
     protected function _prepareColumns()
     {
@@ -89,6 +88,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Wishlist extends Mage_Adminhtm
      * Get headers visibility
      *
      * @return bool
+     * @throws Zend_Db_Select_Exception
      */
     public function getHeadersVisibility()
     {
@@ -96,10 +96,8 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Wishlist extends Mage_Adminhtm
     }
 
     /**
-     * Get row url
-     *
+     * @inheritDoc
      * @param Mage_Wishlist_Model_Item $row
-     * @return string
      */
     public function getRowUrl($row)
     {

@@ -21,6 +21,9 @@ class Mage_Adminhtml_Block_Store_Switcher_Form_Renderer_Fieldset extends Mage_Ad
      */
     protected $_element;
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->setTemplate('store/switcher/form/renderer/fieldset.phtml');

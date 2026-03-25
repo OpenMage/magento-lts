@@ -80,7 +80,7 @@ class Mage_Api2_Model_Router
     /**
      * Set API type to request as a result of one pass route
      *
-     * @param bool $trimApiTypePath OPTIONAL If TRUE - /api/:api_type part of request path info will be trimmed
+     * @param  bool                $trimApiTypePath OPTIONAL If TRUE - /api/:api_type part of request path info will be trimmed
      * @return $this
      * @throws Mage_Api2_Exception
      */

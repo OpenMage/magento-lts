@@ -20,6 +20,9 @@ class Mage_Reports_Model_Resource_Report_Product_Viewed extends Mage_Sales_Model
 
     public const AGGREGATION_YEARLY  = 'reports/viewed_aggregated_yearly';
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init(self::AGGREGATION_DAILY, 'id');
@@ -28,8 +31,8 @@ class Mage_Reports_Model_Resource_Report_Product_Viewed extends Mage_Sales_Model
     /**
      * Aggregate products view data
      *
-     * @param mixed $from
-     * @param mixed $to
+     * @param  mixed                                             $from
+     * @param  mixed                                             $to
      * @return Mage_Reports_Model_Resource_Report_Product_Viewed
      * @throws Mage_Core_Exception
      * @throws Zend_Db_Select_Exception

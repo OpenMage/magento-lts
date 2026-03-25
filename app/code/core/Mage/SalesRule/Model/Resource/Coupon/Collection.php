@@ -14,6 +14,9 @@
  */
 class Mage_SalesRule_Model_Resource_Coupon_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         parent::_construct();
@@ -66,7 +69,7 @@ class Mage_SalesRule_Model_Resource_Coupon_Collection extends Mage_Core_Model_Re
      * Callback function that filters collection by field "Used" from grid
      *
      * @param Mage_Core_Model_Resource_Db_Collection_Abstract $collection
-     * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
+     * @param Mage_Adminhtml_Block_Widget_Grid_Column         $column
      */
     public function addIsUsedFilterCallback($collection, $column)
     {

@@ -121,7 +121,7 @@ class Mage_SalesRule_Model_Resource_Report_Collection extends Mage_Sales_Model_R
     /**
      * Add filtering by rules ids
      *
-     * @param array $rulesList
+     * @param  array $rulesList
      * @return $this
      */
     public function addRuleFilter($rulesList)

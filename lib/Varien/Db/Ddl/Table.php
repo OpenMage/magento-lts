@@ -212,7 +212,7 @@ class Varien_Db_Ddl_Table
     /**
      * Set table name
      *
-     * @param string $name
+     * @param  string              $name
      * @return Varien_Db_Ddl_Table
      */
     public function setName($name)
@@ -228,7 +228,7 @@ class Varien_Db_Ddl_Table
     /**
      * Set schema name
      *
-     * @param string $name
+     * @param  string              $name
      * @return Varien_Db_Ddl_Table
      */
     public function setSchema($name)
@@ -240,7 +240,7 @@ class Varien_Db_Ddl_Table
     /**
      * Set comment for table
      *
-     * @param string $comment
+     * @param  string              $comment
      * @return Varien_Db_Ddl_Table
      */
     public function setComment($comment)
@@ -297,11 +297,11 @@ class Varien_Db_Ddl_Table
      * - 'primary_position', only for column in primary index. Default: count of primary columns + 1.
      * - 'identity' or 'auto_increment'. Default: FALSE.
      *
-     * @param string $name the column name
-     * @param string $type the column data type
-     * @param array|int|string $size the column length
-     * @param array $options array of additional options
-     * @param string $comment column description
+     * @param  string              $name    the column name
+     * @param  string              $type    the column data type
+     * @param  array|int|string    $size    the column length
+     * @param  array               $options array of additional options
+     * @param  string              $comment column description
      * @return Varien_Db_Ddl_Table
      * @throws Zend_Db_Exception
      */
@@ -345,17 +345,13 @@ class Varien_Db_Ddl_Table
         // Prepare different properties
         switch ($type) {
             case self::TYPE_BOOLEAN:
+            case self::TYPE_DATE:
+            case self::TYPE_DATETIME:
+            case self::TYPE_TIMESTAMP:
                 break;
-
             case self::TYPE_SMALLINT:
             case self::TYPE_INTEGER:
             case self::TYPE_BIGINT:
-                if (!empty($options['unsigned'])) {
-                    $unsigned = true;
-                }
-
-                break;
-
             case self::TYPE_FLOAT:
                 if (!empty($options['unsigned'])) {
                     $unsigned = true;
@@ -394,10 +390,6 @@ class Varien_Db_Ddl_Table
                     $unsigned = true;
                 }
 
-                break;
-            case self::TYPE_DATE:
-            case self::TYPE_DATETIME:
-            case self::TYPE_TIMESTAMP:
                 break;
             case self::TYPE_TEXT:
             case self::TYPE_BLOB:
@@ -462,12 +454,12 @@ class Varien_Db_Ddl_Table
     /**
      * Add Foreign Key to table
      *
-     * @param string $fkName        the foreign key name
-     * @param string $column        the foreign key column name
-     * @param string $refTable      the reference table name
-     * @param string $refColumn     the reference table column name
-     * @param string $onDelete      the action on delete row
-     * @param string $onUpdate      the action on update
+     * @param  string              $fkName    the foreign key name
+     * @param  string              $column    the foreign key column name
+     * @param  string              $refTable  the reference table name
+     * @param  string              $refColumn the reference table column name
+     * @param  string              $onDelete  the action on delete row
+     * @param  string              $onUpdate  the action on update
      * @return Varien_Db_Ddl_Table
      * @throws Zend_Db_Exception
      */
@@ -515,9 +507,9 @@ class Varien_Db_Ddl_Table
     /**
      * Add index to table
      *
-     * @param string $indexName     the index name
-     * @param array|string $fields  array of columns or column string
-     * @param array $options        array of additional options
+     * @param  string              $indexName the index name
+     * @param  array|string        $fields    array of columns or column string
+     * @param  array               $options   array of additional options
      * @return Varien_Db_Ddl_Table
      */
     public function addIndex($indexName, $fields, $options = [])
@@ -580,7 +572,7 @@ class Varien_Db_Ddl_Table
     /**
      * Retrieve array of table columns
      *
-     * @param bool $normalized
+     * @param  bool  $normalized
      * @return array
      */
     public function getColumns($normalized = true)
@@ -595,7 +587,7 @@ class Varien_Db_Ddl_Table
     /**
      * Set column, formatted according to DDL Table format, into columns structure
      *
-     * @param array $column
+     * @param  array               $column
      * @return Varien_Db_Ddl_Table
      */
     public function setColumn($column)
@@ -628,8 +620,8 @@ class Varien_Db_Ddl_Table
     /**
      * Set table option
      *
-     * @param string $key
-     * @param string $value
+     * @param  string $key
+     * @param  string $value
      * @return $this
      */
     public function setOption($key, $value)
@@ -642,7 +634,7 @@ class Varien_Db_Ddl_Table
      * Retrieve table option value by option name
      * Return null if option does not exits
      *
-     * @param string $key
+     * @param  string $key
      * @return mixed
      */
     public function getOption($key)
@@ -667,8 +659,8 @@ class Varien_Db_Ddl_Table
     /**
      * Index column position comparison function
      *
-     * @param array $a
-     * @param array $b
+     * @param  array $a
+     * @param  array $b
      * @return int
      */
     protected function _sortIndexColumnPosition($a, $b)
@@ -679,8 +671,8 @@ class Varien_Db_Ddl_Table
     /**
      * table column position comparison function
      *
-     * @param array $a
-     * @param array $b
+     * @param  array $a
+     * @param  array $b
      * @return int
      */
     protected function _sortColumnPosition($a, $b)
@@ -691,7 +683,7 @@ class Varien_Db_Ddl_Table
     /**
      * Normalize position of index columns array
      *
-     * @param array $columns
+     * @param  array $columns
      * @return array
      */
     protected function _normalizeIndexColumnPosition($columns)
@@ -709,7 +701,7 @@ class Varien_Db_Ddl_Table
     /**
      * Normalize position of table columns array
      *
-     * @param array $columns
+     * @param  array $columns
      * @return array
      */
     protected function _normalizeColumnPosition($columns)

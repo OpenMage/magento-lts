@@ -17,7 +17,7 @@ class Mage_Bundle_Model_Observer
     /**
      * Setting Bundle Items Data to product for father processing
      *
-     * @param Varien_Event_Observer $observer
+     * @param  Varien_Event_Observer $observer
      * @return $this
      */
     public function prepareProductSave($observer)
@@ -56,7 +56,7 @@ class Mage_Bundle_Model_Observer
     /**
      * Append bundles in upsell list for current product
      *
-     * @param Varien_Event_Observer $observer
+     * @param  Varien_Event_Observer $observer
      * @return $this
      */
     public function appendUpsellProducts($observer)
@@ -71,7 +71,7 @@ class Mage_Bundle_Model_Observer
             return $this;
         }
 
-        /** @var Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Link_Product_Collection $collection */
+        /** @var Mage_Catalog_Model_Resource_Product_Link_Product_Collection $collection */
         $collection = $observer->getEvent()->getCollection();
         $limit      = $observer->getEvent()->getLimit();
         if (is_array($limit)) {
@@ -99,10 +99,8 @@ class Mage_Bundle_Model_Observer
             ->addAttributeToSelect(Mage::getSingleton('catalog/config')->getProductAttributes())
             ->addStoreFilter()
             ->addPriceData()
+            ->setVisibility(Mage::getSingleton('catalog/product_visibility')::getVisibleInCatalogIds())
             ->addTaxPercents();
-
-        Mage::getSingleton('catalog/product_visibility')
-            ->addVisibleInCatalogFilterToCollection($bundleCollection);
 
         if (!is_null($limit)) {
             $bundleCollection->setPageSize($limit);
@@ -130,7 +128,7 @@ class Mage_Bundle_Model_Observer
     /**
      * Append selection attributes to selection's order item
      *
-     * @param Varien_Event_Observer $observer
+     * @param  Varien_Event_Observer $observer
      * @return $this
      */
     public function appendBundleSelectionData($observer)
@@ -153,7 +151,7 @@ class Mage_Bundle_Model_Observer
      * Add price index data for catalog product collection
      * only for front end
      *
-     * @param Varien_Event_Observer $observer
+     * @param  Varien_Event_Observer $observer
      * @return $this
      */
     public function loadProductOptions($observer)
@@ -168,7 +166,7 @@ class Mage_Bundle_Model_Observer
     /**
      * duplicating bundle options and selections
      *
-     * @param Varien_Event_Observer $observer
+     * @param  Varien_Event_Observer $observer
      * @return $this
      */
     public function duplicateProduct($observer)
@@ -232,7 +230,7 @@ class Mage_Bundle_Model_Observer
     /**
      * Setting attribute tab block for bundle
      *
-     * @param Varien_Event_Observer $observer
+     * @param  Varien_Event_Observer $observer
      * @return $this
      */
     public function setAttributeTabBlock($observer)

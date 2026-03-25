@@ -32,7 +32,7 @@ class Mage_Core_Exception extends Exception
     }
 
     /**
-     * @param string $type
+     * @param  string                                   $type
      * @return array|Mage_Core_Model_Message_Abstract[]
      */
     public function getMessages($type = '')
@@ -52,8 +52,8 @@ class Mage_Core_Exception extends Exception
     /**
      * Set or append a message to existing one
      *
-     * @param string $message
-     * @param bool $append
+     * @param  string $message
+     * @param  bool   $append
      * @return $this
      */
     public function setMessage($message, $append = false)

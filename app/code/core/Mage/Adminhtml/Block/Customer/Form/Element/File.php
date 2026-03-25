@@ -151,7 +151,7 @@ class Mage_Adminhtml_Block_Customer_Form_Element_File extends Varien_Data_Form_E
      */
     protected function _getPreviewUrl()
     {
-        return Mage::helper('adminhtml')->getUrl('adminhtml/customer/viewfile', [
+        return Mage::helper('adminhtml')::getUrl('adminhtml/customer/viewfile', [
             'file'      => Mage::helper('core')->urlEncode($this->getValue()),
         ]);
     }
@@ -159,8 +159,8 @@ class Mage_Adminhtml_Block_Customer_Form_Element_File extends Varien_Data_Form_E
     /**
      * Return Element HTML
      *
-     * @param string $element
-     * @param bool $closed
+     * @param  string $element
+     * @param  bool   $closed
      * @return string
      */
     protected function _drawElementHtml($element, array $attributes, $closed = true)
@@ -176,7 +176,7 @@ class Mage_Adminhtml_Block_Customer_Form_Element_File extends Varien_Data_Form_E
     /**
      * Return escaped value
      *
-     * @param null|string $index
+     * @param  null|string  $index
      * @return false|string
      */
     public function getEscapedValue($index = null)

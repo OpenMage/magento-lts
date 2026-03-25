@@ -32,7 +32,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Tier extends Mage_Admi
     /**
      * Sort values
      *
-     * @param array $data
+     * @param  array $data
      * @return array
      */
     protected function _sortValues($data)
@@ -44,8 +44,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Tier extends Mage_Admi
     /**
      * Sort tier price values callback method
      *
-     * @param array $a
-     * @param array $b
+     * @param  array $a
+     * @param  array $b
      * @return int
      */
     protected function _sortTierPrices($a, $b)

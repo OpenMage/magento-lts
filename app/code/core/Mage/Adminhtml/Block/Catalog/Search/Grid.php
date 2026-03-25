@@ -14,21 +14,18 @@ use Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract as MassAction;
  */
 class Mage_Adminhtml_Block_Catalog_Search_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
-    /**
-     * Init Grid default properties
-     */
+    protected string $_eventPrefix = 'adminhtml_catalog_search_grid';
+
     public function __construct()
     {
         parent::__construct();
         $this->setId('catalog_search_grid');
         $this->setDefaultSort('query_id');
-        $this->setDefaultDir('asc');
+        $this->setDefaultDir('ASC');
         $this->setSaveParametersInSession(true);
     }
 
     /**
-     * Prepare collection for Grid
-     *
      * @inheritDoc
      * @throws Mage_Core_Exception
      */
@@ -41,8 +38,6 @@ class Mage_Adminhtml_Block_Catalog_Search_Grid extends Mage_Adminhtml_Block_Widg
     }
 
     /**
-     * Prepare Grid columns
-     *
      * @inheritDoc
      * @throws Exception
      */
@@ -143,10 +138,9 @@ class Mage_Adminhtml_Block_Catalog_Search_Grid extends Mage_Adminhtml_Block_Widg
     }
 
     /**
-     * Retrieve Row Click callback URL
-     *
-     * @param Mage_CatalogSearch_Model_Query $row
-     * @return string
+     * @inheritDoc
+     * @param  Mage_CatalogSearch_Model_Query $row
+     * @throws Mage_Core_Exception
      */
     public function getRowUrl($row)
     {

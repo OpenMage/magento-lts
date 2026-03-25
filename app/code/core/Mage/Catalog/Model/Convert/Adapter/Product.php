@@ -225,7 +225,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
     /**
      * Retrieve eav entity attribute model
      *
-     * @param string $code
+     * @param  string                                $code
      * @return false|Mage_Eav_Model_Entity_Attribute
      */
     public function getAttribute($code)
@@ -253,8 +253,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
     {
         if (is_null($this->_productTypes)) {
             $this->_productTypes = [];
-            $options = Mage::getModel('catalog/product_type')
-                ->getOptionArray();
+            $options = Mage::getModel('catalog/product_type')::getOptionArray();
             foreach ($options as $k => $v) {
                 $this->_productTypes[$k] = $k;
             }
@@ -272,8 +271,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
     {
         $type = $product->getTypeId();
         if (!isset($this->_productTypeInstances[$type])) {
-            $this->_productTypeInstances[$type] = Mage::getSingleton('catalog/product_type')
-                ->factory($product, true);
+            $this->_productTypeInstances[$type] = Mage::getSingleton('catalog/product_type')::factory($product, true);
         }
 
         $product->setTypeInstance($this->_productTypeInstances[$type], true);
@@ -320,7 +318,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
     /**
      * Retrieve store object by code
      *
-     * @param string $store
+     * @param  string                      $store
      * @return false|Mage_Core_Model_Store
      */
     public function getStoreByCode($store)
@@ -339,7 +337,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
     /**
      * Retrieve store object by code
      *
-     * @param string $id
+     * @param  string                      $id
      * @return false|Mage_Core_Model_Store
      */
     public function getStoreById($id)
@@ -429,7 +427,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
     /**
      * Retrieve not loaded collection
      *
-     * @param string $entityType
+     * @param  string                                         $entityType
      * @return Mage_Catalog_Model_Resource_Product_Collection
      */
     protected function _getCollectionForLoad($entityType)
@@ -605,7 +603,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
      * Save data row with gallery image info only
      *
      * @param Mage_Catalog_Model_Product $product
-     * @param array $importData
+     * @param array                      $importData
      *
      * @return $this
      */

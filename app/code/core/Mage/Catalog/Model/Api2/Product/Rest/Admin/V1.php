@@ -42,7 +42,7 @@ class Mage_Catalog_Model_Api2_Product_Rest_Admin_V1 extends Mage_Catalog_Model_A
     /**
      * Remove specified keys from associative or indexed array
      *
-     * @param bool $dropOrigKeys if true - return array as indexed array
+     * @param  bool  $dropOrigKeys if true - return array as indexed array
      * @return array
      */
     protected function _filterOutArrayKeys(array $array, array $keys, $dropOrigKeys = false)
@@ -96,10 +96,10 @@ class Mage_Catalog_Model_Api2_Product_Rest_Admin_V1 extends Mage_Catalog_Model_A
         $product = $this->_getProduct();
         try {
             $product->delete();
-        } catch (Mage_Core_Exception $e) {
-            $this->_critical($e->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
-        } catch (Exception $e) {
-            Mage::logException($e);
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_critical($mageCoreException->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
+        } catch (Exception $exception) {
+            Mage::logException($exception);
             $this->_critical(self::RESOURCE_INTERNAL_ERROR);
         }
     }
@@ -152,15 +152,19 @@ class Mage_Catalog_Model_Api2_Product_Rest_Admin_V1 extends Mage_Catalog_Model_A
             $product->validate();
             $product->save();
             $this->_multicall($product->getId());
-        } catch (Mage_Eav_Model_Entity_Attribute_Exception $e) {
+        } catch (Mage_Eav_Model_Entity_Attribute_Exception $mageEavModelEntityAttributeException) {
             $this->_critical(
-                sprintf('Invalid attribute "%s": %s', $e->getAttributeCode(), $e->getMessage()),
+                sprintf(
+                    'Invalid attribute "%s": %s',
+                    $mageEavModelEntityAttributeException->getAttributeCode(),
+                    $mageEavModelEntityAttributeException->getMessage(),
+                ),
                 Mage_Api2_Model_Server::HTTP_BAD_REQUEST,
             );
-        } catch (Mage_Core_Exception $e) {
-            $this->_critical($e->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
-        } catch (Exception $e) {
-            Mage::logException($e);
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_critical($mageCoreException->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
+        } catch (Exception $exception) {
+            Mage::logException($exception);
             $this->_critical(self::RESOURCE_UNKNOWN_ERROR);
         }
 
@@ -198,15 +202,19 @@ class Mage_Catalog_Model_Api2_Product_Rest_Admin_V1 extends Mage_Catalog_Model_A
         try {
             $product->validate();
             $product->save();
-        } catch (Mage_Eav_Model_Entity_Attribute_Exception $e) {
+        } catch (Mage_Eav_Model_Entity_Attribute_Exception $mageEavModelEntityAttributeException) {
             $this->_critical(
-                sprintf('Invalid attribute "%s": %s', $e->getAttributeCode(), $e->getMessage()),
+                sprintf(
+                    'Invalid attribute "%s": %s',
+                    $mageEavModelEntityAttributeException->getAttributeCode(),
+                    $mageEavModelEntityAttributeException->getMessage(),
+                ),
                 Mage_Api2_Model_Server::HTTP_BAD_REQUEST,
             );
-        } catch (Mage_Core_Exception $e) {
-            $this->_critical($e->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
-        } catch (Exception $e) {
-            Mage::logException($e);
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_critical($mageCoreException->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
+        } catch (Exception $exception) {
+            Mage::logException($exception);
             $this->_critical(self::RESOURCE_UNKNOWN_ERROR);
         }
     }
@@ -214,7 +222,7 @@ class Mage_Catalog_Model_Api2_Product_Rest_Admin_V1 extends Mage_Catalog_Model_A
     /**
      * Determine if stock management is enabled
      *
-     * @param array $stockData
+     * @param  array $stockData
      * @return bool
      */
     protected function _isManageStockEnabled($stockData)
@@ -233,8 +241,8 @@ class Mage_Catalog_Model_Api2_Product_Rest_Admin_V1 extends Mage_Catalog_Model_A
     /**
      * Check if value from config is used
      *
-     * @param array $data
-     * @param string $field
+     * @param  array  $data
+     * @param  string $field
      * @return bool
      */
     protected function _isConfigValueUsed($data, $field)
@@ -246,7 +254,7 @@ class Mage_Catalog_Model_Api2_Product_Rest_Admin_V1 extends Mage_Catalog_Model_A
      * Set additional data before product save
      *
      * @param Mage_Catalog_Model_Product $product
-     * @param array $productData
+     * @param array                      $productData
      */
     protected function _prepareDataForSave($product, $productData)
     {
@@ -351,7 +359,7 @@ class Mage_Catalog_Model_Api2_Product_Rest_Admin_V1 extends Mage_Catalog_Model_A
             $nonManageStockFields = ['manage_stock', 'use_config_manage_stock', 'min_sale_qty',
                 'use_config_min_sale_qty', 'max_sale_qty', 'use_config_max_sale_qty'];
             foreach (array_keys($stockData) as $field) {
-                if (!in_array($field, $nonManageStockFields)) {
+                if (!in_array($field, $nonManageStockFields, true)) {
                     unset($stockData[$field]);
                 }
             }
@@ -376,18 +384,18 @@ class Mage_Catalog_Model_Api2_Product_Rest_Admin_V1 extends Mage_Catalog_Model_A
     /**
      * Check if attribute is allowed
      *
-     * @param Mage_Eav_Model_Entity_Attribute_Abstract $attribute
-     * @param array $attributes
+     * @param  Mage_Eav_Model_Entity_Attribute_Abstract $attribute
+     * @param  array                                    $attributes
      * @return bool
      */
     protected function _isAllowedAttribute($attribute, $attributes = null)
     {
         $isAllowed = true;
         if (is_array($attributes)
-            && !(in_array($attribute->getAttributeCode(), $attributes)
-            || in_array($attribute->getAttributeId(), $attributes))
+            && !(in_array($attribute->getAttributeCode(), $attributes, true)
+            || in_array($attribute->getAttributeId(), $attributes, true))
         ) {
-            $isAllowed = false;
+            return false;
         }
 
         return $isAllowed;

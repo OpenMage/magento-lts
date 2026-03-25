@@ -38,8 +38,8 @@ class Mage_Eav_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_Hel
     /**
      * Returns columns for select
      *
-     * @param string $tableAlias
-     * @param string $eavType
+     * @param  string $tableAlias
+     * @param  string $eavType
      * @return string
      */
     public function attributeSelectFields($tableAlias, $eavType)
@@ -50,7 +50,7 @@ class Mage_Eav_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_Hel
     /**
      * Returns DDL type by column type in database
      *
-     * @param string $columnType
+     * @param  string $columnType
      * @return string
      */
     public function getDdlTypeByColumnType($columnType)
@@ -74,8 +74,8 @@ class Mage_Eav_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_Hel
     /**
      * Prepares value fields for unions depend on type
      *
-     * @param string $value
-     * @param string $eavType
+     * @param  string $value
+     * @param  string $eavType
      * @return string
      */
     public function prepareEavAttributeValue($value, $eavType)
@@ -86,7 +86,7 @@ class Mage_Eav_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_Hel
     /**
      * Groups selects to separate unions depend on type
      *
-     * @param array $selects
+     * @param  array $selects
      * @return array
      */
     public function getLoadAttributesSelectGroups($selects)
@@ -102,7 +102,7 @@ class Mage_Eav_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_Hel
     /**
      * Retrieve 'cast to int' expression
      *
-     * @param string|Zend_Db_Expr $expression
+     * @param  string|Zend_Db_Expr $expression
      * @return Zend_Db_Expr
      */
     public function getCastToIntExpression($expression)

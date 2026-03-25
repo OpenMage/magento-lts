@@ -321,8 +321,8 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
     /**
      * Add error with corresponding current data source row number.
      *
-     * @param string $errorCode Error code or simply column name
-     * @param int $errorRowNum row number
+     * @param  string $errorCode   Error code or simply column name
+     * @param  int    $errorRowNum row number
      * @return $this
      */
     public function addRowError($errorCode, $errorRowNum)
@@ -337,8 +337,8 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
     /**
      * Add message template for specific error code from outside.
      *
-     * @param string $errorCode Error code
-     * @param string $message Message template
+     * @param  string $errorCode Error code
+     * @param  string $message   Message template
      * @return $this
      */
     public function addMessageTemplate($errorCode, $message)

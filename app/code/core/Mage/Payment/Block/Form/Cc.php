@@ -7,11 +7,16 @@
  * @package    Mage_Payment
  */
 
+use Carbon\Carbon;
+
 /**
  * @package    Mage_Payment
  */
 class Mage_Payment_Block_Form_Cc extends Mage_Payment_Block_Form
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         parent::_construct();
@@ -41,7 +46,7 @@ class Mage_Payment_Block_Form_Cc extends Mage_Payment_Block_Form
             if ($availableTypes) {
                 $availableTypes = explode(',', $availableTypes);
                 foreach (array_keys($types) as $code) {
-                    if (!in_array($code, $availableTypes)) {
+                    if (!in_array($code, $availableTypes, true)) {
                         unset($types[$code]);
                     }
                 }
@@ -131,7 +136,7 @@ class Mage_Payment_Block_Form_Cc extends Mage_Payment_Block_Form
     public function getSsStartYears()
     {
         $years = [];
-        $first = date('Y');
+        $first = Carbon::now()->format('Y');
 
         for ($index = 5; $index >= 0; $index--) {
             $year = $first - $index;

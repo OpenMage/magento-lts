@@ -11,9 +11,14 @@
  * Quote payments collection
  *
  * @package    Mage_Sales
+ *
+ * @extends Mage_Core_Model_Resource_Db_Collection_Abstract<Mage_Sales_Model_Quote_Payment>
  */
 class Mage_Sales_Model_Resource_Quote_Payment_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('sales/quote_payment');
@@ -22,7 +27,7 @@ class Mage_Sales_Model_Resource_Quote_Payment_Collection extends Mage_Core_Model
     /**
      * Setquote filter to result
      *
-     * @param int $quoteId
+     * @param  int   $quoteId
      * @return $this
      */
     public function setQuoteFilter($quoteId)

@@ -25,6 +25,7 @@ use OpenMage\Tests\Unit\OpenMageTest;
 final class ProductTest extends OpenMageTest
 {
     use BoolTrait;
+
     use CatalogTrait;
 
     private static Subject $subject;

@@ -14,11 +14,13 @@
  */
 class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
 {
+    public const ADMIN_RESOURCE = true;
+
     /**
      * Render specified template
      *
      * @param string $tplName
-     * @param array $data parameters required by template
+     * @param array  $data    parameters required by template
      */
     protected function _outTemplate($tplName, $data = [])
     {
@@ -205,6 +207,8 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Forgot administrator password action
+     * @throws Mage_Core_Exception
+     * @throws Throwable
      */
     public function forgotpasswordAction()
     {
@@ -214,9 +218,11 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
             $email = (string) $this->getRequest()->getParam('email');
 
             if ($this->_validateFormKey()) {
-                if (!empty($email)) {
+                if ($email !== '') {
                     // Validate received data to be an email address
-                    if (Zend_Validate::is($email, 'EmailAddress')) {
+                    /** @var Mage_Core_Helper_Validate $validator */
+                    $validator = Mage::helper('core/validate');
+                    if ($validator->validateEmail(value: $email)->count() === 0) {
                         $collection = Mage::getResourceModel('admin/user_collection');
                         /** @var Mage_Admin_Model_Resource_User_Collection $collection */
                         $collection->addFieldToFilter('email', $email);
@@ -246,9 +252,9 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
                             );
                         $this->_redirect('*/*/login');
                         return;
-                    } else {
-                        $this->_getSession()->addError($this->__('Invalid email address.'));
                     }
+
+                    $this->_getSession()->addError($this->__('Invalid email address.'));
                 } else {
                     $this->_getSession()->addError($this->__('The email address is empty.'));
                 }
@@ -326,7 +332,7 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
             $errorMessages = array_merge($errorMessages, $validationErrorMessages);
         }
 
-        if (!empty($errorMessages)) {
+        if ($errorMessages !== []) {
             foreach ($errorMessages as $errorMessage) {
                 $this->_getSession()->addError($errorMessage);
             }
@@ -362,8 +368,8 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
     /**
      * Check if password reset token is valid
      *
-     * @param int $userId
-     * @param string $resetPasswordLinkToken
+     * @param  int                 $userId
+     * @param  string              $resetPasswordLinkToken
      * @throws Mage_Core_Exception
      */
     protected function _validateResetPasswordLinkToken($userId, $resetPasswordLinkToken)
@@ -390,22 +396,12 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
     }
 
     /**
-     * Check if user has permissions to access this controller
-     *
-     * @return true
-     */
-    protected function _isAllowed()
-    {
-        return true;
-    }
-
-    /**
      * Retrieve model object
      *
-     * @link    Mage_Core_Model_Config::getModelInstance
-     * @param   string $modelClass
-     * @param   array|object $arguments
-     * @return  false|Mage_Core_Model_Abstract
+     * @param  string                         $modelClass
+     * @param  array|object                   $arguments
+     * @return false|Mage_Core_Model_Abstract
+     * @link   Mage_Core_Model_Config::getModelInstance()
      */
     protected function _getModel($modelClass = '', $arguments = [])
     {

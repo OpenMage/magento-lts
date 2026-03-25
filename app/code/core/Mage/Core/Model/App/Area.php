@@ -53,7 +53,7 @@ class Mage_Core_Model_App_Area
 
     /**
      * Mage_Core_Model_App_Area constructor.
-     * @param string $areaCode
+     * @param string              $areaCode
      * @param Mage_Core_Model_App $application
      */
     public function __construct($areaCode, $application)
@@ -75,8 +75,8 @@ class Mage_Core_Model_App_Area
     /**
      * Load area data
      *
-     * @param   null|string $part
-     * @return  Mage_Core_Model_App_Area
+     * @param  null|string              $part
+     * @return Mage_Core_Model_App_Area
      */
     public function load($part = null)
     {
@@ -95,8 +95,8 @@ class Mage_Core_Model_App_Area
     /**
      * Loading part of area
      *
-     * @param   string $part
-     * @return  Mage_Core_Model_App_Area
+     * @param  string                   $part
+     * @return Mage_Core_Model_App_Area
      */
     protected function _loadPart($part)
     {

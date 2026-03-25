@@ -14,6 +14,9 @@
  */
 class Mage_Core_Model_Resource_Layout extends Mage_Core_Model_Resource_Db_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('core/layout_update', 'layout_update_id');
@@ -22,8 +25,8 @@ class Mage_Core_Model_Resource_Layout extends Mage_Core_Model_Resource_Db_Abstra
     /**
      * Retrieve layout updates by handle
      *
-     * @param string $handle
-     * @param array $params
+     * @param  string $handle
+     * @param  array  $params
      * @return string
      */
     public function fetchUpdatesByHandle($handle, $params = [])

@@ -17,10 +17,13 @@ class Mage_Widget_Model_Resource_Widget_Instance_Collection extends Mage_Core_Mo
     /**
      * Fields map for correlation names & real selected fields
      *
-     * @var array
+     * @inheritDoc
      */
     protected $_map = ['fields' => ['type' => 'instance_type']];
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         parent::_construct();
@@ -30,8 +33,8 @@ class Mage_Widget_Model_Resource_Widget_Instance_Collection extends Mage_Core_Mo
     /**
      * Filter by store ids
      *
-     * @param array|int $storeIds
-     * @param bool $withDefaultStore if TRUE also filter by store id '0'
+     * @param  array|int $storeIds
+     * @param  bool      $withDefaultStore if TRUE also filter by store id '0'
      * @return $this
      */
     public function addStoreFilter($storeIds = [], $withDefaultStore = true)

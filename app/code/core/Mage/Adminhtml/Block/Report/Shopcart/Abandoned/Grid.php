@@ -14,12 +14,17 @@
  */
 class Mage_Adminhtml_Block_Report_Shopcart_Abandoned_Grid extends Mage_Adminhtml_Block_Report_Grid_Shopcart
 {
+    protected string $_eventPrefix = 'adminhtml_report_shopcart_abandoned_grid';
+
     public function __construct()
     {
         parent::__construct();
         $this->setId('gridAbandoned');
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _prepareCollection()
     {
         /** @var Mage_Reports_Model_Resource_Quote_Collection $collection */
@@ -41,6 +46,9 @@ class Mage_Adminhtml_Block_Report_Shopcart_Abandoned_Grid extends Mage_Adminhtml
         return parent::_prepareCollection();
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _addColumnFilterToCollection($column)
     {
         $field = ($column->getFilterIndex()) ? $column->getFilterIndex() : $column->getIndex();
@@ -50,10 +58,13 @@ class Mage_Adminhtml_Block_Report_Shopcart_Abandoned_Grid extends Mage_Adminhtml
             return $this;
         }
 
-        parent::_addColumnFilterToCollection($column);
-        return $this;
+        return parent::_addColumnFilterToCollection($column);
     }
 
+    /**
+     * @inheritDoc
+     * @throws Exception
+     */
     protected function _prepareColumns()
     {
         $this->addColumn('customer_name', [
@@ -146,6 +157,10 @@ class Mage_Adminhtml_Block_Report_Shopcart_Abandoned_Grid extends Mage_Adminhtml
         return parent::_prepareColumns();
     }
 
+    /**
+     * @inheritDoc
+     * @param Mage_Sales_Model_Quote $row
+     */
     public function getRowUrl($row)
     {
         return $this->getUrl('*/customer/edit', ['id' => $row->getCustomerId(), 'active_tab' => 'cart']);

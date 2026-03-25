@@ -59,7 +59,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Backend_Abstract implements Mage_
     /**
      * Set attribute instance
      *
-     * @param Mage_Eav_Model_Entity_Attribute_Abstract $attribute
+     * @param  Mage_Eav_Model_Entity_Attribute_Abstract $attribute
      * @return $this
      */
     public function setAttribute($attribute)
@@ -141,7 +141,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Backend_Abstract implements Mage_
     /**
      * Set value id
      *
-     * @param int $valueId
+     * @param  int   $valueId
      * @return $this
      */
     public function setValueId($valueId)
@@ -153,8 +153,8 @@ abstract class Mage_Eav_Model_Entity_Attribute_Backend_Abstract implements Mage_
     /**
      * Set entity value id
      *
-     * @param Varien_Object $entity
-     * @param int $valueId
+     * @param  Varien_Object $entity
+     * @param  int           $valueId
      * @return $this
      */
     public function setEntityValueId($entity, $valueId)
@@ -180,7 +180,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Backend_Abstract implements Mage_
     /**
      * Get entity value id
      *
-     * @param Varien_Object $entity
+     * @param  Varien_Object $entity
      * @return int
      */
     public function getEntityValueId($entity)
@@ -213,7 +213,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Backend_Abstract implements Mage_
     /**
      * Validate object
      *
-     * @param Varien_Object $object
+     * @param  Varien_Object                          $object
      * @return $this|bool
      * @throws Mage_Core_Exception|Mage_Eav_Exception
      */
@@ -257,7 +257,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Backend_Abstract implements Mage_
     /**
      * After load method
      *
-     * @param Varien_Object $object
+     * @param  Varien_Object $object
      * @return $this
      */
     public function afterLoad($object)
@@ -268,7 +268,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Backend_Abstract implements Mage_
     /**
      * Before save method
      *
-     * @param Varien_Object $object
+     * @param  Varien_Object $object
      * @return $this
      */
     public function beforeSave($object)
@@ -284,7 +284,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Backend_Abstract implements Mage_
     /**
      * After save method
      *
-     * @param Varien_Object $object
+     * @param  Varien_Object $object
      * @return $this
      */
     public function afterSave($object)
@@ -295,7 +295,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Backend_Abstract implements Mage_
     /**
      * Before delete method
      *
-     * @param Varien_Object $object
+     * @param  Varien_Object $object
      * @return $this
      */
     public function beforeDelete($object)
@@ -306,7 +306,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Backend_Abstract implements Mage_
     /**
      * After delete method
      *
-     * @param Varien_Object $object
+     * @param  Varien_Object $object
      * @return $this
      */
     public function afterDelete($object)

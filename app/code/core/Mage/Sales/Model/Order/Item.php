@@ -13,175 +13,171 @@
  * @package    Mage_Sales
  *
  * @method Mage_Sales_Model_Resource_Order_Item _getResource()
- * @method string getAdditionalData()
- * @method float getAmountRefunded()
- * @method null|string getAppliedRuleIds()
+ * @method string                               getAdditionalData()
+ * @method float                                getAmountRefunded()
+ * @method null|string                          getAppliedRuleIds()
  *
- * @method float getBaseAmountRefunded()
- * @method float getBaseCost()
- * @method float getBaseDiscountAmount()
- * @method float getBaseDiscountInvoiced()
- * @method float getBaseDiscountRefunded()
- * @method float getBaseHiddenTaxAmount()
- * @method float getBaseHiddenTaxInvoiced()
- * @method float getBaseHiddenTaxRefunded()
- * @method float getBaseOriginalPrice()
- * @method float getBasePrice()
- * @method float getBasePriceInclTax()
- * @method float getBaseRowInvoiced()
- * @method float getBaseRowTotal()
- * @method float getBaseRowTotalInclTax()
- * @method float getBaseTaxAmount()
- * @method float getBaseTaxBeforeDiscount()
- * @method float getBaseTaxInvoiced()
- * @method float getBaseTaxRefunded()
- * @method float getBaseWeeeTaxAppliedAmount()
- * @method float getBaseWeeeTaxAppliedRowAmount()
- * @method float getBaseWeeeTaxDisposition()
- * @method float getBaseWeeeTaxRowDisposition()
+ * @method float                                           getBaseAmountRefunded()
+ * @method float                                           getBaseCost()
+ * @method float                                           getBaseDiscountAmount()
+ * @method float                                           getBaseDiscountInvoiced()
+ * @method float                                           getBaseDiscountRefunded()
+ * @method float                                           getBaseHiddenTaxAmount()
+ * @method float                                           getBaseHiddenTaxInvoiced()
+ * @method float                                           getBaseHiddenTaxRefunded()
+ * @method float                                           getBaseOriginalPrice()
+ * @method float                                           getBasePrice()
+ * @method float                                           getBasePriceInclTax()
+ * @method float                                           getBaseRowInvoiced()
+ * @method float                                           getBaseRowTotal()
+ * @method float                                           getBaseRowTotalInclTax()
+ * @method float                                           getBaseTaxAmount()
+ * @method float                                           getBaseTaxBeforeDiscount()
+ * @method float                                           getBaseTaxInvoiced()
+ * @method float                                           getBaseTaxRefunded()
+ * @method float                                           getBaseWeeeTaxAppliedAmount()
+ * @method float                                           getBaseWeeeTaxAppliedRowAmount()
+ * @method float                                           getBaseWeeeTaxDisposition()
+ * @method float                                           getBaseWeeeTaxRowDisposition()
  * @method Mage_Sales_Model_Resource_Order_Item_Collection getCollection()
- * @method string getCreatedAt()
- * @method string getDescription()
- * @method float getDiscountAmount()
- * @method float getDiscountInvoiced()
- * @method float getDiscountPercent()
- * @method float getDiscountRefunded()
- * @method string getExtOrderItemId()
- * @method int getFreeShipping()
- * @method int getGiftMessageAvailable()
- * @method int getGiftMessageId()
- * @method bool getHasChildren()
- * @method float getHiddenTaxAmount()
- * @method float getHiddenTaxCanceled()
- * @method float getHiddenTaxInvoiced()
- * @method float getHiddenTaxRefunded()
- * @method int getIsNominal()
- * @method int getIsQtyDecimal()
- * @method int getIsVirtual()
- * @method int getLockedDoInvoice()
- * @method int getLockedDoShip()
- * @method string getName()
- * @method int getNoDiscount()
- * @method int getOrderId()
- * @method int getParentItemId()
- * @method int getParentProductId()
- * @method float getPrice()
- * @method float getPriceInclTax()
- * @method int getProductId()
- * @method string getProductType()
- * @method float getQtyBackordered()
- * @method float getQtyCanceled()
- * @method float getQtyInvoiced()
- * @method float getQtyOrdered()
- * @method float getQtyRefunded()
- * @method float getQtyShipped()
- * @method int getQuoteItemId()
- * @method int getQuoteParentItemId()
- * @method Mage_Sales_Model_Resource_Order_Item getResource()
+ * @method string                                          getDescription()
+ * @method float                                           getDiscountAmount()
+ * @method float                                           getDiscountInvoiced()
+ * @method float                                           getDiscountPercent()
+ * @method float                                           getDiscountRefunded()
+ * @method string                                          getExtOrderItemId()
+ * @method int                                             getFreeShipping()
+ * @method int                                             getGiftMessageAvailable()
+ * @method int                                             getGiftMessageId()
+ * @method bool                                            getHasChildren()
+ * @method float                                           getHiddenTaxAmount()
+ * @method float                                           getHiddenTaxCanceled()
+ * @method float                                           getHiddenTaxInvoiced()
+ * @method float                                           getHiddenTaxRefunded()
+ * @method int                                             getIsNominal()
+ * @method int                                             getIsQtyDecimal()
+ * @method int                                             getIsVirtual()
+ * @method int                                             getLockedDoInvoice()
+ * @method int                                             getLockedDoShip()
+ * @method string                                          getName()
+ * @method int                                             getNoDiscount()
+ * @method int                                             getOrderId()
+ * @method int                                             getParentItemId()
+ * @method int                                             getParentProductId()
+ * @method float                                           getPrice()
+ * @method float                                           getPriceInclTax()
+ * @method int                                             getProductId()
+ * @method string                                          getProductType()
+ * @method float                                           getQtyBackordered()
+ * @method float                                           getQtyCanceled()
+ * @method float                                           getQtyInvoiced()
+ * @method float                                           getQtyOrdered()
+ * @method float                                           getQtyRefunded()
+ * @method float                                           getQtyShipped()
+ * @method int                                             getQuoteItemId()
+ * @method int                                             getQuoteParentItemId()
+ * @method Mage_Sales_Model_Resource_Order_Item            getResource()
  * @method Mage_Sales_Model_Resource_Order_Item_Collection getResourceCollection()
- * @method float getRowInvoiced()
- * @method float getRowTotal()
- * @method float getRowTotalInclTax()
- * @method float getRowWeight()
- * @method string getSku()
- * @method int getStoreId()
- * @method float getTaxAmount()
- * @method float getTaxBeforeDiscount()
- * @method float getTaxCanceled()
- * @method float getTaxInvoiced()
- * @method float getTaxPercent()
- * @method float getTaxRefunded()
- * @method string getUpdatedAt()
- * @method string getWeeeTaxApplied()
- * @method float getWeeeTaxAppliedAmount()
- * @method float getWeeeTaxAppliedRowAmount()
- * @method float getWeeeTaxDisposition()
- * @method float getWeeeTaxRowDisposition()
- * @method float getWeight()
- * @method $this setAdditionalData(string $value)
- * @method $this setAmountRefunded(float $value)
- * @method $this setAppliedRuleIds(string $value)
- * @method $this setBaseAmountRefunded(float $value)
- * @method $this setBaseCost(float $value)
- * @method $this setBaseDiscountAmount(float $value)
- * @method $this setBaseDiscountInvoiced(float $value)
- * @method $this setBaseDiscountRefunded(float $value)
- * @method $this setBaseHiddenTaxAmount(float $value)
- * @method $this setBaseHiddenTaxInvoiced(float $value)
- * @method $this setBaseHiddenTaxRefunded(float $value)
- * @method $this setBaseOriginalPrice(float $value)
- * @method $this setBasePrice(float $value)
- * @method $this setBasePriceInclTax(float $value)
- * @method $this setBaseRowInvoiced(float $value)
- * @method $this setBaseRowTotal(float $value)
- * @method $this setBaseRowTotalInclTax(float $value)
- * @method $this setBaseTaxAmount(float $value)
- * @method $this setBaseTaxBeforeDiscount(float $value)
- * @method $this setBaseTaxInvoiced(float $value)
- * @method $this setBaseTaxRefunded(float $value)
- * @method $this setBaseWeeeTaxAppliedAmount(float $value)
- * @method $this setBaseWeeeTaxAppliedRowAmount(float $value)
- * @method $this setBaseWeeeTaxDisposition(float $value)
- * @method $this setBaseWeeeTaxRowDisposition(float $value)
- * @method $this setCreatedAt(string $value)
- * @method $this setDescription(string $value)
- * @method $this setDiscountAmount(float $value)
- * @method $this setDiscountInvoiced(float $value)
- * @method $this setDiscountPercent(float $value)
- * @method $this setDiscountRefunded(float $value)
- * @method $this setExtOrderItemId(string $value)
- * @method $this setFreeShipping(int $value)
- * @method $this setGiftMessage(string $value)
- * @method $this setGiftMessageAvailable(int $value)
- * @method $this setGiftMessageId(int $value)
- * @method $this setHasChildren(bool $value)
- * @method $this setHiddenTaxAmount(float $value)
- * @method $this setHiddenTaxCanceled(float $value)
- * @method $this setHiddenTaxInvoiced(float $value)
- * @method $this setHiddenTaxRefunded(float $value)
- * @method $this setIsNominal(int $value)
- * @method $this setIsQtyDecimal(int $value)
- * @method $this setIsVirtual(int $value)
- * @method $this setLockedDoInvoice(int $value)
- * @method $this setLockedDoShip(int $value)
- * @method $this setName(string $value)
- * @method $this setNoDiscount(int $value)
- * @method $this setOrderId(int $value)
- * @method $this setOriginalPrice(float $value)
- * @method $this setParentItemId(int $value)
- * @method $this setPrice(float $value)
- * @method $this setPriceInclTax(float $value)
- * @method $this setProduct(Mage_Catalog_Model_Product $value)
- * @method $this setProductId(int $value)
- * @method $this setProductType(string $value)
- * @method $this setQtyBackordered(float $value)
- * @method $this setQtyCanceled(float $value)
- * @method $this setQtyInvoiced(float $value)
- * @method $this setQtyOrdered(float $value)
- * @method $this setQtyRefunded(float $value)
- * @method $this setQtyShipped(float $value)
- * @method $this setQuoteItemId(int $value)
- * @method $this setQuoteParentItemId(int $value)
- * @method $this setRowInvoiced(float $value)
- * @method $this setRowTotal(float $value)
- * @method $this setRowTotalInclTax(float $value)
- * @method $this setRowWeight(float $value)
- * @method $this setShippingAmount(float $value)
- * @method $this setSku(string $value)
- * @method $this setStoreId(int $value)
- * @method $this setTaxAmount(float $value)
- * @method $this setTaxBeforeDiscount(float $value)
- * @method $this setTaxCanceled(float $value)
- * @method $this setTaxInvoiced(float $value)
- * @method $this setTaxPercent(float $value)
- * @method $this setTaxRefunded(float $value)
- * @method $this setUpdatedAt(string $value)
- * @method $this setWeeeTaxApplied(string $value)
- * @method $this setWeeeTaxAppliedAmount(float $value)
- * @method $this setWeeeTaxAppliedRowAmount(float $value)
- * @method $this setWeeeTaxDisposition(float $value)
- * @method $this setWeeeTaxRowDisposition(float $value)
- * @method $this setWeight(float $value)
+ * @method float                                           getRowInvoiced()
+ * @method float                                           getRowTotal()
+ * @method float                                           getRowTotalInclTax()
+ * @method float                                           getRowWeight()
+ * @method string                                          getSku()
+ * @method int                                             getStoreId()
+ * @method float                                           getTaxAmount()
+ * @method float                                           getTaxBeforeDiscount()
+ * @method float                                           getTaxCanceled()
+ * @method float                                           getTaxInvoiced()
+ * @method float                                           getTaxPercent()
+ * @method float                                           getTaxRefunded()
+ * @method string                                          getWeeeTaxApplied()
+ * @method float                                           getWeeeTaxAppliedAmount()
+ * @method float                                           getWeeeTaxAppliedRowAmount()
+ * @method float                                           getWeeeTaxDisposition()
+ * @method float                                           getWeeeTaxRowDisposition()
+ * @method float                                           getWeight()
+ * @method $this                                           setAdditionalData(string $value)
+ * @method $this                                           setAmountRefunded(float $value)
+ * @method $this                                           setAppliedRuleIds(string $value)
+ * @method $this                                           setBaseAmountRefunded(float $value)
+ * @method $this                                           setBaseCost(float $value)
+ * @method $this                                           setBaseDiscountAmount(float $value)
+ * @method $this                                           setBaseDiscountInvoiced(float $value)
+ * @method $this                                           setBaseDiscountRefunded(float $value)
+ * @method $this                                           setBaseHiddenTaxAmount(float $value)
+ * @method $this                                           setBaseHiddenTaxInvoiced(float $value)
+ * @method $this                                           setBaseHiddenTaxRefunded(float $value)
+ * @method $this                                           setBaseOriginalPrice(float $value)
+ * @method $this                                           setBasePrice(float $value)
+ * @method $this                                           setBasePriceInclTax(float $value)
+ * @method $this                                           setBaseRowInvoiced(float $value)
+ * @method $this                                           setBaseRowTotal(float $value)
+ * @method $this                                           setBaseRowTotalInclTax(float $value)
+ * @method $this                                           setBaseTaxAmount(float $value)
+ * @method $this                                           setBaseTaxBeforeDiscount(float $value)
+ * @method $this                                           setBaseTaxInvoiced(float $value)
+ * @method $this                                           setBaseTaxRefunded(float $value)
+ * @method $this                                           setBaseWeeeTaxAppliedAmount(float $value)
+ * @method $this                                           setBaseWeeeTaxAppliedRowAmount(float $value)
+ * @method $this                                           setBaseWeeeTaxDisposition(float $value)
+ * @method $this                                           setBaseWeeeTaxRowDisposition(float $value)
+ * @method $this                                           setDescription(string $value)
+ * @method $this                                           setDiscountAmount(float $value)
+ * @method $this                                           setDiscountInvoiced(float $value)
+ * @method $this                                           setDiscountPercent(float $value)
+ * @method $this                                           setDiscountRefunded(float $value)
+ * @method $this                                           setExtOrderItemId(string $value)
+ * @method $this                                           setFreeShipping(int $value)
+ * @method $this                                           setGiftMessage(string $value)
+ * @method $this                                           setGiftMessageAvailable(int $value)
+ * @method $this                                           setGiftMessageId(int $value)
+ * @method $this                                           setHasChildren(bool $value)
+ * @method $this                                           setHiddenTaxAmount(float $value)
+ * @method $this                                           setHiddenTaxCanceled(float $value)
+ * @method $this                                           setHiddenTaxInvoiced(float $value)
+ * @method $this                                           setHiddenTaxRefunded(float $value)
+ * @method $this                                           setIsNominal(int $value)
+ * @method $this                                           setIsQtyDecimal(int $value)
+ * @method $this                                           setIsVirtual(int $value)
+ * @method $this                                           setLockedDoInvoice(int $value)
+ * @method $this                                           setLockedDoShip(int $value)
+ * @method $this                                           setName(string $value)
+ * @method $this                                           setNoDiscount(int $value)
+ * @method $this                                           setOrderId(int $value)
+ * @method $this                                           setOriginalPrice(float $value)
+ * @method $this                                           setParentItemId(int $value)
+ * @method $this                                           setPrice(float $value)
+ * @method $this                                           setPriceInclTax(float $value)
+ * @method $this                                           setProduct(Mage_Catalog_Model_Product $value)
+ * @method $this                                           setProductId(int $value)
+ * @method $this                                           setProductType(string $value)
+ * @method $this                                           setQtyBackordered(float $value)
+ * @method $this                                           setQtyCanceled(float $value)
+ * @method $this                                           setQtyInvoiced(float $value)
+ * @method $this                                           setQtyOrdered(float $value)
+ * @method $this                                           setQtyRefunded(float $value)
+ * @method $this                                           setQtyShipped(float $value)
+ * @method $this                                           setQuoteItemId(int $value)
+ * @method $this                                           setQuoteParentItemId(int $value)
+ * @method $this                                           setRowInvoiced(float $value)
+ * @method $this                                           setRowTotal(float $value)
+ * @method $this                                           setRowTotalInclTax(float $value)
+ * @method $this                                           setRowWeight(float $value)
+ * @method $this                                           setShippingAmount(float $value)
+ * @method $this                                           setSku(string $value)
+ * @method $this                                           setStoreId(int $value)
+ * @method $this                                           setTaxAmount(float $value)
+ * @method $this                                           setTaxBeforeDiscount(float $value)
+ * @method $this                                           setTaxCanceled(float $value)
+ * @method $this                                           setTaxInvoiced(float $value)
+ * @method $this                                           setTaxPercent(float $value)
+ * @method $this                                           setTaxRefunded(float $value)
+ * @method $this                                           setWeeeTaxApplied(string $value)
+ * @method $this                                           setWeeeTaxAppliedAmount(float $value)
+ * @method $this                                           setWeeeTaxAppliedRowAmount(float $value)
+ * @method $this                                           setWeeeTaxDisposition(float $value)
+ * @method $this                                           setWeeeTaxRowDisposition(float $value)
+ * @method $this                                           setWeight(float $value)
  */
 class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
 {
@@ -227,7 +223,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
     protected $_children    = [];
 
     /**
-     * Init resource model
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -271,8 +267,8 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
     /**
      * Set parent item
      *
-     * @param   Mage_Sales_Model_Order_Item $item
-     * @return  $this
+     * @param  Mage_Sales_Model_Order_Item $item
+     * @return $this
      */
     public function setParentItem($item)
     {
@@ -440,7 +436,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
     /**
      * Declare order
      *
-     * @return  $this
+     * @return $this
      */
     public function setOrder(Mage_Sales_Model_Order $order)
     {
@@ -547,7 +543,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
     /**
      * Retrieve status name
      *
-     * @param int $statusId
+     * @param  int    $statusId
      * @return string
      */
     public static function getStatusName($statusId)
@@ -624,7 +620,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
     /**
      * Set product options
      *
-     * @return  $this
+     * @return $this
      */
     public function setProductOptions(array $options)
     {
@@ -650,7 +646,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
      * Get product options array by code.
      * If code is null return all options
      *
-     * @param string $code
+     * @param  string            $code
      * @return null|array|string
      */
     public function getProductOptionByCode($code = null)
@@ -768,7 +764,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
      * if $shipment is true then we checking this for shipping situation if not
      * then we checking this for calculation
      *
-     * @param bool $shipment
+     * @param  bool $shipment
      * @return bool
      */
     public function isDummy($shipment = false)
@@ -859,9 +855,9 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
         foreach ($weeeTaxAppliedAmounts as $weeeTaxAppliedAmount) {
             if (isset($weeeTaxAppliedAmount['total_base_weee_discount'])) {
                 return $weeeTaxAppliedAmount['total_base_weee_discount'];
-            } else {
-                $totalDiscount += $weeeTaxAppliedAmount['base_weee_discount'] ?? 0;
             }
+
+            $totalDiscount += $weeeTaxAppliedAmount['base_weee_discount'] ?? 0;
         }
 
         return $totalDiscount;
@@ -883,9 +879,9 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
         foreach ($weeeTaxAppliedAmounts as $weeeTaxAppliedAmount) {
             if (isset($weeeTaxAppliedAmount['total_weee_discount'])) {
                 return $weeeTaxAppliedAmount['total_weee_discount'];
-            } else {
-                $totalDiscount += $weeeTaxAppliedAmount['weee_discount'] ?? 0;
             }
+
+            $totalDiscount += $weeeTaxAppliedAmount['weee_discount'] ?? 0;
         }
 
         return $totalDiscount;

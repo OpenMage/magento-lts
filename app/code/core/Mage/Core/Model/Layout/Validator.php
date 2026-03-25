@@ -14,7 +14,7 @@
  *
  * @package    Mage_Core
  */
-class Mage_Core_Model_Layout_Validator extends Zend_Validate_Abstract
+class Mage_Core_Model_Layout_Validator extends Mage_Core_Model_Validate_Abstract
 {
     public const XML_PATH_LAYOUT_DISALLOWED_BLOCKS       = 'validators/custom_layout/disallowed_block';
 
@@ -31,7 +31,7 @@ class Mage_Core_Model_Layout_Validator extends Zend_Validate_Abstract
     /**
      * The Varien SimpleXml object
      *
-     * @var Varien_Simplexml_Element
+     * @inheritDoc
      */
     protected $_value;
 
@@ -131,10 +131,10 @@ class Mage_Core_Model_Layout_Validator extends Zend_Validate_Abstract
      * getMessages() will return an array of messages that explain why the
      * validation failed.
      *
-     * @param string|Varien_Simplexml_Element $value
+     * @param  string|Varien_Simplexml_Element $value
      * @return bool
-     * @throws Exception            Throw exception when xml object is not
-     *                              instance of Varien_Simplexml_Element
+     * @throws Exception                       Throw exception when xml object is not
+     *                                         instance of Varien_Simplexml_Element
      */
     public function isValid($value)
     {

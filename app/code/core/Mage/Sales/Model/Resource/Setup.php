@@ -58,20 +58,20 @@ class Mage_Sales_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
     /**
      * Check if table exist for flat entity
      *
-     * @param string $table
+     * @param  string $table
      * @return bool
      */
     protected function _flatTableExist($table)
     {
         $tablesList = $this->getConnection()->listTables();
-        return in_array(strtoupper($this->getTable($table)), array_map(strtoupper(...), $tablesList));
+        return in_array(strtoupper($this->getTable($table)), array_map(strtoupper(...), $tablesList), true);
     }
 
     /**
      * Add entity attribute. Overwrited for flat entities support
      *
-     * @param int|string $entityTypeId
-     * @param string $code
+     * @param  int|string $entityTypeId
+     * @param  string     $code
      * @return $this
      */
     public function addAttribute($entityTypeId, $code, array $attr)
@@ -91,9 +91,9 @@ class Mage_Sales_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
     /**
      * Add attribute as separate column in the table
      *
-     * @param string $table
-     * @param string $attribute
-     * @param array $attr
+     * @param  string $table
+     * @param  string $attribute
+     * @param  array  $attr
      * @return $this
      */
     protected function _addFlatAttribute($table, $attribute, $attr)
@@ -111,15 +111,15 @@ class Mage_Sales_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
     /**
      * Add attribute to grid table if necessary
      *
-     * @param string $table
-     * @param string $attribute
-     * @param array $attr
-     * @param string $entityTypeId
+     * @param  string $table
+     * @param  string $attribute
+     * @param  array  $attr
+     * @param  string $entityTypeId
      * @return $this
      */
     protected function _addGridAttribute($table, $attribute, $attr, $entityTypeId)
     {
-        if (in_array($entityTypeId, $this->_flatEntitiesGrid) && !empty($attr['grid'])) {
+        if (in_array($entityTypeId, $this->_flatEntitiesGrid, true) && !empty($attr['grid'])) {
             $columnDefinition = $this->_getAttributeColumnDefinition($attribute, $attr);
             $this->getConnection()->addColumn($this->getTable($table . '_grid'), $attribute, $columnDefinition);
         }
@@ -130,8 +130,8 @@ class Mage_Sales_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
     /**
      * Retrieve definition of column for create in flat table
      *
-     * @param string $code
-     * @param array $data
+     * @param  string $code
+     * @param  array  $data
      * @return array
      */
     protected function _getAttributeColumnDefinition($code, $data)

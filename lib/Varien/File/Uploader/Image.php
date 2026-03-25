@@ -38,8 +38,8 @@ class Varien_File_Uploader_Image extends Varien_File_Uploader
     {
         $this->uploader->image_resize = true;
 
-        $this->uploader->image_ratio_x = ($width == null) ? true : false;
-        $this->uploader->image_ratio_y = ($height == null) ? true : false;
+        $this->uploader->image_ratio_x = $width == null;
+        $this->uploader->image_ratio_y = $height == null;
 
         $this->uploader->image_x = $width;
         $this->uploader->image_y = $height;

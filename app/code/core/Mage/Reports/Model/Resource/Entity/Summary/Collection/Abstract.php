@@ -7,6 +7,8 @@
  * @package    Mage_Reports
  */
 
+use Carbon\Carbon;
+
 /**
  * Reports summary collection
  *
@@ -24,9 +26,9 @@ class Mage_Reports_Model_Resource_Entity_Summary_Collection_Abstract extends Var
     /**
      * Filters the summaries by some period
      *
-     * @param string $periodType
-     * @param null|int|string $customStart
-     * @param null|int|string $customEnd
+     * @param  string          $periodType
+     * @param  null|int|string $customStart
+     * @param  null|int|string $customEnd
      * @return $this
      */
     public function setSelectPeriod($periodType, $customStart = null, $customEnd = null)
@@ -54,11 +56,11 @@ class Mage_Reports_Model_Resource_Entity_Summary_Collection_Abstract extends Var
 
             default:
                 if (is_string($customStart)) {
-                    $customStart = strtotime($customStart);
+                    $customStart = Carbon::parse($customStart)->getTimestamp();
                 }
 
                 if (is_string($customEnd)) {
-                    $customEnd = strtotime($customEnd);
+                    $customEnd = Carbon::parse($customEnd)->getTimestamp();
                 }
 
                 break;
@@ -70,7 +72,7 @@ class Mage_Reports_Model_Resource_Entity_Summary_Collection_Abstract extends Var
     /**
      * Set date period
      *
-     * @param int $period
+     * @param  int   $period
      * @return $this
      */
     public function setDatePeriod($period)
@@ -81,7 +83,7 @@ class Mage_Reports_Model_Resource_Entity_Summary_Collection_Abstract extends Var
     /**
      * Set store filter
      *
-     * @param int $storeId
+     * @param  int   $storeId
      * @return $this
      */
     public function setStoreFilter($storeId)

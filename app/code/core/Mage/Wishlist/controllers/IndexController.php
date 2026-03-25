@@ -12,7 +12,7 @@
  *
  * @package    Mage_Wishlist
  *
- * @method int getProductId()
+ * @method int   getProductId()
  * @method float getQty()
  */
 class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
@@ -20,7 +20,7 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
     /**
      * Action list where need check enabled cookie
      *
-     * @var array
+     * @var string[]
      */
     protected $_cookieCheckActions = ['add'];
 
@@ -35,6 +35,7 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
      * Extend preDispatch
      *
      * @return $this|void
+     * @throws Mage_Core_Exception
      */
     public function preDispatch()
     {
@@ -70,7 +71,7 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
 
     /**
      * Retrieve wishlist object
-     * @param int $wishlistId
+     * @param  int                                $wishlistId
      * @return false|Mage_Wishlist_Model_Wishlist
      */
     protected function _getWishlist($wishlistId = null)
@@ -101,12 +102,12 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
             }
 
             Mage::register('wishlist', $wishlist);
-        } catch (Mage_Core_Exception $e) {
-            Mage::getSingleton('wishlist/session')->addError($e->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            Mage::getSingleton('wishlist/session')->addError($mageCoreException->getMessage());
             return false;
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             Mage::getSingleton('wishlist/session')->addException(
-                $e,
+                $exception,
                 Mage::helper('wishlist')->__('Wishlist could not be created.'),
             );
             return false;
@@ -119,6 +120,7 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
      * Display customer wishlist
      *
      * @return Mage_Core_Controller_Varien_Action|void
+     * @throws Mage_Core_Exception
      */
     public function indexAction()
     {
@@ -158,6 +160,7 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
      * Adding new item
      *
      * @return Mage_Core_Controller_Varien_Action|void
+     * @throws Throwable
      */
     public function addAction()
     {
@@ -242,8 +245,8 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
                 Mage::helper('core')->escapeUrl($referer),
             );
             $session->addSuccess($message);
-        } catch (Mage_Core_Exception $e) {
-            $session->addError($this->__('An error occurred while adding item to wishlist: %s', $e->getMessage()));
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $session->addError($this->__('An error occurred while adding item to wishlist: %s', $mageCoreException->getMessage()));
         } catch (Exception) {
             $session->addError($this->__('An error occurred while adding item to wishlist.'));
         }
@@ -290,13 +293,13 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
 
             $params->setBuyRequest($buyRequest);
             Mage::helper('catalog/product_view')->prepareAndRender($item->getProductId(), $this, $params);
-        } catch (Mage_Core_Exception $e) {
-            Mage::getSingleton('customer/session')->addError($e->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            Mage::getSingleton('customer/session')->addError($mageCoreException->getMessage());
             $this->_redirect('*');
             return;
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             Mage::getSingleton('customer/session')->addError($this->__('Cannot configure product'));
-            Mage::logException($e);
+            Mage::logException($exception);
             $this->_redirect('*');
             return;
         }
@@ -304,6 +307,9 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
 
     /**
      * Action to accept new configuration for a wishlist item
+     *
+     * @return void
+     * @throws Mage_Core_Exception
      */
     public function updateItemOptionsAction()
     {
@@ -345,11 +351,11 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
 
             $message = $this->__('%1$s has been updated in your wishlist.', $product->getName());
             $session->addSuccess($message);
-        } catch (Mage_Core_Exception $e) {
-            $session->addError($e->getMessage());
-        } catch (Exception $e) {
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $session->addError($mageCoreException->getMessage());
+        } catch (Exception $exception) {
             $session->addError($this->__('An error occurred while updating wishlist.'));
-            Mage::logException($e);
+            Mage::logException($exception);
         }
 
         $this->_redirect('*/*', ['wishlist_id' => $wishlist->getId()]);
@@ -359,6 +365,7 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
      * Update wishlist item comments
      *
      * @return Mage_Core_Controller_Varien_Action|void
+     * @throws Mage_Core_Exception
      */
     public function updateAction()
     {
@@ -406,8 +413,8 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
                     try {
                         // phpcs:ignore Ecg.Performance.Loop.ModelLSD
                         $item->delete();
-                    } catch (Exception $e) {
-                        Mage::logException($e);
+                    } catch (Exception $exception) {
+                        Mage::logException($exception);
                         Mage::getSingleton('customer/session')->addError(
                             $this->__("Can't delete item from wishlist"),
                         );
@@ -454,7 +461,8 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
     /**
      * Remove item
      *
-     *  @return Mage_Core_Controller_Varien_Action|void
+     * @return Mage_Core_Controller_Varien_Action|void
+     * @throws Mage_Core_Exception
      */
     public function removeAction()
     {
@@ -478,9 +486,9 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
         try {
             $item->delete();
             $wishlist->save();
-        } catch (Mage_Core_Exception $e) {
+        } catch (Mage_Core_Exception $mageCoreException) {
             Mage::getSingleton('customer/session')->addError(
-                $this->__('An error occurred while deleting the item from wishlist: %s', $e->getMessage()),
+                $this->__('An error occurred while deleting the item from wishlist: %s', $mageCoreException->getMessage()),
             );
         } catch (Exception) {
             Mage::getSingleton('customer/session')->addError(
@@ -498,6 +506,9 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
      *
      * If Product has required options - item removed from wishlist and redirect
      * to product view page with message about needed defined required options
+     *
+     * @return Mage_Core_Controller_Varien_Action
+     * @throws Mage_Core_Exception
      */
     public function cartAction()
     {
@@ -565,19 +576,19 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
             $productName = Mage::helper('core')->escapeHtml($product->getName());
             $message = $this->__('%s was added to your shopping cart.', $productName);
             Mage::getSingleton('catalog/session')->addSuccess($message);
-        } catch (Mage_Core_Exception $e) {
-            if ($e->getCode() == Mage_Wishlist_Model_Item::EXCEPTION_CODE_NOT_SALABLE) {
+        } catch (Mage_Core_Exception $mageCoreException) {
+            if ($mageCoreException->getCode() == Mage_Wishlist_Model_Item::EXCEPTION_CODE_NOT_SALABLE) {
                 $session->addError($this->__('This product(s) is currently out of stock'));
-            } elseif ($e->getCode() == Mage_Wishlist_Model_Item::EXCEPTION_CODE_HAS_REQUIRED_OPTIONS) {
-                Mage::getSingleton('catalog/session')->addNotice($e->getMessage());
+            } elseif ($mageCoreException->getCode() == Mage_Wishlist_Model_Item::EXCEPTION_CODE_HAS_REQUIRED_OPTIONS) {
+                Mage::getSingleton('catalog/session')->addNotice($mageCoreException->getMessage());
                 $redirectUrl = Mage::getUrl('*/*/configure/', ['id' => $item->getId()]);
             } else {
-                Mage::getSingleton('catalog/session')->addNotice($e->getMessage());
+                Mage::getSingleton('catalog/session')->addNotice($mageCoreException->getMessage());
                 $redirectUrl = Mage::getUrl('*/*/configure/', ['id' => $item->getId()]);
             }
-        } catch (Exception $e) {
-            Mage::logException($e);
-            $session->addException($e, $this->__('Cannot add item to shopping cart'));
+        } catch (Exception $exception) {
+            Mage::logException($exception);
+            $session->addException($exception, $this->__('Cannot add item to shopping cart'));
         }
 
         Mage::helper('wishlist')->calculate();
@@ -589,6 +600,7 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
      * Add cart item to wishlist and remove from cart
      *
      * @return Mage_Core_Controller_Varien_Action|void
+     * @throws Mage_Core_Exception
      */
     public function fromcartAction()
     {
@@ -620,16 +632,16 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
             $cart->getQuote()->removeItem($itemId);
             $cart->save();
             Mage::helper('wishlist')->calculate();
-            $productName = Mage::helper('core')->escapeHtml($item->getProduct()->getName());
+            $productName = Mage::helper('core')->escapeHtml((string) $item->getProduct()->getName());
             $wishlistName = Mage::helper('core')->escapeHtml($wishlist->getName());
             $session->addSuccess(
                 Mage::helper('wishlist')->__('%s has been moved to wishlist %s', $productName, $wishlistName),
             );
             $wishlist->save();
-        } catch (Mage_Core_Exception $e) {
-            $session->addError($e->getMessage());
-        } catch (Exception $e) {
-            $session->addException($e, Mage::helper('wishlist')->__('Cannot move item to wishlist'));
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $session->addError($mageCoreException->getMessage());
+        } catch (Exception $exception) {
+            $session->addException($exception, Mage::helper('wishlist')->__('Cannot move item to wishlist'));
         }
 
         return $this->_redirectUrl(Mage::helper('checkout/cart')->getCartUrl());
@@ -637,6 +649,10 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
 
     /**
      * Prepare wishlist for share
+     *
+     * @return void
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function shareAction()
     {
@@ -651,6 +667,7 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
      * Share wishlist
      *
      * @return Mage_Core_Controller_Varien_Action|void
+     * @throws Mage_Core_Exception
      */
     public function sendAction()
     {
@@ -666,25 +683,37 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
 
         $emails  = array_filter(explode(',', $this->getRequest()->getPost('emails', '')));
         $message = nl2br(htmlspecialchars((string) $this->getRequest()->getPost('message')));
-        $error   = false;
-        if (empty($emails)) {
-            $error = $this->__("Email address can't be empty.");
-        } elseif (count($emails) > 5) {
-            $error = $this->__('Please enter no more than 5 email addresses.');
-        } else {
-            foreach ($emails as $index => $email) {
-                $email = trim($email);
-                if (!Zend_Validate::is($email, 'EmailAddress')) {
-                    $error = $this->__('Please input a valid email address.');
-                    break;
-                }
 
+        $violations = new ArrayObject();
+
+        /** @var Mage_Core_Helper_Validate $validator */
+        $validator = Mage::helper('core/validate');
+
+        $violations->append($validator->validateCount(
+            value: $emails,
+            min: 1,
+            max: 5,
+            minMessage: $this->__("Email address can't be empty."),
+            maxMessage: $this->__('Please enter no more than 5 email addresses.'),
+        ));
+
+        foreach ($emails as $index => $email) {
+            $email = trim($email);
+            $violation = $validator->validateEmail(
+                value: $email,
+                message: $this->__('Please input a valid email address.'),
+            );
+
+            if ($violation->count() === 0) {
                 $emails[$index] = $email;
             }
+
+            $violations->append($violation);
         }
 
-        if ($error) {
-            Mage::getSingleton('wishlist/session')->addError($error);
+        $errors = $validator->getErrorMessages($violations);
+        if ($errors) {
+            Mage::getSingleton('wishlist/session')->addError(implode('<br>', array_unique(iterator_to_array($errors))));
             Mage::getSingleton('wishlist/session')->setSharingForm($this->getRequest()->getPost());
             $this->_redirect('*/*/share');
             return;
@@ -753,6 +782,7 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
      * Custom options download action
      * @return void
      * @SuppressWarnings("PHPMD.ExitExpression")
+     * @throws Mage_Core_Exception
      */
     public function downloadCustomOptionAction()
     {

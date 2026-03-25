@@ -13,21 +13,15 @@
 class Mage_Core_Model_Layout_Element extends Varien_Simplexml_Element
 {
     /**
-     * @param array $args
+     * @param  array $args
      * @return $this
      */
     public function prepare($args)
     {
         switch ($this->getName()) {
             case 'layoutUpdate':
-                break;
-
             case 'layout':
-                break;
-
             case 'update':
-                break;
-
             case 'remove':
                 break;
 
@@ -70,7 +64,7 @@ class Mage_Core_Model_Layout_Element extends Varien_Simplexml_Element
     }
 
     /**
-     * @param array $args
+     * @param  array $args
      * @return $this
      */
     public function prepareBlock($args)
@@ -93,7 +87,7 @@ class Mage_Core_Model_Layout_Element extends Varien_Simplexml_Element
     }
 
     /**
-     * @param array $args
+     * @param  array $args
      * @return $this
      */
     public function prepareReference($args)
@@ -102,7 +96,7 @@ class Mage_Core_Model_Layout_Element extends Varien_Simplexml_Element
     }
 
     /**
-     * @param array $args
+     * @param  array $args
      * @return $this
      */
     public function prepareAction($args)
@@ -114,7 +108,7 @@ class Mage_Core_Model_Layout_Element extends Varien_Simplexml_Element
     }
 
     /**
-     * @param array $args
+     * @param  array $args
      * @return $this
      */
     public function prepareActionArgument($args)

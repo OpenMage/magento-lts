@@ -17,8 +17,8 @@ class Mage_Api2_Model_Request_Interpreter_Json implements Mage_Api2_Model_Reques
     /**
      * Parse Request body into array of params
      *
-     * @param string $body  Posted content from request
-     * @return null|array   Return NULL if content is invalid
+     * @param  string                        $body Posted content from request
+     * @return null|array                    Return NULL if content is invalid
      * @throws Exception|Mage_Api2_Exception
      */
     public function interpret($body)

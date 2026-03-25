@@ -13,10 +13,10 @@
  * @package    Mage_Adminhtml
  *
  * @method string getQuery()
- * @method bool hasLimit()
- * @method bool hasQuery()
- * @method bool hasStart()
- * @method bool setResults(array $value)
+ * @method bool   hasLimit()
+ * @method bool   hasQuery()
+ * @method bool   hasStart()
+ * @method bool   setResults(array $value)
  */
 class Mage_Adminhtml_Model_Search_Customer extends Varien_Object
 {
@@ -51,7 +51,7 @@ class Mage_Adminhtml_Model_Search_Customer extends Varien_Object
                 'type'          => Mage::helper('adminhtml')->__('Customer'),
                 'name'          => $customer->getName(),
                 'description'   => $customer->getCompany(),
-                'url' => Mage::helper('adminhtml')->getUrl('*/customer/edit', ['id' => $customer->getId()]),
+                'url'           => Mage::helper('adminhtml')::getUrl('*/customer/edit', ['id' => $customer->getId()]),
             ];
         }
 

@@ -7,6 +7,8 @@
  * @package    Mage_CatalogRule
  */
 
+use Carbon\Carbon;
+
 /**
  * Catalog rules resource model
  *
@@ -63,14 +65,14 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
      */
     public function __construct(array $args = [])
     {
-        $this->_factory = !empty($args['factory']) ? $args['factory'] : Mage::getSingleton('core/factory');
-        $this->_app     = !empty($args['app']) ? $args['app'] : Mage::app();
+        $this->_factory = empty($args['factory']) ? Mage::getSingleton('core/factory') : $args['factory'];
+        $this->_app     = empty($args['app']) ? Mage::app() : $args['app'];
 
         parent::__construct();
     }
 
     /**
-     * Initialize main table and table id field
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -142,7 +144,7 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
     /**
      * Return whether the product fits the rule
      *
-     * @param array $websiteIds
+     * @param  array $websiteIds
      * @return bool
      */
     public function validateProduct(Mage_CatalogRule_Model_Rule $rule, Varien_Object $product, $websiteIds = [])
@@ -163,9 +165,9 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
             }
 
             return false;
-        } else {
-            return $rule->getConditions()->validate($product);
         }
+
+        return $rule->getConditions()->validate($product);
     }
 
     /**
@@ -178,11 +180,11 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
 
         $customerGroupIds = $rule->getCustomerGroupIds();
 
-        $fromTime = (int) Mage::getModel('core/date')->gmtTimestamp(strtotime((string) $rule->getFromDate()));
-        $toTime = (int) Mage::getModel('core/date')->gmtTimestamp(strtotime((string) $rule->getToDate()));
+        $fromTime = (int) Mage::getModel('core/date')->gmtTimestamp(Carbon::parse((string) $rule->getFromDate())->getTimestamp());
+        $toTime = (int) Mage::getModel('core/date')->gmtTimestamp(Carbon::parse((string) $rule->getToDate())->getTimestamp());
         $toTime = $toTime ? ($toTime + self::SECONDS_IN_DAY - 1) : 0;
 
-        $timestamp = time();
+        $timestamp = Carbon::now()->getTimestamp();
         if ($fromTime > $timestamp
             || ($toTime && $toTime < $timestamp)
         ) {
@@ -363,7 +365,7 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
      *
      * @param int|string $fromDate
      * @param int|string $toDate
-     * @param null|int $productId
+     * @param null|int   $productId
      *
      * @return $this
      */
@@ -401,7 +403,7 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
     /**
      * Delete old price rules data
      *
-     * @param string $date
+     * @param string   $date
      * @param null|int $productId
      *
      * @return $this
@@ -422,8 +424,8 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
     /**
      * Get DB resource statement for processing query result
      *
-     * @param int $fromDate
-     * @param int $toDate
+     * @param int      $fromDate
+     * @param int      $toDate
      * @param null|int $productId
      * @param null|int $websiteId
      *
@@ -538,7 +540,7 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
      *
      * @param null|int|string $fromDate
      * @param null|int|string $toDate
-     * @param int $productId
+     * @param int             $productId
      *
      * @return $this
      * @deprecated after 1.7.0.2 use method applyAllRules
@@ -579,7 +581,7 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
     /**
      * Calculate product price based on price rule data and previous information
      *
-     * @param array $ruleData
+     * @param array      $ruleData
      * @param null|array $productData
      *
      * @return float
@@ -643,9 +645,9 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
      * customer group
      *
      * @param int|string $date
-     * @param int $wId
-     * @param int $gId
-     * @param int $pId
+     * @param int        $wId
+     * @param int        $gId
+     * @param int        $pId
      *
      * @return bool|float
      */
@@ -660,9 +662,9 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
      * Collect data with  product Id => price pairs
      *
      * @param int|string $date
-     * @param int $websiteId
-     * @param int $customerGroupId
-     * @param array $productIds
+     * @param int        $websiteId
+     * @param int        $customerGroupId
+     * @param array      $productIds
      *
      * @return array
      */
@@ -681,17 +683,17 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
     /**
      * Get active rule data based on few filters
      *
-     * @param int|string $date
-     * @param int $websiteId
-     * @param int $customerGroupId
-     * @param int $productId
+     * @param  int|string $date
+     * @param  int        $websiteId
+     * @param  int        $customerGroupId
+     * @param  int        $productId
      * @return array
      */
     public function getRulesFromProduct($date, $websiteId, $customerGroupId, $productId)
     {
         $adapter = $this->_getReadAdapter();
         if (is_string($date)) {
-            $date = strtotime($date);
+            $date = Carbon::parse($date)->getTimestamp();
         }
 
         $select = $adapter->select()
@@ -710,8 +712,8 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
      * Retrieve product price data for all customer groups
      *
      * @param int|string $date
-     * @param int $wId
-     * @param int $pId
+     * @param int        $wId
+     * @param int        $pId
      *
      * @return array
      */
@@ -731,8 +733,8 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
      * Apply catalog rule to product
      *
      * @param Mage_CatalogRule_Model_Rule $rule
-     * @param Mage_Catalog_Model_Product $product
-     * @param array $websiteIds
+     * @param Mage_Catalog_Model_Product  $product
+     * @param array                       $websiteIds
      *
      * @return $this
      * @throws Exception
@@ -774,7 +776,7 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
     /**
      * Get ids of matched rules for specific product
      *
-     * @param int $productId
+     * @param  int   $productId
      * @return array
      */
     public function getProductRuleIds($productId)
@@ -788,8 +790,8 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
     /**
      * Is product has been matched the rule
      *
-     * @param int $ruleId
-     * @param Mage_Catalog_Model_Product $product
+     * @param  int                        $ruleId
+     * @param  Mage_Catalog_Model_Product $product
      * @return bool
      */
     protected function _isProductMatchedRule($ruleId, $product)

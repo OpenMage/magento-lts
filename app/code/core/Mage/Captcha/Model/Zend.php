@@ -7,6 +7,8 @@
  * @package    Mage_Captcha
  */
 
+use Carbon\Carbon;
+
 /**
  * Implementation of Zend_Captcha
  *
@@ -79,7 +81,7 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
     /**
      * Returns key with respect of current form ID
      *
-     * @param string $key
+     * @param  string $key
      * @return string
      */
     protected function _getFormIdKey($key)
@@ -100,7 +102,7 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
     /**
      * Whether captcha is required to be inserted to this form
      *
-     * @param null|string $login
+     * @param  null|string $login
      * @return bool
      */
     public function isRequired($login = null)
@@ -121,7 +123,7 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
     /**
      * Check is overlimit attempts
      *
-     * @param string $login
+     * @param  string $login
      * @return bool
      */
     protected function _isOverLimitAttempts($login)
@@ -163,7 +165,7 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
     /**
      * Is Over Limit Login Attempts
      *
-     * @param string $login
+     * @param  string $login
      * @return bool
      */
     protected function _isOverLimitLoginAttempts($login)
@@ -249,7 +251,7 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
     /**
      * Checks whether captcha was guessed correctly by user
      *
-     * @param string $word
+     * @param  string $word
      * @return bool
      */
     public function isCorrect($word)
@@ -292,7 +294,7 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
     /**
      * log Attempt
      *
-     * @param string $login
+     * @param  string $login
      * @return $this
      */
     public function logAttempt($login)
@@ -457,20 +459,20 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
             return null;
         }
 
-        return time() < $sessionData['expires'] ? $sessionData['data'] : null;
+        return Carbon::now()->getTimestamp() < $sessionData['expires'] ? $sessionData['data'] : null;
     }
 
     /**
      * Set captcha word
      *
-     * @param  string $word
+     * @param  string            $word
      * @return Zend_Captcha_Word
      */
     protected function _setWord($word)
     {
         $this->getSession()->setData(
             $this->_getFormIdKey(self::SESSION_WORD),
-            ['data' => $word, 'expires' => time() + $this->getTimeout()],
+            ['data' => $word, 'expires' => Carbon::now()->getTimestamp() + $this->getTimeout()],
         );
         $this->_word = $word;
         return $this;

@@ -15,7 +15,7 @@
 class Mage_Adminhtml_Block_Newsletter_Queue_Edit extends Mage_Adminhtml_Block_Template
 {
     /**
-     * Check for template Id in request
+     * @inheritDoc
      */
     protected function _construct()
     {

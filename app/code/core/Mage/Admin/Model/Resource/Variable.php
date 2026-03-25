@@ -16,6 +16,9 @@ class Mage_Admin_Model_Resource_Variable extends Mage_Core_Model_Resource_Db_Abs
 {
     public const CACHE_ID = 'permission_variable';
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('admin/permission_variable', 'variable_id');

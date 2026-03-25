@@ -17,7 +17,7 @@ class Mage_Cron_Model_Resource_Schedule_Collection extends Mage_Core_Model_Resou
     /**
      * Initialize resource collection
      */
-    public function _construct()
+    protected function _construct()
     {
         $this->_init('cron/schedule');
     }
@@ -25,7 +25,7 @@ class Mage_Cron_Model_Resource_Schedule_Collection extends Mage_Core_Model_Resou
     /**
      * Sort order by scheduled_at time
      *
-     * @param string $dir
+     * @param  string $dir
      * @return $this
      */
     public function orderByScheduledAt($dir = self::SORT_ORDER_ASC)

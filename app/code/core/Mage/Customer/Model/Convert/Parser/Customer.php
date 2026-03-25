@@ -145,7 +145,7 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
     }
 
     /**
-     * @param int $storeId
+     * @param  int                        $storeId
      * @return bool|Mage_Core_Model_Store
      */
     public function getStoreById($storeId)
@@ -160,7 +160,7 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
     /**
      * Retrieve website model by id
      *
-     * @param int $websiteId
+     * @param  int                           $websiteId
      * @return false|Mage_Core_Model_Website
      */
     public function getWebsiteById($websiteId)
@@ -175,7 +175,7 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
     /**
      * Retrieve eav entity attribute model
      *
-     * @param string $code
+     * @param  string                          $code
      * @return Mage_Eav_Model_Entity_Attribute
      */
     public function getAttribute($code)
@@ -188,19 +188,7 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
     }
 
     /**
-     * @return Mage_Catalog_Model_Mysql4_Convert
-     */
-    public function getResource()
-    {
-        if (!$this->_resource) {
-            $this->_resource = Mage::getResourceSingleton('catalog_entity/convert');
-        }
-
-        return $this->_resource;
-    }
-
-    /**
-     * @param int $storeId
+     * @param  int                                              $storeId
      * @return Mage_Customer_Model_Resource_Customer_Collection
      */
     public function getCollection($storeId)
@@ -342,9 +330,9 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
                         Mage_Dataflow_Model_Convert_Exception::ERROR,
                     );
                     continue;
-                } else {
-                    $row['group'] = $groupCode;
                 }
+
+                $row['group'] = $groupCode;
             }
 
             $batchExport = $this->getBatchExportModel()
@@ -435,7 +423,7 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
     /**
      * Gets group code by customer's groupId
      *
-     * @param Mage_Customer_Model_Customer $customer
+     * @param  Mage_Customer_Model_Customer $customer
      * @return null|string
      */
     protected function _getCustomerGroupCode($customer)

@@ -15,7 +15,7 @@
 class Mage_Catalog_Block_Product_Widget_Link extends Mage_Catalog_Block_Widget_Link
 {
     /**
-     * Initialize entity model
+     * @inheritDoc
      */
     protected function _construct()
     {

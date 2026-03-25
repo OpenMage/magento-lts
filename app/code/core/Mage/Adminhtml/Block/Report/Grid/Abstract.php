@@ -52,7 +52,7 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
     }
 
     /**
-     * @return Mage_Core_Model_Resource_Db_Collection_Abstract|Mage_Reports_Model_Grouped_Collection
+     * @return Mage_Reports_Model_Grouped_Collection|Varien_Data_Collection
      */
     public function getCollection()
     {
@@ -90,9 +90,10 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
      * It stands for conditional visibility of the column depending on filter field values
      * Value of visibility_filter supports (filter_field_name => filter_field_value) pairs
      *
-     * @param   string $columnId
-     * @param   array $column
-     * @return  Mage_Adminhtml_Block_Report_Grid_Abstract
+     * @param  string                                    $columnId
+     * @param  array                                     $column
+     * @return Mage_Adminhtml_Block_Report_Grid_Abstract
+     * @throws Exception
      */
     public function addColumn($columnId, $column)
     {
@@ -103,13 +104,13 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
                 $visibilityFilter = [$visibilityFilter];
             }
 
-            foreach ($visibilityFilter as $k => $v) {
-                if (is_int($k)) {
-                    $filterFieldId = $v;
+            foreach ($visibilityFilter as $key => $value) {
+                if (is_int($key)) {
+                    $filterFieldId = $value;
                     $filterFieldValue = true;
                 } else {
-                    $filterFieldId = $k;
-                    $filterFieldValue = $v;
+                    $filterFieldId = $key;
+                    $filterFieldValue = $value;
                 }
 
                 if (!$filterData->hasData($filterFieldId)
@@ -147,9 +148,7 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
         }
 
         // reset array keys
-        $storeIds = array_values($storeIds);
-
-        return $storeIds;
+        return array_values($storeIds);
     }
 
     protected function _prepareCollection()
@@ -187,9 +186,11 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
             return $this;
         }
 
+        $collection = $this->getCollection();
+
         if ($filterData->getData('show_empty_rows', false)) {
             Mage::helper('reports')->prepareIntervalsCollection(
-                $this->getCollection(),
+                $collection,
                 $filterData->getData('from', null),
                 $filterData->getData('to', null),
                 $filterData->getData('period_type'),
@@ -219,8 +220,10 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
             }
         }
 
-        $this->getCollection()->setColumnGroupBy($this->_columnGroupBy);
-        $this->getCollection()->setResourceCollection($resourceCollection);
+        if ($collection instanceof Mage_Reports_Model_Grouped_Collection) {
+            $collection->setColumnGroupBy($this->_columnGroupBy);
+            $collection->setResourceCollection($resourceCollection);
+        }
 
         return parent::_prepareCollection();
     }
@@ -279,6 +282,10 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
         return $this;
     }
 
+    /**
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
+     */
     public function getCurrentCurrencyCode()
     {
         if (is_null($this->_currentCurrencyCode)) {
@@ -293,8 +300,9 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
     /**
      * Get currency rate (base to given currency)
      *
-     * @param Mage_Directory_Model_Currency|string $toCurrency
+     * @param  Mage_Directory_Model_Currency|string $toCurrency
      * @return float
+     * @throws Mage_Core_Exception
      */
     public function getRate($toCurrency)
     {
@@ -304,8 +312,8 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
     /**
      * Add order status filter
      *
-     * @param Mage_Sales_Model_Resource_Report_Collection_Abstract $collection
-     * @param Varien_Object $filterData
+     * @param  Mage_Sales_Model_Resource_Report_Collection_Abstract $collection
+     * @param  Varien_Object                                        $filterData
      * @return $this
      */
     protected function _addOrderStatusFilter($collection, $filterData)
@@ -318,8 +326,8 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
      * Adds custom filter to resource collection
      * Can be overridden in child classes if custom filter needed
      *
-     * @param Mage_Sales_Model_Resource_Report_Collection_Abstract $collection
-     * @param Varien_Object $filterData
+     * @param  Mage_Sales_Model_Resource_Report_Collection_Abstract $collection
+     * @param  Varien_Object                                        $filterData
      * @return $this
      */
     protected function _addCustomFilter($collection, $filterData)

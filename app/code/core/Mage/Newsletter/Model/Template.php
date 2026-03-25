@@ -12,34 +12,34 @@
  *
  * @package    Mage_Newsletter
  *
- * @method Mage_Newsletter_Model_Resource_Template _getResource()
- * @method string getAddedAt()
+ * @method Mage_Newsletter_Model_Resource_Template            _getResource()
+ * @method string                                             getAddedAt()
  * @method Mage_Newsletter_Model_Resource_Template_Collection getCollection()
- * @method bool getIsSystem()
- * @method string getModifiedAt()
- * @method Mage_Newsletter_Model_Resource_Template getResource()
+ * @method bool                                               getIsSystem()
+ * @method string                                             getModifiedAt()
+ * @method Mage_Newsletter_Model_Resource_Template            getResource()
  * @method Mage_Newsletter_Model_Resource_Template_Collection getResourceCollection()
- * @method int getTemplateActual()
- * @method string getTemplateCode()
- * @method string getTemplateSenderEmail()
- * @method string getTemplateSenderName()
- * @method string getTemplateStyles()
- * @method string getTemplateSubject()
- * @method int getTemplateType()
- * @method bool hasAddedAt()
- * @method bool hasTemplateActual()
- * @method $this setAddedAt(string $value)
- * @method $this setInlineCssFile(bool|string $value)
- * @method $this setModifiedAt(string $value)
- * @method $this setTemplateActual(int $value)
- * @method $this setTemplateCode(string $value)
- * @method $this setTemplateSenderEmail(string $value)
- * @method $this setTemplateSenderName(string $value)
- * @method $this setTemplateStyles(string $value)
- * @method $this setTemplateSubject(string $value)
- * @method $this setTemplateText(string $value)
- * @method $this setTemplateTextPreprocessed(string $value)
- * @method $this setTemplateType(int $value)
+ * @method int                                                getTemplateActual()
+ * @method string                                             getTemplateCode()
+ * @method string                                             getTemplateSenderEmail()
+ * @method string                                             getTemplateSenderName()
+ * @method string                                             getTemplateStyles()
+ * @method string                                             getTemplateSubject()
+ * @method int                                                getTemplateType()
+ * @method bool                                               hasAddedAt()
+ * @method bool                                               hasTemplateActual()
+ * @method $this                                              setAddedAt(string $value)
+ * @method $this                                              setInlineCssFile(bool|string $value)
+ * @method $this                                              setModifiedAt(string $value)
+ * @method $this                                              setTemplateActual(int $value)
+ * @method $this                                              setTemplateCode(string $value)
+ * @method $this                                              setTemplateSenderEmail(string $value)
+ * @method $this                                              setTemplateSenderName(string $value)
+ * @method $this                                              setTemplateStyles(string $value)
+ * @method $this                                              setTemplateSubject(string $value)
+ * @method $this                                              setTemplateText(string $value)
+ * @method $this                                              setTemplateTextPreprocessed(string $value)
+ * @method $this                                              setTemplateType(int $value)
  */
 class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abstract
 {
@@ -58,7 +58,7 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
     protected $_mail;
 
     /**
-     * Initialize resource model
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -72,31 +72,41 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
      */
     public function validate()
     {
-        $validators = [
-            'template_code'         => [Zend_Filter_Input::ALLOW_EMPTY => false],
-            'template_type'         => 'Int',
-            'template_sender_email' => 'EmailAddress',
-            'template_sender_name'  => [Zend_Filter_Input::ALLOW_EMPTY => false],
-        ];
-        $data = [];
-        foreach (array_keys($validators) as $validateField) {
-            $data[$validateField] = $this->getDataUsingMethod($validateField);
-        }
+        $validator  = $this->getValidationHelper();
+        $violations = new ArrayObject();
 
-        $validateInput = new Zend_Filter_Input([], $validators, $data);
-        if (!$validateInput->isValid()) {
-            $errorMessages = [];
-            foreach ($validateInput->getMessages() as $messages) {
-                if (is_array($messages)) {
-                    foreach ($messages as $message) {
-                        $errorMessages[] = $message;
-                    }
-                } else {
-                    $errorMessages[] = $messages;
-                }
-            }
+        $violations->append($validator->validateNotEmpty(
+            value: $this->getDataUsingMethod('template_code'),
+            message: "You must give a non-empty value for field 'template_code'",
+        ));
 
-            Mage::throwException(implode("\n", $errorMessages));
+        $message = "You must give a non-empty value for field 'template_type'";
+        $templateType = $this->getDataUsingMethod('template_type');
+
+        $violations->append($validator->validateNotEmpty(
+            value: $templateType,
+            message: $message,
+        ));
+
+        $violations->append($validator->validateType(
+            value: $templateType,
+            type: 'int',
+            message: $message,
+        ));
+
+        $violations->append($validator->validateEmail(
+            value: $this->getDataUsingMethod('template_sender_email'),
+            message: "You must give a non-empty value for field 'template_sender_email'",
+        ));
+
+        $violations->append($validator->validateNotEmpty(
+            value: $this->getDataUsingMethod('template_sender_name'),
+            message: "You must give a non-empty value for field 'template_sender_name'",
+        ));
+
+        $errors = $validator->getErrorMessages($violations);
+        if ($errors) {
+            Mage::throwException(implode("\n", iterator_to_array($errors)));
         }
     }
 
@@ -104,6 +114,7 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
      * Processing object before save data
      *
      * @inheritDoc
+     * @throws Mage_Core_Exception
      */
     protected function _beforeSave()
     {
@@ -114,7 +125,7 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
     /**
      * Load template by code
      *
-     * @param string $templateCode
+     * @param  string $templateCode
      * @return $this
      */
     public function loadByCode($templateCode)
@@ -174,7 +185,7 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
     /**
      * Retrieve processed template
      *
-     * @param bool $usePreprocess
+     * @param  bool   $usePreprocess
      * @return string
      */
     public function getProcessedTemplate(array $variables = [], $usePreprocess = false)
@@ -218,8 +229,8 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
     /**
      * Makes additional text preparations for HTML templates
      *
-     * @param bool $usePreprocess Use Preprocessed text or original text
-     * @param null|string $html
+     * @param  bool        $usePreprocess Use Preprocessed text or original text
+     * @param  null|string $html
      * @return string
      */
     public function getPreparedTemplateText($usePreprocess = false, $html = null)
@@ -242,7 +253,7 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
     /**
      * Retrieve included template
      *
-     * @param string $templateCode
+     * @param  string $templateCode
      * @return string
      */
     public function getInclude($templateCode, array $variables)
@@ -270,11 +281,12 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
     /**
      * Send mail to subscriber
      *
-     * @param   Mage_Newsletter_Model_Subscriber|string   $subscriber   subscriber Model or E-mail
-     * @param   array                                     $variables    template variables
-     * @param   null|string                               $name         receiver name (if subscriber model not specified)
-     * @param   null|Mage_Newsletter_Model_Queue          $queue        queue model, used for problems reporting
+     * @param  Mage_Newsletter_Model_Subscriber|string $subscriber subscriber Model or E-mail
+     * @param  array                                   $variables  template variables
+     * @param  null|string                             $name       receiver name (if subscriber model not specified)
+     * @param  null|Mage_Newsletter_Model_Queue        $queue      queue model, used for problems reporting
      * @return bool
+     * @throws Exception|Throwable
      * @deprecated since 1.4.0.1
      **/
     public function send($subscriber, array $variables = [], $name = null, ?Mage_Newsletter_Model_Queue $queue = null)
@@ -371,6 +383,7 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
      * Prepare Process (with save)
      *
      * @return $this
+     * @throws Throwable
      * @deprecated since 1.4.0.1
      */
     public function preprocess()
@@ -385,6 +398,7 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
      * Retrieve processed template subject
      *
      * @return string
+     * @throws Exception
      */
     public function getProcessedTemplateSubject(array $variables)
     {

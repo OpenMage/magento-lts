@@ -24,7 +24,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Price extends Mage_Adminh
     /**
      * Renders grid column
      *
-     * @return  string
+     * @return string
      */
     public function render(Varien_Object $row)
     {
@@ -46,7 +46,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Price extends Mage_Adminh
     /**
      * Returns currency code for the row, false on error
      *
-     * @param Varien_Object $row
+     * @param  Varien_Object $row
      * @return bool|string
      */
     protected function _getCurrencyCode($row)
@@ -65,7 +65,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Price extends Mage_Adminh
     /**
      * Returns rate for the row, 1 by default
      *
-     * @param Varien_Object $row
+     * @param  Varien_Object $row
      * @return float|int
      */
     protected function _getRate($row)

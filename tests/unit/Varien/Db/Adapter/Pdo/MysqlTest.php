@@ -12,14 +12,13 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Varien\Db\Adapter\Pdo;
 
 use PHPUnit\Framework\TestCase;
+use ReflectionClass;
 use ReflectionMethod;
 use Varien_Db_Adapter_Pdo_Mysql;
 use Varien_Object;
 
 final class MysqlTest extends TestCase
 {
-    public Varien_Db_Adapter_Pdo_Mysql $adapter;
-
     protected function setUp(): void
     {
         $config = [
@@ -31,14 +30,11 @@ final class MysqlTest extends TestCase
             'active' => '1',
         ];
 
-        // Create a mock object for Varien_Db_Adapter_Pdo_Mysql
-        $this->adapter = $this->createMock(Varien_Db_Adapter_Pdo_Mysql::class);
-
         // Call the constructor manually with our config
-        $reflectedAdapter = new \ReflectionClass(Varien_Db_Adapter_Pdo_Mysql::class);
+        $reflectedAdapter = new ReflectionClass(Varien_Db_Adapter_Pdo_Mysql::class);
         /** @var ReflectionMethod $constructor */
         $constructor = $reflectedAdapter->getConstructor();
-        $constructor->invoke($this->adapter, $config);
+        $constructor->invoke(self::createStub(Varien_Db_Adapter_Pdo_Mysql::class), $config);
     }
 
     /**
@@ -47,7 +43,7 @@ final class MysqlTest extends TestCase
     public function testGetHostInfoWithUnixSocket(): void
     {
         $fakeSocket = '/var/run/mysqld/mysqld.sock';
-        $hostInfo = $hostInfo = $this->getHostInfo($fakeSocket);
+        $hostInfo = $this->getHostInfo($fakeSocket);
 
         self::assertSame(Varien_Db_Adapter_Pdo_Mysql::ADDRESS_TYPE_UNIX_SOCKET, $hostInfo->getAddressType());
         self::assertSame($fakeSocket, $hostInfo->getUnixSocket());
@@ -159,12 +155,35 @@ final class MysqlTest extends TestCase
         self::assertNull($hostInfo->getUnixSocket());
     }
 
+    /**
+     * Test PHP 8.5 compatibility check for PDO\MYSQL namespace
+     *
+     * This test verifies that the logic for checking the PDO\MYSQL namespace
+     * is correct and will work in both current PHP versions and PHP 8.5+.
+     *
+     * @group Varien_Db
+     */
+    public function testPdoMysqlNamespaceCompatibility(): void
+    {
+        // In PHP < 8.5, PDO\MYSQL class should not exist
+        // In PHP >= 8.5, PDO\MYSQL class may exist
+        $pdoMysqlClassExists = class_exists('PDO\\MYSQL');
+
+        if ($pdoMysqlClassExists) {
+            // If the new namespace exists, verify we can access the constant
+            self::assertTrue(defined('PDO\\MYSQL::ATTR_USE_BUFFERED_QUERY'));
+        } else {
+            // If the new namespace doesn't exist, verify the old constant is available
+            self::assertTrue(defined('PDO::MYSQL_ATTR_USE_BUFFERED_QUERY'));
+        }
+    }
+
     private function getHostInfo(string $str): Varien_Object
     {
         $method = new ReflectionMethod(Varien_Db_Adapter_Pdo_Mysql::class, '_getHostInfo');
 
         /** @var Varien_Object $hostInfo */
-        $hostInfo = $method->invoke($this->adapter, $str);
+        $hostInfo = $method->invoke(self::createStub(Varien_Db_Adapter_Pdo_Mysql::class), $str);
         return $hostInfo;
     }
 }

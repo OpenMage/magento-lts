@@ -24,7 +24,7 @@ class Mage_Sales_Model_Resource_Report_Collection_Abstract extends Mage_Reports_
     /**
      * Set status filter
      *
-     * @param string $orderStatus
+     * @param  string $orderStatus
      * @return $this
      */
     public function addOrderStatusFilter($orderStatus)

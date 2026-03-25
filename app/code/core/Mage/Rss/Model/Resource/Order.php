@@ -27,7 +27,7 @@ class Mage_Rss_Model_Resource_Order
     /**
      * Retrieve order comments
      *
-     * @param int $orderId
+     * @param  int   $orderId
      * @return array
      */
     public function getAllCommentCollection($orderId)

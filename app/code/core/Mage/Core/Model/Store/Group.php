@@ -12,21 +12,21 @@
  *
  * @package    Mage_Core
  *
- * @method Mage_Core_Model_Resource_Store_Group _getResource()
+ * @method Mage_Core_Model_Resource_Store_Group            _getResource()
  * @method Mage_Core_Model_Resource_Store_Group_Collection getCollection()
- * @method int getGroupId()
- * @method string getName()
- * @method int getOriginalGroupId()
- * @method int getOriginalWebsiteId()
- * @method Mage_Core_Model_Resource_Store_Group getResource()
+ * @method int                                             getGroupId()
+ * @method string                                          getName()
+ * @method int                                             getOriginalGroupId()
+ * @method int                                             getOriginalWebsiteId()
+ * @method Mage_Core_Model_Resource_Store_Group            getResource()
  * @method Mage_Core_Model_Resource_Store_Group_Collection getResourceCollection()
- * @method bool hasDefaultStoreId()
- * @method bool hasGroupId()
- * @method $this setDefaultStoreId(int $value)
- * @method $this setHomeUrl(string $value)
- * @method $this setName(string $value)
- * @method $this setRootCategoryId(int $value)
- * @method $this setWebsiteId(int $value)
+ * @method bool                                            hasDefaultStoreId()
+ * @method bool                                            hasGroupId()
+ * @method $this                                           setDefaultStoreId(int $value)
+ * @method $this                                           setHomeUrl(string $value)
+ * @method $this                                           setName(string $value)
+ * @method $this                                           setRootCategoryId(int $value)
+ * @method $this                                           setWebsiteId(int $value)
  */
 class Mage_Core_Model_Store_Group extends Mage_Core_Model_Abstract
 {
@@ -95,7 +95,7 @@ class Mage_Core_Model_Store_Group extends Mage_Core_Model_Abstract
     private $_isReadOnly = false;
 
     /**
-     * init model
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -234,27 +234,27 @@ class Mage_Core_Model_Store_Group extends Mage_Core_Model_Abstract
      * If no store with given locale is found - default store is returned
      * If group has no stores - null is returned
      *
-     * @param string $locale
+     * @param  string                     $locale
      * @return null|Mage_Core_Model_Store
      */
     public function getDefaultStoreByLocale($locale)
     {
         if ($this->getDefaultStore() && $this->getDefaultStore()->getLocaleCode() == $locale) {
             return $this->getDefaultStore();
-        } else {
-            $stores = $this->getStoresByLocale($locale);
-            if (count($stores)) {
-                return $stores[0];
-            } else {
-                return $this->getDefaultStore() ? $this->getDefaultStore() : null;
-            }
         }
+
+        $stores = $this->getStoresByLocale($locale);
+        if (count($stores)) {
+            return $stores[0];
+        }
+
+        return $this->getDefaultStore() ? $this->getDefaultStore() : null;
     }
 
     /**
      * Retrieve list of stores with given locale
      *
-     * @param string $locale
+     * @param  string $locale
      * @return array
      */
     public function getStoresByLocale($locale)
@@ -345,7 +345,7 @@ class Mage_Core_Model_Store_Group extends Mage_Core_Model_Abstract
     /**
      * Get/Set isReadOnly flag
      *
-     * @param bool $value
+     * @param  bool $value
      * @return bool
      */
     public function isReadOnly($value = null)

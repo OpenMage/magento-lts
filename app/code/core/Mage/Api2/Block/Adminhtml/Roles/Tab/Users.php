@@ -13,12 +13,14 @@
  * @package    Mage_Api2
  *
  * @method Mage_Admin_Model_Resource_User_Collection getCollection()
- * @method Mage_Api2_Model_Acl_Global_Role getRole()
- * @method $this setRole(Mage_Api2_Model_Acl_Global_Role $role)
- * @method $this setUsers(array $users)
+ * @method Mage_Api2_Model_Acl_Global_Role           getRole()
+ * @method $this                                     setRole(Mage_Api2_Model_Acl_Global_Role $role)
+ * @method $this                                     setUsers(array $users)
  */
 class Mage_Api2_Block_Adminhtml_Roles_Tab_Users extends Mage_Adminhtml_Block_Widget_Grid implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
+    protected string $_eventPrefix = 'api2_adminhtml_roles_tab_users';
+
     public function __construct()
     {
         parent::__construct();
@@ -31,9 +33,7 @@ class Mage_Api2_Block_Adminhtml_Roles_Tab_Users extends Mage_Adminhtml_Block_Wid
     }
 
     /**
-     * Prepare collection
-     *
-     * @return $this
+     * @inheritDoc
      */
     protected function _prepareCollection()
     {
@@ -49,14 +49,12 @@ class Mage_Api2_Block_Adminhtml_Roles_Tab_Users extends Mage_Adminhtml_Block_Wid
         }
 
         $this->setCollection($collection);
-        parent::_prepareCollection();
-        return $this;
+        return parent::_prepareCollection();
     }
 
     /**
-     * Prepare columns
-     *
      * @inheritDoc
+     * @throws Exception
      */
     protected function _prepareColumns()
     {
@@ -89,9 +87,7 @@ class Mage_Api2_Block_Adminhtml_Roles_Tab_Users extends Mage_Adminhtml_Block_Wid
     }
 
     /**
-     * Get grid URL
-     *
-     * @return string
+     * @inheritDoc
      */
     public function getGridUrl()
     {
@@ -99,14 +95,12 @@ class Mage_Api2_Block_Adminhtml_Roles_Tab_Users extends Mage_Adminhtml_Block_Wid
     }
 
     /**
-     * Get row URL
-     *
+     * @inheritDoc
      * @param Mage_Api2_Model_Acl_Global_Role $row
-     * @return null|string
      */
     public function getRowUrl($row)
     {
-        return null;
+        return '';
     }
 
     /**
@@ -133,6 +127,7 @@ class Mage_Api2_Block_Adminhtml_Roles_Tab_Users extends Mage_Adminhtml_Block_Wid
      * Whether tab is available
      *
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function canShowTab()
     {
@@ -140,9 +135,8 @@ class Mage_Api2_Block_Adminhtml_Roles_Tab_Users extends Mage_Adminhtml_Block_Wid
     }
 
     /**
-     * Whether tab is hidden
-     *
-     * @return bool
+     * @inheritDoc
+     * @throws Mage_Core_Exception
      */
     public function isHidden()
     {
@@ -152,9 +146,10 @@ class Mage_Api2_Block_Adminhtml_Roles_Tab_Users extends Mage_Adminhtml_Block_Wid
     /**
      * Render block only when not hidden
      *
-     * @return string
+     * @inheritDoc
+     * @throws Mage_Core_Exception
      */
-    public function _toHtml()
+    protected function _toHtml()
     {
         if (!$this->isHidden()) {
             return parent::_toHtml();
@@ -164,7 +159,7 @@ class Mage_Api2_Block_Adminhtml_Roles_Tab_Users extends Mage_Adminhtml_Block_Wid
     }
 
     /**
-     * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
+     * @param  Mage_Adminhtml_Block_Widget_Grid_Column $column
      * @return $this
      */
     protected function _addColumnFilterToCollection($column)
@@ -190,7 +185,7 @@ class Mage_Api2_Block_Adminhtml_Roles_Tab_Users extends Mage_Adminhtml_Block_Wid
     /**
      * Get users
      *
-     * @param bool $json
+     * @param  bool         $json
      * @return array|string
      */
     public function getUsers($json = false)

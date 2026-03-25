@@ -19,7 +19,7 @@ class Mage_CatalogIndex_Model_Resource_Abstract extends Mage_Core_Model_Resource
     protected $_websiteId  = null;
 
     /**
-     * Initialize model
+     * @inheritDoc
      */
     protected function _construct() {}
 

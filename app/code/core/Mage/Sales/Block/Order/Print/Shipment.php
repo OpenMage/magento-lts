@@ -136,14 +136,14 @@ class Mage_Sales_Block_Order_Print_Shipment extends Mage_Sales_Block_Items_Abstr
     /**
      * Getter for order tracking numbers collection per shipment
      *
-     * @param Mage_Sales_Model_Order_Shipment $shipment
+     * @param  Mage_Sales_Model_Order_Shipment $shipment
      * @return array
      */
     public function getShipmentTracks($shipment)
     {
         $tracks = [];
         if (!empty($this->_tracks[$shipment->getId()])) {
-            $tracks = $this->_tracks[$shipment->getId()];
+            return $this->_tracks[$shipment->getId()];
         }
 
         return $tracks;
@@ -152,7 +152,7 @@ class Mage_Sales_Block_Order_Print_Shipment extends Mage_Sales_Block_Items_Abstr
     /**
      * Getter for shipment address by format
      *
-     * @param Mage_Sales_Model_Order_Shipment $shipment
+     * @param  Mage_Sales_Model_Order_Shipment $shipment
      * @return string
      */
     public function getShipmentAddressFormattedHtml($shipment)
@@ -168,7 +168,7 @@ class Mage_Sales_Block_Order_Print_Shipment extends Mage_Sales_Block_Items_Abstr
     /**
      * Getter for billing address of order by format
      *
-     * @param Mage_Sales_Model_Order $order
+     * @param  Mage_Sales_Model_Order $order
      * @return string
      */
     public function getBillingAddressFormattedHtml($order)
@@ -184,7 +184,7 @@ class Mage_Sales_Block_Order_Print_Shipment extends Mage_Sales_Block_Items_Abstr
     /**
      * Getter for billing address of order by format
      *
-     * @param Mage_Sales_Model_Order_Shipment $shipment
+     * @param  Mage_Sales_Model_Order_Shipment $shipment
      * @return array
      */
     public function getShipmentItems($shipment)

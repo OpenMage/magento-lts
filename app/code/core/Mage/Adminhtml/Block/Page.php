@@ -11,6 +11,9 @@
  * Adminhtml page
  *
  * @package    Mage_Adminhtml
+ *
+ * @method string getBodyClass()
+ * @method $this  setBodyClass(string $value)
  */
 class Mage_Adminhtml_Block_Page extends Mage_Adminhtml_Block_Template
 {
@@ -41,7 +44,7 @@ class Mage_Adminhtml_Block_Page extends Mage_Adminhtml_Block_Template
     /**
      * Add CSS class to page body tag
      *
-     * @param string $className
+     * @param  string $className
      * @return $this
      */
     public function addBodyClass($className)

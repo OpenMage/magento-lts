@@ -12,8 +12,7 @@
  *
  * @package    Mage_Core
  *
- * @method Mage_Core_Model_Website getItemById(int $value)
- * @method Mage_Core_Model_Website[] getItems()
+ * @extends Mage_Core_Model_Resource_Db_Collection_Abstract<Mage_Core_Model_Website>
  */
 class Mage_Core_Model_Resource_Website_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
@@ -25,12 +24,12 @@ class Mage_Core_Model_Resource_Website_Collection extends Mage_Core_Model_Resour
     /**
      * Map field to alias
      *
-     * @var array
+     * @inheritDoc
      */
     protected $_map = ['fields' => ['website_id' => 'main_table.website_id']];
 
     /**
-     * Define resource model
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -41,7 +40,7 @@ class Mage_Core_Model_Resource_Website_Collection extends Mage_Core_Model_Resour
     /**
      * Set flag for load default (admin) website
      *
-     * @param bool $loadDefault
+     * @param  bool  $loadDefault
      * @return $this
      */
     public function setLoadDefault($loadDefault)
@@ -83,7 +82,7 @@ class Mage_Core_Model_Resource_Website_Collection extends Mage_Core_Model_Resour
     /**
      * Add website filter to collection
      *
-     * @param int $ids|array
+     * @param  array|int $ids
      * @return $this
      */
     public function addIdFilter($ids)
@@ -153,7 +152,7 @@ class Mage_Core_Model_Resource_Website_Collection extends Mage_Core_Model_Resour
      * Adding filter by group id or array of ids but only if
      * tables with appropriate information were joined before.
      *
-     * @param array|int $groupIds
+     * @param  array|int $groupIds
      * @return $this
      */
     public function addFilterByGroupIds($groupIds)

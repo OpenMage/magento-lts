@@ -17,8 +17,8 @@ class Mage_Wishlist_Model_Observer extends Mage_Core_Model_Abstract
     /**
      * Get customer wishlist model instance
      *
-     * @param   int $customerId
-     * @return  false|Mage_Wishlist_Model_Wishlist
+     * @param  int                                $customerId
+     * @return false|Mage_Wishlist_Model_Wishlist
      */
     protected function _getWishlist($customerId)
     {
@@ -32,8 +32,9 @@ class Mage_Wishlist_Model_Observer extends Mage_Core_Model_Abstract
     /**
      * Check move quote item to wishlist request
      *
-     * @param   Varien_Event_Observer $observer
-     * @return  Mage_Wishlist_Model_Observer
+     * @param  Varien_Event_Observer        $observer
+     * @return Mage_Wishlist_Model_Observer
+     * @throws Throwable
      */
     public function processCartUpdateBefore($observer)
     {
@@ -76,7 +77,10 @@ class Mage_Wishlist_Model_Observer extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @param Varien_Event_Observer $observer
+     * @param  Varien_Event_Observer           $observer
+     * @return $this
+     * @throws Mage_Core_Model_Store_Exception
+     * @throws Zend_Cache_Exception
      */
     public function processAddToCart($observer)
     {
@@ -101,7 +105,7 @@ class Mage_Wishlist_Model_Observer extends Mage_Core_Model_Abstract
             } elseif ($sharedWishlist) {
                 $wishlist = Mage::getModel('wishlist/wishlist')->loadByCode($sharedWishlist);
             } else {
-                return;
+                return $this;
             }
 
             $wishlist->getItemCollection()->load();
@@ -128,6 +132,8 @@ class Mage_Wishlist_Model_Observer extends Mage_Core_Model_Abstract
             $observer->getEvent()->getResponse()->setRedirect($url);
             Mage::getSingleton('checkout/session')->setNoCartRedirect(true);
         }
+
+        return $this;
     }
 
     /**

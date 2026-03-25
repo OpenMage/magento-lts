@@ -12,22 +12,22 @@
  *
  * @package    Mage_Sales
  *
- * @method Mage_Sales_Model_Resource_Quote_Item_Option _getResource()
- * @method string getCode()
+ * @method Mage_Sales_Model_Resource_Quote_Item_Option            _getResource()
+ * @method string                                                 getCode()
  * @method Mage_Sales_Model_Resource_Quote_Item_Option_Collection getCollection()
- * @method int getItemId()
- * @method int getProductId()
- * @method Mage_Sales_Model_Resource_Quote_Item_Option getResource()
+ * @method int                                                    getItemId()
+ * @method int                                                    getProductId()
+ * @method Mage_Sales_Model_Resource_Quote_Item_Option            getResource()
  * @method Mage_Sales_Model_Resource_Quote_Item_Option_Collection getResourceCollection()
- * @method $this setBackorders(float $value)
- * @method $this setCode(string $value)
- * @method $this setHasError(bool $value)
- * @method $this setHasQtyOptionUpdate(bool $value)
- * @method $this setIsQtyDecimal(bool $value)
- * @method $this setItemId(int $value)
- * @method $this setMessage(string $value)
- * @method $this setProductId(int $value)
- * @method $this setValue(string $value)
+ * @method $this                                                  setBackorders(float $value)
+ * @method $this                                                  setCode(string $value)
+ * @method $this                                                  setHasError(bool $value)
+ * @method $this                                                  setHasQtyOptionUpdate(bool $value)
+ * @method $this                                                  setIsQtyDecimal(bool $value)
+ * @method $this                                                  setItemId(int $value)
+ * @method $this                                                  setMessage(string $value)
+ * @method $this                                                  setProductId(int $value)
+ * @method $this                                                  setValue(string $value)
  */
 class Mage_Sales_Model_Quote_Item_Option extends Mage_Core_Model_Abstract implements Mage_Catalog_Model_Product_Configuration_Item_Option_Interface
 {
@@ -35,6 +35,9 @@ class Mage_Sales_Model_Quote_Item_Option extends Mage_Core_Model_Abstract implem
 
     protected $_product;
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('sales/quote_item_option');
@@ -57,8 +60,8 @@ class Mage_Sales_Model_Quote_Item_Option extends Mage_Core_Model_Abstract implem
     /**
      * Set quote item
      *
-     * @param   Mage_Sales_Model_Quote_Item $item
-     * @return  $this
+     * @param  Mage_Sales_Model_Quote_Item $item
+     * @return $this
      */
     public function setItem($item)
     {
@@ -83,8 +86,8 @@ class Mage_Sales_Model_Quote_Item_Option extends Mage_Core_Model_Abstract implem
     /**
      * Set option product
      *
-     * @param   Mage_Catalog_Model_Product $product
-     * @return  $this
+     * @param  Mage_Catalog_Model_Product $product
+     * @return $this
      */
     public function setProduct($product)
     {

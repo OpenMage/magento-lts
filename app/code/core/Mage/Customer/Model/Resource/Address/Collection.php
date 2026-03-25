@@ -12,11 +12,13 @@
  *
  * @package    Mage_Customer
  *
- * @method Mage_Customer_Model_Address getItemById(int $value)
- * @method Mage_Customer_Model_Address[] getItems()
+ * @extends Mage_Eav_Model_Entity_Collection_Abstract<Mage_Customer_Model_Address>
  */
 class Mage_Customer_Model_Resource_Address_Collection extends Mage_Eav_Model_Entity_Collection_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('customer/address');
@@ -25,7 +27,7 @@ class Mage_Customer_Model_Resource_Address_Collection extends Mage_Eav_Model_Ent
     /**
      * Set customer filter
      *
-     * @param Mage_Customer_Model_Customer $customer
+     * @param  Mage_Customer_Model_Customer $customer
      * @return $this
      */
     public function setCustomerFilter($customer)

@@ -12,26 +12,25 @@
  *
  * @package    Mage_Core
  *
- * @method Mage_Core_Model_Resource_Email_Queue _getResource()
+ * @method Mage_Core_Model_Resource_Email_Queue            _getResource()
  * @method Mage_Core_Model_Resource_Email_Queue_Collection getCollection()
- * @method int getEntityId()
- * @method string getEntityType()
- * @method string getEventType()
- * @method int getIsForceCheck()
- * @method string getMessageBody()
- * @method string getMessageBodyHash()
- * @method string getMessageParameters()
- * @method Mage_Core_Model_Resource_Email_Queue getResource()
+ * @method int                                             getEntityId()
+ * @method string                                          getEntityType()
+ * @method string                                          getEventType()
+ * @method int                                             getIsForceCheck()
+ * @method string                                          getMessageBody()
+ * @method string                                          getMessageBodyHash()
+ * @method array                                           getMessageParameters()
+ * @method Mage_Core_Model_Resource_Email_Queue            getResource()
  * @method Mage_Core_Model_Resource_Email_Queue_Collection getResourceCollection()
- * @method $this setCreatedAt(string $value)
- * @method $this setEntityId(int $value)
- * @method $this setEntityType(string $value)
- * @method $this setEventType(string $value)
- * @method $this setIsForceCheck(int $value)
- * @method $this setMessageBody(string $value)
- * @method $this setMessageBodyHash(string $value)
- * @method $this setMessageParameters(string $value)
- * @method $this setProcessedAt(string $value)
+ * @method $this                                           setEntityId(int $value)
+ * @method $this                                           setEntityType(string $value)
+ * @method $this                                           setEventType(string $value)
+ * @method $this                                           setIsForceCheck(int $value)
+ * @method $this                                           setMessageBody(string $value)
+ * @method $this                                           setMessageBodyHash(string $value)
+ * @method $this                                           setMessageParameters(array $value)
+ * @method $this                                           setProcessedAt(string $value)
  */
 class Mage_Core_Model_Email_Queue extends Mage_Core_Model_Abstract
 {
@@ -57,7 +56,7 @@ class Mage_Core_Model_Email_Queue extends Mage_Core_Model_Abstract
     protected $_recipients = [];
 
     /**
-     * Initialize object
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -68,6 +67,8 @@ class Mage_Core_Model_Email_Queue extends Mage_Core_Model_Abstract
      * Save bind recipients to message
      *
      * @inheritDoc
+     * @throws Exception
+     * @throws Mage_Core_Exception
      */
     protected function _afterSave()
     {
@@ -94,6 +95,7 @@ class Mage_Core_Model_Email_Queue extends Mage_Core_Model_Abstract
      * Add message to queue
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function addMessageToQueue()
     {
@@ -104,8 +106,8 @@ class Mage_Core_Model_Email_Queue extends Mage_Core_Model_Abstract
         try {
             $this->save();
             $this->setId(null);
-        } catch (Exception $exception) {
-            Mage::logException($exception);
+        } catch (Throwable $throwable) {
+            Mage::logException($throwable);
         }
 
         return $this;
@@ -114,9 +116,9 @@ class Mage_Core_Model_Email_Queue extends Mage_Core_Model_Abstract
     /**
      * Add message recipients by email type
      *
-     * @param array|string $emails
-     * @param null|array|string $names
-     * @param int $type
+     * @param  array|string      $emails
+     * @param  null|array|string $names
+     * @param  int               $type
      * @return $this
      * @SuppressWarnings("PHPMD.CamelCaseVariableName")
      */
@@ -127,7 +129,7 @@ class Mage_Core_Model_Email_Queue extends Mage_Core_Model_Abstract
             self::EMAIL_TYPE_CC,
             self::EMAIL_TYPE_BCC,
         ];
-        $type = !in_array($type, $_supportedEmailTypes) ? self::EMAIL_TYPE_TO : $type;
+        $type = in_array($type, $_supportedEmailTypes) ? $type : self::EMAIL_TYPE_TO;
         $emails = array_values((array) $emails);
         $names = is_array($names) ? $names : (array) $names;
         $names = array_values($names);
@@ -174,6 +176,9 @@ class Mage_Core_Model_Email_Queue extends Mage_Core_Model_Abstract
      * Send all messages in a queue
      *
      * @return $this
+     * @throws Mage_Core_Exception
+     * @throws Zend_Cache_Exception
+     * @throws Zend_Mail_Exception
      */
     public function send()
     {
@@ -249,8 +254,8 @@ class Mage_Core_Model_Email_Queue extends Mage_Core_Model_Abstract
                             'email_body' => $message->getMessageBody(),
                         ]);
                     }
-                } catch (Exception $e) {
-                    Mage::logException($e);
+                } catch (Throwable $throwable) {
+                    Mage::logException($throwable);
                 }
             }
         }
@@ -262,6 +267,7 @@ class Mage_Core_Model_Email_Queue extends Mage_Core_Model_Abstract
      * Clean queue from sent messages
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function cleanQueue()
     {

@@ -17,8 +17,8 @@ abstract class Mage_Sales_Controller_Abstract extends Mage_Core_Controller_Front
     /**
      * Check order view availability
      *
-     * @param   Mage_Sales_Model_Order $order
-     * @return  bool
+     * @param  Mage_Sales_Model_Order $order
+     * @return bool
      */
     protected function _canViewOrder($order)
     {
@@ -56,7 +56,7 @@ abstract class Mage_Sales_Controller_Abstract extends Mage_Core_Controller_Front
     /**
      * Try to load valid order by order_id and register it
      *
-     * @param int $orderId
+     * @param  int  $orderId
      * @return bool
      */
     protected function _loadValidOrder($orderId = null)
@@ -75,9 +75,9 @@ abstract class Mage_Sales_Controller_Abstract extends Mage_Core_Controller_Front
         if ($this->_canViewOrder($order)) {
             Mage::register('current_order', $order);
             return true;
-        } else {
-            $this->_redirect('*/*/history');
         }
+
+        $this->_redirect('*/*/history');
 
         return false;
     }
@@ -131,17 +131,17 @@ abstract class Mage_Sales_Controller_Abstract extends Mage_Core_Controller_Front
         foreach ($items as $item) {
             try {
                 $cart->addOrderItem($item);
-            } catch (Mage_Core_Exception $e) {
+            } catch (Mage_Core_Exception $mageCoreException) {
                 if (Mage::getSingleton('checkout/session')->getUseNotice(true)) {
-                    Mage::getSingleton('checkout/session')->addNotice($e->getMessage());
+                    Mage::getSingleton('checkout/session')->addNotice($mageCoreException->getMessage());
                 } else {
-                    Mage::getSingleton('checkout/session')->addError($e->getMessage());
+                    Mage::getSingleton('checkout/session')->addError($mageCoreException->getMessage());
                 }
 
                 $this->_redirect('*/*/history');
-            } catch (Exception $e) {
+            } catch (Exception $exception) {
                 Mage::getSingleton('checkout/session')->addException(
-                    $e,
+                    $exception,
                     Mage::helper('checkout')->__('Cannot add the item to shopping cart.'),
                 );
                 $this->_redirect('checkout/cart');

@@ -95,10 +95,10 @@ class Mage_Sales_Billing_AgreementController extends Mage_Core_Controller_Front_
 
                 $this->_redirectUrl($agreement->initToken());
                 return $this;
-            } catch (Mage_Core_Exception $e) {
-                $this->_getSession()->addError($e->getMessage());
-            } catch (Exception $e) {
-                Mage::logException($e);
+            } catch (Mage_Core_Exception $mageCoreException) {
+                $this->_getSession()->addError($mageCoreException->getMessage());
+            } catch (Exception $exception) {
+                Mage::logException($exception);
                 $this->_getSession()->addError($this->__('Failed to start billing agreement wizard.'));
             }
         }
@@ -126,10 +126,10 @@ class Mage_Sales_Billing_AgreementController extends Mage_Core_Controller_Front_
                 );
                 $this->_redirect('*/*/view', ['agreement' => $agreement->getId()]);
                 return;
-            } catch (Mage_Core_Exception $e) {
-                $this->_getSession()->addError($e->getMessage());
-            } catch (Exception $e) {
-                Mage::logException($e);
+            } catch (Mage_Core_Exception $mageCoreException) {
+                $this->_getSession()->addError($mageCoreException->getMessage());
+            } catch (Exception $exception) {
+                Mage::logException($exception);
                 $this->_getSession()->addError($this->__('Failed to finish billing agreement wizard.'));
             }
 
@@ -167,10 +167,10 @@ class Mage_Sales_Billing_AgreementController extends Mage_Core_Controller_Front_
             try {
                 $agreement->cancel();
                 $this->_getSession()->addNotice($this->__('The billing agreement "%s" has been canceled.', $agreement->getReferenceId()));
-            } catch (Mage_Core_Exception $e) {
-                $this->_getSession()->addError($e->getMessage());
-            } catch (Exception $e) {
-                Mage::logException($e);
+            } catch (Mage_Core_Exception $mageCoreException) {
+                $this->_getSession()->addError($mageCoreException->getMessage());
+            } catch (Exception $exception) {
+                Mage::logException($exception);
                 $this->_getSession()->addError($this->__('Failed to cancel the billing agreement.'));
             }
         }

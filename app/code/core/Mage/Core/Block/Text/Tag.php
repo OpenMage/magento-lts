@@ -20,6 +20,9 @@
  */
 class Mage_Core_Block_Text_Tag extends Mage_Core_Block_Text
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         parent::_construct();
@@ -27,8 +30,8 @@ class Mage_Core_Block_Text_Tag extends Mage_Core_Block_Text
     }
 
     /**
-     * @param array|string $param
-     * @param null|string $value
+     * @param  array|string $param
+     * @param  null|string  $value
      * @return $this
      */
     public function setTagParam($param, $value = null)
@@ -47,7 +50,7 @@ class Mage_Core_Block_Text_Tag extends Mage_Core_Block_Text
     }
 
     /**
-     * @param string $text
+     * @param  string $text
      * @return $this
      */
     public function setContents($text)

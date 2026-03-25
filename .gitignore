@@ -126,3 +126,6 @@ cypress/videos/
 
 # rector
 .rector.result.cache
+
+#dotenv
+.env

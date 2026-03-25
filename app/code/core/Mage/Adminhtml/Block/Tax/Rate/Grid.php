@@ -9,18 +9,25 @@
 
 /**
  * @package    Mage_Adminhtml
+ *
+ * @method Mage_Tax_Model_Resource_Calculation_Rate_Collection getCollection()
  */
 class Mage_Adminhtml_Block_Tax_Rate_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_tax_rate_grid';
+
     public function __construct()
     {
         parent::__construct();
         $this->setDefaultSort('region_name');
-        $this->setDefaultDir('asc');
+        $this->setDefaultDir('ASC');
         $this->setId('tax_rate_grid');
         $this->setSaveParametersInSession(true);
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _prepareCollection()
     {
         $rateCollection = Mage::getModel('tax/calculation_rate')->getCollection()
@@ -30,6 +37,9 @@ class Mage_Adminhtml_Block_Tax_Rate_Grid extends Mage_Adminhtml_Block_Widget_Gri
         return parent::_prepareCollection();
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _setCollectionOrder($column)
     {
         $collection = $this->getCollection();
@@ -45,6 +55,10 @@ class Mage_Adminhtml_Block_Tax_Rate_Grid extends Mage_Adminhtml_Block_Widget_Gri
         return $this;
     }
 
+    /**
+     * @inheritDoc
+     * @throws Exception
+     */
     protected function _prepareColumns()
     {
         $this->addColumn('code', [
@@ -96,8 +110,8 @@ class Mage_Adminhtml_Block_Tax_Rate_Grid extends Mage_Adminhtml_Block_Widget_Gri
     }
 
     /**
+     * @inheritDoc
      * @param Mage_Tax_Model_Calculation_Rate $row
-     * @return string
      */
     public function getRowUrl($row)
     {

@@ -12,9 +12,7 @@
  *
  * @package    Mage_Catalog
  *
- * @method Mage_Catalog_Model_Category getFirstItem()
- * @method Mage_Catalog_Model_Category getItemById(string $value)
- * @method Mage_Catalog_Model_Category[] getItems()
+ * @extends Mage_Catalog_Model_Resource_Collection_Abstract<Mage_Catalog_Model_Category>
  */
 class Mage_Catalog_Model_Resource_Category_Collection extends Mage_Catalog_Model_Resource_Collection_Abstract
 {
@@ -78,11 +76,11 @@ class Mage_Catalog_Model_Resource_Category_Collection extends Mage_Catalog_Model
     public function __construct($resource = null, array $args = [])
     {
         parent::__construct($resource);
-        $this->_factory = !empty($args['factory']) ? $args['factory'] : Mage::getSingleton('catalog/factory');
+        $this->_factory = empty($args['factory']) ? Mage::getSingleton('catalog/factory') : $args['factory'];
     }
 
     /**
-     * Init collection and determine table names
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -95,7 +93,7 @@ class Mage_Catalog_Model_Resource_Category_Collection extends Mage_Catalog_Model
     /**
      * Add Id filter
      *
-     * @param array|int|string $categoryIds
+     * @param  array|int|string $categoryIds
      * @return $this
      */
     public function addIdFilter($categoryIds)
@@ -124,7 +122,7 @@ class Mage_Catalog_Model_Resource_Category_Collection extends Mage_Catalog_Model
     /**
      * Set flag for loading product count
      *
-     * @param bool $flag
+     * @param  bool  $flag
      * @return $this
      */
     public function setLoadProductCount($flag)
@@ -165,7 +163,7 @@ class Mage_Catalog_Model_Resource_Category_Collection extends Mage_Catalog_Model
     /**
      * Set id of the store that we should count products on
      *
-     * @param int $storeId
+     * @param  int   $storeId
      * @return $this
      */
     public function setProductStoreId($storeId)
@@ -191,8 +189,8 @@ class Mage_Catalog_Model_Resource_Category_Collection extends Mage_Catalog_Model
     /**
      * Load collection
      *
-     * @param bool $printQuery
-     * @param bool $logQuery
+     * @param  bool  $printQuery
+     * @param  bool  $logQuery
      * @return $this
      */
     public function load($printQuery = false, $logQuery = false)
@@ -226,9 +224,9 @@ class Mage_Catalog_Model_Resource_Category_Collection extends Mage_Catalog_Model
     /**
      * Load product count for specified items
      *
-     * @param array $items
-     * @param bool $countRegular get product count for regular (non-anchor) categories
-     * @param bool $countAnchor get product count for anchor categories
+     * @param  array $items
+     * @param  bool  $countRegular get product count for regular (non-anchor) categories
+     * @param  bool  $countAnchor  get product count for anchor categories
      * @return $this
      */
     public function loadProductCount($items, $countRegular = true, $countAnchor = true)
@@ -318,7 +316,7 @@ class Mage_Catalog_Model_Resource_Category_Collection extends Mage_Catalog_Model
     /**
      * Add category path filter
      *
-     * @param string $regexp
+     * @param  string $regexp
      * @return $this
      */
     public function addPathFilter($regexp)
@@ -353,7 +351,7 @@ class Mage_Catalog_Model_Resource_Category_Collection extends Mage_Catalog_Model
     /**
      * Add filter by path to collection
      *
-     * @param string $parent
+     * @param  string $parent
      * @return $this
      */
     public function addParentPathFilter($parent)
@@ -413,7 +411,7 @@ class Mage_Catalog_Model_Resource_Category_Collection extends Mage_Catalog_Model
     /**
      * Add category path filter
      *
-     * @param array|string $paths
+     * @param  array|string $paths
      * @return $this
      */
     public function addPathsFilter($paths)
@@ -437,7 +435,7 @@ class Mage_Catalog_Model_Resource_Category_Collection extends Mage_Catalog_Model
     /**
      * Add category level filter
      *
-     * @param int|string $level
+     * @param  int|string $level
      * @return $this
      */
     public function addLevelFilter($level)
@@ -461,7 +459,7 @@ class Mage_Catalog_Model_Resource_Category_Collection extends Mage_Catalog_Model
     /**
      * Add order field
      *
-     * @param string $field
+     * @param  string $field
      * @return $this
      */
     public function addOrderField($field)
@@ -473,7 +471,7 @@ class Mage_Catalog_Model_Resource_Category_Collection extends Mage_Catalog_Model
     /**
      * Set disable flat flag
      *
-     * @param bool $flag
+     * @param  bool  $flag
      * @return $this
      */
     public function setDisableFlat($flag)

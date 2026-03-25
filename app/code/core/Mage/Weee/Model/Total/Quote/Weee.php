@@ -55,7 +55,7 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
     /**
      * Collect Weee taxes amount and prepare items prices for taxation and discount
      *
-     * @return  $this
+     * @return $this
      */
     public function collect(Mage_Sales_Model_Quote_Address $address)
     {
@@ -101,8 +101,8 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
     /**
      * Calculate item fixed tax and prepare information for discount and recular taxation
      *
-     * @param   Mage_Sales_Model_Quote_Item_Abstract $item
-     * @return  $this
+     * @param  Mage_Sales_Model_Quote_Item_Abstract $item
+     * @return $this
      */
     protected function _process(Mage_Sales_Model_Quote_Address $address, $item)
     {
@@ -234,8 +234,8 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
     /**
      * Get the default store rate
      *
-     * @param Mage_Sales_Model_Quote_Address $address
-     * @param Mage_Sales_Model_Quote_Item_Abstract $item
+     * @param  Mage_Sales_Model_Quote_Address       $address
+     * @param  Mage_Sales_Model_Quote_Item_Abstract $item
      * @return mixed
      */
     protected function _customerRatePercent($address, $item)
@@ -257,10 +257,10 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
     /**
      * Check if discount should be applied to weee and add weee to discounted price
      *
-     * @param   Mage_Sales_Model_Quote_Item_Abstract $item
-     * @param   float $value
-     * @param   float $baseValue
-     * @return  $this
+     * @param  Mage_Sales_Model_Quote_Item_Abstract $item
+     * @param  float                                $value
+     * @param  float                                $baseValue
+     * @return $this
      * @deprecated since 1.8
      */
     protected function _processDiscountSettings($item, $value, $baseValue)
@@ -275,12 +275,12 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
     /**
      * Add extra amount which should be taxable by regular tax
      *
-     * @param   Mage_Sales_Model_Quote_Item_Abstract $item
-     * @param   float $value
-     * @param   float $baseValue
-     * @param   float $rowValue
-     * @param   float $baseRowValue
-     * @return  $this
+     * @param  Mage_Sales_Model_Quote_Item_Abstract $item
+     * @param  float                                $value
+     * @param  float                                $baseValue
+     * @param  float                                $rowValue
+     * @param  float                                $baseRowValue
+     * @return $this
      */
     protected function _processTaxSettings($item, $value, $baseValue, $rowValue, $baseRowValue)
     {
@@ -309,10 +309,10 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
     /**
      * Process row amount based on FPT total amount configuration setting
      *
-     * @param   Mage_Sales_Model_Quote_Address $address
-     * @param   float $rowValue
-     * @param   float $baseRowValue
-     * @return  $this
+     * @param  Mage_Sales_Model_Quote_Address $address
+     * @param  float                          $rowValue
+     * @param  float                          $baseRowValue
+     * @return $this
      */
     protected function _processTotalAmount($address, $rowValue, $baseRowValue)
     {
@@ -363,7 +363,7 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
     /**
      * Fetch FPT data to address object for display in totals block
      *
-     * @return  $this
+     * @return $this
      */
     public function fetch(Mage_Sales_Model_Quote_Address $address)
     {
@@ -374,9 +374,9 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
      * Process model configuration array.
      * This method can be used for changing totals collect sort order
      *
-     * @param   array $config
-     * @param   Mage_Core_Model_Store $store
-     * @return  array
+     * @param  array                 $config
+     * @param  Mage_Core_Model_Store $store
+     * @return array
      */
     public function processConfigArray($config, $store)
     {
@@ -386,9 +386,9 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
     /**
      * Process item fixed taxes
      *
-     * @param   Mage_Sales_Model_Quote_Item_Abstract $item
-     * @param   bool $updateParent
-     * @return  $this
+     * @param  Mage_Sales_Model_Quote_Item_Abstract $item
+     * @param  bool                                 $updateParent
+     * @return $this
      * @deprecated since 1.3.2.3
      */
     protected function _processItem(Mage_Sales_Model_Quote_Address $address, $item, $updateParent = false)
@@ -446,7 +446,10 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
                 $address->setBaseGrandTotal($address->getBaseGrandTotal() - $baseRowValueDiscount);
             }
 
-            $oneDisposition = $baseOneDisposition = $disposition = $baseDisposition = 0;
+            $oneDisposition = 0;
+            $baseOneDisposition = 0;
+            $disposition = 0;
+            $baseDisposition = 0;
 
             /**
              * Apply tax percent to fixed tax
@@ -621,7 +624,7 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
     /**
      * Set the store Object
      *
-     * @param  Mage_Core_Model_Store $store
+     * @param Mage_Core_Model_Store $store
      */
     public function setStore($store)
     {

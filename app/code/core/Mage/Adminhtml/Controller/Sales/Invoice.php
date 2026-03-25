@@ -21,7 +21,7 @@ class Mage_Adminhtml_Controller_Sales_Invoice extends Mage_Adminhtml_Controller_
     public const ADMIN_RESOURCE = 'sales/invoice';
 
     /**
-     * Additional initialization
+     * @inheritDoc
      */
     protected function _construct()
     {

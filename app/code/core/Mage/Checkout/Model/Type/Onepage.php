@@ -7,6 +7,8 @@
  * @package    Mage_Checkout
  */
 
+use Carbon\Carbon;
+
 /**
  * One page checkout processing model
  *
@@ -206,8 +208,8 @@ class Mage_Checkout_Model_Type_Onepage
     /**
      * Specify checkout method
      *
-     * @param   string $method
-     * @return  array
+     * @param  string $method
+     * @return array
      */
     public function saveCheckoutMethod($method)
     {
@@ -223,8 +225,8 @@ class Mage_Checkout_Model_Type_Onepage
     /**
      * Get customer address by identifier
      *
-     * @param   int $addressId
-     * @return  Mage_Customer_Model_Address
+     * @param  int                         $addressId
+     * @return Mage_Customer_Model_Address
      */
     public function getAddress($addressId)
     {
@@ -241,8 +243,8 @@ class Mage_Checkout_Model_Type_Onepage
      * Save billing address information to quote
      * This method is called by One Page Checkout JS (AJAX) while saving the billing information.
      *
-     * @param array $data
-     * @param int $customerAddressId
+     * @param  array               $data
+     * @param  int                 $customerAddressId
      * @return array|true
      * @throws Mage_Core_Exception
      */
@@ -510,7 +512,9 @@ class Mage_Checkout_Model_Type_Onepage
             }
         } elseif (self::METHOD_GUEST == $this->getQuote()->getCheckoutMethod()) {
             $email = $address->getData('email');
-            if (!Zend_Validate::is($email, 'EmailAddress')) {
+            /** @var Mage_Core_Helper_Validate $validator */
+            $validator = Mage::helper('core/validate');
+            if ($validator->validateEmail($email)->count() > 0) {
                 return [
                     'error'   => -1,
                     'message' => Mage::helper('checkout')->__('Invalid email address "%s"', $email),
@@ -524,8 +528,8 @@ class Mage_Checkout_Model_Type_Onepage
     /**
      * Save checkout shipping address
      *
-     * @param array $data
-     * @param int $customerAddressId
+     * @param  array $data
+     * @param  int   $customerAddressId
      * @return array
      */
     public function saveShipping($data, $customerAddressId)
@@ -602,8 +606,8 @@ class Mage_Checkout_Model_Type_Onepage
     /**
      * Specify quote shipping method
      *
-     * @param   string $shippingMethod
-     * @return  array
+     * @param  string $shippingMethod
+     * @return array
      */
     public function saveShippingMethod($shippingMethod)
     {
@@ -629,8 +633,8 @@ class Mage_Checkout_Model_Type_Onepage
     /**
      * Specify quote payment method
      *
-     * @param   array $data
-     * @return  array
+     * @param  array $data
+     * @return array
      */
     public function savePayment($data)
     {
@@ -725,7 +729,7 @@ class Mage_Checkout_Model_Type_Onepage
 
         Mage::helper('core')->copyFieldset('checkout_onepage_quote', 'to_customer', $quote, $customer);
         $customer->setPassword($customer->decryptPassword($quote->getPasswordHash()));
-        $customer->setPasswordCreatedAt(time());
+        $customer->setPasswordCreatedAt(Carbon::now()->getTimestamp());
         $quote->setCustomer($customer)
             ->setCustomerId(true);
         $quote->setPasswordHash('');
@@ -922,8 +926,8 @@ class Mage_Checkout_Model_Type_Onepage
     /**
      * Check if customer email exists
      *
-     * @param string $email
-     * @param int $websiteId
+     * @param  string                             $email
+     * @param  int                                $websiteId
      * @return false|Mage_Customer_Model_Customer
      */
     protected function _customerEmailExists($email, $websiteId = null)

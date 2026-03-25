@@ -14,6 +14,9 @@
  */
 class Mage_Core_Model_Resource_Website extends Mage_Core_Model_Resource_Db_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('core/website', 'website_id');
@@ -85,7 +88,7 @@ class Mage_Core_Model_Resource_Website extends Mage_Core_Model_Resource_Db_Abstr
      * Retrieve default stores select object
      * Select fields website_id, store_id
      *
-     * @param bool $withDefault include/exclude default admin website
+     * @param  bool             $withDefault include/exclude default admin website
      * @return Varien_Db_Select
      */
     public function getDefaultStoresSelect($withDefault = false)

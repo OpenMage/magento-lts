@@ -11,6 +11,9 @@
  * Adminhtml footer block
  *
  * @package    Mage_Adminhtml
+ *
+ * @method bool  getShowProfiler()
+ * @method $this setShowProfiler(bool $value)
  */
 class Mage_Adminhtml_Block_Page_Footer extends Mage_Adminhtml_Block_Template
 {
@@ -20,6 +23,9 @@ class Mage_Adminhtml_Block_Page_Footer extends Mage_Adminhtml_Block_Template
 
     public const LOCALE_CACHE_TAG      = 'adminhtml';
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->setTemplate('page/footer.phtml');

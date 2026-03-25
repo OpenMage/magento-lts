@@ -44,7 +44,7 @@ final class EnvironmentConfigLoaderTest extends OpenMageTest
     /**
      * @throws Mage_Core_Exception
      */
-    public function setup(): void
+    protected function setUp(): void
     {
         Mage::setRoot();
         $this->testXml = $this->getTestXml();
@@ -238,7 +238,7 @@ final class EnvironmentConfigLoaderTest extends OpenMageTest
      * @dataProvider envAsArrayDataProvider
      * @group Helper
      *
-     * @param array<string, string> $config
+     * @param array<string, array|string> $config
      */
     public function testAsArray(array $config): void
     {
@@ -289,7 +289,7 @@ final class EnvironmentConfigLoaderTest extends OpenMageTest
      * @dataProvider envHasPathDataProvider
      * @group Helper
      *
-     * @param array<string, string> $config
+     * @param array<string, bool|string> $config
      */
     public function testHasPath(array $config): void
     {

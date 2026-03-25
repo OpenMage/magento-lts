@@ -34,7 +34,7 @@ class Mage_Catalog_Model_Resource_Category_Attribute_Collection extends Mage_Eav
     /**
      * Specify attribute entity type filter
      *
-     * @param int $typeId
+     * @param  int   $typeId
      * @return $this
      */
     public function setEntityTypeFilter($typeId)

@@ -7,6 +7,8 @@
  * @package    Mage_Rule
  */
 
+use Carbon\Carbon;
+
 /**
  * Class Mage_Rule_Model_Environment
  *
@@ -24,7 +26,7 @@ class Mage_Rule_Model_Environment extends Varien_Object
      */
     public function collect()
     {
-        $this->setNow(time());
+        $this->setNow(Carbon::now()->getTimestamp());
 
         Mage::dispatchEvent('rule_environment_collect', ['env' => $this]);
 

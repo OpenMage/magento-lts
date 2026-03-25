@@ -14,6 +14,9 @@
  */
 class Mage_Dataflow_Model_Resource_Import extends Mage_Core_Model_Resource_Db_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('dataflow/import', 'import_id');
@@ -22,7 +25,7 @@ class Mage_Dataflow_Model_Resource_Import extends Mage_Core_Model_Resource_Db_Ab
     /**
      * Returns all import data select by session id
      *
-     * @param int $sessionId
+     * @param  int              $sessionId
      * @return Varien_Db_Select
      */
     public function select($sessionId)
@@ -36,9 +39,9 @@ class Mage_Dataflow_Model_Resource_Import extends Mage_Core_Model_Resource_Db_Ab
     /**
      * Load all import data by session id
      *
-     * @param int $sessionId
-     * @param int $min
-     * @param int $max
+     * @param  int   $sessionId
+     * @param  int   $min
+     * @param  int   $max
      * @return array
      */
     public function loadBySessionId($sessionId, $min = 0, $max = 100)
@@ -66,7 +69,7 @@ class Mage_Dataflow_Model_Resource_Import extends Mage_Core_Model_Resource_Db_Ab
     /**
      * Load total import data by session id
      *
-     * @param int $sessionId
+     * @param  int   $sessionId
      * @return array
      */
     public function loadTotalBySessionId($sessionId)
@@ -89,7 +92,7 @@ class Mage_Dataflow_Model_Resource_Import extends Mage_Core_Model_Resource_Db_Ab
     /**
      * Load import data by id
      *
-     * @param int $importId
+     * @param  int   $importId
      * @return array
      */
     public function loadById($importId)

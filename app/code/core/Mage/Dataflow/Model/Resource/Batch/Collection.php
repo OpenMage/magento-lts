@@ -15,7 +15,7 @@
 class Mage_Dataflow_Model_Resource_Batch_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
     /**
-     * Init model
+     * @inheritDoc
      */
     protected function _construct()
     {

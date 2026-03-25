@@ -37,9 +37,9 @@ class Mage_Catalog_Block_Product_Price_Template extends Mage_Core_Block_Abstract
     /**
      * Adding customized price template for product type
      *
-     * @param string $type
-     * @param string $block
-     * @param string $template
+     * @param  string $type
+     * @param  string $block
+     * @param  string $template
      * @return $this
      */
     public function addPriceBlockType($type, $block = '', $template = '')

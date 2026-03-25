@@ -87,8 +87,8 @@ abstract class Mage_Adminhtml_Block_Sales_Order_Create_Abstract extends Mage_Adm
     /**
      * Retrieve formatted price
      *
-     * @param   float $value
-     * @return  string
+     * @param  float  $value
+     * @return string
      */
     public function formatPrice($value)
     {

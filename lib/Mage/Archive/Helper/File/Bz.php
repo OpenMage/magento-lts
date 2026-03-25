@@ -18,7 +18,7 @@ class Mage_Archive_Helper_File_Bz extends Mage_Archive_Helper_File
     /**
      * Open bz archive file
      *
-     * @param string $mode
+     * @param  string         $mode
      * @throws Mage_Exception
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
@@ -35,7 +35,7 @@ class Mage_Archive_Helper_File_Bz extends Mage_Archive_Helper_File
     /**
      * Write data to bz archive
      *
-     * @param $data
+     * @param                 $data
      * @throws Mage_Exception
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
@@ -52,7 +52,7 @@ class Mage_Archive_Helper_File_Bz extends Mage_Archive_Helper_File
     /**
      * Read data from bz archive
      *
-     * @param int $length
+     * @param  int            $length
      * @return string
      * @throws Mage_Exception
      */

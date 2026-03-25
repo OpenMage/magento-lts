@@ -15,6 +15,8 @@
  */
 class Mage_Adminhtml_Block_Shipping_Carrier_Tablerate_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_shipping_carrier_tablerate_grid';
+
     /**
      * Website filter
      *
@@ -42,8 +44,9 @@ class Mage_Adminhtml_Block_Shipping_Carrier_Tablerate_Grid extends Mage_Adminhtm
     /**
      * Set current website
      *
-     * @param int $websiteId
+     * @param  int                 $websiteId
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function setWebsiteId($websiteId)
     {
@@ -55,6 +58,7 @@ class Mage_Adminhtml_Block_Shipping_Carrier_Tablerate_Grid extends Mage_Adminhtm
      * Retrieve current website id
      *
      * @return int
+     * @throws Mage_Core_Exception
      */
     public function getWebsiteId()
     {
@@ -68,7 +72,7 @@ class Mage_Adminhtml_Block_Shipping_Carrier_Tablerate_Grid extends Mage_Adminhtm
     /**
      * Set current website
      *
-     * @param string $name
+     * @param  string $name
      * @return $this
      */
     public function setConditionName($name)
@@ -88,7 +92,8 @@ class Mage_Adminhtml_Block_Shipping_Carrier_Tablerate_Grid extends Mage_Adminhtm
     /**
      * Prepare shipping table rate collection
      *
-     * @return $this
+     * @inheritDoc
+     * @throws Mage_Core_Exception
      */
     protected function _prepareCollection()
     {
@@ -103,9 +108,9 @@ class Mage_Adminhtml_Block_Shipping_Carrier_Tablerate_Grid extends Mage_Adminhtm
     }
 
     /**
-     * Prepare table columns
-     *
-     * @return Mage_Adminhtml_Block_Widget_Grid
+     * @inheritDoc
+     * @throws Exception
+     * @throws Mage_Core_Exception
      */
     protected function _prepareColumns()
     {

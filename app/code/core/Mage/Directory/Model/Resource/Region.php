@@ -22,7 +22,7 @@ class Mage_Directory_Model_Resource_Region extends Mage_Core_Model_Resource_Db_A
     protected $_regionNameTable;
 
     /**
-     * Define main and locale region name tables
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -33,8 +33,8 @@ class Mage_Directory_Model_Resource_Region extends Mage_Core_Model_Resource_Db_A
     /**
      * Retrieve select object for load object data
      *
-     * @param string $field
-     * @param mixed $value
+     * @param string                   $field
+     * @param mixed                    $value
      * @param Mage_Core_Model_Abstract $object
      *
      * @return Varien_Db_Select
@@ -75,9 +75,9 @@ class Mage_Directory_Model_Resource_Region extends Mage_Core_Model_Resource_Db_A
      * Load object by country id and code or default name
      *
      * @param Mage_Core_Model_Abstract $object
-     * @param string $countryId
-     * @param string $value
-     * @param string $field
+     * @param string                   $countryId
+     * @param string                   $value
+     * @param string                   $field
      *
      * @return $this
      */
@@ -109,8 +109,8 @@ class Mage_Directory_Model_Resource_Region extends Mage_Core_Model_Resource_Db_A
     /**
      * Loads region by region code and country id
      *
-     * @param string $regionCode
-     * @param string $countryId
+     * @param  string $regionCode
+     * @param  string $countryId
      * @return $this
      */
     public function loadByCode(Mage_Directory_Model_Region $region, $regionCode, $countryId)
@@ -121,8 +121,8 @@ class Mage_Directory_Model_Resource_Region extends Mage_Core_Model_Resource_Db_A
     /**
      * Load data by country id and default region name
      *
-     * @param string $regionName
-     * @param string $countryId
+     * @param  string $regionName
+     * @param  string $countryId
      * @return $this
      */
     public function loadByName(Mage_Directory_Model_Region $region, $regionName, $countryId)

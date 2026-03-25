@@ -18,6 +18,7 @@ use OpenMage\Tests\Unit\OpenMageTest;
 final class AppTest extends OpenMageTest
 {
     use AppTrait;
+
     use CoreTrait;
 
     private static Subject $subject;

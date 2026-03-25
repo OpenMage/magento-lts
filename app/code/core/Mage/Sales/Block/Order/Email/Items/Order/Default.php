@@ -49,7 +49,7 @@ class Mage_Sales_Block_Order_Email_Items_Order_Default extends Mage_Core_Block_T
     }
 
     /**
-     * @param array|string $value
+     * @param  array|string $value
      * @return string
      */
     public function getValueHtml($value)
@@ -57,22 +57,22 @@ class Mage_Sales_Block_Order_Email_Items_Order_Default extends Mage_Core_Block_T
         if (is_array($value)) {
             return sprintf('%d', $value['qty']) . ' x ' . $this->escapeHtml($value['title']) . ' '
                 . $this->getItem()->getOrder()->formatPrice($value['price']);
-        } else {
-            return $this->escapeHtml($value);
         }
+
+        return $this->escapeHtml($value);
     }
 
     /**
-     * @param Mage_Sales_Model_Order_Item $item
+     * @param  Mage_Sales_Model_Order_Item $item
      * @return array|string
      */
     public function getSku($item)
     {
         if ($item->getProductOptionByCode('simple_sku')) {
             return $item->getProductOptionByCode('simple_sku');
-        } else {
-            return $item->getSku();
         }
+
+        return $item->getSku();
     }
 
     /**

@@ -14,6 +14,8 @@
  */
 class Mage_Adminhtml_JsonController extends Mage_Adminhtml_Controller_Action
 {
+    public const ADMIN_RESOURCE = true;
+
     /**
      * Return JSON-encoded array of country regions
      */
@@ -27,22 +29,12 @@ class Mage_Adminhtml_JsonController extends Mage_Adminhtml_Controller_Action
             ->load()
             ->toOptionArray();
 
-        if (!empty($arrRegions)) {
+        if ($arrRegions !== []) {
             foreach ($arrRegions as $region) {
                 $arrRes[] = $region;
             }
         }
 
         $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($arrRes));
-    }
-
-    /**
-     * Check is allowed access to action
-     *
-     * @return true
-     */
-    protected function _isAllowed()
-    {
-        return true;
     }
 }

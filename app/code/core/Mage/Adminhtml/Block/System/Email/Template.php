@@ -15,7 +15,7 @@
 class Mage_Adminhtml_Block_System_Email_Template extends Mage_Adminhtml_Block_Template
 {
     /**
-     * Set transactional emails grid template
+     * @inheritDoc
      */
     protected function _construct()
     {

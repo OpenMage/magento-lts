@@ -1,4 +1,4 @@
---- /dev/null
+--- ../library/Zend/Locale/Data.php
 +++ ../library/Zend/Locale/Data.php
 @@ -75,6 +75,13 @@
      private static $_cacheDisabled = false;
@@ -38,7 +38,7 @@
 +            $data = serialize($temp);
              if (self::$_cacheTags) {
 -                self::$_cache->save( serialize($temp), $id, ['Zend_Locale']);
-+                self::$_cache->save( $data, $id, ['Zend_Locale']);
++                self::$_cache->save($data, $id, ['Zend_Locale']);
              } else {
 -                self::$_cache->save( serialize($temp), $id);
 +                self::$_cache->save( $data, $id);
@@ -47,7 +47,7 @@
          }
 
          return $temp;
-@@ -984,8 +1000,15 @@
+@@ -985,8 +1001,15 @@
          }
          $val = urlencode((string) $val);
          $id  = self::_filterCacheId('Zend_LocaleC_' . $locale . '_' . $path . '_' . $val);
@@ -63,18 +63,18 @@
 +            return $result;
          }
 
-         switch(strtolower($path)) {
-@@ -1499,11 +1522,13 @@
+         switch(strtolower((string) $path)) {
+@@ -1500,11 +1523,13 @@
              $temp = current($temp);
          }
          if (isset(self::$_cache)) {
 +            $data = serialize($temp);
              if (self::$_cacheTags) {
 -                self::$_cache->save( serialize($temp), $id, ['Zend_Locale']);
-+                self::$_cache->save( $data, $id, ['Zend_Locale']);
++                self::$_cache->save($data, $id, ['Zend_Locale']);
              } else {
 -                self::$_cache->save( serialize($temp), $id);
-+                self::$_cache->save( $data, $id);
++                self::$_cache->save($data, $id);
              }
 +            static::$_localCache[$id] = $temp;
          }

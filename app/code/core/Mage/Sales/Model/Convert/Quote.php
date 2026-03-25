@@ -17,8 +17,8 @@ class Mage_Sales_Model_Convert_Quote extends Varien_Object
     /**
      * Convert quote model to order model
      *
-     * @param null|Mage_Sales_Model_Order  $order
-     * @return  Mage_Sales_Model_Order
+     * @param  null|Mage_Sales_Model_Order $order
+     * @return Mage_Sales_Model_Order
      */
     public function toOrder(Mage_Sales_Model_Quote $quote, $order = null)
     {
@@ -40,8 +40,8 @@ class Mage_Sales_Model_Convert_Quote extends Varien_Object
     /**
      * Convert quote address model to order
      *
-     * @param   null|Mage_Sales_Model_Order $order
-     * @return  Mage_Sales_Model_Order
+     * @param  null|Mage_Sales_Model_Order $order
+     * @return Mage_Sales_Model_Order
      */
     public function addressToOrder(Mage_Sales_Model_Quote_Address $address, $order = null)
     {
@@ -58,7 +58,7 @@ class Mage_Sales_Model_Convert_Quote extends Varien_Object
     /**
      * Convert quote address to order address
      *
-     * @return  Mage_Sales_Model_Order_Address
+     * @return Mage_Sales_Model_Order_Address
      */
     public function addressToOrderAddress(Mage_Sales_Model_Quote_Address $address)
     {
@@ -81,7 +81,7 @@ class Mage_Sales_Model_Convert_Quote extends Varien_Object
     /**
      * Convert quote payment to order payment
      *
-     * @return  Mage_Sales_Model_Order_Payment
+     * @return Mage_Sales_Model_Order_Payment
      */
     public function paymentToOrderPayment(Mage_Sales_Model_Quote_Payment $payment)
     {
@@ -101,7 +101,7 @@ class Mage_Sales_Model_Convert_Quote extends Varien_Object
     /**
      * Convert quote item to order item
      *
-     * @return  Mage_Sales_Model_Order_Item
+     * @return Mage_Sales_Model_Order_Item
      */
     public function itemToOrderItem(Mage_Sales_Model_Quote_Item_Abstract $item)
     {

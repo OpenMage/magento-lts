@@ -35,7 +35,7 @@ class Mage_Index_Model_Lock_Storage_Db implements Mage_Index_Model_Lock_Storage_
     }
 
     /**
-     * @param string $name
+     * @param  string $name
      * @return string
      */
     protected function _prepareLockName($name)
@@ -47,7 +47,7 @@ class Mage_Index_Model_Lock_Storage_Db implements Mage_Index_Model_Lock_Storage_
     /**
      * Set named lock
      *
-     * @param string $lockName
+     * @param  string $lockName
      * @return bool
      */
     public function setLock($lockName)
@@ -59,7 +59,7 @@ class Mage_Index_Model_Lock_Storage_Db implements Mage_Index_Model_Lock_Storage_
     /**
      * Release named lock
      *
-     * @param string $lockName
+     * @param  string $lockName
      * @return bool
      */
     public function releaseLock($lockName)
@@ -71,7 +71,7 @@ class Mage_Index_Model_Lock_Storage_Db implements Mage_Index_Model_Lock_Storage_
     /**
      * Check whether the lock exists
      *
-     * @param string $lockName
+     * @param  string $lockName
      * @return bool
      */
     public function isLockExists($lockName)

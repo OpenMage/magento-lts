@@ -67,10 +67,10 @@ class Mage_Eav_Model_Convert_Adapter_Entity extends Mage_Dataflow_Model_Convert_
     }
 
     /**
-     * @param array $attrFilterArray
-     * @param array $attrToDb
-     * @param string $bind
-     * @param string $joinType
+     * @param  array     $attrFilterArray
+     * @param  array     $attrToDb
+     * @param  string    $bind
+     * @param  string    $joinType
      * @return $this
      * @throws Exception
      */
@@ -189,8 +189,8 @@ class Mage_Eav_Model_Convert_Adapter_Entity extends Mage_Dataflow_Model_Convert_
     }
 
     /**
-     * @param array $fields
-     * @param string $name
+     * @param  array      $fields
+     * @param  string     $name
      * @return array|bool
      */
     protected function getFieldValue($fields = [], $name = '')
@@ -213,7 +213,7 @@ class Mage_Eav_Model_Convert_Adapter_Entity extends Mage_Dataflow_Model_Convert_
     }
 
     /**
-     * @param array $joinAttr
+     * @param  array     $joinAttr
      * @throws Exception
      */
     public function setJoinAttr($joinAttr)
@@ -232,21 +232,21 @@ class Mage_Eav_Model_Convert_Adapter_Entity extends Mage_Dataflow_Model_Convert_
     /**
      * Add join field
      *
-     * @param array $joinField   Variable should be have view:
-     *     Example:
-     *         array(
-     *            'alias'     => 'alias_table',
-     *            'attribute' => 'table_name', //table name, must be used path of table like 'module/table_name'
-     *            'field'     => 'field_name', //selected field name (optional)
-     *            //bind main condition
-     *            //left field use for joined table
-     *            //and right field use for main table of collection
-     *            //NOTE: around '=' cannot be used ' ' (space) because on the exploding not use space trimming
-     *            'bind'      => 'self_item_id=other_id',
-     *            'cond'      => 'alias_table.entity_id = e.entity_id', //additional condition (optional)
-     *            'joinType'  => 'LEFT'
-     *         )
-     *     NOTE: Optional key must be have NULL at least
+     * @param array $joinField Variable should be have view:
+     *                         Example:
+     *                         array(
+     *                         'alias'     => 'alias_table',
+     *                         'attribute' => 'table_name', //table name, must be used path of table like 'module/table_name'
+     *                         'field'     => 'field_name', //selected field name (optional)
+     *                         //bind main condition
+     *                         //left field use for joined table
+     *                         //and right field use for main table of collection
+     *                         //NOTE: around '=' cannot be used ' ' (space) because on the exploding not use space trimming
+     *                         'bind'      => 'self_item_id=other_id',
+     *                         'cond'      => 'alias_table.entity_id = e.entity_id', //additional condition (optional)
+     *                         'joinType'  => 'LEFT'
+     *                         )
+     *                         NOTE: Optional key must be have NULL at least
      */
     public function setJoinField($joinField)
     {
@@ -311,10 +311,10 @@ class Mage_Eav_Model_Convert_Adapter_Entity extends Mage_Dataflow_Model_Convert_
 
             $message = Mage::helper('eav')->__('Loaded %d records', count($entityIds));
             $this->addException($message);
-        } catch (Varien_Convert_Exception $e) {
-            throw $e;
-        } catch (Exception $e) {
-            $message = Mage::helper('eav')->__('Problem loading the collection, aborting. Error: %s', $e->getMessage());
+        } catch (Varien_Convert_Exception $varienConvertException) {
+            throw $varienConvertException;
+        } catch (Exception $exception) {
+            $message = Mage::helper('eav')->__('Problem loading the collection, aborting. Error: %s', $exception->getMessage());
             $this->addException($message, Varien_Convert_Exception::FATAL);
         }
 
@@ -328,7 +328,7 @@ class Mage_Eav_Model_Convert_Adapter_Entity extends Mage_Dataflow_Model_Convert_
     /**
      * Retrieve collection for load
      *
-     * @param string $entityType
+     * @param  string                                 $entityType
      * @return false|Mage_Eav_Model_Entity_Collection
      */
     protected function _getCollectionForLoad($entityType)
@@ -362,11 +362,11 @@ class Mage_Eav_Model_Convert_Adapter_Entity extends Mage_Dataflow_Model_Convert_
             }
 
             $this->addException(Mage::helper('eav')->__('Saved %d record(s).', $i));
-        } catch (Varien_Convert_Exception $e) {
-            throw $e;
-        } catch (Exception $e) {
+        } catch (Varien_Convert_Exception $varienConvertException) {
+            throw $varienConvertException;
+        } catch (Exception $exception) {
             $this->addException(
-                Mage::helper('eav')->__('Problem saving the collection, aborting. Error: %s', $e->getMessage()),
+                Mage::helper('eav')->__('Problem saving the collection, aborting. Error: %s', $exception->getMessage()),
                 Varien_Convert_Exception::FATAL,
             );
         }

@@ -21,7 +21,7 @@ class Mage_Adminhtml_Sales_Order_View_GiftmessageController extends Mage_Adminht
     public const ADMIN_RESOURCE = 'sales/order';
 
     /**
-     * Additional initialization
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -34,8 +34,8 @@ class Mage_Adminhtml_Sales_Order_View_GiftmessageController extends Mage_Adminht
             $this->_getGiftmessageSaveModel()
                 ->setGiftmessages($this->getRequest()->getParam('giftmessage'))
                 ->saveAllInOrder();
-        } catch (Mage_Core_Exception $e) {
-            $this->_getSession()->addError($e->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_getSession()->addError($mageCoreException->getMessage());
         } catch (Exception) {
             $this->_getSession()->addError(Mage::helper('giftmessage')->__('An error occurred while saving the gift message.'));
         }

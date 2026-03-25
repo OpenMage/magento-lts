@@ -159,9 +159,9 @@ class Mage_Api2_Model_Acl extends Zend_Acl
      * Adds a Role having an identifier unique to the registry
      * OVERRIDE to allow numeric roles identifiers
      *
-     * @param int $roleId Role identifier
-     * @param array|string|Zend_Acl_Role_Interface $parents
-     * @return Zend_Acl Provides a fluent interface
+     * @param  int                                  $roleId  Role identifier
+     * @param  array|string|Zend_Acl_Role_Interface $parents
+     * @return Zend_Acl                             Provides a fluent interface
      */
     public function addRole($roleId, $parents = null)
     {

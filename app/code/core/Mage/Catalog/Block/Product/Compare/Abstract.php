@@ -27,7 +27,7 @@ abstract class Mage_Catalog_Block_Product_Compare_Abstract extends Mage_Catalog_
     /**
      * Retrieve Remove Item from Compare List URL
      *
-     * @param Mage_Catalog_Model_Product $item
+     * @param  Mage_Catalog_Model_Product $item
      * @return string
      */
     public function getRemoveUrl($item)

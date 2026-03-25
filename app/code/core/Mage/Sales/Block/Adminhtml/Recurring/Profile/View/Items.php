@@ -49,8 +49,8 @@ class Mage_Adminhtml_Block_Sales_Recurring_Profile_View_Items extends Mage_Admin
     /**
      * Retrieve formatted price
      *
-     * @param   float $value
-     * @return  string
+     * @param  float  $value
+     * @return string
      */
     public function formatPrice($value)
     {

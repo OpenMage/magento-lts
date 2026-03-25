@@ -11,14 +11,18 @@
  * Shopping cart price rule chooser
  *
  * @package    Mage_Adminhtml
+ *
+ * @method array                     getConfig()
+ * @method int                       getFieldsetId()
+ * @method Mage_Core_Helper_Abstract getTranslationHelper()
+ * @method $this                     setConfig(array $value)
+ * @method $this                     setFieldsetId(int $value)
+ * @method $this                     setTranslationHelper(Mage_Core_Helper_Abstract $value)
  */
 class Mage_Adminhtml_Block_Promo_Widget_Chooser extends Mage_Adminhtml_Block_Widget_Grid
 {
-    /**
-     * Block constructor, prepare grid params
-     *
-     * @param array $arguments
-     */
+    protected string $_eventPrefix = 'adminhtml_promo_widget_chooser';
+
     public function __construct($arguments = [])
     {
         parent::__construct($arguments);
@@ -30,8 +34,9 @@ class Mage_Adminhtml_Block_Promo_Widget_Chooser extends Mage_Adminhtml_Block_Wid
     /**
      * Prepare chooser element HTML
      *
-     * @param Varien_Data_Form_Element_Abstract $element Form Element
+     * @param  Varien_Data_Form_Element_Abstract $element Form Element
      * @return Varien_Data_Form_Element_Abstract
+     * @throws Mage_Core_Exception
      */
     public function prepareElementHtml(Varien_Data_Form_Element_Abstract $element)
     {
@@ -60,7 +65,7 @@ class Mage_Adminhtml_Block_Promo_Widget_Chooser extends Mage_Adminhtml_Block_Wid
     /**
      * Grid Row JS Callback
      *
-     * @return string
+     * @inheritDoc
      */
     public function getRowClickCallback()
     {
@@ -78,9 +83,7 @@ class Mage_Adminhtml_Block_Promo_Widget_Chooser extends Mage_Adminhtml_Block_Wid
     }
 
     /**
-     * Prepare rules collection
-     *
-     * @return Mage_Adminhtml_Block_Widget_Grid
+     * @inheritDoc
      */
     protected function _prepareCollection()
     {
@@ -95,9 +98,8 @@ class Mage_Adminhtml_Block_Promo_Widget_Chooser extends Mage_Adminhtml_Block_Wid
     }
 
     /**
-     * Prepare columns for rules grid
-     *
-     * @return Mage_Adminhtml_Block_Widget_Grid
+     * @inheritDoc
+     * @throws Exception
      */
     protected function _prepareColumns()
     {
@@ -152,9 +154,7 @@ class Mage_Adminhtml_Block_Promo_Widget_Chooser extends Mage_Adminhtml_Block_Wid
     }
 
     /**
-     * Prepare grid URL
-     *
-     * @return string
+     * @inheritDoc
      */
     public function getGridUrl()
     {

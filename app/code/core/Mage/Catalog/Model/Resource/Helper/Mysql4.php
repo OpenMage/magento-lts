@@ -17,8 +17,8 @@ class Mage_Catalog_Model_Resource_Helper_Mysql4 extends Mage_Eav_Model_Resource_
     /**
      * Returns columns for select
      *
-     * @param string $tableAlias
-     * @param string $eavType
+     * @param  string $tableAlias
+     * @param  string $eavType
      * @return string
      */
     public function attributeSelectFields($tableAlias, $eavType)
@@ -30,8 +30,8 @@ class Mage_Catalog_Model_Resource_Helper_Mysql4 extends Mage_Eav_Model_Resource_
      * Compare Flat style with Describe style columns
      * If column a different - return false
      *
-     * @param array $column
-     * @param array $describe
+     * @param  array $column
+     * @param  array $describe
      * @return bool
      */
     public function compareIndexColumnProperties($column, $describe)
@@ -75,8 +75,8 @@ class Mage_Catalog_Model_Resource_Helper_Mysql4 extends Mage_Eav_Model_Resource_
     /**
      * Getting condition isNull(f1,f2) IS NOT Null
      *
-     * @param string $field1
-     * @param string $field2
+     * @param  string $field1
+     * @param  string $field2
      * @return string
      */
     public function getIsNullNotNullCondition($field1, $field2)

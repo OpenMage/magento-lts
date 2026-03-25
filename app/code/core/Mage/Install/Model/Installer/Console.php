@@ -84,7 +84,7 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
     /**
      * Set and validate arguments
      *
-     * @param array $args
+     * @param  array $args
      * @return bool
      * @SuppressWarnings("PHPMD.Superglobals")
      */
@@ -162,7 +162,7 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
     /**
      * Add error
      *
-     * @param string $error
+     * @param  string $error
      * @return $this
      */
     public function addError($error)
@@ -197,7 +197,7 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
      * Returns true for 'yes', 1, 'true'
      * Case insensitive
      *
-     * @param string $value
+     * @param  string $value
      * @return bool
      */
     protected function _checkFlag($value)
@@ -446,7 +446,7 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
     /**
      * Check if installer is run in shell, and redirect if run on web
      *
-     * @param string $url fallback url to redirect to
+     * @param  string $url fallback url to redirect to
      * @return bool
      */
     public function checkConsole($url = null)

@@ -17,8 +17,8 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid_Renderer_Qty extends M
     /**
      * Returns whether this qty field must be inactive
      *
-     * @param   Varien_Object $row
-     * @return  bool
+     * @param  Varien_Object $row
+     * @return bool
      */
     protected function _isInactive($row)
     {
@@ -28,7 +28,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid_Renderer_Qty extends M
     /**
      * Render product qty field
      *
-     * @return  string
+     * @return string
      */
     public function render(Varien_Object $row)
     {
