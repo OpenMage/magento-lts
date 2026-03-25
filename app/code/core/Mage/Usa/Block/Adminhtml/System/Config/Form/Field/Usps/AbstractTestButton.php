@@ -80,7 +80,7 @@ abstract class Mage_Usa_Block_Adminhtml_System_Config_Form_Field_Usps_AbstractTe
 
         $onSuccessJs = $this->_getOnSuccessJs();
 
-        $html .= <<<JAVASCRIPT
+        return $html . <<<JAVASCRIPT
 <script type="text/javascript">
 //<![CDATA[
 document.observe('dom:loaded', function() {
@@ -142,8 +142,6 @@ document.observe('dom:loaded', function() {
 //]]>
 </script>
 JAVASCRIPT;
-
-        return $html;
     }
 
     protected function _renderScopeLabel(Varien_Data_Form_Element_Abstract $element): string
