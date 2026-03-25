@@ -46,10 +46,15 @@ class Mage_Rss_Helper_Data extends Mage_Core_Helper_Abstract
     {
         if (!$this->_rssSession->isCustomerLoggedIn()) {
             [$username, $password] = $this->authValidate();
-            $customer = Mage::getModel('customer/customer')->authenticate($username, $password);
-            if ($customer && $customer->getId()) {
-                $this->_rssSession->settCustomer($customer);
-            } else {
+            /** @var Mage_Customer_Model_Customer $customer */
+            $customer = Mage::getModel('customer/customer');
+            try {
+                if ($customer->authenticate($username, $password) && $customer->getId()) {
+                    $this->_rssSession->settCustomer($customer);
+                } else {
+                    $this->authFailed();
+                }
+            } catch (Exception) {
                 $this->authFailed();
             }
         }

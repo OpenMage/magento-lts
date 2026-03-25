@@ -257,9 +257,8 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      *
      * @param  string              $login
      * @param  string              $password
-     * @return true
-     * @throws Exception
-     * @throws Mage_Core_Exception
+     * @return bool
+     * @throws Mage_Core_Exception when the account is not confirmed
      */
     public function authenticate($login, $password)
     {
@@ -273,11 +272,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
         }
 
         if (!$this->validatePassword($password)) {
-            throw Mage::exception(
-                'Mage_Core',
-                Mage::helper('customer')->__('Invalid login or password.'),
-                self::EXCEPTION_INVALID_EMAIL_OR_PASSWORD,
-            );
+            return false;
         }
 
         Mage::dispatchEvent('customer_customer_authenticated', [
