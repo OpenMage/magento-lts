@@ -136,6 +136,7 @@
             "app/code/*/*/*/Controller"
         ],
         "psr-4": {
+            "OpenMage\\Rector\\": "dev/rector",
             "OpenMage\\Tests\\Unit\\": "tests/unit"
         }
     },
