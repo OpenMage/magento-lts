@@ -76,7 +76,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Address_Service
     /**
      * Check if address verification is enabled
      *
-     * @param  null|int $storeId Store ID
+     * @param null|int $storeId Store ID
      */
     public function isEnabled(?int $storeId = null): bool
     {

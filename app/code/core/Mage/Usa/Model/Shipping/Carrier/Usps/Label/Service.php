@@ -95,7 +95,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service
     /**
      * Check if label generation is enabled and properly configured
      *
-     * @param  null|int $storeId Store ID
+     * @param null|int $storeId Store ID
      */
     public function isEnabled(?int $storeId = null): bool
     {
@@ -324,7 +324,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service
     /**
      * Format address for API request
      *
-     * @param  string       $type   'shipper' or 'recipient'
+     * @param string $type 'shipper' or 'recipient'
      */
     protected function _formatAddress(array|string $street, Varien_Object $request, string $type): array
     {

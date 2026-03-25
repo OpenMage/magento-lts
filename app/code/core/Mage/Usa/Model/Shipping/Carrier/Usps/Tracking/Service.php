@@ -60,9 +60,9 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Tracking_Service
     /**
      * Get tracking information via REST API
      *
-     * @param  array                                    $trackingNumbers Array of tracking numbers to look up
-     * @param  string                                   $accessToken     OAuth access token
-     * @param  string                                   $baseUrl         USPS REST API base URL
+     * @param array  $trackingNumbers Array of tracking numbers to look up
+     * @param string $accessToken     OAuth access token
+     * @param string $baseUrl         USPS REST API base URL
      */
     public function getRestTracking(array $trackingNumbers, string $accessToken, string $baseUrl): ?Mage_Shipping_Model_Tracking_Result
     {
@@ -139,8 +139,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Tracking_Service
     /**
      * Parse REST tracking response
      *
-     * @param  string $trackingValue Tracking number
-     * @param  string $jsonResponse  JSON response from REST API
+     * @param string $trackingValue Tracking number
+     * @param string $jsonResponse  JSON response from REST API
      */
     protected function _parseRestTrackingResponse(string $trackingValue, string $jsonResponse): void
     {
@@ -201,8 +201,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Tracking_Service
     /**
      * Process activity tag from REST API response
      *
-     * @param  array $activityTag     Event data from response
-     * @param  array $packageProgress Reference to progress array
+     * @param array $activityTag     Event data from response
+     * @param array $packageProgress Reference to progress array
      */
     protected function _processActivityRestTagInfo(array $activityTag, array &$packageProgress): void
     {
@@ -250,8 +250,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Tracking_Service
     /**
      * Set tracking error result
      *
-     * @param  string $trackingValue Tracking number
-     * @param  string $errorMessage  Error message
+     * @param string $trackingValue Tracking number
+     * @param string $errorMessage  Error message
      */
     protected function _setTrackingError(string $trackingValue, string $errorMessage): void
     {

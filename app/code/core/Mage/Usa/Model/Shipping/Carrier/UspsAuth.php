@@ -168,8 +168,8 @@ class Mage_Usa_Model_Shipping_Carrier_UspsAuth extends Mage_Usa_Model_Shipping_C
      * Useful when token is invalid or credentials have changed.
      * Clears all cached tokens for the current store (all credential hashes).
      *
-     * @param  string $clientId     USPS Consumer Key (for targeted cache key)
-     * @param  string $clientSecret USPS Consumer Secret (for targeted cache key)
+     * @param string $clientId     USPS Consumer Key (for targeted cache key)
+     * @param string $clientSecret USPS Consumer Secret (for targeted cache key)
      */
     public function clearCachedToken(string $clientId = '', string $clientSecret = ''): void
     {

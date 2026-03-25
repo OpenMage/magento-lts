@@ -87,7 +87,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Service_Standards
     /**
      * Check if delivery estimates feature is enabled
      *
-     * @param  null|int $storeId Store ID
+     * @param null|int $storeId Store ID
      */
     public function isEnabled(?int $storeId = null): bool
     {
@@ -98,10 +98,10 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Service_Standards
     /**
      * Get delivery estimate for a single mail class
      *
-     * @param  string      $originZip  5-digit origin ZIP code
-     * @param  string      $destZip    5-digit destination ZIP code
-     * @param  string      $mailClass  Mail class code
-     * @param  null|string $acceptDate Acceptance date (Y-m-d format)
+     * @param string      $originZip  5-digit origin ZIP code
+     * @param string      $destZip    5-digit destination ZIP code
+     * @param string      $mailClass  Mail class code
+     * @param null|string $acceptDate Acceptance date (Y-m-d format)
      */
     public function getEstimate(string $originZip, string $destZip, string $mailClass, ?string $acceptDate = null): ?array
     {

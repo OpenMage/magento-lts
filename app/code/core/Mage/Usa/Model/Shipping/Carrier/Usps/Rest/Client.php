@@ -69,7 +69,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
     /**
      * Set the OAuth access token for authenticated requests
      *
-     * @param  string                                           $token Access token
+     * @param string $token Access token
      */
     public function setAccessToken(string $token): self
     {
@@ -88,7 +88,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
     /**
      * Set base URL
      *
-     * @param  string                                           $url Base API URL
+     * @param string $url Base API URL
      */
     public function setBaseUrl(string $url): self
     {
@@ -203,8 +203,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
     /**
      * Perform HTTP GET request
      *
-     * @param  string $endpoint      API endpoint
-     * @param  bool   $authenticated Include auth header
+     * @param string $endpoint      API endpoint
+     * @param bool   $authenticated Include auth header
      */
     protected function _get(string $endpoint, bool $authenticated = true): array
     {
@@ -214,9 +214,9 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
     /**
      * Perform HTTP POST request
      *
-     * @param  string $endpoint      API endpoint
-     * @param  array  $data          Request body data
-     * @param  bool   $authenticated Include auth header
+     * @param string $endpoint      API endpoint
+     * @param array  $data          Request body data
+     * @param bool   $authenticated Include auth header
      */
     protected function _post(string $endpoint, array $data, bool $authenticated = true): array
     {
@@ -226,8 +226,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
     /**
      * Perform HTTP DELETE request
      *
-     * @param  string $endpoint      API endpoint
-     * @param  bool   $authenticated Include auth header
+     * @param string $endpoint      API endpoint
+     * @param bool   $authenticated Include auth header
      */
     protected function _delete(string $endpoint, bool $authenticated = true): array
     {
@@ -352,8 +352,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
     /**
      * Log debug information
      *
-     * @param  string $type Log entry type
-     * @param  array  $data Log data
+     * @param string $type Log entry type
+     * @param array  $data Log data
      */
     protected function _log(string $type, array $data): void
     {
@@ -388,7 +388,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
     /**
      * Check if response indicates a transient error that can be retried
      *
-     * @param  int  $httpCode HTTP status code
+     * @param int $httpCode HTTP status code
      */
     public function isTransientError(int $httpCode): bool
     {
@@ -441,9 +441,9 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
     /**
      * Perform GET request with retry
      *
-     * @param  string $endpoint      API endpoint
-     * @param  bool   $authenticated Include auth header
-     * @param  int    $maxRetries    Maximum retry attempts
+     * @param string $endpoint      API endpoint
+     * @param bool   $authenticated Include auth header
+     * @param int    $maxRetries    Maximum retry attempts
      */
     public function getWithRetry(string $endpoint, bool $authenticated = true, int $maxRetries = 3): array
     {
@@ -453,10 +453,10 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
     /**
      * Perform POST request with retry
      *
-     * @param  string $endpoint      API endpoint
-     * @param  array  $data          Request body data
-     * @param  bool   $authenticated Include auth header
-     * @param  int    $maxRetries    Maximum retry attempts
+     * @param string $endpoint      API endpoint
+     * @param array  $data          Request body data
+     * @param bool   $authenticated Include auth header
+     * @param int    $maxRetries    Maximum retry attempts
      */
     public function postWithRetry(string $endpoint, array $data, bool $authenticated = true, int $maxRetries = 3): array
     {
