@@ -33,7 +33,7 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
 
     /**
      * @inheritDoc
-     * @param Mage_Cms_Model_Page $object
+     * @param  Mage_Cms_Model_Page      $object
      * @throws Mage_Core_Exception
      * @throws Zend_Db_Select_Exception
      */
@@ -223,9 +223,9 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Retrieve load select with filter by identifier, store and activity
      *
-     * @param  string           $identifier
-     * @param  array|int        $store
-     * @param  int              $isActive
+     * @param  string              $identifier
+     * @param  array|int           $store
+     * @param  int                 $isActive
      * @return Varien_Db_Select
      * @throws Mage_Core_Exception
      */
@@ -323,8 +323,8 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
      * Check if page identifier exist for specific store
      * return page id if page exists
      *
-     * @param  string $identifier
-     * @param  int    $storeId
+     * @param  string              $identifier
+     * @param  int                 $storeId
      * @return string
      * @throws Mage_Core_Exception
      */
@@ -367,7 +367,7 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Retrieves cms page title from DB by passed id.
      *
-     * @param  int|string $id
+     * @param  int|string          $id
      * @return string
      * @throws Mage_Core_Exception
      */
@@ -389,7 +389,7 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Retrieves cms page identifier from DB by passed id.
      *
-     * @param  string       $id
+     * @param  string              $id
      * @return false|string
      * @throws Mage_Core_Exception
      */
