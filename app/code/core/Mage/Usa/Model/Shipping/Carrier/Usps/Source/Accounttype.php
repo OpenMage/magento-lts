@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -46,7 +48,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Source_Accounttype
      *
      * @return array Array of options with 'value' and 'label' keys
      */
-    public function toOptionArray()
+    public function toOptionArray(): array
     {
         return [
             [
@@ -69,7 +71,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Source_Accounttype
      *
      * @return array Array of account type constants
      */
-    public function getAllOptions()
+    public function getAllOptions(): array
     {
         return [
             self::ACCOUNT_EPS,
@@ -84,7 +86,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Source_Accounttype
      * @param  string $accountType Account type to validate
      * @return bool   True if valid account type
      */
-    public function isValidAccountType($accountType)
+    public function isValidAccountType(string $accountType): bool
     {
         return in_array($accountType, $this->getAllOptions(), true);
     }
@@ -95,7 +97,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Source_Accounttype
      * @param  string $accountType Account type to check
      * @return bool   True if permit ZIP is required
      */
-    public function requiresPermitZip($accountType)
+    public function requiresPermitZip(string $accountType): bool
     {
         return $accountType === self::ACCOUNT_PERMIT;
     }

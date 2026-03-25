@@ -355,7 +355,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
         $crid = $this->getConfigData('crid');
         $mid = $this->getConfigData('mid');
         $manifestMid = $this->getConfigData('mmid');
-        $accountType = $this->getConfigData('eps_account_type');
+        $accountType = $this->getConfigData('account_type');
         $accountNumber = $this->getConfigData('eps_account_number');
         $permitZip = $this->getConfigData('permit_zip');
 

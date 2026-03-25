@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * USPS Address Verification Controller
  *
@@ -13,14 +15,14 @@ class Mage_Usa_AddressController extends Mage_Core_Controller_Front_Action
     /**
      * @var Mage_Usa_Model_Shipping_Carrier_Usps_Address_Service
      */
-    protected $_addressService;
+    protected ?Mage_Usa_Model_Shipping_Carrier_Usps_Address_Service $_addressService = null;
 
     /**
      * Get address service instance
      *
      * @return Mage_Usa_Model_Shipping_Carrier_Usps_Address_Service
      */
-    protected function _getAddressService()
+    protected function _getAddressService(): Mage_Usa_Model_Shipping_Carrier_Usps_Address_Service
     {
         if ($this->_addressService === null) {
             $this->_addressService = Mage::getModel('usa/shipping_carrier_usps_address_service');
@@ -41,7 +43,7 @@ class Mage_Usa_AddressController extends Mage_Core_Controller_Front_Action
      *
      * @return void
      */
-    public function verifyAction()
+    public function verifyAction(): void
     {
         $result = [
             'status' => 'error',
@@ -136,7 +138,7 @@ class Mage_Usa_AddressController extends Mage_Core_Controller_Front_Action
      *
      * @return void
      */
-    public function applyAction()
+    public function applyAction(): void
     {
         $result = [
             'success' => false,
@@ -187,7 +189,7 @@ class Mage_Usa_AddressController extends Mage_Core_Controller_Front_Action
      * @param  array $corrected Corrected address
      * @return array
      */
-    protected function _buildCorrections($original, $corrected)
+    protected function _buildCorrections(array $original, array $corrected): array
     {
         $corrections = [];
         $fields = ['street1', 'street2', 'city', 'region', 'postcode'];
@@ -213,7 +215,7 @@ class Mage_Usa_AddressController extends Mage_Core_Controller_Front_Action
      * @param  array $data Response data
      * @return void
      */
-    protected function _sendJsonResponse($data)
+    protected function _sendJsonResponse(array $data): void
     {
         $this->getResponse()
             ->setHeader('Content-Type', 'application/json', true)

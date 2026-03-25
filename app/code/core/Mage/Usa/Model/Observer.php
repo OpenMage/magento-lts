@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -21,14 +23,14 @@ class Mage_Usa_Model_Observer
     /**
      * @var Mage_Usa_Model_Shipping_Carrier_Usps_Address_Service
      */
-    protected $_addressService;
+    protected ?Mage_Usa_Model_Shipping_Carrier_Usps_Address_Service $_addressService = null;
 
     /**
      * Get address service instance
      *
      * @return Mage_Usa_Model_Shipping_Carrier_Usps_Address_Service
      */
-    protected function _getAddressService()
+    protected function _getAddressService(): Mage_Usa_Model_Shipping_Carrier_Usps_Address_Service
     {
         if ($this->_addressService === null) {
             $this->_addressService = Mage::getModel('usa/shipping_carrier_usps_address_service');
@@ -45,7 +47,7 @@ class Mage_Usa_Model_Observer
      * @param  Varien_Event_Observer   $observer
      * @return Mage_Usa_Model_Observer
      */
-    public function logShippingAddressVerification($observer)
+    public function logShippingAddressVerification(Varien_Event_Observer $observer): self
     {
         try {
             $addressService = $this->_getAddressService();
@@ -123,7 +125,7 @@ class Mage_Usa_Model_Observer
      * @param  Varien_Event_Observer   $observer
      * @return Mage_Usa_Model_Observer
      */
-    public function validateOrderAddress($observer)
+    public function validateOrderAddress(Varien_Event_Observer $observer): self
     {
         try {
             $addressService = $this->_getAddressService();
@@ -165,7 +167,7 @@ class Mage_Usa_Model_Observer
      * @param  Varien_Event_Observer   $observer
      * @return Mage_Usa_Model_Observer
      */
-    public function prepareShipmentForLabels($observer)
+    public function prepareShipmentForLabels(Varien_Event_Observer $observer): self
     {
         try {
             /** @var Mage_Sales_Model_Order_Shipment $shipment */

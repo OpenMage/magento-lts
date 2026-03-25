@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -51,7 +53,7 @@ class Mage_Usa_Model_Shipping_Carrier_UspsAuth extends Mage_Usa_Model_Shipping_C
      * @return null|false|string Access token on success, false on API error, null on exception
      * @throws Exception
      */
-    public function getAccessToken(string $clientId, string $clientSecret, string $clientUrl)
+    public function getAccessToken(string $clientId, string $clientSecret, string $clientUrl): string|false|null
     {
         $storeId = Mage::app()->getStore()->getId();
         $credentialHash = substr(hash('sha256', $clientId . $clientSecret), 0, 8);
@@ -170,7 +172,7 @@ class Mage_Usa_Model_Shipping_Carrier_UspsAuth extends Mage_Usa_Model_Shipping_C
      * @param  string $clientSecret USPS Consumer Secret (for targeted cache key)
      * @return void
      */
-    public function clearCachedToken(string $clientId = '', string $clientSecret = '')
+    public function clearCachedToken(string $clientId = '', string $clientSecret = ''): void
     {
         $storeId = Mage::app()->getStore()->getId();
         $cache = Mage::app()->getCache();
@@ -189,7 +191,7 @@ class Mage_Usa_Model_Shipping_Carrier_UspsAuth extends Mage_Usa_Model_Shipping_C
     /**
      * @inheritDoc
      */
-    public function collectRates(Mage_Shipping_Model_Rate_Request $request)
+    public function collectRates(Mage_Shipping_Model_Rate_Request $request): false
     {
         return false;
     }
@@ -197,7 +199,7 @@ class Mage_Usa_Model_Shipping_Carrier_UspsAuth extends Mage_Usa_Model_Shipping_C
     /**
      * @inheritDoc
      */
-    protected function _doShipmentRequest(Varien_Object $request)
+    protected function _doShipmentRequest(Varien_Object $request): Varien_Object
     {
         return new Varien_Object();
     }

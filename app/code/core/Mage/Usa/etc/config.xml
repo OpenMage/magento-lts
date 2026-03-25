@@ -264,7 +264,6 @@
                 <crid></crid>
                 <mid></mid>
                 <mmid></mmid>
-                <eps_account_type>EPS</eps_account_type>
                 <eps_account_number backend_model="adminhtml/system_config_backend_encrypted"/>
                 <permit_zip></permit_zip>
                 <account_type>EPS</account_type>

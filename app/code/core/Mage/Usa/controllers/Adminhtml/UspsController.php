@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -9,7 +11,7 @@
 
 class Mage_Usa_Adminhtml_UspsController extends Mage_Adminhtml_Controller_Action
 {
-    public function testconnectionAction()
+    public function testconnectionAction(): void
     {
         if (!$this->_validateFormKey()) {
             $this->getResponse()->setBody(Mage::helper('core')->jsonEncode([
@@ -39,9 +41,11 @@ class Mage_Usa_Adminhtml_UspsController extends Mage_Adminhtml_Controller_Action
                 throw new Mage_Core_Exception('Client ID, Client Secret, and Environment are required.');
             }
 
-            $gatewayUrl = ($environment === 'production')
-                ? 'https://apis.usps.com/'
-                : 'https://apis-tem.usps.com/';
+            $allowedEnvironments = ['production' => 'https://apis.usps.com/', 'sandbox' => 'https://apis-tem.usps.com/'];
+            if (!isset($allowedEnvironments[$environment])) {
+                throw new Mage_Core_Exception('Invalid environment: ' . $environment . '. Allowed: ' . implode(', ', array_keys($allowedEnvironments)));
+            }
+            $gatewayUrl = $allowedEnvironments[$environment];
 
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_URL, $gatewayUrl . 'oauth2/v3/token');
@@ -85,7 +89,7 @@ class Mage_Usa_Adminhtml_UspsController extends Mage_Adminhtml_Controller_Action
         }
     }
 
-    protected function _getConfig($path, $websiteCode, $storeCode)
+    protected function _getConfig(string $path, string $websiteCode, string $storeCode): string|false
     {
         $scope = 'default';
         $scopeId = 0;
@@ -130,7 +134,7 @@ class Mage_Usa_Adminhtml_UspsController extends Mage_Adminhtml_Controller_Action
         return $value;
     }
 
-    public function createdimensionsAction()
+    public function createdimensionsAction(): void
     {
         if (!$this->_validateFormKey()) {
             $this->getResponse()->setBody(Mage::helper('core')->jsonEncode([
@@ -235,7 +239,7 @@ class Mage_Usa_Adminhtml_UspsController extends Mage_Adminhtml_Controller_Action
         return Mage::getSingleton('admin/session')->isAllowed('system/config');
     }
 
-    public function testRateQuoteAction()
+    public function testRateQuoteAction(): void
     {
         if (!$this->_validateFormKey()) {
             $this->getResponse()->setBody(Mage::helper('core')->jsonEncode([
@@ -265,9 +269,11 @@ class Mage_Usa_Adminhtml_UspsController extends Mage_Adminhtml_Controller_Action
                 throw new Mage_Core_Exception('Client ID, Client Secret, and Environment are required.');
             }
 
-            $gatewayUrl = ($environment === 'production')
-                ? 'https://apis.usps.com/'
-                : 'https://apis-tem.usps.com/';
+            $allowedEnvironments = ['production' => 'https://apis.usps.com/', 'sandbox' => 'https://apis-tem.usps.com/'];
+            if (!isset($allowedEnvironments[$environment])) {
+                throw new Mage_Core_Exception('Invalid environment: ' . $environment . '. Allowed: ' . implode(', ', array_keys($allowedEnvironments)));
+            }
+            $gatewayUrl = $allowedEnvironments[$environment];
 
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_URL, $gatewayUrl . 'oauth2/v3/token');

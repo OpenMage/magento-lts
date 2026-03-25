@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -29,24 +31,24 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service
     /**
      * @var Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
      */
-    protected $_client;
+    protected ?Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client $_client = null;
 
     /**
      * @var bool
      */
-    protected $_debug = false;
+    protected bool $_debug = false;
 
     /**
      * @var array Configuration data
      */
-    protected $_config = [];
+    protected array $_config = [];
 
     /**
      * Constructor
      *
      * @param null|Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client $client
      */
-    public function __construct($client = null)
+    public function __construct(?Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client $client = null)
     {
         $this->_client = $client;
         $this->_debug = (bool) Mage::getStoreConfig('carriers/usps/debug');
@@ -58,7 +60,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service
      *
      * @return void
      */
-    protected function _loadConfig()
+    protected function _loadConfig(): void
     {
         $this->_config = [
             'crid' => Mage::getStoreConfig('carriers/usps/crid'),
@@ -78,7 +80,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service
      *
      * @return Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
      */
-    protected function _getClient()
+    protected function _getClient(): Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
     {
         if ($this->_client === null) {
             $this->_client = Mage::getModel('usa/shipping_carrier_usps_rest_client');
@@ -108,7 +110,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service
      * @param  null|int $storeId Store ID
      * @return bool
      */
-    public function isEnabled($storeId = null)
+    public function isEnabled(?int $storeId = null): bool
     {
         return (bool) Mage::getStoreConfig('carriers/usps/enable_labels', $storeId)
             && Mage::getStoreConfig('carriers/usps/active', $storeId)
@@ -123,7 +125,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service
      * @param  Varien_Object $request Shipment request with package/address data
      * @return Varien_Object result with label_content, tracking_number, etc
      */
-    public function createDomesticLabel(Varien_Object $request)
+    public function createDomesticLabel(Varien_Object $request): Varien_Object
     {
         $result = new Varien_Object();
 
@@ -164,7 +166,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service
      * @param  Varien_Object $request Shipment request
      * @return Varien_Object Result with label_content, tracking_number, customs_form
      */
-    public function createInternationalLabel(Varien_Object $request)
+    public function createInternationalLabel(Varien_Object $request): Varien_Object
     {
         $result = new Varien_Object();
 
@@ -204,7 +206,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service
      *
      * @return array
      */
-    protected function _buildDomesticLabelRequest(Varien_Object $request)
+    protected function _buildDomesticLabelRequest(Varien_Object $request): array
     {
         $shipper = $request->getShipperAddressStreet() ?: $this->_getOriginAddress();
         $recipient = $request->getRecipientAddressStreet();
@@ -247,7 +249,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service
      *
      * @return array
      */
-    protected function _buildInternationalLabelRequest(Varien_Object $request)
+    protected function _buildInternationalLabelRequest(Varien_Object $request): array
     {
         $payload = $this->_buildDomesticLabelRequest($request);
         $payload['customsDeclaration'] = $this->_buildCustomsDeclaration($request);
@@ -264,7 +266,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service
      *
      * @return array
      */
-    protected function _buildPackageDescription(Varien_Object $request)
+    protected function _buildPackageDescription(Varien_Object $request): array
     {
         $weight = $request->getPackageWeight();
         $params = $request->getPackageParams();
@@ -297,7 +299,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service
      *
      * @return array
      */
-    protected function _buildPaymentInfo()
+    protected function _buildPaymentInfo(): array
     {
         $payment = [
             'paymentType' => $this->_config['account_type'],
@@ -319,7 +321,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service
      *
      * @return array
      */
-    protected function _buildCustomsDeclaration(Varien_Object $request)
+    protected function _buildCustomsDeclaration(Varien_Object $request): array
     {
         $items = $request->getPackageItems() ?: [];
         $customsItems = [];
@@ -349,7 +351,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service
      * @param  string       $type   'shipper' or 'recipient'
      * @return array
      */
-    protected function _formatAddress($street, Varien_Object $request, $type)
+    protected function _formatAddress(array|string $street, Varien_Object $request, string $type): array
     {
         $prefix = $type === 'shipper' ? 'shipper' : 'recipient';
         $streetLines = is_array($street) ? $street : [$street];
@@ -371,7 +373,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service
      *
      * @return array
      */
-    protected function _getOriginAddress()
+    protected function _getOriginAddress(): array
     {
         return [
             Mage::getStoreConfig('shipping/origin/street_line1'),
@@ -385,7 +387,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service
      * @param  string $methodCode
      * @return string
      */
-    protected function _mapServiceCode($methodCode)
+    protected function _mapServiceCode(string $methodCode): string
     {
         $code = preg_replace('/^usps_/i', '', $methodCode);
         return preg_replace('/_(SP|FE|FB|PL|FS|FP|FA|LFR|LR)$/', '', $code);
@@ -396,7 +398,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service
      *
      * @return Varien_Object
      */
-    protected function _parseLabelResponse(array $data, Varien_Object $result)
+    protected function _parseLabelResponse(array $data, Varien_Object $result): Varien_Object
     {
         $trackingNumber = $data['trackingNumber'] ?? null;
         if (!$trackingNumber) {
@@ -436,7 +438,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service
      *
      * @return Varien_Object
      */
-    protected function _parseInternationalLabelResponse(array $data, Varien_Object $result)
+    protected function _parseInternationalLabelResponse(array $data, Varien_Object $result): Varien_Object
     {
         $result = $this->_parseLabelResponse($data, $result);
 
@@ -461,7 +463,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service
      * @param  string $trackingNumber
      * @return bool
      */
-    public function cancelLabel($trackingNumber)
+    public function cancelLabel(string $trackingNumber): bool
     {
         try {
             $client = $this->_getClient();
@@ -486,7 +488,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service
      *
      * @return string
      */
-    protected function _extractErrorMessage(array $response)
+    protected function _extractErrorMessage(array $response): string
     {
         if (isset($response['error']) && $response['error'] !== '') {
             return $response['error'];
@@ -508,7 +510,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service
      *
      * @return void
      */
-    protected function _debug(array $data)
+    protected function _debug(array $data): void
     {
         if (!$this->_debug) {
             return;

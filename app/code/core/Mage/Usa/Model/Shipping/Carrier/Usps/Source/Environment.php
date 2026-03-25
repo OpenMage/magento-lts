@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -41,7 +43,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Source_Environment
      *
      * @return array
      */
-    public function toOptionArray()
+    public function toOptionArray(): array
     {
         return [
             [
@@ -61,7 +63,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Source_Environment
      * @param  string $environment
      * @return string
      */
-    public function getUrlForEnvironment($environment)
+    public function getUrlForEnvironment(string $environment): string
     {
         return match ($environment) {
             self::ENV_PRODUCTION => self::URL_PRODUCTION,

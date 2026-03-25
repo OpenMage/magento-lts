@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -22,7 +24,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Error_Dictionary
      *
      * @var array
      */
-    protected $_httpStatusMessages = [
+    protected array $_httpStatusMessages = [
         400 => 'Invalid request. Please verify package details and try again.',
         401 => 'USPS authentication failed. Please check your API credentials in admin settings.',
         403 => 'Access denied. Your USPS account may not have permission for this operation.',
@@ -45,7 +47,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Error_Dictionary
      *
      * @var array
      */
-    protected $_apiErrorCodes = [
+    protected array $_apiErrorCodes = [
         // Authentication & Authorization
         'INVALID_TOKEN' => 'USPS authentication token is invalid or expired. Please check your credentials.',
         'TOKEN_EXPIRED' => 'USPS authentication token has expired. Please try again.',
@@ -102,7 +104,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Error_Dictionary
      *
      * @var array
      */
-    protected $_messagePatterns = [
+    protected array $_messagePatterns = [
         '/mailClass.*invalid/i' => 'The selected shipping method is not available. Please choose a different method.',
         '/weight.*exceed/i' => 'Package weight exceeds USPS limits for this shipping method.',
         '/dimension.*exceed/i' => 'Package dimensions exceed USPS limits for this shipping method.',
@@ -120,9 +122,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Error_Dictionary
      * @param  int         $statusCode HTTP status code
      * @return null|string User-friendly message or null if not found
      */
-    public function getHttpStatusMessage($statusCode)
+    public function getHttpStatusMessage(int $statusCode): ?string
     {
-        $statusCode = (int) $statusCode;
         return $this->_httpStatusMessages[$statusCode] ?? null;
     }
 
@@ -132,9 +133,9 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Error_Dictionary
      * @param  string      $errorCode USPS API error code
      * @return null|string User-friendly message or null if not found
      */
-    public function getApiErrorMessage($errorCode)
+    public function getApiErrorMessage(string $errorCode): ?string
     {
-        $errorCode = strtoupper(trim((string) $errorCode));
+        $errorCode = strtoupper(trim($errorCode));
         return $this->_apiErrorCodes[$errorCode] ?? null;
     }
 
@@ -144,10 +145,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Error_Dictionary
      * @param  string      $apiMessage Raw API error message
      * @return null|string User-friendly message
      */
-    public function translateMessage($apiMessage)
+    public function translateMessage(string $apiMessage): ?string
     {
-        $apiMessage = (string) $apiMessage;
-
         foreach ($this->_messagePatterns as $pattern => $translation) {
             if (preg_match($pattern, $apiMessage)) {
                 return Mage::helper('usa')->__($translation);
@@ -171,7 +170,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Error_Dictionary
      * @param  string     $fallbackMessage Default message if no translation found
      * @return string     User-friendly error message
      */
-    public function getErrorMessage($httpCode, $responseData = null, $fallbackMessage = null)
+    public function getErrorMessage(int $httpCode, ?array $responseData = null, ?string $fallbackMessage = null): string
     {
         // Try HTTP status code first for common errors
         if ($httpCode >= 500) {
@@ -238,7 +237,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Error_Dictionary
      * @param  null|array $responseData Decoded JSON response
      * @return bool       True if error is transient and operation can be retried
      */
-    public function isTransientError($httpCode, $responseData = null)
+    public function isTransientError(int $httpCode, ?array $responseData = null): bool
     {
         // Server errors are typically transient
         if ($httpCode >= 500) {
@@ -272,7 +271,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Error_Dictionary
      *
      * @return array
      */
-    public function getAllHttpStatusMessages()
+    public function getAllHttpStatusMessages(): array
     {
         return $this->_httpStatusMessages;
     }
@@ -282,7 +281,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Error_Dictionary
      *
      * @return array
      */
-    public function getAllApiErrorCodes()
+    public function getAllApiErrorCodes(): array
     {
         return $this->_apiErrorCodes;
     }

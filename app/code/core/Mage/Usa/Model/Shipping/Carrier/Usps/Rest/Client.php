@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -37,28 +39,28 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
      *
      * @var string
      */
-    protected $_baseUrl;
+    protected string $_baseUrl;
 
     /**
      * OAuth access token
      *
      * @var null|string
      */
-    protected $_accessToken;
+    protected ?string $_accessToken = null;
 
     /**
      * Debug mode flag
      *
      * @var bool
      */
-    protected $_debug = false;
+    protected bool $_debug = false;
 
     /**
      * Debug log array
      *
      * @var array
      */
-    protected $_debugLog = [];
+    protected array $_debugLog = [];
 
     /**
      * Constructor
@@ -66,7 +68,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
      * @param string $baseUrl Base API URL (production or sandbox)
      * @param bool   $debug   Enable debug logging
      */
-    public function __construct($baseUrl = null, $debug = false)
+    public function __construct(?string $baseUrl = null, bool $debug = false)
     {
         $this->_baseUrl = $baseUrl ?: self::URL_PRODUCTION;
         $this->_debug = $debug;
@@ -78,7 +80,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
      * @param  string                                           $token Access token
      * @return Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
      */
-    public function setAccessToken($token)
+    public function setAccessToken(string $token): self
     {
         $this->_accessToken = $token;
         return $this;
@@ -89,7 +91,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
      *
      * @return null|string
      */
-    public function getAccessToken()
+    public function getAccessToken(): ?string
     {
         return $this->_accessToken;
     }
@@ -100,7 +102,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
      * @param  string                                           $url Base API URL
      * @return Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
      */
-    public function setBaseUrl($url)
+    public function setBaseUrl(string $url): self
     {
         $this->_baseUrl = rtrim($url, '/') . '/';
         return $this;
@@ -111,44 +113,9 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
      *
      * @return string
      */
-    public function getBaseUrl()
+    public function getBaseUrl(): string
     {
         return $this->_baseUrl;
-    }
-
-    /**
-     * Authenticate and retrieve OAuth token
-     *
-     * @param  string $clientId     Client ID
-     * @param  string $clientSecret Client Secret
-     * @return array  Response array with 'success', 'access_token', 'expires_in', 'error'
-     */
-    public function authenticate($clientId, $clientSecret)
-    {
-        $endpoint = 'oauth2/v3/token';
-        $payload = [
-            'grant_type' => 'client_credentials',
-            'client_id' => $clientId,
-            'client_secret' => $clientSecret,
-        ];
-
-        $response = $this->_post($endpoint, $payload, false);
-
-        if ($response['success'] && isset($response['data']['access_token'])) {
-            $this->_accessToken = $response['data']['access_token'];
-            return [
-                'success' => true,
-                'access_token' => $response['data']['access_token'],
-                'expires_in' => $response['data']['expires_in'] ?? 3600,
-                'token_type' => $response['data']['token_type'] ?? 'Bearer',
-            ];
-        }
-
-        return [
-            'success' => false,
-            'error' => $response['error'] ?? 'Authentication failed',
-            'error_description' => $response['data']['error_description'] ?? null,
-        ];
     }
 
     /**
@@ -157,7 +124,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
      * @param  array $request Rate request parameters
      * @return array Response array with 'success', 'data', 'error'
      */
-    public function getRates(array $request)
+    public function getRates(array $request): array
     {
         $endpoint = 'prices/v3/total-rates/search';
         return $this->_post($endpoint, $request, true);
@@ -170,7 +137,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
      * @param  bool   $expandedDetails Include expanded tracking details
      * @return array  Response array with 'success', 'data', 'error'
      */
-    public function getTracking($trackingNumber, $expandedDetails = true)
+    public function getTracking(string $trackingNumber, bool $expandedDetails = true): array
     {
         $endpoint = 'tracking/v3/tracking/' . urlencode($trackingNumber);
         $query = $expandedDetails ? '?expand=DETAIL' : '';
@@ -183,7 +150,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
      * @param  array $labelRequest Label request parameters
      * @return array Response array with 'success', 'data', 'error'
      */
-    public function createDomesticLabel(array $labelRequest)
+    public function createDomesticLabel(array $labelRequest): array
     {
         $endpoint = 'labels/v3/label';
         return $this->_post($endpoint, $labelRequest, true);
@@ -195,7 +162,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
      * @param  array $labelRequest Label request parameters
      * @return array Response array with 'success', 'data', 'error'
      */
-    public function createInternationalLabel(array $labelRequest)
+    public function createInternationalLabel(array $labelRequest): array
     {
         $endpoint = 'international-labels/v3/label';
         return $this->_post($endpoint, $labelRequest, true);
@@ -207,7 +174,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
      * @param  string $trackingNumber Tracking number of label to cancel
      * @return array  Response array with 'success', 'data', 'error'
      */
-    public function cancelLabel($trackingNumber)
+    public function cancelLabel(string $trackingNumber): array
     {
         $endpoint = 'labels/v3/label/' . urlencode($trackingNumber);
         return $this->_delete($endpoint, true);
@@ -219,7 +186,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
      * @param  array $payload Payment authorization request
      * @return array Response array with 'success', 'data', 'error'
      */
-    public function getPaymentAuthorization(array $payload)
+    public function getPaymentAuthorization(array $payload): array
     {
         $endpoint = 'payments/v3/payment-authorization';
         return $this->_post($endpoint, $payload, true);
@@ -233,7 +200,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
      * @param  array $address Address to verify with keys: streetAddress, secondaryAddress, city, state, ZIPCode, ZIPPlus4
      * @return array Response array with 'success', 'data', 'error'
      */
-    public function verifyAddress(array $address)
+    public function verifyAddress(array $address): array
     {
         $queryParams = http_build_query(array_filter([
             'streetAddress' => $address['streetAddress'] ?? '',
@@ -254,7 +221,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
      * @param  bool   $authenticated Include auth header
      * @return array
      */
-    protected function _get($endpoint, $authenticated = true)
+    protected function _get(string $endpoint, bool $authenticated = true): array
     {
         return $this->_request('GET', $endpoint, null, $authenticated);
     }
@@ -267,7 +234,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
      * @param  bool   $authenticated Include auth header
      * @return array
      */
-    protected function _post($endpoint, array $data, $authenticated = true)
+    protected function _post(string $endpoint, array $data, bool $authenticated = true): array
     {
         return $this->_request('POST', $endpoint, $data, $authenticated);
     }
@@ -279,7 +246,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
      * @param  bool   $authenticated Include auth header
      * @return array
      */
-    protected function _delete($endpoint, $authenticated = true)
+    protected function _delete(string $endpoint, bool $authenticated = true): array
     {
         return $this->_request('DELETE', $endpoint, null, $authenticated);
     }
@@ -293,7 +260,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
      * @param  bool       $authenticated Include auth header
      * @return array      Response array with 'success', 'data', 'http_code', 'error'
      */
-    protected function _request($method, $endpoint, $data = null, $authenticated = true)
+    protected function _request(string $method, string $endpoint, ?array $data = null, bool $authenticated = true): array
     {
         $url = $this->_baseUrl . ltrim($endpoint, '/');
 
@@ -375,7 +342,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
      * @param  int        $httpCode     HTTP status code
      * @return string     Error message
      */
-    protected function _extractError($responseData, $httpCode)
+    protected function _extractError(?array $responseData, int $httpCode): string
     {
         if (is_array($responseData)) {
             // Check various error formats
@@ -406,7 +373,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
      * @param  array  $data Log data
      * @return void
      */
-    protected function _log($type, array $data)
+    protected function _log(string $type, array $data): void
     {
         if (!$this->_debug) {
             return;
@@ -424,7 +391,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
      *
      * @return array
      */
-    public function getDebugLog()
+    public function getDebugLog(): array
     {
         return $this->_debugLog;
     }
@@ -434,7 +401,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
      *
      * @return Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
      */
-    public function clearDebugLog()
+    public function clearDebugLog(): self
     {
         $this->_debugLog = [];
         return $this;
@@ -446,7 +413,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
      * @param  int  $httpCode HTTP status code
      * @return bool
      */
-    public function isTransientError($httpCode)
+    public function isTransientError(int $httpCode): bool
     {
         return in_array($httpCode, [429, 500, 502, 503, 504]);
     }
@@ -463,7 +430,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
      * @param  int        $maxRetries    Maximum retry attempts (default 3)
      * @return array      Response array with 'success', 'data', 'http_code', 'error'
      */
-    public function requestWithRetry($method, $endpoint, $data = null, $authenticated = true, $maxRetries = 3)
+    public function requestWithRetry(string $method, string $endpoint, ?array $data = null, bool $authenticated = true, int $maxRetries = 3): array
     {
         $lastResponse = null;
 
@@ -502,7 +469,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
      * @param  int    $maxRetries    Maximum retry attempts
      * @return array
      */
-    public function getWithRetry($endpoint, $authenticated = true, $maxRetries = 3)
+    public function getWithRetry(string $endpoint, bool $authenticated = true, int $maxRetries = 3): array
     {
         return $this->requestWithRetry('GET', $endpoint, null, $authenticated, $maxRetries);
     }
@@ -516,7 +483,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
      * @param  int    $maxRetries    Maximum retry attempts
      * @return array
      */
-    public function postWithRetry($endpoint, array $data, $authenticated = true, $maxRetries = 3)
+    public function postWithRetry(string $endpoint, array $data, bool $authenticated = true, int $maxRetries = 3): array
     {
         return $this->requestWithRetry('POST', $endpoint, $data, $authenticated, $maxRetries);
     }

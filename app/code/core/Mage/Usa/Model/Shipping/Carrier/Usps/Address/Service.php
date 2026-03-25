@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -32,19 +34,19 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Address_Service
     /**
      * @var Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
      */
-    protected $_client;
+    protected ?Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client $_client = null;
 
     /**
      * @var bool
      */
-    protected $_debug = false;
+    protected bool $_debug = false;
 
     /**
      * Constructor
      *
      * @param null|Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client $client
      */
-    public function __construct($client = null)
+    public function __construct(?Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client $client = null)
     {
         $this->_client = $client;
         $this->_debug = (bool) Mage::getStoreConfig('carriers/usps/debug');
@@ -55,7 +57,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Address_Service
      *
      * @return Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
      */
-    protected function _getClient()
+    protected function _getClient(): Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
     {
         if ($this->_client === null) {
             $this->_client = Mage::getModel('usa/shipping_carrier_usps_rest_client');
@@ -87,7 +89,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Address_Service
      * @param  null|int $storeId Store ID
      * @return bool
      */
-    public function isEnabled($storeId = null)
+    public function isEnabled(?int $storeId = null): bool
     {
         return (bool) Mage::getStoreConfig('carriers/usps/verify_addresses', $storeId)
             && Mage::getStoreConfig('carriers/usps/active', $storeId);
@@ -106,7 +108,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Address_Service
      *                                              - deliveryPoint: string|null Delivery point barcode
      *                                              - dpvConfirmation: string|null DPV confirmation indicator
      */
-    public function verify(Mage_Customer_Model_Address_Abstract $address)
+    public function verify(Mage_Customer_Model_Address_Abstract $address): array
     {
         $original = $this->_addressToArray($address);
 
@@ -151,7 +153,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Address_Service
      * @param  array $original Original address array
      * @return array Verification result
      */
-    protected function _parseVerificationResponse(array $data, array $original)
+    protected function _parseVerificationResponse(array $data, array $original): array
     {
         $address = $data['address'] ?? $data;
         $warnings = [];
@@ -229,7 +231,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Address_Service
      * @param  array $addressData Address data with keys: street1, street2, city, region, postcode
      * @return array Verification result
      */
-    public function verifyFromArray(array $addressData)
+    public function verifyFromArray(array $addressData): array
     {
         $original = [
             'street1' => $addressData['street1'] ?? '',
@@ -279,7 +281,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Address_Service
      * @param  array $corrected Corrected address data array
      * @return array Result with success flag and message
      */
-    public function applyCorrectionToQuote(array $corrected)
+    public function applyCorrectionToQuote(array $corrected): array
     {
         try {
             $quote = Mage::getSingleton('checkout/session')->getQuote();
@@ -312,7 +314,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Address_Service
      * @param  array                                $corrected Corrected address array
      * @return bool                                 True on success
      */
-    public function applyCorrection(Mage_Customer_Model_Address_Abstract $address, array $corrected)
+    public function applyCorrection(Mage_Customer_Model_Address_Abstract $address, array $corrected): bool
     {
         if ($corrected === []) {
             return false;
@@ -361,7 +363,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Address_Service
      *
      * @return array
      */
-    protected function _addressToArray(Mage_Customer_Model_Address_Abstract $address)
+    protected function _addressToArray(Mage_Customer_Model_Address_Abstract $address): array
     {
         $street = $address->getStreet();
 
@@ -381,7 +383,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Address_Service
      * @param  string $postcode
      * @return string
      */
-    protected function _extractZip5($postcode)
+    protected function _extractZip5(string $postcode): string
     {
         $postcode = preg_replace('/\D/', '', $postcode);
         return substr($postcode, 0, 5);
@@ -393,7 +395,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Address_Service
      * @param  string $postcode
      * @return string
      */
-    protected function _extractZip4($postcode)
+    protected function _extractZip4(string $postcode): string
     {
         $postcode = preg_replace('/\D/', '', $postcode);
         if (strlen($postcode) >= 9) {
@@ -410,7 +412,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Address_Service
      * @param  string $zip4
      * @return string
      */
-    protected function _buildZip($zip5, $zip4)
+    protected function _buildZip(string $zip5, string $zip4): string
     {
         if ($zip4 !== '' && $zip4 !== null) {
             return $zip5 . '-' . $zip4;
@@ -426,7 +428,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Address_Service
      * @param  string   $countryId
      * @return null|int
      */
-    protected function _getRegionId($regionCode, $countryId)
+    protected function _getRegionId(string $regionCode, string $countryId): ?int
     {
         $region = Mage::getModel('directory/region')->loadByCode($regionCode, $countryId);
         return $region->getId() ?: null;
@@ -437,7 +439,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Address_Service
      *
      * @return void
      */
-    protected function _debug(array $data)
+    protected function _debug(array $data): void
     {
         if (!$this->_debug) {
             return;

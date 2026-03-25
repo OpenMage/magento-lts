@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -31,19 +33,19 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Service_Standards
     /**
      * @var Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
      */
-    protected $_client;
+    protected ?Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client $_client = null;
 
     /**
      * @var bool
      */
-    protected $_debug = false;
+    protected bool $_debug = false;
 
     /**
      * Mail class to API service type mapping
      *
      * @var array
      */
-    protected $_mailClassMapping = [
+    protected array $_mailClassMapping = [
         'USPS_GROUND_ADVANTAGE' => 'USPS_GROUND_ADVANTAGE',
         'PRIORITY_MAIL' => 'PRIORITY',
         'PRIORITY_MAIL_EXPRESS' => 'PRIORITY_MAIL_EXPRESS',
@@ -59,7 +61,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Service_Standards
      *
      * @param null|Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client $client
      */
-    public function __construct($client = null)
+    public function __construct(?Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client $client = null)
     {
         $this->_client = $client;
         $this->_debug = (bool) Mage::getStoreConfig('carriers/usps/debug');
@@ -70,7 +72,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Service_Standards
      *
      * @return Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
      */
-    protected function _getClient()
+    protected function _getClient(): Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
     {
         if ($this->_client === null) {
             $this->_client = Mage::getModel('usa/shipping_carrier_usps_rest_client');
@@ -100,7 +102,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Service_Standards
      * @param  null|int $storeId Store ID
      * @return bool
      */
-    public function isEnabled($storeId = null)
+    public function isEnabled(?int $storeId = null): bool
     {
         return (bool) Mage::getStoreConfig('carriers/usps/show_delivery_estimates', $storeId)
             && Mage::getStoreConfig('carriers/usps/active', $storeId);
@@ -115,7 +117,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Service_Standards
      * @param  null|string $acceptDate Acceptance date (Y-m-d format)
      * @return null|array
      */
-    public function getEstimate($originZip, $destZip, $mailClass, $acceptDate = null)
+    public function getEstimate(string $originZip, string $destZip, string $mailClass, ?string $acceptDate = null): ?array
     {
         $estimates = $this->getEstimates($originZip, $destZip, [$mailClass], $acceptDate);
         return $estimates[$mailClass] ?? null;
@@ -130,7 +132,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Service_Standards
      * @param  null|string $acceptDate  Acceptance date (Y-m-d format)
      * @return array       Keyed by mail class code
      */
-    public function getEstimates($originZip, $destZip, array $mailClasses, $acceptDate = null)
+    public function getEstimates(string $originZip, string $destZip, array $mailClasses, ?string $acceptDate = null): array
     {
         if ($mailClasses === []) {
             return [];
@@ -189,7 +191,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Service_Standards
      * @param  string $acceptDate
      * @return array
      */
-    protected function _fetchEstimatesFromApi($originZip, $destZip, array $mailClasses, $acceptDate)
+    protected function _fetchEstimatesFromApi(string $originZip, string $destZip, array $mailClasses, string $acceptDate): array
     {
         $estimates = [];
         $client = $this->_getClient();
@@ -238,7 +240,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Service_Standards
      * @param  array      $data API response data
      * @return null|array Parsed estimate or null
      */
-    protected function _parseEstimateResponse(array $data)
+    protected function _parseEstimateResponse(array $data): ?array
     {
         $standard = $data[0] ?? $data;
 
@@ -292,7 +294,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Service_Standards
      * @param  null|string $scheduledDate
      * @return string
      */
-    protected function _formatDeliveryDisplay($minDays, $maxDays, $scheduledDate)
+    protected function _formatDeliveryDisplay(int $minDays, int $maxDays, ?string $scheduledDate): string
     {
         $helper = Mage::helper('usa');
 
@@ -322,7 +324,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Service_Standards
      * @param  string      $mailClass
      * @return null|string
      */
-    protected function _mapToApiMailClass($mailClass)
+    protected function _mapToApiMailClass(string $mailClass): ?string
     {
         $baseClass = preg_replace('/_(SP|FE|FB|PL|FS|FP|FA|LFR|LR)$/', '', $mailClass);
 
@@ -348,7 +350,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Service_Standards
      * @param  string $acceptDate
      * @return string
      */
-    protected function _getCacheKey($originZip, $destZip, $mailClass, $acceptDate)
+    protected function _getCacheKey(string $originZip, string $destZip, string $mailClass, string $acceptDate): string
     {
         return self::CACHE_KEY_PREFIX . hash('sha256', implode('_', [
             $originZip,
@@ -364,7 +366,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Service_Standards
      * @param  string $zip
      * @return string
      */
-    protected function _cleanZip($zip)
+    protected function _cleanZip(string $zip): string
     {
         return substr(preg_replace('/\D/', '', $zip), 0, 5);
     }
@@ -374,7 +376,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Service_Standards
      *
      * @return void
      */
-    protected function _debug(array $data)
+    protected function _debug(array $data): void
     {
         if (!$this->_debug) {
             return;

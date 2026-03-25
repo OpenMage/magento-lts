@@ -15,7 +15,6 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Usa\Model\Shipping\Carrier;
 
 use OpenMage\Tests\Unit\OpenMageTest;
-use ReflectionMethod;
 
 final class UspsSecurityTest extends OpenMageTest
 {
@@ -32,16 +31,17 @@ final class UspsSecurityTest extends OpenMageTest
         $source = file_get_contents(
             __DIR__ . '/../../../../../../../app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps.php',
         );
+        self::assertNotFalse($source, 'Could not read Usps.php');
 
         // Both getConfigData calls must be wrapped in decrypt()
         self::assertStringContainsString(
             "Mage::helper('core')->decrypt(\$this->getConfigData('client_id'))",
-            (string) $source,
+            $source,
             '_getOAuthToken() must decrypt client_id before use',
         );
         self::assertStringContainsString(
             "Mage::helper('core')->decrypt(\$this->getConfigData('client_secret'))",
-            (string) $source,
+            $source,
             '_getOAuthToken() must decrypt client_secret before use',
         );
     }
@@ -54,6 +54,7 @@ final class UspsSecurityTest extends OpenMageTest
         $source = file_get_contents(
             __DIR__ . '/../../../../../../../app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps.php',
         );
+        self::assertNotFalse($source, 'Could not read Usps.php');
 
         // Remove all decrypt-wrapped calls, then check no raw calls remain
         $stripped = str_replace(
@@ -133,15 +134,16 @@ final class UspsSecurityTest extends OpenMageTest
         $source = file_get_contents(
             __DIR__ . '/../../../../../../../app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps/Service/Standards.php',
         );
+        self::assertNotFalse($source, 'Could not read Standards.php');
 
         self::assertStringNotContainsString(
             'unserialize(',
-            (string) $source,
+            $source,
             'Standards.php must use json_decode instead of unserialize',
         );
         self::assertStringNotContainsString(
             'serialize(',
-            (string) $source,
+            $source,
             'Standards.php must use json_encode instead of serialize',
         );
     }
@@ -200,9 +202,9 @@ final class UspsSecurityTest extends OpenMageTest
 
     public static function provideGatewayUrls(): \Iterator
     {
-        yield 'production URL' => ['https://api.usps.com/', true];
-        yield 'sandbox URL' => ['https://apis-sandbox.usps.com/', true];
-        yield 'with path' => ['https://api.usps.com/some/path', true];
+        yield 'production URL' => ['https://apis.usps.com/', true];
+        yield 'sandbox URL' => ['https://apis-tem.usps.com/', true];
+        yield 'with path' => ['https://apis.usps.com/some/path', true];
         yield 'SSRF evil.com' => ['https://evil.com/', false];
         yield 'SSRF with usps subdomain' => ['https://usps.com.evil.com/', false];
         yield 'non-HTTPS' => ['http://api.usps.com/', false];
@@ -254,15 +256,16 @@ final class UspsSecurityTest extends OpenMageTest
         $source = file_get_contents(
             __DIR__ . '/../../../../../../../app/code/core/Mage/Usa/Model/Shipping/Carrier/UspsAuth.php',
         );
+        self::assertNotFalse($source, 'Could not read UspsAuth.php');
 
         self::assertStringContainsString(
             "hash('sha256'",
-            (string) $source,
+            $source,
             'UspsAuth must include credential hash in cache key',
         );
         self::assertStringContainsString(
             '$credentialHash',
-            (string) $source,
+            $source,
             'UspsAuth must compute credentialHash variable',
         );
     }

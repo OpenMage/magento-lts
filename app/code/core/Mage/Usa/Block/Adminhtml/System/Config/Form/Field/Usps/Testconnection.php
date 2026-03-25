@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -9,7 +11,7 @@
 
 class Mage_Usa_Block_Adminhtml_System_Config_Form_Field_Usps_Testconnection extends Mage_Adminhtml_Block_System_Config_Form_Field
 {
-    protected function _getElementHtml(Varien_Data_Form_Element_Abstract $element)
+    protected function _getElementHtml(Varien_Data_Form_Element_Abstract $element): string
     {
         $buttonLabel = Mage::helper('usa')->__('Test Connection');
         $ajaxUrl = Mage::helper('adminhtml')::getUrl('adminhtml/usps/testconnection');
@@ -97,7 +99,7 @@ function testUspsConnection(url, website, store) {
 JAVASCRIPT;
     }
 
-    protected function _renderScopeLabel(Varien_Data_Form_Element_Abstract $element)
+    protected function _renderScopeLabel(Varien_Data_Form_Element_Abstract $element): string
     {
         return '';
     }

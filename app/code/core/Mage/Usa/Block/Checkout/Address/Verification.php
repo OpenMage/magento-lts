@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -21,34 +23,34 @@ class Mage_Usa_Block_Checkout_Address_Verification extends Mage_Core_Block_Templ
     /**
      * @var array Original address data
      */
-    protected $_originalAddress = [];
+    protected array $_originalAddress = [];
 
     /**
      * @var array Corrected address data
      */
-    protected $_correctedAddress = [];
+    protected array $_correctedAddress = [];
 
     /**
      * @var array List of field corrections
      */
-    protected $_corrections = [];
+    protected array $_corrections = [];
 
     /**
      * @var array Warning messages from USPS
      */
-    protected $_warnings = [];
+    protected array $_warnings = [];
 
     /**
      * @var string Verification status (exact|corrected|invalid)
      */
-    protected $_status = '';
+    protected string $_status = '';
 
     /**
      * Check if address verification feature is enabled
      *
      * @return bool
      */
-    public function isEnabled()
+    public function isEnabled(): bool
     {
         return (bool) Mage::getStoreConfig('carriers/usps/verify_addresses')
             && Mage::getStoreConfig('carriers/usps/active');
@@ -59,7 +61,7 @@ class Mage_Usa_Block_Checkout_Address_Verification extends Mage_Core_Block_Templ
      *
      * @return string
      */
-    public function getVerifyUrl()
+    public function getVerifyUrl(): string
     {
         return $this->getUrl('usa/address/verify', ['_secure' => true]);
     }
@@ -69,7 +71,7 @@ class Mage_Usa_Block_Checkout_Address_Verification extends Mage_Core_Block_Templ
      *
      * @return string
      */
-    public function getApplyUrl()
+    public function getApplyUrl(): string
     {
         return $this->getUrl('usa/address/apply', ['_secure' => true]);
     }
@@ -79,7 +81,7 @@ class Mage_Usa_Block_Checkout_Address_Verification extends Mage_Core_Block_Templ
      *
      * @return $this
      */
-    public function setOriginalAddress(array $address)
+    public function setOriginalAddress(array $address): self
     {
         $this->_originalAddress = $address;
         return $this;
@@ -90,7 +92,7 @@ class Mage_Usa_Block_Checkout_Address_Verification extends Mage_Core_Block_Templ
      *
      * @return array
      */
-    public function getOriginalAddress()
+    public function getOriginalAddress(): array
     {
         return $this->_originalAddress;
     }
@@ -100,7 +102,7 @@ class Mage_Usa_Block_Checkout_Address_Verification extends Mage_Core_Block_Templ
      *
      * @return $this
      */
-    public function setCorrectedAddress(array $address)
+    public function setCorrectedAddress(array $address): self
     {
         $this->_correctedAddress = $address;
         return $this;
@@ -111,7 +113,7 @@ class Mage_Usa_Block_Checkout_Address_Verification extends Mage_Core_Block_Templ
      *
      * @return array
      */
-    public function getCorrectedAddress()
+    public function getCorrectedAddress(): array
     {
         return $this->_correctedAddress;
     }
@@ -121,7 +123,7 @@ class Mage_Usa_Block_Checkout_Address_Verification extends Mage_Core_Block_Templ
      *
      * @return $this
      */
-    public function setCorrections(array $corrections)
+    public function setCorrections(array $corrections): self
     {
         $this->_corrections = $corrections;
         return $this;
@@ -132,7 +134,7 @@ class Mage_Usa_Block_Checkout_Address_Verification extends Mage_Core_Block_Templ
      *
      * @return array
      */
-    public function getCorrections()
+    public function getCorrections(): array
     {
         return $this->_corrections;
     }
@@ -142,7 +144,7 @@ class Mage_Usa_Block_Checkout_Address_Verification extends Mage_Core_Block_Templ
      *
      * @return bool
      */
-    public function hasCorrections()
+    public function hasCorrections(): bool
     {
         return count($this->_corrections) > 0;
     }
@@ -153,7 +155,7 @@ class Mage_Usa_Block_Checkout_Address_Verification extends Mage_Core_Block_Templ
      * @param  string $string
      * @return string
      */
-    public function escapeJs($string)
+    public function escapeJs(string $string): string
     {
         return $this->jsQuoteEscape($string);
     }
@@ -163,7 +165,7 @@ class Mage_Usa_Block_Checkout_Address_Verification extends Mage_Core_Block_Templ
      *
      * @return $this
      */
-    public function setWarnings(array $warnings)
+    public function setWarnings(array $warnings): self
     {
         $this->_warnings = $warnings;
         return $this;
@@ -174,7 +176,7 @@ class Mage_Usa_Block_Checkout_Address_Verification extends Mage_Core_Block_Templ
      *
      * @return array
      */
-    public function getWarnings()
+    public function getWarnings(): array
     {
         return $this->_warnings;
     }
@@ -184,7 +186,7 @@ class Mage_Usa_Block_Checkout_Address_Verification extends Mage_Core_Block_Templ
      *
      * @return bool
      */
-    public function hasWarnings()
+    public function hasWarnings(): bool
     {
         return count($this->_warnings) > 0;
     }
@@ -195,7 +197,7 @@ class Mage_Usa_Block_Checkout_Address_Verification extends Mage_Core_Block_Templ
      * @param  string $status
      * @return $this
      */
-    public function setStatus($status)
+    public function setStatus(string $status): self
     {
         $this->_status = $status;
         return $this;
@@ -206,7 +208,7 @@ class Mage_Usa_Block_Checkout_Address_Verification extends Mage_Core_Block_Templ
      *
      * @return string
      */
-    public function getStatus()
+    public function getStatus(): string
     {
         return $this->_status;
     }
@@ -216,7 +218,7 @@ class Mage_Usa_Block_Checkout_Address_Verification extends Mage_Core_Block_Templ
      *
      * @return string HTML formatted address
      */
-    public function formatAddressHtml(array $address)
+    public function formatAddressHtml(array $address): string
     {
         $lines = [];
 
