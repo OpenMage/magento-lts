@@ -68,24 +68,21 @@
             <sales_order_place_before>
                 <observers>
                     <usa_validate_address>
-                        <class>usa/observer</class>
-                        <method>validateOrderAddress</method>
+                        <class>usa/observer_validateOrderAddress</class>
                     </usa_validate_address>
                 </observers>
             </sales_order_place_before>
             <sales_order_shipment_save_before>
                 <observers>
                     <usa_prepare_shipment>
-                        <class>usa/observer</class>
-                        <method>prepareShipmentForLabels</method>
+                        <class>usa/observer_prepareShipmentForLabels</class>
                     </usa_prepare_shipment>
                 </observers>
             </sales_order_shipment_save_before>
             <checkout_controller_onepage_save_shipping_address>
                 <observers>
                     <usa_log_address_verification>
-                        <class>usa/observer</class>
-                        <method>logShippingAddressVerification</method>
+                        <class>usa/observer_logAddressVerification</class>
                     </usa_log_address_verification>
                 </observers>
             </checkout_controller_onepage_save_shipping_address>

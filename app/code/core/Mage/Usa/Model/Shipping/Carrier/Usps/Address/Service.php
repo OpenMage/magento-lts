@@ -59,40 +59,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Address_Service extends Mage_Usa_Mode
      */
     public function verify(Mage_Customer_Model_Address_Abstract $address): array
     {
-        $original = $this->_addressToArray($address);
-
-        // Build USPS API request format
-        $apiAddress = [
-            'streetAddress' => $original['street1'],
-            'secondaryAddress' => $original['street2'],
-            'city' => $original['city'],
-            'state' => $original['region'],
-            'ZIPCode' => $this->_extractZip5($original['postcode']),
-            'ZIPPlus4' => $this->_extractZip4($original['postcode']),
-        ];
-
-        $client = $this->_getClient();
-        $response = $client->verifyAddress($apiAddress);
-
-        $this->_debug([
-            'action' => 'verify_address',
-            'request' => $apiAddress,
-            'response' => $response,
-        ]);
-
-        if (!$response['success']) {
-            return [
-                'status' => self::MATCH_INVALID,
-                'original' => $original,
-                'corrected' => null,
-                'corrections' => [],
-                'warnings' => [$response['error'] ?? 'Address verification failed'],
-                'deliveryPoint' => null,
-                'dpvConfirmation' => null,
-            ];
-        }
-
-        return $this->_parseVerificationResponse($response['data'], $original);
+        return $this->_callVerifyApi($this->_addressToArray($address), 'verify_address');
     }
 
     /**
@@ -182,15 +149,26 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Address_Service extends Mage_Usa_Mode
      */
     public function verifyFromArray(array $addressData): array
     {
-        $original = [
+        return $this->_callVerifyApi([
             'street1' => $addressData['street1'] ?? '',
             'street2' => $addressData['street2'] ?? '',
             'city' => $addressData['city'] ?? '',
             'region' => $addressData['region'] ?? '',
             'postcode' => $addressData['postcode'] ?? '',
-        ];
+        ], 'verify_address_array');
+    }
 
-        // Build USPS API request format
+    /**
+     * Call USPS Address Verification API and parse response
+     *
+     * Shared logic for verify() and verifyFromArray().
+     *
+     * @param  array  $original    Normalized address array with street1, street2, city, region, postcode
+     * @param  string $debugAction Debug log action identifier
+     * @return array  Verification result
+     */
+    protected function _callVerifyApi(array $original, string $debugAction): array
+    {
         $apiAddress = [
             'streetAddress' => $original['street1'],
             'secondaryAddress' => $original['street2'],
@@ -204,20 +182,23 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Address_Service extends Mage_Usa_Mode
         $response = $client->verifyAddress($apiAddress);
 
         $this->_debug([
-            'action' => 'verify_address_array',
+            'action' => $debugAction,
             'request' => $apiAddress,
             'response' => $response,
         ]);
 
         if (!$response['success']) {
+            $errorMessage = $response['error'] ?? 'Address verification failed';
             return [
                 'success' => false,
                 'status' => self::MATCH_INVALID,
                 'original' => $original,
                 'corrected' => null,
                 'corrections' => [],
-                'warnings' => [$response['error'] ?? 'Address verification failed'],
-                'error' => $response['error'] ?? 'Address verification failed',
+                'warnings' => [$errorMessage],
+                'error' => $errorMessage,
+                'deliveryPoint' => null,
+                'dpvConfirmation' => null,
             ];
         }
 

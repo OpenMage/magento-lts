@@ -365,6 +365,43 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
     }
 
     /**
+     * Create a rate result error pre-filled with USPS carrier details
+     *
+     * @param  string                                $message Error message (defaults to specificerrmsg config)
+     */
+    protected function _createRateError(string $message = ''): Mage_Shipping_Model_Rate_Result_Error
+    {
+        /** @var Mage_Shipping_Model_Rate_Result_Error $error */
+        $error = Mage::getModel('shipping/rate_result_error');
+        $error->setCarrier('usps');
+        $error->setCarrierTitle($this->getConfigData('title'));
+        $error->setErrorMessage($message !== '' ? $message : $this->getConfigData('specificerrmsg'));
+        return $error;
+    }
+
+    /**
+     * Append a tracking error to $this->_result
+     *
+     * Initializes the tracking result if not yet created.
+     *
+     * @param string $message Error message
+     */
+    protected function _appendTrackingError(string $message): void
+    {
+        if (!$this->_result) {
+            $this->_result = Mage::getModel('shipping/tracking_result');
+        }
+
+        /** @var Mage_Shipping_Model_Tracking_Result_Error $error */
+        $error = Mage::getModel('shipping/tracking_result_error');
+        $error->setCarrier('usps');
+        $error->setCarrierTitle($this->getConfigData('title'));
+        $error->setErrorMessage($message);
+
+        $this->_result->append($error);
+    }
+
+    /**
      * Get Payment Authorization Token for USPS label generation
      *
      * The payment authorization token is required for creating shipping labels.
@@ -510,11 +547,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
 
         $accessToken = $this->_getOAuthToken();
         if (!$accessToken) {
-            $error = Mage::getModel('shipping/rate_result_error');
-            $error->setCarrier('usps');
-            $error->setCarrierTitle($this->getConfigData('title'));
-            $error->setErrorMessage(Mage::helper('usa')->__('Unable to authenticate with USPS. Please check your API credentials.'));
-            $result->append($error);
+            $result->append($this->_createRateError(Mage::helper('usa')->__('Unable to authenticate with USPS. Please check your API credentials.')));
             return $result;
         }
 
@@ -616,11 +649,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
 
             if ($responseBody === false) {
                 $this->_debug(['message' => 'USPS: Request failed', 'error' => $curlResult['error']]);
-                $errorResult = Mage::getModel('shipping/rate_result_error');
-                $errorResult->setCarrier('usps');
-                $errorResult->setCarrierTitle($this->getConfigData('title'));
-                $errorResult->setErrorMessage($this->getConfigData('specificerrmsg'));
-                $result->append($errorResult);
+                $result->append($this->_createRateError());
                 return $result;
             }
 
@@ -650,11 +679,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
                     'user_message' => $errorMessage,
                 ]);
 
-                $errorResult = Mage::getModel('shipping/rate_result_error');
-                $errorResult->setCarrier('usps');
-                $errorResult->setCarrierTitle($this->getConfigData('title'));
-                $errorResult->setErrorMessage($errorMessage);
-                $result->append($errorResult);
+                $result->append($this->_createRateError($errorMessage));
                 return $result;
             }
 
@@ -692,11 +717,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
 
         } catch (Exception $exception) {
             $this->_debug(['message' => 'USPS: Exception', 'error' => $exception->getMessage()]);
-            $error = Mage::getModel('shipping/rate_result_error');
-            $error->setCarrier('usps');
-            $error->setCarrierTitle($this->getConfigData('title'));
-            $error->setErrorMessage($this->getConfigData('specificerrmsg'));
-            $result->append($error);
+            $result->append($this->_createRateError());
             return $result;
         }
     }
@@ -932,21 +953,13 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
         $response = json_decode($responseBody, true);
 
         if (!is_array($response)) {
-            $error = Mage::getModel('shipping/rate_result_error');
-            $error->setCarrier('usps');
-            $error->setCarrierTitle($this->getConfigData('title'));
-            $error->setErrorMessage($this->getConfigData('specificerrmsg'));
-            $result->append($error);
+            $result->append($this->_createRateError());
             return $result;
         }
 
         // Check for error response
         if (isset($response['error'])) {
-            $error = Mage::getModel('shipping/rate_result_error');
-            $error->setCarrier('usps');
-            $error->setCarrierTitle($this->getConfigData('title'));
-            $error->setErrorMessage($response['error']['message'] ?? $this->getConfigData('specificerrmsg'));
-            $result->append($error);
+            $result->append($this->_createRateError($response['error']['message'] ?? $this->getConfigData('specificerrmsg')));
             return $result;
         }
 
@@ -1016,11 +1029,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
 
         if ($priceArr === []) {
             $this->_debug(['message' => 'No rates found - returning error']);
-            $error = Mage::getModel('shipping/rate_result_error');
-            $error->setCarrier('usps');
-            $error->setCarrierTitle($this->getConfigData('title'));
-            $error->setErrorMessage($this->getConfigData('specificerrmsg'));
-            $result->append($error);
+            $result->append($this->_createRateError());
         } else {
             asort($priceArr);
             $this->_debug(['message' => 'Appending rates to result', 'count' => count($priceArr)]);
@@ -1610,15 +1619,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
         $accessToken = $this->_getOAuthToken();
         if (!$accessToken) {
             $this->_debug(['error' => 'Unable to get OAuth token for tracking']);
-            if (!$this->_result) {
-                $this->_result = Mage::getModel('shipping/tracking_result');
-            }
-
-            $error = Mage::getModel('shipping/tracking_result_error');
-            $error->setCarrier('usps');
-            $error->setCarrierTitle($this->getConfigData('title'));
-            $error->setErrorMessage(Mage::helper('usa')->__('Unable to authenticate with USPS. Please check your API credentials.'));
-            $this->_result->append($error);
+            $this->_appendTrackingError(Mage::helper('usa')->__('Unable to authenticate with USPS. Please check your API credentials.'));
             return;
         }
 
@@ -1638,29 +1639,13 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
             if ($result) {
                 $this->_result = $result;
             } else {
-                if (!$this->_result) {
-                    $this->_result = Mage::getModel('shipping/tracking_result');
-                }
-
-                $error = Mage::getModel('shipping/tracking_result_error');
-                $error->setCarrier('usps');
-                $error->setCarrierTitle($this->getConfigData('title'));
-                $error->setErrorMessage(Mage::helper('usa')->__('Unable to retrieve tracking'));
-                $this->_result->append($error);
+                $this->_appendTrackingError(Mage::helper('usa')->__('Unable to retrieve tracking'));
             }
         } catch (Exception $exception) {
             $debugData['error'] = $exception->getMessage();
             $this->_debug($debugData);
 
-            if (!$this->_result) {
-                $this->_result = Mage::getModel('shipping/tracking_result');
-            }
-
-            $error = Mage::getModel('shipping/tracking_result_error');
-            $error->setCarrier('usps');
-            $error->setCarrierTitle($this->getConfigData('title'));
-            $error->setErrorMessage(Mage::helper('usa')->__('Unable to retrieve tracking'));
-            $this->_result->append($error);
+            $this->_appendTrackingError(Mage::helper('usa')->__('Unable to retrieve tracking'));
         }
     }
 
