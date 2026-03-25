@@ -14,6 +14,8 @@
  */
 class Mage_Adminhtml_Block_Report_Shopcart_Abandoned_Grid extends Mage_Adminhtml_Block_Report_Grid_Shopcart
 {
+    protected string $_eventPrefix = 'adminhtml_report_shopcart_abandoned_grid';
+
     public function __construct()
     {
         parent::__construct();

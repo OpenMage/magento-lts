@@ -17,6 +17,8 @@
  */
 class Mage_Sales_Block_Adminhtml_Recurring_Profile_View_Tab_Orders extends Mage_Adminhtml_Block_Widget_Grid implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
+    protected string $_eventPrefix = 'adminhtml_sales_recurring_profile_view_tab_orders';
+
     public function __construct()
     {
         parent::__construct();

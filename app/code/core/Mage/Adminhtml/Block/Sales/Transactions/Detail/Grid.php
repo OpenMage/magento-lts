@@ -14,6 +14,8 @@
  */
 class Mage_Adminhtml_Block_Sales_Transactions_Detail_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_sales_transactions_detail_grid';
+
     /**
      * @inheritDoc
      */

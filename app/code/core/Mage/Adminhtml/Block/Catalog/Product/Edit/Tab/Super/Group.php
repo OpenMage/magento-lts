@@ -20,6 +20,8 @@
  */
 class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Group extends Mage_Adminhtml_Block_Widget_Grid implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
+    protected string $_eventPrefix = 'adminhtml_catalog_product_edit_tab_super_group';
+
     /**
      * @throws Mage_Core_Exception
      */
