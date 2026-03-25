@@ -51,6 +51,12 @@ try {
         ->withConfiguredRule(Renaming\MethodCall\RenameMethodRector::class, Migration\Mage\Adminhtml::renameMethod())
         ->withConfiguredRule(Renaming\MethodCall\RenameMethodRector::class, Migration\Mage\Catalog::renameMethod())
         ->withConfiguredRule(Renaming\MethodCall\RenameMethodRector::class, Migration\Mage\Core::renameMethod())
+        ->withConfiguredRule(Renaming\MethodCall\RenameMethodRector::class, Migration\Mage\Eav::renameMethod())
+        ->withConfiguredRule(Renaming\MethodCall\RenameMethodRector::class, Migration\Mage\Paypal::renameMethod())
+        ->withConfiguredRule(Renaming\MethodCall\RenameMethodRector::class, Migration\Mage\Sitemap::renameMethod())
+        ->withConfiguredRule(Renaming\MethodCall\RenameMethodRector::class, Migration\Mage\Tax::renameMethod())
+        ->withConfiguredRule(Renaming\MethodCall\RenameMethodRector::class, Migration\Mage\Usa::renameMethod())
+        ->withConfiguredRule(Renaming\MethodCall\RenameMethodRector::class, Migration\Mage\Wishlist::renameMethod())
         ->withConfiguredRule(ReplaceArgumentDefaultValueRector::class, Migration\Mage\Adminhtml::replaceArgumentDefaultValue())
         ->withSkip([
             Carbon\FuncCall\DateFuncCallToCarbonRector::class => [

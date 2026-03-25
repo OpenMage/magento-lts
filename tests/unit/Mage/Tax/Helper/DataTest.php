@@ -141,7 +141,7 @@ final class DataTest extends OpenMageTest
             self::markTestSkipped(self::SKIP_WITH_LOCAL_DATA);
         }
 
-        self::assertSame('{"value_2":8.25,"value_4":0}', self::$subject->getTaxRatesByProductClass());
+        self::assertSame('{"value_2":8.25,"value_4":0}', self::$subject->getAllRatesByProductClass());
     }
 
     /**

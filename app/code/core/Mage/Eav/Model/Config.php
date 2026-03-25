@@ -633,19 +633,6 @@ class Mage_Eav_Model_Config
     }
 
     /**
-     * @param  mixed                                         $entityType
-     * @param  string                                        $attribute
-     * @return null|Mage_Eav_Model_Entity_Attribute_Abstract
-     * @throws Mage_Core_Exception
-     * @deprecated Equivalent to getAttribute(...), use getAttribute(...) instead
-     * Get attribute object for collection usage
-     */
-    public function getCollectionAttribute($entityType, $attribute)
-    {
-        return $this->getAttribute($entityType, $attribute);
-    }
-
-    /**
      * @param  mixed $entityType
      * @param  array $attributes
      * @return $this

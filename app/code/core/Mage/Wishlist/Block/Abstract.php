@@ -128,17 +128,6 @@ abstract class Mage_Wishlist_Block_Abstract extends Mage_Catalog_Block_Product_A
     }
 
     /**
-     * Back compatibility retrieve wishlist product items
-     *
-     * @return Mage_Wishlist_Model_Resource_Item_Collection
-     * @deprecated after 1.4.2.0
-     */
-    public function getWishlist()
-    {
-        return $this->getWishlistItems();
-    }
-
-    /**
      * Retrieve URL for Removing item from wishlist
      *
      * @param Mage_Catalog_Model_Product|Mage_Wishlist_Model_Item $item

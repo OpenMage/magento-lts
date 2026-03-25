@@ -11,11 +11,11 @@ declare(strict_types=1);
 
 namespace OpenMage\Rector\Migration\Mage;
 
-use Mage_Catalog_CategoryController;
-use Mage_Catalog_Model_Resource_Product_Collection;
+use Mage_Sitemap_Model_Resource_Catalog_Category;
+use Mage_Sitemap_Model_Resource_Catalog_Product;
 use Rector\Renaming\ValueObject\MethodCallRename;
 
-final class Catalog
+final class Sitemap
 {
     /**
      * @return MethodCallRename[]
@@ -23,9 +23,9 @@ final class Catalog
     public static function renameMethod(): array
     {
         return [
-            new MethodCallRename(Mage_Catalog_CategoryController::class, '_initCatagory', '_initCategory'),
-            new MethodCallRename(Mage_Catalog_Model_Resource_Product_Collection::class, 'addMinimalPrice', 'addPriceData'),
-            new MethodCallRename(Mage_Catalog_Model_Resource_Product_Collection::class, 'addFinalPrice', 'addPriceData'),
+
+            new MethodCallRename(Mage_Sitemap_Model_Resource_Catalog_Category::class, '_prepareCategory', '_prepareObject'),
+            new MethodCallRename(Mage_Sitemap_Model_Resource_Catalog_Product::class, '_prepareProduct', '_prepareObject'),
         ];
     }
 }

@@ -9335,13 +9335,6 @@ since 1.7.0.0 use Mage_Rule_Model_Abstract instead',
 	'path' => __DIR__ . '/tests/unit/Mage/Rule/Model/RuleTest.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Call to deprecated method getTaxRatesByProductClass() of class Mage_Tax_Helper_Data:
-after 1.4 - please use getAllRatesByProductClass',
-	'identifier' => 'method.deprecated',
-	'count' => 1,
-	'path' => __DIR__ . '/tests/unit/Mage/Tax/Helper/DataTest.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Dead catch - PhpUnitsOfMeasure\\Exception\\UnknownUnitOfMeasure is never thrown in the try block.',
 	'identifier' => 'catch.neverThrown',
 	'count' => 2,
