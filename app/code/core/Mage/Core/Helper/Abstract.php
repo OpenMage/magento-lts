@@ -156,7 +156,7 @@ abstract class Mage_Core_Helper_Abstract
         }
 
         $isActive = Mage::getConfig()->getNode('modules/' . $moduleName . '/active');
-        if (!$isActive || !in_array((string) $isActive, ['true', '1'])) {
+        if (!$isActive || !in_array((string) $isActive, ['true', '1'], true)) {
             return $this->modulesDisabled[$moduleName] = false;
         }
 
@@ -441,7 +441,7 @@ abstract class Mage_Core_Helper_Abstract
     {
         if (is_array($data)) {
             foreach ($data as $key => $item) {
-                if ($skipTags && in_array($key, $arrayKeys)) {
+                if ($skipTags && in_array($key, $arrayKeys, true)) {
                     continue;
                 }
 
@@ -452,7 +452,7 @@ abstract class Mage_Core_Helper_Abstract
                 } elseif ((bool) strcmp($item, $this->removeTags($item))
                     || (bool) strcmp($key, $this->removeTags($key))
                 ) {
-                    if (!$skipTags && !in_array($key, $arrayKeys)) {
+                    if (!$skipTags && !in_array($key, $arrayKeys, true)) {
                         continue;
                     }
 

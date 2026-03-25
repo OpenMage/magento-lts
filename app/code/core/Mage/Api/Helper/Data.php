@@ -336,7 +336,7 @@ class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function formatFilterConditionValue($conditionOperator, &$conditionValue)
     {
-        if (is_string($conditionOperator) && in_array($conditionOperator, ['in', 'nin', 'finset'])
+        if (is_string($conditionOperator) && in_array($conditionOperator, ['in', 'nin', 'finset'], true)
             && is_string($conditionValue)
         ) {
             $delimiter = ',';

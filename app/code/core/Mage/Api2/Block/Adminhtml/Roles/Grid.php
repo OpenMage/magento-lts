@@ -14,6 +14,8 @@
  */
 class Mage_Api2_Block_Adminhtml_Roles_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'api2_adminhtml_roles_grid';
+
     public function __construct()
     {
         parent::__construct();

@@ -114,7 +114,7 @@ class Mage_Adminhtml_Sales_TransactionsController extends Mage_Adminhtml_Control
     /**
      * @inheritDoc
      */
-    protected function _isAllowed()
+    protected function _isAllowed(): bool
     {
         $action = strtolower($this->getRequest()->getActionName());
         $aclPath = match ($action) {

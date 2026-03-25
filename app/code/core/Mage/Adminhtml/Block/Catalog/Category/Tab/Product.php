@@ -16,6 +16,8 @@
  */
 class Mage_Adminhtml_Block_Catalog_Category_Tab_Product extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_catalog_category_tab_product';
+
     public function __construct()
     {
         parent::__construct();

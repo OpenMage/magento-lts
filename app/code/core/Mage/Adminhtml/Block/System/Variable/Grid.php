@@ -14,6 +14,8 @@
  */
 class Mage_Adminhtml_Block_System_Variable_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_system_variable_grid';
+
     /**
      * @inheritDoc
      */

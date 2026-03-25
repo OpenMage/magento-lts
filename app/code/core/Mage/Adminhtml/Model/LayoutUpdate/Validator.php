@@ -14,7 +14,7 @@
  *
  * @package    Mage_Adminhtml
  */
-class Mage_Adminhtml_Model_LayoutUpdate_Validator extends Mage_Core_Helper_Validate_Abstract
+class Mage_Adminhtml_Model_LayoutUpdate_Validator extends Mage_Core_Model_Validate_Abstract
 {
     public const XML_INVALID                             = 'invalidXml';
 
@@ -27,7 +27,7 @@ class Mage_Adminhtml_Model_LayoutUpdate_Validator extends Mage_Core_Helper_Valid
     /**
      * The Varien SimpleXml object
      *
-     * @var Varien_Simplexml_Element
+     * @inheritDoc
      */
     protected $_value;
 

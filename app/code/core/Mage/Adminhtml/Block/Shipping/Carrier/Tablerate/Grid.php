@@ -15,6 +15,8 @@
  */
 class Mage_Adminhtml_Block_Shipping_Carrier_Tablerate_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_shipping_carrier_tablerate_grid';
+
     /**
      * Website filter
      *

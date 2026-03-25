@@ -18,6 +18,8 @@ use Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract as MassAction;
  */
 class Mage_Adminhtml_Block_Catalog_Product_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_catalog_product_grid';
+
     public function __construct()
     {
         parent::__construct();
@@ -332,7 +334,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Grid extends Mage_Adminhtml_Block_Wid
             ]);
         }
 
-        Mage::dispatchEvent('adminhtml_catalog_product_grid_prepare_massaction', ['block' => $this]);
+        Mage::dispatchEvent($this->_eventPrefix . '_prepare_massaction', ['block' => $this]);
         return parent::_prepareMassaction();
     }
 

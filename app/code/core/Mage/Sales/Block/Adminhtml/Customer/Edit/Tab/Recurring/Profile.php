@@ -14,6 +14,8 @@
  */
 class Mage_Sales_Block_Adminhtml_Customer_Edit_Tab_Recurring_Profile extends Mage_Sales_Block_Adminhtml_Recurring_Profile_Grid implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
+    protected string $_eventPrefix = 'sales_adminhtml_customer_edit_tab_recurring_profile';
+
     public function __construct()
     {
         parent::__construct();

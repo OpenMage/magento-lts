@@ -14,6 +14,8 @@
  */
 class Mage_Adminhtml_Block_Dashboard_Orders_Grid extends Mage_Adminhtml_Block_Dashboard_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_dashboard_orders_grid';
+
     public function __construct()
     {
         parent::__construct();

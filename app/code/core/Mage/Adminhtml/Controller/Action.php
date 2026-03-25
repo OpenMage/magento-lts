@@ -26,6 +26,8 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
 
     /**
      * ACL resource
+     *
+     * @var bool|string
      * @see Mage_Adminhtml_Controller_Action::_isAllowed()
      */
     public const ADMIN_RESOURCE = 'admin';
@@ -65,11 +67,13 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
 
     /**
      * Check current user permission on resource and privilege
-     *
-     * @return bool
      */
-    protected function _isAllowed()
+    protected function _isAllowed(): bool
     {
+        if (is_bool(static::ADMIN_RESOURCE)) {
+            return static::ADMIN_RESOURCE;
+        }
+
         return Mage::getSingleton('admin/session')->isAllowed(static::ADMIN_RESOURCE);
     }
 
@@ -394,7 +398,7 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
      */
     protected function _validateSecretKey()
     {
-        if (is_array($this->_publicActions) && in_array($this->getRequest()->getActionName(), $this->_publicActions)) {
+        if (is_array($this->_publicActions) && in_array($this->getRequest()->getActionName(), $this->_publicActions, true)) {
             return true;
         }
 
@@ -430,6 +434,7 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
         return in_array(
             strtolower($this->getRequest()->getActionName()),
             array_map(strtolower(...), $this->_forcedFormKeyActions),
+            true,
         );
     }
 
