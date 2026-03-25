@@ -23,7 +23,7 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
     /**
      * Collection items
      *
-     * @var array|T[]
+     * @var T[]
      */
     protected $_items = [];
 
