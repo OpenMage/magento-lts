@@ -14,6 +14,8 @@
  */
 class Mage_Adminhtml_Block_Customer_Group_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_customer_group_grid';
+
     public function __construct()
     {
         parent::__construct();

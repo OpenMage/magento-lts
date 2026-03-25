@@ -14,6 +14,8 @@
  */
 class Mage_Adminhtml_Block_System_Convert_Profile_Edit_Tab_History extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_system_convert_profile_edit_tab_history';
+
     public function __construct()
     {
         parent::__construct();

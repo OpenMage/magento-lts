@@ -14,6 +14,8 @@
  */
 class Mage_Oauth_Adminhtml_Oauth_AuthorizeController extends Mage_Adminhtml_Controller_Action
 {
+    public const ADMIN_RESOURCE = true;
+
     /**
      * Session name
      *
@@ -281,15 +283,5 @@ class Mage_Oauth_Adminhtml_Oauth_AuthorizeController extends Mage_Adminhtml_Cont
     public function rejectSimpleAction()
     {
         $this->_initRejectPage();
-    }
-
-    /**
-     * Check admin permissions for this controller
-     *
-     * @return true
-     */
-    protected function _isAllowed()
-    {
-        return true;
     }
 }

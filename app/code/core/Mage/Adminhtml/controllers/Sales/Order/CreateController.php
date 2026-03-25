@@ -528,29 +528,21 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
     /**
      * @inheritDoc
      */
-    protected function _isAllowed()
-    {
-        return Mage::getSingleton('admin/session')->isAllowed($this->_getAclResourse());
-    }
-
-    /**
-     * Get acl resource
-     *
-     * @return string
-     */
-    protected function _getAclResourse()
+    protected function _isAllowed(): bool
     {
         $action = strtolower($this->getRequest()->getActionName());
         if (in_array($action, ['index', 'save'], true) && $this->_getSession()->getReordered()) {
             $action = 'reorder';
         }
 
-        return match ($action) {
+        $aclPath = match ($action) {
             'index', 'save' => 'sales/order/actions/create',
             'reorder' => 'sales/order/actions/reorder',
             'cancel' => 'sales/order/actions/cancel',
             default => 'sales/order/actions',
         };
+
+        return Mage::getSingleton('admin/session')->isAllowed($aclPath);
     }
 
     /**

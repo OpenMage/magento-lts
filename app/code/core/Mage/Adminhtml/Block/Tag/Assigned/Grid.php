@@ -16,6 +16,8 @@
  */
 class Mage_Adminhtml_Block_Tag_Assigned_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_tag_assigned_grid';
+
     protected $_currentTagModel;
 
     /**

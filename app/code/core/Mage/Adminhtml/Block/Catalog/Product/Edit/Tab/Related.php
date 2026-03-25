@@ -16,6 +16,8 @@
  */
 class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Related extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_catalog_product_edit_tab_related';
+
     /**
      * @throws Mage_Core_Exception
      */

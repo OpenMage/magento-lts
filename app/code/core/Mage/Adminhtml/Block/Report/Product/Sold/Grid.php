@@ -14,6 +14,8 @@
  */
 class Mage_Adminhtml_Block_Report_Product_Sold_Grid extends Mage_Adminhtml_Block_Report_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_report_product_sold_grid';
+
     public function __construct()
     {
         parent::__construct();
