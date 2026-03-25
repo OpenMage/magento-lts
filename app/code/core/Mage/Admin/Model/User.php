@@ -556,19 +556,6 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
      * Find admin start page url
      *
      * @return string
-     * @deprecated Please use getStartupPageUrl() method instead
-     * @see getStartupPageUrl()
-     * @codeCoverageIgnore
-     */
-    public function getStatrupPageUrl()
-    {
-        return $this->getStartupPageUrl();
-    }
-
-    /**
-     * Find admin start page url
-     *
-     * @return string
      */
     public function getStartupPageUrl()
     {

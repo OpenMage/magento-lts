@@ -66,30 +66,6 @@ class Mage_Wishlist_Block_Customer_Sidebar extends Mage_Wishlist_Block_Abstract
     }
 
     /**
-     * Retrieve URL for removing item from wishlist
-     *
-     * @param  Mage_Wishlist_Model_Item $item
-     * @return string
-     * @deprecated back compatibility alias for getItemRemoveUrl
-     */
-    public function getRemoveItemUrl($item)
-    {
-        return $this->getItemRemoveUrl($item);
-    }
-
-    /**
-     * Retrieve URL for adding product to shopping cart and remove item from wishlist
-     *
-     * @param  Mage_Catalog_Model_Product|Mage_Wishlist_Model_Item $product
-     * @return string
-     * @deprecated
-     */
-    public function getAddToCartItemUrl($product)
-    {
-        return $this->getItemAddToCartUrl($product);
-    }
-
-    /**
      * Retrieve Wishlist Product Items collection
      *
      * @return Mage_Wishlist_Model_Resource_Item_Collection

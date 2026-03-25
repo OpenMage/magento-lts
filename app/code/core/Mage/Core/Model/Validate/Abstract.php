@@ -6,18 +6,18 @@ declare(strict_types=1);
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
  * @license    Open Software License (OSL 3.0)
- * @package    Mage_Validation
+ * @package    Mage_Core
  */
 
 /**
- * @package    Mage_Validation
+ * @package    Mage_Core
  */
-abstract class Mage_Core_Helper_Validate_Abstract implements Mage_Core_Helper_Validate_Interface
+abstract class Mage_Core_Model_Validate_Abstract implements Mage_Core_Model_Validate_Interface
 {
     /**
      * The value to be validated
      *
-     * @var mixed
+     * @var string|Varien_Simplexml_Element
      */
     protected $_value;
 
