@@ -416,6 +416,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service
                 $result->setErrors('Failed to decode label image');
                 return $result;
             }
+
             $labelImage = $decoded;
         }
 

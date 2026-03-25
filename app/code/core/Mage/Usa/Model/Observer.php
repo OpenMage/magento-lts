@@ -74,6 +74,7 @@ class Mage_Usa_Model_Observer
             if (!is_array($street)) {
                 $street = [(string) $street];
             }
+
             $addressData = [
                 'street1' => $street[0] ?? '',
                 'street2' => $street[1] ?? '',
