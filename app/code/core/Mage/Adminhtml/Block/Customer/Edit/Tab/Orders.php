@@ -14,6 +14,8 @@
  */
 class Mage_Adminhtml_Block_Customer_Edit_Tab_Orders extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_customer_edit_tab_orders';
+
     public function __construct()
     {
         parent::__construct();

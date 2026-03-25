@@ -14,6 +14,8 @@
  */
 class Mage_Adminhtml_Block_Dashboard_Tab_Customers_Most extends Mage_Adminhtml_Block_Dashboard_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_dashboard_tab_customers_most';
+
     public function __construct()
     {
         parent::__construct();

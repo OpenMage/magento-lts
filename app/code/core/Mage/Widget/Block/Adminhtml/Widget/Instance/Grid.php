@@ -14,6 +14,8 @@
  */
 class Mage_Widget_Block_Adminhtml_Widget_Instance_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'widget_adminhtml_widget_instance_grid';
+
     /**
      * @inheritDoc
      */

@@ -14,6 +14,8 @@
  */
 class Mage_Adminhtml_Block_Dashboard_Tab_Products_Viewed extends Mage_Adminhtml_Block_Dashboard_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_dashboard_tab_products_viewed';
+
     public function __construct()
     {
         parent::__construct();

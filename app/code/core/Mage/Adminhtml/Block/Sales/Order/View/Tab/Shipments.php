@@ -14,6 +14,8 @@
  */
 class Mage_Adminhtml_Block_Sales_Order_View_Tab_Shipments extends Mage_Adminhtml_Block_Widget_Grid implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
+    protected string $_eventPrefix = 'adminhtml_sales_order_view_tab_shipments';
+
     public function __construct()
     {
         parent::__construct();

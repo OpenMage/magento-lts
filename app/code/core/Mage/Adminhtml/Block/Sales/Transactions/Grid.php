@@ -16,6 +16,8 @@
  */
 class Mage_Adminhtml_Block_Sales_Transactions_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_sales_transactions_grid';
+
     public function __construct()
     {
         parent::__construct();
