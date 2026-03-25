@@ -336,6 +336,35 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
     }
 
     /**
+     * Execute a POST request against the USPS REST API
+     *
+     * @param  string                                                       $url     Full endpoint URL
+     * @param  string                                                       $payload JSON-encoded body
+     * @param  array                                                        $headers HTTP headers (must include Content-Type and Authorization)
+     * @return array{body: false|string, httpCode: int, error: null|string}
+     */
+    protected function _curlRestPost(string $url, string $payload, array $headers): array
+    {
+        $ch = curl_init($url);
+        curl_setopt_array($ch, [
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_POST => true,
+            CURLOPT_POSTFIELDS => $payload,
+            CURLOPT_HTTPHEADER => $headers,
+            CURLOPT_TIMEOUT => 30,
+            CURLOPT_SSL_VERIFYPEER => true,
+            CURLOPT_SSL_VERIFYHOST => 2,
+        ]);
+
+        $body = curl_exec($ch);
+        $httpCode = (int) curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        $error = ($body === false) ? curl_error($ch) : null;
+        curl_close($ch);
+
+        return ['body' => $body, 'httpCode' => $httpCode, 'error' => $error];
+    }
+
+    /**
      * Get Payment Authorization Token for USPS label generation
      *
      * The payment authorization token is required for creating shipping labels.
@@ -431,23 +460,12 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
             'payload' => $sanitizedPayload,
         ]);
 
-        $ch = curl_init($url);
-        curl_setopt_array($ch, [
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_POST => true,
-            CURLOPT_POSTFIELDS => json_encode($payload),
-            CURLOPT_HTTPHEADER => [
-                'Content-Type: application/json',
-                'Authorization: Bearer ' . $accessToken,
-            ],
-            CURLOPT_TIMEOUT => 30,
-            CURLOPT_SSL_VERIFYPEER => true,
-            CURLOPT_SSL_VERIFYHOST => 2,
+        $curlResult = $this->_curlRestPost($url, json_encode($payload), [
+            'Content-Type: application/json',
+            'Authorization: Bearer ' . $accessToken,
         ]);
-
-        $response = curl_exec($ch);
-        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        curl_close($ch);
+        $response = $curlResult['body'];
+        $httpCode = $curlResult['httpCode'];
 
         if ($httpCode !== 200) {
             $errorData = json_decode($response, true);
@@ -592,24 +610,12 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
                 'token_preview' => '[REDACTED]',
             ]);
 
-            $ch = curl_init();
-            curl_setopt($ch, CURLOPT_URL, $url);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_HEADER, false);
-            curl_setopt($ch, CURLOPT_POST, true);
-            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($requestPayload));
-            curl_setopt($ch, CURLOPT_TIMEOUT, 30);
-            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
-            curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
-
-            $responseBody = curl_exec($ch);
-            $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+            $curlResult = $this->_curlRestPost($url, json_encode($requestPayload), $headers);
+            $responseBody = $curlResult['body'];
+            $httpCode = $curlResult['httpCode'];
 
             if ($responseBody === false) {
-                $error = curl_error($ch);
-                curl_close($ch);
-                $this->_debug(['message' => 'USPS: Request failed', 'error' => $error]);
+                $this->_debug(['message' => 'USPS: Request failed', 'error' => $curlResult['error']]);
                 $errorResult = Mage::getModel('shipping/rate_result_error');
                 $errorResult->setCarrier('usps');
                 $errorResult->setCarrierTitle($this->getConfigData('title'));
@@ -617,8 +623,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
                 $result->append($errorResult);
                 return $result;
             }
-
-            curl_close($ch);
 
             // Log response
             $this->_debug([
@@ -2120,24 +2124,13 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
 
         $this->_debug(['message' => 'USPS Label API request', 'url' => $url]);
 
-        $ch = curl_init($url);
-        curl_setopt_array($ch, [
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_POST => true,
-            CURLOPT_POSTFIELDS => json_encode($payload),
-            CURLOPT_HTTPHEADER => [
-                'Content-Type: application/json',
-                'Authorization: Bearer ' . $oauthToken,
-                'X-Payment-Authorization-Token: ' . $paymentAuthToken,
-            ],
-            CURLOPT_TIMEOUT => 30,
-            CURLOPT_SSL_VERIFYPEER => true,
-            CURLOPT_SSL_VERIFYHOST => 2,
+        $curlResult = $this->_curlRestPost($url, json_encode($payload), [
+            'Content-Type: application/json',
+            'Authorization: Bearer ' . $oauthToken,
+            'X-Payment-Authorization-Token: ' . $paymentAuthToken,
         ]);
-
-        $response = curl_exec($ch);
-        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        curl_close($ch);
+        $response = $curlResult['body'];
+        $httpCode = $curlResult['httpCode'];
 
         $debugData['response'] = [
             'http_code' => $httpCode,

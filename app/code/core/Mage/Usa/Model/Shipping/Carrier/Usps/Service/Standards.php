@@ -18,7 +18,7 @@ declare(strict_types=1);
  *
  * @package    Mage_Usa
  */
-class Mage_Usa_Model_Shipping_Carrier_Usps_Service_Standards
+class Mage_Usa_Model_Shipping_Carrier_Usps_Service_Standards extends Mage_Usa_Model_Shipping_Carrier_Usps_AbstractService
 {
     /**
      * Cache key prefix for service standards
@@ -30,9 +30,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Service_Standards
      */
     public const CACHE_TTL = 86400;
 
-    protected ?Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client $_client = null;
-
-    protected bool $_debug = false;
+    protected string $_debugPrefix = 'USPS ServiceStandards';
 
     /**
      * Mail class to API service type mapping
@@ -47,42 +45,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Service_Standards
         'LIBRARY_MAIL' => 'LIBRARY',
         'BOUND_PRINTED_MATTER' => 'BPM',
     ];
-
-    /**
-     * Constructor
-     */
-    public function __construct(?Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client $client = null)
-    {
-        $this->_client = $client;
-        $this->_debug = (bool) Mage::getStoreConfig('carriers/usps/debug');
-    }
-
-    /**
-     * Get REST client instance
-     */
-    protected function _getClient(): Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
-    {
-        if (!$this->_client instanceof \Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client) {
-            $this->_client = Mage::getModel('usa/shipping_carrier_usps_rest_client');
-
-            $baseUrl = Mage::getStoreConfig('carriers/usps/gateway_url');
-            if ($baseUrl) {
-                $this->_client->setBaseUrl($baseUrl);
-            }
-
-            $auth = Mage::getModel('usa/shipping_carrier_uspsAuth');
-            $clientId = Mage::helper('core')->decrypt(Mage::getStoreConfig('carriers/usps/client_id'));
-            $clientSecret = Mage::helper('core')->decrypt(Mage::getStoreConfig('carriers/usps/client_secret'));
-            $gatewayUrl = Mage::getStoreConfig('carriers/usps/gateway_url');
-
-            $token = $auth->getAccessToken($clientId, $clientSecret, $gatewayUrl);
-            if ($token) {
-                $this->_client->setAccessToken($token);
-            }
-        }
-
-        return $this->_client;
-    }
 
     /**
      * Check if delivery estimates feature is enabled
@@ -335,20 +297,4 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Service_Standards
         return substr(preg_replace('/\D/', '', $zip), 0, 5);
     }
 
-    /**
-     * Debug logging
-     */
-    protected function _debug(array $data): void
-    {
-        if (!$this->_debug) {
-            return;
-        }
-
-        Mage::log(
-            'USPS ServiceStandards: ' . json_encode($data),
-            Zend_Log::DEBUG,
-            'shipping_usps.log',
-            true,
-        );
-    }
 }

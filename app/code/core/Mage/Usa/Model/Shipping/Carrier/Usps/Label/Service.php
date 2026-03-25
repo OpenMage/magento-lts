@@ -17,7 +17,7 @@ declare(strict_types=1);
  *
  * @package    Mage_Usa
  */
-class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service
+class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service extends Mage_Usa_Model_Shipping_Carrier_Usps_AbstractService
 {
     /**
      * Label format constants
@@ -28,9 +28,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service
 
     public const FORMAT_ZPL = 'LABEL_ZPL';
 
-    protected ?Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client $_client = null;
-
-    protected bool $_debug = false;
+    protected string $_debugPrefix = 'USPS LabelService';
 
     /**
      * @var array Configuration data
@@ -42,8 +40,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service
      */
     public function __construct(?Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client $client = null)
     {
-        $this->_client = $client;
-        $this->_debug = (bool) Mage::getStoreConfig('carriers/usps/debug');
+        parent::__construct($client);
         $this->_loadConfig();
     }
 
@@ -63,33 +60,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service
             'permit_zip' => Mage::getStoreConfig('carriers/usps/permit_zip'),
             'aesitn' => Mage::getStoreConfig('carriers/usps/aesitn'),
         ];
-    }
-
-    /**
-     * Get REST client instance
-     */
-    protected function _getClient(): Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
-    {
-        if (!$this->_client instanceof \Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client) {
-            $this->_client = Mage::getModel('usa/shipping_carrier_usps_rest_client');
-
-            $baseUrl = Mage::getStoreConfig('carriers/usps/gateway_url');
-            if ($baseUrl) {
-                $this->_client->setBaseUrl($baseUrl);
-            }
-
-            $auth = Mage::getModel('usa/shipping_carrier_uspsAuth');
-            $clientId = Mage::helper('core')->decrypt(Mage::getStoreConfig('carriers/usps/client_id'));
-            $clientSecret = Mage::helper('core')->decrypt(Mage::getStoreConfig('carriers/usps/client_secret'));
-            $gatewayUrl = Mage::getStoreConfig('carriers/usps/gateway_url');
-
-            $token = $auth->getAccessToken($clientId, $clientSecret, $gatewayUrl);
-            if ($token) {
-                $this->_client->setAccessToken($token);
-            }
-        }
-
-        return $this->_client;
     }
 
     /**
@@ -467,23 +437,14 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service
     }
 
     /**
-     * Debug logging
+     * Debug logging — redacts sensitive payment info before logging
      */
     protected function _debug(array $data): void
     {
-        if (!$this->_debug) {
-            return;
-        }
-
         if (isset($data['request']['paymentInfo']['accountNumber'])) {
             $data['request']['paymentInfo']['accountNumber'] = '[REDACTED]';
         }
 
-        Mage::log(
-            'USPS LabelService: ' . json_encode($data),
-            Zend_Log::DEBUG,
-            'shipping_usps.log',
-            true,
-        );
+        parent::_debug($data);
     }
 }

@@ -11,82 +11,31 @@ declare(strict_types=1);
 
 class Mage_Usa_Adminhtml_UspsController extends Mage_Adminhtml_Controller_Action
 {
+    /**
+     * Environment-to-URL allowlist
+     */
+    private const ALLOWED_ENVIRONMENTS = [
+        'production' => 'https://apis.usps.com/',
+        'sandbox' => 'https://apis-tem.usps.com/',
+    ];
+
     public function testconnectionAction(): void
     {
         if (!$this->_validateFormKey()) {
-            $this->getResponse()->setBody(Mage::helper('core')->jsonEncode([
-                'success' => false,
-                'message' => 'Invalid form key. Please refresh the page and try again.',
-            ]));
+            $this->_sendJson(['success' => false, 'message' => 'Invalid form key. Please refresh the page and try again.']);
             return;
         }
 
-        $request = $this->getRequest();
-        $environment = $request->getParam('environment');
-        $clientId = $request->getParam('client_id');
-        $clientSecret = $request->getParam('client_secret');
-        $websiteCode = $request->getParam('website');
-        $storeCode = $request->getParam('store');
-
-        if ($clientId === '******') {
-            $clientId = $this->_getConfig('carriers/usps/client_id', $websiteCode, $storeCode);
-        }
-
-        if ($clientSecret === '******') {
-            $clientSecret = $this->_getConfig('carriers/usps/client_secret', $websiteCode, $storeCode);
-        }
-
         try {
-            if ($clientId === '' || $clientId === null || $clientSecret === '' || $clientSecret === null || $environment === '' || $environment === null) {
-                throw new Mage_Core_Exception('Client ID, Client Secret, and Environment are required.');
-            }
+            [$clientId, $clientSecret, $gatewayUrl, $environment] = $this->_getCredentials();
+            $this->_getOAuthToken($gatewayUrl, $clientId, $clientSecret);
 
-            $allowedEnvironments = ['production' => 'https://apis.usps.com/', 'sandbox' => 'https://apis-tem.usps.com/'];
-            if (!isset($allowedEnvironments[$environment])) {
-                throw new Mage_Core_Exception('Invalid environment: ' . $environment . '. Allowed: ' . implode(', ', array_keys($allowedEnvironments)));
-            }
-
-            $gatewayUrl = $allowedEnvironments[$environment];
-
-            $ch = curl_init();
-            curl_setopt($ch, CURLOPT_URL, $gatewayUrl . 'oauth2/v3/token');
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_POST, true);
-            curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/x-www-form-urlencoded']);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query([
-                'grant_type' => 'client_credentials',
-                'client_id' => $clientId,
-                'client_secret' => $clientSecret,
-            ]));
-            curl_setopt($ch, CURLOPT_TIMEOUT, 30);
-            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
-            curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
-
-            $response = curl_exec($ch);
-            $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-            curl_close($ch);
-
-            if ($httpCode === 200) {
-                $result = json_decode($response, true);
-                if (isset($result['access_token'])) {
-                    $this->getResponse()->setBody(Mage::helper('core')->jsonEncode([
-                        'success' => true,
-                        'message' => 'Connection successful! Environment: ' . ucfirst($environment),
-                    ]));
-                } else {
-                    throw new Mage_Core_Exception('No access token in response');
-                }
-            } else {
-                $errorData = json_decode($response, true);
-                $errorMsg = $errorData['error_description'] ?? 'HTTP ' . $httpCode;
-                throw new Mage_Core_Exception('Authentication failed: ' . $errorMsg);
-            }
-
+            $this->_sendJson([
+                'success' => true,
+                'message' => 'Connection successful! Environment: ' . ucfirst($environment),
+            ]);
         } catch (Exception $exception) {
-            $this->getResponse()->setBody(Mage::helper('core')->jsonEncode([
-                'success' => false,
-                'message' => 'Connection failed: ' . $exception->getMessage(),
-            ]));
+            $this->_sendJson(['success' => false, 'message' => 'Connection failed: ' . $exception->getMessage()]);
         }
     }
 
@@ -138,10 +87,7 @@ class Mage_Usa_Adminhtml_UspsController extends Mage_Adminhtml_Controller_Action
     public function createdimensionsAction(): void
     {
         if (!$this->_validateFormKey()) {
-            $this->getResponse()->setBody(Mage::helper('core')->jsonEncode([
-                'success' => false,
-                'message' => 'Invalid form key. Please refresh the page and try again.',
-            ]));
+            $this->_sendJson(['success' => false, 'message' => 'Invalid form key. Please refresh the page and try again.']);
             return;
         }
 
@@ -221,17 +167,11 @@ class Mage_Usa_Adminhtml_UspsController extends Mage_Adminhtml_Controller_Action
                 $message = 'All attributes exist: ' . implode(', ', $existing);
             }
 
-            $this->getResponse()->setBody(Mage::helper('core')->jsonEncode([
-                'success' => true,
-                'message' => $message,
-            ]));
+            $this->_sendJson(['success' => true, 'message' => $message]);
 
         } catch (Exception $exception) {
             Mage::logException($exception);
-            $this->getResponse()->setBody(Mage::helper('core')->jsonEncode([
-                'success' => false,
-                'message' => 'Error: ' . $exception->getMessage(),
-            ]));
+            $this->_sendJson(['success' => false, 'message' => 'Error: ' . $exception->getMessage()]);
         }
     }
 
@@ -243,69 +183,13 @@ class Mage_Usa_Adminhtml_UspsController extends Mage_Adminhtml_Controller_Action
     public function testRateQuoteAction(): void
     {
         if (!$this->_validateFormKey()) {
-            $this->getResponse()->setBody(Mage::helper('core')->jsonEncode([
-                'success' => false,
-                'message' => 'Invalid form key. Please refresh the page and try again.',
-            ]));
+            $this->_sendJson(['success' => false, 'message' => 'Invalid form key. Please refresh the page and try again.']);
             return;
         }
 
-        $request = $this->getRequest();
-        $environment = $request->getParam('environment');
-        $clientId = $request->getParam('client_id');
-        $clientSecret = $request->getParam('client_secret');
-        $websiteCode = $request->getParam('website');
-        $storeCode = $request->getParam('store');
-
-        if ($clientId === '******') {
-            $clientId = $this->_getConfig('carriers/usps/client_id', $websiteCode, $storeCode);
-        }
-
-        if ($clientSecret === '******') {
-            $clientSecret = $this->_getConfig('carriers/usps/client_secret', $websiteCode, $storeCode);
-        }
-
         try {
-            if ($clientId === '' || $clientId === null || $clientSecret === '' || $clientSecret === null || $environment === '' || $environment === null) {
-                throw new Mage_Core_Exception('Client ID, Client Secret, and Environment are required.');
-            }
-
-            $allowedEnvironments = ['production' => 'https://apis.usps.com/', 'sandbox' => 'https://apis-tem.usps.com/'];
-            if (!isset($allowedEnvironments[$environment])) {
-                throw new Mage_Core_Exception('Invalid environment: ' . $environment . '. Allowed: ' . implode(', ', array_keys($allowedEnvironments)));
-            }
-
-            $gatewayUrl = $allowedEnvironments[$environment];
-
-            $ch = curl_init();
-            curl_setopt($ch, CURLOPT_URL, $gatewayUrl . 'oauth2/v3/token');
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_POST, true);
-            curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/x-www-form-urlencoded']);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query([
-                'grant_type' => 'client_credentials',
-                'client_id' => $clientId,
-                'client_secret' => $clientSecret,
-            ]));
-            curl_setopt($ch, CURLOPT_TIMEOUT, 30);
-            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
-            curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
-
-            $tokenResponse = curl_exec($ch);
-            $tokenHttpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-            curl_close($ch);
-
-            if ($tokenHttpCode !== 200) {
-                $errorData = json_decode($tokenResponse, true);
-                throw new Mage_Core_Exception('Authentication failed: ' . ($errorData['error_description'] ?? 'HTTP ' . $tokenHttpCode));
-            }
-
-            $tokenData = json_decode($tokenResponse, true);
-            $accessToken = $tokenData['access_token'] ?? null;
-
-            if (!$accessToken) {
-                throw new Mage_Core_Exception('No access token received');
-            }
+            [$clientId, $clientSecret, $gatewayUrl] = $this->_getCredentials();
+            $accessToken = $this->_getOAuthToken($gatewayUrl, $clientId, $clientSecret);
 
             $rateRequest = [
                 'originZIPCode' => '10001',
@@ -369,24 +253,103 @@ class Mage_Usa_Adminhtml_UspsController extends Mage_Adminhtml_Controller_Action
             });
 
             if ($rates !== []) {
-                $this->getResponse()->setBody(Mage::helper('core')->jsonEncode([
+                $this->_sendJson([
                     'success' => true,
                     'message' => 'Found ' . count($rates) . ' rate(s)',
                     'rates' => $rates,
-                ]));
+                ]);
             } else {
-                $this->getResponse()->setBody(Mage::helper('core')->jsonEncode([
+                $this->_sendJson([
                     'success' => false,
                     'message' => 'No rates returned.',
                     'debug' => json_encode($rateData, JSON_PRETTY_PRINT),
-                ]));
+                ]);
             }
 
         } catch (Exception $exception) {
-            $this->getResponse()->setBody(Mage::helper('core')->jsonEncode([
-                'success' => false,
-                'message' => $exception->getMessage(),
-            ]));
+            $this->_sendJson(['success' => false, 'message' => $exception->getMessage()]);
         }
+    }
+
+    /**
+     * Send JSON response
+     */
+    protected function _sendJson(array $data): void
+    {
+        $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($data));
+    }
+
+    /**
+     * Read credentials from request, resolve masked values, validate, and return gateway URL
+     *
+     * @return array{0: string, 1: string, 2: string, 3: string} [clientId, clientSecret, gatewayUrl, environment]
+     * @throws Mage_Core_Exception
+     */
+    protected function _getCredentials(): array
+    {
+        $request = $this->getRequest();
+        $environment = $request->getParam('environment');
+        $clientId = $request->getParam('client_id');
+        $clientSecret = $request->getParam('client_secret');
+        $websiteCode = $request->getParam('website');
+        $storeCode = $request->getParam('store');
+
+        if ($clientId === '******') {
+            $clientId = $this->_getConfig('carriers/usps/client_id', $websiteCode, $storeCode);
+        }
+
+        if ($clientSecret === '******') {
+            $clientSecret = $this->_getConfig('carriers/usps/client_secret', $websiteCode, $storeCode);
+        }
+
+        if ($clientId === '' || $clientId === null || $clientSecret === '' || $clientSecret === null || $environment === '' || $environment === null) {
+            throw new Mage_Core_Exception('Client ID, Client Secret, and Environment are required.');
+        }
+
+        if (!isset(self::ALLOWED_ENVIRONMENTS[$environment])) {
+            throw new Mage_Core_Exception('Invalid environment: ' . $environment . '. Allowed: ' . implode(', ', array_keys(self::ALLOWED_ENVIRONMENTS)));
+        }
+
+        return [$clientId, $clientSecret, self::ALLOWED_ENVIRONMENTS[$environment], $environment];
+    }
+
+    /**
+     * Acquire OAuth access token from USPS
+     *
+     * @throws Mage_Core_Exception
+     */
+    protected function _getOAuthToken(string $gatewayUrl, string $clientId, string $clientSecret): string
+    {
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $gatewayUrl . 'oauth2/v3/token');
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/x-www-form-urlencoded']);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query([
+            'grant_type' => 'client_credentials',
+            'client_id' => $clientId,
+            'client_secret' => $clientSecret,
+        ]));
+        curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
+
+        $response = curl_exec($ch);
+        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
+
+        if ($httpCode !== 200) {
+            $errorData = json_decode($response, true);
+            throw new Mage_Core_Exception('Authentication failed: ' . ($errorData['error_description'] ?? 'HTTP ' . $httpCode));
+        }
+
+        $tokenData = json_decode($response, true);
+        $accessToken = $tokenData['access_token'] ?? null;
+
+        if (!$accessToken) {
+            throw new Mage_Core_Exception('No access token in response');
+        }
+
+        return $accessToken;
     }
 }

@@ -9,98 +9,46 @@ declare(strict_types=1);
  * @package    Mage_Usa
  */
 
-class Mage_Usa_Block_Adminhtml_System_Config_Form_Field_Usps_Testconnection extends Mage_Adminhtml_Block_System_Config_Form_Field
+class Mage_Usa_Block_Adminhtml_System_Config_Form_Field_Usps_Testconnection extends Mage_Usa_Block_Adminhtml_System_Config_Form_Field_Usps_AbstractTestButton
 {
-    protected function _getElementHtml(Varien_Data_Form_Element_Abstract $element): string
+    protected function _getButtonId(): string
     {
-        $buttonLabel = Mage::helper('usa')->__('Test Connection');
-        $ajaxUrl = Mage::helper('adminhtml')::getUrl('adminhtml/usps/testconnection');
-        $website = $this->getRequest()->getParam('website', '');
-        $store = $this->getRequest()->getParam('store', '');
-
-        $html = '<button type="button" id="usps-test-connection-button"'
-              . ' data-ajax-url="' . $this->escapeUrl($ajaxUrl) . '"'
-              . ' data-website="' . $this->escapeHtml($website) . '"'
-              . ' data-store="' . $this->escapeHtml($store) . '"'
-              . ' class="scalable">'
-              . '<span>' . $buttonLabel . '</span></button>';
-        $html .= '<div id="usps-test-result" style="margin-top:10px; font-weight:bold;"></div>';
-
-        return $html . <<<'JAVASCRIPT'
-<script type="text/javascript">
-//<![CDATA[
-document.observe('dom:loaded', function() {
-    var button = document.getElementById('usps-test-connection-button');
-    if (button) {
-        button.onclick = function() {
-            var url = this.getAttribute('data-ajax-url');
-            var website = this.getAttribute('data-website');
-            var store = this.getAttribute('data-store');
-            testUspsConnection(url, website, store);
-        };
-    }
-});
-
-function testUspsConnection(url, website, store) {
-    var clientId = '';
-    var clientSecret = '';
-    var environment = '';
-
-    var clientIdField = document.getElementById('carriers_usps_client_id');
-    var clientSecretField = document.getElementById('carriers_usps_client_secret');
-    var environmentField = document.getElementById('carriers_usps_environment');
-
-    if (clientIdField) clientId = clientIdField.value;
-    if (clientSecretField) clientSecret = clientSecretField.value;
-    if (environmentField) environment = environmentField.value;
-
-    if (!clientId || !clientSecret || !environment) {
-        document.getElementById('usps-test-result').innerHTML =
-            '<span style="color:red;">Please fill in Client ID, Client Secret, and Environment.</span>';
-        return;
+        return 'usps-test-connection-button';
     }
 
-    var resultDiv = document.getElementById('usps-test-result');
-    resultDiv.innerHTML = '<span style="color:gray;">Testing...</span>';
+    protected function _getButtonLabel(): string
+    {
+        return Mage::helper('usa')->__('Test Connection');
+    }
 
-    var button = document.getElementById('usps-test-connection-button');
-    button.disabled = true;
+    protected function _getAjaxRoute(): string
+    {
+        return 'adminhtml/usps/testconnection';
+    }
 
-    new Ajax.Request(url, {
-        parameters: {
-            client_id: clientId,
-            client_secret: clientSecret,
-            environment: environment,
-            website: website,
-            store: store,
-            form_key: FORM_KEY
-        },
-        onSuccess: function(response) {
-            button.disabled = false;
-            try {
-                var result = JSON.parse(response.responseText);
-                if (result.success) {
-                    resultDiv.innerHTML = '<span style="color:green;">' + result.message + '</span>';
-                } else {
-                    resultDiv.innerHTML = '<span style="color:red;">' + result.message + '</span>';
-                }
-            } catch(e) {
-                resultDiv.innerHTML = '<span style="color:red;">Error: ' + e.message + '</span>';
-            }
-        },
-        onFailure: function() {
-            button.disabled = false;
-            resultDiv.innerHTML = '<span style="color:red;">Connection failed.</span>';
-        }
-    });
+    protected function _getResultDivId(): string
+    {
+        return 'usps-test-result';
+    }
+
+    protected function _getLoadingText(): string
+    {
+        return 'Testing...';
+    }
+
+    protected function _getFailureText(): string
+    {
+        return 'Connection failed.';
+    }
+
+    protected function _getOnSuccessJs(): string
+    {
+        return <<<'JS'
+if (result.success) {
+    resultDiv.innerHTML = '<span style="color:green;">' + result.message + '</span>';
+} else {
+    resultDiv.innerHTML = '<span style="color:red;">' + result.message + '</span>';
 }
-//]]>
-</script>
-JAVASCRIPT;
-    }
-
-    protected function _renderScopeLabel(Varien_Data_Form_Element_Abstract $element): string
-    {
-        return '';
+JS;
     }
 }
