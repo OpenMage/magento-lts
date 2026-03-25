@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
+use OpenMage\Rector\Migration;
 use Rector\Arguments\Rector\ClassMethod\ReplaceArgumentDefaultValueRector;
-use Rector\Arguments\ValueObject\ReplaceArgumentDefaultValue;
 use Rector\Carbon\Rector as Carbon;
 use Rector\Caching\ValueObject\Storage\FileCacheStorage;
 use Rector\CodeQuality\Rector as CodeQuality;
@@ -25,8 +25,6 @@ use Rector\Php85\Rector as Php85;
 use Rector\PHPUnit\CodeQuality\Rector\Class_\PreferPHPUnitThisCallRector;
 use Rector\Privatization\Rector as Privatization;
 use Rector\Renaming\Rector as Renaming;
-use Rector\Renaming\Rector\ClassConstFetch\RenameClassConstFetchRector;
-use Rector\Renaming\ValueObject\RenameClassAndConstFetch;
 use Rector\Strict\Rector as Strict;
 use Rector\Transform\Rector as Transform;
 use Rector\TypeDeclaration\Rector as TypeDeclaration;
@@ -48,17 +46,20 @@ try {
         ->withRules([
             Php85\ArrayDimFetch\ArrayFirstLastRector::class,
         ])
-        ->withConfiguredRule(RenameClassConstFetchRector::class, [
-            new RenameClassAndConstFetch('Zend_Measure_Length', 'CENTIMETER', 'Mage_Core_Helper_Measure_Length', 'CENTIMETER'),
-            new RenameClassAndConstFetch('Zend_Measure_Length', 'INCH', 'Mage_Core_Helper_Measure_Length', 'INCH'),
-            new RenameClassAndConstFetch('Zend_Measure_Weight', 'KILOGRAM', 'Mage_Core_Helper_Measure_Weight', 'KILOGRAM'),
-            new RenameClassAndConstFetch('Zend_Measure_Weight', 'OUNCE', 'Mage_Core_Helper_Measure_Weight', 'OUNCE'),
-            new RenameClassAndConstFetch('Zend_Measure_Weight', 'POUND', 'Mage_Core_Helper_Measure_Weight', 'POUND'),
-        ])
-        ->withConfiguredRule(ReplaceArgumentDefaultValueRector::class, [
-            new ReplaceArgumentDefaultValue('Mage_Adminhtml_Block_Widget_Grid', 'setDefaultDir', 0, 'asc', 'ASC'),
-            new ReplaceArgumentDefaultValue('Mage_Adminhtml_Block_Widget_Grid', 'setDefaultDir', 0, 'desc', 'DESC'),
-        ])
+        ->withConfiguredRule(Renaming\ClassConstFetch\RenameClassConstFetchRector::class, Migration\Zend\Measure::renameClassConst())
+        ->withConfiguredRule(Renaming\MethodCall\RenameMethodRector::class, Migration\Mage\Admin::renameMethod())
+        ->withConfiguredRule(Renaming\MethodCall\RenameMethodRector::class, Migration\Mage\Adminhtml::renameMethod())
+        ->withConfiguredRule(Renaming\MethodCall\RenameMethodRector::class, Migration\Mage\Catalog::renameMethod())
+        ->withConfiguredRule(Renaming\MethodCall\RenameMethodRector::class, Migration\Mage\ConfigurableSwatches::renameMethod())
+        ->withConfiguredRule(Renaming\MethodCall\RenameMethodRector::class, Migration\Mage\Checkout::renameMethod())
+        ->withConfiguredRule(Renaming\MethodCall\RenameMethodRector::class, Migration\Mage\Core::renameMethod())
+        ->withConfiguredRule(Renaming\MethodCall\RenameMethodRector::class, Migration\Mage\Eav::renameMethod())
+        ->withConfiguredRule(Renaming\MethodCall\RenameMethodRector::class, Migration\Mage\Paypal::renameMethod())
+        ->withConfiguredRule(Renaming\MethodCall\RenameMethodRector::class, Migration\Mage\Sitemap::renameMethod())
+        ->withConfiguredRule(Renaming\MethodCall\RenameMethodRector::class, Migration\Mage\Tax::renameMethod())
+        ->withConfiguredRule(Renaming\MethodCall\RenameMethodRector::class, Migration\Mage\Usa::renameMethod())
+        ->withConfiguredRule(Renaming\MethodCall\RenameMethodRector::class, Migration\Mage\Wishlist::renameMethod())
+        ->withConfiguredRule(ReplaceArgumentDefaultValueRector::class, Migration\Mage\Adminhtml::replaceArgumentDefaultValue())
         ->withSkip([
             Carbon\FuncCall\DateFuncCallToCarbonRector::class => [
                 __DIR__ . '/tests/unit/Base/CarbonTest.php',
