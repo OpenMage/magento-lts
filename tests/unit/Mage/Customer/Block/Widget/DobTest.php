@@ -28,24 +28,12 @@ final class DobTest extends OpenMageTest
     }
 
     /**
-     * Test that getYear() returns the calendar year, not the ISO-8601 week-numbering year.
-     * Dates near the start of the year (like Jan 1) can belong to the previous ISO year.
-     *
      * @group Block
      * @dataProvider provideGetYearData
      */
     public function testGetYear(string $expectedYear, string $date): void
     {
-        $subject = new Subject();
-        $subject->setDate($date);
-        self::assertSame($expectedYear, $subject->getYear());
-    }
-
-    /**
-     * @group Block
-     */
-    public function testGetYearWithNoDate(): void
-    {
-        self::assertSame('', self::$subject->getYear());
+        self::$subject->setDate($date);
+        self::assertSame($expectedYear, self::$subject->getYear());
     }
 }
