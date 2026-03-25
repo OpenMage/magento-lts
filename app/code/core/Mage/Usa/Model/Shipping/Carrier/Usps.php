@@ -367,7 +367,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
     /**
      * Create a rate result error pre-filled with USPS carrier details
      *
-     * @param  string                                $message Error message (defaults to specificerrmsg config)
+     * @param string $message Error message (defaults to specificerrmsg config)
      */
     protected function _createRateError(string $message = ''): Mage_Shipping_Model_Rate_Result_Error
     {
