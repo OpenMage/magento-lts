@@ -40,6 +40,23 @@ try {
         ->withPhpSets(
             php81: true,
         )
+        ->withPreparedSets(
+            deadCode: true,
+            codeQuality: true,
+            codingStyle: true,
+            typeDeclarations: false,
+            privatization: true,
+            naming: false,
+            instanceOf: true,
+            earlyReturn: true,
+            strictBooleans: false,
+            carbon: true,
+            rectorPreset: true,
+            phpunitCodeQuality: true,
+            doctrineCodeQuality: false,
+            symfonyCodeQuality: false,
+            symfonyConfigs: false,
+        )
         ->withPaths([
             __DIR__,
         ])
@@ -52,6 +69,7 @@ try {
             TypeDeclarationDocblocks\ClassMethod\AddReturnDocblockForCommonObjectDenominatorRector::class,
             TypeDeclarationDocblocks\ClassMethod\AddReturnDocblockForDimFetchArrayFromAssignsRector::class,
             TypeDeclarationDocblocks\ClassMethod\AddReturnDocblockForJsonArrayRector::class,
+            TypeDeclarationDocblocks\ClassMethod\AddReturnDocblockFromMethodCallDocblockRector::class,
             TypeDeclarationDocblocks\ClassMethod\DocblockReturnArrayFromDirectArrayInstanceRector::class,
         ])
         ->withConfiguredRule(Renaming\ClassConstFetch\RenameClassConstFetchRector::class, Migration\Zend\Measure::renameClassConst())
@@ -139,24 +157,7 @@ try {
             PreferPHPUnitThisCallRector::class,
             __DIR__ . '/shell/translations.php',
             __DIR__ . '/tests/unit/Mage/Reports/Model/Resource/Report/CollectionTest.php',
-        ])
-        ->withPreparedSets(
-            deadCode: true,
-            codeQuality: true,
-            codingStyle: true,
-            typeDeclarations: false,
-            privatization: true,
-            naming: false,
-            instanceOf: true,
-            earlyReturn: true,
-            strictBooleans: false,
-            carbon: true,
-            rectorPreset: true,
-            phpunitCodeQuality: true,
-            doctrineCodeQuality: false,
-            symfonyCodeQuality: false,
-            symfonyConfigs: false,
-        );
+        ]);
 } catch (InvalidConfigurationException $exception) {
     echo $exception->getMessage();
     exit(1);

@@ -154,7 +154,7 @@ class Mage_Sales_Block_Reorder_Sidebar extends Mage_Core_Block_Template
     /**
      * Retrieve products list from items
      *
-     * @return array
+     * @return \Mage_Catalog_Model_Product[]
      */
     protected function _getItemProducts()
     {
