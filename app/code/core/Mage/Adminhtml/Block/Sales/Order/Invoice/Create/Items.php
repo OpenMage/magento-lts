@@ -117,7 +117,7 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_Create_Items extends Mage_Adminht
     /**
      * Retrieve order totalbar block data
      *
-     * @return array
+     * @return array<int, array<int, bool|string>>
      */
     public function getOrderTotalbarData()
     {

@@ -83,9 +83,9 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable extends Mage_Core_Mo
      *   group => array(ids)
      * )
      *
-     * @param  int   $parentId
-     * @param  bool  $required
-     * @return array
+     * @param  int                         $parentId
+     * @param  bool                        $required
+     * @return array<int, non-empty-array>
      */
     public function getChildrenIds($parentId, $required = true)
     {

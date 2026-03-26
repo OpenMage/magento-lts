@@ -584,7 +584,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      * created from this product
      *
      * @param  Mage_Catalog_Model_Product $product
-     * @return array
+     * @return array<string, mixed>
      */
     public function getOrderOptions($product = null)
     {

@@ -205,7 +205,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Tree extends Mage_Adminhtml_Block_Ca
      *
      * @param  array|Varien_Data_Tree_Node $node
      * @param  int                         $level
-     * @return array
+     * @return array<string, mixed>
      */
     protected function _getNodeJson($node, $level = 0)
     {

@@ -1377,7 +1377,7 @@ class Mage_Paypal_Model_Config
     /**
      * Payment actions source getter
      *
-     * @return array
+     * @return array<string, string>
      */
     public function getPaymentActions()
     {

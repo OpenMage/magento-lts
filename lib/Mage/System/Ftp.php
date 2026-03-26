@@ -490,7 +490,7 @@ class Mage_System_Ftp
      *
      * @param  string    $dir
      * @param  bool      $recursive
-     * @return array
+     * @return array{}
      * @throws Exception
      */
     public function ls($dir = '/', $recursive = false)

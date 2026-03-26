@@ -596,7 +596,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
     /**
      * Retrieve unique user data for validator
      *
-     * @return array
+     * @return array<string, mixed>
      * @SuppressWarnings("PHPMD.Superglobals")
      */
     public function getValidatorData()

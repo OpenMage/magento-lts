@@ -1093,8 +1093,8 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
      *  )
      * )
      *
-     * @param  Mage_Sales_Model_Order $source
-     * @return array
+     * @param  Mage_Sales_Model_Order           $source
+     * @return array<int, array<string, mixed>>
      */
     public function getShippingTax($source)
     {

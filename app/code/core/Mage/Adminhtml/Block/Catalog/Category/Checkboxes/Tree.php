@@ -42,6 +42,9 @@ class Mage_Adminhtml_Block_Catalog_Category_Checkboxes_Tree extends Mage_Adminht
         return $this;
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     protected function _getNodeJson($node, $level = 1)
     {
         $item = [];

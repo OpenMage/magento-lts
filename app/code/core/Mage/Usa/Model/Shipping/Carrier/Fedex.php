@@ -295,8 +295,8 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
     /**
      * Forming request for rate estimation depending to the purpose
      *
-     * @param  string $purpose
-     * @return array
+     * @param  string                              $purpose
+     * @return array<string, array<string, mixed>>
      */
     protected function _formRateRequest($purpose)
     {

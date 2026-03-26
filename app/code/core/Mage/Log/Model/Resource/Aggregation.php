@@ -42,10 +42,10 @@ class Mage_Log_Model_Resource_Aggregation extends Mage_Core_Model_Resource_Db_Ab
     /**
      * Retrieve count of visitors, customers
      *
-     * @param  string $from
-     * @param  string $to
-     * @param  int    $store
-     * @return array
+     * @param  string                              $from
+     * @param  string                              $to
+     * @param  int                                 $store
+     * @return array<string, null|bool|int|string>
      */
     public function getCounts($from, $to, $store)
     {

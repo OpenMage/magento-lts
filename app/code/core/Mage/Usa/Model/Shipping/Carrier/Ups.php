@@ -2135,7 +2135,7 @@ XMLAuth;
     /**
      * Return delivery confirmation types of carrier
      *
-     * @return array
+     * @return array<int, string>
      */
     public function getDeliveryConfirmationTypes(?Varien_Object $params = null)
     {
@@ -2539,6 +2539,7 @@ XMLAuth;
 
     /**
      * Setting common request params for Rate Request
+     * @return array<string, mixed>
      */
     // phpcs:ignore Ecg.PHP.PrivateClassMember.PrivateClassMemberError
     private function setQuoteRequestData(Varien_Object $rowRequest): array

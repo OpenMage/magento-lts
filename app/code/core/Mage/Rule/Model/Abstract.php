@@ -303,7 +303,7 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
      * Set conditions and actions recursively.
      * Convert dates into Zend_Date.
      *
-     * @return array
+     * @return array{}
      */
     protected function _convertFlatToRecursive(array $data)
     {
