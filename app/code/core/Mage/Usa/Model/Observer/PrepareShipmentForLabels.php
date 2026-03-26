@@ -35,7 +35,7 @@ class Mage_Usa_Model_Observer_PrepareShipmentForLabels implements Mage_Core_Obse
             }
 
             // Check if USPS is the carrier for this shipment
-            $shippingMethod = (string) $order->getShippingMethod(); // @phpstan-ignore cast.string
+            $shippingMethod = (string) $order->getShippingMethod();
             if (!str_starts_with($shippingMethod, 'usps_')) {
                 return;
             }
