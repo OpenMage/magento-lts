@@ -313,6 +313,12 @@ after 1.4.2.0',
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Customer/Edit/Tab/Wishlist.php',
 ];
 $ignoreErrors[] = [
+	'rawMessage' => 'Parameter #2 $attributes of method Mage_Adminhtml_Block_Customer_Form_Element_File::_drawElementHtml() expects array<string, bool|string>, array<string, int|string|false> given.',
+	'identifier' => 'argument.type',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Customer/Form/Element/Image.php',
+];
+$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 1,
@@ -506,6 +512,12 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Sales/Order/Shipment/Packaging.php',
 ];
 $ignoreErrors[] = [
+	'rawMessage' => 'Offset string does not exist on array{}.',
+	'identifier' => 'offsetAccess.notFound',
+	'count' => 2,
+	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Sales/Order/Shipment/Packaging.php',
+];
+$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 1,
@@ -668,6 +680,12 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Widget/Container.php',
 ];
 $ignoreErrors[] = [
+	'rawMessage' => 'Empty array passed to foreach.',
+	'identifier' => 'foreach.emptyArray',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Widget/Form.php',
+];
+$ignoreErrors[] = [
 	'rawMessage' => 'Method Mage_Eav_Model_Entity_Attribute_Source_Interface::getAllOptions() invoked with 2 parameters, 0 required.',
 	'identifier' => 'arguments.count',
 	'count' => 2,
@@ -684,6 +702,12 @@ $ignoreErrors[] = [
 	'identifier' => 'empty.notAllowed',
 	'count' => 3,
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Widget/Form/Container.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to function is_object() with Zend_Db_Expr will always evaluate to true.',
+	'identifier' => 'function.alreadyNarrowedType',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Widget/Grid.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
@@ -1512,6 +1536,12 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Api2/Model/Resource.php',
 ];
 $ignoreErrors[] = [
+	'rawMessage' => 'Empty array passed to foreach.',
+	'identifier' => 'foreach.emptyArray',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Api2/Model/Resource.php',
+];
+$ignoreErrors[] = [
 	'rawMessage' => 'PHPDoc tag @var with type Mage_Core_Model_Resource_Db_Abstract is not subtype of type Mage_Core_Model_Resource_Db_Collection_Abstract|false.',
 	'identifier' => 'varTag.type',
 	'count' => 1,
@@ -2138,6 +2168,12 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Layer.php',
 ];
 $ignoreErrors[] = [
+	'rawMessage' => 'Empty array passed to foreach.',
+	'identifier' => 'foreach.emptyArray',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Layer/Filter/Abstract.php',
+];
+$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 1,
@@ -2219,6 +2255,18 @@ $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 6,
+	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Product/Attribute/Backend/Groupprice/Abstract.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Empty array passed to foreach.',
+	'identifier' => 'foreach.emptyArray',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Product/Attribute/Backend/Groupprice/Abstract.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Left side of || is always false.',
+	'identifier' => 'booleanOr.leftAlwaysFalse',
+	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Product/Attribute/Backend/Groupprice/Abstract.php',
 ];
 $ignoreErrors[] = [
@@ -2963,6 +3011,12 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/CatalogInventory/Model/Stock/Item.php',
 ];
 $ignoreErrors[] = [
+	'rawMessage' => 'Empty array passed to foreach.',
+	'identifier' => 'foreach.emptyArray',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/CatalogInventory/Model/Stock/Item.php',
+];
+$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 1,
@@ -3014,6 +3068,12 @@ $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 6,
+	'path' => __DIR__ . '/app/code/core/Mage/CatalogRule/Model/Resource/Rule.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'PHPDoc tag @param for parameter $productIds with type array|int is not subtype of native type array.',
+	'identifier' => 'parameter.phpDocType',
+	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/CatalogRule/Model/Resource/Rule.php',
 ];
 $ignoreErrors[] = [
@@ -3644,6 +3704,12 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Core/Helper/String.php',
 ];
 $ignoreErrors[] = [
+	'rawMessage' => 'Parameter #1 $param of method Mage_Core_Helper_String::_handleRecursiveParamForQueryStr() expects array<string, string>, array<string, array<int|string, string>|string> given.',
+	'identifier' => 'argument.type',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Core/Helper/String.php',
+];
+$ignoreErrors[] = [
 	'rawMessage' => 'Parameter #2 $arguments of static method Mage::getResourceModel() expects array, object given.',
 	'identifier' => 'argument.type',
 	'count' => 1,
@@ -4117,6 +4183,12 @@ $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 2,
+	'path' => __DIR__ . '/app/code/core/Mage/Core/Model/Session/Abstract/Varien.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Empty array passed to foreach.',
+	'identifier' => 'foreach.emptyArray',
+	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Core/Model/Session/Abstract/Varien.php',
 ];
 $ignoreErrors[] = [
@@ -5249,8 +5321,32 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/ImportExport/Model/Import/Entity/Product.php',
 ];
 $ignoreErrors[] = [
+	'rawMessage' => 'If condition is always true.',
+	'identifier' => 'if.alwaysTrue',
+	'count' => 2,
+	'path' => __DIR__ . '/app/code/core/Mage/ImportExport/Model/Import/Entity/Product.php',
+];
+$ignoreErrors[] = [
 	'rawMessage' => 'Negated boolean expression is always true.',
 	'identifier' => 'booleanNot.alwaysTrue',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/ImportExport/Model/Import/Entity/Product.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'PHPDoc tag @param for parameter $groupPriceData contains unresolvable type.',
+	'identifier' => 'parameter.unresolvableType',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/ImportExport/Model/Import/Entity/Product.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'PHPDoc tag @param for parameter $mediaGalleryData contains unresolvable type.',
+	'identifier' => 'parameter.unresolvableType',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/ImportExport/Model/Import/Entity/Product.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'PHPDoc tag @param for parameter $tierPriceData contains unresolvable type.',
+	'identifier' => 'parameter.unresolvableType',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/ImportExport/Model/Import/Entity/Product.php',
 ];
@@ -5396,6 +5492,12 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Install/Model/Config.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'PHPDoc tag @return contains unresolvable type.',
+	'identifier' => 'return.unresolvableType',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Install/Model/Config.php',
 ];
@@ -6505,6 +6607,12 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Sales/Model/Observer.php',
 ];
 $ignoreErrors[] = [
+	'rawMessage' => 'Empty array passed to foreach.',
+	'identifier' => 'foreach.emptyArray',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Sales/Model/Observer.php',
+];
+$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 9,
@@ -7489,6 +7597,12 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps.php',
 ];
 $ignoreErrors[] = [
+	'rawMessage' => 'Parameter #2 $value of method SimpleXMLElement::addChild() expects string|null, float|int given.',
+	'identifier' => 'argument.type',
+	'count' => 4,
+	'path' => __DIR__ . '/app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps.php',
+];
+$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 1,
@@ -7658,9 +7772,21 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/catalog/product/edit/price/group.phtml',
 ];
 $ignoreErrors[] = [
+	'rawMessage' => 'Empty array passed to foreach.',
+	'identifier' => 'foreach.emptyArray',
+	'count' => 1,
+	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/catalog/product/edit/price/group.phtml',
+];
+$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 2,
+	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/catalog/product/edit/price/tier.phtml',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Empty array passed to foreach.',
+	'identifier' => 'foreach.emptyArray',
+	'count' => 1,
 	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/catalog/product/edit/price/tier.phtml',
 ];
 $ignoreErrors[] = [
@@ -8159,6 +8285,12 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/weee/renderer/tax.phtml',
 ];
 $ignoreErrors[] = [
+	'rawMessage' => 'Empty array passed to foreach.',
+	'identifier' => 'foreach.emptyArray',
+	'count' => 1,
+	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/weee/renderer/tax.phtml',
+];
+$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 2,
@@ -8513,6 +8645,12 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/design/frontend/base/default/template/wishlist/item/column/cart.phtml',
 ];
 $ignoreErrors[] = [
+	'rawMessage' => 'Method Mage_Core_Block_Abstract::toHtml() invoked with 1 parameter, 0 required.',
+	'identifier' => 'arguments.count',
+	'count' => 1,
+	'path' => __DIR__ . '/app/design/frontend/base/default/template/wishlist/item/list.phtml',
+];
+$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 1,
@@ -8695,6 +8833,12 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/design/frontend/rwd/default/template/wishlist/item/column/price.phtml',
 ];
 $ignoreErrors[] = [
+	'rawMessage' => 'Method Mage_Core_Block_Abstract::toHtml() invoked with 1 parameter, 0 required.',
+	'identifier' => 'arguments.count',
+	'count' => 1,
+	'path' => __DIR__ . '/app/design/frontend/rwd/default/template/wishlist/item/list.phtml',
+];
+$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 7,
@@ -8781,7 +8925,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Empty array passed to foreach.',
 	'identifier' => 'foreach.emptyArray',
-	'count' => 1,
+	'count' => 2,
 	'path' => __DIR__ . '/lib/Mage/System/Ftp.php',
 ];
 $ignoreErrors[] = [
@@ -8915,6 +9059,12 @@ $ignoreErrors[] = [
 	'identifier' => 'method.nonObject',
 	'count' => 1,
 	'path' => __DIR__ . '/lib/Varien/Db/Statement/Pdo/Mysql.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Cannot access constant class on int|list<mixed>|object|string.',
+	'identifier' => 'classConstant.nonObject',
+	'count' => 2,
+	'path' => __DIR__ . '/lib/Varien/Debug.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Method Varien_Filter_Email::filter() should return mixed but return statement is missing.',
