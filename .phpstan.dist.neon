@@ -3,9 +3,23 @@ includes:
     - .phpstan.dist.baseline.php
     - phar://phpstan.phar/conf/bleedingEdge.neon
 parameters:
+    level: 5
+    checkFunctionNameCase: true
+    checkInternalClassCaseSensitivity: true
+    treatPhpDocTypesAsCertain: false
+#    universalObjectCratesClasses:
+#        - Varien_Object
     phpVersion:
         min: 80100
         max: 80599
+    strictRules:
+        allRules: false
+        disallowedEmpty: true
+        dynamicCallOnStaticMethod: true
+        matchingInheritedMethodNames: true
+    stubFiles:
+        - dev/phpstan/stubs/Zend/Log.stub
+    tmpDir: .phpstan.cache
     magentoRootPath: %currentWorkingDirectory%
     fileExtensions:
       - php
@@ -25,11 +39,6 @@ parameters:
         - lib/Varien
         - shell
         - tests/unit
-    strictRules:
-        allRules: false
-        disallowedEmpty: true
-        dynamicCallOnStaticMethod: true
-        matchingInheritedMethodNames: true
     excludePaths:
         #incompatible interfaces
         - lib/Varien/Directory/Collection.php
@@ -134,10 +143,3 @@ parameters:
                 - app/design/*/*/template/*
                 - errors/*
                 - lib/Varien/*
-    tmpDir: .phpstan.cache
-    level: 5
-    checkFunctionNameCase: true
-    checkInternalClassCaseSensitivity: true
-    treatPhpDocTypesAsCertain: false
-#    universalObjectCratesClasses:
-#        - Varien_Object
