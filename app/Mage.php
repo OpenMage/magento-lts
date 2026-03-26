@@ -527,8 +527,8 @@ final class Mage
      * Calls all observer callbacks registered for this event
      * and multiple observers matching event name pattern
      *
-     * @param  string                    $name
-     * @param  array<string, \Exception> $data
+     * @param  string               $name
+     * @param  array<string, mixed> $data
      * @return Mage_Core_Model_App
      */
     public static function dispatchEvent($name, array $data = [])
