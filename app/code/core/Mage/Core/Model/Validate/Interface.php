@@ -6,13 +6,13 @@ declare(strict_types=1);
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
  * @license    Open Software License (OSL 3.0)
- * @package    Mage_Validation
+ * @package    Mage_Core
  */
 
 /**
- * @package    Mage_Validation
+ * @package    Mage_Core
  */
-interface Mage_Core_Helper_Validate_Interface
+interface Mage_Core_Model_Validate_Interface
 {
     /**
      * Returns true if and only if $value meets the validation requirements
