@@ -11,9 +11,6 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\Model\Email\Template;
 
 use Generator;
-use Mage_Core_Model_Store;
-use Mage_Core_Model_Store_Group;
-use Mage_Core_Model_Website;
 
 trait AbstractTrait
 {

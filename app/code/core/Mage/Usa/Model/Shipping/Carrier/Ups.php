@@ -1,12 +1,13 @@
 <?php
 
+use Monolog\Level;
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
  * @license    Open Software License (OSL 3.0)
  * @package    Mage_Usa
  */
-
 /**
  * UPS shipping implementation
  *
@@ -1739,7 +1740,7 @@ XMLAuth;
         } else {
             Mage::log(
                 'Unexpected response shape from UPS REST API /shipments endpoint for .ShipmentResults.PackageResults',
-                \Monolog\Level::Warning,
+                Level::Warning,
             );
             $result->setErrors(Mage::helper('usa')->__('Error reading response from UPS'));
             $this->_debug($debugData);
