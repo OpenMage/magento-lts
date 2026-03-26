@@ -255,7 +255,7 @@ class Mage_Checkout_Block_Multishipping_Overview extends Mage_Sales_Block_Items_
     /**
      * Retrieve virtual product collection array
      *
-     * @return array
+     * @return \Mage_Sales_Model_Quote_Address_Item[]
      */
     public function getVirtualItems()
     {

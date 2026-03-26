@@ -706,8 +706,8 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
     /**
      * Run Multi Query
      *
-     * @param  string               $sql
-     * @return array
+     * @param  string                         $sql
+     * @return \Zend_Db_Statement_Interface[]
      * @throws Zend_Cache_Exception
      */
     // phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
@@ -3766,7 +3766,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      *
      * @param  string                   $rangeField
      * @param  int                      $stepCount
-     * @return array
+     * @return \Varien_Db_Select[]
      * @throws Varien_Db_Exception
      * @throws Zend_Db_Select_Exception
      */

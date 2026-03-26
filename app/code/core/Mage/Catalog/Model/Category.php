@@ -641,7 +641,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
     /**
      * Retrieve design attributes array
      *
-     * @return array
+     * @return \Mage_Eav_Model_Entity_Attribute_Abstract[]
      * @throws Mage_Core_Exception
      */
     public function getDesignAttributes()

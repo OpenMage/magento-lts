@@ -59,9 +59,9 @@ class Magento_Db_Adapter_Pdo_Mysql extends Varien_Db_Adapter_Pdo_Mysql
     /**
      * Retrieve bunch of queries for specified select split by specified step
      *
-     * @param  string $entityIdField
-     * @param  int    $step
-     * @return array
+     * @param  string              $entityIdField
+     * @param  int                 $step
+     * @return \Varien_Db_Select[]
      */
     public function splitSelect(Varien_Db_Select $select, $entityIdField = '*', $step = 10000)
     {

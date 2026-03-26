@@ -1634,7 +1634,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     /**
      * Retrieve current quote errors
      *
-     * @return array
+     * @return \Mage_Core_Model_Message_Abstract[]
      */
     public function getErrors()
     {

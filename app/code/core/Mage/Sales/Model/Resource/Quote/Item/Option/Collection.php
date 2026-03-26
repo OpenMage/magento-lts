@@ -104,7 +104,7 @@ class Mage_Sales_Model_Resource_Quote_Item_Option_Collection extends Mage_Core_M
      * Get all option for item
      *
      * @param  int|Mage_Sales_Model_Quote_Item|string $item
-     * @return array
+     * @return \Mage_Core_Model_Abstract[]
      * @throws Mage_Core_Exception
      */
     public function getOptionsByItem($item)
@@ -131,7 +131,7 @@ class Mage_Sales_Model_Resource_Quote_Item_Option_Collection extends Mage_Core_M
      * Get all option for item
      *
      * @param  int|Mage_Catalog_Model_Product $product
-     * @return array
+     * @return \Mage_Core_Model_Abstract[]
      * @throws Mage_Core_Exception
      */
     public function getOptionsByProduct($product)
