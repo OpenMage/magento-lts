@@ -27,6 +27,7 @@ final class Wishlist
             new MethodCallRename(Mage_Wishlist_Block_Abstract::class, 'getWishlist', 'getWishlistItems'),
             new MethodCallRename(Mage_Wishlist_Block_Customer_Sidebar::class, 'getRemoveItemUrl', 'getItemRemoveUrl'),
             new MethodCallRename(Mage_Wishlist_Block_Customer_Sidebar::class, 'getAddToCartItemUrl', 'getItemAddToCartUrl'),
+            new MethodCallRename(Mage_Wishlist_Helper_Data::class, 'getAddToCartUrlBase64', 'getAddToCartUrl'),
             new MethodCallRename(Mage_Wishlist_Helper_Data::class, 'getItemCollection', 'getProductCollection'),
         ];
     }
