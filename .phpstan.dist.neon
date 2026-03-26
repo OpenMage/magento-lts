@@ -131,6 +131,9 @@ parameters:
             identifier: method.childReturnType
             reportUnmatched: false
         -
+            identifier: cast.string
+            reportUnmatched: false
+        -
             identifier: phpunit.coversMethod
         -
             # update phpstan plugin

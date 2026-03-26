@@ -22,8 +22,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Source_Size
             return [];
         }
         $arr = [];
-        foreach ($codes as $k => $v) {
-            $arr[] = ['value' => $k, 'label' => $v];
+        foreach ($codes as $key => $value) {
+            $arr[] = ['value' => $key, 'label' => $value];
         }
 
         return $arr;

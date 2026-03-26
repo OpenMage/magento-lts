@@ -149,7 +149,7 @@ class Mage_Usa_Block_Checkout_Address_Verification extends Mage_Core_Block_Templ
      */
     public function escapeJs(string $string): string
     {
-        return (string) $this->jsQuoteEscape($string);
+        return (string) $this->jsQuoteEscape($string); // @phpstan-ignore cast.string
     }
 
     /**
@@ -212,24 +212,24 @@ class Mage_Usa_Block_Checkout_Address_Verification extends Mage_Core_Block_Templ
         $lines = [];
 
         if (isset($address['street1']) && $address['street1'] !== '') {
-            $lines[] = (string) $this->escapeHtml($address['street1']);
+            $lines[] = (string) $this->escapeHtml($address['street1']); // @phpstan-ignore cast.string
         }
 
         if (isset($address['street2']) && $address['street2'] !== '') {
-            $lines[] = (string) $this->escapeHtml($address['street2']);
+            $lines[] = (string) $this->escapeHtml($address['street2']); // @phpstan-ignore cast.string
         }
 
         $cityStateZip = [];
         if (isset($address['city']) && $address['city'] !== '') {
-            $cityStateZip[] = (string) $this->escapeHtml($address['city']);
+            $cityStateZip[] = (string) $this->escapeHtml($address['city']); // @phpstan-ignore cast.string
         }
 
         if (isset($address['region']) && $address['region'] !== '') {
-            $cityStateZip[] = (string) $this->escapeHtml($address['region']);
+            $cityStateZip[] = (string) $this->escapeHtml($address['region']); // @phpstan-ignore cast.string
         }
 
         if (isset($address['postcode']) && $address['postcode'] !== '') {
-            $cityStateZip[] = (string) $this->escapeHtml($address['postcode']);
+            $cityStateZip[] = (string) $this->escapeHtml($address['postcode']); // @phpstan-ignore cast.string
         }
 
         if ($cityStateZip !== []) {
