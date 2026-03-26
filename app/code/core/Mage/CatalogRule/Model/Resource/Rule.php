@@ -125,7 +125,8 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
     /**
      * Deletes records in catalogrule/product_data by rule ID and product IDs
      *
-     * @param int $ruleId
+     * @param int                                       $ruleId
+     * @param int|int[]|non-empty-array|null[]|string[] $productIds
      */
     public function cleanProductData($ruleId, array $productIds = [])
     {

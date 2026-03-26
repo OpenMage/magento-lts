@@ -498,7 +498,8 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
     /**
      * Load product(s) attributes
      *
-     * @param  int   $storeId
+     * @param  int                                 $storeId
+     * @param  array<string, list<(int | string)>> $attributeTypes
      * @return array
      */
     protected function _getProductAttributes($storeId, array $productIds, array $attributeTypes)

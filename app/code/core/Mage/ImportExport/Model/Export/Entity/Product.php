@@ -322,6 +322,7 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Prepare catalog inventory
      *
+     * @param  int[]|string[] $productIds
      * @return array
      */
     protected function _prepareCatalogInventory(array $productIds)
@@ -354,6 +355,7 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Prepare product links
      *
+     * @param  int[]|string[] $productIds
      * @return array
      */
     protected function _prepareLinks(array $productIds)

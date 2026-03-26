@@ -1357,6 +1357,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Save product categories.
      *
+     * @param  non-empty-array<bool>[] $categoriesData
      * @return $this
      * @throws Zend_Db_Exception
      */
@@ -1399,8 +1400,8 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Update and insert data in entity table.
      *
-     * @param  array               $entityRowsIn Row for insert
-     * @param  array               $entityRowsUp Row for update
+     * @param  array<mixed, array<string, mixed>> $entityRowsIn Row for insert
+     * @param  array<int, array<string, mixed>>   $entityRowsUp Row for update
      * @return $this
      * @throws Mage_Core_Exception
      * @throws Zend_Db_Exception
@@ -1727,6 +1728,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Save product tier prices.
      *
+     * @param  \non-empty-list<array<string, mixed>>[] $tierPriceData
      * @return $this
      * @throws Zend_Db_Exception
      */
@@ -1771,6 +1773,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Save product group prices.
      *
+     * @param  \non-empty-list<array<string, mixed>>[] $groupPriceData
      * @return $this
      * @throws Zend_Db_Exception
      */
@@ -1863,6 +1866,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Save product media gallery.
      *
+     * @param  \non-empty-list<array<string, mixed>>[] $mediaGalleryData
      * @return $this
      * @throws Zend_Db_Exception
      */
@@ -1945,6 +1949,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Save product websites.
      *
+     * @param  non-empty-array<bool>[] $websiteData
      * @return $this
      * @throws Zend_Db_Exception
      */

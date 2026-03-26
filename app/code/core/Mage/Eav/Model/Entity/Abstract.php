@@ -599,6 +599,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
      * for example: $this->walkAttributes('backend/validate');
      *
      * @param  string                                    $partMethod
+     * @param  \Varien_Object[]                          $args
      * @return array
      * @throws Mage_Eav_Model_Entity_Attribute_Exception
      */

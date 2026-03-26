@@ -58,10 +58,10 @@ class Varien_Debug
     /**
      * Prints or return a trace
      *
-     * @param  array       $trace    trace array
-     * @param  bool        $return   return or print
-     * @param  bool        $html     output in HTML format
-     * @param  bool        $withArgs add short argumets of methods
+     * @param  array<int, array<string, int|list<mixed>|object|string>> $trace    trace array
+     * @param  bool                                                     $return   return or print
+     * @param  bool                                                     $html     output in HTML format
+     * @param  bool                                                     $withArgs add short argumets of methods
      * @return bool|string
      */
     public static function trace(array $trace, $return = false, $html = true, $withArgs = true)

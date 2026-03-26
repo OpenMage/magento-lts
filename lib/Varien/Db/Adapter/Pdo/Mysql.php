@@ -2229,6 +2229,8 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      * Insert array to table based on columns definition
      *
      * @param  string            $table
+     * @param  int[]|string[]    $columns
+     * @param  array<int, list>  $data
      * @return int
      * @throws Zend_Db_Exception
      */
@@ -4036,7 +4038,9 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
     /**
      * Return insert sql query
      *
-     * @param  string $tableName
+     * @param  string         $tableName
+     * @param  int[]|string[] $columns
+     * @param  string[]       $values
      * @return string
      */
     protected function _getInsertSqlQuery($tableName, array $columns, array $values)

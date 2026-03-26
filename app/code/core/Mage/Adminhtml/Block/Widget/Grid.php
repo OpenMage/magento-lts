@@ -1210,8 +1210,8 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      * Iterate collection and call callback method per item
      * For callback method first argument always is item object
      *
-     * @param  string                   $callback
-     * @param  array                    $args     additional arguments for callback method
+     * @param  string                                               $callback
+     * @param  \Varien_Convert_Parser_Xml_Excel[]|\Varien_Io_File[] $args     additional arguments for callback method
      * @throws Zend_Cache_Exception
      * @throws Zend_Db_Select_Exception
      */

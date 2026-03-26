@@ -1100,6 +1100,7 @@ class Mage_Paypal_Model_Config
     /**
      * PayPal web URL generic getter
      *
+     * @param  array<string, string> $params
      * @return string
      */
     public function getPaypalUrl(array $params = [])
