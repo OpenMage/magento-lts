@@ -50,8 +50,8 @@ class Mage_Usa_Block_Checkout_Address_Verification extends Mage_Core_Block_Templ
      */
     public function isEnabled(): bool
     {
-        return (bool) Mage::getStoreConfig('carriers/usps/verify_addresses')
-            && Mage::getStoreConfig('carriers/usps/active');
+        return Mage::getStoreConfigFlag('carriers/usps/verify_addresses')
+            && Mage::getStoreConfigFlag('carriers/usps/active');
     }
 
     /**

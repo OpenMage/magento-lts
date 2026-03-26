@@ -9,6 +9,8 @@ declare(strict_types=1);
  * @package    Mage_Usa
  */
 
+use Monolog\Level;
+
 /**
  * USPS Address Verification Logger
  *
@@ -84,7 +86,7 @@ class Mage_Usa_Model_Observer_LogAddressVerification implements Mage_Core_Observ
                             'USPS Address Verification: Corrected address for quote %s',
                             $quote->getId(),
                         ),
-                        Zend_Log::INFO,
+                        Level::Info,
                         'usps_address_verification.log',
                     );
                 }

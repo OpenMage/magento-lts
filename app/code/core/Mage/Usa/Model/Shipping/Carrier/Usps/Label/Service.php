@@ -69,8 +69,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service extends Mage_Usa_Model_
      */
     public function isEnabled(?int $storeId = null): bool
     {
-        return (bool) Mage::getStoreConfig('carriers/usps/enable_labels', $storeId)
-            && Mage::getStoreConfig('carriers/usps/active', $storeId)
+        return Mage::getStoreConfigFlag('carriers/usps/enable_labels', $storeId)
+            && Mage::getStoreConfigFlag('carriers/usps/active', $storeId)
             && Mage::getStoreConfig('carriers/usps/crid', $storeId)
             && Mage::getStoreConfig('carriers/usps/mid', $storeId)
             && Mage::getStoreConfig('carriers/usps/eps_account_number', $storeId);

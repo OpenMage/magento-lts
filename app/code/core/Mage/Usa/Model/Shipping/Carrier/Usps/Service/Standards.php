@@ -53,8 +53,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Service_Standards extends Mage_Usa_Mo
      */
     public function isEnabled(?int $storeId = null): bool
     {
-        return (bool) Mage::getStoreConfig('carriers/usps/show_delivery_estimates', $storeId)
-            && Mage::getStoreConfig('carriers/usps/active', $storeId);
+        return Mage::getStoreConfigFlag('carriers/usps/show_delivery_estimates', $storeId)
+            && Mage::getStoreConfigFlag('carriers/usps/active', $storeId);
     }
 
     /**

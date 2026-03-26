@@ -9,6 +9,8 @@ declare(strict_types=1);
  * @package    Mage_Usa
  */
 
+use Monolog\Level;
+
 /**
  * Abstract base class for USPS REST API service classes.
  *
@@ -31,7 +33,7 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Usps_AbstractService
     public function __construct(?Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client $client = null)
     {
         $this->_client = $client;
-        $this->_debug = (bool) Mage::getStoreConfig('carriers/usps/debug');
+        $this->_debug = Mage::getStoreConfigFlag('carriers/usps/debug');
     }
 
     /**
@@ -72,7 +74,7 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Usps_AbstractService
 
         Mage::log(
             $this->_debugPrefix . ': ' . json_encode($data),
-            Zend_Log::DEBUG,
+            Level::Debug,
             'shipping_usps.log',
             true,
         );

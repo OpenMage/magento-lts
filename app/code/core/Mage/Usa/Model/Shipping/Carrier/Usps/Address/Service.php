@@ -40,8 +40,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Address_Service extends Mage_Usa_Mode
      */
     public function isEnabled(?int $storeId = null): bool
     {
-        return (bool) Mage::getStoreConfig('carriers/usps/verify_addresses', $storeId)
-            && Mage::getStoreConfig('carriers/usps/active', $storeId);
+        return Mage::getStoreConfigFlag('carriers/usps/verify_addresses', $storeId)
+            && Mage::getStoreConfigFlag('carriers/usps/active', $storeId);
     }
 
     /**

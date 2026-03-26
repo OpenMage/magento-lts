@@ -13,6 +13,9 @@
  * @link       http://www.usps.com/webtools/htm/Development-Guide-v3-0b.htm
  * @package    Mage_Usa
  */
+
+use Monolog\Level;
+
 class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carrier_Abstract implements Mage_Shipping_Model_Carrier_Interface
 {
     /**
@@ -296,7 +299,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
             if ($scheme !== 'https' || !preg_match('/\.usps\.com$/i', $host)) {
                 Mage::log(
                     sprintf('USPS REST API: Rejected non-USPS gateway URL: %s', $url),
-                    Zend_Log::WARN,
+                    Level::Warning,
                     'usps_rest_api.log',
                 );
                 $url = null;
