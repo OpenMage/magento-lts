@@ -21,22 +21,22 @@ declare(strict_types=1);
 class Mage_Usa_Block_Checkout_Address_Verification extends Mage_Core_Block_Template
 {
     /**
-     * @var array Original address data
+     * @var array<string, string> Original address data
      */
     protected array $_originalAddress = [];
 
     /**
-     * @var array Corrected address data
+     * @var array<string, string> Corrected address data
      */
     protected array $_correctedAddress = [];
 
     /**
-     * @var array List of field corrections
+     * @var array<int, string> List of field corrections
      */
     protected array $_corrections = [];
 
     /**
-     * @var array Warning messages from USPS
+     * @var array<int, string> Warning messages from USPS
      */
     protected array $_warnings = [];
 
@@ -73,6 +73,7 @@ class Mage_Usa_Block_Checkout_Address_Verification extends Mage_Core_Block_Templ
     /**
      * Set original address
      *
+     * @param  array<string, string> $address
      * @return $this
      */
     public function setOriginalAddress(array $address): self
@@ -83,6 +84,8 @@ class Mage_Usa_Block_Checkout_Address_Verification extends Mage_Core_Block_Templ
 
     /**
      * Get original address
+     *
+     * @return array<string, string>
      */
     public function getOriginalAddress(): array
     {
@@ -92,6 +95,7 @@ class Mage_Usa_Block_Checkout_Address_Verification extends Mage_Core_Block_Templ
     /**
      * Set corrected address
      *
+     * @param  array<string, string> $address
      * @return $this
      */
     public function setCorrectedAddress(array $address): self
@@ -102,6 +106,8 @@ class Mage_Usa_Block_Checkout_Address_Verification extends Mage_Core_Block_Templ
 
     /**
      * Get corrected address
+     *
+     * @return array<string, string>
      */
     public function getCorrectedAddress(): array
     {
@@ -111,6 +117,7 @@ class Mage_Usa_Block_Checkout_Address_Verification extends Mage_Core_Block_Templ
     /**
      * Set corrections list
      *
+     * @param  array<int, string> $corrections
      * @return $this
      */
     public function setCorrections(array $corrections): self
@@ -121,6 +128,8 @@ class Mage_Usa_Block_Checkout_Address_Verification extends Mage_Core_Block_Templ
 
     /**
      * Get corrections list
+     *
+     * @return array<int, string>
      */
     public function getCorrections(): array
     {
@@ -140,12 +149,13 @@ class Mage_Usa_Block_Checkout_Address_Verification extends Mage_Core_Block_Templ
      */
     public function escapeJs(string $string): string
     {
-        return $this->jsQuoteEscape($string);
+        return (string) $this->jsQuoteEscape($string); // @phpstan-ignore cast.string
     }
 
     /**
      * Set warning messages
      *
+     * @param  array<int, string> $warnings
      * @return $this
      */
     public function setWarnings(array $warnings): self
@@ -156,6 +166,8 @@ class Mage_Usa_Block_Checkout_Address_Verification extends Mage_Core_Block_Templ
 
     /**
      * Get warning messages
+     *
+     * @return array<int, string>
      */
     public function getWarnings(): array
     {
@@ -192,38 +204,39 @@ class Mage_Usa_Block_Checkout_Address_Verification extends Mage_Core_Block_Templ
     /**
      * Format address for display
      *
-     * @return string HTML formatted address
+     * @param  array<string, string> $address
+     * @return string                HTML formatted address
      */
     public function formatAddressHtml(array $address): string
     {
         $lines = [];
 
         if (isset($address['street1']) && $address['street1'] !== '') {
-            $lines[] = $this->escapeHtml($address['street1']);
+            $lines[] = (string) $this->escapeHtml($address['street1']); // @phpstan-ignore cast.string
         }
 
         if (isset($address['street2']) && $address['street2'] !== '') {
-            $lines[] = $this->escapeHtml($address['street2']);
+            $lines[] = (string) $this->escapeHtml($address['street2']); // @phpstan-ignore cast.string
         }
 
         $cityStateZip = [];
         if (isset($address['city']) && $address['city'] !== '') {
-            $cityStateZip[] = $this->escapeHtml($address['city']);
+            $cityStateZip[] = (string) $this->escapeHtml($address['city']); // @phpstan-ignore cast.string
         }
 
         if (isset($address['region']) && $address['region'] !== '') {
-            $cityStateZip[] = $this->escapeHtml($address['region']);
+            $cityStateZip[] = (string) $this->escapeHtml($address['region']); // @phpstan-ignore cast.string
         }
 
         if (isset($address['postcode']) && $address['postcode'] !== '') {
-            $cityStateZip[] = $this->escapeHtml($address['postcode']);
+            $cityStateZip[] = (string) $this->escapeHtml($address['postcode']); // @phpstan-ignore cast.string
         }
 
         if ($cityStateZip !== []) {
             $lines[] = implode(', ', $cityStateZip);
         }
 
-        return implode('<br/>', array_map(strval(...), $lines));
+        return implode('<br/>', $lines);
     }
 
     /**

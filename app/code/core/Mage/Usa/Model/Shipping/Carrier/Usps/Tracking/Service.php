@@ -60,9 +60,9 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Tracking_Service
     /**
      * Get tracking information via REST API
      *
-     * @param array  $trackingNumbers Array of tracking numbers to look up
-     * @param string $accessToken     OAuth access token
-     * @param string $baseUrl         USPS REST API base URL
+     * @param array<int, string> $trackingNumbers Array of tracking numbers to look up
+     * @param string             $accessToken     OAuth access token
+     * @param string             $baseUrl         USPS REST API base URL
      */
     public function getRestTracking(array $trackingNumbers, string $accessToken, string $baseUrl): ?Mage_Shipping_Model_Tracking_Result
     {
@@ -123,7 +123,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Tracking_Service
                     '__pid' => getmypid(),
                 ]);
 
-                $this->_parseRestTrackingResponse((string) $tracking, $jsonResponse);
+                $this->_parseRestTrackingResponse((string) $tracking, (string) $jsonResponse);
             } catch (Exception $e) {
                 $this->_debug([
                     'error' => $e->getMessage(),
@@ -192,7 +192,9 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Tracking_Service
             $tracking->setCarrierTitle($this->_getCarrierTitle());
             $tracking->setTracking($trackingValue);
             $tracking->addData($resultArr);
-            $this->_result->append($tracking);
+            if ($this->_result) {
+                $this->_result->append($tracking);
+            }
         } else {
             $this->_setTrackingError($trackingValue, $errorTitle);
         }
@@ -201,8 +203,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Tracking_Service
     /**
      * Process activity tag from REST API response
      *
-     * @param array $activityTag     Event data from response
-     * @param array $packageProgress Reference to progress array
+     * @param array<string, mixed>              $activityTag     Event data from response
+     * @param array<int, array<string, string>> $packageProgress Reference to progress array
      */
     protected function _processActivityRestTagInfo(array $activityTag, array &$packageProgress): void
     {
@@ -261,7 +263,9 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Tracking_Service
         $error->setTracking($trackingValue);
         $error->setErrorMessage($errorMessage);
 
-        $this->_result->append($error);
+        if ($this->_result) {
+            $this->_result->append($error);
+        }
     }
 
     /**
@@ -278,6 +282,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Tracking_Service
 
     /**
      * Debug logging
+     *
+     * @param array<string, mixed> $debugData
      */
     protected function _debug(array $debugData): void
     {

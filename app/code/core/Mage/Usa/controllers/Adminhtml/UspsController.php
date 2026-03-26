@@ -39,46 +39,18 @@ class Mage_Usa_Adminhtml_UspsController extends Mage_Adminhtml_Controller_Action
         }
     }
 
-    protected function _getConfig(string $path, string $websiteCode, string $storeCode): false|string
+    protected function _getConfig(string $path, string $websiteCode, string $storeCode): ?string
     {
-        $scope = 'default';
-        $scopeId = 0;
-
         if ($storeCode) {
-            $scope = 'stores';
-            $scopeId = Mage::app()->getStore($storeCode)->getId();
+            $value = Mage::getStoreConfig($path, $storeCode);
         } elseif ($websiteCode) {
-            $scope = 'websites';
-            $scopeId = Mage::app()->getWebsite($websiteCode)->getId();
+            $value = Mage::app()->getWebsite($websiteCode)->getConfig($path);
+        } else {
+            $value = Mage::getStoreConfig($path);
         }
 
-        $read = Mage::getSingleton('core/resource')->getConnection('core_read');
-        $table = Mage::getSingleton('core/resource')->getTableName('core_config_data');
-
-        $value = $read->fetchOne(
-            "SELECT value FROM $table WHERE path = ? AND scope = ? AND scope_id = ?",
-            [$path, $scope, $scopeId],
-        );
-
-        if ($value === false) {
-            if ($scope === 'stores') {
-                $websiteId = Mage::app()->getStore($storeCode)->getWebsiteId();
-                $value = $read->fetchOne(
-                    "SELECT value FROM $table WHERE path = ? AND scope = 'websites' AND scope_id = ?",
-                    [$path, $websiteId],
-                );
-            }
-
-            if ($value === false) {
-                $value = $read->fetchOne(
-                    "SELECT value FROM $table WHERE path = ? AND scope = 'default' AND scope_id = 0",
-                    [$path],
-                );
-            }
-        }
-
-        if ($value !== false && (str_contains($path, 'client_id') || str_contains($path, 'client_secret'))) {
-            return Mage::helper('core')->decrypt((string) $value);
+        if ($value !== null && (str_contains($path, 'client_id') || str_contains($path, 'client_secret'))) {
+            return Mage::helper('core')->decrypt($value);
         }
 
         return $value;
@@ -138,7 +110,7 @@ class Mage_Usa_Adminhtml_UspsController extends Mage_Adminhtml_Controller_Action
                     $entityTypeId = Mage::getModel('catalog/product')->getResource()->getTypeId();
                     $defaultSetId = Mage::getModel('eav/entity_type')->load($entityTypeId)->getDefaultAttributeSetId();
                     $generalGroupId = Mage::getResourceModel('eav/entity_attribute_group_collection')
-                        ->setAttributeSetFilter($defaultSetId)
+                        ->setAttributeSetFilter((int) $defaultSetId)
                         ->addFieldToFilter('attribute_group_name', 'General')
                         ->getFirstItem()
                         ->getId();
@@ -211,7 +183,7 @@ class Mage_Usa_Adminhtml_UspsController extends Mage_Adminhtml_Controller_Action
                 'Content-Type: application/json',
                 'Authorization: Bearer ' . $accessToken,
             ]);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($rateRequest));
+            curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($rateRequest) ?: '');
             curl_setopt($ch, CURLOPT_TIMEOUT, 30);
             curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
             curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
@@ -226,12 +198,12 @@ class Mage_Usa_Adminhtml_UspsController extends Mage_Adminhtml_Controller_Action
             }
 
             if ($rateHttpCode !== 200) {
-                $errorData = json_decode($rateResponse, true);
+                $errorData = json_decode((string) $rateResponse, true);
                 $errorMsg = $errorData['error']['message'] ?? $errorData['message'] ?? 'HTTP ' . $rateHttpCode;
                 throw new Mage_Core_Exception('Rate request failed: ' . $errorMsg);
             }
 
-            $rateData = json_decode($rateResponse, true);
+            $rateData = json_decode((string) $rateResponse, true);
             $rates = [];
             $rateOptions = $rateData['rateOptions'] ?? [];
 
@@ -278,6 +250,8 @@ class Mage_Usa_Adminhtml_UspsController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Send JSON response
+     *
+     * @param array<string, mixed> $data
      */
     protected function _sendJson(array $data): void
     {
@@ -351,11 +325,11 @@ class Mage_Usa_Adminhtml_UspsController extends Mage_Adminhtml_Controller_Action
         }
 
         if ($httpCode !== 200) {
-            $errorData = json_decode($response, true);
+            $errorData = json_decode((string) $response, true);
             throw new Mage_Core_Exception('Authentication failed: ' . ($errorData['error_description'] ?? 'HTTP ' . $httpCode));
         }
 
-        $tokenData = json_decode($response, true);
+        $tokenData = json_decode((string) $response, true);
         $accessToken = $tokenData['access_token'] ?? null;
 
         if (!$accessToken) {

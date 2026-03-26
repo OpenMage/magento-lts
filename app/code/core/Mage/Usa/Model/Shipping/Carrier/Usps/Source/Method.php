@@ -22,7 +22,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Source_Method
      *
      * Method codes follow the pattern: PRODUCT_TYPE_RATE-INDICATOR_PROCESSING-CATEGORY
      *
-     * @return array
+     * @return array<int, array<string, string>>
      */
     public function toOptionArray()
     {
@@ -56,7 +56,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Source_Method
      * PL = Flat Rate Large Box, PM = APO/FPO/DPO, CP/P5 = Cubic Priority,
      * NDC = Network Distribution Center, SCF = Sectional Center Facility
      *
-     * @return array
+     * @return array<string, string>
      */
     public function getRestMethods()
     {
@@ -110,7 +110,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Source_Method
     /**
      * Get method code to label mapping for rate parsing
      *
-     * @return array
+     * @return array<string, string>
      */
     public function getMethodCodeToLabel()
     {

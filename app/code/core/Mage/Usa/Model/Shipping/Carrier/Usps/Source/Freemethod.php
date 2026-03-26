@@ -21,7 +21,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Source_Freemethod extends Mage_Usa_Mo
     /**
      * Get option array with "None" option prepended
      *
-     * @return array Array of options with 'value' and 'label' keys
+     * @return array<int, array<string, string>>
      */
     public function toOptionArray()
     {

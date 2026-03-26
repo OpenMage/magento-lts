@@ -40,6 +40,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Source_Environment
 
     /**
      * Get option array for admin configuration
+     *
+     * @return array<int, array<string, string>>
      */
     public function toOptionArray(): array
     {

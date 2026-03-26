@@ -34,6 +34,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Service_Standards extends Mage_Usa_Mo
 
     /**
      * Mail class to API service type mapping
+     *
+     * @var array<string, string>
      */
     protected array $_mailClassMapping = [
         'USPS_GROUND_ADVANTAGE' => 'USPS_GROUND_ADVANTAGE',
@@ -60,10 +62,11 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Service_Standards extends Mage_Usa_Mo
     /**
      * Get delivery estimate for a single mail class
      *
-     * @param string      $originZip  5-digit origin ZIP code
-     * @param string      $destZip    5-digit destination ZIP code
-     * @param string      $mailClass  Mail class code
-     * @param null|string $acceptDate Acceptance date (Y-m-d format)
+     * @param  string                    $originZip  5-digit origin ZIP code
+     * @param  string                    $destZip    5-digit destination ZIP code
+     * @param  string                    $mailClass  Mail class code
+     * @param  null|string               $acceptDate Acceptance date (Y-m-d format)
+     * @return null|array<string, mixed>
      */
     public function getEstimate(string $originZip, string $destZip, string $mailClass, ?string $acceptDate = null): ?array
     {
@@ -74,11 +77,11 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Service_Standards extends Mage_Usa_Mo
     /**
      * Get delivery estimates for multiple mail classes
      *
-     * @param  string      $originZip   5-digit origin ZIP code
-     * @param  string      $destZip     5-digit destination ZIP code
-     * @param  array       $mailClasses Array of mail class codes
-     * @param  null|string $acceptDate  Acceptance date (Y-m-d format)
-     * @return array       Keyed by mail class code
+     * @param  string                              $originZip   5-digit origin ZIP code
+     * @param  string                              $destZip     5-digit destination ZIP code
+     * @param  array<int, string>                  $mailClasses Array of mail class codes
+     * @param  null|string                         $acceptDate  Acceptance date (Y-m-d format)
+     * @return array<string, array<string, mixed>> Keyed by mail class code
      */
     public function getEstimates(string $originZip, string $destZip, array $mailClasses, ?string $acceptDate = null): array
     {
@@ -133,6 +136,9 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Service_Standards extends Mage_Usa_Mo
 
     /**
      * Fetch estimates from USPS Service Standards API
+     *
+     * @param  array<int, string>                  $mailClasses
+     * @return array<string, array<string, mixed>>
      */
     protected function _fetchEstimatesFromApi(string $originZip, string $destZip, array $mailClasses, string $acceptDate): array
     {
@@ -180,8 +186,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Service_Standards extends Mage_Usa_Mo
     /**
      * Parse USPS Service Standards API response
      *
-     * @param  array      $data API response data
-     * @return null|array Parsed estimate or null
+     * @param  array<string, mixed>      $data API response data
+     * @return null|array<string, mixed> Parsed estimate or null
      */
     protected function _parseEstimateResponse(array $data): ?array
     {
@@ -194,7 +200,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Service_Standards extends Mage_Usa_Mo
             $today = \Carbon\Carbon::now();
             $delivery = new DateTime($scheduledDate);
             $diff = $today->diff($delivery);
-            $days = $diff->days;
+            $days = (int) $diff->days;
 
             return [
                 'min_days' => $days,
@@ -261,7 +267,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Service_Standards extends Mage_Usa_Mo
      */
     protected function _mapToApiMailClass(string $mailClass): ?string
     {
-        $baseClass = preg_replace('/_(SP|FE|FB|PL|FS|FP|FA|LFR|LR)$/', '', $mailClass);
+        $baseClass = preg_replace('/_(SP|FE|FB|PL|FS|FP|FA|LFR|LR)$/', '', $mailClass) ?? $mailClass;
 
         if (isset($this->_mailClassMapping[$baseClass])) {
             return $this->_mailClassMapping[$baseClass];
@@ -294,7 +300,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Service_Standards extends Mage_Usa_Mo
      */
     protected function _cleanZip(string $zip): string
     {
-        return substr(preg_replace('/\D/', '', $zip), 0, 5);
+        return substr(preg_replace('/\D/', '', $zip) ?? '', 0, 5);
     }
 
 }

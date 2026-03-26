@@ -104,7 +104,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
     /**
      * Container types that could be customized for USPS carrier
      *
-     * @var array
+     * @var array<int, string>
+     * @phpstan-ignore-next-line property.phpDocType (more specific than parent's untyped array)
      */
     protected $_customizableContainerTypes = ['VARIABLE', 'RECTANGULAR', 'NONRECTANGULAR'];
 
@@ -125,7 +126,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
 
         $this->_updateFreeMethodQuote($request);
 
-        return $this->getResult();
+        return $this->getResult(); // @phpstan-ignore return.type
     }
 
     /**
@@ -239,7 +240,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
     /**
      * Get result of request
      *
-     * @return null|Mage_Shipping_Model_Rate_Result
+     * @return null|Mage_Shipping_Model_Rate_Result|Mage_Shipping_Model_Tracking_Result
      */
     public function getResult()
     {
@@ -324,8 +325,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
      */
     protected function _getOAuthToken()
     {
-        $clientId = Mage::helper('core')->decrypt($this->getConfigData('client_id'));
-        $clientSecret = Mage::helper('core')->decrypt($this->getConfigData('client_secret'));
+        $clientId = Mage::helper('core')->decrypt((string) $this->getConfigData('client_id'));
+        $clientSecret = Mage::helper('core')->decrypt((string) $this->getConfigData('client_secret'));
         $baseUrl = $this->_getRestGatewayUrl();
 
         if (!$clientId || !$clientSecret) {
@@ -335,7 +336,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
 
         /** @var Mage_Usa_Model_Shipping_Carrier_UspsAuth $authModel */
         $authModel = Mage::getSingleton('usa/shipping_carrier_uspsAuth');
-        return $authModel->getAccessToken($clientId, $clientSecret, $baseUrl);
+        $token = $authModel->getAccessToken($clientId, $clientSecret, $baseUrl);
+        return $token !== false ? $token : null;
     }
 
     /**
@@ -343,7 +345,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
      *
      * @param  string                                                       $url     Full endpoint URL
      * @param  string                                                       $payload JSON-encoded body
-     * @param  array                                                        $headers HTTP headers (must include Content-Type and Authorization)
+     * @param  array<int, string>                                           $headers HTTP headers (must include Content-Type and Authorization)
      * @return array{body: false|string, httpCode: int, error: null|string}
      */
     protected function _curlRestPost(string $url, string $payload, array $headers): array
@@ -359,6 +361,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
             CURLOPT_SSL_VERIFYHOST => 2,
         ]);
 
+        /** @var false|string $body */
         $body = curl_exec($ch);
         $httpCode = (int) curl_getinfo($ch, CURLINFO_HTTP_CODE);
         $error = ($body === false) ? curl_error($ch) : null;
@@ -500,12 +503,23 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
             'payload' => $sanitizedPayload,
         ]);
 
-        $curlResult = $this->_curlRestPost($url, json_encode($payload), [
+        $jsonPayload = json_encode($payload);
+        if ($jsonPayload === false) {
+            $this->_debug(['error' => 'USPS Payment Auth: Failed to encode payload']);
+            return null;
+        }
+
+        $curlResult = $this->_curlRestPost($url, $jsonPayload, [
             'Content-Type: application/json',
             'Authorization: Bearer ' . $accessToken,
         ]);
         $response = $curlResult['body'];
         $httpCode = $curlResult['httpCode'];
+
+        if ($response === false) {
+            $this->_debug(['error' => 'Payment authorization request failed', 'curl_error' => $curlResult['error']]);
+            return null;
+        }
 
         if ($httpCode !== 200) {
             $errorData = json_decode($response, true);
@@ -539,9 +553,12 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
      */
     protected function _getRestQuotes()
     {
+        $result = Mage::getModel('shipping/rate_result');
 
         $r = $this->_rawRequest;
-        $result = Mage::getModel('shipping/rate_result');
+        if ($r === null) {
+            return $result;
+        }
 
         // The origin address(shipper) must be only in USA
         if (!$this->_isUSCountry($r->getOrigCountryId())) {
@@ -646,7 +663,13 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
                 'token_preview' => '[REDACTED]',
             ]);
 
-            $curlResult = $this->_curlRestPost($url, json_encode($requestPayload), $headers);
+            $jsonPayload = json_encode($requestPayload);
+            if ($jsonPayload === false) {
+                $result->append($this->_createRateError());
+                return $result;
+            }
+
+            $curlResult = $this->_curlRestPost($url, $jsonPayload, $headers);
             $responseBody = $curlResult['body'];
             $httpCode = $curlResult['httpCode'];
 
@@ -672,7 +695,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
                 $errorMessage = $errorDictionary->getErrorMessage(
                     $httpCode,
                     $responseData,
-                    $this->getConfigData('specificerrmsg'),
+                    (string) $this->getConfigData('specificerrmsg'),
                 );
 
                 $this->_debug([
@@ -730,10 +753,10 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
      *
      * Based on USPS REST API v3 specification from https://github.com/USPS/api-examples
      *
-     * @param  Varien_Object $r          Raw request object
-     * @param  bool          $isDomestic Is domestic shipment
-     * @param  null|string   $mailClass  Specific mail class to query (optional)
-     * @return array
+     * @param  Varien_Object        $r          Raw request object
+     * @param  bool                 $isDomestic Is domestic shipment
+     * @param  null|string          $mailClass  Specific mail class to query (optional)
+     * @return array<string, mixed>
      */
     protected function _buildRestRateRequest(Varien_Object $r, bool $isDomestic, $mailClass = null)
     {
@@ -870,9 +893,9 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
     /**
      * Extract unique mail classes from configured methods
      *
-     * @param  array $allowedMethods Array of configured method codes
-     * @param  bool  $isDomestic     Whether this is a domestic shipment
-     * @return array Array of unique mail class strings
+     * @param  array<string, string> $allowedMethods Array of configured method codes
+     * @param  bool                  $isDomestic     Whether this is a domestic shipment
+     * @return array<int, string>    Array of unique mail class strings
      */
     protected function _extractUniqueMailClasses(array $allowedMethods, $isDomestic)
     {
@@ -1072,8 +1095,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
     /**
      * Get delivery estimates for mail classes using USPS Service Standards API
      *
-     * @param  array $methodCodes Array of method codes (e.g., ['PRIORITY_MAIL_SP', 'USPS_GROUND_ADVANTAGE_SP'])
-     * @return array Keyed by method code, values contain 'display', 'min_days', 'max_days'
+     * @param  array<int, string>                   $methodCodes Array of method codes (e.g., ['PRIORITY_MAIL_SP', 'USPS_GROUND_ADVANTAGE_SP'])
+     * @return array<string, array<string, string>> Keyed by method code, values contain 'display', 'min_days', 'max_days'
      */
     protected function _getDeliveryEstimates(array $methodCodes)
     {
@@ -1085,6 +1108,10 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
         }
 
         $r = $this->_rawRequest;
+        if ($r === null) {
+            return [];
+        }
+
         $originZip = substr($r->getOrigPostal(), 0, 5);
         $destZip = substr($r->getDestPostal(), 0, 5);
 
@@ -1106,11 +1133,15 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
     /**
      * Set free method request
      *
-     * @param $freeMethod
+     * @param  string $freeMethod
+     * @return void
      */
     protected function _setFreeMethodRequest($freeMethod)
     {
         $r = $this->_rawRequest;
+        if ($r === null) {
+            return;
+        }
 
         $configuredFreeMethod = $this->getConfigData('free_method');
 
@@ -1123,9 +1154,9 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
     /**
      * Get configuration data of carrier
      *
-     * @param  string     $type
-     * @param  string     $code
-     * @return array|bool
+     * @param  string                    $type
+     * @param  string                    $code
+     * @return array<string, mixed>|bool
      */
     public function getCode($type, $code = '')
     {
@@ -1587,17 +1618,17 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
         }
 
         if ($code === '') {
-            return $codes[$type];
+            return $codes[$type]; // @phpstan-ignore return.type
         }
 
-        return $codes[$type][$code] ?? false;
+        return $codes[$type][$code] ?? false; // @phpstan-ignore return.type
     }
 
     /**
      * Get tracking
      *
-     * @param  mixed                                $trackingData
-     * @return null|Mage_Shipping_Model_Rate_Result
+     * @param  mixed                                                                    $trackingData
+     * @return null|Mage_Shipping_Model_Rate_Result|Mage_Shipping_Model_Tracking_Result
      */
     public function getTracking($trackingData)
     {
@@ -1615,6 +1646,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
     /**
      * Get tracking via REST API
      *
+     * @param  array<int, string> $trackingData
      * @return void
      */
     protected function _getRestTracking(array $trackingData)
@@ -1670,7 +1702,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
      * Returns REST API methods based on admin configuration.
      * Returns empty array if no valid methods configured.
      *
-     * @return array Method code => Method name pairs
+     * @return array<string, string> Method code => Method name pairs
      */
     public function getAllowedMethods()
     {
@@ -1681,12 +1713,12 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
         $allMethods = $methodSource->getRestMethods();
 
         // If no methods configured, return empty (force admin to configure)
-        if ($configMethods === '' || $configMethods === null) {
+        if (!$configMethods) {
             return [];
         }
 
         // Filter to only configured methods
-        $allowed = explode(',', $configMethods);
+        $allowed = explode(',', (string) $configMethods);
         $arr = [];
 
         foreach ($allowed as $code) {
@@ -1961,13 +1993,13 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
     /**
      * Extract mail class and rate indicator from shipping method code
      *
-     * @param  string $shippingMethod e.g., 'usps_PRIORITY_MAIL_SP'
-     * @return array  [mailClass, rateIndicator]
+     * @param  string             $shippingMethod e.g., 'usps_PRIORITY_MAIL_SP'
+     * @return array<int, string> [mailClass, rateIndicator]
      */
     protected function _parseShippingMethodCode($shippingMethod)
     {
         // Remove 'usps_' prefix if present
-        $methodCode = preg_replace('/^usps_/', '', $shippingMethod);
+        $methodCode = preg_replace('/^usps_/', '', $shippingMethod) ?? '';
 
         // Common mail classes and their patterns (ordered from most specific to least)
         $mailClasses = [
@@ -2112,7 +2144,13 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
 
         $this->_debug(['message' => 'USPS Label API request', 'url' => $url]);
 
-        $curlResult = $this->_curlRestPost($url, json_encode($payload), [
+        $jsonPayload = json_encode($payload);
+        if ($jsonPayload === false) {
+            $result->setErrors(Mage::helper('usa')->__('Failed to encode label request payload'));
+            return $result;
+        }
+
+        $curlResult = $this->_curlRestPost($url, $jsonPayload, [
             'Content-Type: application/json',
             'Authorization: Bearer ' . $oauthToken,
             'X-Payment-Authorization-Token: ' . $paymentAuthToken,
@@ -2124,6 +2162,12 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
             'http_code' => $httpCode,
             'body' => $response,
         ];
+
+        if ($response === false) {
+            $this->_debug($debugData);
+            $result->setErrors(Mage::helper('usa')->__('Label API request failed: %s', $curlResult['error']));
+            return $result;
+        }
 
         if ($httpCode !== 200 && $httpCode !== 201) {
             $errorData = json_decode($response, true);
@@ -2170,7 +2214,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
     /**
      * Return container types of carrier
      *
-     * @return array|bool
+     * @return array<string, string>|bool
      */
     public function getContainerTypes(?Varien_Object $params = null)
     {
@@ -2184,7 +2228,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
     /**
      * Return all container types of carrier
      *
-     * @return array|bool
+     * @return array<string, string>|bool
      */
     public function getContainerTypesAll()
     {
@@ -2194,7 +2238,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
     /**
      * Return structured data of containers witch related with shipping methods
      *
-     * @return array|bool
+     * @return array<string, array<string, string>>|bool
      */
     public function getContainerTypesFilter()
     {
@@ -2204,7 +2248,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
     /**
      * Return delivery confirmation types of carrier
      *
-     * @return array
+     * @return array<int|string, array<string, string>|string>
      */
     public function getDeliveryConfirmationTypes(?Varien_Object $params = null)
     {
@@ -2213,8 +2257,9 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
         }
 
         $countryRecipient = $params->getCountryRecipient();
-        if ($this->_isUSCountry($countryRecipient)) {
-            return $this->getCode('delivery_confirmation_types');
+        if ($this->_isUSCountry((string) $countryRecipient)) {
+            $types = $this->getCode('delivery_confirmation_types');
+            return is_array($types) ? $types : [];
         }
 
         return [];
@@ -2228,13 +2273,13 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
      */
     public function isGirthAllowed($countyDest = null)
     {
-        return !$this->_isUSCountry($countyDest);
+        return !$this->_isUSCountry($countyDest ?? '');
     }
 
     /**
      * Return content types of package
      *
-     * @return array
+     * @return array<string, string>
      */
     public function getContentTypes(Varien_Object $params)
     {
@@ -2260,9 +2305,9 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
     /**
      * Parse zip from string to zip5-zip4
      *
-     * @param  string $zipString
-     * @param  bool   $returnFull
-     * @return array
+     * @param  string             $zipString
+     * @param  bool               $returnFull
+     * @return array<int, string>
      */
     protected function _parseZip($zipString, $returnFull = false)
     {
@@ -2290,6 +2335,9 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
     }
 
     /**
+     * @param  string $method
+     * @param  bool   $valuesToLabels
+     * @return string
      * @deprecated
      */
     protected function _methodsMapper($method, $valuesToLabels = true)
@@ -2298,6 +2346,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
     }
 
     /**
+     * @param  string $value
+     * @return string
      * @deprecated
      */
     public function getMethodLabel($value)
@@ -2307,6 +2357,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
 
     /**
      * Get value of method by its label
+     * @param  string $label
+     * @return string
      * @deprecated
      */
     public function getMethodValue($label)
@@ -2315,6 +2367,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
     }
 
     /**
+     * @return void
      * @deprecated
      */
     protected function setTrackingReqeust()
@@ -2332,7 +2385,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
      * Falls back to configuration defaults if no product dimensions found.
      *
      * @param  Mage_Shipping_Model_Rate_Request $request Shipping rate request
-     * @return array                            Array with keys: height, length, width (in inches)
+     * @return array<string, float>             Array with keys: height, length, width (in inches)
      */
     protected function _calculatePackageDimensions(Mage_Shipping_Model_Rate_Request $request)
     {
@@ -2389,17 +2442,17 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
         // Fall back to configuration if no product dimensions found
         if (!$hasProductDimensions) {
             return [
-                'height' => $this->getConfigData('height') ?: 1,
-                'length' => $this->getConfigData('length') ?: 6,
-                'width'  => $this->getConfigData('width') ?: 4,
+                'height' => (float) ($this->getConfigData('height') ?: 1),
+                'length' => (float) ($this->getConfigData('length') ?: 6),
+                'width'  => (float) ($this->getConfigData('width') ?: 4),
             ];
         }
 
         // Use calculated dimensions, fallback to config for missing values
         return [
-            'height' => $totalHeight > 0 ? $totalHeight : ($this->getConfigData('height') ?: 1),
-            'length' => $maxLength > 0 ? $maxLength : ($this->getConfigData('length') ?: 6),
-            'width'  => $maxWidth > 0 ? $maxWidth : ($this->getConfigData('width') ?: 4),
+            'height' => (float) ($totalHeight > 0 ? $totalHeight : ($this->getConfigData('height') ?: 1)),
+            'length' => (float) ($maxLength > 0 ? $maxLength : ($this->getConfigData('length') ?: 6)),
+            'width'  => (float) ($maxWidth > 0 ? $maxWidth : ($this->getConfigData('width') ?: 4)),
         ];
     }
 

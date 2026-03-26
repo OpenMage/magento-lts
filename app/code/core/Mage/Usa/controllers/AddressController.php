@@ -176,8 +176,9 @@ class Mage_Usa_AddressController extends Mage_Core_Controller_Front_Action
     /**
      * Build corrections array showing what changed
      *
-     * @param array $original  Original address
-     * @param array $corrected Corrected address
+     * @param  array<string, string>                $original  Original address
+     * @param  array<string, string>                $corrected Corrected address
+     * @return array<string, array<string, string>>
      */
     protected function _buildCorrections(array $original, array $corrected): array
     {
@@ -202,7 +203,7 @@ class Mage_Usa_AddressController extends Mage_Core_Controller_Front_Action
     /**
      * Send JSON response and exit
      *
-     * @param array $data Response data
+     * @param array<string, mixed> $data Response data
      */
     protected function _sendJsonResponse(array $data): void
     {

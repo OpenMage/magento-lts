@@ -65,6 +65,8 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Usps_AbstractService
 
     /**
      * Debug logging
+     *
+     * @param array<string, mixed> $data
      */
     protected function _debug(array $data): void
     {

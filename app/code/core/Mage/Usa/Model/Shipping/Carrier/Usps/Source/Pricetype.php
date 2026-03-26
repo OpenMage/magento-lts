@@ -31,6 +31,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Source_Pricetype
 
     /**
      * Get option array for admin configuration
+     *
+     * @return array<int, array<string, string>>
      */
     public function toOptionArray(): array
     {

@@ -46,7 +46,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Source_Accounttype
     /**
      * Get option array for admin configuration dropdown
      *
-     * @return array Array of options with 'value' and 'label' keys
+     * @return array<int, array<string, string>>
      */
     public function toOptionArray(): array
     {
@@ -69,7 +69,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Source_Accounttype
     /**
      * Get flat array of account type values
      *
-     * @return array Array of account type constants
+     * @return array<int, string>
      */
     public function getAllOptions(): array
     {

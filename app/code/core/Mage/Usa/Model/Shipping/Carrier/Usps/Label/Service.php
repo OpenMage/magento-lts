@@ -31,7 +31,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service extends Mage_Usa_Model_
     protected string $_debugPrefix = 'USPS LabelService';
 
     /**
-     * @var array Configuration data
+     * @var array<string, mixed> Configuration data
      */
     protected array $_config = [];
 
@@ -160,6 +160,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service extends Mage_Usa_Model_
 
     /**
      * Build domestic label API request payload
+     *
+     * @return array<string, mixed>
      */
     protected function _buildDomesticLabelRequest(Varien_Object $request): array
     {
@@ -201,6 +203,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service extends Mage_Usa_Model_
 
     /**
      * Build international label API request payload
+     *
+     * @return array<string, mixed>
      */
     protected function _buildInternationalLabelRequest(Varien_Object $request): array
     {
@@ -216,6 +220,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service extends Mage_Usa_Model_
 
     /**
      * Build package description for API
+     *
+     * @return array<string, mixed>
      */
     protected function _buildPackageDescription(Varien_Object $request): array
     {
@@ -247,6 +253,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service extends Mage_Usa_Model_
 
     /**
      * Build payment info for API
+     *
+     * @return array<string, mixed>
      */
     protected function _buildPaymentInfo(): array
     {
@@ -267,6 +275,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service extends Mage_Usa_Model_
 
     /**
      * Build customs declaration for international labels
+     *
+     * @return array<string, mixed>
      */
     protected function _buildCustomsDeclaration(Varien_Object $request): array
     {
@@ -294,7 +304,9 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service extends Mage_Usa_Model_
     /**
      * Format address for API request
      *
-     * @param string $type 'shipper' or 'recipient'
+     * @param  array<int, string>|string $street
+     * @param  string                    $type   'shipper' or 'recipient'
+     * @return array<string, mixed>
      */
     protected function _formatAddress(array|string $street, Varien_Object $request, string $type): array
     {
@@ -315,6 +327,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service extends Mage_Usa_Model_
 
     /**
      * Get origin (shipper) address from store configuration
+     *
+     * @return array<int, string>
      */
     protected function _getOriginAddress(): array
     {
@@ -329,12 +343,14 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service extends Mage_Usa_Model_
      */
     protected function _mapServiceCode(string $methodCode): string
     {
-        $code = preg_replace('/^usps_/i', '', $methodCode);
-        return preg_replace('/_(SP|FE|FB|PL|FS|FP|FA|LFR|LR)$/', '', $code);
+        $code = preg_replace('/^usps_/i', '', $methodCode) ?? $methodCode;
+        return preg_replace('/_(SP|FE|FB|PL|FS|FP|FA|LFR|LR)$/', '', $code) ?? $code;
     }
 
     /**
      * Parse label creation API response
+     *
+     * @param array<string, mixed> $data
      */
     protected function _parseLabelResponse(array $data, Varien_Object $result): Varien_Object
     {
@@ -373,6 +389,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service extends Mage_Usa_Model_
 
     /**
      * Parse international label creation API response
+     *
+     * @param array<string, mixed> $data
      */
     protected function _parseInternationalLabelResponse(array $data, Varien_Object $result): Varien_Object
     {
@@ -418,6 +436,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service extends Mage_Usa_Model_
 
     /**
      * Extract error message from API response
+     *
+     * @param array<string, mixed> $response
      */
     protected function _extractErrorMessage(array $response): string
     {
@@ -438,6 +458,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service extends Mage_Usa_Model_
 
     /**
      * Debug logging — redacts sensitive payment info before logging
+     *
+     * @param array<string, mixed> $data
      */
     protected function _debug(array $data): void
     {

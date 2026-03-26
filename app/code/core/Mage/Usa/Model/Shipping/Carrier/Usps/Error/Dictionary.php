@@ -21,6 +21,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Error_Dictionary
 {
     /**
      * HTTP status code to message mapping
+     *
+     * @var array<int, string>
      */
     protected array $_httpStatusMessages = [
         400 => 'Invalid request. Please verify package details and try again.',
@@ -42,6 +44,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Error_Dictionary
      * USPS API error code to message mapping
      *
      * Error codes from USPS REST API responses (error.code field)
+     *
+     * @var array<string, string>
      */
     protected array $_apiErrorCodes = [
         // Authentication & Authorization
@@ -97,6 +101,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Error_Dictionary
 
     /**
      * Common error message patterns to user-friendly translations
+     *
+     * @var array<string, string>
      */
     protected array $_messagePatterns = [
         '/mailClass.*invalid/i' => 'The selected shipping method is not available. Please choose a different method.',
@@ -159,10 +165,10 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Error_Dictionary
      * 3. Message pattern matching
      * 4. Falls back to generic carrier error message
      *
-     * @param  int        $httpCode        HTTP response code
-     * @param  null|array $responseData    Decoded JSON response
-     * @param  string     $fallbackMessage Default message if no translation found
-     * @return string     User-friendly error message
+     * @param  int                       $httpCode        HTTP response code
+     * @param  null|array<string, mixed> $responseData    Decoded JSON response
+     * @param  string                    $fallbackMessage Default message if no translation found
+     * @return string                    User-friendly error message
      */
     public function getErrorMessage(int $httpCode, ?array $responseData = null, ?string $fallbackMessage = null): string
     {
@@ -227,9 +233,9 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Error_Dictionary
     /**
      * Check if error is transient and should be retried
      *
-     * @param  int        $httpCode     HTTP response code
-     * @param  null|array $responseData Decoded JSON response
-     * @return bool       True if error is transient and operation can be retried
+     * @param  int                       $httpCode     HTTP response code
+     * @param  null|array<string, mixed> $responseData Decoded JSON response
+     * @return bool                      True if error is transient and operation can be retried
      */
     public function isTransientError(int $httpCode, ?array $responseData = null): bool
     {
@@ -262,6 +268,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Error_Dictionary
 
     /**
      * Get all HTTP status messages for reference
+     *
+     * @return array<int, string>
      */
     public function getAllHttpStatusMessages(): array
     {
@@ -270,6 +278,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Error_Dictionary
 
     /**
      * Get all API error codes for reference
+     *
+     * @return array<string, string>
      */
     public function getAllApiErrorCodes(): array
     {

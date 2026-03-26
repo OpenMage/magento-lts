@@ -65,18 +65,18 @@ abstract class Mage_Usa_Block_Adminhtml_System_Config_Form_Field_Usps_AbstractTe
         $buttonLabel = $this->_getButtonLabel();
         $ajaxUrl = Mage::helper('adminhtml')::getUrl($this->_getAjaxRoute());
         $resultDivId = $this->_getResultDivId();
-        $loadingText = $this->jsQuoteEscape($this->_getLoadingText());
-        $failureText = $this->jsQuoteEscape($this->_getFailureText());
+        $loadingText = (string) $this->jsQuoteEscape($this->_getLoadingText()); // @phpstan-ignore cast.string
+        $failureText = (string) $this->jsQuoteEscape($this->_getFailureText()); // @phpstan-ignore cast.string
         $website = $this->getRequest()->getParam('website', '');
         $store = $this->getRequest()->getParam('store', '');
 
-        $html = '<button type="button" id="' . $this->escapeHtml($buttonId) . '"'
+        $html = '<button type="button" id="' . (string) $this->escapeHtml($buttonId) . '"' // @phpstan-ignore cast.string
               . ' data-ajax-url="' . $this->escapeUrl($ajaxUrl) . '"'
-              . ' data-website="' . $this->escapeHtml($website) . '"'
-              . ' data-store="' . $this->escapeHtml($store) . '"'
+              . ' data-website="' . (string) $this->escapeHtml($website) . '"' // @phpstan-ignore cast.string
+              . ' data-store="' . (string) $this->escapeHtml($store) . '"' // @phpstan-ignore cast.string
               . ' class="scalable">'
               . '<span>' . $buttonLabel . '</span></button>';
-        $html .= '<div id="' . $this->escapeHtml($resultDivId) . '" style="margin-top:10px;"></div>';
+        $html .= '<div id="' . (string) $this->escapeHtml($resultDivId) . '" style="margin-top:10px;"></div>'; // @phpstan-ignore cast.string
 
         $onSuccessJs = $this->_getOnSuccessJs();
 

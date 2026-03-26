@@ -51,6 +51,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
 
     /**
      * Debug log array
+     *
+     * @var array<int, array<string, mixed>>
      */
     protected array $_debugLog = [];
 
@@ -107,8 +109,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
     /**
      * Get rate quotes for a package
      *
-     * @param  array $request Rate request parameters
-     * @return array Response array with 'success', 'data', 'error'
+     * @param  array<string, mixed> $request Rate request parameters
+     * @return array<string, mixed> Response array with 'success', 'data', 'error'
      */
     public function getRates(array $request): array
     {
@@ -119,9 +121,9 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
     /**
      * Get tracking information for a tracking number
      *
-     * @param  string $trackingNumber  Tracking number
-     * @param  bool   $expandedDetails Include expanded tracking details
-     * @return array  Response array with 'success', 'data', 'error'
+     * @param  string               $trackingNumber  Tracking number
+     * @param  bool                 $expandedDetails Include expanded tracking details
+     * @return array<string, mixed> Response array with 'success', 'data', 'error'
      */
     public function getTracking(string $trackingNumber, bool $expandedDetails = true): array
     {
@@ -133,8 +135,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
     /**
      * Create a domestic shipping label
      *
-     * @param  array $labelRequest Label request parameters
-     * @return array Response array with 'success', 'data', 'error'
+     * @param  array<string, mixed> $labelRequest Label request parameters
+     * @return array<string, mixed> Response array with 'success', 'data', 'error'
      */
     public function createDomesticLabel(array $labelRequest): array
     {
@@ -145,8 +147,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
     /**
      * Create an international shipping label
      *
-     * @param  array $labelRequest Label request parameters
-     * @return array Response array with 'success', 'data', 'error'
+     * @param  array<string, mixed> $labelRequest Label request parameters
+     * @return array<string, mixed> Response array with 'success', 'data', 'error'
      */
     public function createInternationalLabel(array $labelRequest): array
     {
@@ -157,8 +159,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
     /**
      * Cancel a shipping label
      *
-     * @param  string $trackingNumber Tracking number of label to cancel
-     * @return array  Response array with 'success', 'data', 'error'
+     * @param  string               $trackingNumber Tracking number of label to cancel
+     * @return array<string, mixed> Response array with 'success', 'data', 'error'
      */
     public function cancelLabel(string $trackingNumber): array
     {
@@ -169,8 +171,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
     /**
      * Get payment authorization token for label creation
      *
-     * @param  array $payload Payment authorization request
-     * @return array Response array with 'success', 'data', 'error'
+     * @param  array<string, mixed> $payload Payment authorization request
+     * @return array<string, mixed> Response array with 'success', 'data', 'error'
      */
     public function getPaymentAuthorization(array $payload): array
     {
@@ -183,8 +185,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
      *
      * Note: USPS Address API uses GET with query parameters, not POST.
      *
-     * @param  array $address Address to verify with keys: streetAddress, secondaryAddress, city, state, ZIPCode, ZIPPlus4
-     * @return array Response array with 'success', 'data', 'error'
+     * @param  array<string, mixed> $address Address to verify with keys: streetAddress, secondaryAddress, city, state, ZIPCode, ZIPPlus4
+     * @return array<string, mixed> Response array with 'success', 'data', 'error'
      */
     public function verifyAddress(array $address): array
     {
@@ -203,8 +205,9 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
     /**
      * Perform HTTP GET request
      *
-     * @param string $endpoint      API endpoint
-     * @param bool   $authenticated Include auth header
+     * @param  string               $endpoint      API endpoint
+     * @param  bool                 $authenticated Include auth header
+     * @return array<string, mixed>
      */
     protected function _get(string $endpoint, bool $authenticated = true): array
     {
@@ -214,9 +217,10 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
     /**
      * Perform HTTP POST request
      *
-     * @param string $endpoint      API endpoint
-     * @param array  $data          Request body data
-     * @param bool   $authenticated Include auth header
+     * @param  string               $endpoint      API endpoint
+     * @param  array<string, mixed> $data          Request body data
+     * @param  bool                 $authenticated Include auth header
+     * @return array<string, mixed>
      */
     protected function _post(string $endpoint, array $data, bool $authenticated = true): array
     {
@@ -226,8 +230,9 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
     /**
      * Perform HTTP DELETE request
      *
-     * @param string $endpoint      API endpoint
-     * @param bool   $authenticated Include auth header
+     * @param  string               $endpoint      API endpoint
+     * @param  bool                 $authenticated Include auth header
+     * @return array<string, mixed>
      */
     protected function _delete(string $endpoint, bool $authenticated = true): array
     {
@@ -237,11 +242,11 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
     /**
      * Perform HTTP request
      *
-     * @param  string     $method        HTTP method (GET, POST, DELETE)
-     * @param  string     $endpoint      API endpoint
-     * @param  null|array $data          Request body data
-     * @param  bool       $authenticated Include auth header
-     * @return array      Response array with 'success', 'data', 'http_code', 'error'
+     * @param  string                    $method        HTTP method (GET, POST, DELETE)
+     * @param  string                    $endpoint      API endpoint
+     * @param  null|array<string, mixed> $data          Request body data
+     * @param  bool                      $authenticated Include auth header
+     * @return array<string, mixed>      Response array with 'success', 'data', 'http_code', 'error'
      */
     protected function _request(string $method, string $endpoint, ?array $data = null, bool $authenticated = true): array
     {
@@ -266,7 +271,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
             case 'POST':
                 curl_setopt($ch, CURLOPT_POST, true);
                 if ($data) {
-                    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+                    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data) ?: '');
                 }
 
                 break;
@@ -300,7 +305,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
             ];
         }
 
-        $responseData = json_decode($responseBody, true);
+        $responseData = json_decode((string) $responseBody, true);
 
         $this->_log('response', [
             'http_code' => $httpCode,
@@ -321,9 +326,9 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
     /**
      * Extract error message from response
      *
-     * @param  null|array $responseData Decoded response
-     * @param  int        $httpCode     HTTP status code
-     * @return string     Error message
+     * @param  null|array<string, mixed> $responseData Decoded response
+     * @param  int                       $httpCode     HTTP status code
+     * @return string                    Error message
      */
     protected function _extractError(?array $responseData, int $httpCode): string
     {
@@ -352,8 +357,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
     /**
      * Log debug information
      *
-     * @param string $type Log entry type
-     * @param array  $data Log data
+     * @param string               $type Log entry type
+     * @param array<string, mixed> $data Log data
      */
     protected function _log(string $type, array $data): void
     {
@@ -370,6 +375,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
 
     /**
      * Get debug log
+     *
+     * @return array<int, array<string, mixed>>
      */
     public function getDebugLog(): array
     {
@@ -400,17 +407,17 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
      *
      * Uses exponential backoff: 200ms, 400ms, 800ms delays between retries.
      *
-     * @param  string     $method        HTTP method (GET, POST, DELETE)
-     * @param  string     $endpoint      API endpoint
-     * @param  null|array $data          Request body data
-     * @param  bool       $authenticated Include auth header
-     * @param  int        $maxRetries    Maximum retry attempts (default 3)
-     * @return array      Response array with 'success', 'data', 'http_code', 'error'
+     * @param  string                    $method        HTTP method (GET, POST, DELETE)
+     * @param  string                    $endpoint      API endpoint
+     * @param  null|array<string, mixed> $data          Request body data
+     * @param  bool                      $authenticated Include auth header
+     * @param  int                       $maxRetries    Maximum retry attempts (default 3)
+     * @return array<string, mixed>      Response array with 'success', 'data', 'http_code', 'error'
      */
     public function requestWithRetry(string $method, string $endpoint, ?array $data = null, bool $authenticated = true, int $maxRetries = 3): array
     {
         $maxRetries = max(1, $maxRetries);
-        $lastResponse = null;
+        $lastResponse = ['success' => false, 'http_code' => 0, 'error' => 'Max retries exceeded', 'data' => null];
 
         for ($attempt = 1; $attempt <= $maxRetries; $attempt++) {
             $response = $this->_request($method, $endpoint, $data, $authenticated);
@@ -442,9 +449,10 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
     /**
      * Perform GET request with retry
      *
-     * @param string $endpoint      API endpoint
-     * @param bool   $authenticated Include auth header
-     * @param int    $maxRetries    Maximum retry attempts
+     * @param  string               $endpoint      API endpoint
+     * @param  bool                 $authenticated Include auth header
+     * @param  int                  $maxRetries    Maximum retry attempts
+     * @return array<string, mixed>
      */
     public function getWithRetry(string $endpoint, bool $authenticated = true, int $maxRetries = 3): array
     {
@@ -454,10 +462,11 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
     /**
      * Perform POST request with retry
      *
-     * @param string $endpoint      API endpoint
-     * @param array  $data          Request body data
-     * @param bool   $authenticated Include auth header
-     * @param int    $maxRetries    Maximum retry attempts
+     * @param  string               $endpoint      API endpoint
+     * @param  array<string, mixed> $data          Request body data
+     * @param  bool                 $authenticated Include auth header
+     * @param  int                  $maxRetries    Maximum retry attempts
+     * @return array<string, mixed>
      */
     public function postWithRetry(string $endpoint, array $data, bool $authenticated = true, int $maxRetries = 3): array
     {
