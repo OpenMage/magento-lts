@@ -67,6 +67,7 @@ try {
             TypeDeclarationDocblocks\Class_\AddReturnArrayDocblockFromDataProviderParamRector::class,
             TypeDeclarationDocblocks\Class_\ClassMethodArrayDocblockParamFromLocalCallsRector::class,
             TypeDeclarationDocblocks\Class_\DocblockVarArrayFromGetterReturnRector::class,
+            TypeDeclarationDocblocks\Class_\DocblockVarFromParamDocblockInConstructorRector::class,
             TypeDeclarationDocblocks\ClassMethod\AddParamArrayDocblockFromAssignsParamToParamReferenceRector::class,
             TypeDeclarationDocblocks\ClassMethod\AddParamArrayDocblockFromDataProviderRector::class,
             TypeDeclarationDocblocks\ClassMethod\AddReturnDocblockForArrayDimAssignedObjectRector::class,
