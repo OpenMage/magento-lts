@@ -115,7 +115,7 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
     /**
      * Returns additional values for js config, con be overridden by descendants
      *
-     * @return array
+     * @return array{}
      */
     protected function _getAdditionalConfig()
     {

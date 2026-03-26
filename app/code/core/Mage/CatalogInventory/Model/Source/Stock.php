@@ -15,7 +15,7 @@
 class Mage_CatalogInventory_Model_Source_Stock
 {
     /**
-     * @return array
+     * @return array<int, array<string, string|int>>
      */
     public function toOptionArray()
     {

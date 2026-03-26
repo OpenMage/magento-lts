@@ -998,7 +998,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
      *
      * @param  Mage_Catalog_Model_Product $product
      * @param  Varien_Object              $buyRequest
-     * @return array
+     * @return array<string, string[]|string[][]>
      */
     public function processBuyRequest($product, $buyRequest)
     {

@@ -629,7 +629,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
      * Prepare attribute values to save
      *
      * @param  array $attr
-     * @return array
+     * @return array<string, bool|int|string|mixed[]|null>
      */
     protected function _prepareValues($attr)
     {

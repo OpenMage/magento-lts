@@ -86,7 +86,7 @@ class Mage_Shipping_Model_Carrier_Flatrate extends Mage_Shipping_Model_Carrier_A
     }
 
     /**
-     * @return array
+     * @return array<string, string|bool>
      */
     public function getAllowedMethods()
     {

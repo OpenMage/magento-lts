@@ -918,7 +918,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
      * Parse additional options and sync them with product options
      *
      * @param  string $additionalOptions
-     * @return array
+     * @return array<string, mixed[]>
      */
     protected function _parseOptions(Mage_Sales_Model_Quote_Item $item, $additionalOptions)
     {

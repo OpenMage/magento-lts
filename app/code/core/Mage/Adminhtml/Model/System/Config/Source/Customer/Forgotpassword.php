@@ -22,6 +22,9 @@ class Mage_Adminhtml_Model_System_Config_Source_Customer_Forgotpassword
 
     public const FORGOTPASS_FLOW_EMAIL     = 3;
 
+    /**
+     * @return array<int, array<string, string|int>>
+     */
     public function toOptionArray()
     {
         return [

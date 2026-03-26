@@ -15,7 +15,7 @@ class Mage_Weee_Model_Config_Source_Fpt_Tax
     /**
      * Array of options for FPT Tax Configuration
      *
-     * @return array
+     * @return array<int, array<string, string|int>>
      */
     public function toOptionArray()
     {

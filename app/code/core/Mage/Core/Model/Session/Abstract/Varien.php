@@ -475,7 +475,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
     /**
      * Retrieve skip User Agent validation strings (Flash etc)
      *
-     * @return array
+     * @return array{}
      */
     public function getValidateHttpUserAgentSkip()
     {

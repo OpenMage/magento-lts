@@ -858,7 +858,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
      *
      * @param  Mage_Catalog_Model_Product $product
      * @param  Varien_Object              $buyRequest
-     * @return array
+     * @return array<string, string[]>
      */
     public function processBuyRequest($product, $buyRequest)
     {

@@ -48,7 +48,7 @@ class Mage_Review_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get review statuses with their codes
      *
-     * @return array
+     * @return array<int, string>
      */
     public function getReviewStatuses()
     {

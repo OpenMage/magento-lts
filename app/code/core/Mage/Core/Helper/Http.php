@@ -27,7 +27,7 @@ class Mage_Core_Helper_Http extends Mage_Core_Helper_Abstract
     /**
      * Validate and retrieve user and password from HTTP
      * @param  null|array $headers
-     * @return array
+     * @return array<int, mixed>
      * @SuppressWarnings("PHPMD.Superglobals")
      */
     public function authValidate($headers = null)

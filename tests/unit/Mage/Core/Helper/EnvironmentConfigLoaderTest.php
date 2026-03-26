@@ -467,6 +467,9 @@ final class EnvironmentConfigLoaderTest extends OpenMageTest
 XML;
     }
 
+    /**
+     * @return array<string, int>
+     */
     private static function bootstrapTestStore(string $websiteCode, string $storeCode): array
     {
         $website = Mage::getModel('core/website')->load($websiteCode, 'code');

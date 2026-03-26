@@ -166,7 +166,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      *
      * @param  int   $parentId
      * @param  bool  $required
-     * @return array
+     * @return array{}
      */
     public function getChildrenIds($parentId, $required = true)
     {
@@ -177,7 +177,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      * Retrieve parent ids array by required child
      *
      * @param  array|int $childId
-     * @return array
+     * @return array{}
      */
     public function getParentIdsByChild($childId)
     {
@@ -945,7 +945,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      *
      * @param  Mage_Catalog_Model_Product $product
      * @param  Varien_Object              $buyRequest
-     * @return array
+     * @return array{}
      */
     public function processBuyRequest($product, $buyRequest)
     {

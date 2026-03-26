@@ -379,6 +379,7 @@ HTML;
 
     /**
      * @inheritDoc
+     * @return array<int|string, string>
      */
     public function getCacheKeyInfo()
     {

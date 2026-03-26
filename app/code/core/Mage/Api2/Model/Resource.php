@@ -680,7 +680,7 @@ abstract class Mage_Api2_Model_Resource
     /**
      * Retrieve array with critical errors mapped to HTTP codes
      *
-     * @return array
+     * @return array<string, int>
      */
     protected function _getCriticalErrors()
     {
@@ -943,7 +943,7 @@ abstract class Mage_Api2_Model_Resource
     /**
      * Resource specific method to retrieve attributes' codes. May be overridden in child.
      *
-     * @return array
+     * @return array{}
      */
     protected function _getResourceAttributes()
     {

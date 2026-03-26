@@ -273,7 +273,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
     }
 
     /**
-     * @return array
+     * @return array<string, array<string, int|string|null>|string>
      * @throws Mage_Core_Exception
      */
     public function getEditParamsForAssociated()

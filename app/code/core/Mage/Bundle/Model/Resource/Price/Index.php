@@ -679,7 +679,7 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
      * @param  float $basePrice
      * @param  float $minPrice
      * @param  float $maxPrice
-     * @return array
+     * @return array<int, float>
      */
     public function _calculateCustomOptions(array $options, $basePrice, $minPrice, $maxPrice)
     {
@@ -727,7 +727,7 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
      * @param  array                     $priceIndex
      * @param  Mage_Core_Model_Website   $website
      * @param  Mage_Customer_Model_Group $group
-     * @return array
+     * @return array<int, float|int>
      */
     public function _calculateBundleSelections(
         array $options,

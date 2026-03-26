@@ -18,7 +18,7 @@ class Mage_Widget_Model_Widget_Config extends Varien_Object
      * Return config settings for widgets insertion plugin based on editor element config
      *
      * @param  Varien_Object $config
-     * @return array
+     * @return array<string, string|mixed[]>
      */
     public function getPluginSettings($config)
     {

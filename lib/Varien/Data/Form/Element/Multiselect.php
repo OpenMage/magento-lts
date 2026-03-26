@@ -86,7 +86,7 @@ class Varien_Data_Form_Element_Multiselect extends Varien_Data_Form_Element_Abst
     }
 
     /**
-     * @return array
+     * @return array<int, string>
      */
     public function getHtmlAttributes()
     {

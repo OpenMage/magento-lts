@@ -477,7 +477,7 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
     /**
      * Returns rule as an array for admin interface
      *
-     * @return array
+     * @return array{}
      * @deprecated since 1.7.0.0
      */
     public function asArray(array $arrAttributes = [])

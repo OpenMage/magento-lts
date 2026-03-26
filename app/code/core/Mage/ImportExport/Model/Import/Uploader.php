@@ -97,7 +97,7 @@ class Mage_ImportExport_Model_Import_Uploader extends Mage_Core_Model_File_Uploa
      * Reads file info
      *
      * @param  string $filePath
-     * @return array
+     * @return array<string, string|int|bool>
      */
     protected function _readFileInfo($filePath)
     {

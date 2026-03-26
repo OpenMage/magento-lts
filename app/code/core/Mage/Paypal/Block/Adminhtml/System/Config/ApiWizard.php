@@ -64,7 +64,7 @@ class Mage_Paypal_Block_Adminhtml_System_Config_ApiWizard extends Mage_Adminhtml
      *
      * @param  string $elementHtmlId
      * @param  array  $originalData
-     * @return array
+     * @return array<string, mixed>
      */
     protected function _getButtonData($elementHtmlId, $originalData)
     {
@@ -80,7 +80,7 @@ class Mage_Paypal_Block_Adminhtml_System_Config_ApiWizard extends Mage_Adminhtml
      *
      * @param  string $elementHtmlId
      * @param  array  $originalData
-     * @return array
+     * @return array<string, mixed>
      */
     protected function _getSandboxButtonData($elementHtmlId, $originalData)
     {

@@ -12,6 +12,9 @@
  */
 class Mage_Adminhtml_Model_System_Config_Source_Web_Redirect
 {
+    /**
+     * @return array<int, array<string, string|int>>
+     */
     public function toOptionArray()
     {
         return [

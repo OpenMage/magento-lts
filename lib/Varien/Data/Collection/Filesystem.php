@@ -364,7 +364,7 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
      * Generate item row basing on the filename
      *
      * @param  string $filename
-     * @return array
+     * @return array<string, string>
      */
     protected function _generateRow($filename)
     {

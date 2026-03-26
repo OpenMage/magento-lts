@@ -121,7 +121,7 @@ class Mage_Page_Block_Redirect extends Mage_Core_Block_Template
     /**
      *  Array of hidden form fields (name => value)
      *
-     * @return array
+     * @return array{}
      */
     public function getFormFields()
     {

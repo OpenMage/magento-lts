@@ -357,7 +357,7 @@ class Mage_Catalog_Model_Product_Type_Grouped extends Mage_Catalog_Model_Product
      * At least one product in each group has to be purchased
      *
      * @param  Mage_Catalog_Model_Product $product
-     * @return array
+     * @return array<int, mixed[]>
      */
     public function getProductsToPurchaseByReqGroups($product = null)
     {
@@ -370,7 +370,7 @@ class Mage_Catalog_Model_Product_Type_Grouped extends Mage_Catalog_Model_Product
      *
      * @param  Mage_Catalog_Model_Product $product
      * @param  Varien_Object              $buyRequest
-     * @return array
+     * @return array<string, string[]>
      */
     public function processBuyRequest($product, $buyRequest)
     {

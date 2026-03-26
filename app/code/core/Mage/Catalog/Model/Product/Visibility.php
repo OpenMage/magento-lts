@@ -80,7 +80,7 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
     /**
      * Retrieve visible in catalog ids array
      *
-     * @return array
+     * @return array<int, int>
      */
     public static function getVisibleInCatalogIds()
     {
@@ -90,7 +90,7 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
     /**
      * Retrieve visible in search ids array
      *
-     * @return array
+     * @return array<int, int>
      */
     public static function getVisibleInSearchIds()
     {
@@ -100,7 +100,7 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
     /**
      * Retrieve visible in site ids array
      *
-     * @return array
+     * @return array<int, int>
      */
     public static function getVisibleInSiteIds()
     {
@@ -110,7 +110,7 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
     /**
      * Retrieve option array
      *
-     * @return array
+     * @return array<int, string>
      */
     public static function getOptionArray()
     {
@@ -204,7 +204,7 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
     /**
      * Retrieve Indexes for Flat
      *
-     * @return array
+     * @return array{}
      */
     public function getFlatIndexes()
     {

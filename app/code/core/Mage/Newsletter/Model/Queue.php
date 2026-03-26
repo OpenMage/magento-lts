@@ -235,7 +235,7 @@ class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Template
     /**
      * Getter data for saving
      *
-     * @return array
+     * @return array<string, int|string>
      */
     public function getDataForSave()
     {

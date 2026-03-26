@@ -186,7 +186,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_History extends Mage_Adminhtml_B
      * @param  bool      $notified
      * @param  Zend_Date $created
      * @param  string    $comment
-     * @return array
+     * @return array<string, bool|string|\Zend_Date>
      */
     protected function _prepareHistoryItem($label, $notified, $created, $comment = '')
     {

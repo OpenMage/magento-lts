@@ -1299,7 +1299,7 @@ class Mage_Paypal_Model_Config
     /**
      * Return supported types for PayPal logo
      *
-     * @return array
+     * @return array<string, string>
      */
     public function getAdditionalOptionsLogoTypes()
     {
@@ -1351,7 +1351,7 @@ class Mage_Paypal_Model_Config
     /**
      * Express Checkout button "flavors" source getter
      *
-     * @return array
+     * @return array<string, string>
      */
     public function getExpressCheckoutButtonFlavors()
     {
@@ -1364,7 +1364,7 @@ class Mage_Paypal_Model_Config
     /**
      * Express Checkout button types source getter
      *
-     * @return array
+     * @return array<string, string>
      */
     public function getExpressCheckoutButtonTypes()
     {
@@ -1395,7 +1395,7 @@ class Mage_Paypal_Model_Config
     /**
      * Require Billing Address source getter
      *
-     * @return array
+     * @return array<int, string>
      */
     public function getRequireBillingAddressOptions()
     {
@@ -1424,7 +1424,7 @@ class Mage_Paypal_Model_Config
     /**
      * Returns array of possible Authorization Amounts for Account Verification
      *
-     * @return array
+     * @return array{}
      * @deprecated since 1.6.2.0
      */
     public function getAuthorizationAmounts()
@@ -1437,7 +1437,7 @@ class Mage_Paypal_Model_Config
      * "sole" = "Express Checkout for Auctions" - PayPal allows guest checkout
      * "mark" = "Normal Express Checkout" - PayPal requires to checkout with PayPal buyer account only
      *
-     * @return array
+     * @return array<string, string>
      */
     public function getExpressCheckoutSolutionTypes()
     {
@@ -1450,7 +1450,7 @@ class Mage_Paypal_Model_Config
     /**
      * Retrieve express checkout billing agreement signup options
      *
-     * @return array
+     * @return array<string, string>
      */
     public function getExpressCheckoutBASignupOptions()
     {
@@ -1495,7 +1495,7 @@ class Mage_Paypal_Model_Config
     /**
      * Payment data delivery methods getter for PayPal Standard
      *
-     * @return array
+     * @return array<string, string>
      */
     public function getWpsPaymentDeliveryMethods()
     {
@@ -1853,7 +1853,7 @@ class Mage_Paypal_Model_Config
     /**
      * Payment API authentication methods source getter
      *
-     * @return array
+     * @return array<int, string>
      */
     public function getApiAuthenticationMethods()
     {

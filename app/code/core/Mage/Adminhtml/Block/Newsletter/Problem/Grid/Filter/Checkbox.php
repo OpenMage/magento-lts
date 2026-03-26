@@ -14,6 +14,9 @@
  */
 class Mage_Adminhtml_Block_Newsletter_Problem_Grid_Filter_Checkbox extends Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Abstract
 {
+    /**
+     * @return array{}
+     */
     public function getCondition()
     {
         return [];

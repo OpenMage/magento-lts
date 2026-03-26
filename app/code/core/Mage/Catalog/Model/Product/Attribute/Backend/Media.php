@@ -386,7 +386,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
      * @param  string              $filePath               path, where image cand be found
      * @param  bool                $move                   if true, it will move source file
      * @param  bool                $exclude                mark image as disabled in product page view
-     * @return array               array of parallel arrays with original and renamed files
+     * @return array<string, mixed[]> array of parallel arrays with original and renamed files
      * @throws Mage_Core_Exception
      */
     public function addImagesWithDifferentMediaAttributes(

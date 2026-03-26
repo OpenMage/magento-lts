@@ -90,6 +90,9 @@ function updateProgress(sessionId, idx, time, memory) {
 </script>';
     }
 
+    /**
+     * @return array{}
+     */
     public function updateProgress($args)
     {
         $memory = empty($args['memory']) ? '' : $args['memory'];

@@ -97,7 +97,7 @@ class Mage_Core_Model_Design_Config extends Varien_Simplexml_Config
      * Get area, package and theme from path .../app/design/{area}/{package}/{theme}/etc/theme.xml
      *
      * @param  string $filePath
-     * @return array
+     * @return array<int, string>
      */
     protected function _getThemePathSegments($filePath)
     {

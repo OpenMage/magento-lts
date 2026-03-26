@@ -1156,7 +1156,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
      * )
      *
      * @param  Mage_Core_Model_Abstract $newObject
-     * @return array
+     * @return array<string, \Mage_Core_Model_Abstract|mixed[]>
      * @throws Mage_Core_Exception
      */
     protected function _collectSaveData($newObject)
@@ -1731,7 +1731,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
     /**
      * Retrieve default entity attributes
      *
-     * @return array
+     * @return array<int, string>
      */
     protected function _getDefaultAttributes()
     {

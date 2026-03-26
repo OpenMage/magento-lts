@@ -24,7 +24,7 @@ class Mage_Api2_Model_Acl_Global_Rule_Permission
     /**
      * Get options parameters
      *
-     * @return array
+     * @return array<int, array<string, string|int>>
      */
     public static function toOptionArray()
     {
@@ -43,7 +43,7 @@ class Mage_Api2_Model_Acl_Global_Rule_Permission
     /**
      * Get options in "key-value" format
      *
-     * @return array
+     * @return array<int, string>
      */
     public static function toArray()
     {

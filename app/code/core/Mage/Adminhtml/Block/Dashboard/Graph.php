@@ -240,6 +240,7 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
 
     /**
      * @throws Mage_Core_Model_Store_Exception
+     * @return array<int, mixed[]>
      */
     private function getChartDatasAndDates(): array
     {

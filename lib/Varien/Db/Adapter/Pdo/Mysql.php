@@ -1839,7 +1839,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      * Return array with keys: name, type, length, options, comment
      *
      * @param  array $columnData
-     * @return array
+     * @return array<string, mixed>
      */
     public function getColumnCreateByDescribe($columnData)
     {

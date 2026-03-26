@@ -106,7 +106,7 @@ abstract class Mage_Customer_Model_Api2_Customer_Address_Rest extends Mage_Custo
     /**
      * Get array with default addresses information if possible
      *
-     * @return array
+     * @return array<string, int>
      */
     protected function _getDefaultAddressesInfo(Mage_Customer_Model_Address $address)
     {

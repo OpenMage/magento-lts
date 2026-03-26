@@ -113,7 +113,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Source_Abstract implements Mage_E
     /**
      * Retrieve flat column definition
      *
-     * @return array
+     * @return array{}
      */
     public function getFlatColums()
     {
@@ -123,7 +123,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Source_Abstract implements Mage_E
     /**
      * Retrieve Indexes(s) for Flat
      *
-     * @return array
+     * @return array{}
      */
     public function getFlatIndexes()
     {

@@ -230,7 +230,7 @@ class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
      * Get event old data array
      *
      * @param  bool  $useNamespace
-     * @return array
+     * @return array{}
      * @deprecated since 1.6.2.0
      */
     public function getOldData($useNamespace = true)

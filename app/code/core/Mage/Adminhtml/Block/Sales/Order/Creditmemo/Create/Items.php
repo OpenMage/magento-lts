@@ -90,7 +90,7 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_Create_Items extends Mage_Admi
     /**
      * Retrieve order totals block settings
      *
-     * @return array
+     * @return array{}
      */
     public function getOrderTotalData()
     {

@@ -184,7 +184,7 @@ class Mage_Core_Model_Design_Fallback
     /**
      * Get fallback scheme when inheritance is not defined (backward compatibility)
      *
-     * @return array
+     * @return array<int, mixed[]|array<string, string>>
      * @throws Mage_Core_Model_Store_Exception
      */
     protected function _getLegacyFallbackScheme()

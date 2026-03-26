@@ -44,7 +44,7 @@ class Mage_Log_Model_Adminhtml_System_Config_Source_Loglevel
     }
 
     /**
-     * @return array
+     * @return array<int, array<string, string|int>>
      */
     public function toOptionArray()
     {

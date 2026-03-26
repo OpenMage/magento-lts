@@ -117,7 +117,7 @@ abstract class Mage_Catalog_Model_Layer_Filter_Abstract extends Varien_Object
      *      )
      * )
      *
-     * @return array
+     * @return array{}
      */
     protected function _getItemsData()
     {

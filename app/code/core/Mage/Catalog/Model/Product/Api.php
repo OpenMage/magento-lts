@@ -346,7 +346,7 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
      *
      * @param  int|string $productId
      * @param  int|string $store
-     * @return array
+     * @return array<string, mixed>
      */
     public function getSpecialPrice($productId, $store = null)
     {

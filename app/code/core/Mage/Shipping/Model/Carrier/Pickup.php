@@ -48,7 +48,7 @@ class Mage_Shipping_Model_Carrier_Pickup extends Mage_Shipping_Model_Carrier_Abs
     /**
      * Get allowed shipping methods
      *
-     * @return array
+     * @return array<string, string>
      */
     public function getAllowedMethods()
     {

@@ -14,6 +14,9 @@
  */
 class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Radio extends Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Select
 {
+    /**
+     * @return array<int, array<string, string|int>>
+     */
     protected function _getOptions()
     {
         return [

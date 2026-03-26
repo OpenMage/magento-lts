@@ -73,7 +73,7 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
      * Get tax rate information: calculation process data and tax rate
      *
      * @param  Varien_Object $request
-     * @return array
+     * @return array<string, int|mixed[]>
      */
     public function getRateInfo($request)
     {

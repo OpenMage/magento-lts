@@ -15,7 +15,7 @@
 class Mage_Adminhtml_Model_System_Config_Source_Storage_Media_Storage
 {
     /**
-     * @return array
+     * @return array<int, array<string, string|int>>
      */
     public function toOptionArray()
     {

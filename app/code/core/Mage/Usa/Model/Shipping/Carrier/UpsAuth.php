@@ -95,6 +95,7 @@ class Mage_Usa_Model_Shipping_Carrier_UpsAuth extends Mage_Usa_Model_Shipping_Ca
 
     /**
      * @inheritDoc
+     * @return array{}
      */
     public function getAllowedMethods(): array
     {

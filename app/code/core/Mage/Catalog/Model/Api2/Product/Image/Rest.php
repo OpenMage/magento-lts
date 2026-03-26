@@ -108,7 +108,7 @@ abstract class Mage_Catalog_Model_Api2_Product_Image_Rest extends Mage_Catalog_M
      * Create image data representation for API
      *
      * @param  array $image
-     * @return array
+     * @return array<string, mixed>
      */
     protected function _formatImageData($image)
     {

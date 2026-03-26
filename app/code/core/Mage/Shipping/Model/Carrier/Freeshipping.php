@@ -92,7 +92,7 @@ class Mage_Shipping_Model_Carrier_Freeshipping extends Mage_Shipping_Model_Carri
     /**
      * Get allowed shipping methods
      *
-     * @return array
+     * @return array<string, string|bool>
      */
     public function getAllowedMethods()
     {

@@ -176,7 +176,7 @@ abstract class Mage_Reports_Model_Product_Index_Abstract extends Mage_Core_Model
     /**
      * Retrieve Exclude Product Ids List for Collection
      *
-     * @return array
+     * @return array{}
      */
     public function getExcludeProductIds()
     {
