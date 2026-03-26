@@ -163,7 +163,7 @@ class Mage_Api_Model_Wsdl_Config_Element extends Varien_Simplexml_Element
      * @return array
      * @deprecated due to conflict with PHP8 parent class update
      */
-    #[\ReturnTypeWillChange]
+    #[ReturnTypeWillChange]
     public function getChildren($source = null)
     {
         Mage::log('Use of deprecated method: ' . __METHOD__);
@@ -200,7 +200,7 @@ class Mage_Api_Model_Wsdl_Config_Element extends Varien_Simplexml_Element
      *
      * @return bool
      */
-    #[\ReturnTypeWillChange]
+    #[ReturnTypeWillChange]
     public function hasChildren()
     {
         if (!self::_getChildren($this)) {

@@ -1,12 +1,13 @@
 <?php
 
+use Monolog\Level;
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
  * @license    Open Software License (OSL 3.0)
  * @package    Mage_Eav
  */
-
 /**
  * Entity/Attribute/Model - attribute selection source abstract
  *
@@ -91,7 +92,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Source_Abstract implements Mage_E
         if ($bcWarning) {
             Mage::log(
                 'Mage_Eav_Model_Entity_Attribute_Source_Abstract::getOptionId() no longer accepts option_id as param',
-                \Monolog\Level::Warning,
+                Level::Warning,
             );
         }
 

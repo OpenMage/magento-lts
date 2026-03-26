@@ -11,7 +11,6 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\Model;
 
 use Generator;
-use Varien_Object;
 
 trait SecurityTrait
 {

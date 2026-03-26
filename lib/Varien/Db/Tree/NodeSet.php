@@ -50,13 +50,13 @@ class Varien_Db_Tree_NodeSet implements Iterator
         }
     }
 
-    #[\ReturnTypeWillChange]
+    #[ReturnTypeWillChange]
     public function key()
     {
         return $this->_current;
     }
 
-    #[\ReturnTypeWillChange]
+    #[ReturnTypeWillChange]
     public function current()
     {
         return $this->_nodes[$this->_current];

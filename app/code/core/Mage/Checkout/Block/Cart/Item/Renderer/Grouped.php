@@ -6,13 +6,12 @@
  * @license    Open Software License (OSL 3.0)
  * @package    Mage_Checkout
  */
-
 /**
  * Shopping cart item render block
  *
  * @package    Mage_Checkout
  *
- * @method \Mage_Checkout_Block_Cart_Sidebar getRenderedBlock()
+ * @method Mage_Checkout_Block_Cart_Sidebar getRenderedBlock()
  */
 class Mage_Checkout_Block_Cart_Item_Renderer_Grouped extends Mage_Checkout_Block_Cart_Item_Renderer
 {

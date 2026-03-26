@@ -30,7 +30,7 @@ trait ItemTrait
         ];
     }
 
-    public function provideValidateData(): \Generator
+    public function provideValidateData(): Generator
     {
         yield 'valid data' => [
             null,
