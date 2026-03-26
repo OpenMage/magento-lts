@@ -36,6 +36,7 @@ try {
             cacheDirectory: '.rector.result.cache',
             cacheClass: FileCacheStorage::class,
         )
+        ->withImportNames(removeUnusedImports: true)
         ->withPhpSets(
             php81: true,
         )

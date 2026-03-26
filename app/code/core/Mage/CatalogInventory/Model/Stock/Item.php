@@ -953,7 +953,7 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
     {
         parent::afterCommitCallback();
 
-        /** @var \Mage_Index_Model_Indexer $indexer */
+        /** @var Mage_Index_Model_Indexer $indexer */
         $indexer = Mage::getSingleton('index/indexer');
 
         if ($this->_processIndexEvents) {
