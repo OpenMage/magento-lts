@@ -7,8 +7,6 @@
  * @package    Mage_Adminhtml
  */
 
-
-
 /**
  * Grid widget massaction block
  *
