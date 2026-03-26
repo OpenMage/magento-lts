@@ -414,8 +414,8 @@ abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
      * Prepare shipping options request
      * Returns false if there are no shipping options
      *
-     * @param  mixed[] $request
-     * @param  int     $index
+     * @param  array<string, mixed> $request
+     * @param  int                  $index
      * @return bool
      */
     protected function _exportShippingOptions(array &$request, $index = 0)
