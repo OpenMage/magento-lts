@@ -64,6 +64,7 @@ try {
         ->withRules([
             Php85\ArrayDimFetch\ArrayFirstLastRector::class,
             TypeDeclarationDocblocks\Class_\ClassMethodArrayDocblockParamFromLocalCallsRector::class,
+            TypeDeclarationDocblocks\Class_\DocblockVarArrayFromGetterReturnRector::class,
             TypeDeclarationDocblocks\ClassMethod\AddParamArrayDocblockFromAssignsParamToParamReferenceRector::class,
             TypeDeclarationDocblocks\ClassMethod\AddParamArrayDocblockFromDataProviderRector::class,
             TypeDeclarationDocblocks\ClassMethod\AddReturnDocblockForArrayDimAssignedObjectRector::class,
