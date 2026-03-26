@@ -97,17 +97,6 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form_Account extends Mage_Adminhtm
     }
 
     /**
-     * Return customer data
-     *
-     * @return array
-     * @deprecated since 1.4.0.1
-     */
-    public function getCustomerData()
-    {
-        return $this->getFormValues();
-    }
-
-    /**
      * Return Form Elements values
      *
      * @return array
