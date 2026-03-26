@@ -54,7 +54,7 @@ class Mage_Core_Model_Resource_File_Storage_File
     /**
      * Collect files and directories recursively
      *
-     * @param  string $dir
+     * @param  string                 $dir
      * @return array<string, mixed[]>
      */
     public function getStorageData($dir = '')

@@ -245,7 +245,7 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
     /**
      * Aggregate tax calculation data to array
      *
-     * @return array<int, array<string, string|array<int, array<string, int|string>>>>
+     * @return array<int, array<string, array<int, array<string, int|string>>|string>>
      */
     protected function _formCalculationProcess()
     {

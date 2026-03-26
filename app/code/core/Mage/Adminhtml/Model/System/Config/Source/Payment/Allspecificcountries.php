@@ -13,7 +13,7 @@
 class Mage_Adminhtml_Model_System_Config_Source_Payment_Allspecificcountries
 {
     /**
-     * @return array<int, array<string, string|int>>
+     * @return array<int, array<string, int|string>>
      */
     public function toOptionArray()
     {

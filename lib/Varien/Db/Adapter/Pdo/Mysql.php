@@ -1838,7 +1838,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      * Format described column to definition, ready to be added to ddl table.
      * Return array with keys: name, type, length, options, comment
      *
-     * @param  array $columnData
+     * @param  array                $columnData
      * @return array<string, mixed>
      */
     public function getColumnCreateByDescribe($columnData)

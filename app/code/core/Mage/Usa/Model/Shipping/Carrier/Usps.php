@@ -1477,7 +1477,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
     /**
      * Convert decimal weight into pound-ounces format
      *
-     * @param  float $weightInPounds
+     * @param  float                 $weightInPounds
      * @return array<int, float|int>
      */
     protected function _convertPoundOunces($weightInPounds)
@@ -1904,8 +1904,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
     /**
      * Parse zip from string to zip5-zip4
      *
-     * @param  string $zipString
-     * @param  bool   $returnFull
+     * @param  string             $zipString
+     * @param  bool               $returnFull
      * @return array<int, string>
      */
     protected function _parseZip($zipString, $returnFull = false)

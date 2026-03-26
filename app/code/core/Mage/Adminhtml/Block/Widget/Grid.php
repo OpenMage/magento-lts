@@ -1271,7 +1271,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      *
      * Return array with keys type and value
      *
-     * @return array<string, string|bool>
+     * @return array<string, bool|string>
      * @throws Exception
      */
     public function getCsvFile()
@@ -1438,8 +1438,8 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      *
      * Return array with keys type and value
      *
-     * @param  string    $sheetName
-     * @return array<string, string|bool>
+     * @param  string                     $sheetName
+     * @return array<string, bool|string>
      * @throws Exception
      */
     public function getExcelFile($sheetName = '')

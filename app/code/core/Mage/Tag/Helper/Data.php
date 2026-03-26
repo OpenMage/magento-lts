@@ -27,7 +27,7 @@ class Mage_Tag_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * @return array<int, array<string, string|int>>
+     * @return array<int, array<string, int|string>>
      */
     public function getStatusesOptionsArray()
     {

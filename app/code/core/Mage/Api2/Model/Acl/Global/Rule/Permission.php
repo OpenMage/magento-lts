@@ -24,7 +24,7 @@ class Mage_Api2_Model_Acl_Global_Rule_Permission
     /**
      * Get options parameters
      *
-     * @return array<int, array<string, string|int>>
+     * @return array<int, array<string, int|string>>
      */
     public static function toOptionArray()
     {

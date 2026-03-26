@@ -676,9 +676,9 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
      * Calculate custom options price
      * Return array with indexes(0 -> min_price, 1 -> max_price)
      *
-     * @param  float $basePrice
-     * @param  float $minPrice
-     * @param  float $maxPrice
+     * @param  float             $basePrice
+     * @param  float             $minPrice
+     * @param  float             $maxPrice
      * @return array<int, float>
      */
     public function _calculateCustomOptions(array $options, $basePrice, $minPrice, $maxPrice)

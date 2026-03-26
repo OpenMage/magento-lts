@@ -17,7 +17,7 @@ class Mage_Usa_Model_Shipping_Carrier_Abstract_Source_Requesttype
     /**
      * Returns array to be used in packages request type on back-end
      *
-     * @return array<int, array<string, string|int>>
+     * @return array<int, array<string, int|string>>
      */
     public function toOptionArray()
     {

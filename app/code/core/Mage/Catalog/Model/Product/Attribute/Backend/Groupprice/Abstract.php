@@ -80,7 +80,7 @@ abstract class Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract 
     /**
      * Get additional unique fields
      *
-     * @param  array $objectArray
+     * @param  array   $objectArray
      * @return array{}
      */
     protected function _getAdditionalUniqueFields($objectArray)

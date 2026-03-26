@@ -382,10 +382,10 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
      * Add images with different media attributes.
      * Image will be added only once if the same image is used with different media attributes
      *
-     * @param  array               $fileAndAttributesArray array of arrays of filename and corresponding media attribute
-     * @param  string              $filePath               path, where image cand be found
-     * @param  bool                $move                   if true, it will move source file
-     * @param  bool                $exclude                mark image as disabled in product page view
+     * @param  array                  $fileAndAttributesArray array of arrays of filename and corresponding media attribute
+     * @param  string                 $filePath               path, where image cand be found
+     * @param  bool                   $move                   if true, it will move source file
+     * @param  bool                   $exclude                mark image as disabled in product page view
      * @return array<string, mixed[]> array of parallel arrays with original and renamed files
      * @throws Mage_Core_Exception
      */

@@ -34,6 +34,7 @@ final class ProcessorTest extends TestCase
 
     /**
      * @dataProvider provideGetHostUrl
+     * @param array<string, int|string> $serverVars
      */
     public function testGetHostUrl(string $expectedResult, array $serverVars): void
     {

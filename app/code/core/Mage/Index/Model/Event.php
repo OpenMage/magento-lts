@@ -229,7 +229,7 @@ class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
     /**
      * Get event old data array
      *
-     * @param  bool  $useNamespace
+     * @param  bool    $useNamespace
      * @return array{}
      * @deprecated since 1.6.2.0
      */

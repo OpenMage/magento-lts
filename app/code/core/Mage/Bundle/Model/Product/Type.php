@@ -996,8 +996,8 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
     /**
      * Prepare selected options for bundle product
      *
-     * @param  Mage_Catalog_Model_Product $product
-     * @param  Varien_Object              $buyRequest
+     * @param  Mage_Catalog_Model_Product         $product
+     * @param  Varien_Object                      $buyRequest
      * @return array<string, string[]|string[][]>
      */
     public function processBuyRequest($product, $buyRequest)

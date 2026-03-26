@@ -16,7 +16,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage_Collection extends Varien_Data_Colle
 {
     /**
      * @inheritDoc
-     * @return array<string, string|int|null|bool>
+     * @return array<string, null|bool|int|string>
      */
     protected function _generateRow($filename)
     {

@@ -13,7 +13,7 @@
 class Mage_CatalogInventory_Model_Source_Backorders
 {
     /**
-     * @return array<int, array<string, string|int>>
+     * @return array<int, array<string, int|string>>
      */
     public function toOptionArray()
     {

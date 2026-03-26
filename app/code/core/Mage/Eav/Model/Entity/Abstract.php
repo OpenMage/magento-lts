@@ -1155,7 +1155,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
      *  'newObject', 'entityRow', 'insert', 'update', 'delete'
      * )
      *
-     * @param  Mage_Core_Model_Abstract $newObject
+     * @param  Mage_Core_Model_Abstract                         $newObject
      * @return array<string, \Mage_Core_Model_Abstract|mixed[]>
      * @throws Mage_Core_Exception
      */

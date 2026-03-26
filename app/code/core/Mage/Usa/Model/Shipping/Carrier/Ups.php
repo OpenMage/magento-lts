@@ -2446,7 +2446,7 @@ XMLAuth;
     /**
      * Processing rate for ship element
      *
-     * @param mixed[] $costArr
+     * @param mixed[]          $costArr
      * @param float[]|string[] $priceArr
      */
     private function processShippingRestRateForItem(

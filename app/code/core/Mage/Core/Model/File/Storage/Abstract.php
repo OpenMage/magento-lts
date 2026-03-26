@@ -47,7 +47,7 @@ abstract class Mage_Core_Model_File_Storage_Abstract extends Mage_Core_Model_Abs
      *  directory   => string
      * )
      *
-     * @param  string $path
+     * @param  string               $path
      * @return array<string, mixed>
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")

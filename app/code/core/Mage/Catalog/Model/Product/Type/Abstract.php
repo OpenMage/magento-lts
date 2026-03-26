@@ -164,8 +164,8 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      *   group => array(ids)
      * )
      *
-     * @param  int   $parentId
-     * @param  bool  $required
+     * @param  int     $parentId
+     * @param  bool    $required
      * @return array{}
      */
     public function getChildrenIds($parentId, $required = true)

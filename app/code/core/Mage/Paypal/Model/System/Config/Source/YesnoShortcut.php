@@ -15,7 +15,7 @@
 class Mage_Paypal_Model_System_Config_Source_YesnoShortcut
 {
     /**
-     * @return array<int, array<string, string|int>>
+     * @return array<int, array<string, int|string>>
      */
     public function toOptionArray()
     {

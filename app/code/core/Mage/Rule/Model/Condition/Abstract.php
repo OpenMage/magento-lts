@@ -175,7 +175,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
     }
 
     /**
-     * @return array<string, int|string|mixed[]|bool|null>
+     * @return array<string, null|bool|int|mixed[]|string>
      */
     public function asArray(array $arrAttributes = [])
     {
