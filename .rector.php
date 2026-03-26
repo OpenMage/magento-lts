@@ -48,6 +48,7 @@ try {
             Php85\ArrayDimFetch\ArrayFirstLastRector::class,
             TypeDeclarationDocblocks\ClassMethod\AddParamArrayDocblockFromAssignsParamToParamReferenceRector::class,
             TypeDeclarationDocblocks\ClassMethod\AddParamArrayDocblockFromDataProviderRector::class,
+            TypeDeclarationDocblocks\ClassMethod\AddReturnDocblockForCommonObjectDenominatorRector::class,
             TypeDeclarationDocblocks\ClassMethod\AddReturnDocblockForJsonArrayRector::class,
             TypeDeclarationDocblocks\ClassMethod\DocblockReturnArrayFromDirectArrayInstanceRector::class,
         ])

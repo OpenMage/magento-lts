@@ -79,7 +79,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Abstract extends Mage_Admin
     /**
      * Retrieve condition
      *
-     * @return array
+     * @return Zend_Db_Expr[]
      */
     public function getCondition()
     {
