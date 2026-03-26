@@ -63,6 +63,7 @@ try {
         ->withSkipPath(__DIR__ . '/vendor')
         ->withRules([
             Php85\ArrayDimFetch\ArrayFirstLastRector::class,
+            TypeDeclarationDocblocks\Class_\AddVarArrayDocblockFromDimFetchAssignRector::class,
             TypeDeclarationDocblocks\Class_\ClassMethodArrayDocblockParamFromLocalCallsRector::class,
             TypeDeclarationDocblocks\Class_\DocblockVarArrayFromGetterReturnRector::class,
             TypeDeclarationDocblocks\ClassMethod\AddParamArrayDocblockFromAssignsParamToParamReferenceRector::class,
