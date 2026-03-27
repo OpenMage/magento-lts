@@ -132,9 +132,8 @@ class Mage_Catalog_Model_Layer_Filter_Category extends Mage_Catalog_Model_Layer_
     }
 
     /**
-     * Get data array for building category filter items
-     *
-     * @return array
+     * @inheritDoc
+     * @throws Mage_Core_Exception
      */
     protected function _getItemsData()
     {

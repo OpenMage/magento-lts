@@ -185,9 +185,7 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
     }
 
     /**
-     * Retrieve skip User Agent validation strings (Flash etc)
-     *
-     * @return array
+     * @inheritDoc
      */
     public function getValidateHttpUserAgentSkip()
     {

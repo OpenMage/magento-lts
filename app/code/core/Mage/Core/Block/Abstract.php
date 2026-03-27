@@ -1361,7 +1361,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      * Get cache key informative items
      * Provide string array key to share specific info item with FPC placeholder
      *
-     * @return array
+     * @return array<int, string>
      */
     public function getCacheKeyInfo()
     {

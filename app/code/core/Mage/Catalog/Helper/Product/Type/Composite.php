@@ -103,7 +103,7 @@ class Mage_Catalog_Helper_Product_Type_Composite extends Mage_Core_Helper_Abstra
     /**
      * Prepare general params for product to be used in getJsonConfig()
      *
-     * @return array
+     * @return array<string, mixed>
      * @see Mage_Catalog_Block_Product_View::getJsonConfig()
      * @see Mage_ConfigurableSwatches_Block_Catalog_Product_List_Price::getJsonConfig()
      */
@@ -126,7 +126,7 @@ class Mage_Catalog_Helper_Product_Type_Composite extends Mage_Core_Helper_Abstra
     /**
      * Prepare product specific params to be used in getJsonConfig()
      * @param  Mage_Catalog_Model_Product      $product
-     * @return array
+     * @return array<string, mixed>
      * @throws Mage_Core_Model_Store_Exception
      *
      * @see Mage_ConfigurableSwatches_Block_Catalog_Product_List_Price::getJsonConfig()

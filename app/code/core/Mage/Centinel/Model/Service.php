@@ -345,7 +345,7 @@ class Mage_Centinel_Model_Service extends Varien_Object
     /**
      * Return data for start authentication (redirect customer to bank page)
      *
-     * @return array
+     * @return array<string, mixed>
      */
     public function getAuthenticateStartData()
     {

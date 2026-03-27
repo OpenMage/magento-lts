@@ -604,7 +604,7 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
      * Retrieve Original image size as array
      * 0 - width, 1 - height
      *
-     * @return array
+     * @return array<int, null|int>
      */
     public function getOriginalSizeArray()
     {

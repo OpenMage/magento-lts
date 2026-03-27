@@ -164,9 +164,9 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      *   group => array(ids)
      * )
      *
-     * @param  int   $parentId
-     * @param  bool  $required
-     * @return array
+     * @param  int                                $parentId
+     * @param  bool                               $required
+     * @return array<int, array<int>>|array<void>
      */
     public function getChildrenIds($parentId, $required = true)
     {
@@ -176,8 +176,8 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
     /**
      * Retrieve parent ids array by required child
      *
-     * @param  array|int $childId
-     * @return array
+     * @param  array|int              $childId
+     * @return array<int>|array<void>
      */
     public function getParentIdsByChild($childId)
     {
@@ -584,7 +584,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      * created from this product
      *
      * @param  Mage_Catalog_Model_Product $product
-     * @return array
+     * @return array<string, mixed>
      */
     public function getOrderOptions($product = null)
     {
@@ -943,9 +943,9 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
     /**
      * Prepare selected options for product
      *
-     * @param  Mage_Catalog_Model_Product $product
-     * @param  Varien_Object              $buyRequest
-     * @return array
+     * @param  Mage_Catalog_Model_Product          $product
+     * @param  Varien_Object                       $buyRequest
+     * @return array<string, string[]>|array<void>
      */
     public function processBuyRequest($product, $buyRequest)
     {

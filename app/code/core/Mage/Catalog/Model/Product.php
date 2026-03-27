@@ -1715,7 +1715,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     /**
      * Returns array with dates for custom design
      *
-     * @return array
+     * @return array<string, mixed>
      */
     public function getCustomDesignDate()
     {

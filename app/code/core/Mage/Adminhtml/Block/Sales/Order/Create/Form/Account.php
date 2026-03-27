@@ -97,9 +97,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form_Account extends Mage_Adminhtm
     }
 
     /**
-     * Return Form Elements values
-     *
-     * @return array
+     * @inheritDoc
      */
     public function getFormValues()
     {

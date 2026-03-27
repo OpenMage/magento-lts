@@ -30,7 +30,7 @@ class Mage_Sales_Model_Resource_Order_Address extends Mage_Sales_Model_Resource_
     /**
      * Return configuration for all attributes
      *
-     * @return array
+     * @return array<string, string>
      */
     public function getAllAttributes()
     {

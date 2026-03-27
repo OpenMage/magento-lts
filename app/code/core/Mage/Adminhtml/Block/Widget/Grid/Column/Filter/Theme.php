@@ -85,9 +85,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Theme extends Mage_Adminhtm
     }
 
     /**
-     * Retrieve filter condition for collection
-     *
-     * @return mixed
+     * @inheritDoc
      */
     public function getCondition()
     {

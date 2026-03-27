@@ -102,8 +102,8 @@ class Mage_Wishlist_Model_Resource_Item_Option_Collection extends Mage_Core_Mode
     /**
      * Get all option for item
      *
-     * @param  mixed $item
-     * @return array
+     * @param  mixed                      $item
+     * @return Mage_Core_Model_Abstract[]
      */
     public function getOptionsByItem($item)
     {
@@ -129,7 +129,7 @@ class Mage_Wishlist_Model_Resource_Item_Option_Collection extends Mage_Core_Mode
      * Get all option for item
      *
      * @param  int|Mage_Catalog_Model_Product $product
-     * @return array
+     * @return Mage_Core_Model_Abstract[]
      */
     public function getOptionsByProduct($product)
     {

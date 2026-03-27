@@ -37,7 +37,7 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_View_Items extends Mage_Adminh
     /**
      * Retrieve order totals block settings
      *
-     * @return array
+     * @return array<string, string>
      */
     public function getOrderTotalData()
     {

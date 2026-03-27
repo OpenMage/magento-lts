@@ -417,6 +417,7 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
     /**
      * Save import data batch
      *
+     * @param  array<int, mixed[]> $data
      * @return $this
      */
     protected function _saveImportData(array $data)

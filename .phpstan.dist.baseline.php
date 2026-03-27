@@ -3004,12 +3004,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/CatalogRule/Model/Resource/Rule.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc tag @var with type Varien_Db_Adapter_Interface is not subtype of type Magento_Db_Adapter_Pdo_Mysql.',
-	'identifier' => 'varTag.type',
-	'count' => 2,
-	'path' => __DIR__ . '/app/code/core/Mage/CatalogRule/Model/Resource/Rule.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 1,
@@ -7445,8 +7439,8 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Usa/Model/Shipping/Carrier/Ups.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Parameter #2 $value of method SimpleXMLElement::addChild() expects string|null, float given.',
-	'identifier' => 'argument.type',
+	'rawMessage' => 'Parameter &$costArr by-ref type of method Mage_Usa_Model_Shipping_Carrier_Ups::processShippingRestRateForItem() expects array<float|string>, array given.',
+	'identifier' => 'parameterByRef.type',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Usa/Model/Shipping/Carrier/Ups.php',
 ];

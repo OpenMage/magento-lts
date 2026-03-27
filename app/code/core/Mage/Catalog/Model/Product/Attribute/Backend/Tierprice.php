@@ -27,8 +27,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Tierprice extends Mage_Catalo
     /**
      * Add price qty to unique fields
      *
-     * @param  array $objectArray
-     * @return array
+     * @inheritDoc
      */
     protected function _getAdditionalUniqueFields($objectArray)
     {

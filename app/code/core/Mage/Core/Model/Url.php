@@ -1086,6 +1086,7 @@ class Mage_Core_Model_Url extends Varien_Object
      *
      * @param string $url
      *
+     * @param  array<string, string> $params
      * @return $this
      */
     protected function _prepareSessionUrlWithParams($url, array $params)

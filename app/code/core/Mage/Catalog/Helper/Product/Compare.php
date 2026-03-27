@@ -372,9 +372,9 @@ class Mage_Catalog_Helper_Product_Compare extends Mage_Core_Helper_Url
     /**
      * Get parameters used for build add product to compare list urls with or without Form Key
      *
-     * @param  Mage_Catalog_Model_Product $product
-     * @param  bool                       $addFormKey
-     * @return array
+     * @param  Mage_Catalog_Model_Product     $product
+     * @param  bool                           $addFormKey
+     * @return array<string, null|int|string>
      */
     protected function _getUrlCustomParams($product, $addFormKey = true, $url = null)
     {

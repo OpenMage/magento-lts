@@ -42,7 +42,8 @@ class Mage_Catalog_Model_Api2_Product_Rest_Admin_V1 extends Mage_Catalog_Model_A
     /**
      * Remove specified keys from associative or indexed array
      *
-     * @param  bool  $dropOrigKeys if true - return array as indexed array
+     * @param  string[] $keys
+     * @param  bool     $dropOrigKeys if true - return array as indexed array
      * @return array
      */
     protected function _filterOutArrayKeys(array $array, array $keys, $dropOrigKeys = false)

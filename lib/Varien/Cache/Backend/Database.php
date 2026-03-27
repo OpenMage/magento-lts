@@ -511,7 +511,7 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
      * - infinite_lifetime (is infinite lifetime can work with this backend)
      * - get_list (is it possible to get the list of cache ids and the complete list of tags)
      *
-     * @return array associative of with capabilities
+     * @return array<string, bool> associative of with capabilities
      */
     public function getCapabilities()
     {

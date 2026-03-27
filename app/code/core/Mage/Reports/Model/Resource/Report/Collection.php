@@ -166,7 +166,7 @@ class Mage_Reports_Model_Resource_Report_Collection extends Varien_Data_Collecti
     /**
      * Return date periods
      *
-     * @return array
+     * @return array<string, string>
      */
     public function getPeriods()
     {

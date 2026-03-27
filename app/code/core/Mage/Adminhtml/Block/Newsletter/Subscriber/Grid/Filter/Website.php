@@ -46,7 +46,7 @@ class Mage_Adminhtml_Block_Newsletter_Subscriber_Grid_Filter_Website extends Mag
     }
 
     /**
-     * @return null|array
+     * @inheritDoc
      * @throws Mage_Core_Exception
      */
     public function getCondition()

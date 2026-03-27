@@ -178,7 +178,7 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
     }
 
     /**
-     * @return array
+     * @return array<string, string>
      */
     public function getVerificationRegEx()
     {

@@ -28,6 +28,7 @@ use Rector\Renaming\Rector as Renaming;
 use Rector\Strict\Rector as Strict;
 use Rector\Transform\Rector as Transform;
 use Rector\TypeDeclaration\Rector as TypeDeclaration;
+use Rector\TypeDeclarationDocblocks\Rector as TypeDeclarationDocblocks;
 
 try {
     return RectorConfig::configure()
@@ -40,12 +41,43 @@ try {
         ->withPhpSets(
             php81: true,
         )
+        ->withPreparedSets(
+            deadCode: true,
+            codeQuality: true,
+            codingStyle: true,
+            typeDeclarations: false,
+            privatization: true,
+            naming: false,
+            instanceOf: true,
+            earlyReturn: true,
+            strictBooleans: false,
+            carbon: true,
+            rectorPreset: true,
+            phpunitCodeQuality: true,
+            doctrineCodeQuality: false,
+            symfonyCodeQuality: false,
+            symfonyConfigs: false,
+        )
         ->withPaths([
             __DIR__,
         ])
         ->withSkipPath(__DIR__ . '/vendor')
         ->withRules([
             Php85\ArrayDimFetch\ArrayFirstLastRector::class,
+            TypeDeclarationDocblocks\Class_\AddVarArrayDocblockFromDimFetchAssignRector::class,
+            TypeDeclarationDocblocks\Class_\AddReturnArrayDocblockFromDataProviderParamRector::class,
+            TypeDeclarationDocblocks\Class_\ClassMethodArrayDocblockParamFromLocalCallsRector::class,
+            TypeDeclarationDocblocks\Class_\DocblockVarArrayFromGetterReturnRector::class,
+            TypeDeclarationDocblocks\Class_\DocblockVarArrayFromPropertyDefaultsRector::class,
+            TypeDeclarationDocblocks\Class_\DocblockVarFromParamDocblockInConstructorRector::class,
+            TypeDeclarationDocblocks\ClassMethod\AddParamArrayDocblockFromAssignsParamToParamReferenceRector::class,
+            TypeDeclarationDocblocks\ClassMethod\AddParamArrayDocblockFromDataProviderRector::class,
+            TypeDeclarationDocblocks\ClassMethod\AddReturnDocblockForArrayDimAssignedObjectRector::class,
+            TypeDeclarationDocblocks\ClassMethod\AddReturnDocblockForCommonObjectDenominatorRector::class,
+            TypeDeclarationDocblocks\ClassMethod\AddReturnDocblockForDimFetchArrayFromAssignsRector::class,
+            TypeDeclarationDocblocks\ClassMethod\AddReturnDocblockForJsonArrayRector::class,
+            TypeDeclarationDocblocks\ClassMethod\AddReturnDocblockFromMethodCallDocblockRector::class,
+            TypeDeclarationDocblocks\ClassMethod\DocblockReturnArrayFromDirectArrayInstanceRector::class,
         ])
         ->withConfiguredRule(Renaming\ClassConstFetch\RenameClassConstFetchRector::class, Migration\Zend\Measure::renameClassConst())
         ->withConfiguredRule(Renaming\MethodCall\RenameMethodRector::class, Migration\Mage\Admin::renameMethod())
@@ -136,24 +168,7 @@ try {
             PreferPHPUnitThisCallRector::class,
             __DIR__ . '/shell/translations.php',
             __DIR__ . '/tests/unit/Mage/Reports/Model/Resource/Report/CollectionTest.php',
-        ])
-        ->withPreparedSets(
-            deadCode: true,
-            codeQuality: true,
-            codingStyle: true,
-            typeDeclarations: false,
-            privatization: true,
-            naming: false,
-            instanceOf: true,
-            earlyReturn: true,
-            strictBooleans: false,
-            carbon: true,
-            rectorPreset: true,
-            phpunitCodeQuality: true,
-            doctrineCodeQuality: false,
-            symfonyCodeQuality: false,
-            symfonyConfigs: false,
-        );
+        ]);
 } catch (InvalidConfigurationException $exception) {
     echo $exception->getMessage();
     exit(1);

@@ -250,7 +250,7 @@ class Mage_Shipping_Model_Carrier_Tablerate extends Mage_Shipping_Model_Carrier_
     /**
      * Get allowed shipping methods
      *
-     * @return array
+     * @return array<string, bool|string>
      */
     public function getAllowedMethods()
     {

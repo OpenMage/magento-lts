@@ -152,6 +152,7 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
 
     /**
      * Add special attributes
+     * @param array<string, mixed[]|string> $attributes
      */
     protected function _addSpecialAttributes(array &$attributes)
     {

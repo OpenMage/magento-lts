@@ -504,7 +504,7 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
     /**
      * Get list of process mode options
      *
-     * @return array
+     * @return array<string, string>
      */
     public function getModesOptions()
     {
@@ -517,7 +517,7 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
     /**
      * Get list of process status options
      *
-     * @return array
+     * @return array<string, string>
      */
     public function getStatusesOptions()
     {
@@ -531,7 +531,7 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
     /**
      * Get list of "Update Required" options
      *
-     * @return array
+     * @return array<int, string>
      */
     public function getUpdateRequiredOptions()
     {

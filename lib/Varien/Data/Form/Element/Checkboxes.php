@@ -31,7 +31,7 @@ class Varien_Data_Form_Element_Checkboxes extends Varien_Data_Form_Element_Abstr
     /**
      * Retrieve allow attributes
      *
-     * @return array
+     * @return array<int, string>
      */
     public function getHtmlAttributes()
     {

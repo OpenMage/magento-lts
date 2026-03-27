@@ -1114,8 +1114,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
      *
      * Update transaction info if there is one placing transaction only
      *
-     * @param  string $transactionId
-     * @return array
+     * @inheritDoc
      */
     public function fetchTransactionInfo(Mage_Payment_Model_Info $payment, $transactionId)
     {
@@ -1510,6 +1509,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
      *
      * @param  string                                          $transactionId
      * @param  string                                          $transactionType
+     * @param  array<string, int>|array<string, mixed>         $transactionDetails
      * @return null|Mage_Sales_Model_Order_Payment_Transaction
      */
     protected function _addTransaction(
