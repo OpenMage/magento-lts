@@ -190,9 +190,9 @@ class Mage_Catalog_Model_Product_Option_Api extends Mage_Catalog_Model_Api_Resou
     /**
      * Get full information about custom option in product
      *
-     * @param  int|string      $optionId
-     * @param  null|int|string $store
-     * @return array
+     * @param  int|string           $optionId
+     * @param  null|int|string      $store
+     * @return array<string, mixed>
      */
     public function info($optionId, $store = null)
     {

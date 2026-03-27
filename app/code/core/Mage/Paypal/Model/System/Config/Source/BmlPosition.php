@@ -17,7 +17,7 @@ class Mage_Paypal_Model_System_Config_Source_BmlPosition
     /**
      * Bml positions source getter for Home Page
      *
-     * @return array
+     * @return array<int, string>
      */
     public function getBmlPositionsHP()
     {
@@ -30,7 +30,7 @@ class Mage_Paypal_Model_System_Config_Source_BmlPosition
     /**
      * Bml positions source getter for Catalog Category Page
      *
-     * @return array
+     * @return array<int, string>
      */
     public function getBmlPositionsCCP()
     {
@@ -43,7 +43,7 @@ class Mage_Paypal_Model_System_Config_Source_BmlPosition
     /**
      * Bml positions source getter for Catalog Product Page
      *
-     * @return array
+     * @return array<int, string>
      */
     public function getBmlPositionsCPP()
     {
@@ -56,7 +56,7 @@ class Mage_Paypal_Model_System_Config_Source_BmlPosition
     /**
      * Bml positions source getter for Checkout Cart Page
      *
-     * @return array
+     * @return array<int, string>
      */
     public function getBmlPositionsCheckout()
     {

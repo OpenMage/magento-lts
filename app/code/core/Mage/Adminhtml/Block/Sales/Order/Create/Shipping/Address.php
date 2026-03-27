@@ -82,9 +82,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Shipping_Address extends Mage_Admi
     }
 
     /**
-     * Return Form Elements values
-     *
-     * @return array
+     * @inheritDoc
      */
     public function getFormValues()
     {

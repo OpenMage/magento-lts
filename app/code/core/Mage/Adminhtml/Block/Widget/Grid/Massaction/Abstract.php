@@ -7,8 +7,6 @@
  * @package    Mage_Adminhtml
  */
 
-use Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract as MassAction;
-
 /**
  * Grid widget massaction block
  *
@@ -354,6 +352,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
 
     /**
      * Group items for optgroups
+     * @return array<string, mixed[]>
      */
     public function getGroupedItems(): array
     {

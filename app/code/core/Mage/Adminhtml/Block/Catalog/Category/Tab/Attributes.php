@@ -150,7 +150,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Tab_Attributes extends Mage_Adminhtm
     /**
      * Retrieve Additional Element Types
      *
-     * @return array
+     * @return array<string, string>
      */
     protected function _getAdditionalElementTypes()
     {

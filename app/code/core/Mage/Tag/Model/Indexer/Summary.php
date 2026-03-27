@@ -81,7 +81,7 @@ class Mage_Tag_Model_Indexer_Summary extends Mage_Index_Model_Indexer_Abstract
     /**
      * Retrieve attribute list that has an effect on tags
      *
-     * @return array
+     * @return array<int, string>
      */
     protected function _getProductAttributesDependOn()
     {

@@ -266,10 +266,10 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
     }
 
     /**
-     * Fetch transaction info
+     * Fetch transaction details info
      *
-     * @param  string $transactionId
-     * @return array
+     * @param  string                           $transactionId
+     * @return array<string, mixed>|array<void>
      */
     public function fetchTransactionInfo(Mage_Payment_Model_Info $payment, $transactionId)
     {

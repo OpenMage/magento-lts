@@ -79,7 +79,7 @@ final class DataTest extends OpenMageTest
         try {
             self::$subject->prepareIntervalsCollection($collection, $from, $to, $period);
             self::assertGreaterThanOrEqual(0, $collection->count());
-        } catch (\Zend_Date_Exception $zendDateException) {
+        } catch (Zend_Date_Exception $zendDateException) {
             self::assertSame($expectedResult, $zendDateException->getMessage());
         }
     }

@@ -1,5 +1,7 @@
 <?php
 
+use PDO\MYSQL;
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -404,7 +406,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
             // PHP 8.5 compatibility: Check for the new PDO\MYSQL namespace
             // In PHP 8.5+, MySQL-specific constants may be moved to the PDO\MYSQL namespace
             if (class_exists('PDO\\MYSQL')) {
-                $this->_connection->setAttribute(\PDO\MYSQL::ATTR_USE_BUFFERED_QUERY, true);
+                $this->_connection->setAttribute(MYSQL::ATTR_USE_BUFFERED_QUERY, true);
             } else {
                 $this->_connection->setAttribute(PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, true);
             }
@@ -491,7 +493,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
     {
         if (is_string($sql) && $this->getTransactionLevel() > 0) {
             $startSql = strtolower(substr(ltrim($sql), 0, 3));
-            if (in_array($startSql, $this->_ddlRoutines)
+            if (in_array($startSql, $this->_ddlRoutines, true)
                 && (preg_match($this->_tempRoutines, $sql) !== 1)
             ) {
                 throw new Varien_Db_Exception(Varien_Db_Adapter_Interface::ERROR_DDL_MESSAGE);
@@ -522,7 +524,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
             // Detect implicit rollback - MySQL SQLSTATE: ER_LOCK_WAIT_TIMEOUT or ER_LOCK_DEADLOCK
             if ($this->_transactionLevel > 0
                 && $exception->getPrevious() && isset($exception->getPrevious()->errorInfo[1])
-                && in_array($exception->getPrevious()->errorInfo[1], [1205, 1213])
+                && in_array($exception->getPrevious()->errorInfo[1], [1205, 1213], true)
             ) {
                 if ($this->_debug) {
                     $this->_debugWriteToFile('IMPLICIT ROLLBACK AFTER SQLSTATE: ' . $exception->getPrevious()->errorInfo[1]);
@@ -706,8 +708,8 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
     /**
      * Run Multi Query
      *
-     * @param  string               $sql
-     * @return array
+     * @param  string                        $sql
+     * @return Zend_Db_Statement_Interface[]
      * @throws Zend_Cache_Exception
      */
     // phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
@@ -1823,7 +1825,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
              */
             $affected = ['tinyint', 'smallint', 'mediumint', 'int', 'bigint'];
             foreach ($ddl as $key => $columnData) {
-                if (($columnData['DEFAULT'] === '') && (in_array($columnData['DATA_TYPE'], $affected))) {
+                if (($columnData['DEFAULT'] === '') && (in_array($columnData['DATA_TYPE'], $affected, true))) {
                     $ddl[$key]['DEFAULT'] = null;
                 }
             }
@@ -1838,8 +1840,8 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      * Format described column to definition, ready to be added to ddl table.
      * Return array with keys: name, type, length, options, comment
      *
-     * @param  array $columnData
-     * @return array
+     * @param  array                $columnData
+     * @return array<string, mixed>
      */
     public function getColumnCreateByDescribe($columnData)
     {
@@ -2229,6 +2231,8 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      * Insert array to table based on columns definition
      *
      * @param  string            $table
+     * @param  int[]|string[]    $columns
+     * @param  array<int, list>  $data
      * @return int
      * @throws Zend_Db_Exception
      */
@@ -2924,7 +2928,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
                 $result = $this->raw_query($query);
                 $cycle  = false;
             } catch (Exception $exception) {
-                if (in_array(strtolower($indexType), ['primary', 'unique'])) {
+                if (in_array(strtolower($indexType), ['primary', 'unique'], true)) {
                     $match = [];
                     if (preg_match('#SQLSTATE\[23000\]: [^:]+: 1062[^\']+\'([\d\-\.]+)\'#', $exception->getMessage(), $match)) {
                         $ids = explode('-', $match[1]);
@@ -3137,6 +3141,9 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
         $query = '';
         if (is_array($condition)) {
             $key = key(array_intersect_key($condition, $conditionKeyMap));
+            if (is_null($key)) {
+                $key = '';
+            }
 
             if (isset($condition['from']) || isset($condition['to'])) {
                 if (isset($condition['from'])) {
@@ -3763,7 +3770,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      *
      * @param  string                   $rangeField
      * @param  int                      $stepCount
-     * @return array
+     * @return Varien_Db_Select[]
      * @throws Varien_Db_Exception
      * @throws Zend_Db_Select_Exception
      */
@@ -4033,7 +4040,9 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
     /**
      * Return insert sql query
      *
-     * @param  string $tableName
+     * @param  string         $tableName
+     * @param  int[]|string[] $columns
+     * @param  string[]       $values
      * @return string
      */
     protected function _getInsertSqlQuery($tableName, array $columns, array $values)

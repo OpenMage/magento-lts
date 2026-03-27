@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Sales\Model\Quote;
 
-use Mage;
+use ReflectionClass;
 use Mage_Customer_Model_Group;
 use Mage_Sales_Model_Quote;
 use Mage_Sales_Model_Quote_Address;
@@ -46,7 +46,7 @@ final class AddressTest extends OpenMageTest
 
         // Trigger the _populateBeforeSaveData method via _beforeSave
         // This is normally called when saving the address
-        $reflectionClass = new \ReflectionClass($address);
+        $reflectionClass = new ReflectionClass($address);
         $method = $reflectionClass->getMethod('_populateBeforeSaveData');
         $method->invoke($address);
 
@@ -79,7 +79,7 @@ final class AddressTest extends OpenMageTest
         // DO NOT set same_as_billing - let the default logic handle it
 
         // Trigger the _populateBeforeSaveData method
-        $reflectionClass = new \ReflectionClass($address);
+        $reflectionClass = new ReflectionClass($address);
         $method = $reflectionClass->getMethod('_populateBeforeSaveData');
         $method->invoke($address);
 
@@ -113,7 +113,7 @@ final class AddressTest extends OpenMageTest
         $address->setSameAsBilling(1);
 
         // Trigger the _populateBeforeSaveData method
-        $reflectionClass = new \ReflectionClass($address);
+        $reflectionClass = new ReflectionClass($address);
         $method = $reflectionClass->getMethod('_populateBeforeSaveData');
         $method->invoke($address);
 
@@ -146,7 +146,7 @@ final class AddressTest extends OpenMageTest
         $address->setSameAsBilling(0);
 
         // Trigger the _populateBeforeSaveData method
-        $reflectionClass = new \ReflectionClass($address);
+        $reflectionClass = new ReflectionClass($address);
         $method = $reflectionClass->getMethod('_populateBeforeSaveData');
         $method->invoke($address);
 

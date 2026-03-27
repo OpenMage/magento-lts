@@ -20,9 +20,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Tier extends Mage_Admi
     }
 
     /**
-     * Retrieve list of initial customer groups
-     *
-     * @return array
+     * @inheritDoc
+     * @return array<int, string>
      */
     protected function _getInitialCustomerGroups()
     {

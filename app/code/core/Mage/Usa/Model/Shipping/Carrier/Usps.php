@@ -482,7 +482,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
                                 $serviceCodeMethod = $this->getCode('method_to_code', $serviceName);
                                 $serviceCode = $serviceCodeMethod ?: (string) $postage->attributes()->CLASSID;
                                 $serviceCodeToActualNameMap[$serviceCode] = $serviceName;
-                                if (in_array($serviceCode, $allowedMethods)) {
+                                if (in_array($serviceCode, $allowedMethods, true)) {
                                     $costArr[$serviceCode] = (string) $postage->Rate;
                                     $priceArr[$serviceCode] = $this->getMethodPrice(
                                         (float) $postage->Rate,
@@ -504,7 +504,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
                             $serviceName = $this->_filterServiceName((string) $service->SvcDescription);
                             $serviceCode = 'INT_' . $service->attributes()->ID;
                             $serviceCodeToActualNameMap[$serviceCode] = $serviceName;
-                            if (in_array($serviceCode, $allowedMethods)) {
+                            if (in_array($serviceCode, $allowedMethods, true)) {
                                 $costArr[$serviceCode] = (string) $service->Postage;
                                 $priceArr[$serviceCode] = $this->getMethodPrice(
                                     (float) $service->Postage,
@@ -1477,8 +1477,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
     /**
      * Convert decimal weight into pound-ounces format
      *
-     * @param  float $weightInPounds
-     * @return array
+     * @param  float                 $weightInPounds
+     * @return array<int, float|int>
      */
     protected function _convertPoundOunces($weightInPounds)
     {
@@ -1682,8 +1682,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
             $itemDetail->addChild('Quantity', (string) $ceiledQty);
             $itemDetail->addChild('Value', (string) ($item->getCustomsValue() * $item->getQty()));
             [$individualPoundsWeight, $individualOuncesWeight] = $this->_convertPoundOunces($individualItemWeight);
-            $itemDetail->addChild('NetPounds', $individualPoundsWeight);
-            $itemDetail->addChild('NetOunces', $individualOuncesWeight);
+            $itemDetail->addChild('NetPounds', (string) $individualPoundsWeight);
+            $itemDetail->addChild('NetOunces', (string) $individualOuncesWeight);
             $itemDetail->addChild('HSTariffNumber', '0');
             $itemDetail->addChild('CountryOfOrigin', $countryOfManufacture);
 
@@ -1699,8 +1699,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
             [$packagePoundsWeight, $packageOuncesWeight] = $this->_convertPoundOunces($packageWeight);
         }
 
-        $xml->addChild('GrossPounds', $packagePoundsWeight);
-        $xml->addChild('GrossOunces', $packageOuncesWeight);
+        $xml->addChild('GrossPounds', (string) $packagePoundsWeight);
+        $xml->addChild('GrossOunces', (string) $packageOuncesWeight);
         if ($packageParams->getContentType() == 'OTHER' && $packageParams->getContentTypeOther() != null) {
             $xml->addChild('ContentType', $packageParams->getContentType());
             $xml->addChild('ContentTypeOther ', $packageParams->getContentTypeOther());
@@ -1876,9 +1876,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
     }
 
     /**
-     * Return content types of package
-     *
-     * @return array
+     * @inheritDoc
      */
     public function getContentTypes(Varien_Object $params)
     {
@@ -1904,9 +1902,9 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
     /**
      * Parse zip from string to zip5-zip4
      *
-     * @param  string $zipString
-     * @param  bool   $returnFull
-     * @return array
+     * @param  string             $zipString
+     * @param  bool               $returnFull
+     * @return array<int, string>
      */
     protected function _parseZip($zipString, $returnFull = false)
     {
@@ -1956,13 +1954,5 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
     public function getMethodValue($label)
     {
         return $this->_methodsMapper($label, false);
-    }
-
-    /**
-     * @deprecated
-     */
-    protected function setTrackingReqeust()
-    {
-        $this->setTrackingRequest();
     }
 }

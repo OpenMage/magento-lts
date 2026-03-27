@@ -40,7 +40,7 @@ class Mage_Bundle_Model_CatalogIndex_Data_Bundle extends Mage_CatalogIndex_Model
     /**
      * Get child link table and field settings
      *
-     * @return array
+     * @return array<string, string>
      */
     protected function _getLinkSettings()
     {

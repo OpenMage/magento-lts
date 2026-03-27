@@ -727,7 +727,7 @@ class Mage_Core_Model_Locale
      * Functions returns array with price formatting info for js function
      * formatCurrency in js/varien/js.js
      *
-     * @return array
+     * @return array<string, mixed>
      * @throws Zend_Locale_Exception
      */
     public function getJsPriceFormat()

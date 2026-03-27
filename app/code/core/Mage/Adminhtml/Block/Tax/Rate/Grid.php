@@ -14,6 +14,8 @@
  */
 class Mage_Adminhtml_Block_Tax_Rate_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_tax_rate_grid';
+
     public function __construct()
     {
         parent::__construct();
@@ -35,6 +37,9 @@ class Mage_Adminhtml_Block_Tax_Rate_Grid extends Mage_Adminhtml_Block_Widget_Gri
         return parent::_prepareCollection();
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _setCollectionOrder($column)
     {
         $collection = $this->getCollection();

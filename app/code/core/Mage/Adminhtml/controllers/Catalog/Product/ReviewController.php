@@ -369,7 +369,7 @@ class Mage_Adminhtml_Catalog_Product_ReviewController extends Mage_Adminhtml_Con
     /**
      * @inheritDoc
      */
-    protected function _isAllowed()
+    protected function _isAllowed(): bool
     {
         $action = strtolower($this->getRequest()->getActionName());
         $aclPath = match ($action) {

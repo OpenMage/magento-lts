@@ -125,7 +125,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Main_Layout extends M
      * - Products (product types depend on configuration)
      * - Generic (predefined) pages (all pages and single layout update)
      *
-     * @return array
+     * @return array<int, array<string, array<string, string|string[]>[]|string|string[]>>
      */
     protected function _getDisplayOnOptions()
     {

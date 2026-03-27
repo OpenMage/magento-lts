@@ -59,9 +59,7 @@ class Mage_Adminhtml_Block_Sales_Order_Address_Form extends Mage_Adminhtml_Block
     }
 
     /**
-     * Return Form Elements values
-     *
-     * @return array
+     * @inheritDoc
      */
     public function getFormValues()
     {

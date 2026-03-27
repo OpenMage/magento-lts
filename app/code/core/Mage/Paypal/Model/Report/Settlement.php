@@ -394,7 +394,7 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
             }
 
             // avoid duplicates
-            if (in_array(serialize($cfg), $uniques)) {
+            if (in_array(serialize($cfg), $uniques, true)) {
                 continue;
             }
 

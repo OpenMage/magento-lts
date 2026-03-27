@@ -46,8 +46,9 @@ class Mage_CatalogIndex_Model_Resource_Indexer_Abstract extends Mage_Core_Model_
     }
 
     /**
-     * @param int $storeId
-     * @param int $productId
+     * @param array<int, mixed[]> $data
+     * @param int                 $storeId
+     * @param int                 $productId
      */
     public function saveIndices(array $data, $storeId, $productId)
     {

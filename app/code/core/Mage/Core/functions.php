@@ -1,5 +1,7 @@
 <?php
 
+use Monolog\Level;
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -145,6 +147,7 @@ function mageCoreErrorHandler($errno, $errstr, $errfile, $errline)
         2048 => $errorMessage .= 'Strict Notice',
         E_RECOVERABLE_ERROR => $errorMessage .= 'Recoverable Error',
         E_DEPRECATED => $errorMessage .= 'Deprecated functionality',
+        E_USER_DEPRECATED => $errorMessage .= 'User deprecated functionality',
         default => $errorMessage .= "Unknown error ($errno)",
     };
 
@@ -153,7 +156,7 @@ function mageCoreErrorHandler($errno, $errstr, $errfile, $errline)
         throw new Exception($errorMessage);
     }
 
-    Mage::log($errorMessage, \Monolog\Level::Error);
+    Mage::log($errorMessage, Level::Error);
     return null;
 }
 

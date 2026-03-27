@@ -159,7 +159,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
                 continue;
             }
 
-            if (in_array($attrData, $clearImages)) {
+            if (in_array($attrData, $clearImages, true)) {
                 $object->setData($mediaAttrCode, 'no_selection');
             }
         }
@@ -307,7 +307,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
         Mage::dispatchEvent('catalog_product_media_add_image', ['product' => $product, 'image' => $file]);
 
         $pathinfo = pathinfo($file);
-        if (!isset($pathinfo['extension']) || !in_array(strtolower($pathinfo['extension']), Varien_Io_File::ALLOWED_IMAGES_EXTENSIONS)) {
+        if (!isset($pathinfo['extension']) || !in_array(strtolower($pathinfo['extension']), Varien_Io_File::ALLOWED_IMAGES_EXTENSIONS, true)) {
             Mage::throwException(Mage::helper('catalog')->__('Invalid image file type.'));
         }
 
@@ -382,11 +382,11 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
      * Add images with different media attributes.
      * Image will be added only once if the same image is used with different media attributes
      *
-     * @param  array               $fileAndAttributesArray array of arrays of filename and corresponding media attribute
-     * @param  string              $filePath               path, where image cand be found
-     * @param  bool                $move                   if true, it will move source file
-     * @param  bool                $exclude                mark image as disabled in product page view
-     * @return array               array of parallel arrays with original and renamed files
+     * @param  array                  $fileAndAttributesArray array of arrays of filename and corresponding media attribute
+     * @param  string                 $filePath               path, where image cand be found
+     * @param  bool                   $move                   if true, it will move source file
+     * @param  bool                   $exclude                mark image as disabled in product page view
+     * @return array<string, mixed[]> array of parallel arrays with original and renamed files
      * @throws Mage_Core_Exception
      */
     public function addImagesWithDifferentMediaAttributes(
@@ -517,11 +517,11 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
 
         if (is_array($mediaAttribute)) {
             foreach ($mediaAttribute as $attribute) {
-                if (in_array($attribute, $mediaAttributeCodes)) {
+                if (in_array($attribute, $mediaAttributeCodes, true)) {
                     $product->setData($attribute, null);
                 }
             }
-        } elseif (in_array($mediaAttribute, $mediaAttributeCodes)) {
+        } elseif (in_array($mediaAttribute, $mediaAttributeCodes, true)) {
             $product->setData($mediaAttribute, null);
         }
 
@@ -541,11 +541,11 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
 
         if (is_array($mediaAttribute)) {
             foreach ($mediaAttribute as $attribute) {
-                if (in_array($attribute, $mediaAttributeCodes)) {
+                if (in_array($attribute, $mediaAttributeCodes, true)) {
                     $product->setData($attribute, $value);
                 }
             }
-        } elseif (in_array($mediaAttribute, $mediaAttributeCodes)) {
+        } elseif (in_array($mediaAttribute, $mediaAttributeCodes, true)) {
             $product->setData($mediaAttribute, $value);
         }
 

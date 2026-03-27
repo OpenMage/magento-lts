@@ -77,7 +77,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Select extends Mage_Adminht
     }
 
     /**
-     * @return null|array
+     * @inheritDoc
      */
     public function getCondition()
     {

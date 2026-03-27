@@ -15,7 +15,7 @@ class Mage_Tag_Helper_Data extends Mage_Core_Helper_Abstract
     protected $_moduleName = 'Mage_Tag';
 
     /**
-     * @return array
+     * @return array<int, string>
      */
     public function getStatusesArray()
     {
@@ -27,7 +27,7 @@ class Mage_Tag_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * @return array
+     * @return array<int, array<string, int|string>>
      */
     public function getStatusesOptionsArray()
     {

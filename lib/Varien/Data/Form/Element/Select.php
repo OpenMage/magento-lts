@@ -115,7 +115,7 @@ class Varien_Data_Form_Element_Select extends Varien_Data_Form_Element_Abstract
     }
 
     /**
-     * @return array
+     * @return array<int, string>
      */
     public function getHtmlAttributes()
     {

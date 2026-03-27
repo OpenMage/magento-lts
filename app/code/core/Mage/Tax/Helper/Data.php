@@ -408,21 +408,6 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * Get all tax rates JSON for all product tax classes
-     *
-     * array(
-     *      value_{$productTaxClassId} => $rate
-     * )
-     * @return string
-     * @throws Mage_Core_Exception
-     * @deprecated after 1.4 - please use getAllRatesByProductClass
-     */
-    public function getTaxRatesByProductClass()
-    {
-        return $this->_getAllRatesByProductClass();
-    }
-
-    /**
      * Get all tax rates JSON for all product tax classes of specific store
      *
      * array(
@@ -1108,8 +1093,8 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
      *  )
      * )
      *
-     * @param  Mage_Sales_Model_Order $source
-     * @return array
+     * @param  Mage_Sales_Model_Order           $source
+     * @return array<int, array<string, mixed>>
      */
     public function getShippingTax($source)
     {

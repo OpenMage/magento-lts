@@ -749,7 +749,7 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
     /**
      * Get is_anchor category attribute information
      *
-     * @return array array('id' => $id, 'table'=>$table)
+     * @return array<string, mixed> array('id' => $id, 'table'=>$table)
      */
     protected function _getAnchorAttributeInfo()
     {
@@ -764,7 +764,7 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
     /**
      * Get visibility product attribute information
      *
-     * @return array array('id' => $id, 'table'=>$table)
+     * @return array<string, mixed> array('id' => $id, 'table'=>$table)
      */
     protected function _getVisibilityAttributeInfo()
     {
@@ -779,7 +779,7 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
     /**
      * Get status product attribute information
      *
-     * @return array array('id' => $id, 'table'=>$table)
+     * @return array<string, mixed> array('id' => $id, 'table'=>$table)
      */
     protected function _getStatusAttributeInfo()
     {

@@ -1,12 +1,13 @@
 <?php
 
+use Monolog\Level;
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
  * @license    Open Software License (OSL 3.0)
  * @package    Mage_Usa
  */
-
 /**
  * UPS shipping implementation
  *
@@ -864,7 +865,7 @@ XMLRequest;
 
                 foreach ($arr as $shipElement) {
                     $code = (string) $shipElement->Service->Code;
-                    if (in_array($code, $allowedMethods)) {
+                    if (in_array($code, $allowedMethods, true)) {
                         if ($negotiatedActive) {
                             $cost = $shipElement->NegotiatedRates->NetSummaryCharges->GrandTotal->MonetaryValue;
                         } else {
@@ -875,7 +876,7 @@ XMLRequest;
                         $successConversion = true;
                         $responseCurrencyCode = (string) $shipElement->TotalCharges->CurrencyCode;
                         if ($responseCurrencyCode) {
-                            if (in_array($responseCurrencyCode, $allowedCurrencies)) {
+                            if (in_array($responseCurrencyCode, $allowedCurrencies, true)) {
                                 $cost = (float) $cost * $this->_getBaseCurrencyRate($responseCurrencyCode);
                             } else {
                                 $errorTitle = Mage::helper('directory')->__('Can\'t convert rate from "%s-%s".', $responseCurrencyCode, $this->_request->getPackageCurrency()->getCode());
@@ -1356,7 +1357,7 @@ XMLAuth;
 
         $methods = [];
         foreach ($availableByTypeMethods as $methodCode => $methodData) {
-            if (in_array($methodCode, $allowedMethods)) {
+            if (in_array($methodCode, $allowedMethods, true)) {
                 $methods[$methodCode] = $methodData;
             }
         }
@@ -1551,7 +1552,7 @@ XMLAuth;
         ) {
             $invoiceLineTotalPart = $shipmentPart->addChild('InvoiceLineTotal');
             $invoiceLineTotalPart->addChild('CurrencyCode', $request->getBaseCurrencyCode());
-            $invoiceLineTotalPart->addChild('MonetaryValue', ceil($packageParams->getCustomsValue()));
+            $invoiceLineTotalPart->addChild('MonetaryValue', (string) ceil($packageParams->getCustomsValue()));
         }
 
         $labelPart = $xmlRequest->addChild('LabelSpecification');
@@ -1739,7 +1740,7 @@ XMLAuth;
         } else {
             Mage::log(
                 'Unexpected response shape from UPS REST API /shipments endpoint for .ShipmentResults.PackageResults',
-                \Monolog\Level::Warning,
+                Level::Warning,
             );
             $result->setErrors(Mage::helper('usa')->__('Error reading response from UPS'));
             $this->_debug($debugData);
@@ -2033,7 +2034,7 @@ XMLAuth;
         }
 
         if (isset($response->Response->Error)
-            && in_array($response->Response->Error->ErrorSeverity, ['Hard', 'Transient'])
+            && in_array($response->Response->Error->ErrorSeverity, ['Hard', 'Transient'], true)
         ) {
             $result->setErrors((string) $response->Response->Error->ErrorDescription);
         }
@@ -2069,7 +2070,7 @@ XMLAuth;
             // 07: UPS Worldwide Express
             // 08: UPS Worldwide Expedited
             // 65: UPS Worldwide Saver
-            if (in_array($method, ['07', '08', '65'])) {
+            if (in_array($method, ['07', '08', '65'], true)) {
                 if ($method != '08') {
                     $containerTypes = [
                         '01'   => Mage::helper('usa')->__('UPS Letter Envelope'),
@@ -2094,7 +2095,7 @@ XMLAuth;
             // 03: UPS Ground
             // 02: UPS Second Day Air
             // 01: UPS Next Day Air
-            && (in_array($method, ['03', '02', '01']))) {
+            && (in_array($method, ['03', '02', '01'], true))) {
             // Container types should be the same as for domestic
             $params->setCountryRecipient(self::USA_COUNTRY_ID);
             $containerTypes = $this->_getAllowedContainers($params);
@@ -2135,7 +2136,7 @@ XMLAuth;
     /**
      * Return delivery confirmation types of carrier
      *
-     * @return array
+     * @return array<int, string>
      */
     public function getDeliveryConfirmationTypes(?Varien_Object $params = null)
     {
@@ -2407,6 +2408,10 @@ XMLAuth;
         return $this->setRatePriceData($priceArr, $costArr, $errorTitle);
     }
 
+    /**
+     * @param float[]|string[] $priceArr
+     * @param float[]|string[] $costArr
+     */
     private function setRatePriceData(array $priceArr, array $costArr, string $errorTitle): Mage_Shipping_Model_Rate_Result
     {
         $result = Mage::getModel('shipping/rate_result');
@@ -2445,6 +2450,9 @@ XMLAuth;
 
     /**
      * Processing rate for ship element
+     *
+     * @param float[]|string[] $costArr
+     * @param float[]|string[] $priceArr
      */
     private function processShippingRestRateForItem(
         array $shipElement,
@@ -2455,7 +2463,7 @@ XMLAuth;
         bool $negotiatedActive
     ): void {
         $code = $shipElement['Service']['Code'] ?? '';
-        if (in_array($code, $allowedMethods)) {
+        if (in_array($code, $allowedMethods, true)) {
             //The location of tax information is in a different place
             // depending on whether we are using negotiated rates or not
             if ($negotiatedActive) {
@@ -2492,7 +2500,7 @@ XMLAuth;
             //convert price with Origin country currency code to base currency code
             $successConversion = true;
             if ($responseCurrencyCode) {
-                if (in_array($responseCurrencyCode, $allowedCurrencies)) {
+                if (in_array($responseCurrencyCode, $allowedCurrencies, true)) {
                     $cost = (float) $cost * $this->_getBaseCurrencyRate($responseCurrencyCode);
                 } else {
                     $errorTitle = Mage::helper('usa')->__(
@@ -2536,6 +2544,7 @@ XMLAuth;
 
     /**
      * Setting common request params for Rate Request
+     * @return array<string, mixed>
      */
     // phpcs:ignore Ecg.PHP.PrivateClassMember.PrivateClassMemberError
     private function setQuoteRequestData(Varien_Object $rowRequest): array

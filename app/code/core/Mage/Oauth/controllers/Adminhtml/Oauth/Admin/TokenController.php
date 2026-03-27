@@ -16,6 +16,8 @@
  */
 class Mage_Oauth_Adminhtml_Oauth_Admin_TokenController extends Mage_Adminhtml_Controller_Action
 {
+    public const ADMIN_RESOURCE = 'system/api/oauth_admin_token';
+
     /**
      * Init titles
      *
@@ -145,15 +147,5 @@ class Mage_Oauth_Adminhtml_Oauth_Admin_TokenController extends Mage_Adminhtml_Co
         }
 
         $this->_redirect('*/*/index');
-    }
-
-    /**
-     * @inheritDoc
-     */
-    protected function _isAllowed()
-    {
-        /** @var Mage_Admin_Model_Session $session */
-        $session = Mage::getSingleton('admin/session');
-        return $session->isAllowed('system/api/oauth_admin_token');
     }
 }

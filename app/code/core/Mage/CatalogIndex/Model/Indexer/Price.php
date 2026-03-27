@@ -97,7 +97,7 @@ class Mage_CatalogIndex_Model_Indexer_Price extends Mage_CatalogIndex_Model_Inde
     }
 
     /**
-     * @return string
+     * @inheritDoc
      */
     protected function _getIndexableAttributeConditions()
     {

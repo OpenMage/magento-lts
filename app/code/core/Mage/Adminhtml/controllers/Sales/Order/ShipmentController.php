@@ -663,6 +663,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
     public function massPrintShippingLabelAction()
     {
         $request = $this->getRequest();
+        /** @var string[] $ids */
         $ids = $request->getParam('order_ids');
         $createdFromOrders = !empty($ids);
         $shipments = null;
@@ -670,7 +671,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
         switch ($request->getParam('massaction_prepare_key')) {
             case 'shipment_ids':
                 $ids = $request->getParam('shipment_ids');
-                $ids = array_filter($ids, \intval(...));
+                $ids = array_filter($ids, fn(mixed $o) => (int) $o !== 0);
                 if (!empty($ids)) {
                     $shipments = Mage::getResourceModel('sales/order_shipment_collection')
                         ->addFieldToFilter('entity_id', ['in' => $ids]);
@@ -679,7 +680,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
                 break;
             case 'order_ids':
                 $ids = $request->getParam('order_ids');
-                $ids = array_filter($ids, \intval(...));
+                $ids = array_filter($ids, fn(mixed $o) => (int) $o !== 0);
                 if (!empty($ids)) {
                     $shipments = Mage::getResourceModel('sales/order_shipment_collection')
                         ->setOrderFilter(['in' => $ids]);

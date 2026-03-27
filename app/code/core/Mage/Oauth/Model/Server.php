@@ -687,7 +687,7 @@ class Mage_Oauth_Model_Server
     /**
      * Retrieve array of supported signature methods
      *
-     * @return array
+     * @return array<int, string>
      */
     public static function getSupportedSignatureMethods()
     {

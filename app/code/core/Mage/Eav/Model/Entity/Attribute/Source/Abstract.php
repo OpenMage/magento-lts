@@ -1,12 +1,13 @@
 <?php
 
+use Monolog\Level;
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
  * @license    Open Software License (OSL 3.0)
  * @package    Mage_Eav
  */
-
 /**
  * Entity/Attribute/Model - attribute selection source abstract
  *
@@ -91,7 +92,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Source_Abstract implements Mage_E
         if ($bcWarning) {
             Mage::log(
                 'Mage_Eav_Model_Entity_Attribute_Source_Abstract::getOptionId() no longer accepts option_id as param',
-                \Monolog\Level::Warning,
+                Level::Warning,
             );
         }
 
@@ -113,7 +114,16 @@ abstract class Mage_Eav_Model_Entity_Attribute_Source_Abstract implements Mage_E
     /**
      * Retrieve flat column definition
      *
-     * @return array
+     * @return array<string, array{
+     *     unsigned: bool,
+     *     default: null|string,
+     *     extra: null|string,
+     *     type: string,
+     *     is_null?: bool,
+     *     nullable?: bool,
+     *     comment?: string,
+     *     length?: int
+     * }>|array<void>
      */
     public function getFlatColums()
     {
@@ -123,7 +133,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Source_Abstract implements Mage_E
     /**
      * Retrieve Indexes(s) for Flat
      *
-     * @return array
+     * @return array<string, array{type: string, fields: array<int, string>}>|array<void>
      */
     public function getFlatIndexes()
     {

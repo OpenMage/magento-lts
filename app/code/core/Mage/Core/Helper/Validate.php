@@ -8,9 +8,30 @@ declare(strict_types=1);
  * @license    Open Software License (OSL 3.0)
  * @package    Mage_Validation
  */
-
+use Symfony\Component\Validator\Constraints\Choice;
+use Symfony\Component\Validator\Constraints\Count;
+use Symfony\Component\Validator\Constraints\Date;
+use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\DateTime;
+use Symfony\Component\Validator\Constraints\Email;
+use Symfony\Component\Validator\Constraints\File;
+use Symfony\Component\Validator\Constraints\IdenticalTo;
+use Symfony\Component\Validator\Constraints\Image;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\Regex;
+use Symfony\Component\Validator\Constraints\Range;
+use Symfony\Component\Validator\Constraints\Type;
+use Symfony\Component\Validator\Constraints\Url;
+use Symfony\Component\Validator\Constraints\Callback;
+use Symfony\Component\Validator\Constraints\Luhn;
+use Symfony\Component\Validator\Constraints\CardScheme;
+use Symfony\Component\Validator\Constraints\GreaterThan;
+use Symfony\Component\Validator\Constraints\Hostname;
+use Symfony\Component\Validator\Constraints\Iban;
+use Symfony\Component\Validator\Constraints\Ip;
+use Symfony\Component\Validator\Constraints\Isbn;
+use Symfony\Component\Validator\Constraints\LessThan;
 use Symfony\Component\Validator\Constraint;
-use Symfony\Component\Validator\Constraints;
 use Symfony\Component\Validator\Constraints\GroupSequence;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 use Symfony\Component\Validator\Validation;
@@ -81,7 +102,7 @@ class Mage_Core_Helper_Validate extends Mage_Core_Helper_Abstract
         $validator = self::getValidator();
 
         return $validator->validate($value, [
-            new Constraints\Choice(
+            new Choice(
                 options: $options,
                 choices: $choices,
                 callback: $callback,
@@ -122,7 +143,7 @@ class Mage_Core_Helper_Validate extends Mage_Core_Helper_Abstract
         $validator = self::getValidator();
 
         return $validator->validate($value, [
-            new Constraints\Count(
+            new Count(
                 exactly: $exactly,
                 min: $min,
                 max: $max,
@@ -153,7 +174,7 @@ class Mage_Core_Helper_Validate extends Mage_Core_Helper_Abstract
         $validator = self::getValidator();
 
         $constraints = [];
-        $constraints[] = new Constraints\Date(
+        $constraints[] = new Date(
             options: $options,
             message: $message,
             groups: $groups,
@@ -161,7 +182,7 @@ class Mage_Core_Helper_Validate extends Mage_Core_Helper_Abstract
         );
 
         if (!$empty) {
-            $constraints[] = new Constraints\NotBlank(
+            $constraints[] = new NotBlank(
                 message: $emptyMessage,
             );
         }
@@ -182,7 +203,7 @@ class Mage_Core_Helper_Validate extends Mage_Core_Helper_Abstract
         $validator = self::getValidator();
 
         $constraints = [];
-        $constraints[] = new Constraints\DateTime(
+        $constraints[] = new DateTime(
             format: $format,
             message: $message,
             groups: $groups,
@@ -191,7 +212,7 @@ class Mage_Core_Helper_Validate extends Mage_Core_Helper_Abstract
         );
 
         if (!$empty) {
-            $constraints[] = new Constraints\NotBlank(
+            $constraints[] = new NotBlank(
                 message: $emptyMessage,
             );
         }
@@ -214,10 +235,10 @@ class Mage_Core_Helper_Validate extends Mage_Core_Helper_Abstract
         $validator = self::getValidator();
 
         return $validator->validate($value, [
-            new Constraints\NotBlank(
+            new NotBlank(
                 message: $message,
             ),
-            new Constraints\Email(
+            new Email(
                 options: $options,
                 message: $message,
                 mode: $mode,
@@ -262,7 +283,7 @@ class Mage_Core_Helper_Validate extends Mage_Core_Helper_Abstract
         $validator = self::getValidator();
 
         return $validator->validate(value: $value, constraints: [
-            new Constraints\File(
+            new File(
                 options: $options,
                 maxSize: $maxSize,
                 binaryFormat: $binaryFormat,
@@ -305,7 +326,7 @@ class Mage_Core_Helper_Validate extends Mage_Core_Helper_Abstract
         $validator = self::getValidator();
 
         return $validator->validate($value, [
-            new Constraints\IdenticalTo(
+            new IdenticalTo(
                 value: $compare,
                 propertyPath: $propertyPath,
                 message: $message,
@@ -375,7 +396,7 @@ class Mage_Core_Helper_Validate extends Mage_Core_Helper_Abstract
         $validator = self::getValidator();
 
         return $validator->validate($value, [
-            new Constraints\Image(
+            new Image(
                 options: $options,
                 maxSize: $maxSize,
                 binaryFormat: $binaryFormat,
@@ -452,7 +473,7 @@ class Mage_Core_Helper_Validate extends Mage_Core_Helper_Abstract
         $validator = self::getValidator();
 
         return $validator->validate($value, [
-            new Constraints\Length(
+            new Length(
                 exactly: $exactly,
                 min: $min,
                 max: $max,
@@ -485,7 +506,7 @@ class Mage_Core_Helper_Validate extends Mage_Core_Helper_Abstract
         $validator = self::getValidator();
 
         return $validator->validate($value, [
-            new Constraints\NotBlank(
+            new NotBlank(
                 options: $options,
                 message: $message,
                 allowNull: $allowNull,
@@ -511,16 +532,16 @@ class Mage_Core_Helper_Validate extends Mage_Core_Helper_Abstract
         $validator = self::getValidator();
 
         return $validator->validate($value, [
-            new Constraints\NotBlank(
+            new NotBlank(
                 message: $emptyMessage,
             ),
-            new Constraints\Length(
+            new Length(
                 min: $min,
                 max: $max,
                 minMessage: $minMessage,
                 maxMessage: $maxMessage,
             ),
-            new Constraints\Regex(
+            new Regex(
                 pattern: '/^(?=.*[a-z])(?=.*[0-9]).+$/iu',
                 message: $regexMessage,
             ),
@@ -550,7 +571,7 @@ class Mage_Core_Helper_Validate extends Mage_Core_Helper_Abstract
         $validator = self::getValidator();
 
         return $validator->validate($value, [
-            new Constraints\Range(
+            new Range(
                 options: $options,
                 notInRangeMessage: $notInRangeMessage,
                 minMessage: $minMessage,
@@ -584,7 +605,7 @@ class Mage_Core_Helper_Validate extends Mage_Core_Helper_Abstract
         $validator = self::getValidator();
 
         return $validator->validate($value, [
-            new Constraints\Regex(
+            new Regex(
                 pattern: $pattern,
                 message: $message,
                 htmlPattern: $htmlPattern,
@@ -611,7 +632,7 @@ class Mage_Core_Helper_Validate extends Mage_Core_Helper_Abstract
         $validator = self::getValidator();
 
         return $validator->validate($value, [
-            new Constraints\Type(
+            new Type(
                 type: $type,
                 message: $message,
                 groups: $groups,
@@ -637,10 +658,10 @@ class Mage_Core_Helper_Validate extends Mage_Core_Helper_Abstract
         $validator = self::getValidator();
 
         return $validator->validate($value, [
-            new Constraints\NotBlank(
+            new NotBlank(
                 message: $message,
             ),
-            new Constraints\Url(
+            new Url(
                 options: $options,
                 message: $message,
                 protocols: $protocols,
@@ -661,27 +682,27 @@ class Mage_Core_Helper_Validate extends Mage_Core_Helper_Abstract
         $message = $options['message'] ?? null;
 
         return match ($type) {
-            'Alnum'         => [new Constraints\Type(type: 'alnum', message: $message)],
-            'Alpha'         => [new Constraints\Type(type: 'alpha', message: $message)],
-            'Between'       => [new Constraints\Range(min: $options['min'] ?? null, max: $options['max'] ?? null)],
-            'Callback'      => [new Constraints\Callback($options)],
-            'Ccnum'         => [new Constraints\Luhn($options)],
-            'CreditCard'    => [new Constraints\CardScheme($options)],
-            'Date'          => [new Constraints\Date($options)],
-            'Digits'        => [new Constraints\Type(type: 'digit', message: $message)],
-            'Float'         => [new Constraints\Type(type: 'float', message: $message)],
-            'GreaterThan'   => [new Constraints\GreaterThan($options)],
-            'Hostname'      => [new Constraints\Hostname($options)],
-            'Iban'          => [new Constraints\Iban($options)],
-            'Identical'     => [new Constraints\IdenticalTo($options)],
-            'InArray'       => [new Constraints\Choice($options)],
-            'Int'           => [new Constraints\Type(type: 'int', message: $message)],
-            'Ip'            => [new Constraints\Ip($options)],
-            'Isbn'          => [new Constraints\Isbn($options)],
-            'LessThan'      => [new Constraints\LessThan($options)],
-            'NoEmpty'       => [new Constraints\NotBlank($options)],
-            'Regex'         => [new Constraints\Regex(pattern: $options['pattern'] ?? '')],
-            'StringLength'  => [new Constraints\Length($options)],
+            'Alnum'         => [new Type(type: 'alnum', message: $message)],
+            'Alpha'         => [new Type(type: 'alpha', message: $message)],
+            'Between'       => [new Range(min: $options['min'] ?? null, max: $options['max'] ?? null)],
+            'Callback'      => [new Callback($options)],
+            'Ccnum'         => [new Luhn($options)],
+            'CreditCard'    => [new CardScheme($options)],
+            'Date'          => [new Date($options)],
+            'Digits'        => [new Type(type: 'digit', message: $message)],
+            'Float'         => [new Type(type: 'float', message: $message)],
+            'GreaterThan'   => [new GreaterThan($options)],
+            'Hostname'      => [new Hostname($options)],
+            'Iban'          => [new Iban($options)],
+            'Identical'     => [new IdenticalTo($options)],
+            'InArray'       => [new Choice($options)],
+            'Int'           => [new Type(type: 'int', message: $message)],
+            'Ip'            => [new Ip($options)],
+            'Isbn'          => [new Isbn($options)],
+            'LessThan'      => [new LessThan($options)],
+            'NoEmpty'       => [new NotBlank($options)],
+            'Regex'         => [new Regex(pattern: $options['pattern'] ?? '')],
+            'StringLength'  => [new Length($options)],
             default         => throw new Mage_Core_Exception("Validator $type does not exist")
         };
     }

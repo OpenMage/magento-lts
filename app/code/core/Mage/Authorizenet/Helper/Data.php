@@ -50,8 +50,8 @@ class Mage_Authorizenet_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieve save order url params
      *
-     * @param  string $controller
-     * @return array
+     * @param  string                $controller
+     * @return array<string, string>
      */
     public function getSaveOrderUrlParams($controller)
     {

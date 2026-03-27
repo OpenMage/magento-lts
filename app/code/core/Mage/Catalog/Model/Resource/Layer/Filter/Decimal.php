@@ -59,7 +59,7 @@ class Mage_Catalog_Model_Resource_Layer_Filter_Decimal extends Mage_Core_Model_R
      * Retrieve array of minimal and maximal values
      *
      * @param  Mage_Catalog_Model_Layer_Filter_Decimal $filter
-     * @return array
+     * @return array<int, mixed>
      */
     public function getMinMax($filter)
     {

@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Core\Helper;
 
+use Mage_Core_Model_Store;
 use Generator;
 use Mage;
 use Mage_Core_Exception;
@@ -77,7 +78,7 @@ final class EnvironmentConfigLoaderTest extends OpenMageTest
         foreach (self::$storeData as $stores) {
             foreach ($stores as $storeCode => $data) {
                 $store = Mage::app()->getStore($data['store_id']);
-                self::assertInstanceOf(\Mage_Core_Model_Store::class, $store);
+                self::assertInstanceOf(Mage_Core_Model_Store::class, $store);
                 self::assertTrue((bool) $store->getIsActive(), "$storeCode is not active");
                 self::assertEquals($data['store_id'], (int) $store->getId());
                 self::assertEquals($data['website_id'], (int) $store->getWebsiteId());
@@ -467,6 +468,9 @@ final class EnvironmentConfigLoaderTest extends OpenMageTest
 XML;
     }
 
+    /**
+     * @return array<string, int>
+     */
     private static function bootstrapTestStore(string $websiteCode, string $storeCode): array
     {
         $website = Mage::getModel('core/website')->load($websiteCode, 'code');

@@ -16,6 +16,8 @@
  */
 class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_catalog_product_edit_tab_super_config_grid';
+
     /**
      * Config attribute codes
      *
@@ -271,7 +273,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
     }
 
     /**
-     * @return array
+     * @return array<string, array<string, null|int|string>|string>
      * @throws Mage_Core_Exception
      */
     public function getEditParamsForAssociated()

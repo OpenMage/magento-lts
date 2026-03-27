@@ -6,7 +6,7 @@
  * @license    Open Software License (OSL 3.0)
  * @package    Mage
  */
-
+use Dotenv\Dotenv;
 use Carbon\Carbon;
 use Carbon\Exceptions\InvalidFormatException;
 use Monolog\Formatter\LineFormatter;
@@ -54,7 +54,7 @@ foreach (glob(BP . DS . 'app' . DS . 'etc' . DS . 'includes' . DS . '*.php') as 
     include_once $path;
 }
 
-$dotenv = Dotenv\Dotenv::createImmutable(BP);
+$dotenv = Dotenv::createImmutable(BP);
 $dotenv->safeLoad();
 $dotenv->ifPresent(['MAGE_IS_DEVELOPER_MODE', 'OPENMAGE_CONFIG_OVERRIDE_ALLOWED'])->isInteger();
 
@@ -167,7 +167,7 @@ final class Mage
     /**
      * Gets the detailed Magento version information
      *
-     * @return array
+     * @return array<string, string>
      * @deprecated
      */
     public static function getVersionInfo()
@@ -527,7 +527,8 @@ final class Mage
      * Calls all observer callbacks registered for this event
      * and multiple observers matching event name pattern
      *
-     * @param  string              $name
+     * @param  string               $name
+     * @param  array<string, mixed> $data
      * @return Mage_Core_Model_App
      */
     public static function dispatchEvent($name, array $data = [])

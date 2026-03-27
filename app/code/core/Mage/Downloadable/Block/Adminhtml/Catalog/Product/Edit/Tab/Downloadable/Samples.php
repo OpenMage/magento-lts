@@ -62,7 +62,7 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Sa
     /**
      * Retrieve samples array
      *
-     * @return array
+     * @return Varien_Object[]
      */
     public function getSampleData()
     {

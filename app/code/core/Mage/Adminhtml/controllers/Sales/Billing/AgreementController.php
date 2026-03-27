@@ -179,7 +179,7 @@ class Mage_Adminhtml_Sales_Billing_AgreementController extends Mage_Adminhtml_Co
     /**
      * @inheritDoc
      */
-    protected function _isAllowed()
+    protected function _isAllowed(): bool
     {
         $action = strtolower($this->getRequest()->getActionName());
         $aclPath = match ($action) {

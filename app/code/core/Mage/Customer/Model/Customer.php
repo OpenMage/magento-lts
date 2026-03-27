@@ -660,7 +660,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     /**
      * Retrieve ids of default addresses
      *
-     * @return array
+     * @return array<int, int>
      */
     public function getPrimaryAddressIds()
     {
