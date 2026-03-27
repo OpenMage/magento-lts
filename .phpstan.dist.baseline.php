@@ -680,12 +680,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Widget/Form/Container.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Call to function is_object() with Zend_Db_Expr will always evaluate to true.',
-	'identifier' => 'function.alreadyNarrowedType',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Widget/Grid.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 4,
@@ -5869,6 +5863,12 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Paypal/Model/Cart.php',
 ];
 $ignoreErrors[] = [
+	'rawMessage' => 'Strict comparison using !== between array{} and array{} will always evaluate to false.',
+	'identifier' => 'notIdentical.alwaysFalse',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Paypal/Model/Cart.php',
+];
+$ignoreErrors[] = [
 	'rawMessage' => 'Negated boolean expression is always true.',
 	'identifier' => 'booleanNot.alwaysTrue',
 	'count' => 1,
@@ -7307,6 +7307,12 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Tax/Model/Resource/Calculation.php',
 ];
 $ignoreErrors[] = [
+	'rawMessage' => 'Strict comparison using === between non-empty-list and array{} will always evaluate to false.',
+	'identifier' => 'identical.alwaysFalse',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Tax/Model/Resource/Setup.php',
+];
+$ignoreErrors[] = [
 	'rawMessage' => 'Call to deprecated method getBaseTaxAmount() of class Mage_Sales_Model_Quote_Item_Abstract.',
 	'identifier' => 'method.deprecated',
 	'count' => 9,
@@ -8151,12 +8157,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/weee/renderer/tax.phtml',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Empty array passed to foreach.',
-	'identifier' => 'foreach.emptyArray',
-	'count' => 1,
-	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/weee/renderer/tax.phtml',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 2,
@@ -8786,6 +8786,12 @@ $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 2,
+	'path' => __DIR__ . '/lib/Mage/System/Ftp.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Empty array passed to foreach.',
+	'identifier' => 'foreach.emptyArray',
+	'count' => 1,
 	'path' => __DIR__ . '/lib/Mage/System/Ftp.php',
 ];
 $ignoreErrors[] = [
