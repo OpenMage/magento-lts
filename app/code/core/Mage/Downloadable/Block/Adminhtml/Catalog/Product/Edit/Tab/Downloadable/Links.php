@@ -134,7 +134,7 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
     /**
      * Return array of links
      *
-     * @return array
+     * @return Varien_Object[]
      */
     public function getLinkData()
     {

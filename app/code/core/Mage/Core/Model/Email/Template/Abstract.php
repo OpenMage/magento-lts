@@ -1,12 +1,13 @@
 <?php
 
+use Pelago\Emogrifier\CssInliner;
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
  * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
  */
-
 /**
  * Template model
  *
@@ -192,7 +193,7 @@ abstract class Mage_Core_Model_Email_Template_Abstract extends Mage_Core_Model_T
             // Only run Emogrify if HTML exists
             if (strlen($html) && $inlineCssFile) {
                 $cssToInline = $this->_getCssFileContent($inlineCssFile);
-                $emogrifier = \Pelago\Emogrifier\CssInliner::fromHtml($html)
+                $emogrifier = CssInliner::fromHtml($html)
                     ->inlineCss($cssToInline)
                     ->disableInlineStyleAttributesParsing();
                 $processedHtml = $emogrifier->render();

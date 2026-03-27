@@ -374,8 +374,8 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
     /**
      * Prepare param
      *
-     * @param  string $str
-     * @return array
+     * @param  string                $str
+     * @return array<string, string>
      */
     protected function _explodeAndDecodeParam($str)
     {
@@ -412,6 +412,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
     /**
      * Handle param recursively
      *
+     * @param  array<string, array<int|string, string>|string> $param
      * @return array
      */
     protected function _handleRecursiveParamForQueryStr(array $param)

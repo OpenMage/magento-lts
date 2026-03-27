@@ -52,7 +52,7 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option extends Mage_Bun
     /**
      * Retrieve default values for template
      *
-     * @return array
+     * @return array<int, bool|float|int>
      */
     protected function _getDefaultValues()
     {

@@ -42,9 +42,7 @@ class Mage_Reports_Model_Product_Index_Compared extends Mage_Reports_Model_Produ
     }
 
     /**
-     * Retrieve Exclude Product Ids List for Collection
-     *
-     * @return array
+     * @inheritDoc
      */
     public function getExcludeProductIds()
     {

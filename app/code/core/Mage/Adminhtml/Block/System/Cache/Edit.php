@@ -71,7 +71,7 @@ class Mage_Adminhtml_Block_System_Cache_Edit extends Mage_Adminhtml_Block_Widget
     /**
      * Retrieve Catalog Tools Data
      *
-     * @return array
+     * @return array<string, array<string, mixed>>
      */
     public function getCatalogData()
     {

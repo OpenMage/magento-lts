@@ -46,7 +46,7 @@ class Mage_Catalog_Block_Product_New extends Mage_Catalog_Block_Product_Abstract
     /**
      * Get Key pieces for caching block content
      *
-     * @return array
+     * @return array<int|string, mixed>
      */
     public function getCacheKeyInfo()
     {

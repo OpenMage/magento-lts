@@ -14,6 +14,8 @@
  */
 class Mage_Adminhtml_Block_System_Email_Template_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_system_email_template_grid';
+
     /**
      * @inheritDoc
      */

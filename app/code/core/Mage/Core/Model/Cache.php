@@ -250,9 +250,9 @@ class Mage_Core_Model_Cache
     /**
      * Initialize two levels backend model options
      *
-     * @param  array $fastOptions  fast level backend type and options
-     * @param  array $cacheOptions all cache options
-     * @return array
+     * @param  array                                      $fastOptions  fast level backend type and options
+     * @param  array                                      $cacheOptions all cache options
+     * @return array<string, array<string, mixed>|string>
      */
     protected function _getTwoLevelsBackendOptions($fastOptions, $cacheOptions)
     {

@@ -25,22 +25,6 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
      *
      * @param  Mage_Catalog_Model_Product[] $parentProducts
      * @param  int                          $storeId
-     * @return void
-     * @throws Mage_Core_Exception
-     * @deprecated use $this->attachProductChildrenAttributeMapping() instead
-     */
-    public function attachConfigurableProductChildrenAttributeMapping(array $parentProducts, $storeId)
-    {
-        $this->attachProductChildrenAttributeMapping($parentProducts, $storeId);
-    }
-
-    /**
-     * Set child_attribute_label_mapping on products with attribute label -> product mapping
-     * Depends on following product data:
-     * - product must have children products attached
-     *
-     * @param  Mage_Catalog_Model_Product[] $parentProducts
-     * @param  int                          $storeId
      * @param  bool                         $onlyListAttributes
      * @return void
      * @throws Mage_Core_Exception
@@ -160,9 +144,9 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
      * - product must have media gallery attached which attaches and differentiates local images and child images
      * - product must have child products attached
      *
-     * @param  string[]                                                                       $imageTypes - image types to select for child products
-     * @param  bool                                                                           $keepFrame
-     * @return array{option_labels: string[], small_image: string[], image: string[]}|array{}
+     * @param  string[]                                                                           $imageTypes - image types to select for child products
+     * @param  bool                                                                               $keepFrame
+     * @return array<void>|array{option_labels: string[], small_image: string[], image: string[]}
      * @throws Mage_Core_Exception
      */
     public function getConfigurableImagesFallbackArray(

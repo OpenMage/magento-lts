@@ -14,6 +14,8 @@
  */
 class Mage_Adminhtml_Block_Dashboard_Searches_Top extends Mage_Adminhtml_Block_Dashboard_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_dashboard_searches_top';
+
     protected $_collection;
 
     public function __construct()

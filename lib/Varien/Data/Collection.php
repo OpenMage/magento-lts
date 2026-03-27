@@ -23,7 +23,7 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
     /**
      * Collection items
      *
-     * @var array|T[]
+     * @var T[]
      */
     protected $_items = [];
 
@@ -651,8 +651,8 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
     /**
      * Convert collection to array
      *
-     * @param  array $arrRequiredFields
-     * @return array
+     * @param  array                          $arrRequiredFields
+     * @return array<string, int|list<array>>
      */
     public function toArray($arrRequiredFields = [])
     {

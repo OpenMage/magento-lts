@@ -82,7 +82,7 @@ class Mage_CatalogInventory_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieve inventory item options (used in config)
      *
-     * @return array
+     * @return array<int, string>
      */
     public function getConfigItemOptions()
     {

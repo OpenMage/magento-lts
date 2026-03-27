@@ -84,8 +84,8 @@ class Mage_Eav_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstrac
     /**
      * Retrieve entity type data
      *
-     * @param  string $entityType
-     * @return array
+     * @param  string               $entityType
+     * @return array<string, mixed>
      */
     public function fetchEntityTypeData($entityType)
     {

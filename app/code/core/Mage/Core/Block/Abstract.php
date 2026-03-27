@@ -1213,18 +1213,6 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     }
 
     /**
-     * @param  array|string $data
-     * @param  array        $allowedTags
-     * @return string
-     * @deprecated after 1.4.0.0-rc1
-     * @see self::escapeHtml()
-     */
-    public function htmlEscape($data, $allowedTags = null)
-    {
-        return $this->escapeHtml($data, $allowedTags);
-    }
-
-    /**
      * Escape html entities
      *
      * @param  string|string[]      $data
@@ -1278,17 +1266,6 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     public function stripTags($data, $allowableTags = null, $allowHtmlEntities = false)
     {
         return $this->helper('core')->stripTags($data, $allowableTags, $allowHtmlEntities);
-    }
-
-    /**
-     * @param  string $data
-     * @return string
-     * @deprecated after 1.4.0.0-rc1
-     * @see self::escapeUrl()
-     */
-    public function urlEscape($data)
-    {
-        return $this->escapeUrl($data);
     }
 
     /**
@@ -1384,7 +1361,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      * Get cache key informative items
      * Provide string array key to share specific info item with FPC placeholder
      *
-     * @return array
+     * @return array<int, string>
      */
     public function getCacheKeyInfo()
     {

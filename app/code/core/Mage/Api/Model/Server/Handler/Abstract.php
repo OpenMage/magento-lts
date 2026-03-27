@@ -1,12 +1,13 @@
 <?php
 
+use Monolog\Level;
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
  * @license    Open Software License (OSL 3.0)
  * @package    Mage_Api
  */
-
 /**
  * Webservice default handler
  *
@@ -30,7 +31,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
      */
     public function handlePhpError($errorCode, $errorMessage, $errorFile, $errLine)
     {
-        Mage::log($errorMessage . ' in ' . $errorFile . ' on line ' . $errLine, \Monolog\Level::Error);
+        Mage::log($errorMessage . ' in ' . $errorFile . ' on line ' . $errLine, Level::Error);
         if (in_array($errorCode, [E_ERROR, E_USER_ERROR, E_RECOVERABLE_ERROR])) {
             $this->_fault('internal');
         }

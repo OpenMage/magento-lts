@@ -14,6 +14,8 @@
  */
 class Mage_Adminhtml_Block_Report_Wishlist_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_report_wishlist_grid';
+
     public function __construct()
     {
         parent::__construct();

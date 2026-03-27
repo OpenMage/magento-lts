@@ -28,7 +28,7 @@ class Mage_Eav_Model_Entity_Attribute_Source_Table extends Mage_Eav_Model_Entity
      */
     public function getAllOptions($withEmpty = true, $defaultValues = false)
     {
-        $storeId = $this->getAttribute()->getStoreId();
+        $storeId = (string) $this->getAttribute()->getStoreId();
         if (!is_array($this->_options)) {
             $this->_options = [];
         }
@@ -137,9 +137,7 @@ class Mage_Eav_Model_Entity_Attribute_Source_Table extends Mage_Eav_Model_Entity
     }
 
     /**
-     * Retrieve Column(s) for Flat
-     *
-     * @return array
+     * @inheritDoc
      */
     public function getFlatColums()
     {
@@ -192,9 +190,7 @@ class Mage_Eav_Model_Entity_Attribute_Source_Table extends Mage_Eav_Model_Entity
     }
 
     /**
-     * Retrieve Indexes for Flat
-     *
-     * @return array
+     * @inheritDoc
      */
     public function getFlatIndexes()
     {

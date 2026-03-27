@@ -277,10 +277,7 @@ class Mage_Paypal_Model_Direct extends Mage_Payment_Model_Method_Cc
     }
 
     /**
-     * Fetch transaction details info
-     *
-     * @param  string $transactionId
-     * @return array
+     * @inheritDoc
      */
     public function fetchTransactionInfo(Mage_Payment_Model_Info $payment, $transactionId)
     {

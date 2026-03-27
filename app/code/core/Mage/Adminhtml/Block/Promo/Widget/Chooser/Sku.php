@@ -20,6 +20,8 @@
  */
 class Mage_Adminhtml_Block_Promo_Widget_Chooser_Sku extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_promo_widget_chooser_sku';
+
     /**
      * @throws Exception
      */

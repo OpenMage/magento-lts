@@ -24,7 +24,7 @@ abstract class Mage_Sitemap_Model_Resource_Catalog_Abstract extends Mage_Core_Mo
     /**
      * Attribute cache
      *
-     * @var array{string: array{attribute_id: int, backend_type: string, is_global: bool, table: string}}|array{}
+     * @var array<void>|array{string: array{attribute_id: int, backend_type: string, is_global: bool, table: string}}
      */
     protected $_attributesCache = [];
 
@@ -38,7 +38,7 @@ abstract class Mage_Sitemap_Model_Resource_Catalog_Abstract extends Mage_Core_Mo
     /**
      * Initialize factory instance
      *
-     * @param array{factory: string}|array{} $args
+     * @param array<void>|array{factory: string} $args
      */
     public function __construct(array $args = [])
     {

@@ -16,6 +16,8 @@ use Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract as MassAction;
  */
 class Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Coupons_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_promo_quote_edit_tab_coupons_grid';
+
     public function __construct()
     {
         parent::__construct();

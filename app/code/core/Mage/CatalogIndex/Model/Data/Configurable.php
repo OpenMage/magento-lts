@@ -53,7 +53,7 @@ class Mage_CatalogIndex_Model_Data_Configurable extends Mage_CatalogIndex_Model_
     /**
      * Get child link table and field settings
      *
-     * @return array
+     * @return array<string, string>
      */
     protected function _getLinkSettings()
     {

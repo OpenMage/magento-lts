@@ -417,6 +417,7 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
     /**
      * Save import data batch
      *
+     * @param  array<int, mixed[]> $data
      * @return $this
      */
     protected function _saveImportData(array $data)
@@ -450,18 +451,5 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
         }
 
         return $value;
-    }
-
-    /**
-     * Parse and validate positive decimal value
-     *
-     * @param  string     $value
-     * @return bool|float
-     * @deprecated since 1.4.1.0
-     * @see self::_parseDecimalValue()
-     */
-    protected function _isPositiveDecimalNumber($value)
-    {
-        return $this->_parseDecimalValue($value);
     }
 }

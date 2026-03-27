@@ -14,6 +14,8 @@ use Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract as MassAction;
  */
 class Mage_Adminhtml_Block_Cache_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_cache_grid';
+
     protected $_invalidatedTypes = [];
 
     public function __construct()

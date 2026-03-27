@@ -119,7 +119,7 @@ class Mage_Api2_Model_Acl_Global_Role extends Mage_Core_Model_Abstract
     /**
      * Retrieve system roles
      *
-     * @return array
+     * @return array<int, int>
      */
     public static function getSystemRoles()
     {

@@ -14,6 +14,8 @@
  */
 class Mage_Adminhtml_Block_Report_Customer_Totals_Grid extends Mage_Adminhtml_Block_Report_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_report_customer_totals_grid';
+
     public function __construct()
     {
         parent::__construct();

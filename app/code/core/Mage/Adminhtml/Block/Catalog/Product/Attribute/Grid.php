@@ -14,6 +14,8 @@
  */
 class Mage_Adminhtml_Block_Catalog_Product_Attribute_Grid extends Mage_Eav_Block_Adminhtml_Attribute_Grid_Abstract
 {
+    protected string $_eventPrefix = 'adminhtml_catalog_product_attribute_grid';
+
     /**
      * Prepare product attributes grid collection object
      *

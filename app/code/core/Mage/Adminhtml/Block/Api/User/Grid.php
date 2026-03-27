@@ -14,6 +14,8 @@
  */
 class Mage_Adminhtml_Block_Api_User_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_permissions_grid_user';
+
     public function __construct()
     {
         parent::__construct();

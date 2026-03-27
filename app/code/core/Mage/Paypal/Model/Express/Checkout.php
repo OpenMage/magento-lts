@@ -905,7 +905,7 @@ class Mage_Paypal_Model_Express_Checkout
             usort($options, [static::class,'cmpShippingOptions']);
             array_splice($options, 10);
             // User selected option will be always included in options list
-            if (!is_null($userSelectedOption) && !in_array($userSelectedOption, $options)) {
+            if (!is_null($userSelectedOption) && !in_array($userSelectedOption, $options, true)) {
                 $options[9] = $userSelectedOption;
             }
         }

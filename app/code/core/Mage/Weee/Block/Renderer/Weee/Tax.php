@@ -89,7 +89,7 @@ class Mage_Weee_Block_Renderer_Weee_Tax extends Mage_Adminhtml_Block_Widget impl
     /**
      * Retrieves list of values
      *
-     * @return array
+     * @return array<string, mixed>|array<void>
      */
     public function getValues()
     {

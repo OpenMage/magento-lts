@@ -761,7 +761,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
     /**
      * Retrieve transaction types
      *
-     * @return array
+     * @return array<string, string>
      */
     public function getTransactionTypes()
     {

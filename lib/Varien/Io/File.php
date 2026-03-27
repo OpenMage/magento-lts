@@ -849,7 +849,7 @@ class Varien_Io_File extends Varien_Io_Abstract
                     continue;
                 }
 
-                if (in_array($entry, $ignoredDirectories)) {
+                if (in_array($entry, $ignoredDirectories, true)) {
                     continue;
                 }
 
@@ -863,7 +863,7 @@ class Varien_Io_File extends Varien_Io_Abstract
                     $listItem['size'] = filesize($fullpath);
                     $listItem['leaf'] = true;
                     if (isset($pathinfo['extension'])
-                        && in_array(strtolower($pathinfo['extension']), self::ALLOWED_IMAGES_EXTENSIONS)
+                        && in_array(strtolower($pathinfo['extension']), self::ALLOWED_IMAGES_EXTENSIONS, true)
                         && $listItem['size'] > 0
                     ) {
                         $listItem['is_image'] = true;

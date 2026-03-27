@@ -14,6 +14,8 @@
  */
 class Mage_Sales_Block_Adminhtml_Billing_Agreement_View_Tab_Orders extends Mage_Adminhtml_Block_Sales_Order_Grid implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
+    protected string $_eventPrefix = 'sales_adminhtml_billing_agreement_view_tab_orders';
+
     public function __construct()
     {
         parent::__construct();

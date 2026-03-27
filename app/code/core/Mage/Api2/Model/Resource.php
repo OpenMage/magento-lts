@@ -680,7 +680,7 @@ abstract class Mage_Api2_Model_Resource
     /**
      * Retrieve array with critical errors mapped to HTTP codes
      *
-     * @return array
+     * @return array<string, int>
      */
     protected function _getCriticalErrors()
     {
@@ -943,7 +943,7 @@ abstract class Mage_Api2_Model_Resource
     /**
      * Resource specific method to retrieve attributes' codes. May be overridden in child.
      *
-     * @return array
+     * @return array<string, string>|array<void>
      */
     protected function _getResourceAttributes()
     {
@@ -1079,9 +1079,9 @@ abstract class Mage_Api2_Model_Resource
     /**
      * Get EAV attributes of working model
      *
-     * @param  bool                $onlyVisible   OPTIONAL Show only the attributes which are visible on frontend
-     * @param  bool                $excludeSystem OPTIONAL Exclude attributes marked as system
-     * @return array
+     * @param  bool                  $onlyVisible   OPTIONAL Show only the attributes which are visible on frontend
+     * @param  bool                  $excludeSystem OPTIONAL Exclude attributes marked as system
+     * @return array<string, string>
      * @throws Exception
      * @throws Mage_Core_Exception
      */

@@ -67,7 +67,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Admin_Custom extends Mage_Core_
         }
 
         // Only allow http and https
-        if (!in_array($urlParts['scheme'], ['http', 'https'])) {
+        if (!in_array($urlParts['scheme'], ['http', 'https'], true)) {
             Mage::throwException(
                 Mage::helper('adminhtml')->__('Custom Admin URL must use http:// or https:// protocol.'),
             );

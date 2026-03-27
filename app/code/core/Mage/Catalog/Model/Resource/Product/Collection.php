@@ -1230,18 +1230,6 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     }
 
     /**
-     * Add minimal price data to result
-     *
-     * @return $this
-     * @deprecated use addPriceData
-     * @see Mage_Catalog_Model_Resource_Product_Collection::addPriceData
-     */
-    public function addMinimalPrice()
-    {
-        return $this->addPriceData();
-    }
-
-    /**
      * Add minimal price to product collection
      *
      * @return $this
@@ -1251,18 +1239,6 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     protected function _addMinimalPrice()
     {
         return $this;
-    }
-
-    /**
-     * Add price data for calculate final price
-     *
-     * @return $this
-     * @deprecated use addPriceData
-     * @see Mage_Catalog_Model_Resource_Product_Collection::addPriceData
-     */
-    public function addFinalPrice()
-    {
-        return $this->addPriceData();
     }
 
     /**

@@ -11,7 +11,6 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Traits\DataProvider\Mage\Cms\Block\Widget\Page;
 
 use Generator;
-use Mage_Cms_Helper_Page;
 
 trait LinkTrait
 {
