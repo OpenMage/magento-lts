@@ -50,8 +50,8 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Usps_AbstractService
             }
 
             $auth = Mage::getModel('usa/shipping_carrier_uspsAuth');
-            $clientId = Mage::helper('core')->decrypt(Mage::getStoreConfig('carriers/usps/client_id'));
-            $clientSecret = Mage::helper('core')->decrypt(Mage::getStoreConfig('carriers/usps/client_secret'));
+            $clientId = (string) Mage::getStoreConfig('carriers/usps/client_id');
+            $clientSecret = (string) Mage::getStoreConfig('carriers/usps/client_secret');
             $gatewayUrl = Mage::getStoreConfig('carriers/usps/gateway_url');
 
             $token = $auth->getAccessToken($clientId, $clientSecret, $gatewayUrl);

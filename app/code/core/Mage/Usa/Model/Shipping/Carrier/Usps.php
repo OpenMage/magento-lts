@@ -325,8 +325,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
      */
     protected function _getOAuthToken()
     {
-        $clientId = Mage::helper('core')->decrypt((string) $this->getConfigData('client_id'));
-        $clientSecret = Mage::helper('core')->decrypt((string) $this->getConfigData('client_secret'));
+        $clientId = (string) $this->getConfigData('client_id');
+        $clientSecret = (string) $this->getConfigData('client_secret');
         $baseUrl = $this->_getRestGatewayUrl();
 
         if (!$clientId || !$clientSecret) {

@@ -54,9 +54,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service extends Mage_Usa_Model_
             'mid' => Mage::getStoreConfig('carriers/usps/mid'),
             'manifest_mid' => Mage::getStoreConfig('carriers/usps/mmid'),
             'account_type' => Mage::getStoreConfig('carriers/usps/account_type'),
-            'eps_account_number' => Mage::helper('core')->decrypt(
-                Mage::getStoreConfig('carriers/usps/eps_account_number'),
-            ),
+            'eps_account_number' => (string) Mage::getStoreConfig('carriers/usps/eps_account_number'),
             'permit_zip' => Mage::getStoreConfig('carriers/usps/permit_zip'),
             'aesitn' => Mage::getStoreConfig('carriers/usps/aesitn'),
         ];
