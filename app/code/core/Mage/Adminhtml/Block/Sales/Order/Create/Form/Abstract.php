@@ -166,7 +166,7 @@ abstract class Mage_Adminhtml_Block_Sales_Order_Create_Form_Abstract extends Mag
     /**
      * Return Form Elements values
      *
-     * @return array{}
+     * @return array<string, mixed>|array<void>
      */
     public function getFormValues()
     {

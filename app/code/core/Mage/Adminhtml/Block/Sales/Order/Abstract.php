@@ -79,7 +79,7 @@ class Mage_Adminhtml_Block_Sales_Order_Abstract extends Mage_Adminhtml_Block_Wid
     /**
      * Retrieve order totals block settings
      *
-     * @return array{}
+     * @return array<string, bool|string>|array<void>
      */
     public function getOrderTotalData()
     {
