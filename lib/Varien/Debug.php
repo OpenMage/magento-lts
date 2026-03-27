@@ -88,7 +88,7 @@ class Varien_Debug
             // prepare method's name
             $methodName = '';
             if (isset($data['class']) && isset($data['function'])) {
-                if (isset($data['object']) && $data['object']::class != $data['class']) {
+                if (is_object($data['object']) && $data['object']::class != $data['class']) {
                     $className = $data['object']::class . '[' . $data['class'] . ']';
                 } else {
                     $className = $data['class'];

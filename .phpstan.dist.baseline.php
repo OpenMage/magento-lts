@@ -8897,12 +8897,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/lib/Varien/Db/Statement/Pdo/Mysql.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Cannot access constant class on int|list<mixed>|object|string.',
-	'identifier' => 'classConstant.nonObject',
-	'count' => 2,
-	'path' => __DIR__ . '/lib/Varien/Debug.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Method Varien_Filter_Email::filter() should return mixed but return statement is missing.',
 	'identifier' => 'return.missing',
 	'count' => 1,
