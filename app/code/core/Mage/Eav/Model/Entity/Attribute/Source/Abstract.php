@@ -133,7 +133,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Source_Abstract implements Mage_E
     /**
      * Retrieve Indexes(s) for Flat
      *
-     * @return array{}
+     * @return array<string, array{type: string, fields: array<int, string>}>|array<void>
      */
     public function getFlatIndexes()
     {

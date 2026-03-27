@@ -1425,7 +1425,7 @@ class Mage_Paypal_Model_Config
     /**
      * Returns array of possible Authorization Amounts for Account Verification
      *
-     * @return array{}
+     * @return array<void>
      * @deprecated since 1.6.2.0
      */
     public function getAuthorizationAmounts()

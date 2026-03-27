@@ -143,7 +143,7 @@ abstract class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Group_Abstrac
     /**
      * Retrieve list of initial customer groups
      *
-     * @return array{}
+     * @return array<int, string>|array<void>
      */
     protected function _getInitialCustomerGroups()
     {
