@@ -7307,12 +7307,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Tax/Model/Resource/Calculation.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Strict comparison using === between non-empty-list and array{} will always evaluate to false.',
-	'identifier' => 'identical.alwaysFalse',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Tax/Model/Resource/Setup.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Call to deprecated method getBaseTaxAmount() of class Mage_Sales_Model_Quote_Item_Abstract.',
 	'identifier' => 'method.deprecated',
 	'count' => 9,
