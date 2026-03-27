@@ -850,6 +850,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
      * Prepare selected options for configurable product
      *
      * @inheritDoc
+     * @return array<string, string[]>
      */
     public function processBuyRequest($product, $buyRequest)
     {

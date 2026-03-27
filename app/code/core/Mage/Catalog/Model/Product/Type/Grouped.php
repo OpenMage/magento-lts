@@ -362,6 +362,7 @@ class Mage_Catalog_Model_Product_Type_Grouped extends Mage_Catalog_Model_Product
      * Prepare selected qty for grouped product's options
      *
      * @inheritDoc
+     * @return array<string, string[]>
      */
     public function processBuyRequest($product, $buyRequest)
     {

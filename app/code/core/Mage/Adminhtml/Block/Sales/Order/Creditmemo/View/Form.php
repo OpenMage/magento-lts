@@ -36,6 +36,7 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_View_Form extends Mage_Adminht
 
     /**
      * @inheritDoc
+     * @return array<string, string>
      */
     public function getOrderTotalData()
     {

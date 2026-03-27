@@ -990,6 +990,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
      * Prepare selected options for bundle product
      *
      * @inheritDoc
+     * @return array<string, string[]|string[][]>
      */
     public function processBuyRequest($product, $buyRequest)
     {

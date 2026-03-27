@@ -36,6 +36,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_Info extends Mage_Adminhtml_Bloc
 
     /**
      * @inheritDoc
+     * @return array<string, bool>
      */
     public function getOrderTotalData()
     {
@@ -48,6 +49,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_Info extends Mage_Adminhtml_Bloc
 
     /**
      * @inheritDoc
+     * @return array<string, bool>
      */
     public function getOrderInfoData()
     {

@@ -468,6 +468,7 @@ class Mage_Downloadable_Model_Product_Type extends Mage_Catalog_Model_Product_Ty
      * Prepare selected options for downloadable product
      *
      * @inheritDoc
+     * @return array<string, string[]>
      */
     public function processBuyRequest($product, $buyRequest)
     {
