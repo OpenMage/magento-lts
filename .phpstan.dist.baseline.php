@@ -5845,14 +5845,14 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Paypal/Model/Cart.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Left side of && is always true.',
-	'identifier' => 'booleanAnd.leftAlwaysTrue',
+	'rawMessage' => 'Empty array passed to foreach.',
+	'identifier' => 'foreach.emptyArray',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Paypal/Model/Cart.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Strict comparison using !== between array{} and array{} will always evaluate to false.',
-	'identifier' => 'notIdentical.alwaysFalse',
+	'rawMessage' => 'Left side of && is always true.',
+	'identifier' => 'booleanAnd.leftAlwaysTrue',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Paypal/Model/Cart.php',
 ];
