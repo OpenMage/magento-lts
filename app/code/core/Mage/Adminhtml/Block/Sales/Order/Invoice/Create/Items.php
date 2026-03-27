@@ -107,7 +107,7 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_Create_Items extends Mage_Adminht
     /**
      * Retrieve order totals block settings
      *
-     * @return array{}
+     * @return array<void>
      */
     public function getOrderTotalData()
     {
