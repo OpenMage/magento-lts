@@ -38,7 +38,7 @@ class Mage_Paypal_Model_Cart
     /**
      * Rendered cart items
      *
-     * @var Varien_Object[]
+     * @var array<void>|Varien_Object[]
      */
     protected $_items = [];
 
@@ -341,9 +341,11 @@ class Mage_Paypal_Model_Cart
         }
 
         // compound non-regular items into subtotal
-        foreach ($this->_items as $key => $item) {
-            if ($key > $lastRegularItemKey && $item->getAmount() != 0) {
-                $this->_totals[self::TOTAL_SUBTOTAL] += $item->getAmount();
+        if ($this->_items !== []) {
+            foreach ($this->_items as $key => $item) {
+                if ($key > $lastRegularItemKey && $item->getAmount() != 0) {
+                    $this->_totals[self::TOTAL_SUBTOTAL] += $item->getAmount();
+                }
             }
         }
 

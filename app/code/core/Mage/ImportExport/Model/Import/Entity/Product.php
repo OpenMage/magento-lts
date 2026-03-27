@@ -1357,7 +1357,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Save product categories.
      *
-     * @param  non-empty-array<bool>[] $categoriesData
+     * @param  array{string, int[]} $categoriesData
      * @return $this
      * @throws Zend_Db_Exception
      */
@@ -1389,7 +1389,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
                 );
             }
 
-            if ($categoriesIn) {
+            if ($categoriesIn !== []) {
                 $this->_connection->insertOnDuplicate($tableName, $categoriesIn, ['position']);
             }
         }
