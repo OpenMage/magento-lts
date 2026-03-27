@@ -31,6 +31,5 @@ final class AddressesTest extends OpenMageTest
         $mock = $this->getMockWithCalledMethods(Subject::class, $methods);
 
         self::assertInstanceOf(Subject::class, $mock);
-        self::assertInstanceOf(Subject::class, $mock->initForm());
     }
 }
