@@ -164,14 +164,6 @@ try {
             TypeDeclaration\ClassMethod\ReturnNeverTypeRector::class,
             # skip: cannot be applied to OpenMage codebase - yet
             TypeDeclaration\StmtsAwareInterface\DeclareStrictTypesRector::class,
-            # wait for https://github.com/rectorphp/rector/issues/9712
-            TypeDeclarationDocblocks\Class_\ClassMethodArrayDocblockParamFromLocalCallsRector::class => [
-                __DIR__ . 'app/code/core/Mage/Adminhtml/Block/Widget/Grid/Massaction/Item.php',
-            ],
-            # wait for https://github.com/rectorphp/rector/issues/9712
-            TypeDeclarationDocblocks\ClassMethod\AddParamArrayDocblockFromAssignsParamToParamReferenceRector::class => [
-                __DIR__ . 'app/code/core/Mage/Usa/Model/Shipping/Carrier/Ups.php',
-            ],
             # skip: use static methods
             PreferPHPUnitThisCallRector::class,
             __DIR__ . '/shell/translations.php',

@@ -599,7 +599,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
      * for example: $this->walkAttributes('backend/validate');
      *
      * @param  string                                    $partMethod
-     * @param  \Varien_Object[]                          $args
+     * @param  Varien_Object[]                           $args
      * @return array
      * @throws Mage_Eav_Model_Entity_Attribute_Exception
      */
@@ -1156,8 +1156,8 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
      *  'newObject', 'entityRow', 'insert', 'update', 'delete'
      * )
      *
-     * @param  Mage_Core_Model_Abstract                         $newObject
-     * @return array<string, \Mage_Core_Model_Abstract|mixed[]>
+     * @param  Mage_Core_Model_Abstract                        $newObject
+     * @return array<string, Mage_Core_Model_Abstract|mixed[]>
      * @throws Mage_Core_Exception
      */
     protected function _collectSaveData($newObject)

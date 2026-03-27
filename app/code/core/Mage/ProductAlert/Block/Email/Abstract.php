@@ -105,7 +105,7 @@ abstract class Mage_ProductAlert_Block_Email_Abstract extends Mage_Core_Block_Te
     /**
      * Get store url params
      *
-     * @return array<string, bool|\Mage_Core_Model_Store>
+     * @return array<string, bool|Mage_Core_Model_Store>
      */
     protected function _getUrlParams()
     {

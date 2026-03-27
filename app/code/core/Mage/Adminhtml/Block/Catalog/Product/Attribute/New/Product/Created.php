@@ -47,7 +47,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_New_Product_Created extends
     }
 
     /**
-     * @return \Mage_Eav_Model_Entity_Attribute[]
+     * @return Mage_Eav_Model_Entity_Attribute[]
      * @throws Exception
      */
     protected function _getGroupAttributes()

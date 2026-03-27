@@ -2410,6 +2410,7 @@ XMLAuth;
 
     /**
      * @param float[]|string[] $priceArr
+     * @param float[]|string[] $costArr
      */
     private function setRatePriceData(array $priceArr, array $costArr, string $errorTitle): Mage_Shipping_Model_Rate_Result
     {
@@ -2450,7 +2451,7 @@ XMLAuth;
     /**
      * Processing rate for ship element
      *
-     * @param mixed[]          $costArr
+     * @param float[]|string[] $costArr
      * @param float[]|string[] $priceArr
      */
     private function processShippingRestRateForItem(

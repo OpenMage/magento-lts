@@ -254,8 +254,8 @@ class Mage_Core_Model_Store_Group extends Mage_Core_Model_Abstract
     /**
      * Retrieve list of stores with given locale
      *
-     * @param  string                   $locale
-     * @return \Mage_Core_Model_Store[]
+     * @param  string                  $locale
+     * @return Mage_Core_Model_Store[]
      */
     public function getStoresByLocale($locale)
     {

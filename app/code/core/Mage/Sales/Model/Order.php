@@ -1797,7 +1797,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     }
 
     /**
-     * @return \Mage_Sales_Model_Order_Item[]
+     * @return Mage_Sales_Model_Order_Item[]
      */
     public function getAllVisibleItems()
     {
@@ -1988,7 +1988,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     /**
      * Return collection of visible on frontend order status history items.
      *
-     * @return \Mage_Sales_Model_Order_Status_History[]
+     * @return Mage_Sales_Model_Order_Status_History[]
      */
     public function getVisibleStatusHistory()
     {

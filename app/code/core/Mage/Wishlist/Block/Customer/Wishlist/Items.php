@@ -17,7 +17,7 @@ class Mage_Wishlist_Block_Customer_Wishlist_Items extends Mage_Core_Block_Templa
     /**
      * Retrieve table column object list
      *
-     * @return \Mage_Wishlist_Block_Customer_Wishlist_Item_Column[]
+     * @return Mage_Wishlist_Block_Customer_Wishlist_Item_Column[]
      */
     public function getColumns()
     {

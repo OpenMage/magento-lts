@@ -55,7 +55,7 @@ class Mage_Sales_Block_Reorder_Sidebar extends Mage_Core_Block_Template
     /**
      * Get list of last ordered products
      *
-     * @return \Mage_Sales_Model_Order_Item[]
+     * @return Mage_Sales_Model_Order_Item[]
      */
     public function getItems()
     {
@@ -154,7 +154,7 @@ class Mage_Sales_Block_Reorder_Sidebar extends Mage_Core_Block_Template
     /**
      * Retrieve products list from items
      *
-     * @return \Mage_Catalog_Model_Product[]
+     * @return Mage_Catalog_Model_Product[]
      */
     protected function _getItemProducts()
     {
