@@ -217,7 +217,7 @@ class Mage_Adminhtml_Block_Widget_Form extends Mage_Adminhtml_Block_Widget
     /**
      * Retrieve predefined additional element types
      *
-     * @return array{}
+     * @return array<string, string>|array<void>
      */
     protected function _getAdditionalElementTypes()
     {

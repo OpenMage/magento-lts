@@ -662,12 +662,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Widget/Container.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Empty array passed to foreach.',
-	'identifier' => 'foreach.emptyArray',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Widget/Form.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Method Mage_Eav_Model_Entity_Attribute_Source_Interface::getAllOptions() invoked with 2 parameters, 0 required.',
 	'identifier' => 'arguments.count',
 	'count' => 2,
