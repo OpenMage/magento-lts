@@ -159,16 +159,16 @@ class Mage_Adminhtml_Block_Customer_Form_Element_File extends Varien_Data_Form_E
     /**
      * Return Element HTML
      *
-     * @param  string                                    $element
-     * @param  array<string, bool>|array<string, string> $attributes
-     * @param  bool                                      $closed
+     * @param  string                          $element
+     * @param  array<string, false|int|string> $attributes
+     * @param  bool                            $closed
      * @return string
      */
     protected function _drawElementHtml($element, array $attributes, $closed = true)
     {
         $parts = [];
-        foreach ($attributes as $k => $v) {
-            $parts[] = sprintf('%s="%s"', $k, $v);
+        foreach ($attributes as $key => $value) {
+            $parts[] = sprintf('%s="%s"', $key, $value);
         }
 
         return sprintf('<%s %s%s>', $element, implode(' ', $parts), $closed ? ' /' : '');

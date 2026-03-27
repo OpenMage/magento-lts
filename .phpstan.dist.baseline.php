@@ -313,12 +313,6 @@ after 1.4.2.0',
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Customer/Edit/Tab/Wishlist.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Parameter #2 $attributes of method Mage_Adminhtml_Block_Customer_Form_Element_File::_drawElementHtml() expects array<string, bool|string>, array<string, int|string|false> given.',
-	'identifier' => 'argument.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Customer/Form/Element/Image.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 1,
@@ -503,12 +497,6 @@ $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 3,
-	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Sales/Order/Shipment/Packaging.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Offset string does not exist on array{}.',
-	'identifier' => 'offsetAccess.notFound',
-	'count' => 2,
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Sales/Order/Shipment/Packaging.php',
 ];
 $ignoreErrors[] = [
