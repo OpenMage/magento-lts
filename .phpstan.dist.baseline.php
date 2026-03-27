@@ -8505,12 +8505,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/design/frontend/base/default/template/wishlist/item/column/cart.phtml',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Method Mage_Core_Block_Abstract::toHtml() invoked with 1 parameter, 0 required.',
-	'identifier' => 'arguments.count',
-	'count' => 1,
-	'path' => __DIR__ . '/app/design/frontend/base/default/template/wishlist/item/list.phtml',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 1,
@@ -8691,12 +8685,6 @@ $ignoreErrors[] = [
 	'identifier' => 'empty.notAllowed',
 	'count' => 1,
 	'path' => __DIR__ . '/app/design/frontend/rwd/default/template/wishlist/item/column/price.phtml',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Method Mage_Core_Block_Abstract::toHtml() invoked with 1 parameter, 0 required.',
-	'identifier' => 'arguments.count',
-	'count' => 1,
-	'path' => __DIR__ . '/app/design/frontend/rwd/default/template/wishlist/item/list.phtml',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
