@@ -238,7 +238,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
     }
 
     /**
-     * @return array{}
+     * @return array<void>
      */
     public function getAttributeOptions()
     {
