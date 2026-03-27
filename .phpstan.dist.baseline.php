@@ -3046,18 +3046,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/CatalogRule/Model/Resource/Rule.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc tag @param for parameter $productIds with type array|int is not subtype of native type array.',
-	'identifier' => 'parameter.phpDocType',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/CatalogRule/Model/Resource/Rule.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc tag @var with type Varien_Db_Adapter_Interface is not subtype of type Magento_Db_Adapter_Pdo_Mysql.',
-	'identifier' => 'varTag.type',
-	'count' => 2,
-	'path' => __DIR__ . '/app/code/core/Mage/CatalogRule/Model/Resource/Rule.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 1,
@@ -5285,30 +5273,12 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'If condition is always true.',
 	'identifier' => 'if.alwaysTrue',
-	'count' => 2,
+	'count' => 3,
 	'path' => __DIR__ . '/app/code/core/Mage/ImportExport/Model/Import/Entity/Product.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Negated boolean expression is always true.',
 	'identifier' => 'booleanNot.alwaysTrue',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/ImportExport/Model/Import/Entity/Product.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc tag @param for parameter $groupPriceData contains unresolvable type.',
-	'identifier' => 'parameter.unresolvableType',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/ImportExport/Model/Import/Entity/Product.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc tag @param for parameter $mediaGalleryData contains unresolvable type.',
-	'identifier' => 'parameter.unresolvableType',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/ImportExport/Model/Import/Entity/Product.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc tag @param for parameter $tierPriceData contains unresolvable type.',
-	'identifier' => 'parameter.unresolvableType',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/ImportExport/Model/Import/Entity/Product.php',
 ];

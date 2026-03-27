@@ -125,12 +125,11 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
     /**
      * Deletes records in catalogrule/product_data by rule ID and product IDs
      *
-     * @param int                                       $ruleId
-     * @param int|int[]|non-empty-array|null[]|string[] $productIds
+     * @param int                               $ruleId
+     * @param array<void>|int[]|null[]|string[] $productIds
      */
     public function cleanProductData($ruleId, array $productIds = [])
     {
-        /** @var Varien_Db_Adapter_Interface $write */
         $write = $this->_getWriteAdapter();
 
         $conditions = ['rule_id = ?' => $ruleId];
@@ -176,7 +175,6 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
      */
     public function insertRuleData(Mage_CatalogRule_Model_Rule $rule, array $websiteIds, array $productIds = [])
     {
-        /** @var Varien_Db_Adapter_Interface $write */
         $write = $this->_getWriteAdapter();
 
         $customerGroupIds = $rule->getCustomerGroupIds();
