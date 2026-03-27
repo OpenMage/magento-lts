@@ -164,7 +164,7 @@ class Mage_CatalogIndex_Model_Resource_Indexer extends Mage_Core_Model_Resource_
     /**
      * Get tables which are used for index related with price
      *
-     * @return array
+     * @return array<int, string>
      */
     protected function _getPriceTables()
     {

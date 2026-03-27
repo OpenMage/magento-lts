@@ -51,7 +51,7 @@ abstract class Magento_Profiler_OutputAbstract
     /**
      * Retrieve the list of (column_label; column_id) pairs
      *
-     * @return array
+     * @return array<string, string>
      */
     protected function _getColumns()
     {

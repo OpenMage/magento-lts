@@ -92,7 +92,7 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Collection_Abstract ext
     /**
      * Retrieve Where Condition to Index table
      *
-     * @return array
+     * @return array<string, mixed>
      */
     protected function _getWhereCondition()
     {

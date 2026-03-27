@@ -21,6 +21,9 @@ class Mage_Eav_Model_Adminhtml_System_Config_Source_Inputtype_Validator extends 
      */
     protected $_messageTemplates = [];
 
+    /**
+     * @var string[]
+     */
     protected array $haystack = [];
 
     public function __construct()

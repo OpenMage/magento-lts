@@ -220,7 +220,7 @@ abstract class Mage_Checkout_Block_Onepage_Abstract extends Mage_Core_Block_Temp
     /**
      * Get checkout steps codes
      *
-     * @return array
+     * @return array<int, string>
      */
     protected function _getStepCodes()
     {

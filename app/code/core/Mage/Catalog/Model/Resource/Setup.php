@@ -51,7 +51,7 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
     /**
      * Default entities and attributes
      *
-     * @return array
+     * @return array<string, non-empty-array<\lowercase-string, mixed>>
      */
     public function getDefaultEntities()
     {

@@ -275,7 +275,7 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
     /**
      * Retrieve wishlist item data as array
      *
-     * @return array
+     * @return array<string, mixed>
      * @deprecated since 1.4.0.0
      */
     public function getDataForSave()

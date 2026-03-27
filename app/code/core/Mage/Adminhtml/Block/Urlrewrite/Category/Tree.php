@@ -90,8 +90,8 @@ class Mage_Adminhtml_Block_Urlrewrite_Category_Tree extends Mage_Adminhtml_Block
     /**
      * Convert categories tree to array recursively
      *
-     * @param  Varien_Data_Tree_Node $node
-     * @return array
+     * @param  Varien_Data_Tree_Node                                  $node
+     * @return array<string, null|bool|int|mixed[][]|string|string[]>
      */
     protected function _getNodesArray($node)
     {

@@ -279,7 +279,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
     /**
      * Get version of rates request
      *
-     * @return array
+     * @return array<string, string>
      */
     public function getVersionInfo()
     {
@@ -294,8 +294,8 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
     /**
      * Forming request for rate estimation depending to the purpose
      *
-     * @param  string $purpose
-     * @return array
+     * @param  string                              $purpose
+     * @return array<string, array<string, mixed>>
      */
     protected function _formRateRequest($purpose)
     {
@@ -1297,7 +1297,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
     /**
      * Return array of authenticated information
      *
-     * @return array
+     * @return array<string, array<array<string, mixed>, mixed>>
      */
     protected function _getAuthDetails()
     {

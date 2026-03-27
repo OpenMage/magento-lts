@@ -405,7 +405,8 @@ abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
      * Prepare shipping options request
      * Returns false if there are no shipping options
      *
-     * @param  int  $index
+     * @param  array<string, mixed> $request
+     * @param  int                  $index
      * @return bool
      */
     protected function _exportShippingOptions(array &$request, $index = 0)
@@ -504,6 +505,7 @@ abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
     /**
      * Street address workaround: divides address lines into parts by specified keys
      * (keys should go as 3rd, 4th[...] parameters)
+     * @param mixed[]|string[] $to
      */
     protected function _importStreetFromAddress(Varien_Object $address, array &$to)
     {

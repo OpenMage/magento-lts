@@ -1114,7 +1114,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
     /**
      * Get restore password params.
      *
-     * @return array array ($customerId, $resetPasswordToken)
+     * @return array<int, int|string> array ($customerId, $resetPasswordToken)
      */
     protected function _getRestorePasswordParameters(Mage_Customer_Model_Session $session)
     {

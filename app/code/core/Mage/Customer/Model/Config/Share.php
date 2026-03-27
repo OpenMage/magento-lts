@@ -49,7 +49,7 @@ class Mage_Customer_Model_Config_Share extends Mage_Core_Model_Config_Data
     /**
      * Get possible sharing configuration options
      *
-     * @return array
+     * @return array<int, string>
      */
     public function toOptionArray()
     {

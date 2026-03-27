@@ -879,6 +879,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
      * align        string; text align (also see feed parameter), optional left, right
      * height       int;line spacing (default 10)
      *
+     * @param  array<array<int, array<string, mixed>>, mixed> $draw
      * @return Zend_Pdf_Page
      * @throws Mage_Core_Exception
      */

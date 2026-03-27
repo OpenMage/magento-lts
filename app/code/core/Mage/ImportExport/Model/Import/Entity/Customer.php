@@ -490,6 +490,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
     /**
      * Save customer attributes.
      *
+     * @param  non-empty-array<non-empty-array>[] $attributesData
      * @return $this
      */
     protected function _saveCustomerAttributes(array $attributesData)
@@ -517,8 +518,8 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
     /**
      * Update and insert data in entity table.
      *
-     * @param  array $entityRowsIn Row for insert
-     * @param  array $entityRowsUp Row for update
+     * @param  array<int, array<string, mixed>> $entityRowsIn Row for insert
+     * @param  array<int, array<string, mixed>> $entityRowsUp Row for update
      * @return $this
      */
     protected function _saveCustomerEntity(array $entityRowsIn, array $entityRowsUp)

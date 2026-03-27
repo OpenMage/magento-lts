@@ -1338,8 +1338,8 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      *
      * To be used in blocks, templates, etc.
      *
-     * @param  array|string $args Module name if string
-     * @return array
+     * @param  array|string          $args Module name if string
+     * @return array<string, string>
      */
     public function getPathVars($args = null)
     {

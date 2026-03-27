@@ -28,7 +28,7 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
     /**
      * Retrieve customer entity default attributes
      *
-     * @return array
+     * @return array<int, string>
      */
     protected function _getDefaultAttributes()
     {

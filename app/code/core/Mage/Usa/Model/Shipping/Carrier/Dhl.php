@@ -1289,7 +1289,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
     /**
      * Get additional protection value types
      *
-     * @return array
+     * @return array<int, string>
      */
     public function getAdditionalProtectionValueTypes()
     {
@@ -1303,7 +1303,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
     /**
      * Get additional protection rounding types
      *
-     * @return array
+     * @return array<int, string>
      */
     public function getAdditionalProtectionRoundingTypes()
     {

@@ -17,6 +17,9 @@ trait ModulesTrait
         'Mage_Tag',
     ];
 
+    /**
+     * @return array<int, string>
+     */
     final public function provideAllModules(): array
     {
         return [

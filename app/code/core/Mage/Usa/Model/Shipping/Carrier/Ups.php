@@ -1552,7 +1552,7 @@ XMLAuth;
         ) {
             $invoiceLineTotalPart = $shipmentPart->addChild('InvoiceLineTotal');
             $invoiceLineTotalPart->addChild('CurrencyCode', $request->getBaseCurrencyCode());
-            $invoiceLineTotalPart->addChild('MonetaryValue', ceil($packageParams->getCustomsValue()));
+            $invoiceLineTotalPart->addChild('MonetaryValue', (string) ceil($packageParams->getCustomsValue()));
         }
 
         $labelPart = $xmlRequest->addChild('LabelSpecification');
@@ -2136,7 +2136,7 @@ XMLAuth;
     /**
      * Return delivery confirmation types of carrier
      *
-     * @return array
+     * @return array<int, string>
      */
     public function getDeliveryConfirmationTypes(?Varien_Object $params = null)
     {
@@ -2408,6 +2408,10 @@ XMLAuth;
         return $this->setRatePriceData($priceArr, $costArr, $errorTitle);
     }
 
+    /**
+     * @param float[]|string[] $priceArr
+     * @param float[]|string[] $costArr
+     */
     private function setRatePriceData(array $priceArr, array $costArr, string $errorTitle): Mage_Shipping_Model_Rate_Result
     {
         $result = Mage::getModel('shipping/rate_result');
@@ -2446,6 +2450,9 @@ XMLAuth;
 
     /**
      * Processing rate for ship element
+     *
+     * @param float[]|string[] $costArr
+     * @param float[]|string[] $priceArr
      */
     private function processShippingRestRateForItem(
         array $shipElement,
@@ -2537,6 +2544,7 @@ XMLAuth;
 
     /**
      * Setting common request params for Rate Request
+     * @return array<string, mixed>
      */
     // phpcs:ignore Ecg.PHP.PrivateClassMember.PrivateClassMemberError
     private function setQuoteRequestData(Varien_Object $rowRequest): array

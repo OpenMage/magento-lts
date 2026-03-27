@@ -189,6 +189,9 @@ class Varien_Db_Tree
         return $this;
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function getKeys()
     {
         return [

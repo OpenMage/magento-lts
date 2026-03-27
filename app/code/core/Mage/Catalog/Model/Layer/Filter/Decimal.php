@@ -191,10 +191,10 @@ class Mage_Catalog_Model_Layer_Filter_Decimal extends Mage_Catalog_Model_Layer_F
     }
 
     /**
-     * Retrieve data for build decimal filter items
-     *
-     * @return array
+     * @inheritDoc
+     * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
+     * @throws Zend_Controller_Response_Exception
      */
     protected function _getItemsData()
     {

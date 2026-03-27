@@ -708,8 +708,8 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
     /**
      * Run Multi Query
      *
-     * @param  string               $sql
-     * @return array
+     * @param  string                        $sql
+     * @return Zend_Db_Statement_Interface[]
      * @throws Zend_Cache_Exception
      */
     // phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
@@ -1840,8 +1840,8 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      * Format described column to definition, ready to be added to ddl table.
      * Return array with keys: name, type, length, options, comment
      *
-     * @param  array $columnData
-     * @return array
+     * @param  array                $columnData
+     * @return array<string, mixed>
      */
     public function getColumnCreateByDescribe($columnData)
     {
@@ -2231,6 +2231,8 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      * Insert array to table based on columns definition
      *
      * @param  string            $table
+     * @param  int[]|string[]    $columns
+     * @param  array<int, list>  $data
      * @return int
      * @throws Zend_Db_Exception
      */
@@ -3768,7 +3770,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      *
      * @param  string                   $rangeField
      * @param  int                      $stepCount
-     * @return array
+     * @return Varien_Db_Select[]
      * @throws Varien_Db_Exception
      * @throws Zend_Db_Select_Exception
      */
@@ -4038,7 +4040,9 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
     /**
      * Return insert sql query
      *
-     * @param  string $tableName
+     * @param  string         $tableName
+     * @param  int[]|string[] $columns
+     * @param  string[]       $values
      * @return string
      */
     protected function _getInsertSqlQuery($tableName, array $columns, array $values)

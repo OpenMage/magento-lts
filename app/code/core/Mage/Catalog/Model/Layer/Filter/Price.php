@@ -299,9 +299,8 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
     }
 
     /**
-     * Get data for build price filter items
-     *
-     * @return array
+     * @inheritDoc
+     * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
      */
     protected function _getItemsData()

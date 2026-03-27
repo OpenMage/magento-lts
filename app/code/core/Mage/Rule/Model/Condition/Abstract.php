@@ -175,7 +175,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
     }
 
     /**
-     * @return array
+     * @return array<string, null|bool|int|mixed[]|string>
      */
     public function asArray(array $arrAttributes = [])
     {
@@ -238,7 +238,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
     }
 
     /**
-     * @return array
+     * @return array<void>
      */
     public function getAttributeOptions()
     {
@@ -450,7 +450,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
     /**
      * Get inherited conditions selectors
      *
-     * @return array
+     * @return array<int, array<string, string>>
      */
     public function getNewChildSelectOptions()
     {

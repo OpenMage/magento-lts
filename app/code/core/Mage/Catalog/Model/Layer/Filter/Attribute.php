@@ -96,9 +96,8 @@ class Mage_Catalog_Model_Layer_Filter_Attribute extends Mage_Catalog_Model_Layer
     }
 
     /**
-     * Get data array for building attribute filter items
-     *
-     * @return array
+     * @inheritDoc
+     * @throws Mage_Core_Exception
      */
     protected function _getItemsData()
     {
