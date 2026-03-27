@@ -42,18 +42,12 @@ class Mage_Usa_Adminhtml_UspsController extends Mage_Adminhtml_Controller_Action
     protected function _getConfig(string $path, string $websiteCode, string $storeCode): ?string
     {
         if ($storeCode) {
-            $value = Mage::getStoreConfig($path, $storeCode);
+            return Mage::getStoreConfig($path, $storeCode);
         } elseif ($websiteCode) {
-            $value = Mage::app()->getWebsite($websiteCode)->getConfig($path);
+            return Mage::app()->getWebsite($websiteCode)->getConfig($path);
         } else {
-            $value = Mage::getStoreConfig($path);
+            return Mage::getStoreConfig($path);
         }
-
-        if ($value !== null && (str_contains($path, 'client_id') || str_contains($path, 'client_secret'))) {
-            return Mage::helper('core')->decrypt($value);
-        }
-
-        return $value;
     }
 
     public function createdimensionsAction(): void
