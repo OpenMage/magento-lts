@@ -80,7 +80,7 @@ abstract class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Group_Abstrac
     /**
      * Prepare group price values
      *
-     * @return array{}
+     * @return array<string, mixed>|array<void>
      */
     public function getValues()
     {
