@@ -7559,6 +7559,12 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Usa/Model/Shipping/Carrier/Ups.php',
 ];
 $ignoreErrors[] = [
+	'rawMessage' => 'Parameter &$costArr by-ref type of method Mage_Usa_Model_Shipping_Carrier_Ups::processShippingRestRateForItem() expects array<float|string>, array given.',
+	'identifier' => 'parameterByRef.type',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Usa/Model/Shipping/Carrier/Ups.php',
+];
+$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 6,
