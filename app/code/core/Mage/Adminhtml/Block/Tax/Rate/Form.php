@@ -14,6 +14,8 @@
  */
 class Mage_Adminhtml_Block_Tax_Rate_Form extends Mage_Adminhtml_Block_Widget_Form
 {
+    protected string $_eventPrefix = 'adminhtml_tax_rate_form';
+
     /**
      * Tax titles
      *

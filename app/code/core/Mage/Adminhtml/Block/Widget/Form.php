@@ -24,6 +24,8 @@ class Mage_Adminhtml_Block_Widget_Form extends Mage_Adminhtml_Block_Widget
      */
     protected $_form;
 
+    protected string $_eventPrefix = '';
+
     /**
      * @inheritDoc
      */
@@ -38,7 +40,7 @@ class Mage_Adminhtml_Block_Widget_Form extends Mage_Adminhtml_Block_Widget
     /**
      * Preparing global layout
      *
-     * You can redefine this method in child classes for changin layout
+     * You can redefine this method in child classes for changing layout
      *
      * @return $this
      */
@@ -106,6 +108,16 @@ class Mage_Adminhtml_Block_Widget_Form extends Mage_Adminhtml_Block_Widget
      */
     protected function _prepareForm()
     {
+        Mage::dispatchEvent('adminhtml_widget_form_prepare_form', [
+            'form' => $this,
+        ]);
+
+        if ($this->_eventPrefix !== '') {
+            Mage::dispatchEvent($this->_eventPrefix . '_prepare_form', [
+                'form' => $this,
+            ]);
+        }
+
         return $this;
     }
 

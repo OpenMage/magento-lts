@@ -12,6 +12,8 @@
  */
 class Mage_Adminhtml_Block_Rating_Edit_Tab_Options extends Mage_Adminhtml_Block_Widget_Form
 {
+    protected string $_eventPrefix = 'adminhtml_rating_edit_tab_options';
+
     protected function _prepareForm()
     {
         $form = new Varien_Data_Form();

@@ -14,6 +14,8 @@
  */
 class Mage_Adminhtml_Block_System_Account_Edit_Form extends Mage_Adminhtml_Block_Widget_Form
 {
+    protected string $_eventPrefix = 'adminhtml_system_account_edit_form';
+
     protected function _prepareForm()
     {
         $userId = Mage::getSingleton('admin/session')->getUser()->getId();

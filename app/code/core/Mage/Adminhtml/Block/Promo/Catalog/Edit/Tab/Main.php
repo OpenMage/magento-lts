@@ -14,6 +14,8 @@
  */
 class Mage_Adminhtml_Block_Promo_Catalog_Edit_Tab_Main extends Mage_Adminhtml_Block_Widget_Form implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
+    protected string $_eventPrefix = 'adminhtml_promo_catalog_edit_tab_main';
+
     /**
      * Prepare content for tab
      *
@@ -166,9 +168,6 @@ class Mage_Adminhtml_Block_Promo_Catalog_Edit_Tab_Main extends Mage_Adminhtml_Bl
         }
 
         $this->setForm($form);
-
-        Mage::dispatchEvent('adminhtml_promo_catalog_edit_tab_main_prepare_form', ['form' => $form]);
-
         return parent::_prepareForm();
     }
 }
