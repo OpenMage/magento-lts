@@ -96,14 +96,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
     }
 
     /**
-     * Retrieve Required children ids
-     * Return grouped array, ex array(
-     *   group => array(ids)
-     * )
-     *
-     * @param  int   $parentId
-     * @param  bool  $required
-     * @return array
+     * @inheritDoc
      */
     public function getChildrenIds($parentId, $required = true)
     {

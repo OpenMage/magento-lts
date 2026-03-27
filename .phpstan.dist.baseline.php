@@ -2956,12 +2956,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/CatalogInventory/Model/Stock/Item.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Empty array passed to foreach.',
-	'identifier' => 'foreach.emptyArray',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/CatalogInventory/Model/Stock/Item.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 1,
@@ -4103,12 +4097,6 @@ $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 2,
-	'path' => __DIR__ . '/app/code/core/Mage/Core/Model/Session/Abstract/Varien.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Empty array passed to foreach.',
-	'identifier' => 'foreach.emptyArray',
-	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Core/Model/Session/Abstract/Varien.php',
 ];
 $ignoreErrors[] = [
@@ -5875,12 +5863,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Paypal/Model/Cart.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Empty array passed to foreach.',
-	'identifier' => 'foreach.emptyArray',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Paypal/Model/Cart.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Left side of && is always true.',
 	'identifier' => 'booleanAnd.leftAlwaysTrue',
 	'count' => 1,
@@ -6505,12 +6487,6 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Sales/Model/Observer.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Empty array passed to foreach.',
-	'identifier' => 'foreach.emptyArray',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Sales/Model/Observer.php',
 ];
@@ -7680,21 +7656,9 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/catalog/product/edit/price/group.phtml',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Empty array passed to foreach.',
-	'identifier' => 'foreach.emptyArray',
-	'count' => 1,
-	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/catalog/product/edit/price/group.phtml',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 2,
-	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/catalog/product/edit/price/tier.phtml',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Empty array passed to foreach.',
-	'identifier' => 'foreach.emptyArray',
-	'count' => 1,
 	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/catalog/product/edit/price/tier.phtml',
 ];
 $ignoreErrors[] = [
@@ -8828,12 +8792,6 @@ $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 2,
-	'path' => __DIR__ . '/lib/Mage/System/Ftp.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Empty array passed to foreach.',
-	'identifier' => 'foreach.emptyArray',
-	'count' => 1,
 	'path' => __DIR__ . '/lib/Mage/System/Ftp.php',
 ];
 $ignoreErrors[] = [
