@@ -3672,12 +3672,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Core/Helper/String.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Parameter #1 $param of method Mage_Core_Helper_String::_handleRecursiveParamForQueryStr() expects array<string, string>, array<string, array<int|string, string>|string> given.',
-	'identifier' => 'argument.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Core/Helper/String.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Parameter #2 $arguments of static method Mage::getResourceModel() expects array, object given.',
 	'identifier' => 'argument.type',
 	'count' => 1,

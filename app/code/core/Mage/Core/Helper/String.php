@@ -412,7 +412,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
     /**
      * Handle param recursively
      *
-     * @param  array<string, string> $param
+     * @param  array<string, array<int|string, string>|string> $param
      * @return array
      */
     protected function _handleRecursiveParamForQueryStr(array $param)
