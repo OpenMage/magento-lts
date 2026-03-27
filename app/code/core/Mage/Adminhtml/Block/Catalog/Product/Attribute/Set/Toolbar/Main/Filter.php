@@ -12,6 +12,8 @@
  */
 class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Toolbar_Main_Filter extends Mage_Adminhtml_Block_Widget_Form
 {
+    protected string $_eventPrefix = 'adminhtml_catalog_product_attribute_set_toolbar_main_filter';
+
     #[Override]
     protected function _prepareForm()
     {

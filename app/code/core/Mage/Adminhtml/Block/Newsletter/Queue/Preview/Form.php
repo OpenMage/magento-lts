@@ -14,6 +14,8 @@
  */
 class Mage_Adminhtml_Block_Newsletter_Queue_Preview_Form extends Mage_Adminhtml_Block_Widget_Form
 {
+    protected string $_eventPrefix = 'adminhtml_newsletter_queue_preview_form';
+
     /**
      * Preparing from for revision page
      *
