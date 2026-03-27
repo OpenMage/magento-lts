@@ -14,13 +14,15 @@
  */
 class Mage_Adminhtml_Block_Customer_Edit_Tab_Account extends Mage_Adminhtml_Block_Widget_Form
 {
+    protected string $_eventPrefix = 'adminhtml_customer_edit_tab_account';
+
     /**
      * Initialize form
      *
      * @return $this
      * @throws Mage_Core_Exception
      */
-    public function initForm()
+    public function _prepareForm()
     {
         $form = new Varien_Data_Form();
         $form->setHtmlIdPrefix('_account');
@@ -284,7 +286,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Account extends Mage_Adminhtml_Bloc
 
         $form->setValues($customer->getData());
         $this->setForm($form);
-        return $this;
+        return parent::_prepareForm();
     }
 
     /**

@@ -61,6 +61,16 @@ class Mage_Adminhtml_Block_Widget_Form extends Mage_Adminhtml_Block_Widget
             Varien_Data_Form::setFieldsetElementRenderer($renderer);
         }
 
+        Mage::dispatchEvent('adminhtml_widget_form_prepare_layout', [
+            'form' => $this,
+        ]);
+
+        if ($this->_eventPrefix !== '') {
+            Mage::dispatchEvent($this->_eventPrefix . '_prepare_layout', [
+                'form' => $this,
+            ]);
+        }
+
         return parent::_prepareLayout();
     }
 
