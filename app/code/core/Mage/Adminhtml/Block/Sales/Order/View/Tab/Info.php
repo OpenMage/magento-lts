@@ -49,7 +49,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_Info extends Mage_Adminhtml_Bloc
     }
 
     /**
-     * @return array<string, bool>
+     * @inheritDoc
      */
     public function getOrderInfoData()
     {

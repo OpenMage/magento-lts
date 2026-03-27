@@ -956,7 +956,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
     }
 
     /**
-     * @return array{}
+     * @return array<int, string>|array<void>
      */
     public function getApplyTo()
     {

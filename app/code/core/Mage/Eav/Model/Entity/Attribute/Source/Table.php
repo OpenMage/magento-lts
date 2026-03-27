@@ -137,9 +137,7 @@ class Mage_Eav_Model_Entity_Attribute_Source_Table extends Mage_Eav_Model_Entity
     }
 
     /**
-     * Retrieve Column(s) for Flat
-     *
-     * @return array
+     * @inheritDoc
      */
     public function getFlatColums()
     {

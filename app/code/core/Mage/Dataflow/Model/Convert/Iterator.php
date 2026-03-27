@@ -91,7 +91,7 @@ function updateProgress(sessionId, idx, time, memory) {
     }
 
     /**
-     * @return array{}
+     * @return array<void>
      */
     public function updateProgress($args)
     {

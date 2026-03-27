@@ -86,9 +86,7 @@ class Mage_Eav_Model_Entity_Attribute_Source_Boolean extends Mage_Eav_Model_Enti
     }
 
     /**
-     * Retrieve flat column definition
-     *
-     * @return array
+     * @inheritDoc
      */
     public function getFlatColums()
     {
