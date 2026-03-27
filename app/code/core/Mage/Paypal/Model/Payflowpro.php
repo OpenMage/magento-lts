@@ -332,10 +332,7 @@ class Mage_Paypal_Model_Payflowpro extends Mage_Payment_Model_Method_Cc
     }
 
     /**
-     * Fetch transaction details info
-     *
-     * @param  string                     $transactionId
-     * @return array
+     * @inheritDoc
      * @throws Mage_Core_Exception
      * @throws Zend_Http_Client_Exception
      */

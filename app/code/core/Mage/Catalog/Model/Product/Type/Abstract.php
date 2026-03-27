@@ -943,9 +943,9 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
     /**
      * Prepare selected options for product
      *
-     * @param  Mage_Catalog_Model_Product $product
-     * @param  Varien_Object              $buyRequest
-     * @return array{}
+     * @param  Mage_Catalog_Model_Product          $product
+     * @param  Varien_Object                       $buyRequest
+     * @return array<string, string[]>|array<void>
      */
     public function processBuyRequest($product, $buyRequest)
     {
