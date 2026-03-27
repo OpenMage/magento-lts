@@ -488,9 +488,9 @@ class Mage_System_Ftp
     /**
      * Get directory contents in PHP array
      *
-     * @param  string    $dir
-     * @param  bool      $recursive
-     * @return array{}
+     * @param  string               $dir
+     * @param  bool                 $recursive
+     * @return array<string, mixed>
      * @throws Exception
      */
     public function ls($dir = '/', $recursive = false)
@@ -514,12 +514,12 @@ class Mage_System_Ftp
             } elseif (!empty($rawfile)) {
                 $info = preg_split("/[\s]+/", $rawfile, 9);
                 $arraypointer[] = [
-                    'name'   => $info[8],
-                    'dir'  => $info[0][0] == 'd',
-                    'size'   => (int) $info[4],
-                    'chmod'  => self::chmodnum($info[0]),
-                    'rawdata' => $info,
-                    'raw'     => $rawfile,
+                    'name'      => $info[8],
+                    'dir'       => $info[0][0] == 'd',
+                    'size'      => (int) $info[4],
+                    'chmod'     => self::chmodnum($info[0]),
+                    'rawdata'   => $info,
+                    'raw'       => $rawfile,
                 ];
             }
         }
