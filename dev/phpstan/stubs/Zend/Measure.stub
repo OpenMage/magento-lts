@@ -1,6 +1,6 @@
 <?php
 
 /**
- * @deprecated use Mage_Core_Helper_Measure_* instead
+ * @deprecated Use Mage_Core_Helper_Measure_Length and Mage_Core_Helper_Measure_Weight instead.
  */
 class Zend_Measure {}
