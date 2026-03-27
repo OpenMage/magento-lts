@@ -16,7 +16,7 @@ class Mage_Adminhtml_Block_Newsletter_Problem_Grid_Filter_Checkbox extends Mage_
 {
     /**
      * @inheritDoc
-     * @return array{}
+     * @return array<void>
      */
     public function getCondition()
     {
