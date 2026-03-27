@@ -110,7 +110,7 @@ class Mage_CatalogIndex_Model_Indexer_Tierprice extends Mage_CatalogIndex_Model_
     }
 
     /**
-     * @return array<string, string>
+     * @inheritDoc
      */
     protected function _getIndexableAttributeConditions()
     {

@@ -204,7 +204,7 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
     /**
      * Retrieve Indexes for Flat
      *
-     * @return array{}
+     * @return array<void>
      */
     public function getFlatIndexes()
     {
