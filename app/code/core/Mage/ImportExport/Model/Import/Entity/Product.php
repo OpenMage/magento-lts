@@ -1357,7 +1357,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Save product categories.
      *
-     * @param  array{string, int[]} $categoriesData
+     * @param  array<non-empty-array<true>>|array<void> $categoriesData
      * @return $this
      * @throws Zend_Db_Exception
      */
@@ -1389,7 +1389,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
                 );
             }
 
-            if ($categoriesIn !== []) {
+            if ($categoriesIn) {
                 $this->_connection->insertOnDuplicate($tableName, $categoriesIn, ['position']);
             }
         }
@@ -1728,7 +1728,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Save product tier prices.
      *
-     * @param  non-empty-list<array<string, mixed>>[] $tierPriceData
+     * @param  array<list<array<string, mixed>>> $tierPriceData
      * @return $this
      * @throws Zend_Db_Exception
      */
@@ -1949,7 +1949,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Save product websites.
      *
-     * @param  array<non-empty-array<true>> $websiteData
+     * @param  array<array<bool>> $websiteData
      * @return $this
      * @throws Zend_Db_Exception
      */
