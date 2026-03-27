@@ -1,5 +1,7 @@
 <?php
 
+use PDO\MYSQL;
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -404,7 +406,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
             // PHP 8.5 compatibility: Check for the new PDO\MYSQL namespace
             // In PHP 8.5+, MySQL-specific constants may be moved to the PDO\MYSQL namespace
             if (class_exists('PDO\\MYSQL')) {
-                $this->_connection->setAttribute(\PDO\MYSQL::ATTR_USE_BUFFERED_QUERY, true);
+                $this->_connection->setAttribute(MYSQL::ATTR_USE_BUFFERED_QUERY, true);
             } else {
                 $this->_connection->setAttribute(PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, true);
             }

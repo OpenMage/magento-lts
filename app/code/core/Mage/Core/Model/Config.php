@@ -1,12 +1,13 @@
 <?php
 
+use Monolog\Level;
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
  * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
  */
-
 /**
  * Core configuration class
  *
@@ -542,7 +543,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
                 throw new Exception('Could not get lock on cache save operation.');
             }
 
-            Mage::log(sprintf('Failed to get cache save lock in %d seconds.', $waitTime), \Monolog\Level::Notice);
+            Mage::log(sprintf('Failed to get cache save lock in %d seconds.', $waitTime), Level::Notice);
             require Mage::getBaseDir() . DS . 'errors' . DS . '503.php';
             die();
         }

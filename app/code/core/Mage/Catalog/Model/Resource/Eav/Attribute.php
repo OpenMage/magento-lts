@@ -300,17 +300,6 @@ class Mage_Catalog_Model_Resource_Eav_Attribute extends Mage_Eav_Model_Entity_At
     }
 
     /**
-     * Get Attribute translated label for store
-     *
-     * @return string
-     * @deprecated
-     */
-    protected function _getLabelForStore()
-    {
-        return $this->getFrontendLabel();
-    }
-
-    /**
      * Initialize store Labels for attributes
      *
      * @param int $storeId

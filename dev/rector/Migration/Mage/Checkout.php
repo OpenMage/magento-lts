@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Rector\Migration\Mage;
 
 use Mage_Checkout_Block_Cart_Abstract;
+use Mage_Checkout_Model_Type_Onepage;
 use Rector\Renaming\ValueObject\MethodCallRename;
 
 final class Checkout
@@ -23,6 +24,7 @@ final class Checkout
     {
         return [
             new MethodCallRename(Mage_Checkout_Block_Cart_Abstract::class, 'getItemRender', 'getItemRendererInfo'),
+            new MethodCallRename(Mage_Checkout_Model_Type_Onepage::class, 'getCheckoutMehod', 'getCheckoutMethod'),
         ];
     }
 }

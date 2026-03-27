@@ -7,8 +7,6 @@
  * @package    Mage_Adminhtml
  */
 
-use Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract as MassAction;
-
 /**
  * Grid widget massaction block
  *

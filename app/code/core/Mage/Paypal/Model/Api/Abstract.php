@@ -158,15 +158,6 @@ abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
     }
 
     /**
-     * @return bool
-     * @deprecated after 1.4.1.0
-     */
-    public function getDebug()
-    {
-        return $this->getDebugFlag();
-    }
-
-    /**
      * PayPal page CSS getter
      *
      * @return string

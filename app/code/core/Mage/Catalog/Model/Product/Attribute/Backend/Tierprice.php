@@ -25,17 +25,6 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Tierprice extends Mage_Catalo
     }
 
     /**
-     * Retrieve websites rates and base currency codes
-     *
-     * @return array
-     * @deprecated since 1.12.0.0
-     */
-    public function _getWebsiteRates()
-    {
-        return $this->_getWebsiteCurrencyRates();
-    }
-
-    /**
      * Add price qty to unique fields
      *
      * @param  array $objectArray

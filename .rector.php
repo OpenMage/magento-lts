@@ -37,6 +37,7 @@ try {
             cacheDirectory: '.rector.result.cache',
             cacheClass: FileCacheStorage::class,
         )
+        ->withImportNames(removeUnusedImports: true)
         ->withPhpSets(
             php81: true,
         )
@@ -81,13 +82,17 @@ try {
         ->withConfiguredRule(Renaming\ClassConstFetch\RenameClassConstFetchRector::class, Migration\Zend\Measure::renameClassConst())
         ->withConfiguredRule(Renaming\MethodCall\RenameMethodRector::class, Migration\Mage\Admin::renameMethod())
         ->withConfiguredRule(Renaming\MethodCall\RenameMethodRector::class, Migration\Mage\Adminhtml::renameMethod())
+        ->withConfiguredRule(Renaming\MethodCall\RenameMethodRector::class, Migration\Mage\Bundle::renameMethod())
         ->withConfiguredRule(Renaming\MethodCall\RenameMethodRector::class, Migration\Mage\Catalog::renameMethod())
+        ->withConfiguredRule(Renaming\MethodCall\RenameMethodRector::class, Migration\Mage\CatalogSearch::renameMethod())
         ->withConfiguredRule(Renaming\MethodCall\RenameMethodRector::class, Migration\Mage\ConfigurableSwatches::renameMethod())
         ->withConfiguredRule(Renaming\MethodCall\RenameMethodRector::class, Migration\Mage\Checkout::renameMethod())
         ->withConfiguredRule(Renaming\MethodCall\RenameMethodRector::class, Migration\Mage\Core::renameMethod())
         ->withConfiguredRule(Renaming\MethodCall\RenameMethodRector::class, Migration\Mage\Eav::renameMethod())
         ->withConfiguredRule(Renaming\MethodCall\RenameMethodRector::class, Migration\Mage\Paypal::renameMethod())
+        ->withConfiguredRule(Renaming\MethodCall\RenameMethodRector::class, Migration\Mage\Shipping::renameMethod())
         ->withConfiguredRule(Renaming\MethodCall\RenameMethodRector::class, Migration\Mage\Sitemap::renameMethod())
+        ->withConfiguredRule(Renaming\MethodCall\RenameMethodRector::class, Migration\Mage\Tag::renameMethod())
         ->withConfiguredRule(Renaming\MethodCall\RenameMethodRector::class, Migration\Mage\Tax::renameMethod())
         ->withConfiguredRule(Renaming\MethodCall\RenameMethodRector::class, Migration\Mage\Usa::renameMethod())
         ->withConfiguredRule(Renaming\MethodCall\RenameMethodRector::class, Migration\Mage\Wishlist::renameMethod())
