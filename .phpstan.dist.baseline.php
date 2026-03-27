@@ -5380,12 +5380,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Install/Model/Config.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc tag @return contains unresolvable type.',
-	'identifier' => 'return.unresolvableType',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Install/Model/Config.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 10,
