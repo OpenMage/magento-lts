@@ -15,7 +15,7 @@
 class Mage_Adminhtml_Block_Newsletter_Subscriber_Grid_Filter_Checkbox extends Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Abstract
 {
     /**
-     * @return array{}
+     * @inheritDoc
      */
     public function getCondition()
     {

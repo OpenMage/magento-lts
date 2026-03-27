@@ -77,9 +77,20 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Abstract extends Mage_Admin
     }
 
     /**
-     * Retrieve condition
+     * Retrieve filter condition for collection
      *
-     * @return Zend_Db_Expr[]
+     * @return null|array<void>|array{
+     *     eq?: string,
+     *     neq?: string,
+     *     in?: array,
+     *     nin?: array,
+     *     from?: string,
+     *     to?: string,
+     *     is?: string|Zend_Db_Expr,
+     *     like?: string|Zend_Db_Expr,
+     *     null?: bool,
+     *     currency?: string
+     * }|int
      */
     public function getCondition()
     {

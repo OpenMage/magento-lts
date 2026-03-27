@@ -28,7 +28,7 @@ class Mage_Adminhtml_Block_Review_Grid_Filter_Type extends Mage_Adminhtml_Block_
     }
 
     /**
-     * @return int
+     * @inheritDoc
      */
     public function getCondition()
     {
