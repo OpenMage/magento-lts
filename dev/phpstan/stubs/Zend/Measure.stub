@@ -1,0 +1,6 @@
+<?php
+
+/**
+ * @deprecated use Mage_Core_Helper_Measure_* instead
+ */
+class Zend_Measure {}
