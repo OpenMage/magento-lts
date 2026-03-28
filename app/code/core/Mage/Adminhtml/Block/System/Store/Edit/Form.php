@@ -14,6 +14,8 @@
  */
 class Mage_Adminhtml_Block_System_Store_Edit_Form extends Mage_Adminhtml_Block_Widget_Form
 {
+    protected string $_eventPrefix = 'adminhtml_system_store_edit_form';
+
     /**
      * Class constructor
      */
@@ -325,8 +327,6 @@ class Mage_Adminhtml_Block_System_Store_Edit_Form extends Mage_Adminhtml_Block_W
         $form->setAction($this->getUrl('*/*/save'));
         $form->setUseContainer(true);
         $this->setForm($form);
-
-        Mage::dispatchEvent('adminhtml_store_edit_form_prepare_form', ['block' => $this]);
 
         return parent::_prepareForm();
     }

@@ -12,6 +12,8 @@
  */
 class Mage_Adminhtml_Block_Permissions_Tab_Useredit extends Mage_Adminhtml_Block_Widget_Form
 {
+    protected string $_eventPrefix = 'adminhtml_permissions_tab_useredit';
+
     protected function _prepareForm()
     {
         $form = new Varien_Data_Form();
@@ -166,8 +168,8 @@ class Mage_Adminhtml_Block_Permissions_Tab_Useredit extends Mage_Adminhtml_Block
         unset($data['password']);
 
         $form->setValues($data);
-
         $this->setForm($form);
-        return $this;
+
+        return parent::_prepareForm();
     }
 }

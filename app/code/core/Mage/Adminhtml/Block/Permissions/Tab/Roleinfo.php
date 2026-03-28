@@ -32,14 +32,10 @@ class Mage_Adminhtml_Block_Permissions_Tab_Roleinfo extends Mage_Adminhtml_Block
         return false;
     }
 
-    protected function _beforeToHtml()
-    {
-        $this->_initForm();
-
-        return parent::_beforeToHtml();
-    }
-
-    protected function _initForm()
+    /**
+     * @inheritDoc
+     */
+    protected function _prepareForm()
     {
         $roleId = $this->getRequest()->getParam('rid');
 
@@ -92,5 +88,7 @@ class Mage_Adminhtml_Block_Permissions_Tab_Roleinfo extends Mage_Adminhtml_Block
 
         $form->setValues($this->getRole()->getData());
         $this->setForm($form);
+
+        return parent::_prepareForm();
     }
 }

@@ -32,7 +32,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tabs extends Mage_Adminhtml_Block_Widge
         $block = $this->getLayout()->createBlock('adminhtml/customer_edit_tab_account');
         $this->addTab('account', [
             'label'     => Mage::helper('customer')->__('Account Information'),
-            'content'   => $block->initForm()->toHtml(),
+            'content'   => $block->toHtml(),
             'active'    => !(bool) Mage::registry('current_customer')->getId(),
         ]);
 
@@ -40,7 +40,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tabs extends Mage_Adminhtml_Block_Widge
         $block = $this->getLayout()->createBlock('adminhtml/customer_edit_tab_addresses');
         $this->addTab('addresses', [
             'label'     => Mage::helper('customer')->__('Addresses'),
-            'content'   => $block->initForm()->toHtml(),
+            'content'   => $block->toHtml(),
         ]);
 
         // load: Orders, Shopping Cart, Wishlist, Product Reviews, Product Tags - with ajax

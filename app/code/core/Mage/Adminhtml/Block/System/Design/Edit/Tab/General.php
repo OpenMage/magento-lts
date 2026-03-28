@@ -12,6 +12,8 @@
  */
 class Mage_Adminhtml_Block_System_Design_Edit_Tab_General extends Mage_Adminhtml_Block_Widget_Form
 {
+    protected string $_eventPrefix = 'adminhtml_system_design_edit_tab_general';
+
     protected function _prepareForm()
     {
         $form = new Varien_Data_Form();
@@ -71,6 +73,6 @@ class Mage_Adminhtml_Block_System_Design_Edit_Tab_General extends Mage_Adminhtml
         $form->addValues($formData);
         $form->setFieldNameSuffix('design');
         $this->setForm($form);
-        return $this;
+        return parent::_prepareForm();
     }
 }

@@ -14,6 +14,8 @@
  */
 class Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses extends Mage_Adminhtml_Block_Widget_Form
 {
+    protected string $_eventPrefix = 'adminhtml_customer_edit_tab_addresses';
+
     /**
      * Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses constructor.
      */
@@ -101,7 +103,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses extends Mage_Adminhtml_Bl
      * @return $this
      * @throws Mage_Core_Exception
      */
-    public function initForm()
+    protected function _prepareForm()
     {
         $form = new Varien_Data_Form();
         $fieldset = $form->addFieldset('address_fieldset', [
@@ -202,7 +204,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses extends Mage_Adminhtml_Bl
         $form->setValues($addressModel->getData());
         $this->setForm($form);
 
-        return $this;
+        return parent::_prepareForm();
     }
 
     /**

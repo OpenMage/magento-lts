@@ -14,6 +14,8 @@
  */
 class Mage_Adminhtml_Block_Sales_Order_Status_Assign_Form extends Mage_Adminhtml_Block_Widget_Form
 {
+    protected string $_eventPrefix = 'adminhtml_sales_order_status_assign_form';
+
     public function __construct()
     {
         parent::__construct();

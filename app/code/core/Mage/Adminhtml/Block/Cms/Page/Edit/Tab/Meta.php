@@ -14,6 +14,8 @@
  */
 class Mage_Adminhtml_Block_Cms_Page_Edit_Tab_Meta extends Mage_Adminhtml_Block_Widget_Form implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
+    protected string $_eventPrefix = 'adminhtml_cms_page_edit_tab_meta';
+
     /**
      * @inheritDoc
      */
@@ -49,8 +51,6 @@ class Mage_Adminhtml_Block_Cms_Page_Edit_Tab_Meta extends Mage_Adminhtml_Block_W
             'title' => Mage::helper('cms')->__('Meta Description'),
             'disabled'  => $isElementDisabled,
         ]);
-
-        Mage::dispatchEvent('adminhtml_cms_page_edit_tab_meta_prepare_form', ['form' => $form]);
 
         $form->setValues($model->getData());
 

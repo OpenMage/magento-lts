@@ -14,6 +14,8 @@
  */
 class Mage_Adminhtml_Block_Review_Add_Form extends Mage_Adminhtml_Block_Widget_Form
 {
+    protected string $_eventPrefix = 'adminhtml_review_add_form';
+
     protected function _prepareForm()
     {
         $form = new Varien_Data_Form();
@@ -92,6 +94,6 @@ class Mage_Adminhtml_Block_Review_Add_Form extends Mage_Adminhtml_Block_Widget_F
         $form->setAction($this->getUrl('*/*/post'));
 
         $this->setForm($form);
-        return $this;
+        return parent::_prepareForm();
     }
 }
