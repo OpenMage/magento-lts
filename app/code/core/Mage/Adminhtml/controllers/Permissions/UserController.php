@@ -152,13 +152,14 @@ class Mage_Adminhtml_Permissions_UserController extends Mage_Adminhtml_Controlle
                     Mage::getModel('admin/user')->sendAdminNotification($model);
                 }
 
-                if ($uRoles = $this->getRequest()->getParam('roles', false)) {
-                    if (is_array($uRoles) && (count($uRoles) >= 1)) {
-                        // with fix for previous multi-roles logic
-                        $model->setRoleIds(array_slice($uRoles, 0, 1))
-                            ->setRoleUserId($model->getUserId())
-                            ->saveRelations();
-                    }
+                $uRoles = $this->getRequest()->getParam('roles', false);
+                if ($uRoles
+                    && (is_array($uRoles) && count($uRoles) >= 1)
+                ) {
+                    // with fix for previous multi-roles logic
+                    $model->setRoleIds(array_slice($uRoles, 0, 1))
+                        ->setRoleUserId($model->getUserId())
+                        ->saveRelations();
                 }
 
                 Mage::getSingleton('adminhtml/session')->addSuccess($this->__('The user has been saved.'));
