@@ -135,12 +135,10 @@ abstract class Mage_Eav_Model_Entity_Attribute_Frontend_Abstract implements Mage
         }
 
         if (!empty($out)) {
-            $out = implode(' ', $out);
-        } else {
-            $out = '';
+            return implode(' ', $out);
         }
 
-        return $out;
+        return '';
     }
 
     /**

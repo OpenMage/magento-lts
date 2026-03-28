@@ -43,14 +43,13 @@ class Mage_ImportExport_Model_Resource_Import_Data extends Mage_Core_Model_Resou
 
         $stmt->setFetchMode(Zend_Db::FETCH_NUM);
         if ($stmt instanceof IteratorAggregate) {
-            $iterator = $stmt->getIterator();
-        } else {
-            // Statement doesn't support iterating, so fetch all records and create iterator ourself
-            $rows = $stmt->fetchAll();
-            $iterator = new ArrayIterator($rows);
+            return $stmt->getIterator();
         }
 
-        return $iterator;
+        // Statement doesn't support iterating, so fetch all records and create iterator ourself
+        $rows = $stmt->fetchAll();
+
+        return new ArrayIterator($rows);
     }
 
     /**

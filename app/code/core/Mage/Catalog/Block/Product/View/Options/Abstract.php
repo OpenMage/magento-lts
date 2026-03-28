@@ -144,12 +144,10 @@ abstract class Mage_Catalog_Block_Product_View_Options_Abstract extends Mage_Cor
     public function getPrice($price, $includingTax = null)
     {
         if (!is_null($includingTax)) {
-            $price = Mage::helper('tax')->getPrice($this->getProduct(), $price, true);
-        } else {
-            $price = Mage::helper('tax')->getPrice($this->getProduct(), $price);
+            return Mage::helper('tax')->getPrice($this->getProduct(), $price, true);
         }
 
-        return $price;
+        return Mage::helper('tax')->getPrice($this->getProduct(), $price);
     }
 
     /**

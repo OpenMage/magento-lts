@@ -564,12 +564,10 @@ class Mage_Core_Model_Cache
         $tagsConfig = Mage::getConfig()->getNode($path);
         if ($tagsConfig) {
             $tags = (string) $tagsConfig;
-            $tags = explode(',', $tags);
-        } else {
-            $tags = false;
+            return explode(',', $tags);
         }
 
-        return $tags;
+        return false;
     }
 
     /**
@@ -605,12 +603,10 @@ class Mage_Core_Model_Cache
     {
         $types = $this->load(self::INVALIDATED_TYPES);
         if ($types) {
-            $types = unserialize($types, ['allowed_classes' => false]);
-        } else {
-            $types = [];
+            return unserialize($types, ['allowed_classes' => false]);
         }
 
-        return $types;
+        return [];
     }
 
     /**
