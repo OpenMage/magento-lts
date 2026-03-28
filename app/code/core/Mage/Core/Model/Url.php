@@ -509,15 +509,19 @@ class Mage_Core_Model_Url extends Varien_Object
                     if (is_null($value)) {
                         continue;
                     }
+
                     if ($value === false) {
                         continue;
                     }
+
                     if ($value === '') {
                         continue;
                     }
+
                     if (!is_scalar($value)) {
                         continue;
                     }
+
                     $routePath .= $key . '/' . $value . '/';
                 }
             }
@@ -677,9 +681,11 @@ class Mage_Core_Model_Url extends Varien_Object
                     if (array_key_exists($key, $data)) {
                         continue;
                     }
+
                     if (!$this->getRequest()->getUserParam($key)) {
                         continue;
                     }
+
                     $data[$key] = $this->getRequest()->getUserParam($key);
                 }
             } elseif ($data['_current']) {
@@ -687,9 +693,11 @@ class Mage_Core_Model_Url extends Varien_Object
                     if (array_key_exists($key, $data)) {
                         continue;
                     }
+
                     if ($this->getRouteParam($key)) {
                         continue;
                     }
+
                     $data[$key] = $value;
                 }
 

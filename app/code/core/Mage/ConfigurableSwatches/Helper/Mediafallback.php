@@ -85,6 +85,7 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
                     if (!$childProduct->hasData($attribute->getAttributeCode())) {
                         continue;
                     }
+
                     if (!$isInStock && !Mage::helper('cataloginventory')->isShowOutOfStock()) {
                         continue;
                     }

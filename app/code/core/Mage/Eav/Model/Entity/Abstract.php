@@ -642,9 +642,11 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
                     $instance = $attribute->getSource();
                     break;
             }
+
             if (!isset($instance, $method)) {
                 continue;
             }
+
             if (!$this->_isCallableAttributeInstance($instance, $method, $args)) {
                 continue;
             }
@@ -1207,9 +1209,11 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
             if (is_numeric($key)) {
                 continue;
             }
+
             if (is_array($value)) {
                 continue;
             }
+
             /**
              * Check if data key is presented in static fields or attribute codes
              */

@@ -244,9 +244,11 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Minicart
             if (!$template) {
                 continue;
             }
+
             if (!$block) {
                 continue;
             }
+
             if (!$type) {
                 continue;
             }

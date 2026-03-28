@@ -303,10 +303,12 @@ class Mage_Core_Model_Resource_Setup_Query_Modifier
             } else {
                 $columnDefinition = $this->_getColumnDefinitionFromTable($table, $column);
             }
+
             // We fix only int columns
             if (!$columnDefinition) {
                 continue;
             }
+
             if (!in_array($columnDefinition['type'], $this->_processedTypes)) {
                 continue;
             }

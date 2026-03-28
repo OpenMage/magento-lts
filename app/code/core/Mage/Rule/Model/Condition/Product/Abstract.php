@@ -177,9 +177,11 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
             if (!$attribute->isAllowedForRuleCondition()) {
                 continue;
             }
+
             if (!$attribute->getDataUsingMethod($this->_isUsedForRuleProperty)) {
                 continue;
             }
+
             $attributes[$attribute->getAttributeCode()] = $attribute->getFrontendLabel();
         }
 

@@ -102,9 +102,11 @@ class Mage_Core_Helper_Url extends Mage_Core_Helper_Abstract
             if (is_numeric($key)) {
                 continue;
             }
+
             if (is_object($value)) {
                 continue;
             }
+
             if (is_array($value)) {
                 $arrQueryParams[] = $key . '[]=' . implode('&' . $key . '[]=', $value);
             } elseif (is_null($value)) {

@@ -188,12 +188,15 @@ class Mage_Core_Model_File_Storage_Database extends Mage_Core_Model_File_Storage
             if (!isset($file['filename'])) {
                 continue;
             }
+
             if (!strlen($file['filename'])) {
                 continue;
             }
+
             if (!isset($file['content'])) {
                 continue;
             }
+
             try {
                 $file['update_time'] = $dateSingleton->date();
                 $file['directory_id'] = (isset($file['directory']) && strlen($file['directory']))

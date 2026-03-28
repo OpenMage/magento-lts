@@ -131,10 +131,12 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
                     // Don't process children here - we will process (or already have processed) them below
                     continue;
                 }
+
                 if ($item->getParentItem()) {
                     // Don't process children here - we will process (or already have processed) them below
                     continue;
                 }
+
                 if ($item->getHasChildren() && $item->isShipSeparately()) {
                     foreach ($item->getChildren() as $child) {
                         if (!$child->getFreeShipping() && !$child->getProduct()->isVirtual()) {

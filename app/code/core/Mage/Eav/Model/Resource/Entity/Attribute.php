@@ -193,9 +193,11 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
                 if ($storeId == 0) {
                     continue;
                 }
+
                 if (!strlen($label)) {
                     continue;
                 }
+
                 $bind = [
                     'attribute_id' => $object->getId(),
                     'store_id'     => $storeId,

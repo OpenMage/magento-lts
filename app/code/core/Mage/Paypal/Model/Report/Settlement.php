@@ -384,6 +384,7 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
             if (empty($cfg['username'])) {
                 continue;
             }
+
             if (empty($cfg['password'])) {
                 continue;
             }

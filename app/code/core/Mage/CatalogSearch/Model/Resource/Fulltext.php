@@ -170,12 +170,15 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
                 if (!isset($productAttr[$visibility->getId()])) {
                     continue;
                 }
+
                 if (!in_array($productAttr[$visibility->getId()], $allowedVisibilityValues)) {
                     continue;
                 }
+
                 if (!isset($productAttr[$status->getId()])) {
                     continue;
                 }
+
                 if (!in_array($productAttr[$status->getId()], $statusVals)) {
                     continue;
                 }
@@ -192,6 +195,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
                             if (!isset($productChildAttr[$status->getId()])) {
                                 continue;
                             }
+
                             if (!in_array($productChildAttr[$status->getId()], $statusVals)) {
                                 continue;
                             }

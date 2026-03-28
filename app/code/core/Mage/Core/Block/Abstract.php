@@ -766,6 +766,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
             if ($index === false) {
                 continue;
             }
+
             if ($siblingKey === false) {
                 continue;
             }

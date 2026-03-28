@@ -60,6 +60,7 @@ class Mage_Adminhtml_Model_System_Config_Source_Storage_Media_Database
             if (!isset($connection['active'])) {
                 continue;
             }
+
             if ($connection['active'] != 1) {
                 continue;
             }

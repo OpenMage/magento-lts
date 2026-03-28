@@ -36,9 +36,11 @@ class Mage_Shipping_Model_Carrier_Flatrate extends Mage_Shipping_Model_Carrier_A
                 if ($item->getProduct()->isVirtual()) {
                     continue;
                 }
+
                 if ($item->getParentItem()) {
                     continue;
                 }
+
                 if ($item->getHasChildren() && $item->isShipSeparately()) {
                     foreach ($item->getChildren() as $child) {
                         if ($child->getFreeShipping() && !$child->getProduct()->isVirtual()) {

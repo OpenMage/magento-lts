@@ -1927,9 +1927,11 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
             if ($indexData['KEY_NAME'] == 'PRIMARY') {
                 continue;
             }
+
             if ($indexData['INDEX_TYPE'] == Varien_Db_Adapter_Interface::INDEX_TYPE_PRIMARY) {
                 continue;
             }
+
             $fields = $indexData['COLUMNS_LIST'];
             $options = ['type' => $indexData['INDEX_TYPE']];
             $table->addIndex($this->getIndexName($newTableName, $fields, $indexData['INDEX_TYPE']), $fields, $options);

@@ -226,6 +226,7 @@ class Mage_Core_Model_Url_Rewrite_Request
             if (empty($from)) {
                 continue;
             }
+
             if (empty($to)) {
                 continue;
             }

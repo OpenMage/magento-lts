@@ -415,9 +415,11 @@ class Varien_Io_File extends Varien_Io_Abstract
                     if (!strcmp($item, '.')) {
                         continue;
                     }
+
                     if (!strcmp($item, '..')) {
                         continue;
                     }
+
                     self::rmdirRecursive($dir . '/' . $item, $recursive);
                 }
 

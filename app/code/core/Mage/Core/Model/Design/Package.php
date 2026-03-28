@@ -601,9 +601,11 @@ class Mage_Core_Model_Design_Package
                 if (str_starts_with($entry, '.')) {
                     continue;
                 }
+
                 if (!is_dir($path . DS . $entry)) {
                     continue;
                 }
+
                 if ($fullPath) {
                     $entry = $path . DS . $entry;
                 }

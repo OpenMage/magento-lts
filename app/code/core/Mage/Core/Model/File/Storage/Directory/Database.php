@@ -174,12 +174,15 @@ class Mage_Core_Model_File_Storage_Directory_Database extends Mage_Core_Model_Fi
             if (!is_array($dir)) {
                 continue;
             }
+
             if (!isset($dir['name'])) {
                 continue;
             }
+
             if (!strlen($dir['name'])) {
                 continue;
             }
+
             try {
                 $directory = Mage::getModel(
                     'core/file_storage_directory_database',

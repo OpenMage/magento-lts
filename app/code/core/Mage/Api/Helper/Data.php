@@ -308,9 +308,11 @@ class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
             if (!isset($filter->key)) {
                 continue;
             }
+
             if (!isset($filter->value)) {
                 continue;
             }
+
             $fieldName = $filter->key;
             $condition = $filter->value;
             $conditionName = $condition->key;

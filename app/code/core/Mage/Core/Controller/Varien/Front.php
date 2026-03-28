@@ -281,6 +281,7 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
             if (empty($from)) {
                 continue;
             }
+
             if (empty($to)) {
                 continue;
             }

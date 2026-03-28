@@ -61,6 +61,7 @@ class Mage_Cron_Model_Observer
                 if (!$jobConfig) {
                     continue;
                 }
+
                 if (!$jobConfig->run) {
                     continue;
                 }
@@ -185,9 +186,11 @@ class Mage_Cron_Model_Observer
             if (empty($cronExpr) && $jobConfig->schedule->cron_expr) {
                 $cronExpr = (string) $jobConfig->schedule->cron_expr;
             }
+
             if (!$cronExpr) {
                 continue;
             }
+
             if ($cronExpr == 'always') {
                 continue;
             }

@@ -69,9 +69,11 @@ class Mage_Checkout_Model_Type_Multishipping extends Mage_Checkout_Model_Type_Ab
                     if ($item->getParentItemId()) {
                         continue;
                     }
+
                     if ($item->getProduct()->getIsVirtual()) {
                         continue;
                     }
+
                     $quote->getShippingAddress()->addItem($item);
                 }
             }

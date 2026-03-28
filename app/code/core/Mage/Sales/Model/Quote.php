@@ -1569,9 +1569,11 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
             if ($address->isDeleted()) {
                 continue;
             }
+
             if ($address === $shippingAddress) {
                 continue;
             }
+
             foreach ($address->getTotals() as $code => $total) {
                 if (isset($totals[$code])) {
                     $totals[$code]->merge($total);
@@ -1885,9 +1887,11 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
             if ($item->isDeleted()) {
                 continue;
             }
+
             if ($item->getParentItemId()) {
                 continue;
             }
+
             $countItems++;
             if (!$item->getProduct()->getIsVirtual()) {
                 $isVirtual = false;

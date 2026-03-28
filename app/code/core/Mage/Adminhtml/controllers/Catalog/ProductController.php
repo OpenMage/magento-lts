@@ -1042,18 +1042,23 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
             if ($attribute->getIsUnique()) {
                 continue;
             }
+
             if ($attribute->getAttributeCode() == 'url_key') {
                 continue;
             }
+
             if ($attribute->getFrontend()->getInputType() == 'gallery') {
                 continue;
             }
+
             if ($attribute->getFrontend()->getInputType() == 'media_image') {
                 continue;
             }
+
             if (!$attribute->getIsVisible()) {
                 continue;
             }
+
             $product->setData(
                 $attribute->getAttributeCode(),
                 $configurableProduct->getData($attribute->getAttributeCode()),

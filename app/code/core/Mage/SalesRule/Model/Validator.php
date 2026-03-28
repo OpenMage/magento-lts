@@ -771,9 +771,11 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
             if (!$rule->getApplyToShipping()) {
                 continue;
             }
+
             if (!$this->_canProcessRule($rule, $address)) {
                 continue;
             }
+
             $discountAmount = 0;
             $baseDiscountAmount = 0;
             $rulePercent = min(100, $rule->getDiscountAmount());

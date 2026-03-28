@@ -132,6 +132,7 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
             if (!$this->_checkAcl($aclResource)) {
                 continue;
             }
+
             if (!$this->_isEnabledModuleOutput($child)) {
                 continue;
             }

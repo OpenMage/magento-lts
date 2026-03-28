@@ -292,12 +292,15 @@ abstract class Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract 
                     break;
                 }
             }
+
             if ($hasEmptyData) {
                 continue;
             }
+
             if (!isset($data['cust_group'])) {
                 continue;
             }
+
             if (!empty($data['delete'])) {
                 continue;
             }

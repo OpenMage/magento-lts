@@ -49,9 +49,11 @@ class Mage_System_Dirs
                 if ($child === '.') {
                     continue;
                 }
+
                 if ($child === '..') {
                     continue;
                 }
+
                 // Unlink files and add directories to stack
                 $child = $entry . DIRECTORY_SEPARATOR . $child;
                 if (is_dir($child) && !is_link($child)) {
