@@ -1608,7 +1608,11 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
                     $key = (string) $store->descend('system/store/name');
             }
 
-            if (!isset($key) || $key === false) {
+            if (!isset($key)) {
+                continue;
+            }
+
+            if ($key === false) {
                 continue;
             }
 

@@ -100,7 +100,11 @@ class Mage_Api_Model_Config extends Varien_Simplexml_Config
     {
         $adapters = [];
         foreach ($this->getAdapters() as $adapterName => $adapter) {
-            if (!isset($adapter->active) || $adapter->active == '0') {
+            if (!isset($adapter->active)) {
+                continue;
+            }
+
+            if ($adapter->active == '0') {
                 continue;
             }
 

@@ -1924,9 +1924,11 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
              * Do not create primary index - it is created with identity column.
              * For reliability check both name and type, because these values can start to differ in future.
              */
-            if (($indexData['KEY_NAME'] == 'PRIMARY')
-                || ($indexData['INDEX_TYPE'] == Varien_Db_Adapter_Interface::INDEX_TYPE_PRIMARY)
-            ) {
+            if ($indexData['KEY_NAME'] == 'PRIMARY') {
+                continue;
+            }
+
+            if ($indexData['INDEX_TYPE'] == Varien_Db_Adapter_Interface::INDEX_TYPE_PRIMARY) {
                 continue;
             }
 

@@ -58,7 +58,11 @@ class Mage_Cron_Model_Observer
             $jobConfig = $jobsRoot->{$jobCode};
             if (!$jobConfig || !$jobConfig->run) {
                 $jobConfig = $defaultJobsRoot->{$jobCode};
-                if (!$jobConfig || !$jobConfig->run) {
+                if (!$jobConfig) {
+                    continue;
+                }
+
+                if (!$jobConfig->run) {
                     continue;
                 }
             }
@@ -183,7 +187,11 @@ class Mage_Cron_Model_Observer
                 $cronExpr = (string) $jobConfig->schedule->cron_expr;
             }
 
-            if (!$cronExpr || $cronExpr == 'always') {
+            if (!$cronExpr) {
+                continue;
+            }
+
+            if ($cronExpr == 'always') {
                 continue;
             }
 

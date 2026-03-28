@@ -238,7 +238,11 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
                     continue;
                 }
 
-                if (in_array($field, $systemFields) || is_object($value)) {
+                if (in_array($field, $systemFields)) {
+                    continue;
+                }
+
+                if (is_object($value)) {
                     continue;
                 }
 
@@ -378,7 +382,11 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
 
         foreach ($customerAttributes as $attr) {
             $code = $attr->getAttributeCode();
-            if (in_array($code, $internal) || $attr->getFrontendInput() == 'hidden') {
+            if (in_array($code, $internal)) {
+                continue;
+            }
+
+            if ($attr->getFrontendInput() == 'hidden') {
                 continue;
             }
 
@@ -389,7 +397,11 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
 
         foreach ($addressAttributes as $attr) {
             $code = $attr->getAttributeCode();
-            if (in_array($code, $internal) || $attr->getFrontendInput() == 'hidden') {
+            if (in_array($code, $internal)) {
+                continue;
+            }
+
+            if ($attr->getFrontendInput() == 'hidden') {
                 continue;
             }
 
@@ -404,7 +416,11 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
 
         foreach ($addressAttributes as $attr) {
             $code = $attr->getAttributeCode();
-            if (in_array($code, $internal) || $attr->getFrontendInput() == 'hidden') {
+            if (in_array($code, $internal)) {
+                continue;
+            }
+
+            if ($attr->getFrontendInput() == 'hidden') {
                 continue;
             }
 

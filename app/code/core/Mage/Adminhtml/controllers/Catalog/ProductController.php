@@ -1039,12 +1039,23 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
 
         // phpcs:ignore Ecg.Performance.Loop.DataLoad
         foreach ($product->getTypeInstance()->getEditableAttributes() as $attribute) {
-            if ($attribute->getIsUnique()
-                || $attribute->getAttributeCode() == 'url_key'
-                || $attribute->getFrontend()->getInputType() == 'gallery'
-                || $attribute->getFrontend()->getInputType() == 'media_image'
-                || !$attribute->getIsVisible()
-            ) {
+            if ($attribute->getIsUnique()) {
+                continue;
+            }
+
+            if ($attribute->getAttributeCode() == 'url_key') {
+                continue;
+            }
+
+            if ($attribute->getFrontend()->getInputType() == 'gallery') {
+                continue;
+            }
+
+            if ($attribute->getFrontend()->getInputType() == 'media_image') {
+                continue;
+            }
+
+            if (!$attribute->getIsVisible()) {
                 continue;
             }
 

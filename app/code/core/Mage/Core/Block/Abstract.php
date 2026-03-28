@@ -763,8 +763,11 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
 
             $index = array_search($name, $this->_sortedChildren);
             $siblingKey = array_search($siblingName, $this->_sortedChildren);
+            if ($index === false) {
+                continue;
+            }
 
-            if ($index === false || $siblingKey === false) {
+            if ($siblingKey === false) {
                 continue;
             }
 

@@ -381,7 +381,11 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
                 'password'  => $store->getConfig('paypal/fetch_reports/ftp_password'),
                 'sandbox'   => $store->getConfig('paypal/fetch_reports/ftp_sandbox'),
             ];
-            if (empty($cfg['username']) || empty($cfg['password'])) {
+            if (empty($cfg['username'])) {
+                continue;
+            }
+
+            if (empty($cfg['password'])) {
                 continue;
             }
 

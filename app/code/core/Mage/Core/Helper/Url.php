@@ -99,7 +99,11 @@ class Mage_Core_Helper_Url extends Mage_Core_Helper_Abstract
 
         $arrQueryParams = [];
         foreach ($param as $key => $value) {
-            if (is_numeric($key) || is_object($value)) {
+            if (is_numeric($key)) {
+                continue;
+            }
+
+            if (is_object($value)) {
                 continue;
             }
 
