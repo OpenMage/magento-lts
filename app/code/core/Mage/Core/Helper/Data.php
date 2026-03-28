@@ -9,13 +9,15 @@
 
 use Carbon\Carbon;
 use Carbon\Exceptions\InvalidFormatException;
+use Carbon\FactoryImmutable;
+use Psr\Clock\ClockInterface;
 
 /**
  * Core data helper
  *
  * @package    Mage_Core
  */
-class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
+class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract implements ClockInterface
 {
     public const XML_PATH_DEFAULT_COUNTRY              = 'general/country/default';
 
@@ -230,7 +232,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
 
         $locale = Mage::app()->getLocale();
         if (is_null($time)) {
-            $date = $locale->date(Carbon::now()->getTimestamp());
+            $date = $locale->date($this->now()->getTimestamp());
         } elseif ($time instanceof Zend_Date) {
             $date = $time;
         } else {
@@ -1096,5 +1098,11 @@ XML;
             $cacheTag = 'rate_limit_' . $remoteAddr;
             Mage::app()->saveCache(1, $cacheTag, ['brute_force'], Mage::getStoreConfig('system/rate_limit/timeframe'));
         }
+    }
+
+    public function now(): \DateTimeImmutable
+    {
+        static $clock = new FactoryImmutable();
+        return $clock->now();
     }
 }
