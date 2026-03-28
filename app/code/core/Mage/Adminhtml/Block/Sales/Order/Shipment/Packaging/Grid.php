@@ -23,7 +23,7 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Packaging_Grid extends Mage_Admi
     /**
      * Return collection of shipment items
      *
-     * @return array
+     * @return Mage_Sales_Model_Resource_Order_Shipment_Item_Collection|array<Mage_Sales_Model_Order_Shipment_Item>
      */
     public function getCollection()
     {
