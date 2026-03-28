@@ -23,18 +23,16 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Packaging_Grid extends Mage_Admi
     /**
      * Return collection of shipment items
      *
-     * @return array
+     * @return array<Mage_Sales_Model_Order_Shipment_Item>|Mage_Sales_Model_Resource_Order_Shipment_Item_Collection
      */
     public function getCollection()
     {
         if ($this->getShipment()->getId()) {
-            $collection = Mage::getModel('sales/order_shipment_item')->getCollection()
+            return Mage::getModel('sales/order_shipment_item')->getCollection()
                     ->setShipmentFilter($this->getShipment()->getId());
-        } else {
-            $collection = $this->getShipment()->getAllItems();
         }
 
-        return $collection;
+        return $this->getShipment()->getAllItems();
     }
 
     /**

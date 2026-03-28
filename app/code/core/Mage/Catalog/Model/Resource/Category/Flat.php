@@ -169,12 +169,10 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
 
         if ($this->getUseStoreTables() && $storeId) {
             $suffix = sprintf('store_%d', $storeId);
-            $table = $this->getTable(['catalog/category_flat', $suffix]);
-        } else {
-            $table = parent::getMainTable();
+            return $this->getTable(['catalog/category_flat', $suffix]);
         }
 
-        return $table;
+        return parent::getMainTable();
     }
 
     /**
