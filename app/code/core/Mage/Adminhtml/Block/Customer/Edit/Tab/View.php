@@ -181,7 +181,6 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View extends Mage_Adminhtml_Block_T
      */
     public function getBillingAddressHtml()
     {
-        $html = '';
         if ($address = $this->getCustomer()->getPrimaryBillingAddress()) {
             return $address->format('html');
         }

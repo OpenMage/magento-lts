@@ -142,7 +142,6 @@ try {
             EarlyReturn\If_\ChangeNestedIfsToEarlyReturnRector::class, # todo: TMP
             EarlyReturn\If_\ChangeOrIfContinueToMultiContinueRector::class, # todo: TMP
             EarlyReturn\Return_\ReturnBinaryOrToEarlyReturnRector::class, # todo: TMP
-            EarlyReturn\Return_\PreparedValueToEarlyReturnRector::class, # todo: TMP
             # skip: may conflict with phpstan strict rules
             Php53\Ternary\TernaryToElvisRector::class,
             Php71\FuncCall\RemoveExtraParametersRector::class, # todo: check later

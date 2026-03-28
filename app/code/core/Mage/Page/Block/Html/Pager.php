@@ -298,7 +298,7 @@ class Mage_Page_Block_Html_Pager extends Mage_Core_Block_Template
 
         $start = 1;
         $finish = 1;
-        $pages = [];
+
         if ($collection->getLastPageNumber() <= $this->_displayPages) {
             return range(1, $collection->getLastPageNumber());
         }
