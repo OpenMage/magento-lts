@@ -46,10 +46,12 @@ class Mage_System_Dirs
             $dh = opendir($entry);
             while (false !== $child = readdir($dh)) {
                 // Ignore pointers
-                if ($child === '.' || $child === '..') {
+                if ($child === '.') {
                     continue;
                 }
-
+                if ($child === '..') {
+                    continue;
+                }
                 // Unlink files and add directories to stack
                 $child = $entry . DIRECTORY_SEPARATOR . $child;
                 if (is_dir($child) && !is_link($child)) {

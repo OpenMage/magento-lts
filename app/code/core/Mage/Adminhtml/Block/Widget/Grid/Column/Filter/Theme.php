@@ -67,10 +67,12 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Theme extends Mage_Adminhtm
         $html  = '';
 
         foreach ($options as $option) {
-            if (!isset($option['value']) || !isset($option['label'])) {
+            if (!isset($option['value'])) {
                 continue;
             }
-
+            if (!isset($option['label'])) {
+                continue;
+            }
             if (is_array($option['value'])) {
                 $html .= '<optgroup label="' . $option['label'] . '">'
                     . $this->_drawOptions($option['value'])

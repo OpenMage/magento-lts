@@ -73,12 +73,12 @@ class Mage_Adminhtml_Model_System_Config_Source_Admin_Page
         $parentArr = [];
         $sortOrder = 0;
         foreach ($parent->children() as $childName => $child) {
-            if (((string) $child->disabled === '1')
-                || ($child->depends && !$this->_checkDepends($child->depends))
-            ) {
+            if ((string) $child->disabled === '1') {
                 continue;
             }
-
+            if ($child->depends && !$this->_checkDepends($child->depends)) {
+                continue;
+            }
             $menuArr = [];
             $menuArr['label'] = $this->_getHelperValue($child);
 

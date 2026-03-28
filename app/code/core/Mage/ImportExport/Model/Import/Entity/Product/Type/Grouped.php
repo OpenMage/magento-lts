@@ -85,12 +85,12 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Grouped extends Mage_Im
                 'relation'         => [],
             ];
             foreach ($bunch as $rowNum => $rowData) {
-                if (!$this->_entityModel->isRowAllowedToImport($rowData, $rowNum)
-                    || empty($rowData['_associated_sku'])
-                ) {
+                if (!$this->_entityModel->isRowAllowedToImport($rowData, $rowNum)) {
                     continue;
                 }
-
+                if (empty($rowData['_associated_sku'])) {
+                    continue;
+                }
                 if (isset($newSku[$rowData['_associated_sku']])) {
                     $linkedProductId = $newSku[$rowData['_associated_sku']]['entity_id'];
                 } elseif (isset($oldSku[$rowData['_associated_sku']])) {

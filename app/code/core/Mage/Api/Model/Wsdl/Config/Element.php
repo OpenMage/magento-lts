@@ -148,10 +148,12 @@ class Mage_Api_Model_Wsdl_Config_Element extends Varien_Simplexml_Element
         $namespaces = $source->getNamespaces(true);
         $attributes[''] = $source->attributes('');
         foreach ($namespaces as $key => $value) {
-            if ($key == '' || $key == 'soap') {
+            if ($key == '') {
                 continue;
             }
-
+            if ($key == 'soap') {
+                continue;
+            }
             $attributes[$value] = $source->attributes($value);
         }
 
@@ -184,10 +186,12 @@ class Mage_Api_Model_Wsdl_Config_Element extends Varien_Simplexml_Element
         $isWsi = Mage::helper('api/data')->isComplianceWSI();
 
         foreach ($namespaces as $key => $value) {
-            if ($key == '' || (!$isWsi && $key == 'wsdl')) {
+            if ($key == '') {
                 continue;
             }
-
+            if (!$isWsi && $key == 'wsdl') {
+                continue;
+            }
             $children[$value] = $source->children($value);
         }
 

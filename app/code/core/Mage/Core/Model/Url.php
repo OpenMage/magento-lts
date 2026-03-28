@@ -506,10 +506,18 @@ class Mage_Core_Model_Url extends Varien_Object
             $routePath = $this->getActionPath();
             if ($this->getRouteParams()) {
                 foreach ($this->getRouteParams() as $key => $value) {
-                    if (is_null($value) || $value === false || $value === '' || !is_scalar($value)) {
+                    if (is_null($value)) {
                         continue;
                     }
-
+                    if ($value === false) {
+                        continue;
+                    }
+                    if ($value === '') {
+                        continue;
+                    }
+                    if (!is_scalar($value)) {
+                        continue;
+                    }
                     $routePath .= $key . '/' . $value . '/';
                 }
             }
@@ -666,18 +674,22 @@ class Mage_Core_Model_Url extends Varien_Object
         if (isset($data['_current'])) {
             if (is_array($data['_current'])) {
                 foreach ($data['_current'] as $key) {
-                    if (array_key_exists($key, $data) || !$this->getRequest()->getUserParam($key)) {
+                    if (array_key_exists($key, $data)) {
                         continue;
                     }
-
+                    if (!$this->getRequest()->getUserParam($key)) {
+                        continue;
+                    }
                     $data[$key] = $this->getRequest()->getUserParam($key);
                 }
             } elseif ($data['_current']) {
                 foreach ($this->getRequest()->getUserParams() as $key => $value) {
-                    if (array_key_exists($key, $data) || $this->getRouteParam($key)) {
+                    if (array_key_exists($key, $data)) {
                         continue;
                     }
-
+                    if ($this->getRouteParam($key)) {
+                        continue;
+                    }
                     $data[$key] = $value;
                 }
 

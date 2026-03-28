@@ -1566,10 +1566,12 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         $totals = $shippingAddress->getTotals();
         // Going through all quote addresses and merge their totals
         foreach ($this->getAddressesCollection() as $address) {
-            if ($address->isDeleted() || $address === $shippingAddress) {
+            if ($address->isDeleted()) {
                 continue;
             }
-
+            if ($address === $shippingAddress) {
+                continue;
+            }
             foreach ($address->getTotals() as $code => $total) {
                 if (isset($totals[$code])) {
                     $totals[$code]->merge($total);
@@ -1880,10 +1882,12 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         $countItems = 0;
         /** @var Mage_Sales_Model_Quote_Item $item */
         foreach ($this->getItemsCollection() as $item) {
-            if ($item->isDeleted() || $item->getParentItemId()) {
+            if ($item->isDeleted()) {
                 continue;
             }
-
+            if ($item->getParentItemId()) {
+                continue;
+            }
             $countItems++;
             if (!$item->getProduct()->getIsVirtual()) {
                 $isVirtual = false;

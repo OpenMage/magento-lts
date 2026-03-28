@@ -241,7 +241,13 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Minicart
             $template = array_pop($renders);
             $block = array_pop($renders);
             $type = array_pop($renders);
-            if (!$template || !$block || !$type) {
+            if (!$template) {
+                continue;
+            }
+            if (!$block) {
+                continue;
+            }
+            if (!$type) {
                 continue;
             }
 

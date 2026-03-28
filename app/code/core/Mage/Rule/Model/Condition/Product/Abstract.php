@@ -174,12 +174,12 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
         $attributes = [];
         foreach ($productAttributes as $attribute) {
             /** @var Mage_Catalog_Model_Resource_Eav_Attribute $attribute */
-            if (!$attribute->isAllowedForRuleCondition()
-                || !$attribute->getDataUsingMethod($this->_isUsedForRuleProperty)
-            ) {
+            if (!$attribute->isAllowedForRuleCondition()) {
                 continue;
             }
-
+            if (!$attribute->getDataUsingMethod($this->_isUsedForRuleProperty)) {
+                continue;
+            }
             $attributes[$attribute->getAttributeCode()] = $attribute->getFrontendLabel();
         }
 

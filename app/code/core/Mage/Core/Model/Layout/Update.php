@@ -518,10 +518,12 @@ class Mage_Core_Model_Layout_Update
 
             foreach ($themeUpdateGroups as $themeUpdateGroup) {
                 foreach ($themeUpdateGroup->asArray() as $key => $themeUpdate) {
-                    if (!isset($themeUpdate['file']) || !is_string($themeUpdate['file'])) {
+                    if (!isset($themeUpdate['file'])) {
                         continue;
                     }
-
+                    if (!is_string($themeUpdate['file'])) {
+                        continue;
+                    }
                     $updates->addChild($key)->addChild('file', $themeUpdate['file']);
                 }
             }

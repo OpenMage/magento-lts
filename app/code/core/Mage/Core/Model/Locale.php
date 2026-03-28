@@ -267,7 +267,10 @@ class Mage_Core_Model_Locale
                 }
 
                 $data = explode('_', $code);
-                if (!isset($languages[$data[0]]) || !isset($countries[$data[1]])) {
+                if (!isset($languages[$data[0]])) {
+                    continue;
+                }
+                if (!isset($countries[$data[1]])) {
                     continue;
                 }
 

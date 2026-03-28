@@ -768,10 +768,12 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
         $appliedRuleIds = [];
         foreach ($this->_getRules() as $rule) {
             /** @var Mage_SalesRule_Model_Rule $rule */
-            if (!$rule->getApplyToShipping() || !$this->_canProcessRule($rule, $address)) {
+            if (!$rule->getApplyToShipping()) {
                 continue;
             }
-
+            if (!$this->_canProcessRule($rule, $address)) {
+                continue;
+            }
             $discountAmount = 0;
             $baseDiscountAmount = 0;
             $rulePercent = min(100, $rule->getDiscountAmount());

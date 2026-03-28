@@ -82,11 +82,12 @@ class Mage_ProductAlert_Model_Observer
         $originalStore = Mage::app()->getStore();
         foreach ($this->_getWebsites() as $website) {
             /** @var Mage_Core_Model_Website $website */
-
-            if (!$website->getDefaultGroup() || !$website->getDefaultGroup()->getDefaultStore()) {
+            if (!$website->getDefaultGroup()) {
                 continue;
             }
-
+            if (!$website->getDefaultGroup()->getDefaultStore()) {
+                continue;
+            }
             if (!Mage::getStoreConfig(self::XML_PATH_PRICE_ALLOW, $website->getDefaultGroup()->getDefaultStore()->getId())) {
                 continue;
             }
@@ -174,11 +175,12 @@ class Mage_ProductAlert_Model_Observer
 
         foreach ($this->_getWebsites() as $website) {
             /** @var Mage_Core_Model_Website $website */
-
-            if (!$website->getDefaultGroup() || !$website->getDefaultGroup()->getDefaultStore()) {
+            if (!$website->getDefaultGroup()) {
                 continue;
             }
-
+            if (!$website->getDefaultGroup()->getDefaultStore()) {
+                continue;
+            }
             if (!Mage::getStoreConfig(self::XML_PATH_STOCK_ALLOW, $website->getDefaultGroup()->getDefaultStore()->getId())) {
                 continue;
             }

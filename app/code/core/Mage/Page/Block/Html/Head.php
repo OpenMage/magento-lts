@@ -180,10 +180,12 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
         // separate items by types
         $lines  = [];
         foreach ($this->_data['items'] as $item) {
-            if (!is_null($item['cond']) && !$this->getData($item['cond']) || !isset($item['name'])) {
+            if (!is_null($item['cond']) && !$this->getData($item['cond'])) {
                 continue;
             }
-
+            if (!isset($item['name'])) {
+                continue;
+            }
             $if     = empty($item['if']) ? '' : $item['if'];
             $params = empty($item['params']) ? '' : $item['params'];
             switch ($item['type']) {

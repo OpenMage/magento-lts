@@ -98,10 +98,12 @@ class Varien_Convert_Profile_Collection
         $this->_xml = $xml;
 
         foreach ($xml->container as $containerNode) {
-            if (!$containerNode['name'] || !$containerNode['type']) {
+            if (!$containerNode['name']) {
                 continue;
             }
-
+            if (!$containerNode['type']) {
+                continue;
+            }
             $class = $this->getClassNameByType((string) $containerNode['type']);
             $container = $this->addContainer((string) $containerNode['name'], new $class());
             foreach ($containerNode->var as $varNode) {

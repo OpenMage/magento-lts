@@ -114,7 +114,10 @@ class Mage_Adminhtml_Block_Sales_Order_View_Info extends Mage_Adminhtml_Block_Sa
         foreach ($config->getEntityAttributeCodes($entityType) as $attributeCode) {
             /** @var Mage_Customer_Model_Attribute $attribute */
             $attribute = $config->getAttribute($entityType, $attributeCode);
-            if (!$attribute->getIsVisible() || $attribute->getIsSystem()) {
+            if (!$attribute->getIsVisible()) {
+                continue;
+            }
+            if ($attribute->getIsSystem()) {
                 continue;
             }
 

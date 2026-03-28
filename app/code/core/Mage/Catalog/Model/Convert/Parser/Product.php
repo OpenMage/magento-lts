@@ -443,10 +443,12 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
             }
 
             foreach ($product->getData() as $field => $value) {
-                if (in_array($field, $this->_systemFields) || is_object($value)) {
+                if (in_array($field, $this->_systemFields)) {
                     continue;
                 }
-
+                if (is_object($value)) {
+                    continue;
+                }
                 $attribute = $this->getAttribute($field);
                 if (!$attribute) {
                     continue;
@@ -478,10 +480,12 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
 
             if ($stockItem = $product->getStockItem()) {
                 foreach ($stockItem->getData() as $field => $value) {
-                    if (in_array($field, $this->_systemFields) || is_object($value)) {
+                    if (in_array($field, $this->_systemFields)) {
                         continue;
                     }
-
+                    if (is_object($value)) {
+                        continue;
+                    }
                     $row[$field] = $value;
                 }
             }
@@ -554,7 +558,10 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
 
         foreach ($productAttributes as $attr) {
             $code = $attr->getAttributeCode();
-            if (in_array($code, $this->_internalFields) || $attr->getFrontendInput() == 'hidden') {
+            if (in_array($code, $this->_internalFields)) {
+                continue;
+            }
+            if ($attr->getFrontendInput() == 'hidden') {
                 continue;
             }
 

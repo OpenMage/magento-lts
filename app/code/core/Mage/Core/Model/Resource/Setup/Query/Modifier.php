@@ -303,20 +303,22 @@ class Mage_Core_Model_Resource_Setup_Query_Modifier
             } else {
                 $columnDefinition = $this->_getColumnDefinitionFromTable($table, $column);
             }
-
             // We fix only int columns
-            if (!$columnDefinition || !in_array($columnDefinition['type'], $this->_processedTypes)) {
+            if (!$columnDefinition) {
+                continue;
+            }
+            if (!in_array($columnDefinition['type'], $this->_processedTypes)) {
                 continue;
             }
 
             // Extract referenced column type
             $refColumnDefinition = $this->_getColumnDefinitionFromTable($refTable, $refColumn);
+            // We fix only int columns
             if (!$refColumnDefinition) {
                 continue;
             }
 
-            // We fix only int columns
-            if (!$refColumnDefinition || !in_array($refColumnDefinition['type'], $this->_processedTypes)) {
+            if (!in_array($refColumnDefinition['type'], $this->_processedTypes)) {
                 continue;
             }
 

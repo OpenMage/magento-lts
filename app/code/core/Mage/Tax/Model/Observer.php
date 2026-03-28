@@ -93,10 +93,12 @@ class Mage_Tax_Model_Observer
                 if (is_null($row['percent'])) {
                     $baseRealAmount = $row['base_amount'];
                 } else {
-                    if ($row['percent'] == 0 || $tax['percent'] == 0) {
+                    if ($row['percent'] == 0) {
                         continue;
                     }
-
+                    if ($tax['percent'] == 0) {
+                        continue;
+                    }
                     $baseRealAmount = $row['base_amount'] / $row['percent'] * $tax['percent'];
                 }
 
