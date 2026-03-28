@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Rector\Migration;
 
 use Mage;
+use Mage_Core_Model_Store;
 use Rector\Arguments\ValueObject\ReplaceArgumentDefaultValue;
 
 final class OpenMage
@@ -32,6 +33,7 @@ final class OpenMage
 
         foreach ($paths as $old => $new) {
             $map[] = new ReplaceArgumentDefaultValue(Mage::class, 'getStoreConfig', 0, $old, $new);
+            $map[] = new ReplaceArgumentDefaultValue(Mage_Core_Model_Store::class, 'getConfig', 0, $old, $new);
         }
 
         return $map;
