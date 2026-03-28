@@ -555,7 +555,7 @@ class Mage_Core_Model_Cache
     /**
      * Get cache tags by cache type from configuration
      *
-     * @param  string $type
+     * @param  string      $type
      * @return array|false
      */
     public function getTagsByType($type)
