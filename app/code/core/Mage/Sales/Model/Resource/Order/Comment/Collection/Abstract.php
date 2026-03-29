@@ -45,11 +45,11 @@ abstract class Mage_Sales_Model_Resource_Order_Comment_Collection_Abstract exten
     /**
      * Set created_at sort order
      *
-     * @param  string $direction
+     * @param  self::SORT_ORDER_* $dir
      * @return $this
      */
-    public function setCreatedAtOrder($direction = 'desc')
+    public function setCreatedAtOrder($dir = self::SORT_ORDER_DESC)
     {
-        return $this->setOrder('created_at', $direction);
+        return $this->setOrder('created_at', $dir);
     }
 }

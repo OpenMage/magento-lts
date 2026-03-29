@@ -313,24 +313,24 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      * self::setOrder() alias
      *
      * @param  string             $field
-     * @param  self::SORT_ORDER_* $direction
+     * @param  self::SORT_ORDER_* $dir
      * @return $this
      */
-    public function addOrder($field, $direction = self::SORT_ORDER_DESC)
+    public function addOrder($field, $dir = self::SORT_ORDER_DESC)
     {
-        return $this->_setOrder($field, $direction);
+        return $this->_setOrder($field, $dir);
     }
 
     /**
      * Add select order to the beginning
      *
      * @param  string             $field
-     * @param  self::SORT_ORDER_* $direction
+     * @param  self::SORT_ORDER_* $dir
      * @return $this
      */
-    public function unshiftOrder($field, $direction = self::SORT_ORDER_DESC)
+    public function unshiftOrder($field, $dir = self::SORT_ORDER_DESC)
     {
-        return $this->_setOrder($field, $direction, true);
+        return $this->_setOrder($field, $dir, true);
     }
 
     /**

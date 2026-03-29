@@ -38,11 +38,11 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Group_Collection extends Mage_Cor
     /**
      * Set sort order
      *
-     * @param  self::SORT_ORDER_* $direction
+     * @param  self::SORT_ORDER_* $dir
      * @return $this
      */
-    public function setSortOrder($direction = self::SORT_ORDER_ASC)
+    public function setSortOrder($dir = self::SORT_ORDER_ASC)
     {
-        return $this->addOrder('sort_order', $direction);
+        return $this->addOrder('sort_order', $dir);
     }
 }

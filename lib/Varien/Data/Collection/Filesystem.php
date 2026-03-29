@@ -353,9 +353,9 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
      *
      * @inheritDoc
      */
-    public function setOrder($field, $direction = self::SORT_ORDER_DESC)
+    public function setOrder($field, $dir = self::SORT_ORDER_DESC)
     {
-        $this->_orders = [$field => $direction];
+        $this->_orders = [$field => $dir];
         return $this;
     }
 
