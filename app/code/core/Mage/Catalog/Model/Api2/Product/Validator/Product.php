@@ -215,10 +215,12 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
                 }
             }
 
-            if ($applicable && $attribute->getIsRequired() && $attribute->getIsVisible()) {
-                if (!in_array($attributeCode, $positiveNumberAttributes) || $value !== 0) {
-                    $requiredAttributes[] = $attribute->getAttributeCode();
-                }
+            if ($applicable
+                && $attribute->getIsRequired()
+                && $attribute->getIsVisible()
+                && (!in_array($attributeCode, $positiveNumberAttributes) || $value !== 0)
+            ) {
+                $requiredAttributes[] = $attribute->getAttributeCode();
             }
         }
 
@@ -308,10 +310,10 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
      */
     protected function _validateGiftOptions($data)
     {
-        if (isset($data['gift_wrapping_price'])) {
-            if (!(is_numeric($data['gift_wrapping_price']) && $data['gift_wrapping_price'] >= 0)) {
-                $this->_addError('Please enter a number 0 or greater in the "gift_wrapping_price" field.');
-            }
+        if (isset($data['gift_wrapping_price'])
+            && !(is_numeric($data['gift_wrapping_price']) && $data['gift_wrapping_price'] >= 0)
+        ) {
+            $this->_addError('Please enter a number 0 or greater in the "gift_wrapping_price" field.');
         }
     }
 

@@ -185,7 +185,8 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
     public function removeClass($class)
     {
         $classes = array_unique(explode(' ', $this->getClass()));
-        if (false !== ($key = array_search($class, $classes))) {
+        $key = array_search($class, $classes);
+        if ($key !== false) {
             unset($classes[$key]);
         }
 
