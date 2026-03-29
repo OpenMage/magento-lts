@@ -1032,7 +1032,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
                 if ($price <= 0) {
                     continue;
                 }
-            }
 
                 // Keep lowest price for each method code (handles duplicate rate entries)
                 if (!isset($priceArr[$methodCode]) || $price < $costArr[$methodCode]) {
