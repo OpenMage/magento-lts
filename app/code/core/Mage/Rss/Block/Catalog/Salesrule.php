@@ -60,7 +60,7 @@ class Mage_Rss_Block_Catalog_Salesrule extends Mage_Rss_Block_Abstract
 
         $collection->addWebsiteGroupDateFilter($websiteId, $customerGroup, $now)
             ->addFieldToFilter('is_rss', 1)
-            ->setOrder('from_date', 'desc');
+            ->setOrder('from_date', 'DESC');
         $collection->load();
 
         foreach ($collection as $sr) {

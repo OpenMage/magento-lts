@@ -35,7 +35,7 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_Grid extends Mage_Adminhtml_B
         $collection = Mage::getResourceModel('sales/recurring_profile_collection');
         $this->setCollection($collection);
         if (!$this->getParam($this->getVarNameSort())) {
-            $collection->setOrder('profile_id', 'desc');
+            $collection->setOrder('profile_id', 'DESC');
         }
 
         return parent::_prepareCollection();

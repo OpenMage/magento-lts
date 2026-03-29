@@ -50,7 +50,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Reorder extends Mage_Admin
         $collection = Mage::getResourceModel('sales/order_collection')
             ->addFieldToFilter('customer_id', $this->getCustomerId())
             ->addFieldToFilter('store_id', ['in' => $storeIds])
-            ->setOrder('created_at', 'desc')
+            ->setOrder('created_at', 'DESC')
             ->setPageSize(1)
             ->load();
         foreach ($collection as $order) {

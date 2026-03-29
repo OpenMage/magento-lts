@@ -53,7 +53,7 @@ class Mage_Downloadable_Block_Customer_Products_List extends Mage_Core_Block_Tem
                     ],
                 ],
             )
-            ->setOrder('item_id', 'desc');
+            ->setOrder('item_id', 'DESC');
         $this->setItems($purchasedItems);
     }
 
