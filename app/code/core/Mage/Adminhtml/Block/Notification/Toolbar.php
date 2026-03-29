@@ -45,13 +45,7 @@ class Mage_Adminhtml_Block_Notification_Toolbar extends Mage_Adminhtml_Block_Tem
             return false;
         }
 
-        if ($this->getCriticalCount() == 0 && $this->getMajorCount() == 0 && $this->getMinorCount() == 0
-            && $this->getNoticeCount() == 0
-        ) {
-            return false;
-        }
-
-        return true;
+        return !($this->getCriticalCount() == 0 && $this->getMajorCount() == 0 && $this->getMinorCount() == 0 && $this->getNoticeCount() == 0);
     }
 
     /**

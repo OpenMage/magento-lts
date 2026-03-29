@@ -223,7 +223,11 @@ class Mage_Core_Model_Url_Rewrite_Request
         foreach ($config->children() as $rewrite) {
             $from = (string) $rewrite->from;
             $to = (string) $rewrite->to;
-            if (empty($from) || empty($to)) {
+            if (empty($from)) {
+                continue;
+            }
+
+            if (empty($to)) {
                 continue;
             }
 

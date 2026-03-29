@@ -305,7 +305,11 @@ class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
         $parsedFilters = [];
 
         foreach ($complexFilter as $filter) {
-            if (!isset($filter->key) || !isset($filter->value)) {
+            if (!isset($filter->key)) {
+                continue;
+            }
+
+            if (!isset($filter->value)) {
                 continue;
             }
 

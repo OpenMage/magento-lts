@@ -706,13 +706,8 @@ class Mage_Paypal_Model_Config
      */
     public function isMethodActive($method)
     {
-        if ($this->isMethodSupportedForCountry($method)
-            && Mage::getStoreConfigFlag("payment/{$method}/active", $this->_storeId)
-        ) {
-            return true;
-        }
-
-        return false;
+        return $this->isMethodSupportedForCountry($method)
+            && Mage::getStoreConfigFlag("payment/{$method}/active", $this->_storeId);
     }
 
     /**
@@ -894,11 +889,7 @@ class Mage_Paypal_Model_Config
         }
 
         $countryMethods = $this->getCountryMethods($countryCode);
-        if (in_array($method, $countryMethods)) {
-            return true;
-        }
-
-        return false;
+        return in_array($method, $countryMethods);
     }
 
     /**
@@ -1568,11 +1559,7 @@ class Mage_Paypal_Model_Config
             return true;
         }
 
-        if ($this->getMerchantCountry() == 'MY' && $code == 'MYR') {
-            return true;
-        }
-
-        return false;
+        return $this->getMerchantCountry() == 'MY' && $code == 'MYR';
     }
 
     /**

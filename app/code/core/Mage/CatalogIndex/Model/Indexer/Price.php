@@ -89,11 +89,7 @@ class Mage_CatalogIndex_Model_Indexer_Price extends Mage_CatalogIndex_Model_Inde
             return false;
         }
 
-        if ($attribute->getAttributeCode() == 'minimal_price') {
-            return false;
-        }
-
-        return true;
+        return $attribute->getAttributeCode() != 'minimal_price';
     }
 
     /**

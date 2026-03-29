@@ -138,7 +138,11 @@ class Varien_Filter_Template_Tokenizer_Variable extends Varien_Filter_Template_T
         $numberStr = '';
 
         while ($this->next() && $this->char() != ')') {
-            if ($this->isWhiteSpace() || $this->char() == ',') {
+            if ($this->isWhiteSpace()) {
+                continue;
+            }
+
+            if ($this->char() == ',') {
                 continue;
             }
 

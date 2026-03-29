@@ -491,14 +491,12 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
     {
         $this->_initCustomer();
         $customer = Mage::registry('current_customer');
-        if ($customer->getId()) {
-            if ($itemId = (int) $this->getRequest()->getParam('delete')) {
-                try {
-                    Mage::getModel('wishlist/item')->load($itemId)
-                        ->delete();
-                } catch (Exception $exception) {
-                    Mage::logException($exception);
-                }
+        if ($customer->getId() && $itemId = (int) $this->getRequest()->getParam('delete')) {
+            try {
+                Mage::getModel('wishlist/item')->load($itemId)
+                    ->delete();
+            } catch (Exception $exception) {
+                Mage::logException($exception);
             }
         }
 

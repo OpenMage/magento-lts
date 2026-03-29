@@ -46,7 +46,11 @@ class Mage_System_Dirs
             $dh = opendir($entry);
             while (false !== $child = readdir($dh)) {
                 // Ignore pointers
-                if ($child === '.' || $child === '..') {
+                if ($child === '.') {
+                    continue;
+                }
+
+                if ($child === '..') {
                     continue;
                 }
 

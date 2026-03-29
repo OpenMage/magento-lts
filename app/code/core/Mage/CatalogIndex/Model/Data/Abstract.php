@@ -218,12 +218,10 @@ class Mage_CatalogIndex_Model_Data_Abstract extends Mage_Core_Model_Abstract
         $attributeId = Mage::getSingleton('eav/entity_attribute')->getIdByCode(Mage_Catalog_Model_Product::ENTITY, 'tax_class_id');
         $taxClassId  = $this->getResource()->getAttributeData([$productId], [$attributeId], $store->getId());
         if (is_array($taxClassId) && isset($taxClassId[0]['value'])) {
-            $taxClassId = $taxClassId[0]['value'];
-        } else {
-            $taxClassId = 0;
+            return $taxClassId[0]['value'];
         }
 
-        return $taxClassId;
+        return 0;
     }
 
     /**
@@ -282,11 +280,7 @@ class Mage_CatalogIndex_Model_Data_Abstract extends Mage_Core_Model_Abstract
      */
     public function areChildrenIndexable($type)
     {
-        if (!$this->_haveChildren || !isset($this->_haveChildren[$type]) || !$this->_haveChildren[$type]) {
-            return false;
-        }
-
-        return true;
+        return !(!$this->_haveChildren || !isset($this->_haveChildren[$type]) || !$this->_haveChildren[$type]);
     }
 
     /**

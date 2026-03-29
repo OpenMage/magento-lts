@@ -412,7 +412,11 @@ class Varien_Io_File extends Varien_Io_Abstract
         if ($recursive) {
             if (is_dir($dir)) {
                 foreach (scandir($dir) as $item) {
-                    if (!strcmp($item, '.') || !strcmp($item, '..')) {
+                    if (!strcmp($item, '.')) {
+                        continue;
+                    }
+
+                    if (!strcmp($item, '..')) {
                         continue;
                     }
 
@@ -543,11 +547,7 @@ class Varien_Io_File extends Varien_Io_Abstract
         }
 
         // In case of a string
-        if (is_resource($src)) {
-            return true;
-        }
-
-        return false;
+        return is_resource($src);
     }
 
     /**

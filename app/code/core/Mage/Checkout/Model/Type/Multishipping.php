@@ -66,7 +66,11 @@ class Mage_Checkout_Model_Type_Multishipping extends Mage_Checkout_Model_Type_Ab
                      * Items with parent id we add in importQuoteItem method.
                      * Skip virtual items
                      */
-                    if ($item->getParentItemId() || $item->getProduct()->getIsVirtual()) {
+                    if ($item->getParentItemId()) {
+                        continue;
+                    }
+
+                    if ($item->getProduct()->getIsVirtual()) {
                         continue;
                     }
 

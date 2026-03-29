@@ -333,10 +333,8 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
 
         $fileFullPath = null;
         foreach ($checkPaths as $path) {
-            if (!is_file($path)) {
-                if (!Mage::helper('core/file_storage_database')->saveFileToFilesystem($fileFullPath)) {
-                    continue;
-                }
+            if (!is_file($path) && !Mage::helper('core/file_storage_database')->saveFileToFilesystem($fileFullPath)) {
+                continue;
             }
 
             $fileFullPath = $path;
@@ -858,11 +856,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
         }
 
         $imageInfo = getimagesize($fileInfo);
-        if (!$imageInfo) {
-            return false;
-        }
-
-        return true;
+        return (bool) $imageInfo;
     }
 
     /**

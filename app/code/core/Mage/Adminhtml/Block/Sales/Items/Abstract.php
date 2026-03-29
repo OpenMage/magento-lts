@@ -505,17 +505,12 @@ class Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Tem
     }
 
     /**
-     * CREDITMEMO
+     * @return bool
      */
 
     public function canReturnToStock()
     {
-        $canReturnToStock = Mage::getStoreConfig(Mage_CatalogInventory_Model_Stock_Item::XML_PATH_CAN_SUBTRACT);
-        if (Mage::getStoreConfig(Mage_CatalogInventory_Model_Stock_Item::XML_PATH_CAN_SUBTRACT)) {
-            return true;
-        }
-
-        return false;
+        return Mage::getStoreConfigFlag(Mage_CatalogInventory_Model_Stock_Item::XML_PATH_CAN_SUBTRACT);
     }
 
     /**
@@ -574,11 +569,7 @@ class Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Tem
         }
 
         $value = $order->getCanShipPartially();
-        if (!is_null($value) && !$value) {
-            return false;
-        }
-
-        return true;
+        return !(!is_null($value) && !$value);
     }
 
     /**
@@ -594,19 +585,11 @@ class Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Tem
         }
 
         $value = $order->getCanShipPartiallyItem();
-        if (!is_null($value) && !$value) {
-            return false;
-        }
-
-        return true;
+        return !(!is_null($value) && !$value);
     }
 
     public function isShipmentRegular()
     {
-        if (!$this->canShipPartiallyItem() || !$this->canShipPartially()) {
-            return false;
-        }
-
-        return true;
+        return !(!$this->canShipPartiallyItem() || !$this->canShipPartially());
     }
 }

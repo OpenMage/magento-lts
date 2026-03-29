@@ -210,15 +210,13 @@ class Mage_Core_Model_Layout_Validator extends Mage_Core_Model_Validate_Abstract
      */
     public function getXpathBlockValidationExpression()
     {
-        if (!$this->_xpathBlockValidationExpression) {
-            if (count($this->_disallowedBlock)) {
-                foreach ($this->_disallowedBlock as $key => $value) {
-                    $this->_xpathBlockValidationExpression .= $key > 0 ? ' | ' : '';
-                    $this->_xpathBlockValidationExpression
-                        .= "//block[translate(@type, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz') = ";
-                    $this->_xpathBlockValidationExpression
-                        .= "translate('$value', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')]";
-                }
+        if (!$this->_xpathBlockValidationExpression && count($this->_disallowedBlock)) {
+            foreach ($this->_disallowedBlock as $key => $value) {
+                $this->_xpathBlockValidationExpression .= $key > 0 ? ' | ' : '';
+                $this->_xpathBlockValidationExpression
+                    .= "//block[translate(@type, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz') = ";
+                $this->_xpathBlockValidationExpression
+                    .= "translate('$value', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')]";
             }
         }
 

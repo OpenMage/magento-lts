@@ -233,15 +233,13 @@ class Mage_Core_Model_Translate
                  * Checking previous value
                  */
                 $scopeKey = $this->_dataScope[$key] . self::SCOPE_SEPARATOR . $key;
-                if (!isset($this->_data[$scopeKey])) {
-                    if (isset($this->_data[$key])) {
-                        $this->_data[$scopeKey] = $this->_data[$key];
-                        /**
-                         * Not allow use translation not related to module
-                         */
-                        if (Mage::getIsDeveloperMode()) {
-                            unset($this->_data[$key]);
-                        }
+                if (!isset($this->_data[$scopeKey]) && isset($this->_data[$key])) {
+                    $this->_data[$scopeKey] = $this->_data[$key];
+                    /**
+                     * Not allow use translation not related to module
+                     */
+                    if (Mage::getIsDeveloperMode()) {
+                        unset($this->_data[$key]);
                     }
                 }
 
@@ -431,10 +429,11 @@ class Mage_Core_Model_Translate
             $result = $translated;
         }
 
-        if ($this->_translateInline && $this->getTranslateInline()) {
-            if (!str_contains($result, '{{{') || !str_contains($result, '}}}') || !str_contains($result, '}}{{')) {
-                $result = '{{{' . $result . '}}{{' . $translated . '}}{{' . $text . '}}{{' . $module . '}}}';
-            }
+        if ($this->_translateInline
+            && $this->getTranslateInline()
+            && (!str_contains($result, '{{{') || !str_contains($result, '}}}') || !str_contains($result, '}}{{'))
+        ) {
+            return '{{{' . $result . '}}{{' . $translated . '}}{{' . $text . '}}{{' . $module . '}}}';
         }
 
         return $result;
