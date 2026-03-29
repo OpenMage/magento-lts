@@ -167,12 +167,13 @@ class Mage_Sales_Block_Order_Item_Renderer_Default extends Mage_Core_Block_Templ
     /**
      * Return product additional information block
      *
-     * TODO set return type
-     * @return null|Mage_Core_Block_Abstract
+     * @return Mage_Core_Block_Text_List
      */
     public function getProductAdditionalInformationBlock()
     {
-        return $this->getLayout()->getBlock('additional.product.info');
+        /** @var Mage_Core_Block_Text_List $block */
+        $block = $this->getLayout()->getBlock('additional.product.info');
+        return $block;
     }
 
     public function canDisplayGiftmessage(): bool

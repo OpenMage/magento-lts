@@ -169,10 +169,10 @@ class Mage_CatalogSearch_Model_Resource_Fulltext_Collection extends Mage_Catalog
      * Set Order field
      *
      * @param  string $attribute
-     * @param  string $dir
+     * @param  self::SORT_ORDER_* $dir
      * @return $this
      */
-    public function setOrder($attribute, $dir = 'desc')
+    public function setOrder($attribute, $dir = self::SORT_ORDER_DESC)
     {
         if ($attribute == 'relevance') {
             $this->_relevanceSortOrder = ($dir == 'asc') ? SORT_ASC : SORT_DESC;

@@ -662,10 +662,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
     }
 
     /**
-     * Load cached data by identifier
-     *
-     * @param  string $id
-     * @return string
+     * @inheritDoc
      */
     protected function _loadCache($id)
     {

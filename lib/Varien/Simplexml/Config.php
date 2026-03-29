@@ -385,8 +385,10 @@ class Varien_Simplexml_Config
     }
 
     /**
-     * @param  string $id
-     * @return bool
+     * Load cached data by identifier
+     *
+     * @param  string      $id
+     * @return bool|string
      */
     protected function _loadCache($id)
     {

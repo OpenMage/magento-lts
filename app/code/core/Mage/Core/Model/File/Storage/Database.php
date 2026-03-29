@@ -131,9 +131,9 @@ class Mage_Core_Model_File_Storage_Database extends Mage_Core_Model_File_Storage
     /**
      * Export directories from storage
      *
-     * @param  int        $offset
-     * @param  int        $count
-     * @return array|bool
+     * @param  int         $offset
+     * @param  int         $count
+     * @return array|false
      */
     public function exportDirectories($offset = 0, $count = 100)
     {
@@ -305,7 +305,7 @@ class Mage_Core_Model_File_Storage_Database extends Mage_Core_Model_File_Storage
      * Return directory listing
      *
      * @param  string $directory
-     * @return mixed
+     * @return array
      */
     public function getDirectoryFiles($directory)
     {

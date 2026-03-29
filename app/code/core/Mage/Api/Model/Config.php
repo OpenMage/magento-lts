@@ -258,8 +258,7 @@ class Mage_Api_Model_Config extends Varien_Simplexml_Config
     }
 
     /**
-     * @param  string     $id
-     * @return bool|mixed
+     * @inheritDoc
      */
     protected function _loadCache($id)
     {
@@ -267,11 +266,11 @@ class Mage_Api_Model_Config extends Varien_Simplexml_Config
     }
 
     /**
-     * @param  string                   $data
-     * @param  string                   $id
-     * @param  array                    $tags
-     * @param  bool                     $lifetime
-     * @return bool|Mage_Core_Model_App
+     * @param  string              $data
+     * @param  string              $id
+     * @param  array               $tags
+     * @param  bool                $lifetime
+     * @return Mage_Core_Model_App
      */
     protected function _saveCache($data, $id, $tags = [], $lifetime = false)
     {

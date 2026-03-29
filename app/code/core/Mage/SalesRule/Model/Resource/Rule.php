@@ -229,9 +229,9 @@ class Mage_SalesRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abstra
     /**
      * Return codes of all product attributes currently used in promo rules for specified customer group and website
      *
-     * @param  int   $websiteId
-     * @param  int   $customerGroupId
-     * @return mixed
+     * @param  int        $websiteId
+     * @param  int        $customerGroupId
+     * @return null|array
      */
     public function getActiveAttributes($websiteId, $customerGroupId)
     {

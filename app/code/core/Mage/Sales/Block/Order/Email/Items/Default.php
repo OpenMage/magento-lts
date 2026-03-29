@@ -77,10 +77,12 @@ class Mage_Sales_Block_Order_Email_Items_Default extends Mage_Core_Block_Templat
     /**
      * Return product additional information block
      *
-     * @return Mage_Core_Block_Abstract|Mage_Core_Block_Text_List
+     * @return Mage_Core_Block_Text_List
      */
     public function getProductAdditionalInformationBlock()
     {
-        return $this->getLayout()->getBlock('additional.product.info');
+        /** @var Mage_Core_Block_Text_List $block */
+        $block = $this->getLayout()->getBlock('additional.product.info');
+        return $block;
     }
 }

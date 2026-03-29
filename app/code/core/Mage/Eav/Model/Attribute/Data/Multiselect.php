@@ -17,7 +17,7 @@ class Mage_Eav_Model_Attribute_Data_Multiselect extends Mage_Eav_Model_Attribute
     /**
      * Extract data from request and return value
      *
-     * @return array|string
+     * @return array
      */
     public function extractValue(Zend_Controller_Request_Http $request)
     {
