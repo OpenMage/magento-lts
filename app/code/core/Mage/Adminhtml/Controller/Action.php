@@ -401,7 +401,13 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
         if (is_array($this->_publicActions) && in_array($this->getRequest()->getActionName(), $this->_publicActions, true)) {
             return true;
         }
-        return !(!($secretKey = $this->getRequest()->getParam(Mage_Adminhtml_Model_Url::SECRET_KEY_PARAM_NAME, null)) || !hash_equals(Mage::getSingleton('adminhtml/url')->getSecretKey(), $secretKey));
+
+        $secretKey = $this->getRequest()->getParam(Mage_Adminhtml_Model_Url::SECRET_KEY_PARAM_NAME, null);
+        if (!$secretKey) {
+            return false;
+        }
+
+        return hash_equals(Mage::getSingleton('adminhtml/url')->getSecretKey(), $secretKey);
     }
 
     /**
