@@ -14,6 +14,16 @@ use Carbon\Carbon;
  */
 class Mage_Dataflow_Model_Session_Adapter_Iterator extends Mage_Dataflow_Model_Convert_Adapter_Abstract
 {
+    public function load()
+    {
+        return $this;
+    }
+
+    public function save()
+    {
+        return $this;
+    }
+
     public function walk()
     {
         $sessionId = Mage::registry('current_dataflow_session_id');
@@ -39,6 +49,8 @@ class Mage_Dataflow_Model_Session_Adapter_Iterator extends Mage_Dataflow_Model_C
 
     protected function _getProgressBarHtml($sessionId, $totalRows)
     {
+        $helper = Mage::helper('dataflow');
+
         return '
 <li>
     <div style="position:relative">
@@ -46,11 +58,11 @@ class Mage_Dataflow_Model_Session_Adapter_Iterator extends Mage_Dataflow_Model_C
             . '" style="position:absolute;background:green;height:2px; width:0; top:-2px; left:-2px; overflow:hidden; ">
         </div>
         <div>
-            ' . $this->__('Total records: %s', '<strong>' . $totalRows . '</strong>') . ',
-            ' . $this->__('Processed records: %s', '<strong><span id="records_processed_'
+            ' . $helper->__('Total records: %s', '<strong>' . $totalRows . '</strong>') . ',
+            ' . $helper->__('Processed records: %s', '<strong><span id="records_processed_'
                   . $sessionId . '">0</span></strong>') . ',
-            ' . $this->__('ETA: %s', '<strong><span id="finish_eta_' . $sessionId . '">N/A</span></strong>') . ',
-            ' . $this->__('Memory Used: %s', '<strong><span id="memory_' . $sessionId . '">'
+            ' . $helper->__('ETA: %s', '<strong><span id="finish_eta_' . $sessionId . '">N/A</span></strong>') . ',
+            ' . $helper->__('Memory Used: %s', '<strong><span id="memory_' . $sessionId . '">'
             . memory_get_usage(true) . '</span></strong>') . '
         </div>
     </div>
@@ -66,19 +78,19 @@ function updateProgress(sessionId, idx, time, memory) {
     var eta_minutes = Math.floor(eta/60)%60;
 
     if (total_rows==idx) {
-        eta_str = \'' . Mage::helper('core')->jsQuoteEscape($this->__('Done')) . ' \';
+        eta_str = \'' . Mage::helper('core')->jsQuoteEscape($helper->__('Done')) . ' \';
     } else if (!eta_hours && !eta_minutes) {
-        eta_str = \'' . Mage::helper('core')->jsQuoteEscape($this->__('Less than a minute')) . '\';
+        eta_str = \'' . Mage::helper('core')->jsQuoteEscape($helper->__('Less than a minute')) . '\';
     } else {
         if (eta_hours) {
             eta_str += eta_hours+" "+(eta_hours>1 ? \''
-            . Mage::helper('core')->jsQuoteEscape($this->__('hours')) . "' : '"
-            . Mage::helper('core')->jsQuoteEscape($this->__('hour')) . '\'");
+            . Mage::helper('core')->jsQuoteEscape($helper->__('hours')) . "' : '"
+            . Mage::helper('core')->jsQuoteEscape($helper->__('hour')) . '\'");
         }
         if (eta_minutes) {
             eta_str += eta_minutes+" "+(eta_minutes>1 ? \''
-            . Mage::helper('core')->jsQuoteEscape($this->__('minutes'))
-            . "' : '" . Mage::helper('core')->jsQuoteEscape($this->__('minute')) . '\');
+            . Mage::helper('core')->jsQuoteEscape($helper->__('minutes'))
+            . "' : '" . Mage::helper('core')->jsQuoteEscape($helper->__('minute')) . '\');
         }
     }
 

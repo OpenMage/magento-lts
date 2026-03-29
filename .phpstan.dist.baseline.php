@@ -4513,6 +4513,12 @@ $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Dataflow/Model/Convert/Iterator.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
+	'identifier' => 'empty.notAllowed',
+	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Dataflow/Model/Convert/Parser/Csv.php',
 ];
 $ignoreErrors[] = [
