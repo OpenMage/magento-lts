@@ -21,6 +21,7 @@ use Mage_Catalog_Model_Resource_Category_Flat;
 use Mage_Catalog_Model_Resource_Eav_Attribute;
 use Mage_Catalog_Model_Resource_Product_Collection;
 use Mage_Catalog_Model_Url;
+use Rector\Arguments\ValueObject\ReplaceArgumentDefaultValue;
 use Rector\Renaming\ValueObject\MethodCallRename;
 
 final class Catalog
@@ -43,6 +44,17 @@ final class Catalog
             new MethodCallRename(Mage_Catalog_Model_Resource_Product_Collection::class, 'addMinimalPrice', 'addPriceData'),
             new MethodCallRename(Mage_Catalog_Model_Resource_Product_Collection::class, 'addFinalPrice', 'addPriceData'),
             new MethodCallRename(Mage_Catalog_Model_Url::class, 'getUnusedPath', 'getUnusedPathByUrlKey'),
+        ];
+    }
+
+    /**
+     * @return ReplaceArgumentDefaultValue[]
+     */
+    public static function replaceArgumentDefaultValue(): array
+    {
+        return [
+            new ReplaceArgumentDefaultValue(Mage_Catalog_Model_Resource_Product_Collection::class, 'addAttributeToSort', 1, 'asc', 'ASC'),
+            new ReplaceArgumentDefaultValue(Mage_Catalog_Model_Resource_Product_Collection::class, 'addAttributeToSort', 1, 'desc', 'DESC'),
         ];
     }
 }
