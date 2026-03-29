@@ -37,9 +37,8 @@ class Mage_Paypal_Model_Cart
 
     /**
      * Rendered cart items
-     * Array of Varien_Objects
      *
-     * @var array
+     * @var array<void>|Varien_Object[]
      */
     protected $_items = [];
 

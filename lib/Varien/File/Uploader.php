@@ -6,9 +6,8 @@
  * @license    Open Software License (OSL 3.0)
  * @package    Varien_File
  */
-
+use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Validator\Validation;
-use Symfony\Component\Validator\Constraints;
 
 /**
  * File upload class
@@ -380,7 +379,7 @@ class Varien_File_Uploader
             if (count($validTypes) > 0) {
                 $validator = Validation::createValidator();
                 return $validator->validate($this->_file['tmp_name'], [
-                    new Constraints\File(mimeTypes: $validTypes),
+                    new File(mimeTypes: $validTypes),
                 ])->count() === 0;
             }
 

@@ -34,7 +34,7 @@ class Mage_Adminhtml_Block_Report_Product_Viewed_Grid extends Mage_Adminhtml_Blo
     public function __construct()
     {
         parent::__construct();
-        $this->setCountTotals(true);
+        $this->setCountTotals();
     }
 
     /**

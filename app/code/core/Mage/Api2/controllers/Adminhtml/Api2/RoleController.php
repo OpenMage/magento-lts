@@ -14,6 +14,8 @@
  */
 class Mage_Api2_Adminhtml_Api2_RoleController extends Mage_Adminhtml_Controller_Action
 {
+    public const ADMIN_RESOURCE = 'system/api/rest_roles';
+
     /**
      * Controller pre-dispatch method
      *
@@ -236,10 +238,10 @@ class Mage_Api2_Adminhtml_Api2_RoleController extends Mage_Adminhtml_Controller_
             }
 
             $session->addSuccess($this->__('The role has been saved.'));
-        } catch (Mage_Core_Exception $e) {
-            $session->addError($e->getMessage());
-        } catch (Exception $e) {
-            $session->addException($e, $this->__('An error occurred while saving role.'));
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $session->addError($mageCoreException->getMessage());
+        } catch (Exception $exception) {
+            $session->addException($exception, $this->__('An error occurred while saving role.'));
         }
 
         $this->_redirect('*/*/edit', ['id' => $id]);
@@ -271,23 +273,13 @@ class Mage_Api2_Adminhtml_Api2_RoleController extends Mage_Adminhtml_Controller_
             $model = Mage::getModel('api2/acl_global_role');
             $model->load($id)->delete();
             $this->_getSession()->addSuccess($this->__('Role has been deleted.'));
-        } catch (Mage_Core_Exception $e) {
-            $this->_getSession()->addError($e->getMessage());
-        } catch (Exception $e) {
-            $this->_getSession()->addException($e, $this->__('An error occurred while deleting the role.'));
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_getSession()->addError($mageCoreException->getMessage());
+        } catch (Exception $exception) {
+            $this->_getSession()->addException($exception, $this->__('An error occurred while deleting the role.'));
         }
 
         $this->_redirect('*/*/');
-    }
-
-    /**
-     * @inheritDoc
-     */
-    protected function _isAllowed()
-    {
-        /** @var Mage_Admin_Model_Session $session */
-        $session = Mage::getSingleton('admin/session');
-        return $session->isAllowed('system/api/rest_roles');
     }
 
     /**

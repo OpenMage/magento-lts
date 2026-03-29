@@ -156,7 +156,7 @@ abstract class Mage_Core_Helper_Abstract
         }
 
         $isActive = Mage::getConfig()->getNode('modules/' . $moduleName . '/active');
-        if (!$isActive || !in_array((string) $isActive, ['true', '1'])) {
+        if (!$isActive || !in_array((string) $isActive, ['true', '1'], true)) {
             return $this->modulesDisabled[$moduleName] = false;
         }
 
@@ -176,19 +176,6 @@ abstract class Mage_Core_Helper_Abstract
         $expr = new Mage_Core_Model_Translate_Expr(array_shift($args), $this->_getModuleName());
         array_unshift($args, $expr);
         return Mage::app()->getTranslator()->translate($args);
-    }
-
-    /**
-     * @param  string|string[]      $data
-     * @param  null|array           $allowedTags
-     * @return null|string|string[]
-     *
-     * @deprecated after 1.4.0.0-rc1
-     * @see self::escapeHtml()
-     */
-    public function htmlEscape($data, $allowedTags = null)
-    {
-        return $this->escapeHtml($data, $allowedTags);
     }
 
     /**
@@ -257,17 +244,6 @@ abstract class Mage_Core_Helper_Abstract
 
         $result = strip_tags($data, $allowableTags);
         return $escape ? $this->escapeHtml($result, $allowableTags) : $result;
-    }
-
-    /**
-     * @param  string $data
-     * @return string
-     * @deprecated after 1.4.0.0-rc1
-     * @see self::escapeHtml()
-     */
-    public function urlEscape($data)
-    {
-        return $this->escapeUrl($data);
     }
 
     /**
@@ -465,7 +441,7 @@ abstract class Mage_Core_Helper_Abstract
     {
         if (is_array($data)) {
             foreach ($data as $key => $item) {
-                if ($skipTags && in_array($key, $arrayKeys)) {
+                if ($skipTags && in_array($key, $arrayKeys, true)) {
                     continue;
                 }
 
@@ -476,7 +452,7 @@ abstract class Mage_Core_Helper_Abstract
                 } elseif ((bool) strcmp($item, $this->removeTags($item))
                     || (bool) strcmp($key, $this->removeTags($key))
                 ) {
-                    if (!$skipTags && !in_array($key, $arrayKeys)) {
+                    if (!$skipTags && !in_array($key, $arrayKeys, true)) {
                         continue;
                     }
 
@@ -487,12 +463,6 @@ abstract class Mage_Core_Helper_Abstract
             return false;
         }
 
-        if (is_string($data)) {
-            if ((bool) strcmp($data, $this->removeTags($data))) {
-                return true;
-            }
-        }
-
-        return false;
+        return is_string($data) && (bool) strcmp($data, $this->removeTags($data));
     }
 }

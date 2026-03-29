@@ -103,10 +103,8 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
     protected function _beforeSave()
     {
         // Check if discount amount not negative
-        if ($this->hasDiscountAmount()) {
-            if ((int) $this->getDiscountAmount() < 0) {
-                Mage::throwException(Mage::helper('rule')->__('Invalid discount amount.'));
-            }
+        if ($this->hasDiscountAmount() && (int) $this->getDiscountAmount() < 0) {
+            Mage::throwException(Mage::helper('rule')->__('Invalid discount amount.'));
         }
 
         // Serialize conditions
@@ -303,7 +301,7 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
      * Set conditions and actions recursively.
      * Convert dates into Zend_Date.
      *
-     * @return array
+     * @return array<void>|array{mixed, mixed}
      */
     protected function _convertFlatToRecursive(array $data)
     {
@@ -325,7 +323,7 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
                 /**
                  * Convert dates into Zend_Date
                  */
-                if (in_array($key, ['from_date', 'to_date']) && $value) {
+                if (in_array($key, ['from_date', 'to_date'], true) && $value) {
                     $value = Mage::app()->getLocale()->date(
                         $value,
                         Varien_Date::DATE_INTERNAL_FORMAT,
@@ -477,7 +475,7 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
     /**
      * Returns rule as an array for admin interface
      *
-     * @return array
+     * @return array<void>
      * @deprecated since 1.7.0.0
      */
     public function asArray(array $arrAttributes = [])

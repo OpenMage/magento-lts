@@ -68,32 +68,22 @@ class Mage_CatalogSearch_Model_Resource_Search_Collection extends Mage_Catalog_M
      */
     protected function _isAttributeTextAndSearchable($attribute)
     {
-        if (($attribute->getIsSearchable()
+        return ($attribute->getIsSearchable()
             && !in_array($attribute->getFrontendInput(), ['select', 'multiselect']))
             && (in_array($attribute->getBackendType(), ['varchar', 'text'])
-                || $attribute->getBackendType() == 'static')
-        ) {
-            return true;
-        }
-
-        return false;
+                || $attribute->getBackendType() == 'static');
     }
 
     /**
      * Check attributes has options and searchable
      *
-     * @param  Mage_Catalog_Model_Entity_Attribute $attribute
+     * @param  Mage_Catalog_Model_Entity_Attribute|Varien_Object $attribute
      * @return bool
      */
     protected function _hasAttributeOptionsAndSearchable($attribute)
     {
-        if ($attribute->getIsSearchable()
-            && in_array($attribute->getFrontendInput(), ['select', 'multiselect'])
-        ) {
-            return true;
-        }
-
-        return false;
+        return $attribute->getIsSearchable()
+            && in_array($attribute->getFrontendInput(), ['select', 'multiselect']);
     }
 
     /**

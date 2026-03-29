@@ -33,11 +33,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Billing_Method_Form extends Mage_P
     public function hasMethods()
     {
         $methods = $this->getMethods();
-        if (is_array($methods) && count($methods)) {
-            return true;
-        }
-
-        return false;
+        return is_array($methods) && count($methods);
     }
 
     /**
@@ -80,10 +76,6 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Billing_Method_Form extends Mage_P
     {
         $availableTypes = explode(',', $this->getQuote()->getPayment()->getMethod()->getConfigData('cctypes'));
         $ssPresenations = array_intersect(['SS', 'SM', 'SO'], $availableTypes);
-        if ($availableTypes && $ssPresenations !== []) {
-            return true;
-        }
-
-        return false;
+        return $availableTypes && $ssPresenations !== [];
     }
 }

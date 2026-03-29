@@ -197,7 +197,7 @@ class Mage_Core_Model_File_Storage extends Mage_Core_Model_Abstract
     /**
      * Return current media directory, allowed resources for get.php script, etc.
      *
-     * @return array
+     * @return array<string, mixed>
      */
     public static function getScriptConfig()
     {

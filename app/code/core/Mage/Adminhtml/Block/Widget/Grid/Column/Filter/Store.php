@@ -84,9 +84,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Store extends Mage_Adminhtm
     }
 
     /**
-     * Form condition from element's value
-     *
-     * @return null|array
+     * @inheritDoc
      */
     public function getCondition()
     {

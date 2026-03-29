@@ -95,7 +95,7 @@ class Mage_Customer_Block_Widget_Dob extends Mage_Customer_Block_Widget_Abstract
      */
     public function getYear()
     {
-        return ($this->hasTime()) ? $this->getTime()->format('o') : '';
+        return ($this->hasTime()) ? $this->getTime()->format('Y') : '';
     }
 
     /**

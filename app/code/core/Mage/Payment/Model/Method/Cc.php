@@ -178,7 +178,7 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
     }
 
     /**
-     * @return array
+     * @return array<string, string>
      */
     public function getVerificationRegEx()
     {
@@ -204,13 +204,13 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
     protected function _validateExpDate($expYear, $expMonth)
     {
         $date = Mage::app()->getLocale()->date();
-        if (!$expYear || !$expMonth || ($date->compareYear($expYear) == 1)
-            || ($date->compareYear($expYear) == 0 && ($date->compareMonth($expMonth) == 1))
-        ) {
-            return false;
-        }
-
-        return true;
+        return !(
+            !$expYear
+            || !$expMonth
+            || $date->compareYear($expYear) == 1
+            || $date->compareYear($expYear) == 0
+            && $date->compareMonth($expMonth) == 1
+        );
     }
 
     /**
@@ -394,10 +394,6 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
             return false;
         }
 
-        if ($info instanceof Mage_Sales_Model_Order_Payment) {
-            return true;
-        }
-
-        return false;
+        return $info instanceof Mage_Sales_Model_Order_Payment;
     }
 }

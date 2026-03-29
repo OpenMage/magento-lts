@@ -7,7 +7,7 @@
  * @package    Mage_Eav
  */
 
-use Symfony\Component\Validator\Constraints;
+use Symfony\Component\Validator\Constraints\Hostname;
 
 /**
  * EAV Attribute Abstract Data Model
@@ -202,12 +202,10 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
         if ($filterCode) {
             $filterClass = 'Varien_Data_Form_Filter_' . ucfirst($filterCode);
             if ($filterCode == 'date') {
-                $filter = new $filterClass($this->_dateFilterFormat(), Mage::app()->getLocale()->getLocale());
-            } else {
-                $filter = new $filterClass();
+                return new $filterClass($this->_dateFilterFormat(), Mage::app()->getLocale()->getLocale());
             }
 
-            return $filter;
+            return new $filterClass();
         }
 
         return false;
@@ -322,7 +320,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
                         return [$message];
                     }
 
-                    $violations = $validator->validate(value: $value, constraints: [new Constraints\Hostname()]);
+                    $violations = $validator->validate(value: $value, constraints: [new Hostname()]);
                     if ($violations->count() > 0) {
                         return [$message];
                     }

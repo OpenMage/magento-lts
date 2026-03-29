@@ -140,38 +140,6 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
     }
 
     /**
-     * Retrieve Price
-     *
-     * @param  Mage_Catalog_Model_Product      $product
-     * @param  string                          $which
-     * @return array|float
-     * @throws Mage_Core_Model_Store_Exception
-     * @deprecated after 1.5.1.0
-     * @see Mage_Bundle_Model_Product_Price::getTotalPrices()
-     */
-    public function getPrices($product, $which = null)
-    {
-        return $this->getTotalPrices($product, $which);
-    }
-
-    /**
-     * Retrieve Prices depending on tax
-     *
-     * @param  Mage_Catalog_Model_Product      $product
-     * @param  string                          $which
-     * @param  null|bool                       $includeTax
-     * @return array|float
-     * @throws Mage_Core_Model_Store_Exception
-     *
-     * @deprecated after 1.5.1.0
-     * @see Mage_Bundle_Model_Product_Price::getTotalPrices()
-     */
-    public function getPricesDependingOnTax($product, $which = null, $includeTax = null)
-    {
-        return $this->getTotalPrices($product, $which, $includeTax);
-    }
-
-    /**
      * Retrieve Price considering tier price
      *
      * @param  Mage_Catalog_Model_Product      $product
@@ -963,11 +931,12 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
         $specialPriceTo,
         $store = null
     ) {
-        if (!is_null($specialPrice) && $specialPrice != false) {
-            if (Mage::app()->getLocale()->isStoreDateInInterval($store, $specialPriceFrom, $specialPriceTo)) {
-                $specialPrice = Mage::app()->getStore()->roundPrice($finalPrice * $specialPrice / 100);
-                $finalPrice = min($finalPrice, $specialPrice);
-            }
+        if (!is_null($specialPrice)
+            && $specialPrice != false
+            && Mage::app()->getLocale()->isStoreDateInInterval($store, $specialPriceFrom, $specialPriceTo)
+        ) {
+            $specialPrice = Mage::app()->getStore()->roundPrice($finalPrice * $specialPrice / 100);
+            $finalPrice = min($finalPrice, $specialPrice);
         }
 
         return $finalPrice;
@@ -1047,12 +1016,10 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
     {
         $prices = $this->_getCustomOptionValuesPrices($option);
         if ($prices) {
-            $maximalPrice = ($option->isMultipleType()) ? array_sum($prices) : max($prices);
-        } else {
-            $maximalPrice = (float) ($option->getPrice(true));
+            return ($option->isMultipleType()) ? array_sum($prices) : max($prices);
         }
 
-        return $maximalPrice;
+        return (float) ($option->getPrice(true));
     }
 
     /**

@@ -142,7 +142,7 @@ class Mage_Adminhtml_Permissions_UserController extends Mage_Adminhtml_Controlle
                 }
 
                 $this->_redirect('*/*/edit', ['_current' => true]);
-                return $this;
+                return;
             }
 
             try {
@@ -152,21 +152,22 @@ class Mage_Adminhtml_Permissions_UserController extends Mage_Adminhtml_Controlle
                     Mage::getModel('admin/user')->sendAdminNotification($model);
                 }
 
-                if ($uRoles = $this->getRequest()->getParam('roles', false)) {
-                    if (is_array($uRoles) && (count($uRoles) >= 1)) {
-                        // with fix for previous multi-roles logic
-                        $model->setRoleIds(array_slice($uRoles, 0, 1))
-                            ->setRoleUserId($model->getUserId())
-                            ->saveRelations();
-                    }
+                $uRoles = $this->getRequest()->getParam('roles', false);
+                if ($uRoles
+                    && (is_array($uRoles) && count($uRoles) >= 1)
+                ) {
+                    // with fix for previous multi-roles logic
+                    $model->setRoleIds(array_slice($uRoles, 0, 1))
+                        ->setRoleUserId($model->getUserId())
+                        ->saveRelations();
                 }
 
                 Mage::getSingleton('adminhtml/session')->addSuccess($this->__('The user has been saved.'));
                 Mage::getSingleton('adminhtml/session')->setUserData(false);
                 $this->_redirect('*/*/');
                 return;
-            } catch (Mage_Core_Exception $e) {
-                Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
+            } catch (Mage_Core_Exception $mageCoreException) {
+                Mage::getSingleton('adminhtml/session')->addError($mageCoreException->getMessage());
                 Mage::getSingleton('adminhtml/session')->setUserData($data);
                 $this->_redirect('*/*/edit', ['user_id' => $model->getUserId()]);
                 return;

@@ -164,7 +164,7 @@ class Mage_CatalogIndex_Model_Resource_Indexer extends Mage_Core_Model_Resource_
     /**
      * Get tables which are used for index related with price
      *
-     * @return array
+     * @return array<int, string>
      */
     protected function _getPriceTables()
     {
@@ -280,12 +280,10 @@ class Mage_CatalogIndex_Model_Resource_Indexer extends Mage_Core_Model_Resource_
         foreach ($productTypes as $type => $products) {
             $retreiver = Mage::getSingleton('catalogindex/retreiver')->getRetreiver($type);
             foreach ($products as $product) {
-                if (is_null($forcedId)) {
-                    if ($retreiver->areChildrenIndexable(Mage_CatalogIndex_Model_Retreiver::CHILDREN_FOR_PRICES)) {
-                        $children = $retreiver->getChildProductIds($store, $product);
-                        if ($children) {
-                            $this->reindexFinalPrices($children, $store, $product);
-                        }
+                if (is_null($forcedId) && $retreiver->areChildrenIndexable(Mage_CatalogIndex_Model_Retreiver::CHILDREN_FOR_PRICES)) {
+                    $children = $retreiver->getChildProductIds($store, $product);
+                    if ($children) {
+                        $this->reindexFinalPrices($children, $store, $product);
                     }
                 }
 

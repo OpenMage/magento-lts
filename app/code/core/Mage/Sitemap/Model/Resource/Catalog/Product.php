@@ -52,7 +52,7 @@ class Mage_Sitemap_Model_Resource_Catalog_Product extends Mage_Sitemap_Model_Res
         $this->_addFilter(
             $storeId,
             'visibility',
-            Mage::getSingleton('catalog/product_visibility')->getVisibleInSiteIds(),
+            Mage::getSingleton('catalog/product_visibility')::getVisibleInSiteIds(),
             'in',
         );
         $this->_addFilter(
@@ -63,17 +63,6 @@ class Mage_Sitemap_Model_Resource_Catalog_Product extends Mage_Sitemap_Model_Res
         );
 
         return $this->_loadEntities();
-    }
-
-    /**
-     * Prepare product
-     *
-     * @return Varien_Object
-     * @deprecated after 1.7.0.2
-     */
-    protected function _prepareProduct(array $productRow)
-    {
-        return $this->_prepareObject($productRow);
     }
 
     /**

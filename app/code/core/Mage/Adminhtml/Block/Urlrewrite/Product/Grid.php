@@ -62,16 +62,14 @@ class Mage_Adminhtml_Block_Urlrewrite_Product_Grid extends Mage_Adminhtml_Block_
                 'width' => 50,
                 'index' => 'status',
                 'type'  => 'options',
-                'options' => Mage::getSingleton('catalog/product_status')->getOptionArray(),
+                'options' => Mage::getSingleton('catalog/product_status')::getOptionArray(),
             ],
         );
-        return $this;
+        return Mage_Adminhtml_Block_Widget_Grid::_prepareColumns();
     }
 
     /**
-     * Get url for dispatching grid ajax requests
-     *
-     * @return string
+     * @inheritDoc
      */
     public function getGridUrl()
     {

@@ -54,8 +54,8 @@ class Mage_Core_Model_Resource_File_Storage_File
     /**
      * Collect files and directories recursively
      *
-     * @param  string $dir
-     * @return array
+     * @param  string                 $dir
+     * @return array<string, mixed[]>
      */
     public function getStorageData($dir = '')
     {
@@ -168,10 +168,8 @@ class Mage_Core_Model_Resource_File_Storage_File
             : $dir['name'];
         $path = Mage::helper('core/file_storage_database')->getMediaBaseDir() . DS . str_replace('/', DS, $path);
 
-        if (!file_exists($path) || !is_dir($path)) {
-            if (!@mkdir($path, 0777, true)) {
-                Mage::throwException(Mage::helper('core')->__('Unable to create directory: %s', $path));
-            }
+        if ((!file_exists($path) || !is_dir($path)) && !@mkdir($path, 0777, true)) {
+            Mage::throwException(Mage::helper('core')->__('Unable to create directory: %s', $path));
         }
 
         return true;

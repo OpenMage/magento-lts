@@ -17,7 +17,7 @@ class Mage_Captcha_Model_Config_Mode
     /**
      * Get options for captcha mode selection field
      *
-     * @return array
+     * @return array<int, array<string, string>>
      */
     public function toOptionArray()
     {

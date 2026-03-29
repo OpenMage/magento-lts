@@ -628,7 +628,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
     /**
      * Retrieve dates for custom design (from & to)
      *
-     * @return array
+     * @return array<string, mixed>
      */
     public function getCustomDesignDate()
     {
@@ -641,7 +641,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
     /**
      * Retrieve design attributes array
      *
-     * @return array
+     * @return Mage_Eav_Model_Entity_Attribute_Abstract[]
      * @throws Mage_Core_Exception
      */
     public function getDesignAttributes()
@@ -665,13 +665,11 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
     private function _getAttribute($attributeCode)
     {
         if (!$this->_useFlatResource) {
-            $attribute = $this->getResource()->getAttribute($attributeCode);
-        } else {
-            $attribute = Mage::getSingleton('catalog/config')
-                ->getAttribute(self::ENTITY, $attributeCode);
+            return $this->getResource()->getAttribute($attributeCode);
         }
 
-        return $attribute;
+        return Mage::getSingleton('catalog/config')
+            ->getAttribute(self::ENTITY, $attributeCode);
     }
 
     /**

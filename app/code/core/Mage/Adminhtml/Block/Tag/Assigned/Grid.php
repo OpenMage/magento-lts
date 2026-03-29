@@ -16,6 +16,8 @@
  */
 class Mage_Adminhtml_Block_Tag_Assigned_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_tag_assigned_grid';
+
     protected $_currentTagModel;
 
     /**
@@ -57,8 +59,9 @@ class Mage_Adminhtml_Block_Tag_Assigned_Grid extends Mage_Adminhtml_Block_Widget
     /**
      * Add filter to grid columns
      *
-     * @param  mixed $column
-     * @return $this
+     * @inheritDoc
+     * @throws Exception
+     * @throws Mage_Core_Exception
      */
     protected function _addColumnFilterToCollection($column)
     {
@@ -84,7 +87,7 @@ class Mage_Adminhtml_Block_Tag_Assigned_Grid extends Mage_Adminhtml_Block_Widget
     /**
      * Retrieve Products Collection
      *
-     * @return $this
+     * @inheritDoc
      */
     protected function _prepareCollection()
     {
@@ -125,6 +128,7 @@ class Mage_Adminhtml_Block_Tag_Assigned_Grid extends Mage_Adminhtml_Block_Widget
 
     /**
      * @inheritDoc
+     * @throws Exception
      */
     protected function _prepareColumns()
     {
@@ -170,7 +174,7 @@ class Mage_Adminhtml_Block_Tag_Assigned_Grid extends Mage_Adminhtml_Block_Widget
                 'width'     => 100,
                 'index'     => 'type_id',
                 'type'      => 'options',
-                'options'   => Mage::getSingleton('catalog/product_type')->getOptionArray(),
+                'options'   => Mage::getSingleton('catalog/product_type')::getOptionArray(),
             ],
         );
 
@@ -215,7 +219,7 @@ class Mage_Adminhtml_Block_Tag_Assigned_Grid extends Mage_Adminhtml_Block_Widget
                 'width'     => 100,
                 'index'     => 'visibility',
                 'type'      => 'options',
-                'options'   => Mage::getModel('catalog/product_visibility')->getOptionArray(),
+                'options'   => Mage::getModel('catalog/product_visibility')::getOptionArray(),
             ],
         );
 
@@ -226,7 +230,7 @@ class Mage_Adminhtml_Block_Tag_Assigned_Grid extends Mage_Adminhtml_Block_Widget
                 'width'     => 70,
                 'index'     => 'status',
                 'type'      => 'options',
-                'options'   => Mage::getSingleton('catalog/product_status')->getOptionArray(),
+                'options'   => Mage::getSingleton('catalog/product_status')::getOptionArray(),
             ],
         );
 
@@ -237,10 +241,11 @@ class Mage_Adminhtml_Block_Tag_Assigned_Grid extends Mage_Adminhtml_Block_Widget
      * Retrieve related products
      *
      * @return array
+     * @throws Exception
      */
     protected function _getSelectedProducts()
     {
-        $products = $this->getRequest()->getPost('assigned_products', null);
+        $products = $this->getRequest()->getPost('assigned_products');
         if (!is_array($products)) {
             return $this->getRelatedProducts();
         }

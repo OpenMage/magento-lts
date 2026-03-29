@@ -11,6 +11,8 @@
  * Sales Rules resource collection model
  *
  * @package    Mage_SalesRule
+ *
+ * @extends Mage_Rule_Model_Resource_Rule_Collection_Abstract<Mage_SalesRule_Model_Rule>
  */
 class Mage_SalesRule_Model_Resource_Rule_Collection extends Mage_Rule_Model_Resource_Rule_Collection_Abstract
 {

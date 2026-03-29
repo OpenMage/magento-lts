@@ -96,14 +96,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
     }
 
     /**
-     * Retrieve Required children ids
-     * Return grouped array, ex array(
-     *   group => array(ids)
-     * )
-     *
-     * @param  int   $parentId
-     * @param  bool  $required
-     * @return array
+     * @inheritDoc
      */
     public function getChildrenIds($parentId, $required = true)
     {
@@ -740,10 +733,9 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
      */
     public function isVirtual($product = null)
     {
-        if ($productOption = $this->getProduct($product)->getCustomOption('simple_product')) {
-            if ($optionProduct = $productOption->getProduct()) {
-                return $optionProduct->isVirtual();
-            }
+        $productOption = $this->getProduct($product)->getCustomOption('simple_product');
+        if ($productOption && $optionProduct = $productOption->getProduct()) {
+            return $optionProduct->isVirtual();
         }
 
         return parent::isVirtual($product);
@@ -831,8 +823,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
     /**
      * Get sku of product
      *
-     * @param  Mage_Catalog_Model_Product $product
-     * @return string
+     * @inheritDoc
      */
     public function getSku($product = null)
     {
@@ -845,25 +836,23 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
                 $simpleSku =  $simpleOption->getProduct()->getSku();
             }
 
-            $sku = parent::getOptionSku($product, $simpleSku);
-        } else {
-            $sku = parent::getSku($product);
+            return parent::getOptionSku($product, $simpleSku);
         }
 
-        return $sku;
+        return parent::getSku($product);
     }
 
     /**
      * Prepare selected options for configurable product
      *
-     * @param  Mage_Catalog_Model_Product $product
-     * @param  Varien_Object              $buyRequest
-     * @return array
+     * @inheritDoc
+     * @return array<string, string[]>
      */
     public function processBuyRequest($product, $buyRequest)
     {
+        /** @var null|string[] $superAttribute */
         $superAttribute = $buyRequest->getSuperAttribute();
-        $superAttribute = (is_array($superAttribute)) ? array_filter($superAttribute, \intval(...)) : [];
+        $superAttribute = (is_array($superAttribute)) ? array_filter($superAttribute, fn(mixed $o) => (int) $o !== 0) : [];
 
         return ['super_attribute' => $superAttribute];
     }

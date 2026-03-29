@@ -375,11 +375,11 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
         try {
             $category->move($parentNodeId, $prevNodeId);
             $this->getResponse()->setBody('SUCCESS');
-        } catch (Mage_Core_Exception $e) {
-            $this->getResponse()->setBody($e->getMessage());
-        } catch (Exception $e) {
-            $this->getResponse()->setBody(Mage::helper('catalog')->__('Category move error %s', $e));
-            Mage::logException($e);
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->getResponse()->setBody($mageCoreException->getMessage());
+        } catch (Exception $exception) {
+            $this->getResponse()->setBody(Mage::helper('catalog')->__('Category move error %s', $exception));
+            Mage::logException($exception);
         }
     }
 
@@ -397,8 +397,8 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
 
                 $category->delete();
                 Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('catalog')->__('The category has been deleted.'));
-            } catch (Mage_Core_Exception $e) {
-                Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
+            } catch (Mage_Core_Exception $mageCoreException) {
+                Mage::getSingleton('adminhtml/session')->addError($mageCoreException->getMessage());
                 $this->getResponse()->setRedirect($this->getUrl('*/*/edit', ['_current' => true]));
                 return;
             } catch (Exception) {
@@ -436,12 +436,10 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
         $storeId = (int) $this->getRequest()->getParam('store');
         $categoryId = (int) $this->getRequest()->getParam('id');
 
-        if ($storeId) {
-            if (!$categoryId) {
-                $store = Mage::app()->getStore($storeId);
-                $rootId = $store->getRootCategoryId();
-                $this->getRequest()->setParam('id', $rootId);
-            }
+        if ($storeId && !$categoryId) {
+            $store = Mage::app()->getStore($storeId);
+            $rootId = $store->getRootCategoryId();
+            $this->getRequest()->setParam('id', $rootId);
         }
 
         $category = $this->_initCategory(true);

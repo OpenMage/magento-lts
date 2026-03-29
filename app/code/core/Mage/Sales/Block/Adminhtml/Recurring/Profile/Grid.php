@@ -12,6 +12,8 @@
  */
 class Mage_Sales_Block_Adminhtml_Recurring_Profile_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'sales_adminhtml_recurring_profile_grid';
+
     /**
      * Set ajax/session parameters
      */
@@ -43,6 +45,7 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_Grid extends Mage_Adminhtml_B
      * Prepare grid columns
      *
      * @inheritDoc
+     * @throws Exception
      */
     protected function _prepareColumns()
     {

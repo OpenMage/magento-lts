@@ -152,6 +152,7 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
 
     /**
      * Add special attributes
+     * @param array<string, mixed[]|string> $attributes
      */
     protected function _addSpecialAttributes(array &$attributes)
     {
@@ -173,9 +174,11 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
         $attributes = [];
         foreach ($productAttributes as $attribute) {
             /** @var Mage_Catalog_Model_Resource_Eav_Attribute $attribute */
-            if (!$attribute->isAllowedForRuleCondition()
-                || !$attribute->getDataUsingMethod($this->_isUsedForRuleProperty)
-            ) {
+            if (!$attribute->isAllowedForRuleCondition()) {
+                continue;
+            }
+
+            if (!$attribute->getDataUsingMethod($this->_isUsedForRuleProperty)) {
                 continue;
             }
 
@@ -424,7 +427,7 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
                 break;
         }
 
-        return $url !== false ? Mage::helper('adminhtml')->getUrl($url) : '';
+        return $url !== false ? Mage::helper('adminhtml')::getUrl($url) : '';
     }
 
     /**
@@ -434,17 +437,10 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
      */
     public function getExplicitApply()
     {
-        switch ($this->getAttribute()) {
-            case 'sku':
-            case 'category_ids':
-                return true;
-        }
-
-        if (is_object($this->getAttributeObject()) && $this->getAttributeObject()->getFrontendInput() === 'date') {
-            return true;
-        }
-
-        return false;
+        return match ($this->getAttribute()) {
+            'sku', 'category_ids' => true,
+            default => is_object($this->getAttributeObject()) && $this->getAttributeObject()->getFrontendInput() === 'date',
+        };
     }
 
     /**

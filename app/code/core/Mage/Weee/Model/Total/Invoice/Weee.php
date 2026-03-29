@@ -29,8 +29,11 @@ class Mage_Weee_Model_Total_Invoice_Weee extends Mage_Sales_Model_Order_Invoice_
         foreach ($invoice->getAllItems() as $item) {
             $orderItem = $item->getOrderItem();
             $orderItemQty = $orderItem->getQtyOrdered();
+            if (!$orderItemQty) {
+                continue;
+            }
 
-            if (!$orderItemQty || $orderItem->isDummy()) {
+            if ($orderItem->isDummy()) {
                 continue;
             }
 

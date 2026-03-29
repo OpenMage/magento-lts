@@ -55,7 +55,7 @@ class Mage_CatalogIndex_Model_Data_Grouped extends Mage_CatalogIndex_Model_Data_
     /**
      * Get child link table and field settings
      *
-     * @return array
+     * @return array<string, array<string, int>|string>
      */
     protected function _getLinkSettings()
     {

@@ -1475,6 +1475,7 @@ class Mage_Core_Model_App
                     case 'model':
                         $observer->addData($args);
                         $object = Mage::getModel($obs['model']);
+
                         if ($object instanceof Mage_Core_Observer_Interface) {
                             $method = 'execute';
                         } else {
@@ -1486,6 +1487,7 @@ class Mage_Core_Model_App
                     default:
                         $observer->addData($args);
                         $object = Mage::getSingleton($obs['model']);
+
                         if ($object instanceof Mage_Core_Observer_Interface) {
                             $method = 'execute';
                         } else {

@@ -46,7 +46,7 @@ class Mage_Payment_Block_Form_Cc extends Mage_Payment_Block_Form
             if ($availableTypes) {
                 $availableTypes = explode(',', $availableTypes);
                 foreach (array_keys($types) as $code) {
-                    if (!in_array($code, $availableTypes)) {
+                    if (!in_array($code, $availableTypes, true)) {
                         unset($types[$code]);
                     }
                 }
@@ -119,11 +119,7 @@ class Mage_Payment_Block_Form_Cc extends Mage_Payment_Block_Form
     {
         $availableTypes = explode(',', $this->getMethod()->getConfigData('cctypes'));
         $ssPresenations = array_intersect(['SS', 'SM', 'SO'], $availableTypes);
-        if ($availableTypes && $ssPresenations !== []) {
-            return true;
-        }
-
-        return false;
+        return $availableTypes && $ssPresenations !== [];
     }
 
     /*

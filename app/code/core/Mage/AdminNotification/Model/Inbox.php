@@ -99,6 +99,7 @@ class Mage_AdminNotification_Model_Inbox extends Mage_Core_Model_Abstract
     /**
      * Parse and save new data
      *
+     * @param  array<array<int, array<string, mixed>>, mixed> $data
      * @return void
      * @throws Mage_Core_Exception
      * @throws Zend_Db_Adapter_Exception

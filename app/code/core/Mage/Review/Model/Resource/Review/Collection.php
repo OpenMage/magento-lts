@@ -12,7 +12,7 @@
  *
  * @package    Mage_Review
  *
- * @method Mage_Review_Model_Review[] getItems()
+ * @extends Mage_Core_Model_Resource_Db_Collection_Abstract<Mage_Review_Model_Review>
  */
 class Mage_Review_Model_Resource_Review_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {

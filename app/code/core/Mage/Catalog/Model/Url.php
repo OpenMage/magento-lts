@@ -658,22 +658,6 @@ class Mage_Catalog_Model_Url extends Varien_Object
      * @param  int    $storeId
      * @param  string $requestPath
      * @param  string $idPath
-     * @return string
-     * @deprecated use $this->getUnusedPathByUrlKey() instead
-     */
-    public function getUnusedPath($storeId, $requestPath, $idPath)
-    {
-        return $this->getUnusedPathByUrlKey($storeId, $requestPath, $idPath, '');
-    }
-
-    /**
-     * Get requestPath that was not used yet.
-     *
-     * Will try to get unique path by adding -1 -2 etc. between url_key and optional url_suffix
-     *
-     * @param  int    $storeId
-     * @param  string $requestPath
-     * @param  string $idPath
      * @param  string $urlKey
      * @return string
      */

@@ -14,9 +14,8 @@
  */
 class Mage_Oauth_Block_Adminhtml_Oauth_AuthorizedTokens_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
-    /**
-     * Construct grid block
-     */
+    protected string $_eventPrefix = 'ouath_adminhtml_oauth_authorizedtokens_grid';
+
     public function __construct()
     {
         parent::__construct();
@@ -28,9 +27,7 @@ class Mage_Oauth_Block_Adminhtml_Oauth_AuthorizedTokens_Grid extends Mage_Adminh
     }
 
     /**
-     * Prepare collection
-     *
-     * @return $this
+     * @inheritDoc
      */
     protected function _prepareCollection()
     {
@@ -40,14 +37,12 @@ class Mage_Oauth_Block_Adminhtml_Oauth_AuthorizedTokens_Grid extends Mage_Adminh
             ->addFilterByType(Mage_Oauth_Model_Token::TYPE_ACCESS);
         $this->setCollection($collection);
 
-        parent::_prepareCollection();
-        return $this;
+        return parent::_prepareCollection();
     }
 
     /**
-     * Prepare columns
-     *
-     * @return $this
+     * @inheritDoc
+     * @throws Exception
      */
     protected function _prepareColumns()
     {
@@ -104,6 +99,7 @@ class Mage_Oauth_Block_Adminhtml_Oauth_AuthorizedTokens_Grid extends Mage_Adminh
      *
      * @param  Mage_Oauth_Model_Token $row
      * @return null|string
+     * @throws Mage_Core_Exception
      */
     public function getRevokeUrl($row)
     {
@@ -115,6 +111,7 @@ class Mage_Oauth_Block_Adminhtml_Oauth_AuthorizedTokens_Grid extends Mage_Adminh
      *
      * @param  Mage_Oauth_Model_Token $row
      * @return null|string
+     * @throws Mage_Core_Exception
      */
     public function getDeleteUrl($row)
     {
@@ -174,7 +171,7 @@ class Mage_Oauth_Block_Adminhtml_Oauth_AuthorizedTokens_Grid extends Mage_Adminh
      * @param  Mage_Oauth_Model_Token                  $row
      * @param  Mage_Adminhtml_Block_Widget_Grid_Column $column
      * @param  bool                                    $isExport
-     * @return mixed
+     * @return int
      */
     public function decorateUserId($value, $row, $column, $isExport)
     {

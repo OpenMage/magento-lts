@@ -14,6 +14,8 @@
  */
 class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
 {
+    public const ADMIN_RESOURCE = true;
+
     /**
      * Render specified template
      *
@@ -216,7 +218,7 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
             $email = (string) $this->getRequest()->getParam('email');
 
             if ($this->_validateFormKey()) {
-                if (!empty($email)) {
+                if ($email !== '') {
                     // Validate received data to be an email address
                     /** @var Mage_Core_Helper_Validate $validator */
                     $validator = Mage::helper('core/validate');
@@ -330,7 +332,7 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
             $errorMessages = array_merge($errorMessages, $validationErrorMessages);
         }
 
-        if (!empty($errorMessages)) {
+        if ($errorMessages !== []) {
             foreach ($errorMessages as $errorMessage) {
                 $this->_getSession()->addError($errorMessage);
             }
@@ -394,22 +396,12 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
     }
 
     /**
-     * Check if user has permissions to access this controller
-     *
-     * @return true
-     */
-    protected function _isAllowed()
-    {
-        return true;
-    }
-
-    /**
      * Retrieve model object
      *
-     * @link    Mage_Core_Model_Config::getModelInstance
      * @param  string                         $modelClass
      * @param  array|object                   $arguments
      * @return false|Mage_Core_Model_Abstract
+     * @link   Mage_Core_Model_Config::getModelInstance()
      */
     protected function _getModel($modelClass = '', $arguments = [])
     {

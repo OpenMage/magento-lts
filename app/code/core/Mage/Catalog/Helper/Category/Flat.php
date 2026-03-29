@@ -60,15 +60,4 @@ class Mage_Catalog_Helper_Category_Flat extends Mage_Catalog_Helper_Flat_Abstrac
     {
         return Mage::getResourceSingleton('catalog/category_flat')->isBuilt($store);
     }
-
-    /**
-     * Check if Catalog Category Flat Data has been initialized
-     *
-     * @return bool
-     * @deprecated after 1.7.0.0 use Mage_Catalog_Helper_Category_Flat::isBuilt() instead
-     */
-    public function isRebuilt()
-    {
-        return $this->isBuilt();
-    }
 }

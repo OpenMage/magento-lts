@@ -40,7 +40,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
      */
     public function destruct()
     {
-        if (is_resource($this->_imageHandler) || (class_exists('GdImage') && $this->_imageHandler instanceof \GdImage)) {
+        if (is_resource($this->_imageHandler) || (class_exists('GdImage') && $this->_imageHandler instanceof GdImage)) {
             @imagedestroy($this->_imageHandler);
         }
     }
@@ -378,11 +378,9 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
         $dstHeight = $height;
         if ($this->_keepAspectRatio) {
             // do not make picture bigger, than it is, if required
-            if ($this->_constrainOnly) {
-                if (($width >= $this->_imageSrcWidth) && ($height >= $this->_imageSrcHeight)) {
-                    $dstWidth  = $this->_imageSrcWidth;
-                    $dstHeight = $this->_imageSrcHeight;
-                }
+            if ($this->_constrainOnly && ($width >= $this->_imageSrcWidth && $height >= $this->_imageSrcHeight)) {
+                $dstWidth  = $this->_imageSrcWidth;
+                $dstHeight = $this->_imageSrcHeight;
             }
 
             // keep aspect ratio

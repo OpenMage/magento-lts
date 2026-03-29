@@ -353,7 +353,7 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
 
         $directions = ['asc', 'desc'];
         $dir = strtolower($this->getRequest()->getParam($this->getDirectionVarName(), ''));
-        if ($dir && in_array($dir, $directions)) {
+        if ($dir && in_array($dir, $directions, true)) {
             if ($dir == $this->_direction) {
                 Mage::getSingleton('catalog/session')->unsSortDirection();
             } else {
@@ -364,7 +364,7 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
         }
 
         // validate direction
-        if (!$dir || !in_array($dir, $directions)) {
+        if (!$dir || !in_array($dir, $directions, true)) {
             $dir = $this->_direction;
         }
 
@@ -395,7 +395,7 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
      */
     public function setDefaultDirection($dir)
     {
-        if (in_array(strtolower($dir), ['asc', 'desc'])) {
+        if (in_array(strtolower($dir), ['asc', 'desc'], true)) {
             $this->_direction = strtolower($dir);
         }
 
@@ -701,7 +701,7 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
     public function getAvailableLimit()
     {
         $currentMode = $this->getCurrentMode();
-        if (in_array($currentMode, ['list', 'grid'])) {
+        if (in_array($currentMode, ['list', 'grid'], true)) {
             return $this->_getAvailableLimit($currentMode);
         }
 

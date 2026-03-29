@@ -29,7 +29,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Customer_Show_Customer extends 
     /**
      * Retrieve attribute objects
      *
-     * @return array
+     * @return array<int, mixed>
      */
     protected function _getAttributeObjects()
     {

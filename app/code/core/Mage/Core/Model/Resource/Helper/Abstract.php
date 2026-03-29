@@ -178,8 +178,8 @@ abstract class Mage_Core_Model_Resource_Helper_Abstract
      *
      * E.g. Converts type 'varchar(255)' to array('type' => Varien_Db_Ddl_Table::TYPE_TEXT, 'length' => 255)
      *
-     * @param  array $column
-     * @return array
+     * @param  array                $column
+     * @return array<string, mixed>
      */
     public function convertOldColumnDefinition($column)
     {

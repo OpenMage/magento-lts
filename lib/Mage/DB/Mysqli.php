@@ -263,6 +263,7 @@ class Mage_DB_Mysqli
 
     /**
      * Escape field names
+     * @param  int[]|string[] $arrNames
      * @return array
      */
     public function escapeFieldNames(array $arrNames)

@@ -280,7 +280,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
     /**
      * Get version of rates request
      *
-     * @return array
+     * @return array<string, string>
      */
     public function getVersionInfo()
     {
@@ -295,8 +295,8 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
     /**
      * Forming request for rate estimation depending to the purpose
      *
-     * @param  string $purpose
-     * @return array
+     * @param  string                              $purpose
+     * @return array<string, array<string, mixed>>
      */
     protected function _formRateRequest($purpose)
     {
@@ -418,7 +418,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
     {
         $this->_result = Mage::getModel('shipping/rate_result');
         $allowedMethods = explode(',', $this->getConfigData('allowed_methods'));
-        if (in_array(self::RATE_REQUEST_SMARTPOST, $allowedMethods)) {
+        if (in_array(self::RATE_REQUEST_SMARTPOST, $allowedMethods, true)) {
             $response = $this->_doRatesRequest(self::RATE_REQUEST_SMARTPOST);
             $preparedSmartpost = $this->_prepareRateResponse($response);
             $this->_result->append($preparedSmartpost);
@@ -489,7 +489,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
                 if (is_array($response->RateReplyDetails)) {
                     foreach ($response->RateReplyDetails as $rate) {
                         $serviceName = (string) $rate->ServiceType;
-                        if (in_array($serviceName, $allowedMethods)) {
+                        if (in_array($serviceName, $allowedMethods, true)) {
                             $amount = $this->_getRateAmountOriginBased($rate);
                             $costArr[$serviceName]  = $amount;
                             $priceArr[$serviceName] = $this->getMethodPrice($amount, $serviceName);
@@ -500,7 +500,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
                 } else {
                     $rate = $response->RateReplyDetails;
                     $serviceName = (string) $rate->ServiceType;
-                    if (in_array($serviceName, $allowedMethods)) {
+                    if (in_array($serviceName, $allowedMethods, true)) {
                         $amount = $this->_getRateAmountOriginBased($rate);
                         $costArr[$serviceName]  = $amount;
                         $priceArr[$serviceName] = $this->getMethodPrice($amount, $serviceName);
@@ -699,7 +699,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
                 $allowedMethods = explode(',', $this->getConfigData('allowed_methods'));
 
                 foreach ($xml->Entry as $entry) {
-                    if (in_array((string) $entry->Service, $allowedMethods)) {
+                    if (in_array((string) $entry->Service, $allowedMethods, true)) {
                         $costArr[(string) $entry->Service]
                            = (string) $entry->EstimatedCharges->DiscountedCharges->NetCharge;
                         $priceArr[(string) $entry->Service] = $this->getMethodPrice(
@@ -1258,15 +1258,13 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
     public function getResponse()
     {
         $statuses = '';
-        if ($this->_result instanceof Mage_Shipping_Model_Tracking_Result) {
-            if ($trackings = $this->_result->getAllTrackings()) {
-                foreach ($trackings as $tracking) {
-                    if ($data = $tracking->getAllData()) {
-                        if (!empty($data['status'])) {
-                            $statuses .= Mage::helper('usa')->__($data['status']) . "\n<br/>";
-                        } else {
-                            $statuses .= Mage::helper('usa')->__('Empty response') . "\n<br/>";
-                        }
+        if ($this->_result instanceof Mage_Shipping_Model_Tracking_Result && $trackings = $this->_result->getAllTrackings()) {
+            foreach ($trackings as $tracking) {
+                if ($data = $tracking->getAllData()) {
+                    if (!empty($data['status'])) {
+                        $statuses .= Mage::helper('usa')->__($data['status']) . "\n<br/>";
+                    } else {
+                        $statuses .= Mage::helper('usa')->__('Empty response') . "\n<br/>";
                     }
                 }
             }
@@ -1298,7 +1296,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
     /**
      * Return array of authenticated information
      *
-     * @return array
+     * @return array<string, array<array<string, mixed>, mixed>>
      */
     protected function _getAuthDetails()
     {

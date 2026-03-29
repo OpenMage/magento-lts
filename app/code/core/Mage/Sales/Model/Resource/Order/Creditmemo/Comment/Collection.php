@@ -11,6 +11,8 @@
  * Flat sales order creditmemo comments collection
  *
  * @package    Mage_Sales
+ *
+ * @extends Mage_Sales_Model_Resource_Order_Comment_Collection_Abstract<Mage_Sales_Model_Order_Creditmemo_Comment>
  */
 class Mage_Sales_Model_Resource_Order_Creditmemo_Comment_Collection extends Mage_Sales_Model_Resource_Order_Comment_Collection_Abstract
 {

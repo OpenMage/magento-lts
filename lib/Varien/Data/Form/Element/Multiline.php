@@ -27,7 +27,7 @@ class Varien_Data_Form_Element_Multiline extends Varien_Data_Form_Element_Abstra
     }
 
     /**
-     * @return array
+     * @return array<int, string>
      */
     public function getHtmlAttributes()
     {

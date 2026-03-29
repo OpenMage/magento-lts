@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
+use OpenMage\Rector\Migration;
 use Rector\Arguments\Rector\ClassMethod\ReplaceArgumentDefaultValueRector;
-use Rector\Arguments\ValueObject\ReplaceArgumentDefaultValue;
 use Rector\Carbon\Rector as Carbon;
 use Rector\Caching\ValueObject\Storage\FileCacheStorage;
 use Rector\CodeQuality\Rector as CodeQuality;
@@ -25,11 +25,10 @@ use Rector\Php85\Rector as Php85;
 use Rector\PHPUnit\CodeQuality\Rector\Class_\PreferPHPUnitThisCallRector;
 use Rector\Privatization\Rector as Privatization;
 use Rector\Renaming\Rector as Renaming;
-use Rector\Renaming\Rector\ClassConstFetch\RenameClassConstFetchRector;
-use Rector\Renaming\ValueObject\RenameClassAndConstFetch;
 use Rector\Strict\Rector as Strict;
 use Rector\Transform\Rector as Transform;
 use Rector\TypeDeclaration\Rector as TypeDeclaration;
+use Rector\TypeDeclarationDocblocks\Rector as TypeDeclarationDocblocks;
 
 try {
     return RectorConfig::configure()
@@ -38,8 +37,26 @@ try {
             cacheDirectory: '.rector.result.cache',
             cacheClass: FileCacheStorage::class,
         )
+        ->withImportNames(removeUnusedImports: true)
         ->withPhpSets(
             php81: true,
+        )
+        ->withPreparedSets(
+            deadCode: true,
+            codeQuality: true,
+            codingStyle: true,
+            typeDeclarations: false,
+            privatization: true,
+            naming: false,
+            instanceOf: true,
+            earlyReturn: true,
+            strictBooleans: false,
+            carbon: true,
+            rectorPreset: true,
+            phpunitCodeQuality: true,
+            doctrineCodeQuality: false,
+            symfonyCodeQuality: false,
+            symfonyConfigs: false,
         )
         ->withPaths([
             __DIR__,
@@ -47,18 +64,39 @@ try {
         ->withSkipPath(__DIR__ . '/vendor')
         ->withRules([
             Php85\ArrayDimFetch\ArrayFirstLastRector::class,
+            TypeDeclarationDocblocks\Class_\AddVarArrayDocblockFromDimFetchAssignRector::class,
+            TypeDeclarationDocblocks\Class_\AddReturnArrayDocblockFromDataProviderParamRector::class,
+            TypeDeclarationDocblocks\Class_\ClassMethodArrayDocblockParamFromLocalCallsRector::class,
+            TypeDeclarationDocblocks\Class_\DocblockVarArrayFromGetterReturnRector::class,
+            TypeDeclarationDocblocks\Class_\DocblockVarArrayFromPropertyDefaultsRector::class,
+            TypeDeclarationDocblocks\Class_\DocblockVarFromParamDocblockInConstructorRector::class,
+            TypeDeclarationDocblocks\ClassMethod\AddParamArrayDocblockFromAssignsParamToParamReferenceRector::class,
+            TypeDeclarationDocblocks\ClassMethod\AddParamArrayDocblockFromDataProviderRector::class,
+            TypeDeclarationDocblocks\ClassMethod\AddReturnDocblockForArrayDimAssignedObjectRector::class,
+            TypeDeclarationDocblocks\ClassMethod\AddReturnDocblockForCommonObjectDenominatorRector::class,
+            TypeDeclarationDocblocks\ClassMethod\AddReturnDocblockForDimFetchArrayFromAssignsRector::class,
+            TypeDeclarationDocblocks\ClassMethod\AddReturnDocblockForJsonArrayRector::class,
+            TypeDeclarationDocblocks\ClassMethod\AddReturnDocblockFromMethodCallDocblockRector::class,
+            TypeDeclarationDocblocks\ClassMethod\DocblockReturnArrayFromDirectArrayInstanceRector::class,
         ])
-        ->withConfiguredRule(RenameClassConstFetchRector::class, [
-            new RenameClassAndConstFetch('Zend_Measure_Length', 'CENTIMETER', 'Mage_Core_Helper_Measure_Length', 'CENTIMETER'),
-            new RenameClassAndConstFetch('Zend_Measure_Length', 'INCH', 'Mage_Core_Helper_Measure_Length', 'INCH'),
-            new RenameClassAndConstFetch('Zend_Measure_Weight', 'KILOGRAM', 'Mage_Core_Helper_Measure_Weight', 'KILOGRAM'),
-            new RenameClassAndConstFetch('Zend_Measure_Weight', 'OUNCE', 'Mage_Core_Helper_Measure_Weight', 'OUNCE'),
-            new RenameClassAndConstFetch('Zend_Measure_Weight', 'POUND', 'Mage_Core_Helper_Measure_Weight', 'POUND'),
-        ])
-        ->withConfiguredRule(ReplaceArgumentDefaultValueRector::class, [
-            new ReplaceArgumentDefaultValue('Mage_Adminhtml_Block_Widget_Grid', 'setDefaultDir', 0, 'asc', 'ASC'),
-            new ReplaceArgumentDefaultValue('Mage_Adminhtml_Block_Widget_Grid', 'setDefaultDir', 0, 'desc', 'DESC'),
-        ])
+        ->withConfiguredRule(Renaming\ClassConstFetch\RenameClassConstFetchRector::class, Migration\Zend\Measure::renameClassConst())
+        ->withConfiguredRule(Renaming\MethodCall\RenameMethodRector::class, Migration\Mage\Admin::renameMethod())
+        ->withConfiguredRule(Renaming\MethodCall\RenameMethodRector::class, Migration\Mage\Adminhtml::renameMethod())
+        ->withConfiguredRule(Renaming\MethodCall\RenameMethodRector::class, Migration\Mage\Bundle::renameMethod())
+        ->withConfiguredRule(Renaming\MethodCall\RenameMethodRector::class, Migration\Mage\Catalog::renameMethod())
+        ->withConfiguredRule(Renaming\MethodCall\RenameMethodRector::class, Migration\Mage\CatalogSearch::renameMethod())
+        ->withConfiguredRule(Renaming\MethodCall\RenameMethodRector::class, Migration\Mage\ConfigurableSwatches::renameMethod())
+        ->withConfiguredRule(Renaming\MethodCall\RenameMethodRector::class, Migration\Mage\Checkout::renameMethod())
+        ->withConfiguredRule(Renaming\MethodCall\RenameMethodRector::class, Migration\Mage\Core::renameMethod())
+        ->withConfiguredRule(Renaming\MethodCall\RenameMethodRector::class, Migration\Mage\Eav::renameMethod())
+        ->withConfiguredRule(Renaming\MethodCall\RenameMethodRector::class, Migration\Mage\Paypal::renameMethod())
+        ->withConfiguredRule(Renaming\MethodCall\RenameMethodRector::class, Migration\Mage\Shipping::renameMethod())
+        ->withConfiguredRule(Renaming\MethodCall\RenameMethodRector::class, Migration\Mage\Sitemap::renameMethod())
+        ->withConfiguredRule(Renaming\MethodCall\RenameMethodRector::class, Migration\Mage\Tag::renameMethod())
+        ->withConfiguredRule(Renaming\MethodCall\RenameMethodRector::class, Migration\Mage\Tax::renameMethod())
+        ->withConfiguredRule(Renaming\MethodCall\RenameMethodRector::class, Migration\Mage\Usa::renameMethod())
+        ->withConfiguredRule(Renaming\MethodCall\RenameMethodRector::class, Migration\Mage\Wishlist::renameMethod())
+        ->withConfiguredRule(ReplaceArgumentDefaultValueRector::class, Migration\Mage\Adminhtml::replaceArgumentDefaultValue())
         ->withSkip([
             Carbon\FuncCall\DateFuncCallToCarbonRector::class => [
                 __DIR__ . '/tests/unit/Base/CarbonTest.php',
@@ -77,11 +115,13 @@ try {
             CodeQuality\Equal\UseIdenticalOverEqualWithSameTypeRector::class, # todo: TMP
             CodeQuality\Expression\TernaryFalseExpressionToIfRector::class, # todo: TMP (!?!)
             CodeQuality\Identical\SimplifyBoolIdenticalTrueRector::class, # todo: TMP
-            CodeQuality\If_\CombineIfRector::class, # todo: TMP<
+            # tmp wait for https://github.com/rectorphp/rector/issues/9717
+            CodeQuality\If_\CombineIfRector::class => [
+                __DIR__ . '/app/code/core/Mage/Catalog/Model/Api2/Product/Validator/Product.php',
+            ],
             CodeQuality\If_\CompleteMissingIfElseBracketRector::class, # todo: TMP  (!?!)
             CodeQuality\If_\ExplicitBoolCompareRector::class, # todo: TMP
             CodeQuality\If_\SimplifyIfElseToTernaryRector::class,
-            CodeQuality\If_\SimplifyIfReturnBoolRector::class,
             CodeQuality\Include_\AbsolutizeRequireAndIncludePathRector::class, # todo: TMP
             CodeQuality\Isset_\IssetOnPropertyObjectToPropertyExistsRector::class, # todo: TMP
             CodeQuality\Ternary\TernaryEmptyArrayArrayDimFetchToCoalesceRector::class, # todo: TMP
@@ -101,11 +141,8 @@ try {
             DeadCode\Ternary\TernaryToBooleanOrFalseToBooleanAndRector::class, # todo: TMP
             DeadCode\TryCatch\RemoveDeadTryCatchRector::class, # todo: TMP  (!?!)
             EarlyReturn\Foreach_\ChangeNestedForeachIfsToEarlyContinueRector::class, # todo: TMP
-            EarlyReturn\If_\ChangeIfElseValueAssignToEarlyReturnRector::class, # todo: TMP
-            EarlyReturn\If_\ChangeNestedIfsToEarlyReturnRector::class, # todo: TMP
-            EarlyReturn\If_\ChangeOrIfContinueToMultiContinueRector::class, # todo: TMP
-            EarlyReturn\Return_\ReturnBinaryOrToEarlyReturnRector::class, # todo: TMP
-            EarlyReturn\Return_\PreparedValueToEarlyReturnRector::class, # todo: TMP
+            EarlyReturn\If_\ChangeNestedIfsToEarlyReturnRector::class, # todo: TMP ... probably bug found
+            EarlyReturn\Return_\ReturnBinaryOrToEarlyReturnRector::class, # todo: TMP ... probably bug found
             # skip: may conflict with phpstan strict rules
             Php53\Ternary\TernaryToElvisRector::class,
             Php71\FuncCall\RemoveExtraParametersRector::class, # todo: check later
@@ -130,24 +167,7 @@ try {
             PreferPHPUnitThisCallRector::class,
             __DIR__ . '/shell/translations.php',
             __DIR__ . '/tests/unit/Mage/Reports/Model/Resource/Report/CollectionTest.php',
-        ])
-        ->withPreparedSets(
-            deadCode: true,
-            codeQuality: true,
-            codingStyle: true,
-            typeDeclarations: false,
-            privatization: true,
-            naming: false,
-            instanceOf: true,
-            earlyReturn: true,
-            strictBooleans: false,
-            carbon: true,
-            rectorPreset: true,
-            phpunitCodeQuality: true,
-            doctrineCodeQuality: false,
-            symfonyCodeQuality: false,
-            symfonyConfigs: false,
-        );
+        ]);
 } catch (InvalidConfigurationException $exception) {
     echo $exception->getMessage();
     exit(1);

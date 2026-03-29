@@ -58,7 +58,11 @@ class Mage_Cron_Model_Observer
             $jobConfig = $jobsRoot->{$jobCode};
             if (!$jobConfig || !$jobConfig->run) {
                 $jobConfig = $defaultJobsRoot->{$jobCode};
-                if (!$jobConfig || !$jobConfig->run) {
+                if (!$jobConfig) {
+                    continue;
+                }
+
+                if (!$jobConfig->run) {
                     continue;
                 }
             }
@@ -183,7 +187,11 @@ class Mage_Cron_Model_Observer
                 $cronExpr = (string) $jobConfig->schedule->cron_expr;
             }
 
-            if (!$cronExpr || $cronExpr == 'always') {
+            if (!$cronExpr) {
+                continue;
+            }
+
+            if ($cronExpr == 'always') {
                 continue;
             }
 
@@ -308,11 +316,9 @@ class Mage_Cron_Model_Observer
         $arguments = [];
         $errorStatus = Mage_Cron_Model_Schedule::STATUS_ERROR;
         try {
-            if (!$isAlways) {
-                if ($time < $now - $scheduleLifetime) {
-                    $errorStatus = Mage_Cron_Model_Schedule::STATUS_MISSED;
-                    Mage::throwException(Mage::helper('cron')->__('Too late for the schedule.'));
-                }
+            if (!$isAlways && $time < $now - $scheduleLifetime) {
+                $errorStatus = Mage_Cron_Model_Schedule::STATUS_MISSED;
+                Mage::throwException(Mage::helper('cron')->__('Too late for the schedule.'));
             }
 
             if ($runConfig->model) {

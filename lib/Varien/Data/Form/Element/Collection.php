@@ -45,7 +45,7 @@ class Varien_Data_Form_Element_Collection implements ArrayAccess, IteratorAggreg
      *
      * @return ArrayIterator
      */
-    public function getIterator(): \Traversable
+    public function getIterator(): Traversable
     {
         return new ArrayIterator($this->_elements);
     }
@@ -67,7 +67,7 @@ class Varien_Data_Form_Element_Collection implements ArrayAccess, IteratorAggreg
      * @param  mixed $key
      * @return mixed
      */
-    #[\ReturnTypeWillChange]
+    #[ReturnTypeWillChange]
     public function offsetGet($key)
     {
         return $this->_elements[$key];

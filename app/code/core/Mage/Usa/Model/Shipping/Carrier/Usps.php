@@ -457,57 +457,33 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
         $r = $this->_rawRequest;
         $costArr = [];
         $priceArr = [];
-        if (trim($response) !== '') {
-            if (str_starts_with(trim($response), '<?xml')) {
-                if (str_contains($response, '<?xml version="1.0"?>')) {
-                    $response = str_replace(
-                        '<?xml version="1.0"?>',
-                        '<?xml version="1.0" encoding="ISO-8859-1"?>',
-                        $response,
-                    );
-                }
+        if (trim($response) !== '' && str_starts_with(trim($response), '<?xml')) {
+            if (str_contains($response, '<?xml version="1.0"?>')) {
+                $response = str_replace(
+                    '<?xml version="1.0"?>',
+                    '<?xml version="1.0" encoding="ISO-8859-1"?>',
+                    $response,
+                );
+            }
 
-                $xml = simplexml_load_string($response);
-
-                if (is_object($xml)) {
-                    $allowedMethods = explode(',', $this->getConfigData('allowed_methods'));
-                    $serviceCodeToActualNameMap = [];
-                    /**
-                     * US Rates
-                     */
-                    if ($this->_isUSCountry($r->getDestCountryId())) {
-                        if (is_object($xml->Package) && is_object($xml->Package->Postage)) {
-                            foreach ($xml->Package->Postage as $postage) {
-                                $serviceName = $this->_filterServiceName((string) $postage->MailService);
-                                $serviceCodeMethod = $this->getCode('method_to_code', $serviceName);
-                                $serviceCode = $serviceCodeMethod ?: (string) $postage->attributes()->CLASSID;
-                                $serviceCodeToActualNameMap[$serviceCode] = $serviceName;
-                                if (in_array($serviceCode, $allowedMethods)) {
-                                    $costArr[$serviceCode] = (string) $postage->Rate;
-                                    $priceArr[$serviceCode] = $this->getMethodPrice(
-                                        (float) $postage->Rate,
-                                        $serviceCode,
-                                    );
-                                }
-                            }
-
-                            asort($priceArr);
-                        }
-                    } elseif (is_object($xml->Package) && is_object($xml->Package->Service)) {
-                        // International Rates
-                        foreach ($xml->Package->Service as $service) {
-                            // phpcs:ignore Ecg.Performance.Loop.ArraySize
-                            if ($service->ServiceErrors->count()) {
-                                continue;
-                            }
-
-                            $serviceName = $this->_filterServiceName((string) $service->SvcDescription);
-                            $serviceCode = 'INT_' . $service->attributes()->ID;
+            $xml = simplexml_load_string($response);
+            if (is_object($xml)) {
+                $allowedMethods = explode(',', $this->getConfigData('allowed_methods'));
+                $serviceCodeToActualNameMap = [];
+                /**
+                 * US Rates
+                 */
+                if ($this->_isUSCountry($r->getDestCountryId())) {
+                    if (is_object($xml->Package) && is_object($xml->Package->Postage)) {
+                        foreach ($xml->Package->Postage as $postage) {
+                            $serviceName = $this->_filterServiceName((string) $postage->MailService);
+                            $serviceCodeMethod = $this->getCode('method_to_code', $serviceName);
+                            $serviceCode = $serviceCodeMethod ?: (string) $postage->attributes()->CLASSID;
                             $serviceCodeToActualNameMap[$serviceCode] = $serviceName;
-                            if (in_array($serviceCode, $allowedMethods)) {
-                                $costArr[$serviceCode] = (string) $service->Postage;
+                            if (in_array($serviceCode, $allowedMethods, true)) {
+                                $costArr[$serviceCode] = (string) $postage->Rate;
                                 $priceArr[$serviceCode] = $this->getMethodPrice(
-                                    (float) $service->Postage,
+                                    (float) $postage->Rate,
                                     $serviceCode,
                                 );
                             }
@@ -515,30 +491,51 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
 
                         asort($priceArr);
                     }
-                }
+                } elseif (is_object($xml->Package) && is_object($xml->Package->Service)) {
+                    // International Rates
+                    foreach ($xml->Package->Service as $service) {
+                        // phpcs:ignore Ecg.Performance.Loop.ArraySize
+                        if ($service->ServiceErrors->count()) {
+                            continue;
+                        }
 
-                $result = Mage::getModel('shipping/rate_result');
-                if (empty($priceArr)) {
-                    $error = Mage::getModel('shipping/rate_result_error');
-                    $error->setCarrier('usps');
-                    $error->setCarrierTitle($this->getConfigData('title'));
-                    $error->setErrorMessage($this->getConfigData('specificerrmsg'));
-                    $result->append($error);
-                } else {
-                    foreach ($priceArr as $method => $price) {
-                        $rate = Mage::getModel('shipping/rate_result_method');
-                        $rate->setCarrier('usps');
-                        $rate->setCarrierTitle($this->getConfigData('title'));
-                        $rate->setMethod($method);
-                        $rate->setMethodTitle($serviceCodeToActualNameMap[$method] ?? $this->getCode('method', $method));
-                        $rate->setCost($costArr[$method]);
-                        $rate->setPrice($price);
-                        $result->append($rate);
+                        $serviceName = $this->_filterServiceName((string) $service->SvcDescription);
+                        $serviceCode = 'INT_' . $service->attributes()->ID;
+                        $serviceCodeToActualNameMap[$serviceCode] = $serviceName;
+                        if (in_array($serviceCode, $allowedMethods, true)) {
+                            $costArr[$serviceCode] = (string) $service->Postage;
+                            $priceArr[$serviceCode] = $this->getMethodPrice(
+                                (float) $service->Postage,
+                                $serviceCode,
+                            );
+                        }
                     }
-                }
 
-                return $result;
+                    asort($priceArr);
+                }
             }
+
+            $result = Mage::getModel('shipping/rate_result');
+            if (empty($priceArr)) {
+                $error = Mage::getModel('shipping/rate_result_error');
+                $error->setCarrier('usps');
+                $error->setCarrierTitle($this->getConfigData('title'));
+                $error->setErrorMessage($this->getConfigData('specificerrmsg'));
+                $result->append($error);
+            } else {
+                foreach ($priceArr as $method => $price) {
+                    $rate = Mage::getModel('shipping/rate_result_method');
+                    $rate->setCarrier('usps');
+                    $rate->setCarrierTitle($this->getConfigData('title'));
+                    $rate->setMethod($method);
+                    $rate->setMethodTitle($serviceCodeToActualNameMap[$method] ?? $this->getCode('method', $method));
+                    $rate->setCost($costArr[$method]);
+                    $rate->setPrice($price);
+                    $result->append($rate);
+                }
+            }
+
+            return $result;
         }
     }
 
@@ -1000,25 +997,23 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
     {
         $errorTitle = Mage::helper('usa')->__('Unable to retrieve tracking');
         $resultArr = [];
-        if (trim($response) !== '') {
-            if (str_starts_with(trim($response), '<?xml')) {
-                $xml = simplexml_load_string($response);
-                if (is_object($xml)) {
-                    if (isset($xml->Number) && isset($xml->Description) && (string) $xml->Description != '') {
-                        $errorTitle = (string) $xml->Description;
-                    } elseif (isset($xml->TrackInfo)
-                          && isset($xml->TrackInfo->Error)
-                          && isset($xml->TrackInfo->Error->Description)
-                          && (string) $xml->TrackInfo->Error->Description != ''
-                    ) {
-                        $errorTitle = (string) $xml->TrackInfo->Error->Description;
-                    } else {
-                        $errorTitle = Mage::helper('usa')->__('Unknown error');
-                    }
+        if (trim($response) !== '' && str_starts_with(trim($response), '<?xml')) {
+            $xml = simplexml_load_string($response);
+            if (is_object($xml)) {
+                if (isset($xml->Number) && isset($xml->Description) && (string) $xml->Description != '') {
+                    $errorTitle = (string) $xml->Description;
+                } elseif (isset($xml->TrackInfo)
+                      && isset($xml->TrackInfo->Error)
+                      && isset($xml->TrackInfo->Error->Description)
+                      && (string) $xml->TrackInfo->Error->Description != ''
+                ) {
+                    $errorTitle = (string) $xml->TrackInfo->Error->Description;
+                } else {
+                    $errorTitle = Mage::helper('usa')->__('Unknown error');
+                }
 
-                    if (isset($xml->TrackInfo) && isset($xml->TrackInfo->TrackSummary)) {
-                        $resultArr['tracksummary'] = (string) $xml->TrackInfo->TrackSummary;
-                    }
+                if (isset($xml->TrackInfo) && isset($xml->TrackInfo->TrackSummary)) {
+                    $resultArr['tracksummary'] = (string) $xml->TrackInfo->TrackSummary;
                 }
             }
         }
@@ -1052,15 +1047,13 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
     public function getResponse()
     {
         $statuses = '';
-        if ($this->_result instanceof Mage_Shipping_Model_Tracking_Result) {
-            if ($trackingData = $this->_result->getAllTrackings()) {
-                foreach ($trackingData as $tracking) {
-                    if ($data = $tracking->getAllData()) {
-                        if (!empty($data['track_summary'])) {
-                            $statuses .= Mage::helper('usa')->__($data['track_summary']);
-                        } else {
-                            $statuses .= Mage::helper('usa')->__('Empty response');
-                        }
+        if ($this->_result instanceof Mage_Shipping_Model_Tracking_Result && $trackingData = $this->_result->getAllTrackings()) {
+            foreach ($trackingData as $tracking) {
+                if ($data = $tracking->getAllData()) {
+                    if (!empty($data['track_summary'])) {
+                        $statuses .= Mage::helper('usa')->__($data['track_summary']);
+                    } else {
+                        $statuses .= Mage::helper('usa')->__('Empty response');
                     }
                 }
             }
@@ -1477,8 +1470,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
     /**
      * Convert decimal weight into pound-ounces format
      *
-     * @param  float $weightInPounds
-     * @return array
+     * @param  float                 $weightInPounds
+     * @return array<int, float|int>
      */
     protected function _convertPoundOunces($weightInPounds)
     {
@@ -1682,8 +1675,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
             $itemDetail->addChild('Quantity', (string) $ceiledQty);
             $itemDetail->addChild('Value', (string) ($item->getCustomsValue() * $item->getQty()));
             [$individualPoundsWeight, $individualOuncesWeight] = $this->_convertPoundOunces($individualItemWeight);
-            $itemDetail->addChild('NetPounds', $individualPoundsWeight);
-            $itemDetail->addChild('NetOunces', $individualOuncesWeight);
+            $itemDetail->addChild('NetPounds', (string) $individualPoundsWeight);
+            $itemDetail->addChild('NetOunces', (string) $individualOuncesWeight);
             $itemDetail->addChild('HSTariffNumber', '0');
             $itemDetail->addChild('CountryOfOrigin', $countryOfManufacture);
 
@@ -1699,8 +1692,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
             [$packagePoundsWeight, $packageOuncesWeight] = $this->_convertPoundOunces($packageWeight);
         }
 
-        $xml->addChild('GrossPounds', $packagePoundsWeight);
-        $xml->addChild('GrossOunces', $packageOuncesWeight);
+        $xml->addChild('GrossPounds', (string) $packagePoundsWeight);
+        $xml->addChild('GrossOunces', (string) $packageOuncesWeight);
         if ($packageParams->getContentType() == 'OTHER' && $packageParams->getContentTypeOther() != null) {
             $xml->addChild('ContentType', $packageParams->getContentType());
             $xml->addChild('ContentTypeOther ', $packageParams->getContentTypeOther());
@@ -1876,9 +1869,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
     }
 
     /**
-     * Return content types of package
-     *
-     * @return array
+     * @inheritDoc
      */
     public function getContentTypes(Varien_Object $params)
     {
@@ -1904,9 +1895,9 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
     /**
      * Parse zip from string to zip5-zip4
      *
-     * @param  string $zipString
-     * @param  bool   $returnFull
-     * @return array
+     * @param  string             $zipString
+     * @param  bool               $returnFull
+     * @return array<int, string>
      */
     protected function _parseZip($zipString, $returnFull = false)
     {
@@ -1956,13 +1947,5 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
     public function getMethodValue($label)
     {
         return $this->_methodsMapper($label, false);
-    }
-
-    /**
-     * @deprecated
-     */
-    protected function setTrackingReqeust()
-    {
-        $this->setTrackingRequest();
     }
 }

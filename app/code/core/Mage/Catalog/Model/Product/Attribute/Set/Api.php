@@ -62,10 +62,10 @@ class Mage_Catalog_Model_Product_Attribute_Set_Api extends Mage_Api_Model_Resour
             // copy parameters to new set from skeleton set
             $attributeSet->save();
             $attributeSet->initFromSkeleton($skeletonSetId)->save();
-        } catch (Mage_Eav_Exception $e) {
-            $this->_fault('invalid_data', $e->getMessage());
-        } catch (Exception $e) {
-            $this->_fault('create_attribute_set_error', $e->getMessage());
+        } catch (Mage_Eav_Exception $mageEavException) {
+            $this->_fault('invalid_data', $mageEavException->getMessage());
+        } catch (Exception $exception) {
+            $this->_fault('create_attribute_set_error', $exception->getMessage());
         }
 
         return (int) $attributeSet->getId();

@@ -11,9 +11,13 @@
  * Adminhtml customer orders grid block
  *
  * @package    Mage_Adminhtml
+ *
+ * @method int getWebsiteId()
  */
 class Mage_Adminhtml_Block_Customer_Edit_Tab_Cart extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_customer_edit_tab_cart';
+
     /**
      * @var string
      */
@@ -67,6 +71,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Cart extends Mage_Adminhtml_Block_W
 
     /**
      * @inheritDoc
+     * @throws Exception
      */
     protected function _prepareColumns()
     {
@@ -149,6 +154,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Cart extends Mage_Adminhtml_Block_W
     /**
      * @return string
      * @throws Exception
+     * @throws Throwable
      */
     public function getGridParentHtml()
     {

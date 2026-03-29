@@ -17,7 +17,7 @@ class Mage_Api2_Model_Acl_Filter_Attribute_Operation
     /**
      * Get options paramets
      *
-     * @return array
+     * @return array<int, array<string, string>>
      */
     public static function toOptionArray()
     {
@@ -36,7 +36,7 @@ class Mage_Api2_Model_Acl_Filter_Attribute_Operation
     /**
      * Get options in "key-value" format
      *
-     * @return array
+     * @return array<string, string>
      */
     public static function toArray()
     {

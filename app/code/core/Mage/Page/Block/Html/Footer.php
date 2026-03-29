@@ -34,7 +34,7 @@ class Mage_Page_Block_Html_Footer extends Mage_Core_Block_Template
     /**
      * Get cache key informative items
      *
-     * @return array
+     * @return array<int, mixed>
      */
     public function getCacheKeyInfo()
     {

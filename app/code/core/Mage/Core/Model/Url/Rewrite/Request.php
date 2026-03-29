@@ -223,7 +223,11 @@ class Mage_Core_Model_Url_Rewrite_Request
         foreach ($config->children() as $rewrite) {
             $from = (string) $rewrite->from;
             $to = (string) $rewrite->to;
-            if (empty($from) || empty($to)) {
+            if (empty($from)) {
+                continue;
+            }
+
+            if (empty($to)) {
                 continue;
             }
 
@@ -249,7 +253,7 @@ class Mage_Core_Model_Url_Rewrite_Request
      * - with and without slashes at the end ("/somepath/" and "/somepath").
      * Choose any matched rewrite, but in priority order that depends on same presence of slash and query params.
      *
-     * @return array
+     * @return array<int, string>
      */
     protected function _getRequestCases()
     {

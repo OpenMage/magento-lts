@@ -9,9 +9,13 @@
 
 /**
  * @package    Mage_Adminhtml
+ *
+ * @method Mage_Tax_Model_Resource_Calculation_Rate_Collection getCollection()
  */
 class Mage_Adminhtml_Block_Tax_Rate_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_tax_rate_grid';
+
     public function __construct()
     {
         parent::__construct();
@@ -33,6 +37,9 @@ class Mage_Adminhtml_Block_Tax_Rate_Grid extends Mage_Adminhtml_Block_Widget_Gri
         return parent::_prepareCollection();
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _setCollectionOrder($column)
     {
         $collection = $this->getCollection();
@@ -103,8 +110,8 @@ class Mage_Adminhtml_Block_Tax_Rate_Grid extends Mage_Adminhtml_Block_Widget_Gri
     }
 
     /**
-     * @param  Mage_Tax_Model_Calculation_Rate $row
-     * @return string
+     * @inheritDoc
+     * @param Mage_Tax_Model_Calculation_Rate $row
      */
     public function getRowUrl($row)
     {

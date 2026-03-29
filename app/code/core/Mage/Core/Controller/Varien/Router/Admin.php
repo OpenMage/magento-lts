@@ -1,12 +1,13 @@
 <?php
 
+use Monolog\Level;
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
  * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
  */
-
 /**
  * @package    Mage_Core
  */
@@ -50,7 +51,7 @@ class Mage_Core_Controller_Varien_Router_Admin extends Mage_Core_Controller_Vari
                 // If it does, fail secure (possible database corruption/bypass)
                 Mage::log(
                     "Unable to parse custom admin URL host: {$adminUrl}. Access denied for security.",
-                    \Monolog\Level::Error,
+                    Level::Error,
                     'system.log',
                 );
                 return false;

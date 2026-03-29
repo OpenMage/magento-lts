@@ -200,12 +200,10 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
     public function getIncExcText($flag, $store = null)
     {
         if ($flag) {
-            $str = $this->__('Incl. Tax');
-        } else {
-            $str = $this->__('Excl. Tax');
+            return $this->__('Incl. Tax');
         }
 
-        return $str;
+        return $this->__('Excl. Tax');
     }
 
     /**
@@ -408,21 +406,6 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * Get all tax rates JSON for all product tax classes
-     *
-     * array(
-     *      value_{$productTaxClassId} => $rate
-     * )
-     * @return string
-     * @throws Mage_Core_Exception
-     * @deprecated after 1.4 - please use getAllRatesByProductClass
-     */
-    public function getTaxRatesByProductClass()
-    {
-        return $this->_getAllRatesByProductClass();
-    }
-
-    /**
      * Get all tax rates JSON for all product tax classes of specific store
      *
      * array(
@@ -506,13 +489,11 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
         $includingPercent = null;
 
         $taxClassId = $product->getTaxClassId();
-        if (is_null($percent)) {
-            if ($taxClassId) {
-                $request = Mage::getSingleton('tax/calculation')
-                    ->getRateRequest($shippingAddress, $billingAddress, $ctc, $store);
-                $percent = Mage::getSingleton('tax/calculation')
-                    ->getRate($request->setProductClassId($taxClassId));
-            }
+        if (is_null($percent) && $taxClassId) {
+            $request = Mage::getSingleton('tax/calculation')
+                ->getRateRequest($shippingAddress, $billingAddress, $ctc, $store);
+            $percent = Mage::getSingleton('tax/calculation')
+                ->getRate($request->setProductClassId($taxClassId));
         }
 
         if ($taxClassId && $priceIncludesTax) {
@@ -525,10 +506,8 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
             }
         }
 
-        if ($percent === false || is_null($percent)) {
-            if ($priceIncludesTax && !$includingPercent) {
-                return $price;
-            }
+        if (($percent === false || is_null($percent)) && ($priceIncludesTax && !$includingPercent)) {
+            return $price;
         }
 
         $product->setTaxPercent($percent);
@@ -1108,8 +1087,8 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
      *  )
      * )
      *
-     * @param  Mage_Sales_Model_Order $source
-     * @return array
+     * @param  Mage_Sales_Model_Order           $source
+     * @return array<int, array<string, mixed>>
      */
     public function getShippingTax($source)
     {
@@ -1122,17 +1101,18 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
         }
 
         $taxClassAmount = [];
-        if ($current && $source) {
-            if ($current->getShippingTaxAmount() != 0 && $current->getBaseShippingTaxAmount() != 0) {
-                $taxClassAmount[0]['tax_amount'] = $current->getShippingTaxAmount();
-                $taxClassAmount[0]['base_tax_amount'] = $current->getBaseShippingTaxAmount();
-                if ($current->getShippingHiddenTaxAmount() > 0) {
-                    $taxClassAmount[0]['hidden_tax_amount'] = $current->getShippingHiddenTaxAmount();
-                }
-
-                $taxClassAmount[0]['title'] = $this->__('Shipping & Handling Tax');
-                $taxClassAmount[0]['percent'] = null;
+        if ($current
+            && $source
+            && ($current->getShippingTaxAmount() != 0 && $current->getBaseShippingTaxAmount() != 0)
+        ) {
+            $taxClassAmount[0]['tax_amount'] = $current->getShippingTaxAmount();
+            $taxClassAmount[0]['base_tax_amount'] = $current->getBaseShippingTaxAmount();
+            if ($current->getShippingHiddenTaxAmount() > 0) {
+                $taxClassAmount[0]['hidden_tax_amount'] = $current->getShippingHiddenTaxAmount();
             }
+
+            $taxClassAmount[0]['title'] = $this->__('Shipping & Handling Tax');
+            $taxClassAmount[0]['percent'] = null;
         }
 
         return $taxClassAmount;

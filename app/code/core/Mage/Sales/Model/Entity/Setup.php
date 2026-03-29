@@ -13,7 +13,7 @@
 class Mage_Sales_Model_Entity_Setup extends Mage_Eav_Model_Entity_Setup
 {
     /**
-     * @return array
+     * @return array<string, non-empty-array<\lowercase-string, mixed>>
      */
     public function getDefaultEntities()
     {

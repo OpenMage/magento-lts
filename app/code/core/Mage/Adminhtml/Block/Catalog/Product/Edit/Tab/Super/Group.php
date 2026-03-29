@@ -13,11 +13,17 @@
  * @package    Mage_Adminhtml
  *
  * @method Mage_Catalog_Model_Resource_Product_Link_Product_Collection getCollection()
+ * @method bool                                                        getIsReadonly()
+ * @method bool                                                        getSkipGenerateContent()
+ * @method $this                                                       setIsReadonly(bool $value)
+ * @method $this                                                       setSkipGenerateContent(bool $value)
  */
 class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Group extends Mage_Adminhtml_Block_Widget_Grid implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
+    protected string $_eventPrefix = 'adminhtml_catalog_product_edit_tab_super_group';
+
     /**
-     * Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Group constructor.
+     * @throws Mage_Core_Exception
      */
     public function __construct()
     {
@@ -58,8 +64,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Group extends Mage_Adm
     }
 
     /**
-     * @param  Mage_Adminhtml_Block_Widget_Grid_Column $column
-     * @return $this
+     * @inheritDoc
+     * @throws Mage_Core_Exception
      */
     protected function _addColumnFilterToCollection($column)
     {
@@ -189,9 +195,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Group extends Mage_Adm
     }
 
     /**
-     * Get Grid Url
-     *
-     * @return string
+     * @inheritDoc
      */
     public function getGridUrl()
     {
@@ -233,21 +237,33 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Group extends Mage_Adm
         return $products;
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getTabLabel()
     {
         return Mage::helper('catalog')->__('Associated Products');
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getTabTitle()
     {
         return Mage::helper('catalog')->__('Associated Products');
     }
 
+    /**
+     * @inheritDoc
+     */
     public function canShowTab()
     {
         return true;
     }
 
+    /**
+     * @inheritDoc
+     */
     public function isHidden()
     {
         return false;

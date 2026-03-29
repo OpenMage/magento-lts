@@ -11,7 +11,7 @@ test.config = {
     _nav: '#nav-admin-cms',
     _title: base._title,
     _button: base._button,
-    url: 'widget_instance/index',
+    url: 'admin/widget_instance',
     index: {},
     edit: {},
     new: {},
@@ -19,12 +19,12 @@ test.config = {
 
 /**
  * Configuration for "Manage Widget Instances" page
- * @type {{title: string, url: string, _grid: string, __buttons: {}}}
+ * @type {{title: string, url: string, grid: {}, __buttons: {}}}
  */
 test.config.index = {
     title: 'Manage Widget Instances',
     url: test.config.url,
-    _grid: '#widgetInstanceGrid_table',
+    grid: {...base.__grid, ...{ sort: { order: 'title', dir: 'asc' } }},
     __buttons: {},
 }
 

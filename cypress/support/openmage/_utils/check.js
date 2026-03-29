@@ -33,10 +33,49 @@ cy.openmage.check = {
         }
     },
     grid: (config, path) => {
+        const grid = path.grid;
+
+        if (grid === undefined) {
+            cy.log('No grid configuration provided, skipping grid checks');
+            return;
+        }
+
         cy.log('Checking for existing grid');
-        if (path._grid !== undefined) {
-            // Check if grid exists
-            cy.get(path._grid).should('exist');
+        cy.get(grid._).should('exist');
+
+        cy.log('Checking for existing grid table');
+        cy.get(grid._table).should('exist');
+
+        if (grid.sort.dir !== '') {
+            cy.log('Checking for default grid sorting');
+            cy.get(grid._ + ' th.sorted a').should('have.attr', 'class', 'sort-arrow-' + grid.sort.dir);
+        }
+
+        if (grid.sort.order !== '') {
+            cy.log('Checking for default grid sorting column');
+            cy.get(grid._ + ' th.sorted a').should('have.attr', 'name', grid.sort.order);
+        }
+    },
+    gridSort: (config, path, dir, order = '') => {
+        cy.log('Checking for grid sorting');
+        if (order === '') {
+            order = path.grid.sort.order;
+        }
+
+        cy.get(path.grid._ + ' th.sorted a').should('have.attr', 'name', order);
+
+        expect(path.grid.sort.order).not.equal('');
+        expect(path.grid.sort.dir).not.equal(dir);
+
+        switch (dir) {
+            case 'asc':
+                cy.log('Checking for ascending grid sorting');
+                cy.get(path.grid._ + ' th.sorted a').should('have.class', 'sort-arrow-asc');
+                break;
+            case 'desc':
+                cy.log('Checking for descending grid sorting');
+                cy.get(path.grid._ + ' th.sorted a').should('have.class', 'sort-arrow-desc');
+                break;
         }
     },
     navigation: (config, path) => {

@@ -169,12 +169,10 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
 
         if ($this->getUseStoreTables() && $storeId) {
             $suffix = sprintf('store_%d', $storeId);
-            $table = $this->getTable(['catalog/category_flat', $suffix]);
-        } else {
-            $table = parent::getMainTable();
+            return $this->getTable(['catalog/category_flat', $suffix]);
         }
 
-        return $table;
+        return parent::getMainTable();
     }
 
     /**
@@ -451,7 +449,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
     /**
      * Check if Catalog Category Flat Data has been initialized
      *
-     * @param  null|bool|int|\Mage_Core_Model_Store $storeView Store(id) for which the value is checked
+     * @param  null|bool|int|Mage_Core_Model_Store $storeView Store(id) for which the value is checked
      * @return bool
      */
     public function isBuilt($storeView = null)
@@ -1555,16 +1553,5 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
         }
 
         return $this;
-    }
-
-    /**
-     * Check if Catalog Category Flat Data has been initialized
-     *
-     * @return bool
-     * @deprecated use Mage_Catalog_Model_Resource_Category_Flat::isBuilt() instead
-     */
-    public function isRebuilt()
-    {
-        return $this->isBuilt();
     }
 }
