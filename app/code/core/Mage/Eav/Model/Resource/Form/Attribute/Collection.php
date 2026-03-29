@@ -135,7 +135,7 @@ class Mage_Eav_Model_Resource_Form_Attribute_Collection extends Mage_Core_Model_
     /**
      * Set order by attribute sort order
      *
-     * @param  string $direction
+     * @param  self::SORT_ORDER_* $direction
      * @return $this
      */
     public function setSortOrder($direction = self::SORT_ORDER_ASC)

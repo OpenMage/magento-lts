@@ -706,7 +706,7 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
     /**
      * Sort order by total amount
      *
-     * @param  string $dir
+     * @param  self::SORT_ORDER_* $dir
      * @return $this
      */
     public function orderByTotalAmount($dir = self::SORT_ORDER_DESC)
@@ -718,7 +718,7 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
     /**
      * Order by orders count
      *
-     * @param  string $dir
+     * @param  self::SORT_ORDER_* $dir
      * @return $this
      */
     public function orderByOrdersCount($dir = self::SORT_ORDER_DESC)
@@ -730,7 +730,7 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
     /**
      * Order by customer registration
      *
-     * @param  string $dir
+     * @param  self::SORT_ORDER_* $dir
      * @return $this
      */
     public function orderByCustomerRegistration($dir = self::SORT_ORDER_DESC)
@@ -742,7 +742,7 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
     /**
      * Sort order by order created_at date
      *
-     * @param  string $dir
+     * @param  self::SORT_ORDER_* $dir
      * @return $this
      */
     public function orderByCreatedAt($dir = self::SORT_ORDER_DESC)

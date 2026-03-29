@@ -346,7 +346,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
      * Add attribute to sort order
      *
      * @param  string                   $attribute
-     * @param  self::SORT_ORDER_*                   $dir
+     * @param  self::SORT_ORDER_*       $dir
      * @return $this
      * @throws Mage_Core_Exception
      * @throws Zend_Db_Select_Exception

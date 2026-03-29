@@ -59,7 +59,7 @@ class Mage_DB_Mysqli
      * @param  string $paswd
      * @param  string $db
      * @param  int    $port
-     * @return mixed
+     * @return bool
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */

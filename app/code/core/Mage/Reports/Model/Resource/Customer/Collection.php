@@ -161,7 +161,7 @@ class Mage_Reports_Model_Resource_Customer_Collection extends Mage_Customer_Mode
     /**
      * Order by total amount
      *
-     * @param  string $dir
+     * @param  self::SORT_ORDER_* $dir
      * @return $this
      */
     public function orderByTotalAmount($dir = self::SORT_ORDER_DESC)
@@ -242,7 +242,7 @@ class Mage_Reports_Model_Resource_Customer_Collection extends Mage_Customer_Mode
     /**
      * Order by customer registration
      *
-     * @param  string $dir
+     * @param  self::SORT_ORDER_* $dir
      * @return $this
      */
     public function orderByCustomerRegistration($dir = self::SORT_ORDER_DESC)

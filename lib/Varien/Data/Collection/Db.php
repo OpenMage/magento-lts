@@ -302,22 +302,18 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     }
 
     /**
-     * Add select order
-     *
-     * @param  string $field
-     * @param  string $direction
-     * @return $this
+     * @inheritDoc
      */
-    public function setOrder($field, $direction = self::SORT_ORDER_DESC)
+    public function setOrder($field, $dir = self::SORT_ORDER_DESC)
     {
-        return $this->_setOrder($field, $direction);
+        return $this->_setOrder($field, $dir);
     }
 
     /**
      * self::setOrder() alias
      *
-     * @param  string $field
-     * @param  string $direction
+     * @param  string             $field
+     * @param  self::SORT_ORDER_* $direction
      * @return $this
      */
     public function addOrder($field, $direction = self::SORT_ORDER_DESC)
@@ -328,8 +324,8 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     /**
      * Add select order to the beginning
      *
-     * @param  string $field
-     * @param  string $direction
+     * @param  string             $field
+     * @param  self::SORT_ORDER_* $direction
      * @return $this
      */
     public function unshiftOrder($field, $direction = self::SORT_ORDER_DESC)

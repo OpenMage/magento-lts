@@ -239,7 +239,7 @@ class Mage_Catalog_Model_Resource_Category_Flat_Collection extends Mage_Core_Mod
     /**
      * Add attribute to sort order
      *
-     * @param  string $attribute
+     * @param  string             $attribute
      * @param  self::SORT_ORDER_* $dir
      * @return $this
      */

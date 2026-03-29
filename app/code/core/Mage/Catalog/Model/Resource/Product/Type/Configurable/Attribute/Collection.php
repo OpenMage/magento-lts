@@ -72,7 +72,7 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute_Collection
     /**
      * Set order collection by Position
      *
-     * @param  string $dir
+     * @param  self::SORT_ORDER_* $dir
      * @return $this
      */
     public function orderByPosition($dir = self::SORT_ORDER_ASC)

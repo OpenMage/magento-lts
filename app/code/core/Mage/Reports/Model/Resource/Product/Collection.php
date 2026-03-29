@@ -312,11 +312,7 @@ class Mage_Reports_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     }
 
     /**
-     * Set order
-     *
-     * @param  string $attribute
-     * @param  string $dir
-     * @return $this
+     * @inheritDoc
      */
     public function setOrder($attribute, $dir = self::SORT_ORDER_DESC)
     {

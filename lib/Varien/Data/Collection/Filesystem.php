@@ -348,11 +348,10 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
 
     /**
      * Set select order
+     *
      * Currently supports only sorting by one column
      *
-     * @param  string $field
-     * @param  string $direction
-     * @return $this
+     * @inheritDoc
      */
     public function setOrder($field, $direction = self::SORT_ORDER_DESC)
     {
