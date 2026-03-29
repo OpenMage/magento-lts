@@ -26,14 +26,14 @@ final class OpenMage
         $paths = [
             'general/locale/code'           => 'Mage_Core_Model_Locale::XML_PATH_DEFAULT_LOCALE',
             'general/locale/timezone'       => 'Mage_Core_Model_Locale::XML_PATH_DEFAULT_TIMEZONE',
-            'web/default/cms_home_page'     => 'Mage_Cms_Helper_Page::XML_PATH_HOME_PAGE',
-            'web/default/cms_no_cookies'    => 'Mage_Cms_Helper_Page::XML_PATH_NO_COOKIES_PAGE',
-            'web/default/cms_no_route'      => 'Mage_Cms_Helper_Page::XML_PATH_NO_ROUTE_PAGE',
+            #'web/default/cms_home_page'     => 'Mage_Cms_Helper_Page::XML_PATH_HOME_PAGE',
+            #'web/default/cms_no_cookies'    => 'Mage_Cms_Helper_Page::XML_PATH_NO_COOKIES_PAGE',
+            #'web/default/cms_no_route'      => 'Mage_Cms_Helper_Page::XML_PATH_NO_ROUTE_PAGE',
         ];
 
         foreach ($paths as $old => $new) {
             $map[] = new ReplaceArgumentDefaultValue(Mage::class, 'getStoreConfig', 0, $old, $new);
-            $map[] = new ReplaceArgumentDefaultValue(Mage_Core_Model_Store::class, 'getConfig', 0, $old, $new);
+            #$map[] = new ReplaceArgumentDefaultValue(Mage_Core_Model_Store::class, 'getConfig', 0, $old, $new);
         }
 
         return $map;
