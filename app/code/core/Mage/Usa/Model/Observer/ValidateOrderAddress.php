@@ -19,7 +19,7 @@ declare(strict_types=1);
  *
  * @package    Mage_Usa
  */
-class Mage_Usa_Model_Observer_ValidateOrderAddress implements Mage_Core_Observer_Interface
+final class Mage_Usa_Model_Observer_ValidateOrderAddress implements Mage_Core_Observer_Interface
 {
     protected ?Mage_Usa_Model_Shipping_Carrier_Usps_Address_Service $_addressService = null;
 
