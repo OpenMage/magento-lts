@@ -95,7 +95,7 @@ class Mage_Review_Block_View extends Mage_Catalog_Block_Product_Abstract
     /**
      * Retrieve total review count for current product
      *
-     * @return string
+     * @return int
      */
     public function getTotalReviews()
     {

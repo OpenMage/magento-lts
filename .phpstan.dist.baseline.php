@@ -3680,7 +3680,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 2,
+	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Core/Model/File/Storage/Directory/Database.php',
 ];
 $ignoreErrors[] = [
@@ -7600,12 +7600,6 @@ after 1.3.2.4',
 	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/giftmessage/helper.phtml',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Parameter #1 $value of method Mage_GiftMessage_Block_Message_Helper::setScriptIncluded() expects string, true given.',
-	'identifier' => 'argument.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/giftmessage/helper.phtml',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 2,
@@ -7978,12 +7972,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/design/frontend/base/default/template/checkout/multishipping/address/select.phtml',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Parameter #1 $totals of method Mage_Checkout_Block_Multishipping_Overview::renderTotals() expects Mage_Sales_Model_Order_Total, array<Mage_Sales_Model_Quote_Address_Total> given.',
-	'identifier' => 'argument.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/design/frontend/base/default/template/checkout/multishipping/overview.phtml',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Method Mage_Checkout_Helper_Data::formatPrice() invoked with 3 parameters, 1 required.',
 	'identifier' => 'arguments.count',
 	'count' => 12,
@@ -8281,12 +8269,6 @@ $ignoreErrors[] = [
 	'identifier' => 'arguments.count',
 	'count' => 6,
 	'path' => __DIR__ . '/app/design/frontend/rwd/default/template/checkout/cart/sidebar/default.phtml',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Parameter #1 $totals of method Mage_Checkout_Block_Multishipping_Overview::renderTotals() expects Mage_Sales_Model_Order_Total, array<Mage_Sales_Model_Quote_Address_Total> given.',
-	'identifier' => 'argument.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/design/frontend/rwd/default/template/checkout/multishipping/overview.phtml',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Method Mage_Checkout_Helper_Data::formatPrice() invoked with 3 parameters, 1 required.',
@@ -8683,12 +8665,6 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Method Varien_Simplexml_Config::loadString() invoked with 2 parameters, 1 required.',
 	'identifier' => 'arguments.count',
-	'count' => 1,
-	'path' => __DIR__ . '/lib/Varien/Simplexml/Config.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Parameter #1 $data of function simplexml_load_string expects string, true given.',
-	'identifier' => 'argument.type',
 	'count' => 1,
 	'path' => __DIR__ . '/lib/Varien/Simplexml/Config.php',
 ];

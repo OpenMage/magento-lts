@@ -121,7 +121,7 @@ class Mage_Media_Model_Image extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @return bool|string
+     * @return string
      */
     public function getExtension()
     {
@@ -161,7 +161,7 @@ class Mage_Media_Model_Image extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @return bool|string
+     * @return string
      */
     public function getName()
     {

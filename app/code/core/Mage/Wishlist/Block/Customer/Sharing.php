@@ -49,8 +49,8 @@ class Mage_Wishlist_Block_Customer_Sharing extends Mage_Core_Block_Template
     /**
      * Retrieve Entered Data by key
      *
-     * @param  string $key
-     * @return mixed
+     * @param  string               $key
+     * @return null|string|string[]
      */
     public function getEnteredData($key)
     {

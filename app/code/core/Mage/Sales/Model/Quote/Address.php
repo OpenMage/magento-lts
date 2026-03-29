@@ -78,7 +78,7 @@
  * @method Mage_Sales_Model_Resource_Quote_Address            getResource()
  * @method array                                              getRoundingDeltas()
  * @method float                                              getRowTotal()
- * @method int                                                getSameAsBilling()
+ * @method bool                                               getSameAsBilling()
  * @method int                                                getSaveInAddressBook()
  * @method float                                              getShippingAmount()
  * @method float                                              getShippingAmountForDiscount()

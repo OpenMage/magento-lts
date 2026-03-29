@@ -96,9 +96,9 @@ class Mage_Core_Model_Encryption
     /**
      * Hash a string
      *
-     * @param  string      $data
-     * @param  int         $version
-     * @return bool|string
+     * @param  string $data
+     * @param  int    $version
+     * @return string
      */
     public function hash($data, $version = self::HASH_VERSION_MD5)
     {

@@ -25,7 +25,7 @@ class Mage_Sales_Block_Adminhtml_Billing_Agreement_View_Tab_Orders extends Mage_
     /**
      * Prepare related orders collection
      *
-     * @return $this|Mage_Adminhtml_Block_Widget_Grid
+     * @return Mage_Adminhtml_Block_Widget_Grid
      */
     protected function _prepareCollection()
     {

@@ -37,7 +37,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Abstract extends Mage_Admi
     /**
      * Retrieve display block availability
      *
-     * @return int
+     * @return bool|int
      */
     public function canDisplay()
     {
