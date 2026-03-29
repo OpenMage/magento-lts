@@ -9,7 +9,7 @@ declare(strict_types=1);
  * @package    Mage_Csp
  */
 
-class Mage_Csp_Model_Observer_AddFrontendCspHeaders extends Mage_Csp_Model_Observer_Abstract
+final class Mage_Csp_Model_Observer_AddFrontendCspHeaders extends Mage_Csp_Model_Observer_Abstract
 {
     /**
      * Add Content Security Policy headers to the frontend response
