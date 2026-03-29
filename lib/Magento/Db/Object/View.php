@@ -26,7 +26,6 @@ class Magento_Db_Object_View extends Magento_Db_Object implements Magento_Db_Obj
     /**
      * Create view from source
      *
-     * @param  Zend_Db_Select         $source
      * @param  self::ALGORITHM_*      $algorithm
      * @return Magento_Db_Object_View
      */
