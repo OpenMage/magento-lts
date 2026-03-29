@@ -115,6 +115,10 @@ try {
             CodeQuality\Equal\UseIdenticalOverEqualWithSameTypeRector::class, # todo: TMP
             CodeQuality\Expression\TernaryFalseExpressionToIfRector::class, # todo: TMP (!?!)
             CodeQuality\Identical\SimplifyBoolIdenticalTrueRector::class, # todo: TMP
+            # tmp wait for https://github.com/rectorphp/rector/issues/9717
+            CodeQuality\If_\CombineIfRector::class => [
+                __DIR__ . 'app/code/core/Mage/Catalog/Model/Api2/Product/Validator/Product.php',
+            ],
             CodeQuality\If_\CompleteMissingIfElseBracketRector::class, # todo: TMP  (!?!)
             CodeQuality\If_\ExplicitBoolCompareRector::class, # todo: TMP
             CodeQuality\If_\SimplifyIfElseToTernaryRector::class,
