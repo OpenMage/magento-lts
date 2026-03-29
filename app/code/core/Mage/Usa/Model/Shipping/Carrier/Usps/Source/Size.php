@@ -12,12 +12,18 @@
  */
 class Mage_Usa_Model_Shipping_Carrier_Usps_Source_Size
 {
+    /**
+     * @return array<int, array<string, string>>
+     */
     public function toOptionArray()
     {
-        $usps = Mage::getSingleton('usa/shipping_carrier_usps');
+        $codes = Mage::getSingleton('usa/shipping_carrier_usps')->getCode('size');
+        if (!is_array($codes)) {
+            return [];
+        }
         $arr = [];
-        foreach ($usps->getCode('size') as $k => $v) {
-            $arr[] = ['value' => $k, 'label' => $v];
+        foreach ($codes as $key => $value) {
+            $arr[] = ['value' => $key, 'label' => $value];
         }
 
         return $arr;
