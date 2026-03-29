@@ -194,7 +194,7 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
                 $value = $tagKey . '=' . $value;
             }
 
-            if ($key = array_search($value, $curTags)) {
+            if (($key = array_search($value, $curTags)) !== false) {
                 unset($curTags[$key]);
             }
         }

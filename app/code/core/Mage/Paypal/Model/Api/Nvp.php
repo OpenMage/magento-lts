@@ -949,7 +949,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
     {
         $request = $this->_addMethodToRequest($methodName, $request);
         $eachCallRequest = $this->_prepareEachCallRequest($methodName);
-        if ($this->getUseCertAuthentication() && ($key = array_search('SIGNATURE', $eachCallRequest))) {
+        if ($this->getUseCertAuthentication() && (($key = array_search('SIGNATURE', $eachCallRequest) !== false))) {
             unset($eachCallRequest[$key]);
         }
 
@@ -1577,7 +1577,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
      */
     protected function _prepareExpressCheckoutCallRequest(&$requestFields)
     {
-        if (!$this->_config->shouldUseUnilateralPayments() && ($key = array_search('SUBJECT', $requestFields))) {
+        if (!$this->_config->shouldUseUnilateralPayments() && (($key = array_search('SUBJECT', $requestFields) !== false) )) {
             unset($requestFields[$key]);
         }
     }
