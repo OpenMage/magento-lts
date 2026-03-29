@@ -111,7 +111,6 @@ try {
             ],
             CodeQuality\Class_\CompleteDynamicPropertiesRector::class, # todo: TMP (!?!)
             CodeQuality\ClassMethod\ExplicitReturnNullRector::class, # todo: TMP
-            CodeQuality\Empty_\SimplifyEmptyCheckOnEmptyArrayRector::class, # todo: TMP
             CodeQuality\Equal\UseIdenticalOverEqualWithSameTypeRector::class, # todo: TMP
             CodeQuality\Expression\TernaryFalseExpressionToIfRector::class, # todo: TMP (!?!)
             CodeQuality\Identical\SimplifyBoolIdenticalTrueRector::class, # todo: TMP

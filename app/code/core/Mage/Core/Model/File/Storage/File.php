@@ -83,7 +83,7 @@ class Mage_Core_Model_File_Storage_File extends Mage_Core_Model_File_Storage_Abs
      */
     public function hasErrors()
     {
-        return !empty($this->_errors);
+        return $this->_errors !== [];
     }
 
     /**
@@ -119,7 +119,7 @@ class Mage_Core_Model_File_Storage_File extends Mage_Core_Model_File_Storage_Abs
         }
 
         $slice = array_slice($this->_data[$type], $offset, $count);
-        if (empty($slice)) {
+        if ($slice === []) {
             return false;
         }
 
