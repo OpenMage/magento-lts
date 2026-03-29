@@ -42,7 +42,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Settings extends Mage_Adminh
             'value' => $entityType->getDefaultAttributeSetId(),
             'values' => Mage::getResourceModel('eav/entity_attribute_set_collection')
                 ->setEntityTypeFilter($entityType->getId())
-                ->setOrder('attribute_set_name', 'asc')
+                ->setOrder('attribute_set_name', 'ASC')
                 ->load()
                 ->toOptionArray(),
         ]);

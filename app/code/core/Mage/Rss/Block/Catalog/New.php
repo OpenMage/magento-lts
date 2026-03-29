@@ -71,7 +71,7 @@ class Mage_Rss_Block_Catalog_New extends Mage_Rss_Block_Catalog_Abstract
                     ['attribute' => 'news_to_date', 'is' => new Zend_Db_Expr('not null')],
                 ],
             )
-            ->addAttributeToSort('news_from_date', 'desc')
+            ->addAttributeToSort('news_from_date', 'DESC')
             ->addAttributeToSelect(['name', 'short_description', 'description', 'thumbnail'], 'inner')
             ->addAttributeToSelect(
                 [

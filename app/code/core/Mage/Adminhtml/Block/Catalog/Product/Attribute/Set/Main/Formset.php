@@ -40,7 +40,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main_Formset extends Ma
             $sets = Mage::getModel('eav/entity_attribute_set')
                 ->getResourceCollection()
                 ->setEntityTypeFilter(Mage::registry('entityType'))
-                ->setOrder('attribute_set_name', 'asc')
+                ->setOrder('attribute_set_name', 'ASC')
                 ->load()
                 ->toOptionArray();
 

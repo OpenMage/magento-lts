@@ -102,7 +102,7 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
                 ->addHasOptionsFilter()
                 ->addDisplayInAdvancedSearchFilter()
                 ->addStoreLabel(Mage::app()->getStore()->getId())
-                ->setOrder('main_table.attribute_id', 'asc')
+                ->setOrder('main_table.attribute_id', 'ASC')
                 ->load();
             foreach ($attributes as $attribute) {
                 $attribute->setEntity($product->getResource());

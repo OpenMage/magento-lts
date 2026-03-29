@@ -414,7 +414,7 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
 
         $storeId = $this->_getStoreId($store);
         $collection = $category->setStoreId($storeId)->getProductCollection();
-        ($storeId == 0) ? $collection->addOrder('position', 'asc') : $collection->setOrder('position', 'ASC');
+        ($storeId == 0) ? $collection->addOrder('position', 'ASC') : $collection->setOrder('position', 'ASC');
 
         $result = [];
 
