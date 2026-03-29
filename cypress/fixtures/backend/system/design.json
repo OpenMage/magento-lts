@@ -1,0 +1,16 @@
+{
+    "default": {
+        "storeId" : {
+            "_": "#store_id"
+        },
+        "design" : {
+            "_": "#design"
+        },
+        "dateFrom" : {
+            "_": "#date_from"
+        },
+        "dateTo" : {
+            "_": "#date_to"
+        }
+    }
+}

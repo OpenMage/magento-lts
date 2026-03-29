@@ -7,19 +7,18 @@ cy.openmage.admin = {
         _: '.form-button',
     },
     login: () =>{
-        cy.log('Logining in as admin');
-        const username = cy.openmage.admin.username;
-        const password = cy.openmage.admin.password;
+        cy.fixture('backend/login').then((fixture) => {
+            cy.log('Logining in as admin');
+            cy.visit('/admin');
 
-        cy.visit('/admin');
+            let data = fixture.validUser;
+            cy.get(data.username._).clear().type(data.username.value).should('have.value', data.username.value);
+            cy.get(data.password._).clear().type(data.password.value).should('have.value', data.password.value);
+            cy.get(cy.openmage.admin._submit._).click();
 
-        cy.log(`Logging in as ${username.value}`);
-        cy.get(username._).clear().type(username.value).should('have.value', username.value);
-        cy.get(password._).clear().type(password.value).should('have.value', password.value);
-        cy.get(cy.openmage.admin._submit._).click();
-
-        cy.log('Checking for successful login');
-        cy.url().should('include', cy.openmage.test.backend.dashbord.config.index.url);
+            cy.log('Checking for successful login');
+            cy.url().should('include', cy.openmage.test.backend.dashbord.config.index.url);
+        });
     },
     goToPage: (test, path) =>{
         cy.log('Go to admin page');
@@ -48,14 +47,4 @@ cy.openmage.admin = {
         cy.get(selector).select(value); // acts like clicking
         cy.url().should('include', section.url);
     },
-}
-
-cy.openmage.admin.username = {
-    _: '#username',
-    value: 'admin',
-}
-
-cy.openmage.admin.password = {
-    _: '#login',
-    value: 'veryl0ngpassw0rd',
 }

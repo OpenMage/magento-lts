@@ -3,34 +3,15 @@ const test = cy.openmage.test.backend.system.variable;
 const tools = cy.openmage.tools;
 
 /**
- * Selectors for fields in "Custom Variable" form
- * @type {{code: {_: string}, plain_value: {_: string}, name: {_: string}, html_value: {_: string}}}
- * @private
- */
-test.__fields = {
-    code : {
-        _: '#code',
-    },
-    name : {
-        _: '#name',
-    },
-    html_value : {
-        _: '#html_value',
-    },
-    plain_value : {
-        _: '#plain_value',
-    },
-};
-
-/**
  * Configuration for "Custom Variables" section
- * @type {{_: string, _nav: string, _title: string, _button: string, url: string, index: {}, edit: {}, new: {}}}
+ * @type {{_: string, _nav: string, _title: string, _button: string, __fixture: string, url: string, index: {}, edit: {}, new: {}}}
  */
 test.config = {
     _: '#nav-admin-system-variable',
     _nav: '#nav-admin-system',
     _title: base._title,
     _button: base._button,
+    __fixture: 'backend/system/variable',
     url: 'admin/system_variable',
     index: {},
     edit: {},
@@ -65,22 +46,20 @@ test.config.index.__buttons = {
 
 /**
  * Configuration for "Edit Custom Variable" page
- * @type {{title: string, url: string, __buttons: cy.openmage.test.backend.__base.__buttonsSets.edit, __fields: test.config.edit.__fields}}
+ * @type {{title: string, url: string, __buttons: cy.openmage.test.backend.__base.__buttonsSets.edit}}
  */
 test.config.edit = {
     title: 'Custom Variable',
     url: 'system_variable/edit',
     __buttons: base.__buttonsSets.edit,
-    __fields: test.__fields,
 }
 
 /**
  * Configuration for "New Custom Variable" page
- * @type {{title: string, url: string, __buttons: cy.openmage.test.backend.__base.__buttonsSets.new, __fields: test.config.new.__fields}}
+ * @type {{title: string, url: string, __buttons: cy.openmage.test.backend.__base.__buttonsSets.new}}
  */
 test.config.new = {
     title: 'New Custom Variable',
     url: 'system_variable/new',
     __buttons: base.__buttonsSets.new,
-    __fields: test.__fields,
 }

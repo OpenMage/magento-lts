@@ -6,21 +6,24 @@ describe(`Checks admin system "${test.index.title}"`, () => {
     beforeEach('Log in the user', () => {
         cy.openmage.admin.login();
         cy.openmage.admin.goToPage(test, test.index);
+        cy.fixture(test.__fixture).as('fixture');
     });
 
-    it(`tests save empty, no js`, () => {
-        validation.removeClasses(test.index);
-        validation.emptyFields(test.index);
+    it(`tests save empty, no js`, function() {
+        validation.fixture.fillFields(this.fixture.default, true);
+        validation.fixture.removeClasses(this.fixture.default);
 
         test.index.__buttons.save.click();
         validation.hasErrorMessage('Current password field cannot be empty.');
 
         /// with filling password
-        validation.removeClasses(test.index);
-        validation.emptyFields(test.index);
-        cy.get(test.index.__fields.current_password._)
-            .type(cy.openmage.admin.password.value)
-            .should('have.value', cy.openmage.admin.password.value);
+        validation.fixture.fillFields(this.fixture.default, true);
+        validation.fixture.removeClasses(this.fixture.default);
+
+        cy.get(this.fixture.default.currentPassword._)
+            .type(this.fixture.default.currentPassword.value)
+            .should('have.value', this.fixture.default.currentPassword.value);
+
         test.index.__buttons.save.click();
         validation.hasErrorMessage('User Name is required field.');
         validation.hasErrorMessage('First Name is required field.');
@@ -28,11 +31,10 @@ describe(`Checks admin system "${test.index.title}"`, () => {
         validation.hasErrorMessage('Please enter a valid email.');
    });
 
-    it(`tests save empty input`, () => {
-        const validate = validation.requiredEntry;
-        validation.fillFields(test.index, validate);
+    it(`tests save empty input`, function () {
+        validation.fixture.fillFields(this.fixture.default, true);
         test.index.__buttons.save.click();
-        validation.validateFields(test.index, validate);
+        validation.fixture.validateFields(this.fixture.default, validation.requiredEntry);
     });
 
     it(`tests index route`, () => {

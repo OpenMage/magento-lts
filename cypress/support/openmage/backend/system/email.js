@@ -3,37 +3,15 @@ const test = cy.openmage.test.backend.system.email;
 const tools = cy.openmage.tools;
 
 /**
- * Common fields for "Edit Email Template" and "New Email Template" pages
- * @type {{template_subject: {_: string}, locale_select: {_: string}, template_text: {_: string}, template_select: {_: string}, template_code: {_: string}}}
- * @private
- */
-test.__fields = {
-    template_select : {
-        _: '#template_select',
-    },
-    locale_select : {
-        _: '#locale_select',
-    },
-    template_code : {
-        _: '#template_code',
-    },
-    template_subject : {
-        _: '#template_subject',
-    },
-    template_text : {
-        _: '#template_text',
-    },
-}
-
-/**
  * Configuration for "Transactional Emails" menu item
- * @type {{_: string, _nav: string, _title: string, _button: string, url: string, index: {}, edit: {}, new: {}}}
+ * @type {{_: string, _nav: string, _title: string, _button: string, __fixture: string, url: string, index: {}, edit: {}, new: {}}}
  */
 test.config = {
     _: '#nav-admin-system-email_template',
     _nav: '#nav-admin-system',
     _title: base._title,
     _button: base._button,
+    __fixture: 'backend/system/email',
     url: 'admin/system_email_template',
     index: {},
     edit: {},
@@ -76,8 +54,7 @@ test.config.edit = {
         preview: base.__buttons.preview,
         back: base.__buttons.back,
         reset: base.__buttons.reset,
-    },
-    __fields: test.__fields,
+    }
 }
 
 /**
@@ -91,8 +68,7 @@ test.config.edit = {
  *          back: cy.openmage.test.backend.__base.__buttons.back,
  *          reset: cy.openmage.test.backend.__base.__buttons.reset,
  *          convertToPlain: cy.openmage.test.backend.__base.__buttons.convertToPlain
- *      },
- *      __fields: test.config.new.__fields
+ *      }
  * }}
  */
 test.config.new = {
@@ -104,6 +80,5 @@ test.config.new = {
         preview: base.__buttons.preview,
         back: base.__buttons.back,
         reset: base.__buttons.reset,
-    },
-    __fields: test.__fields,
+    }
 }

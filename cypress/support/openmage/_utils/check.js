@@ -23,6 +23,10 @@ cy.openmage.check = {
             };
         }
     },
+    /**
+     * Do not use __fields
+     * @deprecated Use fixture data and validation functions instead
+     */
     fields: (config, path) => {
         cy.log('Checking for existing fields');
         if (path.__fields !== undefined) {
