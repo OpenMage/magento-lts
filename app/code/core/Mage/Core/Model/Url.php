@@ -1288,11 +1288,7 @@ class Mage_Core_Model_Url extends Varien_Object
         }
 
         $storeDomains = array_unique($storeDomains);
-        if (in_array($referer, $storeDomains)) {
-            return true;
-        }
-
-        return false;
+        return in_array($referer, $storeDomains);
     }
 
     /**

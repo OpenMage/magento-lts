@@ -437,17 +437,10 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
      */
     public function getExplicitApply()
     {
-        switch ($this->getAttribute()) {
-            case 'sku':
-            case 'category_ids':
-                return true;
-        }
-
-        if (is_object($this->getAttributeObject()) && $this->getAttributeObject()->getFrontendInput() === 'date') {
-            return true;
-        }
-
-        return false;
+        return match ($this->getAttribute()) {
+            'sku', 'category_ids' => true,
+            default => is_object($this->getAttributeObject()) && $this->getAttributeObject()->getFrontendInput() === 'date',
+        };
     }
 
     /**

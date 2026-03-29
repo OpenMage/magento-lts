@@ -488,11 +488,7 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
         }
 
         if (empty($selfOptions) && !empty($buyRequest)) {
-            if (!$product->isComposite()) {
-                return true;
-            }
-
-            return false;
+            return !$product->isComposite();
         }
 
         $requestArray = $buyRequest->getData();
@@ -501,11 +497,7 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
             return false;
         }
 
-        if (!$this->_compareOptions($selfOptions, $requestArray)) {
-            return false;
-        }
-
-        return true;
+        return $this->_compareOptions($selfOptions, $requestArray);
     }
 
     /**
@@ -529,11 +521,7 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
             return false;
         }
 
-        if (!$this->compareOptions($productOptions, $itemOptions)) {
-            return false;
-        }
-
-        return true;
+        return $this->compareOptions($productOptions, $itemOptions);
     }
 
     /**

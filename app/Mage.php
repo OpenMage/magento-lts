@@ -449,11 +449,7 @@ final class Mage
     {
         $flag = self::getStoreConfig($path, $store);
         $flag = is_string($flag) ? strtolower($flag) : $flag;
-        if (!empty($flag) && $flag !== 'false') {
-            return true;
-        }
-
-        return false;
+        return !empty($flag) && $flag !== 'false';
     }
 
     /**

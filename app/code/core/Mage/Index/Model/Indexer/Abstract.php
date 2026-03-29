@@ -114,11 +114,7 @@ abstract class Mage_Index_Model_Indexer_Abstract extends Mage_Core_Model_Abstrac
             $entity = '';
         }
 
-        if (isset($this->_matchedEntities[$entity]) && in_array($type, $this->_matchedEntities[$entity])) {
-            return true;
-        }
-
-        return false;
+        return isset($this->_matchedEntities[$entity]) && in_array($type, $this->_matchedEntities[$entity]);
     }
 
     /**

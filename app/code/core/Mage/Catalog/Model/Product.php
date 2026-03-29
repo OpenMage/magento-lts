@@ -2069,11 +2069,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      */
     public function hasCustomOptions()
     {
-        if (count($this->_customOptions)) {
-            return true;
-        }
-
-        return false;
+        return (bool) count($this->_customOptions);
     }
 
     /**

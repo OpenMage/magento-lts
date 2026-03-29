@@ -402,13 +402,12 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
             return true;
         }
 
-        if (!($secretKey = $this->getRequest()->getParam(Mage_Adminhtml_Model_Url::SECRET_KEY_PARAM_NAME, null))
-            || !hash_equals(Mage::getSingleton('adminhtml/url')->getSecretKey(), $secretKey)
-        ) {
+        $secretKey = $this->getRequest()->getParam(Mage_Adminhtml_Model_Url::SECRET_KEY_PARAM_NAME, null);
+        if (!$secretKey) {
             return false;
         }
 
-        return true;
+        return hash_equals(Mage::getSingleton('adminhtml/url')->getSecretKey(), $secretKey);
     }
 
     /**
@@ -464,11 +463,7 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
     protected function _validateRequestParam($param, $pattern = '')
     {
         $pattern = empty($pattern) ? '/^[a-z0-9\-\_\/]*$/si' : $pattern;
-        if (preg_match($pattern, $param)) {
-            return true;
-        }
-
-        return false;
+        return (bool) preg_match($pattern, $param);
     }
 
     /**
