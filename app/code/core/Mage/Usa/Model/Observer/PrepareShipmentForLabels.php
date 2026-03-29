@@ -18,7 +18,7 @@ declare(strict_types=1);
  *
  * @package    Mage_Usa
  */
-class Mage_Usa_Model_Observer_PrepareShipmentForLabels implements Mage_Core_Observer_Interface
+final class Mage_Usa_Model_Observer_PrepareShipmentForLabels implements Mage_Core_Observer_Interface
 {
     public function execute(Varien_Event_Observer $observer): void
     {
