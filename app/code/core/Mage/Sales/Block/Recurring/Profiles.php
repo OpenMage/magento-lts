@@ -103,7 +103,7 @@ class Mage_Sales_Block_Recurring_Profiles extends Mage_Core_Block_Template
         $this->_profiles = Mage::getModel('sales/recurring_profile')->getCollection()
             ->addFieldToFilter('customer_id', Mage::registry('current_customer')->getId())
             ->addFieldToSelect($fields)
-            ->setOrder('profile_id', 'desc')
+            ->setOrder('profile_id', 'DESC')
         ;
     }
 

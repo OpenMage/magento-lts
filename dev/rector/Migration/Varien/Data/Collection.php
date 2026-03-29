@@ -13,7 +13,6 @@ namespace OpenMage\Rector\Migration\Varien\Data;
 
 use Rector\Arguments\ValueObject\ReplaceArgumentDefaultValue;
 use Varien_Data_Collection;
-use Varien_Data_Collection_Db;
 
 final class Collection
 {
@@ -25,8 +24,6 @@ final class Collection
         return [
             new ReplaceArgumentDefaultValue(Varien_Data_Collection::class, 'setOrder', 1, 'asc', 'ASC'),
             new ReplaceArgumentDefaultValue(Varien_Data_Collection::class, 'setOrder', 1, 'desc', 'DESC'),
-            new ReplaceArgumentDefaultValue(Varien_Data_Collection_Db::class, 'setOrder', 1, 'asc', 'ASC'),
-            new ReplaceArgumentDefaultValue(Varien_Data_Collection_Db::class, 'setOrder', 1, 'desc', 'DESC'),
         ];
     }
 }

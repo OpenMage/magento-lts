@@ -1929,8 +1929,8 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         if (is_null($this->_statusHistory) || $reload) {
             $this->_statusHistory = Mage::getResourceModel('sales/order_status_history_collection')
                 ->setOrderFilter($this)
-                ->setOrder('created_at', 'desc')
-                ->setOrder('entity_id', 'desc');
+                ->setOrder('created_at', 'DESC')
+                ->setOrder('entity_id', 'DESC');
 
             if ($this->getId()) {
                 foreach ($this->_statusHistory as $status) {

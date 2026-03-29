@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Rector\Migration\Mage;
 
+use Mage_Catalog_Block_Product_List;
 use Mage_Catalog_CategoryController;
 use Mage_Catalog_Helper_Category_Flat;
 use Mage_Catalog_Helper_Image;
@@ -53,6 +54,8 @@ final class Catalog
     public static function replaceArgumentDefaultValue(): array
     {
         return [
+            new ReplaceArgumentDefaultValue(Mage_Catalog_Block_Product_List::class, 'setDefaultDirection', 0, 'asc', 'ASC'),
+            new ReplaceArgumentDefaultValue(Mage_Catalog_Block_Product_List::class, 'setDefaultDirection', 0, 'desc', 'DESC'),
             new ReplaceArgumentDefaultValue(Mage_Catalog_Model_Resource_Product_Collection::class, 'addAttributeToSort', 1, 'asc', 'ASC'),
             new ReplaceArgumentDefaultValue(Mage_Catalog_Model_Resource_Product_Collection::class, 'addAttributeToSort', 1, 'desc', 'DESC'),
         ];
