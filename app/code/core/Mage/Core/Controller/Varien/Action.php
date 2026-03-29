@@ -839,16 +839,11 @@ abstract class Mage_Core_Controller_Varien_Action
         /**
          * Url must start from base secure or base unsecure url
          */
-        if (str_contains($url, 'http')
+        return str_contains($url, 'http')
             && (
                 str_starts_with($url, Mage::app()->getStore()->getBaseUrl())
                 || str_starts_with($url, Mage::app()->getStore()->getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK, true))
-            )
-        ) {
-            return true;
-        }
-
-        return false;
+            );
     }
 
     /**

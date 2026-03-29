@@ -680,11 +680,7 @@ class Varien_Object implements ArrayAccess
      */
     public function isEmpty()
     {
-        if (empty($this->_data)) {
-            return true;
-        }
-
-        return false;
+        return empty($this->_data);
     }
 
     /**

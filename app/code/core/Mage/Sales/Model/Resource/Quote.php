@@ -147,11 +147,7 @@ class Mage_Sales_Model_Resource_Quote extends Mage_Sales_Model_Resource_Abstract
         $select->from($this->getTable('sales/order'), 'entity_id')
             ->where('increment_id = :increment_id');
         $entityId = $adapter->fetchOne($select, $bind);
-        if ($entityId > 0) {
-            return true;
-        }
-
-        return false;
+        return $entityId > 0;
     }
 
     /**

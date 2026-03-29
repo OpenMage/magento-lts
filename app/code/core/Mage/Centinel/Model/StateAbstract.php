@@ -120,12 +120,7 @@ abstract class Mage_Centinel_Model_StateAbstract extends Varien_Object
         if ($this->_isLookupStrictSuccessful()) {
             return true;
         }
-
-        if (!$this->getIsModeStrict() && $this->_isLookupSoftSuccessful()) {
-            return true;
-        }
-
-        return false;
+        return !$this->getIsModeStrict() && $this->_isLookupSoftSuccessful();
     }
 
     /**

@@ -307,12 +307,7 @@ class Mage_Core_Model_File_Validator_AvailablePath extends Mage_Core_Model_Valid
                 return true;
             }
         }
-
-        if ($protected) {
-            return true;
-        }
-
         //return false because no one match with available path mask
-        return false;
+        return $protected;
     }
 }

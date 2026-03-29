@@ -225,11 +225,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View extends Mage_Adminhtml_Block_T
      */
     public function canShowTab()
     {
-        if (Mage::registry('current_customer')->getId()) {
-            return true;
-        }
-
-        return false;
+        return (bool) Mage::registry('current_customer')->getId();
     }
 
     /**
@@ -237,11 +233,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View extends Mage_Adminhtml_Block_T
      */
     public function isHidden()
     {
-        if (Mage::registry('current_customer')->getId()) {
-            return false;
-        }
-
-        return true;
+        return !Mage::registry('current_customer')->getId();
     }
 
     /**

@@ -60,12 +60,7 @@ class Mage_Newsletter_Model_Resource_Template extends Mage_Core_Model_Resource_D
             $countOfQueue = $this->_getReadAdapter()->fetchOne($select, ['template_id' => $template->getId()]);
             return $countOfQueue > 0;
         }
-
-        if ($template->getIsSystem()) {
-            return false;
-        }
-
-        return true;
+        return !$template->getIsSystem();
     }
 
     /**

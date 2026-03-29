@@ -547,11 +547,7 @@ class Varien_Io_File extends Varien_Io_Abstract
         }
 
         // In case of a string
-        if (is_resource($src)) {
-            return true;
-        }
-
-        return false;
+        return is_resource($src);
     }
 
     /**

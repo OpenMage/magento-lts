@@ -188,26 +188,18 @@ class Mage_Archive
     public function isArchive($file)
     {
         $archivers = $this->_getArchivers($file);
-        if (count($archivers)) {
-            return true;
-        }
-
-        return false;
+        return (bool) count($archivers);
     }
 
     /**
      * Check file is TAR.
      *
-     * @param  mixed $file
+     * @param  string $file
      * @return bool
      */
     public function isTar($file)
     {
         $archivers = $this->_getArchivers($file);
-        if (count($archivers) == 1 && $archivers[0] == self::TAPE_ARCHIVER) {
-            return true;
-        }
-
-        return false;
+        return count($archivers) == 1 && $archivers[0] == self::TAPE_ARCHIVER;
     }
 }
