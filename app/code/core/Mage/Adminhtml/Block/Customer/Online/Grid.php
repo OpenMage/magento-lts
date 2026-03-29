@@ -14,22 +14,18 @@
  */
 class Mage_Adminhtml_Block_Customer_Online_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
-    /**
-     * Initialize Grid block
-     */
+    protected string $_eventPrefix = 'adminhtml_customer_online_grid';
+
     public function __construct()
     {
         parent::__construct();
         $this->setId('onlineGrid');
         $this->setSaveParametersInSession(true);
         $this->setDefaultSort('last_activity');
-        $this->setDefaultDir('DESC');
     }
 
     /**
-     * Prepare collection for grid
-     *
-     * @return $this
+     * @inheritDoc
      */
     protected function _prepareCollection()
     {
@@ -40,15 +36,13 @@ class Mage_Adminhtml_Block_Customer_Online_Grid extends Mage_Adminhtml_Block_Wid
         $collection->addCustomerData();
 
         $this->setCollection($collection);
-        parent::_prepareCollection();
 
-        return $this;
+        return parent::_prepareCollection();
     }
 
     /**
-     * Prepare columns
-     *
-     * @return $this
+     * @inheritDoc
+     * @throws Exception
      */
     protected function _prepareColumns()
     {
@@ -134,14 +128,15 @@ class Mage_Adminhtml_Block_Customer_Online_Grid extends Mage_Adminhtml_Block_Wid
     }
 
     /**
-     * Retrieve Row URL
-     *
-     * @param  Mage_Core_Model_Abstract $row
-     * @return string
+     * @inheritDoc
+     * @param Mage_Log_Model_Visitor_Online $row
      */
     public function getRowUrl($row)
     {
-        return (Mage::getSingleton('admin/session')->isAllowed('customer/manage') && $row->getCustomerId())
-            ? $this->getUrl('*/customer/edit', ['id' => $row->getCustomerId()]) : '';
+        if ($this->isAllowed('customer/manage') && $row->getCustomerId()) {
+            return $this->getUrl('*/customer/edit', ['id' => $row->getCustomerId()]);
+        }
+
+        return '';
     }
 }

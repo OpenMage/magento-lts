@@ -11,6 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Core\Model;
 
+use Mage_Adminhtml_Block_Api_Buttons;
+use Mage_Adminhtml_Block_Catalog_Category_Helper_Pricestep;
 use Error;
 use Generator;
 use Mage;
@@ -84,8 +86,8 @@ final class LayoutTest extends OpenMageTest
 
         #$allBlocks = $this->getAllBlockClasses();
         $allBlocks = [
-            'adminhtml/api_buttons' => \Mage_Adminhtml_Block_Api_Buttons::class,
-            'adminhtml/catalog_category_helper_pricestep' => \Mage_Adminhtml_Block_Catalog_Category_Helper_Pricestep::class,
+            'adminhtml/api_buttons' => Mage_Adminhtml_Block_Api_Buttons::class,
+            'adminhtml/catalog_category_helper_pricestep' => Mage_Adminhtml_Block_Catalog_Category_Helper_Pricestep::class,
         ];
 
         foreach ($allBlocks as $alias => $className) {

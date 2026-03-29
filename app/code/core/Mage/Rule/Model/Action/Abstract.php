@@ -65,7 +65,7 @@ abstract class Mage_Rule_Model_Action_Abstract extends Varien_Object implements 
     }
 
     /**
-     * @return array
+     * @return array<string, string>
      */
     public function asArray(array $arrAttributes = [])
     {
@@ -200,7 +200,7 @@ abstract class Mage_Rule_Model_Action_Abstract extends Varien_Object implements 
     }
 
     /**
-     * @return array
+     * @return array<int, array<string, string>>
      */
     public function getNewChildSelectOptions()
     {

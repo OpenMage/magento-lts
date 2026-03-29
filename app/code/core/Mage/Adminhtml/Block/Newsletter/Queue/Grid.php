@@ -14,12 +14,13 @@
  */
 class Mage_Adminhtml_Block_Newsletter_Queue_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_newsletter_queue_grid';
+
     public function __construct()
     {
         parent::__construct();
         $this->setId('queueGrid');
         $this->setDefaultSort('start_at');
-        $this->setDefaultDir('desc');
         $this->setSaveParametersInSession(true);
         $this->setUseAjax(true);
     }
@@ -31,7 +32,6 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Grid extends Mage_Adminhtml_Block_Wi
     {
         $collection = Mage::getResourceModel('newsletter/queue_collection')
             ->addSubscribersInfo();
-
         $this->setCollection($collection);
 
         return parent::_prepareCollection();
@@ -106,6 +106,11 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Grid extends Mage_Adminhtml_Block_Wi
         return parent::_prepareColumns();
     }
 
+    /**
+     * @inheritDoc
+     * @param  Mage_Newsletter_Model_Queue $row
+     * @throws Mage_Core_Exception
+     */
     public function getRowUrl($row)
     {
         return $this->getUrl('*/*/edit', ['id' => $row->getId()]);

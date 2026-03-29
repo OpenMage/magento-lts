@@ -173,14 +173,14 @@ class Mage_Paypal_Model_Pro
         if ($from->getDataUsingMethod(Mage_Paypal_Model_Info::IS_FRAUD)) {
             $to->setIsTransactionPending(true);
             $to->setIsFraudDetected(true);
-        } elseif ($this->getInfo()->isPaymentReviewRequired($to)) {
+        } elseif ($this->getInfo()::isPaymentReviewRequired($to)) {
             $to->setIsTransactionPending(true);
         }
 
         // give generic info about transaction state
-        if ($this->getInfo()->isPaymentSuccessful($to)) {
+        if ($this->getInfo()::isPaymentSuccessful($to)) {
             $to->setIsTransactionApproved(true);
-        } elseif ($this->getInfo()->isPaymentFailed($to)) {
+        } elseif ($this->getInfo()::isPaymentFailed($to)) {
             $to->setIsTransactionDenied(true);
         }
 
@@ -297,7 +297,7 @@ class Mage_Paypal_Model_Pro
         // check whether the review is still needed
         $api->callGetTransactionDetails();
         $this->importPaymentInfo($api, $payment);
-        if (!$this->getInfo()->isPaymentReviewRequired($payment)) {
+        if (!$this->getInfo()::isPaymentReviewRequired($payment)) {
             return false;
         }
 

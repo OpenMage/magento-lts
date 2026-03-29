@@ -83,7 +83,7 @@ class Varien_Simplexml_Config
 
         if ($sourceData instanceof Varien_Simplexml_Element) {
             $this->setXml($sourceData);
-        } elseif (is_string($sourceData) && !empty($sourceData)) {
+        } elseif (is_string($sourceData) && $sourceData !== '') {
             if (strlen($sourceData) < 1000 && is_readable($sourceData)) {
                 $this->loadFile($sourceData);
             } else {

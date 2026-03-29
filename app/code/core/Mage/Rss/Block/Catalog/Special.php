@@ -129,8 +129,8 @@ class Mage_Rss_Block_Catalog_Special extends Mage_Rss_Block_Catalog_Abstract
 
                         $html .= sprintf(
                             '<p>%s %s%s</p>',
-                            Mage::helper('catalog')->__('Price: %s', Mage::helper('core')->currency($result['price'])),
-                            Mage::helper('catalog')->__('Special Price: %s', Mage::helper('core')->currency($result['final_price'])),
+                            Mage::helper('catalog')->__('Price: %s', Mage::helper('core')::currency($result['price'])),
+                            Mage::helper('catalog')->__('Special Price: %s', Mage::helper('core')::currency($result['final_price'])),
                             $special,
                         );
                     }

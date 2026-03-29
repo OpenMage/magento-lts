@@ -48,7 +48,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
     /**
      * Default product attributes
      *
-     * @return array
+     * @return array<int, string>
      */
     protected function _getDefaultAttributes()
     {
@@ -257,7 +257,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
         $delete = array_diff($oldCategoryIds, $categoryIds);
 
         $write = $this->_getWriteAdapter();
-        if (!empty($insert)) {
+        if ($insert !== []) {
             $data = [];
             foreach ($insert as $categoryId) {
                 if (empty($categoryId)) {
@@ -286,7 +286,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
             $write->delete($this->_productCategoryTable, $where);
         }
 
-        if (!empty($insert) || !empty($delete)) {
+        if ($insert !== [] || $delete !== []) {
             $object->setAffectedCategoryIds(array_merge($insert, $delete));
             $object->setIsChangedCategories(true);
         }
@@ -392,7 +392,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
             $storeId    = $store->getId();
             $websiteId  = $store->getWebsiteId();
 
-            if (is_array($product) && !empty($product)) {
+            if (is_array($product) && $product !== []) {
                 $condition[] = $adapter->quoteInto('product_id IN (?)', $product);
             }
 
@@ -483,7 +483,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
             ->where('t_v_default.store_id = ?', 0)
             ->where(sprintf('%s = ?', $valueCondition), Mage_Catalog_Model_Product_Status::STATUS_ENABLED);
 
-        if (is_array($product) && !empty($product)) {
+        if (is_array($product) && $product !== []) {
             $select->where('t_v_default.entity_id IN (?)', $product);
         }
 
@@ -650,7 +650,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
 
     /**
      * @param  Mage_Catalog_Model_Product $object
-     * @return array
+     * @return array<void>
      * @deprecated after 1.4.2.0
      */
     public function getParentProductIds($object)

@@ -17,7 +17,7 @@ trait CoreTrait
 {
     use ModulesTrait;
 
-    public function provideIsOutputEnabled(): Generator
+    public function provideIsModuleOutputEnabledData(): Generator
     {
         yield 'null' => [
             true,

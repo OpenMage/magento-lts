@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Contacts\Controllers;
 
+use Mage_Core_Controller_Request_Http;
 use Mage;
 use Mage_Contacts_IndexController as Subject;
 use Mage_Core_Exception;
@@ -30,7 +31,7 @@ final class IndexControllerTest extends OpenMageTest
      */
     public function testPostAction(array $postData, bool $isFormKeyValid, ?string $expectedErrorMessage): void
     {
-        $requestMock = $this->getMockBuilder(\Mage_Core_Controller_Request_Http::class)
+        $requestMock = $this->getMockBuilder(Mage_Core_Controller_Request_Http::class)
             ->disableOriginalConstructor()
             ->onlyMethods(['getPost'])
             ->getMock();

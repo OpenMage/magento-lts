@@ -159,7 +159,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      *
      * When you use true - all cache will be clean
      *
-     * @var string|true
+     * @inheritDoc
      */
     protected $_cacheTag = 'quote';
 
@@ -918,13 +918,12 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     /**
      * Retrieve item model object by item identifier
      *
-     * @param  int                         $itemId
-     * @return Mage_Sales_Model_Quote_Item
+     * @param  int                              $itemId
+     * @return null|Mage_Sales_Model_Quote_Item
      * @throws Mage_Core_Exception
      */
     public function getItemById($itemId)
     {
-        $quoteItem = null;
         if ($quoteItem = $this->getItemsCollection()->getItemById($itemId)) {
             return $quoteItem;
         }
@@ -935,7 +934,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
             }
         }
 
-        return $quoteItem;
+        return null;
     }
 
     /**
@@ -1270,13 +1269,14 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
 
             $items = $this->getAllItems();
             foreach ($items as $item) {
-                if (($item->getProductId() == $productId) && ($item->getId() != $resultItem->getId())) {
-                    if ($resultItem->compare($item)) {
-                        // Product configuration is same as in other quote item
-                        $resultItem->setQty($resultItem->getQty() + $item->getQty());
-                        $this->removeItem($item->getId());
-                        break;
-                    }
+                if ($item->getProductId() == $productId
+                    && $item->getId() != $resultItem->getId()
+                    && $resultItem->compare($item)
+                ) {
+                    // Product configuration is same as in other quote item
+                    $resultItem->setQty($resultItem->getQty() + $item->getQty());
+                    $this->removeItem($item->getId());
+                    break;
                 }
             }
         } else {
@@ -1567,7 +1567,11 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         $totals = $shippingAddress->getTotals();
         // Going through all quote addresses and merge their totals
         foreach ($this->getAddressesCollection() as $address) {
-            if ($address->isDeleted() || $address === $shippingAddress) {
+            if ($address->isDeleted()) {
+                continue;
+            }
+
+            if ($address === $shippingAddress) {
                 continue;
             }
 
@@ -1635,7 +1639,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     /**
      * Retrieve current quote errors
      *
-     * @return array
+     * @return Mage_Core_Model_Message_Abstract[]
      */
     public function getErrors()
     {
@@ -1881,7 +1885,11 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         $countItems = 0;
         /** @var Mage_Sales_Model_Quote_Item $item */
         foreach ($this->getItemsCollection() as $item) {
-            if ($item->isDeleted() || $item->getParentItemId()) {
+            if ($item->isDeleted()) {
+                continue;
+            }
+
+            if ($item->getParentItemId()) {
                 continue;
             }
 
@@ -1958,6 +1966,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
                 $newItem = clone $item;
                 $this->addItem($newItem);
                 if ($item->getHasChildren()) {
+                    /** @var Mage_Sales_Model_Quote_Item $child */
                     foreach ($item->getChildren() as $child) {
                         $newChild = clone $child;
                         $newChild->setParentItem($newItem);

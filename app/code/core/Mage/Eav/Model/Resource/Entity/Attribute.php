@@ -190,7 +190,11 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
             }
 
             foreach ($storeLabels as $storeId => $label) {
-                if ($storeId == 0 || !strlen($label)) {
+                if ($storeId == 0) {
+                    continue;
+                }
+
+                if (!strlen($label)) {
                     continue;
                 }
 

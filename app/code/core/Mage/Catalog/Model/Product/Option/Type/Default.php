@@ -122,18 +122,6 @@ class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
     }
 
     /**
-     * Getter for Quote Item Option
-     * Deprecated in favor of getConfigurationItemOption()
-     *
-     * @return Mage_Catalog_Model_Product_Configuration_Item_Option_Interface
-     * @deprecated after 1.4.2.0
-     */
-    public function getQuoteItemOption()
-    {
-        return $this->getConfigurationItemOption();
-    }
-
-    /**
      * Getter for Configuration Item
      *
      * @return Mage_Catalog_Model_Product_Configuration_Item_Interface
@@ -150,18 +138,6 @@ class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
         }
 
         Mage::throwException(Mage::helper('catalog')->__('Wrong configuration item instance in options group.'));
-    }
-
-    /**
-     * Getter for Quote Item
-     * Deprecated in favor of getConfigurationItem()
-     *
-     * @return Mage_Catalog_Model_Product_Configuration_Item_Interface
-     * @deprecated after 1.4.2.0
-     */
-    public function getQuoteItem()
-    {
-        return $this->getConfigurationItem();
     }
 
     /**

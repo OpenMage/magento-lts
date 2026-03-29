@@ -27,7 +27,7 @@
  *
  * @package    Mage_Core
  */
-class Mage_Core_Model_File_Validator_AvailablePath extends Mage_Core_Helper_Validate_Abstract
+class Mage_Core_Model_File_Validator_AvailablePath extends Mage_Core_Model_Validate_Abstract
 {
     public const PROTECTED_PATH     = 'protectedPath';
 
@@ -38,7 +38,7 @@ class Mage_Core_Model_File_Validator_AvailablePath extends Mage_Core_Helper_Vali
     /**
      * The path
      *
-     * @var string
+     * @inheritDoc
      */
     protected $_value;
 
@@ -308,11 +308,7 @@ class Mage_Core_Model_File_Validator_AvailablePath extends Mage_Core_Helper_Vali
             }
         }
 
-        if ($protected) {
-            return true;
-        }
-
         //return false because no one match with available path mask
-        return false;
+        return $protected;
     }
 }

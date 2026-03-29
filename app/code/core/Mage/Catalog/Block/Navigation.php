@@ -171,14 +171,12 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
     public function getCategoryUrl($category)
     {
         if ($category instanceof Mage_Catalog_Model_Category) {
-            $url = $category->getUrl();
-        } else {
-            $url = $this->_getCategoryInstance()
-                ->setData($category->getData())
-                ->getUrl();
+            return $category->getUrl();
         }
 
-        return $url;
+        return $this->_getCategoryInstance()
+            ->setData($category->getData())
+            ->getUrl();
     }
 
     /**

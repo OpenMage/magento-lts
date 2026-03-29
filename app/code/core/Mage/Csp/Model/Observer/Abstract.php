@@ -9,7 +9,7 @@ declare(strict_types=1);
  * @package    Mage_Csp
  */
 
-abstract class Mage_Csp_Model_Observer_Abstract
+abstract class Mage_Csp_Model_Observer_Abstract implements Mage_Core_Observer_Interface
 {
     /**
      * Common method to add CSP headers for a specific area

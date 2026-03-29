@@ -145,13 +145,14 @@ class Varien_Db_Select extends Zend_Db_Select
                         continue;
                     }
 
-                    if (!empty($table['joinCondition'])) {
-                        if ($this->_findTableInCond($tableId, $table['joinCondition'])
+                    if (!empty($table['joinCondition'])
+                        && (
+                            $this->_findTableInCond($tableId, $table['joinCondition'])
                             || $this->_findTableInCond($tableProp['tableName'], $table['joinCondition'])
-                        ) {
-                            $useJoin = true;
-                            $joinInTables[] = $tableCorrelationName;
-                        }
+                        )
+                    ) {
+                        $useJoin = true;
+                        $joinInTables[] = $tableCorrelationName;
                     }
                 }
 

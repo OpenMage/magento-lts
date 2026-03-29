@@ -249,14 +249,14 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
             $this->_saveImportData($importData);
             $io->streamClose();
             $adapter->commit();
-        } catch (Mage_Core_Exception $e) {
+        } catch (Mage_Core_Exception $mageCoreException) {
             $adapter->rollBack();
             $io->streamClose();
-            Mage::throwException($e->getMessage());
-        } catch (Exception $e) {
+            Mage::throwException($mageCoreException->getMessage());
+        } catch (Exception $exception) {
             $adapter->rollBack();
             $io->streamClose();
-            Mage::logException($e);
+            Mage::logException($exception);
             Mage::throwException(Mage::helper('shipping')->__('An error occurred while import table rates.'));
         }
 
@@ -417,6 +417,7 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
     /**
      * Save import data batch
      *
+     * @param  array<int, mixed[]> $data
      * @return $this
      */
     protected function _saveImportData(array $data)
@@ -450,18 +451,5 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
         }
 
         return $value;
-    }
-
-    /**
-     * Parse and validate positive decimal value
-     *
-     * @param  string     $value
-     * @return bool|float
-     * @deprecated since 1.4.1.0
-     * @see self::_parseDecimalValue()
-     */
-    protected function _isPositiveDecimalNumber($value)
-    {
-        return $this->_parseDecimalValue($value);
     }
 }

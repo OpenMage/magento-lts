@@ -115,7 +115,7 @@
  * @method $this                          setParentItemId(int $value)
  * @method $this                          setPriceInclTax(float $value)
  * @method $this                          setProduct(Mage_Catalog_Model_Product $value)
- * @method $this                          setQty(float $value)
+ * @method $this                          setQty(float $qty)
  * @method $this                          setRowTax(int $rowTax)
  * @method $this                          setRowTotal(float $value)
  * @method $this                          setRowTotalExcTax(float $value)
@@ -229,7 +229,7 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
     /**
      * Set parent item
      *
-     * @param  Mage_Sales_Model_Quote_Item $parentItem
+     * @param  Mage_Sales_Model_Quote_Item_Abstract $parentItem
      * @return $this
      */
     public function setParentItem($parentItem)
@@ -380,19 +380,19 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
 
         try {
             $this->setQty($qty);
-        } catch (Mage_Core_Exception $e) {
+        } catch (Mage_Core_Exception $mageCoreException) {
             $this->setHasError(true);
-            $this->setMessage($e->getMessage());
-        } catch (Exception $e) {
+            $this->setMessage($mageCoreException->getMessage());
+        } catch (Exception) {
             $this->setHasError(true);
             $this->setMessage(Mage::helper('sales')->__('Item qty declaration error.'));
         }
 
         try {
             $this->getProduct()->getTypeInstance(true)->checkProductBuyState($this->getProduct());
-        } catch (Mage_Core_Exception $e) {
+        } catch (Mage_Core_Exception $mageCoreException) {
             $this->setHasError(true)
-                ->setMessage($e->getMessage());
+                ->setMessage($mageCoreException->getMessage());
             $this->getQuote()->setHasError(true)
                 ->addMessage(Mage::helper('sales')->__('Some of the products below do not have all the required options.'));
         } catch (Exception) {
@@ -705,11 +705,7 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
             $calculate = $this->getProduct()->getPriceType();
         }
 
-        if (($calculate !== null) && (int) $calculate === Mage_Catalog_Model_Product_Type_Abstract::CALCULATE_CHILD) {
-            return true;
-        }
-
-        return false;
+        return ($calculate !== null) && (int) $calculate === Mage_Catalog_Model_Product_Type_Abstract::CALCULATE_CHILD;
     }
 
     /**
@@ -726,13 +722,8 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
             $shipmentType = $this->getProduct()->getShipmentType();
         }
 
-        if (($shipmentType !== null)
-            && (int) $shipmentType === Mage_Catalog_Model_Product_Type_Abstract::SHIPMENT_SEPARATELY
-        ) {
-            return true;
-        }
-
-        return false;
+        return ($shipmentType !== null)
+            && (int) $shipmentType === Mage_Catalog_Model_Product_Type_Abstract::SHIPMENT_SEPARATELY;
     }
 
     /**
@@ -773,17 +764,16 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
             }
         }
 
-        if (Mage::helper('tax')->discountTax($store) && !Mage::helper('tax')->applyTaxAfterDiscount($store)) {
-            if ($this->getDiscountPercent()) {
-                $baseTaxAmount =  $this->getBaseTaxBeforeDiscount();
-                $taxAmount = $this->getTaxBeforeDiscount();
-
-                $baseDiscountDisposition = $baseTaxAmount / 100 * $this->getDiscountPercent();
-                $discountDisposition = $taxAmount / 100 * $this->getDiscountPercent();
-
-                $this->setDiscountAmount($this->getDiscountAmount() + $discountDisposition);
-                $this->setBaseDiscountAmount($this->getBaseDiscountAmount() + $baseDiscountDisposition);
-            }
+        if (Mage::helper('tax')->discountTax($store)
+            && !Mage::helper('tax')->applyTaxAfterDiscount($store)
+            && $this->getDiscountPercent()
+        ) {
+            $baseTaxAmount =  $this->getBaseTaxBeforeDiscount();
+            $taxAmount = $this->getTaxBeforeDiscount();
+            $baseDiscountDisposition = $baseTaxAmount / 100 * $this->getDiscountPercent();
+            $discountDisposition = $taxAmount / 100 * $this->getDiscountPercent();
+            $this->setDiscountAmount($this->getDiscountAmount() + $discountDisposition);
+            $this->setBaseDiscountAmount($this->getBaseDiscountAmount() + $baseDiscountDisposition);
         }
 
         return $this;

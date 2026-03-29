@@ -106,7 +106,7 @@ class Mage_Sales_Model_Observer
         }
 
         if ($product instanceof Mage_Catalog_Model_Product) {
-            $childrenProductList = Mage::getSingleton('catalog/product_type')->factory($product)
+            $childrenProductList = Mage::getSingleton('catalog/product_type')::factory($product)
                 ->getChildrenIds($product->getId(), false);
 
             $productIdList = [$product->getId()];
@@ -355,8 +355,8 @@ class Mage_Sales_Model_Observer
 
         $vatRequestId = $orderAddress->getVatRequestId();
         $vatRequestDate = $orderAddress->getVatRequestDate();
-        if (is_string($vatRequestId) && !empty($vatRequestId) && is_string($vatRequestDate)
-            && !empty($vatRequestDate)
+        if (is_string($vatRequestId) && $vatRequestId !== ''
+            && is_string($vatRequestDate) && $vatRequestDate !== ''
         ) {
             $orderHistoryComment = Mage::helper('customer')->__('VAT Request Identifier')
                 . ': ' . $vatRequestId . '<br />' . Mage::helper('customer')->__('VAT Request Date')

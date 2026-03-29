@@ -16,6 +16,8 @@
  */
 class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_report_grid';
+
     protected $_storeSwitcherVisibility = true;
 
     protected $_dateFilterVisibility = true;
@@ -61,7 +63,7 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
         $this->setPagerVisibility(false);
         $this->setTemplate('report/grid.phtml');
         $this->setUseAjax(false);
-        $this->setCountTotals(true);
+        $this->setCountTotals();
     }
 
     /**
@@ -610,11 +612,7 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
     public function getCountTotals()
     {
         $totals = $this->getGrandTotals()->getData();
-        if (parent::getCountTotals() && count($totals)) {
-            return true;
-        }
-
-        return false;
+        return parent::getCountTotals() && count($totals);
     }
 
     /**

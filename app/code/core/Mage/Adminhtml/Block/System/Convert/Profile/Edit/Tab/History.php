@@ -14,15 +14,13 @@
  */
 class Mage_Adminhtml_Block_System_Convert_Profile_Edit_Tab_History extends Mage_Adminhtml_Block_Widget_Grid
 {
-    /**
-     * Mage_Adminhtml_Block_System_Convert_Profile_Edit_Tab_History constructor.
-     */
+    protected string $_eventPrefix = 'adminhtml_system_convert_profile_edit_tab_history';
+
     public function __construct()
     {
         parent::__construct();
         $this->setId('history_grid');
         $this->setDefaultSort('performed_at');
-        $this->setDefaultDir('desc');
         $this->setUseAjax(true);
     }
 
@@ -71,7 +69,7 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Edit_Tab_History extends Mage_
     }
 
     /**
-     * @return string
+     * @inheritDoc
      */
     public function getGridUrl()
     {

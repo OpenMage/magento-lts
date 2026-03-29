@@ -73,11 +73,11 @@ class Mage_Install_Model_Installer_Db extends Mage_Install_Model_Installer_Abstr
             }
 
             // TODO: check user roles
-        } catch (Mage_Core_Exception $e) {
-            Mage::logException($e);
-            Mage::throwException(Mage::helper('install')->__($e->getMessage()));
-        } catch (Exception $e) {
-            Mage::logException($e);
+        } catch (Mage_Core_Exception $mageCoreException) {
+            Mage::logException($mageCoreException);
+            Mage::throwException(Mage::helper('install')->__($mageCoreException->getMessage()));
+        } catch (Exception $exception) {
+            Mage::logException($exception);
             Mage::throwException(Mage::helper('install')->__('Database connection error.'));
         }
 
@@ -102,12 +102,10 @@ class Mage_Install_Model_Installer_Db extends Mage_Install_Model_Installer_Abstr
         }
 
         //check table prefix
-        if ($data['db_prefix'] != '') {
-            if (!preg_match('/^[a-z]+[a-z0-9_]*$/', $data['db_prefix'])) {
-                Mage::throwException(
-                    Mage::helper('install')->__('The table prefix should contain only letters (a-z), numbers (0-9) or underscores (_), the first character should be a letter.'),
-                );
-            }
+        if ($data['db_prefix'] != '' && !preg_match('/^[a-z]+[a-z0-9_]*$/', $data['db_prefix'])) {
+            Mage::throwException(
+                Mage::helper('install')->__('The table prefix should contain only letters (a-z), numbers (0-9) or underscores (_), the first character should be a letter.'),
+            );
         }
 
         //set default db model

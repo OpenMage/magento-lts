@@ -21,7 +21,6 @@ class Mage_Adminhtml_Block_Sales_Order_Status_Grid extends Mage_Adminhtml_Block_
         //$this->setFilterVisibility(false);
         $this->setPagerVisibility(false);
         $this->setDefaultSort('state');
-        $this->setDefaultDir('DESC');
     }
 
     /**
@@ -92,12 +91,10 @@ class Mage_Adminhtml_Block_Sales_Order_Status_Grid extends Mage_Adminhtml_Block_
     public function decorateState($value, $row, $column, $isExport)
     {
         if ($value) {
-            $cell = $value . ' [' . Mage::getSingleton('sales/order_config')->getStateLabel($value) . ']';
-        } else {
-            $cell = $value;
+            return $value . ' [' . Mage::getSingleton('sales/order_config')->getStateLabel($value) . ']';
         }
 
-        return $cell;
+        return $value;
     }
 
     public function decorateAction($value, $row, $column, $isExport)
@@ -117,13 +114,19 @@ class Mage_Adminhtml_Block_Sales_Order_Status_Grid extends Mage_Adminhtml_Block_
     }
 
     /**
-     * No pegination for this grid
+     * No pagination for this grid
+     *
+     * @inheritDoc
      */
     protected function _preparePage()
     {
         return $this;
     }
 
+    /**
+     * @inheritDoc
+     * @param Mage_Sales_Model_Order_Status $row
+     */
     public function getRowUrl($row)
     {
         return $this->getUrl('*/sales_order_status/edit', ['status' => $row->getStatus()]);

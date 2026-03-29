@@ -17,7 +17,7 @@
 class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Block_Widget_Grid
 {
     /**
-     * @var null|Mage_Eav_Model_Resource_Entity_Attribute_Collection
+     * @inheritDoc
      */
     protected $_collection = null;
 
@@ -421,10 +421,8 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
     }
 
     /**
-     * Get row edit URL.
-     *
-     * @param  Mage_Catalog_Model_Resource_Eav_Attribute $row
-     * @return string
+     * @inheritDoc
+     * @param Mage_Catalog_Model_Resource_Eav_Attribute $row
      */
     public function getRowUrl($row)
     {

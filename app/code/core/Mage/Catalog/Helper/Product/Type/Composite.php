@@ -103,7 +103,7 @@ class Mage_Catalog_Helper_Product_Type_Composite extends Mage_Core_Helper_Abstra
     /**
      * Prepare general params for product to be used in getJsonConfig()
      *
-     * @return array
+     * @return array<string, mixed>
      * @see Mage_Catalog_Block_Product_View::getJsonConfig()
      * @see Mage_ConfigurableSwatches_Block_Catalog_Product_List_Price::getJsonConfig()
      */
@@ -126,7 +126,7 @@ class Mage_Catalog_Helper_Product_Type_Composite extends Mage_Core_Helper_Abstra
     /**
      * Prepare product specific params to be used in getJsonConfig()
      * @param  Mage_Catalog_Model_Product      $product
-     * @return array
+     * @return array<string, mixed>
      * @throws Mage_Core_Model_Store_Exception
      *
      * @see Mage_ConfigurableSwatches_Block_Catalog_Product_List_Price::getJsonConfig()
@@ -188,12 +188,12 @@ class Mage_Catalog_Helper_Product_Type_Composite extends Mage_Core_Helper_Abstra
                 continue;
             }
 
-            $_tierPrices[] = Mage::helper('core')->currency(
+            $_tierPrices[] = Mage::helper('core')::currency(
                 Mage::helper('tax')->getPrice($product, (float) $tierPrice['website_price'], false) - $_priceExclTax,
                 false,
                 false,
             );
-            $_tierPricesInclTax[] = Mage::helper('core')->currency(
+            $_tierPricesInclTax[] = Mage::helper('core')::currency(
                 Mage::helper('tax')->getPrice($product, (float) $tierPrice['website_price'], true) - $_priceInclTax,
                 false,
                 false,
@@ -202,10 +202,10 @@ class Mage_Catalog_Helper_Product_Type_Composite extends Mage_Core_Helper_Abstra
 
         return [
             'productId'           => $product->getId(),
-            'productPrice'        => Mage::helper('core')->currency($_finalPrice, false, false),
-            'productOldPrice'     => Mage::helper('core')->currency($_regularPrice, false, false),
-            'priceInclTax'        => Mage::helper('core')->currency($_priceInclTax, false, false),
-            'priceExclTax'        => Mage::helper('core')->currency($_priceExclTax, false, false),
+            'productPrice'        => Mage::helper('core')::currency($_finalPrice, false, false),
+            'productOldPrice'     => Mage::helper('core')::currency($_regularPrice, false, false),
+            'priceInclTax'        => Mage::helper('core')::currency($_priceInclTax, false, false),
+            'priceExclTax'        => Mage::helper('core')::currency($_priceExclTax, false, false),
             'skipCalculate'       => ($_priceExclTax != $_priceInclTax ? 0 : 1),
             'defaultTax'          => $defaultTax,
             'currentTax'          => $currentTax,

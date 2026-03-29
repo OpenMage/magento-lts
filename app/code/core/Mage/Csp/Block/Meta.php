@@ -35,7 +35,7 @@ class Mage_Csp_Block_Meta extends Mage_Core_Block_Template
      */
     public function addDirective(string $directive, string $value): static
     {
-        if (!in_array($directive, Mage_Csp_Helper_Data::CSP_DIRECTIVES)) {
+        if (!in_array($directive, Mage_Csp_Helper_Data::CSP_DIRECTIVES, true)) {
             return $this;
         }
 

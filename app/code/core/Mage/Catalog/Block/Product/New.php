@@ -46,7 +46,7 @@ class Mage_Catalog_Block_Product_New extends Mage_Catalog_Block_Product_Abstract
     /**
      * Get Key pieces for caching block content
      *
-     * @return array
+     * @return array<int|string, mixed>
      */
     public function getCacheKeyInfo()
     {
@@ -79,7 +79,7 @@ class Mage_Catalog_Block_Product_New extends Mage_Catalog_Block_Product_Abstract
 
         /** @var Mage_Catalog_Model_Resource_Product_Collection $collection */
         $collection = Mage::getResourceModel('catalog/product_collection');
-        $collection->setVisibility(Mage::getSingleton('catalog/product_visibility')->getVisibleInCatalogIds());
+        $collection->setVisibility(Mage::getSingleton('catalog/product_visibility')::getVisibleInCatalogIds());
 
         return $this->_addProductAttributesAndPrices($collection)
             ->addStoreFilter()

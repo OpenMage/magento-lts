@@ -37,7 +37,7 @@ class Mage_Admin_Model_Observer
             'logout',
             'refresh', // captcha refresh
         ];
-        if (in_array($requestedActionName, $openActions)) {
+        if (in_array($requestedActionName, $openActions, true)) {
             $request->setDispatched(true);
         } else {
             if ($user) {

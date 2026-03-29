@@ -116,13 +116,13 @@ class Mage_Api2_Model_Acl_Global_Rule_Tree extends Mage_Core_Helper_Abstract
             case self::TYPE_ATTRIBUTE:
                 /** @var Mage_Api2_Model_Acl_Filter_Attribute_Operation $operationSource */
                 $operationSource = Mage::getModel('api2/acl_filter_attribute_operation');
-                $this->_existOperations = $operationSource->toArray();
+                $this->_existOperations = $operationSource::toArray();
                 break;
 
             case self::TYPE_PRIVILEGE:
                 /** @var Mage_Api2_Model_Acl_Global_Rule_Privilege $privilegeSource */
                 $privilegeSource = Mage::getModel('api2/acl_global_rule_privilege');
-                $this->_existPrivileges = $privilegeSource->toArray();
+                $this->_existPrivileges = $privilegeSource::toArray();
                 break;
 
             default:
@@ -430,11 +430,7 @@ class Mage_Api2_Model_Acl_Global_Rule_Tree extends Mage_Core_Helper_Abstract
             $item[self::NAME_CHILDREN][] = $subItem;
         }
 
-        if (!$cnt) {
-            return false;
-        }
-
-        return true;
+        return (bool) $cnt;
     }
 
     /**

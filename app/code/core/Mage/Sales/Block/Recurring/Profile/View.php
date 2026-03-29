@@ -345,7 +345,8 @@ class Mage_Sales_Block_Recurring_Profile_View extends Mage_Core_Block_Template
     /**
      * Add specified data to the $_info
      *
-     * @param string $key = null
+     * @param array<array<string, mixed>, mixed> $data
+     * @param string                             $key  = null
      */
     protected function _addInfo(array $data, $key = null)
     {

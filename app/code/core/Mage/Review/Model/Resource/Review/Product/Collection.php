@@ -134,7 +134,7 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
             $storesIds = array_shift($storesIds);
         }
 
-        if (is_array($storesIds) && !empty($storesIds)) {
+        if (is_array($storesIds) && $storesIds !== []) {
             $inCond = $adapter->prepareSqlCondition('store.store_id', ['in' => $storesIds]);
             $select->join(
                 ['store' => $this->_reviewStoreTable],

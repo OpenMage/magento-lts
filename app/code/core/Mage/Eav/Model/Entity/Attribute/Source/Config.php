@@ -19,14 +19,12 @@ class Mage_Eav_Model_Entity_Attribute_Source_Config extends Mage_Eav_Model_Entit
     /**
      * Config Node Path
      *
-     * @var Mage_Core_Model_Config_Element
+     * @var Mage_Core_Model_Config_Element|string
      */
     protected $_configNodePath;
 
     /**
-     * Retrieve all options for the source from configuration
-     *
-     * @return array
+     * @inheritDoc
      * @throws Mage_Eav_Exception
      */
     public function getAllOptions()

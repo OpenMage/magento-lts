@@ -232,10 +232,8 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
         }
 
         // remove last element, if empty
-        if ($count = count($result)) {
-            if ($result[$count - 1] === '') {
-                unset($result[$count - 1]);
-            }
+        if (($count = count($result)) && $result[$count - 1] === '') {
+            unset($result[$count - 1]);
         }
 
         // remove first element, if empty
@@ -364,18 +362,14 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
      */
     protected function _validateQueryStr($str)
     {
-        if (!$str || !str_contains($str, '=')) {
-            return false;
-        }
-
-        return true;
+        return !(!$str || !str_contains($str, '='));
     }
 
     /**
      * Prepare param
      *
-     * @param  string $str
-     * @return array
+     * @param  string                $str
+     * @return array<string, string>
      */
     protected function _explodeAndDecodeParam($str)
     {
@@ -412,6 +406,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
     /**
      * Handle param recursively
      *
+     * @param  array<string, array<int|string, string>|string> $param
      * @return array
      */
     protected function _handleRecursiveParamForQueryStr(array $param)

@@ -71,18 +71,18 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
     {
         if ($this->getAttribute()->getIsRequired()) {
             $value = $object->getData($this->getAttribute()->getAttributeCode());
-            if ($this->getAttribute()->isValueEmpty($value)) {
-                if (!(is_array($value) && $value !== [])) {
-                    return false;
-                }
+            if ($this->getAttribute()->isValueEmpty($value)
+                && !(is_array($value) && $value !== [])
+            ) {
+                return false;
             }
         }
 
-        if ($this->getAttribute()->getIsUnique()) {
-            if (!$this->getAttribute()->getEntity()->checkAttributeUniqueValue($this->getAttribute(), $object)) {
-                $label = $this->getAttribute()->getFrontend()->getLabel();
-                Mage::throwException(Mage::helper('eav')->__('The value of attribute "%s" must be unique.', $label));
-            }
+        if ($this->getAttribute()->getIsUnique()
+            && !$this->getAttribute()->getEntity()->checkAttributeUniqueValue($this->getAttribute(), $object)
+        ) {
+            $label = $this->getAttribute()->getFrontend()->getLabel();
+            Mage::throwException(Mage::helper('eav')->__('The value of attribute "%s" must be unique.', $label));
         }
 
         return true;
@@ -159,7 +159,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
                 continue;
             }
 
-            if (in_array($attrData, $clearImages)) {
+            if (in_array($attrData, $clearImages, true)) {
                 $object->setData($mediaAttrCode, 'no_selection');
             }
         }
@@ -307,7 +307,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
         Mage::dispatchEvent('catalog_product_media_add_image', ['product' => $product, 'image' => $file]);
 
         $pathinfo = pathinfo($file);
-        if (!isset($pathinfo['extension']) || !in_array(strtolower($pathinfo['extension']), Varien_Io_File::ALLOWED_IMAGES_EXTENSIONS)) {
+        if (!isset($pathinfo['extension']) || !in_array(strtolower($pathinfo['extension']), Varien_Io_File::ALLOWED_IMAGES_EXTENSIONS, true)) {
             Mage::throwException(Mage::helper('catalog')->__('Invalid image file type.'));
         }
 
@@ -382,11 +382,11 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
      * Add images with different media attributes.
      * Image will be added only once if the same image is used with different media attributes
      *
-     * @param  array               $fileAndAttributesArray array of arrays of filename and corresponding media attribute
-     * @param  string              $filePath               path, where image cand be found
-     * @param  bool                $move                   if true, it will move source file
-     * @param  bool                $exclude                mark image as disabled in product page view
-     * @return array               array of parallel arrays with original and renamed files
+     * @param  array                  $fileAndAttributesArray array of arrays of filename and corresponding media attribute
+     * @param  string                 $filePath               path, where image cand be found
+     * @param  bool                   $move                   if true, it will move source file
+     * @param  bool                   $exclude                mark image as disabled in product page view
+     * @return array<string, mixed[]> array of parallel arrays with original and renamed files
      * @throws Mage_Core_Exception
      */
     public function addImagesWithDifferentMediaAttributes(
@@ -517,11 +517,11 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
 
         if (is_array($mediaAttribute)) {
             foreach ($mediaAttribute as $attribute) {
-                if (in_array($attribute, $mediaAttributeCodes)) {
+                if (in_array($attribute, $mediaAttributeCodes, true)) {
                     $product->setData($attribute, null);
                 }
             }
-        } elseif (in_array($mediaAttribute, $mediaAttributeCodes)) {
+        } elseif (in_array($mediaAttribute, $mediaAttributeCodes, true)) {
             $product->setData($mediaAttribute, null);
         }
 
@@ -541,11 +541,11 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
 
         if (is_array($mediaAttribute)) {
             foreach ($mediaAttribute as $attribute) {
-                if (in_array($attribute, $mediaAttributeCodes)) {
+                if (in_array($attribute, $mediaAttributeCodes, true)) {
                     $product->setData($attribute, $value);
                 }
             }
-        } elseif (in_array($mediaAttribute, $mediaAttributeCodes)) {
+        } elseif (in_array($mediaAttribute, $mediaAttributeCodes, true)) {
             $product->setData($mediaAttribute, $value);
         }
 
@@ -626,17 +626,15 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
     protected function _getUniqueFileName($file, $dirsep)
     {
         if (Mage::helper('core/file_storage_database')->checkDbUsage()) {
-            $destFile = Mage::helper('core/file_storage_database')
+            return Mage::helper('core/file_storage_database')
                 ->getUniqueFilename(
                     Mage::getSingleton('catalog/product_media_config')->getBaseMediaUrlAddition(),
                     $file,
                 );
-        } else {
-            $destFile = dirname($file) . $dirsep
-                . Mage_Core_Model_File_Uploader::getNewFileName($this->_getConfig()->getMediaPath($file));
         }
 
-        return $destFile;
+        return dirname($file) . $dirsep
+            . Mage_Core_Model_File_Uploader::getNewFileName($this->_getConfig()->getMediaPath($file));
     }
 
     /**

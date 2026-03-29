@@ -195,17 +195,6 @@ class Mage_Checkout_Model_Type_Onepage
     }
 
     /**
-     * Get quote checkout method
-     *
-     * @return string
-     * @deprecated since 1.4.0.1
-     */
-    public function getCheckoutMehod()
-    {
-        return $this->getCheckoutMethod();
-    }
-
-    /**
      * Specify checkout method
      *
      * @param  string $method
@@ -315,10 +304,11 @@ class Mage_Checkout_Model_Type_Onepage
             return $result;
         }
 
-        if (!$this->getQuote()->getCustomerId() && self::METHOD_REGISTER == $this->getQuote()->getCheckoutMethod()) {
-            if ($this->_customerEmailExists($address->getEmail(), Mage::app()->getWebsite()->getId())) {
-                return ['error' => 1, 'message' => $this->_customerEmailExistsMessage];
-            }
+        if (!$this->getQuote()->getCustomerId()
+            && self::METHOD_REGISTER == $this->getQuote()->getCheckoutMethod()
+            && $this->_customerEmailExists($address->getEmail(), Mage::app()->getWebsite()->getId())
+        ) {
+            return ['error' => 1, 'message' => $this->_customerEmailExistsMessage];
         }
 
         if (!$this->getQuote()->isVirtual()) {

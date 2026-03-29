@@ -253,8 +253,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
     {
         if (is_null($this->_productTypes)) {
             $this->_productTypes = [];
-            $options = Mage::getModel('catalog/product_type')
-                ->getOptionArray();
+            $options = Mage::getModel('catalog/product_type')::getOptionArray();
             foreach ($options as $k => $v) {
                 $this->_productTypes[$k] = $k;
             }
@@ -272,8 +271,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
     {
         $type = $product->getTypeId();
         if (!isset($this->_productTypeInstances[$type])) {
-            $this->_productTypeInstances[$type] = Mage::getSingleton('catalog/product_type')
-                ->factory($product, true);
+            $this->_productTypeInstances[$type] = Mage::getSingleton('catalog/product_type')::factory($product, true);
         }
 
         $product->setTypeInstance($this->_productTypeInstances[$type], true);

@@ -2,8 +2,8 @@
 
 $ignoreErrors = [];
 $ignoreErrors[] = [
-	'rawMessage' => 'Call to an undefined method Mage_Core_Model_Abstract::addError().',
-	'identifier' => 'method.notFound',
+	'rawMessage' => 'Call to deprecated method getVersionInfo() of class Mage.',
+	'identifier' => 'staticMethod.deprecated',
 	'count' => 1,
 	'path' => __DIR__ . '/app/Mage.php',
 ];
@@ -24,6 +24,26 @@ $ignoreErrors[] = [
 	'identifier' => 'empty.notAllowed',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Admin/Helper/Rules/Fallback.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'PHPDoc tag @method for _getResource() references deprecated class Mage_Admin_Model_Resource_Acl_Role.',
+	'identifier' => 'methodTag.deprecatedClass',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Admin/Model/Acl/Role.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'PHPDoc tag @method for getResource() references deprecated class Mage_Admin_Model_Resource_Acl_Role.',
+	'identifier' => 'methodTag.deprecatedClass',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Admin/Model/Acl/Role.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to deprecated method add() of class Zend_Acl:
+in version 1.9.1 and will be available till 2.0.  New code
+            should use addResource() instead.',
+	'identifier' => 'method.deprecated',
+	'count' => 2,
+	'path' => __DIR__ . '/app/code/core/Mage/Admin/Model/Config.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
@@ -70,7 +90,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 4,
+	'count' => 3,
 	'path' => __DIR__ . '/app/code/core/Mage/Admin/Model/User.php',
 ];
 $ignoreErrors[] = [
@@ -116,22 +136,10 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Api/User/Edit/Tab/Roles.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Parameter #1 $collection of method Mage_Adminhtml_Block_Widget_Grid::setCollection() expects Varien_Data_Collection_Db, Varien_Data_Collection given.',
-	'identifier' => 'argument.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Cache/Grid.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 3,
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Catalog/Category/Checkboxes/Tree.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-	'identifier' => 'empty.notAllowed',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Catalog/Category/Edit/Form.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
@@ -146,7 +154,7 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Catalog/Category/Tree.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Cannot call method addAttributeToSelect() on Mage_Core_Model_Resource_Db_Collection_Abstract|false.',
+	'rawMessage' => 'Cannot call method getCollection() on object|false.',
 	'identifier' => 'method.nonObject',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Catalog/Category/Widget/Chooser.php',
@@ -156,6 +164,12 @@ $ignoreErrors[] = [
 	'identifier' => 'empty.notAllowed',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Catalog/Form/Renderer/Fieldset/Element.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to deprecated method checkConfigurableProducts() of class Mage_Eav_Model_Resource_Entity_Attribute_Collection.',
+	'identifier' => 'method.deprecated',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Catalog/Product/Attribute/Set/Main.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
@@ -212,6 +226,24 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Upsell.php',
 ];
 $ignoreErrors[] = [
+	'rawMessage' => 'Call to deprecated method getGroupCollection() of class Mage_Adminhtml_Block_Store_Switcher.',
+	'identifier' => 'method.deprecated',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Websites.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to deprecated method getStoreCollection() of class Mage_Adminhtml_Block_Store_Switcher.',
+	'identifier' => 'method.deprecated',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Websites.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to deprecated method getWebsiteCollection() of class Mage_Adminhtml_Block_Store_Switcher.',
+	'identifier' => 'method.deprecated',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Websites.php',
+];
+$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 1,
@@ -260,8 +292,23 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Customer/Edit/Tab/Addresses.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc type string of property Mage_Adminhtml_Block_Customer_Edit_Tab_Wishlist::$_defaultSort is not the same as PHPDoc type mixed of overridden property Mage_Adminhtml_Block_Widget_Grid::$_defaultSort.',
-	'identifier' => 'property.phpDocType',
+	'rawMessage' => 'Call to deprecated method addTemplateInfo() of class Mage_Newsletter_Model_Resource_Queue_Collection:
+since 1.4.0.1',
+	'identifier' => 'method.deprecated',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Customer/Edit/Tab/Newsletter/Grid.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to deprecated method addDaysInWishlist() of class Mage_Wishlist_Model_Resource_Item_Collection:
+after 1.4.2.0',
+	'identifier' => 'method.deprecated',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Customer/Edit/Tab/View/Wishlist.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to deprecated method addDaysInWishlist() of class Mage_Wishlist_Model_Resource_Item_Collection:
+after 1.4.2.0',
+	'identifier' => 'method.deprecated',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Customer/Edit/Tab/Wishlist.php',
 ];
@@ -278,9 +325,16 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Customer/Online/Grid/Renderer/Url.php',
 ];
 $ignoreErrors[] = [
+	'rawMessage' => 'Call to deprecated method isValidForSend() of class Mage_Newsletter_Model_Template:
+since 1.4.0.1',
+	'identifier' => 'method.deprecated',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Newsletter/Template/Grid/Renderer/Action.php',
+];
+$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 14,
+	'count' => 12,
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Page/Menu.php',
 ];
 $ignoreErrors[] = [
@@ -368,12 +422,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Report/Grid.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Parameter #1 $collection of method Mage_Adminhtml_Block_Widget_Grid::setCollection() expects Varien_Data_Collection_Db, Mage_Reports_Model_Resource_Report_Collection given.',
-	'identifier' => 'argument.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Report/Grid.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Parameter #1 $grid of method Mage_Reports_Model_Totals::countTotals() expects Mage_Adminhtml_Block_Report_Product_Grid, $this(Mage_Adminhtml_Block_Report_Grid) given.',
 	'identifier' => 'argument.type',
 	'count' => 1,
@@ -386,40 +434,16 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Report/Grid/Abstract.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Method Mage_Adminhtml_Block_Report_Grid_Abstract::getCollection() should return Mage_Core_Model_Resource_Db_Collection_Abstract|Mage_Reports_Model_Grouped_Collection but returns Varien_Data_Collection_Db|null.',
-	'identifier' => 'return.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Report/Grid/Abstract.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Parameter #1 $collection of method Mage_Adminhtml_Block_Widget_Grid::setCollection() expects Varien_Data_Collection_Db, Mage_Reports_Model_Grouped_Collection given.',
-	'identifier' => 'argument.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Report/Grid/Abstract.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Method Mage_Reports_Model_Totals::countTotals() invoked with 1 parameter, 3 required.',
 	'identifier' => 'arguments.count',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Report/Product/Grid.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc type int of property Mage_Adminhtml_Block_Report_Product_Sold_Grid::$_subReportSize is not the same as PHPDoc type mixed of overridden property Mage_Adminhtml_Block_Report_Grid::$_subReportSize.',
-	'identifier' => 'property.phpDocType',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Report/Product/Sold/Grid.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'PHPDoc type string of property Mage_Adminhtml_Block_Report_Product_Viewed_Grid::$_resourceCollectionName is not the same as PHPDoc type mixed of overridden property Mage_Adminhtml_Block_Report_Grid_Abstract::$_resourceCollectionName.',
 	'identifier' => 'property.phpDocType',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Report/Product/Viewed/Grid.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Parameter #1 $collection of method Mage_Adminhtml_Block_Widget_Grid::setCollection() expects Varien_Data_Collection_Db, Varien_Data_Collection given.',
-	'identifier' => 'argument.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Report/Refresh/Statistics/Grid.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
@@ -444,6 +468,12 @@ $ignoreErrors[] = [
 	'identifier' => 'empty.notAllowed',
 	'count' => 2,
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Sales/Order/Create/Form/Address.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to deprecated method getTaxAmount() of class Mage_Sales_Model_Quote_Item_Abstract.',
+	'identifier' => 'method.deprecated',
+	'count' => 2,
+	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Sales/Order/Create/Items/Grid.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
@@ -482,12 +512,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Sales/Order/View/Info.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Parameter #2 $array of function implode expects array<string>, array<int, array<string>|string|null> given.',
-	'identifier' => 'argument.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Sales/Order/View/Info.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 1,
@@ -498,12 +522,6 @@ $ignoreErrors[] = [
 	'identifier' => 'empty.notAllowed',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Sales/Reorder/Renderer/Action.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Parameter #1 $collection of method Mage_Adminhtml_Block_Widget_Grid::setCollection() expects Varien_Data_Collection_Db, Varien_Data_Collection given.',
-	'identifier' => 'argument.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Sales/Transactions/Detail/Grid.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
@@ -528,6 +546,12 @@ $ignoreErrors[] = [
 	'identifier' => 'empty.notAllowed',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/System/Config/Edit.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Cannot call method getPrefixes() on object|false.',
+	'identifier' => 'method.nonObject',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/System/Config/Form.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
@@ -638,16 +662,16 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Widget/Container.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-	'identifier' => 'empty.notAllowed',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Widget/Form.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Method Mage_Eav_Model_Entity_Attribute_Source_Interface::getAllOptions() invoked with 2 parameters, 0 required.',
 	'identifier' => 'arguments.count',
 	'count' => 2,
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Widget/Form.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to deprecated method getSaveUrl() of class Mage_Adminhtml_Block_Widget_Form_Container.',
+	'identifier' => 'method.deprecated',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Widget/Form/Container.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
@@ -682,12 +706,6 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Widget/Grid/Column/Filter/Select.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-	'identifier' => 'empty.notAllowed',
 	'count' => 2,
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Widget/Grid/Column/Filter/Theme.php',
 ];
@@ -702,18 +720,6 @@ $ignoreErrors[] = [
 	'identifier' => 'empty.notAllowed',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Widget/Grid/Column/Renderer/Country.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-	'identifier' => 'empty.notAllowed',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Widget/Grid/Column/Renderer/Options.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Parameter #2 $array of function implode expects array<string>, list<array<string>|string|null> given.',
-	'identifier' => 'argument.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Widget/Grid/Column/Renderer/Options.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
@@ -808,7 +814,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 6,
+	'count' => 3,
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Model/Config.php',
 ];
 $ignoreErrors[] = [
@@ -830,9 +836,15 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Model/Config/Data.php',
 ];
 $ignoreErrors[] = [
+	'rawMessage' => 'Cannot call method getPrefixes() on object|false.',
+	'identifier' => 'method.nonObject',
+	'count' => 2,
+	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Model/Config/Data.php',
+];
+$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 5,
+	'count' => 4,
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Model/Config/Data.php',
 ];
 $ignoreErrors[] = [
@@ -842,15 +854,16 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Model/Config/Data.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc type Varien_Simplexml_Element of property Mage_Adminhtml_Model_LayoutUpdate_Validator::$_value is not the same as PHPDoc type mixed of overridden property Mage_Core_Helper_Validate_Abstract::$_value.',
-	'identifier' => 'property.phpDocType',
+	'rawMessage' => 'Call to deprecated method submit() of class Mage_Sales_Model_Service_Quote:
+after 1.4.0.1',
+	'identifier' => 'method.deprecated',
 	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Model/LayoutUpdate/Validator.php',
+	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Model/Sales/Order/Create.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 14,
+	'count' => 13,
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Model/Sales/Order/Create.php',
 ];
 $ignoreErrors[] = [
@@ -924,12 +937,6 @@ $ignoreErrors[] = [
 	'identifier' => 'empty.notAllowed',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Model/System/Config/Source/Admin/Page.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Method Varien_Data_Collection::toOptionArray() invoked with 1 parameter, 0 required.',
-	'identifier' => 'arguments.count',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Model/System/Config/Source/Country.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
@@ -1042,14 +1049,8 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 7,
+	'count' => 5,
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/controllers/IndexController.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-	'identifier' => 'empty.notAllowed',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/controllers/JsonController.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
@@ -1082,16 +1083,35 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/controllers/Permissions/VariableController.php',
 ];
 $ignoreErrors[] = [
+	'rawMessage' => 'Cannot call method setId() on object|false.',
+	'identifier' => 'method.nonObject',
+	'count' => 2,
+	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/controllers/Promo/CatalogController.php',
+];
+$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 5,
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/controllers/Promo/CatalogController.php',
 ];
 $ignoreErrors[] = [
+	'rawMessage' => 'Cannot call method setId() on object|false.',
+	'identifier' => 'method.nonObject',
+	'count' => 2,
+	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/controllers/Promo/QuoteController.php',
+];
+$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 6,
+	'count' => 5,
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/controllers/Promo/QuoteController.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to deprecated method _getCollectionNames() of class Mage_Adminhtml_Report_StatisticsController:
+after 1.4.0.1',
+	'identifier' => 'method.deprecated',
+	'count' => 2,
+	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/controllers/Report/StatisticsController.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Cannot call method aggregate() on Mage_Core_Model_Resource_Db_Collection_Abstract|false.',
@@ -1154,18 +1174,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/controllers/Sales/Order/ShipmentController.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Parameter #2 $callback of function array_filter expects (callable(mixed): bool)|null, Closure(array|bool|float|int|resource|string|null, int=): int given.',
-	'identifier' => 'argument.type',
-	'count' => 2,
-	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/controllers/Sales/Order/ShipmentController.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-	'identifier' => 'empty.notAllowed',
-	'count' => 4,
-	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/controllers/Sales/OrderController.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Dead catch - Exception is never thrown in the try block.',
 	'identifier' => 'catch.neverThrown',
 	'count' => 1,
@@ -1206,18 +1214,6 @@ $ignoreErrors[] = [
 	'identifier' => 'empty.notAllowed',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/controllers/System/Convert/ProfileController.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc tag @var with type Mage_Catalog_Model_Convert_Adapter_Product is not subtype of type Mage_Core_Model_Abstract|false.',
-	'identifier' => 'varTag.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/controllers/System/Convert/ProfileController.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc tag @var with type Mage_Directory_Model_Currency_Import_Abstract is not subtype of type Mage_Core_Model_Abstract|false.',
-	'identifier' => 'varTag.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/controllers/System/CurrencyController.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
@@ -1286,6 +1282,14 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Api/Model/Acl.php',
 ];
 $ignoreErrors[] = [
+	'rawMessage' => 'Call to deprecated method add() of class Zend_Acl:
+in version 1.9.1 and will be available till 2.0.  New code
+            should use addResource() instead.',
+	'identifier' => 'method.deprecated',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Api/Model/Config.php',
+];
+$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 1,
@@ -1346,12 +1350,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Api/Model/Server.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc tag @var with type Mage_Api_Model_Server_Adapter_Interface is not subtype of type Mage_Core_Model_Abstract|false.',
-	'identifier' => 'varTag.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Api/Model/Server.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Parameter #1 $code of class SoapFault constructor expects array|string|null, int given.',
 	'identifier' => 'argument.type',
 	'count' => 1,
@@ -1380,12 +1378,6 @@ $ignoreErrors[] = [
 	'identifier' => 'argument.type',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Api/Model/Wsdl/Config/Element.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Parameter #1 $collection of method Mage_Adminhtml_Block_Widget_Grid::setCollection() expects Varien_Data_Collection_Db, Varien_Data_Collection given.',
-	'identifier' => 'argument.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Api2/Block/Adminhtml/Attribute/Grid.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
@@ -1424,12 +1416,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Api2/Model/Acl/Filter/Attribute/ResourcePermission.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc tag @var with type Mage_Api2_Model_Resource is not subtype of type Mage_Core_Model_Abstract|false.',
-	'identifier' => 'varTag.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Api2/Model/Acl/Filter/Attribute/ResourcePermission.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Parameter #1 $role of method Zend_Acl::hasRole() expects string|Zend_Acl_Role_Interface, int given.',
 	'identifier' => 'argument.type',
 	'count' => 1,
@@ -1460,18 +1446,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Api2/Model/Acl/Global/Rule/Tree.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc tag @var with type Mage_Api2_Model_Auth_User_Abstract is not subtype of type Mage_Core_Model_Abstract|false.',
-	'identifier' => 'varTag.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Api2/Model/Auth.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc tag @var with type Mage_Api2_Model_Auth_User_Abstract is not subtype of type Mage_Core_Model_Abstract|false.',
-	'identifier' => 'varTag.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Api2/Model/Auth/User.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Method Mage_Api2_Model_Config::getResourceGroup() should return bool|Mage_Core_Model_Config_Element but returns Varien_Simplexml_Element.',
 	'identifier' => 'return.type',
 	'count' => 1,
@@ -1486,12 +1460,6 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Api2/Model/Dispatcher.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc tag @var with type Mage_Api2_Model_Resource is not subtype of type Mage_Core_Model_Abstract|false.',
-	'identifier' => 'varTag.type',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Api2/Model/Dispatcher.php',
 ];
@@ -1574,72 +1542,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Api2/Model/Server.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Call to an undefined method Varien_Object::encrypt().',
-	'identifier' => 'method.notFound',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Authorizenet/Model/Directpost.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-	'identifier' => 'empty.notAllowed',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Authorizenet/Model/Directpost.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Parameter #2 $amount of method Mage_Authorizenet_Model_Directpost::_refund() expects string, float given.',
-	'identifier' => 'argument.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Authorizenet/Model/Directpost.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Call to an undefined method Mage_Payment_Model_Method_Abstract::generateRequestFromOrder().',
-	'identifier' => 'method.notFound',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Authorizenet/Model/Directpost/Observer.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-	'identifier' => 'empty.notAllowed',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Authorizenet/Model/Directpost/Observer.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-	'identifier' => 'empty.notAllowed',
-	'count' => 3,
-	'path' => __DIR__ . '/app/code/core/Mage/Authorizenet/Model/Directpost/Request.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-	'identifier' => 'empty.notAllowed',
-	'count' => 5,
-	'path' => __DIR__ . '/app/code/core/Mage/Authorizenet/Model/Directpost/Response.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Call to an undefined method Mage_Payment_Model_Method_Abstract::generateRequestFromOrder().',
-	'identifier' => 'method.notFound',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Authorizenet/controllers/Adminhtml/Authorizenet/Directpost/PaymentController.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-	'identifier' => 'empty.notAllowed',
-	'count' => 5,
-	'path' => __DIR__ . '/app/code/core/Mage/Authorizenet/controllers/Adminhtml/Authorizenet/Directpost/PaymentController.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-	'identifier' => 'empty.notAllowed',
-	'count' => 7,
-	'path' => __DIR__ . '/app/code/core/Mage/Authorizenet/controllers/Directpost/PaymentController.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Method Mage_Authorizenet_Directpost_PaymentController::_getIframeBlock() should return Mage_Authorizenet_Block_Directpost_Iframe but returns Mage_Core_Block_Abstract|false.',
-	'identifier' => 'return.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Authorizenet/controllers/Directpost/PaymentController.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 1,
@@ -1660,7 +1562,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 2,
+	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Bundle/Block/Catalog/Product/View/Type/Bundle/Option.php',
 ];
 $ignoreErrors[] = [
@@ -1706,6 +1608,13 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Bundle/Model/Product/Price.php',
 ];
 $ignoreErrors[] = [
+	'rawMessage' => 'Call to deprecated method getSelectionPrice() of class Mage_Bundle_Model_Product_Price:
+after 1.6.2.0',
+	'identifier' => 'method.deprecated',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Bundle/Model/Product/Price.php',
+];
+$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 2,
@@ -1739,12 +1648,6 @@ $ignoreErrors[] = [
 	'rawMessage' => 'PHPDoc tag @var with type Mage_Bundle_Model_Selection is not subtype of type Mage_Catalog_Model_Product.',
 	'identifier' => 'varTag.type',
 	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Bundle/Model/Product/Type.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Parameter #2 $callback of function array_filter expects (callable(mixed): bool)|null, Closure(array|bool|float|int|resource|string|null, int=): int given.',
-	'identifier' => 'argument.type',
-	'count' => 3,
 	'path' => __DIR__ . '/app/code/core/Mage/Bundle/Model/Product/Type.php',
 ];
 $ignoreErrors[] = [
@@ -1790,10 +1693,23 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Captcha/Model/Config/Form/Abstract.php',
 ];
 $ignoreErrors[] = [
+	'rawMessage' => 'Call to deprecated method getCheckoutMethod() of class Mage_Sales_Model_Quote:
+after 1.4 beta1 it is checkout module responsibility',
+	'identifier' => 'method.deprecated',
+	'count' => 2,
+	'path' => __DIR__ . '/app/code/core/Mage/Captcha/Model/Observer.php',
+];
+$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 2,
 	'path' => __DIR__ . '/app/code/core/Mage/Captcha/Model/Observer.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Cannot call method setLayer() on object|false.',
+	'identifier' => 'method.nonObject',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Block/Layer/Filter/Abstract.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Argument of an invalid type string supplied for foreach, only iterables are supported.',
@@ -1842,6 +1758,42 @@ $ignoreErrors[] = [
 	'identifier' => 'empty.notAllowed',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Block/Product/View/Options/Type/File.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Access to deprecated property $_resPrices of class Mage_Catalog_Block_Product_View_Type_Configurable.',
+	'identifier' => 'property.deprecated',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Block/Product/View/Type/Configurable.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to deprecated method _convertPrice() of class Mage_Catalog_Block_Product_View_Type_Configurable.',
+	'identifier' => 'method.deprecated',
+	'count' => 2,
+	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Block/Product/View/Type/Configurable.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to deprecated method _prepareOldPrice() of class Mage_Catalog_Block_Product_View_Type_Configurable.',
+	'identifier' => 'method.deprecated',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Block/Product/View/Type/Configurable.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to deprecated method _preparePrice() of class Mage_Catalog_Block_Product_View_Type_Configurable.',
+	'identifier' => 'method.deprecated',
+	'count' => 2,
+	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Block/Product/View/Type/Configurable.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to deprecated method _registerJsPrice() of class Mage_Catalog_Block_Product_View_Type_Configurable.',
+	'identifier' => 'method.deprecated',
+	'count' => 2,
+	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Block/Product/View/Type/Configurable.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to deprecated method getCurrentStore() of class Mage_Catalog_Block_Product_View_Type_Configurable.',
+	'identifier' => 'method.deprecated',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Block/Product/View/Type/Configurable.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
@@ -1898,12 +1850,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Helper/Data.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc tag @var with type Varien_Filter_Template is not subtype of type Mage_Core_Model_Abstract|false.',
-	'identifier' => 'varTag.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Helper/Data.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Call to an undefined method Mage_Eav_Model_Entity_Attribute_Frontend_Abstract::getUrl().',
 	'identifier' => 'method.notFound',
 	'count' => 3,
@@ -1920,12 +1866,6 @@ $ignoreErrors[] = [
 	'identifier' => 'ternary.alwaysTrue',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Helper/Product.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Method Mage_Catalog_Helper_Product_Compare::getItemCollection() should return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Compare_Item_Collection but returns Mage_Catalog_Model_Resource_Product_Compare_Item_Collection.',
-	'identifier' => 'return.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Helper/Product/Compare.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'PHPDoc type string of property Mage_Catalog_Helper_Product_Flat::$_indexerCode is not the same as PHPDoc type string|null of overridden property Mage_Catalog_Helper_Flat_Abstract::$_indexerCode.',
@@ -1998,12 +1938,6 @@ $ignoreErrors[] = [
 	'identifier' => 'if.alwaysFalse',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Api2/Product/Rest.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Call to an undefined method Mage_Core_Model_Abstract::toOptionArray().',
-	'identifier' => 'method.notFound',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Api2/Product/Validator/Product.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Call to an undefined method Mage_Eav_Model_Entity_Attribute_Backend_Abstract::formatDate().',
@@ -2150,10 +2084,10 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Design.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Property Mage_Catalog_Model_Entity_Product_Attribute_Design_Options_Container::$_configNodePath (Mage_Core_Model_Config_Element) does not accept string.',
-	'identifier' => 'assign.propertyType',
+	'rawMessage' => 'Call to deprecated method clear() of class Mage_Eav_Model_Config.',
+	'identifier' => 'method.deprecated',
 	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Entity/Product/Attribute/Design/Options/Container.php',
+	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Entity/Attribute.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'PHPDoc tag @var with type Mage_Catalog_Helper_Category_Url_Rewrite_Interface is not subtype of type Mage_Core_Helper_Abstract.',
@@ -2190,12 +2124,6 @@ $ignoreErrors[] = [
 	'identifier' => 'property.phpDocType',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Indexer/Url.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-	'identifier' => 'empty.notAllowed',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Layer.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Parameter #1 $attribute of method Mage_Catalog_Model_Layer::_filterFilterableAttributes() expects Mage_Catalog_Model_Resource_Eav_Attribute, Mage_Eav_Model_Entity_Attribute_Abstract|false given.',
@@ -2298,6 +2226,13 @@ $ignoreErrors[] = [
 	'identifier' => 'empty.notAllowed',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Product/Attribute/Backend/Msrp.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to deprecated method getIsGlobal() of class Mage_Eav_Model_Entity_Attribute_Abstract:
+moved to catalog attribute model',
+	'identifier' => 'method.deprecated',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Product/Attribute/Backend/Price.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Cannot call method getBackend() on bool|Mage_Catalog_Model_Resource_Attribute.',
@@ -2408,12 +2343,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Product/Option.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc tag @var with type Mage_Catalog_Model_Product_Option_Type_Default is not subtype of type Mage_Core_Model_Abstract|false.',
-	'identifier' => 'varTag.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Product/Option.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 1,
@@ -2434,7 +2363,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 5,
+	'count' => 4,
 	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Product/Option/Type/File.php',
 ];
 $ignoreErrors[] = [
@@ -2462,10 +2391,36 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Product/Status.php',
 ];
 $ignoreErrors[] = [
+	'rawMessage' => 'Cannot call method setConfig() on object|false.',
+	'identifier' => 'method.nonObject',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Product/Type.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Cannot call method setProduct() on object|false.',
+	'identifier' => 'method.nonObject',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Product/Type.php',
+];
+$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 3,
 	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Product/Type.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Access to deprecated property $_product of class Mage_Catalog_Model_Product_Type_Abstract:
+if use as singleton',
+	'identifier' => 'property.deprecated',
+	'count' => 2,
+	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Product/Type/Abstract.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to deprecated method setDestination() of class Zend_File_Transfer_Adapter_Abstract:
+Will be changed to be a filter!!!',
+	'identifier' => 'method.deprecated',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Product/Type/Abstract.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
@@ -2474,15 +2429,22 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Product/Type/Abstract.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-	'identifier' => 'empty.notAllowed',
-	'count' => 7,
+	'rawMessage' => 'Access to deprecated property $_editableAttributes of class Mage_Catalog_Model_Product_Type_Abstract.',
+	'identifier' => 'property.deprecated',
+	'count' => 5,
 	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Product/Type/Configurable.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Method Mage_Catalog_Model_Product_Type_Configurable::getProductByAttributes() should return Mage_Catalog_Model_Product|null but returns Varien_Object.',
-	'identifier' => 'return.type',
+	'rawMessage' => 'Call to deprecated method getIsGlobal() of class Mage_Eav_Model_Entity_Attribute_Abstract:
+moved to catalog attribute model',
+	'identifier' => 'method.deprecated',
 	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Product/Type/Configurable.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
+	'identifier' => 'empty.notAllowed',
+	'count' => 6,
 	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Product/Type/Configurable.php',
 ];
 $ignoreErrors[] = [
@@ -2498,21 +2460,9 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Product/Type/Configurable.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Parameter #2 $callback of function array_filter expects (callable(mixed): bool)|null, Closure(array|bool|float|int|resource|string|null, int=): int given.',
-	'identifier' => 'argument.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Product/Type/Configurable.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 2,
-	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Product/Type/Grouped.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Parameter #2 $callback of function array_filter expects (callable(mixed): bool)|null, Closure(array|bool|float|int|resource|string|null, int=): int given.',
-	'identifier' => 'argument.type',
-	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Product/Type/Grouped.php',
 ];
 $ignoreErrors[] = [
@@ -2522,9 +2472,16 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Product/Url.php',
 ];
 $ignoreErrors[] = [
+	'rawMessage' => 'Call to deprecated method getIsGlobal() of class Mage_Catalog_Model_Resource_Eav_Attribute:
+moved to catalog attribute model',
+	'identifier' => 'method.deprecated',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Resource/Abstract.php',
+];
+$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 8,
+	'count' => 2,
 	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Resource/Abstract.php',
 ];
 $ignoreErrors[] = [
@@ -2564,6 +2521,13 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Resource/Category/Collection.php',
 ];
 $ignoreErrors[] = [
+	'rawMessage' => 'Access to deprecated property $_allowTableChanges of class Mage_Catalog_Model_Resource_Category_Flat:
+after 1.6.1.0',
+	'identifier' => 'property.deprecated',
+	'count' => 6,
+	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Resource/Category/Flat.php',
+];
+$ignoreErrors[] = [
 	'rawMessage' => 'Call to an undefined method Mage_Catalog_Model_Resource_Category_Collection::addSortedField().',
 	'identifier' => 'method.notFound',
 	'count' => 1,
@@ -2594,12 +2558,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Resource/Category/Flat/Collection.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Parameter #1 $resource of method Mage_Core_Model_Resource_Db_Collection_Abstract::__construct() expects Mage_Core_Model_Resource_Db_Abstract|null, Mage_Core_Model_Resource_Abstract|null given.',
-	'identifier' => 'argument.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Resource/Category/Flat/Collection.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 1,
@@ -2622,6 +2580,19 @@ $ignoreErrors[] = [
 	'identifier' => 'empty.notAllowed',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Resource/Collection/Abstract.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to deprecated method clear() of class Mage_Eav_Model_Config.',
+	'identifier' => 'method.deprecated',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Resource/Eav/Attribute.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to deprecated method getIsGlobal() of class Mage_Catalog_Model_Resource_Eav_Attribute:
+moved to catalog attribute model',
+	'identifier' => 'method.deprecated',
+	'count' => 2,
+	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Resource/Eav/Attribute.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
@@ -2650,7 +2621,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 12,
+	'count' => 7,
 	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Resource/Product.php',
 ];
 $ignoreErrors[] = [
@@ -2674,7 +2645,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 9,
+	'count' => 8,
 	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Resource/Product/Collection.php',
 ];
 $ignoreErrors[] = [
@@ -2684,22 +2655,10 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Resource/Product/Collection.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc type array of property Mage_Catalog_Model_Resource_Product_Collection::$_map is not the same as PHPDoc type array|null of overridden property Varien_Data_Collection_Db::$_map.',
-	'identifier' => 'property.phpDocType',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Resource/Product/Collection.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Variable $websiteId might not be defined.',
 	'identifier' => 'variable.undefined',
 	'count' => 3,
 	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Resource/Product/Collection.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Parameter #1 $object of method Mage_Eav_Model_Entity_Collection_Abstract::setObject() expects Varien_Object|null, string given.',
-	'identifier' => 'argument.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Resource/Product/Compare/Item/Collection.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
@@ -2840,13 +2799,7 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/CatalogIndex/Model/Attribute.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc tag @var with type Mage_Catalog_Model_Product_Type_Abstract is not subtype of type Mage_Core_Model_Abstract|false.',
-	'identifier' => 'varTag.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/CatalogIndex/Model/Data/Abstract.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Parameter #8 $productId of method Mage_Catalog_Model_Product_Type_Price::calculatePrice() expects int|null, array given.',
+	'rawMessage' => 'Parameter #8 $productId of static method Mage_Catalog_Model_Product_Type_Price::calculatePrice() expects int|null, array given.',
 	'identifier' => 'argument.type',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/CatalogIndex/Model/Data/Abstract.php',
@@ -2868,6 +2821,13 @@ $ignoreErrors[] = [
 	'identifier' => 'property.phpDocType',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/CatalogIndex/Model/Data/Configurable.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to deprecated method loadParentProductIds() of class Mage_Catalog_Model_Product:
+after 1.4.2.0',
+	'identifier' => 'method.deprecated',
+	'count' => 2,
+	'path' => __DIR__ . '/app/code/core/Mage/CatalogIndex/Model/Observer.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
@@ -2902,7 +2862,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 2,
+	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/CatalogInventory/Helper/Minsaleqty.php',
 ];
 $ignoreErrors[] = [
@@ -3044,18 +3004,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/CatalogRule/Model/Resource/Rule.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc tag @var with type Mage_CatalogRule_Model_Action_Index_Refresh is not subtype of type Mage_Core_Model_Abstract|false.',
-	'identifier' => 'varTag.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/CatalogRule/Model/Resource/Rule.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc tag @var with type Varien_Db_Adapter_Interface is not subtype of type Magento_Db_Adapter_Pdo_Mysql.',
-	'identifier' => 'varTag.type',
-	'count' => 2,
-	'path' => __DIR__ . '/app/code/core/Mage/CatalogRule/Model/Resource/Rule.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 1,
@@ -3086,22 +3034,17 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/CatalogRule/Model/Rule.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Method Mage_Eav_Model_Entity_Attribute_Source_Interface::getAllOptions() invoked with 1 parameter, 0 required.',
-	'identifier' => 'arguments.count',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/CatalogSearch/Block/Advanced/Form.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/CatalogSearch/Block/Term.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Parameter #2 $array of function implode expects array<string>, array<array<string>|string|null> given.',
-	'identifier' => 'argument.type',
+	'rawMessage' => 'Call to deprecated method _prepareCondition() of class Mage_CatalogSearch_Model_Advanced:
+after 1.4.1.0 - use Mage_CatalogSearch_Model_Resource_Advanced->_prepareCondition()',
+	'identifier' => 'method.deprecated',
 	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/CatalogSearch/Helper/Data.php',
+	'path' => __DIR__ . '/app/code/core/Mage/CatalogSearch/Model/Advanced.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
@@ -3114,6 +3057,13 @@ $ignoreErrors[] = [
 	'identifier' => 'return.type',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/CatalogSearch/Model/Advanced.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to deprecated method updateCategoryIndex() of class Mage_CatalogSearch_Model_Fulltext:
+after 1.6.2.0',
+	'identifier' => 'method.deprecated',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/CatalogSearch/Model/Indexer/Fulltext.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
@@ -3176,12 +3126,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Centinel/Helper/Data.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc tag @var with type Mage_Centinel_Model_StateAbstract is not subtype of type Mage_Core_Model_Abstract|false.',
-	'identifier' => 'varTag.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Centinel/Model/Service.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Cannot call method setItem() on array.',
 	'identifier' => 'method.nonObject',
 	'count' => 1,
@@ -3212,6 +3156,13 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Checkout/Block/Onepage/Abstract.php',
 ];
 $ignoreErrors[] = [
+	'rawMessage' => 'Call to deprecated method getCheckoutMethod() of class Mage_Sales_Model_Quote:
+after 1.4 beta1 it is checkout module responsibility',
+	'identifier' => 'method.deprecated',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Checkout/Block/Onepage/Billing.php',
+];
+$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 3,
@@ -3222,6 +3173,13 @@ $ignoreErrors[] = [
 	'identifier' => 'empty.notAllowed',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Checkout/Block/Onepage/Progress.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to deprecated method getCheckoutMethod() of class Mage_Sales_Model_Quote:
+after 1.4 beta1 it is checkout module responsibility',
+	'identifier' => 'method.deprecated',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Checkout/Block/Onepage/Shipping.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
@@ -3248,10 +3206,11 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Checkout/Model/Api/Resource.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc tag @var with type Mage_Sales_Model_Quote_Item is not subtype of native type null.',
-	'identifier' => 'varTag.nativeType',
+	'rawMessage' => 'Call to deprecated method getCheckoutMethod() of class Mage_Sales_Model_Quote:
+after 1.4 beta1 it is checkout module responsibility',
+	'identifier' => 'method.deprecated',
 	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Checkout/Model/Api/Resource/Product.php',
+	'path' => __DIR__ . '/app/code/core/Mage/Checkout/Model/Api/Resource/Customer.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
@@ -3266,16 +3225,11 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Checkout/Model/Cart.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Variable $product might not be defined.',
-	'identifier' => 'variable.undefined',
+	'rawMessage' => 'Call to deprecated method getCheckoutMethod() of class Mage_Sales_Model_Quote:
+after 1.4 beta1 it is checkout module responsibility',
+	'identifier' => 'method.deprecated',
 	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Checkout/Model/Cart.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Variable $productId might not be defined.',
-	'identifier' => 'variable.undefined',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Checkout/Model/Cart.php',
+	'path' => __DIR__ . '/app/code/core/Mage/Checkout/Model/Cart/Api.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
@@ -3344,6 +3298,20 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Checkout/Model/Type/Multishipping.php',
 ];
 $ignoreErrors[] = [
+	'rawMessage' => 'Call to deprecated method getCheckoutMethod() of class Mage_Sales_Model_Quote:
+after 1.4 beta1 it is checkout module responsibility',
+	'identifier' => 'method.deprecated',
+	'count' => 6,
+	'path' => __DIR__ . '/app/code/core/Mage/Checkout/Model/Type/Onepage.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to deprecated method isAllowedGuestCheckout() of class Mage_Sales_Model_Quote:
+after 1.4 beta1 it is checkout module responsibility',
+	'identifier' => 'method.deprecated',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Checkout/Model/Type/Onepage.php',
+];
+$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 10,
@@ -3364,12 +3332,6 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Dead catch - Exception is never thrown in the try block.',
 	'identifier' => 'catch.neverThrown',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Checkout/controllers/CartController.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Parameter #1 $qty of method Mage_Sales_Model_Quote_Item::setQty() expects float, array|string|null given.',
-	'identifier' => 'argument.type',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Checkout/controllers/CartController.php',
 ];
@@ -3458,12 +3420,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Core/Block/Abstract.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc tag @var with type Mage_Core_Model_Url is not subtype of type Mage_Core_Model_Abstract|false.',
-	'identifier' => 'varTag.type',
-	'count' => 2,
-	'path' => __DIR__ . '/app/code/core/Mage/Core/Block/Abstract.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 1,
@@ -3498,12 +3454,6 @@ $ignoreErrors[] = [
 	'identifier' => 'empty.notAllowed',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Core/Block/Text/List/Item.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-	'identifier' => 'empty.notAllowed',
-	'count' => 2,
-	'path' => __DIR__ . '/app/code/core/Mage/Core/Block/Text/List/Link.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
@@ -3618,12 +3568,6 @@ $ignoreErrors[] = [
 	'identifier' => 'varTag.type',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Core/Controller/Varien/Router/Standard.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-	'identifier' => 'empty.notAllowed',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Core/Helper/Abstract.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
@@ -3902,18 +3846,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Core/Model/File/Uploader.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc type string of property Mage_Core_Model_File_Validator_AvailablePath::$_value is not the same as PHPDoc type mixed of overridden property Mage_Core_Helper_Validate_Abstract::$_value.',
-	'identifier' => 'property.phpDocType',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Core/Model/File/Validator/AvailablePath.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc type string of property Mage_Core_Model_File_Validator_NotProtectedExtension::$_value is not the same as PHPDoc type mixed of overridden property Mage_Core_Helper_Validate_Abstract::$_value.',
-	'identifier' => 'property.phpDocType',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Core/Model/File/Validator/NotProtectedExtension.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 4,
@@ -3974,16 +3906,17 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Core/Model/Layout/Element.php',
 ];
 $ignoreErrors[] = [
+	'rawMessage' => 'Call to deprecated method isInstalled() of class Mage_Core_Model_App:
+since 1.2',
+	'identifier' => 'method.deprecated',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Core/Model/Layout/Update.php',
+];
+$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 3,
 	'path' => __DIR__ . '/app/code/core/Mage/Core/Model/Layout/Update.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc type Varien_Simplexml_Element of property Mage_Core_Model_Layout_Validator::$_value is not the same as PHPDoc type mixed of overridden property Mage_Core_Helper_Validate_Abstract::$_value.',
-	'identifier' => 'property.phpDocType',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Core/Model/Layout/Validator.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
@@ -4052,12 +3985,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Core/Model/Resource/Db/Collection/Abstract.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Property Mage_Core_Model_Resource_Db_Collection_Abstract::$_resource (Mage_Core_Model_Resource_Db_Abstract) does not accept Mage_Core_Model_Resource_Db_Collection_Abstract|false.',
-	'identifier' => 'assign.propertyType',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Core/Model/Resource/Db/Collection/Abstract.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Variable $alias might not be defined.',
 	'identifier' => 'variable.undefined',
 	'count' => 3,
@@ -4100,12 +4027,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Core/Model/Resource/Setup.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Negated boolean expression is always false.',
-	'identifier' => 'booleanNot.alwaysFalse',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Core/Model/Resource/Setup/Query/Modifier.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 1,
@@ -4142,12 +4063,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Core/Model/Resource/Website/Collection.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc type array of property Mage_Core_Model_Resource_Website_Collection::$_map is not the same as PHPDoc type array|null of overridden property Varien_Data_Collection_Db::$_map.',
-	'identifier' => 'property.phpDocType',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Core/Model/Resource/Website/Collection.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 3,
@@ -4158,6 +4073,13 @@ $ignoreErrors[] = [
 	'identifier' => 'argument.type',
 	'count' => 2,
 	'path' => __DIR__ . '/app/code/core/Mage/Core/Model/Session/Abstract.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to deprecated method revalidateCookie() of class Mage_Core_Model_Session_Abstract_Varien:
+after 1.4 cookie renew moved to session start method',
+	'identifier' => 'method.deprecated',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Core/Model/Session/Abstract/Varien.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
@@ -4172,15 +4094,27 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Core/Model/Session/Abstract/Zend.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-	'identifier' => 'empty.notAllowed',
-	'count' => 7,
+	'rawMessage' => 'Call to deprecated method isCurrentlySecure() of class Mage_Core_Model_Store.',
+	'identifier' => 'method.deprecated',
+	'count' => 3,
 	'path' => __DIR__ . '/app/code/core/Mage/Core/Model/Store.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc type string|true of property Mage_Core_Model_Store::$_cacheTag is not the same as PHPDoc type array|bool|string of overridden property Mage_Core_Model_Abstract::$_cacheTag.',
-	'identifier' => 'property.phpDocType',
+	'rawMessage' => 'Cannot call method getValue() on object|false.',
+	'identifier' => 'method.nonObject',
 	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Core/Model/Store.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Cannot call method setPath() on object|false.',
+	'identifier' => 'method.nonObject',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Core/Model/Store.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
+	'identifier' => 'empty.notAllowed',
+	'count' => 7,
 	'path' => __DIR__ . '/app/code/core/Mage/Core/Model/Store.php',
 ];
 $ignoreErrors[] = [
@@ -4424,15 +4358,16 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Customer/Model/Customer.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-	'identifier' => 'empty.notAllowed',
-	'count' => 15,
+	'rawMessage' => 'Access to deprecated property $_addresses of class Mage_Customer_Model_Customer:
+after 1.4.0.0-rc1',
+	'identifier' => 'property.deprecated',
+	'count' => 4,
 	'path' => __DIR__ . '/app/code/core/Mage/Customer/Model/Customer.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc type string of property Mage_Customer_Model_Customer::$_cacheTag is not the same as PHPDoc type array|bool|string of overridden property Mage_Core_Model_Abstract::$_cacheTag.',
-	'identifier' => 'property.phpDocType',
-	'count' => 1,
+	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
+	'identifier' => 'empty.notAllowed',
+	'count' => 13,
 	'path' => __DIR__ . '/app/code/core/Mage/Customer/Model/Customer.php',
 ];
 $ignoreErrors[] = [
@@ -4450,7 +4385,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 3,
+	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Customer/Model/Resource/Customer.php',
 ];
 $ignoreErrors[] = [
@@ -4470,6 +4405,13 @@ $ignoreErrors[] = [
 	'identifier' => 'empty.notAllowed',
 	'count' => 10,
 	'path' => __DIR__ . '/app/code/core/Mage/Customer/controllers/AccountController.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to deprecated method getSuggestedZeroDate() of interface Varien_Db_Adapter_Interface:
+after 1.5.1.0',
+	'identifier' => 'method.deprecated',
+	'count' => 2,
+	'path' => __DIR__ . '/app/code/core/Mage/Customer/sql/customer_setup/install-1.6.0.0.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
@@ -4628,6 +4570,20 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Directory/Model/Country.php',
 ];
 $ignoreErrors[] = [
+	'rawMessage' => 'PHPDoc tag @method for getCollection() references deprecated class Mage_Directory_Model_Resource_Currency_Collection:
+since 1.5.0.0',
+	'identifier' => 'methodTag.deprecatedClass',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Directory/Model/Currency.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'PHPDoc tag @method for getResourceCollection() references deprecated class Mage_Directory_Model_Resource_Currency_Collection:
+since 1.5.0.0',
+	'identifier' => 'methodTag.deprecatedClass',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Directory/Model/Currency.php',
+];
+$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 2,
@@ -4638,12 +4594,6 @@ $ignoreErrors[] = [
 	'identifier' => 'empty.notAllowed',
 	'count' => 2,
 	'path' => __DIR__ . '/app/code/core/Mage/Directory/Model/Currency/Import/Fixerio.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc tag @var with type Mage_Directory_Model_Currency_Import_Abstract is not subtype of type Mage_Core_Model_Abstract|false.',
-	'identifier' => 'varTag.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Directory/Model/Observer.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
@@ -4676,6 +4626,12 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Downloadable/Helper/Download.php',
 ];
 $ignoreErrors[] = [
+	'rawMessage' => 'Call to deprecated method _getFileTypeByExt() of class Mage_Downloadable_Helper_File.',
+	'identifier' => 'method.deprecated',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Downloadable/Helper/File.php',
+];
+$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 3,
@@ -4686,12 +4642,6 @@ $ignoreErrors[] = [
 	'identifier' => 'empty.notAllowed',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Downloadable/Model/Observer.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Parameter #2 $callback of function array_filter expects (callable(mixed): bool)|null, Closure(array|bool|float|int|resource|string|null, int=): int given.',
-	'identifier' => 'argument.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Downloadable/Model/Product/Type.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'If condition is always true.',
@@ -4742,21 +4692,21 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Eav/Model/Attribute.php',
 ];
 $ignoreErrors[] = [
+	'rawMessage' => 'Call to deprecated method clear() of class Mage_Eav_Model_Config.',
+	'identifier' => 'method.deprecated',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Eav/Model/Attribute.php',
+];
+$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 2,
+	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Eav/Model/Attribute.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 3,
-	'path' => __DIR__ . '/app/code/core/Mage/Eav/Model/Attribute/Data.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc tag @var with type Mage_Eav_Model_Attribute_Data_Abstract is not subtype of type Mage_Core_Model_Abstract|false.',
-	'identifier' => 'varTag.type',
-	'count' => 2,
 	'path' => __DIR__ . '/app/code/core/Mage/Eav/Model/Attribute/Data.php',
 ];
 $ignoreErrors[] = [
@@ -4880,7 +4830,19 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Eav/Model/Convert/Parser/Abstract.php',
 ];
 $ignoreErrors[] = [
+	'rawMessage' => 'Call to deprecated method _afterSetConfig() of class Mage_Eav_Model_Entity_Abstract.',
+	'identifier' => 'method.deprecated',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Eav/Model/Entity/Abstract.php',
+];
+$ignoreErrors[] = [
 	'rawMessage' => 'Cannot call method lastInsertId() on Varien_Db_Adapter_Interface|false.',
+	'identifier' => 'method.nonObject',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Eav/Model/Entity/Abstract.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Cannot call method setAttributeCode() on object|false.',
 	'identifier' => 'method.nonObject',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Eav/Model/Entity/Abstract.php',
@@ -4900,6 +4862,12 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Call to an undefined method Mage_Core_Model_Resource_Db_Abstract::getIdByCode().',
 	'identifier' => 'method.notFound',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Eav/Model/Entity/Attribute/Abstract.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Cannot call method setAttribute() on object|false.',
+	'identifier' => 'method.nonObject',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Eav/Model/Entity/Attribute/Abstract.php',
 ];
@@ -4952,12 +4920,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Eav/Model/Entity/Attribute/Source/Table.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Parameter #1 $resource of method Mage_Eav_Model_Entity_Collection_Abstract::__construct() expects Mage_Core_Model_Resource_Abstract|null, Varien_Db_Adapter_Interface|false given.',
-	'identifier' => 'argument.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Eav/Model/Entity/Collection.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Call to an undefined method Mage_Eav_Model_Entity_Attribute_Interface::getAttributeCode().',
 	'identifier' => 'method.notFound',
 	'count' => 1,
@@ -4967,12 +4929,6 @@ $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 12,
-	'path' => __DIR__ . '/app/code/core/Mage/Eav/Model/Entity/Collection/Abstract.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Parameter #1 $className of method Varien_Data_Collection::setItemObjectClass() expects string, null given.',
-	'identifier' => 'argument.type',
-	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Eav/Model/Entity/Collection/Abstract.php',
 ];
 $ignoreErrors[] = [
@@ -5004,6 +4960,12 @@ $ignoreErrors[] = [
 	'identifier' => 'argument.type',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Eav/Model/Entity/Setup.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Cannot call method setPrefix() on object|false.',
+	'identifier' => 'method.nonObject',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Eav/Model/Entity/Type.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
@@ -5072,6 +5034,13 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Eav/Model/Resource/Form/Type.php',
 ];
 $ignoreErrors[] = [
+	'rawMessage' => 'Call to deprecated method getSuggestedZeroDate() of interface Varien_Db_Adapter_Interface:
+after 1.5.1.0',
+	'identifier' => 'method.deprecated',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Eav/sql/eav_setup/install-1.6.0.0.php',
+];
+$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 1,
@@ -5120,8 +5089,8 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/ImportExport/Block/Adminhtml/Export/Filter.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc type Mage_Eav_Model_Resource_Entity_Attribute_Collection|null of property Mage_ImportExport_Block_Adminhtml_Export_Filter::$_collection is not the same as PHPDoc type Varien_Data_Collection_Db|null of overridden property Mage_Adminhtml_Block_Widget_Grid::$_collection.',
-	'identifier' => 'property.phpDocType',
+	'rawMessage' => 'Method Mage_ImportExport_Block_Adminhtml_Export_Filter::prepareCollection() should return Mage_Eav_Model_Resource_Entity_Attribute_Collection but returns Varien_Data_Collection|null.',
+	'identifier' => 'return.type',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/ImportExport/Block/Adminhtml/Export/Filter.php',
 ];
@@ -5135,18 +5104,6 @@ $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 2,
-	'path' => __DIR__ . '/app/code/core/Mage/ImportExport/Model/Export.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc tag @var with type Mage_ImportExport_Model_Export_Adapter_Abstract is not subtype of type Mage_Core_Model_Abstract|false.',
-	'identifier' => 'varTag.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/ImportExport/Model/Export.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc tag @var with type Mage_ImportExport_Model_Export_Entity_Abstract is not subtype of type Mage_Core_Model_Abstract|false.',
-	'identifier' => 'varTag.type',
-	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/ImportExport/Model/Export.php',
 ];
 $ignoreErrors[] = [
@@ -5180,6 +5137,13 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/ImportExport/Model/Export/Entity/Customer.php',
 ];
 $ignoreErrors[] = [
+	'rawMessage' => 'Call to deprecated method getIsGlobal() of class Mage_Eav_Model_Entity_Attribute_Abstract:
+moved to catalog attribute model',
+	'identifier' => 'method.deprecated',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/ImportExport/Model/Export/Entity/Product.php',
+];
+$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 29,
@@ -5201,12 +5165,6 @@ $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 2,
-	'path' => __DIR__ . '/app/code/core/Mage/ImportExport/Model/Import.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc tag @var with type Mage_ImportExport_Model_Import_Entity_Abstract is not subtype of type Mage_Core_Model_Abstract|false.',
-	'identifier' => 'varTag.type',
-	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/ImportExport/Model/Import.php',
 ];
 $ignoreErrors[] = [
@@ -5240,7 +5198,7 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/ImportExport/Model/Import/Entity/Customer.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Parameter #1 $str of method Mage_Core_Helper_UnserializeArray::unserialize() expects string, array given.',
+	'rawMessage' => 'Parameter #1 $str of method Mage_Core_Helper_UnserializeArray::unserialize() expects string|null, array given.',
 	'identifier' => 'argument.type',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/ImportExport/Model/Import/Entity/Customer.php',
@@ -5250,6 +5208,13 @@ $ignoreErrors[] = [
 	'identifier' => 'empty.notAllowed',
 	'count' => 4,
 	'path' => __DIR__ . '/app/code/core/Mage/ImportExport/Model/Import/Entity/Customer/Address.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to deprecated method getIsGlobal() of class Mage_Eav_Model_Entity_Attribute_Abstract:
+moved to catalog attribute model',
+	'identifier' => 'method.deprecated',
+	'count' => 2,
+	'path' => __DIR__ . '/app/code/core/Mage/ImportExport/Model/Import/Entity/Product.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
@@ -5282,6 +5247,13 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/ImportExport/Model/Import/Entity/Product.php',
 ];
 $ignoreErrors[] = [
+	'rawMessage' => 'Call to deprecated method getIsGlobal() of class Mage_Eav_Model_Entity_Attribute_Abstract:
+moved to catalog attribute model',
+	'identifier' => 'method.deprecated',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/ImportExport/Model/Import/Entity/Product/Type/Abstract.php',
+];
+$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 7,
@@ -5298,12 +5270,6 @@ $ignoreErrors[] = [
 	'identifier' => 'empty.notAllowed',
 	'count' => 2,
 	'path' => __DIR__ . '/app/code/core/Mage/ImportExport/Model/Resource/Helper/Mysql4.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Method Mage_ImportExport_Model_Resource_Import_Data::getIterator() should return IteratorIterator but returns Traversable<mixed, mixed>.',
-	'identifier' => 'return.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/ImportExport/Model/Resource/Import/Data.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
@@ -5328,12 +5294,6 @@ $ignoreErrors[] = [
 	'identifier' => 'empty.notAllowed',
 	'count' => 2,
 	'path' => __DIR__ . '/app/code/core/Mage/Index/Model/Indexer/Abstract.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc tag @var with type Mage_Index_Model_Lock_Storage_Interface is not subtype of type Mage_Core_Model_Abstract|false.',
-	'identifier' => 'varTag.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Index/Model/Lock.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Parameter #3 ...$values of function sprintf expects bool|float|int|string|null, array<string, int|string>|null given.',
@@ -5368,26 +5328,14 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 3,
+	'count' => 2,
 	'path' => __DIR__ . '/app/code/core/Mage/Index/Model/Resource/Event.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-	'identifier' => 'empty.notAllowed',
-	'count' => 4,
-	'path' => __DIR__ . '/app/code/core/Mage/Index/Model/Resource/Event/Collection.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Parameter #1 $adapter of method Varien_Db_Adapter_Interface::setCacheAdapter() expects Zend_Cache_Backend_Interface, Zend_Cache_Core given.',
 	'identifier' => 'argument.type',
 	'count' => 2,
 	'path' => __DIR__ . '/app/code/core/Mage/Index/Model/Resource/Lock/Resource.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-	'identifier' => 'empty.notAllowed',
-	'count' => 2,
-	'path' => __DIR__ . '/app/code/core/Mage/Index/Model/Resource/Setup.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
@@ -5468,12 +5416,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Install/Model/Installer/Db.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc tag @var with type Mage_Install_Model_Installer_Db_Abstract is not subtype of type Mage_Core_Model_Abstract|false.',
-	'identifier' => 'varTag.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Install/Model/Installer/Db.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 1,
@@ -5534,24 +5476,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Oauth/controllers/Adminhtml/Oauth/AuthorizeController.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc tag @var with type Mage_Admin_Model_Session is not subtype of type Mage_Core_Model_Abstract|false.',
-	'identifier' => 'varTag.type',
-	'count' => 3,
-	'path' => __DIR__ . '/app/code/core/Mage/Oauth/controllers/Adminhtml/Oauth/AuthorizeController.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc tag @var with type Mage_Customer_Model_Session is not subtype of type Mage_Core_Model_Abstract|false.',
-	'identifier' => 'varTag.type',
-	'count' => 3,
-	'path' => __DIR__ . '/app/code/core/Mage/Oauth/controllers/AuthorizeController.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc tag @var with type Mage_Customer_Model_Session is not subtype of type Mage_Core_Model_Abstract|false.',
-	'identifier' => 'varTag.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Oauth/controllers/Customer/TokenController.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 4,
@@ -5574,6 +5498,13 @@ $ignoreErrors[] = [
 	'identifier' => 'empty.notAllowed',
 	'count' => 2,
 	'path' => __DIR__ . '/app/code/core/Mage/Page/Block/Html/Toplinks.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to deprecated method _getHtml() of class Mage_Page_Block_Html_Topmenu:
+since 1.8.2.0 use child block catalog.topnav.renderer instead',
+	'identifier' => 'method.deprecated',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Page/Block/Html/Topmenu.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
@@ -5672,14 +5603,8 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Payment/Block/Info/Cc.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc tag @var with type Mage_Payment_Model_Method_Abstract is not subtype of type Mage_Core_Model_Abstract|false.',
-	'identifier' => 'varTag.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Payment/Helper/Data.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc tag @var with type Mage_Payment_Model_Method_Abstract|false is not subtype of type Mage_Core_Model_Abstract|false.',
-	'identifier' => 'varTag.type',
+	'rawMessage' => 'Cannot call method getConfigData() on object|false.',
+	'identifier' => 'method.nonObject',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Payment/Helper/Data.php',
 ];
@@ -5692,12 +5617,6 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Payment/Model/Config.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc tag @var with type Mage_Payment_Model_Method_Abstract is not subtype of type Mage_Core_Model_Abstract|false.',
-	'identifier' => 'varTag.type',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Payment/Model/Config.php',
 ];
@@ -5792,12 +5711,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Payment/Model/Recurring/Profile.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc type bool of property Mage_Paypal_Block_Adminhtml_Settlement_Report_Grid::$_saveParametersInSession is not the same as PHPDoc type mixed of overridden property Mage_Adminhtml_Block_Widget_Grid::$_saveParametersInSession.',
-	'identifier' => 'property.phpDocType',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Paypal/Block/Adminhtml/Settlement/Report/Grid.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 1,
@@ -5828,10 +5741,23 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Paypal/Block/Adminhtml/System/Config/Fieldset/Payment.php',
 ];
 $ignoreErrors[] = [
+	'rawMessage' => 'Call to deprecated method getFormated() of class Mage_Customer_Model_Address_Abstract:
+for public function format',
+	'identifier' => 'method.deprecated',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Paypal/Block/Express/Review.php',
+];
+$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Paypal/Block/Express/Review/Details.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Cannot call method getCheckoutShortcutImageUrl() on object|false.',
+	'identifier' => 'method.nonObject',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Paypal/Block/Express/Shortcut.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
@@ -5840,14 +5766,9 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Paypal/Block/Express/Shortcut.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc tag @var with type Mage_Paypal_Model_Config is not subtype of type Mage_Core_Model_Abstract|false.',
-	'identifier' => 'varTag.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Paypal/Controller/Express/Abstract.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc tag @var with type Mage_Paypal_Model_Express_Checkout is not subtype of type Mage_Core_Model_Abstract|false.',
-	'identifier' => 'varTag.type',
+	'rawMessage' => 'Call to deprecated method getCheckoutMethod() of class Mage_Sales_Model_Quote:
+after 1.4 beta1 it is checkout module responsibility',
+	'identifier' => 'method.deprecated',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Paypal/Controller/Express/Abstract.php',
 ];
@@ -5936,12 +5857,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Paypal/Model/Config.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc tag @var with type Mage_Paypal_Model_Pro is not subtype of type Mage_Core_Model_Abstract|false.',
-	'identifier' => 'varTag.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Paypal/Model/Direct.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Parameter #2 of function sprintf is expected to be int by placeholder #1 ("%%02d"), string given.',
 	'identifier' => 'argument.type',
 	'count' => 1,
@@ -5950,12 +5865,6 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'If condition is always false.',
 	'identifier' => 'if.alwaysFalse',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Paypal/Model/Express.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc tag @var with type Mage_Paypal_Model_Pro is not subtype of type Mage_Core_Model_Abstract|false.',
-	'identifier' => 'varTag.type',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Paypal/Model/Express.php',
 ];
@@ -5970,6 +5879,19 @@ $ignoreErrors[] = [
 	'identifier' => 'argument.type',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Paypal/Model/Express.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to deprecated method getCheckoutMethod() of class Mage_Sales_Model_Quote:
+after 1.4 beta1 it is checkout module responsibility',
+	'identifier' => 'method.deprecated',
+	'count' => 2,
+	'path' => __DIR__ . '/app/code/core/Mage/Paypal/Model/Express/Checkout.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Cannot call method setConfigObject() on object|false.',
+	'identifier' => 'method.nonObject',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Paypal/Model/Express/Checkout.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
@@ -6074,8 +5996,43 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Paypal/Model/Payflowpro.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc tag @var with type Mage_Paypal_Model_Config is not subtype of type Mage_Core_Model_Abstract|false.',
-	'identifier' => 'varTag.type',
+	'rawMessage' => 'Call to method loadObjectByTxnId() of deprecated class Mage_Paypal_Model_Resource_Payment_Transaction:
+since 1.6.2.0',
+	'identifier' => 'method.deprecatedClass',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Paypal/Model/Payment/Transaction.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'PHPDoc tag @method for _getResource() references deprecated class Mage_Paypal_Model_Resource_Payment_Transaction:
+since 1.6.2.0',
+	'identifier' => 'methodTag.deprecatedClass',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Paypal/Model/Payment/Transaction.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'PHPDoc tag @method for getCollection() references deprecated class Mage_Paypal_Model_Resource_Payment_Transaction_Collection:
+since 1.6.2.0',
+	'identifier' => 'methodTag.deprecatedClass',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Paypal/Model/Payment/Transaction.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'PHPDoc tag @method for getResource() references deprecated class Mage_Paypal_Model_Resource_Payment_Transaction:
+since 1.6.2.0',
+	'identifier' => 'methodTag.deprecatedClass',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Paypal/Model/Payment/Transaction.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'PHPDoc tag @method for getResourceCollection() references deprecated class Mage_Paypal_Model_Resource_Payment_Transaction_Collection:
+since 1.6.2.0',
+	'identifier' => 'methodTag.deprecatedClass',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Paypal/Model/Payment/Transaction.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Cannot call method setConfigObject() on object|false.',
+	'identifier' => 'method.nonObject',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Paypal/Model/Pro.php',
 ];
@@ -6108,18 +6065,6 @@ $ignoreErrors[] = [
 	'identifier' => 'empty.notAllowed',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Paypal/Model/System/Config/Backend/MerchantCountry.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Method Varien_Data_Collection::toOptionArray() invoked with 1 parameter, 0 required.',
-	'identifier' => 'arguments.count',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Paypal/Model/System/Config/Source/BuyerCountry.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Method Varien_Data_Collection::toOptionArray() invoked with 1 parameter, 0 required.',
-	'identifier' => 'arguments.count',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Paypal/Model/System/Config/Source/MerchantCountry.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
@@ -6164,10 +6109,11 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Rating/Model/Resource/Rating/Collection.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Method Mage_Rating_Model_Resource_Rating_Collection::getItemById() invoked with 1 parameter, 0 required.',
-	'identifier' => 'arguments.count',
-	'count' => 2,
-	'path' => __DIR__ . '/app/code/core/Mage/Rating/Model/Resource/Rating/Collection.php',
+	'rawMessage' => 'Access to deprecated property $_ratingOptionTable of class Mage_Rating_Model_Resource_Rating_Option_Collection:
+since 1.5.0.0',
+	'identifier' => 'property.deprecated',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Rating/Model/Resource/Rating/Option/Collection.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Cannot call method addAttributeToSelect() on Mage_Core_Model_Resource_Db_Collection_Abstract|false.',
@@ -6268,18 +6214,6 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Reports/Model/Resource/Quote/Collection.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc type array of property Mage_Reports_Model_Resource_Quote_Collection::$_map is not the same as PHPDoc type array|null of overridden property Varien_Data_Collection_Db::$_map.',
-	'identifier' => 'property.phpDocType',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Reports/Model/Resource/Quote/Collection.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-	'identifier' => 'empty.notAllowed',
 	'count' => 2,
 	'path' => __DIR__ . '/app/code/core/Mage/Reports/Model/Resource/Report/Abstract.php',
 ];
@@ -6302,8 +6236,22 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Reports/Model/Resource/Tag/Collection.php',
 ];
 $ignoreErrors[] = [
+	'rawMessage' => 'Call to deprecated method setJoinFlag() of class Mage_Tag_Model_Resource_Product_Collection:
+after 1.3.2.3',
+	'identifier' => 'method.deprecated',
+	'count' => 3,
+	'path' => __DIR__ . '/app/code/core/Mage/Reports/Model/Resource/Tag/Product/Collection.php',
+];
+$ignoreErrors[] = [
 	'rawMessage' => 'Call to an undefined method Mage_Catalog_Model_Resource_Product_Flat|Mage_Eav_Model_Entity_Abstract::setStore().',
 	'identifier' => 'method.notFound',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Reports/Model/Resource/Wishlist/Product/Collection.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Class Mage_Reports_Model_Resource_Wishlist_Product_Collection extends deprecated class Mage_Wishlist_Model_Resource_Product_Collection:
+after 1.4.2.0',
+	'identifier' => 'class.extendsDeprecatedClass',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Reports/Model/Resource/Wishlist/Product/Collection.php',
 ];
@@ -6346,7 +6294,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 3,
+	'count' => 2,
 	'path' => __DIR__ . '/app/code/core/Mage/Review/Model/Resource/Review/Product/Collection.php',
 ];
 $ignoreErrors[] = [
@@ -6376,7 +6324,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 9,
+	'count' => 4,
 	'path' => __DIR__ . '/app/code/core/Mage/Rule/Model/Abstract.php',
 ];
 $ignoreErrors[] = [
@@ -6408,18 +6356,6 @@ $ignoreErrors[] = [
 	'identifier' => 'empty.notAllowed',
 	'count' => 2,
 	'path' => __DIR__ . '/app/code/core/Mage/Rule/Model/Action/Collection.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc tag @var with type Mage_Rule_Model_Action_Abstract is not subtype of type Mage_Core_Model_Abstract|false.',
-	'identifier' => 'varTag.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Rule/Model/Action/Collection.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-	'identifier' => 'empty.notAllowed',
-	'count' => 4,
-	'path' => __DIR__ . '/app/code/core/Mage/Rule/Model/Condition/Abstract.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
@@ -6454,7 +6390,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 8,
+	'count' => 5,
 	'path' => __DIR__ . '/app/code/core/Mage/Rule/Model/Resource/Abstract.php',
 ];
 $ignoreErrors[] = [
@@ -6474,6 +6410,13 @@ $ignoreErrors[] = [
 	'identifier' => 'empty.notAllowed',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Sales/Block/Order/Print/Shipment.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to deprecated method getFormated() of class Mage_Customer_Model_Address_Abstract:
+for public function format',
+	'identifier' => 'method.deprecated',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Sales/Block/Recurring/Profile/View.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
@@ -6521,18 +6464,12 @@ $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Sales/Model/Entity/Quote/Item/Collection.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-	'identifier' => 'empty.notAllowed',
-	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Sales/Model/Entity/Sale/Collection.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 3,
+	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Sales/Model/Observer.php',
 ];
 $ignoreErrors[] = [
@@ -6578,6 +6515,13 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Sales/Model/Order/Item.php',
 ];
 $ignoreErrors[] = [
+	'rawMessage' => 'Call to deprecated method addStatusToHistory() of class Mage_Sales_Model_Order:
+after 1.4.0.0-alpha3',
+	'identifier' => 'method.deprecated',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Sales/Model/Order/Payment.php',
+];
+$ignoreErrors[] = [
 	'rawMessage' => 'If condition is always false.',
 	'identifier' => 'if.alwaysFalse',
 	'count' => 1,
@@ -6606,6 +6550,12 @@ $ignoreErrors[] = [
 	'identifier' => 'argument.type',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Sales/Model/Order/Payment/Transaction.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Cannot call method setData() on object|false.',
+	'identifier' => 'method.nonObject',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Sales/Model/Order/Pdf/Abstract.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
@@ -6704,44 +6654,20 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Sales/Model/Quote.php',
 ];
 $ignoreErrors[] = [
+	'rawMessage' => 'Call to deprecated method getTotalModels() of class Mage_Sales_Model_Quote_Address.',
+	'identifier' => 'method.deprecated',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Sales/Model/Quote.php',
+];
+$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 3,
 	'path' => __DIR__ . '/app/code/core/Mage/Sales/Model/Quote.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc type string|true of property Mage_Sales_Model_Quote::$_cacheTag is not the same as PHPDoc type array|bool|string of overridden property Mage_Core_Model_Abstract::$_cacheTag.',
-	'identifier' => 'property.phpDocType',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Sales/Model/Quote.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Parameter #1 $item of method Mage_Sales_Model_Quote::addItem() expects Mage_Sales_Model_Quote_Item, Mage_Sales_Model_Quote_Item_Abstract given.',
-	'identifier' => 'argument.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Sales/Model/Quote.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Sales/Model/Quote/Address.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Method Mage_Sales_Model_Quote_Address::getItemsCollection() should return Mage_Eav_Model_Entity_Collection_Abstract but returns Mage_Sales_Model_Resource_Quote_Address_Item_Collection.',
-	'identifier' => 'return.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Sales/Model/Quote/Address.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Parameter #1 $parentItem of method Mage_Sales_Model_Quote_Item_Abstract::setParentItem() expects Mage_Sales_Model_Quote_Item, Mage_Sales_Model_Quote_Address_Item given.',
-	'identifier' => 'argument.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Sales/Model/Quote/Address.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Parameter #1 $quoteItem of method Mage_Sales_Model_Quote_Address_Item::importQuoteItem() expects Mage_Sales_Model_Quote_Item, Mage_Sales_Model_Quote_Item_Abstract given.',
-	'identifier' => 'argument.type',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Sales/Model/Quote/Address.php',
 ];
@@ -6782,6 +6708,25 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Sales/Model/Quote/Address/Total/Shipping.php',
 ];
 $ignoreErrors[] = [
+	'rawMessage' => 'Call to deprecated method calcTaxAmount() of class Mage_Sales_Model_Quote_Item_Abstract:
+logic moved to tax totals calculation model',
+	'identifier' => 'method.deprecated',
+	'count' => 2,
+	'path' => __DIR__ . '/app/code/core/Mage/Sales/Model/Quote/Address/Total/Tax.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to deprecated method getBaseTaxAmount() of class Mage_Sales_Model_Quote_Item_Abstract.',
+	'identifier' => 'method.deprecated',
+	'count' => 4,
+	'path' => __DIR__ . '/app/code/core/Mage/Sales/Model/Quote/Address/Total/Tax.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to deprecated method getTaxAmount() of class Mage_Sales_Model_Quote_Item_Abstract.',
+	'identifier' => 'method.deprecated',
+	'count' => 4,
+	'path' => __DIR__ . '/app/code/core/Mage/Sales/Model/Quote/Address/Total/Tax.php',
+];
+$ignoreErrors[] = [
 	'rawMessage' => 'Instanceof between Mage_Sales_Model_Quote_Item_Option and Mage_Sales_Model_Quote_Item_Option will always evaluate to true.',
 	'identifier' => 'instanceof.alwaysTrue',
 	'count' => 1,
@@ -6812,6 +6757,12 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Sales/Model/Recurring/Profile.php',
 ];
 $ignoreErrors[] = [
+	'rawMessage' => 'Call to deprecated method getBaseTaxAmount() of class Mage_Sales_Model_Quote_Item_Abstract.',
+	'identifier' => 'method.deprecated',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Sales/Model/Recurring/Profile.php',
+];
+$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 3,
@@ -6824,12 +6775,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Sales/Model/Recurring/Profile.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc type array of property Mage_Sales_Model_Resource_Billing_Agreement_Collection::$_map is not the same as PHPDoc type array|null of overridden property Varien_Data_Collection_Db::$_map.',
-	'identifier' => 'property.phpDocType',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Sales/Model/Resource/Billing/Agreement/Collection.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'PHPDoc tag @var with type Mage_Reports_Model_Resource_Helper_Interface is not subtype of type Mage_Core_Model_Resource_Helper_Abstract.',
 	'identifier' => 'varTag.type',
 	'count' => 1,
@@ -6838,7 +6783,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 3,
+	'count' => 2,
 	'path' => __DIR__ . '/app/code/core/Mage/Sales/Model/Resource/Order/Abstract.php',
 ];
 $ignoreErrors[] = [
@@ -6846,18 +6791,6 @@ $ignoreErrors[] = [
 	'identifier' => 'varTag.type',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Sales/Model/Resource/Order/Address.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-	'identifier' => 'empty.notAllowed',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Sales/Model/Resource/Order/Collection.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Parameter #1 $attribute of method Mage_Sales_Model_Resource_Collection_Abstract::addAttributeToFilter() expects Mage_Eav_Model_Entity_Attribute|string, array given.',
-	'identifier' => 'argument.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Sales/Model/Resource/Order/Collection.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
@@ -6956,6 +6889,12 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/SalesRule/Model/Observer.php',
 ];
 $ignoreErrors[] = [
+	'rawMessage' => 'Parameter #1 $combine of method Mage_SalesRule_Model_Observer::_removeAttributeFromConditions() expects Mage_Rule_Model_Condition_Combine, Mage_Rule_Model_Action_Collection given.',
+	'identifier' => 'argument.type',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/SalesRule/Model/Observer.php',
+];
+$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 1,
@@ -6974,15 +6913,9 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/SalesRule/Model/Resource/Report/Collection.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-	'identifier' => 'empty.notAllowed',
-	'count' => 2,
-	'path' => __DIR__ . '/app/code/core/Mage/SalesRule/Model/Resource/Rule.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Call to an undefined method Mage_Rule_Model_Action_Collection::validate().',
 	'identifier' => 'method.notFound',
-	'count' => 2,
+	'count' => 4,
 	'path' => __DIR__ . '/app/code/core/Mage/SalesRule/Model/Validator.php',
 ];
 $ignoreErrors[] = [
@@ -7002,6 +6935,13 @@ $ignoreErrors[] = [
 	'identifier' => 'empty.notAllowed',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Shipping/Block/Tracking/Popup.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to deprecated method _getTrackingUrl() of class Mage_Shipping_Helper_Data:
+the non-model usage',
+	'identifier' => 'method.deprecated',
+	'count' => 3,
+	'path' => __DIR__ . '/app/code/core/Mage/Shipping/Helper/Data.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
@@ -7091,18 +7031,6 @@ $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Shipping/Model/Config.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc tag @var with type Mage_Shipping_Model_Carrier_Abstract is not subtype of type Mage_Core_Model_Abstract|false.',
-	'identifier' => 'varTag.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Shipping/Model/Config.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-	'identifier' => 'empty.notAllowed',
-	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Shipping/Model/Info.php',
 ];
 $ignoreErrors[] = [
@@ -7122,6 +7050,19 @@ $ignoreErrors[] = [
 	'identifier' => 'empty.notAllowed',
 	'count' => 3,
 	'path' => __DIR__ . '/app/code/core/Mage/Shipping/Model/Resource/Carrier/Tablerate.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Access to deprecated property $_shipTable of class Mage_Shipping_Model_Resource_Carrier_Tablerate_Collection:
+since 1.4.1.0',
+	'identifier' => 'property.deprecated',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Shipping/Model/Resource/Carrier/Tablerate/Collection.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Cannot call method setStore() on object|false.',
+	'identifier' => 'method.nonObject',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Shipping/Model/Shipping.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
@@ -7178,6 +7119,13 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Tag/Block/Customer/Tags.php',
 ];
 $ignoreErrors[] = [
+	'rawMessage' => 'Call to deprecated method addVisibleFilterToCollection() of class Mage_Catalog_Model_Product_Status:
+remove on new builds',
+	'identifier' => 'method.deprecated',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Tag/Block/Customer/View.php',
+];
+$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 1,
@@ -7226,16 +7174,11 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Tag/Model/Resource/Tag.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc type array of property Mage_Tag_Model_Resource_Tag_Collection::$_map is not the same as PHPDoc type array|null of overridden property Varien_Data_Collection_Db::$_map.',
-	'identifier' => 'property.phpDocType',
+	'rawMessage' => 'Call to deprecated method aggregate() of class Mage_Tag_Model_Resource_Tag:
+after 1.4.0.0',
+	'identifier' => 'method.deprecated',
 	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Tag/Model/Resource/Tag/Collection.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-	'identifier' => 'empty.notAllowed',
-	'count' => 2,
-	'path' => __DIR__ . '/app/code/core/Mage/Tag/Model/Resource/Tag/Relation.php',
+	'path' => __DIR__ . '/app/code/core/Mage/Tag/Model/Tag.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
@@ -7346,16 +7289,22 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Tax/Model/Resource/Calculation.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-	'identifier' => 'empty.notAllowed',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Tax/Model/Resource/Calculation/Rule/Collection.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Strict comparison using === between non-empty-list and array{} will always evaluate to false.',
 	'identifier' => 'identical.alwaysFalse',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Tax/Model/Resource/Setup.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to deprecated method getBaseTaxAmount() of class Mage_Sales_Model_Quote_Item_Abstract.',
+	'identifier' => 'method.deprecated',
+	'count' => 9,
+	'path' => __DIR__ . '/app/code/core/Mage/Tax/Model/Sales/Total/Quote/Tax.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to deprecated method getTaxAmount() of class Mage_Sales_Model_Quote_Item_Abstract.',
+	'identifier' => 'method.deprecated',
+	'count' => 9,
+	'path' => __DIR__ . '/app/code/core/Mage/Tax/Model/Sales/Total/Quote/Tax.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
@@ -7368,12 +7317,6 @@ $ignoreErrors[] = [
 	'identifier' => 'empty.notAllowed',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Tax/Model/System/Config/Source/Tax/Region.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-	'identifier' => 'empty.notAllowed',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Usa/Model/Shipping/Carrier/Abstract.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Variable $result might not be defined.',
@@ -7490,8 +7433,8 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Usa/Model/Shipping/Carrier/Ups.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Parameter #2 $value of method SimpleXMLElement::addChild() expects string|null, float given.',
-	'identifier' => 'argument.type',
+	'rawMessage' => 'Parameter &$costArr by-ref type of method Mage_Usa_Model_Shipping_Carrier_Ups::processShippingRestRateForItem() expects array<float|string>, array given.',
+	'identifier' => 'parameterByRef.type',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Usa/Model/Shipping/Carrier/Ups.php',
 ];
@@ -7580,12 +7523,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Widget/Block/Adminhtml/Widget/Instance/Edit/Chooser/Layout.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc type array of property Mage_Widget_Model_Resource_Widget_Instance_Collection::$_map is not the same as PHPDoc type array|null of overridden property Varien_Data_Collection_Db::$_map.',
-	'identifier' => 'property.phpDocType',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Widget/Model/Resource/Widget/Instance/Collection.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 2,
@@ -7610,10 +7547,23 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Wishlist/Block/Customer/Wishlist/Item/Options.php',
 ];
 $ignoreErrors[] = [
+	'rawMessage' => 'Call to deprecated method _processLocalizedQty() of class Mage_Wishlist_Controller_Abstract.',
+	'identifier' => 'method.deprecated',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Wishlist/Controller/Abstract.php',
+];
+$ignoreErrors[] = [
 	'rawMessage' => 'Parameter #2 $callback of function array_filter expects (callable(mixed): bool)|null, Closure(mixed): int<0, max> given.',
 	'identifier' => 'argument.type',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Wishlist/Controller/Abstract.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Property $_productCollection references deprecated class Mage_Wishlist_Model_Resource_Product_Collection in its type:
+after 1.4.2.0',
+	'identifier' => 'property.deprecatedClass',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Wishlist/Helper/Data.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
@@ -7634,10 +7584,10 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Wishlist/Model/Resource/Item/Option/Collection.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc type string of property Mage_Wishlist_Model_Wishlist::$_cacheTag is not the same as PHPDoc type array|bool|string of overridden property Mage_Core_Model_Abstract::$_cacheTag.',
-	'identifier' => 'property.phpDocType',
+	'rawMessage' => 'Call to deprecated method _processLocalizedQty() of class Mage_Wishlist_Controller_Abstract.',
+	'identifier' => 'method.deprecated',
 	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Wishlist/Model/Wishlist.php',
+	'path' => __DIR__ . '/app/code/core/Mage/Wishlist/controllers/IndexController.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'PHPDoc type array<string> of property Mage_Wishlist_IndexController::$_cookieCheckActions is not the same as PHPDoc type array of overridden property Mage_Core_Controller_Varien_Action::$_cookieCheckActions.',
@@ -7682,15 +7632,223 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/catalog/product/edit/price/tier.phtml',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Parameter #2 $store of method Mage_Core_Helper_Data::currencyByStore() expects int|Mage_Core_Model_Store|null, true given.',
-	'identifier' => 'argument.type',
+	'rawMessage' => 'Call to deprecated method getGroupCollection() of class Mage_Adminhtml_Block_Store_Switcher.',
+	'identifier' => 'method.deprecated',
 	'count' => 1,
-	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/catalog/product/price.phtml',
+	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/catalog/product/edit/websites.phtml',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to deprecated method getStoreCollection() of class Mage_Adminhtml_Block_Store_Switcher.',
+	'identifier' => 'method.deprecated',
+	'count' => 1,
+	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/catalog/product/edit/websites.phtml',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to deprecated method getWebsiteCollection() of class Mage_Adminhtml_Block_Store_Switcher.',
+	'identifier' => 'method.deprecated',
+	'count' => 1,
+	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/catalog/product/edit/websites.phtml',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to deprecated method getGridUrl() of class Mage_Adminhtml_Block_Widget_Grid:
+after 1.3.2.3 Use getAbsoluteGridUrl() method instead',
+	'identifier' => 'method.deprecated',
+	'count' => 1,
+	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/dashboard/grid.phtml',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to deprecated method getRowId() of class Mage_Adminhtml_Block_Widget_Grid:
+since 1.1.7',
+	'identifier' => 'method.deprecated',
+	'count' => 1,
+	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/dashboard/grid.phtml',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to deprecated method getIsPriceWebsiteScope() of class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Links:
+since 1.14.2.0',
+	'identifier' => 'method.deprecated',
+	'count' => 2,
+	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/downloadable/product/edit/downloadable/links.phtml',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to deprecated method getHtmlId() of class Mage_Adminhtml_Block_Sales_Order_View_Items_Renderer_Default:
+after 1.4.2.0',
+	'identifier' => 'method.deprecated',
+	'count' => 1,
+	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/downloadable/sales/order/view/items/renderer/downloadable.phtml',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to method getButtonUrl() of deprecated class Mage_GiftMessage_Block_Message_Form:
+after 1.3.2.4',
+	'identifier' => 'method.deprecatedClass',
+	'count' => 1,
+	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/giftmessage/form.phtml',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to method getCancelButtonHtml() of deprecated class Mage_GiftMessage_Block_Message_Form:
+after 1.3.2.4',
+	'identifier' => 'method.deprecatedClass',
+	'count' => 1,
+	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/giftmessage/form.phtml',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to method getCloseButtonHtml() of deprecated class Mage_GiftMessage_Block_Message_Form:
+after 1.3.2.4',
+	'identifier' => 'method.deprecatedClass',
+	'count' => 2,
+	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/giftmessage/form.phtml',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to method getEditUrl() of deprecated class Mage_GiftMessage_Block_Message_Form:
+after 1.3.2.4',
+	'identifier' => 'method.deprecatedClass',
+	'count' => 1,
+	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/giftmessage/form.phtml',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to method getEscapedForJs() of deprecated class Mage_GiftMessage_Block_Message_Form:
+after 1.3.2.4',
+	'identifier' => 'method.deprecatedClass',
+	'count' => 1,
+	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/giftmessage/form.phtml',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to method getFormHtml() of deprecated class Mage_GiftMessage_Block_Message_Form:
+after 1.3.2.4',
+	'identifier' => 'method.deprecatedClass',
+	'count' => 1,
+	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/giftmessage/form.phtml',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to method getMessage() of deprecated class Mage_GiftMessage_Block_Message_Form:
+after 1.3.2.4',
+	'identifier' => 'method.deprecatedClass',
+	'count' => 1,
+	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/giftmessage/form.phtml',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to method getRemoveButtonHtml() of deprecated class Mage_GiftMessage_Block_Message_Form:
+after 1.3.2.4',
+	'identifier' => 'method.deprecatedClass',
+	'count' => 1,
+	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/giftmessage/form.phtml',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to method getRemoveUrl() of deprecated class Mage_GiftMessage_Block_Message_Form:
+after 1.3.2.4',
+	'identifier' => 'method.deprecatedClass',
+	'count' => 2,
+	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/giftmessage/form.phtml',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to method getSaveButtonHtml() of deprecated class Mage_GiftMessage_Block_Message_Form:
+after 1.3.2.4',
+	'identifier' => 'method.deprecatedClass',
+	'count' => 1,
+	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/giftmessage/form.phtml',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to method getSaveMode() of deprecated class Mage_GiftMessage_Block_Message_Form:
+after 1.3.2.4',
+	'identifier' => 'method.deprecatedClass',
+	'count' => 3,
+	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/giftmessage/form.phtml',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to method getSaveUrl() of deprecated class Mage_GiftMessage_Block_Message_Form:
+after 1.3.2.4',
+	'identifier' => 'method.deprecatedClass',
+	'count' => 1,
+	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/giftmessage/form.phtml',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to method getUniqueId() of deprecated class Mage_GiftMessage_Block_Message_Form:
+after 1.3.2.4',
+	'identifier' => 'method.deprecatedClass',
+	'count' => 2,
+	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/giftmessage/form.phtml',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'PHPDoc tag @var references deprecated class Mage_GiftMessage_Block_Message_Form:
+after 1.3.2.4',
+	'identifier' => 'varTag.deprecatedClass',
+	'count' => 1,
+	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/giftmessage/form.phtml',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Call to an undefined method Mage_GiftMessage_Block_Message_Helper::prepareAsIs().',
 	'identifier' => 'method.notFound',
 	'count' => 2,
+	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/giftmessage/helper.phtml',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to method getCanDisplayContainer() of deprecated class Mage_GiftMessage_Block_Message_Helper:
+after 1.3.2.4',
+	'identifier' => 'method.deprecatedClass',
+	'count' => 3,
+	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/giftmessage/helper.phtml',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to method getEditUrl() of deprecated class Mage_GiftMessage_Block_Message_Helper:
+after 1.3.2.4',
+	'identifier' => 'method.deprecatedClass',
+	'count' => 1,
+	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/giftmessage/helper.phtml',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to method getJsObjectName() of deprecated class Mage_GiftMessage_Block_Message_Helper:
+after 1.3.2.4',
+	'identifier' => 'method.deprecatedClass',
+	'count' => 2,
+	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/giftmessage/helper.phtml',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to method getMessage() of deprecated class Mage_GiftMessage_Block_Message_Helper:
+after 1.3.2.4',
+	'identifier' => 'method.deprecatedClass',
+	'count' => 2,
+	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/giftmessage/helper.phtml',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to method getScriptIncluded() of deprecated class Mage_GiftMessage_Block_Message_Helper:
+after 1.3.2.4',
+	'identifier' => 'method.deprecatedClass',
+	'count' => 1,
+	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/giftmessage/helper.phtml',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to method getType() of deprecated class Mage_GiftMessage_Block_Message_Helper:
+after 1.3.2.4',
+	'identifier' => 'method.deprecatedClass',
+	'count' => 2,
+	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/giftmessage/helper.phtml',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to method getWidgetButtonHtml() of deprecated class Mage_GiftMessage_Block_Message_Helper:
+after 1.3.2.4',
+	'identifier' => 'method.deprecatedClass',
+	'count' => 4,
+	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/giftmessage/helper.phtml',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to method hasGiftMessage() of deprecated class Mage_GiftMessage_Block_Message_Helper:
+after 1.3.2.4',
+	'identifier' => 'method.deprecatedClass',
+	'count' => 3,
+	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/giftmessage/helper.phtml',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to method setScriptIncluded() of deprecated class Mage_GiftMessage_Block_Message_Helper:
+after 1.3.2.4',
+	'identifier' => 'method.deprecatedClass',
+	'count' => 1,
+	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/giftmessage/helper.phtml',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'PHPDoc tag @var references deprecated class Mage_GiftMessage_Block_Message_Helper:
+after 1.3.2.4',
+	'identifier' => 'varTag.deprecatedClass',
+	'count' => 1,
 	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/giftmessage/helper.phtml',
 ];
 $ignoreErrors[] = [
@@ -7718,6 +7876,111 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/page/header.phtml',
 ];
 $ignoreErrors[] = [
+	'rawMessage' => 'PHPDoc tag @var references deprecated class Mage_Page_Block_Js_Translate:
+since 1.7.0.0 (used in adminhtml/default/default/layout/main.xml)',
+	'identifier' => 'varTag.deprecatedClass',
+	'count' => 1,
+	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/page/js/translate.phtml',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to method getElement() of deprecated class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Global:
+since 1.7.0.1',
+	'identifier' => 'method.deprecatedClass',
+	'count' => 9,
+	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/paypal/system/config/fieldset/global.phtml',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to method getElementBackendConfig() of deprecated class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Global:
+since 1.7.0.1',
+	'identifier' => 'method.deprecatedClass',
+	'count' => 9,
+	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/paypal/system/config/fieldset/global.phtml',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to method getElementComment() of deprecated class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Global:
+since 1.7.0.1',
+	'identifier' => 'method.deprecatedClass',
+	'count' => 2,
+	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/paypal/system/config/fieldset/global.phtml',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to method getElementHtml() of deprecated class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Global:
+since 1.7.0.1',
+	'identifier' => 'method.deprecatedClass',
+	'count' => 2,
+	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/paypal/system/config/fieldset/global.phtml',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to method getElementLabelTextHtml() of deprecated class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Global:
+since 1.7.0.1',
+	'identifier' => 'method.deprecatedClass',
+	'count' => 2,
+	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/paypal/system/config/fieldset/global.phtml',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to method getElementOriginalData() of deprecated class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Global:
+since 1.7.0.1',
+	'identifier' => 'method.deprecatedClass',
+	'count' => 2,
+	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/paypal/system/config/fieldset/global.phtml',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to method getElements() of deprecated class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Global:
+since 1.7.0.1',
+	'identifier' => 'method.deprecatedClass',
+	'count' => 1,
+	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/paypal/system/config/fieldset/global.phtml',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to method getFieldsetHelpUrl() of deprecated class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Global:
+since 1.7.0.1',
+	'identifier' => 'method.deprecatedClass',
+	'count' => 1,
+	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/paypal/system/config/fieldset/global.phtml',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to method getFieldsetLabel() of deprecated class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Global:
+since 1.7.0.1',
+	'identifier' => 'method.deprecatedClass',
+	'count' => 1,
+	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/paypal/system/config/fieldset/global.phtml',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to method getInheritElementHtml() of deprecated class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Global:
+since 1.7.0.1',
+	'identifier' => 'method.deprecatedClass',
+	'count' => 2,
+	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/paypal/system/config/fieldset/global.phtml',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to method getInheritElementLabelHtml() of deprecated class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Global:
+since 1.7.0.1',
+	'identifier' => 'method.deprecatedClass',
+	'count' => 2,
+	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/paypal/system/config/fieldset/global.phtml',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to method getIsElementSimplified() of deprecated class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Global:
+since 1.7.0.1',
+	'identifier' => 'method.deprecatedClass',
+	'count' => 1,
+	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/paypal/system/config/fieldset/global.phtml',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to method hasInheritElement() of deprecated class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Global:
+since 1.7.0.1',
+	'identifier' => 'method.deprecatedClass',
+	'count' => 2,
+	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/paypal/system/config/fieldset/global.phtml',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'PHPDoc tag @var references deprecated class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Global:
+since 1.7.0.1',
+	'identifier' => 'varTag.deprecatedClass',
+	'count' => 1,
+	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/paypal/system/config/fieldset/global.phtml',
+];
+$ignoreErrors[] = [
 	'rawMessage' => 'Call to an undefined method Mage_Core_Block_Abstract::_getUsers().',
 	'identifier' => 'method.notFound',
 	'count' => 1,
@@ -7730,10 +7993,53 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/permissions/user_roles_grid_js.phtml',
 ];
 $ignoreErrors[] = [
+	'rawMessage' => 'Call to deprecated method getGridUrl() of class Mage_Adminhtml_Block_Widget_Grid:
+after 1.3.2.3 Use getAbsoluteGridUrl() method instead',
+	'identifier' => 'method.deprecated',
+	'count' => 1,
+	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/report/grid.phtml',
+];
+$ignoreErrors[] = [
 	'rawMessage' => 'Comparison operation ">" between int<1, max> and 0 is always true.',
 	'identifier' => 'greater.alwaysTrue',
 	'count' => 1,
 	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/report/grid.phtml',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to deprecated method getGroupCollection() of class Mage_Adminhtml_Block_Store_Switcher.',
+	'identifier' => 'method.deprecated',
+	'count' => 1,
+	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/report/store/switcher.phtml',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to deprecated method getStoreCollection() of class Mage_Adminhtml_Block_Store_Switcher.',
+	'identifier' => 'method.deprecated',
+	'count' => 1,
+	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/report/store/switcher.phtml',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to deprecated method getWebsiteCollection() of class Mage_Adminhtml_Block_Store_Switcher.',
+	'identifier' => 'method.deprecated',
+	'count' => 1,
+	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/report/store/switcher.phtml',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to deprecated method getGroupCollection() of class Mage_Adminhtml_Block_Store_Switcher.',
+	'identifier' => 'method.deprecated',
+	'count' => 1,
+	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/report/store/switcher/enhanced.phtml',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to deprecated method getStoreCollection() of class Mage_Adminhtml_Block_Store_Switcher.',
+	'identifier' => 'method.deprecated',
+	'count' => 1,
+	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/report/store/switcher/enhanced.phtml',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to deprecated method getWebsiteCollection() of class Mage_Adminhtml_Block_Store_Switcher.',
+	'identifier' => 'method.deprecated',
+	'count' => 1,
+	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/report/store/switcher/enhanced.phtml',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
@@ -7748,16 +8054,65 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/sales/order/create/items/grid.phtml',
 ];
 $ignoreErrors[] = [
+	'rawMessage' => 'Call to deprecated method getGroupCollection() of class Mage_Adminhtml_Block_Store_Switcher.',
+	'identifier' => 'method.deprecated',
+	'count' => 1,
+	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/sales/order/create/store/select.phtml',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to deprecated method getStoreCollection() of class Mage_Adminhtml_Block_Store_Switcher.',
+	'identifier' => 'method.deprecated',
+	'count' => 1,
+	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/sales/order/create/store/select.phtml',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to deprecated method getWebsiteCollection() of class Mage_Adminhtml_Block_Store_Switcher.',
+	'identifier' => 'method.deprecated',
+	'count' => 1,
+	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/sales/order/create/store/select.phtml',
+];
+$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 1,
 	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/sales/order/shipment/packaging/popup.phtml',
 ];
 $ignoreErrors[] = [
+	'rawMessage' => 'Call to deprecated method getHtmlId() of class Mage_Adminhtml_Block_Sales_Order_View_Items_Renderer_Default:
+after 1.4.2.0',
+	'identifier' => 'method.deprecated',
+	'count' => 1,
+	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/sales/order/view/items/renderer/default.phtml',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to deprecated method getGroupCollection() of class Mage_Adminhtml_Block_Store_Switcher.',
+	'identifier' => 'method.deprecated',
+	'count' => 1,
+	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/store/switcher/enhanced.phtml',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to deprecated method getStoreCollection() of class Mage_Adminhtml_Block_Store_Switcher.',
+	'identifier' => 'method.deprecated',
+	'count' => 1,
+	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/store/switcher/enhanced.phtml',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to deprecated method getWebsiteCollection() of class Mage_Adminhtml_Block_Store_Switcher.',
+	'identifier' => 'method.deprecated',
+	'count' => 1,
+	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/store/switcher/enhanced.phtml',
+];
+$ignoreErrors[] = [
 	'rawMessage' => 'Negated boolean expression is always true.',
 	'identifier' => 'booleanNot.alwaysTrue',
 	'count' => 2,
 	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/system/store/tree.phtml',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to deprecated method getSaveUrl() of class Mage_Adminhtml_Block_Tag_Edit.',
+	'identifier' => 'method.deprecated',
+	'count' => 1,
+	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/tag/edit/container.phtml',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
@@ -7776,6 +8131,13 @@ $ignoreErrors[] = [
 	'identifier' => 'empty.notAllowed',
 	'count' => 2,
 	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/widget/breadcrumbs.phtml',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to deprecated method getGridUrl() of class Mage_Adminhtml_Block_Widget_Grid:
+after 1.3.2.3 Use getAbsoluteGridUrl() method instead',
+	'identifier' => 'method.deprecated',
+	'count' => 1,
+	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/widget/grid.phtml',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Method Mage_Adminhtml_Block_Widget_Grid::getEmptyCellColspan() invoked with 1 parameter, 0 required.',
@@ -7898,6 +8260,20 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/design/frontend/base/default/template/checkout/onepage/billing.phtml',
 ];
 $ignoreErrors[] = [
+	'rawMessage' => 'Call to deprecated method getCheckoutMethod() of class Mage_Sales_Model_Quote:
+after 1.4 beta1 it is checkout module responsibility',
+	'identifier' => 'method.deprecated',
+	'count' => 2,
+	'path' => __DIR__ . '/app/design/frontend/base/default/template/checkout/onepage/login.phtml',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to deprecated method isAllowedGuestCheckout() of class Mage_Sales_Model_Quote:
+after 1.4 beta1 it is checkout module responsibility',
+	'identifier' => 'method.deprecated',
+	'count' => 6,
+	'path' => __DIR__ . '/app/design/frontend/base/default/template/checkout/onepage/login.phtml',
+];
+$ignoreErrors[] = [
 	'rawMessage' => 'If condition is always true.',
 	'identifier' => 'if.alwaysTrue',
 	'count' => 1,
@@ -7994,6 +8370,37 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/design/frontend/base/default/template/giftmessage/inline.phtml',
 ];
 $ignoreErrors[] = [
+	'rawMessage' => 'PHPDoc tag @var references deprecated class Mage_Page_Block_Html_Toplinks:
+after 1.4.0.1',
+	'identifier' => 'varTag.deprecatedClass',
+	'count' => 1,
+	'path' => __DIR__ . '/app/design/frontend/base/default/template/page/html/top.links.phtml',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to method getAboutPaypalPageUrl() of deprecated class Mage_Paypal_Block_Logo.',
+	'identifier' => 'method.deprecatedClass',
+	'count' => 1,
+	'path' => __DIR__ . '/app/design/frontend/base/default/template/paypal/partner/logo.phtml',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to method getLogoImageUrl() of deprecated class Mage_Paypal_Block_Logo.',
+	'identifier' => 'method.deprecatedClass',
+	'count' => 1,
+	'path' => __DIR__ . '/app/design/frontend/base/default/template/paypal/partner/logo.phtml',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'PHPDoc tag @var references deprecated class Mage_Paypal_Block_Logo.',
+	'identifier' => 'varTag.deprecatedClass',
+	'count' => 1,
+	'path' => __DIR__ . '/app/design/frontend/base/default/template/paypal/partner/logo.phtml',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'PHPDoc tag @var references deprecated class Mage_Paypal_Block_Logo.',
+	'identifier' => 'varTag.deprecatedClass',
+	'count' => 1,
+	'path' => __DIR__ . '/app/design/frontend/base/default/template/paypal/partner/us_logo.phtml',
+];
+$ignoreErrors[] = [
 	'rawMessage' => 'Class Mage_Paypal_Block_Express_Form referenced with incorrect case: Mage_PayPal_Block_Express_Form.',
 	'identifier' => 'class.nameCase',
 	'count' => 1,
@@ -8004,6 +8411,20 @@ $ignoreErrors[] = [
 	'identifier' => 'method.nonObject',
 	'count' => 4,
 	'path' => __DIR__ . '/app/design/frontend/base/default/template/persistent/checkout/onepage/billing.phtml',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to deprecated method getCheckoutMethod() of class Mage_Sales_Model_Quote:
+after 1.4 beta1 it is checkout module responsibility',
+	'identifier' => 'method.deprecated',
+	'count' => 2,
+	'path' => __DIR__ . '/app/design/frontend/base/default/template/persistent/checkout/onepage/login.phtml',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to deprecated method isAllowedGuestCheckout() of class Mage_Sales_Model_Quote:
+after 1.4 beta1 it is checkout module responsibility',
+	'identifier' => 'method.deprecated',
+	'count' => 1,
+	'path' => __DIR__ . '/app/design/frontend/base/default/template/persistent/checkout/onepage/login.phtml',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'If condition is always true.',
@@ -8186,10 +8607,30 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/design/frontend/rwd/default/template/page/html/topmenu/renderer.phtml',
 ];
 $ignoreErrors[] = [
+	'rawMessage' => 'PHPDoc tag @var references deprecated class Mage_Paypal_Block_Logo.',
+	'identifier' => 'varTag.deprecatedClass',
+	'count' => 1,
+	'path' => __DIR__ . '/app/design/frontend/rwd/default/template/paypal/partner/us_logo.phtml',
+];
+$ignoreErrors[] = [
 	'rawMessage' => 'Cannot call method isEnabled() on Mage_Core_Block_Abstract|false.',
 	'identifier' => 'method.nonObject',
 	'count' => 4,
 	'path' => __DIR__ . '/app/design/frontend/rwd/default/template/persistent/checkout/onepage/billing.phtml',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to deprecated method getCheckoutMethod() of class Mage_Sales_Model_Quote:
+after 1.4 beta1 it is checkout module responsibility',
+	'identifier' => 'method.deprecated',
+	'count' => 2,
+	'path' => __DIR__ . '/app/design/frontend/rwd/default/template/persistent/checkout/onepage/login.phtml',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to deprecated method isAllowedGuestCheckout() of class Mage_Sales_Model_Quote:
+after 1.4 beta1 it is checkout module responsibility',
+	'identifier' => 'method.deprecated',
+	'count' => 1,
+	'path' => __DIR__ . '/app/design/frontend/rwd/default/template/persistent/checkout/onepage/login.phtml',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'If condition is always true.',
@@ -8384,12 +8825,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/lib/Varien/Data/Collection.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Call to an undefined method Varien_Data_Collection_Db::_initSelect().',
-	'identifier' => 'method.notFound',
-	'count' => 1,
-	'path' => __DIR__ . '/lib/Varien/Data/Collection/Db.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Parameter #2 $callback of function array_filter expects (callable(mixed): bool)|null, Closure(mixed): array<int<0, max>, non-empty-string> given.',
 	'identifier' => 'argument.type',
 	'count' => 1,
@@ -8426,18 +8861,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/lib/Varien/Db/Adapter/Pdo/Mysql.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Cannot call method query() on object|resource.',
-	'identifier' => 'method.nonObject',
-	'count' => 1,
-	'path' => __DIR__ . '/lib/Varien/Db/Adapter/Pdo/Mysql.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Cannot call method setAttribute() on object|resource.',
-	'identifier' => 'method.nonObject',
-	'count' => 2,
-	'path' => __DIR__ . '/lib/Varien/Db/Adapter/Pdo/Mysql.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Parameter #3 of function sprintf is expected to be int by placeholder #2 ("%%d"), string given.',
 	'identifier' => 'argument.type',
 	'count' => 1,
@@ -8466,6 +8889,12 @@ $ignoreErrors[] = [
 	'identifier' => 'return.missing',
 	'count' => 1,
 	'path' => __DIR__ . '/lib/Varien/Filter/Email.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Access to deprecated property $allowWhiteSpace of class Zend_Filter_Alnum.',
+	'identifier' => 'property.deprecated',
+	'count' => 1,
+	'path' => __DIR__ . '/lib/Varien/Filter/FormElementName.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Right side of && is always false.',
@@ -8552,10 +8981,330 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/shell/indexer.php',
 ];
 $ignoreErrors[] = [
+	'rawMessage' => 'Call to deprecated method sendNewPasswordEmail() of class Mage_Admin_Model_User:
+deprecated since version 1.6.1.0',
+	'identifier' => 'method.deprecated',
+	'count' => 1,
+	'path' => __DIR__ . '/tests/unit/Mage/Admin/Model/UserTest.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to deprecated method getPopupObjectUrl() of class Mage_AdminNotification_Helper_Data:
+v19.4.16',
+	'identifier' => 'method.deprecated',
+	'count' => 1,
+	'path' => __DIR__ . '/tests/unit/Mage/AdminNotification/Helper/DataTest.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to deprecated method getChartDataHash() of class Mage_Adminhtml_Helper_Dashboard_Data.',
+	'identifier' => 'method.deprecated',
+	'count' => 1,
+	'path' => __DIR__ . '/tests/unit/Mage/Adminhtml/Helper/Dashboard/DataTest.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to deprecated method addPageHelpUrl() of class Mage_Adminhtml_Helper_Data.',
+	'identifier' => 'method.deprecated',
+	'count' => 1,
+	'path' => __DIR__ . '/tests/unit/Mage/Adminhtml/Helper/DataTest.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to deprecated method getPageHelpUrl() of class Mage_Adminhtml_Helper_Data.',
+	'identifier' => 'method.deprecated',
+	'count' => 1,
+	'path' => __DIR__ . '/tests/unit/Mage/Adminhtml/Helper/DataTest.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to deprecated method setPageHelpUrl() of class Mage_Adminhtml_Helper_Data.',
+	'identifier' => 'method.deprecated',
+	'count' => 1,
+	'path' => __DIR__ . '/tests/unit/Mage/Adminhtml/Helper/DataTest.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to method getTranslatorScript() of deprecated class Mage_Adminhtml_Helper_Media_Js:
+since 1.7.0.0',
+	'identifier' => 'method.deprecatedClass',
+	'count' => 1,
+	'path' => __DIR__ . '/tests/unit/Mage/Adminhtml/Helper/Media/JsTest.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Property $subject references deprecated class Mage_Adminhtml_Helper_Media_Js in its type:
+since 1.7.0.0',
+	'identifier' => 'property.deprecatedClass',
+	'count' => 1,
+	'path' => __DIR__ . '/tests/unit/Mage/Adminhtml/Helper/Media/JsTest.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to deprecated method format() of class Mage_Catalog_Helper_Product_Url.',
+	'identifier' => 'method.deprecated',
+	'count' => 1,
+	'path' => __DIR__ . '/tests/unit/Mage/Catalog/Helper/Product/UrlTest.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to deprecated method isSwfDisabled() of class Mage_Cms_Helper_Data:
+since 19.5.0',
+	'identifier' => 'method.deprecated',
+	'count' => 1,
+	'path' => __DIR__ . '/tests/unit/Mage/Cms/Helper/DataTest.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Access to constant on deprecated class Mage_Adminhtml_Block_Report_Product_Ordered:
+after 1.4.0.1',
+	'identifier' => 'classConstant.deprecatedClass',
+	'count' => 2,
+	'path' => __DIR__ . '/tests/unit/Mage/Core/Model/LayoutTest.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Access to constant on deprecated class Mage_Adminhtml_Block_Report_Product_Ordered_Grid:
+after 1.4.0.1',
+	'identifier' => 'classConstant.deprecatedClass',
+	'count' => 2,
+	'path' => __DIR__ . '/tests/unit/Mage/Core/Model/LayoutTest.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Access to constant on deprecated class Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid_Renderer_Giftmessage:
+after 1.4.2.0 - gift column has been removed from search grid',
+	'identifier' => 'classConstant.deprecatedClass',
+	'count' => 1,
+	'path' => __DIR__ . '/tests/unit/Mage/Core/Model/LayoutTest.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Access to constant on deprecated class Mage_Adminhtml_Block_System_Store_Grid:
+after 1.13.1.0 use Mage_Adminhtml_Block_System_Store_Tree',
+	'identifier' => 'classConstant.deprecatedClass',
+	'count' => 1,
+	'path' => __DIR__ . '/tests/unit/Mage/Core/Model/LayoutTest.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Access to constant on deprecated class Mage_Adminhtml_Block_System_Store_Grid_Render_Group:
+after 1.13.1.0 use Mage_Adminhtml_Block_System_Store_Tree',
+	'identifier' => 'classConstant.deprecatedClass',
+	'count' => 1,
+	'path' => __DIR__ . '/tests/unit/Mage/Core/Model/LayoutTest.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Access to constant on deprecated class Mage_Adminhtml_Block_System_Store_Grid_Render_Store:
+after 1.13.1.0 use Mage_Adminhtml_Block_System_Store_Tree',
+	'identifier' => 'classConstant.deprecatedClass',
+	'count' => 1,
+	'path' => __DIR__ . '/tests/unit/Mage/Core/Model/LayoutTest.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Access to constant on deprecated class Mage_Adminhtml_Block_System_Store_Grid_Render_Website:
+after 1.13.1.0 use Mage_Adminhtml_Block_System_Store_Tree',
+	'identifier' => 'classConstant.deprecatedClass',
+	'count' => 1,
+	'path' => __DIR__ . '/tests/unit/Mage/Core/Model/LayoutTest.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Access to constant on deprecated class Mage_Adminhtml_Block_Tag_Tag_Edit:
+after 1.3.2.3',
+	'identifier' => 'classConstant.deprecatedClass',
+	'count' => 2,
+	'path' => __DIR__ . '/tests/unit/Mage/Core/Model/LayoutTest.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Access to constant on deprecated class Mage_Adminhtml_Block_Tag_Tag_Edit_Form:
+after 1.3.2.3',
+	'identifier' => 'classConstant.deprecatedClass',
+	'count' => 1,
+	'path' => __DIR__ . '/tests/unit/Mage/Core/Model/LayoutTest.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Access to constant on deprecated class Mage_Customer_Block_Account_Resetpassword.',
+	'identifier' => 'classConstant.deprecatedClass',
+	'count' => 1,
+	'path' => __DIR__ . '/tests/unit/Mage/Core/Model/LayoutTest.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Access to constant on deprecated class Mage_GiftMessage_Block_Message_Form:
+after 1.3.2.4',
+	'identifier' => 'classConstant.deprecatedClass',
+	'count' => 1,
+	'path' => __DIR__ . '/tests/unit/Mage/Core/Model/LayoutTest.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Access to constant on deprecated class Mage_GiftMessage_Block_Message_Helper:
+after 1.3.2.4',
+	'identifier' => 'classConstant.deprecatedClass',
+	'count' => 1,
+	'path' => __DIR__ . '/tests/unit/Mage/Core/Model/LayoutTest.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Access to constant on deprecated class Mage_Page_Block_Html_Toplinks:
+after 1.4.0.1',
+	'identifier' => 'classConstant.deprecatedClass',
+	'count' => 1,
+	'path' => __DIR__ . '/tests/unit/Mage/Core/Model/LayoutTest.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Access to constant on deprecated class Mage_Page_Block_Js_Translate:
+since 1.7.0.0 (used in adminhtml/default/default/layout/main.xml)',
+	'identifier' => 'classConstant.deprecatedClass',
+	'count' => 1,
+	'path' => __DIR__ . '/tests/unit/Mage/Core/Model/LayoutTest.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Access to constant on deprecated class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Global:
+since 1.7.0.1',
+	'identifier' => 'classConstant.deprecatedClass',
+	'count' => 1,
+	'path' => __DIR__ . '/tests/unit/Mage/Core/Model/LayoutTest.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Access to constant on deprecated class Mage_Paypal_Block_Logo.',
+	'identifier' => 'classConstant.deprecatedClass',
+	'count' => 1,
+	'path' => __DIR__ . '/tests/unit/Mage/Core/Model/LayoutTest.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Access to constant on deprecated class Mage_Paypal_Block_Payflow_Advanced_Review:
+since 1.6.2.0',
+	'identifier' => 'classConstant.deprecatedClass',
+	'count' => 1,
+	'path' => __DIR__ . '/tests/unit/Mage/Core/Model/LayoutTest.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Access to constant on deprecated class Mage_Paypal_Block_Payflow_Link_Review:
+since 1.6.2.0',
+	'identifier' => 'classConstant.deprecatedClass',
+	'count' => 1,
+	'path' => __DIR__ . '/tests/unit/Mage/Core/Model/LayoutTest.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Access to constant on deprecated class Mage_ProductAlert_Block_Price:
+after 1.4.1.0',
+	'identifier' => 'classConstant.deprecatedClass',
+	'count' => 1,
+	'path' => __DIR__ . '/tests/unit/Mage/Core/Model/LayoutTest.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Access to constant on deprecated class Mage_ProductAlert_Block_Stock:
+after 1.4.1.0',
+	'identifier' => 'classConstant.deprecatedClass',
+	'count' => 1,
+	'path' => __DIR__ . '/tests/unit/Mage/Core/Model/LayoutTest.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Access to constant on deprecated class Mage_Sales_Block_Order_Tax:
+after 1.3.2.2',
+	'identifier' => 'classConstant.deprecatedClass',
+	'count' => 1,
+	'path' => __DIR__ . '/tests/unit/Mage/Core/Model/LayoutTest.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to deprecated method getRegionJson() of class Mage_Directory_Helper_Data:
+after 1.7.0.2',
+	'identifier' => 'method.deprecated',
+	'count' => 1,
+	'path' => __DIR__ . '/tests/unit/Mage/Directory/Helper/DataTest.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to deprecated method lockIndexer() of class Mage_Index_Model_Indexer:
+after 1.6.1.0',
+	'identifier' => 'method.deprecated',
+	'count' => 1,
+	'path' => __DIR__ . '/tests/unit/Mage/Index/Model/IndexerTest.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to deprecated method unlockIndexer() of class Mage_Index_Model_Indexer:
+after 1.6.1.0',
+	'identifier' => 'method.deprecated',
+	'count' => 1,
+	'path' => __DIR__ . '/tests/unit/Mage/Index/Model/IndexerTest.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to deprecated method isValidForSend() of class Mage_Newsletter_Model_Template:
+since 1.4.0.1',
+	'identifier' => 'method.deprecated',
+	'count' => 1,
+	'path' => __DIR__ . '/tests/unit/Mage/Newsletter/Model/TemplateTest.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to deprecated method addCssIe() of class Mage_Page_Block_Html_Head.',
+	'identifier' => 'method.deprecated',
+	'count' => 1,
+	'path' => __DIR__ . '/tests/unit/Mage/Page/Block/Html/HeadTest.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to deprecated method addJsIe() of class Mage_Page_Block_Html_Head.',
+	'identifier' => 'method.deprecated',
+	'count' => 1,
+	'path' => __DIR__ . '/tests/unit/Mage/Page/Block/Html/HeadTest.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to deprecated method asArray() of class Mage_Rule_Model_Abstract:
+since 1.7.0.0',
+	'identifier' => 'method.deprecated',
+	'count' => 1,
+	'path' => __DIR__ . '/tests/unit/Mage/Rule/Model/AbstractTest.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to deprecated method asHtml() of class Mage_Rule_Model_Abstract:
+since 1.7.0.0',
+	'identifier' => 'method.deprecated',
+	'count' => 1,
+	'path' => __DIR__ . '/tests/unit/Mage/Rule/Model/AbstractTest.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to deprecated method asString() of class Mage_Rule_Model_Abstract:
+since 1.7.0.0',
+	'identifier' => 'method.deprecated',
+	'count' => 1,
+	'path' => __DIR__ . '/tests/unit/Mage/Rule/Model/AbstractTest.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to method getActionsInstance() of deprecated class Mage_Rule_Model_Rule:
+since 1.7.0.0 use Mage_Rule_Model_Abstract instead',
+	'identifier' => 'method.deprecatedClass',
+	'count' => 1,
+	'path' => __DIR__ . '/tests/unit/Mage/Rule/Model/RuleTest.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to method getConditionsInstance() of deprecated class Mage_Rule_Model_Rule:
+since 1.7.0.0 use Mage_Rule_Model_Abstract instead',
+	'identifier' => 'method.deprecatedClass',
+	'count' => 1,
+	'path' => __DIR__ . '/tests/unit/Mage/Rule/Model/RuleTest.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Property $subject references deprecated class Mage_Rule_Model_Rule in its type:
+since 1.7.0.0 use Mage_Rule_Model_Abstract instead',
+	'identifier' => 'property.deprecatedClass',
+	'count' => 1,
+	'path' => __DIR__ . '/tests/unit/Mage/Rule/Model/RuleTest.php',
+];
+$ignoreErrors[] = [
 	'rawMessage' => 'Dead catch - PhpUnitsOfMeasure\\Exception\\UnknownUnitOfMeasure is never thrown in the try block.',
 	'identifier' => 'catch.neverThrown',
 	'count' => 2,
 	'path' => __DIR__ . '/tests/unit/Mage/Usa/Helper/DataTest.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to deprecated method addWishlistLink() of class Mage_Wishlist_Block_Links:
+after 1.4.2.0',
+	'identifier' => 'method.deprecated',
+	'count' => 1,
+	'path' => __DIR__ . '/tests/unit/Mage/Wishlist/Block/LinksTest.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to deprecated method initLinkProperties() of class Mage_Wishlist_Block_Links:
+after 1.6.2.0',
+	'identifier' => 'method.deprecated',
+	'count' => 1,
+	'path' => __DIR__ . '/tests/unit/Mage/Wishlist/Block/LinksTest.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to deprecated method getDataForSave() of class Mage_Wishlist_Model_Item:
+since 1.4.0.0',
+	'identifier' => 'method.deprecated',
+	'count' => 1,
+	'path' => __DIR__ . '/tests/unit/Mage/Wishlist/Model/ItemTest.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to deprecated method setMethods() of class PHPUnit\\Framework\\MockObject\\MockBuilder:
+https://github.com/sebastianbergmann/phpunit/pull/3687',
+	'identifier' => 'method.deprecated',
+	'count' => 1,
+	'path' => __DIR__ . '/tests/unit/OpenMageTest.php',
 ];
 
 return ['parameters' => ['ignoreErrors' => $ignoreErrors]];

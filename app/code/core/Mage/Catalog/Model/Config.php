@@ -230,8 +230,7 @@ class Mage_Catalog_Model_Config extends Mage_Eav_Model_Config
         $productTypeCollection = Mage::getResourceModel('catalog/product_type_collection')
             ->load();
         */
-        $productTypeCollection = Mage::getModel('catalog/product_type')
-            ->getOptionArray();
+        $productTypeCollection = Mage::getModel('catalog/product_type')::getOptionArray();
 
         $this->_productTypesById = [];
         $this->_productTypesByName = [];

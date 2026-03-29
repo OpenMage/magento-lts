@@ -15,7 +15,7 @@
 class Mage_Paypal_Model_System_Config_Source_UrlMethod
 {
     /**
-     * @return array
+     * @return array<int, array<string, string>>
      */
     public function toOptionArray()
     {

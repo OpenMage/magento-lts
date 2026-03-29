@@ -12,6 +12,20 @@
  *
  * @package    Mage_Adminhtml
  *
+ * @template Menu of array{
+ *     id?: string,
+ *     children?: array,
+ *     title?: string,
+ *     label: string,
+ *     sort_order: int,
+ *     url: string,
+ *     click?: 'return false',
+ *     active: bool,
+ *     level: int,
+ *     target?: Varien_Simplexml_Element,
+ *     last?: true,
+ *  }
+ *
  * @method string getActive()
  * @method array  getAdditionalCacheKeyInfo()
  * @method $this  setActive(string $value)
@@ -40,9 +54,7 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
     }
 
     /**
-     * Retrieve cache lifetime
-     *
-     * @return int
+     * @inheritDoc
      */
     public function getCacheLifetime()
     {
@@ -64,7 +76,7 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
         ];
         // Add additional key parameters if needed
         $additionalCacheKeyInfo = $this->getAdditionalCacheKeyInfo();
-        if (is_array($additionalCacheKeyInfo) && !empty($additionalCacheKeyInfo)) {
+        if (is_array($additionalCacheKeyInfo) && $additionalCacheKeyInfo !== []) {
             return array_merge($cacheKeyInfo, $additionalCacheKeyInfo);
         }
 
@@ -74,7 +86,7 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
     /**
      * Retrieve Adminhtml Menu array
      *
-     * @return array
+     * @return Menu[]
      */
     public function getMenuArray()
     {
@@ -103,9 +115,9 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
     /**
      * Recursive Build Menu array
      *
-     * @param  string $path
-     * @param  int    $level
-     * @return array
+     * @param  string              $path
+     * @param  int                 $level
+     * @return array<string, Menu>
      */
     protected function _buildMenuArray(Varien_Simplexml_Element $parent, $path = '', $level = 0)
     {
@@ -117,7 +129,11 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
             }
 
             $aclResource = 'admin/' . ($child->resource ? (string) $child->resource : $path . $childName);
-            if (!$this->_checkAcl($aclResource) || !$this->_isEnabledModuleOutput($child)) {
+            if (!$this->_checkAcl($aclResource)) {
+                continue;
+            }
+
+            if (!$this->_isEnabledModuleOutput($child)) {
                 continue;
             }
 
@@ -216,7 +232,7 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
     protected function _checkAcl($resource)
     {
         try {
-            $res =  Mage::getSingleton('admin/session')->isAllowed($resource);
+            $res = Mage::getSingleton('admin/session')->isAllowed($resource);
         } catch (Exception) {
             return false;
         }
@@ -238,7 +254,7 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
     /**
      * Replace Callback Secret Key
      *
-     * @param  array  $match
+     * @param  string[] $match
      * @return string
      */
     protected function _callbackSecretKey($match)
@@ -250,8 +266,8 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
     /**
      * Get menu level HTML code
      *
-     * @param  array  $menu
-     * @param  int    $level
+     * @param  array<string, Menu> $menu
+     * @param  int                 $level
      * @return string
      */
     public function getMenuLevel($menu, $level = 0)
@@ -262,8 +278,7 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
                 continue; // for example hide System/Tools when empty
             }
 
-            $html .= '<li ' . (empty($item['children']) ? '' : 'onmouseover="Element.addClassName(this,\'over\')" '
-                    . 'onmouseout="Element.removeClassName(this,\'over\')"') . ' class="'
+            $html .= '<li class="'
                 . (!$level && !empty($item['active']) ? ' active' : '') . ' '
                 . (empty($item['children']) ? '' : ' parent')
                 . (!empty($level) && !empty($item['last']) ? ' last' : '')

@@ -60,7 +60,7 @@ final class DataTest extends OpenMageTest
      */
     public function testGetUrl(): void
     {
-        self::assertIsString(self::$subject->getUrl());
+        self::assertIsString(Subject::getUrl());
     }
 
     /**
@@ -69,7 +69,7 @@ final class DataTest extends OpenMageTest
      */
     public function testGetCustomAdminUrl(): void
     {
-        self::assertIsString(self::$subject->getCustomAdminUrl());
+        self::assertIsString(Subject::getCustomAdminUrl());
     }
 
     /**

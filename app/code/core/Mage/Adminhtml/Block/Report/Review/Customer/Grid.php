@@ -14,12 +14,13 @@
  */
 class Mage_Adminhtml_Block_Report_Review_Customer_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_report_review_customer_grid';
+
     public function __construct()
     {
         parent::__construct();
         $this->setId('customers_grid');
         $this->setDefaultSort('review_cnt');
-        $this->setDefaultDir('desc');
     }
 
     /**
@@ -29,7 +30,6 @@ class Mage_Adminhtml_Block_Report_Review_Customer_Grid extends Mage_Adminhtml_Bl
     {
         $collection = Mage::getResourceModel('reports/review_customer_collection')
             ->joinCustomers();
-
         $this->setCollection($collection);
 
         return parent::_prepareCollection();
@@ -70,6 +70,10 @@ class Mage_Adminhtml_Block_Report_Review_Customer_Grid extends Mage_Adminhtml_Bl
         return parent::_prepareColumns();
     }
 
+    /**
+     * @inheritDoc
+     * @param Mage_Review_Model_Review $row
+     */
     public function getRowUrl($row)
     {
         return $this->getUrl('*/catalog_product_review', ['customerId' => $row->getCustomerId()]);

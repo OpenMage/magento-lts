@@ -1,12 +1,13 @@
 <?php
 
+use Monolog\Level;
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
  * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
  */
-
 /**
  * Base html block
  *
@@ -163,7 +164,7 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
         if (!str_contains($dir, '..') && ($dir === Mage::getBaseDir('design') || str_starts_with(realpath($dir), realpath(Mage::getBaseDir('design'))))) {
             $this->_viewDir = $dir;
         } else {
-            Mage::log('Not valid script path:' . $dir, \Monolog\Level::Critical, null, true);
+            Mage::log('Not valid script path:' . $dir, Level::Critical, null, true);
         }
 
         return $this;
@@ -281,7 +282,7 @@ HTML;
                 include $this->_viewDir . DS . $fileName;
             } else {
                 $thisClass = static::class;
-                Mage::log('Not valid template file:' . $fileName . ' class: ' . $thisClass, \Monolog\Level::Critical, null, true);
+                Mage::log('Not valid template file:' . $fileName . ' class: ' . $thisClass, Level::Critical, null, true);
             }
         } catch (Throwable $throwable) {
             if (!$do) {
@@ -379,6 +380,7 @@ HTML;
 
     /**
      * @inheritDoc
+     * @return array<int|string, string>
      */
     public function getCacheKeyInfo()
     {

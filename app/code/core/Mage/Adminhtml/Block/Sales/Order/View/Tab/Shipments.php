@@ -14,6 +14,8 @@
  */
 class Mage_Adminhtml_Block_Sales_Order_View_Tab_Shipments extends Mage_Adminhtml_Block_Widget_Grid implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
+    protected string $_eventPrefix = 'adminhtml_sales_order_view_tab_shipments';
+
     public function __construct()
     {
         parent::__construct();
@@ -91,6 +93,11 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_Shipments extends Mage_Adminhtml
         return Mage::registry('current_order');
     }
 
+    /**
+     * @inheritDoc
+     * @param  Mage_Sales_Model_Order_Shipment $row
+     * @throws Mage_Core_Exception
+     */
     public function getRowUrl($row)
     {
         return $this->getUrl(
@@ -102,21 +109,33 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_Shipments extends Mage_Adminhtml
         );
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getGridUrl()
     {
         return $this->getUrl('*/*/shipments', ['_current' => true]);
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getTabLabel()
     {
         return Mage::helper('sales')->__('Shipments');
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getTabTitle()
     {
         return Mage::helper('sales')->__('Shipments');
     }
 
+    /**
+     * @inheritDoc
+     */
     public function canShowTab()
     {
         if ($this->getOrder()->getIsVirtual()) {
@@ -126,6 +145,9 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_Shipments extends Mage_Adminhtml
         return Mage::getSingleton('admin/session')->isAllowed('sales/shipment');
     }
 
+    /**
+     * @inheritDoc
+     */
     public function isHidden()
     {
         return false;

@@ -311,10 +311,10 @@ class Mage_Eav_Model_Convert_Adapter_Entity extends Mage_Dataflow_Model_Convert_
 
             $message = Mage::helper('eav')->__('Loaded %d records', count($entityIds));
             $this->addException($message);
-        } catch (Varien_Convert_Exception $e) {
-            throw $e;
-        } catch (Exception $e) {
-            $message = Mage::helper('eav')->__('Problem loading the collection, aborting. Error: %s', $e->getMessage());
+        } catch (Varien_Convert_Exception $varienConvertException) {
+            throw $varienConvertException;
+        } catch (Exception $exception) {
+            $message = Mage::helper('eav')->__('Problem loading the collection, aborting. Error: %s', $exception->getMessage());
             $this->addException($message, Varien_Convert_Exception::FATAL);
         }
 
@@ -362,11 +362,11 @@ class Mage_Eav_Model_Convert_Adapter_Entity extends Mage_Dataflow_Model_Convert_
             }
 
             $this->addException(Mage::helper('eav')->__('Saved %d record(s).', $i));
-        } catch (Varien_Convert_Exception $e) {
-            throw $e;
-        } catch (Exception $e) {
+        } catch (Varien_Convert_Exception $varienConvertException) {
+            throw $varienConvertException;
+        } catch (Exception $exception) {
             $this->addException(
-                Mage::helper('eav')->__('Problem saving the collection, aborting. Error: %s', $e->getMessage()),
+                Mage::helper('eav')->__('Problem saving the collection, aborting. Error: %s', $exception->getMessage()),
                 Varien_Convert_Exception::FATAL,
             );
         }

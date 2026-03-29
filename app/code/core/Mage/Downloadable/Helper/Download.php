@@ -188,10 +188,8 @@ class Mage_Downloadable_Helper_Download extends Mage_Core_Helper_Abstract
             return $handle->streamStat('size');
         }
 
-        if ($this->_linkType == self::LINK_TYPE_URL) {
-            if (isset($this->_urlHeaders['content-length'])) {
-                return $this->_urlHeaders['content-length'];
-            }
+        if ($this->_linkType == self::LINK_TYPE_URL && isset($this->_urlHeaders['content-length'])) {
+            return $this->_urlHeaders['content-length'];
         }
 
         return null;
@@ -212,11 +210,9 @@ class Mage_Downloadable_Helper_Download extends Mage_Core_Helper_Abstract
             return Mage::helper('downloadable/file')->getFileType($this->_resourceFile);
         }
 
-        if ($this->_linkType == self::LINK_TYPE_URL) {
-            if (isset($this->_urlHeaders['content-type'])) {
-                $contentType = explode('; ', $this->_urlHeaders['content-type']);
-                return $contentType[0];
-            }
+        if ($this->_linkType == self::LINK_TYPE_URL && isset($this->_urlHeaders['content-type'])) {
+            $contentType = explode('; ', $this->_urlHeaders['content-type']);
+            return $contentType[0];
         }
 
         return $this->_contentType;

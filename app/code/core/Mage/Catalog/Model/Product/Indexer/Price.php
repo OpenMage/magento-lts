@@ -100,7 +100,7 @@ class Mage_Catalog_Model_Product_Indexer_Price extends Mage_Index_Model_Indexer_
     /**
      * Retrieve attribute list has an effect on product price
      *
-     * @return array
+     * @return array<int, string>
      */
     protected function _getDependentAttributes()
     {

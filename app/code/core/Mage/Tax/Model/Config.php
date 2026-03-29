@@ -360,30 +360,6 @@ class Mage_Tax_Model_Config
     }
 
     /**
-     * Check if we need display full tax summary information in totals block
-     *
-     * @param  null|bool|int|Mage_Core_Model_Store|string $store
-     * @return bool
-     * @deprecated please use displayCartFullSummary or displaySalesFullSummary
-     */
-    public function displayFullSummary($store = null)
-    {
-        return $this->displayCartFullSummary($store);
-    }
-
-    /**
-     * Check if we need display zero tax in subtotal
-     *
-     * @param  null|bool|int|Mage_Core_Model_Store|string $store
-     * @return bool
-     * @deprecated please use displayCartZeroTax or displaySalesZeroTax
-     */
-    public function displayZeroTax($store = null)
-    {
-        return $this->displayCartZeroTax($store);
-    }
-
-    /**
      * Get shopping cart prices display type
      *
      * @param  null|bool|int|Mage_Core_Model_Store|string $store

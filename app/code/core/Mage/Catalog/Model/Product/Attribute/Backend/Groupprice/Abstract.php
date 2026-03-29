@@ -80,8 +80,8 @@ abstract class Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract 
     /**
      * Get additional unique fields
      *
-     * @param  array $objectArray
-     * @return array
+     * @param  array                            $objectArray
+     * @return array<string, mixed>|array<void>
      */
     protected function _getAdditionalUniqueFields($objectArray)
     {
@@ -184,7 +184,7 @@ abstract class Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract 
     {
         $rates  = $this->_getWebsiteCurrencyRates($websiteId);
         $data   = [];
-        $price  = Mage::getSingleton('catalog/product_type')->priceFactory($productTypeId);
+        $price  = Mage::getSingleton('catalog/product_type')::priceFactory($productTypeId);
         foreach ($priceData as $v) {
             $key = implode('-', array_merge([$v['cust_group']], $this->_getAdditionalUniqueFields($v)));
             if ($v['website_id'] == $websiteId) {
@@ -293,7 +293,15 @@ abstract class Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract 
                 }
             }
 
-            if ($hasEmptyData || !isset($data['cust_group']) || !empty($data['delete'])) {
+            if ($hasEmptyData) {
+                continue;
+            }
+
+            if (!isset($data['cust_group'])) {
+                continue;
+            }
+
+            if (!empty($data['delete'])) {
                 continue;
             }
 

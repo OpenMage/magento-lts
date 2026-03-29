@@ -14,7 +14,7 @@ use Carbon\Carbon;
  *
  * @package    Mage_Reports
  */
-class Mage_Reports_Model_Resource_Report_Collection
+class Mage_Reports_Model_Resource_Report_Collection extends Varien_Data_Collection
 {
     /**
      * From value
@@ -50,13 +50,6 @@ class Mage_Reports_Model_Resource_Report_Collection
      * @var array
      */
     protected $_intervals;
-
-    /**
-     * Page size
-     *
-     * @var int
-     */
-    protected $_pageSize;
 
     /**
      * Array of store ids
@@ -173,7 +166,7 @@ class Mage_Reports_Model_Resource_Report_Collection
     /**
      * Return date periods
      *
-     * @return array
+     * @return array<string, string>
      */
     public function getPeriods()
     {
@@ -207,35 +200,11 @@ class Mage_Reports_Model_Resource_Report_Collection
     }
 
     /**
-     * Get size
-     *
-     * @return int
+     * @inheritDoc
      */
     public function getSize()
     {
         return count($this->getIntervals());
-    }
-
-    /**
-     * Set page size
-     *
-     * @param  int   $size
-     * @return $this
-     */
-    public function setPageSize($size)
-    {
-        $this->_pageSize = $size;
-        return $this;
-    }
-
-    /**
-     * Get page size
-     *
-     * @return int
-     */
-    public function getPageSize()
-    {
-        return $this->_pageSize;
     }
 
     /**

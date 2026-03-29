@@ -144,9 +144,9 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieve available billing agreement methods
      *
-     * @param  mixed                  $store
-     * @param  Mage_Sales_Model_Quote $quote
-     * @return array
+     * @param  mixed                                $store
+     * @param  Mage_Sales_Model_Quote               $quote
+     * @return Mage_Payment_Model_Method_Abstract[]
      */
     public function getBillingAgreementMethods($store = null, $quote = null)
     {
@@ -163,8 +163,8 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get payment methods that implement recurring profilez management
      *
-     * @param  mixed $store
-     * @return array
+     * @param  mixed                                $store
+     * @return Mage_Payment_Model_Method_Abstract[]
      */
     public function getRecurringProfileMethods($store = null)
     {

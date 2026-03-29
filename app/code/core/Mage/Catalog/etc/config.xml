@@ -209,7 +209,6 @@
             </catalog>
             <catalog_resource>
                 <class>Mage_Catalog_Model_Resource</class>
-                <deprecatedNode>catalog_resource_eav_mysql4</deprecatedNode>
                 <entities>
                     <product>
                         <table>catalog_product_entity</table>
@@ -708,7 +707,6 @@
                 <observers>
                     <disable_advanced_search>
                         <class>catalog/observer_disableAdvancedSearch</class>
-                        <method>execute</method>
                     </disable_advanced_search>
                 </observers>
             </controller_action_predispatch_catalogsearch_advanced_index>
@@ -716,7 +714,6 @@
                 <observers>
                     <disable_advanced_search>
                         <class>catalog/observer_disableAdvancedSearch</class>
-                        <method>execute</method>
                     </disable_advanced_search>
                 </observers>
             </controller_action_predispatch_catalogsearch_advanced_result>

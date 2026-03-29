@@ -14,12 +14,17 @@
  */
 class Mage_Adminhtml_Block_Dashboard_Tab_Customers_Newest extends Mage_Adminhtml_Block_Dashboard_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_dashboard_tab_customers_newest';
+
     public function __construct()
     {
         parent::__construct();
         $this->setId('customersNewestGrid');
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _prepareCollection()
     {
         $collection = Mage::getResourceModel('reports/customer_collection')
@@ -46,6 +51,8 @@ class Mage_Adminhtml_Block_Dashboard_Tab_Customers_Newest extends Mage_Adminhtml
     }
 
     /**
+     * @inheritDoc
+     * @throws Exception
      * @throws Mage_Core_Model_Store_Exception
      */
     protected function _prepareColumns()
@@ -90,8 +97,9 @@ class Mage_Adminhtml_Block_Dashboard_Tab_Customers_Newest extends Mage_Adminhtml
     }
 
     /**
+     * @inheritDoc
      * @param  Mage_Customer_Model_Customer $row
-     * @return string
+     * @throws Mage_Core_Exception
      */
     public function getRowUrl($row)
     {

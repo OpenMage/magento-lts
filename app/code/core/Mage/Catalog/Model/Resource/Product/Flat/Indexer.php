@@ -290,7 +290,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
     /**
      * Retrieve catalog product flat columns array in old format (used before MMDB support)
      *
-     * @return array
+     * @return array<string, array<string, null|bool|int|string>|array<string, null|bool|string>>
      */
     protected function _getFlatColumnsOldDefinition()
     {
@@ -340,7 +340,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
     /**
      * Retrieve catalog product flat columns array in DDL format
      *
-     * @return array
+     * @return array<string, array<string, bool|int|string>|array<string, null|bool|string>>
      */
     protected function _getFlatColumnsDdlDefinition()
     {
@@ -1078,8 +1078,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
 
             foreach (array_keys(Mage_Catalog_Model_Product_Type::getTypes()) as $typeId) {
                 $productEmulator->setTypeId($typeId);
-                $this->_productTypes[$typeId] = Mage::getSingleton('catalog/product_type')
-                    ->factory($productEmulator);
+                $this->_productTypes[$typeId] = Mage::getSingleton('catalog/product_type')::factory($productEmulator);
             }
         }
 

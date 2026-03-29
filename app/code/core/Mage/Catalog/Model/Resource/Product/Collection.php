@@ -13,8 +13,8 @@
  * @package    Mage_Catalog
  *
  * @method Mage_Catalog_Model_Resource_Product_Flat|Mage_Eav_Model_Entity_Abstract getEntity()
- * @method Mage_Catalog_Model_Product                                              getItemById($value)
- * @method Mage_Catalog_Model_Product[]                                            getItems()
+ *
+ * @extends Mage_Catalog_Model_Resource_Collection_Abstract<Mage_Catalog_Model_Product>
  */
 class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_Resource_Collection_Abstract
 {
@@ -130,7 +130,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     /**
      * Map of price fields
      *
-     * @var array
+     * @inheritDoc
      */
     protected $_map = ['fields' => [
         'price'         => 'price_index.price',
@@ -1230,18 +1230,6 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     }
 
     /**
-     * Add minimal price data to result
-     *
-     * @return $this
-     * @deprecated use addPriceData
-     * @see Mage_Catalog_Model_Resource_Product_Collection::addPriceData
-     */
-    public function addMinimalPrice()
-    {
-        return $this->addPriceData();
-    }
-
-    /**
      * Add minimal price to product collection
      *
      * @return $this
@@ -1251,18 +1239,6 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     protected function _addMinimalPrice()
     {
         return $this;
-    }
-
-    /**
-     * Add price data for calculate final price
-     *
-     * @return $this
-     * @deprecated use addPriceData
-     * @see Mage_Catalog_Model_Resource_Product_Collection::addPriceData
-     */
-    public function addFinalPrice()
-    {
-        return $this->addPriceData();
     }
 
     /**
@@ -1323,7 +1299,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
                 $rulePrice = $product->getData('_rule_price');
             }
 
-            $finalPrice = $product->getPriceModel()->calculatePrice(
+            $finalPrice = $product->getPriceModel()::calculatePrice(
                 $basePrice,
                 $specialPrice,
                 $specialPriceFrom,
@@ -1524,7 +1500,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
             $productIds[] = $product->getId();
         }
 
-        if (!empty($productIds)) {
+        if ($productIds !== []) {
             $storeId = $this->getStoreId();
             $options = Mage::getModel('catalog/product_option')
                 ->getCollection()

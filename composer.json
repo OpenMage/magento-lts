@@ -71,12 +71,13 @@
         "phpmd/phpmd": "^2.13",
         "phpstan/extension-installer": "^1.4",
         "phpstan/phpstan": "^2.1.18",
+        "phpstan/phpstan-deprecation-rules": "^2.0",
         "phpstan/phpstan-phpunit": "^2.0",
         "phpstan/phpstan-strict-rules": "^2.0",
         "phpunit/phpunit": "^9.6",
         "rector/rector": "^2.1.12",
         "squizlabs/php_codesniffer": "^3.7",
-        "symplify/vendor-patches": "^12.0"
+        "symplify/vendor-patches": "^12.0, !=12.0.5, !=12.0.6"
     },
     "replace": {
         "symfony/polyfill-ctype": "*",
@@ -135,23 +136,11 @@
             "app/code/*/*/*/Controller"
         ],
         "psr-4": {
+            "OpenMage\\Rector\\": "dev/rector",
             "OpenMage\\Tests\\Unit\\": "tests/unit"
         }
     },
     "extra": {
-        "patches": {
-            "shardj/zf1-future": {
-                "MAG-1.9.3.0": "https://raw.githubusercontent.com/OpenMage/magento-lts/de83e28a673e3c1a249b51433abf6dc93e59063c/.vendor-patches/MAG-1.9.3.0.patch",
-                "MAG-1.9.3.7 - SUPEE-10415": "https://raw.githubusercontent.com/OpenMage/magento-lts/de83e28a673e3c1a249b51433abf6dc93e59063c/.vendor-patches/MAG-1.9.3.7.patch",
-                "OM-918 - Add runtime cache to Zend_Locale_Data": "https://raw.githubusercontent.com/OpenMage/magento-lts/f28ab75b1df7d1497ed775e33b77d7957c9b85c4/.vendor-patches/OM-918.patch",
-                "OM-1081 - Not detecting HTTPS behind a proxy": "https://raw.githubusercontent.com/OpenMage/magento-lts/de83e28a673e3c1a249b51433abf6dc93e59063c/.vendor-patches/OM-1081.patch",
-                "OM-2047 - Pass delimiter char to preg_quote": "https://raw.githubusercontent.com/OpenMage/magento-lts/5479577ef5207ace4f5842a2f1a636f689db9194/.vendor-patches/OM-2047.patch",
-                "OM-2050 - Prevent checking known date codes": "https://raw.githubusercontent.com/OpenMage/magento-lts/de83e28a673e3c1a249b51433abf6dc93e59063c/.vendor-patches/OM-2050.patch"
-            },
-            "magento-ecg/coding-standard": {
-                "ECG-72 - Fix LoopSniff": "https://raw.githubusercontent.com/OpenMage/magento-lts/de83e28a673e3c1a249b51433abf6dc93e59063c/.vendor-patches/ECG-72.patch"
-            }
-        },
         "magento-root-dir": ".",
         "magento-deploystrategy": "copy",
         "magento-deploystrategy-dev": "symlink",
@@ -193,7 +182,7 @@
         "rector:test": "vendor/bin/rector process --config .rector.php --dry-run",
         "rector:test:debug": "vendor/bin/rector process --config .rector.php --dry-run --debug",
         "rector:fix": "vendor/bin/rector process --config .rector.php",
-        "vendor:patch": "vendor/bin/vendor-patches generate --patches-folder=.vendor-patches",
+        "vendor:patch": "vendor/bin/vendor-patches generate --patches-file=patches.json --patches-folder=.vendor-patches",
         "test": [
             "@php-cs-fixer:test",
             "@phpstan",

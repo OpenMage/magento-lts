@@ -218,11 +218,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
      */
     public function canUseForCurrency($currencyCode)
     {
-        if (!in_array($currencyCode, $this->getAcceptedCurrencyCodes())) {
-            return false;
-        }
-
-        return true;
+        return in_array($currencyCode, $this->getAcceptedCurrencyCodes());
     }
 
     /**
@@ -1114,8 +1110,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
      *
      * Update transaction info if there is one placing transaction only
      *
-     * @param  string $transactionId
-     * @return array
+     * @inheritDoc
      */
     public function fetchTransactionInfo(Mage_Payment_Model_Info $payment, $transactionId)
     {
@@ -1270,12 +1265,6 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
 
         switch ($payment->getAnetTransType()) {
             case self::REQUEST_TYPE_AUTH_CAPTURE:
-                $request->setXAllowPartialAuth($this->getConfigData('allow_partial_authorization') ? 'True' : 'False');
-                if ($payment->getAdditionalInformation($this->_splitTenderIdKey)) {
-                    $request->setXSplitTenderId($payment->getAdditionalInformation($this->_splitTenderIdKey));
-                }
-
-                break;
             case self::REQUEST_TYPE_AUTH_ONLY:
                 $request->setXAllowPartialAuth($this->getConfigData('allow_partial_authorization') ? 'True' : 'False');
                 if ($payment->getAdditionalInformation($this->_splitTenderIdKey)) {
@@ -1292,8 +1281,6 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
                 $request->setXTransId($payment->getXTransId());
                 break;
             case self::REQUEST_TYPE_VOID:
-                $request->setXTransId($payment->getXTransId());
-                break;
             case self::REQUEST_TYPE_PRIOR_AUTH_CAPTURE:
                 $request->setXTransId($payment->getXTransId());
                 break;
@@ -1518,6 +1505,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
      *
      * @param  string                                          $transactionId
      * @param  string                                          $transactionType
+     * @param  array<string, int>|array<string, mixed>         $transactionDetails
      * @return null|Mage_Sales_Model_Order_Payment_Transaction
      */
     protected function _addTransaction(

@@ -112,11 +112,6 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
     }
 
     /**
-     * Constructor
-     */
-    public function __construct() {}
-
-    /**
      * Set headers from hash
 
      * @param array $headers
@@ -258,7 +253,11 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
             }
 
             [$key, $val] = array_pad(array_map(trim(...), explode('=', $values[0])), 2, null);
-            if (is_null($val) || !strlen($key)) {
+            if (is_null($val)) {
+                continue;
+            }
+
+            if (!strlen($key)) {
                 continue;
             }
 
@@ -288,7 +287,11 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
             }
 
             [$key, $val] = array_pad(array_map(trim(...), explode('=', $values[0])), 2, null);
-            if (is_null($val) || !strlen($key)) {
+            if (is_null($val)) {
+                continue;
+            }
+
+            if (!strlen($key)) {
                 continue;
             }
 
@@ -438,8 +441,8 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
      */
     protected function validateHttpVersion(array $line)
     {
-        if (in_array($line[0], ['HTTP/2', 'HTTP/1.0', 'HTTP/1.1'])) {
-            if (!in_array(count($line), [2, 3])) {
+        if (in_array($line[0], ['HTTP/2', 'HTTP/1.0', 'HTTP/1.1'], true)) {
+            if (!in_array(count($line), [2, 3], true)) {
                 $this->doError('Invalid response line returned from server: ' . implode(' ', $line));
             }
 

@@ -1,12 +1,13 @@
 <?php
 
+use Monolog\Level;
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
  * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
  */
-
 /**
  * Core configuration class
  *
@@ -542,7 +543,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
                 throw new Exception('Could not get lock on cache save operation.');
             }
 
-            Mage::log(sprintf('Failed to get cache save lock in %d seconds.', $waitTime), \Monolog\Level::Notice);
+            Mage::log(sprintf('Failed to get cache save lock in %d seconds.', $waitTime), Level::Notice);
             require Mage::getBaseDir() . DS . 'errors' . DS . '503.php';
             die();
         }
@@ -1337,8 +1338,8 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      *
      * To be used in blocks, templates, etc.
      *
-     * @param  array|string $args Module name if string
-     * @return array
+     * @param  array|string          $args Module name if string
+     * @return array<string, string>
      */
     public function getPathVars($args = null)
     {
@@ -1376,17 +1377,6 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
         $className = '';
         if (isset($config->rewrite->$class)) {
             $className = (string) $config->rewrite->$class;
-        } elseif (isset($config->deprecatedNode)) {
-            /**
-             * Backwards compatibility for pre-MMDB extensions.
-             * In MMDB release resource nodes <..._mysql4> were renamed to <..._resource>. So <deprecatedNode> is left
-             * to keep name of previously used nodes, that still may be used by non-updated extensions.
-             */
-            $deprecatedNode = (string) $config->deprecatedNode;
-            $configOld = $this->_xml->global->{$groupType . 's'}->$deprecatedNode;
-            if (isset($configOld->rewrite->$class)) {
-                $className = (string) $configOld->rewrite->$class;
-            }
         }
 
         $className = trim($className);
@@ -1488,9 +1478,9 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      *
      * Will instantiate Mage_Catalog_Model_Resource_Product
      *
-     * @param  string                         $modelClass
-     * @param  array|object                   $constructArguments
-     * @return false|Mage_Core_Model_Abstract
+     * @param  string                                $modelClass
+     * @param  array|object                          $constructArguments
+     * @return false|Mage_Core_Model_Abstract|object
      * @see Mage_Catalog_Model_Resource_Product
      */
     public function getModelInstance($modelClass = '', $constructArguments = [])
@@ -1618,7 +1608,11 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
                     $key = (string) $store->descend('system/store/name');
             }
 
-            if (!isset($key) || $key === false) {
+            if (!isset($key)) {
+                continue;
+            }
+
+            if ($key === false) {
                 continue;
             }
 

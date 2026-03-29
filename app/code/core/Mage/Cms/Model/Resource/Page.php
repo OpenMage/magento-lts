@@ -260,11 +260,7 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
             $select->where('cps.page_id <> ?', $object->getId());
         }
 
-        if ($this->_getWriteAdapter()->fetchRow($select)) {
-            return false;
-        }
-
-        return true;
+        return !$this->_getWriteAdapter()->fetchRow($select);
     }
 
     /**

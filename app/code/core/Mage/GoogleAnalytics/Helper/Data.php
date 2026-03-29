@@ -1,12 +1,13 @@
 <?php
 
+use Monolog\Level;
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
  * @license    Open Software License (OSL 3.0)
  * @package    Mage_GoogleAnalytics
  */
-
 /**
  * GoogleAnalytics data helper
  *
@@ -152,7 +153,7 @@ class Mage_GoogleAnalytics_Helper_Data extends Mage_Core_Helper_Abstract
     public function log($message = null)
     {
         $filename = sprintf('google%s.log', Mage::getStoreConfig(self::XML_PATH_TYPE));
-        Mage::log($message, \Monolog\Level::Debug, $filename, true);
+        Mage::log($message, Level::Debug, $filename, true);
     }
 
     /**
