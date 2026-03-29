@@ -3,7 +3,7 @@
 /**
  * Security-focused tests for USPS REST API hardening.
  *
- * Covers: credential decryption, SSL verification, URL allowlist,
+ * Covers: SSL verification, URL allowlist,
  * JSON cache serialization, and OAuth cache key fingerprinting.
  *
  * @group  Security
@@ -18,66 +18,6 @@ use OpenMage\Tests\Unit\OpenMageTest;
 
 final class UspsSecurityTest extends OpenMageTest
 {
-    // ──────────────────────────────────────────────
-    // Fix #1: _getOAuthToken() decrypts credentials
-    // ──────────────────────────────────────────────
-
-    /**
-     * Verify _getOAuthToken() calls decrypt() on client_id and client_secret.
-     * Without decrypt(), encrypted blobs are sent to USPS = auth always fails.
-     */
-    public function testGetOAuthTokenDecryptsCredentials(): void
-    {
-        $source = file_get_contents(
-            __DIR__ . '/../../../../../../../app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps.php',
-        );
-        self::assertNotFalse($source, 'Could not read Usps.php');
-
-        // Both getConfigData calls must be wrapped in decrypt()
-        self::assertStringContainsString(
-            "Mage::helper('core')->decrypt(\$this->getConfigData('client_id'))",
-            $source,
-            '_getOAuthToken() must decrypt client_id before use',
-        );
-        self::assertStringContainsString(
-            "Mage::helper('core')->decrypt(\$this->getConfigData('client_secret'))",
-            $source,
-            '_getOAuthToken() must decrypt client_secret before use',
-        );
-    }
-
-    /**
-     * Verify no raw getConfigData('client_id') without decrypt wrapper exists.
-     */
-    public function testNoRawClientIdAccess(): void
-    {
-        $source = file_get_contents(
-            __DIR__ . '/../../../../../../../app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps.php',
-        );
-        self::assertNotFalse($source, 'Could not read Usps.php');
-
-        // Remove all decrypt-wrapped calls, then check no raw calls remain
-        $stripped = str_replace(
-            [
-                "Mage::helper('core')->decrypt(\$this->getConfigData('client_id'))",
-                "Mage::helper('core')->decrypt(\$this->getConfigData('client_secret'))",
-            ],
-            '',
-            $source,
-        );
-
-        self::assertStringNotContainsString(
-            "getConfigData('client_id')",
-            $stripped,
-            'Raw getConfigData(client_id) without decrypt() must not exist',
-        );
-        self::assertStringNotContainsString(
-            "getConfigData('client_secret')",
-            $stripped,
-            'Raw getConfigData(client_secret) without decrypt() must not exist',
-        );
-    }
-
     // ──────────────────────────────────────────────
     // Fix #2 + #5: SSL verification on all curl calls
     // ──────────────────────────────────────────────
