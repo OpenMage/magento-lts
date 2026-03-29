@@ -580,7 +580,12 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
         ) {
             return false;
         }
-        return !($this->useValidateSessionPasswordTimestamp() && isset($validatorData[self::VALIDATOR_PASSWORD_CREATE_TIMESTAMP]) && isset($sessionData[self::VALIDATOR_SESSION_RENEW_TIMESTAMP]) && $validatorData[self::VALIDATOR_PASSWORD_CREATE_TIMESTAMP] > $sessionData[self::VALIDATOR_SESSION_RENEW_TIMESTAMP]);
+        return !(
+            $this->useValidateSessionPasswordTimestamp()
+            && isset($validatorData[self::VALIDATOR_PASSWORD_CREATE_TIMESTAMP])
+            && isset($sessionData[self::VALIDATOR_SESSION_RENEW_TIMESTAMP])
+            && $validatorData[self::VALIDATOR_PASSWORD_CREATE_TIMESTAMP] > $sessionData[self::VALIDATOR_SESSION_RENEW_TIMESTAMP]
+        );
     }
 
     /**
