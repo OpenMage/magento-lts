@@ -154,8 +154,9 @@ class Mage_Bundle_Block_Adminhtml_Sales_Order_Items_Renderer extends Mage_Adminh
     public function getOrderOptions($item = null)
     {
         $result = [];
+        $options = $this->getOrderItem()->getProductOptions();
 
-        if ($options = $this->getOrderItem()->getProductOptions()) {
+        if ($options) {
             if (isset($options['options'])) {
                 $result = array_merge($result, $options['options']);
             }
