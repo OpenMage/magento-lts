@@ -346,7 +346,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
      * Add attribute to sort order
      *
      * @param  string                   $attribute
-     * @param  string                   $dir
+     * @param  self::SORT_ORDER_*       $dir
      * @return $this
      * @throws Mage_Core_Exception
      * @throws Zend_Db_Select_Exception
@@ -1482,17 +1482,17 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
      *
      * @inheritDoc
      */
-    public function setOrder($field, $direction = self::SORT_ORDER_ASC)
+    public function setOrder($field, $dir = self::SORT_ORDER_ASC)
     {
         if (is_array($field)) {
             foreach ($field as $attr) {
-                parent::setOrder($attr, $direction);
+                parent::setOrder($attr, $dir);
             }
 
             return $this;
         }
 
-        return parent::setOrder($field, $direction);
+        return parent::setOrder($field, $dir);
     }
 
     /**

@@ -299,9 +299,9 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
     /**
      * Calculation real price
      *
-     * @param  float $price
-     * @param  bool  $isPercent
-     * @return mixed
+     * @param  float  $price
+     * @param  bool   $isPercent
+     * @return string
      * @deprecated
      */
     protected function _preparePrice($price, $isPercent = false)
@@ -312,9 +312,9 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
     /**
      * Calculation price before special price
      *
-     * @param  float $price
-     * @param  bool  $isPercent
-     * @return mixed
+     * @param  float  $price
+     * @param  bool   $isPercent
+     * @return string
      * @deprecated
      */
     protected function _prepareOldPrice($price, $isPercent = false)

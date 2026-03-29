@@ -55,11 +55,14 @@ class Mage_Newsletter_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieve Template processor for Newsletter template
      *
-     * @return false|Mage_Core_Model_Abstract|Varien_Filter_Template
+     * @return Varien_Filter_Template
      */
     public function getTemplateProcessor()
     {
-        $model = (string) Mage::getConfig()->getNode(self::XML_PATH_TEMPLATE_FILTER);
-        return Mage::getModel($model);
+        $node = (string) Mage::getConfig()->getNode(self::XML_PATH_TEMPLATE_FILTER);
+
+        /** @var Varien_Filter_Template $model */
+        $model = Mage::getModel($node);
+        return $model;
     }
 }

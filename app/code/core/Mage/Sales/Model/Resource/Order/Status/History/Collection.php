@@ -50,7 +50,7 @@ class Mage_Sales_Model_Resource_Order_Status_History_Collection extends Mage_Sal
             $instance = $instance->getOrder();
         }
 
-        $this->setOrderFilter($instance)->setOrder('created_at', 'desc')
+        $this->setOrderFilter($instance)->setOrder('created_at', 'DESC')
             ->addFieldToFilter('entity_name', $historyEntityName)
             ->addFieldToFilter('is_customer_notified', 0)->setPageSize(1);
         foreach ($this as $historyItem) {

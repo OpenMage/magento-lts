@@ -64,11 +64,7 @@ class Mage_Reports_Model_Resource_Product_Downloads_Collection extends Mage_Cata
     }
 
     /**
-     * Add sorting
-     *
-     * @param  string $attribute
-     * @param  string $dir
-     * @return $this
+     * @inheritDoc
      */
     public function setOrder($attribute, $dir = self::SORT_ORDER_DESC)
     {

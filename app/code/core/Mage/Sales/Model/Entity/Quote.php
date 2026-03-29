@@ -58,7 +58,7 @@ class Mage_Sales_Model_Entity_Quote extends Mage_Eav_Model_Entity_Abstract
             $collection->addAttributeToFilter('store_id', ['in', $quote->getSharedStoreIds()]);
         }
 
-        $collection->setOrder('updated_at', 'desc')
+        $collection->setOrder('updated_at', 'DESC')
             ->setPageSize(1)
             ->load();
 

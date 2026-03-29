@@ -30,7 +30,7 @@ class Mage_Downloadable_Block_Customer_Products_List extends Mage_Core_Block_Tem
         $session = Mage::getSingleton('customer/session');
         $purchased = Mage::getResourceModel('downloadable/link_purchased_collection')
             ->addFieldToFilter('customer_id', $session->getCustomerId())
-            ->addOrder('created_at', 'desc');
+            ->addOrder('created_at', 'DESC');
         $this->setPurchased($purchased);
         $purchasedIds = [];
         /** @var Mage_Downloadable_Model_Link_Purchased $item */
@@ -53,7 +53,7 @@ class Mage_Downloadable_Block_Customer_Products_List extends Mage_Core_Block_Tem
                     ],
                 ],
             )
-            ->setOrder('item_id', 'desc');
+            ->setOrder('item_id', 'DESC');
         $this->setItems($purchasedItems);
     }
 

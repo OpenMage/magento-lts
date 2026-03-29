@@ -674,8 +674,8 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      * If we use Database file storage and server doesn't support rewrites (.htaccess in media folder)
      * we have to put name of fetching media script exactly into URL
      *
-     * @param  null|bool $secure
-     * @param  string    $type
+     * @param  null|bool        $secure
+     * @param  self::URL_TYPE_* $type
      * @return string
      */
     protected function _updateMediaPathUseRewrites($secure = null, $type = self::URL_TYPE_MEDIA)

@@ -117,13 +117,13 @@ class Varien_Data_Form_Element_Fieldset extends Varien_Data_Form_Element_Abstrac
      * Commence sorting elements by values by specified data key
      *
      * @param  string                            $key
-     * @param  int                               $direction
+     * @param  int                               $dir
      * @return Varien_Data_Form_Element_Fieldset
      */
-    public function setSortElementsByAttribute($key, $direction = SORT_ASC)
+    public function setSortElementsByAttribute($key, $dir = SORT_ASC)
     {
         $this->_sortChildrenByKey = $key;
-        $this->_sortDirection = $direction;
+        $this->_sortDirection = $dir;
         return $this;
     }
 

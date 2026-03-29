@@ -238,7 +238,7 @@ class Mage_Catalog_Model_Resource_Product_Link_Product_Collection extends Mage_C
     /**
      * Enable sorting products by its position
      *
-     * @param  string $dir sort type asc|desc
+     * @param  self::SORT_ORDER_* $dir
      * @return $this
      */
     public function setPositionOrder($dir = self::SORT_ORDER_ASC)
@@ -253,7 +253,7 @@ class Mage_Catalog_Model_Resource_Product_Link_Product_Collection extends Mage_C
     /**
      * Enable sorting products by its attribute set name
      *
-     * @param  string $dir sort type asc|desc
+     * @param  self::SORT_ORDER_* $dir
      * @return $this
      */
     public function setAttributeSetIdOrder($dir = self::SORT_ORDER_ASC)

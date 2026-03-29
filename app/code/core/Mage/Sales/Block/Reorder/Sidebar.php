@@ -45,7 +45,7 @@ class Mage_Sales_Block_Reorder_Sidebar extends Mage_Core_Block_Template
                 'state',
                 ['in' => Mage::getSingleton('sales/order_config')->getVisibleOnFrontStates()],
             )
-            ->addAttributeToSort('created_at', 'desc')
+            ->addAttributeToSort('created_at', 'DESC')
             ->setPage(1, 1);
         //TODO: add filter by current website
 

@@ -317,7 +317,7 @@ class Mage_Core_Model_Resource_File_Storage_Database extends Mage_Core_Model_Res
      * Return directory file listing
      *
      * @param  string $directory
-     * @return mixed
+     * @return array
      */
     public function getDirectoryFiles($directory)
     {

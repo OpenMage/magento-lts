@@ -100,7 +100,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Wishlist extends Mage_Admi
     }
 
     /**
-     * @return false|int
+     * @inheritDoc
      */
     public function canDisplay()
     {

@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Rector\Migration\Mage;
 
+use Mage_Catalog_Block_Product_List;
 use Mage_Catalog_CategoryController;
 use Mage_Catalog_Helper_Category_Flat;
 use Mage_Catalog_Helper_Image;
@@ -21,6 +22,7 @@ use Mage_Catalog_Model_Resource_Category_Flat;
 use Mage_Catalog_Model_Resource_Eav_Attribute;
 use Mage_Catalog_Model_Resource_Product_Collection;
 use Mage_Catalog_Model_Url;
+use Rector\Arguments\ValueObject\ReplaceArgumentDefaultValue;
 use Rector\Renaming\ValueObject\MethodCallRename;
 
 final class Catalog
@@ -43,6 +45,19 @@ final class Catalog
             new MethodCallRename(Mage_Catalog_Model_Resource_Product_Collection::class, 'addMinimalPrice', 'addPriceData'),
             new MethodCallRename(Mage_Catalog_Model_Resource_Product_Collection::class, 'addFinalPrice', 'addPriceData'),
             new MethodCallRename(Mage_Catalog_Model_Url::class, 'getUnusedPath', 'getUnusedPathByUrlKey'),
+        ];
+    }
+
+    /**
+     * @return ReplaceArgumentDefaultValue[]
+     */
+    public static function replaceArgumentDefaultValue(): array
+    {
+        return [
+            new ReplaceArgumentDefaultValue(Mage_Catalog_Block_Product_List::class, 'setDefaultDirection', 0, 'asc', 'ASC'),
+            new ReplaceArgumentDefaultValue(Mage_Catalog_Block_Product_List::class, 'setDefaultDirection', 0, 'desc', 'DESC'),
+            new ReplaceArgumentDefaultValue(Mage_Catalog_Model_Resource_Product_Collection::class, 'addAttributeToSort', 1, 'asc', 'ASC'),
+            new ReplaceArgumentDefaultValue(Mage_Catalog_Model_Resource_Product_Collection::class, 'addAttributeToSort', 1, 'desc', 'DESC'),
         ];
     }
 }

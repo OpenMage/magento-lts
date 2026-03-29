@@ -125,7 +125,7 @@ class Mage_CatalogSearch_Model_Resource_Query_Collection extends Mage_Core_Model
      */
     public function setRecentQueryFilter()
     {
-        $this->setOrder('updated_at', 'desc');
+        $this->setOrder('updated_at', 'DESC');
         return $this;
     }
 

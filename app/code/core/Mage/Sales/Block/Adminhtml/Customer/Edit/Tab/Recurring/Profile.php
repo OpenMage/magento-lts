@@ -58,14 +58,14 @@ class Mage_Sales_Block_Adminhtml_Customer_Edit_Tab_Recurring_Profile extends Mag
     /**
      * Prepare collection for grid
      *
-     * @return $this|Mage_Adminhtml_Block_Widget_Grid
+     * @return Mage_Adminhtml_Block_Widget_Grid
      */
     protected function _prepareCollection()
     {
         $collection = Mage::getResourceModel('sales/recurring_profile_collection')
             ->addFieldToFilter('customer_id', Mage::registry('current_customer')->getId());
         if (!$this->getParam($this->getVarNameSort())) {
-            $collection->setOrder('profile_id', 'desc');
+            $collection->setOrder('profile_id', 'DESC');
         }
 
         $this->setCollection($collection);

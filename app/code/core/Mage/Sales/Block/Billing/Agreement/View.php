@@ -60,7 +60,7 @@ class Mage_Sales_Block_Billing_Agreement_View extends Mage_Core_Block_Template
                     ['in' => Mage::getSingleton('sales/order_config')->getVisibleOnFrontStates()],
                 )
                 ->addBillingAgreementsFilter($this->_billingAgreementInstance->getAgreementId())
-                ->setOrder('created_at', 'desc');
+                ->setOrder('created_at', 'DESC');
         }
 
         return $this->_relatedOrders;

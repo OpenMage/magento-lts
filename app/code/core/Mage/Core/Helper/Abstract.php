@@ -54,8 +54,8 @@ abstract class Mage_Core_Helper_Abstract
     /**
      * Loading cache data
      *
-     * @param  string $id
-     * @return mixed
+     * @param  string       $id
+     * @return false|string
      */
     protected function _loadCache($id)
     {

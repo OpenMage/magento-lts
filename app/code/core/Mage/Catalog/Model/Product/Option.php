@@ -473,8 +473,8 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
             ->addFieldToFilter('product_id', $product->getId())
             ->addTitleToResult($product->getStoreId())
             ->addPriceToResult($product->getStoreId())
-            ->setOrder('sort_order', 'asc')
-            ->setOrder('title', 'asc');
+            ->setOrder('sort_order', 'ASC')
+            ->setOrder('title', 'ASC');
 
         if ($this->getAddRequiredFilter()) {
             $collection->addRequiredFilter($this->getAddRequiredFilterValue());

@@ -128,7 +128,7 @@ abstract class Mage_Rule_Model_Action_Abstract extends Varien_Object implements 
     }
 
     /**
-     * @return mixed
+     * @return array
      */
     public function getAttributeName()
     {

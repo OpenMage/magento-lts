@@ -110,7 +110,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
      * @param  float $value
      * @param  bool  $format
      * @param  bool  $includeContainer
-     * @return mixed
+     * @return float
      */
     public static function currency($value, $format = true, $includeContainer = true)
     {
@@ -144,9 +144,9 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Format and convert currency using current store option
      *
-     * @param  float  $value
-     * @param  bool   $includeContainer
-     * @return string
+     * @param  float $value
+     * @param  bool  $includeContainer
+     * @return float
      */
     public function formatCurrency($value, $includeContainer = true)
     {
@@ -347,7 +347,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get encryption method depending on the presence of the function - password_hash.
      *
-     * @return int
+     * @return Mage_Core_Model_Encryption::HASH_VERSION_*
      */
     public function getVersionHash(Mage_Core_Model_Encryption $encryptionModel)
     {
@@ -368,9 +368,9 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * @param  string       $string
-     * @param  bool         $german
-     * @return false|string
+     * @param  string $string
+     * @param  bool   $german
+     * @return string
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */

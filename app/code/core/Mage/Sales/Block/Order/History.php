@@ -26,7 +26,7 @@ class Mage_Sales_Block_Order_History extends Mage_Core_Block_Template
             ->addFieldToSelect('*')
             ->addFieldToFilter('customer_id', Mage::getSingleton('customer/session')->getCustomer()->getId())
             ->addFieldToFilter('state', ['in' => Mage::getSingleton('sales/order_config')->getVisibleOnFrontStates()])
-            ->setOrder('created_at', 'desc')
+            ->setOrder('created_at', 'DESC')
         ;
 
         $this->setOrders($orders);

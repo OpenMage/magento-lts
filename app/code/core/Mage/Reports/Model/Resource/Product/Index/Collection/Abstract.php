@@ -124,7 +124,7 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Collection_Abstract ext
     /**
      * Add order by "added at"
      *
-     * @param  string                                                        $dir
+     * @param  self::SORT_ORDER_*                                            $dir
      * @return Mage_Reports_Model_Resource_Product_Index_Collection_Abstract
      */
     public function setAddedAtOrder($dir = self::SORT_ORDER_DESC)

@@ -29,7 +29,7 @@ class Mage_Bundle_Block_Catalog_Product_List_Partof extends Mage_Catalog_Block_P
     {
         $collection = Mage::getModel('catalog/product')->getResourceCollection()
             ->addAttributeToSelect(Mage::getSingleton('catalog/config')->getProductAttributes())
-            ->addAttributeToSort('position', 'asc')
+            ->addAttributeToSort('position', 'ASC')
             ->addStoreFilter()
             ->addAttributeToFilter('status', [
                 'in' => Mage::getSingleton('catalog/product_status')->getSaleableStatusIds(),
