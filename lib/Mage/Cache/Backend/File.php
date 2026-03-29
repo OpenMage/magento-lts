@@ -97,8 +97,8 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
         }
 
         // Validate prefix
-        if (isset($this->_options['file_name_prefix']) && !preg_match('~^[a-zA-Z0-9_]+$~D', $this->_options['file_name_prefix'])) {
-            Zend_Cache::throwException('Invalid file_name_prefix : must use only [a-zA-Z0-9_]');
+        if (isset($this->_options['file_name_prefix']) && !preg_match('~^[\w]+$~D', $this->_options['file_name_prefix'])) {
+            Zend_Cache::throwException('Invalid file_name_prefix : must use only [\w]');
         }
 
         // See #ZF-4422
