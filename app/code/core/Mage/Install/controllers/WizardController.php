@@ -300,7 +300,7 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
             $errors = array_merge($errors, $result);
         }
 
-        if (!empty($errors)) {
+        if ($errors !== []) {
             Mage::getSingleton('install/session')->setAdminData($adminData);
             $this->getResponse()->setRedirect($step->getUrl());
             return false;

@@ -197,8 +197,8 @@ class Mage_Core_Model_Locale
     /**
      * Specify current locale code
      *
-     * @param  string                 $code
-     * @return Mage_Core_Model_Locale
+     * @param  string $code
+     * @return $this
      */
     public function setLocaleCode($code)
     {
@@ -267,7 +267,11 @@ class Mage_Core_Model_Locale
                 }
 
                 $data = explode('_', $code);
-                if (!isset($languages[$data[0]]) || !isset($countries[$data[1]])) {
+                if (!isset($languages[$data[0]])) {
+                    continue;
+                }
+
+                if (!isset($countries[$data[1]])) {
                     continue;
                 }
 
@@ -559,10 +563,8 @@ class Mage_Core_Model_Locale
         }
 
         $date = new Zend_Date($date, $part, $locale);
-        if ($useTimezone) {
-            if ($timezone = Mage::app()->getStore()->getConfig(self::XML_PATH_DEFAULT_TIMEZONE)) {
-                $date->setTimezone($timezone);
-            }
+        if ($useTimezone && $timezone = Mage::app()->getStore()->getConfig(self::XML_PATH_DEFAULT_TIMEZONE)) {
+            $date->setTimezone($timezone);
         }
 
         return $date;

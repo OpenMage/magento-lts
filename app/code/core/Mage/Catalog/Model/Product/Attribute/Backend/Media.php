@@ -71,18 +71,18 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
     {
         if ($this->getAttribute()->getIsRequired()) {
             $value = $object->getData($this->getAttribute()->getAttributeCode());
-            if ($this->getAttribute()->isValueEmpty($value)) {
-                if (!(is_array($value) && $value !== [])) {
-                    return false;
-                }
+            if ($this->getAttribute()->isValueEmpty($value)
+                && !(is_array($value) && $value !== [])
+            ) {
+                return false;
             }
         }
 
-        if ($this->getAttribute()->getIsUnique()) {
-            if (!$this->getAttribute()->getEntity()->checkAttributeUniqueValue($this->getAttribute(), $object)) {
-                $label = $this->getAttribute()->getFrontend()->getLabel();
-                Mage::throwException(Mage::helper('eav')->__('The value of attribute "%s" must be unique.', $label));
-            }
+        if ($this->getAttribute()->getIsUnique()
+            && !$this->getAttribute()->getEntity()->checkAttributeUniqueValue($this->getAttribute(), $object)
+        ) {
+            $label = $this->getAttribute()->getFrontend()->getLabel();
+            Mage::throwException(Mage::helper('eav')->__('The value of attribute "%s" must be unique.', $label));
         }
 
         return true;
@@ -626,17 +626,15 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
     protected function _getUniqueFileName($file, $dirsep)
     {
         if (Mage::helper('core/file_storage_database')->checkDbUsage()) {
-            $destFile = Mage::helper('core/file_storage_database')
+            return Mage::helper('core/file_storage_database')
                 ->getUniqueFilename(
                     Mage::getSingleton('catalog/product_media_config')->getBaseMediaUrlAddition(),
                     $file,
                 );
-        } else {
-            $destFile = dirname($file) . $dirsep
-                . Mage_Core_Model_File_Uploader::getNewFileName($this->_getConfig()->getMediaPath($file));
         }
 
-        return $destFile;
+        return dirname($file) . $dirsep
+            . Mage_Core_Model_File_Uploader::getNewFileName($this->_getConfig()->getMediaPath($file));
     }
 
     /**

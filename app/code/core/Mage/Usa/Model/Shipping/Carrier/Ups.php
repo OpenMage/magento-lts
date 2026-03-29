@@ -906,7 +906,7 @@ XMLRequest;
 
         $result = Mage::getModel('shipping/rate_result');
         $defaults = $this->getDefaults();
-        if (empty($priceArr)) {
+        if ($priceArr === []) {
             $error = Mage::getModel('shipping/rate_result_error');
             $error->setCarrier('ups');
             $error->setCarrierTitle($this->getConfigData('title'));
@@ -2416,7 +2416,7 @@ XMLAuth;
     {
         $result = Mage::getModel('shipping/rate_result');
 
-        if (empty($priceArr)) {
+        if ($priceArr === []) {
             $error = Mage::getModel('shipping/rate_result_error');
             $error->setCarrier('ups');
             $error->setCarrierTitle($this->getConfigData('title'));

@@ -271,7 +271,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price extends Mage_Index_Model
             }
         }
 
-        if (!empty($notCompositeIds)) {
+        if ($notCompositeIds !== []) {
             $select = $write->select()
                 ->from(
                     ['l' => $this->getTable('catalog/product_relation')],
@@ -293,7 +293,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price extends Mage_Index_Model
             }
         }
 
-        if (!empty($compositeIds)) {
+        if ($compositeIds !== []) {
             $this->_copyRelationIndexData($compositeIds, $notCompositeIds);
         }
 

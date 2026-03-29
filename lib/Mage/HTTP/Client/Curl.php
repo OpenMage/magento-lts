@@ -253,7 +253,11 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
             }
 
             [$key, $val] = array_pad(array_map(trim(...), explode('=', $values[0])), 2, null);
-            if (is_null($val) || !strlen($key)) {
+            if (is_null($val)) {
+                continue;
+            }
+
+            if (!strlen($key)) {
                 continue;
             }
 
@@ -283,7 +287,11 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
             }
 
             [$key, $val] = array_pad(array_map(trim(...), explode('=', $values[0])), 2, null);
-            if (is_null($val) || !strlen($key)) {
+            if (is_null($val)) {
+                continue;
+            }
+
+            if (!strlen($key)) {
                 continue;
             }
 

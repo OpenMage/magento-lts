@@ -88,7 +88,7 @@ class Mage_Page_Helper_Layout extends Mage_Core_Helper_Abstract
         // Applied page layout handles
         $appliedHandles = array_intersect($handles, $pageLayoutHandles);
 
-        if (empty($appliedHandles)) {
+        if ($appliedHandles === []) {
             return false;
         }
 

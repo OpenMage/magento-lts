@@ -313,7 +313,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
         if ($orderShippingAddress) {
             $addressDiff = array_diff_assoc($orderShippingAddress->getData(), $order->getBillingAddress()->getData());
             unset($addressDiff['address_type'], $addressDiff['entity_id']);
-            $orderShippingAddress->setSameAsBilling(empty($addressDiff));
+            $orderShippingAddress->setSameAsBilling($addressDiff === []);
         }
 
         $this->_initBillingAddressFromOrder($order);
@@ -1662,10 +1662,8 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
             }
         }
 
-        if (!$this->getQuote()->isVirtual()) {
-            if (!$this->getQuote()->getShippingAddress()->getShippingMethod()) {
-                $this->_errors[] = Mage::helper('adminhtml')->__('Shipping method must be specified.');
-            }
+        if (!$this->getQuote()->isVirtual() && !$this->getQuote()->getShippingAddress()->getShippingMethod()) {
+            $this->_errors[] = Mage::helper('adminhtml')->__('Shipping method must be specified.');
         }
 
         if (!$this->getQuote()->getPayment()->getMethod()) {

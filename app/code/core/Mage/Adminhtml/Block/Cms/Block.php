@@ -20,5 +20,17 @@ class Mage_Adminhtml_Block_Cms_Block extends Mage_Adminhtml_Block_Widget_Grid_Co
         $this->_headerText = Mage::helper('cms')->__('Static Blocks');
         $this->_addButtonLabel = Mage::helper('cms')->__('Add New Block');
         parent::__construct();
+
+        if (!$this->_isAllowedAction('save')) {
+            $this->_removeButton('add');
+        }
+    }
+
+    /**
+     * Check permission for passed action
+     */
+    protected function _isAllowedAction(string $action): bool
+    {
+        return Mage::getSingleton('admin/session')->isAllowed('cms/block/' . $action);
     }
 }

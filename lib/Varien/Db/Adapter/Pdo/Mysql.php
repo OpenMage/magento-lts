@@ -1924,9 +1924,11 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
              * Do not create primary index - it is created with identity column.
              * For reliability check both name and type, because these values can start to differ in future.
              */
-            if (($indexData['KEY_NAME'] == 'PRIMARY')
-                || ($indexData['INDEX_TYPE'] == Varien_Db_Adapter_Interface::INDEX_TYPE_PRIMARY)
-            ) {
+            if ($indexData['KEY_NAME'] == 'PRIMARY') {
+                continue;
+            }
+
+            if ($indexData['INDEX_TYPE'] == Varien_Db_Adapter_Interface::INDEX_TYPE_PRIMARY) {
                 continue;
             }
 
@@ -2149,7 +2151,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
         }
 
         $updateFields = [];
-        if (empty($fields)) {
+        if ($fields === []) {
             $fields = $cols;
         }
 
@@ -2425,7 +2427,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
         }
 
         // PRIMARY KEY
-        if (!empty($primary)) {
+        if ($primary !== []) {
             asort($primary, SORT_NUMERIC);
             $primary      = array_map([$this, 'quoteIdentifier'], array_keys($primary));
             $definition[] = sprintf('  PRIMARY KEY (%s)', implode(', ', $primary));
@@ -2788,12 +2790,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
             $this->quote($tableName),
             $fromDbName,
         );
-        $ddl = $this->raw_fetchRow($sql, 'tbl_exists');
-        if ($ddl) {
-            return true;
-        }
-
-        return false;
+        return (bool) $this->raw_fetchRow($sql, 'tbl_exists');
     }
 
     /**

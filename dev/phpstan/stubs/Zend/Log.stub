@@ -1,6 +1,6 @@
 <?php
 
 /**
- * @deprecated use Monolog instead
+ * @deprecated use Mage_Core_Model_Logger instead; it uses Monolog as the underlying implementation
  */
 class Zend_Log {}

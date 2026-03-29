@@ -83,7 +83,7 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
             $storeId = [$storeId];
         }
 
-        if (!empty($this->_storesIds)) {
+        if ($this->_storesIds !== []) {
             $this->_storesIds = array_intersect($this->_storesIds, $storeId);
         } else {
             $this->_storesIds = $storeId;
@@ -108,7 +108,7 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
             $storeId = [$storeId];
         }
 
-        if (!empty($this->_storesIds)) {
+        if ($this->_storesIds !== []) {
             $this->_storesIds = array_intersect($this->_storesIds, $storeId);
         } else {
             $this->_storesIds = $storeId;

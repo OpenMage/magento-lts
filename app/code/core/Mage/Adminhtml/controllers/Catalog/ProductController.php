@@ -529,10 +529,10 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
             $dateFields = [];
             $attributes = $product->getAttributes();
             foreach ($attributes as $attrKey => $attribute) {
-                if ($attribute->getBackend()->getType() == 'datetime') {
-                    if (array_key_exists($attrKey, $productData) && $productData[$attrKey] != '') {
-                        $dateFields[] = $attrKey;
-                    }
+                if ($attribute->getBackend()->getType() == 'datetime'
+                    && (array_key_exists($attrKey, $productData) && $productData[$attrKey] != '')
+                ) {
+                    $dateFields[] = $attrKey;
                 }
             }
 
@@ -939,7 +939,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
         $productIds = $this->getRequest()->getParam('product');
         if (!is_array($productIds)) {
             $this->_getSession()->addError($this->__('Please select product(s).'));
-        } elseif (!empty($productIds)) {
+        } elseif ($productIds !== []) {
             try {
                 foreach ($productIds as $productId) {
                     // phpcs:ignore Ecg.Performance.Loop.ModelLSD
@@ -996,12 +996,12 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
      */
     public function _validateMassStatus(array $productIds, $status)
     {
-        if ($status == Mage_Catalog_Model_Product_Status::STATUS_ENABLED) {
-            if (!Mage::getModel('catalog/product')->isProductsHasSku($productIds)) {
-                throw new Mage_Core_Exception(
-                    $this->__('Some of the processed products have no SKU value defined. Please fill it prior to performing operations on these products.'),
-                );
-            }
+        if ($status == Mage_Catalog_Model_Product_Status::STATUS_ENABLED
+            && !Mage::getModel('catalog/product')->isProductsHasSku($productIds)
+        ) {
+            throw new Mage_Core_Exception(
+                $this->__('Some of the processed products have no SKU value defined. Please fill it prior to performing operations on these products.'),
+            );
         }
     }
 
@@ -1039,12 +1039,23 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
 
         // phpcs:ignore Ecg.Performance.Loop.DataLoad
         foreach ($product->getTypeInstance()->getEditableAttributes() as $attribute) {
-            if ($attribute->getIsUnique()
-                || $attribute->getAttributeCode() == 'url_key'
-                || $attribute->getFrontend()->getInputType() == 'gallery'
-                || $attribute->getFrontend()->getInputType() == 'media_image'
-                || !$attribute->getIsVisible()
-            ) {
+            if ($attribute->getIsUnique()) {
+                continue;
+            }
+
+            if ($attribute->getAttributeCode() == 'url_key') {
+                continue;
+            }
+
+            if ($attribute->getFrontend()->getInputType() == 'gallery') {
+                continue;
+            }
+
+            if ($attribute->getFrontend()->getInputType() == 'media_image') {
+                continue;
+            }
+
+            if (!$attribute->getIsVisible()) {
                 continue;
             }
 

@@ -1134,7 +1134,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
      */
     public function _loadAttributes($printQuery = false, $logQuery = false)
     {
-        if (empty($this->_items) || empty($this->_itemsById) || empty($this->_selectAttributes)) {
+        if (empty($this->_items) || $this->_itemsById === [] || $this->_selectAttributes === []) {
             return $this;
         }
 
@@ -1463,17 +1463,16 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
         }
 
         if ($entity->isAttributeStatic($attribute)) {
-            $conditionSql = $this->_getConditionSql(
+            return $this->_getConditionSql(
                 $this->getConnection()->quoteIdentifier('e.' . $attribute),
                 $condition,
             );
-        } else {
-            $this->_addAttributeJoin($attribute, $joinType);
-            $field = $this->_joinAttributes[$attribute]['condition_alias'] ?? ($this->_getAttributeTableAlias($attribute) . '.value');
-            $conditionSql = $this->_getConditionSql($field, $condition);
         }
 
-        return $conditionSql;
+        $this->_addAttributeJoin($attribute, $joinType);
+        $field = $this->_joinAttributes[$attribute]['condition_alias'] ?? ($this->_getAttributeTableAlias($attribute) . '.value');
+
+        return $this->_getConditionSql($field, $condition);
     }
 
     /**

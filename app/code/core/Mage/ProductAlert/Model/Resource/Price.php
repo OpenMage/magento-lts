@@ -30,18 +30,19 @@ class Mage_ProductAlert_Model_Resource_Price extends Mage_ProductAlert_Model_Res
      */
     protected function _beforeSave(Mage_Core_Model_Abstract $object)
     {
-        if (is_null($object->getId()) && $object->getCustomerId()
-                && $object->getProductId() && $object->getWebsiteId()
+        if (is_null($object->getId())
+            && $object->getCustomerId()
+            && $object->getProductId()
+            && $object->getWebsiteId()
+            && $row = $this->_getAlertRow($object)
         ) {
-            if ($row = $this->_getAlertRow($object)) {
-                $price = $object->getPrice();
-                $object->addData($row);
-                if ($price) {
-                    $object->setPrice($price);
-                }
-
-                $object->setStatus(0);
+            $price = $object->getPrice();
+            $object->addData($row);
+            if ($price) {
+                $object->setPrice($price);
             }
+
+            $object->setStatus(0);
         }
 
         if (is_null($object->getAddDate())) {

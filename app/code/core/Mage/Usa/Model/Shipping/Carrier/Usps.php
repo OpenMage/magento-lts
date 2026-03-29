@@ -1032,6 +1032,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
                 if ($price <= 0) {
                     continue;
                 }
+            }
 
                 // Keep lowest price for each method code (handles duplicate rate entries)
                 if (!isset($priceArr[$methodCode]) || $price < $costArr[$methodCode]) {
@@ -1086,6 +1087,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
 
                 $this->_debug(['message' => 'Appended rate', 'method' => $method, 'price' => $price]);
             }
+
+            return $result;
         }
 
         $this->_debug(['message' => 'Returning result object', 'total_rates' => count($result->getAllRates())]);

@@ -414,9 +414,9 @@ class Mage_Core_Model_Url extends Varien_Object
             return $this;
         }
 
-        $a = explode('/', $data);
+        $arr = explode('/', $data);
 
-        $route = array_shift($a);
+        $route = array_shift($arr);
         if ($route === '*') {
             $route = $this->getRequest()->getRequestedRouteName();
         }
@@ -424,8 +424,8 @@ class Mage_Core_Model_Url extends Varien_Object
         $this->setRouteName($route);
         $routePath = $route . '/';
 
-        if (!empty($a)) {
-            $controller = array_shift($a);
+        if ($arr !== []) {
+            $controller = array_shift($arr);
             if ($controller === '*') {
                 $controller = $this->getRequest()->getRequestedControllerName();
             }
@@ -434,8 +434,8 @@ class Mage_Core_Model_Url extends Varien_Object
             $routePath .= $controller . '/';
         }
 
-        if (!empty($a)) {
-            $action = array_shift($a);
+        if ($arr !== []) {
+            $action = array_shift($arr);
             if ($action === '*') {
                 $action = $this->getRequest()->getRequestedActionName();
             }
@@ -444,12 +444,12 @@ class Mage_Core_Model_Url extends Varien_Object
             $routePath .= $action . '/';
         }
 
-        if (!empty($a)) {
+        if ($arr !== []) {
             $this->unsetData('route_params');
-            while (!empty($a)) {
-                $key = array_shift($a);
-                if (!empty($a)) {
-                    $value = array_shift($a);
+            while ($arr !== []) {
+                $key = array_shift($arr);
+                if ($arr !== []) {
+                    $value = array_shift($arr);
                     $this->setRouteParam($key, $value);
                     $routePath .= $key . '/' . $value . '/';
                 }
@@ -506,7 +506,19 @@ class Mage_Core_Model_Url extends Varien_Object
             $routePath = $this->getActionPath();
             if ($this->getRouteParams()) {
                 foreach ($this->getRouteParams() as $key => $value) {
-                    if (is_null($value) || $value === false || $value === '' || !is_scalar($value)) {
+                    if (is_null($value)) {
+                        continue;
+                    }
+
+                    if ($value === false) {
+                        continue;
+                    }
+
+                    if ($value === '') {
+                        continue;
+                    }
+
+                    if (!is_scalar($value)) {
                         continue;
                     }
 
@@ -666,7 +678,11 @@ class Mage_Core_Model_Url extends Varien_Object
         if (isset($data['_current'])) {
             if (is_array($data['_current'])) {
                 foreach ($data['_current'] as $key) {
-                    if (array_key_exists($key, $data) || !$this->getRequest()->getUserParam($key)) {
+                    if (array_key_exists($key, $data)) {
+                        continue;
+                    }
+
+                    if (!$this->getRequest()->getUserParam($key)) {
                         continue;
                     }
 
@@ -674,7 +690,11 @@ class Mage_Core_Model_Url extends Varien_Object
                 }
             } elseif ($data['_current']) {
                 foreach ($this->getRequest()->getUserParams() as $key => $value) {
-                    if (array_key_exists($key, $data) || $this->getRouteParam($key)) {
+                    if (array_key_exists($key, $data)) {
+                        continue;
+                    }
+
+                    if ($this->getRouteParam($key)) {
                         continue;
                     }
 
@@ -695,12 +715,11 @@ class Mage_Core_Model_Url extends Varien_Object
             unset($data['_use_rewrite']);
         }
 
-        if (isset($data['_store_to_url']) && (bool) $data['_store_to_url'] === true) {
-            if (!Mage::getStoreConfig(Mage_Core_Model_Store::XML_PATH_STORE_IN_URL, $this->getStore())
-                && !Mage::app()->isSingleStoreMode()
-            ) {
-                $this->setQueryParam('___store', $this->getStore()->getCode());
-            }
+        if (isset($data['_store_to_url'])
+            && (bool) $data['_store_to_url'] === true
+            && (!Mage::getStoreConfig(Mage_Core_Model_Store::XML_PATH_STORE_IN_URL, $this->getStore()) && !Mage::app()->isSingleStoreMode())
+        ) {
+            $this->setQueryParam('___store', $this->getStore()->getCode());
         }
 
         unset($data['_store_to_url']);
@@ -1269,11 +1288,7 @@ class Mage_Core_Model_Url extends Varien_Object
         }
 
         $storeDomains = array_unique($storeDomains);
-        if (in_array($referer, $storeDomains)) {
-            return true;
-        }
-
-        return false;
+        return in_array($referer, $storeDomains);
     }
 
     /**

@@ -590,16 +590,17 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
                 call_user_func($column->getFilterConditionCallback(), $collection, $column);
             } else {
                 $cond = $column->getFilter()->getCondition();
-                if ($field && $cond !== null) {
-                    if ($collection instanceof Varien_Data_Collection_Db) {
-                        $filtered = array_map(static function ($value) {
-                            return is_object($value) ? $value->__toString() : $value;
-                        }, is_array($cond) ? array_values($cond) : [$cond]);
-                        if (in_array("'%NULL%'", $filtered, true) || in_array('NULL', $filtered, true)) {
-                            $collection->addFieldToFilter($field, ['null' => true]);
-                        } else {
-                            $collection->addFieldToFilter($field, $cond);
-                        }
+                if ($field
+                    && $cond !== null
+                    && $collection instanceof Varien_Data_Collection_Db
+                ) {
+                    $filtered = array_map(static function ($value) {
+                        return is_object($value) ? $value->__toString() : $value;
+                    }, is_array($cond) ? array_values($cond) : [$cond]);
+                    if (in_array("'%NULL%'", $filtered, true) || in_array('NULL', $filtered, true)) {
+                        $collection->addFieldToFilter($field, ['null' => true]);
+                    } else {
+                        $collection->addFieldToFilter($field, $cond);
                     }
                 }
             }
@@ -1076,7 +1077,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      */
     public function getExportTypes()
     {
-        return empty($this->_exportTypes) ? false : $this->_exportTypes;
+        return $this->_exportTypes === [] ? false : $this->_exportTypes;
     }
 
     /**
@@ -1104,7 +1105,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      */
     public function getRssLists()
     {
-        return empty($this->_rssLists) ? false : $this->_rssLists;
+        return $this->_rssLists === [] ? false : $this->_rssLists;
     }
 
     /**
@@ -1545,11 +1546,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      */
     public function canDisplayContainer()
     {
-        if ($this->getRequest()->getQuery('ajax')) {
-            return false;
-        }
-
-        return true;
+        return !$this->getRequest()->getQuery('ajax');
     }
 
     /**
@@ -1973,11 +1970,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
             return true;
         }
 
-        if (!$item->getIsEmpty()) {
-            return true;
-        }
-
-        return false;
+        return !$item->getIsEmpty();
     }
 
     /**

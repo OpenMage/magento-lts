@@ -79,11 +79,7 @@ class Mage_Downloadable_Model_Product_Type extends Mage_Catalog_Model_Product_Ty
      */
     public function hasRequiredOptions($product = null)
     {
-        if (parent::hasRequiredOptions($product) || $this->getProduct($product)->getLinksPurchasedSeparately()) {
-            return true;
-        }
-
-        return false;
+        return parent::hasRequiredOptions($product) || $this->getProduct($product)->getLinksPurchasedSeparately();
     }
 
     /**
@@ -410,13 +406,11 @@ class Mage_Downloadable_Model_Product_Type extends Mage_Catalog_Model_Product_Ty
 
         // Update links_exist attribute value
         $linksExist = false;
-        if ($data = $product->getDownloadableData()) {
-            if (isset($data['link'])) {
-                foreach ($data['link'] as $linkItem) {
-                    if (!isset($linkItem['is_delete']) || !$linkItem['is_delete']) {
-                        $linksExist = true;
-                        break;
-                    }
+        if (($data = $product->getDownloadableData()) && isset($data['link'])) {
+            foreach ($data['link'] as $linkItem) {
+                if (!isset($linkItem['is_delete']) || !$linkItem['is_delete']) {
+                    $linksExist = true;
+                    break;
                 }
             }
         }

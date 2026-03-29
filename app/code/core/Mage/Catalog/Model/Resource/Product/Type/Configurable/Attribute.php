@@ -240,7 +240,7 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute extends Ma
             }
         }
 
-        if (!empty($delete)) {
+        if ($delete !== []) {
             $where = $write->quoteInto('value_id IN(?)', $delete);
             $write->delete($this->_priceTable, $where);
         }
@@ -250,7 +250,7 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute extends Ma
             $write->update($this->_priceTable, $bind, $where);
         }
 
-        if (!empty($insert)) {
+        if ($insert !== []) {
             $write->insertMultiple($this->_priceTable, $insert);
         }
 

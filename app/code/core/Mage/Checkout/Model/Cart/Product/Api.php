@@ -65,7 +65,7 @@ class Mage_Checkout_Model_Cart_Product_Api extends Mage_Checkout_Model_Api_Resou
             }
         }
 
-        if (!empty($errors)) {
+        if ($errors !== []) {
             $this->_fault('add_product_fault', implode(PHP_EOL, $errors));
         }
 
@@ -122,7 +122,7 @@ class Mage_Checkout_Model_Cart_Product_Api extends Mage_Checkout_Model_Api_Resou
             }
         }
 
-        if (!empty($errors)) {
+        if ($errors !== []) {
             $this->_fault('update_product_fault', implode(PHP_EOL, $errors));
         }
 
@@ -181,7 +181,7 @@ class Mage_Checkout_Model_Cart_Product_Api extends Mage_Checkout_Model_Api_Resou
             }
         }
 
-        if (!empty($errors)) {
+        if ($errors !== []) {
             $this->_fault('remove_product_fault', implode(PHP_EOL, $errors));
         }
 
@@ -295,7 +295,7 @@ class Mage_Checkout_Model_Cart_Product_Api extends Mage_Checkout_Model_Api_Resou
             }
         }
 
-        if (count($productsData) || !empty($errors)) {
+        if (count($productsData) || $errors !== []) {
             $this->_fault('unable_to_move_all_products', implode(PHP_EOL, $errors));
         }
 

@@ -82,7 +82,7 @@ class Mage_Core_Model_File_Storage_Directory_Database extends Mage_Core_Model_Fi
      */
     public function hasErrors()
     {
-        return !empty($this->_errors);
+        return $this->_errors !== [];
     }
 
     /**
@@ -171,7 +171,15 @@ class Mage_Core_Model_File_Storage_Directory_Database extends Mage_Core_Model_Fi
 
         $dateSingleton = Mage::getSingleton('core/date');
         foreach ($dirs as $dir) {
-            if (!is_array($dir) || !isset($dir['name']) || !strlen($dir['name'])) {
+            if (!is_array($dir)) {
+                continue;
+            }
+
+            if (!isset($dir['name'])) {
+                continue;
+            }
+
+            if (!strlen($dir['name'])) {
                 continue;
             }
 

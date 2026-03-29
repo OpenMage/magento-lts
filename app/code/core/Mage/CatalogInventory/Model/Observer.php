@@ -502,12 +502,10 @@ class Mage_CatalogInventory_Model_Observer
             }
 
             $productTypeCustomOption = $quoteItem->getProduct()->getCustomOption('product_type');
-            if (!is_null($productTypeCustomOption)) {
-                // Check if product related to current item is a part of grouped product
-                if ($productTypeCustomOption->getValue() == Mage_Catalog_Model_Product_Type_Grouped::TYPE_CODE) {
-                    $stockItem->setProductName($quoteItem->getProduct()->getName());
-                    $stockItem->setIsChildItem(true);
-                }
+            // Check if product related to current item is a part of grouped product
+            if (!is_null($productTypeCustomOption) && $productTypeCustomOption->getValue() == Mage_Catalog_Model_Product_Type_Grouped::TYPE_CODE) {
+                $stockItem->setProductName($quoteItem->getProduct()->getName());
+                $stockItem->setIsChildItem(true);
             }
 
             $result = $stockItem->checkQuoteItemQty($rowQty, $qtyForCheck, $qty);
@@ -1004,7 +1002,7 @@ class Mage_CatalogInventory_Model_Observer
             }
         }
 
-        if (!empty($productIds)) {
+        if ($productIds !== []) {
             Mage::getSingleton('cataloginventory/stock')->lockProductItems($productIds);
         }
 

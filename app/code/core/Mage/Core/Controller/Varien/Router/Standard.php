@@ -81,11 +81,7 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
      */
     protected function _beforeModuleMatch()
     {
-        if (Mage::app()->getStore()->isAdmin()) {
-            return false;
-        }
-
-        return true;
+        return !Mage::app()->getStore()->isAdmin();
     }
 
     /**
@@ -441,11 +437,7 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
      */
     public function validateControllerFileName($fileName)
     {
-        if ($fileName && is_readable($fileName) && !str_contains($fileName, '//')) {
-            return true;
-        }
-
-        return false;
+        return $fileName && is_readable($fileName) && !str_contains($fileName, '//');
     }
 
     /**
@@ -465,22 +457,16 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
     public function rewrite(array $p)
     {
         $rewrite = Mage::getConfig()->getNode('global/rewrite');
-        if ($module = $rewrite->{$p[0]}) {
-            if (!$module->children()) {
-                $p[0] = trim((string) $module);
-            }
+        if (($module = $rewrite->{$p[0]}) && !$module->children()) {
+            $p[0] = trim((string) $module);
         }
 
-        if (isset($p[1]) && ($controller = $rewrite->{$p[0]}->{$p[1]})) {
-            if (!$controller->children()) {
-                $p[1] = trim((string) $controller);
-            }
+        if (isset($p[1]) && ($controller = $rewrite->{$p[0]}->{$p[1]}) && !$controller->children()) {
+            $p[1] = trim((string) $controller);
         }
 
-        if (isset($p[2]) && ($action = $rewrite->{$p[0]}->{$p[1]}->{$p[2]})) {
-            if (!$action->children()) {
-                $p[2] = trim((string) $action);
-            }
+        if (isset($p[2]) && ($action = $rewrite->{$p[0]}->{$p[1]}->{$p[2]}) && !$action->children()) {
+            $p[2] = trim((string) $action);
         }
 
         return $p;

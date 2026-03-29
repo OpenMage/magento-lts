@@ -40,17 +40,12 @@ class Mage_Sales_Model_Resource_Order_Status extends Mage_Core_Model_Resource_Db
     }
 
     /**
-     * Retrieve select object for load object data
-     *
-     * @param  string         $field
-     * @param  mixed          $value
-     * @param  Varien_Object  $object
-     * @return Zend_Db_Select
+     * @inheritDoc
      */
     protected function _getLoadSelect($field, $value, $object)
     {
         if ($field == 'default_state') {
-            $select = $this->_getReadAdapter()->select()
+            return $this->_getReadAdapter()->select()
                 ->from($this->getMainTable(), ['label'])
                 ->join(
                     ['state_table' => $this->_stateTable],
@@ -60,11 +55,9 @@ class Mage_Sales_Model_Resource_Order_Status extends Mage_Core_Model_Resource_Db
                 ->where('state_table.state = ?', $value)
                 ->order('state_table.is_default DESC')
                 ->limit(1);
-        } else {
-            $select = parent::_getLoadSelect($field, $value, $object);
         }
 
-        return $select;
+        return parent::_getLoadSelect($field, $value, $object);
     }
 
     /**
@@ -107,7 +100,7 @@ class Mage_Sales_Model_Resource_Order_Status extends Mage_Core_Model_Resource_Db
                 ];
             }
 
-            if (!empty($data)) {
+            if ($data !== []) {
                 $this->_getWriteAdapter()->insertMultiple($this->_labelsTable, $data);
             }
         }

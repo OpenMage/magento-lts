@@ -232,10 +232,8 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
         }
 
         // remove last element, if empty
-        if ($count = count($result)) {
-            if ($result[$count - 1] === '') {
-                unset($result[$count - 1]);
-            }
+        if (($count = count($result)) && $result[$count - 1] === '') {
+            unset($result[$count - 1]);
         }
 
         // remove first element, if empty
@@ -315,7 +313,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
      */
     public function ksortMultibyte(array &$sort)
     {
-        if (empty($sort)) {
+        if ($sort === []) {
             return false;
         }
 
@@ -364,11 +362,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
      */
     protected function _validateQueryStr($str)
     {
-        if (!$str || !str_contains($str, '=')) {
-            return false;
-        }
-
-        return true;
+        return !(!$str || !str_contains($str, '='));
     }
 
     /**
