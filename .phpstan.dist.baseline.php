@@ -247,12 +247,6 @@ $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Catalog/Product/Widget/Chooser.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-	'identifier' => 'empty.notAllowed',
-	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Customer/Edit/Renderer/Attribute/Group.php',
 ];
 $ignoreErrors[] = [
@@ -416,22 +410,10 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Report/Filter/Form.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-	'identifier' => 'empty.notAllowed',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Report/Grid.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Parameter #1 $grid of method Mage_Reports_Model_Totals::countTotals() expects Mage_Adminhtml_Block_Report_Product_Grid, $this(Mage_Adminhtml_Block_Report_Grid) given.',
 	'identifier' => 'argument.type',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Report/Grid.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-	'identifier' => 'empty.notAllowed',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Report/Grid/Abstract.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Method Mage_Reports_Model_Totals::countTotals() invoked with 1 parameter, 3 required.',
@@ -446,8 +428,8 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Report/Product/Viewed/Grid.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-	'identifier' => 'empty.notAllowed',
+	'rawMessage' => 'Variable $data might not be defined.',
+	'identifier' => 'variable.undefined',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Report/Shopcart/Abandoned/Grid.php',
 ];
@@ -521,12 +503,6 @@ $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Sales/Reorder/Renderer/Action.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-	'identifier' => 'empty.notAllowed',
-	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Store/Switcher.php',
 ];
 $ignoreErrors[] = [
@@ -574,7 +550,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 7,
+	'count' => 6,
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/System/Config/Form/Field/Array/Abstract.php',
 ];
 $ignoreErrors[] = [
@@ -682,14 +658,8 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 4,
-	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Widget/Grid.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-	'identifier' => 'empty.notAllowed',
 	'count' => 2,
-	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Widget/Grid/Column.php',
+	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Widget/Grid.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
@@ -724,7 +694,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 2,
+	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Widget/Grid/Column/Renderer/Store.php',
 ];
 $ignoreErrors[] = [
@@ -766,7 +736,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 5,
+	'count' => 4,
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Widget/Tabs.php',
 ];
 $ignoreErrors[] = [
@@ -863,7 +833,7 @@ after 1.4.0.1',
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 13,
+	'count' => 12,
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Model/Sales/Order/Create.php',
 ];
 $ignoreErrors[] = [
@@ -1001,7 +971,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 4,
+	'count' => 3,
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/controllers/Catalog/ProductController.php',
 ];
 $ignoreErrors[] = [
@@ -1164,7 +1134,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 16,
+	'count' => 13,
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/controllers/Sales/Order/ShipmentController.php',
 ];
 $ignoreErrors[] = [
@@ -1188,7 +1158,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 4,
+	'count' => 3,
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/controllers/System/CacheController.php',
 ];
 $ignoreErrors[] = [
@@ -1556,7 +1526,13 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 2,
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Bundle/Block/Catalog/Product/View/Type/Bundle.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Variable $defaultValues might not be defined.',
+	'identifier' => 'variable.undefined',
+	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Bundle/Block/Catalog/Product/View/Type/Bundle.php',
 ];
 $ignoreErrors[] = [
@@ -1615,12 +1591,6 @@ after 1.6.2.0',
 	'path' => __DIR__ . '/app/code/core/Mage/Bundle/Model/Product/Price.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-	'identifier' => 'empty.notAllowed',
-	'count' => 2,
-	'path' => __DIR__ . '/app/code/core/Mage/Bundle/Model/Product/Price.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Method Mage_Bundle_Model_Product_Price::getOptions() should return Mage_Bundle_Model_Resource_Option_Collection but returns array.',
 	'identifier' => 'return.type',
 	'count' => 1,
@@ -1635,7 +1605,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 9,
+	'count' => 5,
 	'path' => __DIR__ . '/app/code/core/Mage/Bundle/Model/Product/Type.php',
 ];
 $ignoreErrors[] = [
@@ -1796,16 +1766,10 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Block/Product/View/Type/Configurable.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-	'identifier' => 'empty.notAllowed',
+	'rawMessage' => 'Variable $defaultValues might not be defined.',
+	'identifier' => 'variable.undefined',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Block/Product/View/Type/Configurable.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-	'identifier' => 'empty.notAllowed',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Block/Seo/Sitemap/Tree/Category.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Variable $store might not be defined.',
@@ -1888,12 +1852,6 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Call to an undefined method Mage_Core_Model_Resource_Db_Collection_Abstract::setStoreId().',
 	'identifier' => 'method.notFound',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Abstract.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-	'identifier' => 'empty.notAllowed',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Abstract.php',
 ];
@@ -2152,7 +2110,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 9,
+	'count' => 7,
 	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Layer/Filter/Price/Algorithm.php',
 ];
 $ignoreErrors[] = [
@@ -2188,7 +2146,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 4,
+	'count' => 3,
 	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Product/Api/V2.php',
 ];
 $ignoreErrors[] = [
@@ -2491,12 +2449,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Resource/Abstract.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-	'identifier' => 'empty.notAllowed',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Resource/Attribute.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Parameter #1 $object of method Mage_Catalog_Model_Resource_Attribute::_clearUselessAttributeValues() expects Mage_Catalog_Model_Resource_Eav_Attribute, Mage_Eav_Model_Entity_Attribute given.',
 	'identifier' => 'argument.type',
 	'count' => 1,
@@ -2505,13 +2457,13 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 9,
+	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Resource/Category.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 4,
+	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Resource/Category/Collection.php',
 ];
 $ignoreErrors[] = [
@@ -2554,7 +2506,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 3,
+	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Resource/Category/Flat/Collection.php',
 ];
 $ignoreErrors[] = [
@@ -2566,7 +2518,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 3,
+	'count' => 2,
 	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Resource/Category/Tree.php',
 ];
 $ignoreErrors[] = [
@@ -2621,7 +2573,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 7,
+	'count' => 4,
 	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Resource/Product.php',
 ];
 $ignoreErrors[] = [
@@ -2645,7 +2597,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 8,
+	'count' => 5,
 	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Resource/Product/Collection.php',
 ];
 $ignoreErrors[] = [
@@ -2659,12 +2611,6 @@ $ignoreErrors[] = [
 	'identifier' => 'variable.undefined',
 	'count' => 3,
 	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Resource/Product/Collection.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-	'identifier' => 'empty.notAllowed',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Resource/Product/Indexer/Abstract.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Method Mage_Catalog_Model_Resource_Product_Indexer_Abstract::_getAttribute() should return Mage_Catalog_Model_Resource_Eav_Attribute but returns Mage_Eav_Model_Entity_Attribute_Abstract|false.',
@@ -2687,7 +2633,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 10,
+	'count' => 8,
 	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Resource/Product/Indexer/Price.php',
 ];
 $ignoreErrors[] = [
@@ -2695,12 +2641,6 @@ $ignoreErrors[] = [
 	'identifier' => 'varTag.type',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Resource/Product/Indexer/Price.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-	'identifier' => 'empty.notAllowed',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Resource/Product/Link.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
@@ -2723,7 +2663,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 2,
+	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Resource/Product/Option/Collection.php',
 ];
 $ignoreErrors[] = [
@@ -2735,12 +2675,6 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 2,
-	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Resource/Product/Relation.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-	'identifier' => 'empty.notAllowed',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Resource/Product/Status.php',
 ];
@@ -2748,18 +2682,12 @@ $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 4,
-	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Resource/Product/Type/Configurable.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-	'identifier' => 'empty.notAllowed',
-	'count' => 6,
 	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Resource/Product/Type/Configurable/Attribute.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 4,
+	'count' => 2,
 	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Resource/Url.php',
 ];
 $ignoreErrors[] = [
@@ -2838,7 +2766,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 2,
+	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/CatalogIndex/Model/Resource/Aggregation.php',
 ];
 $ignoreErrors[] = [
@@ -2880,7 +2808,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 3,
+	'count' => 2,
 	'path' => __DIR__ . '/app/code/core/Mage/CatalogInventory/Model/Observer.php',
 ];
 $ignoreErrors[] = [
@@ -2920,12 +2848,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/CatalogInventory/Model/Resource/Stock.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-	'identifier' => 'empty.notAllowed',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/CatalogInventory/Model/Resource/Stock/Item/Collection.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Method Mage_CatalogInventory_Model_Resource_Stock_Item_Collection::_initSelect() should return $this(Mage_CatalogInventory_Model_Resource_Stock_Item_Collection) but returns Varien_Db_Select.',
 	'identifier' => 'return.type',
 	'count' => 1,
@@ -2948,12 +2870,6 @@ $ignoreErrors[] = [
 	'identifier' => 'empty.notAllowed',
 	'count' => 2,
 	'path' => __DIR__ . '/app/code/core/Mage/CatalogInventory/Model/Stock/Item.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-	'identifier' => 'empty.notAllowed',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/CatalogInventory/Model/Stock/Status.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
@@ -3000,7 +2916,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 6,
+	'count' => 4,
 	'path' => __DIR__ . '/app/code/core/Mage/CatalogRule/Model/Resource/Rule.php',
 ];
 $ignoreErrors[] = [
@@ -3110,7 +3026,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 2,
+	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/CatalogSearch/Model/Resource/Search/Collection.php',
 ];
 $ignoreErrors[] = [
@@ -3146,7 +3062,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 2,
+	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Checkout/Block/Cart/Sidebar.php',
 ];
 $ignoreErrors[] = [
@@ -3234,7 +3150,7 @@ after 1.4 beta1 it is checkout module responsibility',
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 2,
+	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Checkout/Model/Cart/Api.php',
 ];
 $ignoreErrors[] = [
@@ -3264,14 +3180,8 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 13,
+	'count' => 9,
 	'path' => __DIR__ . '/app/code/core/Mage/Checkout/Model/Cart/Product/Api.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-	'identifier' => 'empty.notAllowed',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Checkout/Model/Cart/Product/Api/V2.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Method Mage_Checkout_Model_Session::getQuoteId() invoked with 1 parameter, 0 required.',
@@ -3348,12 +3258,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Checkout/controllers/OnepageController.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-	'identifier' => 'empty.notAllowed',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Cms/Model/Resource/Page.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Parameter #1 $attr of method Mage_ConfigurableSwatches_Helper_Data::attrIsSwatchType() expects int|Mage_Eav_Model_Attribute, Mage_Catalog_Model_Resource_Eav_Attribute given.',
 	'identifier' => 'argument.type',
 	'count' => 1,
@@ -3398,19 +3302,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/ConfigurableSwatches/Model/Observer.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-	'identifier' => 'empty.notAllowed',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/ConfigurableSwatches/Model/Resource/Catalog/Product/Type/Configurable.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-	'identifier' => 'empty.notAllowed',
-	'count' => 8,
+	'count' => 7,
 	'path' => __DIR__ . '/app/code/core/Mage/Core/Block/Abstract.php',
 ];
 $ignoreErrors[] = [
@@ -3418,12 +3310,6 @@ $ignoreErrors[] = [
 	'identifier' => 'return.missing',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Core/Block/Abstract.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-	'identifier' => 'empty.notAllowed',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Core/Block/Html/Link.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
@@ -3440,7 +3326,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 2,
+	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Core/Block/Template/Facade.php',
 ];
 $ignoreErrors[] = [
@@ -3488,13 +3374,13 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 3,
+	'count' => 2,
 	'path' => __DIR__ . '/app/code/core/Mage/Core/Controller/Request/Http.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 19,
+	'count' => 17,
 	'path' => __DIR__ . '/app/code/core/Mage/Core/Controller/Varien/Action.php',
 ];
 $ignoreErrors[] = [
@@ -3578,7 +3464,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 9,
+	'count' => 8,
 	'path' => __DIR__ . '/app/code/core/Mage/Core/Helper/Data.php',
 ];
 $ignoreErrors[] = [
@@ -3590,7 +3476,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 2,
+	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Core/Helper/EnvironmentConfigLoader.php',
 ];
 $ignoreErrors[] = [
@@ -3610,12 +3496,6 @@ $ignoreErrors[] = [
 	'identifier' => 'empty.notAllowed',
 	'count' => 2,
 	'path' => __DIR__ . '/app/code/core/Mage/Core/Helper/Js.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-	'identifier' => 'empty.notAllowed',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Core/Helper/String.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Parameter #2 $arguments of static method Mage::getResourceModel() expects array, object given.',
@@ -3644,7 +3524,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 16,
+	'count' => 15,
 	'path' => __DIR__ . '/app/code/core/Mage/Core/Model/Config.php',
 ];
 $ignoreErrors[] = [
@@ -3746,7 +3626,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 2,
+	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Core/Model/Email/Queue.php',
 ];
 $ignoreErrors[] = [
@@ -3780,12 +3660,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Core/Model/Email/Template/Filter.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-	'identifier' => 'empty.notAllowed',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Core/Model/Email/Template/Mailer.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Call to an undefined method Varien_Crypt_Abstract::init().',
 	'identifier' => 'method.notFound',
 	'count' => 1,
@@ -3800,7 +3674,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 2,
+	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Core/Model/File/Storage/Database.php',
 ];
 $ignoreErrors[] = [
@@ -3818,7 +3692,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 3,
+	'count' => 2,
 	'path' => __DIR__ . '/app/code/core/Mage/Core/Model/File/Storage/Directory/Database.php',
 ];
 $ignoreErrors[] = [
@@ -3830,7 +3704,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 4,
+	'count' => 2,
 	'path' => __DIR__ . '/app/code/core/Mage/Core/Model/File/Storage/File.php',
 ];
 $ignoreErrors[] = [
@@ -3872,7 +3746,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 13,
+	'count' => 12,
 	'path' => __DIR__ . '/app/code/core/Mage/Core/Model/Layout.php',
 ];
 $ignoreErrors[] = [
@@ -3975,7 +3849,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 9,
+	'count' => 8,
 	'path' => __DIR__ . '/app/code/core/Mage/Core/Model/Resource/Db/Abstract.php',
 ];
 $ignoreErrors[] = [
@@ -4017,7 +3891,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 6,
+	'count' => 3,
 	'path' => __DIR__ . '/app/code/core/Mage/Core/Model/Resource/Setup.php',
 ];
 $ignoreErrors[] = [
@@ -4031,12 +3905,6 @@ $ignoreErrors[] = [
 	'identifier' => 'empty.notAllowed',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Core/Model/Resource/Transaction.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-	'identifier' => 'empty.notAllowed',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Core/Model/Resource/Translate.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
@@ -4055,12 +3923,6 @@ $ignoreErrors[] = [
 	'identifier' => 'empty.notAllowed',
 	'count' => 2,
 	'path' => __DIR__ . '/app/code/core/Mage/Core/Model/Resource/Type/Db/Pdo/Mysql.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-	'identifier' => 'empty.notAllowed',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Core/Model/Resource/Website/Collection.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
@@ -4114,7 +3976,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 7,
+	'count' => 6,
 	'path' => __DIR__ . '/app/code/core/Mage/Core/Model/Store.php',
 ];
 $ignoreErrors[] = [
@@ -4126,7 +3988,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 2,
+	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Core/Model/Translate.php',
 ];
 $ignoreErrors[] = [
@@ -4150,7 +4012,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 7,
+	'count' => 2,
 	'path' => __DIR__ . '/app/code/core/Mage/Core/Model/Url.php',
 ];
 $ignoreErrors[] = [
@@ -4210,7 +4072,19 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 4,
+	'count' => 3,
+	'path' => __DIR__ . '/app/code/core/Mage/Cron/Model/Observer.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Strict comparison using === between array{mixed, non-empty-string} and array{} will always evaluate to false.',
+	'identifier' => 'identical.alwaysFalse',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Cron/Model/Observer.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Variable $callback might not be defined.',
+	'identifier' => 'variable.undefined',
+	'count' => 2,
 	'path' => __DIR__ . '/app/code/core/Mage/Cron/Model/Observer.php',
 ];
 $ignoreErrors[] = [
@@ -4222,7 +4096,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 3,
+	'count' => 2,
 	'path' => __DIR__ . '/app/code/core/Mage/Csp/Block/Meta.php',
 ];
 $ignoreErrors[] = [
@@ -4403,7 +4277,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 10,
+	'count' => 8,
 	'path' => __DIR__ . '/app/code/core/Mage/Customer/controllers/AccountController.php',
 ];
 $ignoreErrors[] = [
@@ -4548,12 +4422,6 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Directory/Block/Data.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-	'identifier' => 'empty.notAllowed',
 	'count' => 4,
 	'path' => __DIR__ . '/app/code/core/Mage/Directory/Helper/Data.php',
 ];
@@ -4592,7 +4460,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 4,
+	'count' => 3,
 	'path' => __DIR__ . '/app/code/core/Mage/Directory/Model/Resource/Country/Collection.php',
 ];
 $ignoreErrors[] = [
@@ -4606,12 +4474,6 @@ $ignoreErrors[] = [
 	'identifier' => 'varTag.type',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Downloadable/Block/Adminhtml/Catalog/Product/Edit/Tab/Downloadable/Samples.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-	'identifier' => 'empty.notAllowed',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Downloadable/Block/Customer/Products/List.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
@@ -4844,7 +4706,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 18,
+	'count' => 17,
 	'path' => __DIR__ . '/app/code/core/Mage/Eav/Model/Entity/Abstract.php',
 ];
 $ignoreErrors[] = [
@@ -4922,7 +4784,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 12,
+	'count' => 10,
 	'path' => __DIR__ . '/app/code/core/Mage/Eav/Model/Entity/Collection/Abstract.php',
 ];
 $ignoreErrors[] = [
@@ -4988,12 +4850,6 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Eav/Model/Resource/Config.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-	'identifier' => 'empty.notAllowed',
 	'count' => 3,
 	'path' => __DIR__ . '/app/code/core/Mage/Eav/Model/Resource/Entity/Attribute.php',
 ];
@@ -5018,13 +4874,13 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 4,
+	'count' => 2,
 	'path' => __DIR__ . '/app/code/core/Mage/Eav/Model/Resource/Form/Fieldset.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 3,
+	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Eav/Model/Resource/Form/Type.php',
 ];
 $ignoreErrors[] = [
@@ -5037,20 +4893,8 @@ after 1.5.1.0',
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/GiftMessage/Helper/Message.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-	'identifier' => 'empty.notAllowed',
 	'count' => 4,
 	'path' => __DIR__ . '/app/code/core/Mage/GiftMessage/Model/Api.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-	'identifier' => 'empty.notAllowed',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/GiftMessage/Model/Api/V2.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Call to an undefined method Mage_GiftMessage_IndexController::_getMappedType().',
@@ -5140,7 +4984,7 @@ moved to catalog attribute model',
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 29,
+	'count' => 22,
 	'path' => __DIR__ . '/app/code/core/Mage/ImportExport/Model/Export/Entity/Product.php',
 ];
 $ignoreErrors[] = [
@@ -5213,7 +5057,7 @@ moved to catalog attribute model',
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 30,
+	'count' => 28,
 	'path' => __DIR__ . '/app/code/core/Mage/ImportExport/Model/Import/Entity/Product.php',
 ];
 $ignoreErrors[] = [
@@ -5274,7 +5118,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 4,
+	'count' => 3,
 	'path' => __DIR__ . '/app/code/core/Mage/Index/Model/Event.php',
 ];
 $ignoreErrors[] = [
@@ -5305,24 +5149,12 @@ $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Index/Model/Observer.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-	'identifier' => 'empty.notAllowed',
-	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Index/Model/Process.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Index/Model/Resource/Abstract.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-	'identifier' => 'empty.notAllowed',
-	'count' => 2,
 	'path' => __DIR__ . '/app/code/core/Mage/Index/Model/Resource/Event.php',
 ];
 $ignoreErrors[] = [
@@ -5364,7 +5196,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 10,
+	'count' => 9,
 	'path' => __DIR__ . '/app/code/core/Mage/Install/Model/Installer.php',
 ];
 $ignoreErrors[] = [
@@ -5406,7 +5238,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 3,
+	'count' => 2,
 	'path' => __DIR__ . '/app/code/core/Mage/Install/Model/Installer/Db.php',
 ];
 $ignoreErrors[] = [
@@ -5414,12 +5246,6 @@ $ignoreErrors[] = [
 	'identifier' => 'empty.notAllowed',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Install/Model/Installer/Env.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-	'identifier' => 'empty.notAllowed',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Install/controllers/WizardController.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
@@ -5531,12 +5357,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Page/Block/Template/Links.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-	'identifier' => 'empty.notAllowed',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Page/Helper/Layout.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Call to an undefined method Mage_Payment_Model_Method_Abstract::isPartialAuthorization().',
 	'identifier' => 'method.notFound',
 	'count' => 1,
@@ -5601,12 +5421,6 @@ $ignoreErrors[] = [
 	'identifier' => 'method.nonObject',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Payment/Helper/Data.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-	'identifier' => 'empty.notAllowed',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Payment/Model/Billing/AgreementAbstract.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
@@ -5679,12 +5493,6 @@ $ignoreErrors[] = [
 	'identifier' => 'property.phpDocType',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Payment/Model/Method/Free.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-	'identifier' => 'empty.notAllowed',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Payment/Model/Recurring/Profile.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Dead catch - Mage_Core_Exception is never thrown in the try block.',
@@ -6046,12 +5854,6 @@ $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Paypal/Model/Resource/Report/Settlement.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-	'identifier' => 'empty.notAllowed',
-	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Paypal/Model/System/Config/Backend/Cert.php',
 ];
 $ignoreErrors[] = [
@@ -6093,13 +5895,13 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 2,
+	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Rating/Model/Resource/Rating.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 2,
+	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Rating/Model/Resource/Rating/Collection.php',
 ];
 $ignoreErrors[] = [
@@ -6196,7 +5998,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 3,
+	'count' => 2,
 	'path' => __DIR__ . '/app/code/core/Mage/Reports/Model/Resource/Product/Index/Collection/Abstract.php',
 ];
 $ignoreErrors[] = [
@@ -6288,12 +6090,6 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 2,
-	'path' => __DIR__ . '/app/code/core/Mage/Review/Model/Resource/Review/Product/Collection.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-	'identifier' => 'empty.notAllowed',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Review/controllers/ProductController.php',
 ];
@@ -6354,7 +6150,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 3,
+	'count' => 2,
 	'path' => __DIR__ . '/app/code/core/Mage/Rule/Model/Condition/Combine.php',
 ];
 $ignoreErrors[] = [
@@ -6384,7 +6180,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 5,
+	'count' => 2,
 	'path' => __DIR__ . '/app/code/core/Mage/Rule/Model/Resource/Abstract.php',
 ];
 $ignoreErrors[] = [
@@ -6439,7 +6235,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 2,
+	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Sales/Model/Billing/Agreement.php',
 ];
 $ignoreErrors[] = [
@@ -6469,7 +6265,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 9,
+	'count' => 8,
 	'path' => __DIR__ . '/app/code/core/Mage/Sales/Model/Order.php',
 ];
 $ignoreErrors[] = [
@@ -6584,12 +6380,6 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Sales/Model/Order/Pdf/Total/Default.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-	'identifier' => 'empty.notAllowed',
 	'count' => 2,
 	'path' => __DIR__ . '/app/code/core/Mage/Sales/Model/Order/Shipment.php',
 ];
@@ -6656,7 +6446,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 3,
+	'count' => 2,
 	'path' => __DIR__ . '/app/code/core/Mage/Sales/Model/Quote.php',
 ];
 $ignoreErrors[] = [
@@ -6759,7 +6549,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 3,
+	'count' => 2,
 	'path' => __DIR__ . '/app/code/core/Mage/Sales/Model/Recurring/Profile.php',
 ];
 $ignoreErrors[] = [
@@ -6813,7 +6603,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 2,
+	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Sales/Model/Resource/Order/Status.php',
 ];
 $ignoreErrors[] = [
@@ -6839,12 +6629,6 @@ $ignoreErrors[] = [
 	'identifier' => 'empty.notAllowed',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Sales/Model/Resource/Setup.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-	'identifier' => 'empty.notAllowed',
-	'count' => 7,
-	'path' => __DIR__ . '/app/code/core/Mage/Sales/Model/Service/Order.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Call to an undefined method Mage_Payment_Model_Recurring_Profile::submit().',
@@ -6903,7 +6687,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 2,
+	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/SalesRule/Model/Resource/Report/Collection.php',
 ];
 $ignoreErrors[] = [
@@ -6915,7 +6699,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 4,
+	'count' => 3,
 	'path' => __DIR__ . '/app/code/core/Mage/SalesRule/Model/Validator.php',
 ];
 $ignoreErrors[] = [
@@ -6958,7 +6742,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 7,
+	'count' => 6,
 	'path' => __DIR__ . '/app/code/core/Mage/Shipping/Model/Carrier/Abstract.php',
 ];
 $ignoreErrors[] = [
@@ -7042,7 +6826,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 3,
+	'count' => 2,
 	'path' => __DIR__ . '/app/code/core/Mage/Shipping/Model/Resource/Carrier/Tablerate.php',
 ];
 $ignoreErrors[] = [
@@ -7160,12 +6944,6 @@ $ignoreErrors[] = [
 	'identifier' => 'empty.notAllowed',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Tag/Model/Resource/Product/Collection.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-	'identifier' => 'empty.notAllowed',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Tag/Model/Resource/Tag.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Call to deprecated method aggregate() of class Mage_Tag_Model_Resource_Tag:
@@ -7321,7 +7099,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 3,
+	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl.php',
 ];
 $ignoreErrors[] = [
@@ -7393,7 +7171,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 5,
+	'count' => 3,
 	'path' => __DIR__ . '/app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php',
 ];
 $ignoreErrors[] = [
@@ -7411,7 +7189,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 10,
+	'count' => 8,
 	'path' => __DIR__ . '/app/code/core/Mage/Usa/Model/Shipping/Carrier/Ups.php',
 ];
 $ignoreErrors[] = [
@@ -7435,7 +7213,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 6,
+	'count' => 5,
 	'path' => __DIR__ . '/app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps.php',
 ];
 $ignoreErrors[] = [
@@ -7568,7 +7346,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 4,
+	'count' => 3,
 	'path' => __DIR__ . '/app/code/core/Mage/Wishlist/Model/Observer.php',
 ];
 $ignoreErrors[] = [
@@ -8302,12 +8080,6 @@ $ignoreErrors[] = [
 	'identifier' => 'arguments.count',
 	'count' => 12,
 	'path' => __DIR__ . '/app/design/frontend/base/default/template/checkout/onepage/review/item.phtml',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-	'identifier' => 'empty.notAllowed',
-	'count' => 2,
-	'path' => __DIR__ . '/app/design/frontend/base/default/template/checkout/onepage/shipping_method/available.phtml',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',

@@ -79,7 +79,7 @@ class Mage_Catalog_Model_Resource_Category_Flat_Collection extends Mage_Core_Mod
     public function addIdFilter($categoryIds)
     {
         if (is_array($categoryIds)) {
-            if (empty($categoryIds)) {
+            if ($categoryIds === []) {
                 $condition = '';
             } else {
                 $condition = ['in' => $categoryIds];
@@ -88,7 +88,7 @@ class Mage_Catalog_Model_Resource_Category_Flat_Collection extends Mage_Core_Mod
             $condition = $categoryIds;
         } elseif (is_string($categoryIds)) {
             $ids = explode(',', $categoryIds);
-            if (empty($ids)) {
+            if ($ids === []) {
                 $condition = $categoryIds;
             } else {
                 $condition = ['in' => $ids];

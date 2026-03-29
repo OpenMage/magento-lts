@@ -463,7 +463,7 @@ class Varien_Object implements ArrayAccess
      */
     public function __toArray(array $arrAttributes = [])
     {
-        if (empty($arrAttributes)) {
+        if ($arrAttributes === []) {
             return $this->_data;
         }
 

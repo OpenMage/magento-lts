@@ -233,7 +233,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
             $decorators = explode(' ', $decorators);
         }
 
-        if (empty($decorators)) {
+        if ($decorators === []) {
             return $value;
         }
 
@@ -241,7 +241,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
             $value = '<span class="nobr">' . $value . '</span>';
         }
 
-        if (!empty($decorators)) {
+        if ($decorators !== []) {
             return $this->_applyDecorators($value, $decorators);
         }
 

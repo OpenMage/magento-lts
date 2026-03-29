@@ -40,7 +40,7 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
             $wheres[] = '(' . $condition->prepareConditionSql() . ')';
         }
 
-        if (empty($wheres)) {
+        if ($wheres === []) {
             return '';
         }
 
