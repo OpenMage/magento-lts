@@ -428,12 +428,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Report/Product/Viewed/Grid.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Variable $data might not be defined.',
-	'identifier' => 'variable.undefined',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Report/Shopcart/Abandoned/Grid.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 1,
@@ -1762,12 +1756,6 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Call to deprecated method getCurrentStore() of class Mage_Catalog_Block_Product_View_Type_Configurable.',
 	'identifier' => 'method.deprecated',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Block/Product/View/Type/Configurable.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Variable $defaultValues might not be defined.',
-	'identifier' => 'variable.undefined',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Block/Product/View/Type/Configurable.php',
 ];
@@ -4073,18 +4061,6 @@ $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 3,
-	'path' => __DIR__ . '/app/code/core/Mage/Cron/Model/Observer.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Strict comparison using === between array{mixed, non-empty-string} and array{} will always evaluate to false.',
-	'identifier' => 'identical.alwaysFalse',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Cron/Model/Observer.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Variable $callback might not be defined.',
-	'identifier' => 'variable.undefined',
-	'count' => 2,
 	'path' => __DIR__ . '/app/code/core/Mage/Cron/Model/Observer.php',
 ];
 $ignoreErrors[] = [
