@@ -146,8 +146,10 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
             $login = $this->getRequest()->getPost('login');
             if (!empty($login['username']) && !empty($login['password'])) {
                 try {
-                    $session->login($login['username'], $login['password']);
-                    if ($session->getCustomer()->getIsJustConfirmed()) {
+                    if (!$session->login($login['username'], $login['password'])) {
+                        $session->addError($this->__('Invalid login or password.'));
+                        $session->setUsername($login['username']);
+                    } elseif ($session->getCustomer()->getIsJustConfirmed()) {
                         $this->_welcomeCustomer($session->getCustomer(), true);
                     }
                 } catch (Mage_Core_Exception $mageCoreException) {
@@ -157,9 +159,6 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
                             $helper = $this->_getHelper('customer');
                             $value = $helper->getEmailConfirmationUrl($login['username']);
                             $message = $helper->__('This account is not confirmed. <a href="%s">Click here</a> to resend confirmation email.', $value);
-                            break;
-                        case Mage_Customer_Model_Customer::EXCEPTION_INVALID_EMAIL_OR_PASSWORD:
-                            $message = $mageCoreException->getMessage();
                             break;
                         default:
                             $message = $mageCoreException->getMessage();
