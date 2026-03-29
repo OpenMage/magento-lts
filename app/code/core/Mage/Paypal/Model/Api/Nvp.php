@@ -1577,7 +1577,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
      */
     protected function _prepareExpressCheckoutCallRequest(&$requestFields)
     {
-        if (!$this->_config->shouldUseUnilateralPayments() && $key = array_search('SUBJECT', $requestFields)) {
+        if (!$this->_config->shouldUseUnilateralPayments() && ($key = array_search('SUBJECT', $requestFields))) {
             unset($requestFields[$key]);
         }
     }
