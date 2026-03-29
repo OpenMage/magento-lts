@@ -213,7 +213,7 @@ class Mage_Catalog_Model_Product_Api_V2 extends Mage_Catalog_Model_Product_Api
             }
         }
 
-        if (empty($failMessages)) {
+        if ($failMessages === []) {
             return true;
         }
 

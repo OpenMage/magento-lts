@@ -48,7 +48,7 @@ class Mage_Install_Model_Installer_Db extends Mage_Install_Model_Installer_Abstr
                 }
             }
 
-            if (!empty($absenteeExtensions)) {
+            if ($absenteeExtensions !== []) {
                 Mage::throwException(
                     Mage::helper('install')->__('PHP Extensions "%s" must be loaded.', implode(',', $absenteeExtensions)),
                 );

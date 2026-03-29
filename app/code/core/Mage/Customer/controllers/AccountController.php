@@ -871,7 +871,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
             $errorMessages = array_merge($errorMessages, $validationErrorMessages);
         }
 
-        if (!empty($errorMessages)) {
+        if ($errorMessages !== []) {
             $this->_getSession()->setCustomerFormData($this->getRequest()->getPost());
             foreach ($errorMessages as $errorMessage) {
                 $this->_getSession()->addError($errorMessage);
@@ -1045,7 +1045,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
                 }
             }
 
-            if (!empty($errors)) {
+            if ($errors !== []) {
                 $this->_getSession()->setCustomerFormData($this->getRequest()->getPost());
                 foreach ($errors as $message) {
                     $this->_getSession()->addError($message);

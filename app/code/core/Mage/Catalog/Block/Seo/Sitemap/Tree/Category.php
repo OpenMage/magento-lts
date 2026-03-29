@@ -143,7 +143,7 @@ class Mage_Catalog_Block_Seo_Sitemap_Tree_Category extends Mage_Catalog_Block_Se
             }
         }
 
-        if (empty($pathFilter)) {
+        if ($pathFilter === []) {
             $pathFilter = $this->_storeRootCategoryPath . '/';
         }
 
