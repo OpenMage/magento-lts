@@ -117,7 +117,7 @@ try {
             CodeQuality\Identical\SimplifyBoolIdenticalTrueRector::class, # todo: TMP
             # tmp wait for https://github.com/rectorphp/rector/issues/9717
             CodeQuality\If_\CombineIfRector::class => [
-                __DIR__ . 'app/code/core/Mage/Catalog/Model/Api2/Product/Validator/Product.php',
+                __DIR__ . '/app/code/core/Mage/Catalog/Model/Api2/Product/Validator/Product.php',
             ],
             CodeQuality\If_\CompleteMissingIfElseBracketRector::class, # todo: TMP  (!?!)
             CodeQuality\If_\ExplicitBoolCompareRector::class, # todo: TMP
