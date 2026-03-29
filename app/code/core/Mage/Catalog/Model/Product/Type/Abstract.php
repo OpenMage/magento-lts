@@ -781,6 +781,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
         if ($this->getProduct($product)->getHasOptions()) {
             return true;
         }
+
         return $this->getProduct($product)->isRecurring();
     }
 

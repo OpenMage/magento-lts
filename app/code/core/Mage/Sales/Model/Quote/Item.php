@@ -435,6 +435,7 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
         if (!$this->compareOptions($itemOptions, $productOptions)) {
             return false;
         }
+
         return $this->compareOptions($productOptions, $itemOptions);
     }
 

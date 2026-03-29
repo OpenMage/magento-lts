@@ -462,6 +462,7 @@ abstract class Mage_Core_Helper_Abstract
 
             return false;
         }
+
         return is_string($data) && (bool) strcmp($data, $this->removeTags($data));
     }
 }

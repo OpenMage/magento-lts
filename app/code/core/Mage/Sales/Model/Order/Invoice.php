@@ -384,6 +384,7 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
         if ($this->getState() != self::STATE_PAID) {
             return false;
         }
+
         return abs($this->getBaseGrandTotal() - $this->getBaseTotalRefunded()) >= .0001;
     }
 

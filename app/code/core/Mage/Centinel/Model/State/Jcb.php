@@ -124,6 +124,7 @@ class Mage_Centinel_Model_State_Jcb extends Mage_Centinel_Model_StateAbstract
         if ($enrolled == 'U' && $acsUrl == '' && $payload == '' && $errorNo == '0') {
             return true;
         }
+
         //Test cases 8,9
         return $enrolled == 'U' && $acsUrl == '' && $payload == '' && $errorNo != '0';
     }

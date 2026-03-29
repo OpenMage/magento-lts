@@ -808,6 +808,7 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
         if ($qty === null) {
             $qty = $this->getQty();
         }
+
         return !($this->getBackorders() == Mage_CatalogInventory_Model_Stock::BACKORDERS_NO && $qty <= $this->getMinQty());
     }
 

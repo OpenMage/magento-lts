@@ -125,6 +125,7 @@ class Mage_Centinel_Model_State_Mastercard extends Mage_Centinel_Model_StateAbst
         if ($enrolled == '' && $acsUrl == '' && $payload == '' && $errorNo == 'Timeout number') {
             return true;
         }
+
         //Test cases 8,9
         return $enrolled == 'U' && $acsUrl == '' && $payload == '' && $errorNo == '1001';
     }

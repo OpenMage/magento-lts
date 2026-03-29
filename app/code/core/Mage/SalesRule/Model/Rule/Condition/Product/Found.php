@@ -79,6 +79,7 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Found extends Mage_SalesRule_M
         if ($found && $true) {
             return true;
         }
+
         // found an item and we're looking for existing one
         // not found and we're making sure it doesn't exist
         return !$found && !$true;

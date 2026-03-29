@@ -704,6 +704,7 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
         } else {
             $calculate = $this->getProduct()->getPriceType();
         }
+
         return ($calculate !== null) && (int) $calculate === Mage_Catalog_Model_Product_Type_Abstract::CALCULATE_CHILD;
     }
 
@@ -720,6 +721,7 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
         } else {
             $shipmentType = $this->getProduct()->getShipmentType();
         }
+
         return ($shipmentType !== null)
             && (int) $shipmentType === Mage_Catalog_Model_Product_Type_Abstract::SHIPMENT_SEPARATELY;
     }

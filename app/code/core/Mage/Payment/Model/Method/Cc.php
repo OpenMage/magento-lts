@@ -393,6 +393,7 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
         if ($info instanceof Mage_Sales_Model_Quote_Payment) {
             return false;
         }
+
         return $info instanceof Mage_Sales_Model_Order_Payment;
     }
 }

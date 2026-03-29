@@ -578,6 +578,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
         ) {
             return true;
         }
+
         return !is_array($setId)
             && array_key_exists($setId, $this->getAttributeSetInfo());
     }

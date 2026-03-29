@@ -596,6 +596,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
         if ($this->getScope() == self::SCOPE_STORES && $field) {
             return true;
         }
+
         return $this->getScope() == self::SCOPE_WEBSITES && $field;
     }
 

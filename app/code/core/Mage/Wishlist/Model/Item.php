@@ -496,6 +496,7 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
         if (!$this->_compareOptions($requestArray, $selfOptions)) {
             return false;
         }
+
         return $this->_compareOptions($selfOptions, $requestArray);
     }
 
@@ -519,6 +520,7 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
         if (!$this->compareOptions($itemOptions, $productOptions)) {
             return false;
         }
+
         return $this->compareOptions($productOptions, $itemOptions);
     }
 

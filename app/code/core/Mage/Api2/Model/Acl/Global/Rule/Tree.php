@@ -429,6 +429,7 @@ class Mage_Api2_Model_Acl_Global_Rule_Tree extends Mage_Core_Helper_Abstract
 
             $item[self::NAME_CHILDREN][] = $subItem;
         }
+
         return (bool) $cnt;
     }
 

@@ -1558,6 +1558,7 @@ class Mage_Paypal_Model_Config
         if ($this->getMerchantCountry() == 'BR' && $code == 'BRL') {
             return true;
         }
+
         return $this->getMerchantCountry() == 'MY' && $code == 'MYR';
     }
 

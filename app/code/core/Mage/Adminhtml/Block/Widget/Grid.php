@@ -1969,6 +1969,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
         if ($this->isColumnGrouped($column) && $item->getIsEmpty()) {
             return true;
         }
+
         return !$item->getIsEmpty();
     }
 

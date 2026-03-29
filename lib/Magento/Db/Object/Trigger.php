@@ -32,6 +32,7 @@ class Magento_Db_Object_Trigger extends Magento_Db_Object implements Magento_Db_
         if (!isset($this->_data['triggers'][$this->_schemaName])) {
             $this->describe();
         }
+
         return isset($this->_data['triggers'][$this->_schemaName][$this->_objectName]);
     }
 

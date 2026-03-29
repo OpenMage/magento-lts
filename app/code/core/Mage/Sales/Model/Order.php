@@ -657,6 +657,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         if ($this->isCanceled() || $state === self::STATE_COMPLETE || $state === self::STATE_CLOSED) {
             return false;
         }
+
         /**
          * Use only state for availability detect
          */
@@ -745,6 +746,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         if (abs($this->getStore()->roundPrice($this->getTotalPaid()) - $this->getTotalRefunded()) < .0001) {
             return false;
         }
+
         return $this->getActionFlag(self::ACTION_FLAG_EDIT) !== false;
     }
 
@@ -761,6 +763,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         ) {
             return false;
         }
+
         return $this->getActionFlag(self::ACTION_FLAG_HOLD) !== false;
     }
 
@@ -839,6 +842,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         if (!$this->getPayment()->getMethodInstance()->canEdit()) {
             return false;
         }
+
         return $this->getActionFlag(self::ACTION_FLAG_EDIT) !== false;
     }
 

@@ -467,6 +467,7 @@ class Mage_Adminhtml_Sales_Order_InvoiceController extends Mage_Adminhtml_Contro
                     return true;
                 }
             }
+
             return $item->isShipSeparately();
         }
 
@@ -474,6 +475,7 @@ class Mage_Adminhtml_Sales_Order_InvoiceController extends Mage_Adminhtml_Contro
             if ($item->getIsVirtual()) {
                 return false;
             }
+
             return isset($qtys[$item->getParentItem()->getId()]) && $qtys[$item->getParentItem()->getId()] > 0;
         }
 

@@ -182,6 +182,7 @@ class Mage_Cms_Model_Resource_Block extends Mage_Core_Model_Resource_Db_Abstract
         if ($object->getId()) {
             $select->where('cb.block_id <> ?', $object->getId());
         }
+
         return !$this->_getReadAdapter()->fetchRow($select);
     }
 

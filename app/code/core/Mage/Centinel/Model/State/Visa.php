@@ -130,6 +130,7 @@ class Mage_Centinel_Model_State_Visa extends Mage_Centinel_Model_StateAbstract
         if ($enrolled == '' && $acsUrl == '' && $payload == '' && $errorNo == 'Timeout number') {
             return true;
         }
+
         //Test cases 9,10
         return $enrolled == 'U' && $acsUrl == '' && $payload == '' && $errorNo == '1001';
     }

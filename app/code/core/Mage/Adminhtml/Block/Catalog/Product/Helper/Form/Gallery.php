@@ -156,6 +156,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Gallery extends Varien_Da
         if (is_object($attribute)) {
             $attribute = $attribute->getAttributeCode();
         }
+
         return $this->getDataObject()->isLockedAttribute($attribute);
     }
 
