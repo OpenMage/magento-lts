@@ -99,7 +99,6 @@ class Mage_Adminhtml_Block_System_Config_Form_Field_Csp_Hosts extends Mage_Admin
      */
     private function _parseNodePath(): array
     {
-        /** @var Varien_Data_Form_Element_Abstract $element */
         $element = $this->getElement();
         $configPath = $element->getData('config_path');
 
