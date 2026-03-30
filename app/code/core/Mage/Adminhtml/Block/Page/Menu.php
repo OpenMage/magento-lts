@@ -14,7 +14,7 @@
  *
  * @phpstan-type Menu array{
  *     id?: string,
- *     children?: array,
+ *     children?: array<string, Menu>,
  *     title?: string,
  *     label: string,
  *     sort_order: int,
