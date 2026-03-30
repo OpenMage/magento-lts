@@ -12,7 +12,7 @@
  *
  * @package    Mage_Adminhtml
  *
- * @template Menu of array{
+ * @phpstan-type Menu array{
  *     id?: string,
  *     children?: array,
  *     title?: string,
