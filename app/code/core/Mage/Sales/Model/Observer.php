@@ -27,7 +27,6 @@ class Mage_Sales_Model_Observer
      * Clean expired quotes (cron process)
      *
      * @return $this
-     * @throws Mage_Core_Exception
      */
     public function cleanExpiredQuotes()
     {
