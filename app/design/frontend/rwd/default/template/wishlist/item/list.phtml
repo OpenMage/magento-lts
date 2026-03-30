@@ -16,7 +16,7 @@
     <thead>
         <tr>
             <?php
-            foreach ($columns as $column):
+                foreach ($columns as $column):
                     $_blockName = str_replace('.','-',strtolower($column->getNameInLayout()));
             ?>
                 <th class="<?php echo $_blockName; ?>"><?php echo $column->getTitle();?></th>
