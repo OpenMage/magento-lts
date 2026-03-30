@@ -113,6 +113,11 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
         $this->_initSelect();
     }
 
+    /**
+     * Collection initialization
+     *
+     * @return void
+     */
     protected function _construct() {}
 
     /**
