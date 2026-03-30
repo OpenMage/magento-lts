@@ -243,6 +243,9 @@ abstract class Mage_Core_Helper_Abstract
         }
 
         $result = strip_tags($data, $allowableTags);
+        if (is_string($allowableTags)) {
+            $allowableTags = [$allowableTags];
+        }
         return $escape ? $this->escapeHtml($result, $allowableTags) : $result;
     }
 
