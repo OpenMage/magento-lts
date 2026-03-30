@@ -76,20 +76,19 @@
     [-] LongClassName
     [x] ShortClassName
     [-] LongVariable
-    [-] ShortVariable
-    [x] ShortMethodName - TMP disabled
+    [x] ShortVariable
+    [-] ShortMethodName - TMP disabled, can be fixed in some cases
     -->
     <rule ref="rulesets/naming.xml">
         <exclude name="BooleanGetMethodName" />
         <exclude name="LongClassName" />
         <exclude name="LongVariable" />
-        <exclude name="ShortVariable" />
     </rule>
-<!--    <rule ref="rulesets/naming.xml/ShortVariable">-->
-<!--        <properties>-->
-<!--            <property name="exceptions" value="a,b,x,y,x1,x2,y1,y2" />-->
-<!--        </properties>-->
-<!--    </rule>-->
+    <rule ref="rulesets/naming.xml/ShortVariable">-->
+        <properties>
+            <property name="exceptions" value="a,b,x,y,x1,x2,y1,y2" />
+        </properties>
+    </rule>
     <rule ref="rulesets/naming.xml/ShortMethodName" />
 
     <!-- DESIGN
