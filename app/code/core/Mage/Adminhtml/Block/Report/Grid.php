@@ -150,10 +150,9 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
              * Validate from and to date
              */
             try {
-                $from = $this->getLocale()->date($this->getFilter('report_from'), Zend_Date::DATE_SHORT, null, false);
-                $to   = $this->getLocale()->date($this->getFilter('report_to'), Zend_Date::DATE_SHORT, null, false);
-
-                $collection->setInterval($from, $to);
+                $dateFrom = $this->getLocale()->date($this->getFilter('report_from'), Zend_Date::DATE_SHORT, null, false);
+                $dateTo   = $this->getLocale()->date($this->getFilter('report_to'), Zend_Date::DATE_SHORT, null, false);
+                $collection->setInterval($dateFrom, $dateTo);
             } catch (Exception) {
                 $this->_errors[] = Mage::helper('reports')->__('Invalid date specified.');
             }
@@ -391,20 +390,20 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
     /**
      * @throws Exception
      */
-    public function getReport($from, $to)
+    public function getReport($dateFrom, $dateTo)
     {
-        if ($from == '') {
-            $from = $this->getFilter('report_from');
+        if ($dateFrom == '') {
+            $dateFrom = $this->getFilter('report_from');
         }
 
-        if ($to == '') {
-            $to = $this->getFilter('report_to');
+        if ($dateTo == '') {
+            $dateTo = $this->getFilter('report_to');
         }
 
         $totalObj = Mage::getModel('reports/totals');
-        $this->setTotals($totalObj->countTotals($this, $from, $to));
+        $this->setTotals($totalObj->countTotals($this, $dateFrom, $dateTo));
         $this->addGrandTotals($this->getTotals());
-        return $this->getCollection()->getReport($from, $to);
+        return $this->getCollection()->getReport($dateFrom, $dateTo);
     }
 
     public function addGrandTotals($total)

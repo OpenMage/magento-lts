@@ -416,14 +416,14 @@ abstract class Mage_Core_Helper_Abstract
      */
     public function translateArray($arr = [])
     {
-        foreach ($arr as $k => $v) {
-            if (is_array($v)) {
-                $v = self::translateArray($v);
-            } elseif ($k === 'label') {
-                $v = self::__($v);
+        foreach ($arr as $key => $value) {
+            if (is_array($value)) {
+                $value = self::translateArray($value);
+            } elseif ($key === 'label') {
+                $value = self::__($value);
             }
 
-            $arr[$k] = $v;
+            $arr[$key] = $value;
         }
 
         return $arr;

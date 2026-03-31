@@ -314,53 +314,53 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
             /** @var Mage_Adminhtml_Helper_Data $helper */
             $helper = Mage::helper('adminhtml');
 
-            foreach ($csvData as $k => $v) {
-                if ($k == 0) {
+            foreach ($csvData as $index => $val) {
+                if ($index == 0) {
                     continue;
                 }
 
                 //end of file has more then one empty lines
                 // phpcs:ignore Ecg.Performance.Loop.ArraySize
-                if (count($v) <= 1 && !strlen($v[0])) {
+                if (count($val) <= 1 && !strlen($val[0])) {
                     continue;
                 }
 
                 foreach ($unset as $u) {
-                    unset($v[$u]);
+                    unset($val[$u]);
                 }
 
                 // phpcs:ignore Ecg.Performance.Loop.ArraySize
-                if (count($csvFields) != count($v)) {
+                if (count($csvFields) != count($val)) {
                     Mage::getSingleton('adminhtml/session')->addError(Mage::helper('tax')->__('Invalid file upload attempt'));
                 }
 
-                $country = Mage::getModel('directory/country')->loadByCode($v[1], 'iso2_code');
+                $country = Mage::getModel('directory/country')->loadByCode($val[1], 'iso2_code');
                 if (!$country->getId()) {
                     Mage::getSingleton('adminhtml/session')->addError(Mage::helper('tax')->__('One of the country has invalid code.'));
                     continue;
                 }
 
-                if (!isset($regions[$v[1]])) {
-                    $regions[$v[1]]['*'] = '*';
+                if (!isset($regions[$val[1]])) {
+                    $regions[$val[1]]['*'] = '*';
                     $regionCollection = Mage::getModel('directory/region')->getCollection()
-                        ->addCountryFilter($v[1]);
+                        ->addCountryFilter($val[1]);
                     if ($regionCollection->getSize()) {
                         foreach ($regionCollection as $region) {
-                            $regions[$v[1]][$region->getCode()] = $region->getRegionId();
+                            $regions[$val[1]][$region->getCode()] = $region->getRegionId();
                         }
                     }
                 }
 
-                if (!empty($regions[$v[1]][$v[2]])) {
+                if (!empty($regions[$val[1]][$val[2]])) {
                     $rateData  = [
-                        'code'           => $v[0],
-                        'tax_country_id' => $v[1],
-                        'tax_region_id'  => ($regions[$v[1]][$v[2]] == '*') ? 0 : $regions[$v[1]][$v[2]],
-                        'tax_postcode'   => empty($v[3]) ? null : $v[3],
-                        'rate'           => $v[4],
-                        'zip_is_range'   => $v[5],
-                        'zip_from'       => $v[6],
-                        'zip_to'         => $v[7],
+                        'code'           => $val[0],
+                        'tax_country_id' => $val[1],
+                        'tax_region_id'  => ($regions[$val[1]][$val[2]] == '*') ? 0 : $regions[$val[1]][$val[2]],
+                        'tax_postcode'   => empty($val[3]) ? null : $val[3],
+                        'rate'           => $val[4],
+                        'zip_is_range'   => $val[5],
+                        'zip_from'       => $val[6],
+                        'zip_to'         => $val[7],
                     ];
 
                     $rateModel = Mage::getModel('tax/calculation_rate')->loadByCode($rateData['code']);
@@ -370,7 +370,7 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
 
                     $titles = [];
                     foreach ($stores as $field => $id) {
-                        $titles[$id] = $v[$field];
+                        $titles[$id] = $val[$field];
                     }
 
                     $rateModel->setTitle($titles);

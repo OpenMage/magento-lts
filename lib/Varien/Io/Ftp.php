@@ -222,7 +222,7 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
             if (is_null($dest)) {
                 fseek($stream, 0);
                 $result = '';
-                for ($result = ''; $s = fread($stream, 4096); $result .= $s);
+                for ($result = ''; $str = fread($stream, 4096); $result .= $str);
 
                 fclose($stream);
             }

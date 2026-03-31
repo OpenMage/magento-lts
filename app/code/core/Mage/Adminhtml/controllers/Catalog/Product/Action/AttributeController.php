@@ -126,9 +126,9 @@ class Mage_Adminhtml_Catalog_Product_Action_AttributeController extends Mage_Adm
                         ->setProductId($productId);
 
                     $stockDataChanged = false;
-                    foreach ($inventoryData as $k => $v) {
-                        $stockItem->setDataUsingMethod($k, $v);
-                        if ($stockItem->dataHasChangedFor($k)) {
+                    foreach ($inventoryData as $key => $val) {
+                        $stockItem->setDataUsingMethod($key, $val);
+                        if ($stockItem->dataHasChangedFor($key)) {
                             $stockDataChanged = true;
                         }
                     }

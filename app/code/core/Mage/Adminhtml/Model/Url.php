@@ -105,13 +105,13 @@ class Mage_Adminhtml_Model_Url extends Mage_Core_Model_Url
     {
         $salt = Mage::getSingleton('core/session')->getFormKey();
 
-        $p = explode('/', trim($this->getRequest()->getOriginalPathInfo(), '/'));
+        $path = explode('/', trim($this->getRequest()->getOriginalPathInfo(), '/'));
         if (!$controller) {
-            $controller = empty($p[1]) ? $this->getRequest()->getControllerName() : $p[1];
+            $controller = empty($path[1]) ? $this->getRequest()->getControllerName() : $path[1];
         }
 
         if (!$action) {
-            $action = empty($p[2]) ? $this->getRequest()->getActionName() : $p[2];
+            $action = empty($path[2]) ? $this->getRequest()->getActionName() : $path[2];
         }
 
         $secret = $controller . $action . $salt;

@@ -77,6 +77,9 @@
 !.phpcs.xml
 phpcs.xml
 
+# PHPMD
+.phpmd.report.*
+
 # PhpStan
 .phpstan*.neon
 phpstan*.neon

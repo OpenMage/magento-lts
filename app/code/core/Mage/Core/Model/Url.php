@@ -724,8 +724,8 @@ class Mage_Core_Model_Url extends Varien_Object
 
         unset($data['_store_to_url']);
 
-        foreach ($data as $k => $v) {
-            $this->setRouteParam($k, $v);
+        foreach ($data as $index => $val) {
+            $this->setRouteParam($index, $val);
         }
 
         return $this;

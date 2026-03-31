@@ -17,15 +17,15 @@ class Mage_Reports_Model_Resource_Refunded_Collection extends Mage_Sales_Model_E
     /**
      * Set date range
      *
-     * @param  string $from
-     * @param  string $to
+     * @param  null|string $dateFrom
+     * @param  null|string $dateTo
      * @return $this
      */
-    public function setDateRange($from, $to)
+    public function setDateRange($dateFrom, $dateTo)
     {
         $this->_reset()
             ->addAttributeToSelect('*')
-            ->addAttributeToFilter('created_at', ['from' => $from, 'to' => $to])
+            ->addAttributeToFilter('created_at', ['from' => $dateFrom, 'to' => $dateTo])
             ->addExpressionAttributeToSelect('orders', 'COUNT({{total_refunded}})', ['total_refunded']);
 
         $this->getSelect()

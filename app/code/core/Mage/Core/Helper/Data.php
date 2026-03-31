@@ -411,15 +411,15 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
             }
 
             $replacements[$german] = [];
-            foreach ($subst as $k => $v) {
-                $replacements[$german][$k < 256 ? chr($k) : '&#' . $k . ';'] = $v;
+            foreach ($subst as $key => $value) {
+                $replacements[$german][$key < 256 ? chr($key) : '&#' . $key . ';'] = $value;
             }
         }
 
         // convert string from default database format (UTF-8)
         // to encoding which replacement arrays made with (ISO-8859-1)
-        if ($s = @iconv('UTF-8', 'ISO-8859-1', $string)) {
-            $string = $s;
+        if ($str = @iconv('UTF-8', 'ISO-8859-1', $string)) {
+            $string = $str;
         }
 
         // Replace
@@ -710,8 +710,8 @@ XML;
         foreach ($xml as $key => $value) {
             if (isset($value->$key)) {
                 $i = 0;
-                foreach ($value->$key as $v) {
-                    $array[$key][$i++] = (string) $v;
+                foreach ($value->$key as $item) {
+                    $array[$key][$i++] = (string) $item;
                 }
             } else {
                 // try to transform it into string value, trimming spaces between elements

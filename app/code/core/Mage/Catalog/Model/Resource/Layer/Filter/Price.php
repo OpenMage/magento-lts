@@ -409,27 +409,27 @@ class Mage_Catalog_Model_Resource_Layer_Filter_Price extends Mage_Core_Model_Res
             return $this;
         }
 
-        [$from, $to] = $interval;
-        if ($from === '' && $to === '') {
+        [$min, $max] = $interval;
+        if ($min === '' && $max === '') {
             return $this;
         }
 
         $select = $filter->getLayer()->getProductCollection()->getSelect();
         $priceExpr = $this->_getPriceExpression($filter, $select, false);
 
-        if ($to !== '') {
-            $to = (float) $to;
-            if ($from == $to) {
-                $to += self::MIN_POSSIBLE_PRICE;
+        if ($max !== '') {
+            $max = (float) $max;
+            if ($min == $max) {
+                $max += self::MIN_POSSIBLE_PRICE;
             }
         }
 
-        if ($from !== '') {
-            $select->where($priceExpr . ' >= ' . $this->_getComparingValue($from, $filter));
+        if ($min !== '') {
+            $select->where($priceExpr . ' >= ' . $this->_getComparingValue($min, $filter));
         }
 
-        if ($to !== '') {
-            $select->where($priceExpr . ' < ' . $this->_getComparingValue($to, $filter));
+        if ($max !== '') {
+            $select->where($priceExpr . ' < ' . $this->_getComparingValue($max, $filter));
         }
 
         return $this;

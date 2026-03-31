@@ -379,9 +379,9 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
         if ($minvalue >= 0 && $maxvalue >= 0) {
             $miny = 0;
             if ($maxvalue > 10) {
-                $p = 10 ** $this->_getPow($maxvalue);
-                $maxy = (ceil($maxvalue / $p)) * $p;
-                $yLabels = range($miny, $maxy, $p);
+                $step = 10 ** $this->_getPow($maxvalue);
+                $maxy = (ceil($maxvalue / $step)) * $step;
+                $yLabels = range($miny, $maxy, $step);
             } else {
                 $maxy = ceil($maxvalue + 1);
                 $yLabels = range($miny, $maxy, 1);

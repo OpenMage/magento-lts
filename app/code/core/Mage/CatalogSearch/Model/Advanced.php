@@ -227,8 +227,8 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
             if (!empty($value['from']) || !empty($value['to'])) {
                 if (isset($value['currency'])) {
                     $currencyModel = Mage::getModel('directory/currency')->load($value['currency']);
-                    $from = $currencyModel->format($value['from'], [], false);
-                    $to = $currencyModel->format($value['to'], [], false);
+                    $min = $currencyModel->format($value['from'], [], false);
+                    $max = $currencyModel->format($value['to'], [], false);
                 } else {
                     $currencyModel = null;
                 }
@@ -236,15 +236,15 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
                 if ((string) $value['from'] !== '' && (string) $value['to'] !== '') {
                     $value = sprintf(
                         '%s - %s',
-                        ($currencyModel ? $from : $value['from']),
-                        ($currencyModel ? $to : $value['to']),
+                        ($currencyModel ? $min : $value['from']),
+                        ($currencyModel ? $max : $value['to']),
                     );
                 } elseif ((string) $value['from'] !== '') {
                     // and more
-                    $value = Mage::helper('catalogsearch')->__('%s and greater', ($currencyModel ? $from : $value['from']));
+                    $value = Mage::helper('catalogsearch')->__('%s and greater', ($currencyModel ? $min : $value['from']));
                 } elseif ((string) $value['to'] !== '') {
                     // to
-                    $value = Mage::helper('catalogsearch')->__('up to %s', ($currencyModel ? $to : $value['to']));
+                    $value = Mage::helper('catalogsearch')->__('up to %s', ($currencyModel ? $max : $value['to']));
                 }
             } else {
                 return $this;

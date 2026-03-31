@@ -94,14 +94,14 @@ class Mage_Reports_Model_Resource_Customer_Collection extends Mage_Customer_Mode
     /**
      * Order for each customer
      *
-     * @param  string $from
-     * @param  string $to
+     * @param  string $dateFrom
+     * @param  string $dateTo
      * @return $this
      */
-    public function joinOrders($from = '', $to = '')
+    public function joinOrders($dateFrom = '', $dateTo = '')
     {
-        if ($from != '' && $to != '') {
-            $dateFilter = " AND orders.created_at BETWEEN '{$from}' AND '{$to}'";
+        if ($dateFrom != '' && $dateTo != '') {
+            $dateFilter = " AND orders.created_at BETWEEN '{$dateFrom}' AND '{$dateTo}'";
         } else {
             $dateFilter = '';
         }

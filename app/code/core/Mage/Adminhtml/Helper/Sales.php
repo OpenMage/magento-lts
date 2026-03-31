@@ -113,7 +113,7 @@ class Mage_Adminhtml_Helper_Sales extends Mage_Core_Helper_Abstract
     {
         if (!empty($data) && is_array($allowedTags) && in_array('a', $allowedTags)) {
             $links = [];
-            $i = 1;
+            $index = 1;
             $data = str_replace('%', '%%', $data);
             $regexp = "/<a\s[^>]*href\s*?=\s*?([\"\']??)([^\" >]*?)\\1[^>]*>(.*)<\/a>/siU";
             while (preg_match($regexp, $data, $matches)) {
@@ -139,8 +139,8 @@ class Mage_Adminhtml_Helper_Sales extends Mage_Core_Helper_Abstract
                     htmlspecialchars($url, ENT_QUOTES, 'UTF-8', false),
                     parent::escapeHtml($text),
                 );
-                $data = str_replace($matches[0], '%' . $i . '$s', $data);
-                ++$i;
+                $data = str_replace($matches[0], '%' . $index . '$s', $data);
+                ++$index;
             }
 
             $data = parent::escapeHtml($data, $allowedTags);

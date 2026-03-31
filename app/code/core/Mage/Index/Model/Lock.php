@@ -124,16 +124,16 @@ class Mage_Index_Model_Lock
         if ($block) {
             try {
                 $result = flock($this->_getLockFile($lockName), LOCK_EX);
-            } catch (Exception $e) {
-                Mage::logException($e);
-                throw $e;
+            } catch (Exception $exception) {
+                Mage::logException($exception);
+                throw $exception;
             }
         } else {
             try {
                 $result = flock($this->_getLockFile($lockName), LOCK_EX | LOCK_NB);
-            } catch (Exception $e) {
-                Mage::logException($e);
-                throw $e;
+            } catch (Exception $exception) {
+                Mage::logException($exception);
+                throw $exception;
             }
         }
 
@@ -235,10 +235,10 @@ class Mage_Index_Model_Lock
     protected function _isLockExistsFile($lockName)
     {
         $result = true;
-        $fp = $this->_getLockFile($lockName);
+        $resource = $this->_getLockFile($lockName);
         try {
-            if (flock($fp, LOCK_EX | LOCK_NB)) {
-                flock($fp, LOCK_UN);
+            if (flock($resource, LOCK_EX | LOCK_NB)) {
+                flock($resource, LOCK_UN);
                 $result = false;
             }
         } catch (Exception $exception) {

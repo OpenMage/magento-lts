@@ -179,8 +179,8 @@ class Mage_Customer_AddressController extends Mage_Core_Controller_Front_Action
             try {
                 $address->delete();
                 $this->_getSession()->addSuccess($this->__('The address has been deleted.'));
-            } catch (Exception $e) {
-                $this->_getSession()->addException($e, $this->__('An error occurred while deleting the address.'));
+            } catch (Exception $exception) {
+                $this->_getSession()->addException($exception, $this->__('An error occurred while deleting the address.'));
             }
         }
 

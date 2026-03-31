@@ -32,11 +32,11 @@ class Mage_Reports_Model_Resource_Shopcart_Product_Collection extends Mage_Repor
     /**
      * Set date range
      *
-     * @param  string $from
-     * @param  string $to
+     * @param  null|string $dateFrom
+     * @param  null|string $dateTo
      * @return $this
      */
-    public function setDateRange($from, $to)
+    public function setDateRange($dateFrom, $dateTo)
     {
         $this->getSelect()->reset();
         return $this;

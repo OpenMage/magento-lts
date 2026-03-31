@@ -225,8 +225,8 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
                 $this->_getInstaller()->installConfig($data);
                 $this->_redirect('*/*/installDb');
                 return $this;
-            } catch (Exception $e) {
-                Mage::getSingleton('install/session')->addError($e->getMessage());
+            } catch (Exception $exception) {
+                Mage::getSingleton('install/session')->addError($exception->getMessage());
                 $this->getResponse()->setRedirect($step->getUrl());
             }
         }

@@ -316,9 +316,9 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
         } catch (Mage_Api_Exception $mageApiException) {
             $this->_fault($mageApiException->getMessage(), $resourceName, $mageApiException->getCustomMessage());
             return;
-        } catch (Exception $e) {
-            Mage::logException($e);
-            $this->_fault('internal', null, $e->getMessage());
+        } catch (Exception $exception) {
+            Mage::logException($exception);
+            $this->_fault('internal', null, $exception->getMessage());
             return;
         }
     }
@@ -444,8 +444,8 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
                 } else {
                     continue;
                 }
-            } catch (Exception $e) {
-                Mage::logException($e);
+            } catch (Exception $exception) {
+                Mage::logException($exception);
                 $result[] = $this->_faultAsArray('internal');
                 if (isset($options['break']) && $options['break'] == 1) {
                     break;

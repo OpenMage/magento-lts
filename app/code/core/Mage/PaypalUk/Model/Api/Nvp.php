@@ -492,8 +492,8 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
     {
         if ($response['RESULT'] != self::RESPONSE_CODE_APPROVED) {
             $message = $response['RESPMSG'];
-            $e = new Exception(sprintf('PayPal gateway errors: %s.', $message));
-            Mage::logException($e);
+            $exception = new Exception(sprintf('PayPal gateway errors: %s.', $message));
+            Mage::logException($exception);
             Mage::throwException(
                 Mage::helper('paypal')->__('PayPal gateway rejected the request. %s', $message),
             );
@@ -509,8 +509,8 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
     protected function _buildQuery($request)
     {
         $result = '';
-        foreach ($request as $k => $v) {
-            $result .= '&' . $k . '=' . $v;
+        foreach ($request as $key => $value) {
+            $result .= '&' . $key . '=' . $value;
         }
 
         return trim($result, '&');

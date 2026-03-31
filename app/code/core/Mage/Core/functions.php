@@ -170,19 +170,19 @@ function mageCoreErrorHandler($errno, $errstr, $errfile, $errline)
  */
 function mageDebugBacktrace($return = false, $html = true, $showFirst = false)
 {
-    $d = debug_backtrace();
+    $debugBacktrace = debug_backtrace();
     $out = '';
     if ($html) {
         $out .= '<pre>';
     }
 
-    foreach ($d as $i => $r) {
-        if (!$showFirst && $i == 0) {
+    foreach ($debugBacktrace as $index => $value) {
+        if (!$showFirst && $index == 0) {
             continue;
         }
 
         // sometimes there is undefined index 'file'
-        @$out .= "[$i] {$r['file']}:{$r['line']}\n";
+        @$out .= "[$index] {$value['file']}:{$value['line']}\n";
     }
 
     if ($html) {
@@ -272,15 +272,15 @@ function isDirWriteable($dir)
 {
     if (is_dir($dir) && is_writable($dir)) {
         if (stripos(PHP_OS, 'win') === 0) {
-            $dir    = ltrim($dir, DIRECTORY_SEPARATOR);
-            $file   = $dir . DIRECTORY_SEPARATOR . uniqid((string) mt_rand()) . '.tmp';
-            $exist  = file_exists($file);
-            $fp     = @fopen($file, 'a');
-            if ($fp === false) {
+            $dir        = ltrim($dir, DIRECTORY_SEPARATOR);
+            $file       = $dir . DIRECTORY_SEPARATOR . uniqid((string) mt_rand()) . '.tmp';
+            $exist      = file_exists($file);
+            $resource   = @fopen($file, 'a');
+            if ($resource === false) {
                 return false;
             }
 
-            fclose($fp);
+            fclose($resource);
             if (!$exist) {
                 unlink($file);
             }

@@ -86,13 +86,13 @@ class Mage_Log_Model_Aggregation extends Mage_Core_Model_Abstract
      * Save log data
      *
      * @param  array               $data
-     * @param  string              $from
-     * @param  string              $to
+     * @param  string              $dateFrom
+     * @param  string              $dateTo
      * @throws Mage_Core_Exception
      */
-    private function _save($data, $from, $to)
+    private function _save($data, $dateFrom, $dateTo)
     {
-        if ($logId = $this->_getResource()->getLogId($from, $to)) {
+        if ($logId = $this->_getResource()->getLogId($dateFrom, $dateTo)) {
             $this->_update($logId, $data);
         } else {
             $this->_insert($data);
@@ -119,15 +119,15 @@ class Mage_Log_Model_Aggregation extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @param  string              $from
-     * @param  string              $to
+     * @param  null|string         $dateFrom
+     * @param  null|string         $dateTo
      * @param  int                 $store
      * @return array
      * @throws Mage_Core_Exception
      */
-    private function _getCounts($from, $to, $store)
+    private function _getCounts($dateFrom, $dateTo, $store)
     {
-        return $this->_getResource()->getCounts($from, $to, $store);
+        return $this->_getResource()->getCounts($dateFrom, $dateTo, $store);
     }
 
     /**
@@ -145,39 +145,39 @@ class Mage_Log_Model_Aggregation extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @param  int|string $in
+     * @param  int|string $date
      * @return string
      */
-    private function _date($in)
+    private function _date($date)
     {
-        $out = $in;
-        if (is_numeric($in)) {
-            return Carbon::createFromTimestamp($in)->format(Varien_Date::DATETIME_PHP_FORMAT);
+        $out = $date;
+        if (is_numeric($date)) {
+            return Carbon::createFromTimestamp($date)->format(Varien_Date::DATETIME_PHP_FORMAT);
         }
 
         return $out;
     }
 
     /**
-     * @param  int|string $in
+     * @param  int|string $date
      * @return int
      */
-    private function _timestamp($in)
+    private function _timestamp($date)
     {
-        $out = $in;
-        if (!is_numeric($in)) {
-            return Carbon::parse($in)->getTimestamp();
+        $out = $date;
+        if (!is_numeric($date)) {
+            return Carbon::parse($date)->getTimestamp();
         }
 
         return $out;
     }
 
     /**
-     * @param  int|string $in
+     * @param  int|string $date
      * @return string
      */
-    private function _round($in)
+    private function _round($date)
     {
-        return Carbon::createFromTimestamp($this->_timestamp($in))->format('Y-m-d H:00:00');
+        return Carbon::createFromTimestamp($this->_timestamp($date))->format('Y-m-d H:00:00');
     }
 }

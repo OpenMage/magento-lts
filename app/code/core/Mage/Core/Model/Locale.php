@@ -752,10 +752,10 @@ class Mage_Core_Model_Locale
         }
 
         $requiredPrecision = $totalPrecision;
-        $t = substr($format, $decimalPoint);
-        $pos = strpos($t, '#');
+        $str = substr($format, $decimalPoint);
+        $pos = strpos($str, '#');
         if ($pos !== false) {
-            $requiredPrecision = strlen($t) - $pos - $totalPrecision;
+            $requiredPrecision = strlen($str) - $pos - $totalPrecision;
         }
 
         if (strrpos($format, ',') !== false) {
