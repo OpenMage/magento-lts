@@ -411,7 +411,6 @@ class Mage_DB_Mysqli
      * Set table data by condition
      *
      * @param  string            $table
-     * @param  array             $data
      * @param  string            $condition
      * @return mixed
      * @throws Mage_DB_Exception
