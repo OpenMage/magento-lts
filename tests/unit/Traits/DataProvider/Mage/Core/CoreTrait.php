@@ -37,7 +37,7 @@ trait CoreTrait
         ];
     }
 
-    public function provideGetStoreConfig(): Generator
+    public function provideGetStoreConfigData(): Generator
     {
         yield 'null' => [
             null,
