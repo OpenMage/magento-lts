@@ -1358,15 +1358,15 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
      *
      * @param string $requestPath
      * @param int    $storeId
-     * @param bool   $rp          whether check rewrite option to be "Redirect = Permanent"
+     * @param bool   $permanent          whether check rewrite option to be "Redirect = Permanent"
      */
-    public function deleteRewriteRecord($requestPath, $storeId, $rp = false)
+    public function deleteRewriteRecord($requestPath, $storeId, $permanent = false)
     {
         $conditions =  [
             'store_id = ?' => $storeId,
             'request_path = ?' => $requestPath,
         ];
-        if ($rp) {
+        if ($permanent) {
             $conditions['options = ?'] = 'RP';
         }
 
