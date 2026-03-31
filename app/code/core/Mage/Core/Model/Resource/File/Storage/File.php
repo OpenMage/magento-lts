@@ -65,9 +65,9 @@ class Mage_Core_Model_Resource_File_Storage_File
         $ignoredFiles = array_merge(['.', '..'], $this->_getIgnoredFiles());
 
         if (is_dir($currentDir)) {
-            $dh = opendir($currentDir);
-            if ($dh) {
-                while (($file = readdir($dh)) !== false) {
+            $handle = opendir($currentDir);
+            if ($handle) {
+                while (($file = readdir($handle)) !== false) {
                     if (in_array($file, $ignoredFiles)) {
                         continue;
                     }
@@ -88,7 +88,7 @@ class Mage_Core_Model_Resource_File_Storage_File
                     }
                 }
 
-                closedir($dh);
+                closedir($handle);
             }
         }
 
@@ -109,9 +109,9 @@ class Mage_Core_Model_Resource_File_Storage_File
         $ignoredFiles = array_merge(['.', '..'], $this->_getIgnoredFiles());
 
         if (is_dir($currentDir)) {
-            $dh = opendir($currentDir);
-            if ($dh) {
-                while (($file = readdir($dh)) !== false) {
+            $handle = opendir($currentDir);
+            if ($handle) {
+                while (($file = readdir($handle)) !== false) {
                     if (in_array($file, $ignoredFiles)) {
                         continue;
                     }
@@ -124,7 +124,7 @@ class Mage_Core_Model_Resource_File_Storage_File
                     }
                 }
 
-                closedir($dh);
+                closedir($handle);
                 @rmdir($currentDir);
             }
         }
