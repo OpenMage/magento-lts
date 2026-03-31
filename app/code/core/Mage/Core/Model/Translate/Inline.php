@@ -313,16 +313,16 @@ class Mage_Core_Model_Translate_Inline
     {
         $trArr = [];
         $next = 0;
-        while (preg_match($regexp, $text, $m, PREG_OFFSET_CAPTURE, $next)) {
+        while (preg_match($regexp, $text, $matches, PREG_OFFSET_CAPTURE, $next)) {
             $trArr[] = json_encode([
-                'shown' => $m[1][0],
-                'translated' => $m[2][0],
-                'original' => $m[3][0],
-                'location' => call_user_func($locationCallback, $m, $options),
-                'scope' => $m[4][0],
+                'shown' => $matches[1][0],
+                'translated' => $matches[2][0],
+                'original' => $matches[3][0],
+                'location' => call_user_func($locationCallback, $matches, $options),
+                'scope' => $matches[4][0],
             ]);
-            $text = substr_replace($text, $m[1][0], $m[0][1], strlen($m[0][0]));
-            $next = $m[0][1];
+            $text = substr_replace($text, $matches[1][0], $matches[0][1], strlen($matches[0][0]));
+            $next = $matches[0][1];
         }
         return $trArr;
     }
@@ -353,15 +353,15 @@ class Mage_Core_Model_Translate_Inline
         $tagRegExp = '#<([a-z]+)\s*?[^>]+?((' . $this->_tokenRegex . ')[^>]*?)+\\\\?/?>#iS';
         while (preg_match($tagRegExp, $content, $tagMatch, PREG_OFFSET_CAPTURE, $nextTag)) {
             $tagHtml    = $tagMatch[0][0];
-            $m          = [];
+            $matches          = [];
             $attrRegExp = '#' . $this->_tokenRegex . '#S';
             $trArr = $this->_getTranslateData($attrRegExp, $tagHtml, [$this, '_getAttributeLocation']);
             if ($trArr) {
                 $transRegExp = '# data-translate=' . $quoteHtml . '\[([^' . preg_quote($quoteHtml, '#') . ']*)]' . $quoteHtml . '#i';
-                if (preg_match($transRegExp, $tagHtml, $m)) {
-                    $tagHtml = str_replace($m[0], '', $tagHtml); //remove tra
+                if (preg_match($transRegExp, $tagHtml, $matches)) {
+                    $tagHtml = str_replace($matches[0], '', $tagHtml); //remove tra
                     $trAttr = ' data-translate=' . $quoteHtml
-                        . htmlspecialchars('[' . $m[1] . ',' . implode(',', $trArr) . ']') . $quoteHtml;
+                        . htmlspecialchars('[' . $matches[1] . ',' . implode(',', $trArr) . ']') . $quoteHtml;
                 } else {
                     $trAttr = ' data-translate=' . $quoteHtml
                         . htmlspecialchars('[' . implode(',', $trArr) . ']') . $quoteHtml;

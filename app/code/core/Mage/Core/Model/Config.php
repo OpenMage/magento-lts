@@ -1037,9 +1037,9 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
     {
         if ($this->_moduleNamespaces === null) {
             $this->_moduleNamespaces = [];
-            foreach ($this->_xml->xpath('modules/*') as $m) {
-                if ((string) $m->active == 'true') {
-                    $moduleName = $m->getName();
+            foreach ($this->_xml->xpath('modules/*') as $config) {
+                if ((string) $config->active == 'true') {
+                    $moduleName = $config->getName();
                     $module = strtolower($moduleName);
                     $this->_moduleNamespaces[substr($module, 0, strpos($module, '_'))][$module] = $moduleName;
                 }
