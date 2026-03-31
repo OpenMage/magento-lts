@@ -173,7 +173,7 @@
     "scripts": {
         "php-cs-fixer:test": "vendor/bin/php-cs-fixer fix --dry-run --diff",
         "php-cs-fixer:fix": "vendor/bin/php-cs-fixer fix",
-        "phpmd": "vendor/bin/phpmd app/code/core/Mage html .phpmd.dist.xml --color --cache --baseline-file .phpmd.dist.baseline.xml",
+        "phpmd": "vendor/bin/phpmd app/code/core/Mage html .phpmd.dist.xml --color --cache --baseline-file .phpmd.dist.baseline.xml --report-file .phpmd.report.html",
         "phpstan": "XDEBUG_MODE=off php vendor/bin/phpstan analyze",
         "phpstan:baseline": "XDEBUG_MODE=off php vendor/bin/phpstan analyze -b .phpstan.dist.baseline.php",
         "phpunit:test": "XDEBUG_MODE=off php vendor/bin/phpunit --configuration .phpunit.dist.xml --testsuite Base,Error,Mage,Varien --no-coverage",
