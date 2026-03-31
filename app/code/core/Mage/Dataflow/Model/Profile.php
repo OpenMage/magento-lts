@@ -202,8 +202,8 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
                                 $fileData[] = $this->getNode($cell, 'Data')->item(0)->nodeValue;
                             }
                         } catch (Exception) {
-                            foreach ($newUploadedFilenames as $v) {
-                                unlink($path . $v);
+                            foreach ($newUploadedFilenames as $newUploadedFilename) {
+                                unlink($path . $newUploadedFilename);
                             }
 
                             unlink($path . $uploadFile);
@@ -224,8 +224,8 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
 
                     $colsAbsent = array_diff($attributes, $fileData);
                     if ($colsAbsent) {
-                        foreach ($newUploadedFilenames as $v) {
-                            unlink($path . $v);
+                        foreach ($newUploadedFilenames as $newUploadedFilename) {
+                            unlink($path . $newUploadedFilename);
                         }
 
                         unlink($path . $uploadFile);

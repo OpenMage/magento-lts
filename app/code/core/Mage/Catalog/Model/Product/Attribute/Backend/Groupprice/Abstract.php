@@ -185,17 +185,17 @@ abstract class Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract 
         $rates  = $this->_getWebsiteCurrencyRates($websiteId);
         $data   = [];
         $price  = Mage::getSingleton('catalog/product_type')::priceFactory($productTypeId);
-        foreach ($priceData as $v) {
-            $key = implode('-', array_merge([$v['cust_group']], $this->_getAdditionalUniqueFields($v)));
-            if ($v['website_id'] == $websiteId) {
-                $data[$key] = $v;
-                $data[$key]['website_price'] = $v['price'];
-            } elseif ($v['website_id'] == 0 && !isset($data[$key])) {
-                $data[$key] = $v;
+        foreach ($priceData as $value) {
+            $key = implode('-', array_merge([$value['cust_group']], $this->_getAdditionalUniqueFields($value)));
+            if ($value['website_id'] == $websiteId) {
+                $data[$key] = $value;
+                $data[$key]['website_price'] = $value['price'];
+            } elseif ($value['website_id'] == 0 && !isset($data[$key])) {
+                $data[$key] = $value;
                 $data[$key]['website_id'] = $websiteId;
                 if ($this->_isPriceFixed($price)) {
-                    $data[$key]['price'] = $v['price'] * $rates[$websiteId]['rate'];
-                    $data[$key]['website_price'] = $v['price'] * $rates[$websiteId]['rate'];
+                    $data[$key]['price'] = $value['price'] * $rates[$websiteId]['rate'];
+                    $data[$key]['website_price'] = $value['price'] * $rates[$websiteId]['rate'];
                 }
             }
         }

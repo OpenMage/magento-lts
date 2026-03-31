@@ -75,8 +75,8 @@ class Mage_Dataflow_Model_Convert_Parser_Csv extends Mage_Dataflow_Model_Convert
             $fieldNames = $this->getVar('map');
         } else {
             $fieldNames = [];
-            foreach ($batchIoAdapter->read(true, $fDel, $fEnc) as $v) {
-                $fieldNames[$v] = $v;
+            foreach ($batchIoAdapter->read(true, $fDel, $fEnc) as $value) {
+                $fieldNames[$value] = $value;
             }
         }
 
@@ -203,9 +203,9 @@ class Mage_Dataflow_Model_Convert_Parser_Csv extends Mage_Dataflow_Model_Convert
         }
 
         $line = [];
-        foreach ($this->_fields as $f) {
-            $v = isset($row[$f]) ? str_replace(['"', '\\'], [$fEnc . '"', $fEsc . '\\'], $row[$f]) : '';
-            $line[] = $fEnc . $v . $fEnc;
+        foreach ($this->_fields as $field) {
+            $str = isset($row[$field]) ? str_replace(['"', '\\'], [$fEnc . '"', $fEsc . '\\'], $row[$field]) : '';
+            $line[] = $fEnc . $str . $fEnc;
         }
 
         return implode($fDel, $line);

@@ -710,8 +710,8 @@ XML;
         foreach ($xml as $key => $value) {
             if (isset($value->$key)) {
                 $i = 0;
-                foreach ($value->$key as $v) {
-                    $array[$key][$i++] = (string) $v;
+                foreach ($value->$key as $item) {
+                    $array[$key][$i++] = (string) $item;
                 }
             } else {
                 // try to transform it into string value, trimming spaces between elements

@@ -846,14 +846,14 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
             'custom' => [],
         ];
 
-        foreach ($moduleFiles as $v) {
-            $name = explode(DIRECTORY_SEPARATOR, $v);
+        foreach ($moduleFiles as $moduleFile) {
+            $name = explode(DIRECTORY_SEPARATOR, $moduleFile);
             $name = substr($name[count($name) - 1], 0, -4);
 
             if (array_key_exists($name, self::MAGE_MODULES)) {
-                $collectModuleFiles['mage'][self::MAGE_MODULES[$name]] = $v;
+                $collectModuleFiles['mage'][self::MAGE_MODULES[$name]] = $moduleFile;
             } else {
-                $collectModuleFiles['custom'][] = $v;
+                $collectModuleFiles['custom'][] = $moduleFile;
             }
         }
 

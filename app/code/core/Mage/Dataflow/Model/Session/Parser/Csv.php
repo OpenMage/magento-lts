@@ -96,8 +96,8 @@ class Mage_Dataflow_Model_Session_Parser_Csv extends Mage_Dataflow_Model_Convert
 
         if ($this->getVar('fieldnames')) {
             $line = [];
-            foreach ($fields as $f) {
-                $line[] = $fEnc . str_replace(['"', '\\'], [$fEsc . '"', $fEsc . '\\'], $f) . $fEnc;
+            foreach ($fields as $field) {
+                $line[] = $fEnc . str_replace(['"', '\\'], [$fEsc . '"', $fEsc . '\\'], $field) . $fEnc;
             }
 
             $lines[] = implode($fDel, $line);
@@ -105,16 +105,15 @@ class Mage_Dataflow_Model_Session_Parser_Csv extends Mage_Dataflow_Model_Convert
 
         foreach ($data as $row) {
             $line = [];
-            foreach ($fields as $f) {
+            foreach ($fields as $field) {
                 /*
-                if (isset($row[$f]) && (preg_match('\"', $row[$f]) || preg_match('\\', $row[$f]))) {
-                    $tmp = str_replace('\\', '\\\\',$row[$f]);
+                if (isset($row[$field]) && (preg_match('\"', $row[$field]) || preg_match('\\', $row[$field]))) {
+                    $tmp = str_replace('\\', '\\\\',$row[$field]);
                     echo str_replace('"', '\"',$tmp).'<br>';
                 }
                 */
-                $v = isset($row[$f]) ? str_replace(['"', '\\'], [$fEsc . '"', $fEsc . '\\'], $row[$f]) : '';
-
-                $line[] = $fEnc . $v . $fEnc;
+                $str = isset($row[$field]) ? str_replace(['"', '\\'], [$fEsc . '"', $fEsc . '\\'], $row[$field]) : '';
+                $line[] = $fEnc . $str . $fEnc;
             }
 
             $lines[] = implode($fDel, $line);
