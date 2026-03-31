@@ -365,47 +365,41 @@ class Mage_DB_Mysqli
         $sql = $replace ? "REPLACE INTO {$table} " : "INSERT INTO {$table} ";
         $keys = array_keys($data[0]);
         $excluded = [];
-        $count = count($excludeFields);
-
-        for ($index = 0, $count; $index < $count; $index++) {
-            $excludedField = $excludeFields[$index];
-            if (isset($keys[$excludedField])) {
-                $excluded [] = $excludedField;
-                unset($keys[$excludedField]);
+        for ($i = 0, $count = count($excludeFields); $i < $count; $i++) {
+            $k = $excludeFields[$i];
+            if (isset($keys[$k])) {
+                $excluded [] = $k;
+                unset($keys[$k]);
             }
         }
 
         $keys = $this->escapeFieldNames($keys);
-        $count = count($keys);
         $sql .= ' ( ';
-        for ($index = 0, $count; $index < $count; $index++) {
-            $sql .= $keys[$index];
-            if ($index != $count - 1) {
+        for ($i = 0, $count = count($keys); $i < $count; $i++) {
+            $sql .= $keys[$i];
+            if ($i != $count - 1) {
                 $sql .= ',';
             }
         }
 
-        $count = count($data);
         $sql .= ' ) VALUES ';
-        for ($index = 0, $count; $index < $count; $index++) {
-            $row = $data[$index];
-            $countExcluded = count($excluded);
-            for ($excludedIndex = 0, $countExcluded; $excludedIndex < $countExcluded; $excludedIndex++) {
-                unset($data[$excluded[$excludedIndex]]);
+        for ($i = 0, $count = count($data); $i < $count; $i++) {
+            $row = $data[$i];
+            for ($j = 0, $jc = count($excluded); $j < $jc; $j++) {
+                unset($data[$excluded[$j]]);
             }
 
             $values = $this->escapeFieldValues(array_values($row));
-            $countValues = count($values);
             $sql .= '( ';
-            for ($valuesIndex = 0, $countValues; $valuesIndex < $countValues; $valuesIndex++) {
-                $sql .= $values[$valuesIndex];
-                if ($valuesIndex != $countValues - 1) {
+            for ($j = 0, $jc = count($values); $j < $jc; $j++) {
+                $sql .= $values[$j];
+                if ($j != $jc - 1) {
                     $sql .= ',';
                 }
             }
 
             $sql .= ' )';
-            if ($index != $count - 1) {
+            if ($i != $count - 1) {
                 $sql .= ',';
             }
         }
@@ -415,10 +409,12 @@ class Mage_DB_Mysqli
 
     /**
      * Set table data by condition
-     * @param        $table
-     * @param        $data
-     * @param        $condition
+     *
+     * @param  string            $table
+     * @param  array             $data
+     * @param  string            $condition
      * @return mixed
+     * @throws Mage_DB_Exception
      */
     public function updateAssoc($table, array $data, $condition = '1=1')
     {
