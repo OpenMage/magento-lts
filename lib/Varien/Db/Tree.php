@@ -265,13 +265,13 @@ class Varien_Db_Tree
 
                 $this->_db->insert($this->_table, $data);
                 $this->_db->commit();
-            } catch (PDOException $p) {
+            } catch (PDOException $PDOException) {
                 $this->_db->rollBack();
-                echo $p->getMessage();
+                echo $PDOException->getMessage();
                 exit();
-            } catch (Exception $e) {
+            } catch (Exception $exception) {
                 $this->_db->rollBack();
-                echo $e->getMessage();
+                echo $exception->getMessage();
                 echo $sql;
                 var_dump($data);
                 exit();
