@@ -146,9 +146,9 @@ class Varien_Convert_Parser_Csv extends Varien_Convert_Parser_Abstract
                     echo str_replace('"', '\"',$tmp).'<br>';
                 }
                 */
-                $v = isset($row[$f]) ? str_replace(['"', '\\'], [$fEnc . '"', $fEsc . '\\'], $row[$f]) : '';
+                $str = isset($row[$f]) ? str_replace(['"', '\\'], [$fEnc . '"', $fEsc . '\\'], $row[$f]) : '';
 
-                $line[] = $fEnc . $v . $fEnc;
+                $line[] = $fEnc . $str . $fEnc;
             }
 
             $lines[] = implode($fDel, $line);

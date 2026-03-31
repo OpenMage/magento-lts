@@ -2160,21 +2160,21 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
         //        $cols = array_map(array($this, 'quoteIdentifier'), $cols);
 
         // prepare ON DUPLICATE KEY conditions
-        foreach ($fields as $k => $v) {
+        foreach ($fields as $key => $val) {
             $field = null;
             $value = null;
-            if (!is_numeric($k)) {
-                $field = $this->quoteIdentifier($k);
-                if ($v instanceof Zend_Db_Expr) {
-                    $value = $v->__toString();
-                } elseif (is_string($v)) {
-                    $value = sprintf('VALUES(%s)', $this->quoteIdentifier($v));
-                } elseif (is_numeric($v)) {
-                    $value = $this->quoteInto('?', $v);
+            if (!is_numeric($key)) {
+                $field = $this->quoteIdentifier($key);
+                if ($val instanceof Zend_Db_Expr) {
+                    $value = $val->__toString();
+                } elseif (is_string($val)) {
+                    $value = sprintf('VALUES(%s)', $this->quoteIdentifier($val));
+                } elseif (is_numeric($val)) {
+                    $value = $this->quoteInto('?', $val);
                 }
-            } elseif (is_string($v)) {
-                $value = sprintf('VALUES(%s)', $this->quoteIdentifier($v));
-                $field = $this->quoteIdentifier($v);
+            } elseif (is_string($val)) {
+                $value = sprintf('VALUES(%s)', $this->quoteIdentifier($val));
+                $field = $this->quoteIdentifier($val);
             }
 
             if ($field && $value) {

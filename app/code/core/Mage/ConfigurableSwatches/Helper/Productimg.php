@@ -303,8 +303,8 @@ class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstr
         }
 
         $newImage = imagecreatetruecolor($width, $height);
-        [$r, $g, $b] = sscanf($optionSwatch->getValue(), '#%02x%02x%02x');
-        $backgroundColor = imagecolorallocate($newImage, (int) $r, (int) $g, (int) $b);
+        [$rgbR, $rgbG, $rgbB] = sscanf($optionSwatch->getValue(), '#%02x%02x%02x');
+        $backgroundColor = imagecolorallocate($newImage, (int) $rgbR, (int) $rgbG, (int) $rgbB);
         imagefill($newImage, 0, 0, $backgroundColor);
         imagepng($newImage, Mage::getBaseDir(Mage_Core_Model_Store::URL_TYPE_MEDIA) . DS . $destPath);
         imagedestroy($newImage);
