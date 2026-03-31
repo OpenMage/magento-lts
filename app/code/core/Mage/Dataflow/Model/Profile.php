@@ -70,8 +70,8 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
             try {
                 $guiData = Mage::helper('core/unserializeArray')
                     ->unserialize($this->getGuiData());
-            } catch (Exception $e) {
-                Mage::logException($e);
+            } catch (Exception $exception) {
+                Mage::logException($exception);
             }
         }
 
@@ -150,8 +150,8 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
                 $guiData = Mage::helper('core/unserializeArray')
                     ->unserialize($this->getGuiData());
                 $this->setGuiData($guiData);
-            } catch (Exception $e) {
-                Mage::logException($e);
+            } catch (Exception $exception) {
+                Mage::logException($exception);
             }
         }
 

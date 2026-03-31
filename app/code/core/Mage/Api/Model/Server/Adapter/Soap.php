@@ -257,12 +257,12 @@ class Mage_Api_Model_Server_Adapter_Soap extends Varien_Object implements Mage_A
                     $this->getWsdlUrl(['wsdl' => 1]),
                     ['encoding' => $apiConfigCharset],
                 );
-            } catch (SoapFault $e) {
-                if (str_contains($e->getMessage(), "can't import schema from 'http://schemas.xmlsoap.org/soap/encoding/'")) {
+            } catch (SoapFault $soapFault) {
+                if (str_contains($soapFault->getMessage(), "can't import schema from 'http://schemas.xmlsoap.org/soap/encoding/'")) {
                     $retry = true;
                     sleep(1);
                 } else {
-                    throw $e;
+                    throw $soapFault;
                 }
 
                 $tries++;

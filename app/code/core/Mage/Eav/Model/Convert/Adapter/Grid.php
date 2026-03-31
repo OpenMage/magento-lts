@@ -74,8 +74,8 @@ class Mage_Eav_Model_Convert_Adapter_Grid extends Mage_Dataflow_Model_Convert_Ad
                 try {
                     $entity->load($row['entity_id']);
                     $this->setPosition('Line: ' . $i . (isset($row['entity_id']) ? ', entity_id: ' . $row['entity_id'] : ''));
-                } catch (Exception $e) {
-                    $this->addException(Mage::helper('eav')->__('An error occurred while loading a record, aborting. Error: %s', $e->getMessage()), Varien_Convert_Exception::FATAL);
+                } catch (Exception $exception) {
+                    $this->addException(Mage::helper('eav')->__('An error occurred while loading a record, aborting. Error: %s', $exception->getMessage()), Varien_Convert_Exception::FATAL);
                 }
 
                 if (!$entity->getId()) {
@@ -86,8 +86,8 @@ class Mage_Eav_Model_Convert_Adapter_Grid extends Mage_Dataflow_Model_Convert_Ad
 
             try {
                 $entity->addData($row)->save();
-            } catch (Exception $e) {
-                $this->addException(Mage::helper('eav')->__('An error occurred while saving a record, aborting. Error: ', $e->getMessage()), Varien_Convert_Exception::FATAL);
+            } catch (Exception $exception) {
+                $this->addException(Mage::helper('eav')->__('An error occurred while saving a record, aborting. Error: ', $exception->getMessage()), Varien_Convert_Exception::FATAL);
             }
         }
 

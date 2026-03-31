@@ -511,9 +511,9 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
                 try {
                     $this->_getCart()->removeItem($id)
                         ->save();
-                } catch (Exception $e) {
+                } catch (Exception $exception) {
                     $this->_getSession()->addError($this->__('Cannot remove the item.'));
-                    Mage::logException($e);
+                    Mage::logException($exception);
                 }
             }
         } else {

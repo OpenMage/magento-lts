@@ -83,8 +83,8 @@ class Mage_Dataflow_Model_Convert_Adapter_Io extends Mage_Dataflow_Model_Convert
 
             try {
                 $this->_resource->open($ioConfig);
-            } catch (Exception $e) {
-                $message = Mage::helper('dataflow')->__('An error occurred while opening file: "%s".', $e->getMessage());
+            } catch (Exception $exception) {
+                $message = Mage::helper('dataflow')->__('An error occurred while opening file: "%s".', $exception->getMessage());
                 Mage::throwException($message);
             }
         }

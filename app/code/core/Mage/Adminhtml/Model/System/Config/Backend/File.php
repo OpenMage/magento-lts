@@ -48,11 +48,11 @@ class Mage_Adminhtml_Model_System_Config_Backend_File extends Mage_Core_Model_Co
                 Mage::getSingleton('adminhtml/session')->addSuccess(
                     Mage::helper('adminhtml')->__('The file %s has been uploaded.', $result['file']),
                 );
-            } catch (Exception $e) {
+            } catch (Exception $exception) {
                 Mage::getSingleton('adminhtml/session')->addError(
                     Mage::helper('adminhtml')->__('The file %s has not been uploaded.', $file['name']),
                 );
-                Mage::throwException($e->getMessage());
+                Mage::throwException($exception->getMessage());
             }
 
             $filename = $result['file'];

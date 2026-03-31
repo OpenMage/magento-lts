@@ -124,16 +124,16 @@ class Mage_Index_Model_Lock
         if ($block) {
             try {
                 $result = flock($this->_getLockFile($lockName), LOCK_EX);
-            } catch (Exception $e) {
-                Mage::logException($e);
-                throw $e;
+            } catch (Exception $exception) {
+                Mage::logException($exception);
+                throw $exception;
             }
         } else {
             try {
                 $result = flock($this->_getLockFile($lockName), LOCK_EX | LOCK_NB);
-            } catch (Exception $e) {
-                Mage::logException($e);
-                throw $e;
+            } catch (Exception $exception) {
+                Mage::logException($exception);
+                throw $exception;
             }
         }
 

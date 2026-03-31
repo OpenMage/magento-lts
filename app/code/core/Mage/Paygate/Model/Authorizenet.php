@@ -408,8 +408,8 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
                 $newTransaction = $this->_voidCardTransaction($payment, $card);
                 $messages[] = $newTransaction->getMessage();
                 $isSuccessful = true;
-            } catch (Exception $e) {
-                $messages[] = $e->getMessage();
+            } catch (Exception $exception) {
+                $messages[] = $exception->getMessage();
                 $isFiled = true;
                 continue;
             }
@@ -470,8 +470,8 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
                     $newTransaction = $this->_refundCardTransaction($payment, $cardAmountForRefund, $card);
                     $messages[] = $newTransaction->getMessage();
                     $isSuccessful = true;
-                } catch (Exception $e) {
-                    $messages[] = $e->getMessage();
+                } catch (Exception $exception) {
+                    $messages[] = $exception->getMessage();
                     $isFiled = true;
                     continue;
                 }
@@ -759,8 +759,8 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
                     );
                     $messages[] = $newTransaction->getMessage();
                     $isSuccessful = true;
-                } catch (Exception $e) {
-                    $messages[] = $e->getMessage();
+                } catch (Exception $exception) {
+                    $messages[] = $exception->getMessage();
                     $isFiled = true;
                     continue;
                 }

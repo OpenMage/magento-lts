@@ -500,9 +500,9 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
                 } else {
                     $this->_getResource()->commit();
                 }
-            } catch (Exception $e) {
+            } catch (Exception $exception) {
                 $this->_getResource()->rollBack();
-                throw $e;
+                throw $exception;
             }
 
             if ($deleteKill && isset($kill)) {

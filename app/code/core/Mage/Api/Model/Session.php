@@ -193,8 +193,8 @@ class Mage_Api_Model_Session extends Mage_Core_Model_Session_Abstract
                 if ($acl->isAllowed($user->getAclRole(), 'all', null)) {
                     return true;
                 }
-            } catch (Exception $e) {
-                Mage::logException($e);
+            } catch (Exception $exception) {
+                Mage::logException($exception);
             }
 
             try {

@@ -2159,6 +2159,8 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
         // quote column names
         //        $cols = array_map(array($this, 'quoteIdentifier'), $cols);
 
+        $format = 'VALUES(%s)';
+
         // prepare ON DUPLICATE KEY conditions
         foreach ($fields as $key => $val) {
             $field = null;
@@ -2168,12 +2170,12 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
                 if ($val instanceof Zend_Db_Expr) {
                     $value = $val->__toString();
                 } elseif (is_string($val)) {
-                    $value = sprintf('VALUES(%s)', $this->quoteIdentifier($val));
+                    $value = sprintf($format, $this->quoteIdentifier($val));
                 } elseif (is_numeric($val)) {
                     $value = $this->quoteInto('?', $val);
                 }
             } elseif (is_string($val)) {
-                $value = sprintf('VALUES(%s)', $this->quoteIdentifier($val));
+                $value = sprintf($format, $this->quoteIdentifier($val));
                 $field = $this->quoteIdentifier($val);
             }
 
@@ -3732,6 +3734,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
                 }
             }
 
+            $format = 'VALUES(%s)';
             $update = [];
             foreach ($fields as $key => $fieldValue) {
                 $field = null;
@@ -3741,12 +3744,12 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
                     if ($fieldValue instanceof Zend_Db_Expr) {
                         $value = $fieldValue->__toString();
                     } elseif (is_string($fieldValue)) {
-                        $value = sprintf('VALUES(%s)', $this->quoteIdentifier($fieldValue));
+                        $value = sprintf($format, $this->quoteIdentifier($fieldValue));
                     } elseif (is_numeric($fieldValue)) {
                         $value = $this->quoteInto('?', $fieldValue);
                     }
                 } elseif (is_string($fieldValue)) {
-                    $value = sprintf('VALUES(%s)', $this->quoteIdentifier($fieldValue));
+                    $value = sprintf($format, $this->quoteIdentifier($fieldValue));
                     $field = $this->quoteIdentifier($fieldValue);
                 }
 
