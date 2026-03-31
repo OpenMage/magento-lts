@@ -85,7 +85,7 @@
         <exclude name="LongVariable" />
         <exclude name="ShortVariable" />
     </rule>
-    <rule ref="rulesets/naming.xml/ShortVariable">-->
+    <rule ref="rulesets/naming.xml/ShortVariable">
         <properties>
             <property name="exceptions" value="a,b,do,id,io,i,j,to,x,y,x1,x2,y1,y2" />
         </properties>
