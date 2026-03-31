@@ -249,11 +249,11 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
         // EXTR_SKIP protects from overriding
         // already defined variables
         extract($this->_viewVars, EXTR_SKIP);
-        $do = $this->getDirectOutput();
+        $directOutput = $this->getDirectOutput();
 
         $hints = Mage::app()->getStore()->isAdmin() ? $this->getShowTemplateHintsAdmin() : $this->getShowTemplateHints();
 
-        if (!$do) {
+        if (!$directOutput) {
             ob_start();
         }
 
@@ -285,9 +285,9 @@ HTML;
                 Mage::log('Not valid template file:' . $fileName . ' class: ' . $thisClass, Level::Critical, null, true);
             }
         } catch (Throwable $throwable) {
-            if (!$do) {
+            if (!$directOutput) {
                 ob_get_clean();
-                $do = true;
+                $directOutput = true;
             }
 
             if (Mage::getIsDeveloperMode()) {
@@ -301,7 +301,7 @@ HTML;
             echo '</div>';
         }
 
-        if (!$do) {
+        if (!$directOutput) {
             $html = ob_get_clean();
         } else {
             $html = '';
