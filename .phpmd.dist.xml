@@ -76,7 +76,7 @@
     [-] LongClassName
     [x] ShortClassName
     [-] LongVariable
-    [x] ShortVariable - LATER avoid id,i,j,v,e
+    [x] ShortVariable - @todo fix later, avoid as possible
     [x] ShortMethodName
     -->
     <rule ref="rulesets/naming.xml">
