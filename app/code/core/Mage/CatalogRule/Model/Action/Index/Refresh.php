@@ -381,14 +381,14 @@ class Mage_CatalogRule_Model_Action_Index_Refresh
         $byPercent      = $this->_connection->quote('by_percent');
         $toFixed        = $this->_connection->quote('to_fixed');
         $byFixed        = $this->_connection->quote('by_fixed');
-        $notVailable    = $this->_connection->quote('N/A');
+        $notAvailable   = $this->_connection->quote('N/A');
 
         return $this->_connection->getCaseSql(
             '',
             [
                 $this->_connection->getIfNullSql(
                     new Zend_Db_Expr('@group_id'),
-                    $notVailable,
+                    $notAvailable,
                 ) . ' != cppt.grouped_id'
                 => '@price := ' . $this->_connection->getCaseSql(
                     $this->_connection->quoteIdentifier('cppt.action_operator'),
@@ -409,7 +409,7 @@ class Mage_CatalogRule_Model_Action_Index_Refresh
                 ),
                 $this->_connection->getIfNullSql(
                     new Zend_Db_Expr('@group_id'),
-                    $notVailable,
+                    $notAvailable,
                 ) . ' = cppt.grouped_id AND '
                 . $this->_connection->getIfNullSql(
                     new Zend_Db_Expr('@action_stop'),
