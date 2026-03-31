@@ -8477,12 +8477,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/lib/Mage/System/Ftp.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Empty array passed to foreach.',
-	'identifier' => 'foreach.emptyArray',
-	'count' => 1,
-	'path' => __DIR__ . '/lib/Mage/System/Ftp.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Parameter #1 $array of function array_sum expects an array of values castable to number, list<string> given.',
 	'identifier' => 'argument.type',
 	'count' => 3,

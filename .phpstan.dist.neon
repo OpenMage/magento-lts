@@ -21,7 +21,7 @@ parameters:
         - dev/phpstan/stubs/Zend/Log.stub
         - dev/phpstan/stubs/Zend/Measure.stub
         - dev/phpstan/stubs/Zend/Validate.stub
-    tmpDir: .phpstan.cache
+    tmpDir: .cache/.phpstan.cache
     magentoRootPath: %currentWorkingDirectory%
     fileExtensions:
       - php

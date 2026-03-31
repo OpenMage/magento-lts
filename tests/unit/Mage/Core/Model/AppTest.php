@@ -29,8 +29,8 @@ final class AppTest extends OpenMageTest
     }
 
     /**
-     * @dataProvider provideGetStoreConfig
-     * @dataProvider provideGetStore
+     * @dataProvider provideGetStoreConfigData
+     * @dataProvider provideGetStoreData
      * @group Model
      */
     public function testGetStore(null|bool|int|Mage_Core_Model_Store|string $id): void
@@ -44,8 +44,8 @@ final class AppTest extends OpenMageTest
     }
 
     /**
-     * @dataProvider provideGetStoreConfig
-     * @dataProvider provideGetWebsite
+     * @dataProvider provideGetStoreConfigData
+     * @dataProvider provideGetWebsiteData
      * @group Model
      */
     public function testGetWebsite(null|bool|int|Mage_Core_Model_Website|string $id): void
@@ -59,8 +59,8 @@ final class AppTest extends OpenMageTest
     }
 
     /**
-     * @dataProvider provideGetStoreConfig
-     * @dataProvider provideGetGroup
+     * @dataProvider provideGetStoreConfigData
+     * @dataProvider provideGetGroupData
      * @group Model
      */
     public function testGetGroup(null|bool|int|Mage_Core_Model_Store_Group|string $id): void
