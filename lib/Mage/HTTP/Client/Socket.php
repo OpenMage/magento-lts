@@ -152,8 +152,8 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
      */
     public function setCredentials($login, $pass)
     {
-        $val = base64_encode("$login:$pass");
-        $this->addHeader('Authorization', "Basic $val");
+        $val = base64_encode("{$login}:{$pass}");
+        $this->addHeader('Authorization', "Basic {$val}");
     }
 
     /**
@@ -499,7 +499,7 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
         $headers = array_merge($headers, $this->_headers, $append);
         $str = [];
         foreach ($headers as $k => $v) {
-            $str [] = "$k: $v\r\n";
+            $str [] = "{$k}: {$v}\r\n";
         }
 
         return implode('', $str);

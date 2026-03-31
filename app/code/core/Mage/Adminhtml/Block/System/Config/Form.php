@@ -676,16 +676,16 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
         $website    = Mage::app()->getRequest()->getParam('website');
 
         if ($store && $website) {
-            $path = "$scope/$store/$path";
+            $path = "{$scope}/{$store}/{$path}";
             return $environmentConfigLoaderHelper->hasPath($path);
         }
 
         if ($website) {
-            $path = "$scope/$website/$path";
+            $path = "{$scope}/{$website}/{$path}";
             return $environmentConfigLoaderHelper->hasPath($path);
         }
 
-        $path = "$scope/$path";
+        $path = "{$scope}/{$path}";
         return $environmentConfigLoaderHelper->hasPath($path);
     }
 

@@ -1216,7 +1216,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
         return $this->getConnection()->select()
             ->from($table, [$entityIdField, 'attribute_id'])
             ->where('entity_type_id =?', $this->getEntity()->getTypeId())
-            ->where("$entityIdField IN (?)", array_keys($this->_itemsById))
+            ->where("{$entityIdField} IN (?)", array_keys($this->_itemsById))
             ->where('attribute_id IN (?)', $attributeIds);
     }
 
@@ -1385,10 +1385,10 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
         $fk = $adapter->quoteColumnAs($fk, null);
         $pk = $adapter->quoteColumnAs($pk, null);
 
-        $condArr = ["$pk = $fk"];
+        $condArr = ["{$pk} = {$fk}"];
         if (!$attribute->getBackend()->isStatic()) {
             $condArr[] = $this->getConnection()->quoteInto(
-                $adapter->quoteColumnAs("$attrTable.attribute_id", null) . ' = ?',
+                $adapter->quoteColumnAs("{$attrTable}.attribute_id", null) . ' = ?',
                 $attribute->getId(),
             );
         }

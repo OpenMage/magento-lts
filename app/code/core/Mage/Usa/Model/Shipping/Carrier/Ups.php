@@ -969,9 +969,9 @@ XMLRequest;
         $this->_xmlAccessRequest =  <<<XMLAuth
 <?xml version="1.0"?>
 <AccessRequest xml:lang="en-US">
-  <AccessLicenseNumber>$accessKey</AccessLicenseNumber>
-  <UserId>$userId</UserId>
-  <Password>$userIdPass</Password>
+  <AccessLicenseNumber>{$accessKey}</AccessLicenseNumber>
+  <UserId>{$userId}</UserId>
+  <Password>{$userIdPass}</Password>
 </AccessRequest>
 XMLAuth;
     }
@@ -1006,7 +1006,7 @@ XMLAuth;
         <RequestAction>Track</RequestAction>
         <RequestOption>activity</RequestOption>
     </Request>
-    <TrackingNumber>$tracking</TrackingNumber>
+    <TrackingNumber>{$tracking}</TrackingNumber>
     <IncludeFreight>01</IncludeFreight>
 </TrackRequest>
 XMLAuth;
@@ -1168,7 +1168,7 @@ XMLAuth;
             'returnPOD' => 'false',
         ]);
         $headers = [
-            "Authorization: Bearer $accessToken",
+            "Authorization: Bearer {$accessToken}",
             'Content-Type: application/json',
             'transId: track' . uniqid(),
             'transactionSrc: OpenMage',
@@ -1689,7 +1689,7 @@ XMLAuth;
 
         /** Rest API Payload */
         $headers = [
-            "Authorization: Bearer $accessToken",
+            "Authorization: Bearer {$accessToken}",
             'Content-Type: application/json',
         ];
         $debugData = [
@@ -2330,7 +2330,7 @@ XMLAuth;
         $version = 'v1';
         $requestOption = $params['10_action'];
         $headers = [
-            "Authorization: Bearer $accessToken",
+            "Authorization: Bearer {$accessToken}",
             'Content-Type: application/json',
         ];
         $debugData = [

@@ -195,9 +195,9 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
      */
     public function dropForeignKey($table, $fk)
     {
-        $create = $this->raw_fetchRow("show create table `$table`", 'Create Table');
-        if (str_contains($create, "CONSTRAINT `$fk` FOREIGN KEY (")) {
-            return $this->raw_query("ALTER TABLE `$table` DROP FOREIGN KEY `$fk`");
+        $create = $this->raw_fetchRow("show create table `{$table}`", 'Create Table');
+        if (str_contains($create, "CONSTRAINT `{$fk}` FOREIGN KEY (")) {
+            return $this->raw_query("ALTER TABLE `{$table}` DROP FOREIGN KEY `{$fk}`");
         }
 
         return true;
@@ -209,9 +209,9 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
      */
     public function dropKey($table, $key)
     {
-        $create = $this->raw_fetchRow("show create table `$table`", 'Create Table');
-        if (str_contains($create, "KEY `$key` (")) {
-            return $this->raw_query("ALTER TABLE `$table` DROP KEY `$key`");
+        $create = $this->raw_fetchRow("show create table `{$table}`", 'Create Table');
+        if (str_contains($create, "KEY `{$key}` (")) {
+            return $this->raw_query("ALTER TABLE `{$table}` DROP KEY `{$key}`");
         }
 
         return true;
@@ -275,7 +275,7 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
             return true;
         }
 
-        return $this->raw_query("alter table `$tableName` add column `$columnName` " . $definition);
+        return $this->raw_query("alter table `{$tableName}` add column `{$columnName}` " . $definition);
     }
 
     /**

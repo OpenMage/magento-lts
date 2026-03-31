@@ -340,7 +340,7 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
         $select  = $adapter->select()
             ->from($table, 'value_id')
             ->where('entity_type_id = :entity_type_id')
-            ->where("$entityIdField = :entity_field_id")
+            ->where("{$entityIdField} = :entity_field_id")
             ->where('store_id = :store_id')
             ->where('attribute_id = :attribute_id');
         $bind = [

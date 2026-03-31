@@ -1187,7 +1187,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
         if (isset($this->_requiredResponseParams[$method])) {
             foreach ($this->_requiredResponseParams[$method] as $param) {
                 if (!isset($response[$param])) {
-                    Mage::log("Expected PayPal field not found in NVP Response: $param");
+                    Mage::log("Expected PayPal field not found in NVP Response: {$param}");
                     return false;
                 }
             }

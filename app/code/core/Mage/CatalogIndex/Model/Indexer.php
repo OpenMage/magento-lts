@@ -644,7 +644,7 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
 
                                 if ((string) $values[$code]['from'] !== '') {
                                     $filter[$code]->where(
-                                        "($table.min_price"
+                                        "({$table}.min_price"
                                         . implode('', $additionalCalculations[$code]) . ")*{$rateConversion} >= ?",
                                         $values[$code]['from'],
                                     );
@@ -652,7 +652,7 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
 
                                 if ((string) $values[$code]['to'] !== '') {
                                     $filter[$code]->where(
-                                        "($table.min_price"
+                                        "({$table}.min_price"
                                         . implode('', $additionalCalculations[$code]) . ")*{$rateConversion} <= ?",
                                         $values[$code]['to'],
                                     );
@@ -660,7 +660,7 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
                             }
                         }
 
-                        $filter[$code]->where("$table.website_id = ?", $website);
+                        $filter[$code]->where("{$table}.website_id = ?", $website);
                         if ($code == 'price') {
                             $filter[$code]->where(
                                 $table . '.customer_group_id = ?',

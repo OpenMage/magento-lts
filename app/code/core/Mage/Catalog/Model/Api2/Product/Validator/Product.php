@@ -633,7 +633,7 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
      */
     protected function _isConfigValueUsed($data, $field)
     {
-        return isset($data["use_config_$field"]) && $data["use_config_$field"];
+        return isset($data["use_config_{$field}"]) && $data["use_config_{$field}"];
     }
 
     /**

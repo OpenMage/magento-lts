@@ -294,9 +294,9 @@ class Varien_Data_Tree_Dbp extends Varien_Data_Tree
 
         $data = [
             $this->_levelField => new Zend_Db_Expr("{$this->_levelField} + '{$levelDisposition}'"),
-            $this->_pathField  => new Zend_Db_Expr("CONCAT('$newPath', RIGHT($this->_pathField, LENGTH($this->_pathField) - {$oldPathLength}))"),
+            $this->_pathField  => new Zend_Db_Expr("CONCAT('{$newPath}', RIGHT($this->_pathField, LENGTH($this->_pathField) - {$oldPathLength}))"),
         ];
-        $condition = $this->_conn->quoteInto("$this->_pathField REGEXP ?", "^$oldPath(/|$)");
+        $condition = $this->_conn->quoteInto("$this->_pathField REGEXP ?", "^{$oldPath}(/|$)");
 
         $this->_conn->beginTransaction();
 

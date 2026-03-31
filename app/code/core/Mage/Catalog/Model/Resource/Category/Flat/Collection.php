@@ -316,7 +316,7 @@ class Mage_Catalog_Model_Resource_Category_Flat_Collection extends Mage_Core_Mod
         $select = $this->getSelect();
         $cond   = [];
         foreach ($paths as $path) {
-            $cond[] = $this->getResource()->getReadConnection()->quoteInto('main_table.path LIKE ?', "$path%");
+            $cond[] = $this->getResource()->getReadConnection()->quoteInto('main_table.path LIKE ?', "{$path}%");
         }
 
         if ($cond) {

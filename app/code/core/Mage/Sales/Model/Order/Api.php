@@ -62,10 +62,10 @@ class Mage_Sales_Model_Order_Api extends Mage_Sales_Model_Api_Resource
         $shippingAliasName = 'shipping_o_a';
 
         $orderCollection = Mage::getModel('sales/order')->getCollection();
-        $billingFirstnameField = "$billingAliasName.firstname";
-        $billingLastnameField = "$billingAliasName.lastname";
-        $shippingFirstnameField = "$shippingAliasName.firstname";
-        $shippingLastnameField = "$shippingAliasName.lastname";
+        $billingFirstnameField = "{$billingAliasName}.firstname";
+        $billingLastnameField = "{$billingAliasName}.lastname";
+        $shippingFirstnameField = "{$shippingAliasName}.firstname";
+        $shippingLastnameField = "{$shippingAliasName}.lastname";
         $orderCollection->addAttributeToSelect('*')
             ->addAddressFields()
             ->addExpressionFieldToSelect(

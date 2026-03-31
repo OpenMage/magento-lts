@@ -151,8 +151,8 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
      */
     public function setCredentials($login, $pass)
     {
-        $val = base64_encode("$login:$pass");
-        $this->addHeader('Authorization', "Basic $val");
+        $val = base64_encode("{$login}:{$pass}");
+        $this->addHeader('Authorization', "Basic {$val}");
     }
 
     /**
@@ -351,7 +351,7 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
         if (count($this->_cookies)) {
             $cookies = [];
             foreach ($this->_cookies as $k => $v) {
-                $cookies[] = "$k=$v";
+                $cookies[] = "{$k}={$v}";
             }
 
             $this->curlOption(CURLOPT_COOKIE, implode(';', $cookies));

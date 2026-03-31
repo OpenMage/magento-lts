@@ -126,7 +126,6 @@ try {
             CodeQuality\Ternary\TernaryEmptyArrayArrayDimFetchToCoalesceRector::class, # todo: TMP
             CodingStyle\ClassMethod\FuncGetArgsToVariadicParamRector::class, # todo: TMP
             CodingStyle\Encapsed\EncapsedStringsToSprintfRector::class, # todo: TMP
-            CodingStyle\Encapsed\WrapEncapsedVariableInCurlyBracesRector::class, # todo: TMP
             CodingStyle\FuncCall\StrictArraySearchRector::class, # todo: TMP
             CodingStyle\If_\NullableCompareToNullRector::class, # todo: TMP
             CodingStyle\PostInc\PostIncDecToPreIncDecRector::class, # todo: TMP
