@@ -507,18 +507,18 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
     public function uniOrd($char)
     {
         $ord = 0;
-        $h   = ord($char[0]);
+        $num = ord($char[0]);
 
-        if ($h <= 0x7F) {
-            $ord = $h;
-        } elseif ($h < 0xC2) {
+        if ($num <= 0x7F) {
+            $ord = $num;
+        } elseif ($num < 0xC2) {
             $ord = 0;
-        } elseif ($h <= 0xDF) {
-            $ord = (($h & 0x1F) << 6 | (ord($char[1]) & 0x3F));
-        } elseif ($h <= 0xEF) {
-            $ord = (($h & 0x0F) << 12 | (ord($char[1]) & 0x3F) << 6 | (ord($char[2]) & 0x3F));
-        } elseif ($h <= 0xF4) {
-            $ord = (($h & 0x0F) << 18 | (ord($char[1]) & 0x3F) << 12
+        } elseif ($num <= 0xDF) {
+            $ord = (($num & 0x1F) << 6 | (ord($char[1]) & 0x3F));
+        } elseif ($num <= 0xEF) {
+            $ord = (($num & 0x0F) << 12 | (ord($char[1]) & 0x3F) << 6 | (ord($char[2]) & 0x3F));
+        } elseif ($num <= 0xF4) {
+            $ord = (($num & 0x0F) << 18 | (ord($char[1]) & 0x3F) << 12
                 | (ord($char[2]) & 0x3F) << 6 | (ord($char[3]) & 0x3F));
         }
 
