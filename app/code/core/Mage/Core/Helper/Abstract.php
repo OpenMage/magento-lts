@@ -187,25 +187,22 @@ abstract class Mage_Core_Helper_Abstract
      */
     public function escapeHtml($data, $allowedTags = null)
     {
-        if (is_array($data)) {
+        if (is_null($data) || $data === '') {
+            $result = $data;
+        } elseif (is_array($data)) {
             $result = [];
             foreach ($data as $item) {
                 $result[] = $this->escapeHtml($item);
             }
-        } elseif (is_string($data) && $data !== '') {
-            // process single item
-            if (is_array($allowedTags) && $allowedTags !== []) {
-                $allowed = implode('|', $allowedTags);
-                $result = preg_replace('/<([\/\s\r\n]*)(' . $allowed . ')([\/\s\r\n]*)>/si', '##$1$2$3##', $data);
-                if ($result !== null) {
-                    $result = htmlspecialchars($result, ENT_COMPAT, 'UTF-8', false);
-                    $result = preg_replace('/##([\/\s\r\n]*)(' . $allowed . ')([\/\s\r\n]*)##/si', '<$1$2$3>', $result);
-                }
-            } else {
-                $result = htmlspecialchars($data, ENT_COMPAT, 'UTF-8', false);
+        } elseif (is_array($allowedTags) && $allowedTags !== []) {
+            $allowed = implode('|', $allowedTags);
+            $result = preg_replace('/<([\/\s\r\n]*)(' . $allowed . ')([\/\s\r\n]*)>/si', '##$1$2$3##', $data);
+            if ($result !== null) {
+                $result = htmlspecialchars($result, ENT_COMPAT, 'UTF-8', false);
+                $result = preg_replace('/##([\/\s\r\n]*)(' . $allowed . ')([\/\s\r\n]*)##/si', '<$1$2$3>', $result);
             }
         } else {
-            $result = $data;
+            $result = htmlspecialchars($data, ENT_COMPAT, 'UTF-8', false);
         }
 
         return $result;
