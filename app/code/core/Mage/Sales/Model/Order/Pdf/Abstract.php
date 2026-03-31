@@ -130,6 +130,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
      *
      * @param Zend_Pdf_Page                              $page
      * @param null|bool|int|Mage_Core_Model_Store|string $store $store
+     * @SuppressWarnings("PHPMD.ShortVariable")
      */
     protected function insertLogo(&$page, $store = null)
     {
