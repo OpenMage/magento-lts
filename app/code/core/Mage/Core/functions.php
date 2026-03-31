@@ -170,19 +170,19 @@ function mageCoreErrorHandler($errno, $errstr, $errfile, $errline)
  */
 function mageDebugBacktrace($return = false, $html = true, $showFirst = false)
 {
-    $d = debug_backtrace();
+    $debugBacktrace = debug_backtrace();
     $out = '';
     if ($html) {
         $out .= '<pre>';
     }
 
-    foreach ($d as $i => $r) {
-        if (!$showFirst && $i == 0) {
+    foreach ($debugBacktrace as $index => $value) {
+        if (!$showFirst && $index == 0) {
             continue;
         }
 
         // sometimes there is undefined index 'file'
-        @$out .= "[$i] {$r['file']}:{$r['line']}\n";
+        @$out .= "[$index] {$value['file']}:{$value['line']}\n";
     }
 
     if ($html) {

@@ -76,13 +76,13 @@ class Mage_Core_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstra
         $rowset = $read->fetchAll($select);
 
         // set default config values from database
-        foreach ($rowset as $r) {
-            if ($r['scope'] !== 'default') {
+        foreach ($rowset as $row) {
+            if ($row['scope'] !== 'default') {
                 continue;
             }
 
-            $value = str_replace($substFrom, $substTo, (string) $r['value']);
-            $xmlConfig->setNode('default/' . $r['path'], $value);
+            $value = str_replace($substFrom, $substTo, (string) $row['value']);
+            $xmlConfig->setNode('default/' . $row['path'], $value);
         }
 
         // inherit default config values to all websites
@@ -94,17 +94,17 @@ class Mage_Core_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstra
 
         $deleteWebsites = [];
         // set websites config values from database
-        foreach ($rowset as $r) {
-            if ($r['scope'] !== 'websites') {
+        foreach ($rowset as $row) {
+            if ($row['scope'] !== 'websites') {
                 continue;
             }
 
-            $value = str_replace($substFrom, $substTo, (string) $r['value']);
-            if (isset($websites[$r['scope_id']])) {
-                $nodePath = sprintf('websites/%s/%s', $websites[$r['scope_id']]['code'], $r['path']);
+            $value = str_replace($substFrom, $substTo, (string) $row['value']);
+            if (isset($websites[$row['scope_id']])) {
+                $nodePath = sprintf('websites/%s/%s', $websites[$row['scope_id']]['code'], $row['path']);
                 $xmlConfig->setNode($nodePath, $value);
             } else {
-                $deleteWebsites[$r['scope_id']] = $r['scope_id'];
+                $deleteWebsites[$row['scope_id']] = $row['scope_id'];
             }
         }
 
@@ -124,17 +124,17 @@ class Mage_Core_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstra
 
         $deleteStores = [];
         // set stores config values from database
-        foreach ($rowset as $r) {
-            if ($r['scope'] !== 'stores') {
+        foreach ($rowset as $row) {
+            if ($row['scope'] !== 'stores') {
                 continue;
             }
 
-            $value = str_replace($substFrom, $substTo, (string) $r['value']);
-            if (isset($stores[$r['scope_id']])) {
-                $nodePath = sprintf('stores/%s/%s', $stores[$r['scope_id']]['code'], $r['path']);
+            $value = str_replace($substFrom, $substTo, (string) $row['value']);
+            if (isset($stores[$row['scope_id']])) {
+                $nodePath = sprintf('stores/%s/%s', $stores[$row['scope_id']]['code'], $row['path']);
                 $xmlConfig->setNode($nodePath, $value);
             } else {
-                $deleteStores[$r['scope_id']] = $r['scope_id'];
+                $deleteStores[$row['scope_id']] = $row['scope_id'];
             }
         }
 

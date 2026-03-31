@@ -1385,32 +1385,31 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
             Mage::throwException($this->_wrapGatewayError($exception->getMessage()));
         }
 
-        $responseBody = $response->getBody();
+        $responseBody       = $response->getBody();
+        $responseBodyArray  = explode(self::RESPONSE_DELIM_CHAR, $responseBody);
 
-        $r = explode(self::RESPONSE_DELIM_CHAR, $responseBody);
-
-        if ($r) {
-            $result->setResponseCode((int) str_replace('"', '', $r[0]))
-                ->setResponseSubcode((int) str_replace('"', '', $r[1]))
-                ->setResponseReasonCode((int) str_replace('"', '', $r[2]))
-                ->setResponseReasonText($r[3])
-                ->setApprovalCode($r[4])
-                ->setAvsResultCode($r[5])
-                ->setTransactionId($r[6])
-                ->setInvoiceNumber($r[7])
-                ->setDescription($r[8])
-                ->setAmount($r[9])
-                ->setMethod($r[10])
-                ->setTransactionType($r[11])
-                ->setCustomerId($r[12])
-                ->setMd5Hash($r[37])
-                ->setCardCodeResponseCode($r[38])
-                ->setCAVVResponseCode($r[39] ?? null)
-                ->setSplitTenderId($r[52])
-                ->setAccNumber($r[50])
-                ->setCardType($r[51])
-                ->setRequestedAmount($r[53])
-                ->setBalanceOnCard($r[54])
+        if ($responseBodyArray) {
+            $result->setResponseCode((int) str_replace('"', '', $responseBodyArray[0]))
+                ->setResponseSubcode((int) str_replace('"', '', $responseBodyArray[1]))
+                ->setResponseReasonCode((int) str_replace('"', '', $responseBodyArray[2]))
+                ->setResponseReasonText($responseBodyArray[3])
+                ->setApprovalCode($responseBodyArray[4])
+                ->setAvsResultCode($responseBodyArray[5])
+                ->setTransactionId($responseBodyArray[6])
+                ->setInvoiceNumber($responseBodyArray[7])
+                ->setDescription($responseBodyArray[8])
+                ->setAmount($responseBodyArray[9])
+                ->setMethod($responseBodyArray[10])
+                ->setTransactionType($responseBodyArray[11])
+                ->setCustomerId($responseBodyArray[12])
+                ->setMd5Hash($responseBodyArray[37])
+                ->setCardCodeResponseCode($responseBodyArray[38])
+                ->setCAVVResponseCode($responseBodyArray[39] ?? null)
+                ->setSplitTenderId($responseBodyArray[52])
+                ->setAccNumber($responseBodyArray[50])
+                ->setCardType($responseBodyArray[51])
+                ->setRequestedAmount($responseBodyArray[53])
+                ->setBalanceOnCard($responseBodyArray[54])
             ;
         } else {
             Mage::throwException(
