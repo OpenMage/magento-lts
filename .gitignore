@@ -78,8 +78,9 @@
 !.phpcs.xml
 phpcs.xml
 
-# PHPMD cache
+# PHPMD cache and report files
 .phpmd.result-cache.php
+.phpmd.report.*
 
 # PhpStan
 .phpstan.cache
