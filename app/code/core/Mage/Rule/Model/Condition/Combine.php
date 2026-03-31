@@ -237,12 +237,12 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
     {
         $xml = '<aggregator>' . $this->getAggregator() . '</aggregator>'
             . '<value>' . $this->getValue() . '</value>'
-            . "<$containerKey>";
+            . "<{$containerKey}>";
         foreach ($this->getConditions() as $condition) {
-            $xml .= "<$itemKey>" . $condition->asXml() . "</$itemKey>";
+            $xml .= "<{$itemKey}>" . $condition->asXml() . "</{$itemKey}>";
         }
 
-        return $xml . "</$containerKey>";
+        return $xml . "</{$containerKey}>";
     }
 
     /**

@@ -79,7 +79,7 @@ final class EnvironmentConfigLoaderTest extends OpenMageTest
             foreach ($stores as $storeCode => $data) {
                 $store = Mage::app()->getStore($data['store_id']);
                 self::assertInstanceOf(Mage_Core_Model_Store::class, $store);
-                self::assertTrue((bool) $store->getIsActive(), "$storeCode is not active");
+                self::assertTrue((bool) $store->getIsActive(), "{$storeCode} is not active");
                 self::assertEquals($data['store_id'], (int) $store->getId());
                 self::assertEquals($data['website_id'], (int) $store->getWebsiteId());
             }

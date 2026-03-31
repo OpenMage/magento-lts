@@ -154,7 +154,7 @@ class Mage_Api_Model_Server_Wsi_Handler extends Mage_Api_Model_Server_Handler_Ab
             } elseif ($parameter->isOptional()) {
                 $callArgs[$pName] = $parameter->getDefaultValue();
             } else {
-                Mage::logException(new Exception("Required parameter \"$pName\" is missing.", 0));
+                Mage::logException(new Exception("Required parameter \"{$pName}\" is missing.", 0));
                 $this->_fault('invalid_request_param');
             }
         }

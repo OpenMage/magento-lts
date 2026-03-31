@@ -560,7 +560,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
 
         foreach ($bind as $key => $value) {
             if (!is_int($key) && $key[0] != ':') {
-                $bind[":$key"] = $value;
+                $bind[":{$key}"] = $value;
                 unset($bind[$key]);
             }
         }
@@ -3373,7 +3373,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      */
     public function getConcatSql(array $data, $separator = null)
     {
-        $format = empty($separator) ? 'CONCAT(%s)' : "CONCAT_WS('$separator', %s)";
+        $format = empty($separator) ? 'CONCAT(%s)' : "CONCAT_WS('{$separator}', %s)";
         return new Zend_Db_Expr(sprintf($format, implode(', ', $data)));
     }
 
