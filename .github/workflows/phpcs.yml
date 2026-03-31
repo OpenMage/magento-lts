@@ -42,7 +42,9 @@ jobs:
             phpcs-result-cache-
 
       - name: PHPCodeSniffer
-        run: php vendor/bin/phpcs -s -p --cache=.cache/.phpcs.result.cache --report=full --standard=.phpcs.dist.xml
+        run: |
+          [ -d .cache ] || mkdir .cache
+          php vendor/bin/phpcs -s -p --cache=.cache/.phpcs.result.cache --report=full --standard=.phpcs.dist.xml
 
       - name: Save result cache
         uses: actions/cache/save@v5
