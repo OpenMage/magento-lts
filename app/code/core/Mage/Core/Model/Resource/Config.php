@@ -50,17 +50,17 @@ class Mage_Core_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstra
             ->from($this->getTable('core/store'), ['store_id', 'code', 'name', 'website_id'])
             ->order('sort_order ' . Varien_Db_Select::SQL_ASC);
         $rowset = $read->fetchAssoc($select);
-        foreach ($rowset as $s) {
-            if (!isset($websites[$s['website_id']])) {
+        foreach ($rowset as $set) {
+            if (!isset($websites[$set['website_id']])) {
                 continue;
             }
 
-            $xmlConfig->setNode('stores/' . $s['code'] . '/system/store/id', $s['store_id']);
-            $xmlConfig->setNode('stores/' . $s['code'] . '/system/store/name', $s['name']);
-            $xmlConfig->setNode('stores/' . $s['code'] . '/system/website/id', $s['website_id']);
-            $xmlConfig->setNode('websites/' . $websites[$s['website_id']]['code'] . '/system/stores/' . $s['code'], $s['store_id']);
-            $stores[$s['store_id']] = ['code' => $s['code']];
-            $websites[$s['website_id']]['stores'][$s['store_id']] = $s['code'];
+            $xmlConfig->setNode('stores/' . $set['code'] . '/system/store/id', $set['store_id']);
+            $xmlConfig->setNode('stores/' . $set['code'] . '/system/store/name', $set['name']);
+            $xmlConfig->setNode('stores/' . $set['code'] . '/system/website/id', $set['website_id']);
+            $xmlConfig->setNode('websites/' . $websites[$set['website_id']]['code'] . '/system/stores/' . $set['code'], $set['store_id']);
+            $stores[$set['store_id']] = ['code' => $set['code']];
+            $websites[$set['website_id']]['stores'][$set['store_id']] = $set['code'];
         }
 
         $substFrom = [];
