@@ -400,7 +400,7 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
     /**
      * Parse headers - CURL callback function
      *
-     * @param resource $handle   curl handle, not needed
+     * @param resource $handle curl handle, not needed
      * @param string   $data
      * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
