@@ -751,10 +751,11 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
             PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE,
         );
 
-        $stmts  = [];
-        $stmtQ  = false;
-        $stmtC  = false;
-        $stmtS  = '';
+        $stmtsArray  = [];
+
+        $stmtQ = false;
+        $stmtC = false;
+        $stmtS = '';
 
         foreach ($parts as $index => $part) {
             // strings
@@ -783,7 +784,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
             // statements
             if ($part === ';' && $stmtQ === false && $stmtC === false) {
                 if (trim($stmtS) !== '') {
-                    $stmts[] = trim($stmtS);
+                    $stmtsArray[] = trim($stmtS);
                     $stmtS = '';
                 }
             } else {
@@ -792,10 +793,10 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
         }
 
         if (trim($stmtS) !== '') {
-            $stmts[] = trim($stmtS);
+            $stmtsArray[] = trim($stmtS);
         }
 
-        return $stmts;
+        return $stmtsArray;
     }
 
     /**
