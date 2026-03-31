@@ -167,8 +167,8 @@ class Mage_Adminhtml_Api_UserController extends Mage_Adminhtml_Controller_Action
                 Mage::getSingleton('adminhtml/session')->setUserData(false);
                 $this->_redirect('*/*/edit', ['user_id' => $model->getUserId()]);
                 return;
-            } catch (Exception $e) {
-                Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
+            } catch (Exception $exception) {
+                Mage::getSingleton('adminhtml/session')->addError($exception->getMessage());
                 Mage::getSingleton('adminhtml/session')->setUserData($data);
                 $this->_redirect('*/*/edit', ['user_id' => $model->getUserId()]);
                 return;
@@ -203,8 +203,8 @@ class Mage_Adminhtml_Api_UserController extends Mage_Adminhtml_Controller_Action
                 Mage::getSingleton('adminhtml/session')->addSuccess($this->__('The user has been deleted.'));
                 $this->_redirect('*/*/');
                 return;
-            } catch (Exception $e) {
-                Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
+            } catch (Exception $exception) {
+                Mage::getSingleton('adminhtml/session')->addError($exception->getMessage());
                 $this->_redirect('*/*/edit', ['user_id' => $id]);
                 return;
             }

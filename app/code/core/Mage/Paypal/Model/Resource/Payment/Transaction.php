@@ -45,8 +45,8 @@ class Mage_Paypal_Model_Resource_Payment_Transaction extends Mage_Core_Model_Res
             try {
                 $unserializedValue = Mage::helper('core/unserializeArray')
                     ->unserialize($value);
-            } catch (Exception $e) {
-                Mage::logException($e);
+            } catch (Exception $exception) {
+                Mage::logException($exception);
             }
 
             $object->setData($field, $unserializedValue);

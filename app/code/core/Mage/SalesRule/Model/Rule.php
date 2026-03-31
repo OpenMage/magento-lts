@@ -424,9 +424,9 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
             for ($attemptNum = 0; $attemptNum < $saveAttemptCount; $attemptNum++) {
                 try {
                     $coupon->save();
-                } catch (Exception $e) {
-                    if ($e instanceof Mage_Core_Exception || $coupon->getId()) {
-                        throw $e;
+                } catch (Exception $exception) {
+                    if ($exception instanceof Mage_Core_Exception || $coupon->getId()) {
+                        throw $exception;
                     }
 
                     $coupon->setCode(

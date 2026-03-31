@@ -205,8 +205,8 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
                 $this->_getSession()->addSuccess(
                     Mage::helper('widget')->__('The widget instance has been deleted.'),
                 );
-            } catch (Exception $e) {
-                $this->_getSession()->addError($e->getMessage());
+            } catch (Exception $exception) {
+                $this->_getSession()->addError($exception->getMessage());
             }
         }
 
