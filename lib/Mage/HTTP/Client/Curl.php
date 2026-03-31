@@ -402,6 +402,7 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
      *
      * @param resource $handle   curl handle, not needed
      * @param string   $data
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     protected function parseHeaders($handle, $data): int
     {

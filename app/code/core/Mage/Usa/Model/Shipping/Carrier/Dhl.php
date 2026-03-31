@@ -941,7 +941,6 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
      */
     protected function _addRate($shipXml)
     {
-        $request = $this->_rawRequest;
         $services = $this->getCode('service');
         $regexps = $this->getCode('descr_to_service');
         $desc = ($shipXml->EstimateDetail) ? (string) $shipXml->EstimateDetail->ServiceLevelCommitment->Desc : null;
