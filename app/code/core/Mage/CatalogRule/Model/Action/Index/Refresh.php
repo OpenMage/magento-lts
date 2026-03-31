@@ -377,18 +377,18 @@ class Mage_CatalogRule_Model_Action_Index_Refresh
      */
     protected function _calculatePrice()
     {
-        $toPercent = $this->_connection->quote('to_percent');
-        $byPercent = $this->_connection->quote('by_percent');
-        $toFixed   = $this->_connection->quote('to_fixed');
-        $byFixed   = $this->_connection->quote('by_fixed');
-        $nA        = $this->_connection->quote('N/A');
+        $toPercent      = $this->_connection->quote('to_percent');
+        $byPercent      = $this->_connection->quote('by_percent');
+        $toFixed        = $this->_connection->quote('to_fixed');
+        $byFixed        = $this->_connection->quote('by_fixed');
+        $notVailable    = $this->_connection->quote('N/A');
 
         return $this->_connection->getCaseSql(
             '',
             [
                 $this->_connection->getIfNullSql(
                     new Zend_Db_Expr('@group_id'),
-                    $nA,
+                    $notVailable,
                 ) . ' != cppt.grouped_id'
                 => '@price := ' . $this->_connection->getCaseSql(
                     $this->_connection->quoteIdentifier('cppt.action_operator'),
@@ -409,7 +409,7 @@ class Mage_CatalogRule_Model_Action_Index_Refresh
                 ),
                 $this->_connection->getIfNullSql(
                     new Zend_Db_Expr('@group_id'),
-                    $nA,
+                    $notVailable,
                 ) . ' = cppt.grouped_id AND '
                 . $this->_connection->getIfNullSql(
                     new Zend_Db_Expr('@action_stop'),
@@ -444,7 +444,7 @@ class Mage_CatalogRule_Model_Action_Index_Refresh
      */
     protected function _prepareIndexSelect(Mage_Core_Model_Website $website, $time)
     {
-        $nA = $this->_connection->quote('N/A');
+        $notAvailable = $this->_connection->quote('N/A');
         $this->_connection->query('SET @price := 0');
         $this->_connection->query('SET @group_id := NULL');
         $this->_connection->query('SET @action_stop := NULL');
@@ -465,11 +465,11 @@ class Mage_CatalogRule_Model_Action_Index_Refresh
                             [
                                 $this->_connection->getIfNullSql(
                                     new Zend_Db_Expr('@group_id'),
-                                    $nA,
+                                    $notAvailable,
                                 ) . ' != cppt.grouped_id' => new Zend_Db_Expr('@action_stop := cppt.action_stop'),
                                 $this->_connection->getIfNullSql(
                                     new Zend_Db_Expr('@group_id'),
-                                    $nA,
+                                    $notAvailable,
                                 ) . ' = cppt.grouped_id' => '@action_stop := '
                                     . $this->_connection->getIfNullSql(
                                         new Zend_Db_Expr('@action_stop'),
