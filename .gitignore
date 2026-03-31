@@ -15,6 +15,9 @@
 # PhpStorm
 .idea
 
+# tools cache
+.cache
+
 # Openmage config
 /app/etc/local.xml
 
@@ -64,35 +67,26 @@
 # .phar (n98-magerun, ...)
 *.phar
 
-# PHP-CS-Fixer cache
-.php-cs-fixer.cache
-
 # Ignore custom config files
 .php-cs-fixer*
 !.php-cs-fixer.dist.*
 
-# PHPCS cache
-.phpcs.result.cache
+# PHPCS
 .phpcs*.xml
 !.phpcs.dist*.xml
 !.phpcs.xml
 phpcs.xml
 
-# PHPMD cache and report files
-.phpmd.result-cache.php
+# PHPMD
 .phpmd.report.*
 
 # PhpStan
-.phpstan.cache
 .phpstan*.neon
 phpstan*.neon
 !.phpstan.dist.neon
 !.phpstan.dist.*.neon
 
 # PhpUnit
-tests/coverage
-tests/logging
-.phpunit.result.cache
 phpunit.xml
 !.phpunit.dist.xml
 
