@@ -1151,7 +1151,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
 
                 $update = substr($update, 0, -1);
                 $update .= " WHERE {$mainStoreTable}.entity_id = {$catalogCategoryTable}.entity_id AND "
-                    . "({$catalogCategoryTable}}.path like '{$parent->getPath()}/%' OR "
+                    . "({$catalogCategoryTable}.path like '{$parent->getPath()}/%' OR "
                     . "{$catalogCategoryTable}.path like '{$prevParent->getPath()}/%')";
                 $this->_getWriteAdapter()->query($update);
             }
