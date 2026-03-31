@@ -27,12 +27,12 @@ class Varien_Convert_Parser_Csv extends Varien_Convert_Parser_Abstract
         // fixed for multibyte characters
         setlocale(LC_ALL, Mage::app()->getLocale()->getLocaleCode() . '.UTF-8');
 
-        $fp = tmpfile();
-        fwrite($fp, $this->getData());
-        fseek($fp, 0);
+        $resource = tmpfile();
+        fwrite($resource, $this->getData());
+        fseek($resource, 0);
 
         $data = [];
-        for ($i = 0; $line = fgetcsv($fp, 4096, $fDel, $fEnc, $fEsc); $i++) {
+        for ($i = 0; $line = fgetcsv($resource, 4096, $fDel, $fEnc, $fEsc); $i++) {
             if (0 == $i) {
                 if ($this->getVar('fieldnames')) {
                     $fields = $line;
@@ -52,7 +52,7 @@ class Varien_Convert_Parser_Csv extends Varien_Convert_Parser_Abstract
             $data[] = $row;
         }
 
-        fclose($fp);
+        fclose($resource);
         $this->setData($data);
         return $this;
     }
@@ -71,15 +71,15 @@ class Varien_Convert_Parser_Csv extends Varien_Convert_Parser_Abstract
         // fixed for multibyte characters
         setlocale(LC_ALL, Mage::app()->getLocale()->getLocaleCode() . '.UTF-8');
 
-        $fp = tmpfile();
-        fwrite($fp, $this->getData());
-        fseek($fp, 0);
+        $resource = tmpfile();
+        fwrite($resource, $this->getData());
+        fseek($resource, 0);
 
         $data = [];
         $sessionId = Mage::registry('current_dataflow_session_id');
         $import = Mage::getModel('dataflow/import');
         $map = new Varien_Convert_Mapper_Column();
-        for ($i = 0; $line = fgetcsv($fp, 4096, $fDel, $fEnc, $fEsc); $i++) {
+        for ($i = 0; $line = fgetcsv($resource, 4096, $fDel, $fEnc, $fEsc); $i++) {
             if (0 == $i) {
                 if ($this->getVar('fieldnames')) {
                     $fields = $line;
@@ -106,7 +106,7 @@ class Varien_Convert_Parser_Csv extends Varien_Convert_Parser_Abstract
             $import->save();
         }
 
-        fclose($fp);
+        fclose($resource);
         unset($sessionId);
         return $this;
     }

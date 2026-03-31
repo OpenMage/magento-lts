@@ -235,10 +235,10 @@ class Mage_Index_Model_Lock
     protected function _isLockExistsFile($lockName)
     {
         $result = true;
-        $fp = $this->_getLockFile($lockName);
+        $resource = $this->_getLockFile($lockName);
         try {
-            if (flock($fp, LOCK_EX | LOCK_NB)) {
-                flock($fp, LOCK_UN);
+            if (flock($resource, LOCK_EX | LOCK_NB)) {
+                flock($resource, LOCK_UN);
                 $result = false;
             }
         } catch (Exception $exception) {

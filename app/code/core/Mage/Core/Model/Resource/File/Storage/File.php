@@ -199,19 +199,19 @@ class Mage_Core_Model_Resource_File_Storage_File
         if ($this->filePointer || !file_exists($fullPath) || $overwrite) {
             // If we already opened the file using lockCreateFile method
             if ($this->filePointer) {
-                $fp = $this->filePointer;
+                $resource = $this->filePointer;
                 $this->filePointer = null;
-                if (@fwrite($fp, $content) !== false && @fflush($fp) && @flock($fp, LOCK_UN) && @fclose($fp)) {
+                if (@fwrite($resource, $content) !== false && @fflush($resource) && @flock($resource, LOCK_UN) && @fclose($resource)) {
                     return true;
                 }
             } elseif (!$overwrite) {
                 // If overwrite is not required then return if file could not be locked (assume it is being written by another process)
                 // Exception is only thrown if file was opened but could not be written.
-                if (!($fp = @fopen($fullPath, 'x'))) {
+                if (!($resource = @fopen($fullPath, 'x'))) {
                     return false;
                 }
 
-                if (@fwrite($fp, $content) !== false && @fflush($fp) && @fclose($fp)) {
+                if (@fwrite($resource, $content) !== false && @fflush($resource) && @fclose($resource)) {
                     return true;
                 }
             } elseif (@file_put_contents($fullPath, $content, LOCK_EX) !== false) {
@@ -257,17 +257,17 @@ class Mage_Core_Model_Resource_File_Storage_File
         $fullPath = $path . DS . $filename;
 
         // Get exclusive lock on new or existing file
-        if ($fp = @fopen($fullPath, 'c')) {
-            @flock($fp, LOCK_EX);
-            @fseek($fp, 0, SEEK_END);
-            if (@ftell($fp) === 0) { // If the file is empty we can write to it
-                $this->filePointer = $fp;
+        if ($resource = @fopen($fullPath, 'c')) {
+            @flock($resource, LOCK_EX);
+            @fseek($resource, 0, SEEK_END);
+            if (@ftell($resource) === 0) { // If the file is empty we can write to it
+                $this->filePointer = $resource;
                 return true;
             }
 
             // Otherwise we should not write to it
-            @flock($fp, LOCK_UN);
-            @fclose($fp);
+            @flock($resource, LOCK_UN);
+            @fclose($resource);
             return false;
         }
 
@@ -287,10 +287,10 @@ class Mage_Core_Model_Resource_File_Storage_File
         $path = $this->getMediaBaseDirectory() . DS . str_replace('/', DS, dirname($filePath));
         $fullPath = $path . DS . $filename;
         if ($this->filePointer) {
-            $fp = $this->filePointer;
+            $resource = $this->filePointer;
             $this->filePointer = null;
-            @flock($fp, LOCK_UN);
-            @fclose($fp);
+            @flock($resource, LOCK_UN);
+            @fclose($resource);
         }
 
         @unlink($fullPath);

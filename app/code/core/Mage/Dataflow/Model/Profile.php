@@ -453,23 +453,23 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
         } else {
             $entityXml = '<action type="' . $adapters[$this->getEntityType()] . '" method="load">' . $newLine;
             $entityXml .= '    <var name="store"><![CDATA[' . $this->getStoreId() . ']]></var>' . $newLine;
-            foreach ($data[$this->getEntityType()]['filter'] as $f => $v) {
-                if (empty($v)) {
+            foreach ($data[$this->getEntityType()]['filter'] as $filter => $value) {
+                if (empty($value)) {
                     continue;
                 }
 
-                if (is_scalar($v)) {
-                    $entityXml .= '    <var name="filter/' . $f . '"><![CDATA[' . $v . ']]></var>' . $newLine;
-                    $parseFileXmlInter .= '    <var name="filter/' . $f . '"><![CDATA[' . $v . ']]></var>' . $newLine;
-                } elseif (is_array($v)) {
-                    foreach ($v as $a => $b) {
+                if (is_scalar($value)) {
+                    $entityXml .= '    <var name="filter/' . $filter . '"><![CDATA[' . $value . ']]></var>' . $newLine;
+                    $parseFileXmlInter .= '    <var name="filter/' . $filter . '"><![CDATA[' . $value . ']]></var>' . $newLine;
+                } elseif (is_array($value)) {
+                    foreach ($value as $a => $b) {
                         if (strlen($b) == 0) {
                             continue;
                         }
 
-                        $entityXml .= '    <var name="filter/' . $f . '/' . $a
+                        $entityXml .= '    <var name="filter/' . $filter . '/' . $a
                             . '"><![CDATA[' . $b . ']]></var>' . $newLine;
-                        $parseFileXmlInter .= '    <var name="filter/' . $f . '/'
+                        $parseFileXmlInter .= '    <var name="filter/' . $filter . '/'
                             . $a . '"><![CDATA[' . $b . ']]></var>' . $newLine;
                     }
                 }

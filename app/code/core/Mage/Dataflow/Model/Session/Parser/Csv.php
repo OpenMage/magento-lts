@@ -27,15 +27,15 @@ class Mage_Dataflow_Model_Session_Parser_Csv extends Mage_Dataflow_Model_Convert
         // fixed for multibyte characters
         setlocale(LC_ALL, Mage::app()->getLocale()->getLocaleCode() . '.UTF-8');
 
-        $fp = tmpfile();
-        fwrite($fp, $this->getData());
-        fseek($fp, 0);
+        $resource = tmpfile();
+        fwrite($resource, $this->getData());
+        fseek($resource, 0);
 
         $data = [];
         $sessionId = Mage::registry('current_dataflow_session_id');
         $import = Mage::getModel('dataflow/import');
         $map = new Varien_Convert_Mapper_Column();
-        for ($i = 0; $line = fgetcsv($fp, 4096, $fDel, $fEnc, $fEsc); $i++) {
+        for ($i = 0; $line = fgetcsv($resource, 4096, $fDel, $fEnc, $fEsc); $i++) {
             if ($i == 0) {
                 if ($this->getVar('fieldnames')) {
                     $fields = $line;
@@ -71,7 +71,7 @@ class Mage_Dataflow_Model_Session_Parser_Csv extends Mage_Dataflow_Model_Convert
             //unset($import);
         }
 
-        fclose($fp);
+        fclose($resource);
         unset($sessionId);
         //$this->setData($data);
         return $this;
