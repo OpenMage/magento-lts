@@ -76,7 +76,7 @@
     [-] LongClassName
     [x] ShortClassName
     [-] LongVariable
-    [x] ShortVariable
+    [x] ShortVariable - LATER avoid id,i,j,v,e
     [-] ShortMethodName - TMP disabled, can be fixed in some cases
     -->
     <rule ref="rulesets/naming.xml">
@@ -87,7 +87,7 @@
     </rule>
     <rule ref="rulesets/naming.xml/ShortVariable">-->
         <properties>
-            <property name="exceptions" value="a,b,do,fp,id,io,to,x,y,x1,x2,y1,y2" />
+            <property name="exceptions" value="a,b,do,fp,id,io,to,x,y,x1,x2,y1,y2,i,j,v,e" />
         </properties>
     </rule>
     <rule ref="rulesets/naming.xml/ShortMethodName" />
