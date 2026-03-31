@@ -36,7 +36,7 @@ jobs:
       - name: Restore result cache
         uses: actions/cache/restore@v5
         with:
-          path: .phpcs.result.cache
+          path: .cache/.phpcs.result.cache
           key: phpcs-result-cache-${{ github.run_id }}
           restore-keys: |
             phpcs-result-cache-
