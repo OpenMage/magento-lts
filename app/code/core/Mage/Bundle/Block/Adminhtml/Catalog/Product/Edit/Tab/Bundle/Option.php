@@ -211,10 +211,8 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option extends
                 $product,
             );
 
-            /** @var Mage_Bundle_Model_Resource_Option_Collection $optionCollection */
             $optionCollection = $productType->getOptionsCollection($product);
 
-            /** @var Mage_Bundle_Model_Resource_Selection_Collection $selectionCollection */
             $selectionCollection = $productType->getSelectionsCollection(
                 $productType->getOptionsIds($product),
                 $product,

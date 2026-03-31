@@ -4,6 +4,19 @@ declare(strict_types=1);
 
 $config = new PhpCsFixer\Config();
 return $config
+    ->setCacheFile(__DIR__ . '/.cache/.php-cs-fixer.cache')
+    ->setFinder(
+        PhpCsFixer\Finder::create()
+            ->in([
+                __DIR__,
+            ])
+            ->exclude([
+                __DIR__ . '/shell/translations.php',
+            ])
+            ->name('*.php')
+            ->ignoreDotFiles(true)
+            ->ignoreVCS(true)
+    )
     ->setRiskyAllowed(true)
     ->setRules([
         // see https://cs.symfony.com/doc/ruleSets/PER-CS2.0.html
@@ -60,16 +73,4 @@ return $config
         'trailing_comma_in_multiline' => ['after_heredoc' => true, 'elements' => ['arguments', 'array_destructuring', 'arrays']],
         // A single space or none should be around union type and intersection type operators.
         'types_spaces' => true,
-    ])
-    ->setFinder(
-        PhpCsFixer\Finder::create()
-            ->in([
-                __DIR__,
-            ])
-            ->exclude([
-                __DIR__ . '/shell/translations.php',
-            ])
-            ->name('*.php')
-            ->ignoreDotFiles(true)
-            ->ignoreVCS(true),
-    );
+    ]);

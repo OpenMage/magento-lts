@@ -27,7 +27,6 @@ class Mage_Sales_Model_Observer
      * Clean expired quotes (cron process)
      *
      * @return $this
-     * @throws Mage_Core_Exception
      */
     public function cleanExpiredQuotes()
     {
@@ -405,7 +404,6 @@ class Mage_Sales_Model_Observer
 
         /** @var Mage_Sales_Model_Quote_Address $quoteAddress */
         $quoteAddress = $observer->getQuoteAddress();
-        /** @var Mage_Sales_Model_Quote $quoteInstance */
         $quoteInstance = $quoteAddress->getQuote();
         $customerInstance = $quoteInstance->getCustomer();
         $isDisableAutoGroupChange = $customerInstance->getDisableAutoGroupChange();
