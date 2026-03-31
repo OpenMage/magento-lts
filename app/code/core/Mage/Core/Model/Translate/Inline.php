@@ -527,20 +527,20 @@ class Mage_Core_Model_Translate_Inline
         }
 
         $next = 0;
-        $m    = [];
-        while (preg_match('#' . $this->_tokenRegex . '#', $this->_content, $m, PREG_OFFSET_CAPTURE, $next)) {
-            $tr = json_encode([
-                'shown' => $m[1][0],
-                'translated' => $m[2][0],
-                'original' => $m[3][0],
+        $matches = [];
+        while (preg_match('#' . $this->_tokenRegex . '#', $this->_content, $matches, PREG_OFFSET_CAPTURE, $next)) {
+            $str = json_encode([
+                'shown' => $matches[1][0],
+                'translated' => $matches[2][0],
+                'original' => $matches[3][0],
                 'location' => 'Text',
-                'scope' => $m[4][0],
+                'scope' => $matches[4][0],
             ]);
 
-            $spanHtml = '<span data-translate=' . $quoteHtml . htmlspecialchars('[' . $tr . ']') . $quoteHtml
-                . '>' . $m[1][0] . '</span>';
-            $this->_content = substr_replace($this->_content, $spanHtml, $m[0][1], strlen($m[0][0]));
-            $next = $m[0][1] + strlen($spanHtml) - 1;
+            $spanHtml = '<span data-translate=' . $quoteHtml . htmlspecialchars('[' . $str . ']') . $quoteHtml
+                . '>' . $matches[1][0] . '</span>';
+            $this->_content = substr_replace($this->_content, $spanHtml, $matches[0][1], strlen($matches[0][0]));
+            $next = $matches[0][1] + strlen($spanHtml) - 1;
         }
     }
 

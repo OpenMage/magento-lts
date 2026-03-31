@@ -1197,30 +1197,30 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
 
         $result = Mage::getModel('shipping/tracking_result');
         if ($errorArr || $resultArr) {
-            foreach ($errorArr as $t => $r) {
+            foreach ($errorArr as $trackingData => $message) {
                 $error = Mage::getModel('shipping/tracking_result_error');
                 $error->setCarrier('dhl');
                 $error->setCarrierTitle($this->getConfigData('title'));
-                $error->setTracking($t);
-                $error->setErrorMessage($r);
+                $error->setTracking($trackingData);
+                $error->setErrorMessage($message);
                 $result->append($error);
             }
 
-            foreach ($resultArr as $t => $data) {
+            foreach ($resultArr as $trackingData => $data) {
                 $tracking = Mage::getModel('shipping/tracking_result_status');
                 $tracking->setCarrier('dhl');
                 $tracking->setCarrierTitle($this->getConfigData('title'));
-                $tracking->setTracking($t);
+                $tracking->setTracking($trackingData);
                 $tracking->addData($data);
 
                 $result->append($tracking);
             }
         } else {
-            foreach ($trackings as $t) {
+            foreach ($trackings as $trackingData) {
                 $error = Mage::getModel('shipping/tracking_result_error');
                 $error->setCarrier('dhl');
                 $error->setCarrierTitle($this->getConfigData('title'));
-                $error->setTracking($t);
+                $error->setTracking($trackingData);
                 $error->setErrorMessage($errorTitle);
                 $result->append($error);
             }
