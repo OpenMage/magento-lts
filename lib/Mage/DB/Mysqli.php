@@ -424,10 +424,10 @@ class Mage_DB_Mysqli
     {
         $table = $this->escapeTableName($table);
         $set = [];
-        foreach ($data as $k => $v) {
-            $k = $this->escapeFieldName($k);
-            $v = $this->escapeFieldValue($v);
-            $set[] = $k . ' = ' . $v;
+        foreach ($data as $key => $value) {
+            $key   = $this->escapeFieldName($key);
+            $value = $this->escapeFieldValue($value);
+            $set[] = $key . ' = ' . $value;
         }
 
         $set = implode(',', $set);
@@ -445,13 +445,13 @@ class Mage_DB_Mysqli
     public function updateAssocByKey($table, array $data, $value, $key = 'id')
     {
         $table = $this->escapeTableName($table);
-        $key = $this->escapeFieldName($key);
+        $key   = $this->escapeFieldName($key);
         $value = $this->escapeFieldValue($value);
         $set = [];
-        foreach ($data as $k => $v) {
-            $k = $this->escapeFieldName($k);
-            $v = $this->escapeFieldValue($v);
-            $set[] = $k . ' = ' . $v;
+        foreach ($data as $index => $val) {
+            $index = $this->escapeFieldName($index);
+            $val   = $this->escapeFieldValue($val);
+            $set[] = $index . ' = ' . $val;
         }
 
         $set = implode(',', $set);

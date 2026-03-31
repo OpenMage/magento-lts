@@ -1166,8 +1166,8 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
                 'base_url'  => $baseUrl,
             ];
 
-            foreach ($this->_distroServerVars as $k => $v) {
-                $this->_substServerVars['{{' . $k . '}}'] = $v;
+            foreach ($this->_distroServerVars as $key => $serverVar) {
+                $this->_substServerVars['{{' . $key . '}}'] = $serverVar;
             }
         }
 

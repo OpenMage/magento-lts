@@ -143,8 +143,8 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
     public function assign($key, $value = null)
     {
         if (is_array($key)) {
-            foreach ($key as $k => $v) {
-                $this->assign($k, $v);
+            foreach ($key as $index => $val) {
+                $this->assign($index, $val);
             }
         } else {
             $this->_viewVars[$key] = $value;

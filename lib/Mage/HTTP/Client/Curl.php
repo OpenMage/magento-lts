@@ -341,8 +341,8 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
 
         if (count($this->_headers)) {
             $heads = [];
-            foreach ($this->_headers as $k => $v) {
-                $heads[] = $k . ': ' . $v;
+            foreach ($this->_headers as $key => $value) {
+                $heads[] = $key . ': ' . $value;
             }
 
             $this->curlOption(CURLOPT_HTTPHEADER, $heads);
@@ -350,8 +350,8 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
 
         if (count($this->_cookies)) {
             $cookies = [];
-            foreach ($this->_cookies as $k => $v) {
-                $cookies[] = "$k=$v";
+            foreach ($this->_cookies as $key => $value) {
+                $cookies[] = "$key=$value";
             }
 
             $this->curlOption(CURLOPT_COOKIE, implode(';', $cookies));
@@ -370,8 +370,8 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
         $this->curlOption(CURLOPT_HEADERFUNCTION, [$this,'parseHeaders']);
 
         if (count($this->_curlUserOptions)) {
-            foreach ($this->_curlUserOptions as $k => $v) {
-                $this->curlOption($k, $v);
+            foreach ($this->_curlUserOptions as $key => $value) {
+                $this->curlOption($key, $value);
             }
         }
 

@@ -347,8 +347,8 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
         }
 
         // strip whitespace from the beginning and end of each row
-        foreach ($row as $k => $v) {
-            $row[$k] = trim($v);
+        foreach ($row as $key => $val) {
+            $row[$key] = trim($val);
         }
 
         // validate country

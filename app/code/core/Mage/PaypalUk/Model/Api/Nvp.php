@@ -509,8 +509,8 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
     protected function _buildQuery($request)
     {
         $result = '';
-        foreach ($request as $k => $v) {
-            $result .= '&' . $k . '=' . $v;
+        foreach ($request as $key => $value) {
+            $result .= '&' . $key . '=' . $value;
         }
 
         return trim($result, '&');

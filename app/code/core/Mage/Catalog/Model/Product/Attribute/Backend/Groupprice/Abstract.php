@@ -220,11 +220,11 @@ abstract class Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract 
         }
 
         $data = $this->_getResource()->loadPriceData($object->getId(), $websiteId);
-        foreach ($data as $k => $v) {
-            $data[$k]['website_price'] = $v['price'];
-            $data[$k]['is_percent']    = isset($v['is_percent']) ? isset($v['is_percent']) : 0;
-            if ($v['all_groups']) {
-                $data[$k]['cust_group'] = Mage_Customer_Model_Group::CUST_GROUP_ALL;
+        foreach ($data as $key => $value) {
+            $data[$key]['website_price'] = $value['price'];
+            $data[$key]['is_percent']    = isset($value['is_percent']) ? isset($value['is_percent']) : 0;
+            if ($value['all_groups']) {
+                $data[$key]['cust_group'] = Mage_Customer_Model_Group::CUST_GROUP_ALL;
             }
         }
 
@@ -350,12 +350,12 @@ abstract class Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract 
             $isChanged = true;
         }
 
-        foreach ($update as $k => $v) {
-            if ($old[$k]['price'] != $v['value'] || $old[$k]['is_percent'] != $v['is_percent']) {
+        foreach ($update as $index => $value) {
+            if ($old[$index]['price'] != $value['value'] || $old[$index]['is_percent'] != $value['is_percent']) {
                 $price = new Varien_Object([
-                    'value_id'   => $old[$k]['price_id'],
-                    'value'      => $v['value'],
-                    'is_percent' => $v['is_percent'],
+                    'value_id'   => $old[$index]['price_id'],
+                    'value'      => $value['value'],
+                    'is_percent' => $value['is_percent'],
                 ]);
                 $this->_getResource()->savePriceData($price);
 

@@ -94,10 +94,10 @@ class Mage_Eav_Model_Convert_Adapter_Entity extends Mage_Dataflow_Model_Convert_
             }
 
             if ($type == 'dateFromTo' || $type == 'datetimeFromTo') {
-                foreach ($filters as $k => $v) {
-                    if (str_starts_with($k, $key . '/')) {
-                        $split = explode('/', $k);
-                        $filters[$key][$split[1]] = $v;
+                foreach ($filters as $index => $filter) {
+                    if (str_starts_with($index, $key . '/')) {
+                        $split = explode('/', $index);
+                        $filters[$key][$split[1]] = $filter;
                     }
                 }
             }

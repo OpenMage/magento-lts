@@ -37,8 +37,8 @@ class Mage_Core_Block_Text_Tag extends Mage_Core_Block_Text
     public function setTagParam($param, $value = null)
     {
         if (is_array($param) && is_null($value)) {
-            foreach ($param as $k => $v) {
-                $this->setTagParam($k, $v);
+            foreach ($param as $key => $val) {
+                $this->setTagParam($key, $val);
             }
         } else {
             $params = $this->getTagParams();
@@ -66,8 +66,8 @@ class Mage_Core_Block_Text_Tag extends Mage_Core_Block_Text
     {
         $this->setText('<' . $this->getTagName() . ' ');
         if ($this->getTagParams()) {
-            foreach ($this->getTagParams() as $k => $v) {
-                $this->addText($k . '="' . $v . '" ');
+            foreach ($this->getTagParams() as $key => $value) {
+                $this->addText($key . '="' . $value . '" ');
             }
         }
 

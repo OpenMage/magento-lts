@@ -156,18 +156,18 @@ class Varien_Debug
         } elseif (is_array($arg)) {
             $isAssociative = false;
             $args = [];
-            foreach ($arg as $k => $v) {
-                if (!is_numeric($k)) {
+            foreach ($arg as $key => $value) {
+                if (!is_numeric($key)) {
                     $isAssociative = true;
                 }
 
-                $args[$k] = self::_formatCalledArgument($v);
+                $args[$key] = self::_formatCalledArgument($value);
             }
 
             if ($isAssociative) {
                 $arr = [];
-                foreach ($args as $k => $v) {
-                    $arr[] = self::_formatCalledArgument($k) . ' => ' . $v;
+                foreach ($args as $key => $value) {
+                    $arr[] = self::_formatCalledArgument($key) . ' => ' . $value;
                 }
 
                 $out .= 'array(' . implode(', ', $arr) . ')';

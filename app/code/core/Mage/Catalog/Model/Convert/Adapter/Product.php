@@ -254,8 +254,8 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
         if (is_null($this->_productTypes)) {
             $this->_productTypes = [];
             $options = Mage::getModel('catalog/product_type')::getOptionArray();
-            foreach ($options as $k => $v) {
-                $this->_productTypes[$k] = $k;
+            foreach ($options as $key => $option) {
+                $this->_productTypes[$key] = $key;
             }
         }
 

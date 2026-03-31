@@ -498,8 +498,8 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
         $headers['Connection'] = 'close';
         $headers = array_merge($headers, $this->_headers, $append);
         $str = [];
-        foreach ($headers as $k => $v) {
-            $str [] = "$k: $v\r\n";
+        foreach ($headers as $key => $header) {
+            $str [] = "$key: $header\r\n";
         }
 
         return implode('', $str);

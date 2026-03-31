@@ -72,9 +72,9 @@ class Mage_Core_Model_Layout_Update
     public function __construct()
     {
         $subst = Mage::getConfig()->getPathVars();
-        foreach ($subst as $k => $v) {
-            $this->_subst['from'][] = '{{' . $k . '}}';
-            $this->_subst['to'][] = $v;
+        foreach ($subst as $key => $value) {
+            $this->_subst['from'][] = '{{' . $key . '}}';
+            $this->_subst['to'][] = $value;
         }
     }
 
