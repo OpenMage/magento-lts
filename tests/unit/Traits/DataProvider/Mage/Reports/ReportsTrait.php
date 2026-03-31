@@ -21,7 +21,7 @@ trait ReportsTrait
 
     public static string $dateLastDay   = '2025-12-31';
 
-    public function provideReportsDateIntervals(): Generator
+    public function provideReportsDateIntervalsData(): Generator
     {
         $prefix = Mage_Reports_Helper_Data::REPORT_PERIOD_TYPE_DAY . ': ';
 
@@ -31,20 +31,36 @@ trait ReportsTrait
             '',
             Mage_Reports_Helper_Data::REPORT_PERIOD_TYPE_DAY,
         ];
+        yield $prefix . 'no from/to null' => [
+            0,
+            null,
+            null,
+            Mage_Reports_Helper_Data::REPORT_PERIOD_TYPE_DAY,
+        ];
         yield $prefix . 'no from' => [
             "No date part in '' found.",
             '',
             self::$dateFirstDay,
             Mage_Reports_Helper_Data::REPORT_PERIOD_TYPE_DAY,
         ];
-
+        yield $prefix . 'no from null' => [
+            "No date part in '' found.",
+            null,
+            self::$dateFirstDay,
+            Mage_Reports_Helper_Data::REPORT_PERIOD_TYPE_DAY,
+        ];
         yield $prefix . 'no to' => [
             "No date part in '' found.",
             self::$dateFirstDay,
             '',
             Mage_Reports_Helper_Data::REPORT_PERIOD_TYPE_DAY,
         ];
-
+        yield $prefix . 'no to null' => [
+            "No date part in '' found.",
+            self::$dateFirstDay,
+            null,
+            Mage_Reports_Helper_Data::REPORT_PERIOD_TYPE_DAY,
+        ];
         yield $prefix . 'same day' => [
             1,
             self::$dateFirstDay,

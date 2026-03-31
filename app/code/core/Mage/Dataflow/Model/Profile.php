@@ -402,13 +402,13 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
         $mapXml .= '<action type="dataflow/convert_mapper_column" method="map">' . $newLine;
         $map = $data['map'][$this->getEntityType()];
         if (count($map['db'])) {
-            $from = $map[$import ? 'file' : 'db'];
-            $to = $map[$import ? 'db' : 'file'];
+            $importFrom = $map[$import ? 'file' : 'db'];
+            $importTo   = $map[$import ? 'db' : 'file'];
             $mapXml .= '    <var name="map">' . $newLine;
             $parseFileXmlInter .= '    <var name="map">' . $newLine;
-            foreach ($from as $i => $f) {
-                $mapXml .= '        <map name="' . $f . '"><![CDATA[' . $to[$i] . ']]></map>' . $newLine;
-                $parseFileXmlInter .= '        <map name="' . $f . '"><![CDATA[' . $to[$i] . ']]></map>' . $newLine;
+            foreach ($importFrom as $i => $f) {
+                $mapXml .= '        <map name="' . $f . '"><![CDATA[' . $importTo[$i] . ']]></map>' . $newLine;
+                $parseFileXmlInter .= '        <map name="' . $f . '"><![CDATA[' . $importTo[$i] . ']]></map>' . $newLine;
             }
 
             $mapXml .= '    </var>' . $newLine;

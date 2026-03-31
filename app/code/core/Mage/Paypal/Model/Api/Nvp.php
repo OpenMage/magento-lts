@@ -1309,10 +1309,10 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
      * @return array
      * @deprecated after 1.4.2.0-beta1, use _importAddresses() instead
      */
-    protected function _importAddress(Varien_Object $address, array $to)
+    protected function _importAddress(Varien_Object $address, array $target)
     {
         $this->setAddress($address);
-        return $this->_importAddresses($to);
+        return $this->_importAddresses($target);
     }
 
     /**
@@ -1320,33 +1320,33 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
      *
      * @return array
      */
-    protected function _importAddresses(array $to)
+    protected function _importAddresses(array $target)
     {
         $billingAddress  = ($this->getBillingAddress()) ? $this->getBillingAddress() : $this->getAddress();
         $shippingAddress = $this->getAddress();
 
-        $to = Varien_Object_Mapper::accumulateByMap(
+        $target = Varien_Object_Mapper::accumulateByMap(
             $billingAddress,
-            $to,
+            $target,
             array_merge(array_flip($this->_billingAddressMap), $this->_billingAddressMapRequest),
         );
         if ($regionCode = $this->_lookupRegionCodeFromAddress($billingAddress)) {
-            $to['STATE'] = $regionCode;
+            $target['STATE'] = $regionCode;
         }
 
         if (!$this->getSuppressShipping()) {
-            $to = Varien_Object_Mapper::accumulateByMap($shippingAddress, $to, array_flip($this->_shippingAddressMap));
+            $target = Varien_Object_Mapper::accumulateByMap($shippingAddress, $target, array_flip($this->_shippingAddressMap));
             if ($regionCode = $this->_lookupRegionCodeFromAddress($shippingAddress)) {
-                $to['SHIPTOSTATE'] = $regionCode;
+                $target['SHIPTOSTATE'] = $regionCode;
             }
 
-            $this->_importStreetFromAddress($shippingAddress, $to, 'SHIPTOSTREET', 'SHIPTOSTREET2');
-            $this->_importStreetFromAddress($billingAddress, $to, 'STREET', 'STREET2');
-            $to['SHIPTONAME'] = $shippingAddress->getName();
+            $this->_importStreetFromAddress($shippingAddress, $target, 'SHIPTOSTREET', 'SHIPTOSTREET2');
+            $this->_importStreetFromAddress($billingAddress, $target, 'STREET', 'STREET2');
+            $target['SHIPTONAME'] = $shippingAddress->getName();
         }
 
-        $this->_applyCountryWorkarounds($to);
-        return $to;
+        $this->_applyCountryWorkarounds($target);
+        return $target;
     }
 
     /**

@@ -101,11 +101,11 @@ class Varien_Event_Observer_Cron extends Varien_Event_Observer
                 return false;
             }
 
-            $from = $this->getNumeric($exprArray[0]);
-            $to = $this->getNumeric($exprArray[1]);
+            $min = $this->getNumeric($exprArray[0]);
+            $max = $this->getNumeric($exprArray[1]);
 
-            return ($from !== false) && ($to !== false)
-                && ($num >= $from) && ($num <= $to) && ($num % $mod === 0);
+            return ($min !== false) && ($max !== false)
+                && ($num >= $min) && ($num <= $max) && ($num % $mod === 0);
         }
 
         // handle regular token

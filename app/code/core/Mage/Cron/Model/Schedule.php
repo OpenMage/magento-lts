@@ -155,26 +155,26 @@ class Mage_Cron_Model_Schedule extends Mage_Core_Model_Abstract
 
         // handle all match by modulus
         if ($expr === '*') {
-            $from = 0;
-            $to = 60;
+            $min = 0;
+            $max = 60;
         } elseif (str_contains($expr, '-')) { // handle range
             $exprArray = explode('-', $expr);
             if (count($exprArray) !== 2) {
                 throw Mage::exception('Mage_Cron', "Invalid cron expression, expecting 'from-to' structure: " . $expr);
             }
 
-            $from = $this->getNumeric($exprArray[0]);
-            $to = $this->getNumeric($exprArray[1]);
+            $min = $this->getNumeric($exprArray[0]);
+            $max = $this->getNumeric($exprArray[1]);
         } else { // handle regular token
-            $from = $this->getNumeric($expr);
-            $to = $from;
+            $min = $this->getNumeric($expr);
+            $max = $min;
         }
 
-        if ($from === false || $to === false) {
+        if ($min === false || $max === false) {
             throw Mage::exception('Mage_Cron', 'Invalid cron expression: ' . $expr);
         }
 
-        return ($num >= $from) && ($num <= $to) && ($num % $mod === 0);
+        return ($num >= $min) && ($num <= $max) && ($num % $mod === 0);
     }
 
     /**

@@ -276,20 +276,20 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
         }
 
         foreach ($config->children() as $rewrite) {
-            $from = (string) $rewrite->from;
-            $to = (string) $rewrite->to;
-            if (empty($from)) {
+            $rewriteFrom = (string) $rewrite->from;
+            $rewriteTo   = (string) $rewrite->to;
+            if (empty($rewriteFrom)) {
                 continue;
             }
 
-            if (empty($to)) {
+            if (empty($rewriteTo)) {
                 continue;
             }
 
-            $from = $this->_processRewriteUrl($from);
-            $to   = $this->_processRewriteUrl($to);
+            $rewriteFrom = $this->_processRewriteUrl($rewriteFrom);
+            $rewriteTo   = $this->_processRewriteUrl($rewriteTo);
 
-            $pathInfo = preg_replace($from, $to, $request->getPathInfo());
+            $pathInfo = preg_replace($rewriteFrom, $rewriteTo, $request->getPathInfo());
 
             if (isset($rewrite->complete)) {
                 $request->setPathInfo($pathInfo);

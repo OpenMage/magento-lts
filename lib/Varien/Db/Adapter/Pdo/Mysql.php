@@ -3147,14 +3147,14 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
 
             if (isset($condition['from']) || isset($condition['to'])) {
                 if (isset($condition['from'])) {
-                    $from  = $this->_prepareSqlDateCondition($condition, 'from');
-                    $query = $this->_prepareQuotedSqlCondition($conditionKeyMap['from'], $from, $fieldName);
+                    $min   = $this->_prepareSqlDateCondition($condition, 'from');
+                    $query = $this->_prepareQuotedSqlCondition($conditionKeyMap['from'], $min, $fieldName);
                 }
 
                 if (isset($condition['to'])) {
                     $query .= empty($query) ? '' : ' AND ';
-                    $to     = $this->_prepareSqlDateCondition($condition, 'to');
-                    $query .= $this->_prepareQuotedSqlCondition($conditionKeyMap['to'], $to, $fieldName);
+                    $max    = $this->_prepareSqlDateCondition($condition, 'to');
+                    $query .= $this->_prepareQuotedSqlCondition($conditionKeyMap['to'], $max, $fieldName);
                 }
             } elseif (array_key_exists($key, $conditionKeyMap)) {
                 $value = $condition[$key];
