@@ -157,9 +157,9 @@ class Mage_Adminhtml_Api_UserController extends Mage_Adminhtml_Controller_Action
                     } elseif (count($uRoles) > 1) {
                         //@FIXME: stupid fix of previous multi-roles logic.
                         //@TODO:  make proper DB upgrade in the future revisions.
-                        $rs = [];
-                        $rs[0] = $uRoles[0];
-                        $model->setRoleIds($rs)->setRoleUserId($model->getUserId())->saveRelations();
+                        $roles = [];
+                        $roles[0] = $uRoles[0];
+                        $model->setRoleIds($roles)->setRoleUserId($model->getUserId())->saveRelations();
                     }
                 }
 
