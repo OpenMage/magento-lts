@@ -98,31 +98,31 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
      * Calculate coordinates to draw something in a column aligned to the right
      *
      * @param  string $string
-     * @param  int    $x
+     * @param  int    $xAxis
      * @param  int    $columnWidth
      * @param  int    $fontSize
      * @param  int    $padding
      * @return float
      */
-    public function getAlignRight($string, $x, $columnWidth, Zend_Pdf_Resource_Font $font, $fontSize, $padding = 5)
+    public function getAlignRight($string, $xAxis, $columnWidth, Zend_Pdf_Resource_Font $font, $fontSize, $padding = 5)
     {
         $width = $this->widthForStringUsingFontSize($string, $font, $fontSize);
-        return $x + $columnWidth - $width - $padding;
+        return $xAxis + $columnWidth - $width - $padding;
     }
 
     /**
      * Calculate coordinates to draw something in a column aligned to the center
      *
      * @param  string $string
-     * @param  int    $x
+     * @param  int    $xAxis
      * @param  int    $columnWidth
      * @param  int    $fontSize
      * @return float
      */
-    public function getAlignCenter($string, $x, $columnWidth, Zend_Pdf_Resource_Font $font, $fontSize)
+    public function getAlignCenter($string, $xAxis, $columnWidth, Zend_Pdf_Resource_Font $font, $fontSize)
     {
         $width = $this->widthForStringUsingFontSize($string, $font, $fontSize);
-        return $x + round(($columnWidth - $width) / 2);
+        return $xAxis + round(($columnWidth - $width) / 2);
     }
 
     /**
