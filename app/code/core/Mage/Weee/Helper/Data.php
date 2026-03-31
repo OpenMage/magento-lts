@@ -104,8 +104,11 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function isTaxable($store = null)
     {
-        return Mage::getStoreConfig('tax/weee/apply_vat', $store) == self::TAXED
-            || Mage::getStoreConfig('tax/weee/apply_vat', $store) == self::LOADED_AND_DISPLAY_WITH_TAX;
+        if (Mage::getStoreConfig('tax/weee/apply_vat', $store) == self::TAXED) {
+            return true;
+        }
+
+        return Mage::getStoreConfig('tax/weee/apply_vat', $store) == self::LOADED_AND_DISPLAY_WITH_TAX;
     }
 
     /**

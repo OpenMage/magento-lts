@@ -115,9 +115,15 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
             return false;
         }
 
-        return ($this->_isShowAlways() || $this->_isOverLimitAttempts($login)
-            || $this->getSession()->getData($this->_getFormIdKey('show_captcha'))
-        );
+        if ($this->_isShowAlways()) {
+            return true;
+        }
+
+        if ($this->_isOverLimitAttempts($login)) {
+            return true;
+        }
+
+        return (bool) $this->getSession()->getData($this->_getFormIdKey('show_captcha'));
     }
 
     /**
@@ -128,7 +134,11 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
      */
     protected function _isOverLimitAttempts($login)
     {
-        return ($this->_isOverLimitIpAttempt() || $this->_isOverLimitLoginAttempts($login));
+        if ($this->_isOverLimitIpAttempt()) {
+            return true;
+        }
+
+        return $this->_isOverLimitLoginAttempts($login);
     }
 
     /**

@@ -681,10 +681,19 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
      */
     protected function _canShowForUnregisteredUsers()
     {
-        return Mage::getSingleton('customer/session')->isLoggedIn()
-            || $this->getRequest()->getActionName() == 'index'
-            || Mage::helper('checkout')->isAllowedGuestCheckout($this->getOnepage()->getQuote())
-            || !Mage::helper('checkout')->isCustomerMustBeLogged();
+        if (Mage::getSingleton('customer/session')->isLoggedIn()) {
+            return true;
+        }
+
+        if ($this->getRequest()->getActionName() == 'index') {
+            return true;
+        }
+
+        if (Mage::helper('checkout')->isAllowedGuestCheckout($this->getOnepage()->getQuote())) {
+            return true;
+        }
+
+        return !Mage::helper('checkout')->isCustomerMustBeLogged();
     }
 
     /**
