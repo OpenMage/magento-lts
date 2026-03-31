@@ -192,7 +192,7 @@ abstract class Mage_Core_Helper_Abstract
             foreach ($data as $item) {
                 $result[] = $this->escapeHtml($item);
             }
-        } elseif (is_string($data) && strlen($data) > 0) {
+        } elseif (is_string($data) && $data !== '') {
             // process single item
             if (is_array($allowedTags) && $allowedTags !== []) {
                 $allowed = implode('|', $allowedTags);
