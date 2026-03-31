@@ -29,18 +29,18 @@ class Varien_Event_Observer_Cron extends Varien_Event_Observer
      */
     public function isValidFor(Varien_Event $event)
     {
-        $e = preg_split('#\s+#', $this->getCronExpr(), -1, PREG_SPLIT_NO_EMPTY);
-        if (count($e) !== 5) {
+        $expressions = preg_split('#\s+#', $this->getCronExpr(), -1, PREG_SPLIT_NO_EMPTY);
+        if (count($expressions) !== 5) {
             return false;
         }
 
-        $d = getdate($this->getNow());
+        $date = getdate($this->getNow());
 
-        return $this->matchCronExpression($e[0], $d['minutes'])
-            && $this->matchCronExpression($e[1], $d['hours'])
-            && $this->matchCronExpression($e[2], $d['mday'])
-            && $this->matchCronExpression($e[3], $d['mon'])
-            && $this->matchCronExpression($e[4], $d['wday']);
+        return $this->matchCronExpression($expressions[0], $date['minutes'])
+            && $this->matchCronExpression($expressions[1], $date['hours'])
+            && $this->matchCronExpression($expressions[2], $date['mday'])
+            && $this->matchCronExpression($expressions[3], $date['mon'])
+            && $this->matchCronExpression($expressions[4], $date['wday']);
     }
 
     /**

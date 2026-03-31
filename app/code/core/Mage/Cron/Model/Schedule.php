@@ -96,13 +96,13 @@ class Mage_Cron_Model_Schedule extends Mage_Core_Model_Abstract
             $time = null;
         }
 
-        $d = getdate(Mage::getSingleton('core/date')->timestamp($time));
+        $date = getdate(Mage::getSingleton('core/date')->timestamp($time));
 
-        $match = $this->matchCronExpression($e[0], $d['minutes'])
-            && $this->matchCronExpression($e[1], $d['hours'])
-            && $this->matchCronExpression($e[2], $d['mday'])
-            && $this->matchCronExpression($e[3], $d['mon'])
-            && $this->matchCronExpression($e[4], $d['wday']);
+        $match = $this->matchCronExpression($e[0], $date['minutes'])
+            && $this->matchCronExpression($e[1], $date['hours'])
+            && $this->matchCronExpression($e[2], $date['mday'])
+            && $this->matchCronExpression($e[3], $date['mon'])
+            && $this->matchCronExpression($e[4], $date['wday']);
 
         if ($match) {
             $this->setCreatedAt(date(Varien_Db_Adapter_Pdo_Mysql::TIMESTAMP_FORMAT));
