@@ -179,7 +179,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_File extends Mage_Core_Model_Co
     {
         $fieldConfig = $this->getFieldConfig();
         $element = $fieldConfig->descend('upload_dir');
-        return (!empty($element['scope_info']));
+        return !empty($element['scope_info']);
     }
 
     /**
