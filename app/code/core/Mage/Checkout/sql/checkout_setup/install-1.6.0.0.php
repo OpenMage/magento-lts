@@ -785,9 +785,9 @@ if ($data) {
         }
 
         $setup->commit();
-    } catch (Exception $exeption) {
+    } catch (Exception $exception) {
         $setup->rollBack();
-        throw $exeption;
+        throw $exception;
     }
 }
 
