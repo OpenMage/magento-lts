@@ -34,7 +34,7 @@ try {
     return RectorConfig::configure()
         ->withFileExtensions(['php', 'phtml'])
         ->withCache(
-            cacheDirectory: '.rector.result.cache',
+            cacheDirectory: __DIR__ . '.cache/.rector.result.cache',
             cacheClass: FileCacheStorage::class,
         )
         ->withImportNames(removeUnusedImports: true)
