@@ -184,7 +184,6 @@ class Mage_Install_Model_Installer extends Varien_Object
      * @param  array                       $data
      * @return array|Mage_Admin_Model_User
      * @throws Mage_Core_Exception
-     * @throws Zend_Validate_Exception
      */
     public function validateAndPrepareAdministrator($data)
     {

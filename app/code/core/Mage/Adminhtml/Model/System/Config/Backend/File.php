@@ -85,7 +85,6 @@ class Mage_Adminhtml_Model_System_Config_Backend_File extends Mage_Core_Model_Co
      * Delete file after a file is uploaded
      *
      * @return $this
-     * @throws Mage_Core_Exception
      */
     protected function _afterSave()
     {
