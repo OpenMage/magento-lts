@@ -280,14 +280,14 @@ class Mage_Api2_Model_Server
                 $renderer->getMimeType(),
                 Mage_Api2_Model_Response::RESPONSE_CHARSET,
             ));
-        } catch (Exception $exeption_) {
+        } catch (Exception $exception) {
             //tunnelling of 406(Not acceptable) error
-            $httpCode = $exeption_->getCode() == self::HTTP_NOT_ACCEPTABLE    //$exeption_->getCode() can result in one more loop
+            $httpCode = $exception->getCode() == self::HTTP_NOT_ACCEPTABLE    //$exception->getCode() can result in one more loop
                     ? self::HTTP_NOT_ACCEPTABLE                               // of try..catch
                     : self::HTTP_INTERNAL_ERROR;
 
             //if error appeared in "error rendering" process then show it in plain text
-            $response->setBody($exeption_->getMessage());
+            $response->setBody($exception->getMessage());
             $response->setHeader('Content-Type', 'text/plain; charset=' . Mage_Api2_Model_Response::RESPONSE_CHARSET);
         }
 
