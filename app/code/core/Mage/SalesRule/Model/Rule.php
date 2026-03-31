@@ -417,9 +417,9 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
         $couponCode = self::getCouponCodeGenerator()->generateCode();
         $coupon->setCode($couponCode);
 
-        $ok = false;
+        $check = false;
         if (!$saveNewlyCreated) {
-            $ok = true;
+            $check = true;
         } elseif ($this->getId()) {
             for ($attemptNum = 0; $attemptNum < $saveAttemptCount; $attemptNum++) {
                 try {
@@ -437,12 +437,12 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
                     continue;
                 }
 
-                $ok = true;
+                $check = true;
                 break;
             }
         }
 
-        if (!$ok) {
+        if (!$check) {
             Mage::throwException(Mage::helper('salesrule')->__("Can't acquire coupon."));
         }
 
