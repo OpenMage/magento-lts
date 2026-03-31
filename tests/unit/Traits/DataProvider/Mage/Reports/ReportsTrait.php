@@ -44,7 +44,7 @@ trait ReportsTrait
             Mage_Reports_Helper_Data::REPORT_PERIOD_TYPE_DAY,
         ];
         yield $prefix . 'no from null' => [
-            "No date part in '' found.",
+            0,
             null,
             self::$dateFirstDay,
             Mage_Reports_Helper_Data::REPORT_PERIOD_TYPE_DAY,
@@ -56,7 +56,7 @@ trait ReportsTrait
             Mage_Reports_Helper_Data::REPORT_PERIOD_TYPE_DAY,
         ];
         yield $prefix . 'no to null' => [
-            "No date part in '' found.",
+            455,
             self::$dateFirstDay,
             null,
             Mage_Reports_Helper_Data::REPORT_PERIOD_TYPE_DAY,
