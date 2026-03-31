@@ -191,15 +191,15 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
         $this->_importErrors        = [];
         $this->_importedRows        = 0;
 
-        $io     = new Varien_Io_File();
+        $ioFile = new Varien_Io_File();
         $info   = pathinfo($csvFile);
-        $io->open(['path' => $info['dirname']]);
-        $io->streamOpen($info['basename'], 'r');
+        $ioFile->open(['path' => $info['dirname']]);
+        $ioFile->streamOpen($info['basename'], 'r');
 
         // check and skip headers
-        $headers = $io->streamReadCsv();
+        $headers = $ioFile->streamReadCsv();
         if ($headers === false || count($headers) < 5) {
-            $io->streamClose();
+            $ioFile->streamClose();
             Mage::throwException(Mage::helper('shipping')->__('Invalid Table Rates File Format'));
         }
 
@@ -228,7 +228,7 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
             ];
             $adapter->delete($this->getMainTable(), $condition);
 
-            while (($csvLine = $io->streamReadCsv()) !== false) {
+            while (($csvLine = $ioFile->streamReadCsv()) !== false) {
                 $rowNumber++;
 
                 if (empty($csvLine)) {
@@ -247,15 +247,15 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
             }
 
             $this->_saveImportData($importData);
-            $io->streamClose();
+            $ioFile->streamClose();
             $adapter->commit();
         } catch (Mage_Core_Exception $mageCoreException) {
             $adapter->rollBack();
-            $io->streamClose();
+            $ioFile->streamClose();
             Mage::throwException($mageCoreException->getMessage());
         } catch (Exception $exception) {
             $adapter->rollBack();
-            $io->streamClose();
+            $ioFile->streamClose();
             Mage::logException($exception);
             Mage::throwException(Mage::helper('shipping')->__('An error occurred while import table rates.'));
         }

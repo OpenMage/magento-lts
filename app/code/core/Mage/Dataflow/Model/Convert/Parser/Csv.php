@@ -152,18 +152,18 @@ class Mage_Dataflow_Model_Convert_Parser_Csv extends Mage_Dataflow_Model_Convert
         $fieldList = $this->getBatchModel()->getFieldList();
         $batchExportIds = $batchExport->getIdCollection();
 
-        $io = $this->getBatchModel()->getIoAdapter();
-        $io->open();
+        $ioAdapter = $this->getBatchModel()->getIoAdapter();
+        $ioAdapter->open();
 
         if (!$batchExportIds) {
-            $io->write('');
-            $io->close();
+            $ioAdapter->write('');
+            $ioAdapter->close();
             return $this;
         }
 
         if ($this->getVar('fieldnames')) {
             $csvData = $this->getCsvString($fieldList);
-            $io->write($csvData);
+            $ioAdapter->write($csvData);
         }
 
         foreach ($batchExportIds as $batchExportId) {
@@ -176,10 +176,10 @@ class Mage_Dataflow_Model_Convert_Parser_Csv extends Mage_Dataflow_Model_Convert
             }
 
             $csvData = $this->getCsvString($csvData);
-            $io->write($csvData);
+            $ioAdapter->write($csvData);
         }
 
-        $io->close();
+        $ioAdapter->close();
 
         return $this;
     }

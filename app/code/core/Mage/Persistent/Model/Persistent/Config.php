@@ -51,10 +51,10 @@ class Mage_Persistent_Model_Persistent_Config
         if (is_null($this->_xmlConfig)) {
             $filePath = $this->_configFilePath;
             if (!is_file($filePath) || !is_readable($filePath)) {
-                $io = new Varien_Io_File();
+                $ioFile = new Varien_Io_File();
                 Mage::throwException(Mage::helper('persistent')->__(
                     'Cannot load configuration from file %s.',
-                    $io->getFilteredPath($filePath),
+                    $ioFile->getFilteredPath($filePath),
                 ));
             }
 

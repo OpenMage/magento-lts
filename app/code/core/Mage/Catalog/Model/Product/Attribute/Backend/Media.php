@@ -673,11 +673,11 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
             }
         } catch (Exception) {
             $file = $this->_getConfig()->getMediaPath($file);
-            $io = new Varien_Io_File();
+            $ioFile = new Varien_Io_File();
             Mage::throwException(
                 Mage::helper('catalog')->__(
                     'Failed to copy file %s. Please, delete media with non-existing images and try again.',
-                    $io->getFilteredPath($file),
+                    $ioFile->getFilteredPath($file),
                 ),
             );
         }

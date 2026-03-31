@@ -120,10 +120,10 @@ class Mage_Api_Model_Server_Adapter_Soap extends Varien_Object implements Mage_A
 
         if ($this->getController()->getRequest()->getParam('wsdl') !== null) {
             // Generating wsdl content from template
-            $io = new Varien_Io_File();
-            $io->open(['path' => Mage::getModuleDir('etc', 'Mage_Api')]);
+            $ioFile = new Varien_Io_File();
+            $ioFile->open(['path' => Mage::getModuleDir('etc', 'Mage_Api')]);
 
-            $wsdlContent = $io->read('wsdl.xml');
+            $wsdlContent = $ioFile->read('wsdl.xml');
 
             $template = Mage::getModel('core/email_template_filter');
 
