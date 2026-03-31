@@ -233,7 +233,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
      */
     protected function _calcAddressHeight($address)
     {
-        $y = 0;
+        $yAxis = 0;
         foreach ($address as $value) {
             if ($value !== '') {
                 $text = [];
@@ -242,12 +242,12 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
                 }
 
                 foreach ($text as $part) {
-                    $y += 15;
+                    $yAxis += 15;
                 }
             }
         }
 
-        return $y;
+        return $yAxis;
     }
 
     /**
