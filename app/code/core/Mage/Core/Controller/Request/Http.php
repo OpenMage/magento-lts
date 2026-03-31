@@ -580,7 +580,11 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
             return true;
         }
 
-        return $this->getParam('ajax') || $this->getParam('isAjax');
+        if ($this->getParam('ajax')) {
+            return true;
+        }
+
+        return (bool) $this->getParam('isAjax');
     }
 
     /**

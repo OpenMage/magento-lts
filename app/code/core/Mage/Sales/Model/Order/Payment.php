@@ -1671,7 +1671,11 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      */
     protected function _isSameCurrency()
     {
-        return !$this->getCurrencyCode() || $this->getCurrencyCode() == $this->getOrder()->getBaseCurrencyCode();
+        if (!$this->getCurrencyCode()) {
+            return true;
+        }
+
+        return $this->getCurrencyCode() == $this->getOrder()->getBaseCurrencyCode();
     }
 
     /**

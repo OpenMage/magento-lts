@@ -735,7 +735,11 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
             return false;
         }
 
-        return ($address->getId() == $this->getDefaultBilling()) || ($address->getId() == $this->getDefaultShipping());
+        if ($address->getId() == $this->getDefaultBilling()) {
+            return true;
+        }
+
+        return $address->getId() == $this->getDefaultShipping();
     }
 
     /**

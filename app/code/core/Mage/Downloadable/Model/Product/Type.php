@@ -67,8 +67,11 @@ class Mage_Downloadable_Model_Product_Type extends Mage_Catalog_Model_Product_Ty
     public function hasOptions($product = null)
     {
         //return true;
-        return $this->getProduct($product)->getLinksPurchasedSeparately()
-            || parent::hasOptions($product);
+        if ($this->getProduct($product)->getLinksPurchasedSeparately()) {
+            return true;
+        }
+
+        return parent::hasOptions($product);
     }
 
     /**
@@ -79,7 +82,11 @@ class Mage_Downloadable_Model_Product_Type extends Mage_Catalog_Model_Product_Ty
      */
     public function hasRequiredOptions($product = null)
     {
-        return parent::hasRequiredOptions($product) || $this->getProduct($product)->getLinksPurchasedSeparately();
+        if (parent::hasRequiredOptions($product)) {
+            return true;
+        }
+
+        return $this->getProduct($product)->getLinksPurchasedSeparately();
     }
 
     /**
