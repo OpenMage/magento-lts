@@ -154,17 +154,17 @@ class Mage_Core_Model_Translate_Inline
 
         /** @var Mage_Core_Model_Resource_Translate_String $resource */
         $resource = Mage::getResourceModel('core/translate_string');
-        foreach ($translate as $t) {
+        foreach ($translate as $value) {
             if (Mage::getDesign()->getArea() == 'adminhtml') {
                 $storeId = 0;
-            } elseif (empty($t['perstore'])) {
-                $resource->deleteTranslate($t['original'], null, false);
+            } elseif (empty($value['perstore'])) {
+                $resource->deleteTranslate($value['original'], null, false);
                 $storeId = 0;
             } else {
                 $storeId = Mage::app()->getStore()->getId();
             }
 
-            $resource->saveTranslate($t['original'], $t['custom'], null, $storeId);
+            $resource->saveTranslate($value['original'], $value['custom'], null, $storeId);
         }
 
         return $this;
