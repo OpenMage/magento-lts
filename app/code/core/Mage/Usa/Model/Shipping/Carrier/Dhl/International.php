@@ -788,7 +788,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
                 $debugPoint = &$debugData['try-' . $offset];
 
                 $requestXml = $this->_buildQuotesRequestXml();
-                $date = Carbon::parse($this->_getShipDate() . " +$offset days")->format(self::REQUEST_DATE_FORMAT);
+                $date = Carbon::parse($this->_getShipDate() . " +{$offset} days")->format(self::REQUEST_DATE_FORMAT);
                 $this->_setQuotesRequestXmlDate($requestXml, $date);
 
                 $request = $requestXml->asXML();

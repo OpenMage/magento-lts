@@ -36,9 +36,9 @@ class Mage_Adminhtml_Block_Promo_Widget_Chooser_Sku extends Mage_Adminhtml_Block
         }
 
         $form = $this->getJsFormObject();
-        $this->setRowClickCallback("$form.chooserGridRowClick.bind($form)");
-        $this->setCheckboxCheckCallback("$form.chooserGridCheckboxCheck.bind($form)");
-        $this->setRowInitCallback("$form.chooserGridRowInit.bind($form)");
+        $this->setRowClickCallback("{$form}.chooserGridRowClick.bind({$form})");
+        $this->setCheckboxCheckCallback("{$form}.chooserGridCheckboxCheck.bind({$form})");
+        $this->setRowInitCallback("{$form}.chooserGridRowInit.bind({$form})");
         $this->setDefaultSort('sku');
         $this->setUseAjax(true);
         if ($this->getRequest()->getParam('collapse')) {

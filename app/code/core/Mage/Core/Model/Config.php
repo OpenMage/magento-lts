@@ -1301,7 +1301,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      */
     public function loadEventObservers($area)
     {
-        $events = $this->getNode("$area/events");
+        $events = $this->getNode("{$area}/events");
         if ($events) {
             $events = $events->children();
         } else {

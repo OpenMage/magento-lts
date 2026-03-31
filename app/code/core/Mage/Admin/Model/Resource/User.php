@@ -272,10 +272,10 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
                     ->from($table, [])
                     ->joinLeft(
                         ['ar' => $table],
-                        "(ar.role_id = $table.parent_id and ar.role_type = 'G')",
+                        "(ar.role_id = {$table}.parent_id and ar.role_type = 'G')",
                         ['role_id'],
                     )
-                    ->where("$table.user_id = :user_id");
+                    ->where("{$table}.user_id = :user_id");
 
         $binds = [
             'user_id' => (int) $user->getId(),

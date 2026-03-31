@@ -115,7 +115,7 @@ class Mage_Weee_Model_Observer extends Mage_Core_Model_Abstract
             if (Mage::helper('weee')->isDiscounted()) {
                 $additionalCalculations[] = sprintf('+(%s*(1-(%s/100)))', $checkAdditionalCalculation, $checkDiscountField);
             } else {
-                $additionalCalculations[] = "+($checkAdditionalCalculation)";
+                $additionalCalculations[] = "+({$checkAdditionalCalculation})";
             }
         }
 

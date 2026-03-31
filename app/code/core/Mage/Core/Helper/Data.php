@@ -649,7 +649,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
 
         $xmlstr = <<<XML
 <?xml version='1.0' encoding='UTF-8' standalone='yes'?>
-<$rootName></$rootName>
+<{$rootName}></{$rootName}>
 XML;
         $xml = new SimpleXMLElement($xmlstr);
         foreach (array_keys($array) as $key) {
