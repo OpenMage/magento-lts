@@ -11,6 +11,8 @@
  * Sales Order PDF abstract model
  *
  * @package    Mage_Sales
+ *
+ * @SuppressWarnings("PHPMD.ShortVariable")
  */
 abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
 {
