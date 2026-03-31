@@ -77,7 +77,7 @@
     [x] ShortClassName
     [-] LongVariable
     [x] ShortVariable - LATER avoid id,i,j,v,e
-    [-] ShortMethodName - TMP disabled, can be fixed in some cases
+    [x] ShortMethodName
     -->
     <rule ref="rulesets/naming.xml">
         <exclude name="BooleanGetMethodName" />
@@ -90,7 +90,6 @@
             <property name="exceptions" value="a,b,do,fp,id,io,to,x,y,x1,x2,y1,y2,i,j,v,e" />
         </properties>
     </rule>
-    <rule ref="rulesets/naming.xml/ShortMethodName" />
 
     <!-- DESIGN
     [-] CountInLoopExpression
