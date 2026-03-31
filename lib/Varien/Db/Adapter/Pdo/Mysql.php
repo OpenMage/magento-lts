@@ -751,48 +751,48 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
             PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE,
         );
 
-        $q      = false;
-        $c      = false;
         $stmts  = [];
-        $s      = '';
+        $stmtQ  = false;
+        $stmtC  = false;
+        $stmtS  = '';
 
-        foreach ($parts as $i => $part) {
+        foreach ($parts as $index => $part) {
             // strings
-            if (($part === "'" || $part === '"') && ($i === 0 || $parts[$i - 1] !== '\\')) {
-                if ($q === false) {
-                    $q = $part;
-                } elseif ($q === $part) {
-                    $q = false;
+            if (($part === "'" || $part === '"') && ($index === 0 || $parts[$index - 1] !== '\\')) {
+                if ($stmtQ === false) {
+                    $stmtQ = $part;
+                } elseif ($stmtQ === $part) {
+                    $stmtQ = false;
                 }
             }
 
             // single line comments
-            if (($part === '//' || $part === '--') && ($i === 0 || $parts[$i - 1] === "\n")) {
-                $c = $part;
-            } elseif ($part === "\n" && ($c === '//' || $c === '--')) {
-                $c = false;
+            if (($part === '//' || $part === '--') && ($index === 0 || $parts[$index - 1] === "\n")) {
+                $stmtC = $part;
+            } elseif ($part === "\n" && ($stmtC === '//' || $stmtC === '--')) {
+                $stmtC = false;
             }
 
             // multi line comments
-            if ($part === '/*' && $c === false) {
-                $c = '/*';
-            } elseif ($part === '*/' && $c === '/*') {
-                $c = false;
+            if ($part === '/*' && $stmtC === false) {
+                $stmtC = '/*';
+            } elseif ($part === '*/' && $stmtC === '/*') {
+                $stmtC = false;
             }
 
             // statements
-            if ($part === ';' && $q === false && $c === false) {
-                if (trim($s) !== '') {
-                    $stmts[] = trim($s);
-                    $s = '';
+            if ($part === ';' && $stmtQ === false && $stmtC === false) {
+                if (trim($stmtS) !== '') {
+                    $stmts[] = trim($stmtS);
+                    $stmtS = '';
                 }
             } else {
-                $s .= $part;
+                $stmtS .= $part;
             }
         }
 
-        if (trim($s) !== '') {
-            $stmts[] = trim($s);
+        if (trim($stmtS) !== '') {
+            $stmts[] = trim($stmtS);
         }
 
         return $stmts;

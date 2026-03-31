@@ -269,8 +269,10 @@ class Mage_DB_Mysqli
     public function escapeFieldNames(array $arrNames)
     {
         $out = [];
-        for ($i = 0, $c = count($arrNames); $i < $c; $i++) {
-            $out[] = $this->escapeFieldName($arrNames[$i]);
+        $count = count($arrNames);
+
+        for ($index = 0, $count; $index < $count; $index++) {
+            $out[] = $this->escapeFieldName($arrNames[$index]);
         }
 
         return $out;
@@ -283,11 +285,13 @@ class Mage_DB_Mysqli
     public function escapeFieldValues(array $arrNames)
     {
         $out = [];
-        for ($i = 0, $c = count($arrNames); $i < $c; $i++) {
-            if ($arrNames[$i] !== 'LAST_INSERT_ID()') {
-                $out[] = $this->escapeFieldValue($arrNames[$i]);
+        $count = count($arrNames);
+
+        for ($index = 0, $count; $index < $count; $index++) {
+            if ($arrNames[$index] !== 'LAST_INSERT_ID()') {
+                $out[] = $this->escapeFieldValue($arrNames[$index]);
             } else {
-                $out[] = $arrNames[$i];
+                $out[] = $arrNames[$index];
             }
         }
 
@@ -361,41 +365,47 @@ class Mage_DB_Mysqli
         $sql = $replace ? "REPLACE INTO {$table} " : "INSERT INTO {$table} ";
         $keys = array_keys($data[0]);
         $excluded = [];
-        for ($i = 0, $c = count($excludeFields); $i < $c; $i++) {
-            $k = $excludeFields[$i];
-            if (isset($keys[$k])) {
-                $excluded [] = $k;
-                unset($keys[$k]);
+        $count = count($excludeFields);
+
+        for ($index = 0, $count; $index < $count; $index++) {
+            $excludedField = $excludeFields[$index];
+            if (isset($keys[$excludedField])) {
+                $excluded [] = $excludedField;
+                unset($keys[$excludedField]);
             }
         }
 
         $keys = $this->escapeFieldNames($keys);
+        $count = count($keys);
         $sql .= ' ( ';
-        for ($i = 0, $c = count($keys); $i < $c; $i++) {
-            $sql .= $keys[$i];
-            if ($i != $c - 1) {
+        for ($index = 0, $count; $index < $count; $index++) {
+            $sql .= $keys[$index];
+            if ($index != $count - 1) {
                 $sql .= ',';
             }
         }
 
+        $count = count($data);
         $sql .= ' ) VALUES ';
-        for ($i = 0, $c = count($data); $i < $c; $i++) {
-            $row = $data[$i];
-            for ($j = 0, $jc = count($excluded); $j < $jc; $j++) {
-                unset($data[$excluded[$j]]);
+        for ($index = 0, $count; $index < $count; $index++) {
+            $row = $data[$index];
+            $countExcluded = count($excluded);
+            for ($excludedIndex = 0, $countExcluded; $excludedIndex < $countExcluded; $excludedIndex++) {
+                unset($data[$excluded[$excludedIndex]]);
             }
 
             $values = $this->escapeFieldValues(array_values($row));
+            $countValues = count($values);
             $sql .= '( ';
-            for ($j = 0, $jc = count($values); $j < $jc; $j++) {
-                $sql .= $values[$j];
-                if ($j != $jc - 1) {
+            for ($valuesIndex = 0, $countValues; $valuesIndex < $countValues; $valuesIndex++) {
+                $sql .= $values[$valuesIndex];
+                if ($valuesIndex != $countValues - 1) {
                     $sql .= ',';
                 }
             }
 
             $sql .= ' )';
-            if ($i != $c - 1) {
+            if ($index != $count - 1) {
                 $sql .= ',';
             }
         }

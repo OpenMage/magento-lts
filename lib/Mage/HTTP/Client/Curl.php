@@ -247,8 +247,8 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
         $out = [];
         foreach ($this->_responseHeaders['Set-Cookie'] as $row) {
             $values = explode('; ', $row);
-            $c = count($values);
-            if (!$c) {
+            $count = count($values);
+            if (!$count) {
                 continue;
             }
 
@@ -281,8 +281,8 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
         $out = [];
         foreach ($this->_responseHeaders['Set-Cookie'] as $row) {
             $values = explode('; ', $row);
-            $c = count($values);
-            if (!$c) {
+            $count = count($values);
+            if (!$count) {
                 continue;
             }
 
@@ -297,12 +297,12 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
 
             $out[$key] = ['value' => $val];
             array_shift($values);
-            $c--;
-            if (!$c) {
+            $count--;
+            if (!$count) {
                 continue;
             }
 
-            for ($i = 0; $i < $c; $i++) {
+            for ($i = 0; $i < $count; $i++) {
                 [$subkey, $val] = explode('=', $values[$i]);
                 $out[trim($key)][trim($subkey)] = trim($val);
             }
