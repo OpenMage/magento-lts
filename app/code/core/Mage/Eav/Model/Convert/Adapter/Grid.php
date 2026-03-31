@@ -87,7 +87,7 @@ class Mage_Eav_Model_Convert_Adapter_Grid extends Mage_Dataflow_Model_Convert_Ad
             try {
                 $entity->addData($row)->save();
             } catch (Exception $exception) {
-                $this->addException(Mage::helper('eav')->__('An error occurred while saving a record, aborting. Error: ', $exception->getMessage()), Varien_Convert_Exception::FATAL);
+                $this->addException(Mage::helper('eav')->__('An error occurred while saving a record, aborting. Error: %s', $exception->getMessage()), Varien_Convert_Exception::FATAL);
             }
         }
 
