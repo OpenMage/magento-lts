@@ -40,25 +40,25 @@ class Mage_Usa_Model_Shipping_Carrier_UpsAuth extends Mage_Usa_Model_Shipping_Ca
         $authPayload = http_build_query([
             'grant_type' => 'client_credentials',
         ]);
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $clientUrl);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_HEADER, false);
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $authPayload);
-        curl_setopt($ch, CURLOPT_TIMEOUT, 30);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, $this->getConfigFlag('verify_peer'));
-        $responseData = curl_exec($ch);
+        $handle = curl_init();
+        curl_setopt($handle, CURLOPT_URL, $clientUrl);
+        curl_setopt($handle, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($handle, CURLOPT_HEADER, false);
+        curl_setopt($handle, CURLOPT_POST, true);
+        curl_setopt($handle, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($handle, CURLOPT_POSTFIELDS, $authPayload);
+        curl_setopt($handle, CURLOPT_TIMEOUT, 30);
+        curl_setopt($handle, CURLOPT_SSL_VERIFYPEER, $this->getConfigFlag('verify_peer'));
+        $responseData = curl_exec($handle);
         try {
             if ($responseData === false) {
-                $code = curl_errno($ch);
+                $code = curl_errno($handle);
                 $description = curl_strerror($code);
-                $message = curl_error($ch);
+                $message = curl_error($handle);
                 Mage::throwException("cURL Error: ($code) $description - \"$message\"");
             }
         } finally {
-            curl_close($ch);
+            curl_close($handle);
         }
 
         $responseData = json_decode($responseData);

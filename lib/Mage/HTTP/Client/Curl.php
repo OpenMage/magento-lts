@@ -400,10 +400,10 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
     /**
      * Parse headers - CURL callback function
      *
-     * @param resource $ch   curl handle, not needed
+     * @param resource $handle   curl handle, not needed
      * @param string   $data
      */
-    protected function parseHeaders($ch, $data): int
+    protected function parseHeaders($handle, $data): int
     {
         if ($this->_headerCount === 0) {
             $line = explode(' ', trim($data), 3);

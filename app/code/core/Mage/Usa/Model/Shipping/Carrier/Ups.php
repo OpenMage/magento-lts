@@ -794,24 +794,24 @@ XMLRequest;
         $xmlResponse = $this->_getCachedQuotes($xmlRequest);
         if ($xmlResponse === null) {
             $debugData = ['request' => $xmlRequest];
-            $ch = curl_init();
-            curl_setopt($ch, CURLOPT_URL, $url);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_HEADER, false);
-            curl_setopt($ch, CURLOPT_POST, true);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $xmlRequest);
-            curl_setopt($ch, CURLOPT_TIMEOUT, 30);
-            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, $this->getConfigFlag('verify_peer'));
-            $xmlResponse = curl_exec($ch);
+            $handle = curl_init();
+            curl_setopt($handle, CURLOPT_URL, $url);
+            curl_setopt($handle, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($handle, CURLOPT_HEADER, false);
+            curl_setopt($handle, CURLOPT_POST, true);
+            curl_setopt($handle, CURLOPT_POSTFIELDS, $xmlRequest);
+            curl_setopt($handle, CURLOPT_TIMEOUT, 30);
+            curl_setopt($handle, CURLOPT_SSL_VERIFYPEER, $this->getConfigFlag('verify_peer'));
+            $xmlResponse = curl_exec($handle);
             if ($xmlResponse === false) {
-                $debugData['result'] = ['error' => curl_error($ch), 'code' => curl_errno($ch)];
+                $debugData['result'] = ['error' => curl_error($handle), 'code' => curl_errno($handle)];
                 $xmlResponse = '';
             } else {
                 $debugData['result'] = $xmlResponse;
                 $this->_setCachedQuotes($xmlRequest, $xmlResponse);
             }
 
-            curl_close($ch);
+            curl_close($handle);
             $this->_debug($debugData);
         }
 
@@ -1012,22 +1012,22 @@ XMLAuth;
 XMLAuth;
             $debugData = ['request' => $xmlRequest];
 
-            $ch = curl_init();
-            curl_setopt($ch, CURLOPT_URL, $url);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_HEADER, false);
-            curl_setopt($ch, CURLOPT_POST, true);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $xmlRequest);
-            curl_setopt($ch, CURLOPT_TIMEOUT, 30);
-            $xmlResponse = curl_exec($ch);
+            $handle = curl_init();
+            curl_setopt($handle, CURLOPT_URL, $url);
+            curl_setopt($handle, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($handle, CURLOPT_HEADER, false);
+            curl_setopt($handle, CURLOPT_POST, true);
+            curl_setopt($handle, CURLOPT_POSTFIELDS, $xmlRequest);
+            curl_setopt($handle, CURLOPT_TIMEOUT, 30);
+            $xmlResponse = curl_exec($handle);
             if ($xmlResponse === false) {
-                $debugData['result'] = ['error' => curl_error($ch), 'code' => curl_errno($ch)];
+                $debugData['result'] = ['error' => curl_error($handle), 'code' => curl_errno($handle)];
                 $xmlResponse = '';
             } else {
                 $debugData['result'] = $xmlResponse;
             }
 
-            curl_close($ch);
+            curl_close($handle);
 
             $this->_debug($debugData);
             $this->_parseXmlTrackingResponse($tracking, $xmlResponse);
@@ -1174,10 +1174,10 @@ XMLAuth;
             'transactionSrc: OpenMage',
         ];
 
-        $ch = curl_init();
+        $handle = curl_init();
         foreach ($trackings as $tracking) {
             $debugData = ['request' => $tracking];
-            curl_setopt_array($ch, [
+            curl_setopt_array($handle, [
                 CURLOPT_URL => $url . $version . '/details/' . $tracking . '?' . $query,
                 CURLOPT_RETURNTRANSFER => true,
                 CURLOPT_HEADER => false,
@@ -1185,21 +1185,21 @@ XMLAuth;
                 CURLOPT_TIMEOUT => 30,
                 CURLOPT_SSL_VERIFYPEER => $this->getConfigFlag('verify_peer'),
             ]);
-            $responseData = curl_exec($ch);
+            $responseData = curl_exec($handle);
             if ($responseData === false) {
-                $debugData['result'] = ['error' => curl_error($ch), 'code' => curl_errno($ch)];
+                $debugData['result'] = ['error' => curl_error($handle), 'code' => curl_errno($handle)];
                 $responseData = '';
             } else {
                 $debugData['result'] = $responseData;
             }
 
-            curl_reset($ch);
+            curl_reset($handle);
 
             $this->_debug($debugData);
             $this->_parseRestTrackingResponse($tracking, $responseData);
         }
 
-        curl_close($ch);
+        curl_close($handle);
 
         return $this->_trackingResult;
     }
@@ -1589,23 +1589,23 @@ XMLAuth;
             }
         }
 
-        $ch = curl_init($url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_HEADER, false);
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $this->_xmlAccessRequest . $xmlRequest->asXML());
-        curl_setopt($ch, CURLOPT_TIMEOUT, 30);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, $this->getConfigFlag('verify_peer'));
-        $xmlResponse = curl_exec($ch);
+        $handle = curl_init($url);
+        curl_setopt($handle, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($handle, CURLOPT_HEADER, false);
+        curl_setopt($handle, CURLOPT_POST, true);
+        curl_setopt($handle, CURLOPT_POSTFIELDS, $this->_xmlAccessRequest . $xmlRequest->asXML());
+        curl_setopt($handle, CURLOPT_TIMEOUT, 30);
+        curl_setopt($handle, CURLOPT_SSL_VERIFYPEER, $this->getConfigFlag('verify_peer'));
+        $xmlResponse = curl_exec($handle);
         if ($xmlResponse === false) {
-            $debugData['result'] = ['error' => curl_error($ch), 'code' => curl_errno($ch)];
+            $debugData['result'] = ['error' => curl_error($handle), 'code' => curl_errno($handle)];
             $xmlResponse = '';
         } else {
             $debugData['result'] = $xmlResponse;
             $this->_setCachedQuotes($xmlRequest, $xmlResponse);
         }
 
-        curl_close($ch);
+        curl_close($handle);
 
         try {
             $response = new SimpleXMLElement($xmlResponse);
@@ -1696,24 +1696,24 @@ XMLAuth;
             'request' => $rawJsonRequest,
         ];
 
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $shipConfirmUrl);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_HEADER, false);
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $rawJsonRequest);
-        curl_setopt($ch, CURLOPT_TIMEOUT, 30);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, $this->getConfigFlag('verify_peer'));
-        $responseData = curl_exec($ch);
+        $handle = curl_init();
+        curl_setopt($handle, CURLOPT_URL, $shipConfirmUrl);
+        curl_setopt($handle, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($handle, CURLOPT_HEADER, false);
+        curl_setopt($handle, CURLOPT_POST, true);
+        curl_setopt($handle, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($handle, CURLOPT_POSTFIELDS, $rawJsonRequest);
+        curl_setopt($handle, CURLOPT_TIMEOUT, 30);
+        curl_setopt($handle, CURLOPT_SSL_VERIFYPEER, $this->getConfigFlag('verify_peer'));
+        $responseData = curl_exec($handle);
         if ($responseData === false) {
-            $debugData['result'] = ['error' => curl_error($ch), 'code' => curl_errno($ch)];
+            $debugData['result'] = ['error' => curl_error($handle), 'code' => curl_errno($handle)];
             $responseData = '';
         } else {
             $debugData['result'] = $responseData;
         }
 
-        curl_close($ch);
+        curl_close($handle);
 
         $responseData = json_decode($responseData);
         if (!$responseData) {
@@ -2009,17 +2009,17 @@ XMLAuth;
             }
 
             $debugData = ['request' => $xmlRequest];
-            $ch = curl_init();
-            curl_setopt($ch, CURLOPT_URL, $url);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_HEADER, false);
-            curl_setopt($ch, CURLOPT_POST, true);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $xmlRequest);
-            curl_setopt($ch, CURLOPT_TIMEOUT, 30);
-            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, $this->getConfigFlag('verify_peer'));
-            $xmlResponse = curl_exec($ch);
+            $handle = curl_init();
+            curl_setopt($handle, CURLOPT_URL, $url);
+            curl_setopt($handle, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($handle, CURLOPT_HEADER, false);
+            curl_setopt($handle, CURLOPT_POST, true);
+            curl_setopt($handle, CURLOPT_POSTFIELDS, $xmlRequest);
+            curl_setopt($handle, CURLOPT_TIMEOUT, 30);
+            curl_setopt($handle, CURLOPT_SSL_VERIFYPEER, $this->getConfigFlag('verify_peer'));
+            $xmlResponse = curl_exec($handle);
             if ($xmlResponse === false) {
-                throw new Exception(curl_error($ch));
+                throw new Exception(curl_error($handle));
             }
 
             $debugData['result'] = $xmlResponse;
@@ -2337,24 +2337,24 @@ XMLAuth;
             'request' => $ratePayload,
         ];
 
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $url . $version . '/' . $requestOption);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_HEADER, false);
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $ratePayload);
-        curl_setopt($ch, CURLOPT_TIMEOUT, 30);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, $this->getConfigFlag('verify_peer'));
-        $responseData = curl_exec($ch);
+        $handle = curl_init();
+        curl_setopt($handle, CURLOPT_URL, $url . $version . '/' . $requestOption);
+        curl_setopt($handle, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($handle, CURLOPT_HEADER, false);
+        curl_setopt($handle, CURLOPT_POST, true);
+        curl_setopt($handle, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($handle, CURLOPT_POSTFIELDS, $ratePayload);
+        curl_setopt($handle, CURLOPT_TIMEOUT, 30);
+        curl_setopt($handle, CURLOPT_SSL_VERIFYPEER, $this->getConfigFlag('verify_peer'));
+        $responseData = curl_exec($handle);
         if ($responseData === false) {
-            $debugData['result'] = ['error' => curl_error($ch), 'code' => curl_errno($ch)];
+            $debugData['result'] = ['error' => curl_error($handle), 'code' => curl_errno($handle)];
             $responseData = '';
         } else {
             $debugData['result'] = $responseData;
         }
 
-        curl_close($ch);
+        curl_close($handle);
 
         $this->_debug($debugData);
         return $this->_parseRestResponse($responseData);
