@@ -396,9 +396,9 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
                 $response = $client->getRates($ratesRequest);
                 $this->_setCachedQuotes($requestString, serialize($response));
                 $debugData['result'] = $response;
-            } catch (Exception $e) {
-                $debugData['result'] = ['error' => $e->getMessage(), 'code' => $e->getCode()];
-                Mage::logException($e);
+            } catch (Exception $exception) {
+                $debugData['result'] = ['error' => $exception->getMessage(), 'code' => $exception->getCode()];
+                Mage::logException($exception);
             }
         } else {
             $response = unserialize($response);
@@ -664,8 +664,8 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
 
                 $debugData['result'] = $responseBody;
                 $this->_setCachedQuotes($request, $responseBody);
-            } catch (Exception $e) {
-                $debugData['result'] = ['error' => $e->getMessage(), 'code' => $e->getCode()];
+            } catch (Exception $exception) {
+                $debugData['result'] = ['error' => $exception->getMessage(), 'code' => $exception->getCode()];
                 $responseBody = '';
             }
 
@@ -751,8 +751,8 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
         try {
             try {
                 return simplexml_load_string($xmlContent);
-            } catch (Exception $e) {
-                throw new Exception(Mage::helper('usa')->__('Failed to parse xml document: %s', $xmlContent), $e->getCode(), $e);
+            } catch (Exception $exception) {
+                throw new Exception(Mage::helper('usa')->__('Failed to parse xml document: %s', $xmlContent), $exception->getCode(), $exception);
             }
         } catch (Exception $exception) {
             Mage::logException($exception);
@@ -1033,9 +1033,9 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
                 $response = $client->track($trackRequest);
                 $this->_setCachedQuotes($requestString, serialize($response));
                 $debugData['result'] = $response;
-            } catch (Exception $e) {
-                $debugData['result'] = ['error' => $e->getMessage(), 'code' => $e->getCode()];
-                Mage::logException($e);
+            } catch (Exception $exception) {
+                $debugData['result'] = ['error' => $exception->getMessage(), 'code' => $exception->getCode()];
+                Mage::logException($exception);
             }
         } else {
             $response = unserialize($response);

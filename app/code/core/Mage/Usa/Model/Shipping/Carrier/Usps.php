@@ -434,8 +434,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
 
                 $debugData['result'] = $responseBody;
                 $this->_setCachedQuotes($request, $responseBody);
-            } catch (Exception $e) {
-                $debugData['result'] = ['error' => $e->getMessage(), 'code' => $e->getCode()];
+            } catch (Exception $exception) {
+                $debugData['result'] = ['error' => $exception->getMessage(), 'code' => $exception->getCode()];
                 $responseBody = '';
             }
 
@@ -976,8 +976,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
                 $response = $client->request();
                 $responseBody = $response->getBody();
                 $debugData['result'] = $responseBody;
-            } catch (Exception $e) {
-                $debugData['result'] = ['error' => $e->getMessage(), 'code' => $e->getCode()];
+            } catch (Exception $exception) {
+                $debugData['result'] = ['error' => $exception->getMessage(), 'code' => $exception->getCode()];
                 $responseBody = '';
             }
 

@@ -329,9 +329,9 @@ class Varien_Db_Tree
                 $this->_db->query($sql);
                 $this->_db->commit();
                 return new Varien_Db_Tree_Node($info, $this->getKeys());
-            } catch (Exception $e) {
+            } catch (Exception $exception) {
                 $this->_db->rollBack();
-                echo $e->getMessage();
+                echo $exception->getMessage();
             }
         }
     }
@@ -459,9 +459,9 @@ class Varien_Db_Tree
                 $this->_db->query($sql);
                 //$afrows = $this->_db->get
                 $this->_db->commit();
-            } catch (Exception $e) {
+            } catch (Exception $exception) {
                 $this->_db->rollBack();
-                echo $e->getMessage();
+                echo $exception->getMessage();
                 echo "<br>\r\n";
                 echo $sql;
                 echo "<br>\r\n";

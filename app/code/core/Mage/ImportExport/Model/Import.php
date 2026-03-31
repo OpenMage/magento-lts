@@ -79,8 +79,8 @@ class Mage_ImportExport_Model_Import extends Mage_ImportExport_Model_Abstract
                     /** @var Mage_ImportExport_Model_Import_Entity_Abstract $_entityAdapter */
                     $_entityAdapter = Mage::getModel($validTypes[$this->getEntity()]['model']);
                     $this->_entityAdapter = $_entityAdapter;
-                } catch (Exception $e) {
-                    Mage::logException($e);
+                } catch (Exception $exception) {
+                    Mage::logException($exception);
                     Mage::throwException(
                         Mage::helper('importexport')->__('Invalid entity model'),
                     );

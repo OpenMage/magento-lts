@@ -143,8 +143,8 @@ try {
     if ($localStorage->lockCreateFile($relativeFilename)) {
         try {
             $remoteStorage->loadByFilename($relativeFilename);
-        } catch (Exception $e) {
-            Mage::logException($e);
+        } catch (Exception $exception) {
+            Mage::logException($exception);
         }
 
         if ($remoteStorage->getId()) {
@@ -155,8 +155,8 @@ try {
     }
 
     sendFile($filePath);
-} catch (Exception $exception) {
-    Mage::logException($exception);
+} catch (Exception $exception_) {
+    Mage::logException($exception_);
 }
 
 sendNotFoundPage();

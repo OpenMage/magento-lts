@@ -1565,17 +1565,17 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      *
      * @throws Exception
      */
-    protected function _debugException(Exception $e)
+    protected function _debugException(Exception $exception)
     {
         if (!$this->_debug) {
-            throw $e;
+            throw $exception;
         }
 
         $eol = "\n";
-        $code = 'EXCEPTION ' . $eol . $e . $eol . $eol;
+        $code = 'EXCEPTION ' . $eol . $exception . $eol . $eol;
         $this->_debugWriteToFile($code);
 
-        throw $e;
+        throw $exception;
     }
 
     /**

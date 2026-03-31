@@ -83,8 +83,8 @@ class Mage_Paypal_PayflowController extends Mage_Core_Controller_Front_Action
             $paymentModel = Mage::getModel('paypal/payflowlink');
             try {
                 $paymentModel->process($data);
-            } catch (Exception $e) {
-                Mage::logException($e);
+            } catch (Exception $exception) {
+                Mage::logException($exception);
             }
         }
     }

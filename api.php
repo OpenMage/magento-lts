@@ -66,10 +66,10 @@ if (in_array($apiAlias, Mage_Api2_Model_Server::getApiTypes())) {
         $server->run();
 
         Mage::app()->getResponse()->sendResponse();
-    } catch (Exception $e) {
-        Mage::logException($e);
+    } catch (Exception $exception) {
+        Mage::logException($exception);
 
-        echo $e->getMessage();
+        echo $exception->getMessage();
         exit;
     }
 }
