@@ -20,7 +20,7 @@ class Mage_Sales_Model_Config
      */
     public function getQuoteRuleConditionInstance($type)
     {
-        return Mage::getConfig()->getNodeClassInstance("global/sales/quote/rule/conditions/$type");
+        return Mage::getConfig()->getNodeClassInstance("global/sales/quote/rule/conditions/{$type}");
     }
 
     /**
@@ -29,7 +29,7 @@ class Mage_Sales_Model_Config
      */
     public function getQuoteRuleActionInstance($type)
     {
-        return Mage::getConfig()->getNodeClassInstance("global/sales/quote/rule/actions/$type");
+        return Mage::getConfig()->getNodeClassInstance("global/sales/quote/rule/actions/{$type}");
     }
 
     /**

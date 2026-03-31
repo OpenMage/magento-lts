@@ -258,7 +258,7 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
 
         $process = [];
         $process['percent'] = $value;
-        $process['id'] = "$rateId-$value";
+        $process['id'] = "{$rateId}-{$value}";
         $process['rates'][] = $rate;
 
         return [$process];

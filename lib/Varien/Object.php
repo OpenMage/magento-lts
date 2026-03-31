@@ -530,12 +530,12 @@ class Varien_Object implements ArrayAccess
         $arrData = $this->toArray($arrAttributes);
         foreach ($arrData as $fieldName => $fieldValue) {
             if ($addCdata === true) {
-                $fieldValue = "<![CDATA[$fieldValue]]>";
+                $fieldValue = "<![CDATA[{$fieldValue}]]>";
             } else {
                 $fieldValue = $xmlModel->xmlentities($fieldValue);
             }
 
-            $xml .= "<$fieldName>$fieldValue</$fieldName>" . "\n";
+            $xml .= "<{$fieldName}>{$fieldValue}</{$fieldName}>" . "\n";
         }
 
         if (!empty($rootName)) {

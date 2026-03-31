@@ -148,7 +148,7 @@ function mageCoreErrorHandler($errno, $errstr, $errfile, $errline)
         E_RECOVERABLE_ERROR => $errorMessage .= 'Recoverable Error',
         E_DEPRECATED => $errorMessage .= 'Deprecated functionality',
         E_USER_DEPRECATED => $errorMessage .= 'User deprecated functionality',
-        default => $errorMessage .= "Unknown error ($errno)",
+        default => $errorMessage .= "Unknown error ({$errno})",
     };
 
     $errorMessage .= ": {$errstr}  in {$errfile} on line {$errline}";
@@ -182,7 +182,7 @@ function mageDebugBacktrace($return = false, $html = true, $showFirst = false)
         }
 
         // sometimes there is undefined index 'file'
-        @$out .= "[$index] {$value['file']}:{$value['line']}\n";
+        @$out .= "[{$index}] {$value['file']}:{$value['line']}\n";
     }
 
     if ($html) {

@@ -366,7 +366,7 @@ abstract class Mage_Reports_Model_Resource_Report_Abstract extends Mage_Core_Mod
             $selectOldest = $this->_getWriteAdapter()->select()
                 ->from(
                     $table,
-                    ["MIN($column)"],
+                    ["MIN({$column})"],
                 );
             $dateFrom = $this->_getWriteAdapter()->fetchOne($selectOldest);
         }
@@ -387,13 +387,13 @@ abstract class Mage_Reports_Model_Resource_Report_Abstract extends Mage_Core_Mod
         foreach ($periods as $offset => $timestamps) {
             $subParts = [];
             foreach ($timestamps as $timestamp) {
-                $subParts[] = "($column between {$timestamp['from']} and {$timestamp['to']})";
+                $subParts[] = "({$column} between {$timestamp['from']} and {$timestamp['to']})";
             }
 
             $then = $this->_getWriteAdapter()
                 ->getDateAddSql($column, $offset, Varien_Db_Adapter_Interface::INTERVAL_SECOND);
 
-            $query .= (++$index == $periodsCount) ? $then : 'CASE WHEN ' . implode(' OR ', $subParts) . " THEN $then ELSE ";
+            $query .= (++$index == $periodsCount) ? $then : 'CASE WHEN ' . implode(' OR ', $subParts) . " THEN {$then} ELSE ";
         }
 
         return $query . str_repeat('END ', count($periods) - 1);

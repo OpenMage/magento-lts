@@ -86,7 +86,7 @@ abstract class Mage_Core_Model_Validate_Abstract implements Mage_Core_Model_Vali
         }
 
         if (!isset($this->_messageTemplates[$messageKey])) {
-            throw new Mage_Core_Exception("No message template exists for key '$messageKey'");
+            throw new Mage_Core_Exception("No message template exists for key '{$messageKey}'");
         }
 
         $this->_messageTemplates[$messageKey] = $messageString;
@@ -126,7 +126,7 @@ abstract class Mage_Core_Model_Validate_Abstract implements Mage_Core_Model_Vali
             return $this->{$this->_messageVariables[$property]};
         }
 
-        throw new Mage_Core_Exception("No property exists by the name '$property'");
+        throw new Mage_Core_Exception("No property exists by the name '{$property}'");
     }
 
     /**
@@ -157,7 +157,7 @@ abstract class Mage_Core_Model_Validate_Abstract implements Mage_Core_Model_Vali
         $message = str_replace('%value%', $value, $message);
         foreach ($this->_messageVariables as $ident => $property) {
             $message = str_replace(
-                "%$ident%",
+                "%{$ident}%",
                 implode(' ', (array) $this->$property),
                 $message,
             );
@@ -171,7 +171,7 @@ abstract class Mage_Core_Model_Validate_Abstract implements Mage_Core_Model_Vali
         $message = str_replace('%value%', $this->_value, $template);
         foreach ($this->_messageVariables as $ident => $property) {
             $message = str_replace(
-                "%$ident%",
+                "%{$ident}%",
                 implode(' ', (array) $this->$property),
                 $message,
             );

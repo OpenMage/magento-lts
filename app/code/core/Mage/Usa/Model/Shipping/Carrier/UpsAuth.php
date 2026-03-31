@@ -34,8 +34,8 @@ class Mage_Usa_Model_Shipping_Carrier_UpsAuth extends Mage_Usa_Model_Shipping_Ca
 
         $headers = [
             'Content-Type: application/x-www-form-urlencoded',
-            "x-merchant-id: $clientId",
-            'Authorization: Basic ' . base64_encode("$clientId:$clientSecret"),
+            "x-merchant-id: {$clientId}",
+            'Authorization: Basic ' . base64_encode("{$clientId}:{$clientSecret}"),
         ];
         $authPayload = http_build_query([
             'grant_type' => 'client_credentials',
@@ -55,7 +55,7 @@ class Mage_Usa_Model_Shipping_Carrier_UpsAuth extends Mage_Usa_Model_Shipping_Ca
                 $code = curl_errno($handle);
                 $description = curl_strerror($code);
                 $message = curl_error($handle);
-                Mage::throwException("cURL Error: ($code) $description - \"$message\"");
+                Mage::throwException("cURL Error: ({$code}) {$description} - \"{$message}\"");
             }
         } finally {
             curl_close($handle);

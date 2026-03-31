@@ -184,7 +184,7 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
         $rangePeriod = $this->_getRangeExpressionForAttribute($range, 'main_table.period');
 
         $tableName = $this->getConnection()->quoteIdentifier('main_table.period');
-        $rangePeriod2 = str_replace($tableName, "MIN($tableName)", $rangePeriod);
+        $rangePeriod2 = str_replace($tableName, "MIN({$tableName})", $rangePeriod);
 
         $this->getSelect()->columns([
             'revenue'  => new Zend_Db_Expr('SUM(main_table.total_revenue_amount)'),
@@ -577,7 +577,7 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
                 'total'     => new Zend_Db_Expr('SUM(main_table.base_grand_total)'),
                 'invoiced'  => new Zend_Db_Expr('SUM(main_table.base_total_paid)'),
                 'refunded'  => new Zend_Db_Expr('SUM(main_table.base_total_refunded)'),
-                'profit'    => new Zend_Db_Expr("SUM($baseSubtotalInvoiced) "
+                'profit'    => new Zend_Db_Expr("SUM({$baseSubtotalInvoiced}) "
                                 . "+ SUM({$baseDiscountRefunded}) - SUM({$baseSubtotalRefunded}) "
                                 . "- SUM({$baseDiscountInvoiced}) - SUM({$baseTotalInvocedCost})"),
             ]);
