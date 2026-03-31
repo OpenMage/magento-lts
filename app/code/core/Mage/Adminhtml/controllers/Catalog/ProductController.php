@@ -78,9 +78,9 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
         if ($productId) {
             try {
                 $product->load($productId);
-            } catch (Exception $e) {
+            } catch (Exception $exception) {
                 $product->setTypeId(Mage_Catalog_Model_Product_Type::DEFAULT_TYPE);
-                Mage::logException($e);
+                Mage::logException($exception);
             }
         }
 
@@ -862,8 +862,8 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
             try {
                 $product->delete();
                 $this->_getSession()->addSuccess($this->__('The product has been deleted.'));
-            } catch (Exception $e) {
-                $this->_getSession()->addError($e->getMessage());
+            } catch (Exception $exception) {
+                $this->_getSession()->addError($exception->getMessage());
             }
         }
 
@@ -952,8 +952,8 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
                 $this->_getSession()->addSuccess(
                     $this->__('Total of %d record(s) have been deleted.', count($productIds)),
                 );
-            } catch (Exception $e) {
-                $this->_getSession()->addError($e->getMessage());
+            } catch (Exception $exception) {
+                $this->_getSession()->addError($exception->getMessage());
             }
         }
 

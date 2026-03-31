@@ -339,8 +339,8 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
                 $category->save();
                 Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('catalog')->__('The category has been saved.'));
                 $refreshTree = 'true';
-            } catch (Exception $e) {
-                $this->_getSession()->addError($e->getMessage())
+            } catch (Exception $exception) {
+                $this->_getSession()->addError($exception->getMessage())
                     ->setCategoryData($data);
                 $refreshTree = 'false';
             }
