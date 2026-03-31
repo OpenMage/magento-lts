@@ -31,7 +31,7 @@ jobs:
       - name: Restore result cache
         uses: actions/cache/restore@v5
         with:
-          path: .phpmd.result-cache.php
+          path: .cache/.phpmd.result-cache.php
           key: phpmd-result-cache-${{ github.run_id }}
           restore-keys: |
             phpmd-result-cache-
