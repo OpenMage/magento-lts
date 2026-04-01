@@ -117,7 +117,7 @@ try {
                 __DIR__ . '/app/code/core/Mage/Catalog/Model/Product/Option/Type/File.php',
                 __DIR__ . '/app/code/core/Mage/Cms/Model/Wysiwyg/Images/Storage.php',
                 __DIR__ . '/app/code/core/Mage/ImportExport/Model/Export.php',
-                __DIR__ . '/app/code/core/Mage/Oauth/Model/Token.phpapp/code/core/Mage/Oauth/Model/Token.php',
+                __DIR__ . '/app/code/core/Mage/Oauth/Model/Token.php',
                 __DIR__ . '/app/code/core/Mage/Paygate/Model/Authorizenet.php',
                 __DIR__ . '/app/code/core/Mage/Sales/Model/Order/Payment.php',
                 __DIR__ . '/app/code/core/Mage/Usa/Model/Shipping/Carrier/Abstract/Backend/Abstract.php',
