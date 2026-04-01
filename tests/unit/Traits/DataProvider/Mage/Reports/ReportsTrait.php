@@ -10,7 +10,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Traits\DataProvider\Mage\Reports;
 
-use Carbon;
+use Carbon\Carbon;
 use Generator;
 use Mage_Reports_Helper_Data;
 
