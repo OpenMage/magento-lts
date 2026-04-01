@@ -250,7 +250,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
     /**
      * Validate data rows and save bunches to DB.
      *
-     * @return null|\Mage_ImportExport_Model_Import_Entity_Abstract
+     * @return null|Mage_ImportExport_Model_Import_Entity_Abstract
      * @throws Mage_Core_Exception
      */
     protected function _saveValidatedBunches()
