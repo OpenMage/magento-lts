@@ -93,8 +93,8 @@ class Mage_Api_Model_Server_Wsi_Handler extends Mage_Api_Model_Server_Handler_Ab
     /**
      * Return called class and method names
      *
-     * @param  String     $apiPath
-     * @return array|void
+     * @param  String       $apiPath
+     * @return null|mixed[]
      */
     protected function _getResourceName($apiPath)
     {
@@ -102,7 +102,7 @@ class Mage_Api_Model_Server_Wsi_Handler extends Mage_Api_Model_Server_Handler_Ab
 
         if (empty($resourceName) || empty($methodName)) {
             $this->_fault('resource_path_invalid');
-            return;
+            return null;
         }
 
         $resourcesAlias = $this->_getConfig()->getResourcesAlias();

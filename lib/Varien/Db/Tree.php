@@ -334,6 +334,8 @@ class Varien_Db_Tree
                 echo $exception->getMessage();
             }
         }
+
+        return null;
     }
 
     public function moveNode($eId, $pId, $aId = 0)
