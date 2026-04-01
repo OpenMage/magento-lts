@@ -57,7 +57,7 @@ trait ReportsTrait
             Mage_Reports_Helper_Data::REPORT_PERIOD_TYPE_DAY,
         ];
         yield $prefix . 'no to null' => [
-            30,
+            31, # plus 1 for current day?
             Carbon::now()->subDays(30)->format('Y-m-d'),
             null,
             Mage_Reports_Helper_Data::REPORT_PERIOD_TYPE_DAY,
