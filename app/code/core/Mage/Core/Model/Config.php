@@ -909,7 +909,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
     {
         $moduleFiles = $this->_getDeclaredModuleFiles();
         if (!$moduleFiles) {
-            return null ;
+            return null;
         }
 
         Varien_Profiler::start('config/load-modules-declaration');
