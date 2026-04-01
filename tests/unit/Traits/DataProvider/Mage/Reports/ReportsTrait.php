@@ -58,7 +58,7 @@ trait ReportsTrait
         ];
         yield $prefix . 'no to null' => [
             30,
-            Carbon::now()->subDays(30),
+            Carbon::now()->subDays(30)->format('Y-m-d'),
             null,
             Mage_Reports_Helper_Data::REPORT_PERIOD_TYPE_DAY,
         ];
