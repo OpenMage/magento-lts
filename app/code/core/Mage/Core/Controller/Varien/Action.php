@@ -371,7 +371,7 @@ abstract class Mage_Core_Controller_Varien_Action
      * Rendering layout
      *
      * @param  string              $output
-     * @return $this|void
+     * @return null|$this
      * @throws Mage_Core_Exception
      */
     public function renderLayout($output = '')
@@ -379,11 +379,11 @@ abstract class Mage_Core_Controller_Varien_Action
         $profilerKey = self::PROFILER_KEY . '::' . $this->getFullActionName();
 
         if ($this->getFlag('', 'no-renderLayout')) {
-            return;
+            return null;
         }
 
         if (Mage::app()->getFrontController()->getNoRender()) {
-            return;
+            return null;
         }
 
         $this->_renderTitles();

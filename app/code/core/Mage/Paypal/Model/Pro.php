@@ -210,7 +210,7 @@ class Mage_Paypal_Model_Pro
      *
      * @param  Mage_Sales_Model_Order_Payment $payment
      * @param  float                          $amount
-     * @return false|void
+     * @return null|false
      */
     public function capture(Varien_Object $payment, $amount)
     {
@@ -230,6 +230,7 @@ class Mage_Paypal_Model_Pro
 
         $api->callDoCapture();
         $this->_importCaptureResultToPayment($api, $payment);
+        return null;
     }
 
     /**
