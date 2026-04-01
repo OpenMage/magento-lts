@@ -294,8 +294,7 @@ class Mage_Core_Model_Layout_Update
      */
     public function merge($handle)
     {
-        $packageUpdatesStatus = $this->fetchPackageLayoutUpdates($handle);
-        if (Mage::app()->isInstalled()) {
+        if (Mage::isInstalled()) {
             $this->fetchDbLayoutUpdates($handle);
         }
 
@@ -435,7 +434,6 @@ class Mage_Core_Model_Layout_Update
 
         /** @var Mage_Core_Model_Design_Package $design */
         $design = Mage::getSingleton('core/design_package');
-        $layoutXml = null;
         $elementClass = $this->getElementClass();
         $updatesRoot = Mage::app()->getConfig()->getNode($area . '/layout/updates');
         $updatesRoot = $this->addFallbackThemesLayoutUpdates($updatesRoot);

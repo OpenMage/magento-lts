@@ -22,7 +22,7 @@ class Mage_Checkout_Model_Cart_Coupon_Api extends Mage_Checkout_Model_Api_Resour
      */
     public function add($quoteId, $couponCode, $store = null)
     {
-        return $this->_applyCoupon($quoteId, $couponCode, $store = null);
+        return $this->_applyCoupon($quoteId, $couponCode, $store);
     }
 
     /**

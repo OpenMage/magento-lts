@@ -395,10 +395,6 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
 
         $attribute = $attributeInstance;
 
-        if (empty($attributeId)) {
-            $attributeId = $attribute->getAttributeId();
-        }
-
         if (isset($attributeCode) && !$attribute->getAttributeCode()) {
             $attribute->setAttributeCode($attributeCode);
         }

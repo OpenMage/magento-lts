@@ -17,11 +17,10 @@ class Mage_Catalog_Model_Entity_Product_Attribute_Frontend_Image extends Mage_Ea
     /**
      * @param  Varien_Object $object
      * @param  string        $size
-     * @return bool|string
+     * @return string
      */
     public function getUrl($object, $size = null)
     {
-        $url = false;
         $image = $object->getData($this->getAttribute()->getAttributeCode());
 
         if (!is_null($size) && file_exists(Mage::getBaseDir('media') . '/catalog/product/' . $size . '/' . $image)) {

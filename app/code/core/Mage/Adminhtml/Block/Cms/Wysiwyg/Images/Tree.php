@@ -22,7 +22,6 @@ class Mage_Adminhtml_Block_Cms_Wysiwyg_Images_Tree extends Mage_Adminhtml_Block_
     public function getTreeJson()
     {
         $helper = Mage::helper('cms/wysiwyg_images');
-        $storageRoot = $helper->getStorageRoot();
         $collection = Mage::registry('storage')->getDirsCollection($helper->getCurrentPath());
         $jsonArray = [];
         foreach ($collection as $item) {

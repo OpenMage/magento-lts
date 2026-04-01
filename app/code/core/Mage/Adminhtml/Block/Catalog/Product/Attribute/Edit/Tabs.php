@@ -22,6 +22,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Tabs extends Mage_Admi
         $this->setTitle(Mage::helper('catalog')->__('Attribute Information'));
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _beforeToHtml()
     {
         $this->addTab('main', [
@@ -30,8 +33,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Tabs extends Mage_Admi
             'content'   => $this->getLayout()->createBlock('adminhtml/catalog_product_attribute_edit_tab_main')->toHtml(),
             'active'    => true,
         ]);
-
-        $model = Mage::registry('entity_attribute');
 
         $this->addTab('labels', [
             'label'     => Mage::helper('catalog')->__('Manage Label / Options'),

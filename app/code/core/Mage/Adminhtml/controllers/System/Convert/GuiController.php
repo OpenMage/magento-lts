@@ -100,13 +100,11 @@ class Mage_Adminhtml_System_Convert_GuiController extends Mage_Adminhtml_System_
     public function uploadAction()
     {
         $this->_initProfile();
-        $profile = Mage::registry('current_convert_profile');
     }
 
     public function uploadPostAction()
     {
         $this->_initProfile();
-        $profile = Mage::registry('current_convert_profile');
     }
 
     public function downloadAction()
@@ -117,6 +115,5 @@ class Mage_Adminhtml_System_Convert_GuiController extends Mage_Adminhtml_System_
         }
 
         $this->_initProfile();
-        $profile = Mage::registry('current_convert_profile');
     }
 }

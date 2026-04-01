@@ -566,7 +566,6 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
      */
     public function updateItem($itemId, $buyRequest, $params = null)
     {
-        $item = null;
         if ($itemId instanceof Mage_Wishlist_Model_Item) {
             $item = $itemId;
         } else {

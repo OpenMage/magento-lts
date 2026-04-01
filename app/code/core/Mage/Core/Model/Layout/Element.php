@@ -42,7 +42,6 @@ class Mage_Core_Model_Layout_Element extends Varien_Simplexml_Element
                 break;
         }
 
-        $children = $this->children();
         foreach ($this as $child) {
             $child->prepare($args);
         }
@@ -70,9 +69,8 @@ class Mage_Core_Model_Layout_Element extends Varien_Simplexml_Element
     public function prepareBlock($args)
     {
         $type = (string) $this['type'];
-        $name = (string) $this['name'];
-
         $className = (string) $this['class'];
+
         if (!$className) {
             $className = Mage::getConfig()->getBlockClassName($type);
             $this->addAttribute('class', $className);
