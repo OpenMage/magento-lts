@@ -71,7 +71,7 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
      * Apply custom design
      *
      * @param  string     $design
-     * @return false|void
+     * @return false|null
      */
     public function applyCustomDesign($design)
     {
@@ -83,6 +83,7 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
         $package = $designInfo[0];
         $theme   = $designInfo[1];
         $this->_apply($package, $theme);
+        return null;
     }
 
     /**

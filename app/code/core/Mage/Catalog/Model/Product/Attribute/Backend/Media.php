@@ -90,7 +90,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
 
     /**
      * @param  Mage_Catalog_Model_Product                                  $object
-     * @return $this|Mage_Eav_Model_Entity_Attribute_Backend_Abstract|void
+     * @return $this|Mage_Eav_Model_Entity_Attribute_Backend_Abstract|null
      * @throws Zend_Json_Exception
      */
     public function beforeSave($object)
@@ -98,7 +98,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
         $attrCode = $this->getAttribute()->getAttributeCode();
         $value = $object->getData($attrCode);
         if (!is_array($value) || !isset($value['images'])) {
-            return;
+            return null;
         }
 
         if (!is_array($value['images']) && (string) $value['images'] !== '') {

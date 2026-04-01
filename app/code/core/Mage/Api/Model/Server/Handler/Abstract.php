@@ -328,7 +328,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
      *
      * @param  string     $sessionId
      * @param  array      $options
-     * @return array|void
+     * @return mixed[]|null
      */
     public function multiCall($sessionId, array $calls = [], $options = [])
     {
@@ -337,7 +337,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
 
         if (!$this->_getSession()->isLoggedIn($sessionId)) {
             $this->_fault('session_expired');
-            return;
+            return null;
         }
 
         $result = [];
@@ -462,7 +462,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
      * List of available resources
      *
      * @param  string     $sessionId
-     * @return array|void
+     * @return mixed[]|null
      */
     public function resources($sessionId)
     {
@@ -471,7 +471,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
 
         if (!$this->_getSession()->isLoggedIn($sessionId)) {
             $this->_fault('session_expired');
-            return;
+            return null;
         }
 
         $resources = [];
@@ -529,7 +529,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
      *
      * @param  string     $sessionId
      * @param  string     $resourceName
-     * @return array|void
+     * @return mixed[]|null
      */
     public function resourceFaults($sessionId, $resourceName)
     {
@@ -538,7 +538,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
 
         if (!$this->_getSession()->isLoggedIn($sessionId)) {
             $this->_fault('session_expired');
-            return;
+            return null;
         }
 
         $resourcesAlias = $this->_getConfig()->getResourcesAlias();
@@ -552,14 +552,14 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
             || !isset($resources->$resourceName)
         ) {
             $this->_fault('resource_path_invalid');
-            return;
+            return null;
         }
 
         if (isset($resources->$resourceName->acl)
             && !$this->_isAllowed((string) $resources->$resourceName->acl)
         ) {
             $this->_fault('access_denied');
-            return;
+            return null;
         }
 
         return array_values($this->_getConfig()->getFaults($resourceName));

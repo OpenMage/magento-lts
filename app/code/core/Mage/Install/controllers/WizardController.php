@@ -202,7 +202,7 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
     /**
      * Process configuration POST data
      *
-     * @return Mage_Core_Controller_Varien_Action|void
+     * @return Mage_Core_Controller_Varien_Action|null
      */
     public function configPostAction()
     {
@@ -232,6 +232,7 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
         }
 
         $this->getResponse()->setRedirect($step->getUrl());
+        return null;
     }
 
     /**
@@ -276,7 +277,7 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
     /**
      * Process administrator installation POST data
      *
-     * @return false|void
+     * @return false|null
      */
     public function administratorPostAction()
     {
@@ -318,6 +319,7 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
         }
 
         $this->getResponse()->setRedirect($step->getNextUrl());
+        return null;
     }
 
     /**

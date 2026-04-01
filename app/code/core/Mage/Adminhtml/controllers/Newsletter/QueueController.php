@@ -78,6 +78,7 @@ class Mage_Adminhtml_Newsletter_QueueController extends Mage_Adminhtml_Controlle
 
         $this->getLayout()->getBlock('preview_form')->setFormData($data);
         $this->renderLayout();
+        return null;
     }
 
     /**

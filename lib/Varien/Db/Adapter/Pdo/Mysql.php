@@ -1993,50 +1993,25 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      * Retrieve column data type by data from describe table
      *
      * @param  array       $column
-     * @return string|void
+     * @return string|null
      */
     protected function _getColumnTypeByDdl($column)
     {
-        switch ($column['DATA_TYPE']) {
-            case 'bool':
-                return Varien_Db_Ddl_Table::TYPE_BOOLEAN;
-            case 'tinytext':
-            case 'char':
-            case 'varchar':
-            case 'text':
-            case 'mediumtext':
-            case 'longtext':
-                return Varien_Db_Ddl_Table::TYPE_TEXT;
-            case 'blob':
-            case 'mediumblob':
-            case 'longblob':
-                return Varien_Db_Ddl_Table::TYPE_BLOB;
-            case 'tinyint':
-            case 'tinyint unsigned':
-            case 'smallint':
-            case 'smallint unsigned':
-                return Varien_Db_Ddl_Table::TYPE_SMALLINT;
-            case 'mediumint':
-            case 'int':
-            case 'int unsigned':
-                return Varien_Db_Ddl_Table::TYPE_INTEGER;
-            case 'bigint':
-            case 'bigint unsigned':
-                return Varien_Db_Ddl_Table::TYPE_BIGINT;
-            case 'datetime':
-                return Varien_Db_Ddl_Table::TYPE_DATETIME;
-            case 'timestamp':
-                return Varien_Db_Ddl_Table::TYPE_TIMESTAMP;
-            case 'date':
-                return Varien_Db_Ddl_Table::TYPE_DATE;
-            case 'float':
-                return Varien_Db_Ddl_Table::TYPE_FLOAT;
-            case 'decimal':
-            case 'numeric':
-                return Varien_Db_Ddl_Table::TYPE_DECIMAL;
-            case 'varbinary':
-                return Varien_Db_Ddl_Table::TYPE_VARBINARY;
-        }
+        return match ($column['DATA_TYPE']) {
+            'bool' => Varien_Db_Ddl_Table::TYPE_BOOLEAN,
+            'tinytext', 'char', 'varchar', 'text', 'mediumtext', 'longtext' => Varien_Db_Ddl_Table::TYPE_TEXT,
+            'blob', 'mediumblob', 'longblob' => Varien_Db_Ddl_Table::TYPE_BLOB,
+            'tinyint', 'tinyint unsigned', 'smallint', 'smallint unsigned' => Varien_Db_Ddl_Table::TYPE_SMALLINT,
+            'mediumint', 'int', 'int unsigned' => Varien_Db_Ddl_Table::TYPE_INTEGER,
+            'bigint', 'bigint unsigned' => Varien_Db_Ddl_Table::TYPE_BIGINT,
+            'datetime' => Varien_Db_Ddl_Table::TYPE_DATETIME,
+            'timestamp' => Varien_Db_Ddl_Table::TYPE_TIMESTAMP,
+            'date' => Varien_Db_Ddl_Table::TYPE_DATE,
+            'float' => Varien_Db_Ddl_Table::TYPE_FLOAT,
+            'decimal', 'numeric' => Varien_Db_Ddl_Table::TYPE_DECIMAL,
+            'varbinary' => Varien_Db_Ddl_Table::TYPE_VARBINARY,
+            default => null,
+        };
     }
 
     /**

@@ -147,7 +147,7 @@ class Mage_Core_Model_App_Area
     }
 
     /**
-     * @return $this|void
+     * @return $this|null
      * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
      */
@@ -159,7 +159,7 @@ class Mage_Core_Model_App_Area
 
         $designPackage = Mage::getSingleton('core/design_package');
         if ($designPackage->getArea() != self::AREA_FRONTEND) {
-            return;
+            return null;
         }
 
         $currentStore = Mage::app()->getStore()->getStoreId();
@@ -171,5 +171,7 @@ class Mage_Core_Model_App_Area
             $designPackage->setPackageName($designChange->getPackage())
                 ->setTheme($designChange->getTheme());
         }
+
+        return null;
     }
 }

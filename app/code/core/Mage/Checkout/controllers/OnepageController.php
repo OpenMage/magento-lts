@@ -33,7 +33,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
     /**
      * Predispatch: should set layout area
      *
-     * @return $this|void
+     * @return $this|null
      */
     public function preDispatch()
     {
@@ -52,7 +52,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
         if (!$this->_canShowForUnregisteredUsers()) {
             $this->norouteAction();
             $this->setFlag('', self::FLAG_NO_DISPATCH, true);
-            return;
+            return null;
         }
 
         return $this;

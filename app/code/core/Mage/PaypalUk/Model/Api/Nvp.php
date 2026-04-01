@@ -441,25 +441,19 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
      * Map paypal method names
      *
      * @param  string      $methodName
-     * @return string|void
+     * @return string|null
      */
     protected function _mapPaypalMethodName($methodName)
     {
-        switch ($methodName) {
-            case Mage_Paypal_Model_Api_Nvp::DO_EXPRESS_CHECKOUT_PAYMENT:
-            case Mage_Paypal_Model_Api_Nvp::GET_EXPRESS_CHECKOUT_DETAILS:
-            case Mage_Paypal_Model_Api_Nvp::SET_EXPRESS_CHECKOUT:
-            case Mage_Paypal_Model_Api_Nvp::DO_DIRECT_PAYMENT:
-                return ($this->_config->payment_action == Mage_Paypal_Model_Config::PAYMENT_ACTION_AUTH)
-                    ? self::TRXTYPE_AUTH_ONLY
-                    : self::TRXTYPE_SALE;
-            case Mage_Paypal_Model_Api_Nvp::DO_CAPTURE:
-                return self::TRXTYPE_DELAYED_CAPTURE;
-            case Mage_Paypal_Model_Api_Nvp::DO_VOID:
-                return self::TRXTYPE_DELAYED_VOID;
-            case Mage_Paypal_Model_Api_Nvp::REFUND_TRANSACTION:
-                return self::TRXTYPE_CREDIT;
-        }
+        return match ($methodName) {
+            Mage_Paypal_Model_Api_Nvp::DO_EXPRESS_CHECKOUT_PAYMENT, Mage_Paypal_Model_Api_Nvp::GET_EXPRESS_CHECKOUT_DETAILS, Mage_Paypal_Model_Api_Nvp::SET_EXPRESS_CHECKOUT, Mage_Paypal_Model_Api_Nvp::DO_DIRECT_PAYMENT => ($this->_config->payment_action == Mage_Paypal_Model_Config::PAYMENT_ACTION_AUTH)
+                ? self::TRXTYPE_AUTH_ONLY
+                : self::TRXTYPE_SALE,
+            Mage_Paypal_Model_Api_Nvp::DO_CAPTURE => self::TRXTYPE_DELAYED_CAPTURE,
+            Mage_Paypal_Model_Api_Nvp::DO_VOID => self::TRXTYPE_DELAYED_VOID,
+            Mage_Paypal_Model_Api_Nvp::REFUND_TRANSACTION => self::TRXTYPE_CREDIT,
+            default => null,
+        };
     }
 
     /**

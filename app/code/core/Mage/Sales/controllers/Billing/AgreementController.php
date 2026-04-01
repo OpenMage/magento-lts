@@ -32,13 +32,13 @@ class Mage_Sales_Billing_AgreementController extends Mage_Core_Controller_Front_
      *
      * Check customer authentication
      *
-     * @return $this|void
+     * @return $this|null
      */
     public function preDispatch()
     {
         parent::preDispatch();
         if (!$this->getRequest()->isDispatched()) {
-            return;
+            return null;
         }
 
         if (!$this->_getSession()->authenticate($this)) {
@@ -80,7 +80,7 @@ class Mage_Sales_Billing_AgreementController extends Mage_Core_Controller_Front_
     /**
      * Wizard start action
      *
-     * @return $this|void
+     * @return $this|null
      */
     public function startWizardAction()
     {
@@ -104,6 +104,7 @@ class Mage_Sales_Billing_AgreementController extends Mage_Core_Controller_Front_
         }
 
         $this->_redirect('*/*/');
+        return null;
     }
 
     /**
