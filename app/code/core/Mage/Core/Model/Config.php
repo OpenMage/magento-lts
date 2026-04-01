@@ -903,13 +903,13 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      * Load declared modules configuration
      *
      * @param  null       $mergeConfig deprecated
-     * @return $this|void
+     * @return null|$this
      */
     protected function _loadDeclaredModules($mergeConfig = null)
     {
         $moduleFiles = $this->_getDeclaredModuleFiles();
         if (!$moduleFiles) {
-            return ;
+            return null;
         }
 
         Varien_Profiler::start('config/load-modules-declaration');
