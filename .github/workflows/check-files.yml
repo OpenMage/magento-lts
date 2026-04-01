@@ -57,12 +57,12 @@ jobs:
       js: ${{ steps.changes-js.outputs.js }}
       markdown: ${{ steps.changes-markdown.outputs.markdown }}
       php: ${{ steps.changes-php.outputs.php }}
-      phtml: ${{ steps.all.outputs.phtml }}
+      phtml: ${{ steps.changes-phtml.outputs.phtml }}
       xml: ${{ steps.changes-xml.outputs.xml }}
       workflow: ${{ steps.changes-workflow.outputs.workflow }}
       phpcs: ${{ steps.changes-phpcs.outputs.phpcs }}
       php-cs-fixer: ${{ steps.changes-php-cs-fixer.outputs.php-cs-fixer }}
-      phpmd: ${{ steps.changes-phpstan.outputs.phpmd }}
+      phpmd: ${{ steps.changes-phpmd.outputs.phpmd }}
       phpstan: ${{ steps.changes-phpstan.outputs.phpstan }}
       phpunit-test: ${{ steps.changes-phpunit-test.outputs.phpunit-test }}
       phpunit: ${{ steps.changes-phpunit.outputs.phpunit }}
