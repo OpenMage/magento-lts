@@ -371,7 +371,7 @@ abstract class Mage_Core_Controller_Varien_Action
      * Rendering layout
      *
      * @param  string              $output
-     * @return $this|null
+     * @return null|$this
      * @throws Mage_Core_Exception
      */
     public function renderLayout($output = '')

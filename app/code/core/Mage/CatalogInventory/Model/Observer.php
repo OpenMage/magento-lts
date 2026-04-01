@@ -637,7 +637,7 @@ class Mage_CatalogInventory_Model_Observer
      * Used before order placing to make order save/place transaction smaller
      * Also called after every successful order placement to ensure subtraction of inventory
      *
-     * @return \Mage_CatalogInventory_Model_Observer|null
+     * @return null|\Mage_CatalogInventory_Model_Observer
      */
     public function subtractQuoteInventory(Varien_Event_Observer $observer)
     {

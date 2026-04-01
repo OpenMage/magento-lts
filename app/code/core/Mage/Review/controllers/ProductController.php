@@ -22,7 +22,7 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
     protected $_cookieCheckActions = ['post'];
 
     /**
-     * @return $this|Mage_Core_Controller_Front_Action|null
+     * @return null|$this|Mage_Core_Controller_Front_Action
      */
     public function preDispatch()
     {

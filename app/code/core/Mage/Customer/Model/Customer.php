@@ -1439,7 +1439,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      *
      * @param  null|string $error
      * @param  string      $line
-     * @return false|null
+     * @return null|false
      * @throws Exception
      */
     public function printError($error, $line = null)

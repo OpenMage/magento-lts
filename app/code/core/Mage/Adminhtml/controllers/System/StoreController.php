@@ -464,7 +464,7 @@ class Mage_Adminhtml_System_StoreController extends Mage_Adminhtml_Controller_Ac
      *
      * @param  string     $failPath  redirect path if backup failed
      * @param  array      $arguments
-     * @return $this|null
+     * @return null|$this
      */
     protected function _backupDatabase($failPath, $arguments = [])
     {

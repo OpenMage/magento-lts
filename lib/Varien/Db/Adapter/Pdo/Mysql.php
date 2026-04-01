@@ -1993,7 +1993,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      * Retrieve column data type by data from describe table
      *
      * @param  array       $column
-     * @return string|null
+     * @return null|string
      */
     protected function _getColumnTypeByDdl($column)
     {

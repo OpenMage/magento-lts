@@ -326,9 +326,9 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
     /**
      * Multiple calls of resource functionality
      *
-     * @param  string     $sessionId
-     * @param  array      $options
-     * @return mixed[]|null
+     * @param  string       $sessionId
+     * @param  array        $options
+     * @return null|mixed[]
      */
     public function multiCall($sessionId, array $calls = [], $options = [])
     {
@@ -461,8 +461,8 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
     /**
      * List of available resources
      *
-     * @param  string     $sessionId
-     * @return mixed[]|null
+     * @param  string       $sessionId
+     * @return null|mixed[]
      */
     public function resources($sessionId)
     {
@@ -527,9 +527,9 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
     /**
      * List of resource faults
      *
-     * @param  string     $sessionId
-     * @param  string     $resourceName
-     * @return mixed[]|null
+     * @param  string       $sessionId
+     * @param  string       $resourceName
+     * @return null|mixed[]
      */
     public function resourceFaults($sessionId, $resourceName)
     {

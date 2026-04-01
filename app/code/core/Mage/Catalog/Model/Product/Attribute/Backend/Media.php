@@ -90,7 +90,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
 
     /**
      * @param  Mage_Catalog_Model_Product                                  $object
-     * @return $this|Mage_Eav_Model_Entity_Attribute_Backend_Abstract|null
+     * @return null|$this|Mage_Eav_Model_Entity_Attribute_Backend_Abstract
      * @throws Zend_Json_Exception
      */
     public function beforeSave($object)

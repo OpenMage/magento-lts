@@ -336,7 +336,7 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
      *
      * @param  array    $a
      * @param  array    $b
-     * @return int|null
+     * @return null|int
      */
     protected function _usort($a, $b)
     {

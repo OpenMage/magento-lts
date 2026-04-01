@@ -103,7 +103,7 @@ class Varien_Data_Form_Element_Checkboxes extends Varien_Data_Form_Element_Abstr
 
     /**
      * @param  string      $value
-     * @return string|null
+     * @return null|string
      */
     public function getChecked($value)
     {
@@ -153,7 +153,7 @@ class Varien_Data_Form_Element_Checkboxes extends Varien_Data_Form_Element_Abstr
 
     /**
      * @param  string      $value
-     * @return string|null
+     * @return null|string
      */
     public function getOnclick($value)
     {
@@ -166,7 +166,7 @@ class Varien_Data_Form_Element_Checkboxes extends Varien_Data_Form_Element_Abstr
 
     /**
      * @param  string      $value
-     * @return string|null
+     * @return null|string
      */
     public function getOnchange($value)
     {

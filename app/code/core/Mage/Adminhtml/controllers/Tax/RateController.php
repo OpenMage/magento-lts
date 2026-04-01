@@ -71,7 +71,7 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
     /**
      * Save Rate and Data
      *
-     * @return true|null
+     * @return null|true
      * @throws Throwable
      */
     public function saveAction()
@@ -152,7 +152,7 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
     /**
      * Delete Rate and Data
      *
-     * @return true|null
+     * @return null|true
      * @throws Throwable
      */
     public function deleteAction()

@@ -33,7 +33,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
     /**
      * Predispatch: should set layout area
      *
-     * @return $this|null
+     * @return null|$this
      */
     public function preDispatch()
     {

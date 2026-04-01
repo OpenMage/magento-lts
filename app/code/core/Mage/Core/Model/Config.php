@@ -903,7 +903,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      * Load declared modules configuration
      *
      * @param  null       $mergeConfig deprecated
-     * @return $this|null
+     * @return null|$this
      */
     protected function _loadDeclaredModules($mergeConfig = null)
     {

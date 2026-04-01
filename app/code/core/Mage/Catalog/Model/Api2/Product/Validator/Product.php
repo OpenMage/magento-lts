@@ -240,7 +240,7 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
      * Validate product type
      *
      * @param  array     $data
-     * @return true|null
+     * @return null|true
      */
     protected function _validateProductType($data)
     {
@@ -264,7 +264,7 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
      *
      * @param  array                      $data
      * @param  Mage_Eav_Model_Entity_Type $productEntity
-     * @return true|null
+     * @return null|true
      * @throws Mage_Api2_Exception
      */
     protected function _validateAttributeSet($data, $productEntity)
@@ -290,7 +290,7 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
      * Validate SKU
      *
      * @param  array     $data
-     * @return true|null
+     * @return null|true
      */
     protected function _validateSku($data)
     {

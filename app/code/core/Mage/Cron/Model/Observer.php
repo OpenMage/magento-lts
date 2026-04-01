@@ -269,7 +269,7 @@ class Mage_Cron_Model_Observer
      *
      * @param  string              $jobCode
      * @param  SimpleXMLElement    $jobConfig
-     * @return $this|null
+     * @return null|$this
      * @throws Mage_Core_Exception
      * @throws Throwable
      */
@@ -298,7 +298,7 @@ class Mage_Cron_Model_Observer
      * @param  Mage_Cron_Model_Schedule $schedule
      * @param  SimpleXMLElement         $jobConfig
      * @param  bool                     $isAlways
-     * @return $this|null
+     * @return null|$this
      * @throws Throwable
      */
     protected function _processJob($schedule, $jobConfig, $isAlways = false)

@@ -147,7 +147,7 @@ class Mage_Core_Model_App_Area
     }
 
     /**
-     * @return $this|null
+     * @return null|$this
      * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
      */

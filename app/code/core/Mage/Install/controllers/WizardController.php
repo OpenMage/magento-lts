@@ -202,7 +202,7 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
     /**
      * Process configuration POST data
      *
-     * @return Mage_Core_Controller_Varien_Action|null
+     * @return null|Mage_Core_Controller_Varien_Action
      */
     public function configPostAction()
     {
@@ -277,7 +277,7 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
     /**
      * Process administrator installation POST data
      *
-     * @return false|null
+     * @return null|false
      */
     public function administratorPostAction()
     {

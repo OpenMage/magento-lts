@@ -1149,7 +1149,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
      * Show item update result from updateAction
      * in Wishlist and Cart controllers.
      *
-     * @return false|null
+     * @return null|false
      */
     public function showUpdateResultAction()
     {
