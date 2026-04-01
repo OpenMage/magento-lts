@@ -78,24 +78,21 @@ class Mage_Downloadable_Model_Resource_Sample extends Mage_Core_Model_Resource_D
      */
     public function deleteItems($items)
     {
-        $writeAdapter = $this->_getWriteAdapter();
-        $where = '';
         if ($items instanceof Mage_Downloadable_Model_Sample) {
             $where = ['sample_id = ?'    => $items->getId()];
         } else {
             $where = ['sample_id in (?)' => $items];
         }
 
-        if ($where) {
-            $writeAdapter->delete(
-                $this->getMainTable(),
-                $where,
-            );
-            $writeAdapter->delete(
-                $this->getTable('downloadable/sample_title'),
-                $where,
-            );
-        }
+        $writeAdapter = $this->_getWriteAdapter();
+        $writeAdapter->delete(
+            $this->getMainTable(),
+            $where,
+        );
+        $writeAdapter->delete(
+            $this->getTable('downloadable/sample_title'),
+            $where,
+        );
 
         return $this;
     }

@@ -568,13 +568,10 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
      */
     public function duplicate($oldId, $newId)
     {
-        $adapter = $this->_getWriteAdapter();
         $eavTables = ['datetime', 'decimal', 'int', 'text', 'varchar'];
         $mediaImageAttributeSkipIds = [];
-        $adapter = $this->_getWriteAdapter();
 
         if ($this->getSkipImagesOnDuplicate()) {
-
             /**
              * @var int                                      $attributeId
              * @var Mage_Eav_Model_Entity_Attribute_Abstract $attribute
@@ -587,6 +584,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
         }
 
         // duplicate EAV store values
+        $adapter = $this->_getWriteAdapter();
         foreach ($eavTables as $suffix) {
             $tableName = $this->getTable(['catalog/product', $suffix]);
 

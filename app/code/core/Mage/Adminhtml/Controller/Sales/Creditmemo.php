@@ -57,7 +57,7 @@ class Mage_Adminhtml_Controller_Sales_Creditmemo extends Mage_Adminhtml_Controll
      */
     public function viewAction()
     {
-        if ($creditmemoId = $this->getRequest()->getParam('creditmemo_id')) {
+        if ($this->getRequest()->getParam('creditmemo_id')) {
             $this->_forward('view', 'sales_order_creditmemo', null, ['come_from' => 'sales_creditmemo']);
         } else {
             $this->_forward('noRoute');

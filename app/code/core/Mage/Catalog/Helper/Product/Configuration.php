@@ -215,8 +215,7 @@ class Mage_Catalog_Helper_Product_Configuration extends Mage_Core_Helper_Abstrac
         }
 
         // Truncate standard view
-        $result = [];
-        if (is_array($optionValue)) {
+           if (is_array($optionValue)) {
             $truncatedValue = implode("\n", $optionValue);
             $truncatedValue = nl2br($truncatedValue);
             return ['value' => $truncatedValue];

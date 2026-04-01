@@ -202,10 +202,6 @@ class Mage_Checkout_Model_Cart_Product_Api extends Mage_Checkout_Model_Api_Resou
     public function items($quoteId, $store = null)
     {
         $quote = $this->_getQuote($quoteId, $store);
-        if (empty($store)) {
-            $store = $quote->getStoreId();
-        }
-
         if (!$quote->getItemsCount()) {
             return [];
         }

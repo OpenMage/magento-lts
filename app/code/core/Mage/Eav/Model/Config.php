@@ -497,7 +497,6 @@ class Mage_Eav_Model_Config
         }
 
         // get model
-        $attribute = null;
         if (isset($this->_entityTypeAttributes[$storeId][$entityType->getId()][$code])) {
             $attributeData = $this->_entityTypeAttributes[$storeId][$entityType->getId()][$code];
             if (is_array($attributeData)) {
