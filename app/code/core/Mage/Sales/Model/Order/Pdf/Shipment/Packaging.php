@@ -231,7 +231,6 @@ class Mage_Sales_Model_Order_Pdf_Shipment_Packaging extends Mage_Sales_Model_Ord
             );
             $page->drawText(Mage::helper('sales')->__('Qty'), $itemCollsX[++$i] + $txtIndent, $this->y, 'UTF-8');
 
-            $i = 0;
             foreach ($package->getItems() as $item) {
                 $item = new Varien_Object($item);
                 $i = 0;

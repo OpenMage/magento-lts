@@ -59,7 +59,7 @@ class Mage_Adminhtml_Controller_Sales_Shipment extends Mage_Adminhtml_Controller
      */
     public function viewAction()
     {
-        if ($shipmentId = $this->getRequest()->getParam('shipment_id')) {
+        if ($this->getRequest()->getParam('shipment_id')) {
             $this->_forward('view', 'sales_order_shipment', null, ['come_from' => 'shipment']);
         } else {
             $this->_forward('noRoute');
