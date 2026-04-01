@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Traits\DataProvider\Mage\Reports;
 
+use Carbon;
 use Generator;
 use Mage_Reports_Helper_Data;
 
@@ -56,8 +57,8 @@ trait ReportsTrait
             Mage_Reports_Helper_Data::REPORT_PERIOD_TYPE_DAY,
         ];
         yield $prefix . 'no to null' => [
-            455,
-            self::$dateFirstDay,
+            30,
+            Carbon::now()->subDays(30),
             null,
             Mage_Reports_Helper_Data::REPORT_PERIOD_TYPE_DAY,
         ];
