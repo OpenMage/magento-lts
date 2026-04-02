@@ -55,7 +55,11 @@ class Mage_Catalog_Model_Product_Indexer_Flat extends Mage_Index_Model_Indexer_A
     {
         /** @var Mage_Catalog_Helper_Product_Flat $productFlatHelper */
         $productFlatHelper = Mage::helper('catalog/product_flat');
-        return $productFlatHelper->isEnabled() || !$productFlatHelper->isBuilt();
+        if ($productFlatHelper->isEnabled()) {
+            return true;
+        }
+
+        return !$productFlatHelper->isBuilt();
     }
 
     /**
@@ -248,8 +252,8 @@ class Mage_Catalog_Model_Product_Indexer_Flat extends Mage_Index_Model_Indexer_A
                 // register affected products
                 if ($reindexFlat) {
                     $reindexData['catalog_product_flat_product_ids'] = $actionObject->getProductIds();
-                    foreach ($reindexData as $k => $v) {
-                        $event->addNewData($k, $v);
+                    foreach ($reindexData as $key => $value) {
+                        $event->addNewData($key, $value);
                     }
                 }
 

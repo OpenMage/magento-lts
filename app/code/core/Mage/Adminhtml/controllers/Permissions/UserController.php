@@ -113,7 +113,7 @@ class Mage_Adminhtml_Permissions_UserController extends Mage_Adminhtml_Controlle
             }
 
             //Validate current admin password
-            $currentPassword = $this->getRequest()->getParam('current_password', null);
+            $currentPassword = $this->getRequest()->getParam('current_password');
             $this->getRequest()->setParam('current_password', null);
             unset($data['current_password']);
             $result = $this->_validateCurrentPassword($currentPassword);
@@ -182,7 +182,7 @@ class Mage_Adminhtml_Permissions_UserController extends Mage_Adminhtml_Controlle
         $id = $this->getRequest()->getParam('user_id');
 
         //Validate current admin password
-        $currentPassword = $this->getRequest()->getParam('current_password', null);
+        $currentPassword = $this->getRequest()->getParam('current_password');
         $this->getRequest()->setParam('current_password', null);
         $result = $this->_validateCurrentPassword($currentPassword);
 
@@ -211,8 +211,8 @@ class Mage_Adminhtml_Permissions_UserController extends Mage_Adminhtml_Controlle
                 Mage::getSingleton('adminhtml/session')->addSuccess($this->__('The user has been deleted.'));
                 $this->_redirect('*/*/');
                 return;
-            } catch (Exception $e) {
-                Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
+            } catch (Exception $exception) {
+                Mage::getSingleton('adminhtml/session')->addError($exception->getMessage());
                 $this->_redirect('*/*/edit', ['user_id' => $this->getRequest()->getParam('user_id')]);
                 return;
             }

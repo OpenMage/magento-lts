@@ -89,7 +89,7 @@ class Mage_Core_Model_Resource_Website_Collection extends Mage_Core_Model_Resour
     {
         if (is_array($ids)) {
             if ($ids === []) {
-                $this->addFieldToFilter('website_id', null);
+                $this->addFieldToFilter('website_id');
             } else {
                 $this->addFieldToFilter('website_id', ['in' => $ids]);
             }

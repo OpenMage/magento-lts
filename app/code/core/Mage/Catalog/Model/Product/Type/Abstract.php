@@ -434,8 +434,8 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
                         $uploader = $queueOptions['uploader'] ?? null;
 
                         $path = dirname($dst);
-                        $io = new Varien_Io_File();
-                        if (!$io->isWriteable($path) && !$io->mkdir($path, 0777, true)) {
+                        $ioFile = new Varien_Io_File();
+                        if (!$ioFile->isWriteable($path) && !$ioFile->mkdir($path, 0777, true)) {
                             Mage::throwException(Mage::helper('catalog')->__("Cannot create writeable directory '%s'.", $path));
                         }
 

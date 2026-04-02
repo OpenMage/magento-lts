@@ -73,10 +73,10 @@ class Mage_Shipping_Model_Carrier_Freeshipping extends Mage_Shipping_Model_Carri
     {
         $freeShipping = false;
         $items = $request->getAllItems();
-        $c = count($items);
-        for ($i = 0; $i < $c; $i++) {
-            if ($items[$i]->getProduct() instanceof Mage_Catalog_Model_Product) {
-                if ($items[$i]->getFreeShipping()) {
+        $count = count($items);
+        for ($index = 0; $index < $count; $index++) {
+            if ($items[$index]->getProduct() instanceof Mage_Catalog_Model_Product) {
+                if ($items[$index]->getFreeShipping()) {
                     $freeShipping = true;
                 } else {
                     return;

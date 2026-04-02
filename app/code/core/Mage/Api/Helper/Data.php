@@ -201,8 +201,8 @@ class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
         }
 
         if (is_object($mixed) && isset($mixed->complexObjectArray)) {
-            foreach ($mixed->complexObjectArray as $k => $v) {
-                $mixed->complexObjectArray[$k] = $this->wsiArrayPacker($v);
+            foreach ($mixed->complexObjectArray as $index => $value) {
+                $mixed->complexObjectArray[$index] = $this->wsiArrayPacker($value);
             }
         }
 

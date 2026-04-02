@@ -16,8 +16,11 @@ class Mage_Usa_Model_Shipping_Carrier_Ups_Source_Container
     {
         $ups = Mage::getSingleton('usa/shipping_carrier_ups');
         $arr = [];
-        foreach ($ups->getCode('container_description') as $k => $v) {
-            $arr[] = ['value' => $k, 'label' => Mage::helper('usa')->__($v)];
+        foreach ($ups->getCode('container_description') as $key => $value) {
+            $arr[] = [
+                'value' => $key,
+                'label' => Mage::helper('usa')->__($value),
+            ];
         }
 
         return $arr;

@@ -179,7 +179,11 @@ class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstrac
      */
     public function isStartCustomization()
     {
-        return $this->getProduct()->getConfigureMode() || Mage::app()->getRequest()->getParam('startcustomization');
+        if ($this->getProduct()->getConfigureMode()) {
+            return true;
+        }
+
+        return (bool) Mage::app()->getRequest()->getParam('startcustomization');
     }
 
     /**

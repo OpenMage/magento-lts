@@ -90,7 +90,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
 
     /**
      * @param  Mage_Catalog_Model_Product                                  $object
-     * @return $this|Mage_Eav_Model_Entity_Attribute_Backend_Abstract|void
+     * @return null|$this|Mage_Eav_Model_Entity_Attribute_Backend_Abstract
      * @throws Zend_Json_Exception
      */
     public function beforeSave($object)
@@ -98,7 +98,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
         $attrCode = $this->getAttribute()->getAttributeCode();
         $value = $object->getData($attrCode);
         if (!is_array($value) || !isset($value['images'])) {
-            return;
+            return null;
         }
 
         if (!is_array($value['images']) && (string) $value['images'] !== '') {
@@ -518,11 +518,11 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
         if (is_array($mediaAttribute)) {
             foreach ($mediaAttribute as $attribute) {
                 if (in_array($attribute, $mediaAttributeCodes, true)) {
-                    $product->setData($attribute, null);
+                    $product->setData($attribute);
                 }
             }
         } elseif (in_array($mediaAttribute, $mediaAttributeCodes, true)) {
-            $product->setData($mediaAttribute, null);
+            $product->setData($mediaAttribute);
         }
 
         return $this;
@@ -673,11 +673,11 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
             }
         } catch (Exception) {
             $file = $this->_getConfig()->getMediaPath($file);
-            $io = new Varien_Io_File();
+            $ioFile = new Varien_Io_File();
             Mage::throwException(
                 Mage::helper('catalog')->__(
                     'Failed to copy file %s. Please, delete media with non-existing images and try again.',
-                    $io->getFilteredPath($file),
+                    $ioFile->getFilteredPath($file),
                 ),
             );
         }

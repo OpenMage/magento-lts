@@ -15,7 +15,7 @@
 class Mage_Bundle_Model_Sales_Order_Pdf_Items_Creditmemo extends Mage_Bundle_Model_Sales_Order_Pdf_Items_Abstract
 {
     /**
-     * Draw item line
+     * @inheritDoc
      */
     public function draw()
     {
@@ -31,7 +31,7 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Creditmemo extends Mage_Bundle_Mod
         $rightBound = 565;
 
         foreach ($orderItems as $orderItem) {
-            $x      = $leftBound;
+            $xAxis  = $leftBound;
             $line   = [];
 
             $attributes = $this->getSelectionAttributes($orderItem);
@@ -53,7 +53,7 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Creditmemo extends Mage_Bundle_Mod
                 $line[0] = [
                     'font'  => 'italic',
                     'text'  => Mage::helper('core/string')->str_split($attributes['option_label'], 38, true, true),
-                    'feed'  => $x,
+                    'feed'  => $xAxis,
                 ];
                 $drawItems[$optionId] = [
                     'lines'  => [$line],
@@ -65,10 +65,10 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Creditmemo extends Mage_Bundle_Mod
 
             // draw product titles
             if ($orderItem->getOrderItem()->getParentItem()) {
-                $feed = $x + 5;
+                $feed = $xAxis + 5;
                 $name = $this->getValueHtml($orderItem);
             } else {
-                $feed = $x;
+                $feed = $xAxis;
                 $name = $orderItem->getName();
             }
 
@@ -77,7 +77,7 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Creditmemo extends Mage_Bundle_Mod
                 'feed'  => $feed,
             ];
 
-            $x += 220;
+            $xAxis += 220;
 
             // draw SKUs
             if (!$orderItem->getOrderItem()->getParentItem()) {
@@ -88,11 +88,11 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Creditmemo extends Mage_Bundle_Mod
 
                 $line[] = [
                     'text'  => $text,
-                    'feed'  => $x,
+                    'feed'  => $xAxis,
                 ];
             }
 
-            $x += 100;
+            $xAxis += 100;
 
             // draw prices
             if ($this->canShowPriceInfo($orderItem)) {
@@ -100,45 +100,45 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Creditmemo extends Mage_Bundle_Mod
                 $text = $order->formatPriceTxt($orderItem->getRowTotal());
                 $line[] = [
                     'text'  => $text,
-                    'feed'  => $x,
+                    'feed'  => $xAxis,
                     'font'  => 'bold',
                     'align' => 'right',
                     'width' => 50,
                 ];
-                $x += 50;
+                $xAxis += 50;
 
                 // draw Discount
                 $text = $order->formatPriceTxt(-$orderItem->getDiscountAmount());
                 $line[] = [
                     'text'  => $text,
-                    'feed'  => $x,
+                    'feed'  => $xAxis,
                     'font'  => 'bold',
                     'align' => 'right',
                     'width' => 50,
                 ];
-                $x += 50;
+                $xAxis += 50;
 
                 // draw QTY
                 $text = $orderItem->getQty() * 1;
                 $line[] = [
                     'text'  => $orderItem->getQty() * 1,
-                    'feed'  => $x,
+                    'feed'  => $xAxis,
                     'font'  => 'bold',
                     'align' => 'center',
                     'width' => 30,
                 ];
-                $x += 30;
+                $xAxis += 30;
 
                 // draw Tax
                 $text = $order->formatPriceTxt($orderItem->getTaxAmount());
                 $line[] = [
                     'text'  => $text,
-                    'feed'  => $x,
+                    'feed'  => $xAxis,
                     'font'  => 'bold',
                     'align' => 'right',
                     'width' => 45,
                 ];
-                $x += 45;
+                $xAxis += 45;
 
                 // draw Total(inc)
                 $text = $order->formatPriceTxt(

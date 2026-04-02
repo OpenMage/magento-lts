@@ -303,7 +303,7 @@ class Mage_Index_Model_Indexer
             try {
                 $this->indexEvent($event);
                 $resourceModel->commit();
-            } catch (Exception $e) {
+            } catch (Exception $exception) {
                 $resourceModel->rollBack();
                 if ($allowTableChanges) {
                     $this->_allowTableChanges = true;
@@ -311,7 +311,7 @@ class Mage_Index_Model_Indexer
                     $this->_currentEvent = null;
                 }
 
-                throw $e;
+                throw $exception;
             }
 
             if ($allowTableChanges) {

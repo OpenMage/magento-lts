@@ -269,8 +269,10 @@ class Mage_DB_Mysqli
     public function escapeFieldNames(array $arrNames)
     {
         $out = [];
-        for ($i = 0, $c = count($arrNames); $i < $c; $i++) {
-            $out[] = $this->escapeFieldName($arrNames[$i]);
+        $count = count($arrNames);
+
+        for ($index = 0, $count; $index < $count; $index++) {
+            $out[] = $this->escapeFieldName($arrNames[$index]);
         }
 
         return $out;
@@ -283,11 +285,13 @@ class Mage_DB_Mysqli
     public function escapeFieldValues(array $arrNames)
     {
         $out = [];
-        for ($i = 0, $c = count($arrNames); $i < $c; $i++) {
-            if ($arrNames[$i] !== 'LAST_INSERT_ID()') {
-                $out[] = $this->escapeFieldValue($arrNames[$i]);
+        $count = count($arrNames);
+
+        for ($index = 0, $count; $index < $count; $index++) {
+            if ($arrNames[$index] !== 'LAST_INSERT_ID()') {
+                $out[] = $this->escapeFieldValue($arrNames[$index]);
             } else {
-                $out[] = $arrNames[$i];
+                $out[] = $arrNames[$index];
             }
         }
 
@@ -361,7 +365,7 @@ class Mage_DB_Mysqli
         $sql = $replace ? "REPLACE INTO {$table} " : "INSERT INTO {$table} ";
         $keys = array_keys($data[0]);
         $excluded = [];
-        for ($i = 0, $c = count($excludeFields); $i < $c; $i++) {
+        for ($i = 0, $count = count($excludeFields); $i < $count; $i++) {
             $k = $excludeFields[$i];
             if (isset($keys[$k])) {
                 $excluded [] = $k;
@@ -371,15 +375,15 @@ class Mage_DB_Mysqli
 
         $keys = $this->escapeFieldNames($keys);
         $sql .= ' ( ';
-        for ($i = 0, $c = count($keys); $i < $c; $i++) {
+        for ($i = 0, $count = count($keys); $i < $count; $i++) {
             $sql .= $keys[$i];
-            if ($i != $c - 1) {
+            if ($i != $count - 1) {
                 $sql .= ',';
             }
         }
 
         $sql .= ' ) VALUES ';
-        for ($i = 0, $c = count($data); $i < $c; $i++) {
+        for ($i = 0, $count = count($data); $i < $count; $i++) {
             $row = $data[$i];
             for ($j = 0, $jc = count($excluded); $j < $jc; $j++) {
                 unset($data[$excluded[$j]]);
@@ -395,7 +399,7 @@ class Mage_DB_Mysqli
             }
 
             $sql .= ' )';
-            if ($i != $c - 1) {
+            if ($i != $count - 1) {
                 $sql .= ',';
             }
         }
@@ -405,19 +409,20 @@ class Mage_DB_Mysqli
 
     /**
      * Set table data by condition
-     * @param        $table
-     * @param        $data
-     * @param        $condition
+     *
+     * @param  string            $table
+     * @param  string            $condition
      * @return mixed
+     * @throws Mage_DB_Exception
      */
     public function updateAssoc($table, array $data, $condition = '1=1')
     {
         $table = $this->escapeTableName($table);
         $set = [];
-        foreach ($data as $k => $v) {
-            $k = $this->escapeFieldName($k);
-            $v = $this->escapeFieldValue($v);
-            $set[] = $k . ' = ' . $v;
+        foreach ($data as $key => $value) {
+            $key   = $this->escapeFieldName($key);
+            $value = $this->escapeFieldValue($value);
+            $set[] = $key . ' = ' . $value;
         }
 
         $set = implode(',', $set);
@@ -435,13 +440,13 @@ class Mage_DB_Mysqli
     public function updateAssocByKey($table, array $data, $value, $key = 'id')
     {
         $table = $this->escapeTableName($table);
-        $key = $this->escapeFieldName($key);
+        $key   = $this->escapeFieldName($key);
         $value = $this->escapeFieldValue($value);
         $set = [];
-        foreach ($data as $k => $v) {
-            $k = $this->escapeFieldName($k);
-            $v = $this->escapeFieldValue($v);
-            $set[] = $k . ' = ' . $v;
+        foreach ($data as $index => $val) {
+            $index = $this->escapeFieldName($index);
+            $val   = $this->escapeFieldValue($val);
+            $set[] = $index . ' = ' . $val;
         }
 
         $set = implode(',', $set);

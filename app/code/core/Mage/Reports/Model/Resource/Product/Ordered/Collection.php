@@ -17,28 +17,28 @@ class Mage_Reports_Model_Resource_Product_Ordered_Collection extends Mage_Report
     /**
      * Join fields
      *
-     * @param  string $from
-     * @param  string $to
+     * @param  null|string $dateFrom
+     * @param  null|string $dateTo
      * @return $this
      */
-    protected function _joinFields($from = '', $to = '')
+    protected function _joinFields($dateFrom = '', $dateTo = '')
     {
         $this->addAttributeToSelect('*')
-            ->addOrderedQty($from, $to)
+            ->addOrderedQty($dateFrom, $dateTo)
             ->setOrder('ordered_qty', self::SORT_ORDER_DESC);
 
         return $this;
     }
 
     /**
-     * @param  string $from
-     * @param  string $to
+     * @param  null|string $dateFrom
+     * @param  null|string $dateTo
      * @return $this
      */
-    public function setDateRange($from, $to)
+    public function setDateRange($dateFrom, $dateTo)
     {
         $this->_reset()
-            ->_joinFields($from, $to);
+            ->_joinFields($dateFrom, $dateTo);
         return $this;
     }
 

@@ -196,16 +196,16 @@ abstract class Mage_Dataflow_Model_Convert_Container_Abstract implements Mage_Da
 
     public function addException($error, $level = null)
     {
-        $e = new Mage_Dataflow_Model_Convert_Exception($error);
-        $e->setLevel(is_null($level) ? Mage_Dataflow_Model_Convert_Exception::NOTICE : $level);
-        $e->setContainer($this);
-        $e->setPosition($this->getPosition());
+        $exception = new Mage_Dataflow_Model_Convert_Exception($error);
+        $exception->setLevel(is_null($level) ? Mage_Dataflow_Model_Convert_Exception::NOTICE : $level);
+        $exception->setContainer($this);
+        $exception->setPosition($this->getPosition());
 
         if ($this->getProfile()) {
-            $this->getProfile()->addException($e);
+            $this->getProfile()->addException($exception);
         }
 
-        return $e;
+        return $exception;
     }
 
     public function getPosition()

@@ -167,7 +167,11 @@ class Mage_Sales_Model_Order_Pdf_Total_Default extends Varien_Object
     public function canDisplay()
     {
         $amount = $this->getAmount();
-        return $this->getDisplayZero() || ($amount != 0);
+        if ($this->getDisplayZero()) {
+            return true;
+        }
+
+        return $amount != 0;
     }
 
     /**

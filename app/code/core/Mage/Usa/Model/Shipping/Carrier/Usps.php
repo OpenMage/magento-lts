@@ -138,12 +138,12 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
     {
         $this->_request = $request;
 
-        $r = new Varien_Object();
+        $result = new Varien_Object();
 
         if ($request->getLimitMethod()) {
-            $r->setService($request->getLimitMethod());
+            $result->setService($request->getLimitMethod());
         } else {
-            $r->setService('ALL');
+            $result->setService('ALL');
         }
 
         if ($request->getUspsContainer()) {
@@ -152,7 +152,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
             $container = $this->getConfigData('container');
         }
 
-        $r->setContainer($container);
+        $result->setContainer($container);
 
         if ($request->getUspsSize()) {
             $size = $request->getUspsSize();
@@ -160,7 +160,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
             $size = $this->getConfigData('size');
         }
 
-        $r->setSize($size);
+        $result->setSize($size);
 
         if ($request->getGirth()) {
             $girth = $request->getGirth();
@@ -168,7 +168,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
             $girth = $this->getConfigData('girth');
         }
 
-        $r->setGirth($girth);
+        $result->setGirth($girth);
 
         // Calculate dimensions from product attributes instead of using
         // request overrides. Falls back to config if no product dimensions found.
@@ -184,21 +184,21 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
             $machinable = $this->getConfigData('machinable');
         }
 
-        $r->setMachinable($machinable);
+        $result->setMachinable($machinable);
 
         if ($request->getOrigPostcode()) {
-            $r->setOrigPostal($request->getOrigPostcode());
+            $result->setOrigPostal($request->getOrigPostcode());
         } else {
-            $r->setOrigPostal(Mage::getStoreConfig(
+            $result->setOrigPostal(Mage::getStoreConfig(
                 Mage_Shipping_Model_Shipping::XML_PATH_STORE_ZIP,
                 $request->getStoreId(),
             ));
         }
 
         if ($request->getOrigCountryId()) {
-            $r->setOrigCountryId($request->getOrigCountryId());
+            $result->setOrigCountryId($request->getOrigCountryId());
         } else {
-            $r->setOrigCountryId(Mage::getStoreConfig(
+            $result->setOrigCountryId(Mage::getStoreConfig(
                 Mage_Shipping_Model_Shipping::XML_PATH_STORE_COUNTRY_ID,
                 $request->getStoreId(),
             ));
@@ -210,29 +210,29 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
             $destCountry = self::USA_COUNTRY_ID;
         }
 
-        $r->setDestCountryId($destCountry);
+        $result->setDestCountryId($destCountry);
 
         if (!$this->_isUSCountry($destCountry)) {
-            $r->setDestCountryName($this->_getCountryName($destCountry));
+            $result->setDestCountryName($this->_getCountryName($destCountry));
         }
 
         if ($request->getDestPostcode()) {
-            $r->setDestPostal($request->getDestPostcode());
+            $result->setDestPostal($request->getDestPostcode());
         }
 
         $weight = $this->getTotalNumOfBoxes($request->getPackageWeight());
-        $r->setWeightPounds(floor($weight));
-        $r->setWeightOunces(round(($weight - floor($weight)) * self::OUNCES_POUND, 1));
+        $result->setWeightPounds(floor($weight));
+        $result->setWeightOunces(round(($weight - floor($weight)) * self::OUNCES_POUND, 1));
         if ($request->getFreeMethodWeight() != $request->getPackageWeight()) {
-            $r->setFreeMethodWeight($request->getFreeMethodWeight());
+            $result->setFreeMethodWeight($request->getFreeMethodWeight());
         }
 
-        $r->setValue($request->getPackageValue());
-        $r->setValueWithDiscount($request->getPackageValueWithDiscount());
+        $result->setValue($request->getPackageValue());
+        $result->setValueWithDiscount($request->getPackageValueWithDiscount());
 
-        $r->setBaseSubtotalInclTax($request->getBaseSubtotalInclTax());
+        $result->setBaseSubtotalInclTax($request->getBaseSubtotalInclTax());
 
-        $this->_rawRequest = $r;
+        $this->_rawRequest = $result;
 
         return $this;
     }

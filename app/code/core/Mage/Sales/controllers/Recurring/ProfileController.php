@@ -22,14 +22,14 @@ class Mage_Sales_Recurring_ProfileController extends Mage_Core_Controller_Front_
     /**
      * Make sure customer is logged in and put it into registry
      *
-     * @return $this|void
+     * @return null|$this
      * @throws Mage_Core_Exception
      */
     public function preDispatch()
     {
         parent::preDispatch();
         if (!$this->getRequest()->isDispatched()) {
-            return;
+            return null;
         }
 
         $this->_session = Mage::getSingleton('customer/session');
