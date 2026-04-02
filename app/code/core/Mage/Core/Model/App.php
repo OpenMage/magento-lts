@@ -866,7 +866,7 @@ class Mage_Core_Model_App
     /**
      * Retrieve application store object
      *
-     * @param  null|bool|int|Mage_Core_Model_Store|string|Varien_Object $storeId
+     * @param  null|bool|int|Mage_Core_Model_Store|string $storeId
      * @return null|Mage_Core_Model_Store
      * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception

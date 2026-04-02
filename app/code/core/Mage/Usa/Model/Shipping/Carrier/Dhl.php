@@ -45,9 +45,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
     protected $_rawRequest = null;
 
     /**
-     * Rate result data
-     *
-     * @var null|Mage_Shipping_Model_Rate_Result
+     * @inheritDoc
      */
     protected $_result = null;
 
@@ -1236,7 +1234,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
     public function getResponse()
     {
         $statuses = '';
-        if ($this->_result instanceof Mage_Shipping_Model_Tracking_Result && $trackings = $this->_result->getAllTrackings()) {
+        if ($this->_result instanceof Mage_Shipping_Model_Tracking_Result && ($trackings = $this->_result->getAllTrackings())) {
             foreach ($trackings as $tracking) {
                 if ($data = $tracking->getAllData()) {
                     if (isset($data['status'])) {
@@ -1248,7 +1246,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
             }
         }
 
-        if (empty($statuses)) {
+        if ($statuses === '') {
             return Mage::helper('usa')->__('Empty response');
         }
 

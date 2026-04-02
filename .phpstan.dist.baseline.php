@@ -1922,12 +1922,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Category.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'If condition is always true.',
-	'identifier' => 'if.alwaysTrue',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Category.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Cannot call method getRootCategoryId() on int|string.',
 	'identifier' => 'method.nonObject',
 	'count' => 1,
@@ -3648,6 +3642,12 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Core/Model/Email/Template/Filter.php',
 ];
 $ignoreErrors[] = [
+	'rawMessage' => 'Parameter #1 $storeId of method Mage_Core_Model_App::getStore() expects bool|int|Mage_Core_Model_Store|string|null, Varien_Object|null given.',
+	'identifier' => 'argument.type',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Core/Model/Email/Template/Filter.php',
+];
+$ignoreErrors[] = [
 	'rawMessage' => 'Call to an undefined method Varien_Crypt_Abstract::init().',
 	'identifier' => 'method.notFound',
 	'count' => 1,
@@ -4334,18 +4334,6 @@ $ignoreErrors[] = [
 	'identifier' => 'empty.notAllowed',
 	'count' => 2,
 	'path' => __DIR__ . '/app/code/core/Mage/Dataflow/Model/Convert/Adapter/Http.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'If condition is always false.',
-	'identifier' => 'if.alwaysFalse',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Dataflow/Model/Convert/Adapter/Io.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Negated boolean expression is always true.',
-	'identifier' => 'booleanNot.alwaysTrue',
-	'count' => 2,
-	'path' => __DIR__ . '/app/code/core/Mage/Dataflow/Model/Convert/Adapter/Io.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
@@ -5439,12 +5427,6 @@ $ignoreErrors[] = [
 	'identifier' => 'property.phpDocType',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Payment/Model/Method/Cashondelivery.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Loose comparison using != between \'\'|\'OT\' and \'SS\' will always evaluate to true.',
-	'identifier' => 'notEqual.alwaysTrue',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Payment/Model/Method/Cc.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
@@ -7073,26 +7055,8 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Usa/Model/Shipping/Carrier/Abstract.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-	'identifier' => 'empty.notAllowed',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc type Mage_Shipping_Model_Rate_Result|null of property Mage_Usa_Model_Shipping_Carrier_Dhl::$_result is not the same as PHPDoc type Mage_Shipping_Model_Rate_Result|Mage_Shipping_Model_Tracking_Result|null of overridden property Mage_Shipping_Model_Carrier_Abstract::$_result.',
-	'identifier' => 'property.phpDocType',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'PHPDoc type string of property Mage_Usa_Model_Shipping_Carrier_Dhl::$_code is not the same as PHPDoc type string|null of overridden property Mage_Shipping_Model_Carrier_Abstract::$_code.',
 	'identifier' => 'property.phpDocType',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Property Mage_Usa_Model_Shipping_Carrier_Dhl::$_result (Mage_Shipping_Model_Rate_Result|null) does not accept Mage_Shipping_Model_Tracking_Result.',
-	'identifier' => 'assign.propertyType',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl.php',
 ];
@@ -7191,12 +7155,6 @@ $ignoreErrors[] = [
 	'identifier' => 'property.phpDocType',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-	'identifier' => 'empty.notAllowed',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Usa/sql/usa_setup/upgrade-1.6.0.0-1.6.0.1.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
