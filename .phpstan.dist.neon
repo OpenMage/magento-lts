@@ -132,8 +132,8 @@ parameters:
             # tmp strict rule
             identifier: method.childReturnType
             reportUnmatched: false
-        # tmp level 8 rule
         -
+           # tmp level 8 rule
             identifier: cast.string
             reportUnmatched: false
         -
