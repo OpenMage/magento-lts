@@ -677,7 +677,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      */
     public function canVoidPayment()
     {
-        return $this->_canVoidOrder() ? $this->getPayment()->canVoid($this->getPayment()) : false;
+        return $this->_canVoidOrder() && $this->getPayment()->canVoid($this->getPayment());
     }
 
     /**
