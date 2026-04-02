@@ -88,24 +88,24 @@ class Mage_Usa_Model_Shipping_Carrier_UspsAuth extends Mage_Usa_Model_Shipping_C
         ];
         $this->_debug($debugData);
 
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $clientUrl . 'oauth2/v3/token');
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_HEADER, false);
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $authPayload);
-        curl_setopt($ch, CURLOPT_TIMEOUT, 30);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
+        $handle = curl_init();
+        curl_setopt($handle, CURLOPT_URL, $clientUrl . 'oauth2/v3/token');
+        curl_setopt($handle, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($handle, CURLOPT_HEADER, false);
+        curl_setopt($handle, CURLOPT_POST, true);
+        curl_setopt($handle, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($handle, CURLOPT_POSTFIELDS, $authPayload);
+        curl_setopt($handle, CURLOPT_TIMEOUT, 30);
+        curl_setopt($handle, CURLOPT_SSL_VERIFYPEER, true);
+        curl_setopt($handle, CURLOPT_SSL_VERIFYHOST, 2);
 
         try {
-            $responseData = curl_exec($ch);
+            $responseData = curl_exec($handle);
 
             if ($responseData === false) {
-                $code = curl_errno($ch);
+                $code = curl_errno($handle);
                 $description = curl_strerror($code);
-                $message = curl_error($ch);
+                $message = curl_error($handle);
 
                 // Direct diagnostic logging
 
@@ -158,7 +158,7 @@ class Mage_Usa_Model_Shipping_Carrier_UspsAuth extends Mage_Usa_Model_Shipping_C
             $this->_debug(self::ERROR_LOG_MESSAGE . ' ' . $exception->getMessage());
             return null;
         } finally {
-            curl_close($ch);
+            curl_close($handle);
         }
     }
 
