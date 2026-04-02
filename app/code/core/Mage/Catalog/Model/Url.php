@@ -13,6 +13,8 @@ use Symfony\Component\String\Slugger\AsciiSlugger;
  * Catalog url model
  *
  * @package    Mage_Catalog
+ *
+ * @phpstan-import-type ConfigStoreId from Mage
  */
 class Mage_Catalog_Model_Url extends Varien_Object
 {
@@ -267,7 +269,7 @@ class Mage_Catalog_Model_Url extends Varien_Object
     /**
      * Indicate whether to save URL Rewrite History or not (create redirects to old URLs)
      *
-     * @param  null|bool|int|Mage_Core_Model_Store|string $storeId Store View
+     * @param  ConfigStoreId $storeId
      * @return bool
      */
     public function getShouldSaveRewritesHistory($storeId = null)

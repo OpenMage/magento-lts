@@ -11,6 +11,8 @@
  * Payment module base helper
  *
  * @package    Mage_Payment
+ *
+ * @phpstan-import-type ConfigStoreId from Mage
  */
 class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
 {
@@ -55,8 +57,8 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
      * array structure:
      *  $index => Varien_Simplexml_Element
      *
-     * @param  null|bool|int|Mage_Core_Model_Store|string $store
-     * @param  Mage_Sales_Model_Quote                     $quote
+     * @param  ConfigStoreId                        $store
+     * @param  Mage_Sales_Model_Quote               $quote
      * @return Mage_Payment_Model_Method_Abstract[]
      */
     public function getStoreMethods($store = null, $quote = null)
@@ -188,7 +190,7 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieve all payment methods
      *
-     * @param  null|bool|int|Mage_Core_Model_Store|string $store
+     * @param  ConfigStoreId $store
      * @return array
      */
     public function getPaymentMethods($store = null)
@@ -212,10 +214,10 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
      *                 ...
      *             )
      *
-     * @param  bool                                       $sorted
-     * @param  bool                                       $asLabelValue
-     * @param  bool                                       $withGroups
-     * @param  null|bool|int|Mage_Core_Model_Store|string $store
+     * @param  bool          $sorted
+     * @param  bool          $asLabelValue
+     * @param  bool          $withGroups
+     * @param  ConfigStoreId $store
      * @return array
      */
     public function getPaymentMethodList($sorted = true, $asLabelValue = false, $withGroups = false, $store = null)
