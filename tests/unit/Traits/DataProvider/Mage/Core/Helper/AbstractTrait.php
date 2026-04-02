@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\Helper;
 
 use Generator;
+use stdClass;
 
 trait AbstractTrait
 {
