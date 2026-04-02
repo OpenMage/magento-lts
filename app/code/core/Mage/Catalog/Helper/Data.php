@@ -12,7 +12,7 @@
  *
  * @package    Mage_Catalog
  *
- *  @phpstan-import-type ConfigStoreId from Mage
+ * @phpstan-import-type ConfigStoreId from Mage
  */
 class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
 {

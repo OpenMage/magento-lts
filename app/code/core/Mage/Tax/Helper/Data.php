@@ -8,7 +8,7 @@
  */
 
 /**
- * @package    Mage_Catalog
+ * @package    Mage_Tax
  *
  * @phpstan-import-type ConfigStoreId from Mage
  */
