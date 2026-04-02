@@ -1217,8 +1217,8 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
 
     /**
      * Escape html entities
-     * @param null|string|string[]                         $data
-     * @param null|string[]                                $allowedTags
+     * @param  null|string|string[]                        $data
+     * @param  null|string[]                               $allowedTags
      * @return ($data is array ? array<?string> : ?string)
      */
     public function escapeHtml($data, $allowedTags = null)
