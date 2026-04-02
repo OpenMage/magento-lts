@@ -3648,6 +3648,12 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Core/Model/Email/Template/Filter.php',
 ];
 $ignoreErrors[] = [
+	'rawMessage' => 'Parameter #1 $storeId of method Mage_Core_Model_App::getStore() expects bool|int|Mage_Core_Model_Store|string|null, Varien_Object|null given.',
+	'identifier' => 'argument.type',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Core/Model/Email/Template/Filter.php',
+];
+$ignoreErrors[] = [
 	'rawMessage' => 'Call to an undefined method Varien_Crypt_Abstract::init().',
 	'identifier' => 'method.notFound',
 	'count' => 1,
