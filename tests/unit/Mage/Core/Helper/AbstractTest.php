@@ -1,0 +1,36 @@
+<?php
+
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
+ */
+
+declare(strict_types=1);
+
+namespace OpenMage\Tests\Unit\Mage\Core\Helper;
+
+use Mage_Core_Helper_Abstract as Subject;
+use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\Helper\AbstractTrait;
+
+final class AbstractTest extends OpenMageTest
+{
+    use AbstractTrait;
+
+    private static Subject $subject;
+
+    protected function setUp(): void
+    {
+        self::$subject = $this->getMockForAbstractClass(Subject::class);
+    }
+
+    /**
+     * @dataProvider provideEscapeHtmlData
+     * @group Helper
+     */
+    public function testEscapeHtml($expectedResult, $data, ?array $allowedTags): void
+    {
+        self::assertSame($expectedResult, self::$subject->escapeHtml($data, $allowedTags));
+    }
+}
