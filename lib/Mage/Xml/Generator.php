@@ -89,8 +89,8 @@ class Mage_Xml_Generator
             } elseif (is_array($item) && !isset($item[0])) {
                 $this->_setCurrentDom($node)->arrayToXml($item);
             } elseif (is_array($item) && isset($item[0])) {
-                foreach ($item as $v) {
-                    $this->_setCurrentDom($node)->arrayToXml($v);
+                foreach ($item as $val) {
+                    $this->_setCurrentDom($node)->arrayToXml($val);
                 }
             }
         }

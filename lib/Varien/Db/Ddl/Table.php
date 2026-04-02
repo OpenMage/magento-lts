@@ -414,8 +414,8 @@ class Varien_Db_Ddl_Table
                 $primaryPosition = (int) $options['primary_position'];
             } else {
                 $primaryPosition = 0;
-                foreach ($this->_columns as $v) {
-                    if ($v['PRIMARY']) {
+                foreach ($this->_columns as $column) {
+                    if ($column['PRIMARY']) {
                         $primaryPosition++;
                     }
                 }

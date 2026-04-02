@@ -788,7 +788,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
                 $debugPoint = &$debugData['try-' . $offset];
 
                 $requestXml = $this->_buildQuotesRequestXml();
-                $date = Carbon::parse($this->_getShipDate() . " +$offset days")->format(self::REQUEST_DATE_FORMAT);
+                $date = Carbon::parse($this->_getShipDate() . " +{$offset} days")->format(self::REQUEST_DATE_FORMAT);
                 $this->_setQuotesRequestXmlDate($requestXml, $date);
 
                 $request = $requestXml->asXML();
@@ -956,8 +956,8 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
                         try {
                             $labelContent = (string) $xml->LabelImage->OutputImage;
                             $result->setShippingLabelContent(base64_decode($labelContent));
-                        } catch (Exception $e) {
-                            Mage::throwException(Mage::helper('usa')->__($e->getMessage()));
+                        } catch (Exception $exception) {
+                            Mage::throwException(Mage::helper('usa')->__($exception->getMessage()));
                         }
 
                         return $result;
@@ -1420,8 +1420,8 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
                 $responseBody = $client->request(Varien_Http_Client::POST)->getBody();
                 $debugData['result'] = $responseBody;
                 $this->_setCachedQuotes($request, $responseBody);
-            } catch (Exception $e) {
-                $this->_errors[$e->getCode()] = $e->getMessage();
+            } catch (Exception $exception) {
+                $this->_errors[$exception->getCode()] = $exception->getMessage();
                 $responseBody = '';
             }
 
@@ -1630,8 +1630,8 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
                 $responseBody = $client->request(Varien_Http_Client::POST)->getBody();
                 $debugData['result'] = $responseBody;
                 $this->_setCachedQuotes($request, $responseBody);
-            } catch (Exception $e) {
-                $this->_errors[$e->getCode()] = $e->getMessage();
+            } catch (Exception $exception) {
+                $this->_errors[$exception->getCode()] = $exception->getMessage();
                 $responseBody = '';
             }
 

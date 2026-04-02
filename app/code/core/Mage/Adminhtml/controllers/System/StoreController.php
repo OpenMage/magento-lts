@@ -268,7 +268,7 @@ class Mage_Adminhtml_System_StoreController extends Mage_Adminhtml_Controller_Ac
              ->_title($this->__('Delete Website'));
 
         $session = $this->_getSession();
-        $itemId = $this->getRequest()->getParam('item_id', null);
+        $itemId = $this->getRequest()->getParam('item_id');
         if (!$model = Mage::getModel('core/website')->load($itemId)) {
             $session->addError(Mage::helper('core')->__('Unable to proceed. Please, try again.'));
             $this->_redirect('*/*/');
@@ -300,7 +300,7 @@ class Mage_Adminhtml_System_StoreController extends Mage_Adminhtml_Controller_Ac
              ->_title($this->__('Delete Store'));
 
         $session = $this->_getSession();
-        $itemId = $this->getRequest()->getParam('item_id', null);
+        $itemId = $this->getRequest()->getParam('item_id');
         if (!$model = Mage::getModel('core/store_group')->load($itemId)) {
             $session->addError(Mage::helper('core')->__('Unable to proceed. Please, try again.'));
             $this->_redirect('*/*/');
@@ -332,7 +332,7 @@ class Mage_Adminhtml_System_StoreController extends Mage_Adminhtml_Controller_Ac
              ->_title($this->__('Delete Store View'));
 
         $session = $this->_getSession();
-        $itemId = $this->getRequest()->getParam('item_id', null);
+        $itemId = $this->getRequest()->getParam('item_id');
         if (!$model = Mage::getModel('core/store')->load($itemId)) {
             $session->addError(Mage::helper('core')->__('Unable to proceed. Please, try again.'));
             $this->_redirect('*/*/');
@@ -464,7 +464,7 @@ class Mage_Adminhtml_System_StoreController extends Mage_Adminhtml_Controller_Ac
      *
      * @param  string     $failPath  redirect path if backup failed
      * @param  array      $arguments
-     * @return $this|void
+     * @return null|$this
      */
     protected function _backupDatabase($failPath, $arguments = [])
     {
@@ -491,11 +491,11 @@ class Mage_Adminhtml_System_StoreController extends Mage_Adminhtml_Controller_Ac
         } catch (Mage_Core_Exception $mageCoreException) {
             $this->_getSession()->addError($mageCoreException->getMessage());
             $this->_redirect($failPath, $arguments);
-            return;
+            return null;
         } catch (Exception $exception) {
             $this->_getSession()->addException($exception, Mage::helper('backup')->__('Unable to create backup. Please, try again later.'));
             $this->_redirect($failPath, $arguments);
-            return;
+            return null;
         }
 
         return $this;

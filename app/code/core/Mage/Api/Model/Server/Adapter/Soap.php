@@ -120,10 +120,10 @@ class Mage_Api_Model_Server_Adapter_Soap extends Varien_Object implements Mage_A
 
         if ($this->getController()->getRequest()->getParam('wsdl') !== null) {
             // Generating wsdl content from template
-            $io = new Varien_Io_File();
-            $io->open(['path' => Mage::getModuleDir('etc', 'Mage_Api')]);
+            $ioFile = new Varien_Io_File();
+            $ioFile->open(['path' => Mage::getModuleDir('etc', 'Mage_Api')]);
 
-            $wsdlContent = $io->read('wsdl.xml');
+            $wsdlContent = $ioFile->read('wsdl.xml');
 
             $template = Mage::getModel('core/email_template_filter');
 
@@ -257,12 +257,12 @@ class Mage_Api_Model_Server_Adapter_Soap extends Varien_Object implements Mage_A
                     $this->getWsdlUrl(['wsdl' => 1]),
                     ['encoding' => $apiConfigCharset],
                 );
-            } catch (SoapFault $e) {
-                if (str_contains($e->getMessage(), "can't import schema from 'http://schemas.xmlsoap.org/soap/encoding/'")) {
+            } catch (SoapFault $soapFault) {
+                if (str_contains($soapFault->getMessage(), "can't import schema from 'http://schemas.xmlsoap.org/soap/encoding/'")) {
                     $retry = true;
                     sleep(1);
                 } else {
-                    throw $e;
+                    throw $soapFault;
                 }
 
                 $tries++;

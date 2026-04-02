@@ -4,6 +4,7 @@
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
  * @license    Open Software License (OSL 3.0)
+ * @package    OpenMage_Tests
  */
 
 declare(strict_types=1);
@@ -51,17 +52,17 @@ final class DataTest extends OpenMageTest
     /**
      * @param 'day'|'month'|'year' $period Period type
      * @covers Mage_Reports_Helper_Data::getIntervals()
-     * @dataProvider provideReportsDateIntervals
+     * @dataProvider provideReportsDateIntervalsData
      * @group Helper
      */
-    public function testGetIntervals(int|string $expectedResult, string $from, string $to, string $period): void
+    public function testGetIntervals(int|string $expectedResult, ?string $dateFrom, ?string $dateTo, string $period): void
     {
         if (PHP_VERSION_ID >= 80300 && version_compare(InstalledVersions::getPrettyVersion('shardj/zf1-future'), '1.24.2', '<=')) {
             self::markTestSkipped('see https://github.com/Shardj/zf1-future/pull/465');
         }
 
         try {
-            self::assertCount($expectedResult, self::$subject->getIntervals($from, $to, $period));
+            self::assertCount($expectedResult, self::$subject->getIntervals($dateFrom, $dateTo, $period));
         } catch (Zend_Date_Exception $zendDateException) {
             self::assertSame("No date part in '' found.", $zendDateException->getMessage());
         }
@@ -69,15 +70,15 @@ final class DataTest extends OpenMageTest
 
     /**
      * @covers Mage_Reports_Helper_Data::prepareIntervalsCollection()
-     * @dataProvider provideReportsDateIntervals
+     * @dataProvider provideReportsDateIntervalsData
      * @group Helper
      */
-    public function testPrepareIntervalsCollection(int|string $expectedResult, string $from, string $to, string $period): void
+    public function testPrepareIntervalsCollection(int|string $expectedResult, ?string $dateFrom, ?string $dateTo, string $period): void
     {
         $collection = new Varien_Data_Collection();
 
         try {
-            self::$subject->prepareIntervalsCollection($collection, $from, $to, $period);
+            self::$subject->prepareIntervalsCollection($collection, $dateFrom, $dateTo, $period);
             self::assertGreaterThanOrEqual(0, $collection->count());
         } catch (Zend_Date_Exception $zendDateException) {
             self::assertSame($expectedResult, $zendDateException->getMessage());

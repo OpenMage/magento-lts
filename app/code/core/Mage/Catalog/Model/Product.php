@@ -1527,7 +1527,11 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      */
     public function isSuper()
     {
-        return $this->isConfigurable() || $this->isGrouped();
+        if ($this->isConfigurable()) {
+            return true;
+        }
+
+        return $this->isGrouped();
     }
 
     /**
@@ -1633,8 +1637,11 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      */
     public function isAvailable()
     {
-        return $this->getTypeInstance(true)->isSalable($this)
-            || Mage::helper('catalog/product')->getSkipSaleableCheck();
+        if ($this->getTypeInstance(true)->isSalable($this)) {
+            return true;
+        }
+
+        return (bool) Mage::helper('catalog/product')->getSkipSaleableCheck();
     }
 
     /**

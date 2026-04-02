@@ -67,6 +67,8 @@ if (!empty($_SERVER['MAGE_IS_DEVELOPER_MODE']) || !empty($_ENV['MAGE_IS_DEVELOPE
 
 /**
  * Main Mage hub class
+ *
+ * @phpstan-type ConfigStoreId null|bool|int|Mage_Core_Model_Store|string
  */
 final class Mage
 {
@@ -289,7 +291,7 @@ final class Mage
                 return;
             }
 
-            self::throwException("Mage registry key $key already exists");
+            self::throwException("Mage registry key {$key} already exists");
         }
 
         self::$_registry[$key] = $value;
@@ -344,7 +346,7 @@ final class Mage
         if (is_dir($appRoot) && is_readable($appRoot)) {
             self::$_appRoot = $appRoot;
         } else {
-            self::throwException("$appRoot is not a directory or not readable by this user");
+            self::throwException("{$appRoot} is not a directory or not readable by this user");
         }
     }
 
@@ -413,8 +415,8 @@ final class Mage
     /**
      * Retrieve config value for store by path
      *
-     * @param  string                                     $path
-     * @param  null|bool|int|Mage_Core_Model_Store|string $store
+     * @param  string        $path
+     * @param  ConfigStoreId $store
      * @return mixed
      */
     public static function getStoreConfig($path, $store = null)
@@ -423,7 +425,7 @@ final class Mage
     }
 
     /**
-     * @param null|bool|int|Mage_Core_Model_Store|string $store
+     * @param ConfigStoreId $store
      */
     public static function getStoreConfigAsFloat(string $path, $store = null): float
     {
@@ -431,7 +433,7 @@ final class Mage
     }
 
     /**
-     * @param null|bool|int|Mage_Core_Model_Store|string $store
+     * @param ConfigStoreId $store
      */
     public static function getStoreConfigAsInt(string $path, $store = null): int
     {
@@ -441,8 +443,8 @@ final class Mage
     /**
      * Retrieve config flag for store by path
      *
-     * @param  string                                     $path
-     * @param  null|bool|int|Mage_Core_Model_Store|string $store
+     * @param  string        $path
+     * @param  ConfigStoreId $store
      * @return bool
      */
     public static function getStoreConfigFlag($path, $store = null)
@@ -987,14 +989,14 @@ final class Mage
     /**
      * Write exception to log
      */
-    public static function logException(Throwable $e)
+    public static function logException(Throwable $throwable)
     {
         if (!self::getConfig()) {
             return;
         }
 
         $file = self::getStoreConfig(Mage_Core_Helper_Data::XML_PATH_DEV_LOG_EXCEPTION_FILE);
-        self::log("\n" . $e->__toString(), Level::Error, $file);
+        self::log("\n" . $throwable->__toString(), Level::Error, $file);
     }
 
     /**
@@ -1022,7 +1024,7 @@ final class Mage
     /**
      * Display exception
      */
-    public static function printException(Throwable $e, $extra = '')
+    public static function printException(Throwable $throwable, $extra = '')
     {
         if (self::$_isDeveloperMode) {
             print '<pre>';
@@ -1031,13 +1033,13 @@ final class Mage
                 print $extra . "\n\n";
             }
 
-            print $e->getMessage() . "\n\n";
-            print $e->getTraceAsString();
+            print $throwable->getMessage() . "\n\n";
+            print $throwable->getTraceAsString();
             print '</pre>';
         } else {
             $reportData = [
-                (empty($extra) ? '' : $extra . "\n\n") . $e->getMessage(),
-                $e->getTraceAsString(),
+                (empty($extra) ? '' : $extra . "\n\n") . $throwable->getMessage(),
+                $throwable->getTraceAsString(),
             ];
 
             // retrieve server data
@@ -1053,7 +1055,7 @@ final class Mage
             try {
                 $storeCode = self::app()->getStore()->getCode();
                 $reportData['skin'] = $storeCode;
-            } catch (Exception $e) {
+            } catch (Exception $throwable) {
             }
 
             require_once(self::getBaseDir() . DS . 'errors' . DS . 'report.php');
@@ -1100,7 +1102,7 @@ final class Mage
         }
 
         if (is_null($baseUrl)) {
-            $errorMessage = "Unable detect system directory: $folder";
+            $errorMessage = "Unable detect system directory: {$folder}";
             if ($exitIfNot) {
                 // exit because of infinity loop
                 exit($errorMessage);

@@ -846,14 +846,14 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
             'custom' => [],
         ];
 
-        foreach ($moduleFiles as $v) {
-            $name = explode(DIRECTORY_SEPARATOR, $v);
+        foreach ($moduleFiles as $moduleFile) {
+            $name = explode(DIRECTORY_SEPARATOR, $moduleFile);
             $name = substr($name[count($name) - 1], 0, -4);
 
             if (array_key_exists($name, self::MAGE_MODULES)) {
-                $collectModuleFiles['mage'][self::MAGE_MODULES[$name]] = $v;
+                $collectModuleFiles['mage'][self::MAGE_MODULES[$name]] = $moduleFile;
             } else {
-                $collectModuleFiles['custom'][] = $v;
+                $collectModuleFiles['custom'][] = $moduleFile;
             }
         }
 
@@ -903,13 +903,13 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      * Load declared modules configuration
      *
      * @param  null       $mergeConfig deprecated
-     * @return $this|void
+     * @return null|$this
      */
     protected function _loadDeclaredModules($mergeConfig = null)
     {
         $moduleFiles = $this->_getDeclaredModuleFiles();
         if (!$moduleFiles) {
-            return ;
+            return null;
         }
 
         Varien_Profiler::start('config/load-modules-declaration');
@@ -1037,9 +1037,9 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
     {
         if ($this->_moduleNamespaces === null) {
             $this->_moduleNamespaces = [];
-            foreach ($this->_xml->xpath('modules/*') as $m) {
-                if ((string) $m->active == 'true') {
-                    $moduleName = $m->getName();
+            foreach ($this->_xml->xpath('modules/*') as $config) {
+                if ((string) $config->active == 'true') {
+                    $moduleName = $config->getName();
                     $module = strtolower($moduleName);
                     $this->_moduleNamespaces[substr($module, 0, strpos($module, '_'))][$module] = $moduleName;
                 }
@@ -1166,8 +1166,8 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
                 'base_url'  => $baseUrl,
             ];
 
-            foreach ($this->_distroServerVars as $k => $v) {
-                $this->_substServerVars['{{' . $k . '}}'] = $v;
+            foreach ($this->_distroServerVars as $key => $serverVar) {
+                $this->_substServerVars['{{' . $key . '}}'] = $serverVar;
             }
         }
 
@@ -1301,7 +1301,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      */
     public function loadEventObservers($area)
     {
-        $events = $this->getNode("$area/events");
+        $events = $this->getNode("{$area}/events");
         if ($events) {
             $events = $events->children();
         } else {

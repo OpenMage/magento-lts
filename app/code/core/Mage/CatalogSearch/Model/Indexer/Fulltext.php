@@ -286,8 +286,8 @@ class Mage_CatalogSearch_Model_Indexer_Fulltext extends Mage_Index_Model_Indexer
                 // register affected products
                 if ($rebuildIndex) {
                     $reindexData['catalogsearch_product_ids'] = $actionObject->getProductIds();
-                    foreach ($reindexData as $k => $v) {
-                        $event->addNewData($k, $v);
+                    foreach ($reindexData as $key => $value) {
+                        $event->addNewData($key, $value);
                     }
                 }
 

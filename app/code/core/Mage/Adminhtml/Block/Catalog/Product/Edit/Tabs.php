@@ -29,7 +29,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tabs extends Mage_Adminhtml_Bloc
         $product = $this->getProduct();
 
         if (!($setId = $product->getAttributeSetId())) {
-            $setId = $this->getRequest()->getParam('set', null);
+            $setId = $this->getRequest()->getParam('set');
         }
 
         if ($setId) {

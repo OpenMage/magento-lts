@@ -26,8 +26,6 @@ class Mage_Dataflow_Model_Convert_Adapter_Io extends Mage_Dataflow_Model_Convert
             $className = 'Varien_Io_' . ucwords($type);
             $this->_resource = new $className();
 
-            $isError = false;
-
             $ioConfig = $this->getVars();
             switch (strtolower($this->getVar('type', 'file'))) {
                 case 'file':
@@ -55,20 +53,17 @@ class Mage_Dataflow_Model_Convert_Adapter_Io extends Mage_Dataflow_Model_Convert
                     $this->_resource->checkAndCreateFolder($path);
 
                     $realPath = realpath($path);
-
-                    if (!$isError && $realPath === false) {
+                    if ($realPath === false) {
                         $message = Mage::helper('dataflow')->__('The destination folder "%s" does not exist or there is no access to create it.', $ioConfig['path']);
                         Mage::throwException($message);
-                    } elseif (!$isError && !is_dir($realPath)) {
+                    } elseif (!is_dir($realPath)) {
                         $message = Mage::helper('dataflow')->__('Destination folder "%s" is not a directory.', $realPath);
                         Mage::throwException($message);
-                    } elseif (!$isError) {
-                        if ($forWrite && !is_writable($realPath)) {
-                            $message = Mage::helper('dataflow')->__('Destination folder "%s" is not writable.', $realPath);
-                            Mage::throwException($message);
-                        } else {
-                            $ioConfig['path'] = rtrim($realPath, DS);
-                        }
+                    } elseif ($forWrite && !is_writable($realPath)) {
+                        $message = Mage::helper('dataflow')->__('Destination folder "%s" is not writable.', $realPath);
+                        Mage::throwException($message);
+                    } else {
+                        $ioConfig['path'] = rtrim($realPath, DS);
                     }
 
                     break;
@@ -77,14 +72,10 @@ class Mage_Dataflow_Model_Convert_Adapter_Io extends Mage_Dataflow_Model_Convert
                     break;
             }
 
-            if ($isError) {
-                return false;
-            }
-
             try {
                 $this->_resource->open($ioConfig);
-            } catch (Exception $e) {
-                $message = Mage::helper('dataflow')->__('An error occurred while opening file: "%s".', $e->getMessage());
+            } catch (Exception $exception) {
+                $message = Mage::helper('dataflow')->__('An error occurred while opening file: "%s".', $exception->getMessage());
                 Mage::throwException($message);
             }
         }

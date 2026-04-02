@@ -72,9 +72,9 @@ class Mage_Core_Model_Layout_Update
     public function __construct()
     {
         $subst = Mage::getConfig()->getPathVars();
-        foreach ($subst as $k => $v) {
-            $this->_subst['from'][] = '{{' . $k . '}}';
-            $this->_subst['to'][] = $v;
+        foreach ($subst as $key => $value) {
+            $this->_subst['from'][] = '{{' . $key . '}}';
+            $this->_subst['to'][] = $value;
         }
     }
 
@@ -441,7 +441,7 @@ class Mage_Core_Model_Layout_Update
         $updatesRoot = $this->addFallbackThemesLayoutUpdates($updatesRoot);
         Mage::dispatchEvent('core_layout_update_updates_get_after', ['updates' => $updatesRoot]);
         $updates = $updatesRoot->asArray();
-        $themeUpdates = Mage::getSingleton('core/design_config')->getNode("$area/$package/$theme/layout/updates");
+        $themeUpdates = Mage::getSingleton('core/design_config')->getNode("{$area}/{$package}/{$theme}/layout/updates");
         if ($themeUpdates && is_array($themeUpdates->asArray())) {
             //array_values() to ensure that theme-specific layouts don't override, but add to module layouts
             $updates = array_merge($updates, array_values($themeUpdates->asArray()));
@@ -511,7 +511,7 @@ class Mage_Core_Model_Layout_Update
             $fallbackPackage = $fallback['_package'];
             $fallbackTheme = $fallback['_theme'];
 
-            $themeUpdateGroups = Mage::getSingleton('core/design_config')->getNode("{$designPackage->getArea()}/$fallbackPackage/$fallbackTheme/layout/updates");
+            $themeUpdateGroups = Mage::getSingleton('core/design_config')->getNode("{$designPackage->getArea()}/{$fallbackPackage}/{$fallbackTheme}/layout/updates");
 
             if (!$themeUpdateGroups) {
                 continue;

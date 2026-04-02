@@ -1565,11 +1565,11 @@ class Mage_Paypal_Model_Config
     /**
      * Export page style current settings to specified object
      */
-    public function exportExpressCheckoutStyleSettings(Varien_Object $to)
+    public function exportExpressCheckoutStyleSettings(Varien_Object $target)
     {
         foreach ($this->_ecStyleConfigMap as $key => $exportKey) {
             if ($this->$key) {
-                $to->setData($exportKey, $this->$key);
+                $target->setData($exportKey, $this->$key);
             }
         }
     }

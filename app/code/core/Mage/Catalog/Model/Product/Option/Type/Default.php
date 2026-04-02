@@ -196,8 +196,11 @@ class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
      */
     public function getSkipCheckRequiredOption()
     {
-        return $this->getProduct()->getSkipCheckRequiredOption()
-            || $this->getProcessMode() == Mage_Catalog_Model_Product_Type_Abstract::PROCESS_MODE_LITE;
+        if ($this->getProduct()->getSkipCheckRequiredOption()) {
+            return true;
+        }
+
+        return $this->getProcessMode() == Mage_Catalog_Model_Product_Type_Abstract::PROCESS_MODE_LITE;
     }
 
     /**

@@ -734,9 +734,9 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
         $tableAlias = $this->_getAttributeTableAlias($alias);
 
         // validate bind
-        [$pk, $fk] = explode('=', $bind);
-        $pk = $this->getSelect()->getAdapter()->quoteColumnAs(trim($pk), null);
-        $bindCond = $tableAlias . '.' . trim($pk) . '=' . $this->_getAttributeFieldName(trim($fk));
+        [$privateKey, $foreignKey] = explode('=', $bind);
+        $privateKey = $this->getSelect()->getAdapter()->quoteColumnAs(trim($privateKey), null);
+        $bindCond = $tableAlias . '.' . trim($privateKey) . '=' . $this->_getAttributeFieldName(trim($foreignKey));
 
         // process join type
         $joinMethod = match ($joinType) {
@@ -821,8 +821,8 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
         }
 
         // validate bind
-        [$pk, $fk] = explode('=', $bind);
-        $bindCond = $tableAlias . '.' . $pk . '=' . $this->_getAttributeFieldName($fk);
+        [$privateKey, $foreignKey] = explode('=', $bind);
+        $bindCond = $tableAlias . '.' . $privateKey . '=' . $this->_getAttributeFieldName($foreignKey);
 
         // process join type
         $joinMethod = match ($joinType) {
@@ -1216,7 +1216,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
         return $this->getConnection()->select()
             ->from($table, [$entityIdField, 'attribute_id'])
             ->where('entity_type_id =?', $this->getEntity()->getTypeId())
-            ->where("$entityIdField IN (?)", array_keys($this->_itemsById))
+            ->where("{$entityIdField} IN (?)", array_keys($this->_itemsById))
             ->where('attribute_id IN (?)', $attributeIds);
     }
 
@@ -1354,22 +1354,22 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
 
             if ($fkAttribute->getBackend()->isStatic()) {
                 if (isset($this->_joinAttributes[$fkName])) {
-                    $fk = $fkTable . '.' . $fkAttribute->getAttributeCode();
+                    $foreignKey = $fkTable . '.' . $fkAttribute->getAttributeCode();
                 } else {
-                    $fk = 'e.' . $fkAttribute->getAttributeCode();
+                    $foreignKey = 'e.' . $fkAttribute->getAttributeCode();
                 }
             } else {
                 $this->_addAttributeJoin($fkAttribute->getAttributeCode(), $joinType);
-                $fk = $fkTable . '.value';
+                $foreignKey = $fkTable . '.value';
             }
 
-            $pk = $attrTable . '.' . $this->_joinAttributes[$attributeCode]['filter'];
+            $privateKey = $attrTable . '.' . $this->_joinAttributes[$attributeCode]['filter'];
         } else {
             $entity         = $this->getEntity();
             $entityIdField  = $entity->getEntityIdField();
             $attribute      = $entity->getAttribute($attributeCode);
-            $fk             = 'e.' . $entityIdField;
-            $pk             = $attrTable . '.' . $entityIdField;
+            $foreignKey     = 'e.' . $entityIdField;
+            $privateKey     = $attrTable . '.' . $entityIdField;
         }
 
         if (!$attribute) {
@@ -1382,13 +1382,13 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
             $attrFieldName = $attrTable . '.value';
         }
 
-        $fk = $adapter->quoteColumnAs($fk, null);
-        $pk = $adapter->quoteColumnAs($pk, null);
+        $foreignKey = $adapter->quoteColumnAs($foreignKey, null);
+        $privateKey = $adapter->quoteColumnAs($privateKey, null);
 
-        $condArr = ["$pk = $fk"];
+        $condArr = ["{$privateKey} = {$foreignKey}"];
         if (!$attribute->getBackend()->isStatic()) {
             $condArr[] = $this->getConnection()->quoteInto(
-                $adapter->quoteColumnAs("$attrTable.attribute_id", null) . ' = ?',
+                $adapter->quoteColumnAs("{$attrTable}.attribute_id", null) . ' = ?',
                 $attribute->getId(),
             );
         }

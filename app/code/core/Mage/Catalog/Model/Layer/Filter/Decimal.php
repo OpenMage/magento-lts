@@ -110,9 +110,9 @@ class Mage_Catalog_Model_Layer_Filter_Decimal extends Mage_Catalog_Model_Layer_F
      */
     protected function _renderItemLabel($range, $value)
     {
-        $from   = Mage::app()->getStore()->formatPrice(($value - 1) * $range, false);
-        $to     = Mage::app()->getStore()->formatPrice($value * $range, false);
-        return Mage::helper('catalog')->__('%s - %s', $from, $to);
+        $min = Mage::app()->getStore()->formatPrice(($value - 1) * $range, false);
+        $max = Mage::app()->getStore()->formatPrice($value * $range, false);
+        return Mage::helper('catalog')->__('%s - %s', $min, $max);
     }
 
     /**

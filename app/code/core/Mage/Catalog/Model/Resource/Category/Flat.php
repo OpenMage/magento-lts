@@ -278,7 +278,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
         $urlRewrite->joinTableToSelect($select, $storeId);
 
         if ($parentPath) {
-            $select->where($_conn->quoteInto('main_table.path like ?', "$parentPath/%"));
+            $select->where($_conn->quoteInto('main_table.path like ?', "{$parentPath}/%"));
         }
 
         if ($recursionLevel != 0) {
@@ -1129,7 +1129,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
 
             $select = $this->_getWriteAdapter()->select()
                 ->from($catalogCategoryTable, 'entity_id')
-                ->where('path LIKE ?', "$categoryPath/%")
+                ->where('path LIKE ?', "{$categoryPath}/%")
                 ->orWhere('path = ?', $categoryPath);
             $_categories = $this->_getWriteAdapter()->fetchAll($select);
             foreach ($_categories as $_category) {
@@ -1151,7 +1151,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
 
                 $update = substr($update, 0, -1);
                 $update .= " WHERE {$mainStoreTable}.entity_id = {$catalogCategoryTable}.entity_id AND "
-                    . "($catalogCategoryTable}.path like '{$parent->getPath()}/%' OR "
+                    . "({$catalogCategoryTable}.path like '{$parent->getPath()}/%' OR "
                     . "{$catalogCategoryTable}.path like '{$prevParent->getPath()}/%')";
                 $this->_getWriteAdapter()->query($update);
             }

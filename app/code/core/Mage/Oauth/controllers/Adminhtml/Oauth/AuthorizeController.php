@@ -49,10 +49,9 @@ class Mage_Oauth_Adminhtml_Oauth_AuthorizeController extends Mage_Adminhtml_Cont
         if ($loginError) {
             Mage::getSingleton('adminhtml/session')
                 ->addError(Mage::helper('adminhtml')->__('Invalid User Name or Password.'));
-            $params = ['_query' => ['oauth_token' => $this->getRequest()->getParam('oauth_token', null)]];
             $this->setFlag('', self::FLAG_NO_DISPATCH, true);
             $this->setFlag('', self::FLAG_NO_POST_DISPATCH, true);
-            $params = ['_query' => ['oauth_token' => $this->getRequest()->getParam('oauth_token', null)]];
+            $params = ['_query' => ['oauth_token' => $this->getRequest()->getParam('oauth_token')]];
             $this->_redirect('*/*/*', $params);
         }
 

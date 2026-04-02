@@ -746,10 +746,10 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
      */
     public function cleanPasswordsValidationData()
     {
-        $this->setData('password', null);
-        $this->setData('current_password', null);
-        $this->setData('new_password', null);
-        $this->setData('password_confirmation', null);
+        $this->setData('password');
+        $this->setData('current_password');
+        $this->setData('new_password');
+        $this->setData('password_confirmation');
         return $this;
     }
 

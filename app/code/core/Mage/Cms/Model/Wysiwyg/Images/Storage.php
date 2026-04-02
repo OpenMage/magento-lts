@@ -190,8 +190,8 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
             Mage::throwException(Mage::helper('cms')->__('A directory with the same name already exists. Please try another folder name.'));
         }
 
-        $io = new Varien_Io_File();
-        if ($io->mkdir($newPath)) {
+        $ioFile = new Varien_Io_File();
+        if ($ioFile->mkdir($newPath)) {
             if (Mage::helper('core/file_storage_database')->checkDbUsage()) {
                 $relativePath = Mage::helper('core/file_storage_database')->getMediaRelativePath($newPath);
                 Mage::getModel('core/file_storage_directory_database')->createRecursive($relativePath);
@@ -219,12 +219,12 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
         $rootCmp = rtrim($this->getHelper()->getStorageRoot(), DS);
         $pathCmp = rtrim($path, DS);
 
-        $io = new Varien_Io_File();
+        $ioFile = new Varien_Io_File();
 
         if ($rootCmp == $pathCmp) {
             Mage::throwException(Mage::helper('cms')->__(
                 'Cannot delete root directory %s.',
-                $io->getFilteredPath($path),
+                $ioFile->getFilteredPath($path),
             ));
         }
 
@@ -238,12 +238,12 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
             Mage::getModel('core/file_storage_directory_database')->deleteDirectory($path);
         }
 
-        if (!$io->rmdir($path, true)) {
-            Mage::throwException(Mage::helper('cms')->__('Cannot delete directory %s.', $io->getFilteredPath($path)));
+        if (!$ioFile->rmdir($path, true)) {
+            Mage::throwException(Mage::helper('cms')->__('Cannot delete directory %s.', $ioFile->getFilteredPath($path)));
         }
 
         if (str_starts_with($pathCmp, $rootCmp)) {
-            $io->rmdir($this->getThumbnailRoot() . DS . ltrim(substr($pathCmp, strlen($rootCmp)), '\\/'), true);
+            $ioFile->rmdir($this->getThumbnailRoot() . DS . ltrim(substr($pathCmp, strlen($rootCmp)), '\\/'), true);
         }
     }
 
@@ -255,13 +255,13 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
      */
     public function deleteFile($target)
     {
-        $io = new Varien_Io_File();
-        $io->rm($target);
+        $ioFile = new Varien_Io_File();
+        $ioFile->rm($target);
         Mage::helper('core/file_storage_database')->deleteFile($target);
 
         $thumb = $this->getThumbnailPath($target, true);
         if ($thumb) {
-            $io->rm($thumb);
+            $ioFile->rm($thumb);
             Mage::helper('core/file_storage_database')->deleteFile($thumb);
         }
 
@@ -374,12 +374,12 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
         }
 
         $targetDir = $this->getThumbsPath($source);
-        $io = new Varien_Io_File();
-        if (!$io->isWriteable($targetDir)) {
-            $io->mkdir($targetDir);
+        $ioFile = new Varien_Io_File();
+        if (!$ioFile->isWriteable($targetDir)) {
+            $ioFile->mkdir($targetDir);
         }
 
-        if (!$io->isWriteable($targetDir)) {
+        if (!$ioFile->isWriteable($targetDir)) {
             return false;
         }
 

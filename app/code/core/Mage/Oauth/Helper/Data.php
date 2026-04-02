@@ -200,7 +200,7 @@ class Mage_Oauth_Helper_Data extends Mage_Core_Helper_Abstract
     {
         // Safe get cleanup probability value from system configuration
         $configValue = Mage::getStoreConfigAsInt(self::XML_PATH_CLEANUP_PROBABILITY);
-        return $configValue > 0 ? mt_rand(1, $configValue) == 1 : false;
+        return $configValue > 0 && mt_rand(1, $configValue) == 1;
     }
 
     /**
@@ -251,7 +251,7 @@ class Mage_Oauth_Helper_Data extends Mage_Core_Helper_Abstract
     {
         $simple = false;
         if (stristr($this->_getRequest()->getActionName(), 'simple')
-            || !is_null($this->_getRequest()->getParam('simple', null))
+            || !is_null($this->_getRequest()->getParam('simple'))
         ) {
             return true;
         }
@@ -295,6 +295,6 @@ class Mage_Oauth_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getOauthToken()
     {
-        return $this->_getRequest()->getParam('oauth_token', null);
+        return $this->_getRequest()->getParam('oauth_token');
     }
 }

@@ -228,12 +228,12 @@ abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
     /**
      * Import $this public data to specified object or array
      *
-     * @param  array|Varien_Object $to
+     * @param  array|Varien_Object $target
      * @return array|Varien_Object
      */
-    public function &import($to, array $publicMap = [])
+    public function &import($target, array $publicMap = [])
     {
-        return Varien_Object_Mapper::accumulateByMap([$this, 'getDataUsingMethod'], $to, $publicMap);
+        return Varien_Object_Mapper::accumulateByMap([$this, 'getDataUsingMethod'], $target, $publicMap);
     }
 
     /**
@@ -505,9 +505,9 @@ abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
     /**
      * Street address workaround: divides address lines into parts by specified keys
      * (keys should go as 3rd, 4th[...] parameters)
-     * @param mixed[]|string[] $to
+     * @param mixed[]|string[] $target
      */
-    protected function _importStreetFromAddress(Varien_Object $address, array &$to)
+    protected function _importStreetFromAddress(Varien_Object $address, array &$target)
     {
         $keys = func_get_args();
         array_shift($keys);
@@ -522,7 +522,7 @@ abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
 
         $index = 0;
         foreach ($keys as $key) {
-            $to[$key] = $street[$index] ?? '';
+            $target[$key] = $street[$index] ?? '';
             $index++;
         }
     }

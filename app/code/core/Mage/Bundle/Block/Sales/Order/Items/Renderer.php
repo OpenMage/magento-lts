@@ -138,7 +138,10 @@ class Mage_Bundle_Block_Sales_Order_Items_Renderer extends Mage_Sales_Block_Orde
      */
     public function canShowPriceInfo($item)
     {
-        return ($item->getOrderItem()->getParentItem() && $this->isChildCalculated())
-                || (!$item->getOrderItem()->getParentItem() && !$this->isChildCalculated());
+        if ($item->getOrderItem()->getParentItem() && $this->isChildCalculated()) {
+            return true;
+        }
+
+        return !$item->getOrderItem()->getParentItem() && !$this->isChildCalculated();
     }
 }

@@ -290,7 +290,11 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
      */
     protected function _checkMemory($file = null)
     {
-        return $this->_getMemoryLimit() > ($this->_getMemoryUsage() + $this->_getNeedMemoryForFile($file)) || $this->_getMemoryLimit() == -1;
+        if ($this->_getMemoryLimit() > ($this->_getMemoryUsage() + $this->_getNeedMemoryForFile($file))) {
+            return true;
+        }
+
+        return $this->_getMemoryLimit() == -1;
     }
 
     /**
@@ -835,8 +839,8 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
     public function clearCache()
     {
         $directory = Mage::getBaseDir('media') . DS . 'catalog' . DS . 'product' . DS . 'cache' . DS;
-        $io = new Varien_Io_File();
-        $io->rmdir($directory, true);
+        $ioFile = new Varien_Io_File();
+        $ioFile->rmdir($directory, true);
 
         Mage::helper('core/file_storage_database')->deleteFolder($directory);
     }

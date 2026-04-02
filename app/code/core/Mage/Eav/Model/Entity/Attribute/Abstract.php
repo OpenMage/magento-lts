@@ -508,8 +508,15 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
      */
     public function usesSource()
     {
-        return $this->getFrontendInput() === 'select' || $this->getFrontendInput() === 'multiselect'
-            || $this->getData('source_model') != '';
+        if ($this->getFrontendInput() === 'select') {
+            return true;
+        }
+
+        if ($this->getFrontendInput() === 'multiselect') {
+            return true;
+        }
+
+        return $this->getData('source_model') != '';
     }
 
     /**
@@ -621,7 +628,11 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
      */
     public function isStatic()
     {
-        return $this->getBackendType() == self::TYPE_STATIC || $this->getBackendType() == '';
+        if ($this->getBackendType() == self::TYPE_STATIC) {
+            return true;
+        }
+
+        return $this->getBackendType() == '';
     }
 
     /**

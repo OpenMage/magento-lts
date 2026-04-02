@@ -66,8 +66,8 @@ class Mage_Reports_Model_Resource_Review_Product_Collection extends Mage_Catalog
                 ['table_rating' => $this->getTable('rating/rating_vote_aggregated')],
                 implode(' AND ', $joinCondition),
                 [
-                    'avg_rating'          => new Zend_Db_Expr("$sumPercentField / $countRatingId"),
-                    'avg_rating_approved' => new Zend_Db_Expr("$sumPercentApproved / $countRatingId"),
+                    'avg_rating'          => new Zend_Db_Expr("{$sumPercentField} / {$countRatingId}"),
+                    'avg_rating_approved' => new Zend_Db_Expr("{$sumPercentApproved} / {$countRatingId}"),
                 ],
             );
 

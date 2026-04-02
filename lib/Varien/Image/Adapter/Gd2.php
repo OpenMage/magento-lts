@@ -143,8 +143,8 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
 
         if (!is_writable($destinationDir)) {
             try {
-                $io = new Varien_Io_File();
-                $io->mkdir($destination);
+                $ioFile = new Varien_Io_File();
+                $ioFile->mkdir($destination);
             } catch (Exception $exception) {
                 throw new Exception("Unable to write file into directory '{$destinationDir}'. Access forbidden.", $exception->getCode(), $exception);
             }

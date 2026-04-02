@@ -110,7 +110,18 @@ try {
                 __DIR__ . '/app/code/core/Mage/Api2/Model/Auth/Adapter/Oauth.php',
             ],
             CodeQuality\Class_\CompleteDynamicPropertiesRector::class, # todo: TMP (!?!)
-            CodeQuality\ClassMethod\ExplicitReturnNullRector::class, # todo: TMP
+            # skip classes that throw an exception as a return value, which is not supported by Rector yet
+            # see https://github.com/rectorphp/rector/issues/9719
+            CodeQuality\ClassMethod\ExplicitReturnNullRector::class => [
+                __DIR__ . '/app/code/core/Mage/Catalog/Model/Product/Option/Type/Default.php',
+                __DIR__ . '/app/code/core/Mage/Catalog/Model/Product/Option/Type/File.php',
+                __DIR__ . '/app/code/core/Mage/Cms/Model/Wysiwyg/Images/Storage.php',
+                __DIR__ . '/app/code/core/Mage/ImportExport/Model/Export.php',
+                __DIR__ . '/app/code/core/Mage/Oauth/Model/Token.php',
+                __DIR__ . '/app/code/core/Mage/Paygate/Model/Authorizenet.php',
+                __DIR__ . '/app/code/core/Mage/Sales/Model/Order/Payment.php',
+                __DIR__ . '/app/code/core/Mage/Usa/Model/Shipping/Carrier/Abstract/Backend/Abstract.php',
+            ],
             CodeQuality\Equal\UseIdenticalOverEqualWithSameTypeRector::class, # todo: TMP
             CodeQuality\Expression\TernaryFalseExpressionToIfRector::class, # todo: TMP (!?!)
             CodeQuality\Identical\SimplifyBoolIdenticalTrueRector::class, # todo: TMP
@@ -126,22 +137,21 @@ try {
             CodeQuality\Ternary\TernaryEmptyArrayArrayDimFetchToCoalesceRector::class, # todo: TMP
             CodingStyle\ClassMethod\FuncGetArgsToVariadicParamRector::class, # todo: TMP
             CodingStyle\Encapsed\EncapsedStringsToSprintfRector::class, # todo: TMP
-            CodingStyle\Encapsed\WrapEncapsedVariableInCurlyBracesRector::class, # todo: TMP
             CodingStyle\FuncCall\StrictArraySearchRector::class, # todo: TMP
             CodingStyle\If_\NullableCompareToNullRector::class, # todo: TMP
             CodingStyle\PostInc\PostIncDecToPreIncDecRector::class, # todo: TMP
             DeadCode\Assign\RemoveUnusedVariableAssignRector::class, # todo: TMP
             DeadCode\Cast\RecastingRemovalRector::class, # todo: TMP  (!?!)
             DeadCode\ClassMethod\RemoveUnusedConstructorParamRector::class, # todo: TMP (!?!)
-            DeadCode\If_\RemoveAlwaysTrueIfConditionRector::class, # todo: TMP
-            DeadCode\MethodCall\RemoveNullArgOnNullDefaultParamRector::class, # todo: TMP
+            DeadCode\If_\RemoveAlwaysTrueIfConditionRector::class => [
+                # skip: messes up code .... check later
+                __DIR__ . '/app/design/adminhtml/base/default/template/system/store/tree.phtml',
+            ],
             DeadCode\Plus\RemoveDeadZeroAndOneOperationRector::class, # todo: TMP  (!?!)
             DeadCode\PropertyProperty\RemoveNullPropertyInitializationRector::class, # todo: TMP
-            DeadCode\Ternary\TernaryToBooleanOrFalseToBooleanAndRector::class, # todo: TMP
             DeadCode\TryCatch\RemoveDeadTryCatchRector::class, # todo: TMP  (!?!)
             EarlyReturn\Foreach_\ChangeNestedForeachIfsToEarlyContinueRector::class, # todo: TMP
             EarlyReturn\If_\ChangeNestedIfsToEarlyReturnRector::class, # todo: TMP ... probably bug found
-            EarlyReturn\Return_\ReturnBinaryOrToEarlyReturnRector::class, # todo: TMP ... probably bug found
             # skip: may conflict with phpstan strict rules
             Php53\Ternary\TernaryToElvisRector::class,
             Php71\FuncCall\RemoveExtraParametersRector::class, # todo: check later

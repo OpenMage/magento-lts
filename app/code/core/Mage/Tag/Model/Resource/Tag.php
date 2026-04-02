@@ -41,7 +41,7 @@ class Mage_Tag_Model_Resource_Tag extends Mage_Core_Model_Resource_Db_Abstract
      *
      * @param  Mage_Tag_Model_Tag|Varien_Object $model
      * @param  string                           $name
-     * @return false|void
+     * @return null|false
      * @throws Mage_Core_Exception
      */
     public function loadByName($model, $name)
@@ -61,6 +61,8 @@ class Mage_Tag_Model_Resource_Tag extends Mage_Core_Model_Resource_Db_Abstract
         } else {
             return false;
         }
+
+        return null;
     }
 
     /**

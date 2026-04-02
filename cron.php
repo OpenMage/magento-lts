@@ -52,8 +52,8 @@ try {
             $fileName = escapeshellarg(basename(__FILE__));
             $cronPath = escapeshellarg(__DIR__ . '/cron.sh');
 
-            shell_exec(escapeshellcmd("/bin/sh $cronPath $fileName -mdefault 1") . ' &');
-            shell_exec(escapeshellcmd("/bin/sh $cronPath $fileName -malways 1") . ' &');
+            shell_exec(escapeshellcmd("/bin/sh {$cronPath} {$fileName} -mdefault 1") . ' &');
+            shell_exec(escapeshellcmd("/bin/sh {$cronPath} {$fileName} -malways 1") . ' &');
             exit;
         }
     }

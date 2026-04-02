@@ -161,9 +161,9 @@ class Mage_Shell_Indexer extends Mage_Shell_Abstract
                 }
 
                 Mage::dispatchEvent('shell_reindex_finalize_process');
-            } catch (Exception $e) {
+            } catch (Exception $exception) {
                 Mage::dispatchEvent('shell_reindex_finalize_process');
-                echo $e->getMessage() . "\n";
+                echo $exception->getMessage() . "\n";
             }
         } else {
             echo $this->usageHelp();
