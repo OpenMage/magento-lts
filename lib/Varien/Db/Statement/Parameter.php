@@ -17,7 +17,7 @@
  *
  * @package    Varien_Db
  */
-class Varien_Db_Statement_Parameter
+class Varien_Db_Statement_Parameter implements Stringable
 {
     /**
      * Actual parameter value
@@ -206,10 +206,8 @@ class Varien_Db_Statement_Parameter
 
     /**
      * Returns representation of a object to be used in string contexts
-     *
-     * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
         return (string) $this->_value;
     }
