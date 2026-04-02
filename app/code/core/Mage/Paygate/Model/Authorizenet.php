@@ -512,8 +512,8 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
 
         switch ($result->getResponseCode()) {
             case self::RESPONSE_CODE_APPROVED:
-                $payment->setAdditionalInformation($this->_splitTenderIdKey, null);
-                $this->_getSession()->setData($this->_partialAuthorizationChecksumSessionKey, null);
+                $payment->setAdditionalInformation($this->_splitTenderIdKey);
+                $this->_getSession()->setData($this->_partialAuthorizationChecksumSessionKey);
                 $this->getCardsStorage($payment)->flushCards();
                 $this->setPartialAuthorizationLastActionState(self::PARTIAL_AUTH_ALL_CANCELED);
                 return;
@@ -698,7 +698,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
             }
         }
 
-        $this->_getSession()->setData($this->_partialAuthorizationChecksumSessionKey, null);
+        $this->_getSession()->setData($this->_partialAuthorizationChecksumSessionKey);
         return $this;
     }
 

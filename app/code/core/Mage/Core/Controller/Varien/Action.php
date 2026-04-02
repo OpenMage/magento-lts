@@ -932,7 +932,7 @@ abstract class Mage_Core_Controller_Varien_Action
      */
     protected function _validateFormKey()
     {
-        if (!($formKey = $this->getRequest()->getParam('form_key', null))
+        if (!($formKey = $this->getRequest()->getParam('form_key'))
             || $formKey != Mage::getSingleton('core/session')->getFormKey()
         ) {
             return false;

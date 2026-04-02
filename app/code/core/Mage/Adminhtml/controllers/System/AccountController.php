@@ -57,7 +57,7 @@ class Mage_Adminhtml_System_AccountController extends Mage_Adminhtml_Controller_
         $user->setBackendLocale($backendLocale);
 
         //Validate current admin password
-        $currentPassword = $this->getRequest()->getParam('current_password', null);
+        $currentPassword = $this->getRequest()->getParam('current_password');
         $this->getRequest()->setParam('current_password', null);
         $result = $this->_validateCurrentPassword($currentPassword);
 

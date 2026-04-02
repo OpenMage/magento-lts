@@ -287,7 +287,7 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
              */
             if ($useConfig = $this->getRequest()->getPost('use_config')) {
                 foreach ($useConfig as $attributeCode) {
-                    $category->setData($attributeCode, null);
+                    $category->setData($attributeCode);
                 }
             }
 

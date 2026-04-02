@@ -662,7 +662,7 @@ class Mage_Paypal_Model_Ipn
 
         if ($addToHistory) {
             $message = $this->_order->addStatusHistoryComment($message);
-            $message->setIsCustomerNotified(null);
+            $message->setIsCustomerNotified();
         }
 
         return $message;

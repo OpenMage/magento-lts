@@ -54,7 +54,7 @@ class Mage_Admin_Model_Observer
                         $username = $postLogin['username'] ?? '';
                         $password = $postLogin['password'] ?? '';
                         $session->login($username, $password, $request);
-                        $request->setPost('login', null);
+                        $request->setPost('login');
                     } elseif (!$request->getParam('messageSent')) {
                         Mage::getSingleton('adminhtml/session')->addError(
                             Mage::helper('adminhtml')->__('Invalid Form Key. Please refresh the page.'),

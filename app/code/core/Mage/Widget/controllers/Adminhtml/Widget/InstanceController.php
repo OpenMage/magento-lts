@@ -63,10 +63,10 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
         /** @var Mage_Widget_Model_Widget_Instance $widgetInstance */
         $widgetInstance = Mage::getModel('widget/widget_instance');
 
-        $instanceId = $this->getRequest()->getParam('instance_id', null);
-        $type       = $this->getRequest()->getParam('type', null);
-        $package    = $this->getRequest()->getParam('package', null);
-        $theme      = $this->getRequest()->getParam('theme', null);
+        $instanceId = $this->getRequest()->getParam('instance_id');
+        $type       = $this->getRequest()->getParam('type');
+        $package    = $this->getRequest()->getParam('package');
+        $theme      = $this->getRequest()->getParam('theme');
 
         if ($instanceId) {
             $widgetInstance->load($instanceId);
@@ -256,7 +256,7 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
         /** @var Mage_Widget_Model_Widget_Instance $widgetInstance */
         $widgetInstance = $this->_initWidgetInstance();
         $layout = $this->getRequest()->getParam('layout');
-        $selected = $this->getRequest()->getParam('selected', null);
+        $selected = $this->getRequest()->getParam('selected');
         $blocksChooser = $this->getLayout()
             ->createBlock('widget/adminhtml_widget_instance_edit_chooser_block')
             ->setArea($widgetInstance->getArea())
@@ -276,7 +276,7 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
         /** @var Mage_Widget_Model_Widget_Instance $widgetInstance */
         $widgetInstance = $this->_initWidgetInstance();
         $block = $this->getRequest()->getParam('block');
-        $selected = $this->getRequest()->getParam('selected', null);
+        $selected = $this->getRequest()->getParam('selected');
         $templateChooser = $this->getLayout()
             ->createBlock('widget/adminhtml_widget_instance_edit_chooser_template')
             ->setSelected($selected)

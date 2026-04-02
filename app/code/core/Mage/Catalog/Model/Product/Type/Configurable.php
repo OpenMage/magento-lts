@@ -403,7 +403,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
         }
 
         foreach ($this->getConfigurableAttributes($product) as $attribute) {
-            $this->getProduct($product)->setData($attribute->getProductAttribute()->getAttributeCode(), null);
+            $this->getProduct($product)->setData($attribute->getProductAttribute()->getAttributeCode());
         }
 
         return $this;

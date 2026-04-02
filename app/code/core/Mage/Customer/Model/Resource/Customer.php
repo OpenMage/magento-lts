@@ -127,11 +127,11 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
         foreach ($customer->getAddresses() as $address) {
             if ($address->getData('_deleted')) {
                 if ($address->getId() == $defaultBillingId) {
-                    $customer->setData('default_billing', null);
+                    $customer->setData('default_billing');
                 }
 
                 if ($address->getId() == $defaultShippingId) {
-                    $customer->setData('default_shipping', null);
+                    $customer->setData('default_shipping');
                 }
 
                 $address->delete();
