@@ -7,6 +7,8 @@
  * @package    Mage_Adminhtml
  */
 
+use Mage_Cms_Api_Data_PageInterface as PageInterface;
+
 /**
  * Cms manage pages controller
  *
@@ -38,6 +40,8 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Index action
+     *
+     * @throws Mage_Core_Exception
      */
     public function indexAction()
     {
@@ -60,6 +64,8 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Edit CMS page
+     *
+     * @throws Mage_Core_Exception
      */
     public function editAction()
     {
@@ -68,12 +74,12 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
              ->_title($this->__('Manage Content'));
 
         // 1. Get ID and create model
-        $id = $this->getRequest()->getParam('page_id');
+        $pageId = $this->getRequest()->getParam(PageInterface::DATA_ID);
         $model = Mage::getModel('cms/page');
 
         // 2. Initial checking
-        if ($id) {
-            $model->load($id);
+        if ($pageId) {
+            $model->load($pageId);
             if (!$model->getId()) {
                 Mage::getSingleton('adminhtml/session')->addError(
                     Mage::helper('cms')->__('This page no longer exists.'),
@@ -98,9 +104,9 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
         // 5. Build edit form
         $this->_initAction()
             ->_addBreadcrumb(
-                $id ? Mage::helper('cms')->__('Edit Page')
+                $pageId ? Mage::helper('cms')->__('Edit Page')
                     : Mage::helper('cms')->__('New Page'),
-                $id ? Mage::helper('cms')->__('Edit Page')
+                $pageId ? Mage::helper('cms')->__('Edit Page')
                 : Mage::helper('cms')->__('New Page'),
             );
 
@@ -109,6 +115,10 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Save action
+     *
+     * @throws Exception
+     * @throws Mage_Core_Exception
+     * @throws Zend_Locale_Exception
      */
     public function saveAction()
     {
@@ -118,8 +128,8 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
             //init model and set data
             $model = Mage::getModel('cms/page');
 
-            if ($id = $this->getRequest()->getParam('page_id')) {
-                $model->load($id);
+            if ($pageId = $this->getRequest()->getParam(PageInterface::DATA_ID)) {
+                $model->load($pageId);
             }
 
             $model->setData($data);
@@ -128,7 +138,7 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
 
             //validating
             if (!$this->_validatePostData($data)) {
-                $this->_redirect('*/*/edit', ['page_id' => $model->getId(), '_current' => true]);
+                $this->_redirect('*/*/edit', [PageInterface::DATA_ID => $model->getId(), '_current' => true]);
                 return;
             }
 
@@ -145,7 +155,7 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
                 Mage::getSingleton('adminhtml/session')->setFormData(false);
                 // check if 'Save and Continue'
                 if ($this->getRequest()->getParam('back')) {
-                    $this->_redirect('*/*/edit', ['page_id' => $model->getId(), '_current' => true]);
+                    $this->_redirect('*/*/edit', [PageInterface::DATA_ID => $model->getId(), '_current' => true]);
                     return;
                 }
 
@@ -162,7 +172,7 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
             }
 
             $this->_getSession()->setFormData($data);
-            $this->_redirect('*/*/edit', ['page_id' => $this->getRequest()->getParam('page_id')]);
+            $this->_redirect('*/*/edit', [PageInterface::DATA_ID => $this->getRequest()->getParam(PageInterface::DATA_ID)]);
             return;
         }
 
@@ -175,12 +185,12 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
     public function deleteAction()
     {
         // check if we know what should be deleted
-        if ($id = $this->getRequest()->getParam('page_id')) {
+        if ($pageId = $this->getRequest()->getParam(PageInterface::DATA_ID)) {
             $title = '';
             try {
                 // init model and delete
                 $model = Mage::getModel('cms/page');
-                $model->load($id);
+                $model->load($pageId);
                 $title = $model->getTitle();
                 $model->delete();
                 // display success message
@@ -196,7 +206,7 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
                 // display error message
                 Mage::getSingleton('adminhtml/session')->addError($exception->getMessage());
                 // go back to edit form
-                $this->_redirect('*/*/edit', ['page_id' => $id]);
+                $this->_redirect('*/*/edit', [PageInterface::DATA_ID => $pageId]);
                 return;
             }
         }
@@ -284,32 +294,38 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
     /**
      * Filtering posted data. Converting localized data if needed
      *
-     * @param  array $data
+     * @param  array                 $data
      * @return array
+     * @throws Zend_Locale_Exception
      */
     protected function _filterPostData($data)
     {
-        return $this->_filterDates($data, ['custom_theme_from', 'custom_theme_to']);
+        return $this->_filterDates($data, [PageInterface::DATA_CUSTOM_THEME_FROM, PageInterface::DATA_CUSTOM_THEME_TO]);
     }
 
     /**
      * Validate post data
      *
-     * @param  array $data
-     * @return bool  Return FALSE if someone item is invalid
+     * @param  array     $data
+     * @return bool      Return FALSE if someone item is invalid
+     * @throws Exception
      */
     protected function _validatePostData($data)
     {
         $errorNo = true;
-        if (!empty($data['layout_update_xml']) || !empty($data['custom_layout_update_xml'])) {
+        if (!empty($data[PageInterface::DATA_LAYOUT_UPDATE_XML])
+            || !empty($data[PageInterface::DATA_CUSTOM_LAYOUT_UPDATE_XML])
+        ) {
             /** @var Mage_Adminhtml_Model_LayoutUpdate_Validator $validatorCustomLayout */
             $validatorCustomLayout = Mage::getModel('adminhtml/layoutUpdate_validator');
-            if (!empty($data['layout_update_xml']) && !$validatorCustomLayout->isValid($data['layout_update_xml'])) {
+            if (!empty($data[PageInterface::DATA_LAYOUT_UPDATE_XML])
+                && !$validatorCustomLayout->isValid($data[PageInterface::DATA_LAYOUT_UPDATE_XML])
+            ) {
                 $errorNo = false;
             }
 
-            if (!empty($data['custom_layout_update_xml'])
-                && !$validatorCustomLayout->isValid($data['custom_layout_update_xml'])
+            if (!empty($data[PageInterface::DATA_CUSTOM_LAYOUT_UPDATE_XML])
+                && !$validatorCustomLayout->isValid($data[PageInterface::DATA_CUSTOM_LAYOUT_UPDATE_XML])
             ) {
                 $errorNo = false;
             }

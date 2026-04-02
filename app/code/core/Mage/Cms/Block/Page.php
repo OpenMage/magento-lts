@@ -7,6 +7,8 @@
  * @package    Mage_Cms
  */
 
+use Mage_Cms_Api_Data_PageInterface as PageInterface;
+
 /**
  * Cms page content block
  *
@@ -20,6 +22,7 @@ class Mage_Cms_Block_Page extends Mage_Core_Block_Abstract
      * Retrieve Page instance
      *
      * @return Mage_Cms_Model_Page
+     * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
      */
     public function getPage()
@@ -28,7 +31,7 @@ class Mage_Cms_Block_Page extends Mage_Core_Block_Abstract
             if ($this->getPageId()) {
                 $page = Mage::getModel('cms/page')
                     ->setStoreId(Mage::app()->getStore()->getId())
-                    ->load($this->getPageId(), 'identifier');
+                    ->load($this->getPageId(), PageInterface::DATA_IDENTIFIER);
             } else {
                 $page = Mage::getSingleton('cms/page');
             }
@@ -42,6 +45,7 @@ class Mage_Cms_Block_Page extends Mage_Core_Block_Abstract
 
     /**
      * @inheritDoc
+     * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
      */
     protected function _prepareLayout()
@@ -49,7 +53,6 @@ class Mage_Cms_Block_Page extends Mage_Core_Block_Abstract
         $page = $this->getPage();
         $helper = Mage::helper('cms/page');
         $breadcrumbsArray = [];
-        $breadcrumbs = null;
 
         // show breadcrumbs
         if (Mage::getStoreConfig('web/default/show_cms_breadcrumbs')
@@ -127,6 +130,8 @@ class Mage_Cms_Block_Page extends Mage_Core_Block_Abstract
 
     /**
      * Get canonical URL for CMS page
+     *
+     * @throws Mage_Core_Exception
      */
     protected function getCanonicalUrl(Mage_Cms_Model_Page $page): ?string
     {
