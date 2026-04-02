@@ -14,6 +14,8 @@ use Carbon\Exceptions\InvalidFormatException;
  * Core data helper
  *
  * @package    Mage_Core
+ *
+ * @phpstan-import-type ConfigStoreId from Mage
  */
 class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
 {
@@ -429,7 +431,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * @param  null|bool|int|Mage_Core_Model_Store|string $storeId
+     * @param  ConfigStoreId $storeId
      * @return bool
      */
     public function isDevAllowed($storeId = null)

@@ -12,6 +12,7 @@
  *
  * @package    Mage_Sales
  *
+ * @phpstan-import-type ConfigStoreId from Mage
  * @SuppressWarnings("PHPMD.ShortVariable")
  */
 abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
@@ -130,8 +131,8 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
     /**
      * Insert logo to pdf page
      *
-     * @param Zend_Pdf_Page                              $page
-     * @param null|bool|int|Mage_Core_Model_Store|string $store $store
+     * @param Zend_Pdf_Page $page
+     * @param ConfigStoreId $store
      * @SuppressWarnings("PHPMD.ShortVariable")
      */
     protected function insertLogo(&$page, $store = null)
@@ -177,8 +178,8 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
     /**
      * Insert address to pdf page
      *
-     * @param Zend_Pdf_Page                              $page
-     * @param null|bool|int|Mage_Core_Model_Store|string $store $store
+     * @param Zend_Pdf_Page $page
+     * @param ConfigStoreId $store
      */
     protected function insertAddress(&$page, $store = null)
     {
