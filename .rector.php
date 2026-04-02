@@ -160,7 +160,6 @@ try {
             # skip: causes issues
             Php74\Assign\NullCoalescingOperatorRector::class,
             Php80\Class_\ClassPropertyAssignToConstructorPromotionRector::class, # todo: wait for php80
-            Php80\Class_\StringableForToStringRector::class, # todo: wait for php80
             # see https://github.com/OpenMage/magento-lts/pull/5040
             Php80\ClassMethod\AddParamBasedOnParentClassMethodRector::class => [
                 __DIR__ . '/lib/Varien/Directory/Collection.php',
