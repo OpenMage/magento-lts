@@ -181,9 +181,9 @@ abstract class Mage_Core_Helper_Abstract
     /**
      * Escape html entities
      *
-     * @param  string|string[]      $data
-     * @param  null|array           $allowedTags
-     * @return null|string|string[]
+     * @param null|string|string[]                         $data
+     * @param null|string[]                                $allowedTags
+     * @return ($data is array ? array<?string> : ?string)
      */
     public function escapeHtml($data, $allowedTags = null)
     {
@@ -298,9 +298,9 @@ abstract class Mage_Core_Helper_Abstract
     /**
      * Escape quotes in java script
      *
-     * @param  string|string[] $data
-     * @param  string          $quote
-     * @return string|string[]
+     * @param  string|string[]                      $data
+     * @param  string                               $quote
+     * @return ($data is array ? string[] : string)
      */
     public function jsQuoteEscape($data, $quote = "'")
     {
