@@ -43,7 +43,7 @@ class Mage_Adminhtml_System_VariableController extends Mage_Adminhtml_Controller
     {
         $this->_title($this->__('System'))->_title($this->__('Custom Variables'));
 
-        $variableId = $this->getRequest()->getParam('variable_id', null);
+        $variableId = $this->getRequest()->getParam('variable_id');
         $storeId = (int) $this->getRequest()->getParam('store', 0);
         /** @var Mage_Core_Model_Variable $variable */
         $variable = Mage::getModel('core/variable');

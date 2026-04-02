@@ -108,7 +108,7 @@ class Mage_CurrencySymbol_Model_System_Currencysymbol
 
         $allowedCurrencies = explode(
             self::ALLOWED_CURRENCIES_CONFIG_SEPARATOR,
-            Mage::getStoreConfig(self::XML_PATH_ALLOWED_CURRENCIES, null),
+            Mage::getStoreConfig(self::XML_PATH_ALLOWED_CURRENCIES),
         );
 
         $storeModel = Mage::getSingleton('adminhtml/system_store');

@@ -518,11 +518,11 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
         if (is_array($mediaAttribute)) {
             foreach ($mediaAttribute as $attribute) {
                 if (in_array($attribute, $mediaAttributeCodes, true)) {
-                    $product->setData($attribute, null);
+                    $product->setData($attribute);
                 }
             }
         } elseif (in_array($mediaAttribute, $mediaAttributeCodes, true)) {
-            $product->setData($mediaAttribute, null);
+            $product->setData($mediaAttribute);
         }
 
         return $this;

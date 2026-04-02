@@ -1743,8 +1743,8 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      */
     public function cleanPasswordsValidationData()
     {
-        $this->setData('password', null);
-        $this->setData('password_confirmation', null);
+        $this->setData('password');
+        $this->setData('password_confirmation');
         return $this;
     }
 
