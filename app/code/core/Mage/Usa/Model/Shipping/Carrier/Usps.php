@@ -864,7 +864,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
             : $rawRequest->getBaseSubtotalInclTax();
 
         // Sort by SKU to ensure consistent hash regardless of item order
-        /** @phpstan-ignore argument.unresolvableType */
         usort($cartData, function ($a, $b) {
             /** @var array|mixed $a */
             /** @var array|mixed $b */
