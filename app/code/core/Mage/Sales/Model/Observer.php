@@ -413,8 +413,7 @@ class Mage_Sales_Model_Observer
         $configAddressType = Mage::helper('customer/address')->getTaxCalculationAddressType($storeId);
 
         // When VAT is based on billing address then Magento have to handle only billing addresses
-        $additionalBillingAddressCondition = ($configAddressType == Mage_Customer_Model_Address_Abstract::TYPE_BILLING)
-            ? $configAddressType != $quoteAddress->getAddressType() : false;
+        $additionalBillingAddressCondition = $configAddressType == Mage_Customer_Model_Address_Abstract::TYPE_BILLING && $configAddressType != $quoteAddress->getAddressType();
         // Handle only addresses that corresponds to VAT configuration
         if (!$addressHelper->isVatValidationEnabled($storeId) || $additionalBillingAddressCondition) {
             return;

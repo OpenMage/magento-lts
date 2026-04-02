@@ -55,7 +55,7 @@ class Mage_PaypalUk_Model_Express extends Mage_Paypal_Model_Express
             $this->_ecInstance->setStore($quote->getStoreId());
         }
 
-        return $this->_ecInstance ? !$this->_ecInstance->isAvailable() : false;
+        return $this->_ecInstance && !$this->_ecInstance->isAvailable();
     }
 
     /**
