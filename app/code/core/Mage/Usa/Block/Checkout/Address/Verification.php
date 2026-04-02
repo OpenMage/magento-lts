@@ -221,7 +221,7 @@ class Mage_Usa_Block_Checkout_Address_Verification extends Mage_Core_Block_Templ
 
         $cityStateZip = [];
         if (isset($address['city']) && $address['city'] !== '') {
-            $cityStateZip[] = (string) $this->escapeHtml($address['city']); 
+            $cityStateZip[] = (string) $this->escapeHtml($address['city']);
         }
 
         if (isset($address['region']) && $address['region'] !== '') {
