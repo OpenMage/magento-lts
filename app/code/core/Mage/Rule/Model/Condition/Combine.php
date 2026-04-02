@@ -38,7 +38,7 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
         $wheres = [];
         foreach ($this->getConditions() as $condition) {
             $conditionSql = $condition->prepareConditionSql();
-            if (!empty($conditionSql)) {
+            if ($conditionSql !== '') {
                 $wheres[] = '(' . $conditionSql . ')';
             }
         }
