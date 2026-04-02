@@ -92,21 +92,21 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Tracking_Service
                     'Authorization: ' . self::AUTHORIZATION_BEARER . $accessToken,
                 ];
 
-                $ch = curl_init();
-                curl_setopt($ch, CURLOPT_URL, $url . $queryString);
-                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-                curl_setopt($ch, CURLOPT_HEADER, false);
-                curl_setopt($ch, CURLOPT_HTTPGET, true);
-                curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-                curl_setopt($ch, CURLOPT_TIMEOUT, 30);
-                curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
-                curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
+                $handle = curl_init();
+                curl_setopt($handle, CURLOPT_URL, $url . $queryString);
+                curl_setopt($handle, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt($handle, CURLOPT_HEADER, false);
+                curl_setopt($handle, CURLOPT_HTTPGET, true);
+                curl_setopt($handle, CURLOPT_HTTPHEADER, $headers);
+                curl_setopt($handle, CURLOPT_TIMEOUT, 30);
+                curl_setopt($handle, CURLOPT_SSL_VERIFYPEER, true);
+                curl_setopt($handle, CURLOPT_SSL_VERIFYHOST, 2);
 
-                $jsonResponse = curl_exec($ch);
+                $jsonResponse = curl_exec($handle);
 
                 if ($jsonResponse === false) {
-                    $error = curl_error($ch);
-                    curl_close($ch);
+                    $error = curl_error($handle);
+                    curl_close($handle);
                     $this->_debug([
                         'error' => $error,
                         '__pid' => getmypid(),
@@ -115,7 +115,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Tracking_Service
                     continue;
                 }
 
-                curl_close($ch);
+                curl_close($handle);
 
                 // Log response
                 $this->_debug([
