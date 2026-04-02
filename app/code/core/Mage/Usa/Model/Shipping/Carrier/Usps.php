@@ -1620,7 +1620,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
         }
 
         if ($code === '') {
-            return $codes[$type]; // @phpstan-ignore return.type
+            return $codes[$type];
         }
 
         return $codes[$type][$code] ?? false;
