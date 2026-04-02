@@ -12,6 +12,8 @@ use Monolog\Level;
  * GoogleAnalytics data helper
  *
  * @package    Mage_GoogleAnalytics
+ *
+ * @phpstan-import-type ConfigStoreId from Mage
  */
 class Mage_GoogleAnalytics_Helper_Data extends Mage_Core_Helper_Abstract
 {
@@ -69,7 +71,7 @@ class Mage_GoogleAnalytics_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Whether GA IP Anonymization is enabled
      *
-     * @param  null|bool|int|Mage_Core_Model_Store|string $store $store
+     * @param  ConfigStoreId $store
      * @return bool
      * @deprecated
      */
@@ -137,7 +139,7 @@ class Mage_GoogleAnalytics_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Whether GA Debug Mode is enabled (only for development IP)
      *
-     * @param  null|bool|int|Mage_Core_Model_Store|string $store
+     * @param  ConfigStoreId $store
      * @return bool
      */
     public function isDebugModeEnabled($store = null)
@@ -159,7 +161,7 @@ class Mage_GoogleAnalytics_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Whether GA IP Anonymization is enabled
      *
-     * @param  null|bool|int|Mage_Core_Model_Store|string $store
+     * @param  ConfigStoreId $store
      * @return bool
      */
     public function isUserIdEnabled($store = null)

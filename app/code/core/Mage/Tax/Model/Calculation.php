@@ -12,6 +12,8 @@
  *
  * @package    Mage_Tax
  *
+ * @phpstan-import-type ConfigStoreId from Mage
+ *
  * @method Mage_Tax_Model_Resource_Calculation            _getResource()
  * @method array                                          getCalculationProcess()
  * @method Mage_Tax_Model_Resource_Calculation_Collection getCollection()
@@ -346,7 +348,7 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
     /**
      * Get request object for getting tax rate based on store shippig original address
      *
-     * @param  null|bool|int|Mage_Core_Model_Store|string $store
+     * @param  ConfigStoreId $store
      * @return Varien_Object
      */
     public function getRateOriginRequest($store = null)
@@ -363,7 +365,7 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
     /**
      * Return the default rate request. It can be either based on store address or customer address
      *
-     * @param  null|bool|int|Mage_Core_Model_Store|string $store
+     * @param  ConfigStoreId $store
      * @return Varien_Object
      */
     public function getDefaultRateRequest($store = null)
@@ -388,7 +390,7 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
      * @param  null|false|Mage_Customer_Model_Address|Mage_Sales_Model_Quote_Address|Varien_Object $shippingAddress
      * @param  null|false|Mage_Customer_Model_Address|Mage_Sales_Model_Quote_Address|Varien_Object $billingAddress
      * @param  null|int                                                                            $customerTaxClass
-     * @param  null|bool|int|Mage_Core_Model_Store|string                                          $store
+     * @param  ConfigStoreId                                                                       $store
      * @return Varien_Object
      * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
