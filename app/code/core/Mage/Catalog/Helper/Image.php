@@ -12,7 +12,7 @@
  *
  * @package    Mage_Catalog
  */
-class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
+class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract implements Stringable
 {
     public const XML_NODE_PRODUCT_BASE_IMAGE_WIDTH = 'catalog/product_image/base_width';
 
@@ -333,10 +333,8 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
 
     /**
      * Return Image URL
-     *
-     * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
         try {
             $model = $this->_getModel();
