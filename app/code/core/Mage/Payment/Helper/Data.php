@@ -58,7 +58,7 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
      *  $index => Varien_Simplexml_Element
      *
      * @param  ConfigStoreId                        $store
-     * @param  Mage_Sales_Model_Quote               $quote
+     * @param  null|Mage_Sales_Model_Quote          $quote
      * @return Mage_Payment_Model_Method_Abstract[]
      */
     public function getStoreMethods($store = null, $quote = null)

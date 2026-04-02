@@ -132,7 +132,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
      * Insert logo to pdf page
      *
      * @param Zend_Pdf_Page $page
-     * @param ConfigStoreId $store $store
+     * @param ConfigStoreId $store
      * @SuppressWarnings("PHPMD.ShortVariable")
      */
     protected function insertLogo(&$page, $store = null)

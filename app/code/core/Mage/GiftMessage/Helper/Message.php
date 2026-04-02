@@ -95,7 +95,7 @@ class Mage_GiftMessage_Helper_Message extends Mage_Core_Helper_Data
     /**
      * Check availability of giftmessages for specified entity.
      *
-     * @param  self::TYPE_*  $type  $type
+     * @param  self::TYPE_*  $type
      * @param  ConfigStoreId $store
      * @return bool
      */
