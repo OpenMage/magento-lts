@@ -59,13 +59,11 @@ class Mage_Dataflow_Model_Convert_Adapter_Io extends Mage_Dataflow_Model_Convert
                     } elseif (!is_dir($realPath)) {
                         $message = Mage::helper('dataflow')->__('Destination folder "%s" is not a directory.', $realPath);
                         Mage::throwException($message);
+                    } elseif ($forWrite && !is_writable($realPath)) {
+                        $message = Mage::helper('dataflow')->__('Destination folder "%s" is not writable.', $realPath);
+                        Mage::throwException($message);
                     } else {
-                        if ($forWrite && !is_writable($realPath)) {
-                            $message = Mage::helper('dataflow')->__('Destination folder "%s" is not writable.', $realPath);
-                            Mage::throwException($message);
-                        } else {
-                            $ioConfig['path'] = rtrim($realPath, DS);
-                        }
+                        $ioConfig['path'] = rtrim($realPath, DS);
                     }
 
                     break;
