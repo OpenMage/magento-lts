@@ -26,8 +26,6 @@ class Mage_Dataflow_Model_Convert_Adapter_Io extends Mage_Dataflow_Model_Convert
             $className = 'Varien_Io_' . ucwords($type);
             $this->_resource = new $className();
 
-            $isError = false;
-
             $ioConfig = $this->getVars();
             switch (strtolower($this->getVar('type', 'file'))) {
                 case 'file':
@@ -55,14 +53,13 @@ class Mage_Dataflow_Model_Convert_Adapter_Io extends Mage_Dataflow_Model_Convert
                     $this->_resource->checkAndCreateFolder($path);
 
                     $realPath = realpath($path);
-
-                    if (!$isError && $realPath === false) {
+                    if ($realPath === false) {
                         $message = Mage::helper('dataflow')->__('The destination folder "%s" does not exist or there is no access to create it.', $ioConfig['path']);
                         Mage::throwException($message);
-                    } elseif (!$isError && !is_dir($realPath)) {
+                    } elseif (!is_dir($realPath)) {
                         $message = Mage::helper('dataflow')->__('Destination folder "%s" is not a directory.', $realPath);
                         Mage::throwException($message);
-                    } elseif (!$isError) {
+                    } else {
                         if ($forWrite && !is_writable($realPath)) {
                             $message = Mage::helper('dataflow')->__('Destination folder "%s" is not writable.', $realPath);
                             Mage::throwException($message);
@@ -75,10 +72,6 @@ class Mage_Dataflow_Model_Convert_Adapter_Io extends Mage_Dataflow_Model_Convert
                 default:
                     $ioConfig['path'] = rtrim($this->getVar('path'), '/');
                     break;
-            }
-
-            if ($isError) {
-                return false;
             }
 
             try {
