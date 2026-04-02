@@ -187,7 +187,7 @@ abstract class Mage_Core_Helper_Abstract
      */
     public function escapeHtml($data, $allowedTags = null)
     {
-        if (is_null($data) || $data === '') {
+        if ($data === '' || !is_array($data) && !is_string($data)) {
             $result = $data;
         } elseif (is_array($data)) {
             $result = [];
@@ -195,6 +195,7 @@ abstract class Mage_Core_Helper_Abstract
                 $result[] = $this->escapeHtml($item);
             }
         } elseif (is_array($allowedTags) && $allowedTags !== []) {
+            // TODO to preg_quote the allowed tags
             $allowed = implode('|', $allowedTags);
             $result = preg_replace('/<([\/\s\r\n]*)(' . $allowed . ')([\/\s\r\n]*)>/si', '##$1$2$3##', $data);
             if ($result !== null) {
