@@ -169,23 +169,23 @@ class Mage_Usa_Adminhtml_UspsController extends Mage_Adminhtml_Controller_Action
                 'mailingDate' => \Carbon\Carbon::now()->format('Y-m-d'),
             ];
 
-            $ch = curl_init();
-            curl_setopt($ch, CURLOPT_URL, $gatewayUrl . 'prices/v3/total-rates/search');
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_POST, true);
-            curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            $curl = curl_init();
+            curl_setopt($curl, CURLOPT_URL, $gatewayUrl . 'prices/v3/total-rates/search');
+            curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($curl, CURLOPT_POST, true);
+            curl_setopt($curl, CURLOPT_HTTPHEADER, [
                 'Content-Type: application/json',
                 'Authorization: Bearer ' . $accessToken,
             ]);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($rateRequest) ?: '');
-            curl_setopt($ch, CURLOPT_TIMEOUT, 30);
-            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
-            curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
+            curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($rateRequest) ?: '');
+            curl_setopt($curl, CURLOPT_TIMEOUT, 30);
+            curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, true);
+            curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 2);
 
-            $rateResponse = curl_exec($ch);
-            $rateHttpCode = (int) curl_getinfo($ch, CURLINFO_HTTP_CODE);
-            $rateCurlError = ($rateResponse === false) ? curl_error($ch) : '';
-            curl_close($ch);
+            $rateResponse = curl_exec($curl);
+            $rateHttpCode = (int) curl_getinfo($curl, CURLINFO_HTTP_CODE);
+            $rateCurlError = ($rateResponse === false) ? curl_error($curl) : '';
+            curl_close($curl);
 
             if ($rateResponse === false) {
                 throw new Mage_Core_Exception('Rate request failed: cURL error — ' . $rateCurlError);
@@ -295,24 +295,24 @@ class Mage_Usa_Adminhtml_UspsController extends Mage_Adminhtml_Controller_Action
      */
     protected function _getOAuthToken(string $gatewayUrl, string $clientId, string $clientSecret): string
     {
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $gatewayUrl . 'oauth2/v3/token');
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/x-www-form-urlencoded']);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query([
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_URL, $gatewayUrl . 'oauth2/v3/token');
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_POST, true);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, ['Content-Type: application/x-www-form-urlencoded']);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query([
             'grant_type' => 'client_credentials',
             'client_id' => $clientId,
             'client_secret' => $clientSecret,
         ]));
-        curl_setopt($ch, CURLOPT_TIMEOUT, 30);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
+        curl_setopt($curl, CURLOPT_TIMEOUT, 30);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, true);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 2);
 
-        $response = curl_exec($ch);
-        $httpCode = (int) curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        $curlError = ($response === false) ? curl_error($ch) : '';
-        curl_close($ch);
+        $response = curl_exec($curl);
+        $httpCode = (int) curl_getinfo($curl, CURLINFO_HTTP_CODE);
+        $curlError = ($response === false) ? curl_error($curl) : '';
+        curl_close($curl);
 
         if ($response === false) {
             throw new Mage_Core_Exception('Authentication failed: cURL error — ' . $curlError);

@@ -258,8 +258,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
             $headers[] = 'Authorization: Bearer ' . $this->_accessToken;
         }
 
-        $ch = curl_init($url);
-        curl_setopt_array($ch, [
+        $curl = curl_init($url);
+        curl_setopt_array($curl, [
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_HTTPHEADER => $headers,
             CURLOPT_TIMEOUT => self::DEFAULT_TIMEOUT,
@@ -269,14 +269,14 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
 
         switch ($method) {
             case 'POST':
-                curl_setopt($ch, CURLOPT_POST, true);
+                curl_setopt($curl, CURLOPT_POST, true);
                 if ($data) {
-                    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data) ?: '');
+                    curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($data) ?: '');
                 }
 
                 break;
             case 'DELETE':
-                curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'DELETE');
+                curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'DELETE');
                 break;
             case 'GET':
             default:
@@ -290,10 +290,10 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
             'data' => $data,
         ]);
 
-        $responseBody = curl_exec($ch);
-        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        $curlError = curl_error($ch);
-        curl_close($ch);
+        $responseBody = curl_exec($curl);
+        $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+        $curlError = curl_error($curl);
+        curl_close($curl);
 
         if ($responseBody === false) {
             $this->_log('error', ['curl_error' => $curlError]);

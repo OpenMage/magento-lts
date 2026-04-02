@@ -138,12 +138,12 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
     {
         $this->_request = $request;
 
-        $result = new Varien_Object();
+        $rawRequest = new Varien_Object();
 
         if ($request->getLimitMethod()) {
-            $result->setService($request->getLimitMethod());
+            $rawRequest->setService($request->getLimitMethod());
         } else {
-            $result->setService('ALL');
+            $rawRequest->setService('ALL');
         }
 
         if ($request->getUspsContainer()) {
@@ -152,7 +152,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
             $container = $this->getConfigData('container');
         }
 
-        $result->setContainer($container);
+        $rawRequest->setContainer($container);
 
         if ($request->getUspsSize()) {
             $size = $request->getUspsSize();
@@ -160,7 +160,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
             $size = $this->getConfigData('size');
         }
 
-        $result->setSize($size);
+        $rawRequest->setSize($size);
 
         if ($request->getGirth()) {
             $girth = $request->getGirth();
@@ -168,14 +168,14 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
             $girth = $this->getConfigData('girth');
         }
 
-        $result->setGirth($girth);
+        $rawRequest->setGirth($girth);
 
         // Calculate dimensions from product attributes instead of using
         // request overrides. Falls back to config if no product dimensions found.
         $dimensions = $this->_calculatePackageDimensions($request);
-        $r->setHeight($dimensions['height']);
-        $r->setLength($dimensions['length']);
-        $r->setWidth($dimensions['width']);
+        $rawRequest->setHeight($dimensions['height']);
+        $rawRequest->setLength($dimensions['length']);
+        $rawRequest->setWidth($dimensions['width']);
         // End @customization
 
         if ($request->getUspsMachinable()) {
@@ -184,21 +184,21 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
             $machinable = $this->getConfigData('machinable');
         }
 
-        $result->setMachinable($machinable);
+        $rawRequest->setMachinable($machinable);
 
         if ($request->getOrigPostcode()) {
-            $result->setOrigPostal($request->getOrigPostcode());
+            $rawRequest->setOrigPostal($request->getOrigPostcode());
         } else {
-            $result->setOrigPostal(Mage::getStoreConfig(
+            $rawRequest->setOrigPostal(Mage::getStoreConfig(
                 Mage_Shipping_Model_Shipping::XML_PATH_STORE_ZIP,
                 $request->getStoreId(),
             ));
         }
 
         if ($request->getOrigCountryId()) {
-            $result->setOrigCountryId($request->getOrigCountryId());
+            $rawRequest->setOrigCountryId($request->getOrigCountryId());
         } else {
-            $result->setOrigCountryId(Mage::getStoreConfig(
+            $rawRequest->setOrigCountryId(Mage::getStoreConfig(
                 Mage_Shipping_Model_Shipping::XML_PATH_STORE_COUNTRY_ID,
                 $request->getStoreId(),
             ));
@@ -210,29 +210,29 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
             $destCountry = self::USA_COUNTRY_ID;
         }
 
-        $result->setDestCountryId($destCountry);
+        $rawRequest->setDestCountryId($destCountry);
 
         if (!$this->_isUSCountry($destCountry)) {
-            $result->setDestCountryName($this->_getCountryName($destCountry));
+            $rawRequest->setDestCountryName($this->_getCountryName($destCountry));
         }
 
         if ($request->getDestPostcode()) {
-            $result->setDestPostal($request->getDestPostcode());
+            $rawRequest->setDestPostal($request->getDestPostcode());
         }
 
         $weight = $this->getTotalNumOfBoxes($request->getPackageWeight());
-        $result->setWeightPounds(floor($weight));
-        $result->setWeightOunces(round(($weight - floor($weight)) * self::OUNCES_POUND, 1));
+        $rawRequest->setWeightPounds(floor($weight));
+        $rawRequest->setWeightOunces(round(($weight - floor($weight)) * self::OUNCES_POUND, 1));
         if ($request->getFreeMethodWeight() != $request->getPackageWeight()) {
-            $result->setFreeMethodWeight($request->getFreeMethodWeight());
+            $rawRequest->setFreeMethodWeight($request->getFreeMethodWeight());
         }
 
-        $result->setValue($request->getPackageValue());
-        $result->setValueWithDiscount($request->getPackageValueWithDiscount());
+        $rawRequest->setValue($request->getPackageValue());
+        $rawRequest->setValueWithDiscount($request->getPackageValueWithDiscount());
 
-        $result->setBaseSubtotalInclTax($request->getBaseSubtotalInclTax());
+        $rawRequest->setBaseSubtotalInclTax($request->getBaseSubtotalInclTax());
 
-        $this->_rawRequest = $result;
+        $this->_rawRequest = $rawRequest;
 
         return $this;
     }
@@ -350,8 +350,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
      */
     protected function _curlRestPost(string $url, string $payload, array $headers): array
     {
-        $ch = curl_init($url);
-        curl_setopt_array($ch, [
+        $curl = curl_init($url);
+        curl_setopt_array($curl, [
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_POST => true,
             CURLOPT_POSTFIELDS => $payload,
@@ -362,10 +362,10 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
         ]);
 
         /** @var false|string $body */
-        $body = curl_exec($ch);
-        $httpCode = (int) curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        $error = ($body === false) ? curl_error($ch) : null;
-        curl_close($ch);
+        $body = curl_exec($curl);
+        $httpCode = (int) curl_getinfo($curl, CURLINFO_HTTP_CODE);
+        $error = ($body === false) ? curl_error($curl) : null;
+        curl_close($curl);
 
         return ['body' => $body, 'httpCode' => $httpCode, 'error' => $error];
     }
@@ -555,13 +555,13 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
     {
         $result = Mage::getModel('shipping/rate_result');
 
-        $r = $this->_rawRequest;
-        if ($r === null) {
+        $rawRequest = $this->_rawRequest;
+        if ($rawRequest === null) {
             return $result;
         }
 
         // The origin address(shipper) must be only in USA
-        if (!$this->_isUSCountry($r->getOrigCountryId())) {
+        if (!$this->_isUSCountry($rawRequest->getOrigCountryId())) {
             return $result;
         }
 
@@ -572,21 +572,21 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
         }
 
         $baseUrl = $this->_getRestGatewayUrl();
-        $isDomestic = $this->_isUSCountry($r->getDestCountryId());
+        $isDomestic = $this->_isUSCountry($rawRequest->getDestCountryId());
 
         // Build single request payload without specifying mail class to get all rates
-        $requestPayload = $this->_buildRestRateRequest($r, $isDomestic, null);
+        $requestPayload = $this->_buildRestRateRequest($rawRequest, $isDomestic, null);
 
         // Build cart/quote fingerprint to prevent cached rates from different cart contents
-        $cartFingerprint = $this->_buildCartFingerprint($r);
+        $cartFingerprint = $this->_buildCartFingerprint($rawRequest);
 
         // Generate cache key from ALL critical parameters to prevent false rate matches
         // TTL handles staleness - no need to include date (USPS rates don't change daily)
         $cacheKey = 'usps_rates_' . hash('sha256', serialize([
             'endpoint' => $isDomestic ? 'domestic' : 'international',
-            'origin_zip' => substr($r->getOrigPostal(), 0, 5),
-            'dest_zip' => substr($r->getDestPostal(), 0, 5),
-            'dest_country' => $r->getDestCountryId(),
+            'origin_zip' => substr($rawRequest->getOrigPostal(), 0, 5),
+            'dest_zip' => substr($rawRequest->getDestPostal(), 0, 5),
+            'dest_country' => $rawRequest->getDestCountryId(),
             'weight' => $requestPayload['weight'],
             'length' => $requestPayload['length'],
             'width' => $requestPayload['width'],
@@ -753,15 +753,15 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
      *
      * Based on USPS REST API v3 specification from https://github.com/USPS/api-examples
      *
-     * @param  Varien_Object        $r          Raw request object
+     * @param  Varien_Object        $rawRequest Raw request object
      * @param  bool                 $isDomestic Is domestic shipment
      * @param  null|string          $mailClass  Specific mail class to query (optional)
      * @return array<string, mixed>
      */
-    protected function _buildRestRateRequest(Varien_Object $r, bool $isDomestic, $mailClass = null)
+    protected function _buildRestRateRequest(Varien_Object $rawRequest, bool $isDomestic, $mailClass = null)
     {
-        $weightPounds = (float) $r->getWeightPounds();
-        $weightOunces = (float) $r->getWeightOunces();
+        $weightPounds = (float) $rawRequest->getWeightPounds();
+        $weightOunces = (float) $rawRequest->getWeightOunces();
         $totalOunces = ($weightPounds * self::OUNCES_POUND) + $weightOunces;
         $weightInPounds = round($totalOunces / self::OUNCES_POUND, 2);
 
@@ -775,12 +775,12 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
 
         if ($isDomestic) {
             $request = [
-                'originZIPCode' => substr($r->getOrigPostal(), 0, 5),
-                'destinationZIPCode' => substr($r->getDestPostal(), 0, 5),
+                'originZIPCode' => substr($rawRequest->getOrigPostal(), 0, 5),
+                'destinationZIPCode' => substr($rawRequest->getDestPostal(), 0, 5),
                 'weight' => $weightInPounds > 0 ? $weightInPounds : 0.1,
-                'length' => (float) ($r->getLength() ?: 6),
-                'width' => (float) ($r->getWidth() ?: 4),
-                'height' => (float) ($r->getHeight() ?: 1),
+                'length' => (float) ($rawRequest->getLength() ?: 6),
+                'width' => (float) ($rawRequest->getWidth() ?: 4),
+                'height' => (float) ($rawRequest->getHeight() ?: 1),
                 'processingCategory' => $machinable,
                 'destinationEntryFacilityType' => 'NONE',
                 'rateIndicator' => 'DR',
@@ -795,21 +795,21 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
             }
 
             // Add optional item value for insurance calculations
-            if ($r->getValue() && $r->getValue() > 0) {
-                $request['itemValue'] = (float) $r->getValue();
+            if ($rawRequest->getValue() && $rawRequest->getValue() > 0) {
+                $request['itemValue'] = (float) $rawRequest->getValue();
             }
 
             return $request;
         }
 
         $request = [
-            'originZIPCode' => substr($r->getOrigPostal(), 0, 5),
-            'foreignPostalCode' => $r->getDestPostal() ?: '',
-            'destinationCountryCode' => $this->_getIso2CountryCode($r->getDestCountryId()),
+            'originZIPCode' => substr($rawRequest->getOrigPostal(), 0, 5),
+            'foreignPostalCode' => $rawRequest->getDestPostal() ?: '',
+            'destinationCountryCode' => $this->_getIso2CountryCode($rawRequest->getDestCountryId()),
             'weight' => $weightInPounds > 0 ? $weightInPounds : 0.1,
-            'length' => (float) ($r->getLength() ?: 6),
-            'width' => (float) ($r->getWidth() ?: 4),
-            'height' => (float) ($r->getHeight() ?: 1),
+            'length' => (float) ($rawRequest->getLength() ?: 6),
+            'width' => (float) ($rawRequest->getWidth() ?: 4),
+            'height' => (float) ($rawRequest->getHeight() ?: 1),
             'processingCategory' => $machinable,
             'destinationEntryFacilityType' => 'NONE',
             'rateIndicator' => 'SP',
@@ -823,8 +823,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
         }
 
         // Add optional item value for customs/insurance
-        if ($r->getValue() && $r->getValue() > 0) {
-            $request['itemValue'] = (float) $r->getValue();
+        if ($rawRequest->getValue() && $rawRequest->getValue() > 0) {
+            $request['itemValue'] = (float) $rawRequest->getValue();
         }
 
         return $request;
@@ -834,15 +834,15 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
      * Build cart/quote fingerprint to detect changes in cart contents
      * Prevents cached rates from being shown when cart items/quantities change
      *
-     * @param  Varien_Object $r Rate request object
+     * @param  Varien_Object $rawRequest Rate request object
      * @return string        Cart fingerprint hash
      */
-    protected function _buildCartFingerprint(Varien_Object $r)
+    protected function _buildCartFingerprint(Varien_Object $rawRequest)
     {
         $cartData = [];
 
         // Get all items from request (includes product SKU, qty, weight, price)
-        $allItems = $r->getAllItems();
+        $allItems = $rawRequest->getAllItems();
         if ($allItems) {
             foreach ($allItems as $item) {
                 // Build item fingerprint: SKU + qty + weight + price + product_id
@@ -858,10 +858,10 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
         }
 
         // Include package value (affects insurance/customs declarations)
-        $cartData['package_value'] = $r->getPackageValue();
-        $cartData['order_subtotal'] = $r->getOrderShipment()
-            ? $r->getOrderShipment()->getOrder()->getSubtotal()
-            : $r->getBaseSubtotalInclTax();
+        $cartData['package_value'] = $rawRequest->getPackageValue();
+        $cartData['order_subtotal'] = $rawRequest->getOrderShipment()
+            ? $rawRequest->getOrderShipment()->getOrder()->getSubtotal()
+            : $rawRequest->getBaseSubtotalInclTax();
 
         // Sort by SKU to ensure consistent hash regardless of item order
         /** @phpstan-ignore argument.unresolvableType */
@@ -1109,13 +1109,13 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
             return [];
         }
 
-        $r = $this->_rawRequest;
-        if ($r === null) {
+        $rawRequest = $this->_rawRequest;
+        if ($rawRequest === null) {
             return [];
         }
 
-        $originZip = substr($r->getOrigPostal(), 0, 5);
-        $destZip = substr($r->getDestPostal(), 0, 5);
+        $originZip = substr($rawRequest->getOrigPostal(), 0, 5);
+        $destZip = substr($rawRequest->getDestPostal(), 0, 5);
 
         if (!$originZip || !$destZip) {
             return [];
@@ -1140,17 +1140,17 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
      */
     protected function _setFreeMethodRequest($freeMethod)
     {
-        $r = $this->_rawRequest;
-        if ($r === null) {
+        $rawRequest = $this->_rawRequest;
+        if ($rawRequest === null) {
             return;
         }
 
         $configuredFreeMethod = $this->getConfigData('free_method');
 
-        $weight = $this->getTotalNumOfBoxes($r->getFreeMethodWeight());
-        $r->setWeightPounds(floor($weight));
-        $r->setWeightOunces(round(($weight - floor($weight)) * self::OUNCES_POUND, 1));
-        $r->setService($configuredFreeMethod);
+        $weight = $this->getTotalNumOfBoxes($rawRequest->getFreeMethodWeight());
+        $rawRequest->setWeightPounds(floor($weight));
+        $rawRequest->setWeightOunces(round(($weight - floor($weight)) * self::OUNCES_POUND, 1));
+        $rawRequest->setService($configuredFreeMethod);
     }
 
     /**
@@ -1693,9 +1693,9 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
      */
     protected function setTrackingRequest()
     {
-        $r = new Varien_Object();
+        $rawRequest = new Varien_Object();
 
-        $this->_rawTrackRequest = $r;
+        $this->_rawTrackRequest = $rawRequest;
     }
 
     /**
