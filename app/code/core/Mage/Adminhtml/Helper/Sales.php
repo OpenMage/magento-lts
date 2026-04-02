@@ -105,9 +105,9 @@ class Mage_Adminhtml_Helper_Sales extends Mage_Core_Helper_Abstract
     /**
      * Escape string preserving links
      *
-     * @param  string|string[]      $data
-     * @param  null|array           $allowedTags
-     * @return null|string|string[]
+     * @param  null|string|string[]                        $data
+     * @param  null|string[]                               $allowedTags
+     * @return ($data is array ? array<?string> : ?string)
      */
     public function escapeHtmlWithLinks($data, $allowedTags = null)
     {
