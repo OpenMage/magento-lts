@@ -67,6 +67,18 @@ trait AbstractTrait
             [],
             false,
         ];
+        yield 'null, no escape' => [
+            '',
+            null,
+            null,
+            false,
+        ];
+        yield 'null, escape' => [
+            '',
+            null,
+            [],
+            true,
+        ];
         yield 'null array allowed tags, no escape' => [
             'OpenMage is super-cool',
             $str,
@@ -103,16 +115,16 @@ trait AbstractTrait
             '',
             true,
         ];
-        yield 'b allowed tags, no escape' => [
-            'OpenMage <b>is super-cool</b>',
+        yield 'a allowed tags, no escape' => [
+            '<a href="https://openmage.org/">OpenMage is super-cool</a>',
             $str,
-            '<b>',
+            '<a>',
             false,
         ];
-        yield 'b allowed tags, escape' => [
-            'OpenMage &lt;b&gt;is super-cool&lt;/b&gt;',
+        yield 'a allowed tags, escape' => [
+            '&lt;a href=&quot;https://openmage.org/&quot;&gt;OpenMage is super-cool&lt;/a&gt;',
             $str,
-            '<b>',
+            '<a>',
             true,
         ];
         yield 'b simple allowed tags, no escape' => [
