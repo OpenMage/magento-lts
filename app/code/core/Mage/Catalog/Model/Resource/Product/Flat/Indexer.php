@@ -660,8 +660,8 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
                     $fieldProp['type'],
                     $fieldProp['length'] ?? null,
                     [
-                        'nullable' => isset($fieldProp['nullable']) ? (bool) $fieldProp['nullable'] : false,
-                        'unsigned' => isset($fieldProp['unsigned']) ? (bool) $fieldProp['unsigned'] : false,
+                        'nullable' => isset($fieldProp['nullable']) && (bool) $fieldProp['nullable'],
+                        'unsigned' => isset($fieldProp['unsigned']) && (bool) $fieldProp['unsigned'],
                         'default'  => $fieldProp['default'] ?? false,
                         'primary'  => false,
                     ],

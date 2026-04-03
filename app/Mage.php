@@ -67,6 +67,8 @@ if (!empty($_SERVER['MAGE_IS_DEVELOPER_MODE']) || !empty($_ENV['MAGE_IS_DEVELOPE
 
 /**
  * Main Mage hub class
+ *
+ * @phpstan-type ConfigStoreId null|bool|int|Mage_Core_Model_Store|string
  */
 final class Mage
 {
@@ -413,8 +415,8 @@ final class Mage
     /**
      * Retrieve config value for store by path
      *
-     * @param  string                                     $path
-     * @param  null|bool|int|Mage_Core_Model_Store|string $store
+     * @param  string        $path
+     * @param  ConfigStoreId $store
      * @return mixed
      */
     public static function getStoreConfig($path, $store = null)
@@ -423,7 +425,7 @@ final class Mage
     }
 
     /**
-     * @param null|bool|int|Mage_Core_Model_Store|string $store
+     * @param ConfigStoreId $store
      */
     public static function getStoreConfigAsFloat(string $path, $store = null): float
     {
@@ -431,7 +433,7 @@ final class Mage
     }
 
     /**
-     * @param null|bool|int|Mage_Core_Model_Store|string $store
+     * @param ConfigStoreId $store
      */
     public static function getStoreConfigAsInt(string $path, $store = null): int
     {
@@ -441,8 +443,8 @@ final class Mage
     /**
      * Retrieve config flag for store by path
      *
-     * @param  string                                     $path
-     * @param  null|bool|int|Mage_Core_Model_Store|string $store
+     * @param  string        $path
+     * @param  ConfigStoreId $store
      * @return bool
      */
     public static function getStoreConfigFlag($path, $store = null)

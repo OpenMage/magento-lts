@@ -562,7 +562,7 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
     public function isNominal()
     {
         if (!$this->hasData('is_nominal')) {
-            $this->setData('is_nominal', $this->getProduct() ? $this->getProduct()->getIsRecurring() == '1' : false);
+            $this->setData('is_nominal', $this->getProduct() && $this->getProduct()->getIsRecurring() == '1');
         }
 
         return $this->_getData('is_nominal');

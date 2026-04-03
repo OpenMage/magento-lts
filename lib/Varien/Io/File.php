@@ -799,7 +799,7 @@ class Varien_Io_File extends Varien_Io_Abstract
             chdir($this->_cwd);
         }
 
-        $result = file_exists($filename) ? @chmod($filename, $mode) : false;
+        $result = file_exists($filename) && @chmod($filename, $mode);
         if ($this->_iwd) {
             chdir($this->_iwd);
         }
