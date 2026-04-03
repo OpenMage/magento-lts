@@ -301,11 +301,7 @@ HTML;
             echo '</div>';
         }
 
-        if (!$directOutput) {
-            $html = ob_get_clean();
-        } else {
-            $html = '';
-        }
+        $html = $directOutput ? '' : ob_get_clean();
 
         Varien_Profiler::stop($fileName);
         return $html;

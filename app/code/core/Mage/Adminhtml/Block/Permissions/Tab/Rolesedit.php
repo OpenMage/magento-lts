@@ -142,11 +142,7 @@ class Mage_Adminhtml_Block_Permissions_Tab_Rolesedit extends Mage_Adminhtml_Bloc
             }
         }
 
-        if (isset($node->children)) {
-            $children = $node->children->children();
-        } else {
-            $children = $node->children();
-        }
+        $children = isset($node->children) ? $node->children->children() : $node->children();
 
         if (empty($children)) {
             return $item;

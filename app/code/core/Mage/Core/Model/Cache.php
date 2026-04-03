@@ -270,11 +270,7 @@ class Mage_Core_Model_Cache
             $options['auto_refresh_fast_cache'] = false;
         }
 
-        if (isset($cacheOptions['slow_backend'])) {
-            $options['slow_backend'] = $cacheOptions['slow_backend'];
-        } else {
-            $options['slow_backend'] = $this->_defaultBackend;
-        }
+        $options['slow_backend'] = $cacheOptions['slow_backend'] ?? $this->_defaultBackend;
 
         if (isset($cacheOptions['slow_backend_options'])) {
             $options['slow_backend_options'] = $cacheOptions['slow_backend_options'];
