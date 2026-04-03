@@ -53,7 +53,7 @@ trait AbstractTrait
 
     public function provideStripTagsData(): Generator
     {
-        $plain = $plain;
+        $plain = 'OpenMage is super-cool';
         $html = '<a href="https://openmage.org/">OpenMage <b>is <i>super</i>-cool</b></a>';
 
         yield 'null allowed tags, no escape' => [
