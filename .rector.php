@@ -129,7 +129,6 @@ try {
             CodeQuality\If_\CombineIfRector::class => [
                 __DIR__ . '/app/code/core/Mage/Catalog/Model/Api2/Product/Validator/Product.php',
             ],
-            CodeQuality\If_\CompleteMissingIfElseBracketRector::class, # todo: TMP  (!?!)
             CodeQuality\If_\ExplicitBoolCompareRector::class, # todo: TMP
             CodeQuality\If_\SimplifyIfElseToTernaryRector::class,
             CodeQuality\Include_\AbsolutizeRequireAndIncludePathRector::class, # todo: TMP
