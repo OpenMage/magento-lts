@@ -53,17 +53,18 @@ trait AbstractTrait
 
     public function provideStripTagsData(): Generator
     {
-        $str = '<a href="https://openmage.org/">OpenMage <b>is <i>super</i>-cool</b></a>';
+        $plain = $plain;
+        $html = '<a href="https://openmage.org/">OpenMage <b>is <i>super</i>-cool</b></a>';
 
         yield 'null allowed tags, no escape' => [
-            'OpenMage is super-cool',
-            $str,
+            $plain,
+            $html,
             null,
             false,
         ];
         yield 'empty array allowed tags, no escape' => [
-            'OpenMage is super-cool',
-            $str,
+            $plain,
+            $html,
             [],
             false,
         ];
@@ -80,74 +81,74 @@ trait AbstractTrait
             true,
         ];
         yield 'null array allowed tags, no escape' => [
-            'OpenMage is super-cool',
-            $str,
+            $plain,
+            $html,
             [null],
             false,
         ];
         yield 'empty string allowed tags, no escape' => [
-            'OpenMage is super-cool',
-            $str,
+            $plain,
+            $html,
             '',
             false,
         ];
         yield 'null allowed tags, escape' => [
-            'OpenMage is super-cool',
-            $str,
+            $plain,
+            $html,
             null,
             true,
         ];
         yield 'empty array allowed tags, escape' => [
-            'OpenMage is super-cool',
-            $str,
+            $plain,
+            $html,
             [],
             true,
         ];
         yield 'null array allowed tags, escape' => [
-            'OpenMage is super-cool',
-            $str,
+            $plain,
+            $html,
             [null],
             true,
         ];
         yield 'empty string allowed tags, escape' => [
-            'OpenMage is super-cool',
-            $str,
+            $plain,
+            $html,
             '',
             true,
         ];
         yield 'a allowed tags, no escape' => [
             '<a href="https://openmage.org/">OpenMage is super-cool</a>',
-            $str,
+            $html,
             '<a>',
             false,
         ];
         yield 'a allowed tags, escape' => [
             '&lt;a href=&quot;https://openmage.org/&quot;&gt;OpenMage is super-cool&lt;/a&gt;',
-            $str,
+            $html,
             '<a>',
             true,
         ];
         yield 'b simple allowed tags, no escape' => [
-            'OpenMage is super-cool',
-            $str,
+            $plain,
+            $html,
             'b',
             false,
         ];
         yield 'b simple allowed tags, escape' => [
-            'OpenMage is super-cool',
-            $str,
+            $plain,
+            $html,
             'b',
             true,
         ];
         yield 'b array allowed tags, no escape' => [
             'OpenMage <b>is super-cool</b>',
-            $str,
+            $html,
             ['b'],
             false,
         ];
         yield 'b array allowed tags, escape' => [
             'OpenMage <b>is super-cool</b>',
-            $str,
+            $html,
             ['b'],
             true,
         ];
