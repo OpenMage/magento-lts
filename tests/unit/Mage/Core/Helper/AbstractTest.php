@@ -39,7 +39,7 @@ final class AbstractTest extends OpenMageTest
      * @dataProvider provideStripTagsData
      * @group Helper
      */
-    public function testStripTags($expectedResult, $data, null|string|array $allowedTags, bool $escape): void
+    public function testStripTags($expectedResult, $data, null|array|string $allowedTags, bool $escape): void
     {
         self::assertSame($expectedResult, self::$subject->stripTags($data, $allowedTags, $escape));
     }
