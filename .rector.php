@@ -142,7 +142,6 @@ try {
             ],
             CodeQuality\Include_\AbsolutizeRequireAndIncludePathRector::class, # todo: TMP
             CodeQuality\Isset_\IssetOnPropertyObjectToPropertyExistsRector::class, # todo: TMP
-            CodeQuality\Ternary\TernaryEmptyArrayArrayDimFetchToCoalesceRector::class, # todo: TMP
             CodingStyle\ClassMethod\FuncGetArgsToVariadicParamRector::class, # todo: TMP
             CodingStyle\Encapsed\EncapsedStringsToSprintfRector::class, # todo: TMP
             CodingStyle\FuncCall\StrictArraySearchRector::class, # todo: TMP
@@ -155,7 +154,6 @@ try {
                 # skip: messes up code .... check later
                 __DIR__ . '/app/design/adminhtml/base/default/template/system/store/tree.phtml',
             ],
-            DeadCode\Plus\RemoveDeadZeroAndOneOperationRector::class, # todo: TMP  (!?!)
             DeadCode\PropertyProperty\RemoveNullPropertyInitializationRector::class, # todo: TMP
             DeadCode\TryCatch\RemoveDeadTryCatchRector::class, # todo: TMP  (!?!)
             EarlyReturn\Foreach_\ChangeNestedForeachIfsToEarlyContinueRector::class, # todo: TMP
