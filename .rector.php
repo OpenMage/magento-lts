@@ -83,6 +83,7 @@ try {
         ->withConfiguredRule(Renaming\MethodCall\RenameMethodRector::class, Migration\Mage\Usa::renameMethod())
         ->withConfiguredRule(Renaming\MethodCall\RenameMethodRector::class, Migration\Mage\Wishlist::renameMethod())
         ->withConfiguredRule(ReplaceArgumentDefaultValueRector::class, Migration\Mage\Adminhtml::replaceArgumentDefaultValue())
+        # skip: do not apply
         ->withSkip([
             # skip avoid renaming of methods in tests
             Carbon\FuncCall\DateFuncCallToCarbonRector::class => [
@@ -92,12 +93,6 @@ try {
             Carbon\FuncCall\TimeFuncCallToCarbonRector::class => [
                 __DIR__ . '/tests/unit/Base/CarbonTest.php',
             ],
-            CodeQuality\BooleanNot\SimplifyDeMorganBinaryRector::class, # todo: TMP (!?!)
-            # skip: causes issues with Mage_Api2_Model_Auth_Adapter_Oauth::getUserParams()  # todo: TMP (test again)
-            CodeQuality\Catch_\ThrowWithPreviousExceptionRector::class => [
-                __DIR__ . '/app/code/core/Mage/Api2/Model/Auth/Adapter/Oauth.php',
-            ],
-            CodeQuality\Class_\CompleteDynamicPropertiesRector::class, # todo: TMP (!?!)
             # skip classes that throw an exception as a return value, which is not supported by Rector yet
             # see https://github.com/rectorphp/rector/issues/9719
             CodeQuality\ClassMethod\ExplicitReturnNullRector::class => [
@@ -110,15 +105,17 @@ try {
                 __DIR__ . '/app/code/core/Mage/Sales/Model/Order/Payment.php',
                 __DIR__ . '/app/code/core/Mage/Usa/Model/Shipping/Carrier/Abstract/Backend/Abstract.php',
             ],
-            CodeQuality\Equal\UseIdenticalOverEqualWithSameTypeRector::class, # todo: TMP
-            CodeQuality\Expression\TernaryFalseExpressionToIfRector::class, # todo: TMP (!?!)
-            CodeQuality\Identical\SimplifyBoolIdenticalTrueRector::class, # todo: TMP
+        ])
+        # skip: wait for rector support
+        ->withSkip([
+            # tmp wait for https://github.com/rectorphp/rector/issues/9728
+            CodeQuality\Expression\TernaryFalseExpressionToIfRector::class,
             # tmp wait for https://github.com/rectorphp/rector/issues/9717
             CodeQuality\If_\CombineIfRector::class => [
                 __DIR__ . '/app/code/core/Mage/Catalog/Model/Api2/Product/Validator/Product.php',
             ],
-            CodeQuality\If_\CompleteMissingIfElseBracketRector::class, # todo: TMP  (!?!)
-            CodeQuality\If_\ExplicitBoolCompareRector::class, # todo: TMP
+            # tmp wait for https://github.com/rectorphp/rector/issues/9725
+            CodeQuality\If_\CompleteMissingIfElseBracketRector::class,
             # tmp wait for https://github.com/rectorphp/rector/issues/9724
             CodeQuality\If_\SimplifyIfElseToTernaryRector::class => [
                 __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Options/Option.php',
@@ -126,6 +123,16 @@ try {
                 __DIR__ . '/app/code/core/Mage/Sales/Model/Order/Item.php',
                 __DIR__ . '/lib/Varien/Convert/Parser/Xml/Excel.php',
             ],
+        ])
+        ->withSkip([
+            CodeQuality\BooleanNot\SimplifyDeMorganBinaryRector::class, # todo: TMP (!?!)
+            # skip: causes issues with Mage_Api2_Model_Auth_Adapter_Oauth::getUserParams()  # todo: TMP (test again)
+            CodeQuality\Catch_\ThrowWithPreviousExceptionRector::class => [
+                __DIR__ . '/app/code/core/Mage/Api2/Model/Auth/Adapter/Oauth.php',
+            ],
+            CodeQuality\Equal\UseIdenticalOverEqualWithSameTypeRector::class, # todo: TMP
+            CodeQuality\Identical\SimplifyBoolIdenticalTrueRector::class, # todo: TMP
+            CodeQuality\If_\ExplicitBoolCompareRector::class, # todo: TMP
             CodeQuality\Include_\AbsolutizeRequireAndIncludePathRector::class, # todo: TMP
             CodeQuality\Isset_\IssetOnPropertyObjectToPropertyExistsRector::class, # todo: TMP
             CodingStyle\ClassMethod\FuncGetArgsToVariadicParamRector::class, # todo: TMP
