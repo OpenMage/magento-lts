@@ -125,7 +125,6 @@ try {
                 __DIR__ . '/app/code/core/Mage/Usa/Model/Shipping/Carrier/Abstract/Backend/Abstract.php',
             ],
             CodeQuality\Equal\UseIdenticalOverEqualWithSameTypeRector::class, # todo: TMP
-            CodeQuality\Expression\TernaryFalseExpressionToIfRector::class, # todo: TMP (!?!)
             CodeQuality\Identical\SimplifyBoolIdenticalTrueRector::class, # todo: TMP
             # tmp wait for https://github.com/rectorphp/rector/issues/9717
             CodeQuality\If_\CombineIfRector::class => [
