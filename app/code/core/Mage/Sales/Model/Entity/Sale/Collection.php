@@ -67,8 +67,6 @@ class Mage_Sales_Model_Entity_Sale_Collection extends Varien_Object implements I
     {
         $this->_select = $this->_read->select();
         $entityTable = $this->getEntity()->getEntityTable();
-        $paidTable  = $this->getAttribute('grand_total')->getBackend()->getTable();
-        $idField    = $this->getEntity()->getIdFieldName();
         $this->getSelect()
             ->from(
                 ['sales' => $entityTable],

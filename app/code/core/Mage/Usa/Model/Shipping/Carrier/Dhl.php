@@ -187,36 +187,16 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
             $response->setService($request->getLimitMethod());
         }
 
-        if ($request->getDhlId()) {
-            $id = $request->getDhlId();
-        } else {
-            $id = $this->getConfigData('id');
-        }
-
+        $id = $request->getDhlId() ? $request->getDhlId() : $this->getConfigData('id');
         $response->setId($id);
 
-        if ($request->getDhlPassword()) {
-            $password = $request->getDhlPassword();
-        } else {
-            $password = $this->getConfigData('password');
-        }
-
+        $password = $request->getDhlPassword() ? $request->getDhlPassword() : $this->getConfigData('password');
         $response->setPassword($password);
 
-        if ($request->getDhlAccount()) {
-            $accountNbr = $request->getDhlAccount();
-        } else {
-            $accountNbr = $this->getConfigData('account');
-        }
-
+        $accountNbr = $request->getDhlAccount() ? $request->getDhlAccount() : $this->getConfigData('account');
         $response->setAccountNbr($accountNbr);
 
-        if ($request->getDhlShippingKey()) {
-            $shippingKey = $request->getDhlShippingKey();
-        } else {
-            $shippingKey = $this->getConfigData('shipping_key');
-        }
-
+        $shippingKey = $request->getDhlShippingKey() ? $request->getDhlShippingKey() : $this->getConfigData('shipping_key');
         $response->setShippingKey($shippingKey);
 
         if ($request->getDhlShippingIntlKey()) {
@@ -227,20 +207,10 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
 
         $response->setShippingIntlKey($shippingKey);
 
-        if ($request->getDhlShipmentType()) {
-            $shipmentType = $request->getDhlShipmentType();
-        } else {
-            $shipmentType = $this->getConfigData('shipment_type');
-        }
-
+        $shipmentType = $request->getDhlShipmentType() ? $request->getDhlShipmentType() : $this->getConfigData('shipment_type');
         $response->setShipmentType($shipmentType);
 
-        if ($request->getDhlDutiable()) {
-            $shipmentDutible = $request->getDhlDutiable();
-        } else {
-            $shipmentDutible = $this->getConfigData('dutiable');
-        }
-
+        $shipmentDutible = $request->getDhlDutiable() ? $request->getDhlDutiable() : $this->getConfigData('dutiable');
         $response->setDutiable($shipmentDutible);
 
         if ($request->getDhlDutyPaymentType()) {
@@ -251,12 +221,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
 
         $response->setDutyPaymentType($dutypaytype);
 
-        if ($request->getDhlContentDesc()) {
-            $contentdesc = $request->getDhlContentDesc();
-        } else {
-            $contentdesc = $this->getConfigData('contentdesc');
-        }
-
+        $contentdesc = $request->getDhlContentDesc() ? $request->getDhlContentDesc() : $this->getConfigData('contentdesc');
         $response->setContentDesc($contentdesc);
 
         if ($request->getDestPostcode()) {
@@ -340,7 +305,6 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
         $response->setOrigCity($request->getOrigCity());
         $response->setOrigPostal($request->getOrigPostal());
 
-        $originStreet1 = Mage::getStoreConfig(Mage_Shipping_Model_Shipping::XML_PATH_STORE_ADDRESS1, $response->getStoreId());
         $originStreet2 = Mage::getStoreConfig(Mage_Shipping_Model_Shipping::XML_PATH_STORE_ADDRESS2, $response->getStoreId());
         $response->setOrigStreet($request->getOrigStreet() ? $request->getOrigStreet() : $originStreet2);
         $response->setOrigStreetLine2($request->getOrigStreetLine2());
@@ -354,11 +318,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
             $response->setOrigState($request->getOrigState());
         }
 
-        if ($request->getDestCountryId()) {
-            $destCountry = $request->getDestCountryId();
-        } else {
-            $destCountry = self::USA_COUNTRY_ID;
-        }
+        $destCountry = $request->getDestCountryId() ? $request->getDestCountryId() : self::USA_COUNTRY_ID;
 
         //for DHL, puero rico state for US will assume as puerto rico country
         //for puerto rico, dhl will ship as international
@@ -750,9 +710,6 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
     protected function _parseXmlResponse($response)
     {
         $request = $this->_rawRequest;
-        $costArr = [];
-        $priceArr = [];
-        $errorTitle = 'Unable to retrieve quotes';
 
         if (trim($response) !== '') {
             if (str_starts_with(trim($response), '<?xml')) {

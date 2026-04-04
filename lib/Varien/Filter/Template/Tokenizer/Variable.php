@@ -139,7 +139,6 @@ class Varien_Filter_Template_Tokenizer_Variable extends Varien_Filter_Template_T
     public function getMethodArgs()
     {
         $value = [];
-        $numberStr = '';
 
         while ($this->next() && $this->char() != ')') {
             if ($this->isWhiteSpace()) {
@@ -150,11 +149,7 @@ class Varien_Filter_Template_Tokenizer_Variable extends Varien_Filter_Template_T
                 continue;
             }
 
-            if ($this->isNumeric()) {
-                $value[] = $this->getNumber();
-            } else {
-                $value[] = $this->getString();
-            }
+            $value[] = $this->isNumeric() ? $this->getNumber() : $this->getString();
         }
 
         return $value;

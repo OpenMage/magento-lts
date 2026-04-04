@@ -229,11 +229,7 @@ class Mage_Core_Model_Cookie
             $period = $this->getLifetime();
         }
 
-        if ($period == 0) {
-            $expire = 0;
-        } else {
-            $expire = Carbon::now()->getTimestamp() + $period;
-        }
+        $expire = $period == 0 ? 0 : Carbon::now()->getTimestamp() + $period;
 
         if (is_null($path)) {
             $path = $this->getPath();

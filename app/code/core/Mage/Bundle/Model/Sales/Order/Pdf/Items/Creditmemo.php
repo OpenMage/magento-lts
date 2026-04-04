@@ -35,11 +35,7 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Creditmemo extends Mage_Bundle_Mod
             $line   = [];
 
             $attributes = $this->getSelectionAttributes($orderItem);
-            if (is_array($attributes)) {
-                $optionId   = $attributes['option_id'];
-            } else {
-                $optionId = 0;
-            }
+            $optionId = is_array($attributes) ? $attributes['option_id'] : 0;
 
             if (!isset($drawItems[$optionId])) {
                 $drawItems[$optionId] = [

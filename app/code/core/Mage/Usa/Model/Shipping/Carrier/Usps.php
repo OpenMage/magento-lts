@@ -149,68 +149,28 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
             $result->setService('ALL');
         }
 
-        if ($request->getUspsUserid()) {
-            $userId = $request->getUspsUserid();
-        } else {
-            $userId = $this->getConfigData('userid');
-        }
-
+        $userId = $request->getUspsUserid() ? $request->getUspsUserid() : $this->getConfigData('userid');
         $result->setUserId($userId);
 
-        if ($request->getUspsContainer()) {
-            $container = $request->getUspsContainer();
-        } else {
-            $container = $this->getConfigData('container');
-        }
-
+        $container = $request->getUspsContainer() ? $request->getUspsContainer() : $this->getConfigData('container');
         $result->setContainer($container);
 
-        if ($request->getUspsSize()) {
-            $size = $request->getUspsSize();
-        } else {
-            $size = $this->getConfigData('size');
-        }
-
+        $size = $request->getUspsSize() ? $request->getUspsSize() : $this->getConfigData('size');
         $result->setSize($size);
 
-        if ($request->getGirth()) {
-            $girth = $request->getGirth();
-        } else {
-            $girth = $this->getConfigData('girth');
-        }
-
+        $girth = $request->getGirth() ? $request->getGirth() : $this->getConfigData('girth');
         $result->setGirth($girth);
 
-        if ($request->getHeight()) {
-            $height = $request->getHeight();
-        } else {
-            $height = $this->getConfigData('height');
-        }
-
+        $height = $request->getHeight() ? $request->getHeight() : $this->getConfigData('height');
         $result->setHeight($height);
 
-        if ($request->getLength()) {
-            $length = $request->getLength();
-        } else {
-            $length = $this->getConfigData('length');
-        }
-
+        $length = $request->getLength() ? $request->getLength() : $this->getConfigData('length');
         $result->setLength($length);
 
-        if ($request->getWidth()) {
-            $width = $request->getWidth();
-        } else {
-            $width = $this->getConfigData('width');
-        }
-
+        $width = $request->getWidth() ? $request->getWidth() : $this->getConfigData('width');
         $result->setWidth($width);
 
-        if ($request->getUspsMachinable()) {
-            $machinable = $request->getUspsMachinable();
-        } else {
-            $machinable = $this->getConfigData('machinable');
-        }
-
+        $machinable = $request->getUspsMachinable() ? $request->getUspsMachinable() : $this->getConfigData('machinable');
         $result->setMachinable($machinable);
 
         if ($request->getOrigPostcode()) {
@@ -231,12 +191,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
             ));
         }
 
-        if ($request->getDestCountryId()) {
-            $destCountry = $request->getDestCountryId();
-        } else {
-            $destCountry = self::USA_COUNTRY_ID;
-        }
-
+        $destCountry = $request->getDestCountryId() ? $request->getDestCountryId() : self::USA_COUNTRY_ID;
         $result->setDestCountryId($destCountry);
 
         if (!$this->_isUSCountry($destCountry)) {
@@ -1432,11 +1387,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
         [$fromZip5, $fromZip4] = $this->_parseZip($request->getShipperAddressPostalCode());
         [$toZip5, $toZip4] = $this->_parseZip($request->getRecipientAddressPostalCode(), true);
 
-        if ($this->getConfigData('mode')) {
-            $rootNode = 'SignatureConfirmationV3.0Request';
-        } else {
-            $rootNode = 'SigConfirmCertifyV3.0Request';
-        }
+        $rootNode = $this->getConfigData('mode') ? 'SignatureConfirmationV3.0Request' : 'SigConfirmCertifyV3.0Request';
 
         // the wrap node needs for remove xml declaration above
         $xmlWrap = new SimpleXMLElement('<?xml version = "1.0" encoding = "UTF-8"?><wrap/>');
@@ -1743,11 +1694,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
             $api = 'ExpressMailLabel';
         } elseif ($recipientUSCountry) {
             $requestXml = $this->_formUsSignatureConfirmationShipmentRequest($request, $service);
-            if ($this->getConfigData('mode')) {
-                $api = 'SignatureConfirmationV3';
-            } else {
-                $api = 'SignatureConfirmationCertifyV3';
-            }
+            $api = $this->getConfigData('mode') ? 'SignatureConfirmationV3' : 'SignatureConfirmationCertifyV3';
         } elseif ($service == 'First Class') {
             $requestXml = $this->_formIntlShipmentRequest($request);
             $api = 'FirstClassMailIntl';

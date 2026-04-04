@@ -342,9 +342,8 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
      */
     public function removeTrackAction()
     {
-        $trackId    = $this->getRequest()->getParam('track_id');
-        $shipmentId = $this->getRequest()->getParam('shipment_id');
-        $track = Mage::getModel('sales/order_shipment_track')->load($trackId);
+        $trackId = $this->getRequest()->getParam('track_id');
+        $track   = Mage::getModel('sales/order_shipment_track')->load($trackId);
         if ($track->getId()) {
             try {
                 if ($this->_initShipment()) {
@@ -383,9 +382,8 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
      */
     public function viewTrackAction()
     {
-        $trackId    = $this->getRequest()->getParam('track_id');
-        $shipmentId = $this->getRequest()->getParam('shipment_id');
-        $track = Mage::getModel('sales/order_shipment_track')->load($trackId);
+        $trackId = $this->getRequest()->getParam('track_id');
+        $track   = Mage::getModel('sales/order_shipment_track')->load($trackId);
         if ($track->getId()) {
             try {
                 $response = $track->getNumberDetail();

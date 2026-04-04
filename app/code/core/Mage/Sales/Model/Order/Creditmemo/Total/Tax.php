@@ -27,8 +27,6 @@ class Mage_Sales_Model_Order_Creditmemo_Total_Tax extends Mage_Sales_Model_Order
         $baseTotalTax          = 0;
         $totalHiddenTax        = 0;
         $baseTotalHiddenTax    = 0;
-        $weeeTaxAmount         = 0;
-        $baseWeeeTaxAmount     = 0;
 
         $order = $creditmemo->getOrder();
 

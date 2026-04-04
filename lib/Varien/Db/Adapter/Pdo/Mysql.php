@@ -2608,11 +2608,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
             case Varien_Db_Ddl_Table::TYPE_TEXT:
             case Varien_Db_Ddl_Table::TYPE_BLOB:
             case Varien_Db_Ddl_Table::TYPE_VARBINARY:
-                if (empty($options['LENGTH'])) {
-                    $length = Varien_Db_Ddl_Table::DEFAULT_TEXT_SIZE;
-                } else {
-                    $length = $this->_parseTextSize($options['LENGTH']);
-                }
+                $length = empty($options['LENGTH']) ? Varien_Db_Ddl_Table::DEFAULT_TEXT_SIZE : $this->_parseTextSize($options['LENGTH']);
 
                 if ($length <= 255) {
                     $cType = $ddlType == Varien_Db_Ddl_Table::TYPE_TEXT ? 'varchar' : 'varbinary';
@@ -2667,11 +2663,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
             $cDefault = new Zend_Db_Expr('NULL');
         }
 
-        if (empty($options['COMMENT'])) {
-            $comment = '';
-        } else {
-            $comment = $options['COMMENT'];
-        }
+        $comment = empty($options['COMMENT']) ? '' : $options['COMMENT'];
 
         //set column position
         $after = null;
@@ -4076,16 +4068,10 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
     protected function _prepareSqlDateCondition($condition, $key)
     {
         if (empty($condition['date'])) {
-            if (empty($condition['datetime'])) {
-                $result = $condition[$key];
-            } else {
-                $result = $this->formatDate($condition[$key]);
-            }
-        } else {
-            $result = $this->formatDate($condition[$key]);
+            return empty($condition['datetime']) ? $condition[$key] : $this->formatDate($condition[$key]);
         }
 
-        return $result;
+        return $this->formatDate($condition[$key]);
     }
 
     /**

@@ -500,7 +500,6 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
      */
     public function getProductIds()
     {
-        $quoteId = Mage::getSingleton('checkout/session')->getQuoteId();
         if ($this->_productIds === null) {
             $this->_productIds = [];
             if ($this->getSummaryQty() > 0) {
@@ -533,11 +532,7 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
         }
 
         if ($quoteId && $this->_summaryQty === null) {
-            if (Mage::getStoreConfig('checkout/cart_link/use_qty')) {
-                $this->_summaryQty = $this->getItemsQty();
-            } else {
-                $this->_summaryQty = $this->getItemsCount();
-            }
+            $this->_summaryQty = Mage::getStoreConfig('checkout/cart_link/use_qty') ? $this->getItemsQty() : $this->getItemsCount();
         }
 
         return $this->_summaryQty;

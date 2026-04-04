@@ -190,13 +190,11 @@ class Mage_Dataflow_Model_Convert_Parser_Csv extends Mage_Dataflow_Model_Convert
      */
     public function unparseRow($args)
     {
-        $i = $args['i'];
         $row = $args['row'];
 
         $fDel = $this->getVar('delimiter', ',');
         $fEnc = $this->getVar('enclose', '"');
         $fEsc = $this->getVar('escape', '\\');
-        $lDel = "\r\n";
 
         if ($fDel == '\t') {
             $fDel = "\t";

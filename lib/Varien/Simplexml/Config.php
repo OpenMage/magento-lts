@@ -490,7 +490,7 @@ class Varien_Simplexml_Config
      */
     public function setNode($path, $value, $overwrite = true)
     {
-        $xml = $this->_xml->setNode($path, $value, $overwrite);
+        $this->_xml->setNode($path, $value, $overwrite);
         return $this;
     }
 

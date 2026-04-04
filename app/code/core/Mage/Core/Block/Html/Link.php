@@ -65,9 +65,7 @@ class Mage_Core_Block_Html_Link extends Mage_Core_Block_Template
      */
     public function serialize($attributes = [], $valueSeparator = '=', $fieldSeparator = ' ', $quote = '"')
     {
-        $res  = '';
         $data = [];
-
         foreach ($attributes as $key => $value) {
             $data[] = $key . $valueSeparator . $quote . $value . $quote;
         }
