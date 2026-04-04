@@ -146,7 +146,6 @@ try {
                 # skip: messes up code .... check later
                 __DIR__ . '/app/design/adminhtml/base/default/template/system/store/tree.phtml',
             ],
-            DeadCode\Plus\RemoveDeadZeroAndOneOperationRector::class, # todo: TMP  (!?!)
             DeadCode\PropertyProperty\RemoveNullPropertyInitializationRector::class, # todo: TMP
             DeadCode\TryCatch\RemoveDeadTryCatchRector::class, # todo: TMP  (!?!)
             EarlyReturn\Foreach_\ChangeNestedForeachIfsToEarlyContinueRector::class, # todo: TMP
