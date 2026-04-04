@@ -407,13 +407,10 @@ class Mage_Core_Model_App
     {
         $this->_isCacheLocked = true;
         $options = $this->_config->getNode('global/cache');
-        if ($options) {
-            $options = $options->asArray();
-        } else {
-            $options = [];
-        }
+        $options = $options ? $options->asArray() : [];
 
         $options = array_merge($options, $cacheInitOptions);
+
         $this->_cache = Mage::getModel('core/cache', $options);
         $this->_isCacheLocked = false;
         return $this;
@@ -1476,11 +1473,7 @@ class Mage_Core_Model_App
                         $observer->addData($args);
                         $object = Mage::getModel($obs['model']);
 
-                        if ($object instanceof Mage_Core_Observer_Interface) {
-                            $method = 'execute';
-                        } else {
-                            $method = $obs['method'];
-                        }
+                        $method = $object instanceof Mage_Core_Observer_Interface ? 'execute' : $obs['method'];
 
                         $this->_callObserverMethod($object, $method, $observer, $obsName);
                         break;
@@ -1488,11 +1481,7 @@ class Mage_Core_Model_App
                         $observer->addData($args);
                         $object = Mage::getSingleton($obs['model']);
 
-                        if ($object instanceof Mage_Core_Observer_Interface) {
-                            $method = 'execute';
-                        } else {
-                            $method = $obs['method'];
-                        }
+                        $method = $object instanceof Mage_Core_Observer_Interface ? 'execute' : $obs['method'];
 
                         $this->_callObserverMethod($object, $method, $observer, $obsName);
                         break;

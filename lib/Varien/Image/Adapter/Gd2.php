@@ -407,11 +407,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
         $isAlpha     = false;
         $isTrueColor = false;
         $this->_getTransparency($this->_imageHandler, $this->_fileType, $isAlpha, $isTrueColor);
-        if ($isTrueColor) {
-            $newImage = imagecreatetruecolor($width, $height);
-        } else {
-            $newImage = imagecreate($width, $height);
-        }
+        $newImage = $isTrueColor ? imagecreatetruecolor($width, $height) : imagecreate($width, $height);
 
         // fill new image with required color
         $this->_fillBackgroundColor($newImage);

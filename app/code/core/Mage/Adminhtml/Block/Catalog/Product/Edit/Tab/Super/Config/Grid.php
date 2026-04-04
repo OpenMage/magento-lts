@@ -68,11 +68,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
             $existsProducts = $productIds; // Only for "Yes" Filter we will add created products
 
             if (count($createdProducts) > 0) {
-                if (!is_array($existsProducts)) {
-                    $existsProducts = $createdProducts;
-                } else {
-                    $existsProducts = array_merge($createdProducts);
-                }
+                $existsProducts = is_array($existsProducts) ? array_merge($createdProducts) : $createdProducts;
             }
 
             if ($column->getFilter()->getValue()) {

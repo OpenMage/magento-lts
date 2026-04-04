@@ -144,11 +144,7 @@ class Mage_Page_Block_Switch extends Mage_Core_Block_Template
             $rawStores = $this->getRawStores();
 
             $groupId = $this->getCurrentGroupId();
-            if (!isset($rawStores[$groupId])) {
-                $stores = [];
-            } else {
-                $stores = $rawStores[$groupId];
-            }
+            $stores = $rawStores[$groupId] ?? [];
 
             $this->setData('stores', $stores);
         }

@@ -98,14 +98,16 @@ try {
         ->withConfiguredRule(Renaming\MethodCall\RenameMethodRector::class, Migration\Mage\Wishlist::renameMethod())
         ->withConfiguredRule(ReplaceArgumentDefaultValueRector::class, Migration\Mage\Adminhtml::replaceArgumentDefaultValue())
         ->withSkip([
+            # skip avoid renaming of methods in tests
             Carbon\FuncCall\DateFuncCallToCarbonRector::class => [
                 __DIR__ . '/tests/unit/Base/CarbonTest.php',
             ],
+            # skip avoid renaming of methods in tests
             Carbon\FuncCall\TimeFuncCallToCarbonRector::class => [
                 __DIR__ . '/tests/unit/Base/CarbonTest.php',
             ],
-            CodeQuality\BooleanNot\SimplifyDeMorganBinaryRector::class,
-            # skip: causes issues with Mage_Api2_Model_Auth_Adapter_Oauth::getUserParams()
+            CodeQuality\BooleanNot\SimplifyDeMorganBinaryRector::class, # todo: TMP (!?!)
+            # skip: causes issues with Mage_Api2_Model_Auth_Adapter_Oauth::getUserParams()  # todo: TMP (test again)
             CodeQuality\Catch_\ThrowWithPreviousExceptionRector::class => [
                 __DIR__ . '/app/code/core/Mage/Api2/Model/Auth/Adapter/Oauth.php',
             ],
@@ -131,7 +133,13 @@ try {
             ],
             CodeQuality\If_\CompleteMissingIfElseBracketRector::class, # todo: TMP  (!?!)
             CodeQuality\If_\ExplicitBoolCompareRector::class, # todo: TMP
-            CodeQuality\If_\SimplifyIfElseToTernaryRector::class,
+            # tmp wait for https://github.com/rectorphp/rector/issues/9724
+            CodeQuality\If_\SimplifyIfElseToTernaryRector::class => [
+                __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Options/Option.php',
+                __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Sales/Order/View.php',
+                __DIR__ . '/app/code/core/Mage/Sales/Model/Order/Item.php',
+                __DIR__ . '/lib/Varien/Convert/Parser/Xml/Excel.php',
+            ],
             CodeQuality\Include_\AbsolutizeRequireAndIncludePathRector::class, # todo: TMP
             CodeQuality\Isset_\IssetOnPropertyObjectToPropertyExistsRector::class, # todo: TMP
             CodingStyle\ClassMethod\FuncGetArgsToVariadicParamRector::class, # todo: TMP
@@ -151,12 +159,12 @@ try {
             EarlyReturn\Foreach_\ChangeNestedForeachIfsToEarlyContinueRector::class, # todo: TMP
             EarlyReturn\If_\ChangeNestedIfsToEarlyReturnRector::class, # todo: TMP ... probably bug found
             # skip: may conflict with phpstan strict rules
-            Php53\Ternary\TernaryToElvisRector::class,
+            Php53\Ternary\TernaryToElvisRector::class, # todo: TMP (!?!)
             Php71\FuncCall\RemoveExtraParametersRector::class, # todo: check later
-            # skip: causes issues with some tests
-            Php74\Closure\ClosureToArrowFunctionRector::class,
+            # skip: causes issues with some tests  # todo: TMP (!?!)
+            Php74\Closure\ClosureToArrowFunctionRector::class,  # todo: TMP (!?!)
             # skip: causes issues
-            Php74\Assign\NullCoalescingOperatorRector::class,
+            Php74\Assign\NullCoalescingOperatorRector::class,  # todo: TMP (!?!)
             Php80\Class_\ClassPropertyAssignToConstructorPromotionRector::class, # todo: wait for php80
             # see https://github.com/OpenMage/magento-lts/pull/5040
             Php80\ClassMethod\AddParamBasedOnParentClassMethodRector::class => [
@@ -167,7 +175,7 @@ try {
             Strict\Empty_\DisallowedEmptyRuleFixerRector::class, # todo: TMP
             TypeDeclaration\BooleanAnd\BinaryOpNullableToInstanceofRector::class, # todo: TMP
             TypeDeclaration\ClassMethod\ReturnNeverTypeRector::class,
-            # skip: cannot be applied to OpenMage codebase - yet
+            # skip: strict_type cannot be applied to OpenMage codebase - yet
             TypeDeclaration\StmtsAwareInterface\DeclareStrictTypesRector::class,
             # skip: use static methods
             PreferPHPUnitThisCallRector::class,

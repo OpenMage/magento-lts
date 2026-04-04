@@ -104,20 +104,10 @@ class Mage_Eav_Model_Attribute_Data_Select extends Mage_Eav_Model_Attribute_Data
     public function outputValue($format = Mage_Eav_Model_Attribute_Data::OUTPUT_FORMAT_TEXT)
     {
         $value = $this->getEntity()->getData($this->getAttribute()->getAttributeCode());
-        switch ($format) {
-            case Mage_Eav_Model_Attribute_Data::OUTPUT_FORMAT_JSON:
-                $output = $value;
-                break;
-            default:
-                if ($value != '') {
-                    $output = $this->_getOptionText($value);
-                } else {
-                    $output = '';
-                }
 
-                break;
-        }
-
-        return $output;
+        return match ($format) {
+            Mage_Eav_Model_Attribute_Data::OUTPUT_FORMAT_JSON => $value,
+            default => $value != '' ? $this->_getOptionText($value) : '',
+        };
     }
 }
