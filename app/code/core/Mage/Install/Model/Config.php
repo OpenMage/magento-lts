@@ -118,7 +118,7 @@ class Mage_Install_Model_Config extends Varien_Simplexml_Config
         foreach ($items as $name => $value) {
             if (!empty($value)) {
                 $res[$name] = [];
-                foreach ($value as $subname => $subvalue) {
+                foreach (array_keys($value) as $subname) {
                     $res[$name][] = $subname;
                 }
             } else {

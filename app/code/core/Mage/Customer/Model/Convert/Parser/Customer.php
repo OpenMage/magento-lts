@@ -335,7 +335,7 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
                 $row['group'] = $groupCode;
             }
 
-            $batchExport = $this->getBatchExportModel()
+            $this->getBatchExportModel()
                 ->setId(null)
                 ->setBatchId($this->getBatchModel()->getId())
                 ->setBatchData($row)

@@ -515,7 +515,7 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
         try {
             if ($requiredAgreements = Mage::helper('checkout')->getRequiredAgreementIds()) {
                 $postedAgreements = array_keys($this->getRequest()->getPost('agreement', []));
-                if ($diff = array_diff($requiredAgreements, $postedAgreements)) {
+                if (array_diff($requiredAgreements, $postedAgreements)) {
                     $this->_getCheckoutSession()->addError($this->__('Please agree to all Terms and Conditions before placing the order.'));
                     $this->_redirect('*/*/billing');
                     return;

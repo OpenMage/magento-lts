@@ -128,8 +128,7 @@ class Mage_Api2_Model_Config extends Varien_Simplexml_Config
     public function getResourcesTypes()
     {
         $list = [];
-
-        foreach ($this->getResources() as $resourceType => $resourceCfg) {
+        foreach (array_keys($this->getResources()) as $resourceType) {
             $list[] = (string) $resourceType;
         }
 

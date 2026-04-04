@@ -25,7 +25,7 @@ abstract class Mage_Sales_Controller_Abstract extends Mage_Core_Controller_Front
         $customerId = Mage::getSingleton('customer/session')->getCustomerId();
         $availableStates = Mage::getSingleton('sales/order_config')->getVisibleOnFrontStates();
         return $order->getId() && $order->getCustomerId() && ($order->getCustomerId() == $customerId)
-            && in_array($order->getState(), $availableStates, $strict = true);
+            && in_array($order->getState(), $availableStates, true);
     }
 
     /**

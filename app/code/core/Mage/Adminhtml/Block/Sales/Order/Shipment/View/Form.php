@@ -52,7 +52,6 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_View_Form extends Mage_Adminhtml
      */
     public function getCreateLabelButton()
     {
-        $data['shipment_id'] = $this->getShipment()->getId();
         return $this->getLayout()
             ->createBlock('adminhtml/widget_button')
             ->setData([
@@ -69,8 +68,7 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_View_Form extends Mage_Adminhtml
      */
     public function getPrintLabelButton()
     {
-        $data['shipment_id'] = $this->getShipment()->getId();
-        $url = $this->getUrl('*/sales_order_shipment/printLabel', $data);
+        $url = $this->getUrl('*/sales_order_shipment/printLabel');
         return $this->getLayout()
             ->createBlock('adminhtml/widget_button')
             ->setData([

@@ -476,15 +476,6 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
                 $yShipments -= 20;
                 $this->_setFontRegular($page, 8);
                 foreach ($tracks as $track) {
-                    $carrierCode = $track->getCarrierCode();
-                    if ($carrierCode != 'custom') {
-                        $carrier = Mage::getSingleton('shipping/config')->getCarrierInstance($carrierCode);
-                        $carrierTitle = $carrier->getConfigData('title');
-                    } else {
-                        $carrierTitle = Mage::helper('sales')->__('Custom Value');
-                    }
-
-                    //$truncatedCarrierTitle = substr($carrierTitle, 0, 35) . (strlen($carrierTitle) > 35 ? '...' : '');
                     $maxTitleLen = 45;
                     $endOfTitle = strlen($track->getTitle()) > $maxTitleLen ? '...' : '';
                     $truncatedTitle = substr($track->getTitle(), 0, $maxTitleLen) . $endOfTitle;

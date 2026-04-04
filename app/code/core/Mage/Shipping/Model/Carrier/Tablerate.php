@@ -44,7 +44,7 @@ class Mage_Shipping_Model_Carrier_Tablerate extends Mage_Shipping_Model_Carrier_
     public function __construct()
     {
         parent::__construct();
-        foreach ($this->getCode('condition_name') as $key => $value) {
+        foreach (array_keys($this->getCode('condition_name')) as $key) {
             $this->_conditionNames[] = $key;
         }
     }

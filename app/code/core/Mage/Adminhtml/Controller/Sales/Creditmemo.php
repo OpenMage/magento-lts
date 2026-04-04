@@ -57,7 +57,7 @@ class Mage_Adminhtml_Controller_Sales_Creditmemo extends Mage_Adminhtml_Controll
      */
     public function viewAction()
     {
-        if ($creditmemoId = $this->getRequest()->getParam('creditmemo_id')) {
+        if ($this->getRequest()->getParam('creditmemo_id')) {
             $this->_forward('view', 'sales_order_creditmemo', null, ['come_from' => 'sales_creditmemo']);
         } else {
             $this->_forward('noRoute');
@@ -105,8 +105,8 @@ class Mage_Adminhtml_Controller_Sales_Creditmemo extends Mage_Adminhtml_Controll
 
     public function printAction()
     {
-        /** @see Mage_Adminhtml_Sales_Order_InvoiceController */
-        if ($creditmemoId = $this->getRequest()->getParam('creditmemo_id')) {
+        $creditmemoId = $this->getRequest()->getParam('creditmemo_id');
+        if ($creditmemoId) {
             if ($creditmemo = Mage::getModel('sales/order_creditmemo')->load($creditmemoId)) {
                 $pdf = Mage::getModel('sales/order_pdf_creditmemo')->getPdf([$creditmemo]);
                 $this->_prepareDownloadResponse('creditmemo' . Mage::getSingleton('core/date')->date('Y-m-d_H-i-s')

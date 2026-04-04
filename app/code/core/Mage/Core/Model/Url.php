@@ -422,7 +422,6 @@ class Mage_Core_Model_Url extends Varien_Object
         }
 
         $this->setRouteName($route);
-        $routePath = $route . '/';
 
         if ($arr !== []) {
             $controller = array_shift($arr);
@@ -431,7 +430,6 @@ class Mage_Core_Model_Url extends Varien_Object
             }
 
             $this->setControllerName($controller);
-            $routePath .= $controller . '/';
         }
 
         if ($arr !== []) {
@@ -441,7 +439,6 @@ class Mage_Core_Model_Url extends Varien_Object
             }
 
             $this->setActionName($action);
-            $routePath .= $action . '/';
         }
 
         if ($arr !== []) {
@@ -451,7 +448,6 @@ class Mage_Core_Model_Url extends Varien_Object
                 if ($arr !== []) {
                     $value = array_shift($arr);
                     $this->setRouteParam($key, $value);
-                    $routePath .= $key . '/' . $value . '/';
                 }
             }
         }

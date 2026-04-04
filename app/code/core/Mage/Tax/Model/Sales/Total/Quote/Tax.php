@@ -217,32 +217,26 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
         foreach ($this->_hiddenTaxes as $taxInfoItem) {
             if (isset($taxInfoItem['item'])) {
                 // Item hidden taxes
-                $item = $taxInfoItem['item'];
-                $rateKey = $taxInfoItem['rate_key'];
-                $hiddenTax = $taxInfoItem['value'];
-                $baseHiddenTax = $taxInfoItem['base_value'];
-                $inclTax = $taxInfoItem['incl_tax'];
                 $qty = $taxInfoItem['qty'];
-
+                $item = $taxInfoItem['item'];
+                $hiddenTax = $taxInfoItem['value'];
                 $hiddenTax = $this->_calculator->round($hiddenTax);
+                $baseHiddenTax = $taxInfoItem['base_value'];
                 $baseHiddenTax = $this->_calculator->round($baseHiddenTax);
+
                 $item->setHiddenTaxAmount(max(0, $qty * $hiddenTax));
                 $item->setBaseHiddenTaxAmount(max(0, $qty * $baseHiddenTax));
                 $this->_getAddress()->addTotalAmount('hidden_tax', $item->getHiddenTaxAmount());
                 $this->_getAddress()->addBaseTotalAmount('hidden_tax', $item->getBaseHiddenTaxAmount());
             } else {
                 // Shipping hidden taxes
-                $rateKey = $taxInfoItem['rate_key'];
                 $hiddenTax = $taxInfoItem['value'];
-                $baseHiddenTax = $taxInfoItem['base_value'];
-                $inclTax = $taxInfoItem['incl_tax'];
-
                 $hiddenTax = $this->_calculator->round($hiddenTax);
+                $baseHiddenTax = $taxInfoItem['base_value'];
                 $baseHiddenTax = $this->_calculator->round($baseHiddenTax);
 
                 $this->_getAddress()->addTotalAmount('shipping_hidden_tax', $hiddenTax);
                 $this->_getAddress()->addBaseTotalAmount('shipping_hidden_tax', $baseHiddenTax);
-
                 $this->_getAddress()->setShippingHiddenTaxAmount(max(0, $hiddenTax));
                 $this->_getAddress()->setBaseShippingHiddenTaxAmount(max(0, $baseHiddenTax));
             }
@@ -1020,15 +1014,15 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
 
         foreach ($taxGroups as $taxId => $data) {
             $rate = $catalogPriceInclTax ? (float) $taxId : $data['applied_rates'][0]['percent'];
-
-            $inclTax = $data['incl_tax'];
-
             $totalTax = array_sum($data['tax']);
             $baseTotalTax = array_sum($data['base_tax']);
+
             $this->_addAmount($totalTax);
             $this->_addBaseAmount($baseTotalTax);
+
             $totalTaxRounded = $this->_calculator->round($totalTax);
             $baseTotalTaxRounded = $this->_calculator->round($totalTaxRounded);
+
             $this->_saveAppliedTaxes($address, $data['applied_rates'], $totalTaxRounded, $baseTotalTaxRounded, $rate);
         }
 
