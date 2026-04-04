@@ -12,7 +12,7 @@
  *
  * @package    Mage_Adminhtml
  *
- * @template Menu of array{
+ * @phpstan-type Menu array{
  *     id?: string,
  *     children?: array,
  *     title?: string,
@@ -129,7 +129,11 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
             }
 
             $aclResource = 'admin/' . ($child->resource ? (string) $child->resource : $path . $childName);
-            if (!$this->_checkAcl($aclResource) || !$this->_isEnabledModuleOutput($child)) {
+            if (!$this->_checkAcl($aclResource)) {
+                continue;
+            }
+
+            if (!$this->_isEnabledModuleOutput($child)) {
                 continue;
             }
 

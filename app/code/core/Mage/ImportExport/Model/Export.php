@@ -68,8 +68,8 @@ class Mage_ImportExport_Model_Export extends Mage_ImportExport_Model_Abstract
                     /** @var Mage_ImportExport_Model_Export_Entity_Abstract $_entityAdapter */
                     $_entityAdapter = Mage::getModel($validTypes[$this->getEntity()]['model']);
                     $this->_entityAdapter = $_entityAdapter;
-                } catch (Exception $e) {
-                    Mage::logException($e);
+                } catch (Exception $exception) {
+                    Mage::logException($exception);
                     Mage::throwException(
                         Mage::helper('importexport')->__('Invalid entity model'),
                     );
@@ -113,8 +113,8 @@ class Mage_ImportExport_Model_Export extends Mage_ImportExport_Model_Abstract
                     /** @var Mage_ImportExport_Model_Export_Adapter_Abstract $_writer */
                     $_writer = Mage::getModel($validWriters[$this->getFileFormat()]['model']);
                     $this->_writer = $_writer;
-                } catch (Exception $e) {
-                    Mage::logException($e);
+                } catch (Exception $exception) {
+                    Mage::logException($exception);
                     Mage::throwException(
                         Mage::helper('importexport')->__('Invalid entity model'),
                     );

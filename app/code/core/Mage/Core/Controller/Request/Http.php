@@ -96,14 +96,14 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
         if (!$this->_storeCode) {
             // get store view code
             if ($this->_canBeStoreCodeInUrl()) {
-                $p = explode('/', trim($this->getPathInfo(), '/'));
-                $storeCode = $p[0];
+                $path = explode('/', trim($this->getPathInfo(), '/'));
+                $storeCode = $path[0];
 
                 $stores = Mage::app()->getStores(true, true);
 
                 if ($storeCode !== '' && isset($stores[$storeCode])) {
-                    array_shift($p);
-                    $this->setPathInfo(implode('/', $p));
+                    array_shift($path);
+                    $this->setPathInfo(implode('/', $path));
                     $this->_storeCode = $storeCode;
                     Mage::app()->setCurrentStore($storeCode);
                 } else {
@@ -258,12 +258,10 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
     {
         $path = parent::getBasePath();
         if (empty($path)) {
-            $path = '/';
-        } else {
-            $path = str_replace('\\', '/', $path);
+            return '/';
         }
 
-        return $path;
+        return str_replace('\\', '/', $path);
     }
 
     /**
@@ -527,7 +525,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
      */
     public function initForward()
     {
-        if (empty($this->_beforeForwardInfo)) {
+        if ($this->_beforeForwardInfo === []) {
             $this->_beforeForwardInfo = [
                 'params' => $this->getParams(),
                 'action_name' => $this->getActionName(),
@@ -582,11 +580,11 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
             return true;
         }
 
-        if ($this->getParam('ajax') || $this->getParam('isAjax')) {
+        if ($this->getParam('ajax')) {
             return true;
         }
 
-        return false;
+        return (bool) $this->getParam('isAjax');
     }
 
     /**

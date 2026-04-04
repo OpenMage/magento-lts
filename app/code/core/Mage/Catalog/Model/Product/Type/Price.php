@@ -425,10 +425,10 @@ class Mage_Catalog_Model_Product_Type_Price
         $specialPriceTo,
         $store = null
     ) {
-        if (!is_null($specialPrice) && $specialPrice != false) {
-            if (Mage::app()->getLocale()->isStoreDateInInterval($store, $specialPriceFrom, $specialPriceTo)) {
-                $finalPrice     = min($finalPrice, $specialPrice);
-            }
+        if (!is_null($specialPrice) && $specialPrice != false
+            && Mage::app()->getLocale()->isStoreDateInInterval($store, $specialPriceFrom, $specialPriceTo)
+        ) {
+            return min($finalPrice, $specialPrice);
         }
 
         return $finalPrice;

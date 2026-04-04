@@ -118,11 +118,11 @@ class Mage_Bundle_Model_Option extends Mage_Core_Model_Abstract
      */
     public function isMultiSelection()
     {
-        if ($this->getType() == 'checkbox' || $this->getType() == 'multi') {
+        if ($this->getType() === 'checkbox') {
             return true;
         }
 
-        return false;
+        return $this->getType() === 'multi';
     }
 
     /**

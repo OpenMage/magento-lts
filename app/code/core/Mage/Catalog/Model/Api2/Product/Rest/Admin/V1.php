@@ -128,7 +128,7 @@ class Mage_Catalog_Model_Api2_Product_Rest_Admin_V1 extends Mage_Catalog_Model_A
         $type = $data['type_id'];
         if ($type !== 'simple') {
             $this->_critical(
-                "Creation of products with type '$type' is not implemented",
+                "Creation of products with type '{$type}' is not implemented",
                 Mage_Api2_Model_Server::HTTP_METHOD_NOT_ALLOWED,
             );
         }
@@ -248,7 +248,7 @@ class Mage_Catalog_Model_Api2_Product_Rest_Admin_V1 extends Mage_Catalog_Model_A
      */
     protected function _isConfigValueUsed($data, $field)
     {
-        return isset($data["use_config_$field"]) && $data["use_config_$field"];
+        return isset($data["use_config_{$field}"]) && $data["use_config_{$field}"];
     }
 
     /**
@@ -322,13 +322,11 @@ class Mage_Catalog_Model_Api2_Product_Rest_Admin_V1 extends Mage_Catalog_Model_A
                 $product->setData($attribute->getAttributeCode(), false);
             }
 
-            if ($this->_isAllowedAttribute($attribute)) {
-                if (array_key_exists($attribute->getAttributeCode(), $productData)) {
-                    $product->setData(
-                        $attribute->getAttributeCode(),
-                        $productData[$attribute->getAttributeCode()],
-                    );
-                }
+            if ($this->_isAllowedAttribute($attribute) && array_key_exists($attribute->getAttributeCode(), $productData)) {
+                $product->setData(
+                    $attribute->getAttributeCode(),
+                    $productData[$attribute->getAttributeCode()],
+                );
             }
         }
     }

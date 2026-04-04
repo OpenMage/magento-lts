@@ -134,11 +134,7 @@ class Mage_Media_Model_Image extends Mage_Core_Model_Abstract
      */
     public function getFilePath($useParams = false)
     {
-        if ($useParams && count($this->getParams())) {
-            $changes = '.' . $this->getParamsSum();
-        } else {
-            $changes = '';
-        }
+        $changes = $useParams && count($this->getParams()) ? '.' . $this->getParamsSum() : '';
 
         return $this->getConfig()->getBaseMediaPath() . DS . $this->getName() . $changes . '.'
              . (($useParams && $this->getParam('extension')) ? $this->getParam('extension') : $this->getExtension());
@@ -150,11 +146,7 @@ class Mage_Media_Model_Image extends Mage_Core_Model_Abstract
      */
     public function getFileUrl($useParams = false)
     {
-        if ($useParams && count($this->getParams())) {
-            $changes = '.' . $this->getParamsSum();
-        } else {
-            $changes = '';
-        }
+        $changes = $useParams && count($this->getParams()) ? '.' . $this->getParamsSum() : '';
 
         return $this->getConfig()->getBaseMediaUrl() . '/' . $this->getName() . $changes . '.'
              . (($useParams && $this->getParam('extension')) ? $this->getParam('extension') : $this->getExtension());

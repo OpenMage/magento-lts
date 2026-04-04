@@ -270,11 +270,7 @@ class Mage_Core_Model_Cache
             $options['auto_refresh_fast_cache'] = false;
         }
 
-        if (isset($cacheOptions['slow_backend'])) {
-            $options['slow_backend'] = $cacheOptions['slow_backend'];
-        } else {
-            $options['slow_backend'] = $this->_defaultBackend;
-        }
+        $options['slow_backend'] = $cacheOptions['slow_backend'] ?? $this->_defaultBackend;
 
         if (isset($cacheOptions['slow_backend_options'])) {
             $options['slow_backend_options'] = $cacheOptions['slow_backend_options'];
@@ -555,8 +551,8 @@ class Mage_Core_Model_Cache
     /**
      * Get cache tags by cache type from configuration
      *
-     * @param  string $type
-     * @return array
+     * @param  string      $type
+     * @return array|false
      */
     public function getTagsByType($type)
     {
@@ -564,12 +560,10 @@ class Mage_Core_Model_Cache
         $tagsConfig = Mage::getConfig()->getNode($path);
         if ($tagsConfig) {
             $tags = (string) $tagsConfig;
-            $tags = explode(',', $tags);
-        } else {
-            $tags = false;
+            return explode(',', $tags);
         }
 
-        return $tags;
+        return false;
     }
 
     /**
@@ -605,12 +599,10 @@ class Mage_Core_Model_Cache
     {
         $types = $this->load(self::INVALIDATED_TYPES);
         if ($types) {
-            $types = unserialize($types, ['allowed_classes' => false]);
-        } else {
-            $types = [];
+            return unserialize($types, ['allowed_classes' => false]);
         }
 
-        return $types;
+        return [];
     }
 
     /**

@@ -63,7 +63,6 @@ class Mage_Catalog_Model_Product_Type_Configurable_Price extends Mage_Catalog_Mo
             $selectedAttributes = unserialize($product->getCustomOption('attributes')->getValue(), ['allowed_classes' => false]);
         }
 
-        /** @var Mage_Catalog_Model_Product_Type_Configurable_Attribute $attribute */
         foreach ($attributes as $attribute) {
             $attributeId = $attribute->getProductAttribute()->getId();
             $value = $this->_getValueByIndex(
@@ -71,15 +70,13 @@ class Mage_Catalog_Model_Product_Type_Configurable_Price extends Mage_Catalog_Mo
                 $selectedAttributes[$attributeId] ?? null,
             );
             $product->setParentId(true);
-            if ($value) {
-                if ($value['pricing_value'] != 0) {
-                    $product->setConfigurablePrice($this->_calcSelectionPrice($value, $finalPrice));
-                    Mage::dispatchEvent(
-                        'catalog_product_type_configurable_price',
-                        ['product' => $product],
-                    );
-                    $price += $product->getConfigurablePrice();
-                }
+            if ($value && $value['pricing_value'] != 0) {
+                $product->setConfigurablePrice($this->_calcSelectionPrice($value, $finalPrice));
+                Mage::dispatchEvent(
+                    'catalog_product_type_configurable_price',
+                    ['product' => $product],
+                );
+                $price += $product->getConfigurablePrice();
             }
         }
 
@@ -97,12 +94,10 @@ class Mage_Catalog_Model_Product_Type_Configurable_Price extends Mage_Catalog_Mo
     {
         if ($priceInfo['is_percent']) {
             $ratio = $priceInfo['pricing_value'] / 100;
-            $price = $productPrice * $ratio;
-        } else {
-            $price = $priceInfo['pricing_value'];
+            return $productPrice * $ratio;
         }
 
-        return $price;
+        return $priceInfo['pricing_value'];
     }
 
     /**

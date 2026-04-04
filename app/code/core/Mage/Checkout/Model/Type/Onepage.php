@@ -279,7 +279,7 @@ class Mage_Checkout_Model_Type_Onepage
             //unset billing address attributes which were not shown in form
             foreach ($addressForm->getAttributes() as $attribute) {
                 if (!isset($data[$attribute->getAttributeCode()])) {
-                    $address->setData($attribute->getAttributeCode(), null);
+                    $address->setData($attribute->getAttributeCode());
                 }
             }
 
@@ -304,10 +304,11 @@ class Mage_Checkout_Model_Type_Onepage
             return $result;
         }
 
-        if (!$this->getQuote()->getCustomerId() && self::METHOD_REGISTER == $this->getQuote()->getCheckoutMethod()) {
-            if ($this->_customerEmailExists($address->getEmail(), Mage::app()->getWebsite()->getId())) {
-                return ['error' => 1, 'message' => $this->_customerEmailExistsMessage];
-            }
+        if (!$this->getQuote()->getCustomerId()
+            && self::METHOD_REGISTER == $this->getQuote()->getCheckoutMethod()
+            && $this->_customerEmailExists($address->getEmail(), Mage::app()->getWebsite()->getId())
+        ) {
+            return ['error' => 1, 'message' => $this->_customerEmailExistsMessage];
         }
 
         if (!$this->getQuote()->isVirtual()) {
@@ -564,7 +565,7 @@ class Mage_Checkout_Model_Type_Onepage
             // unset shipping address attributes which were not shown in form
             foreach ($addressForm->getAttributes() as $attribute) {
                 if (!isset($data[$attribute->getAttributeCode()])) {
-                    $address->setData($attribute->getAttributeCode(), null);
+                    $address->setData($attribute->getAttributeCode());
                 }
             }
 
@@ -811,8 +812,8 @@ class Mage_Checkout_Model_Type_Onepage
         if ($isNewCustomer) {
             try {
                 $this->_involveNewCustomer();
-            } catch (Exception $e) {
-                Mage::logException($e);
+            } catch (Exception $exception) {
+                Mage::logException($exception);
             }
         }
 
@@ -838,8 +839,8 @@ class Mage_Checkout_Model_Type_Onepage
             if (!$redirectUrl && $order->getCanSendNewEmailFlag()) {
                 try {
                     $order->queueNewOrderEmail();
-                } catch (Exception $e) {
-                    Mage::logException($e);
+                } catch (Exception $exception) {
+                    Mage::logException($exception);
                 }
             }
 

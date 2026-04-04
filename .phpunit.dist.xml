@@ -5,6 +5,7 @@
         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.6/phpunit.xsd"
         backupGlobals="false"
         backupStaticAttributes="false"
+        cacheResultFile=".cache/.phpunit.result.cache"
         colors="true"
         convertErrorsToExceptions="true"
         convertNoticesToExceptions="true"
@@ -16,6 +17,32 @@
     <php>
         <env name="NO_XHGUI" value="1"/>
     </php>
+
+    <coverage
+            includeUncoveredFiles="true"
+            processUncoveredFiles="false"
+    >
+        <include>
+            <file>Mage.php</file>
+            <directory suffix=".php">app/code</directory>
+            <directory suffix=".php">lib</directory>
+        </include>
+        <exclude>
+            <file>app/bootstrap.php</file>
+            <directory>app/code/community</directory>
+            <directory>app/code/local/</directory>
+            <directory>app/code/core/Mage/*/data</directory>
+            <directory>app/code/core/Mage/*/sql</directory>
+            <directory>vendor</directory>
+        </exclude>
+        <report>
+            <clover outputFile="build/phpunit/report/clover.xml"/>
+            <crap4j outputFile="build/phpunit/report/crap4j.xml"/>
+        </report>
+    </coverage>
+    <logging>
+        <junit outputFile="build/phpunit/logging/junit.xml"/>
+    </logging>
 
     <extensions>
         <extension class="OpenMage\Tests\Unit\LongRunningTestAlert" />
@@ -119,30 +146,4 @@
             <directory>tests/unit/Varien</directory>
         </testsuite>
     </testsuites>
-
-    <coverage
-        includeUncoveredFiles="true"
-        processUncoveredFiles="false"
-    >
-        <include>
-            <file>Mage.php</file>
-            <directory suffix=".php">app/code</directory>
-            <directory suffix=".php">lib</directory>
-        </include>
-        <exclude>
-            <file>app/bootstrap.php</file>
-            <directory>app/code/community</directory>
-            <directory>app/code/local/</directory>
-            <directory>app/code/core/Mage/*/data</directory>
-            <directory>app/code/core/Mage/*/sql</directory>
-            <directory>vendor</directory>
-        </exclude>
-        <report>
-            <clover outputFile="tests/coverage/clover.xml"/>
-            <crap4j outputFile="tests/coverage/crap4j.xml"/>
-        </report>
-    </coverage>
-    <logging>
-        <junit outputFile="tests/logging/junit.xml"/>
-    </logging>
 </phpunit>

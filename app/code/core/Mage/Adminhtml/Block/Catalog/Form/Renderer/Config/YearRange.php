@@ -19,16 +19,12 @@ class Mage_Adminhtml_Block_Catalog_Form_Renderer_Config_YearRange extends Mage_A
         $element->setStyle('width:70px;')
             ->setName($element->getName() . '[]');
 
-        if ($element->getValue()) {
-            $values = explode(',', $element->getValue());
-        } else {
-            $values = [];
-        }
+        $values = $element->getValue() ? explode(',', $element->getValue()) : [];
 
-        $from = $element->setValue($values[0] ?? null)->getElementHtml();
-        $to = $element->setValue($values[1] ?? null)->getElementHtml();
-        return Mage::helper('adminhtml')->__('from') . ' ' . $from
+        $dateFrom = $element->setValue($values[0] ?? null)->getElementHtml();
+        $dateTo   = $element->setValue($values[1] ?? null)->getElementHtml();
+        return Mage::helper('adminhtml')->__('from') . ' ' . $dateFrom
             . ' '
-            . Mage::helper('adminhtml')->__('to') . ' ' . $to;
+            . Mage::helper('adminhtml')->__('to') . ' ' . $dateTo;
     }
 }

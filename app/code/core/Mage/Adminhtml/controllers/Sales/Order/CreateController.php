@@ -628,6 +628,8 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
             $session->unsUpdateResult();
             return false;
         }
+
+        return null;
     }
 
     /**

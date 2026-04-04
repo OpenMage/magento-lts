@@ -44,8 +44,8 @@ class Mage_Shipping_Model_Carrier_Tablerate extends Mage_Shipping_Model_Carrier_
     public function __construct()
     {
         parent::__construct();
-        foreach ($this->getCode('condition_name') as $k => $v) {
-            $this->_conditionNames[] = $k;
+        foreach ($this->getCode('condition_name') as $key => $value) {
+            $this->_conditionNames[] = $key;
         }
     }
 
@@ -84,7 +84,11 @@ class Mage_Shipping_Model_Carrier_Tablerate extends Mage_Shipping_Model_Carrier_
         $freePackageValue = 0;
         if ($request->getAllItems()) {
             foreach ($request->getAllItems() as $item) {
-                if ($item->getProduct()->isVirtual() || $item->getParentItem()) {
+                if ($item->getProduct()->isVirtual()) {
+                    continue;
+                }
+
+                if ($item->getParentItem()) {
                     continue;
                 }
 

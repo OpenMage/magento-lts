@@ -471,11 +471,7 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
     {
         $price = $this->_getData('calculation_price');
         if (is_null($price)) {
-            if ($this->hasCustomPrice()) {
-                $price = $this->getCustomPrice();
-            } else {
-                $price = $this->getConvertedPrice();
-            }
+            $price = $this->hasCustomPrice() ? $this->getCustomPrice() : $this->getConvertedPrice();
 
             $this->setData('calculation_price', $price);
         }
@@ -493,11 +489,7 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
     {
         $price = $this->_getData('calculation_price');
         if (is_null($price)) {
-            if ($this->hasOriginalCustomPrice()) {
-                $price = $this->getOriginalCustomPrice();
-            } else {
-                $price = $this->getConvertedPrice();
-            }
+            $price = $this->hasOriginalCustomPrice() ? $this->getOriginalCustomPrice() : $this->getConvertedPrice();
 
             $this->setData('calculation_price', $price);
         }
@@ -562,7 +554,7 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
     public function isNominal()
     {
         if (!$this->hasData('is_nominal')) {
-            $this->setData('is_nominal', $this->getProduct() ? $this->getProduct()->getIsRecurring() == '1' : false);
+            $this->setData('is_nominal', $this->getProduct() && $this->getProduct()->getIsRecurring() == '1');
         }
 
         return $this->_getData('is_nominal');
@@ -705,11 +697,7 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
             $calculate = $this->getProduct()->getPriceType();
         }
 
-        if (($calculate !== null) && (int) $calculate === Mage_Catalog_Model_Product_Type_Abstract::CALCULATE_CHILD) {
-            return true;
-        }
-
-        return false;
+        return ($calculate !== null) && (int) $calculate === Mage_Catalog_Model_Product_Type_Abstract::CALCULATE_CHILD;
     }
 
     /**
@@ -726,13 +714,8 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
             $shipmentType = $this->getProduct()->getShipmentType();
         }
 
-        if (($shipmentType !== null)
-            && (int) $shipmentType === Mage_Catalog_Model_Product_Type_Abstract::SHIPMENT_SEPARATELY
-        ) {
-            return true;
-        }
-
-        return false;
+        return ($shipmentType !== null)
+            && (int) $shipmentType === Mage_Catalog_Model_Product_Type_Abstract::SHIPMENT_SEPARATELY;
     }
 
     /**
@@ -773,17 +756,16 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
             }
         }
 
-        if (Mage::helper('tax')->discountTax($store) && !Mage::helper('tax')->applyTaxAfterDiscount($store)) {
-            if ($this->getDiscountPercent()) {
-                $baseTaxAmount =  $this->getBaseTaxBeforeDiscount();
-                $taxAmount = $this->getTaxBeforeDiscount();
-
-                $baseDiscountDisposition = $baseTaxAmount / 100 * $this->getDiscountPercent();
-                $discountDisposition = $taxAmount / 100 * $this->getDiscountPercent();
-
-                $this->setDiscountAmount($this->getDiscountAmount() + $discountDisposition);
-                $this->setBaseDiscountAmount($this->getBaseDiscountAmount() + $baseDiscountDisposition);
-            }
+        if (Mage::helper('tax')->discountTax($store)
+            && !Mage::helper('tax')->applyTaxAfterDiscount($store)
+            && $this->getDiscountPercent()
+        ) {
+            $baseTaxAmount =  $this->getBaseTaxBeforeDiscount();
+            $taxAmount = $this->getTaxBeforeDiscount();
+            $baseDiscountDisposition = $baseTaxAmount / 100 * $this->getDiscountPercent();
+            $discountDisposition = $taxAmount / 100 * $this->getDiscountPercent();
+            $this->setDiscountAmount($this->getDiscountAmount() + $discountDisposition);
+            $this->setBaseDiscountAmount($this->getBaseDiscountAmount() + $baseDiscountDisposition);
         }
 
         return $this;

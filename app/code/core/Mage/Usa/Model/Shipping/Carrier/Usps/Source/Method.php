@@ -17,8 +17,11 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Source_Method
         /** @var Mage_Usa_Model_Shipping_Carrier_Usps $usps */
         $usps = Mage::getSingleton('usa/shipping_carrier_usps');
         $arr = [];
-        foreach ($usps->getCode('method') as $k => $v) {
-            $arr[] = ['value' => $k, 'label' => Mage::helper('usa')->__($v)];
+        foreach ($usps->getCode('method') as $key => $value) {
+            $arr[] = [
+                'value' => $key,
+                'label' => Mage::helper('usa')->__($value),
+            ];
         }
 
         return $arr;

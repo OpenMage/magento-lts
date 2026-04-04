@@ -11,6 +11,8 @@
  * Catalog category helper
  *
  * @package    Mage_Catalog
+ *
+ * @phpstan-import-type ConfigStoreId from Mage
  */
 class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
 {
@@ -237,7 +239,7 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
     /**
      * Check if <link rel="canonical"> can be used for product
      *
-     * @param  null|bool|int|Mage_Core_Model_Store|string $store
+     * @param  ConfigStoreId $store
      * @return bool
      */
     public function canUseCanonicalTag($store = null)
@@ -471,10 +473,8 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
         $product = Mage::getModel('catalog/product')->setStoreId(Mage::app()->getStore($store)->getId());
 
         $expectedIdType = false;
-        if ($identifierType === null) {
-            if (is_string($productId) && !preg_match('/^[+-]?[1-9]\d*$|^0$/', $productId)) {
-                $expectedIdType = 'sku';
-            }
+        if ($identifierType === null && (is_string($productId) && !preg_match('/^[+-]?[1-9]\d*$|^0$/', $productId))) {
+            $expectedIdType = 'sku';
         }
 
         if ($identifierType == 'sku' || $expectedIdType == 'sku') {

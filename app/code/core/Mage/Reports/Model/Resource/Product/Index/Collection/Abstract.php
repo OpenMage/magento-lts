@@ -154,7 +154,7 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Collection_Abstract ext
      */
     protected function _sort()
     {
-        if (!empty($this->_sortIds)) {
+        if ($this->_sortIds !== []) {
             $orderedItems = [];
             foreach ($this->_sortIds as $id) {
                 if (isset($this->_items[$id])) {

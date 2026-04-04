@@ -272,7 +272,7 @@ class Mage_Core_Model_File_Validator_AvailablePath extends Mage_Core_Model_Valid
                     $reg = $options['file_mask'];
                     $reg = str_replace('.', '\.', $reg);
                     $reg = str_replace('*', '.*?', $reg);
-                    $reg = "/^($reg)$/";
+                    $reg = "/^({$reg})$/";
                 } else {
                     $reg = $this->_pathsData[$path]['regFilename'];
                 }
@@ -292,7 +292,7 @@ class Mage_Core_Model_File_Validator_AvailablePath extends Mage_Core_Model_Valid
                 $reg = str_replace(DS, '[\\' . DS . ']', $reg);
                 $reg = str_replace('?', '([^\\' . DS . ']+)', $reg);
                 $reg = str_replace('||', '(.*[\\' . DS . '])?', $reg);
-                $reg = "/^$reg$/";
+                $reg = "/^{$reg}$/";
             } else {
                 $reg = $this->_pathsData[$path]['regDir'];
             }
@@ -308,11 +308,7 @@ class Mage_Core_Model_File_Validator_AvailablePath extends Mage_Core_Model_Valid
             }
         }
 
-        if ($protected) {
-            return true;
-        }
-
         //return false because no one match with available path mask
-        return false;
+        return $protected;
     }
 }

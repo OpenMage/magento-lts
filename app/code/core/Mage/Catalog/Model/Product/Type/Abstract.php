@@ -434,8 +434,8 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
                         $uploader = $queueOptions['uploader'] ?? null;
 
                         $path = dirname($dst);
-                        $io = new Varien_Io_File();
-                        if (!$io->isWriteable($path) && !$io->mkdir($path, 0777, true)) {
+                        $ioFile = new Varien_Io_File();
+                        if (!$ioFile->isWriteable($path) && !$ioFile->mkdir($path, 0777, true)) {
                             Mage::throwException(Mage::helper('catalog')->__("Cannot create writeable directory '%s'.", $path));
                         }
 
@@ -782,11 +782,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
             return true;
         }
 
-        if ($this->getProduct($product)->isRecurring()) {
-            return true;
-        }
-
-        return false;
+        return $this->getProduct($product)->isRecurring();
     }
 
     /**
@@ -813,11 +809,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      */
     public function hasRequiredOptions($product = null)
     {
-        if ($this->getProduct($product)->getRequiredOptions()) {
-            return true;
-        }
-
-        return false;
+        return $this->getProduct($product)->getRequiredOptions();
     }
 
     /**

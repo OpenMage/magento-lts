@@ -104,10 +104,10 @@ class Mage_Core_Model_File_Validator_Image
                             $transparencyIndex = imagecolortransparent($image);
                             if ($transparencyIndex >= 0) {
                                 imagecolortransparent($img, $transparencyIndex);
-                                for ($y = 0; $y < $imageHeight; ++$y) {
-                                    for ($x = 0; $x < $imageWidth; ++$x) {
-                                        if (((imagecolorat($img, $x, $y) >> 24) & 0x7F)) {
-                                            imagesetpixel($img, $x, $y, $transparencyIndex);
+                                for ($height = 0; $height < $imageHeight; ++$height) {
+                                    for ($width = 0; $width < $imageWidth; ++$width) {
+                                        if (((imagecolorat($img, $width, $height) >> 24) & 0x7F)) {
+                                            imagesetpixel($img, $width, $height, $transparencyIndex);
                                         }
                                     }
                                 }

@@ -33,7 +33,11 @@ class Mage_Shipping_Model_Carrier_Flatrate extends Mage_Shipping_Model_Carrier_A
         $freeBoxes = 0;
         if ($request->getAllItems()) {
             foreach ($request->getAllItems() as $item) {
-                if ($item->getProduct()->isVirtual() || $item->getParentItem()) {
+                if ($item->getProduct()->isVirtual()) {
+                    continue;
+                }
+
+                if ($item->getParentItem()) {
                     continue;
                 }
 

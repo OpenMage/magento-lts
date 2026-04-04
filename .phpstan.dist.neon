@@ -19,7 +19,9 @@ parameters:
         matchingInheritedMethodNames: true
     stubFiles:
         - dev/phpstan/stubs/Zend/Log.stub
-    tmpDir: .phpstan.cache
+        - dev/phpstan/stubs/Zend/Measure.stub
+        - dev/phpstan/stubs/Zend/Validate.stub
+    tmpDir: .cache/.phpstan.cache
     magentoRootPath: %currentWorkingDirectory%
     fileExtensions:
       - php

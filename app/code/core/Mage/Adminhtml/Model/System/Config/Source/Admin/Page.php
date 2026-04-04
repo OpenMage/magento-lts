@@ -73,23 +73,18 @@ class Mage_Adminhtml_Model_System_Config_Source_Admin_Page
         $parentArr = [];
         $sortOrder = 0;
         foreach ($parent->children() as $childName => $child) {
-            if (((string) $child->disabled === '1')
-                || ($child->depends && !$this->_checkDepends($child->depends))
-            ) {
+            if ((string) $child->disabled === '1') {
+                continue;
+            }
+
+            if ($child->depends && !$this->_checkDepends($child->depends)) {
                 continue;
             }
 
             $menuArr = [];
             $menuArr['label'] = $this->_getHelperValue($child);
-
             $menuArr['sort_order'] = $child->sort_order ? (int) $child->sort_order : $sortOrder;
-
-            if ($child->action) {
-                $menuArr['url'] = (string) $child->action;
-            } else {
-                $menuArr['url'] = '';
-            }
-
+            $menuArr['url'] = $child->action ? (string) $child->action : '';
             $menuArr['level'] = $level;
             $menuArr['path'] = $path . $childName;
 

@@ -438,11 +438,7 @@ class Mage_Adminhtml_Sales_Order_InvoiceController extends Mage_Adminhtml_Contro
         }
 
         if ($item->getParentItem()) {
-            if (isset($qtys[$item->getParentItem()->getId()]) && $qtys[$item->getParentItem()->getId()] > 0) {
-                return true;
-            }
-
-            return false;
+            return isset($qtys[$item->getParentItem()->getId()]) && $qtys[$item->getParentItem()->getId()] > 0;
         }
 
         return false;
@@ -472,11 +468,7 @@ class Mage_Adminhtml_Sales_Order_InvoiceController extends Mage_Adminhtml_Contro
                 }
             }
 
-            if ($item->isShipSeparately()) {
-                return true;
-            }
-
-            return false;
+            return $item->isShipSeparately();
         }
 
         if ($item->getParentItem()) {
@@ -484,11 +476,7 @@ class Mage_Adminhtml_Sales_Order_InvoiceController extends Mage_Adminhtml_Contro
                 return false;
             }
 
-            if (isset($qtys[$item->getParentItem()->getId()]) && $qtys[$item->getParentItem()->getId()] > 0) {
-                return true;
-            }
-
-            return false;
+            return isset($qtys[$item->getParentItem()->getId()]) && $qtys[$item->getParentItem()->getId()] > 0;
         }
 
         return false;

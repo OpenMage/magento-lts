@@ -590,16 +590,17 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
                 call_user_func($column->getFilterConditionCallback(), $collection, $column);
             } else {
                 $cond = $column->getFilter()->getCondition();
-                if ($field && $cond !== null) {
-                    if ($collection instanceof Varien_Data_Collection_Db) {
-                        $filtered = array_map(static function ($value) {
-                            return is_object($value) ? $value->__toString() : $value;
-                        }, is_array($cond) ? array_values($cond) : [$cond]);
-                        if (in_array("'%NULL%'", $filtered, true) || in_array('NULL', $filtered, true)) {
-                            $collection->addFieldToFilter($field, ['null' => true]);
-                        } else {
-                            $collection->addFieldToFilter($field, $cond);
-                        }
+                if ($field
+                    && $cond !== null
+                    && $collection instanceof Varien_Data_Collection_Db
+                ) {
+                    $filtered = array_map(static function ($value) {
+                        return is_object($value) ? $value->__toString() : $value;
+                    }, is_array($cond) ? array_values($cond) : [$cond]);
+                    if (in_array("'%NULL%'", $filtered, true) || in_array('NULL', $filtered, true)) {
+                        $collection->addFieldToFilter($field, ['null' => true]);
+                    } else {
+                        $collection->addFieldToFilter($field, $cond);
                     }
                 }
             }
@@ -664,7 +665,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
 
             $columnId = $this->getParam($this->getVarNameSort(), $this->_defaultSort);
             $dir      = $this->getParam($this->getVarNameDir(), $this->_defaultDir);
-            $filter   = $this->getParam($this->getVarNameFilter(), null);
+            $filter   = $this->getParam($this->getVarNameFilter());
 
             if (is_null($filter)) {
                 $filter = $this->_defaultFilter;
@@ -1076,7 +1077,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      */
     public function getExportTypes()
     {
-        return empty($this->_exportTypes) ? false : $this->_exportTypes;
+        return $this->_exportTypes === [] ? false : $this->_exportTypes;
     }
 
     /**
@@ -1104,7 +1105,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      */
     public function getRssLists()
     {
-        return empty($this->_rssLists) ? false : $this->_rssLists;
+        return $this->_rssLists === [] ? false : $this->_rssLists;
     }
 
     /**
@@ -1165,10 +1166,10 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      */
     protected function _getFileContainerContent(array $fileData)
     {
-        $io = new Varien_Io_File();
-        $path = $io->dirname($fileData['value']);
-        $io->open(['path' => $path]);
-        return $io->read($fileData['value']);
+        $ioFile = new Varien_Io_File();
+        $path = $ioFile->dirname($fileData['value']);
+        $ioFile->open(['path' => $path]);
+        return $ioFile->read($fileData['value']);
     }
 
     /**
@@ -1279,28 +1280,28 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
         $this->_isExport = true;
         $this->_prepareGrid();
 
-        $io = new Varien_Io_File();
+        $ioFile = new Varien_Io_File();
 
         $path = Mage::getBaseDir('var') . DS . 'export' . DS;
         $name = md5(microtime());
         $file = $path . DS . $name . '.csv';
 
-        $io->setAllowCreateFolders(true);
-        $io->open(['path' => $path]);
-        $io->streamOpen($file, 'w+');
-        $io->streamLock(true);
-        $io->streamWriteCsv($this->_getExportHeaders());
+        $ioFile->setAllowCreateFolders(true);
+        $ioFile->open(['path' => $path]);
+        $ioFile->streamOpen($file, 'w+');
+        $ioFile->streamLock(true);
+        $ioFile->streamWriteCsv($this->_getExportHeaders());
 
-        $this->_exportIterateCollection('_exportCsvItem', [$io]);
+        $this->_exportIterateCollection('_exportCsvItem', [$ioFile]);
 
         if ($this->getCountTotals()) {
-            $io->streamWriteCsv(
+            $ioFile->streamWriteCsv(
                 Mage::helper('core')->getEscapedCSVData($this->_getExportTotals()),
             );
         }
 
-        $io->streamUnlock();
-        $io->streamClose();
+        $ioFile->streamUnlock();
+        $ioFile->streamClose();
 
         return [
             'type'  => 'filename',
@@ -1448,28 +1449,28 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
         $this->_prepareGrid();
 
         $parser = new Varien_Convert_Parser_Xml_Excel();
-        $io     = new Varien_Io_File();
+        $ioFile = new Varien_Io_File();
 
         $path = Mage::getBaseDir('var') . DS . 'export' . DS;
         $name = md5(microtime());
         $file = $path . DS . $name . '.xml';
 
-        $io->setAllowCreateFolders(true);
-        $io->open(['path' => $path]);
-        $io->streamOpen($file, 'w+');
-        $io->streamLock(true);
-        $io->streamWrite($parser->getHeaderXml($sheetName));
-        $io->streamWrite($parser->getRowXml($this->_getExportHeaders()));
+        $ioFile->setAllowCreateFolders(true);
+        $ioFile->open(['path' => $path]);
+        $ioFile->streamOpen($file, 'w+');
+        $ioFile->streamLock(true);
+        $ioFile->streamWrite($parser->getHeaderXml($sheetName));
+        $ioFile->streamWrite($parser->getRowXml($this->_getExportHeaders()));
 
-        $this->_exportIterateCollection('_exportExcelItem', [$io, $parser]);
+        $this->_exportIterateCollection('_exportExcelItem', [$ioFile, $parser]);
 
         if ($this->getCountTotals()) {
-            $io->streamWrite($parser->getRowXml($this->_getExportTotals()));
+            $ioFile->streamWrite($parser->getRowXml($this->_getExportTotals()));
         }
 
-        $io->streamWrite($parser->getFooterXml());
-        $io->streamUnlock();
-        $io->streamClose();
+        $ioFile->streamWrite($parser->getFooterXml());
+        $ioFile->streamUnlock();
+        $ioFile->streamClose();
 
         return [
             'type'  => 'filename',
@@ -1545,11 +1546,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      */
     public function canDisplayContainer()
     {
-        if ($this->getRequest()->getQuery('ajax')) {
-            return false;
-        }
-
-        return true;
+        return !$this->getRequest()->getQuery('ajax');
     }
 
     /**
@@ -1973,11 +1970,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
             return true;
         }
 
-        if (!$item->getIsEmpty()) {
-            return true;
-        }
-
-        return false;
+        return !$item->getIsEmpty();
     }
 
     /**

@@ -133,11 +133,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
         $fileInfo = $this->_getCurrentConfigFileInfo();
 
         if ($fileInfo !== null) {
-            if (is_array($fileInfo) && $this->_validateFile($fileInfo)) {
-                $value = $fileInfo;
-            } else {
-                $value = null;
-            }
+            $value = is_array($fileInfo) && $this->_validateFile($fileInfo) ? $fileInfo : null;
 
             $this->setUserValue($value);
             return $this;
@@ -333,10 +329,8 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
 
         $fileFullPath = null;
         foreach ($checkPaths as $path) {
-            if (!is_file($path)) {
-                if (!Mage::helper('core/file_storage_database')->saveFileToFilesystem($fileFullPath)) {
-                    continue;
-                }
+            if (!is_file($path) && !Mage::helper('core/file_storage_database')->saveFileToFilesystem($fileFullPath)) {
+                continue;
             }
 
             $fileFullPath = $path;
@@ -776,14 +770,14 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
         $this->_createWriteableDir($this->getOrderTargetDir());
 
         // Directory listing and hotlink secure
-        $io = new Varien_Io_File();
-        $io->cd($this->getTargetDir());
-        if (!$io->fileExists($this->getTargetDir() . DS . '.htaccess')) {
-            $io->streamOpen($this->getTargetDir() . DS . '.htaccess');
-            $io->streamLock(true);
-            $io->streamWrite("Order deny,allow\nDeny from all");
-            $io->streamUnlock();
-            $io->streamClose();
+        $ioFile = new Varien_Io_File();
+        $ioFile->cd($this->getTargetDir());
+        if (!$ioFile->fileExists($this->getTargetDir() . DS . '.htaccess')) {
+            $ioFile->streamOpen($this->getTargetDir() . DS . '.htaccess');
+            $ioFile->streamLock(true);
+            $ioFile->streamWrite("Order deny,allow\nDeny from all");
+            $ioFile->streamUnlock();
+            $ioFile->streamClose();
         }
     }
 
@@ -795,8 +789,8 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
      */
     protected function _createWriteableDir($path)
     {
-        $io = new Varien_Io_File();
-        if (!$io->isWriteable($path) && !$io->mkdir($path, 0777, true)) {
+        $ioFile = new Varien_Io_File();
+        if (!$ioFile->isWriteable($path) && !$ioFile->mkdir($path, 0777, true)) {
             Mage::throwException(Mage::helper('catalog')->__("Cannot create writeable directory '%s'.", $path));
         }
     }
@@ -858,11 +852,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
         }
 
         $imageInfo = getimagesize($fileInfo);
-        if (!$imageInfo) {
-            return false;
-        }
-
-        return true;
+        return (bool) $imageInfo;
     }
 
     /**

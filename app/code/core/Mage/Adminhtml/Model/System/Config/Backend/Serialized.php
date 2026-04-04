@@ -24,8 +24,8 @@ class Mage_Adminhtml_Model_System_Config_Backend_Serialized extends Mage_Core_Mo
                 try {
                     $unserializedValue = Mage::helper('core/unserializeArray')
                         ->unserialize((string) $serializedValue);
-                } catch (Exception $e) {
-                    Mage::logException($e);
+                } catch (Exception $exception) {
+                    Mage::logException($exception);
                 }
             }
 

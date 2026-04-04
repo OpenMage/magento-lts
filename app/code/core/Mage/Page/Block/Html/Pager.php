@@ -100,10 +100,8 @@ class Mage_Page_Block_Html_Pager extends Mage_Core_Block_Template
         }
 
         $limits = $this->getAvailableLimit();
-        if ($limit = $this->getRequest()->getParam($this->getLimitVarName())) {
-            if (isset($limits[$limit])) {
-                return $limit;
-            }
+        if (($limit = $this->getRequest()->getParam($this->getLimitVarName())) && isset($limits[$limit])) {
+            return $limit;
         }
 
         $limits = array_keys($limits);
@@ -298,28 +296,26 @@ class Mage_Page_Block_Html_Pager extends Mage_Core_Block_Template
 
         $start = 1;
         $finish = 1;
-        $pages = [];
-        if ($collection->getLastPageNumber() <= $this->_displayPages) {
-            $pages = range(1, $collection->getLastPageNumber());
-        } else {
-            $half = ceil($this->_displayPages / 2);
-            if ($collection->getCurPage() >= $half
-                && $collection->getCurPage() <= $collection->getLastPageNumber() - $half
-            ) {
-                $start  = ($collection->getCurPage() - $half) + 1;
-                $finish = ($start + $this->_displayPages) - 1;
-            } elseif ($collection->getCurPage() < $half) {
-                $start  = 1;
-                $finish = $this->_displayPages;
-            } elseif ($collection->getCurPage() > ($collection->getLastPageNumber() - $half)) {
-                $finish = $collection->getLastPageNumber();
-                $start  = $finish - $this->_displayPages + 1;
-            }
 
-            $pages = range($start, $finish);
+        if ($collection->getLastPageNumber() <= $this->_displayPages) {
+            return range(1, $collection->getLastPageNumber());
         }
 
-        return $pages;
+        $half = ceil($this->_displayPages / 2);
+        if ($collection->getCurPage() >= $half
+            && $collection->getCurPage() <= $collection->getLastPageNumber() - $half
+        ) {
+            $start  = ($collection->getCurPage() - $half) + 1;
+            $finish = ($start + $this->_displayPages) - 1;
+        } elseif ($collection->getCurPage() < $half) {
+            $start  = 1;
+            $finish = $this->_displayPages;
+        } elseif ($collection->getCurPage() > ($collection->getLastPageNumber() - $half)) {
+            $finish = $collection->getLastPageNumber();
+            $start  = $finish - $this->_displayPages + 1;
+        }
+
+        return range($start, $finish);
     }
 
     /**

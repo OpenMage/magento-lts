@@ -100,13 +100,13 @@ class Mage_CatalogIndex_Model_Resource_Indexer extends Mage_Core_Model_Resource_
                 }
             } elseif (is_array($store)) {
                 $resultStores = [];
-                foreach ($store as $s) {
-                    if ($s instanceof Mage_Core_Model_Store) {
-                        $resultStores[] = $s->getId();
-                        $websiteIds[] = $s->getWebsiteId();
-                    } elseif (is_numeric($s)) {
-                        $websiteIds[] = Mage::app()->getStore($s)->getWebsiteId();
-                        $resultStores[] = $s;
+                foreach ($store as $resultStore) {
+                    if ($resultStore instanceof Mage_Core_Model_Store) {
+                        $websiteIds[]   = $resultStore->getWebsiteId();
+                        $resultStores[] = $resultStore->getId();
+                    } elseif (is_numeric($resultStore)) {
+                        $websiteIds[]   = Mage::app()->getStore($resultStore)->getWebsiteId();
+                        $resultStores[] = $resultStore;
                     }
                 }
 
@@ -280,12 +280,10 @@ class Mage_CatalogIndex_Model_Resource_Indexer extends Mage_Core_Model_Resource_
         foreach ($productTypes as $type => $products) {
             $retreiver = Mage::getSingleton('catalogindex/retreiver')->getRetreiver($type);
             foreach ($products as $product) {
-                if (is_null($forcedId)) {
-                    if ($retreiver->areChildrenIndexable(Mage_CatalogIndex_Model_Retreiver::CHILDREN_FOR_PRICES)) {
-                        $children = $retreiver->getChildProductIds($store, $product);
-                        if ($children) {
-                            $this->reindexFinalPrices($children, $store, $product);
-                        }
+                if (is_null($forcedId) && $retreiver->areChildrenIndexable(Mage_CatalogIndex_Model_Retreiver::CHILDREN_FOR_PRICES)) {
+                    $children = $retreiver->getChildProductIds($store, $product);
+                    if ($children) {
+                        $this->reindexFinalPrices($children, $store, $product);
                     }
                 }
 

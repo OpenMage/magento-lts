@@ -643,7 +643,11 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
                     break;
             }
 
-            if (!isset($instance, $method) || !$this->_isCallableAttributeInstance($instance, $method, $args)) {
+            if (!isset($instance, $method)) {
+                continue;
+            }
+
+            if (!$this->_isCallableAttributeInstance($instance, $method, $args)) {
                 continue;
             }
 
@@ -671,11 +675,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
      */
     protected function _isCallableAttributeInstance($instance, $method, $args)
     {
-        if (!is_object($instance) || !method_exists($instance, $method)) {
-            return false;
-        }
-
-        return true;
+        return !(!is_object($instance) || !method_exists($instance, $method));
     }
 
     /**
@@ -767,11 +767,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
     {
         if (!$this->_valueTablePrefix) {
             $prefix = (string) $this->getEntityType()->getValueTablePrefix();
-            if (!empty($prefix)) {
-                $this->_valueTablePrefix = $prefix;
-            } else {
-                $this->_valueTablePrefix = $this->getEntityTable();
-            }
+            $this->_valueTablePrefix = empty($prefix) ? $this->getEntityTable() : $prefix;
         }
 
         return $this->_valueTablePrefix;
@@ -1005,12 +1001,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
         $selectGroups = $helper->getLoadAttributesSelectGroups($selects);
         foreach ($selectGroups as $selects) {
             if (!empty($selects)) {
-                if (is_array($selects)) {
-                    $select = $this->_prepareLoadSelect($selects);
-                } else {
-                    $select = $selects;
-                }
-
+                $select = is_array($selects) ? $this->_prepareLoadSelect($selects) : $selects;
                 $values = $this->_getReadAdapter()->fetchAll($select);
                 foreach ($values as $valueRow) {
                     $this->_setAttributeValue($object, $valueRow);
@@ -1202,7 +1193,11 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
             /**
              * Check attribute information
              */
-            if (is_numeric($key) || is_array($value)) {
+            if (is_numeric($key)) {
+                continue;
+            }
+
+            if (is_array($value)) {
                 continue;
             }
 
@@ -1546,7 +1541,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
             $valueIds[] = $itemData['value_id'];
         }
 
-        if (empty($valueIds)) {
+        if ($valueIds === []) {
             return $this;
         }
 

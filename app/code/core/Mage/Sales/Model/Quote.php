@@ -309,11 +309,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         $globalCurrencyCode  = Mage::app()->getBaseCurrencyCode();
         $baseCurrency = $this->getStore()->getBaseCurrency();
 
-        if ($this->hasForcedCurrency()) {
-            $quoteCurrency = $this->getForcedCurrency();
-        } else {
-            $quoteCurrency = $this->getStore()->getCurrentCurrency();
-        }
+        $quoteCurrency = $this->hasForcedCurrency() ? $this->getForcedCurrency() : $this->getStore()->getCurrentCurrency();
 
         $this->setGlobalCurrencyCode($globalCurrencyCode);
         $this->setBaseCurrencyCode($baseCurrency->getCode());
@@ -374,11 +370,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      */
     public function loadByCustomer($customer)
     {
-        if ($customer instanceof Mage_Customer_Model_Customer) {
-            $customerId = $customer->getId();
-        } else {
-            $customerId = (int) $customer;
-        }
+        $customerId = $customer instanceof Mage_Customer_Model_Customer ? $customer->getId() : (int) $customer;
 
         $this->_getResource()->loadByCustomerId($this, $customerId);
         $this->_afterLoad();
@@ -1134,7 +1126,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
             }
         }
 
-        if (!empty($errors)) {
+        if ($errors !== []) {
             Mage::throwException(implode("\n", $errors));
         }
 
@@ -1269,13 +1261,14 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
 
             $items = $this->getAllItems();
             foreach ($items as $item) {
-                if (($item->getProductId() == $productId) && ($item->getId() != $resultItem->getId())) {
-                    if ($resultItem->compare($item)) {
-                        // Product configuration is same as in other quote item
-                        $resultItem->setQty($resultItem->getQty() + $item->getQty());
-                        $this->removeItem($item->getId());
-                        break;
-                    }
+                if ($item->getProductId() == $productId
+                    && $item->getId() != $resultItem->getId()
+                    && $resultItem->compare($item)
+                ) {
+                    // Product configuration is same as in other quote item
+                    $resultItem->setQty($resultItem->getQty() + $item->getQty());
+                    $this->removeItem($item->getId());
+                    break;
                 }
             }
         } else {
@@ -1566,7 +1559,11 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         $totals = $shippingAddress->getTotals();
         // Going through all quote addresses and merge their totals
         foreach ($this->getAddressesCollection() as $address) {
-            if ($address->isDeleted() || $address === $shippingAddress) {
+            if ($address->isDeleted()) {
+                continue;
+            }
+
+            if ($address === $shippingAddress) {
                 continue;
             }
 
@@ -1880,7 +1877,11 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         $countItems = 0;
         /** @var Mage_Sales_Model_Quote_Item $item */
         foreach ($this->getItemsCollection() as $item) {
-            if ($item->isDeleted() || $item->getParentItemId()) {
+            if ($item->isDeleted()) {
+                continue;
+            }
+
+            if ($item->getParentItemId()) {
                 continue;
             }
 

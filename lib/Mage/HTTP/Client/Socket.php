@@ -152,8 +152,8 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
      */
     public function setCredentials($login, $pass)
     {
-        $val = base64_encode("$login:$pass");
-        $this->addHeader('Authorization', "Basic $val");
+        $val = base64_encode("{$login}:{$pass}");
+        $this->addHeader('Authorization', "Basic {$val}");
     }
 
     /**
@@ -284,13 +284,17 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
         $out = [];
         foreach ($this->_responseHeaders['Set-Cookie'] as $row) {
             $values = explode('; ', $row);
-            $c = count($values);
-            if (!$c) {
+            $count = count($values);
+            if (!$count) {
                 continue;
             }
 
             [$key, $val] = array_pad(array_map(trim(...), explode('=', $values[0])), 2, null);
-            if (is_null($val) || !strlen($key)) {
+            if (is_null($val)) {
+                continue;
+            }
+
+            if (!strlen($key)) {
                 continue;
             }
 
@@ -314,24 +318,28 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
         $out = [];
         foreach ($this->_responseHeaders['Set-Cookie'] as $row) {
             $values = explode('; ', $row);
-            $c = count($values);
-            if (!$c) {
+            $count = count($values);
+            if (!$count) {
                 continue;
             }
 
             [$key, $val] = array_pad(array_map(trim(...), explode('=', $values[0])), 2, null);
-            if (is_null($val) || !strlen($key)) {
+            if (is_null($val)) {
+                continue;
+            }
+
+            if (!strlen($key)) {
                 continue;
             }
 
             $out[$key] = ['value' => $val];
             array_shift($values);
-            $c--;
-            if (!$c) {
+            $count--;
+            if (!$count) {
                 continue;
             }
 
-            for ($i = 0; $i < $c; $i++) {
+            for ($i = 0; $i < $count; $i++) {
                 [$subkey, $val] = explode('=', $values[$i]);
                 $out[trim($key)][trim($subkey)] = trim($val);
             }
@@ -490,8 +498,8 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
         $headers['Connection'] = 'close';
         $headers = array_merge($headers, $this->_headers, $append);
         $str = [];
-        foreach ($headers as $k => $v) {
-            $str [] = "$k: $v\r\n";
+        foreach ($headers as $key => $header) {
+            $str [] = "{$key}: {$header}\r\n";
         }
 
         return implode('', $str);

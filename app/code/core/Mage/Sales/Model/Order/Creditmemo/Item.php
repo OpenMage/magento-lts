@@ -178,12 +178,7 @@ class Mage_Sales_Model_Order_Creditmemo_Item extends Mage_Core_Model_Abstract
      */
     public function setQty($qty)
     {
-        if ($this->getOrderItem()->getIsQtyDecimal()) {
-            $qty = (float) $qty;
-        } else {
-            $qty = (int) $qty;
-        }
-
+        $qty = $this->getOrderItem()->getIsQtyDecimal() ? (float) $qty : (int) $qty;
         $qty = $qty > 0 ? $qty : 0;
         /**
          * Check qty availability
@@ -286,13 +281,8 @@ class Mage_Sales_Model_Order_Creditmemo_Item extends Mage_Core_Model_Abstract
     public function isLast()
     {
         $orderItem = $this->getOrderItem();
-        if ((string) (float) $this->getQty() == (string) (float) $orderItem->getQtyToRefund()
-                && !$orderItem->getQtyToInvoice()
-        ) {
-            return true;
-        }
-
-        return false;
+        return (string) (float) $this->getQty() == (string) (float) $orderItem->getQtyToRefund()
+                && !$orderItem->getQtyToInvoice();
     }
 
     /**

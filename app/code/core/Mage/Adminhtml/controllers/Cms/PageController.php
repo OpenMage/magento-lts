@@ -15,6 +15,12 @@
 class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
 {
     /**
+     * ACL resource
+     * @see Mage_Adminhtml_Controller_Action::_isAllowed()
+     */
+    public const ADMIN_RESOURCE = 'cms/page';
+
+    /**
      * Init actions
      *
      * @return $this
@@ -185,10 +191,10 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
                 Mage::dispatchEvent('adminhtml_cmspage_on_delete', ['title' => $title, 'status' => 'success']);
                 $this->_redirect('*/*/');
                 return;
-            } catch (Exception $e) {
+            } catch (Exception $exception) {
                 Mage::dispatchEvent('adminhtml_cmspage_on_delete', ['title' => $title, 'status' => 'fail']);
                 // display error message
-                Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
+                Mage::getSingleton('adminhtml/session')->addError($exception->getMessage());
                 // go back to edit form
                 $this->_redirect('*/*/edit', ['page_id' => $id]);
                 return;
@@ -201,6 +207,54 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
         $this->_redirect('*/*/');
     }
 
+    public function massDeleteAction()
+    {
+        $pageIds = $this->getRequest()->getParam('page');
+        if (!is_array($pageIds)) {
+            $this->_getSession()->addError($this->__('Please select page(s).'));
+        } elseif ($pageIds !== []) {
+            try {
+                $collection = Mage::getResourceModel('cms/page_collection');
+                $collection->addFieldToFilter('page_id', ['in' => $pageIds]);
+                $collection->delete();
+
+                $this->_getSession()->addSuccess(
+                    $this->__('Total of %d record(s) have been deleted.', count($pageIds)),
+                );
+            } catch (Throwable $throwable) {
+                $this->_getSession()->addError($throwable->getMessage());
+            }
+        }
+
+        $this->_redirect('*/*/index');
+    }
+
+    public function massStatusAction()
+    {
+        $pageIds = (array) $this->getRequest()->getParam('page');
+        $status  = (int) $this->getRequest()->getParam('status');
+
+        try {
+            // is_active/disabled is defined as 0
+            if ($status === 2) {
+                $status = 0;
+            }
+
+            $collection = Mage::getResourceModel('cms/page_collection');
+            $collection->addFieldToFilter('page_id', ['in' => $pageIds]);
+            $collection->walk('setIsActive', [$status]);
+            $collection->save();
+
+            $this->_getSession()->addSuccess(
+                $this->__('Total of %d record(s) have been updated.', count($pageIds)),
+            );
+        } catch (Throwable $throwable) {
+            $this->_getSession()->addError($throwable->getMessage());
+        }
+
+        $this->_redirect('*/*/index');
+    }
+
     /**
      * Controller pre-dispatch method
      *
@@ -208,7 +262,7 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
      */
     public function preDispatch()
     {
-        $this->_setForcedFormKeyActions('delete');
+        $this->_setForcedFormKeyActions(['delete', 'massDelete']);
         return parent::preDispatch();
     }
 
@@ -219,9 +273,9 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
     {
         $action = strtolower($this->getRequest()->getActionName());
         $aclPath = match ($action) {
-            'new', 'save' => 'cms/page/save',
-            'delete' => 'cms/page/delete',
-            default => 'cms/page',
+            'new', 'save', 'massstatus' => self::ADMIN_RESOURCE . '/save',
+            'delete', 'massdelete' => self::ADMIN_RESOURCE . '/delete',
+            default => self::ADMIN_RESOURCE,
         };
 
         return Mage::getSingleton('admin/session')->isAllowed($aclPath);

@@ -94,10 +94,6 @@ class Varien_Db_Tree_Node
      */
     public function isParent()
     {
-        if ($this->right - $this->left > 1) {
-            return true;
-        }
-
-        return false;
+        return $this->right - $this->left > 1;
     }
 }

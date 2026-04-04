@@ -463,17 +463,13 @@ class Varien_Object implements ArrayAccess
      */
     public function __toArray(array $arrAttributes = [])
     {
-        if (empty($arrAttributes)) {
+        if ($arrAttributes === []) {
             return $this->_data;
         }
 
         $arrRes = [];
         foreach ($arrAttributes as $attribute) {
-            if (isset($this->_data[$attribute])) {
-                $arrRes[$attribute] = $this->_data[$attribute];
-            } else {
-                $arrRes[$attribute] = null;
-            }
+            $arrRes[$attribute] = $this->_data[$attribute] ?? null;
         }
 
         return $arrRes;
@@ -529,13 +525,9 @@ class Varien_Object implements ArrayAccess
         $xmlModel = new Varien_Simplexml_Element('<node></node>');
         $arrData = $this->toArray($arrAttributes);
         foreach ($arrData as $fieldName => $fieldValue) {
-            if ($addCdata === true) {
-                $fieldValue = "<![CDATA[$fieldValue]]>";
-            } else {
-                $fieldValue = $xmlModel->xmlentities($fieldValue);
-            }
+            $fieldValue = $addCdata === true ? "<![CDATA[{$fieldValue}]]>" : $xmlModel->xmlentities($fieldValue);
 
-            $xml .= "<$fieldName>$fieldValue</$fieldName>" . "\n";
+            $xml .= "<{$fieldName}>{$fieldValue}</{$fieldName}>" . "\n";
         }
 
         if (!empty($rootName)) {
@@ -604,18 +596,16 @@ class Varien_Object implements ArrayAccess
     public function toString($format = '')
     {
         if (empty($format)) {
-            $str = implode(', ', $this->getData());
-        } else {
-            preg_match_all('/\{\{([a-z0-9_]+)\}\}/is', $format, $matches);
-            foreach ($matches[1] as $var) {
-                $replace = is_null($this->getData($var)) ? '' : $this->getData($var);
-                $format = str_replace('{{' . $var . '}}', $replace, $format);
-            }
-
-            $str = $format;
+            return implode(', ', $this->getData());
         }
 
-        return $str;
+        preg_match_all('/\{\{([a-z0-9_]+)\}\}/is', $format, $matches);
+        foreach ($matches[1] as $var) {
+            $replace = is_null($this->getData($var)) ? '' : $this->getData($var);
+            $format = str_replace('{{' . $var . '}}', $replace, $format);
+        }
+
+        return $format;
     }
 
     /**
@@ -682,11 +672,7 @@ class Varien_Object implements ArrayAccess
      */
     public function isEmpty()
     {
-        if (empty($this->_data)) {
-            return true;
-        }
-
-        return false;
+        return empty($this->_data);
     }
 
     /**

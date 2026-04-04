@@ -34,7 +34,7 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
     /**
      * Extend preDispatch
      *
-     * @return $this|void
+     * @return null|$this
      * @throws Mage_Core_Exception
      */
     public function preDispatch()
@@ -52,7 +52,7 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
 
         if (!Mage::getStoreConfigFlag('wishlist/general/active')) {
             $this->norouteAction();
-            return;
+            return null;
         }
 
         return $this;

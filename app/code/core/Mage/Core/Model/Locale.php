@@ -132,11 +132,7 @@ class Mage_Core_Model_Locale
      */
     public function setLocale($locale = null)
     {
-        if (($locale !== null) && is_string($locale)) {
-            $this->_localeCode = $locale;
-        } else {
-            $this->_localeCode = $this->getDefaultLocale();
-        }
+        $this->_localeCode = $locale !== null && is_string($locale) ? $locale : $this->getDefaultLocale();
 
         Mage::dispatchEvent('core_locale_set_locale', ['locale' => $this]);
         return $this;
@@ -197,8 +193,8 @@ class Mage_Core_Model_Locale
     /**
      * Specify current locale code
      *
-     * @param  string                 $code
-     * @return Mage_Core_Model_Locale
+     * @param  string $code
+     * @return $this
      */
     public function setLocaleCode($code)
     {
@@ -267,7 +263,11 @@ class Mage_Core_Model_Locale
                 }
 
                 $data = explode('_', $code);
-                if (!isset($languages[$data[0]]) || !isset($countries[$data[1]])) {
+                if (!isset($languages[$data[0]])) {
+                    continue;
+                }
+
+                if (!isset($countries[$data[1]])) {
                     continue;
                 }
 
@@ -559,10 +559,8 @@ class Mage_Core_Model_Locale
         }
 
         $date = new Zend_Date($date, $part, $locale);
-        if ($useTimezone) {
-            if ($timezone = Mage::app()->getStore()->getConfig(self::XML_PATH_DEFAULT_TIMEZONE)) {
-                $date->setTimezone($timezone);
-            }
+        if ($useTimezone && $timezone = Mage::app()->getStore()->getConfig(self::XML_PATH_DEFAULT_TIMEZONE)) {
+            $date->setTimezone($timezone);
         }
 
         return $date;
@@ -750,17 +748,13 @@ class Mage_Core_Model_Locale
         }
 
         $requiredPrecision = $totalPrecision;
-        $t = substr($format, $decimalPoint);
-        $pos = strpos($t, '#');
+        $str = substr($format, $decimalPoint);
+        $pos = strpos($str, '#');
         if ($pos !== false) {
-            $requiredPrecision = strlen($t) - $pos - $totalPrecision;
+            $requiredPrecision = strlen($str) - $pos - $totalPrecision;
         }
 
-        if (strrpos($format, ',') !== false) {
-            $group = ($decimalPoint - strrpos($format, ',') - 1);
-        } else {
-            $group = strrpos($format, '.');
-        }
+        $group = strrpos($format, ',') !== false ? $decimalPoint - strrpos($format, ',') - 1 : strrpos($format, '.');
 
         $integerRequired = (strpos($format, '.') - strpos($format, '0'));
 

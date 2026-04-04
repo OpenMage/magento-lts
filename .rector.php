@@ -34,7 +34,7 @@ try {
     return RectorConfig::configure()
         ->withFileExtensions(['php', 'phtml'])
         ->withCache(
-            cacheDirectory: '.rector.result.cache',
+            cacheDirectory: __DIR__ . '/.cache/.rector.result.cache',
             cacheClass: FileCacheStorage::class,
         )
         ->withImportNames(removeUnusedImports: true)
@@ -98,61 +98,74 @@ try {
         ->withConfiguredRule(Renaming\MethodCall\RenameMethodRector::class, Migration\Mage\Wishlist::renameMethod())
         ->withConfiguredRule(ReplaceArgumentDefaultValueRector::class, Migration\Mage\Adminhtml::replaceArgumentDefaultValue())
         ->withSkip([
+            # skip avoid renaming of methods in tests
             Carbon\FuncCall\DateFuncCallToCarbonRector::class => [
                 __DIR__ . '/tests/unit/Base/CarbonTest.php',
             ],
+            # skip avoid renaming of methods in tests
             Carbon\FuncCall\TimeFuncCallToCarbonRector::class => [
                 __DIR__ . '/tests/unit/Base/CarbonTest.php',
             ],
-            CodeQuality\BooleanNot\SimplifyDeMorganBinaryRector::class,
-            # skip: causes issues with Mage_Api2_Model_Auth_Adapter_Oauth::getUserParams()
+            CodeQuality\BooleanNot\SimplifyDeMorganBinaryRector::class, # todo: TMP (!?!)
+            # skip: causes issues with Mage_Api2_Model_Auth_Adapter_Oauth::getUserParams()  # todo: TMP (test again)
             CodeQuality\Catch_\ThrowWithPreviousExceptionRector::class => [
                 __DIR__ . '/app/code/core/Mage/Api2/Model/Auth/Adapter/Oauth.php',
             ],
             CodeQuality\Class_\CompleteDynamicPropertiesRector::class, # todo: TMP (!?!)
-            CodeQuality\ClassMethod\ExplicitReturnNullRector::class, # todo: TMP
-            CodeQuality\Empty_\SimplifyEmptyCheckOnEmptyArrayRector::class, # todo: TMP
+            # skip classes that throw an exception as a return value, which is not supported by Rector yet
+            # see https://github.com/rectorphp/rector/issues/9719
+            CodeQuality\ClassMethod\ExplicitReturnNullRector::class => [
+                __DIR__ . '/app/code/core/Mage/Catalog/Model/Product/Option/Type/Default.php',
+                __DIR__ . '/app/code/core/Mage/Catalog/Model/Product/Option/Type/File.php',
+                __DIR__ . '/app/code/core/Mage/Cms/Model/Wysiwyg/Images/Storage.php',
+                __DIR__ . '/app/code/core/Mage/ImportExport/Model/Export.php',
+                __DIR__ . '/app/code/core/Mage/Oauth/Model/Token.php',
+                __DIR__ . '/app/code/core/Mage/Paygate/Model/Authorizenet.php',
+                __DIR__ . '/app/code/core/Mage/Sales/Model/Order/Payment.php',
+                __DIR__ . '/app/code/core/Mage/Usa/Model/Shipping/Carrier/Abstract/Backend/Abstract.php',
+            ],
             CodeQuality\Equal\UseIdenticalOverEqualWithSameTypeRector::class, # todo: TMP
             CodeQuality\Expression\TernaryFalseExpressionToIfRector::class, # todo: TMP (!?!)
             CodeQuality\Identical\SimplifyBoolIdenticalTrueRector::class, # todo: TMP
-            CodeQuality\If_\CombineIfRector::class, # todo: TMP<
+            # tmp wait for https://github.com/rectorphp/rector/issues/9717
+            CodeQuality\If_\CombineIfRector::class => [
+                __DIR__ . '/app/code/core/Mage/Catalog/Model/Api2/Product/Validator/Product.php',
+            ],
             CodeQuality\If_\CompleteMissingIfElseBracketRector::class, # todo: TMP  (!?!)
             CodeQuality\If_\ExplicitBoolCompareRector::class, # todo: TMP
-            CodeQuality\If_\SimplifyIfElseToTernaryRector::class,
-            CodeQuality\If_\SimplifyIfReturnBoolRector::class,
+            # tmp wait for https://github.com/rectorphp/rector/issues/9724
+            CodeQuality\If_\SimplifyIfElseToTernaryRector::class => [
+                __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Options/Option.php',
+                __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Sales/Order/View.php',
+                __DIR__ . '/app/code/core/Mage/Sales/Model/Order/Item.php',
+                __DIR__ . '/lib/Varien/Convert/Parser/Xml/Excel.php',
+            ],
             CodeQuality\Include_\AbsolutizeRequireAndIncludePathRector::class, # todo: TMP
             CodeQuality\Isset_\IssetOnPropertyObjectToPropertyExistsRector::class, # todo: TMP
-            CodeQuality\Ternary\TernaryEmptyArrayArrayDimFetchToCoalesceRector::class, # todo: TMP
             CodingStyle\ClassMethod\FuncGetArgsToVariadicParamRector::class, # todo: TMP
             CodingStyle\Encapsed\EncapsedStringsToSprintfRector::class, # todo: TMP
-            CodingStyle\Encapsed\WrapEncapsedVariableInCurlyBracesRector::class, # todo: TMP
             CodingStyle\FuncCall\StrictArraySearchRector::class, # todo: TMP
             CodingStyle\If_\NullableCompareToNullRector::class, # todo: TMP
             CodingStyle\PostInc\PostIncDecToPreIncDecRector::class, # todo: TMP
             DeadCode\Assign\RemoveUnusedVariableAssignRector::class, # todo: TMP
             DeadCode\Cast\RecastingRemovalRector::class, # todo: TMP  (!?!)
             DeadCode\ClassMethod\RemoveUnusedConstructorParamRector::class, # todo: TMP (!?!)
-            DeadCode\If_\RemoveAlwaysTrueIfConditionRector::class, # todo: TMP
-            DeadCode\MethodCall\RemoveNullArgOnNullDefaultParamRector::class, # todo: TMP
-            DeadCode\Plus\RemoveDeadZeroAndOneOperationRector::class, # todo: TMP  (!?!)
+            DeadCode\If_\RemoveAlwaysTrueIfConditionRector::class => [
+                # skip: messes up code .... check later
+                __DIR__ . '/app/design/adminhtml/base/default/template/system/store/tree.phtml',
+            ],
             DeadCode\PropertyProperty\RemoveNullPropertyInitializationRector::class, # todo: TMP
-            DeadCode\Ternary\TernaryToBooleanOrFalseToBooleanAndRector::class, # todo: TMP
             DeadCode\TryCatch\RemoveDeadTryCatchRector::class, # todo: TMP  (!?!)
             EarlyReturn\Foreach_\ChangeNestedForeachIfsToEarlyContinueRector::class, # todo: TMP
-            EarlyReturn\If_\ChangeIfElseValueAssignToEarlyReturnRector::class, # todo: TMP
-            EarlyReturn\If_\ChangeNestedIfsToEarlyReturnRector::class, # todo: TMP
-            EarlyReturn\If_\ChangeOrIfContinueToMultiContinueRector::class, # todo: TMP
-            EarlyReturn\Return_\ReturnBinaryOrToEarlyReturnRector::class, # todo: TMP
-            EarlyReturn\Return_\PreparedValueToEarlyReturnRector::class, # todo: TMP
+            EarlyReturn\If_\ChangeNestedIfsToEarlyReturnRector::class, # todo: TMP ... probably bug found
             # skip: may conflict with phpstan strict rules
-            Php53\Ternary\TernaryToElvisRector::class,
+            Php53\Ternary\TernaryToElvisRector::class, # todo: TMP (!?!)
             Php71\FuncCall\RemoveExtraParametersRector::class, # todo: check later
-            # skip: causes issues with some tests
-            Php74\Closure\ClosureToArrowFunctionRector::class,
+            # skip: causes issues with some tests  # todo: TMP (!?!)
+            Php74\Closure\ClosureToArrowFunctionRector::class,  # todo: TMP (!?!)
             # skip: causes issues
-            Php74\Assign\NullCoalescingOperatorRector::class,
+            Php74\Assign\NullCoalescingOperatorRector::class,  # todo: TMP (!?!)
             Php80\Class_\ClassPropertyAssignToConstructorPromotionRector::class, # todo: wait for php80
-            Php80\Class_\StringableForToStringRector::class, # todo: wait for php80
             # see https://github.com/OpenMage/magento-lts/pull/5040
             Php80\ClassMethod\AddParamBasedOnParentClassMethodRector::class => [
                 __DIR__ . '/lib/Varien/Directory/Collection.php',
@@ -162,7 +175,7 @@ try {
             Strict\Empty_\DisallowedEmptyRuleFixerRector::class, # todo: TMP
             TypeDeclaration\BooleanAnd\BinaryOpNullableToInstanceofRector::class, # todo: TMP
             TypeDeclaration\ClassMethod\ReturnNeverTypeRector::class,
-            # skip: cannot be applied to OpenMage codebase - yet
+            # skip: strict_type cannot be applied to OpenMage codebase - yet
             TypeDeclaration\StmtsAwareInterface\DeclareStrictTypesRector::class,
             # skip: use static methods
             PreferPHPUnitThisCallRector::class,

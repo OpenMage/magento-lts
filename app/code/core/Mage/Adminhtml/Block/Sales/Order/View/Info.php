@@ -25,8 +25,8 @@ class Mage_Adminhtml_Block_Sales_Order_View_Info extends Mage_Adminhtml_Block_Sa
 
         $this->setOrder($this->getParentBlock()->getOrder());
 
-        foreach ($this->getParentBlock()->getOrderInfoData() as $k => $v) {
-            $this->setDataUsingMethod($k, $v);
+        foreach ($this->getParentBlock()->getOrderInfoData() as $key => $value) {
+            $this->setDataUsingMethod($key, $value);
         }
 
         return parent::_beforeToHtml();
@@ -114,7 +114,11 @@ class Mage_Adminhtml_Block_Sales_Order_View_Info extends Mage_Adminhtml_Block_Sa
         foreach ($config->getEntityAttributeCodes($entityType) as $attributeCode) {
             /** @var Mage_Customer_Model_Attribute $attribute */
             $attribute = $config->getAttribute($entityType, $attributeCode);
-            if (!$attribute->getIsVisible() || $attribute->getIsSystem()) {
+            if (!$attribute->getIsVisible()) {
+                continue;
+            }
+
+            if ($attribute->getIsSystem()) {
                 continue;
             }
 

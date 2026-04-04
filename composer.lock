@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8c47c7697fdbb17ecb01f597954d972e",
+    "content-hash": "416833ac523a8f6849aea118fa0c1c2b",
     "packages": [
         {
             "name": "carbonphp/carbon-doctrine-types",
@@ -1304,16 +1304,16 @@
         },
         {
             "name": "mklkj/tinymce-i18n",
-            "version": "26.2.16",
+            "version": "26.3.23",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mklkj/tinymce-i18n.git",
-                "reference": "47145e4264a055ef327cf70b7bd0d5022e88c734"
+                "reference": "d5d5b67f2876d277f80f5eccdea81ae86ba78070"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mklkj/tinymce-i18n/zipball/47145e4264a055ef327cf70b7bd0d5022e88c734",
-                "reference": "47145e4264a055ef327cf70b7bd0d5022e88c734",
+                "url": "https://api.github.com/repos/mklkj/tinymce-i18n/zipball/d5d5b67f2876d277f80f5eccdea81ae86ba78070",
+                "reference": "d5d5b67f2876d277f80f5eccdea81ae86ba78070",
                 "shasum": ""
             },
             "type": "library",
@@ -1336,9 +1336,9 @@
             ],
             "support": {
                 "issues": "https://github.com/mklkj/tinymce-i18n/issues",
-                "source": "https://github.com/mklkj/tinymce-i18n/tree/26.2.16"
+                "source": "https://github.com/mklkj/tinymce-i18n/tree/26.3.23"
             },
-            "time": "2026-02-16T12:08:53+00:00"
+            "time": "2026-03-23T12:38:59+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -6419,11 +6419,11 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "2.1.42",
+            "version": "2.1.44",
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/1279e1ce86ba768f0780c9d889852b4e02ff40d0",
-                "reference": "1279e1ce86ba768f0780c9d889852b4e02ff40d0",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/4a88c083c668b2c364a425c9b3171b2d9ea5d218",
+                "reference": "4a88c083c668b2c364a425c9b3171b2d9ea5d218",
                 "shasum": ""
             },
             "require": {
@@ -6468,7 +6468,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-03-17T14:58:32+00:00"
+            "time": "2026-03-25T17:34:21+00:00"
         },
         {
             "name": "phpstan/phpstan-deprecation-rules",
@@ -9500,20 +9500,20 @@
         },
         {
             "name": "symplify/vendor-patches",
-            "version": "12.0.6",
+            "version": "12.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symplify/vendor-patches.git",
-                "reference": "096aaab56bcea39e25468f538601fda00c1024bb"
+                "reference": "157ddf6b8d992a2e3adbd9bc16264a6e95d91f6b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symplify/vendor-patches/zipball/096aaab56bcea39e25468f538601fda00c1024bb",
-                "reference": "096aaab56bcea39e25468f538601fda00c1024bb",
+                "url": "https://api.github.com/repos/symplify/vendor-patches/zipball/157ddf6b8d992a2e3adbd9bc16264a6e95d91f6b",
+                "reference": "157ddf6b8d992a2e3adbd9bc16264a6e95d91f6b",
                 "shasum": ""
             },
             "require": {
-                "cweagans/composer-patches": "^1.7.3 || ^2.0",
+                "cweagans/composer-patches": "^1.7 || ^2.0",
                 "php": ">=7.2"
             },
             "bin": [
@@ -9527,7 +9527,7 @@
             "description": "Generate vendor patches for packages with single command",
             "support": {
                 "issues": "https://github.com/symplify/vendor-patches/issues",
-                "source": "https://github.com/symplify/vendor-patches/tree/12.0.6"
+                "source": "https://github.com/symplify/vendor-patches/tree/12.0.1"
             },
             "funding": [
                 {
@@ -9539,7 +9539,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-02-03T10:18:03+00:00"
+            "time": "2025-11-19T09:19:07+00:00"
         },
         {
             "name": "theseer/tokenizer",

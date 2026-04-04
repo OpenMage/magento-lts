@@ -335,7 +335,11 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
      */
     public function getUseSelectAll()
     {
-        return $this->_getData('use_select_all') === null || $this->_getData('use_select_all');
+        if ($this->_getData('use_select_all') === null) {
+            return true;
+        }
+
+        return (bool) $this->_getData('use_select_all');
     }
 
     /**

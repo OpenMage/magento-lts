@@ -949,10 +949,9 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
     {
         $request = $this->_addMethodToRequest($methodName, $request);
         $eachCallRequest = $this->_prepareEachCallRequest($methodName);
-        if ($this->getUseCertAuthentication()) {
-            if ($key = array_search('SIGNATURE', $eachCallRequest)) {
-                unset($eachCallRequest[$key]);
-            }
+        $key = array_search('SIGNATURE', $eachCallRequest);
+        if ($key !== false && $this->getUseCertAuthentication()) {
+            unset($eachCallRequest[$key]);
         }
 
         $request = $this->_exportToRequest($eachCallRequest, $request);
@@ -1188,7 +1187,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
         if (isset($this->_requiredResponseParams[$method])) {
             foreach ($this->_requiredResponseParams[$method] as $param) {
                 if (!isset($response[$param])) {
-                    Mage::log("Expected PayPal field not found in NVP Response: $param");
+                    Mage::log("Expected PayPal field not found in NVP Response: {$param}");
                     return false;
                 }
             }
@@ -1310,10 +1309,10 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
      * @return array
      * @deprecated after 1.4.2.0-beta1, use _importAddresses() instead
      */
-    protected function _importAddress(Varien_Object $address, array $to)
+    protected function _importAddress(Varien_Object $address, array $target)
     {
         $this->setAddress($address);
-        return $this->_importAddresses($to);
+        return $this->_importAddresses($target);
     }
 
     /**
@@ -1321,33 +1320,33 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
      *
      * @return array
      */
-    protected function _importAddresses(array $to)
+    protected function _importAddresses(array $target)
     {
         $billingAddress  = ($this->getBillingAddress()) ? $this->getBillingAddress() : $this->getAddress();
         $shippingAddress = $this->getAddress();
 
-        $to = Varien_Object_Mapper::accumulateByMap(
+        $target = Varien_Object_Mapper::accumulateByMap(
             $billingAddress,
-            $to,
+            $target,
             array_merge(array_flip($this->_billingAddressMap), $this->_billingAddressMapRequest),
         );
         if ($regionCode = $this->_lookupRegionCodeFromAddress($billingAddress)) {
-            $to['STATE'] = $regionCode;
+            $target['STATE'] = $regionCode;
         }
 
         if (!$this->getSuppressShipping()) {
-            $to = Varien_Object_Mapper::accumulateByMap($shippingAddress, $to, array_flip($this->_shippingAddressMap));
+            $target = Varien_Object_Mapper::accumulateByMap($shippingAddress, $target, array_flip($this->_shippingAddressMap));
             if ($regionCode = $this->_lookupRegionCodeFromAddress($shippingAddress)) {
-                $to['SHIPTOSTATE'] = $regionCode;
+                $target['SHIPTOSTATE'] = $regionCode;
             }
 
-            $this->_importStreetFromAddress($shippingAddress, $to, 'SHIPTOSTREET', 'SHIPTOSTREET2');
-            $this->_importStreetFromAddress($billingAddress, $to, 'STREET', 'STREET2');
-            $to['SHIPTONAME'] = $shippingAddress->getName();
+            $this->_importStreetFromAddress($shippingAddress, $target, 'SHIPTOSTREET', 'SHIPTOSTREET2');
+            $this->_importStreetFromAddress($billingAddress, $target, 'STREET', 'STREET2');
+            $target['SHIPTONAME'] = $shippingAddress->getName();
         }
 
-        $this->_applyCountryWorkarounds($to);
-        return $to;
+        $this->_applyCountryWorkarounds($target);
+        return $target;
     }
 
     /**
@@ -1395,22 +1394,18 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
      * Filter for 'BILLINGPERIOD' and 'TRIALBILLINGPERIOD'
      *
      * @param  string      $value
-     * @return string|void
+     * @return null|string
      */
     protected function _filterPeriodUnit($value)
     {
-        switch ($value) {
-            case 'day':
-                return 'Day';
-            case 'week':
-                return 'Week';
-            case 'semi_month':
-                return 'SemiMonth';
-            case 'month':
-                return 'Month';
-            case 'year':
-                return 'Year';
-        }
+        return match ($value) {
+            'day' => 'Day',
+            'week' => 'Week',
+            'semi_month' => 'SemiMonth',
+            'month' => 'Month',
+            'year' => 'Year',
+            default => null,
+        };
     }
 
     /**
@@ -1428,88 +1423,72 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
      * Filter for billing agreement status
      *
      * @param  string      $value
-     * @return string|void
+     * @return null|string
      */
     protected function _filterBillingAgreementStatus($value)
     {
-        switch ($value) {
-            case 'canceled':
-                return 'Canceled';
-            case 'active':
-                return 'Active';
-        }
+        return match ($value) {
+            'canceled' => 'Canceled',
+            'active' => 'Active',
+            default => null,
+        };
     }
 
     /**
      * Convert payment status from NVP format to paypal/info model format
      *
      * @param  string      $value
-     * @return string|void
+     * @return null|string
      */
     protected function _filterPaymentStatusFromNvpToInfo($value)
     {
-        switch ($value) {
-            case 'None':
-                return Mage_Paypal_Model_Info::PAYMENTSTATUS_NONE;
-            case 'Completed':
-                return Mage_Paypal_Model_Info::PAYMENTSTATUS_COMPLETED;
-            case 'Denied':
-                return Mage_Paypal_Model_Info::PAYMENTSTATUS_DENIED;
-            case 'Expired':
-                return Mage_Paypal_Model_Info::PAYMENTSTATUS_EXPIRED;
-            case 'Failed':
-                return Mage_Paypal_Model_Info::PAYMENTSTATUS_FAILED;
-            case 'In-Progress':
-                return Mage_Paypal_Model_Info::PAYMENTSTATUS_INPROGRESS;
-            case 'Pending':
-                return Mage_Paypal_Model_Info::PAYMENTSTATUS_PENDING;
-            case 'Refunded':
-                return Mage_Paypal_Model_Info::PAYMENTSTATUS_REFUNDED;
-            case 'Partially-Refunded':
-                return Mage_Paypal_Model_Info::PAYMENTSTATUS_REFUNDEDPART;
-            case 'Reversed':
-                return Mage_Paypal_Model_Info::PAYMENTSTATUS_REVERSED;
-            case 'Canceled-Reversal':
-                return Mage_Paypal_Model_Info::PAYMENTSTATUS_UNREVERSED;
-            case 'Processed':
-                return Mage_Paypal_Model_Info::PAYMENTSTATUS_PROCESSED;
-            case 'Voided':
-                return Mage_Paypal_Model_Info::PAYMENTSTATUS_VOIDED;
-        }
+        return match ($value) {
+            'None' => Mage_Paypal_Model_Info::PAYMENTSTATUS_NONE,
+            'Completed' => Mage_Paypal_Model_Info::PAYMENTSTATUS_COMPLETED,
+            'Denied' => Mage_Paypal_Model_Info::PAYMENTSTATUS_DENIED,
+            'Expired' => Mage_Paypal_Model_Info::PAYMENTSTATUS_EXPIRED,
+            'Failed' => Mage_Paypal_Model_Info::PAYMENTSTATUS_FAILED,
+            'In-Progress' => Mage_Paypal_Model_Info::PAYMENTSTATUS_INPROGRESS,
+            'Pending' => Mage_Paypal_Model_Info::PAYMENTSTATUS_PENDING,
+            'Refunded' => Mage_Paypal_Model_Info::PAYMENTSTATUS_REFUNDED,
+            'Partially-Refunded' => Mage_Paypal_Model_Info::PAYMENTSTATUS_REFUNDEDPART,
+            'Reversed' => Mage_Paypal_Model_Info::PAYMENTSTATUS_REVERSED,
+            'Canceled-Reversal' => Mage_Paypal_Model_Info::PAYMENTSTATUS_UNREVERSED,
+            'Processed' => Mage_Paypal_Model_Info::PAYMENTSTATUS_PROCESSED,
+            'Voided' => Mage_Paypal_Model_Info::PAYMENTSTATUS_VOIDED,
+            default => null,
+        };
     }
 
     /**
      * Convert payment review action to NVP-compatible value
      *
      * @param  string      $value
-     * @return string|void
+     * @return null|string
      */
     protected function _filterPaymentReviewAction($value)
     {
-        switch ($value) {
-            case Mage_Paypal_Model_Pro::PAYMENT_REVIEW_ACCEPT:
-                return 'Accept';
-            case Mage_Paypal_Model_Pro::PAYMENT_REVIEW_DENY:
-                return 'Deny';
-        }
+        return match ($value) {
+            Mage_Paypal_Model_Pro::PAYMENT_REVIEW_ACCEPT => 'Accept',
+            Mage_Paypal_Model_Pro::PAYMENT_REVIEW_DENY => 'Deny',
+            default => null,
+        };
     }
 
     /**
      * Convert RP management action to NVP format
      *
      * @param  string      $value
-     * @return string|void
+     * @return null|string
      */
     protected function _filterRecurringProfileActionToNvp($value)
     {
-        switch ($value) {
-            case 'cancel':
-                return 'Cancel';
-            case 'suspend':
-                return 'Suspend';
-            case 'activate':
-                return 'Reactivate';
-        }
+        return match ($value) {
+            'cancel' => 'Cancel',
+            'suspend' => 'Suspend',
+            'activate' => 'Reactivate',
+            default => null,
+        };
     }
 
     /**
@@ -1579,10 +1558,9 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
      */
     protected function _prepareExpressCheckoutCallRequest(&$requestFields)
     {
-        if (!$this->_config->shouldUseUnilateralPayments()) {
-            if ($key = array_search('SUBJECT', $requestFields)) {
-                unset($requestFields[$key]);
-            }
+        $key = array_search('SUBJECT', $requestFields);
+        if ($key !== false && !$this->_config->shouldUseUnilateralPayments()) {
+            unset($requestFields[$key]);
         }
     }
 

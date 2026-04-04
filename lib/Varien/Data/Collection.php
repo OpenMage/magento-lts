@@ -134,7 +134,7 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
     {
         if (is_array($field)) {
             // empty array: get all filters
-            if (empty($field)) {
+            if ($field === []) {
                 return $this->_filters;
             }
 

@@ -522,7 +522,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
         /** @var null|array<int, string|string[]> $options */
         $options = $buyRequest->getBundleOption();
         if (is_array($options)) {
-            $options = array_filter($options, fn(mixed $o) => (int) $o !== 0);
+            $options = array_filter($options, fn(mixed $value) => (int) $value !== 0);
             $qtys = $buyRequest->getBundleOptionQty();
             foreach ($options as $_optionId => $_selections) {
                 if (empty($_selections)) {
@@ -532,7 +532,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
 
             $optionIds = array_keys($options);
 
-            if (empty($optionIds) && $isStrictProcessMode) {
+            if ($optionIds === [] && $isStrictProcessMode) {
                 return Mage::helper('bundle')->__('Please select options for product.');
             }
 
@@ -563,7 +563,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
             }
 
             // If product has not been configured yet then $selections array should be empty
-            if (!empty($selectionIds)) {
+            if ($selectionIds !== []) {
                 $selections = $this->getSelectionsByIds($selectionIds, $product);
 
                 // Check if added selections are still on sale
@@ -819,12 +819,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
         /**
          * Product Prices calculations save
          */
-        if ($product->getPriceType()) {
-            $optionArr['product_calculations'] = self::CALCULATE_PARENT;
-        } else {
-            $optionArr['product_calculations'] = self::CALCULATE_CHILD;
-        }
-
+        $optionArr['product_calculations'] = $product->getPriceType() ? self::CALCULATE_PARENT : self::CALCULATE_CHILD;
         $optionArr['shipment_type'] = $product->getShipmentType();
 
         return $optionArr;
@@ -865,12 +860,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
         $this->setStoreFilter($product->getStoreId(), $product);
         $optionIds  = $this->getOptionsCollection($product)->getAllIds();
         $collection = $this->getSelectionsCollection($optionIds, $product);
-
-        if (count($collection) > 0 || $product->getOptions()) {
-            return true;
-        }
-
-        return false;
+        return count($collection) > 0 || $product->getOptions();
     }
 
     /**
@@ -926,7 +916,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
 
         $bundleOption       = $buyRequest->getBundleOption();
 
-        if (empty($bundleOption) && empty($selectionIds)) {
+        if (empty($bundleOption) && $selectionIds === []) {
             Mage::throwException($this->getSpecifyOptionMessage());
         }
 
@@ -943,7 +933,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
         $product->getTypeInstance(true)->setStoreFilter($product->getStoreId(), $product);
         $optionsCollection = $this->getOptionsCollection($product);
         foreach ($optionsCollection->getItems() as $option) {
-            if ($option->getRequired() && empty($selectionIds) && empty($bundleOption[$option->getId()])) {
+            if ($option->getRequired() && $selectionIds === [] && empty($bundleOption[$option->getId()])) {
                 Mage::throwException(
                     Mage::helper('bundle')->__('Required options are not selected.'),
                 );
@@ -999,8 +989,8 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
         /** @var null|string[] $optionQty */
         $optionQty  = $buyRequest->getBundleOptionQty();
 
-        $option     = (is_array($option)) ? array_filter($option, fn(mixed $o) => (int) $o !== 0) : [];
-        $optionQty  = (is_array($optionQty)) ? array_filter($optionQty, fn(mixed $o) => (float) $o !== 0.0) : [];
+        $option     = (is_array($option)) ? array_filter($option, fn(mixed $value) => (int) $value !== 0) : [];
+        $optionQty  = (is_array($optionQty)) ? array_filter($optionQty, fn(mixed $value) => (float) $value !== 0.0) : [];
 
         return [
             'bundle_option'     => $option,

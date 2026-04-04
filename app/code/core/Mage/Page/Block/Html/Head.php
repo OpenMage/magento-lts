@@ -113,21 +113,21 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
      * @param  string      $type
      * @param  string      $name
      * @param  string      $params
-     * @param  string      $if
+     * @param  string      $ifCond
      * @param  string      $cond
      * @param  string      $referenceName name of the item to insert the element before. If name is not found, insert at the end, * has special meaning (before all / before all)
      * @param  bool|string $before        If true insert before the $referenceName instead of after
      * @return $this
      */
-    public function addItem($type, $name, $params = null, $if = null, $cond = null, $referenceName = '*', $before = false)
+    public function addItem($type, $name, $params = null, $ifCond = null, $cond = null, $referenceName = '*', $before = false)
     {
         // allow skipping of parameters in the layout XML files via empty-string
         if ($params === '') {
             $params = null;
         }
 
-        if ($if === '') {
-            $if = null;
+        if ($ifCond === '') {
+            $ifCond = null;
         }
 
         if ($cond === '') {
@@ -142,7 +142,7 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
             'type' => $type,
             'name' => $name,
             'params' => $params,
-            'if' => $if,
+            'if' => $ifCond,
             'cond' => $cond,
         ];
 
@@ -180,21 +180,25 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
         // separate items by types
         $lines  = [];
         foreach ($this->_data['items'] as $item) {
-            if (!is_null($item['cond']) && !$this->getData($item['cond']) || !isset($item['name'])) {
+            if (!is_null($item['cond']) && !$this->getData($item['cond'])) {
                 continue;
             }
 
-            $if     = empty($item['if']) ? '' : $item['if'];
+            if (!isset($item['name'])) {
+                continue;
+            }
+
+            $ifCond = empty($item['if']) ? '' : $item['if'];
             $params = empty($item['params']) ? '' : $item['params'];
             switch ($item['type']) {
                 case 'js':        // js/*.js
                 case 'skin_js':   // skin/*/*.js
                 case 'js_css':    // js/*.css
                 case 'skin_css':  // skin/*/*.css
-                    $lines[$if][$item['type']][$params][$item['name']] = $item['name'];
+                    $lines[$ifCond][$item['type']][$params][$item['name']] = $item['name'];
                     break;
                 default:
-                    $this->_separateOtherHtmlHeadElements($lines, $if, $item['type'], $params, $item['name'], $item);
+                    $this->_separateOtherHtmlHeadElements($lines, $ifCond, $item['type'], $params, $item['name'], $item);
                     break;
             }
         }
@@ -203,12 +207,12 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
         $shouldMergeJs = Mage::getStoreConfigFlag('dev/js/merge_files');
         $shouldMergeCss = Mage::getStoreConfigFlag('dev/css/merge_css_files');
         $html   = '';
-        foreach ($lines as $if => $items) {
+        foreach ($lines as $ifCond => $items) {
             if (empty($items)) {
                 continue;
             }
 
-            if (!empty($if)) {
+            if (!empty($ifCond)) {
                 // @deprecated
                 continue;
             }
@@ -526,12 +530,10 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
         $absolutePath = Mage::getBaseDir('media') . '/' . $folderName . '/' . $storeConfig;
 
         if (!is_null($storeConfig) && $this->_isFile($absolutePath)) {
-            $url = $faviconFile;
-        } else {
-            $url = $this->getSkinUrl('favicon.ico');
+            return $faviconFile;
         }
 
-        return $url;
+        return $this->getSkinUrl('favicon.ico');
     }
 
     /**
