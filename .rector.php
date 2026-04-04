@@ -139,11 +139,10 @@ try {
             CodingStyle\FuncCall\StrictArraySearchRector::class, # todo: TMP
             CodingStyle\If_\NullableCompareToNullRector::class, # todo: TMP
             CodingStyle\PostInc\PostIncDecToPreIncDecRector::class, # todo: TMP
-            DeadCode\Assign\RemoveUnusedVariableAssignRector::class, # todo: TMP
             DeadCode\Cast\RecastingRemovalRector::class, # todo: TMP  (!?!)
             DeadCode\ClassMethod\RemoveUnusedConstructorParamRector::class, # todo: TMP (!?!)
             DeadCode\If_\RemoveAlwaysTrueIfConditionRector::class => [
-                # skip: messes up code .... check later
+                # todo: messes up code .... check later
                 __DIR__ . '/app/design/adminhtml/base/default/template/system/store/tree.phtml',
             ],
             DeadCode\PropertyProperty\RemoveNullPropertyInitializationRector::class, # todo: TMP
