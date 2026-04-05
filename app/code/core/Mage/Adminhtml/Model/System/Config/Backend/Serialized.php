@@ -23,7 +23,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Serialized extends Mage_Core_Mo
             if (!empty($serializedValue) && is_string($serializedValue)) {
                 try {
                     $unserializedValue = Mage::helper('core/unserializeArray')
-                        ->unserialize((string) $serializedValue);
+                        ->unserialize($serializedValue);
                 } catch (Exception $exception) {
                     Mage::logException($exception);
                 }
