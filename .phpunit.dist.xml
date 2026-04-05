@@ -61,11 +61,11 @@
         <testsuite name="Mage_Admin">
             <directory>tests/unit/Mage/Admin</directory>
         </testsuite>
-        <testsuite name="Mage_Adminhtml">
-            <directory>tests/unit/Mage/Adminhtml</directory>
-        </testsuite>
         <testsuite name="Mage_AdminNotification">
             <directory>tests/unit/Mage/AdminNotification</directory>
+        </testsuite>
+        <testsuite name="Mage_Adminhtml">
+            <directory>tests/unit/Mage/Adminhtml</directory>
         </testsuite>
         <testsuite name="Mage_Api">
             <directory>tests/unit/Mage/Api</directory>
