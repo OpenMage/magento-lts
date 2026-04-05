@@ -181,28 +181,13 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
             return false;
         }
 
-        switch ($zone) {
-            case 'product_view':
-                $type = $this->getPriceDisplayType($store);
-                break;
-            case 'product_list':
-                $type = $this->getListPriceDisplayType($store);
-                break;
-            case 'sales':
-                $type = $this->getSalesPriceDisplayType($store);
-                break;
-            case 'email':
-                $type = $this->getEmailPriceDisplayType($store);
-                break;
-            default:
-                if (Mage::registry('current_product')) {
-                    $type = $this->getPriceDisplayType($store);
-                } else {
-                    $type = $this->getListPriceDisplayType($store);
-                }
-
-                break;
-        }
+        $type = match ($zone) {
+            'product_view' => $this->getPriceDisplayType($store),
+            'product_list' => $this->getListPriceDisplayType($store),
+            'sales' => $this->getSalesPriceDisplayType($store),
+            'email' => $this->getEmailPriceDisplayType($store),
+            default => Mage::registry('current_product') ? $this->getPriceDisplayType($store) : $this->getListPriceDisplayType($store),
+        };
 
         if (is_null($compareTo)) {
             return $type;

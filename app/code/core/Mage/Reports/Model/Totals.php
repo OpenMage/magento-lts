@@ -55,11 +55,7 @@ class Mage_Reports_Model_Totals
         foreach ($columns as $field => $arr) {
             if ($arr['total'] == 'avg') {
                 if ($field !== '') {
-                    if ($count != 0) {
-                        $data[$field] = $arr['value'] / $count;
-                    } else {
-                        $data[$field] = 0;
-                    }
+                    $data[$field] = $count != 0 ? $arr['value'] / $count : 0;
                 }
             } elseif ($arr['total'] == 'sum') {
                 if ($field !== '') {

@@ -288,11 +288,7 @@ class Mage_DB_Mysqli
         $count = count($arrNames);
 
         for ($index = 0, $count; $index < $count; $index++) {
-            if ($arrNames[$index] !== 'LAST_INSERT_ID()') {
-                $out[] = $this->escapeFieldValue($arrNames[$index]);
-            } else {
-                $out[] = $arrNames[$index];
-            }
+            $out[] = $arrNames[$index] !== 'LAST_INSERT_ID()' ? $this->escapeFieldValue($arrNames[$index]) : $arrNames[$index];
         }
 
         return $out;

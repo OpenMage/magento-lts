@@ -819,12 +819,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
         /**
          * Product Prices calculations save
          */
-        if ($product->getPriceType()) {
-            $optionArr['product_calculations'] = self::CALCULATE_PARENT;
-        } else {
-            $optionArr['product_calculations'] = self::CALCULATE_CHILD;
-        }
-
+        $optionArr['product_calculations'] = $product->getPriceType() ? self::CALCULATE_PARENT : self::CALCULATE_CHILD;
         $optionArr['shipment_type'] = $product->getShipmentType();
 
         return $optionArr;

@@ -362,17 +362,8 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
             $localminvalue[$index] = min($serie);
         }
 
-        if (is_numeric($this->_max)) {
-            $maxvalue = $this->_max;
-        } else {
-            $maxvalue = max($localmaxvalue);
-        }
-
-        if (is_numeric($this->_min)) {
-            $minvalue = $this->_min;
-        } else {
-            $minvalue = min($localminvalue);
-        }
+        $maxvalue = is_numeric($this->_max) ? $this->_max : max($localmaxvalue);
+        $minvalue = is_numeric($this->_min) ? $this->_min : min($localminvalue);
 
         // default values
         $yLabels = [];

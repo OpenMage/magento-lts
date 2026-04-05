@@ -1458,12 +1458,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Api2/Model/Request/Interpreter.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Call to an undefined method Varien_Data_Collection_Db::addAttributeToFilter().',
-	'identifier' => 'method.notFound',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Api2/Model/Resource.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 7,

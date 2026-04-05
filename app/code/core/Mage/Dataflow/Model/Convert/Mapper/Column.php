@@ -110,11 +110,7 @@ class Mage_Dataflow_Model_Convert_Mapper_Column extends Mage_Dataflow_Model_Conv
             return $this;
         }
 
-        if ($this->getVar('map') && is_array($this->getVar('map'))) {
-            $attributesToSelect = $this->getVar('map');
-        } else {
-            $attributesToSelect = [];
-        }
+        $attributesToSelect = $this->getVar('map') && is_array($this->getVar('map')) ? $this->getVar('map') : [];
 
         if (!$attributesToSelect) {
             $this->getBatchExportModel()

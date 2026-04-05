@@ -188,28 +188,13 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
             $result->setService($request->getLimitMethod());
         }
 
-        if ($request->getFedexAccount()) {
-            $account = $request->getFedexAccount();
-        } else {
-            $account = $this->getConfigData('account');
-        }
-
+        $account = $request->getFedexAccount() ? $request->getFedexAccount() : $this->getConfigData('account');
         $result->setAccount($account);
 
-        if ($request->getFedexDropoff()) {
-            $dropoff = $request->getFedexDropoff();
-        } else {
-            $dropoff = $this->getConfigData('dropoff');
-        }
-
+        $dropoff = $request->getFedexDropoff() ? $request->getFedexDropoff() : $this->getConfigData('dropoff');
         $result->setDropoffType($dropoff);
 
-        if ($request->getFedexPackaging()) {
-            $packaging = $request->getFedexPackaging();
-        } else {
-            $packaging = $this->getConfigData('packaging');
-        }
-
+        $packaging = $request->getFedexPackaging() ? $request->getFedexPackaging() : $this->getConfigData('packaging');
         $result->setPackaging($packaging);
 
         if ($request->getOrigCountry()) {
@@ -232,11 +217,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
             ));
         }
 
-        if ($request->getDestCountryId()) {
-            $destCountry = $request->getDestCountryId();
-        } else {
-            $destCountry = self::USA_COUNTRY_ID;
-        }
+        $destCountry = $request->getDestCountryId() ? $request->getDestCountryId() : self::USA_COUNTRY_ID;
 
         $result->setDestCountry(Mage::getModel('directory/country')->load($destCountry)->getIso2Code());
 

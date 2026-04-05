@@ -42,11 +42,7 @@ abstract class OpenMageTest extends TestCase
         }
 
         foreach ($methods as $key => $value) {
-            if ($expectOnce) {
-                $mockMethod = $mock->expects(self::once())->method($key);
-            } else {
-                $mockMethod = $mock->method($key);
-            }
+            $mockMethod = $expectOnce ? $mock->expects(self::once())->method($key) : $mock->method($key);
 
             if ($value === self::WILL_RETURN_SELF) {
                 $mockMethod->willReturnSelf();

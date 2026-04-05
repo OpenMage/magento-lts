@@ -613,11 +613,7 @@ class Mage_Core_Model_Resource_Setup
                         break;
                     case 'sql':
                         $sql = file_get_contents($fileName);
-                        if (!empty($sql)) {
-                            $result = $this->run($sql);
-                        } else {
-                            $result = true;
-                        }
+                        $result = empty($sql) ? true : $this->run($sql);
 
                         break;
                     default:
@@ -789,11 +785,7 @@ class Mage_Core_Model_Resource_Setup
             $table = $this->getTable($table);
         }
 
-        if (is_array($field)) {
-            $data = $field;
-        } else {
-            $data = [$field => $value];
-        }
+        $data = is_array($field) ? $field : [$field => $value];
 
         $adapter = $this->getConnection();
         $where = [$adapter->quoteIdentifier($idField) . '=?' => $id];
