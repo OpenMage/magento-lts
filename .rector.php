@@ -138,6 +138,10 @@ try {
         ])
         # skip: ... @todo: check later
         ->withSkip([
+            # ... causes issues with Mage_Api2_Model_Auth_Adapter_Oauth::getUserParams()
+            CodeQuality\Catch_\ThrowWithPreviousExceptionRector::class => [
+                __DIR__ . '/app/code/core/Mage/Api2/Model/Auth/Adapter/Oauth.php',
+            ],
             # ... +300 occurrences
             CodeQuality\Equal\UseIdenticalOverEqualWithSameTypeRector::class,
             # ... +300 occurrences
@@ -150,14 +154,16 @@ try {
             ],
             # ... needs closer review
             Php74\Closure\ClosureToArrowFunctionRector::class,
+            # ... needs closer review
+            Php80\ClassMethod\AddParamBasedOnParentClassMethodRector::class => [
+                __DIR__ . '/lib/Varien/Directory/Collection.php',
+            ],
             # ... +300 occurrences
             Php81\FuncCall\NullToStrictStringFuncCallArgRector::class,
+            # ... ~100 occurrences
+            Strict\Empty_\DisallowedEmptyRuleFixerRector::class,
         ])
         ->withSkip([
-            # skip: causes issues with Mage_Api2_Model_Auth_Adapter_Oauth::getUserParams()  # todo: TMP (test again)
-            CodeQuality\Catch_\ThrowWithPreviousExceptionRector::class => [
-                __DIR__ . '/app/code/core/Mage/Api2/Model/Auth/Adapter/Oauth.php',
-            ],
             CodeQuality\Identical\SimplifyBoolIdenticalTrueRector::class, # todo: TMP
             CodeQuality\Include_\AbsolutizeRequireAndIncludePathRector::class, # todo: TMP
             CodingStyle\ClassMethod\FuncGetArgsToVariadicParamRector::class, # todo: TMP
@@ -165,21 +171,15 @@ try {
             CodingStyle\FuncCall\StrictArraySearchRector::class, # todo: TMP
             CodingStyle\If_\NullableCompareToNullRector::class, # todo: TMP
             CodingStyle\PostInc\PostIncDecToPreIncDecRector::class, # todo: TMP
-            DeadCode\Assign\RemoveUnusedVariableAssignRector::class, # todo: TMP
+            DeadCode\Assign\RemoveUnusedVariableAssignRector::class, # todo: WIP
             DeadCode\ClassMethod\RemoveUnusedConstructorParamRector::class, # todo: TMP (!?!)
             DeadCode\PropertyProperty\RemoveNullPropertyInitializationRector::class, # todo: TMP
             DeadCode\TryCatch\RemoveDeadTryCatchRector::class, # todo: TMP  (!?!)
             EarlyReturn\Foreach_\ChangeNestedForeachIfsToEarlyContinueRector::class, # todo: TMP
-            EarlyReturn\If_\ChangeNestedIfsToEarlyReturnRector::class, # todo: TMP ... probably bug found
             Php71\FuncCall\RemoveExtraParametersRector::class, # todo: check later
             # skip: causes issues
             Php74\Assign\NullCoalescingOperatorRector::class,  # todo: TMP (!?!)
-            # see https://github.com/OpenMage/magento-lts/pull/5040
-            Php80\ClassMethod\AddParamBasedOnParentClassMethodRector::class => [
-                __DIR__ . '/lib/Varien/Directory/Collection.php',
-            ],
             Php81\Array_\ArrayToFirstClassCallableRector::class, # todo: TMP
-            Strict\Empty_\DisallowedEmptyRuleFixerRector::class, # todo: TMP
             TypeDeclaration\BooleanAnd\BinaryOpNullableToInstanceofRector::class, # todo: TMP
             # skip: use static methods
             PreferPHPUnitThisCallRector::class,
