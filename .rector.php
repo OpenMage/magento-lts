@@ -93,6 +93,10 @@ try {
             Carbon\FuncCall\TimeFuncCallToCarbonRector::class => [
                 __DIR__ . '/tests/unit/Base/CarbonTest.php',
             ],
+            # skip adding dynamic property to class ... not sure about
+            CodeQuality\Class_\CompleteDynamicPropertiesRector::class => [
+                __DIR__ . '/lib/3Dsecure/XMLParser.php',
+            ],
             # skip classes that throw an exception as a return value, which is not supported by Rector yet
             # see https://github.com/rectorphp/rector/issues/9719
             CodeQuality\ClassMethod\ExplicitReturnNullRector::class => [
@@ -105,6 +109,8 @@ try {
                 __DIR__ . '/app/code/core/Mage/Sales/Model/Order/Payment.php',
                 __DIR__ . '/app/code/core/Mage/Usa/Model/Shipping/Carrier/Abstract/Backend/Abstract.php',
             ],
+            # skip: conflicts with phpstan strict rules
+            Php53\Ternary\TernaryToElvisRector::class,
         ])
         # skip: wait for rector support
         ->withSkip([
@@ -124,17 +130,27 @@ try {
                 __DIR__ . '/lib/Varien/Convert/Parser/Xml/Excel.php',
             ],
         ])
+        # skip: ... @todo: check later
+        ->withSkip([
+            # ... +300 occurrences
+            CodeQuality\Equal\UseIdenticalOverEqualWithSameTypeRector::class,
+            # ... +300 occurrences
+            CodeQuality\If_\ExplicitBoolCompareRector::class,
+            # ... breaks loading website
+            CodeQuality\Isset_\IssetOnPropertyObjectToPropertyExistsRector::class,
+            # ... messes up code
+            DeadCode\If_\RemoveAlwaysTrueIfConditionRector::class => [
+                __DIR__ . '/app/design/adminhtml/base/default/template/system/store/tree.phtml',
+            ],
+        ])
         ->withSkip([
             CodeQuality\BooleanNot\SimplifyDeMorganBinaryRector::class, # todo: TMP (!?!)
             # skip: causes issues with Mage_Api2_Model_Auth_Adapter_Oauth::getUserParams()  # todo: TMP (test again)
             CodeQuality\Catch_\ThrowWithPreviousExceptionRector::class => [
                 __DIR__ . '/app/code/core/Mage/Api2/Model/Auth/Adapter/Oauth.php',
             ],
-            CodeQuality\Equal\UseIdenticalOverEqualWithSameTypeRector::class, # todo: TMP
             CodeQuality\Identical\SimplifyBoolIdenticalTrueRector::class, # todo: TMP
-            CodeQuality\If_\ExplicitBoolCompareRector::class, # todo: TMP
             CodeQuality\Include_\AbsolutizeRequireAndIncludePathRector::class, # todo: TMP
-            CodeQuality\Isset_\IssetOnPropertyObjectToPropertyExistsRector::class, # todo: TMP
             CodingStyle\ClassMethod\FuncGetArgsToVariadicParamRector::class, # todo: TMP
             CodingStyle\Encapsed\EncapsedStringsToSprintfRector::class, # todo: TMP
             CodingStyle\FuncCall\StrictArraySearchRector::class, # todo: TMP
@@ -143,16 +159,10 @@ try {
             DeadCode\Assign\RemoveUnusedVariableAssignRector::class, # todo: TMP
             DeadCode\Cast\RecastingRemovalRector::class, # todo: TMP  (!?!)
             DeadCode\ClassMethod\RemoveUnusedConstructorParamRector::class, # todo: TMP (!?!)
-            DeadCode\If_\RemoveAlwaysTrueIfConditionRector::class => [
-                # skip: messes up code .... check later
-                __DIR__ . '/app/design/adminhtml/base/default/template/system/store/tree.phtml',
-            ],
             DeadCode\PropertyProperty\RemoveNullPropertyInitializationRector::class, # todo: TMP
             DeadCode\TryCatch\RemoveDeadTryCatchRector::class, # todo: TMP  (!?!)
             EarlyReturn\Foreach_\ChangeNestedForeachIfsToEarlyContinueRector::class, # todo: TMP
             EarlyReturn\If_\ChangeNestedIfsToEarlyReturnRector::class, # todo: TMP ... probably bug found
-            # skip: may conflict with phpstan strict rules
-            Php53\Ternary\TernaryToElvisRector::class, # todo: TMP (!?!)
             Php71\FuncCall\RemoveExtraParametersRector::class, # todo: check later
             # skip: causes issues with some tests  # todo: TMP (!?!)
             Php74\Closure\ClosureToArrowFunctionRector::class,  # todo: TMP (!?!)

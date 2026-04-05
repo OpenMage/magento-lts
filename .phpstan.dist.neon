@@ -15,6 +15,7 @@ parameters:
     strictRules:
         allRules: false
         disallowedEmpty: true
+        disallowedShortTernary: true
         dynamicCallOnStaticMethod: true
         matchingInheritedMethodNames: true
     stubFiles:
