@@ -123,8 +123,12 @@ class Mage_Downloadable_Helper_Download extends Mage_Core_Helper_Abstract
                 }
 
                 if ($this->_handle === false) {
-                    Mage::throwException(Mage::helper('downloadable')->__(
-                        'Cannot connect to remote host, error: %s, code: %s.', $errstr, $errno)
+                    Mage::throwException(
+                        Mage::helper('downloadable')->__(
+                            'Cannot connect to remote host, error: %s, code: %s.',
+                            $errstr,
+                            $errno,
+                        ),
                     );
                 }
 
