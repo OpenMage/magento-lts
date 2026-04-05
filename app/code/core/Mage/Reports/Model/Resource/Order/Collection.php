@@ -36,7 +36,7 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
      */
     public function checkIsLive($range)
     {
-        $this->_isLive = (bool) !Mage::getStoreConfig('sales/dashboard/use_aggregated_data');
+        $this->_isLive = !Mage::getStoreConfig('sales/dashboard/use_aggregated_data');
         return $this;
     }
 

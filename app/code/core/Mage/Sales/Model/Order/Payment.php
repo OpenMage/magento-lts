@@ -1246,7 +1246,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
             && $this->getBaseAmountCanceled() == 0
             && $authTransaction->canVoidAuthorizationCompletely()
         ) {
-            $amount = (float) $order->getBaseGrandTotal();
+            $amount = $order->getBaseGrandTotal();
         }
 
         if ($amount) {
