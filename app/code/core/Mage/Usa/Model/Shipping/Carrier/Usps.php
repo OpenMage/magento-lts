@@ -132,7 +132,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
 
         $this->_updateFreeMethodQuote($request);
 
-        return $this->getResult(); // @phpstan-ignore return.type
+        return $this->getResult();
     }
 
     /**
@@ -1626,16 +1626,16 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
         }
 
         if ($code === '') {
-            return $codes[$type]; // @phpstan-ignore return.type
+            return $codes[$type];
         }
 
-        return $codes[$type][$code] ?? false; // @phpstan-ignore return.type
+        return $codes[$type][$code] ?? false;
     }
 
     /**
      * Get tracking
      *
-     * @param  mixed $trackingData
+     * @param  mixed                                    $trackingData
      * @return null|Mage_Shipping_Model_Tracking_Result
      */
     public function getTracking($trackingData)
