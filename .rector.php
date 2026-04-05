@@ -111,6 +111,10 @@ try {
             ],
             # skip: conflicts with phpstan strict rules
             Php53\Ternary\TernaryToElvisRector::class,
+            # skip: changes method signature
+            TypeDeclaration\ClassMethod\ReturnNeverTypeRector::class,
+            # skip: strict_type cannot be applied to OpenMage codebase - yet
+            TypeDeclaration\StmtsAwareInterface\DeclareStrictTypesRector::class,
         ])
         # skip: wait for rector support
         ->withSkip([
@@ -142,6 +146,8 @@ try {
             DeadCode\If_\RemoveAlwaysTrueIfConditionRector::class => [
                 __DIR__ . '/app/design/adminhtml/base/default/template/system/store/tree.phtml',
             ],
+            # ... +300 occurrences
+            Php81\FuncCall\NullToStrictStringFuncCallArgRector::class,
         ])
         ->withSkip([
             CodeQuality\BooleanNot\SimplifyDeMorganBinaryRector::class, # todo: TMP (!?!)
@@ -173,12 +179,8 @@ try {
                 __DIR__ . '/lib/Varien/Directory/Collection.php',
             ],
             Php81\Array_\ArrayToFirstClassCallableRector::class, # todo: TMP
-            Php81\FuncCall\NullToStrictStringFuncCallArgRector::class, # todo: check later
             Strict\Empty_\DisallowedEmptyRuleFixerRector::class, # todo: TMP
             TypeDeclaration\BooleanAnd\BinaryOpNullableToInstanceofRector::class, # todo: TMP
-            TypeDeclaration\ClassMethod\ReturnNeverTypeRector::class,
-            # skip: strict_type cannot be applied to OpenMage codebase - yet
-            TypeDeclaration\StmtsAwareInterface\DeclareStrictTypesRector::class,
             # skip: use static methods
             PreferPHPUnitThisCallRector::class,
             __DIR__ . '/shell/translations.php',
