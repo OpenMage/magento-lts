@@ -494,8 +494,8 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function copyFieldset($fieldset, $aspect, $source, $target, $root = 'global')
     {
-        if (!is_array($source) && !$source instanceof Varien_Object
-            || !is_array($target) && !$target instanceof Varien_Object
+        if ((!is_array($source) && !($source instanceof Varien_Object))
+            || (!is_array($target) && !($target instanceof Varien_Object))
         ) {
             return false;
         }
