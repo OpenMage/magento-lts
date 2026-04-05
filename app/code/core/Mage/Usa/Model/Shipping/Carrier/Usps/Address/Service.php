@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use Carbon\Carbon;
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -278,7 +280,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Address_Service extends Mage_Usa_Mode
 
         // Mark as verified
         $address->setData('usps_address_verified', true);
-        $address->setData('usps_address_verified_at', \Carbon\Carbon::now()->format('Y-m-d H:i:s'));
+        $address->setData('usps_address_verified_at', Carbon::now()->format('Y-m-d H:i:s'));
 
         $this->_debug([
             'action' => 'apply_correction',

@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use Carbon\Carbon;
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -43,11 +45,11 @@ class Mage_Usa_Adminhtml_UspsController extends Mage_Adminhtml_Controller_Action
     {
         if ($storeCode) {
             return Mage::getStoreConfig($path, $storeCode);
-        } elseif ($websiteCode) {
-            return Mage::app()->getWebsite($websiteCode)->getConfig($path);
-        } else {
-            return Mage::getStoreConfig($path);
         }
+        if ($websiteCode) {
+            return Mage::app()->getWebsite($websiteCode)->getConfig($path);
+        }
+        return Mage::getStoreConfig($path);
     }
 
     public function createdimensionsAction(): void
@@ -166,7 +168,7 @@ class Mage_Usa_Adminhtml_UspsController extends Mage_Adminhtml_Controller_Action
                 'height' => 2.0,
                 'mailClasses' => ['USPS_GROUND_ADVANTAGE', 'PRIORITY_MAIL', 'PRIORITY_MAIL_EXPRESS'],
                 'priceType' => 'COMMERCIAL',
-                'mailingDate' => \Carbon\Carbon::now()->format('Y-m-d'),
+                'mailingDate' => Carbon::now()->format('Y-m-d'),
             ];
 
             $curl = curl_init();

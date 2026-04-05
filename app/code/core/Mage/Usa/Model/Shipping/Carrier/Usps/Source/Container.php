@@ -21,6 +21,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Source_Container
         if (!is_array($codes)) {
             return [];
         }
+
         $arr = [];
         foreach ($codes as $key => $value) {
             $arr[] = ['value' => $key, 'label' => $value];

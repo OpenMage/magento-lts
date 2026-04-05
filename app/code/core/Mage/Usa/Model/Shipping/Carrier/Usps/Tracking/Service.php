@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use Carbon\Carbon;
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -214,10 +216,10 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Tracking_Service
             try {
                 $eventTimestamp = new DateTime($activityTag['eventTimestamp']);
             } catch (Exception) {
-                $eventTimestamp = \Carbon\Carbon::now();
+                $eventTimestamp = Carbon::now();
             }
         } else {
-            $eventTimestamp = \Carbon\Carbon::now();
+            $eventTimestamp = Carbon::now();
         }
 
         $date = $eventTimestamp->format('Y-m-d');

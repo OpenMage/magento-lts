@@ -70,13 +70,13 @@ abstract class Mage_Usa_Block_Adminhtml_System_Config_Form_Field_Usps_AbstractTe
         $website = $this->getRequest()->getParam('website', '');
         $store = $this->getRequest()->getParam('store', '');
 
-        $html = '<button type="button" id="' . (string) $this->escapeHtml($buttonId) . '"'
+        $html = '<button type="button" id="' . $this->escapeHtml($buttonId) . '"'
               . ' data-ajax-url="' . $this->escapeUrl($ajaxUrl) . '"'
-              . ' data-website="' . (string) $this->escapeHtml($website) . '"'
-              . ' data-store="' . (string) $this->escapeHtml($store) . '"'
+              . ' data-website="' . $this->escapeHtml($website) . '"'
+              . ' data-store="' . $this->escapeHtml($store) . '"'
               . ' class="scalable">'
               . '<span>' . $buttonLabel . '</span></button>';
-        $html .= '<div id="' . (string) $this->escapeHtml($resultDivId) . '" style="margin-top:10px;"></div>';
+        $html .= '<div id="' . $this->escapeHtml($resultDivId) . '" style="margin-top:10px;"></div>';
 
         $onSuccessJs = $this->_getOnSuccessJs();
 

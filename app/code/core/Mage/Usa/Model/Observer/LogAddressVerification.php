@@ -23,11 +23,11 @@ use Monolog\Level;
  */
 final class Mage_Usa_Model_Observer_LogAddressVerification implements Mage_Core_Observer_Interface
 {
-    protected ?Mage_Usa_Model_Shipping_Carrier_Usps_Address_Service $_addressService = null;
+    private ?Mage_Usa_Model_Shipping_Carrier_Usps_Address_Service $_addressService = null;
 
     protected function _getAddressService(): Mage_Usa_Model_Shipping_Carrier_Usps_Address_Service
     {
-        if (!$this->_addressService instanceof \Mage_Usa_Model_Shipping_Carrier_Usps_Address_Service) {
+        if (!$this->_addressService instanceof Mage_Usa_Model_Shipping_Carrier_Usps_Address_Service) {
             $this->_addressService = Mage::getModel('usa/shipping_carrier_usps_address_service');
         }
 

@@ -41,7 +41,7 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Usps_AbstractService
      */
     protected function _getClient(): Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
     {
-        if (!$this->_client instanceof \Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client) {
+        if (!$this->_client instanceof Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client) {
             $this->_client = Mage::getModel('usa/shipping_carrier_usps_rest_client');
 
             $baseUrl = Mage::getStoreConfig('carriers/usps/gateway_url');

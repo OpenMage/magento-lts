@@ -110,7 +110,7 @@ class Mage_Usa_Model_Shipping_Carrier_UspsAuth extends Mage_Usa_Model_Shipping_C
                 // Direct diagnostic logging
 
                 $this->_debug([
-                    'error' => "cURL Error: ($code) $description - \"$message\"",
+                    'error' => "cURL Error: ({$code}) {$description} - \"{$message}\"",
                     '__pid' => getmypid(),
                 ]);
                 return null;
@@ -205,6 +205,7 @@ class Mage_Usa_Model_Shipping_Carrier_UspsAuth extends Mage_Usa_Model_Shipping_C
 
     /**
      * @inheritDoc
+     * @return array{}
      */
     public function getAllowedMethods(): array
     {

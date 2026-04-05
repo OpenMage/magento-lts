@@ -6,14 +6,13 @@
  * @license    Open Software License (OSL 3.0)
  * @package    Mage_Usa
  */
-
 /**
  * USPS shipping rates estimation
  *
  * @link       http://www.usps.com/webtools/htm/Development-Guide-v3-0b.htm
  * @package    Mage_Usa
  */
-
+use Carbon\Carbon;
 use Monolog\Level;
 
 class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carrier_Abstract implements Mage_Shipping_Model_Carrier_Interface
@@ -97,9 +96,16 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
     /**
      * Rate result data
      *
-     * @var null|Mage_Shipping_Model_Rate_Result|Mage_Shipping_Model_Tracking_Result
+     * @var null|Mage_Shipping_Model_Rate_Result
      */
     protected $_result = null;
+
+    /**
+     * Tracking result data
+     *
+     * @var null|Mage_Shipping_Model_Tracking_Result
+     */
+    protected $_trackingResult = null;
 
     /**
      * Container types that could be customized for USPS carrier
@@ -126,7 +132,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
 
         $this->_updateFreeMethodQuote($request);
 
-        return $this->getResult();
+        return $this->getResult(); // @phpstan-ignore return.type
     }
 
     /**
@@ -240,7 +246,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
     /**
      * Get result of request
      *
-     * @return null|Mage_Shipping_Model_Rate_Result|Mage_Shipping_Model_Tracking_Result
+     * @return null|Mage_Shipping_Model_Rate_Result
      */
     public function getResult()
     {
@@ -386,7 +392,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
     }
 
     /**
-     * Append a tracking error to $this->_result
+     * Append a tracking error to $this->_trackingResult
      *
      * Initializes the tracking result if not yet created.
      *
@@ -394,8 +400,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
      */
     protected function _appendTrackingError(string $message): void
     {
-        if (!$this->_result) {
-            $this->_result = Mage::getModel('shipping/tracking_result');
+        if (!$this->_trackingResult) {
+            $this->_trackingResult = Mage::getModel('shipping/tracking_result');
         }
 
         /** @var Mage_Shipping_Model_Tracking_Result_Error $error */
@@ -404,7 +410,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
         $error->setCarrierTitle($this->getConfigData('title'));
         $error->setErrorMessage($message);
 
-        $this->_result->append($error);
+        $this->_trackingResult->append($error);
     }
 
     /**
@@ -575,7 +581,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
         $isDomestic = $this->_isUSCountry($rawRequest->getDestCountryId());
 
         // Build single request payload without specifying mail class to get all rates
-        $requestPayload = $this->_buildRestRateRequest($rawRequest, $isDomestic, null);
+        $requestPayload = $this->_buildRestRateRequest($rawRequest, $isDomestic);
 
         // Build cart/quote fingerprint to prevent cached rates from different cart contents
         $cartFingerprint = $this->_buildCartFingerprint($rawRequest);
@@ -785,7 +791,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
                 'destinationEntryFacilityType' => 'NONE',
                 'rateIndicator' => 'DR',
                 'priceType' => $priceType,
-                'mailingDate' => \Carbon\Carbon::now()->format('Y-m-d'),
+                'mailingDate' => Carbon::now()->format('Y-m-d'),
             ];
 
             // Add account info for commercial pricing
@@ -814,7 +820,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
             'destinationEntryFacilityType' => 'NONE',
             'rateIndicator' => 'SP',
             'priceType' => $priceType,
-            'mailingDate' => \Carbon\Carbon::now()->format('Y-m-d'),
+            'mailingDate' => Carbon::now()->format('Y-m-d'),
         ];
         // Add account info for commercial pricing
         if ($priceType === 'COMMERCIAL' && $accountNumber) {
@@ -864,6 +870,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
             : $rawRequest->getBaseSubtotalInclTax();
 
         // Sort by SKU to ensure consistent hash regardless of item order
+        /** @phpstan-ignore argument.unresolvableType */
         usort($cartData, function ($a, $b) {
             /** @var array|mixed $a */
             /** @var array|mixed $b */
@@ -1619,17 +1626,17 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
         }
 
         if ($code === '') {
-            return $codes[$type];
+            return $codes[$type]; // @phpstan-ignore return.type
         }
 
-        return $codes[$type][$code] ?? false;
+        return $codes[$type][$code] ?? false; // @phpstan-ignore return.type
     }
 
     /**
      * Get tracking
      *
-     * @param  mixed                                                                    $trackingData
-     * @return null|Mage_Shipping_Model_Rate_Result|Mage_Shipping_Model_Tracking_Result
+     * @param  mixed $trackingData
+     * @return null|Mage_Shipping_Model_Tracking_Result
      */
     public function getTracking($trackingData)
     {
@@ -1641,7 +1648,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
 
         $this->_getRestTracking($trackingData);
 
-        return $this->_result;
+        return $this->_trackingResult;
     }
 
     /**
@@ -1673,7 +1680,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
             $this->_debug($debugData);
 
             if ($result) {
-                $this->_result = $result;
+                $this->_trackingResult = $result;
             } else {
                 $this->_appendTrackingError(Mage::helper('usa')->__('Unable to retrieve tracking'));
             }
@@ -2118,7 +2125,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
                 'weightUOM' => 'lb',
                 'weight' => round($packageWeight, 2),
                 'processingCategory' => 'MACHINABLE',
-                'mailingDate' => \Carbon\Carbon::now()->format('Y-m-d'),
+                'mailingDate' => Carbon::now()->format('Y-m-d'),
                 'destinationEntryFacilityType' => 'NONE',
             ],
         ];
