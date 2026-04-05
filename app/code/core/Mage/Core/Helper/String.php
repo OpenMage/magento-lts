@@ -362,7 +362,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
      */
     protected function _validateQueryStr($str)
     {
-        return !(!$str || !str_contains($str, '='));
+        return $str && str_contains($str, '=');
     }
 
     /**
