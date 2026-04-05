@@ -86,7 +86,7 @@
     </rule>
     <rule ref="rulesets/naming.xml/ShortVariable">
         <properties>
-            <property name="exceptions" value="a,b,id,i,j" />
+            <property name="exceptions" value="_,a,b,id,i,j" />
         </properties>
     </rule>
 
