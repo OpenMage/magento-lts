@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\CatalogSearch\Model\Resource\Helper;
 
 use Mage;
-use Mage_CatalogSearch_Model_Resource_Helper_Mysql4 as Subject;
+use Mage_CatalogSearch_Model_Resource_Helper_Mysql4 as Subject; // phpcs:ignore Ecg.Classes.Mysql4.Found
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\CatalogSearch\Model\Resource\Helper\Mysql4Trait;
 

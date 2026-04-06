@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Install\Block\Db\Type;
 
-use Mage_Install_Block_Db_Type_Mysql4 as Subject;
+use Mage_Install_Block_Db_Type_Mysql4 as Subject; // phpcs:ignore Ecg.Classes.Mysql4.Found
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Install\Block\Db\Type\Mysql4Trait;
 
