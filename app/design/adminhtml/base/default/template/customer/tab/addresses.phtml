@@ -305,6 +305,7 @@ addressesModel.prototype = {
     },
 
     setActiveItem : function(item){
+        if (!item) return;
         if(this.activeItem){
             this.activeItem.classList.remove('on');
             if(document.getElementById('form_'+this.activeItem.id)){
