@@ -379,7 +379,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
                 ->from($attributeTable)
                 ->where('entity_type_id = ?', (int) $attributeData['entity_type_id'])
                 ->where('attribute_id = ?', (int) $attributeData['attribute_id'])
-                ->where('store_id = ?', (int) $attributeData['store_id'])
+                ->where('store_id = ?', $attributeData['store_id'])
                 ->where('entity_id = ?', (int) $attributeData['entity_id']);
 
             $row = $adapter->fetchRow($select);
@@ -534,7 +534,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
                 ->from($attributeTable)
                 ->where('entity_type_id = ?', (int) $attributeData['entity_type_id'])
                 ->where('attribute_id = ?', (int) $attributeData['attribute_id'])
-                ->where('store_id = ?', (int) $attributeData['store_id'])
+                ->where('store_id = ?', $attributeData['store_id'])
                 ->where('entity_id = ?', (int) $attributeData['entity_id']);
 
             $row = $adapter->fetchRow($select);

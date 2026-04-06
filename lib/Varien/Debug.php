@@ -182,7 +182,7 @@ class Varien_Debug
             $arg = strtr($arg, ["\t" => '\t', "\r" => '\r', "\n" => '\n', "'" => '\\\'']);
             $out .= "'" . $arg . "'";
         } elseif (is_bool($arg)) {
-            $out .= $arg === true ? 'true' : 'false';
+            $out .= $arg ? 'true' : 'false';
         }
 
         return $out;

@@ -165,7 +165,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
                 }
             }
 
-            $this->_originalPathInfo = (string) $pathInfo;
+            $this->_originalPathInfo = $pathInfo;
 
             $this->_requestString = $pathInfo . ($pos !== false ? substr($requestUri, $pos) : '');
         }

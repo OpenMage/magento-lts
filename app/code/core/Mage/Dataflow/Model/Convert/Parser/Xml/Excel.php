@@ -150,7 +150,7 @@ class Mage_Dataflow_Model_Convert_Parser_Xml_Excel extends Mage_Dataflow_Model_C
     protected function _parseXmlRow($xmlString)
     {
         $found = true;
-        while ($found === true) {
+        while ($found) {
             $strposS = strpos($xmlString, '<Row');
 
             if ($strposS === false) {

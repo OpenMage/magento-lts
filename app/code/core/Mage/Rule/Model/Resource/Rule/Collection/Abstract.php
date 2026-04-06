@@ -74,7 +74,7 @@ abstract class Mage_Rule_Model_Resource_Rule_Collection_Abstract extends Mage_Co
      */
     public function addWebsitesToResult($flag = null)
     {
-        $flag = $flag ?? true;
+        $flag ??= true;
         $this->setFlag('add_websites_to_result', $flag);
         return $this;
     }
