@@ -166,6 +166,8 @@ try {
             Php81\FuncCall\NullToStrictStringFuncCallArgRector::class,
             # ... ~100 occurrences
             Strict\Empty_\DisallowedEmptyRuleFixerRector::class,
+            # ... will be added after rector-update 2.4.0
+            TypeDeclaration\StmtsAwareInterface\SafeDeclareStrictTypesRector::class,
         ])
         ->withSkip([
             CodeQuality\Include_\AbsolutizeRequireAndIncludePathRector::class, # todo: TMP
