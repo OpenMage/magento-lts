@@ -1304,16 +1304,16 @@
         },
         {
             "name": "mklkj/tinymce-i18n",
-            "version": "26.3.23",
+            "version": "26.3.30",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mklkj/tinymce-i18n.git",
-                "reference": "d5d5b67f2876d277f80f5eccdea81ae86ba78070"
+                "reference": "2d2c1d4c8e0e3bf0fc9c7b5cab6217c0c4e5e937"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mklkj/tinymce-i18n/zipball/d5d5b67f2876d277f80f5eccdea81ae86ba78070",
-                "reference": "d5d5b67f2876d277f80f5eccdea81ae86ba78070",
+                "url": "https://api.github.com/repos/mklkj/tinymce-i18n/zipball/2d2c1d4c8e0e3bf0fc9c7b5cab6217c0c4e5e937",
+                "reference": "2d2c1d4c8e0e3bf0fc9c7b5cab6217c0c4e5e937",
                 "shasum": ""
             },
             "type": "library",
@@ -1336,9 +1336,9 @@
             ],
             "support": {
                 "issues": "https://github.com/mklkj/tinymce-i18n/issues",
-                "source": "https://github.com/mklkj/tinymce-i18n/tree/26.3.23"
+                "source": "https://github.com/mklkj/tinymce-i18n/tree/26.3.30"
             },
-            "time": "2026-03-23T12:38:59+00:00"
+            "time": "2026-03-30T11:07:30+00:00"
         },
         {
             "name": "monolog/monolog",
