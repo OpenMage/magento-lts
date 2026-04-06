@@ -843,7 +843,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
             return $validatedValue == $value;
         }
 
-        $validatedValue = $validatedValue ?? '';
+        $validatedValue ??= '';
         $validatePattern = preg_quote($validatedValue, '~');
         if ($strict) {
             $validatePattern = '^' . $validatePattern . '$';

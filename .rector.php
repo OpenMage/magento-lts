@@ -182,8 +182,6 @@ try {
             DeadCode\TryCatch\RemoveDeadTryCatchRector::class, # todo: TMP  (!?!)
             EarlyReturn\Foreach_\ChangeNestedForeachIfsToEarlyContinueRector::class, # todo: TMP
             Php71\FuncCall\RemoveExtraParametersRector::class, # todo: check later
-            # skip: causes issues
-            Php74\Assign\NullCoalescingOperatorRector::class,  # todo: TMP (!?!)
             Php81\Array_\ArrayToFirstClassCallableRector::class, # todo: TMP
             TypeDeclaration\BooleanAnd\BinaryOpNullableToInstanceofRector::class, # todo: TMP
             # skip: use static methods
