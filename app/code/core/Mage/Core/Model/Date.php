@@ -59,7 +59,7 @@ class Mage_Core_Model_Date
             $result = date_default_timezone_set($timezone);
         }
 
-        if ($result === true) {
+        if ($result) {
             $offset = (int) Carbon::now()->format('Z');
         }
 
