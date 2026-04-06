@@ -11,6 +11,4 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Traits\DataProvider\Mage\Api2\Block\Adminhtml\Permissions\User\Edit\Tab;
 
-trait RolesTrait
-{
-}
+trait RolesTrait {}

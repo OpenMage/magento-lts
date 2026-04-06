@@ -11,6 +11,4 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Traits\DataProvider\Mage\CatalogInventory\Model\Resource\Stock;
 
-trait StatusTrait
-{
-}
+trait StatusTrait {}

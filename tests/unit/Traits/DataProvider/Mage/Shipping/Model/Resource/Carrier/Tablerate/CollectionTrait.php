@@ -11,6 +11,4 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Traits\DataProvider\Mage\Shipping\Model\Resource\Carrier\Tablerate;
 
-trait CollectionTrait
-{
-}
+trait CollectionTrait {}

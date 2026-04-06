@@ -11,6 +11,4 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Traits\DataProvider\Mage\CatalogInventory\Block\Adminhtml\Form\Field;
 
-trait MinsaleqtyTrait
-{
-}
+trait MinsaleqtyTrait {}

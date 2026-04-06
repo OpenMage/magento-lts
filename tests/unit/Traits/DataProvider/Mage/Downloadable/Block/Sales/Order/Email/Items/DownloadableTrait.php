@@ -11,6 +11,4 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Traits\DataProvider\Mage\Downloadable\Block\Sales\Order\Email\Items;
 
-trait DownloadableTrait
-{
-}
+trait DownloadableTrait {}

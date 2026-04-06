@@ -11,6 +11,4 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Traits\DataProvider\Mage\CatalogSearch\Model\Resource;
 
-trait FulltextTrait
-{
-}
+trait FulltextTrait {}

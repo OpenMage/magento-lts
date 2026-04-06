@@ -11,6 +11,4 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Traits\DataProvider\Mage\Payment\Model\Method;
 
-trait CashondeliveryTrait
-{
-}
+trait CashondeliveryTrait {}

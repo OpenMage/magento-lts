@@ -11,6 +11,4 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Traits\DataProvider\Mage\GiftMessage\Model\Entity\Attribute\Backend\Boolean;
 
-trait ConfigTrait
-{
-}
+trait ConfigTrait {}

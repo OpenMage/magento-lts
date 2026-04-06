@@ -11,6 +11,4 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Traits\DataProvider\Mage\Downloadable\Block\Checkout\Cart\Item;
 
-trait RendererTrait
-{
-}
+trait RendererTrait {}

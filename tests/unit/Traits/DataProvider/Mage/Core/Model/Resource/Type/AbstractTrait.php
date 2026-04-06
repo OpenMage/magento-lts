@@ -11,6 +11,4 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\Model\Resource\Type;
 
-trait AbstractTrait
-{
-}
+trait AbstractTrait {}

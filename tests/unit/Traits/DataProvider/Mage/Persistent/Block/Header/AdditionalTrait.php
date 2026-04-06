@@ -11,6 +11,4 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Traits\DataProvider\Mage\Persistent\Block\Header;
 
-trait AdditionalTrait
-{
-}
+trait AdditionalTrait {}

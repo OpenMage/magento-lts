@@ -11,6 +11,4 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Model\System\Config\Source\Cms\Wysiwyg;
 
-trait EnabledTrait
-{
-}
+trait EnabledTrait {}

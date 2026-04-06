@@ -11,6 +11,4 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Traits\DataProvider\Mage\Directory\Model\Resource\Region;
 
-trait CollectionTrait
-{
-}
+trait CollectionTrait {}

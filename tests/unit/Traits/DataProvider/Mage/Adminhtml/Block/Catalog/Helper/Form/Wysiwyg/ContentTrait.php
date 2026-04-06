@@ -11,6 +11,4 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\Catalog\Helper\Form\Wysiwyg;
 
-trait ContentTrait
-{
-}
+trait ContentTrait {}

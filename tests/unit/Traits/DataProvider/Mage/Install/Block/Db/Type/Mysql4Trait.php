@@ -11,6 +11,4 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Traits\DataProvider\Mage\Install\Block\Db\Type;
 
-trait Mysql4Trait
-{
-}
+trait Mysql4Trait {}

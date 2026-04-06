@@ -11,6 +11,4 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Traits\DataProvider\Mage\Eav\Model\Resource\Entity\Attribute\Option;
 
-trait SwatchTrait
-{
-}
+trait SwatchTrait {}

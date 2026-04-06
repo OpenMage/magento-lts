@@ -11,6 +11,4 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Traits\DataProvider\Mage\Api\Model\Server\V2;
 
-trait HandlerTrait
-{
-}
+trait HandlerTrait {}

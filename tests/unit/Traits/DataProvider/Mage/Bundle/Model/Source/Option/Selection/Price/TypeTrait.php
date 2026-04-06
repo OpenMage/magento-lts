@@ -11,6 +11,4 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Traits\DataProvider\Mage\Bundle\Model\Source\Option\Selection\Price;
 
-trait TypeTrait
-{
-}
+trait TypeTrait {}

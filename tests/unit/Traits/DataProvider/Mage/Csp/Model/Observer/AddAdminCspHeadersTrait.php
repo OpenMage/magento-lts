@@ -11,6 +11,4 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Traits\DataProvider\Mage\Csp\Model\Observer;
 
-trait AddAdminCspHeadersTrait
-{
-}
+trait AddAdminCspHeadersTrait {}

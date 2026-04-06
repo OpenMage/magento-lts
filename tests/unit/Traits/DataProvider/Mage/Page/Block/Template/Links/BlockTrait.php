@@ -11,6 +11,4 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Traits\DataProvider\Mage\Page\Block\Template\Links;
 
-trait BlockTrait
-{
-}
+trait BlockTrait {}

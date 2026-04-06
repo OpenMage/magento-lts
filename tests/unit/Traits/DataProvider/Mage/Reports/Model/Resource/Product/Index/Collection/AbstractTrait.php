@@ -11,6 +11,4 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Traits\DataProvider\Mage\Reports\Model\Resource\Product\Index\Collection;
 
-trait AbstractTrait
-{
-}
+trait AbstractTrait {}

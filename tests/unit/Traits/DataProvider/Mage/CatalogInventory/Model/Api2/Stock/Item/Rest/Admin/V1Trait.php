@@ -11,6 +11,4 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Traits\DataProvider\Mage\CatalogInventory\Model\Api2\Stock\Item\Rest\Admin;
 
-trait V1Trait
-{
-}
+trait V1Trait {}

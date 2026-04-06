@@ -11,6 +11,4 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Traits\DataProvider\Mage\Downloadable\Model\Resource\Link\Purchased\Item;
 
-trait CollectionTrait
-{
-}
+trait CollectionTrait {}

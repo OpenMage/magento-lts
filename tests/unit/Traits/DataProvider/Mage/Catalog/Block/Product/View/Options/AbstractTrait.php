@@ -11,6 +11,4 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\Block\Product\View\Options;
 
-trait AbstractTrait
-{
-}
+trait AbstractTrait {}

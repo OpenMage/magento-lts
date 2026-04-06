@@ -11,6 +11,4 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Traits\DataProvider\Mage\ConfigurableSwatches\Model\System\Config\Source\Catalog\Product;
 
-trait ConfigattributeTrait
-{
-}
+trait ConfigattributeTrait {}

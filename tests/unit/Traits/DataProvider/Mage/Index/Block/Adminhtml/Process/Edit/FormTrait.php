@@ -11,6 +11,4 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Traits\DataProvider\Mage\Index\Block\Adminhtml\Process\Edit;
 
-trait FormTrait
-{
-}
+trait FormTrait {}

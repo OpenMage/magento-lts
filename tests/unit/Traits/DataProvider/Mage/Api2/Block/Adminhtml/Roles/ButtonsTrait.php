@@ -11,6 +11,4 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Traits\DataProvider\Mage\Api2\Block\Adminhtml\Roles;
 
-trait ButtonsTrait
-{
-}
+trait ButtonsTrait {}

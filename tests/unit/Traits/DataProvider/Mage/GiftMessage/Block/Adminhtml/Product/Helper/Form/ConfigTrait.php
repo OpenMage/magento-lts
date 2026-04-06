@@ -11,6 +11,4 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Traits\DataProvider\Mage\GiftMessage\Block\Adminhtml\Product\Helper\Form;
 
-trait ConfigTrait
-{
-}
+trait ConfigTrait {}

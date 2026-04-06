@@ -11,6 +11,4 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Traits\DataProvider\Mage\Weee\Model\Resource;
 
-trait TaxTrait
-{
-}
+trait TaxTrait {}

@@ -11,6 +11,4 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Traits\DataProvider\Mage\Eav\Model\Entity\Attribute;
 
-trait GroupTrait
-{
-}
+trait GroupTrait {}

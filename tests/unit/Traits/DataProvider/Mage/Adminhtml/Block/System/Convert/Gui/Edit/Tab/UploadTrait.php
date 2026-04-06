@@ -11,6 +11,4 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\System\Convert\Gui\Edit\Tab;
 
-trait UploadTrait
-{
-}
+trait UploadTrait {}

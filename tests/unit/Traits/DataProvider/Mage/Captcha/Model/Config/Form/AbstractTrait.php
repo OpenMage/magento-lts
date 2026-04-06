@@ -11,6 +11,4 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Traits\DataProvider\Mage\Captcha\Model\Config\Form;
 
-trait AbstractTrait
-{
-}
+trait AbstractTrait {}

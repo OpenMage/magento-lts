@@ -11,6 +11,4 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Traits\DataProvider\Mage\Bundle\Block\Adminhtml\Sales\Order\View\Items;
 
-trait RendererTrait
-{
-}
+trait RendererTrait {}

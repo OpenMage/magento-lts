@@ -11,6 +11,4 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Traits\DataProvider\Mage\SalesRule\Model\Resource\Rule;
 
-trait ProductTrait
-{
-}
+trait ProductTrait {}

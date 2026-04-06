@@ -11,6 +11,4 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sales\Model\Entity\Order\Status\History;
 
-trait CollectionTrait
-{
-}
+trait CollectionTrait {}

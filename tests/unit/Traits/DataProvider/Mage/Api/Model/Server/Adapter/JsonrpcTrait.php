@@ -11,6 +11,4 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Traits\DataProvider\Mage\Api\Model\Server\Adapter;
 
-trait JsonrpcTrait
-{
-}
+trait JsonrpcTrait {}

@@ -11,6 +11,4 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Traits\DataProvider\Mage\Tax\Model\System\Config\Source\Tax\Display;
 
-trait TypeTrait
-{
-}
+trait TypeTrait {}

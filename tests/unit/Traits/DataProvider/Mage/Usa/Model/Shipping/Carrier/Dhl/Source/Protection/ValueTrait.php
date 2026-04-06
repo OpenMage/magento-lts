@@ -11,6 +11,4 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Traits\DataProvider\Mage\Usa\Model\Shipping\Carrier\Dhl\Source\Protection;
 
-trait ValueTrait
-{
-}
+trait ValueTrait {}

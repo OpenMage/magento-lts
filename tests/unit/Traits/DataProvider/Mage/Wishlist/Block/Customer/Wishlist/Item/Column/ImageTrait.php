@@ -11,6 +11,4 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Traits\DataProvider\Mage\Wishlist\Block\Customer\Wishlist\Item\Column;
 
-trait ImageTrait
-{
-}
+trait ImageTrait {}

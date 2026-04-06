@@ -11,6 +11,4 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Traits\DataProvider\Mage\Widget\Model\Resource\Widget\Instance;
 
-trait CollectionTrait
-{
-}
+trait CollectionTrait {}

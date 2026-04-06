@@ -11,6 +11,4 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Traits\DataProvider\Mage\Downloadable\Block\Catalog\Product\View;
 
-trait TypeTrait
-{
-}
+trait TypeTrait {}

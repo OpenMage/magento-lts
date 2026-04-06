@@ -11,6 +11,4 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sales\Model\Order\Pdf\Total;
 
-trait DefaultTrait
-{
-}
+trait DefaultTrait {}

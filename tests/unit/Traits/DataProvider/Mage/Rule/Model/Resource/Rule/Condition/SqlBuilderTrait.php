@@ -11,6 +11,4 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Traits\DataProvider\Mage\Rule\Model\Resource\Rule\Condition;
 
-trait SqlBuilderTrait
-{
-}
+trait SqlBuilderTrait {}

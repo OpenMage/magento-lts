@@ -11,6 +11,4 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\Block\Layer;
 
-trait ViewTrait
-{
-}
+trait ViewTrait {}

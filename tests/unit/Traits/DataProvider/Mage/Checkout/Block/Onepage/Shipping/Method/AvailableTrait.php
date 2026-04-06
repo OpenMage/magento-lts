@@ -11,6 +11,4 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Traits\DataProvider\Mage\Checkout\Block\Onepage\Shipping\Method;
 
-trait AvailableTrait
-{
-}
+trait AvailableTrait {}

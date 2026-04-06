@@ -11,6 +11,4 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\Model\Product\Type;
 
-trait SimpleTrait
-{
-}
+trait SimpleTrait {}

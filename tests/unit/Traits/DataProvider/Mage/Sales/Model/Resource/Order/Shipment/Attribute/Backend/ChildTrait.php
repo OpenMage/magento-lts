@@ -11,6 +11,4 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sales\Model\Resource\Order\Shipment\Attribute\Backend;
 
-trait ChildTrait
-{
-}
+trait ChildTrait {}

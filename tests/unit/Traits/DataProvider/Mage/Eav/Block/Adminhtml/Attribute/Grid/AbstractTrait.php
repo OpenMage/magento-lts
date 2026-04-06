@@ -11,6 +11,4 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Traits\DataProvider\Mage\Eav\Block\Adminhtml\Attribute\Grid;
 
-trait AbstractTrait
-{
-}
+trait AbstractTrait {}

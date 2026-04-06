@@ -11,6 +11,4 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Traits\DataProvider\Mage\Bundle\Block\Catalog\Product\View\Type\Bundle\Option;
 
-trait SelectTrait
-{
-}
+trait SelectTrait {}

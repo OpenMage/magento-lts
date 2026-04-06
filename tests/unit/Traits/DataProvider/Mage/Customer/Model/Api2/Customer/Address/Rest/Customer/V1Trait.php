@@ -11,6 +11,4 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Traits\DataProvider\Mage\Customer\Model\Api2\Customer\Address\Rest\Customer;
 
-trait V1Trait
-{
-}
+trait V1Trait {}

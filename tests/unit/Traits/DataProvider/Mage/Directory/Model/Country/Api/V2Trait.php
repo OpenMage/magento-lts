@@ -11,6 +11,4 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Traits\DataProvider\Mage\Directory\Model\Country\Api;
 
-trait V2Trait
-{
-}
+trait V2Trait {}
