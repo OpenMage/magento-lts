@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Helper\Dashboard;
 use Mage;
 use Mage_Adminhtml_Helper_Dashboard_Abstract as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Helper\Dashboard\AbstractTrait;
 
 final class AbstractTest extends OpenMageTest
 {
+    use AbstractTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

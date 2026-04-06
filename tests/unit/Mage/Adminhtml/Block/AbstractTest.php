@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block;
 
 use Mage_Adminhtml_Block_Abstract as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\AbstractTrait;
 
 final class AbstractTest extends OpenMageTest
 {
+    use AbstractTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

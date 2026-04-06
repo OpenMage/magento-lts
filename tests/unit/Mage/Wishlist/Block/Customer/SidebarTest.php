@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Wishlist\Block\Customer;
 
 use Mage_Wishlist_Block_Customer_Sidebar as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Wishlist\Block\Customer\SidebarTrait;
 
 final class SidebarTest extends OpenMageTest
 {
+    use SidebarTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

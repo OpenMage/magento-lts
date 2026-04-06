@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Api2\Model\Acl\Global\Rule;
 use Mage;
 use Mage_Api2_Model_Acl_Global_Rule_Privilege as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Api2\Model\Acl\Global\Rule\PrivilegeTrait;
 
 final class PrivilegeTest extends OpenMageTest
 {
+    use PrivilegeTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

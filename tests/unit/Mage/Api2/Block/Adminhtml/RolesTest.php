@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Api2\Block\Adminhtml;
 
 use Mage_Api2_Block_Adminhtml_Roles as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Api2\Block\Adminhtml\RolesTrait;
 
 final class RolesTest extends OpenMageTest
 {
+    use RolesTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

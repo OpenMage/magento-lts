@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Model\System\Config\Source\Shipping
 use Mage;
 use Mage_Adminhtml_Model_System_Config_Source_Shipping_Allowedmethods as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Model\System\Config\Source\Shipping\AllowedmethodsTrait;
 
 final class AllowedmethodsTest extends OpenMageTest
 {
+    use AllowedmethodsTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

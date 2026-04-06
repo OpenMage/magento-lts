@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Admin\Model\Resource;
 use Mage;
 use Mage_Admin_Model_Resource_Rules as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Admin\Model\Resource\RulesTrait;
 
 final class RulesTest extends OpenMageTest
 {
+    use RulesTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

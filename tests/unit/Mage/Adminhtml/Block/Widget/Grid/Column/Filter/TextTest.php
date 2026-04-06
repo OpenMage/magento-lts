@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Widget\Grid\Column\Filter;
 
 use Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Text as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\Widget\Grid\Column\Filter\TextTrait;
 
 final class TextTest extends OpenMageTest
 {
+    use TextTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

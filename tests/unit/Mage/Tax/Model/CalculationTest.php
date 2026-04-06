@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Tax\Model;
 use Mage;
 use Mage_Tax_Model_Calculation as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Tax\Model\CalculationTrait;
 
 final class CalculationTest extends OpenMageTest
 {
+    use CalculationTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

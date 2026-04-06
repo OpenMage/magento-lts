@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Bundle\Model\Product;
 use Mage;
 use Mage_Bundle_Model_Product_Type as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Bundle\Model\Product\TypeTrait;
 
 final class TypeTest extends OpenMageTest
 {
+    use TypeTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Core\Model\Message;
 use Mage;
 use Mage_Core_Model_Message_Error as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\Model\Message\ErrorTrait;
 
 final class ErrorTest extends OpenMageTest
 {
+    use ErrorTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

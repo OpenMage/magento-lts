@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\CatalogSearch\Model\System\Config\Backend;
 use Mage;
 use Mage_CatalogSearch_Model_System_Config_Backend_Sitemap as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\CatalogSearch\Model\System\Config\Backend\SitemapTrait;
 
 final class SitemapTest extends OpenMageTest
 {
+    use SitemapTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\ImportExport\Block\Adminhtml\Export;
 
 use Mage_ImportExport_Block_Adminhtml_Export_Edit as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\ImportExport\Block\Adminhtml\Export\EditTrait;
 
 final class EditTest extends OpenMageTest
 {
+    use EditTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Sales\Block\Order\Creditmemo;
 
 use Mage_Sales_Block_Order_Creditmemo_Items as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sales\Block\Order\Creditmemo\ItemsTrait;
 
 final class ItemsTest extends OpenMageTest
 {
+    use ItemsTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

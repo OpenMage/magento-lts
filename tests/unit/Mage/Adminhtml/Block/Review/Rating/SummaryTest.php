@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Review\Rating;
 
 use Mage_Adminhtml_Block_Review_Rating_Summary as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\Review\Rating\SummaryTrait;
 
 final class SummaryTest extends OpenMageTest
 {
+    use SummaryTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

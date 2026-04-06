@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Cron\Model\Resource;
 use Mage;
 use Mage_Cron_Model_Resource_Schedule as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Cron\Model\Resource\ScheduleTrait;
 
 final class ScheduleTest extends OpenMageTest
 {
+    use ScheduleTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

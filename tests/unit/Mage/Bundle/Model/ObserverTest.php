@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Bundle\Model;
 use Mage;
 use Mage_Bundle_Model_Observer as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Bundle\Model\ObserverTrait;
 
 final class ObserverTest extends OpenMageTest
 {
+    use ObserverTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

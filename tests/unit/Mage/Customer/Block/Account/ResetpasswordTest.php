@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Customer\Block\Account;
 
 use Mage_Customer_Block_Account_Resetpassword as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Customer\Block\Account\ResetpasswordTrait;
 
 final class ResetpasswordTest extends OpenMageTest
 {
+    use ResetpasswordTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

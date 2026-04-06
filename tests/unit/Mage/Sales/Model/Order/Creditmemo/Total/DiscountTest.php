@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Sales\Model\Order\Creditmemo\Total;
 use Mage;
 use Mage_Sales_Model_Order_Creditmemo_Total_Discount as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sales\Model\Order\Creditmemo\Total\DiscountTrait;
 
 final class DiscountTest extends OpenMageTest
 {
+    use DiscountTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

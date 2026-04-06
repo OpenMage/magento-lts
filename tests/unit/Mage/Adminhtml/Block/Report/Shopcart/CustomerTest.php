@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Report\Shopcart;
 
 use Mage_Adminhtml_Block_Report_Shopcart_Customer as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\Report\Shopcart\CustomerTrait;
 
 final class CustomerTest extends OpenMageTest
 {
+    use CustomerTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

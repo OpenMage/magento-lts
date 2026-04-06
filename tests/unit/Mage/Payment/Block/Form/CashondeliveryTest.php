@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Payment\Block\Form;
 
 use Mage_Payment_Block_Form_Cashondelivery as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Payment\Block\Form\CashondeliveryTrait;
 
 final class CashondeliveryTest extends OpenMageTest
 {
+    use CashondeliveryTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

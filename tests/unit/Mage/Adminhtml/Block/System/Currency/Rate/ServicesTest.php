@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\System\Currency\Rate;
 
 use Mage_Adminhtml_Block_System_Currency_Rate_Services as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\System\Currency\Rate\ServicesTrait;
 
 final class ServicesTest extends OpenMageTest
 {
+    use ServicesTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

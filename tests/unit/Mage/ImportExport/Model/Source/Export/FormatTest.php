@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\ImportExport\Model\Source\Export;
 use Mage;
 use Mage_ImportExport_Model_Source_Export_Format as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\ImportExport\Model\Source\Export\FormatTrait;
 
 final class FormatTest extends OpenMageTest
 {
+    use FormatTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

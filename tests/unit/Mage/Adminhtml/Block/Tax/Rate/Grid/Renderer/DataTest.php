@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Tax\Rate\Grid\Renderer;
 
 use Mage_Adminhtml_Block_Tax_Rate_Grid_Renderer_Data as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\Tax\Rate\Grid\Renderer\DataTrait;
 
 final class DataTest extends OpenMageTest
 {
+    use DataTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

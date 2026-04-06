@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Api2\Model;
 use Mage;
 use Mage_Api2_Model_Request as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Api2\Model\RequestTrait;
 
 final class RequestTest extends OpenMageTest
 {
+    use RequestTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

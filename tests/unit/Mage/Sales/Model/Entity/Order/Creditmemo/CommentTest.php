@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Sales\Model\Entity\Order\Creditmemo;
 use Mage;
 use Mage_Sales_Model_Entity_Order_Creditmemo_Comment as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sales\Model\Entity\Order\Creditmemo\CommentTrait;
 
 final class CommentTest extends OpenMageTest
 {
+    use CommentTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

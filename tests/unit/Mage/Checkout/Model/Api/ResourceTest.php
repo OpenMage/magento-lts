@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Checkout\Model\Api;
 use Mage;
 use Mage_Checkout_Model_Api_Resource as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Checkout\Model\Api\ResourceTrait;
 
 final class ResourceTest extends OpenMageTest
 {
+    use ResourceTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

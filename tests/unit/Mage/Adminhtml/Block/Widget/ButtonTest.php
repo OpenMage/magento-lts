@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Widget;
 
 use Mage_Adminhtml_Block_Widget_Button as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\Widget\ButtonTrait;
 
 final class ButtonTest extends OpenMageTest
 {
+    use ButtonTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

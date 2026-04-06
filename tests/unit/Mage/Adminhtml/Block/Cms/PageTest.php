@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Cms;
 
 use Mage_Adminhtml_Block_Cms_Page as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\Cms\PageTrait;
 
 final class PageTest extends OpenMageTest
 {
+    use PageTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

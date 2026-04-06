@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Checkout\Block\Cart;
 
 use Mage_Checkout_Block_Cart_Crosssell as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Checkout\Block\Cart\CrosssellTrait;
 
 final class CrosssellTest extends OpenMageTest
 {
+    use CrosssellTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

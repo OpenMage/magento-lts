@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Customer\Block\Account;
 
 use Mage_Customer_Block_Account_Forgotpassword as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Customer\Block\Account\ForgotpasswordTrait;
 
 final class ForgotpasswordTest extends OpenMageTest
 {
+    use ForgotpasswordTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

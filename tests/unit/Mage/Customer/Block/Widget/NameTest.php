@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Customer\Block\Widget;
 
 use Mage_Customer_Block_Widget_Name as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Customer\Block\Widget\NameTrait;
 
 final class NameTest extends OpenMageTest
 {
+    use NameTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

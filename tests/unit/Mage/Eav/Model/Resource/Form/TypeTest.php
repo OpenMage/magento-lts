@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Eav\Model\Resource\Form;
 use Mage;
 use Mage_Eav_Model_Resource_Form_Type as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Eav\Model\Resource\Form\TypeTrait;
 
 final class TypeTest extends OpenMageTest
 {
+    use TypeTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

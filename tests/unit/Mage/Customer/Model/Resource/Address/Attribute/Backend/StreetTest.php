@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Customer\Model\Resource\Address\Attribute\Bac
 use Mage;
 use Mage_Customer_Model_Resource_Address_Attribute_Backend_Street as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Customer\Model\Resource\Address\Attribute\Backend\StreetTrait;
 
 final class StreetTest extends OpenMageTest
 {
+    use StreetTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

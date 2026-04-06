@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Wishlist\Block\Customer\Wishlist\Item;
 
 use Mage_Wishlist_Block_Customer_Wishlist_Item_Column as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Wishlist\Block\Customer\Wishlist\Item\ColumnTrait;
 
 final class ColumnTest extends OpenMageTest
 {
+    use ColumnTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

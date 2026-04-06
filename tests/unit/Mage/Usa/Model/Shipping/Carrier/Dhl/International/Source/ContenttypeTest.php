@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Usa\Model\Shipping\Carrier\Dhl\International\
 use Mage;
 use Mage_Usa_Model_Shipping_Carrier_Dhl_International_Source_Contenttype as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Usa\Model\Shipping\Carrier\Dhl\International\Source\ContenttypeTrait;
 
 final class ContenttypeTest extends OpenMageTest
 {
+    use ContenttypeTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

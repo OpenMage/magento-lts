@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Downloadable\Block\Adminhtml\Catalog\Product\
 
 use Mage_Downloadable_Block_Adminhtml_Catalog_Product_Composite_Fieldset_Downloadable as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Downloadable\Block\Adminhtml\Catalog\Product\Composite\Fieldset\DownloadableTrait;
 
 final class DownloadableTest extends OpenMageTest
 {
+    use DownloadableTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

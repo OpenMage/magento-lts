@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Catalog\Product\Edit\Tab;
 
 use Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Crosssell as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\Catalog\Product\Edit\Tab\CrosssellTrait;
 
 final class CrosssellTest extends OpenMageTest
 {
+    use CrosssellTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

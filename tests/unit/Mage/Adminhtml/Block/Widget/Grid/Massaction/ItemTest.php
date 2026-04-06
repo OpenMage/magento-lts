@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Widget\Grid\Massaction;
 
 use Mage_Adminhtml_Block_Widget_Grid_Massaction_Item as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\Widget\Grid\Massaction\ItemTrait;
 
 final class ItemTest extends OpenMageTest
 {
+    use ItemTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

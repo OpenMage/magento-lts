@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Review;
 
 use Mage_Adminhtml_Block_Review_Main as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\Review\MainTrait;
 
 final class MainTest extends OpenMageTest
 {
+    use MainTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

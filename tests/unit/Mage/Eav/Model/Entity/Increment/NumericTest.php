@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Eav\Model\Entity\Increment;
 use Mage;
 use Mage_Eav_Model_Entity_Increment_Numeric as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Eav\Model\Entity\Increment\NumericTrait;
 
 final class NumericTest extends OpenMageTest
 {
+    use NumericTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

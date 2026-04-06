@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Catalog\Search\Edit;
 
 use Mage_Adminhtml_Block_Catalog_Search_Edit_Form as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\Catalog\Search\Edit\FormTrait;
 
 final class FormTest extends OpenMageTest
 {
+    use FormTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

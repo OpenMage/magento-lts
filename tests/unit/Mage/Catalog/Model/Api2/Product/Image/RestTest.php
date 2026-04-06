@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Catalog\Model\Api2\Product\Image;
 use Mage;
 use Mage_Catalog_Model_Api2_Product_Image_Rest as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\Model\Api2\Product\Image\RestTrait;
 
 final class RestTest extends OpenMageTest
 {
+    use RestTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

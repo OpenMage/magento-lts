@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Permissions;
 
 use Mage_Adminhtml_Block_Permissions_Variable as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\Permissions\VariableTrait;
 
 final class VariableTest extends OpenMageTest
 {
+    use VariableTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Sales\Model\Order\Invoice\Total;
 use Mage;
 use Mage_Sales_Model_Order_Invoice_Total_Grand as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sales\Model\Order\Invoice\Total\GrandTrait;
 
 final class GrandTest extends OpenMageTest
 {
+    use GrandTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

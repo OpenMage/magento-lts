@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Catalog\Model\Product\Attribute;
 use Mage;
 use Mage_Catalog_Model_Product_Attribute_Api as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\Model\Product\Attribute\ApiTrait;
 
 final class ApiTest extends OpenMageTest
 {
+    use ApiTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

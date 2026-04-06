@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Tax\Rate\Title;
 
 use Mage_Adminhtml_Block_Tax_Rate_Title_Fieldset as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\Tax\Rate\Title\FieldsetTrait;
 
 final class FieldsetTest extends OpenMageTest
 {
+    use FieldsetTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

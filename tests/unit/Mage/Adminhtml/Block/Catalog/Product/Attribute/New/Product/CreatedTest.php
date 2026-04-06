@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Catalog\Product\Attribute\New
 
 use Mage_Adminhtml_Block_Catalog_Product_Attribute_New_Product_Created as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\Catalog\Product\Attribute\New\Product\CreatedTrait;
 
 final class CreatedTest extends OpenMageTest
 {
+    use CreatedTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

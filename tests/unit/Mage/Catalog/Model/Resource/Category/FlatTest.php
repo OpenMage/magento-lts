@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Catalog\Model\Resource\Category;
 use Mage;
 use Mage_Catalog_Model_Resource_Category_Flat as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\Model\Resource\Category\FlatTrait;
 
 final class FlatTest extends OpenMageTest
 {
+    use FlatTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

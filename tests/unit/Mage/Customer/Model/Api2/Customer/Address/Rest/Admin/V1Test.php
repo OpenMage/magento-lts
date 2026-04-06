@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Customer\Model\Api2\Customer\Address\Rest\Adm
 use Mage;
 use Mage_Customer_Model_Api2_Customer_Address_Rest_Admin_V1 as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Customer\Model\Api2\Customer\Address\Rest\Admin\V1Trait;
 
 final class V1Test extends OpenMageTest
 {
+    use V1Trait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

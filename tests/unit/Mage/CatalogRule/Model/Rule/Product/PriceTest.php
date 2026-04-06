@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\CatalogRule\Model\Rule\Product;
 use Mage;
 use Mage_CatalogRule_Model_Rule_Product_Price as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\CatalogRule\Model\Rule\Product\PriceTrait;
 
 final class PriceTest extends OpenMageTest
 {
+    use PriceTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

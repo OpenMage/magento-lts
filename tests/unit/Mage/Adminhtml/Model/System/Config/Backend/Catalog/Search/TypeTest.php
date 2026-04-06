@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Model\System\Config\Backend\Catalog
 use Mage;
 use Mage_Adminhtml_Model_System_Config_Backend_Catalog_Search_Type as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Model\System\Config\Backend\Catalog\Search\TypeTrait;
 
 final class TypeTest extends OpenMageTest
 {
+    use TypeTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

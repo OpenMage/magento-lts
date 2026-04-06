@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Sitemap\Model\Resource\Catalog;
 use Mage;
 use Mage_Sitemap_Model_Resource_Catalog_Abstract as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sitemap\Model\Resource\Catalog\AbstractTrait;
 
 final class AbstractTest extends OpenMageTest
 {
+    use AbstractTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

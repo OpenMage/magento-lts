@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\System\Store;
 
 use Mage_Adminhtml_Block_System_Store_Delete as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\System\Store\DeleteTrait;
 
 final class DeleteTest extends OpenMageTest
 {
+    use DeleteTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

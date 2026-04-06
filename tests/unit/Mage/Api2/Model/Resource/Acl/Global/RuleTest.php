@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Api2\Model\Resource\Acl\Global;
 use Mage;
 use Mage_Api2_Model_Resource_Acl_Global_Rule as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Api2\Model\Resource\Acl\Global\RuleTrait;
 
 final class RuleTest extends OpenMageTest
 {
+    use RuleTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

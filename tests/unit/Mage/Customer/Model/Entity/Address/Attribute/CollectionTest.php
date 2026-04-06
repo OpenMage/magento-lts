@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Customer\Model\Entity\Address\Attribute;
 use Mage;
 use Mage_Customer_Model_Entity_Address_Attribute_Collection as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Customer\Model\Entity\Address\Attribute\CollectionTrait;
 
 final class CollectionTest extends OpenMageTest
 {
+    use CollectionTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Paypal\Block\Adminhtml\System\Config;
 
 use Mage_Paypal_Block_Adminhtml_System_Config_ApiWizard as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Paypal\Block\Adminhtml\System\Config\ApiWizardTrait;
 
 final class ApiWizardTest extends OpenMageTest
 {
+    use ApiWizardTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

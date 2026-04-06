@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Catalog\Helper\Form\Wysiwyg;
 
 use Mage_Adminhtml_Block_Catalog_Helper_Form_Wysiwyg_Content as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\Catalog\Helper\Form\Wysiwyg\ContentTrait;
 
 final class ContentTest extends OpenMageTest
 {
+    use ContentTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

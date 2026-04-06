@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Page;
 
 use Mage_Adminhtml_Block_Page_Menu as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\Page\MenuTrait;
 
 final class MenuTest extends OpenMageTest
 {
+    use MenuTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

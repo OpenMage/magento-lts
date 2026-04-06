@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Sales\Model\Order\Creditmemo\Total;
 use Mage;
 use Mage_Sales_Model_Order_Creditmemo_Total_Shipping as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sales\Model\Order\Creditmemo\Total\ShippingTrait;
 
 final class ShippingTest extends OpenMageTest
 {
+    use ShippingTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

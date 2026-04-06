@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Model\System\Config\Source\Design;
 use Mage;
 use Mage_Adminhtml_Model_System_Config_Source_Design_Robots as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Model\System\Config\Source\Design\RobotsTrait;
 
 final class RobotsTest extends OpenMageTest
 {
+    use RobotsTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

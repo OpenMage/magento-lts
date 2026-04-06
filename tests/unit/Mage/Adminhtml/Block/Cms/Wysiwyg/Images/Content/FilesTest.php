@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Cms\Wysiwyg\Images\Content;
 
 use Mage_Adminhtml_Block_Cms_Wysiwyg_Images_Content_Files as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\Cms\Wysiwyg\Images\Content\FilesTrait;
 
 final class FilesTest extends OpenMageTest
 {
+    use FilesTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

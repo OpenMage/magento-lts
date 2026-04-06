@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Checkout\Block\Onepage\Payment;
 
 use Mage_Checkout_Block_Onepage_Payment_Info as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Checkout\Block\Onepage\Payment\InfoTrait;
 
 final class InfoTest extends OpenMageTest
 {
+    use InfoTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

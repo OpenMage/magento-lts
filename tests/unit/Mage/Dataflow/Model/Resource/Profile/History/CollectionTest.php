@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Dataflow\Model\Resource\Profile\History;
 use Mage;
 use Mage_Dataflow_Model_Resource_Profile_History_Collection as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Dataflow\Model\Resource\Profile\History\CollectionTrait;
 
 final class CollectionTest extends OpenMageTest
 {
+    use CollectionTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

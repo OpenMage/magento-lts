@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Cms\Page\Edit\Tab;
 
 use Mage_Adminhtml_Block_Cms_Page_Edit_Tab_Content as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\Cms\Page\Edit\Tab\ContentTrait;
 
 final class ContentTest extends OpenMageTest
 {
+    use ContentTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

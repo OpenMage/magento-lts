@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Tax\Block\Sales\Order;
 
 use Mage_Tax_Block_Sales_Order_Tax as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Tax\Block\Sales\Order\TaxTrait;
 
 final class TaxTest extends OpenMageTest
 {
+    use TaxTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

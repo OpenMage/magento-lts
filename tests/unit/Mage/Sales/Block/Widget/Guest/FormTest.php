@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Sales\Block\Widget\Guest;
 
 use Mage_Sales_Block_Widget_Guest_Form as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sales\Block\Widget\Guest\FormTrait;
 
 final class FormTest extends OpenMageTest
 {
+    use FormTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

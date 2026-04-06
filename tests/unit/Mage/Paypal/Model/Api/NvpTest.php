@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Paypal\Model\Api;
 use Mage;
 use Mage_Paypal_Model_Api_Nvp as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Paypal\Model\Api\NvpTrait;
 
 final class NvpTest extends OpenMageTest
 {
+    use NvpTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

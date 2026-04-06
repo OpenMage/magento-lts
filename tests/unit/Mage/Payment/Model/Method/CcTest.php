@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Payment\Model\Method;
 use Mage;
 use Mage_Payment_Model_Method_Cc as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Payment\Model\Method\CcTrait;
 
 final class CcTest extends OpenMageTest
 {
+    use CcTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Catalog\Product\Frontend\Prod
 
 use Mage_Adminhtml_Block_Catalog_Product_Frontend_Product_Watermark as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\Catalog\Product\Frontend\Product\WatermarkTrait;
 
 final class WatermarkTest extends OpenMageTest
 {
+    use WatermarkTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

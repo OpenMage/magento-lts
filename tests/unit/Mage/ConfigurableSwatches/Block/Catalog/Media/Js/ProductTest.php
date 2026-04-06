@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\ConfigurableSwatches\Block\Catalog\Media\Js;
 
 use Mage_ConfigurableSwatches_Block_Catalog_Media_Js_Product as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\ConfigurableSwatches\Block\Catalog\Media\Js\ProductTrait;
 
 final class ProductTest extends OpenMageTest
 {
+    use ProductTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

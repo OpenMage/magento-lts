@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Tax\Model\Resource\Calculation\Rule;
 use Mage;
 use Mage_Tax_Model_Resource_Calculation_Rule_Collection as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Tax\Model\Resource\Calculation\Rule\CollectionTrait;
 
 final class CollectionTest extends OpenMageTest
 {
+    use CollectionTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

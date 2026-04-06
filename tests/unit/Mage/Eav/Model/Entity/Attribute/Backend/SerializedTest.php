@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Eav\Model\Entity\Attribute\Backend;
 use Mage;
 use Mage_Eav_Model_Entity_Attribute_Backend_Serialized as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Eav\Model\Entity\Attribute\Backend\SerializedTrait;
 
 final class SerializedTest extends OpenMageTest
 {
+    use SerializedTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

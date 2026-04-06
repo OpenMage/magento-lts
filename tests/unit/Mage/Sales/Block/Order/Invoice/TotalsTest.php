@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Sales\Block\Order\Invoice;
 
 use Mage_Sales_Block_Order_Invoice_Totals as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sales\Block\Order\Invoice\TotalsTrait;
 
 final class TotalsTest extends OpenMageTest
 {
+    use TotalsTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

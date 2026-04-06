@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Rss\Block;
 
 use Mage_Rss_Block_Wishlist as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Rss\Block\WishlistTrait;
 
 final class WishlistTest extends OpenMageTest
 {
+    use WishlistTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Log\Model\Visitor;
 use Mage;
 use Mage_Log_Model_Visitor_Online as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Log\Model\Visitor\OnlineTrait;
 
 final class OnlineTest extends OpenMageTest
 {
+    use OnlineTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

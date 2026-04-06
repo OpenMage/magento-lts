@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Report\Sales;
 
 use Mage_Adminhtml_Block_Report_Sales_Coupons as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\Report\Sales\CouponsTrait;
 
 final class CouponsTest extends OpenMageTest
 {
+    use CouponsTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

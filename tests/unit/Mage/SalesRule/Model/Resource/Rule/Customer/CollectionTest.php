@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\SalesRule\Model\Resource\Rule\Customer;
 use Mage;
 use Mage_SalesRule_Model_Resource_Rule_Customer_Collection as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\SalesRule\Model\Resource\Rule\Customer\CollectionTrait;
 
 final class CollectionTest extends OpenMageTest
 {
+    use CollectionTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

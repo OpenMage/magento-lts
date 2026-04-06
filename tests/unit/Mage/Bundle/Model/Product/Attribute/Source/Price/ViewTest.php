@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Bundle\Model\Product\Attribute\Source\Price;
 use Mage;
 use Mage_Bundle_Model_Product_Attribute_Source_Price_View as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Bundle\Model\Product\Attribute\Source\Price\ViewTrait;
 
 final class ViewTest extends OpenMageTest
 {
+    use ViewTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

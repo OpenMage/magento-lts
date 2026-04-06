@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Payment\Block\Form;
 
 use Mage_Payment_Block_Form_Checkmo as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Payment\Block\Form\CheckmoTrait;
 
 final class CheckmoTest extends OpenMageTest
 {
+    use CheckmoTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

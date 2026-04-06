@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Tag\Grid;
 
 use Mage_Adminhtml_Block_Tag_Grid_Customers as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\Tag\Grid\CustomersTrait;
 
 final class CustomersTest extends OpenMageTest
 {
+    use CustomersTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

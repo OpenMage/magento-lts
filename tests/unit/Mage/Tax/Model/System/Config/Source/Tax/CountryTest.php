@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Tax\Model\System\Config\Source\Tax;
 use Mage;
 use Mage_Tax_Model_System_Config_Source_Tax_Country as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Tax\Model\System\Config\Source\Tax\CountryTrait;
 
 final class CountryTest extends OpenMageTest
 {
+    use CountryTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

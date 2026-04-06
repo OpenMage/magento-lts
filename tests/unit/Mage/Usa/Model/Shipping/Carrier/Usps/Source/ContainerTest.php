@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Usa\Model\Shipping\Carrier\Usps\Source;
 use Mage;
 use Mage_Usa_Model_Shipping_Carrier_Usps_Source_Container as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Usa\Model\Shipping\Carrier\Usps\Source\ContainerTrait;
 
 final class ContainerTest extends OpenMageTest
 {
+    use ContainerTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

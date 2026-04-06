@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Paypal\Block\Adminhtml\Settlement\Report;
 
 use Mage_Paypal_Block_Adminhtml_Settlement_Report_Grid as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Paypal\Block\Adminhtml\Settlement\Report\GridTrait;
 
 final class GridTest extends OpenMageTest
 {
+    use GridTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

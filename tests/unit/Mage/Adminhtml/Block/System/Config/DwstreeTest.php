@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\System\Config;
 
 use Mage_Adminhtml_Block_System_Config_Dwstree as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\System\Config\DwstreeTrait;
 
 final class DwstreeTest extends OpenMageTest
 {
+    use DwstreeTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

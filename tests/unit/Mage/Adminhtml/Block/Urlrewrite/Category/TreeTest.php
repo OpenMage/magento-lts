@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Urlrewrite\Category;
 
 use Mage_Adminhtml_Block_Urlrewrite_Category_Tree as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\Urlrewrite\Category\TreeTrait;
 
 final class TreeTest extends OpenMageTest
 {
+    use TreeTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

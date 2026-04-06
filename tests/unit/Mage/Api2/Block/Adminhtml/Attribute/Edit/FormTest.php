@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Api2\Block\Adminhtml\Attribute\Edit;
 
 use Mage_Api2_Block_Adminhtml_Attribute_Edit_Form as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Api2\Block\Adminhtml\Attribute\Edit\FormTrait;
 
 final class FormTest extends OpenMageTest
 {
+    use FormTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

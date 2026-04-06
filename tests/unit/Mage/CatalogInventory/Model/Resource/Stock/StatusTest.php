@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\CatalogInventory\Model\Resource\Stock;
 use Mage;
 use Mage_CatalogInventory_Model_Resource_Stock_Status as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\CatalogInventory\Model\Resource\Stock\StatusTrait;
 
 final class StatusTest extends OpenMageTest
 {
+    use StatusTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

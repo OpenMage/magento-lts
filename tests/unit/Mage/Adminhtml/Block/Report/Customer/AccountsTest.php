@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Report\Customer;
 
 use Mage_Adminhtml_Block_Report_Customer_Accounts as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\Report\Customer\AccountsTrait;
 
 final class AccountsTest extends OpenMageTest
 {
+    use AccountsTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

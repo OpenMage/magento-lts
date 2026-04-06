@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Index\Block\Adminhtml\Process\Edit\Tab;
 
 use Mage_Index_Block_Adminhtml_Process_Edit_Tab_Main as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Index\Block\Adminhtml\Process\Edit\Tab\MainTrait;
 
 final class MainTest extends OpenMageTest
 {
+    use MainTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

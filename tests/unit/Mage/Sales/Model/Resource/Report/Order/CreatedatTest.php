@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Sales\Model\Resource\Report\Order;
 use Mage;
 use Mage_Sales_Model_Resource_Report_Order_Createdat as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sales\Model\Resource\Report\Order\CreatedatTrait;
 
 final class CreatedatTest extends OpenMageTest
 {
+    use CreatedatTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

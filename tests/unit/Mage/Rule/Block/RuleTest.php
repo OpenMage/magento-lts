@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Rule\Block;
 
 use Mage_Rule_Block_Rule as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Rule\Block\RuleTrait;
 
 final class RuleTest extends OpenMageTest
 {
+    use RuleTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

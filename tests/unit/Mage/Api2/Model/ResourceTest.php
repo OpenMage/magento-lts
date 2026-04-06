@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Api2\Model;
 use Mage;
 use Mage_Api2_Model_Resource as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Api2\Model\ResourceTrait;
 
 final class ResourceTest extends OpenMageTest
 {
+    use ResourceTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

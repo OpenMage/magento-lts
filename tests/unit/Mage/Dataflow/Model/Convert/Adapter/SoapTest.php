@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Dataflow\Model\Convert\Adapter;
 use Mage;
 use Mage_Dataflow_Model_Convert_Adapter_Soap as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Dataflow\Model\Convert\Adapter\SoapTrait;
 
 final class SoapTest extends OpenMageTest
 {
+    use SoapTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

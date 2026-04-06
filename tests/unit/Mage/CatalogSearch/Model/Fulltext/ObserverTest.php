@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\CatalogSearch\Model\Fulltext;
 use Mage;
 use Mage_CatalogSearch_Model_Fulltext_Observer as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\CatalogSearch\Model\Fulltext\ObserverTrait;
 
 final class ObserverTest extends OpenMageTest
 {
+    use ObserverTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

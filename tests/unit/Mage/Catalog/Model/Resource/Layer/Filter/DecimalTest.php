@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Catalog\Model\Resource\Layer\Filter;
 use Mage;
 use Mage_Catalog_Model_Resource_Layer_Filter_Decimal as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\Model\Resource\Layer\Filter\DecimalTrait;
 
 final class DecimalTest extends OpenMageTest
 {
+    use DecimalTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

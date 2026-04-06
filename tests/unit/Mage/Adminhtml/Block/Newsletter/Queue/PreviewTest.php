@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Newsletter\Queue;
 
 use Mage_Adminhtml_Block_Newsletter_Queue_Preview as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\Newsletter\Queue\PreviewTrait;
 
 final class PreviewTest extends OpenMageTest
 {
+    use PreviewTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

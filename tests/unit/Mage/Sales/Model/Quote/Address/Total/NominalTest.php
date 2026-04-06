@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Sales\Model\Quote\Address\Total;
 use Mage;
 use Mage_Sales_Model_Quote_Address_Total_Nominal as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sales\Model\Quote\Address\Total\NominalTrait;
 
 final class NominalTest extends OpenMageTest
 {
+    use NominalTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Core\Model\Session\Abstract;
 use Mage;
 use Mage_Core_Model_Session_Abstract_Varien as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\Model\Session\Abstract\VarienTrait;
 
 final class VarienTest extends OpenMageTest
 {
+    use VarienTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

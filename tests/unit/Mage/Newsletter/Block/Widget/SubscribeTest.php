@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Newsletter\Block\Widget;
 
 use Mage_Newsletter_Block_Widget_Subscribe as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Newsletter\Block\Widget\SubscribeTrait;
 
 final class SubscribeTest extends OpenMageTest
 {
+    use SubscribeTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

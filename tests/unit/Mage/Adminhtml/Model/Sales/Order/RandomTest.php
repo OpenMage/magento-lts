@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Model\Sales\Order;
 use Mage;
 use Mage_Adminhtml_Model_Sales_Order_Random as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Model\Sales\Order\RandomTrait;
 
 final class RandomTest extends OpenMageTest
 {
+    use RandomTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

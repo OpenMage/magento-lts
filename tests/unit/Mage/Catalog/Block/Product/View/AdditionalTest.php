@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Catalog\Block\Product\View;
 
 use Mage_Catalog_Block_Product_View_Additional as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\Block\Product\View\AdditionalTrait;
 
 final class AdditionalTest extends OpenMageTest
 {
+    use AdditionalTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

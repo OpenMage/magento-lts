@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Checkout\Model\Type;
 use Mage;
 use Mage_Checkout_Model_Type_Abstract as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Checkout\Model\Type\AbstractTrait;
 
 final class AbstractTest extends OpenMageTest
 {
+    use AbstractTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

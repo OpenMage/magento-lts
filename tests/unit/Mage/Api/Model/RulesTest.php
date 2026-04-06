@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Api\Model;
 use Mage;
 use Mage_Api_Model_Rules as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Api\Model\RulesTrait;
 
 final class RulesTest extends OpenMageTest
 {
+    use RulesTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

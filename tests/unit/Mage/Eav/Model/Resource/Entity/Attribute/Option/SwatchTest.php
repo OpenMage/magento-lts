@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Eav\Model\Resource\Entity\Attribute\Option;
 use Mage;
 use Mage_Eav_Model_Resource_Entity_Attribute_Option_Swatch as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Eav\Model\Resource\Entity\Attribute\Option\SwatchTrait;
 
 final class SwatchTest extends OpenMageTest
 {
+    use SwatchTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

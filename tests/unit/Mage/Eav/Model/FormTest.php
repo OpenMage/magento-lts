@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Eav\Model;
 use Mage;
 use Mage_Eav_Model_Form as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Eav\Model\FormTrait;
 
 final class FormTest extends OpenMageTest
 {
+    use FormTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Usa\Model\Shipping\Carrier;
 use Mage;
 use Mage_Usa_Model_Shipping_Carrier_Usps as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Usa\Model\Shipping\Carrier\UspsTrait;
 
 final class UspsTest extends OpenMageTest
 {
+    use UspsTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

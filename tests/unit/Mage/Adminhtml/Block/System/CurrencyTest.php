@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\System;
 
 use Mage_Adminhtml_Block_System_Currency as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\System\CurrencyTrait;
 
 final class CurrencyTest extends OpenMageTest
 {
+    use CurrencyTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

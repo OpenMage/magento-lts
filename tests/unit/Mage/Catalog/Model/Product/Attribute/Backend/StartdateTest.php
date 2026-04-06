@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Catalog\Model\Product\Attribute\Backend;
 use Mage;
 use Mage_Catalog_Model_Product_Attribute_Backend_Startdate as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\Model\Product\Attribute\Backend\StartdateTrait;
 
 final class StartdateTest extends OpenMageTest
 {
+    use StartdateTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

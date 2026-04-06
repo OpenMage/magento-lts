@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\ProductAlert\Model\Resource\Price;
 use Mage;
 use Mage_ProductAlert_Model_Resource_Price_Collection as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\ProductAlert\Model\Resource\Price\CollectionTrait;
 
 final class CollectionTest extends OpenMageTest
 {
+    use CollectionTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

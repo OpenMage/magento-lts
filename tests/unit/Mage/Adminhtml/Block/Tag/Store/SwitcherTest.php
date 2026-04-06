@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Tag\Store;
 
 use Mage_Adminhtml_Block_Tag_Store_Switcher as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\Tag\Store\SwitcherTrait;
 
 final class SwitcherTest extends OpenMageTest
 {
+    use SwitcherTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

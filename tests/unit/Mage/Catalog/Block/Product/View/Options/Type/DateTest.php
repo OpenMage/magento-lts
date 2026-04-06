@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Catalog\Block\Product\View\Options\Type;
 
 use Mage_Catalog_Block_Product_View_Options_Type_Date as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\Block\Product\View\Options\Type\DateTrait;
 
 final class DateTest extends OpenMageTest
 {
+    use DateTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

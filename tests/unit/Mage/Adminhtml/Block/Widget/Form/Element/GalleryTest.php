@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Widget\Form\Element;
 
 use Mage_Adminhtml_Block_Widget_Form_Element_Gallery as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\Widget\Form\Element\GalleryTrait;
 
 final class GalleryTest extends OpenMageTest
 {
+    use GalleryTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

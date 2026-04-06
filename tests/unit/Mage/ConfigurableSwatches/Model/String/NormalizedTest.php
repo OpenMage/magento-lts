@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\ConfigurableSwatches\Model\String;
 use Mage;
 use Mage_ConfigurableSwatches_Model_String_Normalized as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\ConfigurableSwatches\Model\String\NormalizedTrait;
 
 final class NormalizedTest extends OpenMageTest
 {
+    use NormalizedTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

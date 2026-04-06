@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Customer\Model\Address;
 use Mage;
 use Mage_Customer_Model_Address_Abstract as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Customer\Model\Address\AbstractTrait;
 
 final class AbstractTest extends OpenMageTest
 {
+    use AbstractTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Checkout\Block;
 
 use Mage_Checkout_Block_Links as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Checkout\Block\LinksTrait;
 
 final class LinksTest extends OpenMageTest
 {
+    use LinksTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

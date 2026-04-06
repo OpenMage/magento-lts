@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Page\Block\Template\Links;
 
 use Mage_Page_Block_Template_Links_Block as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Page\Block\Template\Links\BlockTrait;
 
 final class BlockTest extends OpenMageTest
 {
+    use BlockTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

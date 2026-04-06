@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\CatalogRule\Model\Rule\Condition;
 use Mage;
 use Mage_CatalogRule_Model_Rule_Condition_Product as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\CatalogRule\Model\Rule\Condition\ProductTrait;
 
 final class ProductTest extends OpenMageTest
 {
+    use ProductTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

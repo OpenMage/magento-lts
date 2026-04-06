@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Customer\Model\Address;
 use Mage;
 use Mage_Customer_Model_Address_Config as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Customer\Model\Address\ConfigTrait;
 
 final class ConfigTest extends OpenMageTest
 {
+    use ConfigTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

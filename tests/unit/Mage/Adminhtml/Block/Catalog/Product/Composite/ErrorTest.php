@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Catalog\Product\Composite;
 
 use Mage_Adminhtml_Block_Catalog_Product_Composite_Error as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\Catalog\Product\Composite\ErrorTrait;
 
 final class ErrorTest extends OpenMageTest
 {
+    use ErrorTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

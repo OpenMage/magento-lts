@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Catalog\Block\Product\View\Type;
 
 use Mage_Catalog_Block_Product_View_Type_Configurable as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\Block\Product\View\Type\ConfigurableTrait;
 
 final class ConfigurableTest extends OpenMageTest
 {
+    use ConfigurableTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

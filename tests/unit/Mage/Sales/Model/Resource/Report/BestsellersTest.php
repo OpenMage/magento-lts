@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Sales\Model\Resource\Report;
 use Mage;
 use Mage_Sales_Model_Resource_Report_Bestsellers as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sales\Model\Resource\Report\BestsellersTrait;
 
 final class BestsellersTest extends OpenMageTest
 {
+    use BestsellersTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

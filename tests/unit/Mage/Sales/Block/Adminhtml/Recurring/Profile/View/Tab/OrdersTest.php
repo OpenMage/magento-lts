@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Sales\Block\Adminhtml\Recurring\Profile\View\
 
 use Mage_Sales_Block_Adminhtml_Recurring_Profile_View_Tab_Orders as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sales\Block\Adminhtml\Recurring\Profile\View\Tab\OrdersTrait;
 
 final class OrdersTest extends OpenMageTest
 {
+    use OrdersTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

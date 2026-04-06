@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Widget;
 
 use Mage_Adminhtml_Block_Widget_Tree as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\Widget\TreeTrait;
 
 final class TreeTest extends OpenMageTest
 {
+    use TreeTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Dashboard;
 
 use Mage_Adminhtml_Block_Dashboard_Graph as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\Dashboard\GraphTrait;
 
 final class GraphTest extends OpenMageTest
 {
+    use GraphTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

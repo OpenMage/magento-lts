@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Sales\Model\Order\Invoice;
 use Mage;
 use Mage_Sales_Model_Order_Invoice_Config as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sales\Model\Order\Invoice\ConfigTrait;
 
 final class ConfigTest extends OpenMageTest
 {
+    use ConfigTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

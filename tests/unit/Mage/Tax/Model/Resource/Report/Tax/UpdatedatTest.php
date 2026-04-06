@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Tax\Model\Resource\Report\Tax;
 use Mage;
 use Mage_Tax_Model_Resource_Report_Tax_Updatedat as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Tax\Model\Resource\Report\Tax\UpdatedatTrait;
 
 final class UpdatedatTest extends OpenMageTest
 {
+    use UpdatedatTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

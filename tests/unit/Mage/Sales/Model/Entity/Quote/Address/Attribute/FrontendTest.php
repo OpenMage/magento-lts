@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Sales\Model\Entity\Quote\Address\Attribute;
 use Mage;
 use Mage_Sales_Model_Entity_Quote_Address_Attribute_Frontend as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sales\Model\Entity\Quote\Address\Attribute\FrontendTrait;
 
 final class FrontendTest extends OpenMageTest
 {
+    use FrontendTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

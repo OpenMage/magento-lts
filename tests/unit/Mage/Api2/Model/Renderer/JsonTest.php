@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Api2\Model\Renderer;
 use Mage;
 use Mage_Api2_Model_Renderer_Json as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Api2\Model\Renderer\JsonTrait;
 
 final class JsonTest extends OpenMageTest
 {
+    use JsonTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

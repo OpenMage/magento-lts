@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Sales\Order\Creditmemo\View;
 
 use Mage_Adminhtml_Block_Sales_Order_Creditmemo_View_Comments as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\Sales\Order\Creditmemo\View\CommentsTrait;
 
 final class CommentsTest extends OpenMageTest
 {
+    use CommentsTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

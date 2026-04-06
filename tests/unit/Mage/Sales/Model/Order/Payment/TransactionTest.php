@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Sales\Model\Order\Payment;
 use Mage;
 use Mage_Sales_Model_Order_Payment_Transaction as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sales\Model\Order\Payment\TransactionTrait;
 
 final class TransactionTest extends OpenMageTest
 {
+    use TransactionTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Dataflow\Model\Resource;
 use Mage;
 use Mage_Dataflow_Model_Resource_Session as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Dataflow\Model\Resource\SessionTrait;
 
 final class SessionTest extends OpenMageTest
 {
+    use SessionTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

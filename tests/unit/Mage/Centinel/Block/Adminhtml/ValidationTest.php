@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Centinel\Block\Adminhtml;
 
 use Mage_Centinel_Block_Adminhtml_Validation as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Centinel\Block\Adminhtml\ValidationTrait;
 
 final class ValidationTest extends OpenMageTest
 {
+    use ValidationTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

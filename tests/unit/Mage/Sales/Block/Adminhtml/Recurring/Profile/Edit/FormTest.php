@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Sales\Block\Adminhtml\Recurring\Profile\Edit;
 
 use Mage_Sales_Block_Adminhtml_Recurring_Profile_Edit_Form as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sales\Block\Adminhtml\Recurring\Profile\Edit\FormTrait;
 
 final class FormTest extends OpenMageTest
 {
+    use FormTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Paypal\Model\Report\Settlement;
 use Mage;
 use Mage_Paypal_Model_Report_Settlement_Row as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Paypal\Model\Report\Settlement\RowTrait;
 
 final class RowTest extends OpenMageTest
 {
+    use RowTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

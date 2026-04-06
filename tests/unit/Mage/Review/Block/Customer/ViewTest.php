@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Review\Block\Customer;
 
 use Mage_Review_Block_Customer_View as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Review\Block\Customer\ViewTrait;
 
 final class ViewTest extends OpenMageTest
 {
+    use ViewTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\GiftMessage\Model\Entity\Attribute\Backend\Bo
 use Mage;
 use Mage_GiftMessage_Model_Entity_Attribute_Backend_Boolean_Config as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\GiftMessage\Model\Entity\Attribute\Backend\Boolean\ConfigTrait;
 
 final class ConfigTest extends OpenMageTest
 {
+    use ConfigTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

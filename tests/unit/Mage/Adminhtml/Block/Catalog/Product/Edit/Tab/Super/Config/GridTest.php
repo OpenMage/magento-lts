@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Catalog\Product\Edit\Tab\Supe
 
 use Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\Catalog\Product\Edit\Tab\Super\Config\GridTrait;
 
 final class GridTest extends OpenMageTest
 {
+    use GridTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

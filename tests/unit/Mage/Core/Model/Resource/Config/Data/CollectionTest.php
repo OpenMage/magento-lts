@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Core\Model\Resource\Config\Data;
 use Mage;
 use Mage_Core_Model_Resource_Config_Data_Collection as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\Model\Resource\Config\Data\CollectionTrait;
 
 final class CollectionTest extends OpenMageTest
 {
+    use CollectionTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\System\Config\Form\Field;
 
 use Mage_Adminhtml_Block_System_Config_Form_Field_Import as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\System\Config\Form\Field\ImportTrait;
 
 final class ImportTest extends OpenMageTest
 {
+    use ImportTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

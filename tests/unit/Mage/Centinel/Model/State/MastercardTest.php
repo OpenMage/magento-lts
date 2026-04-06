@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Centinel\Model\State;
 use Mage;
 use Mage_Centinel_Model_State_Mastercard as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Centinel\Model\State\MastercardTrait;
 
 final class MastercardTest extends OpenMageTest
 {
+    use MastercardTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

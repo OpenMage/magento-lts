@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Sales\Model\Resource;
 use Mage;
 use Mage_Sales_Model_Resource_Quote as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sales\Model\Resource\QuoteTrait;
 
 final class QuoteTest extends OpenMageTest
 {
+    use QuoteTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

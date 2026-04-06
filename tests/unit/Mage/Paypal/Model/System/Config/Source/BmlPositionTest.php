@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Paypal\Model\System\Config\Source;
 use Mage;
 use Mage_Paypal_Model_System_Config_Source_BmlPosition as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Paypal\Model\System\Config\Source\BmlPositionTrait;
 
 final class BmlPositionTest extends OpenMageTest
 {
+    use BmlPositionTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

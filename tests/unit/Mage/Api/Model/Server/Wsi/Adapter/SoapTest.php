@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Api\Model\Server\Wsi\Adapter;
 use Mage;
 use Mage_Api_Model_Server_Wsi_Adapter_Soap as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Api\Model\Server\Wsi\Adapter\SoapTrait;
 
 final class SoapTest extends OpenMageTest
 {
+    use SoapTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

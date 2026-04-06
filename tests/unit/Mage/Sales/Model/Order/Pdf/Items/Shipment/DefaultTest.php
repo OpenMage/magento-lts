@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Sales\Model\Order\Pdf\Items\Shipment;
 use Mage;
 use Mage_Sales_Model_Order_Pdf_Items_Shipment_Default as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sales\Model\Order\Pdf\Items\Shipment\DefaultTrait;
 
 final class DefaultTest extends OpenMageTest
 {
+    use DefaultTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

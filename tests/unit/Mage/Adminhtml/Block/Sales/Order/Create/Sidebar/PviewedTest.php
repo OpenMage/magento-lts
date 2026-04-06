@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Sales\Order\Create\Sidebar;
 
 use Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Pviewed as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\Sales\Order\Create\Sidebar\PviewedTrait;
 
 final class PviewedTest extends OpenMageTest
 {
+    use PviewedTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

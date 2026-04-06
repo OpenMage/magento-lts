@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Dashboard\Tab\Customers;
 
 use Mage_Adminhtml_Block_Dashboard_Tab_Customers_Newest as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\Dashboard\Tab\Customers\NewestTrait;
 
 final class NewestTest extends OpenMageTest
 {
+    use NewestTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

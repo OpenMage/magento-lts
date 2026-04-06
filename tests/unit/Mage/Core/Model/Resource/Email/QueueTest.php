@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Core\Model\Resource\Email;
 use Mage;
 use Mage_Core_Model_Resource_Email_Queue as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\Model\Resource\Email\QueueTrait;
 
 final class QueueTest extends OpenMageTest
 {
+    use QueueTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

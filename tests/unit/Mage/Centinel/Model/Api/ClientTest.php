@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Centinel\Model\Api;
 use Mage;
 use Mage_Centinel_Model_Api_Client as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Centinel\Model\Api\ClientTrait;
 
 final class ClientTest extends OpenMageTest
 {
+    use ClientTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

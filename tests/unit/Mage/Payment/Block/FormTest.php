@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Payment\Block;
 
 use Mage_Payment_Block_Form as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Payment\Block\FormTrait;
 
 final class FormTest extends OpenMageTest
 {
+    use FormTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

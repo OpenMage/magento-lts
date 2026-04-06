@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Api2\Model\Acl\Global\Rule;
 use Mage;
 use Mage_Api2_Model_Acl_Global_Rule_ResourcePermission as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Api2\Model\Acl\Global\Rule\ResourcePermissionTrait;
 
 final class ResourcePermissionTest extends OpenMageTest
 {
+    use ResourcePermissionTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

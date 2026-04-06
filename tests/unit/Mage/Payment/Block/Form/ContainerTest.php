@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Payment\Block\Form;
 
 use Mage_Payment_Block_Form_Container as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Payment\Block\Form\ContainerTrait;
 
 final class ContainerTest extends OpenMageTest
 {
+    use ContainerTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

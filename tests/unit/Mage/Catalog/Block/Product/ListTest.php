@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Catalog\Block\Product;
 
 use Mage_Catalog_Block_Product_List as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\Block\Product\ListTrait;
 
 final class ListTest extends OpenMageTest
 {
+    use ListTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

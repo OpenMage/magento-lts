@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Sales\Block\Order;
 
 use Mage_Sales_Block_Order_History as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sales\Block\Order\HistoryTrait;
 
 final class HistoryTest extends OpenMageTest
 {
+    use HistoryTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

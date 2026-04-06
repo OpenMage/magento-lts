@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Directory\Model;
 use Mage;
 use Mage_Directory_Model_Region as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Directory\Model\RegionTrait;
 
 final class RegionTest extends OpenMageTest
 {
+    use RegionTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

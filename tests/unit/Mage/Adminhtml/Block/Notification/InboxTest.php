@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Notification;
 
 use Mage_Adminhtml_Block_Notification_Inbox as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\Notification\InboxTrait;
 
 final class InboxTest extends OpenMageTest
 {
+    use InboxTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\CatalogSearch\Model\Resource\Search;
 use Mage;
 use Mage_CatalogSearch_Model_Resource_Search_Collection as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\CatalogSearch\Model\Resource\Search\CollectionTrait;
 
 final class CollectionTest extends OpenMageTest
 {
+    use CollectionTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

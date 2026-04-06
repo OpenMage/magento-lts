@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Catalog\Product\Helper\Form;
 
 use Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Apply as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\Catalog\Product\Helper\Form\ApplyTrait;
 
 final class ApplyTest extends OpenMageTest
 {
+    use ApplyTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

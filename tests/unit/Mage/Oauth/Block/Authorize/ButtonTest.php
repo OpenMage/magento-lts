@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Oauth\Block\Authorize;
 
 use Mage_Oauth_Block_Authorize_Button as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Oauth\Block\Authorize\ButtonTrait;
 
 final class ButtonTest extends OpenMageTest
 {
+    use ButtonTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

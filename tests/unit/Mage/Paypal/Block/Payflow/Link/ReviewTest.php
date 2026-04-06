@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Paypal\Block\Payflow\Link;
 
 use Mage_Paypal_Block_Payflow_Link_Review as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Paypal\Block\Payflow\Link\ReviewTrait;
 
 final class ReviewTest extends OpenMageTest
 {
+    use ReviewTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

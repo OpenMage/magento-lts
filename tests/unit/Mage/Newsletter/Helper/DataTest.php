@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Newsletter\Helper;
 use Mage;
 use Mage_Newsletter_Helper_Data as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Newsletter\Helper\DataTrait;
 
 final class DataTest extends OpenMageTest
 {
+    use DataTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

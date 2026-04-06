@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Tax\Model\System\Config\Source;
 use Mage;
 use Mage_Tax_Model_System_Config_Source_PriceType as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Tax\Model\System\Config\Source\PriceTypeTrait;
 
 final class PriceTypeTest extends OpenMageTest
 {
+    use PriceTypeTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

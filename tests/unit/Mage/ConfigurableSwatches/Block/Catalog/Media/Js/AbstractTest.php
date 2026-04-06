@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\ConfigurableSwatches\Block\Catalog\Media\Js;
 
 use Mage_ConfigurableSwatches_Block_Catalog_Media_Js_Abstract as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\ConfigurableSwatches\Block\Catalog\Media\Js\AbstractTrait;
 
 final class AbstractTest extends OpenMageTest
 {
+    use AbstractTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

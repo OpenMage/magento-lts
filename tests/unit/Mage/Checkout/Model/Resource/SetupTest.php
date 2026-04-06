@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Checkout\Model\Resource;
 use Mage;
 use Mage_Checkout_Model_Resource_Setup as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Checkout\Model\Resource\SetupTrait;
 
 final class SetupTest extends OpenMageTest
 {
+    use SetupTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

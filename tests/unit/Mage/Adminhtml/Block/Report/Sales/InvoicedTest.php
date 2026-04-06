@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Report\Sales;
 
 use Mage_Adminhtml_Block_Report_Sales_Invoiced as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\Report\Sales\InvoicedTrait;
 
 final class InvoicedTest extends OpenMageTest
 {
+    use InvoicedTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

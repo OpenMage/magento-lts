@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Index\Model\Resource;
 use Mage;
 use Mage_Index_Model_Resource_Process as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Index\Model\Resource\ProcessTrait;
 
 final class ProcessTest extends OpenMageTest
 {
+    use ProcessTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

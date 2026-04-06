@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Payment\Model\Method;
 use Mage;
 use Mage_Payment_Model_Method_Banktransfer as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Payment\Model\Method\BanktransferTrait;
 
 final class BanktransferTest extends OpenMageTest
 {
+    use BanktransferTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

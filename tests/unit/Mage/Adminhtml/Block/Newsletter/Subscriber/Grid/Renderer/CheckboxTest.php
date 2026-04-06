@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Newsletter\Subscriber\Grid\Re
 
 use Mage_Adminhtml_Block_Newsletter_Subscriber_Grid_Renderer_Checkbox as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\Newsletter\Subscriber\Grid\Renderer\CheckboxTrait;
 
 final class CheckboxTest extends OpenMageTest
 {
+    use CheckboxTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

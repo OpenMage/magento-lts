@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Core\Model\Resource\Url;
 use Mage;
 use Mage_Core_Model_Resource_Url_Rewrite as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\Model\Resource\Url\RewriteTrait;
 
 final class RewriteTest extends OpenMageTest
 {
+    use RewriteTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

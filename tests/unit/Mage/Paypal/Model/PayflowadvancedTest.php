@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Paypal\Model;
 use Mage;
 use Mage_Paypal_Model_Payflowadvanced as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Paypal\Model\PayflowadvancedTrait;
 
 final class PayflowadvancedTest extends OpenMageTest
 {
+    use PayflowadvancedTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

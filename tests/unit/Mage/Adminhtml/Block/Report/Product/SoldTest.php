@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Report\Product;
 
 use Mage_Adminhtml_Block_Report_Product_Sold as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\Report\Product\SoldTrait;
 
 final class SoldTest extends OpenMageTest
 {
+    use SoldTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

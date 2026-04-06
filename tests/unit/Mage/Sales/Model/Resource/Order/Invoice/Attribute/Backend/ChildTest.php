@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Sales\Model\Resource\Order\Invoice\Attribute\
 use Mage;
 use Mage_Sales_Model_Resource_Order_Invoice_Attribute_Backend_Child as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sales\Model\Resource\Order\Invoice\Attribute\Backend\ChildTrait;
 
 final class ChildTest extends OpenMageTest
 {
+    use ChildTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

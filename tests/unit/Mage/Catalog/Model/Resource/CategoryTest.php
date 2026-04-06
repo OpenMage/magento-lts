@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Catalog\Model\Resource;
 use Mage;
 use Mage_Catalog_Model_Resource_Category as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\Model\Resource\CategoryTrait;
 
 final class CategoryTest extends OpenMageTest
 {
+    use CategoryTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

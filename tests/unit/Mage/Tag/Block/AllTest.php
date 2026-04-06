@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Tag\Block;
 
 use Mage_Tag_Block_All as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Tag\Block\AllTrait;
 
 final class AllTest extends OpenMageTest
 {
+    use AllTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Catalog\Model\Category\Attribute\Source;
 use Mage;
 use Mage_Catalog_Model_Category_Attribute_Source_Layout as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\Model\Category\Attribute\Source\LayoutTrait;
 
 final class LayoutTest extends OpenMageTest
 {
+    use LayoutTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

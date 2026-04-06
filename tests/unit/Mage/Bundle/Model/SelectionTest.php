@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Bundle\Model;
 use Mage;
 use Mage_Bundle_Model_Selection as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Bundle\Model\SelectionTrait;
 
 final class SelectionTest extends OpenMageTest
 {
+    use SelectionTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

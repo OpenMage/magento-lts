@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Widget\Block\Adminhtml\Widget\Instance\Edit\T
 
 use Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Settings as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Widget\Block\Adminhtml\Widget\Instance\Edit\Tab\SettingsTrait;
 
 final class SettingsTest extends OpenMageTest
 {
+    use SettingsTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

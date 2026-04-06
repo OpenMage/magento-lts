@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Dataflow\Model\Convert\Container;
 use Mage;
 use Mage_Dataflow_Model_Convert_Container_Collection as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Dataflow\Model\Convert\Container\CollectionTrait;
 
 final class CollectionTest extends OpenMageTest
 {
+    use CollectionTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

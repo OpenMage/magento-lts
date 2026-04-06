@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Rating\Block\Entity;
 
 use Mage_Rating_Block_Entity_Detailed as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Rating\Block\Entity\DetailedTrait;
 
 final class DetailedTest extends OpenMageTest
 {
+    use DetailedTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

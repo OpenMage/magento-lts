@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Customer\Grid\Filter;
 
 use Mage_Adminhtml_Block_Customer_Grid_Filter_Country as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\Customer\Grid\Filter\CountryTrait;
 
 final class CountryTest extends OpenMageTest
 {
+    use CountryTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

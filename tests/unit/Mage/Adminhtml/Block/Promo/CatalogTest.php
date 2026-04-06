@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Promo;
 
 use Mage_Adminhtml_Block_Promo_Catalog as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\Promo\CatalogTrait;
 
 final class CatalogTest extends OpenMageTest
 {
+    use CatalogTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

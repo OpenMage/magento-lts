@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Sales\Model\Order\Pdf\Items\Invoice;
 use Mage;
 use Mage_Sales_Model_Order_Pdf_Items_Invoice_Default as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sales\Model\Order\Pdf\Items\Invoice\DefaultTrait;
 
 final class DefaultTest extends OpenMageTest
 {
+    use DefaultTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

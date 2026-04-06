@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\GiftMessage\Model;
 use Mage;
 use Mage_GiftMessage_Model_Api as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\GiftMessage\Model\ApiTrait;
 
 final class ApiTest extends OpenMageTest
 {
+    use ApiTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

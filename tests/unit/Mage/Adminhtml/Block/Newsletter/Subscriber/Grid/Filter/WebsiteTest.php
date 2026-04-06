@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Newsletter\Subscriber\Grid\Fi
 
 use Mage_Adminhtml_Block_Newsletter_Subscriber_Grid_Filter_Website as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\Newsletter\Subscriber\Grid\Filter\WebsiteTrait;
 
 final class WebsiteTest extends OpenMageTest
 {
+    use WebsiteTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

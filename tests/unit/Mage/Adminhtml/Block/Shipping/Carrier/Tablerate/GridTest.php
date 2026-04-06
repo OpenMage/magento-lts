@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Shipping\Carrier\Tablerate;
 
 use Mage_Adminhtml_Block_Shipping_Carrier_Tablerate_Grid as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\Shipping\Carrier\Tablerate\GridTrait;
 
 final class GridTest extends OpenMageTest
 {
+    use GridTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

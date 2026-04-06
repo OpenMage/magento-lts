@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Wishlist\Block\Item;
 
 use Mage_Wishlist_Block_Item_Configure as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Wishlist\Block\Item\ConfigureTrait;
 
 final class ConfigureTest extends OpenMageTest
 {
+    use ConfigureTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Core\Model\Log;
 use Mage;
 use Mage_Core_Model_Log_Adapter as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\Model\Log\AdapterTrait;
 
 final class AdapterTest extends OpenMageTest
 {
+    use AdapterTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

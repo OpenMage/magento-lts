@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\ImportExport\Model;
 use Mage;
 use Mage_ImportExport_Model_Config as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\ImportExport\Model\ConfigTrait;
 
 final class ConfigTest extends OpenMageTest
 {
+    use ConfigTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

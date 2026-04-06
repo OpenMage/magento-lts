@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Permissions;
 
 use Mage_Adminhtml_Block_Permissions_OrphanedResource as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\Permissions\OrphanedResourceTrait;
 
 final class OrphanedResourceTest extends OpenMageTest
 {
+    use OrphanedResourceTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

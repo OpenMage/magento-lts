@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Review\Block\Customer;
 
 use Mage_Review_Block_Customer_Recent as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Review\Block\Customer\RecentTrait;
 
 final class RecentTest extends OpenMageTest
 {
+    use RecentTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

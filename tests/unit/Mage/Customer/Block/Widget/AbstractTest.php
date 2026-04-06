@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Customer\Block\Widget;
 
 use Mage_Customer_Block_Widget_Abstract as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Customer\Block\Widget\AbstractTrait;
 
 final class AbstractTest extends OpenMageTest
 {
+    use AbstractTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Sales\Model\Entity\Order\Creditmemo\Attribute
 use Mage;
 use Mage_Sales_Model_Entity_Order_Creditmemo_Attribute_Backend_Parent as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sales\Model\Entity\Order\Creditmemo\Attribute\Backend\ParentTrait;
 
 final class ParentTest extends OpenMageTest
 {
+    use ParentTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

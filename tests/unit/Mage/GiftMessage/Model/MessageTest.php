@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\GiftMessage\Model;
 use Mage;
 use Mage_GiftMessage_Model_Message as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\GiftMessage\Model\MessageTrait;
 
 final class MessageTest extends OpenMageTest
 {
+    use MessageTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

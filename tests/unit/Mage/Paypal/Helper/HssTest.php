@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Paypal\Helper;
 use Mage;
 use Mage_Paypal_Helper_Hss as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Paypal\Helper\HssTrait;
 
 final class HssTest extends OpenMageTest
 {
+    use HssTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

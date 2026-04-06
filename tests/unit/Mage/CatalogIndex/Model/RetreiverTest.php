@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\CatalogIndex\Model;
 use Mage;
 use Mage_CatalogIndex_Model_Retreiver as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\CatalogIndex\Model\RetreiverTrait;
 
 final class RetreiverTest extends OpenMageTest
 {
+    use RetreiverTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

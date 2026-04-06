@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Wishlist\Block\Share\Email;
 
 use Mage_Wishlist_Block_Share_Email_Rss as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Wishlist\Block\Share\Email\RssTrait;
 
 final class RssTest extends OpenMageTest
 {
+    use RssTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

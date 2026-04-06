@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Downloadable\Block\Catalog\Product\View;
 
 use Mage_Downloadable_Block_Catalog_Product_View_Type as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Downloadable\Block\Catalog\Product\View\TypeTrait;
 
 final class TypeTest extends OpenMageTest
 {
+    use TypeTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

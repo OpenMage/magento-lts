@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Shipping\Model\Resource\Carrier;
 use Mage;
 use Mage_Shipping_Model_Resource_Carrier_Tablerate as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Shipping\Model\Resource\Carrier\TablerateTrait;
 
 final class TablerateTest extends OpenMageTest
 {
+    use TablerateTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

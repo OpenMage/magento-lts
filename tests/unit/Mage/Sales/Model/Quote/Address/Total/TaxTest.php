@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Sales\Model\Quote\Address\Total;
 use Mage;
 use Mage_Sales_Model_Quote_Address_Total_Tax as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sales\Model\Quote\Address\Total\TaxTrait;
 
 final class TaxTest extends OpenMageTest
 {
+    use TaxTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Dashboard\Searches;
 
 use Mage_Adminhtml_Block_Dashboard_Searches_Top as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\Dashboard\Searches\TopTrait;
 
 final class TopTest extends OpenMageTest
 {
+    use TopTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

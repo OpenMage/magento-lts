@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Wishlist\Model\Resource\Item;
 use Mage;
 use Mage_Wishlist_Model_Resource_Item_Collection as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Wishlist\Model\Resource\Item\CollectionTrait;
 
 final class CollectionTest extends OpenMageTest
 {
+    use CollectionTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

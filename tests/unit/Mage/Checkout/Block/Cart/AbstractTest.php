@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Checkout\Block\Cart;
 
 use Mage_Checkout_Block_Cart_Abstract as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Checkout\Block\Cart\AbstractTrait;
 
 final class AbstractTest extends OpenMageTest
 {
+    use AbstractTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

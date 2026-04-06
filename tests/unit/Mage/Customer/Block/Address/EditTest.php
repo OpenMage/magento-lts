@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Customer\Block\Address;
 
 use Mage_Customer_Block_Address_Edit as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Customer\Block\Address\EditTrait;
 
 final class EditTest extends OpenMageTest
 {
+    use EditTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

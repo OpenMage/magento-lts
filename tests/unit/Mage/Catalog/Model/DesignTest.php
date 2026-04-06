@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Catalog\Model;
 use Mage;
 use Mage_Catalog_Model_Design as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\Model\DesignTrait;
 
 final class DesignTest extends OpenMageTest
 {
+    use DesignTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

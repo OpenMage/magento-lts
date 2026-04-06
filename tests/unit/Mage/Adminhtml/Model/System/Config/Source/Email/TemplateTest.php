@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Model\System\Config\Source\Email;
 use Mage;
 use Mage_Adminhtml_Model_System_Config_Source_Email_Template as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Model\System\Config\Source\Email\TemplateTrait;
 
 final class TemplateTest extends OpenMageTest
 {
+    use TemplateTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\System\Store\Grid\Render;
 
 use Mage_Adminhtml_Block_System_Store_Grid_Render_Group as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\System\Store\Grid\Render\GroupTrait;
 
 final class GroupTest extends OpenMageTest
 {
+    use GroupTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

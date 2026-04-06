@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Api\Model;
 use Mage;
 use Mage_Api_Model_Server as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Api\Model\ServerTrait;
 
 final class ServerTest extends OpenMageTest
 {
+    use ServerTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

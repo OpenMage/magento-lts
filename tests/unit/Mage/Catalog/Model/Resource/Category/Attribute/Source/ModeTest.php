@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Catalog\Model\Resource\Category\Attribute\Sou
 use Mage;
 use Mage_Catalog_Model_Resource_Category_Attribute_Source_Mode as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\Model\Resource\Category\Attribute\Source\ModeTrait;
 
 final class ModeTest extends OpenMageTest
 {
+    use ModeTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

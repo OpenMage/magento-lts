@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Core\Block\Text\List;
 
 use Mage_Core_Block_Text_List_Item as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\Block\Text\List\ItemTrait;
 
 final class ItemTest extends OpenMageTest
 {
+    use ItemTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

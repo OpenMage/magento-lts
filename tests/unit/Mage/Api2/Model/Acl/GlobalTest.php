@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Api2\Model\Acl;
 use Mage;
 use Mage_Api2_Model_Acl_Global as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Api2\Model\Acl\GlobalTrait;
 
 final class GlobalTest extends OpenMageTest
 {
+    use GlobalTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

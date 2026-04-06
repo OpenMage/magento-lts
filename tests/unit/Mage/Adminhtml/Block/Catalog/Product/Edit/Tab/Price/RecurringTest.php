@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Catalog\Product\Edit\Tab\Pric
 
 use Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Recurring as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\Catalog\Product\Edit\Tab\Price\RecurringTrait;
 
 final class RecurringTest extends OpenMageTest
 {
+    use RecurringTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

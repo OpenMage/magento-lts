@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Report\Grid\Column\Renderer;
 
 use Mage_Adminhtml_Block_Report_Grid_Column_Renderer_Blanknumber as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\Report\Grid\Column\Renderer\BlanknumberTrait;
 
 final class BlanknumberTest extends OpenMageTest
 {
+    use BlanknumberTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

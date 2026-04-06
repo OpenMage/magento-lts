@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Shipping\Model\Tracking\Result;
 use Mage;
 use Mage_Shipping_Model_Tracking_Result_Error as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Shipping\Model\Tracking\Result\ErrorTrait;
 
 final class ErrorTest extends OpenMageTest
 {
+    use ErrorTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

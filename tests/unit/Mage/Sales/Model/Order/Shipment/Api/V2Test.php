@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Sales\Model\Order\Shipment\Api;
 use Mage;
 use Mage_Sales_Model_Order_Shipment_Api_V2 as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sales\Model\Order\Shipment\Api\V2Trait;
 
 final class V2Test extends OpenMageTest
 {
+    use V2Trait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

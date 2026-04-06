@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\ProductAlert\Block;
 
 use Mage_ProductAlert_Block_Stock as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\ProductAlert\Block\StockTrait;
 
 final class StockTest extends OpenMageTest
 {
+    use StockTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

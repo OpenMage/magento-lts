@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Page\Block\Js;
 
 use Mage_Page_Block_Js_Cookie as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Page\Block\Js\CookieTrait;
 
 final class CookieTest extends OpenMageTest
 {
+    use CookieTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

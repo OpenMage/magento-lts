@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Core\Block\Html;
 
 use Mage_Core_Block_Html_Select as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\Block\Html\SelectTrait;
 
 final class SelectTest extends OpenMageTest
 {
+    use SelectTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

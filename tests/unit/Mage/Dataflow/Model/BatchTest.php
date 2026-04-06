@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Dataflow\Model;
 use Mage;
 use Mage_Dataflow_Model_Batch as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Dataflow\Model\BatchTrait;
 
 final class BatchTest extends OpenMageTest
 {
+    use BatchTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

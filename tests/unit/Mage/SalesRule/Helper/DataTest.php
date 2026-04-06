@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\SalesRule\Helper;
 use Mage;
 use Mage_SalesRule_Helper_Data as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\SalesRule\Helper\DataTrait;
 
 final class DataTest extends OpenMageTest
 {
+    use DataTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

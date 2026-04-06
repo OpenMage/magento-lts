@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Sales\Order\Create\Search\Gri
 
 use Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid_Renderer_Giftmessage as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\Sales\Order\Create\Search\Grid\Renderer\GiftmessageTrait;
 
 final class GiftmessageTest extends OpenMageTest
 {
+    use GiftmessageTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

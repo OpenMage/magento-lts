@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Catalog\Model\Convert\Parser;
 use Mage;
 use Mage_Catalog_Model_Convert_Parser_Product as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\Model\Convert\Parser\ProductTrait;
 
 final class ProductTest extends OpenMageTest
 {
+    use ProductTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

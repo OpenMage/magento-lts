@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Usa\Model\Shipping\Carrier\Dhl\Label;
 use Mage;
 use Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Usa\Model\Shipping\Carrier\Dhl\Label\PdfTrait;
 
 final class PdfTest extends OpenMageTest
 {
+    use PdfTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Customer\Sales\Order\Address\
 
 use Mage_Adminhtml_Block_Customer_Sales_Order_Address_Form_Renderer_Vat as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\Customer\Sales\Order\Address\Form\Renderer\VatTrait;
 
 final class VatTest extends OpenMageTest
 {
+    use VatTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

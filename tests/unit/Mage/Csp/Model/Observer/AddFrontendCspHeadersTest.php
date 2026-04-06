@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Csp\Model\Observer;
 use Mage;
 use Mage_Csp_Model_Observer_AddFrontendCspHeaders as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Csp\Model\Observer\AddFrontendCspHeadersTrait;
 
 final class AddFrontendCspHeadersTest extends OpenMageTest
 {
+    use AddFrontendCspHeadersTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

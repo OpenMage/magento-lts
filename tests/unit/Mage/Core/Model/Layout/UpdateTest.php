@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Core\Model\Layout;
 use Mage;
 use Mage_Core_Model_Layout_Update as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\Model\Layout\UpdateTrait;
 
 final class UpdateTest extends OpenMageTest
 {
+    use UpdateTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

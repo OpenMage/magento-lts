@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\ConfigurableSwatches\Block\Catalog\Layer\Stat
 
 use Mage_ConfigurableSwatches_Block_Catalog_Layer_State_Swatch as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\ConfigurableSwatches\Block\Catalog\Layer\State\SwatchTrait;
 
 final class SwatchTest extends OpenMageTest
 {
+    use SwatchTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

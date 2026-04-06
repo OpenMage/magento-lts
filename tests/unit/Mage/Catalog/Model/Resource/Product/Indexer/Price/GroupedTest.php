@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Catalog\Model\Resource\Product\Indexer\Price;
 use Mage;
 use Mage_Catalog_Model_Resource_Product_Indexer_Price_Grouped as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\Model\Resource\Product\Indexer\Price\GroupedTrait;
 
 final class GroupedTest extends OpenMageTest
 {
+    use GroupedTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

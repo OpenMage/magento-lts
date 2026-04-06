@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Api2\Block\Adminhtml\Roles\Tab;
 
 use Mage_Api2_Block_Adminhtml_Roles_Tab_Users as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Api2\Block\Adminhtml\Roles\Tab\UsersTrait;
 
 final class UsersTest extends OpenMageTest
 {
+    use UsersTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

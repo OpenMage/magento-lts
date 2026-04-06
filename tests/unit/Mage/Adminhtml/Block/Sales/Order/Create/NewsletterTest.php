@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Sales\Order\Create;
 
 use Mage_Adminhtml_Block_Sales_Order_Create_Newsletter as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\Sales\Order\Create\NewsletterTrait;
 
 final class NewsletterTest extends OpenMageTest
 {
+    use NewsletterTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

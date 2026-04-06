@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Paypal\Block\Adminhtml\Settlement;
 
 use Mage_Paypal_Block_Adminhtml_Settlement_Details as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Paypal\Block\Adminhtml\Settlement\DetailsTrait;
 
 final class DetailsTest extends OpenMageTest
 {
+    use DetailsTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

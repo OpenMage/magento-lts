@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Dataflow\Model\Convert;
 use Mage;
 use Mage_Dataflow_Model_Convert_Exception as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Dataflow\Model\Convert\ExceptionTrait;
 
 final class ExceptionTest extends OpenMageTest
 {
+    use ExceptionTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

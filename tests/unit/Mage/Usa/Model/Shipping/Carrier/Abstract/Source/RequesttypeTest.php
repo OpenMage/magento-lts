@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Usa\Model\Shipping\Carrier\Abstract\Source;
 use Mage;
 use Mage_Usa_Model_Shipping_Carrier_Abstract_Source_Requesttype as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Usa\Model\Shipping\Carrier\Abstract\Source\RequesttypeTrait;
 
 final class RequesttypeTest extends OpenMageTest
 {
+    use RequesttypeTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

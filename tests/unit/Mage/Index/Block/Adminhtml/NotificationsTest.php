@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Index\Block\Adminhtml;
 
 use Mage_Index_Block_Adminhtml_Notifications as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Index\Block\Adminhtml\NotificationsTrait;
 
 final class NotificationsTest extends OpenMageTest
 {
+    use NotificationsTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

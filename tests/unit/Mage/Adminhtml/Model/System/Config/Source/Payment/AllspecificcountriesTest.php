@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Model\System\Config\Source\Payment;
 use Mage;
 use Mage_Adminhtml_Model_System_Config_Source_Payment_Allspecificcountries as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Model\System\Config\Source\Payment\AllspecificcountriesTrait;
 
 final class AllspecificcountriesTest extends OpenMageTest
 {
+    use AllspecificcountriesTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

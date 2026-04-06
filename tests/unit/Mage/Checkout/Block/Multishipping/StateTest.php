@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Checkout\Block\Multishipping;
 
 use Mage_Checkout_Block_Multishipping_State as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Checkout\Block\Multishipping\StateTrait;
 
 final class StateTest extends OpenMageTest
 {
+    use StateTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Directory\Model\Resource\Currency;
 use Mage;
 use Mage_Directory_Model_Resource_Currency_Collection as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Directory\Model\Resource\Currency\CollectionTrait;
 
 final class CollectionTest extends OpenMageTest
 {
+    use CollectionTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

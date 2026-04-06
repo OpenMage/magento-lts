@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\CatalogSearch\Block\Advanced;
 
 use Mage_CatalogSearch_Block_Advanced_Form as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\CatalogSearch\Block\Advanced\FormTrait;
 
 final class FormTest extends OpenMageTest
 {
+    use FormTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

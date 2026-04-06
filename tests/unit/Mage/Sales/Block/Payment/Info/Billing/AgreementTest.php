@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Sales\Block\Payment\Info\Billing;
 
 use Mage_Sales_Block_Payment_Info_Billing_Agreement as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sales\Block\Payment\Info\Billing\AgreementTrait;
 
 final class AgreementTest extends OpenMageTest
 {
+    use AgreementTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

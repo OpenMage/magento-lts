@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Model\System\Config\Backend\Admin;
 use Mage;
 use Mage_Adminhtml_Model_System_Config_Backend_Admin_Usecustompath as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Model\System\Config\Backend\Admin\UsecustompathTrait;
 
 final class UsecustompathTest extends OpenMageTest
 {
+    use UsecustompathTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

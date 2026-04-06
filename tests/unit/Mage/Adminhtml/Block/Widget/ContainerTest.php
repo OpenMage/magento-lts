@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Widget;
 
 use Mage_Adminhtml_Block_Widget_Container as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\Widget\ContainerTrait;
 
 final class ContainerTest extends OpenMageTest
 {
+    use ContainerTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

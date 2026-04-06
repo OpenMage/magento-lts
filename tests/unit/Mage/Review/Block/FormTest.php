@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Review\Block;
 
 use Mage_Review_Block_Form as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Review\Block\FormTrait;
 
 final class FormTest extends OpenMageTest
 {
+    use FormTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

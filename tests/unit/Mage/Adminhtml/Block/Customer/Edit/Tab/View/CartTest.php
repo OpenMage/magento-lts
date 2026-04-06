@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Customer\Edit\Tab\View;
 
 use Mage_Adminhtml_Block_Customer_Edit_Tab_View_Cart as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\Customer\Edit\Tab\View\CartTrait;
 
 final class CartTest extends OpenMageTest
 {
+    use CartTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

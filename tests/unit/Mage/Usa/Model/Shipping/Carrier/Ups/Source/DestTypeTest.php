@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Usa\Model\Shipping\Carrier\Ups\Source;
 use Mage;
 use Mage_Usa_Model_Shipping_Carrier_Ups_Source_DestType as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Usa\Model\Shipping\Carrier\Ups\Source\DestTypeTrait;
 
 final class DestTypeTest extends OpenMageTest
 {
+    use DestTypeTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

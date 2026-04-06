@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Customer\Model\Api2\Customer\Address;
 use Mage;
 use Mage_Customer_Model_Api2_Customer_Address_Rest as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Customer\Model\Api2\Customer\Address\RestTrait;
 
 final class RestTest extends OpenMageTest
 {
+    use RestTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

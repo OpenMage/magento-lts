@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Sales\Block\Adminhtml\Recurring\Profile\View;
 
 use Mage_Sales_Block_Adminhtml_Recurring_Profile_View_Getawayinfo as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sales\Block\Adminhtml\Recurring\Profile\View\GetawayinfoTrait;
 
 final class GetawayinfoTest extends OpenMageTest
 {
+    use GetawayinfoTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

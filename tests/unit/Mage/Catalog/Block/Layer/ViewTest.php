@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Catalog\Block\Layer;
 
 use Mage_Catalog_Block_Layer_View as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\Block\Layer\ViewTrait;
 
 final class ViewTest extends OpenMageTest
 {
+    use ViewTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

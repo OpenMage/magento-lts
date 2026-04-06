@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\SalesRule\Model;
 use Mage;
 use Mage_SalesRule_Model_Validator as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\SalesRule\Model\ValidatorTrait;
 
 final class ValidatorTest extends OpenMageTest
 {
+    use ValidatorTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

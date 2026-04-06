@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Model\System\Config\Backend\Catalog
 use Mage;
 use Mage_Adminhtml_Model_System_Config_Backend_Catalog_Search_Separator as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Model\System\Config\Backend\Catalog\Search\SeparatorTrait;
 
 final class SeparatorTest extends OpenMageTest
 {
+    use SeparatorTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

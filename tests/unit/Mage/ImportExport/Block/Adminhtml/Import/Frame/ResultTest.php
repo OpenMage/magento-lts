@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\ImportExport\Block\Adminhtml\Import\Frame;
 
 use Mage_ImportExport_Block_Adminhtml_Import_Frame_Result as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\ImportExport\Block\Adminhtml\Import\Frame\ResultTrait;
 
 final class ResultTest extends OpenMageTest
 {
+    use ResultTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

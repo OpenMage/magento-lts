@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Sales\Model\Order;
 use Mage;
 use Mage_Sales_Model_Order_Total as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sales\Model\Order\TotalTrait;
 
 final class TotalTest extends OpenMageTest
 {
+    use TotalTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

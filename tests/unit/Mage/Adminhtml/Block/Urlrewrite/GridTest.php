@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Urlrewrite;
 
 use Mage_Adminhtml_Block_Urlrewrite_Grid as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\Urlrewrite\GridTrait;
 
 final class GridTest extends OpenMageTest
 {
+    use GridTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

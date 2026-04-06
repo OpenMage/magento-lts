@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Sales\Order\Create\Billing;
 
 use Mage_Adminhtml_Block_Sales_Order_Create_Billing_Address as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\Sales\Order\Create\Billing\AddressTrait;
 
 final class AddressTest extends OpenMageTest
 {
+    use AddressTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

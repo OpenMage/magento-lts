@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\CatalogInventory\Model\Api2\Stock\Item\Valida
 use Mage;
 use Mage_CatalogInventory_Model_Api2_Stock_Item_Validator_Item as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\CatalogInventory\Model\Api2\Stock\Item\Validator\ItemTrait;
 
 final class ItemTest extends OpenMageTest
 {
+    use ItemTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

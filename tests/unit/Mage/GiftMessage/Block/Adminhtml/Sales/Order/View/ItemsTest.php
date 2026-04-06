@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\GiftMessage\Block\Adminhtml\Sales\Order\View;
 
 use Mage_GiftMessage_Block_Adminhtml_Sales_Order_View_Items as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\GiftMessage\Block\Adminhtml\Sales\Order\View\ItemsTrait;
 
 final class ItemsTest extends OpenMageTest
 {
+    use ItemsTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

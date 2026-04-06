@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Model\System\Config\Source\Customer
 use Mage;
 use Mage_Adminhtml_Model_System_Config_Source_Customer_Group_Multiselect as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Model\System\Config\Source\Customer\Group\MultiselectTrait;
 
 final class MultiselectTest extends OpenMageTest
 {
+    use MultiselectTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

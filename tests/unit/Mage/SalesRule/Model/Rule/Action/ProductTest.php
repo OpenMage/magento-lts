@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\SalesRule\Model\Rule\Action;
 use Mage;
 use Mage_SalesRule_Model_Rule_Action_Product as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\SalesRule\Model\Rule\Action\ProductTrait;
 
 final class ProductTest extends OpenMageTest
 {
+    use ProductTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

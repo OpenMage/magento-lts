@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Api2\Model\Acl\Filter;
 use Mage;
 use Mage_Api2_Model_Acl_Filter_Attribute as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Api2\Model\Acl\Filter\AttributeTrait;
 
 final class AttributeTest extends OpenMageTest
 {
+    use AttributeTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

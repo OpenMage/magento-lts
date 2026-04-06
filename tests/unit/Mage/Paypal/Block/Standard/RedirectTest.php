@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Paypal\Block\Standard;
 
 use Mage_Paypal_Block_Standard_Redirect as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Paypal\Block\Standard\RedirectTrait;
 
 final class RedirectTest extends OpenMageTest
 {
+    use RedirectTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

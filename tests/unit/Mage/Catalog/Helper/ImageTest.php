@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Catalog\Helper;
 use Mage;
 use Mage_Catalog_Helper_Image as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\Helper\ImageTrait;
 
 final class ImageTest extends OpenMageTest
 {
+    use ImageTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Tag\Block\Customer;
 
 use Mage_Tag_Block_Customer_Tags as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Tag\Block\Customer\TagsTrait;
 
 final class TagsTest extends OpenMageTest
 {
+    use TagsTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

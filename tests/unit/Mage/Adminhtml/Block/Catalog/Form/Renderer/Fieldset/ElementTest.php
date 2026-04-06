@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Catalog\Form\Renderer\Fieldse
 
 use Mage_Adminhtml_Block_Catalog_Form_Renderer_Fieldset_Element as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\Catalog\Form\Renderer\Fieldset\ElementTrait;
 
 final class ElementTest extends OpenMageTest
 {
+    use ElementTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

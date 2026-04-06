@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Store\Switcher\Form\Renderer;
 
 use Mage_Adminhtml_Block_Store_Switcher_Form_Renderer_Fieldset as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\Store\Switcher\Form\Renderer\FieldsetTrait;
 
 final class FieldsetTest extends OpenMageTest
 {
+    use FieldsetTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

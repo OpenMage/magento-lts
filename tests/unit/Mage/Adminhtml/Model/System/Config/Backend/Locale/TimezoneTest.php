@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Model\System\Config\Backend\Locale;
 use Mage;
 use Mage_Adminhtml_Model_System_Config_Backend_Locale_Timezone as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Model\System\Config\Backend\Locale\TimezoneTrait;
 
 final class TimezoneTest extends OpenMageTest
 {
+    use TimezoneTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

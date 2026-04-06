@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Model\System\Config\Source\Design;
 use Mage;
 use Mage_Adminhtml_Model_System_Config_Source_Design_Package as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Model\System\Config\Source\Design\PackageTrait;
 
 final class PackageTest extends OpenMageTest
 {
+    use PackageTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

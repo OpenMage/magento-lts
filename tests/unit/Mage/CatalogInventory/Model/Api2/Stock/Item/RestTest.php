@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\CatalogInventory\Model\Api2\Stock\Item;
 use Mage;
 use Mage_CatalogInventory_Model_Api2_Stock_Item_Rest as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\CatalogInventory\Model\Api2\Stock\Item\RestTrait;
 
 final class RestTest extends OpenMageTest
 {
+    use RestTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

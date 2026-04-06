@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Customer\Block\Account\Dashboard;
 
 use Mage_Customer_Block_Account_Dashboard_Hello as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Customer\Block\Account\Dashboard\HelloTrait;
 
 final class HelloTest extends OpenMageTest
 {
+    use HelloTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Catalog\Model\Resource\Product;
 use Mage;
 use Mage_Catalog_Model_Resource_Product_Website as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\Model\Resource\Product\WebsiteTrait;
 
 final class WebsiteTest extends OpenMageTest
 {
+    use WebsiteTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

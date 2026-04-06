@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Eav\Model\Entity;
 use Mage;
 use Mage_Eav_Model_Entity_Store as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Eav\Model\Entity\StoreTrait;
 
 final class StoreTest extends OpenMageTest
 {
+    use StoreTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

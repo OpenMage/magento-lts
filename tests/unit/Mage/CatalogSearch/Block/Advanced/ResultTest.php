@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\CatalogSearch\Block\Advanced;
 
 use Mage_CatalogSearch_Block_Advanced_Result as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\CatalogSearch\Block\Advanced\ResultTrait;
 
 final class ResultTest extends OpenMageTest
 {
+    use ResultTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

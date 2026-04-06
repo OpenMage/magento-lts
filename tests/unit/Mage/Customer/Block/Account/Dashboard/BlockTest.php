@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Customer\Block\Account\Dashboard;
 
 use Mage_Customer_Block_Account_Dashboard_Block as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Customer\Block\Account\Dashboard\BlockTrait;
 
 final class BlockTest extends OpenMageTest
 {
+    use BlockTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

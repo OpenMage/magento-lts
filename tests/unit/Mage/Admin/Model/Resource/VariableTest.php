@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Admin\Model\Resource;
 use Mage;
 use Mage_Admin_Model_Resource_Variable as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Admin\Model\Resource\VariableTrait;
 
 final class VariableTest extends OpenMageTest
 {
+    use VariableTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

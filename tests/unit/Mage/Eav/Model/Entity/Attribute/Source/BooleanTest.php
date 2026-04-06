@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Eav\Model\Entity\Attribute\Source;
 use Mage;
 use Mage_Eav_Model_Entity_Attribute_Source_Boolean as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Eav\Model\Entity\Attribute\Source\BooleanTrait;
 
 final class BooleanTest extends OpenMageTest
 {
+    use BooleanTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

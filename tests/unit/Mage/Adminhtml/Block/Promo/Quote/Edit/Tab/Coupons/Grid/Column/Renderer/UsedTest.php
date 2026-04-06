@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Promo\Quote\Edit\Tab\Coupons\
 
 use Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Coupons_Grid_Column_Renderer_Used as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\Promo\Quote\Edit\Tab\Coupons\Grid\Column\Renderer\UsedTrait;
 
 final class UsedTest extends OpenMageTest
 {
+    use UsedTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

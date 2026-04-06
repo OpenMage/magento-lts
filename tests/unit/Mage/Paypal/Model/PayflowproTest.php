@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Paypal\Model;
 use Mage;
 use Mage_Paypal_Model_Payflowpro as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Paypal\Model\PayflowproTrait;
 
 final class PayflowproTest extends OpenMageTest
 {
+    use PayflowproTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

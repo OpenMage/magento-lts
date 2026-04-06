@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Downloadable\Block\Adminhtml\Catalog\Product\
 
 use Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Samples as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Downloadable\Block\Adminhtml\Catalog\Product\Edit\Tab\Downloadable\SamplesTrait;
 
 final class SamplesTest extends OpenMageTest
 {
+    use SamplesTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

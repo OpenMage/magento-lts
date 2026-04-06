@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\ImportExport\Model\Import\Proxy\Product;
 use Mage;
 use Mage_ImportExport_Model_Import_Proxy_Product_Resource as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\ImportExport\Model\Import\Proxy\Product\ResourceTrait;
 
 final class ResourceTest extends OpenMageTest
 {
+    use ResourceTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

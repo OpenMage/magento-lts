@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Core\Model\Magento\Api;
 use Mage;
 use Mage_Core_Model_Magento_Api_V2 as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\Model\Magento\Api\V2Trait;
 
 final class V2Test extends OpenMageTest
 {
+    use V2Trait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

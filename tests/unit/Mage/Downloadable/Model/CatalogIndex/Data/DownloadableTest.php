@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Downloadable\Model\CatalogIndex\Data;
 use Mage;
 use Mage_Downloadable_Model_CatalogIndex_Data_Downloadable as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Downloadable\Model\CatalogIndex\Data\DownloadableTrait;
 
 final class DownloadableTest extends OpenMageTest
 {
+    use DownloadableTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

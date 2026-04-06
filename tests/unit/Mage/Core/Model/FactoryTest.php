@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Core\Model;
 use Mage;
 use Mage_Core_Model_Factory as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\Model\FactoryTrait;
 
 final class FactoryTest extends OpenMageTest
 {
+    use FactoryTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

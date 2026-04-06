@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Bundle\Block\Catalog\Product\View\Type\Bundle
 
 use Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option_Select as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Bundle\Block\Catalog\Product\View\Type\Bundle\Option\SelectTrait;
 
 final class SelectTest extends OpenMageTest
 {
+    use SelectTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

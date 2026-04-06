@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Sales\Model\Resource\Order;
 use Mage;
 use Mage_Sales_Model_Resource_Order_Status as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sales\Model\Resource\Order\StatusTrait;
 
 final class StatusTest extends OpenMageTest
 {
+    use StatusTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

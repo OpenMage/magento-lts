@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Review;
 
 use Mage_Adminhtml_Block_Review_Grid as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\Review\GridTrait;
 
 final class GridTest extends OpenMageTest
 {
+    use GridTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

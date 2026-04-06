@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Bundle\Block\Catalog\Product\List;
 
 use Mage_Bundle_Block_Catalog_Product_List_Partof as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Bundle\Block\Catalog\Product\List\PartofTrait;
 
 final class PartofTest extends OpenMageTest
 {
+    use PartofTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

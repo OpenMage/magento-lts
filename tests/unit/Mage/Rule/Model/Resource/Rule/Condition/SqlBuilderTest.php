@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Rule\Model\Resource\Rule\Condition;
 use Mage;
 use Mage_Rule_Model_Resource_Rule_Condition_SqlBuilder as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Rule\Model\Resource\Rule\Condition\SqlBuilderTrait;
 
 final class SqlBuilderTest extends OpenMageTest
 {
+    use SqlBuilderTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

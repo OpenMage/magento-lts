@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Rss\Model\Resource;
 use Mage;
 use Mage_Rss_Model_Resource_Order as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Rss\Model\Resource\OrderTrait;
 
 final class OrderTest extends OpenMageTest
 {
+    use OrderTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Notification;
 
 use Mage_Adminhtml_Block_Notification_Window as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\Notification\WindowTrait;
 
 final class WindowTest extends OpenMageTest
 {
+    use WindowTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Core\Helper;
 use Mage;
 use Mage_Core_Helper_Translate as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\Helper\TranslateTrait;
 
 final class TranslateTest extends OpenMageTest
 {
+    use TranslateTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Rating\Model\Resource\Rating;
 use Mage;
 use Mage_Rating_Model_Resource_Rating_Collection as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Rating\Model\Resource\Rating\CollectionTrait;
 
 final class CollectionTest extends OpenMageTest
 {
+    use CollectionTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

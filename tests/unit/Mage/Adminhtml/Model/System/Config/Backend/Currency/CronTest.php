@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Model\System\Config\Backend\Currenc
 use Mage;
 use Mage_Adminhtml_Model_System_Config_Backend_Currency_Cron as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Model\System\Config\Backend\Currency\CronTrait;
 
 final class CronTest extends OpenMageTest
 {
+    use CronTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\ConfigurableSwatches\Block\Catalog\Product\Li
 
 use Mage_ConfigurableSwatches_Block_Catalog_Product_List_Price as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\ConfigurableSwatches\Block\Catalog\Product\List\PriceTrait;
 
 final class PriceTest extends OpenMageTest
 {
+    use PriceTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

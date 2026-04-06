@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Reports\Model\Product\Index;
 use Mage;
 use Mage_Reports_Model_Product_Index_Viewed as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Reports\Model\Product\Index\ViewedTrait;
 
 final class ViewedTest extends OpenMageTest
 {
+    use ViewedTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

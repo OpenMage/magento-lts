@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\CatalogRule\Model;
 use Mage;
 use Mage_CatalogRule_Model_Observer as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\CatalogRule\Model\ObserverTrait;
 
 final class ObserverTest extends OpenMageTest
 {
+    use ObserverTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

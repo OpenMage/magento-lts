@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Shipping\Model\Rate\Result;
 use Mage;
 use Mage_Shipping_Model_Rate_Result_Method as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Shipping\Model\Rate\Result\MethodTrait;
 
 final class MethodTest extends OpenMageTest
 {
+    use MethodTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

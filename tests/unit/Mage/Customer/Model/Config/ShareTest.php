@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Customer\Model\Config;
 use Mage;
 use Mage_Customer_Model_Config_Share as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Customer\Model\Config\ShareTrait;
 
 final class ShareTest extends OpenMageTest
 {
+    use ShareTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

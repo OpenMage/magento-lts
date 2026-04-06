@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Widget\Block\Adminhtml\Widget\Instance;
 
 use Mage_Widget_Block_Adminhtml_Widget_Instance_Grid as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Widget\Block\Adminhtml\Widget\Instance\GridTrait;
 
 final class GridTest extends OpenMageTest
 {
+    use GridTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Page\Block\Html;
 
 use Mage_Page_Block_Html_Toplinks as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Page\Block\Html\ToplinksTrait;
 
 final class ToplinksTest extends OpenMageTest
 {
+    use ToplinksTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

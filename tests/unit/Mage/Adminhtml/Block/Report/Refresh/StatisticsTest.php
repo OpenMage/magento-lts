@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Report\Refresh;
 
 use Mage_Adminhtml_Block_Report_Refresh_Statistics as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\Report\Refresh\StatisticsTrait;
 
 final class StatisticsTest extends OpenMageTest
 {
+    use StatisticsTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

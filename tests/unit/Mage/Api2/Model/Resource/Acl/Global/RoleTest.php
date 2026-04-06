@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Api2\Model\Resource\Acl\Global;
 use Mage;
 use Mage_Api2_Model_Resource_Acl_Global_Role as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Api2\Model\Resource\Acl\Global\RoleTrait;
 
 final class RoleTest extends OpenMageTest
 {
+    use RoleTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

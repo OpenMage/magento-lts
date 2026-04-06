@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Widget\Model\Widget;
 use Mage;
 use Mage_Widget_Model_Widget_Config as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Widget\Model\Widget\ConfigTrait;
 
 final class ConfigTest extends OpenMageTest
 {
+    use ConfigTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

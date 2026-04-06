@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Shipping\Model\Carrier;
 use Mage;
 use Mage_Shipping_Model_Carrier_Pickup as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Shipping\Model\Carrier\PickupTrait;
 
 final class PickupTest extends OpenMageTest
 {
+    use PickupTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

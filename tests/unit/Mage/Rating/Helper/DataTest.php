@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Rating\Helper;
 use Mage;
 use Mage_Rating_Helper_Data as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Rating\Helper\DataTrait;
 
 final class DataTest extends OpenMageTest
 {
+    use DataTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

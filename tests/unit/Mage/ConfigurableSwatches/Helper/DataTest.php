@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\ConfigurableSwatches\Helper;
 use Mage;
 use Mage_ConfigurableSwatches_Helper_Data as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\ConfigurableSwatches\Helper\DataTrait;
 
 final class DataTest extends OpenMageTest
 {
+    use DataTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Helper;
 use Mage;
 use Mage_Adminhtml_Helper_Rss as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Helper\RssTrait;
 
 final class RssTest extends OpenMageTest
 {
+    use RssTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

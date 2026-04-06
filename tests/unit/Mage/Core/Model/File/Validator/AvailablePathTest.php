@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Core\Model\File\Validator;
 use Mage;
 use Mage_Core_Model_File_Validator_AvailablePath as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\Model\File\Validator\AvailablePathTrait;
 
 final class AvailablePathTest extends OpenMageTest
 {
+    use AvailablePathTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

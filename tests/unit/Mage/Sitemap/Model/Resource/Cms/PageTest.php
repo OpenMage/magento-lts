@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Sitemap\Model\Resource\Cms;
 use Mage;
 use Mage_Sitemap_Model_Resource_Cms_Page as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sitemap\Model\Resource\Cms\PageTrait;
 
 final class PageTest extends OpenMageTest
 {
+    use PageTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

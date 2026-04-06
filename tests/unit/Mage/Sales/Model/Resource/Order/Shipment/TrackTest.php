@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Sales\Model\Resource\Order\Shipment;
 use Mage;
 use Mage_Sales_Model_Resource_Order_Shipment_Track as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sales\Model\Resource\Order\Shipment\TrackTrait;
 
 final class TrackTest extends OpenMageTest
 {
+    use TrackTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

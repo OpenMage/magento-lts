@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Customer\Grid\Renderer;
 
 use Mage_Adminhtml_Block_Customer_Grid_Renderer_Multiaction as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\Customer\Grid\Renderer\MultiactionTrait;
 
 final class MultiactionTest extends OpenMageTest
 {
+    use MultiactionTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

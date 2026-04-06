@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Catalog\Block\Layer\Filter;
 
 use Mage_Catalog_Block_Layer_Filter_Attribute as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\Block\Layer\Filter\AttributeTrait;
 
 final class AttributeTest extends OpenMageTest
 {
+    use AttributeTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

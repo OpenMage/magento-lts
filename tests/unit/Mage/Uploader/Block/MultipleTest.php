@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Uploader\Block;
 
 use Mage_Uploader_Block_Multiple as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Uploader\Block\MultipleTrait;
 
 final class MultipleTest extends OpenMageTest
 {
+    use MultipleTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Downloadable\Block\Checkout\Cart\Item;
 
 use Mage_Downloadable_Block_Checkout_Cart_Item_Renderer as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Downloadable\Block\Checkout\Cart\Item\RendererTrait;
 
 final class RendererTest extends OpenMageTest
 {
+    use RendererTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

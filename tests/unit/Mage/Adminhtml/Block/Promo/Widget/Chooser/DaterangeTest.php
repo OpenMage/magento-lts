@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Promo\Widget\Chooser;
 
 use Mage_Adminhtml_Block_Promo_Widget_Chooser_Daterange as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\Promo\Widget\Chooser\DaterangeTrait;
 
 final class DaterangeTest extends OpenMageTest
 {
+    use DaterangeTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

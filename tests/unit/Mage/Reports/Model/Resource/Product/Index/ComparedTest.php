@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Reports\Model\Resource\Product\Index;
 use Mage;
 use Mage_Reports_Model_Resource_Product_Index_Compared as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Reports\Model\Resource\Product\Index\ComparedTrait;
 
 final class ComparedTest extends OpenMageTest
 {
+    use ComparedTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

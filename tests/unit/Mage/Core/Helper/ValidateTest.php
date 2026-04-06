@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Core\Helper;
 use Mage;
 use Mage_Core_Helper_Validate as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\Helper\ValidateTrait;
 
 final class ValidateTest extends OpenMageTest
 {
+    use ValidateTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

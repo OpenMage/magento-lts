@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\System\Config\Form\Field\Sele
 
 use Mage_Adminhtml_Block_System_Config_Form_Field_Select_Allowspecific as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\System\Config\Form\Field\Select\AllowspecificTrait;
 
 final class AllowspecificTest extends OpenMageTest
 {
+    use AllowspecificTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

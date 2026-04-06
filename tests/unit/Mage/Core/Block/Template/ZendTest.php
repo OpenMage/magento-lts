@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Core\Block\Template;
 
 use Mage_Core_Block_Template_Zend as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\Block\Template\ZendTrait;
 
 final class ZendTest extends OpenMageTest
 {
+    use ZendTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

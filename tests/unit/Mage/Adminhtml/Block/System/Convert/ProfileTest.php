@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\System\Convert;
 
 use Mage_Adminhtml_Block_System_Convert_Profile as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\System\Convert\ProfileTrait;
 
 final class ProfileTest extends OpenMageTest
 {
+    use ProfileTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

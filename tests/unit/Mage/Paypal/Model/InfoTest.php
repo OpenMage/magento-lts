@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Paypal\Model;
 use Mage;
 use Mage_Paypal_Model_Info as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Paypal\Model\InfoTrait;
 
 final class InfoTest extends OpenMageTest
 {
+    use InfoTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

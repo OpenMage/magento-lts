@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Core\Model\Store;
 use Mage;
 use Mage_Core_Model_Store_Exception as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\Model\Store\ExceptionTrait;
 
 final class ExceptionTest extends OpenMageTest
 {
+    use ExceptionTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

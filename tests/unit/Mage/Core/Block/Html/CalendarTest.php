@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Core\Block\Html;
 
 use Mage_Core_Block_Html_Calendar as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\Block\Html\CalendarTrait;
 
 final class CalendarTest extends OpenMageTest
 {
+    use CalendarTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

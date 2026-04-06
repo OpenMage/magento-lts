@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Paypal\Model\Api;
 use Mage;
 use Mage_Paypal_Model_Api_ProcessableException as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Paypal\Model\Api\ProcessableExceptionTrait;
 
 final class ProcessableExceptionTest extends OpenMageTest
 {
+    use ProcessableExceptionTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

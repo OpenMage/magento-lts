@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\System\Design\Edit\Tab;
 
 use Mage_Adminhtml_Block_System_Design_Edit_Tab_General as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\System\Design\Edit\Tab\GeneralTrait;
 
 final class GeneralTest extends OpenMageTest
 {
+    use GeneralTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

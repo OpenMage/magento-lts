@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Dataflow\Model\Convert\Iterator\File;
 use Mage;
 use Mage_Dataflow_Model_Convert_Iterator_File_Csv as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Dataflow\Model\Convert\Iterator\File\CsvTrait;
 
 final class CsvTest extends OpenMageTest
 {
+    use CsvTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

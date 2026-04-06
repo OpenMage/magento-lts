@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Checkout\Block\Onepage;
 
 use Mage_Checkout_Block_Onepage_Review as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Checkout\Block\Onepage\ReviewTrait;
 
 final class ReviewTest extends OpenMageTest
 {
+    use ReviewTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

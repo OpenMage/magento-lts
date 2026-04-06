@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Catalog\Product\Attribute\Set
 
 use Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main_Formset as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\Catalog\Product\Attribute\Set\Main\FormsetTrait;
 
 final class FormsetTest extends OpenMageTest
 {
+    use FormsetTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

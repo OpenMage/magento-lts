@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Widget\Model\Resource;
 use Mage;
 use Mage_Widget_Model_Resource_Widget as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Widget\Model\Resource\WidgetTrait;
 
 final class WidgetTest extends OpenMageTest
 {
+    use WidgetTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

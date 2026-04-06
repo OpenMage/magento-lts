@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\System\Config\Form\Field;
 
 use Mage_Adminhtml_Block_System_Config_Form_Field_Export as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\System\Config\Form\Field\ExportTrait;
 
 final class ExportTest extends OpenMageTest
 {
+    use ExportTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

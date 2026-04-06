@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Newsletter\Model;
 use Mage;
 use Mage_Newsletter_Model_Session as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Newsletter\Model\SessionTrait;
 
 final class SessionTest extends OpenMageTest
 {
+    use SessionTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

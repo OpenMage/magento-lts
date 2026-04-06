@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Catalog\Product\Attribute\Set
 
 use Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main_Tree_Group as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\Catalog\Product\Attribute\Set\Main\Tree\GroupTrait;
 
 final class GroupTest extends OpenMageTest
 {
+    use GroupTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Uploader\Block;
 
 use Mage_Uploader_Block_Single as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Uploader\Block\SingleTrait;
 
 final class SingleTest extends OpenMageTest
 {
+    use SingleTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

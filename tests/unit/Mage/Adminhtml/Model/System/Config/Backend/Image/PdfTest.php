@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Model\System\Config\Backend\Image;
 use Mage;
 use Mage_Adminhtml_Model_System_Config_Backend_Image_Pdf as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Model\System\Config\Backend\Image\PdfTrait;
 
 final class PdfTest extends OpenMageTest
 {
+    use PdfTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

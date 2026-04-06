@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Install\Model\Installer;
 use Mage;
 use Mage_Install_Model_Installer_Filesystem as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Install\Model\Installer\FilesystemTrait;
 
 final class FilesystemTest extends OpenMageTest
 {
+    use FilesystemTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

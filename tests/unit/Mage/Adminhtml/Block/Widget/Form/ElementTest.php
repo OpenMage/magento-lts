@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Widget\Form;
 
 use Mage_Adminhtml_Block_Widget_Form_Element as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\Widget\Form\ElementTrait;
 
 final class ElementTest extends OpenMageTest
 {
+    use ElementTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

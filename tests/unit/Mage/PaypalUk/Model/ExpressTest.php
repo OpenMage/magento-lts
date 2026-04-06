@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\PaypalUk\Model;
 use Mage;
 use Mage_PaypalUk_Model_Express as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\PaypalUk\Model\ExpressTrait;
 
 final class ExpressTest extends OpenMageTest
 {
+    use ExpressTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

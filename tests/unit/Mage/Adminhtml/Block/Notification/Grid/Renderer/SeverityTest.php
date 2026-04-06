@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Notification\Grid\Renderer;
 
 use Mage_Adminhtml_Block_Notification_Grid_Renderer_Severity as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\Notification\Grid\Renderer\SeverityTrait;
 
 final class SeverityTest extends OpenMageTest
 {
+    use SeverityTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

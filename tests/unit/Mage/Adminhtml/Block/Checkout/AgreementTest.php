@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Checkout;
 
 use Mage_Adminhtml_Block_Checkout_Agreement as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\Checkout\AgreementTrait;
 
 final class AgreementTest extends OpenMageTest
 {
+    use AgreementTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

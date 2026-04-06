@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Model\System\Config\Backend;
 use Mage;
 use Mage_Adminhtml_Model_System_Config_Backend_Passwordlength as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Model\System\Config\Backend\PasswordlengthTrait;
 
 final class PasswordlengthTest extends OpenMageTest
 {
+    use PasswordlengthTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

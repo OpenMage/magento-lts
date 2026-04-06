@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Persistent\Model\Persistent;
 use Mage;
 use Mage_Persistent_Model_Persistent_Config as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Persistent\Model\Persistent\ConfigTrait;
 
 final class ConfigTest extends OpenMageTest
 {
+    use ConfigTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

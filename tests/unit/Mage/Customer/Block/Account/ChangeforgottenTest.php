@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Customer\Block\Account;
 
 use Mage_Customer_Block_Account_Changeforgotten as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Customer\Block\Account\ChangeforgottenTrait;
 
 final class ChangeforgottenTest extends OpenMageTest
 {
+    use ChangeforgottenTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

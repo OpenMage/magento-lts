@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Widget\Grid\Column\Renderer;
 
 use Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Theme as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\Widget\Grid\Column\Renderer\ThemeTrait;
 
 final class ThemeTest extends OpenMageTest
 {
+    use ThemeTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

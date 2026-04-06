@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Api\Model\Acl\Role;
 use Mage;
 use Mage_Api_Model_Acl_Role_Group as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Api\Model\Acl\Role\GroupTrait;
 
 final class GroupTest extends OpenMageTest
 {
+    use GroupTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

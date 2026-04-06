@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Tax\Block\Checkout;
 
 use Mage_Tax_Block_Checkout_Grandtotal as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Tax\Block\Checkout\GrandtotalTrait;
 
 final class GrandtotalTest extends OpenMageTest
 {
+    use GrandtotalTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

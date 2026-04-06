@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Payment\Block\Info;
 
 use Mage_Payment_Block_Info_Ccsave as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Payment\Block\Info\CcsaveTrait;
 
 final class CcsaveTest extends OpenMageTest
 {
+    use CcsaveTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Catalog\Block\Product\List;
 
 use Mage_Catalog_Block_Product_List_Random as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\Block\Product\List\RandomTrait;
 
 final class RandomTest extends OpenMageTest
 {
+    use RandomTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

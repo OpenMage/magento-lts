@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Page\Block\Template;
 
 use Mage_Page_Block_Template_Container as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Page\Block\Template\ContainerTrait;
 
 final class ContainerTest extends OpenMageTest
 {
+    use ContainerTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

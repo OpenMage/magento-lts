@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Customer;
 
 use Mage_Adminhtml_Block_Customer_Online as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\Customer\OnlineTrait;
 
 final class OnlineTest extends OpenMageTest
 {
+    use OnlineTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

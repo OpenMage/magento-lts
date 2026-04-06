@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Model\System\Config\Source\Log;
 use Mage;
 use Mage_Adminhtml_Model_System_Config_Source_Log_Level as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Model\System\Config\Source\Log\LevelTrait;
 
 final class LevelTest extends OpenMageTest
 {
+    use LevelTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

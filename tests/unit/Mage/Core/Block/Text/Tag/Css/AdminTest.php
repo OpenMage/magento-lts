@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Core\Block\Text\Tag\Css;
 
 use Mage_Core_Block_Text_Tag_Css_Admin as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\Block\Text\Tag\Css\AdminTrait;
 
 final class AdminTest extends OpenMageTest
 {
+    use AdminTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

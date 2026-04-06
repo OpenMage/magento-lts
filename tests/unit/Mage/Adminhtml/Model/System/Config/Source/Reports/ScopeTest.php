@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Model\System\Config\Source\Reports;
 use Mage;
 use Mage_Adminhtml_Model_System_Config_Source_Reports_Scope as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Model\System\Config\Source\Reports\ScopeTrait;
 
 final class ScopeTest extends OpenMageTest
 {
+    use ScopeTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

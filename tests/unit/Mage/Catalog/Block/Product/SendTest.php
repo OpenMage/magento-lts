@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Catalog\Block\Product;
 
 use Mage_Catalog_Block_Product_Send as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\Block\Product\SendTrait;
 
 final class SendTest extends OpenMageTest
 {
+    use SendTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

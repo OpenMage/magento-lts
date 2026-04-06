@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Model\System\Config\Source\Catalog;
 use Mage;
 use Mage_Adminhtml_Model_System_Config_Source_Catalog_ListSort as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Model\System\Config\Source\Catalog\ListSortTrait;
 
 final class ListSortTest extends OpenMageTest
 {
+    use ListSortTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

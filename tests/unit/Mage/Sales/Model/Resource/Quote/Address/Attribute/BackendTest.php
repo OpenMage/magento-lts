@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Sales\Model\Resource\Quote\Address\Attribute;
 use Mage;
 use Mage_Sales_Model_Resource_Quote_Address_Attribute_Backend as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sales\Model\Resource\Quote\Address\Attribute\BackendTrait;
 
 final class BackendTest extends OpenMageTest
 {
+    use BackendTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

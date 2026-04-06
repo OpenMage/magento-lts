@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Downloadable\Model\Sales\Order\Pdf\Items;
 use Mage;
 use Mage_Downloadable_Model_Sales_Order_Pdf_Items_Abstract as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Downloadable\Model\Sales\Order\Pdf\Items\AbstractTrait;
 
 final class AbstractTest extends OpenMageTest
 {
+    use AbstractTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

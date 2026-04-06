@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Paygate\Model\Authorizenet\Source;
 use Mage;
 use Mage_Paygate_Model_Authorizenet_Source_PaymentAction as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Paygate\Model\Authorizenet\Source\PaymentActionTrait;
 
 final class PaymentActionTest extends OpenMageTest
 {
+    use PaymentActionTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

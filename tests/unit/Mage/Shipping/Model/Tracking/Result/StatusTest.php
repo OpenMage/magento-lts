@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Shipping\Model\Tracking\Result;
 use Mage;
 use Mage_Shipping_Model_Tracking_Result_Status as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Shipping\Model\Tracking\Result\StatusTrait;
 
 final class StatusTest extends OpenMageTest
 {
+    use StatusTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

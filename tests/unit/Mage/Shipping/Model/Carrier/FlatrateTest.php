@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Shipping\Model\Carrier;
 use Mage;
 use Mage_Shipping_Model_Carrier_Flatrate as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Shipping\Model\Carrier\FlatrateTrait;
 
 final class FlatrateTest extends OpenMageTest
 {
+    use FlatrateTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

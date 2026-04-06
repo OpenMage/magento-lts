@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Shipping\Block\Tracking;
 
 use Mage_Shipping_Block_Tracking_Popup as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Shipping\Block\Tracking\PopupTrait;
 
 final class PopupTest extends OpenMageTest
 {
+    use PopupTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

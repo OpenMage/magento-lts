@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Core\Model\Email;
 use Mage;
 use Mage_Core_Model_Email_Transport as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\Model\Email\TransportTrait;
 
 final class TransportTest extends OpenMageTest
 {
+    use TransportTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

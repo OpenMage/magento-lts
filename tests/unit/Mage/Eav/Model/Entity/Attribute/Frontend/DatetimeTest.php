@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Eav\Model\Entity\Attribute\Frontend;
 use Mage;
 use Mage_Eav_Model_Entity_Attribute_Frontend_Datetime as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Eav\Model\Entity\Attribute\Frontend\DatetimeTrait;
 
 final class DatetimeTest extends OpenMageTest
 {
+    use DatetimeTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Eav\Model\Attribute\Data;
 use Mage;
 use Mage_Eav_Model_Attribute_Data_Multiline as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Eav\Model\Attribute\Data\MultilineTrait;
 
 final class MultilineTest extends OpenMageTest
 {
+    use MultilineTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

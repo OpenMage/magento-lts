@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Paypal\Block\Bml;
 
 use Mage_Paypal_Block_Bml_Banners as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Paypal\Block\Bml\BannersTrait;
 
 final class BannersTest extends OpenMageTest
 {
+    use BannersTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

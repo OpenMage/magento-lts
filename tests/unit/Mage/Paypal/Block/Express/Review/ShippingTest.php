@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Paypal\Block\Express\Review;
 
 use Mage_Paypal_Block_Express_Review_Shipping as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Paypal\Block\Express\Review\ShippingTrait;
 
 final class ShippingTest extends OpenMageTest
 {
+    use ShippingTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Weee\Model;
 use Mage;
 use Mage_Weee_Model_Tax as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Weee\Model\TaxTrait;
 
 final class TaxTest extends OpenMageTest
 {
+    use TaxTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

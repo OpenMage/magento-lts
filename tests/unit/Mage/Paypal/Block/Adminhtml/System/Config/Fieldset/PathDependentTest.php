@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Paypal\Block\Adminhtml\System\Config\Fieldset
 
 use Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_PathDependent as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Paypal\Block\Adminhtml\System\Config\Fieldset\PathDependentTrait;
 
 final class PathDependentTest extends OpenMageTest
 {
+    use PathDependentTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

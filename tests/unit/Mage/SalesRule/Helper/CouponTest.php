@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\SalesRule\Helper;
 use Mage;
 use Mage_SalesRule_Helper_Coupon as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\SalesRule\Helper\CouponTrait;
 
 final class CouponTest extends OpenMageTest
 {
+    use CouponTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

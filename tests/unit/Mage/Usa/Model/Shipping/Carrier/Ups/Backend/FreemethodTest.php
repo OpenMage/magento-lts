@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Usa\Model\Shipping\Carrier\Ups\Backend;
 use Mage;
 use Mage_Usa_Model_Shipping_Carrier_Ups_Backend_Freemethod as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Usa\Model\Shipping\Carrier\Ups\Backend\FreemethodTrait;
 
 final class FreemethodTest extends OpenMageTest
 {
+    use FreemethodTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

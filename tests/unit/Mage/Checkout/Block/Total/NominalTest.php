@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Checkout\Block\Total;
 
 use Mage_Checkout_Block_Total_Nominal as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Checkout\Block\Total\NominalTrait;
 
 final class NominalTest extends OpenMageTest
 {
+    use NominalTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

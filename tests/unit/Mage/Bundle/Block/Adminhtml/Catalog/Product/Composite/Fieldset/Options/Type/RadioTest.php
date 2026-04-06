@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Bundle\Block\Adminhtml\Catalog\Product\Compos
 
 use Mage_Bundle_Block_Adminhtml_Catalog_Product_Composite_Fieldset_Options_Type_Radio as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Bundle\Block\Adminhtml\Catalog\Product\Composite\Fieldset\Options\Type\RadioTrait;
 
 final class RadioTest extends OpenMageTest
 {
+    use RadioTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

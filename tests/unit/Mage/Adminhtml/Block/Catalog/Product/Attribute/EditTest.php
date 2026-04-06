@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Catalog\Product\Attribute;
 
 use Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\Catalog\Product\Attribute\EditTrait;
 
 final class EditTest extends OpenMageTest
 {
+    use EditTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

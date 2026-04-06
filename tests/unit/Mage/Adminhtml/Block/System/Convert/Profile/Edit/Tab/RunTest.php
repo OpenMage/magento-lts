@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\System\Convert\Profile\Edit\T
 
 use Mage_Adminhtml_Block_System_Convert_Profile_Edit_Tab_Run as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\System\Convert\Profile\Edit\Tab\RunTrait;
 
 final class RunTest extends OpenMageTest
 {
+    use RunTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

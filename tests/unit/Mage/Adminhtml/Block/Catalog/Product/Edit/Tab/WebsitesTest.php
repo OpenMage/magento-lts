@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Catalog\Product\Edit\Tab;
 
 use Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Websites as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\Catalog\Product\Edit\Tab\WebsitesTrait;
 
 final class WebsitesTest extends OpenMageTest
 {
+    use WebsitesTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

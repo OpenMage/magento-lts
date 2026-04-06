@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Api\Model;
 use Mage;
 use Mage_Api_Model_Acl as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Api\Model\AclTrait;
 
 final class AclTest extends OpenMageTest
 {
+    use AclTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

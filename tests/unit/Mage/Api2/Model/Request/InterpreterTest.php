@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Api2\Model\Request;
 use Mage;
 use Mage_Api2_Model_Request_Interpreter as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Api2\Model\Request\InterpreterTrait;
 
 final class InterpreterTest extends OpenMageTest
 {
+    use InterpreterTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

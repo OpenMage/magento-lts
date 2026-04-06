@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Model\System\Config\Backend\Design;
 use Mage;
 use Mage_Adminhtml_Model_System_Config_Backend_Design_Exception as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Model\System\Config\Backend\Design\ExceptionTrait;
 
 final class ExceptionTest extends OpenMageTest
 {
+    use ExceptionTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

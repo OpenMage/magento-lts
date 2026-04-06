@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Tag\Block;
 
 use Mage_Tag_Block_Popular as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Tag\Block\PopularTrait;
 
 final class PopularTest extends OpenMageTest
 {
+    use PopularTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

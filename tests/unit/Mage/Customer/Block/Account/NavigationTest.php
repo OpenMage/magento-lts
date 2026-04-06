@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Customer\Block\Account;
 
 use Mage_Customer_Block_Account_Navigation as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Customer\Block\Account\NavigationTrait;
 
 final class NavigationTest extends OpenMageTest
 {
+    use NavigationTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

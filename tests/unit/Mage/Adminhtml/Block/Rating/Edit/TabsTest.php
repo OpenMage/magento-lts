@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Rating\Edit;
 
 use Mage_Adminhtml_Block_Rating_Edit_Tabs as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\Rating\Edit\TabsTrait;
 
 final class TabsTest extends OpenMageTest
 {
+    use TabsTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

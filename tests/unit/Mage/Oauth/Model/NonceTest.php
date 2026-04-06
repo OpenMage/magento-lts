@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Oauth\Model;
 use Mage;
 use Mage_Oauth_Model_Nonce as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Oauth\Model\NonceTrait;
 
 final class NonceTest extends OpenMageTest
 {
+    use NonceTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

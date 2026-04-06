@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Catalog\Form\Renderer\Config;
 
 use Mage_Adminhtml_Block_Catalog_Form_Renderer_Config_YearRange as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\Catalog\Form\Renderer\Config\YearRangeTrait;
 
 final class YearRangeTest extends OpenMageTest
 {
+    use YearRangeTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Model\System\Config\Backend\Custome
 use Mage;
 use Mage_Adminhtml_Model_System_Config_Backend_Customer_Show_Customer as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Model\System\Config\Backend\Customer\Show\CustomerTrait;
 
 final class CustomerTest extends OpenMageTest
 {
+    use CustomerTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

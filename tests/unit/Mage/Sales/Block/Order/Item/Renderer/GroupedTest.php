@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Sales\Block\Order\Item\Renderer;
 
 use Mage_Sales_Block_Order_Item_Renderer_Grouped as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sales\Block\Order\Item\Renderer\GroupedTrait;
 
 final class GroupedTest extends OpenMageTest
 {
+    use GroupedTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

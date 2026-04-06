@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\System\Config\Form\Field;
 
 use Mage_Adminhtml_Block_System_Config_Form_Field_File as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\System\Config\Form\Field\FileTrait;
 
 final class FileTest extends OpenMageTest
 {
+    use FileTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Wishlist\Block\Customer\Wishlist\Item\Column;
 
 use Mage_Wishlist_Block_Customer_Wishlist_Item_Column_Cart as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Wishlist\Block\Customer\Wishlist\Item\Column\CartTrait;
 
 final class CartTest extends OpenMageTest
 {
+    use CartTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

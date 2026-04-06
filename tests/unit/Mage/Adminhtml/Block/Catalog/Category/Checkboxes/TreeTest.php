@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Catalog\Category\Checkboxes;
 
 use Mage_Adminhtml_Block_Catalog_Category_Checkboxes_Tree as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\Catalog\Category\Checkboxes\TreeTrait;
 
 final class TreeTest extends OpenMageTest
 {
+    use TreeTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

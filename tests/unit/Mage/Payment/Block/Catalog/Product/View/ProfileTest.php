@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Payment\Block\Catalog\Product\View;
 
 use Mage_Payment_Block_Catalog_Product_View_Profile as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Payment\Block\Catalog\Product\View\ProfileTrait;
 
 final class ProfileTest extends OpenMageTest
 {
+    use ProfileTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

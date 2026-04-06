@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Model\Newsletter\Renderer;
 use Mage;
 use Mage_Adminhtml_Model_Newsletter_Renderer_Text as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Model\Newsletter\Renderer\TextTrait;
 
 final class TextTest extends OpenMageTest
 {
+    use TextTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

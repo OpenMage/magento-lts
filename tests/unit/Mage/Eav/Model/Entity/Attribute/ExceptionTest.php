@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Eav\Model\Entity\Attribute;
 use Mage;
 use Mage_Eav_Model_Entity_Attribute_Exception as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Eav\Model\Entity\Attribute\ExceptionTrait;
 
 final class ExceptionTest extends OpenMageTest
 {
+    use ExceptionTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

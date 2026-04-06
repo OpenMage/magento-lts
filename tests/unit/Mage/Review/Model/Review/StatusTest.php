@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Review\Model\Review;
 use Mage;
 use Mage_Review_Model_Review_Status as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Review\Model\Review\StatusTrait;
 
 final class StatusTest extends OpenMageTest
 {
+    use StatusTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

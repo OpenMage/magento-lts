@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Catalog\Model\Resource\Category\Attribute\Fro
 use Mage;
 use Mage_Catalog_Model_Resource_Category_Attribute_Frontend_Image as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\Model\Resource\Category\Attribute\Frontend\ImageTrait;
 
 final class ImageTest extends OpenMageTest
 {
+    use ImageTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

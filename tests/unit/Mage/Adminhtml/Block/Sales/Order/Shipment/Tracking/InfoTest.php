@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Sales\Order\Shipment\Tracking
 
 use Mage_Adminhtml_Block_Sales_Order_Shipment_Tracking_Info as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\Sales\Order\Shipment\Tracking\InfoTrait;
 
 final class InfoTest extends OpenMageTest
 {
+    use InfoTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

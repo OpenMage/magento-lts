@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Sales\Block\Guest;
 
 use Mage_Sales_Block_Guest_Links as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sales\Block\Guest\LinksTrait;
 
 final class LinksTest extends OpenMageTest
 {
+    use LinksTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

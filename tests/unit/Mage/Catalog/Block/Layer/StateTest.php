@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Catalog\Block\Layer;
 
 use Mage_Catalog_Block_Layer_State as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\Block\Layer\StateTrait;
 
 final class StateTest extends OpenMageTest
 {
+    use StateTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

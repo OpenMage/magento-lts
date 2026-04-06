@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Customer\Model\Customer\Attribute\Backend;
 use Mage;
 use Mage_Customer_Model_Customer_Attribute_Backend_Password as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Customer\Model\Customer\Attribute\Backend\PasswordTrait;
 
 final class PasswordTest extends OpenMageTest
 {
+    use PasswordTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

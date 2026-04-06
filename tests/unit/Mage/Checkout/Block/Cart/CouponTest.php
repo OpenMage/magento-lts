@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Checkout\Block\Cart;
 
 use Mage_Checkout_Block_Cart_Coupon as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Checkout\Block\Cart\CouponTrait;
 
 final class CouponTest extends OpenMageTest
 {
+    use CouponTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

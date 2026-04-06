@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Sales\Model\Entity\Quote\Address\Attribute\Fr
 use Mage;
 use Mage_Sales_Model_Entity_Quote_Address_Attribute_Frontend_Discount as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sales\Model\Entity\Quote\Address\Attribute\Frontend\DiscountTrait;
 
 final class DiscountTest extends OpenMageTest
 {
+    use DiscountTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

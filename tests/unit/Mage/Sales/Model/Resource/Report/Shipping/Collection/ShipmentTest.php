@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Sales\Model\Resource\Report\Shipping\Collecti
 use Mage;
 use Mage_Sales_Model_Resource_Report_Shipping_Collection_Shipment as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sales\Model\Resource\Report\Shipping\Collection\ShipmentTrait;
 
 final class ShipmentTest extends OpenMageTest
 {
+    use ShipmentTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Oauth\Block\Authorize;
 
 use Mage_Oauth_Block_Authorize_Abstract as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Oauth\Block\Authorize\AbstractTrait;
 
 final class AbstractTest extends OpenMageTest
 {
+    use AbstractTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

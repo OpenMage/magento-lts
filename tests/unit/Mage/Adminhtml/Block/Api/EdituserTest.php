@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Api;
 
 use Mage_Adminhtml_Block_Api_Edituser as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\Api\EdituserTrait;
 
 final class EdituserTest extends OpenMageTest
 {
+    use EdituserTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Directory\Model\Resource;
 use Mage;
 use Mage_Directory_Model_Resource_Country as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Directory\Model\Resource\CountryTrait;
 
 final class CountryTest extends OpenMageTest
 {
+    use CountryTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

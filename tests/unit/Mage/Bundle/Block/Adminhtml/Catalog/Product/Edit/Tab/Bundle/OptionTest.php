@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Bundle\Block\Adminhtml\Catalog\Product\Edit\T
 
 use Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Bundle\Block\Adminhtml\Catalog\Product\Edit\Tab\Bundle\OptionTrait;
 
 final class OptionTest extends OpenMageTest
 {
+    use OptionTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

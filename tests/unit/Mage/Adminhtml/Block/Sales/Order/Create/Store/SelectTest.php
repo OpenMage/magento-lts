@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Sales\Order\Create\Store;
 
 use Mage_Adminhtml_Block_Sales_Order_Create_Store_Select as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\Sales\Order\Create\Store\SelectTrait;
 
 final class SelectTest extends OpenMageTest
 {
+    use SelectTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

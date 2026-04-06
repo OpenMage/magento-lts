@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Catalog\Block\Product\Widget;
 
 use Mage_Catalog_Block_Product_Widget_Link as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\Block\Product\Widget\LinkTrait;
 
 final class LinkTest extends OpenMageTest
 {
+    use LinkTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Api2\Model\Resource;
 use Mage;
 use Mage_Api2_Model_Resource_Validator as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Api2\Model\Resource\ValidatorTrait;
 
 final class ValidatorTest extends OpenMageTest
 {
+    use ValidatorTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Catalog\Form\Renderer\Attribu
 
 use Mage_Adminhtml_Block_Catalog_Form_Renderer_Attribute_Urlkey as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\Catalog\Form\Renderer\Attribute\UrlkeyTrait;
 
 final class UrlkeyTest extends OpenMageTest
 {
+    use UrlkeyTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\CatalogIndex\Model\Resource\Indexer;
 use Mage;
 use Mage_CatalogIndex_Model_Resource_Indexer_Abstract as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\CatalogIndex\Model\Resource\Indexer\AbstractTrait;
 
 final class AbstractTest extends OpenMageTest
 {
+    use AbstractTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

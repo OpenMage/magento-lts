@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Cms\Model\Wysiwyg\Images\Storage;
 use Mage;
 use Mage_Cms_Model_Wysiwyg_Images_Storage_Collection as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Cms\Model\Wysiwyg\Images\Storage\CollectionTrait;
 
 final class CollectionTest extends OpenMageTest
 {
+    use CollectionTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

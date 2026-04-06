@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Model\System\Config\Source\Product;
 use Mage;
 use Mage_Adminhtml_Model_System_Config_Source_Product_Thumbnail as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Model\System\Config\Source\Product\ThumbnailTrait;
 
 final class ThumbnailTest extends OpenMageTest
 {
+    use ThumbnailTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

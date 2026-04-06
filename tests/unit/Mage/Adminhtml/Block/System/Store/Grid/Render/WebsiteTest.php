@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\System\Store\Grid\Render;
 
 use Mage_Adminhtml_Block_System_Store_Grid_Render_Website as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\System\Store\Grid\Render\WebsiteTrait;
 
 final class WebsiteTest extends OpenMageTest
 {
+    use WebsiteTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

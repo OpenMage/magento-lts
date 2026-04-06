@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Catalog\Model\Resource\Product\Attribute\Back
 use Mage;
 use Mage_Catalog_Model_Resource_Product_Attribute_Backend_Groupprice as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\Model\Resource\Product\Attribute\Backend\GrouppriceTrait;
 
 final class GrouppriceTest extends OpenMageTest
 {
+    use GrouppriceTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

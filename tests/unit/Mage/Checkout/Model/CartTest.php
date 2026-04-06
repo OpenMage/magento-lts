@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Checkout\Model;
 use Mage;
 use Mage_Checkout_Model_Cart as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Checkout\Model\CartTrait;
 
 final class CartTest extends OpenMageTest
 {
+    use CartTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

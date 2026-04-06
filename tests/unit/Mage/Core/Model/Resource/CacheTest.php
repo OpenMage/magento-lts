@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Core\Model\Resource;
 use Mage;
 use Mage_Core_Model_Resource_Cache as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\Model\Resource\CacheTrait;
 
 final class CacheTest extends OpenMageTest
 {
+    use CacheTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

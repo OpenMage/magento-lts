@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Model\LayoutUpdate;
 use Mage;
 use Mage_Adminhtml_Model_LayoutUpdate_Validator as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Model\LayoutUpdate\ValidatorTrait;
 
 final class ValidatorTest extends OpenMageTest
 {
+    use ValidatorTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

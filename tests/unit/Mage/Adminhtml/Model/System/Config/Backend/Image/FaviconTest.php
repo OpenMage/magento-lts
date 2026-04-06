@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Model\System\Config\Backend\Image;
 use Mage;
 use Mage_Adminhtml_Model_System_Config_Backend_Image_Favicon as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Model\System\Config\Backend\Image\FaviconTrait;
 
 final class FaviconTest extends OpenMageTest
 {
+    use FaviconTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

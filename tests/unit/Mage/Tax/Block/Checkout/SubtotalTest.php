@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Tax\Block\Checkout;
 
 use Mage_Tax_Block_Checkout_Subtotal as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Tax\Block\Checkout\SubtotalTrait;
 
 final class SubtotalTest extends OpenMageTest
 {
+    use SubtotalTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

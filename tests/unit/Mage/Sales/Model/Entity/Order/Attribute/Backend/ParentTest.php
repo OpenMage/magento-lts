@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Sales\Model\Entity\Order\Attribute\Backend;
 use Mage;
 use Mage_Sales_Model_Entity_Order_Attribute_Backend_Parent as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sales\Model\Entity\Order\Attribute\Backend\ParentTrait;
 
 final class ParentTest extends OpenMageTest
 {
+    use ParentTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

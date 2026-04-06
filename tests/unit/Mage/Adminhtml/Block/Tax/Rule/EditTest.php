@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Tax\Rule;
 
 use Mage_Adminhtml_Block_Tax_Rule_Edit as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\Tax\Rule\EditTrait;
 
 final class EditTest extends OpenMageTest
 {
+    use EditTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

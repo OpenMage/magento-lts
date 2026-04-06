@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Sales\Model\Resource\Report\Invoiced\Collecti
 use Mage;
 use Mage_Sales_Model_Resource_Report_Invoiced_Collection_Invoiced as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sales\Model\Resource\Report\Invoiced\Collection\InvoicedTrait;
 
 final class InvoicedTest extends OpenMageTest
 {
+    use InvoicedTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Sales\Block\Recurring;
 
 use Mage_Sales_Block_Recurring_Profiles as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sales\Block\Recurring\ProfilesTrait;
 
 final class ProfilesTest extends OpenMageTest
 {
+    use ProfilesTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

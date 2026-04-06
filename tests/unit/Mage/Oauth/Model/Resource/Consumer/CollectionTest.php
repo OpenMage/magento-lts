@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Oauth\Model\Resource\Consumer;
 use Mage;
 use Mage_Oauth_Model_Resource_Consumer_Collection as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Oauth\Model\Resource\Consumer\CollectionTrait;
 
 final class CollectionTest extends OpenMageTest
 {
+    use CollectionTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Api\Tab;
 
 use Mage_Adminhtml_Block_Api_Tab_Roleinfo as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\Api\Tab\RoleinfoTrait;
 
 final class RoleinfoTest extends OpenMageTest
 {
+    use RoleinfoTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

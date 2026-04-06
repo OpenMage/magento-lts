@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\GoogleAnalytics\Block;
 
 use Mage_GoogleAnalytics_Block_Gtm as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\GoogleAnalytics\Block\GtmTrait;
 
 final class GtmTest extends OpenMageTest
 {
+    use GtmTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

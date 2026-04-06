@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Oauth\Block\Adminhtml\Oauth;
 
 use Mage_Oauth_Block_Adminhtml_Oauth_AuthorizedTokens as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Oauth\Block\Adminhtml\Oauth\AuthorizedTokensTrait;
 
 final class AuthorizedTokensTest extends OpenMageTest
 {
+    use AuthorizedTokensTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

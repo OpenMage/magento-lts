@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Catalog\Product\Helper\Form\M
 
 use Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Msrp_Price as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\Catalog\Product\Helper\Form\Msrp\PriceTrait;
 
 final class PriceTest extends OpenMageTest
 {
+    use PriceTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

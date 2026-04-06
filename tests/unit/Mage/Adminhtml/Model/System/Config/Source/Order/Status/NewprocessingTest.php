@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Model\System\Config\Source\Order\St
 use Mage;
 use Mage_Adminhtml_Model_System_Config_Source_Order_Status_Newprocessing as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Model\System\Config\Source\Order\Status\NewprocessingTrait;
 
 final class NewprocessingTest extends OpenMageTest
 {
+    use NewprocessingTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

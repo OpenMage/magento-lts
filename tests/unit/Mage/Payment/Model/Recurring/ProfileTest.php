@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Payment\Model\Recurring;
 use Mage;
 use Mage_Payment_Model_Recurring_Profile as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Payment\Model\Recurring\ProfileTrait;
 
 final class ProfileTest extends OpenMageTest
 {
+    use ProfileTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

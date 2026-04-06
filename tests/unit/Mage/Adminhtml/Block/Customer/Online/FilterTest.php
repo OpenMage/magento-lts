@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Customer\Online;
 
 use Mage_Adminhtml_Block_Customer_Online_Filter as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\Customer\Online\FilterTrait;
 
 final class FilterTest extends OpenMageTest
 {
+    use FilterTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

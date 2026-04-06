@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Dataflow\Model\Convert\Adapter\Http;
 use Mage;
 use Mage_Dataflow_Model_Convert_Adapter_Http_Curl as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Dataflow\Model\Convert\Adapter\Http\CurlTrait;
 
 final class CurlTest extends OpenMageTest
 {
+    use CurlTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

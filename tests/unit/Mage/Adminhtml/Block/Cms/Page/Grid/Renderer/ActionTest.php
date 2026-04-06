@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Cms\Page\Grid\Renderer;
 
 use Mage_Adminhtml_Block_Cms_Page_Grid_Renderer_Action as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\Cms\Page\Grid\Renderer\ActionTrait;
 
 final class ActionTest extends OpenMageTest
 {
+    use ActionTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

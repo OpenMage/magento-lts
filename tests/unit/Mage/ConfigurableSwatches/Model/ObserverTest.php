@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\ConfigurableSwatches\Model;
 use Mage;
 use Mage_ConfigurableSwatches_Model_Observer as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\ConfigurableSwatches\Model\ObserverTrait;
 
 final class ObserverTest extends OpenMageTest
 {
+    use ObserverTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

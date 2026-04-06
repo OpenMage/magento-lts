@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Model\System\Config\Backend\Admin;
 use Mage;
 use Mage_Adminhtml_Model_System_Config_Backend_Admin_Usecustom as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Model\System\Config\Backend\Admin\UsecustomTrait;
 
 final class UsecustomTest extends OpenMageTest
 {
+    use UsecustomTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

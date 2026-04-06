@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Newsletter;
 
 use Mage_Adminhtml_Block_Newsletter_Problem as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\Newsletter\ProblemTrait;
 
 final class ProblemTest extends OpenMageTest
 {
+    use ProblemTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

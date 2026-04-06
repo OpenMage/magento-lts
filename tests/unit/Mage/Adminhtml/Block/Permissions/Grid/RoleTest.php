@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Permissions\Grid;
 
 use Mage_Adminhtml_Block_Permissions_Grid_Role as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\Permissions\Grid\RoleTrait;
 
 final class RoleTest extends OpenMageTest
 {
+    use RoleTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

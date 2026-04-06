@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Customer\Model\Resource;
 use Mage;
 use Mage_Customer_Model_Resource_Attribute as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Customer\Model\Resource\AttributeTrait;
 
 final class AttributeTest extends OpenMageTest
 {
+    use AttributeTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

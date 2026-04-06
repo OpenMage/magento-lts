@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Sales\Model\Quote\Address\Total\Nominal;
 use Mage;
 use Mage_Sales_Model_Quote_Address_Total_Nominal_Collector as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sales\Model\Quote\Address\Total\Nominal\CollectorTrait;
 
 final class CollectorTest extends OpenMageTest
 {
+    use CollectorTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

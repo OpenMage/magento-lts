@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Core\Block\Template;
 
 use Mage_Core_Block_Template_Smarty as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\Block\Template\SmartyTrait;
 
 final class SmartyTest extends OpenMageTest
 {
+    use SmartyTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

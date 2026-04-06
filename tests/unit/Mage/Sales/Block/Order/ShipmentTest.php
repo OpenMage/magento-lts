@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Sales\Block\Order;
 
 use Mage_Sales_Block_Order_Shipment as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sales\Block\Order\ShipmentTrait;
 
 final class ShipmentTest extends OpenMageTest
 {
+    use ShipmentTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

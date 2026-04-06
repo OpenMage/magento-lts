@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Catalog\Block\Product\Widget\Html;
 
 use Mage_Catalog_Block_Product_Widget_Html_Pager as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\Block\Product\Widget\Html\PagerTrait;
 
 final class PagerTest extends OpenMageTest
 {
+    use PagerTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

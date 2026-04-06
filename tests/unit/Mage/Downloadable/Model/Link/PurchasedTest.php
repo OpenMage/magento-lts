@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Downloadable\Model\Link;
 use Mage;
 use Mage_Downloadable_Model_Link_Purchased as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Downloadable\Model\Link\PurchasedTrait;
 
 final class PurchasedTest extends OpenMageTest
 {
+    use PurchasedTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

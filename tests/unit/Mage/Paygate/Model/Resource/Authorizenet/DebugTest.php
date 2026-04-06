@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Paygate\Model\Resource\Authorizenet;
 use Mage;
 use Mage_Paygate_Model_Resource_Authorizenet_Debug as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Paygate\Model\Resource\Authorizenet\DebugTrait;
 
 final class DebugTest extends OpenMageTest
 {
+    use DebugTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

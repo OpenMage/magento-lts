@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Rating\Model\Rating;
 use Mage;
 use Mage_Rating_Model_Rating_Option as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Rating\Model\Rating\OptionTrait;
 
 final class OptionTest extends OpenMageTest
 {
+    use OptionTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

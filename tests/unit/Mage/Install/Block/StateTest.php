@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Install\Block;
 
 use Mage_Install_Block_State as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Install\Block\StateTrait;
 
 final class StateTest extends OpenMageTest
 {
+    use StateTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

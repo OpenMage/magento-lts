@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Api2\Model\Acl\Filter\Attribute;
 use Mage;
 use Mage_Api2_Model_Acl_Filter_Attribute_Operation as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Api2\Model\Acl\Filter\Attribute\OperationTrait;
 
 final class OperationTest extends OpenMageTest
 {
+    use OperationTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

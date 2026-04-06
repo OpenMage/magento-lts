@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\CatalogInventory\Block\Stockqty;
 
 use Mage_CatalogInventory_Block_Stockqty_Abstract as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\CatalogInventory\Block\Stockqty\AbstractTrait;
 
 final class AbstractTest extends OpenMageTest
 {
+    use AbstractTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

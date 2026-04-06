@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Sitemap\Grid\Renderer;
 
 use Mage_Adminhtml_Block_Sitemap_Grid_Renderer_Time as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\Sitemap\Grid\Renderer\TimeTrait;
 
 final class TimeTest extends OpenMageTest
 {
+    use TimeTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Model\System\Config\Source\Price;
 use Mage;
 use Mage_Adminhtml_Model_System_Config_Source_Price_Step as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Model\System\Config\Source\Price\StepTrait;
 
 final class StepTest extends OpenMageTest
 {
+    use StepTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

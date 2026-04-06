@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Api2\Model\Auth;
 use Mage;
 use Mage_Api2_Model_Auth_User as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Api2\Model\Auth\UserTrait;
 
 final class UserTest extends OpenMageTest
 {
+    use UserTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Wishlist\Block\Customer\Wishlist\Item\Column;
 
 use Mage_Wishlist_Block_Customer_Wishlist_Item_Column_Remove as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Wishlist\Block\Customer\Wishlist\Item\Column\RemoveTrait;
 
 final class RemoveTest extends OpenMageTest
 {
+    use RemoveTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Rule\Model\Condition;
 use Mage;
 use Mage_Rule_Model_Condition_Combine as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Rule\Model\Condition\CombineTrait;
 
 final class CombineTest extends OpenMageTest
 {
+    use CombineTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

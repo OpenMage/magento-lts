@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Model\System\Config\Source\Price;
 use Mage;
 use Mage_Adminhtml_Model_System_Config_Source_Price_Scope as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Model\System\Config\Source\Price\ScopeTrait;
 
 final class ScopeTest extends OpenMageTest
 {
+    use ScopeTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void

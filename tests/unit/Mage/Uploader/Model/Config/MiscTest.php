@@ -14,9 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Uploader\Model\Config;
 use Mage;
 use Mage_Uploader_Model_Config_Misc as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Uploader\Model\Config\MiscTrait;
 
 final class MiscTest extends OpenMageTest
 {
+    use MiscTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void
