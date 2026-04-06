@@ -403,7 +403,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
         }
 
         foreach ($this->getConfigurableAttributes($product) as $attribute) {
-            $this->getProduct($product)->setData($attribute->getProductAttribute()->getAttributeCode(), null);
+            $this->getProduct($product)->setData($attribute->getProductAttribute()->getAttributeCode());
         }
 
         return $this;
@@ -549,11 +549,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
                     $attribute = $usedAttributes[$attributeId];
                     $label = $attribute->getLabel();
                     $value = $attribute->getProductAttribute();
-                    if ($value->getSourceModel()) {
-                        $value = $value->getSource()->getOptionText($attributeValue);
-                    } else {
-                        $value = '';
-                    }
+                    $value = $value->getSourceModel() ? $value->getSource()->getOptionText($attributeValue) : '';
 
                     $attributes[] = ['label' => $label, 'value' => $value];
                 }
@@ -852,7 +848,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
     {
         /** @var null|string[] $superAttribute */
         $superAttribute = $buyRequest->getSuperAttribute();
-        $superAttribute = (is_array($superAttribute)) ? array_filter($superAttribute, fn(mixed $o) => (int) $o !== 0) : [];
+        $superAttribute = (is_array($superAttribute)) ? array_filter($superAttribute, fn(mixed $value) => (int) $value !== 0) : [];
 
         return ['super_attribute' => $superAttribute];
     }

@@ -9,6 +9,8 @@
 
 /**
  * @package    Mage_Weee
+ *
+ * @phpstan-import-type ConfigStoreId from Mage
  */
 class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
 {
@@ -44,7 +46,7 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get weee amount display type on product view page
      *
-     * @param  null|bool|int|Mage_Core_Model_Store|string $store
+     * @param  ConfigStoreId $store
      * @return int
      */
     public function getPriceDisplayType($store = null)
@@ -55,7 +57,7 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get weee amount display type on product list page
      *
-     * @param  null|bool|int|Mage_Core_Model_Store|string $store
+     * @param  ConfigStoreId $store
      * @return int
      */
     public function getListPriceDisplayType($store = null)
@@ -66,7 +68,7 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get weee amount display type in sales modules
      *
-     * @param  null|bool|int|Mage_Core_Model_Store|string $store
+     * @param  ConfigStoreId $store
      * @return int
      */
     public function getSalesPriceDisplayType($store = null)
@@ -77,7 +79,7 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get weee amount display type in email templates
      *
-     * @param  null|bool|int|Mage_Core_Model_Store|string $store
+     * @param  ConfigStoreId $store
      * @return int
      */
     public function getEmailPriceDisplayType($store = null)
@@ -88,7 +90,7 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Check if weee tax amount should be discounted
      *
-     * @param  null|bool|int|Mage_Core_Model_Store|string $store
+     * @param  ConfigStoreId $store
      * @return bool
      */
     public function isDiscounted($store = null)
@@ -99,19 +101,22 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Check if weee tax amount should be taxable
      *
-     * @param  null|bool|int|Mage_Core_Model_Store|string $store
+     * @param  ConfigStoreId $store
      * @return bool
      */
     public function isTaxable($store = null)
     {
-        return Mage::getStoreConfig('tax/weee/apply_vat', $store) == self::TAXED
-            || Mage::getStoreConfig('tax/weee/apply_vat', $store) == self::LOADED_AND_DISPLAY_WITH_TAX;
+        if (Mage::getStoreConfig('tax/weee/apply_vat', $store) == self::TAXED) {
+            return true;
+        }
+
+        return Mage::getStoreConfig('tax/weee/apply_vat', $store) == self::LOADED_AND_DISPLAY_WITH_TAX;
     }
 
     /**
      * Returns true if default store tax is already applied to the FPT(weee)
      *
-     * @param  null|bool|int|Mage_Core_Model_Store|string $store
+     * @param  ConfigStoreId $store
      * @return bool
      */
     public function isTaxIncluded($store = null)
@@ -122,7 +127,7 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get Weee Tax Configuration Type
      *
-     * @param  null|bool|int|Mage_Core_Model_Store|string $store
+     * @param  ConfigStoreId $store
      * @return int
      */
     public function getTaxType($store = null)
@@ -133,7 +138,7 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Check if weee tax amount should be included to subtotal
      *
-     * @param  null|bool|int|Mage_Core_Model_Store|string $store
+     * @param  ConfigStoreId $store
      * @return bool
      */
     public function includeInSubtotal($store = null)
@@ -176,28 +181,13 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
             return false;
         }
 
-        switch ($zone) {
-            case 'product_view':
-                $type = $this->getPriceDisplayType($store);
-                break;
-            case 'product_list':
-                $type = $this->getListPriceDisplayType($store);
-                break;
-            case 'sales':
-                $type = $this->getSalesPriceDisplayType($store);
-                break;
-            case 'email':
-                $type = $this->getEmailPriceDisplayType($store);
-                break;
-            default:
-                if (Mage::registry('current_product')) {
-                    $type = $this->getPriceDisplayType($store);
-                } else {
-                    $type = $this->getListPriceDisplayType($store);
-                }
-
-                break;
-        }
+        $type = match ($zone) {
+            'product_view' => $this->getPriceDisplayType($store),
+            'product_list' => $this->getListPriceDisplayType($store),
+            'sales' => $this->getSalesPriceDisplayType($store),
+            'email' => $this->getEmailPriceDisplayType($store),
+            default => Mage::registry('current_product') ? $this->getPriceDisplayType($store) : $this->getListPriceDisplayType($store),
+        };
 
         if (is_null($compareTo)) {
             return $type;
@@ -425,7 +415,7 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Check if fixed taxes are used in system
      *
-     * @param  null|bool|int|Mage_Core_Model_Store|string $store
+     * @param  ConfigStoreId $store
      * @return bool
      */
     public function isEnabled($store = null)
@@ -474,7 +464,7 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Check if the configuration for the particular store causes conflicts
      *
-     * @param  null|bool|int|Mage_Core_Model_Store|string $store
+     * @param  ConfigStoreId $store
      * @return bool
      */
     public function validateCatalogPricesAndFptConfiguration($store = null)

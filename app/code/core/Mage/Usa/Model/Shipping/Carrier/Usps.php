@@ -141,125 +141,80 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
     {
         $this->_request = $request;
 
-        $r = new Varien_Object();
+        $result = new Varien_Object();
 
         if ($request->getLimitMethod()) {
-            $r->setService($request->getLimitMethod());
+            $result->setService($request->getLimitMethod());
         } else {
-            $r->setService('ALL');
+            $result->setService('ALL');
         }
 
-        if ($request->getUspsUserid()) {
-            $userId = $request->getUspsUserid();
-        } else {
-            $userId = $this->getConfigData('userid');
-        }
+        $userId = $request->getUspsUserid() ? $request->getUspsUserid() : $this->getConfigData('userid');
+        $result->setUserId($userId);
 
-        $r->setUserId($userId);
+        $container = $request->getUspsContainer() ? $request->getUspsContainer() : $this->getConfigData('container');
+        $result->setContainer($container);
 
-        if ($request->getUspsContainer()) {
-            $container = $request->getUspsContainer();
-        } else {
-            $container = $this->getConfigData('container');
-        }
+        $size = $request->getUspsSize() ? $request->getUspsSize() : $this->getConfigData('size');
+        $result->setSize($size);
 
-        $r->setContainer($container);
+        $girth = $request->getGirth() ? $request->getGirth() : $this->getConfigData('girth');
+        $result->setGirth($girth);
 
-        if ($request->getUspsSize()) {
-            $size = $request->getUspsSize();
-        } else {
-            $size = $this->getConfigData('size');
-        }
+        $height = $request->getHeight() ? $request->getHeight() : $this->getConfigData('height');
+        $result->setHeight($height);
 
-        $r->setSize($size);
+        $length = $request->getLength() ? $request->getLength() : $this->getConfigData('length');
+        $result->setLength($length);
 
-        if ($request->getGirth()) {
-            $girth = $request->getGirth();
-        } else {
-            $girth = $this->getConfigData('girth');
-        }
+        $width = $request->getWidth() ? $request->getWidth() : $this->getConfigData('width');
+        $result->setWidth($width);
 
-        $r->setGirth($girth);
-
-        if ($request->getHeight()) {
-            $height = $request->getHeight();
-        } else {
-            $height = $this->getConfigData('height');
-        }
-
-        $r->setHeight($height);
-
-        if ($request->getLength()) {
-            $length = $request->getLength();
-        } else {
-            $length = $this->getConfigData('length');
-        }
-
-        $r->setLength($length);
-
-        if ($request->getWidth()) {
-            $width = $request->getWidth();
-        } else {
-            $width = $this->getConfigData('width');
-        }
-
-        $r->setWidth($width);
-
-        if ($request->getUspsMachinable()) {
-            $machinable = $request->getUspsMachinable();
-        } else {
-            $machinable = $this->getConfigData('machinable');
-        }
-
-        $r->setMachinable($machinable);
+        $machinable = $request->getUspsMachinable() ? $request->getUspsMachinable() : $this->getConfigData('machinable');
+        $result->setMachinable($machinable);
 
         if ($request->getOrigPostcode()) {
-            $r->setOrigPostal($request->getOrigPostcode());
+            $result->setOrigPostal($request->getOrigPostcode());
         } else {
-            $r->setOrigPostal(Mage::getStoreConfig(
+            $result->setOrigPostal(Mage::getStoreConfig(
                 Mage_Shipping_Model_Shipping::XML_PATH_STORE_ZIP,
                 $request->getStoreId(),
             ));
         }
 
         if ($request->getOrigCountryId()) {
-            $r->setOrigCountryId($request->getOrigCountryId());
+            $result->setOrigCountryId($request->getOrigCountryId());
         } else {
-            $r->setOrigCountryId(Mage::getStoreConfig(
+            $result->setOrigCountryId(Mage::getStoreConfig(
                 Mage_Shipping_Model_Shipping::XML_PATH_STORE_COUNTRY_ID,
                 $request->getStoreId(),
             ));
         }
 
-        if ($request->getDestCountryId()) {
-            $destCountry = $request->getDestCountryId();
-        } else {
-            $destCountry = self::USA_COUNTRY_ID;
-        }
-
-        $r->setDestCountryId($destCountry);
+        $destCountry = $request->getDestCountryId() ? $request->getDestCountryId() : self::USA_COUNTRY_ID;
+        $result->setDestCountryId($destCountry);
 
         if (!$this->_isUSCountry($destCountry)) {
-            $r->setDestCountryName($this->_getCountryName($destCountry));
+            $result->setDestCountryName($this->_getCountryName($destCountry));
         }
 
         if ($request->getDestPostcode()) {
-            $r->setDestPostal($request->getDestPostcode());
+            $result->setDestPostal($request->getDestPostcode());
         }
 
         $weight = $this->getTotalNumOfBoxes($request->getPackageWeight());
-        $r->setWeightPounds(floor($weight));
-        $r->setWeightOunces(round(($weight - floor($weight)) * self::OUNCES_POUND, 1));
+        $result->setWeightPounds(floor($weight));
+        $result->setWeightOunces(round(($weight - floor($weight)) * self::OUNCES_POUND, 1));
         if ($request->getFreeMethodWeight() != $request->getPackageWeight()) {
-            $r->setFreeMethodWeight($request->getFreeMethodWeight());
+            $result->setFreeMethodWeight($request->getFreeMethodWeight());
         }
 
-        $r->setValue($request->getPackageValue());
-        $r->setValueWithDiscount($request->getPackageValueWithDiscount());
+        $result->setValue($request->getPackageValue());
+        $result->setValueWithDiscount($request->getPackageValueWithDiscount());
 
-        $r->setBaseSubtotalInclTax($request->getBaseSubtotalInclTax());
+        $result->setBaseSubtotalInclTax($request->getBaseSubtotalInclTax());
 
-        $this->_rawRequest = $r;
+        $this->_rawRequest = $result;
 
         return $this;
     }
@@ -300,12 +255,12 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
      */
     protected function _setFreeMethodRequest($freeMethod)
     {
-        $r = $this->_rawRequest;
+        $request = $this->_rawRequest;
 
-        $weight = $this->getTotalNumOfBoxes($r->getFreeMethodWeight());
-        $r->setWeightPounds(floor($weight));
-        $r->setWeightOunces(round(($weight - floor($weight)) * self::OUNCES_POUND, 1));
-        $r->setService($freeMethod);
+        $weight = $this->getTotalNumOfBoxes($request->getFreeMethodWeight());
+        $request->setWeightPounds(floor($weight));
+        $request->setWeightOunces(round(($weight - floor($weight)) * self::OUNCES_POUND, 1));
+        $request->setService($freeMethod);
     }
 
     /**
@@ -316,87 +271,87 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
      */
     protected function _getXmlQuotes()
     {
-        $r = $this->_rawRequest;
+        $rawRequest = $this->_rawRequest;
 
         // The origin address(shipper) must be only in USA
-        if (!$this->_isUSCountry($r->getOrigCountryId())) {
+        if (!$this->_isUSCountry($rawRequest->getOrigCountryId())) {
             $responseBody = '';
             return $this->_parseXmlResponse($responseBody);
         }
 
-        if ($this->_isUSCountry($r->getDestCountryId())) {
+        if ($this->_isUSCountry($rawRequest->getDestCountryId())) {
             $xml = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><RateV4Request/>');
-            $xml->addAttribute('USERID', $r->getUserId());
+            $xml->addAttribute('USERID', $rawRequest->getUserId());
             // according to usps v4 documentation
             $xml->addChild('Revision', '2');
 
             $package = $xml->addChild('Package');
             $package->addAttribute('ID', '0');
-            $service = $this->getCode('service_to_code', $r->getService());
+            $service = $this->getCode('service_to_code', $rawRequest->getService());
             if (!$service) {
-                $service = $r->getService();
+                $service = $rawRequest->getService();
             }
 
-            if ($r->getContainer() == 'FLAT RATE BOX' || $r->getContainer() == 'FLAT RATE ENVELOPE') {
+            if ($rawRequest->getContainer() == 'FLAT RATE BOX' || $rawRequest->getContainer() == 'FLAT RATE ENVELOPE') {
                 $service = 'Priority';
             }
 
             $package->addChild('Service', $service);
 
             // no matter Letter, Flat or Parcel, use Parcel
-            if ($r->getService() == 'FIRST CLASS' || $r->getService() == 'FIRST CLASS HFP COMMERCIAL') {
+            if ($rawRequest->getService() == 'FIRST CLASS' || $rawRequest->getService() == 'FIRST CLASS HFP COMMERCIAL') {
                 $package->addChild('FirstClassMailType', 'PARCEL');
             }
 
-            if ($r->getService() == 'FIRST CLASS COMMERCIAL') {
+            if ($rawRequest->getService() == 'FIRST CLASS COMMERCIAL') {
                 $package->addChild('FirstClassMailType', 'PACKAGE SERVICE');
             }
 
-            $package->addChild('ZipOrigination', $r->getOrigPostal());
+            $package->addChild('ZipOrigination', $rawRequest->getOrigPostal());
             //only 5 chars available
-            $package->addChild('ZipDestination', substr($r->getDestPostal(), 0, 5));
-            $package->addChild('Pounds', $r->getWeightPounds());
-            $package->addChild('Ounces', $r->getWeightOunces());
+            $package->addChild('ZipDestination', substr($rawRequest->getDestPostal(), 0, 5));
+            $package->addChild('Pounds', $rawRequest->getWeightPounds());
+            $package->addChild('Ounces', $rawRequest->getWeightOunces());
             // Because some methods don't accept VARIABLE and (NON)RECTANGULAR containers
-            $package->addChild('Container', $r->getContainer());
-            $package->addChild('Size', $r->getSize());
-            if ($r->getSize() == 'LARGE') {
-                $package->addChild('Width', $r->getWidth());
-                $package->addChild('Length', $r->getLength());
-                $package->addChild('Height', $r->getHeight());
-                if ($r->getContainer() == 'NONRECTANGULAR' || $r->getContainer() == 'VARIABLE') {
-                    $package->addChild('Girth', $r->getGirth());
+            $package->addChild('Container', $rawRequest->getContainer());
+            $package->addChild('Size', $rawRequest->getSize());
+            if ($rawRequest->getSize() == 'LARGE') {
+                $package->addChild('Width', $rawRequest->getWidth());
+                $package->addChild('Length', $rawRequest->getLength());
+                $package->addChild('Height', $rawRequest->getHeight());
+                if ($rawRequest->getContainer() == 'NONRECTANGULAR' || $rawRequest->getContainer() == 'VARIABLE') {
+                    $package->addChild('Girth', $rawRequest->getGirth());
                 }
             }
 
-            $package->addChild('Machinable', $r->getMachinable());
+            $package->addChild('Machinable', $rawRequest->getMachinable());
 
             $api = 'RateV4';
         } else {
             $xml = new SimpleXMLElement('<?xml version = "1.0" encoding = "UTF-8"?><IntlRateV2Request/>');
-            $xml->addAttribute('USERID', $r->getUserId());
+            $xml->addAttribute('USERID', $rawRequest->getUserId());
             // according to usps v4 documentation
             $xml->addChild('Revision', '2');
 
             $package = $xml->addChild('Package');
             $package->addAttribute('ID', '0');
-            $package->addChild('Pounds', $r->getWeightPounds());
-            $package->addChild('Ounces', $r->getWeightOunces());
+            $package->addChild('Pounds', $rawRequest->getWeightPounds());
+            $package->addChild('Ounces', $rawRequest->getWeightOunces());
             $package->addChild('MailType', 'All');
-            $package->addChild('ValueOfContents', $r->getValue());
-            $package->addChild('Country', $r->getDestCountryName());
-            $package->addChild('Container', $r->getContainer());
-            $package->addChild('Size', $r->getSize());
+            $package->addChild('ValueOfContents', $rawRequest->getValue());
+            $package->addChild('Country', $rawRequest->getDestCountryName());
+            $package->addChild('Container', $rawRequest->getContainer());
+            $package->addChild('Size', $rawRequest->getSize());
             $width = '';
             $length = '';
             $height = '';
             $girth = '';
-            if ($r->getSize() == 'LARGE') {
-                $width = $r->getWidth();
-                $length = $r->getLength();
-                $height = $r->getHeight();
-                if ($r->getContainer() == 'NONRECTANGULAR') {
-                    $girth = $r->getGirth();
+            if ($rawRequest->getSize() == 'LARGE') {
+                $width = $rawRequest->getWidth();
+                $length = $rawRequest->getLength();
+                $height = $rawRequest->getHeight();
+                if ($rawRequest->getContainer() == 'NONRECTANGULAR') {
+                    $girth = $rawRequest->getGirth();
                 }
             }
 
@@ -405,9 +360,9 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
             $package->addChild('Height', $height);
             $package->addChild('Girth', $girth);
 
-            if ($this->_isCanada($r->getDestCountryId())) {
+            if ($this->_isCanada($rawRequest->getDestCountryId())) {
                 //only 5 chars available
-                $package->addChild('OriginZip', substr($r->getOrigPostal(), 0, 5));
+                $package->addChild('OriginZip', substr($rawRequest->getOrigPostal(), 0, 5));
             }
 
             $api = 'IntlRateV2';
@@ -434,8 +389,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
 
                 $debugData['result'] = $responseBody;
                 $this->_setCachedQuotes($request, $responseBody);
-            } catch (Exception $e) {
-                $debugData['result'] = ['error' => $e->getMessage(), 'code' => $e->getCode()];
+            } catch (Exception $exception) {
+                $debugData['result'] = ['error' => $exception->getMessage(), 'code' => $exception->getCode()];
                 $responseBody = '';
             }
 
@@ -454,7 +409,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
      */
     protected function _parseXmlResponse($response)
     {
-        $r = $this->_rawRequest;
+        $rawRequest = $this->_rawRequest;
         $costArr = [];
         $priceArr = [];
         if (trim($response) !== '' && str_starts_with(trim($response), '<?xml')) {
@@ -473,7 +428,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
                 /**
                  * US Rates
                  */
-                if ($this->_isUSCountry($r->getDestCountryId())) {
+                if ($this->_isUSCountry($rawRequest->getDestCountryId())) {
                     if (is_object($xml->Package) && is_object($xml->Package->Postage)) {
                         foreach ($xml->Package->Postage as $postage) {
                             $serviceName = $this->_filterServiceName((string) $postage->MailService);
@@ -516,7 +471,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
             }
 
             $result = Mage::getModel('shipping/rate_result');
-            if (empty($priceArr)) {
+            if ($priceArr === []) {
                 $error = Mage::getModel('shipping/rate_result_error');
                 $error->setCarrier('usps');
                 $error->setCarrierTitle($this->getConfigData('title'));
@@ -934,12 +889,12 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
      */
     protected function setTrackingRequest()
     {
-        $r = new Varien_Object();
+        $request = new Varien_Object();
 
         $userId = $this->getConfigData('userid');
-        $r->setUserId($userId);
+        $request->setUserId($userId);
 
-        $this->_rawTrackRequest = $r;
+        $this->_rawTrackRequest = $request;
     }
 
     /**
@@ -949,11 +904,11 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
      */
     protected function _getXmlTracking($trackingData)
     {
-        $r = $this->_rawTrackRequest;
+        $rawTrackRequest = $this->_rawTrackRequest;
 
         foreach ($trackingData as $tracking) {
             $xml = new SimpleXMLElement('<?xml version = "1.0" encoding = "UTF-8"?><TrackRequest/>');
-            $xml->addAttribute('USERID', $r->getUserId());
+            $xml->addAttribute('USERID', $rawTrackRequest->getUserId());
 
             $trackid = $xml->addChild('TrackID');
             $trackid->addAttribute('ID', $tracking);
@@ -976,8 +931,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
                 $response = $client->request();
                 $responseBody = $response->getBody();
                 $debugData['result'] = $responseBody;
-            } catch (Exception $e) {
-                $debugData['result'] = ['error' => $e->getMessage(), 'code' => $e->getCode()];
+            } catch (Exception $exception) {
+                $debugData['result'] = ['error' => $exception->getMessage(), 'code' => $exception->getCode()];
                 $responseBody = '';
             }
 
@@ -1432,11 +1387,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
         [$fromZip5, $fromZip4] = $this->_parseZip($request->getShipperAddressPostalCode());
         [$toZip5, $toZip4] = $this->_parseZip($request->getRecipientAddressPostalCode(), true);
 
-        if ($this->getConfigData('mode')) {
-            $rootNode = 'SignatureConfirmationV3.0Request';
-        } else {
-            $rootNode = 'SigConfirmCertifyV3.0Request';
-        }
+        $rootNode = $this->getConfigData('mode') ? 'SignatureConfirmationV3.0Request' : 'SigConfirmCertifyV3.0Request';
 
         // the wrap node needs for remove xml declaration above
         $xmlWrap = new SimpleXMLElement('<?xml version = "1.0" encoding = "UTF-8"?><wrap/>');
@@ -1743,11 +1694,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
             $api = 'ExpressMailLabel';
         } elseif ($recipientUSCountry) {
             $requestXml = $this->_formUsSignatureConfirmationShipmentRequest($request, $service);
-            if ($this->getConfigData('mode')) {
-                $api = 'SignatureConfirmationV3';
-            } else {
-                $api = 'SignatureConfirmationCertifyV3';
-            }
+            $api = $this->getConfigData('mode') ? 'SignatureConfirmationV3' : 'SignatureConfirmationCertifyV3';
         } elseif ($service == 'First Class') {
             $requestXml = $this->_formIntlShipmentRequest($request);
             $api = 'FirstClassMailIntl';

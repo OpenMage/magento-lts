@@ -27,10 +27,10 @@ class Mage_Customer_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
         return array_merge($data, [
             'is_visible'                => $this->_getValue($attr, 'visible', 1),
             'is_system'                 => $this->_getValue($attr, 'system', 1),
-            'input_filter'              => $this->_getValue($attr, 'input_filter', null),
+            'input_filter'              => $this->_getValue($attr, 'input_filter'),
             'multiline_count'           => $this->_getValue($attr, 'multiline_count', 0),
-            'validate_rules'            => $this->_getValue($attr, 'validate_rules', null),
-            'data_model'                => $this->_getValue($attr, 'data', null),
+            'validate_rules'            => $this->_getValue($attr, 'validate_rules'),
+            'data_model'                => $this->_getValue($attr, 'data'),
             'sort_order'                => $this->_getValue($attr, 'position', 0),
         ]);
     }

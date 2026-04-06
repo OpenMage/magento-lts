@@ -129,16 +129,16 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
      */
     public function getJsonConfig()
     {
-        $attributes = [];
-        $options    = [];
-        $store      = $this->getCurrentStore();
-        $taxHelper  = Mage::helper('tax');
+        $attributes     = [];
+        $options        = [];
+        $store          = $this->getCurrentStore();
+        $taxHelper      = Mage::helper('tax');
         $currentProduct = $this->getProduct();
+        $defaultValues  = [];
 
         $preconfiguredFlag = $currentProduct->hasPreconfiguredValues();
         if ($preconfiguredFlag) {
             $preconfiguredValues = $currentProduct->getPreconfiguredValues();
-            $defaultValues       = [];
         }
 
         $productStock = [];
@@ -263,7 +263,7 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
             'taxConfig'         => $taxConfig,
         ];
 
-        if ($preconfiguredFlag && !empty($defaultValues)) {
+        if ($preconfiguredFlag && $defaultValues !== []) {
             $config['defaultValues'] = $defaultValues;
         }
 

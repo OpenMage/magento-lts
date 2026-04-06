@@ -512,8 +512,8 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
                                 unset($itemOptionValue[$key], $optionValue[$key]);
                             }
                         }
-                    } catch (Exception $e) {
-                        Mage::logException($e);
+                    } catch (Exception $exception) {
+                        Mage::logException($exception);
                     }
                 }
 

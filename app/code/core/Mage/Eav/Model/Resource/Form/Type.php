@@ -83,7 +83,7 @@ class Mage_Eav_Model_Resource_Form_Type extends Mage_Core_Model_Resource_Db_Abst
 
             $adapter  = $this->_getWriteAdapter();
 
-            if (!empty($insert)) {
+            if ($insert !== []) {
                 $data = [];
                 foreach ($insert as $entityId) {
                     if (empty($entityId)) {
@@ -101,7 +101,7 @@ class Mage_Eav_Model_Resource_Form_Type extends Mage_Core_Model_Resource_Db_Abst
                 }
             }
 
-            if (!empty($delete)) {
+            if ($delete !== []) {
                 $where = [
                     'entity_type_id IN (?)' => $delete,
                     'type_id = ?'           => $object->getId(),

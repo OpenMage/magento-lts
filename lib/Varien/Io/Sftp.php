@@ -96,7 +96,7 @@ class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
             $no_errors = true;
             $cwd = $this->_connection->pwd();
             if (!$this->_connection->chdir($dir)) {
-                throw new Exception("chdir(): $dir: Not a directory");
+                throw new Exception("chdir(): {$dir}: Not a directory");
             }
 
             $list = $this->_connection->nlist();

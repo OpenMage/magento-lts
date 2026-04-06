@@ -83,7 +83,7 @@ class Mage_Core_Model_File_Storage_File extends Mage_Core_Model_File_Storage_Abs
      */
     public function hasErrors()
     {
-        return !empty($this->_errors);
+        return $this->_errors !== [];
     }
 
     /**
@@ -119,7 +119,7 @@ class Mage_Core_Model_File_Storage_File extends Mage_Core_Model_File_Storage_Abs
         }
 
         $slice = array_slice($this->_data[$type], $offset, $count);
-        if (empty($slice)) {
+        if ($slice === []) {
             return false;
         }
 
@@ -157,8 +157,8 @@ class Mage_Core_Model_File_Storage_File extends Mage_Core_Model_File_Storage_Abs
         foreach ($slice as $fileName) {
             try {
                 $fileInfo = $this->collectFileInfo($fileName);
-            } catch (Exception $e) {
-                Mage::logException($e);
+            } catch (Exception $exception) {
+                Mage::logException($exception);
                 continue;
             }
 
@@ -184,9 +184,9 @@ class Mage_Core_Model_File_Storage_File extends Mage_Core_Model_File_Storage_Abs
         foreach ($data as $part) {
             try {
                 $this->$callback($part);
-            } catch (Exception $e) {
-                $this->_errors[] = $e->getMessage();
-                Mage::logException($e);
+            } catch (Exception $exception) {
+                $this->_errors[] = $exception->getMessage();
+                Mage::logException($exception);
             }
         }
 
@@ -245,8 +245,8 @@ class Mage_Core_Model_File_Storage_File extends Mage_Core_Model_File_Storage_Abs
 
                 return $this->_getResource()
                     ->saveFile($filename, $file['content'], $overwrite);
-            } catch (Exception $e) {
-                Mage::logException($e);
+            } catch (Exception $exception) {
+                Mage::logException($exception);
                 Mage::throwException(Mage::helper('core')->__('Unable to save file "%s" at "%s"', $file['filename'], $file['directory']));
             }
         } else {

@@ -6,8 +6,15 @@ mkdocs-serve:
 	fi; \
 
 phpunit-serve:
-	@if test -f build/coverage/index.html ; then \
-		xdg-open build/coverage/index.html; \
+	@if test -f build/phpunit/coverage/index.html ; then \
+		xdg-open build/phpunit/coverage/index.html; \
 	else \
 		echo "phpunit coverage not found, run \"composer run phpunit:coverage-local\"" && exit 2; \
+	fi; \
+
+phpmd-serve:
+	@if test -f build/phpmd/report.html ; then \
+		xdg-open build/phpmd/report.html; \
+	else \
+		echo "phpmd report not found, run \"composer run phpmd\"" && exit 2; \
 	fi; \

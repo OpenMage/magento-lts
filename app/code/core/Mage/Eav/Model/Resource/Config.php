@@ -48,7 +48,7 @@ class Mage_Eav_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstrac
             return $this;
         }
 
-        if (empty(self::$_entityTypes)) {
+        if (self::$_entityTypes === []) {
             $select = $adapter->select()->from($this->getMainTable());
             $data   = $adapter->fetchAll($select);
             foreach ($data as $row) {

@@ -124,7 +124,11 @@ class Varien_Filter_Template_Tokenizer_Variable extends Varien_Filter_Template_T
      */
     public function isQuote()
     {
-        return $this->char() == '"' || $this->char() == "'";
+        if ($this->char() === '"') {
+            return true;
+        }
+
+        return $this->char() === "'";
     }
 
     /**
@@ -146,11 +150,7 @@ class Varien_Filter_Template_Tokenizer_Variable extends Varien_Filter_Template_T
                 continue;
             }
 
-            if ($this->isNumeric()) {
-                $value[] = $this->getNumber();
-            } else {
-                $value[] = $this->getString();
-            }
+            $value[] = $this->isNumeric() ? $this->getNumber() : $this->getString();
         }
 
         return $value;

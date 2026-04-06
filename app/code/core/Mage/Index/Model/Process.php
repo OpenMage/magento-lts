@@ -196,9 +196,9 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
                 try {
                     $this->_processEventsCollection($eventsCollection, false);
                     $this->_getResource()->commit();
-                } catch (Exception $e) {
+                } catch (Exception $exception) {
                     $this->_getResource()->rollBack();
-                    throw $e;
+                    throw $exception;
                 }
             } else {
                 //Update existing events since we'll do reindexAll

@@ -254,8 +254,8 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
         if (is_null($this->_productTypes)) {
             $this->_productTypes = [];
             $options = Mage::getModel('catalog/product_type')::getOptionArray();
-            foreach ($options as $k => $v) {
-                $this->_productTypes[$k] = $k;
+            foreach ($options as $key => $option) {
+                $this->_productTypes[$key] = $key;
             }
         }
 
@@ -583,10 +583,10 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
                     }
 
                     $this->addException(Mage::helper('catalog')->__('Saved %d record(s)', $i));
-                } catch (Exception $e) {
-                    if (!$e instanceof Mage_Dataflow_Model_Convert_Exception) {
+                } catch (Exception $exception) {
+                    if (!$exception instanceof Mage_Dataflow_Model_Convert_Exception) {
                         $this->addException(
-                            Mage::helper('catalog')->__('An error occurred while saving the collection, aborting. Error message: %s', $e->getMessage()),
+                            Mage::helper('catalog')->__('An error occurred while saving the collection, aborting. Error message: %s', $exception->getMessage()),
                             Mage_Dataflow_Model_Convert_Exception::FATAL,
                         );
                     }
@@ -823,11 +823,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
         $inventoryFields = $this->_inventoryFieldsProductTypes[$product->getTypeId()] ?? [];
         foreach ($inventoryFields as $field) {
             if (isset($importData[$field])) {
-                if (in_array($field, $this->_toNumber)) {
-                    $stockData[$field] = $this->getNumber($importData[$field]);
-                } else {
-                    $stockData[$field] = $importData[$field];
-                }
+                $stockData[$field] = in_array($field, $this->_toNumber) ? $this->getNumber($importData[$field]) : $importData[$field];
             }
         }
 

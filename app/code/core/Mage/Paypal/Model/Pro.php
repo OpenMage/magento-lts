@@ -158,30 +158,30 @@ class Mage_Paypal_Model_Pro
     /**
      * Transfer transaction/payment information from API instance to order payment
      *
-     * @param  Mage_Paypal_Model_Api_Abstract $from
+     * @param  Mage_Paypal_Model_Api_Abstract $source
      * @return $this
      */
-    public function importPaymentInfo(Varien_Object $from, Mage_Payment_Model_Info $to)
+    public function importPaymentInfo(Varien_Object $source, Mage_Payment_Model_Info $target)
     {
         // update PayPal-specific payment information in the payment object
-        $this->getInfo()->importToPayment($from, $to);
+        $this->getInfo()->importToPayment($source, $target);
 
         /**
          * Detect payment review and/or frauds
          * PayPal pro API returns fraud results only in the payment call response
          */
-        if ($from->getDataUsingMethod(Mage_Paypal_Model_Info::IS_FRAUD)) {
-            $to->setIsTransactionPending(true);
-            $to->setIsFraudDetected(true);
-        } elseif ($this->getInfo()::isPaymentReviewRequired($to)) {
-            $to->setIsTransactionPending(true);
+        if ($source->getDataUsingMethod(Mage_Paypal_Model_Info::IS_FRAUD)) {
+            $target->setIsTransactionPending(true);
+            $target->setIsFraudDetected(true);
+        } elseif ($this->getInfo()::isPaymentReviewRequired($target)) {
+            $target->setIsTransactionPending(true);
         }
 
         // give generic info about transaction state
-        if ($this->getInfo()::isPaymentSuccessful($to)) {
-            $to->setIsTransactionApproved(true);
-        } elseif ($this->getInfo()::isPaymentFailed($to)) {
-            $to->setIsTransactionDenied(true);
+        if ($this->getInfo()::isPaymentSuccessful($target)) {
+            $target->setIsTransactionApproved(true);
+        } elseif ($this->getInfo()::isPaymentFailed($target)) {
+            $target->setIsTransactionDenied(true);
         }
 
         return $this;
@@ -210,7 +210,7 @@ class Mage_Paypal_Model_Pro
      *
      * @param  Mage_Sales_Model_Order_Payment $payment
      * @param  float                          $amount
-     * @return false|void
+     * @return null|false
      */
     public function capture(Varien_Object $payment, $amount)
     {
@@ -230,6 +230,7 @@ class Mage_Paypal_Model_Pro
 
         $api->callDoCapture();
         $this->_importCaptureResultToPayment($api, $payment);
+        return null;
     }
 
     /**

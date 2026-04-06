@@ -259,7 +259,7 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
      */
     public function is24hTimeFormat()
     {
-        return (bool) ($this->getConfigData('time_format') == '24h');
+        return $this->getConfigData('time_format') === '24h';
     }
 
     /**

@@ -40,7 +40,7 @@ class Mage_Catalog_Model_Resource_Product_Relation extends Mage_Core_Model_Resou
         $insert = array_diff($new, $old);
         $delete = array_diff($old, $new);
 
-        if (!empty($insert)) {
+        if ($insert !== []) {
             $insertData = [];
             foreach ($insert as $childId) {
                 $insertData[] = [
@@ -52,7 +52,7 @@ class Mage_Catalog_Model_Resource_Product_Relation extends Mage_Core_Model_Resou
             $this->_getWriteAdapter()->insertMultiple($this->getMainTable(), $insertData);
         }
 
-        if (!empty($delete)) {
+        if ($delete !== []) {
             $where = implode(' AND ', [
                 $this->_getWriteAdapter()->quoteInto('parent_id = ?', $parentId),
                 $this->_getWriteAdapter()->quoteInto('child_id IN(?)', $delete),

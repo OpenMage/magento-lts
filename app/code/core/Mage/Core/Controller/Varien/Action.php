@@ -309,9 +309,9 @@ abstract class Mage_Core_Controller_Varien_Action
         );
 
         // load layout updates by specified handles
-        Varien_Profiler::start("$profilerKey::layout_load");
+        Varien_Profiler::start("{$profilerKey}::layout_load");
         $this->getLayout()->getUpdate()->load();
-        Varien_Profiler::stop("$profilerKey::layout_load");
+        Varien_Profiler::stop("{$profilerKey}::layout_load");
 
         return $this;
     }
@@ -331,9 +331,9 @@ abstract class Mage_Core_Controller_Varien_Action
         }
 
         // generate xml from collected text updates
-        Varien_Profiler::start("$profilerKey::layout_generate_xml");
+        Varien_Profiler::start("{$profilerKey}::layout_generate_xml");
         $this->getLayout()->generateXml();
-        Varien_Profiler::stop("$profilerKey::layout_generate_xml");
+        Varien_Profiler::stop("{$profilerKey}::layout_generate_xml");
 
         return $this;
     }
@@ -353,9 +353,9 @@ abstract class Mage_Core_Controller_Varien_Action
         }
 
         // generate blocks from xml layout
-        Varien_Profiler::start("$profilerKey::layout_generate_blocks");
+        Varien_Profiler::start("{$profilerKey}::layout_generate_blocks");
         $this->getLayout()->generateBlocks();
-        Varien_Profiler::stop("$profilerKey::layout_generate_blocks");
+        Varien_Profiler::stop("{$profilerKey}::layout_generate_blocks");
 
         if (!$this->getFlag('', self::FLAG_NO_DISPATCH_BLOCK_EVENT)) {
             Mage::dispatchEvent(
@@ -371,7 +371,7 @@ abstract class Mage_Core_Controller_Varien_Action
      * Rendering layout
      *
      * @param  string              $output
-     * @return $this|void
+     * @return null|$this
      * @throws Mage_Core_Exception
      */
     public function renderLayout($output = '')
@@ -379,16 +379,16 @@ abstract class Mage_Core_Controller_Varien_Action
         $profilerKey = self::PROFILER_KEY . '::' . $this->getFullActionName();
 
         if ($this->getFlag('', 'no-renderLayout')) {
-            return;
+            return null;
         }
 
         if (Mage::app()->getFrontController()->getNoRender()) {
-            return;
+            return null;
         }
 
         $this->_renderTitles();
 
-        Varien_Profiler::start("$profilerKey::layout_render");
+        Varien_Profiler::start("{$profilerKey}::layout_render");
 
         if ($output !== '') {
             $this->getLayout()->addOutputBlock($output);
@@ -403,7 +403,7 @@ abstract class Mage_Core_Controller_Varien_Action
         $output = $this->getLayout()->getOutput();
         Mage::getSingleton('core/translate_inline')->processResponseBody($output);
         $this->getResponse()->appendBody($output);
-        Varien_Profiler::stop("$profilerKey::layout_render");
+        Varien_Profiler::stop("{$profilerKey}::layout_render");
 
         return $this;
     }
@@ -932,7 +932,7 @@ abstract class Mage_Core_Controller_Varien_Action
      */
     protected function _validateFormKey()
     {
-        if (!($formKey = $this->getRequest()->getParam('form_key', null))
+        if (!($formKey = $this->getRequest()->getParam('form_key'))
             || $formKey != Mage::getSingleton('core/session')->getFormKey()
         ) {
             return false;
@@ -964,12 +964,12 @@ abstract class Mage_Core_Controller_Varien_Action
         if (is_string($text)) {
             $this->_titles[] = $text;
         } elseif ($text === -1) {
-            if (empty($this->_titles)) {
+            if ($this->_titles === []) {
                 $this->_removeDefaultTitle = true;
             } else {
                 array_pop($this->_titles);
             }
-        } elseif (empty($this->_titles) || $resetIfExists) {
+        } elseif ($this->_titles === [] || $resetIfExists) {
             if ($text === false) {
                 $this->_removeDefaultTitle = false;
                 $this->_titles = [];

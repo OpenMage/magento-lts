@@ -560,7 +560,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
 
         foreach ($bind as $key => $value) {
             if (!is_int($key) && $key[0] != ':') {
-                $bind[":$key"] = $value;
+                $bind[":{$key}"] = $value;
                 unset($bind[$key]);
             }
         }
@@ -751,51 +751,52 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
             PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE,
         );
 
-        $q      = false;
-        $c      = false;
-        $stmts  = [];
-        $s      = '';
+        $stmtsArray  = [];
 
-        foreach ($parts as $i => $part) {
+        $stmtQ = false;
+        $stmtC = false;
+        $stmtS = '';
+
+        foreach ($parts as $index => $part) {
             // strings
-            if (($part === "'" || $part === '"') && ($i === 0 || $parts[$i - 1] !== '\\')) {
-                if ($q === false) {
-                    $q = $part;
-                } elseif ($q === $part) {
-                    $q = false;
+            if (($part === "'" || $part === '"') && ($index === 0 || $parts[$index - 1] !== '\\')) {
+                if ($stmtQ === false) {
+                    $stmtQ = $part;
+                } elseif ($stmtQ === $part) {
+                    $stmtQ = false;
                 }
             }
 
             // single line comments
-            if (($part === '//' || $part === '--') && ($i === 0 || $parts[$i - 1] === "\n")) {
-                $c = $part;
-            } elseif ($part === "\n" && ($c === '//' || $c === '--')) {
-                $c = false;
+            if (($part === '//' || $part === '--') && ($index === 0 || $parts[$index - 1] === "\n")) {
+                $stmtC = $part;
+            } elseif ($part === "\n" && ($stmtC === '//' || $stmtC === '--')) {
+                $stmtC = false;
             }
 
             // multi line comments
-            if ($part === '/*' && $c === false) {
-                $c = '/*';
-            } elseif ($part === '*/' && $c === '/*') {
-                $c = false;
+            if ($part === '/*' && $stmtC === false) {
+                $stmtC = '/*';
+            } elseif ($part === '*/' && $stmtC === '/*') {
+                $stmtC = false;
             }
 
             // statements
-            if ($part === ';' && $q === false && $c === false) {
-                if (trim($s) !== '') {
-                    $stmts[] = trim($s);
-                    $s = '';
+            if ($part === ';' && $stmtQ === false && $stmtC === false) {
+                if (trim($stmtS) !== '') {
+                    $stmtsArray[] = trim($stmtS);
+                    $stmtS = '';
                 }
             } else {
-                $s .= $part;
+                $stmtS .= $part;
             }
         }
 
-        if (trim($s) !== '') {
-            $stmts[] = trim($s);
+        if (trim($stmtS) !== '') {
+            $stmtsArray[] = trim($stmtS);
         }
 
-        return $stmts;
+        return $stmtsArray;
     }
 
     /**
@@ -1564,17 +1565,17 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      *
      * @throws Exception
      */
-    protected function _debugException(Exception $e)
+    protected function _debugException(Exception $exception)
     {
         if (!$this->_debug) {
-            throw $e;
+            throw $exception;
         }
 
         $eol = "\n";
-        $code = 'EXCEPTION ' . $eol . $e . $eol . $eol;
+        $code = 'EXCEPTION ' . $eol . $exception . $eol . $eol;
         $this->_debugWriteToFile($code);
 
-        throw $e;
+        throw $exception;
     }
 
     /**
@@ -1992,50 +1993,25 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      * Retrieve column data type by data from describe table
      *
      * @param  array       $column
-     * @return string|void
+     * @return null|string
      */
     protected function _getColumnTypeByDdl($column)
     {
-        switch ($column['DATA_TYPE']) {
-            case 'bool':
-                return Varien_Db_Ddl_Table::TYPE_BOOLEAN;
-            case 'tinytext':
-            case 'char':
-            case 'varchar':
-            case 'text':
-            case 'mediumtext':
-            case 'longtext':
-                return Varien_Db_Ddl_Table::TYPE_TEXT;
-            case 'blob':
-            case 'mediumblob':
-            case 'longblob':
-                return Varien_Db_Ddl_Table::TYPE_BLOB;
-            case 'tinyint':
-            case 'tinyint unsigned':
-            case 'smallint':
-            case 'smallint unsigned':
-                return Varien_Db_Ddl_Table::TYPE_SMALLINT;
-            case 'mediumint':
-            case 'int':
-            case 'int unsigned':
-                return Varien_Db_Ddl_Table::TYPE_INTEGER;
-            case 'bigint':
-            case 'bigint unsigned':
-                return Varien_Db_Ddl_Table::TYPE_BIGINT;
-            case 'datetime':
-                return Varien_Db_Ddl_Table::TYPE_DATETIME;
-            case 'timestamp':
-                return Varien_Db_Ddl_Table::TYPE_TIMESTAMP;
-            case 'date':
-                return Varien_Db_Ddl_Table::TYPE_DATE;
-            case 'float':
-                return Varien_Db_Ddl_Table::TYPE_FLOAT;
-            case 'decimal':
-            case 'numeric':
-                return Varien_Db_Ddl_Table::TYPE_DECIMAL;
-            case 'varbinary':
-                return Varien_Db_Ddl_Table::TYPE_VARBINARY;
-        }
+        return match ($column['DATA_TYPE']) {
+            'bool' => Varien_Db_Ddl_Table::TYPE_BOOLEAN,
+            'tinytext', 'char', 'varchar', 'text', 'mediumtext', 'longtext' => Varien_Db_Ddl_Table::TYPE_TEXT,
+            'blob', 'mediumblob', 'longblob' => Varien_Db_Ddl_Table::TYPE_BLOB,
+            'tinyint', 'tinyint unsigned', 'smallint', 'smallint unsigned' => Varien_Db_Ddl_Table::TYPE_SMALLINT,
+            'mediumint', 'int', 'int unsigned' => Varien_Db_Ddl_Table::TYPE_INTEGER,
+            'bigint', 'bigint unsigned' => Varien_Db_Ddl_Table::TYPE_BIGINT,
+            'datetime' => Varien_Db_Ddl_Table::TYPE_DATETIME,
+            'timestamp' => Varien_Db_Ddl_Table::TYPE_TIMESTAMP,
+            'date' => Varien_Db_Ddl_Table::TYPE_DATE,
+            'float' => Varien_Db_Ddl_Table::TYPE_FLOAT,
+            'decimal', 'numeric' => Varien_Db_Ddl_Table::TYPE_DECIMAL,
+            'varbinary' => Varien_Db_Ddl_Table::TYPE_VARBINARY,
+            default => null,
+        };
     }
 
     /**
@@ -2151,29 +2127,31 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
         }
 
         $updateFields = [];
-        if (empty($fields)) {
+        if ($fields === []) {
             $fields = $cols;
         }
 
         // quote column names
         //        $cols = array_map(array($this, 'quoteIdentifier'), $cols);
 
+        $format = 'VALUES(%s)';
+
         // prepare ON DUPLICATE KEY conditions
-        foreach ($fields as $k => $v) {
+        foreach ($fields as $key => $val) {
             $field = null;
             $value = null;
-            if (!is_numeric($k)) {
-                $field = $this->quoteIdentifier($k);
-                if ($v instanceof Zend_Db_Expr) {
-                    $value = $v->__toString();
-                } elseif (is_string($v)) {
-                    $value = sprintf('VALUES(%s)', $this->quoteIdentifier($v));
-                } elseif (is_numeric($v)) {
-                    $value = $this->quoteInto('?', $v);
+            if (!is_numeric($key)) {
+                $field = $this->quoteIdentifier($key);
+                if ($val instanceof Zend_Db_Expr) {
+                    $value = $val->__toString();
+                } elseif (is_string($val)) {
+                    $value = sprintf($format, $this->quoteIdentifier($val));
+                } elseif (is_numeric($val)) {
+                    $value = $this->quoteInto('?', $val);
                 }
-            } elseif (is_string($v)) {
-                $value = sprintf('VALUES(%s)', $this->quoteIdentifier($v));
-                $field = $this->quoteIdentifier($v);
+            } elseif (is_string($val)) {
+                $value = sprintf($format, $this->quoteIdentifier($val));
+                $field = $this->quoteIdentifier($val);
             }
 
             if ($field && $value) {
@@ -2427,7 +2405,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
         }
 
         // PRIMARY KEY
-        if (!empty($primary)) {
+        if ($primary !== []) {
             asort($primary, SORT_NUMERIC);
             $primary      = array_map([$this, 'quoteIdentifier'], array_keys($primary));
             $definition[] = sprintf('  PRIMARY KEY (%s)', implode(', ', $primary));
@@ -2630,11 +2608,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
             case Varien_Db_Ddl_Table::TYPE_TEXT:
             case Varien_Db_Ddl_Table::TYPE_BLOB:
             case Varien_Db_Ddl_Table::TYPE_VARBINARY:
-                if (empty($options['LENGTH'])) {
-                    $length = Varien_Db_Ddl_Table::DEFAULT_TEXT_SIZE;
-                } else {
-                    $length = $this->_parseTextSize($options['LENGTH']);
-                }
+                $length = empty($options['LENGTH']) ? Varien_Db_Ddl_Table::DEFAULT_TEXT_SIZE : $this->_parseTextSize($options['LENGTH']);
 
                 if ($length <= 255) {
                     $cType = $ddlType == Varien_Db_Ddl_Table::TYPE_TEXT ? 'varchar' : 'varbinary';
@@ -2689,11 +2663,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
             $cDefault = new Zend_Db_Expr('NULL');
         }
 
-        if (empty($options['COMMENT'])) {
-            $comment = '';
-        } else {
-            $comment = $options['COMMENT'];
-        }
+        $comment = empty($options['COMMENT']) ? '' : $options['COMMENT'];
 
         //set column position
         $after = null;
@@ -2920,7 +2890,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
         $query .= sprintf(' ADD %s (%s)', $condition, $fieldSql);
 
         $cycle = true;
-        while ($cycle === true) {
+        while ($cycle) {
             try {
                 $result = $this->raw_query($query);
                 $cycle  = false;
@@ -3144,14 +3114,14 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
 
             if (isset($condition['from']) || isset($condition['to'])) {
                 if (isset($condition['from'])) {
-                    $from  = $this->_prepareSqlDateCondition($condition, 'from');
-                    $query = $this->_prepareQuotedSqlCondition($conditionKeyMap['from'], $from, $fieldName);
+                    $min   = $this->_prepareSqlDateCondition($condition, 'from');
+                    $query = $this->_prepareQuotedSqlCondition($conditionKeyMap['from'], $min, $fieldName);
                 }
 
                 if (isset($condition['to'])) {
                     $query .= empty($query) ? '' : ' AND ';
-                    $to     = $this->_prepareSqlDateCondition($condition, 'to');
-                    $query .= $this->_prepareQuotedSqlCondition($conditionKeyMap['to'], $to, $fieldName);
+                    $max    = $this->_prepareSqlDateCondition($condition, 'to');
+                    $query .= $this->_prepareQuotedSqlCondition($conditionKeyMap['to'], $max, $fieldName);
                 }
             } elseif (array_key_exists($key, $conditionKeyMap)) {
                 $value = $condition[$key];
@@ -3370,7 +3340,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      */
     public function getConcatSql(array $data, $separator = null)
     {
-        $format = empty($separator) ? 'CONCAT(%s)' : "CONCAT_WS('$separator', %s)";
+        $format = empty($separator) ? 'CONCAT(%s)' : "CONCAT_WS('{$separator}', %s)";
         return new Zend_Db_Expr(sprintf($format, implode(', ', $data)));
     }
 
@@ -3731,6 +3701,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
                 }
             }
 
+            $format = 'VALUES(%s)';
             $update = [];
             foreach ($fields as $key => $fieldValue) {
                 $field = null;
@@ -3740,12 +3711,12 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
                     if ($fieldValue instanceof Zend_Db_Expr) {
                         $value = $fieldValue->__toString();
                     } elseif (is_string($fieldValue)) {
-                        $value = sprintf('VALUES(%s)', $this->quoteIdentifier($fieldValue));
+                        $value = sprintf($format, $this->quoteIdentifier($fieldValue));
                     } elseif (is_numeric($fieldValue)) {
                         $value = $this->quoteInto('?', $fieldValue);
                     }
                 } elseif (is_string($fieldValue)) {
-                    $value = sprintf('VALUES(%s)', $this->quoteIdentifier($fieldValue));
+                    $value = sprintf($format, $this->quoteIdentifier($fieldValue));
                     $field = $this->quoteIdentifier($fieldValue);
                 }
 
@@ -4097,16 +4068,10 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
     protected function _prepareSqlDateCondition($condition, $key)
     {
         if (empty($condition['date'])) {
-            if (empty($condition['datetime'])) {
-                $result = $condition[$key];
-            } else {
-                $result = $this->formatDate($condition[$key]);
-            }
-        } else {
-            $result = $this->formatDate($condition[$key]);
+            return empty($condition['datetime']) ? $condition[$key] : $this->formatDate($condition[$key]);
         }
 
-        return $result;
+        return $this->formatDate($condition[$key]);
     }
 
     /**

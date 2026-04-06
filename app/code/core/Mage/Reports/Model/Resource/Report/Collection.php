@@ -58,9 +58,6 @@ class Mage_Reports_Model_Resource_Report_Collection extends Varien_Data_Collecti
      */
     protected $_storeIds;
 
-    /**
-     * @inheritDoc
-     */
     protected function _construct() {}
 
     /**
@@ -78,14 +75,14 @@ class Mage_Reports_Model_Resource_Report_Collection extends Varien_Data_Collecti
     /**
      * Set interval
      *
-     * @param  Zend_Date $from
-     * @param  Zend_Date $to
+     * @param  Zend_Date $dateFrom
+     * @param  Zend_Date $dateTo
      * @return $this
      */
-    public function setInterval($from, $to)
+    public function setInterval($dateFrom, $dateTo)
     {
-        $this->_from = $from;
-        $this->_to   = $to;
+        $this->_from = $dateFrom;
+        $this->_to   = $dateTo;
 
         return $this;
     }
@@ -226,31 +223,31 @@ class Mage_Reports_Model_Resource_Report_Collection extends Varien_Data_Collecti
     /**
      * get report full
      *
-     * @param  string                    $from
-     * @param  string                    $to
+     * @param  null|string               $dateFrom
+     * @param  null|string               $dateTo
      * @return Mage_Reports_Model_Report
      */
-    public function getReportFull($from, $to)
+    public function getReportFull($dateFrom, $dateTo)
     {
-        return $this->_model->getReportFull($this->timeShift($from), $this->timeShift($to));
+        return $this->_model->getReportFull($this->timeShift($dateFrom), $this->timeShift($dateTo));
     }
 
     /**
      * Get report
      *
-     * @param  string                    $from
-     * @param  string                    $to
+     * @param  null|string               $dateFrom
+     * @param  null|string               $dateTo
      * @return Mage_Reports_Model_Report
      */
-    public function getReport($from, $to)
+    public function getReport($dateFrom, $dateTo)
     {
-        return $this->_model->getReport($this->timeShift($from), $this->timeShift($to));
+        return $this->_model->getReport($this->timeShift($dateFrom), $this->timeShift($dateTo));
     }
 
     /**
      * Retrieve time shift
      *
-     * @param  string $datetime
+     * @param  null|string $datetime
      * @return string
      */
     public function timeShift($datetime)

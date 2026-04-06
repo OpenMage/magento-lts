@@ -4,6 +4,7 @@
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
  * @license    Open Software License (OSL 3.0)
+ * @package    OpenMage_Tests
  */
 
 declare(strict_types=1);
@@ -37,7 +38,7 @@ trait CoreTrait
         ];
     }
 
-    public function provideGetStoreConfig(): Generator
+    public function provideGetStoreConfigData(): Generator
     {
         yield 'null' => [
             null,

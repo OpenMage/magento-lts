@@ -25,12 +25,10 @@ class Mage_SalesRule_Model_Resource_Report_Rule_Updatedat extends Mage_SalesRule
     /**
      * Aggregate Coupons data by order updated at
      *
-     * @param  mixed $from
-     * @param  mixed $to
-     * @return $this
+     * @inheritDoc
      */
-    public function aggregate($from = null, $to = null)
+    public function aggregate($dateFrom = null, $dateTo = null)
     {
-        return $this->_aggregateByOrder('updated_at', $from, $to);
+        return $this->_aggregateByOrder('updated_at', $dateFrom, $dateTo);
     }
 }

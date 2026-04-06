@@ -637,7 +637,7 @@ class Mage_CatalogInventory_Model_Observer
      * Used before order placing to make order save/place transaction smaller
      * Also called after every successful order placement to ensure subtraction of inventory
      *
-     * @return Mage_CatalogInventory_Model_Observer|void
+     * @return null|Mage_CatalogInventory_Model_Observer
      */
     public function subtractQuoteInventory(Varien_Event_Observer $observer)
     {
@@ -647,7 +647,7 @@ class Mage_CatalogInventory_Model_Observer
         // Maybe we've already processed this quote in some event during order placement
         // e.g. call in event 'sales_model_service_quote_submit_before' and later in 'checkout_submit_all_after'
         if ($quote->getInventoryProcessed()) {
-            return;
+            return null;
         }
 
         $items = $this->_getProductsQty($quote->getAllItems());
@@ -1002,7 +1002,7 @@ class Mage_CatalogInventory_Model_Observer
             }
         }
 
-        if (!empty($productIds)) {
+        if ($productIds !== []) {
             Mage::getSingleton('cataloginventory/stock')->lockProductItems($productIds);
         }
 

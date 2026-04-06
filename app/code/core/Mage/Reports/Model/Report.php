@@ -14,7 +14,7 @@
  *
  * @method int   getPageSize()
  * @method array getStoreIds()
- * @method $this setDateRange(string $from, string $to)
+ * @method $this setDateRange(string $dateFrom, string $dateTo)
  * @method $this setPageSize(int $value)
  * @method $this setStoreIds( $value)
  */
@@ -39,27 +39,27 @@ class Mage_Reports_Model_Report extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @param  string                    $from
-     * @param  string                    $to
+     * @param  null|string               $dateFrom
+     * @param  null|string               $dateTo
      * @return Mage_Reports_Model_Report
      */
-    public function getReportFull($from, $to)
+    public function getReportFull($dateFrom, $dateTo)
     {
         return $this->_reportModel
-            ->setDateRange($from, $to)
+            ->setDateRange($dateFrom, $dateTo)
             ->setPageSize(false)
             ->setStoreIds($this->getStoreIds());
     }
 
     /**
-     * @param  string                    $from
-     * @param  string                    $to
+     * @param  null|string               $dateFrom
+     * @param  null|string               $dateTo
      * @return Mage_Reports_Model_Report
      */
-    public function getReport($from, $to)
+    public function getReport($dateFrom, $dateTo)
     {
         return $this->_reportModel
-            ->setDateRange($from, $to)
+            ->setDateRange($dateFrom, $dateTo)
             ->setPageSize($this->getPageSize())
             ->setStoreIds($this->getStoreIds());
     }

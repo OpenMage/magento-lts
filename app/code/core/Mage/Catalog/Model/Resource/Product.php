@@ -66,11 +66,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
     {
         $adapter = $this->_getReadAdapter();
 
-        if ($product instanceof Mage_Catalog_Model_Product) {
-            $productId = $product->getId();
-        } else {
-            $productId = $product;
-        }
+        $productId = $product instanceof Mage_Catalog_Model_Product ? $product->getId() : $product;
 
         $select = $adapter->select()
             ->from($this->_productWebsiteTable, 'website_id')
@@ -204,7 +200,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
         $insert = array_diff($websiteIds, $oldWebsiteIds);
         $delete = array_diff($oldWebsiteIds, $websiteIds);
 
-        if (!empty($insert)) {
+        if ($insert !== []) {
             $data = [];
             foreach ($insert as $websiteId) {
                 $data[] = [
@@ -226,7 +222,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
             $adapter->delete($this->_productWebsiteTable, $condition);
         }
 
-        if (!empty($insert) || !empty($delete)) {
+        if ($insert !== [] || $delete !== []) {
             $product->setIsChangedWebsites(true);
         }
 

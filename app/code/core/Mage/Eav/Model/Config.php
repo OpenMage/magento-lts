@@ -257,9 +257,7 @@ class Mage_Eav_Model_Config
     }
 
     /**
-     * @param            $storeId
      * @return void
-     * @throws Exception
      */
     protected function _loadAttributeSetInfo()
     {

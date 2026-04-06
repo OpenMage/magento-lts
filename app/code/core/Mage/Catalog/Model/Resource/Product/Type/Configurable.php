@@ -46,11 +46,11 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable extends Mage_Core_Mo
         $insert = array_diff($productIds, $old);
         $delete = array_diff($old, $productIds);
 
-        if ((!empty($insert) || !empty($delete)) && $isProductInstance) {
+        if (($insert !== [] || $delete !== []) && $isProductInstance) {
             $mainProduct->setIsRelationsChanged(true);
         }
 
-        if (!empty($delete)) {
+        if ($delete !== []) {
             $where = [
                 'parent_id = ?'     => $mainProductId,
                 'product_id IN(?)'  => $delete,
@@ -58,7 +58,7 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable extends Mage_Core_Mo
             $this->_getWriteAdapter()->delete($this->getMainTable(), $where);
         }
 
-        if (!empty($insert)) {
+        if ($insert !== []) {
             $data = [];
             foreach ($insert as $childId) {
                 $data[] = [
