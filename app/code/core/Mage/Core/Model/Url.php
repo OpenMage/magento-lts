@@ -644,7 +644,7 @@ class Mage_Core_Model_Url extends Varien_Object
      *
      * @param  non-empty-array<mixed, mixed> $data
      * @param  bool                          $unsetOldParams
-     * @return                               $this
+     * @return $this
      */
     public function setRouteParams(array $data, $unsetOldParams = true)
     {
