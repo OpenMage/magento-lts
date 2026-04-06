@@ -70,6 +70,7 @@
     <rule ref="rulesets/controversial.xml/CamelCaseVariableName">
         <properties>
             <property name="allow-underscore" value="true" />
+            <property name="exceptions" value="_" />
         </properties>
     </rule>
     <rule ref="rulesets/controversial.xml/Superglobals" />
