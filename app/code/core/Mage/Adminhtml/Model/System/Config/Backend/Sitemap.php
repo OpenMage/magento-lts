@@ -19,7 +19,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Sitemap extends Mage_Core_Model
             throw new Exception(Mage::helper('sitemap')->__('The priority must be between 0 and 1.'));
         }
 
-        if (($value == 0) && !($value === '0' || $value === '0.0')) {
+        if (($value == 0) && ($value !== '0' && $value !== '0.0')) {
             throw new Exception(Mage::helper('sitemap')->__('The priority must be between 0 and 1.'));
         }
 

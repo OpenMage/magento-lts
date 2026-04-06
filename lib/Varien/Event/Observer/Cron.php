@@ -29,18 +29,18 @@ class Varien_Event_Observer_Cron extends Varien_Event_Observer
      */
     public function isValidFor(Varien_Event $event)
     {
-        $e = preg_split('#\s+#', $this->getCronExpr(), -1, PREG_SPLIT_NO_EMPTY);
-        if (count($e) !== 5) {
+        $expressions = preg_split('#\s+#', $this->getCronExpr(), -1, PREG_SPLIT_NO_EMPTY);
+        if (count($expressions) !== 5) {
             return false;
         }
 
-        $d = getdate($this->getNow());
+        $date = getdate($this->getNow());
 
-        return $this->matchCronExpression($e[0], $d['minutes'])
-            && $this->matchCronExpression($e[1], $d['hours'])
-            && $this->matchCronExpression($e[2], $d['mday'])
-            && $this->matchCronExpression($e[3], $d['mon'])
-            && $this->matchCronExpression($e[4], $d['wday']);
+        return $this->matchCronExpression($expressions[0], $date['minutes'])
+            && $this->matchCronExpression($expressions[1], $date['hours'])
+            && $this->matchCronExpression($expressions[2], $date['mday'])
+            && $this->matchCronExpression($expressions[3], $date['mon'])
+            && $this->matchCronExpression($expressions[4], $date['wday']);
     }
 
     /**
@@ -69,8 +69,8 @@ class Varien_Event_Observer_Cron extends Varien_Event_Observer
 
         // handle multiple options
         if (str_contains($expr, ',')) {
-            foreach (explode(',', $expr) as $e) {
-                if ($this->matchCronExpression($e, $num)) {
+            foreach (explode(',', $expr) as $value) {
+                if ($this->matchCronExpression($value, $num)) {
                     return true;
                 }
             }
@@ -80,13 +80,13 @@ class Varien_Event_Observer_Cron extends Varien_Event_Observer
 
         // handle modulus
         if (str_contains($expr, '/')) {
-            $e = explode('/', $expr);
-            if (count($e) !== 2) {
+            $exprArray = explode('/', $expr);
+            if (count($exprArray) !== 2) {
                 return false;
             }
 
-            $expr = $e[0];
-            $mod = $e[1];
+            $expr = $exprArray[0];
+            $mod = $exprArray[1];
             if (!is_numeric($mod)) {
                 return false;
             }
@@ -96,16 +96,16 @@ class Varien_Event_Observer_Cron extends Varien_Event_Observer
 
         // handle range
         if (str_contains($expr, '-')) {
-            $e = explode('-', $expr);
-            if (count($e) !== 2) {
+            $exprArray = explode('-', $expr);
+            if (count($exprArray) !== 2) {
                 return false;
             }
 
-            $from = $this->getNumeric($e[0]);
-            $to = $this->getNumeric($e[1]);
+            $min = $this->getNumeric($exprArray[0]);
+            $max = $this->getNumeric($exprArray[1]);
 
-            return ($from !== false) && ($to !== false)
-                && ($num >= $from) && ($num <= $to) && ($num % $mod === 0);
+            return ($min !== false) && ($max !== false)
+                && ($num >= $min) && ($num <= $max) && ($num % $mod === 0);
         }
 
         // handle regular token

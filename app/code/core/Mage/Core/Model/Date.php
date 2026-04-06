@@ -59,7 +59,7 @@ class Mage_Core_Model_Date
             $result = date_default_timezone_set($timezone);
         }
 
-        if ($result === true) {
+        if ($result) {
             $offset = (int) Carbon::now()->format('Z');
         }
 
@@ -121,11 +121,7 @@ class Mage_Core_Model_Date
             return gmdate('U');
         }
 
-        if (is_numeric($input)) {
-            $result = $input;
-        } else {
-            $result = Carbon::parse($input)->getTimestamp();
-        }
+        $result = is_numeric($input) ? $input : Carbon::parse($input)->getTimestamp();
 
         if ($result === false) {
             // strtotime() unable to parse string (it's not a date or has incorrect format)

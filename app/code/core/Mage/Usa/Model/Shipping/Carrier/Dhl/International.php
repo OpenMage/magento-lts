@@ -246,11 +246,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
     {
         $request = $this->_request;
         foreach ($this->_requestVariables as $code => $objectCode) {
-            if ($request->getDhlId()) {
-                $value = $request->getData($objectCode['code']);
-            } else {
-                $value = $this->getConfigData($code);
-            }
+            $value = $request->getDhlId() ? $request->getData($objectCode['code']) : $this->getConfigData($code);
 
             $requestObject->setData($objectCode['setCode'], $value);
         }
@@ -332,11 +328,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
             $requestObject->setOrigState($request->getOrigState());
         }
 
-        if ($request->getDestCountryId()) {
-            $destCountry = $request->getDestCountryId();
-        } else {
-            $destCountry = self::USA_COUNTRY_ID;
-        }
+        $destCountry = $request->getDestCountryId() ? $request->getDestCountryId() : self::USA_COUNTRY_ID;
 
         // for DHL, Puerto Rico state for US will assume as Puerto Rico country
         // for Puerto Rico, dhl will ship as international
@@ -788,7 +780,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
                 $debugPoint = &$debugData['try-' . $offset];
 
                 $requestXml = $this->_buildQuotesRequestXml();
-                $date = Carbon::parse($this->_getShipDate() . " +$offset days")->format(self::REQUEST_DATE_FORMAT);
+                $date = Carbon::parse($this->_getShipDate() . " +{$offset} days")->format(self::REQUEST_DATE_FORMAT);
                 $this->_setQuotesRequestXmlDate($requestXml, $date);
 
                 $request = $requestXml->asXML();
@@ -956,8 +948,8 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
                         try {
                             $labelContent = (string) $xml->LabelImage->OutputImage;
                             $result->setShippingLabelContent(base64_decode($labelContent));
-                        } catch (Exception $e) {
-                            Mage::throwException(Mage::helper('usa')->__($e->getMessage()));
+                        } catch (Exception $exception) {
+                            Mage::throwException(Mage::helper('usa')->__($exception->getMessage()));
                         }
 
                         return $result;
@@ -1420,8 +1412,8 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
                 $responseBody = $client->request(Varien_Http_Client::POST)->getBody();
                 $debugData['result'] = $responseBody;
                 $this->_setCachedQuotes($request, $responseBody);
-            } catch (Exception $e) {
-                $this->_errors[$e->getCode()] = $e->getMessage();
+            } catch (Exception $exception) {
+                $this->_errors[$exception->getCode()] = $exception->getMessage();
                 $responseBody = '';
             }
 
@@ -1630,8 +1622,8 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
                 $responseBody = $client->request(Varien_Http_Client::POST)->getBody();
                 $debugData['result'] = $responseBody;
                 $this->_setCachedQuotes($request, $responseBody);
-            } catch (Exception $e) {
-                $this->_errors[$e->getCode()] = $e->getMessage();
+            } catch (Exception $exception) {
+                $this->_errors[$exception->getCode()] = $exception->getMessage();
                 $responseBody = '';
             }
 

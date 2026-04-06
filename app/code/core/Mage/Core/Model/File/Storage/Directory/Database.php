@@ -82,7 +82,7 @@ class Mage_Core_Model_File_Storage_Directory_Database extends Mage_Core_Model_Fi
      */
     public function hasErrors()
     {
-        return !empty($this->_errors);
+        return $this->_errors !== [];
     }
 
     /**
@@ -198,8 +198,8 @@ class Mage_Core_Model_File_Storage_Directory_Database extends Mage_Core_Model_Fi
                 } else {
                     Mage::throwException(Mage::helper('core')->__('Parent directory does not exist: %s', $dir['path']));
                 }
-            } catch (Exception $e) {
-                Mage::logException($e);
+            } catch (Exception $exception) {
+                Mage::logException($exception);
             }
         }
 

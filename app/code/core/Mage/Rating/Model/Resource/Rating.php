@@ -133,7 +133,7 @@ class Mage_Rating_Model_Resource_Rating extends Mage_Core_Model_Resource_Db_Abst
 
                 $insert = array_diff_assoc($new, $old);
                 $delete = array_diff_assoc($old, $new);
-                if (!empty($delete)) {
+                if ($delete !== []) {
                     $where = [
                         'rating_id = ?' => $ratingId,
                         'store_id IN(?)' => array_keys($delete),
@@ -155,8 +155,8 @@ class Mage_Rating_Model_Resource_Rating extends Mage_Core_Model_Resource_Db_Abst
                 }
 
                 $adapter->commit();
-            } catch (Exception $e) {
-                Mage::logException($e);
+            } catch (Exception $exception) {
+                Mage::logException($exception);
                 $adapter->rollBack();
             }
         }
@@ -195,8 +195,8 @@ class Mage_Rating_Model_Resource_Rating extends Mage_Core_Model_Resource_Db_Abst
                 }
 
                 $adapter->commit();
-            } catch (Exception $e) {
-                Mage::logException($e);
+            } catch (Exception $exception) {
+                Mage::logException($exception);
                 $adapter->rollBack();
             }
         }

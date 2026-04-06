@@ -406,7 +406,7 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
      */
     public function getFilterElementId($attributeCode)
     {
-        return Mage_ImportExport_Model_Export::FILTER_ELEMENT_GROUP . "_$attributeCode";
+        return Mage_ImportExport_Model_Export::FILTER_ELEMENT_GROUP . "_{$attributeCode}";
     }
 
     /**
@@ -417,7 +417,7 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
      */
     public function getFilterElementName($attributeCode)
     {
-        return Mage_ImportExport_Model_Export::FILTER_ELEMENT_GROUP . "[$attributeCode]";
+        return Mage_ImportExport_Model_Export::FILTER_ELEMENT_GROUP . "[{$attributeCode}]";
     }
 
     /**

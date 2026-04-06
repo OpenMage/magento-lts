@@ -677,9 +677,9 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract imple
     protected function _callDoAuthorize($amount, $payment, $parentTransactionId)
     {
         $apiData = $this->_pro->getApi()->getData();
-        foreach ($apiData as $k => $v) {
-            if (is_object($v)) {
-                unset($apiData[$k]);
+        foreach ($apiData as $key => $value) {
+            if (is_object($value)) {
+                unset($apiData[$key]);
             }
         }
 

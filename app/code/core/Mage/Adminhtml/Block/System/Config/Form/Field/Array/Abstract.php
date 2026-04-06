@@ -122,7 +122,6 @@ abstract class Mage_Adminhtml_Block_System_Config_Form_Field_Array_Abstract exte
         }
 
         $result = [];
-        /** @var Varien_Data_Form_Element_Abstract $element */
         $element = $this->getElement();
         if ($element->getValue() && is_array($element->getValue())) {
             foreach ($element->getValue() as $rowId => $row) {
@@ -186,7 +185,7 @@ abstract class Mage_Adminhtml_Block_System_Config_Form_Field_Array_Abstract exte
             $this->_isPreparedToRender = true;
         }
 
-        if (empty($this->_columns)) {
+        if ($this->_columns === []) {
             throw new Exception('At least one column must be defined.');
         }
 

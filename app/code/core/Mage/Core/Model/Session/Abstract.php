@@ -181,7 +181,11 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
      */
     public function useSid()
     {
-        return Mage::app()->getStore()->isAdmin() || Mage::getStoreConfig(self::XML_PATH_USE_FRONTEND_SID);
+        if (Mage::app()->getStore()->isAdmin()) {
+            return true;
+        }
+
+        return (bool) Mage::getStoreConfig(self::XML_PATH_USE_FRONTEND_SID);
     }
 
     /**

@@ -27,7 +27,6 @@ class Mage_Sales_Model_Observer
      * Clean expired quotes (cron process)
      *
      * @return $this
-     * @throws Mage_Core_Exception
      */
     public function cleanExpiredQuotes()
     {
@@ -405,7 +404,6 @@ class Mage_Sales_Model_Observer
 
         /** @var Mage_Sales_Model_Quote_Address $quoteAddress */
         $quoteAddress = $observer->getQuoteAddress();
-        /** @var Mage_Sales_Model_Quote $quoteInstance */
         $quoteInstance = $quoteAddress->getQuote();
         $customerInstance = $quoteInstance->getCustomer();
         $isDisableAutoGroupChange = $customerInstance->getDisableAutoGroupChange();
@@ -415,8 +413,7 @@ class Mage_Sales_Model_Observer
         $configAddressType = Mage::helper('customer/address')->getTaxCalculationAddressType($storeId);
 
         // When VAT is based on billing address then Magento have to handle only billing addresses
-        $additionalBillingAddressCondition = ($configAddressType == Mage_Customer_Model_Address_Abstract::TYPE_BILLING)
-            ? $configAddressType != $quoteAddress->getAddressType() : false;
+        $additionalBillingAddressCondition = $configAddressType == Mage_Customer_Model_Address_Abstract::TYPE_BILLING && $configAddressType != $quoteAddress->getAddressType();
         // Handle only addresses that corresponds to VAT configuration
         if (!$addressHelper->isVatValidationEnabled($storeId) || $additionalBillingAddressCondition) {
             return;

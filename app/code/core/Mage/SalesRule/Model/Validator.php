@@ -1119,7 +1119,7 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
             }
         }
 
-        if (!empty($itemsSorted)) {
+        if ($itemsSorted !== []) {
             return array_merge($itemsSorted, $items);
         }
 

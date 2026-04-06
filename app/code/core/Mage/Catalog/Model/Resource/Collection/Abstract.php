@@ -173,7 +173,7 @@ class Mage_Catalog_Model_Resource_Collection_Abstract extends Mage_Eav_Model_Ent
 
             $defCondition = str_replace($tableAlias, $defAlias, $defCondition);
             $defCondition .= $adapter->quoteInto(
-                ' AND ' . $adapter->quoteColumnAs("$defAlias.store_id", null) . ' = ?',
+                ' AND ' . $adapter->quoteColumnAs("{$defAlias}.store_id", null) . ' = ?',
                 $this->getDefaultStoreId(),
             );
 
@@ -196,7 +196,7 @@ class Mage_Catalog_Model_Resource_Collection_Abstract extends Mage_Eav_Model_Ent
         }
 
         $condition[] = $adapter->quoteInto(
-            $adapter->quoteColumnAs("$tableAlias.store_id", null) . ' = ?',
+            $adapter->quoteColumnAs("{$tableAlias}.store_id", null) . ' = ?',
             $storeId,
         );
         return parent::_joinAttributeToSelect($method, $attribute, $tableAlias, $condition, $fieldCode, $fieldAlias);

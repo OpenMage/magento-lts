@@ -175,7 +175,7 @@ abstract class Mage_Catalog_Model_Resource_Product_Indexer_Abstract extends Mage
         }
 
         $result = [];
-        if (!empty($parentIds)) {
+        if ($parentIds !== []) {
             $write = $this->_getWriteAdapter();
             $select = $write->select()
                 ->from($this->getTable('catalog/product_relation'), 'child_id')

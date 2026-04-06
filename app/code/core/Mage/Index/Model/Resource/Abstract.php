@@ -154,32 +154,32 @@ abstract class Mage_Index_Model_Resource_Abstract extends Mage_Core_Model_Resour
     public function insertFromSelect($select, $destTable, array $columns, $readToIndex = true)
     {
         if ($readToIndex) {
-            $from   = $this->_getWriteAdapter();
-            $to     = $this->_getIndexAdapter();
+            $source = $this->_getWriteAdapter();
+            $target = $this->_getIndexAdapter();
         } else {
-            $from   = $this->_getIndexAdapter();
-            $to     = $this->_getWriteAdapter();
+            $source = $this->_getIndexAdapter();
+            $target = $this->_getWriteAdapter();
         }
 
-        if ($from === $to) {
+        if ($source === $target) {
             $query = $select->insertFromSelect($destTable, $columns);
-            $to->query($query);
+            $target->query($query);
         } else {
-            $stmt = $from->query($select);
+            $stmt = $source->query($select);
             $data = [];
             $counter = 0;
             while ($row = $stmt->fetch(PDO::FETCH_NUM)) {
                 $data[] = $row;
                 $counter++;
                 if ($counter > 2000) {
-                    $to->insertArray($destTable, $columns, $data);
+                    $target->insertArray($destTable, $columns, $data);
                     $data = [];
                     $counter = 0;
                 }
             }
 
-            if (!empty($data)) {
-                $to->insertArray($destTable, $columns, $data);
+            if ($data !== []) {
+                $target->insertArray($destTable, $columns, $data);
             }
         }
 

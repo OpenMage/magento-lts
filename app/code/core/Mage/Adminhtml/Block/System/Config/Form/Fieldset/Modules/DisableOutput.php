@@ -86,7 +86,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Fieldset_Modules_DisableOutput ext
             $inherit = true;
         }
 
-        $e = $this->_getDummyElement();
+        $element = $this->_getDummyElement();
 
         $field = $fieldset->addField(
             $moduleName,
@@ -97,8 +97,8 @@ class Mage_Adminhtml_Block_System_Config_Form_Fieldset_Modules_DisableOutput ext
                 'value'         => $data,
                 'values'        => $this->_getValues(),
                 'inherit'       => $inherit,
-                'can_use_default_value' => $this->getForm()->canUseDefaultValue($e),
-                'can_use_website_value' => $this->getForm()->canUseWebsiteValue($e),
+                'can_use_default_value' => $this->getForm()->canUseDefaultValue($element),
+                'can_use_website_value' => $this->getForm()->canUseWebsiteValue($element),
                 'scope'         => true,
                 'scope_label'   => Mage::helper('adminhtml')->__('[STORE VIEW]'),
             ],

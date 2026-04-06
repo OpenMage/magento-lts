@@ -261,7 +261,7 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
             return $this;
         }
 
-        if (empty($this->_targetDirs)) {
+        if ($this->_targetDirs === []) {
             throw new Exception('Please specify at least one target directory.');
         }
 
@@ -279,14 +279,14 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
         $this->_setIsLoaded();
 
         // paginate and add items
-        $from = ($this->getCurPage() - 1) * $this->getPageSize();
-        $to = $from + $this->getPageSize() - 1;
+        $min = ($this->getCurPage() - 1) * $this->getPageSize();
+        $max = $min + $this->getPageSize() - 1;
         $isPaginated = $this->getPageSize() > 0;
 
         $cnt = 0;
         foreach ($this->_collectedFiles as $row) {
             $cnt++;
-            if ($isPaginated && ($cnt < $from || $cnt > $to)) {
+            if ($isPaginated && ($cnt < $min || $cnt > $max)) {
                 continue;
             }
 
@@ -316,7 +316,7 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
         }
 
         // apply filters on generated data
-        if (!empty($this->_filters)) {
+        if ($this->_filters !== []) {
             foreach ($this->$attributeName as $key => $row) {
                 if (!$this->_filterRow($row)) {
                     unset($this->{$attributeName}[$key]);
@@ -336,7 +336,7 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
      *
      * @param  array    $a
      * @param  array    $b
-     * @return int|void
+     * @return null|int
      */
     protected function _usort($a, $b)
     {
@@ -344,6 +344,8 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
             $result = $a[$key] > $b[$key] ? 1 : ($a[$key] < $b[$key] ? -1 : 0);
             return (self::SORT_ORDER_ASC === strtoupper($direction) ? $result : -$result);
         }
+
+        return null;
     }
 
     /**

@@ -222,11 +222,7 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
         } elseif (is_object($this->getAttributeObject())) {
             $attributeObject = $this->getAttributeObject();
             if ($attributeObject->usesSource()) {
-                if ($attributeObject->getFrontendInput() == 'multiselect') {
-                    $addEmptyOption = false;
-                } else {
-                    $addEmptyOption = true;
-                }
+                $addEmptyOption = $attributeObject->getFrontendInput() != 'multiselect';
 
                 $selectOptions = $attributeObject->getSource()->getAllOptions($addEmptyOption);
             }
@@ -241,12 +237,12 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
 
             if (!$hashedReady) {
                 $hashedOptions = [];
-                foreach ($selectOptions as $o) {
-                    if (is_array($o['value'])) {
+                foreach ($selectOptions as $option) {
+                    if (is_array($option['value'])) {
                         continue; // We cannot use array as index
                     }
 
-                    $hashedOptions[$o['value']] = $o['label'];
+                    $hashedOptions[$option['value']] = $option['label'];
                 }
 
                 $this->setData('value_option', $hashedOptions);

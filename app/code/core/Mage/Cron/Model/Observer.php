@@ -269,19 +269,19 @@ class Mage_Cron_Model_Observer
      *
      * @param  string              $jobCode
      * @param  SimpleXMLElement    $jobConfig
-     * @return $this|void
+     * @return null|$this
      * @throws Mage_Core_Exception
      * @throws Throwable
      */
     protected function _processAlwaysTask($jobCode, $jobConfig)
     {
         if (!$jobConfig || !$jobConfig->run) {
-            return;
+            return null;
         }
 
         $cronExpr = isset($jobConfig->schedule->cron_expr) ? (string) $jobConfig->schedule->cron_expr : '';
         if ($cronExpr != 'always') {
-            return;
+            return null;
         }
 
         $schedule = $this->_getAlwaysJobSchedule($jobCode);
@@ -298,7 +298,7 @@ class Mage_Cron_Model_Observer
      * @param  Mage_Cron_Model_Schedule $schedule
      * @param  SimpleXMLElement         $jobConfig
      * @param  bool                     $isAlways
-     * @return $this|void
+     * @return null|$this
      * @throws Throwable
      */
     protected function _processJob($schedule, $jobConfig, $isAlways = false)
@@ -309,11 +309,13 @@ class Mage_Cron_Model_Observer
             $now = Carbon::now()->getTimestamp();
             $time = Carbon::parse($schedule->getScheduledAt())->getTimestamp();
             if ($time > $now) {
-                return;
+                return null;
             }
         }
 
         $arguments = [];
+        $callback  = [];
+
         $errorStatus = Mage_Cron_Model_Schedule::STATUS_ERROR;
         try {
             if (!$isAlways && $time < $now - $scheduleLifetime) {
@@ -334,14 +336,14 @@ class Mage_Cron_Model_Observer
                 $arguments = [$schedule];
             }
 
-            if (empty($callback)) {
+            if ($callback === []) {
                 Mage::throwException(Mage::helper('cron')->__('No callbacks found'));
             }
 
             if (!$isAlways) {
                 if (!$schedule->tryLockJob()) {
                     // another cron started this job intermittently, so skip it
-                    return;
+                    return null;
                 }
 
                 /**

@@ -243,7 +243,11 @@ class Mage_Tax_Model_Sales_Total_Quote_Shipping extends Mage_Sales_Model_Quote_A
     protected function _needSubtractShippingTax($address)
     {
         $store = $address->getQuote()->getStore();
-        return $this->_config->shippingPriceIncludesTax($store) || $this->_config->getNeedUseShippingExcludeTax();
+        if ($this->_config->shippingPriceIncludesTax($store)) {
+            return true;
+        }
+
+        return $this->_config->getNeedUseShippingExcludeTax();
     }
 
     /**

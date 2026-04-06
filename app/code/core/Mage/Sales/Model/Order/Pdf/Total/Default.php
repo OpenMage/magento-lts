@@ -42,11 +42,7 @@ class Mage_Sales_Model_Order_Pdf_Total_Default extends Varien_Object
         }
 
         $title = $this->_getSalesHelper()->__($this->getTitle());
-        if ($this->getTitleSourceField()) {
-            $label = $title . ' (' . $this->getTitleDescription() . '):';
-        } else {
-            $label = $title . ':';
-        }
+        $label = $this->getTitleSourceField() ? $title . ' (' . $this->getTitleDescription() . '):' : $title . ':';
 
         $fontSize = $this->getFontSize() ? $this->getFontSize() : 7;
         $total = [
@@ -83,7 +79,7 @@ class Mage_Sales_Model_Order_Pdf_Total_Default extends Varien_Object
         $shippingTax    = $this->_getShippingTax();
         $taxClassAmount = array_merge($taxClassAmount, $shippingTax);
 
-        if (!empty($taxClassAmount)) {
+        if ($taxClassAmount !== []) {
             foreach ($taxClassAmount as &$tax) {
                 $percent          = $tax['percent'] ? ' (' . $tax['percent'] . '%)' : '';
                 $tax['amount']    = $this->getAmountPrefix() . $this->getOrder()->formatPriceTxt($tax['tax_amount']);
@@ -167,7 +163,11 @@ class Mage_Sales_Model_Order_Pdf_Total_Default extends Varien_Object
     public function canDisplay()
     {
         $amount = $this->getAmount();
-        return $this->getDisplayZero() || ($amount != 0);
+        if ($this->getDisplayZero()) {
+            return true;
+        }
+
+        return $amount != 0;
     }
 
     /**

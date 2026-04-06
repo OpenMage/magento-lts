@@ -56,13 +56,13 @@ class Mage_Eav_Model_Attribute_Data_Text extends Mage_Eav_Model_Attribute_Data_A
 
         $validateRules = $attribute->getValidateRules();
         if (!empty($validateRules['min_text_length']) && $length < $validateRules['min_text_length']) {
-            $v = $validateRules['min_text_length'];
-            $errors[] = Mage::helper('eav')->__('"%s" length must be equal or greater than %s characters.', $label, $v);
+            $rule = $validateRules['min_text_length'];
+            $errors[] = Mage::helper('eav')->__('"%s" length must be equal or greater than %s characters.', $label, $rule);
         }
 
         if (!empty($validateRules['max_text_length']) && $length > $validateRules['max_text_length']) {
-            $v = $validateRules['max_text_length'];
-            $errors[] = Mage::helper('eav')->__('"%s" length must be equal or less than %s characters.', $label, $v);
+            $rule = $validateRules['max_text_length'];
+            $errors[] = Mage::helper('eav')->__('"%s" length must be equal or less than %s characters.', $label, $rule);
         }
 
         $result = $this->_validateInputRule($value);

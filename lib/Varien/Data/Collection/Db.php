@@ -35,7 +35,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     /**
      * Cache configuration array
      *
-     * @var array
+     * @var null|array
      */
     protected $_cacheConf = null;
 
@@ -256,7 +256,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
                 });
                 $mainTable = key($mainTable);
                 $mainTable = preg_quote($mainTable, '/');
-                $pattern = "/^$mainTable\\.\\w+/";
+                $pattern = "/^{$mainTable}\\.\\w+/";
                 $whereUsingJoin = array_filter($countSelect->getPart(Zend_Db_Select::WHERE), function ($clause) use ($pattern) {
                     $clauses = preg_split('/(^|\s+)(AND|OR)\s+/', $clause, -1, PREG_SPLIT_NO_EMPTY);
                     return array_filter($clauses, function ($clause) use ($pattern) {
@@ -264,6 +264,8 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
                         return !preg_match($pattern, $clause);
                     });
                 });
+
+                $joinUsingBind = [];
                 if ($this->_bindParams) {
                     $bindParams = array_map(function ($token) {
                         return ltrim($token, ':');
@@ -274,7 +276,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
                     });
                 }
 
-                if (empty($whereUsingJoin) && empty($joinUsingBind)) {
+                if ($whereUsingJoin === [] && $joinUsingBind === []) {
                     $from = array_slice($leftJoins, 0, 1);
                     $countSelect->setPart(Zend_Db_Select::FROM, $from);
                 }

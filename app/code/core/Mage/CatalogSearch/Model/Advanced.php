@@ -154,11 +154,7 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
                 $value['from'] = isset($value['from']) ? trim($value['from']) : '';
                 $value['to'] = isset($value['to']) ? trim($value['to']) : '';
                 if (is_numeric($value['from']) || is_numeric($value['to'])) {
-                    if (!empty($value['currency'])) {
-                        $rate = Mage::app()->getStore()->getBaseCurrency()->getRate($value['currency']);
-                    } else {
-                        $rate = 1;
-                    }
+                    $rate = empty($value['currency']) ? 1 : Mage::app()->getStore()->getBaseCurrency()->getRate($value['currency']);
 
                     if ($this->_getResource()
                         ->addRatedPriceFilter(
@@ -191,11 +187,7 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
                 $this->_addSearchCriteria($attribute, $value);
 
                 $table = $attribute->getBackend()->getTable();
-                if ($attribute->getBackendType() == 'static') {
-                    $attributeId = $attribute->getAttributeCode();
-                } else {
-                    $attributeId = $attribute->getId();
-                }
+                $attributeId = $attribute->getBackendType() == 'static' ? $attribute->getAttributeCode() : $attribute->getId();
 
                 $allConditions[$table][$attributeId] = $condition;
             }
@@ -227,8 +219,8 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
             if (!empty($value['from']) || !empty($value['to'])) {
                 if (isset($value['currency'])) {
                     $currencyModel = Mage::getModel('directory/currency')->load($value['currency']);
-                    $from = $currencyModel->format($value['from'], [], false);
-                    $to = $currencyModel->format($value['to'], [], false);
+                    $min = $currencyModel->format($value['from'], [], false);
+                    $max = $currencyModel->format($value['to'], [], false);
                 } else {
                     $currencyModel = null;
                 }
@@ -236,15 +228,15 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
                 if ((string) $value['from'] !== '' && (string) $value['to'] !== '') {
                     $value = sprintf(
                         '%s - %s',
-                        ($currencyModel ? $from : $value['from']),
-                        ($currencyModel ? $to : $value['to']),
+                        ($currencyModel ? $min : $value['from']),
+                        ($currencyModel ? $max : $value['to']),
                     );
                 } elseif ((string) $value['from'] !== '') {
                     // and more
-                    $value = Mage::helper('catalogsearch')->__('%s and greater', ($currencyModel ? $from : $value['from']));
+                    $value = Mage::helper('catalogsearch')->__('%s and greater', ($currencyModel ? $min : $value['from']));
                 } elseif ((string) $value['to'] !== '') {
                     // to
-                    $value = Mage::helper('catalogsearch')->__('up to %s', ($currencyModel ? $to : $value['to']));
+                    $value = Mage::helper('catalogsearch')->__('up to %s', ($currencyModel ? $max : $value['to']));
                 }
             } else {
                 return $this;

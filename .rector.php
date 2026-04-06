@@ -28,13 +28,12 @@ use Rector\Renaming\Rector as Renaming;
 use Rector\Strict\Rector as Strict;
 use Rector\Transform\Rector as Transform;
 use Rector\TypeDeclaration\Rector as TypeDeclaration;
-use Rector\TypeDeclarationDocblocks\Rector as TypeDeclarationDocblocks;
 
 try {
     return RectorConfig::configure()
         ->withFileExtensions(['php', 'phtml'])
         ->withCache(
-            cacheDirectory: '.rector.result.cache',
+            cacheDirectory: __DIR__ . '/.cache/.rector.result.cache',
             cacheClass: FileCacheStorage::class,
         )
         ->withImportNames(removeUnusedImports: true)
@@ -64,21 +63,8 @@ try {
         ->withSkipPath(__DIR__ . '/vendor')
         ->withRules([
             Php85\ArrayDimFetch\ArrayFirstLastRector::class,
-            TypeDeclarationDocblocks\Class_\AddVarArrayDocblockFromDimFetchAssignRector::class,
-            TypeDeclarationDocblocks\Class_\AddReturnArrayDocblockFromDataProviderParamRector::class,
-            TypeDeclarationDocblocks\Class_\ClassMethodArrayDocblockParamFromLocalCallsRector::class,
-            TypeDeclarationDocblocks\Class_\DocblockVarArrayFromGetterReturnRector::class,
-            TypeDeclarationDocblocks\Class_\DocblockVarArrayFromPropertyDefaultsRector::class,
-            TypeDeclarationDocblocks\Class_\DocblockVarFromParamDocblockInConstructorRector::class,
-            TypeDeclarationDocblocks\ClassMethod\AddParamArrayDocblockFromAssignsParamToParamReferenceRector::class,
-            TypeDeclarationDocblocks\ClassMethod\AddParamArrayDocblockFromDataProviderRector::class,
-            TypeDeclarationDocblocks\ClassMethod\AddReturnDocblockForArrayDimAssignedObjectRector::class,
-            TypeDeclarationDocblocks\ClassMethod\AddReturnDocblockForCommonObjectDenominatorRector::class,
-            TypeDeclarationDocblocks\ClassMethod\AddReturnDocblockForDimFetchArrayFromAssignsRector::class,
-            TypeDeclarationDocblocks\ClassMethod\AddReturnDocblockForJsonArrayRector::class,
-            TypeDeclarationDocblocks\ClassMethod\AddReturnDocblockFromMethodCallDocblockRector::class,
-            TypeDeclarationDocblocks\ClassMethod\DocblockReturnArrayFromDirectArrayInstanceRector::class,
         ])
+        ->withRules(Migration\TypeDeclarationDocblocks::getRules())
         ->withConfiguredRule(Renaming\ClassConstFetch\RenameClassConstFetchRector::class, Migration\Zend\Measure::renameClassConst())
         ->withConfiguredRule(Renaming\MethodCall\RenameMethodRector::class, Migration\Mage\Admin::renameMethod())
         ->withConfiguredRule(Renaming\MethodCall\RenameMethodRector::class, Migration\Mage\Adminhtml::renameMethod())
@@ -98,72 +84,109 @@ try {
         ->withConfiguredRule(Renaming\MethodCall\RenameMethodRector::class, Migration\Mage\Wishlist::renameMethod())
         ->withConfiguredRule(ReplaceArgumentDefaultValueRector::class, Migration\Mage\Adminhtml::replaceArgumentDefaultValue())
         ->withConfiguredRule(ReplaceArgumentDefaultValueRector::class, Migration\OpenMage::replaceStoreConfigPathsWithConstants())
+        # skip: do not apply
         ->withSkip([
+            # skip avoid renaming of methods in tests
             Carbon\FuncCall\DateFuncCallToCarbonRector::class => [
                 __DIR__ . '/tests/unit/Base/CarbonTest.php',
             ],
+            # skip avoid renaming of methods in tests
             Carbon\FuncCall\TimeFuncCallToCarbonRector::class => [
                 __DIR__ . '/tests/unit/Base/CarbonTest.php',
             ],
-            CodeQuality\BooleanNot\SimplifyDeMorganBinaryRector::class,
-            # skip: causes issues with Mage_Api2_Model_Auth_Adapter_Oauth::getUserParams()
-            CodeQuality\Catch_\ThrowWithPreviousExceptionRector::class => [
-                __DIR__ . '/app/code/core/Mage/Api2/Model/Auth/Adapter/Oauth.php',
+            # skip adding dynamic property to class ... not sure about
+            CodeQuality\Class_\CompleteDynamicPropertiesRector::class => [
+                __DIR__ . '/lib/3Dsecure/XMLParser.php',
             ],
-            CodeQuality\Class_\CompleteDynamicPropertiesRector::class, # todo: TMP (!?!)
-            CodeQuality\ClassMethod\ExplicitReturnNullRector::class, # todo: TMP
-            CodeQuality\Empty_\SimplifyEmptyCheckOnEmptyArrayRector::class, # todo: TMP
-            CodeQuality\Equal\UseIdenticalOverEqualWithSameTypeRector::class, # todo: TMP
-            CodeQuality\Expression\TernaryFalseExpressionToIfRector::class, # todo: TMP (!?!)
-            CodeQuality\Identical\SimplifyBoolIdenticalTrueRector::class, # todo: TMP
+            # skip classes that throw an exception as a return value, which is not supported by Rector yet
+            # see https://github.com/rectorphp/rector/issues/9719
+            CodeQuality\ClassMethod\ExplicitReturnNullRector::class => [
+                __DIR__ . '/app/code/core/Mage/Catalog/Model/Product/Option/Type/Default.php',
+                __DIR__ . '/app/code/core/Mage/Catalog/Model/Product/Option/Type/File.php',
+                __DIR__ . '/app/code/core/Mage/Cms/Model/Wysiwyg/Images/Storage.php',
+                __DIR__ . '/app/code/core/Mage/ImportExport/Model/Export.php',
+                __DIR__ . '/app/code/core/Mage/Oauth/Model/Token.php',
+                __DIR__ . '/app/code/core/Mage/Paygate/Model/Authorizenet.php',
+                __DIR__ . '/app/code/core/Mage/Sales/Model/Order/Payment.php',
+                __DIR__ . '/app/code/core/Mage/Usa/Model/Shipping/Carrier/Abstract/Backend/Abstract.php',
+            ],
+            # skip: conflicts with phpstan strict rules
+            Php53\Ternary\TernaryToElvisRector::class,
+            # skip: changes method signature
+            Php80\Class_\ClassPropertyAssignToConstructorPromotionRector::class,
+            # skip: changes method signature
+            TypeDeclaration\ClassMethod\ReturnNeverTypeRector::class,
+            # skip: strict_type cannot be applied to OpenMage codebase - yet
+            TypeDeclaration\StmtsAwareInterface\DeclareStrictTypesRector::class,
+        ])
+        # skip: wait for rector support
+        ->withSkip([
+            # tmp wait for https://github.com/rectorphp/rector/issues/9728
+            CodeQuality\Expression\TernaryFalseExpressionToIfRector::class,
             # tmp wait for https://github.com/rectorphp/rector/issues/9717
             CodeQuality\If_\CombineIfRector::class => [
                 __DIR__ . '/app/code/core/Mage/Catalog/Model/Api2/Product/Validator/Product.php',
             ],
-            CodeQuality\If_\CompleteMissingIfElseBracketRector::class, # todo: TMP  (!?!)
-            CodeQuality\If_\ExplicitBoolCompareRector::class, # todo: TMP
-            CodeQuality\If_\SimplifyIfElseToTernaryRector::class,
-            CodeQuality\Include_\AbsolutizeRequireAndIncludePathRector::class, # todo: TMP
-            CodeQuality\Isset_\IssetOnPropertyObjectToPropertyExistsRector::class, # todo: TMP
-            CodeQuality\Ternary\TernaryEmptyArrayArrayDimFetchToCoalesceRector::class, # todo: TMP
-            CodingStyle\ClassMethod\FuncGetArgsToVariadicParamRector::class, # todo: TMP
-            CodingStyle\Encapsed\EncapsedStringsToSprintfRector::class, # todo: TMP
-            CodingStyle\Encapsed\WrapEncapsedVariableInCurlyBracesRector::class, # todo: TMP
-            CodingStyle\FuncCall\StrictArraySearchRector::class, # todo: TMP
-            CodingStyle\If_\NullableCompareToNullRector::class, # todo: TMP
-            CodingStyle\PostInc\PostIncDecToPreIncDecRector::class, # todo: TMP
-            DeadCode\Assign\RemoveUnusedVariableAssignRector::class, # todo: TMP
-            DeadCode\Cast\RecastingRemovalRector::class, # todo: TMP  (!?!)
-            DeadCode\ClassMethod\RemoveUnusedConstructorParamRector::class, # todo: TMP (!?!)
-            DeadCode\If_\RemoveAlwaysTrueIfConditionRector::class, # todo: TMP
-            DeadCode\MethodCall\RemoveNullArgOnNullDefaultParamRector::class, # todo: TMP
-            DeadCode\Plus\RemoveDeadZeroAndOneOperationRector::class, # todo: TMP  (!?!)
-            DeadCode\PropertyProperty\RemoveNullPropertyInitializationRector::class, # todo: TMP
-            DeadCode\Ternary\TernaryToBooleanOrFalseToBooleanAndRector::class, # todo: TMP
-            DeadCode\TryCatch\RemoveDeadTryCatchRector::class, # todo: TMP  (!?!)
-            EarlyReturn\Foreach_\ChangeNestedForeachIfsToEarlyContinueRector::class, # todo: TMP
-            EarlyReturn\If_\ChangeNestedIfsToEarlyReturnRector::class, # todo: TMP ... probably bug found
-            EarlyReturn\Return_\ReturnBinaryOrToEarlyReturnRector::class, # todo: TMP ... probably bug found
-            # skip: may conflict with phpstan strict rules
-            Php53\Ternary\TernaryToElvisRector::class,
-            Php71\FuncCall\RemoveExtraParametersRector::class, # todo: check later
-            # skip: causes issues with some tests
+            # tmp wait for https://github.com/rectorphp/rector/issues/9725
+            CodeQuality\If_\CompleteMissingIfElseBracketRector::class,
+            # tmp wait for https://github.com/rectorphp/rector/issues/9724
+            CodeQuality\If_\SimplifyIfElseToTernaryRector::class => [
+                __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Options/Option.php',
+                __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Sales/Order/View.php',
+                __DIR__ . '/app/code/core/Mage/Sales/Model/Order/Item.php',
+                __DIR__ . '/lib/Varien/Convert/Parser/Xml/Excel.php',
+            ],
+            # tmp wait for https://github.com/rectorphp/rector/issues/9732
+            EarlyReturn\Foreach_\ChangeNestedForeachIfsToEarlyContinueRector::class => [
+                __DIR__ . '/app/code/core/Mage/Checkout/Model/Cart/Payment/Api.php',
+            ],
+        ])
+        # skip: ... @todo: check later
+        ->withSkip([
+            # ... causes issues with Mage_Api2_Model_Auth_Adapter_Oauth::getUserParams()
+            CodeQuality\Catch_\ThrowWithPreviousExceptionRector::class => [
+                __DIR__ . '/app/code/core/Mage/Api2/Model/Auth/Adapter/Oauth.php',
+            ],
+            # ... +300 occurrences
+            CodeQuality\Equal\UseIdenticalOverEqualWithSameTypeRector::class,
+            # ... +300 occurrences
+            CodeQuality\If_\ExplicitBoolCompareRector::class,
+            # ... breaks loading website
+            CodeQuality\Isset_\IssetOnPropertyObjectToPropertyExistsRector::class,
+            # ... messes up code
+            DeadCode\If_\RemoveAlwaysTrueIfConditionRector::class => [
+                __DIR__ . '/app/design/adminhtml/base/default/template/system/store/tree.phtml',
+            ],
+            # ... needs closer review
             Php74\Closure\ClosureToArrowFunctionRector::class,
-            # skip: causes issues
-            Php74\Assign\NullCoalescingOperatorRector::class,
-            Php80\Class_\ClassPropertyAssignToConstructorPromotionRector::class, # todo: wait for php80
-            Php80\Class_\StringableForToStringRector::class, # todo: wait for php80
-            # see https://github.com/OpenMage/magento-lts/pull/5040
+            # ... needs closer review
             Php80\ClassMethod\AddParamBasedOnParentClassMethodRector::class => [
                 __DIR__ . '/lib/Varien/Directory/Collection.php',
             ],
+            # ... +300 occurrences
+            Php81\FuncCall\NullToStrictStringFuncCallArgRector::class,
+            # ... ~100 occurrences
+            Strict\Empty_\DisallowedEmptyRuleFixerRector::class,
+            # ... will be added after rector-update 2.4.0
+            TypeDeclaration\StmtsAwareInterface\SafeDeclareStrictTypesRector::class,
+        ])
+        ->withSkip([
+            CodeQuality\Include_\AbsolutizeRequireAndIncludePathRector::class, # todo: TMP
+            CodingStyle\ClassMethod\FuncGetArgsToVariadicParamRector::class, # todo: TMP
+            CodingStyle\Encapsed\EncapsedStringsToSprintfRector::class, # todo: TMP
+            CodingStyle\FuncCall\StrictArraySearchRector::class, # todo: TMP
+            CodingStyle\If_\NullableCompareToNullRector::class, # todo: TMP
+            CodingStyle\PostInc\PostIncDecToPreIncDecRector::class, # todo: TMP
+            DeadCode\Assign\RemoveUnusedVariableAssignRector::class, # todo: WIP
+            DeadCode\ClassMethod\RemoveUnusedConstructorParamRector::class, # todo: TMP (!?!)
+            DeadCode\PropertyProperty\RemoveNullPropertyInitializationRector::class, # todo: TMP
+            DeadCode\TryCatch\RemoveDeadTryCatchRector::class, # todo: TMP  (!?!)
+            EarlyReturn\Foreach_\ChangeNestedForeachIfsToEarlyContinueRector::class, # todo: TMP
+            Php71\FuncCall\RemoveExtraParametersRector::class, # todo: check later
+            # skip: causes issues
+            Php74\Assign\NullCoalescingOperatorRector::class,  # todo: TMP (!?!)
             Php81\Array_\ArrayToFirstClassCallableRector::class, # todo: TMP
-            Php81\FuncCall\NullToStrictStringFuncCallArgRector::class, # todo: check later
-            Strict\Empty_\DisallowedEmptyRuleFixerRector::class, # todo: TMP
             TypeDeclaration\BooleanAnd\BinaryOpNullableToInstanceofRector::class, # todo: TMP
-            TypeDeclaration\ClassMethod\ReturnNeverTypeRector::class,
-            # skip: cannot be applied to OpenMage codebase - yet
-            TypeDeclaration\StmtsAwareInterface\DeclareStrictTypesRector::class,
             # skip: use static methods
             PreferPHPUnitThisCallRector::class,
             __DIR__ . '/shell/translations.php',

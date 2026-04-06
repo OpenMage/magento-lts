@@ -43,8 +43,8 @@ class Mage_System_Dirs
 
             // Otherwise add it to the stack
             $stack[] = $entry;
-            $dh = opendir($entry);
-            while (false !== $child = readdir($dh)) {
+            $handle = opendir($entry);
+            while (false !== $child = readdir($handle)) {
                 // Ignore pointers
                 if ($child === '.') {
                     continue;
@@ -63,7 +63,7 @@ class Mage_System_Dirs
                 }
             }
 
-            @closedir($dh);
+            @closedir($handle);
         }
 
         return true;

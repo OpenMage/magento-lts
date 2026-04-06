@@ -116,7 +116,7 @@ class Mage_Checkout_Model_Type_Onepage
         $customerSession = $this->getCustomerSession();
         if (is_array($checkout->getStepData())) {
             foreach (array_keys($checkout->getStepData()) as $step) {
-                if (!($step === 'login' || $customerSession->isLoggedIn() && $step === 'billing')) {
+                if ($step !== 'login' && !($customerSession->isLoggedIn() && $step === 'billing')) {
                     $checkout->setStepData($step, 'allow', false);
                 }
             }
@@ -279,7 +279,7 @@ class Mage_Checkout_Model_Type_Onepage
             //unset billing address attributes which were not shown in form
             foreach ($addressForm->getAttributes() as $attribute) {
                 if (!isset($data[$attribute->getAttributeCode()])) {
-                    $address->setData($attribute->getAttributeCode(), null);
+                    $address->setData($attribute->getAttributeCode());
                 }
             }
 
@@ -565,7 +565,7 @@ class Mage_Checkout_Model_Type_Onepage
             // unset shipping address attributes which were not shown in form
             foreach ($addressForm->getAttributes() as $attribute) {
                 if (!isset($data[$attribute->getAttributeCode()])) {
-                    $address->setData($attribute->getAttributeCode(), null);
+                    $address->setData($attribute->getAttributeCode());
                 }
             }
 
@@ -812,8 +812,8 @@ class Mage_Checkout_Model_Type_Onepage
         if ($isNewCustomer) {
             try {
                 $this->_involveNewCustomer();
-            } catch (Exception $e) {
-                Mage::logException($e);
+            } catch (Exception $exception) {
+                Mage::logException($exception);
             }
         }
 
@@ -839,8 +839,8 @@ class Mage_Checkout_Model_Type_Onepage
             if (!$redirectUrl && $order->getCanSendNewEmailFlag()) {
                 try {
                     $order->queueNewOrderEmail();
-                } catch (Exception $e) {
-                    Mage::logException($e);
+                } catch (Exception $exception) {
+                    Mage::logException($exception);
                 }
             }
 

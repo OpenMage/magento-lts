@@ -120,11 +120,7 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Options_Abstract extends 
             /** @var Mage_Eav_Model_Entity_Attribute_Option $option */
             foreach ($optionCollection as $option) {
                 $value = [];
-                if (in_array($option->getId(), $defaultValues)) {
-                    $value['checked'] = 'checked="checked"';
-                } else {
-                    $value['checked'] = '';
-                }
+                $value['checked'] = in_array($option->getId(), $defaultValues) ? 'checked="checked"' : '';
 
                 $value['intype'] = $inputType;
                 $value['id'] = $option->getId();

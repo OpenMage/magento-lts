@@ -159,8 +159,11 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Items_Grid extends Mage_Adminhtml_
      */
     public function displayTotalsIncludeTax()
     {
-        return Mage::getSingleton('tax/config')->displayCartSubtotalInclTax($this->getStore())
-            || Mage::getSingleton('tax/config')->displayCartSubtotalBoth($this->getStore());
+        if (Mage::getSingleton('tax/config')->displayCartSubtotalInclTax($this->getStore())) {
+            return true;
+        }
+
+        return (bool) Mage::getSingleton('tax/config')->displayCartSubtotalBoth($this->getStore());
     }
 
     /**

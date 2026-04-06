@@ -677,7 +677,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      */
     public function canVoidPayment()
     {
-        return $this->_canVoidOrder() ? $this->getPayment()->canVoid($this->getPayment()) : false;
+        return $this->_canVoidOrder() && $this->getPayment()->canVoid($this->getPayment());
     }
 
     /**
@@ -687,7 +687,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      */
     protected function _canVoidOrder()
     {
-        return !($this->canUnhold() || $this->isPaymentReview());
+        return !$this->canUnhold() && !$this->isPaymentReview();
     }
 
     /**
@@ -1264,11 +1264,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
             $cancelState = self::STATE_CANCELED;
             foreach ($this->getAllItems() as $item) {
                 if ($cancelState != self::STATE_PROCESSING && $item->getQtyToRefund()) {
-                    if ($item->getQtyToShip() > $item->getQtyToCancel()) {
-                        $cancelState = self::STATE_PROCESSING;
-                    } else {
-                        $cancelState = self::STATE_COMPLETE;
-                    }
+                    $cancelState = $item->getQtyToShip() > $item->getQtyToCancel() ? self::STATE_PROCESSING : self::STATE_COMPLETE;
                 }
 
                 $item->cancel();
@@ -2483,7 +2479,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
                 $attributesForSave[] = 'shipping_address_id';
             }
 
-            if (!empty($attributesForSave)) {
+            if ($attributesForSave !== []) {
                 $this->_getResource()->saveAttribute($this, $attributesForSave);
             }
         }
