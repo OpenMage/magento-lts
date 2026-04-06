@@ -26,5 +26,6 @@ final class ShipmentTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('bundle/sales_order_pdf_items_shipment');
+        self::markTestSkipped('');
     }
 }

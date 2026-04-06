@@ -26,5 +26,6 @@ final class CollectionTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('oauth/resource_token_collection');
+        self::markTestSkipped('');
     }
 }

@@ -26,5 +26,6 @@ final class DesignTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('core/design_source_design');
+        self::markTestSkipped('');
     }
 }

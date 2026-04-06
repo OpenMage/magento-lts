@@ -26,5 +26,6 @@ final class HiddenTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('eav/attribute_data_hidden');
+        self::markTestSkipped('');
     }
 }

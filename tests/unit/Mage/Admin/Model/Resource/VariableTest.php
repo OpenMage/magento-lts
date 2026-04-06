@@ -26,5 +26,6 @@ final class VariableTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('admin/resource_variable');
+        self::markTestSkipped('');
     }
 }

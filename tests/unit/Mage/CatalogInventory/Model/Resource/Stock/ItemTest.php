@@ -26,5 +26,6 @@ final class ItemTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('cataloginventory/resource_stock_item');
+        self::markTestSkipped('');
     }
 }

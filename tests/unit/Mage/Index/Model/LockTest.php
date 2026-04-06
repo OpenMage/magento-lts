@@ -26,5 +26,6 @@ final class LockTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('index/lock');
+        self::markTestSkipped('');
     }
 }

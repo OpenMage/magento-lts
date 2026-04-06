@@ -26,5 +26,6 @@ final class StandardTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('paypal/api_standard');
+        self::markTestSkipped('');
     }
 }

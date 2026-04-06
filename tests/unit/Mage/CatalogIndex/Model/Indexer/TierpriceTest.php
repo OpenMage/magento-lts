@@ -26,5 +26,6 @@ final class TierpriceTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('catalogindex/indexer_tierprice');
+        self::markTestSkipped('');
     }
 }

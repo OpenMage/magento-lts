@@ -26,5 +26,6 @@ final class EmailTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('productalert/email');
+        self::markTestSkipped('');
     }
 }

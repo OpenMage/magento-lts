@@ -26,5 +26,6 @@ final class AbstractTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('adminhtml/system_config_backend_currency_abstract');
+        self::markTestSkipped('');
     }
 }

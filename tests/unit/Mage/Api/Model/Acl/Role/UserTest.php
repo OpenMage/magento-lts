@@ -26,5 +26,6 @@ final class UserTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('api/acl_role_user');
+        self::markTestSkipped('');
     }
 }

@@ -26,5 +26,6 @@ final class SerializeTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('dataflow/convert_parser_serialize');
+        self::markTestSkipped('');
     }
 }

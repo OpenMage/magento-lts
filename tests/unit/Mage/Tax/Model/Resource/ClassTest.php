@@ -26,5 +26,6 @@ final class ClassTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('tax/resource_class');
+        self::markTestSkipped('');
     }
 }

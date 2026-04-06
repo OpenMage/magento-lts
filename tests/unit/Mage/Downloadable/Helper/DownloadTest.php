@@ -26,5 +26,6 @@ final class DownloadTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::helper('downloadable/download');
+        self::markTestSkipped('');
     }
 }

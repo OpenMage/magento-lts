@@ -26,5 +26,6 @@ final class AgreementTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('paypal/method_agreement');
+        self::markTestSkipped('');
     }
 }

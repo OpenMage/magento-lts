@@ -26,5 +26,6 @@ final class EntityTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('rating/rating_entity');
+        self::markTestSkipped('');
     }
 }

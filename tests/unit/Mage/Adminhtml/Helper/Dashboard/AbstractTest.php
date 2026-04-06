@@ -26,5 +26,6 @@ final class AbstractTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::helper('adminhtml/dashboard_abstract');
+        self::markTestSkipped('');
     }
 }

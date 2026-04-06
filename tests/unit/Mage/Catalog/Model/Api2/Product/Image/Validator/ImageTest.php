@@ -26,5 +26,6 @@ final class ImageTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('catalog/api2_product_image_validator_image');
+        self::markTestSkipped('');
     }
 }

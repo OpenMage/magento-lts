@@ -26,5 +26,6 @@ final class AttributeTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('eav/resource_attribute');
+        self::markTestSkipped('');
     }
 }

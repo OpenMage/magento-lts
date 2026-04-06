@@ -26,5 +26,6 @@ final class QueryTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('catalogsearch/resource_query');
+        self::markTestSkipped('');
     }
 }

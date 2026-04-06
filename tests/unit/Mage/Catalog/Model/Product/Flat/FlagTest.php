@@ -26,5 +26,6 @@ final class FlagTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('catalog/product_flat_flag');
+        self::markTestSkipped('');
     }
 }

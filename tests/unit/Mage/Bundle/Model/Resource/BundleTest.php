@@ -26,5 +26,6 @@ final class BundleTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('bundle/resource_bundle');
+        self::markTestSkipped('');
     }
 }

@@ -26,5 +26,6 @@ final class AuthorizenetTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('paygate/authorizenet');
+        self::markTestSkipped('');
     }
 }

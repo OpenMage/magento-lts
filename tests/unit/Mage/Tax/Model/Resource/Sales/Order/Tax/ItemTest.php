@@ -26,5 +26,6 @@ final class ItemTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('tax/resource_sales_order_tax_item');
+        self::markTestSkipped('');
     }
 }

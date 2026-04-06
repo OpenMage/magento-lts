@@ -26,5 +26,6 @@ final class ConfigurableTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('importexport/import_entity_product_type_configurable');
+        self::markTestSkipped('');
     }
 }

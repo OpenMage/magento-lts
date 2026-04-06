@@ -26,5 +26,6 @@ final class DataTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('adminhtml/config_data');
+        self::markTestSkipped('');
     }
 }

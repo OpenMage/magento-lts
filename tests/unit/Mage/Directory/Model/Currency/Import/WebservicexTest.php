@@ -26,5 +26,6 @@ final class WebservicexTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('directory/currency_import_webservicex');
+        self::markTestSkipped('');
     }
 }

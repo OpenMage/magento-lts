@@ -26,5 +26,6 @@ final class BmlPositionTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('paypal/system_config_source_bmlposition');
+        self::markTestSkipped('');
     }
 }

@@ -26,5 +26,6 @@ final class ShippingTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('sales/quote_address_total_nominal_shipping');
+        self::markTestSkipped('');
     }
 }

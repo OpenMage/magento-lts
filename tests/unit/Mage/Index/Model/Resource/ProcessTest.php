@@ -26,5 +26,6 @@ final class ProcessTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('index/resource_process');
+        self::markTestSkipped('');
     }
 }

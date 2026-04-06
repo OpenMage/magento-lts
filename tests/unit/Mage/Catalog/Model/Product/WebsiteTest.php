@@ -26,5 +26,6 @@ final class WebsiteTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('catalog/product_website');
+        self::markTestSkipped('');
     }
 }

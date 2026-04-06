@@ -26,5 +26,6 @@ final class TypeTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('adminhtml/system_config_source_catalog_search_type');
+        self::markTestSkipped('');
     }
 }

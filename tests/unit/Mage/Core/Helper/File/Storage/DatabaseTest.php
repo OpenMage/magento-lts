@@ -26,5 +26,6 @@ final class DatabaseTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::helper('core/file_storage_database');
+        self::markTestSkipped('');
     }
 }

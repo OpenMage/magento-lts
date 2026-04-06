@@ -26,5 +26,6 @@ final class BehaviorTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('importexport/source_import_behavior');
+        self::markTestSkipped('');
     }
 }

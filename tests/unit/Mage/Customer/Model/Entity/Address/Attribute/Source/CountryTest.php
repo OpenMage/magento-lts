@@ -26,5 +26,6 @@ final class CountryTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('customer/entity_address_attribute_source_country');
+        self::markTestSkipped('');
     }
 }

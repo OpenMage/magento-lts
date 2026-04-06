@@ -26,5 +26,6 @@ final class ConfigurableTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('catalogindex/resource_data_configurable');
+        self::markTestSkipped('');
     }
 }

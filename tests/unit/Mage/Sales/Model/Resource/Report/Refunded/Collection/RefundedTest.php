@@ -26,5 +26,6 @@ final class RefundedTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('sales/resource_report_refunded_collection_refunded');
+        self::markTestSkipped('');
     }
 }

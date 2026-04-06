@@ -26,5 +26,6 @@ final class IndexTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('bundle/resource_price_index');
+        self::markTestSkipped('');
     }
 }

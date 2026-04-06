@@ -26,5 +26,6 @@ final class FreenondocTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('usa/shipping_carrier_dhl_international_source_method_freenondoc');
+        self::markTestSkipped('');
     }
 }

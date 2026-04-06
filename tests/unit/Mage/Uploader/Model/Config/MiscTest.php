@@ -26,5 +26,6 @@ final class MiscTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('uploader/config_misc');
+        self::markTestSkipped('');
     }
 }

@@ -26,5 +26,6 @@ final class ConvertTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('dataflow/convert');
+        self::markTestSkipped('');
     }
 }

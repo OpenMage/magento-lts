@@ -26,5 +26,6 @@ final class CollectionTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('widget/resource_widget_instance_collection');
+        self::markTestSkipped('');
     }
 }

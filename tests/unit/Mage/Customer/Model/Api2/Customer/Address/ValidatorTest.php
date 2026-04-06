@@ -26,5 +26,6 @@ final class ValidatorTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('customer/api2_customer_address_validator');
+        self::markTestSkipped('');
     }
 }

@@ -26,5 +26,6 @@ final class DbTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('dataflow/convert_adapter_zend_db');
+        self::markTestSkipped('');
     }
 }

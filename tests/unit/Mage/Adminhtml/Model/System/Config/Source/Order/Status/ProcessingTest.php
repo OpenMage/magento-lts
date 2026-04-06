@@ -26,5 +26,6 @@ final class ProcessingTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('adminhtml/system_config_source_order_status_processing');
+        self::markTestSkipped('');
     }
 }

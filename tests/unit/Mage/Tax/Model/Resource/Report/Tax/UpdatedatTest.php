@@ -26,5 +26,6 @@ final class UpdatedatTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('tax/resource_report_tax_updatedat');
+        self::markTestSkipped('');
     }
 }

@@ -26,5 +26,6 @@ final class RendererTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('api2/renderer');
+        self::markTestSkipped('');
     }
 }

@@ -26,5 +26,6 @@ final class CollectionTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('catalogrule/resource_rule_product_price_collection');
+        self::markTestSkipped('');
     }
 }

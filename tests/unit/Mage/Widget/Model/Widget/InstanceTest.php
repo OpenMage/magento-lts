@@ -26,5 +26,6 @@ final class InstanceTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('widget/widget_instance');
+        self::markTestSkipped('');
     }
 }

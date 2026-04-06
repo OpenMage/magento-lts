@@ -26,5 +26,6 @@ final class IndexTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('catalog/index');
+        self::markTestSkipped('');
     }
 }

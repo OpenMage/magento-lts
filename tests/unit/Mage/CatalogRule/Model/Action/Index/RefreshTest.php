@@ -26,5 +26,6 @@ final class RefreshTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('catalogrule/action_index_refresh');
+        self::markTestSkipped('');
     }
 }

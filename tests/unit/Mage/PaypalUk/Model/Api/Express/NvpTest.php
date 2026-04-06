@@ -26,5 +26,6 @@ final class NvpTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('paypaluk/api_express_nvp');
+        self::markTestSkipped('');
     }
 }

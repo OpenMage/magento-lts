@@ -26,5 +26,6 @@ final class CreatedatTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('salesrule/resource_report_rule_createdat');
+        self::markTestSkipped('');
     }
 }

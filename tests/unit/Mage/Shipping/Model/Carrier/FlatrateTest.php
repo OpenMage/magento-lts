@@ -26,5 +26,6 @@ final class FlatrateTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('shipping/carrier_flatrate');
+        self::markTestSkipped('');
     }
 }

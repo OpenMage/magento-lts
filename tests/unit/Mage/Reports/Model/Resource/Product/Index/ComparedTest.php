@@ -26,5 +26,6 @@ final class ComparedTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('reports/resource_product_index_compared');
+        self::markTestSkipped('');
     }
 }

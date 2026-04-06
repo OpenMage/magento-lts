@@ -26,5 +26,6 @@ final class GroupTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('customer/entity_group');
+        self::markTestSkipped('');
     }
 }

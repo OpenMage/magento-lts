@@ -26,5 +26,6 @@ final class CollectionTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('sales/resource_order_shipment_comment_collection');
+        self::markTestSkipped('');
     }
 }

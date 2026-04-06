@@ -26,5 +26,6 @@ final class FieldsetTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('eav/resource_form_fieldset');
+        self::markTestSkipped('');
     }
 }

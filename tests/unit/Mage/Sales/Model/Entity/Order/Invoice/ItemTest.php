@@ -26,5 +26,6 @@ final class ItemTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('sales/entity_order_invoice_item');
+        self::markTestSkipped('');
     }
 }

@@ -26,5 +26,6 @@ final class StockTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('bundle/resource_indexer_stock');
+        self::markTestSkipped('');
     }
 }

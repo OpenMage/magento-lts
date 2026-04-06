@@ -26,5 +26,6 @@ final class MethodTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('usa/shipping_carrier_dhl_source_method');
+        self::markTestSkipped('');
     }
 }

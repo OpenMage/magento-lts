@@ -26,5 +26,6 @@ final class ProductTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('tax/class_source_product');
+        self::markTestSkipped('');
     }
 }

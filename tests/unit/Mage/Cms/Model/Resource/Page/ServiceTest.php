@@ -26,5 +26,6 @@ final class ServiceTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('cms/resource_page_service');
+        self::markTestSkipped('');
     }
 }

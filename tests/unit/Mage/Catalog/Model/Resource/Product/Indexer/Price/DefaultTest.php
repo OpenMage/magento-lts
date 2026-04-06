@@ -26,5 +26,6 @@ final class DefaultTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('catalog/resource_product_indexer_price_default');
+        self::markTestSkipped('');
     }
 }

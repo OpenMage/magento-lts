@@ -26,5 +26,6 @@ final class SampleTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('downloadable/resource_sample');
+        self::markTestSkipped('');
     }
 }

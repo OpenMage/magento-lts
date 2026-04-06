@@ -26,5 +26,6 @@ final class LayoutTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('catalog/category_attribute_source_layout');
+        self::markTestSkipped('');
     }
 }

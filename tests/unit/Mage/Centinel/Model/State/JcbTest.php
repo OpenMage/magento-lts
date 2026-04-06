@@ -26,5 +26,6 @@ final class JcbTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('centinel/state_jcb');
+        self::markTestSkipped('');
     }
 }

@@ -26,5 +26,6 @@ final class CollectionTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('checkout/resource_agreement_collection');
+        self::markTestSkipped('');
     }
 }

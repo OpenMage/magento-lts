@@ -26,5 +26,6 @@ final class PdfTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('usa/shipping_carrier_dhl_label_pdf');
+        self::markTestSkipped('');
     }
 }

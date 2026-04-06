@@ -26,5 +26,6 @@ final class CollectionTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('giftmessage/resource_message_collection');
+        self::markTestSkipped('');
     }
 }

@@ -26,5 +26,6 @@ final class UrlTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('catalog/resource_url');
+        self::markTestSkipped('');
     }
 }

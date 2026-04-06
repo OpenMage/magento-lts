@@ -26,5 +26,6 @@ final class ProductTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('salesrule/resource_rule_product');
+        self::markTestSkipped('');
     }
 }

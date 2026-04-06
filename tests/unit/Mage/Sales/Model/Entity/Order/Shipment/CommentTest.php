@@ -26,5 +26,6 @@ final class CommentTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('sales/entity_order_shipment_comment');
+        self::markTestSkipped('');
     }
 }

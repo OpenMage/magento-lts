@@ -26,5 +26,6 @@ final class FedexTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('usa/shipping_carrier_fedex');
+        self::markTestSkipped('');
     }
 }

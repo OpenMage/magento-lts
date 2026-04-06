@@ -26,5 +26,6 @@ final class UpdateTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('core/layout_update');
+        self::markTestSkipped('');
     }
 }

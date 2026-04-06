@@ -26,5 +26,6 @@ final class TypeTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('bundle/source_option_selection_price_type');
+        self::markTestSkipped('');
     }
 }

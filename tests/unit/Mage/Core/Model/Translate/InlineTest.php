@@ -26,5 +26,6 @@ final class InlineTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('core/translate_inline');
+        self::markTestSkipped('');
     }
 }

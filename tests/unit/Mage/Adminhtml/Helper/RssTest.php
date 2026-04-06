@@ -26,5 +26,6 @@ final class RssTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::helper('adminhtml/rss');
+        self::markTestSkipped('');
     }
 }

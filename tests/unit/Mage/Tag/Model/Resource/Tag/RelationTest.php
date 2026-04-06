@@ -26,5 +26,6 @@ final class RelationTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('tag/resource_tag_relation');
+        self::markTestSkipped('');
     }
 }

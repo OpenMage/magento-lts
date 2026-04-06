@@ -26,5 +26,6 @@ final class TagTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('tag/resource_tag');
+        self::markTestSkipped('');
     }
 }

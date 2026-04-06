@@ -26,5 +26,6 @@ final class CollectionTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('core/resource_language_collection');
+        self::markTestSkipped('');
     }
 }

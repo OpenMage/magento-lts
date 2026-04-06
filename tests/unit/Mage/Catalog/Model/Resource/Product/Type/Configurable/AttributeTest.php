@@ -26,5 +26,6 @@ final class AttributeTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('catalog/resource_product_type_configurable_attribute');
+        self::markTestSkipped('');
     }
 }

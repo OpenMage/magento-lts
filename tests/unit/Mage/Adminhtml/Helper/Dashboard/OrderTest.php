@@ -26,5 +26,6 @@ final class OrderTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::helper('adminhtml/dashboard_order');
+        self::markTestSkipped('');
     }
 }

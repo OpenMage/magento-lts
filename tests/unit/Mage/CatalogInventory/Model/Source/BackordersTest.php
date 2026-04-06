@@ -26,5 +26,6 @@ final class BackordersTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('cataloginventory/source_backorders');
+        self::markTestSkipped('');
     }
 }

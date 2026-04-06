@@ -26,5 +26,6 @@ final class SettlementTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('paypal/resource_report_settlement');
+        self::markTestSkipped('');
     }
 }

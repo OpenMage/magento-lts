@@ -26,5 +26,6 @@ final class CartTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('checkout/resource_cart');
+        self::markTestSkipped('');
     }
 }

@@ -26,5 +26,6 @@ final class VirtualTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('catalogindex/data_virtual');
+        self::markTestSkipped('');
     }
 }

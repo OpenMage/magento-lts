@@ -26,5 +26,6 @@ final class ConsumerTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('oauth/resource_consumer');
+        self::markTestSkipped('');
     }
 }

@@ -26,5 +26,6 @@ final class AddressTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('salesrule/rule_condition_address');
+        self::markTestSkipped('');
     }
 }

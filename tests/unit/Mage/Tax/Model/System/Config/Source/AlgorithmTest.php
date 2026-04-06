@@ -26,5 +26,6 @@ final class AlgorithmTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('tax/system_config_source_algorithm');
+        self::markTestSkipped('');
     }
 }

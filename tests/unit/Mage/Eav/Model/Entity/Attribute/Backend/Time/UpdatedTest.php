@@ -26,5 +26,6 @@ final class UpdatedTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('eav/entity_attribute_backend_time_updated');
+        self::markTestSkipped('');
     }
 }

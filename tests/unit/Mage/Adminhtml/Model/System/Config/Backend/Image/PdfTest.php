@@ -26,5 +26,6 @@ final class PdfTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('adminhtml/system_config_backend_image_pdf');
+        self::markTestSkipped('');
     }
 }

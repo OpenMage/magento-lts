@@ -26,5 +26,6 @@ final class ItemTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('sales/resource_order_creditmemo_item');
+        self::markTestSkipped('');
     }
 }

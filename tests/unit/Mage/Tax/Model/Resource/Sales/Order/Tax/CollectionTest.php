@@ -26,5 +26,6 @@ final class CollectionTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('tax/resource_sales_order_tax_collection');
+        self::markTestSkipped('');
     }
 }

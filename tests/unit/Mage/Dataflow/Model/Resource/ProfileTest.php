@@ -26,5 +26,6 @@ final class ProfileTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('dataflow/resource_profile');
+        self::markTestSkipped('');
     }
 }

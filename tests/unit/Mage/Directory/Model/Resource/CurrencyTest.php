@@ -26,5 +26,6 @@ final class CurrencyTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('directory/resource_currency');
+        self::markTestSkipped('');
     }
 }

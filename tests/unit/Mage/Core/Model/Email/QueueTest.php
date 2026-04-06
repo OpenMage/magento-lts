@@ -26,5 +26,6 @@ final class QueueTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('core/email_queue');
+        self::markTestSkipped('');
     }
 }

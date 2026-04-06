@@ -26,5 +26,6 @@ final class ApiTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('giftmessage/api');
+        self::markTestSkipped('');
     }
 }

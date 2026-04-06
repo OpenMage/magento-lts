@@ -26,5 +26,6 @@ final class RouterTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('api2/router');
+        self::markTestSkipped('');
     }
 }

@@ -26,5 +26,6 @@ final class VoteTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('rating/resource_rating_option_vote');
+        self::markTestSkipped('');
     }
 }

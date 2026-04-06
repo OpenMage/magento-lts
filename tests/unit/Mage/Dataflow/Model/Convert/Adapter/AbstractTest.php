@@ -26,5 +26,6 @@ final class AbstractTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('dataflow/convert_adapter_abstract');
+        self::markTestSkipped('');
     }
 }

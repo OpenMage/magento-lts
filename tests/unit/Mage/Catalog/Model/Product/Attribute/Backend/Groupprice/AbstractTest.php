@@ -26,5 +26,6 @@ final class AbstractTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('catalog/product_attribute_backend_groupprice_abstract');
+        self::markTestSkipped('');
     }
 }

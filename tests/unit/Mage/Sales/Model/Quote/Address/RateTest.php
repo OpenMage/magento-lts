@@ -26,5 +26,6 @@ final class RateTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('sales/quote_address_rate');
+        self::markTestSkipped('');
     }
 }

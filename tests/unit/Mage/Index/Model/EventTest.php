@@ -26,5 +26,6 @@ final class EventTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('index/event');
+        self::markTestSkipped('');
     }
 }

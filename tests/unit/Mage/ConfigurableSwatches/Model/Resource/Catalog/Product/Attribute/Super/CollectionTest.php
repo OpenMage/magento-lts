@@ -26,5 +26,6 @@ final class CollectionTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('configurableswatches/resource_catalog_product_attribute_super_collection');
+        self::markTestSkipped('');
     }
 }

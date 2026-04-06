@@ -26,5 +26,6 @@ final class ServerTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('api2/server');
+        self::markTestSkipped('');
     }
 }

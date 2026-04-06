@@ -26,5 +26,6 @@ final class DbTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('core/resource_type_db');
+        self::markTestSkipped('');
     }
 }

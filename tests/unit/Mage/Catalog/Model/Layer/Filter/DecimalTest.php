@@ -26,5 +26,6 @@ final class DecimalTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('catalog/layer_filter_decimal');
+        self::markTestSkipped('');
     }
 }

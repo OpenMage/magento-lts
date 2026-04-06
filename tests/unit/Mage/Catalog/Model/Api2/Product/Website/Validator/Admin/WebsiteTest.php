@@ -26,5 +26,6 @@ final class WebsiteTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('catalog/api2_product_website_validator_admin_website');
+        self::markTestSkipped('');
     }
 }

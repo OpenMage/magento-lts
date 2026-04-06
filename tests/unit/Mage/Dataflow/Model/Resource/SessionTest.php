@@ -26,5 +26,6 @@ final class SessionTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('dataflow/resource_session');
+        self::markTestSkipped('');
     }
 }

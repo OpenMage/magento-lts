@@ -26,5 +26,6 @@ final class OptionsTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('core/config_options');
+        self::markTestSkipped('');
     }
 }

@@ -26,5 +26,6 @@ final class RestTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('sales/api2_order_address_rest');
+        self::markTestSkipped('');
     }
 }

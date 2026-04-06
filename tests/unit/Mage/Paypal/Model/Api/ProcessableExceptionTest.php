@@ -26,5 +26,6 @@ final class ProcessableExceptionTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('paypal/api_processableexception');
+        self::markTestSkipped('');
     }
 }

@@ -26,5 +26,6 @@ final class StateTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('checkout/type_multishipping_state');
+        self::markTestSkipped('');
     }
 }

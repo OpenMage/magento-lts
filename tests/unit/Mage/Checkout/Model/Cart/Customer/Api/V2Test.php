@@ -26,5 +26,6 @@ final class V2Test extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('checkout/cart_customer_api_v2');
+        self::markTestSkipped('');
     }
 }

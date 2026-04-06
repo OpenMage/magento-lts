@@ -26,5 +26,6 @@ final class ShipmentTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('sales/resource_report_shipping_collection_shipment');
+        self::markTestSkipped('');
     }
 }

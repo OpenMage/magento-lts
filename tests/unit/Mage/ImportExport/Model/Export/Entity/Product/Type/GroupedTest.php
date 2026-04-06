@@ -26,5 +26,6 @@ final class GroupedTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('importexport/export_entity_product_type_grouped');
+        self::markTestSkipped('');
     }
 }

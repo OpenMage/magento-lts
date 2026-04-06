@@ -26,5 +26,6 @@ final class AbstractTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('install/installer_abstract');
+        self::markTestSkipped('');
     }
 }

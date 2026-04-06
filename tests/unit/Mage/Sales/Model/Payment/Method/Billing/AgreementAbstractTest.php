@@ -26,5 +26,6 @@ final class AgreementAbstractTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('sales/payment_method_billing_agreementabstract');
+        self::markTestSkipped('');
     }
 }

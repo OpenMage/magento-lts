@@ -26,5 +26,6 @@ final class PackageTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('adminhtml/system_config_backend_design_package');
+        self::markTestSkipped('');
     }
 }

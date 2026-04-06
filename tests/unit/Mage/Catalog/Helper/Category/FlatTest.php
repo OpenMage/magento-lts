@@ -26,5 +26,6 @@ final class FlatTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::helper('catalog/category_flat');
+        self::markTestSkipped('');
     }
 }

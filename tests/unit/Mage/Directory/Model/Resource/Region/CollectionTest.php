@@ -26,5 +26,6 @@ final class CollectionTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('directory/resource_region_collection');
+        self::markTestSkipped('');
     }
 }

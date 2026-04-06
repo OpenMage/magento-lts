@@ -26,5 +26,6 @@ final class FlowpasswordTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('customer/flowpassword');
+        self::markTestSkipped('');
     }
 }

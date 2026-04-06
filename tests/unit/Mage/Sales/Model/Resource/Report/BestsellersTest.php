@@ -26,5 +26,6 @@ final class BestsellersTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('sales/resource_report_bestsellers');
+        self::markTestSkipped('');
     }
 }

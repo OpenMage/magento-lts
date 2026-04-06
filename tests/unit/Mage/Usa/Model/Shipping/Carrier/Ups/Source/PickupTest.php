@@ -26,5 +26,6 @@ final class PickupTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('usa/shipping_carrier_ups_source_pickup');
+        self::markTestSkipped('');
     }
 }

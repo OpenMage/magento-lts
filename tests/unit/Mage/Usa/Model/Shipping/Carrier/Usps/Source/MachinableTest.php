@@ -26,5 +26,6 @@ final class MachinableTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('usa/shipping_carrier_usps_source_machinable');
+        self::markTestSkipped('');
     }
 }

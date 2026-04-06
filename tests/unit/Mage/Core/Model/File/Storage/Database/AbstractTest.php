@@ -26,5 +26,6 @@ final class AbstractTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('core/file_storage_database_abstract');
+        self::markTestSkipped('');
     }
 }

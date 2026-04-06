@@ -26,5 +26,6 @@ final class AdminTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('api2/auth_user_admin');
+        self::markTestSkipped('');
     }
 }

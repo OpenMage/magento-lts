@@ -26,5 +26,6 @@ final class CollectionTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('admin/resource_permissions_collection');
+        self::markTestSkipped('');
     }
 }

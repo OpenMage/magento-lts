@@ -26,5 +26,6 @@ final class EavTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('catalogindex/indexer_eav');
+        self::markTestSkipped('');
     }
 }

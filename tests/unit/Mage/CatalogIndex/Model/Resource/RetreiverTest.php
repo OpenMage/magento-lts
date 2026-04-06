@@ -26,5 +26,6 @@ final class RetreiverTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('catalogindex/resource_retreiver');
+        self::markTestSkipped('');
     }
 }

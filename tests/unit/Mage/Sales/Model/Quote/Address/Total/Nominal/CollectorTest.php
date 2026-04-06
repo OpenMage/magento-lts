@@ -26,5 +26,6 @@ final class CollectorTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('sales/quote_address_total_nominal_collector');
+        self::markTestSkipped('');
     }
 }

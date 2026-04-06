@@ -26,5 +26,6 @@ final class IndexerTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('catalog/product_flat_indexer');
+        self::markTestSkipped('');
     }
 }

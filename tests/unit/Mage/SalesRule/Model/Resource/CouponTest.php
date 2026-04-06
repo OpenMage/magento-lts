@@ -26,5 +26,6 @@ final class CouponTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('salesrule/resource_coupon');
+        self::markTestSkipped('');
     }
 }

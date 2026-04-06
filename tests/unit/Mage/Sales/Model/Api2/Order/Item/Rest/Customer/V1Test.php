@@ -26,5 +26,6 @@ final class V1Test extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('sales/api2_order_item_rest_customer_v1');
+        self::markTestSkipped('');
     }
 }

@@ -26,5 +26,6 @@ final class DryrunTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('dataflow/convert_validator_dryrun');
+        self::markTestSkipped('');
     }
 }

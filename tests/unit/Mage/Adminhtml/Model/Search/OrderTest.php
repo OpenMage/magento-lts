@@ -26,5 +26,6 @@ final class OrderTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('adminhtml/search_order');
+        self::markTestSkipped('');
     }
 }

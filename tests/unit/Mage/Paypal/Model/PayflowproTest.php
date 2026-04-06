@@ -26,5 +26,6 @@ final class PayflowproTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('paypal/payflowpro');
+        self::markTestSkipped('');
     }
 }

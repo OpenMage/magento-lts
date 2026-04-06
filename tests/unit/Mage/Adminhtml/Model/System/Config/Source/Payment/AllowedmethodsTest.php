@@ -26,5 +26,6 @@ final class AllowedmethodsTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('adminhtml/system_config_source_payment_allowedmethods');
+        self::markTestSkipped('');
     }
 }

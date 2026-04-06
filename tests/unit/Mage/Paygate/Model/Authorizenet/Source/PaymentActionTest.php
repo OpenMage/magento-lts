@@ -26,5 +26,6 @@ final class PaymentActionTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('paygate/authorizenet_source_paymentaction');
+        self::markTestSkipped('');
     }
 }

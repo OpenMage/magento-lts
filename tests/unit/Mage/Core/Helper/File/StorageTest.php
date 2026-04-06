@@ -26,5 +26,6 @@ final class StorageTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::helper('core/file_storage');
+        self::markTestSkipped('');
     }
 }

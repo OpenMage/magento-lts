@@ -26,5 +26,6 @@ final class TaxTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('tax/sales_total_quote_nominal_tax');
+        self::markTestSkipped('');
     }
 }

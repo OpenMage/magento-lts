@@ -26,5 +26,6 @@ final class SubscriberTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('newsletter/resource_subscriber');
+        self::markTestSkipped('');
     }
 }

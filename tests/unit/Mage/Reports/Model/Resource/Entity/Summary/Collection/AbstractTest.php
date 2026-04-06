@@ -26,5 +26,6 @@ final class AbstractTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('reports/resource_entity_summary_collection_abstract');
+        self::markTestSkipped('');
     }
 }

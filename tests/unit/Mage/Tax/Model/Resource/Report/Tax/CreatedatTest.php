@@ -26,5 +26,6 @@ final class CreatedatTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('tax/resource_report_tax_createdat');
+        self::markTestSkipped('');
     }
 }

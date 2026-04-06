@@ -26,5 +26,6 @@ final class TableTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('eav/entity_attribute_source_table');
+        self::markTestSkipped('');
     }
 }

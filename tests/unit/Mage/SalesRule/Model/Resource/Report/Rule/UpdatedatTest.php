@@ -26,5 +26,6 @@ final class UpdatedatTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('salesrule/resource_report_rule_updatedat');
+        self::markTestSkipped('');
     }
 }

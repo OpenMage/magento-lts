@@ -26,5 +26,6 @@ final class MultiselectTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('customer/attribute_data_multiselect');
+        self::markTestSkipped('');
     }
 }

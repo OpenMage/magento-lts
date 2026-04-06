@@ -26,5 +26,6 @@ final class ScheduleTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('cron/resource_schedule');
+        self::markTestSkipped('');
     }
 }

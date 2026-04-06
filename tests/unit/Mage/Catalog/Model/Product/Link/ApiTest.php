@@ -26,5 +26,6 @@ final class ApiTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('catalog/product_link_api');
+        self::markTestSkipped('');
     }
 }

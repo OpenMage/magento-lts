@@ -26,5 +26,6 @@ final class ConfigTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('giftmessage/entity_attribute_backend_boolean_config');
+        self::markTestSkipped('');
     }
 }

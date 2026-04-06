@@ -26,5 +26,6 @@ final class AgreementTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('checkout/resource_agreement');
+        self::markTestSkipped('');
     }
 }

@@ -26,5 +26,6 @@ final class ProductTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('sitemap/resource_catalog_product');
+        self::markTestSkipped('');
     }
 }

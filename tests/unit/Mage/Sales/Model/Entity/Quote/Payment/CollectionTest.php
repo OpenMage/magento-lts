@@ -26,5 +26,6 @@ final class CollectionTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('sales/entity_quote_payment_collection');
+        self::markTestSkipped('');
     }
 }

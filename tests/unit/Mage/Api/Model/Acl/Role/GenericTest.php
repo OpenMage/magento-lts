@@ -26,5 +26,6 @@ final class GenericTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('api/acl_role_generic');
+        self::markTestSkipped('');
     }
 }

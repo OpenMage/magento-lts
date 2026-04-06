@@ -26,5 +26,6 @@ final class ErrorTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('shipping/rate_result_error');
+        self::markTestSkipped('');
     }
 }

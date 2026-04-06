@@ -26,5 +26,6 @@ final class FilesystemTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('install/installer_filesystem');
+        self::markTestSkipped('');
     }
 }

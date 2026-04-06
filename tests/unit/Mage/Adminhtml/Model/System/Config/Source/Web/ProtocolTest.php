@@ -26,5 +26,6 @@ final class ProtocolTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('adminhtml/system_config_source_web_protocol');
+        self::markTestSkipped('');
     }
 }

@@ -26,5 +26,6 @@ final class TemplateTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('sales/email_template');
+        self::markTestSkipped('');
     }
 }

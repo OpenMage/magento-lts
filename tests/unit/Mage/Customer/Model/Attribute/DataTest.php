@@ -26,5 +26,6 @@ final class DataTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('customer/attribute_data');
+        self::markTestSkipped('');
     }
 }

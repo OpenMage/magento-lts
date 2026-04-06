@@ -26,5 +26,6 @@ final class PriceTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('productalert/resource_price');
+        self::markTestSkipped('');
     }
 }

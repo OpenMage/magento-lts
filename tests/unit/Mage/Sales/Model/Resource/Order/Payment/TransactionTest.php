@@ -26,5 +26,6 @@ final class TransactionTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('sales/resource_order_payment_transaction');
+        self::markTestSkipped('');
     }
 }

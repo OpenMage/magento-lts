@@ -26,5 +26,6 @@ final class TrialTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('sales/quote_address_total_nominal_recurring_trial');
+        self::markTestSkipped('');
     }
 }

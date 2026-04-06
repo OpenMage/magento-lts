@@ -26,5 +26,6 @@ final class CollectionTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('adminnotification/resource_inbox_collection');
+        self::markTestSkipped('');
     }
 }

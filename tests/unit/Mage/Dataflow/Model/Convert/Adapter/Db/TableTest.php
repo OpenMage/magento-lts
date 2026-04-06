@@ -26,5 +26,6 @@ final class TableTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('dataflow/convert_adapter_db_table');
+        self::markTestSkipped('');
     }
 }

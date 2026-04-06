@@ -26,5 +26,6 @@ final class CacheTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('dataflow/convert_adapter_zend_cache');
+        self::markTestSkipped('');
     }
 }

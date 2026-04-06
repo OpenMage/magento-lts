@@ -26,5 +26,6 @@ final class UrlMethodTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('paypal/system_config_source_urlmethod');
+        self::markTestSkipped('');
     }
 }

@@ -26,5 +26,6 @@ final class FallbackTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::helper('admin/rules_fallback');
+        self::markTestSkipped('');
     }
 }

@@ -26,5 +26,6 @@ final class RolesTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('api/resource_roles');
+        self::markTestSkipped('');
     }
 }

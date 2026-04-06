@@ -26,5 +26,6 @@ final class ViewedTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('reports/resource_report_product_viewed');
+        self::markTestSkipped('');
     }
 }

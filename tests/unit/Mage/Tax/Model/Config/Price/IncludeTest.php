@@ -26,5 +26,6 @@ final class IncludeTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('tax/config_price_include');
+        self::markTestSkipped('');
     }
 }

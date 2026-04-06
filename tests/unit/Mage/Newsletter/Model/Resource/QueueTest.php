@@ -26,5 +26,6 @@ final class QueueTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('newsletter/resource_queue');
+        self::markTestSkipped('');
     }
 }

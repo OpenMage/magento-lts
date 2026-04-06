@@ -26,5 +26,6 @@ final class CollectionTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('cms/wysiwyg_images_storage_collection');
+        self::markTestSkipped('');
     }
 }

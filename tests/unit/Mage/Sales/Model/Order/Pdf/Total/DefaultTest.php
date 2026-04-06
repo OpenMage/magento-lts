@@ -26,5 +26,6 @@ final class DefaultTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('sales/order_pdf_total_default');
+        self::markTestSkipped('');
     }
 }

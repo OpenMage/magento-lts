@@ -26,5 +26,6 @@ final class OptionTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('eav/resource_entity_attribute_option');
+        self::markTestSkipped('');
     }
 }

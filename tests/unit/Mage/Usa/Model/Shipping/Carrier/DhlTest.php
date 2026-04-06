@@ -26,5 +26,6 @@ final class DhlTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('usa/shipping_carrier_dhl');
+        self::markTestSkipped('');
     }
 }

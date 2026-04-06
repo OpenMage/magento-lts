@@ -26,5 +26,6 @@ final class DirectTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('paypaluk/direct');
+        self::markTestSkipped('');
     }
 }

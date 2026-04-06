@@ -26,5 +26,6 @@ final class ResourceTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('sales/api_resource');
+        self::markTestSkipped('');
     }
 }

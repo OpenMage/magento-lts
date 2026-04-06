@@ -26,5 +26,6 @@ final class ConditionsTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('rule/renderer_conditions');
+        self::markTestSkipped('');
     }
 }

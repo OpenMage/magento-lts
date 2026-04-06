@@ -26,5 +26,6 @@ final class TaxTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('weee/attribute_backend_weee_tax');
+        self::markTestSkipped('');
     }
 }

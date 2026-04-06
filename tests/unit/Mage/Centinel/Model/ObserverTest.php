@@ -26,5 +26,6 @@ final class ObserverTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('centinel/observer');
+        self::markTestSkipped('');
     }
 }

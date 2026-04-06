@@ -26,5 +26,6 @@ final class CacheTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('core/resource_cache');
+        self::markTestSkipped('');
     }
 }

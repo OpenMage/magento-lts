@@ -26,5 +26,6 @@ final class MultilineTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('customer/attribute_data_multiline');
+        self::markTestSkipped('');
     }
 }

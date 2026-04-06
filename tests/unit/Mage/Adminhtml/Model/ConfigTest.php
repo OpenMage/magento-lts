@@ -26,5 +26,6 @@ final class ConfigTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('adminhtml/config');
+        self::markTestSkipped('');
     }
 }

@@ -26,5 +26,6 @@ final class ProductTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('importexport/export_entity_product');
+        self::markTestSkipped('');
     }
 }

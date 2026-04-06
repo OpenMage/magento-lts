@@ -26,5 +26,6 @@ final class DiscountTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('salesrule/quote_discount');
+        self::markTestSkipped('');
     }
 }

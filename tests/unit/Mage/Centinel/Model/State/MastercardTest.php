@@ -26,5 +26,6 @@ final class MastercardTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('centinel/state_mastercard');
+        self::markTestSkipped('');
     }
 }

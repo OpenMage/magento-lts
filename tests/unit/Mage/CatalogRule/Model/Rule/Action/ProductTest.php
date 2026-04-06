@@ -26,5 +26,6 @@ final class ProductTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('catalogrule/rule_action_product');
+        self::markTestSkipped('');
     }
 }

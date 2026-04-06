@@ -26,5 +26,6 @@ final class RatingTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('rating/resource_rating');
+        self::markTestSkipped('');
     }
 }

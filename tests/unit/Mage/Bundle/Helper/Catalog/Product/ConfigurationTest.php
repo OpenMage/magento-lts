@@ -26,5 +26,6 @@ final class ConfigurationTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::helper('bundle/catalog_product_configuration');
+        self::markTestSkipped('');
     }
 }

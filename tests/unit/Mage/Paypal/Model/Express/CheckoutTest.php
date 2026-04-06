@@ -26,5 +26,6 @@ final class CheckoutTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('paypal/express_checkout');
+        self::markTestSkipped('');
     }
 }

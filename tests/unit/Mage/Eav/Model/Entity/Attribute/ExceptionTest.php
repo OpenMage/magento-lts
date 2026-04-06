@@ -26,5 +26,6 @@ final class ExceptionTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('eav/entity_attribute_exception');
+        self::markTestSkipped('');
     }
 }

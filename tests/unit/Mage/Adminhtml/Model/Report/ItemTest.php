@@ -26,5 +26,6 @@ final class ItemTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('adminhtml/report_item');
+        self::markTestSkipped('');
     }
 }

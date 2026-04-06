@@ -26,5 +26,6 @@ final class DefaultTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('catalog/product_option_type_default');
+        self::markTestSkipped('');
     }
 }

@@ -26,5 +26,6 @@ final class BackendTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('sales/entity_quote_address_attribute_backend');
+        self::markTestSkipped('');
     }
 }

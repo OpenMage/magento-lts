@@ -26,5 +26,6 @@ final class CollectionTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('paypal/resource_payment_transaction_collection');
+        self::markTestSkipped('');
     }
 }

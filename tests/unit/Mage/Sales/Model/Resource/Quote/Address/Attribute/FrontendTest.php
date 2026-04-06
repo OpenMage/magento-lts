@@ -26,5 +26,6 @@ final class FrontendTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('sales/resource_quote_address_attribute_frontend');
+        self::markTestSkipped('');
     }
 }

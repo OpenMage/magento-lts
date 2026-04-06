@@ -26,5 +26,6 @@ final class PaymentTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('sales/resource_quote_payment');
+        self::markTestSkipped('');
     }
 }

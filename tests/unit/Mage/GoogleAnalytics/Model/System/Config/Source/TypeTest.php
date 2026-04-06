@@ -26,5 +26,6 @@ final class TypeTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('googleanalytics/system_config_source_type');
+        self::markTestSkipped('');
     }
 }

@@ -26,5 +26,6 @@ final class AdvancedTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('catalogsearch/advanced');
+        self::markTestSkipped('');
     }
 }

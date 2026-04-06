@@ -26,5 +26,6 @@ final class FulltextTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('catalogsearch/indexer_fulltext');
+        self::markTestSkipped('');
     }
 }

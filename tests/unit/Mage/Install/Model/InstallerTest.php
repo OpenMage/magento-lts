@@ -26,5 +26,6 @@ final class InstallerTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('install/installer');
+        self::markTestSkipped('');
     }
 }

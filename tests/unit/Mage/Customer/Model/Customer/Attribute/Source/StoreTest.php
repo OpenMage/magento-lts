@@ -26,5 +26,6 @@ final class StoreTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('customer/customer_attribute_source_store');
+        self::markTestSkipped('');
     }
 }

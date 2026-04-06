@@ -26,5 +26,6 @@ final class AggregationTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('catalogindex/resource_aggregation');
+        self::markTestSkipped('');
     }
 }

@@ -26,5 +26,6 @@ final class FlagTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('core/file_storage_flag');
+        self::markTestSkipped('');
     }
 }

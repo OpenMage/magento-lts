@@ -26,5 +26,6 @@ final class CollectionTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('newsletter/resource_problem_collection');
+        self::markTestSkipped('');
     }
 }

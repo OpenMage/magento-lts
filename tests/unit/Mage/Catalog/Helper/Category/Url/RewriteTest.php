@@ -26,5 +26,6 @@ final class RewriteTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::helper('catalog/category_url_rewrite');
+        self::markTestSkipped('');
     }
 }

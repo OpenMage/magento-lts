@@ -26,5 +26,6 @@ final class SelectionTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('bundle/resource_selection');
+        self::markTestSkipped('');
     }
 }

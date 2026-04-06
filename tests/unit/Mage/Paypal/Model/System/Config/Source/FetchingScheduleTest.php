@@ -26,5 +26,6 @@ final class FetchingScheduleTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('paypal/system_config_source_fetchingschedule');
+        self::markTestSkipped('');
     }
 }

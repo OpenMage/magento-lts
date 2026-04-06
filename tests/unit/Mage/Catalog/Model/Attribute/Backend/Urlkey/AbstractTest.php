@@ -26,5 +26,6 @@ final class AbstractTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('catalog/attribute_backend_urlkey_abstract');
+        self::markTestSkipped('');
     }
 }

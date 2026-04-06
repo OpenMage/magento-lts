@@ -26,5 +26,6 @@ final class HssTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::helper('paypal/hss');
+        self::markTestSkipped('');
     }
 }

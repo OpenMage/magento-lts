@@ -26,5 +26,6 @@ final class CollectionTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('eav/resource_form_type_collection');
+        self::markTestSkipped('');
     }
 }

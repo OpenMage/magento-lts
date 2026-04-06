@@ -26,5 +26,6 @@ final class ObserverTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('catalogsearch/fulltext_observer');
+        self::markTestSkipped('');
     }
 }

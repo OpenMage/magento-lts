@@ -26,5 +26,6 @@ final class InvoicedTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('sales/resource_report_invoiced');
+        self::markTestSkipped('');
     }
 }

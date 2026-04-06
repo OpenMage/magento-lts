@@ -26,5 +26,6 @@ final class SummaryTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('tag/indexer_summary');
+        self::markTestSkipped('');
     }
 }

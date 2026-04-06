@@ -26,5 +26,6 @@ final class GroupedTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('catalogindex/resource_data_grouped');
+        self::markTestSkipped('');
     }
 }

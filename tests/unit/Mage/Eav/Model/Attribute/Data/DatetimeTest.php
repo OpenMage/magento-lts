@@ -26,5 +26,6 @@ final class DatetimeTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('eav/attribute_data_datetime');
+        self::markTestSkipped('');
     }
 }

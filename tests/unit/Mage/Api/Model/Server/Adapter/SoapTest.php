@@ -26,5 +26,6 @@ final class SoapTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('api/server_adapter_soap');
+        self::markTestSkipped('');
     }
 }

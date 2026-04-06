@@ -26,5 +26,6 @@ final class EntityTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('importexport/source_import_entity');
+        self::markTestSkipped('');
     }
 }

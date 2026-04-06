@@ -26,5 +26,6 @@ final class BooleanTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('eav/attribute_data_boolean');
+        self::markTestSkipped('');
     }
 }

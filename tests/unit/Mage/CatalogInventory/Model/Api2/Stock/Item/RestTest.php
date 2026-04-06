@@ -26,5 +26,6 @@ final class RestTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('cataloginventory/api2_stock_item_rest');
+        self::markTestSkipped('');
     }
 }

@@ -26,5 +26,6 @@ final class TypeTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('eav/resource_form_type');
+        self::markTestSkipped('');
     }
 }

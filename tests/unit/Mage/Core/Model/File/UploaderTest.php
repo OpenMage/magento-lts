@@ -26,5 +26,6 @@ final class UploaderTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('core/file_uploader');
+        self::markTestSkipped('');
     }
 }

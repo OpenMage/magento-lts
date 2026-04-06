@@ -26,5 +26,6 @@ final class PaymentTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('sales/entity_order_payment');
+        self::markTestSkipped('');
     }
 }

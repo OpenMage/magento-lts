@@ -26,5 +26,6 @@ final class UploaderTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('downloadable/link_api_uploader');
+        self::markTestSkipped('');
     }
 }

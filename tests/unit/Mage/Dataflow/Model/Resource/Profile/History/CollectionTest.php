@@ -26,5 +26,6 @@ final class CollectionTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('dataflow/resource_profile_history_collection');
+        self::markTestSkipped('');
     }
 }

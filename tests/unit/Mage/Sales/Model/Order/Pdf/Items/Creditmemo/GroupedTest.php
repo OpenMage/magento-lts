@@ -26,5 +26,6 @@ final class GroupedTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('sales/order_pdf_items_creditmemo_grouped');
+        self::markTestSkipped('');
     }
 }

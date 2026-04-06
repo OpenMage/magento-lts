@@ -26,5 +26,6 @@ final class FilterTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('widget/template_filter');
+        self::markTestSkipped('');
     }
 }

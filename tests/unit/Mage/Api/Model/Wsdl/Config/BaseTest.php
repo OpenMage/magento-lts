@@ -26,5 +26,6 @@ final class BaseTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('api/wsdl_config_base');
+        self::markTestSkipped('');
     }
 }

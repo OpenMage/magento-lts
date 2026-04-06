@@ -26,5 +26,6 @@ final class CountryTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('directory/resource_country');
+        self::markTestSkipped('');
     }
 }

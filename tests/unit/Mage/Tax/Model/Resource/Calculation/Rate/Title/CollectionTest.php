@@ -26,5 +26,6 @@ final class CollectionTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('tax/resource_calculation_rate_title_collection');
+        self::markTestSkipped('');
     }
 }

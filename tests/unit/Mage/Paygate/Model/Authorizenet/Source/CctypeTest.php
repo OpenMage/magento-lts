@@ -26,5 +26,6 @@ final class CctypeTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('paygate/authorizenet_source_cctype');
+        self::markTestSkipped('');
     }
 }

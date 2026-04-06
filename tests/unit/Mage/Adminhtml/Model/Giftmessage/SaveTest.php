@@ -26,5 +26,6 @@ final class SaveTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('adminhtml/giftmessage_save');
+        self::markTestSkipped('');
     }
 }

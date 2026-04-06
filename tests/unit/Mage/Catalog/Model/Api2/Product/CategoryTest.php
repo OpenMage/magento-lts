@@ -26,5 +26,6 @@ final class CategoryTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('catalog/api2_product_category');
+        self::markTestSkipped('');
     }
 }

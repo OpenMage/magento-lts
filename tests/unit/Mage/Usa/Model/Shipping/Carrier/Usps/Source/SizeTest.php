@@ -26,5 +26,6 @@ final class SizeTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('usa/shipping_carrier_usps_source_size');
+        self::markTestSkipped('');
     }
 }

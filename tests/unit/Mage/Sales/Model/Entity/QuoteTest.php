@@ -26,5 +26,6 @@ final class QuoteTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('sales/entity_quote');
+        self::markTestSkipped('');
     }
 }

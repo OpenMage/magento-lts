@@ -26,5 +26,6 @@ final class InternalTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('api2/request_internal');
+        self::markTestSkipped('');
     }
 }

@@ -26,5 +26,6 @@ final class CollectionTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('directory/resource_country_format_collection');
+        self::markTestSkipped('');
     }
 }

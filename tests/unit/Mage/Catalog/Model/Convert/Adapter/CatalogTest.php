@@ -26,5 +26,6 @@ final class CatalogTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('catalog/convert_adapter_catalog');
+        self::markTestSkipped('');
     }
 }

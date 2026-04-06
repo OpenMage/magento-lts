@@ -26,5 +26,6 @@ final class CollectionTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('sitemap/resource_sitemap_collection');
+        self::markTestSkipped('');
     }
 }

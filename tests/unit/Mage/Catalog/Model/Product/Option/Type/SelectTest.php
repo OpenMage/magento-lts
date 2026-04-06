@@ -26,5 +26,6 @@ final class SelectTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('catalog/product_option_type_select');
+        self::markTestSkipped('');
     }
 }

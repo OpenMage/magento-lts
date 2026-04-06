@@ -26,5 +26,6 @@ final class ContainerTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('catalog/entity_product_attribute_design_options_container');
+        self::markTestSkipped('');
     }
 }

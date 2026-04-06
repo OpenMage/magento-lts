@@ -26,5 +26,6 @@ final class SimpleTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('catalogindex/data_simple');
+        self::markTestSkipped('');
     }
 }

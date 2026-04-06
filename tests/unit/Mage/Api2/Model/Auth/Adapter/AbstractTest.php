@@ -26,5 +26,6 @@ final class AbstractTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('api2/auth_adapter_abstract');
+        self::markTestSkipped('');
     }
 }

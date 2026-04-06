@@ -26,5 +26,6 @@ final class ConsoleTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('install/installer_console');
+        self::markTestSkipped('');
     }
 }

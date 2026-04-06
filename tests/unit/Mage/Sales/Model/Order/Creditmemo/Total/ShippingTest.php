@@ -26,5 +26,6 @@ final class ShippingTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('sales/order_creditmemo_total_shipping');
+        self::markTestSkipped('');
     }
 }

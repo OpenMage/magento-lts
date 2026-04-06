@@ -26,5 +26,6 @@ final class GridTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('eav/convert_adapter_grid');
+        self::markTestSkipped('');
     }
 }

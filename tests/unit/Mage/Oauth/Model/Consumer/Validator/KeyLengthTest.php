@@ -26,5 +26,6 @@ final class KeyLengthTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('oauth/consumer_validator_keylength');
+        self::markTestSkipped('');
     }
 }

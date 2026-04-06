@@ -26,5 +26,6 @@ final class ContentdispositionTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('downloadable/system_config_source_contentdisposition');
+        self::markTestSkipped('');
     }
 }

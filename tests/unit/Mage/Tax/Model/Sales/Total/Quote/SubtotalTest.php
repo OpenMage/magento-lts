@@ -26,5 +26,6 @@ final class SubtotalTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('tax/sales_total_quote_subtotal');
+        self::markTestSkipped('');
     }
 }

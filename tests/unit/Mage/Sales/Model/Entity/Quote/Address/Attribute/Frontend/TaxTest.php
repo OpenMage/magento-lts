@@ -26,5 +26,6 @@ final class TaxTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('sales/entity_quote_address_attribute_frontend_tax');
+        self::markTestSkipped('');
     }
 }

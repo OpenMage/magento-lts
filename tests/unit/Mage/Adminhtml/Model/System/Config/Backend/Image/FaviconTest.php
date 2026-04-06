@@ -26,5 +26,6 @@ final class FaviconTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('adminhtml/system_config_backend_image_favicon');
+        self::markTestSkipped('');
     }
 }

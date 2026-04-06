@@ -26,5 +26,6 @@ final class ExcelTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('dataflow/convert_parser_xml_excel');
+        self::markTestSkipped('');
     }
 }

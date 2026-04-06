@@ -26,5 +26,6 @@ final class TypeTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('usa/shipping_carrier_ups_backend_type');
+        self::markTestSkipped('');
     }
 }

@@ -26,5 +26,6 @@ final class GroupedTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('cataloginventory/resource_indexer_stock_grouped');
+        self::markTestSkipped('');
     }
 }

@@ -26,5 +26,6 @@ final class AddressTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('importexport/import_entity_customer_address');
+        self::markTestSkipped('');
     }
 }

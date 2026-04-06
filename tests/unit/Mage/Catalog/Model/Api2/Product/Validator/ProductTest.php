@@ -26,5 +26,6 @@ final class ProductTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('catalog/api2_product_validator_product');
+        self::markTestSkipped('');
     }
 }

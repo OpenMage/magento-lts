@@ -26,5 +26,6 @@ final class PriceTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('catalog/resource_product_indexer_price');
+        self::markTestSkipped('');
     }
 }

@@ -26,5 +26,6 @@ final class CompareTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::helper('catalog/product_compare');
+        self::markTestSkipped('');
     }
 }

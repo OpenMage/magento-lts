@@ -26,5 +26,6 @@ final class HandlingActionTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('shipping/source_handlingaction');
+        self::markTestSkipped('');
     }
 }

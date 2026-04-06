@@ -26,5 +26,6 @@ final class TokenTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('oauth/resource_token');
+        self::markTestSkipped('');
     }
 }

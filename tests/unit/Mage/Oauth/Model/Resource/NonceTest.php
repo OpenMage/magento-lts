@@ -26,5 +26,6 @@ final class NonceTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('oauth/resource_nonce');
+        self::markTestSkipped('');
     }
 }

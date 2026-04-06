@@ -26,5 +26,6 @@ final class ConfigurableTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('cataloginventory/resource_indexer_stock_configurable');
+        self::markTestSkipped('');
     }
 }

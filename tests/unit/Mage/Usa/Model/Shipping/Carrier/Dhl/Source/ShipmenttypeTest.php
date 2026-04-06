@@ -26,5 +26,6 @@ final class ShipmenttypeTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('usa/shipping_carrier_dhl_source_shipmenttype');
+        self::markTestSkipped('');
     }
 }

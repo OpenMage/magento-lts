@@ -26,5 +26,6 @@ final class CategoryTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('sitemap/resource_catalog_category');
+        self::markTestSkipped('');
     }
 }

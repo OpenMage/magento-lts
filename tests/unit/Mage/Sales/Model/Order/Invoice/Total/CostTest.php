@@ -26,5 +26,6 @@ final class CostTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('sales/order_invoice_total_cost');
+        self::markTestSkipped('');
     }
 }

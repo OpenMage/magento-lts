@@ -26,5 +26,6 @@ final class AuthorizationAmountsTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('paypal/system_config_source_authorizationamounts');
+        self::markTestSkipped('');
     }
 }

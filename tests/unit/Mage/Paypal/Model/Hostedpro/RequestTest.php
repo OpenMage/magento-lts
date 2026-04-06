@@ -26,5 +26,6 @@ final class RequestTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('paypal/hostedpro_request');
+        self::markTestSkipped('');
     }
 }

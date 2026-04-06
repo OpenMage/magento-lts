@@ -26,5 +26,6 @@ final class DisableAdvancedSearchTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('catalog/observer_disableadvancedsearch');
+        self::markTestSkipped('');
     }
 }

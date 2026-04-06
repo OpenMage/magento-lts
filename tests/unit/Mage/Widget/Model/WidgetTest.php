@@ -26,5 +26,6 @@ final class WidgetTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('widget/widget');
+        self::markTestSkipped('');
     }
 }

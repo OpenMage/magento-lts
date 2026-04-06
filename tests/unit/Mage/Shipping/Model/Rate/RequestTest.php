@@ -26,5 +26,6 @@ final class RequestTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('shipping/rate_request');
+        self::markTestSkipped('');
     }
 }

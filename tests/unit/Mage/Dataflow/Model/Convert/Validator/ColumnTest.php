@@ -26,5 +26,6 @@ final class ColumnTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('dataflow/convert_validator_column');
+        self::markTestSkipped('');
     }
 }

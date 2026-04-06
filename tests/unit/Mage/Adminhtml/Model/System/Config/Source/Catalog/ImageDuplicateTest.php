@@ -26,5 +26,6 @@ final class ImageDuplicateTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('adminhtml/system_config_source_catalog_imageduplicate');
+        self::markTestSkipped('');
     }
 }

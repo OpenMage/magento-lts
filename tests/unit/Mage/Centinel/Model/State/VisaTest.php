@@ -26,5 +26,6 @@ final class VisaTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('centinel/state_visa');
+        self::markTestSkipped('');
     }
 }

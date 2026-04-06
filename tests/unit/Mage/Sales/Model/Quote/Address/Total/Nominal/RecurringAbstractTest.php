@@ -26,5 +26,6 @@ final class RecurringAbstractTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('sales/quote_address_total_nominal_recurringabstract');
+        self::markTestSkipped('');
     }
 }

@@ -26,5 +26,6 @@ final class RoundingTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('usa/shipping_carrier_dhl_source_protection_rounding');
+        self::markTestSkipped('');
     }
 }

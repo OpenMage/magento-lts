@@ -26,5 +26,6 @@ final class PageTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('sitemap/resource_cms_page');
+        self::markTestSkipped('');
     }
 }

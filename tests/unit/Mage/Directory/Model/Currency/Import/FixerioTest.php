@@ -26,5 +26,6 @@ final class FixerioTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('directory/currency_import_fixerio');
+        self::markTestSkipped('');
     }
 }

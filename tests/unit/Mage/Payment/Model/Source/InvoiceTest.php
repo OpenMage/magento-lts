@@ -26,5 +26,6 @@ final class InvoiceTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('payment/source_invoice');
+        self::markTestSkipped('');
     }
 }

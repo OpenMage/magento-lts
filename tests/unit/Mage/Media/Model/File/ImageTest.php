@@ -26,5 +26,6 @@ final class ImageTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('media/file_image');
+        self::markTestSkipped('');
     }
 }

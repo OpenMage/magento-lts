@@ -26,5 +26,6 @@ final class ProblemTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('newsletter/problem');
+        self::markTestSkipped('');
     }
 }

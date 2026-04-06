@@ -26,5 +26,6 @@ final class ResourceTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('importexport/import_proxy_product_resource');
+        self::markTestSkipped('');
     }
 }

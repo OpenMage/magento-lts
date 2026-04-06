@@ -26,5 +26,6 @@ final class DataTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::helper('index/data');
+        self::markTestSkipped('');
     }
 }

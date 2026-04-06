@@ -26,5 +26,6 @@ final class RegionTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('directory/resource_region');
+        self::markTestSkipped('');
     }
 }

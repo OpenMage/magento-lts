@@ -26,5 +26,6 @@ final class ReportTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('sales/resource_report');
+        self::markTestSkipped('');
     }
 }

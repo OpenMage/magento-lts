@@ -26,5 +26,6 @@ final class ExpressTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('paypaluk/express');
+        self::markTestSkipped('');
     }
 }

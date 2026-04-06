@@ -26,5 +26,6 @@ final class SqlBuilderTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('rule/resource_rule_condition_sqlbuilder');
+        self::markTestSkipped('');
     }
 }

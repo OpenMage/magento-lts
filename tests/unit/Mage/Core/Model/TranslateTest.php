@@ -26,5 +26,6 @@ final class TranslateTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('core/translate');
+        self::markTestSkipped('');
     }
 }

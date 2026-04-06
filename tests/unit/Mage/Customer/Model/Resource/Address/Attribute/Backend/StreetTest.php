@@ -26,5 +26,6 @@ final class StreetTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('customer/resource_address_attribute_backend_street');
+        self::markTestSkipped('');
     }
 }

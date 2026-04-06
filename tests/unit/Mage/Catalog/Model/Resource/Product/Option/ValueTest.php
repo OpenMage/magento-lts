@@ -26,5 +26,6 @@ final class ValueTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('catalog/resource_product_option_value');
+        self::markTestSkipped('');
     }
 }

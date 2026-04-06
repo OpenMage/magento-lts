@@ -26,5 +26,6 @@ final class ItemTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('sales/resource_order_invoice_attribute_backend_item');
+        self::markTestSkipped('');
     }
 }

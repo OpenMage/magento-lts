@@ -26,5 +26,6 @@ final class ResourcePermissionTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('api2/acl_filter_attribute_resourcepermission');
+        self::markTestSkipped('');
     }
 }

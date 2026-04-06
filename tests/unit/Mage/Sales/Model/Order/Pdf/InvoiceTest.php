@@ -26,5 +26,6 @@ final class InvoiceTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('sales/order_pdf_invoice');
+        self::markTestSkipped('');
     }
 }

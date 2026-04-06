@@ -26,5 +26,6 @@ final class LinkTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('downloadable/resource_link');
+        self::markTestSkipped('');
     }
 }

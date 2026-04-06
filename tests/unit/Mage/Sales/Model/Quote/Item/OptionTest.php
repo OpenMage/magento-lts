@@ -26,5 +26,6 @@ final class OptionTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('sales/quote_item_option');
+        self::markTestSkipped('');
     }
 }

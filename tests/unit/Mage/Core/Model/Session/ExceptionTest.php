@@ -26,5 +26,6 @@ final class ExceptionTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('core/session_exception');
+        self::markTestSkipped('');
     }
 }

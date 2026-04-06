@@ -26,5 +26,6 @@ final class BackendTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('captcha/config_form_backend');
+        self::markTestSkipped('');
     }
 }

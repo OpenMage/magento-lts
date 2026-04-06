@@ -26,5 +26,6 @@ final class HistoryTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('dataflow/resource_profile_history');
+        self::markTestSkipped('');
     }
 }

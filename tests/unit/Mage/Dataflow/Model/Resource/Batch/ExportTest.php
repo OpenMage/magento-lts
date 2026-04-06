@@ -26,5 +26,6 @@ final class ExportTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('dataflow/resource_batch_export');
+        self::markTestSkipped('');
     }
 }

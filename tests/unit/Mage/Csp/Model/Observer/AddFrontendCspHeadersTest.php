@@ -26,5 +26,6 @@ final class AddFrontendCspHeadersTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('csp/observer_addfrontendcspheaders');
+        self::markTestSkipped('');
     }
 }

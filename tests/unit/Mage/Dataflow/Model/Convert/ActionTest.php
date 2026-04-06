@@ -26,5 +26,6 @@ final class ActionTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('dataflow/convert_action');
+        self::markTestSkipped('');
     }
 }

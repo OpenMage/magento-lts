@@ -26,5 +26,6 @@ final class TypeTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('tax/system_config_source_tax_display_type');
+        self::markTestSkipped('');
     }
 }

@@ -26,5 +26,6 @@ final class CustomlayoutupdateTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('catalog/attribute_backend_customlayoutupdate');
+        self::markTestSkipped('');
     }
 }

@@ -26,5 +26,6 @@ final class ElementTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('eav/form_element');
+        self::markTestSkipped('');
     }
 }

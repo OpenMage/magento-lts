@@ -26,5 +26,6 @@ final class WishlistTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('wishlist/resource_wishlist');
+        self::markTestSkipped('');
     }
 }

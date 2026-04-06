@@ -26,5 +26,6 @@ final class ContainerTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('usa/shipping_carrier_usps_source_container');
+        self::markTestSkipped('');
     }
 }

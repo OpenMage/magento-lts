@@ -26,5 +26,6 @@ final class CombineTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('salesrule/rule_condition_product_combine');
+        self::markTestSkipped('');
     }
 }

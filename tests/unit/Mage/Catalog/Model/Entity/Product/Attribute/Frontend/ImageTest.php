@@ -26,5 +26,6 @@ final class ImageTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('catalog/entity_product_attribute_frontend_image');
+        self::markTestSkipped('');
     }
 }

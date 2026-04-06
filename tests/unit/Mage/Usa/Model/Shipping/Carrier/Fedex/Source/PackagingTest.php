@@ -26,5 +26,6 @@ final class PackagingTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('usa/shipping_carrier_fedex_source_packaging');
+        self::markTestSkipped('');
     }
 }

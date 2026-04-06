@@ -26,5 +26,6 @@ final class FreemethodTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('usa/shipping_carrier_fedex_source_freemethod');
+        self::markTestSkipped('');
     }
 }

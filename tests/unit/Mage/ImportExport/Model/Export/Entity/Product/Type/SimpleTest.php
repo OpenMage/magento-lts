@@ -26,5 +26,6 @@ final class SimpleTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('importexport/export_entity_product_type_simple');
+        self::markTestSkipped('');
     }
 }

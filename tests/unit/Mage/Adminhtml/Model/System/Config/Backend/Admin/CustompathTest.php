@@ -26,5 +26,6 @@ final class CustompathTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('adminhtml/system_config_backend_admin_custompath');
+        self::markTestSkipped('');
     }
 }

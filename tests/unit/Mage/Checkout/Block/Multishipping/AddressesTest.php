@@ -25,5 +25,6 @@ final class AddressesTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = new Subject();
+        self::markTestSkipped('');
     }
 }

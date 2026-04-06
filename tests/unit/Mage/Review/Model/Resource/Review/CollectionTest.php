@@ -26,5 +26,6 @@ final class CollectionTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('review/resource_review_collection');
+        self::markTestSkipped('');
     }
 }

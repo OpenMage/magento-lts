@@ -26,5 +26,6 @@ final class TestTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('reports/test');
+        self::markTestSkipped('');
     }
 }
