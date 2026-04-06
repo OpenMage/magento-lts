@@ -235,8 +235,8 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
                     $attribute->usesSource() && $attribute->getSource();
                     $attribute->getBackend();
                     $this->_attributes[$attributeCode] = $attribute;
-                } catch (Exception $e) {
-                    Mage::logException($e);
+                } catch (Exception $exception) {
+                    Mage::logException($exception);
                 }
             }
         }
@@ -631,11 +631,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
         foreach ($indexProps as $i => $indexProp) {
             $indexName = $adapter->getIndexName($tableName, $indexProp['fields'], $indexProp['type']);
             $indexProp['type'] = strtoupper($indexProp['type']);
-            if ($indexProp['type'] == $upperPrimaryKey) {
-                $indexKey = $upperPrimaryKey;
-            } else {
-                $indexKey = $indexName;
-            }
+            $indexKey = $indexProp['type'] == $upperPrimaryKey ? $upperPrimaryKey : $indexName;
 
             $indexProps[$i] = [
                 'KEY_NAME' => $indexName,
@@ -660,8 +656,8 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
                     $fieldProp['type'],
                     $fieldProp['length'] ?? null,
                     [
-                        'nullable' => isset($fieldProp['nullable']) ? (bool) $fieldProp['nullable'] : false,
-                        'unsigned' => isset($fieldProp['unsigned']) ? (bool) $fieldProp['unsigned'] : false,
+                        'nullable' => isset($fieldProp['nullable']) && (bool) $fieldProp['nullable'],
+                        'unsigned' => isset($fieldProp['unsigned']) && (bool) $fieldProp['unsigned'],
                         'default'  => $fieldProp['default'] ?? false,
                         'primary'  => false,
                     ],
@@ -1405,7 +1401,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
     {
         $next = false;
         foreach (array_keys($array) as $k) {
-            if ($next === true) {
+            if ($next) {
                 return $k;
             }
 
@@ -1434,9 +1430,9 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
             try {
                 $this->rebuild($store);
                 $this->commit();
-            } catch (Exception $e) {
+            } catch (Exception $exception) {
                 $this->rollBack();
-                throw $e;
+                throw $exception;
             }
         }
 

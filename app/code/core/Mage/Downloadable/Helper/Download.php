@@ -107,7 +107,7 @@ class Mage_Downloadable_Helper_Download extends Mage_Core_Helper_Abstract
                 $hostname = $scheme . $urlProp['host'];
 
                 if (isset($urlProp['port'])) {
-                    $port = (int) $urlProp['port'];
+                    $port = $urlProp['port'];
                 }
 
                 $path = $urlProp['path'] ?? '/';

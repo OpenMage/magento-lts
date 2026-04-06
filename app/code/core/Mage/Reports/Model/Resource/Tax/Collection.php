@@ -26,15 +26,15 @@ class Mage_Reports_Model_Resource_Tax_Collection extends Mage_Sales_Model_Entity
     /**
      * Set date range
      *
-     * @param  string $from
-     * @param  string $to
+     * @param  null|string $dateFrom
+     * @param  null|string $dateTo
      * @return $this
      */
-    public function setDateRange($from, $to)
+    public function setDateRange($dateFrom, $dateTo)
     {
         $this->_reset();
 
-        $this->addAttributeToFilter('created_at', ['from' => $from, 'to' => $to])
+        $this->addAttributeToFilter('created_at', ['from' => $dateFrom, 'to' => $dateTo])
             ->addExpressionAttributeToSelect('orders', 'COUNT(DISTINCT({{entity_id}}))', ['entity_id'])
             ->getSelect()
             ->join(

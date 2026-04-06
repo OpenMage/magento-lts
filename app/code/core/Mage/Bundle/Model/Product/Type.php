@@ -522,7 +522,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
         /** @var null|array<int, string|string[]> $options */
         $options = $buyRequest->getBundleOption();
         if (is_array($options)) {
-            $options = array_filter($options, fn(mixed $o) => (int) $o !== 0);
+            $options = array_filter($options, fn(mixed $value) => (int) $value !== 0);
             $qtys = $buyRequest->getBundleOptionQty();
             foreach ($options as $_optionId => $_selections) {
                 if (empty($_selections)) {
@@ -819,12 +819,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
         /**
          * Product Prices calculations save
          */
-        if ($product->getPriceType()) {
-            $optionArr['product_calculations'] = self::CALCULATE_PARENT;
-        } else {
-            $optionArr['product_calculations'] = self::CALCULATE_CHILD;
-        }
-
+        $optionArr['product_calculations'] = $product->getPriceType() ? self::CALCULATE_PARENT : self::CALCULATE_CHILD;
         $optionArr['shipment_type'] = $product->getShipmentType();
 
         return $optionArr;
@@ -994,8 +989,8 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
         /** @var null|string[] $optionQty */
         $optionQty  = $buyRequest->getBundleOptionQty();
 
-        $option     = (is_array($option)) ? array_filter($option, fn(mixed $o) => (int) $o !== 0) : [];
-        $optionQty  = (is_array($optionQty)) ? array_filter($optionQty, fn(mixed $o) => (float) $o !== 0.0) : [];
+        $option     = (is_array($option)) ? array_filter($option, fn(mixed $value) => (int) $value !== 0) : [];
+        $optionQty  = (is_array($optionQty)) ? array_filter($optionQty, fn(mixed $value) => (float) $value !== 0.0) : [];
 
         return [
             'bundle_option'     => $option,

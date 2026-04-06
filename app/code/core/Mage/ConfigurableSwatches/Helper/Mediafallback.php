@@ -269,7 +269,7 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
         if ($hasTypeData || $placeholder || $image) {
             $helper = Mage::helper('catalog/image')
                 ->init($product, $type, $image)
-                ->keepFrame(($hasTypeData || $image) ? $keepFrame : false)  // don't keep frame if placeholder
+                ->keepFrame(($hasTypeData || $image) && $keepFrame)  // don't keep frame if placeholder
             ;
 
             $size = Mage::getStoreConfig(Mage_Catalog_Helper_Image::XML_NODE_PRODUCT_BASE_IMAGE_WIDTH);

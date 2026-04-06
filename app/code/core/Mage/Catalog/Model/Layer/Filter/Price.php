@@ -393,9 +393,9 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
             return $this;
         }
 
-        [$from, $to] = $filter;
+        [$min, $max] = $filter;
 
-        $this->setInterval([$from, $to]);
+        $this->setInterval([$min, $max]);
 
         $priorFilters = [];
         $counter = count($filterParams);
@@ -416,7 +416,7 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
 
         $this->_applyPriceRange();
         $this->getLayer()->getState()->addFilter($this->_createItem(
-            $this->_renderRangeLabel(empty($from) ? 0 : $from, $to),
+            $this->_renderRangeLabel(empty($min) ? 0 : $min, $max),
             $filter,
         ));
 

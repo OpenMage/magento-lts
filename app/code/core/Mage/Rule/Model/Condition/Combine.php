@@ -37,7 +37,10 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
     {
         $wheres = [];
         foreach ($this->getConditions() as $condition) {
-            $wheres[] = '(' . $condition->prepareConditionSql() . ')';
+            $conditionSql = $condition->prepareConditionSql();
+            if ($conditionSql !== '') {
+                $wheres[] = '(' . $conditionSql . ')';
+            }
         }
 
         if ($wheres === []) {
@@ -237,12 +240,12 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
     {
         $xml = '<aggregator>' . $this->getAggregator() . '</aggregator>'
             . '<value>' . $this->getValue() . '</value>'
-            . "<$containerKey>";
+            . "<{$containerKey}>";
         foreach ($this->getConditions() as $condition) {
-            $xml .= "<$itemKey>" . $condition->asXml() . "</$itemKey>";
+            $xml .= "<{$itemKey}>" . $condition->asXml() . "</{$itemKey}>";
         }
 
-        return $xml . "</$containerKey>";
+        return $xml . "</{$containerKey}>";
     }
 
     /**

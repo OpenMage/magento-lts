@@ -96,14 +96,14 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
         if (!$this->_storeCode) {
             // get store view code
             if ($this->_canBeStoreCodeInUrl()) {
-                $p = explode('/', trim($this->getPathInfo(), '/'));
-                $storeCode = $p[0];
+                $path = explode('/', trim($this->getPathInfo(), '/'));
+                $storeCode = $path[0];
 
                 $stores = Mage::app()->getStores(true, true);
 
                 if ($storeCode !== '' && isset($stores[$storeCode])) {
-                    array_shift($p);
-                    $this->setPathInfo(implode('/', $p));
+                    array_shift($path);
+                    $this->setPathInfo(implode('/', $path));
                     $this->_storeCode = $storeCode;
                     Mage::app()->setCurrentStore($storeCode);
                 } else {
@@ -165,7 +165,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
                 }
             }
 
-            $this->_originalPathInfo = (string) $pathInfo;
+            $this->_originalPathInfo = $pathInfo;
 
             $this->_requestString = $pathInfo . ($pos !== false ? substr($requestUri, $pos) : '');
         }
@@ -580,7 +580,11 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
             return true;
         }
 
-        return $this->getParam('ajax') || $this->getParam('isAjax');
+        if ($this->getParam('ajax')) {
+            return true;
+        }
+
+        return (bool) $this->getParam('isAjax');
     }
 
     /**

@@ -665,7 +665,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
 
             $columnId = $this->getParam($this->getVarNameSort(), $this->_defaultSort);
             $dir      = $this->getParam($this->getVarNameDir(), $this->_defaultDir);
-            $filter   = $this->getParam($this->getVarNameFilter(), null);
+            $filter   = $this->getParam($this->getVarNameFilter());
 
             if (is_null($filter)) {
                 $filter = $this->_defaultFilter;
@@ -1166,10 +1166,10 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      */
     protected function _getFileContainerContent(array $fileData)
     {
-        $io = new Varien_Io_File();
-        $path = $io->dirname($fileData['value']);
-        $io->open(['path' => $path]);
-        return $io->read($fileData['value']);
+        $ioFile = new Varien_Io_File();
+        $path = $ioFile->dirname($fileData['value']);
+        $ioFile->open(['path' => $path]);
+        return $ioFile->read($fileData['value']);
     }
 
     /**
@@ -1224,7 +1224,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
         $lPage = null;
         $break = false;
 
-        while ($break !== true) {
+        while (!$break) {
             $collection = clone $originalCollection;
             $collection->setPageSize($this->_exportPageSize);
             $collection->setCurPage($page);
@@ -1280,28 +1280,28 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
         $this->_isExport = true;
         $this->_prepareGrid();
 
-        $io = new Varien_Io_File();
+        $ioFile = new Varien_Io_File();
 
         $path = Mage::getBaseDir('var') . DS . 'export' . DS;
         $name = md5(microtime());
         $file = $path . DS . $name . '.csv';
 
-        $io->setAllowCreateFolders(true);
-        $io->open(['path' => $path]);
-        $io->streamOpen($file, 'w+');
-        $io->streamLock(true);
-        $io->streamWriteCsv($this->_getExportHeaders());
+        $ioFile->setAllowCreateFolders(true);
+        $ioFile->open(['path' => $path]);
+        $ioFile->streamOpen($file, 'w+');
+        $ioFile->streamLock(true);
+        $ioFile->streamWriteCsv($this->_getExportHeaders());
 
-        $this->_exportIterateCollection('_exportCsvItem', [$io]);
+        $this->_exportIterateCollection('_exportCsvItem', [$ioFile]);
 
         if ($this->getCountTotals()) {
-            $io->streamWriteCsv(
+            $ioFile->streamWriteCsv(
                 Mage::helper('core')->getEscapedCSVData($this->_getExportTotals()),
             );
         }
 
-        $io->streamUnlock();
-        $io->streamClose();
+        $ioFile->streamUnlock();
+        $ioFile->streamClose();
 
         return [
             'type'  => 'filename',
@@ -1449,28 +1449,28 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
         $this->_prepareGrid();
 
         $parser = new Varien_Convert_Parser_Xml_Excel();
-        $io     = new Varien_Io_File();
+        $ioFile = new Varien_Io_File();
 
         $path = Mage::getBaseDir('var') . DS . 'export' . DS;
         $name = md5(microtime());
         $file = $path . DS . $name . '.xml';
 
-        $io->setAllowCreateFolders(true);
-        $io->open(['path' => $path]);
-        $io->streamOpen($file, 'w+');
-        $io->streamLock(true);
-        $io->streamWrite($parser->getHeaderXml($sheetName));
-        $io->streamWrite($parser->getRowXml($this->_getExportHeaders()));
+        $ioFile->setAllowCreateFolders(true);
+        $ioFile->open(['path' => $path]);
+        $ioFile->streamOpen($file, 'w+');
+        $ioFile->streamLock(true);
+        $ioFile->streamWrite($parser->getHeaderXml($sheetName));
+        $ioFile->streamWrite($parser->getRowXml($this->_getExportHeaders()));
 
-        $this->_exportIterateCollection('_exportExcelItem', [$io, $parser]);
+        $this->_exportIterateCollection('_exportExcelItem', [$ioFile, $parser]);
 
         if ($this->getCountTotals()) {
-            $io->streamWrite($parser->getRowXml($this->_getExportTotals()));
+            $ioFile->streamWrite($parser->getRowXml($this->_getExportTotals()));
         }
 
-        $io->streamWrite($parser->getFooterXml());
-        $io->streamUnlock();
-        $io->streamClose();
+        $ioFile->streamWrite($parser->getFooterXml());
+        $ioFile->streamUnlock();
+        $ioFile->streamClose();
 
         return [
             'type'  => 'filename',

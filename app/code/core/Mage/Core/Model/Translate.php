@@ -409,11 +409,7 @@ class Mage_Core_Model_Translate
             $text = $text->getText();
             $translated = $this->_getTranslatedString($text, $code);
         } else {
-            if (!empty($_REQUEST['theme'])) {
-                $module = 'frontend/default/' . $_REQUEST['theme'];
-            } else {
-                $module = 'frontend/default/default';
-            }
+            $module = empty($_REQUEST['theme']) ? 'frontend/default/default' : 'frontend/default/' . $_REQUEST['theme'];
 
             $code = $module . self::SCOPE_SEPARATOR . $text;
             $translated = $this->_getTranslatedString($text, $code);

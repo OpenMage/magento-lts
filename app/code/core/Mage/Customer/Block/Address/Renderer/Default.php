@@ -96,9 +96,9 @@ class Mage_Customer_Block_Address_Renderer_Default extends Mage_Core_Block_Abstr
                 if ($attribute->getFrontendInput() == 'multiline') {
                     $values    = $dataModel->outputValue(Mage_Customer_Model_Attribute_Data::OUTPUT_FORMAT_ARRAY);
                     // explode lines
-                    foreach ($values as $k => $v) {
-                        $key = sprintf('%s%d', $attribute->getAttributeCode(), $k + 1);
-                        $data[$key] = $v;
+                    foreach ($values as $index => $val) {
+                        $key = sprintf('%s%d', $attribute->getAttributeCode(), $index + 1);
+                        $data[$key] = $val;
                     }
                 }
 

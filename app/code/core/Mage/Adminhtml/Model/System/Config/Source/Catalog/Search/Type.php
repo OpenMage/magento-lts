@@ -22,10 +22,10 @@ class Mage_Adminhtml_Model_System_Config_Source_Catalog_Search_Type
             Mage_CatalogSearch_Model_Fulltext::SEARCH_TYPE_COMBINE  => 'Combine (Like and Fulltext)',
         ];
         $options = [];
-        foreach ($types as $k => $v) {
+        foreach ($types as $key => $value) {
             $options[] = [
-                'value' => $k,
-                'label' => $v,
+                'value' => $key,
+                'label' => $value,
             ];
         }
 

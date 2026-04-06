@@ -25,12 +25,10 @@ class Mage_Sales_Model_Resource_Report_Order_Updatedat extends Mage_Sales_Model_
     /**
      * Aggregate Orders data by order updated at
      *
-     * @param  mixed $from
-     * @param  mixed $to
-     * @return $this
+     * @inheritDoc
      */
-    public function aggregate($from = null, $to = null)
+    public function aggregate($dateFrom = null, $dateTo = null)
     {
-        return $this->_aggregateByField('updated_at', $from, $to);
+        return $this->_aggregateByField('updated_at', $dateFrom, $dateTo);
     }
 }

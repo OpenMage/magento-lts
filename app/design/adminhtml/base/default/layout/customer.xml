@@ -36,6 +36,9 @@
             <block type="adminhtml/customer_group" name="customer_group"></block>
         </reference>
     </adminhtml_customer_group_index>
+    <adminhtml_customer_group_new>
+        <update handle="adminhtml_input_counter_handle"/>
+    </adminhtml_customer_group_new>
     <adminhtml_customer_wishlist>
         <block type="adminhtml/customer_edit_tab_wishlist" name="customer.wishlist.edit.tab" output="toHtml" />
     </adminhtml_customer_wishlist>

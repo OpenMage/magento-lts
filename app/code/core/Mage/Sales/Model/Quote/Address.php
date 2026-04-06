@@ -348,7 +348,11 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
      */
     protected function _isNotRegisteredCustomer()
     {
-        return !$this->getQuote()->getCustomerId() || $this->getCustomerAddressId() === null;
+        if (!$this->getQuote()->getCustomerId()) {
+            return true;
+        }
+
+        return $this->getCustomerAddressId() === null;
     }
 
     /**
@@ -360,9 +364,12 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
     protected function _isDefaultShippingNullOrSameAsBillingAddress()
     {
         $customer = $this->getQuote()->getCustomer();
-        return !$customer->getDefaultShippingAddress()
-            || $customer->getDefaultBillingAddress() && $customer->getDefaultShippingAddress()
-                && $customer->getDefaultBillingAddress()->getId() == $customer->getDefaultShippingAddress()->getId();
+        if (!$customer->getDefaultShippingAddress()) {
+            return true;
+        }
+
+        return $customer->getDefaultBillingAddress() && $customer->getDefaultShippingAddress()
+            && $customer->getDefaultBillingAddress()->getId() == $customer->getDefaultShippingAddress()->getId();
     }
 
     /**

@@ -717,12 +717,12 @@ class Mage_Oauth_Model_Server
      * @return string
      * @throws Zend_Controller_Response_Exception
      */
-    public function reportProblem(Exception $e, ?Zend_Controller_Response_Http $response = null)
+    public function reportProblem(Exception $exception, ?Zend_Controller_Response_Http $response = null)
     {
-        $eMsg = $e->getMessage();
+        $eMsg = $exception->getMessage();
 
-        if ($e instanceof Mage_Oauth_Exception) {
-            $eCode = $e->getCode();
+        if ($exception instanceof Mage_Oauth_Exception) {
+            $eCode = $exception->getCode();
 
             if (isset($this->_errors[$eCode])) {
                 $errorMsg = $this->_errors[$eCode];

@@ -596,7 +596,11 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
      */
     public function isAttributeParticular($attrCode)
     {
-        return parent::isAttributeParticular($attrCode) || $this->_addressEntity->isAttributeParticular($attrCode);
+        if (parent::isAttributeParticular($attrCode)) {
+            return true;
+        }
+
+        return $this->_addressEntity->isAttributeParticular($attrCode);
     }
 
     /**

@@ -59,11 +59,7 @@ class Mage_Paypal_Model_Method_Agreement extends Mage_Sales_Model_Payment_Method
     public function __construct($params = [])
     {
         $proInstance = array_shift($params);
-        if ($proInstance instanceof Mage_Paypal_Model_Pro) {
-            $this->_pro = $proInstance;
-        } else {
-            $this->_pro = Mage::getModel('paypal/pro');
-        }
+        $this->_pro = $proInstance instanceof Mage_Paypal_Model_Pro ? $proInstance : Mage::getModel('paypal/pro');
 
         $this->_pro->setMethod($this->_code);
     }

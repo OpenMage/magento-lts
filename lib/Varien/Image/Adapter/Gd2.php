@@ -143,8 +143,8 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
 
         if (!is_writable($destinationDir)) {
             try {
-                $io = new Varien_Io_File();
-                $io->mkdir($destination);
+                $ioFile = new Varien_Io_File();
+                $ioFile->mkdir($destination);
             } catch (Exception $exception) {
                 throw new Exception("Unable to write file into directory '{$destinationDir}'. Access forbidden.", $exception->getCode(), $exception);
             }
@@ -407,11 +407,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
         $isAlpha     = false;
         $isTrueColor = false;
         $this->_getTransparency($this->_imageHandler, $this->_fileType, $isAlpha, $isTrueColor);
-        if ($isTrueColor) {
-            $newImage = imagecreatetruecolor($width, $height);
-        } else {
-            $newImage = imagecreate($width, $height);
-        }
+        $newImage = $isTrueColor ? imagecreatetruecolor($width, $height) : imagecreate($width, $height);
 
         // fill new image with required color
         $this->_fillBackgroundColor($newImage);

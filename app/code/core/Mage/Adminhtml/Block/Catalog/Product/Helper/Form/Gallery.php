@@ -60,11 +60,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Gallery extends Varien_Da
      */
     public function usedDefault($attribute)
     {
-        if (is_string($attribute)) {
-            $attributeCode = $attribute;
-        } else {
-            $attributeCode = $attribute->getAttributeCode();
-        }
+        $attributeCode = is_string($attribute) ? $attribute : $attribute->getAttributeCode();
 
         // special management for "label" and "position" since they're columns of the
         // catalog_product_entity_media_gallery_value database table

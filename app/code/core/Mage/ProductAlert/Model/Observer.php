@@ -63,8 +63,8 @@ class Mage_ProductAlert_Model_Observer
         if (is_null($this->_websites)) {
             try {
                 $this->_websites = Mage::app()->getWebsites();
-            } catch (Exception $e) {
-                $this->_errors[] = $e->getMessage();
+            } catch (Exception $exception) {
+                $this->_errors[] = $exception->getMessage();
             }
         }
 
@@ -99,8 +99,8 @@ class Mage_ProductAlert_Model_Observer
                     ->getCollection()
                     ->addWebsiteFilter($website->getId())
                     ->setCustomerOrder();
-            } catch (Exception $e) {
-                $this->_errors[] = $e->getMessage();
+            } catch (Exception $exception) {
+                $this->_errors[] = $exception->getMessage();
                 return $this;
             }
 
@@ -147,16 +147,16 @@ class Mage_ProductAlert_Model_Observer
                         $alert->setStatus(1);
                         $alert->save();
                     }
-                } catch (Exception $e) {
-                    $this->_errors[] = $e->getMessage();
+                } catch (Exception $exception) {
+                    $this->_errors[] = $exception->getMessage();
                 }
             }
 
             if ($previousCustomer) {
                 try {
                     $email->send();
-                } catch (Exception $e) {
-                    $this->_errors[] = $e->getMessage();
+                } catch (Exception $exception) {
+                    $this->_errors[] = $exception->getMessage();
                 }
             }
         }
@@ -195,8 +195,8 @@ class Mage_ProductAlert_Model_Observer
                     ->addWebsiteFilter($website->getId())
                     ->addStatusFilter(0)
                     ->setCustomerOrder();
-            } catch (Exception $e) {
-                $this->_errors[] = $e->getMessage();
+            } catch (Exception $exception) {
+                $this->_errors[] = $exception->getMessage();
                 return $this;
             }
 
@@ -241,16 +241,16 @@ class Mage_ProductAlert_Model_Observer
                         $alert->setStatus(1);
                         $alert->save();
                     }
-                } catch (Exception $e) {
-                    $this->_errors[] = $e->getMessage();
+                } catch (Exception $exception) {
+                    $this->_errors[] = $exception->getMessage();
                 }
             }
 
             if ($previousCustomer) {
                 try {
                     $email->send();
-                } catch (Exception $e) {
-                    $this->_errors[] = $e->getMessage();
+                } catch (Exception $exception) {
+                    $this->_errors[] = $exception->getMessage();
                 }
             }
         }

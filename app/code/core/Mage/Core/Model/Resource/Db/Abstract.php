@@ -254,20 +254,12 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
         }
 
         if (strpos($entityName, '/')) {
-            if (!is_null($entitySuffix)) {
-                $modelEntity = [$entityName, $entitySuffix];
-            } else {
-                $modelEntity = $entityName;
-            }
+            $modelEntity = is_null($entitySuffix) ? $entityName : [$entityName, $entitySuffix];
 
             $this->_tables[$cacheName] = $this->_resources->getTableName($modelEntity);
         } elseif (!empty($this->_resourceModel)) {
             $entityName = sprintf('%s/%s', $this->_resourceModel, $entityName);
-            if (!is_null($entitySuffix)) {
-                $modelEntity = [$entityName, $entitySuffix];
-            } else {
-                $modelEntity = $entityName;
-            }
+            $modelEntity = is_null($entitySuffix) ? $entityName : [$entityName, $entitySuffix];
 
             $this->_tables[$cacheName] = $this->_resources->getTableName($modelEntity);
         } else {
@@ -407,7 +399,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
         $fields = $this->_getReadAdapter()->describeTable($this->getMainTable());
 
         if (!isset($fields[$field])) {
-            throw new Exception("Column \"$field\" does not exist in table \"{$this->getMainTable()}\"");
+            throw new Exception("Column \"{$field}\" does not exist in table \"{$this->getMainTable()}\"");
         }
 
         $value = $this->_getReadAdapter()->prepareColumnValue($fields[$field], $value);

@@ -911,11 +911,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     public function setFrameTags($openTag, $closeTag = null)
     {
         $this->_frameOpenTag = $openTag;
-        if ($closeTag) {
-            $this->_frameCloseTag = $closeTag;
-        } else {
-            $this->_frameCloseTag = '/' . $openTag;
-        }
+        $this->_frameCloseTag = $closeTag ? $closeTag : '/' . $openTag;
 
         return $this;
     }
@@ -1217,10 +1213,9 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
 
     /**
      * Escape html entities
-     *
-     * @param  string|string[]      $data
-     * @param  null|array           $allowedTags
-     * @return null|string|string[]
+     * @param  null|string|string[]                        $data
+     * @param  null|string[]                               $allowedTags
+     * @return ($data is array ? array<?string> : ?string)
      */
     public function escapeHtml($data, $allowedTags = null)
     {

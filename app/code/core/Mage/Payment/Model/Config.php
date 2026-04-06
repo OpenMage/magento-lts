@@ -15,6 +15,8 @@ use Carbon\Carbon;
  * Used for retrieving configuration data by payment models
  *
  * @package    Mage_Payment
+ *
+ * @phpstan-import-type ConfigStoreId from Mage
  */
 class Mage_Payment_Model_Config
 {
@@ -23,7 +25,7 @@ class Mage_Payment_Model_Config
     /**
      * Retrieve active system payments
      *
-     * @param  null|bool|int|Mage_Core_Model_Store|string $store
+     * @param  ConfigStoreId $store
      * @return array
      */
     public function getActiveMethods($store = null)
@@ -45,7 +47,7 @@ class Mage_Payment_Model_Config
     /**
      * Retrieve all system payments
      *
-     * @param  null|bool|int|Mage_Core_Model_Store|string $store
+     * @param  ConfigStoreId $store
      * @return array
      */
     public function getAllMethods($store = null)

@@ -245,7 +245,7 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
                     && $categoryDataValue[0] === 'use_config')
                 ) {
                     $useConfig[] = $attrCode;
-                    $category->setData($attrCode, null);
+                    $category->setData($attrCode);
                 } else {
                     $category->setData($attrCode, $categoryDataValue);
                 }

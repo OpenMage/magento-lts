@@ -4,12 +4,14 @@
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
  * @license    Open Software License (OSL 3.0)
+ * @package    OpenMage_Tests
  */
 
 declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Traits\DataProvider\Mage\Reports;
 
+use Carbon\Carbon;
 use Generator;
 use Mage_Reports_Helper_Data;
 
@@ -21,7 +23,7 @@ trait ReportsTrait
 
     public static string $dateLastDay   = '2025-12-31';
 
-    public function provideReportsDateIntervals(): Generator
+    public function provideReportsDateIntervalsData(): Generator
     {
         $prefix = Mage_Reports_Helper_Data::REPORT_PERIOD_TYPE_DAY . ': ';
 
@@ -31,20 +33,36 @@ trait ReportsTrait
             '',
             Mage_Reports_Helper_Data::REPORT_PERIOD_TYPE_DAY,
         ];
+        yield $prefix . 'no from/to null' => [
+            0,
+            null,
+            null,
+            Mage_Reports_Helper_Data::REPORT_PERIOD_TYPE_DAY,
+        ];
         yield $prefix . 'no from' => [
             "No date part in '' found.",
             '',
             self::$dateFirstDay,
             Mage_Reports_Helper_Data::REPORT_PERIOD_TYPE_DAY,
         ];
-
+        yield $prefix . 'no from null' => [
+            0,
+            null,
+            self::$dateFirstDay,
+            Mage_Reports_Helper_Data::REPORT_PERIOD_TYPE_DAY,
+        ];
         yield $prefix . 'no to' => [
             "No date part in '' found.",
             self::$dateFirstDay,
             '',
             Mage_Reports_Helper_Data::REPORT_PERIOD_TYPE_DAY,
         ];
-
+        yield $prefix . 'no to null' => [
+            31, # plus 1 for current day?
+            Carbon::now()->subDays(30)->format('Y-m-d'),
+            null,
+            Mage_Reports_Helper_Data::REPORT_PERIOD_TYPE_DAY,
+        ];
         yield $prefix . 'same day' => [
             1,
             self::$dateFirstDay,

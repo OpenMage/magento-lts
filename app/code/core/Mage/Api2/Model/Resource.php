@@ -803,11 +803,7 @@ abstract class Mage_Api2_Model_Resource
             $this->_critical(self::RESOURCE_COLLECTION_FILTERING_ERROR);
         }
 
-        if (method_exists($collection, 'addAttributeToFilter')) {
-            $methodName = 'addAttributeToFilter';
-        } else {
-            $methodName = 'addFieldToFilter';
-        }
+        $methodName = method_exists($collection, 'addAttributeToFilter') ? 'addAttributeToFilter' : 'addFieldToFilter';
 
         $allowedAttributes = $this->getFilter()->getAllowedAttributes(self::OPERATION_ATTRIBUTE_READ);
 
@@ -1125,11 +1121,7 @@ abstract class Mage_Api2_Model_Resource
         try {
             if ($this->getUserType() != Mage_Api2_Model_Auth_User_Admin::USER_TYPE) {
                 // customer or guest role
-                if (!$store) {
-                    $store = Mage::app()->getDefaultStoreView();
-                } else {
-                    $store = Mage::app()->getStore($store);
-                }
+                $store = $store ? Mage::app()->getStore($store) : Mage::app()->getDefaultStoreView();
             } else {
                 // admin role
                 if (is_null($store)) {
