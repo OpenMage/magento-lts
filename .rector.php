@@ -137,13 +137,8 @@ try {
             ],
             # tmp wait for https://github.com/rectorphp/rector/issues/9732
             EarlyReturn\Foreach_\ChangeNestedForeachIfsToEarlyContinueRector::class => [
-                __DIR__ . 'app/code/core/Mage/Checkout/Model/Cart/Payment/Api.php',
+                __DIR__ . '/app/code/core/Mage/Checkout/Model/Cart/Payment/Api.php',
             ],
-        ])
-        # skip: work in progress
-        ->withSkip([
-            # see https://github.com/OpenMage/magento-lts/pull/5415
-            DeadCode\Assign\RemoveUnusedVariableAssignRector::class,
         ])
         # skip: ... @todo: check later
         ->withSkip([
@@ -155,8 +150,6 @@ try {
             CodeQuality\Equal\UseIdenticalOverEqualWithSameTypeRector::class,
             # ... +300 occurrences
             CodeQuality\If_\ExplicitBoolCompareRector::class,
-            # ... review class-loading at all, composer autoloading should be used instead of manual includes
-            CodeQuality\Include_\AbsolutizeRequireAndIncludePathRector::class,
             # ... breaks loading website
             CodeQuality\Isset_\IssetOnPropertyObjectToPropertyExistsRector::class,
             # ... messes up code
@@ -175,14 +168,18 @@ try {
             Strict\Empty_\DisallowedEmptyRuleFixerRector::class,
         ])
         ->withSkip([
+            CodeQuality\Identical\SimplifyBoolIdenticalTrueRector::class, # todo: TMP
+            CodeQuality\Include_\AbsolutizeRequireAndIncludePathRector::class, # todo: TMP
             CodingStyle\ClassMethod\FuncGetArgsToVariadicParamRector::class, # todo: TMP
             CodingStyle\Encapsed\EncapsedStringsToSprintfRector::class, # todo: TMP
             CodingStyle\FuncCall\StrictArraySearchRector::class, # todo: TMP
             CodingStyle\If_\NullableCompareToNullRector::class, # todo: TMP
             CodingStyle\PostInc\PostIncDecToPreIncDecRector::class, # todo: TMP
+            DeadCode\Assign\RemoveUnusedVariableAssignRector::class, # todo: WIP
             DeadCode\ClassMethod\RemoveUnusedConstructorParamRector::class, # todo: TMP (!?!)
             DeadCode\PropertyProperty\RemoveNullPropertyInitializationRector::class, # todo: TMP
             DeadCode\TryCatch\RemoveDeadTryCatchRector::class, # todo: TMP  (!?!)
+            EarlyReturn\Foreach_\ChangeNestedForeachIfsToEarlyContinueRector::class, # todo: TMP
             Php71\FuncCall\RemoveExtraParametersRector::class, # todo: check later
             # skip: causes issues
             Php74\Assign\NullCoalescingOperatorRector::class,  # todo: TMP (!?!)

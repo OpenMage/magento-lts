@@ -470,13 +470,13 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
         }
 
         $disableLocalModules = (string) $this->getNode('global/disable_local_modules');
-        if ($disableLocalModules !== '') {
+        if (!empty($disableLocalModules)) {
             $disableLocalModules = (($disableLocalModules === 'true') || ($disableLocalModules === '1'));
         } else {
             $disableLocalModules = false;
         }
 
-        if ($disableLocalModules) {
+        if ($disableLocalModules === true) {
             set_include_path(
                 BP . DS . 'app' . DS . 'code' . DS . 'community' . PS
                 . BP . DS . 'app' . DS . 'code' . DS . 'core' . PS
