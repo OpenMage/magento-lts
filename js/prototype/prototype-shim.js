@@ -326,7 +326,10 @@
     size: function () { return this.length; },
     clone: function () { return this.slice(0); },
     toArray: function () { return this.slice(0); },
-    inspect: function () { return '[' + this.map(function (v) { return typeof v === 'string' ? "'" + v + "'" : String(v); }).join(', ') + ']'; }
+    inspect: function () { return '[' + this.map(function (v) { return typeof v === 'string' ? "'" + v + "'" : String(v); }).join(', ') + ']'; },
+    intersect: function (other) {
+      return this.uniq().select(function (item) { return other.indexOf(item) !== -1; });
+    }
   };
 
   if (!Array.prototype.indexOf) {
@@ -765,6 +768,12 @@
   EP.getDimensions = function () {
     return { width: this.offsetWidth, height: this.offsetHeight };
   };
+  EP.getHeight = function () { return this.offsetHeight; };
+  EP.getWidth = function () { return this.offsetWidth; };
+
+  // Form element enable/disable
+  EP.disable = function () { this.disabled = true; return this; };
+  EP.enable = function () { this.disabled = false; return this; };
 
   // Attributes
   EP.readAttribute = function (name) {
@@ -811,6 +820,25 @@
     return _getFieldValue(this);
   };
 
+  // Per-element data storage (Prototype's Element.store / Element.retrieve)
+  EP.store = function (key, value) {
+    if (!this._protoStorage) this._protoStorage = {};
+    this._protoStorage[key] = value;
+    return this;
+  };
+  EP.retrieve = function (key, defaultValue) {
+    if (!this._protoStorage) this._protoStorage = {};
+    var val = this._protoStorage[key];
+    if (typeof val === 'undefined') {
+      if (typeof defaultValue !== 'undefined') {
+        this._protoStorage[key] = defaultValue;
+        return defaultValue;
+      }
+      return null;
+    }
+    return val;
+  };
+
   // OpenMage custom from varien/js.js
   EP.getInnerText = function () {
     return this.textContent || this.innerText || '';
@@ -846,10 +874,12 @@
     'up', 'down', 'next', 'previous', 'select',
     'update', 'insert', 'remove', 'replace',
     'observe', 'stopObserving', 'fire',
-    'setStyle', 'getStyle', 'getDimensions',
+    'setStyle', 'getStyle', 'getDimensions', 'getHeight', 'getWidth',
     'readAttribute', 'writeAttribute',
     'ancestors', 'descendants', 'childElements',
-    'getValue', 'getInnerText'
+    'getValue', 'getInnerText',
+    'store', 'retrieve',
+    'disable', 'enable'
   ];
 
   staticElementMethods.forEach(function (name) {
@@ -880,6 +910,18 @@
   // ---------------------------------------------------------------------------
   document.observe = function (eventName, handler) {
     document.addEventListener(eventName, handler, false);
+    return document;
+  };
+  document.on = function (eventName, selector, handler) {
+    if (typeof selector === 'function') {
+      return document.observe(eventName, selector);
+    }
+    document.addEventListener(eventName, function (evt) {
+      var matched = evt.target.closest(selector);
+      if (matched) {
+        handler.call(matched, evt, matched);
+      }
+    }, false);
     return document;
   };
   document.stopObserving = function (eventName, handler) {
@@ -1256,6 +1298,228 @@
       }, this.options.frequency * 1000);
     },
     stop: function () { clearInterval(this.timer); }
+  });
+
+  // ---------------------------------------------------------------------------
+  // Ajax.Autocompleter — lightweight reimplementation for admin global search
+  // Supports: paramName, minChars, method, frequency, indicator,
+  //           updateElement, afterUpdateElement, onShow, onHide, evalJSON
+  // ---------------------------------------------------------------------------
+  Ajax.Autocompleter = Class.create({
+    initialize: function (element, update, url, options) {
+      this.element = $(element);
+      this.update = $(update);
+      this.url = url;
+      this.options = Object.extend({
+        paramName: 'value',
+        minChars: 1,
+        method: 'get',
+        frequency: 0.4,
+        indicator: null,
+        updateElement: null,
+        afterUpdateElement: null,
+        onShow: null,
+        onHide: null,
+        evalJSON: false,
+        parameters: {}
+      }, options || {});
+
+      this.active = false;
+      this.hasFocus = false;
+      this.index = -1;
+      this.entryCount = 0;
+      this.observer = null;
+      this.oldValue = this.element.value;
+
+      this.update.style.display = 'none';
+
+      this.element.setAttribute('autocomplete', 'off');
+      var self = this;
+      this.element.addEventListener('keydown', function (e) { self.onKeyDown(e); }, false);
+      this.element.addEventListener('focus', function () { self.onFocus(); }, false);
+      this.element.addEventListener('blur', function () { self.onBlur(); }, false);
+    },
+
+    onKeyDown: function (evt) {
+      switch (evt.keyCode) {
+        case Event.KEY_UP:
+          evt.preventDefault();
+          this.markPrevious();
+          return;
+        case Event.KEY_DOWN:
+          evt.preventDefault();
+          this.markNext();
+          return;
+        case Event.KEY_RETURN:
+          if (this.active && this.index >= 0) {
+            evt.preventDefault();
+            this.selectEntry();
+          }
+          return;
+        case Event.KEY_ESC:
+          this.hide();
+          this.active = false;
+          return;
+        case Event.KEY_TAB:
+          if (this.active && this.index >= 0) this.selectEntry();
+          return;
+      }
+    },
+
+    onFocus: function () {
+      this.hasFocus = true;
+      this.changed = false;
+      this.startObserving();
+    },
+
+    onBlur: function () {
+      var self = this;
+      this.hasFocus = false;
+      // Delay to allow click on dropdown item
+      setTimeout(function () {
+        if (!self.hasFocus) self.hide();
+      }, 250);
+    },
+
+    startObserving: function () {
+      if (this.observer) return;
+      var self = this;
+      this.observer = setInterval(function () { self.onObserverEvent(); }, this.options.frequency * 1000);
+    },
+
+    stopObserving: function () {
+      if (this.observer) {
+        clearInterval(this.observer);
+        this.observer = null;
+      }
+    },
+
+    onObserverEvent: function () {
+      var val = this.element.value;
+      if (val === this.oldValue) return;
+      this.oldValue = val;
+      if (val.length >= this.options.minChars) {
+        this.getUpdatedChoices();
+      } else {
+        this.hide();
+        this.active = false;
+      }
+    },
+
+    getUpdatedChoices: function () {
+      var params = {};
+      params[this.options.paramName] = this.element.value;
+      Object.extend(params, this.options.parameters);
+
+      var indicator = this.options.indicator ? $(this.options.indicator) : null;
+      if (indicator) indicator.style.display = '';
+
+      var self = this;
+      new Ajax.Request(this.url, {
+        method: this.options.method,
+        parameters: params,
+        onSuccess: function (response) {
+          if (indicator) indicator.style.display = 'none';
+          self.updateChoices(response.responseText);
+        },
+        onFailure: function () {
+          if (indicator) indicator.style.display = 'none';
+        }
+      });
+    },
+
+    updateChoices: function (html) {
+      this.update.innerHTML = html;
+      var entries = this.update.querySelectorAll('li');
+      this.entryCount = entries.length;
+      this.index = -1;
+
+      for (var i = 0; i < entries.length; i++) {
+        var self = this;
+        (function (idx) {
+          entries[idx].addEventListener('click', function (e) {
+            e.preventDefault();
+            self.index = idx;
+            self.selectEntry();
+          }, false);
+          entries[idx].addEventListener('mouseover', function () {
+            self.setActive(idx);
+          }, false);
+        })(i);
+      }
+
+      if (this.entryCount > 0) {
+        this.show();
+        this.active = true;
+      } else {
+        this.hide();
+        this.active = false;
+      }
+    },
+
+    show: function () {
+      if (typeof this.options.onShow === 'function') {
+        this.options.onShow(this.element, this.update);
+      } else {
+        this.update.style.display = '';
+      }
+    },
+
+    hide: function () {
+      this.stopObserving();
+      if (typeof this.options.onHide === 'function') {
+        this.options.onHide(this.element, this.update);
+      } else {
+        this.update.style.display = 'none';
+      }
+    },
+
+    setActive: function (idx) {
+      var entries = this.update.querySelectorAll('li');
+      for (var i = 0; i < entries.length; i++) {
+        entries[i].className = (i === idx) ? 'selected' : '';
+      }
+      this.index = idx;
+    },
+
+    markPrevious: function () {
+      if (this.index > 0) {
+        this.setActive(this.index - 1);
+      } else {
+        this.setActive(this.entryCount - 1);
+      }
+    },
+
+    markNext: function () {
+      if (this.index < this.entryCount - 1) {
+        this.setActive(this.index + 1);
+      } else {
+        this.setActive(0);
+      }
+    },
+
+    selectEntry: function () {
+      this.active = false;
+      var entries = this.update.querySelectorAll('li');
+      var selected = entries[this.index];
+      if (!selected) return;
+      this.updateElement(selected);
+      this.hide();
+    },
+
+    updateElement: function (selected) {
+      if (typeof this.options.updateElement === 'function') {
+        this.options.updateElement(selected);
+      } else {
+        var value = (selected.textContent || selected.innerText || '').replace(/^\s+|\s+$/g, '');
+        this.element.value = value;
+        this.oldValue = value;
+        this.element.focus();
+      }
+      if (typeof this.options.afterUpdateElement === 'function') {
+        this.options.afterUpdateElement(this.element, selected);
+      }
+    }
   });
 
   window.Ajax = Ajax;
