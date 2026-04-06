@@ -144,6 +144,10 @@ parameters:
             paths:
                 - tests/unit/*
         -
+            identifier: new.deprecatedClass
+            paths:
+                - tests/unit/*
+        -
             # update phpstan plugin
             identifier: property.protected
             paths:
