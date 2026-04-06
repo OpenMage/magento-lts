@@ -1401,7 +1401,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
     {
         $next = false;
         foreach (array_keys($array) as $k) {
-            if ($next === true) {
+            if ($next) {
                 return $k;
             }
 

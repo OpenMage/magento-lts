@@ -716,7 +716,7 @@ class Mage_Core_Model_Url extends Varien_Object
         }
 
         if (isset($data['_store_to_url'])
-            && (bool) $data['_store_to_url'] === true
+            && (bool) $data['_store_to_url']
             && (!Mage::getStoreConfig(Mage_Core_Model_Store::XML_PATH_STORE_IN_URL, $this->getStore()) && !Mage::app()->isSingleStoreMode())
         ) {
             $this->setQueryParam('___store', $this->getStore()->getCode());
