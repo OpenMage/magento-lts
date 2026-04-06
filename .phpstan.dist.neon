@@ -136,6 +136,10 @@ parameters:
         -
             identifier: phpunit.coversMethod
         -
+            identifier: property.onlyWritten
+            paths:
+                - tests/unit/*
+        -
             # update phpstan plugin
             identifier: property.protected
             paths:
