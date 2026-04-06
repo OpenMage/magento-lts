@@ -70,7 +70,7 @@ class Mage_Adminhtml_Controller_Sales_Invoice extends Mage_Adminhtml_Controller_
      */
     public function viewAction()
     {
-        if ($this->getRequest()->getParam('invoice_id')) {
+        if ($invoiceId = $this->getRequest()->getParam('invoice_id')) {
             $this->_forward('view', 'sales_order_invoice', null, ['come_from' => 'invoice']);
         } else {
             $this->_forward('noRoute');

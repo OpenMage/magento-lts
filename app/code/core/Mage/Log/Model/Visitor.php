@@ -298,7 +298,7 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
      */
     public function bindCustomerLogout($observer)
     {
-        if ($this->getCustomerId() && $observer->getEvent()->getCustomer()) {
+        if ($this->getCustomerId() && $customer = $observer->getEvent()->getCustomer()) {
             $this->setDoCustomerLogout(true);
         }
 

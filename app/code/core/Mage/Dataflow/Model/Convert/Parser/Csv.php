@@ -94,7 +94,7 @@ class Mage_Dataflow_Model_Convert_Parser_Csv extends Mage_Dataflow_Model_Convert
                 $i++;
             }
 
-            $this->getBatchImportModel()
+            $batchImportModel = $this->getBatchImportModel()
                 ->setId(null)
                 ->setBatchId($this->getBatchModel()->getId())
                 ->setBatchData($itemData)

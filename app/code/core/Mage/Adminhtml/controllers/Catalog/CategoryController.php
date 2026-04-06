@@ -417,7 +417,7 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
      */
     public function gridAction()
     {
-        if (!$this->_initCategory(true)) {
+        if (!$category = $this->_initCategory(true)) {
             return;
         }
 

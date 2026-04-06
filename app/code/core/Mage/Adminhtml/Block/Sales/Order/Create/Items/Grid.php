@@ -318,12 +318,15 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Items_Grid extends Mage_Adminhtml_
             foreach (explode(',', $optionIds->getValue()) as $optionId) {
                 $option = $item->getProduct()->getOptionById($optionId);
                 if ($option) {
+                    $optionValue = $item->getOptionByCode('option_' . $option->getId())->getValue();
+
+                    $optionStr .= $option->getTitle() . ':';
+
                     $quoteItemOption = $item->getOptionByCode('option_' . $option->getId());
                     $group = $option->groupFactory($option->getType())
                         ->setOption($option)
                         ->setQuoteItemOption($quoteItemOption);
 
-                    $optionStr .= $option->getTitle() . ':';
                     $optionStr .= $group->getEditableOptionValue($quoteItemOption->getValue());
                     $optionStr .= "\n";
                 }

@@ -242,7 +242,7 @@ class Mage_Core_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_He
             [$correlationName, $column, $alias] = $columnEntry;
             if ($column instanceof Zend_Db_Expr) {
                 if ($alias !== null) {
-                    if (preg_match('/(^|[^a-zA-Z_])^(SELECT)?(SUM|MIN|MAX|AVG|COUNT)\s*\(/i', (string) $column)) {
+                    if (preg_match('/(^|[^a-zA-Z_])^(SELECT)?(SUM|MIN|MAX|AVG|COUNT)\s*\(/i', (string) $column, $matches)) {
                         $column = $this->prepareColumn($column, $groupByCondition);
                     }
 

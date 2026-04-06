@@ -158,7 +158,7 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
     protected function _prepareLayout()
     {
         foreach ($this->_buttons as $buttons) {
-            foreach (array_keys($buttons) as $buttonId) {
+            foreach ($buttons as $buttonId => $data) {
                 $childId = $this->_prepareButtonBlockId($buttonId);
                 $this->_addButtonChildBlock($childId);
             }

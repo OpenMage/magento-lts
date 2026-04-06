@@ -94,6 +94,7 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
                 'name' => Mage::helper('adminhtml')->__('Access Denied'),
                 'description' => Mage::helper('adminhtml')->__('You have not enough permissions to use this functionality.'),
             ];
+            $totalCount = 1;
         } elseif (empty($searchModules)) {
             $items[] = [
                 'id' => 'error',
@@ -101,6 +102,7 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
                 'name' => Mage::helper('adminhtml')->__('No search modules were registered'),
                 'description' => Mage::helper('adminhtml')->__('Please make sure that all global admin search modules are installed and activated.'),
             ];
+            $totalCount = 1;
         } else {
             $start = $this->getRequest()->getParam('start', 1);
             $limit = $this->getRequest()->getParam('limit', 10);
@@ -124,6 +126,8 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
                     ->getResults();
                 $items = array_merge_recursive($items, $results);
             }
+
+            $totalCount = count($items);
         }
 
         $block = $this->getLayout()->createBlock('adminhtml/template')

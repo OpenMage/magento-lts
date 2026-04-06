@@ -47,7 +47,7 @@ class Mage_Sales_Model_Config
 
         $statuses = [];
 
-        foreach (array_keys($states->$state->statuses->children()) as $status) {
+        foreach ($states->$state->statuses->children() as $status => $node) {
             $statuses[] = $status;
         }
 

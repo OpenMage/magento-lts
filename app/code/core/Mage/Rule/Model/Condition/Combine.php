@@ -138,7 +138,7 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
     public function getAggregatorElement()
     {
         if (is_null($this->getAggregator())) {
-            foreach (array_keys($this->getAggregatorOption()) as $key) {
+            foreach ($this->getAggregatorOption() as $key => $value) {
                 $this->setAggregator($key);
                 break;
             }

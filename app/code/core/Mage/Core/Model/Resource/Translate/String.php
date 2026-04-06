@@ -207,7 +207,7 @@ class Mage_Core_Model_Resource_Translate_String extends Mage_Core_Model_Resource
         if ($row = $write->fetchRow($select, $bind)) {
             $original = $string;
             if (str_contains($original, '::')) {
-                $original = explode('::', $original);
+                [$scope, $original] = explode('::', $original);
             }
 
             if ($original == $translate) {

@@ -102,7 +102,7 @@ class Mage_Sales_Model_Entity_Sale_Collection extends Varien_Object implements I
                 $this->_items[$item['store_id']] = $obj;
                 $this->_items[$item['store_id']]->setStoreName($storeName);
                 $this->_items[$item['store_id']]->setAvgNormalized($obj->getAvgsale() * $obj->getNumOrders());
-                foreach (array_keys($this->_totals) as $key) {
+                foreach ($this->_totals as $key => $value) {
                     $this->_totals[$key] += $obj->getData($key);
                 }
             }

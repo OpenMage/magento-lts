@@ -286,7 +286,7 @@ class Mage_Install_Model_Installer extends Varien_Object
         Mage::app()->cleanCache();
 
         $cacheData = [];
-        foreach (array_keys(Mage::helper('core')->getCacheTypes()) as $type) {
+        foreach (Mage::helper('core')->getCacheTypes() as $type => $label) {
             $cacheData[$type] = 1;
         }
 

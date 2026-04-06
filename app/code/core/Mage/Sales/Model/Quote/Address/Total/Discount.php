@@ -42,6 +42,7 @@ class Mage_Sales_Model_Quote_Address_Total_Discount extends Mage_Sales_Model_Quo
             return $this;
         }
 
+        $hasDiscount = false;
         foreach ($items as $item) {
             if ($item->getNoDiscount()) {
                 $item->setDiscountAmount(0);
@@ -67,6 +68,10 @@ class Mage_Sales_Model_Quote_Address_Total_Discount extends Mage_Sales_Model_Quo
                     foreach ($item->getChildren() as $child) {
                         $eventArgs['item'] = $child;
                         Mage::dispatchEvent('sales_quote_address_discount_item', $eventArgs);
+
+                        if ($child->getDiscountAmount() || $child->getFreeShipping()) {
+                            $hasDiscount = true;
+                        }
 
                         /**
                          * Parent free shipping we apply to all children
@@ -94,6 +99,10 @@ class Mage_Sales_Model_Quote_Address_Total_Discount extends Mage_Sales_Model_Quo
                     $eventArgs['item'] = $item;
                     Mage::dispatchEvent('sales_quote_address_discount_item', $eventArgs);
 
+                    if ($item->getDiscountAmount() || $item->getFreeShipping()) {
+                        $hasDiscount = true;
+                    }
+
                     $totalDiscountAmount += $item->getDiscountAmount();
                     $baseTotalDiscountAmount += $item->getBaseDiscountAmount();
 
@@ -110,6 +119,7 @@ class Mage_Sales_Model_Quote_Address_Total_Discount extends Mage_Sales_Model_Quo
         $address->setSubtotalWithDiscount($subtotalWithDiscount);
         $address->setBaseDiscountAmount($baseTotalDiscountAmount);
         $address->setBaseSubtotalWithDiscount($baseSubtotalWithDiscount);
+
         $address->setGrandTotal($address->getGrandTotal() - $address->getDiscountAmount());
         $address->setBaseGrandTotal($address->getBaseGrandTotal() - $address->getBaseDiscountAmount());
         return $this;

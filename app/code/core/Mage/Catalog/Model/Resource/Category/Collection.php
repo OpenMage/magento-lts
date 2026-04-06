@@ -269,7 +269,7 @@ class Mage_Catalog_Model_Resource_Category_Collection extends Mage_Catalog_Model
         if ($countAnchor) {
             // Retrieve Anchor categories product counts
             foreach ($anchor as $item) {
-                if ($item->getAllChildren()) {
+                if ($allChildren = $item->getAllChildren()) {
                     $bind = [
                         'entity_id' => $item->getId(),
                         'c_path'    => $item->getPath() . '/%',

@@ -621,7 +621,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
         if ($source && $source->$sectionName) {
             $cacheId = $idPrefix . '_' . $sectionName;
             if ($recursionLevel > 0) {
-                foreach (array_keys($source->$sectionName->children()) as $subSectionName) {
+                foreach ($source->$sectionName->children() as $subSectionName => $node) {
                     $this->_saveSectionCache(
                         $cacheId,
                         $subSectionName,

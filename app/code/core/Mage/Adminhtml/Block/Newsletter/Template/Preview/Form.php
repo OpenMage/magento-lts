@@ -30,7 +30,7 @@ class Mage_Adminhtml_Block_Newsletter_Template_Preview_Form extends Mage_Adminht
         if ($data = $this->getFormData()) {
             $mapper = ['preview_store_id' => 'store_id'];
 
-            foreach (array_keys($data) as $key) {
+            foreach ($data as $key => $value) {
                 $name = array_key_exists($key, $mapper) ? $mapper[$key] : $key;
                 $form->addField($key, 'hidden', ['name' => $name]);
             }

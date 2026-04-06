@@ -107,7 +107,7 @@ class Mage_Api_Model_Config extends Varien_Simplexml_Config
             }
 
             if (isset($adapter->required) && isset($adapter->required->extensions)) {
-                foreach (array_keys($adapter->required->extensions->children()) as $extension) {
+                foreach ($adapter->required->extensions->children() as $extension => $data) {
                     if (!extension_loaded($extension)) {
                         continue;
                     }

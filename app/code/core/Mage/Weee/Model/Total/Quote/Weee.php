@@ -120,6 +120,11 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
         $applied = [];
         $productTaxes = [];
 
+        $totalValue = 0;
+        $baseTotalValue = 0;
+        $totalRowValue = 0;
+        $baseTotalRowValue = 0;
+
         $totalExclTaxValue = 0;
         $baseTotalExclTaxValue = 0;
         $totalExclTaxRowValue = 0;
@@ -147,6 +152,12 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
             $baseRowValueExclTax = $baseValueExclTax * $item->getTotalQty();
 
             $title = $attribute->getName();
+
+            //Calculate the Wee value
+            $totalValue += $value;
+            $baseTotalValue += $baseValue;
+            $totalRowValue += $rowValue;
+            $baseTotalRowValue += $baseRowValue;
 
             //Calculate the Wee without tax
             $totalExclTaxValue += $valueExclTax;
@@ -422,11 +433,15 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
              * Apply discount to fixed tax
              */
             if ($item->getDiscountPercent() && $this->_helper->isDiscounted($store)) {
+                $valueDiscount = $value / 100 * $item->getDiscountPercent();
+                $baseValueDiscount = $baseValue / 100 * $item->getDiscountPercent();
+
                 $rowValueDiscount = $rowValue / 100 * $item->getDiscountPercent();
                 $baseRowValueDiscount = $baseRowValue / 100 * $item->getDiscountPercent();
 
                 $address->setDiscountAmount($address->getDiscountAmount() + $rowValueDiscount);
                 $address->setBaseDiscountAmount($address->getBaseDiscountAmount() + $baseRowValueDiscount);
+
                 $address->setGrandTotal($address->getGrandTotal() - $rowValueDiscount);
                 $address->setBaseGrandTotal($address->getBaseGrandTotal() - $baseRowValueDiscount);
             }
@@ -534,6 +549,7 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
 
             $item->setBaseWeeeTaxAppliedAmount($item->getBaseWeeeTaxAppliedAmount() + $baseValue);
             $item->setBaseWeeeTaxAppliedRowAmount($item->getBaseWeeeTaxAppliedRowAmount() + $baseRowValue);
+
             $item->setWeeeTaxAppliedAmount($item->getWeeeTaxAppliedAmount() + $value);
             $item->setWeeeTaxAppliedRowAmount($item->getWeeeTaxAppliedRowAmount() + $rowValue);
         }

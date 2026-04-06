@@ -664,7 +664,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
     public function applySidebarData($data)
     {
         if (isset($data['add_order_item'])) {
-            foreach (array_keys($data['add_order_item']) as $orderItemId) {
+            foreach ($data['add_order_item'] as $orderItemId => $value) {
                 /** @var Mage_Sales_Model_Order_Item $orderItem */
                 // phpcs:ignore Ecg.Performance.Loop.ModelLSD
                 $orderItem = Mage::getModel('sales/order_item')->load($orderItemId);
@@ -736,7 +736,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
 
                 break;
             case 'wishlist':
-                if ($this->getCustomerWishlist()) {
+                if ($wishlist = $this->getCustomerWishlist()) {
                     $item = Mage::getModel('wishlist/item')->load($itemId);
                     $item->delete();
                 }

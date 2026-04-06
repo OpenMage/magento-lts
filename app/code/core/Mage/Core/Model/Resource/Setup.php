@@ -608,6 +608,7 @@ class Mage_Core_Model_Resource_Setup
             try {
                 switch ($fileType) {
                     case 'php':
+                        $conn   = $this->getConnection();
                         $result = include $fileName;
                         break;
                     case 'sql':
