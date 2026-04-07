@@ -52,7 +52,6 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_View_Form extends Mage_Adminhtml
      */
     public function getCreateLabelButton()
     {
-        $data['shipment_id'] = $this->getShipment()->getId();
         return $this->getLayout()
             ->createBlock('adminhtml/widget_button')
             ->setData([
