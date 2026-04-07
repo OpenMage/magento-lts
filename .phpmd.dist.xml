@@ -20,7 +20,7 @@
     </rule>
     <rule ref="rulesets/unusedcode.xml/UnusedLocalVariable">
         <properties>
-            <property name="exceptions" value="__" />
+            <property name="exceptions" value="_unused" />
         </properties>
     </rule>
 
@@ -70,7 +70,7 @@
     <rule ref="rulesets/controversial.xml/CamelCaseVariableName">
         <properties>
             <property name="allow-underscore" value="true" />
-            <property name="exceptions" value="__" />
+            <property name="exceptions" value="_unused" />
         </properties>
     </rule>
     <rule ref="rulesets/controversial.xml/Superglobals" />
@@ -93,7 +93,7 @@
     </rule>
     <rule ref="rulesets/naming.xml/ShortVariable">
         <properties>
-            <property name="exceptions" value="__,a,b,id,i,j" />
+            <property name="exceptions" value="a,b,id,i,j" />
         </properties>
     </rule>
 
