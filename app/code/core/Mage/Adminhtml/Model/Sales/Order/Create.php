@@ -728,7 +728,8 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
                 $this->removeQuoteItem($itemId);
                 break;
             case 'cart':
-                if ($cart = $this->getCustomerCart()) {
+                $cart = $this->getCustomerCart();
+                if ($cart) {
                     $cart->removeItem($itemId);
                     $cart->collectTotals()
                         ->save();
@@ -736,16 +737,17 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
 
                 break;
             case 'wishlist':
-                if ($wishlist = $this->getCustomerWishlist()) {
+                if ($this->getCustomerWishlist()) {
+                    # todo: check load/delete
                     $item = Mage::getModel('wishlist/item')->load($itemId);
                     $item->delete();
                 }
 
                 break;
             case 'compared':
-                $item = Mage::getModel('catalog/product_compare_item')
-                    ->load($itemId)
-                    ->delete();
+                # todo: check load/delete
+                $item = Mage::getModel('catalog/product_compare_item')->load($itemId);
+                $item->delete();
                 break;
         }
 
