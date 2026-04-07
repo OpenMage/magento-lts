@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Admin\Model\Resource\Rules;
 
 # use Mage;
-use Mage_Admin_Model_Resource_Rules_Collection as Subject;
+# use Mage_Admin_Model_Resource_Rules_Collection as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Admin\Model\Resource\Rules\CollectionTrait;
 

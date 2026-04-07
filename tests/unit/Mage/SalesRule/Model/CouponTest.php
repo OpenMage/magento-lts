@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\SalesRule\Model;
 
 # use Mage;
-use Mage_SalesRule_Model_Coupon as Subject;
+# use Mage_SalesRule_Model_Coupon as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\SalesRule\Model\CouponTrait;
 

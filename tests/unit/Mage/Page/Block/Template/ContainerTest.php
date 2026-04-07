@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Page\Block\Template;
 
-use Mage_Page_Block_Template_Container as Subject;
+# use Mage_Page_Block_Template_Container as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Page\Block\Template\ContainerTrait;
 

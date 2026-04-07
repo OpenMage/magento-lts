@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Adminhtml\Helper\Catalog\Product\Edit\Action;
 
 # use Mage;
-use Mage_Adminhtml_Helper_Catalog_Product_Edit_Action_Attribute as Subject;
+# use Mage_Adminhtml_Helper_Catalog_Product_Edit_Action_Attribute as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Helper\Catalog\Product\Edit\Action\AttributeTrait;
 

@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Catalog\Block\Layer;
 
-use Mage_Catalog_Block_Layer_State as Subject;
+# use Mage_Catalog_Block_Layer_State as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\Block\Layer\StateTrait;
 

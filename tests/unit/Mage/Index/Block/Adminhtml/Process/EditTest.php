@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Index\Block\Adminhtml\Process;
 
-use Mage_Index_Block_Adminhtml_Process_Edit as Subject;
+# use Mage_Index_Block_Adminhtml_Process_Edit as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Index\Block\Adminhtml\Process\EditTrait;
 

@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Catalog\Model\Resource\Product\Attribute\Backend;
 
 # use Mage;
-use Mage_Catalog_Model_Resource_Product_Attribute_Backend_Urlkey as Subject;
+# use Mage_Catalog_Model_Resource_Product_Attribute_Backend_Urlkey as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\Model\Resource\Product\Attribute\Backend\UrlkeyTrait;
 

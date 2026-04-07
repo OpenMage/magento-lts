@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\ProductAlert\Helper;
 
 # use Mage;
-use Mage_ProductAlert_Helper_Data as Subject;
+# use Mage_ProductAlert_Helper_Data as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\ProductAlert\Helper\DataTrait;
 

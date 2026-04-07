@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Adminhtml\Model\Session;
 
 # use Mage;
-use Mage_Adminhtml_Model_Session_Quote as Subject;
+# use Mage_Adminhtml_Model_Session_Quote as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Model\Session\QuoteTrait;
 

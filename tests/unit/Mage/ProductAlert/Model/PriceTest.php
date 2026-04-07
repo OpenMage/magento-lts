@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\ProductAlert\Model;
 
 # use Mage;
-use Mage_ProductAlert_Model_Price as Subject;
+# use Mage_ProductAlert_Model_Price as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\ProductAlert\Model\PriceTrait;
 

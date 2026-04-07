@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Shipping\Model\Shipment;
 
 # use Mage;
-use Mage_Shipping_Model_Shipment_Return as Subject;
+# use Mage_Shipping_Model_Shipment_Return as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Shipping\Model\Shipment\ReturnTrait;
 

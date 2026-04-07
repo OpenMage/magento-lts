@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\GiftMessage\Block\Message;
 
-use Mage_GiftMessage_Block_Message_Inline as Subject;
+# use Mage_GiftMessage_Block_Message_Inline as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\GiftMessage\Block\Message\InlineTrait;
 

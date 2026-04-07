@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\SalesRule\Model\Quote;
 
 # use Mage;
-use Mage_SalesRule_Model_Quote_Freeshipping as Subject;
+# use Mage_SalesRule_Model_Quote_Freeshipping as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\SalesRule\Model\Quote\FreeshippingTrait;
 

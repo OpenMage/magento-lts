@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Install\Model\Installer;
 
 # use Mage;
-use Mage_Install_Model_Installer_Config as Subject;
+# use Mage_Install_Model_Installer_Config as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Install\Model\Installer\ConfigTrait;
 

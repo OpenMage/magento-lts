@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\CatalogIndex\Model\Catalog\Index\Kill;
 
 # use Mage;
-use Mage_CatalogIndex_Model_Catalog_Index_Kill_Flag as Subject;
+# use Mage_CatalogIndex_Model_Catalog_Index_Kill_Flag as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\CatalogIndex\Model\Catalog\Index\Kill\FlagTrait;
 

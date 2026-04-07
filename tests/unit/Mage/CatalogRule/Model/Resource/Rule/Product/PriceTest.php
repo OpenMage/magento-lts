@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\CatalogRule\Model\Resource\Rule\Product;
 
 # use Mage;
-use Mage_CatalogRule_Model_Resource_Rule_Product_Price as Subject;
+# use Mage_CatalogRule_Model_Resource_Rule_Product_Price as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\CatalogRule\Model\Resource\Rule\Product\PriceTrait;
 

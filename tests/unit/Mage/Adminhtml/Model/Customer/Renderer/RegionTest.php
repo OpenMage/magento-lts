@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Adminhtml\Model\Customer\Renderer;
 
 # use Mage;
-use Mage_Adminhtml_Model_Customer_Renderer_Region as Subject;
+# use Mage_Adminhtml_Model_Customer_Renderer_Region as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Model\Customer\Renderer\RegionTrait;
 

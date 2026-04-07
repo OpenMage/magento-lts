@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\ProductAlert\Model\Resource;
 
 # use Mage;
-use Mage_ProductAlert_Model_Resource_Abstract as Subject;
+# use Mage_ProductAlert_Model_Resource_Abstract as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\ProductAlert\Model\Resource\AbstractTrait;
 

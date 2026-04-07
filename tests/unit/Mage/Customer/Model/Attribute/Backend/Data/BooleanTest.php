@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Customer\Model\Attribute\Backend\Data;
 
 # use Mage;
-use Mage_Customer_Model_Attribute_Backend_Data_Boolean as Subject;
+# use Mage_Customer_Model_Attribute_Backend_Data_Boolean as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Customer\Model\Attribute\Backend\Data\BooleanTrait;
 

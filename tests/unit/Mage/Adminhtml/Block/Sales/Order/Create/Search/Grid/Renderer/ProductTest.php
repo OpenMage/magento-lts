@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Sales\Order\Create\Search\Grid\Renderer;
 
-use Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid_Renderer_Product as Subject;
+# use Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid_Renderer_Product as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\Sales\Order\Create\Search\Grid\Renderer\ProductTrait;
 

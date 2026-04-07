@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Paypal\Block\Adminhtml\Settlement;
 
-use Mage_Paypal_Block_Adminhtml_Settlement_Details as Subject;
+# use Mage_Paypal_Block_Adminhtml_Settlement_Details as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Paypal\Block\Adminhtml\Settlement\DetailsTrait;
 

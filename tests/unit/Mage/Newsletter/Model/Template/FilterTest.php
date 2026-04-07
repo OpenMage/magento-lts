@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Newsletter\Model\Template;
 
 # use Mage;
-use Mage_Newsletter_Model_Template_Filter as Subject;
+# use Mage_Newsletter_Model_Template_Filter as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Newsletter\Model\Template\FilterTrait;
 

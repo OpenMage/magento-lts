@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Sales\Block\Recurring;
 
-use Mage_Sales_Block_Recurring_Profiles as Subject;
+# use Mage_Sales_Block_Recurring_Profiles as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sales\Block\Recurring\ProfilesTrait;
 

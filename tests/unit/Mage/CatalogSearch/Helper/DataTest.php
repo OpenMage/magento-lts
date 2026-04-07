@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\CatalogSearch\Helper;
 
 # use Mage;
-use Mage_CatalogSearch_Helper_Data as Subject;
+# use Mage_CatalogSearch_Helper_Data as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\CatalogSearch\Helper\DataTrait;
 

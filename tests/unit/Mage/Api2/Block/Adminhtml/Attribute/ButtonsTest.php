@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Api2\Block\Adminhtml\Attribute;
 
-use Mage_Api2_Block_Adminhtml_Attribute_Buttons as Subject;
+# use Mage_Api2_Block_Adminhtml_Attribute_Buttons as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Api2\Block\Adminhtml\Attribute\ButtonsTrait;
 

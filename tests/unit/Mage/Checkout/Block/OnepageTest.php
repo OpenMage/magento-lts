@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Checkout\Block;
 
-use Mage_Checkout_Block_Onepage as Subject;
+# use Mage_Checkout_Block_Onepage as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Checkout\Block\OnepageTrait;
 

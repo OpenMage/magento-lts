@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Directory\Model\Currency\Import;
 
 # use Mage;
-use Mage_Directory_Model_Currency_Import_Abstract as Subject;
+# use Mage_Directory_Model_Currency_Import_Abstract as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Directory\Model\Currency\Import\AbstractTrait;
 

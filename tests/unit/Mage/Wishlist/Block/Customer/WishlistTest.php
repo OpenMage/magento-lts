@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Wishlist\Block\Customer;
 
-use Mage_Wishlist_Block_Customer_Wishlist as Subject;
+# use Mage_Wishlist_Block_Customer_Wishlist as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Wishlist\Block\Customer\WishlistTrait;
 

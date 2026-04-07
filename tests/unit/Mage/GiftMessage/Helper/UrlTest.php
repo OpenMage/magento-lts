@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\GiftMessage\Helper;
 
 # use Mage;
-use Mage_GiftMessage_Helper_Url as Subject;
+# use Mage_GiftMessage_Helper_Url as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\GiftMessage\Helper\UrlTrait;
 

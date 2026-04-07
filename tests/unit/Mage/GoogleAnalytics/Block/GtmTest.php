@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\GoogleAnalytics\Block;
 
-use Mage_GoogleAnalytics_Block_Gtm as Subject;
+# use Mage_GoogleAnalytics_Block_Gtm as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\GoogleAnalytics\Block\GtmTrait;
 

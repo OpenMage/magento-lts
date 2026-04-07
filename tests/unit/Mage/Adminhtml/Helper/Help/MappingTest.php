@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Adminhtml\Helper\Help;
 
 # use Mage;
-use Mage_Adminhtml_Helper_Help_Mapping as Subject;
+# use Mage_Adminhtml_Helper_Help_Mapping as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Helper\Help\MappingTrait;
 

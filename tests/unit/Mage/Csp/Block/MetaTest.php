@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Csp\Block;
 
-use Mage_Csp_Block_Meta as Subject;
+# use Mage_Csp_Block_Meta as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Csp\Block\MetaTrait;
 

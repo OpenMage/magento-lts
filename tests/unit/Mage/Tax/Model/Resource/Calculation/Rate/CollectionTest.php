@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Tax\Model\Resource\Calculation\Rate;
 
 # use Mage;
-use Mage_Tax_Model_Resource_Calculation_Rate_Collection as Subject;
+# use Mage_Tax_Model_Resource_Calculation_Rate_Collection as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Tax\Model\Resource\Calculation\Rate\CollectionTrait;
 

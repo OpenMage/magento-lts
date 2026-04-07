@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Eav\Model\Form;
 
 # use Mage;
-use Mage_Eav_Model_Form_Fieldset as Subject;
+# use Mage_Eav_Model_Form_Fieldset as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Eav\Model\Form\FieldsetTrait;
 

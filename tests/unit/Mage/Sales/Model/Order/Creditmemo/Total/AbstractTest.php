@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Sales\Model\Order\Creditmemo\Total;
 
 # use Mage;
-use Mage_Sales_Model_Order_Creditmemo_Total_Abstract as Subject;
+# use Mage_Sales_Model_Order_Creditmemo_Total_Abstract as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sales\Model\Order\Creditmemo\Total\AbstractTrait;
 

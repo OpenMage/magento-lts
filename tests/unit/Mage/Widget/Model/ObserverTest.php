@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Widget\Model;
 
 # use Mage;
-use Mage_Widget_Model_Observer as Subject;
+# use Mage_Widget_Model_Observer as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Widget\Model\ObserverTrait;
 

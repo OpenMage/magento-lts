@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Api\Model\Acl\Role;
 
 # use Mage;
-use Mage_Api_Model_Acl_Role_User as Subject;
+# use Mage_Api_Model_Acl_Role_User as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Api\Model\Acl\Role\UserTrait;
 

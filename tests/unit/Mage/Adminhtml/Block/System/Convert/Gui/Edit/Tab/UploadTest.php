@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\System\Convert\Gui\Edit\Tab;
 
-use Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tab_Upload as Subject;
+# use Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tab_Upload as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\System\Convert\Gui\Edit\Tab\UploadTrait;
 

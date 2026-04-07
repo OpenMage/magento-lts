@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Checkout\Block\Multishipping;
 
-use Mage_Checkout_Block_Multishipping_Overview as Subject;
+# use Mage_Checkout_Block_Multishipping_Overview as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Checkout\Block\Multishipping\OverviewTrait;
 

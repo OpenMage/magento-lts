@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Catalog\Model\Category\Attribute\Source;
 
 # use Mage;
-use Mage_Catalog_Model_Category_Attribute_Source_Page as Subject;
+# use Mage_Catalog_Model_Category_Attribute_Source_Page as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\Model\Category\Attribute\Source\PageTrait;
 

@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Bundle\Block\Catalog\Product\View\Type\Bundle\Option;
 
-use Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option_Radio as Subject;
+# use Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option_Radio as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Bundle\Block\Catalog\Product\View\Type\Bundle\Option\RadioTrait;
 

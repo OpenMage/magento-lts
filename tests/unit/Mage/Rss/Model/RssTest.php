@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Rss\Model;
 
 # use Mage;
-use Mage_Rss_Model_Rss as Subject;
+# use Mage_Rss_Model_Rss as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Rss\Model\RssTrait;
 

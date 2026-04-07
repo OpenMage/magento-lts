@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Sales\Block\Adminhtml\Customer\Edit\Tab\Recurring;
 
-use Mage_Sales_Block_Adminhtml_Customer_Edit_Tab_Recurring_Profile as Subject;
+# use Mage_Sales_Block_Adminhtml_Customer_Edit_Tab_Recurring_Profile as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sales\Block\Adminhtml\Customer\Edit\Tab\Recurring\ProfileTrait;
 

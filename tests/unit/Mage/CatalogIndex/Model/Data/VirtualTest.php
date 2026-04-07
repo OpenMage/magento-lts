@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\CatalogIndex\Model\Data;
 
 # use Mage;
-use Mage_CatalogIndex_Model_Data_Virtual as Subject;
+# use Mage_CatalogIndex_Model_Data_Virtual as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\CatalogIndex\Model\Data\VirtualTrait;
 

@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Downloadable\Block\Checkout\Cart\Item;
 
-use Mage_Downloadable_Block_Checkout_Cart_Item_Renderer as Subject;
+# use Mage_Downloadable_Block_Checkout_Cart_Item_Renderer as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Downloadable\Block\Checkout\Cart\Item\RendererTrait;
 

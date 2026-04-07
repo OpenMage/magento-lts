@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Core\Model\Resource\File\Storage;
 
 # use Mage;
-use Mage_Core_Model_Resource_File_Storage_Database as Subject;
+# use Mage_Core_Model_Resource_File_Storage_Database as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\Model\Resource\File\Storage\DatabaseTrait;
 

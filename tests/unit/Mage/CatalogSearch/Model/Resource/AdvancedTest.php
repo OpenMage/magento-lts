@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\CatalogSearch\Model\Resource;
 
 # use Mage;
-use Mage_CatalogSearch_Model_Resource_Advanced as Subject;
+# use Mage_CatalogSearch_Model_Resource_Advanced as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\CatalogSearch\Model\Resource\AdvancedTrait;
 

@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Sales\Model\Resource\Collection;
 
 # use Mage;
-use Mage_Sales_Model_Resource_Collection_Abstract as Subject;
+# use Mage_Sales_Model_Resource_Collection_Abstract as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sales\Model\Resource\Collection\AbstractTrait;
 

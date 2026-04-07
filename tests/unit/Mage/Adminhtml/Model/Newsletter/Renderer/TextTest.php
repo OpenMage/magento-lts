@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Adminhtml\Model\Newsletter\Renderer;
 
 # use Mage;
-use Mage_Adminhtml_Model_Newsletter_Renderer_Text as Subject;
+# use Mage_Adminhtml_Model_Newsletter_Renderer_Text as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Model\Newsletter\Renderer\TextTrait;
 

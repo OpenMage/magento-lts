@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Sales\Order\Create\Shipping\Method;
 
-use Mage_Adminhtml_Block_Sales_Order_Create_Shipping_Method_Form as Subject;
+# use Mage_Adminhtml_Block_Sales_Order_Create_Shipping_Method_Form as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\Sales\Order\Create\Shipping\Method\FormTrait;
 

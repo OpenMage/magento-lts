@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Sales\Model\Order\Pdf\Items\Shipment;
 
 # use Mage;
-use Mage_Sales_Model_Order_Pdf_Items_Shipment_Default as Subject;
+# use Mage_Sales_Model_Order_Pdf_Items_Shipment_Default as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sales\Model\Order\Pdf\Items\Shipment\DefaultTrait;
 

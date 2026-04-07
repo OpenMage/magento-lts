@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Weee\Model\Resource;
 
 # use Mage;
-use Mage_Weee_Model_Resource_Tax as Subject;
+# use Mage_Weee_Model_Resource_Tax as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Weee\Model\Resource\TaxTrait;
 

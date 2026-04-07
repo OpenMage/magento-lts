@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Catalog\Product\Widget\Chooser;
 
-use Mage_Adminhtml_Block_Catalog_Product_Widget_Chooser_Container as Subject;
+# use Mage_Adminhtml_Block_Catalog_Product_Widget_Chooser_Container as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\Catalog\Product\Widget\Chooser\ContainerTrait;
 

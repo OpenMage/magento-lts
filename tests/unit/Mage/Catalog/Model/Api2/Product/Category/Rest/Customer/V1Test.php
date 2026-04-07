@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Catalog\Model\Api2\Product\Category\Rest\Customer;
 
 # use Mage;
-use Mage_Catalog_Model_Api2_Product_Category_Rest_Customer_V1 as Subject;
+# use Mage_Catalog_Model_Api2_Product_Category_Rest_Customer_V1 as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\Model\Api2\Product\Category\Rest\Customer\V1Trait;
 

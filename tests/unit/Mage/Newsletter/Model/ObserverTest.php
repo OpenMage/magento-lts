@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Newsletter\Model;
 
 # use Mage;
-use Mage_Newsletter_Model_Observer as Subject;
+# use Mage_Newsletter_Model_Observer as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Newsletter\Model\ObserverTrait;
 

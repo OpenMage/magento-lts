@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Captcha\Block;
 
-use Mage_Captcha_Block_Captcha as Subject;
+# use Mage_Captcha_Block_Captcha as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Captcha\Block\CaptchaTrait;
 

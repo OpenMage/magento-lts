@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\GoogleCheckout\Model;
 
 # use Mage;
-use Mage_GoogleCheckout_Model_Payment as Subject;
+# use Mage_GoogleCheckout_Model_Payment as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\GoogleCheckout\Model\PaymentTrait;
 

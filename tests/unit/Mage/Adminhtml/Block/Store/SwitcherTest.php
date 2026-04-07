@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Store;
 
-use Mage_Adminhtml_Block_Store_Switcher as Subject;
+# use Mage_Adminhtml_Block_Store_Switcher as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\Store\SwitcherTrait;
 

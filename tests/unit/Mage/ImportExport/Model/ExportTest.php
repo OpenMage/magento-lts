@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\ImportExport\Model;
 
 # use Mage;
-use Mage_ImportExport_Model_Export as Subject;
+# use Mage_ImportExport_Model_Export as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\ImportExport\Model\ExportTrait;
 

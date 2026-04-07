@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Adminhtml\Model\System\Config\Source\Cms\Wysiwyg;
 
 # use Mage;
-use Mage_Adminhtml_Model_System_Config_Source_Cms_Wysiwyg_Enabled as Subject;
+# use Mage_Adminhtml_Model_System_Config_Source_Cms_Wysiwyg_Enabled as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Model\System\Config\Source\Cms\Wysiwyg\EnabledTrait;
 

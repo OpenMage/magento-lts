@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Customer\Edit\Renderer\Attribute;
 
-use Mage_Adminhtml_Block_Customer_Edit_Renderer_Attribute_Group as Subject;
+# use Mage_Adminhtml_Block_Customer_Edit_Renderer_Attribute_Group as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\Customer\Edit\Renderer\Attribute\GroupTrait;
 

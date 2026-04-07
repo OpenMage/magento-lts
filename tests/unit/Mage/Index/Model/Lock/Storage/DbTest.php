@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Index\Model\Lock\Storage;
 
 # use Mage;
-use Mage_Index_Model_Lock_Storage_Db as Subject;
+# use Mage_Index_Model_Lock_Storage_Db as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Index\Model\Lock\Storage\DbTrait;
 

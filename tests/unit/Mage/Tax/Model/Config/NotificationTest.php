@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Tax\Model\Config;
 
 # use Mage;
-use Mage_Tax_Model_Config_Notification as Subject;
+# use Mage_Tax_Model_Config_Notification as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Tax\Model\Config\NotificationTrait;
 

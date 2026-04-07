@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\CatalogSearch\Block\Layer\Filter;
 
-use Mage_CatalogSearch_Block_Layer_Filter_Attribute as Subject;
+# use Mage_CatalogSearch_Block_Layer_Filter_Attribute as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\CatalogSearch\Block\Layer\Filter\AttributeTrait;
 

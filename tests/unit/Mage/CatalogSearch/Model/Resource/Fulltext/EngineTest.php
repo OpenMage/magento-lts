@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\CatalogSearch\Model\Resource\Fulltext;
 
 # use Mage;
-use Mage_CatalogSearch_Model_Resource_Fulltext_Engine as Subject;
+# use Mage_CatalogSearch_Model_Resource_Fulltext_Engine as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\CatalogSearch\Model\Resource\Fulltext\EngineTrait;
 

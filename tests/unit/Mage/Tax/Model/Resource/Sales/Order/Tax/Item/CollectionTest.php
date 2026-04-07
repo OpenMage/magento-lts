@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Tax\Model\Resource\Sales\Order\Tax\Item;
 
 # use Mage;
-use Mage_Tax_Model_Resource_Sales_Order_Tax_Item_Collection as Subject;
+# use Mage_Tax_Model_Resource_Sales_Order_Tax_Item_Collection as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Tax\Model\Resource\Sales\Order\Tax\Item\CollectionTrait;
 

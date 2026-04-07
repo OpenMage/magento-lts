@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\System\Config\Form\Fieldset\Order;
 
-use Mage_Adminhtml_Block_System_Config_Form_Fieldset_Order_Statuses as Subject;
+# use Mage_Adminhtml_Block_System_Config_Form_Fieldset_Order_Statuses as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\System\Config\Form\Fieldset\Order\StatusesTrait;
 

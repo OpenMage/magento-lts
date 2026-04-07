@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Media\Model;
 
 # use Mage;
-use Mage_Media_Model_Image as Subject;
+# use Mage_Media_Model_Image as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Media\Model\ImageTrait;
 

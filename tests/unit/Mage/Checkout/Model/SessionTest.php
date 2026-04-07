@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Checkout\Model;
 
 # use Mage;
-use Mage_Checkout_Model_Session as Subject;
+# use Mage_Checkout_Model_Session as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Checkout\Model\SessionTrait;
 

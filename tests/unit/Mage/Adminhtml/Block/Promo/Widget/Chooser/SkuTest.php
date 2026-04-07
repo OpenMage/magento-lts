@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Promo\Widget\Chooser;
 
-use Mage_Adminhtml_Block_Promo_Widget_Chooser_Sku as Subject;
+# use Mage_Adminhtml_Block_Promo_Widget_Chooser_Sku as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\Promo\Widget\Chooser\SkuTrait;
 

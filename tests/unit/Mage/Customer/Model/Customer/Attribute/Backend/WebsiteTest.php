@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Customer\Model\Customer\Attribute\Backend;
 
 # use Mage;
-use Mage_Customer_Model_Customer_Attribute_Backend_Website as Subject;
+# use Mage_Customer_Model_Customer_Attribute_Backend_Website as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Customer\Model\Customer\Attribute\Backend\WebsiteTrait;
 

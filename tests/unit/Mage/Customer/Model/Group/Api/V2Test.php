@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Customer\Model\Group\Api;
 
 # use Mage;
-use Mage_Customer_Model_Group_Api_V2 as Subject;
+# use Mage_Customer_Model_Group_Api_V2 as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Customer\Model\Group\Api\V2Trait;
 

@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Widget\Block\Adminhtml\Widget\Instance\Edit\Chooser;
 
-use Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Template as Subject;
+# use Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Template as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Widget\Block\Adminhtml\Widget\Instance\Edit\Chooser\TemplateTrait;
 

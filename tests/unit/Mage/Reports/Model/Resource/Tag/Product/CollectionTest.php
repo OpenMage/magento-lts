@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Reports\Model\Resource\Tag\Product;
 
 # use Mage;
-use Mage_Reports_Model_Resource_Tag_Product_Collection as Subject;
+# use Mage_Reports_Model_Resource_Tag_Product_Collection as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Reports\Model\Resource\Tag\Product\CollectionTrait;
 

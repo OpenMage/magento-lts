@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\ImportExport\Block\Adminhtml\Import\Edit;
 
-use Mage_ImportExport_Block_Adminhtml_Import_Edit_Form as Subject;
+# use Mage_ImportExport_Block_Adminhtml_Import_Edit_Form as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\ImportExport\Block\Adminhtml\Import\Edit\FormTrait;
 

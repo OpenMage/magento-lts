@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Reports\Model\Grouped;
 
 # use Mage;
-use Mage_Reports_Model_Grouped_Collection as Subject;
+# use Mage_Reports_Model_Grouped_Collection as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Reports\Model\Grouped\CollectionTrait;
 

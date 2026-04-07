@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Customer\Model\Entity\Address;
 
 # use Mage;
-use Mage_Customer_Model_Entity_Address_Collection as Subject;
+# use Mage_Customer_Model_Entity_Address_Collection as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Customer\Model\Entity\Address\CollectionTrait;
 

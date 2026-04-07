@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Paypal\Block\Adminhtml\System\Config;
 
-use Mage_Paypal_Block_Adminhtml_System_Config_BmlApiWizard as Subject;
+# use Mage_Paypal_Block_Adminhtml_System_Config_BmlApiWizard as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Paypal\Block\Adminhtml\System\Config\BmlApiWizardTrait;
 

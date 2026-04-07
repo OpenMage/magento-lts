@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Paypal\Model\Method;
 
 # use Mage;
-use Mage_Paypal_Model_Method_Agreement as Subject;
+# use Mage_Paypal_Model_Method_Agreement as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Paypal\Model\Method\AgreementTrait;
 

@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Sales\Model\Entity;
 
 # use Mage;
-use Mage_Sales_Model_Entity_Setup as Subject;
+# use Mage_Sales_Model_Entity_Setup as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sales\Model\Entity\SetupTrait;
 

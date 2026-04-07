@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Oauth\Block\Adminhtml\Oauth\AuthorizedTokens;
 
-use Mage_Oauth_Block_Adminhtml_Oauth_AuthorizedTokens_Grid as Subject;
+# use Mage_Oauth_Block_Adminhtml_Oauth_AuthorizedTokens_Grid as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Oauth\Block\Adminhtml\Oauth\AuthorizedTokens\GridTrait;
 

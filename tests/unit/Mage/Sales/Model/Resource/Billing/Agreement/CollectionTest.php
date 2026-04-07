@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Sales\Model\Resource\Billing\Agreement;
 
 # use Mage;
-use Mage_Sales_Model_Resource_Billing_Agreement_Collection as Subject;
+# use Mage_Sales_Model_Resource_Billing_Agreement_Collection as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sales\Model\Resource\Billing\Agreement\CollectionTrait;
 

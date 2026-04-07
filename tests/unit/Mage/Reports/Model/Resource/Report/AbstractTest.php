@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Reports\Model\Resource\Report;
 
 # use Mage;
-use Mage_Reports_Model_Resource_Report_Abstract as Subject;
+# use Mage_Reports_Model_Resource_Report_Abstract as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Reports\Model\Resource\Report\AbstractTrait;
 

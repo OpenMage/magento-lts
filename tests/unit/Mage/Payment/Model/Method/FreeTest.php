@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Payment\Model\Method;
 
 # use Mage;
-use Mage_Payment_Model_Method_Free as Subject;
+# use Mage_Payment_Model_Method_Free as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Payment\Model\Method\FreeTrait;
 

@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Adminhtml\Model\System\Config\Backend\Customer\Show;
 
 # use Mage;
-use Mage_Adminhtml_Model_System_Config_Backend_Customer_Show_Address as Subject;
+# use Mage_Adminhtml_Model_System_Config_Backend_Customer_Show_Address as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Model\System\Config\Backend\Customer\Show\AddressTrait;
 

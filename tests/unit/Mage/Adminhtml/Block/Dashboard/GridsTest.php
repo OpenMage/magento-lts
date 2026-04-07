@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Dashboard;
 
-use Mage_Adminhtml_Block_Dashboard_Grids as Subject;
+# use Mage_Adminhtml_Block_Dashboard_Grids as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\Dashboard\GridsTrait;
 

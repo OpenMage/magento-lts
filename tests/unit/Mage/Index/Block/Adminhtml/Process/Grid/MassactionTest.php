@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Index\Block\Adminhtml\Process\Grid;
 
-use Mage_Index_Block_Adminhtml_Process_Grid_Massaction as Subject;
+# use Mage_Index_Block_Adminhtml_Process_Grid_Massaction as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Index\Block\Adminhtml\Process\Grid\MassactionTrait;
 

@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Log\Model\Visitor;
 
 # use Mage;
-use Mage_Log_Model_Visitor_Online as Subject;
+# use Mage_Log_Model_Visitor_Online as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Log\Model\Visitor\OnlineTrait;
 

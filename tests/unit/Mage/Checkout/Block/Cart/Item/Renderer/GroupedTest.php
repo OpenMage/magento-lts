@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Checkout\Block\Cart\Item\Renderer;
 
-use Mage_Checkout_Block_Cart_Item_Renderer_Grouped as Subject;
+# use Mage_Checkout_Block_Cart_Item_Renderer_Grouped as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Checkout\Block\Cart\Item\Renderer\GroupedTrait;
 

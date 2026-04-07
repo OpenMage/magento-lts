@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Sales\Model\Payment\Method\Billing;
 
 # use Mage;
-use Mage_Sales_Model_Payment_Method_Billing_AgreementAbstract as Subject;
+# use Mage_Sales_Model_Payment_Method_Billing_AgreementAbstract as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sales\Model\Payment\Method\Billing\AgreementAbstractTrait;
 

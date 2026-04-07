@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Eav\Model\Adminhtml\System\Config\Source;
 
 # use Mage;
-use Mage_Eav_Model_Adminhtml_System_Config_Source_Inputtype as Subject;
+# use Mage_Eav_Model_Adminhtml_System_Config_Source_Inputtype as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Eav\Model\Adminhtml\System\Config\Source\InputtypeTrait;
 

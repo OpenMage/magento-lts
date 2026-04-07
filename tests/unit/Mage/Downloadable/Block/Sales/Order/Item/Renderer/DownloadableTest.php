@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Downloadable\Block\Sales\Order\Item\Renderer;
 
-use Mage_Downloadable_Block_Sales_Order_Item_Renderer_Downloadable as Subject;
+# use Mage_Downloadable_Block_Sales_Order_Item_Renderer_Downloadable as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Downloadable\Block\Sales\Order\Item\Renderer\DownloadableTrait;
 

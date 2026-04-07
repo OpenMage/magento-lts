@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Downloadable\Block\Checkout;
 
-use Mage_Downloadable_Block_Checkout_Success as Subject;
+# use Mage_Downloadable_Block_Checkout_Success as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Downloadable\Block\Checkout\SuccessTrait;
 

@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Review\Grid\Filter;
 
-use Mage_Adminhtml_Block_Review_Grid_Filter_Type as Subject;
+# use Mage_Adminhtml_Block_Review_Grid_Filter_Type as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\Review\Grid\Filter\TypeTrait;
 

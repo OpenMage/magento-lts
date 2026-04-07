@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Bundle\Block\Adminhtml\Sales\Order\Items;
 
-use Mage_Bundle_Block_Adminhtml_Sales_Order_Items_Renderer as Subject;
+# use Mage_Bundle_Block_Adminhtml_Sales_Order_Items_Renderer as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Bundle\Block\Adminhtml\Sales\Order\Items\RendererTrait;
 

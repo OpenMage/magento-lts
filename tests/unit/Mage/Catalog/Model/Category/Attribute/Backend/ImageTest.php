@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Catalog\Model\Category\Attribute\Backend;
 
 # use Mage;
-use Mage_Catalog_Model_Category_Attribute_Backend_Image as Subject;
+# use Mage_Catalog_Model_Category_Attribute_Backend_Image as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\Model\Category\Attribute\Backend\ImageTrait;
 

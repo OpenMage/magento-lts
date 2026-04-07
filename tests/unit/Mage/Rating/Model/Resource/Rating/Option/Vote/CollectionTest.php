@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Rating\Model\Resource\Rating\Option\Vote;
 
 # use Mage;
-use Mage_Rating_Model_Resource_Rating_Option_Vote_Collection as Subject;
+# use Mage_Rating_Model_Resource_Rating_Option_Vote_Collection as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Rating\Model\Resource\Rating\Option\Vote\CollectionTrait;
 

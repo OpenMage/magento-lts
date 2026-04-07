@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Adminhtml\Model\Sales;
 
 # use Mage;
-use Mage_Adminhtml_Model_Sales_Order as Subject;
+# use Mage_Adminhtml_Model_Sales_Order as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Model\Sales\OrderTrait;
 

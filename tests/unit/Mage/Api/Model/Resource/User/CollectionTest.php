@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Api\Model\Resource\User;
 
 # use Mage;
-use Mage_Api_Model_Resource_User_Collection as Subject;
+# use Mage_Api_Model_Resource_User_Collection as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Api\Model\Resource\User\CollectionTrait;
 

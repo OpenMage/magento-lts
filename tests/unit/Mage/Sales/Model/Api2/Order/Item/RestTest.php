@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Sales\Model\Api2\Order\Item;
 
 # use Mage;
-use Mage_Sales_Model_Api2_Order_Item_Rest as Subject;
+# use Mage_Sales_Model_Api2_Order_Item_Rest as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sales\Model\Api2\Order\Item\RestTrait;
 

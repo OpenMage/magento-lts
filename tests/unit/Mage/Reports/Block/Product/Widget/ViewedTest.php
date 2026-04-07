@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Reports\Block\Product\Widget;
 
-use Mage_Reports_Block_Product_Widget_Viewed as Subject;
+# use Mage_Reports_Block_Product_Widget_Viewed as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Reports\Block\Product\Widget\ViewedTrait;
 

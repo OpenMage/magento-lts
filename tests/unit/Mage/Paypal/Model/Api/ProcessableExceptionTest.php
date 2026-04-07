@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Paypal\Model\Api;
 
 # use Mage;
-use Mage_Paypal_Model_Api_ProcessableException as Subject;
+# use Mage_Paypal_Model_Api_ProcessableException as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Paypal\Model\Api\ProcessableExceptionTrait;
 

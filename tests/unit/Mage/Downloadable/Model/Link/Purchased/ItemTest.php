@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Downloadable\Model\Link\Purchased;
 
 # use Mage;
-use Mage_Downloadable_Model_Link_Purchased_Item as Subject;
+# use Mage_Downloadable_Model_Link_Purchased_Item as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Downloadable\Model\Link\Purchased\ItemTrait;
 

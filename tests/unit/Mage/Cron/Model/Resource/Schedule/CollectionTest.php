@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Cron\Model\Resource\Schedule;
 
 # use Mage;
-use Mage_Cron_Model_Resource_Schedule_Collection as Subject;
+# use Mage_Cron_Model_Resource_Schedule_Collection as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Cron\Model\Resource\Schedule\CollectionTrait;
 

@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\GoogleAnalytics\Model;
 
 # use Mage;
-use Mage_GoogleAnalytics_Model_Observer as Subject;
+# use Mage_GoogleAnalytics_Model_Observer as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\GoogleAnalytics\Model\ObserverTrait;
 

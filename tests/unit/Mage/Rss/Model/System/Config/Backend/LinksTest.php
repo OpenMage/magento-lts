@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Rss\Model\System\Config\Backend;
 
 # use Mage;
-use Mage_Rss_Model_System_Config_Backend_Links as Subject;
+# use Mage_Rss_Model_System_Config_Backend_Links as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Rss\Model\System\Config\Backend\LinksTrait;
 

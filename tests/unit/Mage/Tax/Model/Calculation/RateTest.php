@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Tax\Model\Calculation;
 
 # use Mage;
-use Mage_Tax_Model_Calculation_Rate as Subject;
+# use Mage_Tax_Model_Calculation_Rate as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Tax\Model\Calculation\RateTrait;
 

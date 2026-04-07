@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Html;
 
-use Mage_Adminhtml_Block_Html_Select as Subject;
+# use Mage_Adminhtml_Block_Html_Select as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\Html\SelectTrait;
 

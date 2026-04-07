@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Admin\Model\Resource;
 
 # use Mage;
-use Mage_Admin_Model_Resource_User as Subject;
+# use Mage_Admin_Model_Resource_User as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Admin\Model\Resource\UserTrait;
 

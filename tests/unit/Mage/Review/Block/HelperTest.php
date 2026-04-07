@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Review\Block;
 
-use Mage_Review_Block_Helper as Subject;
+# use Mage_Review_Block_Helper as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Review\Block\HelperTrait;
 

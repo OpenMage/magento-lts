@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Catalog\Model\Resource\Product\Indexer;
 
 # use Mage;
-use Mage_Catalog_Model_Resource_Product_Indexer_Abstract as Subject;
+# use Mage_Catalog_Model_Resource_Product_Indexer_Abstract as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\Model\Resource\Product\Indexer\AbstractTrait;
 

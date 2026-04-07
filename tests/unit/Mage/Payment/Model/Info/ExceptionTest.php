@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Payment\Model\Info;
 
 # use Mage;
-use Mage_Payment_Model_Info_Exception as Subject;
+# use Mage_Payment_Model_Info_Exception as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Payment\Model\Info\ExceptionTrait;
 

@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Shipping\Model\Rate\Result;
 
 # use Mage;
-use Mage_Shipping_Model_Rate_Result_Abstract as Subject;
+# use Mage_Shipping_Model_Rate_Result_Abstract as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Shipping\Model\Rate\Result\AbstractTrait;
 

@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\CatalogInventory\Model\Resource\Stock;
 
 # use Mage;
-use Mage_CatalogInventory_Model_Resource_Stock_Item as Subject;
+# use Mage_CatalogInventory_Model_Resource_Stock_Item as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\CatalogInventory\Model\Resource\Stock\ItemTrait;
 

@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\SalesRule\Model\Coupon;
 
 # use Mage;
-use Mage_SalesRule_Model_Coupon_Massgenerator as Subject;
+# use Mage_SalesRule_Model_Coupon_Massgenerator as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\SalesRule\Model\Coupon\MassgeneratorTrait;
 

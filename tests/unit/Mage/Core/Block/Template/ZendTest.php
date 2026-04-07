@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Core\Block\Template;
 
-use Mage_Core_Block_Template_Zend as Subject;
+# use Mage_Core_Block_Template_Zend as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\Block\Template\ZendTrait;
 

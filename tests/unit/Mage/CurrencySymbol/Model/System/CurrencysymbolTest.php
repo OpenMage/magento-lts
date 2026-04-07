@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\CurrencySymbol\Model\System;
 
 # use Mage;
-use Mage_CurrencySymbol_Model_System_Currencysymbol as Subject;
+# use Mage_CurrencySymbol_Model_System_Currencysymbol as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\CurrencySymbol\Model\System\CurrencysymbolTrait;
 

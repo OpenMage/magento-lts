@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Widget\Grid\Column\Renderer;
 
-use Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Number as Subject;
+# use Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Number as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\Widget\Grid\Column\Renderer\NumberTrait;
 

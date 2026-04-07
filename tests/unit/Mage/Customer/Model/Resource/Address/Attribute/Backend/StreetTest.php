@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Customer\Model\Resource\Address\Attribute\Backend;
 
 # use Mage;
-use Mage_Customer_Model_Resource_Address_Attribute_Backend_Street as Subject;
+# use Mage_Customer_Model_Resource_Address_Attribute_Backend_Street as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Customer\Model\Resource\Address\Attribute\Backend\StreetTrait;
 

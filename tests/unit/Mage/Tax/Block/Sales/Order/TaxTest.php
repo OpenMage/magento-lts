@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Tax\Block\Sales\Order;
 
-use Mage_Tax_Block_Sales_Order_Tax as Subject;
+# use Mage_Tax_Block_Sales_Order_Tax as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Tax\Block\Sales\Order\TaxTrait;
 

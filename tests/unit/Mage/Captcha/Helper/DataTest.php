@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Captcha\Helper;
 
 # use Mage;
-use Mage_Captcha_Helper_Data as Subject;
+# use Mage_Captcha_Helper_Data as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Captcha\Helper\DataTrait;
 

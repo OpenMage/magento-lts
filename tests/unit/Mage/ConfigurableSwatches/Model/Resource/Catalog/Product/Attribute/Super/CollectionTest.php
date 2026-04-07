@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\ConfigurableSwatches\Model\Resource\Catalog\Product\Attribute\Super;
 
 # use Mage;
-use Mage_ConfigurableSwatches_Model_Resource_Catalog_Product_Attribute_Super_Collection as Subject;
+# use Mage_ConfigurableSwatches_Model_Resource_Catalog_Product_Attribute_Super_Collection as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\ConfigurableSwatches\Model\Resource\Catalog\Product\Attribute\Super\CollectionTrait;
 

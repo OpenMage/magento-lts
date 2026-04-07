@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Api\Model\Server;
 
 # use Mage;
-use Mage_Api_Model_Server_Handler as Subject;
+# use Mage_Api_Model_Server_Handler as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Api\Model\Server\HandlerTrait;
 

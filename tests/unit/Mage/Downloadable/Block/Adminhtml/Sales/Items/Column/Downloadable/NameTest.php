@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Downloadable\Block\Adminhtml\Sales\Items\Column\Downloadable;
 
-use Mage_Downloadable_Block_Adminhtml_Sales_Items_Column_Downloadable_Name as Subject;
+# use Mage_Downloadable_Block_Adminhtml_Sales_Items_Column_Downloadable_Name as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Downloadable\Block\Adminhtml\Sales\Items\Column\Downloadable\NameTrait;
 

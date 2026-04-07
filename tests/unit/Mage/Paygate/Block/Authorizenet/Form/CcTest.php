@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Paygate\Block\Authorizenet\Form;
 
-use Mage_Paygate_Block_Authorizenet_Form_Cc as Subject;
+# use Mage_Paygate_Block_Authorizenet_Form_Cc as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Paygate\Block\Authorizenet\Form\CcTrait;
 

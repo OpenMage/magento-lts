@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Install\Model\Installer\Db;
 
 # use Mage;
-use Mage_Install_Model_Installer_Db_Mysql4 as Subject;
+# use Mage_Install_Model_Installer_Db_Mysql4 as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Install\Model\Installer\Db\Mysql4Trait;
 

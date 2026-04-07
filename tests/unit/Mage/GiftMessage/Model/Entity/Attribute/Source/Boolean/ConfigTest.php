@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\GiftMessage\Model\Entity\Attribute\Source\Boolean;
 
 # use Mage;
-use Mage_GiftMessage_Model_Entity_Attribute_Source_Boolean_Config as Subject;
+# use Mage_GiftMessage_Model_Entity_Attribute_Source_Boolean_Config as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\GiftMessage\Model\Entity\Attribute\Source\Boolean\ConfigTrait;
 

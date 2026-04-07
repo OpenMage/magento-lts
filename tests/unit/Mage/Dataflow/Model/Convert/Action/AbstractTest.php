@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Dataflow\Model\Convert\Action;
 
 # use Mage;
-use Mage_Dataflow_Model_Convert_Action_Abstract as Subject;
+# use Mage_Dataflow_Model_Convert_Action_Abstract as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Dataflow\Model\Convert\Action\AbstractTrait;
 

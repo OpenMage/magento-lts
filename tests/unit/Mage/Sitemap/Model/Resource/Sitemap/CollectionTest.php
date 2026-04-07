@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Sitemap\Model\Resource\Sitemap;
 
 # use Mage;
-use Mage_Sitemap_Model_Resource_Sitemap_Collection as Subject;
+# use Mage_Sitemap_Model_Resource_Sitemap_Collection as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sitemap\Model\Resource\Sitemap\CollectionTrait;
 

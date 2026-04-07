@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Sales\Items\Column;
 
-use Mage_Adminhtml_Block_Sales_Items_Column_Default as Subject;
+# use Mage_Adminhtml_Block_Sales_Items_Column_Default as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\Sales\Items\Column\DefaultTrait;
 

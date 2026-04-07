@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Review\Block\Customer;
 
-use Mage_Review_Block_Customer_List as Subject;
+# use Mage_Review_Block_Customer_List as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Review\Block\Customer\ListTrait;
 

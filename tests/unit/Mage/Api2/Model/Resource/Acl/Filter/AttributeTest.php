@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Api2\Model\Resource\Acl\Filter;
 
 # use Mage;
-use Mage_Api2_Model_Resource_Acl_Filter_Attribute as Subject;
+# use Mage_Api2_Model_Resource_Acl_Filter_Attribute as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Api2\Model\Resource\Acl\Filter\AttributeTrait;
 

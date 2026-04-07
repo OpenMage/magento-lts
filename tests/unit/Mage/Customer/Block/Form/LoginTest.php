@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Customer\Block\Form;
 
-use Mage_Customer_Block_Form_Login as Subject;
+# use Mage_Customer_Block_Form_Login as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Customer\Block\Form\LoginTrait;
 

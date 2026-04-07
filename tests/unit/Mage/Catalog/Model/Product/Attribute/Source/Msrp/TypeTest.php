@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Catalog\Model\Product\Attribute\Source\Msrp;
 
 # use Mage;
-use Mage_Catalog_Model_Product_Attribute_Source_Msrp_Type as Subject;
+# use Mage_Catalog_Model_Product_Attribute_Source_Msrp_Type as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\Model\Product\Attribute\Source\Msrp\TypeTrait;
 

@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Tax\Block\Adminhtml;
 
-use Mage_Tax_Block_Adminhtml_Notifications as Subject;
+# use Mage_Tax_Block_Adminhtml_Notifications as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Tax\Block\Adminhtml\NotificationsTrait;
 

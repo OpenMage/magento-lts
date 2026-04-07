@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Newsletter\Model\Resource\Template;
 
 # use Mage;
-use Mage_Newsletter_Model_Resource_Template_Collection as Subject;
+# use Mage_Newsletter_Model_Resource_Template_Collection as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Newsletter\Model\Resource\Template\CollectionTrait;
 

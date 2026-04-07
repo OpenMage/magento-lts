@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Admin\Helper\Rules;
 
 # use Mage;
-use Mage_Admin_Helper_Rules_Fallback as Subject;
+# use Mage_Admin_Helper_Rules_Fallback as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Admin\Helper\Rules\FallbackTrait;
 

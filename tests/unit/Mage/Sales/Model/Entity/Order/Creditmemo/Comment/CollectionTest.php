@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Sales\Model\Entity\Order\Creditmemo\Comment;
 
 # use Mage;
-use Mage_Sales_Model_Entity_Order_Creditmemo_Comment_Collection as Subject;
+# use Mage_Sales_Model_Entity_Order_Creditmemo_Comment_Collection as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sales\Model\Entity\Order\Creditmemo\Comment\CollectionTrait;
 

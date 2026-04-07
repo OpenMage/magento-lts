@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Adminhtml\Model\System\Config\Source\Reports;
 
 # use Mage;
-use Mage_Adminhtml_Model_System_Config_Source_Reports_Scope as Subject;
+# use Mage_Adminhtml_Model_System_Config_Source_Reports_Scope as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Model\System\Config\Source\Reports\ScopeTrait;
 

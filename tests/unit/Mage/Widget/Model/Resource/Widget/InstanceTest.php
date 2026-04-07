@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Widget\Model\Resource\Widget;
 
 # use Mage;
-use Mage_Widget_Model_Resource_Widget_Instance as Subject;
+# use Mage_Widget_Model_Resource_Widget_Instance as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Widget\Model\Resource\Widget\InstanceTrait;
 

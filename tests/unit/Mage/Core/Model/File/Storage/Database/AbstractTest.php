@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Core\Model\File\Storage\Database;
 
 # use Mage;
-use Mage_Core_Model_File_Storage_Database_Abstract as Subject;
+# use Mage_Core_Model_File_Storage_Database_Abstract as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\Model\File\Storage\Database\AbstractTrait;
 

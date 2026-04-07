@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Oauth\Block\Authorize;
 
-use Mage_Oauth_Block_Authorize_Button as Subject;
+# use Mage_Oauth_Block_Authorize_Button as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Oauth\Block\Authorize\ButtonTrait;
 

@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\SalesRule\Model\Resource\Report\Rule;
 
 # use Mage;
-use Mage_SalesRule_Model_Resource_Report_Rule_Createdat as Subject;
+# use Mage_SalesRule_Model_Resource_Report_Rule_Createdat as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\SalesRule\Model\Resource\Report\Rule\CreatedatTrait;
 

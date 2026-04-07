@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Sales\Block\Order\Email\Items\Order;
 
-use Mage_Sales_Block_Order_Email_Items_Order_Default as Subject;
+# use Mage_Sales_Block_Order_Email_Items_Order_Default as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sales\Block\Order\Email\Items\Order\DefaultTrait;
 

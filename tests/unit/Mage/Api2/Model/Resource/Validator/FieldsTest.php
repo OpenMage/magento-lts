@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Api2\Model\Resource\Validator;
 
 # use Mage;
-use Mage_Api2_Model_Resource_Validator_Fields as Subject;
+# use Mage_Api2_Model_Resource_Validator_Fields as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Api2\Model\Resource\Validator\FieldsTrait;
 

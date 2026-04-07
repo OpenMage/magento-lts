@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Newsletter\Block;
 
-use Mage_Newsletter_Block_Subscribe as Subject;
+# use Mage_Newsletter_Block_Subscribe as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Newsletter\Block\SubscribeTrait;
 

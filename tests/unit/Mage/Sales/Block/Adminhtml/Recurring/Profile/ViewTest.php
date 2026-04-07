@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Sales\Block\Adminhtml\Recurring\Profile;
 
-use Mage_Sales_Block_Adminhtml_Recurring_Profile_View as Subject;
+# use Mage_Sales_Block_Adminhtml_Recurring_Profile_View as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sales\Block\Adminhtml\Recurring\Profile\ViewTrait;
 

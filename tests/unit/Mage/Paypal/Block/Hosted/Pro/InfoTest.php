@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Paypal\Block\Hosted\Pro;
 
-use Mage_Paypal_Block_Hosted_Pro_Info as Subject;
+# use Mage_Paypal_Block_Hosted_Pro_Info as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Paypal\Block\Hosted\Pro\InfoTrait;
 

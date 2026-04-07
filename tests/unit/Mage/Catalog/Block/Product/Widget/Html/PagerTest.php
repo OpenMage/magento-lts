@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Catalog\Block\Product\Widget\Html;
 
-use Mage_Catalog_Block_Product_Widget_Html_Pager as Subject;
+# use Mage_Catalog_Block_Product_Widget_Html_Pager as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\Block\Product\Widget\Html\PagerTrait;
 

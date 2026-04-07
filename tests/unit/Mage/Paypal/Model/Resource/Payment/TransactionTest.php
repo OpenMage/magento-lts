@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Paypal\Model\Resource\Payment;
 
 # use Mage;
-use Mage_Paypal_Model_Resource_Payment_Transaction as Subject;
+# use Mage_Paypal_Model_Resource_Payment_Transaction as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Paypal\Model\Resource\Payment\TransactionTrait;
 

@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Centinel\Block\Authentication;
 
-use Mage_Centinel_Block_Authentication_Complete as Subject;
+# use Mage_Centinel_Block_Authentication_Complete as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Centinel\Block\Authentication\CompleteTrait;
 

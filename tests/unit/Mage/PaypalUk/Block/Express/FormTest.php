@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\PaypalUk\Block\Express;
 
-use Mage_PaypalUk_Block_Express_Form as Subject;
+# use Mage_PaypalUk_Block_Express_Form as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\PaypalUk\Block\Express\FormTrait;
 

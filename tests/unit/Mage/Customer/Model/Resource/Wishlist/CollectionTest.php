@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Customer\Model\Resource\Wishlist;
 
 # use Mage;
-use Mage_Customer_Model_Resource_Wishlist_Collection as Subject;
+# use Mage_Customer_Model_Resource_Wishlist_Collection as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Customer\Model\Resource\Wishlist\CollectionTrait;
 

@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Directory\Model;
 
 # use Mage;
-use Mage_Directory_Model_Region as Subject;
+# use Mage_Directory_Model_Region as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Directory\Model\RegionTrait;
 

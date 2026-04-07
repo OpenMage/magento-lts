@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Usa\Model\Shipping\Carrier\Usps\Source;
 
 # use Mage;
-use Mage_Usa_Model_Shipping_Carrier_Usps_Source_Method as Subject;
+# use Mage_Usa_Model_Shipping_Carrier_Usps_Source_Method as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Usa\Model\Shipping\Carrier\Usps\Source\MethodTrait;
 

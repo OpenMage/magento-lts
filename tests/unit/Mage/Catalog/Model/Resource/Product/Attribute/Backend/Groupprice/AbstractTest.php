@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Catalog\Model\Resource\Product\Attribute\Backend\Groupprice;
 
 # use Mage;
-use Mage_Catalog_Model_Resource_Product_Attribute_Backend_Groupprice_Abstract as Subject;
+# use Mage_Catalog_Model_Resource_Product_Attribute_Backend_Groupprice_Abstract as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\Model\Resource\Product\Attribute\Backend\Groupprice\AbstractTrait;
 

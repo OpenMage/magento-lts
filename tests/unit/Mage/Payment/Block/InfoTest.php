@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Payment\Block;
 
-use Mage_Payment_Block_Info as Subject;
+# use Mage_Payment_Block_Info as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Payment\Block\InfoTrait;
 

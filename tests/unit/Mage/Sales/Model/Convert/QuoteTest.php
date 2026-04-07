@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Sales\Model\Convert;
 
 # use Mage;
-use Mage_Sales_Model_Convert_Quote as Subject;
+# use Mage_Sales_Model_Convert_Quote as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sales\Model\Convert\QuoteTrait;
 

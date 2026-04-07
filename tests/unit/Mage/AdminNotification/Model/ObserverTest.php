@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\AdminNotification\Model;
 
 # use Mage;
-use Mage_AdminNotification_Model_Observer as Subject;
+# use Mage_AdminNotification_Model_Observer as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\AdminNotification\Model\ObserverTrait;
 

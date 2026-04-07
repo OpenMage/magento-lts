@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Core\Model\Source\Email;
 
 # use Mage;
-use Mage_Core_Model_Source_Email_Variables as Subject;
+# use Mage_Core_Model_Source_Email_Variables as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\Model\Source\Email\VariablesTrait;
 

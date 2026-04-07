@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Checkout\Model\Cart\Coupon;
 
 # use Mage;
-use Mage_Checkout_Model_Cart_Coupon_Api as Subject;
+# use Mage_Checkout_Model_Cart_Coupon_Api as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Checkout\Model\Cart\Coupon\ApiTrait;
 

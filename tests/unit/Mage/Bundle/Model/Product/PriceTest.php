@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Bundle\Model\Product;
 
 # use Mage;
-use Mage_Bundle_Model_Product_Price as Subject;
+# use Mage_Bundle_Model_Product_Price as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Bundle\Model\Product\PriceTrait;
 

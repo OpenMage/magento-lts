@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Eav\Model\Entity\Attribute\Frontend;
 
 # use Mage;
-use Mage_Eav_Model_Entity_Attribute_Frontend_Datetime as Subject;
+# use Mage_Eav_Model_Entity_Attribute_Frontend_Datetime as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Eav\Model\Entity\Attribute\Frontend\DatetimeTrait;
 

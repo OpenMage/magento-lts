@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\SalesRule\Model\Rule\Condition\Product\Attribute;
 
 # use Mage;
-use Mage_SalesRule_Model_Rule_Condition_Product_Attribute_Assigned as Subject;
+# use Mage_SalesRule_Model_Rule_Condition_Product_Attribute_Assigned as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\SalesRule\Model\Rule\Condition\Product\Attribute\AssignedTrait;
 

@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Customer\Model\Config;
 
 # use Mage;
-use Mage_Customer_Model_Config_Share as Subject;
+# use Mage_Customer_Model_Config_Share as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Customer\Model\Config\ShareTrait;
 

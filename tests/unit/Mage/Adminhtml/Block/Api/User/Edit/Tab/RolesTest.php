@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Api\User\Edit\Tab;
 
-use Mage_Adminhtml_Block_Api_User_Edit_Tab_Roles as Subject;
+# use Mage_Adminhtml_Block_Api_User_Edit_Tab_Roles as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\Api\User\Edit\Tab\RolesTrait;
 

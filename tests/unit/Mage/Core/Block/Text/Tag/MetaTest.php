@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Core\Block\Text\Tag;
 
-use Mage_Core_Block_Text_Tag_Meta as Subject;
+# use Mage_Core_Block_Text_Tag_Meta as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\Block\Text\Tag\MetaTrait;
 

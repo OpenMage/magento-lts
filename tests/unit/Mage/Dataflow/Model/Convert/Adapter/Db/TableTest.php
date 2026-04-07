@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Dataflow\Model\Convert\Adapter\Db;
 
 # use Mage;
-use Mage_Dataflow_Model_Convert_Adapter_Db_Table as Subject;
+# use Mage_Dataflow_Model_Convert_Adapter_Db_Table as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Dataflow\Model\Convert\Adapter\Db\TableTrait;
 

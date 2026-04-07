@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Usa\Model\Shipping\Carrier\Ups\Backend;
 
 # use Mage;
-use Mage_Usa_Model_Shipping_Carrier_Ups_Backend_OriginShipment as Subject;
+# use Mage_Usa_Model_Shipping_Carrier_Ups_Backend_OriginShipment as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Usa\Model\Shipping\Carrier\Ups\Backend\OriginShipmentTrait;
 

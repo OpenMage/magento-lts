@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Bundle\Model\Resource\Price;
 
 # use Mage;
-use Mage_Bundle_Model_Resource_Price_Index as Subject;
+# use Mage_Bundle_Model_Resource_Price_Index as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Bundle\Model\Resource\Price\IndexTrait;
 

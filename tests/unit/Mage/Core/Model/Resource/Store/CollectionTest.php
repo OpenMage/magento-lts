@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Core\Model\Resource\Store;
 
 # use Mage;
-use Mage_Core_Model_Resource_Store_Collection as Subject;
+# use Mage_Core_Model_Resource_Store_Collection as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\Model\Resource\Store\CollectionTrait;
 

@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\CatalogInventory\Model\Api2\Stock\Item\Rest\Admin;
 
 # use Mage;
-use Mage_CatalogInventory_Model_Api2_Stock_Item_Rest_Admin_V1 as Subject;
+# use Mage_CatalogInventory_Model_Api2_Stock_Item_Rest_Admin_V1 as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\CatalogInventory\Model\Api2\Stock\Item\Rest\Admin\V1Trait;
 

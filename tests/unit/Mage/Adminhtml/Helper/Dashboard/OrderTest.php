@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Adminhtml\Helper\Dashboard;
 
 # use Mage;
-use Mage_Adminhtml_Helper_Dashboard_Order as Subject;
+# use Mage_Adminhtml_Helper_Dashboard_Order as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Helper\Dashboard\OrderTrait;
 

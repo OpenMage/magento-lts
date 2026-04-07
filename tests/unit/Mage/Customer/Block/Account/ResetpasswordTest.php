@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Customer\Block\Account;
 
-use Mage_Customer_Block_Account_Resetpassword as Subject;
+# use Mage_Customer_Block_Account_Resetpassword as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Customer\Block\Account\ResetpasswordTrait;
 

@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Index\Model\Resource;
 
 # use Mage;
-use Mage_Index_Model_Resource_Abstract as Subject;
+# use Mage_Index_Model_Resource_Abstract as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Index\Model\Resource\AbstractTrait;
 

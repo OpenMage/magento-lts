@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Sales\Model\Api2\Order\Address\Rest\Admin;
 
 # use Mage;
-use Mage_Sales_Model_Api2_Order_Address_Rest_Admin_V1 as Subject;
+# use Mage_Sales_Model_Api2_Order_Address_Rest_Admin_V1 as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sales\Model\Api2\Order\Address\Rest\Admin\V1Trait;
 

@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Catalog\Model\Resource\Product\Option\Value;
 
 # use Mage;
-use Mage_Catalog_Model_Resource_Product_Option_Value_Collection as Subject;
+# use Mage_Catalog_Model_Resource_Product_Option_Value_Collection as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\Model\Resource\Product\Option\Value\CollectionTrait;
 

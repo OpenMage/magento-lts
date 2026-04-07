@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Downloadable\Helper;
 
 # use Mage;
-use Mage_Downloadable_Helper_Download as Subject;
+# use Mage_Downloadable_Helper_Download as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Downloadable\Helper\DownloadTrait;
 

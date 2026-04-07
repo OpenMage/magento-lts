@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Eav\Model\Entity\Attribute\Option;
 
 # use Mage;
-use Mage_Eav_Model_Entity_Attribute_Option_Swatch as Subject;
+# use Mage_Eav_Model_Entity_Attribute_Option_Swatch as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Eav\Model\Entity\Attribute\Option\SwatchTrait;
 

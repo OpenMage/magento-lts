@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Customer\Model\Entity;
 
 # use Mage;
-use Mage_Customer_Model_Entity_Attribute as Subject;
+# use Mage_Customer_Model_Entity_Attribute as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Customer\Model\Entity\AttributeTrait;
 

@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Catalog\Model\Api2\Product;
 
 # use Mage;
-use Mage_Catalog_Model_Api2_Product_Website as Subject;
+# use Mage_Catalog_Model_Api2_Product_Website as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\Model\Api2\Product\WebsiteTrait;
 

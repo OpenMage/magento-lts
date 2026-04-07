@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Paypal\Model;
 
 # use Mage;
-use Mage_Paypal_Model_Observer as Subject;
+# use Mage_Paypal_Model_Observer as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Paypal\Model\ObserverTrait;
 

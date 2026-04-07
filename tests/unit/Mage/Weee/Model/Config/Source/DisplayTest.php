@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Weee\Model\Config\Source;
 
 # use Mage;
-use Mage_Weee_Model_Config_Source_Display as Subject;
+# use Mage_Weee_Model_Config_Source_Display as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Weee\Model\Config\Source\DisplayTrait;
 

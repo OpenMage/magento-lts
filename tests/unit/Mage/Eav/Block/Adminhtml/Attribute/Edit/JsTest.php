@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Eav\Block\Adminhtml\Attribute\Edit;
 
-use Mage_Eav_Block_Adminhtml_Attribute_Edit_Js as Subject;
+# use Mage_Eav_Block_Adminhtml_Attribute_Edit_Js as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Eav\Block\Adminhtml\Attribute\Edit\JsTrait;
 

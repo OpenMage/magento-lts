@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Wishlist\Model\Resource\Item;
 
 # use Mage;
-use Mage_Wishlist_Model_Resource_Item_Option as Subject;
+# use Mage_Wishlist_Model_Resource_Item_Option as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Wishlist\Model\Resource\Item\OptionTrait;
 

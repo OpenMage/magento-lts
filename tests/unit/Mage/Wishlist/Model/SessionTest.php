@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Wishlist\Model;
 
 # use Mage;
-use Mage_Wishlist_Model_Session as Subject;
+# use Mage_Wishlist_Model_Session as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Wishlist\Model\SessionTrait;
 

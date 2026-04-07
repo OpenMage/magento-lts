@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Catalog\Model\Entity\Product\Attribute\Design\Options;
 
 # use Mage;
-use Mage_Catalog_Model_Entity_Product_Attribute_Design_Options_Container as Subject;
+# use Mage_Catalog_Model_Entity_Product_Attribute_Design_Options_Container as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\Model\Entity\Product\Attribute\Design\Options\ContainerTrait;
 

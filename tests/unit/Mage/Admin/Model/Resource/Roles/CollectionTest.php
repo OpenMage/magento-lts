@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Admin\Model\Resource\Roles;
 
 # use Mage;
-use Mage_Admin_Model_Resource_Roles_Collection as Subject;
+# use Mage_Admin_Model_Resource_Roles_Collection as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Admin\Model\Resource\Roles\CollectionTrait;
 

@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Downloadable\Block\Adminhtml\Catalog\Product\Composite\Fieldset;
 
-use Mage_Downloadable_Block_Adminhtml_Catalog_Product_Composite_Fieldset_Downloadable as Subject;
+# use Mage_Downloadable_Block_Adminhtml_Catalog_Product_Composite_Fieldset_Downloadable as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Downloadable\Block\Adminhtml\Catalog\Product\Composite\Fieldset\DownloadableTrait;
 

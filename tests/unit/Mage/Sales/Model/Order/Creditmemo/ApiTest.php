@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Sales\Model\Order\Creditmemo;
 
 # use Mage;
-use Mage_Sales_Model_Order_Creditmemo_Api as Subject;
+# use Mage_Sales_Model_Order_Creditmemo_Api as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sales\Model\Order\Creditmemo\ApiTrait;
 

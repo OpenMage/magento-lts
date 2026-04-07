@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\GiftMessage\Model\Resource;
 
 # use Mage;
-use Mage_GiftMessage_Model_Resource_Message as Subject;
+# use Mage_GiftMessage_Model_Resource_Message as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\GiftMessage\Model\Resource\MessageTrait;
 

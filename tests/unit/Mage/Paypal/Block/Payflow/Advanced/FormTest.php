@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Paypal\Block\Payflow\Advanced;
 
-use Mage_Paypal_Block_Payflow_Advanced_Form as Subject;
+# use Mage_Paypal_Block_Payflow_Advanced_Form as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Paypal\Block\Payflow\Advanced\FormTrait;
 

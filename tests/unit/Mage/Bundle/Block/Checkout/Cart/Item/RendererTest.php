@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Bundle\Block\Checkout\Cart\Item;
 
-use Mage_Bundle_Block_Checkout_Cart_Item_Renderer as Subject;
+# use Mage_Bundle_Block_Checkout_Cart_Item_Renderer as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Bundle\Block\Checkout\Cart\Item\RendererTrait;
 

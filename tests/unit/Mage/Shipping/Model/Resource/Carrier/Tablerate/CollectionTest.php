@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Shipping\Model\Resource\Carrier\Tablerate;
 
 # use Mage;
-use Mage_Shipping_Model_Resource_Carrier_Tablerate_Collection as Subject;
+# use Mage_Shipping_Model_Resource_Carrier_Tablerate_Collection as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Shipping\Model\Resource\Carrier\Tablerate\CollectionTrait;
 

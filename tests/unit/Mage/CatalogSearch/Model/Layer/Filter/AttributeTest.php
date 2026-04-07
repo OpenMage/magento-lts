@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\CatalogSearch\Model\Layer\Filter;
 
 # use Mage;
-use Mage_CatalogSearch_Model_Layer_Filter_Attribute as Subject;
+# use Mage_CatalogSearch_Model_Layer_Filter_Attribute as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\CatalogSearch\Model\Layer\Filter\AttributeTrait;
 

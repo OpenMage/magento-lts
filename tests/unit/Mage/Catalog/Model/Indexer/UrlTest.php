@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Catalog\Model\Indexer;
 
 # use Mage;
-use Mage_Catalog_Model_Indexer_Url as Subject;
+# use Mage_Catalog_Model_Indexer_Url as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\Model\Indexer\UrlTrait;
 

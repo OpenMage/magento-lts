@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Sales\Block\Payment\Form\Billing;
 
-use Mage_Sales_Block_Payment_Form_Billing_Agreement as Subject;
+# use Mage_Sales_Block_Payment_Form_Billing_Agreement as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sales\Block\Payment\Form\Billing\AgreementTrait;
 

@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\ProductAlert\Block;
 
-use Mage_ProductAlert_Block_Price as Subject;
+# use Mage_ProductAlert_Block_Price as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\ProductAlert\Block\PriceTrait;
 

@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Catalog\Model\Resource\Category\Attribute\Frontend;
 
 # use Mage;
-use Mage_Catalog_Model_Resource_Category_Attribute_Frontend_Image as Subject;
+# use Mage_Catalog_Model_Resource_Category_Attribute_Frontend_Image as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\Model\Resource\Category\Attribute\Frontend\ImageTrait;
 

@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Adminhtml\Helper\Catalog\Product;
 
 # use Mage;
-use Mage_Adminhtml_Helper_Catalog_Product_Composite as Subject;
+# use Mage_Adminhtml_Helper_Catalog_Product_Composite as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Helper\Catalog\Product\CompositeTrait;
 

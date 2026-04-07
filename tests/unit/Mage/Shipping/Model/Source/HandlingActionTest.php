@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Shipping\Model\Source;
 
 # use Mage;
-use Mage_Shipping_Model_Source_HandlingAction as Subject;
+# use Mage_Shipping_Model_Source_HandlingAction as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Shipping\Model\Source\HandlingActionTrait;
 

@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Directory\Block\Adminhtml\Frontend\Currency;
 
-use Mage_Directory_Block_Adminhtml_Frontend_Currency_Base as Subject;
+# use Mage_Directory_Block_Adminhtml_Frontend_Currency_Base as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Directory\Block\Adminhtml\Frontend\Currency\BaseTrait;
 

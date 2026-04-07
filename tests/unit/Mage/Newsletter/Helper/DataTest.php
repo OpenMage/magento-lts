@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Newsletter\Helper;
 
 # use Mage;
-use Mage_Newsletter_Helper_Data as Subject;
+# use Mage_Newsletter_Helper_Data as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Newsletter\Helper\DataTrait;
 

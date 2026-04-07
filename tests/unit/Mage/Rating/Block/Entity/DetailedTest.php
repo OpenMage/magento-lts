@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Rating\Block\Entity;
 
-use Mage_Rating_Block_Entity_Detailed as Subject;
+# use Mage_Rating_Block_Entity_Detailed as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Rating\Block\Entity\DetailedTrait;
 

@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Usa\Block\Adminhtml\Dhl;
 
-use Mage_Usa_Block_Adminhtml_Dhl_Unitofmeasure as Subject;
+# use Mage_Usa_Block_Adminhtml_Dhl_Unitofmeasure as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Usa\Block\Adminhtml\Dhl\UnitofmeasureTrait;
 

@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Report\Filter;
 
-use Mage_Adminhtml_Block_Report_Filter_Form as Subject;
+# use Mage_Adminhtml_Block_Report_Filter_Form as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\Report\Filter\FormTrait;
 

@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Catalog\Model\System\Config\Backend\Catalog\Product;
 
 # use Mage;
-use Mage_Catalog_Model_System_Config_Backend_Catalog_Product_Flat as Subject;
+# use Mage_Catalog_Model_System_Config_Backend_Catalog_Product_Flat as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\Model\System\Config\Backend\Catalog\Product\FlatTrait;
 

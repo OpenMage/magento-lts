@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Rating\Model;
 
 # use Mage;
-use Mage_Rating_Model_Rating as Subject;
+# use Mage_Rating_Model_Rating as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Rating\Model\RatingTrait;
 

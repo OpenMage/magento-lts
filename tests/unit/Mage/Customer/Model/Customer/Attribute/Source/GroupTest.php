@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Customer\Model\Customer\Attribute\Source;
 
 # use Mage;
-use Mage_Customer_Model_Customer_Attribute_Source_Group as Subject;
+# use Mage_Customer_Model_Customer_Attribute_Source_Group as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Customer\Model\Customer\Attribute\Source\GroupTrait;
 

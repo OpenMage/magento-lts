@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Paygate\Model\Authorizenet;
 
 # use Mage;
-use Mage_Paygate_Model_Authorizenet_Debug as Subject;
+# use Mage_Paygate_Model_Authorizenet_Debug as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Paygate\Model\Authorizenet\DebugTrait;
 

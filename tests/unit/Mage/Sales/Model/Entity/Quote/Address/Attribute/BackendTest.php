@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Sales\Model\Entity\Quote\Address\Attribute;
 
 # use Mage;
-use Mage_Sales_Model_Entity_Quote_Address_Attribute_Backend as Subject;
+# use Mage_Sales_Model_Entity_Quote_Address_Attribute_Backend as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sales\Model\Entity\Quote\Address\Attribute\BackendTrait;
 
