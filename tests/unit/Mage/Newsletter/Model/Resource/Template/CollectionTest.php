@@ -11,7 +11,6 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Newsletter\Model\Resource\Template;
 
-use Mage;
 use Mage_Newsletter_Model_Resource_Template_Collection as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Newsletter\Model\Resource\Template\CollectionTrait;
@@ -20,12 +19,9 @@ final class CollectionTest extends OpenMageTest
 {
     use CollectionTrait;
 
-    private static Subject $subject;
-
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        self::$subject = Mage::getModel('newsletter/resource_template_collection');
         self::markTestSkipped('');
     }
 }

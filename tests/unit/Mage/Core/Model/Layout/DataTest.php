@@ -11,7 +11,6 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Core\Model\Layout;
 
-use Mage;
 use Mage_Core_Model_Layout_Data as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\Model\Layout\DataTrait;
@@ -20,12 +19,9 @@ final class DataTest extends OpenMageTest
 {
     use DataTrait;
 
-    private static Subject $subject;
-
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        self::$subject = Mage::getModel('core/layout_data');
         self::markTestSkipped('');
     }
 }

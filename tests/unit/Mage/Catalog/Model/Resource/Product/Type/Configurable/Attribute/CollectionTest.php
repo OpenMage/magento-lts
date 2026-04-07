@@ -11,7 +11,6 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Catalog\Model\Resource\Product\Type\Configurable\Attribute;
 
-use Mage;
 use Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute_Collection as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\Model\Resource\Product\Type\Configurable\Attribute\CollectionTrait;
@@ -20,12 +19,9 @@ final class CollectionTest extends OpenMageTest
 {
     use CollectionTrait;
 
-    private static Subject $subject;
-
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        self::$subject = Mage::getModel('catalog/resource_product_type_configurable_attribute_collection');
         self::markTestSkipped('');
     }
 }

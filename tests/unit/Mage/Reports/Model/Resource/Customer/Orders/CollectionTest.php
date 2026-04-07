@@ -11,7 +11,6 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Reports\Model\Resource\Customer\Orders;
 
-use Mage;
 use Mage_Reports_Model_Resource_Customer_Orders_Collection as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Reports\Model\Resource\Customer\Orders\CollectionTrait;
@@ -20,12 +19,9 @@ final class CollectionTest extends OpenMageTest
 {
     use CollectionTrait;
 
-    private static Subject $subject;
-
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        self::$subject = Mage::getModel('reports/resource_customer_orders_collection');
         self::markTestSkipped('');
     }
 }

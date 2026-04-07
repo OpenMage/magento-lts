@@ -11,7 +11,6 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Core\Model\Design\Source;
 
-use Mage;
 use Mage_Core_Model_Design_Source_Design as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\Model\Design\Source\DesignTrait;
@@ -20,12 +19,9 @@ final class DesignTest extends OpenMageTest
 {
     use DesignTrait;
 
-    private static Subject $subject;
-
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        self::$subject = Mage::getModel('core/design_source_design');
         self::markTestSkipped('');
     }
 }

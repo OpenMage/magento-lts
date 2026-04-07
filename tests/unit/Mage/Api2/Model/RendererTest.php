@@ -11,7 +11,6 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Api2\Model;
 
-use Mage;
 use Mage_Api2_Model_Renderer as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Api2\Model\RendererTrait;
@@ -20,12 +19,9 @@ final class RendererTest extends OpenMageTest
 {
     use RendererTrait;
 
-    private static Subject $subject;
-
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        self::$subject = Mage::getModel('api2/renderer');
         self::markTestSkipped('');
     }
 }

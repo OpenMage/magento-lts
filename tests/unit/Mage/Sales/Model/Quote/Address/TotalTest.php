@@ -11,7 +11,6 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Sales\Model\Quote\Address;
 
-use Mage;
 use Mage_Sales_Model_Quote_Address_Total as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sales\Model\Quote\Address\TotalTrait;
@@ -20,12 +19,9 @@ final class TotalTest extends OpenMageTest
 {
     use TotalTrait;
 
-    private static Subject $subject;
-
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        self::$subject = Mage::getModel('sales/quote_address_total');
         self::markTestSkipped('');
     }
 }

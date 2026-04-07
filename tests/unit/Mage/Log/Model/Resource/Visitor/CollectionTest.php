@@ -11,7 +11,6 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Log\Model\Resource\Visitor;
 
-use Mage;
 use Mage_Log_Model_Resource_Visitor_Collection as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Log\Model\Resource\Visitor\CollectionTrait;
@@ -20,12 +19,9 @@ final class CollectionTest extends OpenMageTest
 {
     use CollectionTrait;
 
-    private static Subject $subject;
-
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        self::$subject = Mage::getModel('log/resource_visitor_collection');
         self::markTestSkipped('');
     }
 }

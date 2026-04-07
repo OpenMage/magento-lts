@@ -11,7 +11,6 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Core\Model\Resource\File\Storage\Directory;
 
-use Mage;
 use Mage_Core_Model_Resource_File_Storage_Directory_Database as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\Model\Resource\File\Storage\Directory\DatabaseTrait;
@@ -20,12 +19,9 @@ final class DatabaseTest extends OpenMageTest
 {
     use DatabaseTrait;
 
-    private static Subject $subject;
-
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        self::$subject = Mage::getModel('core/resource_file_storage_directory_database');
         self::markTestSkipped('');
     }
 }

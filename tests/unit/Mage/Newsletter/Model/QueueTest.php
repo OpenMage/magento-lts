@@ -11,7 +11,6 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Newsletter\Model;
 
-use Mage;
 use Mage_Newsletter_Model_Queue as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Newsletter\Model\QueueTrait;
@@ -20,12 +19,9 @@ final class QueueTest extends OpenMageTest
 {
     use QueueTrait;
 
-    private static Subject $subject;
-
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        self::$subject = Mage::getModel('newsletter/queue');
         self::markTestSkipped('');
     }
 }

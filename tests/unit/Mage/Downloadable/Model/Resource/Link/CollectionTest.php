@@ -11,7 +11,6 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Downloadable\Model\Resource\Link;
 
-use Mage;
 use Mage_Downloadable_Model_Resource_Link_Collection as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Downloadable\Model\Resource\Link\CollectionTrait;
@@ -20,12 +19,9 @@ final class CollectionTest extends OpenMageTest
 {
     use CollectionTrait;
 
-    private static Subject $subject;
-
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        self::$subject = Mage::getModel('downloadable/resource_link_collection');
         self::markTestSkipped('');
     }
 }

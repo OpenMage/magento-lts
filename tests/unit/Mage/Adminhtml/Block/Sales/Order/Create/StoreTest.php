@@ -19,12 +19,9 @@ final class StoreTest extends OpenMageTest
 {
     use StoreTrait;
 
-    private static Subject $subject;
-
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        self::$subject = new Subject();
         self::markTestSkipped('');
     }
 }

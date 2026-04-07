@@ -11,7 +11,6 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Catalog\Model\Attribute\Backend\Urlkey;
 
-use Mage;
 use Mage_Catalog_Model_Attribute_Backend_Urlkey_Abstract as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\Model\Attribute\Backend\Urlkey\AbstractTrait;
@@ -20,12 +19,9 @@ final class AbstractTest extends OpenMageTest
 {
     use AbstractTrait;
 
-    private static Subject $subject;
-
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        self::$subject = Mage::getModel('catalog/attribute_backend_urlkey_abstract');
         self::markTestSkipped('');
     }
 }

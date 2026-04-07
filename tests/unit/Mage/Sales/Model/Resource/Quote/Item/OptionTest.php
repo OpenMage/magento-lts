@@ -11,7 +11,6 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Sales\Model\Resource\Quote\Item;
 
-use Mage;
 use Mage_Sales_Model_Resource_Quote_Item_Option as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sales\Model\Resource\Quote\Item\OptionTrait;
@@ -20,12 +19,9 @@ final class OptionTest extends OpenMageTest
 {
     use OptionTrait;
 
-    private static Subject $subject;
-
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        self::$subject = Mage::getModel('sales/resource_quote_item_option');
         self::markTestSkipped('');
     }
 }

@@ -11,7 +11,6 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Dataflow\Model\Resource;
 
-use Mage;
 use Mage_Dataflow_Model_Resource_Import as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Dataflow\Model\Resource\ImportTrait;
@@ -20,12 +19,9 @@ final class ImportTest extends OpenMageTest
 {
     use ImportTrait;
 
-    private static Subject $subject;
-
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        self::$subject = Mage::getModel('dataflow/resource_import');
         self::markTestSkipped('');
     }
 }

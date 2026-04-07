@@ -11,7 +11,6 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\ProductAlert\Model\Resource;
 
-use Mage;
 use Mage_ProductAlert_Model_Resource_Abstract as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\ProductAlert\Model\Resource\AbstractTrait;
@@ -20,12 +19,9 @@ final class AbstractTest extends OpenMageTest
 {
     use AbstractTrait;
 
-    private static Subject $subject;
-
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        self::$subject = Mage::getModel('productalert/resource_abstract');
         self::markTestSkipped('');
     }
 }

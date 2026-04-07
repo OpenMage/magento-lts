@@ -11,7 +11,6 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Core\Model\Variable;
 
-use Mage;
 use Mage_Core_Model_Variable_Config as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\Model\Variable\ConfigTrait;
@@ -20,12 +19,9 @@ final class ConfigTest extends OpenMageTest
 {
     use ConfigTrait;
 
-    private static Subject $subject;
-
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        self::$subject = Mage::getModel('core/variable_config');
         self::markTestSkipped('');
     }
 }

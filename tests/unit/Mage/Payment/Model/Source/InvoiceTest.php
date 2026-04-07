@@ -11,7 +11,6 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Payment\Model\Source;
 
-use Mage;
 use Mage_Payment_Model_Source_Invoice as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Payment\Model\Source\InvoiceTrait;
@@ -20,12 +19,9 @@ final class InvoiceTest extends OpenMageTest
 {
     use InvoiceTrait;
 
-    private static Subject $subject;
-
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        self::$subject = Mage::getModel('payment/source_invoice');
         self::markTestSkipped('');
     }
 }

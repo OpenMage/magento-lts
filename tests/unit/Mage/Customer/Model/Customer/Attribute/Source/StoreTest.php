@@ -11,7 +11,6 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Customer\Model\Customer\Attribute\Source;
 
-use Mage;
 use Mage_Customer_Model_Customer_Attribute_Source_Store as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Customer\Model\Customer\Attribute\Source\StoreTrait;
@@ -20,12 +19,9 @@ final class StoreTest extends OpenMageTest
 {
     use StoreTrait;
 
-    private static Subject $subject;
-
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        self::$subject = Mage::getModel('customer/customer_attribute_source_store');
         self::markTestSkipped('');
     }
 }

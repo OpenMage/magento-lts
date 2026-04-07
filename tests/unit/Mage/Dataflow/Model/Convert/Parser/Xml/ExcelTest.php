@@ -11,7 +11,6 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Dataflow\Model\Convert\Parser\Xml;
 
-use Mage;
 use Mage_Dataflow_Model_Convert_Parser_Xml_Excel as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Dataflow\Model\Convert\Parser\Xml\ExcelTrait;
@@ -20,12 +19,9 @@ final class ExcelTest extends OpenMageTest
 {
     use ExcelTrait;
 
-    private static Subject $subject;
-
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        self::$subject = Mage::getModel('dataflow/convert_parser_xml_excel');
         self::markTestSkipped('');
     }
 }

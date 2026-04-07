@@ -11,7 +11,6 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Customer\Model\Entity\Form;
 
-use Mage;
 use Mage_Customer_Model_Entity_Form_Attribute as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Customer\Model\Entity\Form\AttributeTrait;
@@ -20,12 +19,9 @@ final class AttributeTest extends OpenMageTest
 {
     use AttributeTrait;
 
-    private static Subject $subject;
-
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        self::$subject = Mage::getModel('customer/entity_form_attribute');
         self::markTestSkipped('');
     }
 }

@@ -11,7 +11,6 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Rss\Model;
 
-use Mage;
 use Mage_Rss_Model_Observer as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Rss\Model\ObserverTrait;
@@ -20,12 +19,9 @@ final class ObserverTest extends OpenMageTest
 {
     use ObserverTrait;
 
-    private static Subject $subject;
-
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        self::$subject = Mage::getModel('rss/observer');
         self::markTestSkipped('');
     }
 }

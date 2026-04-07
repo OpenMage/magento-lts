@@ -11,7 +11,6 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Reports\Model\Resource\Report\Product;
 
-use Mage;
 use Mage_Reports_Model_Resource_Report_Product_Viewed as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Reports\Model\Resource\Report\Product\ViewedTrait;
@@ -20,12 +19,9 @@ final class ViewedTest extends OpenMageTest
 {
     use ViewedTrait;
 
-    private static Subject $subject;
-
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        self::$subject = Mage::getModel('reports/resource_report_product_viewed');
         self::markTestSkipped('');
     }
 }

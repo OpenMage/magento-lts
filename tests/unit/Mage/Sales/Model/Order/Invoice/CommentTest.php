@@ -11,7 +11,6 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Sales\Model\Order\Invoice;
 
-use Mage;
 use Mage_Sales_Model_Order_Invoice_Comment as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sales\Model\Order\Invoice\CommentTrait;
@@ -20,12 +19,9 @@ final class CommentTest extends OpenMageTest
 {
     use CommentTrait;
 
-    private static Subject $subject;
-
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        self::$subject = Mage::getModel('sales/order_invoice_comment');
         self::markTestSkipped('');
     }
 }

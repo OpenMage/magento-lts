@@ -11,7 +11,6 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Payment\Model\Method;
 
-use Mage;
 use Mage_Payment_Model_Method_Checkmo as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Payment\Model\Method\CheckmoTrait;
@@ -20,12 +19,9 @@ final class CheckmoTest extends OpenMageTest
 {
     use CheckmoTrait;
 
-    private static Subject $subject;
-
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        self::$subject = Mage::getModel('payment/method_checkmo');
         self::markTestSkipped('');
     }
 }

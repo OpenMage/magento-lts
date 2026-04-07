@@ -11,7 +11,6 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Payment\Model\Billing;
 
-use Mage;
 use Mage_Payment_Model_Billing_AgreementAbstract as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Payment\Model\Billing\AgreementAbstractTrait;
@@ -20,12 +19,9 @@ final class AgreementAbstractTest extends OpenMageTest
 {
     use AgreementAbstractTrait;
 
-    private static Subject $subject;
-
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        self::$subject = Mage::getModel('payment/billing_agreementabstract');
         self::markTestSkipped('');
     }
 }

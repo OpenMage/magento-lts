@@ -19,12 +19,9 @@ final class ExpandedTest extends OpenMageTest
 {
     use ExpandedTrait;
 
-    private static Subject $subject;
-
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        self::$subject = new Subject();
         self::markTestSkipped('');
     }
 }

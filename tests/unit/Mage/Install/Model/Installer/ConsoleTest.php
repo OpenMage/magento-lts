@@ -11,7 +11,6 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Install\Model\Installer;
 
-use Mage;
 use Mage_Install_Model_Installer_Console as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Install\Model\Installer\ConsoleTrait;
@@ -20,12 +19,9 @@ final class ConsoleTest extends OpenMageTest
 {
     use ConsoleTrait;
 
-    private static Subject $subject;
-
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        self::$subject = Mage::getModel('install/installer_console');
         self::markTestSkipped('');
     }
 }

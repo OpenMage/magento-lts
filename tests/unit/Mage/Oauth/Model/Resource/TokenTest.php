@@ -11,7 +11,6 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Oauth\Model\Resource;
 
-use Mage;
 use Mage_Oauth_Model_Resource_Token as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Oauth\Model\Resource\TokenTrait;
@@ -20,12 +19,9 @@ final class TokenTest extends OpenMageTest
 {
     use TokenTrait;
 
-    private static Subject $subject;
-
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        self::$subject = Mage::getModel('oauth/resource_token');
         self::markTestSkipped('');
     }
 }

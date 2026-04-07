@@ -11,7 +11,6 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Rss\Model\System\Config\Backend;
 
-use Mage;
 use Mage_Rss_Model_System_Config_Backend_Links as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Rss\Model\System\Config\Backend\LinksTrait;
@@ -20,12 +19,9 @@ final class LinksTest extends OpenMageTest
 {
     use LinksTrait;
 
-    private static Subject $subject;
-
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        self::$subject = Mage::getModel('rss/system_config_backend_links');
         self::markTestSkipped('');
     }
 }

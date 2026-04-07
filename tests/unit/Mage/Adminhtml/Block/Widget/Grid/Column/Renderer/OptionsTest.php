@@ -19,12 +19,9 @@ final class OptionsTest extends OpenMageTest
 {
     use OptionsTrait;
 
-    private static Subject $subject;
-
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        self::$subject = new Subject();
         self::markTestSkipped('');
     }
 }

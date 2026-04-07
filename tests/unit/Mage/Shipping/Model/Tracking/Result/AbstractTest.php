@@ -11,7 +11,6 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Shipping\Model\Tracking\Result;
 
-use Mage;
 use Mage_Shipping_Model_Tracking_Result_Abstract as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Shipping\Model\Tracking\Result\AbstractTrait;
@@ -20,12 +19,9 @@ final class AbstractTest extends OpenMageTest
 {
     use AbstractTrait;
 
-    private static Subject $subject;
-
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        self::$subject = Mage::getModel('shipping/tracking_result_abstract');
         self::markTestSkipped('');
     }
 }

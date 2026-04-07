@@ -19,12 +19,9 @@ final class GtmTest extends OpenMageTest
 {
     use GtmTrait;
 
-    private static Subject $subject;
-
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        self::$subject = new Subject();
         self::markTestSkipped('');
     }
 }

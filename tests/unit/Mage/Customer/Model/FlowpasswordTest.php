@@ -11,7 +11,6 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Customer\Model;
 
-use Mage;
 use Mage_Customer_Model_Flowpassword as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Customer\Model\FlowpasswordTrait;
@@ -20,12 +19,9 @@ final class FlowpasswordTest extends OpenMageTest
 {
     use FlowpasswordTrait;
 
-    private static Subject $subject;
-
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        self::$subject = Mage::getModel('customer/flowpassword');
         self::markTestSkipped('');
     }
 }

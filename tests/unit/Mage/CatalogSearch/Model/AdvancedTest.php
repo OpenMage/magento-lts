@@ -11,7 +11,6 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\CatalogSearch\Model;
 
-use Mage;
 use Mage_CatalogSearch_Model_Advanced as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\CatalogSearch\Model\AdvancedTrait;
@@ -20,12 +19,9 @@ final class AdvancedTest extends OpenMageTest
 {
     use AdvancedTrait;
 
-    private static Subject $subject;
-
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        self::$subject = Mage::getModel('catalogsearch/advanced');
         self::markTestSkipped('');
     }
 }

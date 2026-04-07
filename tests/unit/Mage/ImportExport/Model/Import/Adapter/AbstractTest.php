@@ -11,7 +11,6 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\ImportExport\Model\Import\Adapter;
 
-use Mage;
 use Mage_ImportExport_Model_Import_Adapter_Abstract as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\ImportExport\Model\Import\Adapter\AbstractTrait;
@@ -20,12 +19,9 @@ final class AbstractTest extends OpenMageTest
 {
     use AbstractTrait;
 
-    private static Subject $subject;
-
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        self::$subject = Mage::getModel('importexport/import_adapter_abstract');
         self::markTestSkipped('');
     }
 }

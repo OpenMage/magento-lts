@@ -11,7 +11,6 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Catalog\Model\Category;
 
-use Mage;
 use Mage_Catalog_Model_Category_Url as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\Model\Category\UrlTrait;
@@ -20,12 +19,9 @@ final class UrlTest extends OpenMageTest
 {
     use UrlTrait;
 
-    private static Subject $subject;
-
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        self::$subject = Mage::getModel('catalog/category_url');
         self::markTestSkipped('');
     }
 }

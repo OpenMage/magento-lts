@@ -19,12 +19,9 @@ final class ShortcutTest extends OpenMageTest
 {
     use ShortcutTrait;
 
-    private static Subject $subject;
-
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        self::$subject = new Subject();
         self::markTestSkipped('');
     }
 }

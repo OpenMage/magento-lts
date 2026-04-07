@@ -11,7 +11,6 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Sitemap\Model\Resource;
 
-use Mage;
 use Mage_Sitemap_Model_Resource_Sitemap as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sitemap\Model\Resource\SitemapTrait;
@@ -20,12 +19,9 @@ final class SitemapTest extends OpenMageTest
 {
     use SitemapTrait;
 
-    private static Subject $subject;
-
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        self::$subject = Mage::getModel('sitemap/resource_sitemap');
         self::markTestSkipped('');
     }
 }

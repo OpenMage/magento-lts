@@ -11,7 +11,6 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Wishlist\Model\Resource;
 
-use Mage;
 use Mage_Wishlist_Model_Resource_Wishlist as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Wishlist\Model\Resource\WishlistTrait;
@@ -20,12 +19,9 @@ final class WishlistTest extends OpenMageTest
 {
     use WishlistTrait;
 
-    private static Subject $subject;
-
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        self::$subject = Mage::getModel('wishlist/resource_wishlist');
         self::markTestSkipped('');
     }
 }

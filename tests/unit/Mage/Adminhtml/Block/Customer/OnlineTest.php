@@ -19,12 +19,9 @@ final class OnlineTest extends OpenMageTest
 {
     use OnlineTrait;
 
-    private static Subject $subject;
-
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        self::$subject = new Subject();
         self::markTestSkipped('');
     }
 }

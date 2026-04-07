@@ -11,7 +11,6 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Rule\Model\Action;
 
-use Mage;
 use Mage_Rule_Model_Action_Abstract as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Rule\Model\Action\AbstractTrait;
@@ -20,12 +19,9 @@ final class AbstractTest extends OpenMageTest
 {
     use AbstractTrait;
 
-    private static Subject $subject;
-
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        self::$subject = Mage::getModel('rule/action_abstract');
         self::markTestSkipped('');
     }
 }

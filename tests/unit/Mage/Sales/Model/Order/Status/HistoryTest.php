@@ -11,7 +11,6 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Sales\Model\Order\Status;
 
-use Mage;
 use Mage_Sales_Model_Order_Status_History as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sales\Model\Order\Status\HistoryTrait;
@@ -20,12 +19,9 @@ final class HistoryTest extends OpenMageTest
 {
     use HistoryTrait;
 
-    private static Subject $subject;
-
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        self::$subject = Mage::getModel('sales/order_status_history');
         self::markTestSkipped('');
     }
 }

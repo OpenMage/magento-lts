@@ -11,7 +11,6 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Rating\Model\Rating\Option;
 
-use Mage;
 use Mage_Rating_Model_Rating_Option_Vote as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Rating\Model\Rating\Option\VoteTrait;
@@ -20,12 +19,9 @@ final class VoteTest extends OpenMageTest
 {
     use VoteTrait;
 
-    private static Subject $subject;
-
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        self::$subject = Mage::getModel('rating/rating_option_vote');
         self::markTestSkipped('');
     }
 }

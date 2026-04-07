@@ -11,7 +11,6 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Paypal\Helper;
 
-use Mage;
 use Mage_Paypal_Helper_Checkout as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Paypal\Helper\CheckoutTrait;
@@ -20,12 +19,9 @@ final class CheckoutTest extends OpenMageTest
 {
     use CheckoutTrait;
 
-    private static Subject $subject;
-
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        self::$subject = Mage::helper('paypal/checkout');
         self::markTestSkipped('');
     }
 }

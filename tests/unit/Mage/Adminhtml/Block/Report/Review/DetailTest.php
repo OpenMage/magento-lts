@@ -19,12 +19,9 @@ final class DetailTest extends OpenMageTest
 {
     use DetailTrait;
 
-    private static Subject $subject;
-
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        self::$subject = new Subject();
         self::markTestSkipped('');
     }
 }

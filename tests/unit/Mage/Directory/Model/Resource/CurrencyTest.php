@@ -11,7 +11,6 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Directory\Model\Resource;
 
-use Mage;
 use Mage_Directory_Model_Resource_Currency as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Directory\Model\Resource\CurrencyTrait;
@@ -20,12 +19,9 @@ final class CurrencyTest extends OpenMageTest
 {
     use CurrencyTrait;
 
-    private static Subject $subject;
-
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        self::$subject = Mage::getModel('directory/resource_currency');
         self::markTestSkipped('');
     }
 }

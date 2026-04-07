@@ -11,7 +11,6 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Index\Model\Lock\Storage;
 
-use Mage;
 use Mage_Index_Model_Lock_Storage_Db as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Index\Model\Lock\Storage\DbTrait;
@@ -20,12 +19,9 @@ final class DbTest extends OpenMageTest
 {
     use DbTrait;
 
-    private static Subject $subject;
-
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        self::$subject = Mage::getModel('index/lock_storage_db');
         self::markTestSkipped('');
     }
 }

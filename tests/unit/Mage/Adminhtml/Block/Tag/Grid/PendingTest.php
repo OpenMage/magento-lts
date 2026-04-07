@@ -19,12 +19,9 @@ final class PendingTest extends OpenMageTest
 {
     use PendingTrait;
 
-    private static Subject $subject;
-
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        self::$subject = new Subject();
         self::markTestSkipped('');
     }
 }

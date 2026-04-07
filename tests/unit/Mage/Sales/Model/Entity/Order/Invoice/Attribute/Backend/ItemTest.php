@@ -11,7 +11,6 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Sales\Model\Entity\Order\Invoice\Attribute\Backend;
 
-use Mage;
 use Mage_Sales_Model_Entity_Order_Invoice_Attribute_Backend_Item as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sales\Model\Entity\Order\Invoice\Attribute\Backend\ItemTrait;
@@ -20,12 +19,9 @@ final class ItemTest extends OpenMageTest
 {
     use ItemTrait;
 
-    private static Subject $subject;
-
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        self::$subject = Mage::getModel('sales/entity_order_invoice_attribute_backend_item');
         self::markTestSkipped('');
     }
 }

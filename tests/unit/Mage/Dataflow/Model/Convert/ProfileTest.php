@@ -11,7 +11,6 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Dataflow\Model\Convert;
 
-use Mage;
 use Mage_Dataflow_Model_Convert_Profile as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Dataflow\Model\Convert\ProfileTrait;
@@ -20,12 +19,9 @@ final class ProfileTest extends OpenMageTest
 {
     use ProfileTrait;
 
-    private static Subject $subject;
-
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        self::$subject = Mage::getModel('dataflow/convert_profile');
         self::markTestSkipped('');
     }
 }

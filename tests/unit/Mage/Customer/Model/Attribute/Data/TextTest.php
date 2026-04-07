@@ -11,7 +11,6 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Customer\Model\Attribute\Data;
 
-use Mage;
 use Mage_Customer_Model_Attribute_Data_Text as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Customer\Model\Attribute\Data\TextTrait;
@@ -20,12 +19,9 @@ final class TextTest extends OpenMageTest
 {
     use TextTrait;
 
-    private static Subject $subject;
-
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        self::$subject = Mage::getModel('customer/attribute_data_text');
         self::markTestSkipped('');
     }
 }

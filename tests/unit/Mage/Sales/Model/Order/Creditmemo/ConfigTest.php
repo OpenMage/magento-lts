@@ -11,7 +11,6 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Sales\Model\Order\Creditmemo;
 
-use Mage;
 use Mage_Sales_Model_Order_Creditmemo_Config as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sales\Model\Order\Creditmemo\ConfigTrait;
@@ -20,12 +19,9 @@ final class ConfigTest extends OpenMageTest
 {
     use ConfigTrait;
 
-    private static Subject $subject;
-
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        self::$subject = Mage::getModel('sales/order_creditmemo_config');
         self::markTestSkipped('');
     }
 }

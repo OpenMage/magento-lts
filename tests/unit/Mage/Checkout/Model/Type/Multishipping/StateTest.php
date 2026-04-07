@@ -11,7 +11,6 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Checkout\Model\Type\Multishipping;
 
-use Mage;
 use Mage_Checkout_Model_Type_Multishipping_State as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Checkout\Model\Type\Multishipping\StateTrait;
@@ -20,12 +19,9 @@ final class StateTest extends OpenMageTest
 {
     use StateTrait;
 
-    private static Subject $subject;
-
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        self::$subject = Mage::getModel('checkout/type_multishipping_state');
         self::markTestSkipped('');
     }
 }

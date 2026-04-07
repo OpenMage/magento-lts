@@ -11,7 +11,6 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\PaypalUk\Model\Api\Express;
 
-use Mage;
 use Mage_PaypalUk_Model_Api_Express_Nvp as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\PaypalUk\Model\Api\Express\NvpTrait;
@@ -20,12 +19,9 @@ final class NvpTest extends OpenMageTest
 {
     use NvpTrait;
 
-    private static Subject $subject;
-
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        self::$subject = Mage::getModel('paypaluk/api_express_nvp');
         self::markTestSkipped('');
     }
 }

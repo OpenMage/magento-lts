@@ -11,7 +11,6 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Api\Model\Acl;
 
-use Mage;
 use Mage_Api_Model_Acl_Role as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Api\Model\Acl\RoleTrait;
@@ -20,12 +19,9 @@ final class RoleTest extends OpenMageTest
 {
     use RoleTrait;
 
-    private static Subject $subject;
-
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        self::$subject = Mage::getModel('api/acl_role');
         self::markTestSkipped('');
     }
 }

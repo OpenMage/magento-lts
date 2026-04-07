@@ -11,7 +11,6 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Api\Model\Server\Wsi;
 
-use Mage;
 use Mage_Api_Model_Server_Wsi_Handler as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Api\Model\Server\Wsi\HandlerTrait;
@@ -20,12 +19,9 @@ final class HandlerTest extends OpenMageTest
 {
     use HandlerTrait;
 
-    private static Subject $subject;
-
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        self::$subject = Mage::getModel('api/server_wsi_handler');
         self::markTestSkipped('');
     }
 }

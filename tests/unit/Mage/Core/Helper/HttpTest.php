@@ -11,7 +11,6 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Core\Helper;
 
-use Mage;
 use Mage_Core_Helper_Http as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\Helper\HttpTrait;
@@ -20,12 +19,9 @@ final class HttpTest extends OpenMageTest
 {
     use HttpTrait;
 
-    private static Subject $subject;
-
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        self::$subject = Mage::helper('core/http');
         self::markTestSkipped('');
     }
 }

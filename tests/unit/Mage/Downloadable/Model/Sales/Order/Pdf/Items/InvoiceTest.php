@@ -11,7 +11,6 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Downloadable\Model\Sales\Order\Pdf\Items;
 
-use Mage;
 use Mage_Downloadable_Model_Sales_Order_Pdf_Items_Invoice as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Downloadable\Model\Sales\Order\Pdf\Items\InvoiceTrait;
@@ -20,12 +19,9 @@ final class InvoiceTest extends OpenMageTest
 {
     use InvoiceTrait;
 
-    private static Subject $subject;
-
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        self::$subject = Mage::getModel('downloadable/sales_order_pdf_items_invoice');
         self::markTestSkipped('');
     }
 }

@@ -11,7 +11,6 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Customer\Helper;
 
-use Mage;
 use Mage_Customer_Helper_Data as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Customer\Helper\DataTrait;
@@ -20,12 +19,9 @@ final class DataTest extends OpenMageTest
 {
     use DataTrait;
 
-    private static Subject $subject;
-
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        self::$subject = Mage::helper('customer/data');
         self::markTestSkipped('');
     }
 }
