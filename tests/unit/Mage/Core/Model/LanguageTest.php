@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Core\Model;
 
+# use Mage;
 use Mage_Core_Model_Language as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\Model\LanguageTrait;
@@ -19,9 +20,12 @@ final class LanguageTest extends OpenMageTest
 {
     use LanguageTrait;
 
+    # private static Subject $subject;
+
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
+        # self::$subject = Mage::getModel('core/language');
         self::markTestSkipped('');
     }
 }

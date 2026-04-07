@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\GiftMessage\Model\Resource;
 
+# use Mage;
 use Mage_GiftMessage_Model_Resource_Message as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\GiftMessage\Model\Resource\MessageTrait;
@@ -19,9 +20,12 @@ final class MessageTest extends OpenMageTest
 {
     use MessageTrait;
 
+    # private static Subject $subject;
+
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
+        # self::$subject = Mage::getModel('giftmessage/resource_message');
         self::markTestSkipped('');
     }
 }

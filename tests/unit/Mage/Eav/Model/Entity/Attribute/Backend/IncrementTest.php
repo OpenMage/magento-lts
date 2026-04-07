@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Eav\Model\Entity\Attribute\Backend;
 
+# use Mage;
 use Mage_Eav_Model_Entity_Attribute_Backend_Increment as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Eav\Model\Entity\Attribute\Backend\IncrementTrait;
@@ -19,9 +20,12 @@ final class IncrementTest extends OpenMageTest
 {
     use IncrementTrait;
 
+    # private static Subject $subject;
+
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
+        # self::$subject = Mage::getModel('eav/entity_attribute_backend_increment');
         self::markTestSkipped('');
     }
 }

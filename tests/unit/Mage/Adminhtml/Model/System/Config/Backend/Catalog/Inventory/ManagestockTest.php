@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Adminhtml\Model\System\Config\Backend\Catalog\Inventory;
 
+# use Mage;
 use Mage_Adminhtml_Model_System_Config_Backend_Catalog_Inventory_Managestock as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Model\System\Config\Backend\Catalog\Inventory\ManagestockTrait;
@@ -19,9 +20,12 @@ final class ManagestockTest extends OpenMageTest
 {
     use ManagestockTrait;
 
+    # private static Subject $subject;
+
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
+        # self::$subject = Mage::getModel('adminhtml/system_config_backend_catalog_inventory_managestock');
         self::markTestSkipped('');
     }
 }

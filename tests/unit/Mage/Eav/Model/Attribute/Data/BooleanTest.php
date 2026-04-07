@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Eav\Model\Attribute\Data;
 
+# use Mage;
 use Mage_Eav_Model_Attribute_Data_Boolean as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Eav\Model\Attribute\Data\BooleanTrait;
@@ -19,9 +20,12 @@ final class BooleanTest extends OpenMageTest
 {
     use BooleanTrait;
 
+    # private static Subject $subject;
+
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
+        # self::$subject = Mage::getModel('eav/attribute_data_boolean');
         self::markTestSkipped('');
     }
 }

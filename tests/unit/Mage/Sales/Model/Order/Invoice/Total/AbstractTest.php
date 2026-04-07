@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Sales\Model\Order\Invoice\Total;
 
+# use Mage;
 use Mage_Sales_Model_Order_Invoice_Total_Abstract as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sales\Model\Order\Invoice\Total\AbstractTrait;
@@ -19,9 +20,12 @@ final class AbstractTest extends OpenMageTest
 {
     use AbstractTrait;
 
+    # private static Subject $subject;
+
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
+        # self::$subject = Mage::getModel('sales/order_invoice_total_abstract');
         self::markTestSkipped('');
     }
 }

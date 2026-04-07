@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Catalog\Model\Product\Option;
 
+# use Mage;
 use Mage_Catalog_Model_Product_Option_Value as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\Model\Product\Option\ValueTrait;
@@ -19,9 +20,12 @@ final class ValueTest extends OpenMageTest
 {
     use ValueTrait;
 
+    # private static Subject $subject;
+
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
+        # self::$subject = Mage::getModel('catalog/product_option_value');
         self::markTestSkipped('');
     }
 }

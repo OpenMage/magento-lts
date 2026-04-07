@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Sales\Model;
 
+# use Mage;
 use Mage_Sales_Model_Order as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sales\Model\OrderTrait;
@@ -19,9 +20,12 @@ final class OrderTest extends OpenMageTest
 {
     use OrderTrait;
 
+    # private static Subject $subject;
+
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
+        # self::$subject = Mage::getModel('sales/order');
         self::markTestSkipped('');
     }
 }

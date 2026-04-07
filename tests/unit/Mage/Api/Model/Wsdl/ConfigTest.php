@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Api\Model\Wsdl;
 
+# use Mage;
 use Mage_Api_Model_Wsdl_Config as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Api\Model\Wsdl\ConfigTrait;
@@ -19,9 +20,12 @@ final class ConfigTest extends OpenMageTest
 {
     use ConfigTrait;
 
+    # private static Subject $subject;
+
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
+        # self::$subject = Mage::getModel('api/wsdl_config');
         self::markTestSkipped('');
     }
 }

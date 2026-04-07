@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Api2\Model\Resource\Validator;
 
+# use Mage;
 use Mage_Api2_Model_Resource_Validator_Fields as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Api2\Model\Resource\Validator\FieldsTrait;
@@ -19,9 +20,12 @@ final class FieldsTest extends OpenMageTest
 {
     use FieldsTrait;
 
+    # private static Subject $subject;
+
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
+        # self::$subject = Mage::getModel('api2/resource_validator_fields');
         self::markTestSkipped('');
     }
 }

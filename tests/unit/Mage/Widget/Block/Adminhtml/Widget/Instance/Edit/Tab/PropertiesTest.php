@@ -19,9 +19,12 @@ final class PropertiesTest extends OpenMageTest
 {
     use PropertiesTrait;
 
+    # private static Subject $subject;
+
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
+        # self::$subject = new Subject();
         self::markTestSkipped('');
     }
 }

@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Sales\Model\Recurring;
 
+# use Mage;
 use Mage_Sales_Model_Recurring_Profile as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sales\Model\Recurring\ProfileTrait;
@@ -19,9 +20,12 @@ final class ProfileTest extends OpenMageTest
 {
     use ProfileTrait;
 
+    # private static Subject $subject;
+
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
+        # self::$subject = Mage::getModel('sales/recurring_profile');
         self::markTestSkipped('');
     }
 }

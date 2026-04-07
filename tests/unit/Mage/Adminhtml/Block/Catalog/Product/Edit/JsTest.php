@@ -19,9 +19,12 @@ final class JsTest extends OpenMageTest
 {
     use JsTrait;
 
+    # private static Subject $subject;
+
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
+        # self::$subject = new Subject();
         self::markTestSkipped('');
     }
 }

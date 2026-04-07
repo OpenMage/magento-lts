@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Sales\Model\Order;
 
+# use Mage;
 use Mage_Sales_Model_Order_Shipment as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sales\Model\Order\ShipmentTrait;
@@ -19,9 +20,12 @@ final class ShipmentTest extends OpenMageTest
 {
     use ShipmentTrait;
 
+    # private static Subject $subject;
+
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
+        # self::$subject = Mage::getModel('sales/order_shipment');
         self::markTestSkipped('');
     }
 }

@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\ConfigurableSwatches\Helper;
 
+# use Mage;
 use Mage_ConfigurableSwatches_Helper_Mediafallback as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\ConfigurableSwatches\Helper\MediafallbackTrait;
@@ -19,9 +20,12 @@ final class MediafallbackTest extends OpenMageTest
 {
     use MediafallbackTrait;
 
+    # private static Subject $subject;
+
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
+        # self::$subject = Mage::helper('configurableswatches/mediafallback');
         self::markTestSkipped('');
     }
 }

@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Api\Model;
 
+# use Mage;
 use Mage_Api_Model_Roles as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Api\Model\RolesTrait;
@@ -19,9 +20,12 @@ final class RolesTest extends OpenMageTest
 {
     use RolesTrait;
 
+    # private static Subject $subject;
+
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
+        # self::$subject = Mage::getModel('api/roles');
         self::markTestSkipped('');
     }
 }

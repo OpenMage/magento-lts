@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Api\Model\Resource;
 
+# use Mage;
 use Mage_Api_Model_Resource_Role as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Api\Model\Resource\RoleTrait;
@@ -19,9 +20,12 @@ final class RoleTest extends OpenMageTest
 {
     use RoleTrait;
 
+    # private static Subject $subject;
+
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
+        # self::$subject = Mage::getModel('api/resource_role');
         self::markTestSkipped('');
     }
 }

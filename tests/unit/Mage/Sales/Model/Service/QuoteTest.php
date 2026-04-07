@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Sales\Model\Service;
 
+# use Mage;
 use Mage_Sales_Model_Service_Quote as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sales\Model\Service\QuoteTrait;
@@ -19,9 +20,12 @@ final class QuoteTest extends OpenMageTest
 {
     use QuoteTrait;
 
+    # private static Subject $subject;
+
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
+        # self::$subject = Mage::getModel('sales/service_quote');
         self::markTestSkipped('');
     }
 }

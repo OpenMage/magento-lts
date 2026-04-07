@@ -19,9 +19,12 @@ final class LogoTest extends OpenMageTest
 {
     use LogoTrait;
 
+    # private static Subject $subject;
+
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
+        # self::$subject = new Subject();
         self::markTestSkipped('');
     }
 }

@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Paypal\Model;
 
+# use Mage;
 use Mage_Paypal_Model_Direct as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Paypal\Model\DirectTrait;
@@ -19,9 +20,12 @@ final class DirectTest extends OpenMageTest
 {
     use DirectTrait;
 
+    # private static Subject $subject;
+
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
+        # self::$subject = Mage::getModel('paypal/direct');
         self::markTestSkipped('');
     }
 }

@@ -19,9 +19,12 @@ final class BooleanTest extends OpenMageTest
 {
     use BooleanTrait;
 
+    # private static Subject $subject;
+
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
+        # self::$subject = new Subject();
         self::markTestSkipped('');
     }
 }

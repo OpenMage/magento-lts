@@ -19,9 +19,12 @@ final class RoleseditTest extends OpenMageTest
 {
     use RoleseditTrait;
 
+    # private static Subject $subject;
+
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
+        # self::$subject = new Subject();
         self::markTestSkipped('');
     }
 }

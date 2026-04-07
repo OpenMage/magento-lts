@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Rule\Model\Resource\Rule;
 
+# use Mage;
 use Mage_Rule_Model_Resource_Rule_Collection as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Rule\Model\Resource\Rule\CollectionTrait;
@@ -19,9 +20,12 @@ final class CollectionTest extends OpenMageTest
 {
     use CollectionTrait;
 
+    # private static Subject $subject;
+
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
+        # self::$subject = Mage::getModel('rule/resource_rule_collection');
         self::markTestSkipped('');
     }
 }

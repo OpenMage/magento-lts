@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Reports\Model\Resource\Shopcart\Product;
 
+# use Mage;
 use Mage_Reports_Model_Resource_Shopcart_Product_Collection as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Reports\Model\Resource\Shopcart\Product\CollectionTrait;
@@ -19,9 +20,12 @@ final class CollectionTest extends OpenMageTest
 {
     use CollectionTrait;
 
+    # private static Subject $subject;
+
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
+        # self::$subject = Mage::getModel('reports/resource_shopcart_product_collection');
         self::markTestSkipped('');
     }
 }

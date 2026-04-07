@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Catalog\Model\Category\Indexer;
 
+# use Mage;
 use Mage_Catalog_Model_Category_Indexer_Flat as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\Model\Category\Indexer\FlatTrait;
@@ -19,9 +20,12 @@ final class FlatTest extends OpenMageTest
 {
     use FlatTrait;
 
+    # private static Subject $subject;
+
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
+        # self::$subject = Mage::getModel('catalog/category_indexer_flat');
         self::markTestSkipped('');
     }
 }

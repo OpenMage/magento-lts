@@ -19,9 +19,12 @@ final class CrosssellTest extends OpenMageTest
 {
     use CrosssellTrait;
 
+    # private static Subject $subject;
+
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
+        # self::$subject = new Subject();
         self::markTestSkipped('');
     }
 }

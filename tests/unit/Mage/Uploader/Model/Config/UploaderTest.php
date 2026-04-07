@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Uploader\Model\Config;
 
+# use Mage;
 use Mage_Uploader_Model_Config_Uploader as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Uploader\Model\Config\UploaderTrait;
@@ -19,9 +20,12 @@ final class UploaderTest extends OpenMageTest
 {
     use UploaderTrait;
 
+    # private static Subject $subject;
+
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
+        # self::$subject = Mage::getModel('uploader/config_uploader');
         self::markTestSkipped('');
     }
 }

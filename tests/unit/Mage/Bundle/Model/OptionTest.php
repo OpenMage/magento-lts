@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Bundle\Model;
 
+# use Mage;
 use Mage_Bundle_Model_Option as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Bundle\Model\OptionTrait;
@@ -19,9 +20,12 @@ final class OptionTest extends OpenMageTest
 {
     use OptionTrait;
 
+    # private static Subject $subject;
+
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
+        # self::$subject = Mage::getModel('bundle/option');
         self::markTestSkipped('');
     }
 }

@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Catalog\Model\Resource\Product\Indexer;
 
+# use Mage;
 use Mage_Catalog_Model_Resource_Product_Indexer_Eav as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\Model\Resource\Product\Indexer\EavTrait;
@@ -19,9 +20,12 @@ final class EavTest extends OpenMageTest
 {
     use EavTrait;
 
+    # private static Subject $subject;
+
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
+        # self::$subject = Mage::getModel('catalog/resource_product_indexer_eav');
         self::markTestSkipped('');
     }
 }

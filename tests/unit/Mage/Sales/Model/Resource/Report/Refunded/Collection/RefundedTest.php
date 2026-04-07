@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Sales\Model\Resource\Report\Refunded\Collection;
 
+# use Mage;
 use Mage_Sales_Model_Resource_Report_Refunded_Collection_Refunded as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sales\Model\Resource\Report\Refunded\Collection\RefundedTrait;
@@ -19,9 +20,12 @@ final class RefundedTest extends OpenMageTest
 {
     use RefundedTrait;
 
+    # private static Subject $subject;
+
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
+        # self::$subject = Mage::getModel('sales/resource_report_refunded_collection_refunded');
         self::markTestSkipped('');
     }
 }

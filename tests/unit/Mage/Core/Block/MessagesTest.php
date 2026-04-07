@@ -19,9 +19,12 @@ final class MessagesTest extends OpenMageTest
 {
     use MessagesTrait;
 
+    # private static Subject $subject;
+
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
+        # self::$subject = new Subject();
         self::markTestSkipped('');
     }
 }

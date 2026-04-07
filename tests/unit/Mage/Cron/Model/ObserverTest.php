@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Cron\Model;
 
+# use Mage;
 use Mage_Cron_Model_Observer as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Cron\Model\ObserverTrait;
@@ -19,9 +20,12 @@ final class ObserverTest extends OpenMageTest
 {
     use ObserverTrait;
 
+    # private static Subject $subject;
+
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
+        # self::$subject = Mage::getModel('cron/observer');
         self::markTestSkipped('');
     }
 }

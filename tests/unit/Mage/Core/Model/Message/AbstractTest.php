@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Core\Model\Message;
 
+# use Mage;
 use Mage_Core_Model_Message_Abstract as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\Model\Message\AbstractTrait;
@@ -19,9 +20,12 @@ final class AbstractTest extends OpenMageTest
 {
     use AbstractTrait;
 
+    # private static Subject $subject;
+
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
+        # self::$subject = Mage::getModel('core/message_abstract');
         self::markTestSkipped('');
     }
 }

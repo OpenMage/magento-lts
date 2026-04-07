@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Tax\Model\Sales\Pdf;
 
+# use Mage;
 use Mage_Tax_Model_Sales_Pdf_Shipping as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Tax\Model\Sales\Pdf\ShippingTrait;
@@ -19,9 +20,12 @@ final class ShippingTest extends OpenMageTest
 {
     use ShippingTrait;
 
+    # private static Subject $subject;
+
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
+        # self::$subject = Mage::getModel('tax/sales_pdf_shipping');
         self::markTestSkipped('');
     }
 }

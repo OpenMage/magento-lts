@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\CatalogInventory\Helper;
 
+# use Mage;
 use Mage_CatalogInventory_Helper_Minsaleqty as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\CatalogInventory\Helper\MinsaleqtyTrait;
@@ -19,9 +20,12 @@ final class MinsaleqtyTest extends OpenMageTest
 {
     use MinsaleqtyTrait;
 
+    # private static Subject $subject;
+
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
+        # self::$subject = Mage::helper('cataloginventory/minsaleqty');
         self::markTestSkipped('');
     }
 }

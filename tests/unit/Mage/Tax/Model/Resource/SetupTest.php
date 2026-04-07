@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Tax\Model\Resource;
 
+# use Mage;
 use Mage_Tax_Model_Resource_Setup as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Tax\Model\Resource\SetupTrait;
@@ -19,9 +20,12 @@ final class SetupTest extends OpenMageTest
 {
     use SetupTrait;
 
+    # private static Subject $subject;
+
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
+        # self::$subject = Mage::getModel('tax/resource_setup');
         self::markTestSkipped('');
     }
 }

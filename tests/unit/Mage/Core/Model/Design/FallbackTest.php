@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Core\Model\Design;
 
+# use Mage;
 use Mage_Core_Model_Design_Fallback as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\Model\Design\FallbackTrait;
@@ -19,9 +20,12 @@ final class FallbackTest extends OpenMageTest
 {
     use FallbackTrait;
 
+    # private static Subject $subject;
+
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
+        # self::$subject = Mage::getModel('core/design_fallback');
         self::markTestSkipped('');
     }
 }

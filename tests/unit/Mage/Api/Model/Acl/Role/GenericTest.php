@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Api\Model\Acl\Role;
 
+# use Mage;
 use Mage_Api_Model_Acl_Role_Generic as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Api\Model\Acl\Role\GenericTrait;
@@ -19,9 +20,12 @@ final class GenericTest extends OpenMageTest
 {
     use GenericTrait;
 
+    # private static Subject $subject;
+
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
+        # self::$subject = Mage::getModel('api/acl_role_generic');
         self::markTestSkipped('');
     }
 }

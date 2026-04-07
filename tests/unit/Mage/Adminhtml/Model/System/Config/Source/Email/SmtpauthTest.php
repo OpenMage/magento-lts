@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Adminhtml\Model\System\Config\Source\Email;
 
+# use Mage;
 use Mage_Adminhtml_Model_System_Config_Source_Email_Smtpauth as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Model\System\Config\Source\Email\SmtpauthTrait;
@@ -19,9 +20,12 @@ final class SmtpauthTest extends OpenMageTest
 {
     use SmtpauthTrait;
 
+    # private static Subject $subject;
+
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
+        # self::$subject = Mage::getModel('adminhtml/system_config_source_email_smtpauth');
         self::markTestSkipped('');
     }
 }

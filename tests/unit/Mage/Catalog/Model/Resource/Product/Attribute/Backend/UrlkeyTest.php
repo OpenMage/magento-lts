@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Catalog\Model\Resource\Product\Attribute\Backend;
 
+# use Mage;
 use Mage_Catalog_Model_Resource_Product_Attribute_Backend_Urlkey as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\Model\Resource\Product\Attribute\Backend\UrlkeyTrait;
@@ -19,9 +20,12 @@ final class UrlkeyTest extends OpenMageTest
 {
     use UrlkeyTrait;
 
+    # private static Subject $subject;
+
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
+        # self::$subject = Mage::getModel('catalog/resource_product_attribute_backend_urlkey');
         self::markTestSkipped('');
     }
 }

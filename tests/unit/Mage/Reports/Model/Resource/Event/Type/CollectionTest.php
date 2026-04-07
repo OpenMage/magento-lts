@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Reports\Model\Resource\Event\Type;
 
+# use Mage;
 use Mage_Reports_Model_Resource_Event_Type_Collection as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Reports\Model\Resource\Event\Type\CollectionTrait;
@@ -19,9 +20,12 @@ final class CollectionTest extends OpenMageTest
 {
     use CollectionTrait;
 
+    # private static Subject $subject;
+
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
+        # self::$subject = Mage::getModel('reports/resource_event_type_collection');
         self::markTestSkipped('');
     }
 }

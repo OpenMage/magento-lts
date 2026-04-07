@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Directory\Model\Region;
 
+# use Mage;
 use Mage_Directory_Model_Region_Api as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Directory\Model\Region\ApiTrait;
@@ -19,9 +20,12 @@ final class ApiTest extends OpenMageTest
 {
     use ApiTrait;
 
+    # private static Subject $subject;
+
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
+        # self::$subject = Mage::getModel('directory/region_api');
         self::markTestSkipped('');
     }
 }

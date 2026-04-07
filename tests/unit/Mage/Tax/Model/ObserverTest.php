@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Tax\Model;
 
+# use Mage;
 use Mage_Tax_Model_Observer as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Tax\Model\ObserverTrait;
@@ -19,9 +20,12 @@ final class ObserverTest extends OpenMageTest
 {
     use ObserverTrait;
 
+    # private static Subject $subject;
+
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
+        # self::$subject = Mage::getModel('tax/observer');
         self::markTestSkipped('');
     }
 }

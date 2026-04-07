@@ -19,9 +19,12 @@ final class NominalTest extends OpenMageTest
 {
     use NominalTrait;
 
+    # private static Subject $subject;
+
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
+        # self::$subject = new Subject();
         self::markTestSkipped('');
     }
 }

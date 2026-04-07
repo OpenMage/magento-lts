@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Index\Model\Resource\Lock;
 
+# use Mage;
 use Mage_Index_Model_Resource_Lock_Resource as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Index\Model\Resource\Lock\ResourceTrait;
@@ -19,9 +20,12 @@ final class ResourceTest extends OpenMageTest
 {
     use ResourceTrait;
 
+    # private static Subject $subject;
+
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
+        # self::$subject = Mage::getModel('index/resource_lock_resource');
         self::markTestSkipped('');
     }
 }

@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Catalog\Model\Resource\Product\Indexer\Price;
 
+# use Mage;
 use Mage_Catalog_Model_Resource_Product_Indexer_Price_Default as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\Model\Resource\Product\Indexer\Price\DefaultTrait;
@@ -19,9 +20,12 @@ final class DefaultTest extends OpenMageTest
 {
     use DefaultTrait;
 
+    # private static Subject $subject;
+
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
+        # self::$subject = Mage::getModel('catalog/resource_product_indexer_price_default');
         self::markTestSkipped('');
     }
 }

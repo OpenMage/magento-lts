@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Customer\Model\Entity;
 
+# use Mage;
 use Mage_Customer_Model_Entity_Setup as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Customer\Model\Entity\SetupTrait;
@@ -19,9 +20,12 @@ final class SetupTest extends OpenMageTest
 {
     use SetupTrait;
 
+    # private static Subject $subject;
+
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
+        # self::$subject = Mage::getModel('customer/entity_setup');
         self::markTestSkipped('');
     }
 }

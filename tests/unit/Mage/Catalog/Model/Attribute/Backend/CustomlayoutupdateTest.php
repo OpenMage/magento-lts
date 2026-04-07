@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Catalog\Model\Attribute\Backend;
 
+# use Mage;
 use Mage_Catalog_Model_Attribute_Backend_Customlayoutupdate as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\Model\Attribute\Backend\CustomlayoutupdateTrait;
@@ -19,9 +20,12 @@ final class CustomlayoutupdateTest extends OpenMageTest
 {
     use CustomlayoutupdateTrait;
 
+    # private static Subject $subject;
+
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
+        # self::$subject = Mage::getModel('catalog/attribute_backend_customlayoutupdate');
         self::markTestSkipped('');
     }
 }

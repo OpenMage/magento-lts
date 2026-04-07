@@ -19,9 +19,12 @@ final class ProblemTest extends OpenMageTest
 {
     use ProblemTrait;
 
+    # private static Subject $subject;
+
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
+        # self::$subject = new Subject();
         self::markTestSkipped('');
     }
 }

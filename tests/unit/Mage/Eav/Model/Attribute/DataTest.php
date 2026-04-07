@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Eav\Model\Attribute;
 
+# use Mage;
 use Mage_Eav_Model_Attribute_Data as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Eav\Model\Attribute\DataTrait;
@@ -19,9 +20,12 @@ final class DataTest extends OpenMageTest
 {
     use DataTrait;
 
+    # private static Subject $subject;
+
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
+        # self::$subject = Mage::getModel('eav/attribute_data');
         self::markTestSkipped('');
     }
 }

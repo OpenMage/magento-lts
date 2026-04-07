@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\SalesRule\Model\Resource\Coupon;
 
+# use Mage;
 use Mage_SalesRule_Model_Resource_Coupon_Usage as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\SalesRule\Model\Resource\Coupon\UsageTrait;
@@ -19,9 +20,12 @@ final class UsageTest extends OpenMageTest
 {
     use UsageTrait;
 
+    # private static Subject $subject;
+
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
+        # self::$subject = Mage::getModel('salesrule/resource_coupon_usage');
         self::markTestSkipped('');
     }
 }

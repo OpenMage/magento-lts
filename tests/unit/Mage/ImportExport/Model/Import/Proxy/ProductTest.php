@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\ImportExport\Model\Import\Proxy;
 
+# use Mage;
 use Mage_ImportExport_Model_Import_Proxy_Product as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\ImportExport\Model\Import\Proxy\ProductTrait;
@@ -19,9 +20,12 @@ final class ProductTest extends OpenMageTest
 {
     use ProductTrait;
 
+    # private static Subject $subject;
+
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
+        # self::$subject = Mage::getModel('importexport/import_proxy_product');
         self::markTestSkipped('');
     }
 }

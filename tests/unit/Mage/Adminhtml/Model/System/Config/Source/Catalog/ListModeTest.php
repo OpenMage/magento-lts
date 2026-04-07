@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Adminhtml\Model\System\Config\Source\Catalog;
 
+# use Mage;
 use Mage_Adminhtml_Model_System_Config_Source_Catalog_ListMode as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Model\System\Config\Source\Catalog\ListModeTrait;
@@ -19,9 +20,12 @@ final class ListModeTest extends OpenMageTest
 {
     use ListModeTrait;
 
+    # private static Subject $subject;
+
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
+        # self::$subject = Mage::getModel('adminhtml/system_config_source_catalog_listmode');
         self::markTestSkipped('');
     }
 }

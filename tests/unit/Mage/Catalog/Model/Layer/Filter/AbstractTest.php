@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Catalog\Model\Layer\Filter;
 
+# use Mage;
 use Mage_Catalog_Model_Layer_Filter_Abstract as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\Model\Layer\Filter\AbstractTrait;
@@ -19,9 +20,12 @@ final class AbstractTest extends OpenMageTest
 {
     use AbstractTrait;
 
+    # private static Subject $subject;
+
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
+        # self::$subject = Mage::getModel('catalog/layer_filter_abstract');
         self::markTestSkipped('');
     }
 }

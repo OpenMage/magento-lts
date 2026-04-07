@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Catalog\Helper\Product;
 
+# use Mage;
 use Mage_Catalog_Helper_Product_View as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\Helper\Product\ViewTrait;
@@ -19,9 +20,12 @@ final class ViewTest extends OpenMageTest
 {
     use ViewTrait;
 
+    # private static Subject $subject;
+
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
+        # self::$subject = Mage::helper('catalog/product_view');
         self::markTestSkipped('');
     }
 }

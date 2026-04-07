@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Tax\Model\Resource\Calculation;
 
+# use Mage;
 use Mage_Tax_Model_Resource_Calculation_Rule as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Tax\Model\Resource\Calculation\RuleTrait;
@@ -19,9 +20,12 @@ final class RuleTest extends OpenMageTest
 {
     use RuleTrait;
 
+    # private static Subject $subject;
+
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
+        # self::$subject = Mage::getModel('tax/resource_calculation_rule');
         self::markTestSkipped('');
     }
 }

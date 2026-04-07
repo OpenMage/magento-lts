@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Paypal\Model\Hostedpro;
 
+# use Mage;
 use Mage_Paypal_Model_Hostedpro_Request as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Paypal\Model\Hostedpro\RequestTrait;
@@ -19,9 +20,12 @@ final class RequestTest extends OpenMageTest
 {
     use RequestTrait;
 
+    # private static Subject $subject;
+
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
+        # self::$subject = Mage::getModel('paypal/hostedpro_request');
         self::markTestSkipped('');
     }
 }

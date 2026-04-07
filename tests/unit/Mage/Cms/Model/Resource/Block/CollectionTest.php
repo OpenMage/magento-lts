@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Cms\Model\Resource\Block;
 
+# use Mage;
 use Mage_Cms_Model_Resource_Block_Collection as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Cms\Model\Resource\Block\CollectionTrait;
@@ -19,9 +20,12 @@ final class CollectionTest extends OpenMageTest
 {
     use CollectionTrait;
 
+    # private static Subject $subject;
+
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
+        # self::$subject = Mage::getModel('cms/resource_block_collection');
         self::markTestSkipped('');
     }
 }

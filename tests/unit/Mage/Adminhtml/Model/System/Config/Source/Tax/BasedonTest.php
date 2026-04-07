@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Adminhtml\Model\System\Config\Source\Tax;
 
+# use Mage;
 use Mage_Adminhtml_Model_System_Config_Source_Tax_Basedon as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Model\System\Config\Source\Tax\BasedonTrait;
@@ -19,9 +20,12 @@ final class BasedonTest extends OpenMageTest
 {
     use BasedonTrait;
 
+    # private static Subject $subject;
+
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
+        # self::$subject = Mage::getModel('adminhtml/system_config_source_tax_basedon');
         self::markTestSkipped('');
     }
 }

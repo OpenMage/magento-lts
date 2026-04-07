@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Catalog\Model\Product\Attribute\Backend\Startdate;
 
+# use Mage;
 use Mage_Catalog_Model_Product_Attribute_Backend_Startdate_Specialprice as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\Model\Product\Attribute\Backend\Startdate\SpecialpriceTrait;
@@ -19,9 +20,12 @@ final class SpecialpriceTest extends OpenMageTest
 {
     use SpecialpriceTrait;
 
+    # private static Subject $subject;
+
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
+        # self::$subject = Mage::getModel('catalog/product_attribute_backend_startdate_specialprice');
         self::markTestSkipped('');
     }
 }

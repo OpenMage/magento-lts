@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Api\Model\Resource;
 
+# use Mage;
 use Mage_Api_Model_Resource_Acl as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Api\Model\Resource\AclTrait;
@@ -19,9 +20,12 @@ final class AclTest extends OpenMageTest
 {
     use AclTrait;
 
+    # private static Subject $subject;
+
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
+        # self::$subject = Mage::getModel('api/resource_acl');
         self::markTestSkipped('');
     }
 }

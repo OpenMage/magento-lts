@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\CatalogSearch\Model\Resource\Indexer;
 
+# use Mage;
 use Mage_CatalogSearch_Model_Resource_Indexer_Fulltext as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\CatalogSearch\Model\Resource\Indexer\FulltextTrait;
@@ -19,9 +20,12 @@ final class FulltextTest extends OpenMageTest
 {
     use FulltextTrait;
 
+    # private static Subject $subject;
+
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
+        # self::$subject = Mage::getModel('catalogsearch/resource_indexer_fulltext');
         self::markTestSkipped('');
     }
 }

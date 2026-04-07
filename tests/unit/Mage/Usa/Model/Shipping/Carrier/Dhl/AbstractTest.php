@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Usa\Model\Shipping\Carrier\Dhl;
 
+# use Mage;
 use Mage_Usa_Model_Shipping_Carrier_Dhl_Abstract as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Usa\Model\Shipping\Carrier\Dhl\AbstractTrait;
@@ -19,9 +20,12 @@ final class AbstractTest extends OpenMageTest
 {
     use AbstractTrait;
 
+    # private static Subject $subject;
+
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
+        # self::$subject = Mage::getModel('usa/shipping_carrier_dhl_abstract');
         self::markTestSkipped('');
     }
 }

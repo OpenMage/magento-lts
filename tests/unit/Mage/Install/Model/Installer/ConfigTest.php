@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Install\Model\Installer;
 
+# use Mage;
 use Mage_Install_Model_Installer_Config as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Install\Model\Installer\ConfigTrait;
@@ -19,9 +20,12 @@ final class ConfigTest extends OpenMageTest
 {
     use ConfigTrait;
 
+    # private static Subject $subject;
+
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
+        # self::$subject = Mage::getModel('install/installer_config');
         self::markTestSkipped('');
     }
 }

@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Adminhtml\Model\System\Config\Backend;
 
+# use Mage;
 use Mage_Adminhtml_Model_System_Config_Backend_Filename as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Model\System\Config\Backend\FilenameTrait;
@@ -19,9 +20,12 @@ final class FilenameTest extends OpenMageTest
 {
     use FilenameTrait;
 
+    # private static Subject $subject;
+
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
+        # self::$subject = Mage::getModel('adminhtml/system_config_backend_filename');
         self::markTestSkipped('');
     }
 }

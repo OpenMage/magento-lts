@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Persistent\Helper;
 
+# use Mage;
 use Mage_Persistent_Helper_Session as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Persistent\Helper\SessionTrait;
@@ -19,9 +20,12 @@ final class SessionTest extends OpenMageTest
 {
     use SessionTrait;
 
+    # private static Subject $subject;
+
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
+        # self::$subject = Mage::helper('persistent/session');
         self::markTestSkipped('');
     }
 }

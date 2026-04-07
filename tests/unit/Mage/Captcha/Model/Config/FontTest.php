@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Captcha\Model\Config;
 
+# use Mage;
 use Mage_Captcha_Model_Config_Font as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Captcha\Model\Config\FontTrait;
@@ -19,9 +20,12 @@ final class FontTest extends OpenMageTest
 {
     use FontTrait;
 
+    # private static Subject $subject;
+
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
+        # self::$subject = Mage::getModel('captcha/config_font');
         self::markTestSkipped('');
     }
 }

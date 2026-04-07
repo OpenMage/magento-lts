@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Catalog\Model\Api2\Product;
 
+# use Mage;
 use Mage_Catalog_Model_Api2_Product_Category as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\Model\Api2\Product\CategoryTrait;
@@ -19,9 +20,12 @@ final class CategoryTest extends OpenMageTest
 {
     use CategoryTrait;
 
+    # private static Subject $subject;
+
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
+        # self::$subject = Mage::getModel('catalog/api2_product_category');
         self::markTestSkipped('');
     }
 }

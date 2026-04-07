@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Sales\Model\Entity\Quote;
 
+# use Mage;
 use Mage_Sales_Model_Entity_Quote_Address as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sales\Model\Entity\Quote\AddressTrait;
@@ -19,9 +20,12 @@ final class AddressTest extends OpenMageTest
 {
     use AddressTrait;
 
+    # private static Subject $subject;
+
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
+        # self::$subject = Mage::getModel('sales/entity_quote_address');
         self::markTestSkipped('');
     }
 }

@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Dataflow\Model\Convert\Parser;
 
+# use Mage;
 use Mage_Dataflow_Model_Convert_Parser_Csv as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Dataflow\Model\Convert\Parser\CsvTrait;
@@ -19,9 +20,12 @@ final class CsvTest extends OpenMageTest
 {
     use CsvTrait;
 
+    # private static Subject $subject;
+
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
+        # self::$subject = Mage::getModel('dataflow/convert_parser_csv');
         self::markTestSkipped('');
     }
 }

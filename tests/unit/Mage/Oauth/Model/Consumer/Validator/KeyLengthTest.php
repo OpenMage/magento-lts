@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Oauth\Model\Consumer\Validator;
 
+# use Mage;
 use Mage_Oauth_Model_Consumer_Validator_KeyLength as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Oauth\Model\Consumer\Validator\KeyLengthTrait;
@@ -19,9 +20,12 @@ final class KeyLengthTest extends OpenMageTest
 {
     use KeyLengthTrait;
 
+    # private static Subject $subject;
+
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
+        # self::$subject = Mage::getModel('oauth/consumer_validator_keylength');
         self::markTestSkipped('');
     }
 }

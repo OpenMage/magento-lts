@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Api2\Model\Route;
 
+# use Mage;
 use Mage_Api2_Model_Route_ApiType as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Api2\Model\Route\ApiTypeTrait;
@@ -19,9 +20,12 @@ final class ApiTypeTest extends OpenMageTest
 {
     use ApiTypeTrait;
 
+    # private static Subject $subject;
+
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
+        # self::$subject = Mage::getModel('api2/route_apitype');
         self::markTestSkipped('');
     }
 }

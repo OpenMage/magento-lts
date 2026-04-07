@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Catalog\Model\Product\Attribute\Media;
 
+# use Mage;
 use Mage_Catalog_Model_Product_Attribute_Media_Api as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\Model\Product\Attribute\Media\ApiTrait;
@@ -19,9 +20,12 @@ final class ApiTest extends OpenMageTest
 {
     use ApiTrait;
 
+    # private static Subject $subject;
+
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
+        # self::$subject = Mage::getModel('catalog/product_attribute_media_api');
         self::markTestSkipped('');
     }
 }

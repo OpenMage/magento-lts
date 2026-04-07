@@ -19,9 +19,12 @@ final class Mysql4Test extends OpenMageTest
 {
     use Mysql4Trait;
 
+    # private static Subject $subject;
+
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
+        # self::$subject = new Subject();
         self::markTestSkipped('');
     }
 }

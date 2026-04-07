@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\PaypalUk\Model;
 
+# use Mage;
 use Mage_PaypalUk_Model_Bml as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\PaypalUk\Model\BmlTrait;
@@ -19,9 +20,12 @@ final class BmlTest extends OpenMageTest
 {
     use BmlTrait;
 
+    # private static Subject $subject;
+
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
+        # self::$subject = Mage::getModel('paypaluk/bml');
         self::markTestSkipped('');
     }
 }

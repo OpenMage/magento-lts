@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Core\Model\App;
 
+# use Mage;
 use Mage_Core_Model_App_Emulation as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\Model\App\EmulationTrait;
@@ -19,9 +20,12 @@ final class EmulationTest extends OpenMageTest
 {
     use EmulationTrait;
 
+    # private static Subject $subject;
+
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
+        # self::$subject = Mage::getModel('core/app_emulation');
         self::markTestSkipped('');
     }
 }

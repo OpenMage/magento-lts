@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Eav\Model\Resource\Entity;
 
+# use Mage;
 use Mage_Eav_Model_Resource_Entity_Store as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Eav\Model\Resource\Entity\StoreTrait;
@@ -19,9 +20,12 @@ final class StoreTest extends OpenMageTest
 {
     use StoreTrait;
 
+    # private static Subject $subject;
+
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
+        # self::$subject = Mage::getModel('eav/resource_entity_store');
         self::markTestSkipped('');
     }
 }

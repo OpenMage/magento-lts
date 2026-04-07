@@ -19,9 +19,12 @@ final class BestsellersTest extends OpenMageTest
 {
     use BestsellersTrait;
 
+    # private static Subject $subject;
+
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
+        # self::$subject = new Subject();
         self::markTestSkipped('');
     }
 }
