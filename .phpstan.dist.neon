@@ -136,22 +136,6 @@ parameters:
         -
             identifier: phpunit.coversMethod
         -
-            identifier: property.deprecatedClass
-            paths:
-                - tests/unit/*
-        -
-            identifier: property.onlyWritten
-            paths:
-                - tests/unit/*
-        -
-            identifier: new.deprecatedClass
-            paths:
-                - tests/unit/*
-        -
-            identifier: method.deprecatedClass
-            paths:
-                - tests/unit/*
-        -
             # update phpstan plugin
             identifier: property.protected
             paths:
