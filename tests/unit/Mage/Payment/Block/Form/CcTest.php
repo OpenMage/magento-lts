@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Payment\Block\Form;
 
-# use Mage_Payment_Block_Form_Cc as Subject;
+// use Mage_Payment_Block_Form_Cc as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Payment\Block\Form\CcTrait;
 
@@ -19,12 +19,12 @@ final class CcTest extends OpenMageTest
 {
     use CcTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = new Subject();
+        // self::$subject = new Subject();
         self::markTestSkipped('');
     }
 }

@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Install\Model\Installer\Db;
 
-# use Mage;
-# use Mage_Install_Model_Installer_Db_Mysql4 as Subject;
+// use Mage;
+// use Mage_Install_Model_Installer_Db_Mysql4 as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Install\Model\Installer\Db\Mysql4Trait;
 
@@ -20,12 +20,12 @@ final class Mysql4Test extends OpenMageTest
 {
     use Mysql4Trait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::getModel('install/installer_db_mysql4');
+        // self::$subject = Mage::getModel('install/installer_db_mysql4');
         self::markTestSkipped('');
     }
 }

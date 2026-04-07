@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Tax\Model;
 
-# use Mage;
-# use Mage_Tax_Model_Class as Subject;
+// use Mage;
+// use Mage_Tax_Model_Class as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Tax\Model\ClassTrait;
 
@@ -20,12 +20,12 @@ final class ClassTest extends OpenMageTest
 {
     use ClassTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::getModel('tax/class');
+        // self::$subject = Mage::getModel('tax/class');
         self::markTestSkipped('');
     }
 }

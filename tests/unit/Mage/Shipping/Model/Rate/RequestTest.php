@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Shipping\Model\Rate;
 
-# use Mage;
-# use Mage_Shipping_Model_Rate_Request as Subject;
+// use Mage;
+// use Mage_Shipping_Model_Rate_Request as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Shipping\Model\Rate\RequestTrait;
 
@@ -20,12 +20,12 @@ final class RequestTest extends OpenMageTest
 {
     use RequestTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::getModel('shipping/rate_request');
+        // self::$subject = Mage::getModel('shipping/rate_request');
         self::markTestSkipped('');
     }
 }

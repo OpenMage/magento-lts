@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\CatalogInventory\Model\Resource\Indexer\Stock;
 
-# use Mage;
-# use Mage_CatalogInventory_Model_Resource_Indexer_Stock_Grouped as Subject;
+// use Mage;
+// use Mage_CatalogInventory_Model_Resource_Indexer_Stock_Grouped as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\CatalogInventory\Model\Resource\Indexer\Stock\GroupedTrait;
 
@@ -20,12 +20,12 @@ final class GroupedTest extends OpenMageTest
 {
     use GroupedTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::getModel('cataloginventory/resource_indexer_stock_grouped');
+        // self::$subject = Mage::getModel('cataloginventory/resource_indexer_stock_grouped');
         self::markTestSkipped('');
     }
 }

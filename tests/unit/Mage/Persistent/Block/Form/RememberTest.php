@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Persistent\Block\Form;
 
-# use Mage_Persistent_Block_Form_Remember as Subject;
+// use Mage_Persistent_Block_Form_Remember as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Persistent\Block\Form\RememberTrait;
 
@@ -19,12 +19,12 @@ final class RememberTest extends OpenMageTest
 {
     use RememberTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = new Subject();
+        // self::$subject = new Subject();
         self::markTestSkipped('');
     }
 }

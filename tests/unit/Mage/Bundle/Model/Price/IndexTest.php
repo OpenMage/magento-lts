@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Bundle\Model\Price;
 
-# use Mage;
-# use Mage_Bundle_Model_Price_Index as Subject;
+// use Mage;
+// use Mage_Bundle_Model_Price_Index as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Bundle\Model\Price\IndexTrait;
 
@@ -20,12 +20,12 @@ final class IndexTest extends OpenMageTest
 {
     use IndexTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::getModel('bundle/price_index');
+        // self::$subject = Mage::getModel('bundle/price_index');
         self::markTestSkipped('');
     }
 }

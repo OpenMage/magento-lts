@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Api\Model\Server\Adapter;
 
-# use Mage;
-# use Mage_Api_Model_Server_Adapter_Xmlrpc as Subject;
+// use Mage;
+// use Mage_Api_Model_Server_Adapter_Xmlrpc as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Api\Model\Server\Adapter\XmlrpcTrait;
 
@@ -20,12 +20,12 @@ final class XmlrpcTest extends OpenMageTest
 {
     use XmlrpcTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::getModel('api/server_adapter_xmlrpc');
+        // self::$subject = Mage::getModel('api/server_adapter_xmlrpc');
         self::markTestSkipped('');
     }
 }

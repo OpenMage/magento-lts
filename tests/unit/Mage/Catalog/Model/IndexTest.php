@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Catalog\Model;
 
-# use Mage;
-# use Mage_Catalog_Model_Index as Subject;
+// use Mage;
+// use Mage_Catalog_Model_Index as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\Model\IndexTrait;
 
@@ -20,12 +20,12 @@ final class IndexTest extends OpenMageTest
 {
     use IndexTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::getModel('catalog/index');
+        // self::$subject = Mage::getModel('catalog/index');
         self::markTestSkipped('');
     }
 }

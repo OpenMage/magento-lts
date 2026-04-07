@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Catalog\Model\Product\Type;
 
-# use Mage;
-# use Mage_Catalog_Model_Product_Type_Price as Subject;
+// use Mage;
+// use Mage_Catalog_Model_Product_Type_Price as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\Model\Product\Type\PriceTrait;
 
@@ -20,12 +20,12 @@ final class PriceTest extends OpenMageTest
 {
     use PriceTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::getModel('catalog/product_type_price');
+        // self::$subject = Mage::getModel('catalog/product_type_price');
         self::markTestSkipped('');
     }
 }

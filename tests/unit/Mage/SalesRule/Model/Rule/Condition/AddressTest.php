@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\SalesRule\Model\Rule\Condition;
 
-# use Mage;
-# use Mage_SalesRule_Model_Rule_Condition_Address as Subject;
+// use Mage;
+// use Mage_SalesRule_Model_Rule_Condition_Address as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\SalesRule\Model\Rule\Condition\AddressTrait;
 
@@ -20,12 +20,12 @@ final class AddressTest extends OpenMageTest
 {
     use AddressTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::getModel('salesrule/rule_condition_address');
+        // self::$subject = Mage::getModel('salesrule/rule_condition_address');
         self::markTestSkipped('');
     }
 }

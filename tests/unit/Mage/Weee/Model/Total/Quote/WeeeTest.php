@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Weee\Model\Total\Quote;
 
-# use Mage;
-# use Mage_Weee_Model_Total_Quote_Weee as Subject;
+// use Mage;
+// use Mage_Weee_Model_Total_Quote_Weee as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Weee\Model\Total\Quote\WeeeTrait;
 
@@ -20,12 +20,12 @@ final class WeeeTest extends OpenMageTest
 {
     use WeeeTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::getModel('weee/total_quote_weee');
+        // self::$subject = Mage::getModel('weee/total_quote_weee');
         self::markTestSkipped('');
     }
 }

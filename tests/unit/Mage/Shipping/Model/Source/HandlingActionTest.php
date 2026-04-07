@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Shipping\Model\Source;
 
-# use Mage;
-# use Mage_Shipping_Model_Source_HandlingAction as Subject;
+// use Mage;
+// use Mage_Shipping_Model_Source_HandlingAction as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Shipping\Model\Source\HandlingActionTrait;
 
@@ -20,12 +20,12 @@ final class HandlingActionTest extends OpenMageTest
 {
     use HandlingActionTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::getModel('shipping/source_handlingaction');
+        // self::$subject = Mage::getModel('shipping/source_handlingaction');
         self::markTestSkipped('');
     }
 }

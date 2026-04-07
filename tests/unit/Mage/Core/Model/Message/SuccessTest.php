@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Core\Model\Message;
 
-# use Mage;
-# use Mage_Core_Model_Message_Success as Subject;
+// use Mage;
+// use Mage_Core_Model_Message_Success as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\Model\Message\SuccessTrait;
 
@@ -20,12 +20,12 @@ final class SuccessTest extends OpenMageTest
 {
     use SuccessTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::getModel('core/message_success');
+        // self::$subject = Mage::getModel('core/message_success');
         self::markTestSkipped('');
     }
 }

@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Reports\Block\Product;
 
-# use Mage_Reports_Block_Product_Compared as Subject;
+// use Mage_Reports_Block_Product_Compared as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Reports\Block\Product\ComparedTrait;
 
@@ -19,12 +19,12 @@ final class ComparedTest extends OpenMageTest
 {
     use ComparedTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = new Subject();
+        // self::$subject = new Subject();
         self::markTestSkipped('');
     }
 }

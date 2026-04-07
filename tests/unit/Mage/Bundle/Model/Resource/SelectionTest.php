@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Bundle\Model\Resource;
 
-# use Mage;
-# use Mage_Bundle_Model_Resource_Selection as Subject;
+// use Mage;
+// use Mage_Bundle_Model_Resource_Selection as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Bundle\Model\Resource\SelectionTrait;
 
@@ -20,12 +20,12 @@ final class SelectionTest extends OpenMageTest
 {
     use SelectionTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::getModel('bundle/resource_selection');
+        // self::$subject = Mage::getModel('bundle/resource_selection');
         self::markTestSkipped('');
     }
 }

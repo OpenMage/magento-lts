@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Adminhtml\Model\System\Config\Backend\Currency;
 
-# use Mage;
-# use Mage_Adminhtml_Model_System_Config_Backend_Currency_Base as Subject;
+// use Mage;
+// use Mage_Adminhtml_Model_System_Config_Backend_Currency_Base as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Model\System\Config\Backend\Currency\BaseTrait;
 
@@ -20,12 +20,12 @@ final class BaseTest extends OpenMageTest
 {
     use BaseTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::getModel('adminhtml/system_config_backend_currency_base');
+        // self::$subject = Mage::getModel('adminhtml/system_config_backend_currency_base');
         self::markTestSkipped('');
     }
 }

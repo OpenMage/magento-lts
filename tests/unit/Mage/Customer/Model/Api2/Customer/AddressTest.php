@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Customer\Model\Api2\Customer;
 
-# use Mage;
-# use Mage_Customer_Model_Api2_Customer_Address as Subject;
+// use Mage;
+// use Mage_Customer_Model_Api2_Customer_Address as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Customer\Model\Api2\Customer\AddressTrait;
 
@@ -20,12 +20,12 @@ final class AddressTest extends OpenMageTest
 {
     use AddressTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::getModel('customer/api2_customer_address');
+        // self::$subject = Mage::getModel('customer/api2_customer_address');
         self::markTestSkipped('');
     }
 }

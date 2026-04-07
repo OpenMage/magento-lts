@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Downloadable\Model\Link;
 
-# use Mage;
-# use Mage_Downloadable_Model_Link_Api as Subject;
+// use Mage;
+// use Mage_Downloadable_Model_Link_Api as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Downloadable\Model\Link\ApiTrait;
 
@@ -20,12 +20,12 @@ final class ApiTest extends OpenMageTest
 {
     use ApiTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::getModel('downloadable/link_api');
+        // self::$subject = Mage::getModel('downloadable/link_api');
         self::markTestSkipped('');
     }
 }

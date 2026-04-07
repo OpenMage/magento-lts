@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Adminhtml\Model\System\Config\Backend\Customer\Show;
 
-# use Mage;
-# use Mage_Adminhtml_Model_System_Config_Backend_Customer_Show_Address as Subject;
+// use Mage;
+// use Mage_Adminhtml_Model_System_Config_Backend_Customer_Show_Address as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Model\System\Config\Backend\Customer\Show\AddressTrait;
 
@@ -20,12 +20,12 @@ final class AddressTest extends OpenMageTest
 {
     use AddressTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::getModel('adminhtml/system_config_backend_customer_show_address');
+        // self::$subject = Mage::getModel('adminhtml/system_config_backend_customer_show_address');
         self::markTestSkipped('');
     }
 }

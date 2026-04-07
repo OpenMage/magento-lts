@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Checkout\Block\Multishipping\Address;
 
-# use Mage_Checkout_Block_Multishipping_Address_Select as Subject;
+// use Mage_Checkout_Block_Multishipping_Address_Select as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Checkout\Block\Multishipping\Address\SelectTrait;
 
@@ -19,12 +19,12 @@ final class SelectTest extends OpenMageTest
 {
     use SelectTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = new Subject();
+        // self::$subject = new Subject();
         self::markTestSkipped('');
     }
 }

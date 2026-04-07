@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Checkout\Block\Cart\Item;
 
-# use Mage_Checkout_Block_Cart_Item_Configure as Subject;
+// use Mage_Checkout_Block_Cart_Item_Configure as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Checkout\Block\Cart\Item\ConfigureTrait;
 
@@ -19,12 +19,12 @@ final class ConfigureTest extends OpenMageTest
 {
     use ConfigureTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = new Subject();
+        // self::$subject = new Subject();
         self::markTestSkipped('');
     }
 }

@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\CatalogInventory\Model\Source;
 
-# use Mage;
-# use Mage_CatalogInventory_Model_Source_Stock as Subject;
+// use Mage;
+// use Mage_CatalogInventory_Model_Source_Stock as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\CatalogInventory\Model\Source\StockTrait;
 
@@ -20,12 +20,12 @@ final class StockTest extends OpenMageTest
 {
     use StockTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::getModel('cataloginventory/source_stock');
+        // self::$subject = Mage::getModel('cataloginventory/source_stock');
         self::markTestSkipped('');
     }
 }

@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Widget\Grid\Massaction\Item\Additional;
 
-# use Mage_Adminhtml_Block_Widget_Grid_Massaction_Item_Additional_Default as Subject;
+// use Mage_Adminhtml_Block_Widget_Grid_Massaction_Item_Additional_Default as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\Widget\Grid\Massaction\Item\Additional\DefaultTrait;
 
@@ -19,12 +19,12 @@ final class DefaultTest extends OpenMageTest
 {
     use DefaultTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = new Subject();
+        // self::$subject = new Subject();
         self::markTestSkipped('');
     }
 }

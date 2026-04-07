@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Adminhtml\Model\System\Config\Source\Customer\Address;
 
-# use Mage;
-# use Mage_Adminhtml_Model_System_Config_Source_Customer_Address_Type as Subject;
+// use Mage;
+// use Mage_Adminhtml_Model_System_Config_Source_Customer_Address_Type as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Model\System\Config\Source\Customer\Address\TypeTrait;
 
@@ -20,12 +20,12 @@ final class TypeTest extends OpenMageTest
 {
     use TypeTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::getModel('adminhtml/system_config_source_customer_address_type');
+        // self::$subject = Mage::getModel('adminhtml/system_config_source_customer_address_type');
         self::markTestSkipped('');
     }
 }

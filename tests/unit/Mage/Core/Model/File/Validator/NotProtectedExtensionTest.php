@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Core\Model\File\Validator;
 
-# use Mage;
-# use Mage_Core_Model_File_Validator_NotProtectedExtension as Subject;
+// use Mage;
+// use Mage_Core_Model_File_Validator_NotProtectedExtension as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\Model\File\Validator\NotProtectedExtensionTrait;
 
@@ -20,12 +20,12 @@ final class NotProtectedExtensionTest extends OpenMageTest
 {
     use NotProtectedExtensionTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::getModel('core/file_validator_notprotectedextension');
+        // self::$subject = Mage::getModel('core/file_validator_notprotectedextension');
         self::markTestSkipped('');
     }
 }

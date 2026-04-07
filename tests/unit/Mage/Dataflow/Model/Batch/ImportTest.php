@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Dataflow\Model\Batch;
 
-# use Mage;
-# use Mage_Dataflow_Model_Batch_Import as Subject;
+// use Mage;
+// use Mage_Dataflow_Model_Batch_Import as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Dataflow\Model\Batch\ImportTrait;
 
@@ -20,12 +20,12 @@ final class ImportTest extends OpenMageTest
 {
     use ImportTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::getModel('dataflow/batch_import');
+        // self::$subject = Mage::getModel('dataflow/batch_import');
         self::markTestSkipped('');
     }
 }

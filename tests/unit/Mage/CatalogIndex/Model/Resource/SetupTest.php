@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\CatalogIndex\Model\Resource;
 
-# use Mage;
-# use Mage_CatalogIndex_Model_Resource_Setup as Subject;
+// use Mage;
+// use Mage_CatalogIndex_Model_Resource_Setup as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\CatalogIndex\Model\Resource\SetupTrait;
 
@@ -20,12 +20,12 @@ final class SetupTest extends OpenMageTest
 {
     use SetupTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::getModel('catalogindex/resource_setup');
+        // self::$subject = Mage::getModel('catalogindex/resource_setup');
         self::markTestSkipped('');
     }
 }

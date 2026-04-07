@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Downloadable\Block\Catalog\Product;
 
-# use Mage_Downloadable_Block_Catalog_Product_Links as Subject;
+// use Mage_Downloadable_Block_Catalog_Product_Links as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Downloadable\Block\Catalog\Product\LinksTrait;
 
@@ -19,12 +19,12 @@ final class LinksTest extends OpenMageTest
 {
     use LinksTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = new Subject();
+        // self::$subject = new Subject();
         self::markTestSkipped('');
     }
 }

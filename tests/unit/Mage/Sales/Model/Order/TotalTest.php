@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Sales\Model\Order;
 
-# use Mage;
-# use Mage_Sales_Model_Order_Total as Subject;
+// use Mage;
+// use Mage_Sales_Model_Order_Total as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sales\Model\Order\TotalTrait;
 
@@ -20,12 +20,12 @@ final class TotalTest extends OpenMageTest
 {
     use TotalTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::getModel('sales/order_total');
+        // self::$subject = Mage::getModel('sales/order_total');
         self::markTestSkipped('');
     }
 }

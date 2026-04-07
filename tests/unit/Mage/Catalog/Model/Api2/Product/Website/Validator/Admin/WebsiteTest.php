@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Catalog\Model\Api2\Product\Website\Validator\Admin;
 
-# use Mage;
-# use Mage_Catalog_Model_Api2_Product_Website_Validator_Admin_Website as Subject;
+// use Mage;
+// use Mage_Catalog_Model_Api2_Product_Website_Validator_Admin_Website as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\Model\Api2\Product\Website\Validator\Admin\WebsiteTrait;
 
@@ -20,12 +20,12 @@ final class WebsiteTest extends OpenMageTest
 {
     use WebsiteTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::getModel('catalog/api2_product_website_validator_admin_website');
+        // self::$subject = Mage::getModel('catalog/api2_product_website_validator_admin_website');
         self::markTestSkipped('');
     }
 }

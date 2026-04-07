@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\SalesRule\Model\Coupon;
 
-# use Mage;
-# use Mage_SalesRule_Model_Coupon_Massgenerator as Subject;
+// use Mage;
+// use Mage_SalesRule_Model_Coupon_Massgenerator as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\SalesRule\Model\Coupon\MassgeneratorTrait;
 
@@ -20,12 +20,12 @@ final class MassgeneratorTest extends OpenMageTest
 {
     use MassgeneratorTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::getModel('salesrule/coupon_massgenerator');
+        // self::$subject = Mage::getModel('salesrule/coupon_massgenerator');
         self::markTestSkipped('');
     }
 }

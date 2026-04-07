@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Catalog\Model\Api;
 
-# use Mage;
-# use Mage_Catalog_Model_Api_Resource as Subject;
+// use Mage;
+// use Mage_Catalog_Model_Api_Resource as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\Model\Api\ResourceTrait;
 
@@ -20,12 +20,12 @@ final class ResourceTest extends OpenMageTest
 {
     use ResourceTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::getModel('catalog/api_resource');
+        // self::$subject = Mage::getModel('catalog/api_resource');
         self::markTestSkipped('');
     }
 }

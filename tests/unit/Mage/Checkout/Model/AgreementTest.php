@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Checkout\Model;
 
-# use Mage;
-# use Mage_Checkout_Model_Agreement as Subject;
+// use Mage;
+// use Mage_Checkout_Model_Agreement as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Checkout\Model\AgreementTrait;
 
@@ -20,12 +20,12 @@ final class AgreementTest extends OpenMageTest
 {
     use AgreementTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::getModel('checkout/agreement');
+        // self::$subject = Mage::getModel('checkout/agreement');
         self::markTestSkipped('');
     }
 }

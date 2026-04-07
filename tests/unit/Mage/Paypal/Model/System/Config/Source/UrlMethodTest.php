@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Paypal\Model\System\Config\Source;
 
-# use Mage;
-# use Mage_Paypal_Model_System_Config_Source_UrlMethod as Subject;
+// use Mage;
+// use Mage_Paypal_Model_System_Config_Source_UrlMethod as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Paypal\Model\System\Config\Source\UrlMethodTrait;
 
@@ -20,12 +20,12 @@ final class UrlMethodTest extends OpenMageTest
 {
     use UrlMethodTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::getModel('paypal/system_config_source_urlmethod');
+        // self::$subject = Mage::getModel('paypal/system_config_source_urlmethod');
         self::markTestSkipped('');
     }
 }

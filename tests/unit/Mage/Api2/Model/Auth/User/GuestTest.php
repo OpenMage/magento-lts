@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Api2\Model\Auth\User;
 
-# use Mage;
-# use Mage_Api2_Model_Auth_User_Guest as Subject;
+// use Mage;
+// use Mage_Api2_Model_Auth_User_Guest as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Api2\Model\Auth\User\GuestTrait;
 
@@ -20,12 +20,12 @@ final class GuestTest extends OpenMageTest
 {
     use GuestTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::getModel('api2/auth_user_guest');
+        // self::$subject = Mage::getModel('api2/auth_user_guest');
         self::markTestSkipped('');
     }
 }

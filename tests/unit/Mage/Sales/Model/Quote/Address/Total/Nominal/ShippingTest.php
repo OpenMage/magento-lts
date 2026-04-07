@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Sales\Model\Quote\Address\Total\Nominal;
 
-# use Mage;
-# use Mage_Sales_Model_Quote_Address_Total_Nominal_Shipping as Subject;
+// use Mage;
+// use Mage_Sales_Model_Quote_Address_Total_Nominal_Shipping as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sales\Model\Quote\Address\Total\Nominal\ShippingTrait;
 
@@ -20,12 +20,12 @@ final class ShippingTest extends OpenMageTest
 {
     use ShippingTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::getModel('sales/quote_address_total_nominal_shipping');
+        // self::$subject = Mage::getModel('sales/quote_address_total_nominal_shipping');
         self::markTestSkipped('');
     }
 }

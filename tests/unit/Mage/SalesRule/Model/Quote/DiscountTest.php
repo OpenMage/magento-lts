@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\SalesRule\Model\Quote;
 
-# use Mage;
-# use Mage_SalesRule_Model_Quote_Discount as Subject;
+// use Mage;
+// use Mage_SalesRule_Model_Quote_Discount as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\SalesRule\Model\Quote\DiscountTrait;
 
@@ -20,12 +20,12 @@ final class DiscountTest extends OpenMageTest
 {
     use DiscountTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::getModel('salesrule/quote_discount');
+        // self::$subject = Mage::getModel('salesrule/quote_discount');
         self::markTestSkipped('');
     }
 }

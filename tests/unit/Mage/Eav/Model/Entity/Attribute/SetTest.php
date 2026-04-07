@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Eav\Model\Entity\Attribute;
 
-# use Mage;
-# use Mage_Eav_Model_Entity_Attribute_Set as Subject;
+// use Mage;
+// use Mage_Eav_Model_Entity_Attribute_Set as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Eav\Model\Entity\Attribute\SetTrait;
 
@@ -20,12 +20,12 @@ final class SetTest extends OpenMageTest
 {
     use SetTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::getModel('eav/entity_attribute_set');
+        // self::$subject = Mage::getModel('eav/entity_attribute_set');
         self::markTestSkipped('');
     }
 }

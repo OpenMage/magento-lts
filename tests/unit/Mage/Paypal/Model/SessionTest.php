@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Paypal\Model;
 
-# use Mage;
-# use Mage_Paypal_Model_Session as Subject;
+// use Mage;
+// use Mage_Paypal_Model_Session as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Paypal\Model\SessionTrait;
 
@@ -20,12 +20,12 @@ final class SessionTest extends OpenMageTest
 {
     use SessionTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::getModel('paypal/session');
+        // self::$subject = Mage::getModel('paypal/session');
         self::markTestSkipped('');
     }
 }

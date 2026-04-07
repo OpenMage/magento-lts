@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Shipping\Model\Carrier;
 
-# use Mage;
-# use Mage_Shipping_Model_Carrier_Abstract as Subject;
+// use Mage;
+// use Mage_Shipping_Model_Carrier_Abstract as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Shipping\Model\Carrier\AbstractTrait;
 
@@ -20,12 +20,12 @@ final class AbstractTest extends OpenMageTest
 {
     use AbstractTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::getModel('shipping/carrier_abstract');
+        // self::$subject = Mage::getModel('shipping/carrier_abstract');
         self::markTestSkipped('');
     }
 }

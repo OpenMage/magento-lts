@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Catalog\Helper\Product\Url;
 
-# use Mage;
-# use Mage_Catalog_Helper_Product_Url_Rewrite as Subject;
+// use Mage;
+// use Mage_Catalog_Helper_Product_Url_Rewrite as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\Helper\Product\Url\RewriteTrait;
 
@@ -20,12 +20,12 @@ final class RewriteTest extends OpenMageTest
 {
     use RewriteTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::helper('catalog/product_url_rewrite');
+        // self::$subject = Mage::helper('catalog/product_url_rewrite');
         self::markTestSkipped('');
     }
 }

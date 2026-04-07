@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Sales\Model\Resource\Order\Attribute\Backend;
 
-# use Mage;
-# use Mage_Sales_Model_Resource_Order_Attribute_Backend_Billing as Subject;
+// use Mage;
+// use Mage_Sales_Model_Resource_Order_Attribute_Backend_Billing as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sales\Model\Resource\Order\Attribute\Backend\BillingTrait;
 
@@ -20,12 +20,12 @@ final class BillingTest extends OpenMageTest
 {
     use BillingTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::getModel('sales/resource_order_attribute_backend_billing');
+        // self::$subject = Mage::getModel('sales/resource_order_attribute_backend_billing');
         self::markTestSkipped('');
     }
 }

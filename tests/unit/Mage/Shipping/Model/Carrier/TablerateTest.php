@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Shipping\Model\Carrier;
 
-# use Mage;
-# use Mage_Shipping_Model_Carrier_Tablerate as Subject;
+// use Mage;
+// use Mage_Shipping_Model_Carrier_Tablerate as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Shipping\Model\Carrier\TablerateTrait;
 
@@ -20,12 +20,12 @@ final class TablerateTest extends OpenMageTest
 {
     use TablerateTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::getModel('shipping/carrier_tablerate');
+        // self::$subject = Mage::getModel('shipping/carrier_tablerate');
         self::markTestSkipped('');
     }
 }

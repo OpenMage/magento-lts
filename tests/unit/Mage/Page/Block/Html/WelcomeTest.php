@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Page\Block\Html;
 
-# use Mage_Page_Block_Html_Welcome as Subject;
+// use Mage_Page_Block_Html_Welcome as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Page\Block\Html\WelcomeTrait;
 
@@ -19,12 +19,12 @@ final class WelcomeTest extends OpenMageTest
 {
     use WelcomeTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = new Subject();
+        // self::$subject = new Subject();
         self::markTestSkipped('');
     }
 }

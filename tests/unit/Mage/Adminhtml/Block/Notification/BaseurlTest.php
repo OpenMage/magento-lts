@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Notification;
 
-# use Mage_Adminhtml_Block_Notification_Baseurl as Subject;
+// use Mage_Adminhtml_Block_Notification_Baseurl as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\Notification\BaseurlTrait;
 
@@ -19,12 +19,12 @@ final class BaseurlTest extends OpenMageTest
 {
     use BaseurlTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = new Subject();
+        // self::$subject = new Subject();
         self::markTestSkipped('');
     }
 }

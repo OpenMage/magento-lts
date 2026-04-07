@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Sales\Block\Adminhtml\Billing\Agreement\View\Tab;
 
-# use Mage_Sales_Block_Adminhtml_Billing_Agreement_View_Tab_Info as Subject;
+// use Mage_Sales_Block_Adminhtml_Billing_Agreement_View_Tab_Info as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sales\Block\Adminhtml\Billing\Agreement\View\Tab\InfoTrait;
 
@@ -19,12 +19,12 @@ final class InfoTest extends OpenMageTest
 {
     use InfoTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = new Subject();
+        // self::$subject = new Subject();
         self::markTestSkipped('');
     }
 }

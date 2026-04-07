@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Adminhtml\Model\System\Config\Backend;
 
-# use Mage;
-# use Mage_Adminhtml_Model_System_Config_Backend_Cache as Subject;
+// use Mage;
+// use Mage_Adminhtml_Model_System_Config_Backend_Cache as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Model\System\Config\Backend\CacheTrait;
 
@@ -20,12 +20,12 @@ final class CacheTest extends OpenMageTest
 {
     use CacheTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::getModel('adminhtml/system_config_backend_cache');
+        // self::$subject = Mage::getModel('adminhtml/system_config_backend_cache');
         self::markTestSkipped('');
     }
 }

@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Catalog\Model\Resource\Product;
 
-# use Mage;
-# use Mage_Catalog_Model_Resource_Product_Flat as Subject;
+// use Mage;
+// use Mage_Catalog_Model_Resource_Product_Flat as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\Model\Resource\Product\FlatTrait;
 
@@ -20,12 +20,12 @@ final class FlatTest extends OpenMageTest
 {
     use FlatTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::getModel('catalog/resource_product_flat');
+        // self::$subject = Mage::getModel('catalog/resource_product_flat');
         self::markTestSkipped('');
     }
 }

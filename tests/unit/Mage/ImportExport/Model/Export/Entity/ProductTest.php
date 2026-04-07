@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\ImportExport\Model\Export\Entity;
 
-# use Mage;
-# use Mage_ImportExport_Model_Export_Entity_Product as Subject;
+// use Mage;
+// use Mage_ImportExport_Model_Export_Entity_Product as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\ImportExport\Model\Export\Entity\ProductTrait;
 
@@ -20,12 +20,12 @@ final class ProductTest extends OpenMageTest
 {
     use ProductTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::getModel('importexport/export_entity_product');
+        // self::$subject = Mage::getModel('importexport/export_entity_product');
         self::markTestSkipped('');
     }
 }

@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Catalog\Model\Resource\Product;
 
-# use Mage;
-# use Mage_Catalog_Model_Resource_Product_Option as Subject;
+// use Mage;
+// use Mage_Catalog_Model_Resource_Product_Option as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\Model\Resource\Product\OptionTrait;
 
@@ -20,12 +20,12 @@ final class OptionTest extends OpenMageTest
 {
     use OptionTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::getModel('catalog/resource_product_option');
+        // self::$subject = Mage::getModel('catalog/resource_product_option');
         self::markTestSkipped('');
     }
 }

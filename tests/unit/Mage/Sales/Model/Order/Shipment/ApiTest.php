@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Sales\Model\Order\Shipment;
 
-# use Mage;
-# use Mage_Sales_Model_Order_Shipment_Api as Subject;
+// use Mage;
+// use Mage_Sales_Model_Order_Shipment_Api as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sales\Model\Order\Shipment\ApiTrait;
 
@@ -20,12 +20,12 @@ final class ApiTest extends OpenMageTest
 {
     use ApiTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::getModel('sales/order_shipment_api');
+        // self::$subject = Mage::getModel('sales/order_shipment_api');
         self::markTestSkipped('');
     }
 }

@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Customer\Model\Api2\Customer\Address\Rest\Customer;
 
-# use Mage;
-# use Mage_Customer_Model_Api2_Customer_Address_Rest_Customer_V1 as Subject;
+// use Mage;
+// use Mage_Customer_Model_Api2_Customer_Address_Rest_Customer_V1 as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Customer\Model\Api2\Customer\Address\Rest\Customer\V1Trait;
 
@@ -20,12 +20,12 @@ final class V1Test extends OpenMageTest
 {
     use V1Trait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::getModel('customer/api2_customer_address_rest_customer_v1');
+        // self::$subject = Mage::getModel('customer/api2_customer_address_rest_customer_v1');
         self::markTestSkipped('');
     }
 }

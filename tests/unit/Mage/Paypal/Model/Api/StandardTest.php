@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Paypal\Model\Api;
 
-# use Mage;
-# use Mage_Paypal_Model_Api_Standard as Subject;
+// use Mage;
+// use Mage_Paypal_Model_Api_Standard as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Paypal\Model\Api\StandardTrait;
 
@@ -20,12 +20,12 @@ final class StandardTest extends OpenMageTest
 {
     use StandardTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::getModel('paypal/api_standard');
+        // self::$subject = Mage::getModel('paypal/api_standard');
         self::markTestSkipped('');
     }
 }

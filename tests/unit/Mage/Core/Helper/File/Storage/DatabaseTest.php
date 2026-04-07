@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Core\Helper\File\Storage;
 
-# use Mage;
-# use Mage_Core_Helper_File_Storage_Database as Subject;
+// use Mage;
+// use Mage_Core_Helper_File_Storage_Database as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\Helper\File\Storage\DatabaseTrait;
 
@@ -20,12 +20,12 @@ final class DatabaseTest extends OpenMageTest
 {
     use DatabaseTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::helper('core/file_storage_database');
+        // self::$subject = Mage::helper('core/file_storage_database');
         self::markTestSkipped('');
     }
 }

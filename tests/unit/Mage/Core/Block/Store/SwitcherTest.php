@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Core\Block\Store;
 
-# use Mage_Core_Block_Store_Switcher as Subject;
+// use Mage_Core_Block_Store_Switcher as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\Block\Store\SwitcherTrait;
 
@@ -19,12 +19,12 @@ final class SwitcherTest extends OpenMageTest
 {
     use SwitcherTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = new Subject();
+        // self::$subject = new Subject();
         self::markTestSkipped('');
     }
 }

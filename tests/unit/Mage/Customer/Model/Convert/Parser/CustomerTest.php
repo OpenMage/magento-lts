@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Customer\Model\Convert\Parser;
 
-# use Mage;
-# use Mage_Customer_Model_Convert_Parser_Customer as Subject;
+// use Mage;
+// use Mage_Customer_Model_Convert_Parser_Customer as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Customer\Model\Convert\Parser\CustomerTrait;
 
@@ -20,12 +20,12 @@ final class CustomerTest extends OpenMageTest
 {
     use CustomerTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::getModel('customer/convert_parser_customer');
+        // self::$subject = Mage::getModel('customer/convert_parser_customer');
         self::markTestSkipped('');
     }
 }

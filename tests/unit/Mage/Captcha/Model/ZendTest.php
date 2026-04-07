@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Captcha\Model;
 
-# use Mage;
-# use Mage_Captcha_Model_Zend as Subject;
+// use Mage;
+// use Mage_Captcha_Model_Zend as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Captcha\Model\ZendTrait;
 
@@ -20,12 +20,12 @@ final class ZendTest extends OpenMageTest
 {
     use ZendTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::getModel('captcha/zend');
+        // self::$subject = Mage::getModel('captcha/zend');
         self::markTestSkipped('');
     }
 }

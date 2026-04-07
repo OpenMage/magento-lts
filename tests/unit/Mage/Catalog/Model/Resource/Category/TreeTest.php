@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Catalog\Model\Resource\Category;
 
-# use Mage;
-# use Mage_Catalog_Model_Resource_Category_Tree as Subject;
+// use Mage;
+// use Mage_Catalog_Model_Resource_Category_Tree as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\Model\Resource\Category\TreeTrait;
 
@@ -20,12 +20,12 @@ final class TreeTest extends OpenMageTest
 {
     use TreeTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::getModel('catalog/resource_category_tree');
+        // self::$subject = Mage::getModel('catalog/resource_category_tree');
         self::markTestSkipped('');
     }
 }

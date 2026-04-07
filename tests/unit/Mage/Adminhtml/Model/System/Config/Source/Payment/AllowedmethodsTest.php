@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Adminhtml\Model\System\Config\Source\Payment;
 
-# use Mage;
-# use Mage_Adminhtml_Model_System_Config_Source_Payment_Allowedmethods as Subject;
+// use Mage;
+// use Mage_Adminhtml_Model_System_Config_Source_Payment_Allowedmethods as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Model\System\Config\Source\Payment\AllowedmethodsTrait;
 
@@ -20,12 +20,12 @@ final class AllowedmethodsTest extends OpenMageTest
 {
     use AllowedmethodsTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::getModel('adminhtml/system_config_source_payment_allowedmethods');
+        // self::$subject = Mage::getModel('adminhtml/system_config_source_payment_allowedmethods');
         self::markTestSkipped('');
     }
 }

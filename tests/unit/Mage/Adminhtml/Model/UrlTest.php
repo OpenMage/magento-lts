@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Adminhtml\Model;
 
-# use Mage;
-# use Mage_Adminhtml_Model_Url as Subject;
+// use Mage;
+// use Mage_Adminhtml_Model_Url as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Model\UrlTrait;
 
@@ -20,12 +20,12 @@ final class UrlTest extends OpenMageTest
 {
     use UrlTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::getModel('adminhtml/url');
+        // self::$subject = Mage::getModel('adminhtml/url');
         self::markTestSkipped('');
     }
 }

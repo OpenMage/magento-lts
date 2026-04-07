@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Eav\Model\Form;
 
-# use Mage;
-# use Mage_Eav_Model_Form_Element as Subject;
+// use Mage;
+// use Mage_Eav_Model_Form_Element as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Eav\Model\Form\ElementTrait;
 
@@ -20,12 +20,12 @@ final class ElementTest extends OpenMageTest
 {
     use ElementTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::getModel('eav/form_element');
+        // self::$subject = Mage::getModel('eav/form_element');
         self::markTestSkipped('');
     }
 }

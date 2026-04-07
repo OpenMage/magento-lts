@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Core\Model\File\Storage\Database;
 
-# use Mage;
-# use Mage_Core_Model_File_Storage_Database_Abstract as Subject;
+// use Mage;
+// use Mage_Core_Model_File_Storage_Database_Abstract as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\Model\File\Storage\Database\AbstractTrait;
 
@@ -20,12 +20,12 @@ final class AbstractTest extends OpenMageTest
 {
     use AbstractTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::getModel('core/file_storage_database_abstract');
+        // self::$subject = Mage::getModel('core/file_storage_database_abstract');
         self::markTestSkipped('');
     }
 }

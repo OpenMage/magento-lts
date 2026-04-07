@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Downloadable\Helper\Catalog\Product;
 
-# use Mage;
-# use Mage_Downloadable_Helper_Catalog_Product_Configuration as Subject;
+// use Mage;
+// use Mage_Downloadable_Helper_Catalog_Product_Configuration as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Downloadable\Helper\Catalog\Product\ConfigurationTrait;
 
@@ -20,12 +20,12 @@ final class ConfigurationTest extends OpenMageTest
 {
     use ConfigurationTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::helper('downloadable/catalog_product_configuration');
+        // self::$subject = Mage::helper('downloadable/catalog_product_configuration');
         self::markTestSkipped('');
     }
 }

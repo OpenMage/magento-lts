@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Shipping\Model\Tracking\Result;
 
-# use Mage;
-# use Mage_Shipping_Model_Tracking_Result_Status as Subject;
+// use Mage;
+// use Mage_Shipping_Model_Tracking_Result_Status as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Shipping\Model\Tracking\Result\StatusTrait;
 
@@ -20,12 +20,12 @@ final class StatusTest extends OpenMageTest
 {
     use StatusTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::getModel('shipping/tracking_result_status');
+        // self::$subject = Mage::getModel('shipping/tracking_result_status');
         self::markTestSkipped('');
     }
 }

@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Index\Model;
 
-# use Mage;
-# use Mage_Index_Model_Event as Subject;
+// use Mage;
+// use Mage_Index_Model_Event as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Index\Model\EventTrait;
 
@@ -20,12 +20,12 @@ final class EventTest extends OpenMageTest
 {
     use EventTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::getModel('index/event');
+        // self::$subject = Mage::getModel('index/event');
         self::markTestSkipped('');
     }
 }

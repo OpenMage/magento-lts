@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Adminhtml\Model\System\Config\Source\Locale\Currency;
 
-# use Mage;
-# use Mage_Adminhtml_Model_System_Config_Source_Locale_Currency_All as Subject;
+// use Mage;
+// use Mage_Adminhtml_Model_System_Config_Source_Locale_Currency_All as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Model\System\Config\Source\Locale\Currency\AllTrait;
 
@@ -20,12 +20,12 @@ final class AllTest extends OpenMageTest
 {
     use AllTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::getModel('adminhtml/system_config_source_locale_currency_all');
+        // self::$subject = Mage::getModel('adminhtml/system_config_source_locale_currency_all');
         self::markTestSkipped('');
     }
 }

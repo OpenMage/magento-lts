@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Downloadable\Block\Customer\Products;
 
-# use Mage_Downloadable_Block_Customer_Products_List as Subject;
+// use Mage_Downloadable_Block_Customer_Products_List as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Downloadable\Block\Customer\Products\ListTrait;
 
@@ -19,12 +19,12 @@ final class ListTest extends OpenMageTest
 {
     use ListTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = new Subject();
+        // self::$subject = new Subject();
         self::markTestSkipped('');
     }
 }

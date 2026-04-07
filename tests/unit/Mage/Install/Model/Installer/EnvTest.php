@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Install\Model\Installer;
 
-# use Mage;
-# use Mage_Install_Model_Installer_Env as Subject;
+// use Mage;
+// use Mage_Install_Model_Installer_Env as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Install\Model\Installer\EnvTrait;
 
@@ -20,12 +20,12 @@ final class EnvTest extends OpenMageTest
 {
     use EnvTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::getModel('install/installer_env');
+        // self::$subject = Mage::getModel('install/installer_env');
         self::markTestSkipped('');
     }
 }

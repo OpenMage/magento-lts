@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Reports\Model\Resource\Report\Collection;
 
-# use Mage;
-# use Mage_Reports_Model_Resource_Report_Collection_Abstract as Subject;
+// use Mage;
+// use Mage_Reports_Model_Resource_Report_Collection_Abstract as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Reports\Model\Resource\Report\Collection\AbstractTrait;
 
@@ -20,12 +20,12 @@ final class AbstractTest extends OpenMageTest
 {
     use AbstractTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::getModel('reports/resource_report_collection_abstract');
+        // self::$subject = Mage::getModel('reports/resource_report_collection_abstract');
         self::markTestSkipped('');
     }
 }

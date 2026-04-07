@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Sales\Model\Api2\Order\Comment\Rest\Admin;
 
-# use Mage;
-# use Mage_Sales_Model_Api2_Order_Comment_Rest_Admin_V1 as Subject;
+// use Mage;
+// use Mage_Sales_Model_Api2_Order_Comment_Rest_Admin_V1 as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sales\Model\Api2\Order\Comment\Rest\Admin\V1Trait;
 
@@ -20,12 +20,12 @@ final class V1Test extends OpenMageTest
 {
     use V1Trait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::getModel('sales/api2_order_comment_rest_admin_v1');
+        // self::$subject = Mage::getModel('sales/api2_order_comment_rest_admin_v1');
         self::markTestSkipped('');
     }
 }

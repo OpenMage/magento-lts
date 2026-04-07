@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Admin\Model\Resource;
 
-# use Mage;
-# use Mage_Admin_Model_Resource_Variable as Subject;
+// use Mage;
+// use Mage_Admin_Model_Resource_Variable as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Admin\Model\Resource\VariableTrait;
 
@@ -20,12 +20,12 @@ final class VariableTest extends OpenMageTest
 {
     use VariableTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::getModel('admin/resource_variable');
+        // self::$subject = Mage::getModel('admin/resource_variable');
         self::markTestSkipped('');
     }
 }

@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Admin\Model;
 
-# use Mage;
-# use Mage_Admin_Model_Redirectpolicy as Subject;
+// use Mage;
+// use Mage_Admin_Model_Redirectpolicy as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Admin\Model\RedirectpolicyTrait;
 
@@ -20,12 +20,12 @@ final class RedirectpolicyTest extends OpenMageTest
 {
     use RedirectpolicyTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::getModel('admin/redirectpolicy');
+        // self::$subject = Mage::getModel('admin/redirectpolicy');
         self::markTestSkipped('');
     }
 }

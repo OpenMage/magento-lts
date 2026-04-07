@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Downloadable\Model;
 
-# use Mage;
-# use Mage_Downloadable_Model_Sample as Subject;
+// use Mage;
+// use Mage_Downloadable_Model_Sample as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Downloadable\Model\SampleTrait;
 
@@ -20,12 +20,12 @@ final class SampleTest extends OpenMageTest
 {
     use SampleTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::getModel('downloadable/sample');
+        // self::$subject = Mage::getModel('downloadable/sample');
         self::markTestSkipped('');
     }
 }

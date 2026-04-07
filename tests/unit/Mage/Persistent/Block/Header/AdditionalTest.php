@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Persistent\Block\Header;
 
-# use Mage_Persistent_Block_Header_Additional as Subject;
+// use Mage_Persistent_Block_Header_Additional as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Persistent\Block\Header\AdditionalTrait;
 
@@ -19,12 +19,12 @@ final class AdditionalTest extends OpenMageTest
 {
     use AdditionalTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = new Subject();
+        // self::$subject = new Subject();
         self::markTestSkipped('');
     }
 }

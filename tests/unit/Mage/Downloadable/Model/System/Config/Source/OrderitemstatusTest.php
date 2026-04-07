@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Downloadable\Model\System\Config\Source;
 
-# use Mage;
-# use Mage_Downloadable_Model_System_Config_Source_Orderitemstatus as Subject;
+// use Mage;
+// use Mage_Downloadable_Model_System_Config_Source_Orderitemstatus as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Downloadable\Model\System\Config\Source\OrderitemstatusTrait;
 
@@ -20,12 +20,12 @@ final class OrderitemstatusTest extends OpenMageTest
 {
     use OrderitemstatusTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::getModel('downloadable/system_config_source_orderitemstatus');
+        // self::$subject = Mage::getModel('downloadable/system_config_source_orderitemstatus');
         self::markTestSkipped('');
     }
 }

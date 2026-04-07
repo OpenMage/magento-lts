@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Catalog\Model\Product\Attribute\Tierprice;
 
-# use Mage;
-# use Mage_Catalog_Model_Product_Attribute_Tierprice_Api as Subject;
+// use Mage;
+// use Mage_Catalog_Model_Product_Attribute_Tierprice_Api as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\Model\Product\Attribute\Tierprice\ApiTrait;
 
@@ -20,12 +20,12 @@ final class ApiTest extends OpenMageTest
 {
     use ApiTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::getModel('catalog/product_attribute_tierprice_api');
+        // self::$subject = Mage::getModel('catalog/product_attribute_tierprice_api');
         self::markTestSkipped('');
     }
 }

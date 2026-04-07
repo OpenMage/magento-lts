@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Adminhtml\Model\System\Config\Source\Product\Options;
 
-# use Mage;
-# use Mage_Adminhtml_Model_System_Config_Source_Product_Options_Price as Subject;
+// use Mage;
+// use Mage_Adminhtml_Model_System_Config_Source_Product_Options_Price as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Model\System\Config\Source\Product\Options\PriceTrait;
 
@@ -20,12 +20,12 @@ final class PriceTest extends OpenMageTest
 {
     use PriceTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::getModel('adminhtml/system_config_source_product_options_price');
+        // self::$subject = Mage::getModel('adminhtml/system_config_source_product_options_price');
         self::markTestSkipped('');
     }
 }

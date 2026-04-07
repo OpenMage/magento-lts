@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Core\Model;
 
-# use Mage;
-# use Mage_Core_Model_Template as Subject;
+// use Mage;
+// use Mage_Core_Model_Template as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\Model\TemplateTrait;
 
@@ -20,12 +20,12 @@ final class TemplateTest extends OpenMageTest
 {
     use TemplateTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::getModel('core/template');
+        // self::$subject = Mage::getModel('core/template');
         self::markTestSkipped('');
     }
 }

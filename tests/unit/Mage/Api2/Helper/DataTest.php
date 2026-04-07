@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Api2\Helper;
 
-# use Mage;
-# use Mage_Api2_Helper_Data as Subject;
+// use Mage;
+// use Mage_Api2_Helper_Data as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Api2\Helper\DataTrait;
 
@@ -20,12 +20,12 @@ final class DataTest extends OpenMageTest
 {
     use DataTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::helper('api2/data');
+        // self::$subject = Mage::helper('api2/data');
         self::markTestSkipped('');
     }
 }

@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Downloadable\Model\Sales\Order\Pdf\Items;
 
-# use Mage;
-# use Mage_Downloadable_Model_Sales_Order_Pdf_Items_Creditmemo as Subject;
+// use Mage;
+// use Mage_Downloadable_Model_Sales_Order_Pdf_Items_Creditmemo as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Downloadable\Model\Sales\Order\Pdf\Items\CreditmemoTrait;
 
@@ -20,12 +20,12 @@ final class CreditmemoTest extends OpenMageTest
 {
     use CreditmemoTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::getModel('downloadable/sales_order_pdf_items_creditmemo');
+        // self::$subject = Mage::getModel('downloadable/sales_order_pdf_items_creditmemo');
         self::markTestSkipped('');
     }
 }

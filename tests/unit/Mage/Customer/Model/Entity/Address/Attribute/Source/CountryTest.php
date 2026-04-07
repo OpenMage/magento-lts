@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Customer\Model\Entity\Address\Attribute\Source;
 
-# use Mage;
-# use Mage_Customer_Model_Entity_Address_Attribute_Source_Country as Subject;
+// use Mage;
+// use Mage_Customer_Model_Entity_Address_Attribute_Source_Country as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Customer\Model\Entity\Address\Attribute\Source\CountryTrait;
 
@@ -20,12 +20,12 @@ final class CountryTest extends OpenMageTest
 {
     use CountryTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::getModel('customer/entity_address_attribute_source_country');
+        // self::$subject = Mage::getModel('customer/entity_address_attribute_source_country');
         self::markTestSkipped('');
     }
 }

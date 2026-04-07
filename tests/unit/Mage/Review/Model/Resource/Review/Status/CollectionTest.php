@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Review\Model\Resource\Review\Status;
 
-# use Mage;
-# use Mage_Review_Model_Resource_Review_Status_Collection as Subject;
+// use Mage;
+// use Mage_Review_Model_Resource_Review_Status_Collection as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Review\Model\Resource\Review\Status\CollectionTrait;
 
@@ -20,12 +20,12 @@ final class CollectionTest extends OpenMageTest
 {
     use CollectionTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::getModel('review/resource_review_status_collection');
+        // self::$subject = Mage::getModel('review/resource_review_status_collection');
         self::markTestSkipped('');
     }
 }

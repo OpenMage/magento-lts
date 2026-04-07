@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Core\Model\Email\Template;
 
-# use Mage;
-# use Mage_Core_Model_Email_Template_Filter as Subject;
+// use Mage;
+// use Mage_Core_Model_Email_Template_Filter as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\Model\Email\Template\FilterTrait;
 
@@ -20,12 +20,12 @@ final class FilterTest extends OpenMageTest
 {
     use FilterTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::getModel('core/email_template_filter');
+        // self::$subject = Mage::getModel('core/email_template_filter');
         self::markTestSkipped('');
     }
 }

@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Reports\Model\Grouped;
 
-# use Mage;
-# use Mage_Reports_Model_Grouped_Collection as Subject;
+// use Mage;
+// use Mage_Reports_Model_Grouped_Collection as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Reports\Model\Grouped\CollectionTrait;
 
@@ -20,12 +20,12 @@ final class CollectionTest extends OpenMageTest
 {
     use CollectionTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::getModel('reports/grouped_collection');
+        // self::$subject = Mage::getModel('reports/grouped_collection');
         self::markTestSkipped('');
     }
 }

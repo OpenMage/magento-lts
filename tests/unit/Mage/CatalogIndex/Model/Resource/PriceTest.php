@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\CatalogIndex\Model\Resource;
 
-# use Mage;
-# use Mage_CatalogIndex_Model_Resource_Price as Subject;
+// use Mage;
+// use Mage_CatalogIndex_Model_Resource_Price as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\CatalogIndex\Model\Resource\PriceTrait;
 
@@ -20,12 +20,12 @@ final class PriceTest extends OpenMageTest
 {
     use PriceTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::getModel('catalogindex/resource_price');
+        // self::$subject = Mage::getModel('catalogindex/resource_price');
         self::markTestSkipped('');
     }
 }

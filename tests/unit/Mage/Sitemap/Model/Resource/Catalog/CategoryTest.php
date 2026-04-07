@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Sitemap\Model\Resource\Catalog;
 
-# use Mage;
-# use Mage_Sitemap_Model_Resource_Catalog_Category as Subject;
+// use Mage;
+// use Mage_Sitemap_Model_Resource_Catalog_Category as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sitemap\Model\Resource\Catalog\CategoryTrait;
 
@@ -20,12 +20,12 @@ final class CategoryTest extends OpenMageTest
 {
     use CategoryTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::getModel('sitemap/resource_catalog_category');
+        // self::$subject = Mage::getModel('sitemap/resource_catalog_category');
         self::markTestSkipped('');
     }
 }

@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Downloadable\Model\Resource\Sample;
 
-# use Mage;
-# use Mage_Downloadable_Model_Resource_Sample_Collection as Subject;
+// use Mage;
+// use Mage_Downloadable_Model_Resource_Sample_Collection as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Downloadable\Model\Resource\Sample\CollectionTrait;
 
@@ -20,12 +20,12 @@ final class CollectionTest extends OpenMageTest
 {
     use CollectionTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::getModel('downloadable/resource_sample_collection');
+        // self::$subject = Mage::getModel('downloadable/resource_sample_collection');
         self::markTestSkipped('');
     }
 }

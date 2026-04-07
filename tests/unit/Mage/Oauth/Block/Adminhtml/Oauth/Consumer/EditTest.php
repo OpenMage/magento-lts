@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Oauth\Block\Adminhtml\Oauth\Consumer;
 
-# use Mage_Oauth_Block_Adminhtml_Oauth_Consumer_Edit as Subject;
+// use Mage_Oauth_Block_Adminhtml_Oauth_Consumer_Edit as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Oauth\Block\Adminhtml\Oauth\Consumer\EditTrait;
 
@@ -19,12 +19,12 @@ final class EditTest extends OpenMageTest
 {
     use EditTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = new Subject();
+        // self::$subject = new Subject();
         self::markTestSkipped('');
     }
 }

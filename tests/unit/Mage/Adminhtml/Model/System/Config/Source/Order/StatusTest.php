@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Adminhtml\Model\System\Config\Source\Order;
 
-# use Mage;
-# use Mage_Adminhtml_Model_System_Config_Source_Order_Status as Subject;
+// use Mage;
+// use Mage_Adminhtml_Model_System_Config_Source_Order_Status as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Model\System\Config\Source\Order\StatusTrait;
 
@@ -20,12 +20,12 @@ final class StatusTest extends OpenMageTest
 {
     use StatusTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::getModel('adminhtml/system_config_source_order_status');
+        // self::$subject = Mage::getModel('adminhtml/system_config_source_order_status');
         self::markTestSkipped('');
     }
 }

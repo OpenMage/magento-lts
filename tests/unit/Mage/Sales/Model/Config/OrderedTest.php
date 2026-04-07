@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Sales\Model\Config;
 
-# use Mage;
-# use Mage_Sales_Model_Config_Ordered as Subject;
+// use Mage;
+// use Mage_Sales_Model_Config_Ordered as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sales\Model\Config\OrderedTrait;
 
@@ -20,12 +20,12 @@ final class OrderedTest extends OpenMageTest
 {
     use OrderedTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::getModel('sales/config_ordered');
+        // self::$subject = Mage::getModel('sales/config_ordered');
         self::markTestSkipped('');
     }
 }

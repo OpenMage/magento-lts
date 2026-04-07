@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Catalog\Model\Api2\Product\Category\Rest\Customer;
 
-# use Mage;
-# use Mage_Catalog_Model_Api2_Product_Category_Rest_Customer_V1 as Subject;
+// use Mage;
+// use Mage_Catalog_Model_Api2_Product_Category_Rest_Customer_V1 as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\Model\Api2\Product\Category\Rest\Customer\V1Trait;
 
@@ -20,12 +20,12 @@ final class V1Test extends OpenMageTest
 {
     use V1Trait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::getModel('catalog/api2_product_category_rest_customer_v1');
+        // self::$subject = Mage::getModel('catalog/api2_product_category_rest_customer_v1');
         self::markTestSkipped('');
     }
 }

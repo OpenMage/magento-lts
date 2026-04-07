@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\AdminNotification\Model\Resource;
 
-# use Mage;
-# use Mage_AdminNotification_Model_Resource_Inbox as Subject;
+// use Mage;
+// use Mage_AdminNotification_Model_Resource_Inbox as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\AdminNotification\Model\Resource\InboxTrait;
 
@@ -20,12 +20,12 @@ final class InboxTest extends OpenMageTest
 {
     use InboxTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::getModel('adminnotification/resource_inbox');
+        // self::$subject = Mage::getModel('adminnotification/resource_inbox');
         self::markTestSkipped('');
     }
 }

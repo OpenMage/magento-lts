@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Dataflow\Model;
 
-# use Mage;
-# use Mage_Dataflow_Model_Session as Subject;
+// use Mage;
+// use Mage_Dataflow_Model_Session as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Dataflow\Model\SessionTrait;
 
@@ -20,12 +20,12 @@ final class SessionTest extends OpenMageTest
 {
     use SessionTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::getModel('dataflow/session');
+        // self::$subject = Mage::getModel('dataflow/session');
         self::markTestSkipped('');
     }
 }

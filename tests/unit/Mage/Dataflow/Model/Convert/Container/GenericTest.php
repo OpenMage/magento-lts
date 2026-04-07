@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Dataflow\Model\Convert\Container;
 
-# use Mage;
-# use Mage_Dataflow_Model_Convert_Container_Generic as Subject;
+// use Mage;
+// use Mage_Dataflow_Model_Convert_Container_Generic as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Dataflow\Model\Convert\Container\GenericTrait;
 
@@ -20,12 +20,12 @@ final class GenericTest extends OpenMageTest
 {
     use GenericTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::getModel('dataflow/convert_container_generic');
+        // self::$subject = Mage::getModel('dataflow/convert_container_generic');
         self::markTestSkipped('');
     }
 }

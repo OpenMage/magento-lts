@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Rule\Block;
 
-# use Mage_Rule_Block_Actions as Subject;
+// use Mage_Rule_Block_Actions as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Rule\Block\ActionsTrait;
 
@@ -19,12 +19,12 @@ final class ActionsTest extends OpenMageTest
 {
     use ActionsTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = new Subject();
+        // self::$subject = new Subject();
         self::markTestSkipped('');
     }
 }

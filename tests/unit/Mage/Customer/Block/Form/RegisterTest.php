@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Customer\Block\Form;
 
-# use Mage_Customer_Block_Form_Register as Subject;
+// use Mage_Customer_Block_Form_Register as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Customer\Block\Form\RegisterTrait;
 
@@ -19,12 +19,12 @@ final class RegisterTest extends OpenMageTest
 {
     use RegisterTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = new Subject();
+        // self::$subject = new Subject();
         self::markTestSkipped('');
     }
 }

@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Catalog\Model\Product\Attribute\Source\Msrp\Type;
 
-# use Mage;
-# use Mage_Catalog_Model_Product_Attribute_Source_Msrp_Type_Enabled as Subject;
+// use Mage;
+// use Mage_Catalog_Model_Product_Attribute_Source_Msrp_Type_Enabled as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\Model\Product\Attribute\Source\Msrp\Type\EnabledTrait;
 
@@ -20,12 +20,12 @@ final class EnabledTest extends OpenMageTest
 {
     use EnabledTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::getModel('catalog/product_attribute_source_msrp_type_enabled');
+        // self::$subject = Mage::getModel('catalog/product_attribute_source_msrp_type_enabled');
         self::markTestSkipped('');
     }
 }

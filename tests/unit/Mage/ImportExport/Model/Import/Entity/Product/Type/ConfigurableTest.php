@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\ImportExport\Model\Import\Entity\Product\Type;
 
-# use Mage;
-# use Mage_ImportExport_Model_Import_Entity_Product_Type_Configurable as Subject;
+// use Mage;
+// use Mage_ImportExport_Model_Import_Entity_Product_Type_Configurable as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\ImportExport\Model\Import\Entity\Product\Type\ConfigurableTrait;
 
@@ -20,12 +20,12 @@ final class ConfigurableTest extends OpenMageTest
 {
     use ConfigurableTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::getModel('importexport/import_entity_product_type_configurable');
+        // self::$subject = Mage::getModel('importexport/import_entity_product_type_configurable');
         self::markTestSkipped('');
     }
 }

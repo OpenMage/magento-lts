@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Directory\Model;
 
-# use Mage;
-# use Mage_Directory_Model_Country as Subject;
+// use Mage;
+// use Mage_Directory_Model_Country as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Directory\Model\CountryTrait;
 
@@ -20,12 +20,12 @@ final class CountryTest extends OpenMageTest
 {
     use CountryTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::getModel('directory/country');
+        // self::$subject = Mage::getModel('directory/country');
         self::markTestSkipped('');
     }
 }

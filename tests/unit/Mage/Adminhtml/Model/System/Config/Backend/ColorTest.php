@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Adminhtml\Model\System\Config\Backend;
 
-# use Mage;
-# use Mage_Adminhtml_Model_System_Config_Backend_Color as Subject;
+// use Mage;
+// use Mage_Adminhtml_Model_System_Config_Backend_Color as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Model\System\Config\Backend\ColorTrait;
 
@@ -20,12 +20,12 @@ final class ColorTest extends OpenMageTest
 {
     use ColorTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::getModel('adminhtml/system_config_backend_color');
+        // self::$subject = Mage::getModel('adminhtml/system_config_backend_color');
         self::markTestSkipped('');
     }
 }

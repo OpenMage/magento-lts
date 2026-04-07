@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Adminhtml\Model\Search;
 
-# use Mage;
-# use Mage_Adminhtml_Model_Search_Customer as Subject;
+// use Mage;
+// use Mage_Adminhtml_Model_Search_Customer as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Model\Search\CustomerTrait;
 
@@ -20,12 +20,12 @@ final class CustomerTest extends OpenMageTest
 {
     use CustomerTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::getModel('adminhtml/search_customer');
+        // self::$subject = Mage::getModel('adminhtml/search_customer');
         self::markTestSkipped('');
     }
 }

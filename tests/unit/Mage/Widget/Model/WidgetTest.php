@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Widget\Model;
 
-# use Mage;
-# use Mage_Widget_Model_Widget as Subject;
+// use Mage;
+// use Mage_Widget_Model_Widget as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Widget\Model\WidgetTrait;
 
@@ -20,12 +20,12 @@ final class WidgetTest extends OpenMageTest
 {
     use WidgetTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::getModel('widget/widget');
+        // self::$subject = Mage::getModel('widget/widget');
         self::markTestSkipped('');
     }
 }

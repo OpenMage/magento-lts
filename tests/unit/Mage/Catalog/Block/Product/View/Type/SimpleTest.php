@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Catalog\Block\Product\View\Type;
 
-# use Mage_Catalog_Block_Product_View_Type_Simple as Subject;
+// use Mage_Catalog_Block_Product_View_Type_Simple as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\Block\Product\View\Type\SimpleTrait;
 
@@ -19,12 +19,12 @@ final class SimpleTest extends OpenMageTest
 {
     use SimpleTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = new Subject();
+        // self::$subject = new Subject();
         self::markTestSkipped('');
     }
 }

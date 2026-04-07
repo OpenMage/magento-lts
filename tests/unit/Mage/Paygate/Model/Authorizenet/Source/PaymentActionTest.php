@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Paygate\Model\Authorizenet\Source;
 
-# use Mage;
-# use Mage_Paygate_Model_Authorizenet_Source_PaymentAction as Subject;
+// use Mage;
+// use Mage_Paygate_Model_Authorizenet_Source_PaymentAction as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Paygate\Model\Authorizenet\Source\PaymentActionTrait;
 
@@ -20,12 +20,12 @@ final class PaymentActionTest extends OpenMageTest
 {
     use PaymentActionTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::getModel('paygate/authorizenet_source_paymentaction');
+        // self::$subject = Mage::getModel('paygate/authorizenet_source_paymentaction');
         self::markTestSkipped('');
     }
 }

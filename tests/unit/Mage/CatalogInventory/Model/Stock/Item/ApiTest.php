@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\CatalogInventory\Model\Stock\Item;
 
-# use Mage;
-# use Mage_CatalogInventory_Model_Stock_Item_Api as Subject;
+// use Mage;
+// use Mage_CatalogInventory_Model_Stock_Item_Api as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\CatalogInventory\Model\Stock\Item\ApiTrait;
 
@@ -20,12 +20,12 @@ final class ApiTest extends OpenMageTest
 {
     use ApiTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::getModel('cataloginventory/stock_item_api');
+        // self::$subject = Mage::getModel('cataloginventory/stock_item_api');
         self::markTestSkipped('');
     }
 }

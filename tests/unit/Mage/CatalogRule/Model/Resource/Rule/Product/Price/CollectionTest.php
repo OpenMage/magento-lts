@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\CatalogRule\Model\Resource\Rule\Product\Price;
 
-# use Mage;
-# use Mage_CatalogRule_Model_Resource_Rule_Product_Price_Collection as Subject;
+// use Mage;
+// use Mage_CatalogRule_Model_Resource_Rule_Product_Price_Collection as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\CatalogRule\Model\Resource\Rule\Product\Price\CollectionTrait;
 
@@ -20,12 +20,12 @@ final class CollectionTest extends OpenMageTest
 {
     use CollectionTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::getModel('catalogrule/resource_rule_product_price_collection');
+        // self::$subject = Mage::getModel('catalogrule/resource_rule_product_price_collection');
         self::markTestSkipped('');
     }
 }

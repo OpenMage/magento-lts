@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\ProductAlert\Model;
 
-# use Mage;
-# use Mage_ProductAlert_Model_Stock as Subject;
+// use Mage;
+// use Mage_ProductAlert_Model_Stock as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\ProductAlert\Model\StockTrait;
 
@@ -20,12 +20,12 @@ final class StockTest extends OpenMageTest
 {
     use StockTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::getModel('productalert/stock');
+        // self::$subject = Mage::getModel('productalert/stock');
         self::markTestSkipped('');
     }
 }

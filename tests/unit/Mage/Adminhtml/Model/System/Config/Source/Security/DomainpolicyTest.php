@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Adminhtml\Model\System\Config\Source\Security;
 
-# use Mage;
-# use Mage_Adminhtml_Model_System_Config_Source_Security_Domainpolicy as Subject;
+// use Mage;
+// use Mage_Adminhtml_Model_System_Config_Source_Security_Domainpolicy as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Model\System\Config\Source\Security\DomainpolicyTrait;
 
@@ -20,12 +20,12 @@ final class DomainpolicyTest extends OpenMageTest
 {
     use DomainpolicyTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::getModel('adminhtml/system_config_source_security_domainpolicy');
+        // self::$subject = Mage::getModel('adminhtml/system_config_source_security_domainpolicy');
         self::markTestSkipped('');
     }
 }

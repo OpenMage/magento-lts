@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Media\Model\File;
 
-# use Mage;
-# use Mage_Media_Model_File_Image as Subject;
+// use Mage;
+// use Mage_Media_Model_File_Image as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Media\Model\File\ImageTrait;
 
@@ -20,12 +20,12 @@ final class ImageTest extends OpenMageTest
 {
     use ImageTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::getModel('media/file_image');
+        // self::$subject = Mage::getModel('media/file_image');
         self::markTestSkipped('');
     }
 }

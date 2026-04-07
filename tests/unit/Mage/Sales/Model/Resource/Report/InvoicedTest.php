@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Sales\Model\Resource\Report;
 
-# use Mage;
-# use Mage_Sales_Model_Resource_Report_Invoiced as Subject;
+// use Mage;
+// use Mage_Sales_Model_Resource_Report_Invoiced as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sales\Model\Resource\Report\InvoicedTrait;
 
@@ -20,12 +20,12 @@ final class InvoicedTest extends OpenMageTest
 {
     use InvoicedTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::getModel('sales/resource_report_invoiced');
+        // self::$subject = Mage::getModel('sales/resource_report_invoiced');
         self::markTestSkipped('');
     }
 }

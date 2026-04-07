@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Sales\Model\Quote\Address\Total;
 
-# use Mage;
-# use Mage_Sales_Model_Quote_Address_Total_Msrp as Subject;
+// use Mage;
+// use Mage_Sales_Model_Quote_Address_Total_Msrp as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sales\Model\Quote\Address\Total\MsrpTrait;
 
@@ -20,12 +20,12 @@ final class MsrpTest extends OpenMageTest
 {
     use MsrpTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::getModel('sales/quote_address_total_msrp');
+        // self::$subject = Mage::getModel('sales/quote_address_total_msrp');
         self::markTestSkipped('');
     }
 }

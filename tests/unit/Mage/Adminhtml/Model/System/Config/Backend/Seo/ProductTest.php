@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Adminhtml\Model\System\Config\Backend\Seo;
 
-# use Mage;
-# use Mage_Adminhtml_Model_System_Config_Backend_Seo_Product as Subject;
+// use Mage;
+// use Mage_Adminhtml_Model_System_Config_Backend_Seo_Product as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Model\System\Config\Backend\Seo\ProductTrait;
 
@@ -20,12 +20,12 @@ final class ProductTest extends OpenMageTest
 {
     use ProductTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::getModel('adminhtml/system_config_backend_seo_product');
+        // self::$subject = Mage::getModel('adminhtml/system_config_backend_seo_product');
         self::markTestSkipped('');
     }
 }

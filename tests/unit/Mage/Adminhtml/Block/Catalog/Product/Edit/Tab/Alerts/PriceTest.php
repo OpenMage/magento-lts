@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Catalog\Product\Edit\Tab\Alerts;
 
-# use Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Alerts_Price as Subject;
+// use Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Alerts_Price as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\Catalog\Product\Edit\Tab\Alerts\PriceTrait;
 
@@ -19,12 +19,12 @@ final class PriceTest extends OpenMageTest
 {
     use PriceTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = new Subject();
+        // self::$subject = new Subject();
         self::markTestSkipped('');
     }
 }

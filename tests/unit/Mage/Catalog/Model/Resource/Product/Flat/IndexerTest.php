@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Catalog\Model\Resource\Product\Flat;
 
-# use Mage;
-# use Mage_Catalog_Model_Resource_Product_Flat_Indexer as Subject;
+// use Mage;
+// use Mage_Catalog_Model_Resource_Product_Flat_Indexer as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\Model\Resource\Product\Flat\IndexerTrait;
 
@@ -20,12 +20,12 @@ final class IndexerTest extends OpenMageTest
 {
     use IndexerTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::getModel('catalog/resource_product_flat_indexer');
+        // self::$subject = Mage::getModel('catalog/resource_product_flat_indexer');
         self::markTestSkipped('');
     }
 }

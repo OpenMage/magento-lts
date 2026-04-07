@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Sales\Model\Order\Creditmemo\Total;
 
-# use Mage;
-# use Mage_Sales_Model_Order_Creditmemo_Total_Subtotal as Subject;
+// use Mage;
+// use Mage_Sales_Model_Order_Creditmemo_Total_Subtotal as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sales\Model\Order\Creditmemo\Total\SubtotalTrait;
 
@@ -20,12 +20,12 @@ final class SubtotalTest extends OpenMageTest
 {
     use SubtotalTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::getModel('sales/order_creditmemo_total_subtotal');
+        // self::$subject = Mage::getModel('sales/order_creditmemo_total_subtotal');
         self::markTestSkipped('');
     }
 }

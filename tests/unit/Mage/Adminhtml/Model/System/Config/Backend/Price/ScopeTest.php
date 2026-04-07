@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Adminhtml\Model\System\Config\Backend\Price;
 
-# use Mage;
-# use Mage_Adminhtml_Model_System_Config_Backend_Price_Scope as Subject;
+// use Mage;
+// use Mage_Adminhtml_Model_System_Config_Backend_Price_Scope as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Model\System\Config\Backend\Price\ScopeTrait;
 
@@ -20,12 +20,12 @@ final class ScopeTest extends OpenMageTest
 {
     use ScopeTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::getModel('adminhtml/system_config_backend_price_scope');
+        // self::$subject = Mage::getModel('adminhtml/system_config_backend_price_scope');
         self::markTestSkipped('');
     }
 }

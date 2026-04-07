@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Sales\Model\Convert;
 
-# use Mage;
-# use Mage_Sales_Model_Convert_Order as Subject;
+// use Mage;
+// use Mage_Sales_Model_Convert_Order as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sales\Model\Convert\OrderTrait;
 
@@ -20,12 +20,12 @@ final class OrderTest extends OpenMageTest
 {
     use OrderTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::getModel('sales/convert_order');
+        // self::$subject = Mage::getModel('sales/convert_order');
         self::markTestSkipped('');
     }
 }

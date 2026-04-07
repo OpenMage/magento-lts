@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Paygate\Model\Authorizenet\Source;
 
-# use Mage;
-# use Mage_Paygate_Model_Authorizenet_Source_Cctype as Subject;
+// use Mage;
+// use Mage_Paygate_Model_Authorizenet_Source_Cctype as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Paygate\Model\Authorizenet\Source\CctypeTrait;
 
@@ -20,12 +20,12 @@ final class CctypeTest extends OpenMageTest
 {
     use CctypeTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::getModel('paygate/authorizenet_source_cctype');
+        // self::$subject = Mage::getModel('paygate/authorizenet_source_cctype');
         self::markTestSkipped('');
     }
 }

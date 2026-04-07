@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Catalog\Model\Product\Flat;
 
-# use Mage;
-# use Mage_Catalog_Model_Product_Flat_Observer as Subject;
+// use Mage;
+// use Mage_Catalog_Model_Product_Flat_Observer as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\Model\Product\Flat\ObserverTrait;
 
@@ -20,12 +20,12 @@ final class ObserverTest extends OpenMageTest
 {
     use ObserverTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::getModel('catalog/product_flat_observer');
+        // self::$subject = Mage::getModel('catalog/product_flat_observer');
         self::markTestSkipped('');
     }
 }

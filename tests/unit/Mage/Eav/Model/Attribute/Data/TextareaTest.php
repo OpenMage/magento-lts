@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Eav\Model\Attribute\Data;
 
-# use Mage;
-# use Mage_Eav_Model_Attribute_Data_Textarea as Subject;
+// use Mage;
+// use Mage_Eav_Model_Attribute_Data_Textarea as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Eav\Model\Attribute\Data\TextareaTrait;
 
@@ -20,12 +20,12 @@ final class TextareaTest extends OpenMageTest
 {
     use TextareaTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::getModel('eav/attribute_data_textarea');
+        // self::$subject = Mage::getModel('eav/attribute_data_textarea');
         self::markTestSkipped('');
     }
 }

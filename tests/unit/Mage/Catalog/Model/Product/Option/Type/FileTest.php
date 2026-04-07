@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Catalog\Model\Product\Option\Type;
 
-# use Mage;
-# use Mage_Catalog_Model_Product_Option_Type_File as Subject;
+// use Mage;
+// use Mage_Catalog_Model_Product_Option_Type_File as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\Model\Product\Option\Type\FileTrait;
 
@@ -20,12 +20,12 @@ final class FileTest extends OpenMageTest
 {
     use FileTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::getModel('catalog/product_option_type_file');
+        // self::$subject = Mage::getModel('catalog/product_option_type_file');
         self::markTestSkipped('');
     }
 }

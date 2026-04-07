@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Tag\Model\Resource;
 
-# use Mage;
-# use Mage_Tag_Model_Resource_Tag as Subject;
+// use Mage;
+// use Mage_Tag_Model_Resource_Tag as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Tag\Model\Resource\TagTrait;
 
@@ -20,12 +20,12 @@ final class TagTest extends OpenMageTest
 {
     use TagTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::getModel('tag/resource_tag');
+        // self::$subject = Mage::getModel('tag/resource_tag');
         self::markTestSkipped('');
     }
 }

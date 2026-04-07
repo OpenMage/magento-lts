@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Catalog\Model\Category\Attribute;
 
-# use Mage;
-# use Mage_Catalog_Model_Category_Attribute_Api as Subject;
+// use Mage;
+// use Mage_Catalog_Model_Category_Attribute_Api as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\Model\Category\Attribute\ApiTrait;
 
@@ -20,12 +20,12 @@ final class ApiTest extends OpenMageTest
 {
     use ApiTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::getModel('catalog/category_attribute_api');
+        // self::$subject = Mage::getModel('catalog/category_attribute_api');
         self::markTestSkipped('');
     }
 }

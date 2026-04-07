@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Wishlist\Model\Item;
 
-# use Mage;
-# use Mage_Wishlist_Model_Item_Option as Subject;
+// use Mage;
+// use Mage_Wishlist_Model_Item_Option as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Wishlist\Model\Item\OptionTrait;
 
@@ -20,12 +20,12 @@ final class OptionTest extends OpenMageTest
 {
     use OptionTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::getModel('wishlist/item_option');
+        // self::$subject = Mage::getModel('wishlist/item_option');
         self::markTestSkipped('');
     }
 }

@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Api\Model\Resource;
 
-# use Mage;
-# use Mage_Api_Model_Resource_Rules as Subject;
+// use Mage;
+// use Mage_Api_Model_Resource_Rules as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Api\Model\Resource\RulesTrait;
 
@@ -20,12 +20,12 @@ final class RulesTest extends OpenMageTest
 {
     use RulesTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::getModel('api/resource_rules');
+        // self::$subject = Mage::getModel('api/resource_rules');
         self::markTestSkipped('');
     }
 }

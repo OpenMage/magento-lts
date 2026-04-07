@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\ProductAlert\Model;
 
-# use Mage;
-# use Mage_ProductAlert_Model_Email as Subject;
+// use Mage;
+// use Mage_ProductAlert_Model_Email as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\ProductAlert\Model\EmailTrait;
 
@@ -20,12 +20,12 @@ final class EmailTest extends OpenMageTest
 {
     use EmailTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::getModel('productalert/email');
+        // self::$subject = Mage::getModel('productalert/email');
         self::markTestSkipped('');
     }
 }

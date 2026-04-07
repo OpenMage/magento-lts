@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Install\Model\Installer;
 
-# use Mage;
-# use Mage_Install_Model_Installer_Db as Subject;
+// use Mage;
+// use Mage_Install_Model_Installer_Db as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Install\Model\Installer\DbTrait;
 
@@ -20,12 +20,12 @@ final class DbTest extends OpenMageTest
 {
     use DbTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::getModel('install/installer_db');
+        // self::$subject = Mage::getModel('install/installer_db');
         self::markTestSkipped('');
     }
 }

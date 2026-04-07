@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Wishlist\Block\Render\Item;
 
-# use Mage_Wishlist_Block_Render_Item_Price as Subject;
+// use Mage_Wishlist_Block_Render_Item_Price as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Wishlist\Block\Render\Item\PriceTrait;
 
@@ -19,12 +19,12 @@ final class PriceTest extends OpenMageTest
 {
     use PriceTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = new Subject();
+        // self::$subject = new Subject();
         self::markTestSkipped('');
     }
 }

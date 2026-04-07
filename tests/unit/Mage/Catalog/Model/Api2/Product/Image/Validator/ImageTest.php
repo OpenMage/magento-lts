@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Catalog\Model\Api2\Product\Image\Validator;
 
-# use Mage;
-# use Mage_Catalog_Model_Api2_Product_Image_Validator_Image as Subject;
+// use Mage;
+// use Mage_Catalog_Model_Api2_Product_Image_Validator_Image as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\Model\Api2\Product\Image\Validator\ImageTrait;
 
@@ -20,12 +20,12 @@ final class ImageTest extends OpenMageTest
 {
     use ImageTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::getModel('catalog/api2_product_image_validator_image');
+        // self::$subject = Mage::getModel('catalog/api2_product_image_validator_image');
         self::markTestSkipped('');
     }
 }

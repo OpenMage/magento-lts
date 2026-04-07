@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Catalog\Model\Resource\Product\Indexer\Eav;
 
-# use Mage;
-# use Mage_Catalog_Model_Resource_Product_Indexer_Eav_Source as Subject;
+// use Mage;
+// use Mage_Catalog_Model_Resource_Product_Indexer_Eav_Source as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\Model\Resource\Product\Indexer\Eav\SourceTrait;
 
@@ -20,12 +20,12 @@ final class SourceTest extends OpenMageTest
 {
     use SourceTrait;
 
-    # private static Subject $subject;
+    // private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        # self::$subject = Mage::getModel('catalog/resource_product_indexer_eav_source');
+        // self::$subject = Mage::getModel('catalog/resource_product_indexer_eav_source');
         self::markTestSkipped('');
     }
 }
