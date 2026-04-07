@@ -725,7 +725,7 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
      *
      * @param  string $valueField
      * @param  string $labelField
-     * @return array
+     * @return array<array-key, string>
      */
     protected function _toOptionHash($valueField = 'id', $labelField = 'name')
     {
