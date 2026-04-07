@@ -480,7 +480,7 @@ class Mage_Core_Model_Cache
         }
 
         if (Mage::getConfig()->getOptions()->getData('global_ban_use_cache')) {
-            foreach ($this->_allowedCacheOptions as $key => $val) {
+            foreach (array_keys($this->_allowedCacheOptions) as $key => $val) {
                 $this->_allowedCacheOptions[$key] = false;
             }
         }
