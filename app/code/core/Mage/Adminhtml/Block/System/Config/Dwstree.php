@@ -54,7 +54,7 @@ class Mage_Adminhtml_Block_System_Config_Dwstree extends Mage_Adminhtml_Block_Wi
                 }
             }
 
-            foreach ($wConfig->descend('system/stores')->children() as $sCode => $sId) {
+            foreach ($wConfig->descend('system/stores')->children() as $sCode => $__) {
                 $sName = (string) $storesConfig->descend($sCode . '/system/store/name');
                 $this->addTab('store_' . $sCode, [
                     'label' => $sName,
