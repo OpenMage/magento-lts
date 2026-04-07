@@ -16,6 +16,12 @@
     -->
     <rule ref="rulesets/unusedcode.xml">
         <exclude name="UnusedFormalParameter" />
+        <exclude name="UnusedLocalVariable" />
+    </rule>
+    <rule ref="rulesets/unusedcode.xml/UnusedLocalVariable">
+        <properties>
+            <property name="exceptions" value="ignored" />
+        </properties>
     </rule>
 
     <!-- CLEANCODE
