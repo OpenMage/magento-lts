@@ -24,7 +24,7 @@ final class ImportTest extends OpenMageTest
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        self::$subject = new Subject();
+        self::$subject = new Subject([]);
         self::markTestSkipped('');
     }
 }
