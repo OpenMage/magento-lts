@@ -211,7 +211,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Main_Layout extends M
             'is_anchor_only' => '',
             'product_type_id' => '',
         ];
-        foreach (Mage_Catalog_Model_Product_Type::getTypes() as $typeId => $type) {
+        foreach (array_keys(Mage_Catalog_Model_Product_Type::getTypes()) as $typeId) {
             $container[$typeId] = [
                 'label' => 'Products',
                 'code' => 'products',

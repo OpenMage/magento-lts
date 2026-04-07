@@ -172,7 +172,7 @@ class Mage_Catalog_Model_Product_Type
     }
 
     /**
-     * @return array|string
+     * @return array<array-key, array{label: string}>
      */
     public static function getTypes()
     {
