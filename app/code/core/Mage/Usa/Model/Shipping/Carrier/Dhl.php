@@ -45,11 +45,6 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
     protected $_rawRequest = null;
 
     /**
-     * @inheritDoc
-     */
-    protected $_result = null;
-
-    /**
      * Errors placeholder
      *
      * @var array
@@ -931,12 +926,12 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
     /**
      * Get tracking
      *
-     * @param  mixed                                $trackings
-     * @return null|Mage_Shipping_Model_Rate_Result
+     * @param  mixed                                    $trackings
+     * @return null|Mage_Shipping_Model_Tracking_Result
      */
     public function getTracking($trackings)
     {
-        $this->setTrackingReqeust();
+        $this->setTrackingRequest();
 
         if (!is_array($trackings)) {
             $trackings = [$trackings];
@@ -944,13 +939,13 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
 
         $this->_getXMLTracking($trackings);
 
-        return $this->_result;
+        return $this->_trackingResult;
     }
 
     /**
      * Set tracking request
      */
-    protected function setTrackingReqeust()
+    protected function setTrackingRequest()
     {
         $request = new Varien_Object();
 
@@ -1184,7 +1179,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
             }
         }
 
-        $this->_result = $result;
+        $this->_trackingResult = $result;
     }
 
     /**
@@ -1195,7 +1190,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
     public function getResponse()
     {
         $statuses = '';
-        if ($this->_result instanceof Mage_Shipping_Model_Tracking_Result && ($trackings = $this->_result->getAllTrackings())) {
+        if ($this->_trackingResult instanceof Mage_Shipping_Model_Tracking_Result && ($trackings = $this->_trackingResult->getAllTrackings())) {
             foreach ($trackings as $tracking) {
                 if ($data = $tracking->getAllData()) {
                     if (isset($data['status'])) {
