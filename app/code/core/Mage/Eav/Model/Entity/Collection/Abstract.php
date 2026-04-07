@@ -1451,11 +1451,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
         }
 
         // process linked attribute
-        if (isset($this->_joinAttributes[$attribute])) {
-            $entity = $this->getAttribute($attribute)->getEntity();
-        } else {
-            $entity = $this->getEntity();
-        }
+        $entity = isset($this->_joinAttributes[$attribute]) ? $this->getAttribute($attribute)->getEntity() : $this->getEntity();
 
         if ($entity->isAttributeStatic($attribute)) {
             return $this->_getConditionSql(

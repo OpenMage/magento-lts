@@ -24,6 +24,7 @@ class Mage_Shipping_Model_Carrier_Pickup extends Mage_Shipping_Model_Carrier_Abs
         if (!$this->getConfigFlag('active')) {
             return false;
         }
+
         return Mage::getModel('shipping/rate_result');
     }
 

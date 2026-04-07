@@ -1018,8 +1018,6 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
         foreach ($taxGroups as $taxId => $data) {
             $rate = $catalogPriceInclTax ? (float) $taxId : $data['applied_rates'][0]['percent'];
 
-            $inclTax = $data['incl_tax'];
-
             $totalTax = array_sum($data['tax']);
             $baseTotalTax = array_sum($data['base_tax']);
             $this->_addAmount($totalTax);
