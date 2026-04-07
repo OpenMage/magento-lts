@@ -16,12 +16,6 @@
     -->
     <rule ref="rulesets/unusedcode.xml">
         <exclude name="UnusedFormalParameter" />
-        <exclude name="UnusedLocalVariable" />
-    </rule>
-    <rule ref="rulesets/unusedcode.xml/UnusedLocalVariable">
-        <properties>
-            <property name="exceptions" value="_unused" />
-        </properties>
     </rule>
 
     <!-- CLEANCODE
@@ -70,7 +64,6 @@
     <rule ref="rulesets/controversial.xml/CamelCaseVariableName">
         <properties>
             <property name="allow-underscore" value="true" />
-            <property name="exceptions" value="_unused" />
         </properties>
     </rule>
     <rule ref="rulesets/controversial.xml/Superglobals" />
