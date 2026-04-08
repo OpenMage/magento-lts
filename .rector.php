@@ -156,7 +156,7 @@ try {
             DeadCode\If_\RemoveAlwaysTrueIfConditionRector::class => [
                 __DIR__ . '/app/design/adminhtml/base/default/template/system/store/tree.phtml',
             ],
-            # ... neeeds closer review and docblock fixes for magic methods
+            # ... needs closer review and docblock fixes for magic methods
             Php71\FuncCall\RemoveExtraParametersRector::class,
             # ... needs closer review
             Php74\Closure\ClosureToArrowFunctionRector::class,
