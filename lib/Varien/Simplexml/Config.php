@@ -472,7 +472,7 @@ class Varien_Simplexml_Config
     {
         $xml = simplexml_import_dom($dom, $this->_elementClass);
 
-        if ($xml) {
+        if ($xml instanceof SimpleXMLElement) {
             $this->_xml = $xml;
             return true;
         }
