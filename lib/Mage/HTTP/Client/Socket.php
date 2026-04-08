@@ -220,7 +220,7 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
         }
 
         if (!empty($parts['port'])) {
-            $this->_port = (int) $parts['port'];
+            $this->_port = $parts['port'];
         }
 
         if (!empty($parts['host'])) {

@@ -283,7 +283,7 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
         foreach ($items as $params => $rows) {
             // attempt to merge
             $mergedUrl = false;
-            if ($mergeCallback) {
+            if ($mergeCallback !== null) {
                 $mergedUrl = call_user_func($mergeCallback, $rows);
             }
 

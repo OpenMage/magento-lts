@@ -94,6 +94,12 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Admin/Model/User.php',
 ];
 $ignoreErrors[] = [
+	'rawMessage' => 'Short ternary operator is not allowed. Use null coalesce operator if applicable or consider using long ternary.',
+	'identifier' => 'ternary.shortNotAllowed',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Admin/Model/User.php',
+];
+$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 1,
@@ -190,9 +196,21 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Crosssell.php',
 ];
 $ignoreErrors[] = [
+	'rawMessage' => 'Short ternary operator is not allowed. Use null coalesce operator if applicable or consider using long ternary.',
+	'identifier' => 'ternary.shortNotAllowed',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Crosssell.php',
+];
+$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 2,
+	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Related.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Short ternary operator is not allowed. Use null coalesce operator if applicable or consider using long ternary.',
+	'identifier' => 'ternary.shortNotAllowed',
+	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Related.php',
 ];
 $ignoreErrors[] = [
@@ -214,6 +232,12 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Super/Group.php',
 ];
 $ignoreErrors[] = [
+	'rawMessage' => 'Short ternary operator is not allowed. Use null coalesce operator if applicable or consider using long ternary.',
+	'identifier' => 'ternary.shortNotAllowed',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Super/Group.php',
+];
+$ignoreErrors[] = [
 	'rawMessage' => 'Method Mage_Catalog_Model_Product_Type_Configurable::canUseAttribute() invoked with 2 parameters, 1 required.',
 	'identifier' => 'arguments.count',
 	'count' => 1,
@@ -223,6 +247,12 @@ $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 2,
+	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Upsell.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Short ternary operator is not allowed. Use null coalesce operator if applicable or consider using long ternary.',
+	'identifier' => 'ternary.shortNotAllowed',
+	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Upsell.php',
 ];
 $ignoreErrors[] = [
@@ -452,6 +482,12 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Sales/Order/Create/Items/Grid.php',
 ];
 $ignoreErrors[] = [
+	'rawMessage' => 'Short ternary operator is not allowed. Use null coalesce operator if applicable or consider using long ternary.',
+	'identifier' => 'ternary.shortNotAllowed',
+	'count' => 2,
+	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Sales/Order/Create/Items/Grid.php',
+];
+$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 1,
@@ -492,6 +528,12 @@ $ignoreErrors[] = [
 	'identifier' => 'empty.notAllowed',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Sales/Order/View/Tab/History.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Short ternary operator is not allowed. Use null coalesce operator if applicable or consider using long ternary.',
+	'identifier' => 'ternary.shortNotAllowed',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Sales/Transactions/Grid.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
@@ -584,6 +626,12 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/System/Config/Tabs.php',
 ];
 $ignoreErrors[] = [
+	'rawMessage' => 'Short ternary operator is not allowed. Use null coalesce operator if applicable or consider using long ternary.',
+	'identifier' => 'ternary.shortNotAllowed',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/System/Convert/Gui/Edit/Tab/Wizard.php',
+];
+$ignoreErrors[] = [
 	'rawMessage' => 'Method Mage_Core_Model_Email_Template::getProcessedTemplate() invoked with 2 parameters, 0-1 required.',
 	'identifier' => 'arguments.count',
 	'count' => 1,
@@ -606,6 +654,12 @@ $ignoreErrors[] = [
 	'identifier' => 'method.notFound',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Tag/Grid/All.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Short ternary operator is not allowed. Use null coalesce operator if applicable or consider using long ternary.',
+	'identifier' => 'ternary.shortNotAllowed',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Tax/Rate/Grid.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Binary operation "*" between string and 1 results in an error.',
@@ -653,6 +707,12 @@ $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 2,
+	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Widget/Grid.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Short ternary operator is not allowed. Use null coalesce operator if applicable or consider using long ternary.',
+	'identifier' => 'ternary.shortNotAllowed',
+	'count' => 4,
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Widget/Grid.php',
 ];
 $ignoreErrors[] = [
@@ -1591,6 +1651,12 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Bundle/Model/Product/Price.php',
 ];
 $ignoreErrors[] = [
+	'rawMessage' => 'Short ternary operator is not allowed. Use null coalesce operator if applicable or consider using long ternary.',
+	'identifier' => 'ternary.shortNotAllowed',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Bundle/Model/Product/Price.php',
+];
+$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 5,
@@ -1830,6 +1896,12 @@ $ignoreErrors[] = [
 	'identifier' => 'empty.notAllowed',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Helper/Product/Url/Rewrite.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Short ternary operator is not allowed. Use null coalesce operator if applicable or consider using long ternary.',
+	'identifier' => 'ternary.shortNotAllowed',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Helper/Product/View.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Call to an undefined method Mage_Core_Model_Resource_Db_Collection_Abstract::setStoreId().',
@@ -2114,6 +2186,12 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Product.php',
 ];
 $ignoreErrors[] = [
+	'rawMessage' => 'Short ternary operator is not allowed. Use null coalesce operator if applicable or consider using long ternary.',
+	'identifier' => 'ternary.shortNotAllowed',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Product.php',
+];
+$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 1,
@@ -2301,6 +2379,12 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Product/Option/Type/File.php',
 ];
 $ignoreErrors[] = [
+	'rawMessage' => 'Short ternary operator is not allowed. Use null coalesce operator if applicable or consider using long ternary.',
+	'identifier' => 'ternary.shortNotAllowed',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Product/Option/Type/File.php',
+];
+$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 2,
@@ -2421,6 +2505,12 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Method Mage_Core_Model_Website::getStoreIds() invoked with 1 parameter, 0 required.',
 	'identifier' => 'arguments.count',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Resource/Abstract.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Short ternary operator is not allowed. Use null coalesce operator if applicable or consider using long ternary.',
+	'identifier' => 'ternary.shortNotAllowed',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Resource/Abstract.php',
 ];
@@ -2589,6 +2679,12 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Resource/Product/Collection.php',
 ];
 $ignoreErrors[] = [
+	'rawMessage' => 'Short ternary operator is not allowed. Use null coalesce operator if applicable or consider using long ternary.',
+	'identifier' => 'ternary.shortNotAllowed',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Resource/Product/Compare/Item/Collection.php',
+];
+$ignoreErrors[] = [
 	'rawMessage' => 'Method Mage_Catalog_Model_Resource_Product_Indexer_Abstract::_getAttribute() should return Mage_Catalog_Model_Resource_Eav_Attribute but returns Mage_Eav_Model_Entity_Attribute_Abstract|false.',
 	'identifier' => 'return.type',
 	'count' => 1,
@@ -2682,6 +2778,12 @@ $ignoreErrors[] = [
 	'rawMessage' => 'PHPDoc tag @var with type Mage_Core_Model_Url is not subtype of type bool|Mage_Core_Model_Abstract.',
 	'identifier' => 'varTag.type',
 	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Url.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Short ternary operator is not allowed. Use null coalesce operator if applicable or consider using long ternary.',
+	'identifier' => 'ternary.shortNotAllowed',
+	'count' => 2,
 	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Url.php',
 ];
 $ignoreErrors[] = [
@@ -3018,6 +3120,12 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Centinel/Helper/Data.php',
 ];
 $ignoreErrors[] = [
+	'rawMessage' => 'Short ternary operator is not allowed. Use null coalesce operator if applicable or consider using long ternary.',
+	'identifier' => 'ternary.shortNotAllowed',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Checkout/Block/Cart.php',
+];
+$ignoreErrors[] = [
 	'rawMessage' => 'Cannot call method setItem() on array.',
 	'identifier' => 'method.nonObject',
 	'count' => 1,
@@ -3040,6 +3148,18 @@ $ignoreErrors[] = [
 	'identifier' => 'empty.notAllowed',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Checkout/Block/Cart/Sidebar.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Short ternary operator is not allowed. Use null coalesce operator if applicable or consider using long ternary.',
+	'identifier' => 'ternary.shortNotAllowed',
+	'count' => 2,
+	'path' => __DIR__ . '/app/code/core/Mage/Checkout/Block/Cart/Sidebar.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Short ternary operator is not allowed. Use null coalesce operator if applicable or consider using long ternary.',
+	'identifier' => 'ternary.shortNotAllowed',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Checkout/Block/Links.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
@@ -3432,6 +3552,12 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Core/Controller/Varien/Router/Standard.php',
 ];
 $ignoreErrors[] = [
+	'rawMessage' => 'Short ternary operator is not allowed. Use null coalesce operator if applicable or consider using long ternary.',
+	'identifier' => 'ternary.shortNotAllowed',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Core/Helper/Abstract.php',
+];
+$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 1,
@@ -3500,7 +3626,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 15,
+	'count' => 14,
 	'path' => __DIR__ . '/app/code/core/Mage/Core/Model/Config.php',
 ];
 $ignoreErrors[] = [
@@ -3519,6 +3645,12 @@ $ignoreErrors[] = [
 	'rawMessage' => 'Parameter #2 $constructArguments of method Mage_Core_Model_Config::getModelInstance() expects array|object, string given.',
 	'identifier' => 'argument.type',
 	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Core/Model/Config.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Short ternary operator is not allowed. Use null coalesce operator if applicable or consider using long ternary.',
+	'identifier' => 'ternary.shortNotAllowed',
+	'count' => 2,
 	'path' => __DIR__ . '/app/code/core/Mage/Core/Model/Config.php',
 ];
 $ignoreErrors[] = [
@@ -4124,6 +4256,12 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Customer/Helper/Data.php',
 ];
 $ignoreErrors[] = [
+	'rawMessage' => 'Short ternary operator is not allowed. Use null coalesce operator if applicable or consider using long ternary.',
+	'identifier' => 'ternary.shortNotAllowed',
+	'count' => 5,
+	'path' => __DIR__ . '/app/code/core/Mage/Customer/Helper/Data.php',
+];
+$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 1,
@@ -4215,6 +4353,12 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Customer/Model/Customer.php',
 ];
 $ignoreErrors[] = [
+	'rawMessage' => 'Short ternary operator is not allowed. Use null coalesce operator if applicable or consider using long ternary.',
+	'identifier' => 'ternary.shortNotAllowed',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Customer/Model/Customer.php',
+];
+$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 1,
@@ -4248,6 +4392,12 @@ $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 8,
+	'path' => __DIR__ . '/app/code/core/Mage/Customer/controllers/AccountController.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Short ternary operator is not allowed. Use null coalesce operator if applicable or consider using long ternary.',
+	'identifier' => 'ternary.shortNotAllowed',
+	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Customer/controllers/AccountController.php',
 ];
 $ignoreErrors[] = [
@@ -4644,6 +4794,12 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Eav/Model/Convert/Parser/Abstract.php',
 ];
 $ignoreErrors[] = [
+	'rawMessage' => 'Short ternary operator is not allowed. Use null coalesce operator if applicable or consider using long ternary.',
+	'identifier' => 'ternary.shortNotAllowed',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Eav/Model/Convert/Parser/Abstract.php',
+];
+$ignoreErrors[] = [
 	'rawMessage' => 'Call to deprecated method _afterSetConfig() of class Mage_Eav_Model_Entity_Abstract.',
 	'identifier' => 'method.deprecated',
 	'count' => 1,
@@ -4694,6 +4850,12 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Property Mage_Eav_Model_Entity_Attribute_Abstract::$_entity (Mage_Eav_Model_Entity_Abstract) does not accept Mage_Eav_Model_Entity_Type.',
 	'identifier' => 'assign.propertyType',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Eav/Model/Entity/Attribute/Abstract.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Short ternary operator is not allowed. Use null coalesce operator if applicable or consider using long ternary.',
+	'identifier' => 'ternary.shortNotAllowed',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Eav/Model/Entity/Attribute/Abstract.php',
 ];
@@ -4867,9 +5029,21 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/GoogleAnalytics/Block/Ga.php',
 ];
 $ignoreErrors[] = [
+	'rawMessage' => 'Short ternary operator is not allowed. Use null coalesce operator if applicable or consider using long ternary.',
+	'identifier' => 'ternary.shortNotAllowed',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/GoogleAnalytics/Helper/Data.php',
+];
+$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/GoogleAnalytics/Model/Observer.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Short ternary operator is not allowed. Use null coalesce operator if applicable or consider using long ternary.',
+	'identifier' => 'ternary.shortNotAllowed',
+	'count' => 3,
 	'path' => __DIR__ . '/app/code/core/Mage/GoogleAnalytics/Model/Observer.php',
 ];
 $ignoreErrors[] = [
@@ -5948,6 +6122,12 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Reports/Model/Resource/Order/Collection.php',
 ];
 $ignoreErrors[] = [
+	'rawMessage' => 'Short ternary operator is not allowed. Use null coalesce operator if applicable or consider using long ternary.',
+	'identifier' => 'ternary.shortNotAllowed',
+	'count' => 2,
+	'path' => __DIR__ . '/app/code/core/Mage/Reports/Model/Resource/Order/Collection.php',
+];
+$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 2,
@@ -6140,6 +6320,18 @@ $ignoreErrors[] = [
 	'identifier' => 'property.phpDocType',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Sales/Block/Adminhtml/Recurring/Profile.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Short ternary operator is not allowed. Use null coalesce operator if applicable or consider using long ternary.',
+	'identifier' => 'ternary.shortNotAllowed',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Sales/Block/Billing/Agreement/View.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Short ternary operator is not allowed. Use null coalesce operator if applicable or consider using long ternary.',
+	'identifier' => 'ternary.shortNotAllowed',
+	'count' => 2,
+	'path' => __DIR__ . '/app/code/core/Mage/Sales/Block/Billing/Agreements.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
@@ -7037,6 +7229,12 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Tax/Model/Sales/Total/Quote/Tax.php',
 ];
 $ignoreErrors[] = [
+	'rawMessage' => 'Short ternary operator is not allowed. Use null coalesce operator if applicable or consider using long ternary.',
+	'identifier' => 'ternary.shortNotAllowed',
+	'count' => 2,
+	'path' => __DIR__ . '/app/code/core/Mage/Tax/Model/Sales/Total/Quote/Tax.php',
+];
+$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 1,
@@ -7163,6 +7361,12 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps.php',
 ];
 $ignoreErrors[] = [
+	'rawMessage' => 'Short ternary operator is not allowed. Use null coalesce operator if applicable or consider using long ternary.',
+	'identifier' => 'ternary.shortNotAllowed',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps.php',
+];
+$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 1,
@@ -7171,6 +7375,12 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Weee/Helper/Data.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Short ternary operator is not allowed. Use null coalesce operator if applicable or consider using long ternary.',
+	'identifier' => 'ternary.shortNotAllowed',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Weee/Helper/Data.php',
 ];
@@ -7269,6 +7479,12 @@ $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 5,
+	'path' => __DIR__ . '/app/code/core/Mage/Wishlist/Model/Item.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Short ternary operator is not allowed. Use null coalesce operator if applicable or consider using long ternary.',
+	'identifier' => 'ternary.shortNotAllowed',
+	'count' => 2,
 	'path' => __DIR__ . '/app/code/core/Mage/Wishlist/Model/Item.php',
 ];
 $ignoreErrors[] = [
@@ -8558,6 +8774,12 @@ $ignoreErrors[] = [
 	'rawMessage' => 'Parameter #4 $result of method Varien_Db_Adapter_Pdo_Mysql::_debugStat() expects Zend_Db_Statement_Pdo|null, PDOStatement|Zend_Db_Statement_Interface given.',
 	'identifier' => 'argument.type',
 	'count' => 1,
+	'path' => __DIR__ . '/lib/Varien/Db/Adapter/Pdo/Mysql.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Short ternary operator is not allowed. Use null coalesce operator if applicable or consider using long ternary.',
+	'identifier' => 'ternary.shortNotAllowed',
+	'count' => 2,
 	'path' => __DIR__ . '/lib/Varien/Db/Adapter/Pdo/Mysql.php',
 ];
 $ignoreErrors[] = [

@@ -1072,7 +1072,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
             } else {
                 $order->addStatusHistoryComment($message);
             }
-        } elseif ($result === true) {
+        } elseif ($result) {
             if ($invoice) {
                 $invoice->pay();
                 $this->_updateTotals(['base_amount_paid_online' => $invoice->getBaseGrandTotal()]);
@@ -1246,7 +1246,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
             && $this->getBaseAmountCanceled() == 0
             && $authTransaction->canVoidAuthorizationCompletely()
         ) {
-            $amount = (float) $order->getBaseGrandTotal();
+            $amount = $order->getBaseGrandTotal();
         }
 
         if ($amount) {
