@@ -128,17 +128,6 @@ abstract class Mage_Wishlist_Block_Abstract extends Mage_Catalog_Block_Product_A
     }
 
     /**
-     * Back compatibility retrieve wishlist product items
-     *
-     * @return Mage_Wishlist_Model_Resource_Item_Collection
-     * @deprecated after 1.4.2.0
-     */
-    public function getWishlist()
-    {
-        return $this->getWishlistItems();
-    }
-
-    /**
      * Retrieve URL for Removing item from wishlist
      *
      * @param Mage_Catalog_Model_Product|Mage_Wishlist_Model_Item $item
@@ -192,12 +181,7 @@ abstract class Mage_Wishlist_Block_Abstract extends Mage_Catalog_Block_Product_A
      */
     public function getItemConfigureUrl($product)
     {
-        if ($product instanceof Mage_Catalog_Model_Product) {
-            $id = $product->getWishlistItemId();
-        } else {
-            $id = $product->getId();
-        }
-
+        $id = $product instanceof Mage_Catalog_Model_Product ? $product->getWishlistItemId() : $product->getId();
         $params = ['id' => $id];
 
         return $this->getUrl('wishlist/index/configure/', $params);
@@ -374,11 +358,7 @@ abstract class Mage_Wishlist_Block_Abstract extends Mage_Catalog_Block_Product_A
      */
     public function getProductUrl($item, $additional = [])
     {
-        if ($item instanceof Mage_Catalog_Model_Product) {
-            $product = $item;
-        } else {
-            $product = $item->getProduct();
-        }
+        $product = $item instanceof Mage_Catalog_Model_Product ? $item : $item->getProduct();
 
         $buyRequest = $item->getBuyRequest();
         if (is_object($buyRequest)) {

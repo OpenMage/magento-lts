@@ -81,7 +81,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Store extends Mage_Adminh
             $origStores = [$origStores];
         }
 
-        if (empty($origStores)) {
+        if ($origStores === []) {
             return '';
         }
 

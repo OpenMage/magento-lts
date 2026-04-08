@@ -30,13 +30,14 @@ class Mage_ProductAlert_Model_Resource_Stock extends Mage_ProductAlert_Model_Res
      */
     protected function _beforeSave(Mage_Core_Model_Abstract $object)
     {
-        if (is_null($object->getId()) && $object->getCustomerId()
-                && $object->getProductId() && $object->getWebsiteId()
+        if (is_null($object->getId())
+            && $object->getCustomerId()
+            && $object->getProductId()
+            && $object->getWebsiteId()
+            && $row = $this->_getAlertRow($object)
         ) {
-            if ($row = $this->_getAlertRow($object)) {
-                $object->addData($row);
-                $object->setStatus(0);
-            }
+            $object->addData($row);
+            $object->setStatus(0);
         }
 
         if (is_null($object->getAddDate())) {

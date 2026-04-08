@@ -645,6 +645,20 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
     }
 
     /**
+     * Delete all the entities in the collection
+     *
+     * @return $this
+     */
+    public function delete()
+    {
+        foreach ($this->getItems() as $item) {
+            $item->delete();
+        }
+
+        return $this;
+    }
+
+    /**
      * Save all the entities in the collection
      *
      * @return $this

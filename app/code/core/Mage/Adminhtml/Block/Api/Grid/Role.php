@@ -14,6 +14,8 @@
  */
 class Mage_Adminhtml_Block_Api_Grid_Role extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_api_grid_role';
+
     public function __construct()
     {
         parent::__construct();
@@ -24,6 +26,9 @@ class Mage_Adminhtml_Block_Api_Grid_Role extends Mage_Adminhtml_Block_Widget_Gri
         $this->setUseAjax(true);
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _prepareCollection()
     {
         $collection =  Mage::getModel('api/roles')->getCollection();
@@ -53,6 +58,9 @@ class Mage_Adminhtml_Block_Api_Grid_Role extends Mage_Adminhtml_Block_Widget_Gri
         return parent::_prepareColumns();
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getGridUrl()
     {
         return $this->getUrl('*/*/roleGrid', ['_current' => true]);

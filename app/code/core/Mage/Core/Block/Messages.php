@@ -278,7 +278,7 @@ class Mage_Core_Block_Messages extends Mage_Core_Block_Template
     /**
      * Get cache key informative items
      *
-     * @return array
+     * @return array<string, string>
      */
     public function getCacheKeyInfo()
     {

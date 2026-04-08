@@ -97,10 +97,8 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
         }
 
         // Validate prefix
-        if (isset($this->_options['file_name_prefix'])) {
-            if (!preg_match('~^[a-zA-Z0-9_]+$~D', $this->_options['file_name_prefix'])) {
-                Zend_Cache::throwException('Invalid file_name_prefix : must use only [a-zA-Z0-9_]');
-            }
+        if (isset($this->_options['file_name_prefix']) && !preg_match('~^[\w]+$~D', $this->_options['file_name_prefix'])) {
+            Zend_Cache::throwException('Invalid file_name_prefix : must use only [\w]');
         }
 
         // See #ZF-4422
@@ -172,21 +170,15 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
     {
         $file = $this->_file($id);
         $path = $this->_path($id);
-        if ($this->_options['hashed_directory_level'] > 0) {
+        if ($this->_options['hashed_directory_level'] > 0 && !is_writable($path)) {
+            // maybe, we just have to build the directory structure
+            $this->_recursiveMkdirAndChmod($id);
             if (!is_writable($path)) {
-                // maybe, we just have to build the directory structure
-                $this->_recursiveMkdirAndChmod($id);
-                if (!is_writable($path)) {
-                    return false;
-                }
+                return false;
             }
         }
 
-        if ($this->_options['read_control']) {
-            $hash = $this->_hash($data, $this->_options['read_control_type']);
-        } else {
-            $hash = '';
-        }
+        $hash = $this->_options['read_control'] ? $this->_hash($data, $this->_options['read_control_type']) : '';
 
         $metadatas = [
             'hash'   => $hash,
@@ -674,10 +666,11 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
         $path = $this->_options['cache_dir'] . DIRECTORY_SEPARATOR . $this->_options['file_name_prefix'] . '-tags'
                     . DIRECTORY_SEPARATOR;
         if (!$this->_isTagDirChecked) {
-            if (!is_dir($path)) {
-                if (@mkdir($path, $this->_options['use_chmod'] ? $this->_options['directory_mode'] : 0777) && $this->_options['use_chmod']) {
-                    @chmod($path, $this->_options['directory_mode']); // see #ZF-320 (this line is required in some configurations)
-                }
+            if (!is_dir($path)
+                && (@mkdir($path, $this->_options['use_chmod'] ? $this->_options['directory_mode'] : 0777) && $this->_options['use_chmod'])
+            ) {
+                @chmod($path, $this->_options['directory_mode']);
+                // see #ZF-320 (this line is required in some configurations)
             }
 
             $this->_isTagDirChecked = true;
@@ -743,11 +736,7 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
                         flock($fd, LOCK_EX);
                     }
 
-                    if ($mode == 'diff') {
-                        $_ids = array_diff($this->_getTagIds($fd), $ids);
-                    } else {
-                        $_ids = array_merge($this->_getTagIds($fd), $ids);
-                    }
+                    $_ids = $mode == 'diff' ? array_diff($this->_getTagIds($fd), $ids) : array_merge($this->_getTagIds($fd), $ids);
 
                     fseek($fd, 0);
                     ftruncate($fd, 0);

@@ -97,13 +97,13 @@ class Mage_Sales_Model_Entity_Sale_Collection extends Varien_Object implements I
 
         $stores = Mage::getResourceModel('core/store_collection')->setWithoutDefaultFilter()->load()->toOptionHash();
         if (!empty($values)) {
-            foreach ($values as $v) {
-                $obj = new Varien_Object($v);
+            foreach ($values as $item) {
+                $obj = new Varien_Object($item);
                 $storeName = $stores[$obj->getStoreId()] ?? null;
 
-                $this->_items[ $v['store_id'] ] = $obj;
-                $this->_items[ $v['store_id'] ]->setStoreName($storeName);
-                $this->_items[ $v['store_id'] ]->setAvgNormalized($obj->getAvgsale() * $obj->getNumOrders());
+                $this->_items[$item['store_id']] = $obj;
+                $this->_items[$item['store_id']]->setStoreName($storeName);
+                $this->_items[$item['store_id']]->setAvgNormalized($obj->getAvgsale() * $obj->getNumOrders());
                 foreach ($this->_totals as $key => $value) {
                     $this->_totals[$key] += $obj->getData($key);
                 }
@@ -168,7 +168,7 @@ class Mage_Sales_Model_Entity_Sale_Collection extends Varien_Object implements I
     /**
      * @return ArrayIterator
      */
-    #[\ReturnTypeWillChange]
+    #[ReturnTypeWillChange]
     public function getIterator()
     {
         return new ArrayIterator($this->_items);

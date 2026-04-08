@@ -14,6 +14,8 @@
  */
 class Mage_Oauth_Adminhtml_Oauth_AuthorizedTokensController extends Mage_Adminhtml_Controller_Action
 {
+    public const ADMIN_RESOURCE = 'system/api/oauth_authorized_tokens';
+
     /**
      * Init titles
      *
@@ -85,11 +87,7 @@ class Mage_Oauth_Adminhtml_Oauth_AuthorizedTokensController extends Mage_Adminht
                 $this->_sendTokenStatusChangeNotification($item, $status ? $this->__('revoked') : $this->__('enabled'));
             }
 
-            if ($status) {
-                $message = $this->__('Selected entries revoked.');
-            } else {
-                $message = $this->__('Selected entries enabled.');
-            }
+            $message = $status ? $this->__('Selected entries revoked.') : $this->__('Selected entries enabled.');
 
             $this->_getSession()->addSuccess($message);
         } catch (Mage_Core_Exception $mageCoreException) {
@@ -139,16 +137,6 @@ class Mage_Oauth_Adminhtml_Oauth_AuthorizedTokensController extends Mage_Adminht
         }
 
         $this->_redirect('*/*/index');
-    }
-
-    /**
-     * @inheritDoc
-     */
-    protected function _isAllowed()
-    {
-        /** @var Mage_Admin_Model_Session $session */
-        $session = Mage::getSingleton('admin/session');
-        return $session->isAllowed('system/api/oauth_authorized_tokens');
     }
 
     /**

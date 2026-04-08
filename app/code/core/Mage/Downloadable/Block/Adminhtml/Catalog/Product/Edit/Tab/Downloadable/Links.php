@@ -134,14 +134,13 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
     /**
      * Return array of links
      *
-     * @return array
+     * @return Varien_Object[]
      */
     public function getLinkData()
     {
         $linkArr = [];
         /** @var Mage_Downloadable_Model_Product_Type $productType */
         $productType = $this->getProduct()->getTypeInstance(true);
-        /** @var Mage_Downloadable_Model_Link[] $links */
         $links = $productType->getLinks($this->getProduct());
         $priceWebsiteScope = Mage::helper('downloadable')->getIsPriceWebsiteScope();
         foreach ($links as $item) {

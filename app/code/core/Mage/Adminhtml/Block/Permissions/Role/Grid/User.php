@@ -16,6 +16,8 @@
  */
 class Mage_Adminhtml_Block_Permissions_Role_Grid_User extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_permissions_role_grid_user';
+
     public function __construct()
     {
         parent::__construct();
@@ -26,6 +28,10 @@ class Mage_Adminhtml_Block_Permissions_Role_Grid_User extends Mage_Adminhtml_Blo
         $this->setUseAjax(true);
     }
 
+    /**
+     * @inheritDoc
+     * @throws Mage_Core_Exception
+     */
     protected function _addColumnFilterToCollection($column)
     {
         if ($column->getId() == 'in_role_users') {
@@ -134,12 +140,20 @@ class Mage_Adminhtml_Block_Permissions_Role_Grid_User extends Mage_Adminhtml_Blo
         return parent::_prepareColumns();
     }
 
+    /**
+     * @inheritDoc
+     * @throws Exception
+     */
     public function getGridUrl()
     {
         $roleId = $this->getRequest()->getParam('rid');
         return $this->getUrl('*/*/editrolegrid', ['rid' => $roleId]);
     }
 
+    /**
+     * @throws Exception
+     * @throws Mage_Core_Exception
+     */
     protected function _getUsers($json = false)
     {
         if ($this->getRequest()->getParam('in_role_user') != '') {

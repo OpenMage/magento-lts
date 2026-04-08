@@ -76,8 +76,8 @@
     [-] LongClassName
     [x] ShortClassName
     [-] LongVariable
-    [-] ShortVariable
-    [x] ShortMethodName - TMP disabled
+    [x] ShortVariable - @todo fix later, avoid as possible
+    [x] ShortMethodName
     -->
     <rule ref="rulesets/naming.xml">
         <exclude name="BooleanGetMethodName" />
@@ -85,12 +85,11 @@
         <exclude name="LongVariable" />
         <exclude name="ShortVariable" />
     </rule>
-<!--    <rule ref="rulesets/naming.xml/ShortVariable">-->
-<!--        <properties>-->
-<!--            <property name="exceptions" value="a,b,x,y,x1,x2,y1,y2" />-->
-<!--        </properties>-->
-<!--    </rule>-->
-    <rule ref="rulesets/naming.xml/ShortMethodName" />
+    <rule ref="rulesets/naming.xml/ShortVariable">
+        <properties>
+            <property name="exceptions" value="a,b,id,i,j" />
+        </properties>
+    </rule>
 
     <!-- DESIGN
     [-] CountInLoopExpression

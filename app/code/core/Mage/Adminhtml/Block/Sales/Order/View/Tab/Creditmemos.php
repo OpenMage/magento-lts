@@ -14,6 +14,8 @@
  */
 class Mage_Adminhtml_Block_Sales_Order_View_Tab_Creditmemos extends Mage_Adminhtml_Block_Widget_Grid implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
+    protected string $_eventPrefix = 'adminhtml_sales_order_view_tab_creditmemos';
+
     public function __construct()
     {
         parent::__construct();
@@ -82,7 +84,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_Creditmemos extends Mage_Adminht
             'header'    => Mage::helper('sales')->__('Status'),
             'index'     => 'state',
             'type'      => 'options',
-            'options'   => Mage::getModel('sales/order_creditmemo')->getStates(),
+            'options'   => Mage::getModel('sales/order_creditmemo')::getStates(),
         ]);
 
         $this->addColumn('base_grand_total', [
@@ -121,26 +123,41 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_Creditmemos extends Mage_Adminht
         );
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getGridUrl()
     {
         return $this->getUrl('*/*/creditmemos', ['_current' => true]);
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getTabLabel()
     {
         return Mage::helper('sales')->__('Credit Memos');
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getTabTitle()
     {
         return Mage::helper('sales')->__('Credit Memos');
     }
 
+    /**
+     * @inheritDoc
+     */
     public function canShowTab()
     {
         return Mage::getSingleton('admin/session')->isAllowed('sales/creditmemo');
     }
 
+    /**
+     * @inheritDoc
+     */
     public function isHidden()
     {
         return false;

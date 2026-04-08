@@ -242,6 +242,10 @@ class Varien_Object implements ArrayAccess
             $this->_data = $key;
             $this->_addFullNames();
         } else {
+            if (is_null($key)) {
+                $key = '';
+            }
+
             $this->_data[$key] = $value;
             if (isset($this->_syncFieldsMap[$key])) {
                 $fullFieldName = $this->_syncFieldsMap[$key];
@@ -314,12 +318,16 @@ class Varien_Object implements ArrayAccess
      */
     public function getData($key = '', $index = null)
     {
-        if ('' === $key) {
+        if ($key === '') {
             return $this->_data;
         }
 
+        if (is_null($key)) {
+            $key = '';
+        }
+
         $data = $this->_data[$key] ?? null;
-        if ($data === null && $key !== null && str_contains($key, '/')) {
+        if ($data === null && str_contains($key, '/')) {
             /* process a/b/c key as ['a']['b']['c'] */
             $data = $this->getDataByPath($key);
         }
@@ -455,17 +463,13 @@ class Varien_Object implements ArrayAccess
      */
     public function __toArray(array $arrAttributes = [])
     {
-        if (empty($arrAttributes)) {
+        if ($arrAttributes === []) {
             return $this->_data;
         }
 
         $arrRes = [];
         foreach ($arrAttributes as $attribute) {
-            if (isset($this->_data[$attribute])) {
-                $arrRes[$attribute] = $this->_data[$attribute];
-            } else {
-                $arrRes[$attribute] = null;
-            }
+            $arrRes[$attribute] = $this->_data[$attribute] ?? null;
         }
 
         return $arrRes;
@@ -521,13 +525,9 @@ class Varien_Object implements ArrayAccess
         $xmlModel = new Varien_Simplexml_Element('<node></node>');
         $arrData = $this->toArray($arrAttributes);
         foreach ($arrData as $fieldName => $fieldValue) {
-            if ($addCdata === true) {
-                $fieldValue = "<![CDATA[$fieldValue]]>";
-            } else {
-                $fieldValue = $xmlModel->xmlentities($fieldValue);
-            }
+            $fieldValue = $addCdata === true ? "<![CDATA[{$fieldValue}]]>" : $xmlModel->xmlentities($fieldValue);
 
-            $xml .= "<$fieldName>$fieldValue</$fieldName>" . "\n";
+            $xml .= "<{$fieldName}>{$fieldValue}</{$fieldName}>" . "\n";
         }
 
         if (!empty($rootName)) {
@@ -596,18 +596,16 @@ class Varien_Object implements ArrayAccess
     public function toString($format = '')
     {
         if (empty($format)) {
-            $str = implode(', ', $this->getData());
-        } else {
-            preg_match_all('/\{\{([a-z0-9_]+)\}\}/is', $format, $matches);
-            foreach ($matches[1] as $var) {
-                $replace = is_null($this->getData($var)) ? '' : $this->getData($var);
-                $format = str_replace('{{' . $var . '}}', $replace, $format);
-            }
-
-            $str = $format;
+            return implode(', ', $this->getData());
         }
 
-        return $str;
+        preg_match_all('/\{\{([a-z0-9_]+)\}\}/is', $format, $matches);
+        foreach ($matches[1] as $var) {
+            $replace = is_null($this->getData($var)) ? '' : $this->getData($var);
+            $format = str_replace('{{' . $var . '}}', $replace, $format);
+        }
+
+        return $format;
     }
 
     /**
@@ -674,11 +672,7 @@ class Varien_Object implements ArrayAccess
      */
     public function isEmpty()
     {
-        if (empty($this->_data)) {
-            return true;
-        }
-
-        return false;
+        return empty($this->_data);
     }
 
     /**
@@ -823,7 +817,7 @@ class Varien_Object implements ArrayAccess
      * @param  string $offset
      * @return mixed
      */
-    #[\ReturnTypeWillChange]
+    #[ReturnTypeWillChange]
     public function offsetGet($offset)
     {
         return $this->_data[$offset] ?? null;

@@ -114,11 +114,7 @@ class Mage_Checkout_Block_Cart_Totals extends Mage_Checkout_Block_Cart_Abstract
     public function needDisplayBaseGrandtotal()
     {
         $quote  = $this->getQuote();
-        if ($quote->getBaseCurrencyCode() != $quote->getQuoteCurrencyCode()) {
-            return true;
-        }
-
-        return false;
+        return $quote->getBaseCurrencyCode() != $quote->getQuoteCurrencyCode();
     }
 
     /**

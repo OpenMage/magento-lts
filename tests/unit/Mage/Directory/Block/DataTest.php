@@ -11,7 +11,6 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Directory\Block;
 
-use Mage;
 use Mage_Directory_Block_Data as Subject;
 use Mage_Directory_Model_Resource_Country_Collection;
 use Mage_Directory_Model_Resource_Region_Collection;

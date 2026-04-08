@@ -84,14 +84,14 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
                 Mage_Checkout_Model_Session::CHECKOUT_STATE_BEGIN,
             );
         } elseif (!$checkoutSessionQuote->getIsMultiShipping()
-            && !in_array($action, ['login', 'register', 'success'])
+            && !in_array($action, ['login', 'register', 'success'], true)
         ) {
             $this->_redirect('*/*/index');
             $this->setFlag('', self::FLAG_NO_DISPATCH, true);
             return $this;
         }
 
-        if (!in_array($action, ['login', 'register'])) {
+        if (!in_array($action, ['login', 'register'], true)) {
             if (!Mage::getSingleton('customer/session')->authenticate($this, $this->_getHelper()->getMSLoginUrl())) {
                 $this->setFlag('', self::FLAG_NO_DISPATCH, true);
             }
@@ -110,7 +110,7 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
         }
 
         if ($this->_getCheckoutSession()->getCartWasUpdated(true)
-            && !in_array($action, ['index', 'login', 'register', 'addresses', 'success'])
+            && !in_array($action, ['index', 'login', 'register', 'addresses', 'success'], true)
         ) {
             $this->_redirectUrl($this->_getHelper()->getCartUrl());
             $this->setFlag('', self::FLAG_NO_DISPATCH, true);
@@ -310,7 +310,7 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
     public function shippingAction()
     {
         if (!$this->_validateMinimumAmount()) {
-            return;
+            return null;
         }
 
         if (!$this->_getState()->getCompleteStep(Mage_Checkout_Model_Type_Multishipping_State::STEP_SELECT_ADDRESSES)) {
@@ -325,6 +325,7 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
         $this->_initLayoutMessages('customer/session');
         $this->_initLayoutMessages('checkout/session');
         $this->renderLayout();
+        return null;
     }
 
     /**
@@ -400,11 +401,11 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
         }
 
         if (!$this->_validateBilling()) {
-            return;
+            return null;
         }
 
         if (!$this->_validateMinimumAmount()) {
-            return;
+            return null;
         }
 
         if (!$this->_getState()->getCompleteStep(Mage_Checkout_Model_Type_Multishipping_State::STEP_SHIPPING)) {
@@ -420,6 +421,7 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
         $this->_initLayoutMessages('customer/session');
         $this->_initLayoutMessages('checkout/session');
         $this->renderLayout();
+        return null;
     }
 
     /**
@@ -462,7 +464,7 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
 
         if ($this->isFormkeyValidationOnCheckoutEnabled() && !$this->_validateFormKey()) {
             $this->_redirect('*/*/billing');
-            return;
+            return null;
         }
 
         $this->_getState()->setActiveStep(Mage_Checkout_Model_Type_Multishipping_State::STEP_OVERVIEW);
@@ -492,6 +494,8 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
             $this->_getCheckoutSession()->addException($exception, $this->__('Cannot open the overview page'));
             $this->_redirect('*/*/billing');
         }
+
+        return null;
     }
 
     /**
@@ -580,6 +584,7 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
         $ids = $this->_getCheckout()->getOrderIds();
         Mage::dispatchEvent('checkout_multishipping_controller_success_action', ['order_ids' => $ids]);
         $this->renderLayout();
+        return null;
     }
 
     /**

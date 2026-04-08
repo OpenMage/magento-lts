@@ -57,9 +57,7 @@ class Mage_Catalog_Model_Product_Attribute_Source_Msrp_Type_Enabled extends Mage
     }
 
     /**
-     * Retrieve flat column definition
-     *
-     * @return array
+     * @inheritDoc
      */
     public function getFlatColums()
     {

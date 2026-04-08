@@ -218,7 +218,7 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
      */
     protected function _prepareTierPrices(array $productIds)
     {
-        if (empty($productIds)) {
+        if ($productIds === []) {
             return [];
         }
 
@@ -251,7 +251,7 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
      */
     protected function _prepareGroupPrices(array $productIds)
     {
-        if (empty($productIds)) {
+        if ($productIds === []) {
             return [];
         }
 
@@ -284,7 +284,7 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
      */
     protected function _prepareMediaGallery(array $productIds)
     {
-        if (empty($productIds)) {
+        if ($productIds === []) {
             return [];
         }
 
@@ -322,11 +322,12 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Prepare catalog inventory
      *
+     * @param  int[]|string[] $productIds
      * @return array
      */
     protected function _prepareCatalogInventory(array $productIds)
     {
-        if (empty($productIds)) {
+        if ($productIds === []) {
             return [];
         }
 
@@ -354,11 +355,12 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Prepare product links
      *
+     * @param  int[]|string[] $productIds
      * @return array
      */
     protected function _prepareLinks(array $productIds)
     {
-        if (empty($productIds)) {
+        if ($productIds === []) {
             return [];
         }
 
@@ -433,7 +435,7 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
      */
     protected function _prepareConfigurableProductData(array $productIds)
     {
-        if (empty($productIds)) {
+        if ($productIds === []) {
             return [];
         }
 
@@ -467,7 +469,7 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
      */
     protected function _prepareConfigurableProductPrice(array $productIds)
     {
-        if (empty($productIds)) {
+        if ($productIds === []) {
             return [];
         }
 
@@ -557,7 +559,7 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
      *     'value' => path to created file
      * )
      *
-     * @return array
+     * @return array<string, int|string>
      */
     public function exportFile()
     {

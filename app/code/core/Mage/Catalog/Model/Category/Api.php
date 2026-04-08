@@ -138,7 +138,7 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
     /**
      * Convert node to array
      *
-     * @return array
+     * @return array<string, mixed>
      */
     protected function _nodeToArray(Varien_Data_Tree_Node $node)
     {
@@ -245,7 +245,7 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
                     && $categoryDataValue[0] === 'use_config')
                 ) {
                     $useConfig[] = $attrCode;
-                    $category->setData($attrCode, null);
+                    $category->setData($attrCode);
                 } else {
                     $category->setData($attrCode, $categoryDataValue);
                 }

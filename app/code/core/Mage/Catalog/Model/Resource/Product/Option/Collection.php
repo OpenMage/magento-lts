@@ -140,7 +140,7 @@ class Mage_Catalog_Model_Resource_Product_Option_Collection extends Mage_Core_Mo
             $optionIds[] = $option->getId();
         }
 
-        if (!empty($optionIds)) {
+        if ($optionIds !== []) {
             $values = Mage::getModel('catalog/product_option_value')
                 ->getCollection()
                 ->addTitleToResult($storeId)

@@ -102,6 +102,9 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Price extends Mage_Adminhtm
         return null;
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getCondition()
     {
         $value = $this->getValue();
@@ -124,9 +127,9 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Price extends Mage_Adminhtm
         return $value;
     }
 
-    protected function _getRate($from, $to)
+    protected function _getRate($min, $max)
     {
-        return Mage::getModel('directory/currency')->load($from)->getAnyRate($to);
+        return Mage::getModel('directory/currency')->load($min)->getAnyRate($max);
     }
 
     public function prepareRates($displayCurrency)

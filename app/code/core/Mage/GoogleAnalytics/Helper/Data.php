@@ -1,16 +1,19 @@
 <?php
 
+use Monolog\Level;
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
  * @license    Open Software License (OSL 3.0)
  * @package    Mage_GoogleAnalytics
  */
-
 /**
  * GoogleAnalytics data helper
  *
  * @package    Mage_GoogleAnalytics
+ *
+ * @phpstan-import-type ConfigStoreId from Mage
  */
 class Mage_GoogleAnalytics_Helper_Data extends Mage_Core_Helper_Abstract
 {
@@ -68,7 +71,7 @@ class Mage_GoogleAnalytics_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Whether GA IP Anonymization is enabled
      *
-     * @param  null|bool|int|Mage_Core_Model_Store|string $store $store
+     * @param  ConfigStoreId $store
      * @return bool
      * @deprecated
      */
@@ -136,7 +139,7 @@ class Mage_GoogleAnalytics_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Whether GA Debug Mode is enabled (only for development IP)
      *
-     * @param  null|bool|int|Mage_Core_Model_Store|string $store
+     * @param  ConfigStoreId $store
      * @return bool
      */
     public function isDebugModeEnabled($store = null)
@@ -152,13 +155,13 @@ class Mage_GoogleAnalytics_Helper_Data extends Mage_Core_Helper_Abstract
     public function log($message = null)
     {
         $filename = sprintf('google%s.log', Mage::getStoreConfig(self::XML_PATH_TYPE));
-        Mage::log($message, \Monolog\Level::Debug, $filename, true);
+        Mage::log($message, Level::Debug, $filename, true);
     }
 
     /**
      * Whether GA IP Anonymization is enabled
      *
-     * @param  null|bool|int|Mage_Core_Model_Store|string $store
+     * @param  ConfigStoreId $store
      * @return bool
      */
     public function isUserIdEnabled($store = null)

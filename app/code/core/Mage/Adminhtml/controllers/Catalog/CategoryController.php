@@ -287,7 +287,7 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
              */
             if ($useConfig = $this->getRequest()->getPost('use_config')) {
                 foreach ($useConfig as $attributeCode) {
-                    $category->setData($attributeCode, null);
+                    $category->setData($attributeCode);
                 }
             }
 
@@ -339,8 +339,8 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
                 $category->save();
                 Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('catalog')->__('The category has been saved.'));
                 $refreshTree = 'true';
-            } catch (Exception $e) {
-                $this->_getSession()->addError($e->getMessage())
+            } catch (Exception $exception) {
+                $this->_getSession()->addError($exception->getMessage())
                     ->setCategoryData($data);
                 $refreshTree = 'false';
             }
@@ -436,12 +436,10 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
         $storeId = (int) $this->getRequest()->getParam('store');
         $categoryId = (int) $this->getRequest()->getParam('id');
 
-        if ($storeId) {
-            if (!$categoryId) {
-                $store = Mage::app()->getStore($storeId);
-                $rootId = $store->getRootCategoryId();
-                $this->getRequest()->setParam('id', $rootId);
-            }
+        if ($storeId && !$categoryId) {
+            $store = Mage::app()->getStore($storeId);
+            $rootId = $store->getRootCategoryId();
+            $this->getRequest()->setParam('id', $rootId);
         }
 
         $category = $this->_initCategory(true);

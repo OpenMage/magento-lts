@@ -14,6 +14,8 @@
  */
 class Mage_Adminhtml_Block_Dashboard_Searches_Top extends Mage_Adminhtml_Block_Dashboard_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_dashboard_searches_top';
+
     protected $_collection;
 
     public function __construct()
@@ -22,6 +24,9 @@ class Mage_Adminhtml_Block_Dashboard_Searches_Top extends Mage_Adminhtml_Block_D
         $this->setId('topSearchGrid');
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _prepareCollection()
     {
         if (!$this->isModuleEnabled('Mage_CatalogSearch')) {
@@ -51,6 +56,7 @@ class Mage_Adminhtml_Block_Dashboard_Searches_Top extends Mage_Adminhtml_Block_D
     }
 
     /**
+     * @inheritDoc
      * @throws Exception
      */
     protected function _prepareColumns()

@@ -53,19 +53,6 @@ abstract class Mage_Checkout_Block_Cart_Abstract extends Mage_Core_Block_Templat
      *
      * @param  string $type
      * @return array
-     * @deprecated please use getItemRendererInfo() method instead
-     * @see getItemRendererInfo()
-     */
-    public function getItemRender($type)
-    {
-        return $this->getItemRendererInfo($type);
-    }
-
-    /**
-     * Get renderer information by product type code
-     *
-     * @param  string $type
-     * @return array
      */
     public function getItemRendererInfo($type)
     {

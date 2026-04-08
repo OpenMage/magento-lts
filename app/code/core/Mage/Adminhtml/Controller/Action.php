@@ -26,6 +26,8 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
 
     /**
      * ACL resource
+     *
+     * @var bool|string
      * @see Mage_Adminhtml_Controller_Action::_isAllowed()
      */
     public const ADMIN_RESOURCE = 'admin';
@@ -65,11 +67,13 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
 
     /**
      * Check current user permission on resource and privilege
-     *
-     * @return bool
      */
-    protected function _isAllowed()
+    protected function _isAllowed(): bool
     {
+        if (is_bool(static::ADMIN_RESOURCE)) {
+            return static::ADMIN_RESOURCE;
+        }
+
         return Mage::getSingleton('admin/session')->isAllowed(static::ADMIN_RESOURCE);
     }
 
@@ -384,7 +388,7 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
      */
     public function getUrl($route = '', $params = [])
     {
-        return Mage::helper('adminhtml')->getUrl($route, $params);
+        return Mage::helper('adminhtml')::getUrl($route, $params);
     }
 
     /**
@@ -394,17 +398,16 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
      */
     protected function _validateSecretKey()
     {
-        if (is_array($this->_publicActions) && in_array($this->getRequest()->getActionName(), $this->_publicActions)) {
+        if (is_array($this->_publicActions) && in_array($this->getRequest()->getActionName(), $this->_publicActions, true)) {
             return true;
         }
 
-        if (!($secretKey = $this->getRequest()->getParam(Mage_Adminhtml_Model_Url::SECRET_KEY_PARAM_NAME, null))
-            || !hash_equals(Mage::getSingleton('adminhtml/url')->getSecretKey(), $secretKey)
-        ) {
+        $secretKey = $this->getRequest()->getParam(Mage_Adminhtml_Model_Url::SECRET_KEY_PARAM_NAME);
+        if (!$secretKey) {
             return false;
         }
 
-        return true;
+        return hash_equals(Mage::getSingleton('adminhtml/url')->getSecretKey(), $secretKey);
     }
 
     /**
@@ -430,6 +433,7 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
         return in_array(
             strtolower($this->getRequest()->getActionName()),
             array_map(strtolower(...), $this->_forcedFormKeyActions),
+            true,
         );
     }
 
@@ -459,11 +463,7 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
     protected function _validateRequestParam($param, $pattern = '')
     {
         $pattern = empty($pattern) ? '/^[a-z0-9\-\_\/]*$/si' : $pattern;
-        if (preg_match($pattern, $param)) {
-            return true;
-        }
-
-        return false;
+        return (bool) preg_match($pattern, $param);
     }
 
     /**

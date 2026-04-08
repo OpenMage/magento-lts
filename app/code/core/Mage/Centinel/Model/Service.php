@@ -345,7 +345,7 @@ class Mage_Centinel_Model_Service extends Varien_Object
     /**
      * Return data for start authentication (redirect customer to bank page)
      *
-     * @return array
+     * @return array<string, mixed>
      */
     public function getAuthenticateStartData()
     {
@@ -376,20 +376,20 @@ class Mage_Centinel_Model_Service extends Varien_Object
     /**
      * Export cmpi lookups and authentication information stored in session into array
      *
-     * @param  mixed       $to
+     * @param  mixed       $target
      * @param  array|false $map
-     * @return mixed       $to
+     * @return mixed
      */
-    public function exportCmpiData($to, $map = false)
+    public function exportCmpiData($target, $map = false)
     {
         if (!$map) {
             $map = $this->_cmpiMap;
         }
 
         if ($validationState = $this->_getValidationState()) {
-            return Varien_Object_Mapper::accumulateByMap($validationState, $to, $map);
+            return Varien_Object_Mapper::accumulateByMap($validationState, $target, $map);
         }
 
-        return $to;
+        return $target;
     }
 }

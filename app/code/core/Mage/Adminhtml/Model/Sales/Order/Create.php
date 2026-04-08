@@ -313,7 +313,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
         if ($orderShippingAddress) {
             $addressDiff = array_diff_assoc($orderShippingAddress->getData(), $order->getBillingAddress()->getData());
             unset($addressDiff['address_type'], $addressDiff['entity_id']);
-            $orderShippingAddress->setSameAsBilling(empty($addressDiff));
+            $orderShippingAddress->setSameAsBilling($addressDiff === []);
         }
 
         $this->_initBillingAddressFromOrder($order);
@@ -878,12 +878,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
                         }
 
                         $itemQty    = $itemQty > 0 ? $itemQty : 1;
-                        if (isset($info['custom_price'])) {
-                            $itemPrice  = $this->_parseCustomPrice($info['custom_price']);
-                        } else {
-                            $itemPrice = null;
-                        }
-
+                        $itemPrice  = isset($info['custom_price']) ? $this->_parseCustomPrice($info['custom_price']) : null;
                         $noDiscount = !isset($info['use_discount']);
 
                         if (empty($info['action']) || !empty($info['configured'])) {
@@ -917,8 +912,8 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
     /**
      * Parse additional options and sync them with product options
      *
-     * @param  string $additionalOptions
-     * @return array
+     * @param  string                 $additionalOptions
+     * @return array<string, mixed[]>
      */
     protected function _parseOptions(Mage_Sales_Model_Quote_Item $item, $additionalOptions)
     {
@@ -1662,10 +1657,8 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
             }
         }
 
-        if (!$this->getQuote()->isVirtual()) {
-            if (!$this->getQuote()->getShippingAddress()->getShippingMethod()) {
-                $this->_errors[] = Mage::helper('adminhtml')->__('Shipping method must be specified.');
-            }
+        if (!$this->getQuote()->isVirtual() && !$this->getQuote()->getShippingAddress()->getShippingMethod()) {
+            $this->_errors[] = Mage::helper('adminhtml')->__('Shipping method must be specified.');
         }
 
         if (!$this->getQuote()->getPayment()->getMethod()) {

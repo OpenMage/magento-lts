@@ -102,7 +102,7 @@ class Mage_Paypal_Model_Hostedpro_Request extends Varien_Object
     /**
      * Get peymet request data as array
      *
-     * @return array
+     * @return array<string, string>
      */
     protected function _getPaymentData(Mage_Paypal_Model_Hostedpro $paymentMethod)
     {
@@ -162,7 +162,7 @@ class Mage_Paypal_Model_Hostedpro_Request extends Varien_Object
     /**
      * Get shipping address request data
      *
-     * @return array
+     * @return array<string, mixed>
      */
     protected function _getShippingAddress(Varien_Object $address)
     {
@@ -188,7 +188,7 @@ class Mage_Paypal_Model_Hostedpro_Request extends Varien_Object
     /**
      * Get billing address request data
      *
-     * @return array
+     * @return array<string, mixed>
      */
     protected function _getBillingAddress(Varien_Object $address)
     {

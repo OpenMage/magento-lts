@@ -112,16 +112,12 @@ class Mage_Catalog_Model_Resource_Eav_Attribute extends Mage_Eav_Model_Entity_At
             }
         }
 
-        if ($this->getFrontendInput() == 'price') {
-            if (!$this->getBackendModel()) {
-                $this->setBackendModel('catalog/product_attribute_backend_price');
-            }
+        if ($this->getFrontendInput() == 'price' && !$this->getBackendModel()) {
+            $this->setBackendModel('catalog/product_attribute_backend_price');
         }
 
-        if ($this->getFrontendInput() == 'textarea') {
-            if ($this->getIsWysiwygEnabled()) {
-                $this->setIsHtmlAllowedOnFront(1);
-            }
+        if ($this->getFrontendInput() == 'textarea' && $this->getIsWysiwygEnabled()) {
+            $this->setIsHtmlAllowedOnFront(1);
         }
 
         return parent::_beforeSave();
@@ -237,16 +233,18 @@ class Mage_Catalog_Model_Resource_Eav_Attribute extends Mage_Eav_Model_Entity_At
      * Retrieve apply to products array
      * Return empty array if applied to all products
      *
-     * @return array
+     * @inheritDoc
      */
     public function getApplyTo()
     {
-        if ($this->getData('apply_to')) {
-            if (is_array($this->getData('apply_to'))) {
-                return $this->getData('apply_to');
+        $applyTo = $this->getData('apply_to');
+
+        if ($applyTo) {
+            if (is_array($applyTo)) {
+                return $applyTo;
             }
 
-            return explode(',', $this->getData('apply_to'));
+            return explode(',', $applyTo);
         }
 
         return [];
@@ -260,10 +258,10 @@ class Mage_Catalog_Model_Resource_Eav_Attribute extends Mage_Eav_Model_Entity_At
     public function getSourceModel()
     {
         $model = $this->getData('source_model');
-        if (empty($model)) {
-            if ($this->getBackendType() == 'int' && $this->getFrontendInput() == 'select') {
-                return $this->_getDefaultSourceModel();
-            }
+        if (empty($model)
+            && ($this->getBackendType() == 'int' && $this->getFrontendInput() == 'select')
+        ) {
+            return $this->_getDefaultSourceModel();
         }
 
         return $model;
@@ -297,17 +295,6 @@ class Mage_Catalog_Model_Resource_Eav_Attribute extends Mage_Eav_Model_Entity_At
     public function getIsFilterable()
     {
         return $this->_getData('is_filterable');
-    }
-
-    /**
-     * Get Attribute translated label for store
-     *
-     * @return string
-     * @deprecated
-     */
-    protected function _getLabelForStore()
-    {
-        return $this->getFrontendLabel();
     }
 
     /**
@@ -377,11 +364,7 @@ class Mage_Catalog_Model_Resource_Eav_Attribute extends Mage_Eav_Model_Entity_At
             return true;
         }
 
-        if ($backendType == 'decimal') {
-            return true;
-        }
-
-        return false;
+        return $backendType == 'decimal';
     }
 
     /**

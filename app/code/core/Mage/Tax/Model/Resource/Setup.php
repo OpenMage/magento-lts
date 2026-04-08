@@ -65,7 +65,11 @@ class Mage_Tax_Model_Resource_Setup extends Mage_Sales_Model_Resource_Setup
         }
 
         foreach ($oldRules as $rule) {
-            if (!isset($ratesByType[$rule['tax_rate_type_id']]) || $ratesByType[$rule['tax_rate_type_id']] === []) {
+            if (!isset($ratesByType[$rule['tax_rate_type_id']])) {
+                continue;
+            }
+
+            if ($ratesByType[$rule['tax_rate_type_id']] === []) {
                 continue;
             }
 

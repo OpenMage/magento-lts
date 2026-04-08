@@ -42,7 +42,8 @@ class Mage_Catalog_Model_Api2_Product_Rest_Admin_V1 extends Mage_Catalog_Model_A
     /**
      * Remove specified keys from associative or indexed array
      *
-     * @param  bool  $dropOrigKeys if true - return array as indexed array
+     * @param  string[] $keys
+     * @param  bool     $dropOrigKeys if true - return array as indexed array
      * @return array
      */
     protected function _filterOutArrayKeys(array $array, array $keys, $dropOrigKeys = false)
@@ -127,7 +128,7 @@ class Mage_Catalog_Model_Api2_Product_Rest_Admin_V1 extends Mage_Catalog_Model_A
         $type = $data['type_id'];
         if ($type !== 'simple') {
             $this->_critical(
-                "Creation of products with type '$type' is not implemented",
+                "Creation of products with type '{$type}' is not implemented",
                 Mage_Api2_Model_Server::HTTP_METHOD_NOT_ALLOWED,
             );
         }
@@ -247,7 +248,7 @@ class Mage_Catalog_Model_Api2_Product_Rest_Admin_V1 extends Mage_Catalog_Model_A
      */
     protected function _isConfigValueUsed($data, $field)
     {
-        return isset($data["use_config_$field"]) && $data["use_config_$field"];
+        return isset($data["use_config_{$field}"]) && $data["use_config_{$field}"];
     }
 
     /**
@@ -321,13 +322,11 @@ class Mage_Catalog_Model_Api2_Product_Rest_Admin_V1 extends Mage_Catalog_Model_A
                 $product->setData($attribute->getAttributeCode(), false);
             }
 
-            if ($this->_isAllowedAttribute($attribute)) {
-                if (array_key_exists($attribute->getAttributeCode(), $productData)) {
-                    $product->setData(
-                        $attribute->getAttributeCode(),
-                        $productData[$attribute->getAttributeCode()],
-                    );
-                }
+            if ($this->_isAllowedAttribute($attribute) && array_key_exists($attribute->getAttributeCode(), $productData)) {
+                $product->setData(
+                    $attribute->getAttributeCode(),
+                    $productData[$attribute->getAttributeCode()],
+                );
             }
         }
     }
@@ -359,7 +358,7 @@ class Mage_Catalog_Model_Api2_Product_Rest_Admin_V1 extends Mage_Catalog_Model_A
             $nonManageStockFields = ['manage_stock', 'use_config_manage_stock', 'min_sale_qty',
                 'use_config_min_sale_qty', 'max_sale_qty', 'use_config_max_sale_qty'];
             foreach (array_keys($stockData) as $field) {
-                if (!in_array($field, $nonManageStockFields)) {
+                if (!in_array($field, $nonManageStockFields, true)) {
                     unset($stockData[$field]);
                 }
             }
@@ -392,8 +391,7 @@ class Mage_Catalog_Model_Api2_Product_Rest_Admin_V1 extends Mage_Catalog_Model_A
     {
         $isAllowed = true;
         if (is_array($attributes)
-            && !(in_array($attribute->getAttributeCode(), $attributes)
-            || in_array($attribute->getAttributeId(), $attributes))
+            && (!in_array($attribute->getAttributeCode(), $attributes, true) && !in_array($attribute->getAttributeId(), $attributes, true))
         ) {
             return false;
         }

@@ -59,11 +59,7 @@ class Mage_Paypal_Model_Method_Agreement extends Mage_Sales_Model_Payment_Method
     public function __construct($params = [])
     {
         $proInstance = array_shift($params);
-        if ($proInstance instanceof Mage_Paypal_Model_Pro) {
-            $this->_pro = $proInstance;
-        } else {
-            $this->_pro = Mage::getModel('paypal/pro');
-        }
+        $this->_pro = $proInstance instanceof Mage_Paypal_Model_Pro ? $proInstance : Mage::getModel('paypal/pro');
 
         $this->_pro->setMethod($this->_code);
     }
@@ -109,7 +105,7 @@ class Mage_Paypal_Model_Method_Agreement extends Mage_Sales_Model_Payment_Method
     /**
      * Retrieve billing agreement customer details by token
      *
-     * @return array
+     * @return array<string, mixed>
      */
     public function getBillingAgreementTokenInfo(Mage_Payment_Model_Billing_AgreementAbstract $agreement)
     {
@@ -273,10 +269,7 @@ class Mage_Paypal_Model_Method_Agreement extends Mage_Sales_Model_Payment_Method
     }
 
     /**
-     * Fetch transaction details info
-     *
-     * @param  string $transactionId
-     * @return array
+     * @inheritDoc
      */
     public function fetchTransactionInfo(Mage_Payment_Model_Info $payment, $transactionId)
     {

@@ -13,6 +13,8 @@ use Symfony\Component\String\Slugger\AsciiSlugger;
  * Catalog url model
  *
  * @package    Mage_Catalog
+ *
+ * @phpstan-import-type ConfigStoreId from Mage
  */
 class Mage_Catalog_Model_Url extends Varien_Object
 {
@@ -267,7 +269,7 @@ class Mage_Catalog_Model_Url extends Varien_Object
     /**
      * Indicate whether to save URL Rewrite History or not (create redirects to old URLs)
      *
-     * @param  null|bool|int|Mage_Core_Model_Store|string $storeId Store View
+     * @param  ConfigStoreId $storeId
      * @return bool
      */
     public function getShouldSaveRewritesHistory($storeId = null)
@@ -658,22 +660,6 @@ class Mage_Catalog_Model_Url extends Varien_Object
      * @param  int    $storeId
      * @param  string $requestPath
      * @param  string $idPath
-     * @return string
-     * @deprecated use $this->getUnusedPathByUrlKey() instead
-     */
-    public function getUnusedPath($storeId, $requestPath, $idPath)
-    {
-        return $this->getUnusedPathByUrlKey($storeId, $requestPath, $idPath, '');
-    }
-
-    /**
-     * Get requestPath that was not used yet.
-     *
-     * Will try to get unique path by adding -1 -2 etc. between url_key and optional url_suffix
-     *
-     * @param  int    $storeId
-     * @param  string $requestPath
-     * @param  string $idPath
      * @param  string $urlKey
      * @return string
      */
@@ -723,7 +709,7 @@ class Mage_Catalog_Model_Url extends Varien_Object
             }
 
             $match['prefix'] .= '-';
-            $match['suffix'] = $match['suffix'] ?? '';
+            $match['suffix'] ??= '';
 
             $lastRequestPath = $this->getResource()
                 ->getLastUsedRewriteRequestIncrement($match['prefix'], $match['suffix'], $storeId);

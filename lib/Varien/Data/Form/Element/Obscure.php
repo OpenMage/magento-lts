@@ -38,7 +38,7 @@ class Varien_Data_Form_Element_Obscure extends Varien_Data_Form_Element_Password
     /**
      * Returns list of html attributes possible to output in HTML
      *
-     * @return array
+     * @return array<int, string>
      */
     public function getHtmlAttributes()
     {

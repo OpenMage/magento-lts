@@ -59,9 +59,6 @@ class Mage_Catalog_Model_Config extends Mage_Eav_Model_Config
 
     public const XML_PATH_PRODUCT_COLLECTION_ATTRIBUTES = 'frontend/product/collection/attributes';
 
-    /**
-     * @inheritDoc
-     */
     protected function _construct()
     {
         $this->_init('catalog/config');
@@ -230,8 +227,7 @@ class Mage_Catalog_Model_Config extends Mage_Eav_Model_Config
         $productTypeCollection = Mage::getResourceModel('catalog/product_type_collection')
             ->load();
         */
-        $productTypeCollection = Mage::getModel('catalog/product_type')
-            ->getOptionArray();
+        $productTypeCollection = Mage::getModel('catalog/product_type')::getOptionArray();
 
         $this->_productTypesById = [];
         $this->_productTypesByName = [];

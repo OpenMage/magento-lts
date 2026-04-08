@@ -271,7 +271,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price extends Mage_Index_Model
             }
         }
 
-        if (!empty($notCompositeIds)) {
+        if ($notCompositeIds !== []) {
             $select = $write->select()
                 ->from(
                     ['l' => $this->getTable('catalog/product_relation')],
@@ -293,7 +293,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price extends Mage_Index_Model
             }
         }
 
-        if (!empty($compositeIds)) {
+        if ($compositeIds !== []) {
             $this->_copyRelationIndexData($compositeIds, $notCompositeIds);
         }
 
@@ -338,7 +338,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price extends Mage_Index_Model
     {
         if (is_null($this->_indexers)) {
             $this->_indexers = [];
-            $types = Mage::getSingleton('catalog/product_type')->getTypesByPriority();
+            $types = Mage::getSingleton('catalog/product_type')::getTypesByPriority();
             foreach ($types as $typeId => $typeInfo) {
                 $modelName = $typeInfo['price_indexer'] ?? $this->_defaultPriceIndexer;
                 $isComposite = !empty($typeInfo['composite']);

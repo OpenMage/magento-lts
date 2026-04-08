@@ -30,6 +30,7 @@ final class TokenTest extends OpenMageTest
     /**
      * @dataProvider validateDataProvider
      * @group Model
+     * @param array<string, string> $methods
      */
     public function testValidate(bool|string $expected, array $methods): void
     {

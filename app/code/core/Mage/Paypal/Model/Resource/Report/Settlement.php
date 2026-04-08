@@ -69,7 +69,7 @@ class Mage_Paypal_Model_Resource_Report_Settlement extends Mage_Core_Model_Resou
                     $rows[$key]['report_id'] = $reportId;
                 }
 
-                if (!empty($rows)) {
+                if ($rows !== []) {
                     $adapter->insertMultiple($this->_rowsTable, $rows);
                 }
 

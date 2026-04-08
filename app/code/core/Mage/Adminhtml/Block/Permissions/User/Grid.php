@@ -14,6 +14,8 @@
  */
 class Mage_Adminhtml_Block_Permissions_User_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_permissions_user_grid';
+
     public function __construct()
     {
         parent::__construct();
@@ -87,9 +89,11 @@ class Mage_Adminhtml_Block_Permissions_User_Grid extends Mage_Adminhtml_Block_Wi
         return $this->getUrl('*/*/edit', ['user_id' => $row->getId()]);
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getGridUrl()
     {
-        //$uid = $this->getRequest()->getParam('user_id');
-        return $this->getUrl('*/*/roleGrid', []);
+        return $this->getUrl('*/*/roleGrid');
     }
 }

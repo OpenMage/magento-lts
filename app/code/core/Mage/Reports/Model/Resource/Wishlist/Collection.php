@@ -55,7 +55,7 @@ class Mage_Reports_Model_Resource_Wishlist_Collection extends Mage_Core_Model_Re
     /**
      * Retrieve wishlist customer count
      *
-     * @return array
+     * @return array<int, mixed>
      */
     public function getWishlistCustomerCount()
     {

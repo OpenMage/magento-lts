@@ -77,11 +77,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Source extends Mage_Catalo
         $adapter    = $this->_getWriteAdapter();
         $idxTable   = $this->getIdxTable();
         // prepare select attributes
-        if (is_null($attributeId)) {
-            $attrIds    = $this->_getIndexableAttributes(false);
-        } else {
-            $attrIds    = [$attributeId];
-        }
+        $attrIds = is_null($attributeId) ? $this->_getIndexableAttributes(false) : [$attributeId];
 
         if (!$attrIds) {
             return $this;
@@ -158,11 +154,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Source extends Mage_Catalo
         $adapter    = $this->_getWriteAdapter();
 
         // prepare multiselect attributes
-        if (is_null($attributeId)) {
-            $attrIds    = $this->_getIndexableAttributes(true);
-        } else {
-            $attrIds    = [$attributeId];
-        }
+        $attrIds = is_null($attributeId) ? $this->_getIndexableAttributes(true) : [$attributeId];
 
         if (!$attrIds) {
             return $this;
@@ -252,6 +244,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Source extends Mage_Catalo
     /**
      * Save a data to temporary source index table
      *
+     * @param  array<int, mixed[]> $data
      * @return $this
      */
     protected function _saveIndexData(array $data)

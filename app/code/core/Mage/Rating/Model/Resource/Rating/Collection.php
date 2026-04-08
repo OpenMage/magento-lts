@@ -88,7 +88,7 @@ class Mage_Rating_Model_Resource_Rating_Collection extends Mage_Core_Model_Resou
             $storeId = [$storeId ?? -1];
         }
 
-        if (empty($storeId)) {
+        if ($storeId === []) {
             return $this;
         }
 

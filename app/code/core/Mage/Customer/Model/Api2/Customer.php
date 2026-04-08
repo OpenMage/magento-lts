@@ -15,9 +15,9 @@
 class Mage_Customer_Model_Api2_Customer extends Mage_Api2_Model_Resource
 {
     /**
-     * Resource specific method to retrieve attributes' codes. May be overridden in child.
-     *
-     * @return array
+     * @inheritDoc
+     * @throws Exception
+     * @throws Mage_Core_Exception
      */
     protected function _getResourceAttributes()
     {

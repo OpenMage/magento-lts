@@ -14,6 +14,8 @@
  */
 class Mage_Api2_Adminhtml_Api2_RoleController extends Mage_Adminhtml_Controller_Action
 {
+    public const ADMIN_RESOURCE = 'system/api/rest_roles';
+
     /**
      * Controller pre-dispatch method
      *
@@ -157,7 +159,7 @@ class Mage_Api2_Adminhtml_Api2_RoleController extends Mage_Adminhtml_Controller_
         }
 
         //Validate current admin password
-        $currentPassword = $request->getParam('current_password', null);
+        $currentPassword = $request->getParam('current_password');
         $request->setParam('current_password', null);
         $result = $this->_validateCurrentPassword($currentPassword);
 
@@ -175,7 +177,7 @@ class Mage_Api2_Adminhtml_Api2_RoleController extends Mage_Adminhtml_Controller_
             return;
         }
 
-        $roleUsers  = $request->getParam('in_role_users', null);
+        $roleUsers  = $request->getParam('in_role_users');
         parse_str($roleUsers, $roleUsers);
         $roleUsers = array_keys($roleUsers);
 
@@ -253,7 +255,7 @@ class Mage_Api2_Adminhtml_Api2_RoleController extends Mage_Adminhtml_Controller_
         $id = $this->getRequest()->getParam('id', false);
 
         //Validate current admin password
-        $currentPassword = $this->getRequest()->getParam('current_password', null);
+        $currentPassword = $this->getRequest()->getParam('current_password');
         $this->getRequest()->setParam('current_password', null);
         $result = $this->_validateCurrentPassword($currentPassword);
 
@@ -278,16 +280,6 @@ class Mage_Api2_Adminhtml_Api2_RoleController extends Mage_Adminhtml_Controller_
         }
 
         $this->_redirect('*/*/');
-    }
-
-    /**
-     * @inheritDoc
-     */
-    protected function _isAllowed()
-    {
-        /** @var Mage_Admin_Model_Session $session */
-        $session = Mage::getSingleton('admin/session');
-        return $session->isAllowed('system/api/rest_roles');
     }
 
     /**

@@ -16,6 +16,8 @@ use Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract as MassAction;
  */
 class Mage_Adminhtml_Block_Notification_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_notification_grid';
+
     /**
      * @inheritDoc
      */
@@ -77,8 +79,7 @@ class Mage_Adminhtml_Block_Notification_Grid extends Mage_Adminhtml_Block_Widget
     }
 
     /**
-     * Prepare mass action
-     * @return $this
+     * @inheritDoc
      */
     protected function _prepareMassaction()
     {
@@ -95,7 +96,7 @@ class Mage_Adminhtml_Block_Notification_Grid extends Mage_Adminhtml_Block_Widget
             'url'      => $this->getUrl('*/*/massRemove'),
         ]);
 
-        return $this;
+        return parent::_prepareMassaction();
     }
 
     /**

@@ -53,7 +53,7 @@ class Mage_Eav_Model_Resource_Form_Fieldset extends Mage_Core_Model_Resource_Db_
                 }
             }
 
-            if (!empty($insert)) {
+            if ($insert !== []) {
                 $data = [];
                 foreach ($insert as $storeId) {
                     $label = $new[$storeId];
@@ -73,7 +73,7 @@ class Mage_Eav_Model_Resource_Form_Fieldset extends Mage_Core_Model_Resource_Db_
                 }
             }
 
-            if (!empty($delete)) {
+            if ($delete !== []) {
                 $where = [
                     'fieldset_id = ?' => $object->getId(),
                     'store_id IN(?)' => $delete,

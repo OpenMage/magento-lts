@@ -108,15 +108,19 @@ class Mage_Weee_Model_Attribute_Backend_Weee_Tax extends Mage_Catalog_Model_Prod
         }
 
         foreach ($taxes as $tax) {
-            if (empty($tax['price']) || empty($tax['country']) || !empty($tax['delete'])) {
+            if (empty($tax['price'])) {
                 continue;
             }
 
-            if (isset($tax['state']) && $tax['state']) {
-                $state = $tax['state'];
-            } else {
-                $state = '*';
+            if (empty($tax['country'])) {
+                continue;
             }
+
+            if (!empty($tax['delete'])) {
+                continue;
+            }
+
+            $state = isset($tax['state']) && $tax['state'] ? $tax['state'] : '*';
 
             $data = [];
             $data['website_id']   = $tax['website_id'];

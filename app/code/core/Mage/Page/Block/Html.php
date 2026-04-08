@@ -91,12 +91,10 @@ class Mage_Page_Block_Html extends Mage_Core_Block_Template
 
         // build url
         if (!empty($logo)) {
-            $logo = Mage::getStoreConfig(Mage_Core_Model_Store::XML_PATH_UNSECURE_BASE_MEDIA_URL) . $logo;
-        } else {
-            $logo = '';
+            return Mage::getStoreConfig(Mage_Core_Model_Store::XML_PATH_UNSECURE_BASE_MEDIA_URL) . $logo;
         }
 
-        return $logo;
+        return '';
     }
 
     /**

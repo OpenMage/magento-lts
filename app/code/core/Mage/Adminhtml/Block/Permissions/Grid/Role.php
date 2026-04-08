@@ -14,6 +14,8 @@
  */
 class Mage_Adminhtml_Block_Permissions_Grid_Role extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_permissions_grid_role';
+
     public function __construct()
     {
         parent::__construct();
@@ -56,6 +58,9 @@ class Mage_Adminhtml_Block_Permissions_Grid_Role extends Mage_Adminhtml_Block_Wi
         return parent::_prepareColumns();
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getGridUrl()
     {
         return $this->getUrl('*/*/roleGrid', ['_current' => true]);

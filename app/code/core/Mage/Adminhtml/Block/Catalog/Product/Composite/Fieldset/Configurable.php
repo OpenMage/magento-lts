@@ -44,9 +44,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Composite_Fieldset_Configurable exten
     }
 
     /**
-     * Returns additional values for js config, con be overridden by descendants
-     *
-     * @return array
+     * @inheritDoc
      */
     protected function _getAdditionalConfig()
     {

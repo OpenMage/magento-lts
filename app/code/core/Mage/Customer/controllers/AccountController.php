@@ -618,8 +618,8 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
                 if (!$customer->getId()) {
                     throw new Exception('Failed to load customer by id.');
                 }
-            } catch (Exception $e) {
-                throw new Exception($this->__('Wrong customer account specified.'), $e->getCode(), $e);
+            } catch (Exception $exception) {
+                throw new Exception($this->__('Wrong customer account specified.'), $exception->getCode(), $exception);
             }
 
             // check if it is inactive
@@ -632,8 +632,8 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
                 try {
                     $customer->setConfirmation(null);
                     $customer->save();
-                } catch (Exception $e) {
-                    throw new Exception($this->__('Failed to confirm customer account.'), $e->getCode(), $e);
+                } catch (Exception $exception) {
+                    throw new Exception($this->__('Failed to confirm customer account.'), $exception->getCode(), $exception);
                 }
 
                 // log in and send greeting email, then die happy
@@ -683,8 +683,8 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
 
                 $this->_getSession()->setUsername($email);
                 $this->_redirectSuccess($this->_getUrl('*/*/index', ['_secure' => true]));
-            } catch (Exception $e) {
-                $this->_getSession()->addException($e, $this->__('Wrong email.'));
+            } catch (Exception $exception) {
+                $this->_getSession()->addException($exception, $this->__('Wrong email.'));
                 $this->_redirectError($this->_getUrl('*/*/*', ['email' => $email, '_secure' => true]));
             }
 
@@ -872,7 +872,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
             $errorMessages = array_merge($errorMessages, $validationErrorMessages);
         }
 
-        if (!empty($errorMessages)) {
+        if ($errorMessages !== []) {
             $this->_getSession()->setCustomerFormData($this->getRequest()->getPost());
             foreach ($errorMessages as $errorMessage) {
                 $this->_getSession()->addError($errorMessage);
@@ -1046,7 +1046,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
                 }
             }
 
-            if (!empty($errors)) {
+            if ($errors !== []) {
                 $this->_getSession()->setCustomerFormData($this->getRequest()->getPost());
                 foreach ($errors as $message) {
                     $this->_getSession()->addError($message);
@@ -1115,7 +1115,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
     /**
      * Get restore password params.
      *
-     * @return array array ($customerId, $resetPasswordToken)
+     * @return array<int, int|string> array ($customerId, $resetPasswordToken)
      */
     protected function _getRestorePasswordParameters(Mage_Customer_Model_Session $session)
     {

@@ -7,6 +7,8 @@
  * @package    Mage_Adminhtml
  */
 
+use Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract as MassAction;
+
 /**
  * Adminhtml cms blocks grid
  *
@@ -14,6 +16,8 @@
  */
 class Mage_Adminhtml_Block_Cms_Block_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_cms_block_grid';
+
     public function __construct()
     {
         parent::__construct();
@@ -99,6 +103,46 @@ class Mage_Adminhtml_Block_Cms_Block_Grid extends Mage_Adminhtml_Block_Widget_Gr
     }
 
     /**
+     * @inheritDoc
+     */
+    protected function _prepareMassaction()
+    {
+        $this->setMassactionIdField('block_id');
+        $this->getMassactionBlock()->setFormFieldName('block');
+
+        if ($this->_isAllowedAction('delete')) {
+            $this->getMassactionBlock()->addItem(MassAction::DELETE, [
+                'label' => Mage::helper('cms')->__('Delete'),
+                'url' => $this->getUrl('*/*/massDelete'),
+            ]);
+        }
+
+        if ($this->_isAllowedAction('save')) {
+            $statuses = [
+                1 => Mage::helper('cms')->__('Enabled'),
+                0 => Mage::helper('cms')->__('Disabled'),
+            ];
+
+            array_unshift($statuses, '');
+            $this->getMassactionBlock()->addItem(MassAction::STATUS, [
+                'label' => Mage::helper('cms')->__('Change status'),
+                'url' => $this->getUrl('*/*/massStatus', ['_current' => true]),
+                'additional' => [
+                    'visibility' => [
+                        'name' => 'status',
+                        'type' => 'select',
+                        'class' => 'required-entry',
+                        'label' => Mage::helper('cms')->__('Status'),
+                        'values' => $statuses,
+                    ],
+                ],
+            ]);
+        }
+
+        return parent::_prepareMassaction();
+    }
+
+    /**
      * @param Mage_Cms_Model_Resource_Block_Collection $collection
      * @param Mage_Adminhtml_Block_Widget_Grid_Column  $column
      */
@@ -117,5 +161,13 @@ class Mage_Adminhtml_Block_Cms_Block_Grid extends Mage_Adminhtml_Block_Widget_Gr
     public function getRowUrl($row)
     {
         return $this->getUrl('*/*/edit', ['block_id' => $row->getId()]);
+    }
+
+    /**
+     * Check permission for passed action
+     */
+    protected function _isAllowedAction(string $action): bool
+    {
+        return $this->isAllowed('cms/block/' . $action);
     }
 }

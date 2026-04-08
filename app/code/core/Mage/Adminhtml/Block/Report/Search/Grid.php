@@ -14,9 +14,8 @@
  */
 class Mage_Adminhtml_Block_Report_Search_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
-    /**
-     * Initialize Grid Properties
-     */
+    protected string $_eventPrefix = 'adminhtml_report_search_grid';
+
     public function __construct()
     {
         parent::__construct();
@@ -25,9 +24,7 @@ class Mage_Adminhtml_Block_Report_Search_Grid extends Mage_Adminhtml_Block_Widge
     }
 
     /**
-     * Prepare Search Report collection for grid
-     *
-     * @return $this
+     * @inheritDoc
      */
     protected function _prepareCollection()
     {
@@ -38,9 +35,8 @@ class Mage_Adminhtml_Block_Report_Search_Grid extends Mage_Adminhtml_Block_Widge
     }
 
     /**
-     * Prepare Grid columns
-     *
-     * @return $this
+     * @inheritDoc
+     * @throws Exception
      */
     protected function _prepareColumns()
     {

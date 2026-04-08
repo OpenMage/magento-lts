@@ -26,8 +26,8 @@ class Mage_Core_Helper_Http extends Mage_Core_Helper_Abstract
 
     /**
      * Validate and retrieve user and password from HTTP
-     * @param  null|array $headers
-     * @return array
+     * @param  null|array        $headers
+     * @return array<int, mixed>
      * @SuppressWarnings("PHPMD.Superglobals")
      */
     public function authValidate($headers = null)
@@ -41,9 +41,9 @@ class Mage_Core_Helper_Http extends Mage_Core_Helper_Abstract
 
         // moshe's fix for CGI
         if (empty($_SERVER['HTTP_AUTHORIZATION'])) {
-            foreach ($_SERVER as $k => $v) {
-                if (str_ends_with($k, 'HTTP_AUTHORIZATION') && !empty($v)) {
-                    $_SERVER['HTTP_AUTHORIZATION'] = $v;
+            foreach ($_SERVER as $key => $value) {
+                if (str_ends_with($key, 'HTTP_AUTHORIZATION') && !empty($value)) {
+                    $_SERVER['HTTP_AUTHORIZATION'] = $value;
                     break;
                 }
             }

@@ -125,11 +125,7 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
 
         $tmpDirectory = Mage::getBaseDir('var') . DS . 'api' . DS . $this->_getSession()->getSessionId();
 
-        if (isset($data['file']['name']) && $data['file']['name']) {
-            $fileName  = $data['file']['name'];
-        } else {
-            $fileName  = 'image';
-        }
+        $fileName = isset($data['file']['name']) && $data['file']['name'] ? $data['file']['name'] : 'image';
 
         $fileName .= '.' . $this->_mimeTypes[$data['file']['mime']];
 
@@ -368,7 +364,7 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
      *
      * @param  array                      $image
      * @param  Mage_Catalog_Model_Product $product
-     * @return array
+     * @return array<string, mixed>
      */
     protected function _imageToArray(&$image, $product)
     {

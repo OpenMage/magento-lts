@@ -90,9 +90,10 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
      * It stands for conditional visibility of the column depending on filter field values
      * Value of visibility_filter supports (filter_field_name => filter_field_value) pairs
      *
-     * @param  string $columnId
-     * @param  array  $column
-     * @return $this
+     * @param  string                                    $columnId
+     * @param  array                                     $column
+     * @return Mage_Adminhtml_Block_Report_Grid_Abstract
+     * @throws Exception
      */
     public function addColumn($columnId, $column)
     {
@@ -103,13 +104,13 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
                 $visibilityFilter = [$visibilityFilter];
             }
 
-            foreach ($visibilityFilter as $k => $v) {
-                if (is_int($k)) {
-                    $filterFieldId = $v;
+            foreach ($visibilityFilter as $key => $value) {
+                if (is_int($key)) {
+                    $filterFieldId = $value;
                     $filterFieldValue = true;
                 } else {
-                    $filterFieldId = $k;
-                    $filterFieldValue = $v;
+                    $filterFieldId = $key;
+                    $filterFieldValue = $value;
                 }
 
                 if (!$filterData->hasData($filterFieldId)
@@ -131,25 +132,19 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
     protected function _getStoreIds()
     {
         $filterData = $this->getFilterData();
-        if ($filterData) {
-            $storeIds = explode(',', (string) $filterData->getData('store_ids'));
-        } else {
-            $storeIds = [];
-        }
+        $storeIds = $filterData ? explode(',', (string) $filterData->getData('store_ids')) : [];
 
         // By default storeIds array contains only allowed stores
         $allowedStoreIds = array_keys(Mage::app()->getStores());
         // And then array_intersect with post data for prevent unauthorized stores reports
         $storeIds = array_intersect($allowedStoreIds, $storeIds);
         // If selected all websites or unauthorized stores use only allowed
-        if (empty($storeIds)) {
+        if ($storeIds === []) {
             $storeIds = $allowedStoreIds;
         }
 
         // reset array keys
-        $storeIds = array_values($storeIds);
-
-        return $storeIds;
+        return array_values($storeIds);
     }
 
     protected function _prepareCollection()
@@ -165,10 +160,10 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
         $storeIds = $this->_getStoreIds();
 
         $orderStatuses = $filterData->getData('order_statuses');
-        if (is_array($orderStatuses)) {
-            if (count($orderStatuses) == 1 && str_contains($orderStatuses[0], ',')) {
-                $filterData->setData('order_statuses', explode(',', $orderStatuses[0]));
-            }
+        if (is_array($orderStatuses)
+            && (count($orderStatuses) == 1 && str_contains($orderStatuses[0], ','))
+        ) {
+            $filterData->setData('order_statuses', explode(',', $orderStatuses[0]));
         }
 
         /** @var Mage_Sales_Model_Resource_Report_Collection_Abstract $resourceCollection */
@@ -283,6 +278,10 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
         return $this;
     }
 
+    /**
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
+     */
     public function getCurrentCurrencyCode()
     {
         if (is_null($this->_currentCurrencyCode)) {
@@ -299,6 +298,7 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
      *
      * @param  Mage_Directory_Model_Currency|string $toCurrency
      * @return float
+     * @throws Mage_Core_Exception
      */
     public function getRate($toCurrency)
     {

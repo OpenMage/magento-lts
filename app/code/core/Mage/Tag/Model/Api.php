@@ -51,9 +51,9 @@ class Mage_Tag_Model_Api extends Mage_Catalog_Model_Api_Resource
      * Retrieve tag info as array('name'-> .., 'status' => ..,
      * 'base_popularity' => .., 'products' => array($productId => $popularity, ...))
      *
-     * @param  int        $tagId
-     * @param  int|string $store
-     * @return array
+     * @param  int                                              $tagId
+     * @param  int|string                                       $store
+     * @return array<string, array<int|string, int>|int|string>
      */
     public function info($tagId, $store)
     {

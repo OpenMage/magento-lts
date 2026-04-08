@@ -102,7 +102,7 @@ class Mage_Core_Controller_Varien_Exception extends Exception
     /**
      * Return results as callback for a controller
      *
-     * @return array
+     * @return array<int, mixed>
      */
     public function getResultCallback()
     {

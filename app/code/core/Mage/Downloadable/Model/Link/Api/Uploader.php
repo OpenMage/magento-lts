@@ -61,8 +61,8 @@ class Mage_Downloadable_Model_Link_Api_Uploader extends Mage_Core_Model_File_Upl
     /**
      * Decode uploaded file base64 encoded content
      *
-     * @param  array $fileInfo
-     * @return array
+     * @param  array                $fileInfo
+     * @return array<string, mixed>
      */
     private function _decodeFile($fileInfo)
     {

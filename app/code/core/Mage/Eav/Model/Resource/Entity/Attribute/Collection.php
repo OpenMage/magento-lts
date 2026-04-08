@@ -43,7 +43,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
     /**
      * Return array of fields to load attribute values
      *
-     * @return array
+     * @return array<int, string>
      */
     protected function _getLoadDataFields()
     {

@@ -177,11 +177,7 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract imple
      */
     public function isAvailable($quote = null)
     {
-        if (parent::isAvailable($quote) && $this->_pro->getConfig()->isMethodAvailable()) {
-            return true;
-        }
-
-        return false;
+        return parent::isAvailable($quote) && $this->_pro->getConfig()->isMethodAvailable();
     }
 
     /**
@@ -475,10 +471,7 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract imple
     }
 
     /**
-     * Fetch transaction details info
-     *
-     * @param  string $transactionId
-     * @return array
+     * @inheritDoc
      */
     public function fetchTransactionInfo(Mage_Payment_Model_Info $payment, $transactionId)
     {
@@ -684,9 +677,9 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract imple
     protected function _callDoAuthorize($amount, $payment, $parentTransactionId)
     {
         $apiData = $this->_pro->getApi()->getData();
-        foreach ($apiData as $k => $v) {
-            if (is_object($v)) {
-                unset($apiData[$k]);
+        foreach ($apiData as $key => $value) {
+            if (is_object($value)) {
+                unset($apiData[$key]);
             }
         }
 
@@ -728,11 +721,6 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract imple
         $transactionClosingDate->modify('+' . $period . ' days');
 
         $currentTime = new DateTime(null, new DateTimeZone('US/Pacific'));
-
-        if ($currentTime > $transactionClosingDate) {
-            return true;
-        }
-
-        return false;
+        return $currentTime > $transactionClosingDate;
     }
 }

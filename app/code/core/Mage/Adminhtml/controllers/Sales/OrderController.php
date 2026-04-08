@@ -470,7 +470,7 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
     public function pdfinvoicesAction()
     {
         $orderIds = $this->getRequest()->getPost('order_ids');
-        if (!empty($orderIds)) {
+        if (is_array($orderIds) && $orderIds !== []) {
             foreach ($orderIds as $orderId) {
                 $invoices = Mage::getResourceModel('sales/order_invoice_collection')
                     ->setOrderFilter($orderId)
@@ -509,7 +509,7 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
     public function pdfshipmentsAction()
     {
         $orderIds = $this->getRequest()->getPost('order_ids');
-        if (!empty($orderIds)) {
+        if (is_array($orderIds) && $orderIds !== []) {
             foreach ($orderIds as $orderId) {
                 $shipments = Mage::getResourceModel('sales/order_shipment_collection')
                     ->setOrderFilter($orderId)
@@ -548,7 +548,7 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
     public function pdfcreditmemosAction()
     {
         $orderIds = $this->getRequest()->getPost('order_ids');
-        if (!empty($orderIds)) {
+        if (is_array($orderIds) && $orderIds !== []) {
             foreach ($orderIds as $orderId) {
                 $creditmemos = Mage::getResourceModel('sales/order_creditmemo_collection')
                     ->setOrderFilter($orderId)
@@ -587,7 +587,7 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
     public function pdfdocsAction()
     {
         $orderIds = $this->getRequest()->getPost('order_ids');
-        if (!empty($orderIds)) {
+        if (is_array($orderIds) && $orderIds !== []) {
             foreach ($orderIds as $orderId) {
                 $invoices = Mage::getResourceModel('sales/order_invoice_collection')
                     ->setOrderFilter($orderId)
@@ -672,7 +672,7 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
     /**
      * @inheritDoc
      */
-    protected function _isAllowed()
+    protected function _isAllowed(): bool
     {
         $action = strtolower($this->getRequest()->getActionName());
         $aclResource = match ($action) {
