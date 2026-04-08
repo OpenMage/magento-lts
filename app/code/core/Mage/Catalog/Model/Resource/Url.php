@@ -241,11 +241,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
 
             // Check maybe we request products and root category id is within categoryIds,
             // it's a separate case because root category products are stored with NULL categoryId
-            if ($productIds) {
-                $addNullCategory = in_array($this->getStores($storeId)->getRootCategoryId(), $catIds);
-            } else {
-                $addNullCategory = false;
-            }
+            $addNullCategory = $productIds && in_array($this->getStores($storeId)->getRootCategoryId(), $catIds);
 
             // Compose optimal condition
             if ($addNullCategory) {
@@ -383,7 +379,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
                 ->from($attributeTable)
                 ->where('entity_type_id = ?', (int) $attributeData['entity_type_id'])
                 ->where('attribute_id = ?', (int) $attributeData['attribute_id'])
-                ->where('store_id = ?', (int) $attributeData['store_id'])
+                ->where('store_id = ?', $attributeData['store_id'])
                 ->where('entity_id = ?', (int) $attributeData['entity_id']);
 
             $row = $adapter->fetchRow($select);
@@ -538,7 +534,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
                 ->from($attributeTable)
                 ->where('entity_type_id = ?', (int) $attributeData['entity_type_id'])
                 ->where('attribute_id = ?', (int) $attributeData['attribute_id'])
-                ->where('store_id = ?', (int) $attributeData['store_id'])
+                ->where('store_id = ?', $attributeData['store_id'])
                 ->where('entity_id = ?', (int) $attributeData['entity_id']);
 
             $row = $adapter->fetchRow($select);
@@ -915,11 +911,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
      */
     public function getProductIdsByCategory($category)
     {
-        if ($category instanceof Varien_Object) {
-            $categoryId = $category->getId();
-        } else {
-            $categoryId = $category;
-        }
+        $categoryId = $category instanceof Varien_Object ? $category->getId() : $category;
 
         $adapter = $this->_getReadAdapter();
         $select = $adapter->select()

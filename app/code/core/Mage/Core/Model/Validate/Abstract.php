@@ -143,11 +143,7 @@ abstract class Mage_Core_Model_Validate_Abstract implements Mage_Core_Model_Vali
         $message = $this->_messageTemplates[$messageKey];
 
         if (is_object($value)) {
-            if (!in_array('__toString', get_class_methods($value))) {
-                $value = $value::class . ' object';
-            } else {
-                $value = $value->__toString();
-            }
+            $value = in_array('__toString', get_class_methods($value)) ? $value->__toString() : $value::class . ' object';
         } elseif (is_array($value)) {
             $value = $this->_implodeRecursive($value);
         } else {
@@ -187,11 +183,7 @@ abstract class Mage_Core_Model_Validate_Abstract implements Mage_Core_Model_Vali
     {
         $values = [];
         foreach ($pieces as $item) {
-            if (is_array($item)) {
-                $values[] = $this->_implodeRecursive($item);
-            } else {
-                $values[] = $item;
-            }
+            $values[] = is_array($item) ? $this->_implodeRecursive($item) : $item;
         }
 
         return implode(', ', $values);

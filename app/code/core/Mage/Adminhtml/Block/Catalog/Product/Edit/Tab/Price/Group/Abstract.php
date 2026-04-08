@@ -305,7 +305,7 @@ abstract class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Group_Abstrac
      */
     public function isShowWebsiteColumn()
     {
-        return !($this->isScopeGlobal() || Mage::app()->isSingleStoreMode());
+        return !$this->isScopeGlobal() && !Mage::app()->isSingleStoreMode();
     }
 
     /**
@@ -315,6 +315,6 @@ abstract class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Group_Abstrac
      */
     public function isAllowChangeWebsite()
     {
-        return !(!$this->isShowWebsiteColumn() || $this->getProduct()->getStoreId());
+        return $this->isShowWebsiteColumn() && !$this->getProduct()->getStoreId();
     }
 }

@@ -95,11 +95,7 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
          * store mode, customize some value per specific store view and than back
          * to single store mode. We should load correct values
          */
-        if (Mage::app()->isSingleStoreMode()) {
-            $storeId = (int) Mage::app()->getStore(true)->getId();
-        } else {
-            $storeId = (int) $object->getStoreId();
-        }
+        $storeId = Mage::app()->isSingleStoreMode() ? (int) Mage::app()->getStore(true)->getId() : (int) $object->getStoreId();
 
         $setId  = $object->getAttributeSetId();
         $storeIds = [$this->getDefaultStoreId()];
@@ -474,11 +470,7 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
     {
         $this->loadAllAttributes($object);
 
-        if ($this->getUseDataSharing()) {
-            $storeId = $object->getStoreId();
-        } else {
-            $storeId = $this->getStoreId();
-        }
+        $storeId = $this->getUseDataSharing() ? $object->getStoreId() : $this->getStoreId();
 
         $data = [];
         foreach ($this->getAttributesByTable() as $table => $attributes) {

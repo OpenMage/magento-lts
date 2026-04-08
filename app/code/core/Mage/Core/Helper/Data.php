@@ -94,11 +94,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
     {
         if ($this->_encryptor === null) {
             $encryptionModel = (string) Mage::getConfig()->getNode(self::XML_PATH_ENCRYPTION_MODEL);
-            if ($encryptionModel) {
-                $this->_encryptor = new $encryptionModel();
-            } else {
-                $this->_encryptor = Mage::getModel('core/encryption');
-            }
+            $this->_encryptor = $encryptionModel ? new $encryptionModel() : Mage::getModel('core/encryption');
 
             $this->_encryptor->setHelper($this);
         }
@@ -239,11 +235,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
             $date = $locale->date(Carbon::parse($time)->getTimestamp());
         }
 
-        if ($showDate) {
-            $format = $locale->getDateTimeFormat($format);
-        } else {
-            $format = $locale->getTimeFormat($format);
-        }
+        $format = $showDate ? $locale->getDateTimeFormat($format) : $locale->getTimeFormat($format);
 
         return $date->toString($format);
     }
@@ -502,8 +494,8 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function copyFieldset($fieldset, $aspect, $source, $target, $root = 'global')
     {
-        if (!(is_array($source) || $source instanceof Varien_Object)
-            || !(is_array($target) || $target instanceof Varien_Object)
+        if ((!is_array($source) && !($source instanceof Varien_Object))
+            || (!is_array($target) && !($target instanceof Varien_Object))
         ) {
             return false;
         }
@@ -522,11 +514,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
                 continue;
             }
 
-            if ($sourceIsArray) {
-                $value = $source[$code] ?? null;
-            } else {
-                $value = $source->getDataUsingMethod($code);
-            }
+            $value = $sourceIsArray ? $source[$code] ?? null : $source->getDataUsingMethod($code);
 
             $targetCode = (string) $node->$aspect;
             $targetCode = $targetCode == '*' ? $code : $targetCode;
@@ -573,7 +561,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
     public function decorateArray($array, $prefix = 'decorated_', $forceSetAll = false)
     {
         // check if array or an object to be iterated given
-        if (!(is_array($array) || is_object($array))) {
+        if (!is_array($array) && !is_object($array)) {
             return $array;
         }
 

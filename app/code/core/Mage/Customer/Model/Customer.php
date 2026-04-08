@@ -991,11 +991,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      */
     public function isInStore($store)
     {
-        if ($store instanceof Mage_Core_Model_Store) {
-            $storeId = $store->getId();
-        } else {
-            $storeId = $store;
-        }
+        $storeId = $store instanceof Mage_Core_Model_Store ? $store->getId() : $store;
 
         $availableStores = $this->getSharedStoreIds();
         return in_array($storeId, $availableStores);
@@ -1138,7 +1134,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
         }
 
         $errors = $validator->getErrorMessages($violations);
-        if (!$errors) {
+        if (!$errors instanceof ArrayObject) {
             return true;
         }
 
@@ -1163,7 +1159,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
         ));
 
         $errors = $validator->getErrorMessages($violations);
-        if (!$errors) {
+        if (!$errors instanceof ArrayObject) {
             return true;
         }
 

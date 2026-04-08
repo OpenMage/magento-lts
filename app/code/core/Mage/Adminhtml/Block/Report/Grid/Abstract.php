@@ -132,11 +132,7 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
     protected function _getStoreIds()
     {
         $filterData = $this->getFilterData();
-        if ($filterData) {
-            $storeIds = explode(',', (string) $filterData->getData('store_ids'));
-        } else {
-            $storeIds = [];
-        }
+        $storeIds = $filterData ? explode(',', (string) $filterData->getData('store_ids')) : [];
 
         // By default storeIds array contains only allowed stores
         $allowedStoreIds = array_keys(Mage::app()->getStores());

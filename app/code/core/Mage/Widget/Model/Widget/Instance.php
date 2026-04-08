@@ -195,7 +195,7 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
      */
     public function isCompleteToCreate()
     {
-        return (bool) ($this->getType() && $this->getPackageTheme());
+        return $this->getType() && $this->getPackageTheme();
     }
 
     /**
