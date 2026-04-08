@@ -155,7 +155,7 @@ class Mage_Review_Model_Review extends Mage_Core_Model_Abstract
         ));
 
         $errors = $validator->getErrorMessages($violations);
-        if (!$errors) {
+        if (!$errors instanceof ArrayObject) {
             return true;
         }
 
