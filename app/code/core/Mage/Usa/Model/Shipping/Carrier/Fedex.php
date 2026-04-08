@@ -1232,7 +1232,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
     public function getResponse()
     {
         $statuses = '';
-        if ($this->_trackingResult instanceof Mage_Shipping_Model_Tracking_Result && $trackings = $this->_trackingResult->getAllTrackings()) {
+        if ($this->_trackingResult instanceof Mage_Shipping_Model_Tracking_Result && ($trackings = $this->_trackingResult->getAllTrackings())) {
             foreach ($trackings as $tracking) {
                 if ($data = $tracking->getAllData()) {
                     if (!empty($data['status'])) {
