@@ -351,7 +351,7 @@ class Mage_Core_Model_Translate_Inline
             $tagHtml    = $tagMatch[0][0];
             $matches          = [];
             $attrRegExp = '#' . $this->_tokenRegex . '#S';
-            $trArr = $this->_getTranslateData($attrRegExp, $tagHtml, [$this, '_getAttributeLocation']);
+            $trArr = $this->_getTranslateData($attrRegExp, $tagHtml, $this->_getAttributeLocation(...));
             if ($trArr) {
                 $transRegExp = '# data-translate=' . $quoteHtml . '\[([^' . preg_quote($quoteHtml, '#') . ']*)]' . $quoteHtml . '#i';
                 if (preg_match($transRegExp, $tagHtml, $matches)) {
@@ -465,7 +465,7 @@ class Mage_Core_Model_Translate_Inline
             $trArr = $this->_getTranslateData(
                 '#' . $this->_tokenRegex . '#iS',
                 $tagHtml,
-                [$this, '_getTagLocation'],
+                $this->_getTagLocation(...),
                 [
                     'tagName' => $tagName,
                     'tagList' => $tagsList,

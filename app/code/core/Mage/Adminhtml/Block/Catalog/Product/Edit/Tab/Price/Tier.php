@@ -36,7 +36,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Tier extends Mage_Admi
      */
     protected function _sortValues($data)
     {
-        usort($data, [$this, '_sortTierPrices']);
+        usort($data, $this->_sortTierPrices(...));
         return $data;
     }
 

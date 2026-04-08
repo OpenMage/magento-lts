@@ -30,7 +30,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Group extends Mage_Adm
      */
     protected function _sortValues($data)
     {
-        usort($data, [$this, '_sortGroupPrices']);
+        usort($data, $this->_sortGroupPrices(...));
         return $data;
     }
 

@@ -756,7 +756,7 @@ class Mage_Core_Model_Design_Package
             $files,
             $targetDir . DS . $targetFilename,
             false,
-            [$this, 'beforeMergeCss'],
+            $this->beforeMergeCss(...),
             'css',
         );
         if ($mergeFilesResult) {
@@ -866,11 +866,11 @@ class Mage_Core_Model_Design_Package
         $this->_setCallbackFileDir($file);
 
         $cssImport = '/@import\\s+([\'"])(.*?)[\'"]/';
-        $contents = preg_replace_callback($cssImport, [$this, '_cssMergerImportCallback'], $contents);
+        $contents = preg_replace_callback($cssImport, $this->_cssMergerImportCallback(...), $contents);
 
         $cssUrl = '/url\\(\\s*(?![\\\'\\"]?data:)([^\\)\\s]+)\\s*\\)?/';
 
-        return preg_replace_callback($cssUrl, [$this, '_cssMergerUrlCallback'], $contents);
+        return preg_replace_callback($cssUrl, $this->_cssMergerUrlCallback(...), $contents);
     }
 
     /**

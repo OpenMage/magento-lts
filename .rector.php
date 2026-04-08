@@ -156,6 +156,8 @@ try {
             DeadCode\If_\RemoveAlwaysTrueIfConditionRector::class => [
                 __DIR__ . '/app/design/adminhtml/base/default/template/system/store/tree.phtml',
             ],
+            # ... neeeds closer review and docblock fixes for magic methods
+            Php71\FuncCall\RemoveExtraParametersRector::class,
             # ... needs closer review
             Php74\Closure\ClosureToArrowFunctionRector::class,
             # ... needs closer review
@@ -166,6 +168,8 @@ try {
             Php81\FuncCall\NullToStrictStringFuncCallArgRector::class,
             # ... ~100 occurrences
             Strict\Empty_\DisallowedEmptyRuleFixerRector::class,
+            # ... needs closer review
+            TypeDeclaration\BooleanAnd\BinaryOpNullableToInstanceofRector::class,
             # ... will be added after rector-update 2.4.0
             TypeDeclaration\StmtsAwareInterface\SafeDeclareStrictTypesRector::class,
         ])
@@ -181,9 +185,6 @@ try {
             DeadCode\PropertyProperty\RemoveNullPropertyInitializationRector::class, # todo: TMP
             DeadCode\TryCatch\RemoveDeadTryCatchRector::class, # todo: TMP  (!?!)
             EarlyReturn\Foreach_\ChangeNestedForeachIfsToEarlyContinueRector::class, # todo: TMP
-            Php71\FuncCall\RemoveExtraParametersRector::class, # todo: check later
-            Php81\Array_\ArrayToFirstClassCallableRector::class, # todo: TMP
-            TypeDeclaration\BooleanAnd\BinaryOpNullableToInstanceofRector::class, # todo: TMP
             # skip: use static methods
             PreferPHPUnitThisCallRector::class,
             __DIR__ . '/shell/translations.php',
