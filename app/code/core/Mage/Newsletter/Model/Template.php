@@ -105,7 +105,7 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
         ));
 
         $errors = $validator->getErrorMessages($violations);
-        if ($errors) {
+        if ($errors instanceof ArrayObject) {
             Mage::throwException(implode("\n", iterator_to_array($errors)));
         }
     }

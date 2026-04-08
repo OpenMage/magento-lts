@@ -114,7 +114,7 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
         $where = [
             $readAdapter->quote(Varien_Date::now()) . ' > ' . $timeSubtract,
         ];
-        if ($user) {
+        if ($user instanceof Mage_Api_Model_User) {
             $where['user_id = ?'] = $user->getId();
         }
 

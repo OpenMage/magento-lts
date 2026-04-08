@@ -742,7 +742,7 @@ class Mage_Oauth_Model_Server
             $responseCode = self::HTTP_INTERNAL_ERROR;
         }
 
-        if (!$response) {
+        if (!$response instanceof Zend_Controller_Response_Http) {
             $response = $this->_getResponse();
         }
 

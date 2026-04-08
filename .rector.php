@@ -109,6 +109,8 @@ try {
                 __DIR__ . '/app/code/core/Mage/Sales/Model/Order/Payment.php',
                 __DIR__ . '/app/code/core/Mage/Usa/Model/Shipping/Carrier/Abstract/Backend/Abstract.php',
             ],
+            # changes method signature
+            CodingStyle\ClassMethod\FuncGetArgsToVariadicParamRector::class,
             # skip: conflicts with phpstan strict rules
             Php53\Ternary\TernaryToElvisRector::class,
             # skip: changes method signature
@@ -150,8 +152,12 @@ try {
             CodeQuality\Equal\UseIdenticalOverEqualWithSameTypeRector::class,
             # ... +300 occurrences
             CodeQuality\If_\ExplicitBoolCompareRector::class,
+            # ... review autoloading at all
+            CodeQuality\Include_\AbsolutizeRequireAndIncludePathRector::class,
             # ... breaks loading website
             CodeQuality\Isset_\IssetOnPropertyObjectToPropertyExistsRector::class,
+            # ... +250 occurrences
+            CodingStyle\Encapsed\EncapsedStringsToSprintfRector::class,
             # ... messes up code
             DeadCode\If_\RemoveAlwaysTrueIfConditionRector::class => [
                 __DIR__ . '/app/design/adminhtml/base/default/template/system/store/tree.phtml',
@@ -173,18 +179,19 @@ try {
             # ... will be added after rector-update 2.4.0
             TypeDeclaration\StmtsAwareInterface\SafeDeclareStrictTypesRector::class,
         ])
+        # WIP
         ->withSkip([
-            CodeQuality\Include_\AbsolutizeRequireAndIncludePathRector::class, # todo: TMP
-            CodingStyle\ClassMethod\FuncGetArgsToVariadicParamRector::class, # todo: TMP
-            CodingStyle\Encapsed\EncapsedStringsToSprintfRector::class, # todo: TMP
+            # https://github.com/OpenMage/magento-lts/pull/5415
+            DeadCode\Assign\RemoveUnusedVariableAssignRector::class,
+            # https://github.com/OpenMage/magento-lts/pull/5434
+            Php81\Array_\ArrayToFirstClassCallableRector::class,
+        ])
+        ->withSkip([
             CodingStyle\FuncCall\StrictArraySearchRector::class, # todo: TMP
-            CodingStyle\If_\NullableCompareToNullRector::class, # todo: TMP
             CodingStyle\PostInc\PostIncDecToPreIncDecRector::class, # todo: TMP
-            DeadCode\Assign\RemoveUnusedVariableAssignRector::class, # todo: WIP
             DeadCode\ClassMethod\RemoveUnusedConstructorParamRector::class, # todo: TMP (!?!)
             DeadCode\PropertyProperty\RemoveNullPropertyInitializationRector::class, # todo: TMP
             DeadCode\TryCatch\RemoveDeadTryCatchRector::class, # todo: TMP  (!?!)
-            EarlyReturn\Foreach_\ChangeNestedForeachIfsToEarlyContinueRector::class, # todo: TMP
             # skip: use static methods
             PreferPHPUnitThisCallRector::class,
             __DIR__ . '/shell/translations.php',
