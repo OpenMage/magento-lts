@@ -1,18 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
  * @license    Open Software License (OSL 3.0)
  * @package    Varien_Filter
  */
-
 /**
  * Template constructions variables tokenizer
  *
  * @package    Varien_Filter
  */
-
 class Varien_Filter_Template_Tokenizer_Variable extends Varien_Filter_Template_Tokenizer_Abstract
 {
     /**

@@ -1,18 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
  * @license    Open Software License (OSL 3.0)
  * @package    Varien_Directory
  */
-
 /**
  * Factory Interface for Directory
  * *
  * @package    Varien_Directory
  */
-
 interface IFactory
 {
     public function getFilesName(&$files);
