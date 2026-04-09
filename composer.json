@@ -173,8 +173,9 @@
     "scripts": {
         "php-cs-fixer:test": "vendor/bin/php-cs-fixer fix --dry-run --diff",
         "php-cs-fixer:fix": "vendor/bin/php-cs-fixer fix",
-        "phpmd": "vendor/bin/phpmd app/code/core/Mage html .phpmd.dist.xml --color --cache --cache-file .cache/.phpmd.result-cache.php --baseline-file .phpmd.dist.baseline.xml --report-file build/phpmd/report.html",
-        "phpstan": "XDEBUG_MODE=off php vendor/bin/phpstan analyze",
+        "phpmd:test": "vendor/bin/phpmd app/code/core/Mage html .phpmd.dist.xml --color --cache --cache-file .cache/.phpmd.result-cache.php --baseline-file .phpmd.dist.baseline.xml --report-file build/phpmd/report.html",
+        "phpmd:baseline": "vendor/bin/phpmd app/code/core/Mage html .phpmd.dist.xml --color --cache --cache-file .cache/.phpmd.result-cache.php --baseline-file .phpmd.dist.baseline.xml --report-file build/phpmd/report.html --update-baseline --generate-baseline",
+        "phpstan:test": "XDEBUG_MODE=off php vendor/bin/phpstan analyze",
         "phpstan:baseline": "XDEBUG_MODE=off php vendor/bin/phpstan analyze -b .phpstan.dist.baseline.php",
         "phpunit:test": "XDEBUG_MODE=off php vendor/bin/phpunit --configuration .phpunit.dist.xml --testsuite Base,Error,Mage,Varien --no-coverage",
         "phpunit:coverage": "XDEBUG_MODE=coverage php vendor/bin/phpunit --configuration .phpunit.dist.xml --testsuite Base,Error,Mage,Varien --testdox",
@@ -185,15 +186,16 @@
         "vendor:patch": "vendor/bin/vendor-patches generate --patches-file=patches.json --patches-folder=.vendor-patches",
         "test": [
             "@php-cs-fixer:test",
-            "@phpstan",
+            "@phpstan:test",
             "@phpunit:test"
         ]
     },
     "scripts-descriptions": {
         "php-cs-fixer:test": "Run php-cs-fixer",
         "php-cs-fixer:fix": "Run php-cs-fixer and fix issues",
-        "phpmd": "Run phpmd",
-        "phpstan": "Run phpstan",
+        "phpmd:test": "Run phpmd",
+        "phpmd:baseline": "Run phpmd and update baseline",
+        "phpstan:test": "Run phpstan",
         "phpstan:baseline": "Run phpstan and update baseline",
         "phpunit:test": "Run PHPUnit",
         "phpunit:coverage": "Run PHPUnit with code coverage (requires XDEBUG enabled)",

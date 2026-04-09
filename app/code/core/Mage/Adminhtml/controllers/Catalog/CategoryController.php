@@ -128,7 +128,7 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
         $this->_title($categoryId ? $category->getName() : $this->__('New Category'));
 
         /**
-         * Check if we have data in session (if duering category save was exceprion)
+         * Check if we have data in session (if during category save was exception)
          */
         $data = Mage::getSingleton('adminhtml/session')->getCategoryData(true);
         if (isset($data['general'])) {
@@ -417,7 +417,7 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
      */
     public function gridAction()
     {
-        if (!$category = $this->_initCategory(true)) {
+        if (!$this->_initCategory(true)) {
             return;
         }
 

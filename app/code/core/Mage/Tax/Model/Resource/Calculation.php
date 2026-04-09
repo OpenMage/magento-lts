@@ -22,7 +22,7 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
     protected $_ratesCache = [];
 
     /**
-     * Primery key auto increment flag
+     * Primary key auto increment flag
      *
      * @var bool
      */
@@ -225,7 +225,7 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
 
     /**
      * Returns tax rates for request - either pereforms SELECT from DB, or returns already cached result
-     * Notice that productClassId due to optimization can be array of ids
+     * Notice that productClassId due to optimization can be an array of ids
      *
      * @param  null|Varien_Object       $request
      * @return array

@@ -471,7 +471,7 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
     }
 
     /**
-     * Calculate lifitime sales
+     * Calculate lifetime sales
      *
      * @param  bool|int $isFilter
      * @return $this

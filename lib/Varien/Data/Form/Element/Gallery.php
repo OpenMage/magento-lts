@@ -29,8 +29,6 @@ class Varien_Data_Form_Element_Gallery extends Varien_Data_Form_Element_Abstract
      */
     public function getElementHtml()
     {
-        $gallery = $this->getValue();
-
         $html = '<table id="gallery" class="gallery" border="0" cellspacing="3" cellpadding="0">';
         $html .= '<thead id="gallery_thead" class="gallery"><tr class="gallery"><td class="gallery" valign="middle" align="center">Big Image</td><td class="gallery" valign="middle" align="center">Thumbnail</td><td class="gallery" valign="middle" align="center">Small Thumb</td><td class="gallery" valign="middle" align="center">Sort Order</td><td class="gallery" valign="middle" align="center">Delete</td></tr></thead>';
         $widgetButton = $this->getForm()->getParent()->getLayout();

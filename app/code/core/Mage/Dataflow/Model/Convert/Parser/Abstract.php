@@ -102,4 +102,9 @@ abstract class Mage_Dataflow_Model_Convert_Parser_Abstract extends Mage_Dataflow
 
         return $ioAdapter->cp($file, $this->getBatchModel()->getIoAdapter()->getFile(true));
     }
+
+    public function getCopyFile(string $files): string
+    {
+        return Mage::app()->getConfig()->getTempVarDir() . '/import/' . basename(urldecode($files));
+    }
 }

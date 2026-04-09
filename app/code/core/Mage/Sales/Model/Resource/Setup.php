@@ -68,7 +68,7 @@ class Mage_Sales_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
     }
 
     /**
-     * Add entity attribute. Overwrited for flat entities support
+     * Add entity attribute. Overwrite for flat entities support
      *
      * @param  int|string $entityTypeId
      * @param  string     $code
@@ -137,7 +137,7 @@ class Mage_Sales_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
     protected function _getAttributeColumnDefinition($code, $data)
     {
         // Convert attribute type to column info
-        $data['type'] = $data['type'] ?? 'varchar';
+        $data['type'] ??= 'varchar';
         $type = null;
         $length = null;
         switch ($data['type']) {
@@ -171,7 +171,7 @@ class Mage_Sales_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
         }
 
         $data['nullable'] = isset($data['required']) ? !$data['required'] : true;
-        $data['comment']  = $data['comment'] ?? ucwords(str_replace('_', ' ', $code));
+        $data['comment'] ??= ucwords(str_replace('_', ' ', $code));
         return $data;
     }
 

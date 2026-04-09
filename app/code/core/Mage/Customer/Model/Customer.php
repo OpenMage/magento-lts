@@ -1134,7 +1134,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
         }
 
         $errors = $validator->getErrorMessages($violations);
-        if (!$errors) {
+        if (!$errors instanceof ArrayObject) {
             return true;
         }
 
@@ -1159,7 +1159,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
         ));
 
         $errors = $validator->getErrorMessages($violations);
-        if (!$errors) {
+        if (!$errors instanceof ArrayObject) {
             return true;
         }
 

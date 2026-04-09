@@ -1743,6 +1743,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "B3Hana",
+      "name": "B3Hana",
+      "avatar_url": "https://avatars.githubusercontent.com/u/180432612?v=4",
+      "profile": "https://github.com/B3Hana",
+      "contributions": [
+        "doc"
+      ]
     }
   ],
   "commitType": "docs"

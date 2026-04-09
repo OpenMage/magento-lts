@@ -447,7 +447,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get information about available cache types
      *
-     * @return array
+     * @return array<string, string>
      */
     public function getCacheTypes()
     {

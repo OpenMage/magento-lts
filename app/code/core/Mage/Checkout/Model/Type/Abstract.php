@@ -8,7 +8,7 @@
  */
 
 /**
- * Cehckout type abstract class
+ * Checkout type abstract class
  *
  * @package    Mage_Checkout
  */
@@ -51,7 +51,7 @@ abstract class Mage_Checkout_Model_Type_Abstract extends Varien_Object
     }
 
     /**
-     * Retrieve customer session vodel
+     * Retrieve customer session model
      *
      * @return Mage_Customer_Model_Session
      */
@@ -148,7 +148,7 @@ abstract class Mage_Checkout_Model_Type_Abstract extends Varien_Object
      */
     protected function _emailOrderConfirmation($email, $name, $order)
     {
-        $mailer = Mage::getModel('core/email')
+        Mage::getModel('core/email')
             ->setTemplate('email/order.phtml')
             ->setType('html')
             ->setTemplateVar('order', $order)

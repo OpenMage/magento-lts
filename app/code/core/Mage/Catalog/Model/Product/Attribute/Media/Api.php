@@ -48,10 +48,9 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
     {
         $product = $this->_initProduct($productId, $store, $identifierType);
 
-        $gallery = $this->_getGalleryAttribute($product);
+        $this->_getGalleryAttribute($product);
 
         $galleryData = $product->getData(self::ATTRIBUTE_CODE);
-
         if (!isset($galleryData['images']) || !is_array($galleryData['images'])) {
             return [];
         }
@@ -349,8 +348,7 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
     }
 
     /**
-     * Retrie
-     * ve media config
+     * Retrieve media config
      *
      * @return Mage_Catalog_Model_Product_Media_Config
      */

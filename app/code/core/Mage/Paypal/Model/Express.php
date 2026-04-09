@@ -249,7 +249,7 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract imple
         $payment->setTransactionId($api->getTransactionId());
         $payment->setParentTransactionId($orderTransactionId);
 
-        $transaction = $payment->addTransaction(
+        $payment->addTransaction(
             Mage_Sales_Model_Order_Payment_Transaction::TYPE_AUTH,
             null,
             false,
@@ -322,7 +322,6 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract imple
             ) {
                 //Save payment state and configure payment object for voiding
                 $isCaptureFinal = $payment->getShouldCloseParentTransaction();
-                $captureTrxId = $payment->getTransactionId();
                 $payment->setShouldCloseParentTransaction(false);
                 $payment->setParentTransactionId($authorizationTransaction->getTxnId());
                 $payment->unsTransactionId();

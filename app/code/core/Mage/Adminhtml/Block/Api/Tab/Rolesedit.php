@@ -47,9 +47,7 @@ class Mage_Adminhtml_Block_Api_Tab_Rolesedit extends Mage_Adminhtml_Block_Widget
 
     public function getResTreeJson()
     {
-        $rid = Mage::app()->getRequest()->getParam('rid', false);
         $resources = Mage::getModel('api/roles')->getResourcesTree();
-
         $rootArray = $this->_getNodeJson($resources, 1);
 
         return Mage::helper('core')->jsonEncode($rootArray['children'] ?? []);

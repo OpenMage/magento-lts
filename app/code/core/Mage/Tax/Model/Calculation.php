@@ -346,7 +346,7 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Get request object for getting tax rate based on store shippig original address
+     * Get request object for getting tax rate based on store shipping original address
      *
      * @param  ConfigStoreId $store
      * @return Varien_Object
@@ -650,7 +650,7 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Calculate rated tax abount based on price and tax rate.
+     * Calculate rated tax amount based on price and tax rate.
      * If you are using price including tax $priceIncludeTax should be true.
      *
      * @param  float                           $price

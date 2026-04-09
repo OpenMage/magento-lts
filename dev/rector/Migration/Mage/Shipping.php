@@ -12,6 +12,8 @@ declare(strict_types=1);
 namespace OpenMage\Rector\Migration\Mage;
 
 use Mage_Shipping_Model_Resource_Carrier_Tablerate;
+use Mage_Usa_Model_Shipping_Carrier_Dhl;
+use Mage_Usa_Model_Shipping_Carrier_Fedex;
 use Rector\Renaming\ValueObject\MethodCallRename;
 
 final class Shipping
@@ -23,6 +25,8 @@ final class Shipping
     {
         return [
             new MethodCallRename(Mage_Shipping_Model_Resource_Carrier_Tablerate::class, '_isPositiveDecimalNumber', '_parseDecimalValue'),
+            new MethodCallRename(Mage_Usa_Model_Shipping_Carrier_Dhl::class, 'setTrackingReqeust', 'setTrackingRequest'),
+            new MethodCallRename(Mage_Usa_Model_Shipping_Carrier_Fedex::class, 'setTrackingReqeust', 'setTrackingRequest'),
         ];
     }
 }

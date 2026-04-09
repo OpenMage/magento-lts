@@ -1058,12 +1058,12 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
             foreach ($shippingRates as $shippingRate) {
                 $rate = Mage::getModel('sales/quote_address_rate')
                     ->importShippingRate($shippingRate);
-                if (!$item) {
+                if (!$item instanceof Mage_Sales_Model_Quote_Item_Abstract) {
                     $this->addShippingRate($rate);
                 }
 
                 if ($this->getShippingMethod() == $rate->getCode()) {
-                    if ($item) {
+                    if ($item instanceof Mage_Sales_Model_Quote_Item_Abstract) {
                         $item->setBaseShippingAmount($rate->getPrice());
                     } else {
                         /**
@@ -1335,7 +1335,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
     }
 
     /**
-     * Get total amount value by code in base store curncy
+     * Get total amount value by code in base store currency
      *
      * @param  string $code
      * @return float

@@ -96,7 +96,6 @@ class Mage_Api_Model_Wsdl_Config extends Mage_Api_Model_Wsdl_Config_Base
     public function init()
     {
         $this->setCacheChecksum(null);
-        $saveCache = true;
 
         if (Mage::app()->useCache('config')) {
             $loaded = $this->loadCache();
