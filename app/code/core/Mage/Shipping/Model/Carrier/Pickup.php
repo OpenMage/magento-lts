@@ -25,7 +25,26 @@ class Mage_Shipping_Model_Carrier_Pickup extends Mage_Shipping_Model_Carrier_Abs
             return false;
         }
 
-        return Mage::getModel('shipping/rate_result');
+        $result = Mage::getModel('shipping/rate_result');
+
+        /*
+        if (!empty($rate)) {
+            $method = Mage::getModel('shipping/rate_result_method');
+
+            $method->setCarrier('pickup');
+            $method->setCarrierTitle($this->getConfigData('title'));
+
+            $method->setMethod('store');
+            $method->setMethodTitle(Mage::helper('shipping')->__('Store Pickup'));
+
+            $method->setPrice(0);
+            $method->setCost(0);
+
+            $result->append($method);
+        }
+        */
+
+        return $result;
     }
 
     /**
