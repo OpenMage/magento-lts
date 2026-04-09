@@ -6,6 +6,7 @@
  * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
  */
+
 /**
  * Manage Newsletter Template Controller
  *
@@ -13,16 +14,7 @@
  */
 class Mage_Adminhtml_Newsletter_TemplateController extends Mage_Adminhtml_Controller_Action
 {
-    /**
-     * Check is allowed access
-     *
-     * @return bool
-     */
-    protected function _isAllowed()
-    {
-        return Mage::getSingleton('admin/session')
-            ->isAllowed('newsletter/template');
-    }
+    public const ADMIN_RESOURCE = 'newsletter/template';
 
     /**
      * Set title of page
@@ -174,15 +166,14 @@ class Mage_Adminhtml_Newsletter_TemplateController extends Mage_Adminhtml_Contro
             $template->save();
             $this->_getSession()->addSuccess(Mage::helper('newsletter')->__('The template has been saved.'));
             $this->_redirect('*/*');
-            return;
-        } catch (Mage_Core_Exception $e) {
-            $this->_getSession()->addError(nl2br($e->getMessage()));
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_getSession()->addError(nl2br($mageCoreException->getMessage()));
             $this->_getSession()->setData(
                 'newsletter_template_form_data',
                 $this->getRequest()->getParams(),
             );
-        } catch (Exception $e) {
-            $this->_getSession()->addException($e, Mage::helper('adminhtml')->__('An error occurred while saving this template.'));
+        } catch (Exception $exception) {
+            $this->_getSession()->addException($exception, Mage::helper('adminhtml')->__('An error occurred while saving this template.'));
             $this->_getSession()->setData('newsletter_template_form_data', $this->getRequest()->getParams());
         }
 
@@ -199,10 +190,10 @@ class Mage_Adminhtml_Newsletter_TemplateController extends Mage_Adminhtml_Contro
         if ($template->getId()) {
             try {
                 $template->delete();
-            } catch (Mage_Core_Exception $e) {
-                $this->_getSession()->addError($e->getMessage());
-            } catch (Exception $e) {
-                $this->_getSession()->addException($e, Mage::helper('adminhtml')->__('An error occurred while deleting this template.'));
+            } catch (Mage_Core_Exception $mageCoreException) {
+                $this->_getSession()->addError($mageCoreException->getMessage());
+            } catch (Exception $exception) {
+                $this->_getSession()->addException($exception, Mage::helper('adminhtml')->__('An error occurred while deleting this template.'));
             }
         }
 
@@ -228,6 +219,7 @@ class Mage_Adminhtml_Newsletter_TemplateController extends Mage_Adminhtml_Contro
 
         $this->getLayout()->getBlock('preview_form')->setFormData($data);
         $this->renderLayout();
+        return null;
     }
 
     /**

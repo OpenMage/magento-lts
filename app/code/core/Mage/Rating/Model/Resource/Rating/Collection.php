@@ -12,7 +12,7 @@
  *
  * @package    Mage_Rating
  *
- * @method Mage_Rating_Model_Rating getItemById()
+ * @extends Mage_Core_Model_Resource_Db_Collection_Abstract<Mage_Rating_Model_Rating>
  */
 class Mage_Rating_Model_Resource_Rating_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
@@ -88,7 +88,7 @@ class Mage_Rating_Model_Resource_Rating_Collection extends Mage_Core_Model_Resou
             $storeId = [$storeId ?? -1];
         }
 
-        if (empty($storeId)) {
+        if ($storeId === []) {
             return $this;
         }
 

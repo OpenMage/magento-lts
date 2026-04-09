@@ -25,19 +25,19 @@ class Mage_Sales_Model_Resource_Report_Shipping extends Mage_Sales_Model_Resourc
     /**
      * Aggregate Shipping data
      *
-     * @param  mixed $from
-     * @param  mixed $to
+     * @param  null|string $dateFrom
+     * @param  null|string $dateTo
      * @return $this
      */
-    public function aggregate($from = null, $to = null)
+    public function aggregate($dateFrom = null, $dateTo = null)
     {
         // convert input dates to UTC to be comparable with DATETIME fields in DB
-        $from = $this->_dateToUtc($from);
-        $to   = $this->_dateToUtc($to);
+        $dateFrom = $this->_dateToUtc($dateFrom);
+        $dateTo   = $this->_dateToUtc($dateTo);
 
-        $this->_checkDates($from, $to);
-        $this->_aggregateByOrderCreatedAt($from, $to);
-        $this->_aggregateByShippingCreatedAt($from, $to);
+        $this->_checkDates($dateFrom, $dateTo);
+        $this->_aggregateByOrderCreatedAt($dateFrom, $dateTo);
+        $this->_aggregateByShippingCreatedAt($dateFrom, $dateTo);
         $this->_setFlagData(Mage_Reports_Model_Flag::REPORT_SHIPPING_FLAG_CODE);
         return $this;
     }
@@ -45,11 +45,11 @@ class Mage_Sales_Model_Resource_Report_Shipping extends Mage_Sales_Model_Resourc
     /**
      * Aggregate shipping report by order create_at as period
      *
-     * @param  mixed $from
-     * @param  mixed $to
+     * @param  null|string $dateFrom
+     * @param  null|string $dateTo
      * @return $this
      */
-    protected function _aggregateByOrderCreatedAt($from, $to)
+    protected function _aggregateByOrderCreatedAt($dateFrom, $dateTo)
     {
         $table       = $this->getTable('sales/shipping_aggregated_order');
         $sourceTable = $this->getTable('sales/order');
@@ -57,16 +57,16 @@ class Mage_Sales_Model_Resource_Report_Shipping extends Mage_Sales_Model_Resourc
         $adapter->beginTransaction();
 
         try {
-            if ($from !== null || $to !== null) {
-                $subSelect = $this->_getTableDateRangeSelect($sourceTable, 'created_at', 'updated_at', $from, $to);
+            if ($dateFrom !== null || $dateTo !== null) {
+                $subSelect = $this->_getTableDateRangeSelect($sourceTable, 'created_at', 'updated_at', $dateFrom, $dateTo);
             } else {
                 $subSelect = null;
             }
 
-            $this->_clearTableByDateRange($table, $from, $to, $subSelect);
+            $this->_clearTableByDateRange($table, $dateFrom, $dateTo, $subSelect);
             // convert dates from UTC to current admin timezone
             $periodExpr = $adapter->getDatePartSql(
-                $this->getStoreTZOffsetQuery($sourceTable, 'created_at', $from, $to),
+                $this->getStoreTZOffsetQuery($sourceTable, 'created_at', $dateFrom, $dateTo),
             );
             $ifnullBaseShippingCanceled = $adapter->getIfNullSql('base_shipping_canceled', 0);
             $ifnullBaseShippingRefunded = $adapter->getIfNullSql('base_shipping_refunded', 0);
@@ -150,11 +150,11 @@ class Mage_Sales_Model_Resource_Report_Shipping extends Mage_Sales_Model_Resourc
     /**
      * Aggregate shipping report by shipment create_at as period
      *
-     * @param  mixed $from
-     * @param  mixed $to
+     * @param  null|string $dateFrom
+     * @param  null|string $dateTo
      * @return $this
      */
-    protected function _aggregateByShippingCreatedAt($from, $to)
+    protected function _aggregateByShippingCreatedAt($dateFrom, $dateTo)
     {
         $table       = $this->getTable('sales/shipping_aggregated');
         $sourceTable = $this->getTable('sales/invoice');
@@ -163,28 +163,28 @@ class Mage_Sales_Model_Resource_Report_Shipping extends Mage_Sales_Model_Resourc
         $adapter->beginTransaction();
 
         try {
-            if ($from !== null || $to !== null) {
+            if ($dateFrom !== null || $dateTo !== null) {
                 $subSelect = $this->_getTableDateRangeRelatedSelect(
                     $sourceTable,
                     $orderTable,
                     ['order_id' => 'entity_id'],
                     'created_at',
                     'updated_at',
-                    $from,
-                    $to,
+                    $dateFrom,
+                    $dateTo,
                 );
             } else {
                 $subSelect = null;
             }
 
-            $this->_clearTableByDateRange($table, $from, $to, $subSelect);
+            $this->_clearTableByDateRange($table, $dateFrom, $dateTo, $subSelect);
             // convert dates from UTC to current admin timezone
             $periodExpr = $adapter->getDatePartSql(
                 $this->getStoreTZOffsetQuery(
                     ['source_table' => $sourceTable],
                     'source_table.created_at',
-                    $from,
-                    $to,
+                    $dateFrom,
+                    $dateTo,
                 ),
             );
             $ifnullBaseShippingCanceled = $adapter->getIfNullSql('order_table.base_shipping_canceled', 0);

@@ -7,8 +7,6 @@
  * @package    Mage_Adminhtml
  */
 
-use Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract as MassAction;
-
 /**
  * Grid widget massaction block
  *
@@ -337,7 +335,11 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
      */
     public function getUseSelectAll()
     {
-        return $this->_getData('use_select_all') === null || $this->_getData('use_select_all');
+        if ($this->_getData('use_select_all') === null) {
+            return true;
+        }
+
+        return (bool) $this->_getData('use_select_all');
     }
 
     /**
@@ -354,6 +356,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
 
     /**
      * Group items for optgroups
+     * @return array<string, mixed[]>
      */
     public function getGroupedItems(): array
     {

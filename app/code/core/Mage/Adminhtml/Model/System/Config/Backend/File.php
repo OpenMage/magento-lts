@@ -48,11 +48,11 @@ class Mage_Adminhtml_Model_System_Config_Backend_File extends Mage_Core_Model_Co
                 Mage::getSingleton('adminhtml/session')->addSuccess(
                     Mage::helper('adminhtml')->__('The file %s has been uploaded.', $result['file']),
                 );
-            } catch (Exception $e) {
+            } catch (Exception $exception) {
                 Mage::getSingleton('adminhtml/session')->addError(
                     Mage::helper('adminhtml')->__('The file %s has not been uploaded.', $file['name']),
                 );
-                Mage::throwException($e->getMessage());
+                Mage::throwException($exception->getMessage());
             }
 
             $filename = $result['file'];
@@ -85,7 +85,6 @@ class Mage_Adminhtml_Model_System_Config_Backend_File extends Mage_Core_Model_Co
      * Delete file after a file is uploaded
      *
      * @return $this
-     * @throws Mage_Core_Exception
      */
     protected function _afterSave()
     {
@@ -178,8 +177,8 @@ class Mage_Adminhtml_Model_System_Config_Backend_File extends Mage_Core_Model_Co
     protected function _addWhetherScopeInfo()
     {
         $fieldConfig = $this->getFieldConfig();
-        $el = $fieldConfig->descend('upload_dir');
-        return (!empty($el['scope_info']));
+        $element = $fieldConfig->descend('upload_dir');
+        return !empty($element['scope_info']);
     }
 
     /**
@@ -199,20 +198,20 @@ class Mage_Adminhtml_Model_System_Config_Backend_File extends Mage_Core_Model_Co
 
         $uploadDir = (string) $fieldConfig->upload_dir;
 
-        $el = $fieldConfig->descend('upload_dir');
+        $element = $fieldConfig->descend('upload_dir');
 
         /**
          * Add scope info
          */
-        if (!empty($el['scope_info'])) {
+        if (!empty($element['scope_info'])) {
             $uploadDir = $this->_appendScopeInfo($uploadDir);
         }
 
         /**
          * Take root from config
          */
-        if (!empty($el['config'])) {
-            $uploadRoot = $this->_getUploadRoot((string) $el['config']);
+        if (!empty($element['config'])) {
+            $uploadRoot = $this->_getUploadRoot((string) $element['config']);
             $uploadDir = $uploadRoot . '/' . $uploadDir;
         }
 
@@ -282,9 +281,9 @@ class Mage_Adminhtml_Model_System_Config_Backend_File extends Mage_Core_Model_Co
     {
         /** @var Varien_Simplexml_Element $fieldConfig */
         $fieldConfig = $this->getFieldConfig();
-        $el = $fieldConfig->descend('upload_dir');
-        if (!empty($el['allowed_extensions'])) {
-            $allowedExtensions = (string) $el['allowed_extensions'];
+        $element = $fieldConfig->descend('upload_dir');
+        if (!empty($element['allowed_extensions'])) {
+            $allowedExtensions = (string) $element['allowed_extensions'];
             return explode(',', $allowedExtensions);
         }
 

@@ -51,7 +51,7 @@ class Mage_Adminhtml_Model_Search_Customer extends Varien_Object
                 'type'          => Mage::helper('adminhtml')->__('Customer'),
                 'name'          => $customer->getName(),
                 'description'   => $customer->getCompany(),
-                'url' => Mage::helper('adminhtml')->getUrl('*/customer/edit', ['id' => $customer->getId()]),
+                'url'           => Mage::helper('adminhtml')::getUrl('*/customer/edit', ['id' => $customer->getId()]),
             ];
         }
 

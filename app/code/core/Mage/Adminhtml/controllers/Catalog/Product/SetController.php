@@ -137,12 +137,12 @@ class Mage_Adminhtml_Catalog_Product_SetController extends Mage_Adminhtml_Contro
 
             $model->save();
             $this->_getSession()->addSuccess(Mage::helper('catalog')->__('The attribute set has been saved.'));
-        } catch (Mage_Core_Exception $e) {
-            $this->_getSession()->addError($e->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_getSession()->addError($mageCoreException->getMessage());
             $hasError = true;
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $this->_getSession()->addException(
-                $e,
+                $exception,
                 Mage::helper('catalog')->__('An error occurred while saving the attribute set.'),
             );
             $hasError = true;

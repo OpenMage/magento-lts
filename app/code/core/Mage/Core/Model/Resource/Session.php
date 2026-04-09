@@ -111,11 +111,7 @@ class Mage_Core_Model_Resource_Session implements SessionHandlerInterface
             return false;
         }
 
-        if (!$this->_read->isTableExists($this->_sessionTable)) {
-            return false;
-        }
-
-        return true;
+        return $this->_read->isTableExists($this->_sessionTable);
     }
 
     /**
@@ -157,7 +153,7 @@ class Mage_Core_Model_Resource_Session implements SessionHandlerInterface
      * @param  string $sessName ignored
      * @return bool
      */
-    #[\ReturnTypeWillChange]
+    #[ReturnTypeWillChange]
     public function open($savePath, $sessName)
     {
         return true;
@@ -168,7 +164,7 @@ class Mage_Core_Model_Resource_Session implements SessionHandlerInterface
      *
      * @return bool
      */
-    #[\ReturnTypeWillChange]
+    #[ReturnTypeWillChange]
     public function close()
     {
         $this->gc($this->getLifeTime());
@@ -182,7 +178,7 @@ class Mage_Core_Model_Resource_Session implements SessionHandlerInterface
      * @param  string $sessId
      * @return string
      */
-    #[\ReturnTypeWillChange]
+    #[ReturnTypeWillChange]
     public function read($sessId)
     {
         $select = $this->_read->select()
@@ -206,7 +202,7 @@ class Mage_Core_Model_Resource_Session implements SessionHandlerInterface
      * @param  string $sessData
      * @return bool
      */
-    #[\ReturnTypeWillChange]
+    #[ReturnTypeWillChange]
     public function write($sessId, $sessData)
     {
         $bindValues = [
@@ -240,7 +236,7 @@ class Mage_Core_Model_Resource_Session implements SessionHandlerInterface
      * @param  string $sessId
      * @return bool
      */
-    #[\ReturnTypeWillChange]
+    #[ReturnTypeWillChange]
     public function destroy($sessId)
     {
         $where = ['session_id = ?' => $sessId];
@@ -255,16 +251,14 @@ class Mage_Core_Model_Resource_Session implements SessionHandlerInterface
      * @return bool
      * @SuppressWarnings("PHPMD.ShortMethodName")
      */
-    #[\ReturnTypeWillChange]
+    #[ReturnTypeWillChange]
     public function gc($sessMaxLifeTime)
     {
-        if ($this->_automaticCleaningFactor > 0) {
-            if ($this->_automaticCleaningFactor == 1
-                || random_int(1, $this->_automaticCleaningFactor) == 1
-            ) {
-                $where = ['session_expires < ?' => Varien_Date::toTimestamp(true)];
-                $this->_write->delete($this->_sessionTable, $where);
-            }
+        if ($this->_automaticCleaningFactor > 0
+            && ($this->_automaticCleaningFactor == 1 || random_int(1, $this->_automaticCleaningFactor) == 1)
+        ) {
+            $where = ['session_expires < ?' => Varien_Date::toTimestamp(true)];
+            $this->_write->delete($this->_sessionTable, $where);
         }
 
         return true;

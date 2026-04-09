@@ -90,7 +90,7 @@ class Mage_CatalogSearch_Model_Query extends Mage_Core_Model_Abstract
 
             $collection->addSearchFilter($text)
                 ->addStoreFilter()
-                ->addMinimalPrice()
+                ->addPriceData()
                 ->addTaxPercents();
             $this->setData('result_collection', $collection);
         }
@@ -189,32 +189,10 @@ class Mage_CatalogSearch_Model_Query extends Mage_Core_Model_Abstract
      * Retrieve minimum query length
      *
      * @return int
-     * @deprecated after 1.3.2.3 use getMinQueryLength() instead
-     */
-    public function getMinQueryLenght()
-    {
-        return Mage::getStoreConfig(self::XML_PATH_MIN_QUERY_LENGTH, $this->getStoreId());
-    }
-
-    /**
-     * Retrieve minimum query length
-     *
-     * @return int
      */
     public function getMinQueryLength()
     {
-        return $this->getMinQueryLenght();
-    }
-
-    /**
-     * Retrieve maximum query length
-     *
-     * @return int
-     * @deprecated after 1.3.2.3 use getMaxQueryLength() instead
-     */
-    public function getMaxQueryLenght()
-    {
-        return 0;
+        return Mage::getStoreConfig(self::XML_PATH_MIN_QUERY_LENGTH, $this->getStoreId());
     }
 
     /**

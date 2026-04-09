@@ -18,7 +18,13 @@
 <script type="text/javascript" src="<?php echo $this->getSkinUrl('js/opcheckout.js') ?>"></script>
 <ol class="opc" id="checkoutSteps">
 <?php $i=0; foreach($this->getSteps() as $_stepId => $_stepInfo): ?>
-<?php if (!$this->getChild($_stepId) || !$this->getChild($_stepId)->isShow()): continue; endif; $i++ ?>
+<?php if (!$this->getChild($_stepId)) {
+    continue;
+}
+if (!$this->getChild($_stepId)->isShow()) {
+    continue;
+}
+$i++ ?>
     <li id="opc-<?php echo $_stepId ?>" class="section<?php echo empty($_stepInfo['allow'])?'':' allow' ?><?php echo empty($_stepInfo['complete'])?'':' saved' ?>">
         <div class="step-title">
             <span class="number"><?php echo $i ?></span>

@@ -49,7 +49,7 @@ class Mage_Rss_Block_Order_New extends Mage_Core_Block_Template
             mktime(0, 0, 0, (int) Carbon::now()->format('m'), (int) Carbon::now()->format('d') - $period),
         );
 
-        $newurl = Mage::helper('adminhtml')->getUrl('adminhtml/sales_order', ['_secure' => true, '_nosecret' => true]);
+        $newurl = Mage::helper('adminhtml')::getUrl('adminhtml/sales_order', ['_secure' => true, '_nosecret' => true]);
         $title = Mage::helper('rss')->__('New Orders');
 
         $rssObj = Mage::getModel('rss/rss');
@@ -90,7 +90,7 @@ class Mage_Rss_Block_Order_New extends Mage_Core_Block_Template
         $order->reset()->load($args['row']['entity_id']);
         if ($order && $order->getId()) {
             $title = Mage::helper('rss')->__('Order #%s created at %s', $order->getIncrementId(), $this->formatDate($order->getCreatedAt()));
-            $url = Mage::helper('adminhtml')->getUrl('adminhtml/sales_order/view', ['_secure' => true, 'order_id' => $order->getId(), '_nosecret' => true]);
+            $url = Mage::helper('adminhtml')::getUrl('adminhtml/sales_order/view', ['_secure' => true, 'order_id' => $order->getId(), '_nosecret' => true]);
             $detailBlock->setOrder($order);
             $data = [
                 'title'         => $title,

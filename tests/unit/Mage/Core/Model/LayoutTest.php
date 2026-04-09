@@ -12,7 +12,6 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Core\Model;
 
 use Error;
-use Generator;
 use Mage;
 use Mage_Core_Block_Abstract;
 use Mage_Core_Model_Layout as Subject;
@@ -68,34 +67,6 @@ final class LayoutTest extends OpenMageTest
             self::assertInstanceOf(Mage_Core_Block_Abstract::class, $result);
         } else {
             self::assertNotInstanceOf(Mage_Core_Block_Abstract::class, $result);
-        }
-    }
-
-    public function provideGetBlockSingleton(): Generator
-    {
-        $notInstanceOfMageCoreBlockAbstract = $this->getBlockClassesNotInstanceOfMageCoreBlockAbstract();
-
-        $ignoredClasses = array_merge(
-            $this->getAbstractBlockClasses(),
-            $this->getBlockClassesToMock(),
-            $this->getBlockClassesWithErrors(),
-            $this->getBlockClassesWithSessions(),
-        );
-
-        #$allBlocks = $this->getAllBlockClasses();
-        $allBlocks = [
-            'adminhtml/api_buttons' => \Mage_Adminhtml_Block_Api_Buttons::class,
-            'adminhtml/catalog_category_helper_pricestep' => \Mage_Adminhtml_Block_Catalog_Category_Helper_Pricestep::class,
-        ];
-
-        foreach ($allBlocks as $alias => $className) {
-            if (!in_array($className, $ignoredClasses)) {
-                yield $className => [
-                    $className,
-                    !in_array($className, $notInstanceOfMageCoreBlockAbstract),
-                    $alias,
-                ];
-            }
         }
     }
 

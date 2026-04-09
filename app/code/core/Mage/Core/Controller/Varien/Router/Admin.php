@@ -1,5 +1,7 @@
 <?php
 
+use Monolog\Level;
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -18,11 +20,11 @@ class Mage_Core_Controller_Varien_Router_Admin extends Mage_Core_Controller_Vari
     public function fetchDefault()
     {
         // set defaults
-        $d = explode('/', $this->_getDefaultPath());
+        $path = explode('/', $this->_getDefaultPath());
         $this->getFront()->setDefault([
-            'module'     => empty($d[0]) ? '' : $d[0],
-            'controller' => empty($d[1]) ? 'index' : $d[1],
-            'action'     => empty($d[2]) ? 'index' : $d[2],
+            'module'     => empty($path[0]) ? '' : $path[0],
+            'controller' => empty($path[1]) ? 'index' : $path[1],
+            'action'     => empty($path[2]) ? 'index' : $path[2],
         ]);
     }
 
@@ -50,7 +52,7 @@ class Mage_Core_Controller_Varien_Router_Admin extends Mage_Core_Controller_Vari
                 // If it does, fail secure (possible database corruption/bypass)
                 Mage::log(
                     "Unable to parse custom admin URL host: {$adminUrl}. Access denied for security.",
-                    \Monolog\Level::Error,
+                    Level::Error,
                     'system.log',
                 );
                 return false;

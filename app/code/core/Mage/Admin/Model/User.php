@@ -556,19 +556,6 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
      * Find admin start page url
      *
      * @return string
-     * @deprecated Please use getStartupPageUrl() method instead
-     * @see getStartupPageUrl()
-     * @codeCoverageIgnore
-     */
-    public function getStatrupPageUrl()
-    {
-        return $this->getStartupPageUrl();
-    }
-
-    /**
-     * Find admin start page url
-     *
-     * @return string
      */
     public function getStartupPageUrl()
     {
@@ -749,11 +736,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
         }
 
         $hoursDifference = floor(($currentTimestamp - $tokenTimestamp) / (60 * 60));
-        if ($hoursDifference >= $tokenExpirationPeriod) {
-            return true;
-        }
-
-        return false;
+        return $hoursDifference >= $tokenExpirationPeriod;
     }
 
     /**
@@ -763,10 +746,10 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
      */
     public function cleanPasswordsValidationData()
     {
-        $this->setData('password', null);
-        $this->setData('current_password', null);
-        $this->setData('new_password', null);
-        $this->setData('password_confirmation', null);
+        $this->setData('password');
+        $this->setData('current_password');
+        $this->setData('new_password');
+        $this->setData('password_confirmation');
         return $this;
     }
 

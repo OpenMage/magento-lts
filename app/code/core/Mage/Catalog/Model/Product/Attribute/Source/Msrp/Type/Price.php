@@ -38,9 +38,7 @@ class Mage_Catalog_Model_Product_Attribute_Source_Msrp_Type_Price extends Mage_C
     }
 
     /**
-     * Retrieve flat column definition
-     *
-     * @return array
+     * @inheritDoc
      */
     public function getFlatColums()
     {

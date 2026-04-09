@@ -12,8 +12,7 @@
  *
  * @package    Mage_Wishlist
  *
- * @method Mage_Wishlist_Model_Item   getItemById(int|string $value)
- * @method Mage_Wishlist_Model_Item[] getItems()
+ * @extends Mage_Core_Model_Resource_Db_Collection_Abstract<Mage_Wishlist_Model_Item>
  */
 class Mage_Wishlist_Model_Resource_Item_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
@@ -169,7 +168,7 @@ class Mage_Wishlist_Model_Resource_Item_Collection extends Mage_Core_Model_Resou
         }
 
         if ($this->_productVisible) {
-            Mage::getSingleton('catalog/product_visibility')->addVisibleInSiteFilterToCollection($productCollection);
+            $productCollection->setVisibility(Mage::getSingleton('catalog/product_visibility')::getVisibleInSiteIds());
         }
 
         $productCollection->addPriceData($this->_customerGroupId, $this->_websiteId)

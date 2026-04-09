@@ -43,7 +43,7 @@ class Mage_Adminhtml_System_VariableController extends Mage_Adminhtml_Controller
     {
         $this->_title($this->__('System'))->_title($this->__('Custom Variables'));
 
-        $variableId = $this->getRequest()->getParam('variable_id', null);
+        $variableId = $this->getRequest()->getParam('variable_id');
         $storeId = (int) $this->getRequest()->getParam('store', 0);
         /** @var Mage_Core_Model_Variable $variable */
         $variable = Mage::getModel('core/variable');
@@ -139,8 +139,8 @@ class Mage_Adminhtml_System_VariableController extends Mage_Adminhtml_Controller
                 }
 
                 return;
-            } catch (Exception $e) {
-                $this->_getSession()->addError($e->getMessage());
+            } catch (Exception $exception) {
+                $this->_getSession()->addError($exception->getMessage());
                 $this->_redirect('*/*/edit', ['_current' => true,]);
                 return;
             }
@@ -162,8 +162,8 @@ class Mage_Adminhtml_System_VariableController extends Mage_Adminhtml_Controller
                 $this->_getSession()->addSuccess(
                     Mage::helper('adminhtml')->__('The custom variable has been deleted.'),
                 );
-            } catch (Exception $e) {
-                $this->_getSession()->addError($e->getMessage());
+            } catch (Exception $exception) {
+                $this->_getSession()->addError($exception->getMessage());
                 $this->_redirect('*/*/edit', ['_current' => true,]);
                 return;
             }

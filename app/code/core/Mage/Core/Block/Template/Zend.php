@@ -37,8 +37,8 @@ class Mage_Core_Block_Template_Zend extends Mage_Core_Block_Template
     public function assign($key, $value = null)
     {
         if (is_array($key) && is_null($value)) {
-            foreach ($key as $k => $v) {
-                $this->assign($k, $v);
+            foreach ($key as $index => $val) {
+                $this->assign($index, $val);
             }
         } elseif (!is_null($value)) {
             $this->_view->assign($key, $value);

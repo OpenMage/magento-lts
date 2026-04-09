@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -16,7 +18,6 @@ $installer
         Mage_Catalog_Model_Product::ENTITY,
         'special_price',
         'note',
-        null,
     )
     ->updateAttribute(
         Mage_Catalog_Model_Product::ENTITY,

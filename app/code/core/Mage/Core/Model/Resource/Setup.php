@@ -499,7 +499,7 @@ class Mage_Core_Model_Resource_Setup
 
         $handlerDir->close();
 
-        if (empty($typeFiles) && empty($dbFiles)) {
+        if ($typeFiles === [] && $dbFiles === []) {
             return [];
         }
 
@@ -553,7 +553,7 @@ class Mage_Core_Model_Resource_Setup
             $handlerDir->close();
         }
 
-        if (empty($files)) {
+        if ($files === []) {
             return [];
         }
 
@@ -608,17 +608,11 @@ class Mage_Core_Model_Resource_Setup
             try {
                 switch ($fileType) {
                     case 'php':
-                        $conn   = $this->getConnection();
                         $result = include $fileName;
                         break;
                     case 'sql':
                         $sql = file_get_contents($fileName);
-                        if (!empty($sql)) {
-                            $result = $this->run($sql);
-                        } else {
-                            $result = true;
-                        }
-
+                        $result = $sql ? $this->run($sql) : true;
                         break;
                     default:
                         $result = false;
@@ -628,8 +622,8 @@ class Mage_Core_Model_Resource_Setup
                 if ($result) {
                     $this->_setResourceVersion($actionType, $file['toVersion']);
                 }
-            } catch (Exception $e) {
-                throw Mage::exception('Mage_Core', Mage::helper('core')->__('Error in file: "%s" - %s', $fileName, $e->getMessage()));
+            } catch (Exception $exception) {
+                throw Mage::exception('Mage_Core', Mage::helper('core')->__('Error in file: "%s" - %s', $fileName, $exception->getMessage()));
             }
 
             $version = $file['toVersion'];
@@ -789,11 +783,7 @@ class Mage_Core_Model_Resource_Setup
             $table = $this->getTable($table);
         }
 
-        if (is_array($field)) {
-            $data = $field;
-        } else {
-            $data = [$field => $value];
-        }
+        $data = is_array($field) ? $field : [$field => $value];
 
         $adapter = $this->getConnection();
         $where = [$adapter->quoteIdentifier($idField) . '=?' => $id];

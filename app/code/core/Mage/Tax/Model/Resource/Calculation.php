@@ -72,8 +72,8 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
     /**
      * Get tax rate information: calculation process data and tax rate
      *
-     * @param  Varien_Object $request
-     * @return array
+     * @param  Varien_Object              $request
+     * @return array<string, int|mixed[]>
      */
     public function getRateInfo($request)
     {
@@ -303,7 +303,7 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
                 ->joinLeft(
                     ['title_table' => $this->getTable('tax/tax_calculation_rate_title')],
                     'rate.tax_calculation_rate_id = title_table.tax_calculation_rate_id '
-                    . "AND title_table.store_id = '$storeId'",
+                    . "AND title_table.store_id = '{$storeId}'",
                     ['title' => $ifnullTitleValue],
                 )
                 ->where('rate.tax_country_id = ?', $countryId)

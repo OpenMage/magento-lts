@@ -99,7 +99,7 @@ abstract class Mage_Eav_Model_Attribute extends Mage_Eav_Model_Entity_Attribute
             return $rules;
         }
 
-        if (!empty($rules)) {
+        if (is_string($rules) && $rules !== '') {
             return Mage::helper('core/unserializeArray')->unserialize($rules);
         }
 

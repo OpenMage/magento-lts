@@ -15,7 +15,7 @@
 class Mage_Adminhtml_Model_System_Config_Source_Yesno
 {
     /**
-     * @return array
+     * @return array<int, array<string, int|string>>
      */
     public function toOptionArray()
     {
@@ -28,7 +28,7 @@ class Mage_Adminhtml_Model_System_Config_Source_Yesno
     /**
      * Get options in "key-value" format
      *
-     * @return array
+     * @return array<int, string>
      */
     public function toArray()
     {

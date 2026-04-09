@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -9,6 +11,8 @@
 
 /**
  * @package    Mage_CatalogRule
+ *
+ * @extends Mage_Rule_Model_Resource_Rule_Collection_Abstract<Mage_CatalogRule_Model_Rule>
  */
 class Mage_CatalogRule_Model_Resource_Rule_Collection extends Mage_Rule_Model_Resource_Rule_Collection_Abstract
 {

@@ -29,7 +29,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tabs extends Mage_Adminhtml_Bloc
         $product = $this->getProduct();
 
         if (!($setId = $product->getAttributeSetId())) {
-            $setId = $this->getRequest()->getParam('set', null);
+            $setId = $this->getRequest()->getParam('set');
         }
 
         if ($setId) {
@@ -107,11 +107,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tabs extends Mage_Adminhtml_Bloc
                 'class'     => 'ajax',
             ]);
 
-            $storeId = 0;
-            if ($this->getRequest()->getParam('store')) {
-                $storeId = Mage::app()->getStore($this->getRequest()->getParam('store'))->getId();
-            }
-
             $alertPriceAllow = Mage::getStoreConfig('catalog/productalert/allow_price');
             $alertStockAllow = Mage::getStoreConfig('catalog/productalert/allow_stock');
 
@@ -124,30 +119,29 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tabs extends Mage_Adminhtml_Bloc
             }
 
             if ($this->getRequest()->getParam('id', false)) {
-                if ($this->isModuleEnabled('Mage_Review', 'catalog')) {
-                    if (Mage::getSingleton('admin/session')->isAllowed('admin/catalog/reviews_ratings')) {
-                        $this->addTab('reviews', [
-                            'label' => Mage::helper('catalog')->__('Product Reviews'),
-                            'url'   => $this->getUrl('*/*/reviews', ['_current' => true]),
-                            'class' => 'ajax',
-                        ]);
-                    }
+                if ($this->isModuleEnabled('Mage_Review', 'catalog')
+                    && Mage::getSingleton('admin/session')->isAllowed('admin/catalog/reviews_ratings')
+                ) {
+                    $this->addTab('reviews', [
+                        'label' => Mage::helper('catalog')->__('Product Reviews'),
+                        'url'   => $this->getUrl('*/*/reviews', ['_current' => true]),
+                        'class' => 'ajax',
+                    ]);
                 }
 
-                if ($this->isModuleEnabled('Mage_Tag', 'catalog')) {
-                    if (Mage::getSingleton('admin/session')->isAllowed('admin/catalog/tag')) {
-                        $this->addTab('tags', [
-                            'label'     => Mage::helper('catalog')->__('Product Tags'),
-                            'url'   => $this->getUrl('*/*/tagGrid', ['_current' => true]),
-                            'class' => 'ajax',
-                        ]);
-
-                        $this->addTab('customers_tags', [
-                            'label'     => Mage::helper('catalog')->__('Customers Tagged Product'),
-                            'url'   => $this->getUrl('*/*/tagCustomerGrid', ['_current' => true]),
-                            'class' => 'ajax',
-                        ]);
-                    }
+                if ($this->isModuleEnabled('Mage_Tag', 'catalog')
+                    && Mage::getSingleton('admin/session')->isAllowed('admin/catalog/tag')
+                ) {
+                    $this->addTab('tags', [
+                        'label'     => Mage::helper('catalog')->__('Product Tags'),
+                        'url'   => $this->getUrl('*/*/tagGrid', ['_current' => true]),
+                        'class' => 'ajax',
+                    ]);
+                    $this->addTab('customers_tags', [
+                        'label'     => Mage::helper('catalog')->__('Customers Tagged Product'),
+                        'url'   => $this->getUrl('*/*/tagCustomerGrid', ['_current' => true]),
+                        'class' => 'ajax',
+                    ]);
                 }
             }
 

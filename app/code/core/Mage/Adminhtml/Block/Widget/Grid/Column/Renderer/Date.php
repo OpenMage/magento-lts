@@ -35,8 +35,8 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Date extends Mage_Adminht
                     self::$_format = Mage::app()->getLocale()->getDateFormat(
                         Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM,
                     );
-                } catch (Exception $e) {
-                    Mage::logException($e);
+                } catch (Exception $exception) {
+                    Mage::logException($exception);
                 }
             }
 

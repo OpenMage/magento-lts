@@ -68,13 +68,11 @@ class Mage_Cms_Helper_Page extends Mage_Core_Helper_Abstract
         $inRange = Mage::app()->getLocale()
             ->isStoreDateInInterval(null, $page->getCustomThemeFrom(), $page->getCustomThemeTo());
 
-        if ($page->getCustomTheme()) {
-            if ($inRange) {
-                [$package, $theme] = explode('/', $page->getCustomTheme());
-                Mage::getSingleton('core/design_package')
-                    ->setPackageName($package)
-                    ->setTheme($theme);
-            }
+        if ($page->getCustomTheme() && $inRange) {
+            [$package, $theme] = explode('/', $page->getCustomTheme());
+            Mage::getSingleton('core/design_package')
+                ->setPackageName($package)
+                ->setTheme($theme);
         }
 
         $action->getLayout()->getUpdate()
@@ -245,5 +243,15 @@ class Mage_Cms_Helper_Page extends Mage_Core_Helper_Abstract
         unset($data, $path, $items, $item, $scopes);
 
         return implode(', ', $messages);
+    }
+
+    /**
+     * Get CMS page identifier without trailing page ID
+     *
+     * @param Mage_Cms_Helper_Page::XML_PATH_* $path
+     */
+    public function getIdentifierFromConfigPath(string $path): string
+    {
+        return explode('|', (string) Mage::getStoreConfig($path))[0];
     }
 }

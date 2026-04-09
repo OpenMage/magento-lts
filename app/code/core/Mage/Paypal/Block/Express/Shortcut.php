@@ -181,8 +181,11 @@ class Mage_Paypal_Block_Express_Shortcut extends Mage_Core_Block_Template
      */
     public function isOrPositionBefore()
     {
-        return ($this->getIsInCatalogProduct() && !$this->getShowOrPosition())
-            || ($this->getShowOrPosition() && $this->getShowOrPosition() === self::POSITION_BEFORE);
+        if ($this->getIsInCatalogProduct() && !$this->getShowOrPosition()) {
+            return true;
+        }
+
+        return $this->getShowOrPosition() && $this->getShowOrPosition() === self::POSITION_BEFORE;
     }
 
     /**
@@ -192,7 +195,10 @@ class Mage_Paypal_Block_Express_Shortcut extends Mage_Core_Block_Template
      */
     public function isOrPositionAfter()
     {
-        return (!$this->getIsInCatalogProduct() && !$this->getShowOrPosition())
-            || ($this->getShowOrPosition() && $this->getShowOrPosition() === self::POSITION_AFTER);
+        if (!$this->getIsInCatalogProduct() && !$this->getShowOrPosition()) {
+            return true;
+        }
+
+        return $this->getShowOrPosition() && $this->getShowOrPosition() === self::POSITION_AFTER;
     }
 }

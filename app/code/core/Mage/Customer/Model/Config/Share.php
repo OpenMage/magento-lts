@@ -49,7 +49,7 @@ class Mage_Customer_Model_Config_Share extends Mage_Core_Model_Config_Data
     /**
      * Get possible sharing configuration options
      *
-     * @return array
+     * @return array<int, string>
      */
     public function toOptionArray()
     {
@@ -68,12 +68,10 @@ class Mage_Customer_Model_Config_Share extends Mage_Core_Model_Config_Data
     protected function _beforeSave()
     {
         $value = $this->getValue();
-        if ($value == self::SHARE_GLOBAL) {
-            if (Mage::getResourceSingleton('customer/customer')->findEmailDuplicates()) {
-                Mage::throwException(
-                    Mage::helper('customer')->__('Cannot share customer accounts globally because some customer accounts with the same emails exist on multiple websites and cannot be merged.'),
-                );
-            }
+        if ($value == self::SHARE_GLOBAL && Mage::getResourceSingleton('customer/customer')->findEmailDuplicates()) {
+            Mage::throwException(
+                Mage::helper('customer')->__('Cannot share customer accounts globally because some customer accounts with the same emails exist on multiple websites and cannot be merged.'),
+            );
         }
 
         return $this;

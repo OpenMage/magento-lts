@@ -210,11 +210,7 @@ class Varien_Data_Tree_Dbp extends Varien_Data_Tree
                 $node->setPathId($node->getData($this->_pathField));
                 $this->addNode($node, $parentNode);
 
-                if ($path) {
-                    $childrenPath = explode('/', $path);
-                } else {
-                    $childrenPath = [];
-                }
+                $childrenPath = $path ? explode('/', $path) : [];
 
                 $childrenPath[] = $node->getId();
                 $childrenPath = implode('/', $childrenPath);
@@ -261,10 +257,8 @@ class Varien_Data_Tree_Dbp extends Varien_Data_Tree
         }
 
         foreach ($node->getChildren() as $child) {
-            if ($recursive) {
-                if ($child->getChildren()) {
-                    $result = $this->getChildren($child, $recursive, $result);
-                }
+            if ($recursive && $child->getChildren()) {
+                $result = $this->getChildren($child, $recursive, $result);
             }
 
             $result[] = $child->getId();
@@ -296,9 +290,9 @@ class Varien_Data_Tree_Dbp extends Varien_Data_Tree
 
         $data = [
             $this->_levelField => new Zend_Db_Expr("{$this->_levelField} + '{$levelDisposition}'"),
-            $this->_pathField  => new Zend_Db_Expr("CONCAT('$newPath', RIGHT($this->_pathField, LENGTH($this->_pathField) - {$oldPathLength}))"),
+            $this->_pathField  => new Zend_Db_Expr("CONCAT('{$newPath}', RIGHT($this->_pathField, LENGTH($this->_pathField) - {$oldPathLength}))"),
         ];
-        $condition = $this->_conn->quoteInto("$this->_pathField REGEXP ?", "^$oldPath(/|$)");
+        $condition = $this->_conn->quoteInto("$this->_pathField REGEXP ?", "^{$oldPath}(/|$)");
 
         $this->_conn->beginTransaction();
 
@@ -396,11 +390,7 @@ class Varien_Data_Tree_Dbp extends Varien_Data_Tree
                     $this->_loaded = false;
                 }
 
-                if ($path) {
-                    $childrenPath = explode('/', $path);
-                } else {
-                    $childrenPath = [];
-                }
+                $childrenPath = $path ? explode('/', $path) : [];
 
                 $childrenPath[] = $node->getId();
                 $childrenPath = implode('/', $childrenPath);

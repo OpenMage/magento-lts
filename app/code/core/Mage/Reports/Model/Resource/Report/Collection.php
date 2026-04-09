@@ -14,7 +14,7 @@ use Carbon\Carbon;
  *
  * @package    Mage_Reports
  */
-class Mage_Reports_Model_Resource_Report_Collection
+class Mage_Reports_Model_Resource_Report_Collection extends Varien_Data_Collection
 {
     /**
      * From value
@@ -52,22 +52,12 @@ class Mage_Reports_Model_Resource_Report_Collection
     protected $_intervals;
 
     /**
-     * Page size
-     *
-     * @var int
-     */
-    protected $_pageSize;
-
-    /**
      * Array of store ids
      *
      * @var array
      */
     protected $_storeIds;
 
-    /**
-     * @inheritDoc
-     */
     protected function _construct() {}
 
     /**
@@ -85,14 +75,14 @@ class Mage_Reports_Model_Resource_Report_Collection
     /**
      * Set interval
      *
-     * @param  Zend_Date $from
-     * @param  Zend_Date $to
+     * @param  Zend_Date $dateFrom
+     * @param  Zend_Date $dateTo
      * @return $this
      */
-    public function setInterval($from, $to)
+    public function setInterval($dateFrom, $dateTo)
     {
-        $this->_from = $from;
-        $this->_to   = $to;
+        $this->_from = $dateFrom;
+        $this->_to   = $dateTo;
 
         return $this;
     }
@@ -173,7 +163,7 @@ class Mage_Reports_Model_Resource_Report_Collection
     /**
      * Return date periods
      *
-     * @return array
+     * @return array<string, string>
      */
     public function getPeriods()
     {
@@ -207,35 +197,11 @@ class Mage_Reports_Model_Resource_Report_Collection
     }
 
     /**
-     * Get size
-     *
-     * @return int
+     * @inheritDoc
      */
     public function getSize()
     {
         return count($this->getIntervals());
-    }
-
-    /**
-     * Set page size
-     *
-     * @param  int   $size
-     * @return $this
-     */
-    public function setPageSize($size)
-    {
-        $this->_pageSize = $size;
-        return $this;
-    }
-
-    /**
-     * Get page size
-     *
-     * @return int
-     */
-    public function getPageSize()
-    {
-        return $this->_pageSize;
     }
 
     /**
@@ -257,31 +223,31 @@ class Mage_Reports_Model_Resource_Report_Collection
     /**
      * get report full
      *
-     * @param  string                    $from
-     * @param  string                    $to
+     * @param  null|string               $dateFrom
+     * @param  null|string               $dateTo
      * @return Mage_Reports_Model_Report
      */
-    public function getReportFull($from, $to)
+    public function getReportFull($dateFrom, $dateTo)
     {
-        return $this->_model->getReportFull($this->timeShift($from), $this->timeShift($to));
+        return $this->_model->getReportFull($this->timeShift($dateFrom), $this->timeShift($dateTo));
     }
 
     /**
      * Get report
      *
-     * @param  string                    $from
-     * @param  string                    $to
+     * @param  null|string               $dateFrom
+     * @param  null|string               $dateTo
      * @return Mage_Reports_Model_Report
      */
-    public function getReport($from, $to)
+    public function getReport($dateFrom, $dateTo)
     {
-        return $this->_model->getReport($this->timeShift($from), $this->timeShift($to));
+        return $this->_model->getReport($this->timeShift($dateFrom), $this->timeShift($dateTo));
     }
 
     /**
      * Retrieve time shift
      *
-     * @param  string $datetime
+     * @param  null|string $datetime
      * @return string
      */
     public function timeShift($datetime)

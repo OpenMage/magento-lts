@@ -169,12 +169,10 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
 
         if ($this->getUseStoreTables() && $storeId) {
             $suffix = sprintf('store_%d', $storeId);
-            $table = $this->getTable(['catalog/category_flat', $suffix]);
-        } else {
-            $table = parent::getMainTable();
+            return $this->getTable(['catalog/category_flat', $suffix]);
         }
 
-        return $table;
+        return parent::getMainTable();
     }
 
     /**
@@ -280,7 +278,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
         $urlRewrite->joinTableToSelect($select, $storeId);
 
         if ($parentPath) {
-            $select->where($_conn->quoteInto('main_table.path like ?', "$parentPath/%"));
+            $select->where($_conn->quoteInto('main_table.path like ?', "{$parentPath}/%"));
         }
 
         if ($recursionLevel != 0) {
@@ -331,11 +329,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
                     $parent->setChildrenNodes($childrenNodes);
                 }
 
-                if ($path) {
-                    $childrenPath = explode('/', $path);
-                } else {
-                    $childrenPath = [];
-                }
+                $childrenPath = $path ? explode('/', $path) : [];
 
                 $childrenPath[] = $child->getId();
                 $childrenPath = implode('/', $childrenPath);
@@ -373,11 +367,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
 
                 $this->addChildNodes($childrenItems, $parentNode->getPath(), $parentNode);
                 $childrenNodes = $this->_nodes[$parentNode->getId()];
-                if ($childrenNodes->getChildrenNodes()) {
-                    $this->_nodes = $childrenNodes->getChildrenNodes();
-                } else {
-                    $this->_nodes = [];
-                }
+                $this->_nodes = $childrenNodes->getChildrenNodes() ? $childrenNodes->getChildrenNodes() : [];
 
                 $this->_loaded = true;
             }
@@ -451,17 +441,13 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
     /**
      * Check if Catalog Category Flat Data has been initialized
      *
-     * @param  null|bool|int|\Mage_Core_Model_Store $storeView Store(id) for which the value is checked
+     * @param  null|bool|int|Mage_Core_Model_Store $storeView Store(id) for which the value is checked
      * @return bool
      */
     public function isBuilt($storeView = null)
     {
         $storeView = is_null($storeView) ? Mage::app()->getDefaultStoreView() : Mage::app()->getStore($storeView);
-        if ($storeView === null) {
-            $storeId = Mage_Core_Model_App::ADMIN_STORE_ID;
-        } else {
-            $storeId = $storeView->getId();
-        }
+        $storeId = $storeView === null ? Mage_Core_Model_App::ADMIN_STORE_ID : $storeView->getId();
 
         if (!isset($this->_isBuilt[$storeId])) {
             $select = $this->_getReadAdapter()->select()
@@ -547,11 +533,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
     {
         $values = [];
         foreach (array_keys($this->_columns) as $column) {
-            if (isset($data[$column])) {
-                $values[$column] = $data[$column];
-            } else {
-                $values[$column] = null;
-            }
+            $values[$column] = $data[$column] ?? null;
         }
 
         return $values;
@@ -1131,7 +1113,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
 
             $select = $this->_getWriteAdapter()->select()
                 ->from($catalogCategoryTable, 'entity_id')
-                ->where('path LIKE ?', "$categoryPath/%")
+                ->where('path LIKE ?', "{$categoryPath}/%")
                 ->orWhere('path = ?', $categoryPath);
             $_categories = $this->_getWriteAdapter()->fetchAll($select);
             foreach ($_categories as $_category) {
@@ -1153,15 +1135,12 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
 
                 $update = substr($update, 0, -1);
                 $update .= " WHERE {$mainStoreTable}.entity_id = {$catalogCategoryTable}.entity_id AND "
-                    . "($catalogCategoryTable}.path like '{$parent->getPath()}/%' OR "
+                    . "({$catalogCategoryTable}.path like '{$parent->getPath()}/%' OR "
                     . "{$catalogCategoryTable}.path like '{$prevParent->getPath()}/%')";
                 $this->_getWriteAdapter()->query($update);
             }
         }
 
-        $prevParent   = null;
-        $parent       = null;
-        $_tmpCategory = null;
         return $this;
     }
 
@@ -1555,16 +1534,5 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
         }
 
         return $this;
-    }
-
-    /**
-     * Check if Catalog Category Flat Data has been initialized
-     *
-     * @return bool
-     * @deprecated use Mage_Catalog_Model_Resource_Category_Flat::isBuilt() instead
-     */
-    public function isRebuilt()
-    {
-        return $this->isBuilt();
     }
 }

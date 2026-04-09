@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3afd1bf9c31c07c9a511779383a2e5bc",
+    "content-hash": "416833ac523a8f6849aea118fa0c1c2b",
     "packages": [
         {
             "name": "carbonphp/carbon-doctrine-types",
@@ -1304,16 +1304,16 @@
         },
         {
             "name": "mklkj/tinymce-i18n",
-            "version": "26.2.16",
+            "version": "26.3.30",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mklkj/tinymce-i18n.git",
-                "reference": "47145e4264a055ef327cf70b7bd0d5022e88c734"
+                "reference": "2d2c1d4c8e0e3bf0fc9c7b5cab6217c0c4e5e937"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mklkj/tinymce-i18n/zipball/47145e4264a055ef327cf70b7bd0d5022e88c734",
-                "reference": "47145e4264a055ef327cf70b7bd0d5022e88c734",
+                "url": "https://api.github.com/repos/mklkj/tinymce-i18n/zipball/2d2c1d4c8e0e3bf0fc9c7b5cab6217c0c4e5e937",
+                "reference": "2d2c1d4c8e0e3bf0fc9c7b5cab6217c0c4e5e937",
                 "shasum": ""
             },
             "type": "library",
@@ -1336,9 +1336,9 @@
             ],
             "support": {
                 "issues": "https://github.com/mklkj/tinymce-i18n/issues",
-                "source": "https://github.com/mklkj/tinymce-i18n/tree/26.2.16"
+                "source": "https://github.com/mklkj/tinymce-i18n/tree/26.3.30"
             },
-            "time": "2026-02-16T12:08:53+00:00"
+            "time": "2026-03-30T11:07:30+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -2072,16 +2072,16 @@
         },
         {
             "name": "phpseclib/phpseclib",
-            "version": "3.0.49",
+            "version": "3.0.50",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpseclib/phpseclib.git",
-                "reference": "6233a1e12584754e6b5daa69fe1289b47775c1b9"
+                "reference": "aa6ad8321ed103dc3624fb600a25b66ebf78ec7b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpseclib/phpseclib/zipball/6233a1e12584754e6b5daa69fe1289b47775c1b9",
-                "reference": "6233a1e12584754e6b5daa69fe1289b47775c1b9",
+                "url": "https://api.github.com/repos/phpseclib/phpseclib/zipball/aa6ad8321ed103dc3624fb600a25b66ebf78ec7b",
+                "reference": "aa6ad8321ed103dc3624fb600a25b66ebf78ec7b",
                 "shasum": ""
             },
             "require": {
@@ -2162,7 +2162,7 @@
             ],
             "support": {
                 "issues": "https://github.com/phpseclib/phpseclib/issues",
-                "source": "https://github.com/phpseclib/phpseclib/tree/3.0.49"
+                "source": "https://github.com/phpseclib/phpseclib/tree/3.0.50"
             },
             "funding": [
                 {
@@ -2178,7 +2178,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-01-27T09:17:28+00:00"
+            "time": "2026-03-19T02:57:58+00:00"
         },
         {
             "name": "psr/clock",
@@ -4431,16 +4431,16 @@
         },
         {
             "name": "tinymce/tinymce",
-            "version": "8.3.2",
+            "version": "8.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tinymce/tinymce-dist.git",
-                "reference": "4b043a865f1978056f6649638b2e983c0624ff66"
+                "reference": "268583cbd56a9ed30d38856deab8cfd48727b746"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tinymce/tinymce-dist/zipball/4b043a865f1978056f6649638b2e983c0624ff66",
-                "reference": "4b043a865f1978056f6649638b2e983c0624ff66",
+                "url": "https://api.github.com/repos/tinymce/tinymce-dist/zipball/268583cbd56a9ed30d38856deab8cfd48727b746",
+                "reference": "268583cbd56a9ed30d38856deab8cfd48727b746",
                 "shasum": ""
             },
             "type": "component",
@@ -4484,9 +4484,9 @@
                 "wysiwyg"
             ],
             "support": {
-                "source": "https://github.com/tinymce/tinymce-dist/tree/8.3.2"
+                "source": "https://github.com/tinymce/tinymce-dist/tree/8.4.0"
             },
-            "time": "2026-01-14T01:01:47+00:00"
+            "time": "2026-03-31T06:07:53+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
@@ -6419,11 +6419,11 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "2.1.40",
+            "version": "2.1.46",
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/9b2c7aeb83a75d8680ea5e7c9b7fca88052b766b",
-                "reference": "9b2c7aeb83a75d8680ea5e7c9b7fca88052b766b",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/a193923fc2d6325ef4e741cf3af8c3e8f54dbf25",
+                "reference": "a193923fc2d6325ef4e741cf3af8c3e8f54dbf25",
                 "shasum": ""
             },
             "require": {
@@ -6468,7 +6468,57 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-02-23T15:04:35+00:00"
+            "time": "2026-04-01T09:25:14+00:00"
+        },
+        {
+            "name": "phpstan/phpstan-deprecation-rules",
+            "version": "2.0.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/phpstan/phpstan-deprecation-rules.git",
+                "reference": "6b5571001a7f04fa0422254c30a0017ec2f2cacc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/phpstan/phpstan-deprecation-rules/zipball/6b5571001a7f04fa0422254c30a0017ec2f2cacc",
+                "reference": "6b5571001a7f04fa0422254c30a0017ec2f2cacc",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.4 || ^8.0",
+                "phpstan/phpstan": "^2.1.39"
+            },
+            "require-dev": {
+                "php-parallel-lint/php-parallel-lint": "^1.2",
+                "phpstan/phpstan-phpunit": "^2.0",
+                "phpunit/phpunit": "^9.6"
+            },
+            "type": "phpstan-extension",
+            "extra": {
+                "phpstan": {
+                    "includes": [
+                        "rules.neon"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "PHPStan\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "PHPStan rules for detecting usage of deprecated classes, methods, properties, constants and traits.",
+            "keywords": [
+                "static analysis"
+            ],
+            "support": {
+                "issues": "https://github.com/phpstan/phpstan-deprecation-rules/issues",
+                "source": "https://github.com/phpstan/phpstan-deprecation-rules/tree/2.0.4"
+            },
+            "time": "2026-02-09T13:21:14+00:00"
         },
         {
             "name": "phpstan/phpstan-phpunit",
@@ -7585,21 +7635,21 @@
         },
         {
             "name": "rector/rector",
-            "version": "2.3.8",
+            "version": "2.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rectorphp/rector.git",
-                "reference": "bbd37aedd8df749916cffa2a947cfc4714d1ba2c"
+                "reference": "000b7050b9e4fe98db2192971e56eb0b302b3feb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rectorphp/rector/zipball/bbd37aedd8df749916cffa2a947cfc4714d1ba2c",
-                "reference": "bbd37aedd8df749916cffa2a947cfc4714d1ba2c",
+                "url": "https://api.github.com/repos/rectorphp/rector/zipball/000b7050b9e4fe98db2192971e56eb0b302b3feb",
+                "reference": "000b7050b9e4fe98db2192971e56eb0b302b3feb",
                 "shasum": ""
             },
             "require": {
                 "php": "^7.4|^8.0",
-                "phpstan/phpstan": "^2.1.38"
+                "phpstan/phpstan": "^2.1.41"
             },
             "conflict": {
                 "rector/rector-doctrine": "*",
@@ -7633,7 +7683,7 @@
             ],
             "support": {
                 "issues": "https://github.com/rectorphp/rector/issues",
-                "source": "https://github.com/rectorphp/rector/tree/2.3.8"
+                "source": "https://github.com/rectorphp/rector/tree/2.4.1"
             },
             "funding": [
                 {
@@ -7641,7 +7691,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-02-22T09:45:50+00:00"
+            "time": "2026-04-08T08:43:56+00:00"
         },
         {
             "name": "sebastian/cli-parser",
@@ -9450,20 +9500,20 @@
         },
         {
             "name": "symplify/vendor-patches",
-            "version": "12.0.6",
+            "version": "12.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symplify/vendor-patches.git",
-                "reference": "096aaab56bcea39e25468f538601fda00c1024bb"
+                "reference": "157ddf6b8d992a2e3adbd9bc16264a6e95d91f6b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symplify/vendor-patches/zipball/096aaab56bcea39e25468f538601fda00c1024bb",
-                "reference": "096aaab56bcea39e25468f538601fda00c1024bb",
+                "url": "https://api.github.com/repos/symplify/vendor-patches/zipball/157ddf6b8d992a2e3adbd9bc16264a6e95d91f6b",
+                "reference": "157ddf6b8d992a2e3adbd9bc16264a6e95d91f6b",
                 "shasum": ""
             },
             "require": {
-                "cweagans/composer-patches": "^1.7.3 || ^2.0",
+                "cweagans/composer-patches": "^1.7 || ^2.0",
                 "php": ">=7.2"
             },
             "bin": [
@@ -9477,7 +9527,7 @@
             "description": "Generate vendor patches for packages with single command",
             "support": {
                 "issues": "https://github.com/symplify/vendor-patches/issues",
-                "source": "https://github.com/symplify/vendor-patches/tree/12.0.6"
+                "source": "https://github.com/symplify/vendor-patches/tree/12.0.1"
             },
             "funding": [
                 {
@@ -9489,7 +9539,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-02-03T10:18:03+00:00"
+            "time": "2025-11-19T09:19:07+00:00"
         },
         {
             "name": "theseer/tokenizer",

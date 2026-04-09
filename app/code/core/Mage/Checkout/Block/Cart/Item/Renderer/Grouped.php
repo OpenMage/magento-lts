@@ -12,7 +12,7 @@
  *
  * @package    Mage_Checkout
  *
- * @method \Mage_Checkout_Block_Cart_Sidebar getRenderedBlock()
+ * @method Mage_Checkout_Block_Cart_Sidebar getRenderedBlock()
  */
 class Mage_Checkout_Block_Cart_Item_Renderer_Grouped extends Mage_Checkout_Block_Cart_Item_Renderer
 {

@@ -77,10 +77,10 @@ abstract class Mage_Catalog_Model_Api2_Product_Website_Rest extends Mage_Catalog
                         ->save();
                 }
             }
-        } catch (Mage_Core_Exception $e) {
-            $this->_critical($e->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
-        } catch (Exception $e) {
-            Mage::logException($e);
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_critical($mageCoreException->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
+        } catch (Exception $exception) {
+            Mage::logException($exception);
             $this->_critical(self::RESOURCE_INTERNAL_ERROR);
         }
 
@@ -142,12 +142,12 @@ abstract class Mage_Catalog_Model_Api2_Product_Website_Rest extends Mage_Catalog
                         'product_id' => $product->getId(),
                     ],
                 );
-            } catch (Mage_Api2_Exception $e) {
+            } catch (Mage_Api2_Exception $mageApi2Exception) {
                 // pre-validation errors are already added
-                if ($e->getMessage() != self::RESOURCE_DATA_PRE_VALIDATION_ERROR) {
+                if ($mageApi2Exception->getMessage() != self::RESOURCE_DATA_PRE_VALIDATION_ERROR) {
                     $this->_errorMessage(
-                        $e->getMessage(),
-                        $e->getCode(),
+                        $mageApi2Exception->getMessage(),
+                        $mageApi2Exception->getCode(),
                         [
                             'website_id' => $singleData['website_id'] ?? null,
                             'product_id' => $product->getId(),
@@ -201,10 +201,10 @@ abstract class Mage_Catalog_Model_Api2_Product_Website_Rest extends Mage_Catalog
 
         try {
             $product->save();
-        } catch (Mage_Core_Exception $e) {
-            $this->_critical($e->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
-        } catch (Exception $e) {
-            Mage::logException($e);
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_critical($mageCoreException->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
+        } catch (Exception $exception) {
+            Mage::logException($exception);
             $this->_critical(self::RESOURCE_INTERNAL_ERROR);
         }
     }

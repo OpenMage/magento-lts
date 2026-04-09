@@ -221,16 +221,20 @@ class Mage_Core_Model_Url_Rewrite_Request
         }
 
         foreach ($config->children() as $rewrite) {
-            $from = (string) $rewrite->from;
-            $to = (string) $rewrite->to;
-            if (empty($from) || empty($to)) {
+            $rewriteFrom = (string) $rewrite->from;
+            $rewriteTo   = (string) $rewrite->to;
+            if (empty($rewriteFrom)) {
                 continue;
             }
 
-            $from = $this->_processRewriteUrl($from);
-            $to   = $this->_processRewriteUrl($to);
+            if (empty($rewriteTo)) {
+                continue;
+            }
 
-            $pathInfo = preg_replace($from, $to, $this->_request->getPathInfo());
+            $rewriteFrom = $this->_processRewriteUrl($rewriteFrom);
+            $rewriteTo   = $this->_processRewriteUrl($rewriteTo);
+
+            $pathInfo = preg_replace($rewriteFrom, $rewriteTo, $this->_request->getPathInfo());
             if (isset($rewrite->complete)) {
                 $this->_request->setPathInfo($pathInfo);
             } else {
@@ -249,7 +253,7 @@ class Mage_Core_Model_Url_Rewrite_Request
      * - with and without slashes at the end ("/somepath/" and "/somepath").
      * Choose any matched rewrite, but in priority order that depends on same presence of slash and query params.
      *
-     * @return array
+     * @return array<int, string>
      */
     protected function _getRequestCases()
     {

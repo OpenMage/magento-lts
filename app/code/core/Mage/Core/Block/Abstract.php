@@ -763,8 +763,11 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
 
             $index = array_search($name, $this->_sortedChildren);
             $siblingKey = array_search($siblingName, $this->_sortedChildren);
+            if ($index === false) {
+                continue;
+            }
 
-            if ($index === false || $siblingKey === false) {
+            if ($siblingKey === false) {
                 continue;
             }
 
@@ -908,11 +911,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     public function setFrameTags($openTag, $closeTag = null)
     {
         $this->_frameOpenTag = $openTag;
-        if ($closeTag) {
-            $this->_frameCloseTag = $closeTag;
-        } else {
-            $this->_frameCloseTag = '/' . $openTag;
-        }
+        $this->_frameCloseTag = $closeTag ? $closeTag : '/' . $openTag;
 
         return $this;
     }
@@ -1213,23 +1212,10 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     }
 
     /**
-     * @param  array|string $data
-     * @param  array        $allowedTags
-     * @return string
-     * @deprecated after 1.4.0.0-rc1
-     * @see self::escapeHtml()
-     */
-    public function htmlEscape($data, $allowedTags = null)
-    {
-        return $this->escapeHtml($data, $allowedTags);
-    }
-
-    /**
      * Escape html entities
-     *
-     * @param  string|string[]      $data
-     * @param  null|array           $allowedTags
-     * @return null|string|string[]
+     * @param  null|string|string[]                        $data
+     * @param  null|string[]                               $allowedTags
+     * @return ($data is array ? array<?string> : ?string)
      */
     public function escapeHtml($data, $allowedTags = null)
     {
@@ -1278,17 +1264,6 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     public function stripTags($data, $allowableTags = null, $allowHtmlEntities = false)
     {
         return $this->helper('core')->stripTags($data, $allowableTags, $allowHtmlEntities);
-    }
-
-    /**
-     * @param  string $data
-     * @return string
-     * @deprecated after 1.4.0.0-rc1
-     * @see self::escapeUrl()
-     */
-    public function urlEscape($data)
-    {
-        return $this->escapeUrl($data);
     }
 
     /**
@@ -1384,7 +1359,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      * Get cache key informative items
      * Provide string array key to share specific info item with FPC placeholder
      *
-     * @return array
+     * @return array<int, string>
      */
     public function getCacheKeyInfo()
     {
@@ -1433,7 +1408,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
             $tags = json_decode($tagsCache);
         }
 
-        if (!isset($tags) || !is_array($tags) || empty($tags)) {
+        if (!isset($tags) || !is_array($tags) || $tags === []) {
             $tags = $this->hasData(self::CACHE_TAGS_DATA_KEY) ? $this->getData(self::CACHE_TAGS_DATA_KEY) : [];
             if (!in_array(self::CACHE_GROUP, $tags)) {
                 $tags[] = self::CACHE_GROUP;

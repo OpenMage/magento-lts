@@ -33,8 +33,8 @@ class Mage_Core_Model_Logger
     /**
      * Log exception wrapper
      */
-    public function logException(Exception $e)
+    public function logException(Exception $exception)
     {
-        Mage::logException($e);
+        Mage::logException($exception);
     }
 }

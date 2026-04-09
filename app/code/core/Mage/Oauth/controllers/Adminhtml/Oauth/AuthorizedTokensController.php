@@ -14,6 +14,8 @@
  */
 class Mage_Oauth_Adminhtml_Oauth_AuthorizedTokensController extends Mage_Adminhtml_Controller_Action
 {
+    public const ADMIN_RESOURCE = 'system/api/oauth_authorized_tokens';
+
     /**
      * Init titles
      *
@@ -85,18 +87,14 @@ class Mage_Oauth_Adminhtml_Oauth_AuthorizedTokensController extends Mage_Adminht
                 $this->_sendTokenStatusChangeNotification($item, $status ? $this->__('revoked') : $this->__('enabled'));
             }
 
-            if ($status) {
-                $message = $this->__('Selected entries revoked.');
-            } else {
-                $message = $this->__('Selected entries enabled.');
-            }
+            $message = $status ? $this->__('Selected entries revoked.') : $this->__('Selected entries enabled.');
 
             $this->_getSession()->addSuccess($message);
-        } catch (Mage_Core_Exception $e) {
-            $this->_getSession()->addError($e->getMessage());
-        } catch (Exception $e) {
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_getSession()->addError($mageCoreException->getMessage());
+        } catch (Exception $exception) {
             $this->_getSession()->addError($this->__('An error occurred on update revoke status.'));
-            Mage::logException($e);
+            Mage::logException($exception);
         }
 
         $this->_redirect('*/*/index');
@@ -131,24 +129,14 @@ class Mage_Oauth_Adminhtml_Oauth_AuthorizedTokensController extends Mage_Adminht
             }
 
             $this->_getSession()->addSuccess($this->__('Selected entries has been deleted.'));
-        } catch (Mage_Core_Exception $e) {
-            $this->_getSession()->addError($e->getMessage());
-        } catch (Exception $e) {
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_getSession()->addError($mageCoreException->getMessage());
+        } catch (Exception $exception) {
             $this->_getSession()->addError($this->__('An error occurred on delete action.'));
-            Mage::logException($e);
+            Mage::logException($exception);
         }
 
         $this->_redirect('*/*/index');
-    }
-
-    /**
-     * @inheritDoc
-     */
-    protected function _isAllowed()
-    {
-        /** @var Mage_Admin_Model_Session $session */
-        $session = Mage::getSingleton('admin/session');
-        return $session->isAllowed('system/api/oauth_authorized_tokens');
     }
 
     /**

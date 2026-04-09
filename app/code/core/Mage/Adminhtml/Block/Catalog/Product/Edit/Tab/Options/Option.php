@@ -57,11 +57,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options_Option extends Mage_
     public function getProduct()
     {
         if (!$this->_productInstance) {
-            if ($product = Mage::registry('product')) {
-                $this->_productInstance = $product;
-            } else {
-                $this->_productInstance = Mage::getSingleton('catalog/product');
-            }
+            $this->_productInstance = ($product = Mage::registry('product')) ? $product : Mage::getSingleton('catalog/product');
         }
 
         return $this->_productInstance;
@@ -340,5 +336,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options_Option extends Mage_
         if ($type == 'fixed') {
             return number_format($value, 2, null, '');
         }
+
+        return null;
     }
 }

@@ -131,6 +131,9 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Date extends Mage_Adminhtml
         return $value;
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getCondition()
     {
         return $this->getValue();

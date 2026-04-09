@@ -82,7 +82,7 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
             'notanchor_categories' => self::SINGLE_CATEGORY_LAYOUT_HANDLE,
             'all_products' => self::SINGLE_PRODUCT_LAYOUT_HANLDE,
         ];
-        foreach (Mage_Catalog_Model_Product_Type::getTypes() as $typeId => $type) {
+        foreach (array_keys(Mage_Catalog_Model_Product_Type::getTypes()) as $typeId) {
             $layoutHandle = str_replace('{{TYPE}}', $typeId, self::PRODUCT_TYPE_LAYOUT_HANDLE);
             $this->_layoutHandles[$typeId . '_products'] = $layoutHandle;
             $this->_specificEntitiesLayoutHandles[$typeId . '_products'] = self::SINGLE_PRODUCT_LAYOUT_HANLDE;
@@ -195,7 +195,7 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
      */
     public function isCompleteToCreate()
     {
-        return (bool) ($this->getType() && $this->getPackageTheme());
+        return $this->getType() && $this->getPackageTheme();
     }
 
     /**
@@ -358,8 +358,8 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
         if (is_string($this->getData('widget_parameters'))) {
             try {
                 return Mage::helper('core/unserializeArray')->unserialize($this->getData('widget_parameters'));
-            } catch (Exception $e) {
-                Mage::logException($e);
+            } catch (Exception $exception) {
+                Mage::logException($exception);
             }
         }
 

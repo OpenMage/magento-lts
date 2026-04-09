@@ -705,19 +705,10 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
      */
     public function isChildrenCalculated()
     {
-        if ($parentItem = $this->getParentItem()) {
-            $options = $parentItem->getProductOptions();
-        } else {
-            $options = $this->getProductOptions();
-        }
+        $options = ($parentItem = $this->getParentItem()) ? $parentItem->getProductOptions() : $this->getProductOptions();
 
-        if (isset($options['product_calculations'])
-             && $options['product_calculations'] == Mage_Catalog_Model_Product_Type_Abstract::CALCULATE_CHILD
-        ) {
-            return true;
-        }
-
-        return false;
+        return isset($options['product_calculations'])
+             && $options['product_calculations'] == Mage_Catalog_Model_Product_Type_Abstract::CALCULATE_CHILD;
     }
 
     /**
@@ -727,11 +718,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
      */
     public function getForceApplyDiscountToParentItem()
     {
-        if ($this->getParentItem()) {
-            $product = $this->getParentItem()->getProduct();
-        } else {
-            $product = $this->getProduct();
-        }
+        $product = $this->getParentItem() ? $this->getParentItem()->getProduct() : $this->getProduct();
 
         return $product->getTypeInstance()->getForceApplyDiscountToParentItem();
     }
@@ -744,19 +731,10 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
      */
     public function isShipSeparately()
     {
-        if ($parentItem = $this->getParentItem()) {
-            $options = $parentItem->getProductOptions();
-        } else {
-            $options = $this->getProductOptions();
-        }
+        $options = ($parentItem = $this->getParentItem()) ? $parentItem->getProductOptions() : $this->getProductOptions();
 
-        if (isset($options['shipment_type'])
-            && $options['shipment_type'] == Mage_Catalog_Model_Product_Type_Abstract::SHIPMENT_SEPARATELY
-        ) {
-            return true;
-        }
-
-        return false;
+        return isset($options['shipment_type'])
+            && $options['shipment_type'] == Mage_Catalog_Model_Product_Type_Abstract::SHIPMENT_SEPARATELY;
     }
 
     /**

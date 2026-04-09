@@ -145,10 +145,10 @@ class Mage_Catalog_Product_CompareController extends Mage_Core_Controller_Front_
             $items->clear();
             $session->addSuccess($this->__('The comparison list was cleared.'));
             Mage::helper('catalog/product_compare')->calculate();
-        } catch (Mage_Core_Exception $e) {
-            $session->addError($e->getMessage());
-        } catch (Exception $e) {
-            $session->addException($e, $this->__('An error occurred while clearing comparison list.'));
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $session->addError($mageCoreException->getMessage());
+        } catch (Exception $exception) {
+            $session->addException($exception, $this->__('An error occurred while clearing comparison list.'));
         }
 
         $this->_redirectReferer();

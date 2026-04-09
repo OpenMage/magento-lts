@@ -13,7 +13,7 @@
 class Mage_Shipping_Model_Source_HandlingAction
 {
     /**
-     * @return array
+     * @return array<int, array<string, string>>
      */
     public function toOptionArray()
     {

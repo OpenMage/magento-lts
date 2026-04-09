@@ -32,9 +32,9 @@ class Mage_CatalogSearch_Model_Resource_Helper_Mysql4 extends Mage_Eav_Model_Res
     /**
      * Prepare Terms
      *
-     * @param  string $str           The source string
-     * @param  int    $maxWordLength
-     * @return array  (0=>words, 1=>terms)
+     * @param  string                                $str           The source string
+     * @param  int                                   $maxWordLength
+     * @return array<int, array<int|string, string>> (0=>words, 1=>terms)
      */
     public function prepareTerms($str, $maxWordLength = 0)
     {
@@ -59,8 +59,8 @@ class Mage_CatalogSearch_Model_Resource_Helper_Mysql4 extends Mage_Eav_Model_Res
             $word = trim($word);
             if (strlen($word)) {
                 $word = str_replace('"', '', $word);
-                $isBool = in_array(strtoupper($word), $boolWords);
-                $isBracket = in_array($word, $brackets);
+                $isBool = in_array(strtoupper($word), $boolWords, true);
+                $isBracket = in_array($word, $brackets, true);
                 if (!$isBool && !$isBracket) {
                     $terms[$word] = $word;
                     $word = '"' . $word . '"';

@@ -348,7 +348,11 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
      */
     protected function _isNotRegisteredCustomer()
     {
-        return !$this->getQuote()->getCustomerId() || $this->getCustomerAddressId() === null;
+        if (!$this->getQuote()->getCustomerId()) {
+            return true;
+        }
+
+        return $this->getCustomerAddressId() === null;
     }
 
     /**
@@ -360,9 +364,12 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
     protected function _isDefaultShippingNullOrSameAsBillingAddress()
     {
         $customer = $this->getQuote()->getCustomer();
-        return !$customer->getDefaultShippingAddress()
-            || $customer->getDefaultBillingAddress() && $customer->getDefaultShippingAddress()
-                && $customer->getDefaultBillingAddress()->getId() == $customer->getDefaultShippingAddress()->getId();
+        if (!$customer->getDefaultShippingAddress()) {
+            return true;
+        }
+
+        return $customer->getDefaultBillingAddress() && $customer->getDefaultShippingAddress()
+            && $customer->getDefaultBillingAddress()->getId() == $customer->getDefaultShippingAddress()->getId();
     }
 
     /**
@@ -488,7 +495,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
     /**
      * Retrieve address items collection
      *
-     * @return Mage_Eav_Model_Entity_Collection_Abstract
+     * @return Mage_Sales_Model_Resource_Quote_Address_Item_Collection
      * @throws Mage_Core_Exception
      */
     public function getItemsCollection()
@@ -782,6 +789,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
             $this->getItemsCollection()->addItem($addressItem);
 
             if ($item->getHasChildren()) {
+                /** @var Mage_Sales_Model_Quote_Item $child */
                 foreach ($item->getChildren() as $child) {
                     $addressChildItem = Mage::getModel('sales/quote_address_item')
                         ->setAddress($this)
@@ -790,7 +798,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
                     $this->getItemsCollection()->addItem($addressChildItem);
                 }
             }
-        } else {
+        } elseif ($item instanceof Mage_Sales_Model_Quote_Address_Item) {
             $addressItem = $item;
             $addressItem->setAddress($this);
             if (!$addressItem->getId()) {
@@ -798,7 +806,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
             }
         }
 
-        if ($qty) {
+        if ($qty && isset($addressItem)) {
             $addressItem->setQty($qty);
         }
 
@@ -864,32 +872,24 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
                 }
 
                 $rates[$rate->getCarrier()][] = $rate;
-                $rates[$rate->getCarrier()][0]->carrier_sort_order = $rate->getCarrierInstance()->getSortOrder();
+                $rates[$rate->getCarrier()][0]->setCarrierSortOrder($rate->getCarrierInstance()->getSortOrder());
             }
         }
 
-        uasort($rates, [$this, '_sortRates']);
+        uasort($rates, $this->_sortRates(...));
         return $rates;
     }
 
     /**
      * Sort rates recursive callback
      *
-     * @param  array $a
-     * @param  array $b
+     * @param  Mage_Sales_Model_Quote_Address_Rate[] $a
+     * @param  Mage_Sales_Model_Quote_Address_Rate[] $b
      * @return int
      */
     protected function _sortRates($a, $b)
     {
-        if ((int) $a[0]->carrier_sort_order < (int) $b[0]->carrier_sort_order) {
-            return -1;
-        }
-
-        if ((int) $a[0]->carrier_sort_order > (int) $b[0]->carrier_sort_order) {
-            return 1;
-        }
-
-        return 0;
+        return $a[0]->getCarrierSortOrder() <=> $b[0]->getCarrierSortOrder();
     }
 
     /**
@@ -1058,12 +1058,12 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
             foreach ($shippingRates as $shippingRate) {
                 $rate = Mage::getModel('sales/quote_address_rate')
                     ->importShippingRate($shippingRate);
-                if (!$item) {
+                if (!$item instanceof Mage_Sales_Model_Quote_Item_Abstract) {
                     $this->addShippingRate($rate);
                 }
 
                 if ($this->getShippingMethod() == $rate->getCode()) {
-                    if ($item) {
+                    if ($item instanceof Mage_Sales_Model_Quote_Item_Abstract) {
                         $item->setBaseShippingAmount($rate->getPrice());
                     } else {
                         /**
@@ -1200,11 +1200,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
         }
 
         $amount = Mage::getStoreConfig('sales/minimum_order/amount', $storeId);
-        if ($this->getBaseSubtotalWithDiscount() < $amount) {
-            return false;
-        }
-
-        return true;
+        return $this->getBaseSubtotalWithDiscount() >= $amount;
     }
 
     /**

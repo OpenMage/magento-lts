@@ -196,9 +196,9 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
                 try {
                     $this->_processEventsCollection($eventsCollection, false);
                     $this->_getResource()->commit();
-                } catch (Exception $e) {
+                } catch (Exception $exception) {
                     $this->_getResource()->rollBack();
-                    throw $e;
+                    throw $exception;
                 }
             } else {
                 //Update existing events since we'll do reindexAll
@@ -334,10 +334,11 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
         /**
          * Check if process indexer can match entity code and action type
          */
-        if ($entity !== null && $type !== null) {
-            if (!$this->getIndexer()->matchEntityAndType($entity, $type)) {
-                return $this;
-            }
+        if ($entity !== null
+            && $type !== null
+            && !$this->getIndexer()->matchEntityAndType($entity, $type)
+        ) {
+            return $this;
         }
 
         if ($this->getMode() == self::MODE_MANUAL) {
@@ -504,7 +505,7 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
     /**
      * Get list of process mode options
      *
-     * @return array
+     * @return array<string, string>
      */
     public function getModesOptions()
     {
@@ -517,7 +518,7 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
     /**
      * Get list of process status options
      *
-     * @return array
+     * @return array<string, string>
      */
     public function getStatusesOptions()
     {
@@ -531,7 +532,7 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
     /**
      * Get list of "Update Required" options
      *
-     * @return array
+     * @return array<int, string>
      */
     public function getUpdateRequiredOptions()
     {

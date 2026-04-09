@@ -44,7 +44,7 @@ class Varien_Data_Tree_Node_Collection implements ArrayAccess, IteratorAggregate
     /**
      * Implementation of IteratorAggregate::getIterator()
      */
-    public function getIterator(): \Traversable
+    public function getIterator(): Traversable
     {
         return new ArrayIterator($this->_nodes);
     }
@@ -64,7 +64,7 @@ class Varien_Data_Tree_Node_Collection implements ArrayAccess, IteratorAggregate
      * @param  string                      $key
      * @return mixed|Varien_Data_Tree_Node
      */
-    #[\ReturnTypeWillChange]
+    #[ReturnTypeWillChange]
     public function offsetGet($key)
     {
         return $this->_nodes[$key];

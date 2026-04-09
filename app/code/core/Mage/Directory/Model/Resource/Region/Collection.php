@@ -11,6 +11,8 @@
  * Country collection
  *
  * @package    Mage_Directory
+ *
+ * @extends Mage_Core_Model_Resource_Db_Collection_Abstract<Mage_Directory_Model_Region>
  */
 class Mage_Directory_Model_Resource_Region_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {

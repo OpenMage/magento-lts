@@ -127,11 +127,11 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
                 }
 
                 $this->_getSession()->addSuccess($this->__('The order email has been sent.'));
-            } catch (Mage_Core_Exception $e) {
-                $this->_getSession()->addError($e->getMessage());
-            } catch (Exception $e) {
+            } catch (Mage_Core_Exception $mageCoreException) {
+                $this->_getSession()->addError($mageCoreException->getMessage());
+            } catch (Exception $exception) {
                 $this->_getSession()->addError($this->__('Failed to send the order email.'));
-                Mage::logException($e);
+                Mage::logException($exception);
             }
         }
 
@@ -150,11 +150,11 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
                 $this->_getSession()->addSuccess(
                     $this->__('The order has been cancelled.'),
                 );
-            } catch (Mage_Core_Exception $e) {
-                $this->_getSession()->addError($e->getMessage());
-            } catch (Exception $e) {
+            } catch (Mage_Core_Exception $mageCoreException) {
+                $this->_getSession()->addError($mageCoreException->getMessage());
+            } catch (Exception $exception) {
                 $this->_getSession()->addError($this->__('The order has not been cancelled.'));
-                Mage::logException($e);
+                Mage::logException($exception);
             }
 
             $this->_redirect('*/sales_order/view', ['order_id' => $order->getId()]);
@@ -173,8 +173,8 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
                 $this->_getSession()->addSuccess(
                     $this->__('The order has been put on hold.'),
                 );
-            } catch (Mage_Core_Exception $e) {
-                $this->_getSession()->addError($e->getMessage());
+            } catch (Mage_Core_Exception $mageCoreException) {
+                $this->_getSession()->addError($mageCoreException->getMessage());
             } catch (Exception) {
                 $this->_getSession()->addError($this->__('The order was not put on hold.'));
             }
@@ -195,8 +195,8 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
                 $this->_getSession()->addSuccess(
                     $this->__('The order has been released from holding status.'),
                 );
-            } catch (Mage_Core_Exception $e) {
-                $this->_getSession()->addError($e->getMessage());
+            } catch (Mage_Core_Exception $mageCoreException) {
+                $this->_getSession()->addError($mageCoreException->getMessage());
             } catch (Exception) {
                 $this->_getSession()->addError($this->__('The order was not unheld.'));
             }
@@ -238,11 +238,11 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
 
             $order->save();
             $this->_getSession()->addSuccess($message);
-        } catch (Mage_Core_Exception $e) {
-            $this->_getSession()->addError($e->getMessage());
-        } catch (Exception $e) {
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_getSession()->addError($mageCoreException->getMessage());
+        } catch (Exception $exception) {
             $this->_getSession()->addError($this->__('Failed to update the payment.'));
-            Mage::logException($e);
+            Mage::logException($exception);
         }
 
         $this->_redirect('*/sales_order/view', ['order_id' => $order->getId()]);
@@ -271,10 +271,10 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
 
                 $this->loadLayout('empty');
                 $this->renderLayout();
-            } catch (Mage_Core_Exception $e) {
+            } catch (Mage_Core_Exception $mageCoreException) {
                 $response = [
                     'error'     => true,
-                    'message'   => $e->getMessage(),
+                    'message'   => $mageCoreException->getMessage(),
                 ];
             } catch (Exception) {
                 $response = [
@@ -456,11 +456,7 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
     /**
      * Print documents for selected orders
      */
-    public function massPrintAction()
-    {
-        $orderIds = $this->getRequest()->getPost('order_ids');
-        $document = $this->getRequest()->getPost('document');
-    }
+    public function massPrintAction() {}
 
     /**
      * Print invoices for selected orders
@@ -470,7 +466,7 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
     public function pdfinvoicesAction()
     {
         $orderIds = $this->getRequest()->getPost('order_ids');
-        if (!empty($orderIds)) {
+        if (is_array($orderIds) && $orderIds !== []) {
             foreach ($orderIds as $orderId) {
                 $invoices = Mage::getResourceModel('sales/order_invoice_collection')
                     ->setOrderFilter($orderId)
@@ -509,7 +505,7 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
     public function pdfshipmentsAction()
     {
         $orderIds = $this->getRequest()->getPost('order_ids');
-        if (!empty($orderIds)) {
+        if (is_array($orderIds) && $orderIds !== []) {
             foreach ($orderIds as $orderId) {
                 $shipments = Mage::getResourceModel('sales/order_shipment_collection')
                     ->setOrderFilter($orderId)
@@ -548,7 +544,7 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
     public function pdfcreditmemosAction()
     {
         $orderIds = $this->getRequest()->getPost('order_ids');
-        if (!empty($orderIds)) {
+        if (is_array($orderIds) && $orderIds !== []) {
             foreach ($orderIds as $orderId) {
                 $creditmemos = Mage::getResourceModel('sales/order_creditmemo_collection')
                     ->setOrderFilter($orderId)
@@ -587,7 +583,7 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
     public function pdfdocsAction()
     {
         $orderIds = $this->getRequest()->getPost('order_ids');
-        if (!empty($orderIds)) {
+        if (is_array($orderIds) && $orderIds !== []) {
             foreach ($orderIds as $orderId) {
                 $invoices = Mage::getResourceModel('sales/order_invoice_collection')
                     ->setOrderFilter($orderId)
@@ -659,11 +655,11 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
             );
             $order->save();
             $this->_getSession()->addSuccess($this->__('The payment has been voided.'));
-        } catch (Mage_Core_Exception $e) {
-            $this->_getSession()->addError($e->getMessage());
-        } catch (Exception $e) {
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_getSession()->addError($mageCoreException->getMessage());
+        } catch (Exception $exception) {
             $this->_getSession()->addError($this->__('Failed to void the payment.'));
-            Mage::logException($e);
+            Mage::logException($exception);
         }
 
         $this->_redirect('*/*/view', ['order_id' => $order->getId()]);
@@ -672,7 +668,7 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
     /**
      * @inheritDoc
      */
-    protected function _isAllowed()
+    protected function _isAllowed(): bool
     {
         $action = strtolower($this->getRequest()->getActionName());
         $aclResource = match ($action) {
@@ -760,11 +756,11 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
                 $this->_getSession()->addSuccess(Mage::helper('sales')->__('The order address has been updated.'));
                 $this->_redirect('*/*/view', ['order_id' => $address->getParentId()]);
                 return;
-            } catch (Mage_Core_Exception $e) {
-                $this->_getSession()->addError($e->getMessage());
-            } catch (Exception $e) {
+            } catch (Mage_Core_Exception $mageCoreException) {
+                $this->_getSession()->addError($mageCoreException->getMessage());
+            } catch (Exception $exception) {
                 $this->_getSession()->addException(
-                    $e,
+                    $exception,
                     Mage::helper('sales')->__('An error occurred while updating the order address. The address has not been changed.'),
                 );
             }

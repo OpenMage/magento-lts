@@ -16,6 +16,8 @@
  */
 class Mage_Adminhtml_Block_Tag_Customer_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_tag_customer_grid';
+
     public function __construct()
     {
         parent::__construct();
@@ -64,6 +66,7 @@ class Mage_Adminhtml_Block_Tag_Customer_Grid extends Mage_Adminhtml_Block_Widget
 
     /**
      * @inheritDoc
+     * @throws Exception
      */
     protected function _prepareColumns()
     {

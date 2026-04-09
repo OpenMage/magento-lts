@@ -83,11 +83,7 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
             $storeId = [$storeId];
         }
 
-        if (!empty($this->_storesIds)) {
-            $this->_storesIds = array_intersect($this->_storesIds, $storeId);
-        } else {
-            $this->_storesIds = $storeId;
-        }
+        $this->_storesIds = $this->_storesIds !== [] ? array_intersect($this->_storesIds, $storeId) : $storeId;
 
         return $this;
     }
@@ -108,11 +104,7 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
             $storeId = [$storeId];
         }
 
-        if (!empty($this->_storesIds)) {
-            $this->_storesIds = array_intersect($this->_storesIds, $storeId);
-        } else {
-            $this->_storesIds = $storeId;
-        }
+        $this->_storesIds = $this->_storesIds !== [] ? array_intersect($this->_storesIds, $storeId) : $storeId;
 
         return $this;
     }

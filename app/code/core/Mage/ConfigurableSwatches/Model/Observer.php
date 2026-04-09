@@ -124,7 +124,7 @@ class Mage_ConfigurableSwatches_Model_Observer extends Mage_Core_Model_Abstract
             $mediaProductIds[] = $childProduct->getId();
         }
 
-        if (empty($mediaProductIds)) { // no children product IDs found
+        if ($mediaProductIds === []) { // no children product IDs found
             return; // stop execution of method
         }
 

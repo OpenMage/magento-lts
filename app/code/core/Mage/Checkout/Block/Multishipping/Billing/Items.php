@@ -47,7 +47,7 @@ class Mage_Checkout_Block_Multishipping_Billing_Items extends Mage_Sales_Block_I
     /**
      * Retrieve virtual product collection array
      *
-     * @return array
+     * @return Mage_Sales_Model_Quote_Item[]
      */
     public function getVirtualQuoteItems()
     {

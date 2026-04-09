@@ -156,7 +156,7 @@ abstract class Mage_Core_Helper_Abstract
         }
 
         $isActive = Mage::getConfig()->getNode('modules/' . $moduleName . '/active');
-        if (!$isActive || !in_array((string) $isActive, ['true', '1'])) {
+        if (!$isActive || !in_array((string) $isActive, ['true', '1'], true)) {
             return $this->modulesDisabled[$moduleName] = false;
         }
 
@@ -179,24 +179,11 @@ abstract class Mage_Core_Helper_Abstract
     }
 
     /**
-     * @param  string|string[]      $data
-     * @param  null|array           $allowedTags
-     * @return null|string|string[]
-     *
-     * @deprecated after 1.4.0.0-rc1
-     * @see self::escapeHtml()
-     */
-    public function htmlEscape($data, $allowedTags = null)
-    {
-        return $this->escapeHtml($data, $allowedTags);
-    }
-
-    /**
      * Escape html entities
      *
-     * @param  string|string[]      $data
-     * @param  null|array           $allowedTags
-     * @return null|string|string[]
+     * @param  null|string|string[]                        $data
+     * @param  null|string[]                               $allowedTags
+     * @return ($data is array ? array<?string> : ?string)
      */
     public function escapeHtml($data, $allowedTags = null)
     {
@@ -260,17 +247,6 @@ abstract class Mage_Core_Helper_Abstract
     }
 
     /**
-     * @param  string $data
-     * @return string
-     * @deprecated after 1.4.0.0-rc1
-     * @see self::escapeHtml()
-     */
-    public function urlEscape($data)
-    {
-        return $this->escapeUrl($data);
-    }
-
-    /**
      * Escape html entities in url
      *
      * @param  string $data
@@ -322,9 +298,9 @@ abstract class Mage_Core_Helper_Abstract
     /**
      * Escape quotes in java script
      *
-     * @param  string|string[] $data
-     * @param  string          $quote
-     * @return string|string[]
+     * @param  string|string[]                      $data
+     * @param  string                               $quote
+     * @return ($data is array ? string[] : string)
      */
     public function jsQuoteEscape($data, $quote = "'")
     {
@@ -440,14 +416,14 @@ abstract class Mage_Core_Helper_Abstract
      */
     public function translateArray($arr = [])
     {
-        foreach ($arr as $k => $v) {
-            if (is_array($v)) {
-                $v = self::translateArray($v);
-            } elseif ($k === 'label') {
-                $v = self::__($v);
+        foreach ($arr as $key => $value) {
+            if (is_array($value)) {
+                $value = self::translateArray($value);
+            } elseif ($key === 'label') {
+                $value = self::__($value);
             }
 
-            $arr[$k] = $v;
+            $arr[$key] = $value;
         }
 
         return $arr;
@@ -465,7 +441,7 @@ abstract class Mage_Core_Helper_Abstract
     {
         if (is_array($data)) {
             foreach ($data as $key => $item) {
-                if ($skipTags && in_array($key, $arrayKeys)) {
+                if ($skipTags && in_array($key, $arrayKeys, true)) {
                     continue;
                 }
 
@@ -476,7 +452,7 @@ abstract class Mage_Core_Helper_Abstract
                 } elseif ((bool) strcmp($item, $this->removeTags($item))
                     || (bool) strcmp($key, $this->removeTags($key))
                 ) {
-                    if (!$skipTags && !in_array($key, $arrayKeys)) {
+                    if (!$skipTags && !in_array($key, $arrayKeys, true)) {
                         continue;
                     }
 
@@ -487,12 +463,6 @@ abstract class Mage_Core_Helper_Abstract
             return false;
         }
 
-        if (is_string($data)) {
-            if ((bool) strcmp($data, $this->removeTags($data))) {
-                return true;
-            }
-        }
-
-        return false;
+        return is_string($data) && (bool) strcmp($data, $this->removeTags($data));
     }
 }

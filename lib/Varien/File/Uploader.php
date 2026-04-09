@@ -6,9 +6,8 @@
  * @license    Open Software License (OSL 3.0)
  * @package    Varien_File
  */
-
+use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Validator\Validation;
-use Symfony\Component\Validator\Constraints;
 
 /**
  * File upload class
@@ -380,7 +379,7 @@ class Varien_File_Uploader
             if (count($validTypes) > 0) {
                 $validator = Validation::createValidator();
                 return $validator->validate($this->_file['tmp_name'], [
-                    new Constraints\File(mimeTypes: $validTypes),
+                    new File(mimeTypes: $validTypes),
                 ])->count() === 0;
             }
 
@@ -488,7 +487,7 @@ class Varien_File_Uploader
      */
     public function checkAllowedExtension($extension)
     {
-        if (!is_array($this->_allowedExtensions) || empty($this->_allowedExtensions)) {
+        if (!is_array($this->_allowedExtensions) || $this->_allowedExtensions === []) {
             return true;
         }
 
@@ -546,7 +545,7 @@ class Varien_File_Uploader
             $destinationFolder = substr($destinationFolder, 0, -1);
         }
 
-        if (!(@is_dir($destinationFolder) || @mkdir($destinationFolder, 0777, true))) {
+        if (!@is_dir($destinationFolder) && !@mkdir($destinationFolder, 0777, true)) {
             throw new Exception("Unable to create directory '{$destinationFolder}'.");
         }
 

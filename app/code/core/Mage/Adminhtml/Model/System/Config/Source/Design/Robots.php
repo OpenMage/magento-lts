@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -12,6 +14,9 @@
  */
 class Mage_Adminhtml_Model_System_Config_Source_Design_Robots
 {
+    /**
+     * @return array<int, array<string, string>>
+     */
     public function toOptionArray()
     {
         return [

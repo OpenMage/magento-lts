@@ -14,6 +14,8 @@
  */
 class Mage_Adminhtml_Block_Report_Review_Customer_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_report_review_customer_grid';
+
     public function __construct()
     {
         parent::__construct();
@@ -28,7 +30,6 @@ class Mage_Adminhtml_Block_Report_Review_Customer_Grid extends Mage_Adminhtml_Bl
     {
         $collection = Mage::getResourceModel('reports/review_customer_collection')
             ->joinCustomers();
-
         $this->setCollection($collection);
 
         return parent::_prepareCollection();

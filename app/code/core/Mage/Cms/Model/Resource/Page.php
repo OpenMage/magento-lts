@@ -122,7 +122,7 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
     {
         $oldStores = $this->lookupStoreIds($object->getId());
         $newStores = (array) $object->getStores();
-        if (empty($newStores)) {
+        if ($newStores === []) {
             $newStores = (array) $object->getStoreId();
         }
 
@@ -248,11 +248,7 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
      */
     public function getIsUniquePageToStores(Mage_Core_Model_Abstract $object)
     {
-        if (!$object->hasStores()) {
-            $stores = [Mage_Core_Model_App::ADMIN_STORE_ID];
-        } else {
-            $stores = (array) $object->getData('stores');
-        }
+        $stores = $object->hasStores() ? (array) $object->getData('stores') : [Mage_Core_Model_App::ADMIN_STORE_ID];
 
         $select = $this->_getLoadByIdentifierSelect($object->getData('identifier'), $stores);
 
@@ -260,11 +256,7 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
             $select->where('cps.page_id <> ?', $object->getId());
         }
 
-        if ($this->_getWriteAdapter()->fetchRow($select)) {
-            return false;
-        }
-
-        return true;
+        return !$this->_getWriteAdapter()->fetchRow($select);
     }
 
     /**

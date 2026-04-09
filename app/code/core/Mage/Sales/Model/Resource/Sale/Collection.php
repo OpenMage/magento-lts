@@ -166,13 +166,13 @@ class Mage_Sales_Model_Resource_Sale_Collection extends Varien_Data_Collection_D
             ->load()
             ->toOptionHash();
         $this->_items = [];
-        foreach ($data as $v) {
-            $storeObject = new Varien_Object($v);
-            $storeId     = $v['store_id'];
+        foreach ($data as $value) {
+            $storeObject = new Varien_Object($value);
+            $storeId     = $value['store_id'];
             $storeName   = $stores[$storeId] ?? null;
             $storeObject->setStoreName($storeName)
                 ->setWebsiteId(Mage::app()->getStore($storeId)->getWebsiteId())
-                ->setAvgNormalized($v['avgsale'] * $v['num_orders']);
+                ->setAvgNormalized($value['avgsale'] * $value['num_orders']);
             $this->_items[$storeId] = $storeObject;
             foreach (array_keys($this->_totals) as $key) {
                 $this->_totals[$key] += $storeObject->getData($key);

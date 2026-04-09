@@ -16,9 +16,8 @@
  */
 class Mage_Adminhtml_Block_Sales_Transactions_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
-    /**
-     * Set grid params
-     */
+    protected string $_eventPrefix = 'adminhtml_sales_transactions_grid';
+
     public function __construct()
     {
         parent::__construct();
@@ -29,9 +28,7 @@ class Mage_Adminhtml_Block_Sales_Transactions_Grid extends Mage_Adminhtml_Block_
     }
 
     /**
-     * Prepare collection for grid
-     *
-     * @return $this
+     * @inheritDoc
      */
     protected function _prepareCollection()
     {
@@ -49,6 +46,7 @@ class Mage_Adminhtml_Block_Sales_Transactions_Grid extends Mage_Adminhtml_Block_
 
     /**
      * @inheritDoc
+     * @throws Exception
      */
     protected function _prepareColumns()
     {
@@ -81,7 +79,7 @@ class Mage_Adminhtml_Block_Sales_Transactions_Grid extends Mage_Adminhtml_Block_
             'header'    => Mage::helper('sales')->__('Payment Method Name'),
             'index'     => 'method',
             'type'      => 'options',
-            'options'       => Mage::helper('payment')->getPaymentMethodList(true),
+            'options'       => Mage::helper('payment')->getPaymentMethodList(),
             'option_groups' => Mage::helper('payment')->getPaymentMethodList(true, true, true),
         ]);
 
@@ -117,9 +115,7 @@ class Mage_Adminhtml_Block_Sales_Transactions_Grid extends Mage_Adminhtml_Block_
     }
 
     /**
-     * Retrieve grid url
-     *
-     * @return string
+     * @inheritDoc
      */
     public function getGridUrl()
     {

@@ -14,17 +14,20 @@
  */
 class Mage_Adminhtml_Block_Customer_Edit_Tab_Newsletter_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_customer_edit_tab_newsletter_grid';
+
     public function __construct()
     {
         parent::__construct();
         $this->setId('queueGrid');
         $this->setDefaultSort('start_at');
-
         $this->setUseAjax(true);
-
         $this->setEmptyText(Mage::helper('customer')->__('No Newsletter Found'));
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getGridUrl()
     {
         return $this->getUrl('*/*/newsletter', ['_current' => true]);

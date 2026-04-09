@@ -41,7 +41,7 @@ final class VisitorTest extends OpenMageTest
      */
     public function testGetOnlineMinutesInterval(): void
     {
-        self::assertIsInt(self::$subject->getOnlineMinutesInterval());
+        self::assertIsInt(Subject::getOnlineMinutesInterval());
     }
 
     /**
