@@ -538,11 +538,12 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
             try {
                 $value = Mage::helper('core/unserializeArray')->unserialize($optionValue);
 
-                $customOptionUrlParams = $this->getCustomOptionUrlParams()
-                    ? $this->getCustomOptionUrlParams()
+                $customOptionUrlParams = $this->getCustomOptionUrlParams();
+                $customOptionUrlParams = $customOptionUrlParams
+                    ? $customOptionUrlParams
                     : [
                         'id'  => $this->getConfigurationItemOption()->getId(),
-                        'key' => $value['secret_key']
+                        'key' => $value['secret_key'],
                     ];
 
                 $value['url'] = ['route' => $this->_customOptionDownloadUrl, 'params' => $customOptionUrlParams];
