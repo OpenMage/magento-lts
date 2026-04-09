@@ -218,31 +218,28 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
             if (isset($taxInfoItem['item'])) {
                 // Item hidden taxes
                 $item = $taxInfoItem['item'];
-                $rateKey = $taxInfoItem['rate_key'];
                 $hiddenTax = $taxInfoItem['value'];
                 $baseHiddenTax = $taxInfoItem['base_value'];
-                $inclTax = $taxInfoItem['incl_tax'];
                 $qty = $taxInfoItem['qty'];
 
                 $hiddenTax = $this->_calculator->round($hiddenTax);
                 $baseHiddenTax = $this->_calculator->round($baseHiddenTax);
+
                 $item->setHiddenTaxAmount(max(0, $qty * $hiddenTax));
                 $item->setBaseHiddenTaxAmount(max(0, $qty * $baseHiddenTax));
+
                 $this->_getAddress()->addTotalAmount('hidden_tax', $item->getHiddenTaxAmount());
                 $this->_getAddress()->addBaseTotalAmount('hidden_tax', $item->getBaseHiddenTaxAmount());
             } else {
                 // Shipping hidden taxes
-                $rateKey = $taxInfoItem['rate_key'];
                 $hiddenTax = $taxInfoItem['value'];
                 $baseHiddenTax = $taxInfoItem['base_value'];
-                $inclTax = $taxInfoItem['incl_tax'];
 
                 $hiddenTax = $this->_calculator->round($hiddenTax);
                 $baseHiddenTax = $this->_calculator->round($baseHiddenTax);
 
                 $this->_getAddress()->addTotalAmount('shipping_hidden_tax', $hiddenTax);
                 $this->_getAddress()->addBaseTotalAmount('shipping_hidden_tax', $baseHiddenTax);
-
                 $this->_getAddress()->setShippingHiddenTaxAmount(max(0, $hiddenTax));
                 $this->_getAddress()->setBaseShippingHiddenTaxAmount(max(0, $baseHiddenTax));
             }
@@ -820,9 +817,7 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
     ) {
         $inclTax = $item->getIsPriceInclTax();
         $subtotal = $item->getTaxableAmount();
-        $taxSubtotal = $subtotal;
         $baseSubtotal = $item->getBaseTaxableAmount();
-        $baseTaxSubtotal = $baseSubtotal;
         $rateKey = ($taxId == null) ? (string) $rate : $taxId;
 
         $isWeeeEnabled = $this->_weeeHelper->isEnabled();
@@ -1022,8 +1017,6 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
 
         foreach ($taxGroups as $taxId => $data) {
             $rate = $catalogPriceInclTax ? (float) $taxId : $data['applied_rates'][0]['percent'];
-
-            $inclTax = $data['incl_tax'];
 
             $totalTax = array_sum($data['tax']);
             $baseTotalTax = array_sum($data['base_tax']);

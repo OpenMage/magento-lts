@@ -815,6 +815,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
 
         $request = Mage::getSingleton('tax/calculation')->getRateRequest();
         $currentTaxes = Mage::getSingleton('tax/calculation')->getRatesForAllProductTaxClasses($request);
+
         $defaultTaxString = '';
         $currentTaxString = '';
 

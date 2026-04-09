@@ -8,6 +8,7 @@ use Monolog\Level;
  * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
  */
+
 /**
  * Core configuration class
  *
@@ -621,7 +622,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
         if ($source && $source->$sectionName) {
             $cacheId = $idPrefix . '_' . $sectionName;
             if ($recursionLevel > 0) {
-                foreach ($source->$sectionName->children() as $subSectionName => $node) {
+                foreach ($source->$sectionName->children() as $subSectionName => $ignored) {
                     $this->_saveSectionCache(
                         $cacheId,
                         $subSectionName,

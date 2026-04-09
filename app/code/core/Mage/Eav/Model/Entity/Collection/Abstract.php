@@ -1207,7 +1207,6 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
             $attributeIds = $this->_selectAttributes;
         }
 
-        $helper = Mage::getResourceHelper('eav');
         $entityIdField = $this->getEntity()->getEntityIdField();
         return $this->getConnection()->select()
             ->from($table, [$entityIdField, 'attribute_id'])
@@ -1452,13 +1451,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
         }
 
         // process linked attribute
-        if (isset($this->_joinAttributes[$attribute])) {
-            $entity      = $this->getAttribute($attribute)->getEntity();
-            $entityTable = $entity->getEntityTable();
-        } else {
-            $entity      = $this->getEntity();
-            $entityTable = 'e';
-        }
+        $entity = isset($this->_joinAttributes[$attribute]) ? $this->getAttribute($attribute)->getEntity() : $this->getEntity();
 
         if ($entity->isAttributeStatic($attribute)) {
             return $this->_getConditionSql(

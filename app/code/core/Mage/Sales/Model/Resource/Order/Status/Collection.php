@@ -37,7 +37,7 @@ class Mage_Sales_Model_Resource_Order_Status_Collection extends Mage_Core_Model_
     /**
      * Get collection data as options hash
      *
-     * @return array
+     * @return array<array-key, string>
      */
     public function toOptionHash()
     {
