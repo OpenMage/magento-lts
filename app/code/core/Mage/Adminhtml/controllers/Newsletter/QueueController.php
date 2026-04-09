@@ -198,16 +198,6 @@ class Mage_Adminhtml_Newsletter_QueueController extends Mage_Adminhtml_Controlle
 
         Mage::register('current_queue', Mage::getSingleton('newsletter/queue'));
 
-        $id = $this->getRequest()->getParam('id');
-        $templateId = $this->getRequest()->getParam('template_id');
-
-        if ($id) {
-            $queue = Mage::registry('current_queue')->load($id);
-        } elseif ($templateId) {
-            $template = Mage::getModel('newsletter/template')->load($templateId);
-            $queue = Mage::registry('current_queue')->setTemplateId($template->getId());
-        }
-
         $this->_title($this->__('Edit Queue'));
 
         $this->loadLayout();

@@ -96,7 +96,7 @@ class Mage_Payment_Model_Config
     /**
      * Retrieve array of credit card types
      *
-     * @return array
+     * @return array<string, string>
      */
     public function getCcTypes()
     {

@@ -300,7 +300,6 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
         $response->setOrigCity($request->getOrigCity());
         $response->setOrigPostal($request->getOrigPostal());
 
-        $originStreet1 = Mage::getStoreConfig(Mage_Shipping_Model_Shipping::XML_PATH_STORE_ADDRESS1, $response->getStoreId());
         $originStreet2 = Mage::getStoreConfig(Mage_Shipping_Model_Shipping::XML_PATH_STORE_ADDRESS2, $response->getStoreId());
         $response->setOrigStreet($request->getOrigStreet() ? $request->getOrigStreet() : $originStreet2);
         $response->setOrigStreetLine2($request->getOrigStreetLine2());
@@ -706,9 +705,6 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
     protected function _parseXmlResponse($response)
     {
         $request = $this->_rawRequest;
-        $costArr = [];
-        $priceArr = [];
-        $errorTitle = 'Unable to retrieve quotes';
 
         if (trim($response) !== '') {
             if (str_starts_with(trim($response), '<?xml')) {

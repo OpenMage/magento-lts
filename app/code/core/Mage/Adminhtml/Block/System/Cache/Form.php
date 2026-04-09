@@ -45,7 +45,6 @@ class Mage_Adminhtml_Block_System_Cache_Form extends Mage_Adminhtml_Block_Widget
                 'label' => Mage::helper('adminhtml')->__($label),
                 'value' => 1,
                 'checked' => (int) Mage::app()->useCache($type),
-                //'options'=>$options,
             ]);
         }
 
