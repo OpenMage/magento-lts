@@ -53,20 +53,6 @@ class Mage_Usa_Model_Shipping_Carrier_Ups extends Mage_Usa_Model_Shipping_Carrie
     protected $_rawRequest = null;
 
     /**
-     * Rate result data
-     *
-     * @var null|Mage_Shipping_Model_Rate_Result
-     */
-    protected $_result = null;
-
-    /**
-     * Tracking result data
-     *
-     * @var null|Mage_Shipping_Model_Tracking_Result
-     */
-    protected $_trackingResult = null;
-
-    /**
      * Base currency rate
      *
      * @var string
