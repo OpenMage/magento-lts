@@ -597,7 +597,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
             $this->_uniqueAttributes[$attrCode][$rowData[$attrCode]] = true;
         }
 
-        return (bool) $valid;
+        return $valid;
     }
 
     /**

@@ -2890,7 +2890,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
         $query .= sprintf(' ADD %s (%s)', $condition, $fieldSql);
 
         $cycle = true;
-        while ($cycle === true) {
+        while ($cycle) {
             try {
                 $result = $this->raw_query($query);
                 $cycle  = false;

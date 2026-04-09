@@ -422,7 +422,6 @@ class Mage_Core_Model_Url extends Varien_Object
         }
 
         $this->setRouteName($route);
-        $routePath = $route . '/';
 
         if ($arr !== []) {
             $controller = array_shift($arr);
@@ -431,7 +430,6 @@ class Mage_Core_Model_Url extends Varien_Object
             }
 
             $this->setControllerName($controller);
-            $routePath .= $controller . '/';
         }
 
         if ($arr !== []) {
@@ -441,7 +439,6 @@ class Mage_Core_Model_Url extends Varien_Object
             }
 
             $this->setActionName($action);
-            $routePath .= $action . '/';
         }
 
         if ($arr !== []) {
@@ -451,7 +448,6 @@ class Mage_Core_Model_Url extends Varien_Object
                 if ($arr !== []) {
                     $value = array_shift($arr);
                     $this->setRouteParam($key, $value);
-                    $routePath .= $key . '/' . $value . '/';
                 }
             }
         }
@@ -642,7 +638,8 @@ class Mage_Core_Model_Url extends Varien_Object
     /**
      * Set route params
      *
-     * @param  bool  $unsetOldParams
+     * @param  non-empty-array<mixed, mixed> $data
+     * @param  bool                          $unsetOldParams
      * @return $this
      */
     public function setRouteParams(array $data, $unsetOldParams = true)
@@ -716,7 +713,7 @@ class Mage_Core_Model_Url extends Varien_Object
         }
 
         if (isset($data['_store_to_url'])
-            && (bool) $data['_store_to_url'] === true
+            && (bool) $data['_store_to_url']
             && (!Mage::getStoreConfig(Mage_Core_Model_Store::XML_PATH_STORE_IN_URL, $this->getStore()) && !Mage::app()->isSingleStoreMode())
         ) {
             $this->setQueryParam('___store', $this->getStore()->getCode());

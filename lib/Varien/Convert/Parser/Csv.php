@@ -74,8 +74,6 @@ class Varien_Convert_Parser_Csv extends Varien_Convert_Parser_Abstract
         $resource = tmpfile();
         fwrite($resource, $this->getData());
         fseek($resource, 0);
-
-        $data = [];
         $sessionId = Mage::registry('current_dataflow_session_id');
         $import = Mage::getModel('dataflow/import');
         $map = new Varien_Convert_Mapper_Column();
@@ -113,8 +111,6 @@ class Varien_Convert_Parser_Csv extends Varien_Convert_Parser_Abstract
 
     public function unparse()
     {
-        $csv = '';
-
         $fDel = $this->getVar('delimiter', ',');
         $fEnc = $this->getVar('enclose', '"');
         $fEsc = $this->getVar('escape', '\\');

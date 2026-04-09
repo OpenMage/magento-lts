@@ -124,8 +124,8 @@ abstract class Varien_Convert_Container_Abstract implements Varien_Convert_Conta
     {
         $fields = [];
         foreach ($grid as $row) {
-            foreach ($row as $fieldName => $data) {
-                if (!in_array($fieldName, $fields)) {
+            foreach (array_keys($row) as $fieldName) {
+                if (!in_array($fieldName, $fields, true)) {
                     $fields[] = $fieldName;
                 }
             }

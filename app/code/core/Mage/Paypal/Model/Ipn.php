@@ -89,14 +89,14 @@ class Mage_Paypal_Model_Ipn
         try {
             if (isset($this->_request['txn_type']) && $this->_request['txn_type'] == 'recurring_payment') {
                 $this->_getRecurringProfile();
-                if ($httpAdapter) {
+                if ($httpAdapter instanceof Zend_Http_Client_Adapter_Interface) {
                     $this->_postBack($httpAdapter);
                 }
 
                 $this->_processRecurringProfile();
             } else {
                 $this->_getOrder();
-                if ($httpAdapter) {
+                if ($httpAdapter instanceof Zend_Http_Client_Adapter_Interface) {
                     $this->_postBack($httpAdapter);
                 }
 

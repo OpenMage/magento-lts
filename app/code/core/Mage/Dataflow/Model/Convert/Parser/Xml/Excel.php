@@ -58,9 +58,9 @@ class Mage_Dataflow_Model_Convert_Parser_Xml_Excel extends Mage_Dataflow_Model_C
         $batchModel = $this->getBatchModel();
         $batchIoAdapter = $this->getBatchModel()->getIoAdapter();
 
-        if (Mage::app()->getRequest()->getParam('files')) {
-            $file = Mage::app()->getConfig()->getTempVarDir() . '/import/'
-                . str_replace('../', '', urldecode(Mage::app()->getRequest()->getParam('files')));
+        $files = Mage::app()->getRequest()->getParam('files');
+        if ($files) {
+            $file = $this->getCopyFile($files);
             $this->_copy($file);
         }
 
@@ -73,10 +73,7 @@ class Mage_Dataflow_Model_Convert_Parser_Xml_Excel extends Mage_Dataflow_Model_C
 
         $worksheet = $this->getVar('single_sheet', '');
         $xmlString = '';
-        $xmlRowString = '';
-        $countRows = 0;
         $isWorksheet = false;
-        $isRow = false;
         while (($xmlOriginalString = $batchIoAdapter->read()) !== false) {
             $xmlString .= $xmlOriginalString;
             if (!$isWorksheet) {
@@ -153,7 +150,7 @@ class Mage_Dataflow_Model_Convert_Parser_Xml_Excel extends Mage_Dataflow_Model_C
     protected function _parseXmlRow($xmlString)
     {
         $found = true;
-        while ($found === true) {
+        while ($found) {
             $strposS = strpos($xmlString, '<Row');
 
             if ($strposS === false) {
@@ -231,7 +228,7 @@ class Mage_Dataflow_Model_Convert_Parser_Xml_Excel extends Mage_Dataflow_Model_C
             $i++;
         }
 
-        $batchImportModel = $this->getBatchImportModel()
+        $this->getBatchImportModel()
             ->setId(null)
             ->setBatchId($this->getBatchModel()->getId())
             ->setBatchData($itemData)

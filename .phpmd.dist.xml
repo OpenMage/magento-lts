@@ -10,13 +10,18 @@
 
     <!-- UNUSEDCODE
     [ ] UnusedFormalParameter - TMP disabled
-    [ ] UnusedLocalVariable - TMP disabled
+    [x] UnusedLocalVariable
     [x] UnusedPrivateField
     [x] UnusedPrivateMethod
     -->
     <rule ref="rulesets/unusedcode.xml">
         <exclude name="UnusedFormalParameter" />
         <exclude name="UnusedLocalVariable" />
+    </rule>
+    <rule ref="rulesets/unusedcode.xml/UnusedLocalVariable">
+        <properties>
+            <property name="exceptions" value="ignored" />
+        </properties>
     </rule>
 
     <!-- CLEANCODE
@@ -92,8 +97,8 @@
     </rule>
 
     <!-- DESIGN
-    [-] CountInLoopExpression
-    [x] CouplingBetweenObjects
+    [x] CountInLoopExpression
+    [-] CouplingBetweenObjects
     [-] DepthOfInheritance
     [x] DevelopmentCodeFragment
     [x] EmptyCatchBlock

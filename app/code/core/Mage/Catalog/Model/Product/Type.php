@@ -172,7 +172,7 @@ class Mage_Catalog_Model_Product_Type
     }
 
     /**
-     * @return array|string
+     * @return array<array-key, array{label: string, model?: string, price_model?: string, index_priority?: int, composite?: bool}>
      */
     public static function getTypes()
     {
@@ -224,7 +224,7 @@ class Mage_Catalog_Model_Product_Type
 
             $types = self::getTypes();
             foreach ($types as $typeId => $typeInfo) {
-                $priority = isset($typeInfo['index_priority']) ? abs((int) $typeInfo['index_priority']) : 0;
+                $priority = isset($typeInfo['index_priority']) ? abs($typeInfo['index_priority']) : 0;
                 if (!empty($typeInfo['composite'])) {
                     $b[$typeId] = $priority;
                 } else {

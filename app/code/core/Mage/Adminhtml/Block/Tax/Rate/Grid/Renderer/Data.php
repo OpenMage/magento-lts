@@ -18,7 +18,7 @@ class Mage_Adminhtml_Block_Tax_Rate_Grid_Renderer_Data extends Mage_Adminhtml_Bl
     {
         $data = parent::_getValue($row);
         if ((int) $data == $data) {
-            return (string) number_format((float) $data, 2);
+            return number_format((float) $data, 2);
         }
 
         if (!is_null($data)) {

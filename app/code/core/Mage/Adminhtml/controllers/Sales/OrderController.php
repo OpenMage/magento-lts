@@ -456,11 +456,7 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
     /**
      * Print documents for selected orders
      */
-    public function massPrintAction()
-    {
-        $orderIds = $this->getRequest()->getPost('order_ids');
-        $document = $this->getRequest()->getPost('document');
-    }
+    public function massPrintAction() {}
 
     /**
      * Print invoices for selected orders

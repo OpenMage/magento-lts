@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -20,7 +22,7 @@ class Varien_Convert_Mapper_Column extends Varien_Convert_Mapper_Abstract
         $this->validateDataGrid($data);
         $attributesToSelect = $this->getVars() && is_array($this->getVars()) ? $this->getVars() : [];
 
-        $onlySpecified = (bool) $this->getVar('_only_specified') === true;
+        $onlySpecified = (bool) $this->getVar('_only_specified');
         $mappedData = [];
         foreach ($data as $i => $row) {
             $newRow = [];

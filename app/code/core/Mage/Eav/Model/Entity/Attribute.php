@@ -300,7 +300,6 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
         }
 
         $store = Mage::app()->getStore($storeId);
-        $label = false;
         if (!$store->isAdmin()) {
             $labels = $this->getStoreLabels();
             if (isset($labels[$store->getId()])) {
