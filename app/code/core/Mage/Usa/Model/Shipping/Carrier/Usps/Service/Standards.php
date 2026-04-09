@@ -93,7 +93,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Service_Standards extends Mage_Usa_Mo
 
         $originZip = $this->_cleanZip($originZip);
         $destZip = $this->_cleanZip($destZip);
-        $acceptDate = $acceptDate ?: Carbon::now()->format('Y-m-d');
+        $acceptDate = $acceptDate ? $acceptDate : Carbon::now()->format('Y-m-d');
 
         $estimates = [];
         $uncached = [];

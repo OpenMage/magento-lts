@@ -225,7 +225,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Error_Dictionary
         }
 
         // Return fallback or generic message
-        return $fallbackMessage ?: Mage::helper('usa')->__(
+        return $fallbackMessage ? $fallbackMessage : Mage::helper('usa')->__(
             'Unable to retrieve shipping rates from USPS. Please try again or contact support.',
         );
     }

@@ -303,7 +303,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Address_Service extends Mage_Usa_Mode
             'street1' => is_array($street) ? ($street[0] ?? '') : $street,
             'street2' => is_array($street) ? ($street[1] ?? '') : '',
             'city' => $address->getCity(),
-            'region' => $address->getRegionCode() ?: $address->getRegion(),
+            'region' => $address->getRegionCode() ? $address->getRegionCode() : $address->getRegion(),
             'postcode' => $address->getPostcode(),
             'country_id' => $address->getCountryId(),
         ];

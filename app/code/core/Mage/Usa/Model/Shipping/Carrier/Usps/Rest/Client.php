@@ -64,7 +64,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
      */
     public function __construct(?string $baseUrl = null, bool $debug = false)
     {
-        $this->_baseUrl = $baseUrl ?: self::URL_PRODUCTION;
+        $this->_baseUrl = $baseUrl ? $baseUrl : self::URL_PRODUCTION;
         $this->_debug = $debug;
     }
 
@@ -271,7 +271,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
             case 'POST':
                 curl_setopt($curl, CURLOPT_POST, true);
                 if ($data) {
-                    curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($data) ?: '');
+                    curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($data) ? json_encode($data) : '');
                 }
 
                 break;

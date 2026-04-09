@@ -179,7 +179,7 @@ class Mage_Usa_Adminhtml_UspsController extends Mage_Adminhtml_Controller_Action
                 'Content-Type: application/json',
                 'Authorization: Bearer ' . $accessToken,
             ]);
-            curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($rateRequest) ?: '');
+            curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($rateRequest) ? json_encode($rateRequest) : '');
             curl_setopt($curl, CURLOPT_TIMEOUT, 30);
             curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, true);
             curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 2);

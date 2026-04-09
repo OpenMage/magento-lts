@@ -7289,18 +7289,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Parameter #2 $serviceType of method Mage_Usa_Model_Shipping_Carrier_Usps::_formUsSignatureConfirmationShipmentRequest() expects string, array|bool given.',
-	'identifier' => 'argument.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Short ternary operator is not allowed. Use null coalesce operator if applicable or consider using long ternary.',
-	'identifier' => 'ternary.shortNotAllowed',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 1,

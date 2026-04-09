@@ -163,7 +163,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service extends Mage_Usa_Model_
      */
     protected function _buildDomesticLabelRequest(Varien_Object $request): array
     {
-        $shipper = $request->getShipperAddressStreet() ?: $this->_getOriginAddress();
+        $shipper = $request->getShipperAddressStreet() ? $request->getShipperAddressStreet() : $this->_getOriginAddress();
         $recipient = $request->getRecipientAddressStreet();
 
         $payload = [
@@ -278,7 +278,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service extends Mage_Usa_Model_
      */
     protected function _buildCustomsDeclaration(Varien_Object $request): array
     {
-        $items = $request->getPackageItems() ?: [];
+        $items = $request->getPackageItems() ? $request->getPackageItems() : [];
         $customsItems = [];
 
         foreach ($items as $item) {

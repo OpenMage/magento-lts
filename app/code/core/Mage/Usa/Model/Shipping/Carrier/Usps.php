@@ -318,7 +318,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
             $environment = $this->getConfigData('environment');
             /** @var Mage_Usa_Model_Shipping_Carrier_Usps_Source_Environment $envSource */
             $envSource = Mage::getSingleton('usa/shipping_carrier_usps_source_environment');
-            $url = $envSource->getUrlForEnvironment($environment ?: 'sandbox');
+            $url = $envSource->getUrlForEnvironment($environment ? $environment : 'sandbox');
         }
 
         return rtrim($url, '/') . '/';
@@ -472,8 +472,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
         $roleData = [
             'CRID' => $crid,
             'MID' => $mid,
-            'manifestMID' => $manifestMid ?: $mid,
-            'accountType' => $accountType ?: 'EPS',
+            'manifestMID' => $manifestMid ? $manifestMid : $mid,
+            'accountType' => $accountType ? $accountType : 'EPS',
             'accountNumber' => $accountNumber,
         ];
 
@@ -773,10 +773,10 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
 
         // Get configuration values
         // Map EPS account type to COMMERCIAL price type (EPS is not a valid priceType enum)
-        $configPriceType = $this->getConfigData('price_type') ?: 'COMMERCIAL';
+        $configPriceType = $this->getConfigData('price_type') ? $this->getConfigData('price_type') : 'COMMERCIAL';
         $priceType = ($configPriceType === 'EPS') ? 'COMMERCIAL' : $configPriceType;
-        $accountType = $this->getConfigData('account_type') ?: 'EPS';
-        $accountNumber = $this->getConfigData('account_number') ?: '';
+        $accountType = $this->getConfigData('account_type') ? $this->getConfigData('account_type') : 'EPS';
+        $accountNumber = $this->getConfigData('account_number') ?? '';
         $machinable = $this->getConfigData('machinable') === 'true' ? 'MACHINABLE' : 'NON_MACHINABLE';
 
         if ($isDomestic) {
@@ -784,9 +784,9 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
                 'originZIPCode' => substr($rawRequest->getOrigPostal(), 0, 5),
                 'destinationZIPCode' => substr($rawRequest->getDestPostal(), 0, 5),
                 'weight' => $weightInPounds > 0 ? $weightInPounds : 0.1,
-                'length' => (float) ($rawRequest->getLength() ?: 6),
-                'width' => (float) ($rawRequest->getWidth() ?: 4),
-                'height' => (float) ($rawRequest->getHeight() ?: 1),
+                'length' => (float) ($rawRequest->getLength() ? $rawRequest->getLength() : 6),
+                'width' => (float) ($rawRequest->getWidth() ? $rawRequest->getWidth() : 4),
+                'height' => (float) ($rawRequest->getHeight() ? $rawRequest->getHeight() : 1),
                 'processingCategory' => $machinable,
                 'destinationEntryFacilityType' => 'NONE',
                 'rateIndicator' => 'DR',
@@ -810,12 +810,12 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
 
         $request = [
             'originZIPCode' => substr($rawRequest->getOrigPostal(), 0, 5),
-            'foreignPostalCode' => $rawRequest->getDestPostal() ?: '',
+            'foreignPostalCode' => $rawRequest->getDestPostal() ?? '',
             'destinationCountryCode' => $this->_getIso2CountryCode($rawRequest->getDestCountryId()),
             'weight' => $weightInPounds > 0 ? $weightInPounds : 0.1,
-            'length' => (float) ($rawRequest->getLength() ?: 6),
-            'width' => (float) ($rawRequest->getWidth() ?: 4),
-            'height' => (float) ($rawRequest->getHeight() ?: 1),
+            'length' => (float) ($rawRequest->getLength() ? $rawRequest->getLength() : 6),
+            'width' => (float) ($rawRequest->getWidth() ? $rawRequest->getWidth() : 4),
+            'height' => (float) ($rawRequest->getHeight() ? $rawRequest->getHeight() : 1),
             'processingCategory' => $machinable,
             'destinationEntryFacilityType' => 'NONE',
             'rateIndicator' => 'SP',
@@ -870,7 +870,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
             : $rawRequest->getBaseSubtotalInclTax();
 
         // Sort by SKU to ensure consistent hash regardless of item order
-        /** @phpstan-ignore argument.unresolvableType */
         usort($cartData, function ($a, $b) {
             /** @var array|mixed $a */
             /** @var array|mixed $b */
@@ -893,7 +892,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
     protected function _getIso2CountryCode($countryId)
     {
         $country = Mage::getModel('directory/country')->loadByCode($countryId);
-        return $country->getIso2Code() ?: $countryId;
+        return $country->getIso2Code() ? $country->getIso2Code() : $countryId;
     }
 
     /**
@@ -2026,7 +2025,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
         foreach ($mailClasses as $mailClass) {
             if (str_starts_with($methodCode, $mailClass)) {
                 $rateIndicator = substr($methodCode, strlen($mailClass) + 1);
-                return [$mailClass, $rateIndicator ?: 'SP'];
+                return [$mailClass, $rateIndicator ? $rateIndicator : 'SP'];
             }
         }
 
@@ -2101,23 +2100,23 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
                 'returnLabel' => false,
             ],
             'toAddress' => [
-                'firstName' => $request->getRecipientContactPersonFirstName() ?: '',
-                'lastName' => $request->getRecipientContactPersonLastName() ?: '',
-                'streetAddress' => $request->getRecipientAddressStreet1() ?: '',
-                'secondaryAddress' => $request->getRecipientAddressStreet2() ?: '',
-                'city' => $request->getRecipientAddressCity() ?: '',
-                'state' => $request->getRecipientAddressStateOrProvinceCode() ?: '',
-                'ZIPCode' => substr($request->getRecipientAddressPostalCode() ?: '', 0, 5),
+                'firstName' => $request->getRecipientContactPersonFirstName() ?? '',
+                'lastName' => $request->getRecipientContactPersonLastName() ?? '',
+                'streetAddress' => $request->getRecipientAddressStreet1() ?? '',
+                'secondaryAddress' => $request->getRecipientAddressStreet2() ?? '',
+                'city' => $request->getRecipientAddressCity() ?? '',
+                'state' => $request->getRecipientAddressStateOrProvinceCode() ?? '',
+                'ZIPCode' => substr($request->getRecipientAddressPostalCode() ?? '', 0, 5),
             ],
             'fromAddress' => [
-                'firstName' => $request->getShipperContactPersonFirstName() ?: '',
-                'lastName' => $request->getShipperContactPersonLastName() ?: '',
-                'firm' => $request->getShipperContactCompanyName() ?: '',
-                'streetAddress' => $request->getShipperAddressStreet1() ?: '',
-                'secondaryAddress' => $request->getShipperAddressStreet2() ?: '',
-                'city' => $request->getShipperAddressCity() ?: '',
-                'state' => $request->getShipperAddressStateOrProvinceCode() ?: '',
-                'ZIPCode' => substr($request->getShipperAddressPostalCode() ?: '', 0, 5),
+                'firstName' => $request->getShipperContactPersonFirstName() ?? '',
+                'lastName' => $request->getShipperContactPersonLastName() ?? '',
+                'firm' => $request->getShipperContactCompanyName() ?? '',
+                'streetAddress' => $request->getShipperAddressStreet1() ?? '',
+                'secondaryAddress' => $request->getShipperAddressStreet2() ?? '',
+                'city' => $request->getShipperAddressCity() ?? '',
+                'state' => $request->getShipperAddressStateOrProvinceCode() ?? '',
+                'ZIPCode' => substr($request->getShipperAddressPostalCode() ?? '', 0, 5),
             ],
             'packageDescription' => [
                 'mailClass' => $mailClass,
@@ -2450,17 +2449,17 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
         // Fall back to configuration if no product dimensions found
         if (!$hasProductDimensions) {
             return [
-                'height' => (float) ($this->getConfigData('height') ?: 1),
-                'length' => (float) ($this->getConfigData('length') ?: 6),
-                'width'  => (float) ($this->getConfigData('width') ?: 4),
+                'height' => (float) ($this->getConfigData('height') ? $this->getConfigData('height') : 1),
+                'length' => (float) ($this->getConfigData('length') ? $this->getConfigData('length') : 6),
+                'width'  => (float) ($this->getConfigData('width') ? $this->getConfigData('width') : 4),
             ];
         }
 
         // Use calculated dimensions, fallback to config for missing values
         return [
-            'height' => (float) ($totalHeight > 0 ? $totalHeight : ($this->getConfigData('height') ?: 1)),
-            'length' => (float) ($maxLength > 0 ? $maxLength : ($this->getConfigData('length') ?: 6)),
-            'width'  => (float) ($maxWidth > 0 ? $maxWidth : ($this->getConfigData('width') ?: 4)),
+            'height' => (float) ($totalHeight > 0 ? $totalHeight : ($this->getConfigData('height') ? $this->getConfigData('height') : 1)),
+            'length' => (float) ($maxLength > 0 ? $maxLength : ($this->getConfigData('length') ? $this->getConfigData('length') : 6)),
+            'width'  => (float) ($maxWidth > 0 ? $maxWidth : ($this->getConfigData('width') ? $this->getConfigData('width') : 4)),
         ];
     }
 

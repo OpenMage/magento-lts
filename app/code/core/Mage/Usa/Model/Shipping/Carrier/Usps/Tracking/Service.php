@@ -276,7 +276,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Tracking_Service
     protected function _getCarrierTitle(): string
     {
         if ($this->_carrierModel) {
-            return $this->_carrierModel->getConfigData('title') ?: 'USPS';
+            return $this->_carrierModel->getConfigData('title') ? $this->_carrierModel->getConfigData('title') : 'USPS';
         }
 
         return 'USPS';
@@ -317,6 +317,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Tracking_Service
             }
         }
 
-        return $statuses ?: (string) Mage::helper('usa')->__('Empty response');
+        return $statuses ? $statuses : (string) Mage::helper('usa')->__('Empty response');
     }
 }
