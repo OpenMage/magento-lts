@@ -10,7 +10,7 @@ declare(strict_types=1);
  */
 
 /**
- * Mustishipping checkout base abstract block
+ * Multishipping checkout base abstract block
  *
  * @package    Mage_Checkout
  */

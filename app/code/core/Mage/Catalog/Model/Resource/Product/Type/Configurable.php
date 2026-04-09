@@ -108,7 +108,7 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable extends Mage_Core_Mo
     }
 
     /**
-     * Retrieve parent ids array by requered child
+     * Retrieve parent ids array by child
      *
      * @param  array|int $childId
      * @return array

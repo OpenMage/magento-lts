@@ -10,7 +10,7 @@ declare(strict_types=1);
  */
 
 /**
- * Product stock qty abstarct block
+ * Product stock qty abstract block
  *
  * @package    Mage_CatalogInventory
  */

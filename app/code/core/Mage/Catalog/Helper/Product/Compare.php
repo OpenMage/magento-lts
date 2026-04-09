@@ -24,7 +24,7 @@ class Mage_Catalog_Helper_Product_Compare extends Mage_Core_Helper_Url
     protected $_itemCollection;
 
     /**
-     * Product Comapare Items Collection has items flag
+     * Product Compare Items Collection has items flag
      *
      * @var bool
      */
@@ -129,7 +129,7 @@ class Mage_Catalog_Helper_Product_Compare extends Mage_Core_Helper_Url
     }
 
     /**
-     * Retrieve url for adding product to conpare list
+     * Retrieve url for adding product to compare list
      *
      * @param  Mage_Catalog_Model_Product $product
      * @return string
@@ -318,7 +318,7 @@ class Mage_Catalog_Helper_Product_Compare extends Mage_Core_Helper_Url
     }
 
     /**
-     * Retrieve url for adding product to conpare list with or without Form Key
+     * Retrieve url for adding product to compare list with or without Form Key
      *
      * @param  Mage_Catalog_Model_Product $product
      * @param  bool                       $addFormKey

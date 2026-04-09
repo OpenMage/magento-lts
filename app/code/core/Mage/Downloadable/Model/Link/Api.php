@@ -25,7 +25,7 @@ class Mage_Downloadable_Model_Link_Api extends Mage_Catalog_Model_Api_Resource
     }
 
     /**
-     * Decode file from base64 and upload it to donwloadable 'tmp' folder
+     * Decode file from base64 and upload it to downloadable 'tmp' folder
      *
      * @param  array  $fileInfo
      * @param  string $type

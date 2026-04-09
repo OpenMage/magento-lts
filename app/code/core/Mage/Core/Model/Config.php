@@ -202,7 +202,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
     protected $_cachePartsForSave = [];
 
     /**
-     * Empty configuration object for loading and megring configuration parts
+     * Empty configuration object for loading and merging configuration parts
      *
      * @var Mage_Core_Model_Config_Base
      */

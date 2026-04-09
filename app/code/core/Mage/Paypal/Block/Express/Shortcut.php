@@ -8,7 +8,7 @@
  */
 
 /**
- * Paypal expess checkout shortcut link
+ * Paypal express checkout shortcut link
  *
  * @package    Mage_Paypal
  *
