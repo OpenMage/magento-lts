@@ -7283,12 +7283,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Usa/Model/Shipping/Carrier/Ups.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc type Mage_Shipping_Model_Rate_Result|null of property Mage_Usa_Model_Shipping_Carrier_Ups::$_result is not the same as PHPDoc type Mage_Shipping_Model_Rate_Result|Mage_Shipping_Model_Tracking_Result|null of overridden property Mage_Shipping_Model_Carrier_Abstract::$_result.',
-	'identifier' => 'property.phpDocType',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Usa/Model/Shipping/Carrier/Ups.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'PHPDoc type string of property Mage_Usa_Model_Shipping_Carrier_Ups::$_code is not the same as PHPDoc type string|null of overridden property Mage_Shipping_Model_Carrier_Abstract::$_code.',
 	'identifier' => 'property.phpDocType',
 	'count' => 1,
