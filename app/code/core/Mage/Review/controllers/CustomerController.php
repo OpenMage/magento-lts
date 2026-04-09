@@ -51,6 +51,9 @@ class Mage_Review_CustomerController extends Mage_Core_Controller_Front_Action
         return $review;
     }
 
+    /**
+     * @return void
+     */
     public function indexAction()
     {
         $this->loadLayout();
@@ -69,6 +72,9 @@ class Mage_Review_CustomerController extends Mage_Core_Controller_Front_Action
         $this->renderLayout();
     }
 
+    /**
+     * @return void
+     */
     public function viewAction()
     {
         $review = $this->_loadReview((int) $this->getRequest()->getParam('id'));

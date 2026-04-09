@@ -32,6 +32,7 @@ class Mage_Adminhtml_System_CacheController extends Mage_Adminhtml_Controller_Ac
 
     /**
      * Display cache management form
+     * @return void
      */
     public function indexAction()
     {
@@ -45,6 +46,7 @@ class Mage_Adminhtml_System_CacheController extends Mage_Adminhtml_Controller_Ac
 
     /**
      * Seva cache settings
+     * @return void
      */
     public function saveAction()
     {
@@ -260,6 +262,9 @@ class Mage_Adminhtml_System_CacheController extends Mage_Adminhtml_Controller_Ac
         $this->_redirect('*/*');
     }
 
+    /**
+     * @return void
+     */
     public function refreshCatalogRewritesAction()
     {
         try {
@@ -276,6 +281,9 @@ class Mage_Adminhtml_System_CacheController extends Mage_Adminhtml_Controller_Ac
         $this->_redirect('*/*');
     }
 
+    /**
+     * @return void
+     */
     public function clearImagesCacheAction()
     {
         try {
@@ -292,6 +300,9 @@ class Mage_Adminhtml_System_CacheController extends Mage_Adminhtml_Controller_Ac
         $this->_redirect('*/*');
     }
 
+    /**
+     * @return void
+     */
     public function refreshLayeredNavigationAction()
     {
         try {

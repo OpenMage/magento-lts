@@ -49,6 +49,9 @@ class Mage_Adminhtml_Promo_CatalogController extends Mage_Adminhtml_Controller_A
         return $this;
     }
 
+    /**
+     * @return void
+     */
     public function indexAction()
     {
         $this->_title($this->__('Promotions'))->_title($this->__('Catalog Price Rules'));
@@ -66,11 +69,17 @@ class Mage_Adminhtml_Promo_CatalogController extends Mage_Adminhtml_Controller_A
             ->renderLayout();
     }
 
+    /**
+     * @return void
+     */
     public function newAction()
     {
         $this->_forward('edit');
     }
 
+    /**
+     * @return void
+     */
     public function editAction()
     {
         $this->_title($this->__('Promotions'))->_title($this->__('Catalog Price Rules'));
@@ -110,6 +119,9 @@ class Mage_Adminhtml_Promo_CatalogController extends Mage_Adminhtml_Controller_A
         $this->_addBreadcrumb($breadcrumb, $breadcrumb)->renderLayout();
     }
 
+    /**
+     * @return void
+     */
     public function saveAction()
     {
         if ($this->getRequest()->getPost()) {
@@ -194,6 +206,9 @@ class Mage_Adminhtml_Promo_CatalogController extends Mage_Adminhtml_Controller_A
         $this->_redirect('*/*/');
     }
 
+    /**
+     * @return void
+     */
     public function deleteAction()
     {
         if ($id = $this->getRequest()->getParam('id')) {
@@ -235,6 +250,9 @@ class Mage_Adminhtml_Promo_CatalogController extends Mage_Adminhtml_Controller_A
         $this->_redirect('*/*/');
     }
 
+    /**
+     * @return void
+     */
     public function newConditionHtmlAction()
     {
         $id = $this->getRequest()->getParam('id');
@@ -260,6 +278,9 @@ class Mage_Adminhtml_Promo_CatalogController extends Mage_Adminhtml_Controller_A
         $this->getResponse()->setBody($html);
     }
 
+    /**
+     * @return void
+     */
     public function chooserAction()
     {
         switch ($this->getRequest()->getParam('attribute')) {
@@ -280,6 +301,9 @@ class Mage_Adminhtml_Promo_CatalogController extends Mage_Adminhtml_Controller_A
         }
     }
 
+    /**
+     * @return void
+     */
     public function newActionHtmlAction()
     {
         $id = $this->getRequest()->getParam('id');
@@ -307,6 +331,7 @@ class Mage_Adminhtml_Promo_CatalogController extends Mage_Adminhtml_Controller_A
 
     /**
      * Apply all active catalog price rules
+     * @return void
      */
     public function applyRulesAction()
     {
@@ -328,6 +353,7 @@ class Mage_Adminhtml_Promo_CatalogController extends Mage_Adminhtml_Controller_A
     }
 
     /**
+     * @return void
      * @deprecated since 1.5.0.0
      */
     public function addToAlersAction() {}

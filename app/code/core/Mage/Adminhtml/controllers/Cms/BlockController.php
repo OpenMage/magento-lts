@@ -49,6 +49,7 @@ class Mage_Adminhtml_Cms_BlockController extends Mage_Adminhtml_Controller_Actio
 
     /**
      * Index action
+     * @return void
      */
     public function indexAction()
     {
@@ -60,6 +61,7 @@ class Mage_Adminhtml_Cms_BlockController extends Mage_Adminhtml_Controller_Actio
 
     /**
      * Create new CMS block
+     * @return void
      */
     public function newAction()
     {
@@ -69,6 +71,7 @@ class Mage_Adminhtml_Cms_BlockController extends Mage_Adminhtml_Controller_Actio
 
     /**
      * Edit CMS block
+     * @return void
      */
     public function editAction()
     {
@@ -107,6 +110,7 @@ class Mage_Adminhtml_Cms_BlockController extends Mage_Adminhtml_Controller_Actio
 
     /**
      * Save action
+     * @return void
      */
     public function saveAction()
     {
@@ -158,6 +162,7 @@ class Mage_Adminhtml_Cms_BlockController extends Mage_Adminhtml_Controller_Actio
 
     /**
      * Delete action
+     * @return void
      */
     public function deleteAction()
     {
@@ -190,6 +195,9 @@ class Mage_Adminhtml_Cms_BlockController extends Mage_Adminhtml_Controller_Actio
         $this->_redirect('*/*/');
     }
 
+    /**
+     * @return void
+     */
     public function massDeleteAction()
     {
         $blockIds = $this->getRequest()->getParam('block');
@@ -212,6 +220,9 @@ class Mage_Adminhtml_Cms_BlockController extends Mage_Adminhtml_Controller_Actio
         $this->_redirect('*/*/index');
     }
 
+    /**
+     * @return void
+     */
     public function massStatusAction()
     {
         $blockIds = (array) $this->getRequest()->getParam('block');

@@ -51,6 +51,7 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Show grid action
+     * @return void
      */
     public function indexAction()
     {
@@ -66,6 +67,7 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Action to draw grid loaded by ajax
+     * @return void
      */
     public function ajaxGridAction()
     {
@@ -75,6 +77,7 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Action to draw pending tags grid loaded by ajax
+     * @return void
      */
     public function ajaxPendingGridAction()
     {
@@ -84,6 +87,7 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
 
     /**
      * New tag action
+     * @return void
      */
     public function newAction()
     {
@@ -92,6 +96,7 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Edit tag action
+     * @return void
      */
     public function editAction()
     {
@@ -122,6 +127,7 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Save tag action
+     * @return void
      */
     public function saveAction()
     {
@@ -173,6 +179,7 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Delete tag action
+     * @return void
      */
     public function deleteAction()
     {
@@ -195,6 +202,7 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Pending tags
+     * @return void
      */
     public function pendingAction()
     {
@@ -210,6 +218,7 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Assigned products (with serializer block)
+     * @return void
      */
     public function assignedAction()
     {
@@ -222,6 +231,7 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Assigned products grid
+     * @return void
      */
     public function assignedGridOnlyAction()
     {
@@ -232,6 +242,7 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Tagged products
+     * @return void
      */
     public function productAction()
     {
@@ -242,6 +253,7 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Customers
+     * @return void
      */
     public function customerAction()
     {
@@ -252,6 +264,7 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Massaction for removing tags
+     * @return void
      */
     public function massDeleteAction()
     {
@@ -278,6 +291,7 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Massaction for changing status of selected tags
+     * @return void
      */
     public function massStatusAction()
     {

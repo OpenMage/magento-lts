@@ -49,6 +49,9 @@ class Mage_Adminhtml_System_StoreController extends Mage_Adminhtml_Controller_Ac
         return $this;
     }
 
+    /**
+     * @return void
+     */
     public function indexAction()
     {
         $this->_title($this->__('System'))
@@ -59,18 +62,27 @@ class Mage_Adminhtml_System_StoreController extends Mage_Adminhtml_Controller_Ac
             ->renderLayout();
     }
 
+    /**
+     * @return void
+     */
     public function newWebsiteAction()
     {
         Mage::register('store_type', 'website');
         $this->_forward('newStore');
     }
 
+    /**
+     * @return void
+     */
     public function newGroupAction()
     {
         Mage::register('store_type', 'group');
         $this->_forward('newStore');
     }
 
+    /**
+     * @return void
+     */
     public function newStoreAction()
     {
         if (!Mage::registry('store_type')) {
@@ -81,18 +93,27 @@ class Mage_Adminhtml_System_StoreController extends Mage_Adminhtml_Controller_Ac
         $this->_forward('editStore');
     }
 
+    /**
+     * @return void
+     */
     public function editWebsiteAction()
     {
         Mage::register('store_type', 'website');
         $this->_forward('editStore');
     }
 
+    /**
+     * @return void
+     */
     public function editGroupAction()
     {
         Mage::register('store_type', 'group');
         $this->_forward('editStore');
     }
 
+    /**
+     * @return void
+     */
     public function editStoreAction()
     {
         $this->_title($this->__('System'))
@@ -168,6 +189,9 @@ class Mage_Adminhtml_System_StoreController extends Mage_Adminhtml_Controller_Ac
         }
     }
 
+    /**
+     * @return void
+     */
     public function saveAction()
     {
         if ($this->getRequest()->isPost() && $postData = $this->getRequest()->getPost()) {
@@ -261,6 +285,9 @@ class Mage_Adminhtml_System_StoreController extends Mage_Adminhtml_Controller_Ac
         $this->_redirect('*/*/');
     }
 
+    /**
+     * @return void
+     */
     public function deleteWebsiteAction()
     {
         $this->_title($this->__('System'))
@@ -293,6 +320,9 @@ class Mage_Adminhtml_System_StoreController extends Mage_Adminhtml_Controller_Ac
             ->renderLayout();
     }
 
+    /**
+     * @return void
+     */
     public function deleteGroupAction()
     {
         $this->_title($this->__('System'))
@@ -325,6 +355,9 @@ class Mage_Adminhtml_System_StoreController extends Mage_Adminhtml_Controller_Ac
             ->renderLayout();
     }
 
+    /**
+     * @return void
+     */
     public function deleteStoreAction()
     {
         $this->_title($this->__('System'))
@@ -357,6 +390,9 @@ class Mage_Adminhtml_System_StoreController extends Mage_Adminhtml_Controller_Ac
             ->renderLayout();
     }
 
+    /**
+     * @return void
+     */
     public function deleteWebsitePostAction()
     {
         $itemId = $this->getRequest()->getParam('item_id');
@@ -389,6 +425,9 @@ class Mage_Adminhtml_System_StoreController extends Mage_Adminhtml_Controller_Ac
         $this->_redirect('*/*/editWebsite', ['website_id' => $itemId]);
     }
 
+    /**
+     * @return void
+     */
     public function deleteGroupPostAction()
     {
         $itemId = $this->getRequest()->getParam('item_id');
@@ -423,6 +462,7 @@ class Mage_Adminhtml_System_StoreController extends Mage_Adminhtml_Controller_Ac
 
     /**
      * Delete store view post action
+     * @return void
      */
     public function deleteStorePostAction()
     {

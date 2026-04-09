@@ -50,6 +50,7 @@ class Mage_Sales_GuestController extends Mage_Sales_Controller_Abstract
 
     /**
      * Order view form page
+     * @return void
      */
     public function formAction()
     {
@@ -63,6 +64,9 @@ class Mage_Sales_GuestController extends Mage_Sales_Controller_Abstract
         $this->renderLayout();
     }
 
+    /**
+     * @return void
+     */
     public function printInvoiceAction()
     {
         if (!$this->_loadValidOrder()) {
@@ -89,6 +93,9 @@ class Mage_Sales_GuestController extends Mage_Sales_Controller_Abstract
         }
     }
 
+    /**
+     * @return void
+     */
     public function printShipmentAction()
     {
         if (!$this->_loadValidOrder()) {
@@ -115,6 +122,9 @@ class Mage_Sales_GuestController extends Mage_Sales_Controller_Abstract
         }
     }
 
+    /**
+     * @return void
+     */
     public function printCreditmemoAction()
     {
         if (!$this->_loadValidOrder()) {

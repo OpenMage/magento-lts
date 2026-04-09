@@ -167,6 +167,7 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
 
     /**
      * creditmemo information page
+     * @return void
      */
     public function viewAction()
     {
@@ -189,6 +190,7 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
 
     /**
      * Start create creditmemo action
+     * @return void
      */
     public function startAction()
     {
@@ -200,6 +202,7 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
 
     /**
      * creditmemo create page
+     * @return void
      */
     public function newAction()
     {
@@ -224,6 +227,7 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
 
     /**
      * Update items qty action
+     * @return void
      */
     public function updateQtyAction()
     {
@@ -251,6 +255,7 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
     /**
      * Save creditmemo
      * We can save only new creditmemo. Existing creditmemos are not editable
+     * @return void
      */
     public function saveAction()
     {
@@ -317,6 +322,7 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
 
     /**
      * Cancel creditmemo action
+     * @return void
      */
     public function cancelAction()
     {
@@ -340,6 +346,7 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
 
     /**
      * Void creditmemo action
+     * @return void
      */
     public function voidAction()
     {
@@ -363,6 +370,7 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
 
     /**
      * Add comment to creditmemo history
+     * @return void
      */
     public function addCommentAction()
     {
@@ -440,6 +448,7 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
 
     /**
      * Create pdf for current creditmemo
+     * @return void
      */
     public function printAction()
     {

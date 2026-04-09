@@ -46,7 +46,7 @@ class Mage_ImportExport_Adminhtml_ExportController extends Mage_Adminhtml_Contro
     /**
      * Load data with filter applying and create file for download.
      *
-     * @return Mage_Adminhtml_Controller_Action
+     * @return void
      */
     public function exportAction()
     {
@@ -74,11 +74,13 @@ class Mage_ImportExport_Adminhtml_ExportController extends Mage_Adminhtml_Contro
             $this->_getSession()->addError($this->__('No valid data sent'));
         }
 
-        return $this->_redirect('*/*/index');
+        $this->_redirect('*/*/index');
+        return;
     }
 
     /**
      * Index action.
+     * @return void
      */
     public function indexAction()
     {
@@ -91,6 +93,7 @@ class Mage_ImportExport_Adminhtml_ExportController extends Mage_Adminhtml_Contro
 
     /**
      * Get grid-filter of entity attributes action.
+     * @return void
      */
     public function getFilterAction()
     {

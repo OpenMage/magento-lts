@@ -24,6 +24,7 @@ class Mage_Adminhtml_System_Convert_GuiController extends Mage_Adminhtml_System_
 
     /**
      * Profiles list action
+     * @return void
      */
     public function indexAction()
     {
@@ -59,6 +60,9 @@ class Mage_Adminhtml_System_Convert_GuiController extends Mage_Adminhtml_System_
         $this->renderLayout();
     }
 
+    /**
+     * @return void
+     */
     public function gridAction()
     {
         $this->getResponse()->setBody($this->getLayout()->createBlock('adminhtml/system_convert_gui_grid')->toHtml());
@@ -66,6 +70,7 @@ class Mage_Adminhtml_System_Convert_GuiController extends Mage_Adminhtml_System_
 
     /**
      * Profile edit action
+     * @return void
      */
     public function editAction()
     {
@@ -97,18 +102,27 @@ class Mage_Adminhtml_System_Convert_GuiController extends Mage_Adminhtml_System_
         $this->renderLayout();
     }
 
+    /**
+     * @return void
+     */
     public function uploadAction()
     {
         $this->_initProfile();
         $profile = Mage::registry('current_convert_profile');
     }
 
+    /**
+     * @return void
+     */
     public function uploadPostAction()
     {
         $this->_initProfile();
         $profile = Mage::registry('current_convert_profile');
     }
 
+    /**
+     * @return void
+     */
     public function downloadAction()
     {
         $filename = $this->getRequest()->getParam('filename');

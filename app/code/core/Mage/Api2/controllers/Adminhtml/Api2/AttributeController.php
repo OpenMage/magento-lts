@@ -33,6 +33,7 @@ class Mage_Api2_Adminhtml_Api2_AttributeController extends Mage_Adminhtml_Contro
 
     /**
      * Show user types grid
+     * @return void
      */
     public function indexAction()
     {
@@ -51,6 +52,7 @@ class Mage_Api2_Adminhtml_Api2_AttributeController extends Mage_Adminhtml_Contro
 
     /**
      * Edit role
+     * @return void
      */
     public function editAction()
     {
@@ -79,6 +81,7 @@ class Mage_Api2_Adminhtml_Api2_AttributeController extends Mage_Adminhtml_Contro
 
     /**
      * Save role
+     * @return void
      */
     public function saveAction()
     {

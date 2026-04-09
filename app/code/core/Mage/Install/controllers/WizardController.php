@@ -82,6 +82,7 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
 
     /**
      * Index action
+     * @return void
      */
     public function indexAction()
     {
@@ -90,6 +91,7 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
 
     /**
      * Begin installation action
+     * @return void
      */
     public function beginAction()
     {
@@ -110,6 +112,7 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
 
     /**
      * Process begin step POST data
+     * @return void
      */
     public function beginPostAction()
     {
@@ -125,6 +128,7 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
 
     /**
      * Localization settings
+     * @return void
      */
     public function localeAction()
     {
@@ -143,6 +147,7 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
 
     /**
      * Change current locale
+     * @return void
      */
     public function localeChangeAction()
     {
@@ -162,6 +167,7 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
 
     /**
      * Saving localization settings
+     * @return void
      */
     public function localePostAction()
     {
@@ -177,6 +183,7 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
 
     /**
      * Configuration data installation
+     * @return void
      */
     public function configAction()
     {
@@ -202,7 +209,7 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
     /**
      * Process configuration POST data
      *
-     * @return null|Mage_Core_Controller_Varien_Action
+     * @return void
      */
     public function configPostAction()
     {
@@ -224,7 +231,7 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
             try {
                 $this->_getInstaller()->installConfig($data);
                 $this->_redirect('*/*/installDb');
-                return $this;
+                return;
             } catch (Exception $exception) {
                 Mage::getSingleton('install/session')->addError($exception->getMessage());
                 $this->getResponse()->setRedirect($step->getUrl());
@@ -232,11 +239,12 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
         }
 
         $this->getResponse()->setRedirect($step->getUrl());
-        return null;
+        return;
     }
 
     /**
      * Install DB
+     * @return void
      */
     public function installDbAction()
     {
@@ -260,6 +268,7 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
 
     /**
      * Install administrator account
+     * @return void
      */
     public function administratorAction()
     {
@@ -277,7 +286,7 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
     /**
      * Process administrator installation POST data
      *
-     * @return null|false
+     * @return void
      */
     public function administratorPostAction()
     {
@@ -304,7 +313,7 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
         if ($errors !== []) {
             Mage::getSingleton('install/session')->setAdminData($adminData);
             $this->getResponse()->setRedirect($step->getUrl());
-            return false;
+            return;
         }
 
         try {
@@ -315,15 +324,16 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
                 ->setAdminData($adminData)
                 ->addError($exception->getMessage());
             $this->getResponse()->setRedirect($step->getUrl());
-            return false;
+            return;
         }
 
         $this->getResponse()->setRedirect($step->getNextUrl());
-        return null;
+        return;
     }
 
     /**
      * End installation
+     * @return void
      */
     public function endAction()
     {
@@ -349,6 +359,7 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
 
     /**
      * Host validation response
+     * @return void
      */
     public function checkHostAction()
     {
@@ -358,6 +369,7 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
 
     /**
      * Host validation response
+     * @return void
      */
     public function checkSecureHostAction()
     {

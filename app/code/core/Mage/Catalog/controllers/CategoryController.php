@@ -94,6 +94,7 @@ class Mage_Catalog_CategoryController extends Mage_Core_Controller_Front_Action
 
     /**
      * Category view action
+     * @return void
      * @throws Mage_Core_Exception
      */
     public function viewAction()

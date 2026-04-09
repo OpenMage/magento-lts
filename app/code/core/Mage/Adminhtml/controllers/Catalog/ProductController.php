@@ -174,6 +174,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
 
     /**
      * Product list page
+     * @return void
      */
     public function indexAction()
     {
@@ -186,6 +187,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
 
     /**
      * Create new product page
+     * @return void
      */
     public function newAction()
     {
@@ -227,6 +229,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
 
     /**
      * Product edit form
+     * @return void
      */
     public function editAction()
     {
@@ -281,6 +284,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
     /**
      * WYSIWYG editor action for ajax request
      *
+     * @return void
      * @throws Mage_Core_Exception|Mage_Core_Model_Store_Exception
      */
     public function wysiwygAction()
@@ -299,6 +303,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
 
     /**
      * Product grid for AJAX request
+     * @return void
      */
     public function gridAction()
     {
@@ -308,6 +313,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
 
     /**
      * Get specified tab grid
+     * @return void
      * @throws Mage_Core_Exception
      */
     public function gridOnlyAction()
@@ -324,6 +330,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
     /**
      * Get categories fieldset block
      *
+     * @return void
      * @throws Mage_Core_Exception
      */
     public function categoriesAction()
@@ -336,6 +343,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
     /**
      * Get options fieldset block
      *
+     * @return void
      * @throws Mage_Core_Exception
      */
     public function optionsAction()
@@ -347,6 +355,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
 
     /**
      * Get related products grid and serializer block
+     * @return void
      * @throws Mage_Core_Exception
      */
     public function relatedAction()
@@ -360,6 +369,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
 
     /**
      * Get upsell products grid and serializer block
+     * @return void
      * @throws Mage_Core_Exception
      */
     public function upsellAction()
@@ -373,6 +383,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
 
     /**
      * Get crosssell products grid and serializer block
+     * @return void
      * @throws Mage_Core_Exception
      */
     public function crosssellAction()
@@ -386,6 +397,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
 
     /**
      * Get related products grid
+     * @return void
      * @throws Mage_Core_Exception
      */
     public function relatedGridAction()
@@ -399,6 +411,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
 
     /**
      * Get upsell products grid
+     * @return void
      * @throws Mage_Core_Exception
      */
     public function upsellGridAction()
@@ -412,6 +425,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
 
     /**
      * Get crosssell products grid
+     * @return void
      * @throws Mage_Core_Exception
      */
     public function crosssellGridAction()
@@ -425,6 +439,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
 
     /**
      * Get associated grouped products grid and serializer block
+     * @return void
      * @throws Mage_Core_Exception
      */
     public function superGroupAction()
@@ -439,6 +454,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
     /**
      * Get associated grouped products grid only
      *
+     * @return void
      * @throws Mage_Core_Exception
      */
     public function superGroupGridOnlyAction()
@@ -453,6 +469,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
     /**
      * Get product reviews grid
      *
+     * @return void
      * @throws Mage_Core_Exception
      */
     public function reviewsAction()
@@ -468,6 +485,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
     /**
      * Get super config grid
      *
+     * @return void
      * @throws Mage_Core_Exception
      */
     public function superConfigAction()
@@ -478,6 +496,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
     }
 
     /**
+     * @return void
      * @throws Mage_Core_Exception
      * @deprecated since 1.2
      */
@@ -494,6 +513,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
 
     /**
      * Validate product
+     * @return void
      */
     public function validateAction()
     {
@@ -715,6 +735,9 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
         }
     }
 
+    /**
+     * @return void
+     */
     public function categoriesJsonAction()
     {
         $product = $this->_initProduct();
@@ -727,6 +750,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
 
     /**
      * Save product action
+     * @return void
      */
     public function saveAction()
     {
@@ -816,6 +840,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
 
     /**
      * Create product duplicate
+     * @return void
      * @throws Mage_Core_Exception
      */
     public function duplicateAction()
@@ -853,6 +878,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
 
     /**
      * Delete product action
+     * @return void
      */
     public function deleteAction()
     {
@@ -873,6 +899,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
 
     /**
      * Get tag grid
+     * @return void
      */
     public function tagGridAction()
     {
@@ -884,6 +911,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
 
     /**
      * Get alerts price grid
+     * @return void
      */
     public function alertsPriceGridAction()
     {
@@ -893,6 +921,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
 
     /**
      * Get alerts stock grid
+     * @return void
      */
     public function alertsStockGridAction()
     {
@@ -901,14 +930,17 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
     }
 
     /**
-     * @return $this
+     * @return void
      * @deprecated since 1.5.0.0
      */
     public function addCustomersToAlertQueueAction()
     {
-        return $this;
+        return;
     }
 
+    /**
+     * @return void
+     */
     public function addAttributeAction()
     {
         $this->_getSession()->addNotice(
@@ -922,6 +954,9 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
         $this->renderLayout();
     }
 
+    /**
+     * @return void
+     */
     public function createdAction()
     {
         $this->_getSession()->addNotice(
@@ -934,6 +969,9 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
         $this->renderLayout();
     }
 
+    /**
+     * @return void
+     */
     public function massDeleteAction()
     {
         $productIds = $this->getRequest()->getParam('product');
@@ -962,6 +1000,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
 
     /**
      * Update product(s) status action
+     * @return void
      */
     public function massStatusAction()
     {
@@ -1007,6 +1046,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
 
     /**
      * Get tag customer grid
+     * @return void
      */
     public function tagCustomerGridAction()
     {
@@ -1016,6 +1056,9 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
         $this->renderLayout();
     }
 
+    /**
+     * @return void
+     */
     public function quickCreateAction()
     {
         $result = [];
@@ -1149,7 +1192,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
      * Show item update result from updateAction
      * in Wishlist and Cart controllers.
      *
-     * @return null|false
+     * @return void
      */
     public function showUpdateResultAction()
     {
@@ -1161,9 +1204,9 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
             $session->unsCompositeProductResult();
         } else {
             $session->unsCompositeProductResult();
-            return false;
+            return;
         }
 
-        return null;
+        return;
     }
 }

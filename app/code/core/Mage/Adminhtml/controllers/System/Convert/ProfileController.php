@@ -51,6 +51,7 @@ class Mage_Adminhtml_System_Convert_ProfileController extends Mage_Adminhtml_Con
 
     /**
      * Profiles list action
+     * @return void
      */
     public function indexAction()
     {
@@ -92,6 +93,9 @@ class Mage_Adminhtml_System_Convert_ProfileController extends Mage_Adminhtml_Con
         $this->renderLayout();
     }
 
+    /**
+     * @return void
+     */
     public function gridAction()
     {
         $this->getResponse()->setBody(
@@ -102,6 +106,7 @@ class Mage_Adminhtml_System_Convert_ProfileController extends Mage_Adminhtml_Con
     /**
      * Profile edit action
      *
+     * @return void
      * @throws Mage_Core_Exception
      */
     public function editAction()
@@ -136,6 +141,7 @@ class Mage_Adminhtml_System_Convert_ProfileController extends Mage_Adminhtml_Con
 
     /**
      * Create new profile action
+     * @return void
      */
     public function newAction()
     {
@@ -145,6 +151,7 @@ class Mage_Adminhtml_System_Convert_ProfileController extends Mage_Adminhtml_Con
     /**
      * Delete profile action
      *
+     * @return void
      * @throws Mage_Core_Exception
      */
     public function deleteAction()
@@ -168,6 +175,7 @@ class Mage_Adminhtml_System_Convert_ProfileController extends Mage_Adminhtml_Con
     /**
      * Save profile action
      *
+     * @return void
      * @throws Mage_Core_Exception
      */
     public function saveAction()
@@ -210,6 +218,7 @@ class Mage_Adminhtml_System_Convert_ProfileController extends Mage_Adminhtml_Con
     }
 
     /**
+     * @return void
      * @throws Mage_Core_Exception
      */
     public function runAction()
@@ -220,6 +229,7 @@ class Mage_Adminhtml_System_Convert_ProfileController extends Mage_Adminhtml_Con
     }
 
     /**
+     * @return void
      * @throws Mage_Core_Exception
      */
     public function batchRunAction()
@@ -292,6 +302,7 @@ class Mage_Adminhtml_System_Convert_ProfileController extends Mage_Adminhtml_Con
     }
 
     /**
+     * @return void
      * @throws Mage_Core_Exception
      * @throws Throwable
      */
@@ -321,6 +332,7 @@ class Mage_Adminhtml_System_Convert_ProfileController extends Mage_Adminhtml_Con
     /**
      * Customer orders grid
      *
+     * @return void
      * @throws Mage_Core_Exception
      */
     public function historyAction()

@@ -33,6 +33,7 @@ class Mage_Sales_OrderController extends Mage_Sales_Controller_Abstract
 
     /**
      * Customer order history
+     * @return void
      */
     public function historyAction()
     {
@@ -63,6 +64,7 @@ class Mage_Sales_OrderController extends Mage_Sales_Controller_Abstract
     /**
      * osCommerce Order view page
      *
+     * @return void
      * @deprecated after 1.6.0.0
      */
     public function viewOldAction()

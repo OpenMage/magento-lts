@@ -119,7 +119,7 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
     /**
      * Display customer wishlist
      *
-     * @return Mage_Core_Controller_Varien_Action|void
+     * @return void
      * @throws Mage_Core_Exception
      */
     public function indexAction()
@@ -135,7 +135,8 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
             Mage::getSingleton('core/session')->addError(Mage::helper('wishlist')->__(
                 'Please add product to wishlist again.',
             ));
-            return $this->_redirectUrl(Mage::getSingleton('customer/session')->getBeforeWishlistUrl());
+            $this->_redirectUrl(Mage::getSingleton('customer/session')->getBeforeWishlistUrl());
+            return;
         }
 
         $session = Mage::getSingleton('customer/session');
@@ -159,13 +160,14 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
     /**
      * Adding new item
      *
-     * @return Mage_Core_Controller_Varien_Action|void
+     * @return void
      * @throws Throwable
      */
     public function addAction()
     {
         if (!$this->_validateFormKey()) {
-            return $this->_redirect('*/*');
+            $this->_redirect('*/*');
+            return;
         }
 
         $this->_addItemToWishList();
@@ -364,13 +366,14 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
     /**
      * Update wishlist item comments
      *
-     * @return Mage_Core_Controller_Varien_Action|void
+     * @return void
      * @throws Mage_Core_Exception
      */
     public function updateAction()
     {
         if (!$this->_validateFormKey()) {
-            return $this->_redirect('*/*/');
+            $this->_redirect('*/*/');
+            return;
         }
 
         $wishlist = $this->_getWishlist();
@@ -461,13 +464,14 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
     /**
      * Remove item
      *
-     * @return Mage_Core_Controller_Varien_Action|void
+     * @return void
      * @throws Mage_Core_Exception
      */
     public function removeAction()
     {
         if (!$this->_validateFormKey()) {
-            return $this->_redirect('*/*');
+            $this->_redirect('*/*');
+            return;
         }
 
         $id = (int) $this->getRequest()->getParam('item');
@@ -507,13 +511,14 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
      * If Product has required options - item removed from wishlist and redirect
      * to product view page with message about needed defined required options
      *
-     * @return Mage_Core_Controller_Varien_Action
+     * @return void
      * @throws Mage_Core_Exception
      */
     public function cartAction()
     {
         if (!$this->_validateFormKey()) {
-            return $this->_redirect('*/*');
+            $this->_redirect('*/*');
+            return;
         }
 
         $itemId = (int) $this->getRequest()->getParam('item');
@@ -521,12 +526,14 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
         /** @var Mage_Wishlist_Model_Item $item */
         $item = Mage::getModel('wishlist/item')->load($itemId);
         if (!$item->getId()) {
-            return $this->_redirect('*/*');
+            $this->_redirect('*/*');
+            return;
         }
 
         $wishlist = $this->_getWishlist($item->getWishlistId());
         if (!$wishlist) {
-            return $this->_redirect('*/*');
+            $this->_redirect('*/*');
+            return;
         }
 
         // Set qty
@@ -593,13 +600,14 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
 
         Mage::helper('wishlist')->calculate();
 
-        return $this->_redirectUrl($redirectUrl);
+        $this->_redirectUrl($redirectUrl);
+        return;
     }
 
     /**
      * Add cart item to wishlist and remove from cart
      *
-     * @return Mage_Core_Controller_Varien_Action|void
+     * @return void
      * @throws Mage_Core_Exception
      */
     public function fromcartAction()
@@ -644,7 +652,8 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
             $session->addException($exception, Mage::helper('wishlist')->__('Cannot move item to wishlist'));
         }
 
-        return $this->_redirectUrl(Mage::helper('checkout/cart')->getCartUrl());
+        $this->_redirectUrl(Mage::helper('checkout/cart')->getCartUrl());
+        return;
     }
 
     /**
@@ -666,13 +675,14 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
     /**
      * Share wishlist
      *
-     * @return Mage_Core_Controller_Varien_Action|void
+     * @return void
      * @throws Mage_Core_Exception
      */
     public function sendAction()
     {
         if (!$this->_validateFormKey()) {
-            return $this->_redirect('*/*/');
+            $this->_redirect('*/*/');
+            return;
         }
 
         $wishlist = $this->_getWishlist();

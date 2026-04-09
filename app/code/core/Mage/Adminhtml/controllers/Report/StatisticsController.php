@@ -28,6 +28,7 @@ class Mage_Adminhtml_Report_StatisticsController extends Mage_Adminhtml_Controll
     protected $_adminSession = null;
 
     /**
+     * @return void
      * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
      */
@@ -45,6 +46,7 @@ class Mage_Adminhtml_Report_StatisticsController extends Mage_Adminhtml_Controll
     }
 
     /**
+     * @return void
      * @throws Zend_Locale_Exception
      */
     public function _initReportAction($blocks)
@@ -115,7 +117,7 @@ class Mage_Adminhtml_Report_StatisticsController extends Mage_Adminhtml_Controll
     /**
      * Refresh statistics for last 25 hours
      *
-     * @return $this
+     * @return void
      */
     public function refreshRecentAction()
     {
@@ -141,13 +143,13 @@ class Mage_Adminhtml_Report_StatisticsController extends Mage_Adminhtml_Controll
             $this->_redirectReferer('*/*');
         }
 
-        return $this;
+        return;
     }
 
     /**
      * Refresh statistics for all period
      *
-     * @return $this
+     * @return void
      */
     public function refreshLifetimeAction()
     {
@@ -171,10 +173,11 @@ class Mage_Adminhtml_Report_StatisticsController extends Mage_Adminhtml_Controll
             $this->_redirectReferer('*/*');
         }
 
-        return $this;
+        return;
     }
 
     /**
+     * @return void
      * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
      */

@@ -28,7 +28,7 @@ class Mage_Rss_OrderController extends Mage_Rss_Controller_Abstract
     }
 
     /**
-     * @return null|$this
+     * @return void
      * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
      */
@@ -39,11 +39,11 @@ class Mage_Rss_OrderController extends Mage_Rss_Controller_Abstract
                 Mage::helper('rss')->authFrontend();
             } else {
                 $this->_redirect('rss/order/customer', ['_secure' => true]);
-                return $this;
+                return;
             }
         }
 
-        return null;
+        return;
     }
 
     /**

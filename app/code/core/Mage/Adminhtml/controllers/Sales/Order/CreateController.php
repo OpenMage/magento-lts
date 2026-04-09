@@ -328,6 +328,7 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
 
     /**
      * Index page
+     * @return void
      */
     public function indexAction()
     {
@@ -339,6 +340,9 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
             ->renderLayout();
     }
 
+    /**
+     * @return void
+     */
     public function reorderAction()
     {
         $this->_getSession()->clear();
@@ -368,6 +372,7 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
 
     /**
      * Loading page block
+     * @return void
      */
     public function loadBlockAction()
     {
@@ -416,6 +421,7 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
 
     /**
      * Adds configured product to quote
+     * @return void
      */
     public function addConfiguredAction()
     {
@@ -444,6 +450,7 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
 
     /**
      * Start order create action
+     * @return void
      */
     public function startAction()
     {
@@ -453,6 +460,7 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
 
     /**
      * Cancel order create
+     * @return void
      */
     public function cancelAction()
     {
@@ -469,6 +477,7 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
 
     /**
      * Saving quote and create order
+     * @return void
      */
     public function saveAction()
     {
@@ -548,7 +557,7 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
     /**
      * Ajax handler to response configuration fieldset of composite product in order
      *
-     * @return $this
+     * @return void
      */
     public function configureProductToAddAction()
     {
@@ -568,13 +577,13 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
         $helper = Mage::helper('adminhtml/catalog_product_composite');
         $helper->renderConfigureResult($this, $configureResult);
 
-        return $this;
+        return;
     }
 
     /**
      * Ajax handler to response configuration fieldset of composite product in quote items
      *
-     * @return $this
+     * @return void
      */
     public function configureQuoteItemsAction()
     {
@@ -611,12 +620,13 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
         $helper = Mage::helper('adminhtml/catalog_product_composite');
         $helper->renderConfigureResult($this, $configureResult);
 
-        return $this;
+        return;
     }
 
     /**
      * Show item update result from loadBlockAction
      * to prevent popup alert with resend data question
+     * @return void
      */
     public function showUpdateResultAction()
     {
@@ -634,6 +644,7 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
 
     /**
      * Process data and display index page
+     * @return void
      */
     public function processDataAction()
     {

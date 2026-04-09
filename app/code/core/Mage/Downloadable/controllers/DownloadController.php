@@ -76,6 +76,7 @@ class Mage_Downloadable_DownloadController extends Mage_Core_Controller_Front_Ac
      * Download sample action
      *
      * @SuppressWarnings("PHPMD.ExitExpression")
+     * @return void
      */
     public function sampleAction()
     {
@@ -114,6 +115,7 @@ class Mage_Downloadable_DownloadController extends Mage_Core_Controller_Front_Ac
      * Download link's sample action
      *
      * @SuppressWarnings("PHPMD.ExitExpression")
+     * @return void
      */
     public function linkSampleAction()
     {
@@ -151,7 +153,7 @@ class Mage_Downloadable_DownloadController extends Mage_Core_Controller_Front_Ac
     /**
      * Download link action
      *
-     * @return Mage_Core_Controller_Varien_Action|void
+     * @return void
      * @SuppressWarnings("PHPMD.ExitExpression")
      */
     public function linkAction()
@@ -160,7 +162,8 @@ class Mage_Downloadable_DownloadController extends Mage_Core_Controller_Front_Ac
         $linkPurchasedItem = Mage::getModel('downloadable/link_purchased_item')->load($id, 'link_hash');
         if (!$linkPurchasedItem->getId()) {
             $this->_getCustomerSession()->addNotice(Mage::helper('downloadable')->__('Requested link does not exist.'));
-            return $this->_redirect('*/customer/products');
+            $this->_redirect('*/customer/products');
+            return;
         }
 
         if (!Mage::helper('downloadable')->getIsShareable($linkPurchasedItem)) {
@@ -185,7 +188,8 @@ class Mage_Downloadable_DownloadController extends Mage_Core_Controller_Front_Ac
             $linkPurchased = Mage::getModel('downloadable/link_purchased')->load($linkPurchasedItem->getPurchasedId());
             if ($linkPurchased->getCustomerId() != $customerId) {
                 $this->_getCustomerSession()->addNotice(Mage::helper('downloadable')->__('Requested link does not exist.'));
-                return $this->_redirect('*/customer/products');
+                $this->_redirect('*/customer/products');
+                return;
             }
         }
 
@@ -236,6 +240,7 @@ class Mage_Downloadable_DownloadController extends Mage_Core_Controller_Front_Ac
             );
         }
 
-        return $this->_redirect('*/customer/products');
+        $this->_redirect('*/customer/products');
+        return;
     }
 }

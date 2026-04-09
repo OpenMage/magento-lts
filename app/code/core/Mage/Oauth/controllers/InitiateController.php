@@ -31,6 +31,7 @@ class Mage_Oauth_InitiateController extends Mage_Core_Controller_Front_Action
 
     /**
      * Index action. Receive initiate request and response OAuth token
+     * @return void
      */
     public function indexAction()
     {

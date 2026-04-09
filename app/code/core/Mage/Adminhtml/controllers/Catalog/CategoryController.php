@@ -66,6 +66,7 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
 
     /**
      * Catalog categories index action
+     * @return void
      */
     public function indexAction()
     {
@@ -74,6 +75,7 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
 
     /**
      * Add new category form
+     * @return void
      */
     public function addAction()
     {
@@ -83,6 +85,7 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
 
     /**
      * Edit category page
+     * @return void
      */
     public function editAction()
     {
@@ -201,6 +204,7 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
 
     /**
      * WYSIWYG editor action for ajax request
+     * @return void
      */
     public function wysiwygAction()
     {
@@ -219,6 +223,7 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
 
     /**
      * Get tree node (Ajax version)
+     * @return void
      */
     public function categoriesJsonAction()
     {
@@ -244,6 +249,7 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
 
     /**
      * Category save
+     * @return void
      */
     public function saveAction()
     {
@@ -354,6 +360,7 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
 
     /**
      * Move category action
+     * @return void
      */
     public function moveAction()
     {
@@ -385,6 +392,7 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
 
     /**
      * Delete category action
+     * @return void
      */
     public function deleteAction()
     {
@@ -414,6 +422,7 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
     /**
      * Grid Action
      * Display list of products related to current category
+     * @return void
      */
     public function gridAction()
     {
@@ -430,6 +439,7 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
     /**
      * Tree Action
      * Retrieve category tree
+     * @return void
      */
     public function treeAction()
     {
@@ -463,6 +473,7 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
 
     /**
      * Build response for refresh input element 'path' in form
+     * @return void
      */
     public function refreshPathAction()
     {

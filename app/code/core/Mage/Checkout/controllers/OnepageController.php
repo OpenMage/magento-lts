@@ -172,6 +172,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
 
     /**
      * Checkout page
+     * @return void
      */
     public function indexAction()
     {
@@ -214,7 +215,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
      * This function is called from the reloadProgessBlock
      * function from the javascript
      *
-     * @return null|string
+     * @return void
      */
     public function progressAction()
     {
@@ -222,7 +223,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
         $prevStep = $this->getRequest()->getParam('prevStep', false);
 
         if ($this->_expireAjax() || !$prevStep) {
-            return null;
+            return;
         }
 
         $layout = $this->getLayout();
@@ -235,11 +236,12 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
 
         $output = $layout->getOutput();
         $this->getResponse()->setBody($output);
-        return $output;
+        return;
     }
 
     /**
      * Shipping method action
+     * @return void
      */
     public function shippingMethodAction()
     {
@@ -253,6 +255,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
 
     /**
      * Review page action
+     * @return void
      */
     public function reviewAction()
     {
@@ -266,6 +269,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
 
     /**
      * Order success action
+     * @return void
      */
     public function successAction()
     {
@@ -292,6 +296,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
 
     /**
      * Failure action
+     * @return void
      */
     public function failureAction()
     {
@@ -309,6 +314,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
 
     /**
      * Get additional info action
+     * @return void
      */
     public function getAdditionalAction()
     {
@@ -317,6 +323,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
 
     /**
      * Address JSON
+     * @return void
      */
     public function getAddressAction()
     {
@@ -338,6 +345,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
 
     /**
      * Save checkout method
+     * @return void
      */
     public function saveMethodAction()
     {
@@ -354,6 +362,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
 
     /**
      * Save checkout billing address
+     * @return void
      */
     public function saveBillingAction()
     {
@@ -402,6 +411,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
 
     /**
      * Shipping address save action
+     * @return void
      */
     public function saveShippingAction()
     {
@@ -432,6 +442,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
 
     /**
      * Shipping method save action
+     * @return void
      */
     public function saveShippingMethodAction()
     {
@@ -473,6 +484,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
      * Save payment ajax action
      *
      * Sets either redirect or a JSON response
+     * @return void
      */
     public function savePaymentAction()
     {
@@ -565,6 +577,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
 
     /**
      * Create order action
+     * @return void
      */
     public function saveOrderAction()
     {

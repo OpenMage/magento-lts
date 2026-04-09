@@ -74,7 +74,7 @@ class Mage_Wishlist_SharedController extends Mage_Wishlist_Controller_Abstract
      * If Product has required options - redirect
      * to product view page with message about needed defined required options
      *
-     * @return $this
+     * @return void
      * @throws Mage_Core_Exception
      */
     public function cartAction()
@@ -121,6 +121,7 @@ class Mage_Wishlist_SharedController extends Mage_Wishlist_Controller_Abstract
             $session->addException($exception, Mage::helper('wishlist')->__('Cannot add item to shopping cart'));
         }
 
-        return $this->_redirectUrl($redirectUrl);
+        $this->_redirectUrl($redirectUrl);
+        return;
     }
 }

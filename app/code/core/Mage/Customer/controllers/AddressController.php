@@ -39,6 +39,7 @@ class Mage_Customer_AddressController extends Mage_Core_Controller_Front_Action
 
     /**
      * Customer addresses list
+     * @return void
      */
     public function indexAction()
     {
@@ -58,11 +59,17 @@ class Mage_Customer_AddressController extends Mage_Core_Controller_Front_Action
         }
     }
 
+    /**
+     * @return void
+     */
     public function editAction()
     {
         $this->_forward('form');
     }
 
+    /**
+     * @return void
+     */
     public function newAction()
     {
         $this->_forward('form');
@@ -70,6 +77,7 @@ class Mage_Customer_AddressController extends Mage_Core_Controller_Front_Action
 
     /**
      * Address book form
+     * @return void
      */
     public function formAction()
     {
@@ -84,12 +92,13 @@ class Mage_Customer_AddressController extends Mage_Core_Controller_Front_Action
     }
 
     /**
-     * @return Mage_Core_Controller_Varien_Action|void
+     * @return void
      */
     public function formPostAction()
     {
         if (!$this->_validateFormKey()) {
-            return $this->_redirect('*/*/');
+            $this->_redirect('*/*/');
+            return;
         }
 
         // Save data
@@ -149,19 +158,21 @@ class Mage_Customer_AddressController extends Mage_Core_Controller_Front_Action
                     ->addException($exception, $this->__('Cannot save address.'));
             }
 
-            return $this->_redirectError(Mage::getUrl('*/*/edit', ['id' => $address->getId()]));
+            $this->_redirectError(Mage::getUrl('*/*/edit', ['id' => $address->getId()]));
+            return;
         }
 
         $this->_redirectReferer();
     }
 
     /**
-     * @return Mage_Core_Controller_Varien_Action|void
+     * @return void
      */
     public function deleteAction()
     {
         if (!$this->_validateFormKey()) {
-            return $this->_redirect('*/*/');
+            $this->_redirect('*/*/');
+            return;
         }
 
         $addressId = $this->getRequest()->getParam('id', false);

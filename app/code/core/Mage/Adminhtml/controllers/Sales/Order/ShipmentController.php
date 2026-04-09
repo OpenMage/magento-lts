@@ -114,6 +114,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
     /**
      * Shipment information page
      *
+     * @return void
      * @throws Mage_Core_Exception
      */
     public function viewAction()
@@ -137,6 +138,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
 
     /**
      * Start create shipment action
+     * @return void
      */
     public function startAction()
     {
@@ -149,6 +151,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
     /**
      * Shipment create page
      *
+     * @return void
      * @throws Mage_Core_Exception
      */
     public function newAction()
@@ -173,6 +176,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
      * Save shipment
      * We can save only new shipment. Existing shipments are not editable
      *
+     * @return void
      * @throws Mage_Core_Exception
      */
     public function saveAction()
@@ -255,6 +259,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
 
     /**
      * Send email with shipment data to customer
+     * @return void
      */
     public function emailAction()
     {
@@ -286,6 +291,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
 
     /**
      * Add new tracking number action
+     * @return void
      */
     public function addTrackAction()
     {
@@ -339,6 +345,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
 
     /**
      * Remove tracking number from shipment
+     * @return void
      */
     public function removeTrackAction()
     {
@@ -380,6 +387,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
 
     /**
      * View shipment tracking information
+     * @return void
      */
     public function viewTrackAction()
     {
@@ -423,6 +431,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
 
     /**
      * Add comment to shipment history
+     * @return void
      */
     public function addCommentAction()
     {
@@ -560,6 +569,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
 
     /**
      * Create shipping label action for specific shipment
+     * @return void
      */
     public function createLabelAction()
     {
@@ -586,7 +596,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
     /**
      * Print label for one specific shipment
      *
-     * @return Mage_Core_Controller_Varien_Action|void
+     * @return void
      */
     public function printLabelAction()
     {
@@ -630,6 +640,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
     /**
      * Create pdf document with information about packages
      *
+     * @return void
      * @throws Mage_Core_Exception
      * @throws Zend_Pdf_Exception
      */
@@ -653,6 +664,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
      * Batch print shipping labels for whole shipments.
      * Push pdf document with shipping labels to user browser
      *
+     * @return void
      * @throws Zend_Pdf_Exception
      */
     public function massPrintShippingLabelAction()
@@ -767,7 +779,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
     /**
      * Return grid with shipping items for Ajax request
      *
-     * @return Mage_Core_Controller_Response_Http
+     * @return void
      * @throws Mage_Core_Exception
      */
     public function getShippingItemsGridAction()

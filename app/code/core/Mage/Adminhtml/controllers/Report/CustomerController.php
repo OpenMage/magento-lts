@@ -14,6 +14,9 @@
  */
 class Mage_Adminhtml_Report_CustomerController extends Mage_Adminhtml_Controller_Action
 {
+    /**
+     * @return void
+     */
     public function _initAction()
     {
         $act = $this->getRequest()->getActionName();
@@ -27,6 +30,9 @@ class Mage_Adminhtml_Report_CustomerController extends Mage_Adminhtml_Controller
         return $this;
     }
 
+    /**
+     * @return void
+     */
     public function accountsAction()
     {
         $this->_title($this->__('Reports'))
@@ -42,6 +48,7 @@ class Mage_Adminhtml_Report_CustomerController extends Mage_Adminhtml_Controller
 
     /**
      * Export new accounts report grid to CSV format
+     * @return void
      */
     public function exportAccountsCsvAction()
     {
@@ -54,6 +61,7 @@ class Mage_Adminhtml_Report_CustomerController extends Mage_Adminhtml_Controller
 
     /**
      * Export new accounts report grid to Excel XML format
+     * @return void
      */
     public function exportAccountsExcelAction()
     {
@@ -64,6 +72,9 @@ class Mage_Adminhtml_Report_CustomerController extends Mage_Adminhtml_Controller
         $this->_prepareDownloadResponse($fileName, $content);
     }
 
+    /**
+     * @return void
+     */
     public function ordersAction()
     {
         $this->_title($this->__('Reports'))
@@ -82,6 +93,7 @@ class Mage_Adminhtml_Report_CustomerController extends Mage_Adminhtml_Controller
 
     /**
      * Export customers most ordered report to CSV format
+     * @return void
      */
     public function exportOrdersCsvAction()
     {
@@ -94,6 +106,7 @@ class Mage_Adminhtml_Report_CustomerController extends Mage_Adminhtml_Controller
 
     /**
      * Export customers most ordered report to Excel XML format
+     * @return void
      */
     public function exportOrdersExcelAction()
     {
@@ -104,6 +117,9 @@ class Mage_Adminhtml_Report_CustomerController extends Mage_Adminhtml_Controller
         $this->_prepareDownloadResponse($fileName, $content);
     }
 
+    /**
+     * @return void
+     */
     public function totalsAction()
     {
         $this->_title($this->__('Reports'))
@@ -122,6 +138,7 @@ class Mage_Adminhtml_Report_CustomerController extends Mage_Adminhtml_Controller
 
     /**
      * Export customers biggest totals report to CSV format
+     * @return void
      */
     public function exportTotalsCsvAction()
     {
@@ -134,6 +151,7 @@ class Mage_Adminhtml_Report_CustomerController extends Mage_Adminhtml_Controller
 
     /**
      * Export customers biggest totals report to Excel XML format
+     * @return void
      */
     public function exportTotalsExcelAction()
     {

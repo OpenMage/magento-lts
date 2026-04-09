@@ -65,7 +65,7 @@ class Mage_Adminhtml_Customer_Wishlist_Product_Composite_WishlistController exte
     /**
      * Ajax handler to response configuration fieldset of composite product in customer's wishlist
      *
-     * @return $this
+     * @return void
      */
     public function configureAction()
     {
@@ -89,13 +89,13 @@ class Mage_Adminhtml_Customer_Wishlist_Product_Composite_WishlistController exte
         Mage::helper('catalog/product')->setSkipSaleableCheck(true);
         $helper->renderConfigureResult($this, $configureResult);
 
-        return $this;
+        return;
     }
 
     /**
      * IFrame handler for submitted configuration for wishlist item
      *
-     * @return false
+     * @return void
      */
     public function updateAction()
     {
@@ -120,6 +120,6 @@ class Mage_Adminhtml_Customer_Wishlist_Product_Composite_WishlistController exte
         Mage::getSingleton('adminhtml/session')->setCompositeProductResult($updateResult);
         $this->_redirect('*/catalog_product/showUpdateResult');
 
-        return false;
+        return;
     }
 }

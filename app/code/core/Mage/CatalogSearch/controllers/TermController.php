@@ -28,6 +28,9 @@ class Mage_CatalogSearch_TermController extends Mage_Core_Controller_Front_Actio
         return $this;
     }
 
+    /**
+     * @return void
+     */
     public function popularAction()
     {
         $this->loadLayout();

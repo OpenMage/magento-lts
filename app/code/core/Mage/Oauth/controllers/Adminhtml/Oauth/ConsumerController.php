@@ -48,6 +48,7 @@ class Mage_Oauth_Adminhtml_Oauth_ConsumerController extends Mage_Adminhtml_Contr
 
     /**
      * Render grid page
+     * @return void
      */
     public function indexAction()
     {
@@ -58,6 +59,7 @@ class Mage_Oauth_Adminhtml_Oauth_ConsumerController extends Mage_Adminhtml_Contr
 
     /**
      * Render grid AJAX request
+     * @return void
      */
     public function gridAction()
     {
@@ -68,6 +70,7 @@ class Mage_Oauth_Adminhtml_Oauth_ConsumerController extends Mage_Adminhtml_Contr
     /**
      * Create page action
      *
+     * @return void
      * @throws Mage_Core_Exception
      */
     public function newAction()
@@ -97,6 +100,7 @@ class Mage_Oauth_Adminhtml_Oauth_ConsumerController extends Mage_Adminhtml_Contr
     /**
      * Edit page action
      *
+     * @return void
      * @throws Mage_Core_Exception
      */
     public function editAction()
@@ -129,6 +133,7 @@ class Mage_Oauth_Adminhtml_Oauth_ConsumerController extends Mage_Adminhtml_Contr
 
     /**
      * Render edit page
+     * @return void
      */
     public function saveAction()
     {
@@ -273,6 +278,7 @@ class Mage_Oauth_Adminhtml_Oauth_ConsumerController extends Mage_Adminhtml_Contr
 
     /**
      * Delete consumer action
+     * @return void
      */
     public function deleteAction()
     {

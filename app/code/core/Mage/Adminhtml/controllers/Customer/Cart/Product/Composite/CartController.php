@@ -74,7 +74,7 @@ class Mage_Adminhtml_Customer_Cart_Product_Composite_CartController extends Mage
     /**
      * Ajax handler to response configuration fieldset of composite product in customer's cart
      *
-     * @return $this
+     * @return void
      */
     public function configureAction()
     {
@@ -105,13 +105,13 @@ class Mage_Adminhtml_Customer_Cart_Product_Composite_CartController extends Mage
         Mage::helper('catalog/product')->setSkipSaleableCheck(true);
         $helper->renderConfigureResult($this, $configureResult);
 
-        return $this;
+        return;
     }
 
     /**
      * IFrame handler for submitted configuration for quote item
      *
-     * @return $this
+     * @return void
      */
     public function updateAction()
     {
@@ -134,6 +134,6 @@ class Mage_Adminhtml_Customer_Cart_Product_Composite_CartController extends Mage
         Mage::getSingleton('adminhtml/session')->setCompositeProductResult($updateResult);
         $this->_redirect('*/catalog_product/showUpdateResult');
 
-        return $this;
+        return;
     }
 }

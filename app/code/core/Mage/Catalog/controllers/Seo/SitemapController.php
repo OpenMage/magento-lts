@@ -32,6 +32,7 @@ class Mage_Catalog_Seo_SitemapController extends Mage_Core_Controller_Front_Acti
 
     /**
      * Display categories listing
+     * @return void
      */
     public function categoryAction()
     {
@@ -49,6 +50,7 @@ class Mage_Catalog_Seo_SitemapController extends Mage_Core_Controller_Front_Acti
 
     /**
      * Display products listing
+     * @return void
      */
     public function productAction()
     {

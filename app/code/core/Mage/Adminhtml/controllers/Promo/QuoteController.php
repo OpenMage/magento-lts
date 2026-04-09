@@ -54,6 +54,9 @@ class Mage_Adminhtml_Promo_QuoteController extends Mage_Adminhtml_Controller_Act
         return $this;
     }
 
+    /**
+     * @return void
+     */
     public function indexAction()
     {
         $this->_title($this->__('Promotions'))->_title($this->__('Shopping Cart Price Rules'));
@@ -63,11 +66,17 @@ class Mage_Adminhtml_Promo_QuoteController extends Mage_Adminhtml_Controller_Act
             ->renderLayout();
     }
 
+    /**
+     * @return void
+     */
     public function newAction()
     {
         $this->_forward('edit');
     }
 
+    /**
+     * @return void
+     */
     public function editAction()
     {
         $id = $this->getRequest()->getParam('id');
@@ -112,6 +121,7 @@ class Mage_Adminhtml_Promo_QuoteController extends Mage_Adminhtml_Controller_Act
 
     /**
      * Promo quote save action
+     * @return void
      */
     public function saveAction()
     {
@@ -206,6 +216,9 @@ class Mage_Adminhtml_Promo_QuoteController extends Mage_Adminhtml_Controller_Act
         $this->_redirect('*/*/');
     }
 
+    /**
+     * @return void
+     */
     public function deleteAction()
     {
         if ($id = $this->getRequest()->getParam('id')) {
@@ -248,6 +261,7 @@ class Mage_Adminhtml_Promo_QuoteController extends Mage_Adminhtml_Controller_Act
     /**
      * New condition HTML action
      *
+     * @return void
      * @throws Mage_Core_Exception
      */
     public function newConditionHtmlAction()
@@ -283,6 +297,9 @@ class Mage_Adminhtml_Promo_QuoteController extends Mage_Adminhtml_Controller_Act
         $this->getResponse()->setBody($html);
     }
 
+    /**
+     * @return void
+     */
     public function newActionHtmlAction()
     {
         $id = $this->getRequest()->getParam('id');
@@ -308,12 +325,18 @@ class Mage_Adminhtml_Promo_QuoteController extends Mage_Adminhtml_Controller_Act
         $this->getResponse()->setBody($html);
     }
 
+    /**
+     * @return void
+     */
     public function applyRulesAction()
     {
         $this->_initAction();
         $this->renderLayout();
     }
 
+    /**
+     * @return void
+     */
     public function gridAction()
     {
         $this->_initRule()->loadLayout()->renderLayout();
@@ -321,6 +344,7 @@ class Mage_Adminhtml_Promo_QuoteController extends Mage_Adminhtml_Controller_Act
 
     /**
      * Coupon codes grid
+     * @return void
      */
     public function couponsGridAction()
     {
@@ -330,6 +354,7 @@ class Mage_Adminhtml_Promo_QuoteController extends Mage_Adminhtml_Controller_Act
 
     /**
      * Export coupon codes as excel xml file
+     * @return void
      */
     public function exportCouponsXmlAction()
     {
@@ -349,6 +374,7 @@ class Mage_Adminhtml_Promo_QuoteController extends Mage_Adminhtml_Controller_Act
 
     /**
      * Export coupon codes as CSV file
+     * @return void
      */
     public function exportCouponsCsvAction()
     {
@@ -368,6 +394,7 @@ class Mage_Adminhtml_Promo_QuoteController extends Mage_Adminhtml_Controller_Act
 
     /**
      * Coupons mass delete action
+     * @return void
      */
     public function couponsMassDeleteAction()
     {
@@ -392,6 +419,7 @@ class Mage_Adminhtml_Promo_QuoteController extends Mage_Adminhtml_Controller_Act
 
     /**
      * Generate Coupons action
+     * @return void
      */
     public function generateAction()
     {
@@ -440,6 +468,7 @@ class Mage_Adminhtml_Promo_QuoteController extends Mage_Adminhtml_Controller_Act
 
     /**
      * Chooser source action
+     * @return void
      */
     public function chooserAction()
     {

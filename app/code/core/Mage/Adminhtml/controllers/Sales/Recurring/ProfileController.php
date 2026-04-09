@@ -25,7 +25,7 @@ class Mage_Adminhtml_Sales_Recurring_ProfileController extends Mage_Adminhtml_Co
     /**
      * Recurring profiles list
      *
-     * @return $this
+     * @return void
      */
     public function indexAction()
     {
@@ -33,11 +33,12 @@ class Mage_Adminhtml_Sales_Recurring_ProfileController extends Mage_Adminhtml_Co
             ->loadLayout()
             ->_setActiveMenu('sales/recurring_profile')
             ->renderLayout();
-        return $this;
+        return;
     }
 
     /**
      * View recurring profile detales
+     * @return void
      */
     public function viewAction()
     {
@@ -61,6 +62,7 @@ class Mage_Adminhtml_Sales_Recurring_ProfileController extends Mage_Adminhtml_Co
 
     /**
      * Profiles ajax grid
+     * @return void
      */
     public function gridAction()
     {
@@ -78,6 +80,7 @@ class Mage_Adminhtml_Sales_Recurring_ProfileController extends Mage_Adminhtml_Co
 
     /**
      * Profile orders ajax grid
+     * @return void
      */
     public function ordersAction()
     {
@@ -92,6 +95,7 @@ class Mage_Adminhtml_Sales_Recurring_ProfileController extends Mage_Adminhtml_Co
 
     /**
      * Profile state updater action
+     * @return void
      */
     public function updateStateAction()
     {
@@ -128,6 +132,7 @@ class Mage_Adminhtml_Sales_Recurring_ProfileController extends Mage_Adminhtml_Co
 
     /**
      * Profile information updater action
+     * @return void
      */
     public function updateProfileAction()
     {
@@ -157,6 +162,7 @@ class Mage_Adminhtml_Sales_Recurring_ProfileController extends Mage_Adminhtml_Co
 
     /**
      * Cutomer billing agreements ajax action
+     * @return void
      */
     public function customerGridAction()
     {
