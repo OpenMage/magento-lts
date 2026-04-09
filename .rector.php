@@ -158,10 +158,20 @@ try {
             CodeQuality\Isset_\IssetOnPropertyObjectToPropertyExistsRector::class,
             # ... +250 occurrences
             CodingStyle\Encapsed\EncapsedStringsToSprintfRector::class,
+            # --- wait for phpstan strict rules
+            CodingStyle\FuncCall\StrictArraySearchRector::class,
+            # ... +200 occurrences, need closer review
+            CodingStyle\PostInc\PostIncDecToPreIncDecRector::class,
+            # ... needs closer review
+            DeadCode\ClassMethod\RemoveUnusedConstructorParamRector::class,
             # ... messes up code
             DeadCode\If_\RemoveAlwaysTrueIfConditionRector::class => [
                 __DIR__ . '/app/design/adminhtml/base/default/template/system/store/tree.phtml',
             ],
+            # ... +400 occurrences, needs closer review
+            DeadCode\PropertyProperty\RemoveNullPropertyInitializationRector::class,
+            # ... needs closer review
+            DeadCode\TryCatch\RemoveDeadTryCatchRector::class,
             # ... needs closer review and docblock fixes for magic methods
             Php71\FuncCall\RemoveExtraParametersRector::class,
             # ... needs closer review
@@ -176,8 +186,6 @@ try {
             Strict\Empty_\DisallowedEmptyRuleFixerRector::class,
             # ... needs closer review
             TypeDeclaration\BooleanAnd\BinaryOpNullableToInstanceofRector::class,
-            # ... will be added after rector-update 2.4.0
-            TypeDeclaration\StmtsAwareInterface\SafeDeclareStrictTypesRector::class,
         ])
         # WIP
         ->withSkip([
@@ -187,11 +195,6 @@ try {
             Php81\Array_\ArrayToFirstClassCallableRector::class,
         ])
         ->withSkip([
-            CodingStyle\FuncCall\StrictArraySearchRector::class, # todo: TMP
-            CodingStyle\PostInc\PostIncDecToPreIncDecRector::class, # todo: TMP
-            DeadCode\ClassMethod\RemoveUnusedConstructorParamRector::class, # todo: TMP (!?!)
-            DeadCode\PropertyProperty\RemoveNullPropertyInitializationRector::class, # todo: TMP
-            DeadCode\TryCatch\RemoveDeadTryCatchRector::class, # todo: TMP  (!?!)
             # skip: use static methods
             PreferPHPUnitThisCallRector::class,
             __DIR__ . '/shell/translations.php',

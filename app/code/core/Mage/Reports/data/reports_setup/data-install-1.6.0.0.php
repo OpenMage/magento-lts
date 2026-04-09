@@ -53,6 +53,7 @@ $installer->endSetup();
 /**
  * Cms Page  with 'home' identifier page modification for report pages
  */
+
 /** @var Mage_Cms_Model_Page $cms */
 $cms = Mage::getModel('cms/page')->load('home', 'identifier');
 
