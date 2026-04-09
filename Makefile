@@ -16,5 +16,5 @@ phpmd-serve:
 	@if test -f build/phpmd/report.html ; then \
 		xdg-open build/phpmd/report.html; \
 	else \
-		echo "phpmd report not found, run \"composer run phpmd\"" && exit 2; \
+		echo "phpmd report not found, run \"composer run phpmd:test\"" && exit 2; \
 	fi; \
