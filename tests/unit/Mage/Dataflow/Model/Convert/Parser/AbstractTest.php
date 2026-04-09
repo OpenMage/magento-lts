@@ -41,7 +41,7 @@ final class AbstractTest extends OpenMageTest
     /**
      * @group Model
      */
-    public function testGetBatchExortModel(): void
+    public function testGetBatchExportModel(): void
     {
         self::assertInstanceOf(Mage_Dataflow_Model_Batch_Export::class, self::$subject->getBatchExportModel());
     }
