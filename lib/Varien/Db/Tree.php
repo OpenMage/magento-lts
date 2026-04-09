@@ -404,7 +404,6 @@ class Varien_Db_Tree
     public function __moveNode($eId, $pId, $aId = 0)
     {
         $eInfo = $this->getNodeInfo($eId);
-        $level = $eInfo[$this->_level];
         $left_key = $eInfo[$this->_left];
         $right_key = $eInfo[$this->_right];
         $right_key_near = 0;

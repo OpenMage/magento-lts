@@ -217,7 +217,7 @@ class Mage_Api_Model_Wsdl_Config_Element extends Varien_Simplexml_Element
 
         // simplexml bug: @attributes is in children() but invisible in foreach
         foreach (self::_getChildren($this) as $children) {
-            foreach ($children as $child) {
+            foreach ($children as $ignored) {
                 return true;
             }
         }

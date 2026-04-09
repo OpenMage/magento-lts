@@ -89,8 +89,6 @@ class Mage_Sales_Block_Recurring_Profiles extends Mage_Core_Block_Template
         if ($profiles) {
             $this->setGridElements($profiles);
         }
-
-        $orders = [];
     }
 
     /**

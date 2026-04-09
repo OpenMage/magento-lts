@@ -10,7 +10,7 @@
 
     <!-- UNUSEDCODE
     [ ] UnusedFormalParameter - TMP disabled
-    [ ] UnusedLocalVariable - TMP disabled
+    [x] UnusedLocalVariable
     [x] UnusedPrivateField
     [x] UnusedPrivateMethod
     -->
