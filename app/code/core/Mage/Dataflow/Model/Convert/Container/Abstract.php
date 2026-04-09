@@ -185,7 +185,7 @@ abstract class Mage_Dataflow_Model_Convert_Container_Abstract implements Mage_Da
         $fields = [];
         foreach ($grid as $row) {
             foreach (array_keys($row) as $fieldName) {
-                if (!in_array($fieldName, $fields)) {
+                if (!in_array($fieldName, $fields, true)) {
                     $fields[] = $fieldName;
                 }
             }
