@@ -8,6 +8,7 @@ declare(strict_types=1);
  * @license    Open Software License (OSL 3.0)
  * @package    Mage_Sales
  */
+
 /**
  * Quote address attribute frontend resource model
  *

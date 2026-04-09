@@ -8,6 +8,7 @@ declare(strict_types=1);
  * @license    Open Software License (OSL 3.0)
  * @package    Mage_Cache
  */
+
 /**
  * Licensed under New BSD license http://opensource.org/licenses/BSD-3-Clause
  * Copyright (c) 2012, Colin Mollenhour
@@ -35,6 +36,7 @@ declare(strict_types=1);
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+
 /**
  * Optimized file cache backend
  *

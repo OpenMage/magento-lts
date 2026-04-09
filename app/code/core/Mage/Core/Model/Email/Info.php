@@ -8,6 +8,7 @@ declare(strict_types=1);
  * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
  */
+
 /**
  * Email information model
  * Email message may contain addresses in any of these three fields:

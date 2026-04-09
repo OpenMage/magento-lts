@@ -8,6 +8,7 @@ declare(strict_types=1);
  * @license    Open Software License (OSL 3.0)
  * @package    Mage_Shipping
  */
+
 /**
  * Class Mage_Shipping_Model_Rate_Result_Abstract
  *

@@ -8,6 +8,7 @@ declare(strict_types=1);
  * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
  */
+
 /**
  * Abstract Api2 model for product categories collection
  *

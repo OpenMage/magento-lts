@@ -8,6 +8,7 @@ declare(strict_types=1);
  * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
  */
+
 /**
  * API2 for product website resource
  *

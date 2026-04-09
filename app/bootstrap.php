@@ -8,6 +8,7 @@ declare(strict_types=1);
  * @license    Open Software License (OSL 3.0)
  * @package    Mage
  */
+
 /**
  * Apply workaround for the libxml PHP bugs:
  * @link https://bugs.php.net/bug.php?id=62577

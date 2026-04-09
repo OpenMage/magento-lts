@@ -6,6 +6,7 @@
  * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
  */
+
 /**
  * @package    Mage_Catalog
  *

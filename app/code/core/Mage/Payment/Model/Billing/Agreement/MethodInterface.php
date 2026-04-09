@@ -8,6 +8,7 @@ declare(strict_types=1);
  * @license    Open Software License (OSL 3.0)
  * @package    Mage_Payment
  */
+
 /**
  * Interface for payment methods that support billing agreements management
  *

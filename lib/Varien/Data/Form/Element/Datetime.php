@@ -8,6 +8,7 @@ declare(strict_types=1);
  * @license    Open Software License (OSL 3.0)
  * @package    Varien_Data
  */
+
 /**
  * Varien data selector form element
  *

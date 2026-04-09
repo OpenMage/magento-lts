@@ -8,5 +8,6 @@ declare(strict_types=1);
  * @license    Open Software License (OSL 3.0)
  * @package    Mage_Contacts
  */
+
 /** @var Mage_Core_Model_Resource_Setup $this */
 $installer = $this;
