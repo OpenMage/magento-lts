@@ -208,7 +208,7 @@ class Mage_Adminhtml_Newsletter_TemplateController extends Mage_Adminhtml_Contro
 
     /**
      * Preview Newsletter template
-     * @return void
+     * @return $this|void
      */
     public function previewAction()
     {
@@ -218,7 +218,7 @@ class Mage_Adminhtml_Newsletter_TemplateController extends Mage_Adminhtml_Contro
         $data = $this->getRequest()->getParams();
         if (empty($data) || !isset($data['id'])) {
             $this->_forward('noRoute');
-            return;
+            return $this;
         }
 
         // set default value for selected store

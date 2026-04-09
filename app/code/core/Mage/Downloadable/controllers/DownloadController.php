@@ -76,7 +76,7 @@ class Mage_Downloadable_DownloadController extends Mage_Core_Controller_Front_Ac
      * Download sample action
      *
      * @SuppressWarnings("PHPMD.ExitExpression")
-     * @return void
+     * @return $this|void
      */
     public function sampleAction()
     {
@@ -108,15 +108,14 @@ class Mage_Downloadable_DownloadController extends Mage_Core_Controller_Front_Ac
             }
         }
 
-        $this->_redirectReferer();
-        return;
+        return $this->_redirectReferer();
     }
 
     /**
      * Download link's sample action
      *
      * @SuppressWarnings("PHPMD.ExitExpression")
-     * @return void
+     * @return $this|void
      */
     public function linkSampleAction()
     {
@@ -148,8 +147,7 @@ class Mage_Downloadable_DownloadController extends Mage_Core_Controller_Front_Ac
             }
         }
 
-        $this->_redirectReferer();
-        return;
+        return $this->_redirectReferer();
     }
 
     /**

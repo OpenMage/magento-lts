@@ -32,7 +32,7 @@ class Mage_Adminhtml_Checkout_AgreementController extends Mage_Adminhtml_Control
     }
 
     /**
-     * @return void
+     * @return $this|void
      */
     public function indexAction()
     {
@@ -41,7 +41,7 @@ class Mage_Adminhtml_Checkout_AgreementController extends Mage_Adminhtml_Control
         $this->_initAction()
             ->_addContent($this->getLayout()->createBlock('adminhtml/checkout_agreement'))
             ->renderLayout();
-        return;
+        return $this;
     }
 
     /**

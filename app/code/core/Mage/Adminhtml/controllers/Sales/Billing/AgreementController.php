@@ -84,7 +84,7 @@ class Mage_Adminhtml_Sales_Billing_AgreementController extends Mage_Adminhtml_Co
 
     /**
      * Cancel billing agreement action
-     * @return void
+     * @return $this|void
      */
     public function cancelAction()
     {
@@ -106,8 +106,7 @@ class Mage_Adminhtml_Sales_Billing_AgreementController extends Mage_Adminhtml_Co
             $this->_redirect('*/*/view', ['_current' => true]);
         }
 
-        $this->_redirect('*/*/');
-        return;
+        return $this->_redirect('*/*/');
     }
 
     /**

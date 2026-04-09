@@ -65,7 +65,7 @@ class Mage_Adminhtml_Newsletter_QueueController extends Mage_Adminhtml_Controlle
 
     /**
      * Preview Newsletter queue template
-     * @return void
+     * @return $this|void
      */
     public function previewAction()
     {
@@ -73,7 +73,7 @@ class Mage_Adminhtml_Newsletter_QueueController extends Mage_Adminhtml_Controlle
         $data = $this->getRequest()->getParams();
         if (empty($data) || !isset($data['id'])) {
             $this->_forward('noRoute');
-            return;
+            return $this;
         }
 
         // set default value for selected store

@@ -313,7 +313,7 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
 
     /**
      * Multishipping checkout shipping information page
-     * @return void
+     * @return $this|void
      */
     public function shippingAction()
     {
@@ -323,7 +323,7 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
 
         if (!$this->_getState()->getCompleteStep(Mage_Checkout_Model_Type_Multishipping_State::STEP_SELECT_ADDRESSES)) {
             $this->_redirect('*/*/addresses');
-            return;
+            return $this;
         }
 
         $this->_getState()->setActiveStep(
@@ -384,7 +384,7 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
 
     /**
      * Multishipping checkout billing information page
-     * @return void
+     * @return $this|void
      */
     public function billingAction()
     {
@@ -421,7 +421,7 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
 
         if (!$this->_getState()->getCompleteStep(Mage_Checkout_Model_Type_Multishipping_State::STEP_SHIPPING)) {
             $this->_redirect('*/*/shipping');
-            return;
+            return $this;
         }
 
         $this->_getState()->setActiveStep(
@@ -467,12 +467,12 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
 
     /**
      * Multishipping checkout place order page
-     * @return void
+     * @return $this|void
      */
     public function overviewAction()
     {
         if (!$this->_validateMinimumAmount()) {
-            return;
+            return $this;
         }
 
         if ($this->isFormkeyValidationOnCheckoutEnabled() && !$this->_validateFormKey()) {
@@ -586,13 +586,13 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
 
     /**
      * Multishipping checkout success page
-     * @return void
+     * @return $this|void
      */
     public function successAction()
     {
         if (!$this->_getState()->getCompleteStep(Mage_Checkout_Model_Type_Multishipping_State::STEP_OVERVIEW)) {
             $this->_redirect('*/*/addresses');
-            return;
+            return $this;
         }
 
         $this->loadLayout();

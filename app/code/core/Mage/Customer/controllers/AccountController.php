@@ -997,13 +997,12 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
 
     /**
      * Change customer password action
-     * @return void
+     * @return $this|void
      */
     public function editPostAction()
     {
         if (!$this->_validateFormKey()) {
-            $this->_redirect('*/*/edit');
-            return;
+            return $this->_redirect('*/*/edit');
         }
 
         if ($this->getRequest()->isPost()) {
@@ -1069,7 +1068,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
                 }
 
                 $this->_redirect('*/*/edit');
-                return;
+                return $this;
             }
 
             try {
