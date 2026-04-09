@@ -80,6 +80,12 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
         return $this;
     }
 
+
+    public function getTab(string $tabId): null|Mage_Adminhtml_Block_Widget_Tab_Interface|Varien_Object
+    {
+        return $this->_tabs[$tabId] ?? null;
+    }
+
     /**
      * Add new tab after another
      *
@@ -419,7 +425,7 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
     {
         $tabs = [];
         $args = func_get_args();
-        if ((!empty($args)) && (count($args) > 1)) {
+        if (($args !== []) && (count($args) > 1)) {
             foreach ($args as $tabId) {
                 if (isset($this->_tabs[$tabId])) {
                     $tabs[$tabId] = $tabId;

@@ -93,7 +93,11 @@ class Mage_Tax_Model_Observer
                 if (is_null($row['percent'])) {
                     $baseRealAmount = $row['base_amount'];
                 } else {
-                    if ($row['percent'] == 0 || $tax['percent'] == 0) {
+                    if ($row['percent'] == 0) {
+                        continue;
+                    }
+
+                    if ($tax['percent'] == 0) {
                         continue;
                     }
 
@@ -147,9 +151,6 @@ class Mage_Tax_Model_Observer
     {
         $table = $observer->getEvent()->getTable();
         $response = $observer->getEvent()->getResponseObject();
-        $select = $observer->getEvent()->getSelect();
-        $storeId = $observer->getEvent()->getStoreId();
-
         $additionalCalculations = $response->getAdditionalCalculations();
         $calculation = Mage::helper('tax')->getPriceTaxSql(
             $table . '.min_price',
@@ -162,7 +163,12 @@ class Mage_Tax_Model_Observer
             /**
              * Tax class presented in price index table
              */
-            //Mage::helper('tax')->joinTaxClass($select, $storeId, $table);
+            /*
+            $select = $observer->getEvent()->getSelect();
+            $storeId = $observer->getEvent()->getStoreId();
+            Mage::helper('tax')->joinTaxClass($select, $storeId, $table);
+            */
+
         }
 
         return $this;

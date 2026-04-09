@@ -227,18 +227,18 @@ class Mage_Paypal_Model_Info
     /**
      * Grab data from payment and map it into target
      *
-     * @param  array|callable|Varien_Object $to
+     * @param  array|callable|Varien_Object $target
      * @return array|Varien_Object
      */
-    public function &exportFromPayment(Mage_Payment_Model_Info $payment, $to, ?array $map = null)
+    public function &exportFromPayment(Mage_Payment_Model_Info $payment, $target, ?array $map = null)
     {
         $fullMap = array_merge($this->_paymentMap, $this->_systemMap);
         Varien_Object_Mapper::accumulateByMap(
             [$payment, 'getAdditionalInformation'],
-            $to,
+            $target,
             $map ? $map : array_flip($fullMap),
         );
-        return $to;
+        return $target;
     }
 
     /**

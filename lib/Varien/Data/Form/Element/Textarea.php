@@ -31,7 +31,7 @@ class Varien_Data_Form_Element_Textarea extends Varien_Data_Form_Element_Abstrac
     }
 
     /**
-     * @return array
+     * @return array<int, string>
      */
     public function getHtmlAttributes()
     {

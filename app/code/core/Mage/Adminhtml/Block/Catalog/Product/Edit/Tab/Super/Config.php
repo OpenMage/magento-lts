@@ -11,6 +11,11 @@
  * Adminhtml catalog super product configurable tab
  *
  * @package    Mage_Adminhtml
+ *
+ * @method bool  getCanEditPrice()
+ * @method bool  getCanReadPrice()
+ * @method $this setCanEditPrice(bool $value)
+ * @method $this setCanReadPrice(bool $value)
  */
 class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config extends Mage_Adminhtml_Block_Widget implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
@@ -64,8 +69,11 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config extends Mage_Ad
      */
     public function isAttributesPricesReadonly()
     {
-        return $this->_getProduct()->getAttributesConfigurationReadonly()
-            || (Mage::helper('catalog')->isPriceGlobal() && $this->isReadonly());
+        if ($this->_getProduct()->getAttributesConfigurationReadonly()) {
+            return true;
+        }
+
+        return Mage::helper('catalog')->isPriceGlobal() && $this->isReadonly();
     }
 
     /**

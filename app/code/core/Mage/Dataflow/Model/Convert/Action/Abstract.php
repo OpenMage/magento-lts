@@ -167,7 +167,7 @@ abstract class Mage_Dataflow_Model_Convert_Action_Abstract implements Mage_Dataf
             $this->setParam($key, (string) $value);
         }
 
-        if ($actionNode['use']) {
+        if ($actionNode['use'] instanceof Varien_Simplexml_Element) {
             $container = $this->getProfile()->getContainer((string) $actionNode['use']);
         } else {
             $this->setParam('class', $this->getClassNameByType((string) $actionNode['type']));

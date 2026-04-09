@@ -84,7 +84,7 @@ class Mage_Rss_Block_Catalog_Review extends Mage_Rss_Block_Abstract
         $store = Mage::app()->getStore($row['store_id']);
         $urlModel = Mage::getModel('core/url')->setStore($store);
         $productUrl = $urlModel->getUrl('catalog/product/view', ['id' => $row['entity_id']]);
-        $reviewUrl = Mage::helper('adminhtml')->getUrl(
+        $reviewUrl = Mage::helper('adminhtml')::getUrl(
             'adminhtml/catalog_product_review/edit/',
             ['id' => $row['review_id'], '_secure' => true, '_nosecret' => true],
         );

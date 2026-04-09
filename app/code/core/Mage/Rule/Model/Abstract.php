@@ -103,10 +103,8 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
     protected function _beforeSave()
     {
         // Check if discount amount not negative
-        if ($this->hasDiscountAmount()) {
-            if ((int) $this->getDiscountAmount() < 0) {
-                Mage::throwException(Mage::helper('rule')->__('Invalid discount amount.'));
-            }
+        if ($this->hasDiscountAmount() && (int) $this->getDiscountAmount() < 0) {
+            Mage::throwException(Mage::helper('rule')->__('Invalid discount amount.'));
         }
 
         // Serialize conditions
@@ -127,7 +125,7 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
          */
         if ($this->hasWebsiteIds()) {
             $websiteIds = $this->getWebsiteIds();
-            if (is_string($websiteIds) && !empty($websiteIds)) {
+            if (is_string($websiteIds) && $websiteIds !== '') {
                 $this->setWebsiteIds(explode(',', $websiteIds));
             }
         }
@@ -138,7 +136,7 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
          */
         if ($this->hasCustomerGroupIds()) {
             $groupIds = $this->getCustomerGroupIds();
-            if (is_string($groupIds) && !empty($groupIds)) {
+            if (is_string($groupIds) && $groupIds !== '') {
                 $this->setCustomerGroupIds(explode(',', $groupIds));
             }
         }
@@ -176,7 +174,7 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
             $conditions = $this->getConditionsSerialized();
             if (!empty($conditions)) {
                 $conditions = Mage::helper('core/unserializeArray')->unserialize($conditions);
-                if (is_array($conditions) && !empty($conditions)) {
+                if (is_array($conditions) && $conditions !== []) {
                     $this->_conditions->loadArray($conditions);
                 }
             }
@@ -216,7 +214,7 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
             $actions = $this->getActionsSerialized();
             if (!empty($actions)) {
                 $actions = Mage::helper('core/unserializeArray')->unserialize($actions);
-                if (is_array($actions) && !empty($actions)) {
+                if (is_array($actions) && $actions !== []) {
                     $this->_actions->loadArray($actions);
                 }
             }
@@ -303,7 +301,7 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
      * Set conditions and actions recursively.
      * Convert dates into Zend_Date.
      *
-     * @return array
+     * @return array<void>|array{mixed, mixed}
      */
     protected function _convertFlatToRecursive(array $data)
     {
@@ -317,15 +315,15 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
                         $node = & $node[$key][$path[$i]] ?? [];
                     }
 
-                    foreach ($data as $k => $v) {
-                        $node[$k] = $v;
+                    foreach ($data as $index => $val) {
+                        $node[$index] = $val;
                     }
                 }
             } else {
                 /**
                  * Convert dates into Zend_Date
                  */
-                if (in_array($key, ['from_date', 'to_date']) && $value) {
+                if (in_array($key, ['from_date', 'to_date'], true) && $value) {
                     $value = Mage::app()->getLocale()->date(
                         $value,
                         Varien_Date::DATE_INTERNAL_FORMAT,
@@ -390,7 +388,7 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
             }
         }
 
-        return empty($result) ? true : $result;
+        return $result === [] ? true : $result;
     }
 
     /**
@@ -477,7 +475,7 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
     /**
      * Returns rule as an array for admin interface
      *
-     * @return array
+     * @return array<void>
      * @deprecated since 1.7.0.0
      */
     public function asArray(array $arrAttributes = [])

@@ -95,8 +95,7 @@ class Mage_Customer_Model_Address_Config extends Mage_Core_Model_Config_Base
                 $path = sprintf('%s%s', self::XML_PATH_ADDRESS_TEMPLATE, $typeCode);
                 $type = new Varien_Object();
                 $htmlEscape = strtolower((string) $typeConfig->htmlEscape);
-                $htmlEscape = !(in_array($htmlEscape, ['false', '0', 'no'])
-                    || !strlen($htmlEscape));
+                $htmlEscape = !in_array($htmlEscape, ['false', '0', 'no'], true) && strlen($htmlEscape);
                 $type->setCode($typeCode)
                     ->setTitle((string) $typeConfig->title)
                     ->setDefaultFormat(Mage::getStoreConfig($path, $store))

@@ -28,7 +28,7 @@ class Mage_Eav_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Return default frontend classes value labal array
      *
-     * @return array
+     * @return array<int, array<string, string>>
      */
     protected function _getDefaultFrontendClasses()
     {

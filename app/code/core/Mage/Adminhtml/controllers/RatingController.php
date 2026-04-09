@@ -103,8 +103,8 @@ class Mage_Adminhtml_RatingController extends Mage_Adminhtml_Controller_Action
 
                 $this->_redirect('*/*/');
                 return;
-            } catch (Exception $e) {
-                Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
+            } catch (Exception $exception) {
+                Mage::getSingleton('adminhtml/session')->addError($exception->getMessage());
                 Mage::getSingleton('adminhtml/session')->setRatingData($this->getRequest()->getPost());
                 $this->_redirect('*/*/edit', ['id' => $this->getRequest()->getParam('id')]);
                 return;
@@ -124,8 +124,8 @@ class Mage_Adminhtml_RatingController extends Mage_Adminhtml_Controller_Action
                     ->delete();
                 Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('adminhtml')->__('The rating has been deleted.'));
                 $this->_redirect('*/*/');
-            } catch (Exception $e) {
-                Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
+            } catch (Exception $exception) {
+                Mage::getSingleton('adminhtml/session')->addError($exception->getMessage());
                 $this->_redirect('*/*/edit', ['id' => $this->getRequest()->getParam('id')]);
             }
         }

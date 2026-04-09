@@ -54,7 +54,7 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
     /**
      * Entity cache tag
      *
-     * @var string
+     * @inheritDoc
      */
     protected $_cacheTag = 'wishlist';
 
@@ -331,11 +331,7 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
             $storeId = $product->hasWishlistStoreId() ? $product->getWishlistStoreId() : $product->getStoreId();
         } else {
             $productId = (int) $product;
-            if ($buyRequest->getStoreId()) {
-                $storeId = $buyRequest->getStoreId();
-            } else {
-                $storeId = Mage::app()->getStore()->getId();
-            }
+            $storeId = $buyRequest->getStoreId() ? $buyRequest->getStoreId() : Mage::app()->getStore()->getId();
         }
 
         /** @var Mage_Catalog_Model_Product $product */
@@ -566,13 +562,7 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
      */
     public function updateItem($itemId, $buyRequest, $params = null)
     {
-        $item = null;
-        if ($itemId instanceof Mage_Wishlist_Model_Item) {
-            $item = $itemId;
-        } else {
-            $item = $this->getItem((int) $itemId);
-        }
-
+        $item = $itemId instanceof Mage_Wishlist_Model_Item ? $itemId : $this->getItem((int) $itemId);
         if (!$item) {
             Mage::throwException(Mage::helper('wishlist')->__('Cannot specify wishlist item.'));
         }

@@ -118,11 +118,7 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
             $data['qtys'] = $qtys;
 
             $service = Mage::getModel('sales/service_order', $order);
-            if ($invoice) {
-                $creditmemo = $service->prepareInvoiceCreditmemo($invoice, $data);
-            } else {
-                $creditmemo = $service->prepareCreditmemo($data);
-            }
+            $creditmemo = $invoice ? $service->prepareInvoiceCreditmemo($invoice, $data) : $service->prepareCreditmemo($data);
 
             /**
              * Process back to stock flags
@@ -232,13 +228,13 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
     public function updateQtyAction()
     {
         try {
-            $creditmemo = $this->_initCreditmemo(true);
+            $this->_initCreditmemo(true);
             $this->loadLayout();
             $response = $this->getLayout()->getBlock('order_items')->toHtml();
-        } catch (Mage_Core_Exception $e) {
+        } catch (Mage_Core_Exception $mageCoreException) {
             $response = [
                 'error'     => true,
-                'message'   => $e->getMessage(),
+                'message'   => $mageCoreException->getMessage(),
             ];
             $response = Mage::helper('core')->jsonEncode($response);
         } catch (Exception) {
@@ -308,11 +304,11 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
 
             $this->_forward('noRoute');
             return;
-        } catch (Mage_Core_Exception $e) {
-            $this->_getSession()->addError($e->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_getSession()->addError($mageCoreException->getMessage());
             Mage::getSingleton('adminhtml/session')->setFormData($data);
-        } catch (Exception $e) {
-            Mage::logException($e);
+        } catch (Exception $exception) {
+            Mage::logException($exception);
             $this->_getSession()->addError($this->__('Cannot save the credit memo.'));
         }
 
@@ -330,8 +326,8 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
                 $creditmemo->cancel();
                 $this->_saveCreditmemo($creditmemo);
                 $this->_getSession()->addSuccess($this->__('The credit memo has been canceled.'));
-            } catch (Mage_Core_Exception $e) {
-                $this->_getSession()->addError($e->getMessage());
+            } catch (Mage_Core_Exception $mageCoreException) {
+                $this->_getSession()->addError($mageCoreException->getMessage());
             } catch (Exception) {
                 $this->_getSession()->addError($this->__('Unable to cancel the credit memo.'));
             }
@@ -353,8 +349,8 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
                 $creditmemo->void();
                 $this->_saveCreditmemo($creditmemo);
                 $this->_getSession()->addSuccess($this->__('The credit memo has been voided.'));
-            } catch (Mage_Core_Exception $e) {
-                $this->_getSession()->addError($e->getMessage());
+            } catch (Mage_Core_Exception $mageCoreException) {
+                $this->_getSession()->addError($mageCoreException->getMessage());
             } catch (Exception) {
                 $this->_getSession()->addError($this->__('Unable to void the credit memo.'));
             }
@@ -391,10 +387,10 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
 
             $this->loadLayout();
             $response = $this->getLayout()->getBlock('creditmemo_comments')->toHtml();
-        } catch (Mage_Core_Exception $e) {
+        } catch (Mage_Core_Exception $mageCoreException) {
             $response = [
                 'error'     => true,
-                'message'   => $e->getMessage(),
+                'message'   => $mageCoreException->getMessage(),
             ];
             $response = Mage::helper('core')->jsonEncode($response);
         } catch (Exception) {
@@ -434,14 +430,9 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
         }
 
         if ($item->getParentItem()) {
-            if (isset($qtys[$item->getParentItem()->getId()])
+            return isset($qtys[$item->getParentItem()->getId()])
                 && isset($qtys[$item->getParentItem()->getId()]['qty'])
-                && $qtys[$item->getParentItem()->getId()]['qty'] > 0
-            ) {
-                return true;
-            }
-
-            return false;
+                && $qtys[$item->getParentItem()->getId()]['qty'] > 0;
         }
 
         return false;

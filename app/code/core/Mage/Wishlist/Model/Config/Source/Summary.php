@@ -13,7 +13,7 @@
 class Mage_Wishlist_Model_Config_Source_Summary
 {
     /**
-     * @return array
+     * @return array<int, array<string, int|string>>
      */
     public function toOptionArray()
     {

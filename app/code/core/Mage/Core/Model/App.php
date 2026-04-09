@@ -234,8 +234,6 @@ class Mage_Core_Model_App
      */
     protected $_isInstalled = null;
 
-    public function __construct() {}
-
     /**
      * Initialize application without request processing
      *
@@ -409,13 +407,10 @@ class Mage_Core_Model_App
     {
         $this->_isCacheLocked = true;
         $options = $this->_config->getNode('global/cache');
-        if ($options) {
-            $options = $options->asArray();
-        } else {
-            $options = [];
-        }
+        $options = $options ? $options->asArray() : [];
 
         $options = array_merge($options, $cacheInitOptions);
+
         $this->_cache = Mage::getModel('core/cache', $options);
         $this->_isCacheLocked = false;
         return $this;
@@ -868,7 +863,7 @@ class Mage_Core_Model_App
     /**
      * Retrieve application store object
      *
-     * @param  null|bool|int|Mage_Core_Model_Store|string|Varien_Object $storeId
+     * @param  null|bool|int|Mage_Core_Model_Store|string $storeId
      * @return null|Mage_Core_Model_Store
      * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
@@ -1475,15 +1470,19 @@ class Mage_Core_Model_App
                         break;
                     case 'object':
                     case 'model':
-                        $method = $obs['method'];
                         $observer->addData($args);
                         $object = Mage::getModel($obs['model']);
+
+                        $method = $object instanceof Mage_Core_Observer_Interface ? 'execute' : $obs['method'];
+
                         $this->_callObserverMethod($object, $method, $observer, $obsName);
                         break;
                     default:
-                        $method = $obs['method'];
                         $observer->addData($args);
                         $object = Mage::getSingleton($obs['model']);
+
+                        $method = $object instanceof Mage_Core_Observer_Interface ? 'execute' : $obs['method'];
+
                         $this->_callObserverMethod($object, $method, $observer, $obsName);
                         break;
                 }

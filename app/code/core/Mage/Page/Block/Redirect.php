@@ -62,9 +62,9 @@ class Mage_Page_Block_Redirect extends Mage_Core_Block_Template
      */
     public function getJsRedirect()
     {
-        $js  = '<script type="text/javascript">';
-        $js .= 'document.location.href="' . $this->getTargetURL() . '";';
-        return $js . '</script>';
+        $str  = '<script type="text/javascript">';
+        $str .= 'document.location.href="' . $this->getTargetURL() . '";';
+        return $str . '</script>';
     }
 
     /**
@@ -121,7 +121,7 @@ class Mage_Page_Block_Redirect extends Mage_Core_Block_Template
     /**
      *  Array of hidden form fields (name => value)
      *
-     * @return array
+     * @return array<string, string>|array<void>
      */
     public function getFormFields()
     {
@@ -129,7 +129,7 @@ class Mage_Page_Block_Redirect extends Mage_Core_Block_Template
     }
 
     /**
-     *  Optimized getFormFields() method
+     * Optimized getFormFields() method
      *
      * @return array
      */

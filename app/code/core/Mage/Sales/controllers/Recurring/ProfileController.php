@@ -22,14 +22,14 @@ class Mage_Sales_Recurring_ProfileController extends Mage_Core_Controller_Front_
     /**
      * Make sure customer is logged in and put it into registry
      *
-     * @return $this|void
+     * @return null|$this
      * @throws Mage_Core_Exception
      */
     public function preDispatch()
     {
         parent::preDispatch();
         if (!$this->getRequest()->isDispatched()) {
-            return;
+            return null;
         }
 
         $this->_session = Mage::getSingleton('customer/session');
@@ -90,11 +90,11 @@ class Mage_Sales_Recurring_ProfileController extends Mage_Core_Controller_Front_
             }
 
             $this->_session->addSuccess($this->__('The profile state has been updated.'));
-        } catch (Mage_Core_Exception $e) {
-            $this->_session->addError($e->getMessage());
-        } catch (Exception $e) {
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_session->addError($mageCoreException->getMessage());
+        } catch (Exception $exception) {
             $this->_session->addError($this->__('Failed to update the profile.'));
-            Mage::logException($e);
+            Mage::logException($exception);
         }
 
         if ($profile) {
@@ -119,11 +119,11 @@ class Mage_Sales_Recurring_ProfileController extends Mage_Core_Controller_Front_
             } else {
                 $this->_session->addNotice($this->__('The profile has no changes.'));
             }
-        } catch (Mage_Core_Exception $e) {
-            $this->_session->addError($e->getMessage());
-        } catch (Exception $e) {
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_session->addError($mageCoreException->getMessage());
+        } catch (Exception $exception) {
             $this->_session->addError($this->__('Failed to update the profile.'));
-            Mage::logException($e);
+            Mage::logException($exception);
         }
 
         if ($profile) {
@@ -150,10 +150,10 @@ class Mage_Sales_Recurring_ProfileController extends Mage_Core_Controller_Front_
 
             $this->renderLayout();
             return;
-        } catch (Mage_Core_Exception $e) {
-            $this->_session->addError($e->getMessage());
-        } catch (Exception $e) {
-            Mage::logException($e);
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_session->addError($mageCoreException->getMessage());
+        } catch (Exception $exception) {
+            Mage::logException($exception);
         }
 
         $this->_redirect('*/*/');

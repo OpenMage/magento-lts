@@ -51,6 +51,7 @@ class Magento_Profiler_Output_Firebug extends Magento_Profiler_OutputAbstract
 
     /**
      * Display profiling results and flush output buffer
+     * @throws Zend_Wildfire_Exception
      */
     public function display()
     {
@@ -66,7 +67,7 @@ class Magento_Profiler_Output_Firebug extends Magento_Profiler_OutputAbstract
             $firebugMessage->addRow($row);
         }
 
-        Zend_Wildfire_Plugin_FirePhp::getInstance()->send($firebugMessage);
+        Zend_Wildfire_Plugin_FirePhp::getInstance()::send($firebugMessage);
 
         // setup the wildfire channel
         $firebugChannel = Zend_Wildfire_Channel_HttpHeaders::getInstance();

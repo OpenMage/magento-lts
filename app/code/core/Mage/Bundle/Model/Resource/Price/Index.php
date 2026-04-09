@@ -676,10 +676,10 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
      * Calculate custom options price
      * Return array with indexes(0 -> min_price, 1 -> max_price)
      *
-     * @param  float $basePrice
-     * @param  float $minPrice
-     * @param  float $maxPrice
-     * @return array
+     * @param  float             $basePrice
+     * @param  float             $minPrice
+     * @param  float             $maxPrice
+     * @return array<int, float>
      */
     public function _calculateCustomOptions(array $options, $basePrice, $minPrice, $maxPrice)
     {
@@ -687,9 +687,9 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
             $optionPrices = [];
             foreach ($option['values'] as $value) {
                 if ($value['price_type'] == 'percent') {
-                    $valuePrice = $basePrice * $value['price_value'] / 100;
+                    $valuePrice = $basePrice * (float) $value['price_value'] / 100;
                 } else {
-                    $valuePrice = $value['price_value'];
+                    $valuePrice = (float) $value['price_value'];
                 }
 
                 $optionPrices[] = $valuePrice;
@@ -727,7 +727,7 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
      * @param  array                     $priceIndex
      * @param  Mage_Core_Model_Website   $website
      * @param  Mage_Customer_Model_Group $group
-     * @return array
+     * @return array<int, float|int>
      */
     public function _calculateBundleSelections(
         array $options,
@@ -823,11 +823,12 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
         $store              = $website->getDefaultStore();
         $specialPrice       = $priceData['special_price'];
 
-        if (!is_null($specialPrice) && $specialPrice != false) {
-            if (Mage::app()->getLocale()->isStoreDateInInterval($store, $priceData['special_from_date'], $priceData['special_to_date'])) {
-                $specialPrice   = ($finalPrice * $specialPrice) / 100;
-                $finalPrice     = min($finalPrice, $specialPrice);
-            }
+        if (!is_null($specialPrice)
+            && $specialPrice != false
+            && Mage::app()->getLocale()->isStoreDateInInterval($store, $priceData['special_from_date'], $priceData['special_to_date'])
+        ) {
+            $specialPrice   = ($finalPrice * $specialPrice) / 100;
+            $finalPrice     = min($finalPrice, $specialPrice);
         }
 
         return $finalPrice;

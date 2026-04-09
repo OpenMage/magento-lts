@@ -143,7 +143,7 @@ class Mage_Catalog_Model_Product_Compare_Item extends Mage_Core_Model_Abstract
     /**
      * Retrieve data for save
      *
-     * @return array
+     * @return array<string, int>
      */
     public function getDataForSave()
     {

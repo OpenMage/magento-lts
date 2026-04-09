@@ -79,11 +79,9 @@ abstract class Varien_Io_Abstract implements Varien_Io_Interface
                 continue;
             }
 
-            if ($pathParts[$i] == '..') {
-                if ((isset($realPathParts[0])  &&  $realPathParts[0] != '..') || ($pathTokR != '')) {
-                    array_pop($realPathParts);
-                    continue;
-                }
+            if ($pathParts[$i] == '..' && (isset($realPathParts[0]) && $realPathParts[0] != '..' || $pathTokR != '')) {
+                array_pop($realPathParts);
+                continue;
             }
 
             $realPathParts[] = $pathParts[$i];

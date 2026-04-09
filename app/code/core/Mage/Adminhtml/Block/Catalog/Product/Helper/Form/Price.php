@@ -41,11 +41,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Price extends Varien_Data
 
             $store = Mage::app()->getStore($storeId);
             $html .= '<strong>[' . $store->getBaseCurrencyCode() . ']</strong>';
-            if (Mage::helper('tax')->priceIncludesTax($store)) {
-                if ($attribute->getAttributeCode() !== 'cost') {
-                    $addJsObserver = true;
-                    $html .= ' <strong>[' . Mage::helper('tax')->__('Inc. Tax') . '<span id="dynamic-tax-' . $attribute->getAttributeCode() . '"></span>]</strong>';
-                }
+            if (Mage::helper('tax')->priceIncludesTax($store) && $attribute->getAttributeCode() !== 'cost') {
+                $addJsObserver = true;
+                $html .= ' <strong>[' . Mage::helper('tax')->__('Inc. Tax') . '<span id="dynamic-tax-' . $attribute->getAttributeCode() . '"></span>]</strong>';
             }
         }
 
@@ -62,8 +60,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Price extends Varien_Data
      */
     protected function _getTaxObservingCode($attribute)
     {
-        $spanId = "dynamic-tax-{$attribute->getAttributeCode()}";
-
         return "<script type='text/javascript'>if (dynamicTaxes == undefined) var dynamicTaxes = new Array(); dynamicTaxes[dynamicTaxes.length]='{$attribute->getAttributeCode()}'</script>";
     }
 

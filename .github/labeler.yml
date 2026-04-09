@@ -910,7 +910,9 @@
   - changed-files:
     - any-glob-to-any-file: [
       .phpstan*,
-      .github/workflows/phpstan.yml
+      .github/workflows/phpstan.yml,
+      dev/phpstan/*,
+      dev/phpstan/**/*
     ]
 
 'phpunit':
@@ -933,7 +935,9 @@
   - changed-files:
       - any-glob-to-any-file: [
         .rector.php,
-        .github/workflows/rector.yml
+        .github/workflows/rector.yml,
+        dev/rector/*,
+        dev/rector/**/*
       ]
 
 'cypress':

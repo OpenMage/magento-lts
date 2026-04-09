@@ -86,8 +86,6 @@ class Mage_Core_Model_Design_Source_Design extends Mage_Eav_Model_Entity_Attribu
      */
     public function getOptionText($value)
     {
-        $options = $this->getAllOptions(false);
-
         return $value;
     }
 }

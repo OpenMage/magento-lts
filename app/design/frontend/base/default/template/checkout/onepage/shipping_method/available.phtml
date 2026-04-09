@@ -54,7 +54,7 @@
     </dl>
 <script type="text/javascript">
 //<![CDATA[
-    <?php if (!empty($shippingCodePrice)): ?>
+    <?php if ($shippingCodePrice !== []): ?>
         var shippingCodePrice = {<?php echo implode(',',$shippingCodePrice); ?>};
     <?php endif ?>
 
@@ -62,7 +62,7 @@
         Event.observe(el, 'click', function(){
             if (el.checked == true) {
                 var getShippingCode = el.getValue();
-                <?php if (!empty($shippingCodePrice)): ?>
+                <?php if ($shippingCodePrice !== []): ?>
                     var newPrice = shippingCodePrice[getShippingCode];
                     if (!lastPrice) {
                         lastPrice = newPrice;

@@ -47,12 +47,8 @@ class Mage_CatalogRule_Model_Resource_Rule_Product_Price extends Mage_Core_Model
         }
 
         if (is_array($indexTable)) {
-            foreach ($indexTable as $k => $v) {
-                if (is_string($k)) {
-                    $indexAlias = $k;
-                } else {
-                    $indexAlias = $v;
-                }
+            foreach ($indexTable as $key => $value) {
+                $indexAlias = is_string($key) ? $key : $value;
 
                 break;
             }

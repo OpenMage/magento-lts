@@ -15,6 +15,8 @@ use Carbon\Carbon;
  * Used for retrieving configuration data by payment models
  *
  * @package    Mage_Payment
+ *
+ * @phpstan-import-type ConfigStoreId from Mage
  */
 class Mage_Payment_Model_Config
 {
@@ -23,7 +25,7 @@ class Mage_Payment_Model_Config
     /**
      * Retrieve active system payments
      *
-     * @param  null|bool|int|Mage_Core_Model_Store|string $store
+     * @param  ConfigStoreId $store
      * @return array
      */
     public function getActiveMethods($store = null)
@@ -31,12 +33,10 @@ class Mage_Payment_Model_Config
         $methods = [];
         $config = Mage::getStoreConfig('payment', $store);
         foreach ($config as $code => $methodConfig) {
-            if (Mage::getStoreConfigFlag('payment/' . $code . '/active', $store)) {
-                if (array_key_exists('model', $methodConfig)) {
-                    $methodModel = Mage::getModel($methodConfig['model']);
-                    if ($methodModel && $methodModel->getConfigData('active', $store)) {
-                        $methods[$code] = $this->_getMethod($code, $methodConfig);
-                    }
+            if (Mage::getStoreConfigFlag('payment/' . $code . '/active', $store) && array_key_exists('model', $methodConfig)) {
+                $methodModel = Mage::getModel($methodConfig['model']);
+                if ($methodModel && $methodModel->getConfigData('active', $store)) {
+                    $methods[$code] = $this->_getMethod($code, $methodConfig);
                 }
             }
         }
@@ -47,7 +47,7 @@ class Mage_Payment_Model_Config
     /**
      * Retrieve all system payments
      *
-     * @param  null|bool|int|Mage_Core_Model_Store|string $store
+     * @param  ConfigStoreId $store
      * @return array
      */
     public function getAllMethods($store = null)
@@ -96,7 +96,7 @@ class Mage_Payment_Model_Config
     /**
      * Retrieve array of credit card types
      *
-     * @return array
+     * @return array<string, string>
      */
     public function getCcTypes()
     {

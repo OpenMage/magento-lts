@@ -115,7 +115,7 @@ abstract class Mage_Catalog_Model_Abstract extends Mage_Core_Model_Abstract
      */
     public function hasLockedAttributes()
     {
-        return !empty($this->_lockedAttributes);
+        return $this->_lockedAttributes !== [];
     }
 
     /**
@@ -197,7 +197,7 @@ abstract class Mage_Catalog_Model_Abstract extends Mage_Core_Model_Abstract
      * @param  array|int|Mage_Eav_Model_Entity_Attribute_Interface|string $attribute
      * @param  null|array|string                                          $value
      * @param  string                                                     $additionalAttributes
-     * @return $this|false
+     * @return false|self
      */
     public function loadByAttribute($attribute, $value, $additionalAttributes = '*')
     {

@@ -88,7 +88,7 @@ class Mage_Adminhtml_Catalog_SearchController extends Mage_Adminhtml_Controller_
     {
         $hasError   = false;
         $data       = $this->getRequest()->getPost();
-        $queryId    = $this->getRequest()->getPost('query_id', null);
+        $queryId    = $this->getRequest()->getPost('query_id');
         if ($this->getRequest()->isPost() && $data) {
             /** @var Mage_CatalogSearch_Model_Query $model */
             $model = Mage::getModel('catalogsearch/query');
@@ -118,12 +118,12 @@ class Mage_Adminhtml_Catalog_SearchController extends Mage_Adminhtml_Controller_
                 $this->_getSession()->addSuccess(
                     Mage::helper('catalog')->__('You saved the search term.'),
                 );
-            } catch (Mage_Core_Exception $e) {
-                $this->_getSession()->addError($e->getMessage());
+            } catch (Mage_Core_Exception $mageCoreException) {
+                $this->_getSession()->addError($mageCoreException->getMessage());
                 $hasError = true;
-            } catch (Exception $e) {
+            } catch (Exception $exception) {
                 $this->_getSession()->addException(
-                    $e,
+                    $exception,
                     Mage::helper('catalog')->__('An error occurred while saving the search query.'),
                 );
                 $hasError = true;
@@ -148,8 +148,8 @@ class Mage_Adminhtml_Catalog_SearchController extends Mage_Adminhtml_Controller_
                 Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('catalog')->__('The search was deleted.'));
                 $this->_redirect('*/*/');
                 return;
-            } catch (Exception $e) {
-                Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
+            } catch (Exception $exception) {
+                Mage::getSingleton('adminhtml/session')->addError($exception->getMessage());
                 $this->_redirect('*/*/edit', ['id' => $this->getRequest()->getParam('id')]);
                 return;
             }
@@ -174,8 +174,8 @@ class Mage_Adminhtml_Catalog_SearchController extends Mage_Adminhtml_Controller_
                 Mage::getSingleton('adminhtml/session')->addSuccess(
                     Mage::helper('adminhtml')->__('Total of %d record(s) were deleted', count($searchIds)),
                 );
-            } catch (Exception $e) {
-                Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
+            } catch (Exception $exception) {
+                Mage::getSingleton('adminhtml/session')->addError($exception->getMessage());
             }
         }
 

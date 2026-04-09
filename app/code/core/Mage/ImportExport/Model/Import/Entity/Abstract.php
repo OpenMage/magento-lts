@@ -250,7 +250,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
     /**
      * Validate data rows and save bunches to DB.
      *
-     * @return Mage_ImportExport_Model_Import_Entity_Abstract|void
+     * @return null|Mage_ImportExport_Model_Import_Entity_Abstract
      * @throws Mage_Core_Exception
      */
     protected function _saveValidatedBunches()
@@ -283,7 +283,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
 
             if ($source->valid()) {
                 if ($this->_errorsCount >= $this->_errorsLimit) { // errors limit check
-                    return;
+                    return null;
                 }
 
                 $rowData = $coreHelper->unEscapeCSVData($source->current());
@@ -597,7 +597,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
             $this->_uniqueAttributes[$attrCode][$rowData[$attrCode]] = true;
         }
 
-        return (bool) $valid;
+        return $valid;
     }
 
     /**

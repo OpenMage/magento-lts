@@ -11,6 +11,8 @@
  * Downloadable samples resource collection
  *
  * @package    Mage_Downloadable
+ *
+ * @extends Mage_Core_Model_Resource_Db_Collection_Abstract<Mage_Downloadable_Model_Sample>
  */
 class Mage_Downloadable_Model_Resource_Sample_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {

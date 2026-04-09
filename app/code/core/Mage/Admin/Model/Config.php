@@ -80,7 +80,7 @@ class Mage_Admin_Model_Config extends Varien_Simplexml_Config
         }
 
         if (isset($resource->all)) {
-            $acl->add(Mage::getModel('admin/acl_resource', 'all'), null);
+            $acl->add(Mage::getModel('admin/acl_resource', 'all'));
         }
 
         if (isset($resource->admin)) {

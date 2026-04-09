@@ -95,11 +95,7 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
          * store mode, customize some value per specific store view and than back
          * to single store mode. We should load correct values
          */
-        if (Mage::app()->isSingleStoreMode()) {
-            $storeId = (int) Mage::app()->getStore(true)->getId();
-        } else {
-            $storeId = (int) $object->getStoreId();
-        }
+        $storeId = Mage::app()->isSingleStoreMode() ? (int) Mage::app()->getStore(true)->getId() : (int) $object->getStoreId();
 
         $setId  = $object->getAttributeSetId();
         $storeIds = [$this->getDefaultStoreId()];
@@ -340,7 +336,7 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
         $select  = $adapter->select()
             ->from($table, 'value_id')
             ->where('entity_type_id = :entity_type_id')
-            ->where("$entityIdField = :entity_field_id")
+            ->where("{$entityIdField} = :entity_field_id")
             ->where('store_id = :store_id')
             ->where('attribute_id = :attribute_id');
         $bind = [
@@ -407,7 +403,7 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
         /**
          * Delete global scope attributes
          */
-        if (!empty($globalValues)) {
+        if ($globalValues !== []) {
             $adapter->delete($table, ['value_id IN (?)' => $globalValues]);
         }
 
@@ -419,9 +415,9 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
         /**
          * Delete website scope attributes
          */
-        if (!empty($websiteAttributes)) {
+        if ($websiteAttributes !== []) {
             $storeIds = $object->getWebsiteStoreIds();
-            if (!empty($storeIds)) {
+            if ($storeIds !== []) {
                 $delCondition = $condition;
                 $delCondition['attribute_id IN(?)'] = $websiteAttributes;
                 $delCondition['store_id IN(?)'] = $storeIds;
@@ -433,7 +429,7 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
         /**
          * Delete store scope attributes
          */
-        if (!empty($storeAttributes)) {
+        if ($storeAttributes !== []) {
             $delCondition = $condition;
             $delCondition['attribute_id IN(?)'] = $storeAttributes;
             $delCondition['store_id = ?']       = (int) $object->getStoreId();
@@ -474,11 +470,7 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
     {
         $this->loadAllAttributes($object);
 
-        if ($this->getUseDataSharing()) {
-            $storeId = $object->getStoreId();
-        } else {
-            $storeId = $this->getStoreId();
-        }
+        $storeId = $this->getUseDataSharing() ? $object->getStoreId() : $this->getStoreId();
 
         $data = [];
         foreach ($this->getAttributesByTable() as $table => $attributes) {
@@ -495,7 +487,7 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
                 }
             }
 
-            if (!empty($globalAttributeIds)) {
+            if ($globalAttributeIds !== []) {
                 $where .= ' or ' . $this->_getReadAdapter()->quoteInto('attribute_id in (?)', $globalAttributeIds);
             }
 
@@ -503,7 +495,7 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
 
             $values = $this->_getReadAdapter()->fetchAll($select);
 
-            if (empty($values)) {
+            if ($values === []) {
                 continue;
             }
 
@@ -554,11 +546,7 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
     }
 
     /**
-     * Prepare value for save
-     *
-     * @param  mixed                                     $value
-     * @param  Mage_Catalog_Model_Resource_Eav_Attribute $attribute
-     * @return mixed
+     * @inheritDoc
      */
     protected function _prepareValueForSave($value, Mage_Eav_Model_Entity_Attribute_Abstract $attribute)
     {

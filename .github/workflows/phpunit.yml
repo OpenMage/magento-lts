@@ -93,7 +93,7 @@ jobs:
       - name: Restore result cache
         uses: actions/cache/restore@v5
         with:
-          path: .phpunit.result.cache
+          path: .cache/.phpunit.result.cache
           key: phpunit-result-cache-${{ matrix.php-versions }}-${{ matrix.mysql-version }}-${{ github.run_id }}
           restore-keys: |
             phpunit-result-cache-
@@ -105,7 +105,7 @@ jobs:
         uses: actions/cache/save@v5
         if: always()
         with:
-          path: .phpunit.result.cache
+          path: .cache/.phpunit.result.cache
           key: phpunit-result-cache-${{ matrix.php-versions }}-${{ matrix.mysql-version }}-${{ github.run_id }}
 
       - name: Publish Unit Test Results
@@ -113,7 +113,7 @@ jobs:
         if: always()
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          files: tests/logging/*.xml
+          files: build/phpunit/logging/*.xml
 
       - name: SonarQube Scan
         uses: SonarSource/sonarqube-scan-action@v7

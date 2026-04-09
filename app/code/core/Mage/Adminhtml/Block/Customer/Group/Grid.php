@@ -14,17 +14,18 @@
  */
 class Mage_Adminhtml_Block_Customer_Group_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_customer_group_grid';
+
     public function __construct()
     {
         parent::__construct();
         $this->setId('customerGroupGrid');
         $this->setDefaultSort('type');
-        $this->setDefaultDir('asc');
+        $this->setDefaultDir('ASC');
         $this->setSaveParametersInSession(true);
     }
 
     /**
-     * Init customer groups collection
      * @inheritDoc
      */
     protected function _prepareCollection()
@@ -37,7 +38,8 @@ class Mage_Adminhtml_Block_Customer_Group_Grid extends Mage_Adminhtml_Block_Widg
     }
 
     /**
-     * Configuration of grid
+     * @inheritDoc
+     * @throws Exception
      */
     protected function _prepareColumns()
     {
@@ -62,6 +64,11 @@ class Mage_Adminhtml_Block_Customer_Group_Grid extends Mage_Adminhtml_Block_Widg
         return parent::_prepareColumns();
     }
 
+    /**
+     * @inheritDoc
+     * @param  Mage_Customer_Model_Group $row
+     * @throws Mage_Core_Exception
+     */
     public function getRowUrl($row)
     {
         return $this->getUrl('*/*/edit', ['id' => $row->getId()]);

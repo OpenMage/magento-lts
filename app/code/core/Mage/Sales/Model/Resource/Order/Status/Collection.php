@@ -12,8 +12,7 @@
  *
  * @package    Mage_Sales
  *
- * @method Mage_Sales_Model_Order_Status   getItemById(int $value)
- * @method Mage_Sales_Model_Order_Status[] getItems()
+ * @extends Mage_Core_Model_Resource_Db_Collection_Abstract<Mage_Sales_Model_Order_Status>
  */
 class Mage_Sales_Model_Resource_Order_Status_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
@@ -38,7 +37,7 @@ class Mage_Sales_Model_Resource_Order_Status_Collection extends Mage_Core_Model_
     /**
      * Get collection data as options hash
      *
-     * @return array
+     * @return array<array-key, string>
      */
     public function toOptionHash()
     {

@@ -303,7 +303,7 @@ class Mage_Index_Model_Indexer
             try {
                 $this->indexEvent($event);
                 $resourceModel->commit();
-            } catch (Exception $e) {
+            } catch (Exception $exception) {
                 $resourceModel->rollBack();
                 if ($allowTableChanges) {
                     $this->_allowTableChanges = true;
@@ -311,7 +311,7 @@ class Mage_Index_Model_Indexer
                     $this->_currentEvent = null;
                 }
 
-                throw $e;
+                throw $exception;
             }
 
             if ($allowTableChanges) {
@@ -390,10 +390,11 @@ class Mage_Index_Model_Indexer
             if ($process->getDepends()) {
                 foreach ($process->getDepends() as $processCode) {
                     $dependProcess = $this->getProcessByCode($processCode);
-                    if ($dependProcess && !in_array($processCode, $processed)) {
-                        if ($this->_changeProcessKeyStatus($dependProcess, $enable)) {
-                            $processed[] = $processCode;
-                        }
+                    if ($dependProcess
+                        && !in_array($processCode, $processed)
+                        && $this->_changeProcessKeyStatus($dependProcess, $enable)
+                    ) {
+                        $processed[] = $processCode;
                     }
                 }
             }

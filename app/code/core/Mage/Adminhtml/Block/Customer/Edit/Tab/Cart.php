@@ -11,9 +11,13 @@
  * Adminhtml customer orders grid block
  *
  * @package    Mage_Adminhtml
+ *
+ * @method int getWebsiteId()
  */
 class Mage_Adminhtml_Block_Customer_Edit_Tab_Cart extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_customer_edit_tab_cart';
+
     /**
      * @var string
      */
@@ -52,12 +56,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Cart extends Mage_Adminhtml_Block_W
             ->setSharedStoreIds($storeIds)
             ->loadByCustomer($customer);
 
-        if ($quote) {
-            $collection = $quote->getItemsCollection(false);
-        } else {
-            $collection = new Varien_Data_Collection();
-        }
-
+        $collection = $quote ? $quote->getItemsCollection(false) : new Varien_Data_Collection();
         $collection->addFieldToFilter('parent_item_id', ['null' => true]);
 
         $this->setCollection($collection);
@@ -67,6 +66,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Cart extends Mage_Adminhtml_Block_W
 
     /**
      * @inheritDoc
+     * @throws Exception
      */
     protected function _prepareColumns()
     {
@@ -149,6 +149,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Cart extends Mage_Adminhtml_Block_W
     /**
      * @return string
      * @throws Exception
+     * @throws Throwable
      */
     public function getGridParentHtml()
     {
@@ -156,6 +157,10 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Cart extends Mage_Adminhtml_Block_W
         return $this->fetchView($templateName);
     }
 
+    /**
+     * @inheritDoc
+     * @param Mage_Sales_Model_Quote_Item $row
+     */
     public function getRowUrl($row)
     {
         return $this->getUrl('*/catalog_product/edit', ['id' => $row->getProductId()]);

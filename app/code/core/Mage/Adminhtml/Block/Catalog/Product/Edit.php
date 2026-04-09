@@ -73,9 +73,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit extends Mage_Adminhtml_Block_Wid
                 'save_button',
                 $this->getLayout()->createBlock('adminhtml/widget_button')
                     ->setData([
-                        'label' => Mage::helper('catalog')->__('Save'),
+                        'label'   => Mage::helper('catalog')->__('Save'),
                         'onclick' => 'productForm.submit()',
-                        'class' => 'save',
+                        'class'   => 'save',
                     ]),
             );
         }
@@ -218,7 +218,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit extends Mage_Adminhtml_Block_Wid
     {
         $setId = false;
         if (!($setId = $this->getProduct()->getAttributeSetId()) && $this->getRequest()) {
-            return $this->getRequest()->getParam('set', null);
+            return $this->getRequest()->getParam('set');
         }
 
         return $setId;
@@ -294,7 +294,11 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit extends Mage_Adminhtml_Block_Wid
             }
         }
 
-        return !$product->isConfigurable() || $superAttributes !== false;
+        if (!$product->isConfigurable()) {
+            return true;
+        }
+
+        return $superAttributes !== false;
     }
 
     /**

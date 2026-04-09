@@ -1,5 +1,7 @@
 <?php
 
+use Monolog\Level;
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -142,8 +144,8 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
     public function assign($key, $value = null)
     {
         if (is_array($key)) {
-            foreach ($key as $k => $v) {
-                $this->assign($k, $v);
+            foreach ($key as $index => $val) {
+                $this->assign($index, $val);
             }
         } else {
             $this->_viewVars[$key] = $value;
@@ -163,7 +165,7 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
         if (!str_contains($dir, '..') && ($dir === Mage::getBaseDir('design') || str_starts_with(realpath($dir), realpath(Mage::getBaseDir('design'))))) {
             $this->_viewDir = $dir;
         } else {
-            Mage::log('Not valid script path:' . $dir, \Monolog\Level::Critical, null, true);
+            Mage::log('Not valid script path:' . $dir, Level::Critical, null, true);
         }
 
         return $this;
@@ -248,11 +250,11 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
         // EXTR_SKIP protects from overriding
         // already defined variables
         extract($this->_viewVars, EXTR_SKIP);
-        $do = $this->getDirectOutput();
+        $directOutput = $this->getDirectOutput();
 
         $hints = Mage::app()->getStore()->isAdmin() ? $this->getShowTemplateHintsAdmin() : $this->getShowTemplateHints();
 
-        if (!$do) {
+        if (!$directOutput) {
             ob_start();
         }
 
@@ -281,12 +283,12 @@ HTML;
                 include $this->_viewDir . DS . $fileName;
             } else {
                 $thisClass = static::class;
-                Mage::log('Not valid template file:' . $fileName . ' class: ' . $thisClass, \Monolog\Level::Critical, null, true);
+                Mage::log('Not valid template file:' . $fileName . ' class: ' . $thisClass, Level::Critical, null, true);
             }
         } catch (Throwable $throwable) {
-            if (!$do) {
+            if (!$directOutput) {
                 ob_get_clean();
-                $do = true;
+                $directOutput = true;
             }
 
             if (Mage::getIsDeveloperMode()) {
@@ -300,11 +302,7 @@ HTML;
             echo '</div>';
         }
 
-        if (!$do) {
-            $html = ob_get_clean();
-        } else {
-            $html = '';
-        }
+        $html = $directOutput ? '' : ob_get_clean();
 
         Varien_Profiler::stop($fileName);
         return $html;
@@ -379,6 +377,7 @@ HTML;
 
     /**
      * @inheritDoc
+     * @return array<int|string, string>
      */
     public function getCacheKeyInfo()
     {

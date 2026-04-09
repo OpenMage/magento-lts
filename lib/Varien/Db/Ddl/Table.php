@@ -345,17 +345,13 @@ class Varien_Db_Ddl_Table
         // Prepare different properties
         switch ($type) {
             case self::TYPE_BOOLEAN:
+            case self::TYPE_DATE:
+            case self::TYPE_DATETIME:
+            case self::TYPE_TIMESTAMP:
                 break;
-
             case self::TYPE_SMALLINT:
             case self::TYPE_INTEGER:
             case self::TYPE_BIGINT:
-                if (!empty($options['unsigned'])) {
-                    $unsigned = true;
-                }
-
-                break;
-
             case self::TYPE_FLOAT:
                 if (!empty($options['unsigned'])) {
                     $unsigned = true;
@@ -395,10 +391,6 @@ class Varien_Db_Ddl_Table
                 }
 
                 break;
-            case self::TYPE_DATE:
-            case self::TYPE_DATETIME:
-            case self::TYPE_TIMESTAMP:
-                break;
             case self::TYPE_TEXT:
             case self::TYPE_BLOB:
             case self::TYPE_VARBINARY:
@@ -422,8 +414,8 @@ class Varien_Db_Ddl_Table
                 $primaryPosition = (int) $options['primary_position'];
             } else {
                 $primaryPosition = 0;
-                foreach ($this->_columns as $v) {
-                    if ($v['PRIMARY']) {
+                foreach ($this->_columns as $column) {
+                    if ($column['PRIMARY']) {
                         $primaryPosition++;
                     }
                 }
@@ -560,7 +552,7 @@ class Varien_Db_Ddl_Table
             $position++;
         }
 
-        if (empty($columns)) {
+        if ($columns === []) {
             throw new Zend_Db_Exception('Columns for index are not defined');
         }
 

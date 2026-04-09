@@ -103,8 +103,8 @@ class Mage_Catalog_Model_Layer extends Varien_Object
             ->addAttributeToSelect(Mage::getSingleton('catalog/config')->getProductAttributes())
             ->addPriceData()
             ->addTaxPercents()
+            ->setVisibility(Mage::getSingleton('catalog/product_visibility')::getVisibleInCatalogIds())
             ->addUrlRewrite($this->getCurrentCategory()->getId());
-        Mage::getSingleton('catalog/product_visibility')->addVisibleInCatalogFilterToCollection($collection);
 
         return $this;
     }
@@ -125,7 +125,7 @@ class Mage_Catalog_Model_Layer extends Varien_Object
                 . '_' . $filterItem->getValueString();
         }
 
-        if (!empty($stateSuffix)) {
+        if ($stateSuffix !== '') {
             $this->_stateKey = $this->getStateKey() . $stateSuffix;
         }
 

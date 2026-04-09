@@ -138,7 +138,7 @@ class Mage_Catalog_Model_Layer_Filter_Price_Algorithm
      */
     protected function _binarySearch($value, $limits = null)
     {
-        if (empty($this->_prices)) {
+        if ($this->_prices === []) {
             return -1;
         }
 
@@ -445,10 +445,8 @@ class Mage_Catalog_Model_Layer_Filter_Price_Algorithm
 
         if (!is_null($roundingFactor)) {
             // Can't separate if prices are equal
-            if ($lowerPrice >= $upperPrice) {
-                if ($lowerPrice > $upperPrice || $returnEmpty) {
-                    return false;
-                }
+            if ($lowerPrice >= $upperPrice && ($lowerPrice > $upperPrice || $returnEmpty)) {
+                return false;
             }
 
             // round is used for such examples: (1194.32 / 0.02) or (5 / 100000)
@@ -493,7 +491,7 @@ class Mage_Catalog_Model_Layer_Filter_Price_Algorithm
             $tenPower /= 10;
         }
 
-        return empty($result) ? [1 => []] : $result;
+        return $result === [] ? [1 => []] : $result;
     }
 
     /**

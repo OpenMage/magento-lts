@@ -328,10 +328,8 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
                 // case self::TYPE_PAYMENT?
         }
 
-        if ($authTransaction) {
-            if (!$dryRun) {
-                $authTransaction->close($shouldSave);
-            }
+        if ($authTransaction && !$dryRun) {
+            $authTransaction->close($shouldSave);
         }
 
         return $authTransaction;
@@ -375,11 +373,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
     {
         try {
             $authTransaction = $this->closeAuthorization('', true);
-            if ($authTransaction->hasChildTransaction() || $this->_children) {
-                return false;
-            }
-
-            return true;
+            return !$authTransaction->hasChildTransaction() && !$this->_children;
         } catch (Mage_Core_Exception) {
             // jam all logical exceptions, fallback to false
         }
@@ -401,11 +395,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
         }
 
         if ($this->_hasChild === null) {
-            if ($this->getChildTransactions()) {
-                $this->_hasChild = true;
-            } else {
-                $this->_hasChild = false;
-            }
+            $this->_hasChild = (bool) $this->getChildTransactions();
         }
 
         return $this->_hasChild;
@@ -761,7 +751,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
     /**
      * Retrieve transaction types
      *
-     * @return array
+     * @return array<string, string>
      */
     public function getTransactionTypes()
     {
@@ -822,10 +812,8 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
      */
     protected function _verifyPaymentObject($dryRun = false)
     {
-        if (!$this->_paymentObject || !$this->getOrderId()) {
-            if (!$dryRun) {
-                Mage::throwException(Mage::helper('sales')->__('Proper payment object must be set.'));
-            }
+        if ((!$this->_paymentObject || !$this->getOrderId()) && !$dryRun) {
+            Mage::throwException(Mage::helper('sales')->__('Proper payment object must be set.'));
         }
 
         return $this->_paymentObject;

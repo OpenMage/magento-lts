@@ -102,15 +102,12 @@ class Mage_CatalogIndex_Model_Indexer_Tierprice extends Mage_CatalogIndex_Model_
      */
     protected function _isAttributeIndexable(Mage_Eav_Model_Entity_Attribute_Abstract $attribute)
     {
-        if ($attribute->getAttributeCode() != 'tier_price') {
-            return false;
-        }
-
-        return true;
+        return $attribute->getAttributeCode() == 'tier_price';
     }
 
     /**
-     * @return array
+     * @inheritDoc
+     * @return array<string, string>
      */
     protected function _getIndexableAttributeConditions()
     {

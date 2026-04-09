@@ -128,10 +128,10 @@ class Mage_Downloadable_Model_Link_Api extends Mage_Catalog_Model_Api_Resource
     /**
      * Retrieve downloadable product links
      *
-     * @param  int|string $productId
-     * @param  int|string $store
-     * @param  string     $identifierType ('sku'|'id')
-     * @return array
+     * @param  int|string             $productId
+     * @param  int|string             $store
+     * @param  string                 $identifierType ('sku'|'id')
+     * @return array<string, mixed[]>
      */
     public function items($productId, $store = null, $identifierType = null)
     {

@@ -11,7 +11,6 @@
  * @package    Mage_Sales
  *
  * @method Mage_Sales_Model_Resource_Order_Invoice            _getResource()
- * @method string                                             getBackUrl()
  * @method float                                              getBaseCost()
  * @method string                                             getBaseCurrencyCode()
  * @method float                                              getBaseDiscountAmount()
@@ -28,7 +27,7 @@
  * @method float                                              getBaseToOrderRate()
  * @method float                                              getBaseTotalRefunded()
  * @method int                                                getBillingAddressId()
- * @method int                                                getCanVoidFlag()
+ * @method null|int                                           getCanVoidFlag()
  * @method Mage_Sales_Model_Resource_Order_Invoice_Collection getCollection()
  * @method string                                             getCybersourceToken()
  * @method float                                              getDiscountAmount()
@@ -386,11 +385,7 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
             return false;
         }
 
-        if (abs($this->getBaseGrandTotal() - $this->getBaseTotalRefunded()) < .0001) {
-            return false;
-        }
-
-        return true;
+        return abs($this->getBaseGrandTotal() - $this->getBaseTotalRefunded()) >= .0001;
     }
 
     /**

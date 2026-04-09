@@ -222,7 +222,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     /**
      * Model cache tag for clear cache in after save and after delete
      *
-     * @var string
+     * @inheritDoc
      */
     protected $_cacheTag = self::CACHE_TAG;
 
@@ -660,7 +660,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     /**
      * Retrieve ids of default addresses
      *
-     * @return array
+     * @return array<int, int>
      */
     public function getPrimaryAddressIds()
     {
@@ -735,7 +735,11 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
             return false;
         }
 
-        return ($address->getId() == $this->getDefaultBilling()) || ($address->getId() == $this->getDefaultShipping());
+        if ($address->getId() == $this->getDefaultBilling()) {
+            return true;
+        }
+
+        return $address->getId() == $this->getDefaultShipping();
     }
 
     /**
@@ -987,11 +991,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      */
     public function isInStore($store)
     {
-        if ($store instanceof Mage_Core_Model_Store) {
-            $storeId = $store->getId();
-        } else {
-            $storeId = $store;
-        }
+        $storeId = $store instanceof Mage_Core_Model_Store ? $store->getId() : $store;
 
         $availableStores = $this->getSharedStoreIds();
         return in_array($storeId, $availableStores);
@@ -1134,7 +1134,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
         }
 
         $errors = $validator->getErrorMessages($violations);
-        if (!$errors) {
+        if (!$errors instanceof ArrayObject) {
             return true;
         }
 
@@ -1159,7 +1159,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
         ));
 
         $errors = $validator->getErrorMessages($violations);
-        if (!$errors) {
+        if (!$errors instanceof ArrayObject) {
             return true;
         }
 
@@ -1435,7 +1435,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      *
      * @param  null|string $error
      * @param  string      $line
-     * @return false|void
+     * @return null|false
      * @throws Exception
      */
     public function printError($error, $line = null)
@@ -1453,6 +1453,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
         }
 
         echo '</li>';
+        return null;
     }
 
     /**
@@ -1667,7 +1668,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      */
     public function changeResetPasswordLinkToken($newResetPasswordLinkToken)
     {
-        if (!is_string($newResetPasswordLinkToken) || empty($newResetPasswordLinkToken)) {
+        if (!is_string($newResetPasswordLinkToken) || $newResetPasswordLinkToken === '') {
             throw Mage::exception(
                 'Mage_Core',
                 Mage::helper('customer')->__('Invalid password reset token.'),
@@ -1691,7 +1692,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      */
     public function changeResetPasswordLinkCustomerId($newResetPasswordLinkCustomerId)
     {
-        if (!is_string($newResetPasswordLinkCustomerId) || empty($newResetPasswordLinkCustomerId)) {
+        if (!is_string($newResetPasswordLinkCustomerId) || $newResetPasswordLinkCustomerId === '') {
             throw Mage::exception(
                 'Mage_Core',
                 Mage::helper('customer')->__('Invalid password reset customer Id.'),
@@ -1738,8 +1739,8 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      */
     public function cleanPasswordsValidationData()
     {
-        $this->setData('password', null);
-        $this->setData('password_confirmation', null);
+        $this->setData('password');
+        $this->setData('password_confirmation');
         return $this;
     }
 

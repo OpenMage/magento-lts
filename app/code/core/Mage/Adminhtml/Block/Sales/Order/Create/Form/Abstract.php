@@ -11,6 +11,9 @@
  * Sales Order Create Form Abstract Block
  *
  * @package    Mage_Adminhtml
+ *
+ * @method string getJsVariablePrefix()
+ * @method $this  setJsVariablePrefix(string $value)
  */
 abstract class Mage_Adminhtml_Block_Sales_Order_Create_Form_Abstract extends Mage_Adminhtml_Block_Sales_Order_Create_Abstract
 {
@@ -74,7 +77,7 @@ abstract class Mage_Adminhtml_Block_Sales_Order_Create_Form_Abstract extends Mag
     /**
      * Return array of additional form element types by type
      *
-     * @return array
+     * @return array<string, string>
      */
     protected function _getAdditionalFormElementTypes()
     {
@@ -163,7 +166,7 @@ abstract class Mage_Adminhtml_Block_Sales_Order_Create_Form_Abstract extends Mag
     /**
      * Return Form Elements values
      *
-     * @return array
+     * @return array<string, mixed>|array<void>
      */
     public function getFormValues()
     {

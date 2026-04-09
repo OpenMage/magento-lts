@@ -14,6 +14,8 @@
  */
 class Mage_Adminhtml_Block_Report_Customer_Orders_Grid extends Mage_Adminhtml_Block_Report_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_report_customer_orders_grid';
+
     public function __construct()
     {
         parent::__construct();
@@ -21,7 +23,7 @@ class Mage_Adminhtml_Block_Report_Customer_Orders_Grid extends Mage_Adminhtml_Bl
     }
 
     /**
-     * @return $this
+     * @inheritDoc
      */
     protected function _prepareCollection()
     {
@@ -32,6 +34,7 @@ class Mage_Adminhtml_Block_Report_Customer_Orders_Grid extends Mage_Adminhtml_Bl
 
     /**
      * @inheritDoc
+     * @throws Exception
      */
     protected function _prepareColumns()
     {

@@ -71,7 +71,7 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
      * Apply custom design
      *
      * @param  string     $design
-     * @return false|void
+     * @return null|false
      */
     public function applyCustomDesign($design)
     {
@@ -83,6 +83,7 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
         $package = $designInfo[0];
         $theme   = $designInfo[1];
         $this->_apply($package, $theme);
+        return null;
     }
 
     /**
@@ -199,14 +200,15 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
             $category = $object->getParentCategory();
 
             $useParentSettings = $object->getCustomUseParentSettings();
-            if ($useParentSettings) {
-                if ($category
+            if ($useParentSettings
+                && (
+                    $category
                     && $category->getId()
                     && $category->getLevel() > 1
                     && $category->getId() != Mage_Catalog_Model_Category::TREE_ROOT_ID
-                ) {
-                    return $this->_inheritDesign($category, $calledFrom);
-                }
+                )
+            ) {
+                return $this->_inheritDesign($category, $calledFrom);
             }
 
             if ($calledFrom == self::APPLY_FOR_PRODUCT) {
@@ -329,11 +331,7 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
      */
     public function getDesignSettings($object)
     {
-        if ($object instanceof Mage_Catalog_Model_Product) {
-            $currentCategory = $object->getCategory();
-        } else {
-            $currentCategory = $object;
-        }
+        $currentCategory = $object instanceof Mage_Catalog_Model_Product ? $object->getCategory() : $object;
 
         $category = null;
         if ($currentCategory) {

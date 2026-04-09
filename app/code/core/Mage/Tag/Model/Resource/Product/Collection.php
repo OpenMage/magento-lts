@@ -11,8 +11,6 @@
  * Tagged Product(s) Collection
  *
  * @package    Mage_Tag
- *
- * @method Mage_Catalog_Model_Product[] getItems()
  */
 class Mage_Tag_Model_Resource_Product_Collection extends Mage_Catalog_Model_Resource_Product_Collection
 {
@@ -69,19 +67,6 @@ class Mage_Tag_Model_Resource_Product_Collection extends Mage_Catalog_Model_Reso
     {
         $this->setFlag($table, true);
         return $this;
-    }
-
-    /**
-     * Get flag's status about joined table.
-     * getFlag method must be used in future.
-     *
-     * @param  string $table
-     * @return bool
-     * @deprecated after 1.3.2.3
-     */
-    public function getJoinFlag($table)
-    {
-        return $this->getFlag($table);
     }
 
     /**
@@ -420,11 +405,7 @@ class Mage_Tag_Model_Resource_Product_Collection extends Mage_Catalog_Model_Reso
         $countSelect->reset(Zend_Db_Select::LIMIT_OFFSET);
         $countSelect->reset(Zend_Db_Select::GROUP);
 
-        if ($this->getFlag('group_tag')) {
-            $field = 'relation.tag_id';
-        } else {
-            $field = 'e.entity_id';
-        }
+        $field = $this->getFlag('group_tag') ? 'relation.tag_id' : 'e.entity_id';
 
         $expr = new Zend_Db_Expr('COUNT('
             . ($this->getFlag('distinct') ? 'DISTINCT ' : '')

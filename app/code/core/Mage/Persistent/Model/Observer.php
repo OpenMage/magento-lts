@@ -86,7 +86,7 @@ class Mage_Persistent_Model_Observer
     public function emulateWelcomeMessageBlock($block)
     {
         $block->setWelcome(
-            Mage::helper('persistent')->__('Welcome, %s!', Mage::helper('core')->escapeHtml($this->_getPersistentCustomer()->getName(), null)),
+            Mage::helper('persistent')->__('Welcome, %s!', Mage::helper('core')->escapeHtml($this->_getPersistentCustomer()->getName())),
         );
         return $this;
     }

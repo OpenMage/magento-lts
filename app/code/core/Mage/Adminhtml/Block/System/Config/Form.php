@@ -597,11 +597,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
             return true;
         }
 
-        if ($this->getScope() == self::SCOPE_WEBSITES && $field) {
-            return true;
-        }
-
-        return false;
+        return $this->getScope() == self::SCOPE_WEBSITES && $field;
     }
 
     /**
@@ -611,11 +607,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
      */
     public function canUseWebsiteValue($field)
     {
-        if ($this->getScope() == self::SCOPE_STORES && $field) {
-            return true;
-        }
-
-        return false;
+        return $this->getScope() == self::SCOPE_STORES && $field;
     }
 
     /**
@@ -684,16 +676,16 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
         $website    = Mage::app()->getRequest()->getParam('website');
 
         if ($store && $website) {
-            $path = "$scope/$store/$path";
+            $path = "{$scope}/{$store}/{$path}";
             return $environmentConfigLoaderHelper->hasPath($path);
         }
 
         if ($website) {
-            $path = "$scope/$website/$path";
+            $path = "{$scope}/{$website}/{$path}";
             return $environmentConfigLoaderHelper->hasPath($path);
         }
 
-        $path = "$scope/$path";
+        $path = "{$scope}/{$path}";
         return $environmentConfigLoaderHelper->hasPath($path);
     }
 
@@ -766,7 +758,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
     }
 
     /**
-     * @return array
+     * @return array<string, string>
      */
     protected function _getAdditionalElementTypes()
     {

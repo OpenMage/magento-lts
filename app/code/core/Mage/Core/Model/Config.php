@@ -1,5 +1,7 @@
 <?php
 
+use Monolog\Level;
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -469,13 +471,13 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
         }
 
         $disableLocalModules = (string) $this->getNode('global/disable_local_modules');
-        if (!empty($disableLocalModules)) {
+        if ($disableLocalModules !== '') {
             $disableLocalModules = (($disableLocalModules === 'true') || ($disableLocalModules === '1'));
         } else {
             $disableLocalModules = false;
         }
 
-        if ($disableLocalModules === true) {
+        if ($disableLocalModules) {
             set_include_path(
                 BP . DS . 'app' . DS . 'code' . DS . 'community' . PS
                 . BP . DS . 'app' . DS . 'code' . DS . 'core' . PS
@@ -542,7 +544,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
                 throw new Exception('Could not get lock on cache save operation.');
             }
 
-            Mage::log(sprintf('Failed to get cache save lock in %d seconds.', $waitTime), \Monolog\Level::Notice);
+            Mage::log(sprintf('Failed to get cache save lock in %d seconds.', $waitTime), Level::Notice);
             require Mage::getBaseDir() . DS . 'errors' . DS . '503.php';
             die();
         }
@@ -583,7 +585,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
             $tags[] = self::CACHE_TAG;
         }
 
-        if (!empty($this->_cacheSections)) {
+        if ($this->_cacheSections !== []) {
             $xml = clone $this->_xml;
             foreach ($this->_cacheSections as $sectionName => $level) {
                 $this->_saveSectionCache($this->getCacheId(), $sectionName, $xml, $level, $tags);
@@ -620,7 +622,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
         if ($source && $source->$sectionName) {
             $cacheId = $idPrefix . '_' . $sectionName;
             if ($recursionLevel > 0) {
-                foreach ($source->$sectionName->children() as $subSectionName => $node) {
+                foreach ($source->$sectionName->children() as $subSectionName => $ignored) {
                     $this->_saveSectionCache(
                         $cacheId,
                         $subSectionName,
@@ -845,14 +847,14 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
             'custom' => [],
         ];
 
-        foreach ($moduleFiles as $v) {
-            $name = explode(DIRECTORY_SEPARATOR, $v);
+        foreach ($moduleFiles as $moduleFile) {
+            $name = explode(DIRECTORY_SEPARATOR, $moduleFile);
             $name = substr($name[count($name) - 1], 0, -4);
 
             if (array_key_exists($name, self::MAGE_MODULES)) {
-                $collectModuleFiles['mage'][self::MAGE_MODULES[$name]] = $v;
+                $collectModuleFiles['mage'][self::MAGE_MODULES[$name]] = $moduleFile;
             } else {
-                $collectModuleFiles['custom'][] = $v;
+                $collectModuleFiles['custom'][] = $moduleFile;
             }
         }
 
@@ -902,13 +904,13 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      * Load declared modules configuration
      *
      * @param  null       $mergeConfig deprecated
-     * @return $this|void
+     * @return null|$this
      */
     protected function _loadDeclaredModules($mergeConfig = null)
     {
         $moduleFiles = $this->_getDeclaredModuleFiles();
         if (!$moduleFiles) {
-            return ;
+            return null;
         }
 
         Varien_Profiler::start('config/load-modules-declaration');
@@ -1036,9 +1038,9 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
     {
         if ($this->_moduleNamespaces === null) {
             $this->_moduleNamespaces = [];
-            foreach ($this->_xml->xpath('modules/*') as $m) {
-                if ((string) $m->active == 'true') {
-                    $moduleName = $m->getName();
+            foreach ($this->_xml->xpath('modules/*') as $config) {
+                if ((string) $config->active == 'true') {
+                    $moduleName = $config->getName();
                     $module = strtolower($moduleName);
                     $this->_moduleNamespaces[substr($module, 0, strpos($module, '_'))][$module] = $moduleName;
                 }
@@ -1165,8 +1167,8 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
                 'base_url'  => $baseUrl,
             ];
 
-            foreach ($this->_distroServerVars as $k => $v) {
-                $this->_substServerVars['{{' . $k . '}}'] = $v;
+            foreach ($this->_distroServerVars as $key => $serverVar) {
+                $this->_substServerVars['{{' . $key . '}}'] = $serverVar;
             }
         }
 
@@ -1300,7 +1302,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      */
     public function loadEventObservers($area)
     {
-        $events = $this->getNode("$area/events");
+        $events = $this->getNode("{$area}/events");
         if ($events) {
             $events = $events->children();
         } else {
@@ -1337,8 +1339,8 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      *
      * To be used in blocks, templates, etc.
      *
-     * @param  array|string $args Module name if string
-     * @return array
+     * @param  array|string          $args Module name if string
+     * @return array<string, string>
      */
     public function getPathVars($args = null)
     {
@@ -1376,17 +1378,6 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
         $className = '';
         if (isset($config->rewrite->$class)) {
             $className = (string) $config->rewrite->$class;
-        } elseif (isset($config->deprecatedNode)) {
-            /**
-             * Backwards compatibility for pre-MMDB extensions.
-             * In MMDB release resource nodes <..._mysql4> were renamed to <..._resource>. So <deprecatedNode> is left
-             * to keep name of previously used nodes, that still may be used by non-updated extensions.
-             */
-            $deprecatedNode = (string) $config->deprecatedNode;
-            $configOld = $this->_xml->global->{$groupType . 's'}->$deprecatedNode;
-            if (isset($configOld->rewrite->$class)) {
-                $className = (string) $configOld->rewrite->$class;
-            }
         }
 
         $className = trim($className);
@@ -1488,9 +1479,9 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      *
      * Will instantiate Mage_Catalog_Model_Resource_Product
      *
-     * @param  string                         $modelClass
-     * @param  array|object                   $constructArguments
-     * @return false|Mage_Core_Model_Abstract
+     * @param  string                                $modelClass
+     * @param  array|object                          $constructArguments
+     * @return false|Mage_Core_Model_Abstract|object
      * @see Mage_Catalog_Model_Resource_Product
      */
     public function getModelInstance($modelClass = '', $constructArguments = [])
@@ -1618,7 +1609,11 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
                     $key = (string) $store->descend('system/store/name');
             }
 
-            if (!isset($key) || $key === false) {
+            if (!isset($key)) {
+                continue;
+            }
+
+            if ($key === false) {
                 continue;
             }
 

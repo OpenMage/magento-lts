@@ -7,16 +7,18 @@
  * @package    Mage_Adminhtml
  */
 
-use Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract as MassAction;
-
 /**
  * Grid widget massaction block
  *
  * @package    Mage_Adminhtml
  *
- * @method bool  getHideFormElement()
- * @method $this setFormFieldName(string $value)
- * @method $this setHideFormElement(bool $value) Hide Form element to prevent IE errors
+ * @method string getErrorText()
+ * @method bool   getHideFormElement()
+ * @method bool   getUseAjax()
+ * @method $this  setErrorText(string $value)
+ * @method $this  setFormFieldName(string $value)
+ * @method $this  setHideFormElement(bool $value) Hide Form element to prevent IE errors
+ * @method $this  setUseAjax(bool $value)
  */
 abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage_Adminhtml_Block_Widget
 {
@@ -333,7 +335,11 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
      */
     public function getUseSelectAll()
     {
-        return $this->_getData('use_select_all') === null || $this->_getData('use_select_all');
+        if ($this->_getData('use_select_all') === null) {
+            return true;
+        }
+
+        return (bool) $this->_getData('use_select_all');
     }
 
     /**
@@ -350,6 +356,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
 
     /**
      * Group items for optgroups
+     * @return array<string, mixed[]>
      */
     public function getGroupedItems(): array
     {

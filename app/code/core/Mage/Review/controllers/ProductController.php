@@ -22,7 +22,7 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
     protected $_cookieCheckActions = ['post'];
 
     /**
-     * @return $this|Mage_Core_Controller_Front_Action|void
+     * @return null|$this|Mage_Core_Controller_Front_Action
      */
     public function preDispatch()
     {
@@ -30,18 +30,20 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
 
         $allowGuest = Mage::helper('review')->getIsGuestAllowToWrite();
         if (!$this->getRequest()->isDispatched()) {
-            return;
+            return null;
         }
 
         $action = strtolower($this->getRequest()->getActionName());
-        if (!$allowGuest && $action == 'post' && $this->getRequest()->isPost()) {
-            if (!Mage::getSingleton('customer/session')->isLoggedIn()) {
-                $this->setFlag('', self::FLAG_NO_DISPATCH, true);
-                Mage::getSingleton('customer/session')->setBeforeAuthUrl(Mage::getUrl('*/*/*', ['_current' => true]));
-                Mage::getSingleton('review/session')->setFormData($this->getRequest()->getPost())
-                    ->setRedirectUrl($this->_getRefererUrl());
-                $this->_redirectUrl(Mage::helper('customer')->getLoginUrl());
-            }
+        if (!$allowGuest
+            && $action == 'post'
+            && $this->getRequest()->isPost()
+            && !Mage::getSingleton('customer/session')->isLoggedIn()
+        ) {
+            $this->setFlag('', self::FLAG_NO_DISPATCH, true);
+            Mage::getSingleton('customer/session')->setBeforeAuthUrl(Mage::getUrl('*/*/*', ['_current' => true]));
+            Mage::getSingleton('review/session')->setFormData($this->getRequest()->getPost())
+                ->setRedirectUrl($this->_getRefererUrl());
+            $this->_redirectUrl(Mage::helper('customer')->getLoginUrl());
         }
 
         return $this;

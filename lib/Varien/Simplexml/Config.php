@@ -83,7 +83,7 @@ class Varien_Simplexml_Config
 
         if ($sourceData instanceof Varien_Simplexml_Element) {
             $this->setXml($sourceData);
-        } elseif (is_string($sourceData) && !empty($sourceData)) {
+        } elseif (is_string($sourceData) && $sourceData !== '') {
             if (strlen($sourceData) < 1000 && is_readable($sourceData)) {
                 $this->loadFile($sourceData);
             } else {
@@ -472,7 +472,7 @@ class Varien_Simplexml_Config
     {
         $xml = simplexml_import_dom($dom, $this->_elementClass);
 
-        if ($xml) {
+        if ($xml instanceof SimpleXMLElement) {
             $this->_xml = $xml;
             return true;
         }
@@ -490,7 +490,7 @@ class Varien_Simplexml_Config
      */
     public function setNode($path, $value, $overwrite = true)
     {
-        $xml = $this->_xml->setNode($path, $value, $overwrite);
+        $this->_xml->setNode($path, $value, $overwrite);
         return $this;
     }
 

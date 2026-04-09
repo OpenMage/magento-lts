@@ -14,6 +14,9 @@
  */
 class Mage_Adminhtml_Model_System_Config_Source_Notification_Frequency
 {
+    /**
+     * @return array<int, string>
+     */
     public function toOptionArray()
     {
         return [

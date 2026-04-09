@@ -257,9 +257,7 @@ class Mage_Eav_Model_Config
     }
 
     /**
-     * @param            $storeId
      * @return void
-     * @throws Exception
      */
     protected function _loadAttributeSetInfo()
     {
@@ -489,7 +487,7 @@ class Mage_Eav_Model_Config
             return $code;
         }
 
-        $storeId = $storeId ?? $this->_storeId();
+        $storeId ??= $this->_storeId();
         $this->_initializeStore($storeId);
         $entityType = $this->getEntityType($entityType);
 
@@ -630,19 +628,6 @@ class Mage_Eav_Model_Config
         }
 
         return false;
-    }
-
-    /**
-     * @param  mixed                                         $entityType
-     * @param  string                                        $attribute
-     * @return null|Mage_Eav_Model_Entity_Attribute_Abstract
-     * @throws Mage_Core_Exception
-     * @deprecated Equivalent to getAttribute(...), use getAttribute(...) instead
-     * Get attribute object for collection usage
-     */
-    public function getCollectionAttribute($entityType, $attribute)
-    {
-        return $this->getAttribute($entityType, $attribute);
     }
 
     /**
