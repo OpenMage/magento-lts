@@ -120,21 +120,6 @@ try {
             # skip: strict_type cannot be applied to OpenMage codebase - yet
             TypeDeclaration\StmtsAwareInterface\DeclareStrictTypesRector::class,
         ])
-        # skip: wait for rector support
-        ->withSkip([
-            # tmp wait for https://github.com/rectorphp/rector/issues/9728
-            CodeQuality\Expression\TernaryFalseExpressionToIfRector::class,
-            # tmp wait for https://github.com/rectorphp/rector/issues/9717
-            CodeQuality\If_\CombineIfRector::class => [
-                __DIR__ . '/app/code/core/Mage/Catalog/Model/Api2/Product/Validator/Product.php',
-            ],
-            # tmp wait for https://github.com/rectorphp/rector/issues/9725
-            CodeQuality\If_\CompleteMissingIfElseBracketRector::class,
-            # tmp wait for https://github.com/rectorphp/rector/issues/9732
-            EarlyReturn\Foreach_\ChangeNestedForeachIfsToEarlyContinueRector::class => [
-                __DIR__ . '/app/code/core/Mage/Checkout/Model/Cart/Payment/Api.php',
-            ],
-        ])
         # skip: ... @todo: check later
         ->withSkip([
             # ... causes issues with Mage_Api2_Model_Auth_Adapter_Oauth::getUserParams()
@@ -165,6 +150,10 @@ try {
             DeadCode\PropertyProperty\RemoveNullPropertyInitializationRector::class,
             # ... needs closer review
             DeadCode\TryCatch\RemoveDeadTryCatchRector::class,
+            # ... check again https://github.com/rectorphp/rector/issues/9732
+            EarlyReturn\Foreach_\ChangeNestedForeachIfsToEarlyContinueRector::class => [
+                __DIR__ . '/app/code/core/Mage/Checkout/Model/Cart/Payment/Api.php',
+            ],
             # ... needs closer review and docblock fixes for magic methods
             Php71\FuncCall\RemoveExtraParametersRector::class,
             # ... needs closer review
