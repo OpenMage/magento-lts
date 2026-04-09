@@ -47,13 +47,12 @@ class Mage_Newsletter_ManageController extends Mage_Core_Controller_Front_Action
     }
 
     /**
-     * @return void
+     * @return $this|void
      */
     public function saveAction()
     {
         if (!$this->_validateFormKey()) {
-            $this->_redirect('customer/account/');
-            return;
+            return $this->_redirect('customer/account/');
         }
 
         try {

@@ -93,7 +93,7 @@ class Mage_ImportExport_Adminhtml_ExportController extends Mage_Adminhtml_Contro
 
     /**
      * Get grid-filter of entity attributes action.
-     * @return void
+     * @return $this|void
      */
     public function getFilterAction()
     {
