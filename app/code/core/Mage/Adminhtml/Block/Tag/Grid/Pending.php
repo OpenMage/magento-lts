@@ -18,6 +18,8 @@ use Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract as MassAction;
  */
 class Mage_Adminhtml_Block_Tag_Grid_Pending extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_tag_grid_pending';
+
     public function __construct()
     {
         parent::__construct();
@@ -43,13 +45,12 @@ class Mage_Adminhtml_Block_Tag_Grid_Pending extends Mage_Adminhtml_Block_Widget_
 
     /**
      * @inheritDoc
+     * @throws Exception
      * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
      */
     protected function _prepareColumns()
     {
-        $baseUrl = $this->getUrl();
-
         $this->addColumn('name', [
             'header'        => Mage::helper('tag')->__('Tag'),
             'index'         => 'name',
@@ -70,7 +71,7 @@ class Mage_Adminhtml_Block_Tag_Grid_Pending extends Mage_Adminhtml_Block_Widget_
         ]);
 
         // Collection for stores filters
-        if (!$collection = Mage::registry('stores_select_collection')) {
+        if (!Mage::registry('stores_select_collection')) {
             $collection =  Mage::app()->getStore()->getResourceCollection()
                 ->load();
             Mage::register('stores_select_collection', $collection);
@@ -114,7 +115,7 @@ class Mage_Adminhtml_Block_Tag_Grid_Pending extends Mage_Adminhtml_Block_Widget_
     }
 
     /**
-     * @return $this
+     * @inheritDoc
      */
     protected function _prepareMassaction()
     {
@@ -146,13 +147,11 @@ class Mage_Adminhtml_Block_Tag_Grid_Pending extends Mage_Adminhtml_Block_Widget_
             ],
         ]);
 
-        return $this;
+        return parent::_prepareMassaction();
     }
 
     /**
-     * Retrieves Grid Url
-     *
-     * @return string
+     * @inheritDoc
      */
     public function getGridUrl()
     {

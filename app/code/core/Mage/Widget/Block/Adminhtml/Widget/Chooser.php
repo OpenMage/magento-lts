@@ -13,7 +13,7 @@
  * @package    Mage_Adminhtml
  *
  * @method string getLabel()
- * @method $this  setConfig(Varien_Object $value)
+ * @method $this  setConfig(array|Varien_Object  $value)
  * @method $this  setElement(Varien_Data_Form_Element_Abstract $value)
  * @method $this  setFieldsetId(string $value)
  * @method $this  setSourceUrl(string $value)

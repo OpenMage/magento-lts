@@ -49,9 +49,9 @@ class Mage_Adminhtml_Block_Sales_Order_View_Giftmessage extends Mage_Adminhtml_B
             }
 
             return parent::_beforeToHtml();
-        } else {
-            return parent::_beforeToHtml();
         }
+
+        return parent::_beforeToHtml();
     }
 
     /**

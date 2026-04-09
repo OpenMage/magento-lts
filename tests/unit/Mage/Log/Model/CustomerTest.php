@@ -12,7 +12,6 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Log\Model;
 
 use Generator;
-use Mage;
 use Mage_Customer_Model_Customer;
 use Mage_Log_Model_Customer as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;

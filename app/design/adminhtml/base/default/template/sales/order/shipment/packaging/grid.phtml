@@ -1,0 +1,80 @@
+<?php
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Academic Free License (AFL 3.0)
+ * @package     default_default
+ */
+
+/**
+ * @see Mage_Adminhtml_Block_Sales_Order_Shipment_Packaging_Grid
+ * @var Mage_Adminhtml_Block_Sales_Order_Shipment_Packaging_Grid $this
+ */
+?>
+<div>
+    <div class="grid">
+        <div class="hor-scroll">
+            <table cellspacing="0" class="data">
+                <thead>
+                <tr class="headings">
+                    <th class=" no-link"><span class="nobr"><?php echo Mage::helper('sales')->__('Product Name') ?></span></th>
+                    <th class=" no-link"><span class="nobr"><?php echo Mage::helper('sales')->__('Weight') ?></span></th>
+                    <th class=" no-link" <?php echo $this->displayCustomsValue() ? '' : 'style="display: none;"' ?> width="100">
+                        <span class="nobr"><?php echo Mage::helper('sales')->__('Customs Value') ?></span>
+                    </th>
+                    <th class="a-center no-link" width="100">
+                        <span class="nobr"><input type="checkbox" name="" onclick="packaging.checkAllItems(this);" class="checkbox" title="<?php echo Mage::helper('sales')->__('Select All') ?>"></span>
+                    </th>
+                    <th class=" no-link" width="100"><span class="nobr"><?php echo Mage::helper('sales')->__('Qty Ordered') ?></span></th>
+                    <th class=" no-link last" width="100"><span class="nobr"><?php echo Mage::helper('sales')->__('Qty') ?></span></th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <?php foreach($this->getCollection() as $item): ?>
+                    <?php $_order = $this->getShipment()->getOrder() ?>
+                    <?php $_orderItem = $_order->getItemById($item->getOrderItemId()); ?>
+                    <?php if ($item->getIsVirtual()
+                              || ($_orderItem->isShipSeparately() && (!$_orderItem->getParentItemId() && !$_orderItem->getParentItem()))
+                              || (!$_orderItem->isShipSeparately() && ($_orderItem->getParentItemId() || $_orderItem->getParentItem()))): ?>
+                        <?php continue; ?>
+                    <?php endif ?>
+                    <tr title="#" id="" class="">
+                        <td class="name">
+                            <?php echo $item->getName(); ?>
+                        </td>
+                        <td class="a-center weight ">
+                            <?php echo $item->getWeight(); ?>
+                        </td>
+                        <?php
+                            if ($this->displayCustomsValue()) {
+                                $customsValueDisplay = '';
+                                $customsValueValidation = ' validate-zero-or-greater ';
+                            } else {
+                                $customsValueDisplay = ' style="display: none;" ';
+                                $customsValueValidation = '';
+                            }
+                        ?>
+                        <td <?php echo $customsValueDisplay ?>>
+                            <input type="text" name="customs_value" class="input-text <?php echo $customsValueValidation ?>" value="<?php echo $this->formatPrice($item->getPrice()); ?>" size="10" onblur="packaging.recalcContainerWeightAndCustomsValue(this);">
+                        </td>
+                        <td class="a-center ">
+                            <input type="checkbox" name="" value="<?php echo $item->getId() ? $item->getId() : $item->getOrderItemId(); ?>" class="checkbox">
+                        </td>
+                        <td class="a-center ">
+                            <?php echo $item->getOrderItem()->getQtyOrdered()*1; ?>
+                        </td>
+                        <td class="a-right last">
+                            <input type="hidden" name="price" value="<?php echo $item->getPrice(); ?>">
+                            <input type="text" name="qty" value="<?php echo $item->getQty()*1; ?>" class="input-text qty<?php if ($item->getOrderItem()->getIsQtyDecimal()): ?> qty-decimal<?php endif ?>">&nbsp;
+                            <button type="button" class="scalable delete icon-btn" onclick="packaging.deleteItem(this);" style="display:none;">
+                                <span><span><span><?php echo Mage::helper('sales')->__('Delete') ?></span></span></span>
+                            </button>
+                        </td>
+                    </tr>
+                <?php endforeach ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

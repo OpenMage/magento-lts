@@ -30,8 +30,8 @@ class Varien_Directory_Factory
     {
         if (is_dir($path)) {
             return new Varien_Directory_Collection($path, $is_recursion, $recurse_level + 1);
-        } else {
-            return new Varien_File_Object($path);
         }
+
+        return new Varien_File_Object($path);
     }
 }

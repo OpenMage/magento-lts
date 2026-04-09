@@ -162,16 +162,16 @@ class Mage_Sales_Model_Service_Order
                             $item->setQty($qty);
                             $shipment->addItem($item);
                             continue;
-                        } else {
-                            $qty = 1;
                         }
+
+                        $qty = 1;
                     }
                 } else {
                     $qty = 1;
                 }
             } elseif (isset($qtys[$orderItem->getId()])) {
                 $qty = min($qtys[$orderItem->getId()], $orderItem->getQtyToShip());
-            } elseif (empty($qtys)) {
+            } elseif ($qtys === []) {
                 $qty = $orderItem->getQtyToShip();
             } else {
                 continue;
@@ -365,7 +365,7 @@ class Mage_Sales_Model_Service_Order
         if ($item->isDummy()) {
             if ($item->getHasChildren()) {
                 foreach ($item->getChildrenItems() as $child) {
-                    if (empty($qtys)) {
+                    if ($qtys === []) {
                         if ($child->getQtyToInvoice() > 0) {
                             return true;
                         }
@@ -375,13 +375,15 @@ class Mage_Sales_Model_Service_Order
                 }
 
                 return false;
-            } elseif ($item->getParentItem()) {
+            }
+
+            if ($item->getParentItem()) {
                 $parent = $item->getParentItem();
-                if (empty($qtys)) {
+                if ($qtys === []) {
                     return $parent->getQtyToInvoice() > 0;
-                } else {
-                    return isset($qtys[$parent->getId()]) && $qtys[$parent->getId()] > 0;
                 }
+
+                return isset($qtys[$parent->getId()]) && $qtys[$parent->getId()] > 0;
             }
         } else {
             return $item->getQtyToInvoice() > 0;
@@ -417,7 +419,7 @@ class Mage_Sales_Model_Service_Order
                         continue;
                     }
 
-                    if (empty($qtys)) {
+                    if ($qtys === []) {
                         if ($child->getQtyToShip() > 0) {
                             return true;
                         }
@@ -427,13 +429,15 @@ class Mage_Sales_Model_Service_Order
                 }
 
                 return false;
-            } elseif ($item->getParentItem()) {
+            }
+
+            if ($item->getParentItem()) {
                 $parent = $item->getParentItem();
-                if (empty($qtys)) {
+                if ($qtys === []) {
                     return $parent->getQtyToShip() > 0;
-                } else {
-                    return isset($qtys[$parent->getId()]) && $qtys[$parent->getId()] > 0;
                 }
+
+                return isset($qtys[$parent->getId()]) && $qtys[$parent->getId()] > 0;
             }
         } else {
             return $item->getQtyToShip() > 0;
@@ -456,7 +460,7 @@ class Mage_Sales_Model_Service_Order
         if ($item->isDummy()) {
             if ($item->getHasChildren()) {
                 foreach ($item->getChildrenItems() as $child) {
-                    if (empty($qtys)) {
+                    if ($qtys === []) {
                         if ($this->_canRefundNoDummyItem($child, $invoiceQtysRefundLimits)) {
                             return true;
                         }
@@ -466,13 +470,15 @@ class Mage_Sales_Model_Service_Order
                 }
 
                 return false;
-            } elseif ($item->getParentItem()) {
+            }
+
+            if ($item->getParentItem()) {
                 $parent = $item->getParentItem();
-                if (empty($qtys)) {
+                if ($qtys === []) {
                     return $this->_canRefundNoDummyItem($parent, $invoiceQtysRefundLimits);
-                } else {
-                    return isset($qtys[$parent->getId()]) && $qtys[$parent->getId()] > 0;
                 }
+
+                return isset($qtys[$parent->getId()]) && $qtys[$parent->getId()] > 0;
             }
         } else {
             return $this->_canRefundNoDummyItem($item, $invoiceQtysRefundLimits);

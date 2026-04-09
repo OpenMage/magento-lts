@@ -14,14 +14,12 @@ use Carbon\Carbon;
  *
  * @method Mage_Index_Model_Resource_Event            _getResource()
  * @method Mage_Index_Model_Resource_Event_Collection getCollection()
- * @method string                                     getCreatedAt()
  * @method Varien_Object                              getDataObject()
  * @method int                                        getEntityPk()
  * @method Mage_Index_Model_Resource_Event            getResource()
  * @method Mage_Index_Model_Resource_Event_Collection getResourceCollection()
  * @method bool                                       hasCreatedAt()
  * @method bool                                       hasEntityPk()
- * @method $this                                      setCreatedAt(string $value)
  * @method $this                                      setDataObject(Varien_Object $value)
  * @method $this                                      setEntity(string $value)
  * @method $this                                      setEntityPk(int $value)
@@ -206,7 +204,7 @@ class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
     public function cleanNewData()
     {
         $processIds = $this->getProcessIds();
-        if (!is_array($processIds) || empty($processIds)) {
+        if (!is_array($processIds) || $processIds === []) {
             return $this;
         }
 
@@ -231,8 +229,8 @@ class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
     /**
      * Get event old data array
      *
-     * @param  bool  $useNamespace
-     * @return array
+     * @param  bool        $useNamespace
+     * @return array<void>
      * @deprecated since 1.6.2.0
      */
     public function getOldData($useNamespace = true)

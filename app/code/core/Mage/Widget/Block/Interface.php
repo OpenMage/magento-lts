@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -25,7 +27,7 @@ interface Mage_Widget_Block_Interface
      * Add data to the widget.
      * Retains previous data in the widget.
      *
-     * @return Mage_Widget_Block_Interface
+     * @return $this
      */
     public function addData(array $arr);
 

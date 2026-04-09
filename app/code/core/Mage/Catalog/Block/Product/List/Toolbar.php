@@ -353,7 +353,7 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
 
         $directions = ['asc', 'desc'];
         $dir = strtolower($this->getRequest()->getParam($this->getDirectionVarName(), ''));
-        if ($dir && in_array($dir, $directions)) {
+        if ($dir && in_array($dir, $directions, true)) {
             if ($dir == $this->_direction) {
                 Mage::getSingleton('catalog/session')->unsSortDirection();
             } else {
@@ -364,7 +364,7 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
         }
 
         // validate direction
-        if (!$dir || !in_array($dir, $directions)) {
+        if (!$dir || !in_array($dir, $directions, true)) {
             $dir = $this->_direction;
         }
 
@@ -395,7 +395,7 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
      */
     public function setDefaultDirection($dir)
     {
-        if (in_array(strtolower($dir), ['asc', 'desc'])) {
+        if (in_array(strtolower($dir), ['asc', 'desc'], true)) {
             $this->_direction = strtolower($dir);
         }
 
@@ -440,8 +440,8 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
     /**
      * Remove order from available orders if exists
      *
-     * @param  string                                  $order
-     * @return Mage_Catalog_Block_Product_List_Toolbar
+     * @param  string $order
+     * @return $this
      */
     public function removeOrderFromAvailableOrders($order)
     {
@@ -661,7 +661,9 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
             }
 
             return Mage::getStoreConfig('catalog/frontend/list_per_page');
-        } elseif ($this->getCurrentMode() == 'grid') {
+        }
+
+        if ($this->getCurrentMode() == 'grid') {
             if ($default = $this->getDefaultGridPerPage()) {
                 return $default;
             }
@@ -699,11 +701,11 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
     public function getAvailableLimit()
     {
         $currentMode = $this->getCurrentMode();
-        if (in_array($currentMode, ['list', 'grid'])) {
+        if (in_array($currentMode, ['list', 'grid'], true)) {
             return $this->_getAvailableLimit($currentMode);
-        } else {
-            return $this->_defaultAvailableLimit;
         }
+
+        return $this->_defaultAvailableLimit;
     }
 
     /**
@@ -724,9 +726,9 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
         $perPageValues = array_combine($perPageValues, $perPageValues);
         if (Mage::getStoreConfigFlag('catalog/frontend/list_allow_all')) {
             return ($perPageValues + ['all' => $this->__('All')]);
-        } else {
-            return $perPageValues;
         }
+
+        return $perPageValues;
     }
 
     /**

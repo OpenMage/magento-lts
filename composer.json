@@ -32,12 +32,12 @@
         "colinmollenhour/cache-backend-redis": "^1.14",
         "colinmollenhour/magento-redis-session": "^3.2.0",
         "components/jquery": "^3.7.1",
-        "cweagans/composer-patches": "^1.7",
+        "cweagans/composer-patches": "^2.0",
         "empiricompany/openmage_ignition": "^1.5",
         "ezyang/htmlpurifier": "^4.17",
         "flowjs/flowjs": "dev-master",
         "magento-hackathon/magento-composer-installer": "^3.1 || ^2.1 || ^4.0",
-        "mklkj/tinymce-i18n": "^25.2",
+        "mklkj/tinymce-i18n": "^26.1",
         "monolog/monolog": "^3.9",
         "nesbot/carbon": "^2.73",
         "nnnick/chartjs": "^4.4",
@@ -71,11 +71,13 @@
         "phpmd/phpmd": "^2.13",
         "phpstan/extension-installer": "^1.4",
         "phpstan/phpstan": "^2.1.18",
+        "phpstan/phpstan-deprecation-rules": "^2.0",
         "phpstan/phpstan-phpunit": "^2.0",
+        "phpstan/phpstan-strict-rules": "^2.0",
         "phpunit/phpunit": "^9.6",
         "rector/rector": "^2.1.12",
         "squizlabs/php_codesniffer": "^3.7",
-        "symplify/vendor-patches": "^12.0"
+        "symplify/vendor-patches": "^12.0, !=12.0.5, !=12.0.6"
     },
     "replace": {
         "symfony/polyfill-ctype": "*",
@@ -134,28 +136,11 @@
             "app/code/*/*/*/Controller"
         ],
         "psr-4": {
+            "OpenMage\\Rector\\": "dev/rector",
             "OpenMage\\Tests\\Unit\\": "tests/unit"
         }
     },
     "extra": {
-        "patches": {
-            "shardj/zf1-future": {
-                "MAG-1.9.3.0": "https://raw.githubusercontent.com/OpenMage/magento-lts/11031e2c29310d621b63458f2075a688d535f1f8/.vendor-patches/MAG-1.9.3.0.patch",
-                "MAG-1.9.3.7 - SUPEE-10415": "https://raw.githubusercontent.com/OpenMage/magento-lts/11031e2c29310d621b63458f2075a688d535f1f8/.vendor-patches/MAG-1.9.3.7.patch",
-                "OM-918 - Add runtime cache to Zend_Locale_Data": "https://raw.githubusercontent.com/OpenMage/magento-lts/11031e2c29310d621b63458f2075a688d535f1f8/.vendor-patches/OM-918.patch",
-                "OM-1081 - Not detecting HTTPS behind a proxy": "https://raw.githubusercontent.com/OpenMage/magento-lts/11031e2c29310d621b63458f2075a688d535f1f8/.vendor-patches/OM-1081.patch",
-                "OM-2047 - Pass delimiter char to preg_quote": "https://raw.githubusercontent.com/OpenMage/magento-lts/11031e2c29310d621b63458f2075a688d535f1f8/.vendor-patches/OM-2047.patch",
-                "OM-2050 - Prevent checking known date codes": "https://raw.githubusercontent.com/OpenMage/magento-lts/11031e2c29310d621b63458f2075a688d535f1f8/.vendor-patches/OM-2050.patch",
-                "OM-4297 - PHP 8.4 compability": "https://raw.githubusercontent.com/OpenMage/magento-lts/11031e2c29310d621b63458f2075a688d535f1f8/.vendor-patches/OM-4297.patch",
-                "PHPSTAN-ZF1F - temporary fixes": "https://raw.githubusercontent.com/OpenMage/magento-lts/8e345d5907d2b6881a0ed84d5cf9863e4bf93d02/.vendor-patches/PHPSTAN-ZF1F.patch"
-            },
-            "magento-ecg/coding-standard": {
-                "ECG-72 - Fix LoopSniff": "https://raw.githubusercontent.com/OpenMage/magento-lts/11031e2c29310d621b63458f2075a688d535f1f8/.vendor-patches/ECG-72.patch"
-            },
-            "phpseclib/mcrypt_compat": {
-                "OM-4891 - PHP 8.5 compability": "https://raw.githubusercontent.com/OpenMage/magento-lts/11031e2c29310d621b63458f2075a688d535f1f8/.vendor-patches/OM-4891.patch"
-            }
-        },
         "magento-root-dir": ".",
         "magento-deploystrategy": "copy",
         "magento-deploystrategy-dev": "symlink",
@@ -174,6 +159,9 @@
             "openmage/composer-plugin": true,
             "phpstan/extension-installer": true
         },
+        "audit": {
+            "block-insecure": false
+        },
         "platform": {
             "php": "8.1"
         },
@@ -185,27 +173,29 @@
     "scripts": {
         "php-cs-fixer:test": "vendor/bin/php-cs-fixer fix --dry-run --diff",
         "php-cs-fixer:fix": "vendor/bin/php-cs-fixer fix",
-        "phpmd": "vendor/bin/phpmd app/code/core/Mage text .phpmd.dist.xml --color --cache --baseline-file .phpmd.dist.baseline.xml",
-        "phpstan": "XDEBUG_MODE=off php vendor/bin/phpstan analyze",
-        "phpstan:baseline": "XDEBUG_MODE=off php vendor/bin/phpstan analyze -b .phpstan.dist.baseline.neon",
+        "phpmd:test": "vendor/bin/phpmd app/code/core/Mage html .phpmd.dist.xml --color --cache --cache-file .cache/.phpmd.result-cache.php --baseline-file .phpmd.dist.baseline.xml --report-file build/phpmd/report.html",
+        "phpmd:baseline": "vendor/bin/phpmd app/code/core/Mage html .phpmd.dist.xml --color --cache --cache-file .cache/.phpmd.result-cache.php --baseline-file .phpmd.dist.baseline.xml --report-file build/phpmd/report.html --update-baseline --generate-baseline",
+        "phpstan:test": "XDEBUG_MODE=off php vendor/bin/phpstan analyze",
+        "phpstan:baseline": "XDEBUG_MODE=off php vendor/bin/phpstan analyze -b .phpstan.dist.baseline.php",
         "phpunit:test": "XDEBUG_MODE=off php vendor/bin/phpunit --configuration .phpunit.dist.xml --testsuite Base,Error,Mage,Varien --no-coverage",
         "phpunit:coverage": "XDEBUG_MODE=coverage php vendor/bin/phpunit --configuration .phpunit.dist.xml --testsuite Base,Error,Mage,Varien --testdox",
-        "phpunit:coverage-local": "XDEBUG_MODE=coverage php vendor/bin/phpunit --configuration .phpunit.dist.xml --testsuite Base,Error,Mage,Varien --coverage-html build/coverage",
+        "phpunit:coverage-local": "XDEBUG_MODE=coverage php vendor/bin/phpunit --configuration .phpunit.dist.xml --testsuite Base,Error,Mage,Varien --coverage-html build/phpunit/coverage",
         "rector:test": "vendor/bin/rector process --config .rector.php --dry-run",
         "rector:test:debug": "vendor/bin/rector process --config .rector.php --dry-run --debug",
         "rector:fix": "vendor/bin/rector process --config .rector.php",
-        "vendor:patch": "vendor/bin/vendor-patches generate --patches-folder=.vendor-patches",
+        "vendor:patch": "vendor/bin/vendor-patches generate --patches-file=patches.json --patches-folder=.vendor-patches",
         "test": [
             "@php-cs-fixer:test",
-            "@phpstan",
+            "@phpstan:test",
             "@phpunit:test"
         ]
     },
     "scripts-descriptions": {
         "php-cs-fixer:test": "Run php-cs-fixer",
         "php-cs-fixer:fix": "Run php-cs-fixer and fix issues",
-        "phpmd": "Run phpmd",
-        "phpstan": "Run phpstan",
+        "phpmd:test": "Run phpmd",
+        "phpmd:baseline": "Run phpmd and update baseline",
+        "phpstan:test": "Run phpstan",
         "phpstan:baseline": "Run phpstan and update baseline",
         "phpunit:test": "Run PHPUnit",
         "phpunit:coverage": "Run PHPUnit with code coverage (requires XDEBUG enabled)",

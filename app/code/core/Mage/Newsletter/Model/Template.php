@@ -105,7 +105,7 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
         ));
 
         $errors = $validator->getErrorMessages($violations);
-        if ($errors) {
+        if ($errors instanceof ArrayObject) {
             Mage::throwException(implode("\n", iterator_to_array($errors)));
         }
     }
@@ -218,12 +218,10 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
 
         // Now that all HTML has been assembled, run email through CSS inlining process
         if ($usePreprocess && $this->isPreprocessed()) {
-            $processedResult = $this->getPreparedTemplateText(true, $result);
-        } else {
-            $processedResult = $this->getPreparedTemplateText(false, $result);
+            return $this->getPreparedTemplateText(true, $result);
         }
 
-        return $processedResult;
+        return $this->getPreparedTemplateText(false, $result);
     }
 
     /**

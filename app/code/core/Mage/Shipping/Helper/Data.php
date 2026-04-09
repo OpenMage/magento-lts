@@ -124,9 +124,13 @@ class Mage_Shipping_Helper_Data extends Mage_Core_Helper_Abstract
     {
         if ($model instanceof Mage_Sales_Model_Order) {
             return $this->_getTrackingUrl('order_id', $model);
-        } elseif ($model instanceof Mage_Sales_Model_Order_Shipment) {
+        }
+
+        if ($model instanceof Mage_Sales_Model_Order_Shipment) {
             return $this->_getTrackingUrl('ship_id', $model);
-        } elseif ($model instanceof Mage_Sales_Model_Order_Shipment_Track) {
+        }
+
+        if ($model instanceof Mage_Sales_Model_Order_Shipment_Track) {
             return $this->_getTrackingUrl('track_id', $model, 'getEntityId');
         }
 

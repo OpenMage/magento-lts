@@ -197,14 +197,14 @@ class Mage_Adminhtml_Block_Catalog_Category_Edit_Form extends Mage_Adminhtml_Blo
         if ($this->hasStoreRootCategory()) {
             if ($this->getCategoryId()) {
                 return $this->getCategoryName();
-            } else {
-                $parentId = (int) $this->getRequest()->getParam('parent');
-                if ($parentId && ($parentId != Mage_Catalog_Model_Category::TREE_ROOT_ID)) {
-                    return Mage::helper('catalog')->__('New Subcategory');
-                } else {
-                    return Mage::helper('catalog')->__('New Root Category');
-                }
             }
+
+            $parentId = (int) $this->getRequest()->getParam('parent');
+            if ($parentId && ($parentId != Mage_Catalog_Model_Category::TREE_ROOT_ID)) {
+                return Mage::helper('catalog')->__('New Subcategory');
+            }
+
+            return Mage::helper('catalog')->__('New Root Category');
         }
 
         return Mage::helper('catalog')->__('Set Root Category for Store');
@@ -232,7 +232,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Edit_Form extends Mage_Adminhtml_Blo
     public function getProductsJson()
     {
         $products = $this->getCategory()->getProductsPosition();
-        if (!empty($products)) {
+        if (is_array($products) && $products !== []) {
             return Mage::helper('core')->jsonEncode($products);
         }
 
@@ -241,6 +241,10 @@ class Mage_Adminhtml_Block_Catalog_Category_Edit_Form extends Mage_Adminhtml_Blo
 
     public function isAjax()
     {
-        return Mage::app()->getRequest()->isXmlHttpRequest() || Mage::app()->getRequest()->getParam('isAjax');
+        if (Mage::app()->getRequest()->isXmlHttpRequest()) {
+            return true;
+        }
+
+        return (bool) Mage::app()->getRequest()->getParam('isAjax');
     }
 }

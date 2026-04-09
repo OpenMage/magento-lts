@@ -321,10 +321,11 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
     {
         $storeId = Mage::app()->getStore($store)->getId();
         $labels = (array) $this->getStoreLabels();
-
         if (isset($labels[$storeId])) {
             return $labels[$storeId];
-        } elseif (isset($labels[0]) && $labels[0]) {
+        }
+
+        if (isset($labels[0]) && $labels[0]) {
             return $labels[0];
         }
 
@@ -416,16 +417,16 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
         $couponCode = self::getCouponCodeGenerator()->generateCode();
         $coupon->setCode($couponCode);
 
-        $ok = false;
+        $check = false;
         if (!$saveNewlyCreated) {
-            $ok = true;
+            $check = true;
         } elseif ($this->getId()) {
             for ($attemptNum = 0; $attemptNum < $saveAttemptCount; $attemptNum++) {
                 try {
                     $coupon->save();
-                } catch (Exception $e) {
-                    if ($e instanceof Mage_Core_Exception || $coupon->getId()) {
-                        throw $e;
+                } catch (Exception $exception) {
+                    if ($exception instanceof Mage_Core_Exception || $coupon->getId()) {
+                        throw $exception;
                     }
 
                     $coupon->setCode(
@@ -436,12 +437,12 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
                     continue;
                 }
 
-                $ok = true;
+                $check = true;
                 break;
             }
         }
 
-        if (!$ok) {
+        if (!$check) {
             Mage::throwException(Mage::helper('salesrule')->__("Can't acquire coupon."));
         }
 

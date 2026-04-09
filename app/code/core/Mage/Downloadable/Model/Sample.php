@@ -76,9 +76,9 @@ class Mage_Downloadable_Model_Sample extends Mage_Core_Model_Abstract
     {
         if ($this->getSampleUrl()) {
             return $this->getSampleUrl();
-        } else {
-            return $this->getSampleFile();
         }
+
+        return $this->getSampleFile();
     }
 
     /**

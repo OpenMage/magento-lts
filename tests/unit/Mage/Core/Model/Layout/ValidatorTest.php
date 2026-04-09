@@ -32,6 +32,7 @@ final class ValidatorTest extends OpenMageTest
     /**
      * @dataProvider isValidDataProvider
      * @group Model
+     * @param array<string, string> $expectedErrors
      */
     public function testIsValid(bool $expected, string $value, array $expectedErrors): void
     {

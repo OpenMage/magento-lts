@@ -34,7 +34,7 @@ class Mage_Checkout_Model_Cart_Payment_Api extends Mage_Checkout_Model_Api_Resou
      */
     protected function _canUsePaymentMethod($method, $quote)
     {
-        if (!($method->isGateway() || $method->canUseInternal())) {
+        if (!$method->isGateway() && !$method->canUseInternal()) {
             return false;
         }
 
@@ -52,12 +52,7 @@ class Mage_Checkout_Model_Cart_Payment_Api extends Mage_Checkout_Model_Api_Resou
         $total = $quote->getBaseGrandTotal();
         $minTotal = $method->getConfigData('min_order_total');
         $maxTotal = $method->getConfigData('max_order_total');
-
-        if ((!empty($minTotal) && ($total < $minTotal)) || (!empty($maxTotal) && ($total > $maxTotal))) {
-            return false;
-        }
-
-        return true;
+        return !(!empty($minTotal) && $total < $minTotal) && !(!empty($maxTotal) && $total > $maxTotal);
     }
 
     /**
@@ -68,13 +63,13 @@ class Mage_Checkout_Model_Cart_Payment_Api extends Mage_Checkout_Model_Api_Resou
     {
         $ccTypes = Mage::getSingleton('payment/config')->getCcTypes();
         $methodCcTypes = explode(',', $method->getConfigData('cctypes'));
-        foreach ($ccTypes as $code => $title) {
-            if (!in_array($code, $methodCcTypes)) {
+        foreach (array_keys($ccTypes) as $code) {
+            if (!in_array($code, $methodCcTypes, true)) {
                 unset($ccTypes[$code]);
             }
         }
 
-        if (empty($ccTypes)) {
+        if ($ccTypes === []) {
             return null;
         }
 

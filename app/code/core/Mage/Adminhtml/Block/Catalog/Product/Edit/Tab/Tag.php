@@ -11,9 +11,13 @@
  * Products' tags grid
  *
  * @package    Mage_Adminhtml
+ *
+ * @method int getProductId()
  */
 class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Tag extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_catalog_product_edit_tab_tag';
+
     public function __construct()
     {
         parent::__construct();
@@ -23,6 +27,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Tag extends Mage_Adminhtml_B
         $this->setUseAjax(true);
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _prepareCollection()
     {
         $collection = Mage::getModel('tag/tag')
@@ -34,11 +41,10 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Tag extends Mage_Adminhtml_B
         return parent::_prepareCollection();
     }
 
-    protected function _afterLoadCollection()
-    {
-        return parent::_afterLoadCollection();
-    }
-
+    /**
+     * @inheritDoc
+     * @throws Exception
+     */
     protected function _prepareColumns()
     {
         $this->addColumn('name', [
@@ -76,6 +82,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Tag extends Mage_Adminhtml_B
         ]);
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getGridUrl()
     {
         return $this->getUrl('*/catalog_product/tagGrid', [

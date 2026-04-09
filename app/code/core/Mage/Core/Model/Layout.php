@@ -90,8 +90,8 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
     /**
      * Set layout area
      *
-     * @param  string                 $area
-     * @return Mage_Core_Model_Layout
+     * @param  string $area
+     * @return $this
      */
     public function setArea($area)
     {
@@ -112,8 +112,8 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
     /**
      * Declaring layout direct output flag
      *
-     * @param  bool                   $flag
-     * @return Mage_Core_Model_Layout
+     * @param  bool  $flag
+     * @return $this
      */
     public function setDirectOutput($flag)
     {
@@ -220,11 +220,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
      */
     protected function _generateBlock($node, $parent)
     {
-        if (!empty($node['class'])) {
-            $className = (string) $node['class'];
-        } else {
-            $className = (string) $node['type'];
-        }
+        $className = empty($node['class']) ? (string) $node['type'] : (string) $node['class'];
 
         $blockName = (string) $node['name'];
         $profilerKey = 'BLOCK: ' . $blockName;
@@ -288,18 +284,15 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
      */
     protected function _generateAction($node, $parent)
     {
-        if (isset($node['ifconfig']) && ($configPath = (string) $node['ifconfig'])) {
-            if (!Mage::getStoreConfigFlag($configPath)) {
-                return $this;
-            }
+        if (isset($node['ifconfig'])
+            && ($configPath = (string) $node['ifconfig'])
+            && !Mage::getStoreConfigFlag($configPath)
+        ) {
+            return $this;
         }
 
         $method = (string) $node['method'];
-        if (!empty($node['block'])) {
-            $parentName = (string) $node['block'];
-        } else {
-            $parentName = $parent->getBlockName();
-        }
+        $parentName = empty($node['block']) ? $parent->getBlockName() : (string) $node['block'];
 
         $profilerKey = 'BLOCK ACTION: ' . $parentName . ' -> ' . $method;
         Varien_Profiler::start($profilerKey);
@@ -334,7 +327,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
                             $arr[(string) $subkey] = $value->asArray();
                         }
 
-                        if (!empty($arr)) {
+                        if ($arr !== []) {
                             $args[$key] = $arr;
                         }
                     }
@@ -510,10 +503,8 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
     protected function _getBlockInstance($block, array $attributes = [])
     {
         if (is_string($block)) {
-            if (str_contains($block, '/')) {
-                if (!$block = Mage::getConfig()->getBlockClassName($block)) {
-                    Mage::throwException(Mage::helper('core')->__('Invalid block type: %s', $block));
-                }
+            if (str_contains($block, '/') && !$block = Mage::getConfig()->getBlockClassName($block)) {
+                Mage::throwException(Mage::helper('core')->__('Invalid block type: %s', $block));
             }
 
             if (class_exists($block, false) || mageFindClassFile($block)) {

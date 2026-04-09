@@ -194,7 +194,8 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
                 $value = $tagKey . '=' . $value;
             }
 
-            if ($key = array_search($value, $curTags)) {
+            $key = array_search($value, $curTags);
+            if ($key !== false) {
                 unset($curTags[$key]);
             }
         }
@@ -343,9 +344,9 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
 
             if ($hasChanges) {
                 return http_build_query($queryParams);
-            } else {
-                return $_SERVER['QUERY_STRING'];
             }
+
+            return $_SERVER['QUERY_STRING'];
         }
 
         return false;

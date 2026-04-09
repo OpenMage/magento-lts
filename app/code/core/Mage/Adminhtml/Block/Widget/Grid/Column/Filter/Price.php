@@ -37,18 +37,18 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Price extends Mage_Adminhtm
     {
         if (!is_null($this->getColumn()->getData('display_currency_select'))) {
             return $this->getColumn()->getData('display_currency_select');
-        } else {
-            return true;
         }
+
+        return true;
     }
 
     public function getCurrencyAffect()
     {
         if (!is_null($this->getColumn()->getData('currency_affect'))) {
             return $this->getColumn()->getData('currency_affect');
-        } else {
-            return true;
         }
+
+        return true;
     }
 
     protected function _getCurrencyModel()
@@ -102,6 +102,9 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Price extends Mage_Adminhtm
         return null;
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getCondition()
     {
         $value = $this->getValue();
@@ -124,9 +127,9 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Price extends Mage_Adminhtm
         return $value;
     }
 
-    protected function _getRate($from, $to)
+    protected function _getRate($min, $max)
     {
-        return Mage::getModel('directory/currency')->load($from)->getAnyRate($to);
+        return Mage::getModel('directory/currency')->load($min)->getAnyRate($max);
     }
 
     public function prepareRates($displayCurrency)

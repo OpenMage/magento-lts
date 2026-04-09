@@ -14,37 +14,31 @@
  */
 class Mage_Adminhtml_Block_System_Design_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
-    /**
-     * Class constructor
-     */
+    protected string $_eventPrefix = 'adminhtml_system_design_grid';
+
     public function __construct()
     {
         parent::__construct();
         $this->setId('designGrid');
+        $this->setDefaultSort('package');
+        $this->setDefaultDir('ASC');
         $this->setSaveParametersInSession(true);
         $this->setUseAjax(true);
     }
 
     /**
-     * Prepare grid data collection
-     *
-     * @return $this
+     * @inheritDoc
      */
     protected function _prepareCollection()
     {
-        $storeId = (int) $this->getRequest()->getParam('store', 0);
-
         $collection = Mage::getResourceModel('core/design_collection');
-
         $this->setCollection($collection);
-        parent::_prepareCollection();
-        return $this;
+        return parent::_prepareCollection();
     }
 
     /**
-     * Define grid columns
-     *
-     * @return $this
+     * @inheritDoc
+     * @throws Exception
      */
     protected function _prepareColumns()
     {
@@ -82,10 +76,9 @@ class Mage_Adminhtml_Block_System_Design_Grid extends Mage_Adminhtml_Block_Widge
     }
 
     /**
-     * Prepare row click url
-     *
-     * @param  Varien_Object $row
-     * @return string
+     * @inheritDoc
+     * @param  Mage_Core_Model_Design $row
+     * @throws Mage_Core_Exception
      */
     public function getRowUrl($row)
     {

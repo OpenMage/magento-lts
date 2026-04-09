@@ -12,10 +12,9 @@
  *
  * @package    Mage_Eav
  *
- * @method Mage_Eav_Model_Entity_Attribute          getFirstItem()
- * @method Mage_Eav_Model_Entity_Attribute          getItemById(int $value)
- * @method Mage_Eav_Model_Entity_Attribute[]        getItems()
  * @method Mage_Eav_Model_Resource_Entity_Attribute getResource()
+ *
+ * @extends Mage_Core_Model_Resource_Db_Collection_Abstract<Mage_Eav_Model_Entity_Attribute>
  */
 class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
@@ -44,7 +43,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
     /**
      * Return array of fields to load attribute values
      *
-     * @return array
+     * @return array<int, string>
      */
     protected function _getLoadDataFields()
     {
@@ -365,7 +364,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
     /**
      * Ad information about attribute sets to collection result data
      *
-     * @return Mage_Core_Model_Resource_Db_Collection_Abstract
+     * @return $this
      */
     protected function _afterLoadData()
     {

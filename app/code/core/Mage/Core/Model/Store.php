@@ -135,7 +135,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     /**
      * Cache flag
      *
-     * @var string|true
+     * @inheritDoc
      */
     protected $_cacheTag    = true;
 
@@ -377,26 +377,24 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
          */
         if ($this->_configCache === null) {
             $code = $this->getCode();
-            if ($code) {
-                if (Mage::app()->useCache('config')) {
-                    $cacheId = 'store_' . $code . '_config_cache';
-                    $data = Mage::app()->loadCache($cacheId);
-                    if ($data) {
-                        $data = unserialize($data, ['allowed_classes' => false]);
-                    } else {
-                        $data = [];
-                        foreach ($this->_configCacheBaseNodes as $node) {
-                            $data[$node] = $this->getConfig($node);
-                        }
-
-                        Mage::app()->saveCache(serialize($data), $cacheId, [
-                            self::CACHE_TAG,
-                            Mage_Core_Model_Config::CACHE_TAG,
-                        ]);
+            if ($code && Mage::app()->useCache('config')) {
+                $cacheId = 'store_' . $code . '_config_cache';
+                $data = Mage::app()->loadCache($cacheId);
+                if ($data) {
+                    $data = unserialize($data, ['allowed_classes' => false]);
+                } else {
+                    $data = [];
+                    foreach ($this->_configCacheBaseNodes as $node) {
+                        $data[$node] = $this->getConfig($node);
                     }
 
-                    $this->_configCache = $data;
+                    Mage::app()->saveCache(serialize($data), $cacheId, [
+                        self::CACHE_TAG,
+                        Mage_Core_Model_Config::CACHE_TAG,
+                    ]);
                 }
+
+                $this->_configCache = $data;
             }
         }
 
@@ -798,9 +796,9 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
         $configValue = $this->getConfig(self::XML_PATH_PRICE_SCOPE);
         if ($configValue == self::PRICE_SCOPE_GLOBAL) {
             return Mage::app()->getBaseCurrencyCode();
-        } else {
-            return $this->getConfig(Mage_Directory_Model_Currency::XML_PATH_CURRENCY_BASE);
         }
+
+        return $this->getConfig(Mage_Directory_Model_Currency::XML_PATH_CURRENCY_BASE);
     }
 
     /**
@@ -889,7 +887,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
 
         // take first one of allowed codes
         $codes = array_values($this->getAvailableCurrencyCodes(true));
-        if (empty($codes)) {
+        if ($codes === []) {
             // return default code, if no codes specified at all
             return $this->getDefaultCurrencyCode();
         }

@@ -152,7 +152,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
          * Set default source model.
          */
         if ($object->usesSource() && !$object->getData('source_model')) {
-            $object->setSourceModel($object->_getDefaultSourceModel());
+            $object->setSourceModel($object->getDefaultSourceModel());
         }
 
         return parent::_beforeSave($object);
@@ -190,7 +190,11 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
             }
 
             foreach ($storeLabels as $storeId => $label) {
-                if ($storeId == 0 || !strlen($label)) {
+                if ($storeId == 0) {
+                    continue;
+                }
+
+                if (!strlen($label)) {
                     continue;
                 }
 

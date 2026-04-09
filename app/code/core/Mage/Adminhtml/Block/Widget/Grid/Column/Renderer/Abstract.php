@@ -72,7 +72,9 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract extends
         if ($getter = $this->getColumn()->getGetter()) {
             if (is_string($getter)) {
                 return $row->$getter();
-            } elseif (is_callable($getter)) {
+            }
+
+            if (is_callable($getter)) {
                 return call_user_func($getter, $row);
             }
 
@@ -118,13 +120,11 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract extends
                 $className = 'sort-arrow-' . $dir;
             }
 
-            $out = '<a href="#" name="' . $this->getColumn()->getId() . '" title="' . $nDir . '" class="' . $className . '"><span class="sort-title">'
+            return '<a href="#" name="' . $this->getColumn()->getId() . '" title="' . $nDir . '" class="' . $className . '"><span class="sort-title">'
                    . $this->escapeHtml($this->getColumn()->getHeader()) . '</span></a>';
-        } else {
-            $out = $this->escapeHtml($this->getColumn()->getHeader());
         }
 
-        return $out;
+        return $this->escapeHtml($this->getColumn()->getHeader());
     }
 
     /**

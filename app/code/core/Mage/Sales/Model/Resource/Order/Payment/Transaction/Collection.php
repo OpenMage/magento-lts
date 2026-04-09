@@ -11,6 +11,8 @@
  * Payment transactions collection
  *
  * @package    Mage_Sales
+ *
+ * @extends Mage_Sales_Model_Resource_Order_Collection_Abstract<Mage_Sales_Model_Order_Payment_Transaction>
  */
 class Mage_Sales_Model_Resource_Order_Payment_Transaction_Collection extends Mage_Sales_Model_Resource_Order_Collection_Abstract
 {
@@ -82,6 +84,7 @@ class Mage_Sales_Model_Resource_Order_Payment_Transaction_Collection extends Mag
     /**
      * Join order information
      *
+     * @param  string[] $keys
      * @return $this
      */
     public function addOrderInformation(array $keys)

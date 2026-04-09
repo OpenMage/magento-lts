@@ -181,6 +181,8 @@ abstract class Mage_Sales_Model_Order_Pdf_Items_Abstract extends Mage_Core_Model
 
     /**
      * Draw item line
+     *
+     * @return void
      */
     abstract public function draw();
 
@@ -208,9 +210,9 @@ abstract class Mage_Sales_Model_Order_Pdf_Items_Abstract extends Mage_Core_Model
             }
 
             return  $resultValue;
-        } else {
-            return $value;
         }
+
+        return $value;
     }
 
     /**
@@ -353,8 +355,8 @@ abstract class Mage_Sales_Model_Order_Pdf_Items_Abstract extends Mage_Core_Model
     {
         if ($item->getOrderItem()->getProductOptionByCode('simple_sku')) {
             return $item->getOrderItem()->getProductOptionByCode('simple_sku');
-        } else {
-            return $item->getSku();
         }
+
+        return $item->getSku();
     }
 }

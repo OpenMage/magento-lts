@@ -17,7 +17,7 @@ class Mage_Paypal_Model_System_Config_Source_BmlSize
     /**
      * Options getter for Home Page and position Header
      *
-     * @return array
+     * @return array<string, string>
      */
     public function getBmlSizeHPH()
     {
@@ -34,7 +34,7 @@ class Mage_Paypal_Model_System_Config_Source_BmlSize
     /**
      * Options getter for Home Page and position Sidebar (right)
      *
-     * @return array
+     * @return array<string, string>
      */
     public function getBmlSizeHPS()
     {
@@ -52,7 +52,7 @@ class Mage_Paypal_Model_System_Config_Source_BmlSize
     /**
      * Options getter for Catalog Category Page and position Center
      *
-     * @return array
+     * @return array<string, string>
      */
     public function getBmlSizeCCPC()
     {
@@ -69,7 +69,7 @@ class Mage_Paypal_Model_System_Config_Source_BmlSize
     /**
      * Options getter for Catalog Category Page and position Sidebar (right)
      *
-     * @return array
+     * @return array<string, string>
      */
     public function getBmlSizeCCPS()
     {
@@ -87,7 +87,7 @@ class Mage_Paypal_Model_System_Config_Source_BmlSize
     /**
      * Options getter for Catalog Product Page and position Center
      *
-     * @return array
+     * @return array<string, string>
      */
     public function getBmlSizeCPPC()
     {
@@ -104,7 +104,7 @@ class Mage_Paypal_Model_System_Config_Source_BmlSize
     /**
      * Options getter for Catalog Product Page and position Near Bill Me Later checkout button
      *
-     * @return array
+     * @return array<string, string>
      */
     public function getBmlSizeCPPN()
     {
@@ -122,7 +122,7 @@ class Mage_Paypal_Model_System_Config_Source_BmlSize
     /**
      * Options getter for Checkout Cart Page and position Center
      *
-     * @return array
+     * @return array<string, string>
      */
     public function getBmlSizeCheckoutC()
     {
@@ -138,7 +138,7 @@ class Mage_Paypal_Model_System_Config_Source_BmlSize
     /**
      * Options getter for Checkout Cart Page and position Near Bill Me Later checkout button
      *
-     * @return array
+     * @return array<string, string>
      */
     public function getBmlSizeCheckoutN()
     {

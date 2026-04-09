@@ -69,7 +69,7 @@ abstract class Mage_Reports_Block_Product_Abstract extends Mage_Catalog_Block_Pr
     /**
      * Retrieve product ids, that must not be included in collection
      *
-     * @return array
+     * @return array<void>
      */
     protected function _getProductsToSkip()
     {
@@ -128,7 +128,8 @@ abstract class Mage_Reports_Block_Product_Abstract extends Mage_Catalog_Block_Pr
                     ->setCurPage(1);
 
             /* Price data is added to consider item stock status using price index */
-            $this->_collection->addPriceData();
+            $this->_collection->addPriceData()
+                ->setVisibility(Mage::getSingleton('catalog/product_visibility')::getVisibleInSiteIds());
 
             $ids = $this->getProductIds();
             if (empty($ids)) {
@@ -141,9 +142,6 @@ abstract class Mage_Reports_Block_Product_Abstract extends Mage_Catalog_Block_Pr
             if ($this-> _useProductIdsOrder && is_array($ids)) {
                 $this->_collection->setSortIds($ids);
             }
-
-            Mage::getSingleton('catalog/product_visibility')
-                ->addVisibleInSiteFilterToCollection($this->_collection);
         }
 
         return $this->_collection;
@@ -152,8 +150,8 @@ abstract class Mage_Reports_Block_Product_Abstract extends Mage_Catalog_Block_Pr
     /**
      * Set flag that defines whether products ids order should be used
      *
-     * @param  bool                                $use
-     * @return Mage_Reports_Block_Product_Abstract
+     * @param  bool  $use
+     * @return $this
      */
     public function useProductIdsOrder($use = true)
     {

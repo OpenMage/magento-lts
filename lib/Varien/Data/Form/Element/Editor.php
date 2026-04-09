@@ -41,7 +41,7 @@ class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
      */
     public function getElementHtml()
     {
-        $js = '
+        $str = '
             <script type="text/javascript">
             //<![CDATA[
                 openEditorPopup = function(url, name, specs, parent) {
@@ -89,7 +89,7 @@ class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
                 . '" id="' . $this->getHtmlId() . '"'
                 . ' class="textarea ' . $this->getClass() . '" '
                 . $this->serialize($this->getHtmlAttributes()) . ' >' . $this->getEscapedValue() . '</textarea>'
-                . $js . '
+                . $str . '
                 <script type="text/javascript">
                 //<![CDATA[
                     if ("undefined" != typeof(Translator)) {
@@ -114,15 +114,15 @@ class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
 
             $html = $this->_wrapIntoContainer($html);
             return $html . $this->getAfterElementHtml();
-        } else {
-            // Display only buttons to additional features
-            if ($this->getConfig('widget_window_url') || $this->getConfig('plugins') || $this->getConfig('add_images')) {
-                $html = $this->_getButtonsHtml() . $js . parent::getElementHtml();
-                return $this->_wrapIntoContainer($html);
-            }
-
-            return parent::getElementHtml();
         }
+
+        // Display only buttons to additional features
+        if ($this->getConfig('widget_window_url') || $this->getConfig('plugins') || $this->getConfig('add_images')) {
+            $html = $this->_getButtonsHtml() . $str . parent::getElementHtml();
+            return $this->_wrapIntoContainer($html);
+        }
+
+        return parent::getElementHtml();
     }
 
     /**
@@ -251,11 +251,7 @@ class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
      */
     protected function _checkPluginButtonOptions($pluginOptions)
     {
-        if (!isset($pluginOptions['title'])) {
-            return false;
-        }
-
-        return true;
+        return isset($pluginOptions['title']);
     }
 
     /**

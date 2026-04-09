@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -13,7 +15,7 @@
 class Mage_Sales_Model_Entity_Setup extends Mage_Eav_Model_Entity_Setup
 {
     /**
-     * @return array
+     * @return array<string, non-empty-array<\lowercase-string, mixed>>
      */
     public function getDefaultEntities()
     {

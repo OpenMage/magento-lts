@@ -94,11 +94,7 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
     {
         if (!$this->_currentCategoryKey) {
             $category = Mage::registry('current_category');
-            if ($category) {
-                $this->_currentCategoryKey = $category->getPath();
-            } else {
-                $this->_currentCategoryKey = Mage::app()->getStore()->getRootCategoryId();
-            }
+            $this->_currentCategoryKey = $category ? $category->getPath() : Mage::app()->getStore()->getRootCategoryId();
         }
 
         return $this->_currentCategoryKey;
@@ -171,14 +167,12 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
     public function getCategoryUrl($category)
     {
         if ($category instanceof Mage_Catalog_Model_Category) {
-            $url = $category->getUrl();
-        } else {
-            $url = $this->_getCategoryInstance()
-                ->setData($category->getData())
-                ->getUrl();
+            return $category->getUrl();
         }
 
-        return $url;
+        return $this->_getCategoryInstance()
+            ->setData($category->getData())
+            ->getUrl();
     }
 
     /**

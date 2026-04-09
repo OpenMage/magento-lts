@@ -64,9 +64,9 @@ class Mage_Bundle_Model_Resource_Selection extends Mage_Core_Model_Resource_Db_A
         $price = $adapter->fetchCol($select, $bind);
         if (!empty($price)) {
             return array_shift($price);
-        } else {
-            return 0;
         }
+
+        return 0;
     }
 
     /**

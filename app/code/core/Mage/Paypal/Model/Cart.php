@@ -37,9 +37,8 @@ class Mage_Paypal_Model_Cart
 
     /**
      * Rendered cart items
-     * Array of Varien_Objects
      *
-     * @var array
+     * @var array<void>|Varien_Object[]
      */
     protected $_items = [];
 
@@ -152,7 +151,6 @@ class Mage_Paypal_Model_Cart
     public function getTotals($mergeDiscount = false)
     {
         $this->_render();
-
         // cut down totals to one total if they are invalid
         if (!$this->_areTotalsValid) {
             $totals = [
@@ -167,7 +165,10 @@ class Mage_Paypal_Model_Cart
             }
 
             return $totals;
-        } elseif ($mergeDiscount) {
+        }
+
+        // cut down totals to one total if they are invalid
+        if ($mergeDiscount) {
             $totals = $this->_totals;
             unset($totals[self::TOTAL_DISCOUNT]);
             if (!$this->_isDiscountAsItem) {
@@ -330,11 +331,11 @@ class Mage_Paypal_Model_Cart
         }
 
         $shippingItemId = $this->_renderTotalLineItemDescriptions(self::TOTAL_SHIPPING, $shippingDescription);
-        if ($this->_isShippingAsItem && (float) $this->_totals[self::TOTAL_SHIPPING]) {
+        if ($this->_isShippingAsItem && $this->_totals[self::TOTAL_SHIPPING]) {
             $this->addItem(
                 Mage::helper('paypal')->__('Shipping'),
                 1,
-                (float) $this->_totals[self::TOTAL_SHIPPING],
+                $this->_totals[self::TOTAL_SHIPPING],
                 $shippingItemId,
             );
         }

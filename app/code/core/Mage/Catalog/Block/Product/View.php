@@ -154,11 +154,7 @@ class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstrac
      */
     public function hasOptions()
     {
-        if ($this->getProduct()->getTypeInstance(true)->hasOptions($this->getProduct())) {
-            return true;
-        }
-
-        return false;
+        return $this->getProduct()->getTypeInstance(true)->hasOptions($this->getProduct());
     }
 
     /**
@@ -183,7 +179,11 @@ class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstrac
      */
     public function isStartCustomization()
     {
-        return $this->getProduct()->getConfigureMode() || Mage::app()->getRequest()->getParam('startcustomization');
+        if ($this->getProduct()->getConfigureMode()) {
+            return true;
+        }
+
+        return (bool) Mage::app()->getRequest()->getParam('startcustomization');
     }
 
     /**
@@ -227,7 +227,9 @@ class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstrac
     {
         if (!$addFormKey && $this->hasCustomAddToCartPostUrl()) {
             return $this->getCustomAddToCartPostUrl();
-        } elseif ($this->hasCustomAddToCartUrl()) {
+        }
+
+        if ($this->hasCustomAddToCartUrl()) {
             return $this->getCustomAddToCartUrl();
         }
 

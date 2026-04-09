@@ -184,7 +184,6 @@ class Mage_Install_Model_Installer extends Varien_Object
      * @param  array                       $data
      * @return array|Mage_Admin_Model_User
      * @throws Mage_Core_Exception
-     * @throws Zend_Validate_Exception
      */
     public function validateAndPrepareAdministrator($data)
     {
@@ -258,7 +257,7 @@ class Mage_Install_Model_Installer extends Varien_Object
             $this->getDataModel()->addError($exception->getMessage());
         }
 
-        if (!empty($errors)) {
+        if ($errors !== []) {
             return $errors;
         }
 
@@ -281,13 +280,16 @@ class Mage_Install_Model_Installer extends Varien_Object
         return $this;
     }
 
+    /**
+     * @return $this
+     */
     public function finish()
     {
         Mage::getSingleton('install/installer_config')->replaceTmpInstallDate();
         Mage::app()->cleanCache();
 
         $cacheData = [];
-        foreach (Mage::helper('core')->getCacheTypes() as $type => $label) {
+        foreach (array_keys(Mage::helper('core')->getCacheTypes()) as $type) {
             $cacheData[$type] = 1;
         }
 

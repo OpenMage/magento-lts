@@ -141,8 +141,8 @@ class Mage_Catalog_Model_Category_Api_V2 extends Mage_Catalog_Model_Category_Api
             }
 
             $category->save();
-        } catch (Mage_Core_Exception|Mage_Eav_Model_Entity_Attribute_Exception $e) {
-            $this->_fault('data_invalid', $e->getMessage());
+        } catch (Mage_Core_Exception|Mage_Eav_Model_Entity_Attribute_Exception $mageEavModelEntityAttributeException) {
+            $this->_fault('data_invalid', $mageEavModelEntityAttributeException->getMessage());
         }
 
         return true;

@@ -17,7 +17,7 @@
 class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Block_Widget_Grid
 {
     /**
-     * @var null|Mage_Eav_Model_Resource_Entity_Attribute_Collection
+     * @inheritDoc
      */
     protected $_collection = null;
 
@@ -101,7 +101,8 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
             }
         }
 
-        if (($size = count($options))) {
+        $size = count($options);
+        if ($size) {
             $selectBlock = new Mage_Core_Block_Html_Select([
                 'name'         => $this->getFilterElementName($attribute->getAttributeCode()) . '[]',
                 'id'           => $this->getFilterElementId($attribute->getAttributeCode()),
@@ -110,9 +111,9 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
                                 . '" style="width:280px"',
             ]);
             return $selectBlock->setOptions($options)->getHtml();
-        } else {
-            return Mage::helper('importexport')->__('Attribute does not has options, so filtering is impossible');
         }
+
+        return Mage::helper('importexport')->__('Attribute does not has options, so filtering is impossible');
     }
 
     /**
@@ -150,7 +151,7 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
             $options = $attribute->getSource()->getAllOptions(false);
         }
 
-        if (($size = count($options))) {
+        if (count($options)) {
             // add empty value option
             $firstOption = reset($options);
 
@@ -167,9 +168,9 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
                 'extra_params' => 'style="width:280px"',
             ]);
             return $selectBlock->setOptions($options)->getHtml();
-        } else {
-            return Mage::helper('importexport')->__('Attribute does not has options, so filtering is impossible');
         }
+
+        return Mage::helper('importexport')->__('Attribute does not has options, so filtering is impossible');
     }
 
     /**
@@ -239,7 +240,8 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
             }
         }
 
-        if (($size = count($options))) {
+        $size = count($options);
+        if ($size) {
             $selectBlock = new Mage_Core_Block_Html_Select([
                 'name'         => $this->getFilterElementName($attribute->getAttributeCode()) . '[]',
                 'id'           => $this->getFilterElementId($attribute->getAttributeCode()),
@@ -249,9 +251,9 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
             return $selectBlock->setOptions($options)
                 ->setValue($value)
                 ->getHtml();
-        } else {
-            return Mage::helper('importexport')->__('Attribute does not has options, so filtering is impossible');
         }
+
+        return Mage::helper('importexport')->__('Attribute does not has options, so filtering is impossible');
     }
 
     /**
@@ -315,15 +317,15 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
             return $selectBlock->setOptions($options)
                 ->setValue($value)
                 ->getHtml();
-        } else {
-            return Mage::helper('importexport')->__('Attribute does not has options, so filtering is impossible');
         }
+
+        return Mage::helper('importexport')->__('Attribute does not has options, so filtering is impossible');
     }
 
     /**
      * Add columns to grid
      *
-     * @return Mage_Adminhtml_Block_Widget_Grid
+     * @return $this
      * @throws Exception
      */
     protected function _prepareColumns()
@@ -406,7 +408,7 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
      */
     public function getFilterElementId($attributeCode)
     {
-        return Mage_ImportExport_Model_Export::FILTER_ELEMENT_GROUP . "_$attributeCode";
+        return Mage_ImportExport_Model_Export::FILTER_ELEMENT_GROUP . "_{$attributeCode}";
     }
 
     /**
@@ -417,14 +419,12 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
      */
     public function getFilterElementName($attributeCode)
     {
-        return Mage_ImportExport_Model_Export::FILTER_ELEMENT_GROUP . "[$attributeCode]";
+        return Mage_ImportExport_Model_Export::FILTER_ELEMENT_GROUP . "[{$attributeCode}]";
     }
 
     /**
-     * Get row edit URL.
-     *
-     * @param  Mage_Catalog_Model_Resource_Eav_Attribute $row
-     * @return string
+     * @inheritDoc
+     * @param Mage_Catalog_Model_Resource_Eav_Attribute $row
      */
     public function getRowUrl($row)
     {

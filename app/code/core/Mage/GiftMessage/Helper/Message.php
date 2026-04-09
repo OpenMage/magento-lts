@@ -11,6 +11,8 @@
  * Gift Message helper
  *
  * @package    Mage_GiftMessage
+ *
+ * @phpstan-import-type ConfigStoreId from Mage
  */
 class Mage_GiftMessage_Helper_Message extends Mage_Core_Helper_Data
 {
@@ -93,8 +95,8 @@ class Mage_GiftMessage_Helper_Message extends Mage_Core_Helper_Data
     /**
      * Check availability of giftmessages for specified entity.
      *
-     * @param  self::TYPE_*                               $type  $type
-     * @param  null|bool|int|Mage_Core_Model_Store|string $store
+     * @param  self::TYPE_*  $type
+     * @param  ConfigStoreId $store
      * @return bool
      */
     public function isMessagesAvailable($type, Varien_Object $entity, $store = null)
@@ -102,7 +104,7 @@ class Mage_GiftMessage_Helper_Message extends Mage_Core_Helper_Data
         switch ($type) {
             case self::TYPE_ITEMS:
                 $items = $entity->getAllItems();
-                if (!is_array($items) || empty($items)) {
+                if (!is_array($items) || $items === []) {
                     return Mage::getStoreConfigFlag(self::XPATH_CONFIG_GIFT_MESSAGE_ALLOW_ITEMS, $store);
                 }
 
@@ -156,8 +158,8 @@ class Mage_GiftMessage_Helper_Message extends Mage_Core_Helper_Data
     /**
      * Check availability of gift messages from store config if flag eq 2.
      *
-     * @param  bool                                       $productGiftMessageAllow
-     * @param  null|bool|int|Mage_Core_Model_Store|string $store
+     * @param  bool          $productGiftMessageAllow
+     * @param  ConfigStoreId $store
      * @return bool
      */
     protected function _getDependenceFromStoreConfig($productGiftMessageAllow, $store = null)
@@ -165,16 +167,16 @@ class Mage_GiftMessage_Helper_Message extends Mage_Core_Helper_Data
         $result = Mage::getStoreConfigFlag(self::XPATH_CONFIG_GIFT_MESSAGE_ALLOW_ITEMS, $store);
         if ($productGiftMessageAllow === '' || is_null($productGiftMessageAllow)) {
             return $result;
-        } else {
-            return $productGiftMessageAllow;
         }
+
+        return $productGiftMessageAllow;
     }
 
     /**
      * Alias for isMessagesAvailable(...)
      *
-     * @param  self::TYPE_*                               $type
-     * @param  null|bool|int|Mage_Core_Model_Store|string $store
+     * @param  self::TYPE_*  $type
+     * @param  ConfigStoreId $store
      * @return bool
      */
     public function getIsMessagesAvailable($type, Varien_Object $entity, $store = null)

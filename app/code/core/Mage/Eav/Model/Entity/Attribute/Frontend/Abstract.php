@@ -24,8 +24,8 @@ abstract class Mage_Eav_Model_Entity_Attribute_Frontend_Abstract implements Mage
     /**
      * Set attribute instance
      *
-     * @param  Mage_Eav_Model_Entity_Attribute_Abstract          $attribute
-     * @return Mage_Eav_Model_Entity_Attribute_Frontend_Abstract
+     * @param  Mage_Eav_Model_Entity_Attribute_Abstract $attribute
+     * @return $this
      */
     public function setAttribute($attribute)
     {
@@ -135,12 +135,10 @@ abstract class Mage_Eav_Model_Entity_Attribute_Frontend_Abstract implements Mage
         }
 
         if (!empty($out)) {
-            $out = implode(' ', $out);
-        } else {
-            $out = '';
+            return implode(' ', $out);
         }
 
-        return $out;
+        return '';
     }
 
     /**

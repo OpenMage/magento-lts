@@ -51,7 +51,7 @@ abstract class Magento_Profiler_OutputAbstract
     /**
      * Retrieve the list of (column_label; column_id) pairs
      *
-     * @return array
+     * @return array<string, string>
      */
     protected function _getColumns()
     {
@@ -79,12 +79,10 @@ abstract class Magento_Profiler_OutputAbstract
 
         $value = (float) Magento_Profiler::fetch($timerId, $columnId);
         if (in_array($columnId, [Magento_Profiler::FETCH_TIME, Magento_Profiler::FETCH_AVG])) {
-            $value = number_format($value, 6);
-        } else {
-            $value = number_format($value);
+            return number_format($value, 6);
         }
 
-        return $value;
+        return number_format($value);
     }
 
     /**

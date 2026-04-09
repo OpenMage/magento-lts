@@ -263,8 +263,8 @@ class Mage_Widget_Model_Widget extends Varien_Object
         $result = [];
         foreach ($this->getWidgetsXml() as $widget) {
             if ($widget->js) {
-                foreach (explode(',', (string) $widget->js) as $js) {
-                    $result[] = $js;
+                foreach (explode(',', (string) $widget->js) as $str) {
+                    $result[] = $str;
                 }
             }
         }

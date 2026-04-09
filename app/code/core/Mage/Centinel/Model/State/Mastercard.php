@@ -62,13 +62,8 @@ class Mage_Centinel_Model_State_Mastercard extends Mage_Centinel_Model_StateAbst
 
             //Test case 4
             if ($paResStatus == 'U' && $signatureVerification == 'Y' && $eciFlag == '01'
-                && $xid != '' && $cavv == '' && $errorNo == '0'
-            ) {
-                if ($this->getIsModeStrict()) {
-                    return false;
-                } else {
-                    return true;
-                }
+                && $xid != '' && $cavv == '' && $errorNo == '0') {
+                return !$this->getIsModeStrict();
             }
 
             //Test case 10
@@ -82,12 +77,12 @@ class Mage_Centinel_Model_State_Mastercard extends Mage_Centinel_Model_StateAbst
         //Test cases 5-9
         if (!$this->getIsModeStrict() && $this->_isLookupSoftSuccessful()) {
             if ($paResStatus == '' && $signatureVerification == '' && $eciFlag == ''
-                && $xid == '' && $cavv == '' && $errorNo == '0'
-            ) {
+                && $xid == '' && $cavv == '' && $errorNo == '0') {
                 return true;
-            } elseif ($paResStatus == false && $signatureVerification == false && $eciFlag == false
-                && $xid == false && $cavv == false && $errorNo == false
-            ) {
+            }
+
+            if ($paResStatus == false && $signatureVerification == false && $eciFlag == false
+                && $xid == false && $cavv == false && $errorNo == false) {
                 return true;
             }
         }
@@ -103,15 +98,10 @@ class Mage_Centinel_Model_State_Mastercard extends Mage_Centinel_Model_StateAbst
     protected function _isLookupStrictSuccessful()
     {
         //Test cases 1-4, 10
-        if ($this->getLookupEnrolled() == 'Y'
+        return $this->getLookupEnrolled() == 'Y'
             && $this->getLookupAcsUrl() != ''
             && $this->getLookupPayload() != ''
-            && $this->getLookupErrorNo() == '0'
-        ) {
-            return true;
-        }
-
-        return false;
+            && $this->getLookupErrorNo() == '0';
     }
 
     /**
@@ -137,10 +127,6 @@ class Mage_Centinel_Model_State_Mastercard extends Mage_Centinel_Model_StateAbst
         }
 
         //Test cases 8,9
-        if ($enrolled == 'U' && $acsUrl == '' && $payload == '' && $errorNo == '1001') {
-            return true;
-        }
-
-        return false;
+        return $enrolled == 'U' && $acsUrl == '' && $payload == '' && $errorNo == '1001';
     }
 }

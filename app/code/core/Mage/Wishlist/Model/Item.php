@@ -146,13 +146,15 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
      *
      * @param  Mage_Wishlist_Model_Item_Option $option
      * @return $this
+     * @throws Mage_Core_Exception
      */
     protected function _addOptionCode($option)
     {
-        if (!isset($this->_optionsByCode[$option->getCode()])) {
-            $this->_optionsByCode[$option->getCode()] = $option;
+        $code = (string) $option->getCode();
+        if (!isset($this->_optionsByCode[$code])) {
+            $this->_optionsByCode[$code] = $option;
         } else {
-            Mage::throwException(Mage::helper('sales')->__('An item option with code %s already exists.', $option->getCode()));
+            Mage::throwException(Mage::helper('sales')->__('An item option with code %s already exists.', $code));
         }
 
         return $this;
@@ -273,7 +275,7 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
     /**
      * Retrieve wishlist item data as array
      *
-     * @return array
+     * @return array<string, mixed>
      * @deprecated since 1.4.0.0
      */
     public function getDataForSave()
@@ -355,10 +357,8 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
             return false;
         }
 
-        if (!$product->isVisibleInSiteVisibility()) {
-            if ($product->getStoreId() == $storeId) {
-                return false;
-            }
+        if (!$product->isVisibleInSiteVisibility() && $product->getStoreId() == $storeId) {
+            return false;
         }
 
         if (!$product->isSalable()) {
@@ -488,11 +488,7 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
         }
 
         if (empty($selfOptions) && !empty($buyRequest)) {
-            if (!$product->isComposite()) {
-                return true;
-            } else {
-                return false;
-            }
+            return !$product->isComposite();
         }
 
         $requestArray = $buyRequest->getData();
@@ -501,11 +497,7 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
             return false;
         }
 
-        if (!$this->_compareOptions($selfOptions, $requestArray)) {
-            return false;
-        }
-
-        return true;
+        return $this->_compareOptions($selfOptions, $requestArray);
     }
 
     /**
@@ -529,11 +521,7 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
             return false;
         }
 
-        if (!$this->compareOptions($productOptions, $itemOptions)) {
-            return false;
-        }
-
-        return true;
+        return $this->compareOptions($productOptions, $itemOptions);
     }
 
     /**
@@ -655,6 +643,7 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
      */
     public function getOptionByCode($code)
     {
+        $code = (string) $code;
         if (isset($this->_optionsByCode[$code]) && !$this->_optionsByCode[$code]->isDeleted()) {
             return $this->_optionsByCode[$code];
         }

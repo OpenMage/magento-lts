@@ -40,7 +40,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
      */
     public function destruct()
     {
-        if (is_resource($this->_imageHandler) || (class_exists('GdImage') && $this->_imageHandler instanceof \GdImage)) {
+        if (is_resource($this->_imageHandler) || (class_exists('GdImage') && $this->_imageHandler instanceof GdImage)) {
             @imagedestroy($this->_imageHandler);
         }
     }
@@ -143,8 +143,8 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
 
         if (!is_writable($destinationDir)) {
             try {
-                $io = new Varien_Io_File();
-                $io->mkdir($destination);
+                $ioFile = new Varien_Io_File();
+                $ioFile->mkdir($destination);
             } catch (Exception $exception) {
                 throw new Exception("Unable to write file into directory '{$destinationDir}'. Access forbidden.", $exception->getCode(), $exception);
             }
@@ -271,7 +271,11 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
                     }
 
                     return $transparentAlphaColor;
-                } elseif (false !== $transparentIndex) { // fill image with indexed non-alpha transparency
+                }
+
+                // fill truecolor png with alpha transparency
+                if (false !== $transparentIndex) {
+                    // fill image with indexed non-alpha transparency
                     $transparentColor = false;
                     if ($transparentIndex >= 0 && $transparentIndex < imagecolorstotal($this->_imageHandler)) {
                         [$rgbR, $rgbG, $rgbB]  = array_values(imagecolorsforindex($this->_imageHandler, $transparentIndex));
@@ -324,10 +328,13 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
             $transparentIndex = imagecolortransparent($imageResource);
             if ($transparentIndex >= 0) {
                 return $transparentIndex;
-            } elseif ($fileType === IMAGETYPE_PNG || $fileType === IMAGETYPE_WEBP) {
+            }
+
+            if ($fileType === IMAGETYPE_PNG || $fileType === IMAGETYPE_WEBP) {
                 $isAlpha = $this->checkAlpha($this->_fileName);
                 $isTrueColor = true;
-                return $transparentIndex; // -1
+                return $transparentIndex;
+                // -1
             }
         }
 
@@ -371,11 +378,9 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
         $dstHeight = $height;
         if ($this->_keepAspectRatio) {
             // do not make picture bigger, than it is, if required
-            if ($this->_constrainOnly) {
-                if (($width >= $this->_imageSrcWidth) && ($height >= $this->_imageSrcHeight)) {
-                    $dstWidth  = $this->_imageSrcWidth;
-                    $dstHeight = $this->_imageSrcHeight;
-                }
+            if ($this->_constrainOnly && ($width >= $this->_imageSrcWidth && $height >= $this->_imageSrcHeight)) {
+                $dstWidth  = $this->_imageSrcWidth;
+                $dstHeight = $this->_imageSrcHeight;
             }
 
             // keep aspect ratio
@@ -402,11 +407,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
         $isAlpha     = false;
         $isTrueColor = false;
         $this->_getTransparency($this->_imageHandler, $this->_fileType, $isAlpha, $isTrueColor);
-        if ($isTrueColor) {
-            $newImage = imagecreatetruecolor($width, $height);
-        } else {
-            $newImage = imagecreate($width, $height);
-        }
+        $newImage = $isTrueColor ? imagecreatetruecolor($width, $height) : imagecreate($width, $height);
 
         // fill new image with required color
         $this->_fillBackgroundColor($newImage);

@@ -13,8 +13,8 @@
  * @package    Mage_Catalog
  *
  * @method Mage_Catalog_Model_Resource_Product_Flat|Mage_Eav_Model_Entity_Abstract getEntity()
- * @method Mage_Catalog_Model_Product                                              getItemById($value)
- * @method Mage_Catalog_Model_Product[]                                            getItems()
+ *
+ * @extends Mage_Catalog_Model_Resource_Collection_Abstract<Mage_Catalog_Model_Product>
  */
 class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_Resource_Collection_Abstract
 {
@@ -130,7 +130,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     /**
      * Map of price fields
      *
-     * @var array
+     * @inheritDoc
      */
     protected $_map = ['fields' => [
         'price'         => 'price_index.price',
@@ -234,11 +234,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
         $response->setAdditionalCalculations([]);
 
         $tableAliases = array_keys($select->getPart(Zend_Db_Select::FROM));
-        if (in_array(self::INDEX_TABLE_ALIAS, $tableAliases)) {
-            $table = self::INDEX_TABLE_ALIAS;
-        } else {
-            $table = reset($tableAliases);
-        }
+        $table = in_array(self::INDEX_TABLE_ALIAS, $tableAliases) ? self::INDEX_TABLE_ALIAS : reset($tableAliases);
 
         // prepare event arguments
         $eventArgs = [
@@ -603,11 +599,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
         }
 
         if (is_array($productId)) {
-            if ($exclude) {
-                $condition = ['nin' => $productId];
-            } else {
-                $condition = ['in' => $productId];
-            }
+            $condition = $exclude ? ['nin' => $productId] : ['in' => $productId];
         } elseif ($exclude) {
             $condition = ['neq' => $productId];
         } else {
@@ -633,7 +625,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
             $productWebsites[$product->getId()] = [];
         }
 
-        if (!empty($productWebsites)) {
+        if ($productWebsites !== []) {
             $select = $this->getConnection()->select()
                 ->from(['product_website' => $this->_productWebsiteTable])
                 ->join(
@@ -1230,18 +1222,6 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     }
 
     /**
-     * Add minimal price data to result
-     *
-     * @return $this
-     * @deprecated use addPriceData
-     * @see Mage_Catalog_Model_Resource_Product_Collection::addPriceData
-     */
-    public function addMinimalPrice()
-    {
-        return $this->addPriceData();
-    }
-
-    /**
      * Add minimal price to product collection
      *
      * @return $this
@@ -1251,18 +1231,6 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     protected function _addMinimalPrice()
     {
         return $this;
-    }
-
-    /**
-     * Add price data for calculate final price
-     *
-     * @return $this
-     * @deprecated use addPriceData
-     * @see Mage_Catalog_Model_Resource_Product_Collection::addPriceData
-     */
-    public function addFinalPrice()
-    {
-        return $this->addPriceData();
     }
 
     /**
@@ -1323,7 +1291,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
                 $rulePrice = $product->getData('_rule_price');
             }
 
-            $finalPrice = $product->getPriceModel()->calculatePrice(
+            $finalPrice = $product->getPriceModel()::calculatePrice(
                 $basePrice,
                 $specialPrice,
                 $specialPriceFrom,
@@ -1464,9 +1432,9 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
             }
 
             return $this;
-        } else {
-            return parent::addAttributeToFilter($attribute, $condition, $joinType);
         }
+
+        return parent::addAttributeToFilter($attribute, $condition, $joinType);
     }
 
     /**
@@ -1524,7 +1492,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
             $productIds[] = $product->getId();
         }
 
-        if (!empty($productIds)) {
+        if ($productIds !== []) {
             $storeId = $this->getStoreId();
             $options = Mage::getModel('catalog/product_option')
                 ->getCollection()
@@ -1593,7 +1561,9 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
             }
 
             return $this;
-        } elseif ($attribute == 'is_saleable') {
+        }
+
+        if ($attribute == 'is_saleable') {
             $this->getSelect()->order('is_saleable ' . $dir);
             return $this;
         }
@@ -1616,13 +1586,13 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
             }
 
             return $this;
-        } else {
-            $attrInstance = $this->getEntity()->getAttribute($attribute);
-            if ($attrInstance && $attrInstance->usesSource()) {
-                $attrInstance->getSource()
-                    ->addValueSortToCollection($this, $dir);
-                return $this;
-            }
+        }
+
+        $attrInstance = $this->getEntity()->getAttribute($attribute);
+        if ($attrInstance && $attrInstance->usesSource()) {
+            $attrInstance->getSource()
+                ->addValueSortToCollection($this, $dir);
+            return $this;
         }
 
         return parent::addAttributeToSort($attribute, $dir);
@@ -1998,7 +1968,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
         }
 
         $ids = array_keys($this->_items);
-        if (empty($ids)) {
+        if ($ids === []) {
             return $this;
         }
 
@@ -2099,7 +2069,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
 
         foreach ($this->getItems() as $item) {
             $data = $tierPrices[$item->getId()];
-            if (!empty($data) && $websiteId) {
+            if ($data !== [] && $websiteId) {
                 $data = $backend->preparePriceData($data, $item->getTypeId(), $websiteId);
             }
 

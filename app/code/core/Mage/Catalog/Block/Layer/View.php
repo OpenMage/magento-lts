@@ -219,7 +219,11 @@ class Mage_Catalog_Block_Layer_View extends Mage_Core_Block_Template
      */
     public function canShowBlock()
     {
-        return $this->canShowOptions() || count($this->getLayer()->getState()->getFilters());
+        if ($this->canShowOptions()) {
+            return true;
+        }
+
+        return (bool) count($this->getLayer()->getState()->getFilters());
     }
 
     /**

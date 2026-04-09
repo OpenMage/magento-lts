@@ -53,11 +53,9 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
     {
         if (is_null($key)) {
             return $this->_defaults;
-        } elseif (isset($this->_defaults[$key])) {
-            return $this->_defaults[$key];
         }
 
-        return false;
+        return $this->_defaults[$key] ?? false;
     }
 
     /**
@@ -278,16 +276,20 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
         }
 
         foreach ($config->children() as $rewrite) {
-            $from = (string) $rewrite->from;
-            $to = (string) $rewrite->to;
-            if (empty($from) || empty($to)) {
+            $rewriteFrom = (string) $rewrite->from;
+            $rewriteTo   = (string) $rewrite->to;
+            if (empty($rewriteFrom)) {
                 continue;
             }
 
-            $from = $this->_processRewriteUrl($from);
-            $to   = $this->_processRewriteUrl($to);
+            if (empty($rewriteTo)) {
+                continue;
+            }
 
-            $pathInfo = preg_replace($from, $to, $request->getPathInfo());
+            $rewriteFrom = $this->_processRewriteUrl($rewriteFrom);
+            $rewriteTo   = $this->_processRewriteUrl($rewriteTo);
+
+            $pathInfo = preg_replace($rewriteFrom, $rewriteTo, $request->getPathInfo());
 
             if (isset($rewrite->complete)) {
                 $request->setPathInfo($pathInfo);
@@ -338,7 +340,9 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
         $redirectCode = Mage::getStoreConfigAsInt('web/url/redirect_to_base');
         if (!$redirectCode) {
             return;
-        } elseif ($redirectCode != 301) {
+        }
+
+        if ($redirectCode != 301) {
             $redirectCode = 302;
         }
 

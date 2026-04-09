@@ -11,6 +11,8 @@
  * Catalog data helper
  *
  * @package    Mage_Catalog
+ *
+ * @phpstan-import-type ConfigStoreId from Mage
  */
 class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
 {
@@ -129,11 +131,7 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
             return true;
         }
 
-        if ($categoryId != $this->getCategory()->getId()) {
-            return true;
-        }
-
-        return false;
+        return $categoryId != $this->getCategory()->getId();
     }
 
     /**
@@ -207,9 +205,9 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
     {
         if (Mage::registry('attribute_type_hidden_fields')) {
             return Mage::registry('attribute_type_hidden_fields');
-        } else {
-            return [];
         }
+
+        return [];
     }
 
     /**
@@ -221,9 +219,9 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
     {
         if (Mage::registry('attribute_type_disabled_types')) {
             return Mage::registry('attribute_type_disabled_types');
-        } else {
-            return [];
         }
+
+        return [];
     }
 
     /**
@@ -249,7 +247,7 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Indicate whether to save URL Rewrite History or not (create redirects to old URLs)
      *
-     * @param  null|bool|int|Mage_Core_Model_Store|string $storeId Store View
+     * @param  ConfigStoreId $storeId
      * @return bool
      */
     public function shouldSaveUrlRewritesHistory($storeId = null)

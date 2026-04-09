@@ -6,8 +6,11 @@
  * @license    Open Software License (OSL 3.0)
  * @package    Mage
  */
-
+use Dotenv\Dotenv;
 use Carbon\Carbon;
+use Carbon\Exceptions\InvalidFormatException;
+use Monolog\Formatter\LineFormatter;
+use Monolog\Handler\StreamHandler;
 use Monolog\Level;
 
 defined('DS') || define('DS', DIRECTORY_SEPARATOR);
@@ -50,7 +53,7 @@ foreach (glob(BP . DS . 'app' . DS . 'etc' . DS . 'includes' . DS . '*.php') as 
     include_once $path;
 }
 
-$dotenv = Dotenv\Dotenv::createImmutable(BP);
+$dotenv = Dotenv::createImmutable(BP);
 $dotenv->safeLoad();
 $dotenv->ifPresent(['MAGE_IS_DEVELOPER_MODE', 'OPENMAGE_CONFIG_OVERRIDE_ALLOWED'])->isInteger();
 
@@ -63,6 +66,8 @@ if (!empty($_SERVER['MAGE_IS_DEVELOPER_MODE']) || !empty($_ENV['MAGE_IS_DEVELOPE
 
 /**
  * Main Mage hub class
+ *
+ * @phpstan-type ConfigStoreId null|bool|int|Mage_Core_Model_Store|string
  */
 final class Mage
 {
@@ -163,7 +168,7 @@ final class Mage
     /**
      * Gets the detailed Magento version information
      *
-     * @return array
+     * @return array<string, string>
      * @deprecated
      */
     public static function getVersionInfo()
@@ -285,7 +290,7 @@ final class Mage
                 return;
             }
 
-            self::throwException("Mage registry key $key already exists");
+            self::throwException("Mage registry key {$key} already exists");
         }
 
         self::$_registry[$key] = $value;
@@ -340,7 +345,7 @@ final class Mage
         if (is_dir($appRoot) && is_readable($appRoot)) {
             self::$_appRoot = $appRoot;
         } else {
-            self::throwException("$appRoot is not a directory or not readable by this user");
+            self::throwException("{$appRoot} is not a directory or not readable by this user");
         }
     }
 
@@ -378,9 +383,9 @@ final class Mage
 
         if (is_null($key)) {
             return self::$_objects;
-        } else {
-            return self::$_objects->load($key);
         }
+
+        return self::$_objects->load($key);
     }
 
     /**
@@ -409,8 +414,8 @@ final class Mage
     /**
      * Retrieve config value for store by path
      *
-     * @param  string                                     $path
-     * @param  null|bool|int|Mage_Core_Model_Store|string $store
+     * @param  string        $path
+     * @param  ConfigStoreId $store
      * @return mixed
      */
     public static function getStoreConfig($path, $store = null)
@@ -419,7 +424,7 @@ final class Mage
     }
 
     /**
-     * @param null|bool|int|Mage_Core_Model_Store|string $store
+     * @param ConfigStoreId $store
      */
     public static function getStoreConfigAsFloat(string $path, $store = null): float
     {
@@ -427,7 +432,7 @@ final class Mage
     }
 
     /**
-     * @param null|bool|int|Mage_Core_Model_Store|string $store
+     * @param ConfigStoreId $store
      */
     public static function getStoreConfigAsInt(string $path, $store = null): int
     {
@@ -437,19 +442,15 @@ final class Mage
     /**
      * Retrieve config flag for store by path
      *
-     * @param  string                                     $path
-     * @param  null|bool|int|Mage_Core_Model_Store|string $store
+     * @param  string        $path
+     * @param  ConfigStoreId $store
      * @return bool
      */
     public static function getStoreConfigFlag($path, $store = null)
     {
         $flag = self::getStoreConfig($path, $store);
         $flag = is_string($flag) ? strtolower($flag) : $flag;
-        if (!empty($flag) && $flag !== 'false') {
-            return true;
-        } else {
-            return false;
-        }
+        return !empty($flag) && $flag !== 'false';
     }
 
     /**
@@ -523,7 +524,8 @@ final class Mage
      * Calls all observer callbacks registered for this event
      * and multiple observers matching event name pattern
      *
-     * @param  string              $name
+     * @param  string               $name
+     * @param  array<string, mixed> $data
      * @return Mage_Core_Model_App
      */
     public static function dispatchEvent($name, array $data = [])
@@ -538,9 +540,9 @@ final class Mage
      * Retrieve model object
      *
      * @link    Mage_Core_Model_Config::getModelInstance
-     * @param  string                         $modelClass
-     * @param  array|object|string            $arguments
-     * @return false|Mage_Core_Model_Abstract
+     * @param  string                                $modelClass
+     * @param  array|object|string                   $arguments
+     * @return false|Mage_Core_Model_Abstract|object
      */
     public static function getModel($modelClass = '', $arguments = [])
     {
@@ -550,8 +552,8 @@ final class Mage
     /**
      * Retrieve model object singleton
      *
-     * @param  string                         $modelClass
-     * @return false|Mage_Core_Model_Abstract
+     * @param  string                                $modelClass
+     * @return false|Mage_Core_Model_Abstract|object
      */
     public static function getSingleton($modelClass = '', array $arguments = [])
     {
@@ -729,11 +731,11 @@ final class Mage
         } catch (Mage_Core_Model_Session_Exception) {
             header('Location: ' . self::getBaseUrl());
             die;
-        } catch (Mage_Core_Model_Store_Exception $e) {
+        } catch (Mage_Core_Model_Store_Exception) {
             require_once(self::getBaseDir() . DS . 'errors' . DS . '404.php');
             die;
-        } catch (Exception $e) {
-            self::printException($e);
+        } catch (Exception $exception) {
+            self::printException($exception);
             die;
         }
     }
@@ -775,25 +777,25 @@ final class Mage
         } catch (Mage_Core_Model_Session_Exception) {
             header('Location: ' . self::getBaseUrl());
             die();
-        } catch (Mage_Core_Model_Store_Exception $e) {
+        } catch (Mage_Core_Model_Store_Exception) {
             require_once(self::getBaseDir() . DS . 'errors' . DS . '404.php');
             die();
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             if (self::isInstalled()) {
-                self::dispatchEvent('mage_run_installed_exception', ['exception' => $e]);
-                self::printException($e);
+                self::dispatchEvent('mage_run_installed_exception', ['exception' => $exception]);
+                self::printException($exception);
                 exit();
             }
 
             try {
-                self::dispatchEvent('mage_run_exception', ['exception' => $e]);
+                self::dispatchEvent('mage_run_exception', ['exception' => $exception]);
                 if (!headers_sent() && self::isInstalled()) {
                     header('Location:' . self::getUrl('install'));
                 } else {
-                    self::printException($e);
+                    self::printException($exception);
                 }
-            } catch (Exception $ne) {
-                self::printException($ne, $e->getMessage());
+            } catch (Exception $nestedException) {
+                self::printException($nestedException, $exception->getMessage());
             }
         }
     }
@@ -859,8 +861,17 @@ final class Mage
             if (is_readable($localConfigFile)) {
                 $localConfig = simplexml_load_file($localConfigFile);
                 date_default_timezone_set('UTC');
-                if (($date = $localConfig->global->install->date) && Carbon::parse((string) $date)->getTimestamp()) {
+
+                $date = (string) $localConfig->global->install->date;
+                if ($date === '') {
+                    return self::$_isInstalled;
+                }
+
+                try {
+                    Carbon::parse($date);
                     self::$_isInstalled = true;
+                } catch (InvalidFormatException) {
+                    self::$_isInstalled = false;
                 }
             }
         }
@@ -900,7 +911,7 @@ final class Mage
             return;
         }
 
-        $file = self::getStoreConfig(Mage_Core_Helper_Log::XML_PATH_DEV_LOG_EXCEPTION_FILE);
+        $file = self::getStoreConfig(Mage_Core_Helper_Data::XML_PATH_DEV_LOG_EXCEPTION_FILE);
         self::log("\n" . $throwable->__toString(), Level::Error, $file);
     }
 
@@ -929,7 +940,7 @@ final class Mage
     /**
      * Display exception
      */
-    public static function printException(Throwable $e, $extra = '')
+    public static function printException(Throwable $throwable, $extra = '')
     {
         if (self::$_isDeveloperMode) {
             print '<pre>';
@@ -938,13 +949,13 @@ final class Mage
                 print $extra . "\n\n";
             }
 
-            print $e->getMessage() . "\n\n";
-            print $e->getTraceAsString();
+            print $throwable->getMessage() . "\n\n";
+            print $throwable->getTraceAsString();
             print '</pre>';
         } else {
             $reportData = [
-                (empty($extra) ? '' : $extra . "\n\n") . $e->getMessage(),
-                $e->getTraceAsString(),
+                (empty($extra) ? '' : $extra . "\n\n") . $throwable->getMessage(),
+                $throwable->getTraceAsString(),
             ];
 
             // retrieve server data
@@ -960,7 +971,7 @@ final class Mage
             try {
                 $storeCode = self::app()->getStore()->getCode();
                 $reportData['skin'] = $storeCode;
-            } catch (Exception $e) {
+            } catch (Exception $throwable) {
             }
 
             require_once(self::getBaseDir() . DS . 'errors' . DS . 'report.php');
@@ -1007,13 +1018,13 @@ final class Mage
         }
 
         if (is_null($baseUrl)) {
-            $errorMessage = "Unable detect system directory: $folder";
+            $errorMessage = "Unable detect system directory: {$folder}";
             if ($exitIfNot) {
                 // exit because of infinity loop
                 exit($errorMessage);
-            } else {
-                self::printException(new Exception(), $errorMessage);
             }
+
+            self::printException(new Exception(), $errorMessage);
         }
 
         return $baseUrl;

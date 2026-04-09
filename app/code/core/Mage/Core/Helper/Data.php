@@ -14,6 +14,8 @@ use Carbon\Exceptions\InvalidFormatException;
  * Core data helper
  *
  * @package    Mage_Core
+ *
+ * @phpstan-import-type ConfigStoreId from Mage
  */
 class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
 {
@@ -107,11 +109,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
     {
         if ($this->_encryptor === null) {
             $encryptionModel = (string) Mage::getConfig()->getNode(self::XML_PATH_ENCRYPTION_MODEL);
-            if ($encryptionModel) {
-                $this->_encryptor = new $encryptionModel();
-            } else {
-                $this->_encryptor = Mage::getModel('core/encryption');
-            }
+            $this->_encryptor = $encryptionModel ? new $encryptionModel() : Mage::getModel('core/encryption');
 
             $this->_encryptor->setHelper($this);
         }
@@ -135,16 +133,16 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Convert and format price value for specified store
      *
-     * @param  float                     $value
-     * @param  int|Mage_Core_Model_Store $store
-     * @param  bool                      $format
-     * @param  bool                      $includeContainer
-     * @return mixed
+     * @param  float                                                    $value
+     * @param  null|bool|int|Mage_Core_Model_Store|string|Varien_Object $store
+     * @param  bool                                                     $format
+     * @param  bool                                                     $includeContainer
+     * @return float
      */
     public static function currencyByStore($value, $store = null, $format = true, $includeContainer = true)
     {
         try {
-            if (!($store instanceof Mage_Core_Model_Store)) {
+            if (!$store instanceof Mage_Core_Model_Store) {
                 $store = Mage::app()->getStore($store);
             }
 
@@ -252,11 +250,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
             $date = $locale->date(Carbon::parse($time)->getTimestamp());
         }
 
-        if ($showDate) {
-            $format = $locale->getDateTimeFormat($format);
-        } else {
-            $format = $locale->getTimeFormat($format);
-        }
+        $format = $showDate ? $locale->getDateTimeFormat($format) : $locale->getTimeFormat($format);
 
         return $date->toString($format);
     }
@@ -426,15 +420,15 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
             }
 
             $replacements[$german] = [];
-            foreach ($subst as $k => $v) {
-                $replacements[$german][$k < 256 ? chr($k) : '&#' . $k . ';'] = $v;
+            foreach ($subst as $key => $value) {
+                $replacements[$german][$key < 256 ? chr($key) : '&#' . $key . ';'] = $value;
             }
         }
 
         // convert string from default database format (UTF-8)
         // to encoding which replacement arrays made with (ISO-8859-1)
-        if ($s = @iconv('UTF-8', 'ISO-8859-1', $string)) {
-            $string = $s;
+        if ($str = @iconv('UTF-8', 'ISO-8859-1', $string)) {
+            $string = $str;
         }
 
         // Replace
@@ -444,7 +438,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * @param  null|bool|int|Mage_Core_Model_Store|string $storeId
+     * @param  ConfigStoreId $storeId
      * @return bool
      */
     public function isDevAllowed($storeId = null)
@@ -455,8 +449,8 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
         $remoteAddr = Mage::helper('core/http')->getRemoteAddr();
         if (!empty($allowedIps) && !empty($remoteAddr)) {
             $allowedIps = preg_split('#\s*,\s*#', $allowedIps, -1, PREG_SPLIT_NO_EMPTY);
-            if (!in_array($remoteAddr, $allowedIps)
-                && !in_array(Mage::helper('core/http')->getHttpHost(), $allowedIps)
+            if (!in_array($remoteAddr, $allowedIps, true)
+                && !in_array(Mage::helper('core/http')->getHttpHost(), $allowedIps, true)
             ) {
                 $allow = false;
             }
@@ -468,7 +462,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get information about available cache types
      *
-     * @return array
+     * @return array<string, string>
      */
     public function getCacheTypes()
     {
@@ -515,8 +509,8 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function copyFieldset($fieldset, $aspect, $source, $target, $root = 'global')
     {
-        if (!(is_array($source) || $source instanceof Varien_Object)
-            || !(is_array($target) || $target instanceof Varien_Object)
+        if ((!is_array($source) && !($source instanceof Varien_Object))
+            || (!is_array($target) && !($target instanceof Varien_Object))
         ) {
             return false;
         }
@@ -535,11 +529,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
                 continue;
             }
 
-            if ($sourceIsArray) {
-                $value = $source[$code] ?? null;
-            } else {
-                $value = $source->getDataUsingMethod($code);
-            }
+            $value = $sourceIsArray ? $source[$code] ?? null : $source->getDataUsingMethod($code);
 
             $targetCode = (string) $node->$aspect;
             $targetCode = $targetCode == '*' ? $code : $targetCode;
@@ -586,7 +576,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
     public function decorateArray($array, $prefix = 'decorated_', $forceSetAll = false)
     {
         // check if array or an object to be iterated given
-        if (!(is_array($array) || is_object($array))) {
+        if (!is_array($array) && !is_object($array)) {
             return $array;
         }
 
@@ -664,7 +654,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
 
         $xmlstr = <<<XML
 <?xml version='1.0' encoding='UTF-8' standalone='yes'?>
-<$rootName></$rootName>
+<{$rootName}></{$rootName}>
 XML;
         $xml = new SimpleXMLElement($xmlstr);
         foreach (array_keys($array) as $key) {
@@ -725,8 +715,8 @@ XML;
         foreach ($xml as $key => $value) {
             if (isset($value->$key)) {
                 $i = 0;
-                foreach ($value->$key as $v) {
-                    $array[$key][$i++] = (string) $v;
+                foreach ($value->$key as $item) {
+                    $array[$key][$i++] = (string) $item;
                 }
             } else {
                 // try to transform it into string value, trimming spaces between elements
@@ -868,13 +858,13 @@ XML;
 
                     foreach ($srcFiles as $key => $file) {
                         $fileExt = strtolower(pathinfo($file, PATHINFO_EXTENSION));
-                        if (!in_array($fileExt, $extensionsFilter)) {
+                        if (!in_array($fileExt, $extensionsFilter, true)) {
                             unset($srcFiles[$key]);
                         }
                     }
                 }
 
-                if (empty($srcFiles)) {
+                if ($srcFiles === []) {
                     // no translation intentionally
                     throw new Exception('No files to compile.');
                 }
@@ -1007,7 +997,7 @@ XML;
     public function isCountryInEU($countryCode, $storeId = null)
     {
         $euCountries = explode(',', Mage::getStoreConfig(self::XML_PATH_EU_COUNTRIES_LIST, $storeId));
-        return in_array($countryCode, $euCountries);
+        return in_array($countryCode, $euCountries, true);
     }
 
     /**
@@ -1044,7 +1034,7 @@ XML;
                 $value = (string) $value;
 
                 $firstLetter = substr($value, 0, 1);
-                if ($firstLetter && in_array($firstLetter, ['=', '+', '-'])) {
+                if ($firstLetter && in_array($firstLetter, ['=', '+', '-'], true)) {
                     $data[$key] = ' ' . $value;
                 }
             }

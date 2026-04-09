@@ -12,7 +12,7 @@
  *
  * @package    Magento_Db
  */
-class Magento_Db_Sql_Trigger
+class Magento_Db_Sql_Trigger implements Stringable
 {
     public const NAME      = 'name';
 
@@ -309,10 +309,8 @@ class Magento_Db_Sql_Trigger
 
     /**
      * Implement magic method
-     *
-     * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
         return $this->assemble();
     }

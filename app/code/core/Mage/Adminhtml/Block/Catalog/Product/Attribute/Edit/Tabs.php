@@ -31,21 +31,22 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Tabs extends Mage_Admi
             'active'    => true,
         ]);
 
-        $model = Mage::registry('entity_attribute');
-
         $this->addTab('labels', [
             'label'     => Mage::helper('catalog')->__('Manage Label / Options'),
             'title'     => Mage::helper('catalog')->__('Manage Label / Options'),
             'content'   => $this->getLayout()->createBlock('adminhtml/catalog_product_attribute_edit_tab_options')->toHtml(),
         ]);
 
-        /*if ('select' == $model->getFrontendInput()) {
+        /*
+         $model = Mage::registry('entity_attribute');
+         if ('select' == $model->getFrontendInput()) {
             $this->addTab('options_section', array(
                 'label'     => Mage::helper('catalog')->__('Options Control'),
                 'title'     => Mage::helper('catalog')->__('Options Control'),
                 'content'   => $this->getLayout()->createBlock('adminhtml/catalog_product_attribute_edit_tab_options')->toHtml(),
             ));
-        }*/
+        }
+        */
 
         return parent::_beforeToHtml();
     }

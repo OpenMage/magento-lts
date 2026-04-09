@@ -189,6 +189,9 @@ class Varien_Db_Tree
         return $this;
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function getKeys()
     {
         return [
@@ -262,13 +265,13 @@ class Varien_Db_Tree
 
                 $this->_db->insert($this->_table, $data);
                 $this->_db->commit();
-            } catch (PDOException $p) {
+            } catch (PDOException $pdoException) {
                 $this->_db->rollBack();
-                echo $p->getMessage();
+                echo $pdoException->getMessage();
                 exit();
-            } catch (Exception $e) {
+            } catch (Exception $exception) {
                 $this->_db->rollBack();
-                echo $e->getMessage();
+                echo $exception->getMessage();
                 echo $sql;
                 var_dump($data);
                 exit();
@@ -326,11 +329,13 @@ class Varien_Db_Tree
                 $this->_db->query($sql);
                 $this->_db->commit();
                 return new Varien_Db_Tree_Node($info, $this->getKeys());
-            } catch (Exception $e) {
+            } catch (Exception $exception) {
                 $this->_db->rollBack();
-                echo $e->getMessage();
+                echo $exception->getMessage();
             }
         }
+
+        return null;
     }
 
     public function moveNode($eId, $pId, $aId = 0)
@@ -399,7 +404,6 @@ class Varien_Db_Tree
     public function __moveNode($eId, $pId, $aId = 0)
     {
         $eInfo = $this->getNodeInfo($eId);
-        $level = $eInfo[$this->_level];
         $left_key = $eInfo[$this->_left];
         $right_key = $eInfo[$this->_right];
         $right_key_near = 0;
@@ -456,9 +460,9 @@ class Varien_Db_Tree
                 $this->_db->query($sql);
                 //$afrows = $this->_db->get
                 $this->_db->commit();
-            } catch (Exception $e) {
+            } catch (Exception $exception) {
                 $this->_db->rollBack();
-                echo $e->getMessage();
+                echo $exception->getMessage();
                 echo "<br>\r\n";
                 echo $sql;
                 echo "<br>\r\n";

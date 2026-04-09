@@ -198,9 +198,9 @@ class Mage_Eav_Model_Config
             if (!class_exists($fqEntityModelClass)) {
                 if (Mage::getIsDeveloperMode()) {
                     throw new Exception('Failed loading of eav entity type because it does not exist: ' . $entityModelClass);
-                } else {
-                    Mage::log('Skipped loading of eav entity type because it does not exist: ' . $entityModelClass);
                 }
+
+                Mage::log('Skipped loading of eav entity type because it does not exist: ' . $entityModelClass);
 
                 continue;
             }
@@ -257,9 +257,7 @@ class Mage_Eav_Model_Config
     }
 
     /**
-     * @param            $storeId
      * @return void
-     * @throws Exception
      */
     protected function _loadAttributeSetInfo()
     {
@@ -416,18 +414,18 @@ class Mage_Eav_Model_Config
         if (empty($field) && is_numeric($code)) {
             if (isset($this->_entityTypes[$code])) {
                 return $this->_entityTypes[$code];
-            } else {
-                Mage::throwException('Invalid entity type: ' . $code);
             }
+
+            Mage::throwException('Invalid entity type: ' . $code);
         }
 
         // lookup by code
         if (empty($field) || $field == 'entity_type_code') {
             if (isset($this->_entityTypeByCode[$code])) {
                 return $this->_entityTypeByCode[$code];
-            } else {
-                Mage::throwException('Invalid entity type: ' . $code);
             }
+
+            Mage::throwException('Invalid entity type: ' . $code);
         }
 
         // lookup by other field
@@ -489,7 +487,7 @@ class Mage_Eav_Model_Config
             return $code;
         }
 
-        $storeId = $storeId ?? $this->_storeId();
+        $storeId ??= $this->_storeId();
         $this->_initializeStore($storeId);
         $entityType = $this->getEntityType($entityType);
 
@@ -581,11 +579,11 @@ class Mage_Eav_Model_Config
             }
 
             return $attributeCodes;
-        } else {
-            return isset($this->_entityTypeAttributeIdByCode[$storeId][$entityType->getId()])
-                ? array_keys($this->_entityTypeAttributeIdByCode[$storeId][$entityType->getId()])
-                : [];
         }
+
+        return isset($this->_entityTypeAttributeIdByCode[$storeId][$entityType->getId()])
+            ? array_keys($this->_entityTypeAttributeIdByCode[$storeId][$entityType->getId()])
+            : [];
     }
 
     /**
@@ -633,22 +631,9 @@ class Mage_Eav_Model_Config
     }
 
     /**
-     * @param  mixed                                         $entityType
-     * @param  string                                        $attribute
-     * @return null|Mage_Eav_Model_Entity_Attribute_Abstract
-     * @throws Mage_Core_Exception
-     * @deprecated Equivalent to getAttribute(...), use getAttribute(...) instead
-     * Get attribute object for collection usage
-     */
-    public function getCollectionAttribute($entityType, $attribute)
-    {
-        return $this->getAttribute($entityType, $attribute);
-    }
-
-    /**
-     * @param  mixed                 $entityType
-     * @param  array                 $attributes
-     * @return Mage_Eav_Model_Config
+     * @param  mixed $entityType
+     * @param  array $attributes
+     * @return $this
      * @deprecated No longer required to preload only collection attributes explicitly
      * Prepare attributes for usage in EAV collection
      */

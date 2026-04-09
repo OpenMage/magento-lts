@@ -93,11 +93,12 @@ class Mage_Catalog_Model_Product_Url extends Mage_Catalog_Model_Url
     public function getUrlPath($product, $category = null)
     {
         $path = $product->getData('url_path');
-
         if (is_null($category)) {
             /** @todo get default category */
             return $path;
-        } elseif (!$category instanceof Mage_Catalog_Model_Category) {
+        }
+
+        if (!$category instanceof Mage_Catalog_Model_Category) {
             Mage::throwException('Invalid category object supplied');
         }
 
@@ -126,11 +127,7 @@ class Mage_Catalog_Model_Product_Url extends Mage_Catalog_Model_Url
             $product->setRequestPath($requestPath);
         }
 
-        if (isset($params['_store'])) {
-            $storeId = $this->_getStoreId($params['_store']);
-        } else {
-            $storeId = $product->getStoreId();
-        }
+        $storeId = isset($params['_store']) ? $this->_getStoreId($params['_store']) : $product->getStoreId();
 
         if ($storeId != $this->_getStoreId()) {
             $params['_store_to_url'] = true;
@@ -170,10 +167,10 @@ class Mage_Catalog_Model_Product_Url extends Mage_Catalog_Model_Url
     {
         if (isset($params['_ignore_category'])) {
             return null;
-        } else {
-            return $product->getCategoryId() && !$product->getDoNotUseCategoryId()
-                ? $product->getCategoryId() : null;
         }
+
+        return $product->getCategoryId() && !$product->getDoNotUseCategoryId()
+            ? $product->getCategoryId() : null;
     }
 
     /**

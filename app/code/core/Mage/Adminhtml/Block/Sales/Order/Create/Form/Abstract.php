@@ -11,6 +11,9 @@
  * Sales Order Create Form Abstract Block
  *
  * @package    Mage_Adminhtml
+ *
+ * @method string getJsVariablePrefix()
+ * @method $this  setJsVariablePrefix(string $value)
  */
 abstract class Mage_Adminhtml_Block_Sales_Order_Create_Form_Abstract extends Mage_Adminhtml_Block_Sales_Order_Create_Abstract
 {
@@ -25,7 +28,7 @@ abstract class Mage_Adminhtml_Block_Sales_Order_Create_Form_Abstract extends Mag
      * Prepare global layout
      * Add renderers to Varien_Data_Form
      *
-     * @return Mage_Adminhtml_Block_Sales_Order_Create_Form_Abstract
+     * @return $this
      */
     protected function _prepareLayout()
     {
@@ -67,14 +70,14 @@ abstract class Mage_Adminhtml_Block_Sales_Order_Create_Form_Abstract extends Mag
     /**
      * Prepare Form and add elements to form
      *
-     * @return Mage_Adminhtml_Block_Sales_Order_Create_Form_Abstract
+     * @return $this
      */
     abstract protected function _prepareForm();
 
     /**
      * Return array of additional form element types by type
      *
-     * @return array
+     * @return array<string, string>
      */
     protected function _getAdditionalFormElementTypes()
     {
@@ -100,7 +103,7 @@ abstract class Mage_Adminhtml_Block_Sales_Order_Create_Form_Abstract extends Mag
     /**
      * Add additional data to form element
      *
-     * @return Mage_Adminhtml_Block_Sales_Order_Create_Form_Abstract
+     * @return $this
      */
     protected function _addAdditionalFormElementData(Varien_Data_Form_Element_Abstract $element)
     {
@@ -110,8 +113,8 @@ abstract class Mage_Adminhtml_Block_Sales_Order_Create_Form_Abstract extends Mag
     /**
      * Add rendering EAV attributes to Form element
      *
-     * @param  array|Varien_Data_Collection                          $attributes
-     * @return Mage_Adminhtml_Block_Sales_Order_Create_Form_Abstract
+     * @param  array|Varien_Data_Collection $attributes
+     * @return $this
      */
     protected function _addAttributesToForm($attributes, Varien_Data_Form_Abstract $form)
     {
@@ -163,7 +166,7 @@ abstract class Mage_Adminhtml_Block_Sales_Order_Create_Form_Abstract extends Mag
     /**
      * Return Form Elements values
      *
-     * @return array
+     * @return array<string, mixed>|array<void>
      */
     public function getFormValues()
     {

@@ -4,6 +4,7 @@
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
  * @license    Open Software License (OSL 3.0)
+ * @package    OpenMage_Tests
  */
 
 declare(strict_types=1);
@@ -21,7 +22,6 @@ trait DataTrait
         $date           = date_create()->getTimestamp();
         $dateShort      = Carbon::createFromTimestamp($date)->format('n/j/Y');
         $dateLong       = Carbon::createFromTimestamp($date)->format('F j, Y');
-        $dateShortTime  = Carbon::createFromTimestamp($date)->format('n/j/Y g:i A');
 
         yield 'null' => [
             $dateShort,

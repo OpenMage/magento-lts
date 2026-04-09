@@ -64,9 +64,9 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Dhl_Abstract extends Mage_Usa_Mod
         $weekday = Carbon::parse($date)->format('D');
         while (!in_array($weekday, $shippingDays) && $index < 10) {
             $index++;
-            $weekday = Carbon::parse("$date +$index day")->format('D');
+            $weekday = Carbon::parse("{$date} +{$index} day")->format('D');
         }
 
-        return Carbon::parse("$date +$index day")->format(self::REQUEST_DATE_FORMAT);
+        return Carbon::parse("{$date} +{$index} day")->format(self::REQUEST_DATE_FORMAT);
     }
 }

@@ -11,6 +11,8 @@
  * Entity/Attribute/Model - collection abstract
  *
  * @package    Mage_Eav
+ * @template T of Mage_Core_Model_Abstract
+ * @extends Varien_Data_Collection_Db<T>
  */
 abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Collection_Db
 {
@@ -97,7 +99,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
     /**
      * Collection constructor
      *
-     * @param  Mage_Core_Model_Resource_Abstract $resource
+     * @param  Mage_Core_Model_Resource_Abstract|Varien_Db_Adapter_Interface $resource
      * @throws Mage_Core_Exception
      * @throws Zend_Exception
      * @phpstan-ignore constructor.unusedParameter
@@ -112,7 +114,9 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
     }
 
     /**
-     * @inheritDoc
+     * Collection initialization
+     *
+     * @return void
      */
     protected function _construct() {}
 
@@ -232,7 +236,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
     /**
      * Set template object for the collection
      *
-     * @param  Varien_Object $object
+     * @param  string|Varien_Object $object
      * @return $this
      */
     public function setObject($object = null)
@@ -730,9 +734,9 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
         $tableAlias = $this->_getAttributeTableAlias($alias);
 
         // validate bind
-        [$pk, $fk] = explode('=', $bind);
-        $pk = $this->getSelect()->getAdapter()->quoteColumnAs(trim($pk), null);
-        $bindCond = $tableAlias . '.' . trim($pk) . '=' . $this->_getAttributeFieldName(trim($fk));
+        [$privateKey, $foreignKey] = explode('=', $bind);
+        $privateKey = $this->getSelect()->getAdapter()->quoteColumnAs(trim($privateKey), null);
+        $bindCond = $tableAlias . '.' . trim($privateKey) . '=' . $this->_getAttributeFieldName(trim($foreignKey));
 
         // process join type
         $joinMethod = match ($joinType) {
@@ -817,8 +821,8 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
         }
 
         // validate bind
-        [$pk, $fk] = explode('=', $bind);
-        $bindCond = $tableAlias . '.' . $pk . '=' . $this->_getAttributeFieldName($fk);
+        [$privateKey, $foreignKey] = explode('=', $bind);
+        $bindCond = $tableAlias . '.' . $privateKey . '=' . $this->_getAttributeFieldName($foreignKey);
 
         // process join type
         $joinMethod = match ($joinType) {
@@ -1132,7 +1136,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
      */
     public function _loadAttributes($printQuery = false, $logQuery = false)
     {
-        if (empty($this->_items) || empty($this->_itemsById) || empty($this->_selectAttributes)) {
+        if (empty($this->_items) || $this->_itemsById === [] || $this->_selectAttributes === []) {
             return $this;
         }
 
@@ -1171,11 +1175,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
         foreach ($selectGroups as $selects) {
             if (!empty($selects)) {
                 try {
-                    if (is_array($selects)) {
-                        $select = implode(' UNION ALL ', $selects);
-                    } else {
-                        $select = $selects;
-                    }
+                    $select = is_array($selects) ? implode(' UNION ALL ', $selects) : $selects;
 
                     $values = $this->getConnection()->fetchAll($select);
                 } catch (Exception $exception) {
@@ -1207,12 +1207,11 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
             $attributeIds = $this->_selectAttributes;
         }
 
-        $helper = Mage::getResourceHelper('eav');
         $entityIdField = $this->getEntity()->getEntityIdField();
         return $this->getConnection()->select()
             ->from($table, [$entityIdField, 'attribute_id'])
             ->where('entity_type_id =?', $this->getEntity()->getTypeId())
-            ->where("$entityIdField IN (?)", array_keys($this->_itemsById))
+            ->where("{$entityIdField} IN (?)", array_keys($this->_itemsById))
             ->where('attribute_id IN (?)', $attributeIds);
     }
 
@@ -1350,22 +1349,22 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
 
             if ($fkAttribute->getBackend()->isStatic()) {
                 if (isset($this->_joinAttributes[$fkName])) {
-                    $fk = $fkTable . '.' . $fkAttribute->getAttributeCode();
+                    $foreignKey = $fkTable . '.' . $fkAttribute->getAttributeCode();
                 } else {
-                    $fk = 'e.' . $fkAttribute->getAttributeCode();
+                    $foreignKey = 'e.' . $fkAttribute->getAttributeCode();
                 }
             } else {
                 $this->_addAttributeJoin($fkAttribute->getAttributeCode(), $joinType);
-                $fk = $fkTable . '.value';
+                $foreignKey = $fkTable . '.value';
             }
 
-            $pk = $attrTable . '.' . $this->_joinAttributes[$attributeCode]['filter'];
+            $privateKey = $attrTable . '.' . $this->_joinAttributes[$attributeCode]['filter'];
         } else {
             $entity         = $this->getEntity();
             $entityIdField  = $entity->getEntityIdField();
             $attribute      = $entity->getAttribute($attributeCode);
-            $fk             = 'e.' . $entityIdField;
-            $pk             = $attrTable . '.' . $entityIdField;
+            $foreignKey     = 'e.' . $entityIdField;
+            $privateKey     = $attrTable . '.' . $entityIdField;
         }
 
         if (!$attribute) {
@@ -1378,13 +1377,13 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
             $attrFieldName = $attrTable . '.value';
         }
 
-        $fk = $adapter->quoteColumnAs($fk, null);
-        $pk = $adapter->quoteColumnAs($pk, null);
+        $foreignKey = $adapter->quoteColumnAs($foreignKey, null);
+        $privateKey = $adapter->quoteColumnAs($privateKey, null);
 
-        $condArr = ["$pk = $fk"];
+        $condArr = ["{$privateKey} = {$foreignKey}"];
         if (!$attribute->getBackend()->isStatic()) {
             $condArr[] = $this->getConnection()->quoteInto(
-                $adapter->quoteColumnAs("$attrTable.attribute_id", null) . ' = ?',
+                $adapter->quoteColumnAs("{$attrTable}.attribute_id", null) . ' = ?',
                 $attribute->getId(),
             );
         }
@@ -1452,26 +1451,19 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
         }
 
         // process linked attribute
-        if (isset($this->_joinAttributes[$attribute])) {
-            $entity      = $this->getAttribute($attribute)->getEntity();
-            $entityTable = $entity->getEntityTable();
-        } else {
-            $entity      = $this->getEntity();
-            $entityTable = 'e';
-        }
+        $entity = isset($this->_joinAttributes[$attribute]) ? $this->getAttribute($attribute)->getEntity() : $this->getEntity();
 
         if ($entity->isAttributeStatic($attribute)) {
-            $conditionSql = $this->_getConditionSql(
+            return $this->_getConditionSql(
                 $this->getConnection()->quoteIdentifier('e.' . $attribute),
                 $condition,
             );
-        } else {
-            $this->_addAttributeJoin($attribute, $joinType);
-            $field = $this->_joinAttributes[$attribute]['condition_alias'] ?? ($this->_getAttributeTableAlias($attribute) . '.value');
-            $conditionSql = $this->_getConditionSql($field, $condition);
         }
 
-        return $conditionSql;
+        $this->_addAttributeJoin($attribute, $joinType);
+        $field = $this->_joinAttributes[$attribute]['condition_alias'] ?? ($this->_getAttributeTableAlias($attribute) . '.value');
+
+        return $this->_getConditionSql($field, $condition);
     }
 
     /**

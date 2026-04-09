@@ -490,6 +490,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
     /**
      * Save customer attributes.
      *
+     * @param  non-empty-array<non-empty-array>[] $attributesData
      * @return $this
      */
     protected function _saveCustomerAttributes(array $attributesData)
@@ -517,8 +518,8 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
     /**
      * Update and insert data in entity table.
      *
-     * @param  array $entityRowsIn Row for insert
-     * @param  array $entityRowsUp Row for update
+     * @param  array<int, array<string, mixed>> $entityRowsIn Row for insert
+     * @param  array<int, array<string, mixed>> $entityRowsUp Row for update
      * @return $this
      */
     protected function _saveCustomerEntity(array $entityRowsIn, array $entityRowsUp)
@@ -547,13 +548,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
      */
     public function getCustomerId($email, $websiteCode)
     {
-        if (isset($this->_oldCustomers[$email][$websiteCode])) {
-            return $this->_oldCustomers[$email][$websiteCode];
-        } elseif (isset($this->_newCustomers[$email][$websiteCode])) {
-            return $this->_newCustomers[$email][$websiteCode];
-        } else {
-            return null;
-        }
+        return $this->_oldCustomers[$email][$websiteCode] ?? $this->_newCustomers[$email][$websiteCode] ?? null;
     }
 
     /**
@@ -601,7 +596,11 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
      */
     public function isAttributeParticular($attrCode)
     {
-        return parent::isAttributeParticular($attrCode) || $this->_addressEntity->isAttributeParticular($attrCode);
+        if (parent::isAttributeParticular($attrCode)) {
+            return true;
+        }
+
+        return $this->_addressEntity->isAttributeParticular($attrCode);
     }
 
     /**

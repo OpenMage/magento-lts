@@ -14,7 +14,7 @@
  *
  * @package    Mage_Core
  */
-class Mage_Core_Model_Layout_Validator extends Mage_Core_Helper_Validate_Abstract
+class Mage_Core_Model_Layout_Validator extends Mage_Core_Model_Validate_Abstract
 {
     public const XML_PATH_LAYOUT_DISALLOWED_BLOCKS       = 'validators/custom_layout/disallowed_block';
 
@@ -31,7 +31,7 @@ class Mage_Core_Model_Layout_Validator extends Mage_Core_Helper_Validate_Abstrac
     /**
      * The Varien SimpleXml object
      *
-     * @var Varien_Simplexml_Element
+     * @inheritDoc
      */
     protected $_value;
 
@@ -210,15 +210,13 @@ class Mage_Core_Model_Layout_Validator extends Mage_Core_Helper_Validate_Abstrac
      */
     public function getXpathBlockValidationExpression()
     {
-        if (!$this->_xpathBlockValidationExpression) {
-            if (count($this->_disallowedBlock)) {
-                foreach ($this->_disallowedBlock as $key => $value) {
-                    $this->_xpathBlockValidationExpression .= $key > 0 ? ' | ' : '';
-                    $this->_xpathBlockValidationExpression
-                        .= "//block[translate(@type, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz') = ";
-                    $this->_xpathBlockValidationExpression
-                        .= "translate('$value', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')]";
-                }
+        if (!$this->_xpathBlockValidationExpression && count($this->_disallowedBlock)) {
+            foreach ($this->_disallowedBlock as $key => $value) {
+                $this->_xpathBlockValidationExpression .= $key > 0 ? ' | ' : '';
+                $this->_xpathBlockValidationExpression
+                    .= "//block[translate(@type, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz') = ";
+                $this->_xpathBlockValidationExpression
+                    .= "translate('{$value}', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')]";
             }
         }
 

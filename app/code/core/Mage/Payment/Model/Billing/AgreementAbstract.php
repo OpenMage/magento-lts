@@ -86,13 +86,13 @@ abstract class Mage_Payment_Model_Billing_AgreementAbstract extends Mage_Core_Mo
             $this->_errors[] = Mage::helper('payment')->__('Reference ID is not set.');
         }
 
-        return empty($this->_errors);
+        return $this->_errors === [];
     }
 
     /**
      * Before save, it's overridden just to make data validation on before save event
      *
-     * @return Mage_Core_Model_Abstract
+     * @return $this
      * @throws Mage_Core_Exception
      */
     protected function _beforeSave()

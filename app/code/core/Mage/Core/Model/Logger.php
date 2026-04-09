@@ -101,31 +101,4 @@ class Mage_Core_Model_Logger
     {
         Mage::logException($exception);
     }
-
-    /**
-     * Get log file path
-     */
-    protected function getLogFilePath(string $file): ?string
-    {
-        // Validate file extension before save. Allowed file extensions: log, txt, html, csv
-        $_allowedFileExtensions = HelperLog::getConfigAllowedFileExtensions();
-        if (! ($extension = pathinfo($file, PATHINFO_EXTENSION)) || ! in_array($extension, $_allowedFileExtensions)) {
-            return null;
-        }
-
-        $logDir = Mage::getBaseDir('var') . DS . 'log';
-        $logFile = $logDir . DS . $file;
-
-        if (!is_dir($logDir)) {
-            mkdir($logDir);
-            chmod($logDir, 0750);
-        }
-
-        if (!file_exists($logFile)) {
-            file_put_contents($logFile, '');
-            chmod($logFile, 0640);
-        }
-
-        return $logFile;
-    }
 }

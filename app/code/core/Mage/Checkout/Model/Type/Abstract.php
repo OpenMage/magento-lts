@@ -148,7 +148,7 @@ abstract class Mage_Checkout_Model_Type_Abstract extends Varien_Object
      */
     protected function _emailOrderConfirmation($email, $name, $order)
     {
-        $mailer = Mage::getModel('core/email')
+        Mage::getModel('core/email')
             ->setTemplate('email/order.phtml')
             ->setType('html')
             ->setTemplateVar('order', $order)

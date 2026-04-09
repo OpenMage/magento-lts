@@ -57,9 +57,9 @@ class Mage_Api_Model_Resource_Rules extends Mage_Core_Model_Resource_Db_Abstract
             }
 
             $adapter->commit();
-        } catch (Mage_Core_Exception $e) {
+        } catch (Mage_Core_Exception $mageCoreException) {
             $adapter->rollBack();
-            throw $e;
+            throw $mageCoreException;
         } catch (Exception) {
             $adapter->rollBack();
         }

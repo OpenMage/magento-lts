@@ -149,11 +149,7 @@ class Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Tem
      */
     public function getItemHtml(Varien_Object $item)
     {
-        if ($item->getOrderItem()) {
-            $type = $item->getOrderItem()->getProductType();
-        } else {
-            $type = $item->getProductType();
-        }
+        $type = $item->getOrderItem() ? $item->getOrderItem()->getProductType() : $item->getProductType();
 
         return $this->getItemRenderer($type)
             ->setItem($item)
@@ -277,14 +273,14 @@ class Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Tem
                 $strong,
                 $separator,
             );
-        } else {
-            return $this->displayPrices(
-                $this->getPriceDataObject()->getData('base_' . $code),
-                $this->getPriceDataObject()->getData($code),
-                $strong,
-                $separator,
-            );
         }
+
+        return $this->displayPrices(
+            $this->getPriceDataObject()->getData('base_' . $code),
+            $this->getPriceDataObject()->getData($code),
+            $strong,
+            $separator,
+        );
     }
 
     /**
@@ -401,9 +397,9 @@ class Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Tem
     {
         if ($item->getTaxPercent()) {
             return sprintf('%s%%', $item->getTaxPercent() + 0);
-        } else {
-            return '0%';
         }
+
+        return '0%';
     }
 
     /**
@@ -505,17 +501,12 @@ class Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Tem
     }
 
     /**
-     * CREDITMEMO
+     * @return bool
      */
 
     public function canReturnToStock()
     {
-        $canReturnToStock = Mage::getStoreConfig(Mage_CatalogInventory_Model_Stock_Item::XML_PATH_CAN_SUBTRACT);
-        if (Mage::getStoreConfig(Mage_CatalogInventory_Model_Stock_Item::XML_PATH_CAN_SUBTRACT)) {
-            return true;
-        } else {
-            return false;
-        }
+        return Mage::getStoreConfigFlag(Mage_CatalogInventory_Model_Stock_Item::XML_PATH_CAN_SUBTRACT);
     }
 
     /**
@@ -574,11 +565,7 @@ class Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Tem
         }
 
         $value = $order->getCanShipPartially();
-        if (!is_null($value) && !$value) {
-            return false;
-        }
-
-        return true;
+        return !(!is_null($value) && !$value);
     }
 
     /**
@@ -594,19 +581,11 @@ class Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Tem
         }
 
         $value = $order->getCanShipPartiallyItem();
-        if (!is_null($value) && !$value) {
-            return false;
-        }
-
-        return true;
+        return !(!is_null($value) && !$value);
     }
 
     public function isShipmentRegular()
     {
-        if (!$this->canShipPartiallyItem() || !$this->canShipPartially()) {
-            return false;
-        }
-
-        return true;
+        return $this->canShipPartiallyItem() && $this->canShipPartially();
     }
 }

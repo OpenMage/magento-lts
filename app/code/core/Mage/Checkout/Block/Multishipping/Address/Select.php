@@ -15,7 +15,7 @@
 class Mage_Checkout_Block_Multishipping_Address_Select extends Mage_Checkout_Block_Multishipping_Abstract
 {
     /**
-     * @return Mage_Checkout_Block_Multishipping_Abstract
+     * @return $this
      */
     protected function _prepareLayout()
     {

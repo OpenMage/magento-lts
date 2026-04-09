@@ -107,9 +107,9 @@ class Mage_Index_Model_Lock
     {
         if ($file) {
             return $this->_setLockFile($lockName, $block);
-        } else {
-            return $this->_setLockDb($lockName, $block);
         }
+
+        return $this->_setLockDb($lockName, $block);
     }
 
     /**
@@ -124,16 +124,16 @@ class Mage_Index_Model_Lock
         if ($block) {
             try {
                 $result = flock($this->_getLockFile($lockName), LOCK_EX);
-            } catch (Exception $e) {
-                Mage::logException($e);
-                throw $e;
+            } catch (Exception $exception) {
+                Mage::logException($exception);
+                throw $exception;
             }
         } else {
             try {
                 $result = flock($this->_getLockFile($lockName), LOCK_EX | LOCK_NB);
-            } catch (Exception $e) {
-                Mage::logException($e);
-                throw $e;
+            } catch (Exception $exception) {
+                Mage::logException($exception);
+                throw $exception;
             }
         }
 
@@ -173,9 +173,9 @@ class Mage_Index_Model_Lock
     {
         if ($file) {
             return $this->_releaseLockFile($lockName);
-        } else {
-            return $this->_releaseLockDb($lockName);
         }
+
+        return $this->_releaseLockDb($lockName);
     }
 
     /**
@@ -221,9 +221,9 @@ class Mage_Index_Model_Lock
     {
         if ($file) {
             return $this->_isLockExistsFile($lockName);
-        } else {
-            return $this->_isLockExistsDb($lockName);
         }
+
+        return $this->_isLockExistsDb($lockName);
     }
 
     /**
@@ -235,10 +235,10 @@ class Mage_Index_Model_Lock
     protected function _isLockExistsFile($lockName)
     {
         $result = true;
-        $fp = $this->_getLockFile($lockName);
+        $resource = $this->_getLockFile($lockName);
         try {
-            if (flock($fp, LOCK_EX | LOCK_NB)) {
-                flock($fp, LOCK_UN);
+            if (flock($resource, LOCK_EX | LOCK_NB)) {
+                flock($resource, LOCK_UN);
                 $result = false;
             }
         } catch (Exception $exception) {
@@ -289,11 +289,7 @@ class Mage_Index_Model_Lock
         if (!isset(self::$_lockFileResource[$lockName]) || self::$_lockFileResource[$lockName] === null) {
             $varDir = Mage::getConfig()->getVarDir('locks');
             $file = $varDir . DS . $lockName . '.lock';
-            if (is_file($file)) {
-                self::$_lockFileResource[$lockName] = fopen($file, 'w');
-            } else {
-                self::$_lockFileResource[$lockName] = fopen($file, 'x');
-            }
+            self::$_lockFileResource[$lockName] = is_file($file) ? fopen($file, 'w') : fopen($file, 'x');
 
             if (!self::$_lockFileResource[$lockName]) {
                 self::$_lockFileResource[$lockName] = null;

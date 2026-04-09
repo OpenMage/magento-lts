@@ -145,13 +145,14 @@ class Varien_Db_Select extends Zend_Db_Select
                         continue;
                     }
 
-                    if (!empty($table['joinCondition'])) {
-                        if ($this->_findTableInCond($tableId, $table['joinCondition'])
+                    if (!empty($table['joinCondition'])
+                        && (
+                            $this->_findTableInCond($tableId, $table['joinCondition'])
                             || $this->_findTableInCond($tableProp['tableName'], $table['joinCondition'])
-                        ) {
-                            $useJoin = true;
-                            $joinInTables[] = $tableCorrelationName;
-                        }
+                        )
+                    ) {
+                        $useJoin = true;
+                        $joinInTables[] = $tableCorrelationName;
                     }
                 }
 
@@ -444,11 +445,7 @@ class Varien_Db_Select extends Zend_Db_Select
      */
     public function exists($select, $joinCondition, $isExists = true)
     {
-        if ($isExists) {
-            $exists = 'EXISTS (%s)';
-        } else {
-            $exists = 'NOT EXISTS (%s)';
-        }
+        $exists = $isExists ? 'EXISTS (%s)' : 'NOT EXISTS (%s)';
 
         $select->reset(self::COLUMNS)
             ->columns([new Zend_Db_Expr('1')])

@@ -325,11 +325,7 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
      */
     protected function _getItemIsActive($id)
     {
-        if (!in_array($id, $this->_inactiveItems)) {
-            return true;
-        }
-
-        return false;
+        return !in_array($id, $this->_inactiveItems);
     }
 
     /**
@@ -496,7 +492,7 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
                 // phpcs:ignore Ecg.Performance.Loop.ArraySize
                 $pathIds[count($pathIds) - 1] = '%';
                 $path = implode('/', $pathIds);
-                $where["$levelField=$level AND $pathField LIKE '$path'"] = true;
+                $where["{$levelField}={$level} AND {$pathField} LIKE '{$path}'"] = true;
                 array_pop($pathIds);
                 $level--;
             }
@@ -552,12 +548,8 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
         }
 
         $result = [];
-        if (!empty($pathIds)) {
-            if ($addCollectionData) {
-                $select = $this->_createCollectionDataSelect(false);
-            } else {
-                $select = clone $this->_select;
-            }
+        if ($pathIds !== []) {
+            $select = $addCollectionData ? $this->_createCollectionDataSelect(false) : clone $this->_select;
 
             $select
                 ->where('e.entity_id IN(?)', $pathIds)

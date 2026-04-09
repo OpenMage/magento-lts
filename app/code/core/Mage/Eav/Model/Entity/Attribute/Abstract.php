@@ -508,8 +508,15 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
      */
     public function usesSource()
     {
-        return $this->getFrontendInput() === 'select' || $this->getFrontendInput() === 'multiselect'
-            || $this->getData('source_model') != '';
+        if ($this->getFrontendInput() === 'select') {
+            return true;
+        }
+
+        if ($this->getFrontendInput() === 'multiselect') {
+            return true;
+        }
+
+        return $this->getData('source_model') != '';
     }
 
     /**
@@ -579,13 +586,8 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
             return true;
         }
 
-        if (!is_array($setId)
-            && array_key_exists($setId, $this->getAttributeSetInfo())
-        ) {
-            return true;
-        }
-
-        return false;
+        return !is_array($setId)
+            && array_key_exists($setId, $this->getAttributeSetInfo());
     }
 
     /**
@@ -598,11 +600,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
     public function isInGroup($setId, $groupId)
     {
         $dataPath = sprintf('attribute_set_info/%s/group_id', $setId);
-        if ($this->isInSet($setId) && $this->getData($dataPath) == $groupId) {
-            return true;
-        }
-
-        return false;
+        return $this->isInSet($setId) && $this->getData($dataPath) == $groupId;
     }
 
     /**
@@ -630,7 +628,11 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
      */
     public function isStatic()
     {
-        return $this->getBackendType() == self::TYPE_STATIC || $this->getBackendType() == '';
+        if ($this->getBackendType() == self::TYPE_STATIC) {
+            return true;
+        }
+
+        return $this->getBackendType() == '';
     }
 
     /**
@@ -673,9 +675,9 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
 
         if (Mage::helper('core')->useDbCompatibleMode()) {
             return $this->_getFlatColumnsOldDefinition();
-        } else {
-            return $this->_getFlatColumnsDdlDefinition();
         }
+
+        return $this->_getFlatColumnsDdlDefinition();
     }
 
     /**
@@ -956,7 +958,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
     }
 
     /**
-     * @return array
+     * @return array<int, string>|array<void>
      */
     public function getApplyTo()
     {

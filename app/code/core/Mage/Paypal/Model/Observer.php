@@ -26,8 +26,8 @@ class Mage_Paypal_Model_Observer
             foreach ($credentials as $config) {
                 try {
                     $reports->fetchAndSave($config);
-                } catch (Exception $e) {
-                    Mage::logException($e);
+                } catch (Exception $exception) {
+                    Mage::logException($exception);
                 }
             }
         } catch (Exception $exception) {

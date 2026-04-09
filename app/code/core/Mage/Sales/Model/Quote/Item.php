@@ -29,7 +29,6 @@
  * @method float                                           getBaseWeeeTaxRowDisposition()
  * @method Mage_Sales_Model_Resource_Quote_Item_Collection getCollection()
  * @method float                                           getCost()
- * @method string                                          getCreatedAt()
  * @method float                                           getCustomPrice()
  * @method string                                          getDescription()
  * @method float                                           getDiscountAmount()
@@ -62,7 +61,6 @@
  * @method int                                             getStoreId()
  * @method float                                           getTaxBeforeDiscount()
  * @method float                                           getTaxPercent()
- * @method string                                          getUpdatedAt()
  * @method bool                                            getUseOldQty()
  * @method string                                          getWeeeTaxApplied()
  * @method float                                           getWeeeTaxAppliedAmount()
@@ -87,7 +85,6 @@
  * @method $this                                           setBaseWeeeTaxAppliedRowAmount(float $value)
  * @method $this                                           setBaseWeeeTaxDisposition(float $value)
  * @method $this                                           setBaseWeeeTaxRowDisposition(float $value)
- * @method $this                                           setCreatedAt(string $value)
  * @method $this                                           setDescription(string $value)
  * @method $this                                           setDiscountAmount(float $value)
  * @method $this                                           setDiscountPercent(float $value)
@@ -125,7 +122,6 @@
  * @method $this                                           setTaxBeforeDiscount(float $value)
  * @method $this                                           setTaxClassId(int $value)
  * @method $this                                           setTaxPercent(float $value)
- * @method $this                                           setUpdatedAt(string $value)
  * @method $this                                           setWeeeTaxApplied(string $value)
  * @method $this                                           setWeeeTaxAppliedAmount(float $value)
  * @method $this                                           setWeeeTaxAppliedRowAmount(float $value)
@@ -428,10 +424,8 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
          * only within same parent item
          */
         $stickWithinParent = $product->getStickWithinParent();
-        if ($stickWithinParent) {
-            if ($this->getParentItem() !== $stickWithinParent) {
-                return false;
-            }
+        if ($stickWithinParent && $this->getParentItem() !== $stickWithinParent) {
+            return false;
         }
 
         // Check options
@@ -442,11 +436,7 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
             return false;
         }
 
-        if (!$this->compareOptions($productOptions, $itemOptions)) {
-            return false;
-        }
-
-        return true;
+        return $this->compareOptions($productOptions, $itemOptions);
     }
 
     /**
@@ -480,7 +470,7 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
     /**
      * Compare item
      *
-     * @param  Mage_Sales_Model_Quote_Item $item
+     * @param  Mage_Sales_Model_Quote_Item_Abstract $item
      * @return bool
      */
     public function compare($item)
@@ -522,8 +512,8 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
                                 unset($itemOptionValue[$key], $optionValue[$key]);
                             }
                         }
-                    } catch (Exception $e) {
-                        Mage::logException($e);
+                    } catch (Exception $exception) {
+                        Mage::logException($exception);
                     }
                 }
 

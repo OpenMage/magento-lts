@@ -14,6 +14,9 @@
  */
 class Mage_Adminhtml_Model_System_Config_Source_Reports_Scope
 {
+    /**
+     * @return array<int, array<string, string>>
+     */
     public function toOptionArray()
     {
         return [

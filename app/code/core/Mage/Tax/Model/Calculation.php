@@ -12,6 +12,8 @@
  *
  * @package    Mage_Tax
  *
+ * @phpstan-import-type ConfigStoreId from Mage
+ *
  * @method Mage_Tax_Model_Resource_Calculation            _getResource()
  * @method array                                          getCalculationProcess()
  * @method Mage_Tax_Model_Resource_Calculation_Collection getCollection()
@@ -245,7 +247,7 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
     /**
      * Aggregate tax calculation data to array
      *
-     * @return array
+     * @return array<int, array<string, array<int, array<string, int|string>>|string>>
      */
     protected function _formCalculationProcess()
     {
@@ -258,7 +260,7 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
 
         $process = [];
         $process['percent'] = $value;
-        $process['id'] = "$rateId-$value";
+        $process['id'] = "{$rateId}-{$value}";
         $process['rates'][] = $rate;
 
         return [$process];
@@ -346,7 +348,7 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
     /**
      * Get request object for getting tax rate based on store shippig original address
      *
-     * @param  null|bool|int|Mage_Core_Model_Store|string $store
+     * @param  ConfigStoreId $store
      * @return Varien_Object
      */
     public function getRateOriginRequest($store = null)
@@ -363,7 +365,7 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
     /**
      * Return the default rate request. It can be either based on store address or customer address
      *
-     * @param  null|bool|int|Mage_Core_Model_Store|string $store
+     * @param  ConfigStoreId $store
      * @return Varien_Object
      */
     public function getDefaultRateRequest($store = null)
@@ -371,9 +373,9 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
         if ($this->_taxHelper->isCrossBorderTradeEnabled($store)) {
             //If cross border trade is enabled, we will use customer tax rate as store tax rate
             return $this->getRateRequest(null, null, null, $store);
-        } else {
-            return $this->getRateOriginRequest($store);
         }
+
+        return $this->getRateOriginRequest($store);
     }
 
     /**
@@ -388,7 +390,7 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
      * @param  null|false|Mage_Customer_Model_Address|Mage_Sales_Model_Quote_Address|Varien_Object $shippingAddress
      * @param  null|false|Mage_Customer_Model_Address|Mage_Sales_Model_Quote_Address|Varien_Object $billingAddress
      * @param  null|int                                                                            $customerTaxClass
-     * @param  null|bool|int|Mage_Core_Model_Store|string                                          $store
+     * @param  ConfigStoreId                                                                       $store
      * @return Varien_Object
      * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
@@ -441,7 +443,7 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
                 $address = $this->getRateOriginRequest($store);
                 break;
             case 'default':
-                /** @var Mage_Sales_Model_Quote_Address|Varien_Object $address */
+                /** @var Mage_Sales_Model_Quote_Address $address */
                 $address
                     ->setCountryId(Mage::getStoreConfig(
                         Mage_Tax_Model_Config::CONFIG_XML_PATH_DEFAULT_COUNTRY,
@@ -662,11 +664,7 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
     {
         $taxRate /= 100;
 
-        if ($priceIncludeTax) {
-            $amount = $price * (1 - 1 / (1 + $taxRate));
-        } else {
-            $amount = $price * $taxRate;
-        }
+        $amount = $priceIncludeTax ? $price * (1 - 1 / (1 + $taxRate)) : $price * $taxRate;
 
         if ($round) {
             return $this->round($amount);

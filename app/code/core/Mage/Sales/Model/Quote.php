@@ -31,7 +31,6 @@
  * @method bool                                       getChangedFlag()
  * @method Mage_Sales_Model_Resource_Quote_Collection getCollection()
  * @method string                                     getConvertedAt()
- * @method string                                     getCreatedAt()
  * @method string                                     getCustomerDob()
  * @method string                                     getCustomerEmail()
  * @method string                                     getCustomerFirstname()
@@ -78,7 +77,6 @@
  * @method array                                      getTaxesForItems()
  * @method bool                                       getTotalsCollectedFlag()
  * @method int                                        getTriggerRecollect()
- * @method string                                     getUpdatedAt()
  * @method bool                                       getUseCustomerBalance()
  * @method bool                                       getUseRewardPoints()
  * @method float                                      getVirtualItemsQty()
@@ -97,7 +95,6 @@
  * @method $this                                      setBaseToQuoteRate(float $value)
  * @method $this                                      setCheckoutMethod(string $value)
  * @method $this                                      setConvertedAt(string $value)
- * @method $this                                      setCreatedAt(string $value)
  * @method $this                                      setCustomerDob(string $value)
  * @method $this                                      setCustomerEmail(string $value)
  * @method $this                                      setCustomerFirstname(string $value)
@@ -145,7 +142,6 @@
  * @method $this                                      setTaxesForItems(array $itemTaxGroups)
  * @method $this                                      setTotalsCollectedFlag(bool $value)
  * @method $this                                      setTriggerRecollect(int $value)
- * @method $this                                      setUpdatedAt(string $value)
  * @method $this                                      setUseCustomerBalance(bool $value)
  * @method $this                                      setUseRewardPoints(bool $value)
  * @method $this                                      setVirtualItemsQty(float $value)
@@ -163,7 +159,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      *
      * When you use true - all cache will be clean
      *
-     * @var string|true
+     * @inheritDoc
      */
     protected $_cacheTag = 'quote';
 
@@ -313,11 +309,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         $globalCurrencyCode  = Mage::app()->getBaseCurrencyCode();
         $baseCurrency = $this->getStore()->getBaseCurrency();
 
-        if ($this->hasForcedCurrency()) {
-            $quoteCurrency = $this->getForcedCurrency();
-        } else {
-            $quoteCurrency = $this->getStore()->getCurrentCurrency();
-        }
+        $quoteCurrency = $this->hasForcedCurrency() ? $this->getForcedCurrency() : $this->getStore()->getCurrentCurrency();
 
         $this->setGlobalCurrencyCode($globalCurrencyCode);
         $this->setBaseCurrencyCode($baseCurrency->getCode());
@@ -378,11 +370,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      */
     public function loadByCustomer($customer)
     {
-        if ($customer instanceof Mage_Customer_Model_Customer) {
-            $customerId = $customer->getId();
-        } else {
-            $customerId = (int) $customer;
-        }
+        $customerId = $customer instanceof Mage_Customer_Model_Customer ? $customer->getId() : (int) $customer;
 
         $this->_getResource()->loadByCustomerId($this, $customerId);
         $this->_afterLoad();
@@ -521,11 +509,13 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     {
         if ($this->hasData('customer_group_id')) {
             return $this->getData('customer_group_id');
-        } elseif ($this->getCustomerId()) {
-            return $this->getCustomer()->getGroupId();
-        } else {
-            return Mage_Customer_Model_Group::NOT_LOGGED_IN_ID;
         }
+
+        if ($this->getCustomerId()) {
+            return $this->getCustomer()->getGroupId();
+        }
+
+        return Mage_Customer_Model_Group::NOT_LOGGED_IN_ID;
     }
 
     /**
@@ -920,24 +910,23 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     /**
      * Retrieve item model object by item identifier
      *
-     * @param  int                         $itemId
-     * @return Mage_Sales_Model_Quote_Item
+     * @param  int                              $itemId
+     * @return null|Mage_Sales_Model_Quote_Item
      * @throws Mage_Core_Exception
      */
     public function getItemById($itemId)
     {
-        $quoteItem = null;
         if ($quoteItem = $this->getItemsCollection()->getItemById($itemId)) {
             return $quoteItem;
-        } else {
-            foreach ($this->getItemsCollection() as $item) {
-                if ($item->getId() == $itemId) {
-                    return $item;
-                }
+        }
+
+        foreach ($this->getItemsCollection() as $item) {
+            if ($item->getId() == $itemId) {
+                return $item;
             }
         }
 
-        return $quoteItem;
+        return null;
     }
 
     /**
@@ -1137,7 +1126,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
             }
         }
 
-        if (!empty($errors)) {
+        if ($errors !== []) {
             Mage::throwException(implode("\n", $errors));
         }
 
@@ -1272,13 +1261,14 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
 
             $items = $this->getAllItems();
             foreach ($items as $item) {
-                if (($item->getProductId() == $productId) && ($item->getId() != $resultItem->getId())) {
-                    if ($resultItem->compare($item)) {
-                        // Product configuration is same as in other quote item
-                        $resultItem->setQty($resultItem->getQty() + $item->getQty());
-                        $this->removeItem($item->getId());
-                        break;
-                    }
+                if ($item->getProductId() == $productId
+                    && $item->getId() != $resultItem->getId()
+                    && $resultItem->compare($item)
+                ) {
+                    // Product configuration is same as in other quote item
+                    $resultItem->setQty($resultItem->getQty() + $item->getQty());
+                    $this->removeItem($item->getId());
+                    break;
                 }
             }
         } else {
@@ -1569,7 +1559,11 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         $totals = $shippingAddress->getTotals();
         // Going through all quote addresses and merge their totals
         foreach ($this->getAddressesCollection() as $address) {
-            if ($address->isDeleted() || $address === $shippingAddress) {
+            if ($address->isDeleted()) {
+                continue;
+            }
+
+            if ($address === $shippingAddress) {
                 continue;
             }
 
@@ -1637,7 +1631,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     /**
      * Retrieve current quote errors
      *
-     * @return array
+     * @return Mage_Core_Model_Message_Abstract[]
      */
     public function getErrors()
     {
@@ -1883,7 +1877,11 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         $countItems = 0;
         /** @var Mage_Sales_Model_Quote_Item $item */
         foreach ($this->getItemsCollection() as $item) {
-            if ($item->isDeleted() || $item->getParentItemId()) {
+            if ($item->isDeleted()) {
+                continue;
+            }
+
+            if ($item->getParentItemId()) {
                 continue;
             }
 
@@ -1960,6 +1958,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
                 $newItem = clone $item;
                 $this->addItem($newItem);
                 if ($item->getHasChildren()) {
+                    /** @var Mage_Sales_Model_Quote_Item $child */
                     foreach ($item->getChildren() as $child) {
                         $newChild = clone $child;
                         $newChild->setParentItem($newItem);

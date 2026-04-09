@@ -365,7 +365,7 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
         }
 
         $dateTs     = Mage::app()->getLocale()->date()->getTimestamp();
-        $cacheKey   = Carbon::createFromTimestamp($dateTs)->format('Y-m-d') . "|$websiteId|$customerGroupId|$productId|$price";
+        $cacheKey   = Carbon::createFromTimestamp($dateTs)->format('Y-m-d') . "|{$websiteId}|{$customerGroupId}|{$productId}|{$price}";
 
         if (!array_key_exists($cacheKey, self::$_priceRulesData)) {
             $rulesData = $this->_getResource()->getRulesFromProduct($dateTs, $websiteId, $customerGroupId, $productId);
@@ -398,9 +398,9 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
                 }
 
                 return self::$_priceRulesData[$cacheKey] = $priceRules;
-            } else {
-                self::$_priceRulesData[$cacheKey] = null;
             }
+
+            self::$_priceRulesData[$cacheKey] = null;
         } else {
             return self::$_priceRulesData[$cacheKey];
         }

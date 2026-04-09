@@ -218,11 +218,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
      */
     public function canUseForCurrency($currencyCode)
     {
-        if (!in_array($currencyCode, $this->getAcceptedCurrencyCodes())) {
-            return false;
-        }
-
-        return true;
+        return in_array($currencyCode, $this->getAcceptedCurrencyCodes());
     }
 
     /**
@@ -412,8 +408,8 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
                 $newTransaction = $this->_voidCardTransaction($payment, $card);
                 $messages[] = $newTransaction->getMessage();
                 $isSuccessful = true;
-            } catch (Exception $e) {
-                $messages[] = $e->getMessage();
+            } catch (Exception $exception) {
+                $messages[] = $exception->getMessage();
                 $isFiled = true;
                 continue;
             }
@@ -474,8 +470,8 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
                     $newTransaction = $this->_refundCardTransaction($payment, $cardAmountForRefund, $card);
                     $messages[] = $newTransaction->getMessage();
                     $isSuccessful = true;
-                } catch (Exception $e) {
-                    $messages[] = $e->getMessage();
+                } catch (Exception $exception) {
+                    $messages[] = $exception->getMessage();
                     $isFiled = true;
                     continue;
                 }
@@ -516,8 +512,8 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
 
         switch ($result->getResponseCode()) {
             case self::RESPONSE_CODE_APPROVED:
-                $payment->setAdditionalInformation($this->_splitTenderIdKey, null);
-                $this->_getSession()->setData($this->_partialAuthorizationChecksumSessionKey, null);
+                $payment->setAdditionalInformation($this->_splitTenderIdKey);
+                $this->_getSession()->setData($this->_partialAuthorizationChecksumSessionKey);
                 $this->getCardsStorage($payment)->flushCards();
                 $this->setPartialAuthorizationLastActionState(self::PARTIAL_AUTH_ALL_CANCELED);
                 return;
@@ -702,7 +698,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
             }
         }
 
-        $this->_getSession()->setData($this->_partialAuthorizationChecksumSessionKey, null);
+        $this->_getSession()->setData($this->_partialAuthorizationChecksumSessionKey);
         return $this;
     }
 
@@ -763,8 +759,8 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
                     );
                     $messages[] = $newTransaction->getMessage();
                     $isSuccessful = true;
-                } catch (Exception $e) {
-                    $messages[] = $e->getMessage();
+                } catch (Exception $exception) {
+                    $messages[] = $exception->getMessage();
                     $isFiled = true;
                     continue;
                 }
@@ -1114,8 +1110,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
      *
      * Update transaction info if there is one placing transaction only
      *
-     * @param  string $transactionId
-     * @return array
+     * @inheritDoc
      */
     public function fetchTransactionInfo(Mage_Payment_Model_Info $payment, $transactionId)
     {
@@ -1270,12 +1265,6 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
 
         switch ($payment->getAnetTransType()) {
             case self::REQUEST_TYPE_AUTH_CAPTURE:
-                $request->setXAllowPartialAuth($this->getConfigData('allow_partial_authorization') ? 'True' : 'False');
-                if ($payment->getAdditionalInformation($this->_splitTenderIdKey)) {
-                    $request->setXSplitTenderId($payment->getAdditionalInformation($this->_splitTenderIdKey));
-                }
-
-                break;
             case self::REQUEST_TYPE_AUTH_ONLY:
                 $request->setXAllowPartialAuth($this->getConfigData('allow_partial_authorization') ? 'True' : 'False');
                 if ($payment->getAdditionalInformation($this->_splitTenderIdKey)) {
@@ -1292,8 +1281,6 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
                 $request->setXTransId($payment->getXTransId());
                 break;
             case self::REQUEST_TYPE_VOID:
-                $request->setXTransId($payment->getXTransId());
-                break;
             case self::REQUEST_TYPE_PRIOR_AUTH_CAPTURE:
                 $request->setXTransId($payment->getXTransId());
                 break;
@@ -1398,32 +1385,31 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
             Mage::throwException($this->_wrapGatewayError($exception->getMessage()));
         }
 
-        $responseBody = $response->getBody();
+        $responseBody       = $response->getBody();
+        $responseBodyArray  = explode(self::RESPONSE_DELIM_CHAR, $responseBody);
 
-        $r = explode(self::RESPONSE_DELIM_CHAR, $responseBody);
-
-        if ($r) {
-            $result->setResponseCode((int) str_replace('"', '', $r[0]))
-                ->setResponseSubcode((int) str_replace('"', '', $r[1]))
-                ->setResponseReasonCode((int) str_replace('"', '', $r[2]))
-                ->setResponseReasonText($r[3])
-                ->setApprovalCode($r[4])
-                ->setAvsResultCode($r[5])
-                ->setTransactionId($r[6])
-                ->setInvoiceNumber($r[7])
-                ->setDescription($r[8])
-                ->setAmount($r[9])
-                ->setMethod($r[10])
-                ->setTransactionType($r[11])
-                ->setCustomerId($r[12])
-                ->setMd5Hash($r[37])
-                ->setCardCodeResponseCode($r[38])
-                ->setCAVVResponseCode($r[39] ?? null)
-                ->setSplitTenderId($r[52])
-                ->setAccNumber($r[50])
-                ->setCardType($r[51])
-                ->setRequestedAmount($r[53])
-                ->setBalanceOnCard($r[54])
+        if ($responseBodyArray) {
+            $result->setResponseCode((int) str_replace('"', '', $responseBodyArray[0]))
+                ->setResponseSubcode((int) str_replace('"', '', $responseBodyArray[1]))
+                ->setResponseReasonCode((int) str_replace('"', '', $responseBodyArray[2]))
+                ->setResponseReasonText($responseBodyArray[3])
+                ->setApprovalCode($responseBodyArray[4])
+                ->setAvsResultCode($responseBodyArray[5])
+                ->setTransactionId($responseBodyArray[6])
+                ->setInvoiceNumber($responseBodyArray[7])
+                ->setDescription($responseBodyArray[8])
+                ->setAmount($responseBodyArray[9])
+                ->setMethod($responseBodyArray[10])
+                ->setTransactionType($responseBodyArray[11])
+                ->setCustomerId($responseBodyArray[12])
+                ->setMd5Hash($responseBodyArray[37])
+                ->setCardCodeResponseCode($responseBodyArray[38])
+                ->setCAVVResponseCode($responseBodyArray[39] ?? null)
+                ->setSplitTenderId($responseBodyArray[52])
+                ->setAccNumber($responseBodyArray[50])
+                ->setCardType($responseBodyArray[51])
+                ->setRequestedAmount($responseBodyArray[53])
+                ->setBalanceOnCard($responseBodyArray[54])
             ;
         } else {
             Mage::throwException(
@@ -1457,9 +1443,9 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
     {
         if (Mage::app()->getStore()->isAdmin()) {
             return Mage::getSingleton('adminhtml/session_quote');
-        } else {
-            return Mage::getSingleton('checkout/session');
         }
+
+        return Mage::getSingleton('checkout/session');
     }
 
     /**
@@ -1518,6 +1504,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
      *
      * @param  string                                          $transactionId
      * @param  string                                          $transactionType
+     * @param  array<string, int>|array<string, mixed>         $transactionDetails
      * @return null|Mage_Sales_Model_Order_Payment_Transaction
      */
     protected function _addTransaction(
@@ -1698,12 +1685,29 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
             ->setTransactionStatus((string) $responseTransactionXmlDocument->transactionStatus)
         ;
         //some additional fields:
-        isset($responseTransactionXmlDocument->responseReasonDescription) && $response->setResponseReasonDescription((string) $responseTransactionXmlDocument->responseReasonDescription);
-        isset($responseTransactionXmlDocument->FDSFilterAction)           && $response->setFdsFilterAction((string) $responseTransactionXmlDocument->FDSFilterAction);
-        isset($responseTransactionXmlDocument->FDSFilters)                && $response->setFdsFilters(serialize($responseTransactionXmlDocument->FDSFilters->asArray()));
-        isset($responseTransactionXmlDocument->transactionType)           && $response->setTransactionType((string) $responseTransactionXmlDocument->transactionType);
-        isset($responseTransactionXmlDocument->submitTimeUTC)             && $response->setSubmitTimeUtc((string) $responseTransactionXmlDocument->submitTimeUTC);
-        isset($responseTransactionXmlDocument->submitTimeLocal)           && $response->setSubmitTimeLocal((string) $responseTransactionXmlDocument->submitTimeLocal);
+        if (isset($responseTransactionXmlDocument->responseReasonDescription)) {
+            $response->setResponseReasonDescription((string) $responseTransactionXmlDocument->responseReasonDescription);
+        }
+
+        if (isset($responseTransactionXmlDocument->FDSFilterAction)) {
+            $response->setFdsFilterAction((string) $responseTransactionXmlDocument->FDSFilterAction);
+        }
+
+        if (isset($responseTransactionXmlDocument->FDSFilters)) {
+            $response->setFdsFilters(serialize($responseTransactionXmlDocument->FDSFilters->asArray()));
+        }
+
+        if (isset($responseTransactionXmlDocument->transactionType)) {
+            $response->setTransactionType((string) $responseTransactionXmlDocument->transactionType);
+        }
+
+        if (isset($responseTransactionXmlDocument->submitTimeUTC)) {
+            $response->setSubmitTimeUtc((string) $responseTransactionXmlDocument->submitTimeUTC);
+        }
+
+        if (isset($responseTransactionXmlDocument->submitTimeLocal)) {
+            $response->setSubmitTimeLocal((string) $responseTransactionXmlDocument->submitTimeLocal);
+        }
 
         return $response;
     }

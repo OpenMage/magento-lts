@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -27,7 +29,7 @@ class Mage_Tax_Model_Class extends Mage_Core_Model_Abstract
 
     public const TAX_CLASS_TYPE_PRODUCT    = 'PRODUCT';
 
-    public function _construct()
+    protected function _construct()
     {
         $this->_init('tax/class');
     }

@@ -413,6 +413,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
                     $elementFieldData['disabled'] = 1;
                     $elementFieldData['can_use_default_value'] = 0;
                     $elementFieldData['can_use_website_value'] = 0;
+                    $elementFieldData['class'] = trim($elementFieldData['class'] . ' env-locked');
                 }
 
                 $field = $fieldset->addField($id, $fieldType, $elementFieldData);
@@ -554,7 +555,9 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
     {
         if ($element->tooltip) {
             return Mage::helper($helper)->__((string) $element->tooltip);
-        } elseif ($element->tooltip_block) {
+        }
+
+        if ($element->tooltip_block) {
             return $this->getLayout()->createBlock((string) $element->tooltip_block)->toHtml();
         }
 
@@ -594,11 +597,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
             return true;
         }
 
-        if ($this->getScope() == self::SCOPE_WEBSITES && $field) {
-            return true;
-        }
-
-        return false;
+        return $this->getScope() == self::SCOPE_WEBSITES && $field;
     }
 
     /**
@@ -608,11 +607,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
      */
     public function canUseWebsiteValue($field)
     {
-        if ($this->getScope() == self::SCOPE_STORES && $field) {
-            return true;
-        }
-
-        return false;
+        return $this->getScope() == self::SCOPE_STORES && $field;
     }
 
     /**
@@ -681,16 +676,16 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
         $website    = Mage::app()->getRequest()->getParam('website');
 
         if ($store && $website) {
-            $path = "$scope/$store/$path";
+            $path = "{$scope}/{$store}/{$path}";
             return $environmentConfigLoaderHelper->hasPath($path);
         }
 
         if ($website) {
-            $path = "$scope/$website/$path";
+            $path = "{$scope}/{$website}/{$path}";
             return $environmentConfigLoaderHelper->hasPath($path);
         }
 
-        $path = "$scope/$path";
+        $path = "{$scope}/{$path}";
         return $environmentConfigLoaderHelper->hasPath($path);
     }
 
@@ -704,7 +699,9 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
     {
         if ((int) $element->show_in_store === 1) {
             return $this->_scopeLabels[self::SCOPE_STORES];
-        } elseif ((int) $element->show_in_website === 1) {
+        }
+
+        if ((int) $element->show_in_website === 1) {
             return $this->_scopeLabels[self::SCOPE_WEBSITES];
         }
 
@@ -761,7 +758,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
     }
 
     /**
-     * @return array
+     * @return array<string, string>
      */
     protected function _getAdditionalElementTypes()
     {

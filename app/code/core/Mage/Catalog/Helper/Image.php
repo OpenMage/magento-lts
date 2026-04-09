@@ -12,13 +12,15 @@
  *
  * @package    Mage_Catalog
  */
-class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
+class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract implements Stringable
 {
     public const XML_NODE_PRODUCT_BASE_IMAGE_WIDTH = 'catalog/product_image/base_width';
 
     public const XML_NODE_PRODUCT_SMALL_IMAGE_WIDTH = 'catalog/product_image/small_width';
 
     public const XML_NODE_PRODUCT_MAX_DIMENSION = 'catalog/product_image/max_dimension';
+
+    public const XML_NODE_SKIP_IMAGE_ON_DUPLICATE_ACTION = 'catalog/product_image/images_on_duplicate_action';
 
     protected $_moduleName = 'Mage_Catalog';
 
@@ -331,10 +333,8 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
 
     /**
      * Return Image URL
-     *
-     * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
         try {
             $model = $this->_getModel();
@@ -347,21 +347,21 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
 
             if ($model->isCached()) {
                 return $model->getUrl();
-            } else {
-                if ($this->_scheduleRotate) {
-                    $model->rotate($this->getAngle());
-                }
-
-                if ($this->_scheduleResize) {
-                    $model->resize();
-                }
-
-                if ($this->getWatermark()) {
-                    $model->setWatermark($this->getWatermark());
-                }
-
-                $url = $model->saveFile()->getUrl();
             }
+
+            if ($this->_scheduleRotate) {
+                $model->rotate($this->getAngle());
+            }
+
+            if ($this->_scheduleResize) {
+                $model->resize();
+            }
+
+            if ($this->getWatermark()) {
+                $model->setWatermark($this->getWatermark());
+            }
+
+            $url = $model->saveFile()->getUrl();
         } catch (Exception $exception) {
             Mage::logException($exception);
             $url = Mage::getDesign()->getSkinUrl($this->getPlaceholder());
@@ -592,17 +592,6 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
      * Retrieve original image height
      *
      * @return null|int
-     * @deprecated
-     */
-    public function getOriginalHeigh()
-    {
-        return $this->getOriginalHeight();
-    }
-
-    /**
-     * Retrieve original image height
-     *
-     * @return null|int
      */
     public function getOriginalHeight()
     {
@@ -613,7 +602,7 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
      * Retrieve Original image size as array
      * 0 - width, 1 - height
      *
-     * @return array
+     * @return array<int, null|int>
      */
     public function getOriginalSizeArray()
     {
@@ -649,5 +638,10 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
         unset($_processor);
 
         return $mimeType !== null;
+    }
+
+    public function skipProductImageOnDuplicate(): int
+    {
+        return Mage::getStoreConfigAsInt(self::XML_NODE_SKIP_IMAGE_ON_DUPLICATE_ACTION);
     }
 }

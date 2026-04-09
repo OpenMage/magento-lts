@@ -11,7 +11,6 @@
  * @package    Mage_Sales
  *
  * @method Mage_Sales_Model_Resource_Order_Invoice            _getResource()
- * @method string                                             getBackUrl()
  * @method float                                              getBaseCost()
  * @method string                                             getBaseCurrencyCode()
  * @method float                                              getBaseDiscountAmount()
@@ -28,9 +27,8 @@
  * @method float                                              getBaseToOrderRate()
  * @method float                                              getBaseTotalRefunded()
  * @method int                                                getBillingAddressId()
- * @method int                                                getCanVoidFlag()
+ * @method null|int                                           getCanVoidFlag()
  * @method Mage_Sales_Model_Resource_Order_Invoice_Collection getCollection()
- * @method string                                             getCreatedAt()
  * @method string                                             getCybersourceToken()
  * @method float                                              getDiscountAmount()
  * @method int                                                getEmailSent()
@@ -60,7 +58,6 @@
  * @method float                                              getTaxAmount()
  * @method float                                              getTotalQty()
  * @method string                                             getTransactionId()
- * @method string                                             getUpdatedAt()
  * @method $this                                              setBaseCost(float $value)
  * @method $this                                              setBaseCurrencyCode(string $value)
  * @method $this                                              setBaseDiscountAmount(float $value)
@@ -78,7 +75,6 @@
  * @method $this                                              setBaseTotalRefunded(float $value)
  * @method $this                                              setBillingAddressId(int $value)
  * @method $this                                              setCanVoidFlag(int $value)
- * @method $this                                              setCreatedAt(string $value)
  * @method $this                                              setCustomerId(int $value)
  * @method $this                                              setCybersourceToken(string $value)
  * @method $this                                              setDiscountAmount(float $value)
@@ -106,7 +102,6 @@
  * @method $this                                              setTaxAmount(float $value)
  * @method $this                                              setTotalQty(float $value)
  * @method $this                                              setTransactionId(string $value)
- * @method $this                                              setUpdatedAt(string $value)
  */
 class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
 {
@@ -390,11 +385,7 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
             return false;
         }
 
-        if (abs($this->getBaseGrandTotal() - $this->getBaseTotalRefunded()) < .0001) {
-            return false;
-        }
-
-        return true;
+        return abs($this->getBaseGrandTotal() - $this->getBaseTotalRefunded()) >= .0001;
     }
 
     /**
@@ -989,7 +980,7 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
     }
 
     /**
-     * @return Mage_Sales_Model_Abstract
+     * @return $this
      * @throws Mage_Core_Exception
      */
     protected function _beforeDelete()

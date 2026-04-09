@@ -112,14 +112,14 @@ if (!$mediaDirectory) {
 
     $relativeFilename = str_replace($mediaDirectory . '/', '', $pathInfo);
 
-    $fp = fopen($configCacheFile, 'w');
-    if (flock($fp, LOCK_EX | LOCK_NB)) {
-        ftruncate($fp, 0);
-        fwrite($fp, json_encode($config));
+    $resource = fopen($configCacheFile, 'w');
+    if (flock($resource, LOCK_EX | LOCK_NB)) {
+        ftruncate($resource, 0);
+        fwrite($resource, json_encode($config));
     }
 
-    flock($fp, LOCK_UN);
-    fclose($fp);
+    flock($resource, LOCK_UN);
+    fclose($resource);
 
     checkResource($relativeFilename, $allowedResources);
 }
@@ -143,8 +143,8 @@ try {
     if ($localStorage->lockCreateFile($relativeFilename)) {
         try {
             $remoteStorage->loadByFilename($relativeFilename);
-        } catch (Exception $e) {
-            Mage::logException($e);
+        } catch (Exception $exception) {
+            Mage::logException($exception);
         }
 
         if ($remoteStorage->getId()) {
