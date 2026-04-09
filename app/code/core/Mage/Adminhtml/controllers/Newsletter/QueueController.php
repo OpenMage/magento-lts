@@ -73,7 +73,7 @@ class Mage_Adminhtml_Newsletter_QueueController extends Mage_Adminhtml_Controlle
         $data = $this->getRequest()->getParams();
         if (empty($data) || !isset($data['id'])) {
             $this->_forward('noRoute');
-            return $this;
+            return;
         }
 
         // set default value for selected store
@@ -81,7 +81,7 @@ class Mage_Adminhtml_Newsletter_QueueController extends Mage_Adminhtml_Controlle
 
         $this->getLayout()->getBlock('preview_form')->setFormData($data);
         $this->renderLayout();
-        return null;
+        return;
     }
 
     /**

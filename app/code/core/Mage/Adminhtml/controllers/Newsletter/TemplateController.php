@@ -218,7 +218,7 @@ class Mage_Adminhtml_Newsletter_TemplateController extends Mage_Adminhtml_Contro
         $data = $this->getRequest()->getParams();
         if (empty($data) || !isset($data['id'])) {
             $this->_forward('noRoute');
-            return $this;
+            return;
         }
 
         // set default value for selected store
@@ -226,7 +226,7 @@ class Mage_Adminhtml_Newsletter_TemplateController extends Mage_Adminhtml_Contro
 
         $this->getLayout()->getBlock('preview_form')->setFormData($data);
         $this->renderLayout();
-        return null;
+        return;
     }
 
     /**

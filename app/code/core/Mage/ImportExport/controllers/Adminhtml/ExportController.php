@@ -112,7 +112,8 @@ class Mage_ImportExport_Adminhtml_ExportController extends Mage_Adminhtml_Contro
                         $export->setData($data)->getEntityAttributeCollection(),
                     ),
                 );
-                return $this->renderLayout();
+                $this->renderLayout();
+                return;
             } catch (Exception $exception) {
                 $this->_getSession()->addError($exception->getMessage());
             }

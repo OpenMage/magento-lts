@@ -403,7 +403,8 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Re
      */
     public function refreshStatisticsAction()
     {
-        return $this->_forward('index', 'report_statistics');
+        $this->_forward('index', 'report_statistics');
+        return;
     }
 
     /**

@@ -108,7 +108,8 @@ class Mage_Downloadable_DownloadController extends Mage_Core_Controller_Front_Ac
             }
         }
 
-        return $this->_redirectReferer();
+        $this->_redirectReferer();
+        return;
     }
 
     /**
@@ -147,7 +148,8 @@ class Mage_Downloadable_DownloadController extends Mage_Core_Controller_Front_Ac
             }
         }
 
-        return $this->_redirectReferer();
+        $this->_redirectReferer();
+        return;
     }
 
     /**

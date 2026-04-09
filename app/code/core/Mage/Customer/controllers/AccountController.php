@@ -1002,7 +1002,8 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
     public function editPostAction()
     {
         if (!$this->_validateFormKey()) {
-            return $this->_redirect('*/*/edit');
+            $this->_redirect('*/*/edit');
+            return;
         }
 
         if ($this->getRequest()->isPost()) {
@@ -1068,7 +1069,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
                 }
 
                 $this->_redirect('*/*/edit');
-                return $this;
+                return;
             }
 
             try {

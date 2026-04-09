@@ -106,7 +106,8 @@ class Mage_Adminhtml_Sales_Billing_AgreementController extends Mage_Adminhtml_Co
             $this->_redirect('*/*/view', ['_current' => true]);
         }
 
-        return $this->_redirect('*/*/');
+        $this->_redirect('*/*/');
+        return;
     }
 
     /**

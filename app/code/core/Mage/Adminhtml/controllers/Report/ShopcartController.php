@@ -15,7 +15,7 @@
 class Mage_Adminhtml_Report_ShopcartController extends Mage_Adminhtml_Controller_Action
 {
     /**
-     * @return void
+     * @return $this
      */
     public function _initAction()
     {

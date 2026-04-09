@@ -349,7 +349,8 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
         $orderId = $this->getRequest()->getParam('order_id');
         $order = Mage::getModel('sales/order')->load($orderId);
         if (!Mage::helper('sales/reorder')->canReorder($order)) {
-            return $this->_forward('noRoute');
+            $this->_forward('noRoute');
+            return;
         }
 
         if ($order->getId()) {
@@ -636,10 +637,10 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
             $session->unsUpdateResult();
         } else {
             $session->unsUpdateResult();
-            return false;
+            return;
         }
 
-        return null;
+        return;
     }
 
     /**

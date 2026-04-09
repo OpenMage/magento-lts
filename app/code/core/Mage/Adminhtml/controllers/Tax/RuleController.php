@@ -96,7 +96,8 @@ class Mage_Adminhtml_Tax_RuleController extends Mage_Adminhtml_Controller_Action
     {
         $postData = $this->getRequest()->getPost();
         if (!$postData) {
-            return $this->getResponse()->setRedirect($this->getUrl('*/tax_rule'));
+            $this->getResponse()->setRedirect($this->getUrl('*/tax_rule'));
+            return;
         }
 
         $ruleId = (int) $this->getRequest()->getParam('tax_calculation_rule_id');
@@ -110,17 +111,20 @@ class Mage_Adminhtml_Tax_RuleController extends Mage_Adminhtml_Controller_Action
         try {
             //Check if the rule already exists
             if (!$this->_isValidRuleRequest($ruleModel)) {
-                return $this->_redirectReferer();
+                $this->_redirectReferer();
+                return;
             }
 
             $ruleModel->save();
             $session->addSuccess($this->_getHelperModel('tax')->__('The tax rule has been saved.'));
 
             if ($this->getRequest()->getParam('back')) {
-                return $this->_redirect('*/*/edit', ['rule' => $ruleModel->getId()]);
+                $this->_redirect('*/*/edit', ['rule' => $ruleModel->getId()]);
+                return;
             }
 
-            return $this->_redirect('*/*/');
+            $this->_redirect('*/*/');
+            return;
         } catch (Mage_Core_Exception $mageCoreException) {
             $session->addError($mageCoreException->getMessage());
         } catch (Exception) {

@@ -34,7 +34,8 @@ class Mage_Adminhtml_Report_ProductController extends Mage_Adminhtml_Controller_
      */
     public function orderedAction()
     {
-        return $this->_forward('bestsellers', 'report_sales');
+        $this->_forward('bestsellers', 'report_sales');
+        return;
     }
 
     /**
@@ -45,7 +46,8 @@ class Mage_Adminhtml_Report_ProductController extends Mage_Adminhtml_Controller_
      */
     public function exportOrderedCsvAction()
     {
-        return $this->_forward('exportBestsellersCsv', 'report_sales');
+        $this->_forward('exportBestsellersCsv', 'report_sales');
+        return;
     }
 
     /**
@@ -56,7 +58,8 @@ class Mage_Adminhtml_Report_ProductController extends Mage_Adminhtml_Controller_
      */
     public function exportOrderedExcelAction()
     {
-        return $this->_forward('exportBestsellersExcel', 'report_sales');
+        $this->_forward('exportBestsellersExcel', 'report_sales');
+        return;
     }
 
     /**

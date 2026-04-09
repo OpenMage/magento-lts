@@ -104,12 +104,14 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
              ->_title($this->__('Tags'));
 
         if (!(int) $this->getRequest()->getParam('store')) {
-            return $this->_redirect('*/*/*/', ['store' => Mage::app()->getAnyStoreView()->getId(), '_current' => true]);
+            $this->_redirect('*/*/*/', ['store' => Mage::app()->getAnyStoreView()->getId(), '_current' => true]);
+            return;
         }
 
         if (!($model = $this->_initTag())) {
             Mage::getSingleton('adminhtml/session')->addError(Mage::helper('adminhtml')->__('Wrong tag was specified.'));
-            return $this->_redirect('*/*/index', ['store' => $this->getRequest()->getParam('store')]);
+            $this->_redirect('*/*/index', ['store' => $this->getRequest()->getParam('store')]);
+            return;
         }
 
         // set entered data if was error when we do save
@@ -143,7 +145,8 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
 
             if (!$model = $this->_initTag()) {
                 Mage::getSingleton('adminhtml/session')->addError(Mage::helper('adminhtml')->__('Wrong tag was specified.'));
-                return $this->_redirect('*/*/index', ['store' => $data['store']]);
+                $this->_redirect('*/*/index', ['store' => $data['store']]);
+                return;
             }
 
             $model->addData($data);
@@ -162,19 +165,23 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
                 Mage::getSingleton('adminhtml/session')->setTagData(false);
 
                 if (($continue = $this->getRequest()->getParam('continue'))) {
-                    return $this->_redirect('*/tag/edit', ['tag_id' => $model->getId(), 'store' => $model->getStoreId(), 'ret' => $continue]);
+                    $this->_redirect('*/tag/edit', ['tag_id' => $model->getId(), 'store' => $model->getStoreId(), 'ret' => $continue]);
+                    return;
                 }
 
-                return $this->_redirect('*/tag/' . $this->getRequest()->getParam('ret', 'index'));
+                $this->_redirect('*/tag/' . $this->getRequest()->getParam('ret', 'index'));
+                return;
             } catch (Exception $exception) {
                 Mage::getSingleton('adminhtml/session')->addError($exception->getMessage());
                 Mage::getSingleton('adminhtml/session')->setTagData($data);
 
-                return $this->_redirect('*/*/edit', ['tag_id' => $model->getId(), 'store' => $model->getStoreId()]);
+                $this->_redirect('*/*/edit', ['tag_id' => $model->getId(), 'store' => $model->getStoreId()]);
+                return;
             }
         }
 
-        return $this->_redirect('*/tag/index', ['_current' => true]);
+        $this->_redirect('*/tag/index', ['_current' => true]);
+        return;
     }
 
     /**

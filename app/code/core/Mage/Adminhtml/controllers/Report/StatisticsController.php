@@ -28,7 +28,7 @@ class Mage_Adminhtml_Report_StatisticsController extends Mage_Adminhtml_Controll
     protected $_adminSession = null;
 
     /**
-     * @return void
+     * @return $this
      * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
      */
@@ -46,7 +46,7 @@ class Mage_Adminhtml_Report_StatisticsController extends Mage_Adminhtml_Controll
     }
 
     /**
-     * @return void
+     * @return $this
      * @throws Zend_Locale_Exception
      */
     public function _initReportAction($blocks)
