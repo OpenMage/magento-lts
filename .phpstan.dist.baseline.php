@@ -2361,12 +2361,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Product/Option/Type/File.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Short ternary operator is not allowed. Use null coalesce operator if applicable or consider using long ternary.',
-	'identifier' => 'ternary.shortNotAllowed',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Product/Option/Type/File.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 2,
