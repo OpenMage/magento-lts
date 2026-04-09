@@ -83,6 +83,7 @@ try {
         ->withConfiguredRule(Renaming\MethodCall\RenameMethodRector::class, Migration\Mage\Usa::renameMethod())
         ->withConfiguredRule(Renaming\MethodCall\RenameMethodRector::class, Migration\Mage\Wishlist::renameMethod())
         ->withConfiguredRule(ReplaceArgumentDefaultValueRector::class, Migration\Mage\Adminhtml::replaceArgumentDefaultValue())
+        ->withConfiguredRule(ReplaceArgumentDefaultValueRector::class, Migration\OpenMage::replaceStoreConfigPathsWithConstants())
         # skip: do not apply
         ->withSkip([
             # skip avoid renaming of methods in tests
