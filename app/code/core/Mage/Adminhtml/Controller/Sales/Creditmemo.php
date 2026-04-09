@@ -70,19 +70,22 @@ class Mage_Adminhtml_Controller_Sales_Creditmemo extends Mage_Adminhtml_Controll
     public function emailAction()
     {
         $creditmemoId = $this->getRequest()->getParam('creditmemo_id');
-        if ($creditmemoId && $creditmemo = Mage::getModel('sales/order_creditmemo')->load($creditmemoId)) {
-            $creditmemo->sendEmail();
-            $historyItem = Mage::getResourceModel('sales/order_status_history_collection')
-                ->getUnnotifiedForInstance($creditmemo, Mage_Sales_Model_Order_Creditmemo::HISTORY_ENTITY_NAME);
-            if ($historyItem) {
-                $historyItem->setIsCustomerNotified(1);
-                $historyItem->save();
-            }
+        if ($creditmemoId) {
+            $creditmemo = Mage::getModel('sales/order_creditmemo')->load($creditmemoId);
+            if ($creditmemo->getId()) {
+                $creditmemo->sendEmail();
+                $historyItem = Mage::getResourceModel('sales/order_status_history_collection')
+                    ->getUnnotifiedForInstance($creditmemo, Mage_Sales_Model_Order_Creditmemo::HISTORY_ENTITY_NAME);
+                if ($historyItem) {
+                    $historyItem->setIsCustomerNotified(1);
+                    $historyItem->save();
+                }
 
-            $this->_getSession()->addSuccess(Mage::helper('sales')->__('The message was sent.'));
-            $this->_redirect('*/sales_order_creditmemo/view', [
-                'creditmemo_id' => $creditmemoId,
-            ]);
+                $this->_getSession()->addSuccess(Mage::helper('sales')->__('The message was sent.'));
+                $this->_redirect('*/sales_order_creditmemo/view', [
+                    'creditmemo_id' => $creditmemoId,
+                ]);
+            }
         }
     }
 
@@ -108,7 +111,7 @@ class Mage_Adminhtml_Controller_Sales_Creditmemo extends Mage_Adminhtml_Controll
         $creditmemoId = $this->getRequest()->getParam('creditmemo_id');
         if ($creditmemoId) {
             $creditmemo = Mage::getModel('sales/order_creditmemo')->load($creditmemoId);
-            if ($creditmemo) {
+            if ($creditmemo->getId()) {
                 $pdf = Mage::getModel('sales/order_pdf_creditmemo')->getPdf([$creditmemo]);
                 $this->_prepareDownloadResponse('creditmemo' . Mage::getSingleton('core/date')->date('Y-m-d_H-i-s')
                     . '.pdf', $pdf->render(), 'application/pdf');

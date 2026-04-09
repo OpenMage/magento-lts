@@ -87,7 +87,7 @@ class Mage_Adminhtml_Controller_Sales_Shipment extends Mage_Adminhtml_Controller
         $shipmentId = $this->getRequest()->getParam('invoice_id'); // invoice_id o_0
         if ($shipmentId) {
             $shipment = Mage::getModel('sales/order_shipment')->load($shipmentId);
-            if ($shipment) {
+            if ($shipment->getId()) {
                 $pdf = Mage::getModel('sales/order_pdf_shipment')->getPdf([$shipment]);
                 $this->_prepareDownloadResponse('packingslip' . Mage::getSingleton('core/date')->date('Y-m-d_H-i-s') . '.pdf', $pdf->render(), 'application/pdf');
             }
