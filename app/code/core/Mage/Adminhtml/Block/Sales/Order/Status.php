@@ -9,7 +9,7 @@
 
 
 /**
- * Adminhtml sales order's status namagement block
+ * Adminhtml sales order's status block
  *
  * @package    Mage_Adminhtml
  */

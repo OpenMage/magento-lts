@@ -8,7 +8,7 @@
  */
 
 /**
- * Catalog comapare controller
+ * Catalog compare controller
  *
  * @package    Mage_Catalog
  */

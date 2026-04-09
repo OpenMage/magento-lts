@@ -176,7 +176,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Frontend_Abstract implements Mage
     }
 
     /**
-     * Reireive config field
+     * Receive config field
      *
      * @param  string $fieldName
      * @return mixed

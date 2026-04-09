@@ -88,7 +88,7 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
     }
 
     /**
-     * Retrieve base admihtml helper
+     * Retrieve base adminhtml helper
      *
      * @return Mage_Adminhtml_Helper_Data
      */

@@ -62,7 +62,7 @@ class Mage_CatalogIndex_Model_Resource_Aggregation extends Mage_Core_Model_Resou
     }
 
     /**
-     * Save data to aggreagation table with tags relations
+     * Save data to aggregation table with tags relations
      *
      * @param  array        $data
      * @param  string       $key
@@ -143,7 +143,7 @@ class Mage_CatalogIndex_Model_Resource_Aggregation extends Mage_Core_Model_Resou
     }
 
     /**
-     * Save related tags for aggreagation data
+     * Save related tags for aggregation data
      *
      * @param  int   $aggregationId
      * @param  array $tags

@@ -389,7 +389,7 @@ class Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Tem
     }
 
     /**
-     * Retrieve tax with persent html content
+     * Retrieve tax with percent HTML content
      *
      * @return string
      */
