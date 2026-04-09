@@ -8,7 +8,7 @@
  */
 
 /**
- * Wislist model collection
+ * Wishlist model collection
  *
  * @package    Mage_Wishlist
  *

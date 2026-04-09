@@ -116,7 +116,7 @@ class Mage_Catalog_Helper_Category extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * Retrieve category rewrite sufix for store
+     * Retrieve category rewrite suffix for store
      *
      * @param  int    $storeId
      * @return string

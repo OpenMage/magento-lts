@@ -1065,7 +1065,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
     }
 
     /**
-     * Retrieve oreder quote shipping address
+     * Retrieve order quote shipping address
      *
      * @return Mage_Sales_Model_Quote_Address
      */

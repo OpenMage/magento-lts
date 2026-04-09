@@ -34,7 +34,7 @@ class Mage_Payment_Block_Form_Cc extends Mage_Payment_Block_Form
     }
 
     /**
-     * Retrieve availables credit card types
+     * Retrieve available credit card types
      *
      * @return array
      */

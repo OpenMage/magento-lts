@@ -8,7 +8,7 @@
  */
 
 /**
- * Cehckout type abstract class
+ * Checkout type abstract class
  *
  * @package    Mage_Checkout
  */
@@ -51,7 +51,7 @@ abstract class Mage_Checkout_Model_Type_Abstract extends Varien_Object
     }
 
     /**
-     * Retrieve customer session vodel
+     * Retrieve customer session model
      *
      * @return Mage_Customer_Model_Session
      */

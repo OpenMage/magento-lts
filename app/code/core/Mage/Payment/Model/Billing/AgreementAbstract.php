@@ -8,7 +8,7 @@
  */
 
 /**
- * Billing Agreement abstaract class
+ * Billing Agreement abstract class
  *
  * @package    Mage_Payment
  *
