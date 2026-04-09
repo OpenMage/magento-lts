@@ -69,7 +69,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
     protected $_idFieldName;
 
     /**
-     * Primery key auto increment flag
+     * Primary key auto increment flag
      *
      * @var bool
      */
@@ -83,7 +83,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
     protected $_useIsObjectNew = false;
 
     /**
-     * Fields List for update in forsedSave
+     * Fields List for update in forcedSave
      *
      * @var array
      */
@@ -106,7 +106,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
      *      'title' => 'Field 3 and Field 4 combination should be unique'
      *   )
      * )
-     * or string 'my_field_name' - will be autoconverted to
+     * or string 'my_field_name' - will be auto converted to
      *      array( array( 'field' => 'my_field_name', 'title' => 'my_field_name' ) )
      *
      * @var null|array

@@ -1233,7 +1233,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
     }
 
     /**
-     * Initialize entity ubject property value
+     * Initialize entity object property value
      *
      * $valueInfo is _getLoadAttributesSelect fetch result row
      *
