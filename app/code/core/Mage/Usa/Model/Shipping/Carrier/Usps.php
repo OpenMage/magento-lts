@@ -162,6 +162,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
 
         $girth = $request->getGirth();
         $girth = $girth ? $girth : $this->getConfigData('girth');
+
         $rawRequest->setGirth($girth);
 
         // Calculate dimensions from product attributes instead of using
