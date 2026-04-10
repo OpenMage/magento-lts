@@ -194,7 +194,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Tracking_Service
             $tracking->setCarrierTitle($this->_getCarrierTitle());
             $tracking->setTracking($trackingValue);
             $tracking->addData($resultArr);
-            if ($this->_result) {
+            if ($this->_result instanceof Mage_Shipping_Model_Tracking_Result) {
                 $this->_result->append($tracking);
             }
         } else {
@@ -265,7 +265,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Tracking_Service
         $error->setTracking($trackingValue);
         $error->setErrorMessage($errorMessage);
 
-        if ($this->_result) {
+        if ($this->_result instanceof Mage_Shipping_Model_Tracking_Result) {
             $this->_result->append($error);
         }
     }
@@ -275,7 +275,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Tracking_Service
      */
     protected function _getCarrierTitle(): string
     {
-        if ($this->_carrierModel) {
+        if ($this->_carrierModel instanceof Mage_Usa_Model_Shipping_Carrier_Usps) {
             return $this->_carrierModel->getConfigData('title') ? $this->_carrierModel->getConfigData('title') : 'USPS';
         }
 
