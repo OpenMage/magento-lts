@@ -3570,6 +3570,13 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Core/Helper/Js.php',
 ];
 $ignoreErrors[] = [
+	'rawMessage' => 'Access to deprecated property $purifier of class Mage_Core_Helper_Purifier:
+No longer used. See {@link static::$defaultPurifier}.',
+	'identifier' => 'property.deprecated',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Core/Helper/Purifier.php',
+];
+$ignoreErrors[] = [
 	'rawMessage' => 'Parameter #2 $arguments of static method Mage::getResourceModel() expects array, object given.',
 	'identifier' => 'argument.type',
 	'count' => 1,

@@ -153,7 +153,7 @@ final class DefinitionCacheTest extends OpenMageTest
             }
 
             /**
-             * @return array
+             * @return array<string, bool>
              */
             public function getCapabilities()
             {

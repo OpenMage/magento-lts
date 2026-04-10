@@ -78,7 +78,7 @@ class Mage_Core_Model_Purifier_DefinitionCache extends HTMLPurifier_DefinitionCa
         $version = str_replace('.', '_', $config->version);
         $hash = $config->getBatchSerial($this->type);
         $revision = $config->get($this->type . '.DefinitionRev');
-        return self::MAGE_CACHE_ID_PREFIX . "__{$version}__{$hash}__$revision";
+        return self::MAGE_CACHE_ID_PREFIX . "__{$version}__{$hash}__{$revision}";
     }
 
     /**
@@ -110,13 +110,8 @@ class Mage_Core_Model_Purifier_DefinitionCache extends HTMLPurifier_DefinitionCa
         if ($hash !== $config->getBatchSerial($this->type)) {
             return true;
         }
-
         // Revisions are ints, but string comparison might be future-proof
-        if ($revision < $config->get($this->type . '.DefinitionRev')) {
-            return true;
-        }
-
-        return false;
+        return $revision < $config->get($this->type . '.DefinitionRev');
     }
 
     /**
@@ -297,7 +292,7 @@ class Mage_Core_Model_Purifier_DefinitionCache extends HTMLPurifier_DefinitionCa
     {
         $serialized = $this->serialize($def);
         $signature = $this->generateSignature($serialized);
-        return "$signature:$serialized";
+        return "{$signature}:{$serialized}";
     }
 
     /**
