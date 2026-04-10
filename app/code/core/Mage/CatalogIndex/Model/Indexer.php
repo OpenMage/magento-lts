@@ -136,7 +136,7 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
      */
     protected function _getStores()
     {
-        $stores = $this->getData('_stores');
+        $stores = $this->getDataByKey('_stores');
         if (is_null($stores)) {
             $stores = Mage::app()->getStores();
             $this->setData('_stores', $stores);
@@ -152,7 +152,7 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
      */
     protected function _getWebsites()
     {
-        $websites = $this->getData('_websites');
+        $websites = $this->getDataByKey('_websites');
         if (is_null($websites)) {
             /** @var Mage_Core_Model_Resource_Website_Collection $websites */
             $websites = Mage::getModel('core/website')->getCollection()->load();

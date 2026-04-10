@@ -73,29 +73,29 @@ final class ObjectTest extends OpenMageTest
         self::$subject->setData('left', 'over');
         self::assertFalse(self::$subject->isEmpty());
 
-        self::assertSame('abc', self::$subject->getData('a_b_c'));
+        self::assertSame('abc', self::$subject->getDataByKey('a_b_c'));
         self::assertSame('abc', self::$subject->getABC());
         self::$subject->unsetData('a_b_c');
 
-        self::assertSame('efg', self::$subject->getData('efg'));
+        self::assertSame('efg', self::$subject->getDataByKey('efg'));
         self::assertSame('efg', self::$subject->getEfg());
         self::$subject->unsEfg();
 
-        self::assertSame('123', self::$subject->getData('123'));
+        self::assertSame('123', self::$subject->getDataByKey('123'));
         self::assertSame('123', self::$subject->get123());
         self::$subject->uns123();
 
         self::$subject->unsetData('345');
 
-        self::assertSame('value_a_first', self::$subject->getData('key_a_first'));
+        self::assertSame('value_a_first', self::$subject->getDataByKey('key_a_first'));
         self::assertSame('value_a_first', self::$subject->getKeyAFirst());
         self::$subject->unsetData('key_a_first');
 
-        self::assertSame('value_a_2nd', self::$subject->getData('key_a_2nd'));
+        self::assertSame('value_a_2nd', self::$subject->getDataByKey('key_a_2nd'));
         self::assertSame('value_a_2nd', self::$subject->getKeyA_2nd());
         self::$subject->unsetData('key_a_2nd');
 
-        self::assertSame('value_a_3rd', self::$subject->getData('key_a3rd'));
+        self::assertSame('value_a_3rd', self::$subject->getDataByKey('key_a3rd'));
         self::assertSame('value_a_3rd', self::$subject->getKeyA3rd());
         self::$subject->unsetData('key_a3rd');
 

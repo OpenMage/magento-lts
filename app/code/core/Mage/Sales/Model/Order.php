@@ -1145,7 +1145,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      */
     public function addStatusToHistory($status, $comment = '', $isCustomerNotified = false)
     {
-        $history = $this->addStatusHistoryComment($comment, $status)
+        $this->addStatusHistoryComment($comment, $status)
             ->setIsCustomerNotified($isCustomerNotified);
         return $this;
     }
@@ -1300,8 +1300,8 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      */
     public function getTrackingNumbers()
     {
-        if ($this->getData('tracking_numbers')) {
-            return explode(',', $this->getData('tracking_numbers'));
+        if ($this->getDataByKey('tracking_numbers')) {
+            return explode(',', $this->getDataByKey('tracking_numbers'));
         }
 
         return [];
@@ -1314,7 +1314,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      */
     public function getShippingCarrier()
     {
-        $carrierModel = $this->getData('shipping_carrier');
+        $carrierModel = $this->getDataByKey('shipping_carrier');
         if (is_null($carrierModel)) {
             $carrierModel = false;
             /**
@@ -1366,7 +1366,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      */
     public function getCurrentCustomerEmail()
     {
-        if (!$this->getData('current_customer_email')) {
+        if (!$this->getDataByKey('current_customer_email')) {
             if ($this->getCustomer()) {
                 $email = $this->getCustomer()->getEmail();
             } elseif ($this->getCustomerId()) {
@@ -1381,7 +1381,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
             $this->setData('current_customer_email', $email);
         }
 
-        return $this->getData('current_customer_email');
+        return $this->getDataByKey('current_customer_email');
     }
 
     /**
@@ -2011,7 +2011,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      */
     public function getRealOrderId()
     {
-        $id = $this->getData('real_order_id');
+        $id = $this->getDataByKey('real_order_id');
         if (is_null($id)) {
             return $this->getIncrementId();
         }
@@ -2090,7 +2090,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      */
     public function getStoreCurrency()
     {
-        return $this->getData('store_currency');
+        return $this->getDataByKey('store_currency');
     }
 
     /**

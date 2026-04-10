@@ -344,7 +344,7 @@ class Mage_Paypal_Model_Pro
         }
 
         $scheduleDescr = $profile->getScheduleDescription(); // up to 127 single-byte alphanumeric
-        if (strlen($refId) > 127) { //  || !preg_match('/^[a-z\d\s]+$/i', $scheduleDescr)
+        if (strlen($scheduleDescr) > 127) { //  || !preg_match('/^[a-z\d\s]+$/i', $scheduleDescr)
             $errors[] = Mage::helper('paypal')->__('Schedule description is too long.');
         }
 

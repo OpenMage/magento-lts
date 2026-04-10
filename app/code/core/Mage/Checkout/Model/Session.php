@@ -378,7 +378,7 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
      */
     public function getAdditionalMessages($clear = false)
     {
-        $additionalMessages = $this->getData('additional_messages');
+        $additionalMessages = $this->getDataByKey('additional_messages');
         if (!$additionalMessages) {
             return [];
         }

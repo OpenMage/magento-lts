@@ -237,7 +237,7 @@ class Mage_Catalog_Model_Resource_Eav_Attribute extends Mage_Eav_Model_Entity_At
      */
     public function getApplyTo()
     {
-        $applyTo = $this->getData('apply_to');
+        $applyTo = $this->getDataByKey('apply_to');
 
         if ($applyTo) {
             if (is_array($applyTo)) {
@@ -257,7 +257,7 @@ class Mage_Catalog_Model_Resource_Eav_Attribute extends Mage_Eav_Model_Entity_At
      */
     public function getSourceModel()
     {
-        $model = $this->getData('source_model');
+        $model = $this->getDataByKey('source_model');
         if (empty($model)
             && ($this->getBackendType() == 'int' && $this->getFrontendInput() == 'select')
         ) {
@@ -313,8 +313,8 @@ class Mage_Catalog_Model_Resource_Eav_Attribute extends Mage_Eav_Model_Entity_At
             $attributeLabels = [];
             $attributes = Mage::getResourceSingleton('catalog/product')->getAttributesByCode();
             foreach ($attributes as $attribute) {
-                if ((string) $attribute->getData('frontend_label') !== '') {
-                    $attributeLabels[] = $attribute->getData('frontend_label');
+                if ((string) $attribute->getDataByKey('frontend_label') !== '') {
+                    $attributeLabels[] = $attribute->getDataByKey('frontend_label');
                 }
             }
 

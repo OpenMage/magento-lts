@@ -34,7 +34,7 @@ class Mage_Reports_Block_Product_Compared extends Mage_Reports_Block_Product_Abs
     public function getPageSize()
     {
         if ($this->hasData('page_size')) {
-            return $this->getData('page_size');
+            return $this->getDataByKey('page_size');
         }
 
         return Mage::getStoreConfig(self::XML_PATH_RECENTLY_COMPARED_COUNT);

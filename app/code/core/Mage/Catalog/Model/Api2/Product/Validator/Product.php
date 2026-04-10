@@ -570,15 +570,13 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
     protected function _validateSource($data, $fieldSet, $field, $sourceModelName, $skipIfConfigValueUsed = false)
     {
         // in case when 'Use Config Settings' is selected no validation needed
-        if (!($skipIfConfigValueUsed && $this->_isConfigValueUsed($data, $field))) {
-            if (isset($data[$field])) {
-                $sourceModel = Mage::getSingleton($sourceModelName);
-                if ($sourceModel) {
-                    $allowedValues = $this->_getAttributeAllowedValues($sourceModel->toOptionArray());
-                    $useStrictMode = !is_numeric($data[$field]);
-                    if (!in_array($data[$field], $allowedValues, $useStrictMode)) {
-                        $this->_addError(sprintf('Invalid "%s" value in the "%s" set.', $field, $fieldSet));
-                    }
+        if (!($skipIfConfigValueUsed && $this->_isConfigValueUsed($data, $field)) && isset($data[$field])) {
+            $sourceModel = Mage::getSingleton($sourceModelName);
+            if ($sourceModel) {
+                $allowedValues = $this->_getAttributeAllowedValues($sourceModel->toOptionArray());
+                $useStrictMode = !is_numeric($data[$field]);
+                if (!in_array($data[$field], $allowedValues, $useStrictMode)) {
+                    $this->_addError(sprintf('Invalid "%s" value in the "%s" set.', $field, $fieldSet));
                 }
             }
         }
@@ -595,15 +593,13 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
     protected function _validateBoolean($data, $fieldSet, $field, $skipIfConfigValueUsed = false)
     {
         // in case when 'Use Config Settings' is selected no validation needed
-        if (!($skipIfConfigValueUsed && $this->_isConfigValueUsed($data, $field))) {
-            if (isset($data[$field])) {
-                $allowedValues = $this->_getAttributeAllowedValues(
-                    Mage::getSingleton('eav/entity_attribute_source_boolean')->getAllOptions(),
-                );
-                $useStrictMode = !is_numeric($data[$field]);
-                if (!in_array($data[$field], $allowedValues, $useStrictMode)) {
-                    $this->_addError(sprintf('Invalid "%s" value in the "%s" set.', $field, $fieldSet));
-                }
+        if (!($skipIfConfigValueUsed && $this->_isConfigValueUsed($data, $field)) && isset($data[$field])) {
+            $allowedValues = $this->_getAttributeAllowedValues(
+                Mage::getSingleton('eav/entity_attribute_source_boolean')->getAllOptions(),
+            );
+            $useStrictMode = !is_numeric($data[$field]);
+            if (!in_array($data[$field], $allowedValues, $useStrictMode)) {
+                $this->_addError(sprintf('Invalid "%s" value in the "%s" set.', $field, $fieldSet));
             }
         }
     }

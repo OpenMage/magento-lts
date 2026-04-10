@@ -89,7 +89,7 @@ class Mage_Install_Model_Installer extends Varien_Object
      */
     public function getServerCheckStatus()
     {
-        $status = $this->getData('server_check_status');
+        $status = $this->getDataByKey('server_check_status');
         if (is_null($status)) {
             return $this->checkServer();
         }
@@ -280,13 +280,16 @@ class Mage_Install_Model_Installer extends Varien_Object
         return $this;
     }
 
+    /**
+     * @return $this
+     */
     public function finish()
     {
         Mage::getSingleton('install/installer_config')->replaceTmpInstallDate();
         Mage::app()->cleanCache();
 
         $cacheData = [];
-        foreach (Mage::helper('core')->getCacheTypes() as $type => $label) {
+        foreach (array_keys(Mage::helper('core')->getCacheTypes()) as $type) {
             $cacheData[$type] = 1;
         }
 

@@ -28,7 +28,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Datetime extends Mage_Admin
             return null;
         }
 
-        $value = $this->getData('value');
+        $value = $this->getDataByKey('value');
         if (is_array($value)) {
             $value['datetime'] = true;
         }

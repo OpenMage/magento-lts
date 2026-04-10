@@ -115,7 +115,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
     {
         $sku = parent::getSku($product);
 
-        if ($this->getProduct($product)->getData('sku_type')) {
+        if ($this->getProduct($product)->getDataByKey('sku_type')) {
             return $sku;
         }
 
@@ -142,8 +142,8 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
      */
     public function getWeight($product = null)
     {
-        if ($this->getProduct($product)->getData('weight_type')) {
-            return $this->getProduct($product)->getData('weight');
+        if ($this->getProduct($product)->getDataByKey('weight_type')) {
+            return $this->getProduct($product)->getDataByKey('weight');
         }
 
         $weight = 0;
@@ -204,7 +204,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
         $product = $this->getProduct($product);
 
         // If bundle product has dynamic weight, than delete weight attribute
-        if (!$product->getData('weight_type') && $product->hasData('weight')) {
+        if (!$product->getDataByKey('weight_type') && $product->hasData('weight')) {
             $product->setData('weight', false);
         }
 
@@ -313,7 +313,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
                 $resource->saveProductRelations($product->getId(), array_unique($usedProductIds));
             }
 
-            if ($product->getData('price_type') != $product->getOrigData('price_type')) {
+            if ($product->getDataByKey('price_type') != $product->getOrigData('price_type')) {
                 $resource->dropAllQuoteChildItems($product->getId());
             }
         }

@@ -8,6 +8,7 @@ use Monolog\Level;
  * @license    Open Software License (OSL 3.0)
  * @package    Mage_Usa
  */
+
 /**
  * UPS shipping implementation
  *
@@ -51,20 +52,6 @@ class Mage_Usa_Model_Shipping_Carrier_Ups extends Mage_Usa_Model_Shipping_Carrie
      * @var null|Varien_Object
      */
     protected $_rawRequest = null;
-
-    /**
-     * Rate result data
-     *
-     * @var null|Mage_Shipping_Model_Rate_Result
-     */
-    protected $_result = null;
-
-    /**
-     * Tracking result data
-     *
-     * @var null|Mage_Shipping_Model_Tracking_Result
-     */
-    protected $_trackingResult = null;
 
     /**
      * Base currency rate
@@ -878,7 +865,6 @@ XMLRequest;
         }
 
         $result = Mage::getModel('shipping/rate_result');
-        $defaults = $this->getDefaults();
         if ($priceArr === []) {
             $error = Mage::getModel('shipping/rate_result_error');
             $error->setCarrier('ups');

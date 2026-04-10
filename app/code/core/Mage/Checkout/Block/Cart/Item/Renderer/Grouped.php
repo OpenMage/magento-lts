@@ -6,6 +6,7 @@
  * @license    Open Software License (OSL 3.0)
  * @package    Mage_Checkout
  */
+
 /**
  * Shopping cart item render block
  *
@@ -42,8 +43,8 @@ class Mage_Checkout_Block_Cart_Item_Renderer_Grouped extends Mage_Checkout_Block
     public function getProductThumbnail()
     {
         $product = $this->getProduct();
-        if (!$product->getData('thumbnail')
-            || ($product->getData('thumbnail') === 'no_selection')
+        if (!$product->getDataByKey('thumbnail')
+            || ($product->getDataByKey('thumbnail') === 'no_selection')
             || (Mage::getStoreConfig(self::GROUPED_PRODUCT_IMAGE) === self::USE_PARENT_IMAGE)
         ) {
             $product = $this->getGroupedProduct();

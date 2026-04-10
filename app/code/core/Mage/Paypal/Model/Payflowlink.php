@@ -209,15 +209,15 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
         }
 
         // process AVS data separately
-        $avsAddr = $this->getResponse()->getData('avsaddr');
-        $avsZip = $this->getResponse()->getData('avszip');
+        $avsAddr = $this->getResponse()->getDataByKey('avsaddr');
+        $avsZip = $this->getResponse()->getDataByKey('avszip');
         if (isset($avsAddr) && isset($avsZip)) {
             $this->getResponse()->setData('avsdata', $avsAddr . $avsZip);
         }
 
         // process Name separately
-        $firstnameParameter = $this->getResponse()->getData('billtofirstname');
-        $lastnameParameter = $this->getResponse()->getData('billtolastname');
+        $firstnameParameter = $this->getResponse()->getDataByKey('billtofirstname');
+        $lastnameParameter = $this->getResponse()->getDataByKey('billtolastname');
         if (isset($firstnameParameter) && isset($lastnameParameter)) {
             $this->getResponse()->setData('name', $firstnameParameter . ' ' . $lastnameParameter);
         }

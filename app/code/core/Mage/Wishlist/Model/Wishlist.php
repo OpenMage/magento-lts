@@ -279,7 +279,7 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
      */
     public function getProductCollection()
     {
-        $collection = $this->getData('product_collection');
+        $collection = $this->getDataByKey('product_collection');
         if (is_null($collection)) {
             $collection = Mage::getResourceModel('wishlist/product_collection');
             $this->setData('product_collection', $collection);

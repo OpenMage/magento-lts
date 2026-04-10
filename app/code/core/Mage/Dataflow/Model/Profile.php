@@ -86,7 +86,7 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
     protected function _beforeSave()
     {
         parent::_beforeSave();
-        $actionsXML = $this->getData('actions_xml');
+        $actionsXML = $this->getDataByKey('actions_xml');
         // @phpstan-ignore-next-line because of https://github.com/phpstan/phpstan/issues/10570
         if ($actionsXML !== null && strlen($actionsXML) < 0
             && @simplexml_load_string('<data>' . $actionsXML . '</data>', null, LIBXML_NOERROR) === false
@@ -175,20 +175,20 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
         $xmlParser = new DOMDocument();
         $newUploadedFilenames = [];
 
-        if (isset($_FILES['file_1']['tmp_name']) || isset($_FILES['file_2']['tmp_name'])
+        if (isset($_FILES['file_1']['tmp_name'])
+            || isset($_FILES['file_2']['tmp_name'])
             || isset($_FILES['file_3']['tmp_name'])
         ) {
             for ($index = 0; $index < 3; $index++) {
-                if ($file = $_FILES['file_' . ($index + 1)]['tmp_name']) {
+                $file = $_FILES['file_' . ($index + 1)];
+                if ($file['tmp_name']) {
                     $uploader = Mage::getModel('core/file_uploader', 'file_' . ($index + 1));
                     $uploader->setAllowedExtensions(['csv','xml']);
                     $path = Mage::app()->getConfig()->getTempVarDir() . '/import/';
                     $uploader->save($path);
                     $uploadFile = $uploader->getUploadedFileName();
 
-                    if ($_FILES['file_' . ($index + 1)]['type'] == 'text/csv'
-                        || $_FILES['file_' . ($index + 1)]['type'] == 'application/vnd.ms-excel'
-                    ) {
+                    if ($file['type'] == 'text/csv' || $file['type'] == 'application/vnd.ms-excel') {
                         $fileData = $csvParser->getData($path . $uploadFile);
                         $fileData = array_shift($fileData);
                     } else {

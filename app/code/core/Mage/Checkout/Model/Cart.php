@@ -81,7 +81,7 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
      */
     public function getQuoteProductIds()
     {
-        $products = $this->getData('product_ids');
+        $products = $this->getDataByKey('product_ids');
         if (is_null($products)) {
             $products = [];
             foreach ($this->getQuote()->getAllItems() as $item) {
@@ -500,7 +500,6 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
      */
     public function getProductIds()
     {
-        $quoteId = Mage::getSingleton('checkout/session')->getQuoteId();
         if ($this->_productIds === null) {
             $this->_productIds = [];
             if ($this->getSummaryQty() > 0) {
@@ -528,7 +527,7 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
         //and get new quote id. This is done for cases when quote was created
         //not by customer (from backend for example).
         if (!$quoteId && Mage::getSingleton('customer/session')->isLoggedIn()) {
-            $quote = Mage::getSingleton('checkout/session')->getQuote();
+            Mage::getSingleton('checkout/session')->getQuote();
             $quoteId = Mage::getSingleton('checkout/session')->getQuoteId();
         }
 

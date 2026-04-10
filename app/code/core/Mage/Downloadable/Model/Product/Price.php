@@ -47,6 +47,6 @@ class Mage_Downloadable_Model_Product_Price extends Mage_Catalog_Model_Product_T
         }
 
         $product->setData('final_price', $finalPrice);
-        return max(0, $product->getData('final_price'));
+        return max(0, $product->getDataByKey('final_price'));
     }
 }

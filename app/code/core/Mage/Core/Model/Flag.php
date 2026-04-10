@@ -38,7 +38,7 @@ class Mage_Core_Model_Flag extends Mage_Core_Model_Abstract
     protected function _construct()
     {
         if ($this->hasData('flag_code')) {
-            $this->_flagCode = $this->getData('flag_code');
+            $this->_flagCode = $this->getDataByKey('flag_code');
         }
 
         $this->_init('core/flag');
@@ -67,7 +67,7 @@ class Mage_Core_Model_Flag extends Mage_Core_Model_Abstract
     public function getFlagData()
     {
         if ($this->hasFlagData()) {
-            return unserialize($this->getData('flag_data'), ['allowed_classes' => false]);
+            return unserialize($this->getDataByKey('flag_data'), ['allowed_classes' => false]);
         }
 
         return null;

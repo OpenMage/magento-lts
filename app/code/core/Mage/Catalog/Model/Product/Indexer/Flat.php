@@ -124,11 +124,11 @@ class Mage_Catalog_Model_Product_Indexer_Flat extends Mage_Index_Model_Indexer_A
                 || ($attribute->getOrigData('is_used_for_promo_rules') == 1)
                 || ($attribute->getOrigData('used_for_sort_by') == 1));
 
-            $enableAfter    = $attribute && (($attribute->getData('backend_type') == 'static')
-                || ($addFilterable && $attribute->getData('is_filterable') > 0)
-                || ($attribute->getData('used_in_product_listing') == 1)
-                || ($attribute->getData('is_used_for_promo_rules') == 1)
-                || ($attribute->getData('used_for_sort_by') == 1));
+            $enableAfter    = $attribute && (($attribute->getDataByKey('backend_type') == 'static')
+                || ($addFilterable && $attribute->getDataByKey('is_filterable') > 0)
+                || ($attribute->getDataByKey('used_in_product_listing') == 1)
+                || ($attribute->getDataByKey('is_used_for_promo_rules') == 1)
+                || ($attribute->getDataByKey('used_for_sort_by') == 1));
 
             if ($attribute && $event->getType() == Mage_Index_Model_Event::TYPE_DELETE) {
                 $result = $enableBefore;

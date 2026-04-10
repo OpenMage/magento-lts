@@ -6,6 +6,7 @@
  * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
  */
+
 /**
  * Manage Newsletter Template Controller
  *
@@ -163,7 +164,9 @@ class Mage_Adminhtml_Newsletter_TemplateController extends Mage_Adminhtml_Contro
             }
 
             $template->save();
+            $this->_getSession()->addSuccess(Mage::helper('newsletter')->__('The template has been saved.'));
             $this->_redirect('*/*');
+            return;
         } catch (Mage_Core_Exception $mageCoreException) {
             $this->_getSession()->addError(nl2br($mageCoreException->getMessage()));
             $this->_getSession()->setData(

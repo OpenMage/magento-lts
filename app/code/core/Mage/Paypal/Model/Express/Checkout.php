@@ -501,7 +501,7 @@ class Mage_Paypal_Model_Express_Checkout
         }
 
         $this->_setExportedAddressData($billingAddress, $exportedBillingAddress);
-        $billingAddress->setCustomerNotes($exportedBillingAddress->getData('note'));
+        $billingAddress->setCustomerNotes($exportedBillingAddress->getDataByKey('note'));
         $quote->setBillingAddress($billingAddress);
 
         // import payment info
@@ -1017,7 +1017,7 @@ class Mage_Paypal_Model_Express_Checkout
         }
 
         /**
-         * @todo integration with dynamica attributes customer_dob, customer_taxvat, customer_gender
+         * @todo integration with dynamic attributes customer_dob, customer_taxvat, customer_gender
          */
         if ($quote->getCustomerDob() && !$billing->getCustomerDob()) {
             $billing->setCustomerDob($quote->getCustomerDob());

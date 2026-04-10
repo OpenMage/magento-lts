@@ -401,7 +401,7 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
     public function getInfoInstance()
     {
         /** @var Mage_Sales_Model_Order_Payment|Mage_Sales_Model_Quote_Payment $instance */
-        $instance = $this->getData('info_instance');
+        $instance = $this->getDataByKey('info_instance');
         if (!$instance instanceof Mage_Payment_Model_Info) {
             Mage::throwException(Mage::helper('payment')->__('Cannot retrieve the payment information object instance.'));
         }

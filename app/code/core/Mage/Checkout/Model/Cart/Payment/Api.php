@@ -63,13 +63,13 @@ class Mage_Checkout_Model_Cart_Payment_Api extends Mage_Checkout_Model_Api_Resou
     {
         $ccTypes = Mage::getSingleton('payment/config')->getCcTypes();
         $methodCcTypes = explode(',', $method->getConfigData('cctypes'));
-        foreach ($ccTypes as $code => $title) {
-            if (!in_array($code, $methodCcTypes)) {
+        foreach (array_keys($ccTypes) as $code) {
+            if (!in_array($code, $methodCcTypes, true)) {
                 unset($ccTypes[$code]);
             }
         }
 
-        if (empty($ccTypes)) {
+        if ($ccTypes === []) {
             return null;
         }
 

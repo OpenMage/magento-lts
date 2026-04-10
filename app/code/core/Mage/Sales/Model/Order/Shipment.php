@@ -698,7 +698,7 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
      */
     public function getShippingLabel()
     {
-        $label = $this->getData('shipping_label');
+        $label = $this->getDataByKey('shipping_label');
         if ($label) {
             return $this->getResource()->getReadConnection()->decodeVarbinary($label);
         }

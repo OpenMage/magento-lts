@@ -37,7 +37,7 @@ class Mage_Customer_Block_Form_Login extends Mage_Core_Block_Template
      */
     public function getCreateAccountUrl()
     {
-        $url = $this->getData('create_account_url');
+        $url = $this->getDataByKey('create_account_url');
         if (is_null($url)) {
             /** @var Mage_Customer_Helper_Data $helper */
             $helper = $this->helper('customer');

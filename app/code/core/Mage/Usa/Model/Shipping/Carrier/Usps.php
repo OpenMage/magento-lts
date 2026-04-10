@@ -92,13 +92,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
     protected $_rawTrackRequest = null;
 
     /**
-     * Rate result data
-     *
-     * @var null|Mage_Shipping_Model_Rate_Result|Mage_Shipping_Model_Tracking_Result
-     */
-    protected $_result = null;
-
-    /**
      * Default cgi gateway url
      *
      * @var string
@@ -866,8 +859,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
     /**
      * Get tracking
      *
-     * @param  mixed                                $trackingData
-     * @return null|Mage_Shipping_Model_Rate_Result
+     * @param  mixed                                    $trackingData
+     * @return null|Mage_Shipping_Model_Tracking_Result
      */
     public function getTracking($trackingData)
     {
@@ -879,7 +872,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
 
         $this->_getXmlTracking($trackingData);
 
-        return $this->_result;
+        return $this->_trackingResult;
     }
 
     /**
@@ -973,8 +966,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
             }
         }
 
-        if (!$this->_result) {
-            $this->_result = Mage::getModel('shipping/tracking_result');
+        if (!$this->_trackingResult) {
+            $this->_trackingResult = Mage::getModel('shipping/tracking_result');
         }
 
         if ($resultArr) {
@@ -983,14 +976,14 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
             $tracking->setCarrierTitle($this->getConfigData('title'));
             $tracking->setTracking($trackingValue);
             $tracking->setTrackSummary($resultArr['tracksummary']);
-            $this->_result->append($tracking);
+            $this->_trackingResult->append($tracking);
         } else {
             $error = Mage::getModel('shipping/tracking_result_error');
             $error->setCarrier('usps');
             $error->setCarrierTitle($this->getConfigData('title'));
             $error->setTracking($trackingValue);
             $error->setErrorMessage($errorTitle);
-            $this->_result->append($error);
+            $this->_trackingResult->append($error);
         }
     }
 
@@ -1002,7 +995,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
     public function getResponse()
     {
         $statuses = '';
-        if ($this->_result instanceof Mage_Shipping_Model_Tracking_Result && $trackingData = $this->_result->getAllTrackings()) {
+        if ($this->_trackingResult instanceof Mage_Shipping_Model_Tracking_Result && $trackingData = $this->_trackingResult->getAllTrackings()) {
             foreach ($trackingData as $tracking) {
                 if ($data = $tracking->getAllData()) {
                     if (!empty($data['track_summary'])) {

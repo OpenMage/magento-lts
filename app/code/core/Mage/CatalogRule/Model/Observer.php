@@ -158,7 +158,7 @@ class Mage_CatalogRule_Model_Observer
         }
 
         if ($this->_rulePrices[$key] !== false) {
-            $finalPrice = min($product->getData('final_price'), $this->_rulePrices[$key]);
+            $finalPrice = min($product->getDataByKey('final_price'), $this->_rulePrices[$key]);
             $product->setFinalPrice($finalPrice);
         }
 
@@ -201,7 +201,7 @@ class Mage_CatalogRule_Model_Observer
             }
 
             if ($this->_rulePrices[$key] !== false) {
-                $finalPrice = min($product->getData('final_price'), $this->_rulePrices[$key]);
+                $finalPrice = min($product->getDataByKey('final_price'), $this->_rulePrices[$key]);
                 $product->setFinalPrice($finalPrice);
             }
         }

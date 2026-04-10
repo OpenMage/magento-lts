@@ -96,7 +96,6 @@ class Mage_Sales_Model_Order_Status extends Mage_Core_Model_Abstract
     public function getStoreLabel($store = null)
     {
         $store = Mage::app()->getStore($store);
-        $label = false;
         if (!$store->isAdmin()) {
             $labels = $this->getStoreLabels();
             if (isset($labels[$store->getId()])) {

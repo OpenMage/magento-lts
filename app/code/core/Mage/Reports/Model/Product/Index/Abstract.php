@@ -86,7 +86,7 @@ abstract class Mage_Reports_Model_Product_Index_Abstract extends Mage_Core_Model
     public function getVisitorId()
     {
         if ($this->hasData('visitor_id')) {
-            return $this->getData('visitor_id');
+            return $this->getDataByKey('visitor_id');
         }
 
         return Mage::getSingleton('log/visitor')->getId();
@@ -102,7 +102,7 @@ abstract class Mage_Reports_Model_Product_Index_Abstract extends Mage_Core_Model
     public function getCustomerId()
     {
         if ($this->hasData('customer_id')) {
-            return $this->getData('customer_id');
+            return $this->getDataByKey('customer_id');
         }
 
         return Mage::getSingleton('customer/session')->getCustomerId();
@@ -118,7 +118,7 @@ abstract class Mage_Reports_Model_Product_Index_Abstract extends Mage_Core_Model
     public function getStoreId()
     {
         if ($this->hasData('store_id')) {
-            return (int) $this->getData('store_id');
+            return (int) $this->getDataByKey('store_id');
         }
 
         return Mage::app()->getStore()->getId();
