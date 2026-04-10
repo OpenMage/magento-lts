@@ -44,7 +44,7 @@ class Varien_Filter_Template implements Zend_Filter_Interface
     /**
      * Include processor
      *
-     * @var null|array|string
+     * @var null|array|callable|string
      */
     protected $_includeProcessor = null;
 
@@ -64,9 +64,10 @@ class Varien_Filter_Template implements Zend_Filter_Interface
      * Sets the proccessor of templates. Templates are directives that include email templates based on system
      * configuration path.
      *
-     * @param array $callback it must return string
+     * @param  array|callable $callback it must return string
+     * @return $this
      */
-    public function setTemplateProcessor(array $callback)
+    public function setTemplateProcessor(array|callable $callback)
     {
         $this->_templateProcessor = $callback;
         return $this;
@@ -85,9 +86,10 @@ class Varien_Filter_Template implements Zend_Filter_Interface
     /**
      * Sets the proccessor of includes.
      *
-     * @param array $callback it must return string
+     * @param  array|callable $callback it must return string
+     * @return $this
      */
-    public function setIncludeProcessor(array $callback)
+    public function setIncludeProcessor(array|callable $callback)
     {
         $this->_includeProcessor = $callback;
         return $this;

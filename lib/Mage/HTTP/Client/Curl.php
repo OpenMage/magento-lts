@@ -456,8 +456,8 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
     /**
      * Set curl option directly
      *
-     * @param int              $name
-     * @param array|int|string $value
+     * @param int                       $name
+     * @param array|callable|int|string $value
      */
     protected function curlOption($name, $value)
     {

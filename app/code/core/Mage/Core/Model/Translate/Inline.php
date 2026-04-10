@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -303,10 +304,10 @@ class Mage_Core_Model_Translate_Inline
     /**
      * Get translate data by regexp
      *
-     * @param  string       $regexp
-     * @param  string       $text
-     * @param  array|string $locationCallback
-     * @param  array        $options
+     * @param  string                $regexp
+     * @param  string                $text
+     * @param  array|callable|string $locationCallback
+     * @param  array                 $options
      * @return array
      */
     protected function _getTranslateData($regexp, &$text, $locationCallback, $options = [])
