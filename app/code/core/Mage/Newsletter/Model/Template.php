@@ -25,7 +25,6 @@
  * @method string                                             getTemplateSenderName()
  * @method string                                             getTemplateStyles()
  * @method string                                             getTemplateSubject()
- * @method int                                                getTemplateType()
  * @method bool                                               hasAddedAt()
  * @method bool                                               hasTemplateActual()
  * @method $this                                              setAddedAt(string $value)
@@ -39,7 +38,6 @@
  * @method $this                                              setTemplateSubject(string $value)
  * @method $this                                              setTemplateText(string $value)
  * @method $this                                              setTemplateTextPreprocessed(string $value)
- * @method $this                                              setTemplateType(int $value)
  */
 class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abstract
 {
@@ -77,31 +75,50 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
 
         $violations->append($validator->validateNotEmpty(
             value: $this->getDataUsingMethod('template_code'),
-            message: "You must give a non-empty value for field 'template_code'",
+            message: Mage::helper('adminhtml')->__(
+                "You must give a non-empty value for field '%s'.",
+                'template_code',
+            ),
         ));
 
-        $message = "You must give a non-empty value for field 'template_type'";
         $templateType = $this->getDataUsingMethod('template_type');
 
-        $violations->append($validator->validateNotEmpty(
+        $violations->append($validator->validateChoice(
             value: $templateType,
-            message: $message,
+            choices: [Mage_Core_Model_Template::TYPE_TEXT, Mage_Core_Model_Template::TYPE_HTML],
+            message: Mage::helper('adminhtml')->__(
+                'The value %1$s you selected for "%3$s" is not a valid choices %2$s.',
+                '{{ value }}',
+                '{{ choices }}',
+                'template_type',
+            ),
         ));
 
         $violations->append($validator->validateType(
             value: $templateType,
             type: 'int',
-            message: $message,
+            message: Mage::helper('adminhtml')->__(
+                'This value %1$s for "%3$s" should be of type %2$s.',
+                '{{ value }}',
+                '{{ type }}',
+                'template_type',
+            ),
         ));
 
         $violations->append($validator->validateEmail(
             value: $this->getDataUsingMethod('template_sender_email'),
-            message: "You must give a non-empty value for field 'template_sender_email'",
+            message: Mage::helper('adminhtml')->__(
+                "You must give a non-empty value for field '%s'.",
+                'template_sender_email',
+            ),
         ));
 
         $violations->append($validator->validateNotEmpty(
             value: $this->getDataUsingMethod('template_sender_name'),
-            message: "You must give a non-empty value for field 'template_sender_name'",
+            message: Mage::helper('adminhtml')->__(
+                "You must give a non-empty value for field '%s'.",
+                'template_sender_name',
+            ),
         ));
 
         $errors = $validator->getErrorMessages($violations);
@@ -151,7 +168,7 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
     /**
      * Getter for template type
      *
-     * @return int|string
+     * @return int
      */
     public function getType()
     {
@@ -425,5 +442,19 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
         }
 
         return $this->getDataByKey('template_text');
+    }
+
+    /**
+     * @param  Mage_Core_Model_Template::TYPE_* $type
+     * @return $this
+     */
+    public function setTemplateType(int $type)
+    {
+        return $this->setData('template_type', $type);
+    }
+
+    public function getTemplateType(): ?int
+    {
+        return $this->getDataByKey('template_type');
     }
 }
