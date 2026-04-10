@@ -467,7 +467,7 @@ class Mage_CatalogInventory_Model_Stock_Status extends Mage_Core_Model_Abstract
 
         /* back compatible stock item */
         foreach ($productCollection as $product) {
-            $object = Mage::getModel('cataloginventory/stock_item', ['is_in_stock' => $product->getData('is_salable')]);
+            $object = Mage::getModel('cataloginventory/stock_item', ['is_in_stock' => $product->getDataByKey('is_salable')]);
             $product->setStockItem($object);
         }
 

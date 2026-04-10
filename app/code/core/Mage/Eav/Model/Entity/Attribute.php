@@ -278,12 +278,12 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
      */
     public function getStoreLabels()
     {
-        if (!$this->getData('store_labels')) {
+        if (!$this->getDataByKey('store_labels')) {
             $storeLabel = $this->getResource()->getStoreLabelsByAttributeId($this->getId());
             $this->setData('store_labels', $storeLabel);
         }
 
-        return $this->getData('store_labels');
+        return $this->getDataByKey('store_labels');
     }
 
     /**
@@ -296,7 +296,7 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
     public function getStoreLabel($storeId = null)
     {
         if ($this->hasData('store_label')) {
-            return $this->getData('store_label');
+            return $this->getDataByKey('store_label');
         }
 
         $store = Mage::app()->getStore($storeId);

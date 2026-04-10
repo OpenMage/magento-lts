@@ -360,7 +360,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     public function getStoreId()
     {
         if ($this->hasData('store_id')) {
-            return (int) $this->getData('store_id');
+            return (int) $this->getDataByKey('store_id');
         }
 
         return Mage::app()->getStore()->getId();
@@ -432,11 +432,11 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      */
     public function getPrice()
     {
-        if ($this->_calculatePrice || !$this->getData('price')) {
+        if ($this->_calculatePrice || !$this->getDataByKey('price')) {
             return $this->getPriceModel()->getPrice($this);
         }
 
-        return $this->getData('price');
+        return $this->getDataByKey('price');
     }
 
     /**
@@ -566,7 +566,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      */
     public function getCategory()
     {
-        $category = $this->getData('category');
+        $category = $this->getDataByKey('category');
         if (is_null($category) && $this->getCategoryId()) {
             $category = Mage::getModel('catalog/category')->load($this->getCategoryId());
             $this->setCategory($category);
@@ -646,7 +646,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
             $this->setWebsiteIds($ids);
         }
 
-        return $this->getData('website_ids');
+        return $this->getDataByKey('website_ids');
     }
 
     /**
@@ -669,7 +669,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
             $this->setStoreIds($storeIds);
         }
 
-        return $this->getData('store_ids');
+        return $this->getDataByKey('store_ids');
     }
 
     /**
@@ -1063,7 +1063,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
             $this->setRelatedProducts($products);
         }
 
-        return $this->getData('related_products');
+        return $this->getDataByKey('related_products');
     }
 
     /**
@@ -1083,7 +1083,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
             $this->setRelatedProductIds($ids);
         }
 
-        return $this->getData('related_product_ids');
+        return $this->getDataByKey('related_product_ids');
     }
 
     /**
@@ -1132,7 +1132,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
             $this->setUpSellProducts($products);
         }
 
-        return $this->getData('up_sell_products');
+        return $this->getDataByKey('up_sell_products');
     }
 
     /**
@@ -1152,7 +1152,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
             $this->setUpSellProductIds($ids);
         }
 
-        return $this->getData('up_sell_product_ids');
+        return $this->getDataByKey('up_sell_product_ids');
     }
 
     /**
@@ -1201,7 +1201,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
             $this->setCrossSellProducts($products);
         }
 
-        return $this->getData('cross_sell_products');
+        return $this->getDataByKey('cross_sell_products');
     }
 
     /**
@@ -1220,7 +1220,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
             $this->setCrossSellProductIds($ids);
         }
 
-        return $this->getData('cross_sell_product_ids');
+        return $this->getDataByKey('cross_sell_product_ids');
     }
 
     /**
@@ -1290,7 +1290,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
             $this->setMediaAttributes($mediaAttributes);
         }
 
-        return $this->getData('media_attributes');
+        return $this->getDataByKey('media_attributes');
     }
 
     /**
@@ -1317,7 +1317,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
             $this->setData('media_gallery_images', $images);
         }
 
-        return $this->getData('media_gallery_images');
+        return $this->getDataByKey('media_gallery_images');
     }
 
     /**
@@ -1657,7 +1657,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
         }
 
         if ($this->hasData('is_salable')) {
-            return $this->getData('is_salable');
+            return $this->getDataByKey('is_salable');
         }
 
         return $this->isSalable();
@@ -1727,8 +1727,8 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     public function getCustomDesignDate()
     {
         return [
-            'from' => $this->getData('custom_design_from'),
-            'to' => $this->getData('custom_design_to'),
+            'from' => $this->getDataByKey('custom_design_from'),
+            'to' => $this->getDataByKey('custom_design_to'),
         ];
     }
 
@@ -2323,7 +2323,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      */
     public function getPreconfiguredValues()
     {
-        $preconfiguredValues = $this->getData('preconfigured_values');
+        $preconfiguredValues = $this->getDataByKey('preconfigured_values');
         if (!$preconfiguredValues) {
             return new Varien_Object();
         }

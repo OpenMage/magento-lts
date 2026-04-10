@@ -74,7 +74,7 @@ class Mage_Api_Model_Server_Adapter_Soap extends Varien_Object implements Mage_A
      */
     public function getHandler()
     {
-        return $this->getData('handler');
+        return $this->getDataByKey('handler');
     }
 
     /**
@@ -95,7 +95,7 @@ class Mage_Api_Model_Server_Adapter_Soap extends Varien_Object implements Mage_A
      */
     public function getController()
     {
-        $controller = $this->getData('controller');
+        $controller = $this->getDataByKey('controller');
 
         if ($controller === null) {
             $controller = new Varien_Object(

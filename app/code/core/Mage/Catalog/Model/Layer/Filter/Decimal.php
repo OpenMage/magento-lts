@@ -122,7 +122,7 @@ class Mage_Catalog_Model_Layer_Filter_Decimal extends Mage_Catalog_Model_Layer_F
      */
     public function getMaxValue()
     {
-        $max = $this->getData('max_value');
+        $max = $this->getDataByKey('max_value');
         if (is_null($max)) {
             [$min, $max] = $this->_getResource()->getMinMax($this);
             $this->setData('max_value', $max);
@@ -139,7 +139,7 @@ class Mage_Catalog_Model_Layer_Filter_Decimal extends Mage_Catalog_Model_Layer_F
      */
     public function getMinValue()
     {
-        $min = $this->getData('min_value');
+        $min = $this->getDataByKey('min_value');
         if (is_null($min)) {
             [$min, $max] = $this->_getResource()->getMinMax($this);
             $this->setData('max_value', $max);
@@ -156,7 +156,7 @@ class Mage_Catalog_Model_Layer_Filter_Decimal extends Mage_Catalog_Model_Layer_F
      */
     public function getRange()
     {
-        $range = $this->getData('range');
+        $range = $this->getDataByKey('range');
         if (!$range) {
             $maxValue = $this->getMaxValue();
             $index = 1;

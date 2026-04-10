@@ -180,7 +180,7 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
             $this->setData('first_visit_at', Varien_Date::now());
         }
 
-        return $this->getData('first_visit_at');
+        return $this->getDataByKey('first_visit_at');
     }
 
     /**
@@ -192,7 +192,7 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
             $this->setData('last_visit_at', Varien_Date::now());
         }
 
-        return $this->getData('last_visit_at');
+        return $this->getDataByKey('last_visit_at');
     }
 
     /**

@@ -108,7 +108,7 @@ class Mage_Catalog_Block_Category_View extends Mage_Core_Block_Template
             $this->setData('current_category', Mage::registry('current_category'));
         }
 
-        return $this->getData('current_category');
+        return $this->getDataByKey('current_category');
     }
 
     /**
@@ -116,14 +116,14 @@ class Mage_Catalog_Block_Category_View extends Mage_Core_Block_Template
      */
     public function getCmsBlockHtml()
     {
-        if (!$this->getData('cms_block_html')) {
+        if (!$this->getDataByKey('cms_block_html')) {
             $html = $this->getLayout()->createBlock('cms/block')
                 ->setBlockId($this->getCurrentCategory()->getLandingPage())
                 ->toHtml();
             $this->setData('cms_block_html', $html);
         }
 
-        return $this->getData('cms_block_html');
+        return $this->getDataByKey('cms_block_html');
     }
 
     /**

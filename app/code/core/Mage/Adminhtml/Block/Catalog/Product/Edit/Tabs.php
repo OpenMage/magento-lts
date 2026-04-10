@@ -176,11 +176,11 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tabs extends Mage_Adminhtml_Bloc
      */
     public function getProduct()
     {
-        if (!($this->getData('product') instanceof Mage_Catalog_Model_Product)) {
+        if (!($this->getDataByKey('product') instanceof Mage_Catalog_Model_Product)) {
             $this->setData('product', Mage::registry('product'));
         }
 
-        return $this->getData('product');
+        return $this->getDataByKey('product');
     }
 
     /**

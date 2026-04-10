@@ -28,7 +28,7 @@ class Mage_Adminhtml_Model_Url extends Mage_Core_Model_Url
     public function getSecure()
     {
         if ($this->hasData('secure_is_forced')) {
-            return $this->getData('secure');
+            return $this->getDataByKey('secure');
         }
 
         return Mage::getStoreConfigFlag(Mage_Core_Model_Store::XML_PATH_SECURE_IN_ADMINHTML);

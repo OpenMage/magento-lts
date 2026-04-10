@@ -338,7 +338,7 @@ class Mage_Catalog_Model_Config extends Mage_Eav_Model_Config
                 ->getAttributes(Mage_Catalog_Model_Product::ENTITY);
             $this->_usedInProductListing = [];
             foreach ($allAttributes as $attribute) {
-                if ($attribute->getData('used_in_product_listing')) {
+                if ($attribute->getDataByKey('used_in_product_listing')) {
                     $this->_usedInProductListing[$attribute->getAttributeCode()] = $attribute;
                 }
             }
@@ -359,7 +359,7 @@ class Mage_Catalog_Model_Config extends Mage_Eav_Model_Config
                 ->getAttributes(Mage_Catalog_Model_Product::ENTITY);
             $this->_usedForSortBy = [];
             foreach ($allAttributes as $attribute) {
-                if ($attribute->getData('used_for_sort_by')) {
+                if ($attribute->getDataByKey('used_for_sort_by')) {
                     $this->_usedForSortBy[$attribute->getAttributeCode()] = $attribute;
                 }
             }

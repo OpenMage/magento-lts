@@ -146,7 +146,7 @@ class Mage_Page_Block_Html extends Mage_Core_Block_Template
             $this->setData('lang', substr(Mage::app()->getLocale()->getLocaleCode(), 0, 2));
         }
 
-        return $this->getData('lang');
+        return $this->getDataByKey('lang');
     }
 
     /**

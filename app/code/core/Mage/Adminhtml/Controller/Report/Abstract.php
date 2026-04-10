@@ -72,7 +72,7 @@ abstract class Mage_Adminhtml_Controller_Report_Abstract extends Mage_Adminhtml_
 
         foreach ($blocks as $block) {
             if ($block) {
-                $block->setPeriodType($params->getData('period_type'));
+                $block->setPeriodType($params->getDataByKey('period_type'));
                 $block->setFilterData($params);
             }
         }

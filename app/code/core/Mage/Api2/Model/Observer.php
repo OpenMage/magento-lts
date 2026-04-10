@@ -23,7 +23,7 @@ class Mage_Api2_Model_Observer
         $user = $observer->getObject();
 
         if ($user->hasData('api2_roles')) {
-            $roles = $user->getData('api2_roles');
+            $roles = $user->getDataByKey('api2_roles');
 
             if (!is_array($roles) || !isset($roles[0])) {
                 throw new Exception('API2 roles property has wrong data format.');

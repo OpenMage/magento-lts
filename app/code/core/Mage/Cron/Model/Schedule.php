@@ -54,7 +54,7 @@ class Mage_Cron_Model_Schedule extends Mage_Core_Model_Abstract
 
     public function getIsError(): bool
     {
-        return !empty($this->getData('is_error'));
+        return !empty($this->getDataByKey('is_error'));
     }
 
     /**

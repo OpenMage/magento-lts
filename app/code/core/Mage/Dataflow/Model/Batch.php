@@ -109,7 +109,7 @@ class Mage_Dataflow_Model_Batch extends Mage_Core_Model_Abstract
 
     protected function _beforeSave()
     {
-        if (is_null($this->getData('created_at'))) {
+        if (is_null($this->getDataByKey('created_at'))) {
             $this->setData('created_at', Mage::getSingleton('core/date')->gmtDate());
         }
 

@@ -167,7 +167,7 @@ EndSCRIPT;
      */
     public function getName()
     {
-        return $this->getData('name');
+        return $this->getDataByKey('name');
     }
 
     /**

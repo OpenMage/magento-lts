@@ -228,7 +228,7 @@ abstract class Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract 
             }
         }
 
-        if (!$object->getData('_edit_mode') && $websiteId) {
+        if (!$object->getDataByKey('_edit_mode') && $websiteId) {
             $data = $this->preparePriceData($data, $object->getTypeId(), $websiteId);
         }
 

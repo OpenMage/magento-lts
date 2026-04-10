@@ -108,7 +108,7 @@ class Mage_Customer_Model_Address extends Mage_Customer_Model_Address_Abstract
      */
     public function getAttributes()
     {
-        $attributes = $this->getData('attributes');
+        $attributes = $this->getDataByKey('attributes');
         if (is_null($attributes)) {
             $attributes = $this->_getResource()
                 ->loadAllAttributes($this)
@@ -141,7 +141,7 @@ class Mage_Customer_Model_Address extends Mage_Customer_Model_Address_Abstract
      */
     public function getEntityTypeId()
     {
-        $entityTypeId = $this->getData('entity_type_id');
+        $entityTypeId = $this->getDataByKey('entity_type_id');
         if (!$entityTypeId) {
             $entityTypeId = $this->getEntityType()->getId();
             $this->setData('entity_type_id', $entityTypeId);
@@ -157,7 +157,7 @@ class Mage_Customer_Model_Address extends Mage_Customer_Model_Address_Abstract
      */
     public function getRegionId()
     {
-        return (int) $this->getData('region_id');
+        return (int) $this->getDataByKey('region_id');
     }
 
     /**

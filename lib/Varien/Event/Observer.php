@@ -51,7 +51,7 @@ class Varien_Event_Observer extends Varien_Object
      */
     public function getName()
     {
-        return $this->getData('name');
+        return $this->getDataByKey('name');
     }
 
     /**
@@ -68,7 +68,7 @@ class Varien_Event_Observer extends Varien_Object
      */
     public function getEventName()
     {
-        return $this->getData('event_name');
+        return $this->getDataByKey('event_name');
     }
 
     /**
@@ -85,7 +85,7 @@ class Varien_Event_Observer extends Varien_Object
      */
     public function getCallback()
     {
-        return $this->getData('callback');
+        return $this->getDataByKey('callback');
     }
 
     /**
@@ -104,7 +104,7 @@ class Varien_Event_Observer extends Varien_Object
      */
     public function getEvent()
     {
-        return $this->getData('event');
+        return $this->getDataByKey('event');
     }
 
     /**

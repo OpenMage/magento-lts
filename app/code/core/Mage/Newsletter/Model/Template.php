@@ -179,7 +179,7 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
             $this->setTemplateTextPreprocessed($this->getProcessedTemplate());
         }
 
-        return (string) $this->getData('template_text_preprocessed');
+        return (string) $this->getDataByKey('template_text_preprocessed');
     }
 
     /**
@@ -417,13 +417,13 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
      */
     public function getTemplateText()
     {
-        if (!$this->getData('template_text') && !$this->getId()) {
+        if (!$this->getDataByKey('template_text') && !$this->getId()) {
             $this->setData(
                 'template_text',
                 Mage::helper('newsletter')->__('Follow this link to unsubscribe <!-- This tag is for unsubscribe link  --><a href="{{var subscriber.getUnsubscriptionLink()}}">{{var subscriber.getUnsubscriptionLink()}}</a>'),
             );
         }
 
-        return $this->getData('template_text');
+        return $this->getDataByKey('template_text');
     }
 }
