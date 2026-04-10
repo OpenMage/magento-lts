@@ -95,6 +95,9 @@ final class PurifierTest extends OpenMageTest
         self::assertSame($expected, $subject->purify($input));
     }
 
+    /**
+     * @param array<string, mixed>|array<string, mixed[]>|null[] $options
+     */
     private function getSubject(array $options): Subject
     {
         /** @var Subject $subject */
