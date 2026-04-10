@@ -14,6 +14,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Usa\Model\Shipping\Carrier;
 
+use Iterator;
 use OpenMage\Tests\Unit\OpenMageTest;
 
 final class UspsSecurityTest extends OpenMageTest
@@ -37,7 +38,7 @@ final class UspsSecurityTest extends OpenMageTest
         foreach ($files as $file) {
             $basename = basename($file);
             $source = file_get_contents($file);
-            self::assertNotFalse($source, "Could not read $basename");
+            self::assertNotFalse($source, "Could not read {$basename}");
 
             $peerCount = substr_count($source, 'SSL_VERIFYPEER');
             $hostCount = substr_count($source, 'SSL_VERIFYHOST');
@@ -45,19 +46,19 @@ final class UspsSecurityTest extends OpenMageTest
             self::assertSame(
                 $peerCount,
                 $hostCount,
-                "$basename: CURLOPT_SSL_VERIFYPEER ($peerCount) and CURLOPT_SSL_VERIFYHOST ($hostCount) count must match",
+                "{$basename}: CURLOPT_SSL_VERIFYPEER ({$peerCount}) and CURLOPT_SSL_VERIFYHOST ({$hostCount}) count must match",
             );
 
             // Verify VERIFYHOST value is 2 (not 0 or 1)
             self::assertStringNotContainsString(
                 'SSL_VERIFYHOST => 0',
                 $source,
-                "$basename: SSL_VERIFYHOST must never be 0",
+                "{$basename}: SSL_VERIFYHOST must never be 0",
             );
             self::assertStringNotContainsString(
                 'SSL_VERIFYHOST, 0',
                 $source,
-                "$basename: SSL_VERIFYHOST must never be 0",
+                "{$basename}: SSL_VERIFYHOST must never be 0",
             );
         }
     }
@@ -134,13 +135,13 @@ final class UspsSecurityTest extends OpenMageTest
         $isValid = ($scheme === 'https' && preg_match('/\.usps\.com$/i', $host));
 
         if ($shouldPass) {
-            self::assertTrue((bool) $isValid, "URL should be accepted: $url");
+            self::assertTrue($isValid, "URL should be accepted: {$url}");
         } else {
-            self::assertFalse((bool) $isValid, "URL should be rejected: $url");
+            self::assertFalse($isValid, "URL should be rejected: {$url}");
         }
     }
 
-    public static function provideGatewayUrls(): \Iterator
+    public static function provideGatewayUrls(): Iterator
     {
         yield 'production URL' => ['https://apis.usps.com/', true];
         yield 'sandbox URL' => ['https://apis-tem.usps.com/', true];

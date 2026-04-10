@@ -46,9 +46,11 @@ class Mage_Usa_Adminhtml_UspsController extends Mage_Adminhtml_Controller_Action
         if ($storeCode) {
             return Mage::getStoreConfig($path, $storeCode);
         }
+
         if ($websiteCode) {
             return Mage::app()->getWebsite($websiteCode)->getConfig($path);
         }
+
         return Mage::getStoreConfig($path);
     }
 
@@ -185,7 +187,7 @@ class Mage_Usa_Adminhtml_UspsController extends Mage_Adminhtml_Controller_Action
             curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 2);
 
             $rateResponse = curl_exec($curl);
-            $rateHttpCode = (int) curl_getinfo($curl, CURLINFO_HTTP_CODE);
+            $rateHttpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
             $rateCurlError = ($rateResponse === false) ? curl_error($curl) : '';
             curl_close($curl);
 
@@ -312,7 +314,7 @@ class Mage_Usa_Adminhtml_UspsController extends Mage_Adminhtml_Controller_Action
         curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 2);
 
         $response = curl_exec($curl);
-        $httpCode = (int) curl_getinfo($curl, CURLINFO_HTTP_CODE);
+        $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
         $curlError = ($response === false) ? curl_error($curl) : '';
         curl_close($curl);
 

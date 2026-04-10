@@ -152,27 +152,15 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
             $rawRequest->setService('ALL');
         }
 
-        if ($request->getUspsContainer()) {
-            $container = $request->getUspsContainer();
-        } else {
-            $container = $this->getConfigData('container');
-        }
+        $container = $request->getUspsContainer() ? $request->getUspsContainer() : $this->getConfigData('container');
 
         $rawRequest->setContainer($container);
 
-        if ($request->getUspsSize()) {
-            $size = $request->getUspsSize();
-        } else {
-            $size = $this->getConfigData('size');
-        }
+        $size = $request->getUspsSize() ? $request->getUspsSize() : $this->getConfigData('size');
 
         $rawRequest->setSize($size);
 
-        if ($request->getGirth()) {
-            $girth = $request->getGirth();
-        } else {
-            $girth = $this->getConfigData('girth');
-        }
+        $girth = $request->getGirth() ? $request->getGirth() : $this->getConfigData('girth');
 
         $rawRequest->setGirth($girth);
 
@@ -184,11 +172,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
         $rawRequest->setWidth($dimensions['width']);
         // End @customization
 
-        if ($request->getUspsMachinable()) {
-            $machinable = $request->getUspsMachinable();
-        } else {
-            $machinable = $this->getConfigData('machinable');
-        }
+        $machinable = $request->getUspsMachinable() ? $request->getUspsMachinable() : $this->getConfigData('machinable');
 
         $rawRequest->setMachinable($machinable);
 
@@ -210,11 +194,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
             ));
         }
 
-        if ($request->getDestCountryId()) {
-            $destCountry = $request->getDestCountryId();
-        } else {
-            $destCountry = self::USA_COUNTRY_ID;
-        }
+        $destCountry = $request->getDestCountryId() ? $request->getDestCountryId() : self::USA_COUNTRY_ID;
 
         $rawRequest->setDestCountryId($destCountry);
 
@@ -369,7 +349,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
 
         /** @var false|string $body */
         $body = curl_exec($curl);
-        $httpCode = (int) curl_getinfo($curl, CURLINFO_HTTP_CODE);
+        $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
         $error = ($body === false) ? curl_error($curl) : null;
         curl_close($curl);
 
