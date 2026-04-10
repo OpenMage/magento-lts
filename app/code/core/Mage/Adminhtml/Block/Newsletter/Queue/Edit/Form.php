@@ -14,6 +14,8 @@
  */
 class Mage_Adminhtml_Block_Newsletter_Queue_Edit_Form extends Mage_Adminhtml_Block_Widget_Form
 {
+    protected string $_eventPrefix = 'adminhtml_newsletter_queue_edit_form';
+
     /**
      * Prepare form for newsletter queue editing.
      * Form can be run from newsletter template grid by option "Queue newsletter"
@@ -182,6 +184,6 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Edit_Form extends Mage_Adminhtml_Blo
         }
 
         $this->setForm($form);
-        return $this;
+        return parent::_prepareForm();
     }
 }

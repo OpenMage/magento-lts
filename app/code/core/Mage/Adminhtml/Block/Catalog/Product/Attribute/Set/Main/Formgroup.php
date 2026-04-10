@@ -12,6 +12,8 @@
  */
 class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main_Formgroup extends Mage_Adminhtml_Block_Widget_Form
 {
+    protected string $_eventPrefix = 'adminhtml_catalog_product_attribute_set_main_formgroup';
+
     protected function _prepareForm()
     {
         $form = new Varien_Data_Form();
@@ -55,7 +57,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main_Formgroup extends 
         $form->setMethod('post');
         $form->setAction($this->getUrl('*/catalog_product_group/save'));
         $this->setForm($form);
-        return $this;
+        return parent::_prepareForm();
     }
 
     protected function _getSetId()

@@ -12,14 +12,10 @@
  */
 class Mage_Adminhtml_Block_Api_Tab_Roleinfo extends Mage_Adminhtml_Block_Widget_Form
 {
-    protected function _beforeToHtml()
-    {
-        $this->_initForm();
-
-        return parent::_beforeToHtml();
-    }
-
-    protected function _initForm()
+    /**
+     * @inheritDoc
+     */
+    protected function _prepareForm()
     {
         $form = new Varien_Data_Form();
 
@@ -70,5 +66,7 @@ class Mage_Adminhtml_Block_Api_Tab_Roleinfo extends Mage_Adminhtml_Block_Widget_
 
         $form->setValues($this->getRole()->getData());
         $this->setForm($form);
+
+        return parent::_prepareForm();
     }
 }

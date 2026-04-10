@@ -14,6 +14,8 @@
  */
 class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Settings extends Mage_Adminhtml_Block_Widget_Form
 {
+    protected string $_eventPrefix = 'adminhtml_catalog_product_edit_tab_settings';
+
     protected function _prepareLayout()
     {
         $this->setChild(
@@ -60,7 +62,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Settings extends Mage_Adminh
         ]);
 
         $this->setForm($form);
-        return $this;
+        return parent::_prepareForm();
     }
 
     public function getContinueUrl()

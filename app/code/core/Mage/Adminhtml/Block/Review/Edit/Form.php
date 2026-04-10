@@ -14,6 +14,8 @@
  */
 class Mage_Adminhtml_Block_Review_Edit_Form extends Mage_Adminhtml_Block_Widget_Form
 {
+    protected string $_eventPrefix = 'adminhtml_review_edit_form';
+
     protected function _prepareForm()
     {
         $review = Mage::registry('review_data');

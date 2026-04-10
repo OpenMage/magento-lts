@@ -16,6 +16,8 @@ declare(strict_types=1);
  */
 class Mage_Adminhtml_Block_Permissions_User_Edit_Form extends Mage_Adminhtml_Block_Widget_Form
 {
+    protected string $_eventPrefix = 'adminhtml_permissions_user_edit_form';
+
     protected function _prepareForm()
     {
         $form = new Varien_Data_Form(['id' => 'edit_form', 'action' => $this->getDataByKey('action'), 'method' => 'post']);

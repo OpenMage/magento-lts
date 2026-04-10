@@ -14,6 +14,8 @@
  */
 class Mage_Adminhtml_Block_Cms_Page_Edit_Tab_Content extends Mage_Adminhtml_Block_Widget_Form implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
+    protected string $_eventPrefix = 'adminhtml_cms_page_edit_tab_content';
+
     /**
      * Load Wysiwyg on demand and Prepare layout
      */
@@ -72,8 +74,6 @@ class Mage_Adminhtml_Block_Cms_Page_Edit_Tab_Content extends Mage_Adminhtml_Bloc
 
         $form->setValues($model->getData());
         $this->setForm($form);
-
-        Mage::dispatchEvent('adminhtml_cms_page_edit_tab_content_prepare_form', ['form' => $form]);
 
         return parent::_prepareForm();
     }

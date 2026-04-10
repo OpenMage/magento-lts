@@ -14,6 +14,8 @@
  */
 class Mage_Adminhtml_Block_Catalog_Helper_Form_Wysiwyg_Content extends Mage_Adminhtml_Block_Widget_Form
 {
+    protected string $_eventPrefix = 'adminhtml_catalog_helper_form_wysiwyg_content';
+
     /**
      * Prepare form.
      * Adding editor field to render
