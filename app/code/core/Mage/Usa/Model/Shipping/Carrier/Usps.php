@@ -152,16 +152,16 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
             $rawRequest->setService('ALL');
         }
 
-        $container = $request->getUspsContainer() ? $request->getUspsContainer() : $this->getConfigData('container');
-
+        $requestContainer = $request->getUspsContainer();
+        $container = $requestContainer ? $requestContainer : $this->getConfigData('container');
         $rawRequest->setContainer($container);
 
-        $size = $request->getUspsSize() ? $request->getUspsSize() : $this->getConfigData('size');
-
+        $requestUspsSize = $request->getUspsSize();
+        $size = $requestUspsSize ? $requestUspsSize : $this->getConfigData('size');
         $rawRequest->setSize($size);
 
-        $girth = $request->getGirth() ? $request->getGirth() : $this->getConfigData('girth');
-
+        $girth = $request->getGirth();
+        $girth = $girth ? $girth : $this->getConfigData('girth');
         $rawRequest->setGirth($girth);
 
         // Calculate dimensions from product attributes instead of using
@@ -172,8 +172,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
         $rawRequest->setWidth($dimensions['width']);
         // End @customization
 
-        $machinable = $request->getUspsMachinable() ? $request->getUspsMachinable() : $this->getConfigData('machinable');
-
+        $requestMachinable = $request->getUspsMachinable();
+        $machinable = $requestMachinable ? $requestMachinable : $this->getConfigData('machinable');
         $rawRequest->setMachinable($machinable);
 
         if ($request->getOrigPostcode()) {
@@ -194,8 +194,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
             ));
         }
 
-        $destCountry = $request->getDestCountryId() ? $request->getDestCountryId() : self::USA_COUNTRY_ID;
-
+        $destCountryId = $request->getDestCountryId();
+        $destCountry = $destCountryId ? $destCountryId : self::USA_COUNTRY_ID;
         $rawRequest->setDestCountryId($destCountry);
 
         if (!$this->_isUSCountry($destCountry)) {
