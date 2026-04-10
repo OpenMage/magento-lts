@@ -446,7 +446,7 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
 
             /** @var Mage_Customer_Model_Group $group */
             foreach ($groups as $group) {
-                $this->_customerGroups[$group->getId()] = $group->getData('customer_group_code');
+                $this->_customerGroups[$group->getId()] = $group->getDataByKey('customer_group_code');
             }
         }
 

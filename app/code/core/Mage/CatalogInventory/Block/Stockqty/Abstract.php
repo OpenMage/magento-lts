@@ -10,7 +10,7 @@ declare(strict_types=1);
  */
 
 /**
- * Product stock qty abstarct block
+ * Product stock qty abstract block
  *
  * @package    Mage_CatalogInventory
  */
@@ -44,7 +44,7 @@ abstract class Mage_CatalogInventory_Block_Stockqty_Abstract extends Mage_Core_B
             $this->setData('product_stock_qty', $qty);
         }
 
-        return $this->getData('product_stock_qty');
+        return $this->getDataByKey('product_stock_qty');
     }
 
     /**
@@ -59,7 +59,7 @@ abstract class Mage_CatalogInventory_Block_Stockqty_Abstract extends Mage_Core_B
             $this->setData('threshold_qty', $qty);
         }
 
-        return $this->getData('threshold_qty');
+        return $this->getDataByKey('threshold_qty');
     }
 
     /**

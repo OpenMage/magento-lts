@@ -48,7 +48,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer_Address extends Mage_Import
     protected $_attributes = [];
 
     /**
-     * Countrys and its regions.
+     * Country's and their regions.
      *
      * array(
      *   [country_id_lowercased_1] => array(

@@ -34,7 +34,7 @@ class Mage_Paypal_Block_Adminhtml_Settlement_Details_Form extends Mage_Adminhtml
                     'paypal_reference_id' => ['label' => $settlement->getFieldLabel('paypal_reference_id')],
                     'paypal_reference_id_type' => [
                         'label' => $settlement->getFieldLabel('paypal_reference_id_type'),
-                        'value' => $model->getReferenceType($model->getData('paypal_reference_id_type')),
+                        'value' => $model->getReferenceType($model->getDataByKey('paypal_reference_id_type')),
                     ],
                     'custom_field' => ['label' => $settlement->getFieldLabel('custom_field')],
                 ],
@@ -45,25 +45,25 @@ class Mage_Paypal_Block_Adminhtml_Settlement_Details_Form extends Mage_Adminhtml
                 'fields' => [
                     'transaction_event_code' => [
                         'label' => $settlement->getFieldLabel('transaction_event_code'),
-                        'value' => sprintf('%s (%s)', $model->getData('transaction_event_code'), $model->getTransactionEvent($model->getData('transaction_event_code'))),
+                        'value' => sprintf('%s (%s)', $model->getDataByKey('transaction_event_code'), $model->getTransactionEvent($model->getDataByKey('transaction_event_code'))),
                     ],
                     'transaction_initiation_date' => [
                         'label' => $settlement->getFieldLabel('transaction_initiation_date'),
-                        'value' => $this->formatDate($model->getData('transaction_initiation_date'), Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM, true),
+                        'value' => $this->formatDate($model->getDataByKey('transaction_initiation_date'), Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM, true),
                     ],
                     'transaction_completion_date' => [
                         'label' => $settlement->getFieldLabel('transaction_completion_date'),
-                        'value' => $this->formatDate($model->getData('transaction_completion_date'), Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM, true),
+                        'value' => $this->formatDate($model->getDataByKey('transaction_completion_date'), Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM, true),
                     ],
                     'transaction_debit_or_credit' => [
                         'label' => $settlement->getFieldLabel('transaction_debit_or_credit'),
-                        'value' => $model->getDebitCreditText($model->getData('transaction_debit_or_credit')),
+                        'value' => $model->getDebitCreditText($model->getDataByKey('transaction_debit_or_credit')),
                     ],
                     'gross_transaction_amount' => [
                         'label' => $settlement->getFieldLabel('gross_transaction_amount'),
                         'value' => Mage::app()->getLocale()
-                                       ->currency($model->getData('gross_transaction_currency'))
-                                       ->toCurrency($model->getData('gross_transaction_amount')),
+                                       ->currency($model->getDataByKey('gross_transaction_currency'))
+                                       ->toCurrency($model->getDataByKey('gross_transaction_amount')),
                     ],
                 ],
                 'legend' => Mage::helper('paypal')->__('Transaction Information'),
@@ -73,13 +73,13 @@ class Mage_Paypal_Block_Adminhtml_Settlement_Details_Form extends Mage_Adminhtml
                 'fields' => [
                     'fee_debit_or_credit' => [
                         'label' => $settlement->getFieldLabel('fee_debit_or_credit'),
-                        'value' => $model->getDebitCreditText($model->getData('fee_debit_or_credit')),
+                        'value' => $model->getDebitCreditText($model->getDataByKey('fee_debit_or_credit')),
                     ],
                     'fee_amount' => [
                         'label' => $settlement->getFieldLabel('fee_amount'),
                         'value' => Mage::app()->getLocale()
-                                       ->currency($model->getData('fee_currency'))
-                                       ->toCurrency($model->getData('fee_amount')),
+                                       ->currency($model->getDataByKey('fee_currency'))
+                                       ->toCurrency($model->getDataByKey('fee_amount')),
                     ],
                 ],
                 'legend' => Mage::helper('paypal')->__('PayPal Fee Information'),

@@ -609,7 +609,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
      */
     public function getOriginalPrice()
     {
-        $price = $this->getData('original_price');
+        $price = $this->getDataByKey('original_price');
         if (is_null($price)) {
             return $this->getPrice();
         }
@@ -809,12 +809,12 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
      */
     public function getProduct()
     {
-        if (!$this->getData('product')) {
+        if (!$this->getDataByKey('product')) {
             $product = Mage::getModel('catalog/product')->setStoreId($this->getStoreId())->load($this->getProductId());
             $this->setProduct($product);
         }
 
-        return $this->getData('product');
+        return $this->getDataByKey('product');
     }
 
     /**

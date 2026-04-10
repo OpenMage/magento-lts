@@ -479,7 +479,7 @@ class Mage_Core_Model_Cache
             $this->_allowedCacheOptions = unserialize($options, ['allowed_classes' => false]);
         }
 
-        if (Mage::getConfig()->getOptions()->getData('global_ban_use_cache')) {
+        if (Mage::getConfig()->getOptions()->getDataByKey('global_ban_use_cache')) {
             foreach (array_keys($this->_allowedCacheOptions) as $key) {
                 $this->_allowedCacheOptions[$key] = false;
             }

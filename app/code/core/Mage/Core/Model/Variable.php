@@ -87,8 +87,8 @@ class Mage_Core_Model_Variable extends Mage_Core_Model_Abstract
             $type = self::TYPE_HTML;
         }
 
-        if ($type == self::TYPE_TEXT || !(strlen((string) $this->getData('html_value')))) {
-            $value = $this->getData('plain_value');
+        if ($type == self::TYPE_TEXT || !(strlen((string) $this->getDataByKey('html_value')))) {
+            $value = $this->getDataByKey('plain_value');
             //escape html if type is html, but html value is not defined
             if ($type == self::TYPE_HTML) {
                 return nl2br(Mage::helper('core')->escapeHtml($value));
@@ -97,7 +97,7 @@ class Mage_Core_Model_Variable extends Mage_Core_Model_Abstract
             return $value;
         }
 
-        return $this->getData('html_value');
+        return $this->getDataByKey('html_value');
     }
 
     /**

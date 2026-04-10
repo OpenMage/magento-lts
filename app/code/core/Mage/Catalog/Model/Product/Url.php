@@ -92,7 +92,7 @@ class Mage_Catalog_Model_Product_Url extends Mage_Catalog_Model_Url
      */
     public function getUrlPath($product, $category = null)
     {
-        $path = $product->getData('url_path');
+        $path = $product->getDataByKey('url_path');
         if (is_null($category)) {
             /** @todo get default category */
             return $path;
@@ -116,12 +116,12 @@ class Mage_Catalog_Model_Product_Url extends Mage_Catalog_Model_Url
      */
     public function getUrl(Mage_Catalog_Model_Product $product, $params = [])
     {
-        $url = $product->getData('url');
+        $url = $product->getDataByKey('url');
         if (!empty($url)) {
             return $url;
         }
 
-        $requestPath = $product->getData('request_path');
+        $requestPath = $product->getDataByKey('request_path');
         if (empty($requestPath)) {
             $requestPath = $this->_getRequestPath($product, $this->_getCategoryIdForUrl($product, $params));
             $product->setRequestPath($requestPath);
@@ -141,7 +141,7 @@ class Mage_Catalog_Model_Product_Url extends Mage_Catalog_Model_Url
         $this->getUrlInstance()->setStore($storeId);
         $productUrl = $this->_getProductUrl($product, $requestPath, $params);
         $product->setData('url', $productUrl);
-        return $product->getData('url');
+        return $product->getDataByKey('url');
     }
 
     /**

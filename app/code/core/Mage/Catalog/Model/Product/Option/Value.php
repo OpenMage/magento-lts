@@ -140,13 +140,13 @@ class Mage_Catalog_Model_Product_Option_Value extends Mage_Core_Model_Abstract
                 ->setData('option_id', $this->getOption()->getId())
                 ->setData('store_id', $this->getOption()->getStoreId());
 
-            if ($this->getData('option_type_id') == '-1') {//change to 0
+            if ($this->getDataByKey('option_type_id') == '-1') {//change to 0
                 $this->unsetData('option_type_id');
             } else {
-                $this->setId($this->getData('option_type_id'));
+                $this->setId($this->getDataByKey('option_type_id'));
             }
 
-            if ($this->getData('is_delete') == '1') {
+            if ($this->getDataByKey('is_delete') == '1') {
                 if ($this->getId()) {
                     $this->deleteValues($this->getId());
                     // phpcs:ignore Ecg.Performance.Loop.ModelLSD

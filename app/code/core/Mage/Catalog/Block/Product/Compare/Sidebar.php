@@ -8,7 +8,7 @@
  */
 
 /**
- * Catalog Comapare Products Sidebar Block
+ * Catalog Compare Products Sidebar Block
  *
  * @package    Mage_Catalog
  */

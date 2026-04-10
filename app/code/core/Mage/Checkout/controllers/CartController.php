@@ -172,8 +172,8 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
         $cart->getCheckoutSession()->addUniqueMessages($messages);
 
         /**
-         * if customer enteres shopping cart we should mark quote
-         * as modified bc he can has checkout page in another window.
+         * if customer enters shopping cart we should mark quote
+         * as modified because he could have a checkout page in another window.
          */
         $this->_getSession()->setCartWasUpdated(true);
 
@@ -501,7 +501,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
     }
 
     /**
-     * Delete shoping cart item action
+     * Delete shopping cart item action
      */
     public function deleteAction()
     {

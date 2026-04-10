@@ -60,7 +60,7 @@ abstract class Mage_Reports_Block_Product_Abstract extends Mage_Catalog_Block_Pr
     public function getPageSize()
     {
         if ($this->hasData('page_size')) {
-            return $this->getData('page_size');
+            return $this->getDataByKey('page_size');
         }
 
         return 5;

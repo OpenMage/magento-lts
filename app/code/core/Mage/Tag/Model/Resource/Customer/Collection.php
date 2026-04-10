@@ -334,7 +334,7 @@ class Mage_Tag_Model_Resource_Customer_Collection extends Mage_Customer_Model_Re
     }
 
     /**
-     * Gets attribure for count
+     * Gets attribute for count
      *
      * @return string
      */

@@ -114,10 +114,10 @@ class Mage_Paypal_Model_Method_Agreement extends Mage_Sales_Model_Payment_Method
         $api->callGetBillingAgreementCustomerDetails();
 
         $responseData = [
-            'token'         => $api->getData('token'),
-            'email'         => $api->getData('email'),
-            'payer_id'      => $api->getData('payer_id'),
-            'payer_status'  => $api->getData('payer_status'),
+            'token'         => $api->getDataByKey('token'),
+            'email'         => $api->getDataByKey('email'),
+            'payer_id'      => $api->getDataByKey('payer_id'),
+            'payer_status'  => $api->getDataByKey('payer_status'),
         ];
         $agreement->addData($responseData);
         return $responseData;
@@ -134,7 +134,7 @@ class Mage_Paypal_Model_Method_Agreement extends Mage_Sales_Model_Payment_Method
             ->setToken($agreement->getToken());
         $api->callCreateBillingAgreement();
 
-        $agreement->setBillingAgreementId($api->getData('billing_agreement_id'));
+        $agreement->setBillingAgreementId($api->getDataByKey('billing_agreement_id'));
         return $this;
     }
 

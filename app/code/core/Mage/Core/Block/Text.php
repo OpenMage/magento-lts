@@ -40,7 +40,7 @@ class Mage_Core_Block_Text extends Mage_Core_Block_Abstract
      */
     public function getText()
     {
-        return $this->getData('text');
+        return $this->getDataByKey('text');
     }
 
     /**
