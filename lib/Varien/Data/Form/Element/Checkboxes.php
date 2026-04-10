@@ -104,7 +104,7 @@ class Varien_Data_Form_Element_Checkboxes extends Varien_Data_Form_Element_Abstr
     public function getChecked($value)
     {
         if ($checked = $this->getValue()) {
-        } elseif ($checked = $this->getData('checked')) {
+        } elseif ($checked = $this->getDataByKey('checked')) {
         } else {
             return null;
         }
@@ -130,7 +130,7 @@ class Varien_Data_Form_Element_Checkboxes extends Varien_Data_Form_Element_Abstr
      */
     public function getDisabled($value)
     {
-        if ($disabled = $this->getData('disabled')) {
+        if ($disabled = $this->getDataByKey('disabled')) {
             if (!is_array($disabled)) {
                 $disabled = [(string) $disabled];
             } else {
@@ -153,7 +153,7 @@ class Varien_Data_Form_Element_Checkboxes extends Varien_Data_Form_Element_Abstr
      */
     public function getOnclick($value)
     {
-        if ($onclick = $this->getData('onclick')) {
+        if ($onclick = $this->getDataByKey('onclick')) {
             return str_replace('$value', $value, $onclick);
         }
 
@@ -166,7 +166,7 @@ class Varien_Data_Form_Element_Checkboxes extends Varien_Data_Form_Element_Abstr
      */
     public function getOnchange($value)
     {
-        if ($onchange = $this->getData('onchange')) {
+        if ($onchange = $this->getDataByKey('onchange')) {
             return str_replace('$value', $value, $onchange);
         }
 
@@ -175,7 +175,7 @@ class Varien_Data_Form_Element_Checkboxes extends Varien_Data_Form_Element_Abstr
 
     //    public function getName($value)
     //    {
-    //        if ($name = $this->getData('name')) {
+    //        if ($name = $this->getDataByKey('name')) {
     //            return str_replace('$value', $value, $name);
     //        }
     //        return ;

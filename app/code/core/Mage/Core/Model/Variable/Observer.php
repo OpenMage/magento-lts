@@ -23,7 +23,7 @@ class Mage_Core_Model_Variable_Observer
     {
         $config = $observer->getEvent()->getConfig();
 
-        if ($config->getData('add_variables')) {
+        if ($config->getDataByKey('add_variables')) {
             $settings = Mage::getModel('core/variable_config')->getWysiwygPluginSettings($config);
             $config->addData($settings);
         }

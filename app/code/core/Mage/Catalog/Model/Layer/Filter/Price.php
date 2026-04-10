@@ -86,7 +86,7 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
      */
     public function getPriceRange()
     {
-        $range = $this->getData('price_range');
+        $range = $this->getDataByKey('price_range');
         if (!$range) {
             $currentCategory = Mage::registry('current_category_filter');
             if ($currentCategory) {
@@ -123,7 +123,7 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
      */
     public function getMaxPriceInt()
     {
-        $maxPrice = $this->getData('max_price_int');
+        $maxPrice = $this->getDataByKey('max_price_int');
         if (is_null($maxPrice)) {
             $maxPrice = $this->getLayer()->getProductCollection()->getMaxPrice();
             $maxPrice = floor($maxPrice);

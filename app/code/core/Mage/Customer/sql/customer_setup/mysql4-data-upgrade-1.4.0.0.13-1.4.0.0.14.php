@@ -47,7 +47,7 @@ foreach ($attributes as $attributeCode => $data) {
         continue;
     }
 
-    if (($attribute->getData('is_system') == 1 && $attribute->getData('is_visible') == 0) === false) {
+    if (($attribute->getDataByKey('is_system') == 1 && $attribute->getDataByKey('is_visible') == 0) === false) {
         $usedInForms = $defaultUsedInForms;
         if (!empty($data['adminhtml_only'])) {
             $usedInForms = ['adminhtml_customer'];
@@ -83,7 +83,7 @@ foreach ($attributes as $attributeCode) {
         continue;
     }
 
-    if (($attribute->getData('is_system') == 1 && $attribute->getData('is_visible') == 0) === false) {
+    if (($attribute->getDataByKey('is_system') == 1 && $attribute->getDataByKey('is_visible') == 0) === false) {
         $attribute->setData('used_in_forms', $defaultUsedInForms);
     }
 

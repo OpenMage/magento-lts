@@ -167,7 +167,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Abstract extends Mage_Adminhtml_Bloc
      */
     public function getRootIds()
     {
-        $ids = $this->getData('root_ids');
+        $ids = $this->getDataByKey('root_ids');
         if (is_null($ids)) {
             $ids = [];
             foreach (Mage::app()->getGroups() as $store) {

@@ -29,7 +29,7 @@ class Mage_Adminhtml_Block_Widget_Accordion_Item extends Mage_Adminhtml_Block_Wi
 
     public function getTitle()
     {
-        $title  = $this->getData('title');
+        $title  = $this->getDataByKey('title');
         $url    = $this->getContentUrl() ? $this->getContentUrl() : '#';
 
         return '<a href="' . $url . '" class="' . $this->getTarget() . '">' . $title . '</a>';
@@ -37,7 +37,7 @@ class Mage_Adminhtml_Block_Widget_Accordion_Item extends Mage_Adminhtml_Block_Wi
 
     public function getContent()
     {
-        $content = $this->getData('content');
+        $content = $this->getDataByKey('content');
         if (is_string($content)) {
             return $content;
         }
@@ -51,7 +51,7 @@ class Mage_Adminhtml_Block_Widget_Accordion_Item extends Mage_Adminhtml_Block_Wi
 
     public function getClass()
     {
-        $class = $this->getData('class');
+        $class = $this->getDataByKey('class');
         if ($this->getOpen()) {
             $class .= ' open';
         }

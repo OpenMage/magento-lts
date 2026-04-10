@@ -107,6 +107,6 @@ class Varien_Data_Form_Element_Image extends Varien_Data_Form_Element_Abstract
      */
     public function getName()
     {
-        return  $this->getData('name');
+        return  $this->getDataByKey('name');
     }
 }

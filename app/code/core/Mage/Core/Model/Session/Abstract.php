@@ -210,18 +210,18 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
      */
     public function getMessages($clear = false)
     {
-        if (!$this->getData('messages')) {
+        if (!$this->getDataByKey('messages')) {
             $this->setMessages(Mage::getModel('core/message_collection'));
         }
 
         if ($clear) {
-            $messages = clone $this->getData('messages');
-            $this->getData('messages')->clear();
+            $messages = clone $this->getDataByKey('messages');
+            $this->getDataByKey('messages')->clear();
             Mage::dispatchEvent('core_session_abstract_clear_messages');
             return $messages;
         }
 
-        return $this->getData('messages');
+        return $this->getDataByKey('messages');
     }
 
     /**

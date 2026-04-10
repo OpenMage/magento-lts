@@ -68,6 +68,6 @@ class Varien_Data_Form_Element_Checkbox extends Varien_Data_Form_Element_Abstrac
      */
     public function getIsChecked()
     {
-        return $this->getData('checked');
+        return $this->getDataByKey('checked');
     }
 }

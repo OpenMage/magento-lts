@@ -204,8 +204,8 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
     protected function _prepareValueOptions()
     {
         // Check that both keys exist. Maybe somehow only one was set not in this routine, but externally.
-        $selectReady = $this->getData('value_select_options');
-        $hashedReady = $this->getData('value_option');
+        $selectReady = $this->getDataByKey('value_select_options');
+        $hashedReady = $this->getDataByKey('value_option');
         if ($selectReady && $hashedReady) {
             return $this;
         }
@@ -272,7 +272,7 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
     public function getValueSelectOptions()
     {
         $this->_prepareValueOptions();
-        return $this->getData('value_select_options');
+        return $this->getDataByKey('value_select_options');
     }
 
     /**

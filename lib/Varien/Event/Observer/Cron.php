@@ -52,7 +52,7 @@ class Varien_Event_Observer_Cron extends Varien_Event_Observer
             $this->setNow(Carbon::now()->getTimestamp());
         }
 
-        return $this->getData('now');
+        return $this->getDataByKey('now');
     }
 
     /**

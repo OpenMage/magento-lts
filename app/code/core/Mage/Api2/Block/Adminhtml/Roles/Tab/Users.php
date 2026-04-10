@@ -190,7 +190,7 @@ class Mage_Api2_Block_Adminhtml_Roles_Tab_Users extends Mage_Adminhtml_Block_Wid
      */
     public function getUsers($json = false)
     {
-        $users = $this->getData('users');
+        $users = $this->getDataByKey('users');
 
         if ($json) {
             if ($users === []) {

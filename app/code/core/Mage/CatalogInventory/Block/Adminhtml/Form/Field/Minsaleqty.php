@@ -64,7 +64,7 @@ class Mage_CatalogInventory_Block_Adminhtml_Form_Field_Minsaleqty extends Mage_A
     protected function _prepareArrayRow(Varien_Object $row)
     {
         $row->setData(
-            'option_extra_attr_' . $this->_getGroupRenderer()->calcOptionHash($row->getData('customer_group_id')),
+            'option_extra_attr_' . $this->_getGroupRenderer()->calcOptionHash($row->getDataByKey('customer_group_id')),
             'selected="selected"',
         );
     }

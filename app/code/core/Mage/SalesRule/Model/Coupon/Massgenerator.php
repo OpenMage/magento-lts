@@ -95,8 +95,8 @@ class Mage_SalesRule_Model_Coupon_Massgenerator extends Mage_Core_Model_Abstract
      */
     public function getDelimiter()
     {
-        if ($this->getData('delimiter')) {
-            return $this->getData('delimiter');
+        if ($this->getDataByKey('delimiter')) {
+            return $this->getDataByKey('delimiter');
         }
 
         return Mage::helper('salesrule/coupon')->getCodeSeparator();

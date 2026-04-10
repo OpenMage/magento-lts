@@ -397,8 +397,8 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
      */
     public function getPaypalTransactionId()
     {
-        if ($this->getData('paypal_transaction_id')) {
-            return $this->getData('paypal_transaction_id');
+        if ($this->getDataByKey('paypal_transaction_id')) {
+            return $this->getDataByKey('paypal_transaction_id');
         }
 
         return $this->getTransactionId();

@@ -162,7 +162,7 @@ class Mage_Centinel_Model_Service extends Varien_Object
      */
     protected function _getValidationState($cardType = null)
     {
-        $type = $cardType ? $cardType : $this->_getSession()->getData('card_type');
+        $type = $cardType ? $cardType : $this->_getSession()->getDataByKey('card_type');
         if (!$this->_validationState && $type) {
             $model = $this->_getValidationStateModel($type);
             if (!$model) {

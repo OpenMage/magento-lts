@@ -23,7 +23,7 @@ class Mage_Adminhtml_Block_System_Currency_Edit_Form extends Mage_Adminhtml_Bloc
 
     protected function _prepareForm()
     {
-        $form = new Varien_Data_Form(['id' => 'currency_edit_form', 'action' => $this->getData('action'), 'method' => 'post']);
+        $form = new Varien_Data_Form(['id' => 'currency_edit_form', 'action' => $this->getDataByKey('action'), 'method' => 'post']);
         $form->setUseContainer(true);
         $this->setForm($form);
         return parent::_prepareForm();

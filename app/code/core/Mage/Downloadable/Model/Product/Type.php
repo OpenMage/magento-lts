@@ -52,7 +52,7 @@ class Mage_Downloadable_Model_Product_Type extends Mage_Catalog_Model_Product_Ty
     public function hasLinks($product = null)
     {
         if ($this->getProduct($product)->hasData('links_exist')) {
-            return $this->getProduct($product)->getData('links_exist');
+            return $this->getProduct($product)->getDataByKey('links_exist');
         }
 
         return count($this->getLinks($product)) > 0;

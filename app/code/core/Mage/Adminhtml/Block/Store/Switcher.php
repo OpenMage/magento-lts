@@ -162,7 +162,7 @@ class Mage_Adminhtml_Block_Store_Switcher extends Mage_Adminhtml_Block_Template
      */
     public function getSwitchUrl()
     {
-        if ($url = $this->getData('switch_url')) {
+        if ($url = $this->getDataByKey('switch_url')) {
             return $url;
         }
 
