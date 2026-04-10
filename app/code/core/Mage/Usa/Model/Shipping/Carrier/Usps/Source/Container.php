@@ -12,15 +12,19 @@
  */
 class Mage_Usa_Model_Shipping_Carrier_Usps_Source_Container
 {
+    /**
+     * @return array<int, array<string, string>>
+     */
     public function toOptionArray()
     {
-        $usps = Mage::getSingleton('usa/shipping_carrier_usps');
+        $codes = Mage::getSingleton('usa/shipping_carrier_usps')->getCode('container');
+        if (!is_array($codes)) {
+            return [];
+        }
+
         $arr = [];
-        foreach ($usps->getCode('container') as $key => $value) {
-            $arr[] = [
-                'value' => $key,
-                'label' => $value,
-            ];
+        foreach ($codes as $key => $value) {
+            $arr[] = ['value' => $key, 'label' => $value];
         }
 
         return $arr;
