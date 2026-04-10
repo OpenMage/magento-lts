@@ -95,7 +95,7 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
     public function getAttributes()
     {
         /** @var Mage_Catalog_Model_Resource_Product_Attribute_Collection $attributes */
-        $attributes = $this->getData('attributes');
+        $attributes = $this->getDataByKey('attributes');
         if (is_null($attributes)) {
             $product = Mage::getModel('catalog/product');
             $attributes = Mage::getResourceModel('catalog/product_attribute_collection')

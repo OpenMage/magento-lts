@@ -37,7 +37,7 @@ class Mage_Cms_Block_Page extends Mage_Core_Block_Abstract
             $this->setData('page', $page);
         }
 
-        return $this->getData('page');
+        return $this->getDataByKey('page');
     }
 
     /**

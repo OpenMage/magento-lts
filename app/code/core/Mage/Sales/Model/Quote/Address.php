@@ -668,7 +668,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
     public function getItemQty($itemId = 0)
     {
         if ($this->hasData('item_qty')) {
-            return $this->getData('item_qty');
+            return $this->getDataByKey('item_qty');
         }
 
         $qty = 0;
@@ -1210,7 +1210,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
      */
     public function getAppliedTaxes()
     {
-        $tax = $this->getData('applied_taxes');
+        $tax = $this->getDataByKey('applied_taxes');
         if (empty($tax)) {
             return [];
         }

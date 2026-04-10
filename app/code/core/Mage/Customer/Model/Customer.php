@@ -961,7 +961,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
             $this->setData('group_id', $groupId);
         }
 
-        return $this->getData('group_id');
+        return $this->getDataByKey('group_id');
     }
 
     /**
@@ -973,11 +973,11 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      */
     public function getTaxClassId()
     {
-        if (!$this->getData('tax_class_id')) {
+        if (!$this->getDataByKey('tax_class_id')) {
             $this->setTaxClassId(Mage::getModel('customer/group')->getTaxClassId($this->getGroupId()));
         }
 
-        return $this->getData('tax_class_id');
+        return $this->getDataByKey('tax_class_id');
     }
 
     /**
@@ -1214,14 +1214,14 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
         }
 
         if (empty($row['entity_id'])) {
-            if ($this->getData('entity_id')) {
+            if ($this->getDataByKey('entity_id')) {
                 $this->addError(Mage::helper('customer')->__(
                     'The customer email (%s) already exists, skipping the record, line: %s',
                     $row['email'],
                     $line,
                 ));
             }
-        } elseif ($row['entity_id'] != $this->getData('entity_id')) {
+        } elseif ($row['entity_id'] != $this->getDataByKey('entity_id')) {
             $this->addError(Mage::helper('customer')->__(
                 'The customer ID and email did not match, skipping the record, line: %s',
                 $line,
@@ -1627,7 +1627,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      */
     public function getEntityTypeId()
     {
-        $entityTypeId = $this->getData('entity_type_id');
+        $entityTypeId = $this->getDataByKey('entity_type_id');
         if (!$entityTypeId) {
             $entityTypeId = $this->getEntityType()->getId();
             $this->setData('entity_type_id', $entityTypeId);

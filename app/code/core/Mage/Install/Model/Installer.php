@@ -89,7 +89,7 @@ class Mage_Install_Model_Installer extends Varien_Object
      */
     public function getServerCheckStatus()
     {
-        $status = $this->getData('server_check_status');
+        $status = $this->getDataByKey('server_check_status');
         if (is_null($status)) {
             return $this->checkServer();
         }

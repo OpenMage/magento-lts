@@ -163,7 +163,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
     public function isReadonly()
     {
         if ($this->hasData('is_readonly')) {
-            return $this->getData('is_readonly');
+            return $this->getDataByKey('is_readonly');
         }
 
         return $this->_getProduct()->getCompositeReadonly();

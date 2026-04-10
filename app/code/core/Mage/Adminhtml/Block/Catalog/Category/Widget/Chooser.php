@@ -119,8 +119,8 @@ class Mage_Adminhtml_Block_Catalog_Category_Widget_Chooser extends Mage_Adminhtm
      */
     public function getNodeClickListener()
     {
-        if ($this->getData('node_click_listener')) {
-            return $this->getData('node_click_listener');
+        if ($this->getDataByKey('node_click_listener')) {
+            return $this->getDataByKey('node_click_listener');
         }
 
         if ($this->getUseMassaction()) {
@@ -159,7 +159,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Widget_Chooser extends Mage_Adminhtm
         }
 
         $item['is_anchor'] = (int) $node->getIsAnchor();
-        $item['url_key'] = $node->getData('url_key');
+        $item['url_key'] = $node->getDataByKey('url_key');
         return $item;
     }
 

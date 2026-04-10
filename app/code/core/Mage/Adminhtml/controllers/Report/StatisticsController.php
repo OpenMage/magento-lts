@@ -66,7 +66,7 @@ class Mage_Adminhtml_Report_StatisticsController extends Mage_Adminhtml_Controll
 
         foreach ($blocks as $block) {
             if ($block) {
-                $block->setPeriodType($params->getData('period_type'));
+                $block->setPeriodType($params->getDataByKey('period_type'));
                 $block->setFilterData($params);
             }
         }
