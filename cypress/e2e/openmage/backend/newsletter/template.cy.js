@@ -16,7 +16,7 @@ describe(`Checks admin system "${test.index.title}"`, () => {
 
         // TODO: add save and continue functionality
         test.new.__buttons.save.click();
-        validation.hasErrorMessage('You must give a non-empty value for field \'template_code\'', { match: 'have.text' });
+        validation.hasErrorMessage('You must give a non-empty value for field \'template_code\'.', { match: 'have.text' });
     });
 
     it(`tests index route`, () => {
