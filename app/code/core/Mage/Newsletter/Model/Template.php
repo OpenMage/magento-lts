@@ -453,7 +453,7 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
         return $this->setData('template_type', $type);
     }
 
-    public function getTemplateType(): int
+    public function getTemplateType(): ?int
     {
         return $this->getDataByKey('template_type');
     }
