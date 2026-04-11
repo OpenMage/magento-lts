@@ -171,8 +171,6 @@ try {
         ])
         # WIP
         ->withSkip([
-            # https://github.com/OpenMage/magento-lts/pull/5415
-            DeadCode\Assign\RemoveUnusedVariableAssignRector::class,
             # https://github.com/OpenMage/magento-lts/pull/5434
             Php81\Array_\ArrayToFirstClassCallableRector::class,
         ])

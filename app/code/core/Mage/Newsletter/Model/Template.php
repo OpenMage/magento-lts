@@ -94,17 +94,6 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
             ),
         ));
 
-        $violations->append($validator->validateType(
-            value: $templateType,
-            type: 'int',
-            message: Mage::helper('adminhtml')->__(
-                'This value %1$s for "%3$s" should be of type %2$s.',
-                '{{ value }}',
-                '{{ type }}',
-                'template_type',
-            ),
-        ));
-
         $violations->append($validator->validateEmail(
             value: $this->getDataUsingMethod('template_sender_email'),
             message: Mage::helper('adminhtml')->__(
