@@ -87,4 +87,19 @@ final class LogTest extends OpenMageTest
     {
         self::assertIsInt(Subject::getLogLevelMaxValue());
     }
+
+    /**
+     * @covers Mage_Core_Helper_Log::getLogFilePath()
+     * @dataProvider provideGetLogFilePathData
+     * @group Helper
+     */
+    public function testGetLogFilePath(?string $expectedResult, string $file): void
+    {
+        if ($expectedResult !== null) {
+            $logDir = Mage::getBaseDir('var') . DS . 'log' . DS;
+            $expectedResult = $logDir . $expectedResult;
+        }
+
+        self::assertSame($expectedResult, Subject::getLogFilePath($file));
+    }
 }

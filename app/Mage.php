@@ -9,8 +9,6 @@
 use Dotenv\Dotenv;
 use Carbon\Carbon;
 use Carbon\Exceptions\InvalidFormatException;
-use Monolog\Formatter\LineFormatter;
-use Monolog\Handler\StreamHandler;
 use Monolog\Level;
 
 defined('DS') || define('DS', DIRECTORY_SEPARATOR);
@@ -911,7 +909,7 @@ final class Mage
             return;
         }
 
-        $file = self::getStoreConfig(Mage_Core_Helper_Data::XML_PATH_DEV_LOG_EXCEPTION_FILE);
+        $file = self::getStoreConfig(Mage_Core_Helper_Log::XML_PATH_DEV_LOG_EXCEPTION_FILE);
         self::log("\n" . $throwable->__toString(), Level::Error, $file);
     }
 

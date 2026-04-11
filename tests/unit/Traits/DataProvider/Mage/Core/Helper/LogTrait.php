@@ -66,4 +66,16 @@ trait LogTrait
             Level::Debug,
         ];
     }
+
+    public function provideGetLogFilePathData(): Generator
+    {
+        yield 'empty' => [
+            null,
+            '',
+        ];
+        yield 'string' => [
+            'somefile.log',
+            'somefile.log',
+        ];
+    }
 }

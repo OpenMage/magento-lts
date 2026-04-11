@@ -11,4 +11,32 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\Model;
 
-trait LoggerTrait {}
+use Generator;
+
+trait LoggerTrait
+{
+    public function provideLogData(): Generator
+    {
+        yield 'file' => [
+            'Test message',
+            null,
+            'test-phpunit.log',
+            true,
+            [],
+        ];
+        yield 'stdout' => [
+            'Test stdout message',
+            null,
+            'php://stdout',
+            true,
+            [],
+        ];
+        yield 'stderr' => [
+            'Test stderr message',
+            null,
+            'php://stderr',
+            true,
+            [],
+        ];
+    }
+}

@@ -36,15 +36,19 @@ class Mage_Core_Model_Logger
      */
     public function log($message, $level = null, $file = '', $forceLog = false, array $context = [])
     {
+        if (is_null($file)) {
+            $file = '';
+        }
+
         $useStdout = in_array($file, ['php://stdout', 'php://stderr'], true);
 
-        if ((bool) $forceLog !== true) {
+        if (!(bool) $forceLog) {
             $forceLog = Mage::getIsDeveloperMode();
         }
 
         try {
             $logActive = Mage::getStoreConfigFlag(HelperLog::XML_PATH_DEV_LOG_ENABLED);
-            if (empty($file)) {
+            if ($file === '') {
                 $file = Mage::getStoreConfig(HelperLog::XML_PATH_DEV_LOG_FILE);
             }
         } catch (Throwable) {
@@ -62,7 +66,7 @@ class Mage_Core_Model_Logger
         }
 
         if (!$useStdout) {
-            $file = empty($file) ? HelperLog::getConfigLogFile() : basename($file);
+            $file = $file === '' ? HelperLog::getConfigLogFile() : basename($file);
         }
 
         try {
@@ -70,7 +74,7 @@ class Mage_Core_Model_Logger
                 if ($useStdout) {
                     $logFile = $file;
                 } else {
-                    $logFile = $this->getLogFilePath($file);
+                    $logFile = HelperLog::getLogFilePath($file);
                     if ($logFile === null) {
                         return;
                     }

@@ -178,4 +178,29 @@ class Mage_Core_Helper_Log extends Mage_Core_Helper_Abstract
 
         return self::getLogLevelValue($maxLogLevel);
     }
+
+    /**
+     * Retrieve log file path, create log directory and file if not exist
+     */
+    public static function getLogFilePath(string $file): ?string
+    {
+        if ($file === '') {
+            return null;
+        }
+
+        $logDir = Mage::getBaseDir('var') . DS . 'log';
+        $logFile = $logDir . DS . $file;
+
+        if (!is_dir($logDir)) {
+            mkdir($logDir);
+            chmod($logDir, 0750);
+        }
+
+        if (!file_exists($logFile)) {
+            file_put_contents($logFile, '');
+            chmod($logFile, 0640);
+        }
+
+        return $logFile;
+    }
 }
