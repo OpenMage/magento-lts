@@ -96,7 +96,7 @@ final class PurifierTest extends OpenMageTest
     }
 
     /**
-     * @param array<string, mixed[]>|null[]|array<string, mixed> $options
+     * @param array<string, mixed>|array<string, mixed[]>|null[] $options
      */
     private function getSubject(array $options): Subject
     {
