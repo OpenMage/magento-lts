@@ -110,6 +110,7 @@ class Mage_Core_Model_Purifier_DefinitionCache extends HTMLPurifier_DefinitionCa
         if ($hash !== $config->getBatchSerial($this->type)) {
             return true;
         }
+
         // Revisions are ints, but string comparison might be future-proof
         return $revision < $config->get($this->type . '.DefinitionRev');
     }
