@@ -601,7 +601,6 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
         Mage::helper('wishlist')->calculate();
 
         $this->_redirectUrl($redirectUrl);
-        return;
     }
 
     /**
@@ -653,7 +652,6 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
         }
 
         $this->_redirectUrl(Mage::helper('checkout/cart')->getCartUrl());
-        return;
     }
 
     /**

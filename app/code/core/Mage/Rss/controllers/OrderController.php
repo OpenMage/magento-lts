@@ -43,7 +43,6 @@ class Mage_Rss_OrderController extends Mage_Rss_Controller_Abstract
             }
         }
 
-        return;
     }
 
     /**

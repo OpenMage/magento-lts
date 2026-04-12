@@ -142,8 +142,6 @@ class Mage_Adminhtml_Report_StatisticsController extends Mage_Adminhtml_Controll
         } else {
             $this->_redirectReferer('*/*');
         }
-
-        return;
     }
 
     /**
@@ -172,8 +170,6 @@ class Mage_Adminhtml_Report_StatisticsController extends Mage_Adminhtml_Controll
         } else {
             $this->_redirectReferer('*/*');
         }
-
-        return;
     }
 
     /**

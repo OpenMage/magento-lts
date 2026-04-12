@@ -158,7 +158,6 @@ class Mage_Adminhtml_Permissions_BlockController extends Mage_Adminhtml_Controll
         }
 
         $this->_redirect('*/*/');
-        return;
     }
 
     /**

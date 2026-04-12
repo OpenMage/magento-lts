@@ -88,8 +88,6 @@ class Mage_Adminhtml_Customer_Wishlist_Product_Composite_WishlistController exte
         $helper = Mage::helper('adminhtml/catalog_product_composite');
         Mage::helper('catalog/product')->setSkipSaleableCheck(true);
         $helper->renderConfigureResult($this, $configureResult);
-
-        return;
     }
 
     /**
@@ -119,7 +117,5 @@ class Mage_Adminhtml_Customer_Wishlist_Product_Composite_WishlistController exte
         $updateResult->setJsVarName($this->getRequest()->getParam('as_js_varname'));
         Mage::getSingleton('adminhtml/session')->setCompositeProductResult($updateResult);
         $this->_redirect('*/catalog_product/showUpdateResult');
-
-        return;
     }
 }

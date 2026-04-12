@@ -241,6 +241,5 @@ class Mage_Downloadable_DownloadController extends Mage_Core_Controller_Front_Ac
         }
 
         $this->_redirect('*/customer/products');
-        return;
     }
 }

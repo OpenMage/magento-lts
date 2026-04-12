@@ -210,7 +210,7 @@ class Mage_Adminhtml_Newsletter_TemplateController extends Mage_Adminhtml_Contro
 
     /**
      * Preview Newsletter template
-     * @return $this|void
+     * @return $this|null
      */
     public function previewAction()
     {
@@ -228,7 +228,7 @@ class Mage_Adminhtml_Newsletter_TemplateController extends Mage_Adminhtml_Contro
 
         $this->getLayout()->getBlock('preview_form')->setFormData($data);
         $this->renderLayout();
-        return;
+        return null;
     }
 
     /**

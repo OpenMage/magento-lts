@@ -108,7 +108,6 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
         }
 
         $this->getResponse()->setRedirect($this->getUrl('*/tax_rate'));
-        return;
     }
 
     /**
@@ -185,8 +184,6 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
                 $this->getResponse()->setRedirect($this->getUrl('*/*/'));
             }
         }
-
-        return;
     }
 
     /**

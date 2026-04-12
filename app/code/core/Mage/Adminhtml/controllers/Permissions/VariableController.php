@@ -157,7 +157,6 @@ class Mage_Adminhtml_Permissions_VariableController extends Mage_Adminhtml_Contr
         }
 
         $this->_redirect('*/*/');
-        return;
     }
 
     /**

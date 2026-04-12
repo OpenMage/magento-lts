@@ -239,7 +239,6 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
         }
 
         $this->getResponse()->setRedirect($step->getUrl());
-        return;
     }
 
     /**
@@ -328,7 +327,6 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
         }
 
         $this->getResponse()->setRedirect($step->getNextUrl());
-        return;
     }
 
     /**

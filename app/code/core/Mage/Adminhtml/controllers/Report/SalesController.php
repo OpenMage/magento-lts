@@ -118,7 +118,6 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Re
     public function refreshRecentAction()
     {
         $this->_forward('refreshRecent', 'report_statistics');
-        return;
     }
 
     /**
@@ -130,7 +129,6 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Re
     public function refreshLifetimeAction()
     {
         $this->_forward('refreshLifetime', 'report_statistics');
-        return;
     }
 
     /**
@@ -404,7 +402,6 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Re
     public function refreshStatisticsAction()
     {
         $this->_forward('index', 'report_statistics');
-        return;
     }
 
     /**

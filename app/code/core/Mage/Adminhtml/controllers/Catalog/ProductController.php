@@ -935,7 +935,6 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
      */
     public function addCustomersToAlertQueueAction()
     {
-        return;
     }
 
     /**
@@ -1206,7 +1205,5 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
             $session->unsCompositeProductResult();
             return;
         }
-
-        return;
     }
 }

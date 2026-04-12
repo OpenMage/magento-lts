@@ -106,7 +106,6 @@ class Mage_Sales_Billing_AgreementController extends Mage_Core_Controller_Front_
         }
 
         $this->_redirect('*/*/');
-        return;
     }
 
     /**

@@ -577,8 +577,6 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
         /** @var Mage_Adminhtml_Helper_Catalog_Product_Composite $helper */
         $helper = Mage::helper('adminhtml/catalog_product_composite');
         $helper->renderConfigureResult($this, $configureResult);
-
-        return;
     }
 
     /**
@@ -620,8 +618,6 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
         /** @var Mage_Adminhtml_Helper_Catalog_Product_Composite $helper */
         $helper = Mage::helper('adminhtml/catalog_product_composite');
         $helper->renderConfigureResult($this, $configureResult);
-
-        return;
     }
 
     /**
@@ -639,8 +635,6 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
             $session->unsUpdateResult();
             return;
         }
-
-        return;
     }
 
     /**

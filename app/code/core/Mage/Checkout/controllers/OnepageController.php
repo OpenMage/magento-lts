@@ -236,7 +236,6 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
 
         $output = $layout->getOutput();
         $this->getResponse()->setBody($output);
-        return;
     }
 
     /**

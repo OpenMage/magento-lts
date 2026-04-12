@@ -128,6 +128,5 @@ class Mage_Wishlist_SharedController extends Mage_Wishlist_Controller_Abstract
         }
 
         $this->_redirectUrl($redirectUrl);
-        return;
     }
 }

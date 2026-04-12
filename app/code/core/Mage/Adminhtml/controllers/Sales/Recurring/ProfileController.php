@@ -33,7 +33,6 @@ class Mage_Adminhtml_Sales_Recurring_ProfileController extends Mage_Adminhtml_Co
             ->loadLayout()
             ->_setActiveMenu('sales/recurring_profile')
             ->renderLayout();
-        return;
     }
 
     /**

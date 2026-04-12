@@ -75,7 +75,6 @@ class Mage_ImportExport_Adminhtml_ExportController extends Mage_Adminhtml_Contro
         }
 
         $this->_redirect('*/*/index');
-        return;
     }
 
     /**

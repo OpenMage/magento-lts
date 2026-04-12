@@ -65,7 +65,7 @@ class Mage_Adminhtml_Newsletter_QueueController extends Mage_Adminhtml_Controlle
 
     /**
      * Preview Newsletter queue template
-     * @return $this|void
+     * @return $this|null
      */
     public function previewAction()
     {
@@ -81,7 +81,7 @@ class Mage_Adminhtml_Newsletter_QueueController extends Mage_Adminhtml_Controlle
 
         $this->getLayout()->getBlock('preview_form')->setFormData($data);
         $this->renderLayout();
-        return;
+        return null;
     }
 
     /**

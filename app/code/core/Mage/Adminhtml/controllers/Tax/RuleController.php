@@ -34,7 +34,6 @@ class Mage_Adminhtml_Tax_RuleController extends Mage_Adminhtml_Controller_Action
         $this->_initAction()
             ->_addContent($this->getLayout()->createBlock('adminhtml/tax_rule'))
             ->renderLayout();
-        return;
     }
 
     /**
