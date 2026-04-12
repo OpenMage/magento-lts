@@ -812,7 +812,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
      * Return URL for option file download
      *
      * @param  string                          $route
-     * @param  string[]                        $params
+     * @param  array<string, mixed>            $params
      * @return string
      * @throws Mage_Core_Model_Store_Exception
      */
