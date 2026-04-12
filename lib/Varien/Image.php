@@ -67,6 +67,10 @@ class Varien_Image
             throw new Exception("File '{$this->_fileName}' does not exists.");
         }
 
+        if (str_starts_with($this->_fileName, 'phar://')) {
+            throw new Exception("File '{$this->_fileName}' is not readable.");
+        }
+
         $this->_getAdapter()->open($this->_fileName);
     }
 

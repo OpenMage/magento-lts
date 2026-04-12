@@ -10,6 +10,15 @@ declare(strict_types=1);
  */
 
 /**
+ * Disable the phar stream wrapper to prevent phar deserialization attacks.
+ * Functions like file_exists(), getimagesize(), etc. can trigger deserialization
+ * when processing phar:// paths, potentially leading to remote code execution.
+ *
+ * @link https://blog.ripstech.com/2018/new-php-exploitation-technique/
+ */
+stream_wrapper_unregister('phar');
+
+/**
  * Apply workaround for the libxml PHP bugs:
  * @link https://bugs.php.net/bug.php?id=62577
  * @link https://bugs.php.net/bug.php?id=64938

@@ -22,7 +22,6 @@ class Mage_Core_Model_File_Validator_Image
         IMAGETYPE_GIF,
         IMAGETYPE_JPEG2000,
         IMAGETYPE_PNG,
-        IMAGETYPE_ICO,
         IMAGETYPE_TIFF_II,
         IMAGETYPE_TIFF_MM,
     ];
@@ -43,7 +42,6 @@ class Mage_Core_Model_File_Validator_Image
             'jpeg' => [IMAGETYPE_JPEG, IMAGETYPE_JPEG2000],
             'gif' => [IMAGETYPE_GIF],
             'png' => [IMAGETYPE_PNG],
-            'ico' => [IMAGETYPE_ICO],
             'apng' => [IMAGETYPE_PNG],
         ];
 
@@ -69,12 +67,12 @@ class Mage_Core_Model_File_Validator_Image
      */
     public function validate($filePath)
     {
+        if (str_starts_with($filePath, 'phar://')) {
+            throw Mage::exception('Mage_Core', Mage::helper('core')->__('Invalid image path.'));
+        }
+
         [$imageWidth, $imageHeight, $fileType] = getimagesize($filePath);
         if ($fileType) {
-            if ($fileType === IMAGETYPE_ICO) {
-                return null;
-            }
-
             if ($this->isImageType($fileType)) {
                 // Config 'general/reprocess_images/active' is deprecated, replacement is the following:
                 $imageQuality = Mage::getStoreConfig('admin/security/reprocess_image_quality');
