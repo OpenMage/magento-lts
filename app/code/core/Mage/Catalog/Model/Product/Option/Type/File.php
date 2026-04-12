@@ -12,7 +12,7 @@
  *
  * @package    Mage_Catalog
  *
- * @method null|string[] getCustomOptionUrlParams()
+ * @method null|array<string, mixed> getCustomOptionUrlParams()
  */
 class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Product_Option_Type_Default
 {
