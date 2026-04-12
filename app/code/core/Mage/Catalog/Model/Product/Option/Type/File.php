@@ -71,7 +71,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
     protected function _getProcessingParams()
     {
         $buyRequest = $this->getRequest();
-        $params = $buyRequest->getDataByKey('_processing_params');
+        $params = $buyRequest->getData('_processing_params');
         /*
          * Notice check for params to be Varien_Object - by using object we protect from
          * params being forged and contain data from user frontend input
@@ -193,8 +193,8 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
                 switch ($this->getProcessMode()) {
                     case Mage_Catalog_Model_Product_Type_Abstract::PROCESS_MODE_FULL:
                         Mage::throwException(Mage::helper('catalog')->__('Please specify the product required option <em>%s</em>.', $option->getTitle()));
-                        // exception thrown
-                        // no break
+                    // exception thrown
+                    // no break
                     default:
                         $this->setUserValue(null);
                         break;
@@ -226,11 +226,15 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
         $_allowed = $this->_parseExtensionsString($option->getFileExtension());
         if ($_allowed !== null) {
             $upload->addValidator('Extension', false, $_allowed);
-        } else {
-            $_forbidden = $this->_parseExtensionsString($this->getConfigData('forbidden_extensions'));
-            if ($_forbidden !== null) {
-                $upload->addValidator('ExcludeExtension', false, $_forbidden);
-            }
+        }
+
+        // Block both protected extensions and legacy forbidden_extensions for backwards compatibility
+        $_forbidden = array_unique(array_merge(
+            $this->_getProtectedFileExtensions(),
+            $this->_getForbiddenExtensions(),
+        ));
+        if ($_forbidden !== []) {
+            $upload->addValidator('ExcludeExtension', false, $_forbidden);
         }
 
         // Maximum filesize
@@ -398,21 +402,25 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
                     $option->getTitle(),
                 ),
             ));
-        } else {
-            $_forbidden = $this->_parseExtensionsString($this->getConfigData('forbidden_extensions'));
-            if ($_forbidden !== null) {
-                $validatorChain->append($validator->validateChoice(
-                    value: $_allowed,
-                    choices: $_forbidden,
-                    multiple: true,
-                    message: Mage::helper('catalog')->__(
-                        $this->getValidatorMessage(self::ERROR_EXTENSION_FALSE_EXTENSION),
-                        $optionValue['title'],
-                        $option->getTitle(),
-                    ),
-                    match: false,
-                ));
-            }
+        }
+
+        // Block both protected extensions and legacy forbidden_extensions for backwards compatibility
+        $_forbidden = array_unique(array_merge(
+            $this->_getProtectedFileExtensions(),
+            $this->_getForbiddenExtensions(),
+        ));
+        if ($_forbidden !== []) {
+            $validatorChain->append($validator->validateChoice(
+                value: $_allowed,
+                choices: $_forbidden,
+                multiple: true,
+                message: Mage::helper('catalog')->__(
+                    $this->getValidatorMessage(self::ERROR_EXTENSION_FALSE_EXTENSION),
+                    $optionValue['title'],
+                    $option->getTitle(),
+                ),
+                match: false,
+            ));
         }
 
         $errors = $validator->getErrorMessages($validatorChain);
@@ -818,6 +826,42 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
         }
 
         return Mage::getUrl($route, $params);
+    }
+
+    /**
+     * Get protected file extensions from core configuration
+     */
+    protected function _getProtectedFileExtensions(): array
+    {
+        $extensions = Mage::helper('core')->getProtectedFileExtensions();
+        if (is_string($extensions)) {
+            $extensions = explode(',', $extensions);
+        }
+
+        $result = [];
+        foreach ((array) $extensions as $ext) {
+            $result[] = strtolower(trim($ext));
+        }
+
+        return $result;
+    }
+
+    /**
+     * Get legacy forbidden_extensions from config for backwards compatibility
+     */
+    protected function _getForbiddenExtensions(): array
+    {
+        $extensions = $this->getConfigData('forbidden_extensions');
+        if (is_string($extensions)) {
+            $extensions = explode(',', $extensions);
+        }
+
+        $result = [];
+        foreach ($extensions as $ext) {
+            $result[] = strtolower(trim($ext));
+        }
+
+        return $result;
     }
 
     /**
