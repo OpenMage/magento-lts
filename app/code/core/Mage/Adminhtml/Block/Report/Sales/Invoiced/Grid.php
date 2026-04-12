@@ -22,9 +22,12 @@ class Mage_Adminhtml_Block_Report_Sales_Invoiced_Grid extends Mage_Adminhtml_Blo
         $this->setCountTotals();
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getResourceCollectionName()
     {
-        return ($this->getFilterData()->getDataByKey('report_type') == 'created_at_invoice')
+        return ($this->getFilterData()->getDataByKey('report_type') === 'created_at_invoice')
             ? 'sales/report_invoiced_collection_invoiced'
             : 'sales/report_invoiced_collection_order';
     }
