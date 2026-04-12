@@ -276,7 +276,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Tracking_Service
     protected function _getCarrierTitle(): string
     {
         if ($this->_carrierModel instanceof Mage_Usa_Model_Shipping_Carrier_Usps) {
-            return $this->_carrierModel->getConfigData('title') ? $this->_carrierModel->getConfigData('title') : 'USPS';
+            $title = $this->_carrierModel->getConfigData('title');
+            return $title ? $title : 'USPS';
         }
 
         return 'USPS';
