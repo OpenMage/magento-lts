@@ -43,7 +43,7 @@ final class SecurityFixTest extends OpenMageTest
 
     public function testWysiwygStorageBlocksPhar()
     {
-        $this->markTestIncomplete(
+        self::markTestIncomplete(
             'Pending a real WYSIWYG storage test that invokes getFilesCollection() and asserts PHAR paths are blocked.',
         );
     }
