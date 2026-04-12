@@ -71,11 +71,7 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock extends Mage_Catalog_Mo
         }
 
         $parentIds = $this->getRelationsByChild($productIds);
-        if ($parentIds) {
-            $processIds = array_merge($parentIds, $productIds);
-        } else {
-            $processIds = $productIds;
-        }
+        $processIds = $parentIds ? array_merge($parentIds, $productIds) : $productIds;
 
         // retrieve product types by processIds
         $select = $adapter->select()
@@ -251,7 +247,7 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock extends Mage_Catalog_Mo
     {
         if (is_null($this->_indexers)) {
             $this->_indexers = [];
-            $types = Mage::getSingleton('catalog/product_type')->getTypesByPriority();
+            $types = Mage::getSingleton('catalog/product_type')::getTypesByPriority();
             foreach ($types as $typeId => $typeInfo) {
                 $modelName = $typeInfo['stock_indexer'] ?? $this->_defaultIndexer;
                 $isComposite = !empty($typeInfo['composite']);

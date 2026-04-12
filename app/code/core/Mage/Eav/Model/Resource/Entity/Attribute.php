@@ -151,7 +151,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
         /**
          * Set default source model.
          */
-        if ($object->usesSource() && !$object->getData('source_model')) {
+        if ($object->usesSource() && !$object->getDataByKey('source_model')) {
             $object->setSourceModel($object->getDefaultSourceModel());
         }
 
@@ -190,7 +190,11 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
             }
 
             foreach ($storeLabels as $storeId => $label) {
-                if ($storeId == 0 || !strlen($label)) {
+                if ($storeId == 0) {
+                    continue;
+                }
+
+                if (!strlen($label)) {
                     continue;
                 }
 
@@ -492,7 +496,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
     protected function _afterLoad(Mage_Core_Model_Abstract $object)
     {
         /** @var Mage_Eav_Model_Entity_Type $entityType */
-        $entityType = $object->getData('entity_type');
+        $entityType = $object->getDataByKey('entity_type');
         if ($entityType) {
             $additionalTable = $entityType->getAdditionalAttributeTable();
         } else {

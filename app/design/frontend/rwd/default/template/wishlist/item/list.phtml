@@ -16,7 +16,6 @@
     <thead>
         <tr>
             <?php
-                /* @var $column Mage_Wishlist_Block_Customer_Wishlist_Item_Column */
                 foreach ($columns as $column):
                     $_blockName = str_replace('.','-',strtolower($column->getNameInLayout()));
             ?>
@@ -39,7 +38,7 @@
                                 $_rwdLabel = ($column->getTitle()) ? $column->getTitle() : false;
                             }
                     ?>
-                        <td class="<?php echo 'wishlist-cell'.$key; ?> <?php echo $_blockName; ?>"<?php if($_rwdLabel): ?> data-rwd-label="<?php echo $_rwdLabel; ?>"<?php endif ?>><?php $column->setItem($item); echo $column->toHtml($item);?></td>
+                        <td class="<?php echo 'wishlist-cell'.$key; ?> <?php echo $_blockName; ?>"<?php if($_rwdLabel): ?> data-rwd-label="<?php echo $_rwdLabel; ?>"<?php endif ?>><?php $column->setItem($item); echo $column->toHtml();?></td>
                     <?php endforeach ?>
                 </tr>
             <?php endforeach ?>

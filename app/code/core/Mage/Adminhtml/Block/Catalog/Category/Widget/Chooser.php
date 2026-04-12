@@ -119,30 +119,29 @@ class Mage_Adminhtml_Block_Catalog_Category_Widget_Chooser extends Mage_Adminhtm
      */
     public function getNodeClickListener()
     {
-        if ($this->getData('node_click_listener')) {
-            return $this->getData('node_click_listener');
+        if ($this->getDataByKey('node_click_listener')) {
+            return $this->getDataByKey('node_click_listener');
         }
 
         if ($this->getUseMassaction()) {
-            $js = '
+            return '
                 function (node, e) {
                     if (node.ui.toggleCheck) {
                         node.ui.toggleCheck(true);
                     }
                 }
             ';
-        } else {
-            $chooserJsObject = $this->getId();
-            $js = '
+        }
+
+        $chooserJsObject = $this->getId();
+
+        return '
                 function (node, e) {
                     ' . $chooserJsObject . '.setElementValue("category/" + node.attributes.id);
                     ' . $chooserJsObject . '.setElementLabel(node.text);
                     ' . $chooserJsObject . '.close();
                 }
             ';
-        }
-
-        return $js;
     }
 
     /**
@@ -160,7 +159,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Widget_Chooser extends Mage_Adminhtm
         }
 
         $item['is_anchor'] = (int) $node->getIsAnchor();
-        $item['url_key'] = $node->getData('url_key');
+        $item['url_key'] = $node->getDataByKey('url_key');
         return $item;
     }
 

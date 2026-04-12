@@ -232,10 +232,8 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
         }
 
         // remove last element, if empty
-        if ($count = count($result)) {
-            if ($result[$count - 1] === '') {
-                unset($result[$count - 1]);
-            }
+        if (($count = count($result)) && $result[$count - 1] === '') {
+            unset($result[$count - 1]);
         }
 
         // remove first element, if empty
@@ -315,7 +313,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
      */
     public function ksortMultibyte(array &$sort)
     {
-        if (empty($sort)) {
+        if ($sort === []) {
             return false;
         }
 
@@ -364,18 +362,14 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
      */
     protected function _validateQueryStr($str)
     {
-        if (!$str || !str_contains($str, '=')) {
-            return false;
-        }
-
-        return true;
+        return $str && str_contains($str, '=');
     }
 
     /**
      * Prepare param
      *
-     * @param  string $str
-     * @return array
+     * @param  string                $str
+     * @return array<string, string>
      */
     protected function _explodeAndDecodeParam($str)
     {
@@ -412,6 +406,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
     /**
      * Handle param recursively
      *
+     * @param  array<string, array<int|string, string>|string> $param
      * @return array
      */
     protected function _handleRecursiveParamForQueryStr(array $param)
@@ -422,11 +417,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
         $subKeyBrackets = $this->_getLastSubkey($key);
         $subKey = $this->_getLastSubkey($key, false);
         if ($subKeyBrackets) {
-            if ($subKey) {
-                $param['value'] = [$subKey => $value];
-            } else {
-                $param['value'] = [$value];
-            }
+            $param['value'] = $subKey ? [$subKey => $value] : [$value];
 
             $param['key'] = $this->_removeSubkeyPartFromKey($key, $subKeyBrackets);
             $param = $this->_handleRecursiveParamForQueryStr($param);
@@ -506,25 +497,25 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
     /**
      * Unicode compatible ord() method
      *
-     * @param  string $c char to get value from
+     * @param  string $char char to get value from
      * @return int
      */
-    public function uniOrd($c)
+    public function uniOrd($char)
     {
         $ord = 0;
-        $h   = ord($c[0]);
+        $num = ord($char[0]);
 
-        if ($h <= 0x7F) {
-            $ord = $h;
-        } elseif ($h < 0xC2) {
+        if ($num <= 0x7F) {
+            $ord = $num;
+        } elseif ($num < 0xC2) {
             $ord = 0;
-        } elseif ($h <= 0xDF) {
-            $ord = (($h & 0x1F) << 6 | (ord($c[1]) & 0x3F));
-        } elseif ($h <= 0xEF) {
-            $ord = (($h & 0x0F) << 12 | (ord($c[1]) & 0x3F) << 6 | (ord($c[2]) & 0x3F));
-        } elseif ($h <= 0xF4) {
-            $ord = (($h & 0x0F) << 18 | (ord($c[1]) & 0x3F) << 12
-                | (ord($c[2]) & 0x3F) << 6 | (ord($c[3]) & 0x3F));
+        } elseif ($num <= 0xDF) {
+            $ord = (($num & 0x1F) << 6 | (ord($char[1]) & 0x3F));
+        } elseif ($num <= 0xEF) {
+            $ord = (($num & 0x0F) << 12 | (ord($char[1]) & 0x3F) << 6 | (ord($char[2]) & 0x3F));
+        } elseif ($num <= 0xF4) {
+            $ord = (($num & 0x0F) << 18 | (ord($char[1]) & 0x3F) << 12
+                | (ord($char[2]) & 0x3F) << 6 | (ord($char[3]) & 0x3F));
         }
 
         return $ord;

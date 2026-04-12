@@ -162,8 +162,8 @@ class Mage_Catalog_Model_Observer
      */
     public function catalogCheckIsUsingStaticUrlsAllowed(Varien_Event_Observer $observer)
     {
-        $storeId = $observer->getEvent()->getData('store_id');
-        $result  = $observer->getEvent()->getData('result');
+        $storeId = $observer->getEvent()->getDataByKey('store_id');
+        $result  = $observer->getEvent()->getDataByKey('result');
         $result->isAllowed = Mage::helper('catalog')->setStoreId($storeId)->isUsingStaticUrlsAllowed();
     }
 

@@ -8,7 +8,7 @@
  */
 
 /**
- * Create Configuranle procuct Settings Tab Block
+ * Create Configurable product Settings Tab Block
  *
  * @package    Mage_Adminhtml
  */

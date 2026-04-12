@@ -75,7 +75,7 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Options_Abstract extends 
      */
     public function getStores()
     {
-        $stores = $this->getData('stores');
+        $stores = $this->getDataByKey('stores');
         if (is_null($stores)) {
             $stores = Mage::getModel('core/store')
                 ->getResourceCollection()
@@ -108,7 +108,7 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Options_Abstract extends 
             default => '',
         };
 
-        $values = $this->getData('option_values');
+        $values = $this->getDataByKey('option_values');
         if (is_null($values)) {
             $values = [];
             $optionCollection = Mage::getResourceModel('eav/entity_attribute_option_collection')
@@ -120,11 +120,7 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Options_Abstract extends 
             /** @var Mage_Eav_Model_Entity_Attribute_Option $option */
             foreach ($optionCollection as $option) {
                 $value = [];
-                if (in_array($option->getId(), $defaultValues)) {
-                    $value['checked'] = 'checked="checked"';
-                } else {
-                    $value['checked'] = '';
-                }
+                $value['checked'] = in_array($option->getId(), $defaultValues) ? 'checked="checked"' : '';
 
                 $value['intype'] = $inputType;
                 $value['id'] = $option->getId();

@@ -24,7 +24,7 @@ class Mage_Catalog_Helper_Product_Compare extends Mage_Core_Helper_Url
     protected $_itemCollection;
 
     /**
-     * Product Comapare Items Collection has items flag
+     * Product Compare Items Collection has items flag
      *
      * @var bool
      */
@@ -129,7 +129,7 @@ class Mage_Catalog_Helper_Product_Compare extends Mage_Core_Helper_Url
     }
 
     /**
-     * Retrieve url for adding product to conpare list
+     * Retrieve url for adding product to compare list
      *
      * @param  Mage_Catalog_Model_Product $product
      * @return string
@@ -192,7 +192,7 @@ class Mage_Catalog_Helper_Product_Compare extends Mage_Core_Helper_Url
     /**
      * Retrieve compare list items collection
      *
-     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Compare_Item_Collection
+     * @return Mage_Catalog_Model_Resource_Product_Compare_Item_Collection
      */
     public function getItemCollection()
     {
@@ -209,7 +209,7 @@ class Mage_Catalog_Helper_Product_Compare extends Mage_Core_Helper_Url
                 $this->_itemCollection->setVisitorId($this->_logVisitor->getId());
             }
 
-            $this->_productVisibility->addVisibleInSiteFilterToCollection($this->_itemCollection);
+            $this->_itemCollection->setVisibility($this->_productVisibility::getVisibleInSiteIds());
 
             /* Price data is added to consider item stock status using price index */
             $this->_itemCollection->addPriceData();
@@ -248,9 +248,8 @@ class Mage_Catalog_Helper_Product_Compare extends Mage_Core_Helper_Url
             }
 
             /* Price data is added to consider item stock status using price index */
-            $collection->addPriceData();
-
-            $this->_productVisibility->addVisibleInSiteFilterToCollection($collection);
+            $collection->addPriceData()
+                ->setVisibility($this->_productVisibility::getVisibleInSiteIds());
 
             $count = $collection->getSize();
         }
@@ -319,7 +318,7 @@ class Mage_Catalog_Helper_Product_Compare extends Mage_Core_Helper_Url
     }
 
     /**
-     * Retrieve url for adding product to conpare list with or without Form Key
+     * Retrieve url for adding product to compare list with or without Form Key
      *
      * @param  Mage_Catalog_Model_Product $product
      * @param  bool                       $addFormKey
@@ -373,9 +372,9 @@ class Mage_Catalog_Helper_Product_Compare extends Mage_Core_Helper_Url
     /**
      * Get parameters used for build add product to compare list urls with or without Form Key
      *
-     * @param  Mage_Catalog_Model_Product $product
-     * @param  bool                       $addFormKey
-     * @return array
+     * @param  Mage_Catalog_Model_Product     $product
+     * @param  bool                           $addFormKey
+     * @return array<string, null|int|string>
      */
     protected function _getUrlCustomParams($product, $addFormKey = true, $url = null)
     {

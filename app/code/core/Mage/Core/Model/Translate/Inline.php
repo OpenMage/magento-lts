@@ -154,17 +154,17 @@ class Mage_Core_Model_Translate_Inline
 
         /** @var Mage_Core_Model_Resource_Translate_String $resource */
         $resource = Mage::getResourceModel('core/translate_string');
-        foreach ($translate as $t) {
+        foreach ($translate as $value) {
             if (Mage::getDesign()->getArea() == 'adminhtml') {
                 $storeId = 0;
-            } elseif (empty($t['perstore'])) {
-                $resource->deleteTranslate($t['original'], null, false);
+            } elseif (empty($value['perstore'])) {
+                $resource->deleteTranslate($value['original'], null, false);
                 $storeId = 0;
             } else {
                 $storeId = Mage::app()->getStore()->getId();
             }
 
-            $resource->saveTranslate($t['original'], $t['custom'], null, $storeId);
+            $resource->saveTranslate($value['original'], $value['custom'], null, $storeId);
         }
 
         return $this;
@@ -313,16 +313,16 @@ class Mage_Core_Model_Translate_Inline
     {
         $trArr = [];
         $next = 0;
-        while (preg_match($regexp, $text, $m, PREG_OFFSET_CAPTURE, $next)) {
+        while (preg_match($regexp, $text, $matches, PREG_OFFSET_CAPTURE, $next)) {
             $trArr[] = json_encode([
-                'shown' => $m[1][0],
-                'translated' => $m[2][0],
-                'original' => $m[3][0],
-                'location' => call_user_func($locationCallback, $m, $options),
-                'scope' => $m[4][0],
+                'shown' => $matches[1][0],
+                'translated' => $matches[2][0],
+                'original' => $matches[3][0],
+                'location' => call_user_func($locationCallback, $matches, $options),
+                'scope' => $matches[4][0],
             ]);
-            $text = substr_replace($text, $m[1][0], $m[0][1], strlen($m[0][0]));
-            $next = $m[0][1];
+            $text = substr_replace($text, $matches[1][0], $matches[0][1], strlen($matches[0][0]));
+            $next = $matches[0][1];
         }
         return $trArr;
     }
@@ -342,26 +342,22 @@ class Mage_Core_Model_Translate_Inline
      */
     protected function _prepareTagAttributesForContent(&$content)
     {
-        if ($this->getIsJson()) {
-            $quoteHtml   = '\"';
-        } else {
-            $quoteHtml   = '"';
-        }
+        $quoteHtml = $this->getIsJson() ? '\"' : '"';
 
         $tagMatch   = [];
         $nextTag    = 0;
         $tagRegExp = '#<([a-z]+)\s*?[^>]+?((' . $this->_tokenRegex . ')[^>]*?)+\\\\?/?>#iS';
         while (preg_match($tagRegExp, $content, $tagMatch, PREG_OFFSET_CAPTURE, $nextTag)) {
             $tagHtml    = $tagMatch[0][0];
-            $m          = [];
+            $matches          = [];
             $attrRegExp = '#' . $this->_tokenRegex . '#S';
             $trArr = $this->_getTranslateData($attrRegExp, $tagHtml, [$this, '_getAttributeLocation']);
             if ($trArr) {
                 $transRegExp = '# data-translate=' . $quoteHtml . '\[([^' . preg_quote($quoteHtml, '#') . ']*)]' . $quoteHtml . '#i';
-                if (preg_match($transRegExp, $tagHtml, $m)) {
-                    $tagHtml = str_replace($m[0], '', $tagHtml); //remove tra
+                if (preg_match($transRegExp, $tagHtml, $matches)) {
+                    $tagHtml = str_replace($matches[0], '', $tagHtml); //remove tra
                     $trAttr = ' data-translate=' . $quoteHtml
-                        . htmlspecialchars('[' . $m[1] . ',' . implode(',', $trArr) . ']') . $quoteHtml;
+                        . htmlspecialchars('[' . $matches[1] . ',' . implode(',', $trArr) . ']') . $quoteHtml;
                 } else {
                     $trAttr = ' data-translate=' . $quoteHtml
                         . htmlspecialchars('[' . implode(',', $trArr) . ']') . $quoteHtml;
@@ -520,27 +516,23 @@ class Mage_Core_Model_Translate_Inline
      */
     protected function _otherText()
     {
-        if ($this->getIsJson()) {
-            $quoteHtml = '\"';
-        } else {
-            $quoteHtml = '"';
-        }
+        $quoteHtml = $this->getIsJson() ? '\"' : '"';
 
         $next = 0;
-        $m    = [];
-        while (preg_match('#' . $this->_tokenRegex . '#', $this->_content, $m, PREG_OFFSET_CAPTURE, $next)) {
-            $tr = json_encode([
-                'shown' => $m[1][0],
-                'translated' => $m[2][0],
-                'original' => $m[3][0],
+        $matches = [];
+        while (preg_match('#' . $this->_tokenRegex . '#', $this->_content, $matches, PREG_OFFSET_CAPTURE, $next)) {
+            $str = json_encode([
+                'shown' => $matches[1][0],
+                'translated' => $matches[2][0],
+                'original' => $matches[3][0],
                 'location' => 'Text',
-                'scope' => $m[4][0],
+                'scope' => $matches[4][0],
             ]);
 
-            $spanHtml = '<span data-translate=' . $quoteHtml . htmlspecialchars('[' . $tr . ']') . $quoteHtml
-                . '>' . $m[1][0] . '</span>';
-            $this->_content = substr_replace($this->_content, $spanHtml, $m[0][1], strlen($m[0][0]));
-            $next = $m[0][1] + strlen($spanHtml) - 1;
+            $spanHtml = '<span data-translate=' . $quoteHtml . htmlspecialchars('[' . $str . ']') . $quoteHtml
+                . '>' . $matches[1][0] . '</span>';
+            $this->_content = substr_replace($this->_content, $spanHtml, $matches[0][1], strlen($matches[0][0]));
+            $next = $matches[0][1] + strlen($spanHtml) - 1;
         }
     }
 

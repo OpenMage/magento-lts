@@ -18,11 +18,11 @@ class Mage_Reports_Model_Totals
      * Retrieve count totals
      *
      * @param  Mage_Adminhtml_Block_Report_Product_Grid $grid
-     * @param  string                                   $from
-     * @param  string                                   $to
+     * @param  null|string                              $dateFrom
+     * @param  null|string                              $dateTo
      * @return Varien_Object
      */
-    public function countTotals($grid, $from, $to)
+    public function countTotals($grid, $dateFrom, $dateTo)
     {
         $columns = [];
         foreach ($grid->getColumns() as $col) {
@@ -34,7 +34,7 @@ class Mage_Reports_Model_Totals
         }
 
         $count = 0;
-        $report = $grid->getCollection()->getReportFull($from, $to);
+        $report = $grid->getCollection()->getReportFull($dateFrom, $dateTo);
         foreach ($report as $item) {
             if ($grid->getSubReportSize() && $count >= $grid->getSubReportSize()) {
                 continue;
@@ -55,11 +55,7 @@ class Mage_Reports_Model_Totals
         foreach ($columns as $field => $arr) {
             if ($arr['total'] == 'avg') {
                 if ($field !== '') {
-                    if ($count != 0) {
-                        $data[$field] = $arr['value'] / $count;
-                    } else {
-                        $data[$field] = 0;
-                    }
+                    $data[$field] = $count != 0 ? $arr['value'] / $count : 0;
                 }
             } elseif ($arr['total'] == 'sum') {
                 if ($field !== '') {

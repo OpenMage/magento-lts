@@ -131,11 +131,7 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
             $product = $option->getProduct();
         }
 
-        if ($product->isVisibleInSiteVisibility()) {
-            return true;
-        }
-
-        return false;
+        return $product->isVisibleInSiteVisibility();
     }
 
     /**
@@ -170,7 +166,7 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
     public function getProductName()
     {
         if ($this->hasProductName()) {
-            return $this->getData('product_name');
+            return $this->getDataByKey('product_name');
         }
 
         return $this->getProduct()->getName();
@@ -230,7 +226,7 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
     public function getDeleteUrlCustom($addFormKey = true)
     {
         if ($this->hasDeleteUrl()) {
-            return $this->getData('delete_url');
+            return $this->getDataByKey('delete_url');
         }
 
         /** @var Mage_Core_Helper_Url $helper */
@@ -309,13 +305,8 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
      */
     public function getIsInStock()
     {
-        if ($this->getItem()->getProduct()->isSaleable()) {
-            if ($this->getItem()->getProduct()->getStockItem()->getQty() >= $this->getItem()->getQty()) {
-                return true;
-            }
-        }
-
-        return false;
+        return $this->getItem()->getProduct()->isSaleable()
+            && $this->getItem()->getProduct()->getStockItem()->getQty() >= $this->getItem()->getQty();
     }
 
     /**

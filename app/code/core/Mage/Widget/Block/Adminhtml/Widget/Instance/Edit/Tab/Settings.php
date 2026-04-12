@@ -80,10 +80,9 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Settings extends Mage
      */
     protected function _prepareForm()
     {
-        $widgetInstance = $this->getWidgetInstance();
         $form = new Varien_Data_Form([
             'id' => 'edit_form',
-            'action' => $this->getData('action'),
+            'action' => $this->getDataByKey('action'),
             'method' => 'post',
         ]);
 

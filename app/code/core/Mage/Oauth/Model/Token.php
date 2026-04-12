@@ -272,13 +272,13 @@ class Mage_Oauth_Model_Token extends Mage_Core_Model_Abstract
      */
     public function getConsumer()
     {
-        if (!$this->getData('consumer')) {
+        if (!$this->getDataByKey('consumer')) {
             /** @var Mage_Oauth_Model_Consumer $consumer */
             $consumer = Mage::getModel('oauth/consumer');
             $consumer->load($this->getConsumerId());
             $this->setData('consumer', $consumer);
         }
 
-        return $this->getData('consumer');
+        return $this->getDataByKey('consumer');
     }
 }

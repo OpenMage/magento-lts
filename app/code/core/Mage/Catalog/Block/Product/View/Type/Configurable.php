@@ -63,7 +63,7 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
         if (count($attributes)) {
             foreach ($attributes as $attribute) {
                 /** @var Mage_Catalog_Model_Product_Type_Configurable_Attribute $attribute */
-                if ($attribute->getData('prices')) {
+                if ($attribute->getDataByKey('prices')) {
                     return true;
                 }
             }
@@ -98,7 +98,7 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
             $this->setAllowProducts($products);
         }
 
-        return $this->getData('allow_products');
+        return $this->getDataByKey('allow_products');
     }
 
     /**
@@ -115,7 +115,7 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
     /**
      * Returns additional values for js config, con be overridden by descendants
      *
-     * @return array
+     * @return array<string,bool>|array<void>
      */
     protected function _getAdditionalConfig()
     {
@@ -129,16 +129,16 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
      */
     public function getJsonConfig()
     {
-        $attributes = [];
-        $options    = [];
-        $store      = $this->getCurrentStore();
-        $taxHelper  = Mage::helper('tax');
+        $attributes     = [];
+        $options        = [];
+        $store          = $this->getCurrentStore();
+        $taxHelper      = Mage::helper('tax');
         $currentProduct = $this->getProduct();
+        $defaultValues  = [];
 
         $preconfiguredFlag = $currentProduct->hasPreconfiguredValues();
         if ($preconfiguredFlag) {
             $preconfiguredValues = $currentProduct->getPreconfiguredValues();
-            $defaultValues       = [];
         }
 
         $productStock = [];
@@ -263,7 +263,7 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
             'taxConfig'         => $taxConfig,
         ];
 
-        if ($preconfiguredFlag && !empty($defaultValues)) {
+        if ($preconfiguredFlag && $defaultValues !== []) {
             $config['defaultValues'] = $defaultValues;
         }
 
@@ -282,11 +282,7 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
      */
     protected function _validateAttributeValue($attributeId, &$value, &$options)
     {
-        if (isset($options[$attributeId][$value['value_index']])) {
-            return true;
-        }
-
-        return false;
+        return isset($options[$attributeId][$value['value_index']]);
     }
 
     /**
@@ -297,11 +293,7 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
      */
     protected function _validateAttributeInfo(&$info)
     {
-        if (count($info['options']) > 0) {
-            return true;
-        }
-
-        return false;
+        return count($info['options']) > 0;
     }
 
     /**

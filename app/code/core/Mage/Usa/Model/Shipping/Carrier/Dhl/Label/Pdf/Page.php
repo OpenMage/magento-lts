@@ -77,16 +77,8 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_Page extends Zend_Pdf_Page
     }
 
     /**
-     * Draw a line of text at the specified position.
-     *
-     * @param  string                    $text
-     * @param  float                     $x
-     * @param  float                     $y
-     * @param  string                    $charEncoding (optional) Character encoding of source text.
-     *                                                 Defaults to current locale.
-     * @param                            $align
-     * @return Zend_Pdf_Canvas_Interface
-     * @throws Zend_Pdf_Exception
+     * @inheritDoc
+     * @SuppressWarnings("PHPMD.ShortVariable")
      */
     public function drawText($text, $x, $y, $charEncoding = 'UTF-8', $align = self::ALIGN_LEFT)
     {

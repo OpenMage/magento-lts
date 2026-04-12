@@ -415,10 +415,10 @@ class Mage_Customer_Model_Convert_Adapter_Customer extends Mage_Eav_Model_Conver
                 }
 
                 $this->addException(Mage::helper('customer')->__('Saved %d record(s)', $i));
-            } catch (Exception $e) {
-                if (!$e instanceof Mage_Dataflow_Model_Convert_Exception) {
+            } catch (Exception $exception) {
+                if (!$exception instanceof Mage_Dataflow_Model_Convert_Exception) {
                     $this->addException(
-                        Mage::helper('customer')->__('An error occurred while saving the collection, aborting. Error: %s', $e->getMessage()),
+                        Mage::helper('customer')->__('An error occurred while saving the collection, aborting. Error: %s', $exception->getMessage()),
                         Mage_Dataflow_Model_Convert_Exception::FATAL,
                     );
                 }

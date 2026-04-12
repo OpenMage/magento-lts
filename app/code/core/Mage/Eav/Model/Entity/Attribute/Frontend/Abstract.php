@@ -135,12 +135,10 @@ abstract class Mage_Eav_Model_Entity_Attribute_Frontend_Abstract implements Mage
         }
 
         if (!empty($out)) {
-            $out = implode(' ', $out);
-        } else {
-            $out = '';
+            return implode(' ', $out);
         }
 
-        return $out;
+        return '';
     }
 
     /**
@@ -178,7 +176,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Frontend_Abstract implements Mage
     }
 
     /**
-     * Reireive config field
+     * Receive config field
      *
      * @param  string $fieldName
      * @return mixed
@@ -221,7 +219,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Frontend_Abstract implements Mage
      */
     public function getInputRendererClass()
     {
-        $className = $this->getAttribute()->getData('frontend_input_renderer');
+        $className = $this->getAttribute()->getDataByKey('frontend_input_renderer');
         if ($className) {
             return Mage::getConfig()->getBlockClassName($className);
         }

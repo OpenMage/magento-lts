@@ -266,10 +266,10 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
     }
 
     /**
-     * Fetch transaction info
+     * Fetch transaction details info
      *
-     * @param  string $transactionId
-     * @return array
+     * @param  string                           $transactionId
+     * @return array<string, mixed>|array<void>
      */
     public function fetchTransactionInfo(Mage_Payment_Model_Info $payment, $transactionId)
     {
@@ -401,7 +401,7 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
     public function getInfoInstance()
     {
         /** @var Mage_Sales_Model_Order_Payment|Mage_Sales_Model_Quote_Payment $instance */
-        $instance = $this->getData('info_instance');
+        $instance = $this->getDataByKey('info_instance');
         if (!$instance instanceof Mage_Payment_Model_Info) {
             Mage::throwException(Mage::helper('payment')->__('Cannot retrieve the payment information object instance.'));
         }
@@ -701,34 +701,24 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
      */
     public function isApplicableToQuote($quote, $checksBitMask)
     {
-        if ($checksBitMask & self::CHECK_USE_FOR_COUNTRY) {
-            if (!$this->canUseForCountry($quote->getBillingAddress()->getCountry())) {
-                return false;
-            }
+        if ($checksBitMask & self::CHECK_USE_FOR_COUNTRY && !$this->canUseForCountry($quote->getBillingAddress()->getCountry())) {
+            return false;
         }
 
-        if ($checksBitMask & self::CHECK_USE_FOR_CURRENCY) {
-            if (!$this->canUseForCurrency($quote->getStore()->getBaseCurrencyCode())) {
-                return false;
-            }
+        if ($checksBitMask & self::CHECK_USE_FOR_CURRENCY && !$this->canUseForCurrency($quote->getStore()->getBaseCurrencyCode())) {
+            return false;
         }
 
-        if ($checksBitMask & self::CHECK_USE_CHECKOUT) {
-            if (!$this->canUseCheckout()) {
-                return false;
-            }
+        if ($checksBitMask & self::CHECK_USE_CHECKOUT && !$this->canUseCheckout()) {
+            return false;
         }
 
-        if ($checksBitMask & self::CHECK_USE_FOR_MULTISHIPPING) {
-            if (!$this->canUseForMultishipping()) {
-                return false;
-            }
+        if ($checksBitMask & self::CHECK_USE_FOR_MULTISHIPPING && !$this->canUseForMultishipping()) {
+            return false;
         }
 
-        if ($checksBitMask & self::CHECK_USE_INTERNAL) {
-            if (!$this->canUseInternal()) {
-                return false;
-            }
+        if ($checksBitMask & self::CHECK_USE_INTERNAL && !$this->canUseInternal()) {
+            return false;
         }
 
         if ($checksBitMask & self::CHECK_ORDER_TOTAL_MIN_MAX) {
@@ -740,10 +730,8 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
             }
         }
 
-        if ($checksBitMask & self::CHECK_RECURRING_PROFILES) {
-            if (!$this->canManageRecurringProfiles() && $quote->hasRecurringItems()) {
-                return false;
-            }
+        if ($checksBitMask & self::CHECK_RECURRING_PROFILES && (!$this->canManageRecurringProfiles() && $quote->hasRecurringItems())) {
+            return false;
         }
 
         if ($checksBitMask & self::CHECK_ZERO_TOTAL) {

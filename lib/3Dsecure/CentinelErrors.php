@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // Distributed by license from CardinalCommerce Corporation
 /////////////////////////////////////////////////////////////////////////////////////////////
 //  CardinalCommerce (http://www.cardinalcommerce.com)

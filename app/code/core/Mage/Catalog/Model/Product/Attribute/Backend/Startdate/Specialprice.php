@@ -8,7 +8,7 @@
  */
 
 /**
- * Speical Start Date attribute backend
+ * Special Start Date attribute backend
  *
  * @package    Mage_Catalog
  */

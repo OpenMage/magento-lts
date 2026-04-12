@@ -153,9 +153,9 @@ class Mage_Page_Block_Template_Links extends Mage_Core_Block_Template
      */
     public function removeLinkByUrl($url)
     {
-        foreach ($this->_links as $k => $v) {
-            if ($v->getUrl() == $url) {
-                unset($this->_links[$k]);
+        foreach ($this->_links as $key => $link) {
+            if ($link->getUrl() == $url) {
+                unset($this->_links[$key]);
             }
         }
 

@@ -184,15 +184,15 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
             if (!empty($groups)) {
                 $session->addSuccess(Mage::helper('adminhtml')->__('The configuration has been saved.'));
             }
-        } catch (Mage_Core_Exception $e) {
-            foreach (explode("\n", $e->getMessage()) as $message) {
+        } catch (Mage_Core_Exception $mageCoreException) {
+            foreach (explode("\n", $mageCoreException->getMessage()) as $message) {
                 $session->addError($message);
             }
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $session->addException(
-                $e,
+                $exception,
                 Mage::helper('adminhtml')->__('An error occurred while saving this configuration:') . ' '
-                . $e->getMessage(),
+                . $exception->getMessage(),
             );
         }
 
@@ -278,8 +278,8 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
         try {
             $session = Mage::getSingleton('admin/session');
             $resourceLookup = "admin/system/config/{$section}";
-            if ($session->getData('acl') instanceof Mage_Admin_Model_Acl) {
-                $resourceId = $session->getData('acl')->get($resourceLookup)->getResourceId();
+            if ($session->getDataByKey('acl') instanceof Mage_Admin_Model_Acl) {
+                $resourceId = $session->getDataByKey('acl')->get($resourceLookup)->getResourceId();
                 if (!$session->isAllowed($resourceId)) {
                     throw new Exception('');
                 }

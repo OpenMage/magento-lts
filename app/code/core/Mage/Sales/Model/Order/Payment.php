@@ -1072,7 +1072,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
             } else {
                 $order->addStatusHistoryComment($message);
             }
-        } elseif ($result === true) {
+        } elseif ($result) {
             if ($invoice) {
                 $invoice->pay();
                 $this->_updateTotals(['base_amount_paid_online' => $invoice->getBaseGrandTotal()]);
@@ -1241,12 +1241,12 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
 
         // if the authorization was untouched, we may assume voided amount = order grand total
         // but only if the payment auth amount equals to order grand total
-        if ($authTransaction && ($order->getBaseGrandTotal() == $this->getBaseAmountAuthorized())
-            && ($this->getBaseAmountCanceled() == 0)
+        if ($authTransaction
+            && $order->getBaseGrandTotal() == $this->getBaseAmountAuthorized()
+            && $this->getBaseAmountCanceled() == 0
+            && $authTransaction->canVoidAuthorizationCompletely()
         ) {
-            if ($authTransaction->canVoidAuthorizationCompletely()) {
-                $amount = (float) $order->getBaseGrandTotal();
-            }
+            $amount = $order->getBaseGrandTotal();
         }
 
         if ($amount) {
@@ -1569,12 +1569,8 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
         $txn = Mage::getModel('sales/order_payment_transaction')
             ->setOrderPaymentObject($this)
             ->loadByTxnId($txnId);
-        if ($txn->getId()) {
-            $this->_transactionsLookup[$txnId] = $txn;
-        } else {
-            $this->_transactionsLookup[$txnId] = false;
-        }
 
+        $this->_transactionsLookup[$txnId] = $txn->getId() ? $txn : false;
         return $this->_transactionsLookup[$txnId];
     }
 
@@ -1599,11 +1595,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      */
     public function getAuthorizationTransaction()
     {
-        if ($this->getParentTransactionId()) {
-            $txn = $this->_lookupTransaction($this->getParentTransactionId());
-        } else {
-            $txn = false;
-        }
+        $txn = $this->getParentTransactionId() ? $this->_lookupTransaction($this->getParentTransactionId()) : false;
 
         if (!$txn) {
             return $this->_lookupTransaction(false, Mage_Sales_Model_Order_Payment_Transaction::TYPE_AUTH);
@@ -1671,7 +1663,11 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      */
     protected function _isSameCurrency()
     {
-        return !$this->getCurrencyCode() || $this->getCurrencyCode() == $this->getOrder()->getBaseCurrencyCode();
+        if (!$this->getCurrencyCode()) {
+            return true;
+        }
+
+        return $this->getCurrencyCode() == $this->getOrder()->getBaseCurrencyCode();
     }
 
     /**

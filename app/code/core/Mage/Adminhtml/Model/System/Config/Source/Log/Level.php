@@ -16,6 +16,9 @@ use Monolog\Level;
  */
 class Mage_Adminhtml_Model_System_Config_Source_Log_Level
 {
+    /**
+     * @return array<int, string>
+     */
     public function toOptionArray()
     {
         $helper = Mage::helper('adminhtml');

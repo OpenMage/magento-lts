@@ -16,6 +16,8 @@
  */
 class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_report_grid';
+
     protected $_storeSwitcherVisibility = true;
 
     protected $_dateFilterVisibility = true;
@@ -61,7 +63,7 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
         $this->setPagerVisibility(false);
         $this->setTemplate('report/grid.phtml');
         $this->setUseAjax(false);
-        $this->setCountTotals(true);
+        $this->setCountTotals();
     }
 
     /**
@@ -108,7 +110,7 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
      */
     protected function _prepareCollection()
     {
-        $filter = $this->getParam($this->getVarNameFilter(), null);
+        $filter = $this->getParam($this->getVarNameFilter());
 
         if (is_null($filter)) {
             $filter = $this->_defaultFilter;
@@ -148,10 +150,9 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
              * Validate from and to date
              */
             try {
-                $from = $this->getLocale()->date($this->getFilter('report_from'), Zend_Date::DATE_SHORT, null, false);
-                $to   = $this->getLocale()->date($this->getFilter('report_to'), Zend_Date::DATE_SHORT, null, false);
-
-                $collection->setInterval($from, $to);
+                $dateFrom = $this->getLocale()->date($this->getFilter('report_from'), Zend_Date::DATE_SHORT, null, false);
+                $dateTo   = $this->getLocale()->date($this->getFilter('report_to'), Zend_Date::DATE_SHORT, null, false);
+                $collection->setInterval($dateFrom, $dateTo);
             } catch (Exception) {
                 $this->_errors[] = Mage::helper('reports')->__('Invalid date specified.');
             }
@@ -174,7 +175,7 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
         // And then array_intersect with post data for prevent unauthorized stores reports
         $storeIds = array_intersect($allowedStoreIds, $storeIds);
         // If selected all websites or unauthorized stores use only allowed
-        if (empty($storeIds)) {
+        if ($storeIds === []) {
             $storeIds = $allowedStoreIds;
         }
 
@@ -377,7 +378,7 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
                     $url,
                     [
                         '_current' => true,
-                        'filter' => $this->getParam($this->getVarNameFilter(), null),
+                        'filter' => $this->getParam($this->getVarNameFilter()),
                     ],
                 ),
                 'label' => $label,
@@ -389,20 +390,20 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
     /**
      * @throws Exception
      */
-    public function getReport($from, $to)
+    public function getReport($dateFrom, $dateTo)
     {
-        if ($from == '') {
-            $from = $this->getFilter('report_from');
+        if ($dateFrom == '') {
+            $dateFrom = $this->getFilter('report_from');
         }
 
-        if ($to == '') {
-            $to = $this->getFilter('report_to');
+        if ($dateTo == '') {
+            $dateTo = $this->getFilter('report_to');
         }
 
         $totalObj = Mage::getModel('reports/totals');
-        $this->setTotals($totalObj->countTotals($this, $from, $to));
+        $this->setTotals($totalObj->countTotals($this, $dateFrom, $dateTo));
         $this->addGrandTotals($this->getTotals());
-        return $this->getCollection()->getReport($from, $to);
+        return $this->getCollection()->getReport($dateFrom, $dateTo);
     }
 
     public function addGrandTotals($total)
@@ -610,11 +611,7 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
     public function getCountTotals()
     {
         $totals = $this->getGrandTotals()->getData();
-        if (parent::getCountTotals() && count($totals)) {
-            return true;
-        }
-
-        return false;
+        return parent::getCountTotals() && count($totals);
     }
 
     /**

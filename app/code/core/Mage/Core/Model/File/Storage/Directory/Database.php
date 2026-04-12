@@ -82,7 +82,7 @@ class Mage_Core_Model_File_Storage_Directory_Database extends Mage_Core_Model_Fi
      */
     public function hasErrors()
     {
-        return !empty($this->_errors);
+        return $this->_errors !== [];
     }
 
     /**
@@ -93,7 +93,7 @@ class Mage_Core_Model_File_Storage_Directory_Database extends Mage_Core_Model_Fi
     public function getParentId()
     {
         $parentId = null;
-        if (!$this->getData('parent_id')) {
+        if (!$this->getDataByKey('parent_id')) {
             $parentId = $this->_getResource()->getParentId($this->getPath());
             if (empty($parentId)) {
                 $parentId = null;
@@ -171,7 +171,15 @@ class Mage_Core_Model_File_Storage_Directory_Database extends Mage_Core_Model_Fi
 
         $dateSingleton = Mage::getSingleton('core/date');
         foreach ($dirs as $dir) {
-            if (!is_array($dir) || !isset($dir['name']) || !strlen($dir['name'])) {
+            if (!is_array($dir)) {
+                continue;
+            }
+
+            if (!isset($dir['name'])) {
+                continue;
+            }
+
+            if (!strlen($dir['name'])) {
                 continue;
             }
 
@@ -190,8 +198,8 @@ class Mage_Core_Model_File_Storage_Directory_Database extends Mage_Core_Model_Fi
                 } else {
                     Mage::throwException(Mage::helper('core')->__('Parent directory does not exist: %s', $dir['path']));
                 }
-            } catch (Exception $e) {
-                Mage::logException($e);
+            } catch (Exception $exception) {
+                Mage::logException($exception);
             }
         }
 

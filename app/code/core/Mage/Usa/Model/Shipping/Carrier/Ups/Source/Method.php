@@ -20,14 +20,20 @@ class Mage_Usa_Model_Shipping_Carrier_Ups_Source_Method
         // necessary after the add of Rest API
         $origins = $ups->getCode('originShipment');
         foreach ($origins as $origin) {
-            foreach ($origin as $k => $v) {
-                $arr[] = ['value' => $k, 'label' => Mage::helper('usa')->__($v)];
+            foreach ($origin as $key => $value) {
+                $arr[] = [
+                    'value' => $key,
+                    'label' => Mage::helper('usa')->__($value),
+                ];
             }
         }
 
         // old XML API codes
-        foreach ($ups->getCode('method') as $k => $v) {
-            $arr[] = ['value' => $k, 'label' => Mage::helper('usa')->__($v)];
+        foreach ($ups->getCode('method') as $key => $value) {
+            $arr[] = [
+                'value' => $key,
+                'label' => Mage::helper('usa')->__($value),
+            ];
         }
 
         return $arr;

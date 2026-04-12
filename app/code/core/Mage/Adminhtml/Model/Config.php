@@ -160,16 +160,12 @@ class Mage_Adminhtml_Model_Config extends Varien_Simplexml_Config
     {
         $showTab = false;
         if ($storeCode) {
-            if (isset($node->show_in_store)) {
-                if ((int) $node->show_in_store) {
-                    $showTab = true;
-                }
+            if (isset($node->show_in_store) && (int) $node->show_in_store) {
+                $showTab = true;
             }
         } elseif ($websiteCode) {
-            if (isset($node->show_in_website)) {
-                if ((int) $node->show_in_website) {
-                    $showTab = true;
-                }
+            if (isset($node->show_in_website) && (int) $node->show_in_website) {
+                $showTab = true;
             }
         } elseif (isset($node->show_in_default)) {
             if ((int) $node->show_in_default) {
@@ -242,13 +238,13 @@ class Mage_Adminhtml_Model_Config extends Varien_Simplexml_Config
         $groupNode = null;
         $fieldNode = null;
         $sectionNode = $this->_sections->xpath($path);
-        if (!empty($groupName)) {
+        if (is_string($groupName) && $groupName !== '') {
             $path .= '/groups/' . trim($groupName, '/');
             $groupNode = $this->_sections->xpath($path);
         }
 
-        if (!empty($fieldName)) {
-            if (!empty($groupName)) {
+        if (is_string($fieldName) && $fieldName !== '') {
+            if (is_string($groupName) && $groupName !== '') {
                 $path .= '/fields/' . trim($fieldName, '/');
                 $fieldNode = $this->_sections->xpath($path);
             } else {

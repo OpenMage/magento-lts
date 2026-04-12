@@ -12,8 +12,7 @@
  *
  * @package    Mage_Core
  *
- * @method Mage_Core_Model_Website   getItemById(int $value)
- * @method Mage_Core_Model_Website[] getItems()
+ * @extends Mage_Core_Model_Resource_Db_Collection_Abstract<Mage_Core_Model_Website>
  */
 class Mage_Core_Model_Resource_Website_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
@@ -89,8 +88,8 @@ class Mage_Core_Model_Resource_Website_Collection extends Mage_Core_Model_Resour
     public function addIdFilter($ids)
     {
         if (is_array($ids)) {
-            if (empty($ids)) {
-                $this->addFieldToFilter('website_id', null);
+            if ($ids === []) {
+                $this->addFieldToFilter('website_id');
             } else {
                 $this->addFieldToFilter('website_id', ['in' => $ids]);
             }

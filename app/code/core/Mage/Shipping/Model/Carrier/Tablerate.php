@@ -44,8 +44,8 @@ class Mage_Shipping_Model_Carrier_Tablerate extends Mage_Shipping_Model_Carrier_
     public function __construct()
     {
         parent::__construct();
-        foreach ($this->getCode('condition_name') as $k => $v) {
-            $this->_conditionNames[] = $k;
+        foreach (array_keys($this->getCode('condition_name')) as $key) {
+            $this->_conditionNames[] = $key;
         }
     }
 
@@ -84,7 +84,11 @@ class Mage_Shipping_Model_Carrier_Tablerate extends Mage_Shipping_Model_Carrier_
         $freePackageValue = 0;
         if ($request->getAllItems()) {
             foreach ($request->getAllItems() as $item) {
-                if ($item->getProduct()->isVirtual() || $item->getParentItem()) {
+                if ($item->getProduct()->isVirtual()) {
+                    continue;
+                }
+
+                if ($item->getParentItem()) {
                     continue;
                 }
 
@@ -217,19 +221,16 @@ class Mage_Shipping_Model_Carrier_Tablerate extends Mage_Shipping_Model_Carrier_
     public function getCode($type, $code = '')
     {
         $codes = [
-
             'condition_name' => [
                 'package_weight' => Mage::helper('shipping')->__('Weight vs. Destination'),
                 'package_value' => Mage::helper('shipping')->__('Price vs. Destination'),
                 'package_qty' => Mage::helper('shipping')->__('# of Items vs. Destination'),
             ],
-
             'condition_name_short' => [
                 'package_weight' => Mage::helper('shipping')->__('Weight (and above)'),
                 'package_value' => Mage::helper('shipping')->__('Order Subtotal (and above)'),
                 'package_qty' => Mage::helper('shipping')->__('# of Items (and above)'),
             ],
-
         ];
 
         if (!isset($codes[$type])) {
@@ -250,7 +251,7 @@ class Mage_Shipping_Model_Carrier_Tablerate extends Mage_Shipping_Model_Carrier_
     /**
      * Get allowed shipping methods
      *
-     * @return array
+     * @return array<string, bool|string>
      */
     public function getAllowedMethods()
     {

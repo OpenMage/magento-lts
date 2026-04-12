@@ -73,18 +73,6 @@ class Mage_Adminhtml_Block_Widget_Form extends Mage_Adminhtml_Block_Widget
     }
 
     /**
-     * Get form object
-     *
-     * @return Varien_Data_Form
-     * @deprecated deprecated since version 1.2
-     * @see getForm()
-     */
-    public function getFormObject()
-    {
-        return $this->getForm();
-    }
-
-    /**
      * Get form HTML
      *
      * @return string
@@ -163,7 +151,11 @@ class Mage_Adminhtml_Block_Widget_Form extends Mage_Adminhtml_Block_Widget
         $this->_addElementTypes($fieldset);
         foreach ($attributes as $attribute) {
             /** @var Mage_Eav_Model_Entity_Attribute $attribute */
-            if (!$attribute || ($attribute->hasIsVisible() && !$attribute->getIsVisible())) {
+            if (!$attribute) {
+                continue;
+            }
+
+            if ($attribute->hasIsVisible() && !$attribute->getIsVisible()) {
                 continue;
             }
 
@@ -173,7 +165,7 @@ class Mage_Adminhtml_Block_Widget_Form extends Mage_Adminhtml_Block_Widget
             ) {
                 $fieldType      = $inputType;
                 $rendererClass  = $attribute->getFrontend()->getInputRendererClass();
-                if (!empty($rendererClass)) {
+                if (is_string($rendererClass) && $rendererClass !== '') {
                     $fieldType  = $inputType . '_' . $attribute->getAttributeCode();
                     $fieldset->addType($fieldType, $rendererClass);
                 }
@@ -229,7 +221,7 @@ class Mage_Adminhtml_Block_Widget_Form extends Mage_Adminhtml_Block_Widget
     /**
      * Retrieve predefined additional element types
      *
-     * @return array
+     * @return array<string, string>|array<void>
      */
     protected function _getAdditionalElementTypes()
     {

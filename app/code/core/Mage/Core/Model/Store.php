@@ -377,26 +377,24 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
          */
         if ($this->_configCache === null) {
             $code = $this->getCode();
-            if ($code) {
-                if (Mage::app()->useCache('config')) {
-                    $cacheId = 'store_' . $code . '_config_cache';
-                    $data = Mage::app()->loadCache($cacheId);
-                    if ($data) {
-                        $data = unserialize($data, ['allowed_classes' => false]);
-                    } else {
-                        $data = [];
-                        foreach ($this->_configCacheBaseNodes as $node) {
-                            $data[$node] = $this->getConfig($node);
-                        }
-
-                        Mage::app()->saveCache(serialize($data), $cacheId, [
-                            self::CACHE_TAG,
-                            Mage_Core_Model_Config::CACHE_TAG,
-                        ]);
+            if ($code && Mage::app()->useCache('config')) {
+                $cacheId = 'store_' . $code . '_config_cache';
+                $data = Mage::app()->loadCache($cacheId);
+                if ($data) {
+                    $data = unserialize($data, ['allowed_classes' => false]);
+                } else {
+                    $data = [];
+                    foreach ($this->_configCacheBaseNodes as $node) {
+                        $data[$node] = $this->getConfig($node);
                     }
 
-                    $this->_configCache = $data;
+                    Mage::app()->saveCache(serialize($data), $cacheId, [
+                        self::CACHE_TAG,
+                        Mage_Core_Model_Config::CACHE_TAG,
+                    ]);
                 }
+
+                $this->_configCache = $data;
             }
         }
 
@@ -811,7 +809,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      */
     public function getBaseCurrency()
     {
-        $currency = $this->getData('base_currency');
+        $currency = $this->getDataByKey('base_currency');
         if (is_null($currency)) {
             $currency = Mage::getModel('directory/currency')->load($this->getBaseCurrencyCode());
             $this->setData('base_currency', $currency);
@@ -838,7 +836,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      */
     public function getDefaultCurrency()
     {
-        $currency = $this->getData('default_currency');
+        $currency = $this->getDataByKey('default_currency');
         if (is_null($currency)) {
             $currency = Mage::getModel('directory/currency')->load($this->getDefaultCurrencyCode());
             $this->setData('default_currency', $currency);
@@ -889,7 +887,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
 
         // take first one of allowed codes
         $codes = array_values($this->getAvailableCurrencyCodes(true));
-        if (empty($codes)) {
+        if ($codes === []) {
             // return default code, if no codes specified at all
             return $this->getDefaultCurrencyCode();
         }
@@ -908,7 +906,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      */
     public function getAvailableCurrencyCodes($skipBaseNotAllowed = false)
     {
-        $codes = $this->getData('available_currency_codes');
+        $codes = $this->getDataByKey('available_currency_codes');
         if (is_null($codes)) {
             $codes = explode(',', $this->getConfig(Mage_Directory_Model_Currency::XML_PATH_CURRENCY_ALLOW));
             // add base currency, if it is not in allowed currencies
@@ -927,7 +925,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
 
         // remove base currency code, if it is not allowed by config (optional)
         if ($skipBaseNotAllowed) {
-            $disallowedBaseCodeIndex = $this->getData('disallowed_base_currency_code_index');
+            $disallowedBaseCodeIndex = $this->getDataByKey('disallowed_base_currency_code_index');
             if ($disallowedBaseCodeIndex !== null) {
                 unset($codes[$disallowedBaseCodeIndex]);
             }
@@ -945,7 +943,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      */
     public function getCurrentCurrency()
     {
-        $currency = $this->getData('current_currency');
+        $currency = $this->getDataByKey('current_currency');
 
         if (is_null($currency)) {
             $currency     = Mage::getModel('directory/currency')->load($this->getCurrentCurrencyCode());

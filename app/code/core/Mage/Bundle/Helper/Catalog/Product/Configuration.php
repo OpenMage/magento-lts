@@ -56,7 +56,7 @@ class Mage_Bundle_Helper_Catalog_Product_Configuration extends Mage_Core_Helper_
     }
 
     /**
-     * Get bundled selections (slections-products collection)
+     * Get bundled selections (selections-products collection)
      *
      * Returns array of options objects.
      * Each option object will contain array of selections objects
@@ -103,7 +103,7 @@ class Mage_Bundle_Helper_Catalog_Product_Configuration extends Mage_Core_Helper_
                             $qty = $this->getSelectionQty($product, $bundleSelection->getSelectionId()) * 1;
                             if ($qty) {
                                 $option['value'][] = $qty . ' x ' . $this->escapeHtml($bundleSelection->getName())
-                                    . ' ' . Mage::helper('core')->currency(
+                                    . ' ' . Mage::helper('core')::currency(
                                         $this->getSelectionFinalPrice($item, $bundleSelection),
                                     );
                             }

@@ -319,8 +319,8 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
     }
 
     /**
-     * @param  int                 $itemId
-     * @return bool
+     * @param  int                                         $itemId
+     * @return bool|Mage_Sales_Model_Order_Creditmemo_Item
      * @throws Mage_Core_Exception
      */
     public function getItemById($itemId)
@@ -410,14 +410,9 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
      */
     public function canRefund()
     {
-        if ($this->getState() != self::STATE_CANCELED
+        return $this->getState() != self::STATE_CANCELED
             && $this->getState() != self::STATE_REFUNDED
-            && $this->getOrder()->getPayment()->canRefund()
-        ) {
-            return true;
-        }
-
-        return false;
+            && $this->getOrder()->getPayment()->canRefund();
     }
 
     /**
@@ -431,7 +426,7 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
     }
 
     /**
-     * Check invice void action availability
+     * Check Creditmemo void action availability
      *
      * @return false
      */

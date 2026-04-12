@@ -175,7 +175,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
     }
 
     /**
-     * @return array
+     * @return array<string, null|bool|int|mixed[]|string>
      */
     public function asArray(array $arrAttributes = [])
     {
@@ -238,7 +238,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
     }
 
     /**
-     * @return array
+     * @return array<void>
      */
     public function getAttributeOptions()
     {
@@ -297,7 +297,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
         $opt = [];
         $operatorByType = $this->getOperatorByInputType();
         foreach ($this->getOperatorOption() as $key => $value) {
-            if (!$operatorByType || in_array($key, $operatorByType[$type])) {
+            if (!$operatorByType || in_array($key, $operatorByType[$type], true)) {
                 $opt[] = ['value' => $key, 'label' => $value];
             }
         }
@@ -348,7 +348,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
     public function getValueParsed()
     {
         if (!$this->hasValueParsed()) {
-            $value = $this->getData('value');
+            $value = $this->getDataByKey('value');
             if ($this->isArrayOperatorType() && is_string($value)) {
                 $value = preg_split('#\s*[,;]\s*#', $value, -1, PREG_SPLIT_NO_EMPTY);
             }
@@ -356,7 +356,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
             $this->setValueParsed($value);
         }
 
-        return $this->getData('value_parsed');
+        return $this->getDataByKey('value_parsed');
     }
 
     /**
@@ -369,7 +369,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
     public function isArrayOperatorType()
     {
         $operator = $this->getOperator();
-        return $operator === '()' || $operator === '!()' || in_array($this->getInputType(), $this->_arrayInputTypes);
+        return $operator === '()' || $operator === '!()' || in_array($this->getInputType(), $this->_arrayInputTypes, true);
     }
 
     /**
@@ -393,7 +393,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
             if ($format !== null) {
                 $this->setValue(
                     Mage::app()->getLocale()->date(
-                        $this->getData('value'),
+                        $this->getDataByKey('value'),
                         $format,
                         null,
                         false,
@@ -403,7 +403,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
             }
         }
 
-        return $this->getData('value');
+        return $this->getDataByKey('value');
     }
 
     /**
@@ -418,10 +418,10 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
 
         $options = $this->getValueSelectOptions();
         $valueArr = [];
-        if (!empty($options)) {
+        if ($options !== []) {
             foreach ($options as $option) {
                 if (is_array($value)) {
-                    if (in_array($option['value'], $value)) {
+                    if (in_array($option['value'], $value, true)) {
                         $valueArr[] = $option['label'];
                     }
                 } else {
@@ -440,7 +440,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
             }
         }
 
-        if (!empty($valueArr)) {
+        if ($valueArr !== []) {
             return implode(', ', $valueArr);
         }
 
@@ -450,7 +450,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
     /**
      * Get inherited conditions selectors
      *
-     * @return array
+     * @return array<int, array<string, string>>
      */
     public function getNewChildSelectOptions()
     {
@@ -744,7 +744,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
                 if (is_array($value)) {
                     if (is_array($validatedValue)) {
                         $result = array_intersect($value, $validatedValue);
-                        $result = !empty($result);
+                        $result = $result !== [];
                     } else {
                         return false;
                     }
@@ -788,12 +788,12 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
                 } elseif (is_array($value)) {
                     if (is_array($validatedValue)) {
                         $result = array_intersect($value, $validatedValue);
-                        $result = !empty($result);
+                        $result = $result !== [];
                     } else {
                         return false;
                     }
                 } elseif (is_array($validatedValue)) {
-                    $result = in_array($value, $validatedValue);
+                    $result = in_array($value, $validatedValue, true);
                 } else {
                     $result = $this->_compareValues($value, $validatedValue, false);
                 }
@@ -808,11 +808,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
                     $value = (array) $value;
                     $match = count(array_intersect($validatedValue, $value));
 
-                    if (in_array($operator, ['[]', '![]'])) {
-                        $result = $match == count($value);
-                    } else {
-                        $result = $match > 0;
-                    }
+                    $result = in_array($operator, ['[]', '![]'], true) ? $match == count($value) : $match > 0;
                 } else {
                     $value = (array) $value;
                     foreach ($value as $item) {
@@ -826,7 +822,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
                 break;
         }
 
-        if (in_array($operator, ['!=', '>', '<', '!{}', '!()', '![]'])) {
+        if (in_array($operator, ['!=', '>', '<', '!{}', '!()', '![]'], true)) {
             return !$result;
         }
 
@@ -847,7 +843,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
             return $validatedValue == $value;
         }
 
-        $validatedValue = $validatedValue ?? '';
+        $validatedValue ??= '';
         $validatePattern = preg_quote($validatedValue, '~');
         if ($strict) {
             $validatePattern = '^' . $validatePattern . '$';

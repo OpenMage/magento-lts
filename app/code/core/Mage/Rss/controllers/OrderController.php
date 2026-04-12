@@ -28,7 +28,7 @@ class Mage_Rss_OrderController extends Mage_Rss_Controller_Abstract
     }
 
     /**
-     * @return $this|void
+     * @return null|$this
      * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
      */
@@ -42,6 +42,8 @@ class Mage_Rss_OrderController extends Mage_Rss_Controller_Abstract
                 return $this;
             }
         }
+
+        return null;
     }
 
     /**

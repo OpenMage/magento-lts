@@ -96,14 +96,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
     }
 
     /**
-     * Retrieve Required children ids
-     * Return grouped array, ex array(
-     *   group => array(ids)
-     * )
-     *
-     * @param  int   $parentId
-     * @param  bool  $required
-     * @return array
+     * @inheritDoc
      */
     public function getChildrenIds($parentId, $required = true)
     {
@@ -410,7 +403,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
         }
 
         foreach ($this->getConfigurableAttributes($product) as $attribute) {
-            $this->getProduct($product)->setData($attribute->getProductAttribute()->getAttributeCode(), null);
+            $this->getProduct($product)->setData($attribute->getProductAttribute()->getAttributeCode());
         }
 
         return $this;
@@ -495,7 +488,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
 
     /**
      * Retrieve used product by attribute values
-     *  $attrbutesInfo = array(
+     *  $attributesInfo = array(
      *      $attributeId => $attributeValue
      *  )
      *
@@ -556,11 +549,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
                     $attribute = $usedAttributes[$attributeId];
                     $label = $attribute->getLabel();
                     $value = $attribute->getProductAttribute();
-                    if ($value->getSourceModel()) {
-                        $value = $value->getSource()->getOptionText($attributeValue);
-                    } else {
-                        $value = '';
-                    }
+                    $value = $value->getSourceModel() ? $value->getSource()->getOptionText($attributeValue) : '';
 
                     $attributes[] = ['label' => $label, 'value' => $value];
                 }
@@ -604,7 +593,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
                 $subProduct = true;
                 if ($this->_isStrictProcessMode($processMode)) {
                     foreach ($this->getConfigurableAttributes($product) as $attributeItem) {
-                        $attrId = $attributeItem->getData('attribute_id');
+                        $attrId = $attributeItem->getDataByKey('attribute_id');
                         if (!isset($attributes[$attrId]) || empty($attributes[$attrId])) {
                             $subProduct = null;
                             break;
@@ -740,10 +729,9 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
      */
     public function isVirtual($product = null)
     {
-        if ($productOption = $this->getProduct($product)->getCustomOption('simple_product')) {
-            if ($optionProduct = $productOption->getProduct()) {
-                return $optionProduct->isVirtual();
-            }
+        $productOption = $this->getProduct($product)->getCustomOption('simple_product');
+        if ($productOption && $optionProduct = $productOption->getProduct()) {
+            return $optionProduct->isVirtual();
         }
 
         return parent::isVirtual($product);
@@ -764,7 +752,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
         $attributes = $this->getConfigurableAttributes($product);
         if (count($attributes)) {
             foreach ($attributes as $attribute) {
-                if ($attribute->getData('prices')) {
+                if ($attribute->getDataByKey('prices')) {
                     return true;
                 }
             }
@@ -792,7 +780,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
             }
         }
 
-        return $this->getProduct($product)->getData('weight');
+        return $this->getProduct($product)->getDataByKey('weight');
     }
 
     /**
@@ -831,8 +819,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
     /**
      * Get sku of product
      *
-     * @param  Mage_Catalog_Model_Product $product
-     * @return string
+     * @inheritDoc
      */
     public function getSku($product = null)
     {
@@ -845,25 +832,23 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
                 $simpleSku =  $simpleOption->getProduct()->getSku();
             }
 
-            $sku = parent::getOptionSku($product, $simpleSku);
-        } else {
-            $sku = parent::getSku($product);
+            return parent::getOptionSku($product, $simpleSku);
         }
 
-        return $sku;
+        return parent::getSku($product);
     }
 
     /**
      * Prepare selected options for configurable product
      *
-     * @param  Mage_Catalog_Model_Product $product
-     * @param  Varien_Object              $buyRequest
-     * @return array
+     * @inheritDoc
+     * @return array<string, string[]>
      */
     public function processBuyRequest($product, $buyRequest)
     {
+        /** @var null|string[] $superAttribute */
         $superAttribute = $buyRequest->getSuperAttribute();
-        $superAttribute = (is_array($superAttribute)) ? array_filter($superAttribute, \intval(...)) : [];
+        $superAttribute = (is_array($superAttribute)) ? array_filter($superAttribute, fn(mixed $value) => (int) $value !== 0) : [];
 
         return ['super_attribute' => $superAttribute];
     }

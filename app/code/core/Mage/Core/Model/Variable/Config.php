@@ -17,8 +17,8 @@ class Mage_Core_Model_Variable_Config
     /**
      * Prepare variable wysiwyg config
      *
-     * @param  Varien_Object $config
-     * @return array
+     * @param  Varien_Object                                $config
+     * @return array<string, non-empty-array<mixed, mixed>>
      */
     public function getWysiwygPluginSettings($config)
     {
@@ -35,7 +35,7 @@ class Mage_Core_Model_Variable_Config
                 'onclick' => $onclickParts,
                 'class'   => 'add-variable plugin',
             ]]];
-        $configPlugins = $config->getData('plugins');
+        $configPlugins = $config->getDataByKey('plugins');
         $variableConfig['plugins'] = array_merge($configPlugins, $variableWysiwygPlugin);
         return $variableConfig;
     }

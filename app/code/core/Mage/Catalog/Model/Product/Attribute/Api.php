@@ -93,14 +93,10 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
         if ($attribute->usesSource()) {
             $attribute->setStoreId($storeId);
             foreach ($attribute->getSource()->getAllOptions() as $optionId => $optionValue) {
-                if (is_array($optionValue)) {
-                    $options[] = $optionValue;
-                } else {
-                    $options[] = [
-                        'value' => $optionId,
-                        'label' => $optionValue,
-                    ];
-                }
+                $options[] = is_array($optionValue) ? $optionValue : [
+                    'value' => $optionId,
+                    'label' => $optionValue,
+                ];
             }
         }
 
@@ -234,8 +230,8 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
     /**
      * Get full information about attribute with list of options
      *
-     * @param  int|string $attribute attribute ID or code
-     * @return array
+     * @param  int|string           $attribute attribute ID or code
+     * @return array<string, mixed>
      */
     public function info($attribute)
     {

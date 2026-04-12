@@ -597,11 +597,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
             return true;
         }
 
-        if ($this->getScope() == self::SCOPE_WEBSITES && $field) {
-            return true;
-        }
-
-        return false;
+        return $this->getScope() == self::SCOPE_WEBSITES && $field;
     }
 
     /**
@@ -611,11 +607,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
      */
     public function canUseWebsiteValue($field)
     {
-        if ($this->getScope() == self::SCOPE_STORES && $field) {
-            return true;
-        }
-
-        return false;
+        return $this->getScope() == self::SCOPE_STORES && $field;
     }
 
     /**
@@ -653,7 +645,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
      */
     public function getScope()
     {
-        $scope = $this->getData('scope');
+        $scope = $this->getDataByKey('scope');
         if (is_null($scope)) {
             if ($this->getStoreCode()) {
                 $scope = self::SCOPE_STORES;
@@ -684,16 +676,16 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
         $website    = Mage::app()->getRequest()->getParam('website');
 
         if ($store && $website) {
-            $path = "$scope/$store/$path";
+            $path = "{$scope}/{$store}/{$path}";
             return $environmentConfigLoaderHelper->hasPath($path);
         }
 
         if ($website) {
-            $path = "$scope/$website/$path";
+            $path = "{$scope}/{$website}/{$path}";
             return $environmentConfigLoaderHelper->hasPath($path);
         }
 
-        $path = "$scope/$path";
+        $path = "{$scope}/{$path}";
         return $environmentConfigLoaderHelper->hasPath($path);
     }
 
@@ -724,7 +716,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
      */
     public function getScopeCode()
     {
-        $scopeCode = $this->getData('scope_code');
+        $scopeCode = $this->getDataByKey('scope_code');
         if (is_null($scopeCode)) {
             if ($this->getStoreCode()) {
                 $scopeCode = $this->getStoreCode();
@@ -749,7 +741,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
      */
     public function getScopeId()
     {
-        $scopeId = $this->getData('scope_id');
+        $scopeId = $this->getDataByKey('scope_id');
         if (is_null($scopeId)) {
             if ($this->getStoreCode()) {
                 $scopeId = Mage::app()->getStore($this->getStoreCode())->getId();
@@ -766,7 +758,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
     }
 
     /**
-     * @return array
+     * @return array<string, string>
      */
     protected function _getAdditionalElementTypes()
     {

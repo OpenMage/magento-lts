@@ -18,7 +18,6 @@
     /** @var Mage_Catalog_Helper_Data $_catalogHelper */
     $_catalogHelper = $this->helper('catalog');
 
-    /** @var Mage_Catalog_Model_Product $_product */
     $_product = $this->getProduct();
     $_id = $_product->getId();
     $_msrpPrice = '';
@@ -27,7 +26,7 @@
     <div class="price-box map-info">
     <?php $_price = $this->helper('tax')->getPrice($_product, $_product->getMsrp()) ?>
         <?php if($_product->getMsrp()): ?>
-            <?php $_msrpPrice = $_coreHelper->currency($_product->getMsrp(),true,true) ?>
+            <?php $_msrpPrice = $_coreHelper::currency($_product->getMsrp(),true,true) ?>
             <span class="old-price" ><?php echo $_msrpPrice ?></span>
         <?php endif ?>
 

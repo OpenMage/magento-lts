@@ -17,8 +17,8 @@ class Mage_Widget_Model_Widget_Config extends Varien_Object
     /**
      * Return config settings for widgets insertion plugin based on editor element config
      *
-     * @param  Varien_Object $config
-     * @return array
+     * @param  Varien_Object                 $config
+     * @return array<string, mixed[]|string>
      */
     public function getPluginSettings($config)
     {
@@ -83,10 +83,10 @@ class Mage_Widget_Model_Widget_Config extends Varien_Object
     {
         $params = [];
 
-        $skipped = is_array($config->getData('skip_widgets')) ? $config->getData('skip_widgets') : [];
+        $skipped = is_array($config->getDataByKey('skip_widgets')) ? $config->getDataByKey('skip_widgets') : [];
         if ($config->hasData('widget_filters')) {
             $all = Mage::getModel('widget/widget')->getWidgetsXml();
-            $filtered = Mage::getModel('widget/widget')->getWidgetsXml($config->getData('widget_filters'));
+            $filtered = Mage::getModel('widget/widget')->getWidgetsXml($config->getDataByKey('widget_filters'));
             $reflection = new ReflectionObject($filtered);
             foreach ($all as $code => $widget) {
                 if (!$reflection->hasProperty($code)) {

@@ -14,6 +14,8 @@
  */
 class Mage_Adminhtml_Block_Newsletter_Template_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_newsletter_template_grid';
+
     public function __construct()
     {
         parent::__construct();
@@ -23,6 +25,9 @@ class Mage_Adminhtml_Block_Newsletter_Template_Grid extends Mage_Adminhtml_Block
         $this->setUseAjax(true);
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->setEmptyText(Mage::helper('newsletter')->__('No Templates Found'));

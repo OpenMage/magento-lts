@@ -19,9 +19,9 @@ class Mage_Catalog_Block_Product extends Mage_Core_Block_Template
      */
     public function getProduct()
     {
-        if (!$this->getData('product') instanceof Mage_Catalog_Model_Product) {
-            if ($this->getData('product')->getProductId()) {
-                $productId = $this->getData('product')->getProductId();
+        if (!$this->getDataByKey('product') instanceof Mage_Catalog_Model_Product) {
+            if ($this->getDataByKey('product')->getProductId()) {
+                $productId = $this->getDataByKey('product')->getProductId();
             }
 
             if ($productId) {
@@ -32,7 +32,7 @@ class Mage_Catalog_Block_Product extends Mage_Core_Block_Template
             }
         }
 
-        return $this->getData('product');
+        return $this->getDataByKey('product');
     }
 
     /**

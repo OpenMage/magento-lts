@@ -62,9 +62,9 @@ class Mage_Paypal_Block_Adminhtml_System_Config_ApiWizard extends Mage_Adminhtml
     /**
      * Prepare button data
      *
-     * @param  string $elementHtmlId
-     * @param  array  $originalData
-     * @return array
+     * @param  string               $elementHtmlId
+     * @param  array                $originalData
+     * @return array<string, mixed>
      */
     protected function _getButtonData($elementHtmlId, $originalData)
     {
@@ -78,16 +78,16 @@ class Mage_Paypal_Block_Adminhtml_System_Config_ApiWizard extends Mage_Adminhtml
     /**
      * Prepare sandbox button data
      *
-     * @param  string $elementHtmlId
-     * @param  array  $originalData
-     * @return array
+     * @param  string                           $elementHtmlId
+     * @param  array                            $originalData
+     * @return array<string, mixed>|array<void>
      */
     protected function _getSandboxButtonData($elementHtmlId, $originalData)
     {
         return [
             'sandbox_button_label' => Mage::helper('paypal')->__($originalData['sandbox_button_label']),
             'sandbox_button_url'   => $originalData['sandbox_button_url'],
-            'sandbox_html_id' => 'sandbox_' . $elementHtmlId,
+            'sandbox_html_id'      => 'sandbox_' . $elementHtmlId,
         ];
     }
 }

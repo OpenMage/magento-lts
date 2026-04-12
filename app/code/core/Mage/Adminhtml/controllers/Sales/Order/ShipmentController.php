@@ -342,9 +342,8 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
      */
     public function removeTrackAction()
     {
-        $trackId    = $this->getRequest()->getParam('track_id');
-        $shipmentId = $this->getRequest()->getParam('shipment_id');
-        $track = Mage::getModel('sales/order_shipment_track')->load($trackId);
+        $trackId = $this->getRequest()->getParam('track_id');
+        $track   = Mage::getModel('sales/order_shipment_track')->load($trackId);
         if ($track->getId()) {
             try {
                 if ($this->_initShipment()) {
@@ -383,9 +382,8 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
      */
     public function viewTrackAction()
     {
-        $trackId    = $this->getRequest()->getParam('track_id');
-        $shipmentId = $this->getRequest()->getParam('shipment_id');
-        $track = Mage::getModel('sales/order_shipment_track')->load($trackId);
+        $trackId = $this->getRequest()->getParam('track_id');
+        $track   = Mage::getModel('sales/order_shipment_track')->load($trackId);
         if ($track->getId()) {
             try {
                 $response = $track->getNumberDetail();
@@ -497,13 +495,8 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
                 return false;
             }
 
-            if ((isset($qtys[$item->getParentItem()->getId()]) && $qtys[$item->getParentItem()->getId()] > 0)
-                || (!isset($qtys[$item->getParentItem()->getId()]) && $item->getParentItem()->getQtyToShip())
-            ) {
-                return true;
-            }
-
-            return false;
+            return (isset($qtys[$item->getParentItem()->getId()]) && $qtys[$item->getParentItem()->getId()] > 0)
+                || (!isset($qtys[$item->getParentItem()->getId()]) && $item->getParentItem()->getQtyToShip());
         }
 
         return false;
@@ -663,6 +656,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
     public function massPrintShippingLabelAction()
     {
         $request = $this->getRequest();
+        /** @var string[] $ids */
         $ids = $request->getParam('order_ids');
         $createdFromOrders = !empty($ids);
         $shipments = null;
@@ -670,8 +664,8 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
         switch ($request->getParam('massaction_prepare_key')) {
             case 'shipment_ids':
                 $ids = $request->getParam('shipment_ids');
-                $ids = array_filter($ids, \intval(...));
-                if (!empty($ids)) {
+                $ids = array_filter($ids, fn(mixed $value) => (int) $value !== 0);
+                if ($ids !== []) {
                     $shipments = Mage::getResourceModel('sales/order_shipment_collection')
                         ->addFieldToFilter('entity_id', ['in' => $ids]);
                 }
@@ -679,8 +673,8 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
                 break;
             case 'order_ids':
                 $ids = $request->getParam('order_ids');
-                $ids = array_filter($ids, \intval(...));
-                if (!empty($ids)) {
+                $ids = array_filter($ids, fn(mixed $value) => (int) $value !== 0);
+                if ($ids !== []) {
                     $shipments = Mage::getResourceModel('sales/order_shipment_collection')
                         ->setOrderFilter(['in' => $ids]);
                 }
@@ -697,7 +691,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
             }
         }
 
-        if (!empty($labelsContent)) {
+        if ($labelsContent !== []) {
             $outputPdf = $this->_combineLabelsPdf($labelsContent);
             $this->_prepareDownloadResponse('ShippingLabels.pdf', $outputPdf->render(), 'application/pdf');
             return;

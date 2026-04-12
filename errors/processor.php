@@ -91,7 +91,7 @@ class Error_Processor
         $this->_reportDir = dirname($this->_errorDir) . '/var/report/';
 
         if (!empty($_SERVER['SCRIPT_NAME'])) {
-            if (in_array(basename($_SERVER['SCRIPT_NAME'], '.php'), ['404','503','report'])) {
+            if (in_array(basename($_SERVER['SCRIPT_NAME'], '.php'), ['404','503','report'], true)) {
                 $this->_scriptName = dirname($_SERVER['SCRIPT_NAME']);
             } else {
                 $this->_scriptName = $_SERVER['SCRIPT_NAME'];
@@ -181,7 +181,7 @@ class Error_Processor
 
         if (!empty($_SERVER['SERVER_PORT'])
             && preg_match('/\d+/', $_SERVER['SERVER_PORT'])
-            && !in_array($_SERVER['SERVER_PORT'], [80, 433])
+            && !in_array($_SERVER['SERVER_PORT'], [80, 433], true)
             && !str_ends_with($host, ':' . $_SERVER['SERVER_PORT'])
         ) {
             $url .= ':' . $_SERVER['SERVER_PORT'];

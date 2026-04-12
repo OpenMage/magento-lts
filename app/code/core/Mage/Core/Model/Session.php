@@ -42,11 +42,11 @@ class Mage_Core_Model_Session extends Mage_Core_Model_Session_Abstract
      */
     public function getFormKey()
     {
-        if (!$this->getData('_form_key')) {
+        if (!$this->getDataByKey('_form_key')) {
             $this->renewFormKey();
         }
 
-        return $this->getData('_form_key');
+        return $this->getDataByKey('_form_key');
     }
 
     /**

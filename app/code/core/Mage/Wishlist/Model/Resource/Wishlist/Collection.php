@@ -8,11 +8,11 @@
  */
 
 /**
- * Wislist model collection
+ * Wishlist model collection
  *
  * @package    Mage_Wishlist
  *
- * @method Mage_Wishlist_Model_Wishlist[] getItems()
+ * @extends Mage_Core_Model_Resource_Db_Collection_Abstract<Mage_Wishlist_Model_Wishlist>
  */
 class Mage_Wishlist_Model_Resource_Wishlist_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {

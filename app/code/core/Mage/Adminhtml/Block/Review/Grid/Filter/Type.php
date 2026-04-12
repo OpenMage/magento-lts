@@ -15,7 +15,7 @@
 class Mage_Adminhtml_Block_Review_Grid_Filter_Type extends Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Select
 {
     /**
-     * @return array
+     * @return array<int, array<string, int|string>>
      */
     protected function _getOptions()
     {
@@ -28,7 +28,7 @@ class Mage_Adminhtml_Block_Review_Grid_Filter_Type extends Mage_Adminhtml_Block_
     }
 
     /**
-     * @return int
+     * @inheritDoc
      */
     public function getCondition()
     {

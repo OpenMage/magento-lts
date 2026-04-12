@@ -287,10 +287,10 @@ final class UserTest extends OpenMageTest
 
         self::$subject->cleanPasswordsValidationData();
 
-        self::assertNull(self::$subject->getData('password'));
-        self::assertNull(self::$subject->getData('current_password'));
-        self::assertNull(self::$subject->getData('new_password'));
-        self::assertNull(self::$subject->getData('password_confirmation'));
+        self::assertNull(self::$subject->getDataByKey('password'));
+        self::assertNull(self::$subject->getDataByKey('current_password'));
+        self::assertNull(self::$subject->getDataByKey('new_password'));
+        self::assertNull(self::$subject->getDataByKey('password_confirmation'));
     }
 
     /**

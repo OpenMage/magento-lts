@@ -67,8 +67,7 @@ class Mage_CatalogInventory_Model_Stock_Status extends Mage_Core_Model_Abstract
 
             foreach (array_keys(Mage_Catalog_Model_Product_Type::getTypes()) as $typeId) {
                 $productEmulator->setTypeId($typeId);
-                $this->_productTypes[$typeId] = Mage::getSingleton('catalog/product_type')
-                    ->factory($productEmulator);
+                $this->_productTypes[$typeId] = Mage::getSingleton('catalog/product_type')::factory($productEmulator);
             }
         }
 
@@ -457,7 +456,7 @@ class Mage_CatalogInventory_Model_Stock_Status extends Mage_Core_Model_Abstract
             $productIds[] = $product->getId();
         }
 
-        if (!empty($productIds)) {
+        if ($productIds !== []) {
             $stockStatuses = $this->_getResource()->getProductStatus($productIds, $websiteId, $stockId);
             foreach ($stockStatuses as $productId => $status) {
                 if ($product = $productCollection->getItemById($productId)) {
@@ -468,7 +467,7 @@ class Mage_CatalogInventory_Model_Stock_Status extends Mage_Core_Model_Abstract
 
         /* back compatible stock item */
         foreach ($productCollection as $product) {
-            $object = Mage::getModel('cataloginventory/stock_item', ['is_in_stock' => $product->getData('is_salable')]);
+            $object = Mage::getModel('cataloginventory/stock_item', ['is_in_stock' => $product->getDataByKey('is_salable')]);
             $product->setStockItem($object);
         }
 

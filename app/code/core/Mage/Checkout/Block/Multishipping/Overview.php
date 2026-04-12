@@ -96,7 +96,7 @@ class Mage_Checkout_Block_Multishipping_Overview extends Mage_Sales_Block_Items_
      */
     public function getShippingAddressCount()
     {
-        $count = $this->getData('shipping_address_count');
+        $count = $this->getDataByKey('shipping_address_count');
         if (is_null($count)) {
             $count = count($this->getShippingAddresses());
             $this->setData('shipping_address_count', $count);
@@ -255,7 +255,7 @@ class Mage_Checkout_Block_Multishipping_Overview extends Mage_Sales_Block_Items_
     /**
      * Retrieve virtual product collection array
      *
-     * @return array
+     * @return Mage_Sales_Model_Quote_Address_Item[]
      */
     public function getVirtualItems()
     {

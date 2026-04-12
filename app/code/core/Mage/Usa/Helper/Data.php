@@ -94,7 +94,7 @@ class Mage_Usa_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function displayGirthValue($shippingMethod)
     {
-        if (in_array($shippingMethod, [
+        return in_array($shippingMethod, [
             'usps_0_FCLE', // First-Class Mail Large Envelope
             'usps_1',      // Priority Mail
             'usps_2',      // Priority Mail Express Hold For Pickup
@@ -114,18 +114,14 @@ class Mage_Usa_Helper_Data extends Mage_Core_Helper_Abstract
             'usps_INT_16', // Priority Mail International Small Flat Rate Box
             'usps_INT_20', // Priority Mail International Small Flat Rate Envelope
             'usps_INT_26', // Priority Mail Express International Flat Rate Boxes
-        ])
-        ) {
-            return true;
-        }
-
-        return false;
+        ]);
     }
 
     /**
      * Validate ups type value
      *
-     * @param  string $valueForCheck ups type value for check
+     * @param string $valueForCheck ups type value for check
+     *
      * @return bool
      */
     public function validateUpsType($valueForCheck)
@@ -140,5 +136,54 @@ class Mage_Usa_Helper_Data extends Mage_Core_Helper_Abstract
         }
 
         return $result;
+    }
+
+    /**
+     * Check if USPS address verification is enabled
+     *
+     * @param  mixed $store
+     * @return bool
+     */
+    public function isAddressVerificationEnabled($store = null)
+    {
+        return Mage::getStoreConfigFlag('carriers/usps/verify_addresses', $store);
+    }
+
+    /**
+     * Check if USPS delivery estimates are enabled
+     *
+     * @param  mixed $store
+     * @return bool
+     */
+    public function isDeliveryEstimatesEnabled($store = null)
+    {
+        return Mage::getStoreConfigFlag('carriers/usps/show_delivery_estimates', $store);
+    }
+
+    /**
+     * Check if USPS labels are enabled
+     *
+     * @param  mixed $store
+     * @return bool
+     */
+    public function isLabelsEnabled($store = null)
+    {
+        return Mage::getStoreConfigFlag('carriers/usps/enable_labels', $store);
+    }
+
+    /**
+     * Get USPS API cache TTL
+     *
+     * @param  mixed $store
+     * @return int
+     */
+    public function getCacheTtl($store = null)
+    {
+        $ttl = Mage::getStoreConfig('carriers/usps/cache_ttl', $store);
+        if ($ttl === null || $ttl === '') {
+            return 3600;
+        }
+
+        return (int) $ttl;
     }
 }

@@ -14,6 +14,9 @@
  */
 class Mage_Paypal_Model_System_Config_Source_FetchingSchedule
 {
+    /**
+     * @return array<int, string>
+     */
     public function toOptionArray()
     {
         return [

@@ -93,7 +93,7 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Re
     /**
      * Retrieve array of collection names by code specified in request
      *
-     * @return array
+     * @return array<void>
      * @deprecated after 1.4.0.1
      */
     protected function _getCollectionNames()
@@ -371,7 +371,7 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Re
     /**
      * @inheritDoc
      */
-    protected function _isAllowed()
+    protected function _isAllowed(): bool
     {
         $action = strtolower($this->getRequest()->getActionName());
         $aclPath = match ($action) {

@@ -334,7 +334,7 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
      */
     public function getQtyOptions()
     {
-        $qtyOptions = $this->getData('qty_options');
+        $qtyOptions = $this->getDataByKey('qty_options');
         if (is_null($qtyOptions)) {
             $productIds = [];
             $qtyOptions = [];
@@ -424,10 +424,8 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
          * only within same parent item
          */
         $stickWithinParent = $product->getStickWithinParent();
-        if ($stickWithinParent) {
-            if ($this->getParentItem() !== $stickWithinParent) {
-                return false;
-            }
+        if ($stickWithinParent && $this->getParentItem() !== $stickWithinParent) {
+            return false;
         }
 
         // Check options
@@ -438,11 +436,7 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
             return false;
         }
 
-        if (!$this->compareOptions($productOptions, $itemOptions)) {
-            return false;
-        }
-
-        return true;
+        return $this->compareOptions($productOptions, $itemOptions);
     }
 
     /**
@@ -476,7 +470,7 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
     /**
      * Compare item
      *
-     * @param  Mage_Sales_Model_Quote_Item $item
+     * @param  Mage_Sales_Model_Quote_Item_Abstract $item
      * @return bool
      */
     public function compare($item)
@@ -518,8 +512,8 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
                                 unset($itemOptionValue[$key], $optionValue[$key]);
                             }
                         }
-                    } catch (Exception $e) {
-                        Mage::logException($e);
+                    } catch (Exception $exception) {
+                        Mage::logException($exception);
                     }
                 }
 
@@ -808,7 +802,7 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
     public function getBuyRequest()
     {
         $option = $this->getOptionByCode('info_buyRequest');
-        $buyRequest = new Varien_Object($option ? unserialize($option->getValue()) : null);
+        $buyRequest = new Varien_Object($option ? unserialize($option->getValue(), ['allowed_classes' => false]) : null);
 
         // Overwrite standard buy request qty, because item qty could have changed since adding to quote
         $buyRequest->setOriginalQty($buyRequest->getQty())

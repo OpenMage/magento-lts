@@ -7,8 +7,6 @@
  * @package    Mage_Adminhtml
  */
 
-use Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract as MassAction;
-
 /**
  * Grid widget massaction block
  *
@@ -202,7 +200,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
      */
     public function getFormFieldName()
     {
-        return ($this->getData('form_field_name') ? $this->getData('form_field_name') : 'massaction');
+        return ($this->getDataByKey('form_field_name') ? $this->getDataByKey('form_field_name') : 'massaction');
     }
 
     /**
@@ -337,7 +335,11 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
      */
     public function getUseSelectAll()
     {
-        return $this->_getData('use_select_all') === null || $this->_getData('use_select_all');
+        if ($this->_getData('use_select_all') === null) {
+            return true;
+        }
+
+        return (bool) $this->_getData('use_select_all');
     }
 
     /**
@@ -354,6 +356,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
 
     /**
      * Group items for optgroups
+     * @return array<string, mixed[]>
      */
     public function getGroupedItems(): array
     {
@@ -362,8 +365,8 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
         ];
 
         foreach ($this->getItems() as $item) {
-            if ($item->getData('group')) {
-                $groupedItems['grouped'][$item->getData('group')][$item->getId()] = $item;
+            if ($item->getDataByKey('group')) {
+                $groupedItems['grouped'][$item->getDataByKey('group')][$item->getId()] = $item;
             } else {
                 $groupedItems['default'][$item->getId()] = $item;
             }

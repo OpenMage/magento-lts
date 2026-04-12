@@ -11,6 +11,7 @@
  * Flat sales order collection
  *
  * @package    Mage_Sales
+ * @extends Mage_Sales_Model_Resource_Collection_Abstract<Mage_Sales_Model_Order>
  */
 class Mage_Sales_Model_Resource_Order_Collection extends Mage_Sales_Model_Resource_Collection_Abstract
 {
@@ -82,7 +83,7 @@ class Mage_Sales_Model_Resource_Order_Collection extends Mage_Sales_Model_Resour
 
     /**
      * Join table sales_flat_order_address to select for billing and shipping order addresses.
-     * Create corillation map
+     * Create correlation map
      *
      * @return $this
      */
@@ -166,8 +167,8 @@ class Mage_Sales_Model_Resource_Order_Collection extends Mage_Sales_Model_Resour
     /**
      * Specify collection select filter by attribute value
      *
-     * @param  array                 $attributes
-     * @param  null|array|int|string $condition
+     * @param  array|Mage_Eav_Model_Entity_Attribute|string $attributes
+     * @param  null|array|int|string                        $condition
      * @return $this
      */
     public function addAttributeToSearchFilter($attributes, $condition = null)
@@ -175,7 +176,6 @@ class Mage_Sales_Model_Resource_Order_Collection extends Mage_Sales_Model_Resour
         if (is_array($attributes) && $attributes !== []) {
             $this->_addAddressFields();
 
-            $toFilterData = [];
             foreach ($attributes as $attribute) {
                 $this->addFieldToSearchFilter($this->_attributeToField($attribute['attribute']), $attribute);
             }

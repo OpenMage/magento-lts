@@ -160,7 +160,7 @@ class Mage_GiftMessage_Block_Message_Inline extends Mage_Core_Block_Template
      */
     public function getItems()
     {
-        if (!$this->getData('items')) {
+        if (!$this->getDataByKey('items')) {
             $items = [];
 
             $entityItems = $this->getEntity()->getAllItems();
@@ -179,7 +179,7 @@ class Mage_GiftMessage_Block_Message_Inline extends Mage_Core_Block_Template
             $this->setData('items', $items);
         }
 
-        return $this->getData('items');
+        return $this->getDataByKey('items');
     }
 
     /**

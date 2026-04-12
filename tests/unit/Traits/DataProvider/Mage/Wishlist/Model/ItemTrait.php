@@ -4,6 +4,7 @@
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
  * @license    Open Software License (OSL 3.0)
+ * @package    OpenMage_Tests
  */
 
 declare(strict_types=1);
@@ -30,7 +31,7 @@ trait ItemTrait
         ];
     }
 
-    public function provideValidateData(): \Generator
+    public function provideValidateData(): Generator
     {
         yield 'valid data' => [
             null,

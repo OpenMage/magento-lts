@@ -60,12 +60,12 @@ class Mage_Checkout_Model_Cart_Product_Api extends Mage_Checkout_Model_Api_Resou
                 if (is_string($result)) {
                     Mage::throwException($result);
                 }
-            } catch (Mage_Core_Exception $e) {
-                $errors[] = $e->getMessage();
+            } catch (Mage_Core_Exception $mageCoreException) {
+                $errors[] = $mageCoreException->getMessage();
             }
         }
 
-        if (!empty($errors)) {
+        if ($errors !== []) {
             $this->_fault('add_product_fault', implode(PHP_EOL, $errors));
         }
 
@@ -122,7 +122,7 @@ class Mage_Checkout_Model_Cart_Product_Api extends Mage_Checkout_Model_Api_Resou
             }
         }
 
-        if (!empty($errors)) {
+        if ($errors !== []) {
             $this->_fault('update_product_fault', implode(PHP_EOL, $errors));
         }
 
@@ -176,12 +176,12 @@ class Mage_Checkout_Model_Cart_Product_Api extends Mage_Checkout_Model_Api_Resou
                 }
 
                 $quote->removeItem($quoteItem->getId());
-            } catch (Mage_Core_Exception $e) {
-                $errors[] = $e->getMessage();
+            } catch (Mage_Core_Exception $mageCoreException) {
+                $errors[] = $mageCoreException->getMessage();
             }
         }
 
-        if (!empty($errors)) {
+        if ($errors !== []) {
             $this->_fault('remove_product_fault', implode(PHP_EOL, $errors));
         }
 
@@ -290,12 +290,12 @@ class Mage_Checkout_Model_Cart_Product_Api extends Mage_Checkout_Model_Api_Resou
                 } else {
                     $errors[] = Mage::helper('checkout')->__('One item of products is not belong any of quote item');
                 }
-            } catch (Mage_Core_Exception $e) {
-                $errors[] = $e->getMessage();
+            } catch (Mage_Core_Exception $mageCoreException) {
+                $errors[] = $mageCoreException->getMessage();
             }
         }
 
-        if (count($productsData) || !empty($errors)) {
+        if (count($productsData) || $errors !== []) {
             $this->_fault('unable_to_move_all_products', implode(PHP_EOL, $errors));
         }
 

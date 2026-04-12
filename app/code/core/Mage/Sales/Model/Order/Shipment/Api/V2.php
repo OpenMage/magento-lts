@@ -79,8 +79,8 @@ class Mage_Sales_Model_Order_Shipment_Api_V2 extends Mage_Sales_Model_Order_Ship
                     ->addObject($shipment->getOrder())
                     ->save();
                 $shipment->sendEmail($email, ($includeComment ? $comment : ''));
-            } catch (Mage_Core_Exception $e) {
-                $this->_fault('data_invalid', $e->getMessage());
+            } catch (Mage_Core_Exception $mageCoreException) {
+                $this->_fault('data_invalid', $mageCoreException->getMessage());
             }
 
             return $shipment->getIncrementId();

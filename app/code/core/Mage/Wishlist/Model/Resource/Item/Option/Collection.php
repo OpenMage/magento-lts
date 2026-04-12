@@ -102,16 +102,12 @@ class Mage_Wishlist_Model_Resource_Item_Option_Collection extends Mage_Core_Mode
     /**
      * Get all option for item
      *
-     * @param  mixed $item
-     * @return array
+     * @param  mixed                      $item
+     * @return Mage_Core_Model_Abstract[]
      */
     public function getOptionsByItem($item)
     {
-        if ($item instanceof Mage_Wishlist_Model_Item) {
-            $itemId = $item->getId();
-        } else {
-            $itemId = $item;
-        }
+        $itemId = $item instanceof Mage_Wishlist_Model_Item ? $item->getId() : $item;
 
         $this->load();
 
@@ -129,15 +125,11 @@ class Mage_Wishlist_Model_Resource_Item_Option_Collection extends Mage_Core_Mode
      * Get all option for item
      *
      * @param  int|Mage_Catalog_Model_Product $product
-     * @return array
+     * @return Mage_Core_Model_Abstract[]
      */
     public function getOptionsByProduct($product)
     {
-        if ($product instanceof Mage_Catalog_Model_Product) {
-            $productId = $product->getId();
-        } else {
-            $productId = $product;
-        }
+        $productId = $product instanceof Mage_Catalog_Model_Product ? $product->getId() : $product;
 
         $this->load();
 

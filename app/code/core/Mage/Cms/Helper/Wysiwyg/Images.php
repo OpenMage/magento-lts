@@ -187,7 +187,7 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
             // $mediaPath;
         } else {
             $directive = Mage::helper('core')->urlEncode($directive);
-            $html = Mage::helper('adminhtml')->getUrl('*/cms_wysiwyg/directive', ['___directive' => $directive]);
+            $html = Mage::helper('adminhtml')::getUrl('*/cms_wysiwyg/directive', ['___directive' => $directive]);
         }
 
         return $html;
@@ -212,11 +212,11 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
                 }
             }
 
-            $io = new Varien_Io_File();
-            if (!$io->isWriteable($currentPath) && !$io->mkdir($currentPath)) {
+            $ioFile = new Varien_Io_File();
+            if (!$ioFile->isWriteable($currentPath) && !$ioFile->mkdir($currentPath)) {
                 $message = Mage::helper('cms')->__(
                     'The directory %s is not writable by server.',
-                    $io->getFilteredPath($currentPath),
+                    $ioFile->getFilteredPath($currentPath),
                 );
                 Mage::throwException($message);
             }

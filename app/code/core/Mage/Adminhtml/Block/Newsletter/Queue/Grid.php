@@ -14,6 +14,8 @@
  */
 class Mage_Adminhtml_Block_Newsletter_Queue_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_newsletter_queue_grid';
+
     public function __construct()
     {
         parent::__construct();
@@ -30,7 +32,6 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Grid extends Mage_Adminhtml_Block_Wi
     {
         $collection = Mage::getResourceModel('newsletter/queue_collection')
             ->addSubscribersInfo();
-
         $this->setCollection($collection);
 
         return parent::_prepareCollection();

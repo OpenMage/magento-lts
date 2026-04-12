@@ -143,7 +143,7 @@ class Mage_Customer_Block_Widget_Name extends Mage_Customer_Block_Widget_Abstrac
             $this->setData('class_name', 'customer-name');
         }
 
-        return $this->getData('class_name');
+        return $this->getDataByKey('class_name');
     }
 
     /**

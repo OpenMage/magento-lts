@@ -107,7 +107,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
 
             // Add a custom css class for column
             if ($this->hasData('column_css_class')) {
-                $this->_cssClass .= ' ' . $this->getData('column_css_class');
+                $this->_cssClass .= ' ' . $this->getDataByKey('column_css_class');
             }
 
             if ($this->getEditable()) {
@@ -136,7 +136,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
      */
     public function getHeaderCssClass()
     {
-        $class = $this->getData('header_css_class');
+        $class = $this->getDataByKey('header_css_class');
         if (($this->getSortable() === false) || ($this->getGrid()->getSortable() === false)) {
             $class .= ' no-link';
         }
@@ -229,13 +229,11 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
      */
     protected function &_applyDecorators($value, $decorators)
     {
-        if (!is_array($decorators)) {
-            if (is_string($decorators)) {
-                $decorators = explode(' ', $decorators);
-            }
+        if (!is_array($decorators) && is_string($decorators)) {
+            $decorators = explode(' ', $decorators);
         }
 
-        if (empty($decorators)) {
+        if ($decorators === []) {
             return $value;
         }
 
@@ -243,7 +241,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
             $value = '<span class="nobr">' . $value . '</span>';
         }
 
-        if (!empty($decorators)) {
+        if ($decorators !== []) {
             return $this->_applyDecorators($value, $decorators);
         }
 
@@ -303,7 +301,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
     public function getRenderer()
     {
         if (!$this->_renderer) {
-            $rendererClass = $this->getData('renderer');
+            $rendererClass = $this->getDataByKey('renderer');
             if (!$rendererClass) {
                 $rendererClass = $this->_getRendererByType();
             }
@@ -358,7 +356,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
     public function getFilter()
     {
         if (!$this->_filter) {
-            $filterClass = $this->getData('filter');
+            $filterClass = $this->getDataByKey('filter');
             if ($filterClass === false) {
                 return false;
             }

@@ -116,7 +116,7 @@ class Mage_Checkout_Model_Type_Onepage
         $customerSession = $this->getCustomerSession();
         if (is_array($checkout->getStepData())) {
             foreach (array_keys($checkout->getStepData()) as $step) {
-                if (!($step === 'login' || $customerSession->isLoggedIn() && $step === 'billing')) {
+                if ($step !== 'login' && !($customerSession->isLoggedIn() && $step === 'billing')) {
                     $checkout->setStepData($step, 'allow', false);
                 }
             }
@@ -192,17 +192,6 @@ class Mage_Checkout_Model_Type_Onepage
         }
 
         return $this->getQuote()->getCheckoutMethod();
-    }
-
-    /**
-     * Get quote checkout method
-     *
-     * @return string
-     * @deprecated since 1.4.0.1
-     */
-    public function getCheckoutMehod()
-    {
-        return $this->getCheckoutMethod();
     }
 
     /**
@@ -290,7 +279,7 @@ class Mage_Checkout_Model_Type_Onepage
             //unset billing address attributes which were not shown in form
             foreach ($addressForm->getAttributes() as $attribute) {
                 if (!isset($data[$attribute->getAttributeCode()])) {
-                    $address->setData($attribute->getAttributeCode(), null);
+                    $address->setData($attribute->getAttributeCode());
                 }
             }
 
@@ -315,10 +304,11 @@ class Mage_Checkout_Model_Type_Onepage
             return $result;
         }
 
-        if (!$this->getQuote()->getCustomerId() && self::METHOD_REGISTER == $this->getQuote()->getCheckoutMethod()) {
-            if ($this->_customerEmailExists($address->getEmail(), Mage::app()->getWebsite()->getId())) {
-                return ['error' => 1, 'message' => $this->_customerEmailExistsMessage];
-            }
+        if (!$this->getQuote()->getCustomerId()
+            && self::METHOD_REGISTER == $this->getQuote()->getCheckoutMethod()
+            && $this->_customerEmailExists($address->getEmail(), Mage::app()->getWebsite()->getId())
+        ) {
+            return ['error' => 1, 'message' => $this->_customerEmailExistsMessage];
         }
 
         if (!$this->getQuote()->isVirtual()) {
@@ -511,7 +501,7 @@ class Mage_Checkout_Model_Type_Onepage
                 ];
             }
         } elseif (self::METHOD_GUEST == $this->getQuote()->getCheckoutMethod()) {
-            $email = $address->getData('email');
+            $email = $address->getDataByKey('email');
             /** @var Mage_Core_Helper_Validate $validator */
             $validator = Mage::helper('core/validate');
             if ($validator->validateEmail($email)->count() > 0) {
@@ -575,7 +565,7 @@ class Mage_Checkout_Model_Type_Onepage
             // unset shipping address attributes which were not shown in form
             foreach ($addressForm->getAttributes() as $attribute) {
                 if (!isset($data[$attribute->getAttributeCode()])) {
-                    $address->setData($attribute->getAttributeCode(), null);
+                    $address->setData($attribute->getAttributeCode());
                 }
             }
 
@@ -822,8 +812,8 @@ class Mage_Checkout_Model_Type_Onepage
         if ($isNewCustomer) {
             try {
                 $this->_involveNewCustomer();
-            } catch (Exception $e) {
-                Mage::logException($e);
+            } catch (Exception $exception) {
+                Mage::logException($exception);
             }
         }
 
@@ -849,8 +839,8 @@ class Mage_Checkout_Model_Type_Onepage
             if (!$redirectUrl && $order->getCanSendNewEmailFlag()) {
                 try {
                     $order->queueNewOrderEmail();
-                } catch (Exception $e) {
-                    Mage::logException($e);
+                } catch (Exception $exception) {
+                    Mage::logException($exception);
                 }
             }
 

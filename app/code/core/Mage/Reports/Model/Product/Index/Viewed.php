@@ -42,9 +42,8 @@ class Mage_Reports_Model_Product_Index_Viewed extends Mage_Reports_Model_Product
     }
 
     /**
-     * Retrieve Exclude Product Ids List for Collection
-     *
-     * @return array
+     * @inheritDoc
+     * @return array<int, mixed>
      */
     public function getExcludeProductIds()
     {

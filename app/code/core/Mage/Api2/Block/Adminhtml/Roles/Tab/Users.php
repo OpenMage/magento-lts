@@ -19,6 +19,8 @@
  */
 class Mage_Api2_Block_Adminhtml_Roles_Tab_Users extends Mage_Adminhtml_Block_Widget_Grid implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
+    protected string $_eventPrefix = 'api2_adminhtml_roles_tab_users';
+
     public function __construct()
     {
         parent::__construct();
@@ -31,9 +33,7 @@ class Mage_Api2_Block_Adminhtml_Roles_Tab_Users extends Mage_Adminhtml_Block_Wid
     }
 
     /**
-     * Prepare collection
-     *
-     * @return $this
+     * @inheritDoc
      */
     protected function _prepareCollection()
     {
@@ -49,14 +49,12 @@ class Mage_Api2_Block_Adminhtml_Roles_Tab_Users extends Mage_Adminhtml_Block_Wid
         }
 
         $this->setCollection($collection);
-        parent::_prepareCollection();
-        return $this;
+        return parent::_prepareCollection();
     }
 
     /**
-     * Prepare columns
-     *
      * @inheritDoc
+     * @throws Exception
      */
     protected function _prepareColumns()
     {
@@ -89,9 +87,7 @@ class Mage_Api2_Block_Adminhtml_Roles_Tab_Users extends Mage_Adminhtml_Block_Wid
     }
 
     /**
-     * Get grid URL
-     *
-     * @return string
+     * @inheritDoc
      */
     public function getGridUrl()
     {
@@ -131,6 +127,7 @@ class Mage_Api2_Block_Adminhtml_Roles_Tab_Users extends Mage_Adminhtml_Block_Wid
      * Whether tab is available
      *
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function canShowTab()
     {
@@ -138,9 +135,8 @@ class Mage_Api2_Block_Adminhtml_Roles_Tab_Users extends Mage_Adminhtml_Block_Wid
     }
 
     /**
-     * Whether tab is hidden
-     *
-     * @return bool
+     * @inheritDoc
+     * @throws Mage_Core_Exception
      */
     public function isHidden()
     {
@@ -150,7 +146,8 @@ class Mage_Api2_Block_Adminhtml_Roles_Tab_Users extends Mage_Adminhtml_Block_Wid
     /**
      * Render block only when not hidden
      *
-     * @return string
+     * @inheritDoc
+     * @throws Mage_Core_Exception
      */
     protected function _toHtml()
     {
@@ -193,7 +190,7 @@ class Mage_Api2_Block_Adminhtml_Roles_Tab_Users extends Mage_Adminhtml_Block_Wid
      */
     public function getUsers($json = false)
     {
-        $users = $this->getData('users');
+        $users = $this->getDataByKey('users');
 
         if ($json) {
             if ($users === []) {
@@ -207,11 +204,9 @@ class Mage_Api2_Block_Adminhtml_Roles_Tab_Users extends Mage_Adminhtml_Block_Wid
 
             /** @var Mage_Core_Helper_Data $helper */
             $helper = Mage::helper('core');
-            $result = $helper->jsonEncode((object) $jsonUsers);
-        } else {
-            $result = array_values($users);
+            return $helper->jsonEncode((object) $jsonUsers);
         }
 
-        return $result;
+        return array_values($users);
     }
 }

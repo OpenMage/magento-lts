@@ -122,11 +122,11 @@ class Mage_Shell_Indexer extends Mage_Shell_Abstract
                 try {
                     $process->setMode($mode)->save();
                     echo $process->getIndexer()->getName() . " index was successfully changed index mode\n";
-                } catch (Mage_Core_Exception $e) {
-                    echo $e->getMessage() . "\n";
-                } catch (Exception $e) {
+                } catch (Mage_Core_Exception $mageCoreException) {
+                    echo $mageCoreException->getMessage() . "\n";
+                } catch (Exception $exception) {
                     echo $process->getIndexer()->getName() . " index process unknown error:\n";
-                    echo $e . "\n";
+                    echo $exception . "\n";
                 }
             }
         } elseif ($this->getArg('reindex') || $this->getArg('reindexall') || $this->getArg('reindexallrequired')) {
@@ -152,18 +152,18 @@ class Mage_Shell_Indexer extends Mage_Shell_Abstract
                         Mage::dispatchEvent($process->getIndexerCode() . '_shell_reindex_after');
                         echo $process->getIndexer()->getName()
                             . ' index was rebuilt successfully in ' . gmdate('H:i:s', (int) ceil($resultTime)) . "\n";
-                    } catch (Mage_Core_Exception $e) {
-                        echo $e->getMessage() . "\n";
-                    } catch (Exception $e) {
+                    } catch (Mage_Core_Exception $mageCoreException) {
+                        echo $mageCoreException->getMessage() . "\n";
+                    } catch (Exception $exception) {
                         echo $process->getIndexer()->getName() . " index process unknown error:\n";
-                        echo $e . "\n";
+                        echo $exception . "\n";
                     }
                 }
 
                 Mage::dispatchEvent('shell_reindex_finalize_process');
-            } catch (Exception $e) {
+            } catch (Exception $exception) {
                 Mage::dispatchEvent('shell_reindex_finalize_process');
-                echo $e->getMessage() . "\n";
+                echo $exception->getMessage() . "\n";
             }
         } else {
             echo $this->usageHelp();

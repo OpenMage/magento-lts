@@ -40,6 +40,9 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Newsletter_Grid_Renderer_Action ext
         return addcslashes(htmlspecialchars($value), '\\\'');
     }
 
+    /**
+     * @param array<array<int, array<string, mixed>>, mixed> $actions
+     */
     protected function _actionsToHtml(array $actions)
     {
         $html = [];

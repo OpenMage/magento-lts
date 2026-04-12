@@ -19,12 +19,12 @@ class Mage_Adminhtml_Block_Report_Sales_Sales_Grid extends Mage_Adminhtml_Block_
     public function __construct()
     {
         parent::__construct();
-        $this->setCountTotals(true);
+        $this->setCountTotals();
     }
 
     public function getResourceCollectionName()
     {
-        return ($this->getFilterData()->getData('report_type') == 'updated_at_order')
+        return ($this->getFilterData()->getDataByKey('report_type') == 'updated_at_order')
             ? 'sales/report_order_updatedat_collection'
             : 'sales/report_order_collection';
     }

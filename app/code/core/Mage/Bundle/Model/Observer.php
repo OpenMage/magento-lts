@@ -71,7 +71,7 @@ class Mage_Bundle_Model_Observer
             return $this;
         }
 
-        /** @var Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Link_Product_Collection $collection */
+        /** @var Mage_Catalog_Model_Resource_Product_Link_Product_Collection $collection */
         $collection = $observer->getEvent()->getCollection();
         $limit      = $observer->getEvent()->getLimit();
         if (is_array($limit)) {
@@ -99,10 +99,8 @@ class Mage_Bundle_Model_Observer
             ->addAttributeToSelect(Mage::getSingleton('catalog/config')->getProductAttributes())
             ->addStoreFilter()
             ->addPriceData()
+            ->setVisibility(Mage::getSingleton('catalog/product_visibility')::getVisibleInCatalogIds())
             ->addTaxPercents();
-
-        Mage::getSingleton('catalog/product_visibility')
-            ->addVisibleInCatalogFilterToCollection($bundleCollection);
 
         if (!is_null($limit)) {
             $bundleCollection->setPageSize($limit);
@@ -202,10 +200,10 @@ class Mage_Bundle_Model_Observer
         $i = 0;
         foreach ($optionCollection as $option) {
             $optionRawData[$i] = [
-                'required' => $option->getData('required'),
-                'position' => $option->getData('position'),
-                'type' => $option->getData('type'),
-                'title' => $option->getData('title') ? $option->getData('title') : $option->getData('default_title'),
+                'required' => $option->getDataByKey('required'),
+                'position' => $option->getDataByKey('position'),
+                'type' => $option->getDataByKey('type'),
+                'title' => $option->getDataByKey('title') ? $option->getDataByKey('title') : $option->getDataByKey('default_title'),
                 'delete' => '',
             ];
             foreach ($option->getSelections() as $selection) {

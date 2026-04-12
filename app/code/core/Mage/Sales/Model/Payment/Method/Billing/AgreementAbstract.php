@@ -81,10 +81,10 @@ abstract class Mage_Sales_Model_Payment_Method_Billing_AgreementAbstract extends
 
         if ($id) {
             $info = $this->getInfoInstance();
-            $ba = Mage::getModel('sales/billing_agreement')->load($id);
-            if ($ba->getId() && $ba->getCustomerId() == $info->getQuote()->getCustomer()->getId()) {
+            $agreement = Mage::getModel('sales/billing_agreement')->load($id);
+            if ($agreement->getId() && $agreement->getCustomerId() == $info->getQuote()->getCustomer()->getId()) {
                 $info->setAdditionalInformation($key, $id)
-                    ->setAdditionalInformation(self::PAYMENT_INFO_REFERENCE_ID, $ba->getReferenceId());
+                    ->setAdditionalInformation(self::PAYMENT_INFO_REFERENCE_ID, $agreement->getReferenceId());
             }
         }
 

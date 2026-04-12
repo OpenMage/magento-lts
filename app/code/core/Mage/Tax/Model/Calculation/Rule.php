@@ -107,19 +107,19 @@ class Mage_Tax_Model_Calculation_Rule extends Mage_Core_Model_Abstract
      */
     public function saveCalculationData()
     {
-        $ctc = $this->getData('tax_customer_class');
-        $ptc = $this->getData('tax_product_class');
-        $rates = $this->getData('tax_rate');
+        $ctc = $this->getDataByKey('tax_customer_class');
+        $ptc = $this->getDataByKey('tax_product_class');
+        $rates = $this->getDataByKey('tax_rate');
 
         Mage::getSingleton('tax/calculation')->deleteByRuleId($this->getId());
-        foreach ($ctc as $c) {
-            foreach ($ptc as $p) {
-                foreach ($rates as $r) {
+        foreach ($ctc as $customerClass) {
+            foreach ($ptc as $productClass) {
+                foreach ($rates as $rate) {
                     $dataArray = [
                         'tax_calculation_rule_id'   => $this->getId(),
-                        'tax_calculation_rate_id'   => $r,
-                        'customer_tax_class_id'     => $c,
-                        'product_tax_class_id'      => $p,
+                        'tax_calculation_rate_id'   => $rate,
+                        'customer_tax_class_id'     => $customerClass,
+                        'product_tax_class_id'      => $productClass,
                     ];
                     Mage::getSingleton('tax/calculation')->setData($dataArray)->save();
                 }

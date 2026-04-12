@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -51,7 +53,7 @@ class Mage_Core_Model_Translate_String extends Mage_Core_Model_Abstract
      */
     public function getString()
     {
-        //return strtolower($this->getData('string'));
-        return $this->getData('string');
+        //return strtolower($this->getDataByKey('string'));
+        return $this->getDataByKey('string');
     }
 }
