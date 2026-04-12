@@ -524,8 +524,8 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
     /**
      * Set select order
      *
-     * @param  string             $field
-     * @param  self::SORT_ORDER_* $dir
+     * @param  string $field
+     * @param  string $dir
      * @return $this
      */
     public function setOrder($field, $dir = self::SORT_ORDER_DESC)

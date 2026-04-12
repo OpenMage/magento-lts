@@ -302,11 +302,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     }
 
     /**
-     * Add select order
-     *
-     * @param  string $field
-     * @param  string $dir
-     * @return $this
+     * @inheritDoc
      */
     public function setOrder($field, $dir = self::SORT_ORDER_DESC)
     {
