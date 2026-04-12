@@ -1065,7 +1065,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
     }
 
     /**
-     * Retrieve oreder quote shipping address
+     * Retrieve order quote shipping address
      *
      * @return Mage_Sales_Model_Quote_Address
      */
@@ -1706,7 +1706,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
                 ->getConfig(Mage_Customer_Model_Customer::XML_PATH_DEFAULT_EMAIL_DOMAIN);
             $account = $customer->getIncrementId() ? $customer->getIncrementId() : Carbon::now()->getTimestamp();
             $email = $account . '@' . $host;
-            $account = $this->getData('account');
+            $account = $this->getDataByKey('account');
             $account['email'] = $email;
             $this->setData('account', $account);
         }
@@ -1725,7 +1725,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
             $customer = Mage::getModel('customer/customer');
 
             $customer->addData($this->getBillingAddress()->exportCustomerAddress()->getData())
-                     ->addData($this->getData('account'))
+                     ->addData($this->getDataByKey('account'))
                      ->setPassword($customer->generatePassword())
                      ->setWebsiteId($this->getSession()->getStore()->getWebsiteId())
                      ->setStoreId($this->getSession()->getStore()->getId())
@@ -1738,10 +1738,10 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
             $customer->setStore($this->getSession()->getStore())
                 ->save();
             $this->getSession()->setCustomer($customer);
-            $customer->addData($this->getData('account'));
+            $customer->addData($this->getDataByKey('account'));
         } else {
             $customer = $this->getSession()->getCustomer();
-            $customer->addData($this->getData('account'));
+            $customer->addData($this->getDataByKey('account'));
         }
 
         $this->getQuote()->setCustomer($customer);
@@ -1825,7 +1825,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
             $billingAddress = $this->getBillingAddress()->exportCustomerAddress();
 
             $customer->addData($billingAddress->getData())
-                ->addData($this->getData('account'))
+                ->addData($this->getDataByKey('account'))
                 ->setPassword($customer->generatePassword())
                 ->setWebsiteId($this->getSession()->getStore()->getWebsiteId())
                 ->setStoreId($this->getSession()->getStore()->getId())
@@ -1878,7 +1878,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
                 $customer->save();
             }
 
-            $customer->addData($this->getData('account'));
+            $customer->addData($this->getDataByKey('account'));
             /**
              * don't save account information, use it only for order creation
              */

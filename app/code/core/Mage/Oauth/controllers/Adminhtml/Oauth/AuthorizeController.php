@@ -145,7 +145,7 @@ class Mage_Oauth_Adminhtml_Oauth_AuthorizeController extends Mage_Adminhtml_Cont
         $session = Mage::getSingleton($this->_sessionName);
 
         /** @var Mage_Admin_Model_User $user */
-        $user = $session->getData('user');
+        $user = $session->getDataByKey('user');
         if (!$user) {
             $session->addError($this->__('Please login to proceed authorization.'));
             $url = $helper->getAuthorizeUrl(Mage_Oauth_Model_Token::USER_TYPE_ADMIN);

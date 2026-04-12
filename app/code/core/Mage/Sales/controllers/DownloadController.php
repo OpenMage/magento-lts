@@ -108,7 +108,7 @@ class Mage_Sales_DownloadController extends Mage_Core_Controller_Front_Action
             $this->_forward('noRoute');
         }
 
-        $orderItemInfo = $recurringProfile->getData('order_item_info');
+        $orderItemInfo = $recurringProfile->getDataByKey('order_item_info');
         try {
             $request = unserialize($orderItemInfo['info_buyRequest'], ['allowed_classes' => false]);
 

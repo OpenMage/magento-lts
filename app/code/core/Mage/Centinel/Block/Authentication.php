@@ -15,7 +15,7 @@
 class Mage_Centinel_Block_Authentication extends Mage_Core_Block_Template
 {
     /**
-     * Strage for identifiers of related blocks
+     * Storage for identifiers of related blocks
      *
      * @var array
      */

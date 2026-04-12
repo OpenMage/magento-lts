@@ -284,7 +284,7 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
             }
 
             /*
-             * The admin set not to show the shipping module if the devliery country is not within specific countries
+             * The admin set not to show the shipping module if the delivery country is not within specific countries
              */
             return false;
         }

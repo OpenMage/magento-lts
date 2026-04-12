@@ -167,7 +167,7 @@ class Mage_Cms_Model_Resource_Block extends Mage_Core_Model_Resource_Db_Abstract
         if (Mage::app()->isSingleStoreMode()) {
             $stores = [Mage_Core_Model_App::ADMIN_STORE_ID];
         } else {
-            $stores = (array) $object->getData('stores');
+            $stores = (array) $object->getDataByKey('stores');
         }
 
         $select = $this->_getReadAdapter()->select()
@@ -176,7 +176,7 @@ class Mage_Cms_Model_Resource_Block extends Mage_Core_Model_Resource_Db_Abstract
                 ['cbs' => $this->getTable('cms/block_store')],
                 'cb.block_id = cbs.block_id',
                 [],
-            )->where('cb.identifier = ?', $object->getData('identifier'))
+            )->where('cb.identifier = ?', $object->getDataByKey('identifier'))
             ->where('cbs.store_id IN (?)', $stores);
 
         if ($object->getId()) {

@@ -23,6 +23,6 @@ class Mage_GiftMessage_Block_Adminhtml_Sales_Order_Create_Giftoptions extends Ma
      */
     public function getItem()
     {
-        return $this->getParentBlock()->getData('item');
+        return $this->getParentBlock()->getDataByKey('item');
     }
 }

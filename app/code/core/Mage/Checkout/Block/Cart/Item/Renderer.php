@@ -166,7 +166,7 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
     public function getProductName()
     {
         if ($this->hasProductName()) {
-            return $this->getData('product_name');
+            return $this->getDataByKey('product_name');
         }
 
         return $this->getProduct()->getName();
@@ -226,7 +226,7 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
     public function getDeleteUrlCustom($addFormKey = true)
     {
         if ($this->hasDeleteUrl()) {
-            return $this->getData('delete_url');
+            return $this->getDataByKey('delete_url');
         }
 
         /** @var Mage_Core_Helper_Url $helper */

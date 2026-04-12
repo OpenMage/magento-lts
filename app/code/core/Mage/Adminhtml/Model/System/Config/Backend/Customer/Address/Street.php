@@ -28,7 +28,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Customer_Address_Street extends
                 $website = Mage::app()->getWebsite($this->getWebsiteCode());
                 $attribute->setWebsite($website);
                 $attribute->load($attribute->getId());
-                if ($attribute->getData('multiline_count') != $value) {
+                if ($attribute->getDataByKey('multiline_count') != $value) {
                     $attribute->setData('scope_multiline_count', $value);
                 }
 

@@ -275,7 +275,7 @@ class Varien_Data_Form extends Varien_Data_Form_Abstract
      */
     public function getFieldContainerIdPrefix()
     {
-        return $this->getData('field_container_id_prefix');
+        return $this->getDataByKey('field_container_id_prefix');
     }
 
     /**
@@ -288,7 +288,7 @@ class Varien_Data_Form extends Varien_Data_Form_Abstract
         if ($useContainer = $this->getUseContainer()) {
             $html .= '<form ' . $this->serialize($this->getHtmlAttributes()) . '>';
             $html .= '<div>';
-            if (strtolower((string) $this->getData('method')) == 'post') {
+            if (strtolower((string) $this->getDataByKey('method')) == 'post') {
                 $html .= '<input name="form_key" type="hidden" value="' . Mage::getSingleton('core/session')->getFormKey() . '" />';
             }
 

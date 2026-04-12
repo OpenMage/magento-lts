@@ -35,8 +35,8 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Price extends Mage_Adminhtm
 
     public function getDisplayCurrencySelect()
     {
-        if (!is_null($this->getColumn()->getData('display_currency_select'))) {
-            return $this->getColumn()->getData('display_currency_select');
+        if (!is_null($this->getColumn()->getDataByKey('display_currency_select'))) {
+            return $this->getColumn()->getDataByKey('display_currency_select');
         }
 
         return true;
@@ -44,8 +44,8 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Price extends Mage_Adminhtm
 
     public function getCurrencyAffect()
     {
-        if (!is_null($this->getColumn()->getData('currency_affect'))) {
-            return $this->getColumn()->getData('currency_affect');
+        if (!is_null($this->getColumn()->getDataByKey('currency_affect'))) {
+            return $this->getColumn()->getDataByKey('currency_affect');
         }
 
         return true;
@@ -92,7 +92,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Price extends Mage_Adminhtm
             return $this->getData('value', $index);
         }
 
-        $value = $this->getData('value');
+        $value = $this->getDataByKey('value');
         if ((isset($value['from']) && (string) $value['from'] !== '')
             || (isset($value['to']) && (string) $value['to'] !== '')
         ) {

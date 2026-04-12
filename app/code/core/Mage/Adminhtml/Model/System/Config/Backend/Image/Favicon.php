@@ -54,7 +54,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Image_Favicon extends Mage_Admi
      */
     protected function _getAllowedExtensions()
     {
-        return ['ico', 'png', 'gif', 'jpg', 'jpeg', 'apng'];
+        return ['png', 'gif', 'jpg', 'jpeg', 'apng'];
     }
 
     /**

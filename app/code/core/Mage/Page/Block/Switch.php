@@ -60,7 +60,7 @@ class Mage_Page_Block_Switch extends Mage_Core_Block_Template
             $this->setData('raw_groups', $groups);
         }
 
-        return $this->getData('raw_groups');
+        return $this->getDataByKey('raw_groups');
     }
 
     /**
@@ -95,7 +95,7 @@ class Mage_Page_Block_Switch extends Mage_Core_Block_Template
             $this->setData('raw_stores', $stores);
         }
 
-        return $this->getData('raw_stores');
+        return $this->getDataByKey('raw_stores');
     }
 
     /**
@@ -132,7 +132,7 @@ class Mage_Page_Block_Switch extends Mage_Core_Block_Template
             $this->setData('groups', $groups);
         }
 
-        return $this->getData('groups');
+        return $this->getDataByKey('groups');
     }
 
     /**
@@ -140,7 +140,7 @@ class Mage_Page_Block_Switch extends Mage_Core_Block_Template
      */
     public function getStores()
     {
-        if (!$this->getData('stores')) {
+        if (!$this->getDataByKey('stores')) {
             $rawStores = $this->getRawStores();
 
             $groupId = $this->getCurrentGroupId();
@@ -149,7 +149,7 @@ class Mage_Page_Block_Switch extends Mage_Core_Block_Template
             $this->setData('stores', $stores);
         }
 
-        return $this->getData('stores');
+        return $this->getDataByKey('stores');
     }
 
     /**

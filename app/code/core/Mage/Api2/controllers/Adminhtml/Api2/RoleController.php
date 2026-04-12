@@ -158,7 +158,7 @@ class Mage_Api2_Adminhtml_Api2_RoleController extends Mage_Adminhtml_Controller_
 
         if (!$role->getId() && $id) {
             $this->_getSession()->addError(
-                $this->__('Role "%s" no longer exists', $role->getData('role_name')),
+                $this->__('Role "%s" no longer exists', $role->getDataByKey('role_name')),
             );
             $this->_redirect('*/*/');
             return;

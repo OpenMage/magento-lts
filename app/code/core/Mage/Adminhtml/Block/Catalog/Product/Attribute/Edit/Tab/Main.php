@@ -31,10 +31,10 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Tab_Main extends Mage_
             ->searchById('attribute_code')
             ->setData(
                 'class',
-                'validate-code-event ' . $fieldset->getElements()->searchById('attribute_code')->getData('class'),
+                'validate-code-event ' . $fieldset->getElements()->searchById('attribute_code')->getDataByKey('class'),
             )->setData(
                 'note',
-                $fieldset->getElements()->searchById('attribute_code')->getData('note')
+                $fieldset->getElements()->searchById('attribute_code')->getDataByKey('note')
                 . Mage::helper('eav')->__('. Do not use "event" for an attribute code, it is a reserved keyword.'),
             );
 

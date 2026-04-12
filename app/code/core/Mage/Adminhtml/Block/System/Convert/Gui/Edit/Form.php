@@ -16,7 +16,7 @@ class Mage_Adminhtml_Block_System_Convert_Gui_Edit_Form extends Mage_Adminhtml_B
 {
     protected function _prepareForm()
     {
-        $form = new Varien_Data_Form(['id' => 'edit_form', 'action' => $this->getData('action'), 'method' => 'post', 'enctype' => 'multipart/form-data']);
+        $form = new Varien_Data_Form(['id' => 'edit_form', 'action' => $this->getDataByKey('action'), 'method' => 'post', 'enctype' => 'multipart/form-data']);
 
         $model = Mage::registry('current_convert_profile');
 

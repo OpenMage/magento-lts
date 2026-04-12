@@ -136,7 +136,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract extends
         $width = $this->_defaultWidth;
 
         if ($this->getColumn()->hasData('width')) {
-            $customWidth = $this->getColumn()->getData('width');
+            $customWidth = $this->getColumn()->getDataByKey('width');
             if (($customWidth === null) || (preg_match('/^\d+%?$/', (string) $customWidth))) {
                 $width = $customWidth;
             } elseif (preg_match('/^(\d+)px$/', $customWidth, $matches)) {

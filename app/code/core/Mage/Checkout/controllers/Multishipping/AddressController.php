@@ -8,7 +8,7 @@
  */
 
 /**
- * Multishipping checkout address matipulation controller
+ * Multishipping checkout address controller
  *
  * @package    Mage_Checkout
  */

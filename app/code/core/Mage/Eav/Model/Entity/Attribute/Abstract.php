@@ -516,7 +516,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
             return true;
         }
 
-        return $this->getData('source_model') != '';
+        return $this->getDataByKey('source_model') != '';
     }
 
     /**
