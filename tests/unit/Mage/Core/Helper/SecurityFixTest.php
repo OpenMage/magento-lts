@@ -22,6 +22,7 @@ final class SecurityFixTest extends OpenMageTest
     {
         $this->expectException(Exception::class);
         $this->expectExceptionMessage("File 'phar://test.jpg' is not readable.");
+        new Varien_Image('phar://test.jpg');
     }
 
     public function testImageValidatorBlocksPhar()
