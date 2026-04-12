@@ -203,7 +203,7 @@ class Mage_Core_Model_Resource_Store_Collection extends Mage_Core_Model_Resource
 
         if ($globalConfigCache !== false) {
             try {
-                $data = unserialize($globalConfigCache);
+                $data = unserialize($globalConfigCache, ['allowed_classes' => false]);
             } catch (Exception $exception) {
                 Mage::logException($exception);
             }
