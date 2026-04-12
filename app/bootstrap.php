@@ -16,7 +16,9 @@ declare(strict_types=1);
  *
  * @link https://blog.ripstech.com/2018/new-php-exploitation-technique/
  */
-stream_wrapper_unregister('phar');
+if (in_array('phar', stream_get_wrappers(), true)) {
+    stream_wrapper_unregister('phar');
+}
 
 /**
  * Apply workaround for the libxml PHP bugs:
