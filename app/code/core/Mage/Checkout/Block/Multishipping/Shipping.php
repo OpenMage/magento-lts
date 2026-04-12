@@ -59,8 +59,8 @@ class Mage_Checkout_Block_Multishipping_Shipping extends Mage_Sales_Block_Items_
     }
 
     /**
-     * @param  Mage_Sales_Model_Quote_Address $address
-     * @return array|mixed
+     * @param  Mage_Sales_Model_Quote_Address        $address
+     * @return array<array-key, mixed>|Varien_Object
      * @throws Exception
      */
     public function getAddressItems($address)

@@ -12,6 +12,8 @@
  *
  * @package    Mage_Payment
  *
+ * @phpstan-import-type ConfigStoreId from Mage
+ *
  * @method array  getBillingAgreementTokenInfo(Mage_Sales_Model_Billing_Agreement $agreement)
  * @method string getCheckoutRedirectUrl()
  * @method string getInstructions()
@@ -621,9 +623,8 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
     /**
      * Retrieve information from payment configuration
      *
-     * @param string                                $field
-     * @param null|int|Mage_Core_Model_Store|string $storeId
-     *
+     * @param  string        $field
+     * @param  ConfigStoreId $storeId
      * @return mixed
      */
     public function getConfigData($field, $storeId = null)

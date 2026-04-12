@@ -284,7 +284,7 @@ class Mage_Checkout_Block_Multishipping_Overview extends Mage_Sales_Block_Items_
     }
 
     /**
-     * @return mixed
+     * @return Mage_Sales_Model_Quote_Address_Total[]
      */
     public function getBillinAddressTotals()
     {
@@ -293,8 +293,8 @@ class Mage_Checkout_Block_Multishipping_Overview extends Mage_Sales_Block_Items_
     }
 
     /**
-     * @param  Mage_Sales_Model_Order_Total $totals
-     * @param  null|int                     $colspan
+     * @param  Mage_Sales_Model_Quote_Address_Total[] $totals
+     * @param  null|int                               $colspan
      * @return string
      */
     public function renderTotals($totals, $colspan = null)

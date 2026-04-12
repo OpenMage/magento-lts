@@ -145,11 +145,8 @@ class Mage_Paypal_Model_Direct extends Mage_Payment_Model_Method_Cc
     }
 
     /**
-     * Custom getter for payment configuration
-     *
-     * @param  string $field
-     * @param  int    $storeId
-     * @return mixed
+     * @inheritDoc
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function getConfigData($field, $storeId = null)
     {

@@ -155,9 +155,7 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
     }
 
     /**
-     * Getter for template type
-     *
-     * @return int
+     * @inheritDoc
      */
     public function getType()
     {
