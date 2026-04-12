@@ -52,8 +52,7 @@ class Mage_Api2_Model_Response extends Zend_Controller_Response_Http
      * @param  string                   $message
      * @param  string                   $code
      * @param  array                    $params
-     * @param  string                   $type
-     *                                           return Mage_Api2_Model_Response
+     * @param  self::MESSAGE_TYPE_*     $type
      * @return Mage_Api2_Model_Response
      */
     public function addMessage($message, $code, $params = [], $type = self::MESSAGE_TYPE_ERROR)

@@ -5873,12 +5873,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Paypal/Model/Payflowpro.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Parameter #2 $storeId of method Mage_Payment_Model_Method_Abstract::getConfigData() expects int|Mage_Core_Model_Store|string|null, false given.',
-	'identifier' => 'argument.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Paypal/Model/Payflowpro.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Call to method loadObjectByTxnId() of deprecated class Mage_Paypal_Model_Resource_Payment_Transaction:
 since 1.6.2.0',
 	'identifier' => 'method.deprecatedClass',
@@ -8059,12 +8053,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/design/frontend/base/default/template/checkout/multishipping/address/select.phtml',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Parameter #1 $totals of method Mage_Checkout_Block_Multishipping_Overview::renderTotals() expects Mage_Sales_Model_Order_Total, array<Mage_Sales_Model_Quote_Address_Total> given.',
-	'identifier' => 'argument.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/design/frontend/base/default/template/checkout/multishipping/overview.phtml',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Method Mage_Checkout_Helper_Data::formatPrice() invoked with 3 parameters, 1 required.',
 	'identifier' => 'arguments.count',
 	'count' => 12,
@@ -8362,12 +8350,6 @@ $ignoreErrors[] = [
 	'identifier' => 'arguments.count',
 	'count' => 6,
 	'path' => __DIR__ . '/app/design/frontend/rwd/default/template/checkout/cart/sidebar/default.phtml',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Parameter #1 $totals of method Mage_Checkout_Block_Multishipping_Overview::renderTotals() expects Mage_Sales_Model_Order_Total, array<Mage_Sales_Model_Quote_Address_Total> given.',
-	'identifier' => 'argument.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/design/frontend/rwd/default/template/checkout/multishipping/overview.phtml',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Method Mage_Checkout_Helper_Data::formatPrice() invoked with 3 parameters, 1 required.',
