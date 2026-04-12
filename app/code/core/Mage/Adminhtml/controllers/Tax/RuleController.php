@@ -111,7 +111,8 @@ class Mage_Adminhtml_Tax_RuleController extends Mage_Adminhtml_Controller_Action
         try {
             //Check if the rule already exists
             if (!$this->_isValidRuleRequest($ruleModel)) {
-                return $this->_redirectReferer();
+                $this->_redirectReferer();
+                return;
             }
 
             $ruleModel->save();

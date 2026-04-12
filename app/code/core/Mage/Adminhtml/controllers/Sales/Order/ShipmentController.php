@@ -594,7 +594,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
     /**
      * Print label for one specific shipment
      *
-     * @return void
+     * @return $this|void
      */
     public function printLabelAction()
     {
@@ -783,7 +783,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
     public function getShippingItemsGridAction()
     {
         $this->_initShipment();
-        return $this->getResponse()->setBody(
+        $this->getResponse()->setBody(
             $this->getLayout()
                 ->createBlock('adminhtml/sales_order_shipment_packaging_grid')
                 ->setIndex($this->getRequest()->getParam('index'))

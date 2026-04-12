@@ -46,7 +46,7 @@ class Mage_ImportExport_Adminhtml_ExportController extends Mage_Adminhtml_Contro
     /**
      * Load data with filter applying and create file for download.
      *
-     * @return void
+     * @return $this|void
      */
     public function exportAction()
     {

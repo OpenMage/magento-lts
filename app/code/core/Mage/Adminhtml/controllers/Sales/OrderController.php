@@ -479,7 +479,7 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
     /**
      * Print invoices for selected orders
      *
-     * @return void
+     * @return $this|void
      */
     public function pdfinvoicesAction()
     {
@@ -518,7 +518,7 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
     /**
      * Print shipments for selected orders
      *
-     * @return void
+     * @return $this|void
      */
     public function pdfshipmentsAction()
     {
@@ -557,7 +557,7 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
     /**
      * Print creditmemos for selected orders
      *
-     * @return void
+     * @return $this|void
      */
     public function pdfcreditmemosAction()
     {
@@ -596,7 +596,7 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
     /**
      * Print all documents for selected orders
      *
-     * @return void
+     * @return $this|void
      */
     public function pdfdocsAction()
     {

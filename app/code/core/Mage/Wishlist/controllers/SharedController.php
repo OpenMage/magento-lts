@@ -87,7 +87,8 @@ class Mage_Wishlist_SharedController extends Mage_Wishlist_Controller_Abstract
         $wishlist = Mage::getModel('wishlist/wishlist')->loadByCode($code);
 
         if (!$item->getId() || !$wishlist->getId() || (int) $item->getWishlistId() !== (int) $wishlist->getId()) {
-            return $this->_forward('noRoute');
+            $this->_forward('noRoute');
+            return;
         }
 
         $redirectUrl = Mage::getUrl('*/*/index', ['code' => $code]);
