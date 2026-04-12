@@ -63,12 +63,12 @@ class Varien_Image
     {
         $this->_getAdapter()->checkDependencies();
 
-        if (!file_exists($this->_fileName)) {
-            throw new Exception("File '{$this->_fileName}' does not exists.");
-        }
-
         if (str_starts_with($this->_fileName, 'phar://')) {
             throw new Exception("File '{$this->_fileName}' is not readable.");
+        }
+
+        if (!file_exists($this->_fileName)) {
+            throw new Exception("File '{$this->_fileName}' does not exists.");
         }
 
         $this->_getAdapter()->open($this->_fileName);
