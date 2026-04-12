@@ -106,7 +106,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
         }
 
         if (str_starts_with($path, 'phar://')) {
-            return $this->getCollection($path)
+            return $this->getCollection(null)
                 ->setCollectDirs(false)
                 ->setCollectFiles(false);
         }
@@ -159,7 +159,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
     /**
      * Storage collection
      *
-     * @param  string                            $path Path to the directory
+     * @param  null|string                       $path Path to the directory
      * @return Varien_Data_Collection_Filesystem
      */
     public function getCollection($path = null)
