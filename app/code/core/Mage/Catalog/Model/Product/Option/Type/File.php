@@ -859,12 +859,15 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
     {
         $extensions = $this->getConfigData('forbidden_extensions');
         if (is_string($extensions)) {
-            $extensions = explode(',', $extensions);
+            $extensions = $this->_parseExtensionsString($extensions);
         }
 
         $result = [];
-        foreach ($extensions as $ext) {
-            $result[] = strtolower(trim($ext));
+        foreach ((array) $extensions as $ext) {
+            $ext = strtolower(trim($ext));
+            if ($ext !== '') {
+                $result[] = $ext;
+            }
         }
 
         return $result;
