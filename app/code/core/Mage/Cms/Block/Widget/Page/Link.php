@@ -45,10 +45,10 @@ class Mage_Cms_Block_Widget_Page_Link extends Mage_Core_Block_Html_Link implemen
     {
         if (!$this->_href) {
             $this->_href = '';
-            if ($this->getData('href')) {
-                $this->_href = $this->getData('href');
-            } elseif ($this->getData('page_id')) {
-                $this->_href = Mage::helper('cms/page')->getPageUrl($this->getData('page_id'));
+            if ($this->getDataByKey('href')) {
+                $this->_href = $this->getDataByKey('href');
+            } elseif ($this->getDataByKey('page_id')) {
+                $this->_href = Mage::helper('cms/page')->getPageUrl($this->getDataByKey('page_id'));
             }
         }
 
@@ -66,13 +66,13 @@ class Mage_Cms_Block_Widget_Page_Link extends Mage_Core_Block_Html_Link implemen
     {
         if (!$this->_title) {
             $this->_title = '';
-            if ($this->getData('title') !== null) {
+            if ($this->getDataByKey('title') !== null) {
                 // compare to null used here bc user can specify blank title
-                $this->_title = $this->getData('title');
-            } elseif ($this->getData('page_id')) {
-                $this->_title = $this->getCmsPageTitleById($this->getData('page_id'));
-            } elseif ($this->getData('href')) {
-                $this->_title = $this->getCmsPageTitleByIdentifier($this->getData('href'));
+                $this->_title = $this->getDataByKey('title');
+            } elseif ($this->getDataByKey('page_id')) {
+                $this->_title = $this->getCmsPageTitleById($this->getDataByKey('page_id'));
+            } elseif ($this->getDataByKey('href')) {
+                $this->_title = $this->getCmsPageTitleByIdentifier($this->getDataByKey('href'));
             }
         }
 
@@ -89,16 +89,16 @@ class Mage_Cms_Block_Widget_Page_Link extends Mage_Core_Block_Html_Link implemen
      */
     public function getAnchorText()
     {
-        if ($this->getData('anchor_text')) {
-            $this->_anchorText = $this->getData('anchor_text');
+        if ($this->getDataByKey('anchor_text')) {
+            $this->_anchorText = $this->getDataByKey('anchor_text');
         } elseif ($this->getTitle()) {
             $this->_anchorText = $this->getTitle();
-        } elseif ($this->getData('href')) {
-            $this->_anchorText = $this->getCmsPageTitleByIdentifier($this->getData('href'));
-        } elseif ($this->getData('page_id')) {
-            $this->_anchorText = $this->getCmsPageTitleById($this->getData('page_id'));
+        } elseif ($this->getDataByKey('href')) {
+            $this->_anchorText = $this->getCmsPageTitleByIdentifier($this->getDataByKey('href'));
+        } elseif ($this->getDataByKey('page_id')) {
+            $this->_anchorText = $this->getCmsPageTitleById($this->getDataByKey('page_id'));
         } else {
-            $this->_anchorText = $this->getData('href');
+            $this->_anchorText = $this->getDataByKey('href');
         }
 
         return $this->_anchorText;

@@ -102,7 +102,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Abstract extends Mage_Admi
      */
     public function getItemCount()
     {
-        $count = $this->getData('item_count');
+        $count = $this->getDataByKey('item_count');
         if (is_null($count)) {
             $count = count($this->getItems());
             $this->setData('item_count', $count);

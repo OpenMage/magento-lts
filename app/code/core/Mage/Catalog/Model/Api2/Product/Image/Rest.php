@@ -192,7 +192,7 @@ abstract class Mage_Catalog_Model_Api2_Product_Image_Rest extends Mage_Catalog_M
     protected function _getImageFileById($imageId)
     {
         $file = null;
-        $mediaGalleryData = $this->_getProduct()->getData('media_gallery');
+        $mediaGalleryData = $this->_getProduct()->getDataByKey('media_gallery');
         if (!isset($mediaGalleryData['images'])) {
             $this->_critical(self::RESOURCE_NOT_FOUND);
         }

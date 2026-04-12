@@ -3570,6 +3570,13 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Core/Helper/Js.php',
 ];
 $ignoreErrors[] = [
+	'rawMessage' => 'Access to deprecated property $purifier of class Mage_Core_Helper_Purifier:
+No longer used. See {@link static::$defaultPurifier}.',
+	'identifier' => 'property.deprecated',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Core/Helper/Purifier.php',
+];
+$ignoreErrors[] = [
 	'rawMessage' => 'Parameter #2 $arguments of static method Mage::getResourceModel() expects array, object given.',
 	'identifier' => 'argument.type',
 	'count' => 1,
@@ -7283,26 +7290,8 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Usa/Model/Shipping/Carrier/Ups.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-	'identifier' => 'empty.notAllowed',
-	'count' => 5,
-	'path' => __DIR__ . '/app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'PHPDoc type string of property Mage_Usa_Model_Shipping_Carrier_Usps::$_code is not the same as PHPDoc type string|null of overridden property Mage_Shipping_Model_Carrier_Abstract::$_code.',
 	'identifier' => 'property.phpDocType',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Parameter #2 $serviceType of method Mage_Usa_Model_Shipping_Carrier_Usps::_formUsSignatureConfirmationShipmentRequest() expects string, array|bool given.',
-	'identifier' => 'argument.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Short ternary operator is not allowed. Use null coalesce operator if applicable or consider using long ternary.',
-	'identifier' => 'ternary.shortNotAllowed',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps.php',
 ];

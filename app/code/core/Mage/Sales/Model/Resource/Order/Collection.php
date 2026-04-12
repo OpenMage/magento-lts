@@ -83,7 +83,7 @@ class Mage_Sales_Model_Resource_Order_Collection extends Mage_Sales_Model_Resour
 
     /**
      * Join table sales_flat_order_address to select for billing and shipping order addresses.
-     * Create corillation map
+     * Create correlation map
      *
      * @return $this
      */

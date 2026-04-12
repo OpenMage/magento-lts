@@ -75,7 +75,7 @@ class Mage_Paypal_Model_Resource_Payment_Transaction extends Mage_Core_Model_Res
      */
     protected function _beforeSave(Mage_Core_Model_Abstract $transaction)
     {
-        $txnId       = $transaction->getData('txn_id');
+        $txnId       = $transaction->getDataByKey('txn_id');
         $idFieldName = $this->getIdFieldName();
 
         // make sure unique key won't cause trouble

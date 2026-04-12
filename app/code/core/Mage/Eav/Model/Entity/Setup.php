@@ -743,7 +743,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
     }
 
     /**
-     * Add Attribure Option
+     * Add Attribute Option
      *
      * @param  array               $option
      * @throws Mage_Core_Exception

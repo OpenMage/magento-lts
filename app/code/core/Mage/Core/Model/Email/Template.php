@@ -623,7 +623,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
     public function getVariablesOptionArray($withGroup = false)
     {
         $optionArray = [];
-        $variables = $this->_parseVariablesString($this->getData('orig_template_variables'));
+        $variables = $this->_parseVariablesString($this->getDataByKey('orig_template_variables'));
         if ($variables) {
             foreach ($variables as $value => $label) {
                 $optionArray[] = [

@@ -488,7 +488,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
 
     /**
      * Retrieve used product by attribute values
-     *  $attrbutesInfo = array(
+     *  $attributesInfo = array(
      *      $attributeId => $attributeValue
      *  )
      *
@@ -593,7 +593,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
                 $subProduct = true;
                 if ($this->_isStrictProcessMode($processMode)) {
                     foreach ($this->getConfigurableAttributes($product) as $attributeItem) {
-                        $attrId = $attributeItem->getData('attribute_id');
+                        $attrId = $attributeItem->getDataByKey('attribute_id');
                         if (!isset($attributes[$attrId]) || empty($attributes[$attrId])) {
                             $subProduct = null;
                             break;
@@ -752,7 +752,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
         $attributes = $this->getConfigurableAttributes($product);
         if (count($attributes)) {
             foreach ($attributes as $attribute) {
-                if ($attribute->getData('prices')) {
+                if ($attribute->getDataByKey('prices')) {
                     return true;
                 }
             }
@@ -780,7 +780,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
             }
         }
 
-        return $this->getProduct($product)->getData('weight');
+        return $this->getProduct($product)->getDataByKey('weight');
     }
 
     /**

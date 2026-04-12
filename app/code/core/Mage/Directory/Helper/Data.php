@@ -326,6 +326,6 @@ class Mage_Directory_Helper_Data extends Mage_Core_Helper_Abstract
         $transportObject->setData('top_countries', $topCountries);
         Mage::dispatchEvent('directory_get_top_countries', ['topCountries' => $transportObject]);
 
-        return $transportObject->getData('top_countries');
+        return $transportObject->getDataByKey('top_countries');
     }
 }

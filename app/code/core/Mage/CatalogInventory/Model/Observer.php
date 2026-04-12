@@ -179,10 +179,10 @@ class Mage_CatalogInventory_Model_Observer
         $currentStockItem = $currentProduct->getStockItem();
         if ($currentStockItem) {
             $stockData += [
-                'use_config_enable_qty_inc'  => $currentStockItem->getData('use_config_enable_qty_inc'),
-                'enable_qty_increments'             => $currentStockItem->getData('enable_qty_increments'),
-                'use_config_qty_increments'         => $currentStockItem->getData('use_config_qty_increments'),
-                'qty_increments'                    => $currentStockItem->getData('qty_increments'),
+                'use_config_enable_qty_inc'  => $currentStockItem->getDataByKey('use_config_enable_qty_inc'),
+                'enable_qty_increments'             => $currentStockItem->getDataByKey('enable_qty_increments'),
+                'use_config_qty_increments'         => $currentStockItem->getDataByKey('use_config_qty_increments'),
+                'qty_increments'                    => $currentStockItem->getDataByKey('qty_increments'),
             ];
         }
 

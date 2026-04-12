@@ -508,7 +508,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     public function getCustomerGroupId()
     {
         if ($this->hasData('customer_group_id')) {
-            return $this->getData('customer_group_id');
+            return $this->getDataByKey('customer_group_id');
         }
 
         if ($this->getCustomerId()) {
@@ -527,12 +527,12 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         * tax class can vary at any time. so instead of using the value from session,
         * we need to retrieve from db every time to get the correct tax class
         */
-        //if (!$this->getData('customer_group_id') && !$this->getData('customer_tax_class_id')) {
+        //if (!$this->getDataByKey('customer_group_id') && !$this->getDataByKey('customer_tax_class_id')) {
         $classId = Mage::getModel('customer/group')->getTaxClassId($this->getCustomerGroupId());
         $this->setCustomerTaxClassId($classId);
         //}
 
-        return $this->getData('customer_tax_class_id');
+        return $this->getDataByKey('customer_tax_class_id');
     }
 
     /**
@@ -812,7 +812,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     public function getItemsCollection($useCache = true)
     {
         if ($this->hasItemsCollection()) {
-            return $this->getData('items_collection');
+            return $this->getDataByKey('items_collection');
         }
 
         if (is_null($this->_items)) {
@@ -1302,7 +1302,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      */
     public function getItemsSummaryQty()
     {
-        $qty = $this->getData('all_items_qty');
+        $qty = $this->getDataByKey('all_items_qty');
         if (is_null($qty)) {
             $qty = 0;
             foreach ($this->getAllItems() as $item) {
@@ -1331,7 +1331,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      */
     public function getItemVirtualQty()
     {
-        $qty = $this->getData('virtual_items_qty');
+        $qty = $this->getDataByKey('virtual_items_qty');
         if (is_null($qty)) {
             $qty = 0;
             foreach ($this->getAllItems() as $item) {
@@ -1594,7 +1594,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      */
     public function addMessage($message, $index = 'error')
     {
-        $messages = $this->getData('messages');
+        $messages = $this->getDataByKey('messages');
         if (is_null($messages)) {
             $messages = [];
         }
@@ -1619,7 +1619,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      */
     public function getMessages()
     {
-        $messages = $this->getData('messages');
+        $messages = $this->getDataByKey('messages');
         if (is_null($messages)) {
             $messages = [];
             $this->setData('messages', $messages);
@@ -1773,7 +1773,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      */
     public function removeMessageByText($type, $text)
     {
-        $messages = $this->getData('messages');
+        $messages = $this->getDataByKey('messages');
         if (is_null($messages)) {
             $messages = [];
         }
@@ -2113,7 +2113,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     protected function _afterLoad()
     {
         // collect totals and save me, if required
-        if ($this->getData('trigger_recollect') == 1) {
+        if ($this->getDataByKey('trigger_recollect') == 1) {
             $this->setTriggerRecollect(0)->getResource()->save($this);
             $this->collectTotals()->save();
         }

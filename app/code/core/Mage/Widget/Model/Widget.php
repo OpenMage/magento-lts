@@ -94,7 +94,7 @@ class Mage_Widget_Model_Widget extends Varien_Object
         }
 
         // Correct widget parameters and convert its data to objects
-        $params = $object->getData('parameters');
+        $params = $object->getDataByKey('parameters');
         $newParams = [];
         if (is_array($params)) {
             $sortOrder = 0;
@@ -304,6 +304,6 @@ class Mage_Widget_Model_Widget extends Varien_Object
      */
     protected function _sortParameters($a, $b)
     {
-        return (int) $a->getData('sort_order') <=> (int) $b->getData('sort_order');
+        return (int) $a->getDataByKey('sort_order') <=> (int) $b->getDataByKey('sort_order');
     }
 }

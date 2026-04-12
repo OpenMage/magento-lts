@@ -43,7 +43,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Composite_Fieldset_Grouped extends Ma
             $this->setData('product', Mage::registry('product'));
         }
 
-        $product = $this->getData('product');
+        $product = $this->getDataByKey('product');
         if (is_null($product->getTypeInstance(true)->getStoreFilter($product))) {
             $product->getTypeInstance(true)->setStoreFilter(Mage::app()->getStore($product->getStoreId()), $product);
         }
@@ -112,7 +112,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Composite_Fieldset_Grouped extends Ma
      */
     public function getIsLastFieldset()
     {
-        $isLast = $this->getData('is_last_fieldset');
+        $isLast = $this->getDataByKey('is_last_fieldset');
         if (!$isLast) {
             $options = $this->getProduct()->getOptions();
             return !$options || !count($options);
