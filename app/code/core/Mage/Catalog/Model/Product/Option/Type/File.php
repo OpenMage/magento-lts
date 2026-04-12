@@ -306,7 +306,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
     /**
      * Validate file
      *
-     * @param  string[]            $optionValue
+     * @param  array<string, mixed> $optionValue
      * @return bool
      * @throws Mage_Core_Exception
      */
