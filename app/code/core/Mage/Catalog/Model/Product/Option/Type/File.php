@@ -12,7 +12,7 @@
  *
  * @package    Mage_Catalog
  *
- * @method array getCustomOptionUrlParams()
+ * @method null|string[] getCustomOptionUrlParams()
  */
 class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Product_Option_Type_Default
 {
@@ -41,10 +41,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
     }
 
     /**
-     * Return option html
-     *
-     * @param  array  $optionInfo
-     * @return string
+     * @inheritDoc
      */
     public function getCustomizedView($optionInfo)
     {
@@ -87,7 +84,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
      * Returns file info array if we need to get file from already existing file.
      * Or returns null, if we need to get file from uploaded array.
      *
-     * @return null|array
+     * @return null|array<mixed>
      * @throws Mage_Core_Exception
      */
     protected function _getCurrentConfigFileInfo()
@@ -115,7 +112,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
     /**
      * Validate user input for option
      *
-     * @param  array               $values All product option values, i.e. array (option_id => mixed, option_id => mixed...)
+     * @param  array<string, mixed> $values All product option values, i.e. array (option_id => mixed, option_id => mixed...)
      * @return $this
      * @throws Mage_Core_Exception
      */
@@ -193,8 +190,8 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
                 switch ($this->getProcessMode()) {
                     case Mage_Catalog_Model_Product_Type_Abstract::PROCESS_MODE_FULL:
                         Mage::throwException(Mage::helper('catalog')->__('Please specify the product required option <em>%s</em>.', $option->getTitle()));
-                    // exception thrown
-                    // no break
+                        // exception thrown
+                        // no break
                     default:
                         $this->setUserValue(null);
                         break;
@@ -309,7 +306,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
     /**
      * Validate file
      *
-     * @param  array               $optionValue
+     * @param  string[]            $optionValue
      * @return bool
      * @throws Mage_Core_Exception
      */
@@ -436,9 +433,10 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
 
     /**
      * Get Error messages for validator Errors
-     * @param  array               $errors   Array of validation failure message codes
-     * @param  array               $fileInfo File info
-     * @return array               Array of error messages
+     *
+     * @param  string[]            $errors   Array of validation failure message codes
+     * @param  string[]            $fileInfo File info
+     * @return string[]            Array of error messages
      * @throws Mage_Core_Exception
      */
     protected function _getValidatorErrors($errors, $fileInfo)
@@ -570,7 +568,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
     /**
      * Format File option html
      *
-     * @param  array|string        $optionValue Serialized string of option data or its data array
+     * @param  array<mixed>|string $optionValue Serialized string of option data or its data array
      * @return string
      * @throws Mage_Core_Exception
      */
@@ -604,8 +602,8 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
     /**
      * Create a value from a storable representation
      *
-     * @param  mixed     $value
-     * @return array
+     * @param  mixed                    $value
+     * @return array<mixed>|array<void>
      * @throws Exception
      */
     protected function _unserializeValue($value)
@@ -657,8 +655,9 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
      * Parse user input value and return cart prepared value
      *
      * @param  string      $optionValue
-     * @param  array       $productOptionValues Values for product option
+     * @param  array<void> $productOptionValues Values for product option
      * @return null|string
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function parseOptionValue($optionValue, $productOptionValues)
     {
@@ -772,6 +771,8 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
 
     /**
      * Directory structure initializing
+     *
+     * @return void
      * @throws Mage_Core_Exception
      */
     protected function _initFilesystem()
@@ -796,6 +797,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
      * Create Writeable directory if it doesn't exist
      *
      * @param  string              $path Absolute directory path
+     * @return void
      * @throws Mage_Core_Exception
      */
     protected function _createWriteableDir($path)
@@ -810,7 +812,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
      * Return URL for option file download
      *
      * @param  string                          $route
-     * @param  array                           $params
+     * @param  string[]                        $params
      * @return string
      * @throws Mage_Core_Model_Store_Exception
      */
@@ -830,6 +832,8 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
 
     /**
      * Get protected file extensions from core configuration
+     *
+     * @return string[]
      */
     protected function _getProtectedFileExtensions(): array
     {
@@ -848,6 +852,8 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
 
     /**
      * Get legacy forbidden_extensions from config for backwards compatibility
+     *
+     * @return string[]
      */
     protected function _getForbiddenExtensions(): array
     {
@@ -867,8 +873,8 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
     /**
      * Parse file extensions string with various separators
      *
-     * @param  string     $extensions String to parse
-     * @return null|array
+     * @param  string        $extensions String to parse
+     * @return null|string[]
      */
     protected function _parseExtensionsString($extensions)
     {
@@ -883,7 +889,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
     /**
      * Simple check if file is image
      *
-     * @param  array|string $fileInfo - either file data from Zend_File_Transfer or file path
+     * @param  string|string[] $fileInfo - either file data from Zend_File_Transfer or file path
      * @return bool
      */
     protected function _isImage($fileInfo)
