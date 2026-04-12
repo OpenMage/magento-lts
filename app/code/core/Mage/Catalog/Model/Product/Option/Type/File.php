@@ -71,7 +71,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
     protected function _getProcessingParams()
     {
         $buyRequest = $this->getRequest();
-        $params = $buyRequest->getData('_processing_params');
+        $params = $buyRequest->getDataByKey('_processing_params');
         /*
          * Notice check for params to be Varien_Object - by using object we protect from
          * params being forged and contain data from user frontend input
