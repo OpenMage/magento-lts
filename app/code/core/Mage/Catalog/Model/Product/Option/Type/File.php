@@ -401,23 +401,25 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
             ));
         }
 
-        // Block both protected extensions and legacy forbidden_extensions for backwards compatibility
-        $_forbidden = array_unique(array_merge(
-            $this->_getProtectedFileExtensions(),
-            $this->_getForbiddenExtensions(),
-        ));
-        if ($_forbidden !== []) {
-            $validatorChain->append($validator->validateChoice(
-                value: $_allowed,
-                choices: $_forbidden,
-                multiple: true,
-                message: Mage::helper('catalog')->__(
-                    $this->getValidatorMessage(self::ERROR_EXTENSION_FALSE_EXTENSION),
-                    $optionValue['title'],
-                    $option->getTitle(),
-                ),
-                match: false,
+        if ($_allowed !== null) {
+            // Block both protected extensions and legacy forbidden_extensions for backwards compatibility
+            $_forbidden = array_unique(array_merge(
+                $this->_getProtectedFileExtensions(),
+                $this->_getForbiddenExtensions(),
             ));
+            if ($_forbidden !== []) {
+                $validatorChain->append($validator->validateChoice(
+                    value: $_allowed,
+                    choices: $_forbidden,
+                    multiple: true,
+                    message: Mage::helper('catalog')->__(
+                        $this->getValidatorMessage(self::ERROR_EXTENSION_FALSE_EXTENSION),
+                        $optionValue['title'],
+                        $option->getTitle(),
+                    ),
+                    match: false,
+                ));
+            }
         }
 
         $errors = $validator->getErrorMessages($validatorChain);
