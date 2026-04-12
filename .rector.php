@@ -83,6 +83,7 @@ try {
         ->withConfiguredRule(Renaming\MethodCall\RenameMethodRector::class, Migration\Mage\Tax::renameMethod())
         ->withConfiguredRule(Renaming\MethodCall\RenameMethodRector::class, Migration\Mage\Usa::renameMethod())
         ->withConfiguredRule(Renaming\MethodCall\RenameMethodRector::class, Migration\Mage\Wishlist::renameMethod())
+        ->withConfiguredRule(Renaming\MethodCall\RenameMethodRector::class, Migration\Zend\Acl::renameMethod())
         ->withConfiguredRule(ReplaceArgumentDefaultValueRector::class, Migration\Mage\Adminhtml::replaceArgumentDefaultValue())
         ->withConfiguredRule(ReplaceArgumentDefaultValueRector::class, Migration\Mage\Catalog::replaceArgumentDefaultValue())
         ->withConfiguredRule(ReplaceArgumentDefaultValueRector::class, Migration\Varien\Data\Collection::replaceArgumentDefaultValue())
