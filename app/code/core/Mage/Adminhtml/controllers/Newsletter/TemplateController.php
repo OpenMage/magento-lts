@@ -210,7 +210,7 @@ class Mage_Adminhtml_Newsletter_TemplateController extends Mage_Adminhtml_Contro
 
     /**
      * Preview Newsletter template
-     * @return $this|null
+     * @return null|$this
      */
     public function previewAction()
     {

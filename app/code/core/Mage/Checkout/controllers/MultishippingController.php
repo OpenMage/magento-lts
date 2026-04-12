@@ -313,7 +313,7 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
 
     /**
      * Multishipping checkout shipping information page
-     * @return $this|null
+     * @return null|$this
      */
     public function shippingAction()
     {
@@ -384,7 +384,7 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
 
     /**
      * Multishipping checkout billing information page
-     * @return $this|null
+     * @return null|$this
      */
     public function billingAction()
     {
@@ -467,7 +467,7 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
 
     /**
      * Multishipping checkout place order page
-     * @return $this|null
+     * @return null|$this
      */
     public function overviewAction()
     {
@@ -586,7 +586,7 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
 
     /**
      * Multishipping checkout success page
-     * @return $this|null
+     * @return null|$this
      */
     public function successAction()
     {

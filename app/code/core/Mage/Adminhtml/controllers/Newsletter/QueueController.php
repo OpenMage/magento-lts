@@ -65,7 +65,7 @@ class Mage_Adminhtml_Newsletter_QueueController extends Mage_Adminhtml_Controlle
 
     /**
      * Preview Newsletter queue template
-     * @return $this|null
+     * @return null|$this
      */
     public function previewAction()
     {
