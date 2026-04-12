@@ -16,12 +16,12 @@
  */
 ?>
 <?php
-$_coreHelper = $this->helper('core');
-$_weeeHelper = $this->helper('weee');
-$_taxHelper = $this->helper('tax');
 /** @var Mage_Core_Helper_Data $_coreHelper */
+$_coreHelper = $this->helper('core');
 /** @var Mage_Weee_Helper_Data $_weeeHelper */
+$_weeeHelper = $this->helper('weee');
 /** @var Mage_Tax_Helper_Data $_taxHelper */
+$_taxHelper = $this->helper('tax');
 
 $_product = $this->getProduct();
 $_storeId = $_product->getStoreId();

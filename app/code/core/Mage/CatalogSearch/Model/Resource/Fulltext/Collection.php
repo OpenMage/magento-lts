@@ -166,14 +166,13 @@ class Mage_CatalogSearch_Model_Resource_Fulltext_Collection extends Mage_Catalog
     }
 
     /**
-     * Set Order field
-     *
      * @inheritDoc
      */
     public function setOrder($attribute, $dir = self::SORT_ORDER_DESC)
     {
-        if ($attribute == 'relevance') {
-            $this->_relevanceSortOrder = ($dir == 'asc') ? SORT_ASC : SORT_DESC;
+        if ($attribute === 'relevance') {
+            $normalizedDir = strtoupper((string) $dir);
+            $this->_relevanceSortOrder = ($normalizedDir === self::SORT_ORDER_ASC) ? SORT_ASC : SORT_DESC;
             $this->addOrder(self::RELEVANCE_ORDER_NAME);
         } else {
             parent::setOrder($attribute, $dir);

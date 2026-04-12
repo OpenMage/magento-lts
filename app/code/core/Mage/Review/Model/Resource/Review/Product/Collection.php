@@ -303,8 +303,6 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
     }
 
     /**
-     * Set order to attribute
-     *
      * @inheritDoc
      */
     public function setOrder($attribute, $dir = self::SORT_ORDER_DESC)

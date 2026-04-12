@@ -2136,7 +2136,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      */
     public function setOrder($attribute, $dir = self::SORT_ORDER_DESC)
     {
-        if ($attribute == 'price') {
+        if ($attribute === 'price') {
             $this->addAttributeToSort($attribute, $dir);
         } else {
             parent::setOrder($attribute, $dir);
