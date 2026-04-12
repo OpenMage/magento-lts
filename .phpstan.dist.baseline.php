@@ -8885,13 +8885,6 @@ since 19.5.0',
 	'path' => __DIR__ . '/tests/unit/Mage/Cms/Helper/DataTest.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Call to deprecated method setMethods() of class PHPUnit\\Framework\\MockObject\\MockBuilder:
-https://github.com/sebastianbergmann/phpunit/pull/3687',
-	'identifier' => 'method.deprecated',
-	'count' => 2,
-	'path' => __DIR__ . '/tests/unit/Mage/Core/Helper/SecurityFixTest.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Access to constant on deprecated class Mage_Adminhtml_Block_Report_Product_Ordered:
 after 1.4.0.1',
 	'identifier' => 'classConstant.deprecatedClass',
