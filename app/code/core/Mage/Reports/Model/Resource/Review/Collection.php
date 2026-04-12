@@ -62,11 +62,7 @@ class Mage_Reports_Model_Resource_Review_Collection extends Mage_Review_Model_Re
     }
 
     /**
-     * Set order
-     *
-     * @param  string $attribute
-     * @param  string $dir
-     * @return $this
+     * @inheritDoc
      */
     public function setOrder($attribute, $dir = self::SORT_ORDER_DESC)
     {
