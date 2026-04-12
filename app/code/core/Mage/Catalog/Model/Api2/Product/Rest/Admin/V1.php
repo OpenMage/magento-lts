@@ -25,9 +25,9 @@ class Mage_Catalog_Model_Api2_Product_Rest_Admin_V1 extends Mage_Catalog_Model_A
     protected function _prepareProductForResponse(Mage_Catalog_Model_Product $product)
     {
         $pricesFilterKeys = ['price_id', 'all_groups', 'website_price'];
-        $groupPrice = $product->getData('group_price');
+        $groupPrice = $product->getDataByKey('group_price');
         $product->setData('group_price', $this->_filterOutArrayKeys($groupPrice, $pricesFilterKeys, true));
-        $tierPrice = $product->getData('tier_price');
+        $tierPrice = $product->getDataByKey('tier_price');
         $product->setData('tier_price', $this->_filterOutArrayKeys($tierPrice, $pricesFilterKeys, true));
 
         $stockData = $product->getStockItem()->getData();
@@ -279,7 +279,7 @@ class Mage_Catalog_Model_Api2_Product_Rest_Admin_V1 extends Mage_Catalog_Model_A
         if (isset($productData['use_config_gift_message_available'])) {
             $product->setData('use_config_gift_message_available', $productData['use_config_gift_message_available']);
             if (!$productData['use_config_gift_message_available']
-                && ($product->getData('gift_message_available') === null)
+                && ($product->getDataByKey('gift_message_available') === null)
             ) {
                 $product->setData('gift_message_available', Mage::getStoreConfigAsInt(
                     Mage_GiftMessage_Helper_Message::XPATH_CONFIG_GIFT_MESSAGE_ALLOW_ITEMS,
@@ -291,7 +291,7 @@ class Mage_Catalog_Model_Api2_Product_Rest_Admin_V1 extends Mage_Catalog_Model_A
         if (isset($productData['use_config_gift_wrapping_available'])) {
             $product->setData('use_config_gift_wrapping_available', $productData['use_config_gift_wrapping_available']);
             if (!$productData['use_config_gift_wrapping_available']
-                && ($product->getData('gift_wrapping_available') === null)
+                && ($product->getDataByKey('gift_wrapping_available') === null)
             ) {
                 $xmlPathGiftWrappingAvailable = 'sales/gift_options/wrapping_allow_items';
                 $product->setData('gift_wrapping_available', Mage::getStoreConfigAsInt(

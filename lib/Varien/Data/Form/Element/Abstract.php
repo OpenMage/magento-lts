@@ -111,7 +111,7 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
      */
     public function getHtmlId()
     {
-        return $this->getForm()->getHtmlIdPrefix() . $this->getData('html_id') . $this->getForm()->getHtmlIdSuffix();
+        return $this->getForm()->getHtmlIdPrefix() . $this->getDataByKey('html_id') . $this->getForm()->getHtmlIdSuffix();
     }
 
     /**
@@ -119,7 +119,7 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
      */
     public function getName()
     {
-        $name = $this->getData('name');
+        $name = $this->getDataByKey('name');
         if ($suffix = $this->getForm()->getFieldNameSuffix()) {
             return $this->getForm()->addSuffixToName($name, $suffix);
         }
@@ -250,7 +250,7 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
      */
     public function getAfterElementHtml()
     {
-        return $this->getData('after_element_html');
+        return $this->getDataByKey('after_element_html');
     }
 
     /**
@@ -274,7 +274,7 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
      */
     public function getDefaultHtml()
     {
-        $html = $this->getData('default_html');
+        $html = $this->getDataByKey('default_html');
         if (is_null($html)) {
             $html = ($this->getNoSpan() === true) ? '' : '<span class="field-row">' . "\n";
             $html .= $this->getLabelHtml();
@@ -347,7 +347,7 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
     public function getHtmlContainerId()
     {
         if ($this->hasData('container_id')) {
-            return $this->getData('container_id');
+            return $this->getDataByKey('container_id');
         }
 
         if ($idPrefix = $this->getForm()->getFieldContainerIdPrefix()) {

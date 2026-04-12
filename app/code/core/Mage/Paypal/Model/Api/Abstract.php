@@ -492,7 +492,7 @@ abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
      */
     protected function _lookupRegionCodeFromAddress(Varien_Object $address)
     {
-        if ($regionId = $address->getData('region_id')) {
+        if ($regionId = $address->getDataByKey('region_id')) {
             $region = Mage::getModel('directory/region')->load($regionId);
             if ($region->getId()) {
                 return $region->getCode();

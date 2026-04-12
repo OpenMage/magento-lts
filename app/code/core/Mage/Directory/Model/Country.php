@@ -154,13 +154,13 @@ T: {{telephone}}';
      */
     public function getName()
     {
-        if (!$this->getData('name')) {
+        if (!$this->getDataByKey('name')) {
             $this->setData(
                 'name',
                 Mage::app()->getLocale()->getCountryTranslation($this->getId()),
             );
         }
 
-        return $this->getData('name');
+        return $this->getDataByKey('name');
     }
 }

@@ -65,6 +65,7 @@ try {
             Php85\ArrayDimFetch\ArrayFirstLastRector::class,
         ])
         ->withRules(Migration\TypeDeclarationDocblocks::getRules())
+        ->withConfiguredRule(Renaming\ClassConstFetch\RenameClassConstFetchRector::class, Migration\Zend\Log::renameClassConst())
         ->withConfiguredRule(Renaming\ClassConstFetch\RenameClassConstFetchRector::class, Migration\Zend\Measure::renameClassConst())
         ->withConfiguredRule(Renaming\MethodCall\RenameMethodRector::class, Migration\Mage\Admin::renameMethod())
         ->withConfiguredRule(Renaming\MethodCall\RenameMethodRector::class, Migration\Mage\Adminhtml::renameMethod())
@@ -173,8 +174,6 @@ try {
         ])
         # WIP
         ->withSkip([
-            # https://github.com/OpenMage/magento-lts/pull/5415
-            DeadCode\Assign\RemoveUnusedVariableAssignRector::class,
             # https://github.com/OpenMage/magento-lts/pull/5434
             Php81\Array_\ArrayToFirstClassCallableRector::class,
         ])

@@ -83,7 +83,7 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
          * not via Mage_Core_Model_Layout::addBlock()
          */
         if ($this->hasData('template')) {
-            $this->setTemplate($this->getData('template'));
+            $this->setTemplate($this->getDataByKey('template'));
         }
     }
 

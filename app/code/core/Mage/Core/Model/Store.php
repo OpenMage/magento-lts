@@ -809,7 +809,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      */
     public function getBaseCurrency()
     {
-        $currency = $this->getData('base_currency');
+        $currency = $this->getDataByKey('base_currency');
         if (is_null($currency)) {
             $currency = Mage::getModel('directory/currency')->load($this->getBaseCurrencyCode());
             $this->setData('base_currency', $currency);
@@ -836,7 +836,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      */
     public function getDefaultCurrency()
     {
-        $currency = $this->getData('default_currency');
+        $currency = $this->getDataByKey('default_currency');
         if (is_null($currency)) {
             $currency = Mage::getModel('directory/currency')->load($this->getDefaultCurrencyCode());
             $this->setData('default_currency', $currency);
@@ -906,7 +906,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      */
     public function getAvailableCurrencyCodes($skipBaseNotAllowed = false)
     {
-        $codes = $this->getData('available_currency_codes');
+        $codes = $this->getDataByKey('available_currency_codes');
         if (is_null($codes)) {
             $codes = explode(',', $this->getConfig(Mage_Directory_Model_Currency::XML_PATH_CURRENCY_ALLOW));
             // add base currency, if it is not in allowed currencies
@@ -925,7 +925,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
 
         // remove base currency code, if it is not allowed by config (optional)
         if ($skipBaseNotAllowed) {
-            $disallowedBaseCodeIndex = $this->getData('disallowed_base_currency_code_index');
+            $disallowedBaseCodeIndex = $this->getDataByKey('disallowed_base_currency_code_index');
             if ($disallowedBaseCodeIndex !== null) {
                 unset($codes[$disallowedBaseCodeIndex]);
             }
@@ -943,7 +943,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      */
     public function getCurrentCurrency()
     {
-        $currency = $this->getData('current_currency');
+        $currency = $this->getDataByKey('current_currency');
 
         if (is_null($currency)) {
             $currency     = Mage::getModel('directory/currency')->load($this->getCurrentCurrencyCode());

@@ -233,7 +233,7 @@ abstract class Mage_Sales_Model_Quote_Address_Total_Abstract
      */
     public function getIsItemRowTotalCompoundable(Mage_Sales_Model_Quote_Item_Abstract $item)
     {
-        return !$item->getData("skip_compound_{$this->_itemRowTotalKey}");
+        return !$item->getDataByKey("skip_compound_{$this->_itemRowTotalKey}");
     }
 
     /**

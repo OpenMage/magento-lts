@@ -125,7 +125,7 @@ class Mage_Checkout_Block_Cart extends Mage_Checkout_Block_Cart_Abstract
      */
     public function getContinueShoppingUrl()
     {
-        $url = $this->getData('continue_shopping_url');
+        $url = $this->getDataByKey('continue_shopping_url');
         if (is_null($url)) {
             $url = Mage::getSingleton('checkout/session')->getContinueShoppingUrl(true);
             if (!$url) {

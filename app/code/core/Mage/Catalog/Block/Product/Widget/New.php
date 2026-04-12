@@ -114,7 +114,7 @@ class Mage_Catalog_Block_Product_Widget_New extends Mage_Catalog_Block_Product_N
             $this->setData('display_type', self::DISPLAY_TYPE_ALL_PRODUCTS);
         }
 
-        return $this->getData('display_type');
+        return $this->getDataByKey('display_type');
     }
 
     /**
@@ -128,7 +128,7 @@ class Mage_Catalog_Block_Product_Widget_New extends Mage_Catalog_Block_Product_N
             return parent::getProductsCount();
         }
 
-        return $this->getData('products_count');
+        return $this->getDataByKey('products_count');
     }
 
     /**
@@ -142,7 +142,7 @@ class Mage_Catalog_Block_Product_Widget_New extends Mage_Catalog_Block_Product_N
             $this->setData('products_per_page', self::DEFAULT_PRODUCTS_PER_PAGE);
         }
 
-        return $this->getData('products_per_page');
+        return $this->getDataByKey('products_per_page');
     }
 
     /**
@@ -156,7 +156,7 @@ class Mage_Catalog_Block_Product_Widget_New extends Mage_Catalog_Block_Product_N
             $this->setData('show_pager', self::DEFAULT_SHOW_PAGER);
         }
 
-        return (bool) $this->getData('show_pager');
+        return (bool) $this->getDataByKey('show_pager');
     }
 
     /**

@@ -171,13 +171,13 @@ class Mage_CatalogSearch_Block_Result extends Mage_Core_Block_Template
      */
     public function getResultCount()
     {
-        if (!$this->getData('result_count')) {
+        if (!$this->getDataByKey('result_count')) {
             $size = $this->_getProductCollection()->getSize();
             $this->_getQuery()->setNumResults($size);
             $this->setResultCount($size);
         }
 
-        return $this->getData('result_count');
+        return $this->getDataByKey('result_count');
     }
 
     /**

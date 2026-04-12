@@ -284,7 +284,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
     {
         $salable = $this->getProduct($product)->getStatus() == Mage_Catalog_Model_Product_Status::STATUS_ENABLED;
         if ($salable && $this->getProduct($product)->hasData('is_salable')) {
-            $salable = $this->getProduct($product)->getData('is_salable');
+            $salable = $this->getProduct($product)->getDataByKey('is_salable');
         } elseif ($salable && $this->isComposite()) {
             return null;
         }
@@ -711,7 +711,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      */
     public function getSku($product = null)
     {
-        $sku = $this->getProduct($product)->getData('sku');
+        $sku = $this->getProduct($product)->getDataByKey('sku');
         if ($this->getProduct($product)->getCustomOption('option_ids')) {
             return $this->getOptionSku($product, $sku);
         }
@@ -730,7 +730,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
     {
         $skuDelimiter = '-';
         if (empty($sku)) {
-            $sku = $this->getProduct($product)->getData('sku');
+            $sku = $this->getProduct($product)->getDataByKey('sku');
         }
 
         if ($optionIds = $this->getProduct($product)->getCustomOption('option_ids')) {
@@ -767,7 +767,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      */
     public function getWeight($product = null)
     {
-        return $this->getProduct($product)->getData('weight');
+        return $this->getProduct($product)->getDataByKey('weight');
     }
 
     /**

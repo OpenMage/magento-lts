@@ -1284,11 +1284,11 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
             $specialPriceTo = $product->getSpecialToDate();
             if ($this->isEnabledFlat()) {
                 $rulePrice = null;
-                if ($product->getData('_rule_price') != $basePrice) {
-                    $rulePrice = $product->getData('_rule_price');
+                if ($product->getDataByKey('_rule_price') != $basePrice) {
+                    $rulePrice = $product->getDataByKey('_rule_price');
                 }
             } else {
-                $rulePrice = $product->getData('_rule_price');
+                $rulePrice = $product->getDataByKey('_rule_price');
             }
 
             $finalPrice = $product->getPriceModel()::calculatePrice(

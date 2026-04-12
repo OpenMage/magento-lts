@@ -29,7 +29,7 @@ class Mage_Catalog_Model_Layer_Filter_Item extends Varien_Object
      */
     public function getFilter()
     {
-        $filter = $this->getData('filter');
+        $filter = $this->getDataByKey('filter');
         if (!is_object($filter)) {
             Mage::throwException(
                 Mage::helper('catalog')->__('Filter must be an object. Please set correct filter.'),

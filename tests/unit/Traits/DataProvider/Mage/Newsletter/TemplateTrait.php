@@ -74,9 +74,9 @@ trait TemplateTrait
         ];
 
         $data = $validData;
-        $data['setTemplateType'] = null;
-        yield 'missing template type' => [
-            "You must give a non-empty value for field 'template_type'",
+        $data['setTemplateType'] = 999;
+        yield 'invalid template type' => [
+            'The value 999 you selected for "template_type" is not a valid choices 1, 2.',
             $data,
         ];
     }
