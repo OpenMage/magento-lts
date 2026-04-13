@@ -144,13 +144,13 @@ class Mage_Usa_Model_Shipping_Carrier_Ups extends Mage_Usa_Model_Shipping_Carrie
             $result->setProduct('GND' . $this->getConfigData('dest_type'));
         }
 
-        $pickup = $request->getUpsPickup() ? $request->getUpsPickup() : $this->getConfigData('pickup');
+        $pickup = $request->getUpsPickup() ?? $this->getConfigData('pickup');
         $result->setPickup($this->getCode('pickup', $pickup));
 
-        $container = $request->getUpsContainer() ? $request->getUpsContainer() : $this->getConfigData('container');
+        $container = $request->getUpsContainer() ?? $this->getConfigData('container');
         $result->setContainer($this->getCode('container', $container));
 
-        $destType = $request->getUpsDestType() ? $request->getUpsDestType() : $this->getConfigData('dest_type');
+        $destType = $request->getUpsDestType() ?? $this->getConfigData('dest_type');
         $result->setDestType($this->getCode('dest_type', $destType));
 
         if ($request->getOrigCountry()) {
