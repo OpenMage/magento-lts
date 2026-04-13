@@ -1,49 +1,49 @@
 {
     "default": {
         "pageTitle" : {
-            "_": "#page_title"
+            "_": "input-page-title"
         },
         "pageIdentifier" : {
-            "_": "#page_identifier"
+            "_": "input-page-identifier"
         },
         "pageStoreId" : {
-            "_": "#page_store_id"
+            "_": "input-page-store-id"
         },
         "pageIsActive" : {
-            "_": "#page_is_active"
+            "_": "input-page-is-active"
         },
         "pageContentHeading" : {
-            "_": "#page_content_heading"
+            "_": "input-page-content-heading"
         },
         "pageContent" : {
-            "_": "#page_content"
+            "_": "input-page-content"
         },
         "pageRootTemplate" : {
-            "_": "#page_root_template"
+            "_": "input-page-root-template"
         },
         "pageLayoutUpdateXml" : {
-            "_": "#page_layout_update_xml"
+            "_": "input-page-layout-update-xml"
         },
         "pageCustomThemeFrom" : {
-            "_": "#page_custom_theme_from"
+            "_": "input-page-custom-theme-from"
         },
         "pageCustomThemeTo" : {
-            "_": "#page_custom_theme_to"
+            "_": "input-page-custom-theme-to"
         },
         "pageCustomTheme" : {
-            "_": "#page_custom_theme"
+            "_": "input-page-custom-theme"
         },
         "pageCustomRootTemplate" : {
-            "_": "#page_custom_root_template"
+            "_": "input-page-custom-root-template"
         },
         "pageCustomLayoutUpdateXml" : {
-            "_": "#page_custom_layout_update_xml"
+            "_": "input-page-custom-layout-update-xml"
         },
         "pageMetaKeywords" : {
-            "_": "#page_meta_keywords"
+            "_": "input-page-meta-keywords"
         },
         "pageMeta_description" : {
-            "_": "#page_meta_description"
+            "_": "input-page-meta-description"
         }
     }
 }

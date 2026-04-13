@@ -235,13 +235,22 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
         return $this->_renderer;
     }
 
+    public function getDataTestId(): string
+    {
+        return str_replace('_', '-',  'input-' . $this->getHtmlId());
+    }
+
     /**
      * @return string
      */
     public function getElementHtml()
     {
-        $html = '<input id="' . $this->getHtmlId() . '" name="' . $this->getName()
-             . '" value="' . $this->getEscapedValue() . '" ' . $this->serialize($this->getHtmlAttributes()) . '/>' . "\n";
+        $html = '<input id="' . $this->getHtmlId()
+            . '" name="' . $this->getName()
+            . '" value="' . $this->getEscapedValue()
+            . '" ' . $this->serialize($this->getHtmlAttributes())
+            . ' data-test="'. $this->getDataTestId()
+            . '"/>' . "\n";
         return $html . $this->getAfterElementHtml();
     }
 

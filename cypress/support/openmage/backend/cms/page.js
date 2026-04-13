@@ -82,12 +82,12 @@ test.config.edit = {
     __tabs: test.__tabs,
     disablePage: () => {
         cy.log('Disable the CMS page');
-        cy.get(test.__fields.page_is_active._)
+        cy.getBySel('input-page-is-active')
             .select('Disabled');
     },
     resetStores: () => {
         cy.log('Restore the default store to the CMS page');
-        cy.get(test.__fields.page_store_id._)
+        cy.getBySel('input-page-store-id')
             .select([1, 2, 3]);
     },
 }

@@ -57,8 +57,12 @@ class Varien_Data_Form_Element_Multiselect extends Varien_Data_Form_Element_Abst
             $html .= '/>';
         }
 
-        $html .= '<select id="' . $this->getHtmlId() . '" name="' . $this->getName() . '" '
-            . $this->serialize($this->getHtmlAttributes()) . ' multiple="multiple">' . "\n";
+        $html .= '<select id="' . $this->getHtmlId()
+            . '" name="' . $this->getName()
+            . '" ' . $this->serialize($this->getHtmlAttributes())
+            . ' data-test="' . $this->getDataTestId() . '"'
+            . ' multiple="multiple">'
+            . "\n";
 
         $value = $this->getValue();
         if (!is_array($value)) {

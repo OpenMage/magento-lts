@@ -47,7 +47,7 @@ cy.openmage.validation = {
             cy.log('Removing validation classes from fields');
             Object.keys(fixture).forEach(field => {
                 cy
-                    .get(fixture[field]._)
+                    .getBySel(fixture[field]._)
                     .invoke('removeClass');
             });
         },
