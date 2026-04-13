@@ -1,16 +1,16 @@
 {
     "default": {
         "code" : {
-            "_": "#code"
+            "_": "input-code"
         },
         "name" : {
-            "_": "#name"
+            "_": "input-name"
         },
         "htmlValue" : {
-            "_": "#html_value"
+            "_": "input-html-value"
         },
         "plainValue" : {
-            "_": "#plain_value"
+            "_": "input-plain-value"
         }
     }
 }

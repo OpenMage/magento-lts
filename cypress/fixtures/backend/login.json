@@ -1,21 +1,21 @@
 {
     "validUser": {
         "username": {
-            "_": "#username",
+            "_": "input-login-username",
             "value": "admin"
         },
         "password": {
-            "_": "#login",
+            "_": "input-login-password",
             "value": "veryl0ngpassw0rd"
         }
     },
     "invalidUser": {
         "username": {
-            "_": "#username",
+            "_": "input-login-username",
             "value": "abc"
         },
         "password": {
-            "_": "#login",
+            "_": "input-login-password",
             "value": "123"
         }
     }

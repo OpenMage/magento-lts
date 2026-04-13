@@ -12,8 +12,8 @@ cy.openmage.admin = {
             cy.visit('/admin');
 
             let data = fixture.validUser;
-            cy.get(data.username._).clear().type(data.username.value).should('have.value', data.username.value);
-            cy.get(data.password._).clear().type(data.password.value).should('have.value', data.password.value);
+            cy.getBySel(data.username._).clear().type(data.username.value).should('have.value', data.username.value);
+            cy.getBySel(data.password._).clear().type(data.password.value).should('have.value', data.password.value);
             cy.get(cy.openmage.admin._submit._).click();
 
             cy.log('Checking for successful login');

@@ -1,13 +1,13 @@
 {
     "default": {
         "sitemapFilename" : {
-            "_": "#sitemap_filename"
+            "_": "input-sitemap-filename"
         },
         "sitemapPath" : {
-            "_": "#sitemap_path"
+            "_": "input-sitemap-path"
         },
         "pageStoreId" : {
-            "_": "#store_id"
+            "_": "input-store-id"
         }
     }
 }
