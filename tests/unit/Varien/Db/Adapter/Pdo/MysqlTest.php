@@ -168,11 +168,9 @@ final class MysqlTest extends TestCase
     {
         // In PHP < 8.5, PDO\MYSQL class should not exist
         // In PHP >= 8.5, PDO\MYSQL class may exist
-        $pdoMysqlClassExists = class_exists(Mysql::class);
-
-        if ($pdoMysqlClassExists) {
+        if (class_exists(Mysql::class)) {
             // If the new namespace exists, verify we can access the constant
-            self::assertTrue(defined('Pdo\\Mysql::ATTR_USE_BUFFERED_QUERY'));
+            self::assertTrue(defined(Mysql::class . 'ATTR_USE_BUFFERED_QUERY'));
         } else {
             // If the new namespace doesn't exist, verify the old constant is available
             self::assertTrue(defined('PDO::MYSQL_ATTR_USE_BUFFERED_QUERY'));
