@@ -405,7 +405,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
             $this->_connection->setAttribute(PDO::ATTR_EMULATE_PREPARES, true);
             // PHP 8.5 compatibility: Check for the new Pdo\Mysql namespace
             // In PHP 8.5+, MySQL-specific constants may be moved to the Pdo\Mysql namespace
-            if (class_exists('Pdo\\Mysql')) {
+            if (class_exists(Mysql::class)) {
                 $this->_connection->setAttribute(Mysql::ATTR_USE_BUFFERED_QUERY, true);
             } else {
                 $this->_connection->setAttribute(PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, true);
