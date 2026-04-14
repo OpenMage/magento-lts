@@ -44,6 +44,7 @@ class Mage_Widget_Model_Widget_Config extends Varien_Object
         foreach ($files as $file) {
             $result[$file] = Mage::getDesign()->getSkinUrl('images/widget/' . $file);
         }
+
         return $result;
     }
 
