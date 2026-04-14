@@ -23,9 +23,12 @@ class Mage_Adminhtml_Block_Report_Sales_Coupons_Grid extends Mage_Adminhtml_Bloc
         $this->setCountSubTotals();
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getResourceCollectionName()
     {
-        if (($this->getFilterData()->getDataByKey('report_type') == 'updated_at_order')) {
+        if (($this->getFilterData()->getDataByKey('report_type') === 'updated_at_order')) {
             return 'salesrule/report_updatedat_collection';
         }
 
