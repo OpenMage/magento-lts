@@ -209,6 +209,7 @@ class Mage_Widget_Model_Widget extends Varien_Object
      * @param  array  $params Pre-configured Widget Params
      * @param  bool   $asIs   Return result as widget directive(true) or as placeholder image(false)
      * @return string Widget directive ready to parse
+     * @throws Exception
      */
     public function getWidgetDeclaration($type, $params = [], $asIs = true)
     {
@@ -239,11 +240,9 @@ class Mage_Widget_Model_Widget extends Varien_Object
 
         $config = Mage::getSingleton('widget/widget_config');
         $imageName = str_replace('/', '__', $type) . '.gif';
-        if (is_file($config->getPlaceholderImagesBaseDir() . DS . $imageName)) {
-            $image = $config->getPlaceholderImagesBaseUrl() . $imageName;
-        } else {
-            $image = $config->getPlaceholderImagesBaseUrl() . 'default.gif';
-        }
+
+        $images = $config->getPlaceholderImages();
+        $image = $images[$imageName] ?? Mage::getDesign()->getSkinUrl('images/widget/default.gif');
 
         return sprintf(
             '<img id="%s" src="%s" title="%s">',
