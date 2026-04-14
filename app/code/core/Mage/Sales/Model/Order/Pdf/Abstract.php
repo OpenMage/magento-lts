@@ -82,12 +82,12 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
      */
     public function widthForStringUsingFontSize($string, $font, $fontSize)
     {
-        $drawingString = '"libiconv"' == ICONV_IMPL
+        $drawingString = '"libiconv"' === ICONV_IMPL
             ? iconv('UTF-8', 'UTF-16BE//IGNORE', $string)
             : @iconv('UTF-8', 'UTF-16BE', $string);
 
         $characters = [];
-        for ($i = 0; $i < strlen($drawingString); $i++) {
+        for ($i = 0, $lenMax = strlen($drawingString); $i < $lenMax; $i++) {
             $characters[] = (ord($drawingString[$i++]) << 8) | ord($drawingString[$i]);
         }
 
