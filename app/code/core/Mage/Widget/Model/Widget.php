@@ -205,10 +205,10 @@ class Mage_Widget_Model_Widget extends Varien_Object
     /**
      * Return widget presentation code in WYSIWYG editor
      *
-     * @param  string $type   Widget Type
-     * @param  array  $params Pre-configured Widget Params
-     * @param  bool   $asIs   Return result as widget directive(true) or as placeholder image(false)
-     * @return string Widget directive ready to parse
+     * @param  string    $type   Widget Type
+     * @param  array     $params Pre-configured Widget Params
+     * @param  bool      $asIs   Return result as widget directive(true) or as placeholder image(false)
+     * @return string    Widget directive ready to parse
      * @throws Exception
      */
     public function getWidgetDeclaration($type, $params = [], $asIs = true)
