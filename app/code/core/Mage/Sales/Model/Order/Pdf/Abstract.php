@@ -257,7 +257,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
      * Insert order to pdf page
      *
      * @param Zend_Pdf_Page          $page
-     * @param Mage_Sales_Model_Order $obj
+     * @param Mage_Sales_Model_Order|Mage_Sales_Model_Order_Shipment $obj
      * @param bool                   $putOrderId
      */
     protected function insertOrder(&$page, $obj, $putOrderId = true)
