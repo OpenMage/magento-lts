@@ -28,7 +28,7 @@ class Mage_Core_Helper_PsrLogger extends Mage_Core_Helper_Abstract implements Lo
 {
     use LoggerTrait;
 
-    public function log($level, string|\Stringable $message, array $context = []): void
+    public function log($level, string|Stringable $message, array $context = []): void
     {
         // unknown log level need to throw an InvalidArgumentException
         $reflectionClass = new ReflectionClass(LogLevel::class);
