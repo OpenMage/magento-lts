@@ -303,13 +303,9 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
     }
 
     /**
-     * Set order to attribute
-     *
-     * @param  string $attribute
-     * @param  string $dir
-     * @return $this
+     * @inheritDoc
      */
-    public function setOrder($attribute, $dir = 'DESC')
+    public function setOrder($attribute, $dir = self::SORT_ORDER_DESC)
     {
         switch ($attribute) {
             case 'rt.review_id':

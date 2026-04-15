@@ -38,14 +38,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Admin/Model/Acl/Role.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Call to deprecated method add() of class Zend_Acl:
-in version 1.9.1 and will be available till 2.0.  New code
-            should use addResource() instead.',
-	'identifier' => 'method.deprecated',
-	'count' => 2,
-	'path' => __DIR__ . '/app/code/core/Mage/Admin/Model/Config.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 1,
@@ -1286,14 +1278,6 @@ $ignoreErrors[] = [
 	'identifier' => 'property.phpDocType',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Api/Model/Acl.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Call to deprecated method add() of class Zend_Acl:
-in version 1.9.1 and will be available till 2.0.  New code
-            should use addResource() instead.',
-	'identifier' => 'method.deprecated',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Api/Model/Config.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',

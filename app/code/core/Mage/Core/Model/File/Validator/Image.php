@@ -22,7 +22,6 @@ class Mage_Core_Model_File_Validator_Image
         IMAGETYPE_GIF,
         IMAGETYPE_JPEG2000,
         IMAGETYPE_PNG,
-        IMAGETYPE_ICO,
         IMAGETYPE_TIFF_II,
         IMAGETYPE_TIFF_MM,
     ];
@@ -43,7 +42,6 @@ class Mage_Core_Model_File_Validator_Image
             'jpeg' => [IMAGETYPE_JPEG, IMAGETYPE_JPEG2000],
             'gif' => [IMAGETYPE_GIF],
             'png' => [IMAGETYPE_PNG],
-            'ico' => [IMAGETYPE_ICO],
             'apng' => [IMAGETYPE_PNG],
         ];
 
@@ -69,76 +67,74 @@ class Mage_Core_Model_File_Validator_Image
      */
     public function validate($filePath)
     {
+        if (str_starts_with($filePath, 'phar://')) {
+            throw Mage::exception('Mage_Core', Mage::helper('core')->__('Invalid image path.'));
+        }
+
         [$imageWidth, $imageHeight, $fileType] = getimagesize($filePath);
-        if ($fileType) {
-            if ($fileType === IMAGETYPE_ICO) {
+        if ($fileType && $this->isImageType($fileType)) {
+            // Config 'general/reprocess_images/active' is deprecated, replacement is the following:
+            $imageQuality = Mage::getStoreConfig('admin/security/reprocess_image_quality');
+            if ($imageQuality != '') {
+                $imageQuality = (int) $imageQuality;
+            } else {
+                // Value not set in backend. For BC, if depcrecated config does not exist, default to 85.
+                $imageQuality = Mage::getStoreConfig('general/reprocess_images/active') === null
+                    ? 85
+                    : (Mage::getStoreConfigFlag('general/reprocess_images/active') ? 85 : 0);
+            }
+
+            if ($imageQuality === 0) {
                 return null;
             }
 
-            if ($this->isImageType($fileType)) {
-                // Config 'general/reprocess_images/active' is deprecated, replacement is the following:
-                $imageQuality = Mage::getStoreConfig('admin/security/reprocess_image_quality');
-                if ($imageQuality != '') {
-                    $imageQuality = (int) $imageQuality;
-                } else {
-                    // Value not set in backend. For BC, if depcrecated config does not exist, default to 85.
-                    $imageQuality = Mage::getStoreConfig('general/reprocess_images/active') === null
-                        ? 85
-                        : (Mage::getStoreConfigFlag('general/reprocess_images/active') ? 85 : 0);
-                }
+            //replace tmp image with re-sampled copy to exclude images with malicious data
+            $image = imagecreatefromstring(file_get_contents($filePath));
+            if ($image !== false) {
+                $img = imagecreatetruecolor($imageWidth, $imageHeight);
+                imagealphablending($img, false);
+                imagecopyresampled($img, $image, 0, 0, 0, 0, $imageWidth, $imageHeight, $imageWidth, $imageHeight);
+                imagesavealpha($img, true);
 
-                if ($imageQuality === 0) {
-                    return null;
-                }
-
-                //replace tmp image with re-sampled copy to exclude images with malicious data
-                $image = imagecreatefromstring(file_get_contents($filePath));
-                if ($image !== false) {
-                    $img = imagecreatetruecolor($imageWidth, $imageHeight);
-                    imagealphablending($img, false);
-                    imagecopyresampled($img, $image, 0, 0, 0, 0, $imageWidth, $imageHeight, $imageWidth, $imageHeight);
-                    imagesavealpha($img, true);
-
-                    switch ($fileType) {
-                        case IMAGETYPE_GIF:
-                            $transparencyIndex = imagecolortransparent($image);
-                            if ($transparencyIndex >= 0) {
-                                imagecolortransparent($img, $transparencyIndex);
-                                for ($height = 0; $height < $imageHeight; ++$height) {
-                                    for ($width = 0; $width < $imageWidth; ++$width) {
-                                        if (((imagecolorat($img, $width, $height) >> 24) & 0x7F)) {
-                                            imagesetpixel($img, $width, $height, $transparencyIndex);
-                                        }
+                switch ($fileType) {
+                    case IMAGETYPE_GIF:
+                        $transparencyIndex = imagecolortransparent($image);
+                        if ($transparencyIndex >= 0) {
+                            imagecolortransparent($img, $transparencyIndex);
+                            for ($height = 0; $height < $imageHeight; ++$height) {
+                                for ($width = 0; $width < $imageWidth; ++$width) {
+                                    if (((imagecolorat($img, $width, $height) >> 24) & 0x7F)) {
+                                        imagesetpixel($img, $width, $height, $transparencyIndex);
                                     }
                                 }
                             }
+                        }
 
-                            if (!imageistruecolor($image)) {
-                                imagetruecolortopalette($img, false, imagecolorstotal($image));
-                            }
+                        if (!imageistruecolor($image)) {
+                            imagetruecolortopalette($img, false, imagecolorstotal($image));
+                        }
 
-                            imagegif($img, $filePath);
-                            break;
-                        case IMAGETYPE_JPEG:
-                            imagejpeg($img, $filePath, $imageQuality);
-                            break;
-                        case IMAGETYPE_WEBP:
-                            imagewebp($img, $filePath, $imageQuality);
-                            break;
-                        case IMAGETYPE_PNG:
-                            imagepng($img, $filePath);
-                            break;
-                        default:
-                            break;
-                    }
-
-                    imagedestroy($img);
-                    imagedestroy($image);
-                    return null;
+                        imagegif($img, $filePath);
+                        break;
+                    case IMAGETYPE_JPEG:
+                        imagejpeg($img, $filePath, $imageQuality);
+                        break;
+                    case IMAGETYPE_WEBP:
+                        imagewebp($img, $filePath, $imageQuality);
+                        break;
+                    case IMAGETYPE_PNG:
+                        imagepng($img, $filePath);
+                        break;
+                    default:
+                        break;
                 }
 
-                throw Mage::exception('Mage_Core', Mage::helper('core')->__('Invalid image.'));
+                imagedestroy($img);
+                imagedestroy($image);
+                return null;
             }
+
+            throw Mage::exception('Mage_Core', Mage::helper('core')->__('Invalid image.'));
         }
 
         throw Mage::exception('Mage_Core', Mage::helper('core')->__('Invalid MIME type.'));

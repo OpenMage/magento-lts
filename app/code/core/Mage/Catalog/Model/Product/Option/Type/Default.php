@@ -242,8 +242,8 @@ class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
     /**
      * Return option html
      *
-     * @param  array        $optionInfo
-     * @return array|string
+     * @param  array<string, mixed>        $optionInfo
+     * @return array<string, mixed>|string
      */
     public function getCustomizedView($optionInfo)
     {

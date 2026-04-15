@@ -302,15 +302,11 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     }
 
     /**
-     * Add select order
-     *
-     * @param  string $field
-     * @param  string $direction
-     * @return $this
+     * @inheritDoc
      */
-    public function setOrder($field, $direction = self::SORT_ORDER_DESC)
+    public function setOrder($field, $dir = self::SORT_ORDER_DESC)
     {
-        return $this->_setOrder($field, $direction);
+        return $this->_setOrder($field, $dir);
     }
 
     /**
@@ -791,7 +787,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
         if ($this->_canUseCache()) {
             $data = $this->_loadCache($select);
             if ($data) {
-                $data = unserialize($data);
+                $data = unserialize($data, ['allowed_classes' => false]);
             } else {
                 $data = $this->getConnection()->fetchAll($select, $this->_bindParams);
                 $this->_saveCache($data, $select);
