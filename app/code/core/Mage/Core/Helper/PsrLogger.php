@@ -38,7 +38,7 @@ class Mage_Core_Helper_PsrLogger extends Mage_Core_Helper_Abstract implements Lo
 
         $logger = Mage::getModel('core/logger');
         if ($logger instanceof Mage_Core_Model_Logger) {
-            $logger->log((string) $message, $level, null, false, $context);
+            $logger->log((string) $message, $level, context: $context);
         }
     }
 }
