@@ -42,7 +42,7 @@ class Mage_Wishlist_Block_Links extends Mage_Page_Block_Template_Links_Block
     /**
      * Define label, title and url for wishlist link
      */
-    #[Deprecated(message: 'after 1.6.2.0')]
+    #[Deprecated(since: '1.6.2.0')]
     public function initLinkProperties()
     {
         $text = $this->_createLabel($this->_getItemCount());
@@ -87,7 +87,7 @@ class Mage_Wishlist_Block_Links extends Mage_Page_Block_Template_Links_Block
      *
      * @see Mage_Wishlist_Block_Links::__construct
      */
-    #[Deprecated(message: 'after 1.4.2.0')]
+    #[Deprecated(since: '1.4.2.0')]
     public function addWishlistLink()
     {
         return $this;

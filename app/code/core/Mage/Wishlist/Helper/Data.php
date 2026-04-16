@@ -132,7 +132,7 @@ class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
      *
      * @return bool
      */
-    #[Deprecated(message: 'after 1.6.0.0')]
+    #[Deprecated(since: '1.6.0.0')]
     public function hasItems()
     {
         return $this->getWishlist()->getItemsCount() > 0;
@@ -192,7 +192,7 @@ class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
      * @return Mage_Wishlist_Model_Resource_Product_Collection
      * @see Mage_Wishlist_Model_Wishlist::getItemCollection()
      */
-    #[Deprecated(message: 'after 1.4.2.0')]
+    #[Deprecated(since: '1.4.2.0')]
     public function getProductCollection()
     {
         if (is_null($this->_productCollection)) {

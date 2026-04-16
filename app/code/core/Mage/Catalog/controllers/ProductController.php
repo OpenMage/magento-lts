@@ -58,7 +58,7 @@ class Mage_Catalog_ProductController extends Mage_Core_Controller_Front_Action
      * @param Mage_Catalog_Model_Category|Mage_Catalog_Model_Product $object
      * @param Mage_Core_Model_Layout_Update                          $update
      */
-    #[Deprecated(message: 'after 1.4.2.0-beta1, functionality moved to Mage_Catalog_Model_Design')]
+    #[Deprecated(message: 'functionality moved to Mage_Catalog_Model_Design', since: '1.4.2.0-beta1')]
     protected function _applyCustomDesignSettings($object, $update)
     {
         if ($object instanceof Mage_Catalog_Model_Category) {

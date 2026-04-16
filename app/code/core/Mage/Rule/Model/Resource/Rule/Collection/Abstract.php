@@ -169,7 +169,7 @@ abstract class Mage_Rule_Model_Resource_Rule_Collection_Abstract extends Mage_Co
      *
      * @return $this
      */
-    #[Deprecated(message: 'after 1.6.2.0')]
+    #[Deprecated(since: '1.6.2.0')]
     public function setEnv(?Mage_Rule_Model_Environment $env = null)
     {
         $this->_env = $env;
@@ -181,7 +181,7 @@ abstract class Mage_Rule_Model_Resource_Rule_Collection_Abstract extends Mage_Co
      *
      * @return Mage_Rule_Model_Environment
      */
-    #[Deprecated(message: 'after 1.6.2.0')]
+    #[Deprecated(since: '1.6.2.0')]
     public function getEnv()
     {
         return $this->_env;
@@ -192,7 +192,7 @@ abstract class Mage_Rule_Model_Resource_Rule_Collection_Abstract extends Mage_Co
      *
      * @return Mage_Rule_Model_Resource_Rule_Collection_Abstract
      */
-    #[Deprecated(message: 'after 1.6.2.0')]
+    #[Deprecated(since: '1.6.2.0')]
     public function setActiveFilter()
     {
         return $this;
@@ -203,7 +203,7 @@ abstract class Mage_Rule_Model_Resource_Rule_Collection_Abstract extends Mage_Co
      *
      * @return Mage_Rule_Model_Resource_Rule_Collection_Abstract
      */
-    #[Deprecated(message: 'after 1.6.2.0')]
+    #[Deprecated(since: '1.6.2.0')]
     public function process()
     {
         return $this;

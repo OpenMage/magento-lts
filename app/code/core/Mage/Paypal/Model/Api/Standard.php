@@ -165,7 +165,7 @@ class Mage_Paypal_Model_Api_Standard extends Mage_Paypal_Model_Api_Abstract
     /**
      * @param array $request
      */
-    #[Deprecated(message: 'after 1.4.1.0')]
+    #[Deprecated(since: '1.4.1.0')]
     public function debugRequest($request) {}
 
     /**

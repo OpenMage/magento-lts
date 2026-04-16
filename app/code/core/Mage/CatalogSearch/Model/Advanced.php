@@ -122,7 +122,7 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
      * @param  array|string                              $value
      * @return mixed
      */
-    #[Deprecated(message: 'after 1.4.1.0 - use Mage_CatalogSearch_Model_Resource_Advanced->_prepareCondition()')]
+    #[Deprecated(message: 'use Mage_CatalogSearch_Model_Resource_Advanced->_prepareCondition()', since: '1.4.1.0')]
     protected function _prepareCondition($attribute, $value)
     {
         return $this->_getResource()->prepareCondition($attribute, $value, $this->getProductCollection());

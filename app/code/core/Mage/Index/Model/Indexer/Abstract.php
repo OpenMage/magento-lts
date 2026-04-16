@@ -153,7 +153,7 @@ abstract class Mage_Index_Model_Indexer_Abstract extends Mage_Core_Model_Abstrac
      * @param  bool                              $value
      * @return Mage_Index_Model_Indexer_Abstract
      */
-    #[Deprecated(message: 'after 1.6.1.0')]
+    #[Deprecated(since: '1.6.1.0')]
     public function setAllowTableChanges($value = true)
     {
         $this->_allowTableChanges = $value;

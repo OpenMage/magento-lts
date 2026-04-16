@@ -37,7 +37,7 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
      * @param  int                                                          $calledFrom
      * @return $this
      */
-    #[Deprecated(message: 'after 1.4.2.0-beta1')]
+    #[Deprecated(since: '1.4.2.0-beta1')]
     public function applyDesign($object, $calledFrom = 0)
     {
         if ($calledFrom != self::APPLY_FOR_CATEGORY && $calledFrom != self::APPLY_FOR_PRODUCT) {
@@ -94,7 +94,7 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
      * @param  int  $pass
      * @return bool
      */
-    #[Deprecated(message: 'after 1.4.1.0')]
+    #[Deprecated(since: '1.4.1.0')]
     protected function _isApplyFor($applyForObject, $applyTo, $pass = 0)
     {
         $hasError = false;
@@ -153,7 +153,7 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
      * @param  string $design
      * @return bool
      */
-    #[Deprecated(message: 'after 1.4.2.0-beta1')]
+    #[Deprecated(since: '1.4.2.0-beta1')]
     protected function _isApplyDesign($design, array $date)
     {
         if (!array_key_exists('from', $date) || !array_key_exists('to', $date)) {
@@ -186,7 +186,7 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
      *
      * @return $this
      */
-    #[Deprecated(message: 'after 1.4.2.0-beta1')]
+    #[Deprecated(since: '1.4.2.0-beta1')]
     protected function _inheritDesign($object, $calledFrom = 0)
     {
         $useParentSettings = false;
@@ -237,7 +237,7 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
      *
      * @return $this
      */
-    #[Deprecated(message: 'after 1.4.1.0')]
+    #[Deprecated(since: '1.4.1.0')]
     protected function _applyDesignRecursively($object, $calledFrom = 0, $pass = 0)
     {
         $design  = $object->getCustomDesign();
@@ -274,7 +274,7 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
      * @param  int                       $pass
      * @return Mage_Catalog_Model_Design
      */
-    #[Deprecated(message: 'after 1.4.2.0-beta1')]
+    #[Deprecated(since: '1.4.2.0-beta1')]
     protected function _applyDesign($designUpdateData, $calledFrom = 0, $loaded = false, $pass = 0)
     {
         $objects = [];

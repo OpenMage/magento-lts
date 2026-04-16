@@ -76,7 +76,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_Info extends Mage_Adminhtml_Bloc
      *
      * @return string
      */
-    #[Deprecated(message: 'after 1.4.2.0, use self::getGiftOptionsHtml() instead')]
+    #[Deprecated(message: 'use self::getGiftOptionsHtml() instead', since: '1.4.2.0')]
     public function getGiftmessageHtml()
     {
         return $this->getChildHtml('order_giftmessage');

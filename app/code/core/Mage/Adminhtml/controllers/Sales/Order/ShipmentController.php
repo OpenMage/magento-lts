@@ -472,7 +472,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
      * @param  array                       $qtys
      * @return bool
      */
-    #[Deprecated(message: 'after 1.4, Mage_Sales_Model_Service_Order used')]
+    #[Deprecated(message: 'Mage_Sales_Model_Service_Order used', since: '1.4')]
     protected function _needToAddDummy($item, $qtys)
     {
         if ($item->getHasChildren()) {

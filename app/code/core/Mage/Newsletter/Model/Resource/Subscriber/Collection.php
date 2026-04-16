@@ -168,7 +168,7 @@ class Mage_Newsletter_Model_Resource_Subscriber_Collection extends Mage_Core_Mod
      * @param  string              $field
      * @return string|Zend_Db_Expr
      */
-    #[Deprecated(message: 'after 1.4.0.0-rc1')]
+    #[Deprecated(since: '1.4.0.0-rc1')]
     public function _getFieldTableAlias($field)
     {
         if (str_starts_with($field, 'customer')) {

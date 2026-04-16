@@ -154,7 +154,7 @@ class Mage_Index_Model_Indexer
      *
      * @return $this
      */
-    #[Deprecated(message: 'after 1.6.1.0')]
+    #[Deprecated(since: '1.6.1.0')]
     public function lockIndexer()
     {
         $this->_lockFlag = true;
@@ -166,7 +166,7 @@ class Mage_Index_Model_Indexer
      *
      * @return $this
      */
-    #[Deprecated(message: 'after 1.6.1.0')]
+    #[Deprecated(since: '1.6.1.0')]
     public function unlockIndexer()
     {
         $this->_lockFlag = false;
@@ -178,7 +178,7 @@ class Mage_Index_Model_Indexer
      *
      * @return bool
      */
-    #[Deprecated(message: 'after 1.6.1.0')]
+    #[Deprecated(since: '1.6.1.0')]
     public function isLocked()
     {
         return $this->_lockFlag;

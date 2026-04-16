@@ -320,7 +320,7 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
      * @see Mage_Catalog_Model_Resource_Abstract::_saveAttributeValue()
      */
     #[Override]
-    #[Deprecated(message: 'after 1.5.1.0')]
+    #[Deprecated(since: '1.5.1.0')]
     protected function _updateAttribute($object, $attribute, $valueId, $value)
     {
         return $this->_saveAttributeValue($object, $attribute, $value);
@@ -476,7 +476,7 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
      * @return array
      * @throws Mage_Core_Exception
      */
-    #[Deprecated(message: 'after 1.5.1.0')]
+    #[Deprecated(since: '1.5.1.0')]
     protected function _collectOrigData($object)
     {
         $this->loadAllAttributes($object);

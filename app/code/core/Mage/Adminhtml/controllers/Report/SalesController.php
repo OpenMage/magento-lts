@@ -96,7 +96,7 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Re
      *
      * @return array<void>
      */
-    #[Deprecated(message: 'after 1.4.0.1')]
+    #[Deprecated(since: '1.4.0.1')]
     protected function _getCollectionNames()
     {
         return [];
@@ -107,7 +107,7 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Re
      *
      * @return $this
      */
-    #[Deprecated(message: 'after 1.4.0.1')]
+    #[Deprecated(since: '1.4.0.1')]
     public function refreshRecentAction()
     {
         return $this->_forward('refreshRecent', 'report_statistics');
@@ -118,7 +118,7 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Re
      *
      * @return $this
      */
-    #[Deprecated(message: 'after 1.4.0.1')]
+    #[Deprecated(since: '1.4.0.1')]
     public function refreshLifetimeAction()
     {
         return $this->_forward('refreshLifetime', 'report_statistics');
@@ -361,7 +361,7 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Re
         $this->_prepareDownloadResponse($fileName, $grid->getExcelFile($fileName));
     }
 
-    #[Deprecated(message: 'after 1.4.0.1')]
+    #[Deprecated(since: '1.4.0.1')]
     public function refreshStatisticsAction()
     {
         return $this->_forward('index', 'report_statistics');

@@ -74,7 +74,7 @@ class Mage_SalesRule_Model_Resource_Report_Rule extends Mage_Reports_Model_Resou
      * @param  null|string $dateTo
      * @return $this
      */
-    #[Deprecated(message: 'after 1.6.0.0-rc2')]
+    #[Deprecated(since: '1.6.0.0-rc2')]
     protected function _aggregateByOrderCreatedAt($dateFrom, $dateTo)
     {
         Mage::getResourceModel('salesrule/report_rule_createdat')->aggregate($dateFrom, $dateTo);

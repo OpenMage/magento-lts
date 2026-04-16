@@ -458,7 +458,7 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
      * @throws Mage_Core_Model_Store_Exception
      * @see Mage_Bundle_Model_Product_Price::getSelectionFinalTotalPrice()
      */
-    #[Deprecated(message: 'after 1.6.2.0')]
+    #[Deprecated(since: '1.6.2.0')]
     public function getSelectionPrice($bundleProduct, $selectionProduct, $selectionQty = null, $multiplyQty = true)
     {
         return $this->getSelectionFinalTotalPrice($bundleProduct, $selectionProduct, 0, $selectionQty, $multiplyQty);
@@ -491,7 +491,7 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
      *
      * @see Mage_Bundle_Model_Product_Price::getSelectionFinalTotalPrice()
      */
-    #[Deprecated(message: 'after 1.5.1.0')]
+    #[Deprecated(since: '1.5.1.0')]
     public function getSelectionFinalPrice(
         $bundleProduct,
         $selectionProduct,

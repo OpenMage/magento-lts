@@ -496,7 +496,7 @@ class Varien_File_Uploader
      * @param  string $extension
      * @return bool
      */
-    #[Deprecated(message: 'after 1.5.0.0-beta2')]
+    #[Deprecated(since: '1.5.0.0-beta2')]
     public function chechAllowedExtension($extension)
     {
         return $this->checkAllowedExtension($extension);

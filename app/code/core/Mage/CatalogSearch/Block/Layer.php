@@ -30,7 +30,7 @@ class Mage_CatalogSearch_Block_Layer extends Mage_Catalog_Block_Layer_View
      * @return string
      */
     #[Override]
-    #[Deprecated(message: 'after 1.4.1.0')]
+    #[Deprecated(since: '1.4.1.0')]
     protected function _getAttributeFilterBlockName()
     {
         return 'catalogsearch/layer_filter_attribute';

@@ -565,7 +565,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      *
      * @return $this
      */
-    #[Deprecated(message: 'after 1.7.0.2')]
+    #[Deprecated(since: '1.7.0.2')]
     protected function _prepareUrlDataObject()
     {
         $objects = [];

@@ -64,7 +64,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Items_Renderer_Default extends Mage_
      *
      * @return string
      */
-    #[Deprecated(message: 'after 1.4.2.0')]
+    #[Deprecated(since: '1.4.2.0')]
     public function getDefaultSender()
     {
         if (!$this->getItem()) {
@@ -83,7 +83,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Items_Renderer_Default extends Mage_
      *
      * @return string
      */
-    #[Deprecated(message: 'after 1.4.2.0')]
+    #[Deprecated(since: '1.4.2.0')]
     public function getDefaultRecipient()
     {
         if (!$this->getItem()) {
@@ -117,7 +117,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Items_Renderer_Default extends Mage_
      * @param  string $name
      * @return string
      */
-    #[Deprecated(message: 'after 1.4.2.0')]
+    #[Deprecated(since: '1.4.2.0')]
     public function getFieldName($name)
     {
         return 'giftmessage[' . $this->getItem()->getId() . '][' . $name . ']';
@@ -128,7 +128,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Items_Renderer_Default extends Mage_
      *
      * @return $this
      */
-    #[Deprecated(message: 'after 1.4.2.0')]
+    #[Deprecated(since: '1.4.2.0')]
     protected function _initMessage()
     {
         /** @var Mage_GiftMessage_Helper_Message $helper */
@@ -154,7 +154,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Items_Renderer_Default extends Mage_
      *
      * @return Mage_GiftMessage_Model_Message
      */
-    #[Deprecated(message: 'after 1.4.2.0')]
+    #[Deprecated(since: '1.4.2.0')]
     public function getMessage()
     {
         if (!isset($this->_giftMessage[$this->getItem()->getGiftMessageId()])) {
@@ -169,7 +169,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Items_Renderer_Default extends Mage_
      *
      * @return string
      */
-    #[Deprecated(message: 'after 1.4.2.0')]
+    #[Deprecated(since: '1.4.2.0')]
     public function getSaveUrl()
     {
         return $this->getUrl('*/sales_order_view_giftmessage/save', [
@@ -184,7 +184,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Items_Renderer_Default extends Mage_
      *
      * @return string
      */
-    #[Deprecated(message: 'after 1.4.2.0')]
+    #[Deprecated(since: '1.4.2.0')]
     public function getHtmlId()
     {
         return substr($this->getFieldIdPrefix(), 0, -1);

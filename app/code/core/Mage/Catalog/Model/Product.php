@@ -1860,7 +1860,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     /**
      * @return $this
      */
-    #[Deprecated(message: 'after 1.4.2.0')]
+    #[Deprecated(since: '1.4.2.0')]
     public function loadParentProductIds()
     {
         return $this->setParentProductIds([]);

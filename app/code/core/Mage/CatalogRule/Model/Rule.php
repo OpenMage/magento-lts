@@ -450,7 +450,7 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
      * @return string
      */
     #[Override]
-    #[Deprecated(message: 'after 1.11.2.0')]
+    #[Deprecated(since: '1.11.2.0')]
     public function toString($format = '')
     {
         return '';
@@ -471,7 +471,7 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
      * @return array
      */
     #[Override]
-    #[Deprecated(message: 'after 1.11.2.0')]
+    #[Deprecated(since: '1.11.2.0')]
     public function toArray(array $arrAttributes = [])
     {
         return parent::toArray($arrAttributes);

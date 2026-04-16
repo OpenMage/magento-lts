@@ -55,7 +55,7 @@ class Mage_Sales_OrderController extends Mage_Sales_Controller_Abstract
      * @param  array $order
      * @return bool
      */
-    #[Deprecated(message: 'after 1.6.0.0')]
+    #[Deprecated(since: '1.6.0.0')]
     protected function _canViewOscommerceOrder($order)
     {
         return false;
@@ -64,7 +64,7 @@ class Mage_Sales_OrderController extends Mage_Sales_Controller_Abstract
     /**
      * osCommerce Order view page
      */
-    #[Deprecated(message: 'after 1.6.0.0')]
+    #[Deprecated(since: '1.6.0.0')]
     public function viewOldAction()
     {
         $this->_forward('noRoute');

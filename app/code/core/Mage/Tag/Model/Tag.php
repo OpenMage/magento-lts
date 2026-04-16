@@ -224,7 +224,7 @@ class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
      * @param  int   $storeId
      * @return $this
      */
-    #[Deprecated(message: 'after 1.4.0.0')]
+    #[Deprecated(since: '1.4.0.0')]
     public function addSummary($storeId)
     {
         $this->setStoreId($storeId);

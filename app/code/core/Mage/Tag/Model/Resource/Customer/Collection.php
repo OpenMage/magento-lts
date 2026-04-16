@@ -56,7 +56,7 @@ class Mage_Tag_Model_Resource_Customer_Collection extends Mage_Customer_Model_Re
      * @param  string $table
      * @return $this
      */
-    #[Deprecated(message: 'after 1.3.2.3')]
+    #[Deprecated(since: '1.3.2.3')]
     public function setJoinFlag($table)
     {
         $this->setFlag($table, true);
@@ -70,7 +70,7 @@ class Mage_Tag_Model_Resource_Customer_Collection extends Mage_Customer_Model_Re
      * @param  string $table
      * @return bool
      */
-    #[Deprecated(message: 'after 1.3.2.3')]
+    #[Deprecated(since: '1.3.2.3')]
     public function getJoinFlag($table)
     {
         return $this->getFlag($table);
@@ -83,7 +83,7 @@ class Mage_Tag_Model_Resource_Customer_Collection extends Mage_Customer_Model_Re
      * @param  string $table
      * @return $this
      */
-    #[Deprecated(message: 'after 1.3.2.3')]
+    #[Deprecated(since: '1.3.2.3')]
     public function unsetJoinFlag($table = null)
     {
         $this->setFlag($table, false);

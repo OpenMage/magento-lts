@@ -65,7 +65,7 @@ class Mage_Wishlist_Block_Customer_Wishlist extends Mage_Wishlist_Block_Abstract
      * @param  null|array $optionCfg
      * @return $this
      */
-    #[Deprecated(message: 'after 1.6.2.0')]
+    #[Deprecated(since: '1.6.2.0')]
     public function setOptionsRenderCfgs($optionCfg)
     {
         $this->_optionsCfg = $optionCfg;
@@ -77,7 +77,7 @@ class Mage_Wishlist_Block_Customer_Wishlist extends Mage_Wishlist_Block_Abstract
      *
      * @return array
      */
-    #[Deprecated(message: 'after 1.6.2.0')]
+    #[Deprecated(since: '1.6.2.0')]
     public function getOptionsRenderCfgs()
     {
         return $this->_optionsCfg;
@@ -91,7 +91,7 @@ class Mage_Wishlist_Block_Customer_Wishlist extends Mage_Wishlist_Block_Abstract
      * @param  null|string $template
      * @return $this
      */
-    #[Deprecated(message: 'after 1.6.2.0')]
+    #[Deprecated(since: '1.6.2.0')]
     public function addOptionsRenderCfg($productType, $helperName, $template = null)
     {
         $this->_optionsCfg[$productType] = ['helper' => $helperName, 'template' => $template];
@@ -104,7 +104,7 @@ class Mage_Wishlist_Block_Customer_Wishlist extends Mage_Wishlist_Block_Abstract
      * @param  string     $productType
      * @return null|array
      */
-    #[Deprecated(message: 'after 1.6.2.0')]
+    #[Deprecated(since: '1.6.2.0')]
     public function getOptionsRenderCfg($productType)
     {
         return $this->_optionsCfg[$productType] ?? $this->_optionsCfg['default'] ?? null;
@@ -115,7 +115,7 @@ class Mage_Wishlist_Block_Customer_Wishlist extends Mage_Wishlist_Block_Abstract
      *
      * @return string
      */
-    #[Deprecated(message: 'after 1.6.2.0')]
+    #[Deprecated(since: '1.6.2.0')]
     public function getDetailsHtml(Mage_Wishlist_Model_Item $item)
     {
         $cfg = $this->getOptionsRenderCfg($item->getProduct()->getTypeId());
@@ -154,7 +154,7 @@ class Mage_Wishlist_Block_Customer_Wishlist extends Mage_Wishlist_Block_Abstract
      *
      * @return float
      */
-    #[Deprecated(message: 'after 1.6.2.0')]
+    #[Deprecated(since: '1.6.2.0')]
     public function getAddToCartQty(Mage_Wishlist_Model_Item $item)
     {
         $qty = $this->getQty($item);
