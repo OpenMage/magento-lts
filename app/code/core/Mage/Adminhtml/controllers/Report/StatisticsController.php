@@ -79,8 +79,8 @@ class Mage_Adminhtml_Report_StatisticsController extends Mage_Adminhtml_Controll
      *
      * @return array
      * @throws Exception
-     * @deprecated after 1.4.0.1
      */
+    #[Deprecated(message: 'after 1.4.0.1')]
     protected function _getCollectionNames()
     {
         $codes = $this->getRequest()->getParam('code');

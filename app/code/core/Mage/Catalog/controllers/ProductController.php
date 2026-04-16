@@ -57,8 +57,8 @@ class Mage_Catalog_ProductController extends Mage_Core_Controller_Front_Action
      *
      * @param Mage_Catalog_Model_Category|Mage_Catalog_Model_Product $object
      * @param Mage_Core_Model_Layout_Update                          $update
-     * @deprecated after 1.4.2.0-beta1, functionality moved to Mage_Catalog_Model_Design
      */
+    #[Deprecated(message: 'after 1.4.2.0-beta1, functionality moved to Mage_Catalog_Model_Design')]
     protected function _applyCustomDesignSettings($object, $update)
     {
         if ($object instanceof Mage_Catalog_Model_Category) {
@@ -155,9 +155,8 @@ class Mage_Catalog_ProductController extends Mage_Core_Controller_Front_Action
 
     /**
      * Display product image action
-     *
-     * @deprecated
      */
+    #[Deprecated]
     public function imageAction()
     {
         /*

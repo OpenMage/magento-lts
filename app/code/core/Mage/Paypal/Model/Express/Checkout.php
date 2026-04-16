@@ -231,8 +231,8 @@ class Mage_Paypal_Model_Express_Checkout
      *
      * @param  int   $id
      * @return $this
-     * @deprecated please use self::setCustomer
      */
+    #[Deprecated(message: 'please use self::setCustomer')]
     public function setCustomerId($id)
     {
         $this->_customerId = $id;

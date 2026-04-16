@@ -29,9 +29,9 @@ function destruct($object)
  * Translator function
  *
  * @return string
- * @deprecated 1.3
  * @SuppressWarnings("PHPMD.ShortMethodName")
  */
+#[Deprecated(message: '1.3')]
 function __()
 {
     return Mage::app()->getTranslator()->translate(func_get_args());
@@ -57,9 +57,9 @@ function uc_words($str, $destSep = '_', $srcSep = '_')
  *
  * @param  bool   $dayOnly
  * @return string
- * @deprecated use equivalent Varien method directly
  * @see Varien_Date::now()
  */
+#[Deprecated(message: 'use equivalent Varien method directly')]
 function now($dayOnly = false)
 {
     return Varien_Date::now($dayOnly);
@@ -296,14 +296,16 @@ function isDirWriteable($dir)
 /**
  * @param  string $dir
  * @return bool
- * @deprecated avoid php_codesniffer error
- *
- *     An error occurred during processing; checking has been aborted. The error message was: Undefined index: ^is_dir/i_writeab in
- *     /var/www/html/vendor/squizlabs/php_codesniffer/src/Standards/Generic/Sniffs/PHP/ForbiddenFunctionsSniff.php on line 228
- *     The error originated in the Generic.PHP.ForbiddenFunctions sniff on line 228. (Internal.Exception)
  *
  * @see isDirWriteable()
  */
+#[Deprecated(message: <<<'TXT'
+avoid php_codesniffer error
+ 
+     An error occurred during processing; checking has been aborted. The error message was: Undefined index: ^is_dir/i_writeab in
+     /var/www/html/vendor/squizlabs/php_codesniffer/src/Standards/Generic/Sniffs/PHP/ForbiddenFunctionsSniff.php on line 228
+     The error originated in the Generic.PHP.ForbiddenFunctions sniff on line 228. (Internal.Exception)
+TXT)]
 function is_dir_writeable($dir)
 {
     return isDirWriteable($dir);

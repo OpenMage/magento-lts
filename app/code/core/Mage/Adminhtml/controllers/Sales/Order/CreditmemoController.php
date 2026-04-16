@@ -413,8 +413,8 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
      * @param  Mage_Sales_Model_Order_Item $item
      * @param  array                       $qtys
      * @return bool
-     * @deprecated after 1.4, Mage_Sales_Model_Service_Order used
      */
+    #[Deprecated(message: 'after 1.4, Mage_Sales_Model_Service_Order used')]
     protected function _needToAddDummy($item, $qtys)
     {
         if ($item->getHasChildren()) {

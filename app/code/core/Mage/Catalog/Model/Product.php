@@ -1859,8 +1859,8 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
 
     /**
      * @return $this
-     * @deprecated after 1.4.2.0
      */
+    #[Deprecated(message: 'after 1.4.2.0')]
     public function loadParentProductIds()
     {
         return $this->setParentProductIds([]);
@@ -2135,8 +2135,8 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      * Return re-sized image URL
      *
      * @return string
-     * @deprecated since 1.1.5
      */
+    #[Deprecated(message: 'since 1.1.5')]
     public function getImageUrl()
     {
         return (string) $this->_getImageHelper()->init($this, 'image')->resize(265);
@@ -2148,8 +2148,8 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      * @param  int    $width
      * @param  int    $height
      * @return string
-     * @deprecated since 1.1.5
      */
+    #[Deprecated(message: 'since 1.1.5')]
     public function getSmallImageUrl($width = 88, $height = 77)
     {
         return (string) $this->_getImageHelper()->init($this, 'small_image')->resize($width, $height);
@@ -2161,8 +2161,8 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      * @param  int    $width
      * @param  int    $height
      * @return string
-     * @deprecated since 1.1.5
      */
+    #[Deprecated(message: 'since 1.1.5')]
     public function getThumbnailUrl($width = 75, $height = 75)
     {
         return (string) $this->_getImageHelper()->init($this, 'thumbnail')->resize($width, $height);

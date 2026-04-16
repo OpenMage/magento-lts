@@ -480,8 +480,8 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
 
     /**
      * @throws Mage_Core_Exception
-     * @deprecated since 1.2
      */
+    #[Deprecated(message: 'since 1.2')]
     public function bundlesAction()
     {
         $product = $this->_initProduct();
@@ -839,9 +839,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
         }
     }
 
-    /**
-     * @deprecated since 1.4.0.0-alpha2
-     */
+    #[Deprecated(message: 'since 1.4.0.0-alpha2')]
     protected function _decodeInput($encoded)
     {
         parse_str($encoded, $data);
@@ -903,8 +901,8 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
 
     /**
      * @return $this
-     * @deprecated since 1.5.0.0
      */
+    #[Deprecated(message: 'since 1.5.0.0')]
     public function addCustomersToAlertQueueAction()
     {
         return $this;

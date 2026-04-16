@@ -529,8 +529,8 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      *
      * @param  string $value
      * @return string
-     * @deprecated after 1.4.2.0
      */
+    #[Deprecated(message: 'after 1.4.2.0')]
     public function processSubst($value)
     {
         if (!is_string($value)) {
@@ -777,8 +777,8 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      * Check if request was secure
      *
      * @return bool
-     * @deprecated
      */
+    #[Deprecated]
     public function isCurrentlySecure()
     {
         return Mage::app()->isCurrentlySecure();

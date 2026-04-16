@@ -152,9 +152,7 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
         return $this->_allSeries;
     }
 
-    /**
-     * @deprecated
-     */
+    #[Deprecated]
     public function getChartUrl($directUrl = true)
     {
         return '';

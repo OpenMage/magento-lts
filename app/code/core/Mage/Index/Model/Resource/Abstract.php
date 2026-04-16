@@ -109,8 +109,8 @@ abstract class Mage_Index_Model_Resource_Abstract extends Mage_Core_Model_Resour
      *
      * @param  bool                               $asOriginal
      * @return Mage_Index_Model_Resource_Abstract
-     * @deprecated since 1.5.0.0
      */
+    #[Deprecated(message: 'since 1.5.0.0')]
     public function cloneIndexTable($asOriginal = false)
     {
         return $this;
@@ -229,8 +229,8 @@ abstract class Mage_Index_Model_Resource_Abstract extends Mage_Core_Model_Resour
      *
      * @param  bool                               $value
      * @return Mage_Index_Model_Resource_Abstract
-     * @deprecated after 1.6.1.0
      */
+    #[Deprecated(message: 'after 1.6.1.0')]
     public function setAllowTableChanges($value = true)
     {
         $this->_allowTableChanges = $value;

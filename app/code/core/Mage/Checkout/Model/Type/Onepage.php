@@ -448,8 +448,8 @@ class Mage_Checkout_Model_Type_Onepage
      * Will return either true or array with error messages
      *
      * @return array|true
-     * @deprecated since 1.4.0.1
      */
+    #[Deprecated(message: 'since 1.4.0.1')]
     protected function _processValidateCustomer(Mage_Sales_Model_Quote_Address $address)
     {
         // set customer date of birth for further usage
@@ -881,8 +881,8 @@ class Mage_Checkout_Model_Type_Onepage
      * Validate quote state to be able submitted from one page checkout page
      *
      * @throws Mage_Core_Exception
-     * @deprecated after 1.4 - service model doing quote validation
      */
+    #[Deprecated(message: 'after 1.4 - service model doing quote validation')]
     protected function validateOrder()
     {
         if ($this->getQuote()->getIsMultiShipping()) {

@@ -126,9 +126,9 @@ class Mage_Directory_Helper_Data extends Mage_Core_Helper_Abstract
      * @return string
      * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
-     * @deprecated after 1.7.0.2
      * @see Mage_Directory_Helper_Data::getRegionJsonByStore()
      */
+    #[Deprecated(message: 'after 1.7.0.2')]
     public function getRegionJson()
     {
         return $this->getRegionJsonByStore();

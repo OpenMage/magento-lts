@@ -1655,8 +1655,8 @@ class Mage_Core_Model_App
      * Retrieve application installation flag
      *
      * @return bool
-     * @deprecated since 1.2
      */
+    #[Deprecated(message: 'since 1.2')]
     public function isInstalled()
     {
         return Mage::isInstalled();
@@ -1667,8 +1667,8 @@ class Mage_Core_Model_App
      *
      * @param  array $tags
      * @return array
-     * @deprecated after 1.4.0.0-alpha3, functionality implemented in Mage_Core_Model_Cache
      */
+    #[Deprecated(message: 'after 1.4.0.0-alpha3, functionality implemented in Mage_Core_Model_Cache')]
     protected function _getCacheTags($tags = [])
     {
         foreach ($tags as $index => $value) {
@@ -1682,8 +1682,8 @@ class Mage_Core_Model_App
      * Get file name with cache configuration settings
      *
      * @return string
-     * @deprecated after 1.4.0.0-alpha3, functionality implemented in Mage_Core_Model_Cache
      */
+    #[Deprecated(message: 'after 1.4.0.0-alpha3, functionality implemented in Mage_Core_Model_Cache')]
     public function getUseCacheFilename()
     {
         return $this->_config->getOptions()->getEtcDir() . DS . 'use_cache.ser';
@@ -1694,8 +1694,8 @@ class Mage_Core_Model_App
      *
      * @param  string $cacheId
      * @return string
-     * @deprecated after 1.4.0.0-alpha3, functionality implemented in Mage_Core_Model_Cache
      */
+    #[Deprecated(message: 'after 1.4.0.0-alpha3, functionality implemented in Mage_Core_Model_Cache')]
     protected function _getCacheId($cacheId = null)
     {
         if ($cacheId) {
@@ -1710,8 +1710,8 @@ class Mage_Core_Model_App
      *
      * @param  string $cacheId
      * @return string
-     * @deprecated after 1.4.0.0-alpha3, functionality implemented in Mage_Core_Model_Cache
      */
+    #[Deprecated(message: 'after 1.4.0.0-alpha3, functionality implemented in Mage_Core_Model_Cache')]
     public function prepareCacheId($cacheId)
     {
         $cacheId = strtoupper($cacheId);

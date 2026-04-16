@@ -844,8 +844,8 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      * @param  string                           $schemaName
      * @return bool|Zend_Db_Statement_Interface
      * @throws Throwable
-     *@deprecated since 1.4.0.1
      */
+    #[Deprecated(message: 'since 1.4.0.1')]
     public function dropKey($tableName, $keyName, $schemaName = null)
     {
         return $this->dropIndex($tableName, $keyName, $schemaName);
@@ -911,8 +911,8 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      * @param  bool                                                       $purge
      * @return PDOStatement|Zend_Db_Statement|Zend_Db_Statement_Interface
      * @throws Throwable
-     * @deprecated since 1.4.0.1
      */
+    #[Deprecated(message: 'since 1.4.0.1')]
     public function addConstraint(
         $fkName,
         $tableName,
@@ -1164,8 +1164,8 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      * @param  string               $schemaName
      * @return array
      * @throws Zend_Cache_Exception
-     * @deprecated use getIndexList()
      */
+    #[Deprecated(message: 'use getIndexList()')]
     public function getKeyList($tableName, $schemaName = null)
     {
         $keyList   = [];
@@ -1438,8 +1438,8 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      * @param  string                      $schemaName
      * @return Zend_Db_Statement_Interface
      * @throws Zend_Db_Exception
-     * @deprecated since 1.5.0.0
      */
+    #[Deprecated(message: 'since 1.5.0.0')]
     public function addKey($tableName, $indexName, $fields, $indexType = 'index', $schemaName = null)
     {
         return $this->addIndex($tableName, $indexName, $fields, $indexType, $schemaName);
@@ -2028,8 +2028,8 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      * @param  string $tableName
      * @param  string $schemaName
      * @return $this
-     * @deprecated since 1.4.0.1
      */
+    #[Deprecated(message: 'since 1.4.0.1')]
     public function truncate($tableName, $schemaName = null)
     {
         return $this->truncateTable($tableName, $schemaName);
@@ -4155,8 +4155,8 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      * or specific date supported by all RDBMS.
      *
      * @return string
-     * @deprecated after 1.5.1.0
      */
+    #[Deprecated(message: 'after 1.5.1.0')]
     public function getSuggestedZeroDate()
     {
         return '0000-00-00 00:00:00';
@@ -4167,8 +4167,8 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      *
      * @param  string $fkName
      * @return string
-     * @deprecated after 1.6.0.0
      */
+    #[Deprecated(message: 'after 1.6.0.0')]
     protected function _getForeignKeyName($fkName)
     {
         if (!str_starts_with($fkName, 'FK_')) {

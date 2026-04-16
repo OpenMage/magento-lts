@@ -245,9 +245,7 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
         return $this->_attributes[$code];
     }
 
-    /**
-     * @deprecated not used anymore
-     */
+    #[Deprecated(message: 'not used anymore')]
     public function parse()
     {
         $data            = $this->getData();

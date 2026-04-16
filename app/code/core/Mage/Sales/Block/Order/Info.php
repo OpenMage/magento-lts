@@ -127,8 +127,8 @@ class Mage_Sales_Block_Order_Info extends Mage_Core_Block_Template
      *
      * @param  Mage_Sales_Model_Order $order
      * @return string
-     * @deprecated after 1.6.0.0, logic moved to new block
      */
+    #[Deprecated(message: 'after 1.6.0.0, logic moved to new block')]
     public function getReorderUrl($order)
     {
         if (!Mage::getSingleton('customer/session')->isLoggedIn()) {
@@ -143,8 +143,8 @@ class Mage_Sales_Block_Order_Info extends Mage_Core_Block_Template
      *
      * @param  Mage_Sales_Model_Order $order
      * @return string
-     * @deprecated after 1.6.0.0, logic moved to new block
      */
+    #[Deprecated(message: 'after 1.6.0.0, logic moved to new block')]
     public function getPrintUrl($order)
     {
         if (!Mage::getSingleton('customer/session')->isLoggedIn()) {

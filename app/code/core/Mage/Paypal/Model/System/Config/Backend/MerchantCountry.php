@@ -16,9 +16,9 @@ class Mage_Paypal_Model_System_Config_Backend_MerchantCountry extends Mage_Core_
 {
     /**
      * Config path to default country
-     * @deprecated since 1.4.1.0
      * @var string
      */
+    #[Deprecated(message: 'since 1.4.1.0')]
     public const XML_PATH_COUNTRY_DEFAULT = 'general/country/default';
 
     /**

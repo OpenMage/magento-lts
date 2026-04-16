@@ -513,10 +513,12 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
      * @param  string $fieldName
      * @param  array  $fieldProp
      * @return string
-     * @deprecated since 1.5.0.0
-     *
-     * Example: `field_name` smallint(5) unsigned NOT NULL default '0'
      */
+    #[Deprecated(message: <<<'TXT'
+    since 1.5.0.0
+     
+     Example: `field_name` smallint(5) unsigned NOT NULL default '0'
+    TXT)]
     protected function _sqlColunmDefinition($fieldName, $fieldProp)
     {
         $fieldNameQuote = $this->_getWriteAdapter()->quoteIdentifier($fieldName);
@@ -545,10 +547,12 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
      * @param  string $indexName
      * @param  array  $indexProp
      * @return string
-     * @deprecated since 1.5.0.0
-     *
-     * Example: INDEX `IDX_NAME` (`field_id`)
      */
+    #[Deprecated(message: <<<'TXT'
+    since 1.5.0.0
+     
+     Example: INDEX `IDX_NAME` (`field_id`)
+    TXT)]
     protected function _sqlIndexDefinition($indexName, $indexProp)
     {
         $fields = $indexProp['fields'];

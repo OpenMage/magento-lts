@@ -93,8 +93,8 @@ class Mage_Eav_Model_Config
      * Reset object state
      *
      * @return $this
-     * @deprecated
      */
+    #[Deprecated]
     public function clear()
     {
         $this->_storeInitialized = [];
@@ -634,9 +634,11 @@ class Mage_Eav_Model_Config
      * @param  mixed $entityType
      * @param  array $attributes
      * @return $this
-     * @deprecated No longer required to preload only collection attributes explicitly
-     * Prepare attributes for usage in EAV collection
      */
+    #[Deprecated(message: <<<'TXT'
+    No longer required to preload only collection attributes explicitly
+     Prepare attributes for usage in EAV collection
+    TXT)]
     public function loadCollectionAttributes($entityType, $attributes)
     {
         return $this;
@@ -645,8 +647,8 @@ class Mage_Eav_Model_Config
     /**
      * @param  Mage_Eav_Model_Entity_Type|string $entityType
      * @return $this
-     * @deprecated No longer required. All attribute data is cached on-access.
      */
+    #[Deprecated(message: 'No longer required. All attribute data is cached on-access.')]
     public function importAttributesData($entityType, array $attributes)
     {
         return $this;

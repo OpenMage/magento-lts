@@ -764,8 +764,8 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
      *
      * @param  Mage_Catalog_Model_Resource_Product_Collection $collection
      * @return Mage_CatalogIndex_Model_Indexer
-     * @deprecated
      */
+    #[Deprecated]
     protected function _addFilterableAttributesToCollection($collection)
     {
         $attributeCodes = $this->_getIndexableAttributeCodes();

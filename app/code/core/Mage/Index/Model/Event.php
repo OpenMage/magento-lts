@@ -231,8 +231,8 @@ class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
      *
      * @param  bool        $useNamespace
      * @return array<void>
-     * @deprecated since 1.6.2.0
      */
+    #[Deprecated(message: 'since 1.6.2.0')]
     public function getOldData($useNamespace = true)
     {
         return [];
@@ -266,8 +266,8 @@ class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
      * @param  array|string $key
      * @param  null|mixed   $value
      * @return $this
-     * @deprecated since 1.6.2.0
      */
+    #[Deprecated(message: 'since 1.6.2.0')]
     public function addOldData($key, $value = null)
     {
         return $this;

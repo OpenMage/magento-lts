@@ -18,8 +18,8 @@ class Mage_Reports_Model_Resource_Tag_Collection extends Mage_Tag_Model_Resource
      * Add group by tag
      *
      * @return $this
-     * @deprecated after 1.4.0.1
      */
+    #[Deprecated(message: 'after 1.4.0.1')]
     public function addGroupByTag()
     {
         return $this;

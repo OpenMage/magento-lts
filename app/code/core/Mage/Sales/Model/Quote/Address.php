@@ -1109,8 +1109,8 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
      *
      * @return array
      * @throws Mage_Core_Exception
-     * @deprecated
      */
+    #[Deprecated]
     public function getTotalModels()
     {
         return $this->getTotalCollector()->getRetrievers();

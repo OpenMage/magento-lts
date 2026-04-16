@@ -511,8 +511,8 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
      * @param string $serializedString
      *
      * @return array
-     * @deprecated after 1.6.2.0 use Mage_SalesRule_Model_Resource_Rule::getProductAttributes() instead
      */
+    #[Deprecated(message: 'after 1.6.2.0 use Mage_SalesRule_Model_Resource_Rule::getProductAttributes() instead')]
     protected function _getUsedAttributes($serializedString)
     {
         return $this->_getResource()->getProductAttributes($serializedString);
@@ -522,9 +522,9 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
      * @param string $format
      *
      * @return string
-     * @deprecated after 1.6.2.0
      */
     #[Override]
+    #[Deprecated(message: 'after 1.6.2.0')]
     public function toString($format = '')
     {
         return '';
@@ -543,9 +543,9 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
      * )
      *
      * @return array
-     * @deprecated after 1.6.2.0
      */
     #[Override]
+    #[Deprecated(message: 'after 1.6.2.0')]
     public function toArray(array $arrAttributes = [])
     {
         return parent::toArray($arrAttributes);

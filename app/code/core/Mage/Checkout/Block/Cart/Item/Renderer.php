@@ -301,8 +301,8 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
      * Check item is in stock
      *
      * @return bool
-     * @deprecated after 1.4.2.0-beta1
      */
+    #[Deprecated(message: 'after 1.4.2.0-beta1')]
     public function getIsInStock()
     {
         return $this->getItem()->getProduct()->isSaleable()

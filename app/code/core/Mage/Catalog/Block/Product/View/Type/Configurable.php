@@ -105,8 +105,8 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
      * retrieve current store
      *
      * @return Mage_Core_Model_Store
-     * @deprecated
      */
+    #[Deprecated]
     public function getCurrentStore()
     {
         return $this->_getHelper()->getCurrentStore();
@@ -302,8 +302,8 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
      * @param  float $price
      * @param  bool  $isPercent
      * @return mixed
-     * @deprecated
      */
+    #[Deprecated]
     protected function _preparePrice($price, $isPercent = false)
     {
         return $this->_getHelper()->preparePrice($this->getProduct(), $price, $isPercent);
@@ -315,8 +315,8 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
      * @param  float $price
      * @param  bool  $isPercent
      * @return mixed
-     * @deprecated
      */
+    #[Deprecated]
     protected function _prepareOldPrice($price, $isPercent = false)
     {
         return $this->_getHelper()->prepareOldPrice($this->getProduct(), $price, $isPercent);
@@ -327,8 +327,8 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
      *
      * @param  float  $price
      * @return string
-     * @deprecated
      */
+    #[Deprecated]
     protected function _registerJsPrice($price)
     {
         return $this->_getHelper()->registerJsPrice($price);
@@ -340,8 +340,8 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
      * @param  float $price
      * @param  bool  $round
      * @return float
-     * @deprecated
      */
+    #[Deprecated]
     protected function _convertPrice($price, $round = false)
     {
         return $this->_getHelper()->convertPrice($price, $round);

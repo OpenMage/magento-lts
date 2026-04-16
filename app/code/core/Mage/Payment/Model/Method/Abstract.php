@@ -544,10 +544,12 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
      * @param  Mage_Sales_Model_Order_Invoice     $invoice
      * @param  Mage_Sales_Model_Order_Payment     $payment
      * @return Mage_Payment_Model_Method_Abstract
-     * @deprecated after 1.4.0.0-alpha3
-     * this method doesn't make sense, because invoice must not void entire authorization
-     * there should be method for invoice cancellation
      */
+    #[Deprecated(message: <<<'TXT'
+    after 1.4.0.0-alpha3
+     this method doesn't make sense, because invoice must not void entire authorization
+     there should be method for invoice cancellation
+    TXT)]
     public function processBeforeVoid($invoice, $payment)
     {
         $payment->setVoidTransactionId($invoice->getTransactionId());
