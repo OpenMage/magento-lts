@@ -6610,12 +6610,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Sales/Model/Quote/Item.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Call to Exception::__construct() on a separate line has no effect.',
-	'identifier' => 'new.resultUnused',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Sales/Model/Recurring/Profile.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Call to an undefined method Mage_Payment_Model_Method_Abstract::canGetRecurringProfileDetails().',
 	'identifier' => 'method.notFound',
 	'count' => 1,
