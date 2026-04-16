@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Customer\Model\Resource\Address\Attribute\Bac
 
 // use Mage;
 // use Mage_Customer_Model_Resource_Address_Attribute_Backend_Region as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Customer\Model\Resource\Address\Attribute\Backend\RegionTrait;
 
@@ -22,6 +23,7 @@ final class RegionTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

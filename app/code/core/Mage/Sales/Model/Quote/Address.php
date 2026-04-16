@@ -288,6 +288,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
      * @return $this
      * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _beforeSave()
     {
         parent::_beforeSave();
@@ -378,6 +379,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
      * @return $this
      * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _afterSave()
     {
         parent::_afterSave();
@@ -480,6 +482,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
      * @return array
      * @throws Mage_Core_Exception
      */
+    #[Override]
     public function toArray(array $arrAttributes = [])
     {
         $arr = parent::toArray($arrAttributes);

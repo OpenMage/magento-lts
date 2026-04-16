@@ -27,6 +27,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
      *
      * @return Mage_Adminhtml_Controller_Action
      */
+    #[Override]
     public function preDispatch()
     {
         $this->_setForcedFormKeyActions(['delete', 'massDelete']);

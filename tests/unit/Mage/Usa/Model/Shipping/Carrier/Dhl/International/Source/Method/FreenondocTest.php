@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Usa\Model\Shipping\Carrier\Dhl\International\
 
 // use Mage;
 // use Mage_Usa_Model_Shipping_Carrier_Dhl_International_Source_Method_Freenondoc as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Usa\Model\Shipping\Carrier\Dhl\International\Source\Method\FreenondocTrait;
 
@@ -22,6 +23,7 @@ final class FreenondocTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

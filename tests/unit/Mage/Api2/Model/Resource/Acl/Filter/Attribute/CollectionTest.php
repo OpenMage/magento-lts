@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Api2\Model\Resource\Acl\Filter\Attribute;
 
 // use Mage;
 // use Mage_Api2_Model_Resource_Acl_Filter_Attribute_Collection as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Api2\Model\Resource\Acl\Filter\Attribute\CollectionTrait;
 
@@ -22,6 +23,7 @@ final class CollectionTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

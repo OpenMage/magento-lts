@@ -18,6 +18,7 @@ class Varien_Filter_Object extends Zend_Filter
      * @param  string $column
      * @return $this
      */
+    #[Override]
     public function addFilter(Zend_Filter_Interface $filter, $column = '')
     {
         if ('' === $column) {
@@ -38,6 +39,7 @@ class Varien_Filter_Object extends Zend_Filter
      * @return mixed
      * @throws Exception
      */
+    #[Override]
     public function filter($object)
     {
         if (!$object instanceof Varien_Object) {

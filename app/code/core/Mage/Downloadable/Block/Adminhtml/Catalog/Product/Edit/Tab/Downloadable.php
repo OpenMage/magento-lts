@@ -97,6 +97,7 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable ex
      *
      * @inheritDoc
      */
+    #[Override]
     protected function _toHtml()
     {
         /** @var Mage_Adminhtml_Block_Widget_Accordion $accordion */

@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Oauth\Model\Resource;
 
 // use Mage;
 // use Mage_Oauth_Model_Resource_Token as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Oauth\Model\Resource\TokenTrait;
 
@@ -22,6 +23,7 @@ final class TokenTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

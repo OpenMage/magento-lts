@@ -52,6 +52,7 @@ abstract class Mage_Core_Model_File_Storage_Database_Abstract extends Mage_Core_
      *
      * @return Mage_Core_Model_Resource_File_Storage_Database
      */
+    #[Override]
     protected function _getResource()
     {
         /** @var Mage_Core_Model_Resource_File_Storage_Database $resource */

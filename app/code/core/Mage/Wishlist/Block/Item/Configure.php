@@ -41,6 +41,7 @@ class Mage_Wishlist_Block_Item_Configure extends Mage_Core_Block_Template
      *
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareLayout()
     {
         // Set custom add to cart url

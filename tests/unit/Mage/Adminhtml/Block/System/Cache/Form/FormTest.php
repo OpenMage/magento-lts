@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\System\Cache\Form;
 
+use Override;
 use Mage_Adminhtml_Block_System_Cache_Form as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 
@@ -18,6 +19,7 @@ final class FormTest extends OpenMageTest
 {
     private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

@@ -70,6 +70,7 @@ class Mage_Core_Model_Email_Queue extends Mage_Core_Model_Abstract
      * @throws Exception
      * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _afterSave()
     {
         $this->_getResource()->saveRecipients($this->getId(), $this->getRecipients());
@@ -81,6 +82,7 @@ class Mage_Core_Model_Email_Queue extends Mage_Core_Model_Abstract
      *
      * @inheritDoc
      */
+    #[Override]
     protected function _beforeSave()
     {
         if ($this->_recipients === [] || !is_array($this->_recipients) || empty($this->_recipients[0])) { // additional check of recipients information (email address)

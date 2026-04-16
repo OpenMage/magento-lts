@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Catalog\Model\System\Config\Backend\Catalog\C
 
 // use Mage;
 // use Mage_Catalog_Model_System_Config_Backend_Catalog_Category_Flat as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\Model\System\Config\Backend\Catalog\Category\FlatTrait;
 
@@ -22,6 +23,7 @@ final class FlatTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

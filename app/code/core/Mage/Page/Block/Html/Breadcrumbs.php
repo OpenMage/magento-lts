@@ -102,6 +102,7 @@ class Mage_Page_Block_Html_Breadcrumbs extends Mage_Core_Block_Template
      *
      * @return array
      */
+    #[Override]
     public function getCacheKeyInfo()
     {
         if ($this->_cacheKeyInfo === null) {
@@ -117,6 +118,7 @@ class Mage_Page_Block_Html_Breadcrumbs extends Mage_Core_Block_Template
     /**
      * @return string
      */
+    #[Override]
     protected function _toHtml()
     {
         if (is_array($this->_crumbs)) {

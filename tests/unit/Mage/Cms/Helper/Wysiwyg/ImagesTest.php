@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Cms\Helper\Wysiwyg;
 
+use Override;
 use Mage;
 use Mage_Cms_Helper_Wysiwyg_Images as Subject;
 use Mage_Cms_Model_Wysiwyg_Images_Storage;
@@ -23,6 +24,7 @@ final class ImagesTest extends OpenMageTest
 
     private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

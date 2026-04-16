@@ -42,6 +42,7 @@ class Mage_Page_Block_Html extends Mage_Core_Block_Template
     /**
      * @return string
      */
+    #[Override]
     public function getBaseUrl()
     {
         return $this->_urls['base'];
@@ -188,6 +189,7 @@ class Mage_Page_Block_Html extends Mage_Core_Block_Template
      * @param  string $html
      * @return string
      */
+    #[Override]
     protected function _afterToHtml($html)
     {
         return $this->_afterCacheUrl($html);

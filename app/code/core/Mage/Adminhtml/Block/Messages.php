@@ -19,6 +19,7 @@ class Mage_Adminhtml_Block_Messages extends Mage_Core_Block_Messages
     /**
      * @return string
      */
+    #[Override]
     protected function _getUrlModelClass()
     {
         return 'adminhtml/url';

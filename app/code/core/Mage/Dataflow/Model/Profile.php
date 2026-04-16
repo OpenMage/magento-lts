@@ -63,6 +63,7 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
         $this->_init('dataflow/profile');
     }
 
+    #[Override]
     protected function _afterLoad()
     {
         $guiData = '';
@@ -83,6 +84,7 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
     /**
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
+    #[Override]
     protected function _beforeSave()
     {
         parent::_beforeSave();
@@ -143,6 +145,7 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
     /**
      * @SuppressWarnings("PHPMD.Superglobals")
      */
+    #[Override]
     protected function _afterSave()
     {
         if ($this->getGuiData() && is_string($this->getGuiData())) {

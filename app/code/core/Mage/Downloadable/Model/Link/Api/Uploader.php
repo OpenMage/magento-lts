@@ -100,6 +100,7 @@ class Mage_Downloadable_Model_Link_Api_Uploader extends Mage_Core_Model_File_Upl
      * @param  string $destinationFile
      * @return bool
      */
+    #[Override]
     protected function _moveFile($sourceFile, $destinationFile)
     {
         return rename($sourceFile, $destinationFile);

@@ -17,6 +17,7 @@ class Mage_Index_Block_Adminhtml_Process_Edit_Form extends Mage_Adminhtml_Block_
     /**
      * @return $this
      */
+    #[Override]
     protected function _prepareForm()
     {
         $form = new Varien_Data_Form(['id' => 'edit_form', 'action' => $this->getActionUrl(), 'method' => 'post']);

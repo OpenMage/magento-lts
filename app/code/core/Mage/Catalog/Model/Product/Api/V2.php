@@ -23,6 +23,7 @@ class Mage_Catalog_Model_Product_Api_V2 extends Mage_Catalog_Model_Product_Api
      * @param  string     $identifierType
      * @return array
      */
+    #[Override]
     public function info($productId, $store = null, $attributes = null, $identifierType = null)
     {
         // make sku flag case-insensitive
@@ -87,6 +88,7 @@ class Mage_Catalog_Model_Product_Api_V2 extends Mage_Catalog_Model_Product_Api
      * @param  string         $store
      * @return int
      */
+    #[Override]
     public function create($type, $set, $sku, $productData, $store = null)
     {
         if (!$type || !$set || !$sku || !is_object($productData)) {
@@ -153,6 +155,7 @@ class Mage_Catalog_Model_Product_Api_V2 extends Mage_Catalog_Model_Product_Api
      * @throws Mage_Api_Exception
      * @throws Mage_Core_Model_Store_Exception
      */
+    #[Override]
     public function update($productId, $productData, $store = null, $identifierType = null)
     {
         $product = $this->_getProduct($productId, $store, $identifierType);
@@ -228,6 +231,7 @@ class Mage_Catalog_Model_Product_Api_V2 extends Mage_Catalog_Model_Product_Api
      * @throws Mage_Api_Exception
      * @throws Mage_Core_Model_Store_Exception
      */
+    #[Override]
     protected function _prepareDataForSave($product, $productData)
     {
         if (!is_object($productData)) {
@@ -328,6 +332,7 @@ class Mage_Catalog_Model_Product_Api_V2 extends Mage_Catalog_Model_Product_Api
      *                                    otherwise - try to determine identifier type automatically
      * @return bool
      */
+    #[Override]
     public function setSpecialPrice(
         $productId,
         $specialPrice = null,

@@ -19,6 +19,7 @@ class Mage_Sales_Model_Quote_Address_Total_Grand extends Mage_Sales_Model_Quote_
      *
      * @return Mage_Sales_Model_Quote_Address_Total_Grand
      */
+    #[Override]
     public function collect(Mage_Sales_Model_Quote_Address $address)
     {
         $grandTotal     = $address->getGrandTotal();
@@ -41,6 +42,7 @@ class Mage_Sales_Model_Quote_Address_Total_Grand extends Mage_Sales_Model_Quote_
      *
      * @return Mage_Sales_Model_Quote_Address_Total_Grand
      */
+    #[Override]
     public function fetch(Mage_Sales_Model_Quote_Address $address)
     {
         $address->addTotal([

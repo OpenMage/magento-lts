@@ -328,6 +328,7 @@ class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
      *
      * @inheritDoc
      */
+    #[Override]
     protected function _beforeSave()
     {
         $newData = $this->getNewData(false);

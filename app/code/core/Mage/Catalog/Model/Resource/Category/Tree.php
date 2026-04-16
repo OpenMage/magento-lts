@@ -417,6 +417,7 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
      * @throws Exception
      * @throws Mage_Core_Exception
      */
+    #[Override]
     public function move($node, $newParent, $prevNode = null)
     {
         $this->_beforeMove($node, $newParent, $prevNode);

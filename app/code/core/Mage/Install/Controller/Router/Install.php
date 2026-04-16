@@ -20,6 +20,7 @@ class Mage_Install_Controller_Router_Install extends Mage_Core_Controller_Varien
      * @param  Mage_Core_Controller_Varien_Action $controllerInstance
      * @return bool
      */
+    #[Override]
     protected function _validateControllerInstance($controllerInstance)
     {
         return $controllerInstance instanceof Mage_Install_Controller_Action;

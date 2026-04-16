@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Newsletter\Helper;
 
 // use Mage;
 // use Mage_Newsletter_Helper_Data as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Newsletter\Helper\DataTrait;
 
@@ -22,6 +23,7 @@ final class DataTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
