@@ -12,7 +12,7 @@
  * @link       http://www.usps.com/webtools/htm/Development-Guide-v3-0b.htm
  * @package    Mage_Usa
  */
-use Carbon\Carbon;
+
 use Monolog\Level;
 
 class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carrier_Abstract implements Mage_Shipping_Model_Carrier_Interface

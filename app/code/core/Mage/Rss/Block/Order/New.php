@@ -7,8 +7,6 @@
  * @package    Mage_Rss
  */
 
-use Carbon\Carbon;
-
 /**
  * Review form block
  *

@@ -7,8 +7,6 @@
  * @package    Mage_Captcha
  */
 
-use Carbon\Carbon;
-
 /**
  * Implementation of Zend_Captcha
  *

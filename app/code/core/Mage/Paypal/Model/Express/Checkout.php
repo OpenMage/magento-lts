@@ -7,8 +7,6 @@
  * @package    Mage_Paypal
  */
 
-use Carbon\Carbon;
-
 /**
  * Wrapper that performs Paypal Express and Checkout communication
  * Use current Paypal Express method instance
