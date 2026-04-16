@@ -334,7 +334,7 @@ class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
      */
     public function isAvailableInStore($storeId = null)
     {
-        $storeId = (is_null($storeId)) ? Mage::app()->getStore()->getId() : $storeId;
+        $storeId ??= Mage::app()->getStore()->getId();
         return in_array($storeId, $this->getVisibleInStoreIds());
     }
 
