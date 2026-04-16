@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -18,7 +19,7 @@ class Mage_Core_Helper_Clock extends Mage_Core_Helper_Abstract implements ClockI
 {
     public function now(): DateTimeImmutable
     {
-        static $clock = new FactoryImmutable;
+        static $clock = new FactoryImmutable();
         return $clock->now();
     }
 }
