@@ -315,15 +315,13 @@ since 1.4.0.1',
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Customer/Edit/Tab/Newsletter/Grid.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Call to deprecated method addDaysInWishlist() of class Mage_Wishlist_Model_Resource_Item_Collection:
-after 1.4.2.0',
+	'rawMessage' => 'Call to deprecated method addDaysInWishlist() of class Mage_Wishlist_Model_Resource_Item_Collection.',
 	'identifier' => 'method.deprecated',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Customer/Edit/Tab/View/Wishlist.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Call to deprecated method addDaysInWishlist() of class Mage_Wishlist_Model_Resource_Item_Collection:
-after 1.4.2.0',
+	'rawMessage' => 'Call to deprecated method addDaysInWishlist() of class Mage_Wishlist_Model_Resource_Item_Collection.',
 	'identifier' => 'method.deprecated',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Customer/Edit/Tab/Wishlist.php',
@@ -852,8 +850,7 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Model/Config/Data.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Call to deprecated method submit() of class Mage_Sales_Model_Service_Quote:
-after 1.4.0.1',
+	'rawMessage' => 'Call to deprecated method submit() of class Mage_Sales_Model_Service_Quote.',
 	'identifier' => 'method.deprecated',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Model/Sales/Order/Create.php',
@@ -1105,8 +1102,7 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/controllers/Promo/QuoteController.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Call to deprecated method _getCollectionNames() of class Mage_Adminhtml_Report_StatisticsController:
-after 1.4.0.1',
+	'rawMessage' => 'Call to deprecated method _getCollectionNames() of class Mage_Adminhtml_Report_StatisticsController.',
 	'identifier' => 'method.deprecated',
 	'count' => 2,
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/controllers/Report/StatisticsController.php',
@@ -1598,8 +1594,7 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Bundle/Model/Product/Price.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Call to deprecated method getSelectionPrice() of class Mage_Bundle_Model_Product_Price:
-after 1.6.2.0',
+	'rawMessage' => 'Call to deprecated method getSelectionPrice() of class Mage_Bundle_Model_Product_Price.',
 	'identifier' => 'method.deprecated',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Bundle/Model/Product/Price.php',
@@ -2444,13 +2439,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Product/Url.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Call to deprecated method getIsGlobal() of class Mage_Catalog_Model_Resource_Eav_Attribute:
-moved to catalog attribute model',
-	'identifier' => 'method.deprecated',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Resource/Abstract.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 2,
@@ -2557,13 +2545,6 @@ $ignoreErrors[] = [
 	'rawMessage' => 'Call to deprecated method clear() of class Mage_Eav_Model_Config.',
 	'identifier' => 'method.deprecated',
 	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Resource/Eav/Attribute.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Call to deprecated method getIsGlobal() of class Mage_Catalog_Model_Resource_Eav_Attribute:
-moved to catalog attribute model',
-	'identifier' => 'method.deprecated',
-	'count' => 2,
 	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Resource/Eav/Attribute.php',
 ];
 $ignoreErrors[] = [
@@ -2783,8 +2764,7 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/CatalogIndex/Model/Data/Configurable.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Call to deprecated method loadParentProductIds() of class Mage_Catalog_Model_Product:
-after 1.4.2.0',
+	'rawMessage' => 'Call to deprecated method loadParentProductIds() of class Mage_Catalog_Model_Product.',
 	'identifier' => 'method.deprecated',
 	'count' => 2,
 	'path' => __DIR__ . '/app/code/core/Mage/CatalogIndex/Model/Observer.php',
@@ -2989,7 +2969,7 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Call to deprecated method _prepareCondition() of class Mage_CatalogSearch_Model_Advanced:
-after 1.4.1.0 - use Mage_CatalogSearch_Model_Resource_Advanced->_prepareCondition()',
+use Mage_CatalogSearch_Model_Resource_Advanced->_prepareCondition()',
 	'identifier' => 'method.deprecated',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/CatalogSearch/Model/Advanced.php',
@@ -3007,8 +2987,7 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/CatalogSearch/Model/Advanced.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Call to deprecated method updateCategoryIndex() of class Mage_CatalogSearch_Model_Fulltext:
-after 1.6.2.0',
+	'rawMessage' => 'Call to deprecated method updateCategoryIndex() of class Mage_CatalogSearch_Model_Fulltext.',
 	'identifier' => 'method.deprecated',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/CatalogSearch/Model/Indexer/Fulltext.php',
@@ -4362,8 +4341,7 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Customer/controllers/AccountController.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Call to deprecated method getSuggestedZeroDate() of interface Varien_Db_Adapter_Interface:
-after 1.5.1.0',
+	'rawMessage' => 'Call to deprecated method getSuggestedZeroDate() of interface Varien_Db_Adapter_Interface.',
 	'identifier' => 'method.deprecated',
 	'count' => 2,
 	'path' => __DIR__ . '/app/code/core/Mage/Customer/sql/customer_setup/install-1.6.0.0.php',
@@ -4965,8 +4943,7 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Eav/Model/Resource/Form/Type.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Call to deprecated method getSuggestedZeroDate() of interface Varien_Db_Adapter_Interface:
-after 1.5.1.0',
+	'rawMessage' => 'Call to deprecated method getSuggestedZeroDate() of interface Varien_Db_Adapter_Interface.',
 	'identifier' => 'method.deprecated',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Eav/sql/eav_setup/install-1.6.0.0.php',
@@ -6119,8 +6096,7 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Reports/Model/Resource/Tag/Collection.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Call to deprecated method setJoinFlag() of class Mage_Tag_Model_Resource_Product_Collection:
-after 1.3.2.3',
+	'rawMessage' => 'Call to deprecated method setJoinFlag() of class Mage_Tag_Model_Resource_Product_Collection.',
 	'identifier' => 'method.deprecated',
 	'count' => 3,
 	'path' => __DIR__ . '/app/code/core/Mage/Reports/Model/Resource/Tag/Product/Collection.php',
@@ -6398,8 +6374,7 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Sales/Model/Order/Item.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Call to deprecated method addStatusToHistory() of class Mage_Sales_Model_Order:
-after 1.4.0.0-alpha3',
+	'rawMessage' => 'Call to deprecated method addStatusToHistory() of class Mage_Sales_Model_Order.',
 	'identifier' => 'method.deprecated',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Sales/Model/Order/Payment.php',
@@ -7021,8 +6996,7 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Tag/Model/Resource/Product/Collection.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Call to deprecated method aggregate() of class Mage_Tag_Model_Resource_Tag:
-after 1.4.0.0',
+	'rawMessage' => 'Call to deprecated method aggregate() of class Mage_Tag_Model_Resource_Tag.',
 	'identifier' => 'method.deprecated',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Tag/Model/Tag.php',
@@ -7494,8 +7468,7 @@ since 1.14.2.0',
 	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/downloadable/product/edit/downloadable/links.phtml',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Call to deprecated method getHtmlId() of class Mage_Adminhtml_Block_Sales_Order_View_Items_Renderer_Default:
-after 1.4.2.0',
+	'rawMessage' => 'Call to deprecated method getHtmlId() of class Mage_Adminhtml_Block_Sales_Order_View_Items_Renderer_Default.',
 	'identifier' => 'method.deprecated',
 	'count' => 1,
 	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/downloadable/sales/order/view/items/renderer/downloadable.phtml',
@@ -7901,8 +7874,7 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/sales/order/shipment/packaging/popup.phtml',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Call to deprecated method getHtmlId() of class Mage_Adminhtml_Block_Sales_Order_View_Items_Renderer_Default:
-after 1.4.2.0',
+	'rawMessage' => 'Call to deprecated method getHtmlId() of class Mage_Adminhtml_Block_Sales_Order_View_Items_Renderer_Default.',
 	'identifier' => 'method.deprecated',
 	'count' => 1,
 	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/sales/order/view/items/renderer/default.phtml',
@@ -7930,12 +7902,6 @@ $ignoreErrors[] = [
 	'identifier' => 'booleanNot.alwaysTrue',
 	'count' => 2,
 	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/system/store/tree.phtml',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Call to deprecated method getSaveUrl() of class Mage_Adminhtml_Block_Tag_Edit.',
-	'identifier' => 'method.deprecated',
-	'count' => 1,
-	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/tag/edit/container.phtml',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
@@ -9008,22 +8974,19 @@ after 1.3.2.2',
 	'path' => __DIR__ . '/tests/unit/Mage/Core/Model/LayoutTest.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Call to deprecated method getRegionJson() of class Mage_Directory_Helper_Data:
-after 1.7.0.2',
+	'rawMessage' => 'Call to deprecated method getRegionJson() of class Mage_Directory_Helper_Data.',
 	'identifier' => 'method.deprecated',
 	'count' => 1,
 	'path' => __DIR__ . '/tests/unit/Mage/Directory/Helper/DataTest.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Call to deprecated method lockIndexer() of class Mage_Index_Model_Indexer:
-after 1.6.1.0',
+	'rawMessage' => 'Call to deprecated method lockIndexer() of class Mage_Index_Model_Indexer.',
 	'identifier' => 'method.deprecated',
 	'count' => 1,
 	'path' => __DIR__ . '/tests/unit/Mage/Index/Model/IndexerTest.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Call to deprecated method unlockIndexer() of class Mage_Index_Model_Indexer:
-after 1.6.1.0',
+	'rawMessage' => 'Call to deprecated method unlockIndexer() of class Mage_Index_Model_Indexer.',
 	'identifier' => 'method.deprecated',
 	'count' => 1,
 	'path' => __DIR__ . '/tests/unit/Mage/Index/Model/IndexerTest.php',
@@ -9096,15 +9059,13 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/tests/unit/Mage/Usa/Helper/DataTest.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Call to deprecated method addWishlistLink() of class Mage_Wishlist_Block_Links:
-after 1.4.2.0',
+	'rawMessage' => 'Call to deprecated method addWishlistLink() of class Mage_Wishlist_Block_Links.',
 	'identifier' => 'method.deprecated',
 	'count' => 1,
 	'path' => __DIR__ . '/tests/unit/Mage/Wishlist/Block/LinksTest.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Call to deprecated method initLinkProperties() of class Mage_Wishlist_Block_Links:
-after 1.6.2.0',
+	'rawMessage' => 'Call to deprecated method initLinkProperties() of class Mage_Wishlist_Block_Links.',
 	'identifier' => 'method.deprecated',
 	'count' => 1,
 	'path' => __DIR__ . '/tests/unit/Mage/Wishlist/Block/LinksTest.php',
