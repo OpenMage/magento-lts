@@ -7,8 +7,6 @@
  * @package    Mage_Oauth
  */
 
-use Carbon\Carbon;
-
 /**
  * oAuth Server
  *
@@ -498,7 +496,7 @@ class Mage_Oauth_Model_Server
     {
         $timestamp = (int) $timestamp;
 
-        if ($timestamp <= 0 || $timestamp > (Carbon::now()->getTimestamp() + self::TIME_DEVIATION)) {
+        if ($timestamp <= 0 || $timestamp > (Mage::helper('core/clock')->now()->getTimestamp() + self::TIME_DEVIATION)) {
             $this->_throwException('', self::ERR_TIMESTAMP_REFUSED);
         }
 

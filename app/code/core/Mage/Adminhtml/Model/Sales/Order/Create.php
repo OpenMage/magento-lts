@@ -7,8 +7,6 @@
  * @package    Mage_Adminhtml
  */
 
-use Carbon\Carbon;
-
 /**
  * Order create model
  *
@@ -1704,7 +1702,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
             $host = $this->getSession()
                 ->getStore()
                 ->getConfig(Mage_Customer_Model_Customer::XML_PATH_DEFAULT_EMAIL_DOMAIN);
-            $account = $customer->getIncrementId() ? $customer->getIncrementId() : Carbon::now()->getTimestamp();
+            $account = $customer->getIncrementId() ? $customer->getIncrementId() : Mage::helper('core/clock')->now()->getTimestamp();
             $email = $account . '@' . $host;
             $account = $this->getDataByKey('account');
             $account['email'] = $email;

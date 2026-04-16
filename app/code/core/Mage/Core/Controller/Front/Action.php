@@ -7,8 +7,6 @@
  * @package    Mage_Core
  */
 
-use Carbon\Carbon;
-
 /**
  * Base front controller
  *
@@ -127,7 +125,7 @@ class Mage_Core_Controller_Front_Action extends Mage_Core_Controller_Varien_Acti
             ->setHeader('Content-type', $contentType, true)
             ->setHeader('Content-Length', is_null($contentLength) ? strlen($content) : $contentLength)
             ->setHeader('Content-Disposition', 'attachment; filename="' . $fileName . '"')
-            ->setHeader('Last-Modified', Carbon::now()->format('r'));
+            ->setHeader('Last-Modified', Mage::helper('core/clock')->now()->format('r'));
 
         if (!is_null($content)) {
             if ($isFile) {
