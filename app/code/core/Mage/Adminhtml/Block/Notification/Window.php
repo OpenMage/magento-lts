@@ -132,7 +132,7 @@ class Mage_Adminhtml_Block_Notification_Window extends Mage_Adminhtml_Block_Noti
      *
      * @return string
      */
-    #[Deprecated(message: 'v19.4.16')]
+    #[Deprecated(since: 'v19.4.16')]
     public function getObjectUrl()
     {
         return $this->_getHelper()->getPopupObjectUrl();
