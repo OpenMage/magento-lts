@@ -29,7 +29,7 @@ var bp = {
  * Implements a custom validation style for the search form. When the form is invalidly submitted, the validation-failed
  * class gets added to the input, but the "This is a required field." text does not display
  */
-Varien.searchForm = function (form, field, emptyText) {
+Varien.searchForm.prototype.initialize = function (form, field, emptyText) {
     this.form = document.getElementById(form);
     this.field = document.getElementById(field);
     this.emptyText = emptyText;
@@ -42,7 +42,7 @@ Varien.searchForm = function (form, field, emptyText) {
 };
 
 Varien.searchForm.prototype.submit = function (event) {
-    if (this.field.value === this.emptyText || this.field.value === '') {
+    if (this.field.value == this.emptyText || this.field.value == ''){
         event.preventDefault();
         event.stopPropagation();
         this.field.classList.add('validation-failed');
@@ -52,16 +52,10 @@ Varien.searchForm.prototype.submit = function (event) {
     return true;
 };
 
-Varien.searchForm.prototype.focus = function (event) {
-    if (this.field.value === this.emptyText) {
-        this.field.value = '';
-    }
-};
-
 Varien.searchForm.prototype.change = function (event) {
     if (
-        this.field.value !== this.emptyText
-        && this.field.value !== ''
+        this.field.value != this.emptyText
+        && this.field.value != ''
         && this.field.classList.contains('validation-failed')
     ) {
         this.field.classList.remove('validation-failed');
