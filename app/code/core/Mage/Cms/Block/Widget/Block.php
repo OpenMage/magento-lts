@@ -12,13 +12,14 @@
  *
  * @package    Mage_Cms
  *
- * @method int getBlockId()
- * @method $this setText(string $value)
+ * @method int    getBlockId()
+ * @method string getText()
+ * @method $this  setText(string $value)
  */
 class Mage_Cms_Block_Widget_Block extends Mage_Core_Block_Template implements Mage_Widget_Block_Interface
 {
     /**
-     * Initialize cache
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -46,12 +47,13 @@ class Mage_Cms_Block_Widget_Block extends Mage_Core_Block_Template implements Ma
     protected function _beforeToHtml()
     {
         parent::_beforeToHtml();
-        $blockId = $this->getData('block_id');
+        $blockId = $this->getDataByKey('block_id');
         $blockHash = static::class . $blockId;
 
         if (isset(self::$_widgetUsageMap[$blockHash])) {
             return $this;
         }
+
         self::$_widgetUsageMap[$blockHash] = true;
 
         if ($blockId) {
@@ -68,6 +70,7 @@ class Mage_Cms_Block_Widget_Block extends Mage_Core_Block_Template implements Ma
                 } else {
                     $this->setText($processor->filter($block->getContent()));
                 }
+
                 $this->addModelTags($block);
             }
         }
@@ -88,6 +91,7 @@ class Mage_Cms_Block_Widget_Block extends Mage_Core_Block_Template implements Ma
         if ($blockId) {
             $result[] = $blockId;
         }
+
         return $result;
     }
 

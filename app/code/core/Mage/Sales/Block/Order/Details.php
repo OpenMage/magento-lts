@@ -14,6 +14,10 @@
  */
 class Mage_Sales_Block_Order_Details extends Mage_Core_Block_Template
 {
+    /**
+     * @throws Exception
+     * @throws Mage_Core_Exception
+     */
     public function __construct()
     {
         parent::__construct();
@@ -31,11 +35,11 @@ class Mage_Sales_Block_Order_Details extends Mage_Core_Block_Template
     }
 
     /**
-     * @return mixed
+     * @return Mage_Sales_Model_Resource_Order_Collection_Abstract
      */
     public function getInvoices()
     {
-        return Mage::getResourceModel('sales/invoice_collection')->setOrderFilter($this->getOrder()->getId())->load();
+        return Mage::getResourceModel('sales/order_invoice_collection')->setOrderFilter($this->getOrder()->getId())->load();
     }
 
     /**

@@ -22,10 +22,13 @@ class Mage_Admin_Model_Resource_Block extends Mage_Core_Model_Resource_Db_Abstra
     /**
      * Disallowed names for block
      *
-     * @var array
+     * @var string[]
      */
     protected $disallowedBlockNames = ['install/end'];
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('admin/permission_block', 'block_id');
@@ -43,6 +46,7 @@ class Mage_Admin_Model_Resource_Block extends Mage_Core_Model_Resource_Db_Abstra
             $this->_generateCache();
             $data = Mage::app()->getCacheInstance()->load(self::CACHE_ID);
         }
+
         return Mage::helper('core')->jsonDecode($data);
     }
 
@@ -54,10 +58,12 @@ class Mage_Admin_Model_Resource_Block extends Mage_Core_Model_Resource_Db_Abstra
         /** @var Mage_Admin_Model_Resource_Block_Collection $collection */
         $collection = Mage::getResourceModel('admin/block_collection');
         $collection->addFieldToFilter('is_allowed', ['eq' => 1]);
+
         $disallowedBlockNames = $this->getDisallowedBlockNames();
-        if (is_array($disallowedBlockNames) && count($disallowedBlockNames) > 0) {
+        if (is_array($disallowedBlockNames) && $disallowedBlockNames !== []) {
             $collection->addFieldToFilter('block_name', ['nin' => $disallowedBlockNames]);
         }
+
         $data = $collection->getColumnValues('block_name');
         $data = array_flip($data);
         Mage::app()->saveCache(

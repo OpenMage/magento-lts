@@ -38,6 +38,7 @@ class Mage_Catalog_Block_Product_List_Upsell extends Mage_Catalog_Block_Product_
         /** @var Mage_Catalog_Model_Product $product */
         $this->_itemCollection = $product->getUpSellProductCollection()
             ->setPositionOrder()
+            ->setVisibility(Mage::getSingleton('catalog/product_visibility')::getVisibleInCatalogIds())
             ->addStoreFilter()
         ;
         if ($this->isModuleEnabled('Mage_Checkout', 'catalog')) {
@@ -48,7 +49,6 @@ class Mage_Catalog_Block_Product_List_Upsell extends Mage_Catalog_Block_Product_
 
             $this->_addProductAttributesAndPrices($this->_itemCollection);
         }
-        Mage::getSingleton('catalog/product_visibility')->addVisibleInCatalogFilterToCollection($this->_itemCollection);
 
         if ($this->getItemLimit('upsell') > 0) {
             $this->_itemCollection->setPageSize($this->getItemLimit('upsell'));
@@ -73,7 +73,7 @@ class Mage_Catalog_Block_Product_List_Upsell extends Mage_Catalog_Block_Product_
     }
 
     /**
-     * @return Mage_Catalog_Block_Product_Abstract
+     * @inheritDoc
      */
     protected function _beforeToHtml()
     {
@@ -97,6 +97,7 @@ class Mage_Catalog_Block_Product_List_Upsell extends Mage_Catalog_Block_Product_
         if (is_null($this->_items) && $this->getItemCollection()) {
             $this->_items = $this->getItemCollection()->getItems();
         }
+
         return $this->_items;
     }
 
@@ -109,7 +110,7 @@ class Mage_Catalog_Block_Product_List_Upsell extends Mage_Catalog_Block_Product_
     }
 
     /**
-     * @param array $columns
+     * @param  array $columns
      * @return $this
      */
     public function setColumnCount($columns)
@@ -117,6 +118,7 @@ class Mage_Catalog_Block_Product_List_Upsell extends Mage_Catalog_Block_Product_
         if ((int) $columns > 0) {
             $this->_columnCount = (int) $columns;
         }
+
         return $this;
     }
 
@@ -148,8 +150,8 @@ class Mage_Catalog_Block_Product_List_Upsell extends Mage_Catalog_Block_Product_
      * Set how many items we need to show in upsell block
      * Notice: this parameter will be also applied
      *
-     * @param string $type
-     * @param int $limit
+     * @param  string $type
+     * @param  int    $limit
      * @return $this
      */
     public function setItemLimit($type, $limit)
@@ -157,11 +159,12 @@ class Mage_Catalog_Block_Product_List_Upsell extends Mage_Catalog_Block_Product_
         if ((int) $limit > 0) {
             $this->_itemLimits[$type] = (int) $limit;
         }
+
         return $this;
     }
 
     /**
-     * @param string $type
+     * @param  string          $type
      * @return array|int|mixed
      */
     public function getItemLimit($type = '')
@@ -169,6 +172,7 @@ class Mage_Catalog_Block_Product_List_Upsell extends Mage_Catalog_Block_Product_
         if ($type == '') {
             return $this->_itemLimits;
         }
+
         return $this->_itemLimits[$type] ?? 0;
     }
 

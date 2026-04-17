@@ -19,16 +19,19 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_Page extends Zend_Pdf_Page
      * Text align constants
      */
     public const ALIGN_RIGHT = 'right';
+
     public const ALIGN_LEFT = 'left';
+
     public const ALIGN_CENTER = 'center';
 
     /**
      * Dhl International Label Creation Class Pdf Page constructor
      * Create/Make a copy of pdf page
      *
-     * @param Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_Page|string $param1
-     * @param mixed $param2
-     * @param mixed $param3
+     * @param  Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_Page|string $param1
+     * @param  mixed                                                     $param2
+     * @param  mixed                                                     $param3
+     * @throws Zend_Pdf_Exception
      */
     public function __construct($param1, $param2 = null, $param3 = null)
     {
@@ -37,6 +40,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_Page extends Zend_Pdf_Page
         ) {
             $this->_contents = $param1->getContents();
         }
+
         parent::__construct($param1, $param2, $param3);
     }
 
@@ -53,33 +57,28 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_Page extends Zend_Pdf_Page
     /**
      * Calculate the width of given text in points taking into account current font and font-size
      *
-     * @param string $text
-     * @param float $fontSize
+     * @param  string             $text
+     * @param  float              $fontSize
      * @return float
+     * @throws Zend_Pdf_Exception
      */
     public function getTextWidth($text, Zend_Pdf_Resource_Font $font, $fontSize)
     {
         $drawingText = iconv('', 'UTF-16BE', $text);
         $characters = [];
-        for ($i = 0; $i < strlen($drawingText); $i++) {
-            $characters[] = (ord($drawingText[$i++]) << 8) | ord($drawingText[$i]);
+        for ($index = 0; $index < strlen($drawingText); $index++) {
+            $characters[] = (ord($drawingText[$index++]) << 8) | ord($drawingText[$index]);
         }
+
         $glyphs = $font->glyphNumbersForCharacters($characters);
+        /** @var array<int> $widths */
         $widths = $font->widthsForGlyphs($glyphs);
         return (array_sum($widths) / $font->getUnitsPerEm()) * $fontSize;
     }
 
     /**
-     * Draw a line of text at the specified position.
-     *
-     * @param string $text
-     * @param float $x
-     * @param float $y
-     * @param string $charEncoding (optional) Character encoding of source text.
-     *   Defaults to current locale.
-     * @param $align
-     * @throws Zend_Pdf_Exception
-     * @return Zend_Pdf_Canvas_Interface
+     * @inheritDoc
+     * @SuppressWarnings("PHPMD.ShortVariable")
      */
     public function drawText($text, $x, $y, $charEncoding = 'UTF-8', $align = self::ALIGN_LEFT)
     {
@@ -99,6 +98,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_Page extends Zend_Pdf_Page
                 $left = $x - $textWidth;
                 break;
         }
+
         return parent::drawText($text, $left, $y, $charEncoding);
     }
 
@@ -106,25 +106,27 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_Page extends Zend_Pdf_Page
      * Draw a text paragraph taking into account the maximum number of symbols in a row.
      * If line is longer - spit it.
      *
-     * @param array $lines
-     * @param int $x
-     * @param int $y
-     * @param int $maxWidth - number of symbols
-     * @param string $align
-     * @throws Zend_Pdf_Exception
+     * @param  array|SimpleXMLElement $lines
+     * @param  int                    $xAxis
+     * @param  int                    $yAxis
+     * @param  int                    $maxWidth - number of symbols
+     * @param  string                 $align
      * @return float
+     * @throws Zend_Pdf_Exception
      */
-    public function drawLines($lines, $x, $y, $maxWidth, $align = self::ALIGN_LEFT)
+    public function drawLines($lines, $xAxis, $yAxis, $maxWidth, $align = self::ALIGN_LEFT)
     {
         foreach ($lines as $line) {
             if (strlen($line) > $maxWidth) {
                 $subLines = Mage::helper('core/string')->str_split($line, $maxWidth, true, true);
-                $y = $this->drawLines(array_filter($subLines), $x, $y, $maxWidth, $align);
+                $yAxis = $this->drawLines(array_filter($subLines), $xAxis, $yAxis, $maxWidth, $align);
                 continue;
             }
-            $this->drawText($line, $x, $y, 'UTF-8', $align);
-            $y -= ceil($this->getFontSize());
+
+            $this->drawText($line, $xAxis, $yAxis, 'UTF-8', $align);
+            $yAxis -= ceil($this->getFontSize());
         }
-        return $y;
+
+        return $yAxis;
     }
 }

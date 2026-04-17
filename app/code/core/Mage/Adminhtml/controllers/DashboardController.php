@@ -64,6 +64,7 @@ class Mage_Adminhtml_DashboardController extends Mage_Adminhtml_Controller_Actio
         if (in_array($blockTab, ['tab_orders', 'tab_amounts', 'totals'])) {
             $output = $this->getLayout()->createBlock('adminhtml/dashboard_' . $blockTab)->toHtml();
         }
+
         $this->getResponse()->setBody($output);
     }
 }

@@ -14,6 +14,9 @@
  */
 class Mage_Eav_Model_Resource_Form_Fieldset extends Mage_Core_Model_Resource_Db_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('eav/form_fieldset', 'fieldset_id');
@@ -50,25 +53,27 @@ class Mage_Eav_Model_Resource_Form_Fieldset extends Mage_Core_Model_Resource_Db_
                 }
             }
 
-            if (!empty($insert)) {
+            if ($insert !== []) {
                 $data = [];
                 foreach ($insert as $storeId) {
                     $label = $new[$storeId];
                     if (empty($label)) {
                         continue;
                     }
+
                     $data[] = [
                         'fieldset_id'   => (int) $object->getId(),
                         'store_id'      => (int) $storeId,
                         'label'         => $label,
                     ];
                 }
+
                 if ($data) {
                     $adapter->insertMultiple($this->getTable('eav/form_fieldset_label'), $data);
                 }
             }
 
-            if (!empty($delete)) {
+            if ($delete !== []) {
                 $where = [
                     'fieldset_id = ?' => $object->getId(),
                     'store_id IN(?)' => $delete,
@@ -76,15 +81,13 @@ class Mage_Eav_Model_Resource_Form_Fieldset extends Mage_Core_Model_Resource_Db_
                 $adapter->delete($this->getTable('eav/form_fieldset_label'), $where);
             }
 
-            if (!empty($update)) {
-                foreach ($update as $storeId => $label) {
-                    $bind  = ['label' => $label];
-                    $where = [
-                        'fieldset_id =?' => $object->getId(),
-                        'store_id =?'    => $storeId,
-                    ];
-                    $adapter->update($this->getTable('eav/form_fieldset_label'), $bind, $where);
-                }
+            foreach ($update as $storeId => $label) {
+                $bind  = ['label' => $label];
+                $where = [
+                    'fieldset_id =?' => $object->getId(),
+                    'store_id =?'    => $storeId,
+                ];
+                $adapter->update($this->getTable('eav/form_fieldset_label'), $bind, $where);
             }
         }
 
@@ -94,7 +97,7 @@ class Mage_Eav_Model_Resource_Form_Fieldset extends Mage_Core_Model_Resource_Db_
     /**
      * Retrieve fieldset labels for stores
      *
-     * @param Mage_Eav_Model_Form_Fieldset $object
+     * @param  Mage_Eav_Model_Form_Fieldset $object
      * @return array
      */
     public function getLabels($object)
@@ -103,6 +106,7 @@ class Mage_Eav_Model_Resource_Form_Fieldset extends Mage_Core_Model_Resource_Db_
         if (!$objectId) {
             return [];
         }
+
         $adapter = $this->_getReadAdapter();
         $bind    = [':fieldset_id' => $objectId];
         $select  = $adapter->select()
@@ -115,9 +119,9 @@ class Mage_Eav_Model_Resource_Form_Fieldset extends Mage_Core_Model_Resource_Db_
     /**
      * Retrieve select object for load object data
      *
-     * @param string $field
-     * @param mixed $value
-     * @param Mage_Eav_Model_Form_Fieldset $object
+     * @param  string                       $field
+     * @param  mixed                        $value
+     * @param  Mage_Eav_Model_Form_Fieldset $object
      * @return Varien_Db_Select
      */
     protected function _getLoadSelect($field, $value, $object)

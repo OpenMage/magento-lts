@@ -22,10 +22,11 @@ class Mage_Adminhtml_Block_Widget extends Mage_Adminhtml_Block_Template
      */
     public function getId()
     {
-        if ($this->getData('id') === null) {
+        if ($this->getDataByKey('id') === null) {
             $this->setData('id', Mage::helper('core')->uniqHash('id_'));
         }
-        return $this->getData('id');
+
+        return $this->getDataByKey('id');
     }
 
     /**
@@ -39,7 +40,7 @@ class Mage_Adminhtml_Block_Widget extends Mage_Adminhtml_Block_Template
     /**
      * Get current url
      *
-     * @param array $params url parameters
+     * @param  array  $params url parameters
      * @return string current url
      */
     public function getCurrentUrl($params = [])
@@ -47,6 +48,7 @@ class Mage_Adminhtml_Block_Widget extends Mage_Adminhtml_Block_Template
         if (!isset($params['_current'])) {
             $params['_current'] = true;
         }
+
         return $this->getUrl('*/*/*', $params);
     }
 
@@ -60,10 +62,10 @@ class Mage_Adminhtml_Block_Widget extends Mage_Adminhtml_Block_Template
     /**
      * Create button and return its html
      *
-     * @param string $label
-     * @param string $onclick
-     * @param string $class
-     * @param string $id
+     * @param  string $label
+     * @param  string $onclick
+     * @param  string $class
+     * @param  string $id
      * @return string
      */
     public function getButtonHtml($label, $onclick, $class = '', $id = null)

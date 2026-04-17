@@ -14,6 +14,11 @@
  */
 class Mage_Adminhtml_Block_Tag_Grid_Products extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_tag_grid_products';
+
+    /**
+     * @inheritDoc
+     */
     protected function _prepareCollection()
     {
         $collection = Mage::getResourceModel('tag/product_collection')
@@ -23,14 +28,20 @@ class Mage_Adminhtml_Block_Tag_Grid_Products extends Mage_Adminhtml_Block_Widget
         if ($tagId = $this->getRequest()->getParam('tag_id')) {
             $collection->addTagFilter($tagId);
         }
+
         if ($customerId = $this->getRequest()->getParam('customer_id')) {
             $collection->addCustomerFilter($customerId);
         }
+
         $this->setCollection($collection);
 
         return parent::_prepareCollection();
     }
 
+    /**
+     * @inheritDoc
+     * @throws Exception
+     */
     protected function _prepareColumns()
     {
         $this->addColumn('product_id', [

@@ -12,11 +12,11 @@
  *
  * @package    Mage_Checkout
  *
- * @method string getCartTemplate()
- * @method string getEmptyTemplate()
- * @method $this setIsWishlistActive(bool $value)
- * @method int getItemsCount()
+ * @method string                        getCartTemplate()
  * @method Mage_Sales_Model_Quote_Item[] getCustomItems()
+ * @method string                        getEmptyTemplate()
+ * @method int                           getItemsCount()
+ * @method $this                         setIsWishlistActive(bool $value)
  */
 class Mage_Checkout_Block_Cart extends Mage_Checkout_Block_Cart_Abstract
 {
@@ -98,6 +98,7 @@ class Mage_Checkout_Block_Cart extends Mage_Checkout_Block_Cart_Abstract
                 && Mage::getSingleton('customer/session')->isLoggedIn();
             $this->setIsWishlistActive($isActive);
         }
+
         return $isActive;
     }
 
@@ -124,14 +125,16 @@ class Mage_Checkout_Block_Cart extends Mage_Checkout_Block_Cart_Abstract
      */
     public function getContinueShoppingUrl()
     {
-        $url = $this->getData('continue_shopping_url');
+        $url = $this->getDataByKey('continue_shopping_url');
         if (is_null($url)) {
             $url = Mage::getSingleton('checkout/session')->getContinueShoppingUrl(true);
             if (!$url) {
                 $url = Mage::getUrl();
             }
+
             $this->setData('continue_shopping_url', $url);
         }
+
         return $url;
     }
 
@@ -148,7 +151,7 @@ class Mage_Checkout_Block_Cart extends Mage_Checkout_Block_Cart_Abstract
     /**
      * Return list of available checkout methods
      *
-     * @param string $nameInLayout Container block alias in layout
+     * @param  string $nameInLayout Container block alias in layout
      * @return array
      */
     public function getMethods($nameInLayout)
@@ -156,13 +159,14 @@ class Mage_Checkout_Block_Cart extends Mage_Checkout_Block_Cart_Abstract
         if ($this->getChild($nameInLayout) instanceof Mage_Core_Block_Abstract) {
             return $this->getChild($nameInLayout)->getSortedChildren();
         }
+
         return [];
     }
 
     /**
      * Return HTML of checkout method (link, button etc.)
      *
-     * @param string $name Block name in layout
+     * @param  string              $name Block name in layout
      * @return string
      * @throws Mage_Core_Exception
      */
@@ -172,6 +176,7 @@ class Mage_Checkout_Block_Cart extends Mage_Checkout_Block_Cart_Abstract
         if (!$block) {
             Mage::throwException(Mage::helper('checkout')->__('Invalid method: %s', $name));
         }
+
         return $block->toHtml();
     }
 

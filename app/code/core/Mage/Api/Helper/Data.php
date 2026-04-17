@@ -50,6 +50,7 @@ class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
                 if (is_object($value)) {
                     $this->wsiArrayUnpacker($value);
                 }
+
                 if (is_array($value)) {
                     foreach ($value as &$val) {
                         if (is_object($val)) {
@@ -70,7 +71,7 @@ class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Go through an object parameters and unpack associative object to array.
      *
-     * @param Object|array $obj - Link to Object
+     * @param  array|Object $obj - Link to Object
      * @return bool
      */
     public function v2AssociativeArrayUnpacker(&$obj)
@@ -96,6 +97,7 @@ class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
                     $needReplacement = false;
                 }
             }
+
             if ($needReplacement) {
                 $obj = $arr;
             }
@@ -106,19 +108,20 @@ class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
                 $this->v2AssociativeArrayUnpacker($obj->$key);
             }
         }
+
         return false;
     }
 
     /**
      * Go through mixed and turns it to a correct look.
      *
-     * @param Mixed $mixed A link to variable that may contain associative array.
+     * @param Mixed $mixed a link to variable that may contain associative array
      */
     public function associativeArrayUnpack(&$mixed)
     {
         if (is_array($mixed)) {
             $tmpArr = [];
-            foreach ($mixed as $key => $value) {
+            foreach ($mixed as $value) {
                 if (is_object($value)) {
                     $value = get_object_vars($value);
                     if (count($value) == 2 && isset($value['key']) && isset($value['value'])) {
@@ -126,7 +129,8 @@ class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
                     }
                 }
             }
-            if (count($tmpArr)) {
+
+            if ($tmpArr !== []) {
                 $mixed = $tmpArr;
             }
         }
@@ -147,7 +151,7 @@ class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Corrects data representation.
      *
-     * @param Object $obj - Link to Object
+     * @param  Object   $obj - Link to Object
      * @return string[]
      */
     public function clearWsiFootprints(&$obj)
@@ -163,16 +167,18 @@ class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
                 } else { // for one element array
                     $obj->$key = [$obj->$key->complexObjectArray];
                 }
+
                 $modifiedKeys[] = $key;
             }
         }
+
         return $modifiedKeys;
     }
 
     /**
      * For the WSI, generates an response object.
      *
-     * @param mixed $mixed - Link to Object
+     * @param  mixed $mixed - Link to Object
      * @return mixed
      */
     public function wsiArrayPacker($mixed)
@@ -186,24 +192,23 @@ class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
                     break;
                 }
             }
-            if ($isDigit) {
-                $mixed = $this->packArrayToObject($mixed);
-            } else {
-                $mixed = (object) $mixed;
-            }
+
+            $mixed = $isDigit ? $this->packArrayToObject($mixed) : (object) $mixed;
         }
+
         if (is_object($mixed) && isset($mixed->complexObjectArray)) {
-            foreach ($mixed->complexObjectArray as $k => $v) {
-                $mixed->complexObjectArray[$k] = $this->wsiArrayPacker($v);
+            foreach ($mixed->complexObjectArray as $index => $value) {
+                $mixed->complexObjectArray[$index] = $this->wsiArrayPacker($value);
             }
         }
+
         return $mixed;
     }
 
     /**
      * For response to the WSI, generates an object from array.
      *
-     * @param array $arr - Link to Object
+     * @param  array    $arr - Link to Object
      * @return stdClass
      */
     public function packArrayToObject(array $arr)
@@ -224,6 +229,7 @@ class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
         if (is_object($data)) {
             $data = get_object_vars($data);
         }
+
         if (is_array($data)) {
             foreach ($data as &$value) {
                 if (is_array($value) || is_object($value)) {
@@ -236,8 +242,8 @@ class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Parse filters and format them to be applicable for collection filtration
      *
-     * @param null|object|array $filters
-     * @param array $fieldsMap Map of field names in format: array('field_name_in_filter' => 'field_name_in_db')
+     * @param  null|array|object $filters
+     * @param  array             $fieldsMap Map of field names in format: array('field_name_in_filter' => 'field_name_in_db')
      * @return array
      */
     public function parseFilters($filters, $fieldsMap = null)
@@ -255,6 +261,7 @@ class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
                     }
                 }
             }
+
             // parse complex filter
             if (isset($filters->complex_filter) && is_array($filters->complex_filter)) {
                 $parsedFilters += $this->_parseComplexFilter($filters->complex_filter);
@@ -262,10 +269,12 @@ class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
 
             $filters = $parsedFilters;
         }
+
         // make sure that method result is always array
         if (!is_array($filters)) {
             $filters = [];
         }
+
         // apply fields mapping
         if (isset($fieldsMap) && is_array($fieldsMap)) {
             foreach ($filters as $field => $value) {
@@ -276,6 +285,7 @@ class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
                 }
             }
         }
+
         return $filters;
     }
 
@@ -283,7 +293,7 @@ class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
      * Parses complex filter, which may contain several nodes, e.g. when user want to fetch orders which were updated
      * between two dates.
      *
-     * @param array $complexFilter
+     * @param  array $complexFilter
      * @return array
      */
     protected function _parseComplexFilter($complexFilter)
@@ -291,9 +301,14 @@ class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
         $parsedFilters = [];
 
         foreach ($complexFilter as $filter) {
-            if (!isset($filter->key) || !isset($filter->value)) {
+            if (!isset($filter->key)) {
                 continue;
             }
+
+            if (!isset($filter->value)) {
+                continue;
+            }
+
             $fieldName = $filter->key;
             $condition = $filter->value;
             $conditionName = $condition->key;
@@ -317,11 +332,11 @@ class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
      *
      * @param string $conditionOperator
      * @param string $conditionValue
-     * @param-out string|array $conditionValue
+     * @param-out array|string $conditionValue
      */
     public function formatFilterConditionValue($conditionOperator, &$conditionValue)
     {
-        if (is_string($conditionOperator) && in_array($conditionOperator, ['in', 'nin', 'finset'])
+        if (is_string($conditionOperator) && in_array($conditionOperator, ['in', 'nin', 'finset'], true)
             && is_string($conditionValue)
         ) {
             $delimiter = ',';
@@ -342,9 +357,9 @@ class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get service url
      *
-     * @param string|null $routePath
-     * @param array|null $routeParams
-     * @param bool $htmlSpecialChars
+     * @param  null|string        $routePath
+     * @param  null|array         $routeParams
+     * @param  bool               $htmlSpecialChars
      * @return string
      * @throws Zend_Uri_Exception
      */

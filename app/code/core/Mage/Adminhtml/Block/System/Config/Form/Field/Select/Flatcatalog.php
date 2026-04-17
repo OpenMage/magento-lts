@@ -20,6 +20,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Field_Select_Flatcatalog extends M
             $element->setDisabled(true)
                 ->setValue(0);
         }
+
         return parent::_getElementHtml($element);
     }
 }

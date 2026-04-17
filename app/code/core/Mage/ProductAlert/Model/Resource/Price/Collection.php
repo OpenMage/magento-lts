@@ -15,8 +15,7 @@
 class Mage_ProductAlert_Model_Resource_Price_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
     /**
-     * Define price collection
-     *
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -26,7 +25,7 @@ class Mage_ProductAlert_Model_Resource_Price_Collection extends Mage_Core_Model_
     /**
      * Add customer filter
      *
-     * @param mixed $customer
+     * @param  mixed $customer
      * @return $this
      */
     public function addCustomerFilter($customer)
@@ -38,6 +37,7 @@ class Mage_ProductAlert_Model_Resource_Price_Collection extends Mage_Core_Model_
         } else {
             $condition = $this->getConnection()->quoteInto('customer_id=?', $customer);
         }
+
         $this->addFilter('customer_id', $condition, 'string');
         return $this;
     }
@@ -45,7 +45,7 @@ class Mage_ProductAlert_Model_Resource_Price_Collection extends Mage_Core_Model_
     /**
      * Add website filter
      *
-     * @param mixed $website
+     * @param  mixed $website
      * @return $this
      */
     public function addWebsiteFilter($website)
@@ -53,6 +53,7 @@ class Mage_ProductAlert_Model_Resource_Price_Collection extends Mage_Core_Model_
         if (is_null($website) || $website == 0) {
             return $this;
         }
+
         if (is_array($website)) {
             $condition = $this->getConnection()->quoteInto('website_id IN(?)', $website);
         } elseif ($website instanceof Mage_Core_Model_Website) {
@@ -60,6 +61,7 @@ class Mage_ProductAlert_Model_Resource_Price_Collection extends Mage_Core_Model_
         } else {
             $condition = $this->getConnection()->quoteInto('website_id=?', $website);
         }
+
         $this->addFilter('website_id', $condition, 'string');
         return $this;
     }
@@ -67,7 +69,7 @@ class Mage_ProductAlert_Model_Resource_Price_Collection extends Mage_Core_Model_
     /**
      * Set order by customer
      *
-     * @param string $sort
+     * @param  string $sort
      * @return $this
      */
     public function setCustomerOrder($sort = 'ASC')

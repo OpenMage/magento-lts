@@ -14,6 +14,9 @@
  */
 class Mage_Downloadable_Model_Resource_Sample extends Mage_Core_Model_Resource_Db_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('downloadable/sample', 'sample_id');
@@ -22,7 +25,7 @@ class Mage_Downloadable_Model_Resource_Sample extends Mage_Core_Model_Resource_D
     /**
      * Save title of sample item in store scope
      *
-     * @param Mage_Downloadable_Model_Sample $sampleObject
+     * @param  Mage_Downloadable_Model_Sample $sampleObject
      * @return $this
      */
     public function saveItemTitle($sampleObject)
@@ -63,13 +66,14 @@ class Mage_Downloadable_Model_Resource_Sample extends Mage_Core_Model_Resource_D
                 ],
             );
         }
+
         return $this;
     }
 
     /**
      * Delete data by item(s)
      *
-     * @param Mage_Downloadable_Model_Sample|array|int $items
+     * @param  array|int|Mage_Downloadable_Model_Sample $items
      * @return $this
      */
     public function deleteItems($items)
@@ -81,6 +85,7 @@ class Mage_Downloadable_Model_Resource_Sample extends Mage_Core_Model_Resource_D
         } else {
             $where = ['sample_id in (?)' => $items];
         }
+
         if ($where) {
             $writeAdapter->delete(
                 $this->getMainTable(),
@@ -91,14 +96,15 @@ class Mage_Downloadable_Model_Resource_Sample extends Mage_Core_Model_Resource_D
                 $where,
             );
         }
+
         return $this;
     }
 
     /**
      * Retrieve links searchable data
      *
-     * @param int $productId
-     * @param int $storeId
+     * @param  int   $productId
+     * @param  int   $storeId
      * @return array
      */
     public function getSearchableData($productId, $storeId)

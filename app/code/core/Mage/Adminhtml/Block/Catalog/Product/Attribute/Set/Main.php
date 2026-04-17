@@ -15,7 +15,7 @@
 class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main extends Mage_Adminhtml_Block_Template
 {
     /**
-     * Initialize template
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -73,6 +73,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main extends Mage_Admin
             $this->getLayout()->createBlock('adminhtml/widget_button')->setData([
                 'label'     => Mage::helper('catalog')->__('Reset'),
                 'onclick'   => 'window.location.reload()',
+                'class'     => 'reset',
             ]),
         );
 
@@ -200,7 +201,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main extends Mage_Admin
                     $attr = [
                         'text'              => $child->getAttributeCode(),
                         'id'                => $child->getAttributeId(),
-                        'cls'               => (!$child->getIsUserDefined()) ? 'system-leaf' : 'leaf',
+                        'cls'               => ($child->getIsUserDefined()) ? 'leaf' : 'system-leaf',
                         'allowDrop'         => false,
                         'allowDrag'         => true,
                         'leaf'              => true,
@@ -314,6 +315,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main extends Mage_Admin
         if ($this->getIsCurrentSetDefault()) {
             return '';
         }
+
         return $this->getChildHtml('delete_button');
     }
 
@@ -374,7 +376,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main extends Mage_Admin
      */
     public function getIsCurrentSetDefault()
     {
-        $isDefault = $this->getData('is_current_set_default');
+        $isDefault = $this->getDataByKey('is_current_set_default');
         if (is_null($isDefault)) {
             $defaultSetId = Mage::getSingleton('eav/config')
                 ->getEntityType(Mage::registry('entityType'))
@@ -382,18 +384,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main extends Mage_Admin
             $isDefault = $this->_getSetId() == $defaultSetId;
             $this->setData('is_current_set_default', $isDefault);
         }
-        return $isDefault;
-    }
 
-    /**
-     * Retrieve current Attribute Set object
-     *
-     * @deprecated use _getAttributeSet
-     * @return Mage_Eav_Model_Entity_Attribute_Set
-     */
-    protected function _getSetData()
-    {
-        return $this->_getAttributeSet();
+        return $isDefault;
     }
 
     /**

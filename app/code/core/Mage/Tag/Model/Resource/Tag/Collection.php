@@ -31,7 +31,7 @@ class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db
     /**
      * Mapping for fields
      *
-     * @var array
+     * @inheritDoc
      */
     public $_map               = [
         'fields' => [
@@ -40,8 +40,7 @@ class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db
     ];
 
     /**
-     * Define resource model and model
-     *
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -51,8 +50,8 @@ class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db
     /**
      * Loads collection
      *
-     * @param bool $printQuery
-     * @param bool $logQuery
+     * @param  bool  $printQuery
+     * @param  bool  $logQuery
      * @return $this
      */
     public function load($printQuery = false, $logQuery = false)
@@ -60,10 +59,12 @@ class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db
         if ($this->isLoaded()) {
             return $this;
         }
+
         parent::load($printQuery, $logQuery);
         if ($this->getFlag('add_stores_after')) {
             $this->_addStoresVisibility();
         }
+
         return $this;
     }
 
@@ -71,10 +72,9 @@ class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db
      * Set flag about joined table.
      * setFlag method must be used in future.
      *
-     * @deprecated after 1.3.2.3
-     *
-     * @param string $table
+     * @param  string $table
      * @return $this
+     * @deprecated after 1.3.2.3
      */
     public function setJoinFlag($table)
     {
@@ -83,27 +83,12 @@ class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db
     }
 
     /**
-     * Get flag's status about joined table.
-     * getFlag method must be used in future.
-     *
-     * @deprecated after 1.3.2.3
-     *
-     * @param string $table
-     * @return bool
-     */
-    public function getJoinFlag($table)
-    {
-        return $this->getFlag($table);
-    }
-
-    /**
      * Unset value of join flag.
      * Set false (bool) value to flag instead in future.
      *
-     * @deprecated after 1.3.2.3
-     *
-     * @param string $table
+     * @param  string $table
      * @return $this
+     * @deprecated after 1.3.2.3
      */
     public function unsetJoinFlag($table = null)
     {
@@ -114,7 +99,7 @@ class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db
     /**
      * Sett
      *
-     * @param int $limit
+     * @param  int   $limit
      * @return $this
      */
     public function limit($limit)
@@ -126,7 +111,7 @@ class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db
     /**
      * Replacing popularity by sum of popularity and base_popularity
      *
-     * @param int $limit
+     * @param  int   $limit
      * @return $this
      */
     public function addPopularity($limit = null)
@@ -156,13 +141,14 @@ class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db
 
             $this->setFlag('popularity');
         }
+
         return $this;
     }
 
     /**
      * Adds summary
      *
-     * @param int $storeId
+     * @param  int   $storeId
      * @return $this
      */
     public function addSummary($storeId)
@@ -187,6 +173,7 @@ class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db
 
             $this->setFlag('summary', true);
         }
+
         return $this;
     }
 
@@ -240,8 +227,8 @@ class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db
     /**
      * Adds field to filter
      *
-     * @param string $field
-     * @param array $condition
+     * @param  string                $field
+     * @param  null|array|int|string $condition
      * @return $this
      */
     public function addFieldToFilter($field, $condition = null)
@@ -258,6 +245,7 @@ class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db
         } else {
             parent::addFieldToFilter($field, $condition);
         }
+
         return $this;
     }
 
@@ -280,8 +268,8 @@ class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db
     /**
      * Add filter by store
      *
-     * @param array | int $storeId
-     * @param bool $allFilter
+     * @param  array|int $storeId
+     * @param  bool      $allFilter
      * @return $this
      */
     public function addStoreFilter($storeId, $allFilter = true)
@@ -299,6 +287,7 @@ class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db
             if ($this->getFlag('relation') && $allFilter) {
                 $this->getSelect()->where('relation.store_id IN (?)', $storeId);
             }
+
             if ($this->getFlag('prelation') && $allFilter) {
                 $this->getSelect()->where('prelation.store_id IN (?)', $storeId);
             }
@@ -327,13 +316,14 @@ class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db
         if ($this->getFlag('prelation')) {
             $this->getSelect()->where('prelation.active = ?', $statusActive);
         }
+
         return $this;
     }
 
     /**
      * Adds filter by status
      *
-     * @param int $status
+     * @param  int   $status
      * @return $this
      */
     public function addStatusFilter($status)
@@ -345,7 +335,7 @@ class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db
     /**
      * Adds filter by product id
      *
-     * @param int $productId
+     * @param  int   $productId
      * @return $this
      */
     public function addProductFilter($productId)
@@ -354,13 +344,14 @@ class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db
         if ($this->getFlag('prelation')) {
             $this->addFieldToFilter('prelation.product_id', $productId);
         }
+
         return $this;
     }
 
     /**
      * Adds filter by customer id
      *
-     * @param int $customerId
+     * @param  int   $customerId
      * @return $this
      */
     public function addCustomerFilter($customerId)
@@ -371,6 +362,7 @@ class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db
             $this->getSelect()
                 ->where('prelation.customer_id = ?', $customerId);
         }
+
         return $this;
     }
 

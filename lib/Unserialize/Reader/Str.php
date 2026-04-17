@@ -13,7 +13,7 @@
 class Unserialize_Reader_Str
 {
     /**
-     * @var int|null
+     * @var null|int
      */
     protected $_status = null;
 
@@ -28,12 +28,14 @@ class Unserialize_Reader_Str
     protected $_value;
 
     public const READING_LENGTH = 1;
+
     public const FINISHED_LENGTH = 2;
+
     public const READING_VALUE = 3;
 
     /**
-     * @param string $char
-     * @param string $prevChar
+     * @param  string      $char
+     * @param  string      $prevChar
      * @return null|string
      */
     public function read($char, $prevChar)
@@ -51,11 +53,9 @@ class Unserialize_Reader_Str
             }
         }
 
-        if ($this->_status == self::FINISHED_LENGTH) {
-            if ($char == Unserialize_Parser::SYMBOL_QUOTE) {
-                $this->_status = self::READING_VALUE;
-                return null;
-            }
+        if ($this->_status == self::FINISHED_LENGTH && $char == Unserialize_Parser::SYMBOL_QUOTE) {
+            $this->_status = self::READING_VALUE;
+            return null;
         }
 
         if ($this->_status == self::READING_VALUE) {
@@ -68,12 +68,11 @@ class Unserialize_Reader_Str
                 return null;
             }
 
-            if (strlen($this->_value) == $this->_length) {
-                if ($char == Unserialize_Parser::SYMBOL_SEMICOLON && $prevChar == Unserialize_Parser::SYMBOL_QUOTE) {
-                    return (string) $this->_value;
-                }
+            if (strlen($this->_value) == $this->_length && ($char == Unserialize_Parser::SYMBOL_SEMICOLON && $prevChar == Unserialize_Parser::SYMBOL_QUOTE)) {
+                return (string) $this->_value;
             }
         }
+
         return null;
     }
 }

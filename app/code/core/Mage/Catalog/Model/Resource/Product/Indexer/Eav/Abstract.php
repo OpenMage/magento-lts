@@ -17,7 +17,6 @@ abstract class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Abstract extends 
     /**
      * Rebuild all index data
      *
-     *
      * @return Mage_Catalog_Model_Resource_Product_Indexer_Eav_Abstract
      */
     public function reindexAll()
@@ -32,9 +31,9 @@ abstract class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Abstract extends 
 
             $this->syncData();
             $this->commit();
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $this->rollBack();
-            throw $e;
+            throw $exception;
         }
 
         return $this;
@@ -43,8 +42,7 @@ abstract class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Abstract extends 
     /**
      * Rebuild index data by entities
      *
-     *
-     * @param int|array $processIds
+     * @param  array|int                                                $processIds
      * @return Mage_Catalog_Model_Resource_Product_Indexer_Eav_Abstract
      * @throws Exception
      */
@@ -62,6 +60,7 @@ abstract class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Abstract extends 
         if ($parentIds) {
             $processIds = array_unique(array_merge($processIds, $parentIds));
         }
+
         $childIds  = $this->getRelationsByParent($processIds);
         if ($childIds) {
             $processIds = array_unique(array_merge($processIds, $childIds));
@@ -81,9 +80,9 @@ abstract class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Abstract extends 
             $this->insertFromTable($this->getIdxTable(), $this->getMainTable());
 
             $adapter->commit();
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $adapter->rollBack();
-            throw $e;
+            throw $exception;
         }
 
         return $this;
@@ -93,9 +92,8 @@ abstract class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Abstract extends 
      * Rebuild index data by attribute id
      * If attribute is not indexable remove data by attribute
      *
-     *
-     * @param int $attributeId
-     * @param bool $isIndexable
+     * @param  int                                                      $attributeId
+     * @param  bool                                                     $isIndexable
      * @return Mage_Catalog_Model_Resource_Product_Indexer_Eav_Abstract
      */
     public function reindexAttribute($attributeId, $isIndexable = true)
@@ -118,8 +116,8 @@ abstract class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Abstract extends 
     /**
      * Prepare data index for indexable attributes
      *
-     * @param array $entityIds      the entity ids limitation
-     * @param int $attributeId      the attribute id limitation
+     * @param array $entityIds   the entity ids limitation
+     * @param int   $attributeId the attribute id limitation
      */
     abstract protected function _prepareIndex($entityIds = null, $attributeId = null);
 
@@ -154,7 +152,7 @@ abstract class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Abstract extends 
     /**
      * Prepare data index for product relations
      *
-     * @param array $parentIds  the parent entity ids limitation
+     * @param  array                                                    $parentIds the parent entity ids limitation
      * @return Mage_Catalog_Model_Resource_Product_Indexer_Eav_Abstract
      */
     protected function _prepareRelationIndex($parentIds = null)
@@ -217,7 +215,7 @@ abstract class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Abstract extends 
     /**
      * Remove index data from index by attribute id
      *
-     * @param int $attributeId
+     * @param  int                                                      $attributeId
      * @return Mage_Catalog_Model_Resource_Product_Indexer_Eav_Abstract
      */
     protected function _removeAttributeIndexData($attributeId)
@@ -228,9 +226,9 @@ abstract class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Abstract extends 
             $where = $adapter->quoteInto('attribute_id = ?', $attributeId);
             $adapter->delete($this->getMainTable(), $where);
             $adapter->commit();
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $adapter->rollBack();
-            throw $e;
+            throw $exception;
         }
 
         return $this;
@@ -239,7 +237,7 @@ abstract class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Abstract extends 
     /**
      * Synchronize temporary index table with index table by attribute id
      *
-     * @param int $attributeId
+     * @param  int                                                      $attributeId
      * @return Mage_Catalog_Model_Resource_Product_Indexer_Eav_Abstract
      * @throws Exception
      */
@@ -256,9 +254,9 @@ abstract class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Abstract extends 
             $this->insertFromTable($this->getIdxTable(), $this->getMainTable());
 
             $adapter->commit();
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $adapter->rollBack();
-            throw $e;
+            throw $exception;
         }
 
         return $this;

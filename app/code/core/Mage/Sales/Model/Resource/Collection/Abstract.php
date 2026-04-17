@@ -11,13 +11,15 @@
  * Flat sales abstract collection
  *
  * @package    Mage_Sales
+ * @template T of Mage_Core_Model_Abstract
+ * @extends Mage_Core_Model_Resource_Db_Collection_Abstract<T>
  */
 abstract class Mage_Sales_Model_Resource_Collection_Abstract extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
     /**
      * Check if $attribute is Mage_Eav_Model_Entity_Attribute and convert to string field name
      *
-     * @param string|Mage_Eav_Model_Entity_Attribute $attribute
+     * @param  Mage_Eav_Model_Entity_Attribute|string $attribute
      * @return string
      */
     protected function _attributeToField($attribute)
@@ -28,9 +30,11 @@ abstract class Mage_Sales_Model_Resource_Collection_Abstract extends Mage_Core_M
         } elseif ($attribute instanceof Mage_Eav_Model_Entity_Attribute) {
             $field = $attribute->getAttributeCode();
         }
+
         if (!$field) {
             Mage::throwException(Mage::helper('sales')->__('Cannot determine the field name.'));
         }
+
         return $field;
     }
 
@@ -38,7 +42,7 @@ abstract class Mage_Sales_Model_Resource_Collection_Abstract extends Mage_Core_M
      * Add attribute to select result set.
      * Backward compatibility with EAV collection
      *
-     * @param string $attribute
+     * @param  string $attribute
      * @return $this
      */
     public function addAttributeToSelect($attribute)
@@ -51,8 +55,8 @@ abstract class Mage_Sales_Model_Resource_Collection_Abstract extends Mage_Core_M
      * Specify collection select filter by attribute value
      * Backward compatibility with EAV collection
      *
-     * @param string|Mage_Eav_Model_Entity_Attribute $attribute
-     * @param array|int|string|null $condition
+     * @param  Mage_Eav_Model_Entity_Attribute|string $attribute
+     * @param  null|array|int|string                  $condition
      * @return $this
      */
     public function addAttributeToFilter($attribute, $condition = null)
@@ -65,8 +69,8 @@ abstract class Mage_Sales_Model_Resource_Collection_Abstract extends Mage_Core_M
      * Specify collection select order by attribute value
      * Backward compatibility with EAV collection
      *
-     * @param string $attribute
-     * @param string $dir
+     * @param  string $attribute
+     * @param  string $dir
      * @return $this
      */
     public function addAttributeToSort($attribute, $dir = 'asc')
@@ -79,8 +83,8 @@ abstract class Mage_Sales_Model_Resource_Collection_Abstract extends Mage_Core_M
      * Set collection page start and records to show
      * Backward compatibility with EAV collection
      *
-     * @param int $pageNum
-     * @param int $pageSize
+     * @param  int   $pageNum
+     * @param  int   $pageSize
      * @return $this
      */
     public function setPage($pageNum, $pageSize)
@@ -94,8 +98,8 @@ abstract class Mage_Sales_Model_Resource_Collection_Abstract extends Mage_Core_M
      * Create all ids retrieving select with limitation
      * Backward compatibility with EAV collection
      *
-     * @param int $limit
-     * @param int $offset
+     * @param  int              $limit
+     * @param  int              $offset
      * @return Varien_Db_Select
      */
     protected function _getAllIdsSelect($limit = null, $offset = null)
@@ -114,8 +118,8 @@ abstract class Mage_Sales_Model_Resource_Collection_Abstract extends Mage_Core_M
      * Retrieve all ids for collection
      * Backward compatibility with EAV collection
      *
-     * @param int $limit
-     * @param int $offset
+     * @param  int   $limit
+     * @param  int   $offset
      * @return array
      */
     public function getAllIds($limit = null, $offset = null)
@@ -131,12 +135,12 @@ abstract class Mage_Sales_Model_Resource_Collection_Abstract extends Mage_Core_M
      *
      * @todo implement join functionality if necessary
      *
-     * @param string $alias
-     * @param string $attribute
-     * @param string $bind
-     * @param string $filter
-     * @param string $joinType
-     * @param int $storeId
+     * @param  string $alias
+     * @param  string $attribute
+     * @param  string $bind
+     * @param  string $filter
+     * @param  string $joinType
+     * @param  int    $storeId
      * @return $this
      */
     public function joinAttribute($alias, $attribute, $bind, $filter = null, $joinType = 'inner', $storeId = null)

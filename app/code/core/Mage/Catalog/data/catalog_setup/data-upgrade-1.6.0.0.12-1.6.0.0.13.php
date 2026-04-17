@@ -7,10 +7,12 @@
  * @package    Mage_Catalog
  */
 
-/** @var Mage_Catalog_Model_Resource_Setup $installer */
+/** @var Mage_Catalog_Model_Resource_Setup $this */
 $installer = $this;
 $groupPriceAttrId = $installer->getAttribute('catalog_product', 'group_price', 'attribute_id');
 $priceAttrId = $installer->getAttribute('catalog_product', 'price', 'attribute_id');
+
+/** @var Varien_Db_Adapter_Pdo_Mysql $connection */
 $connection = $installer->getConnection();
 
 // update sort_order of Group Price attribute to be after Price

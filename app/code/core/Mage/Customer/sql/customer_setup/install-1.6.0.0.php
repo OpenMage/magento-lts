@@ -7,7 +7,7 @@
  * @package    Mage_Customer
  */
 
-/** @var Mage_Customer_Model_Resource_Setup $installer */
+/** @var Mage_Customer_Model_Resource_Setup $this */
 $installer = $this;
 $installer->startSetup();
 

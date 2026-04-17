@@ -19,7 +19,7 @@ class Mage_Catalog_Model_Category_Url extends Mage_Catalog_Model_Url
      */
     public function __construct(array $args = [])
     {
-        $this->_factory = !empty($args['factory']) ? $args['factory'] : Mage::getSingleton('catalog/factory');
+        $this->_factory = empty($args['factory']) ? Mage::getSingleton('catalog/factory') : $args['factory'];
     }
 
     /**
@@ -29,17 +29,17 @@ class Mage_Catalog_Model_Category_Url extends Mage_Catalog_Model_Url
      */
     public function getCategoryUrl(Mage_Catalog_Model_Category $category)
     {
-        $url = $category->getData('url');
+        $url = $category->getDataByKey('url');
         if ($url !== null) {
             return $url;
         }
 
         Varien_Profiler::start('REWRITE: ' . __METHOD__);
 
-        if ($category->hasData('request_path') && $category->getData('request_path') != '') {
+        if ($category->hasData('request_path') && $category->getDataByKey('request_path') != '') {
             $category->setData('url', $this->_getDirectUrl($category));
             Varien_Profiler::stop('REWRITE: ' . __METHOD__);
-            return $category->getData('url');
+            return $category->getDataByKey('url');
         }
 
         $requestPath = $this->_getRequestPath($category);
@@ -47,13 +47,13 @@ class Mage_Catalog_Model_Category_Url extends Mage_Catalog_Model_Url
             $category->setRequestPath($requestPath);
             $category->setData('url', $this->_getDirectUrl($category));
             Varien_Profiler::stop('REWRITE: ' . __METHOD__);
-            return $category->getData('url');
+            return $category->getDataByKey('url');
         }
 
         Varien_Profiler::stop('REWRITE: ' . __METHOD__);
 
         $category->setData('url', $category->getCategoryIdUrl());
-        return $category->getData('url');
+        return $category->getDataByKey('url');
     }
 
     /**
@@ -77,11 +77,13 @@ class Mage_Catalog_Model_Category_Url extends Mage_Catalog_Model_Url
         if ($storeId) {
             $rewrite->setStoreId($storeId);
         }
+
         $idPath = 'category/' . $category->getId();
         $rewrite->loadByIdPath($idPath);
         if ($rewrite->getId()) {
             return $rewrite->getRequestPath();
         }
+
         return false;
     }
 }

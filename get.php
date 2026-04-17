@@ -7,6 +7,8 @@
  * @package    Mage
  */
 
+use Carbon\Carbon;
+
 $start = microtime(true);
 /**
  * Error reporting
@@ -43,6 +45,7 @@ if (!$autoloaderPath) {
         $autoloaderPath = $bp . $ds . 'vendor';
     }
 }
+
 require_once $autoloaderPath . $ds . 'autoload.php';
 /** AUTOLOADER PATCH **/
 
@@ -55,7 +58,7 @@ if (file_exists($configCacheFile) && is_readable($configCacheFile)) {
     $config = json_decode(file_get_contents($configCacheFile), true);
 
     //checking update time
-    if (filemtime($configCacheFile) + $config['update_time'] > time()) {
+    if (filemtime($configCacheFile) + $config['update_time'] > Carbon::now()->getTimestamp()) {
         $mediaDirectory = trim(str_replace($bp . $ds, '', $config['media_directory']), $ds);
         $allowedResources = array_merge($allowedResources, $config['allowed_resources']);
     }
@@ -109,13 +112,14 @@ if (!$mediaDirectory) {
 
     $relativeFilename = str_replace($mediaDirectory . '/', '', $pathInfo);
 
-    $fp = fopen($configCacheFile, 'w');
-    if (flock($fp, LOCK_EX | LOCK_NB)) {
-        ftruncate($fp, 0);
-        fwrite($fp, json_encode($config));
+    $resource = fopen($configCacheFile, 'w');
+    if (flock($resource, LOCK_EX | LOCK_NB)) {
+        ftruncate($resource, 0);
+        fwrite($resource, json_encode($config));
     }
-    flock($fp, LOCK_UN);
-    fclose($fp);
+
+    flock($resource, LOCK_UN);
+    fclose($resource);
 
     checkResource($relativeFilename, $allowedResources);
 }
@@ -123,6 +127,7 @@ if (!$mediaDirectory) {
 if (0 !== stripos($pathInfo, $mediaDirectory . '/')) {
     sendNotFoundPage();
 }
+
 if (substr_count($relativeFilename, '/') > 10) {
     sendNotFoundPage();
 }
@@ -138,18 +143,20 @@ try {
     if ($localStorage->lockCreateFile($relativeFilename)) {
         try {
             $remoteStorage->loadByFilename($relativeFilename);
-        } catch (Exception $e) {
-            Mage::logException($e);
+        } catch (Exception $exception) {
+            Mage::logException($exception);
         }
+
         if ($remoteStorage->getId()) {
             $localStorage->saveFile($remoteStorage, false);
         } else {
             $localStorage->removeLockedFile($relativeFilename);
         }
     }
+
     sendFile($filePath);
-} catch (Exception $e) {
-    Mage::logException($e);
+} catch (Exception $exception) {
+    Mage::logException($exception);
 }
 
 sendNotFoundPage();

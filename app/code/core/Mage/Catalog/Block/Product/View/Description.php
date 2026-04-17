@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -17,13 +19,14 @@ class Mage_Catalog_Block_Product_View_Description extends Mage_Core_Block_Templa
     protected $_product = null;
 
     /**
-     * @return mixed|null
+     * @return null|mixed
      */
     public function getProduct()
     {
         if (!$this->_product) {
             $this->_product = Mage::registry('product');
         }
+
         return $this->_product;
     }
 }

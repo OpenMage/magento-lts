@@ -11,7 +11,7 @@
  * @package    Mage_Customer
  *
  * @method DateTime getTime()
- * @method $this setTime(string $value)
+ * @method $this    setTime(string $value)
  */
 class Mage_Customer_Block_Widget_Dob extends Mage_Customer_Block_Widget_Abstract
 {
@@ -22,7 +22,7 @@ class Mage_Customer_Block_Widget_Dob extends Mage_Customer_Block_Widget_Abstract
      */
     protected $_dateInputs = [];
 
-    public function _construct()
+    protected function _construct()
     {
         parent::_construct();
 
@@ -47,7 +47,7 @@ class Mage_Customer_Block_Widget_Dob extends Mage_Customer_Block_Widget_Abstract
     }
 
     /**
-     * @param string $date
+     * @param  string $date
      * @return $this
      */
     public function setDate($date)
@@ -56,8 +56,8 @@ class Mage_Customer_Block_Widget_Dob extends Mage_Customer_Block_Widget_Abstract
             try {
                 $dateTime = new DateTime($date);
                 $this->setTime($dateTime);
-            } catch (Exception $e) {
-                Mage::logException($e);
+            } catch (Exception $exception) {
+                Mage::logException($exception);
             }
         }
 
@@ -95,7 +95,7 @@ class Mage_Customer_Block_Widget_Dob extends Mage_Customer_Block_Widget_Abstract
      */
     public function getYear()
     {
-        return ($this->hasTime()) ? $this->getTime()->format('o') : '';
+        return ($this->hasTime()) ? $this->getTime()->format('Y') : '';
     }
 
     /**

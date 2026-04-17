@@ -96,6 +96,7 @@ class Mage_Adminhtml_Promo_CatalogController extends Mage_Adminhtml_Controller_A
         if (!empty($data)) {
             $model->addData($data);
         }
+
         $model->getConditions()->setJsFormObject('rule_conditions_fieldset');
 
         Mage::register('current_promo_catalog_rule', $model);
@@ -122,6 +123,7 @@ class Mage_Adminhtml_Promo_CatalogController extends Mage_Adminhtml_Controller_A
                 if (Mage::helper('adminhtml')->hasTags($data['rule'], ['attribute'], false)) {
                     Mage::throwException(Mage::helper('catalogrule')->__('Wrong rule specified'));
                 }
+
                 $data = $this->_filterDates($data, ['from_date', 'to_date']);
                 if ($id = $this->getRequest()->getParam('rule_id')) {
                     $model->load($id);
@@ -135,6 +137,7 @@ class Mage_Adminhtml_Promo_CatalogController extends Mage_Adminhtml_Controller_A
                     foreach ($validateResult as $errorMessage) {
                         $this->_getSession()->addError($errorMessage);
                     }
+
                     $this->_getSession()->setPageData($data);
                     $this->_redirect('*/*/edit', ['id' => $model->getId()]);
                     return;
@@ -170,21 +173,24 @@ class Mage_Adminhtml_Promo_CatalogController extends Mage_Adminhtml_Controller_A
                         $this->_redirect('*/*/edit', ['id' => $model->getId()]);
                         return;
                     }
+
                     $this->_redirect('*/*/');
                 }
+
                 return;
-            } catch (Mage_Core_Exception $e) {
-                $this->_getSession()->addError($e->getMessage());
-            } catch (Exception $e) {
+            } catch (Mage_Core_Exception $mageCoreException) {
+                $this->_getSession()->addError($mageCoreException->getMessage());
+            } catch (Exception $exception) {
                 $this->_getSession()->addError(
                     Mage::helper('catalogrule')->__('An error occurred while saving the rule data. Please review the log and try again.'),
                 );
-                Mage::logException($e);
+                Mage::logException($exception);
                 Mage::getSingleton('adminhtml/session')->setPageData($data);
                 $this->_redirect('*/*/edit', ['id' => $this->getRequest()->getParam('rule_id')]);
                 return;
             }
         }
+
         $this->_redirect('*/*/');
     }
 
@@ -201,6 +207,7 @@ class Mage_Adminhtml_Promo_CatalogController extends Mage_Adminhtml_Controller_A
                     $this->_redirect('*/*/');
                     return;
                 }
+
                 $model->delete();
                 Mage::getModel('catalogrule/flag')->loadSelf()
                     ->setState(1)
@@ -210,17 +217,18 @@ class Mage_Adminhtml_Promo_CatalogController extends Mage_Adminhtml_Controller_A
                 );
                 $this->_redirect('*/*/');
                 return;
-            } catch (Mage_Core_Exception $e) {
-                $this->_getSession()->addError($e->getMessage());
-            } catch (Exception $e) {
+            } catch (Mage_Core_Exception $mageCoreException) {
+                $this->_getSession()->addError($mageCoreException->getMessage());
+            } catch (Exception $exception) {
                 $this->_getSession()->addError(
                     Mage::helper('catalogrule')->__('An error occurred while deleting the rule. Please review the log and try again.'),
                 );
-                Mage::logException($e);
+                Mage::logException($exception);
                 $this->_redirect('*/*/edit', ['id' => $this->getRequest()->getParam('id')]);
                 return;
             }
         }
+
         Mage::getSingleton('adminhtml/session')->addError(
             Mage::helper('catalogrule')->__('Unable to find a rule to delete.'),
         );
@@ -248,6 +256,7 @@ class Mage_Adminhtml_Promo_CatalogController extends Mage_Adminhtml_Controller_A
         } else {
             $html = '';
         }
+
         $this->getResponse()->setBody($html);
     }
 
@@ -262,6 +271,7 @@ class Mage_Adminhtml_Promo_CatalogController extends Mage_Adminhtml_Controller_A
                 $type = 'adminhtml/promo_widget_chooser_categories';
                 break;
         }
+
         if (!empty($type)) {
             $block = $this->getLayout()->createBlock($type);
             if ($block) {
@@ -291,6 +301,7 @@ class Mage_Adminhtml_Promo_CatalogController extends Mage_Adminhtml_Controller_A
         } else {
             $html = '';
         }
+
         $this->getResponse()->setBody($html);
     }
 
@@ -306,12 +317,13 @@ class Mage_Adminhtml_Promo_CatalogController extends Mage_Adminhtml_Controller_A
                 ->setState(0)
                 ->save();
             $this->_getSession()->addSuccess(Mage::helper('catalogrule')->__('The rules have been applied.'));
-        } catch (Mage_Core_Exception $e) {
-            $this->_getSession()->addError($errorMessage . ' ' . $e->getMessage());
-        } catch (Exception $e) {
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_getSession()->addError($errorMessage . ' ' . $mageCoreException->getMessage());
+        } catch (Exception $exception) {
             $this->_getSession()->addError($errorMessage);
-            Mage::logException($e);
+            Mage::logException($exception);
         }
+
         $this->_redirect('*/*');
     }
 

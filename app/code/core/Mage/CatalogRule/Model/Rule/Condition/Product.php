@@ -7,6 +7,8 @@
  * @package    Mage_CatalogRule
  */
 
+use Carbon\Carbon;
+
 /**
  * Catalog Rule Product Condition data model
  *
@@ -25,6 +27,7 @@ class Mage_CatalogRule_Model_Rule_Condition_Product extends Mage_Rule_Model_Cond
         if ($attrCode == 'category_ids') {
             return $this->validateAttribute($object->getCategoryIds());
         }
+
         if ($attrCode == 'attribute_set_id') {
             return $this->validateAttribute($object->getData($attrCode));
         }
@@ -40,7 +43,7 @@ class Mage_CatalogRule_Model_Rule_Condition_Product extends Mage_Rule_Model_Cond
     /**
      * Validate product
      *
-     * @param Varien_Object $object
+     * @param  Varien_Object $object
      * @return bool
      */
     protected function _validateProduct($object)
@@ -52,7 +55,7 @@ class Mage_CatalogRule_Model_Rule_Condition_Product extends Mage_Rule_Model_Cond
      * Restore old attribute value
      *
      * @param Varien_Object $object
-     * @param mixed $oldAttrValue
+     * @param mixed         $oldAttrValue
      */
     protected function _restoreOldAttrValue($object, $oldAttrValue)
     {
@@ -67,7 +70,7 @@ class Mage_CatalogRule_Model_Rule_Condition_Product extends Mage_Rule_Model_Cond
     /**
      * Get attribute value
      *
-     * @param Varien_Object $object
+     * @param  Varien_Object $object
      * @return mixed
      */
     protected function _getAttributeValue($object)
@@ -87,8 +90,8 @@ class Mage_CatalogRule_Model_Rule_Condition_Product extends Mage_Rule_Model_Cond
     /**
      * Prepare datetime attribute value
      *
-     * @param mixed $value
-     * @param Varien_Object $object
+     * @param  mixed         $value
+     * @param  Varien_Object $object
      * @return mixed
      */
     protected function _prepareDatetimeValue($value, $object)
@@ -98,24 +101,27 @@ class Mage_CatalogRule_Model_Rule_Condition_Product extends Mage_Rule_Model_Cond
             if (!$value) {
                 return null;
             }
-            $value = strtotime($value);
+
+            $value = Carbon::parse($value)->getTimestamp();
         }
+
         return $value;
     }
 
     /**
      * Prepare multiselect attribute value
      *
-     * @param mixed $value
-     * @param Varien_Object $object
+     * @param  mixed         $value
+     * @param  Varien_Object $object
      * @return mixed
      */
     protected function _prepareMultiselectValue($value, $object)
     {
         $attribute = $object->getResource()->getAttribute($this->getAttribute());
         if ($attribute && $attribute->getFrontendInput() == 'multiselect') {
-            $value = strlen($value) ? explode(',', $value) : [];
+            return strlen($value) ? explode(',', $value) : [];
         }
+
         return $value;
     }
 }

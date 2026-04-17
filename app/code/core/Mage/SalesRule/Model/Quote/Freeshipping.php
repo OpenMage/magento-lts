@@ -30,7 +30,7 @@ class Mage_SalesRule_Model_Quote_Freeshipping extends Mage_Sales_Model_Quote_Add
     /**
      * Collect information about free shipping for all address items
      *
-     * @return  $this
+     * @return $this
      */
     public function collect(Mage_Sales_Model_Quote_Address $address)
     {
@@ -43,6 +43,7 @@ class Mage_SalesRule_Model_Quote_Freeshipping extends Mage_Sales_Model_Quote_Add
         if (!count($items)) {
             return $this;
         }
+
         $this->_calculator->init($store->getWebsiteId(), $quote->getCustomerGroupId(), $quote->getCouponCode());
 
         $isAllFree = true;
@@ -57,6 +58,7 @@ class Mage_SalesRule_Model_Quote_Freeshipping extends Mage_Sales_Model_Quote_Add
                 if ($item->getParentItemId()) {
                     continue;
                 }
+
                 $this->_calculator->processFreeShipping($item);
                 $isItemFree = (bool) $item->getFreeShipping();
                 $isAllFree = $isAllFree && $isItemFree;
@@ -73,9 +75,11 @@ class Mage_SalesRule_Model_Quote_Freeshipping extends Mage_Sales_Model_Quote_Add
                 }
             }
         }
+
         if ($isAllFree && !$address->getFreeShipping()) {
             $address->setFreeShipping(true);
         }
+
         return $this;
     }
 

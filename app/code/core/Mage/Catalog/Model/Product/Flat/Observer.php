@@ -52,10 +52,10 @@ class Mage_Catalog_Model_Product_Flat_Observer
             || ($this->_getHelper()->isAddFilterableAttributes() && $attribute->getOrigData('is_filterable') > 0)
             || ($attribute->getOrigData('used_in_product_listing') == 1)
             || ($attribute->getOrigData('used_for_sort_by') == 1);
-        $enableAfter    = ($attribute->getData('backend_type') == 'static')
-            || ($this->_getHelper()->isAddFilterableAttributes() && $attribute->getData('is_filterable') > 0)
-            || ($attribute->getData('used_in_product_listing') == 1)
-            || ($attribute->getData('used_for_sort_by') == 1);
+        $enableAfter    = ($attribute->getDataByKey('backend_type') == 'static')
+            || ($this->_getHelper()->isAddFilterableAttributes() && $attribute->getDataByKey('is_filterable') > 0)
+            || ($attribute->getDataByKey('used_in_product_listing') == 1)
+            || ($attribute->getDataByKey('used_for_sort_by') == 1);
 
         if (!$enableAfter && !$enableBefore) {
             return $this;
@@ -254,14 +254,15 @@ class Mage_Catalog_Model_Product_Flat_Observer
         ) {
             $this->_getIndexer()->updateEventAttributes();
         }
+
         return $this;
     }
 
     /**
      * Update category ids in flat
      *
-     * @deprecated 1.3.2.2
      * @return $this
+     * @deprecated 1.3.2.2
      */
     public function catalogCategoryChangeProducts(Varien_Event_Observer $observer)
     {

@@ -18,6 +18,8 @@ use Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract as MassAction;
  */
 class Mage_Adminhtml_Block_Tag_Tag_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_tag_tag_grid';
+
     public function __construct()
     {
         parent::__construct();
@@ -29,8 +31,7 @@ class Mage_Adminhtml_Block_Tag_Tag_Grid extends Mage_Adminhtml_Block_Widget_Grid
     }
 
     /**
-     * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
-     * @return $this
+     * @inheritDoc
      */
     protected function _addColumnFilterToCollection($column)
     {
@@ -39,6 +40,7 @@ class Mage_Adminhtml_Block_Tag_Tag_Grid extends Mage_Adminhtml_Block_Widget_Grid
         } else {
             parent::_addColumnFilterToCollection($column);
         }
+
         return $this;
     }
 
@@ -105,7 +107,7 @@ class Mage_Adminhtml_Block_Tag_Tag_Grid extends Mage_Adminhtml_Block_Widget_Grid
     }
 
     /**
-     * @return $this
+     * @inheritDoc
      */
     protected function _prepareMassaction()
     {
@@ -137,7 +139,7 @@ class Mage_Adminhtml_Block_Tag_Tag_Grid extends Mage_Adminhtml_Block_Widget_Grid
             ],
         ]);
 
-        return $this;
+        return parent::_prepareMassaction();
     }
 
     /**
@@ -151,10 +153,9 @@ class Mage_Adminhtml_Block_Tag_Tag_Grid extends Mage_Adminhtml_Block_Widget_Grid
     }
 
     /**
-     * Retrieves row click URL
-     *
-     * @param  Mage_Tag_Model_Tag $row
-     * @return string
+     * @inheritDoc
+     * @param  Mage_Tag_Model_Tag  $row
+     * @throws Mage_Core_Exception
      */
     public function getRowUrl($row)
     {

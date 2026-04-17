@@ -15,12 +15,12 @@
 class Mage_Core_Model_Design_Fallback
 {
     /**
-     * @var Mage_Core_Model_Design_Config
+     * @var null|Mage_Core_Model_Design_Config
      */
     protected $_config = null;
 
     /**
-     * @var Mage_Core_Model_Store
+     * @var null|Mage_Core_Model_Store
      */
     protected $_store = null;
 
@@ -47,6 +47,7 @@ class Mage_Core_Model_Design_Fallback
      * Retrieve store
      *
      * @return Mage_Core_Model_Store
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getStore()
     {
@@ -54,14 +55,16 @@ class Mage_Core_Model_Design_Fallback
     }
 
     /**
-     * @param string|int|Mage_Core_Model_Store $store
+     * @param  int|Mage_Core_Model_Store|string $store
      * @return $this
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function setStore($store)
     {
         if (!$store instanceof Mage_Core_Model_Store) {
             $store = Mage::app()->getStore($store);
         }
+
         $this->_store = $store;
         $this->_cachedSchemes = [];
         return $this;
@@ -70,20 +73,44 @@ class Mage_Core_Model_Design_Fallback
     /**
      * Get fallback scheme
      *
-     * @param string $area
-     * @param string $package
-     * @param string $theme
+     * @param  string              $area
+     * @param  string              $package
+     * @param  string              $theme
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function getFallbackScheme($area, $package, $theme)
     {
         $cacheKey = $area . '/' . $package . '/' . $theme;
 
         if (!isset($this->_cachedSchemes[$cacheKey])) {
+
+            // First, we have to check if theme exists
+            $path = $area . DS . $package . DS . $theme;
+            $fallback = !is_dir(Mage::getBaseDir('design') . DS . $path);
+            if ($fallback) {
+                // Fallback to default theme.
+                $theme = (string) Mage::getConfig()->getNode('stores/admin/design/theme/default');
+            }
+
             if ($this->_isInheritanceDefined($area, $package, $theme)) {
                 $scheme = $this->_getFallbackScheme($area, $package, $theme);
             } else {
                 $scheme = $this->_getLegacyFallbackScheme();
+            }
+
+            if ($fallback) {
+                /**
+                 * When the originally requested theme does not exist, we build the inheritance
+                 * chain for the configured fallback theme instead. The first element of
+                 * $scheme represents the empty top element.
+                 * We keep that element at the beginning and explicitly insert the effective
+                 * theme as the second element, so that its files are checked immediately
+                 * after the current (parent) but before any further fallbacks. This preserves a
+                 * predictable and explicit order in the fallback chain.
+                 */
+                $first = array_shift($scheme);
+                $scheme = array_merge([$first], [['_package' => $package, '_theme' => $theme]], $scheme);
             }
 
             $this->_cachedSchemes[$cacheKey] = $scheme;
@@ -95,9 +122,9 @@ class Mage_Core_Model_Design_Fallback
     /**
      * Check if inheritance defined in theme config
      *
-     * @param string $area
-     * @param string $package
-     * @param string $theme
+     * @param  string $area
+     * @param  string $package
+     * @param  string $theme
      * @return bool
      */
     protected function _isInheritanceDefined($area, $package, $theme)
@@ -109,9 +136,9 @@ class Mage_Core_Model_Design_Fallback
     /**
      * Get fallback scheme according to theme config
      *
-     * @param string $area
-     * @param string $package
-     * @param string $theme
+     * @param  string              $area
+     * @param  string              $package
+     * @param  string              $theme
      * @return array
      * @throws Mage_Core_Exception
      */
@@ -126,6 +153,7 @@ class Mage_Core_Model_Design_Fallback
             if (count($parts) !== 2) {
                 throw new Mage_Core_Exception('Parent node should be defined as "package/theme"');
             }
+
             [$package, $theme] = $parts;
             $scheme[] = ['_package' => $package, '_theme' => $theme];
         }
@@ -136,9 +164,9 @@ class Mage_Core_Model_Design_Fallback
     /**
      * Prevent circular inheritance
      *
-     * @param string $area
-     * @param string $package
-     * @param string $theme
+     * @param  string              $area
+     * @param  string              $package
+     * @param  string              $theme
      * @throws Mage_Core_Exception
      */
     protected function _checkVisited($area, $package, $theme)
@@ -149,13 +177,15 @@ class Mage_Core_Model_Design_Fallback
                 'Circular inheritance in theme ' . $package . '/' . $theme,
             );
         }
+
         $this->_visited[] = $path;
     }
 
     /**
      * Get fallback scheme when inheritance is not defined (backward compatibility)
      *
-     * @return array
+     * @return array<int, array<string, string>|mixed[]>
+     * @throws Mage_Core_Model_Store_Exception
      */
     protected function _getLegacyFallbackScheme()
     {
@@ -168,7 +198,9 @@ class Mage_Core_Model_Design_Fallback
 
     /**
      * Default theme getter
+     *
      * @return string
+     * @throws Mage_Core_Model_Store_Exception
      */
     protected function _getFallbackTheme()
     {

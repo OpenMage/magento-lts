@@ -23,10 +23,11 @@ class Mage_Widget_Model_Observer
     {
         $config = $observer->getEvent()->getConfig();
 
-        if ($config->getData('add_widgets')) {
+        if ($config->getDataByKey('add_widgets')) {
             $settings = Mage::getModel('widget/widget_config')->getPluginSettings($config);
             $config->addData($settings);
         }
+
         return $this;
     }
 }

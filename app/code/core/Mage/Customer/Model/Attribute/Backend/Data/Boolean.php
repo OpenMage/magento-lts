@@ -17,14 +17,14 @@ class Mage_Customer_Model_Attribute_Backend_Data_Boolean extends Mage_Eav_Model_
     /**
      * Prepare data before attribute save
      *
-     * @param Mage_Customer_Model_Customer $customer
+     * @param  Mage_Customer_Model_Customer $customer
      * @return $this
      */
     public function beforeSave($customer)
     {
         $attributeName = $this->getAttribute()->getName();
         $inputValue = $customer->getData($attributeName);
-        $sanitizedValue = (!empty($inputValue)) ? '1' : '0';
+        $sanitizedValue = (empty($inputValue)) ? '0' : '1';
         $customer->setData($attributeName, $sanitizedValue);
         return $this;
     }

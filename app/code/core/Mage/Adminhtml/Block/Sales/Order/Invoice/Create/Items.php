@@ -28,7 +28,7 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_Create_Items extends Mage_Adminht
             'update_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')->setData([
                 'class'     => 'update-button',
-                'label'     => Mage::helper('sales')->__('Update Qty\'s'),
+                'label'     => Mage::helper('sales')->__("Update Qty's"),
                 'onclick'   => $onclick,
             ]),
         );
@@ -38,17 +38,19 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_Create_Items extends Mage_Adminht
             /**
              * @see bug #14839
              */
-            if ($item->getQty()/* || $this->getSource()->getData('base_grand_total')*/) {
+            if ($item->getQty()/* || $this->getSource()->getDataByKey('base_grand_total')*/) {
                 $this->_disableSubmitButton = false;
                 $submitButtonClass = '';
                 break;
             }
         }
+
         if ($this->getOrder()->getForcedDoShipmentWithInvoice()) {
             $submitLabel = Mage::helper('sales')->__('Submit Invoice and Shipment');
         } else {
             $submitLabel = Mage::helper('sales')->__('Submit Invoice');
         }
+
         $this->setChild(
             'submit_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')->setData([
@@ -105,7 +107,7 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_Create_Items extends Mage_Adminht
     /**
      * Retrieve order totals block settings
      *
-     * @return array
+     * @return array<void>
      */
     public function getOrderTotalData()
     {
@@ -115,7 +117,7 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_Create_Items extends Mage_Adminht
     /**
      * Retrieve order totalbar block data
      *
-     * @return array
+     * @return array<int, array<int, bool|string>>
      */
     public function getOrderTotalbarData()
     {
@@ -157,6 +159,7 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_Create_Items extends Mage_Adminht
                 return true;
             }
         }
+
         return false;
     }
 
@@ -165,6 +168,7 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_Create_Items extends Mage_Adminht
         if ($this->getInvoice()->getOrder()->getPayment()->canCapture()) {
             return $this->getInvoice()->getOrder()->getPayment()->canCapturePartial();
         }
+
         return true;
     }
 

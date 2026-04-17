@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -18,7 +20,7 @@ interface Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Interface
      * Set column for renderer
      *
      * @abstract
-     * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
+     * @param  Mage_Adminhtml_Block_Widget_Grid_Column $column
      * @return void
      */
     public function setColumn($column);

@@ -37,6 +37,7 @@ if (file_exists($maintenanceFile)) {
         $allowedIps = preg_split('/[\ \n\,]+/', file_get_contents($maintenanceIpFile), 0, PREG_SPLIT_NO_EMPTY);
         $maintenanceBypass = in_array($currentIp, $allowedIps, true);
     }
+
     if (!$maintenanceBypass) {
         include_once __DIR__ . '/errors/503.php';
         exit;
@@ -46,5 +47,9 @@ if (file_exists($maintenanceFile)) {
     $config = Mage::app()->getConfig();
     $config->getCache()->remove($config->getCacheId());
 }
+
+// Unset headers that are not supported but which may be exploited against the Zend libraries
+unset($_SERVER['HTTP_X_ORIGINAL_URL']);
+unset($_SERVER['HTTP_X_REWRITE_URL']);
 
 Mage::run($mageRunCode, $mageRunType);

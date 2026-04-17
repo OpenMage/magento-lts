@@ -30,7 +30,7 @@ class Mage_Directory_Model_Resource_Currency_Collection extends Mage_Core_Model_
     protected $_currencyRateTable;
 
     /**
-     * Define resource model and tables
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -43,7 +43,7 @@ class Mage_Directory_Model_Resource_Currency_Collection extends Mage_Core_Model_
     /**
      * Join currency rates by currency
      *
-     * @param string $currency
+     * @param  string $currency
      * @return $this
      */
     public function joinRates($currency)
@@ -63,7 +63,7 @@ class Mage_Directory_Model_Resource_Currency_Collection extends Mage_Core_Model_
     /**
      * Set language condition by name table
      *
-     * @param string $lang
+     * @param  string $lang
      * @return $this
      */
     public function addLanguageFilter($lang = null)
@@ -71,13 +71,14 @@ class Mage_Directory_Model_Resource_Currency_Collection extends Mage_Core_Model_
         if (is_null($lang)) {
             $lang = Mage::app()->getStore()->getLanguageCode();
         }
+
         return $this->addFieldToFilter('main_table.language_code', $lang);
     }
 
     /**
      * Add currency code condition
      *
-     * @param string $code
+     * @param  string $code
      * @return $this
      */
     public function addCodeFilter($code)

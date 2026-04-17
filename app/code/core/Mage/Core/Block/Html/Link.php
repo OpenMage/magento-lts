@@ -14,11 +14,15 @@
  */
 class Mage_Core_Block_Html_Link extends Mage_Core_Block_Template
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->setTemplate('core/link.phtml');
         parent::_construct();
     }
+
     /**
      * Prepare link attributes as serialized and formatted string
      *
@@ -43,29 +47,29 @@ class Mage_Core_Block_Html_Link extends Mage_Core_Block_Template
             }
         }
 
-        if (!empty($attributes)) {
+        if ($attributes !== []) {
             return $this->serialize($attributes);
         }
+
         return '';
     }
 
     /**
      * serialize attributes
      *
-     * @param   array $attributes
-     * @param   string $valueSeparator
-     * @param   string $fieldSeparator
-     * @param   string $quote
-     * @return  string
+     * @param  array  $attributes
+     * @param  string $valueSeparator
+     * @param  string $fieldSeparator
+     * @param  string $quote
+     * @return string
      */
     public function serialize($attributes = [], $valueSeparator = '=', $fieldSeparator = ' ', $quote = '"')
     {
-        $res  = '';
         $data = [];
-
         foreach ($attributes as $key => $value) {
             $data[] = $key . $valueSeparator . $quote . $value . $quote;
         }
+
         return implode($fieldSeparator, $data);
     }
 }

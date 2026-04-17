@@ -22,7 +22,7 @@
 class Mage_Sales_Block_Adminhtml_Billing_Agreement_View_Tab_Info extends Mage_Adminhtml_Block_Abstract implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
     /**
-     * Set custom template
+     * @inheritDoc
      */
     protected function _construct()
     {

@@ -113,6 +113,6 @@ final class DataTest extends OpenMageTest
      */
     public function testGetConfigCurrencyBase(): void
     {
-        self::assertSame('USD', self::$subject->getConfigCurrencyBase());
+        self::assertSame('USD', Subject::getConfigCurrencyBase());
     }
 }

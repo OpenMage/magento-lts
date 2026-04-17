@@ -27,8 +27,8 @@ class Mage_Catalog_Model_Api2_Product_Rest_Guest_V1 extends Mage_Catalog_Model_A
     /**
      * Define product price with or without taxes
      *
-     * @param float $price
-     * @param bool $withTax
+     * @param  float $price
+     * @param  bool  $withTax
      * @return float
      */
     protected function _applyTaxToPrice($price, $withTax = true)

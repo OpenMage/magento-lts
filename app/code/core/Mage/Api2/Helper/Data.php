@@ -28,6 +28,7 @@ class Mage_Api2_Helper_Data extends Mage_Core_Helper_Abstract
      * Config paths
      */
     public const XML_PATH_AUTH_ADAPTERS = 'global/api2/auth_adapters';
+
     public const XML_PATH_USER_TYPES    = 'global/api2/user_types';
 
     protected $_moduleName = 'Mage_Api2';
@@ -35,8 +36,8 @@ class Mage_Api2_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Compare order to be used in adapters list sort
      *
-     * @param array $a
-     * @param array $b
+     * @param  array $a
+     * @param  array $b
      * @return int
      */
     protected static function _compareOrder($a, $b)
@@ -47,7 +48,7 @@ class Mage_Api2_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieve Auth adapters info from configuration file as array
      *
-     * @param bool $enabledOnly
+     * @param  bool  $enabledOnly
      * @return array
      */
     public function getAuthAdapters($enabledOnly = false)
@@ -57,6 +58,7 @@ class Mage_Api2_Helper_Data extends Mage_Core_Helper_Abstract
         if (!$adapters) {
             return [];
         }
+
         $adapters = $adapters->asArray();
 
         if ($enabledOnly) {
@@ -65,8 +67,10 @@ class Mage_Api2_Helper_Data extends Mage_Core_Helper_Abstract
                     unset($adapters);
                 }
             }
+
             $adapters = (array) $adapters;
         }
+
         uasort($adapters, ['Mage_Api2_Helper_Data', '_compareOrder']);
 
         return $adapters;
@@ -89,6 +93,7 @@ class Mage_Api2_Helper_Data extends Mage_Core_Helper_Abstract
                 }
             }
         }
+
         return $userModels;
     }
 
@@ -115,7 +120,7 @@ class Mage_Api2_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Check API type support
      *
-     * @param string $type
+     * @param  string $type
      * @return bool
      */
     public function isApiTypeSupported($type)
@@ -126,9 +131,9 @@ class Mage_Api2_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get allowed attributes of a rule
      *
-     * @param string $userType
-     * @param string $resourceId
-     * @param Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_* $operation
+     * @param  string                                          $userType
+     * @param  string                                          $resourceId
+     * @param  Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_* $operation
      * @return array
      */
     public function getAllowedAttributes($userType, $resourceId, $operation)
@@ -144,7 +149,7 @@ class Mage_Api2_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Check if ALL attributes are allowed
      *
-     * @param string $userType
+     * @param  string $userType
      * @return bool
      */
     public function isAllAttributesAllowed($userType)
@@ -158,7 +163,7 @@ class Mage_Api2_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get operation type for specified operation
      *
-     * @param Mage_Api2_Model_Resource::OPERATION_* $operation
+     * @param  Mage_Api2_Model_Resource::OPERATION_*           $operation
      * @return Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_*
      * @throws Exception
      */
@@ -166,12 +171,16 @@ class Mage_Api2_Helper_Data extends Mage_Core_Helper_Abstract
     {
         if (Mage_Api2_Model_Resource::OPERATION_RETRIEVE === $operation) {
             return Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_READ;
-        } elseif (Mage_Api2_Model_Resource::OPERATION_CREATE === $operation) {
-            return Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_WRITE;
-        } elseif (Mage_Api2_Model_Resource::OPERATION_UPDATE === $operation) {
-            return Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_WRITE;
-        } else {
-            throw new Exception('Can not determine operation type');
         }
+
+        if (Mage_Api2_Model_Resource::OPERATION_CREATE === $operation) {
+            return Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_WRITE;
+        }
+
+        if (Mage_Api2_Model_Resource::OPERATION_UPDATE === $operation) {
+            return Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_WRITE;
+        }
+
+        throw new Exception('Can not determine operation type');
     }
 }

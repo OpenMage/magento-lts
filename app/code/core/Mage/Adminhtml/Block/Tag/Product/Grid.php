@@ -16,9 +16,8 @@
  */
 class Mage_Adminhtml_Block_Tag_Product_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
-    /**
-     * Mage_Adminhtml_Block_Tag_Product_Grid constructor.
-     */
+    protected string $_eventPrefix = 'adminhtml_tag_product_grid';
+
     public function __construct()
     {
         parent::__construct();
@@ -95,8 +94,7 @@ class Mage_Adminhtml_Block_Tag_Product_Grid extends Mage_Adminhtml_Block_Widget_
     }
 
     /**
-     * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
-     * @return $this
+     * @inheritDoc
      */
     protected function _addColumnFilterToCollection($column)
     {
@@ -108,6 +106,10 @@ class Mage_Adminhtml_Block_Tag_Product_Grid extends Mage_Adminhtml_Block_Widget_
         return parent::_addColumnFilterToCollection($column);
     }
 
+    /**
+     * @inheritDoc
+     * @param Mage_Catalog_Model_Product $row
+     */
     public function getRowUrl($row)
     {
         return $this->getUrl('*/catalog_product/edit', ['id' => $row->getProductId()]);

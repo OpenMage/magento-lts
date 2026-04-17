@@ -17,7 +17,7 @@ class Mage_Rss_Block_Wishlist extends Mage_Wishlist_Block_Abstract
     /**
      * Customer instance
      *
-     * @var Mage_Customer_Model_Customer|null
+     * @var null|Mage_Customer_Model_Customer
      */
     protected $_customer;
 
@@ -48,6 +48,7 @@ class Mage_Rss_Block_Wishlist extends Mage_Wishlist_Block_Abstract
                 $this->_wishlist->loadByCustomer($this->_getCustomer());
             }
         }
+
         return $this->_wishlist;
     }
 
@@ -81,15 +82,15 @@ class Mage_Rss_Block_Wishlist extends Mage_Wishlist_Block_Abstract
      */
     protected function _getTitle()
     {
-        return Mage::helper('rss')->__('%s\'s Wishlist', $this->_getCustomer()->getName());
+        return Mage::helper('rss')->__("%s's Wishlist", $this->_getCustomer()->getName());
     }
 
     /**
      * Render block HTML
      *
      * @return string
-     * @throws Mage_Core_Exception
      * @throws Exception
+     * @throws Mage_Core_Exception
      */
     protected function _toHtml()
     {
@@ -142,6 +143,7 @@ class Mage_Rss_Block_Wishlist extends Mage_Wishlist_Block_Abstract
                 if ($product->getAllowedPriceInRss()) {
                     $description .= $this->getPriceHtml($product, true);
                 }
+
                 $description .= '</p>';
                 if ($this->hasDescription($product)) {
                     $description .= '<p>' . Mage::helper('wishlist')->__('Comment:')
@@ -172,8 +174,8 @@ class Mage_Rss_Block_Wishlist extends Mage_Wishlist_Block_Abstract
     /**
      * Retrieve Product View URL
      *
-     * @param Mage_Catalog_Model_Product $product
-     * @param array $additional
+     * @param  Mage_Catalog_Model_Product $product
+     * @param  array                      $additional
      * @return string
      */
     public function getProductUrl($product, $additional = [])
@@ -185,8 +187,8 @@ class Mage_Rss_Block_Wishlist extends Mage_Wishlist_Block_Abstract
     /**
      * Adding customized price template for product type, used as action in layouts
      *
-     * @param string $type Catalog Product Type
-     * @param string $block Block Type
+     * @param string $type     Catalog Product Type
+     * @param string $block    Block Type
      * @param string $template Template
      */
     public function addPriceBlockType($type, $block = '', $template = '')

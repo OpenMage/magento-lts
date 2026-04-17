@@ -19,7 +19,7 @@ class Mage_Paygate_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Converts a lot of messages to message
      *
-     * @param  array $messages
+     * @param  array  $messages
      * @return string
      */
     public function convertMessagesToMessage($messages)
@@ -30,12 +30,12 @@ class Mage_Paygate_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Return message for gateway transaction request
      *
-     * @param Mage_Payment_Model_Info $payment
-     * @param string $requestType
-     * @param string $lastTransactionId
-     * @param Varien_Object $card
-     * @param float|false $amount
-     * @param string|false $exception
+     * @param  Mage_Payment_Model_Info $payment
+     * @param  string                  $requestType
+     * @param  string                  $lastTransactionId
+     * @param  Varien_Object           $card
+     * @param  false|float             $amount
+     * @param  false|string            $exception
      * @return bool|string
      */
     public function getTransactionMessage(
@@ -59,13 +59,13 @@ class Mage_Paygate_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Return message for gateway transaction request
      *
-     * @param Mage_Payment_Model_Info $payment
-     * @param string $requestType
-     * @param string|null $lastTransactionId
-     * @param Varien_Object $card
-     * @param float|false $amount
-     * @param string|false $exception
-     * @param string|false $additionalMessage Custom message, which will be added to the end of generated message
+     * @param  Mage_Payment_Model_Info $payment
+     * @param  string                  $requestType
+     * @param  null|string             $lastTransactionId
+     * @param  Varien_Object           $card
+     * @param  false|float             $amount
+     * @param  false|string            $exception
+     * @param  false|string            $additionalMessage Custom message, which will be added to the end of generated message
      * @return bool|string
      */
     public function getExtendedTransactionMessage(
@@ -87,11 +87,7 @@ class Mage_Paygate_Helper_Data extends Mage_Core_Helper_Abstract
             $amount = $this->__('amount %s', $this->_formatPrice($payment, $amount));
         }
 
-        if ($exception) {
-            $result = $this->__('failed');
-        } else {
-            $result = $this->__('successful');
-        }
+        $result = $exception ? $this->__('failed') : $this->__('successful');
 
         $card = $this->__('Credit Card: xxxx-%s', $card->getCcLast4());
 
@@ -107,16 +103,17 @@ class Mage_Paygate_Helper_Data extends Mage_Core_Helper_Abstract
             $pattern .= ' %s.';
             $texts[] = $additionalMessage;
         }
+
         $pattern .= ' %s';
         $texts[] = $exception;
 
-        return call_user_func_array([$this, '__'], array_merge([$pattern], $texts));
+        return $this->__(...array_merge([$pattern], $texts));
     }
 
     /**
      * Return operation name for request type
      *
-     * @param  string $requestType
+     * @param  string      $requestType
      * @return bool|string
      */
     protected function _getOperation($requestType)
@@ -134,7 +131,7 @@ class Mage_Paygate_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Format price with currency sign
      * @param  Mage_Payment_Model_Info $payment
-     * @param float $amount
+     * @param  float                   $amount
      * @return string
      */
     protected function _formatPrice($payment, $amount)

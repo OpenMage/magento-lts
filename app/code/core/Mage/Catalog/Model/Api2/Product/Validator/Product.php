@@ -35,7 +35,7 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
 
     /**
      * Mage_Catalog_Model_Api2_Product_Validator_Product constructor.
-     * @param array $options
+     * @param  array     $options
      * @throws Exception
      */
     public function __construct($options)
@@ -51,13 +51,14 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
         if (!isset($options['operation']) || empty($options['operation'])) {
             throw new Exception("Passed parameter 'operation' is empty.");
         }
+
         $this->_operation = $options['operation'];
     }
 
     /**
      * Get validator product
      *
-     * @return Mage_Catalog_Model_Product|null
+     * @return null|Mage_Catalog_Model_Product
      */
     protected function _getProduct()
     {
@@ -101,8 +102,8 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
             $this->_validateStockData($data);
             $this->_validateAttributes($data, $productEntity);
             $isSatisfied = count($this->getErrors()) == 0;
-        } catch (Mage_Api2_Exception $e) {
-            $this->_addError($e->getMessage());
+        } catch (Mage_Api2_Exception $mageApi2Exception) {
+            $this->_addError($mageApi2Exception->getMessage());
             $isSatisfied = false;
         }
 
@@ -112,28 +113,39 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
     /**
      * Collect required EAV attributes, validate applicable attributes and validate source attributes values
      *
-     * @param array $data
-     * @param Mage_Eav_Model_Entity_Type $productEntity
+     * @param  array                      $data
+     * @param  Mage_Eav_Model_Entity_Type $productEntity
+     * @throws Mage_Api2_Exception
      */
     protected function _validateAttributes($data, $productEntity)
     {
-        if (!isset($data['attribute_set_id']) || empty($data['attribute_set_id'])) {
+        if (empty($data['attribute_set_id'])) {
             $this->_critical('Missing "attribute_set_id" in request.', Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
         }
-        if (!isset($data['type_id']) || empty($data['type_id'])) {
+
+        if (empty($data['type_id'])) {
             $this->_critical('Missing "type_id" in request.', Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
         }
+
         // Validate weight
-        if (isset($data['weight']) && !empty($data['weight']) && $data['weight'] > 0
-            && !Zend_Validate::is($data['weight'], 'Between', [0, self::MAX_DECIMAL_VALUE])
+        /** @var Mage_Core_Helper_Validate $validator */
+        $validator = Mage::helper('core/validate');
+        if (!empty($data['weight']) && $data['weight'] > 0
+            && $validator->validateRange(
+                value: $data['weight'],
+                min: 0,
+                max: self::MAX_DECIMAL_VALUE,
+            )->count() > 0
         ) {
             $this->_addError('The "weight" value is not within the specified range.');
         }
+
         // msrp_display_actual_price_type attribute values needs to be a string to pass validation
         // see Mage_Catalog_Model_Product_Attribute_Source_Msrp_Type_Price::getAllOptions()
         if (isset($data['msrp_display_actual_price_type'])) {
             $data['msrp_display_actual_price_type'] = (string) $data['msrp_display_actual_price_type'];
         }
+
         $requiredAttributes = ['attribute_set_id'];
         $positiveNumberAttributes = ['weight', 'price', 'special_price', 'msrp'];
         /** @var Mage_Catalog_Model_Resource_Eav_Attribute $attribute */
@@ -145,6 +157,7 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
                 $value = $data[$attribute->getAttributeCode()];
                 $isSet = true;
             }
+
             $applicable = false;
             if (!$attribute->getApplyTo() || in_array($data['type_id'], $attribute->getApplyTo())) {
                 $applicable = true;
@@ -170,6 +183,7 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
                         // make validation of select and multiselect identical
                         $value = [$value];
                     }
+
                     foreach ($value as $selectValue) {
                         $useStrictMode = !is_numeric($selectValue);
                         if (!in_array($selectValue, $allowedValues, $useStrictMode)
@@ -183,14 +197,16 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
                         }
                     }
                 }
+
                 // Validate datetime attributes
                 if ($attribute->getBackendType() == 'datetime') {
                     try {
                         $attribute->getBackend()->formatDate($value);
-                    } catch (Zend_Date_Exception $e) {
+                    } catch (Zend_Date_Exception) {
                         $this->_addError(sprintf('Invalid date in the "%s" field.', $attributeCode));
                     }
                 }
+
                 // Validate positive number required attributes
                 if (in_array($attributeCode, $positiveNumberAttributes) && (!empty($value) && $value !== 0)
                     && (!is_numeric($value) || $value < 0)
@@ -199,10 +215,12 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
                 }
             }
 
-            if ($applicable && $attribute->getIsRequired() && $attribute->getIsVisible()) {
-                if (!in_array($attributeCode, $positiveNumberAttributes) || $value !== 0) {
-                    $requiredAttributes[] = $attribute->getAttributeCode();
-                }
+            if ($applicable
+                && $attribute->getIsRequired()
+                && $attribute->getIsVisible()
+                && (!in_array($attributeCode, $positiveNumberAttributes) || $value !== 0)
+            ) {
+                $requiredAttributes[] = $attribute->getAttributeCode();
             }
         }
 
@@ -221,58 +239,74 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
     /**
      * Validate product type
      *
-     * @param array $data
-     * @return true|void
+     * @param  array     $data
+     * @return null|true
      */
     protected function _validateProductType($data)
     {
         if ($this->_isUpdate()) {
             return true;
         }
+
         if (!isset($data['type_id']) || empty($data['type_id'])) {
             $this->_critical('Missing "type_id" in request.', Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
         }
+
         if (!array_key_exists($data['type_id'], Mage_Catalog_Model_Product_Type::getTypes())) {
             $this->_critical('Invalid product type.', Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
         }
+
+        return null;
     }
 
     /**
      * Validate attribute set
      *
-     * @param array $data
-     * @param Mage_Eav_Model_Entity_Type $productEntity
-     * @return true|void
+     * @param  array                      $data
+     * @param  Mage_Eav_Model_Entity_Type $productEntity
+     * @return null|true
+     * @throws Mage_Api2_Exception
      */
     protected function _validateAttributeSet($data, $productEntity)
     {
         if ($this->_isUpdate()) {
             return true;
         }
+
         if (!isset($data['attribute_set_id']) || empty($data['attribute_set_id'])) {
             $this->_critical('Missing "attribute_set_id" in request.', Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
         }
+
         /** @var Mage_Eav_Model_Entity_Attribute_Set $attributeSet */
         $attributeSet = Mage::getModel('eav/entity_attribute_set')->load($data['attribute_set_id']);
         if (!$attributeSet->getId() || $productEntity->getEntityTypeId() != $attributeSet->getEntityTypeId()) {
             $this->_critical('Invalid attribute set.', Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
         }
+
+        return null;
     }
 
     /**
      * Validate SKU
      *
-     * @param array $data
-     * @return true|void
+     * @param  array     $data
+     * @return null|true
      */
     protected function _validateSku($data)
     {
         if ($this->_isUpdate() && !isset($data['sku'])) {
             return true;
         }
-        if (!Zend_Validate::is((string) $data['sku'], 'StringLength', ['min' => 0, 'max' => 64])) {
-            $this->_addError('SKU length should be 64 characters maximum.');
+
+        $skuMaxLength = Mage_Catalog_Model_Product_Attribute_Backend_Sku::SKU_MAX_LENGTH;
+
+        /** @var Mage_Core_Helper_Validate $validator */
+        $validator  = Mage::helper('core/validate');
+        if ($validator->validateLength(value: $data['sku'], max: $skuMaxLength)->count() > 0) {
+            $this->_addError(sprintf('SKU length should be %d characters maximum.', $skuMaxLength));
         }
+
+        return null;
     }
 
     /**
@@ -282,10 +316,10 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
      */
     protected function _validateGiftOptions($data)
     {
-        if (isset($data['gift_wrapping_price'])) {
-            if (!(is_numeric($data['gift_wrapping_price']) && $data['gift_wrapping_price'] >= 0)) {
-                $this->_addError('Please enter a number 0 or greater in the "gift_wrapping_price" field.');
-            }
+        if (isset($data['gift_wrapping_price'])
+            && !(is_numeric($data['gift_wrapping_price']) && $data['gift_wrapping_price'] >= 0)
+        ) {
+            $this->_addError('Please enter a number 0 or greater in the "gift_wrapping_price" field.');
         }
     }
 
@@ -329,7 +363,7 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
     /**
      * Check if website id is appropriate according to price scope settings
      *
-     * @param array $data
+     * @param array  $data
      * @param string $fieldSet
      */
     protected function _validateWebsiteIdForGroupPrice($data, $fieldSet)
@@ -361,6 +395,7 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
             if (!(isset($stockData['use_config_manage_stock']) && $stockData['use_config_manage_stock'])) {
                 $this->_validateBoolean($stockData, $fieldSet, 'manage_stock');
             }
+
             if ($this->_isManageStockEnabled($stockData)) {
                 $this->_validateNumeric($stockData, $fieldSet, 'qty');
                 $this->_validatePositiveNumber($stockData, $fieldSet, 'min_qty', false, true, true);
@@ -369,10 +404,12 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
                 if (isset($stockData['is_qty_decimal']) && (bool) $stockData['is_qty_decimal'] == true) {
                     $this->_validateBoolean($stockData, $fieldSet, 'is_decimal_divided');
                 }
+
                 $this->_validateBoolean($stockData, $fieldSet, 'enable_qty_increments', true);
                 if (isset($stockData['enable_qty_increments']) && (bool) $stockData['enable_qty_increments'] == true) {
                     $this->_validatePositiveNumeric($stockData, $fieldSet, 'qty_increments', false, true);
                 }
+
                 if (Mage::helper('catalog')->isModuleEnabled('Mage_CatalogInventory')) {
                     $this->_validateSource(
                         $stockData,
@@ -393,7 +430,7 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
     /**
      * Determine if stock management is enabled
      *
-     * @param array $stockData
+     * @param  array $stockData
      * @return bool
      */
     protected function _isManageStockEnabled($stockData)
@@ -405,14 +442,15 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
                 Mage_CatalogInventory_Model_Stock_Item::XML_PATH_ITEM . 'manage_stock',
             );
         }
+
         return (bool) $manageStock;
     }
 
     /**
      * Validate Customer Group field
      *
+     * @param array  $data
      * @param string $fieldSet
-     * @param array $data
      */
     protected function _validateCustomerGroup($data, $fieldSet)
     {
@@ -431,12 +469,12 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
     /**
      * Validate field to be positive number
      *
-     * @param array $data
+     * @param array  $data
      * @param string $fieldSet
      * @param string $field
-     * @param bool $required
-     * @param bool $equalsZero
-     * @param bool $skipIfConfigValueUsed
+     * @param bool   $required
+     * @param bool   $equalsZero
+     * @param bool   $skipIfConfigValueUsed
      */
     protected function _validatePositiveNumber(
         $data,
@@ -467,11 +505,11 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
     /**
      * Validate field to be a positive number
      *
-     * @param array $data
+     * @param array  $data
      * @param string $fieldSet
      * @param string $field
-     * @param bool $required
-     * @param bool $skipIfConfigValueUsed
+     * @param bool   $required
+     * @param bool   $skipIfConfigValueUsed
      */
     protected function _validatePositiveNumeric(
         $data,
@@ -487,8 +525,8 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
             }
 
             if (isset($data[$field]) && (!is_numeric($data[$field]) || $data[$field] < 0)) {
-                $this->_addError(sprintf('Please use numbers only in the "%s" field in the "%s" set. ' .
-                    'Please avoid spaces or other non numeric characters.', $field, $fieldSet));
+                $this->_addError(sprintf('Please use numbers only in the "%s" field in the "%s" set. '
+                    . 'Please avoid spaces or other non numeric characters.', $field, $fieldSet));
             }
         }
     }
@@ -496,11 +534,11 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
     /**
      * Validate field to be a number
      *
-     * @param array $data
+     * @param array  $data
      * @param string $fieldSet
      * @param string $field
-     * @param bool $required
-     * @param bool $skipIfConfigValueUsed
+     * @param bool   $required
+     * @param bool   $skipIfConfigValueUsed
      */
     protected function _validateNumeric($data, $fieldSet, $field, $required = false, $skipIfConfigValueUsed = false)
     {
@@ -523,24 +561,22 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
     /**
      * Validate dropdown fields value
      *
-     * @param array $data
+     * @param array  $data
      * @param string $fieldSet
      * @param string $field
      * @param string $sourceModelName
-     * @param bool $skipIfConfigValueUsed
+     * @param bool   $skipIfConfigValueUsed
      */
     protected function _validateSource($data, $fieldSet, $field, $sourceModelName, $skipIfConfigValueUsed = false)
     {
         // in case when 'Use Config Settings' is selected no validation needed
-        if (!($skipIfConfigValueUsed && $this->_isConfigValueUsed($data, $field))) {
-            if (isset($data[$field])) {
-                $sourceModel = Mage::getSingleton($sourceModelName);
-                if ($sourceModel) {
-                    $allowedValues = $this->_getAttributeAllowedValues($sourceModel->toOptionArray());
-                    $useStrictMode = !is_numeric($data[$field]);
-                    if (!in_array($data[$field], $allowedValues, $useStrictMode)) {
-                        $this->_addError(sprintf('Invalid "%s" value in the "%s" set.', $field, $fieldSet));
-                    }
+        if (!($skipIfConfigValueUsed && $this->_isConfigValueUsed($data, $field)) && isset($data[$field])) {
+            $sourceModel = Mage::getSingleton($sourceModelName);
+            if ($sourceModel) {
+                $allowedValues = $this->_getAttributeAllowedValues($sourceModel->toOptionArray());
+                $useStrictMode = !is_numeric($data[$field]);
+                if (!in_array($data[$field], $allowedValues, $useStrictMode)) {
+                    $this->_addError(sprintf('Invalid "%s" value in the "%s" set.', $field, $fieldSet));
                 }
             }
         }
@@ -549,23 +585,21 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
     /**
      * Validate boolean fields value
      *
-     * @param array $data
+     * @param array  $data
      * @param string $fieldSet
      * @param string $field
-     * @param bool $skipIfConfigValueUsed
+     * @param bool   $skipIfConfigValueUsed
      */
     protected function _validateBoolean($data, $fieldSet, $field, $skipIfConfigValueUsed = false)
     {
         // in case when 'Use Config Settings' is selected no validation needed
-        if (!($skipIfConfigValueUsed && $this->_isConfigValueUsed($data, $field))) {
-            if (isset($data[$field])) {
-                $allowedValues = $this->_getAttributeAllowedValues(
-                    Mage::getSingleton('eav/entity_attribute_source_boolean')->getAllOptions(),
-                );
-                $useStrictMode = !is_numeric($data[$field]);
-                if (!in_array($data[$field], $allowedValues, $useStrictMode)) {
-                    $this->_addError(sprintf('Invalid "%s" value in the "%s" set.', $field, $fieldSet));
-                }
+        if (!($skipIfConfigValueUsed && $this->_isConfigValueUsed($data, $field)) && isset($data[$field])) {
+            $allowedValues = $this->_getAttributeAllowedValues(
+                Mage::getSingleton('eav/entity_attribute_source_boolean')->getAllOptions(),
+            );
+            $useStrictMode = !is_numeric($data[$field]);
+            if (!in_array($data[$field], $allowedValues, $useStrictMode)) {
+                $this->_addError(sprintf('Invalid "%s" value in the "%s" set.', $field, $fieldSet));
             }
         }
     }
@@ -595,22 +629,22 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
     /**
      * Check if value from config is used
      *
-     * @param array $data
-     * @param string $field
+     * @param  array  $data
+     * @param  string $field
      * @return bool
      */
     protected function _isConfigValueUsed($data, $field)
     {
-        return isset($data["use_config_$field"]) && $data["use_config_$field"];
+        return isset($data["use_config_{$field}"]) && $data["use_config_{$field}"];
     }
 
     /**
      * Throw API2 exception
      *
-     * @param string $message
-     * @param int $code
-     * @throws Mage_Api2_Exception
+     * @param  string              $message
+     * @param  int                 $code
      * @return never
+     * @throws Mage_Api2_Exception
      */
     protected function _critical($message, $code)
     {

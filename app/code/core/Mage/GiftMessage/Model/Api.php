@@ -17,7 +17,7 @@ class Mage_GiftMessage_Model_Api extends Mage_Checkout_Model_Api_Resource_Produc
     /**
      * Return an Array of attributes.
      *
-     * @param array $arr
+     * @param  array $arr
      * @return array
      */
     protected function _prepareData($arr)
@@ -25,15 +25,16 @@ class Mage_GiftMessage_Model_Api extends Mage_Checkout_Model_Api_Resource_Produc
         if (is_array($arr)) {
             return $arr;
         }
+
         return [];
     }
 
     /**
      * Raise event for setting a giftMessage.
      *
-     * @param String $entityId
-     * @param Mage_Core_Controller_Request_Http $request
-     * @param Mage_Sales_Model_Quote $quote
+     * @param  String                            $entityId
+     * @param  Mage_Core_Controller_Request_Http $request
+     * @param  Mage_Sales_Model_Quote            $quote
      * @return array
      */
     protected function _setGiftMessage($entityId, $request, $quote)
@@ -49,17 +50,17 @@ class Mage_GiftMessage_Model_Api extends Mage_Checkout_Model_Api_Resource_Produc
                 ['request' => $request, 'quote' => $quote],
             );
             return ['entityId' => $entityId, 'result' => true, 'error' => ''];
-        } catch (Exception $e) {
-            return ['entityId' => $entityId, 'result' => false, 'error' => $e->getMessage()];
+        } catch (Exception $exception) {
+            return ['entityId' => $entityId, 'result' => false, 'error' => $exception->getMessage()];
         }
     }
 
     /**
      * Set GiftMessage for a Quote.
      *
-     * @param int $quoteId
-     * @param array[] $giftMessage
-     * @param string $store
+     * @param  int     $quoteId
+     * @param  array[] $giftMessage
+     * @param  string  $store
      * @return array[]
      */
     public function setForQuote($quoteId, $giftMessage, $store = null)
@@ -82,9 +83,9 @@ class Mage_GiftMessage_Model_Api extends Mage_Checkout_Model_Api_Resource_Produc
     /**
      * Set a GiftMessage to QuoteItem by product
      *
-     * @param int $quoteId
-     * @param array $productsAndMessages
-     * @param string $store
+     * @param  int    $quoteId
+     * @param  array  $productsAndMessages
+     * @param  string $store
      * @return array
      */
     public function setForQuoteProduct($quoteId, $productsAndMessages, $store = null)
@@ -110,6 +111,7 @@ class Mage_GiftMessage_Model_Api extends Mage_Checkout_Model_Api_Resource_Produc
                 if (empty($product)) {
                     $this->_fault('product_invalid_data');
                 }
+
                 $message = $this->_prepareData($productAndMessage['message']);
                 if (empty($message)) {
                     $this->_fault('giftmessage_invalid_data');
@@ -135,9 +137,9 @@ class Mage_GiftMessage_Model_Api extends Mage_Checkout_Model_Api_Resource_Produc
     /**
      * Set GiftMessage for a QuoteItem by its Id.
      *
-     * @param string $quoteItemId
-     * @param array[] $giftMessage
-     * @param string $store
+     * @param  string  $quoteItemId
+     * @param  array[] $giftMessage
+     * @param  string  $store
      * @return array[]
      */
     public function setForQuoteItem($quoteItemId, $giftMessage, $store = null)

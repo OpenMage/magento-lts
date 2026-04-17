@@ -13,7 +13,7 @@
 class Mage_Sales_Model_Entity_Order_Creditmemo_Attribute_Backend_Child extends Mage_Eav_Model_Entity_Attribute_Backend_Abstract
 {
     /**
-     * @param Varien_Object $object
+     * @param  Varien_Object                                    $object
      * @return Mage_Eav_Model_Entity_Attribute_Backend_Abstract
      */
     public function beforeSave($object)
@@ -21,6 +21,7 @@ class Mage_Sales_Model_Entity_Order_Creditmemo_Attribute_Backend_Child extends M
         if ($object->getCreditmemo()) {
             $object->setParentId($object->getCreditmemo()->getId());
         }
+
         return parent::beforeSave($object);
     }
 }

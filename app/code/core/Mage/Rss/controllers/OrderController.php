@@ -14,6 +14,11 @@
  */
 class Mage_Rss_OrderController extends Mage_Rss_Controller_Abstract
 {
+    /**
+     * @return void
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
+     */
     public function newAction()
     {
         if ($this->checkFeedEnable('order/new')) {
@@ -23,7 +28,8 @@ class Mage_Rss_OrderController extends Mage_Rss_Controller_Abstract
     }
 
     /**
-     * @return $this|void
+     * @return null|$this
+     * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
      */
     public function customerAction()
@@ -36,10 +42,15 @@ class Mage_Rss_OrderController extends Mage_Rss_Controller_Abstract
                 return $this;
             }
         }
+
+        return null;
     }
 
     /**
      * Order status action
+     *
+     * @return void
+     * @throws Mage_Core_Exception
      */
     public function statusAction()
     {
@@ -53,6 +64,7 @@ class Mage_Rss_OrderController extends Mage_Rss_Controller_Abstract
                 return;
             }
         }
+
         $this->_forward('nofeed', 'index', 'rss');
     }
 
@@ -68,6 +80,7 @@ class Mage_Rss_OrderController extends Mage_Rss_Controller_Abstract
             $this->_currentArea = 'adminhtml';
             Mage::helper('rss')->authAdmin('sales/order');
         }
+
         return parent::preDispatch();
     }
 }

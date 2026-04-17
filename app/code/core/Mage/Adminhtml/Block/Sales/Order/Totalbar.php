@@ -24,12 +24,13 @@ class Mage_Adminhtml_Block_Sales_Order_Totalbar extends Mage_Adminhtml_Block_Sal
         if (!$this->getParentBlock()) {
             Mage::throwException(Mage::helper('adminhtml')->__('Invalid parent block for this block.'));
         }
+
         $this->setOrder($this->getParentBlock()->getOrder());
         $this->setSource($this->getParentBlock()->getSource());
         $this->setCurrency($this->getParentBlock()->getOrder()->getOrderCurrency());
 
-        foreach ($this->getParentBlock()->getOrderTotalbarData() as $v) {
-            $this->addTotal($v[0], $v[1], $v[2]);
+        foreach ($this->getParentBlock()->getOrderTotalbarData() as $value) {
+            $this->addTotal($value[0], $value[1], $value[2]);
         }
 
         return parent::_beforeToHtml();

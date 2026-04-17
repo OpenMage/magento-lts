@@ -14,6 +14,9 @@
  */
 class Mage_SalesRule_Model_Resource_Report_Rule extends Mage_Reports_Model_Resource_Report_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_setResource('salesrule');
@@ -22,14 +25,14 @@ class Mage_SalesRule_Model_Resource_Report_Rule extends Mage_Reports_Model_Resou
     /**
      * Aggregate Coupons data
      *
-     * @param mixed $from
-     * @param mixed $to
+     * @param  null|string $dateFrom
+     * @param  null|string $dateTo
      * @return $this
      */
-    public function aggregate($from = null, $to = null)
+    public function aggregate($dateFrom = null, $dateTo = null)
     {
-        Mage::getResourceModel('salesrule/report_rule_createdat')->aggregate($from, $to);
-        Mage::getResourceModel('salesrule/report_rule_updatedat')->aggregate($from, $to);
+        Mage::getResourceModel('salesrule/report_rule_createdat')->aggregate($dateFrom, $dateTo);
+        Mage::getResourceModel('salesrule/report_rule_updatedat')->aggregate($dateFrom, $dateTo);
         $this->_setFlagData(Mage_Reports_Model_Flag::REPORT_COUPONS_FLAG_CODE);
 
         return $this;
@@ -67,15 +70,14 @@ class Mage_SalesRule_Model_Resource_Report_Rule extends Mage_Reports_Model_Resou
     /**
      * Aggregate coupons reports by order created at as range
      *
-     * @deprecated after 1.6.0.0-rc2
-     *
-     * @param mixed $from
-     * @param mixed $to
+     * @param  null|string $dateFrom
+     * @param  null|string $dateTo
      * @return $this
+     * @deprecated after 1.6.0.0-rc2
      */
-    protected function _aggregateByOrderCreatedAt($from, $to)
+    protected function _aggregateByOrderCreatedAt($dateFrom, $dateTo)
     {
-        Mage::getResourceModel('salesrule/report_rule_createdat')->aggregate($from, $to);
+        Mage::getResourceModel('salesrule/report_rule_createdat')->aggregate($dateFrom, $dateTo);
         return $this;
     }
 }

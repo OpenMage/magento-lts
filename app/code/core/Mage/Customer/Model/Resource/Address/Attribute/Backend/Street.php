@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -17,7 +19,7 @@ class Mage_Customer_Model_Resource_Address_Attribute_Backend_Street extends Mage
     /**
      * Prepare object for save
      *
-     * @param Mage_Customer_Model_Address_Abstract $object
+     * @param  Mage_Customer_Model_Address_Abstract $object
      * @return $this
      */
     public function beforeSave($object)
@@ -26,6 +28,7 @@ class Mage_Customer_Model_Resource_Address_Attribute_Backend_Street extends Mage
         if ($street) {
             $object->implodeStreetAddress();
         }
+
         return $this;
     }
 }

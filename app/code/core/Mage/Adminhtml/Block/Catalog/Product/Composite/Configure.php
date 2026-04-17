@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -17,7 +19,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Composite_Configure extends Mage_Admi
     protected $_product;
 
     /**
-     * Set template
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -38,6 +40,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Composite_Configure extends Mage_Admi
                 $this->_product = Mage::getSingleton('catalog/product');
             }
         }
+
         return $this->_product;
     }
 

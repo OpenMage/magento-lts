@@ -12,18 +12,19 @@
  *
  * @package    Mage_Catalog
  *
- * @method Mage_Catalog_Model_Resource_Product_Compare_Item _getResource()
- * @method Mage_Catalog_Model_Resource_Product_Compare_Item getResource()
- *
- * @method $this setVisitorId(int $value)
- * @method $this setCustomerId(int $value)
- * @method int getProductId()
- * @method $this setProductId(int $value)
- * @method int getStoreId()
- * @method $this setStoreId(int $value)
- * @method bool hasVisitorId()
- * @method bool hasCustomerId()
- * @method bool hasStoreId()
+ * @method Mage_Catalog_Model_Resource_Product_Compare_Item            _getResource()
+ * @method Mage_Catalog_Model_Resource_Product_Compare_Item_Collection getCollection()
+ * @method int                                                         getProductId()
+ * @method Mage_Catalog_Model_Resource_Product_Compare_Item            getResource()
+ * @method Mage_Catalog_Model_Resource_Product_Compare_Item_Collection getResourceCollection()
+ * @method int                                                         getStoreId()
+ * @method bool                                                        hasCustomerId()
+ * @method bool                                                        hasStoreId()
+ * @method bool                                                        hasVisitorId()
+ * @method $this                                                       setCustomerId(int $value)
+ * @method $this                                                       setProductId(int $value)
+ * @method $this                                                       setStoreId(int $value)
+ * @method $this                                                       setVisitorId(int $value)
  */
 class Mage_Catalog_Model_Product_Compare_Item extends Mage_Core_Model_Abstract
 {
@@ -50,6 +51,9 @@ class Mage_Catalog_Model_Product_Compare_Item extends Mage_Core_Model_Abstract
      */
     protected $_eventObject = 'item';
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('catalog/product_compare_item');
@@ -80,6 +84,7 @@ class Mage_Catalog_Model_Product_Compare_Item extends Mage_Core_Model_Abstract
         if ($this->hasCustomerId() || $this->hasVisitorId()) {
             parent::save();
         }
+
         return $this;
     }
 
@@ -97,7 +102,7 @@ class Mage_Catalog_Model_Product_Compare_Item extends Mage_Core_Model_Abstract
     /**
      * Set visitor
      *
-     * @param int $visitorId
+     * @param  int   $visitorId
      * @return $this
      */
     public function addVisitorId($visitorId)
@@ -109,7 +114,7 @@ class Mage_Catalog_Model_Product_Compare_Item extends Mage_Core_Model_Abstract
     /**
      * Load compare item by product
      *
-     * @param mixed $product
+     * @param  mixed $product
      * @return $this
      */
     public function loadByProduct($product)
@@ -121,7 +126,7 @@ class Mage_Catalog_Model_Product_Compare_Item extends Mage_Core_Model_Abstract
     /**
      * Set product data
      *
-     * @param mixed $product
+     * @param  mixed $product
      * @return $this
      */
     public function addProductData($product)
@@ -138,7 +143,7 @@ class Mage_Catalog_Model_Product_Compare_Item extends Mage_Core_Model_Abstract
     /**
      * Retrieve data for save
      *
-     * @return array
+     * @return array<string, int>
      */
     public function getDataForSave()
     {
@@ -197,7 +202,8 @@ class Mage_Catalog_Model_Product_Compare_Item extends Mage_Core_Model_Abstract
             $customerId = Mage::getSingleton('customer/session')->getCustomerId();
             $this->setData('customer_id', $customerId);
         }
-        return $this->getData('customer_id');
+
+        return $this->getDataByKey('customer_id');
     }
 
     /**
@@ -211,6 +217,7 @@ class Mage_Catalog_Model_Product_Compare_Item extends Mage_Core_Model_Abstract
             $visitorId = Mage::getSingleton('log/visitor')->getId();
             $this->setData('visitor_id', $visitorId);
         }
-        return $this->getData('visitor_id');
+
+        return $this->getDataByKey('visitor_id');
     }
 }

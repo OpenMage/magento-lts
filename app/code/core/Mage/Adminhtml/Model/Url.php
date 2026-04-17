@@ -10,7 +10,7 @@
 /**
  * @package    Mage_Adminhtml
  *
- * @method bool getNoSecret()
+ * @method bool  getNoSecret()
  * @method $this setNoSecret(bool $value)
  */
 class Mage_Adminhtml_Model_Url extends Mage_Core_Model_Url
@@ -28,8 +28,9 @@ class Mage_Adminhtml_Model_Url extends Mage_Core_Model_Url
     public function getSecure()
     {
         if ($this->hasData('secure_is_forced')) {
-            return $this->getData('secure');
+            return $this->getDataByKey('secure');
         }
+
         return Mage::getStoreConfigFlag(Mage_Core_Model_Store::XML_PATH_SECURE_IN_ADMINHTML);
     }
 
@@ -53,8 +54,8 @@ class Mage_Adminhtml_Model_Url extends Mage_Core_Model_Url
     /**
      * Custom logic to retrieve Urls
      *
-     * @param string $routePath
-     * @param array $routeParams
+     * @param  string $routePath
+     * @param  array  $routeParams
      * @return string
      */
     public function getUrl($routePath = null, $routeParams = null)
@@ -79,11 +80,9 @@ class Mage_Adminhtml_Model_Url extends Mage_Core_Model_Url
         } else {
             $secret = [self::SECRET_KEY_PARAM_NAME => $this->getSecretKey($controller, $action)];
         }
-        if (is_array($routeParams)) {
-            $routeParams = array_merge($secret, $routeParams);
-        } else {
-            $routeParams = $secret;
-        }
+
+        $routeParams = is_array($routeParams) ? array_merge($secret, $routeParams) : $secret;
+
         if (is_array($this->getRouteParams())) {
             $routeParams = array_merge($this->getRouteParams(), $routeParams);
         }
@@ -94,20 +93,21 @@ class Mage_Adminhtml_Model_Url extends Mage_Core_Model_Url
     /**
      * Generate secret key for controller and action based on form key
      *
-     * @param string $controller Controller name
-     * @param string $action Action name
+     * @param  string $controller Controller name
+     * @param  string $action     Action name
      * @return string
      */
     public function getSecretKey($controller = null, $action = null)
     {
         $salt = Mage::getSingleton('core/session')->getFormKey();
 
-        $p = explode('/', trim($this->getRequest()->getOriginalPathInfo(), '/'));
+        $path = explode('/', trim($this->getRequest()->getOriginalPathInfo(), '/'));
         if (!$controller) {
-            $controller = !empty($p[1]) ? $p[1] : $this->getRequest()->getControllerName();
+            $controller = empty($path[1]) ? $this->getRequest()->getControllerName() : $path[1];
         }
+
         if (!$action) {
-            $action = !empty($p[2]) ? $p[2] : $this->getRequest()->getActionName();
+            $action = empty($path[2]) ? $this->getRequest()->getActionName() : $path[2];
         }
 
         $secret = $controller . $action . $salt;

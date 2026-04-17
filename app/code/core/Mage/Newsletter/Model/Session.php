@@ -20,7 +20,7 @@ class Mage_Newsletter_Model_Session extends Mage_Core_Model_Session_Abstract
     }
 
     /**
-     * @param string $message
+     * @param  string $message
      * @return $this
      */
     public function addError($message)
@@ -30,7 +30,7 @@ class Mage_Newsletter_Model_Session extends Mage_Core_Model_Session_Abstract
     }
 
     /**
-     * @param string $message
+     * @param  string $message
      * @return $this
      */
     public function addSuccess($message)

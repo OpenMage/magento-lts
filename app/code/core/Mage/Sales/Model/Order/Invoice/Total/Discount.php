@@ -36,8 +36,8 @@ class Mage_Sales_Model_Order_Invoice_Total_Discount extends Mage_Sales_Model_Ord
         }
 
         if ($addShippingDicount) {
-            $totalDiscountAmount     = $totalDiscountAmount + $invoice->getOrder()->getShippingDiscountAmount();
-            $baseTotalDiscountAmount = $baseTotalDiscountAmount + $invoice->getOrder()->getBaseShippingDiscountAmount();
+            $totalDiscountAmount += $invoice->getOrder()->getShippingDiscountAmount();
+            $baseTotalDiscountAmount += $invoice->getOrder()->getBaseShippingDiscountAmount();
         }
 
         foreach ($invoice->getAllItems() as $item) {

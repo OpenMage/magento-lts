@@ -13,8 +13,12 @@
 class Mage_Payment_Block_Info_Checkmo extends Mage_Payment_Block_Info
 {
     protected $_payableTo;
+
     protected $_mailingAddress;
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         parent::_construct();
@@ -29,6 +33,7 @@ class Mage_Payment_Block_Info_Checkmo extends Mage_Payment_Block_Info
         if (is_null($this->_payableTo)) {
             $this->_convertAdditionalData();
         }
+
         return $this->_payableTo;
     }
 
@@ -40,6 +45,7 @@ class Mage_Payment_Block_Info_Checkmo extends Mage_Payment_Block_Info
         if (is_null($this->_mailingAddress)) {
             $this->_convertAdditionalData();
         }
+
         return $this->_mailingAddress;
     }
 
@@ -52,9 +58,10 @@ class Mage_Payment_Block_Info_Checkmo extends Mage_Payment_Block_Info
         try {
             $details = Mage::helper('core/unserializeArray')
                 ->unserialize($this->getInfo()->getAdditionalData());
-        } catch (Exception $e) {
-            Mage::logException($e);
+        } catch (Exception $exception) {
+            Mage::logException($exception);
         }
+
         if (is_array($details)) {
             $this->_payableTo = isset($details['payable_to']) ? (string) $details['payable_to'] : '';
             $this->_mailingAddress = isset($details['mailing_address']) ? (string) $details['mailing_address'] : '';
@@ -62,6 +69,7 @@ class Mage_Payment_Block_Info_Checkmo extends Mage_Payment_Block_Info
             $this->_payableTo = '';
             $this->_mailingAddress = '';
         }
+
         return $this;
     }
 

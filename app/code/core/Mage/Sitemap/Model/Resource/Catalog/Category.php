@@ -25,8 +25,9 @@ class Mage_Sitemap_Model_Resource_Catalog_Category extends Mage_Sitemap_Model_Re
     /**
      * Get category collection array
      *
-     * @param int $storeId
+     * @param  int                 $storeId
      * @return array|false
+     * @throws Mage_Core_Exception
      */
     public function getCollection($storeId)
     {
@@ -59,34 +60,23 @@ class Mage_Sitemap_Model_Resource_Catalog_Category extends Mage_Sitemap_Model_Re
     }
 
     /**
-     * Prepare category
-     *
-     * @deprecated after 1.7.0.2
-     *
-     * @return Varien_Object
-     */
-    protected function _prepareCategory(array $categoryRow)
-    {
-        return $this->_prepareObject($categoryRow);
-    }
-
-    /**
      * Retrieve entity url
      *
-     * @param array $row
-     * @param Varien_Object $entity
+     * @param  array         $row
+     * @param  Varien_Object $entity
      * @return string
      */
     protected function _getEntityUrl($row, $entity)
     {
-        return !empty($row['request_path']) ? $row['request_path'] : 'catalog/category/view/id/' . $entity->getId();
+        return empty($row['request_path']) ? 'catalog/category/view/id/' . $entity->getId() : $row['request_path'];
     }
 
     /**
      * Loads category attribute by given attribute code.
      *
-     * @param string $attributeCode
+     * @param  string              $attributeCode
      * @return $this
+     * @throws Mage_Core_Exception
      */
     protected function _loadAttribute($attributeCode)
     {

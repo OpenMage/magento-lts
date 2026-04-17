@@ -63,11 +63,12 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
         if (count($attributes)) {
             foreach ($attributes as $attribute) {
                 /** @var Mage_Catalog_Model_Product_Type_Configurable_Attribute $attribute */
-                if ($attribute->getData('prices')) {
+                if ($attribute->getDataByKey('prices')) {
                     return true;
                 }
             }
         }
+
         return false;
     }
 
@@ -93,16 +94,18 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
                     $products[] = $product;
                 }
             }
+
             $this->setAllowProducts($products);
         }
-        return $this->getData('allow_products');
+
+        return $this->getDataByKey('allow_products');
     }
 
     /**
      * retrieve current store
      *
-     * @deprecated
      * @return Mage_Core_Model_Store
+     * @deprecated
      */
     public function getCurrentStore()
     {
@@ -112,7 +115,7 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
     /**
      * Returns additional values for js config, con be overridden by descendants
      *
-     * @return array
+     * @return array<string,bool>|array<void>
      */
     protected function _getAdditionalConfig()
     {
@@ -126,17 +129,18 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
      */
     public function getJsonConfig()
     {
-        $attributes = [];
-        $options    = [];
-        $store      = $this->getCurrentStore();
-        $taxHelper  = Mage::helper('tax');
+        $attributes     = [];
+        $options        = [];
+        $store          = $this->getCurrentStore();
+        $taxHelper      = Mage::helper('tax');
         $currentProduct = $this->getProduct();
+        $defaultValues  = [];
 
         $preconfiguredFlag = $currentProduct->hasPreconfiguredValues();
         if ($preconfiguredFlag) {
             $preconfiguredValues = $currentProduct->getPreconfiguredValues();
-            $defaultValues       = [];
         }
+
         $productStock = [];
         foreach ($this->getAllowProducts() as $product) {
             $productId  = $product->getId();
@@ -152,6 +156,7 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
                 if (!isset($options[$productAttributeId][$attributeValue])) {
                     $options[$productAttributeId][$attributeValue] = [];
                 }
+
                 $options[$productAttributeId][$attributeValue][] = $productId;
             }
         }
@@ -177,6 +182,7 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
                     if (!$this->_validateAttributeValue($attributeId, $value, $options)) {
                         continue;
                     }
+
                     $currentProduct->setConfigurablePrice(
                         $this->_preparePrice($value['pricing_value'], $value['is_percent']),
                     );
@@ -230,10 +236,12 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
 
         $_request = $taxCalculation->getDefaultRateRequest();
         $_request->setProductClassId($currentProduct->getTaxClassId());
+
         $defaultTax = $taxCalculation->getRate($_request);
 
         $_request = $taxCalculation->getRateRequest();
         $_request->setProductClassId($currentProduct->getTaxClassId());
+
         $currentTax = $taxCalculation->getRate($_request);
 
         $taxConfig = [
@@ -255,7 +263,7 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
             'taxConfig'         => $taxConfig,
         ];
 
-        if ($preconfiguredFlag && !empty($defaultValues)) {
+        if ($preconfiguredFlag && $defaultValues !== []) {
             $config['defaultValues'] = $defaultValues;
         }
 
@@ -267,41 +275,34 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
     /**
      * Validating of super product option value
      *
-     * @param array $attributeId
-     * @param array $value
-     * @param array $options
+     * @param  string $attributeId
+     * @param  array  $value
+     * @param  array  $options
      * @return bool
      */
     protected function _validateAttributeValue($attributeId, &$value, &$options)
     {
-        if (isset($options[$attributeId][$value['value_index']])) {
-            return true;
-        }
-
-        return false;
+        return isset($options[$attributeId][$value['value_index']]);
     }
 
     /**
      * Validation of super product option
      *
-     * @param array $info
+     * @param  array $info
      * @return bool
      */
     protected function _validateAttributeInfo(&$info)
     {
-        if (count($info['options']) > 0) {
-            return true;
-        }
-        return false;
+        return count($info['options']) > 0;
     }
 
     /**
      * Calculation real price
      *
-     * @deprecated
-     * @param float $price
-     * @param bool $isPercent
+     * @param  float $price
+     * @param  bool  $isPercent
      * @return mixed
+     * @deprecated
      */
     protected function _preparePrice($price, $isPercent = false)
     {
@@ -311,10 +312,10 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
     /**
      * Calculation price before special price
      *
-     * @deprecated
-     * @param float $price
-     * @param bool $isPercent
+     * @param  float $price
+     * @param  bool  $isPercent
      * @return mixed
+     * @deprecated
      */
     protected function _prepareOldPrice($price, $isPercent = false)
     {
@@ -324,9 +325,9 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
     /**
      * Replace ',' on '.' for js
      *
-     * @deprecated
-     * @param float $price
+     * @param  float  $price
      * @return string
+     * @deprecated
      */
     protected function _registerJsPrice($price)
     {
@@ -336,10 +337,10 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
     /**
      * Convert price from default currency to current currency
      *
-     * @deprecated
-     * @param float $price
-     * @param bool $round
+     * @param  float $price
+     * @param  bool  $round
      * @return float
+     * @deprecated
      */
     protected function _convertPrice($price, $round = false)
     {

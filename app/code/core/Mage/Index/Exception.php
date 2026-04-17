@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -9,5 +11,5 @@
 
 /**
  * @package    Mage_Index
-*/
+ */
 class Mage_Index_Exception extends Mage_Core_Exception {}

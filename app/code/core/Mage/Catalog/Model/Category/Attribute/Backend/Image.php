@@ -21,7 +21,7 @@ class Mage_Catalog_Model_Category_Attribute_Backend_Image extends Mage_Eav_Model
 
     /**
      * Save uploaded file and set its name to category attribute
-     * @param Varien_Object $object
+     * @param  Varien_Object $object
      * @return $this
      * @SuppressWarnings("PHPMD.Superglobals")
      */
@@ -51,9 +51,9 @@ class Mage_Catalog_Model_Category_Attribute_Backend_Image extends Mage_Eav_Model
                     $object->setData($name, $fileName);
                     $this->getAttribute()->getEntity()->saveAttribute($object, $name);
                 }
-            } catch (Exception $e) {
-                if ($e->getCode() != UPLOAD_ERR_NO_FILE) {
-                    Mage::logException($e);
+            } catch (Exception $exception) {
+                if ($exception->getCode() != UPLOAD_ERR_NO_FILE) {
+                    Mage::logException($exception);
                 }
             }
         }

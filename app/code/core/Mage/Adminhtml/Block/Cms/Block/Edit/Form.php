@@ -33,6 +33,7 @@ class Mage_Adminhtml_Block_Cms_Block_Edit_Form extends Mage_Adminhtml_Block_Widg
         if (Mage::getSingleton('cms/wysiwyg_config')->isEnabled()) {
             $this->getLayout()->getBlock('head')->setCanLoadTinyMce(true);
         }
+
         return $this;
     }
 
@@ -41,7 +42,7 @@ class Mage_Adminhtml_Block_Cms_Block_Edit_Form extends Mage_Adminhtml_Block_Widg
         $model = Mage::registry('cms_block');
 
         $form = new Varien_Data_Form(
-            ['id' => 'edit_form', 'action' => $this->getData('action'), 'method' => 'post'],
+            ['id' => 'edit_form', 'action' => $this->getDataByKey('action'), 'method' => 'post'],
         );
 
         $form->setHtmlIdPrefix('block_');

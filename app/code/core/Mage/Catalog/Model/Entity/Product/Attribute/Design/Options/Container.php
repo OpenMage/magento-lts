@@ -14,18 +14,13 @@
  */
 class Mage_Catalog_Model_Entity_Product_Attribute_Design_Options_Container extends Mage_Eav_Model_Entity_Attribute_Source_Config
 {
-    protected $_configNodePath;
-
-    public function __construct()
-    {
-        $this->_configNodePath = 'global/catalog/product/design/options_container';
-    }
+    protected $_configNodePath = 'global/catalog/product/design/options_container';
 
     /**
      * Get a text for option value
      *
-     * @param string|int $value
-     * @return string|false
+     * @param  int|string   $value
+     * @return false|string
      */
     public function getOptionText($value)
     {
@@ -37,6 +32,7 @@ class Mage_Catalog_Model_Entity_Product_Attribute_Design_Options_Container exten
                 }
             }
         }
+
         return $options[$value] ?? false;
     }
 }

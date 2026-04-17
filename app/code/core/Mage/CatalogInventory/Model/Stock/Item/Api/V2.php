@@ -17,8 +17,8 @@ class Mage_CatalogInventory_Model_Stock_Item_Api_V2 extends Mage_CatalogInventor
     /**
      * Update product stock data
      *
-     * @param string $productId
-     * @param array $data
+     * @param  string $productId
+     * @param  array  $data
      * @return bool
      */
     public function update($productId, $data)
@@ -42,8 +42,8 @@ class Mage_CatalogInventory_Model_Stock_Item_Api_V2 extends Mage_CatalogInventor
 
         try {
             $stockItem->save();
-        } catch (Mage_Core_Exception $e) {
-            $this->_fault('not_updated', $e->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_fault('not_updated', $mageCoreException->getMessage());
         }
 
         return true;
@@ -52,8 +52,8 @@ class Mage_CatalogInventory_Model_Stock_Item_Api_V2 extends Mage_CatalogInventor
     /**
      * Update stock data of multiple products at once
      *
-     * @param array $productIds
-     * @param array $productData
+     * @param  array $productIds
+     * @param  array $productData
      * @return bool
      */
     public function multiUpdate($productIds, $productData)

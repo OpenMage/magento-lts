@@ -17,17 +17,19 @@ class Mage_Wishlist_Block_Customer_Wishlist_Items extends Mage_Core_Block_Templa
     /**
      * Retrieve table column object list
      *
-     * @return array
+     * @return Mage_Wishlist_Block_Customer_Wishlist_Item_Column[]
      */
     public function getColumns()
     {
         $columns = [];
         foreach ($this->getSortedChildren() as $code) {
+            /** @var Mage_Wishlist_Block_Customer_Wishlist_Item_Column $child */
             $child = $this->getChild($code);
             if ($child->isEnabled()) {
                 $columns[] = $child;
             }
         }
+
         return $columns;
     }
 }

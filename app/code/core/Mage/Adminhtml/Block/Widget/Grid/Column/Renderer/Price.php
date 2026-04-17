@@ -15,6 +15,7 @@
 class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Price extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
 {
     protected $_defaultWidth = 100;
+
     /**
      * Currency objects cache
      */
@@ -23,7 +24,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Price extends Mage_Adminh
     /**
      * Renders grid column
      *
-     * @return  string
+     * @return string
      */
     public function render(Varien_Object $row)
     {
@@ -38,30 +39,33 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Price extends Mage_Adminh
             $data = sprintf('%F', $data);
             return Mage::app()->getLocale()->currency($currencyCode)->toCurrency($data);
         }
+
         return $this->getColumn()->getDefault();
     }
 
     /**
      * Returns currency code for the row, false on error
      *
-     * @param Varien_Object $row
-     * @return string|bool
+     * @param  Varien_Object $row
+     * @return bool|string
      */
     protected function _getCurrencyCode($row)
     {
         if ($code = $this->getColumn()->getCurrencyCode()) {
             return $code;
         }
+
         if ($code = $row->getData($this->getColumn()->getCurrency())) {
             return $code;
         }
+
         return false;
     }
 
     /**
      * Returns rate for the row, 1 by default
      *
-     * @param Varien_Object $row
+     * @param  Varien_Object $row
      * @return float|int
      */
     protected function _getRate($row)
@@ -69,9 +73,11 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Price extends Mage_Adminh
         if ($rate = $this->getColumn()->getRate()) {
             return (float) $rate;
         }
+
         if (($rateField = $this->getColumn()->getRateField()) && ($rate = $row->getData($rateField))) {
             return (float) $rate;
         }
+
         return 1;
     }
 }

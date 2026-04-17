@@ -14,6 +14,8 @@
  */
 class Mage_Sales_Block_Adminhtml_Customer_Edit_Tab_Agreement extends Mage_Sales_Block_Adminhtml_Billing_Agreement_Grid implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
+    protected string $_eventPrefix = 'sales_adminhtml_customer_edit_tab_agreement';
+
     /**
      * Columns, that should be removed from grid
      *
@@ -26,10 +28,6 @@ class Mage_Sales_Block_Adminhtml_Customer_Edit_Tab_Agreement extends Mage_Sales_
         'customer_lastname',
     ];
 
-    /**
-     * Disable filters and paging
-     *
-     */
     public function __construct()
     {
         parent::__construct();
@@ -37,9 +35,7 @@ class Mage_Sales_Block_Adminhtml_Customer_Edit_Tab_Agreement extends Mage_Sales_
     }
 
     /**
-     * Return Tab label
-     *
-     * @return string
+     * @inheritDoc
      */
     public function getTabLabel()
     {
@@ -47,9 +43,7 @@ class Mage_Sales_Block_Adminhtml_Customer_Edit_Tab_Agreement extends Mage_Sales_
     }
 
     /**
-     * Return Tab title
-     *
-     * @return string
+     * @inheritDoc
      */
     public function getTabTitle()
     {
@@ -57,9 +51,7 @@ class Mage_Sales_Block_Adminhtml_Customer_Edit_Tab_Agreement extends Mage_Sales_
     }
 
     /**
-     * Can show tab in tabs
-     *
-     * @return bool
+     * @inheritDoc
      */
     public function canShowTab()
     {
@@ -68,9 +60,7 @@ class Mage_Sales_Block_Adminhtml_Customer_Edit_Tab_Agreement extends Mage_Sales_
     }
 
     /**
-     * Tab is hidden
-     *
-     * @return bool
+     * @inheritDoc
      */
     public function isHidden()
     {
@@ -78,7 +68,7 @@ class Mage_Sales_Block_Adminhtml_Customer_Edit_Tab_Agreement extends Mage_Sales_
     }
 
     /**
-     * @return string
+     * @inheritDoc
      */
     public function getGridUrl()
     {
@@ -98,7 +88,7 @@ class Mage_Sales_Block_Adminhtml_Customer_Edit_Tab_Agreement extends Mage_Sales_
     /**
      * Prepare collection for grid
      *
-     * @return Mage_Adminhtml_Block_Widget_Grid
+     * @return $this|Mage_Adminhtml_Block_Widget_Grid
      */
     protected function _prepareCollection()
     {
@@ -112,7 +102,7 @@ class Mage_Sales_Block_Adminhtml_Customer_Edit_Tab_Agreement extends Mage_Sales_
     /**
      * Remove some columns and make other not sortable
      *
-     * @return Mage_Adminhtml_Block_Widget_Grid
+     * @return $this
      */
     protected function _prepareColumns()
     {
@@ -123,6 +113,7 @@ class Mage_Sales_Block_Adminhtml_Customer_Edit_Tab_Agreement extends Mage_Sales_
                 unset($this->_columns[$key]);
             }
         }
+
         return $result;
     }
 }

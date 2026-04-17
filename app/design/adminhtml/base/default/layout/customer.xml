@@ -1,0 +1,111 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Academic Free License (AFL 3.0)
+ * @package     default_default
+ */
+-->
+
+<layout>
+    <adminhtml_customer_edit>
+        <reference name="content">
+            <block type="adminhtml/customer_edit" name="customer_edit"></block>
+        </reference>
+        <reference name="head">
+            <block type="adminhtml/template" name="optional_zip_countries" as="optional_zip_countries" template="directory/js/optional_zip_countries.phtml" />
+            <action method="addJs"><file>mage/adminhtml/product/composite/configure.js</file></action>
+            <action method="addJs"><file>varien/configurable.js</file></action>
+        </reference>
+        <reference name="left">
+            <block type="adminhtml/customer_edit_tabs" name="customer_edit_tabs">
+                <block type="adminhtml/customer_edit_tab_view" name="customer_edit_tab_view" template="customer/tab/view.phtml">
+                    <block type="adminhtml/customer_edit_tab_view_sales" name="sales" template="customer/tab/view/sales.phtml" before="-" />
+                    <block type="adminhtml/customer_edit_tab_view_accordion" name="accordion" />
+                </block>
+                <action method="addTab"><name>customer_edit_tab_view</name><block>customer_edit_tab_view</block></action>
+            </block>
+        </reference>
+        <reference name="js">
+            <block type="adminhtml/template" template="customer/edit/js.phtml" name="customer.edit.js" as="customer_edit_js"></block>
+        </reference>
+    </adminhtml_customer_edit>
+    <adminhtml_customer_group_index>
+        <reference name="content">
+            <block type="adminhtml/customer_group" name="customer_group"></block>
+        </reference>
+    </adminhtml_customer_group_index>
+    <adminhtml_customer_group_new>
+        <update handle="adminhtml_input_counter_handle"/>
+    </adminhtml_customer_group_new>
+    <adminhtml_customer_wishlist>
+        <block type="adminhtml/customer_edit_tab_wishlist" name="customer.wishlist.edit.tab" output="toHtml" />
+    </adminhtml_customer_wishlist>
+
+    <adminhtml_customer_orders>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="adminhtml/customer_edit_tab_orders" name="adminhtml.customer.edit.tab.orders"/>
+        </block>
+    </adminhtml_customer_orders>
+
+    <adminhtml_customer_carts>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="adminhtml/customer_edit_tab_carts" name="admin.customer.carts"/>
+        </block>
+    </adminhtml_customer_carts>
+
+    <adminhtml_customer_viewcart>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="adminhtml/customer_edit_tab_view_cart" name="admin.customer.view.cart"/>
+        </block>
+    </adminhtml_customer_viewcart>
+
+    <adminhtml_customer_viewwishlist>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="adminhtml/customer_edit_tab_view_wishlist" name="admin.customer.view.wishlist"/>
+        </block>
+    </adminhtml_customer_viewwishlist>
+
+    <adminhtml_customer_lastorders>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="adminhtml/customer_edit_tab_view_orders" name="admin.customer.lastorders"/>
+        </block>
+    </adminhtml_customer_lastorders>
+
+    <adminhtml_customer_productreviews>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="adminhtml/customer_edit_tab_reviews" name="admin.customer.reviews"/>
+        </block>
+    </adminhtml_customer_productreviews>
+
+    <adminhtml_customer_producttags>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="adminhtml/customer_edit_tab_tag" name="admin.customer.tags"/>
+        </block>
+    </adminhtml_customer_producttags>
+
+    <adminhtml_customer_taggrid>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="adminhtml/customer_edit_tab_tag" name="admin.customer.tags"/>
+        </block>
+    </adminhtml_customer_taggrid>
+
+    <adminhtml_customer_newsletter>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="adminhtml/customer_edit_tab_newsletter_grid" name="admin.customer.newsletter.grid"/>
+        </block>
+    </adminhtml_customer_newsletter>
+
+    <adminhtml_customer_grid>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="adminhtml/customer_grid" name="admin.customer.grid"/>
+        </block>
+    </adminhtml_customer_grid>
+
+    <adminhtml_customer_cart>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="adminhtml/customer_edit_tab_cart" name="admin.customer.view.edit.cart" />
+        </block>
+    </adminhtml_customer_cart>
+</layout>

@@ -17,7 +17,7 @@ abstract class Mage_Catalog_Model_Api2_Product_Rest extends Mage_Catalog_Model_A
     /**
      * Current loaded product
      *
-     * @var Mage_Catalog_Model_Product|null
+     * @var null|Mage_Catalog_Model_Product
      */
     protected $_product;
 
@@ -71,6 +71,7 @@ abstract class Mage_Catalog_Model_Api2_Product_Rest extends Mage_Catalog_Model_A
             $this->_setProduct($product);
             $this->_prepareProductForResponse($product);
         }
+
         return $products->toArray();
     }
 
@@ -85,6 +86,7 @@ abstract class Mage_Catalog_Model_Api2_Product_Rest extends Mage_Catalog_Model_A
             if (!$category->getId()) {
                 $this->_critical('Category not found.', Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
             }
+
             $collection->addCategoryFilter($category);
         }
     }
@@ -115,6 +117,7 @@ abstract class Mage_Catalog_Model_Api2_Product_Rest extends Mage_Catalog_Model_A
             $product->unsetData('tier_price');
             unset($productData['tier_price']);
         }
+
         $product->addData($productData);
     }
 
@@ -147,6 +150,7 @@ abstract class Mage_Catalog_Model_Api2_Product_Rest extends Mage_Catalog_Model_A
                     $stockItem = Mage::getModel('cataloginventory/stock_item');
                     $stockItem->loadByProduct($product);
                 }
+
                 $productData[$attribute] = $stockItem->getIsInStock();
                 break;
             case 'is_saleable':
@@ -176,10 +180,10 @@ abstract class Mage_Catalog_Model_Api2_Product_Rest extends Mage_Catalog_Model_A
     protected function addPrices(array &$productData, Mage_Catalog_Model_Product $product): void
     {
         $isPriceRequired = false;
-        if ($this->isAllowedAttribute('regular_price_with_tax') ||
-            $this->isAllowedAttribute('regular_price_without_tax') ||
-            $this->isAllowedAttribute('final_price_with_tax') ||
-            $this->isAllowedAttribute('final_price_without_tax')
+        if ($this->isAllowedAttribute('regular_price_with_tax')
+            || $this->isAllowedAttribute('regular_price_without_tax')
+            || $this->isAllowedAttribute('final_price_with_tax')
+            || $this->isAllowedAttribute('final_price_without_tax')
         ) {
             $isPriceRequired = true;
         }
@@ -190,12 +194,15 @@ abstract class Mage_Catalog_Model_Api2_Product_Rest extends Mage_Catalog_Model_A
             if ($this->isAllowedAttribute('regular_price_with_tax')) {
                 $productData['regular_price_with_tax'] = $this->_applyTaxToPrice($product->getPrice(), true);
             }
+
             if ($this->isAllowedAttribute('regular_price_without_tax')) {
                 $productData['regular_price_without_tax'] = $this->_applyTaxToPrice($product->getPrice(), false);
             }
+
             if ($this->isAllowedAttribute('final_price_with_tax')) {
                 $productData['final_price_with_tax'] = $this->_applyTaxToPrice($finalPrice, true);
             }
+
             if ($this->isAllowedAttribute('final_price_without_tax')) {
                 $productData['final_price_without_tax'] = $this->_applyTaxToPrice($finalPrice, false);
             }
@@ -218,6 +225,7 @@ abstract class Mage_Catalog_Model_Api2_Product_Rest extends Mage_Catalog_Model_A
             );
             $this->allowedAttributes = $attributes;
         }
+
         return $this->allowedAttributes;
     }
 
@@ -265,6 +273,7 @@ abstract class Mage_Catalog_Model_Api2_Product_Rest extends Mage_Catalog_Model_A
             if (!($product->getId())) {
                 $this->_critical(self::RESOURCE_NOT_FOUND);
             }
+
             // check if product belongs to website current
             if ($this->_getStore()->getId()) {
                 $isValidWebsite = in_array($this->_getStore()->getWebsiteId(), $product->getWebsiteIds());
@@ -272,17 +281,18 @@ abstract class Mage_Catalog_Model_Api2_Product_Rest extends Mage_Catalog_Model_A
                     $this->_critical(self::RESOURCE_NOT_FOUND);
                 }
             }
+
             // Check display settings for customers & guests
-            if ($this->getApiUser()->getType() != Mage_Api2_Model_Auth_User_Admin::USER_TYPE) {
-                // check if product assigned to any website and can be shown
-                if ((!Mage::app()->isSingleStoreMode() && !count($product->getWebsiteIds()))
-                    || !$productHelper->canShow($product)
-                ) {
-                    $this->_critical(self::RESOURCE_NOT_FOUND);
-                }
+            // check if product assigned to any website and can be shown
+            if ($this->getApiUser()->getType() != Mage_Api2_Model_Auth_User_Admin::USER_TYPE
+                && (!Mage::app()->isSingleStoreMode() && !count($product->getWebsiteIds()) || !$productHelper->canShow($product))
+            ) {
+                $this->_critical(self::RESOURCE_NOT_FOUND);
             }
+
             $this->_product = $product;
         }
+
         return $this->_product;
     }
 
@@ -297,7 +307,7 @@ abstract class Mage_Catalog_Model_Api2_Product_Rest extends Mage_Catalog_Model_A
     /**
      * Load category by id
      *
-     * @param int $categoryId
+     * @param  int                         $categoryId
      * @return Mage_Catalog_Model_Category
      */
     protected function _getCategoryById($categoryId)
@@ -308,12 +318,12 @@ abstract class Mage_Catalog_Model_Api2_Product_Rest extends Mage_Catalog_Model_A
     /**
      * Get product price with all tax settings processing
      *
-     * @param float $price inputted product price
-     * @param bool $includingTax return price include tax flag
-     * @param null|Mage_Customer_Model_Address $shippingAddress
-     * @param null|Mage_Customer_Model_Address $billingAddress
-     * @param null|int $ctc customer tax class
-     * @param bool $priceIncludesTax flag that price parameter contain tax
+     * @param  float                            $price            inputted product price
+     * @param  bool                             $includingTax     return price include tax flag
+     * @param  null|Mage_Customer_Model_Address $shippingAddress
+     * @param  null|Mage_Customer_Model_Address $billingAddress
+     * @param  null|int                         $ctc              customer tax class
+     * @param  bool                             $priceIncludesTax flag that price parameter contain tax
      * @return float
      * @see Mage_Tax_Helper_Data::getPrice()
      */
@@ -338,13 +348,12 @@ abstract class Mage_Catalog_Model_Api2_Product_Rest extends Mage_Catalog_Model_A
         $includingPercent = null;
 
         $taxClassId = $product->getTaxClassId();
-        if (is_null($percent)) {
-            if ($taxClassId) {
-                $request = Mage::getSingleton('tax/calculation')
-                    ->getRateRequest($shippingAddress, $billingAddress, $ctc, $store);
-                $percent = Mage::getSingleton('tax/calculation')->getRate($request->setProductClassId($taxClassId));
-            }
+        if (is_null($percent) && $taxClassId) {
+            $request = Mage::getSingleton('tax/calculation')
+                ->getRateRequest($shippingAddress, $billingAddress, $ctc, $store);
+            $percent = Mage::getSingleton('tax/calculation')->getRate($request->setProductClassId($taxClassId));
         }
+
         if ($taxClassId && $priceIncludesTax) {
             $taxHelper = Mage::helper('tax');
             if ($taxHelper->isCrossBorderTradeEnabled($store)) {
@@ -356,11 +365,12 @@ abstract class Mage_Catalog_Model_Api2_Product_Rest extends Mage_Catalog_Model_A
             }
         }
 
-        if ($percent === false || is_null($percent)) {
-            if ($priceIncludesTax && !$includingPercent) {
-                return $price;
-            }
+        if (($percent === false || is_null($percent))
+            && ($priceIncludesTax && !$includingPercent)
+        ) {
+            return $price;
         }
+
         $product->setTaxPercent($percent);
 
         if (!is_null($includingTax)) {
@@ -412,9 +422,9 @@ abstract class Mage_Catalog_Model_Api2_Product_Rest extends Mage_Catalog_Model_A
     /**
      * Calculate price imcluding/excluding tax base on tax rate percent
      *
-     * @param float $price
-     * @param float $percent
-     * @param bool $includeTax true - for calculate price including tax and false if price excluding tax
+     * @param  float $price
+     * @param  float $percent
+     * @param  bool  $includeTax true - for calculate price including tax and false if price excluding tax
      * @return float
      */
     protected function _calculatePrice($price, $percent, $includeTax)
@@ -441,13 +451,14 @@ abstract class Mage_Catalog_Model_Api2_Product_Rest extends Mage_Catalog_Model_A
                 'price_without_tax' => $this->_applyTaxToPrice($tierPrice['price'], false),
             ];
         }
+
         return $tierPrices;
     }
 
     /**
      * Default implementation. May be different for customer/guest/admin role.
      *
-     * @return int|null
+     * @return null|int
      */
     protected function _getCustomerGroupId()
     {
@@ -457,8 +468,8 @@ abstract class Mage_Catalog_Model_Api2_Product_Rest extends Mage_Catalog_Model_A
     /**
      * Default implementation. May be different for customer/guest/admin role.
      *
-     * @param float $price
-     * @param bool $withTax
+     * @param  float $price
+     * @param  bool  $withTax
      * @return float
      */
     protected function _applyTaxToPrice($price, $withTax = true)

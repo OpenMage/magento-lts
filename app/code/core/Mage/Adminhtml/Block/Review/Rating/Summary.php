@@ -30,6 +30,7 @@ class Mage_Adminhtml_Block_Review_Rating_Summary extends Mage_Adminhtml_Block_Te
                 ->load();
             $this->setRatingCollection(($ratingCollection->getSize()) ? $ratingCollection : false);
         }
+
         return $this->getRatingCollection();
     }
 

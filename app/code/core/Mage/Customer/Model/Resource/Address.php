@@ -14,6 +14,9 @@
  */
 class Mage_Customer_Model_Resource_Address extends Mage_Eav_Model_Entity_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $resource = Mage::getSingleton('core/resource');
@@ -33,6 +36,7 @@ class Mage_Customer_Model_Resource_Address extends Mage_Eav_Model_Entity_Abstrac
         if ($address->getIsCustomerSaveTransaction()) {
             return $this;
         }
+
         if ($address->getId() && ($address->getIsDefaultBilling() || $address->getIsDefaultShipping())) {
             $customer = Mage::getModel('customer/customer')
                 ->load($address->getCustomerId());
@@ -40,33 +44,36 @@ class Mage_Customer_Model_Resource_Address extends Mage_Eav_Model_Entity_Abstrac
             if ($address->getIsDefaultBilling()) {
                 $customer->setDefaultBilling($address->getId());
             }
+
             if ($address->getIsDefaultShipping()) {
                 $customer->setDefaultShipping($address->getId());
             }
+
             $customer->save();
         }
+
         return $this;
     }
 
     /**
      * Return customer id
-     * @deprecated
      *
-     * @param Mage_Customer_Model_Address $object
+     * @param  Mage_Customer_Model_Address $object
      * @return int
+     * @deprecated
      */
     public function getCustomerId($object)
     {
-        return $object->getData('customer_id') ? $object->getData('customer_id') : $object->getParentId();
+        return $object->getDataByKey('customer_id') ? $object->getDataByKey('customer_id') : $object->getParentId();
     }
 
     /**
      * Set customer id
-     * @deprecated
      *
-     * @param Mage_Customer_Model_Address $object
-     * @param int $id
+     * @param  Mage_Customer_Model_Address $object
+     * @param  int                         $id
      * @return $this
+     * @deprecated
      */
     public function setCustomerId($object, $id)
     {

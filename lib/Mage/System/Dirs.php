@@ -16,6 +16,7 @@ class Mage_System_Dirs
         if (is_array($dirname)) {
             $dirname = $dirname[1];
         }
+
         // Sanity check
         if (!@file_exists($dirname)) {
             return false;
@@ -42,12 +43,17 @@ class Mage_System_Dirs
 
             // Otherwise add it to the stack
             $stack[] = $entry;
-            $dh = opendir($entry);
-            while (false !== $child = readdir($dh)) {
+            $handle = opendir($entry);
+            while (false !== $child = readdir($handle)) {
                 // Ignore pointers
-                if ($child === '.' || $child === '..') {
+                if ($child === '.') {
                     continue;
                 }
+
+                if ($child === '..') {
+                    continue;
+                }
+
                 // Unlink files and add directories to stack
                 $child = $entry . DIRECTORY_SEPARATOR . $child;
                 if (is_dir($child) && !is_link($child)) {
@@ -56,8 +62,10 @@ class Mage_System_Dirs
                     @unlink($child);
                 }
             }
-            @closedir($dh);
+
+            @closedir($handle);
         }
+
         return true;
     }
 
@@ -70,13 +78,16 @@ class Mage_System_Dirs
         if ($exists && is_dir($path)) {
             return true;
         }
+
         if ($exists && !is_dir($path)) {
             throw new Exception("'{$path}' already exists, should be a dir, not a file!");
         }
+
         $out = @mkdir($path, $mode, $recursive);
         if (false === $out) {
             throw new Exception("Can't create dir: '{$path}'");
         }
+
         return true;
     }
 

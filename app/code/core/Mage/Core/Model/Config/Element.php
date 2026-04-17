@@ -15,8 +15,8 @@
 class Mage_Core_Model_Config_Element extends Varien_Simplexml_Element
 {
     /**
-     * @param string $var
-     * @param string|true $value
+     * @param  string      $var
+     * @param  string|true $value
      * @return bool
      * @SuppressWarnings("PHPMD.ShortMethodName")
      */
@@ -26,11 +26,7 @@ class Mage_Core_Model_Config_Element extends Varien_Simplexml_Element
 
         if ($value === true) {
             $flag = strtolower((string) $flag);
-            if (!empty($flag) && $flag !== 'false' && $flag !== 'off') {
-                return true;
-            } else {
-                return false;
-            }
+            return !empty($flag) && $flag !== 'false' && $flag !== 'off';
         }
 
         return !empty($flag) && (strcasecmp((string) $value, (string) $flag) === 0);
@@ -48,6 +44,7 @@ class Mage_Core_Model_Config_Element extends Varien_Simplexml_Element
         } else {
             return false;
         }
+
         return Mage::getConfig()->getModelClassName($model);
     }
 }

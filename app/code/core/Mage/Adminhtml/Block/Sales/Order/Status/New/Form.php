@@ -23,7 +23,7 @@ class Mage_Adminhtml_Block_Sales_Order_Status_New_Form extends Mage_Adminhtml_Bl
     /**
      * Prepare form fields and structure
      *
-     * @return Mage_Adminhtml_Block_Widget_Form
+     * @return $this
      */
     protected function _prepareForm()
     {
@@ -32,7 +32,7 @@ class Mage_Adminhtml_Block_Sales_Order_Status_New_Form extends Mage_Adminhtml_Bl
 
         $form   = new Varien_Data_Form([
             'id'        => 'edit_form',
-            'action'    => $this->getData('action'),
+            'action'    => $this->getDataByKey('action'),
             'method'    => 'post',
         ]);
 
@@ -84,6 +84,7 @@ class Mage_Adminhtml_Block_Sales_Order_Status_New_Form extends Mage_Adminhtml_Bl
                 if (count($stores) == 0) {
                     continue;
                 }
+
                 $fieldset->addField("sg_{$group->getId()}_label", 'note', [
                     'label'    => $group->getName(),
                     'fieldset_html_class' => 'store-group',
@@ -103,6 +104,7 @@ class Mage_Adminhtml_Block_Sales_Order_Status_New_Form extends Mage_Adminhtml_Bl
         if ($model) {
             $form->addValues($model->getData());
         }
+
         $form->setAction($this->getUrl('*/sales_order_status/save'));
         $form->setUseContainer(true);
         $this->setForm($form);

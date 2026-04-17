@@ -22,6 +22,7 @@ class Mage_Adminhtml_Model_System_Config_Source_Catalog_GridPerPage
         foreach ($perPageValues as $option) {
             $result[] = ['value' => $option, 'label' => $option];
         }
+
         //$result[] = array('value' => 'all', 'label' => Mage::helper('catalog')->__('All'));
         return $result;
     }

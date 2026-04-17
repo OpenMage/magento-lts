@@ -75,7 +75,7 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Options_Abstract extends 
      */
     public function getStores()
     {
-        $stores = $this->getData('stores');
+        $stores = $this->getDataByKey('stores');
         if (is_null($stores)) {
             $stores = Mage::getModel('core/store')
                 ->getResourceCollection()
@@ -83,6 +83,7 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Options_Abstract extends 
                 ->load();
             $this->setData('stores', $stores);
         }
+
         return $stores;
     }
 
@@ -107,7 +108,7 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Options_Abstract extends 
             default => '',
         };
 
-        $values = $this->getData('option_values');
+        $values = $this->getDataByKey('option_values');
         if (is_null($values)) {
             $values = [];
             $optionCollection = Mage::getResourceModel('eav/entity_attribute_option_collection')
@@ -119,11 +120,7 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Options_Abstract extends 
             /** @var Mage_Eav_Model_Entity_Attribute_Option $option */
             foreach ($optionCollection as $option) {
                 $value = [];
-                if (in_array($option->getId(), $defaultValues)) {
-                    $value['checked'] = 'checked="checked"';
-                } else {
-                    $value['checked'] = '';
-                }
+                $value['checked'] = in_array($option->getId(), $defaultValues) ? 'checked="checked"' : '';
 
                 $value['intype'] = $inputType;
                 $value['id'] = $option->getId();
@@ -133,13 +130,17 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Options_Abstract extends 
                     $value['store' . $store->getId()] = isset($storeValues[$option->getId()])
                         ? $helper->escapeHtml($storeValues[$option->getId()]) : '';
                 }
+
                 if ($this->isConfigurableSwatchesEnabled()) {
                     $value['swatch'] = $option->getSwatchValue();
                 }
+
                 $values[] = new Varien_Object($value);
             }
+
             $this->setData('option_values', $values);
         }
+
         return $values;
     }
 
@@ -155,6 +156,7 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Options_Abstract extends 
         if (is_array($frontendLabel)) {
             return $frontendLabel;
         }
+
         $values[0] = $frontendLabel;
         $storeLabels = $this->getAttributeObject()->getStoreLabels();
         foreach ($this->getStores() as $store) {
@@ -162,13 +164,14 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Options_Abstract extends 
                 $values[$store->getId()] = $storeLabels[$store->getId()] ?? '';
             }
         }
+
         return $values;
     }
 
     /**
      * Retrieve attribute option values for given store id
      *
-     * @param int $storeId
+     * @param  int   $storeId
      * @return array
      */
     public function getStoreOptionValues($storeId)
@@ -184,8 +187,10 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Options_Abstract extends 
             foreach ($valuesCollection as $item) {
                 $values[$item->getId()] = $item->getValue();
             }
+
             $this->setData('store_option_values_' . $storeId, $values);
         }
+
         return $values;
     }
 

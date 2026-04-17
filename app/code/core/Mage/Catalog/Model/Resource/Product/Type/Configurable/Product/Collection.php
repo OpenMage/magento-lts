@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -22,7 +24,7 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Product_Collection e
     protected $_linkTable;
 
     /**
-     * Assign link table name
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -49,7 +51,7 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Product_Collection e
     /**
      * Set Product filter to result
      *
-     * @param Mage_Catalog_Model_Product $product
+     * @param  Mage_Catalog_Model_Product $product
      * @return $this
      */
     public function setProductFilter($product)
@@ -60,7 +62,7 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Product_Collection e
 
     /**
      * Retrieve is flat enabled flag
-     * Return alvays false if magento run admin
+     * Return always false if magento run admin
      *
      * @return bool
      */

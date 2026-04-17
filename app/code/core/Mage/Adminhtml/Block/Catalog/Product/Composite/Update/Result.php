@@ -21,7 +21,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Composite_Update_Result extends Mage_
      *
      * @return string
      */
-    public function _toHtml()
+    protected function _toHtml()
     {
         $updateResult = Mage::registry('composite_update_result');
         $resultJson = Mage::helper('core')->jsonEncode($updateResult);

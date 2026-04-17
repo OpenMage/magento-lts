@@ -8,7 +8,7 @@ tags:
 # Requirements
 
 - PHP 8.1+[^1]
-    - PHP 8.4 supported but some warnings may be shown/logged
+    - PHP 8.4/8.5 supported but some warnings may be shown/logged
 - MySQL 5.6+ (8.0+ recommended) or MariaDB
 - optional: Redis 5.x, 6.x and 7.0.x are supported
 

@@ -7,7 +7,7 @@
  * @package    Mage_Paypal
  */
 
-/** @var Mage_Core_Model_Resource_Setup $this */
+/** @var Mage_Paypal_Model_Resource_Setup $this */
 $installer = $this;
 $connection = $installer->getConnection();
 $installer->startSetup();
@@ -33,4 +33,5 @@ $paymentCode = ['payflow_link', 'payflow_advanced', 'hosted_pro'];
 foreach ($paymentCode as $value) {
     Mage::getConfig()->saveConfig("payment/{$value}/mobile_optimized", '1');
 }
+
 $installer->endSetup();

@@ -35,9 +35,11 @@ class Mage_Sales_Block_Order_Email_Items_Order_Default extends Mage_Core_Block_T
             if (isset($options['options'])) {
                 $result = array_merge($result, $options['options']);
             }
+
             if (isset($options['additional_options'])) {
                 $result = array_merge($result, $options['additional_options']);
             }
+
             if (isset($options['attributes_info'])) {
                 $result = array_merge($result, $options['attributes_info']);
             }
@@ -47,7 +49,7 @@ class Mage_Sales_Block_Order_Email_Items_Order_Default extends Mage_Core_Block_T
     }
 
     /**
-     * @param array|string $value
+     * @param  array|string $value
      * @return string
      */
     public function getValueHtml($value)
@@ -55,29 +57,29 @@ class Mage_Sales_Block_Order_Email_Items_Order_Default extends Mage_Core_Block_T
         if (is_array($value)) {
             return sprintf('%d', $value['qty']) . ' x ' . $this->escapeHtml($value['title']) . ' '
                 . $this->getItem()->getOrder()->formatPrice($value['price']);
-        } else {
-            return $this->escapeHtml($value);
         }
+
+        return $this->escapeHtml($value);
     }
 
     /**
-     * @param Mage_Sales_Model_Order_Item $item
+     * @param  Mage_Sales_Model_Order_Item $item
      * @return array|string
      */
     public function getSku($item)
     {
         if ($item->getProductOptionByCode('simple_sku')) {
             return $item->getProductOptionByCode('simple_sku');
-        } else {
-            return $item->getSku();
         }
+
+        return $item->getSku();
     }
 
     /**
      * Return product additional information block
      *
      * TODO set return type
-     * @return Mage_Core_Block_Abstract|null
+     * @return null|Mage_Core_Block_Abstract
      */
     public function getProductAdditionalInformationBlock()
     {
@@ -89,11 +91,13 @@ class Mage_Sales_Block_Order_Email_Items_Order_Default extends Mage_Core_Block_T
         if (!$this->isModuleOutputEnabled('Mage_GiftMessage')) {
             return null;
         }
+
         /** @var Mage_GiftMessage_Helper_Message $helper */
         $helper = $this->helper('giftmessage/message');
         if ($this->getItem()->getGiftMessageId()) {
             return $helper->getGiftMessage($this->getItem()->getGiftMessageId());
         }
+
         return null;
     }
 }

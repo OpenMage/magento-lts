@@ -41,7 +41,7 @@ class Mage_Checkout_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
     /**
      * Check if quote already exist with provided quoteId for creating
      *
-     * @param int $quoteId
+     * @param  int  $quoteId
      * @return bool
      */
     protected function _isQuoteExist($quoteId)
@@ -52,7 +52,7 @@ class Mage_Checkout_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
 
         try {
             $quote = $this->_getQuote($quoteId);
-        } catch (Mage_Api_Exception $e) {
+        } catch (Mage_Api_Exception) {
             return false;
         }
 
@@ -67,7 +67,7 @@ class Mage_Checkout_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
      * Retrieves store id from store code, if no store id specified,
      * it uses set session or admin store
      *
-     * @param string|int $store
+     * @param  int|string $store
      * @return int
      */
     protected function _getStoreId($store = null)
@@ -79,7 +79,7 @@ class Mage_Checkout_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
 
         try {
             $storeId = Mage::app()->getStore($store)->getId();
-        } catch (Mage_Core_Model_Store_Exception $e) {
+        } catch (Mage_Core_Model_Store_Exception) {
             $this->_fault('store_not_exists');
         }
 
@@ -89,8 +89,8 @@ class Mage_Checkout_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
     /**
      * Retrieves quote by quote identifier and store code or by quote identifier
      *
-     * @param int $quoteId
-     * @param string|int $store
+     * @param  int                    $quoteId
+     * @param  int|string             $store
      * @return Mage_Sales_Model_Quote
      */
     protected function _getQuote($quoteId, $store = null)
@@ -98,7 +98,7 @@ class Mage_Checkout_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
         /** @var Mage_Sales_Model_Quote $quote */
         $quote = Mage::getModel('sales/quote');
 
-        if (!(is_string($store) || is_int($store))) {
+        if (!is_string($store) && !is_int($store)) {
             $quote->loadByIdWithoutStore($quoteId);
         } else {
             $storeId = $this->_getStoreId($store);
@@ -106,6 +106,7 @@ class Mage_Checkout_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
             $quote->setStoreId($storeId)
                 ->load($quoteId);
         }
+
         if (is_null($quote->getId())) {
             $this->_fault('quote_not_exists');
         }
@@ -116,7 +117,7 @@ class Mage_Checkout_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
     /**
      * Get store identifier by quote identifier
      *
-     * @param int $quoteId
+     * @param  int $quoteId
      * @return int
      */
     protected function _getStoreIdFromQuote($quoteId)
@@ -131,9 +132,9 @@ class Mage_Checkout_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
     /**
      * Update attributes for entity
      *
-     * @param array $data
-     * @param Mage_Core_Model_Abstract $object
-     * @param string $type
+     * @param  array                    $data
+     * @param  Mage_Core_Model_Abstract $object
+     * @param  string                   $type
      * @return $this
      */
     protected function _updateAttributes($data, $object, $type, ?array $attributes = null)
@@ -150,8 +151,8 @@ class Mage_Checkout_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
     /**
      * Retrieve entity attributes values
      *
-     * @param Mage_Core_Model_Abstract $object
-     * @param string $type
+     * @param  Mage_Core_Model_Abstract $object
+     * @param  string                   $type
      * @return array
      */
     protected function _getAttributes($object, $type, ?array $attributes = null)
@@ -188,8 +189,8 @@ class Mage_Checkout_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
     /**
      * Check is attribute allowed to usage
      *
-     * @param string $attributeCode
-     * @param string $type
+     * @param  string $attributeCode
+     * @param  string $type
      * @return bool
      */
     protected function _isAllowedAttribute($attributeCode, $type, ?array $attributes = null)
@@ -204,12 +205,6 @@ class Mage_Checkout_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
             return false;
         }
 
-        if (isset($this->_ignoredAttributeCodes[$type])
-            && in_array($attributeCode, $this->_ignoredAttributeCodes[$type])
-        ) {
-            return false;
-        }
-
-        return true;
+        return !(isset($this->_ignoredAttributeCodes[$type]) && in_array($attributeCode, $this->_ignoredAttributeCodes[$type]));
     }
 }

@@ -13,11 +13,14 @@
  * @package    Mage_Adminhtml
  *
  * @method Mage_Catalog_Model_Resource_Product_Collection getCollection()
+ * @method bool                                           getIsCollapsed()
+ * @method $this                                          setIsCollapsed(bool $value)
  */
 class Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_sales_order_create_search_grid';
+
     /**
-     * Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid constructor.
      * @throws Exception
      */
     public function __construct()
@@ -53,7 +56,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid extends Mage_Adminhtml
     }
 
     /**
-     * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
+     * @param  Mage_Adminhtml_Block_Widget_Grid_Column $column
      * @return $this
      * @throws Exception
      */
@@ -65,6 +68,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid extends Mage_Adminhtml
             if (empty($productIds)) {
                 $productIds = 0;
             }
+
             if ($column->getFilter()->getValue()) {
                 $this->getCollection()->addFieldToFilter('entity_id', ['in' => $productIds]);
             } elseif ($productIds) {
@@ -73,12 +77,11 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid extends Mage_Adminhtml
         } else {
             parent::_addColumnFilterToCollection($column);
         }
+
         return $this;
     }
 
     /**
-     * Prepare collection to be displayed in the grid
-     *
      * @inheritDoc
      */
     protected function _prepareCollection()
@@ -105,6 +108,8 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid extends Mage_Adminhtml
 
     /**
      * @inheritDoc
+     * @throws Exception
+     * @throws Mage_Core_Exception
      */
     protected function _prepareColumns()
     {
@@ -179,8 +184,8 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid extends Mage_Adminhtml
     /**
      * Retrieve gift message save model
      *
-     * @deprecated after 1.4.2.0
      * @return Mage_Adminhtml_Model_Giftmessage_Save
+     * @deprecated after 1.4.2.0
      */
     protected function _getGiftmessageSaveModel()
     {
@@ -191,6 +196,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid extends Mage_Adminhtml
      * Add custom options to product collection
      *
      * @inheritDoc
+     * @throws Mage_Core_Exception
      */
     protected function _afterLoadCollection()
     {

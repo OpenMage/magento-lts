@@ -16,6 +16,9 @@ class Mage_Tag_IndexController extends Mage_Core_Controller_Front_Action
 {
     /**
      * Saving tag and relation between tag, customer, product and store
+     *
+     * @return void
+     * @throws Mage_Core_Exception
      */
     public function saveAction()
     {
@@ -23,6 +26,7 @@ class Mage_Tag_IndexController extends Mage_Core_Controller_Front_Action
         if (!$customerSession->authenticate($this)) {
             return;
         }
+
         $tagName    = (string) $this->getRequest()->getQuery('productTagName');
         $productId  = (int) $this->getRequest()->getParam('product');
 
@@ -60,23 +64,26 @@ class Mage_Tag_IndexController extends Mage_Core_Controller_Front_Action
                                 ->setStatus($tagModel->getPendingStatus())
                                 ->save();
                         }
+
                         $relationStatus = $tagModel->saveRelation($productId, $customerId, $storeId);
                         $counter[$relationStatus][] = $tagName;
                     }
+
                     $this->_fillMessageBox($counter);
-                } catch (Exception $e) {
-                    Mage::logException($e);
+                } catch (Exception $exception) {
+                    Mage::logException($exception);
                     $session->addError($this->__('Unable to save tag(s).'));
                 }
             }
         }
+
         $this->_redirectReferer();
     }
 
     /**
      * Checks inputted tags on the correctness of symbols and split string to array of tags
      *
-     * @param string $tagNamesInString
+     * @param  string $tagNamesInString
      * @return array
      */
     protected function _extractTags($tagNamesInString)
@@ -92,12 +99,13 @@ class Mage_Tag_IndexController extends Mage_Core_Controller_Front_Action
     protected function _cleanTags(array $tagNamesArr)
     {
         foreach (array_keys($tagNamesArr) as $key) {
-            $tagNamesArr[$key] = trim($tagNamesArr[$key], '\'');
+            $tagNamesArr[$key] = trim($tagNamesArr[$key], "'");
             $tagNamesArr[$key] = trim($tagNamesArr[$key]);
             if ($tagNamesArr[$key] == '') {
                 unset($tagNamesArr[$key]);
             }
         }
+
         return $tagNamesArr;
     }
 

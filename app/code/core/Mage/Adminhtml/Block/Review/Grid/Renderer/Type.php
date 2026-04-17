@@ -15,7 +15,7 @@
 class Mage_Adminhtml_Block_Review_Grid_Renderer_Type extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
 {
     /**
-     * @param Mage_Catalog_Model_Product $row
+     * @param  Mage_Catalog_Model_Product $row
      * @return string
      */
     public function render(Varien_Object $row)
@@ -24,6 +24,7 @@ class Mage_Adminhtml_Block_Review_Grid_Renderer_Type extends Mage_Adminhtml_Bloc
             if ($row->getStoreId() == Mage_Core_Model_App::ADMIN_STORE_ID) {
                 return Mage::helper('review')->__('Administrator');
             }
+
             return Mage::helper('review')->__('Guest');
         }
 

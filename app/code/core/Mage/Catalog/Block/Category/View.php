@@ -31,9 +31,11 @@ class Mage_Catalog_Block_Category_View extends Mage_Core_Block_Template
             if ($title = $category->getMetaTitle()) {
                 $headBlock->setTitle($title);
             }
+
             if ($description = $category->getMetaDescription()) {
                 $headBlock->setDescription($description);
             }
+
             if ($keywords = $category->getMetaKeywords()) {
                 $headBlock->setKeywords($keywords);
             }
@@ -43,6 +45,7 @@ class Mage_Catalog_Block_Category_View extends Mage_Core_Block_Template
             if ($helper->canUseCanonicalTag()) {
                 $headBlock->addLinkRel('canonical', $category->getUrl());
             }
+
             /*
             want to show rss feed in the url
             */
@@ -104,7 +107,8 @@ class Mage_Catalog_Block_Category_View extends Mage_Core_Block_Template
         if (!$this->hasData('current_category')) {
             $this->setData('current_category', Mage::registry('current_category'));
         }
-        return $this->getData('current_category');
+
+        return $this->getDataByKey('current_category');
     }
 
     /**
@@ -112,13 +116,14 @@ class Mage_Catalog_Block_Category_View extends Mage_Core_Block_Template
      */
     public function getCmsBlockHtml()
     {
-        if (!$this->getData('cms_block_html')) {
+        if (!$this->getDataByKey('cms_block_html')) {
             $html = $this->getLayout()->createBlock('cms/block')
                 ->setBlockId($this->getCurrentCategory()->getLandingPage())
                 ->toHtml();
             $this->setData('cms_block_html', $html);
         }
-        return $this->getData('cms_block_html');
+
+        return $this->getDataByKey('cms_block_html');
     }
 
     /**
@@ -158,6 +163,7 @@ class Mage_Catalog_Block_Category_View extends Mage_Core_Block_Template
                 }
             }
         }
+
         return $res;
     }
 

@@ -33,7 +33,7 @@ class Mage_Dataflow_Model_Convert_Parser_Csv extends Mage_Dataflow_Model_Convert
             $fDel = "\t";
         }
 
-        $adapterName   = $this->getVar('adapter', null);
+        $adapterName   = $this->getVar('adapter');
         $adapterMethod = $this->getVar('method', 'saveRow');
 
         if (!$adapterName || !$adapterMethod) {
@@ -44,7 +44,7 @@ class Mage_Dataflow_Model_Convert_Parser_Csv extends Mage_Dataflow_Model_Convert
 
         try {
             $adapter = Mage::getModel($adapterName);
-        } catch (Exception $e) {
+        } catch (Exception) {
             $message = Mage::helper('dataflow')
                 ->__('Declared adapter %s was not found.', $adapterName);
             $this->addException($message, Mage_Dataflow_Model_Convert_Exception::FATAL);
@@ -62,9 +62,9 @@ class Mage_Dataflow_Model_Convert_Parser_Csv extends Mage_Dataflow_Model_Convert
         $batchModel = $this->getBatchModel();
         $batchIoAdapter = $this->getBatchModel()->getIoAdapter();
 
-        if (Mage::app()->getRequest()->getParam('files')) {
-            $file = Mage::app()->getConfig()->getTempVarDir() . '/import/'
-                . str_replace('../', '', urldecode(Mage::app()->getRequest()->getParam('files')));
+        $files = Mage::app()->getRequest()->getParam('files');
+        if ($files) {
+            $file = $this->getCopyFile($files);
             $this->_copy($file);
         }
 
@@ -75,8 +75,8 @@ class Mage_Dataflow_Model_Convert_Parser_Csv extends Mage_Dataflow_Model_Convert
             $fieldNames = $this->getVar('map');
         } else {
             $fieldNames = [];
-            foreach ($batchIoAdapter->read(true, $fDel, $fEnc) as $v) {
-                $fieldNames[$v] = $v;
+            foreach ($batchIoAdapter->read(true, $fDel, $fEnc) as $value) {
+                $fieldNames[$value] = $value;
             }
         }
 
@@ -94,7 +94,7 @@ class Mage_Dataflow_Model_Convert_Parser_Csv extends Mage_Dataflow_Model_Convert
                 $i++;
             }
 
-            $batchImportModel = $this->getBatchImportModel()
+            $this->getBatchImportModel()
                 ->setId(null)
                 ->setBatchId($this->getBatchModel()->getId())
                 ->setBatchData($itemData)
@@ -123,11 +123,11 @@ class Mage_Dataflow_Model_Convert_Parser_Csv extends Mage_Dataflow_Model_Convert
         if ($i == 0) {
             if ($this->getVar('fieldnames')) {
                 $this->_fields = $line;
-                return;
-            } else {
-                foreach ($line as $j => $f) {
-                    $this->_fields[$j] = $this->_mapfields[$j];
-                }
+                return null;
+            }
+
+            foreach ($line as $j => $f) {
+                $this->_fields[$j] = $this->_mapfields[$j];
             }
         }
 
@@ -136,6 +136,7 @@ class Mage_Dataflow_Model_Convert_Parser_Csv extends Mage_Dataflow_Model_Convert
         foreach ($this->_fields as $j => $f) {
             $resultRow[$f] = $line[$j] ?? '';
         }
+
         return $resultRow;
     }
 
@@ -151,18 +152,18 @@ class Mage_Dataflow_Model_Convert_Parser_Csv extends Mage_Dataflow_Model_Convert
         $fieldList = $this->getBatchModel()->getFieldList();
         $batchExportIds = $batchExport->getIdCollection();
 
-        $io = $this->getBatchModel()->getIoAdapter();
-        $io->open();
+        $ioAdapter = $this->getBatchModel()->getIoAdapter();
+        $ioAdapter->open();
 
         if (!$batchExportIds) {
-            $io->write('');
-            $io->close();
+            $ioAdapter->write('');
+            $ioAdapter->close();
             return $this;
         }
 
         if ($this->getVar('fieldnames')) {
             $csvData = $this->getCsvString($fieldList);
-            $io->write($csvData);
+            $ioAdapter->write($csvData);
         }
 
         foreach ($batchExportIds as $batchExportId) {
@@ -173,37 +174,36 @@ class Mage_Dataflow_Model_Convert_Parser_Csv extends Mage_Dataflow_Model_Convert
             foreach ($fieldList as $field) {
                 $csvData[] = $row[$field] ?? '';
             }
+
             $csvData = $this->getCsvString($csvData);
-            $io->write($csvData);
+            $ioAdapter->write($csvData);
         }
 
-        $io->close();
+        $ioAdapter->close();
 
         return $this;
     }
 
     /**
-     * @param array $args
+     * @param  array  $args
      * @return string
      */
     public function unparseRow($args)
     {
-        $i = $args['i'];
         $row = $args['row'];
 
         $fDel = $this->getVar('delimiter', ',');
         $fEnc = $this->getVar('enclose', '"');
         $fEsc = $this->getVar('escape', '\\');
-        $lDel = "\r\n";
 
         if ($fDel == '\t') {
             $fDel = "\t";
         }
 
         $line = [];
-        foreach ($this->_fields as $f) {
-            $v = isset($row[$f]) ? str_replace(['"', '\\'], [$fEnc . '"', $fEsc . '\\'], $row[$f]) : '';
-            $line[] = $fEnc . $v . $fEnc;
+        foreach ($this->_fields as $field) {
+            $str = isset($row[$field]) ? str_replace(['"', '\\'], [$fEnc . '"', $fEsc . '\\'], $row[$field]) : '';
+            $line[] = $fEnc . $str . $fEnc;
         }
 
         return implode($fDel, $line);
@@ -212,7 +212,7 @@ class Mage_Dataflow_Model_Convert_Parser_Csv extends Mage_Dataflow_Model_Convert
     /**
      * Retrieve csv string from array
      *
-     * @param array $fields
+     * @param  array  $fields
      * @return string
      */
     public function getCsvString($fields = [])
@@ -230,13 +230,13 @@ class Mage_Dataflow_Model_Convert_Parser_Csv extends Mage_Dataflow_Model_Convert
             $escapedValue = Mage::helper('core')->getEscapedCSVData([$value]);
             $value = $escapedValue[0];
 
-            if (str_contains($value, $delimiter) ||
-                empty($enclosure) ||
-                str_contains($value, $enclosure) ||
-                str_contains($value, "\n") ||
-                str_contains($value, "\r") ||
-                str_contains($value, "\t") ||
-                str_contains($value, ' ')
+            if (str_contains($value, $delimiter)
+                || empty($enclosure)
+                || str_contains($value, $enclosure)
+                || str_contains($value, "\n")
+                || str_contains($value, "\r")
+                || str_contains($value, "\t")
+                || str_contains($value, ' ')
             ) {
                 $str2 = $enclosure;
                 $escaped = 0;
@@ -249,14 +249,17 @@ class Mage_Dataflow_Model_Convert_Parser_Csv extends Mage_Dataflow_Model_Convert
                     } else {
                         $escaped = 0;
                     }
+
                     $str2 .= $value[$i];
                 }
+
                 $str2 .= $enclosure;
                 $str .= $str2 . $delimiter;
             } else {
                 $str .= $enclosure . $value . $enclosure . $delimiter;
             }
         }
+
         return substr($str, 0, -1) . "\n";
     }
 }

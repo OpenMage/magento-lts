@@ -43,8 +43,7 @@ class Mage_Newsletter_Model_Resource_Subscriber extends Mage_Core_Model_Resource
     protected $_messagesScope          = 'newsletter/session';
 
     /**
-     * Get tablename from config
-     *
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -67,7 +66,7 @@ class Mage_Newsletter_Model_Resource_Subscriber extends Mage_Core_Model_Resource
     /**
      * Load subscriber from DB by email
      *
-     * @param string $subscriberEmail
+     * @param  string $subscriberEmail
      * @return array
      */
     public function loadByEmail($subscriberEmail)
@@ -144,10 +143,11 @@ class Mage_Newsletter_Model_Resource_Subscriber extends Mage_Core_Model_Resource
                 'queue_id = ?' => $queue->getId(),
             ]);
             $this->_write->commit();
-        } catch (Exception $e) {
+        } catch (Exception) {
             $this->_write->rollBack();
             Mage::throwException(Mage::helper('newsletter')->__('Cannot mark as received subscriber.'));
         }
+
         return $this;
     }
 }

@@ -13,7 +13,7 @@
 /.phpcs.dist.xml export-ignore
 /.phpmd.dist.baseline.xml export-ignore
 /.phpmd.dist.xml export-ignore
-/.phpstan.dist.baseline.neon export-ignore
+/.phpstan.dist.baseline.php export-ignore
 /.phpstan.dist.neon export-ignore
 /.phpstorm.meta.php export-ignore
 /.rector.php export-ignore

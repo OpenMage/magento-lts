@@ -29,7 +29,7 @@ class Mage_Sales_Model_Order_Api extends Mage_Sales_Model_Api_Resource
     /**
      * Initialize basic order model
      *
-     * @param mixed $orderIncrementId
+     * @param  mixed                  $orderIncrementId
      * @return Mage_Sales_Model_Order
      */
     protected function _initOrder($orderIncrementId)
@@ -50,7 +50,7 @@ class Mage_Sales_Model_Order_Api extends Mage_Sales_Model_Api_Resource
     /**
      * Retrieve list of orders. Filtration could be applied
      *
-     * @param null|object|array $filters
+     * @param  null|array|object $filters
      * @return array
      */
     public function items($filters = null)
@@ -62,10 +62,10 @@ class Mage_Sales_Model_Order_Api extends Mage_Sales_Model_Api_Resource
         $shippingAliasName = 'shipping_o_a';
 
         $orderCollection = Mage::getModel('sales/order')->getCollection();
-        $billingFirstnameField = "$billingAliasName.firstname";
-        $billingLastnameField = "$billingAliasName.lastname";
-        $shippingFirstnameField = "$shippingAliasName.firstname";
-        $shippingLastnameField = "$shippingAliasName.lastname";
+        $billingFirstnameField = "{$billingAliasName}.firstname";
+        $billingLastnameField = "{$billingAliasName}.lastname";
+        $shippingFirstnameField = "{$shippingAliasName}.firstname";
+        $shippingLastnameField = "{$shippingAliasName}.lastname";
         $orderCollection->addAttributeToSelect('*')
             ->addAddressFields()
             ->addExpressionFieldToSelect(
@@ -106,19 +106,21 @@ class Mage_Sales_Model_Order_Api extends Mage_Sales_Model_Api_Resource
             foreach ($filters as $field => $value) {
                 $orderCollection->addFieldToFilter($field, $value);
             }
-        } catch (Mage_Core_Exception $e) {
-            $this->_fault('filters_invalid', $e->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_fault('filters_invalid', $mageCoreException->getMessage());
         }
+
         foreach ($orderCollection as $order) {
             $orders[] = $this->_getAttributes($order, 'order');
         }
+
         return $orders;
     }
 
     /**
      * Retrieve full order information
      *
-     * @param string $orderIncrementId
+     * @param  string $orderIncrementId
      * @return array
      */
     public function info($orderIncrementId)
@@ -161,10 +163,10 @@ class Mage_Sales_Model_Order_Api extends Mage_Sales_Model_Api_Resource
     /**
      * Add comment to order
      *
-     * @param string $orderIncrementId
-     * @param string $status
-     * @param string $comment
-     * @param bool $notify
+     * @param  string $orderIncrementId
+     * @param  string $status
+     * @param  string $comment
+     * @param  bool   $notify
      * @return bool
      */
     public function addComment($orderIncrementId, $status, $comment = '', $notify = false)
@@ -188,8 +190,8 @@ class Mage_Sales_Model_Order_Api extends Mage_Sales_Model_Api_Resource
                 Mage::getDesign()->setStore($oldStore);
                 Mage::getDesign()->setArea($oldArea);
             }
-        } catch (Mage_Core_Exception $e) {
-            $this->_fault('status_not_changed', $e->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_fault('status_not_changed', $mageCoreException->getMessage());
         }
 
         return true;
@@ -198,7 +200,7 @@ class Mage_Sales_Model_Order_Api extends Mage_Sales_Model_Api_Resource
     /**
      * Hold order
      *
-     * @param string $orderIncrementId
+     * @param  string $orderIncrementId
      * @return bool
      */
     public function hold($orderIncrementId)
@@ -208,8 +210,8 @@ class Mage_Sales_Model_Order_Api extends Mage_Sales_Model_Api_Resource
         try {
             $order->hold();
             $order->save();
-        } catch (Mage_Core_Exception $e) {
-            $this->_fault('status_not_changed', $e->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_fault('status_not_changed', $mageCoreException->getMessage());
         }
 
         return true;
@@ -218,7 +220,7 @@ class Mage_Sales_Model_Order_Api extends Mage_Sales_Model_Api_Resource
     /**
      * Unhold order
      *
-     * @param string $orderIncrementId
+     * @param  string $orderIncrementId
      * @return bool
      */
     public function unhold($orderIncrementId)
@@ -228,8 +230,8 @@ class Mage_Sales_Model_Order_Api extends Mage_Sales_Model_Api_Resource
         try {
             $order->unhold();
             $order->save();
-        } catch (Mage_Core_Exception $e) {
-            $this->_fault('status_not_changed', $e->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_fault('status_not_changed', $mageCoreException->getMessage());
         }
 
         return true;
@@ -238,7 +240,7 @@ class Mage_Sales_Model_Order_Api extends Mage_Sales_Model_Api_Resource
     /**
      * Cancel order
      *
-     * @param string $orderIncrementId
+     * @param  string $orderIncrementId
      * @return bool
      */
     public function cancel($orderIncrementId)
@@ -248,15 +250,18 @@ class Mage_Sales_Model_Order_Api extends Mage_Sales_Model_Api_Resource
         if (Mage_Sales_Model_Order::STATE_CANCELED == $order->getState()) {
             $this->_fault('status_not_changed');
         }
+
         try {
             $order->cancel();
             $order->save();
-        } catch (Mage_Core_Exception $e) {
-            $this->_fault('status_not_changed', $e->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_fault('status_not_changed', $mageCoreException->getMessage());
         }
+
         if (Mage_Sales_Model_Order::STATE_CANCELED != $order->getState()) {
             $this->_fault('status_not_changed');
         }
+
         return true;
     }
 }

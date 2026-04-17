@@ -11,14 +11,13 @@
  * Object Cache
  *
  * Stores objects for reuse, cleanup and to avoid circular references
- *
  */
 class Varien_Object_Cache
 {
     /**
      * Singleton instance
      *
-     * @var Varien_Object_Cache|null
+     * @var null|Varien_Object_Cache
      */
     protected static $_instance;
 
@@ -100,14 +99,15 @@ class Varien_Object_Cache
         if (!self::$_instance) {
             self::$_instance = new self();
         }
+
         return self::$_instance;
     }
 
     /**
      * Load an object from registry
      *
-     * @param string|object $idx
-     * @param object $default
+     * @param  object|string $idx
+     * @param  object        $default
      * @return object
      */
     public function load($idx, $default = null)
@@ -115,16 +115,18 @@ class Varien_Object_Cache
         if (isset($this->_references[$idx])) {
             $idx = $this->_references[$idx];
         }
+
         return $this->_objects[$idx] ?? $default;
     }
 
     /**
      * Save an object entry
      *
-     * @param object $object
-     * @param string $idx
-     * @param array|string $tags
-     * @return string|false
+     * @param  object           $object
+     * @param  string           $idx
+     * @param  array|string     $tags
+     * @return false|string
+     * @throws Varien_Exception
      */
     public function save($object, $idx = null, $tags = null)
     {
@@ -137,11 +139,13 @@ class Varien_Object_Cache
         if (!is_null($idx) && strpos($idx, '{')) {
             $idx = str_replace('{hash}', $hash, $idx);
         }
+
         if (isset($this->_hashes[$hash])) {
             //throw new Exception('test');
             if (!is_null($idx)) {
                 $this->_references[$idx] = $this->_hashes[$hash];
             }
+
             return $this->_hashes[$hash];
         }
 
@@ -162,11 +166,12 @@ class Varien_Object_Cache
             $this->_tags[$tags][$idx] = true;
             $this->_objectTags[$idx][$tags] = true;
         } elseif (is_array($tags)) {
-            foreach ($tags as $t) {
-                $this->_tags[$t][$idx] = true;
-                $this->_objectTags[$idx][$t] = true;
+            foreach ($tags as $tag) {
+                $this->_tags[$tag][$idx] = true;
+                $this->_objectTags[$idx][$tag] = true;
             }
         }
+
         //Varien_Profiler::stop('OBJECT_SAVE');
 
         return $idx;
@@ -175,9 +180,10 @@ class Varien_Object_Cache
     /**
      * Add a reference to an object
      *
-     * @param string|array $refName
-     * @param string $idx
+     * @param  array|string     $refName
+     * @param  string           $idx
      * @return bool
+     * @throws Varien_Exception
      */
     public function reference($refName, $idx)
     {
@@ -185,12 +191,14 @@ class Varien_Object_Cache
             foreach ($refName as $ref) {
                 $this->reference($ref, $idx);
             }
+
             return false;
         }
 
         if (isset($this->_references[$refName])) {
             throw new Varien_Exception('The reference already exists: ' . $refName . '. New index: ' . $idx . ', old index: ' . $this->_references[$refName]);
         }
+
         $this->_references[$refName] = $idx;
         $this->_objectReferences[$idx][$refName] = true;
 
@@ -200,7 +208,7 @@ class Varien_Object_Cache
     /**
      * Delete an object from registry
      *
-     * @param string|object $idx
+     * @param  object|string $idx
      * @return bool
      */
     public function delete($idx)
@@ -212,10 +220,14 @@ class Varien_Object_Cache
                 //Varien_Profiler::stop("OBJECT_DELETE");
                 return false;
             }
+
             unset($this->_objects[$idx]);
             //Varien_Profiler::stop("OBJECT_DELETE");
             return false;
-        } elseif (!isset($this->_objects[$idx])) {
+        }
+
+        //Varien_Profiler::start("OBJECT_DELETE");
+        if (!isset($this->_objects[$idx])) {
             //Varien_Profiler::stop("OBJECT_DELETE");
             return false;
         }
@@ -225,18 +237,21 @@ class Varien_Object_Cache
         unset($this->_hashes[$this->_objectHashes[$idx]], $this->_objectHashes[$idx]);
 
         if (isset($this->_objectTags[$idx])) {
-            foreach ($this->_objectTags[$idx] as $t => $dummy) {
-                unset($this->_tags[$t][$idx]);
+            foreach ($this->_objectTags[$idx] as $tag => $dummy) {
+                unset($this->_tags[$tag][$idx]);
             }
+
             unset($this->_objectTags[$idx]);
         }
 
         if (isset($this->_objectReferences[$idx])) {
-            foreach (array_keys($this->_references) as $r) {
-                unset($this->_references[$r]);
+            foreach (array_keys($this->_references) as $ref) {
+                unset($this->_references[$ref]);
             }
+
             unset($this->_objectReferences[$idx]);
         }
+
         //Varien_Profiler::stop("OBJECT_DELETE");
 
         return true;
@@ -266,18 +281,20 @@ class Varien_Object_Cache
         if (is_string($tags)) {
             $tags = [$tags];
         }
-        foreach ($tags as $t) {
-            foreach ($this->_tags[$t] as $idx => $dummy) {
+
+        foreach ($tags as $tag) {
+            foreach ($this->_tags[$tag] as $idx => $dummy) {
                 $this->delete($idx);
             }
         }
+
         return true;
     }
 
     /**
      * Check whether object id exists in registry
      *
-     * @param string $idx
+     * @param  string $idx
      * @return bool
      */
     public function has($idx)
@@ -288,8 +305,8 @@ class Varien_Object_Cache
     /**
      * Find an object id
      *
-     * @param object $object
-     * @return string|bool
+     * @param  object      $object
+     * @return bool|string
      */
     public function find($object)
     {
@@ -298,6 +315,7 @@ class Varien_Object_Cache
                 return $idx;
             }
         }
+
         return false;
     }
 
@@ -309,6 +327,7 @@ class Varien_Object_Cache
                 $objects[$idx] = $obj;
             }
         }
+
         return $objects;
     }
 
@@ -320,7 +339,7 @@ class Varien_Object_Cache
     /**
      * Find objects by tags
      *
-     * @param array|string $tags
+     * @param  array|string $tags
      * @return array
      */
     public function findByTags($tags)
@@ -328,15 +347,18 @@ class Varien_Object_Cache
         if (is_string($tags)) {
             $tags = [$tags];
         }
+
         $objects = [];
-        foreach ($tags as $t) {
-            foreach ($this->_tags[$t] as $idx => $dummy) {
+        foreach ($tags as $tag) {
+            foreach ($this->_tags[$tag] as $idx => $dummy) {
                 if (isset($objects[$idx])) {
                     continue;
                 }
+
                 $objects[$idx] = $this->load($idx);
             }
         }
+
         return $objects;
     }
 
@@ -353,27 +375,29 @@ class Varien_Object_Cache
                 $objects[$idx] = $object;
             }
         }
+
         return $objects;
     }
 
     public function debug($idx, $object = null)
     {
-        $bt = debug_backtrace();
+        $backtrace = debug_backtrace();
         $debug = [];
-        foreach ($bt as $i => $step) {
-            $debug[$i] = [
+        foreach ($backtrace as $index => $step) {
+            $debug[$index] = [
                 'file'     => $step['file'] ?? null,
                 'line'     => $step['line'] ?? null,
                 'function' => $step['function'],
             ];
         }
+
         $this->_debug[$idx] = $debug;
     }
 
     /**
      * Return debug information by ids
      *
-     * @param array|integer $ids
+     * @param  array|int $ids
      * @return array
      */
     public function debugByIds($ids)
@@ -381,10 +405,12 @@ class Varien_Object_Cache
         if (is_string($ids)) {
             $ids = [$ids];
         }
+
         $debug = [];
         foreach ($ids as $idx) {
             $debug[$idx] = $this->_debug[$idx];
         }
+
         return $debug;
     }
 

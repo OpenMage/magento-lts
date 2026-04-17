@@ -94,20 +94,12 @@ class Mage_Catalog_Model_Indexer_Url extends Mage_Index_Model_Indexer_Abstract
         $entity = $event->getEntity();
         if ($entity == Mage_Core_Model_Store::ENTITY) {
             $store = $event->getDataObject();
-            if ($store && ($store->isObjectNew() || $store->dataHasChangedFor('group_id'))) {
-                $result = true;
-            } else {
-                $result = false;
-            }
+            $result = $store && ($store->isObjectNew() || $store->dataHasChangedFor('group_id'));
         } elseif ($entity == Mage_Core_Model_Store_Group::ENTITY) {
             $storeGroup = $event->getDataObject();
             $hasDataChanges = $storeGroup && ($storeGroup->dataHasChangedFor('root_category_id')
                 || $storeGroup->dataHasChangedFor('website_id'));
-            if ($storeGroup && !$storeGroup->isObjectNew() && $hasDataChanges) {
-                $result = true;
-            } else {
-                $result = false;
-            }
+            $result = $storeGroup && !$storeGroup->isObjectNew() && $hasDataChanges;
         } elseif ($entity == Mage_Core_Model_Config_Data::ENTITY) {
             $configData = $event->getDataObject();
             if ($configData && in_array($configData->getPath(), $this->_relatedConfigSettings)) {
@@ -153,6 +145,7 @@ class Mage_Catalog_Model_Indexer_Url extends Mage_Index_Model_Indexer_Abstract
                 $process->changeStatus(Mage_Index_Model_Process::STATUS_REQUIRE_REINDEX);
                 break;
         }
+
         return $this;
     }
 
@@ -181,6 +174,7 @@ class Mage_Catalog_Model_Indexer_Url extends Mage_Index_Model_Indexer_Abstract
             if ($category->dataHasChangedFor('url_key') || $category->getIsChangedProductList()) {
                 $event->addNewData('rewrite_category_ids', [$category->getId()]);
             }
+
             /**
              * Check if category has another affected category ids (category move result)
              */
@@ -206,7 +200,7 @@ class Mage_Catalog_Model_Indexer_Url extends Mage_Index_Model_Indexer_Abstract
         // Force rewrites history saving
         $dataObject = $event->getDataObject();
         if ($dataObject instanceof Varien_Object && $dataObject->hasData('save_rewrites_history')) {
-            $urlModel->setShouldSaveRewritesHistory($dataObject->getData('save_rewrites_history'));
+            $urlModel->setShouldSaveRewritesHistory($dataObject->getDataByKey('save_rewrites_history'));
         }
 
         if (isset($data['rewrite_product_ids'])) {
@@ -235,9 +229,9 @@ class Mage_Catalog_Model_Indexer_Url extends Mage_Index_Model_Indexer_Abstract
         try {
             Mage::getSingleton('catalog/url')->refreshRewrites();
             $resourceModel->commit();
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $resourceModel->rollBack();
-            throw $e;
+            throw $exception;
         }
     }
 }

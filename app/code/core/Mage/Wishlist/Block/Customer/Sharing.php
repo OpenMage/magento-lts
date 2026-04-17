@@ -17,7 +17,7 @@ class Mage_Wishlist_Block_Customer_Sharing extends Mage_Core_Block_Template
     /**
      * Entered Data cache
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_enteredData = null;
 
@@ -32,6 +32,7 @@ class Mage_Wishlist_Block_Customer_Sharing extends Mage_Core_Block_Template
         if ($headBlock) {
             $headBlock->setTitle($this->__('Wishlist Sharing'));
         }
+
         return $this;
     }
 
@@ -48,7 +49,7 @@ class Mage_Wishlist_Block_Customer_Sharing extends Mage_Core_Block_Template
     /**
      * Retrieve Entered Data by key
      *
-     * @param string $key
+     * @param  string $key
      * @return mixed
      */
     public function getEnteredData($key)
@@ -60,9 +61,9 @@ class Mage_Wishlist_Block_Customer_Sharing extends Mage_Core_Block_Template
 
         if (!$this->_enteredData || !isset($this->_enteredData[$key])) {
             return null;
-        } else {
-            return $this->escapeHtml($this->_enteredData[$key]);
         }
+
+        return $this->escapeHtml($this->_enteredData[$key]);
     }
 
     /**

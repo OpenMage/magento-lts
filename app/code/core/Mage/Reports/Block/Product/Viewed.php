@@ -12,8 +12,8 @@
  *
  * @package    Mage_Reports
  *
- * @method $this setRecentlyViewedProducts(Mage_Reports_Model_Resource_Product_Index_Collection_Abstract $value)
  * @method Mage_Reports_Model_Resource_Product_Index_Collection_Abstract getRecentlyViewedProducts()
+ * @method $this                                                         setRecentlyViewedProducts(Mage_Reports_Model_Resource_Product_Index_Collection_Abstract $value)
  */
 class Mage_Reports_Block_Product_Viewed extends Mage_Reports_Block_Product_Abstract
 {
@@ -34,8 +34,9 @@ class Mage_Reports_Block_Product_Viewed extends Mage_Reports_Block_Product_Abstr
     public function getPageSize()
     {
         if ($this->hasData('page_size')) {
-            return $this->getData('page_size');
+            return $this->getDataByKey('page_size');
         }
+
         return Mage::getStoreConfig(self::XML_PATH_RECENTLY_VIEWED_COUNT);
     }
 
@@ -48,6 +49,7 @@ class Mage_Reports_Block_Product_Viewed extends Mage_Reports_Block_Product_Abstr
         if (!empty($ids)) {
             return count($ids);
         }
+
         return parent::getCount();
     }
 
@@ -62,6 +64,7 @@ class Mage_Reports_Block_Product_Viewed extends Mage_Reports_Block_Product_Abstr
         if (!$this->getCount()) {
             return '';
         }
+
         $this->setRecentlyViewedProducts($this->getItemsCollection());
         return parent::_toHtml();
     }

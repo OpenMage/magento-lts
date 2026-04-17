@@ -15,8 +15,8 @@
 class Mage_Checkout_Model_Cart_Coupon_Api extends Mage_Checkout_Model_Api_Resource
 {
     /**
-     * @param  int $quoteId
-     * @param  string $couponCode
+     * @param  int        $quoteId
+     * @param  string     $couponCode
      * @param  int|string $store
      * @return bool
      */
@@ -26,7 +26,7 @@ class Mage_Checkout_Model_Cart_Coupon_Api extends Mage_Checkout_Model_Api_Resour
     }
 
     /**
-     * @param  int $quoteId
+     * @param  int        $quoteId
      * @param  int|string $store
      * @return bool
      */
@@ -37,7 +37,7 @@ class Mage_Checkout_Model_Cart_Coupon_Api extends Mage_Checkout_Model_Api_Resour
     }
 
     /**
-     * @param  int $quoteId
+     * @param  int        $quoteId
      * @param  int|string $store
      * @return string
      */
@@ -49,8 +49,8 @@ class Mage_Checkout_Model_Cart_Coupon_Api extends Mage_Checkout_Model_Api_Resour
     }
 
     /**
-     * @param  int $quoteId
-     * @param  string $couponCode
+     * @param  int        $quoteId
+     * @param  string     $couponCode
      * @param  int|string $store
      * @return bool
      */
@@ -72,14 +72,12 @@ class Mage_Checkout_Model_Cart_Coupon_Api extends Mage_Checkout_Model_Api_Resour
             $quote->setCouponCode(strlen($couponCode) ? $couponCode : '')
                 ->collectTotals()
                 ->save();
-        } catch (Exception $e) {
-            $this->_fault('cannot_apply_coupon_code', $e->getMessage());
+        } catch (Exception $exception) {
+            $this->_fault('cannot_apply_coupon_code', $exception->getMessage());
         }
 
-        if ($couponCode) {
-            if (!$couponCode == $quote->getCouponCode()) {
-                $this->_fault('coupon_code_is_not_valid');
-            }
+        if ($couponCode && (!$couponCode == $quote->getCouponCode())) {
+            $this->_fault('coupon_code_is_not_valid');
         }
 
         return true;

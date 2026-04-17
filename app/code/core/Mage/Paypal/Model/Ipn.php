@@ -24,19 +24,18 @@ class Mage_Paypal_Model_Ipn
     /**
      * Store order instance
      *
-     * @var Mage_Sales_Model_Order|null
+     * @var null|Mage_Sales_Model_Order
      */
     protected $_order = null;
 
     /**
      * Recurring profile instance
      *
-     * @var Mage_Sales_Model_Recurring_Profile|null
+     * @var null|Mage_Sales_Model_Recurring_Profile
      */
     protected $_recurringProfile = null;
 
     /**
-     *
      * @var Mage_Paypal_Model_Config
      */
     protected $_config = null;
@@ -64,7 +63,7 @@ class Mage_Paypal_Model_Ipn
     /**
      * IPN request data getter
      *
-     * @param string $key
+     * @param  string       $key
      * @return array|string
      */
     public function getRequestData($key = null)
@@ -72,6 +71,7 @@ class Mage_Paypal_Model_Ipn
         if ($key === null) {
             return $this->_request;
         }
+
         return $this->_request[$key] ?? null;
     }
 
@@ -89,22 +89,25 @@ class Mage_Paypal_Model_Ipn
         try {
             if (isset($this->_request['txn_type']) && $this->_request['txn_type'] == 'recurring_payment') {
                 $this->_getRecurringProfile();
-                if ($httpAdapter) {
+                if ($httpAdapter instanceof Zend_Http_Client_Adapter_Interface) {
                     $this->_postBack($httpAdapter);
                 }
+
                 $this->_processRecurringProfile();
             } else {
                 $this->_getOrder();
-                if ($httpAdapter) {
+                if ($httpAdapter instanceof Zend_Http_Client_Adapter_Interface) {
                     $this->_postBack($httpAdapter);
                 }
+
                 $this->_processOrder();
             }
-        } catch (Exception $e) {
-            $this->_debugData['exception'] = $e->getMessage();
+        } catch (Exception $exception) {
+            $this->_debugData['exception'] = $exception->getMessage();
             $this->_debug();
-            throw $e;
+            throw $exception;
         }
+
         $this->_debug();
     }
 
@@ -130,9 +133,9 @@ class Mage_Paypal_Model_Ipn
 
         try {
             $postbackResult = $httpAdapter->read();
-        } catch (Exception $e) {
-            $this->_debugData['http_error'] = ['error' => $e->getMessage(), 'code' => $e->getCode()];
-            throw $e;
+        } catch (Exception $exception) {
+            $this->_debugData['http_error'] = ['error' => $exception->getMessage(), 'code' => $exception->getCode()];
+            throw $exception;
         }
 
         /*
@@ -140,11 +143,8 @@ class Mage_Paypal_Model_Ipn
          */
         $responseCode = Zend_Http_Response::extractCode($postbackResult);
         if (empty($postbackResult) || in_array($responseCode, ['500', '502', '503'])) {
-            if (empty($postbackResult)) {
-                $reason = 'Empty response.';
-            } else {
-                $reason = 'Response code: ' . $responseCode . '.';
-            }
+            $reason = empty($postbackResult) ? 'Empty response.' : 'Response code: ' . $responseCode . '.';
+
             $this->_debugData['exception'] = 'PayPal IPN postback failure. ' . $reason;
             throw new Mage_Paypal_UnavailableException($reason);
         }
@@ -160,7 +160,6 @@ class Mage_Paypal_Model_Ipn
 
     /**
      * Load and validate order, instantiate proper configuration
-     *
      *
      * @return Mage_Sales_Model_Order
      * @throws Exception
@@ -180,6 +179,7 @@ class Mage_Paypal_Model_Ipn
                     ->sendResponse();
                 exit;
             }
+
             // re-initialize config with the method code and store id
             $methodCode = $this->_order->getPayment()->getMethod();
             $this->_config = Mage::getModel('paypal/config', [$methodCode, $this->_order->getStoreId()]);
@@ -189,6 +189,7 @@ class Mage_Paypal_Model_Ipn
 
             $this->_verifyOrder();
         }
+
         return $this->_order;
     }
 
@@ -210,6 +211,7 @@ class Mage_Paypal_Model_Ipn
                     sprintf('Wrong recurring profile INTERNAL_REFERENCE_ID: "%s".', $internalReferenceId),
                 );
             }
+
             // re-initialize config with the method code and store id
             $methodCode = $this->_recurringProfile->getMethodCode();
             $this->_config = Mage::getModel(
@@ -220,6 +222,7 @@ class Mage_Paypal_Model_Ipn
                 throw new Exception(sprintf('Method "%s" is not available.', $methodCode));
             }
         }
+
         return $this->_recurringProfile;
     }
 
@@ -238,6 +241,7 @@ class Mage_Paypal_Model_Ipn
             if (!$receiverEmail) {
                 $receiverEmail = $this->getRequestData('receiver_email');
             }
+
             if (strtolower($merchantEmail) != strtolower($receiverEmail)) {
                 throw new Exception(
                     sprintf(
@@ -269,10 +273,10 @@ class Mage_Paypal_Model_Ipn
                 Mage_Paypal_Model_Info::TXN_TYPE_ADJUSTMENT => $this->_registerAdjustment(),
                 default => $this->_registerTransaction(),
             };
-        } catch (Mage_Core_Exception $e) {
-            $comment = $this->_createIpnComment(Mage::helper('paypal')->__('Note: %s', $e->getMessage()), true);
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $comment = $this->_createIpnComment(Mage::helper('paypal')->__('Note: %s', $mageCoreException->getMessage()), true);
             $comment->save();
-            throw $e;
+            throw $mageCoreException;
         }
     }
 
@@ -332,10 +336,10 @@ class Mage_Paypal_Model_Ipn
                 Mage_Paypal_Model_Info::PAYMENTSTATUS_EXPIRED, Mage_Paypal_Model_Info::PAYMENTSTATUS_VOIDED => $this->_registerPaymentVoid(),
                 default => throw new Exception("Cannot handle payment status '{$paymentStatus}'."),
             };
-        } catch (Mage_Core_Exception $e) {
-            $comment = $this->_createIpnComment(Mage::helper('paypal')->__('Note: %s', $e->getMessage()), true);
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $comment = $this->_createIpnComment(Mage::helper('paypal')->__('Note: %s', $mageCoreException->getMessage()), true);
             $comment->save();
-            throw $e;
+            throw $mageCoreException;
         }
     }
 
@@ -355,8 +359,8 @@ class Mage_Paypal_Model_Ipn
                 Mage_Paypal_Model_Info::PAYMENTSTATUS_COMPLETED => $this->_registerRecurringProfilePaymentCapture(),
                 default => throw new Exception("Cannot handle payment status '{$paymentStatus}'."),
             };
-        } catch (Mage_Core_Exception $e) {
-            throw $e;
+        } catch (Mage_Core_Exception $mageCoreException) {
+            throw $mageCoreException;
         }
     }
 
@@ -373,6 +377,7 @@ class Mage_Paypal_Model_Ipn
         } elseif ($type == 'Regular') {
             $productItemInfo->setPaymentType(Mage_Sales_Model_Recurring_Profile::PAYMENT_TYPE_REGULAR);
         }
+
         $productItemInfo->setTaxAmount($this->getRequestData('tax'));
         $productItemInfo->setShippingAmount($this->getRequestData('shipping'));
         $productItemInfo->setPrice($price);
@@ -409,6 +414,7 @@ class Mage_Paypal_Model_Ipn
         if ($this->getRequestData('transaction_entity') == 'auth') {
             return;
         }
+
         $parentTransactionId = $this->getRequestData('parent_txn_id');
         $this->_importPaymentInformation();
         $payment = $this->_order->getPayment();
@@ -561,6 +567,7 @@ class Mage_Paypal_Model_Ipn
             $this->_registerPaymentAuthorization();
             return;
         }
+
         if ($reason === 'order') {
             throw new Exception('The "order" authorizations are not implemented.');
         }
@@ -601,6 +608,7 @@ class Mage_Paypal_Model_Ipn
         if (!$this->_order->getEmailSent()) {
             $this->_order->queueNewOrderEmail();
         }
+
         $this->_order->save();
     }
 
@@ -636,9 +644,9 @@ class Mage_Paypal_Model_Ipn
      * Generate an "IPN" comment with additional explanation.
      * Returns the generated comment or order status history object
      *
-     * @param string $comment
-     * @param bool $addToHistory
-     * @return string|Mage_Sales_Model_Order_Status_History
+     * @param  string                                       $comment
+     * @param  bool                                         $addToHistory
+     * @return Mage_Sales_Model_Order_Status_History|string
      */
     protected function _createIpnComment($comment = '', $addToHistory = false)
     {
@@ -647,10 +655,12 @@ class Mage_Paypal_Model_Ipn
         if ($comment) {
             $message .= ' ' . $comment;
         }
+
         if ($addToHistory) {
             $message = $this->_order->addStatusHistoryComment($message);
-            $message->setIsCustomerNotified(null);
+            $message->setIsCustomerNotified();
         }
+
         return $message;
     }
 
@@ -680,11 +690,13 @@ class Mage_Paypal_Model_Ipn
             if (is_int($privateKey)) {
                 $privateKey = $publicKey;
             }
+
             $value = $this->getRequestData($privateKey);
             if ($value) {
                 $from[$publicKey] = $value;
             }
         }
+
         if (isset($from['payment_status'])) {
             $from['payment_status'] = $this->_filterPaymentStatus($this->getRequestData('payment_status'));
         }
@@ -694,6 +706,7 @@ class Mage_Paypal_Model_Ipn
         for ($i = 1; $value = $this->getRequestData("fraud_management_pending_filters_{$i}"); $i++) {
             $fraudFilters[] = $value;
         }
+
         if ($fraudFilters) {
             $from[Mage_Paypal_Model_Info::FRAUD_FILTERS] = $fraudFilters;
         }
@@ -711,6 +724,7 @@ class Mage_Paypal_Model_Ipn
                 $payment->setIsFraudDetected(true);
             }
         }
+
         if ($this->_info::isPaymentSuccessful($payment)) {
             $payment->setIsTransactionApproved(true);
         } elseif ($this->_info::isPaymentFailed($payment)) {
@@ -723,7 +737,7 @@ class Mage_Paypal_Model_Ipn
     /**
      * Filter payment status from NVP into paypal/info format
      *
-     * @param string $ipnPaymentStatus
+     * @param  string $ipnPaymentStatus
      * @return string
      */
     protected function _filterPaymentStatus($ipnPaymentStatus)

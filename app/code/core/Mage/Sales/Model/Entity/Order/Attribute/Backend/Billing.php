@@ -17,7 +17,7 @@ class Mage_Sales_Model_Entity_Order_Attribute_Backend_Billing extends Mage_Eav_M
     /**
      * Before save order billing address process
      *
-     * @param Mage_Sales_Model_Order $object
+     * @param  Mage_Sales_Model_Order $object
      * @return $this
      */
     public function beforeSave($object)
@@ -26,13 +26,14 @@ class Mage_Sales_Model_Entity_Order_Attribute_Backend_Billing extends Mage_Eav_M
         if (is_null($billingAddressId)) {
             $object->unsetBillingAddressId();
         }
+
         return $this;
     }
 
     /**
      * After save order billing address process
      *
-     * @param Mage_Sales_Model_Order $object
+     * @param  Mage_Sales_Model_Order $object
      * @return $this
      */
     public function afterSave($object)

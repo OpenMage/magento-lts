@@ -14,6 +14,9 @@
  */
 class Mage_CatalogSearch_Model_Resource_Advanced extends Mage_Core_Model_Resource_Db_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('catalog/product', 'entity_id');
@@ -23,7 +26,7 @@ class Mage_CatalogSearch_Model_Resource_Advanced extends Mage_Core_Model_Resourc
      * Prepare response object and dispatch prepare price event
      * Return response object
      *
-     * @param Varien_Db_Select $select
+     * @param  Varien_Db_Select $select
      * @return Varien_Object
      */
     protected function _dispatchPreparePriceEvent($select)
@@ -48,9 +51,9 @@ class Mage_CatalogSearch_Model_Resource_Advanced extends Mage_Core_Model_Resourc
     /**
      * Prepare search condition for attribute
      *
-     * @param Mage_Catalog_Model_Resource_Eav_Attribute $attribute
-     * @param string|array $value
-     * @param Mage_CatalogSearch_Model_Resource_Advanced_Collection $collection
+     * @param  Mage_Catalog_Model_Resource_Eav_Attribute             $attribute
+     * @param  array|string                                          $value
+     * @param  Mage_CatalogSearch_Model_Resource_Advanced_Collection $collection
      * @return array|false|string|string[]
      */
     public function prepareCondition($attribute, $value, $collection)
@@ -65,7 +68,7 @@ class Mage_CatalogSearch_Model_Resource_Advanced extends Mage_Core_Model_Resourc
             } elseif (!isset($value['from']) && !isset($value['to'])) { // select
                 $condition = ['in' => $value];
             }
-        } elseif (strlen($value) > 0) {
+        } elseif ((string) $value !== '') {
             if (in_array($attribute->getBackendType(), ['varchar', 'text', 'static'])) {
                 $condition = ['like' => '%' . $value . '%']; // text search
             } else {
@@ -79,10 +82,10 @@ class Mage_CatalogSearch_Model_Resource_Advanced extends Mage_Core_Model_Resourc
     /**
      * Add filter by attribute rated price
      *
-     * @param Mage_CatalogSearch_Model_Resource_Advanced_Collection $collection
-     * @param Mage_Catalog_Model_Resource_Eav_Attribute $attribute
-     * @param string|array $value
-     * @param int $rate
+     * @param  Mage_CatalogSearch_Model_Resource_Advanced_Collection $collection
+     * @param  Mage_Catalog_Model_Resource_Eav_Attribute             $attribute
+     * @param  array|string                                          $value
+     * @param  int                                                   $rate
      * @return bool
      */
     public function addRatedPriceFilter($collection, $attribute, $value, $rate = 1)
@@ -90,14 +93,15 @@ class Mage_CatalogSearch_Model_Resource_Advanced extends Mage_Core_Model_Resourc
         $adapter = $this->_getReadAdapter();
 
         $conditions = [];
-        if (strlen($value['from']) > 0) {
+        if ((string) $value['from'] !== '') {
             $conditions[] = $adapter->quoteInto(
                 'price_index.min_price %s * %s >= ?',
                 $value['from'],
                 Zend_Db::FLOAT_TYPE,
             );
         }
-        if (strlen($value['to']) > 0) {
+
+        if ((string) $value['to'] !== '') {
             $conditions[] = $adapter->quoteInto(
                 'price_index.min_price %s * %s <= ?',
                 $value['to'],
@@ -124,9 +128,9 @@ class Mage_CatalogSearch_Model_Resource_Advanced extends Mage_Core_Model_Resourc
     /**
      * Add filter by indexable attribute
      *
-     * @param Mage_CatalogSearch_Model_Resource_Advanced_Collection $collection
-     * @param Mage_Catalog_Model_Resource_Eav_Attribute $attribute
-     * @param string|array $value
+     * @param  Mage_CatalogSearch_Model_Resource_Advanced_Collection $collection
+     * @param  Mage_Catalog_Model_Resource_Eav_Attribute             $attribute
+     * @param  array|string                                          $value
      * @return bool
      */
     public function addIndexableAttributeModifiedFilter($collection, $attribute, $value)
@@ -141,12 +145,11 @@ class Mage_CatalogSearch_Model_Resource_Advanced extends Mage_Core_Model_Resourc
         $storeId    = Mage::app()->getStore()->getId();
         $select     = $collection->getSelect();
 
-        if (is_array($value)) {
-            if (isset($value['from']) && isset($value['to'])) {
-                if (empty($value['from']) && empty($value['to'])) {
-                    return false;
-                }
-            }
+        if (is_array($value)
+            && (isset($value['from']) && isset($value['to']))
+            && (empty($value['from']) && empty($value['to']))
+        ) {
+            return false;
         }
 
         $select->distinct(true);
@@ -162,9 +165,11 @@ class Mage_CatalogSearch_Model_Resource_Advanced extends Mage_Core_Model_Resourc
             if (isset($value['from']) && !empty($value['from'])) {
                 $select->where("{$tableAlias}.value >= ?", $value['from']);
             }
+
             if (isset($value['to']) && !empty($value['to'])) {
                 $select->where("{$tableAlias}.value <= ?", $value['to']);
             }
+
             return true;
         }
 

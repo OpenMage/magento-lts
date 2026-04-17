@@ -21,6 +21,7 @@ class Mage_Paypal_Model_Pro
      * @var string
      */
     public const PAYMENT_REVIEW_ACCEPT = 'accept';
+
     public const PAYMENT_REVIEW_DENY = 'deny';
 
     /**
@@ -33,7 +34,7 @@ class Mage_Paypal_Model_Pro
     /**
      * API instance
      *
-     * @var Mage_Paypal_Model_Api_Nvp|false|null
+     * @var null|false|Mage_Paypal_Model_Api_Nvp
      */
     protected $_api = null;
 
@@ -61,8 +62,8 @@ class Mage_Paypal_Model_Pro
     /**
      * Payment method code setter. Also instantiates/updates config
      *
-     * @param string $code
-     * @param int|null $storeId
+     * @param  string   $code
+     * @param  null|int $storeId
      * @return $this
      */
     public function setMethod($code, $storeId = null)
@@ -82,13 +83,14 @@ class Mage_Paypal_Model_Pro
                 $this->_config->setStoreId($storeId);
             }
         }
+
         return $this;
     }
 
     /**
      * Config instance setter
      *
-     * @param int $storeId
+     * @param  int   $storeId
      * @return $this
      */
     public function setConfig(Mage_Paypal_Model_Config $instace, $storeId = null)
@@ -97,6 +99,7 @@ class Mage_Paypal_Model_Pro
         if ($storeId !== null) {
             $this->_config->setStoreId($storeId);
         }
+
         return $this;
     }
 
@@ -121,6 +124,7 @@ class Mage_Paypal_Model_Pro
         if ($this->_api === null) {
             $this->_api = Mage::getModel($this->_apiType);
         }
+
         $this->_api->setConfigObject($this->_config);
         return $this->_api;
     }
@@ -147,36 +151,37 @@ class Mage_Paypal_Model_Pro
         if ($this->_infoInstance === null) {
             $this->_infoInstance = Mage::getModel('paypal/info');
         }
+
         return $this->_infoInstance;
     }
 
     /**
      * Transfer transaction/payment information from API instance to order payment
      *
-     * @param Mage_Paypal_Model_Api_Abstract $from
+     * @param  Mage_Paypal_Model_Api_Abstract $source
      * @return $this
      */
-    public function importPaymentInfo(Varien_Object $from, Mage_Payment_Model_Info $to)
+    public function importPaymentInfo(Varien_Object $source, Mage_Payment_Model_Info $target)
     {
         // update PayPal-specific payment information in the payment object
-        $this->getInfo()->importToPayment($from, $to);
+        $this->getInfo()->importToPayment($source, $target);
 
         /**
          * Detect payment review and/or frauds
          * PayPal pro API returns fraud results only in the payment call response
          */
-        if ($from->getDataUsingMethod(Mage_Paypal_Model_Info::IS_FRAUD)) {
-            $to->setIsTransactionPending(true);
-            $to->setIsFraudDetected(true);
-        } elseif ($this->getInfo()->isPaymentReviewRequired($to)) {
-            $to->setIsTransactionPending(true);
+        if ($source->getDataUsingMethod(Mage_Paypal_Model_Info::IS_FRAUD)) {
+            $target->setIsTransactionPending(true);
+            $target->setIsFraudDetected(true);
+        } elseif ($this->getInfo()::isPaymentReviewRequired($target)) {
+            $target->setIsTransactionPending(true);
         }
 
         // give generic info about transaction state
-        if ($this->getInfo()->isPaymentSuccessful($to)) {
-            $to->setIsTransactionApproved(true);
-        } elseif ($this->getInfo()->isPaymentFailed($to)) {
-            $to->setIsTransactionDenied(true);
+        if ($this->getInfo()::isPaymentSuccessful($target)) {
+            $target->setIsTransactionApproved(true);
+        } elseif ($this->getInfo()::isPaymentFailed($target)) {
+            $target->setIsTransactionDenied(true);
         }
 
         return $this;
@@ -184,6 +189,9 @@ class Mage_Paypal_Model_Pro
 
     /**
      * Void transaction
+     *
+     * @param  Mage_Payment_Model_Info $payment
+     * @throws Mage_Core_Exception
      */
     public function void(Varien_Object $payment)
     {
@@ -200,8 +208,9 @@ class Mage_Paypal_Model_Pro
      * Attempt to capture payment
      * Will return false if the payment is not supposed to be captured
      *
-     * @param float $amount
-     * @return false|null
+     * @param  Mage_Sales_Model_Order_Payment $payment
+     * @param  float                          $amount
+     * @return null|false
      */
     public function capture(Varien_Object $payment, $amount)
     {
@@ -209,6 +218,7 @@ class Mage_Paypal_Model_Pro
         if (!$authTransactionId) {
             return false;
         }
+
         $api = $this->getApi()
             ->setAuthorizationId($authTransactionId)
             ->setIsCaptureComplete($payment->getShouldCloseParentTransaction())
@@ -220,12 +230,15 @@ class Mage_Paypal_Model_Pro
 
         $api->callDoCapture();
         $this->_importCaptureResultToPayment($api, $payment);
+        return null;
     }
 
     /**
      * Refund a capture transaction
      *
-     * @param float $amount
+     * @param  Mage_Sales_Model_Order_Payment $payment
+     * @param  float                          $amount
+     * @throws Mage_Core_Exception
      */
     public function refund(Varien_Object $payment, $amount)
     {
@@ -252,6 +265,9 @@ class Mage_Paypal_Model_Pro
 
     /**
      * Cancel payment
+     *
+     * @param  Mage_Payment_Model_Info $payment
+     * @throws Mage_Core_Exception
      */
     public function cancel(Varien_Object $payment)
     {
@@ -261,8 +277,7 @@ class Mage_Paypal_Model_Pro
     }
 
     /**
-     *
-     * @param Mage_Sales_Model_Order_Payment $payment
+     * @param  Mage_Sales_Model_Order_Payment $payment
      * @return bool
      */
     public function canReviewPayment(Mage_Payment_Model_Info $payment)
@@ -273,7 +288,7 @@ class Mage_Paypal_Model_Pro
     /**
      * Perform the payment review
      *
-     * @param string $action
+     * @param  string $action
      * @return bool
      */
     public function reviewPayment(Mage_Payment_Model_Info $payment, $action)
@@ -283,7 +298,7 @@ class Mage_Paypal_Model_Pro
         // check whether the review is still needed
         $api->callGetTransactionDetails();
         $this->importPaymentInfo($api, $payment);
-        if (!$this->getInfo()->isPaymentReviewRequired($payment)) {
+        if (!$this->getInfo()::isPaymentReviewRequired($payment)) {
             return false;
         }
 
@@ -297,7 +312,7 @@ class Mage_Paypal_Model_Pro
     /**
      * Fetch transaction details info
      *
-     * @param string $transactionId
+     * @param  string $transactionId
      * @return array
      */
     public function fetchTransactionInfo(Mage_Payment_Model_Info $payment, $transactionId)
@@ -322,14 +337,17 @@ class Mage_Paypal_Model_Pro
         if (strlen($profile->getSubscriberName()) > 32) { // up to 32 single-byte chars
             $errors[] = Mage::helper('paypal')->__('Subscriber name is too long.');
         }
+
         $refId = $profile->getInternalReferenceId(); // up to 127 single-byte alphanumeric
         if (strlen($refId) > 127) { //  || !preg_match('/^[a-z\d\s]+$/i', $refId)
             $errors[] = Mage::helper('paypal')->__('Merchant reference ID format is not supported.');
         }
+
         $scheduleDescr = $profile->getScheduleDescription(); // up to 127 single-byte alphanumeric
-        if (strlen($refId) > 127) { //  || !preg_match('/^[a-z\d\s]+$/i', $scheduleDescr)
+        if (strlen($scheduleDescr) > 127) { //  || !preg_match('/^[a-z\d\s]+$/i', $scheduleDescr)
             $errors[] = Mage::helper('paypal')->__('Schedule description is too long.');
         }
+
         if ($errors) {
             Mage::throwException(implode(' ', $errors));
         }
@@ -399,6 +417,7 @@ class Mage_Paypal_Model_Pro
                 $action = 'activate';
                 break;
         }
+
         $state = $profile->getState();
         $api->setRecurringProfileId($profile->getReferenceId())
             ->setIsAlreadyCanceled($state == Mage_Sales_Model_Recurring_Profile::STATE_CANCELED)
@@ -412,7 +431,7 @@ class Mage_Paypal_Model_Pro
     /**
      * Import capture results to payment
      *
-     * @param Mage_Paypal_Model_Api_Nvp $api
+     * @param Mage_Paypal_Model_Api_Nvp      $api
      * @param Mage_Sales_Model_Order_Payment $payment
      */
     protected function _importCaptureResultToPayment($api, $payment)
@@ -424,9 +443,9 @@ class Mage_Paypal_Model_Pro
     /**
      * Import refund results to payment
      *
-     * @param Mage_Paypal_Model_Api_Nvp $api
+     * @param Mage_Paypal_Model_Api_Nvp      $api
      * @param Mage_Sales_Model_Order_Payment $payment
-     * @param bool $canRefundMore
+     * @param bool                           $canRefundMore
      */
     protected function _importRefundResultToPayment($api, $payment, $canRefundMore)
     {

@@ -60,6 +60,7 @@ class Mage_Catalog_Model_Resource_Product_Link_Product_Collection extends Mage_C
         if ($linkModel->getLinkTypeId()) {
             $this->_linkTypeId = $linkModel->getLinkTypeId();
         }
+
         return $this;
     }
 
@@ -96,6 +97,7 @@ class Mage_Catalog_Model_Resource_Product_Link_Product_Collection extends Mage_C
             $this->_hasLinkFilter = true;
             $this->setStore($product->getStore());
         }
+
         return $this;
     }
 
@@ -112,7 +114,7 @@ class Mage_Catalog_Model_Resource_Product_Link_Product_Collection extends Mage_C
     /**
      * Exclude products from filter
      *
-     * @param array $products
+     * @param  array $products
      * @return $this
      */
     public function addExcludeProductFilter($products)
@@ -121,16 +123,18 @@ class Mage_Catalog_Model_Resource_Product_Link_Product_Collection extends Mage_C
             if (!is_array($products)) {
                 $products = [$products];
             }
+
             $this->_hasLinkFilter = true;
             $this->getSelect()->where('links.linked_product_id NOT IN (?)', $products);
         }
+
         return $this;
     }
 
     /**
      * Add products to filter
      *
-     * @param array|int|string $products
+     * @param  array|int|string $products
      * @return $this
      */
     public function addProductFilter($products)
@@ -139,6 +143,7 @@ class Mage_Catalog_Model_Resource_Product_Link_Product_Collection extends Mage_C
             if (!is_array($products)) {
                 $products = [$products];
             }
+
             $this->getSelect()->where('links.product_id IN (?)', $products);
             $this->_hasLinkFilter = true;
         }
@@ -160,7 +165,7 @@ class Mage_Catalog_Model_Resource_Product_Link_Product_Collection extends Mage_C
     /**
      * Setting group by to exclude duplications in collection
      *
-     * @param string $groupBy
+     * @param  string $groupBy
      * @return $this
      */
     public function setGroupBy($groupBy = 'e.entity_id')
@@ -185,6 +190,7 @@ class Mage_Catalog_Model_Resource_Product_Link_Product_Collection extends Mage_C
         if ($this->getLinkModel()) {
             $this->_joinLinks();
         }
+
         return parent::_beforeLoad();
     }
 
@@ -211,10 +217,12 @@ class Mage_Catalog_Model_Resource_Product_Link_Product_Collection extends Mage_C
                 $joinType = 'joinLeft';
                 $joinCondition[] = $adapter->quoteInto('links.product_id = ?', $productId);
             }
+
             $this->addFieldToFilter('entity_id', ['neq' => $productId]);
         } elseif ($this->_isStrongMode) {
             $this->addFieldToFilter('entity_id', ['eq' => -1]);
         }
+
         if ($this->_hasLinkFilter) {
             $select->$joinType(
                 ['links' => $this->getTable('catalog/product_link')],
@@ -223,13 +231,14 @@ class Mage_Catalog_Model_Resource_Product_Link_Product_Collection extends Mage_C
             );
             $this->joinAttributes();
         }
+
         return $this;
     }
 
     /**
      * Enable sorting products by its position
      *
-     * @param string $dir sort type asc|desc
+     * @param  string $dir sort type asc|desc
      * @return $this
      */
     public function setPositionOrder($dir = self::SORT_ORDER_ASC)
@@ -237,13 +246,14 @@ class Mage_Catalog_Model_Resource_Product_Link_Product_Collection extends Mage_C
         if ($this->_hasLinkFilter) {
             $this->getSelect()->order('position ' . $dir);
         }
+
         return $this;
     }
 
     /**
      * Enable sorting products by its attribute set name
      *
-     * @param string $dir sort type asc|desc
+     * @param  string $dir sort type asc|desc
      * @return $this
      */
     public function setAttributeSetIdOrder($dir = self::SORT_ORDER_ASC)
@@ -281,6 +291,7 @@ class Mage_Catalog_Model_Resource_Product_Link_Product_Collection extends Mage_C
         if (!$this->getLinkModel()) {
             return $this;
         }
+
         $attributes = $this->getLinkModel()->getAttributes();
 
         foreach ($attributes as $attribute) {
@@ -310,19 +321,22 @@ class Mage_Catalog_Model_Resource_Product_Link_Product_Collection extends Mage_C
      */
     public function setOrder($attribute, $dir = self::SORT_ORDER_ASC)
     {
-        if ($attribute == 'position') {
+        if ($attribute === 'position') {
             return $this->setPositionOrder($dir);
-        } elseif ($attribute == 'attribute_set_id') {
+        }
+
+        if ($attribute === 'attribute_set_id') {
             return $this->setAttributeSetIdOrder($dir);
         }
+
         return parent::setOrder($attribute, $dir);
     }
 
     /**
      * Add specific link model attribute to collection filter
      *
-     * @param string $attributeCode
-     * @param array|null $condition
+     * @param string     $attributeCode
+     * @param null|array $condition
      *
      * @return $this
      */

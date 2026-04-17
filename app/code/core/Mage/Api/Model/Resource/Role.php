@@ -14,6 +14,9 @@
  */
 class Mage_Api_Model_Resource_Role extends Mage_Core_Model_Resource_Db_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('api/role', 'role_id');
@@ -30,6 +33,7 @@ class Mage_Api_Model_Resource_Role extends Mage_Core_Model_Resource_Db_Abstract
         if (!$object->getId()) {
             $object->setCreated($now);
         }
+
         $object->setModified($now);
         return $this;
     }
@@ -42,6 +46,7 @@ class Mage_Api_Model_Resource_Role extends Mage_Core_Model_Resource_Db_Abstract
         if (!(int) $value && is_string($value)) {
             $field = 'role_id';
         }
+
         return parent::load($object, $value, $field);
     }
 }

@@ -16,7 +16,6 @@ class Mage_Wishlist_Model_Config
 
     /**
      * Get product attributes that need in wishlist
-     *
      */
     public function getProductAttributes()
     {

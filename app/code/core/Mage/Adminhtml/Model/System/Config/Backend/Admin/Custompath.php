@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -24,6 +26,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Admin_Custompath extends Mage_C
         if ($this->getOldValue() != $this->getValue()) {
             Mage::register('custom_admin_path_redirect', true, true);
         }
+
         return $this;
     }
 }

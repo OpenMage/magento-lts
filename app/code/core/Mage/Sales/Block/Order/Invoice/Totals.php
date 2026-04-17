@@ -15,7 +15,7 @@ class Mage_Sales_Block_Order_Invoice_Totals extends Mage_Sales_Block_Order_Total
     protected $_invoice = null;
 
     /**
-     * @return mixed|null
+     * @return null|mixed
      */
     public function getInvoice()
     {
@@ -28,11 +28,12 @@ class Mage_Sales_Block_Order_Invoice_Totals extends Mage_Sales_Block_Order_Total
                 $this->_invoice = $this->getParentBlock()->getInvoice();
             }
         }
+
         return $this->_invoice;
     }
 
     /**
-     * @param Mage_Sales_Model_Order_Invoice $invoice
+     * @param  Mage_Sales_Model_Order_Invoice $invoice
      * @return $this
      */
     public function setInvoice($invoice)
@@ -54,7 +55,7 @@ class Mage_Sales_Block_Order_Invoice_Totals extends Mage_Sales_Block_Order_Total
     /**
      * Initialize order totals array
      *
-     * @return Mage_Sales_Block_Order_Totals
+     * @return $this
      */
     protected function _initTotals()
     {

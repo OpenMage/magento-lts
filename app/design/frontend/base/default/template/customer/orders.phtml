@@ -5,8 +5,12 @@
  * @license    Academic Free License (AFL 3.0)
  * @package     base_default
  */
+?>
 
+<?php
 /**
+ * @see Mage_Core_Block_Template
+ * @var Mage_Core_Block_Template $this
  * @deprecated  after 1.4.0.0-alpha3
  */
 ?>
@@ -29,7 +33,7 @@
     <?php foreach ($orders as $order): ?>
         <tr>
             <td><?php echo $order->getRealOrderId() ?>&nbsp;</td>
-            <td><?php echo date("D, j M, Y", strtotime($order->getCreatedAt())) ?>&nbsp;</td>
+            <td><?php echo \Carbon\Carbon::parse($order->getCreatedAt())->format("D, j M, Y") ?>&nbsp;</td>
             <!--<td class="a-center">{$page.orders[io].customer}</td>-->
             <td><?php echo $order->getGrandTotal() ?>&nbsp;</td>
             <td><?php echo $order->getStatus() ?>&nbsp;</td>

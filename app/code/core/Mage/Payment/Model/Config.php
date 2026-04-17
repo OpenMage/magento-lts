@@ -7,12 +7,16 @@
  * @package    Mage_Payment
  */
 
+use Carbon\Carbon;
+
 /**
  * Payment configuration model
  *
  * Used for retrieving configuration data by payment models
  *
  * @package    Mage_Payment
+ *
+ * @phpstan-import-type ConfigStoreId from Mage
  */
 class Mage_Payment_Model_Config
 {
@@ -21,7 +25,7 @@ class Mage_Payment_Model_Config
     /**
      * Retrieve active system payments
      *
-     * @param null|string|bool|int|Mage_Core_Model_Store $store
+     * @param  ConfigStoreId $store
      * @return array
      */
     public function getActiveMethods($store = null)
@@ -29,22 +33,21 @@ class Mage_Payment_Model_Config
         $methods = [];
         $config = Mage::getStoreConfig('payment', $store);
         foreach ($config as $code => $methodConfig) {
-            if (Mage::getStoreConfigFlag('payment/' . $code . '/active', $store)) {
-                if (array_key_exists('model', $methodConfig)) {
-                    $methodModel = Mage::getModel($methodConfig['model']);
-                    if ($methodModel && $methodModel->getConfigData('active', $store)) {
-                        $methods[$code] = $this->_getMethod($code, $methodConfig);
-                    }
+            if (Mage::getStoreConfigFlag('payment/' . $code . '/active', $store) && array_key_exists('model', $methodConfig)) {
+                $methodModel = Mage::getModel($methodConfig['model']);
+                if ($methodModel && $methodModel->getConfigData('active', $store)) {
+                    $methods[$code] = $this->_getMethod($code, $methodConfig);
                 }
             }
         }
+
         return $methods;
     }
 
     /**
      * Retrieve all system payments
      *
-     * @param null|string|bool|int|Mage_Core_Model_Store $store
+     * @param  ConfigStoreId $store
      * @return array
      */
     public function getAllMethods($store = null)
@@ -57,13 +60,14 @@ class Mage_Payment_Model_Config
                 $methods[$code] = $data;
             }
         }
+
         return $methods;
     }
 
     /**
-     * @param string $code
-     * @param array $config
-     * @param null|string|bool|int|Mage_Core_Model_Store $store $store
+     * @param  string                                     $code
+     * @param  array                                      $config
+     * @param  null|bool|int|Mage_Core_Model_Store|string $store  $store
      * @return false|Mage_Payment_Model_Method_Abstract
      */
     protected function _getMethod($code, $config, $store = null)
@@ -71,14 +75,19 @@ class Mage_Payment_Model_Config
         if (isset(self::$_methods[$code])) {
             return self::$_methods[$code];
         }
+
         if (empty($config['model'])) {
             return false;
         }
+
         $modelName = $config['model'];
+
+        /** @var Mage_Payment_Model_Method_Abstract $method */
         $method = Mage::getModel($modelName);
         if (!$method) {
             return false;
         }
+
         $method->setId($code)->setStore($store);
         self::$_methods[$code] = $method;
         return self::$_methods[$code];
@@ -87,7 +96,7 @@ class Mage_Payment_Model_Config
     /**
      * Retrieve array of credit card types
      *
-     * @return array
+     * @return array<string, string>
      */
     public function getCcTypes()
     {
@@ -101,6 +110,7 @@ class Mage_Payment_Model_Config
                 $types[$data['code']] = $data['name'];
             }
         }
+
         return $types;
     }
 
@@ -116,6 +126,7 @@ class Mage_Payment_Model_Config
             $monthNum = ($key < 10) ? '0' . $key : $key;
             $data[$key] = $monthNum . ' - ' . $value;
         }
+
         return $data;
     }
 
@@ -127,38 +138,41 @@ class Mage_Payment_Model_Config
     public function getYears()
     {
         $years = [];
-        $first = date('Y');
+        $first = Carbon::now()->format('Y');
 
         for ($index = 0; $index <= 10; $index++) {
             $year = $first + $index;
             $years[$year] = $year;
         }
+
         return $years;
     }
 
     /**
-     * Statis Method for compare sort order of CC Types
+     * Static Method for compare sort order of CC Types
      *
-     * @param array $a
-     * @param array $b
+     * @param  array $sortA
+     * @param  array $sortB
      * @return int
      */
-    public static function compareCcTypes($a, $b)
+    public static function compareCcTypes($sortA, $sortB)
     {
-        if (!isset($a['order'])) {
-            $a['order'] = 0;
+        if (!isset($sortA['order'])) {
+            $sortA['order'] = 0;
         }
 
-        if (!isset($b['order'])) {
-            $b['order'] = 0;
+        if (!isset($sortB['order'])) {
+            $sortB['order'] = 0;
         }
 
-        if ($a['order'] == $b['order']) {
+        if ($sortA['order'] == $sortB['order']) {
             return 0;
-        } elseif ($a['order'] > $b['order']) {
-            return 1;
-        } else {
-            return -1;
         }
+
+        if ($sortA['order'] > $sortB['order']) {
+            return 1;
+        }
+
+        return -1;
     }
 }

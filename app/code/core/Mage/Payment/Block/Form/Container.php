@@ -40,7 +40,7 @@ class Mage_Payment_Block_Form_Container extends Mage_Core_Block_Template
     /**
      * Check payment method model
      *
-     * @param Mage_Payment_Model_Method_Abstract $method
+     * @param  Mage_Payment_Model_Method_Abstract $method
      * @return bool
      */
     protected function _canUseMethod($method)
@@ -55,7 +55,7 @@ class Mage_Payment_Block_Form_Container extends Mage_Core_Block_Template
      *
      * Redeclare this method in child classes for declaring method info instance
      *
-     * @param Mage_Payment_Model_Method_Abstract $method
+     * @param  Mage_Payment_Model_Method_Abstract $method
      * @return $this
      */
     protected function _assignMethod($method)
@@ -67,17 +67,16 @@ class Mage_Payment_Block_Form_Container extends Mage_Core_Block_Template
     /**
      * Declare template for payment method form block
      *
-     * @param   string $method
-     * @param   string $template
-     * @return  $this
+     * @param  string $method
+     * @param  string $template
+     * @return $this
      */
     public function setMethodFormTemplate($method = '', $template = '')
     {
-        if (!empty($method) && !empty($template)) {
-            if ($block = $this->getChild('payment.method.' . $method)) {
-                $block->setTemplate($template);
-            }
+        if (!empty($method) && !empty($template) && $block = $this->getChild('payment.method.' . $method)) {
+            $block->setTemplate($template);
         }
+
         return $this;
     }
 
@@ -88,7 +87,7 @@ class Mage_Payment_Block_Form_Container extends Mage_Core_Block_Template
      */
     public function getMethods()
     {
-        $methods = $this->getData('methods');
+        $methods = $this->getDataByKey('methods');
         if ($methods === null) {
             /** @var Mage_Payment_Helper_Data $helper */
             $helper = $this->helper('payment');
@@ -104,15 +103,17 @@ class Mage_Payment_Block_Form_Container extends Mage_Core_Block_Template
                     $methods[] = $method;
                 }
             }
+
             $this->setData('methods', $methods);
         }
+
         return $methods;
     }
 
     /**
      * Retrieve code of current payment method
      *
-     * @return string|false
+     * @return false|string
      */
     public function getSelectedMethodCode()
     {
@@ -121,6 +122,7 @@ class Mage_Payment_Block_Form_Container extends Mage_Core_Block_Template
             reset($methods);
             return current($methods)->getCode();
         }
+
         return false;
     }
 }

@@ -35,6 +35,7 @@ class Mage_Core_Model_Resource_Transaction
      * @var array
      */
     protected $_beforeCommitCallbacks = [];
+
     /**
      * Begin transaction for all involved object resources
      *
@@ -45,6 +46,7 @@ class Mage_Core_Model_Resource_Transaction
         foreach ($this->_objects as $object) {
             $object->getResource()->beginTransaction();
         }
+
         return $this;
     }
 
@@ -58,6 +60,7 @@ class Mage_Core_Model_Resource_Transaction
         foreach ($this->_objects as $object) {
             $object->getResource()->commit();
         }
+
         return $this;
     }
 
@@ -71,6 +74,7 @@ class Mage_Core_Model_Resource_Transaction
         foreach ($this->_objects as $object) {
             $object->getResource()->rollBack();
         }
+
         return $this;
     }
 
@@ -84,13 +88,14 @@ class Mage_Core_Model_Resource_Transaction
         foreach ($this->_beforeCommitCallbacks as $callback) {
             call_user_func($callback);
         }
+
         return $this;
     }
 
     /**
      * Adding object for using in transaction
      *
-     * @param string $alias
+     * @param  string $alias
      * @return $this
      */
     public function addObject(Mage_Core_Model_Abstract $object, $alias = '')
@@ -99,13 +104,14 @@ class Mage_Core_Model_Resource_Transaction
         if (!empty($alias)) {
             $this->_objectsByAlias[$alias] = $object;
         }
+
         return $this;
     }
 
     /**
      * Add callback function which will be called before commit transactions
      *
-     * @param callable $callback
+     * @param  callable $callback
      * @return $this
      */
     public function addCommitCallback($callback)
@@ -129,24 +135,24 @@ class Mage_Core_Model_Resource_Transaction
             foreach ($this->_objects as $object) {
                 $object->save();
             }
-        } catch (Exception $e) {
-            $error = $e;
+        } catch (Exception $exception) {
+            $error = $exception;
         }
 
         if ($error === false) {
             try {
                 $this->_runCallbacks();
-            } catch (Exception $e) {
-                $error = $e;
+            } catch (Exception $exception) {
+                $error = $exception;
             }
         }
 
         if ($error) {
             $this->_rollbackTransaction();
             throw $error;
-        } else {
-            $this->_commitTransaction();
         }
+
+        $this->_commitTransaction();
 
         return $this;
     }
@@ -166,24 +172,25 @@ class Mage_Core_Model_Resource_Transaction
             foreach ($this->_objects as $object) {
                 $object->delete();
             }
-        } catch (Exception $e) {
-            $error = $e;
+        } catch (Exception $exception) {
+            $error = $exception;
         }
 
         if ($error === false) {
             try {
                 $this->_runCallbacks();
-            } catch (Exception $e) {
-                $error = $e;
+            } catch (Exception $exception) {
+                $error = $exception;
             }
         }
 
         if ($error) {
             $this->_rollbackTransaction();
             throw $error;
-        } else {
-            $this->_commitTransaction();
         }
+
+        $this->_commitTransaction();
+
         return $this;
     }
 }

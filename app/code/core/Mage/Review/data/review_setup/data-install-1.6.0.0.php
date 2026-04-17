@@ -7,7 +7,7 @@
  * @package    Mage_Review
  */
 
-/** @var Mage_Core_Model_Resource_Setup $installer */
+/** @var Mage_Core_Model_Resource_Setup $this */
 $installer = $this;
 
 //Fill table review/review_entity
@@ -27,10 +27,10 @@ $reviewStatuses = [
     Mage_Review_Model_Review::STATUS_PENDING        => 'Pending',
     Mage_Review_Model_Review::STATUS_NOT_APPROVED   => 'Not Approved',
 ];
-foreach ($reviewStatuses as $k => $v) {
+foreach ($reviewStatuses as $key => $value) {
     $bind = [
-        'status_id'     => $k,
-        'status_code'   => $v,
+        'status_id'     => $key,
+        'status_code'   => $value,
     ];
     $installer->getConnection()->insertForce($installer->getTable('review/review_status'), $bind);
 }

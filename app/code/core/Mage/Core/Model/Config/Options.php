@@ -20,6 +20,7 @@ class Mage_Core_Model_Config_Options extends Varien_Object
      * @var string
      */
     public const VAR_DIRECTORY = 'var';
+
     /**
      * Flag cache for existing or already created directories
      *
@@ -28,7 +29,7 @@ class Mage_Core_Model_Config_Options extends Varien_Object
     protected $_dirExists = [];
 
     /**
-     * Initialize default values of the options
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -54,7 +55,7 @@ class Mage_Core_Model_Config_Options extends Varien_Object
     }
 
     /**
-     * @param string $type
+     * @param  string              $type
      * @return mixed
      * @throws Mage_Core_Exception
      */
@@ -65,6 +66,7 @@ class Mage_Core_Model_Config_Options extends Varien_Object
         if (!$dir) {
             throw Mage::exception('Mage_Core', 'Invalid dir type requested: ' . $type);
         }
+
         return $dir;
     }
 
@@ -171,6 +173,7 @@ class Mage_Core_Model_Config_Options extends Varien_Object
                 throw new Mage_Core_Exception('Unable to find writable var_dir');
             }
         }
+
         return $dir;
     }
 
@@ -188,6 +191,7 @@ class Mage_Core_Model_Config_Options extends Varien_Object
                 throw new Mage_Core_Exception('Unable to find writable tmp_dir');
             }
         }
+
         return $dir;
     }
 
@@ -247,7 +251,7 @@ class Mage_Core_Model_Config_Options extends Varien_Object
     }
 
     /**
-     * @param string $dir
+     * @param  string $dir
      * @return bool
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
@@ -257,10 +261,12 @@ class Mage_Core_Model_Config_Options extends Varien_Object
         if (!empty($this->_dirExists[$dir])) {
             return true;
         }
+
         if (file_exists($dir)) {
             if (!is_dir($dir)) {
                 return false;
             }
+
             if (!isDirWriteable($dir)) {
                 return false;
             }
@@ -269,8 +275,10 @@ class Mage_Core_Model_Config_Options extends Varien_Object
             if (!@mkdir($dir, 0777, true)) {
                 return false;
             }
+
             umask($oldUmask);
         }
+
         $this->_dirExists[$dir] = true;
         return true;
     }

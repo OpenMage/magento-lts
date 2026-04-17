@@ -42,8 +42,8 @@ abstract class Varien_Convert_Action_Abstract implements Varien_Convert_Action_I
     /**
      * Get action parameter
      *
-     * @param string $key
-     * @param mixed $default
+     * @param  string $key
+     * @param  mixed  $default
      * @return mixed
      */
     public function getParam($key, $default = null)
@@ -51,14 +51,15 @@ abstract class Varien_Convert_Action_Abstract implements Varien_Convert_Action_I
         if (!isset($this->_params[$key])) {
             return $default;
         }
+
         return $this->_params[$key];
     }
 
     /**
      * Set action parameter
      *
-     * @param string $key
-     * @param mixed $value
+     * @param  string                         $key
+     * @param  mixed                          $value
      * @return Varien_Convert_Action_Abstract
      */
     public function setParam($key, $value = null)
@@ -68,6 +69,7 @@ abstract class Varien_Convert_Action_Abstract implements Varien_Convert_Action_I
         } else {
             $this->_params[$key] = $value;
         }
+
         return $this;
     }
 
@@ -84,7 +86,7 @@ abstract class Varien_Convert_Action_Abstract implements Varien_Convert_Action_I
     /**
      * Set all action parameters
      *
-     * @param array $params
+     * @param  array                          $params
      * @return Varien_Convert_Action_Abstract
      */
     public function setParams($params)
@@ -117,7 +119,7 @@ abstract class Varien_Convert_Action_Abstract implements Varien_Convert_Action_I
     /**
      * Set action's container
      *
-     * @param Varien_Convert_Container_Abstract $container
+     * @param  Varien_Convert_Container_Abstract $container
      * @return Varien_Convert_Action_Abstract
      */
     public function setContainer(Varien_Convert_Container_Interface $container)
@@ -130,7 +132,7 @@ abstract class Varien_Convert_Action_Abstract implements Varien_Convert_Action_I
     /**
      * Get action's container
      *
-     * @param string $name
+     * @param  string                            $name
      * @return Varien_Convert_Container_Abstract
      */
     public function getContainer($name = null)
@@ -143,6 +145,7 @@ abstract class Varien_Convert_Action_Abstract implements Varien_Convert_Action_I
             $class = $this->getParam('class');
             $this->setContainer(new $class());
         }
+
         return $this->_container;
     }
 
@@ -172,6 +175,7 @@ abstract class Varien_Convert_Action_Abstract implements Varien_Convert_Action_I
         } else {
             $this->addException('No method specified', Varien_Convert_Exception::FATAL);
         }
+
         return $this;
     }
 }

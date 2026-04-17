@@ -19,6 +19,7 @@ class Mage_Directory_CurrencyController extends Mage_Core_Controller_Front_Actio
         if ($curency = (string) $this->getRequest()->getParam('currency')) {
             Mage::app()->getStore()->setCurrentCurrencyCode($curency);
         }
+
         $this->_redirectReferer(Mage::getBaseUrl());
     }
 }

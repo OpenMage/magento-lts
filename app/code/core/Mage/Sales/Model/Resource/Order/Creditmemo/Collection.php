@@ -11,6 +11,8 @@
  * Flat sales order creditmemo collection
  *
  * @package    Mage_Sales
+ *
+ * @extends Mage_Sales_Model_Resource_Order_Collection_Abstract<Mage_Sales_Model_Order_Creditmemo>
  */
 class Mage_Sales_Model_Resource_Order_Creditmemo_Collection extends Mage_Sales_Model_Resource_Order_Collection_Abstract
 {
@@ -31,6 +33,9 @@ class Mage_Sales_Model_Resource_Order_Creditmemo_Collection extends Mage_Sales_M
      */
     protected $_orderField     = 'order_id';
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('sales/order_creditmemo');
@@ -50,7 +55,7 @@ class Mage_Sales_Model_Resource_Order_Creditmemo_Collection extends Mage_Sales_M
     /**
      * Add filtration conditions
      *
-     * @param array|null $filter
+     * @param  null|array $filter
      * @return $this
      */
     public function getFiltered($filter = null)
@@ -60,6 +65,7 @@ class Mage_Sales_Model_Resource_Order_Creditmemo_Collection extends Mage_Sales_M
                 $this->addFieldToFilter($field, $value);
             }
         }
+
         return $this;
     }
 }

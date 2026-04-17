@@ -14,6 +14,9 @@
  */
 class Mage_Checkout_Model_Resource_Agreement extends Mage_Core_Model_Resource_Db_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('checkout/agreement', 'agreement_id');
@@ -32,9 +35,11 @@ class Mage_Checkout_Model_Resource_Agreement extends Mage_Core_Model_Resource_Db
         if (!$height) {
             $height = '';
         }
+
         if ($height && preg_match('/\d$/', $height)) {
             $height .= 'px';
         }
+
         $object->setContentHeight($height);
         return parent::_beforeSave($object);
     }
@@ -49,7 +54,7 @@ class Mage_Checkout_Model_Resource_Agreement extends Mage_Core_Model_Resource_Db
         $condition = ['agreement_id = ?' => $object->getId()];
         $this->_getWriteAdapter()->delete($this->getTable('checkout/agreement_store'), $condition);
 
-        foreach ((array) $object->getData('stores') as $store) {
+        foreach ((array) $object->getDataByKey('stores') as $store) {
             $storeArray = [];
             $storeArray['agreement_id'] = $object->getId();
             $storeArray['store_id'] = $store;
@@ -80,9 +85,9 @@ class Mage_Checkout_Model_Resource_Agreement extends Mage_Core_Model_Resource_Db
     /**
      * Get load select
      *
-     * @param string $field
-     * @param mixed $value
-     * @param Mage_Core_Model_Abstract|Mage_Checkout_Model_Agreement $object
+     * @param  string                                                 $field
+     * @param  mixed                                                  $value
+     * @param  Mage_Checkout_Model_Agreement|Mage_Core_Model_Abstract $object
      * @return Varien_Db_Select
      */
     protected function _getLoadSelect($field, $value, $object)
@@ -98,6 +103,7 @@ class Mage_Checkout_Model_Resource_Agreement extends Mage_Core_Model_Resource_Db
             ->order('store_id DESC')
             ->limit(1);
         }
+
         return $select;
     }
 }

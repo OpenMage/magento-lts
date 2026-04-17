@@ -111,11 +111,9 @@ class Mage_Core_Model_Locale_Config
         if ($configData) {
             $configData = $configData->asArray();
         }
-        if ($configData) {
-            $configData = array_keys($configData);
-        } else {
-            $configData = [];
-        }
+
+        $configData = $configData ? array_keys($configData) : [];
+
         return array_merge($this->_allowedLocales, $configData);
     }
 
@@ -130,11 +128,9 @@ class Mage_Core_Model_Locale_Config
         if ($configData) {
             $configData = $configData->asArray();
         }
-        if ($configData) {
-            $configData = array_keys($configData);
-        } else {
-            $configData = [];
-        }
+
+        $configData = $configData ? array_keys($configData) : [];
+
         return array_merge($this->_allowedCurrencies, $configData);
     }
 }

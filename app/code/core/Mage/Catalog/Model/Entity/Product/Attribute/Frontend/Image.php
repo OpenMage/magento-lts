@@ -15,8 +15,8 @@
 class Mage_Catalog_Model_Entity_Product_Attribute_Frontend_Image extends Mage_Eav_Model_Entity_Attribute_Frontend_Abstract
 {
     /**
-     * @param Varien_Object $object
-     * @param string $size
+     * @param  Varien_Object $object
+     * @param  string        $size
      * @return bool|string
      */
     public function getUrl($object, $size = null)
@@ -34,6 +34,7 @@ class Mage_Catalog_Model_Entity_Product_Attribute_Frontend_Image extends Mage_Ea
             // image is not cached
             $url = Mage::getBaseUrl() . 'catalog/product/image' . $image;
         }
+
         return $url;
     }
 }

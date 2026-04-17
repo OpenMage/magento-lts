@@ -18,58 +18,99 @@ class Varien_Db_Ddl_Table
      * Types of columns
      */
     public const TYPE_BOOLEAN          = 'boolean';
+
     public const TYPE_SMALLINT         = 'smallint';
+
     public const TYPE_INTEGER          = 'integer';
+
     public const TYPE_BIGINT           = 'bigint';
+
     public const TYPE_FLOAT            = 'float';
+
     public const TYPE_NUMERIC          = 'numeric';
+
     public const TYPE_DECIMAL          = 'decimal';
+
     public const TYPE_DATE             = 'date';
-    public const TYPE_TIMESTAMP        = 'timestamp'; // Capable to support date-time from 1970 + auto-triggers in some RDBMS
-    public const TYPE_DATETIME         = 'datetime'; // Capable to support long date-time before 1970
+
+    public const TYPE_TIMESTAMP        = 'timestamp';
+
+    // Capable to support date-time from 1970 + auto-triggers in some RDBMS
+    public const TYPE_DATETIME         = 'datetime';
+
+    // Capable to support long date-time before 1970
     public const TYPE_TEXT             = 'text';
-    public const TYPE_BLOB             = 'blob'; // Used for back compatibility, when query param can't use statement options
+
+    public const TYPE_BLOB             = 'blob';
+
+    // Used for back compatibility, when query param can't use statement options
     public const TYPE_VARBINARY        = 'varbinary'; // A real blob, stored as binary inside DB
 
     // Deprecated column types, support is left only in MySQL adapter.
-    public const TYPE_TINYINT          = 'tinyint';        // Internally converted to TYPE_SMALLINT
-    public const TYPE_CHAR             = 'char';           // Internally converted to TYPE_TEXT
-    public const TYPE_VARCHAR          = 'varchar';        // Internally converted to TYPE_TEXT
-    public const TYPE_LONGVARCHAR      = 'longvarchar';    // Internally converted to TYPE_TEXT
-    public const TYPE_CLOB             = 'cblob';          // Internally converted to TYPE_TEXT
-    public const TYPE_DOUBLE           = 'double';         // Internally converted to TYPE_FLOAT
-    public const TYPE_REAL             = 'real';           // Internally converted to TYPE_FLOAT
-    public const TYPE_TIME             = 'time';           // Internally converted to TYPE_TIMESTAMP
-    public const TYPE_BINARY           = 'binary';         // Internally converted to TYPE_BLOB
+    public const TYPE_TINYINT          = 'tinyint';
+
+    // Internally converted to TYPE_SMALLINT
+    public const TYPE_CHAR             = 'char';
+
+    // Internally converted to TYPE_TEXT
+    public const TYPE_VARCHAR          = 'varchar';
+
+    // Internally converted to TYPE_TEXT
+    public const TYPE_LONGVARCHAR      = 'longvarchar';
+
+    // Internally converted to TYPE_TEXT
+    public const TYPE_CLOB             = 'cblob';
+
+    // Internally converted to TYPE_TEXT
+    public const TYPE_DOUBLE           = 'double';
+
+    // Internally converted to TYPE_FLOAT
+    public const TYPE_REAL             = 'real';
+
+    // Internally converted to TYPE_FLOAT
+    public const TYPE_TIME             = 'time';
+
+    // Internally converted to TYPE_TIMESTAMP
+    public const TYPE_BINARY           = 'binary';
+
+    // Internally converted to TYPE_BLOB
     public const TYPE_LONGVARBINARY    = 'longvarbinary';  // Internally converted to TYPE_BLOB
 
     /**
      * Default and maximal TEXT and BLOB columns sizes we can support for different DB systems.
      */
     public const DEFAULT_TEXT_SIZE     = 1024;
+
     public const MAX_TEXT_SIZE         = 2147483648;
+
     public const MAX_VARBINARY_SIZE    = 2147483648;
 
     /**
      * Default values for timestampses - fill with current timestamp on inserting record, on changing and both cases
      */
     public const TIMESTAMP_INIT_UPDATE = 'TIMESTAMP_INIT_UPDATE';
+
     public const TIMESTAMP_INIT        = 'TIMESTAMP_INIT';
+
     public const TIMESTAMP_UPDATE      = 'TIMESTAMP_UPDATE';
 
     /**
      * Actions used for foreign keys
      */
     public const ACTION_CASCADE        = 'CASCADE';
+
     public const ACTION_SET_NULL       = 'SET NULL';
+
     public const ACTION_NO_ACTION      = 'NO ACTION';
+
     public const ACTION_RESTRICT       = 'RESTRICT';
+
     public const ACTION_SET_DEFAULT    = 'SET DEFAULT';
 
     /**
      * Name of table
      *
-     * @var string|null
+     * @var null|string
      */
     protected $_tableName;
 
@@ -171,7 +212,7 @@ class Varien_Db_Ddl_Table
     /**
      * Set table name
      *
-     * @param string $name
+     * @param  string              $name
      * @return Varien_Db_Ddl_Table
      */
     public function setName($name)
@@ -180,13 +221,14 @@ class Varien_Db_Ddl_Table
         if ($this->_tableComment === null) {
             $this->_tableComment = $name;
         }
+
         return $this;
     }
 
     /**
      * Set schema name
      *
-     * @param string $name
+     * @param  string              $name
      * @return Varien_Db_Ddl_Table
      */
     public function setSchema($name)
@@ -198,7 +240,7 @@ class Varien_Db_Ddl_Table
     /**
      * Set comment for table
      *
-     * @param string $comment
+     * @param  string              $comment
      * @return Varien_Db_Ddl_Table
      */
     public function setComment($comment)
@@ -210,21 +252,22 @@ class Varien_Db_Ddl_Table
     /**
      * Retrieve name of table
      *
-     * @throws Zend_Db_Exception
      * @return string
+     * @throws Zend_Db_Exception
      */
     public function getName()
     {
         if (is_null($this->_tableName)) {
             throw new Zend_Db_Exception('Table name is not defined');
         }
+
         return $this->_tableName;
     }
 
     /**
      * Get schema name
      *
-     * @return string|null
+     * @return null|string
      */
     public function getSchema()
     {
@@ -254,13 +297,13 @@ class Varien_Db_Ddl_Table
      * - 'primary_position', only for column in primary index. Default: count of primary columns + 1.
      * - 'identity' or 'auto_increment'. Default: FALSE.
      *
-     * @param string $name the column name
-     * @param string $type the column data type
-     * @param string|int|array $size the column length
-     * @param array $options array of additional options
-     * @param string $comment column description
-     * @throws Zend_Db_Exception
+     * @param  string              $name    the column name
+     * @param  string              $type    the column data type
+     * @param  array|int|string    $size    the column length
+     * @param  array               $options array of additional options
+     * @param  string              $comment column description
      * @return Varien_Db_Ddl_Table
+     * @throws Zend_Db_Exception
      */
     public function addColumn($name, $type, $size = null, $options = [], $comment = null)
     {
@@ -302,21 +345,18 @@ class Varien_Db_Ddl_Table
         // Prepare different properties
         switch ($type) {
             case self::TYPE_BOOLEAN:
+            case self::TYPE_DATE:
+            case self::TYPE_DATETIME:
+            case self::TYPE_TIMESTAMP:
                 break;
-
             case self::TYPE_SMALLINT:
             case self::TYPE_INTEGER:
             case self::TYPE_BIGINT:
-                if (!empty($options['unsigned'])) {
-                    $unsigned = true;
-                }
-
-                break;
-
             case self::TYPE_FLOAT:
                 if (!empty($options['unsigned'])) {
                     $unsigned = true;
                 }
+
                 break;
 
             case self::TYPE_DECIMAL:
@@ -336,6 +376,7 @@ class Varien_Db_Ddl_Table
                     $precision  = $match[1];
                     $scale      = $match[2];
                 }
+
                 // check options
                 if (isset($options['precision'])) {
                     $precision = $options['precision'];
@@ -348,10 +389,7 @@ class Varien_Db_Ddl_Table
                 if (!empty($options['unsigned'])) {
                     $unsigned = true;
                 }
-                break;
-            case self::TYPE_DATE:
-            case self::TYPE_DATETIME:
-            case self::TYPE_TIMESTAMP:
+
                 break;
             case self::TYPE_TEXT:
             case self::TYPE_BLOB:
@@ -365,22 +403,25 @@ class Varien_Db_Ddl_Table
         if (array_key_exists('default', $options)) {
             $default = $options['default'];
         }
+
         if (array_key_exists('nullable', $options)) {
             $nullable = (bool) $options['nullable'];
         }
+
         if (!empty($options['primary'])) {
             $primary = true;
             if (isset($options['primary_position'])) {
                 $primaryPosition = (int) $options['primary_position'];
             } else {
                 $primaryPosition = 0;
-                foreach ($this->_columns as $v) {
-                    if ($v['PRIMARY']) {
+                foreach ($this->_columns as $column) {
+                    if ($column['PRIMARY']) {
                         $primaryPosition++;
                     }
                 }
             }
         }
+
         if (!empty($options['identity']) || !empty($options['auto_increment'])) {
             $identity = true;
         }
@@ -413,14 +454,14 @@ class Varien_Db_Ddl_Table
     /**
      * Add Foreign Key to table
      *
-     * @param string $fkName        the foreign key name
-     * @param string $column        the foreign key column name
-     * @param string $refTable      the reference table name
-     * @param string $refColumn     the reference table column name
-     * @param string $onDelete      the action on delete row
-     * @param string $onUpdate      the action on update
-     * @throws Zend_Db_Exception
+     * @param  string              $fkName    the foreign key name
+     * @param  string              $column    the foreign key column name
+     * @param  string              $refTable  the reference table name
+     * @param  string              $refColumn the reference table column name
+     * @param  string              $onDelete  the action on delete row
+     * @param  string              $onUpdate  the action on update
      * @return Varien_Db_Ddl_Table
+     * @throws Zend_Db_Exception
      */
     public function addForeignKey($fkName, $column, $refTable, $refColumn, $onDelete = null, $onUpdate = null)
     {
@@ -466,9 +507,9 @@ class Varien_Db_Ddl_Table
     /**
      * Add index to table
      *
-     * @param string $indexName     the index name
-     * @param array|string $fields  array of columns or column string
-     * @param array $options        array of additional options
+     * @param  string              $indexName the index name
+     * @param  array|string        $fields    array of columns or column string
+     * @param  array               $options   array of additional options
      * @return Varien_Db_Ddl_Table
      */
     public function addIndex($indexName, $fields, $options = [])
@@ -494,6 +535,7 @@ class Varien_Db_Ddl_Table
                 if (!empty($columnData['size'])) {
                     $columnSize = (int) $columnData['size'];
                 }
+
                 if (!empty($columnData['position'])) {
                     $columnPos = (int) $columnData['position'];
                 }
@@ -510,7 +552,7 @@ class Varien_Db_Ddl_Table
             $position++;
         }
 
-        if (empty($columns)) {
+        if ($columns === []) {
             throw new Zend_Db_Exception('Columns for index are not defined');
         }
 
@@ -530,7 +572,7 @@ class Varien_Db_Ddl_Table
     /**
      * Retrieve array of table columns
      *
-     * @param bool $normalized
+     * @param  bool  $normalized
      * @return array
      */
     public function getColumns($normalized = true)
@@ -538,13 +580,14 @@ class Varien_Db_Ddl_Table
         if ($normalized) {
             return $this->_normalizeColumnPosition($this->_columns);
         }
+
         return $this->_columns;
     }
 
     /**
      * Set column, formatted according to DDL Table format, into columns structure
      *
-     * @param array $column
+     * @param  array               $column
      * @return Varien_Db_Ddl_Table
      */
     public function setColumn($column)
@@ -577,8 +620,8 @@ class Varien_Db_Ddl_Table
     /**
      * Set table option
      *
-     * @param string $key
-     * @param string $value
+     * @param  string $key
+     * @param  string $value
      * @return $this
      */
     public function setOption($key, $value)
@@ -591,7 +634,7 @@ class Varien_Db_Ddl_Table
      * Retrieve table option value by option name
      * Return null if option does not exits
      *
-     * @param string $key
+     * @param  string $key
      * @return mixed
      */
     public function getOption($key)
@@ -599,6 +642,7 @@ class Varien_Db_Ddl_Table
         if (!isset($this->_options[$key])) {
             return null;
         }
+
         return $this->_options[$key];
     }
 
@@ -615,8 +659,8 @@ class Varien_Db_Ddl_Table
     /**
      * Index column position comparison function
      *
-     * @param array $a
-     * @param array $b
+     * @param  array $a
+     * @param  array $b
      * @return int
      */
     protected function _sortIndexColumnPosition($a, $b)
@@ -627,8 +671,8 @@ class Varien_Db_Ddl_Table
     /**
      * table column position comparison function
      *
-     * @param array $a
-     * @param array $b
+     * @param  array $a
+     * @param  array $b
      * @return int
      */
     protected function _sortColumnPosition($a, $b)
@@ -639,7 +683,7 @@ class Varien_Db_Ddl_Table
     /**
      * Normalize position of index columns array
      *
-     * @param array $columns
+     * @param  array $columns
      * @return array
      */
     protected function _normalizeIndexColumnPosition($columns)
@@ -650,13 +694,14 @@ class Varien_Db_Ddl_Table
             $columns[$columnId]['POSITION'] = $position;
             $position++;
         }
+
         return $columns;
     }
 
     /**
      * Normalize position of table columns array
      *
-     * @param array $columns
+     * @param  array $columns
      * @return array
      */
     protected function _normalizeColumnPosition($columns)
@@ -667,6 +712,7 @@ class Varien_Db_Ddl_Table
             $columns[$columnId]['COLUMN_POSITION'] = $position;
             $position++;
         }
+
         return $columns;
     }
 }

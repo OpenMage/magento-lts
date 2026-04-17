@@ -47,6 +47,7 @@ class Mage_Checkout_Block_Multishipping_Overview extends Mage_Sales_Block_Items_
                 $this->__('Review Order - %s', $headBlock->getDefaultTitle()),
             );
         }
+
         return parent::_prepareLayout();
     }
 
@@ -78,6 +79,7 @@ class Mage_Checkout_Block_Multishipping_Overview extends Mage_Sales_Block_Items_
             $payment = new Varien_Object($this->getRequest()->getPost('payment'));
             $this->setData('payment', $payment);
         }
+
         return $this->_getData('payment');
     }
 
@@ -94,28 +96,30 @@ class Mage_Checkout_Block_Multishipping_Overview extends Mage_Sales_Block_Items_
      */
     public function getShippingAddressCount()
     {
-        $count = $this->getData('shipping_address_count');
+        $count = $this->getDataByKey('shipping_address_count');
         if (is_null($count)) {
             $count = count($this->getShippingAddresses());
             $this->setData('shipping_address_count', $count);
         }
+
         return $count;
     }
 
     /**
-     * @param Mage_Sales_Model_Quote_Address $address
-     * @return Mage_Sales_Model_Quote_Address_Rate|false
+     * @param  Mage_Sales_Model_Quote_Address            $address
+     * @return false|Mage_Sales_Model_Quote_Address_Rate
      */
     public function getShippingAddressRate($address)
     {
         if ($rate = $address->getShippingRateByCode($address->getShippingMethod())) {
             return $rate;
         }
+
         return false;
     }
 
     /**
-     * @param Mage_Sales_Model_Quote_Address $address
+     * @param  Mage_Sales_Model_Quote_Address $address
      * @return string
      */
     public function getShippingPriceInclTax($address)
@@ -126,7 +130,7 @@ class Mage_Checkout_Block_Multishipping_Overview extends Mage_Sales_Block_Items_
     }
 
     /**
-     * @param Mage_Sales_Model_Quote_Address $address
+     * @param  Mage_Sales_Model_Quote_Address $address
      * @return string
      */
     public function getShippingPriceExclTax($address)
@@ -135,7 +139,7 @@ class Mage_Checkout_Block_Multishipping_Overview extends Mage_Sales_Block_Items_
     }
 
     /**
-     * @param float $price
+     * @param  float  $price
      * @return string
      */
     public function formatPrice($price)
@@ -144,7 +148,7 @@ class Mage_Checkout_Block_Multishipping_Overview extends Mage_Sales_Block_Items_
     }
 
     /**
-     * @param Mage_Sales_Model_Quote_Address $address
+     * @param  Mage_Sales_Model_Quote_Address        $address
      * @return Mage_Sales_Model_Quote_Address_Item[]
      */
     public function getShippingAddressItems($address)
@@ -153,7 +157,7 @@ class Mage_Checkout_Block_Multishipping_Overview extends Mage_Sales_Block_Items_
     }
 
     /**
-     * @param Mage_Sales_Model_Quote_Address $address
+     * @param  Mage_Sales_Model_Quote_Address         $address
      * @return Mage_Sales_Model_Quote_Address_Total[]
      */
     public function getShippingAddressTotals($address)
@@ -168,6 +172,7 @@ class Mage_Checkout_Block_Multishipping_Overview extends Mage_Sales_Block_Items_
                 }
             }
         }
+
         return $totals;
     }
 
@@ -188,7 +193,7 @@ class Mage_Checkout_Block_Multishipping_Overview extends Mage_Sales_Block_Items_
     }
 
     /**
-     * @param Mage_Sales_Model_Quote_Address $address
+     * @param  Mage_Sales_Model_Quote_Address $address
      * @return string
      */
     public function getEditShippingAddressUrl($address)
@@ -197,7 +202,7 @@ class Mage_Checkout_Block_Multishipping_Overview extends Mage_Sales_Block_Items_
     }
 
     /**
-     * @param Mage_Sales_Model_Quote_Address $address
+     * @param  Mage_Sales_Model_Quote_Address $address
      * @return string
      */
     public function getEditBillingAddressUrl($address)
@@ -250,7 +255,7 @@ class Mage_Checkout_Block_Multishipping_Overview extends Mage_Sales_Block_Items_
     /**
      * Retrieve virtual product collection array
      *
-     * @return array
+     * @return Mage_Sales_Model_Quote_Address_Item[]
      */
     public function getVirtualItems()
     {
@@ -259,10 +264,12 @@ class Mage_Checkout_Block_Multishipping_Overview extends Mage_Sales_Block_Items_
             if ($item->isDeleted()) {
                 continue;
             }
+
             if ($item->getProduct()->getIsVirtual() && !$item->getParentItemId()) {
                 $items[] = $item;
             }
         }
+
         return $items;
     }
 
@@ -286,8 +293,8 @@ class Mage_Checkout_Block_Multishipping_Overview extends Mage_Sales_Block_Items_
     }
 
     /**
-     * @param Mage_Sales_Model_Order_Total $totals
-     * @param int|null $colspan
+     * @param  Mage_Sales_Model_Order_Total $totals
+     * @param  null|int                     $colspan
      * @return string
      */
     public function renderTotals($totals, $colspan = null)
@@ -297,6 +304,7 @@ class Mage_Checkout_Block_Multishipping_Overview extends Mage_Sales_Block_Items_
             $helper = $this->helper('tax');
             $colspan = $helper->displayCartBothPrices() ? 5 : 3;
         }
+
         return $this->getChild('totals')->setTotals($totals)->renderTotals('', $colspan)
             . $this->getChild('totals')->setTotals($totals)->renderTotals('footer', $colspan);
     }
@@ -304,10 +312,10 @@ class Mage_Checkout_Block_Multishipping_Overview extends Mage_Sales_Block_Items_
     /**
      * Add renderer for row-level item output
      *
-     * @param   string $type Product type
-     * @param   string $block Block type
-     * @param   string $template Block template
-     * @return  Mage_Checkout_Block_Multishipping_Overview
+     * @param  string $type     Product type
+     * @param  string $block    Block type
+     * @param  string $template Block template
+     * @return $this
      */
     public function addRowItemRender($type, $block, $template)
     {
@@ -333,7 +341,7 @@ class Mage_Checkout_Block_Multishipping_Overview extends Mage_Sales_Block_Items_
     /**
      * Retrieve renderer block for row-level item output
      *
-     * @param string $type
+     * @param  string                   $type
      * @return Mage_Core_Block_Abstract
      */
     public function _getRowItemRenderer($type)
@@ -346,7 +354,7 @@ class Mage_Checkout_Block_Multishipping_Overview extends Mage_Sales_Block_Items_
     /**
      * Wrap row renderers into namespace by adding 'row_' suffix
      *
-     * @param string $type Product type
+     * @param  string $type Product type
      * @return string
      */
     protected function _getRowItemType($type)

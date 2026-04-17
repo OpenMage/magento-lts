@@ -15,8 +15,7 @@
 class Mage_Reports_Model_Resource_Product_Sold_Collection extends Mage_Reports_Model_Resource_Product_Collection
 {
     /**
-     * Initialize resources
-     *
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -25,17 +24,18 @@ class Mage_Reports_Model_Resource_Product_Sold_Collection extends Mage_Reports_M
         // skip adding stock information to collection for performance reasons
         $this->setFlag('no_stock_data', true);
     }
+
     /**
      * Set Date range to collection
      *
-     * @param int $from
-     * @param int $to
+     * @param  null|string $dateFrom
+     * @param  null|string $dateTo
      * @return $this
      */
-    public function setDateRange($from, $to)
+    public function setDateRange($dateFrom, $dateTo)
     {
         $this->_reset()
-            ->addOrderedQty($from, $to)
+            ->addOrderedQty($dateFrom, $dateTo)
             ->setOrder('ordered_qty', self::SORT_ORDER_DESC);
         return $this;
     }
@@ -43,7 +43,7 @@ class Mage_Reports_Model_Resource_Product_Sold_Collection extends Mage_Reports_M
     /**
      * Set store filter to collection
      *
-     * @param array $storeIds
+     * @param  array $storeIds
      * @return $this
      */
     public function setStoreIds($storeIds)
@@ -51,6 +51,7 @@ class Mage_Reports_Model_Resource_Product_Sold_Collection extends Mage_Reports_M
         if ($storeIds) {
             $this->getSelect()->where('order_items.store_id IN (?)', (array) $storeIds);
         }
+
         return $this;
     }
 

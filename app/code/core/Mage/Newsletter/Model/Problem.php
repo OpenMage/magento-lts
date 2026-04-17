@@ -12,32 +12,34 @@
  *
  * @package    Mage_Newsletter
  *
- * @method Mage_Newsletter_Model_Resource_Problem _getResource()
- * @method Mage_Newsletter_Model_Resource_Problem getResource()
- * @method int getCustomerId()
- * @method $this setCustomerName(string $value)
- * @method $this setCustomerFirstName(string $value)
- * @method $this setCustomerLastName(string $value)
- * @method int getQueueId()
- * @method $this setQueueId(int $value)
- * @method int getProblemErrorCode()
- * @method $this setProblemErrorCode(int $value)
- * @method string getProblemErrorText()
- * @method $this setProblemErrorText(string $value)
- * @method int getSubscriberId()
- * @method $this setSubscriberId(int $value)
+ * @method Mage_Newsletter_Model_Resource_Problem            _getResource()
+ * @method Mage_Newsletter_Model_Resource_Problem_Collection getCollection()
+ * @method int                                               getCustomerId()
+ * @method int                                               getProblemErrorCode()
+ * @method string                                            getProblemErrorText()
+ * @method int                                               getQueueId()
+ * @method Mage_Newsletter_Model_Resource_Problem            getResource()
+ * @method Mage_Newsletter_Model_Resource_Problem_Collection getResourceCollection()
+ * @method int                                               getSubscriberId()
+ * @method $this                                             setCustomerFirstName(string $value)
+ * @method $this                                             setCustomerLastName(string $value)
+ * @method $this                                             setCustomerName(string $value)
+ * @method $this                                             setProblemErrorCode(int $value)
+ * @method $this                                             setProblemErrorText(string $value)
+ * @method $this                                             setQueueId(int $value)
+ * @method $this                                             setSubscriberId(int $value)
  */
 class Mage_Newsletter_Model_Problem extends Mage_Core_Model_Abstract
 {
     /**
      * Current Subscriber
      *
-     * @var Mage_Newsletter_Model_Subscriber|null
+     * @var null|Mage_Newsletter_Model_Subscriber
      */
     protected $_subscriber = null;
 
     /**
-     * Initialize Newsletter Problem Model
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -71,17 +73,17 @@ class Mage_Newsletter_Model_Problem extends Mage_Core_Model_Abstract
      *
      * @return $this
      */
-    public function addErrorData(Exception $e)
+    public function addErrorData(Exception $exception)
     {
-        $this->setProblemErrorCode($e->getCode());
-        $this->setProblemErrorText($e->getMessage());
+        $this->setProblemErrorCode($exception->getCode());
+        $this->setProblemErrorText($exception->getMessage());
         return $this;
     }
 
     /**
      * Retrieve Subscriber
      *
-     * @return Mage_Newsletter_Model_Subscriber|null
+     * @return null|Mage_Newsletter_Model_Subscriber
      */
     public function getSubscriber()
     {
@@ -109,6 +111,7 @@ class Mage_Newsletter_Model_Problem extends Mage_Core_Model_Abstract
                 ->setIsStatusChanged(true)
                 ->save();
         }
+
         return $this;
     }
 }

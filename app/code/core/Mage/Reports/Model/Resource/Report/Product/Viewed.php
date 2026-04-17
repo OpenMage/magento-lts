@@ -15,9 +15,14 @@
 class Mage_Reports_Model_Resource_Report_Product_Viewed extends Mage_Sales_Model_Resource_Report_Abstract
 {
     public const AGGREGATION_DAILY   = 'reports/viewed_aggregated_daily';
+
     public const AGGREGATION_MONTHLY = 'reports/viewed_aggregated_monthly';
+
     public const AGGREGATION_YEARLY  = 'reports/viewed_aggregated_yearly';
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init(self::AGGREGATION_DAILY, 'id');
@@ -26,42 +31,43 @@ class Mage_Reports_Model_Resource_Report_Product_Viewed extends Mage_Sales_Model
     /**
      * Aggregate products view data
      *
-     * @param mixed $from
-     * @param mixed $to
+     * @param  null|string                                       $dateFrom
+     * @param  null|string                                       $dateTo
      * @return Mage_Reports_Model_Resource_Report_Product_Viewed
      * @throws Mage_Core_Exception
      * @throws Zend_Db_Select_Exception
      */
-    public function aggregate($from = null, $to = null)
+    public function aggregate($dateFrom = null, $dateTo = null)
     {
         $mainTable   = $this->getMainTable();
         $adapter = $this->_getWriteAdapter();
 
         // convert input dates to UTC to be comparable with DATETIME fields in DB
-        $from = $this->_dateToUtc($from);
-        $to = $this->_dateToUtc($to);
+        $dateFrom = $this->_dateToUtc($dateFrom);
+        $dateTo = $this->_dateToUtc($dateTo);
 
-        $this->_checkDates($from, $to);
+        $this->_checkDates($dateFrom, $dateTo);
 
-        if ($from !== null || $to !== null) {
+        if ($dateFrom !== null || $dateTo !== null) {
             $subSelect = $this->_getTableDateRangeSelect(
                 $this->getTable('reports/event'),
                 'logged_at',
                 'logged_at',
-                $from,
-                $to,
+                $dateFrom,
+                $dateTo,
             );
         } else {
             $subSelect = null;
         }
-        $this->_clearTableByDateRange($mainTable, $from, $to, $subSelect);
+
+        $this->_clearTableByDateRange($mainTable, $dateFrom, $dateTo, $subSelect);
         // convert dates from UTC to current admin timezone
         $periodExpr = $adapter->getDatePartSql(
             $this->getStoreTZOffsetQuery(
                 ['source_table' => $this->getTable('reports/event')],
                 'source_table.logged_at',
-                $from,
-                $to,
+                $dateFrom,
+                $dateTo,
             ),
         );
 
@@ -131,6 +137,7 @@ class Mage_Reports_Model_Resource_Report_Product_Viewed extends Mage_Sales_Model
             $adapter->quoteInto('product_name.attribute_id = ?', $nameAttribute->getAttributeId()),
         ];
         $joinExprProductName        = implode(' AND ', $joinExprProductName);
+
         $joinExprProductDefaultName = [
             'product_default_name.entity_id = product.entity_id',
             'product_default_name.store_id = 0',
@@ -181,9 +188,11 @@ class Mage_Reports_Model_Resource_Report_Product_Viewed extends Mage_Sales_Model
                 $havingPart[] = '(' . $subSelectHavingPart . ')';
             }
         }
+
         $select->having(implode(' AND ', $havingPart));
 
         $select->useStraightJoin();
+
         $insertQuery = $helper->getInsertFromSelectUsingAnalytic(
             $select,
             $this->getMainTable(),

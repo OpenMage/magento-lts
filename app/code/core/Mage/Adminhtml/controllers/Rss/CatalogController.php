@@ -17,7 +17,7 @@ class Mage_Adminhtml_Rss_CatalogController extends Mage_Adminhtml_Controller_Rss
     /**
      * @inheritDoc
      */
-    protected function _isAllowed()
+    protected function _isAllowed(): bool
     {
         $path = '';
         $action = strtolower($this->getRequest()->getActionName());
@@ -26,6 +26,7 @@ class Mage_Adminhtml_Rss_CatalogController extends Mage_Adminhtml_Controller_Rss
         } elseif ($action == 'notifystock') {
             $path = 'catalog/products';
         }
+
         return Mage::getSingleton('admin/session')->isAllowed($path);
     }
 

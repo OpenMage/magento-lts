@@ -15,11 +15,17 @@
 class Varien_Io_Ftp extends Varien_Io_Abstract
 {
     public const ERROR_EMPTY_HOST = 1;
+
     public const ERROR_INVALID_CONNECTION = 2;
+
     public const ERROR_INVALID_LOGIN = 3;
+
     public const ERROR_INVALID_PATH = 4;
+
     public const ERROR_INVALID_MODE = 5;
+
     public const ERROR_INVALID_DESTINATION = 6;
+
     public const ERROR_INVALID_SOURCE = 7;
 
     /**
@@ -32,7 +38,7 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
     /**
      * An FTP connection
      *
-     * @var FTP\Connection|false
+     * @var false|FTP\Connection
      */
     protected $_conn;
 
@@ -97,6 +103,7 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
         } else {
             $this->_conn = @ftp_ssl_connect($this->_config['host'], $this->_config['port'], $this->_config['timeout']);
         }
+
         if (!$this->_conn) {
             $this->_error = self::ERROR_INVALID_CONNECTION;
             throw new Varien_Io_Exception('Could not establish FTP connection, invalid host or port');
@@ -108,20 +115,16 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
             throw new Varien_Io_Exception('Invalid user name or password');
         }
 
-        if (!empty($this->_config['path'])) {
-            if (!@ftp_chdir($this->_conn, $this->_config['path'])) {
-                $this->_error = self::ERROR_INVALID_PATH;
-                $this->close();
-                throw new Varien_Io_Exception('Invalid path');
-            }
+        if (!empty($this->_config['path']) && !@ftp_chdir($this->_conn, $this->_config['path'])) {
+            $this->_error = self::ERROR_INVALID_PATH;
+            $this->close();
+            throw new Varien_Io_Exception('Invalid path');
         }
 
-        if (!empty($this->_config['passive'])) {
-            if (!@ftp_pasv($this->_conn, true)) {
-                $this->_error = self::ERROR_INVALID_MODE;
-                $this->close();
-                throw new Varien_Io_Exception('Invalid file transfer mode');
-            }
+        if (!empty($this->_config['passive']) && !@ftp_pasv($this->_conn, true)) {
+            $this->_error = self::ERROR_INVALID_MODE;
+            $this->close();
+            throw new Varien_Io_Exception('Invalid file transfer mode');
         }
 
         return true;
@@ -143,9 +146,9 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
      * Create a directory
      *
      * @todo implement $mode and $recursive
-     * @param string $dir
-     * @param int $mode
-     * @param bool $recursive
+     * @param  string $dir
+     * @param  int    $mode
+     * @param  bool   $recursive
      * @return bool
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
@@ -158,7 +161,7 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
     /**
      * Delete a directory
      *
-     * @param string $dir
+     * @param  string $dir
      * @return bool
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
@@ -183,7 +186,7 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
     /**
      * Change current working directory
      *
-     * @param string $dir
+     * @param  string $dir
      * @return bool
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
@@ -196,8 +199,8 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
     /**
      * Read a file to result, file or stream
      *
-     * @param string $filename
-     * @param string|resource|null $dest destination file name, stream, or if null will return file contents
+     * @param  string               $filename
+     * @param  null|resource|string $dest     destination file name, stream, or if null will return file contents
      * @return bool|string
      */
     public function read($filename, $dest = null)
@@ -219,19 +222,21 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
             if (is_null($dest)) {
                 fseek($stream, 0);
                 $result = '';
-                for ($result = ''; $s = fread($stream, 4096); $result .= $s);
+                for ($result = ''; $str = fread($stream, 4096); $result .= $str);
+
                 fclose($stream);
             }
         }
+
         return $result;
     }
 
     /**
      * Write a file from string, file or stream
      *
-     * @param string $filename
-     * @param string|resource $src filename, string data or source stream
-     * @return int|bool
+     * @param  string          $filename
+     * @param  resource|string $src      filename, string data or source stream
+     * @return bool|int
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
@@ -239,30 +244,31 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
     {
         if (is_string($src) && is_readable($src)) {
             return @ftp_put($this->_conn, $filename, $src, $this->_config['file_mode']);
-        } else {
-            if (is_string($src)) {
-                $stream = tmpfile();
-                fwrite($stream, $src);
-                fseek($stream, 0);
-            } elseif (is_resource($src)) {
-                $stream = $src;
-            } else {
-                $this->_error = self::ERROR_INVALID_SOURCE;
-                return false;
-            }
-
-            $result = ftp_fput($this->_conn, $filename, $stream, $this->_config['file_mode']);
-            if (is_string($src)) {
-                fclose($stream);
-            }
-            return $result;
         }
+
+        if (is_string($src)) {
+            $stream = tmpfile();
+            fwrite($stream, $src);
+            fseek($stream, 0);
+        } elseif (is_resource($src)) {
+            $stream = $src;
+        } else {
+            $this->_error = self::ERROR_INVALID_SOURCE;
+            return false;
+        }
+
+        $result = ftp_fput($this->_conn, $filename, $stream, $this->_config['file_mode']);
+        if (is_string($src)) {
+            fclose($stream);
+        }
+
+        return $result;
     }
 
     /**
      * Delete a file
      *
-     * @param string $filename
+     * @param  string $filename
      * @return bool
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
@@ -275,8 +281,8 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
     /**
      * Rename or move a directory or a file
      *
-     * @param string $src
-     * @param string $dest
+     * @param  string $src
+     * @param  string $dest
      * @return bool
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
@@ -289,8 +295,8 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
     /**
      * Change mode of a directory or a file
      *
-     * @param string $filename
-     * @param int $mode
+     * @param  string $filename
+     * @param  int    $mode
      * @return bool
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
@@ -323,6 +329,7 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
         if ($new || !$this->_tmpFilename) {
             $this->_tmpFilename = tempnam(md5(uniqid((string) random_int(0, mt_getrandmax()), true)), '');
         }
+
         return $this->_tmpFilename;
     }
 }

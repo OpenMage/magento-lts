@@ -20,9 +20,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Tier extends Mage_Admi
     }
 
     /**
-     * Retrieve list of initial customer groups
-     *
-     * @return array
+     * @inheritDoc
+     * @return array<int, string>
      */
     protected function _getInitialCustomerGroups()
     {
@@ -32,7 +31,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Tier extends Mage_Admi
     /**
      * Sort values
      *
-     * @param array $data
+     * @param  array $data
      * @return array
      */
     protected function _sortValues($data)
@@ -44,8 +43,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Tier extends Mage_Admi
     /**
      * Sort tier price values callback method
      *
-     * @param array $a
-     * @param array $b
+     * @param  array $a
+     * @param  array $b
      * @return int
      */
     protected function _sortTierPrices($a, $b)
@@ -53,9 +52,11 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Tier extends Mage_Admi
         if ($a['website_id'] != $b['website_id']) {
             return $a['website_id'] < $b['website_id'] ? -1 : 1;
         }
+
         if ($a['cust_group'] != $b['cust_group']) {
             return $this->getCustomerGroups($a['cust_group']) < $this->getCustomerGroups($b['cust_group']) ? -1 : 1;
         }
+
         if ($a['price_qty'] != $b['price_qty']) {
             return $a['price_qty'] < $b['price_qty'] ? -1 : 1;
         }

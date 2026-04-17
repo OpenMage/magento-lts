@@ -15,6 +15,7 @@
 class Mage_Adminhtml_Block_Sales_Order_Creditmemo_Create_Items extends Mage_Adminhtml_Block_Sales_Items_Abstract
 {
     protected $_canReturnToStock;
+
     /**
      * Prepare child blocks
      *
@@ -26,7 +27,7 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_Create_Items extends Mage_Admi
         $this->setChild(
             'update_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')->setData([
-                'label'     => Mage::helper('sales')->__('Update Qty\'s'),
+                'label'     => Mage::helper('sales')->__("Update Qty's"),
                 'class'     => 'update-button',
                 'onclick'   => $onclick,
             ]),
@@ -39,16 +40,17 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_Create_Items extends Mage_Admi
                     $this->getLayout()->createBlock('adminhtml/widget_button')->setData([
                         'label'     => Mage::helper('sales')->__('Refund'),
                         'class'     => 'save submit-button',
-                        'onclick'   => 'disableElements(\'submit-button\');submitCreditMemo()',
+                        'onclick'   => "disableElements('submit-button');submitCreditMemo()",
                     ]),
                 );
             }
+
             $this->setChild(
                 'submit_offline',
                 $this->getLayout()->createBlock('adminhtml/widget_button')->setData([
                     'label'     => Mage::helper('sales')->__('Refund Offline'),
                     'class'     => 'save submit-button',
-                    'onclick'   => 'disableElements(\'submit-button\');submitCreditMemoOffline()',
+                    'onclick'   => "disableElements('submit-button');submitCreditMemoOffline()",
                 ]),
             );
         } else {
@@ -57,7 +59,7 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_Create_Items extends Mage_Admi
                 $this->getLayout()->createBlock('adminhtml/widget_button')->setData([
                     'label'     => Mage::helper('sales')->__('Refund Offline'),
                     'class'     => 'save submit-button',
-                    'onclick'   => 'disableElements(\'submit-button\');submitCreditMemoOffline()',
+                    'onclick'   => "disableElements('submit-button');submitCreditMemoOffline()",
                 ]),
             );
         }
@@ -88,7 +90,7 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_Create_Items extends Mage_Admi
     /**
      * Retrieve order totals block settings
      *
-     * @return array
+     * @return array<void>
      */
     public function getOrderTotalData()
     {
@@ -98,7 +100,7 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_Create_Items extends Mage_Admi
     /**
      * Retrieve order totalbar block data
      *
-     * @return array
+     * @return array<int, array<int, bool|string>>
      */
     public function getOrderTotalbarData()
     {
@@ -123,35 +125,44 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_Create_Items extends Mage_Admi
         return Mage::registry('current_creditmemo');
     }
 
+    /**
+     * @inheritDoc
+     */
     public function canEditQty()
     {
         if ($this->getCreditmemo()->getOrder()->getPayment()->canRefund()) {
             return $this->getCreditmemo()->getOrder()->getPayment()->canRefundPartialPerInvoice();
         }
+
         return true;
     }
 
+    /**
+     * @return string
+     */
     public function getUpdateButtonHtml()
     {
         return $this->getChildHtml('update_button');
     }
 
+    /**
+     * @return string
+     * @throws Exception
+     */
     public function getUpdateUrl()
     {
         return $this->getUrl('*/*/updateQty', [
             'order_id' => $this->getCreditmemo()->getOrderId(),
-            'invoice_id' => $this->getRequest()->getParam('invoice_id', null),
+            'invoice_id' => $this->getRequest()->getParam('invoice_id'),
         ]);
     }
 
+    /**
+     * @inheritDoc
+     */
     public function canReturnToStock()
     {
-        $canReturnToStock = Mage::getStoreConfig(Mage_CatalogInventory_Model_Stock_Item::XML_PATH_CAN_SUBTRACT);
-        if (Mage::getStoreConfig(Mage_CatalogInventory_Model_Stock_Item::XML_PATH_CAN_SUBTRACT)) {
-            return true;
-        } else {
-            return false;
-        }
+        return Mage::getStoreConfigFlag(Mage_CatalogInventory_Model_Stock_Item::XML_PATH_CAN_SUBTRACT);
     }
 
     /**
@@ -160,23 +171,28 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_Create_Items extends Mage_Admi
      */
     public function canReturnItemsToStock()
     {
-        if (is_null($this->_canReturnToStock)) {
-            if ($this->_canReturnToStock = Mage::getStoreConfig(Mage_CatalogInventory_Model_Stock_Item::XML_PATH_CAN_SUBTRACT)) {
-                $canReturnToStock = false;
-                foreach ($this->getCreditmemo()->getAllItems() as $item) {
-                    $product = Mage::getModel('catalog/product')->load($item->getOrderItem()->getProductId());
-                    if ($product->getId() && $product->getStockItem()->getManageStock()) {
-                        $item->setCanReturnToStock($canReturnToStock = true);
-                    } else {
-                        $item->setCanReturnToStock(false);
-                    }
+        if (is_null($this->_canReturnToStock)
+            && $this->_canReturnToStock = Mage::getStoreConfig(Mage_CatalogInventory_Model_Stock_Item::XML_PATH_CAN_SUBTRACT)
+        ) {
+            $canReturnToStock = false;
+            foreach ($this->getCreditmemo()->getAllItems() as $item) {
+                $product = Mage::getModel('catalog/product')->load($item->getOrderItem()->getProductId());
+                if ($product->getId() && $product->getStockItem()->getManageStock()) {
+                    $item->setCanReturnToStock($canReturnToStock = true);
+                } else {
+                    $item->setCanReturnToStock(false);
                 }
-                $this->getCreditmemo()->getOrder()->setCanReturnToStock($this->_canReturnToStock = $canReturnToStock);
             }
+
+            $this->getCreditmemo()->getOrder()->setCanReturnToStock($this->_canReturnToStock = $canReturnToStock);
         }
+
         return $this->_canReturnToStock;
     }
 
+    /**
+     * @return bool
+     */
     public function canSendCreditmemoEmail()
     {
         return Mage::helper('sales')->canSendNewCreditmemoEmail($this->getOrder()->getStore()->getId());

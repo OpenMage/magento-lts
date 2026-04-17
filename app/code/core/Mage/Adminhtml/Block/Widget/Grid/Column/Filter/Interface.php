@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -15,6 +17,8 @@
 interface Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Interface
 {
     public function getColumn();
+
     public function setColumn($column);
+
     public function getHtml();
 }

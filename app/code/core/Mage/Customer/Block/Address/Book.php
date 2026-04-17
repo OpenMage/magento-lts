@@ -13,7 +13,7 @@
  * @package    Mage_Customer
  *
  * @method string getRefererUrl()
- * @method $this setRefererUrl(string $url)
+ * @method $this  setRefererUrl(string $url)
  */
 class Mage_Customer_Block_Address_Book extends Mage_Core_Block_Template
 {
@@ -44,6 +44,7 @@ class Mage_Customer_Block_Address_Book extends Mage_Core_Block_Template
         if ($this->getRefererUrl()) {
             return $this->getRefererUrl();
         }
+
         return $this->getUrl('customer/account/', ['_secure' => true]);
     }
 
@@ -59,7 +60,7 @@ class Mage_Customer_Block_Address_Book extends Mage_Core_Block_Template
     }
 
     /**
-     * @param Mage_Customer_Model_Address $address
+     * @param  Mage_Customer_Model_Address $address
      * @return string
      */
     public function getAddressEditUrl($address)
@@ -88,7 +89,11 @@ class Mage_Customer_Block_Address_Book extends Mage_Core_Block_Template
      */
     public function hasPrimaryAddress()
     {
-        return $this->getPrimaryBillingAddress() || $this->getPrimaryShippingAddress();
+        if ($this->getPrimaryBillingAddress()) {
+            return true;
+        }
+
+        return (bool) $this->getPrimaryShippingAddress();
     }
 
     /**
@@ -101,8 +106,8 @@ class Mage_Customer_Block_Address_Book extends Mage_Core_Block_Template
     }
 
     /**
-     * @param Mage_Customer_Model_Address $address
-     * @return string|null
+     * @param  Mage_Customer_Model_Address $address
+     * @return null|string
      */
     public function getAddressHtml($address)
     {
@@ -115,11 +120,12 @@ class Mage_Customer_Block_Address_Book extends Mage_Core_Block_Template
      */
     public function getCustomer()
     {
-        $customer = $this->getData('customer');
+        $customer = $this->getDataByKey('customer');
         if (is_null($customer)) {
             $customer = Mage::getSingleton('customer/session')->getCustomer();
             $this->setData('customer', $customer);
         }
+
         return $customer;
     }
 }

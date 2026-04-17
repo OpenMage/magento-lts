@@ -33,11 +33,12 @@ class Mage_Adminhtml_Block_Tax_Class_Edit extends Mage_Adminhtml_Block_Widget_Fo
         if (Mage::registry('tax_class')->getId()) {
             return Mage::helper('tax')->__("Edit Class '%s'", $this->escapeHtml(Mage::registry('tax_class')->getClassName()));
         }
+
         return Mage::helper('tax')->__('New Class');
     }
 
     /**
-     * @param string $classType
+     * @param  string $classType
      * @return $this
      */
     public function setClassType($classType)

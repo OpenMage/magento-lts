@@ -17,7 +17,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Billing_Method_Form extends Mage_P
     /**
      * Check payment method model
      *
-     * @param Mage_Payment_Model_Method_Abstract|null $method
+     * @param  null|Mage_Payment_Model_Method_Abstract $method
      * @return bool
      */
     protected function _canUseMethod($method)
@@ -33,16 +33,13 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Billing_Method_Form extends Mage_P
     public function hasMethods()
     {
         $methods = $this->getMethods();
-        if (is_array($methods) && count($methods)) {
-            return true;
-        }
-        return false;
+        return is_array($methods) && count($methods);
     }
 
     /**
      * Get current payment method code or the only available, if there is only one method
      *
-     * @return string|false
+     * @return false|string
      */
     public function getSelectedMethodCode()
     {
@@ -79,9 +76,6 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Billing_Method_Form extends Mage_P
     {
         $availableTypes = explode(',', $this->getQuote()->getPayment()->getMethod()->getConfigData('cctypes'));
         $ssPresenations = array_intersect(['SS', 'SM', 'SO'], $availableTypes);
-        if ($availableTypes && count($ssPresenations) > 0) {
-            return true;
-        }
-        return false;
+        return $availableTypes && $ssPresenations !== [];
     }
 }

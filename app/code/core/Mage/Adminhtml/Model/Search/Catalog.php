@@ -12,13 +12,13 @@
  *
  * @package    Mage_Adminhtml
  *
- * @method bool hasLimit()
- * @method int getLimit()
- * @method bool hasQuery()
+ * @method int    getLimit()
  * @method string getQuery()
- * @method bool setResults(array $value)
- * @method bool hasStart()
- * @method int getStart()
+ * @method int    getStart()
+ * @method bool   hasLimit()
+ * @method bool   hasQuery()
+ * @method bool   hasStart()
+ * @method bool   setResults(array $value)
  */
 class Mage_Adminhtml_Model_Search_Catalog extends Varien_Object
 {
@@ -51,7 +51,7 @@ class Mage_Adminhtml_Model_Search_Catalog extends Varien_Object
                 'type'          => Mage::helper('adminhtml')->__('Product'),
                 'name'          => $product->getName(),
                 'description'   => Mage::helper('core/string')->substr($description, 0, 30),
-                'url' => Mage::helper('adminhtml')->getUrl('*/catalog_product/edit', ['id' => $product->getId()]),
+                'url'           => Mage::helper('adminhtml')::getUrl('*/catalog_product/edit', ['id' => $product->getId()]),
             ];
         }
 

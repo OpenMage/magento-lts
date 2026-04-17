@@ -17,6 +17,7 @@ class Mage_Catalog_Helper_Product_View extends Mage_Core_Helper_Abstract
 {
     // List of exceptions throwable during prepareAndRender() method
     public $ERR_NO_PRODUCT_LOADED = 1;
+
     public $ERR_BAD_CONTROLLER_INTERFACE = 2;
 
     protected $_moduleName = 'Mage_Catalog';
@@ -24,12 +25,12 @@ class Mage_Catalog_Helper_Product_View extends Mage_Core_Helper_Abstract
     /**
      * Inits layout for viewing product page
      *
-     * @param Mage_Catalog_Model_Product $product
+     * @param Mage_Catalog_Model_Product        $product
      * @param Mage_Core_Controller_Front_Action $controller
      *
      * @return $this
-     * @throws Mage_Core_Model_Store_Exception
      * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function initProductLayout($product, $controller)
     {
@@ -42,19 +43,19 @@ class Mage_Catalog_Helper_Product_View extends Mage_Core_Helper_Abstract
 
         $update = $controller->getLayout()->getUpdate();
         $update->addHandle('default');
+
         $controller->addActionLayoutHandles();
 
         $update->addHandle('PRODUCT_TYPE_' . $product->getTypeId());
         $update->addHandle('PRODUCT_' . $product->getId());
+
         $controller->loadLayoutUpdates();
 
         // Apply custom layout update once layout is loaded
         $layoutUpdates = $settings->getLayoutUpdates();
-        if ($layoutUpdates) {
-            if (is_array($layoutUpdates)) {
-                foreach ($layoutUpdates as $layoutUpdate) {
-                    $update->addUpdate($layoutUpdate);
-                }
+        if ($layoutUpdates && is_array($layoutUpdates)) {
+            foreach ($layoutUpdates as $layoutUpdate) {
+                $update->addUpdate($layoutUpdate);
             }
         }
 
@@ -73,6 +74,7 @@ class Mage_Catalog_Helper_Product_View extends Mage_Core_Helper_Abstract
             if ($controllerClass !== 'catalog-product-view') {
                 $root->addBodyClass('catalog-product-view');
             }
+
             $root->addBodyClass('product-' . $product->getUrlKey());
             if ($currentCategory instanceof Mage_Catalog_Model_Category) {
                 $root->addBodyClass('categorypath-' . $currentCategory->getUrlPath())
@@ -92,9 +94,9 @@ class Mage_Catalog_Helper_Product_View extends Mage_Core_Helper_Abstract
      *   - 'specify_options' - boolean, whether to show 'Specify options' message
      *   - 'configure_mode' - boolean, whether we're in Configure-mode to edit product configuration
      *
-     * @param int $productId
+     * @param int                               $productId
      * @param Mage_Core_Controller_Front_Action $controller
-     * @param null|Varien_Object $params
+     * @param null|Varien_Object                $params
      *
      * @return $this
      */

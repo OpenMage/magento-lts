@@ -22,7 +22,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Totals_Subtotal extends Mage_Admin
     protected $_template = 'sales/order/create/totals/subtotal.phtml';
 
     /**
-     * Check if we need display both sobtotals
+     * Check if we need display both subtotals
      *
      * @return bool
      */
@@ -37,6 +37,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Totals_Subtotal extends Mage_Admin
             $value = $this->getTotal()->getValueInclTax();
             $displayBoth = isset($value);
         }
+
         return $displayBoth;
     }
 }

@@ -33,17 +33,6 @@ class Mage_Adminhtml_Block_Template extends Mage_Core_Block_Template
     }
 
     /**
-     * @param string $moduleName Full module name
-     * @return bool
-     * @deprecated
-     * @see Mage_Core_Block_Template::isModuleOutputEnabled()
-     */
-    public function isOutputEnabled($moduleName = null)
-    {
-        return $this->isModuleOutputEnabled($moduleName);
-    }
-
-    /**
      * Prepare html output
      *
      * @return string
@@ -57,7 +46,7 @@ class Mage_Adminhtml_Block_Template extends Mage_Core_Block_Template
     /**
      * Deleting script tags from string
      *
-     * @param string $html
+     * @param  string $html
      * @return string
      */
     public function maliciousCodeFilter($html)

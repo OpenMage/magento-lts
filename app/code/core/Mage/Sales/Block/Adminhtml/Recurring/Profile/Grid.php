@@ -12,6 +12,8 @@
  */
 class Mage_Sales_Block_Adminhtml_Recurring_Profile_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'sales_adminhtml_recurring_profile_grid';
+
     /**
      * Set ajax/session parameters
      */
@@ -35,6 +37,7 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_Grid extends Mage_Adminhtml_B
         if (!$this->getParam($this->getVarNameSort())) {
             $collection->setOrder('profile_id', 'desc');
         }
+
         return parent::_prepareCollection();
     }
 
@@ -42,6 +45,7 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_Grid extends Mage_Adminhtml_B
      * Prepare grid columns
      *
      * @inheritDoc
+     * @throws Exception
      */
     protected function _prepareColumns()
     {
@@ -91,6 +95,7 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_Grid extends Mage_Adminhtml_B
         foreach (Mage::helper('payment')->getRecurringProfileMethods() as $method) {
             $methods[$method->getCode()] = $method->getTitle();
         }
+
         $this->addColumn('method_code', [
             'header'  => $profile->getFieldLabel('method_code'),
             'index'   => 'method_code',
@@ -107,10 +112,9 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_Grid extends Mage_Adminhtml_B
     }
 
     /**
-     * Return row url for js event handlers
-     *
-     * @param Varien_Object $row
-     * @return string
+     * @inheritDoc
+     * @param  Mage_Sales_Model_Recurring_Profile $row
+     * @throws Mage_Core_Exception
      */
     public function getRowUrl($row)
     {

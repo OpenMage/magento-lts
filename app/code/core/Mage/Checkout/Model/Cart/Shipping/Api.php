@@ -22,9 +22,9 @@ class Mage_Checkout_Model_Cart_Shipping_Api extends Mage_Checkout_Model_Api_Reso
     /**
      * Set an Shipping Method for Shopping Cart
      *
-     * @param  int $quoteId
-     * @param  string $shippingMethod
-     * @param  string|int $store
+     * @param  int        $quoteId
+     * @param  string     $shippingMethod
+     * @param  int|string $store
      * @return bool
      */
     public function setShippingMethod($quoteId, $shippingMethod, $store = null)
@@ -44,8 +44,8 @@ class Mage_Checkout_Model_Cart_Shipping_Api extends Mage_Checkout_Model_Api_Reso
         try {
             $quote->getShippingAddress()->setShippingMethod($shippingMethod);
             $quote->collectTotals()->save();
-        } catch (Mage_Core_Exception $e) {
-            $this->_fault('shipping_method_is_not_set', $e->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_fault('shipping_method_is_not_set', $mageCoreException->getMessage());
         }
 
         return true;
@@ -54,7 +54,7 @@ class Mage_Checkout_Model_Cart_Shipping_Api extends Mage_Checkout_Model_Api_Reso
     /**
      * Get list of available shipping methods
      *
-     * @param  int $quoteId
+     * @param  int        $quoteId
      * @param  int|string $store
      * @return array
      */
@@ -85,8 +85,8 @@ class Mage_Checkout_Model_Cart_Shipping_Api extends Mage_Checkout_Model_Api_Reso
                     unset($rateItem);
                 }
             }
-        } catch (Mage_Core_Exception $e) {
-            $this->_fault('shipping_methods_list_could_not_be_retrieved', $e->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_fault('shipping_methods_list_could_not_be_retrieved', $mageCoreException->getMessage());
         }
 
         return $ratesResult;

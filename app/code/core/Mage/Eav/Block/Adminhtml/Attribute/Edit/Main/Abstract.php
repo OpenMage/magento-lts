@@ -17,7 +17,7 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Main_Abstract extends Mag
     protected $_attribute = null;
 
     /**
-     * @param Mage_Catalog_Model_Resource_Eav_Attribute $attribute
+     * @param  Mage_Catalog_Model_Resource_Eav_Attribute $attribute
      * @return $this
      */
     public function setAttributeObject($attribute)
@@ -38,6 +38,9 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Main_Abstract extends Mag
      * Preparing default form elements for editing attribute
      *
      * @inheritDoc
+     * @throws Exception
+     * @throws Mage_Core_Exception
+     * @throws Zend_Locale_Exception
      */
     protected function _prepareForm()
     {
@@ -45,7 +48,7 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Main_Abstract extends Mag
 
         $form = new Varien_Data_Form([
             'id' => 'edit_form',
-            'action' => $this->getData('action'),
+            'action' => $this->getDataByKey('action'),
             'method' => 'post',
         ]);
 
@@ -169,7 +172,8 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Main_Abstract extends Mag
     /**
      * This method is called before rendering HTML
      *
-     * @return Mage_Eav_Block_Adminhtml_Attribute_Edit_Main_Abstract
+     * @return $this
+     * @throws Mage_Core_Exception
      */
     protected function _beforeToHtml()
     {
@@ -182,12 +186,13 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Main_Abstract extends Mag
             if (isset($disableAttributeFields[$attributeObject->getAttributeCode()])) {
                 foreach ($disableAttributeFields[$attributeObject->getAttributeCode()] as $field) {
                     if ($elm = $form->getElement($field)) {
-                        $elm->setDisabled(1);
-                        $elm->setReadonly(1);
+                        $elm->setDisabled(true);
+                        $elm->setReadonly(true);
                     }
                 }
             }
         }
+
         return $this;
     }
 
@@ -195,8 +200,8 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Main_Abstract extends Mag
      * Processing block html after rendering
      * Adding js block to the end of this block
      *
-     * @param   string $html
-     * @return  string
+     * @param  string $html
+     * @return string
      */
     protected function _afterToHtml($html)
     {

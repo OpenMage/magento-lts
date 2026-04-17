@@ -14,6 +14,9 @@
  */
 class Mage_SalesRule_Model_Resource_Coupon extends Mage_Core_Model_Resource_Db_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('salesrule/coupon', 'coupon_id');
@@ -28,7 +31,7 @@ class Mage_SalesRule_Model_Resource_Coupon extends Mage_Core_Model_Resource_Db_A
      *
      * @return Mage_Core_Model_Resource_Db_Abstract
      */
-    public function _beforeSave(Mage_Core_Model_Abstract $object)
+    protected function _beforeSave(Mage_Core_Model_Abstract $object)
     {
         if (!$object->getExpirationDate()) {
             $object->setExpirationDate(null);
@@ -45,19 +48,14 @@ class Mage_SalesRule_Model_Resource_Coupon extends Mage_Core_Model_Resource_Db_A
     /**
      * Load primary coupon (is_primary = 1) for specified rule
      *
-     *
-     * @param Mage_SalesRule_Model_Rule|int $rule
+     * @param  int|Mage_SalesRule_Model_Rule $rule
      * @return bool
      */
     public function loadPrimaryByRule(Mage_SalesRule_Model_Coupon $object, $rule)
     {
         $read = $this->_getReadAdapter();
 
-        if ($rule instanceof Mage_SalesRule_Model_Rule) {
-            $ruleId = $rule->getId();
-        } else {
-            $ruleId = (int) $rule;
-        }
+        $ruleId = $rule instanceof Mage_SalesRule_Model_Rule ? $rule->getId() : (int) $rule;
 
         $select = $read->select()->from($this->getMainTable())
             ->where('rule_id = :rule_id')
@@ -78,7 +76,7 @@ class Mage_SalesRule_Model_Resource_Coupon extends Mage_Core_Model_Resource_Db_A
     /**
      * Check if code exists
      *
-     * @param string $code
+     * @param  string $code
      * @return bool
      */
     public function exists($code)
@@ -87,11 +85,7 @@ class Mage_SalesRule_Model_Resource_Coupon extends Mage_Core_Model_Resource_Db_A
         $select = $read->select();
         $select->from($this->getMainTable(), 'code');
         $select->where('code = :code');
-
-        if ($read->fetchOne($select, ['code' => $code]) === false) {
-            return false;
-        }
-        return true;
+        return $read->fetchOne($select, ['code' => $code]) !== false;
     }
 
     /**

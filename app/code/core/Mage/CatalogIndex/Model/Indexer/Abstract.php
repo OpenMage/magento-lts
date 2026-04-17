@@ -15,7 +15,9 @@
 abstract class Mage_CatalogIndex_Model_Indexer_Abstract extends Mage_Core_Model_Abstract implements Mage_CatalogIndex_Model_Indexer_Interface
 {
     protected $_processChildren = true;
+
     protected $_processChildrenForConfigurable = true;
+
     protected $_runOnce = false;
 
     /**
@@ -61,6 +63,7 @@ abstract class Mage_CatalogIndex_Model_Indexer_Abstract extends Mage_Core_Model_
                 }
             }
         }
+
         $function = 'saveIndex';
         if ($data && is_array($data)) {
             if (isset($data[0]) && is_array($data[0])) {
@@ -86,8 +89,8 @@ abstract class Mage_CatalogIndex_Model_Indexer_Abstract extends Mage_Core_Model_
 
     /**
      * @param array $data
-     * @param int $storeId
-     * @param int $productId
+     * @param int   $storeId
+     * @param int   $productId
      */
     public function saveIndex($data, $storeId, $productId)
     {
@@ -112,8 +115,8 @@ abstract class Mage_CatalogIndex_Model_Indexer_Abstract extends Mage_Core_Model_
             return false;
         }
 
-        if ($object->getVisibility() != Mage_Catalog_Model_Product_Visibility::VISIBILITY_IN_CATALOG &&
-            $object->getVisibility() != Mage_Catalog_Model_Product_Visibility::VISIBILITY_BOTH
+        if ($object->getVisibility() != Mage_Catalog_Model_Product_Visibility::VISIBILITY_IN_CATALOG
+            && $object->getVisibility() != Mage_Catalog_Model_Product_Visibility::VISIBILITY_BOTH
         ) {
             return false;
         }
@@ -146,7 +149,7 @@ abstract class Mage_CatalogIndex_Model_Indexer_Abstract extends Mage_Core_Model_
     }
 
     /**
-     * @return array
+     * @return array<string, string>|array<void>|string
      */
     protected function _getIndexableAttributeConditions()
     {

@@ -25,14 +25,11 @@ class Mage_Core_Model_Observer
         if (!$adminSession->hasSyncProcessStopWatch()) {
             $flag = Mage::getSingleton('core/file_storage')->getSyncFlag();
             $state = $flag->getState();
-            if ($state == Mage_Core_Model_File_Storage_Flag::STATE_RUNNING) {
-                $syncProcessStopWatch = true;
-            } else {
-                $syncProcessStopWatch = false;
-            }
+            $syncProcessStopWatch = $state == Mage_Core_Model_File_Storage_Flag::STATE_RUNNING;
 
             $adminSession->setSyncProcessStopWatch($syncProcessStopWatch);
         }
+
         $adminSession->setSyncProcessStopWatch(false);
 
         if (!$adminSession->getSyncProcessStopWatch()) {
@@ -104,14 +101,15 @@ class Mage_Core_Model_Observer
     /**
      * Checks method availability for processing in variable
      *
-     * @throws Exception
      * @return Mage_Core_Model_Observer
+     * @throws Exception
      */
     public function secureVarProcessing(Varien_Event_Observer $observer)
     {
         if (Mage::registry('varProcessing')) {
             Mage::throwException(Mage::helper('core')->__('Disallowed template variable method.'));
         }
+
         return $this;
     }
 }

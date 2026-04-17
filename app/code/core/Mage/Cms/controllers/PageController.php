@@ -16,7 +16,6 @@ class Mage_Cms_PageController extends Mage_Core_Controller_Front_Action
 {
     /**
      * View CMS page action
-     *
      */
     public function viewAction()
     {

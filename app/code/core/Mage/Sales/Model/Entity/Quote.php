@@ -26,9 +26,9 @@ class Mage_Sales_Model_Entity_Quote extends Mage_Eav_Model_Entity_Abstract
     /**
      * Retrieve select object for loading base entity row
      *
-     * @param   Varien_Object|Mage_Sales_Model_Quote $object
-     * @param   int $rowId
-     * @return  Zend_Db_Select
+     * @param  Mage_Sales_Model_Quote|Varien_Object $object
+     * @param  int                                  $rowId
+     * @return Zend_Db_Select
      */
     protected function _getLoadRowSelect($object, $rowId)
     {
@@ -36,14 +36,15 @@ class Mage_Sales_Model_Entity_Quote extends Mage_Eav_Model_Entity_Abstract
         if ($object->getSharedStoreIds()) {
             $select->where('store_id IN (?)', $object->getSharedStoreIds());
         }
+
         return $select;
     }
 
     /**
      * Loading quote by customer identifier
      *
-     * @param Mage_Sales_Model_Quote $quote
-     * @param int $customerId
+     * @param  Mage_Sales_Model_Quote $quote
+     * @param  int                    $customerId
      * @return $this
      */
     public function loadByCustomerId($quote, $customerId)
@@ -67,14 +68,15 @@ class Mage_Sales_Model_Entity_Quote extends Mage_Eav_Model_Entity_Abstract
                 return $this;
             }
         }
+
         return $this;
     }
 
     /**
      * Loading quote by identifier
      *
-     * @param Mage_Sales_Model_Quote $quote
-     * @param int $quoteId
+     * @param  Mage_Sales_Model_Quote $quote
+     * @param  int                    $quoteId
      * @return $this
      */
     public function loadByIdWithoutStore($quote, $quoteId)
@@ -92,11 +94,12 @@ class Mage_Sales_Model_Entity_Quote extends Mage_Eav_Model_Entity_Abstract
                 return $this;
             }
         }
+
         return $this;
     }
 
     /**
-     * @param Mage_Sales_Model_Quote $quote
+     * @param  Mage_Sales_Model_Quote $quote
      * @return string
      * @throws Exception
      */

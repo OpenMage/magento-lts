@@ -14,6 +14,9 @@
  */
 class Mage_Catalog_Model_Resource_Product_Option_Value extends Mage_Core_Model_Resource_Db_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('catalog/product_option_type_value', 'option_type_id');
@@ -93,6 +96,7 @@ class Mage_Catalog_Model_Resource_Product_Option_Value extends Mage_Core_Model_R
                         if (!$rate) {
                             $rate = 1;
                         }
+
                         $newPrice = $price * $rate;
                     } else {
                         $newPrice = $price;
@@ -207,7 +211,7 @@ class Mage_Catalog_Model_Resource_Product_Option_Value extends Mage_Core_Model_R
     /**
      * Delete values by option id
      *
-     * @param int|string $optionId
+     * @param  int|string $optionId
      * @return $this
      */
     public function deleteValue($optionId)
@@ -257,8 +261,8 @@ class Mage_Catalog_Model_Resource_Product_Option_Value extends Mage_Core_Model_R
     /**
      * Duplicate product options value
      *
-     * @param int $oldOptionId
-     * @param int $newOptionId
+     * @param  int                                     $oldOptionId
+     * @param  int                                     $newOptionId
      * @return Mage_Catalog_Model_Product_Option_Value
      */
     public function duplicate(Mage_Catalog_Model_Product_Option_Value $object, $oldOptionId, $newOptionId)

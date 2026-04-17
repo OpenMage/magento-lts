@@ -36,6 +36,9 @@ class Mage_Sales_Model_Resource_Order_Shipment extends Mage_Sales_Model_Resource
      */
     protected $_entityTypeForIncrementId     = 'shipment';
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('sales/shipment', 'entity_id');
@@ -60,7 +63,7 @@ class Mage_Sales_Model_Resource_Order_Shipment extends Mage_Sales_Model_Resource
             $adapter->quote(' '),
             $checkedLastname,
         ]);
-        $concatName = new Zend_Db_Expr("TRIM(REPLACE($concatName,'  ', ' '))");
+        $concatName = new Zend_Db_Expr("TRIM(REPLACE({$concatName},'  ', ' '))");
 
         $this->addVirtualGridColumn(
             'shipping_name',

@@ -13,7 +13,9 @@
 class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_Varien_Router_Abstract
 {
     protected $_modules = [];
+
     protected $_routes = [];
+
     protected $_dispatchData = [];
 
     /**
@@ -27,6 +29,7 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
         if ($routersConfigNode) {
             $routers = $routersConfigNode->children();
         }
+
         foreach ($routers as $routerName => $routerConfig) {
             $use = (string) $routerConfig->use;
             if ($use == $useRouterName) {
@@ -40,12 +43,14 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
                                 if ($position === false) {
                                     $position = 0;
                                 }
+
                                 array_splice($modules, $position, 0, (string) $customModule);
                             } elseif ($after = $customModule->getAttribute('after')) {
                                 $position = array_search($after, $modules);
                                 if ($position === false) {
                                     $position = count($modules);
                                 }
+
                                 array_splice($modules, $position + 1, 0, (string) $customModule);
                             } else {
                                 $modules[] = (string) $customModule;
@@ -76,10 +81,7 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
      */
     protected function _beforeModuleMatch()
     {
-        if (Mage::app()->getStore()->isAdmin()) {
-            return false;
-        }
-        return true;
+        return !Mage::app()->getStore()->isAdmin();
     }
 
     /**
@@ -111,21 +113,18 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
         $front = $this->getFront();
         $path = trim($request->getPathInfo(), '/');
 
-        if ($path) {
-            $p = explode('/', $path);
-        } else {
-            $p = explode('/', $this->_getDefaultPath());
-        }
+        $pathArray = $path ? explode('/', $path) : explode('/', $this->_getDefaultPath());
 
         // get module name
         if ($request->getModuleName()) {
             $module = $request->getModuleName();
-        } elseif (!empty($p[0])) {
-            $module = $p[0];
+        } elseif (!empty($pathArray[0])) {
+            $module = $pathArray[0];
         } else {
             $module = $this->getFront()->getDefault('module');
             $request->setAlias(Mage_Core_Model_Url_Rewrite::REWRITE_REQUEST_PATH_ALIAS, '');
         }
+
         if (!$module) {
             if (Mage::app()->getStore()->isAdmin()) {
                 $module = 'admin';
@@ -158,8 +157,8 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
             // get controller name
             if ($request->getControllerName()) {
                 $controller = $request->getControllerName();
-            } elseif (!empty($p[1])) {
-                $controller = $p[1];
+            } elseif (!empty($pathArray[1])) {
+                $controller = $pathArray[1];
             } else {
                 $controller = $front->getDefault('controller');
                 $request->setAlias(
@@ -173,7 +172,7 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
                 if ($request->getActionName()) {
                     $action = $request->getActionName();
                 } else {
-                    $action = !empty($p[2]) ? $p[2] : $front->getDefault('action');
+                    $action = empty($pathArray[2]) ? $front->getDefault('action') : $pathArray[2];
                 }
             }
 
@@ -234,16 +233,18 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
         if (isset($controller)) {
             $request->setControllerName($controller);
         }
+
         if (isset($action)) {
             $request->setActionName($action);
         }
+
         if (isset($realModule)) {
             $request->setControllerModule($realModule);
         }
 
         // set parameters from path info
-        for ($i = 3, $l = count($p); $i < $l; $i += 2) {
-            $request->setParam($p[$i], isset($p[$i + 1]) ? urldecode($p[$i + 1]) : '');
+        for ($i = 3, $l = count($pathArray); $i < $l; $i += 2) {
+            $request->setParam($pathArray[$i], isset($pathArray[$i + 1]) ? urldecode($pathArray[$i + 1]) : '');
         }
 
         // dispatch action
@@ -277,7 +278,7 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
     /**
      * Check if current controller instance is allowed in current router.
      *
-     * @param Mage_Core_Controller_Varien_Action $controllerInstance
+     * @param  Mage_Core_Controller_Varien_Action $controllerInstance
      * @return bool
      */
     protected function _validateControllerInstance($controllerInstance)
@@ -289,8 +290,8 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
      * Generating and validating class file name,
      * class and if everything ok do include if needed and return of class name
      *
-     * @param string $realModule
-     * @param string $controller
+     * @param  string              $realModule
+     * @param  string              $controller
      * @return false|string
      * @throws Mage_Core_Exception
      */
@@ -315,8 +316,8 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
     }
 
     /**
-     * @param string $controllerFileName
-     * @param string $controllerClassName
+     * @param  string              $controllerFileName
+     * @param  string              $controllerClassName
      * @return bool
      * @throws Mage_Core_Exception
      * @deprecated
@@ -330,8 +331,8 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
     /**
      * Include the file containing controller class if this class is not defined yet
      *
-     * @param string $controllerFileName
-     * @param string $controllerClassName
+     * @param  string $controllerFileName
+     * @param  string $controllerClassName
      * @return bool
      */
     protected function _includeControllerClass($controllerFileName, $controllerClassName)
@@ -340,19 +341,21 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
             if (!file_exists($controllerFileName)) {
                 return false;
             }
+
             include $controllerFileName;
 
             if (!class_exists($controllerClassName, false)) {
                 throw Mage::exception('Mage_Core', Mage::helper('core')->__('Controller file was loaded but class does not exist'));
             }
         }
+
         return true;
     }
 
     /**
-     * @param string $frontName
-     * @param array $moduleNames
-     * @param string $routeName
+     * @param  string $frontName
+     * @param  array  $moduleNames
+     * @param  string $routeName
      * @return $this
      */
     public function addModule($frontName, $moduleNames, $routeName)
@@ -363,8 +366,8 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
     }
 
     /**
-     * @param string $frontName
-     * @return bool|array
+     * @param  string     $frontName
+     * @return array|bool
      */
     public function getModuleByFrontName($frontName)
     {
@@ -372,8 +375,8 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
     }
 
     /**
-     * @param string $moduleName
-     * @param array $modules
+     * @param  string $moduleName
+     * @param  array  $modules
      * @return bool
      */
     public function getModuleByName($moduleName, $modules)
@@ -385,20 +388,21 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
                 return true;
             }
         }
+
         return false;
     }
 
     /**
-     * @param string $routeName
+     * @param  string       $routeName
      * @return false|string
      */
     public function getFrontNameByRoute($routeName)
     {
-        return $this->_routes[$routeName] ?? false;
+        return $this->_routes[(string) $routeName] ?? false;
     }
 
     /**
-     * @param string $frontName
+     * @param  string           $frontName
      * @return false|int|string
      */
     public function getRouteByFrontName($frontName)
@@ -407,8 +411,8 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
     }
 
     /**
-     * @param string $realModule
-     * @param string $controller
+     * @param  string $realModule
+     * @param  string $controller
      * @return string
      */
     public function getControllerFileName($realModule, $controller)
@@ -416,27 +420,25 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
         $parts = explode('_', $realModule);
         $realModule = implode('_', array_splice($parts, 0, 2));
         $file = Mage::getModuleDir('controllers', $realModule);
-        if (count($parts)) {
+        if ($parts !== []) {
             $file .= DS . implode(DS, $parts);
         }
+
         return $file . (DS . uc_words($controller, DS) . 'Controller.php');
     }
 
     /**
-     * @param string $fileName
+     * @param  string $fileName
      * @return bool
      */
     public function validateControllerFileName($fileName)
     {
-        if ($fileName && is_readable($fileName) && !str_contains($fileName, '//')) {
-            return true;
-        }
-        return false;
+        return $fileName && is_readable($fileName) && !str_contains($fileName, '//');
     }
 
     /**
-     * @param string $realModule
-     * @param string $controller
+     * @param  string $realModule
+     * @param  string $controller
      * @return string
      */
     public function getControllerClassName($realModule, $controller)
@@ -445,29 +447,25 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
     }
 
     /**
-     * @param string[] $p
+     * @param  string[] $paths
      * @return string[]
      */
-    public function rewrite(array $p)
+    public function rewrite(array $paths)
     {
         $rewrite = Mage::getConfig()->getNode('global/rewrite');
-        if ($module = $rewrite->{$p[0]}) {
-            if (!$module->children()) {
-                $p[0] = trim((string) $module);
-            }
-        }
-        if (isset($p[1]) && ($controller = $rewrite->{$p[0]}->{$p[1]})) {
-            if (!$controller->children()) {
-                $p[1] = trim((string) $controller);
-            }
-        }
-        if (isset($p[2]) && ($action = $rewrite->{$p[0]}->{$p[1]}->{$p[2]})) {
-            if (!$action->children()) {
-                $p[2] = trim((string) $action);
-            }
+        if (($module = $rewrite->{$paths[0]}) && !$module->children()) {
+            $paths[0] = trim((string) $module);
         }
 
-        return $p;
+        if (isset($paths[1]) && ($controller = $rewrite->{$paths[0]}->{$paths[1]}) && !$controller->children()) {
+            $paths[1] = trim((string) $controller);
+        }
+
+        if (isset($paths[2]) && ($action = $rewrite->{$paths[0]}->{$paths[1]}->{$paths[2]}) && !$action->children()) {
+            $paths[2] = trim((string) $action);
+        }
+
+        return $paths;
     }
 
     /**
@@ -475,7 +473,7 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
      * Function redirects user to correct URL if needed.
      *
      * @param Mage_Core_Controller_Request_Http $request
-     * @param string $path
+     * @param string                            $path
      * @SuppressWarnings("PHPMD.ExitExpression")
      */
     protected function _checkShouldBeSecure($request, $path = '')
@@ -498,7 +496,7 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
     }
 
     /**
-     * @param Mage_Core_Controller_Request_Http $request
+     * @param  Mage_Core_Controller_Request_Http $request
      * @return string
      */
     protected function _getCurrentSecureUrl($request)
@@ -513,7 +511,7 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
     /**
      * Check whether URL for corresponding path should use https protocol
      *
-     * @param string $path
+     * @param  string $path
      * @return bool
      */
     protected function _shouldBeSecure($path)

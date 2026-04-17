@@ -17,7 +17,7 @@ class Mage_Api_Model_Server_Adapter_Jsonrpc extends Varien_Object implements Mag
     /**
      * Set handler class name for webservice
      *
-     * @param string $handler
+     * @param  string $handler
      * @return $this
      */
     public function setHandler($handler)
@@ -33,7 +33,7 @@ class Mage_Api_Model_Server_Adapter_Jsonrpc extends Varien_Object implements Mag
      */
     public function getHandler()
     {
-        return $this->getData('handler');
+        return $this->getDataByKey('handler');
     }
 
     /**
@@ -54,7 +54,7 @@ class Mage_Api_Model_Server_Adapter_Jsonrpc extends Varien_Object implements Mag
      */
     public function getController()
     {
-        $controller = $this->getData('controller');
+        $controller = $this->getDataByKey('controller');
 
         if (null === $controller) {
             $controller = new Varien_Object(
@@ -63,6 +63,7 @@ class Mage_Api_Model_Server_Adapter_Jsonrpc extends Varien_Object implements Mag
 
             $this->setData('controller', $controller);
         }
+
         return $controller;
     }
 
@@ -108,7 +109,7 @@ class Mage_Api_Model_Server_Adapter_Jsonrpc extends Varien_Object implements Mag
     /**
      * Dispatch webservice fault
      *
-     * @param int $code
+     * @param int    $code
      * @param string $message
      */
     public function fault($code, $message)

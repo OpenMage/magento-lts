@@ -64,15 +64,16 @@ class Mage_ImportExport_Adminhtml_ExportController extends Mage_Adminhtml_Contro
                     $result,
                     $model->getContentType(),
                 );
-            } catch (Mage_Core_Exception $e) {
-                $this->_getSession()->addError($e->getMessage());
-            } catch (Exception $e) {
-                Mage::logException($e);
+            } catch (Mage_Core_Exception $mageCoreException) {
+                $this->_getSession()->addError($mageCoreException->getMessage());
+            } catch (Exception $exception) {
+                Mage::logException($exception);
                 $this->_getSession()->addError($this->__('No valid data sent'));
             }
         } else {
             $this->_getSession()->addError($this->__('No valid data sent'));
         }
+
         return $this->_redirect('*/*/index');
     }
 
@@ -109,12 +110,13 @@ class Mage_ImportExport_Adminhtml_ExportController extends Mage_Adminhtml_Contro
                     ),
                 );
                 return $this->renderLayout();
-            } catch (Exception $e) {
-                $this->_getSession()->addError($e->getMessage());
+            } catch (Exception $exception) {
+                $this->_getSession()->addError($exception->getMessage());
             }
         } else {
             $this->_getSession()->addError($this->__('No valid data sent'));
         }
+
         $this->_redirect('*/*/index');
     }
 }

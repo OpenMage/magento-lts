@@ -42,6 +42,7 @@ abstract class Mage_Catalog_Model_Api2_Product_Category_Rest extends Mage_Catalo
         foreach ($this->_getCategoryIds() as $categoryId) {
             $return[] = ['category_id' => $categoryId];
         }
+
         return $return;
     }
 
@@ -56,7 +57,7 @@ abstract class Mage_Catalog_Model_Api2_Product_Category_Rest extends Mage_Catalo
     /**
      * Load category by id
      *
-     * @param int $categoryId
+     * @param  int                         $categoryId
      * @return Mage_Catalog_Model_Category
      */
     protected function _getCategoryById($categoryId)

@@ -12,15 +12,15 @@
  *
  * @package    Mage_Catalog
  *
- * @method $this setConfigurationItemOption(Varien_Object $value)
- * @method bool getIsValid()
- * @method $this setIsValid(bool $value)
- * @method string getProcessMode()
- * @method $this setProcessMode(string $value)
- * @method $this setQuoteItem(Mage_Sales_Model_Quote_Item $value)
+ * @method bool      getIsValid()
+ * @method string    getProcessMode()
  * @method array|int getUserValue()
- * @method $this setRequest(Varien_Object $value)
- * @method $this setUserValue(array|int $value)
+ * @method $this     setConfigurationItemOption(Varien_Object $value)
+ * @method $this     setIsValid(bool $value)
+ * @method $this     setProcessMode(string $value)
+ * @method $this     setQuoteItem(Mage_Sales_Model_Quote_Item $value)
+ * @method $this     setRequest(Varien_Object $value)
+ * @method $this     setUserValue(null|array|int $value)
  */
 class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
 {
@@ -39,19 +39,19 @@ class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
     protected $_product;
 
     /**
-     * @var    mixed
+     * @var mixed
      */
     protected $_productOptions = [];
 
     /**
-     * @var string|null
+     * @var null|string
      */
     protected $_formattedOptionValue = null;
 
     /**
      * Option Instance setter
      *
-     * @param Mage_Catalog_Model_Product_Option $option
+     * @param  Mage_Catalog_Model_Product_Option $option
      * @return $this
      */
     public function setOption($option)
@@ -71,13 +71,14 @@ class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
         if ($this->_option instanceof Mage_Catalog_Model_Product_Option) {
             return $this->_option;
         }
+
         Mage::throwException(Mage::helper('catalog')->__('Wrong option instance type in options group.'));
     }
 
     /**
      * Product Instance setter
      *
-     * @param Mage_Catalog_Model_Product $product
+     * @param  Mage_Catalog_Model_Product $product
      * @return $this
      */
     public function setProduct($product)
@@ -89,14 +90,15 @@ class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
     /**
      * Product Instance getter
      *
-     * @throws Mage_Core_Exception
      * @return Mage_Catalog_Model_Product
+     * @throws Mage_Core_Exception
      */
     public function getProduct()
     {
         if ($this->_product instanceof Mage_Catalog_Model_Product) {
             return $this->_product;
         }
+
         Mage::throwException(Mage::helper('catalog')->__('Wrong product instance type in options group.'));
     }
 
@@ -120,18 +122,6 @@ class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
     }
 
     /**
-     * Getter for Quote Item Option
-     * Deprecated in favor of getConfigurationItemOption()
-     *
-     * @return Mage_Catalog_Model_Product_Configuration_Item_Option_Interface
-     * @deprecated after 1.4.2.0
-     */
-    public function getQuoteItemOption()
-    {
-        return $this->getConfigurationItemOption();
-    }
-
-    /**
      * Getter for Configuration Item
      *
      * @return Mage_Catalog_Model_Product_Configuration_Item_Interface
@@ -151,18 +141,6 @@ class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
     }
 
     /**
-     * Getter for Quote Item
-     * Deprecated in favor of getConfigurationItem()
-     *
-     * @return Mage_Catalog_Model_Product_Configuration_Item_Interface
-     * @deprecated after 1.4.2.0
-     */
-    public function getQuoteItem()
-    {
-        return $this->getConfigurationItem();
-    }
-
-    /**
      * Getter for Buy Request
      *
      * @return Varien_Object
@@ -172,13 +150,14 @@ class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
         if ($this->_getData('request') instanceof Varien_Object) {
             return $this->_getData('request');
         }
+
         Mage::throwException(Mage::helper('catalog')->__('Wrong BuyRequest instance in options group.'));
     }
 
     /**
      * Store Config value
      *
-     * @param string $key Config value key
+     * @param  string $key Config value key
      * @return string
      */
     public function getConfigData($key)
@@ -189,9 +168,9 @@ class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
     /**
      * Validate user input for option
      *
-     * @throws Mage_Core_Exception
-     * @param array $values All product option values, i.e. array (option_id => mixed, option_id => mixed...)
+     * @param  array               $values All product option values, i.e. array (option_id => mixed, option_id => mixed...)
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function validateUserValue($values)
     {
@@ -206,6 +185,7 @@ class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
             $this->setUserValue($values[$option->getId()]);
             $this->setIsValid(true);
         }
+
         return $this;
     }
 
@@ -216,21 +196,25 @@ class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
      */
     public function getSkipCheckRequiredOption()
     {
-        return $this->getProduct()->getSkipCheckRequiredOption() ||
-            $this->getProcessMode() == Mage_Catalog_Model_Product_Type_Abstract::PROCESS_MODE_LITE;
+        if ($this->getProduct()->getSkipCheckRequiredOption()) {
+            return true;
+        }
+
+        return $this->getProcessMode() == Mage_Catalog_Model_Product_Type_Abstract::PROCESS_MODE_LITE;
     }
 
     /**
      * Prepare option value for cart
      *
+     * @return mixed               Prepared option value
      * @throws Mage_Core_Exception
-     * @return mixed Prepared option value
      */
     public function prepareForCart()
     {
         if ($this->getIsValid()) {
             return $this->getUserValue();
         }
+
         Mage::throwException(Mage::helper('catalog')->__('Option validation failed to add product to cart.'));
     }
 
@@ -247,7 +231,7 @@ class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
     /**
      * Return formatted option value for quote option
      *
-     * @param string $optionValue Prepared for cart option value
+     * @param  string $optionValue Prepared for cart option value
      * @return string
      */
     public function getFormattedOptionValue($optionValue)
@@ -258,8 +242,8 @@ class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
     /**
      * Return option html
      *
-     * @param array $optionInfo
-     * @return string|array
+     * @param  array<string, mixed>        $optionInfo
+     * @return array<string, mixed>|string
      */
     public function getCustomizedView($optionInfo)
     {
@@ -269,7 +253,7 @@ class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
     /**
      * Return printable option value
      *
-     * @param string $optionValue Prepared for cart option value
+     * @param  string $optionValue Prepared for cart option value
      * @return string
      */
     public function getPrintableOptionValue($optionValue)
@@ -281,7 +265,7 @@ class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
      * Return formatted option value ready to edit, ready to parse
      * (ex: Admin re-order, see Mage_Adminhtml_Model_Sales_Order_Create)
      *
-     * @param string $optionValue Prepared for cart option value
+     * @param  string $optionValue Prepared for cart option value
      * @return string
      */
     public function getEditableOptionValue($optionValue)
@@ -292,9 +276,9 @@ class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
     /**
      * Parse user input value and return cart prepared value, i.e. "one, two" => "1,2"
      *
-     * @param string $optionValue
-     * @param array $productOptionValues Values for product option
-     * @return string|null
+     * @param  string      $optionValue
+     * @param  array       $productOptionValues Values for product option
+     * @return null|string
      */
     public function parseOptionValue($optionValue, $productOptionValues)
     {
@@ -304,7 +288,7 @@ class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
     /**
      * Prepare option value for info buy request
      *
-     * @param string $optionValue
+     * @param  string $optionValue
      * @return mixed
      */
     public function prepareOptionValueForRequest($optionValue)
@@ -315,8 +299,8 @@ class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
     /**
      * Return Price for selected option
      *
-     * @param string $optionValue Prepared for cart option value
-     * @param float $basePrice For percent price type
+     * @param  string $optionValue Prepared for cart option value
+     * @param  float  $basePrice   For percent price type
      * @return float
      */
     public function getOptionPrice($optionValue, $basePrice)
@@ -333,8 +317,8 @@ class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
     /**
      * Return SKU for selected option
      *
-     * @param string $optionValue Prepared for cart option value
-     * @param string $skuDelimiter Delimiter for Sku parts
+     * @param  string $optionValue  Prepared for cart option value
+     * @param  string $skuDelimiter Delimiter for Sku parts
      * @return string
      */
     public function getOptionSku($optionValue, $skuDelimiter)
@@ -357,29 +341,31 @@ class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
                     foreach ($option->getValues() as $value) {
                         $optionValues[$value->getTitle()] = $value->getId();
                     }
+
                     $this->_productOptions[$this->getProduct()->getId()][$option->getTitle()]['values'] = $optionValues;
                 } else {
                     $this->_productOptions[$this->getProduct()->getId()][$option->getTitle()]['values'] = [];
                 }
             }
         }
+
         return $this->_productOptions[$this->getProduct()->getId()] ?? [];
     }
 
     /**
      * Return final chargable price for option
      *
-     * @param float $price Price of option
-     * @param bool $isPercent Price type - percent or fixed
-     * @param float $basePrice For percent price type
+     * @param  float $price     Price of option
+     * @param  bool  $isPercent Price type - percent or fixed
+     * @param  float $basePrice For percent price type
      * @return float
      */
     protected function _getChargableOptionPrice($price, $isPercent, $basePrice)
     {
         if ($isPercent) {
             return ($basePrice * $price / 100);
-        } else {
-            return $price;
         }
+
+        return $price;
     }
 }

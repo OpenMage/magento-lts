@@ -31,6 +31,7 @@ class Mage_CatalogRule_Model_Rule_Condition_Combine extends Mage_Rule_Model_Cond
         foreach ($productAttributes as $code => $label) {
             $attributes[] = ['value' => 'catalogrule/rule_condition_product|' . $code, 'label' => $label];
         }
+
         $conditions = parent::getNewChildSelectOptions();
         return array_merge_recursive($conditions, [
             ['value' => 'catalogrule/rule_condition_combine', 'label' => Mage::helper('catalogrule')->__('Conditions Combination')],
@@ -39,7 +40,7 @@ class Mage_CatalogRule_Model_Rule_Condition_Combine extends Mage_Rule_Model_Cond
     }
 
     /**
-     * @param Mage_Catalog_Model_Resource_Product_Collection $productCollection
+     * @param  Mage_Catalog_Model_Resource_Product_Collection $productCollection
      * @return $this
      */
     public function collectValidatedAttributes($productCollection)
@@ -47,6 +48,7 @@ class Mage_CatalogRule_Model_Rule_Condition_Combine extends Mage_Rule_Model_Cond
         foreach ($this->getConditions() as $condition) {
             $condition->collectValidatedAttributes($productCollection);
         }
+
         return $this;
     }
 }

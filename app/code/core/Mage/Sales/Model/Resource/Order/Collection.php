@@ -11,6 +11,7 @@
  * Flat sales order collection
  *
  * @package    Mage_Sales
+ * @extends Mage_Sales_Model_Resource_Collection_Abstract<Mage_Sales_Model_Order>
  */
 class Mage_Sales_Model_Resource_Order_Collection extends Mage_Sales_Model_Resource_Collection_Abstract
 {
@@ -24,6 +25,9 @@ class Mage_Sales_Model_Resource_Order_Collection extends Mage_Sales_Model_Resour
      */
     protected $_eventObject    = 'order_collection';
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('sales/order');
@@ -46,6 +50,7 @@ class Mage_Sales_Model_Resource_Order_Collection extends Mage_Sales_Model_Resour
         } else {
             $this->addFieldToSelect('total_item_count', 'items_count');
         }
+
         return $this;
     }
 
@@ -65,8 +70,8 @@ class Mage_Sales_Model_Resource_Order_Collection extends Mage_Sales_Model_Resour
     /**
      * Reset left join
      *
-     * @param int $limit
-     * @param int $offset
+     * @param  int              $limit
+     * @param  int              $offset
      * @return Varien_Db_Select
      */
     protected function _getAllIdsSelect($limit = null, $offset = null)
@@ -78,7 +83,7 @@ class Mage_Sales_Model_Resource_Order_Collection extends Mage_Sales_Model_Resour
 
     /**
      * Join table sales_flat_order_address to select for billing and shipping order addresses.
-     * Create corillation map
+     * Create correlation map
      *
      * @return $this
      */
@@ -147,11 +152,10 @@ class Mage_Sales_Model_Resource_Order_Collection extends Mage_Sales_Model_Resour
     /**
      * Add field search filter to collection as OR condition
      *
-     * @see self::_getConditionSql for $condition
-     *
-     * @param string $field
-     * @param null|string|array $condition
+     * @param  string            $field
+     * @param  null|array|string $condition
      * @return $this
+     * @see self::_getConditionSql for $condition
      */
     public function addFieldToSearchFilter($field, $condition = null)
     {
@@ -163,16 +167,15 @@ class Mage_Sales_Model_Resource_Order_Collection extends Mage_Sales_Model_Resour
     /**
      * Specify collection select filter by attribute value
      *
-     * @param array $attributes
-     * @param array|int|string|null $condition
+     * @param  array|Mage_Eav_Model_Entity_Attribute|string $attributes
+     * @param  null|array|int|string                        $condition
      * @return $this
      */
     public function addAttributeToSearchFilter($attributes, $condition = null)
     {
-        if (is_array($attributes) && !empty($attributes)) {
+        if (is_array($attributes) && $attributes !== []) {
             $this->_addAddressFields();
 
-            $toFilterData = [];
             foreach ($attributes as $attribute) {
                 $this->addFieldToSearchFilter($this->_attributeToField($attribute['attribute']), $attribute);
             }
@@ -186,7 +189,7 @@ class Mage_Sales_Model_Resource_Order_Collection extends Mage_Sales_Model_Resour
     /**
      * Add filter by specified billing agreements
      *
-     * @param int|array $agreements
+     * @param  array|int $agreements
      * @return $this
      */
     public function addBillingAgreementsFilter($agreements)
@@ -205,7 +208,7 @@ class Mage_Sales_Model_Resource_Order_Collection extends Mage_Sales_Model_Resour
     /**
      * Add filter by specified recurring profile id(s)
      *
-     * @param array|int $ids
+     * @param  array|int $ids
      * @return $this
      */
     public function addRecurringProfilesFilter($ids)

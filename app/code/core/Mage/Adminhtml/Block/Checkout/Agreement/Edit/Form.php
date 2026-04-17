@@ -16,7 +16,6 @@ class Mage_Adminhtml_Block_Checkout_Agreement_Edit_Form extends Mage_Adminhtml_B
 {
     /**
      * Init class
-     *
      */
     public function __construct()
     {
@@ -27,7 +26,6 @@ class Mage_Adminhtml_Block_Checkout_Agreement_Edit_Form extends Mage_Adminhtml_B
     }
 
     /**
-     *
      * return Mage_Adminhtml_Block_Widget_Form
      */
     protected function _prepareForm()
@@ -35,7 +33,7 @@ class Mage_Adminhtml_Block_Checkout_Agreement_Edit_Form extends Mage_Adminhtml_B
         $model  = Mage::registry('checkout_agreement');
         $form   = new Varien_Data_Form([
             'id'        => 'edit_form',
-            'action'    => $this->getData('action'),
+            'action'    => $this->getDataByKey('action'),
             'method'    => 'post',
         ]);
 
@@ -49,6 +47,7 @@ class Mage_Adminhtml_Block_Checkout_Agreement_Edit_Form extends Mage_Adminhtml_B
                 'name' => 'agreement_id',
             ]);
         }
+
         $fieldset->addField('name', 'text', [
             'name'      => 'name',
             'label'     => Mage::helper('checkout')->__('Condition Name'),

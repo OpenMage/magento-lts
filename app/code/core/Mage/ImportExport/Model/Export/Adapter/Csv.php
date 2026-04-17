@@ -89,8 +89,8 @@ class Mage_ImportExport_Model_Export_Adapter_Csv extends Mage_ImportExport_Model
     /**
      * Write row data to source file.
      *
-     * @throws Exception
      * @return Mage_ImportExport_Model_Export_Adapter_Abstract
+     * @throws Exception
      */
     public function writeRow(array $rowData)
     {

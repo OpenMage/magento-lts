@@ -12,9 +12,9 @@
  *
  * @package    Mage_Sales
  *
- * @method int getCustomerId()
+ * @method int                                        getCustomerId()
  * @method Mage_Sales_Model_Resource_Order_Collection getOrders()
- * @method $this setOrders(Mage_Sales_Model_Resource_Order_Collection $value)
+ * @method $this                                      setOrders(Mage_Sales_Model_Resource_Order_Collection $value)
  */
 class Mage_Sales_Block_Reorder_Sidebar extends Mage_Core_Block_Template
 {
@@ -55,7 +55,7 @@ class Mage_Sales_Block_Reorder_Sidebar extends Mage_Core_Block_Template
     /**
      * Get list of last ordered products
      *
-     * @return array
+     * @return Mage_Sales_Model_Order_Item[]
      */
     public function getItems()
     {
@@ -85,6 +85,7 @@ class Mage_Sales_Block_Reorder_Sidebar extends Mage_Core_Block_Template
         if ($orderItem->getProduct()) {
             return $orderItem->getProduct()->getStockItem()->getIsInStock();
         }
+
         return false;
     }
 
@@ -102,7 +103,7 @@ class Mage_Sales_Block_Reorder_Sidebar extends Mage_Core_Block_Template
     /**
      * Last order getter
      *
-     * @return Mage_Sales_Model_Order|bool
+     * @return bool|Mage_Sales_Model_Order
      */
     public function getLastOrder()
     {
@@ -113,6 +114,7 @@ class Mage_Sales_Block_Reorder_Sidebar extends Mage_Core_Block_Template
         foreach ($this->getOrders() as $order) {
             return $order;
         }
+
         return false;
     }
 
@@ -152,7 +154,7 @@ class Mage_Sales_Block_Reorder_Sidebar extends Mage_Core_Block_Template
     /**
      * Retrieve products list from items
      *
-     * @return array
+     * @return Mage_Catalog_Model_Product[]
      */
     protected function _getItemProducts()
     {
@@ -160,6 +162,7 @@ class Mage_Sales_Block_Reorder_Sidebar extends Mage_Core_Block_Template
         foreach ($this->getItems() as $item) {
             $products[] = $item->getProduct();
         }
+
         return $products;
     }
 }

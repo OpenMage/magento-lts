@@ -7,7 +7,7 @@
  * @package    Mage_Rating
  */
 
-/** @var Mage_Core_Model_Resource_Setup $installer */
+/** @var Mage_Core_Model_Resource_Setup $this */
 $installer = $this;
 
 $data = [
@@ -53,6 +53,7 @@ foreach ($data as $entityCode => $ratings) {
                 'position'  => $i,
             ];
         }
+
         $installer->getConnection()->insertMultiple($installer->getTable('rating_option'), $optionData);
     }
 }

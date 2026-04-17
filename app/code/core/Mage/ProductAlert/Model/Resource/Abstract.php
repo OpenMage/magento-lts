@@ -35,6 +35,7 @@ abstract class Mage_ProductAlert_Model_Resource_Abstract extends Mage_Core_Model
             ];
             return $adapter->fetchRow($select, $bind);
         }
+
         return false;
     }
 
@@ -49,14 +50,15 @@ abstract class Mage_ProductAlert_Model_Resource_Abstract extends Mage_Core_Model
         if ($row) {
             $object->setData($row);
         }
+
         return $this;
     }
 
     /**
      * Delete all customer alerts on website
      *
-     * @param int $customerId
-     * @param int $websiteId
+     * @param  int                                       $customerId
+     * @param  int                                       $websiteId
      * @return Mage_ProductAlert_Model_Resource_Abstract
      */
     public function deleteCustomer(Mage_Core_Model_Abstract $object, $customerId, $websiteId = null)
@@ -67,6 +69,7 @@ abstract class Mage_ProductAlert_Model_Resource_Abstract extends Mage_Core_Model
         if ($websiteId) {
             $where[] = $adapter->quoteInto('website_id=?', $websiteId);
         }
+
         $adapter->delete($this->getMainTable(), $where);
         return $this;
     }

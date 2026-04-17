@@ -18,6 +18,7 @@ abstract class Mage_Sales_Model_Api2_Order_Comment_Rest extends Mage_Sales_Model
      * Parameters in request used in model (usually specified in route mask)
      */
     public const PARAM_ORDER_ID = 'id';
+
     public const PARAM_COMMENT_ID = 'id';
 
     /**
@@ -53,9 +54,9 @@ abstract class Mage_Sales_Model_Api2_Order_Comment_Rest extends Mage_Sales_Model
     /**
      * Load order by id
      *
-     * @param int $id
-     * @throws Mage_Api2_Exception
+     * @param  int                    $id
      * @return Mage_Sales_Model_Order
+     * @throws Mage_Api2_Exception
      */
     protected function _loadOrderById($id)
     {

@@ -21,6 +21,7 @@ class Mage_Sales_Model_Order_Invoice_Total_Shipping extends Mage_Sales_Model_Ord
     {
         $invoice->setShippingAmount(0);
         $invoice->setBaseShippingAmount(0);
+
         $orderShippingAmount        = $invoice->getOrder()->getShippingAmount();
         $baseOrderShippingAmount    = $invoice->getOrder()->getBaseShippingAmount();
         $shippingInclTax            = $invoice->getOrder()->getShippingInclTax();
@@ -34,6 +35,7 @@ class Mage_Sales_Model_Order_Invoice_Total_Shipping extends Mage_Sales_Model_Ord
                     return $this;
                 }
             }
+
             $invoice->setShippingAmount($orderShippingAmount);
             $invoice->setBaseShippingAmount($baseOrderShippingAmount);
             $invoice->setShippingInclTax($shippingInclTax);
@@ -42,6 +44,7 @@ class Mage_Sales_Model_Order_Invoice_Total_Shipping extends Mage_Sales_Model_Ord
             $invoice->setGrandTotal($invoice->getGrandTotal() + $orderShippingAmount);
             $invoice->setBaseGrandTotal($invoice->getBaseGrandTotal() + $baseOrderShippingAmount);
         }
+
         return $this;
     }
 }

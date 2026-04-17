@@ -40,6 +40,9 @@ class Mage_Sales_Model_Resource_Order_Creditmemo extends Mage_Sales_Model_Resour
      */
     protected $_entityTypeForIncrementId     = 'creditmemo';
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('sales/creditmemo', 'entity_id');
@@ -64,7 +67,7 @@ class Mage_Sales_Model_Resource_Order_Creditmemo extends Mage_Sales_Model_Resour
             $adapter->quote(' '),
             $checkedLastname,
         ]);
-        $concatName = new Zend_Db_Expr("TRIM(REPLACE($concatName,'  ', ' '))");
+        $concatName = new Zend_Db_Expr("TRIM(REPLACE({$concatName},'  ', ' '))");
 
         $this->addVirtualGridColumn(
             'billing_name',

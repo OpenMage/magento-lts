@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -26,6 +28,7 @@ class Mage_Paypal_Block_Express_Review_Details extends Mage_Checkout_Block_Cart_
         if (empty($this->_address)) {
             $this->_address = $this->getQuote()->getShippingAddress();
         }
+
         return $this->_address;
     }
 

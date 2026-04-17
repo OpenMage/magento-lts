@@ -21,6 +21,9 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Wishlist extends Mage_Admi
      */
     protected $_sidebarStorageAction = 'add_wishlist_item';
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         parent::_construct();
@@ -43,14 +46,16 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Wishlist extends Mage_Admi
      */
     public function getItemCollection()
     {
-        $collection = $this->getData('item_collection');
+        $collection = $this->getDataByKey('item_collection');
         if (is_null($collection)) {
             $collection = $this->getCreateOrderModel()->getCustomerWishlist(true);
             if ($collection) {
                 $collection = $collection->getItemCollection()->load();
             }
+
             $this->setData('item_collection', $collection);
         }
+
         return $collection;
     }
 
@@ -68,14 +73,15 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Wishlist extends Mage_Admi
             $item->setPrice($product->getFinalPrice(1));
             $item->setTypeId($product->getTypeId());
         }
+
         return $items;
     }
 
     /**
      * Retrieve product identifier linked with item
      *
-     * @param   Mage_Wishlist_Model_Item $item
-     * @return  int
+     * @param  Mage_Wishlist_Model_Item $item
+     * @return int
      */
     public function getProductId($item)
     {
@@ -85,8 +91,8 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Wishlist extends Mage_Admi
     /**
      * Retrieve identifier of block item
      *
-     * @param   Varien_Object $item
-     * @return  int
+     * @param  Varien_Object $item
+     * @return int
      */
     public function getIdentifierId($item)
     {
@@ -101,6 +107,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Wishlist extends Mage_Admi
         if (!Mage::helper('wishlist')->isAllow()) {
             return false;
         }
+
         return parent::canDisplay();
     }
 

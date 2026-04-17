@@ -14,6 +14,9 @@
  */
 class Mage_Core_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('core/config_data', 'config_id');
@@ -22,7 +25,7 @@ class Mage_Core_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstra
     /**
      * Load configuration values into xml config object
      *
-     * @param string $condition
+     * @param  string $condition
      * @return $this
      */
     public function loadToXml(Mage_Core_Model_Config $xmlConfig, $condition = null)
@@ -47,16 +50,17 @@ class Mage_Core_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstra
             ->from($this->getTable('core/store'), ['store_id', 'code', 'name', 'website_id'])
             ->order('sort_order ' . Varien_Db_Select::SQL_ASC);
         $rowset = $read->fetchAssoc($select);
-        foreach ($rowset as $s) {
-            if (!isset($websites[$s['website_id']])) {
+        foreach ($rowset as $set) {
+            if (!isset($websites[$set['website_id']])) {
                 continue;
             }
-            $xmlConfig->setNode('stores/' . $s['code'] . '/system/store/id', $s['store_id']);
-            $xmlConfig->setNode('stores/' . $s['code'] . '/system/store/name', $s['name']);
-            $xmlConfig->setNode('stores/' . $s['code'] . '/system/website/id', $s['website_id']);
-            $xmlConfig->setNode('websites/' . $websites[$s['website_id']]['code'] . '/system/stores/' . $s['code'], $s['store_id']);
-            $stores[$s['store_id']] = ['code' => $s['code']];
-            $websites[$s['website_id']]['stores'][$s['store_id']] = $s['code'];
+
+            $xmlConfig->setNode('stores/' . $set['code'] . '/system/store/id', $set['store_id']);
+            $xmlConfig->setNode('stores/' . $set['code'] . '/system/store/name', $set['name']);
+            $xmlConfig->setNode('stores/' . $set['code'] . '/system/website/id', $set['website_id']);
+            $xmlConfig->setNode('websites/' . $websites[$set['website_id']]['code'] . '/system/stores/' . $set['code'], $set['store_id']);
+            $stores[$set['store_id']] = ['code' => $set['code']];
+            $websites[$set['website_id']]['stores'][$set['store_id']] = $set['code'];
         }
 
         $substFrom = [];
@@ -68,36 +72,39 @@ class Mage_Core_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstra
         if (!is_null($condition)) {
             $select->where($condition);
         }
+
         $rowset = $read->fetchAll($select);
 
         // set default config values from database
-        foreach ($rowset as $r) {
-            if ($r['scope'] !== 'default') {
+        foreach ($rowset as $row) {
+            if ($row['scope'] !== 'default') {
                 continue;
             }
-            $value = str_replace($substFrom, $substTo, (string) $r['value']);
-            $xmlConfig->setNode('default/' . $r['path'], $value);
+
+            $value = str_replace($substFrom, $substTo, (string) $row['value']);
+            $xmlConfig->setNode('default/' . $row['path'], $value);
         }
 
         // inherit default config values to all websites
         $extendSource = $xmlConfig->getNode('default');
-        foreach ($websites as $id => $w) {
+        foreach ($websites as $w) {
             $websiteNode = $xmlConfig->getNode('websites/' . $w['code']);
             $websiteNode->extend($extendSource);
         }
 
         $deleteWebsites = [];
         // set websites config values from database
-        foreach ($rowset as $r) {
-            if ($r['scope'] !== 'websites') {
+        foreach ($rowset as $row) {
+            if ($row['scope'] !== 'websites') {
                 continue;
             }
-            $value = str_replace($substFrom, $substTo, (string) $r['value']);
-            if (isset($websites[$r['scope_id']])) {
-                $nodePath = sprintf('websites/%s/%s', $websites[$r['scope_id']]['code'], $r['path']);
+
+            $value = str_replace($substFrom, $substTo, (string) $row['value']);
+            if (isset($websites[$row['scope_id']])) {
+                $nodePath = sprintf('websites/%s/%s', $websites[$row['scope_id']]['code'], $row['path']);
                 $xmlConfig->setNode($nodePath, $value);
             } else {
-                $deleteWebsites[$r['scope_id']] = $r['scope_id'];
+                $deleteWebsites[$row['scope_id']] = $row['scope_id'];
             }
         }
 
@@ -117,16 +124,17 @@ class Mage_Core_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstra
 
         $deleteStores = [];
         // set stores config values from database
-        foreach ($rowset as $r) {
-            if ($r['scope'] !== 'stores') {
+        foreach ($rowset as $row) {
+            if ($row['scope'] !== 'stores') {
                 continue;
             }
-            $value = str_replace($substFrom, $substTo, (string) $r['value']);
-            if (isset($stores[$r['scope_id']])) {
-                $nodePath = sprintf('stores/%s/%s', $stores[$r['scope_id']]['code'], $r['path']);
+
+            $value = str_replace($substFrom, $substTo, (string) $row['value']);
+            if (isset($stores[$row['scope_id']])) {
+                $nodePath = sprintf('stores/%s/%s', $stores[$row['scope_id']]['code'], $row['path']);
                 $xmlConfig->setNode($nodePath, $value);
             } else {
-                $deleteStores[$r['scope_id']] = $r['scope_id'];
+                $deleteStores[$row['scope_id']] = $row['scope_id'];
             }
         }
 
@@ -143,16 +151,17 @@ class Mage_Core_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstra
                 'scope_id IN(?)' => $deleteStores,
             ]);
         }
+
         return $this;
     }
 
     /**
      * Save config value
      *
-     * @param string $path
-     * @param string $value
-     * @param string $scope
-     * @param int $scopeId
+     * @param  string $path
+     * @param  string $value
+     * @param  string $scope
+     * @param  int    $scopeId
      * @return $this
      */
     public function saveConfig($path, $value, $scope, $scopeId)
@@ -178,15 +187,16 @@ class Mage_Core_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstra
         } else {
             $writeAdapter->insert($this->getMainTable(), $newData);
         }
+
         return $this;
     }
 
     /**
      * Delete config value
      *
-     * @param string $path
-     * @param string $scope
-     * @param int $scopeId
+     * @param  string $path
+     * @param  string $scope
+     * @param  int    $scopeId
      * @return $this
      */
     public function deleteConfig($path, $scope, $scopeId)
@@ -203,7 +213,7 @@ class Mage_Core_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstra
     /**
      * Get config value
      *
-     * @return string|false
+     * @return false|string
      */
     public function getConfig(string $path, string $scope, int $scopeId)
     {

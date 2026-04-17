@@ -60,6 +60,7 @@ class Mage_Adminhtml_Model_System_Config_Source_Admin_Page
         if (is_null($this->_url)) {
             $this->_url = Mage::getModel('adminhtml/url');
         }
+
         return $this->_url;
     }
 
@@ -72,29 +73,25 @@ class Mage_Adminhtml_Model_System_Config_Source_Admin_Page
         $parentArr = [];
         $sortOrder = 0;
         foreach ($parent->children() as $childName => $child) {
-            if (($child->disabled == 1)
-                || ($child->depends && !$this->_checkDepends($child->depends))
-            ) {
+            if ((string) $child->disabled === '1') {
+                continue;
+            }
+
+            if ($child->depends && !$this->_checkDepends($child->depends)) {
                 continue;
             }
 
             $menuArr = [];
             $menuArr['label'] = $this->_getHelperValue($child);
-
             $menuArr['sort_order'] = $child->sort_order ? (int) $child->sort_order : $sortOrder;
-
-            if ($child->action) {
-                $menuArr['url'] = (string) $child->action;
-            } else {
-                $menuArr['url'] = '';
-            }
-
+            $menuArr['url'] = $child->action ? (string) $child->action : '';
             $menuArr['level'] = $level;
             $menuArr['path'] = $path . $childName;
 
             if ($child->children) {
                 $menuArr['children'] = $this->_buildMenuArray($child->children, $path . $childName . '/', $level + 1);
             }
+
             $parentArr[$childName] = $menuArr;
 
             $sortOrder++;
@@ -137,8 +134,6 @@ class Mage_Adminhtml_Model_System_Config_Source_Admin_Page
         if (isset($childAttributes['module'])) {
             $helperName     = (string) $childAttributes['module'];
         }
-
-        $titleNodeName = 'title';
 
         return Mage::helper($helperName)->__((string) $child->$titleNodeName);
     }

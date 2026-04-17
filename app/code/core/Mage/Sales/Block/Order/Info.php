@@ -16,6 +16,9 @@ class Mage_Sales_Block_Order_Info extends Mage_Core_Block_Template
 {
     protected $_links = [];
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         parent::_construct();
@@ -62,9 +65,9 @@ class Mage_Sales_Block_Order_Info extends Mage_Core_Block_Template
     }
 
     /**
-     * @param string $name
-     * @param string $path
-     * @param string $label
+     * @param  string $name
+     * @param  string $path
+     * @param  string $label
      * @return $this
      */
     public function addLink($name, $path, $label)
@@ -80,7 +83,7 @@ class Mage_Sales_Block_Order_Info extends Mage_Core_Block_Template
     /**
      * Remove a link
      *
-     * @param string $name of the link
+     * @param  string $name of the link
      * @return $this
      */
     public function removeLink($name)
@@ -88,6 +91,7 @@ class Mage_Sales_Block_Order_Info extends Mage_Core_Block_Template
         if (isset($this->_links[$name])) {
             unset($this->_links[$name]);
         }
+
         return $this;
     }
 
@@ -106,9 +110,11 @@ class Mage_Sales_Block_Order_Info extends Mage_Core_Block_Template
         if (!$order->hasInvoices()) {
             unset($this->_links['invoice']);
         }
+
         if (!$order->hasShipments()) {
             unset($this->_links['shipment']);
         }
+
         if (!$order->hasCreditmemos()) {
             unset($this->_links['creditmemo']);
         }
@@ -117,30 +123,32 @@ class Mage_Sales_Block_Order_Info extends Mage_Core_Block_Template
     /**
      * Get url for reorder action
      *
-     * @deprecated after 1.6.0.0, logic moved to new block
-     * @param Mage_Sales_Model_Order $order
+     * @param  Mage_Sales_Model_Order $order
      * @return string
+     * @deprecated after 1.6.0.0, logic moved to new block
      */
     public function getReorderUrl($order)
     {
         if (!Mage::getSingleton('customer/session')->isLoggedIn()) {
             return $this->getUrl('sales/guest/reorder', ['order_id' => $order->getId()]);
         }
+
         return $this->getUrl('sales/order/reorder', ['order_id' => $order->getId()]);
     }
 
     /**
      * Get url for printing order
      *
-     * @deprecated after 1.6.0.0, logic moved to new block
-     * @param Mage_Sales_Model_Order $order
+     * @param  Mage_Sales_Model_Order $order
      * @return string
+     * @deprecated after 1.6.0.0, logic moved to new block
      */
     public function getPrintUrl($order)
     {
         if (!Mage::getSingleton('customer/session')->isLoggedIn()) {
             return $this->getUrl('sales/guest/print', ['order_id' => $order->getId()]);
         }
+
         return $this->getUrl('sales/order/print', ['order_id' => $order->getId()]);
     }
 }

@@ -17,7 +17,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage extends Mage_Adminhtml
     /**
      * Generate form for editing of gift message for entity
      *
-     * @param string        $entityType
+     * @param  string $entityType
      * @return string
      */
     public function getFormHtml(Varien_Object $entity, $entityType = 'quote')
@@ -36,7 +36,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage extends Mage_Adminhtml
      */
     public function getItems()
     {
-        if (!$this->isOutputEnabled('Mage_GiftMessage')) {
+        if (!$this->isModuleOutputEnabled('Mage_GiftMessage')) {
             return false;
         }
 
@@ -55,7 +55,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage extends Mage_Adminhtml
             }
         }
 
-        if (count($items)) {
+        if ($items !== []) {
             return $items;
         }
 
@@ -77,6 +77,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage extends Mage_Adminhtml
         if (!$this->isModuleOutputEnabled('Mage_GiftMessage')) {
             return false;
         }
+
         /** @var Mage_GiftMessage_Helper_Message $helper */
         $helper = $this->helper('giftmessage/message');
         return $helper->getIsMessagesAvailable($helper::TYPE_CONFIG, $this->getQuote(), $this->getStoreId());

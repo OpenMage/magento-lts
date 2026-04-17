@@ -12,18 +12,21 @@
  *
  * @package    Mage_Checkout
  *
- * @method bool hasProductName()
- * @method $this setProductName(string $value)
- * @method bool hasDeleteUrl()
- * @method $this setDeleteUrl(string $value)
  * @method string getIdSuffix()
+ * @method bool   hasDeleteUrl()
+ * @method bool   hasProductName()
+ * @method $this  setDeleteUrl(string $value)
+ * @method $this  setProductName(string $value)
  */
 class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
 {
     /** @var Mage_Checkout_Model_Session */
     protected $_checkoutSession;
+
     protected $_item;
+
     protected $_productUrl = null;
+
     protected $_productThumbnail = null;
 
     /**
@@ -43,7 +46,7 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
     /**
      * Set item for render
      *
-     * @return  $this
+     * @return $this
      */
     public function setItem(Mage_Sales_Model_Quote_Item_Abstract $item)
     {
@@ -72,7 +75,7 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
     }
 
     /**
-     * @param Mage_Catalog_Helper_Image $productThumbnail
+     * @param  null|Mage_Catalog_Helper_Image $productThumbnail
      * @return $this
      */
     public function overrideProductThumbnail($productThumbnail)
@@ -98,7 +101,7 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
     }
 
     /**
-     * @param string $productUrl
+     * @param  string $productUrl
      * @return $this
      */
     public function overrideProductUrl($productUrl)
@@ -117,6 +120,7 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
         if ($this->_ignoreProductUrl) {
             return false;
         }
+
         if ($this->_productUrl || $this->getItem()->getRedirectUrl()) {
             return true;
         }
@@ -126,10 +130,8 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
         if ($option) {
             $product = $option->getProduct();
         }
-        if ($product->isVisibleInSiteVisibility()) {
-            return true;
-        }
-        return false;
+
+        return $product->isVisibleInSiteVisibility();
     }
 
     /**
@@ -142,6 +144,7 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
         if (!is_null($this->_productUrl)) {
             return $this->_productUrl;
         }
+
         if ($this->getItem()->getRedirectUrl()) {
             return $this->getItem()->getRedirectUrl();
         }
@@ -163,15 +166,16 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
     public function getProductName()
     {
         if ($this->hasProductName()) {
-            return $this->getData('product_name');
+            return $this->getDataByKey('product_name');
         }
+
         return $this->getProduct()->getName();
     }
 
     /**
      * Get product customize options
      *
-     * @return array | false
+     * @return array
      */
     public function getProductOptions()
     {
@@ -216,13 +220,13 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
     /**
      * Get item delete url with or without Form Key
      *
-     * @param bool $addFormKey
+     * @param  bool   $addFormKey
      * @return string
      */
     public function getDeleteUrlCustom($addFormKey = true)
     {
         if ($this->hasDeleteUrl()) {
-            return $this->getData('delete_url');
+            return $this->getDataByKey('delete_url');
         }
 
         /** @var Mage_Core_Helper_Url $helper */
@@ -278,6 +282,7 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
             ],
         );
     }
+
     /**
      * Get quote item qty
      *
@@ -288,23 +293,20 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
         if (!$this->_strictQtyMode && (string) $this->getItem()->getQty() == '') {
             return '';
         }
+
         return $this->getItem()->getQty() * 1;
     }
 
     /**
      * Check item is in stock
      *
-     * @deprecated after 1.4.2.0-beta1
      * @return bool
+     * @deprecated after 1.4.2.0-beta1
      */
     public function getIsInStock()
     {
-        if ($this->getItem()->getProduct()->isSaleable()) {
-            if ($this->getItem()->getProduct()->getStockItem()->getQty() >= $this->getItem()->getQty()) {
-                return true;
-            }
-        }
-        return false;
+        return $this->getItem()->getProduct()->isSaleable()
+            && $this->getItem()->getProduct()->getStockItem()->getQty() >= $this->getItem()->getQty();
     }
 
     /**
@@ -317,6 +319,7 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
         if ($this->_checkoutSession === null) {
             $this->_checkoutSession = Mage::getSingleton('checkout/session');
         }
+
         return $this->_checkoutSession;
     }
 
@@ -369,19 +372,19 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
      * Accept option value and return its formatted view
      *
      * @param mixed $optionValue
-     * Method works well with these $optionValue format:
-     *      1. String
-     *      2. Indexed array e.g. array(val1, val2, ...)
-     *      3. Associative array, containing additional option info, including option value, e.g.
-     *          array
-     *          (
-     *              [label] => ...,
-     *              [value] => ...,
-     *              [print_value] => ...,
-     *              [option_id] => ...,
-     *              [option_type] => ...,
-     *              [custom_view] =>...,
-     *          )
+     *                           Method works well with these $optionValue format:
+     *                           1. String
+     *                           2. Indexed array e.g. array(val1, val2, ...)
+     *                           3. Associative array, containing additional option info, including option value, e.g.
+     *                           array
+     *                           (
+     *                           [label] => ...,
+     *                           [value] => ...,
+     *                           [print_value] => ...,
+     *                           [option_id] => ...,
+     *                           [option_type] => ...,
+     *                           [custom_view] =>...,
+     *                           )
      *
      * @return array
      */
@@ -419,7 +422,7 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
     /**
      * Get html for MAP product enabled
      *
-     * @param Mage_Sales_Model_Quote_Item $item
+     * @param  Mage_Sales_Model_Quote_Item $item
      * @return string
      */
     public function getMsrpHtml($item)
@@ -433,7 +436,7 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
     /**
      * Set qty mode to be strict or not
      *
-     * @param bool $strict
+     * @param  bool  $strict
      * @return $this
      */
     public function setQtyMode($strict)
@@ -445,7 +448,7 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
     /**
      * Set ignore product URL rendering
      *
-     * @param bool $ignore
+     * @param  bool  $ignore
      * @return $this
      */
     public function setIgnoreProductUrl($ignore = true)
@@ -458,7 +461,7 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
      * Common code to be called by product renders of gift registry to create a block, which is be used to
      * generate html for mrsp price
      *
-     * @param Mage_Catalog_Model_Product $product
+     * @param  Mage_Catalog_Model_Product       $product
      * @return Mage_Catalog_Block_Product_Price
      */
     protected function _preparePriceBlock($product)
@@ -473,7 +476,7 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
     /**
      *  Common code to be called by product renders of gift registry to  generate final html block
      *
-     * @param Mage_Catalog_Model_Product $product
+     * @param  Mage_Catalog_Model_Product $product
      * @return string
      */
     protected function _getPriceContent($product)

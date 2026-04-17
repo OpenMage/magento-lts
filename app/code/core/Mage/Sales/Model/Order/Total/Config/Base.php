@@ -38,9 +38,9 @@ class Mage_Sales_Model_Order_Total_Config_Base extends Mage_Sales_Model_Config_O
     /**
      * Init model class by configuration
      *
-     * @param string $class
-     * @param string $totalCode
-     * @param array $totalConfig
+     * @param  string                                $class
+     * @param  string                                $totalCode
+     * @param  Mage_Core_Model_Config_Element        $totalConfig
      * @return Mage_Sales_Model_Order_Total_Abstract
      * @throws Mage_Core_Exception
      */
@@ -70,6 +70,7 @@ class Mage_Sales_Model_Order_Total_Config_Base extends Mage_Sales_Model_Config_O
             $this->_initCollectors();
             $this->_totalModels = $this->_collectors;
         }
+
         return $this->_totalModels;
     }
 }

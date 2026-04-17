@@ -8,20 +8,20 @@
  */
 
 /**
- * Paypal expess checkout shortcut link
+ * Paypal express checkout shortcut link
  *
  * @package    Mage_Paypal
  *
- * @method string getShortcutHtmlId()
- * @method string getImageUrl()
- * @method string getCheckoutUrl()
- * @method string getBmlShortcutHtmlId()
  * @method string getBmlCheckoutUrl()
  * @method string getBmlImageUrl()
- * @method string getIsBmlEnabled()
- * @method string getConfirmationUrl()
- * @method string getIsInCatalogProduct()
+ * @method string getBmlShortcutHtmlId()
+ * @method string getCheckoutUrl()
  * @method string getConfirmationMessage()
+ * @method string getConfirmationUrl()
+ * @method string getImageUrl()
+ * @method string getIsBmlEnabled()
+ * @method string getIsInCatalogProduct()
+ * @method string getShortcutHtmlId()
  */
 class Mage_Paypal_Block_Express_Shortcut extends Mage_Core_Block_Template
 {
@@ -29,6 +29,7 @@ class Mage_Paypal_Block_Express_Shortcut extends Mage_Core_Block_Template
      * Position of "OR" label against shortcut
      */
     public const POSITION_BEFORE = 'before';
+
     public const POSITION_AFTER = 'after';
 
     /**
@@ -60,7 +61,7 @@ class Mage_Paypal_Block_Express_Shortcut extends Mage_Core_Block_Template
     protected $_checkoutType = 'paypal/express_checkout';
 
     /**
-     * @return Mage_Core_Block_Abstract
+     * @return $this
      */
     protected function _beforeToHtml()
     {
@@ -169,6 +170,7 @@ class Mage_Paypal_Block_Express_Shortcut extends Mage_Core_Block_Template
         if (!$this->_shouldRender) {
             return '';
         }
+
         return parent::_toHtml();
     }
 
@@ -179,8 +181,11 @@ class Mage_Paypal_Block_Express_Shortcut extends Mage_Core_Block_Template
      */
     public function isOrPositionBefore()
     {
-        return ($this->getIsInCatalogProduct() && !$this->getShowOrPosition())
-            || ($this->getShowOrPosition() && $this->getShowOrPosition() === self::POSITION_BEFORE);
+        if ($this->getIsInCatalogProduct() && !$this->getShowOrPosition()) {
+            return true;
+        }
+
+        return $this->getShowOrPosition() && $this->getShowOrPosition() === self::POSITION_BEFORE;
     }
 
     /**
@@ -190,7 +195,10 @@ class Mage_Paypal_Block_Express_Shortcut extends Mage_Core_Block_Template
      */
     public function isOrPositionAfter()
     {
-        return (!$this->getIsInCatalogProduct() && !$this->getShowOrPosition())
-            || ($this->getShowOrPosition() && $this->getShowOrPosition() === self::POSITION_AFTER);
+        if (!$this->getIsInCatalogProduct() && !$this->getShowOrPosition()) {
+            return true;
+        }
+
+        return $this->getShowOrPosition() && $this->getShowOrPosition() === self::POSITION_AFTER;
     }
 }

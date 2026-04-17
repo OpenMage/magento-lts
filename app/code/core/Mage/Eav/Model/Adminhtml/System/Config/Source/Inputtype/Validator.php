@@ -12,29 +12,27 @@
  *
  * @package    Mage_Eav
  */
-class Mage_Eav_Model_Adminhtml_System_Config_Source_Inputtype_Validator extends Zend_Validate_InArray
+class Mage_Eav_Model_Adminhtml_System_Config_Source_Inputtype_Validator extends Mage_Core_Model_Validate_Abstract
 {
+    public const NOT_IN_ARRAY = 'notInArray';
+
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
-    protected $_messageTemplates;
+    protected $_messageTemplates = [];
+
+    /**
+     * @var string[]
+     */
+    protected array $haystack = [];
 
     public function __construct()
     {
         //set data haystack
         /** @var Mage_Eav_Helper_Data $helper */
         $helper = Mage::helper('eav');
-        $haystack = $helper->getInputTypesValidatorData();
-
-        //reset message template and set custom
-        $this->_messageTemplates = [];
+        $this->haystack = $helper->getInputTypesValidatorData();
         $this->_initMessageTemplates();
-
-        //parent construct with options
-        parent::__construct([
-            'haystack' => $haystack,
-            'strict'   => true,
-        ]);
     }
 
     /**
@@ -46,24 +44,41 @@ class Mage_Eav_Model_Adminhtml_System_Config_Source_Inputtype_Validator extends 
     {
         if (!$this->_messageTemplates) {
             $this->_messageTemplates = [
-                self::NOT_IN_ARRAY =>
-                    Mage::helper('core')->__('Input type "%value%" not found in the input types list.'),
+                self::NOT_IN_ARRAY
+                    => Mage::helper('core')->__('Input type "%value%" not found in the input types list.'),
             ];
         }
+
         return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function isValid($value)
+    {
+        $this->_setValue($value);
+
+        if (!in_array((string) $value, $this->haystack, true)) {
+            $this->_error(self::NOT_IN_ARRAY);
+            return false;
+        }
+
+        return true;
     }
 
     /**
      * Add input type to haystack
      *
-     * @param string $type
+     * @param  string $type
      * @return $this
      */
     public function addInputType($type)
     {
-        if (!in_array((string) $type, $this->_haystack, true)) {
-            $this->_haystack[] = (string) $type;
+        if (!in_array((string) $type, $this->haystack, true)) {
+            $this->haystack[] = (string) $type;
         }
+
         return $this;
     }
 }

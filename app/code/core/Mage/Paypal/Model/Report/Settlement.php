@@ -16,15 +16,15 @@
  * @package    Mage_Paypal
  *
  * @method Mage_Paypal_Model_Resource_Report_Settlement _getResource()
+ * @method string                                       getAccountId()
+ * @method string                                       getFilename()
+ * @method string                                       getLastModified()
+ * @method string                                       getReportDate()
  * @method Mage_Paypal_Model_Resource_Report_Settlement getResource()
- * @method string getReportDate()
- * @method $this setReportDate(string $value)
- * @method string getAccountId()
- * @method $this setAccountId(string $value)
- * @method string getFilename()
- * @method $this setFilename(string $value)
- * @method string getLastModified()
- * @method $this setLastModified(string $value)
+ * @method $this                                        setAccountId(string $value)
+ * @method $this                                        setFilename(string $value)
+ * @method $this                                        setLastModified(string $value)
+ * @method $this                                        setReportDate(string $value)
  */
 class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
 {
@@ -145,6 +145,9 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
         ],
     ];
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('paypal/report_settlement');
@@ -153,16 +156,15 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
     /**
      * Stop saving process if file with same report date, account ID and last modified date was already ferched
      *
-     * @return Mage_Core_Model_Abstract
+     * @return $this
      */
     protected function _beforeSave()
     {
         $this->_dataSaveAllowed = true;
-        if ($this->getId()) {
-            if ($this->getLastModified() == $this->getReportLastModified()) {
-                $this->_dataSaveAllowed = false;
-            }
+        if ($this->getId() && $this->getLastModified() == $this->getReportLastModified()) {
+            $this->_dataSaveAllowed = false;
         }
+
         $this->setLastModified($this->getReportLastModified());
         return parent::_beforeSave();
     }
@@ -171,8 +173,8 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
      * Goes to specified host/path and fetches reports from there.
      * Save reports to database.
      *
-     * @param array $config SFTP credentials
-     * @return int Number of report rows that were fetched and saved successfully
+     * @param  array $config SFTP credentials
+     * @return int   Number of report rows that were fetched and saved successfully
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
@@ -185,6 +187,7 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
             'password' => $config['password'],
         ]);
         $connection->cd($config['path']);
+
         $fetched = 0;
         $listing = $this->_filterReportsList($connection->rawls());
         foreach ($listing as $filename => $attributes) {
@@ -222,19 +225,21 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
                 if ($this->_dataSaveAllowed) {
                     $fetched += count($this->_rows);
                 }
+
                 // clean object and remove parsed file
                 $this->unsetData();
                 unlink($localCsv);
             }
         }
+
         return $fetched;
     }
 
     /**
      * Parse CSV file and collect report rows
      *
-     * @param string $localCsv Path to CSV file
-     * @param string $format CSV format(column names)
+     * @param  string $localCsv Path to CSV file
+     * @param  string $format   CSV format(column names)
      * @return $this
      */
     public function parseCsv($localCsv, $format = 'new')
@@ -245,11 +250,12 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
         $rowMap = $this->_csvColumns[$format]['rowmap'];
 
         $flippedSectionColumns = array_flip($sectionColumns);
-        $fp = fopen($localCsv, 'r');
-        while ($line = fgetcsv($fp, 0, ',', '"', '\\')) {
-            if (empty($line)) { // The line was empty, so skip it.
+        $resource = fopen($localCsv, 'r');
+        while ($line = fgetcsv($resource, 0, ',', '"', '\\')) {
+            if ($line === []) { // The line was empty, so skip it.
                 continue;
             }
+
             $lineType = $line[0];
             switch ($lineType) {
                 case 'RH': // Report header.
@@ -274,6 +280,7 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
                     for ($i = 1; $i < $counter; $i++) {
                         $sectionColumns[$line[$i]] = $i;
                     }
+
                     $flippedSectionColumns = array_flip($sectionColumns);
                     break;
                 case 'SB': // Section body.
@@ -282,6 +289,7 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
                     for ($i = 1; $i < $counter; $i++) {
                         $bodyItem[$rowMap[$flippedSectionColumns[$i]]] = $line[$i];
                     }
+
                     $this->_rows[] = $bodyItem;
                     break;
                 case 'SC': // Section records count.
@@ -293,6 +301,7 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
                     break;
             }
         }
+
         return $this;
     }
 
@@ -320,7 +329,7 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
     /**
      * Return name for row column
      *
-     * @param string $field Field name in row model
+     * @param  string $field Field name in row model
      * @return string
      */
     public function getFieldLabel($field)
@@ -349,7 +358,7 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
      * Iterate through website configurations and collect all SFTP configurations
      * Filter config values if necessary
      *
-     * @param bool $automaticMode Whether to skip settings with disabled Automatic Fetching or not
+     * @param  bool  $automaticMode Whether to skip settings with disabled Automatic Fetching or not
      * @return array
      */
     public function getSftpCredentials($automaticMode = false)
@@ -362,6 +371,7 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
             if (!$active && $automaticMode) {
                 continue;
             }
+
             $cfg = [
                 'hostname'  => $store->getConfig('paypal/fetch_reports/ftp_ip'),
                 'path'      => $store->getConfig('paypal/fetch_reports/ftp_path'),
@@ -369,29 +379,38 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
                 'password'  => $store->getConfig('paypal/fetch_reports/ftp_password'),
                 'sandbox'   => $store->getConfig('paypal/fetch_reports/ftp_sandbox'),
             ];
-            if (empty($cfg['username']) || empty($cfg['password'])) {
+            if (empty($cfg['username'])) {
                 continue;
             }
+
+            if (empty($cfg['password'])) {
+                continue;
+            }
+
             if (empty($cfg['hostname']) || $cfg['sandbox']) {
                 $cfg['hostname'] = $cfg['sandbox'] ? self::SANDBOX_REPORTS_HOSTNAME : self::REPORTS_HOSTNAME;
             }
+
             if (empty($cfg['path']) || $cfg['sandbox']) {
                 $cfg['path'] = self::REPORTS_PATH;
             }
+
             // avoid duplicates
-            if (in_array(serialize($cfg), $uniques)) {
+            if (in_array(serialize($cfg), $uniques, true)) {
                 continue;
             }
+
             $uniques[] = serialize($cfg);
             $configs[] = $cfg;
         }
+
         return $configs;
     }
 
     /**
      * Converts a filename to date of report.
      *
-     * @param string $filename
+     * @param  string $filename
      * @return string
      */
     protected function _fileNameToDate($filename)
@@ -404,7 +423,7 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
     /**
      * Filter SFTP file list by filename format
      *
-     * @param array $list List of files as per $connection->rawls()
+     * @param  array $list List of files as per $connection->rawls()
      * @return array Trimmed down list of files
      */
     protected function _filterReportsList($list)
@@ -416,6 +435,7 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
                 $result[$filename] = $data;
             }
         }
+
         return $result;
     }
 }

@@ -18,7 +18,9 @@ class Mage_ImportExport_Helper_Data extends Mage_Core_Helper_Data
      * XML path for config data
      */
     public const XML_PATH_EXPORT_LOCAL_VALID_PATH       = 'general/file/importexport_local_valid_paths';
+
     public const XML_PATH_BUNCH_SIZE                    = 'general/file/bunch_size';
+
     public const XML_PATH_IMPORT_CONFIGURABLE_PAGE_SIZE = 'system/import_csv/configurable_page_size';
 
     protected $_moduleName = 'Mage_ImportExport';

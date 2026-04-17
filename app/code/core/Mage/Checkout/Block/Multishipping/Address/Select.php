@@ -15,13 +15,14 @@
 class Mage_Checkout_Block_Multishipping_Address_Select extends Mage_Checkout_Block_Multishipping_Abstract
 {
     /**
-     * @return Mage_Checkout_Block_Multishipping_Abstract
+     * @return $this
      */
     protected function _prepareLayout()
     {
         if ($headBlock = $this->getLayout()->getBlock('head')) {
             $headBlock->setTitle(Mage::helper('checkout')->__('Change Billing Address') . ' - ' . $headBlock->getDefaultTitle());
         }
+
         return parent::_prepareLayout();
     }
 
@@ -38,16 +39,17 @@ class Mage_Checkout_Block_Multishipping_Address_Select extends Mage_Checkout_Blo
      */
     public function getAddressCollection()
     {
-        $collection = $this->getData('address_collection');
+        $collection = $this->getDataByKey('address_collection');
         if (is_null($collection)) {
             $collection = $this->_getCheckout()->getCustomer()->getAddresses();
             $this->setData('address_collection', $collection);
         }
+
         return $collection;
     }
 
     /**
-     * @param Mage_Sales_Model_Quote_Address $address
+     * @param  Mage_Sales_Model_Quote_Address $address
      * @return bool
      */
     public function isAddressDefaultBilling($address)
@@ -56,7 +58,7 @@ class Mage_Checkout_Block_Multishipping_Address_Select extends Mage_Checkout_Blo
     }
 
     /**
-     * @param Mage_Sales_Model_Quote_Address $address
+     * @param  Mage_Sales_Model_Quote_Address $address
      * @return bool
      */
     public function isAddressDefaultShipping($address)
@@ -65,7 +67,7 @@ class Mage_Checkout_Block_Multishipping_Address_Select extends Mage_Checkout_Blo
     }
 
     /**
-     * @param Mage_Sales_Model_Quote_Address $address
+     * @param  Mage_Sales_Model_Quote_Address $address
      * @return string
      */
     public function getEditAddressUrl($address)
@@ -74,7 +76,7 @@ class Mage_Checkout_Block_Multishipping_Address_Select extends Mage_Checkout_Blo
     }
 
     /**
-     * @param Mage_Sales_Model_Quote_Address $address
+     * @param  Mage_Sales_Model_Quote_Address $address
      * @return string
      */
     public function getSetAddressUrl($address)

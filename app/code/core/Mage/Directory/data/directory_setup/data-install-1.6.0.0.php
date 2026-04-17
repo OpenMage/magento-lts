@@ -7,7 +7,7 @@
  * @package    Mage_Directory
  */
 
-/** @var Mage_Core_Model_Resource_Setup $installer */
+/** @var Mage_Core_Model_Resource_Setup $this */
 $installer = $this;
 
 /**
@@ -175,7 +175,7 @@ $data = [
     ['FR', 84, 'Vaucluse'], ['FR', 85, 'Vendée'], ['FR', 86, 'Vienne'], ['FR', 87, 'Haute-Vienne'],
     ['FR', 88, 'Vosges'], ['FR', 89, 'Yonne'], ['FR', 90, 'Territoire-de-Belfort'],
     ['FR', 91, 'Essonne'], ['FR', 92, 'Hauts-de-Seine'], ['FR', 93, 'Seine-Saint-Denis'],
-    ['FR', 94, 'Val-de-Marne'], ['FR', 95, 'Val-d\'Oise'], ['RO', 'AB', 'Alba'],
+    ['FR', 94, 'Val-de-Marne'], ['FR', 95, "Val-d'Oise"], ['RO', 'AB', 'Alba'],
     ['RO', 'AR', 'Arad'], ['RO', 'AG', 'Argeş'], ['RO', 'BC', 'Bacău'], ['RO', 'BH', 'Bihor'],
     ['RO', 'BN', 'Bistriţa-Năsăud'], ['RO', 'BT', 'Botoşani'], ['RO', 'BV', 'Braşov'],
     ['RO', 'BR', 'Brăila'], ['RO', 'B', 'Bucureşti'], ['RO', 'BZ', 'Buzău'],

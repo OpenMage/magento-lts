@@ -27,6 +27,7 @@ class Varien_Autoload
         if (!self::$_instance) {
             self::$_instance = new Varien_Autoload();
         }
+
         return self::$_instance;
     }
 

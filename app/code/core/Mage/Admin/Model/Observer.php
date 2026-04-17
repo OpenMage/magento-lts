@@ -36,12 +36,13 @@ class Mage_Admin_Model_Observer
             'resetpasswordpost',
             'logout',
         ];
-        if (in_array($requestedActionName, $openActions)) {
+        if (in_array($requestedActionName, $openActions, true)) {
             $request->setDispatched(true);
         } else {
             if ($user) {
                 $user->reload();
             }
+
             if (!$user || !$user->getId()) {
                 if ($request->getPost('login')) {
                     /** @var Mage_Core_Model_Session $coreSession */
@@ -52,7 +53,7 @@ class Mage_Admin_Model_Observer
                         $username = $postLogin['username'] ?? '';
                         $password = $postLogin['password'] ?? '';
                         $session->login($username, $password, $request);
-                        $request->setPost('login', null);
+                        $request->setPost('login');
                     } elseif (!$request->getParam('messageSent')) {
                         Mage::getSingleton('adminhtml/session')->addError(
                             Mage::helper('adminhtml')->__('Invalid Form Key. Please refresh the page.'),
@@ -62,6 +63,7 @@ class Mage_Admin_Model_Observer
 
                     $coreSession->renewFormKey();
                 }
+
                 if (!$request->getInternallyForwarded()) {
                     $request->setInternallyForwarded();
                     if ($request->getParam('isIframe')) {
@@ -81,6 +83,7 @@ class Mage_Admin_Model_Observer
                             ->setActionName('login')
                             ->setDispatched(false);
                     }
+
                     return;
                 }
             }
@@ -92,8 +95,8 @@ class Mage_Admin_Model_Observer
     /**
      * Unset session first visit flag after displaying page
      *
-     * @deprecated after 1.4.0.1, logic moved to admin session
      * @param Varien_Event_Observer $event
+     * @deprecated after 1.4.0.1, logic moved to admin session
      */
     public function actionPostDispatchAdmin($event) {}
 

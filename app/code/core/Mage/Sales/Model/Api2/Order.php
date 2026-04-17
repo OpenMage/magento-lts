@@ -18,9 +18,13 @@ class Mage_Sales_Model_Api2_Order extends Mage_Api2_Model_Resource
      * Parameters' names in config with special ACL meaning
      */
     public const PARAM_GIFT_MESSAGE   = '_gift_message';
+
     public const PARAM_ORDER_COMMENTS = '_order_comments';
+
     public const PARAM_PAYMENT_METHOD = '_payment_method';
+
     public const PARAM_TAX_NAME       = '_tax_name';
+
     public const PARAM_TAX_RATE       = '_tax_rate';
 
     /**
@@ -71,9 +75,11 @@ class Mage_Sales_Model_Api2_Order extends Mage_Api2_Model_Resource
         if ($this->_isTaxNameAllowed()) {
             $taxInfoFields['tax_name'] = 'order_tax.title';
         }
+
         if ($this->_isTaxRateAllowed()) {
             $taxInfoFields['tax_rate'] = 'order_tax.percent';
         }
+
         if ($taxInfoFields) {
             $collection->getSelect()->joinLeft(
                 ['order_tax' => $collection->getTable('sales/order_tax')],
@@ -82,13 +88,14 @@ class Mage_Sales_Model_Api2_Order extends Mage_Api2_Model_Resource
             );
             $collection->getSelect()->group('main_table.entity_id');
         }
+
         return $this;
     }
 
     /**
      * Retrieve a list or orders' addresses in a form of [order ID => array of addresses, ...]
      *
-     * @param array $orderIds Orders identifiers
+     * @param  array $orderIds Orders identifiers
      * @return array
      */
     protected function _getAddresses(array $orderIds)
@@ -109,6 +116,7 @@ class Mage_Sales_Model_Api2_Order extends Mage_Api2_Model_Resource
                 }
             }
         }
+
         return $addresses;
     }
 
@@ -130,7 +138,7 @@ class Mage_Sales_Model_Api2_Order extends Mage_Api2_Model_Resource
     /**
      * Retrieve collection instance for single order
      *
-     * @param int $orderId Order identifier
+     * @param  int                                        $orderId Order identifier
      * @return Mage_Sales_Model_Resource_Order_Collection
      */
     protected function _getCollectionForSingleRetrieve($orderId)
@@ -144,7 +152,7 @@ class Mage_Sales_Model_Api2_Order extends Mage_Api2_Model_Resource
     /**
      * Retrieve a list or orders' comments in a form of [order ID => array of comments, ...]
      *
-     * @param array $orderIds Orders' identifiers
+     * @param  array $orderIds Orders' identifiers
      * @return array
      */
     protected function _getComments(array $orderIds)
@@ -160,13 +168,14 @@ class Mage_Sales_Model_Api2_Order extends Mage_Api2_Model_Resource
                 }
             }
         }
+
         return $comments;
     }
 
     /**
      * Prepare and return order comments collection
      *
-     * @param array $orderIds Orders' identifiers
+     * @param  array                                                            $orderIds Orders' identifiers
      * @return Mage_Sales_Model_Resource_Order_Status_History_Collection|Object
      */
     protected function _getCommentsCollection(array $orderIds)
@@ -181,7 +190,7 @@ class Mage_Sales_Model_Api2_Order extends Mage_Api2_Model_Resource
     /**
      * Retrieve a list or orders' items in a form of [order ID => array of items, ...]
      *
-     * @param array $orderIds Orders identifiers
+     * @param  array $orderIds Orders identifiers
      * @return array
      */
     protected function _getItems(array $orderIds)
@@ -202,6 +211,7 @@ class Mage_Sales_Model_Api2_Order extends Mage_Api2_Model_Resource
                 }
             }
         }
+
         return $items;
     }
 
@@ -267,9 +277,11 @@ class Mage_Sales_Model_Api2_Order extends Mage_Api2_Model_Resource
         if ($this->_isPaymentMethodAllowed()) {
             $this->_addPaymentMethodInfo($collection);
         }
+
         if ($this->_isGiftMessageAllowed()) {
             $this->_addGiftMessageInfo($collection);
         }
+
         $this->_addTaxInfo($collection);
 
         $ordersData = [];
@@ -277,17 +289,21 @@ class Mage_Sales_Model_Api2_Order extends Mage_Api2_Model_Resource
         foreach ($collection->getItems() as $order) {
             $ordersData[$order->getId()] = $order->toArray();
         }
+
         if ($ordersData) {
             foreach ($this->_getAddresses(array_keys($ordersData)) as $orderId => $addresses) {
                 $ordersData[$orderId]['addresses'] = $addresses;
             }
+
             foreach ($this->_getItems(array_keys($ordersData)) as $orderId => $items) {
                 $ordersData[$orderId]['order_items'] = $items;
             }
+
             foreach ($this->_getComments(array_keys($ordersData)) as $orderId => $comments) {
                 $ordersData[$orderId]['order_comments'] = $comments;
             }
         }
+
         return $ordersData;
     }
 }

@@ -31,7 +31,7 @@ class Mage_CatalogSearch_Model_Resource_Search_Collection extends Mage_Catalog_M
     /**
      * Add search query filter
      *
-     * @param string $query
+     * @param  string $query
      * @return $this
      */
     public function addSearchFilter($query)
@@ -56,48 +56,40 @@ class Mage_CatalogSearch_Model_Resource_Search_Collection extends Mage_Catalog_M
                 $attribute->setEntity($this->getEntity());
             }
         }
+
         return $this->_attributesCollection;
     }
 
     /**
      * Check attribute is Text and is Searchable
      *
-     * @param Mage_Catalog_Model_Entity_Attribute $attribute
+     * @param  Mage_Catalog_Model_Entity_Attribute $attribute
      * @return bool
      */
     protected function _isAttributeTextAndSearchable($attribute)
     {
-        if (($attribute->getIsSearchable()
+        return ($attribute->getIsSearchable()
             && !in_array($attribute->getFrontendInput(), ['select', 'multiselect']))
             && (in_array($attribute->getBackendType(), ['varchar', 'text'])
-                || $attribute->getBackendType() == 'static')
-        ) {
-            return true;
-        }
-        return false;
+                || $attribute->getBackendType() == 'static');
     }
 
     /**
      * Check attributes has options and searchable
      *
-     * @param Mage_Catalog_Model_Entity_Attribute $attribute
+     * @param  Mage_Catalog_Model_Entity_Attribute|Varien_Object $attribute
      * @return bool
      */
     protected function _hasAttributeOptionsAndSearchable($attribute)
     {
-        if ($attribute->getIsSearchable()
-            && in_array($attribute->getFrontendInput(), ['select', 'multiselect'])
-        ) {
-            return true;
-        }
-
-        return false;
+        return $attribute->getIsSearchable()
+            && in_array($attribute->getFrontendInput(), ['select', 'multiselect']);
     }
 
     /**
      * Retrieve SQL for search entities
      *
-     * @param string $query
+     * @param  string           $query
      * @return Varien_Db_Select
      */
     protected function _getSearchEntityIdsSql($query)
@@ -152,13 +144,14 @@ class Mage_CatalogSearch_Model_Resource_Search_Collection extends Mage_Catalog_M
         if ($sql) {
             $selects[] = "SELECT * FROM ({$sql}) AS inoptionsql"; // inheritant unions may be inside
         }
+
         return $this->getConnection()->select()->union($selects, Zend_Db_Select::SQL_UNION_ALL);
     }
 
     /**
      * Retrieve SQL for search entities by option
      *
-     * @param string $query
+     * @param  string                 $query
      * @return false|Varien_Db_Select
      */
     protected function _getSearchInOptionSql($query)
@@ -176,7 +169,8 @@ class Mage_CatalogSearch_Model_Resource_Search_Collection extends Mage_Catalog_M
                 $attributeIds[] = $attribute->getId();
             }
         }
-        if (empty($attributeIds)) {
+
+        if ($attributeIds === []) {
             return false;
         }
 
@@ -232,6 +226,7 @@ class Mage_CatalogSearch_Model_Resource_Search_Collection extends Mage_Catalog_M
                         $where[] = sprintf($whereCond, $option['attribute_id'], $option['store_id']);
                     }
                 }
+
                 if ($where) {
                     $selects[$frontendInput] = (string) $this->getConnection()->select()
                         ->from($attributeTables[$frontendInput], 'entity_id')
@@ -245,12 +240,14 @@ class Mage_CatalogSearch_Model_Resource_Search_Collection extends Mage_Catalog_M
         foreach ($options as $option) {
             $where[] = sprintf('(attribute_id=%d AND value=%d)', $option['attribute_id'], $option['option_id']);
         }
+
         if ($where) {
             $selects[] = (string) $this->getConnection()->select()
                 ->from($resource->getTableName('catalogindex/eav'), 'entity_id')
                 ->where(implode(' OR ', $where))
                 ->where("store_id={$storeId}");
         }
+
         return $this->getConnection()->select()->union($selects, Zend_Db_Select::SQL_UNION_ALL);
     }
 }

@@ -29,8 +29,7 @@ class Mage_Catalog_Model_Resource_Product_Flat extends Mage_Core_Model_Resource_
     protected $_isBuilt                  = [];
 
     /**
-     * Init connection and resource table
-     *
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -51,23 +50,20 @@ class Mage_Catalog_Model_Resource_Product_Flat extends Mage_Core_Model_Resource_
     /**
      * Set store for resource model
      *
-     * @param mixed $store
+     * @param  mixed $store
      * @return $this
      */
     public function setStoreId($store)
     {
-        if (is_int($store)) {
-            $this->_storeId = $store;
-        } else {
-            $this->_storeId = (int) Mage::app()->getStore($store)->getId();
-        }
+        $this->_storeId = is_int($store) ? $store : (int) Mage::app()->getStore($store)->getId();
+
         return $this;
     }
 
     /**
      * Retrieve Flat Table name
      *
-     * @param mixed $store
+     * @param  mixed  $store
      * @return string
      */
     public function getFlatTableName($store = null)
@@ -75,6 +71,7 @@ class Mage_Catalog_Model_Resource_Product_Flat extends Mage_Core_Model_Resource_
         if ($store === null) {
             $store = $this->getStoreId();
         }
+
         return $this->getTable(['catalog/product_flat', $store]);
     }
 
@@ -93,8 +90,8 @@ class Mage_Catalog_Model_Resource_Product_Flat extends Mage_Core_Model_Resource_
     /**
      * Retrieve attribute columns for collection select
      *
-     * @param string $attributeCode
-     * @return array|null
+     * @param  string     $attributeCode
+     * @return null|array
      */
     public function getAttributeForSelect($attributeCode)
     {
@@ -102,6 +99,7 @@ class Mage_Catalog_Model_Resource_Product_Flat extends Mage_Core_Model_Resource_
         if (!isset($describe[$attributeCode])) {
             return null;
         }
+
         $columns = [$attributeCode => $attributeCode];
 
         $attributeIndex = sprintf('%s_value', $attributeCode);
@@ -115,8 +113,8 @@ class Mage_Catalog_Model_Resource_Product_Flat extends Mage_Core_Model_Resource_
     /**
      * Retrieve Attribute Sort column name
      *
-     * @param string $attributeCode
-     * @return string|null
+     * @param  string      $attributeCode
+     * @return null|string
      */
     public function getAttributeSortColumn($attributeCode)
     {
@@ -124,10 +122,12 @@ class Mage_Catalog_Model_Resource_Product_Flat extends Mage_Core_Model_Resource_
         if (!isset($describe[$attributeCode])) {
             return null;
         }
+
         $attributeIndex = sprintf('%s_value', $attributeCode);
         if (isset($describe[$attributeIndex])) {
             return $attributeIndex;
         }
+
         return $attributeCode;
     }
 
@@ -146,7 +146,7 @@ class Mage_Catalog_Model_Resource_Product_Flat extends Mage_Core_Model_Resource_
      * Check whether the attribute is a real field in entity table
      * Rewritten for EAV Collection
      *
-     * @param int|string|Mage_Eav_Model_Entity_Attribute_Abstract $attribute
+     * @param  int|Mage_Eav_Model_Entity_Attribute_Abstract|string $attribute
      * @return bool
      */
     public function isAttributeStatic($attribute)
@@ -186,7 +186,7 @@ class Mage_Catalog_Model_Resource_Product_Flat extends Mage_Core_Model_Resource_
      * Retrieve attribute instance
      * Special for non static flat table
      *
-     * @param mixed $attribute
+     * @param  mixed                                    $attribute
      * @return Mage_Eav_Model_Entity_Attribute_Abstract
      */
     public function getAttribute($attribute)
@@ -208,7 +208,7 @@ class Mage_Catalog_Model_Resource_Product_Flat extends Mage_Core_Model_Resource_
     /**
      * Check if Catalog Product Flat Data has been initialized
      *
-     * @param bool|int|\Mage_Core_Model_Store|null $storeView Store(id) for which the value is checked
+     * @param  null|bool|int|Mage_Core_Model_Store $storeView Store(id) for which the value is checked
      * @return bool
      */
     public function isBuilt($storeView = null)
@@ -227,10 +227,11 @@ class Mage_Catalog_Model_Resource_Product_Flat extends Mage_Core_Model_Resource_
                 ->limit(1);
             try {
                 $this->_isBuilt[$storeId] = (bool) $this->_getReadAdapter()->fetchOne($select);
-            } catch (Exception $e) {
+            } catch (Exception) {
                 $this->_isBuilt[$storeId] = false;
             }
         }
+
         return $this->_isBuilt[$storeId];
     }
 }

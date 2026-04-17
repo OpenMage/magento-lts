@@ -26,29 +26,32 @@ class Mage_Catalog_Model_Product_Url extends Mage_Catalog_Model_Url
      */
     public function __construct(array $args = [])
     {
-        $this->_factory = !empty($args['factory']) ? $args['factory'] : Mage::getSingleton('catalog/factory');
-        $this->_store = !empty($args['store']) ? $args['store'] : Mage::app()->getStore();
+        $this->_factory = empty($args['factory']) ? Mage::getSingleton('catalog/factory') : $args['factory'];
+        $this->_store = empty($args['store']) ? Mage::app()->getStore() : $args['store'];
     }
 
     /**
      * 'no_selection' shouldn't be a valid image attribute value
      *
-     * @param string $image
-     * @return string
+     * @param  string      $image
+     * @return null|string
      */
     protected function _validImage($image)
     {
         if ($image == 'no_selection') {
-            $image = null;
+            return null;
         }
+
         return $image;
     }
 
     /**
      * Retrieve URL in current store
      *
-     * @param array $params the URL route params
+     * @param  array                           $params the URL route params
      * @return string
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getUrlInStore(Mage_Catalog_Model_Product $product, $params = [])
     {
@@ -59,9 +62,11 @@ class Mage_Catalog_Model_Product_Url extends Mage_Catalog_Model_Url
     /**
      * Retrieve Product URL
      *
-     * @param  Mage_Catalog_Model_Product $product
-     * @param  bool $useSid forced SID mode
+     * @param  Mage_Catalog_Model_Product      $product
+     * @param  bool                            $useSid  forced SID mode
      * @return string
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getProductUrl($product, $useSid = null)
     {
@@ -80,19 +85,20 @@ class Mage_Catalog_Model_Product_Url extends Mage_Catalog_Model_Url
     /**
      * Retrieve Product Url path (with category if exists)
      *
-     * @param Mage_Catalog_Model_Product $product
-     * @param Mage_Catalog_Model_Category $category
-     *
+     * @param  Mage_Catalog_Model_Product  $product
+     * @param  Mage_Catalog_Model_Category $category
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function getUrlPath($product, $category = null)
     {
-        $path = $product->getData('url_path');
-
+        $path = $product->getDataByKey('url_path');
         if (is_null($category)) {
             /** @todo get default category */
             return $path;
-        } elseif (!$category instanceof Mage_Catalog_Model_Category) {
+        }
+
+        if (!$category instanceof Mage_Catalog_Model_Category) {
             Mage::throwException('Invalid category object supplied');
         }
 
@@ -103,27 +109,25 @@ class Mage_Catalog_Model_Product_Url extends Mage_Catalog_Model_Url
     /**
      * Retrieve Product URL using UrlDataObject
      *
-     * @param array $params
+     * @param  array                           $params
      * @return string
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getUrl(Mage_Catalog_Model_Product $product, $params = [])
     {
-        $url = $product->getData('url');
+        $url = $product->getDataByKey('url');
         if (!empty($url)) {
             return $url;
         }
 
-        $requestPath = $product->getData('request_path');
+        $requestPath = $product->getDataByKey('request_path');
         if (empty($requestPath)) {
             $requestPath = $this->_getRequestPath($product, $this->_getCategoryIdForUrl($product, $params));
             $product->setRequestPath($requestPath);
         }
 
-        if (isset($params['_store'])) {
-            $storeId = $this->_getStoreId($params['_store']);
-        } else {
-            $storeId = $product->getStoreId();
-        }
+        $storeId = isset($params['_store']) ? $this->_getStoreId($params['_store']) : $product->getStoreId();
 
         if ($storeId != $this->_getStoreId()) {
             $params['_store_to_url'] = true;
@@ -137,13 +141,13 @@ class Mage_Catalog_Model_Product_Url extends Mage_Catalog_Model_Url
         $this->getUrlInstance()->setStore($storeId);
         $productUrl = $this->_getProductUrl($product, $requestPath, $params);
         $product->setData('url', $productUrl);
-        return $product->getData('url');
+        return $product->getDataByKey('url');
     }
 
     /**
      * Returns checked store_id value
      *
-     * @param int|null $id
+     * @param  null|int $id
      * @return int
      */
     protected function _getStoreId($id = null)
@@ -155,49 +159,52 @@ class Mage_Catalog_Model_Product_Url extends Mage_Catalog_Model_Url
      * Check product category
      *
      * @param Mage_Catalog_Model_Product $product
-     * @param array $params
+     * @param array                      $params
      *
-     * @return int|null
+     * @return null|int
      */
     protected function _getCategoryIdForUrl($product, $params)
     {
         if (isset($params['_ignore_category'])) {
             return null;
-        } else {
-            return $product->getCategoryId() && !$product->getDoNotUseCategoryId()
-                ? $product->getCategoryId() : null;
         }
+
+        return $product->getCategoryId() && !$product->getDoNotUseCategoryId()
+            ? $product->getCategoryId() : null;
     }
 
     /**
      * Retrieve product URL based on requestPath param
      *
-     * @param Mage_Catalog_Model_Product $product
-     * @param string $requestPath
-     * @param array $routeParams
-     *
+     * @param  Mage_Catalog_Model_Product $product
+     * @param  string                     $requestPath
+     * @param  array                      $routeParams
      * @return string
+     * @throws Mage_Core_Exception
      */
     protected function _getProductUrl($product, $requestPath, $routeParams)
     {
         if (!empty($requestPath)) {
             return $this->getUrlInstance()->getDirectUrl($requestPath, $routeParams);
         }
+
         $routeParams['id'] = $product->getId();
         $routeParams['s'] = $product->getUrlKey();
         $categoryId = $this->_getCategoryIdForUrl($product, $routeParams);
         if ($categoryId) {
             $routeParams['category'] = $categoryId;
         }
+
         return $this->getUrlInstance()->getUrl('catalog/product/view', $routeParams);
     }
 
     /**
      * Retrieve request path
      *
-     * @param Mage_Catalog_Model_Product $product
-     * @param int $categoryId
+     * @param  Mage_Catalog_Model_Product $product
+     * @param  int                        $categoryId
      * @return bool|string
+     * @throws Mage_Core_Exception
      */
     protected function _getRequestPath($product, $categoryId)
     {
@@ -205,12 +212,14 @@ class Mage_Catalog_Model_Product_Url extends Mage_Catalog_Model_Url
         if ($categoryId) {
             $idPath = sprintf('%s/%d', $idPath, $categoryId);
         }
+
         $rewrite = $this->getUrlRewrite();
         $rewrite->setStoreId($product->getStoreId())
             ->loadByIdPath($idPath);
         if ($rewrite->getId()) {
             return $rewrite->getRequestPath();
         }
+
         return false;
     }
 }

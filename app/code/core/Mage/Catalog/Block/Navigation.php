@@ -17,7 +17,7 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
     /**
      * Category instance
      *
-     * @var Mage_Catalog_Model_Category|null
+     * @var null|Mage_Catalog_Model_Category
      */
     protected $_categoryInstance;
 
@@ -43,7 +43,7 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
     protected $_currentChildCategories;
 
     /**
-     * Set cache data
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -58,6 +58,7 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
      * Get Key pieces for caching block content
      *
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function getCacheKeyInfo()
     {
@@ -87,16 +88,13 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
      * Get current category key
      *
      * @return int|string
+     * @throws Mage_Core_Exception
      */
     public function getCurrenCategoryKey()
     {
         if (!$this->_currentCategoryKey) {
             $category = Mage::registry('current_category');
-            if ($category) {
-                $this->_currentCategoryKey = $category->getPath();
-            } else {
-                $this->_currentCategoryKey = Mage::app()->getStore()->getRootCategoryId();
-            }
+            $this->_currentCategoryKey = $category ? $category->getPath() : Mage::app()->getStore()->getRootCategoryId();
         }
 
         return $this->_currentCategoryKey;
@@ -106,6 +104,7 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
      * Get categories of current store
      *
      * @return Varien_Data_Tree_Node_Collection
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getStoreCategories()
     {
@@ -117,6 +116,7 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
      * Retrieve child categories of current category
      *
      * @return Mage_Catalog_Model_Resource_Category_Collection
+     * @throws Mage_Core_Exception
      */
     public function getCurrentChildCategories()
     {
@@ -128,19 +128,20 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
             $layer->prepareProductCollection($productCollection);
             $productCollection->addCountToCategories($this->_currentChildCategories);
         }
+
         return $this->_currentChildCategories;
     }
 
     /**
      * Check whether specified category is active
      *
-     * @param Varien_Object $category
+     * @param  Varien_Object $category
      * @return bool
      */
     public function isCategoryActive($category)
     {
-        return $this->getCurrentCategory()
-            ? in_array($category->getId(), $this->getCurrentCategory()->getPathIds()) : false;
+        $currentCategory = $this->getCurrentCategory();
+        return $currentCategory && in_array($category->getId(), $currentCategory->getPathIds());
     }
 
     /**
@@ -153,32 +154,31 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
         if (is_null($this->_categoryInstance)) {
             $this->_categoryInstance = Mage::getModel('catalog/category');
         }
+
         return $this->_categoryInstance;
     }
 
     /**
      * Get url for category data
      *
-     * @param Mage_Catalog_Model_Category $category
+     * @param  Mage_Catalog_Model_Category $category
      * @return string
      */
     public function getCategoryUrl($category)
     {
         if ($category instanceof Mage_Catalog_Model_Category) {
-            $url = $category->getUrl();
-        } else {
-            $url = $this->_getCategoryInstance()
-                ->setData($category->getData())
-                ->getUrl();
+            return $category->getUrl();
         }
 
-        return $url;
+        return $this->_getCategoryInstance()
+            ->setData($category->getData())
+            ->getUrl();
     }
 
     /**
      * Return item position representation in menu tree
      *
-     * @param int $level
+     * @param  int    $level
      * @return string
      */
     protected function _getItemPosition($level)
@@ -194,26 +194,28 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
         }
 
         $position = [];
-        for ($i = 0; $i <= $level; $i++) {
-            if (isset($this->_itemLevelPositions[$i])) {
-                $position[] = $this->_itemLevelPositions[$i];
+        for ($index = 0; $index <= $level; $index++) {
+            if (isset($this->_itemLevelPositions[$index])) {
+                $position[] = $this->_itemLevelPositions[$index];
             }
         }
+
         return implode('-', $position);
     }
 
     /**
      * Render category to html
      *
-     * @param Mage_Catalog_Model_Category $category
-     * @param int $level Nesting level number
-     * @param bool $isLast Whether ot not this item is last, affects list item class
-     * @param bool $isFirst Whether ot not this item is first, affects list item class
-     * @param bool $isOutermost Whether ot not this item is outermost, affects list item class
-     * @param string $outermostItemClass Extra class of outermost list items
-     * @param string $childrenWrapClass If specified wraps children list in div with this class
-     * @param bool $noEventAttributes Whether ot not to add on* attributes to list item
+     * @param  Mage_Catalog_Model_Category $category
+     * @param  int                         $level              Nesting level number
+     * @param  bool                        $isLast             Whether ot not this item is last, affects list item class
+     * @param  bool                        $isFirst            Whether ot not this item is first, affects list item class
+     * @param  bool                        $isOutermost        Whether ot not this item is outermost, affects list item class
+     * @param  string                      $outermostItemClass Extra class of outermost list items
+     * @param  string                      $childrenWrapClass  If specified wraps children list in div with this class
+     * @param  bool                        $noEventAttributes  Whether ot not to add on* attributes to list item
      * @return string
+     * @throws Mage_Core_Exception
      */
     protected function _renderCategoryMenuItemHtml(
         $category,
@@ -228,6 +230,7 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
         if (!$category->getIsActive()) {
             return '';
         }
+
         $html = [];
 
         // get all children
@@ -235,12 +238,9 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
         $flatHelper = Mage::helper('catalog/category_flat');
         if ($flatHelper->isAvailable() && $flatHelper->isBuilt(true) && !Mage::app()->getStore()->isAdmin()) {
             $children = (array) $category->getChildrenNodes();
-            $childrenCount = count($children);
         } else {
             $children = $category->getChildren();
-            $childrenCount = $children->count();
         }
-        $hasChildren = ($children && $childrenCount);
 
         // select active children
         $activeChildren = [];
@@ -249,6 +249,7 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
                 $activeChildren[] = $child;
             }
         }
+
         $activeChildrenCount = count($activeChildren);
         $hasActiveChildren = ($activeChildrenCount > 0);
 
@@ -259,26 +260,29 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
         if ($this->isCategoryActive($category)) {
             $classes[] = 'active';
         }
+
         $linkClass = '';
         if ($isOutermost && $outermostItemClass) {
             $classes[] = $outermostItemClass;
             $linkClass = ' class="' . $outermostItemClass . '"';
         }
+
         if ($isFirst) {
             $classes[] = 'first';
         }
+
         if ($isLast) {
             $classes[] = 'last';
         }
+
         if ($hasActiveChildren) {
             $classes[] = 'parent';
         }
 
         // prepare list item attributes
         $attributes = [];
-        if (count($classes) > 0) {
-            $attributes['class'] = implode(' ', $classes);
-        }
+        $attributes['class'] = implode(' ', $classes);
+
         if ($hasActiveChildren && !$noEventAttributes) {
             $attributes['onmouseover'] = 'toggleMenu(this,1)';
             $attributes['onmouseout'] = 'toggleMenu(this,0)';
@@ -289,6 +293,7 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
         foreach ($attributes as $attrName => $attrValue) {
             $htmlLi .= ' ' . $attrName . '="' . str_replace('"', '\"', $attrValue) . '"';
         }
+
         $htmlLi .= '>';
         $html[] = $htmlLi;
 
@@ -312,10 +317,12 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
             );
             $j++;
         }
+
         if (!empty($htmlChildren)) {
             if ($childrenWrapClass) {
                 $html[] = '<div class="' . $childrenWrapClass . '">';
             }
+
             $html[] = '<ul class="level' . $level . '">';
             $html[] = $htmlChildren;
             $html[] = '</ul>';
@@ -331,11 +338,12 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
     /**
      * Render category to html
      *
-     * @deprecated deprecated after 1.4
-     * @param Mage_Catalog_Model_Category $category
-     * @param int $level Nesting level number
-     * @param bool $last Whether ot not this item is last, affects list item class
+     * @param  Mage_Catalog_Model_Category $category
+     * @param  int                         $level    Nesting level number
+     * @param  bool                        $last     Whether ot not this item is last, affects list item class
      * @return string
+     * @throws Mage_Core_Exception
+     * @deprecated deprecated after 1.4
      */
     public function drawItem($category, $level = 0, $last = false)
     {
@@ -343,13 +351,14 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
     }
 
     /**
-     * @return Mage_Catalog_Model_Category|false
+     * @return false|Mage_Catalog_Model_Category
      */
     public function getCurrentCategory()
     {
         if (Mage::getSingleton('catalog/layer')) {
             return Mage::getSingleton('catalog/layer')->getCurrentCategory();
         }
+
         return false;
     }
 
@@ -361,12 +370,14 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
         if ($this->getCurrentCategory()) {
             return explode(',', $this->getCurrentCategory()->getPathInStore());
         }
+
         return [];
     }
 
     /**
-     * @param Mage_Catalog_Model_Category $category
+     * @param  Mage_Catalog_Model_Category $category
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function drawOpenCategoryItem($category)
     {
@@ -407,10 +418,12 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
     /**
      * Render categories menu in HTML
      *
-     * @param int $level Level number for list item class to start from
-     * @param string $outermostItemClass Extra class of outermost list items
-     * @param string $childrenWrapClass If specified wraps children list in div with this class
+     * @param  int                             $level              Level number for list item class to start from
+     * @param  string                          $outermostItemClass Extra class of outermost list items
+     * @param  string                          $childrenWrapClass  If specified wraps children list in div with this class
      * @return string
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function renderCategoriesMenuHtml($level = 0, $outermostItemClass = '', $childrenWrapClass = '')
     {
@@ -420,6 +433,7 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
                 $activeCategories[] = $child;
             }
         }
+
         $activeCategoriesCount = count($activeCategories);
         $hasActiveCategoriesCount = ($activeCategoriesCount > 0);
 

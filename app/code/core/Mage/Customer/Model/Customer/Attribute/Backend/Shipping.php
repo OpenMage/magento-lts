@@ -15,7 +15,7 @@
 class Mage_Customer_Model_Customer_Attribute_Backend_Shipping extends Mage_Eav_Model_Entity_Attribute_Backend_Abstract
 {
     /**
-     * @param Mage_Customer_Model_Customer $object
+     * @param  Mage_Customer_Model_Customer $object
      * @return $this
      */
     public function beforeSave($object)
@@ -24,11 +24,12 @@ class Mage_Customer_Model_Customer_Attribute_Backend_Shipping extends Mage_Eav_M
         if (is_null($defaultShipping)) {
             $object->unsetDefaultShipping();
         }
+
         return $this;
     }
 
     /**
-     * @param Mage_Customer_Model_Customer $object
+     * @param  Mage_Customer_Model_Customer $object
      * @return $this
      */
     public function afterSave($object)
@@ -51,6 +52,7 @@ class Mage_Customer_Model_Customer_Attribute_Backend_Shipping extends Mage_Eav_M
                     ->saveAttribute($object, $this->getAttribute()->getAttributeCode());
             }
         }
+
         return $this;
     }
 }

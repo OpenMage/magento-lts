@@ -16,6 +16,7 @@ class Mage_Core_Model_Input_Filter_MaliciousCode implements Zend_Filter_Interfac
 {
     /**
      * Regular expressions for cutting malicious code
+     * @var string[]
      */
     protected array $_expressions = [
         //comments, must be first
@@ -41,8 +42,8 @@ class Mage_Core_Model_Input_Filter_MaliciousCode implements Zend_Filter_Interfac
     ];
 
     /**
-     * @param string|array|null $value
-     * @return string|array
+     * @param  null|array|string $value
+     * @return array|string
      */
     public function filter($value)
     {
@@ -60,7 +61,7 @@ class Mage_Core_Model_Input_Filter_MaliciousCode implements Zend_Filter_Interfac
     /**
      * Add expression
      *
-     * @param string $expression
+     * @param  string $expression
      * @return $this
      */
     public function addExpression($expression)
@@ -68,6 +69,7 @@ class Mage_Core_Model_Input_Filter_MaliciousCode implements Zend_Filter_Interfac
         if (!in_array($expression, $this->_expressions)) {
             $this->_expressions[] = $expression;
         }
+
         return $this;
     }
 
@@ -85,8 +87,8 @@ class Mage_Core_Model_Input_Filter_MaliciousCode implements Zend_Filter_Interfac
     /**
      * The filter adds safe attributes to the link
      *
-     * @param string $html
-     * @param bool $removeWrapper flag for remove wrapper tags: Doctype, html, body
+     * @param  string              $html
+     * @param  bool                $removeWrapper flag for remove wrapper tags: Doctype, html, body
      * @return string
      * @throws Mage_Core_Exception
      */
@@ -110,6 +112,7 @@ class Mage_Core_Model_Input_Filter_MaliciousCode implements Zend_Filter_Interfac
             if (!empty($relAttributeCurrentValue)) {
                 $relAttributeItems = explode(' ', $relAttributeCurrentValue);
             }
+
             $relAttributeItems = array_unique(array_merge($relAttributeItems, $relAttributeDefaultItems));
             $linkItem->setAttribute('rel', implode(' ', $relAttributeItems));
             $linkItem->setAttribute('target', '_blank');

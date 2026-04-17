@@ -37,6 +37,7 @@ class Mage_Catalog_Model_Resource_Category_Attribute_Source_Mode extends Mage_Ea
                 ],
             ];
         }
+
         return $this->_options;
     }
 }

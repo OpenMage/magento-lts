@@ -7,6 +7,8 @@
  * @package    Mage_Adminhtml
  */
 
+use Carbon\Carbon;
+
 /**
  * Create random order
  *
@@ -27,11 +29,15 @@ class Mage_Adminhtml_Model_Sales_Order_Random
      * @var Mage_Sales_Model_Order
      */
     protected $_order;
+
     protected $_store;
+
     protected $_customer;
+
     protected $_productCollection;
 
     protected static $_storeCollection;
+
     protected static $_customerCollection;
 
     public function __construct()
@@ -46,6 +52,7 @@ class Mage_Adminhtml_Model_Sales_Order_Random
             self::$_storeCollection = Mage::getResourceModel('core/store_collection')
                 ->load();
         }
+
         return self::$_storeCollection->getItems();
     }
 
@@ -57,6 +64,7 @@ class Mage_Adminhtml_Model_Sales_Order_Random
                 ->joinAttribute('shipping_country_id', 'customer_address/country_id', 'default_shipping', null, 'inner')
                 ->load();
         }
+
         return self::$_customerCollection->getItems();
     }
 
@@ -64,7 +72,6 @@ class Mage_Adminhtml_Model_Sales_Order_Random
     {
         if (!$this->_productCollection) {
             $this->_productCollection = Mage::getResourceModel('catalog/product_collection');
-            Mage::getSingleton('catalog/product_visibility')->addVisibleInSearchFilterToCollection($this->_productCollection);
             $this->_productCollection
                 ->addAttributeToSelect('name')
                 ->addAttributeToSelect('sku')
@@ -72,8 +79,10 @@ class Mage_Adminhtml_Model_Sales_Order_Random
                 ->addAttributeToFilter('status', [
                     'in' => Mage::getSingleton('catalog/product_status')->getVisibleStatusIds(),
                 ])
+                ->setVisibility(Mage::getSingleton('catalog/product_visibility')::getVisibleInSearchIds())
                 ->load();
         }
+
         return $this->_productCollection->getItems();
     }
 
@@ -89,6 +98,7 @@ class Mage_Adminhtml_Model_Sales_Order_Random
             $randKey = array_rand($items);
             $this->_customer = $items[$randKey];
         }
+
         return $this->_customer;
     }
 
@@ -106,6 +116,7 @@ class Mage_Adminhtml_Model_Sales_Order_Random
             $randKey = array_rand($items);
             $this->_store = $items[$randKey];
         }
+
         return $this->_store;
     }
 
@@ -125,6 +136,7 @@ class Mage_Adminhtml_Model_Sales_Order_Random
                 $this->_quote->addCatalogProduct($product);
             }
         }
+
         $this->_quote->getPayment()->setMethod('checkmo');
 
         $this->_quote->getShippingAddress()->setShippingMethod('freeshipping_freeshipping');//->collectTotals()->save();
@@ -138,7 +150,7 @@ class Mage_Adminhtml_Model_Sales_Order_Random
     protected function _getRandomDate()
     {
         $timestamp = mktime(random_int(0, 23), random_int(0, 59), 0, random_int(1, 11), random_int(1, 28), random_int(2006, 2007));
-        return date(Varien_Date::DATETIME_PHP_FORMAT, $timestamp);
+        return Carbon::createFromTimestamp($timestamp)->format(Varien_Date::DATETIME_PHP_FORMAT);
     }
 
     public function save()

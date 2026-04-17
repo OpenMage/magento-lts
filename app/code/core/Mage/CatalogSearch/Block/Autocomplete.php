@@ -55,6 +55,7 @@ class Mage_CatalogSearch_Block_Autocomplete extends Mage_Core_Block_Abstract
             if ($isAjaxSuggestionCountResultsEnabled) {
                 $html .= '<span class="amount">' . $item['num_of_results'] . '</span>';
             }
+
             $html .= $this->escapeHtml($item['title']) . '</li>';
         }
 
@@ -86,8 +87,10 @@ class Mage_CatalogSearch_Block_Autocomplete extends Mage_Core_Block_Abstract
                     $data[] = $_data;
                 }
             }
+
             $this->_suggestData = $data;
         }
+
         return $this->_suggestData;
     }
 }

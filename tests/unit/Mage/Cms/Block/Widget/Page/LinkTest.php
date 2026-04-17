@@ -60,7 +60,7 @@ final class LinkTest extends OpenMageTest
      * @group Block
      * @throws Mage_Core_Model_Store_Exception
      */
-    public function testGetAnchorText(bool|string|null $expectedResult, array $data): void
+    public function testGetAnchorText(null|bool|string $expectedResult, array $data): void
     {
         self::$subject->setData($data);
 

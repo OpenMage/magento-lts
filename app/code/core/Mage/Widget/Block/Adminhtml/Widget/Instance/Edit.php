@@ -14,6 +14,9 @@
  */
 class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit extends Mage_Adminhtml_Block_Widget_Form_Container
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         parent::_construct();
@@ -38,14 +41,14 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit extends Mage_Adminhtml_Bl
      *
      * @inheritDoc
      */
-    protected function _preparelayout()
+    protected function _prepareLayout()
     {
         if ($this->getWidgetInstance()->isCompleteToCreate()) {
             $this->_addButton(
                 'save_and_edit_button',
                 [
                     'label'     => Mage::helper('widget')->__('Save and Continue Edit'),
-                    'class'     => 'save',
+                    'class'     => 'save continue',
                     'onclick'   => 'saveAndContinueEdit()',
                 ],
                 100,
@@ -53,6 +56,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit extends Mage_Adminhtml_Bl
         } else {
             $this->removeButton('save');
         }
+
         return parent::_prepareLayout();
     }
 
@@ -66,6 +70,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit extends Mage_Adminhtml_Bl
         if ($this->getWidgetInstance()->getId()) {
             return Mage::helper('widget')->__('Widget "%s"', $this->escapeHtml($this->getWidgetInstance()->getTitle()));
         }
+
         return Mage::helper('widget')->__('New Widget Instance');
     }
 

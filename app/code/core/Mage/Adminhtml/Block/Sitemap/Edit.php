@@ -27,7 +27,7 @@ class Mage_Adminhtml_Block_Sitemap_Edit extends Mage_Adminhtml_Block_Widget_Form
         $this->_addButton('generate', [
             'label'   => Mage::helper('adminhtml')->__('Save & Generate'),
             'onclick' => "$('generate').value=1; editForm.submit();",
-            'class'   => 'add',
+            'class'   => 'add generate',
         ]);
     }
 
@@ -41,6 +41,7 @@ class Mage_Adminhtml_Block_Sitemap_Edit extends Mage_Adminhtml_Block_Widget_Form
         if (Mage::registry('sitemap_sitemap')->getId()) {
             return Mage::helper('sitemap')->__('Edit Sitemap');
         }
+
         return Mage::helper('sitemap')->__('New Sitemap');
     }
 }

@@ -7,12 +7,15 @@
  * @package    Mage_Index
  */
 
+use Carbon\Carbon;
+
 /**
  * @package    Mage_Index
  */
 class Mage_Index_Model_Observer
 {
     public const OLD_INDEX_EVENT_THRESHOLD_SECONDS = 24 * 60 * 60;
+
     public const OLD_INDEX_EVENT_DELETE_COUNT = 1000;
 
     /**
@@ -144,7 +147,7 @@ class Mage_Index_Model_Observer
             ->getProcessesCollection()
             ->addFieldToFilter('mode', Mage_Index_Model_Process::MODE_MANUAL);
 
-        $now = new DateTime();
+        $now = Carbon::now();
         /** @noinspection PhpUnhandledExceptionInspection */
         $dateInterval = new DateInterval('PT' . self::OLD_INDEX_EVENT_THRESHOLD_SECONDS . 'S');
         $oldEventsThreshold = $now
@@ -173,7 +176,7 @@ class Mage_Index_Model_Observer
                 }
             }
 
-            if (!empty($eventList)) {
+            if ($eventList !== []) {
                 $where = new Zend_Db_Expr(
                     sprintf(
                         'event_id in (%s)',

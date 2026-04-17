@@ -14,6 +14,9 @@
  */
 class Mage_Catalog_Model_Resource_Product_Relation extends Mage_Core_Model_Resource_Db_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('catalog/product_relation', 'parent_id');
@@ -22,8 +25,8 @@ class Mage_Catalog_Model_Resource_Product_Relation extends Mage_Core_Model_Resou
     /**
      * Save (rebuild) product relations
      *
-     * @param int $parentId
-     * @param array $childIds
+     * @param  int   $parentId
+     * @param  array $childIds
      * @return $this
      */
     public function processRelations($parentId, $childIds)
@@ -37,7 +40,7 @@ class Mage_Catalog_Model_Resource_Product_Relation extends Mage_Core_Model_Resou
         $insert = array_diff($new, $old);
         $delete = array_diff($old, $new);
 
-        if (!empty($insert)) {
+        if ($insert !== []) {
             $insertData = [];
             foreach ($insert as $childId) {
                 $insertData[] = [
@@ -45,9 +48,11 @@ class Mage_Catalog_Model_Resource_Product_Relation extends Mage_Core_Model_Resou
                     'child_id'  => $childId,
                 ];
             }
+
             $this->_getWriteAdapter()->insertMultiple($this->getMainTable(), $insertData);
         }
-        if (!empty($delete)) {
+
+        if ($delete !== []) {
             $where = implode(' AND ', [
                 $this->_getWriteAdapter()->quoteInto('parent_id = ?', $parentId),
                 $this->_getWriteAdapter()->quoteInto('child_id IN(?)', $delete),

@@ -44,6 +44,7 @@ class Mage_Sales_Model_Order_Creditmemo_Total_Shipping extends Mage_Sales_Model_
                 $baseShippingInclTax = $baseShippingAmount;
                 $baseShippingAmount = Mage::app()->getStore()->roundPrice($baseShipping * $part);
             }
+
             /*
              * Rounded allowed shipping refund amount is the highest acceptable shipping refund amount.
              * Shipping refund amount shouldn't cause errors, if it doesn't exceed that limit.
@@ -62,11 +63,12 @@ class Mage_Sales_Model_Order_Creditmemo_Total_Shipping extends Mage_Sales_Model_
                     if ($baseShipping != 0) {
                         $shipping = $shipping * $baseShippingAmount / $baseShipping;
                     }
+
                     $shipping     = Mage::app()->getStore()->roundPrice($shipping);
                     $baseShipping = $baseShippingAmount;
                 }
             } else {
-                $baseAllowedAmount = $order->getBaseCurrency()->format($baseAllowedAmount, null, false);
+                $baseAllowedAmount = $order->getBaseCurrency()->format($baseAllowedAmount, [], false);
                 Mage::throwException(
                     Mage::helper('sales')->__('Maximum shipping amount allowed to refund is: %s', $baseAllowedAmount),
                 );
@@ -79,6 +81,7 @@ class Mage_Sales_Model_Order_Creditmemo_Total_Shipping extends Mage_Sales_Model_
                 $shippingInclTax = Mage::app()->getStore()->roundPrice($allowedAmount + $allowedTaxAmount);
                 $baseShippingInclTax = Mage::app()->getStore()->roundPrice($baseAllowedAmount + $baseAllowedTaxAmount);
             }
+
             $shipping           = $allowedAmount;
             $baseShipping       = $baseAllowedAmount;
         }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -13,7 +15,7 @@
  * @package    Mage_Adminhtml
  *
  * @method array|string getProductIds()
- * @method $this setProductIds(array|string $value)
+ * @method $this        setProductIds(array|string $value)
  */
 class Mage_Adminhtml_Model_Session extends Mage_Core_Model_Session_Abstract
 {

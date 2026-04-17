@@ -7,6 +7,8 @@
  * @package    Mage_Core
  */
 
+use Carbon\Carbon;
+
 /**
  * Locale model
  *
@@ -18,28 +20,38 @@ class Mage_Core_Model_Locale
      * Default locale name
      */
     public const DEFAULT_LOCALE    = 'en_US';
+
     public const DEFAULT_TIMEZONE  = 'UTC';
+
     public const DEFAULT_CURRENCY  = 'USD';
 
     /**
      * XML path constants
      */
     public const XML_PATH_DEFAULT_LOCALE   = 'general/locale/code';
+
     public const XML_PATH_DEFAULT_TIMEZONE = 'general/locale/timezone';
+
     /**
      * @deprecated since 1.4.1.0
      */
     public const XML_PATH_DEFAULT_COUNTRY  = 'general/country/default';
+
     public const XML_PATH_ALLOW_CODES      = 'global/locale/allow/codes';
+
     public const XML_PATH_ALLOW_CURRENCIES = 'global/locale/allow/currencies';
+
     public const XML_PATH_ALLOW_CURRENCIES_INSTALLED = 'system/currency/installed';
 
     /**
      * Date and time format codes
      */
     public const FORMAT_TYPE_FULL  = 'full';
+
     public const FORMAT_TYPE_LONG  = 'long';
+
     public const FORMAT_TYPE_MEDIUM = 'medium';
+
     public const FORMAT_TYPE_SHORT = 'short';
 
     /**
@@ -52,7 +64,7 @@ class Mage_Core_Model_Locale
     /**
      * Locale object
      *
-     * @var Zend_Locale|null
+     * @var null|Zend_Locale
      */
     protected $_locale;
 
@@ -74,7 +86,7 @@ class Mage_Core_Model_Locale
 
     /**
      * Mage_Core_Model_Locale constructor.
-     * @param string|null $locale
+     * @param null|string $locale
      */
     public function __construct($locale = null)
     {
@@ -84,8 +96,8 @@ class Mage_Core_Model_Locale
     /**
      * Set default locale code
      *
-     * @param   string $locale
-     * @return  Mage_Core_Model_Locale
+     * @param  string                 $locale
+     * @return Mage_Core_Model_Locale
      */
     public function setDefaultLocale($locale)
     {
@@ -105,24 +117,23 @@ class Mage_Core_Model_Locale
             if (!$locale) {
                 $locale = self::DEFAULT_LOCALE;
             }
+
             $this->_defaultLocale = $locale;
         }
+
         return $this->_defaultLocale;
     }
 
     /**
      * Set locale
      *
-     * @param   string $locale
-     * @return  Mage_Core_Model_Locale
+     * @param  string                 $locale
+     * @return Mage_Core_Model_Locale
      */
     public function setLocale($locale = null)
     {
-        if (($locale !== null) && is_string($locale)) {
-            $this->_localeCode = $locale;
-        } else {
-            $this->_localeCode = $this->getDefaultLocale();
-        }
+        $this->_localeCode = $locale !== null && is_string($locale) ? $locale : $this->getDefaultLocale();
+
         Mage::dispatchEvent('core_locale_set_locale', ['locale' => $this]);
         return $this;
     }
@@ -151,6 +162,7 @@ class Mage_Core_Model_Locale
      * Retrieve locale object
      *
      * @return Zend_Locale
+     * @throws Zend_Locale_Exception
      */
     public function getLocale()
     {
@@ -174,14 +186,15 @@ class Mage_Core_Model_Locale
         if ($this->_localeCode === null) {
             $this->setLocale();
         }
+
         return $this->_localeCode;
     }
 
     /**
      * Specify current locale code
      *
-     * @param   string $code
-     * @return  Mage_Core_Model_Locale
+     * @param  string $code
+     * @return $this
      */
     public function setLocaleCode($code)
     {
@@ -194,6 +207,7 @@ class Mage_Core_Model_Locale
      * Get options array for locale dropdown in currunt locale
      *
      * @return array
+     * @throws Zend_Locale_Exception
      */
     public function getOptionLocales()
     {
@@ -204,6 +218,7 @@ class Mage_Core_Model_Locale
      * Get translated to original locale options array for locale dropdown
      *
      * @return array
+     * @throws Zend_Locale_Exception
      */
     public function getTranslatedOptionLocales()
     {
@@ -213,14 +228,15 @@ class Mage_Core_Model_Locale
     /**
      * Get options array for locale dropdown
      *
-     * @param   bool $translatedName translation flag
-     * @return  array
+     * @param  bool                  $translatedName translation flag
+     * @return array
+     * @throws Zend_Locale_Exception
      */
     protected function _getOptionLocales($translatedName = false)
     {
         $options = [];
-        $zendLocales = $this->getLocale()->getLocaleList();
-        $languages = $this->getLocale()->getTranslationList('language', $this->getLocale());
+        $zendLocales = $this->getLocale()::getLocaleList();
+        $languages = $this->getLocale()::getTranslationList('language', $this->getLocale());
         $countries = $this->getCountryTranslationList();
 
         //Zend locale codes for internal allowed locale codes
@@ -241,27 +257,35 @@ class Mage_Core_Model_Locale
         }
 
         foreach (array_keys($locales) as $code) {
-            if (strstr($code, '_')) {
+            if (str_contains($code, '_')) {
                 if (!in_array($code, $allowed)) {
                     continue;
                 }
+
                 $data = explode('_', $code);
-                if (!isset($languages[$data[0]]) || !isset($countries[$data[1]])) {
+                if (!isset($languages[$data[0]])) {
                     continue;
                 }
+
+                if (!isset($countries[$data[1]])) {
+                    continue;
+                }
+
                 if ($translatedName) {
-                    $label = ucwords($this->getLocale()->getTranslation($data[0], 'language', $code))
-                        . ' (' . $this->getLocale()->getTranslation($data[1], 'country', $code) . ') / '
+                    $label = ucwords($this->getLocale()::getTranslation($data[0], 'language', $code))
+                        . ' (' . $this->getLocale()::getTranslation($data[1], 'country', $code) . ') / '
                         . $languages[$data[0]] . ' (' . $countries[$data[1]] . ')';
                 } else {
                     $label = $languages[$data[0]] . ' (' . $countries[$data[1]] . ')';
                 }
+
                 $options[] = [
                     'value' => $code,
                     'label' => $label,
                 ];
             }
         }
+
         return $this->_sortOptionArray($options);
     }
 
@@ -269,6 +293,7 @@ class Mage_Core_Model_Locale
      * Retrieve timezone option list
      *
      * @return array
+     * @throws Zend_Locale_Exception
      */
     public function getOptionTimezones()
     {
@@ -292,16 +317,17 @@ class Mage_Core_Model_Locale
                 }
             }
         }
+
         return $this->_sortOptionArray($options);
     }
 
     /**
      * Retrieve days of week option list
      *
-     * @param bool $preserveCodes
-     * @param bool $ucFirstCode
-     *
+     * @param  bool                  $preserveCodes
+     * @param  bool                  $ucFirstCode
      * @return array
+     * @throws Zend_Locale_Exception
      */
     public function getOptionWeekdays($preserveCodes = false, $ucFirstCode = false)
     {
@@ -314,6 +340,7 @@ class Mage_Core_Model_Locale
                 'value' => $ucFirstCode ? ucfirst($code) : $code,
             ];
         }
+
         return $options;
     }
 
@@ -321,6 +348,7 @@ class Mage_Core_Model_Locale
      * Retrieve country option list
      *
      * @return array
+     * @throws Zend_Locale_Exception
      */
     public function getOptionCountries()
     {
@@ -333,6 +361,7 @@ class Mage_Core_Model_Locale
                 'value' => $code,
             ];
         }
+
         return $this->_sortOptionArray($options);
     }
 
@@ -340,6 +369,7 @@ class Mage_Core_Model_Locale
      * Retrieve currency option list
      *
      * @return array
+     * @throws Zend_Locale_Exception
      */
     public function getOptionCurrencies()
     {
@@ -357,6 +387,7 @@ class Mage_Core_Model_Locale
                 'value' => $code,
             ];
         }
+
         return $this->_sortOptionArray($options);
     }
 
@@ -364,6 +395,7 @@ class Mage_Core_Model_Locale
      * Retrieve all currency option list
      *
      * @return array
+     * @throws Zend_Locale_Exception
      */
     public function getOptionAllCurrencies()
     {
@@ -375,11 +407,12 @@ class Mage_Core_Model_Locale
                 'value' => $code,
             ];
         }
+
         return $this->_sortOptionArray($options);
     }
 
     /**
-     * @param array $option
+     * @param  array $option
      * @return array
      */
     protected function _sortOptionArray($option)
@@ -388,6 +421,7 @@ class Mage_Core_Model_Locale
         foreach ($option as $item) {
             $data[$item['value']] = $item['label'];
         }
+
         asort($data);
         $option = [];
         foreach ($data as $key => $label) {
@@ -396,6 +430,7 @@ class Mage_Core_Model_Locale
                 'label' => $label,
             ];
         }
+
         return $option;
     }
 
@@ -420,18 +455,18 @@ class Mage_Core_Model_Locale
         if (Mage::isInstalled()) {
             $data = Mage::app()->getStore()->getConfig(self::XML_PATH_ALLOW_CURRENCIES_INSTALLED);
             return explode(',', $data);
-        } else {
-            $data = Mage::getSingleton('core/locale_config')->getAllowedCurrencies();
         }
-        return $data;
+
+        return Mage::getSingleton('core/locale_config')->getAllowedCurrencies();
     }
 
     /**
      * Retrieve ISO date format
      * and filter for 2 digit year format, it must be 4 digits
      *
-     * @param   string $type
-     * @return  string
+     * @param  string                $type
+     * @return string
+     * @throws Zend_Locale_Exception
      */
     public function getDateFormat($type = null)
     {
@@ -441,7 +476,8 @@ class Mage_Core_Model_Locale
     /**
      * Retrieve short date format with 4-digit year
      *
-     * @return  string
+     * @return string
+     * @throws Zend_Locale_Exception
      */
     public function getDateFormatWithLongYear()
     {
@@ -455,8 +491,9 @@ class Mage_Core_Model_Locale
     /**
      * Retrieve ISO time format
      *
-     * @param   string $type
-     * @return  string
+     * @param  string                $type
+     * @return string
+     * @throws Zend_Locale_Exception
      */
     public function getTimeFormat($type = null)
     {
@@ -466,8 +503,9 @@ class Mage_Core_Model_Locale
     /**
      * Retrieve ISO datetime format
      *
-     * @param   string $type
-     * @return  string
+     * @param  string                $type
+     * @return string
+     * @throws Zend_Locale_Exception
      */
     public function getDateTimeFormat($type)
     {
@@ -477,8 +515,9 @@ class Mage_Core_Model_Locale
     /**
      * Retrieve date format by strftime function
      *
-     * @param   string $type
-     * @return  string
+     * @param  string                $type
+     * @return string
+     * @throws Zend_Locale_Exception
      */
     public function getDateStrFormat($type)
     {
@@ -488,8 +527,9 @@ class Mage_Core_Model_Locale
     /**
      * Retrieve time format by strftime function
      *
-     * @param   string $type
-     * @return  string
+     * @param  string                $type
+     * @return string
+     * @throws Zend_Locale_Exception
      */
     public function getTimeStrFormat($type)
     {
@@ -499,11 +539,13 @@ class Mage_Core_Model_Locale
     /**
      * Create Zend_Date object for current locale
      *
-     * @param mixed              $date
-     * @param string             $part
-     * @param string|Zend_Locale $locale
-     * @param bool               $useTimezone
+     * @param  mixed                 $date
+     * @param  string                $part
+     * @param  string|Zend_Locale    $locale
+     * @param  bool                  $useTimezone
      * @return Zend_Date
+     * @throws Zend_Date_Exception
+     * @throws Zend_Locale_Exception
      */
     public function date($date = null, $part = null, $locale = null, $useTimezone = true)
     {
@@ -515,11 +557,10 @@ class Mage_Core_Model_Locale
             // $date may be false, but Zend_Date uses strict compare
             $date = null;
         }
+
         $date = new Zend_Date($date, $part, $locale);
-        if ($useTimezone) {
-            if ($timezone = Mage::app()->getStore()->getConfig(self::XML_PATH_DEFAULT_TIMEZONE)) {
-                $date->setTimezone($timezone);
-            }
+        if ($useTimezone && $timezone = Mage::app()->getStore()->getConfig(self::XML_PATH_DEFAULT_TIMEZONE)) {
+            $date->setTimezone($timezone);
         }
 
         return $date;
@@ -528,11 +569,13 @@ class Mage_Core_Model_Locale
     /**
      * Create Zend_Date object with date converted to store timezone and store Locale
      *
-     * @param   null|string|bool|int|Mage_Core_Model_Store $store Information about store
-     * @param   string|int|Zend_Date|array|null $date date in UTC
-     * @param   bool $includeTime flag for including time to date
-     * @param   string|null $format
-     * @return  Zend_Date
+     * @param  null|bool|int|Mage_Core_Model_Store|string $store       Information about store
+     * @param  null|array|int|string|Zend_Date            $date        date in UTC
+     * @param  bool                                       $includeTime flag for including time to date
+     * @param  null|string                                $format
+     * @return Zend_Date
+     * @throws Zend_Date_Exception
+     * @throws Zend_Locale_Exception
      */
     public function storeDate($store = null, $date = null, $includeTime = false, $format = null)
     {
@@ -544,6 +587,7 @@ class Mage_Core_Model_Locale
                 ->setMinute(0)
                 ->setSecond(0);
         }
+
         return $date;
     }
 
@@ -552,11 +596,12 @@ class Mage_Core_Model_Locale
      * to UTC time zone. Date can be passed in format of store's locale
      * or in format which was passed as parameter.
      *
-     * @param mixed $store Information about store
-     * @param string|int|Zend_Date|array|null $date date in store's timezone
-     * @param bool $includeTime flag for including time to date
-     * @param null|string $format
+     * @param  mixed                           $store       Information about store
+     * @param  null|array|int|string|Zend_Date $date        date in store's timezone
+     * @param  bool                            $includeTime flag for including time to date
+     * @param  null|string                     $format
      * @return Zend_Date
+     * @throws Zend_Date_Exception
      */
     public function utcDate($store, $date, $includeTime = false, $format = null)
     {
@@ -571,8 +616,8 @@ class Mage_Core_Model_Locale
      *
      * Timestamp will be built with store timezone settings
      *
-     * @param   mixed $store
-     * @return  int
+     * @param  mixed $store
+     * @return int
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
@@ -583,14 +628,14 @@ class Mage_Core_Model_Locale
         @date_default_timezone_set($timezone);
         $date = date(Varien_Date::DATETIME_PHP_FORMAT);
         @date_default_timezone_set($currentTimezone);
-        return strtotime($date);
+        return Carbon::parse($date)->getTimestamp();
     }
 
     /**
      * Create Zend_Currency object for current locale
      *
-     * @param   string $currency
-     * @return  Zend_Currency
+     * @param  string        $currency
+     * @return Zend_Currency
      * @SuppressWarnings("PHPMD.CamelCaseVariableName")
      */
     public function currency($currency)
@@ -600,7 +645,7 @@ class Mage_Core_Model_Locale
             $options = [];
             try {
                 $currencyObject = new Zend_Currency($currency, $this->getLocale());
-            } catch (Exception $e) {
+            } catch (Exception) {
                 /**
                  * catch specific exceptions like "Currency 'USD' not found"
                  * - back end falls with specific locals as Malaysia and etc.
@@ -624,6 +669,7 @@ class Mage_Core_Model_Locale
             $currencyObject->setFormat($options->toArray());
             self::$_currencyCache[$this->getLocaleCode()][$currency] = $currencyObject;
         }
+
         Varien_Profiler::stop('locale/currency');
         return self::$_currencyCache[$this->getLocaleCode()][$currency];
     }
@@ -642,8 +688,8 @@ class Mage_Core_Model_Locale
      * '2'054.52' = 2054.52
      * '2,46 GB' = 2.46
      *
-     * @param string|float|int $value
-     * @return float|null
+     * @param  float|int|string $value
+     * @return null|float
      */
     public function getNumber($value)
     {
@@ -656,7 +702,7 @@ class Mage_Core_Model_Locale
         }
 
         //trim spaces and apostrophes
-        $value = str_replace(['\'', ' '], '', $value);
+        $value = str_replace(["'", ' '], '', $value);
 
         $separatorComa = strpos($value, ',');
         $separatorDot  = strpos($value, '.');
@@ -679,7 +725,8 @@ class Mage_Core_Model_Locale
      * Functions returns array with price formatting info for js function
      * formatCurrency in js/varien/js.js
      *
-     * @return array
+     * @return array<string, mixed>
+     * @throws Zend_Locale_Exception
      */
     public function getJsPriceFormat()
     {
@@ -690,6 +737,7 @@ class Mage_Core_Model_Locale
         if ($pos !== false) {
             $format = substr($format, 0, $pos);
         }
+
         $format = preg_replace("/[^0\#\.,]/", '', $format);
         $totalPrecision = 0;
         $decimalPoint = strpos($format, '.');
@@ -698,18 +746,16 @@ class Mage_Core_Model_Locale
         } else {
             $decimalPoint = strlen($format);
         }
+
         $requiredPrecision = $totalPrecision;
-        $t = substr($format, $decimalPoint);
-        $pos = strpos($t, '#');
+        $str = substr($format, $decimalPoint);
+        $pos = strpos($str, '#');
         if ($pos !== false) {
-            $requiredPrecision = strlen($t) - $pos - $totalPrecision;
+            $requiredPrecision = strlen($str) - $pos - $totalPrecision;
         }
-        $group = 0;
-        if (strrpos($format, ',') !== false) {
-            $group = ($decimalPoint - strrpos($format, ',') - 1);
-        } else {
-            $group = strrpos($format, '.');
-        }
+
+        $group = strrpos($format, ',') !== false ? $decimalPoint - strrpos($format, ',') - 1 : strrpos($format, '.');
+
         $integerRequired = (strpos($format, '.') - strpos($format, '0'));
 
         return [
@@ -727,7 +773,8 @@ class Mage_Core_Model_Locale
      * Push current locale to stack and replace with locale from specified store
      * Event is not dispatched.
      *
-     * @param int $storeId
+     * @param  int                   $storeId
+     * @throws Zend_Locale_Exception
      */
     public function emulate($storeId)
     {
@@ -743,7 +790,6 @@ class Mage_Core_Model_Locale
 
     /**
      * Get last locale, used before last emulation
-     *
      */
     public function revert()
     {
@@ -759,33 +805,35 @@ class Mage_Core_Model_Locale
      * types of information.
      * For detailed information about the types look into the documentation
      *
-     * @param  string             $path   (Optional) Type of information to return
-     * @param  string             $value  (Optional) Value for detail list
-     * @return array Array with the wished information in the given language
+     * @param  string                $path  (Optional) Type of information to return
+     * @param  string                $value (Optional) Value for detail list
+     * @return array                 Array with the wished information in the given language
+     * @throws Zend_Locale_Exception
      */
     public function getTranslationList($path = null, $value = null)
     {
-        return $this->getLocale()->getTranslationList($path, $this->getLocale(), $value);
+        return $this->getLocale()::getTranslationList($path, $this->getLocale(), $value);
     }
 
     /**
      * Returns a localized information string, supported are several types of information.
      * For detailed information about the types look into the documentation
      *
-     * @param  string             $value  Name to get detailed information about
-     * @param  string             $path   (Optional) Type of information to return
-     * @return string|false The wished information in the given language
+     * @param  string                $value Name to get detailed information about
+     * @param  string                $path  (Optional) Type of information to return
+     * @return false|string          The wished information in the given language
+     * @throws Zend_Locale_Exception
      */
     public function getTranslation($value = null, $path = null)
     {
-        return $this->getLocale()->getTranslation($value, $path, $this->getLocale());
+        return $this->getLocale()::getTranslation($value, $path, $this->getLocale());
     }
 
     /**
      * Replace all yy date format to yyyy
      *
-     * @param string $currentFormat
-     * @return string|string[]|null
+     * @param  string               $currentFormat
+     * @return null|string|string[]
      */
     protected function _convertYearTwoDigitTo4($currentFormat)
     {
@@ -795,30 +843,32 @@ class Mage_Core_Model_Locale
     /**
      * Returns the localized country name
      *
-     * @param string $value Name to get detailed information about
+     * @param  string                $value Name to get detailed information about
      * @return false|string
+     * @throws Zend_Locale_Exception
      */
     public function getCountryTranslation($value)
     {
-        return $this->getLocale()->getTranslation($value, 'country', $this->getLocale());
+        return $this->getLocale()::getTranslation($value, 'country', $this->getLocale());
     }
 
     /**
      * Returns an array with the name of all countries translated to the given language
      *
      * @return array
+     * @throws Zend_Locale_Exception
      */
     public function getCountryTranslationList()
     {
-        return $this->getLocale()->getTranslationList('territory', $this->getLocale(), 2);
+        return $this->getLocale()::getTranslationList('territory', $this->getLocale(), '2');
     }
 
     /**
      * Checks if current date of the given store (in the store timezone) is within the range
      *
-     * @param int|string|Mage_Core_Model_Store|null $store
-     * @param string|null $dateFrom
-     * @param string|null $dateTo
+     * @param  null|int|Mage_Core_Model_Store|string $store
+     * @param  null|string                           $dateFrom
+     * @param  null|string                           $dateTo
      * @return bool
      */
     public function isStoreDateInInterval($store, $dateFrom = null, $dateTo = null)
@@ -828,8 +878,8 @@ class Mage_Core_Model_Locale
         }
 
         $storeTimeStamp = $this->storeTimeStamp($store);
-        $fromTimeStamp  = strtotime((string) $dateFrom);
-        $toTimeStamp    = strtotime((string) $dateTo);
+        $fromTimeStamp  = Carbon::parse((string) $dateFrom)->getTimestamp();
+        $toTimeStamp    = Carbon::parse((string) $dateTo)->getTimestamp();
         if ($dateTo) {
             // fix date YYYY-MM-DD 00:00:00 to YYYY-MM-DD 23:59:59
             $toTimeStamp += 86400;

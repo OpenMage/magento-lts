@@ -57,19 +57,22 @@ class Mage_Rating_Model_Resource_Rating_Option extends Mage_Core_Model_Resource_
     protected $_ratingStoreTable;
 
     /**
-    * Option data
-    *
-    * @var array
-    */
+     * Option data
+     *
+     * @var array
+     */
     protected $_optionData;
 
     /**
-    * Option id
-    *
-    * @var int
-    */
+     * Option id
+     *
+     * @var int
+     */
     protected $_optionId;
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('rating/rating_option', 'option_id');
@@ -85,7 +88,7 @@ class Mage_Rating_Model_Resource_Rating_Option extends Mage_Core_Model_Resource_
     /**
      * Add vote
      *
-     * @param Mage_Rating_Model_Rating_Option $option
+     * @param  Mage_Rating_Model_Rating_Option $option
      * @return $this
      */
     public function addVote($option)
@@ -121,11 +124,13 @@ class Mage_Rating_Model_Resource_Rating_Option extends Mage_Core_Model_Resource_
                 $option->setVoteId($adapter->lastInsertId($this->_ratingVoteTable));
                 $this->aggregate($option);
             }
+
             $adapter->commit();
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $adapter->rollBack();
-            throw new Exception($e->getMessage(), $e->getCode(), $e);
+            throw new Exception($exception->getMessage(), $exception->getCode(), $exception);
         }
+
         return $this;
     }
 
@@ -229,7 +234,7 @@ class Mage_Rating_Model_Resource_Rating_Option extends Mage_Core_Model_Resource_
      * Load object data by optionId
      * Method renamed from 'load'.
      *
-     * @param int $optionId
+     * @param  int   $optionId
      * @return array
      */
     public function loadDataById($optionId)

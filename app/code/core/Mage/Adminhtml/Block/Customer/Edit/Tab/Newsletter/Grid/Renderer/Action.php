@@ -40,6 +40,9 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Newsletter_Grid_Renderer_Action ext
         return addcslashes(htmlspecialchars($value), '\\\'');
     }
 
+    /**
+     * @param array<array<int, array<string, mixed>>, mixed> $actions
+     */
     protected function _actionsToHtml(array $actions)
     {
         $html = [];
@@ -48,6 +51,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Newsletter_Grid_Renderer_Action ext
             $attributesObject->setData($action['@']);
             $html[] = '<a ' . $attributesObject->serialize() . '>' . $action['#'] . '</a>';
         }
+
         return implode('<span class="separator">&nbsp;|&nbsp;</span>', $html);
     }
 }

@@ -30,6 +30,7 @@ class Mage_Weee_Model_Total_Creditmemo_Weee extends Mage_Sales_Model_Order_Credi
             if ($orderItem->isDummy()) {
                 continue;
             }
+
             $orderItemQty = $orderItem->getQtyOrdered();
 
             $weeeRowDiscountAmount = $orderItem->getDiscountAppliedForWeeeTax();
@@ -72,6 +73,7 @@ class Mage_Weee_Model_Total_Creditmemo_Weee extends Mage_Sales_Model_Order_Credi
 
                 $newApplied[] = $one;
             }
+
             Mage::helper('weee')->setApplied($item, $newApplied);
 
             $item->setWeeeTaxRowDisposition($item->getWeeeTaxDisposition() * $item->getQty());

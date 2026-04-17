@@ -53,7 +53,7 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
     /**
      * Init widget instance object and set it to registry
      *
-     * @return Mage_Widget_Model_Widget_Instance|bool
+     * @return bool|Mage_Widget_Model_Widget_Instance
      * @throws Mage_Core_Exception
      */
     protected function _initWidgetInstance()
@@ -63,10 +63,10 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
         /** @var Mage_Widget_Model_Widget_Instance $widgetInstance */
         $widgetInstance = Mage::getModel('widget/widget_instance');
 
-        $instanceId = $this->getRequest()->getParam('instance_id', null);
-        $type       = $this->getRequest()->getParam('type', null);
-        $package    = $this->getRequest()->getParam('package', null);
-        $theme      = $this->getRequest()->getParam('theme', null);
+        $instanceId = $this->getRequest()->getParam('instance_id');
+        $type       = $this->getRequest()->getParam('type');
+        $package    = $this->getRequest()->getParam('package');
+        $theme      = $this->getRequest()->getParam('theme');
 
         if ($instanceId) {
             $widgetInstance->load($instanceId);
@@ -79,6 +79,7 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
             $widgetInstance->setType($type)
                 ->setPackageTheme($packageTheme);
         }
+
         Mage::register('current_widget_instance', $widgetInstance);
         return $widgetInstance;
     }
@@ -137,6 +138,7 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
     {
         $response = new Varien_Object();
         $response->setError(false);
+
         $widgetInstance = $this->_initWidgetInstance();
         $result = $widgetInstance->validate();
         if ($result !== true && is_string($result)) {
@@ -145,6 +147,7 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
             $response->setError(true);
             $response->setMessage($this->getLayout()->getMessagesBlock()->getGroupedHtml());
         }
+
         $this->setBody($response->toJson());
     }
 
@@ -158,6 +161,7 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
             $this->_redirect('*/*/');
             return;
         }
+
         $widgetInstance->setTitle($this->getRequest()->getPost('title'))
             ->setStoreIds($this->getRequest()->getPost('store_ids', [0]))
             ->setSortOrder($this->getRequest()->getPost('sort_order', 0))
@@ -176,13 +180,15 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
             } else {
                 $this->_redirect('*/*/');
             }
+
             return;
-        } catch (Mage_Core_Exception $e) {
-            $this->_getSession()->addError($e->getMessage());
-        } catch (Exception $e) {
-            Mage::logException($e);
-            $this->_getSession()->addError($this->__('An error occurred during saving a widget: %s', $e->getMessage()));
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_getSession()->addError($mageCoreException->getMessage());
+        } catch (Exception $exception) {
+            Mage::logException($exception);
+            $this->_getSession()->addError($this->__('An error occurred during saving a widget: %s', $exception->getMessage()));
         }
+
         $this->_redirect('*/*/edit', ['_current' => true]);
     }
 
@@ -199,16 +205,16 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
                 $this->_getSession()->addSuccess(
                     Mage::helper('widget')->__('The widget instance has been deleted.'),
                 );
-            } catch (Exception $e) {
-                $this->_getSession()->addError($e->getMessage());
+            } catch (Exception $exception) {
+                $this->_getSession()->addError($exception->getMessage());
             }
         }
+
         $this->_redirect('*/*/');
     }
 
     /**
      * Categories chooser Action (Ajax request)
-     *
      */
     public function categoriesAction()
     {
@@ -250,7 +256,7 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
         /** @var Mage_Widget_Model_Widget_Instance $widgetInstance */
         $widgetInstance = $this->_initWidgetInstance();
         $layout = $this->getRequest()->getParam('layout');
-        $selected = $this->getRequest()->getParam('selected', null);
+        $selected = $this->getRequest()->getParam('selected');
         $blocksChooser = $this->getLayout()
             ->createBlock('widget/adminhtml_widget_instance_edit_chooser_block')
             ->setArea($widgetInstance->getArea())
@@ -270,7 +276,7 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
         /** @var Mage_Widget_Model_Widget_Instance $widgetInstance */
         $widgetInstance = $this->_initWidgetInstance();
         $block = $this->getRequest()->getParam('block');
-        $selected = $this->getRequest()->getParam('selected', null);
+        $selected = $this->getRequest()->getParam('selected');
         $templateChooser = $this->getLayout()
             ->createBlock('widget/adminhtml_widget_instance_edit_chooser_template')
             ->setSelected($selected)
@@ -303,14 +309,15 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
                 $result[Mage::helper('core')->stripTags($key)] = $value;
             }
         }
+
         return $result;
     }
 
     /**
      * Validates update xml post data
      *
-     * @param Mage_Widget_Model_Widget_Instance $widgetInstance
-     * @param array $data
+     * @param  Mage_Widget_Model_Widget_Instance $widgetInstance
+     * @param  array                             $data
      * @return bool
      */
     protected function _validatePostData($widgetInstance, $data)
@@ -338,10 +345,12 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
                     $errorNo = false;
                 }
             }
+
             foreach ($validatorCustomLayout->getMessages() as $message) {
                 $this->_getSession()->addError($message);
             }
         }
+
         return $errorNo;
     }
 }

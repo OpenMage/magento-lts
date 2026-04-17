@@ -19,7 +19,7 @@ class Mage_Downloadable_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Check is link shareable or not
      *
-     * @param Mage_Downloadable_Model_Link | Mage_Downloadable_Model_Link_Purchased_Item $link
+     * @param  Mage_Downloadable_Model_Link|Mage_Downloadable_Model_Link_Purchased_Item $link
      * @return bool
      */
     public function getIsShareable($link)
@@ -35,6 +35,7 @@ class Mage_Downloadable_Helper_Data extends Mage_Core_Helper_Abstract
                     Mage_Downloadable_Model_Link::XML_PATH_CONFIG_IS_SHAREABLE,
                 );
         }
+
         return $shareable;
     }
 
@@ -46,9 +47,6 @@ class Mage_Downloadable_Helper_Data extends Mage_Core_Helper_Abstract
     public function getIsPriceWebsiteScope()
     {
         $scope =  (int) Mage::app()->getStore()->getConfig(Mage_Core_Model_Store::XML_PATH_PRICE_SCOPE);
-        if ($scope == Mage_Core_Model_Store::PRICE_SCOPE_WEBSITE) {
-            return true;
-        }
-        return false;
+        return $scope == Mage_Core_Model_Store::PRICE_SCOPE_WEBSITE;
     }
 }

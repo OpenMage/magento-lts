@@ -15,8 +15,7 @@
 class Mage_CatalogSearch_Model_Resource_Query extends Mage_Core_Model_Resource_Db_Abstract
 {
     /**
-     * Init resource data
-     *
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -26,7 +25,7 @@ class Mage_CatalogSearch_Model_Resource_Query extends Mage_Core_Model_Resource_D
     /**
      * Custom load model by search query string
      *
-     * @param string $value
+     * @param  string $value
      * @return $this
      */
     public function loadByQuery(Mage_Core_Model_Abstract $object, $value)
@@ -44,7 +43,7 @@ class Mage_CatalogSearch_Model_Resource_Query extends Mage_Core_Model_Resource_D
 
         $synonymSelect->where('synonym_for = ?', $value);
 
-        $select->union([$querySelect, "($synonymSelect)"], Zend_Db_Select::SQL_UNION_ALL)
+        $select->union([$querySelect, "({$synonymSelect})"], Zend_Db_Select::SQL_UNION_ALL)
             ->order('synonym_for ASC')
             ->limit(1);
 
@@ -60,7 +59,7 @@ class Mage_CatalogSearch_Model_Resource_Query extends Mage_Core_Model_Resource_D
     /**
      * Custom load model only by query text (skip synonym for)
      *
-     * @param string $value
+     * @param  string $value
      * @return $this
      */
     public function loadByQueryText(Mage_Core_Model_Abstract $object, $value)
@@ -74,13 +73,14 @@ class Mage_CatalogSearch_Model_Resource_Query extends Mage_Core_Model_Resource_D
             $object->setData($data);
             $this->_afterLoad($object);
         }
+
         return $this;
     }
 
     /**
      * Loading string as a value or regular numeric
      *
-     * @param int|string $value
+     * @param int|string  $value
      * @param null|string $field
      * @inheritDoc
      */
@@ -88,16 +88,17 @@ class Mage_CatalogSearch_Model_Resource_Query extends Mage_Core_Model_Resource_D
     {
         if (is_numeric($value)) {
             return parent::load($object, $value);
-        } else {
-            $this->loadByQuery($object, $value);
         }
+
+        $this->loadByQuery($object, $value);
+
         return $this;
     }
 
     /**
      * @return $this
      */
-    public function _beforeSave(Mage_Core_Model_Abstract $object)
+    protected function _beforeSave(Mage_Core_Model_Abstract $object)
     {
         $object->setUpdatedAt($this->formatDate(Mage::getModel('core/date')->gmtTimestamp()));
         return $this;

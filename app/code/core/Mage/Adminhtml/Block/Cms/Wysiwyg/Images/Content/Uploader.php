@@ -11,7 +11,7 @@
  * Uploader block for Wysiwyg Images
  *
  * @package    Mage_Adminhtml
-*/
+ */
 class Mage_Adminhtml_Block_Cms_Wysiwyg_Images_Content_Uploader extends Mage_Uploader_Block_Multiple
 {
     public function __construct()
@@ -42,6 +42,7 @@ class Mage_Adminhtml_Block_Cms_Wysiwyg_Images_Content_Uploader extends Mage_Uplo
         if ($this->hasData('media_type')) {
             return $this->_getData('media_type');
         }
+
         return $this->getRequest()->getParam('type');
     }
 }

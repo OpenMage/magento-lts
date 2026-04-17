@@ -17,7 +17,7 @@ class Mage_Sales_Model_Resource_Quote_Address_Attribute_Backend_Child extends Ma
     /**
      * Set store id to the attribute
      *
-     * @param Varien_Object $object
+     * @param  Varien_Object $object
      * @return $this
      */
     public function beforeSave($object)
@@ -26,6 +26,7 @@ class Mage_Sales_Model_Resource_Quote_Address_Attribute_Backend_Child extends Ma
             $object->setParentId($object->getAddress()->getId())
                 ->setStoreId($object->getAddress()->getStoreId());
         }
+
         parent::beforeSave($object);
         return $this;
     }

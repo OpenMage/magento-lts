@@ -33,6 +33,7 @@ class Mage_Customer_AddressController extends Mage_Core_Controller_Front_Action
         if (!Mage::getSingleton('customer/session')->authenticate($this)) {
             $this->setFlag('', 'no-dispatch', true);
         }
+
         return $this;
     }
 
@@ -50,6 +51,7 @@ class Mage_Customer_AddressController extends Mage_Core_Controller_Front_Action
             if ($block) {
                 $block->setRefererUrl($this->_getRefererUrl());
             }
+
             $this->renderLayout();
         } else {
             $this->getResponse()->setRedirect(Mage::getUrl('*/*/new'));
@@ -77,6 +79,7 @@ class Mage_Customer_AddressController extends Mage_Core_Controller_Front_Action
         if ($navigationBlock) {
             $navigationBlock->setActive('customer/address');
         }
+
         $this->renderLayout();
     }
 
@@ -88,6 +91,7 @@ class Mage_Customer_AddressController extends Mage_Core_Controller_Front_Action
         if (!$this->_validateFormKey()) {
             return $this->_redirect('*/*/');
         }
+
         // Save data
         if ($this->getRequest()->isPost()) {
             $customer = $this->_getSession()->getCustomer();
@@ -131,18 +135,18 @@ class Mage_Customer_AddressController extends Mage_Core_Controller_Front_Action
                     $this->_getSession()->addSuccess($this->__('The address has been saved.'));
                     $this->_redirectSuccess(Mage::getUrl('*/*/index', ['_secure' => true]));
                     return;
-                } else {
-                    $this->_getSession()->setAddressFormData($this->getRequest()->getPost());
-                    foreach ($errors as $errorMessage) {
-                        $this->_getSession()->addError($errorMessage);
-                    }
                 }
-            } catch (Mage_Core_Exception $e) {
+
+                $this->_getSession()->setAddressFormData($this->getRequest()->getPost());
+                foreach ($errors as $errorMessage) {
+                    $this->_getSession()->addError($errorMessage);
+                }
+            } catch (Mage_Core_Exception $mageCoreException) {
                 $this->_getSession()->setAddressFormData($this->getRequest()->getPost())
-                    ->addException($e, $e->getMessage());
-            } catch (Exception $e) {
+                    ->addException($mageCoreException, $mageCoreException->getMessage());
+            } catch (Exception $exception) {
                 $this->_getSession()->setAddressFormData($this->getRequest()->getPost())
-                    ->addException($e, $this->__('Cannot save address.'));
+                    ->addException($exception, $this->__('Cannot save address.'));
             }
 
             return $this->_redirectError(Mage::getUrl('*/*/edit', ['id' => $address->getId()]));
@@ -159,6 +163,7 @@ class Mage_Customer_AddressController extends Mage_Core_Controller_Front_Action
         if (!$this->_validateFormKey()) {
             return $this->_redirect('*/*/');
         }
+
         $addressId = $this->getRequest()->getParam('id', false);
 
         if ($addressId) {
@@ -174,10 +179,11 @@ class Mage_Customer_AddressController extends Mage_Core_Controller_Front_Action
             try {
                 $address->delete();
                 $this->_getSession()->addSuccess($this->__('The address has been deleted.'));
-            } catch (Exception $e) {
-                $this->_getSession()->addException($e, $this->__('An error occurred while deleting the address.'));
+            } catch (Exception $exception) {
+                $this->_getSession()->addException($exception, $this->__('An error occurred while deleting the address.'));
             }
         }
+
         $this->getResponse()->setRedirect(Mage::getUrl('*/*/index'));
     }
 }

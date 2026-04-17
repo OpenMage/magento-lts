@@ -15,8 +15,7 @@
 class Mage_Core_Model_Resource_Config_Data_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
     /**
-     * Define resource model
-     *
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -26,9 +25,9 @@ class Mage_Core_Model_Resource_Config_Data_Collection extends Mage_Core_Model_Re
     /**
      * Add scope filter to collection
      *
-     * @param string $scope
-     * @param int $scopeId
-     * @param string $section
+     * @param  string $scope
+     * @param  int    $scopeId
+     * @param  string $section
      * @return $this
      */
     public function addScopeFilter($scope, $scopeId, $section)
@@ -42,7 +41,7 @@ class Mage_Core_Model_Resource_Config_Data_Collection extends Mage_Core_Model_Re
     /**
      *  Add path filter
      *
-     * @param string $section
+     * @param  string $section
      * @return $this
      */
     public function addPathFilter($section)
@@ -54,7 +53,7 @@ class Mage_Core_Model_Resource_Config_Data_Collection extends Mage_Core_Model_Re
     /**
      * Add value filter
      *
-     * @param int|string $value
+     * @param  int|string $value
      * @return $this
      */
     public function addValueFilter($value)

@@ -46,8 +46,8 @@ class Mage_Api2_Model_Acl_Filter
     /**
      * Return only the data which keys are allowed
      *
-     * @param array $allowedAttributes List of attributes available to use
-     * @param array $data Associative array attribute to value
+     * @param  array $allowedAttributes List of attributes available to use
+     * @param  array $data              Associative array attribute to value
      * @return array
      */
     protected function _filter(array $allowedAttributes, array $data)
@@ -57,13 +57,14 @@ class Mage_Api2_Model_Acl_Filter
                 unset($data[$attribute]);
             }
         }
+
         return $data;
     }
 
     /**
      * Strip attributes in of collection items
      *
-     * @param array $items
+     * @param  array $items
      * @return array
      */
     public function collectionIn($items)
@@ -71,13 +72,14 @@ class Mage_Api2_Model_Acl_Filter
         foreach ($items as &$data) {
             $data = is_array($data) ? $this->in($data) : [];
         }
+
         return $items;
     }
 
     /**
      * Strip attributes out of collection items
      *
-     * @param array $items
+     * @param  array $items
      * @return array
      */
     public function collectionOut($items)
@@ -85,13 +87,14 @@ class Mage_Api2_Model_Acl_Filter
         foreach ($items as &$data) {
             $data = $this->out($data);
         }
+
         return $items;
     }
 
     /**
      * Fetch array of allowed attributes for given resource type, operation and user type.
      *
-     * @param Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_* $operationType OPTIONAL
+     * @param  Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_* $operationType OPTIONAL
      * @return array
      */
     public function getAllowedAttributes($operationType = null)
@@ -103,6 +106,7 @@ class Mage_Api2_Model_Acl_Filter
             if ($operationType === null) {
                 $operationType = $helper->getTypeOfOperation($this->_resource->getOperation());
             }
+
             if ($helper->isAllAttributesAllowed($this->_resource->getUserType())) {
                 $this->_allowedAttributes = array_keys($this->_resource->getAvailableAttributes(
                     $this->_resource->getUserType(),
@@ -115,6 +119,7 @@ class Mage_Api2_Model_Acl_Filter
                     $operationType,
                 );
             }
+
             // force attributes to be no filtered
             foreach ($this->_resource->getForcedAttributes() as $forcedAttr) {
                 if (!in_array($forcedAttr, $this->_allowedAttributes)) {
@@ -122,6 +127,7 @@ class Mage_Api2_Model_Acl_Filter
                 }
             }
         }
+
         return $this->_allowedAttributes;
     }
 
@@ -146,6 +152,7 @@ class Mage_Api2_Model_Acl_Filter
                 $this->_attributesToInclude = $allowedAttrs;
             }
         }
+
         return $this->_attributesToInclude;
     }
 

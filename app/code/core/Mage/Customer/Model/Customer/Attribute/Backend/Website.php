@@ -22,9 +22,11 @@ class Mage_Customer_Model_Customer_Attribute_Backend_Website extends Mage_Eav_Mo
         if ($object->getId()) {
             return $this;
         }
+
         if (!$object->hasData('website_id')) {
             $object->setData('website_id', Mage::app()->getStore()->getWebsiteId());
         }
+
         return $this;
     }
 }

@@ -35,9 +35,8 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_Info extends Mage_Adminhtml_Bloc
     }
 
     /**
-     * Retrieve order totals block settings
-     *
-     * @return array
+     * @inheritDoc
+     * @return array<string, bool>
      */
     public function getOrderTotalData()
     {
@@ -48,6 +47,10 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_Info extends Mage_Adminhtml_Bloc
         ];
     }
 
+    /**
+     * @inheritDoc
+     * @return array<string, bool>
+     */
     public function getOrderInfoData()
     {
         return [
@@ -68,8 +71,8 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_Info extends Mage_Adminhtml_Bloc
     /**
      * Retrieve giftmessage block html
      *
-     * @deprecated after 1.4.2.0, use self::getGiftOptionsHtml() instead
      * @return string
+     * @deprecated after 1.4.2.0, use self::getGiftOptionsHtml() instead
      */
     public function getGiftmessageHtml()
     {

@@ -14,16 +14,21 @@
  */
 class Mage_Adminhtml_Block_Dashboard_Tab_Customers_Most extends Mage_Adminhtml_Block_Dashboard_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_dashboard_tab_customers_most';
+
     public function __construct()
     {
         parent::__construct();
         $this->setId('customersMostGrid');
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _prepareCollection()
     {
-        $collection = Mage::getResourceModel('reports/order_collection');
         /** @var Mage_Reports_Model_Resource_Order_Collection $collection */
+        $collection = Mage::getResourceModel('reports/order_collection');
         $collection
             ->groupByCustomer()
             ->addOrdersCount()
@@ -50,8 +55,9 @@ class Mage_Adminhtml_Block_Dashboard_Tab_Customers_Most extends Mage_Adminhtml_B
     }
 
     /**
-     * @throws Mage_Core_Model_Store_Exception
+     * @inheritDoc
      * @throws Exception
+     * @throws Mage_Core_Model_Store_Exception
      */
     protected function _prepareColumns()
     {
@@ -93,8 +99,8 @@ class Mage_Adminhtml_Block_Dashboard_Tab_Customers_Most extends Mage_Adminhtml_B
     }
 
     /**
+     * @inheritDoc
      * @param Mage_Sales_Model_Order $row
-     * @return string
      */
     public function getRowUrl($row)
     {

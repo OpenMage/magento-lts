@@ -41,7 +41,7 @@ class Mage_Core_Model_Domainpolicy
 
     /**
      * Mage_Core_Model_Domainpolicy constructor.
-     * @param array $options
+     * @param  array                           $options
      * @throws Mage_Core_Model_Store_Exception
      */
     public function __construct($options = [])
@@ -76,7 +76,7 @@ class Mage_Core_Model_Domainpolicy
     /**
      * Get backend policy
      *
-     * @return string|null
+     * @return null|string
      */
     public function getBackendPolicy()
     {
@@ -86,7 +86,7 @@ class Mage_Core_Model_Domainpolicy
     /**
      * Get frontend policy
      *
-     * @return string|null
+     * @return null|string
      */
     public function getFrontendPolicy()
     {
@@ -96,8 +96,8 @@ class Mage_Core_Model_Domainpolicy
     /**
      * Return string representation for policy code
      *
-     * @param string $policyCode
-     * @return string|null
+     * @param  string      $policyCode
+     * @return null|string
      */
     protected function _getDomainPolicyByCode($policyCode)
     {

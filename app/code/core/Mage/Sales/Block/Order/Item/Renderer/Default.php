@@ -48,9 +48,9 @@ class Mage_Sales_Block_Order_Item_Renderer_Default extends Mage_Core_Block_Templ
     {
         if ($this->getItem() instanceof Mage_Sales_Model_Order_Item) {
             return $this->getItem();
-        } else {
-            return $this->getItem()->getOrderItem();
         }
+
+        return $this->getItem()->getOrderItem();
     }
 
     /**
@@ -59,17 +59,22 @@ class Mage_Sales_Block_Order_Item_Renderer_Default extends Mage_Core_Block_Templ
     public function getItemOptions()
     {
         $result = [];
-        if ($options = $this->getOrderItem()->getProductOptions()) {
+        $options = $this->getOrderItem()->getProductOptions();
+
+        if ($options) {
             if (isset($options['options'])) {
                 $result = array_merge($result, $options['options']);
             }
+
             if (isset($options['additional_options'])) {
                 $result = array_merge($result, $options['additional_options']);
             }
+
             if (isset($options['attributes_info'])) {
                 $result = array_merge($result, $options['attributes_info']);
             }
         }
+
         return $result;
     }
 
@@ -77,19 +82,19 @@ class Mage_Sales_Block_Order_Item_Renderer_Default extends Mage_Core_Block_Templ
      * Accept option value and return its formatted view
      *
      * @param mixed $optionValue
-     * Method works well with these $optionValue format:
-     *      1. String
-     *      2. Indexed array e.g. array(val1, val2, ...)
-     *      3. Associative array, containing additional option info, including option value, e.g.
-     *          array
-     *          (
-     *              [label] => ...,
-     *              [value] => ...,
-     *              [print_value] => ...,
-     *              [option_id] => ...,
-     *              [option_type] => ...,
-     *              [custom_view] =>...,
-     *          )
+     *                           Method works well with these $optionValue format:
+     *                           1. String
+     *                           2. Indexed array e.g. array(val1, val2, ...)
+     *                           3. Associative array, containing additional option info, including option value, e.g.
+     *                           array
+     *                           (
+     *                           [label] => ...,
+     *                           [value] => ...,
+     *                           [print_value] => ...,
+     *                           [option_id] => ...,
+     *                           [option_type] => ...,
+     *                           [custom_view] =>...,
+     *                           )
      *
      * @return array
      */
@@ -116,10 +121,11 @@ class Mage_Sales_Block_Order_Item_Renderer_Default extends Mage_Core_Block_Templ
                 try {
                     $group = Mage::getModel('catalog/product_option')->groupFactory($optionInfo['option_type']);
                     return ['value' => $group->getCustomizedView($optionInfo)];
-                } catch (Exception $e) {
+                } catch (Exception) {
                     return $_default;
                 }
             }
+
             return $_default;
         }
 
@@ -129,15 +135,15 @@ class Mage_Sales_Block_Order_Item_Renderer_Default extends Mage_Core_Block_Templ
             $truncatedValue = implode("\n", $optionValue);
             $truncatedValue = nl2br($truncatedValue);
             return ['value' => $truncatedValue];
-        } else {
-            $truncatedValue = Mage::helper('core/string')->truncate($optionValue, 55, '');
-            $truncatedValue = nl2br($truncatedValue);
         }
+
+        $truncatedValue = Mage::helper('core/string')->truncate($optionValue, 55, '');
+        $truncatedValue = nl2br($truncatedValue);
 
         $result = ['value' => $truncatedValue];
 
         if (Mage::helper('core/string')->strlen($optionValue) > 55) {
-            $result['value'] = $result['value'] . ' <a href="#" class="dots" onclick="return false">...</a>';
+            $result['value'] .= ' <a href="#" class="dots" onclick="return false">...</a>';
             $optionValue = nl2br($optionValue);
             $result = array_merge($result, ['full_view' => $optionValue]);
         }
@@ -162,7 +168,7 @@ class Mage_Sales_Block_Order_Item_Renderer_Default extends Mage_Core_Block_Templ
      * Return product additional information block
      *
      * TODO set return type
-     * @return Mage_Core_Block_Abstract|null
+     * @return null|Mage_Core_Block_Abstract
      */
     public function getProductAdditionalInformationBlock()
     {
@@ -174,6 +180,7 @@ class Mage_Sales_Block_Order_Item_Renderer_Default extends Mage_Core_Block_Templ
         if (!$this->isModuleOutputEnabled('Mage_GiftMessage')) {
             return false;
         }
+
         /** @var Mage_GiftMessage_Helper_Message $helper */
         $helper = $this->helper('giftmessage/message');
         return $helper->getIsMessagesAvailable(
@@ -187,11 +194,13 @@ class Mage_Sales_Block_Order_Item_Renderer_Default extends Mage_Core_Block_Templ
         if (!$this->isModuleOutputEnabled('Mage_GiftMessage')) {
             return null;
         }
+
         /** @var Mage_GiftMessage_Helper_Message $helper */
         $helper = $this->helper('giftmessage/message');
         if ($this->getItem()->getGiftMessageId()) {
             return $helper->getGiftMessage($this->getItem()->getGiftMessageId());
         }
+
         return null;
     }
 }

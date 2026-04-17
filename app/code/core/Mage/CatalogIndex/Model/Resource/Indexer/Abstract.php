@@ -30,15 +30,14 @@ class Mage_CatalogIndex_Model_Resource_Indexer_Abstract extends Mage_Core_Model_
     protected $_storeIdFieldName;
 
     /**
-     * should be defined because abstract
-     *
+     * @inheritDoc
      */
     protected function _construct() {}
 
     /**
-     * @param array $data
-     * @param int $storeId
-     * @param int $productId
+     * @param  array $data
+     * @param  int   $storeId
+     * @param  int   $productId
      * @return void
      */
     public function saveIndex($data, $storeId, $productId)
@@ -47,8 +46,9 @@ class Mage_CatalogIndex_Model_Resource_Indexer_Abstract extends Mage_Core_Model_
     }
 
     /**
-     * @param int $storeId
-     * @param int $productId
+     * @param array<int, mixed[]> $data
+     * @param int                 $storeId
+     * @param int                 $productId
      */
     public function saveIndices(array $data, $storeId, $productId)
     {
@@ -56,9 +56,9 @@ class Mage_CatalogIndex_Model_Resource_Indexer_Abstract extends Mage_Core_Model_
     }
 
     /**
-     * @param array $data
-     * @param int $storeId
-     * @param int $productId
+     * @param  array $data
+     * @param  int   $storeId
+     * @param  int   $productId
      * @return $this
      */
     protected function _executeReplace($data, $storeId, $productId)
@@ -69,10 +69,11 @@ class Mage_CatalogIndex_Model_Resource_Indexer_Abstract extends Mage_Core_Model_
                 $row[$this->_entityIdFieldName] = $productId;
                 $this->_getWriteAdapter()->insert($this->getMainTable(), $row);
             }
+
             $this->commit();
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $this->rollBack();
-            throw $e;
+            throw $exception;
         }
 
         return $this;
@@ -100,7 +101,7 @@ class Mage_CatalogIndex_Model_Resource_Indexer_Abstract extends Mage_Core_Model_
     }
 
     /**
-     * @param array|string $conditions
+     * @param  array|string $conditions
      * @return array
      */
     public function loadAttributeCodesByCondition($conditions)
@@ -135,6 +136,7 @@ class Mage_CatalogIndex_Model_Resource_Indexer_Abstract extends Mage_Core_Model_
         } else {
             $select->where($conditions);
         }
+
         return $this->_getReadAdapter()->fetchCol($select);
     }
 }

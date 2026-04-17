@@ -73,6 +73,7 @@ class Mage_CatalogSearch_Model_Fulltext_Observer
         if ($attribute->getEntityTypeId() != $entityType->getId()) {
             return $this;
         }
+
         $delete = $observer->getEventName() == 'eav_entity_attribute_delete_after';
 
         if (!$delete && !$attribute->dataHasChangedFor('is_searchable')) {
@@ -113,7 +114,7 @@ class Mage_CatalogSearch_Model_Fulltext_Observer
     /**
      * Refresh fulltext index when we add new store
      *
-     * @return  Mage_CatalogSearch_Model_Fulltext_Observer
+     * @return Mage_CatalogSearch_Model_Fulltext_Observer
      */
     public function refreshStoreIndex(Varien_Event_Observer $observer)
     {

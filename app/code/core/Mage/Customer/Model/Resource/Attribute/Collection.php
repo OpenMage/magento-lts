@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -37,7 +39,7 @@ class Mage_Customer_Model_Resource_Attribute_Collection extends Mage_Eav_Model_R
      * Get table, where website-dependent attribute parameters are stored
      * If realization doesn't demand this functionality, let this function just return null
      *
-     * @return string|null
+     * @return null|string
      */
     protected function _getEavWebsiteTable()
     {

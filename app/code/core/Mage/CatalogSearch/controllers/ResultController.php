@@ -23,6 +23,7 @@ class Mage_CatalogSearch_ResultController extends Mage_Core_Controller_Front_Act
     {
         return Mage::getSingleton('catalog/session');
     }
+
     /**
      * Display search result
      */
@@ -49,9 +50,9 @@ class Mage_CatalogSearch_ResultController extends Mage_Core_Controller_Front_Act
                     $query->save();
                     $this->getResponse()->setRedirect($query->getRedirect());
                     return;
-                } else {
-                    $query->prepare();
                 }
+
+                $query->prepare();
             }
 
             Mage::helper('catalogsearch')->checkNotes();

@@ -16,6 +16,9 @@ require_once 'Mage/Adminhtml/controllers/Catalog/ProductController.php';
  */
 class Mage_Downloadable_Adminhtml_Downloadable_Product_EditController extends Mage_Adminhtml_Catalog_ProductController
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->setUsedModuleName('Mage_Downloadable');
@@ -23,7 +26,6 @@ class Mage_Downloadable_Adminhtml_Downloadable_Product_EditController extends Ma
 
     /**
      * Load downloadable tab fieldsets
-     *
      */
     public function formAction()
     {
@@ -96,12 +98,14 @@ class Mage_Downloadable_Adminhtml_Downloadable_Product_EditController extends Ma
                 );
                 $resourceType = Mage_Downloadable_Helper_Download::LINK_TYPE_FILE;
             }
+
             try {
                 $this->_processDownload($resource, $resourceType);
-            } catch (Mage_Core_Exception $e) {
+            } catch (Mage_Core_Exception) {
                 $this->_getSession()->addError(Mage::helper('downloadable')->__('An error occurred while getting the requested content.'));
             }
         }
+
         exit(0);
     }
 }

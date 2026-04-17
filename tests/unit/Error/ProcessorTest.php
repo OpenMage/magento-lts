@@ -18,27 +18,30 @@ use PHPUnit\Framework\TestCase;
 final class ProcessorTest extends TestCase
 {
     public Subject $subject;
+
     public array $server;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->subject = new Subject();
         $this->server  = $_SERVER;
     }
 
-    public function tearDown(): void
+    protected function tearDown(): void
     {
         $_SERVER = $this->server;
     }
 
     /**
      * @dataProvider provideGetHostUrl
+     * @param array<string, int|string> $serverVars
      */
     public function testGetHostUrl(string $expectedResult, array $serverVars): void
     {
         foreach ($serverVars as $serverVar => $value) {
             $_SERVER[$serverVar] = $value;
         }
+
         self::assertSame($expectedResult, $this->subject->getHostUrl());
     }
 

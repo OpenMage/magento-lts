@@ -13,9 +13,13 @@
 class Mage_Paygate_Model_Authorizenet_Cards
 {
     public const CARDS_NAMESPACE = 'authorize_cards';
+
     public const CARD_ID_KEY = 'id';
+
     public const CARD_PROCESSED_AMOUNT_KEY = 'processed_amount';
+
     public const CARD_CAPTURED_AMOUNT_KEY = 'captured_amount';
+
     public const CARD_REFUNDED_AMOUNT_KEY = 'refunded_amount';
 
     /**
@@ -51,7 +55,7 @@ class Mage_Paygate_Model_Authorizenet_Cards
     /**
      * Add based on $cardInfo card to payment and return Id of new item
      *
-     * @param mixed $cardInfo
+     * @param  mixed         $cardInfo
      * @return Varien_Object
      */
     public function registerCard($cardInfo = [])
@@ -67,7 +71,7 @@ class Mage_Paygate_Model_Authorizenet_Cards
     /**
      * Save data from card object in cards storage
      *
-     * @param Varien_Object $card
+     * @param  Varien_Object $card
      * @return $this
      */
     public function updateCard($card)
@@ -77,20 +81,22 @@ class Mage_Paygate_Model_Authorizenet_Cards
             $this->_cards[$cardId] = $card->getData();
             $this->_payment->setAdditionalInformation(self::CARDS_NAMESPACE, $this->_cards);
         }
+
         return $this;
     }
 
     /**
      * Retrieve card by ID
      *
-     * @param string $cardId
-     * @return Varien_Object|false
+     * @param  string              $cardId
+     * @return false|Varien_Object
      */
     public function getCard($cardId)
     {
         if (isset($this->_cards[$cardId])) {
             return new Varien_Object($this->_cards[$cardId]);
         }
+
         return false;
     }
 
@@ -106,6 +112,7 @@ class Mage_Paygate_Model_Authorizenet_Cards
         foreach (array_keys($this->_cards) as $key) {
             $_cards[$key] = $this->getCard($key);
         }
+
         return $_cards;
     }
 
@@ -158,7 +165,7 @@ class Mage_Paygate_Model_Authorizenet_Cards
     public function flushCards()
     {
         $this->_cards = [];
-        $this->_payment->setAdditionalInformation(self::CARDS_NAMESPACE, null);
+        $this->_payment->setAdditionalInformation(self::CARDS_NAMESPACE);
         return $this;
     }
 
@@ -173,6 +180,7 @@ class Mage_Paygate_Model_Authorizenet_Cards
             throw new Exception('Payment instance is not set');
         }
     }
+
     /**
      * Return total for cards data fields
      *
@@ -187,6 +195,7 @@ class Mage_Paygate_Model_Authorizenet_Cards
                 $amount += $card[$key];
             }
         }
+
         return $amount;
     }
 }

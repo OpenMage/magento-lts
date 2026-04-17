@@ -11,6 +11,8 @@
  * Rss data helper
  *
  * @package    Mage_Rss
+ *
+ * @phpstan-import-type ConfigStoreId from Mage
  */
 class Mage_Rss_Helper_Data extends Mage_Core_Helper_Abstract
 {
@@ -18,9 +20,13 @@ class Mage_Rss_Helper_Data extends Mage_Core_Helper_Abstract
      * Config path to RSS field
      */
     public const XML_PATH_RSS_ACTIVE                    = 'rss/config/active';
+
     public const XML_PATH_RSS_ADMIN_CATALOG_NOTIFYSTOCK = 'rss/admin_catalog/notifystock';
+
     public const XML_PATH_RSS_ADMIN_CATALOG_REVIEW      = 'rss/admin_catalog/review';
+
     public const XML_PATH_RSS_ADMIN_ORDER_NEW           = 'rss/admin_order/new';
+
     public const XML_PATH_RSS_ADMIN_ORDER_NEW_PERIOD    = 'rss/admin_order/new_period';
 
     protected $_moduleName = 'Mage_Rss';
@@ -37,7 +43,6 @@ class Mage_Rss_Helper_Data extends Mage_Core_Helper_Abstract
 
     /**
      * Authenticate customer on frontend
-     *
      */
     public function authFrontend()
     {
@@ -66,15 +71,18 @@ class Mage_Rss_Helper_Data extends Mage_Core_Helper_Abstract
         } else {
             $user = $this->_rssSession->getAdmin();
         }
+
         if ($user && $user->getId() && $user->getIsActive() == '1' && $this->_adminSession->isAllowed($path)) {
             $adminUserExtra = $user->getExtra();
             if ($adminUserExtra && !is_array($adminUserExtra)) {
                 $adminUserExtra = Mage::helper('core/unserializeArray')->unserialize($user->getExtra());
             }
+
             if (!isset($adminUserExtra['indirect_login'])) {
                 $adminUserExtra = array_merge($adminUserExtra, ['indirect_login' => true]);
                 $user->saveExtra($adminUserExtra);
             }
+
             $this->_adminSession->setIndirectLogin(true);
             $this->_rssSession->setAdmin($user);
         } else {
@@ -85,7 +93,7 @@ class Mage_Rss_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Validate Authenticate
      *
-     * @param array $headers
+     * @param  array $headers
      * @return array
      */
     public function authValidate($headers = null)
@@ -95,7 +103,6 @@ class Mage_Rss_Helper_Data extends Mage_Core_Helper_Abstract
 
     /**
      * Send authenticate failed headers
-     *
      */
     public function authFailed()
     {
@@ -140,7 +147,7 @@ class Mage_Rss_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * @param null|string|bool|int|Mage_Core_Model_Store $store
+     * @param ConfigStoreId $store
      */
     public function isRssAdminOrderNewEnabled($store = null): bool
     {
@@ -148,10 +155,10 @@ class Mage_Rss_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * @param null|string|bool|int|Mage_Core_Model_Store $store
+     * @param ConfigStoreId $store
      */
     public function getRssAdminOrderNewPeriod($store = null): int
     {
-        return (int) Mage::getStoreConfig(self::XML_PATH_RSS_ADMIN_ORDER_NEW_PERIOD, $store);
+        return Mage::getStoreConfigAsInt(self::XML_PATH_RSS_ADMIN_ORDER_NEW_PERIOD, $store);
     }
 }

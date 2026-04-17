@@ -22,8 +22,8 @@ class Mage_Catalog_Model_Product_Attribute_Tierprice_Api extends Mage_Catalog_Mo
     }
 
     /**
-     * @param int $productId
-     * @param string|null $identifierType
+     * @param  int                 $productId
+     * @param  null|string         $identifierType
      * @return array
      * @throws Mage_Core_Exception
      */
@@ -58,9 +58,9 @@ class Mage_Catalog_Model_Product_Attribute_Tierprice_Api extends Mage_Catalog_Mo
     /**
      * Update tier prices of product
      *
-     * @param int|string $productId
-     * @param array $tierPrices
-     * @param string|null $identifierType
+     * @param  int|string         $productId
+     * @param  array              $tierPrices
+     * @param  null|string        $identifierType
      * @return bool
      * @throws Mage_Api_Exception
      */
@@ -84,12 +84,13 @@ class Mage_Catalog_Model_Product_Attribute_Tierprice_Api extends Mage_Catalog_Mo
                 foreach ($errors as $code => $error) {
                     $strErrors[] = ($error === true) ? Mage::helper('catalog')->__('Value for "%s" is invalid.', $code) : Mage::helper('catalog')->__('Value for "%s" is invalid: %s', $code, $error);
                 }
+
                 $this->_fault('data_invalid', implode("\n", $strErrors));
             }
 
             $product->save();
-        } catch (Mage_Core_Exception $e) {
-            $this->_fault('not_updated', $e->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_fault('not_updated', $mageCoreException->getMessage());
         }
 
         return true;
@@ -98,9 +99,9 @@ class Mage_Catalog_Model_Product_Attribute_Tierprice_Api extends Mage_Catalog_Mo
     /**
      *  Prepare tier prices for save
      *
-     *  @param      Mage_Catalog_Model_Product $product
-     *  @param      array $tierPrices
-     *  @return     array|null
+     * @param  Mage_Catalog_Model_Product $product
+     * @param  array                      $tierPrices
+     * @return null|array
      */
     public function prepareTierPrices($product, $tierPrices = null)
     {
@@ -123,7 +124,7 @@ class Mage_Catalog_Model_Product_Attribute_Tierprice_Api extends Mage_Catalog_Mo
             } else {
                 try {
                     $tierPrice['website'] = Mage::app()->getWebsite($tierPrice['website'])->getId();
-                } catch (Mage_Core_Exception $e) {
+                } catch (Mage_Core_Exception) {
                     $tierPrice['website'] = 0;
                 }
             }
@@ -154,8 +155,8 @@ class Mage_Catalog_Model_Product_Attribute_Tierprice_Api extends Mage_Catalog_Mo
     /**
      * Retrieve product
      *
-     * @param int $productId
-     * @param  string $identifierType
+     * @param  int                        $productId
+     * @param  string                     $identifierType
      * @return Mage_Catalog_Model_Product
      */
     protected function _initProduct($productId, $identifierType = null)

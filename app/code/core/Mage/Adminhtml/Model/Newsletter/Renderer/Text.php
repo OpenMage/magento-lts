@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -20,6 +22,7 @@ class Mage_Adminhtml_Model_Newsletter_Renderer_Text implements Varien_Data_Form_
         if ($element->getLabel()) {
             $html .= '<label for="' . $element->getHtmlId() . '">' . $element->getLabel() . '</label>' . "\n";
         }
+
         $html .= '</td><td class="value">
 <iframe src="' . $element->getValue() . '" id="' . $element->getHtmlId() . '" frameborder="0" class="template-preview"> </iframe>';
 

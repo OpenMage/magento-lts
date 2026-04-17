@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -22,8 +24,7 @@ class Mage_Review_Model_Resource_Review_Status_Collection extends Mage_Core_Mode
     protected $_reviewStatusTable;
 
     /**
-     * Collection model initialization
-     *
+     * @inheritDoc
      */
     protected function _construct()
     {

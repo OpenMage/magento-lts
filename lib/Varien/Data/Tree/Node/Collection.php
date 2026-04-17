@@ -17,10 +17,10 @@ class Varien_Data_Tree_Node_Collection implements ArrayAccess, IteratorAggregate
     /**
      * @var Varien_Data_Tree_Node[]
      */
-    private $_nodes;
+    private $_nodes = [];
 
     /**
-     * @var Varien_Data_Tree
+     * @var Varien_Data_Tree_Node
      */
     private $_container;
 
@@ -30,7 +30,6 @@ class Varien_Data_Tree_Node_Collection implements ArrayAccess, IteratorAggregate
      */
     public function __construct($container)
     {
-        $this->_nodes = [];
         $this->_container = $container;
     }
 
@@ -43,9 +42,9 @@ class Varien_Data_Tree_Node_Collection implements ArrayAccess, IteratorAggregate
     }
 
     /**
-    * Implementation of IteratorAggregate::getIterator()
-    */
-    public function getIterator(): \Traversable
+     * Implementation of IteratorAggregate::getIterator()
+     */
+    public function getIterator(): Traversable
     {
         return new ArrayIterator($this->_nodes);
     }
@@ -62,10 +61,10 @@ class Varien_Data_Tree_Node_Collection implements ArrayAccess, IteratorAggregate
 
     /**
      * Implementation of ArrayAccess:offsetGet()
-     * @param string $key
+     * @param  string                      $key
      * @return mixed|Varien_Data_Tree_Node
      */
-    #[\ReturnTypeWillChange]
+    #[ReturnTypeWillChange]
     public function offsetGet($key)
     {
         return $this->_nodes[$key];
@@ -108,7 +107,7 @@ class Varien_Data_Tree_Node_Collection implements ArrayAccess, IteratorAggregate
     }
 
     /**
-     * @param Varien_Data_Tree_Node $node
+     * @param  Varien_Data_Tree_Node $node
      * @return $this
      */
     public function delete($node)
@@ -117,6 +116,7 @@ class Varien_Data_Tree_Node_Collection implements ArrayAccess, IteratorAggregate
         if (isset($this->_nodes[$id])) {
             unset($this->_nodes[$id]);
         }
+
         return $this;
     }
 
@@ -129,16 +129,16 @@ class Varien_Data_Tree_Node_Collection implements ArrayAccess, IteratorAggregate
     }
 
     /**
-     * @return Varien_Data_Tree_Node|null
+     * @return null|Varien_Data_Tree_Node
      */
     public function lastNode()
     {
-        return !empty($this->_nodes) ? $this->_nodes[count($this->_nodes) - 1] : null;
+        return empty($this->_nodes) ? null : $this->_nodes[count($this->_nodes) - 1];
     }
 
     /**
-     * @param $nodeId
-     * @return Varien_Data_Tree_Node|null
+     * @param                             $nodeId
+     * @return null|Varien_Data_Tree_Node
      */
     public function searchById($nodeId)
     {

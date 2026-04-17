@@ -83,6 +83,7 @@ class Mage_CatalogSearch_Helper_Data extends Mage_Core_Helper_Abstract
                 $this->_query->setQueryText($this->getQueryText());
             }
         }
+
         return $this->_query;
     }
 
@@ -105,7 +106,7 @@ class Mage_CatalogSearch_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getQueryText()
     {
-        if (!isset($this->_queryText)) {
+        if (is_null($this->_queryText)) {
             $this->_queryText = $this->_getRequest()->getParam($this->getQueryParamName());
             if ($this->_queryText === null) {
                 $this->_queryText = '';
@@ -122,6 +123,7 @@ class Mage_CatalogSearch_Helper_Data extends Mage_Core_Helper_Abstract
                 }
             }
         }
+
         return $this->_queryText;
     }
 
@@ -149,8 +151,8 @@ class Mage_CatalogSearch_Helper_Data extends Mage_Core_Helper_Abstract
      * Retrieve result page url and set "secure" param to avoid confirm
      * message when we submit form from secure page to unsecure
      *
-     * @param   string $query
-     * @return  string
+     * @param  string $query
+     * @return string
      */
     public function getResultUrl($query = null)
     {
@@ -205,7 +207,7 @@ class Mage_CatalogSearch_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieve minimum query length
      *
-     * @param mixed $store
+     * @param  mixed      $store
      * @return int|string
      */
     public function getMinQueryLength($store = null)
@@ -216,7 +218,7 @@ class Mage_CatalogSearch_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieve maximum query length
      *
-     * @param mixed $store
+     * @param  mixed      $store
      * @return int|string
      */
     public function getMaxQueryLength($store = null)
@@ -227,7 +229,7 @@ class Mage_CatalogSearch_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieve maximum query words count for like search
      *
-     * @param mixed $store
+     * @param  mixed $store
      * @return int
      */
     public function getMaxQueryWords($store = null)
@@ -238,7 +240,7 @@ class Mage_CatalogSearch_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Add Note message
      *
-     * @param string $message
+     * @param  string $message
      * @return $this
      */
     public function addNoteMessage($message)
@@ -301,8 +303,8 @@ class Mage_CatalogSearch_Helper_Data extends Mage_Core_Helper_Abstract
      * Join index array to string by separator
      * Support 2 level array gluing
      *
-     * @param array $index
-     * @param string $separator
+     * @param  array  $index
+     * @param  string $separator
      * @return string
      */
     public function prepareIndexdata($index, $separator = ' ')
@@ -315,6 +317,7 @@ class Mage_CatalogSearch_Helper_Data extends Mage_Core_Helper_Abstract
                 $_index = array_merge($_index, $value);
             }
         }
+
         return implode($separator, $_index);
     }
 
@@ -339,6 +342,7 @@ class Mage_CatalogSearch_Helper_Data extends Mage_Core_Helper_Abstract
                     $this->_engine = $model;
                 }
             }
+
             if (!$this->_engine) {
                 $this->_engine = Mage::getResourceSingleton('catalogsearch/fulltext_engine');
             }

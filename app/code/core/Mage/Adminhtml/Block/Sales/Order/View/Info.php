@@ -22,10 +22,11 @@ class Mage_Adminhtml_Block_Sales_Order_View_Info extends Mage_Adminhtml_Block_Sa
         if (!$this->getParentBlock()) {
             Mage::throwException(Mage::helper('adminhtml')->__('Invalid parent block for this block.'));
         }
+
         $this->setOrder($this->getParentBlock()->getOrder());
 
-        foreach ($this->getParentBlock()->getOrderInfoData() as $k => $v) {
-            $this->setDataUsingMethod($k, $v);
+        foreach ($this->getParentBlock()->getOrderInfoData() as $key => $value) {
+            $this->setDataUsingMethod($key, $value);
         }
 
         return parent::_beforeToHtml();
@@ -39,6 +40,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Info extends Mage_Adminhtml_Block_Sa
                 $deleted = Mage::helper('adminhtml')->__(' [deleted]');
                 return nl2br($this->getOrder()->getStoreName()) . $deleted;
             }
+
             $store = Mage::app()->getStore($storeId);
             $name = [
                 $store->getWebsite()->getName(),
@@ -47,6 +49,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Info extends Mage_Adminhtml_Block_Sa
             ];
             return implode('<br/>', array_map([$this, 'escapeHtml'], $name));
         }
+
         return null;
     }
 
@@ -55,6 +58,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Info extends Mage_Adminhtml_Block_Sa
         if ($this->getOrder()) {
             return Mage::getModel('customer/group')->load((int) $this->getOrder()->getCustomerGroupId())->getCode();
         }
+
         return null;
     }
 
@@ -63,9 +67,11 @@ class Mage_Adminhtml_Block_Sales_Order_View_Info extends Mage_Adminhtml_Block_Sa
         if (!Mage::getSingleton('admin/session')->isAllowed('customer/manage')) {
             return false;
         }
+
         if ($this->getOrder()->getCustomerIsGuest() || !$this->getOrder()->getCustomerId()) {
             return false;
         }
+
         return $this->getUrl('*/customer/edit', ['id' => $this->getOrder()->getCustomerId()]);
     }
 
@@ -78,7 +84,8 @@ class Mage_Adminhtml_Block_Sales_Order_View_Info extends Mage_Adminhtml_Block_Sa
      * Find sort order for account data
      * Sort Order used as array key
      *
-     * @param int $sortOrder
+     * @param  array<int, array<string, null|string|string[]>> $data
+     * @param  int                                             $sortOrder
      * @return int
      */
     protected function _prepareAccountDataSortOrder(array $data, $sortOrder)
@@ -86,6 +93,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Info extends Mage_Adminhtml_Block_Sa
         if (isset($data[$sortOrder])) {
             return $this->_prepareAccountDataSortOrder($data, $sortOrder + 1);
         }
+
         return $sortOrder;
     }
 
@@ -106,9 +114,14 @@ class Mage_Adminhtml_Block_Sales_Order_View_Info extends Mage_Adminhtml_Block_Sa
         foreach ($config->getEntityAttributeCodes($entityType) as $attributeCode) {
             /** @var Mage_Customer_Model_Attribute $attribute */
             $attribute = $config->getAttribute($entityType, $attributeCode);
-            if (!$attribute->getIsVisible() || $attribute->getIsSystem()) {
+            if (!$attribute->getIsVisible()) {
                 continue;
             }
+
+            if ($attribute->getIsSystem()) {
+                continue;
+            }
+
             $orderKey   = sprintf('customer_%s', $attribute->getAttributeCode());
             $orderValue = $this->getOrder()->getData($orderKey);
             if ($orderValue != '') {
@@ -132,8 +145,8 @@ class Mage_Adminhtml_Block_Sales_Order_View_Info extends Mage_Adminhtml_Block_Sa
     /**
      * Get link to edit order address page
      *
-     * @param Mage_Sales_Model_Order_Address $address
-     * @param string $label
+     * @param  Mage_Sales_Model_Order_Address $address
+     * @param  string                         $label
      * @return string
      */
     public function getAddressEditLink($address, $label = '')
@@ -141,6 +154,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Info extends Mage_Adminhtml_Block_Sa
         if (empty($label)) {
             $label = $this->__('Edit');
         }
+
         $url = $this->getUrl('*/sales_order/address', ['address_id' => $address->getId()]);
         return '<a href="' . $url . '">' . $label . '</a>';
     }

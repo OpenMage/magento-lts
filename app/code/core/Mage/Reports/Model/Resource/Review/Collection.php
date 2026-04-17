@@ -14,13 +14,16 @@
  */
 class Mage_Reports_Model_Resource_Review_Collection extends Mage_Review_Model_Resource_Review_Collection
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('review/review');
     }
 
     /**
-     * @param string|int $productId
+     * @param  int|string $productId
      * @return $this
      */
     public function addProductFilter($productId)
@@ -59,11 +62,7 @@ class Mage_Reports_Model_Resource_Review_Collection extends Mage_Review_Model_Re
     }
 
     /**
-     * Set order
-     *
-     * @param string $attribute
-     * @param string $dir
-     * @return $this
+     * @inheritDoc
      */
     public function setOrder($attribute, $dir = self::SORT_ORDER_DESC)
     {

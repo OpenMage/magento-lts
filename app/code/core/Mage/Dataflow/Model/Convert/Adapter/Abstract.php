@@ -34,7 +34,7 @@ abstract class Mage_Dataflow_Model_Convert_Adapter_Abstract extends Mage_Dataflo
     /**
      * Set resource for the adapter
      *
-     * @param object $resource
+     * @param  object                                       $resource
      * @return Mage_Dataflow_Model_Convert_Adapter_Abstract
      */
     public function setResource($resource)

@@ -12,31 +12,28 @@
  *
  * @package    Mage_CatalogSearch
  *
- * @method Mage_CatalogSearch_Model_Resource_Query _getResource()
- * @method Mage_CatalogSearch_Model_Resource_Query getResource()
+ * @method Mage_CatalogSearch_Model_Resource_Query            _getResource()
  * @method Mage_CatalogSearch_Model_Resource_Query_Collection getCollection()
+ * @method int                                                getDisplayInTerms()
+ * @method int                                                getIsActive()
+ * @method int                                                getIsProcessed()
+ * @method string                                             getName()
+ * @method int                                                getNumResults()
+ * @method int                                                getPopularity()
+ * @method string                                             getQueryText()
+ * @method string                                             getRedirect()
+ * @method Mage_CatalogSearch_Model_Resource_Query            getResource()
  * @method Mage_CatalogSearch_Model_Resource_Query_Collection getResourceCollection()
- *
- * @method int getDisplayInTerms()
- * @method $this setDisplayInTerms(int $value)
- * @method int getIsActive()
- * @method $this setIsActive(int $value)
- * @method int getIsProcessed()
- * @method $this setIsProcessed(int $value)
- * @method string getName()
- * @method int getNumResults()
- * @method $this setNumResults(int $value)
- * @method int getPopularity()
- * @method $this setPopularity(int $value)
- * @method string getQueryText()
- * @method $this setQueryText(string $value)
- * @method $this setRatio(float $value)
- * @method string getRedirect()
- * @method $this setRedirect(string $value)
- * @method string getSynonymFor()
- * @method $this setSynonymFor(string $value)
- * @method string getUpdatedAt()
- * @method $this setUpdatedAt(string $value)
+ * @method string                                             getSynonymFor()
+ * @method $this                                              setDisplayInTerms(int $value)
+ * @method $this                                              setIsActive(int $value)
+ * @method $this                                              setIsProcessed(int $value)
+ * @method $this                                              setNumResults(int $value)
+ * @method $this                                              setPopularity(int $value)
+ * @method $this                                              setQueryText(string $value)
+ * @method $this                                              setRatio(float $value)
+ * @method $this                                              setRedirect(string $value)
+ * @method $this                                              setSynonymFor(string $value)
  */
 class Mage_CatalogSearch_Model_Query extends Mage_Core_Model_Abstract
 {
@@ -48,14 +45,17 @@ class Mage_CatalogSearch_Model_Query extends Mage_Core_Model_Abstract
     protected $_eventObject = 'catalogsearch_query';
 
     public const CACHE_TAG                     = 'SEARCH_QUERY';
+
     public const XML_PATH_MIN_QUERY_LENGTH     = 'catalog/search/min_query_length';
+
     public const XML_PATH_MAX_QUERY_LENGTH     = 'catalog/search/max_query_length';
+
     public const XML_PATH_MAX_QUERY_WORDS      = 'catalog/search/max_query_words';
+
     public const XML_PATH_AJAX_SUGGESTION_COUNT = 'catalog/search/show_autocomplete_results_count';
 
     /**
-     * Init resource model
-     *
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -79,7 +79,7 @@ class Mage_CatalogSearch_Model_Query extends Mage_Core_Model_Abstract
      */
     public function getResultCollection()
     {
-        $collection = $this->getData('result_collection');
+        $collection = $this->getDataByKey('result_collection');
         if (is_null($collection)) {
             $collection = $this->getSearchCollection();
 
@@ -90,10 +90,11 @@ class Mage_CatalogSearch_Model_Query extends Mage_Core_Model_Abstract
 
             $collection->addSearchFilter($text)
                 ->addStoreFilter()
-                ->addMinimalPrice()
+                ->addPriceData()
                 ->addTaxPercents();
             $this->setData('result_collection', $collection);
         }
+
         return $collection;
     }
 
@@ -104,20 +105,21 @@ class Mage_CatalogSearch_Model_Query extends Mage_Core_Model_Abstract
      */
     public function getSuggestCollection()
     {
-        $collection = $this->getData('suggest_collection');
+        $collection = $this->getDataByKey('suggest_collection');
         if (is_null($collection)) {
             $collection = Mage::getResourceModel('catalogsearch/query_collection')
                 ->setStoreId($this->getStoreId())
                 ->setQueryFilter($this->getQueryText());
             $this->setData('suggest_collection', $collection);
         }
+
         return $collection;
     }
 
     /**
      * Load Query object by query string
      *
-     * @param string $text
+     * @param  string $text
      * @return $this
      */
     public function loadByQuery($text)
@@ -131,7 +133,7 @@ class Mage_CatalogSearch_Model_Query extends Mage_Core_Model_Abstract
     /**
      * Load Query object only by query text (skip 'synonym For')
      *
-     * @param string $text
+     * @param  string $text
      * @return $this
      */
     public function loadByQueryText($text)
@@ -159,9 +161,10 @@ class Mage_CatalogSearch_Model_Query extends Mage_Core_Model_Abstract
      */
     public function getStoreId()
     {
-        if (!$storeId = $this->getData('store_id')) {
-            $storeId = Mage::app()->getStore()->getId();
+        if (!$storeId = $this->getDataByKey('store_id')) {
+            return Mage::app()->getStore()->getId();
         }
+
         return $storeId;
     }
 
@@ -185,33 +188,11 @@ class Mage_CatalogSearch_Model_Query extends Mage_Core_Model_Abstract
     /**
      * Retrieve minimum query length
      *
-     * @deprecated after 1.3.2.3 use getMinQueryLength() instead
-     * @return int
-     */
-    public function getMinQueryLenght()
-    {
-        return Mage::getStoreConfig(self::XML_PATH_MIN_QUERY_LENGTH, $this->getStoreId());
-    }
-
-    /**
-     * Retrieve minimum query length
-     *
      * @return int
      */
     public function getMinQueryLength()
     {
-        return $this->getMinQueryLenght();
-    }
-
-    /**
-     * Retrieve maximum query length
-     *
-     * @deprecated after 1.3.2.3 use getMaxQueryLength() instead
-     * @return int
-     */
-    public function getMaxQueryLenght()
-    {
-        return 0;
+        return Mage::getStoreConfig(self::XML_PATH_MIN_QUERY_LENGTH, $this->getStoreId());
     }
 
     /**

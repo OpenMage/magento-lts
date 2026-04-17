@@ -15,6 +15,7 @@
 class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_Adapter_Entity
 {
     public const MULTI_DELIMITER   = ' , ';
+
     public const ENTITY            = 'catalog_product_import';
 
     protected $_eventPrefix = 'catalog_product_import';
@@ -22,14 +23,14 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
     /**
      * Product model
      *
-     * @var Mage_Catalog_Model_Product|string|null
+     * @var null|Mage_Catalog_Model_Product|string
      */
     protected $_productModel;
 
     /**
      * product types collection array
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_productTypes;
 
@@ -43,7 +44,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
     /**
      * product attribute set collection array
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_productAttributeSets;
 
@@ -112,7 +113,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
     /**
      * Store affected entity ids
      *
-     * @param  int|array $ids
+     * @param  array|int $ids
      * @return $this
      */
     protected function _addAffectedEntityIds($ids)
@@ -217,26 +218,29 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
             $productModel = Mage::getModel('catalog/product');
             $this->_productModel = Mage::objects()->save($productModel);
         }
+
         return Mage::objects()->load($this->_productModel);
     }
 
     /**
      * Retrieve eav entity attribute model
      *
-     * @param string $code
-     * @return Mage_Eav_Model_Entity_Attribute|false
+     * @param  string                                $code
+     * @return false|Mage_Eav_Model_Entity_Attribute
      */
     public function getAttribute($code)
     {
         if (!isset($this->_attributes[$code])) {
             $this->_attributes[$code] = $this->getProductModel()->getResource()->getAttribute($code);
         }
+
         if ($this->_attributes[$code] instanceof Mage_Catalog_Model_Resource_Eav_Attribute) {
             $applyTo = $this->_attributes[$code]->getApplyTo();
             if ($applyTo && !in_array($this->getProductModel()->getTypeId(), $applyTo)) {
                 return false;
             }
         }
+
         return $this->_attributes[$code];
     }
 
@@ -249,12 +253,12 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
     {
         if (is_null($this->_productTypes)) {
             $this->_productTypes = [];
-            $options = Mage::getModel('catalog/product_type')
-                ->getOptionArray();
-            foreach ($options as $k => $v) {
-                $this->_productTypes[$k] = $k;
+            $options = Mage::getModel('catalog/product_type')::getOptionArray();
+            foreach (array_keys($options) as $key) {
+                $this->_productTypes[$key] = $key;
             }
         }
+
         return $this->_productTypes;
     }
 
@@ -267,9 +271,9 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
     {
         $type = $product->getTypeId();
         if (!isset($this->_productTypeInstances[$type])) {
-            $this->_productTypeInstances[$type] = Mage::getSingleton('catalog/product_type')
-                ->factory($product, true);
+            $this->_productTypeInstances[$type] = Mage::getSingleton('catalog/product_type')::factory($product, true);
         }
+
         $product->setTypeInstance($this->_productTypeInstances[$type], true);
         return $this;
     }
@@ -294,6 +298,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
                 $this->_productAttributeSets[$set->getAttributeSetName()] = $set->getId();
             }
         }
+
         return $this->_productAttributeSets;
     }
 
@@ -313,8 +318,8 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
     /**
      * Retrieve store object by code
      *
-     * @param string $store
-     * @return Mage_Core_Model_Store|false
+     * @param  string                      $store
+     * @return false|Mage_Core_Model_Store
      */
     public function getStoreByCode($store)
     {
@@ -332,8 +337,8 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
     /**
      * Retrieve store object by code
      *
-     * @param string $id
-     * @return Mage_Core_Model_Store|false
+     * @param  string                      $id
+     * @return false|Mage_Core_Model_Store
      */
     public function getStoreById($id)
     {
@@ -373,7 +378,6 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
 
     /**
      * Initialize convert adapter model for products collection
-     *
      */
     public function __construct()
     {
@@ -394,12 +398,15 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
                     $this->_inventoryFields[] = 'use_config_' . $code;
                 }
             }
+
             if ($node->is('required')) {
                 $this->_requiredFields[] = $code;
             }
+
             if ($node->is('ignore')) {
                 $this->_ignoreFields[] = $code;
             }
+
             if ($node->is('to_number')) {
                 $this->_toNumber[] = $code;
             }
@@ -420,7 +427,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
     /**
      * Retrieve not loaded collection
      *
-     * @param string $entityType
+     * @param  string                                         $entityType
      * @return Mage_Catalog_Model_Resource_Product_Collection
      */
     protected function _getCollectionForLoad($entityType)
@@ -498,6 +505,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
                         Mage_Dataflow_Model_Convert_Exception::FATAL,
                     );
                 }
+
                 try {
                     $i = 0;
                     foreach ($collection->getIterator() as $model) {
@@ -522,6 +530,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
 
                             #Mage::getResourceSingleton('catalog_entity/convert')->addProductToStore($model->getId(), 0);
                         }
+
                         if (!$new || $storeId !== 0) {
                             if ($storeId !== 0) {
                                 Mage::getResourceSingleton('catalog_entity/convert')->addProductToStore(
@@ -529,6 +538,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
                                     $storeId,
                                 );
                             }
+
                             // phpcs:ignore Ecg.Performance.Loop.ModelLSD
                             $model->save();
                         }
@@ -550,6 +560,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
                                     if (in_array($field, $this->_configs)) {
                                         $stockItem->setData('use_config_' . $field, 0);
                                     }
+
                                     $stockItem->setData($field, $value ? $value : 0);
                                 } elseif (in_array($field, $this->_configs)) {
                                     if ($data['use_config_' . $field] == 0) {
@@ -559,26 +570,30 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
                                     $stockItem->setData($field, $value ? $value : 0);
                                 }
                             }
+
                             // phpcs:ignore Ecg.Performance.Loop.ModelLSD
                             $stockItem->save();
                             unset($data);
                             unset($stockItem);
                             unset($stockItemId);
                         }
+
                         unset($model);
                         $i++;
                     }
+
                     $this->addException(Mage::helper('catalog')->__('Saved %d record(s)', $i));
-                } catch (Exception $e) {
-                    if (!$e instanceof Mage_Dataflow_Model_Convert_Exception) {
+                } catch (Exception $exception) {
+                    if (!$exception instanceof Mage_Dataflow_Model_Convert_Exception) {
                         $this->addException(
-                            Mage::helper('catalog')->__('An error occurred while saving the collection, aborting. Error message: %s', $e->getMessage()),
+                            Mage::helper('catalog')->__('An error occurred while saving the collection, aborting. Error message: %s', $exception->getMessage()),
                             Mage_Dataflow_Model_Convert_Exception::FATAL,
                         );
                     }
                 }
             }
         }
+
         unset($collections);
 
         return $this;
@@ -588,7 +603,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
      * Save data row with gallery image info only
      *
      * @param Mage_Catalog_Model_Product $product
-     * @param array $importData
+     * @param array                      $importData
      *
      * @return $this
      */
@@ -602,6 +617,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
 
         $imageFile = trim($importData['_media_image']);
         $imageFile = ltrim($imageFile, DS);
+
         $imageFilePath = Mage::getBaseDir('media') . DS . 'import' . DS . $imageFile;
 
         $updatedFileName = $this->_galleryBackendModel->addImage(
@@ -624,8 +640,8 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
     /**
      * Save product (import)
      *
-     * @throws Mage_Core_Exception
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function saveRow(array $importData)
     {
@@ -652,6 +668,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
             $message = Mage::helper('catalog')->__('Skipping import row, required field "%s" is not defined.', 'sku');
             Mage::throwException($message);
         }
+
         $product->setStoreId($store->getId());
         $productId = $product->getIdBySku($importData['sku']);
 
@@ -669,6 +686,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
                 $message = Mage::helper('catalog')->__('Skip import row, is not valid value "%s" for field "%s"', $value, 'type');
                 Mage::throwException($message);
             }
+
             $product->setTypeId($productTypes[strtolower($importData['type'])]);
             /**
              * Check product define attribute set
@@ -678,6 +696,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
                 $message = Mage::helper('catalog')->__('Skip import row, the value "%s" is invalid for field "%s"', $value, 'attribute_set');
                 Mage::throwException($message);
             }
+
             $product->setAttributeSetId($productAttributeSets[$importData['attribute_set']]);
 
             foreach ($this->_requiredFields as $field) {
@@ -712,9 +731,11 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
             if (!is_array($websiteIds)) {
                 $websiteIds = [];
             }
+
             if (!in_array($store->getWebsiteId(), $websiteIds)) {
                 $websiteIds[] = $store->getWebsiteId();
             }
+
             $product->setWebsiteIds($websiteIds);
         }
 
@@ -723,6 +744,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
             if (!is_array($websiteIds) || !$store->getId()) {
                 $websiteIds = [];
             }
+
             $websiteCodes = explode(',', $importData['websites']);
             foreach ($websiteCodes as $websiteCode) {
                 try {
@@ -730,9 +752,10 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
                     if (!in_array($website->getId(), $websiteIds)) {
                         $websiteIds[] = $website->getId();
                     }
-                } catch (Exception $e) {
+                } catch (Exception) {
                 }
             }
+
             $product->setWebsiteIds($websiteIds);
             unset($websiteIds);
         }
@@ -741,6 +764,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
             if (in_array($field, $this->_inventoryFields)) {
                 continue;
             }
+
             if (is_null($value)) {
                 continue;
             }
@@ -799,13 +823,10 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
         $inventoryFields = $this->_inventoryFieldsProductTypes[$product->getTypeId()] ?? [];
         foreach ($inventoryFields as $field) {
             if (isset($importData[$field])) {
-                if (in_array($field, $this->_toNumber)) {
-                    $stockData[$field] = $this->getNumber($importData[$field]);
-                } else {
-                    $stockData[$field] = $importData[$field];
-                }
+                $stockData[$field] = in_array($field, $this->_toNumber) ? $this->getNumber($importData[$field]) : $importData[$field];
             }
         }
+
         $product->setStockData($stockData);
 
         $arrayToMassAdd = [];
@@ -844,6 +865,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
                 if (!$addedFile) {
                     $addedFile = $product->getData($mediaAttributeCode);
                 }
+
                 if ($fileLabel && $addedFile) {
                     $this->_galleryBackendModel->updateImage($product, $addedFile, ['label' => $fileLabel]);
                 }
@@ -870,7 +892,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
     {
         try {
             return $this->saveRow($importData);
-        } catch (Exception $e) {
+        } catch (Exception) {
             return false;
         }
     }

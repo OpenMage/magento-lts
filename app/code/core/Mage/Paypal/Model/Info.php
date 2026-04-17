@@ -24,33 +24,51 @@ class Mage_Paypal_Model_Info
      * @var string
      */
     public const PAYER_ID       = 'payer_id';
+
     public const PAYER_EMAIL    = 'email';
+
     public const PAYER_STATUS   = 'payer_status';
+
     public const ADDRESS_ID     = 'address_id';
+
     public const ADDRESS_STATUS = 'address_status';
+
     public const PROTECTION_EL  = 'protection_eligibility';
+
     public const FRAUD_FILTERS  = 'collected_fraud_filters';
+
     public const CORRELATION_ID = 'correlation_id';
+
     public const AVS_CODE       = 'avs_result';
+
     public const CVV2_MATCH     = 'cvv2_check_result';
+
     public const CENTINEL_VPAS  = 'centinel_vpas_result';
+
     public const CENTINEL_ECI   = 'centinel_eci_result';
 
     // Next two fields are required for Brazil
     public const BUYER_TAX_ID   = 'buyer_tax_id';
+
     public const BUYER_TAX_ID_TYPE = 'buyer_tax_id_type';
 
     public const PAYMENT_STATUS = 'payment_status';
+
     public const PENDING_REASON = 'pending_reason';
+
     public const IS_FRAUD       = 'is_fraud_detected';
+
     public const PAYMENT_STATUS_GLOBAL = 'paypal_payment_status';
+
     public const PENDING_REASON_GLOBAL = 'paypal_pending_reason';
+
     public const IS_FRAUD_GLOBAL       = 'paypal_is_fraud_detected';
 
     /**
      * Possible buyer's tax id types (Brazil only)
      */
     public const BUYER_TAX_ID_TYPE_CPF = 'BR_CPF';
+
     public const BUYER_TAX_ID_TYPE_CNPJ = 'BR_CNPJ';
 
     /**
@@ -92,23 +110,36 @@ class Mage_Paypal_Model_Info
      * @var string
      */
     public const PAYMENTSTATUS_NONE         = 'none';
+
     public const PAYMENTSTATUS_COMPLETED    = 'completed';
+
     public const PAYMENTSTATUS_DENIED       = 'denied';
+
     public const PAYMENTSTATUS_EXPIRED      = 'expired';
+
     public const PAYMENTSTATUS_FAILED       = 'failed';
+
     public const PAYMENTSTATUS_INPROGRESS   = 'in_progress';
+
     public const PAYMENTSTATUS_PENDING      = 'pending';
+
     public const PAYMENTSTATUS_REFUNDED     = 'refunded';
+
     public const PAYMENTSTATUS_REFUNDEDPART = 'partially_refunded';
+
     public const PAYMENTSTATUS_REVERSED     = 'reversed';
+
     public const PAYMENTSTATUS_UNREVERSED   = 'canceled_reversal';
+
     public const PAYMENTSTATUS_PROCESSED    = 'processed';
+
     public const PAYMENTSTATUS_VOIDED       = 'voided';
 
     /**
      * PayPal payment transaction type
      */
     public const TXN_TYPE_ADJUSTMENT = 'adjustment';
+
     public const TXN_TYPE_NEW_CASE   = 'new_case';
 
     /**
@@ -147,7 +178,7 @@ class Mage_Paypal_Model_Info
     /**
      * All available payment info getter
      *
-     * @param bool $labelValuesOnly
+     * @param  bool  $labelValuesOnly
      * @return array
      */
     public function getPaymentInfo(Mage_Payment_Model_Info $payment, $labelValuesOnly = false)
@@ -170,7 +201,7 @@ class Mage_Paypal_Model_Info
     /**
      * Public payment info getter
      *
-     * @param bool $labelValuesOnly
+     * @param  bool  $labelValuesOnly
      * @return array
      */
     public function getPublicPaymentInfo(Mage_Payment_Model_Info $payment, $labelValuesOnly = false)
@@ -181,7 +212,7 @@ class Mage_Paypal_Model_Info
     /**
      * Grab data from source and map it into payment
      *
-     * @param array|Varien_Object|callback $from
+     * @param array|callable|Varien_Object $from
      */
     public function importToPayment($from, Mage_Payment_Model_Info $payment)
     {
@@ -189,24 +220,25 @@ class Mage_Paypal_Model_Info
         if (is_object($from)) {
             $from = [$from, 'getDataUsingMethod'];
         }
+
         Varien_Object_Mapper::accumulateByMap($from, [$payment, 'setAdditionalInformation'], $fullMap);
     }
 
     /**
      * Grab data from payment and map it into target
      *
-     * @param array|Varien_Object|callback $to
+     * @param  array|callable|Varien_Object $target
      * @return array|Varien_Object
      */
-    public function &exportFromPayment(Mage_Payment_Model_Info $payment, $to, ?array $map = null)
+    public function &exportFromPayment(Mage_Payment_Model_Info $payment, $target, ?array $map = null)
     {
         $fullMap = array_merge($this->_paymentMap, $this->_systemMap);
         Varien_Object_Mapper::accumulateByMap(
             [$payment, 'getAdditionalInformation'],
-            $to,
+            $target,
             $map ? $map : array_flip($fullMap),
         );
-        return $to;
+        return $target;
     }
 
     /**
@@ -221,6 +253,7 @@ class Mage_Paypal_Model_Info
             $pendingReason = $payment->getAdditionalInformation(self::PENDING_REASON_GLOBAL);
             return !in_array($pendingReason, ['authorization', 'order']);
         }
+
         return false;
     }
 
@@ -261,6 +294,7 @@ class Mage_Paypal_Model_Info
         ) {
             return true;
         }
+
         $pendingReason = $payment->getAdditionalInformation(self::PENDING_REASON_GLOBAL);
         return self::PAYMENTSTATUS_PENDING === $paymentStatus
             && in_array($pendingReason, ['authorization', 'order']);
@@ -283,7 +317,7 @@ class Mage_Paypal_Model_Info
     /**
      * Explain pending payment reason code
      *
-     * @param string $code
+     * @param  string $code
      * @return string
      * @link https://cms.paypal.com/us/cgi-bin/?&cmd=_render-content&content_ID=developer/e_howto_html_IPNandPDTVariables
      * @link https://cms.paypal.com/us/cgi-bin/?&cmd=_render-content&content_ID=developer/e_howto_api_nvp_r_GetTransactionDetails
@@ -295,7 +329,7 @@ class Mage_Paypal_Model_Info
             'authorization', 'order' => Mage::helper('paypal')->__('The payment is authorized but not settled.'),
             'echeck' => Mage::helper('paypal')->__('The payment eCheck is not yet cleared.'),
             'intl' => Mage::helper('paypal')->__('Merchant holds a non-U.S. account and does not have a withdrawal mechanism.'),
-            'multi-currency', 'multi_currency', 'multicurrency' => Mage::helper('paypal')->__('The payment curency does not match any of the merchant\'s balances currency.'),
+            'multi-currency', 'multi_currency', 'multicurrency' => Mage::helper('paypal')->__("The payment curency does not match any of the merchant's balances currency."),
             'paymentreview' => Mage::helper('paypal')->__('The payment is pending while it is being reviewed by PayPal for risk.'),
             'unilateral' => Mage::helper('paypal')->__('The payment is pending because it was made to an email address that is not yet registered or confirmed.'),
             'verify' => Mage::helper('paypal')->__('The merchant account is not yet verified.'),
@@ -307,7 +341,7 @@ class Mage_Paypal_Model_Info
     /**
      * Explain the refund or chargeback reason code
      *
-     * @param string $code
+     * @param  string $code
      * @return string
      * @link https://cms.paypal.com/us/cgi-bin/?&cmd=_render-content&content_ID=developer/e_howto_html_IPNandPDTVariables
      * @link https://cms.paypal.com/us/cgi-bin/?&cmd=_render-content&content_ID=developer/e_howto_api_nvp_r_GetTransactionDetails
@@ -341,7 +375,7 @@ class Mage_Paypal_Model_Info
     /**
      * Whether a reversal/refund can be disputed with PayPal
      *
-     * @param string $code
+     * @param  string $code
      * @return bool
      */
     public static function isReversalDisputable($code)
@@ -355,7 +389,7 @@ class Mage_Paypal_Model_Info
     /**
      * Render info item
      *
-     * @param bool $labelValuesOnly
+     * @param  bool  $labelValuesOnly
      * @return array
      */
     protected function _getFullInfo(array $keys, Mage_Payment_Model_Info $payment, $labelValuesOnly)
@@ -365,6 +399,7 @@ class Mage_Paypal_Model_Info
             if (!isset($this->_paymentMapFull[$key])) {
                 $this->_paymentMapFull[$key] = [];
             }
+
             if (!isset($this->_paymentMapFull[$key]['label'])) {
                 if (!$payment->hasAdditionalInformation($key)) {
                     $this->_paymentMapFull[$key]['label'] = false;
@@ -375,6 +410,7 @@ class Mage_Paypal_Model_Info
                     $this->_paymentMapFull[$key]['value'] = $this->_getValue($value, $key);
                 }
             }
+
             if (!empty($this->_paymentMapFull[$key]['value'])) {
                 if ($labelValuesOnly) {
                     $result[$this->_paymentMapFull[$key]['label']] = $this->_paymentMapFull[$key]['value'];
@@ -383,13 +419,14 @@ class Mage_Paypal_Model_Info
                 }
             }
         }
+
         return $result;
     }
 
     /**
      * Render info item labels
      *
-     * @param string $key
+     * @param  string $key
      * @return string
      */
     protected function _getLabel($key)
@@ -405,8 +442,8 @@ class Mage_Paypal_Model_Info
             'paypal_correlation_id' => Mage::helper('paypal')->__('Last Correlation ID'),
             'paypal_avs_code' => Mage::helper('paypal')->__('Address Verification System Response'),
             'paypal_cvv2_match' => Mage::helper('paypal')->__('CVV2 Check Result by PayPal'),
-            self::BUYER_TAX_ID => Mage::helper('paypal')->__('Buyer\'s Tax ID'),
-            self::BUYER_TAX_ID_TYPE => Mage::helper('paypal')->__('Buyer\'s Tax ID Type'),
+            self::BUYER_TAX_ID => Mage::helper('paypal')->__("Buyer's Tax ID"),
+            self::BUYER_TAX_ID_TYPE => Mage::helper('paypal')->__("Buyer's Tax ID Type"),
             self::CENTINEL_VPAS => Mage::helper('paypal')->__('PayPal/Centinel Visa Payer Authentication Service Result'),
             self::CENTINEL_ECI => Mage::helper('paypal')->__('PayPal/Centinel Electronic Commerce Indicator'),
             default => '',
@@ -416,7 +453,7 @@ class Mage_Paypal_Model_Info
     /**
      * Get case type label
      *
-     * @param string $key
+     * @param  string $key
      * @return string
      */
     public static function getCaseTypeLabel($key)
@@ -432,8 +469,8 @@ class Mage_Paypal_Model_Info
     /**
      * Apply a filter upon value getting
      *
-     * @param string $value
-     * @param string $key
+     * @param  string $value
+     * @param  string $key
      * @return string
      */
     protected function _getValue($value, $key)
@@ -458,6 +495,7 @@ class Mage_Paypal_Model_Info
             default:
                 return $value;
         }
+
         return sprintf('#%s%s', $value, $value == $label ? '' : ': ' . $label);
     }
 
@@ -465,7 +503,7 @@ class Mage_Paypal_Model_Info
      * Attempt to convert AVS check result code into label
      *
      * @link https://cms.paypal.com/us/cgi-bin/?&cmd=_render-content&content_ID=developer/e_howto_api_nvp_AVSResponseCodes
-     * @param string $value
+     * @param  string $value
      * @return string
      */
     protected function _getAvsLabel($value)
@@ -505,7 +543,7 @@ class Mage_Paypal_Model_Info
      * Attempt to convert CVV2 check result code into label
      *
      * @link https://cms.paypal.com/us/cgi-bin/?&cmd=_render-content&content_ID=developer/e_howto_api_nvp_AVSResponseCodes
-     * @param string $value
+     * @param  string $value
      * @return string
      */
     protected function _getCvv2Label($value)
@@ -530,7 +568,7 @@ class Mage_Paypal_Model_Info
      * Attempt to convert centinel VPAS result into label
      *
      * @link https://cms.paypal.com/us/cgi-bin/?&cmd=_render-content&content_ID=developer/e_howto_api_nvp_r_DoDirectPayment
-     * @param string $value
+     * @param  string $value
      * @return string
      */
     private function _getCentinelVpasLabel($value)
@@ -549,7 +587,7 @@ class Mage_Paypal_Model_Info
      * Attempt to convert centinel ECI result into label
      *
      * @link https://cms.paypal.com/us/cgi-bin/?&cmd=_render-content&content_ID=developer/e_howto_api_nvp_r_DoDirectPayment
-     * @param string $value
+     * @param  string $value
      * @return string
      */
     private function _getCentinelEciLabel($value)
@@ -564,7 +602,7 @@ class Mage_Paypal_Model_Info
     /**
      * Retrieve buyer id type value based on code received from PayPal (Brazil only)
      *
-     * @param string $code
+     * @param  string $code
      * @return string
      */
     protected function _getBuyerIdTypeValue($code)

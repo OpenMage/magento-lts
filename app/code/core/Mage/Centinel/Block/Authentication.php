@@ -15,7 +15,7 @@
 class Mage_Centinel_Block_Authentication extends Mage_Core_Block_Template
 {
     /**
-     * Strage for identifiers of related blocks
+     * Storage for identifiers of related blocks
      *
      * @var array
      */
@@ -32,7 +32,7 @@ class Mage_Centinel_Block_Authentication extends Mage_Core_Block_Template
     /**
      * Add identifier of related block
      *
-     * @param string $blockId
+     * @param  string $blockId
      * @return $this
      */
     public function addRelatedBlock($blockId)
@@ -67,6 +67,7 @@ class Mage_Centinel_Block_Authentication extends Mage_Core_Block_Template
                 return parent::_toHtml();
             }
         }
+
         return parent::_toHtml();
     }
 }

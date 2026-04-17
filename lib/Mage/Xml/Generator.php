@@ -6,20 +6,22 @@
  * @license    Open Software License (OSL 3.0)
  * @package    Mage_Xml
  */
-class Mage_Xml_Generator
+class Mage_Xml_Generator implements Stringable
 {
     protected $_dom = null;
+
     protected $_currentDom;
 
     public function __construct()
     {
         $this->_dom = new DOMDocument('1.0');
         $this->_dom->formatOutput = true;
+
         $this->_currentDom = $this->_dom;
     }
 
     /**
-     * @return DOMDocument|null
+     * @return null|DOMDocument
      */
     public function getDom()
     {
@@ -35,7 +37,7 @@ class Mage_Xml_Generator
     }
 
     /**
-     * @param DOMElement $node
+     * @param  DOMElement $node
      * @return $this
      */
     protected function _setCurrentDom($node)
@@ -45,22 +47,24 @@ class Mage_Xml_Generator
     }
 
     /**
-    * @param array|array[] $content
-    */
+     * @param array|array[] $content
+     */
     public function arrayToXml($content)
     {
         $parentNode = $this->_getCurrentDom();
         if (!$content || !count($content)) {
             return $this;
         }
+
         foreach ($content as $key => $item) {
             try {
                 $node = $this->getDom()->createElement($key);
-            } catch (DOMException $e) {
+            } catch (DOMException) {
                 //  echo $e->getMessage();
                 var_dump($item);
                 die;
             }
+
             $parentNode->appendChild($node);
             if (is_array($item) && isset($item['_attribute'])) {
                 if (is_array($item['_value'])) {
@@ -75,6 +79,7 @@ class Mage_Xml_Generator
                     $child = $this->getDom()->createTextNode($item['_value']);
                     $node->appendChild($child);
                 }
+
                 foreach ($item['_attribute'] as $_attributeKey => $_attributeValue) {
                     $node->setAttribute($_attributeKey, $_attributeValue);
                 }
@@ -84,24 +89,22 @@ class Mage_Xml_Generator
             } elseif (is_array($item) && !isset($item[0])) {
                 $this->_setCurrentDom($node)->arrayToXml($item);
             } elseif (is_array($item) && isset($item[0])) {
-                foreach ($item as $k => $v) {
-                    $this->_setCurrentDom($node)->arrayToXml($v);
+                foreach ($item as $val) {
+                    $this->_setCurrentDom($node)->arrayToXml($val);
                 }
             }
         }
+
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function __toString()
+    public function __toString(): string
     {
-        return $this->getDom()->saveXML();
+        return (string) $this->getDom()->saveXML();
     }
 
     /**
-     * @param string $file
+     * @param  string $file
      * @return $this
      */
     public function save($file)

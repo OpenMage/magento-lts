@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -38,13 +40,14 @@ class Mage_Api2_Model_Request_Internal extends Mage_Api2_Model_Request
         if ($this->_bodyParams === null) {
             $this->_bodyParams = $this->_getInterpreter()->interpret((string) $this->getRawBody());
         }
+
         return $this->_bodyParams;
     }
 
     /**
      * Set request body data
      *
-     * @param array $data
+     * @param  array                   $data
      * @return Mage_Api2_Model_Request
      */
     public function setBodyParams($data)
@@ -56,7 +59,7 @@ class Mage_Api2_Model_Request_Internal extends Mage_Api2_Model_Request
     /**
      * Set HTTP request method for request emulation during internal call
      *
-     * @param string $method
+     * @param  string $method
      * @return $this
      */
     public function setMethod($method)
@@ -67,6 +70,7 @@ class Mage_Api2_Model_Request_Internal extends Mage_Api2_Model_Request
         } else {
             throw new Mage_Api2_Exception('Invalid method provided', Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
         }
+
         return $this;
     }
 
@@ -79,8 +83,9 @@ class Mage_Api2_Model_Request_Internal extends Mage_Api2_Model_Request
     {
         $method = $this->_method;
         if (!$method) {
-            $method = parent::getMethod();
+            return parent::getMethod();
         }
+
         return $method;
     }
 }

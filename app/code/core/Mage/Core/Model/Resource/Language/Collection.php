@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -15,8 +17,7 @@
 class Mage_Core_Model_Resource_Language_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
     /**
-     * Define resource model
-     *
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -36,7 +37,7 @@ class Mage_Core_Model_Resource_Language_Collection extends Mage_Core_Model_Resou
     /**
      * Convert items array to hash for select options
      *
-     * @return  array
+     * @return array
      */
     public function toOptionHash()
     {

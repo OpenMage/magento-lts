@@ -26,10 +26,12 @@ class Mage_Core_Model_Design_Config extends Varien_Simplexml_Config
             if (!is_dir($params['designRoot'])) {
                 throw new Mage_Core_Exception("Design root '{$params['designRoot']}' isn't a directory.");
             }
+
             $this->_designRoot = $params['designRoot'];
         } else {
             $this->_designRoot = Mage::getBaseDir('design');
         }
+
         $this->_cacheChecksum = null;
         $this->setCacheId('config_theme');
         $this->setCache(Mage::app()->getCache());
@@ -44,6 +46,7 @@ class Mage_Core_Model_Design_Config extends Varien_Simplexml_Config
                 $this->setNode($area . '/' . $package . '/' . $theme, null);
                 $this->getNode($area . '/' . $package . '/' . $theme)->extend($config->getNode());
             }
+
             $this->saveCache();
         }
     }
@@ -58,13 +61,14 @@ class Mage_Core_Model_Design_Config extends Varien_Simplexml_Config
         if ($this->_canUseCache()) {
             return parent::loadCache();
         }
+
         return false;
     }
 
     /**
      * Save cache
      *
-     * @param array $tags
+     * @param  array $tags
      * @return $this
      */
     public function saveCache($tags = null)
@@ -74,8 +78,10 @@ class Mage_Core_Model_Design_Config extends Varien_Simplexml_Config
             if (!in_array(Mage_Core_Model_Config::CACHE_TAG, $tags)) {
                 $tags[] = Mage_Core_Model_Config::CACHE_TAG;
             }
+
             parent::saveCache($tags);
         }
+
         return $this;
     }
 
@@ -90,8 +96,8 @@ class Mage_Core_Model_Design_Config extends Varien_Simplexml_Config
     /**
      * Get area, package and theme from path .../app/design/{area}/{package}/{theme}/etc/theme.xml
      *
-     * @param string $filePath
-     * @return array
+     * @param  string             $filePath
+     * @return array<int, string>
      */
     protected function _getThemePathSegments($filePath)
     {

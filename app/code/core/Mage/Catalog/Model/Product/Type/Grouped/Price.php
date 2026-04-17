@@ -17,9 +17,9 @@ class Mage_Catalog_Model_Product_Type_Grouped_Price extends Mage_Catalog_Model_P
     /**
      * Returns product final price depending on options chosen
      *
-     * @param float|null $qty
-     * @param Mage_Catalog_Model_Product $product
-     * @return  double
+     * @param  null|float                 $qty
+     * @param  Mage_Catalog_Model_Product $product
+     * @return float
      */
     public function getFinalPrice($qty, $product)
     {
@@ -39,10 +39,12 @@ class Mage_Catalog_Model_Product_Type_Grouped_Price extends Mage_Catalog_Model_P
                 if (!$option) {
                     continue;
                 }
+
                 $childQty = $option->getValue();
                 if (!$childQty) {
                     continue;
                 }
+
                 $finalPrice += $childProduct->getFinalPrice($childQty) * $childQty;
             }
         }
@@ -50,6 +52,6 @@ class Mage_Catalog_Model_Product_Type_Grouped_Price extends Mage_Catalog_Model_P
         $product->setFinalPrice($finalPrice);
         Mage::dispatchEvent('catalog_product_type_grouped_price', ['product' => $product]);
 
-        return max(0, $product->getData('final_price'));
+        return max(0, $product->getDataByKey('final_price'));
     }
 }

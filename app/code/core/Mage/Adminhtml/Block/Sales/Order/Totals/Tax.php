@@ -21,12 +21,11 @@ class Mage_Adminhtml_Block_Sales_Order_Totals_Tax extends Mage_Tax_Block_Sales_O
      */
     public function getFullTaxInfo()
     {
-        /** @var Mage_Sales_Model_Order $source */
         $source = $this->getOrder();
 
         $taxClassAmount = [];
         if ($source instanceof Mage_Sales_Model_Order) {
-            $taxClassAmount = $this->_getTaxHelper()->getCalculatedTaxes($source);
+            return $this->_getTaxHelper()->getCalculatedTaxes($source);
         }
 
         return $taxClassAmount;
@@ -45,8 +44,8 @@ class Mage_Adminhtml_Block_Sales_Order_Totals_Tax extends Mage_Tax_Block_Sales_O
     /**
      * Display tax amount
      *
-     * @param float $amount
-     * @param float $baseAmount
+     * @param  float  $amount
+     * @param  float  $baseAmount
      * @return string
      */
     public function displayAmount($amount, $baseAmount)

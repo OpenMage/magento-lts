@@ -8,8 +8,7 @@
  */
 
 /**
- *
- * Speical Start Date attribute backend
+ * Special Start Date attribute backend
  *
  * @package    Mage_Catalog
  */
@@ -18,8 +17,8 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Startdate_Specialprice extend
     /**
      * Get attribute value for save.
      *
-     * @param Varien_Object $object
-     * @return string|bool
+     * @param  Varien_Object $object
+     * @return bool|string
      */
     protected function _getValueForSave($object)
     {
@@ -28,8 +27,9 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Startdate_Specialprice extend
         if ($startDate === false) {
             return false;
         }
+
         if ($startDate == '' && $object->getSpecialPrice()) {
-            $startDate = Mage::app()->getLocale()->date();
+            return Mage::app()->getLocale()->date();
         }
 
         return $startDate;
@@ -39,7 +39,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Startdate_Specialprice extend
      * Before save hook.
      * Prepare attribute value for save
      *
-     * @param Varien_Object $object
+     * @param  Varien_Object                                          $object
      * @return Mage_Catalog_Model_Product_Attribute_Backend_Startdate
      */
     public function beforeSave($object)

@@ -18,13 +18,21 @@ class Mage_Paypal_Model_Api_ProcessableException extends Mage_Core_Exception
      * Error code returned by PayPal
      */
     public const API_INTERNAL_ERROR = 10001;
+
     public const API_UNABLE_PROCESS_PAYMENT_ERROR_CODE = 10417;
+
     public const API_MAX_PAYMENT_ATTEMPTS_EXCEEDED     = 10416;
+
     public const API_UNABLE_TRANSACTION_COMPLETE       = 10486;
+
     public const API_TRANSACTION_EXPIRED               = 10411;
+
     public const API_DO_EXPRESS_CHECKOUT_FAIL          = 10422;
+
     public const API_COUNTRY_FILTER_DECLINE            = 10537;
+
     public const API_MAXIMUM_AMOUNT_FILTER_DECLINE     = 10538;
+
     public const API_OTHER_FILTER_DECLINE              = 10539;
 
     /**

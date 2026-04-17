@@ -8,8 +8,10 @@
 
 /** @var Mage_Core_Block_Template $this */
 
+/** @var Mage_Catalog_Model_Product $_product */
 $_product = $this->getProduct();
 
+/** @var Mage_ConfigurableSwatches_Model_String_Normalized[] $_attrValues */
 if (Mage::helper('configurableswatches')->isEnabled() && $_product && $_product->getId()
     && ($_attrValues = $_product->getListSwatchAttrValues()) && count($_attrValues) > 0):
     $_attrStockValues = $_product->getListSwatchAttrStockValues();
@@ -25,31 +27,47 @@ if (Mage::helper('configurableswatches')->isEnabled() && $_product && $_product-
     <?php foreach ($_attrValues as $_optionValue => $_optionLabel): ?>
         <?php
         $_optionCode = Mage::helper('configurableswatches')->getHyphenatedString($_optionLabel);
-        $_swatchUrl = Mage::helper('configurableswatches/productimg')->getSwatchUrl($_product, $_optionLabel, $_swatchInnerWidth, $_swatchInnerHeight, $_swatchType);
+        $_swatchUrl = Mage::helper('configurableswatches/productimg')->getSwatchUrl(
+            $_product,
+            $_optionLabel,
+            $_swatchInnerWidth,
+            $_swatchInnerHeight,
+            $_swatchType
+        );
+
+        $_label = $this->escapeHtml($_optionLabel->getOriginalValue());
         $_hasImage = !empty($_swatchUrl);
-        $_liClasses = [];
+        $_liClass = '';
         $_aClass = 'swatch-link swatch-link-' . $_swatchAttribute->getId();
         if ($_hasImage) {
-            if ($_swatchType == 'media') {
-                $_liClasses[] = 'is-media';
-            }
+            $_liClass .= $_swatchType == 'media' ? ' is-media' : '';
             $_aClass .= ' has-image';
-        } elseif (strlen($_optionLabel) > 3) {
-            $_liClasses[] = 'wide-swatch';
+        } elseif (strlen($_label) > 3) {
+            $_liClass .= ' wide-swatch';
         }
         if (Mage::helper('configurableswatches/productlist')->swatchMatchesFilter($_optionValue)) {
-            $_liClasses[] = 'filter-match';
+            $_liClass .= ' filter-match';
         }
-        $_liClass = (!empty($_liClasses)) ? ' ' . implode(' ', $_liClasses) : '';
         ?>
-    <li class="option-<?php echo $_optionCode; ?><?php echo $_liClass; ?>" data-product-id="<?php echo $_product->getId() ?>" data-option-label="<?php echo $_optionLabel ?>">
-        <a href="javascript:void(0)" name="<?php echo $_optionCode; ?>" class="<?php echo $_aClass ?>" title="<?php echo $_optionLabel; ?>"
-               style="height: <?php echo $_swatchOuterHeight ?>px; <?php if (!$_hasImage): ?>min-<?php endif ?>width: <?php echo $_swatchOuterWidth ?>px;">
-            <span class="swatch-label" style="height: <?php echo $_swatchInnerHeight ?>px; <?php if (!$_hasImage): ?>min-<?php endif ?>width: <?php echo $_swatchInnerWidth ?>px; line-height: <?php echo $_swatchInnerHeight ?>px;">
+    <li class="option-<?php echo $_optionCode ?><?php echo $_liClass ?>"
+        data-product-id="<?php echo $_product->getId() ?>"
+        data-option-label="<?php echo $_optionLabel ?>">
+        <a href="javascript:void(0)"
+           name="<?php echo $_optionCode ?>"
+           class="<?php echo $_aClass ?>"
+           title="<?php echo $_label ?>"
+           style="height: <?php echo $_swatchOuterHeight ?>px;
+           <?php if (!$_hasImage): ?>min-<?php endif ?>width: <?php echo $_swatchOuterWidth ?>px;">
+            <span class="swatch-label"
+                  style="height: <?php echo $_swatchInnerHeight ?>px;
+                  <?php if (!$_hasImage): ?>min-<?php endif ?>width: <?php echo $_swatchInnerWidth ?>px; line-height: <?php echo $_swatchInnerHeight ?>px;">
             <?php if ($_hasImage): ?>
-                <img src="<?php echo $_swatchUrl; ?>" alt="<?php echo $_optionLabel; ?>" width="<?php echo $_swatchInnerWidth ?>" height="<?php echo $_swatchInnerHeight ?>" />
+                <img src="<?php echo $_swatchUrl ?>"
+                     alt="<?php echo $_label ?>"
+                     width="<?php echo $_swatchInnerWidth ?>"
+                     height="<?php echo $_swatchInnerHeight ?>" />
             <?php else: ?>
-                <?php echo $_optionLabel; ?>
+                <?php echo $_label ?>
             <?php endif ?>
             </span>
             <?php if (isset($_attrStockValues[$_optionValue]) && !$_attrStockValues[$_optionValue]): ?>

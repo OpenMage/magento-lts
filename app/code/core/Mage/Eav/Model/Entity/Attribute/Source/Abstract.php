@@ -1,5 +1,7 @@
 <?php
 
+use Monolog\Level;
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -24,14 +26,14 @@ abstract class Mage_Eav_Model_Entity_Attribute_Source_Abstract implements Mage_E
     /**
      * Options array
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_options = null;
 
     /**
      * Set attribute instance
      *
-     * @param Mage_Eav_Model_Entity_Attribute_Abstract $attribute
+     * @param  Mage_Eav_Model_Entity_Attribute_Abstract $attribute
      * @return $this
      */
     public function setAttribute($attribute)
@@ -53,8 +55,8 @@ abstract class Mage_Eav_Model_Entity_Attribute_Source_Abstract implements Mage_E
     /**
      * Get a text for option value
      *
-     * @param  string|int $value
-     * @return string|bool
+     * @param  int|string  $value
+     * @return bool|string
      */
     public function getOptionText($value)
     {
@@ -67,12 +69,13 @@ abstract class Mage_Eav_Model_Entity_Attribute_Source_Abstract implements Mage_E
                 }
             } // End
         }
+
         return $options[$value] ?? false;
     }
 
     /**
-     * @param string $value
-     * @return string|null
+     * @param  string      $value
+     * @return null|string
      */
     public function getOptionId($value)
     {
@@ -81,24 +84,27 @@ abstract class Mage_Eav_Model_Entity_Attribute_Source_Abstract implements Mage_E
             if (strcasecmp($option['label'], $value) == 0) {
                 return $option['value'];
             }
+
             if ($option['value'] == $value) {
                 $bcWarning = true;
             }
         }
+
         if ($bcWarning) {
             Mage::log(
                 'Mage_Eav_Model_Entity_Attribute_Source_Abstract::getOptionId() no longer accepts option_id as param',
-                Zend_Log::WARN,
+                Level::Warning,
             );
         }
+
         return null;
     }
 
     /**
      * Add Value Sort To Collection Select
      *
-     * @param Mage_Eav_Model_Entity_Collection_Abstract $collection
-     * @param string $dir direction
+     * @param  Mage_Eav_Model_Entity_Collection_Abstract $collection
+     * @param  string                                    $dir        direction
      * @return $this
      */
     public function addValueSortToCollection($collection, $dir = Varien_Data_Collection::SORT_ORDER_DESC)
@@ -109,7 +115,16 @@ abstract class Mage_Eav_Model_Entity_Attribute_Source_Abstract implements Mage_E
     /**
      * Retrieve flat column definition
      *
-     * @return array
+     * @return array<string, array{
+     *     unsigned: bool,
+     *     default: null|string,
+     *     extra: null|string,
+     *     type: string,
+     *     is_null?: bool,
+     *     nullable?: bool,
+     *     comment?: string,
+     *     length?: int
+     * }>|array<void>
      */
     public function getFlatColums()
     {
@@ -119,7 +134,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Source_Abstract implements Mage_E
     /**
      * Retrieve Indexes(s) for Flat
      *
-     * @return array
+     * @return array<string, array{type: string, fields: array<int, string>}>|array<void>
      */
     public function getFlatIndexes()
     {
@@ -129,8 +144,8 @@ abstract class Mage_Eav_Model_Entity_Attribute_Source_Abstract implements Mage_E
     /**
      * Retrieve Select For Flat Attribute update
      *
-     * @param int $store
-     * @return Varien_Db_Select|null
+     * @param  int                   $store
+     * @return null|Varien_Db_Select
      */
     public function getFlatUpdateSelect($store)
     {
@@ -140,8 +155,8 @@ abstract class Mage_Eav_Model_Entity_Attribute_Source_Abstract implements Mage_E
     /**
      * Get a text for index option value
      *
-     * @param string|int $value
-     * @return string|bool
+     * @param  int|string  $value
+     * @return bool|string
      */
     public function getIndexOptionText($value)
     {

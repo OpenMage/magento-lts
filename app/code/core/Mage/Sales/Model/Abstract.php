@@ -11,17 +11,22 @@
  * Sales abstract model
  * Provide date processing functionality
  *
- *
  * @method Mage_Sales_Model_Resource_Order_Abstract _getResource()
- * @method $this setTransactionId(int $value)
- * @method bool getForceUpdateGridRecords()
+ * @method string                                   getBackUrl()
+ * @method Mage_Customer_Model_Address_Abstract     getBillingAddress()
+ * @method bool                                     getForceUpdateGridRecords()
+ * @method Mage_Sales_Model_Resource_Order_Abstract getResource()
+ * @method Mage_Customer_Model_Address_Abstract     getShippingAddress()
+ * @method $this                                    setBillingAddress(Mage_Customer_Model_Address_Abstract $address)
+ * @method $this                                    setShippingAddress(Mage_Customer_Model_Address_Abstract $address)
+ * @method $this                                    setTransactionId(int $value)
  */
 abstract class Mage_Sales_Model_Abstract extends Mage_Core_Model_Abstract
 {
     /**
      * Get object store identifier
      *
-     * @return int|string|Mage_Core_Model_Store
+     * @return int|Mage_Core_Model_Store|string
      */
     abstract public function getStore();
 
@@ -29,13 +34,14 @@ abstract class Mage_Sales_Model_Abstract extends Mage_Core_Model_Abstract
      * Processing object after save data
      * Updates relevant grid table records.
      *
-     * @return Mage_Core_Model_Abstract
+     * @return $this
      */
     public function afterCommitCallback()
     {
         if (!$this->getForceUpdateGridRecords()) {
             $this->_getResource()->updateGridRecords($this->getId());
         }
+
         return parent::afterCommitCallback();
     }
 

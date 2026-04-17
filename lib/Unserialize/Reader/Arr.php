@@ -18,12 +18,12 @@ class Unserialize_Reader_Arr
     protected $_result = null;
 
     /**
-     * @var string|int
+     * @var int|string
      */
     protected $_length = '';
 
     /**
-     * @var int|null
+     * @var null|int
      */
     protected $_status = null;
 
@@ -33,20 +33,24 @@ class Unserialize_Reader_Arr
     protected $_reader = null;
 
     public const READING_LENGTH = 1;
+
     public const FINISHED_LENGTH = 2;
+
     public const READING_KEY = 3;
+
     public const READING_VALUE = 4;
+
     public const FINISHED_ARR = 5;
 
     /**
-     * @param $char
-     * @param $prevChar
-     * @return array|null
+     * @param             $char
+     * @param             $prevChar
+     * @return null|array
      * @throws Exception
      */
     public function read($char, $prevChar)
     {
-        $this->_result = !is_null($this->_result) ? $this->_result : [];
+        $this->_result = is_null($this->_result) ? [] : $this->_result;
 
         if (is_null($this->_status) && $prevChar == Unserialize_Parser::SYMBOL_COLON) {
             $this->_length .= $char;
@@ -61,6 +65,7 @@ class Unserialize_Reader_Arr
                     $this->_status = self::FINISHED_ARR;
                     return null;
                 }
+
                 $this->_status = self::FINISHED_LENGTH;
             } else {
                 $this->_length .= $char;
@@ -84,25 +89,23 @@ class Unserialize_Reader_Arr
         if ($this->_status == self::READING_VALUE) {
             $value = $this->_reader->read($char, $prevChar);
             if (!is_null($value)) {
-                $this->_result[$this->_reader->key] =
-                    ($value == Unserialize_Reader_Null::NULL_VALUE && $prevChar == Unserialize_Parser::TYPE_NULL)
+                $this->_result[$this->_reader->key]
+                    = ($value == Unserialize_Reader_Null::NULL_VALUE && $prevChar == Unserialize_Parser::TYPE_NULL)
                         ? null
                         : $value;
                 if (count($this->_result) < $this->_length) {
                     $this->_reader = new Unserialize_Reader_ArrKey();
                     $this->_status = self::READING_KEY;
                     return null;
-                } else {
-                    $this->_status = self::FINISHED_ARR;
-                    return null;
                 }
+
+                $this->_status = self::FINISHED_ARR;
+                return null;
             }
         }
 
-        if ($this->_status == self::FINISHED_ARR) {
-            if ($char == '}') {
-                return $this->_result;
-            }
+        if ($this->_status == self::FINISHED_ARR && $char == '}') {
+            return $this->_result;
         }
     }
 }

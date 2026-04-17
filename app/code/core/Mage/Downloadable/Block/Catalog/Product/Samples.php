@@ -37,7 +37,7 @@ class Mage_Downloadable_Block_Catalog_Product_Samples extends Mage_Catalog_Block
     }
 
     /**
-     * @param Mage_Downloadable_Model_Sample $sample
+     * @param  Mage_Downloadable_Model_Sample $sample
      * @return string
      */
     public function getSampleUrl($sample)
@@ -55,6 +55,7 @@ class Mage_Downloadable_Block_Catalog_Product_Samples extends Mage_Catalog_Block
         if ($this->getProduct()->getSamplesTitle()) {
             return $this->getProduct()->getSamplesTitle();
         }
+
         return Mage::getStoreConfig(Mage_Downloadable_Model_Sample::XML_PATH_SAMPLES_TITLE);
     }
 

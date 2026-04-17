@@ -22,14 +22,14 @@ $_SERVER['SCRIPT_FILENAME'] = str_replace(basename(__FILE__), 'index.php', $_SER
 
 try {
     Mage::app('admin')->setUseSessionInUrl(false);
-} catch (Exception $e) {
-    Mage::printException($e);
+} catch (Exception $exception) {
+    Mage::printException($exception);
     exit;
 }
 
 umask(0);
 
-$disabledFuncs = array_map('trim', preg_split("/,|\s+/", strtolower(ini_get('disable_functions'))));
+$disabledFuncs = array_map(trim(...), preg_split("/,|\s+/", strtolower(ini_get('disable_functions'))));
 $isWinOS = !str_contains(strtolower(PHP_OS), 'darwin') && str_contains(strtolower(PHP_OS), 'win');
 $isShellDisabled = in_array('shell_exec', $disabledFuncs)
     || $isWinOS
@@ -52,8 +52,8 @@ try {
             $fileName = escapeshellarg(basename(__FILE__));
             $cronPath = escapeshellarg(__DIR__ . '/cron.sh');
 
-            shell_exec(escapeshellcmd("/bin/sh $cronPath $fileName -mdefault 1") . ' &');
-            shell_exec(escapeshellcmd("/bin/sh $cronPath $fileName -malways 1") . ' &');
+            shell_exec(escapeshellcmd("/bin/sh {$cronPath} {$fileName} -mdefault 1") . ' &');
+            shell_exec(escapeshellcmd("/bin/sh {$cronPath} {$fileName} -malways 1") . ' &');
             exit;
         }
     }
@@ -66,7 +66,7 @@ try {
     } elseif (isset($cronMode)) {
         Mage::dispatchEvent($cronMode);
     }
-} catch (Exception $e) {
-    Mage::printException($e);
+} catch (Exception $exception) {
+    Mage::printException($exception);
     exit(1);
 }

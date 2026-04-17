@@ -18,6 +18,7 @@ abstract class Mage_Sales_Model_Api2_Order_Address_Rest extends Mage_Sales_Model
      * Parameters in request used in model (usually specified in route mask)
      */
     public const PARAM_ORDER_ID     = 'order_id';
+
     public const PARAM_ADDRESS_TYPE = 'address_type';
 
     /**
@@ -34,6 +35,7 @@ abstract class Mage_Sales_Model_Api2_Order_Address_Rest extends Mage_Sales_Model
         if (!$address->getId()) {
             $this->_critical(self::RESOURCE_NOT_FOUND);
         }
+
         return $address->getData();
     }
 

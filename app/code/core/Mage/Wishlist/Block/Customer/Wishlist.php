@@ -43,6 +43,7 @@ class Mage_Wishlist_Block_Customer_Wishlist extends Mage_Wishlist_Block_Abstract
         if ($headBlock) {
             $headBlock->setTitle($this->__('My Wishlist'));
         }
+
         return $this;
     }
 
@@ -59,9 +60,9 @@ class Mage_Wishlist_Block_Customer_Wishlist extends Mage_Wishlist_Block_Abstract
     /**
      * Sets all options render configurations
      *
-     * @deprecated after 1.6.2.0
-     * @param null|array $optionCfg
+     * @param  null|array $optionCfg
      * @return $this
+     * @deprecated after 1.6.2.0
      */
     public function setOptionsRenderCfgs($optionCfg)
     {
@@ -72,8 +73,8 @@ class Mage_Wishlist_Block_Customer_Wishlist extends Mage_Wishlist_Block_Abstract
     /**
      * Returns all options render configurations
      *
-     * @deprecated after 1.6.2.0
      * @return array
+     * @deprecated after 1.6.2.0
      */
     public function getOptionsRenderCfgs()
     {
@@ -83,11 +84,11 @@ class Mage_Wishlist_Block_Customer_Wishlist extends Mage_Wishlist_Block_Abstract
     /**
      * Adds config for rendering product type options
      *
-     * @deprecated after 1.6.2.0
-     * @param string $productType
-     * @param string $helperName
-     * @param null|string $template
+     * @param  string      $productType
+     * @param  string      $helperName
+     * @param  null|string $template
      * @return $this
+     * @deprecated after 1.6.2.0
      */
     public function addOptionsRenderCfg($productType, $helperName, $template = null)
     {
@@ -98,26 +99,20 @@ class Mage_Wishlist_Block_Customer_Wishlist extends Mage_Wishlist_Block_Abstract
     /**
      * Returns html for showing item options
      *
+     * @param  string     $productType
+     * @return null|array
      * @deprecated after 1.6.2.0
-     * @param string $productType
-     * @return array|null
      */
     public function getOptionsRenderCfg($productType)
     {
-        if (isset($this->_optionsCfg[$productType])) {
-            return $this->_optionsCfg[$productType];
-        } elseif (isset($this->_optionsCfg['default'])) {
-            return $this->_optionsCfg['default'];
-        } else {
-            return null;
-        }
+        return $this->_optionsCfg[$productType] ?? $this->_optionsCfg['default'] ?? null;
     }
 
     /**
      * Returns html for showing item options
      *
-     * @deprecated after 1.6.2.0
      * @return string
+     * @deprecated after 1.6.2.0
      */
     public function getDetailsHtml(Mage_Wishlist_Model_Item $item)
     {
@@ -143,6 +138,7 @@ class Mage_Wishlist_Block_Customer_Wishlist extends Mage_Wishlist_Block_Abstract
             if (!$cfgDefault) {
                 return '';
             }
+
             $template = $cfgDefault['template'];
         }
 
@@ -154,8 +150,8 @@ class Mage_Wishlist_Block_Customer_Wishlist extends Mage_Wishlist_Block_Abstract
     /**
      * Returns qty to show visually to user
      *
-     * @deprecated after 1.6.2.0
      * @return float
+     * @deprecated after 1.6.2.0
      */
     public function getAddToCartQty(Mage_Wishlist_Model_Item $item)
     {

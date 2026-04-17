@@ -15,7 +15,9 @@
 class Mage_Tag_Block_Customer_Tags extends Mage_Customer_Block_Account_Dashboard
 {
     protected $_tags;
+
     protected $_minPopularity;
+
     protected $_maxPopularity;
 
     protected function _loadTags()
@@ -48,6 +50,7 @@ class Mage_Tag_Block_Customer_Tags extends Mage_Customer_Block_Account_Dashboard
             $tag->setRatio(($tag->getPopularity() - $this->_minPopularity) / $range);
             $this->_tags[$tag->getName()] = $tag;
         }
+
         ksort($this->_tags);
     }
 

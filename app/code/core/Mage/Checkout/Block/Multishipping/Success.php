@@ -23,11 +23,12 @@ class Mage_Checkout_Block_Multishipping_Success extends Mage_Checkout_Block_Mult
         if ($ids && is_array($ids)) {
             return $ids;
         }
+
         return false;
     }
 
     /**
-     * @param int $orderId
+     * @param  int    $orderId
      * @return string
      */
     public function getViewOrderUrl($orderId)

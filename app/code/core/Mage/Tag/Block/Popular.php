@@ -15,7 +15,9 @@
 class Mage_Tag_Block_Popular extends Mage_Core_Block_Template
 {
     protected $_tags;
+
     protected $_minPopularity;
+
     protected $_maxPopularity;
 
     /**
@@ -47,8 +49,10 @@ class Mage_Tag_Block_Popular extends Mage_Core_Block_Template
                 $tag->setRatio(($tag->getPopularity() - $this->_minPopularity) / $range);
                 $this->_tags[$tag->getName()] = $tag;
             }
+
             ksort($this->_tags);
         }
+
         return $this;
     }
 
@@ -87,6 +91,7 @@ class Mage_Tag_Block_Popular extends Mage_Core_Block_Template
         if (count($this->getTags()) > 0) {
             return parent::_toHtml();
         }
+
         return '';
     }
 }

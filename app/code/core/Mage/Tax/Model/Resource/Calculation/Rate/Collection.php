@@ -12,7 +12,7 @@
  *
  * @package    Mage_Tax
  *
- * @method Mage_Tax_Model_Calculation_Rate[] getItems()
+ * @extends Mage_Core_Model_Resource_Db_Collection_Abstract<Mage_Tax_Model_Calculation_Rate>
  */
 class Mage_Tax_Model_Resource_Calculation_Rate_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
@@ -21,6 +21,9 @@ class Mage_Tax_Model_Resource_Calculation_Rate_Collection extends Mage_Core_Mode
      */
     public const TAX_RULES_CHUNK_SIZE = 1000;
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('tax/calculation_rate');
@@ -60,7 +63,7 @@ class Mage_Tax_Model_Resource_Calculation_Rate_Collection extends Mage_Core_Mode
     /**
      * Join rate title for specified store
      *
-     * @param Mage_Core_Model_Store|string|int $store
+     * @param  int|Mage_Core_Model_Store|string $store
      * @return $this
      */
     public function joinTitle($store = null)
@@ -96,13 +99,14 @@ class Mage_Tax_Model_Resource_Calculation_Rate_Collection extends Mage_Core_Mode
                 [$tableAlias => 'value'],
             );
         }
+
         return $this;
     }
 
     /**
      * Add rate filter
      *
-     * @param int $rateId
+     * @param  int   $rateId
      * @return $this
      */
     public function addRateFilter($rateId)
@@ -138,9 +142,8 @@ class Mage_Tax_Model_Resource_Calculation_Rate_Collection extends Mage_Core_Mode
      * Convert items array to hash for select options
      * unsing fetchItem method
      *
+     * @return array
      * @see     _toOptionHashOptimized()
-     *
-     * @return  array
      */
     public function toOptionHashOptimized()
     {

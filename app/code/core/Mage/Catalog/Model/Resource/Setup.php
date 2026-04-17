@@ -17,7 +17,7 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
     /**
      * Prepare catalog attribute values to save
      *
-     * @param array $attr
+     * @param  array $attr
      * @return array
      */
     protected function _prepareValues($attr)
@@ -51,7 +51,7 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
     /**
      * Default entities and attributes
      *
-     * @return array
+     * @return array<string, non-empty-array<\lowercase-string, mixed>>
      */
     public function getDefaultEntities()
     {
@@ -661,8 +661,8 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                         'input'                      => 'select',
                         'source'                     => 'eav/entity_attribute_source_boolean',
                         'required'                   => false,
-                        'note'                       =>
-                            'Products with recurring profile participate in catalog as nominal items.',
+                        'note'
+                            => 'Products with recurring profile participate in catalog as nominal items.',
                         'sort_order'                 => 1,
                         'apply_to'                   => 'simple,virtual',
                         'is_configurable'            => false,
@@ -826,8 +826,8 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
     /**
      * Converts old tree to new
      *
-     * @deprecated since 1.5.0.0
      * @return $this
+     * @deprecated since 1.5.0.0
      */
     public function convertOldTreeToNew()
     {
@@ -839,6 +839,7 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
 
         $select = $this->getConnection()->select();
         $select->from($this->getTable('catalog/category'));
+
         $categories = $this->getConnection()->fetchAll($select);
 
         if (is_array($categories)) {
@@ -859,13 +860,14 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                     );
             }
         }
+
         return $this;
     }
 
     /**
      * Returns category entity row by category id
      *
-     * @param int $entityId
+     * @param  int   $entityId
      * @return array
      */
     protected function _getCategoryEntityRow($entityId)
@@ -881,8 +883,8 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
     /**
      * Returns category path as array
      *
-     * @param array $category
-     * @param array $path
+     * @param  array $category
+     * @param  array $path
      * @return array
      */
     protected function _getCategoryPath($category, $path = [])
@@ -902,8 +904,8 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
     /**
      * Creates level values for categories and saves them
      *
-     * @deprecated since 1.5.0.0
      * @return $this
+     * @deprecated since 1.5.0.0
      */
     public function rebuildCategoryLevels()
     {
@@ -921,6 +923,7 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                 ['entity_id = ?' => $category['entity_id']],
             );
         }
+
         return $this;
     }
 }

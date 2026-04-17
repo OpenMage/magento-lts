@@ -18,8 +18,8 @@ abstract class Mage_Checkout_Controller_Action extends Mage_Core_Controller_Fron
      * Make sure customer is valid, if logged in
      * By default will add error messages and redirect to customer edit form
      *
-     * @param bool $redirect - stop dispatch and redirect?
-     * @param bool $addErrors - add error messages?
+     * @param  bool $redirect  - stop dispatch and redirect?
+     * @param  bool $addErrors - add error messages?
      * @return bool
      */
     protected function _preDispatchValidateCustomer($redirect = true, $addErrors = true)
@@ -33,13 +33,16 @@ abstract class Mage_Checkout_Controller_Action extends Mage_Core_Controller_Fron
                         Mage::getSingleton('customer/session')->addError($error);
                     }
                 }
+
                 if ($redirect) {
                     $this->_redirect('customer/account/edit');
                     $this->setFlag('', self::FLAG_NO_DISPATCH, true);
                 }
+
                 return false;
             }
         }
+
         return true;
     }
 }

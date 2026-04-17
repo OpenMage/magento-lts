@@ -24,7 +24,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Composite_Fieldset_Configurable exten
         if (!$this->hasData('product')) {
             $this->setData('product', Mage::registry('product'));
         }
-        $product = $this->getData('product');
+
+        $product = $this->getDataByKey('product');
         if (is_null($product->getTypeInstance(true)->getStoreFilter($product))) {
             $product->getTypeInstance(true)->setStoreFilter(Mage::app()->getStore($product->getStoreId()), $product);
         }
@@ -43,9 +44,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Composite_Fieldset_Configurable exten
     }
 
     /**
-     * Returns additional values for js config, con be overridden by descendants
-     *
-     * @return array
+     * @inheritDoc
      */
     protected function _getAdditionalConfig()
     {

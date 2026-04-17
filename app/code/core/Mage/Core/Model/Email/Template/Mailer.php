@@ -12,8 +12,8 @@
  *
  * @package    Mage_Core
  *
- * @method $this setQueue(Mage_Core_Model_Abstract $value)
  * @method Mage_Core_Model_Email_Queue getQueue()
+ * @method $this                       setQueue(Mage_Core_Model_Abstract $value)
  */
 class Mage_Core_Model_Email_Template_Mailer extends Varien_Object
 {
@@ -38,16 +38,16 @@ class Mage_Core_Model_Email_Template_Mailer extends Varien_Object
 
     /**
      * Send all emails from email list
-     * @see self::$_emailInfos
      *
      * @return $this
+     * @see self::$_emailInfos
      */
     public function send()
     {
         /** @var Mage_Core_Model_Email_Template $emailTemplate */
         $emailTemplate = Mage::getModel('core/email_template');
         // Send all emails from corresponding list
-        while (!empty($this->_emailInfos)) {
+        while ($this->_emailInfos !== []) {
             $emailInfo = array_pop($this->_emailInfos);
             // Handle "Bcc" recipients of the current email
             $emailTemplate->addBcc($emailInfo->getBccEmails());
@@ -63,13 +63,14 @@ class Mage_Core_Model_Email_Template_Mailer extends Varien_Object
                     $this->getStoreId(),
                 );
         }
+
         return $this;
     }
 
     /**
      * Set email sender
      *
-     * @param string|array $sender
+     * @param  array|string $sender
      * @return $this
      */
     public function setSender($sender)
@@ -80,7 +81,7 @@ class Mage_Core_Model_Email_Template_Mailer extends Varien_Object
     /**
      * Get email sender
      *
-     * @return string|array|null
+     * @return null|array|string
      */
     public function getSender()
     {
@@ -90,7 +91,7 @@ class Mage_Core_Model_Email_Template_Mailer extends Varien_Object
     /**
      * Set store id
      *
-     * @param int $storeId
+     * @param  int   $storeId
      * @return $this
      */
     public function setStoreId($storeId)
@@ -101,7 +102,7 @@ class Mage_Core_Model_Email_Template_Mailer extends Varien_Object
     /**
      * Get store id
      *
-     * @return int|null
+     * @return null|int
      */
     public function getStoreId()
     {
@@ -111,7 +112,7 @@ class Mage_Core_Model_Email_Template_Mailer extends Varien_Object
     /**
      * Set template id
      *
-     * @param int $templateId
+     * @param  int   $templateId
      * @return $this
      */
     public function setTemplateId($templateId)
@@ -122,7 +123,7 @@ class Mage_Core_Model_Email_Template_Mailer extends Varien_Object
     /**
      * Get template id
      *
-     * @return int|null
+     * @return null|int
      */
     public function getTemplateId()
     {
@@ -142,7 +143,7 @@ class Mage_Core_Model_Email_Template_Mailer extends Varien_Object
     /**
      * Get template parameters
      *
-     * @return array|null
+     * @return null|array
      */
     public function getTemplateParams()
     {

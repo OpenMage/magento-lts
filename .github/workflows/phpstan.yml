@@ -16,14 +16,14 @@ jobs:
         with:
           php-version: 8.1
     
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Get composer cache directory
         id: composer-cache
         run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
 
       - name: Cache dependencies
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
@@ -33,7 +33,7 @@ jobs:
         run: composer install --prefer-dist --no-progress --ignore-platform-req=ext-*
 
       - name: Restore result cache
-        uses: actions/cache/restore@v4
+        uses: actions/cache/restore@v5
         with:
           path: .phpstan.cache
           key: phpstan-result-cache-${{ github.run_id }}
@@ -44,7 +44,7 @@ jobs:
         run: XDEBUG_MODE=off php vendor/bin/phpstan.phar analyze
 
       - name: Save result cache
-        uses: actions/cache/save@v4
+        uses: actions/cache/save@v5
         if: always()
         with:
           path: .phpstan.cache

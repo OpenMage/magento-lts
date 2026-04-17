@@ -17,11 +17,11 @@ class Mage_Catalog_Model_Product_Link_Api_V2 extends Mage_Catalog_Model_Product_
     /**
      * Add product link association
      *
-     * @param string $type
-     * @param int|string $productId
-     * @param int|string $linkedProductId
-     * @param array $data
-     * @param string|null $identifierType
+     * @param  string             $type
+     * @param  int|string         $productId
+     * @param  int|string         $linkedProductId
+     * @param  array              $data
+     * @param  null|string        $identifierType
      * @return bool
      * @throws Mage_Api_Exception
      */
@@ -66,8 +66,8 @@ class Mage_Catalog_Model_Product_Link_Api_V2 extends Mage_Catalog_Model_Product_
 
             $indexerPrice = Mage::getResourceModel('catalog/product_indexer_price');
             $indexerPrice->reindexProductIds($productId);
-        } catch (Exception $e) {
-            $this->_fault('data_invalid', $e->getMessage());
+        } catch (Exception $exception) {
+            $this->_fault('data_invalid', $exception->getMessage());
             //$this->_fault('data_invalid', Mage::helper('catalog')->__('Link product does not exist.'));
         }
 
@@ -77,11 +77,11 @@ class Mage_Catalog_Model_Product_Link_Api_V2 extends Mage_Catalog_Model_Product_
     /**
      * Update product link association info
      *
-     * @param string $type
-     * @param int|string $productId
-     * @param int|string $linkedProductId
-     * @param array $data
-     * @param string|null $identifierType
+     * @param  string             $type
+     * @param  int|string         $productId
+     * @param  int|string         $linkedProductId
+     * @param  array              $data
+     * @param  null|string        $identifierType
      * @return bool
      * @throws Mage_Api_Exception
      */
@@ -126,7 +126,7 @@ class Mage_Catalog_Model_Product_Link_Api_V2 extends Mage_Catalog_Model_Product_
 
             $indexerPrice = Mage::getResourceModel('catalog/product_indexer_price');
             $indexerPrice->reindexProductIds($productId);
-        } catch (Exception $e) {
+        } catch (Exception) {
             $this->_fault('data_invalid', Mage::helper('catalog')->__('Link product does not exist.'));
         }
 

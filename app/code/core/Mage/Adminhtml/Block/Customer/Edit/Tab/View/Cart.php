@@ -11,6 +11,8 @@
  * Adminhtml customer cart items grid block
  *
  * @package    Mage_Adminhtml
+ *
+ * @method int getWebsiteId()
  */
 class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Cart extends Mage_Adminhtml_Block_Widget_Grid
 {
@@ -22,11 +24,10 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Cart extends Mage_Adminhtml_Bl
         parent::__construct();
         $this->setId('customer_view_cart_grid');
         $this->setDefaultSort('added_at');
-        $this->setDefaultDir('desc');
         $this->setSortable(false);
         $this->setPagerVisibility(false);
         $this->setFilterVisibility(false);
-        $this->setEmptyText(Mage::helper('customer')->__('There are no items in customer\'s shopping cart at the moment'));
+        $this->setEmptyText(Mage::helper('customer')->__("There are no items in customer's shopping cart at the moment"));
     }
 
     /**
@@ -41,7 +42,8 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Cart extends Mage_Adminhtml_Bl
         if ($this->getWebsiteId()) {
             $quote->setWebsite(Mage::app()->getWebsite($this->getWebsiteId()));
         }
-        $quote->loadByCustomer(Mage::registry('current_customer'));
+
+        $quote = $quote->loadByCustomer(Mage::registry('current_customer'));
 
         $collection = $quote ? $quote->getItemsCollection(false) : new Varien_Data_Collection();
 
@@ -88,10 +90,8 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Cart extends Mage_Adminhtml_Bl
     }
 
     /**
-     * Retrieve row url
-     *
+     * @inheritDoc
      * @param Mage_Sales_Model_Quote_Item $row
-     * @return string
      */
     public function getRowUrl($row)
     {
@@ -102,6 +102,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Cart extends Mage_Adminhtml_Bl
      * Check weather header should be shown
      *
      * @return bool
+     * @throws Zend_Db_Select_Exception
      */
     public function getHeadersVisibility()
     {

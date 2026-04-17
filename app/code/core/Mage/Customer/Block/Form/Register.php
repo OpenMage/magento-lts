@@ -22,7 +22,7 @@ class Mage_Customer_Block_Form_Register extends Mage_Directory_Block_Data
     /**
      * Address instance with data
      *
-     * @var Mage_Customer_Model_Address|null
+     * @var null|Mage_Customer_Model_Address
      */
     protected $_address;
 
@@ -54,12 +54,13 @@ class Mage_Customer_Block_Form_Register extends Mage_Directory_Block_Data
      */
     public function getBackUrl()
     {
-        $url = $this->getData('back_url');
+        $url = $this->getDataByKey('back_url');
         if (is_null($url)) {
             /** @var Mage_Customer_Helper_Data $helper */
             $helper = $this->helper('customer');
             $url = $helper->getLoginUrl();
         }
+
         return $url;
     }
 
@@ -70,7 +71,7 @@ class Mage_Customer_Block_Form_Register extends Mage_Directory_Block_Data
      */
     public function getFormData()
     {
-        $data = $this->getData('form_data');
+        $data = $this->getDataByKey('form_data');
         if (is_null($data)) {
             $formData = Mage::getSingleton('customer/session')->getCustomerFormData(true);
             $data = new Varien_Object();
@@ -78,15 +79,19 @@ class Mage_Customer_Block_Form_Register extends Mage_Directory_Block_Data
                 $data->addData($formData);
                 $data->setCustomerData(1);
             }
+
             if (isset($data['region_id'])) {
                 $data['region_id'] = (int) $data['region_id'];
             }
+
             if ($data->getDob()) {
                 $dob = $data->getYear() . '-' . $data->getMonth() . '-' . $data->getDay();
                 $data->setDob($dob);
             }
+
             $this->setData('form_data', $data);
         }
+
         return $data;
     }
 
@@ -101,13 +106,14 @@ class Mage_Customer_Block_Form_Register extends Mage_Directory_Block_Data
         if ($countryId) {
             return $countryId;
         }
+
         return parent::getCountryId();
     }
 
     /**
      * Retrieve customer region identifier
      *
-     * @return string|int|null
+     * @return null|int|string
      */
     public function getRegion()
     {
@@ -118,13 +124,14 @@ class Mage_Customer_Block_Form_Register extends Mage_Directory_Block_Data
         if (($region = $this->getFormData()->getRegionId()) !== false) {
             return $region;
         }
+
         return null;
     }
 
     /**
      *  Newsletter module availability
      *
-     *  @return bool
+     * @return bool
      */
     public function isNewsletterEnabled()
     {
@@ -149,7 +156,7 @@ class Mage_Customer_Block_Form_Register extends Mage_Directory_Block_Data
      * Restore entity data from session
      * Entity and form code must be defined for the form
      *
-     * @param string|null $scope
+     * @param  null|string $scope
      * @return $this
      */
     public function restoreSessionData(Mage_Customer_Model_Form $form, $scope = null)

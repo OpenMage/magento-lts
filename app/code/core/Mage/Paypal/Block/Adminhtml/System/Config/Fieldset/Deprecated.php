@@ -81,7 +81,7 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Deprecated extends Mage
     /**
      * Check whether current payment method is enabled on any scope
      *
-     * @param string $activityPath
+     * @param  string $activityPath
      * @return bool
      */
     public function isPaymentEnabledAnyScope($activityPath)
@@ -89,6 +89,7 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Deprecated extends Mage
         if ((bool) (string) $this->_getConfigModel()->getNode($activityPath, 'default')) {
             return true;
         }
+
         foreach ($this->_getWebsites() as $website) {
             if ((bool) (string) $this->_getConfigModel()->getNode($activityPath, 'website', (int) $website->getId())) {
                 return true;

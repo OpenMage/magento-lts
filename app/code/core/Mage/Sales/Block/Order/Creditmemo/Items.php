@@ -25,7 +25,7 @@ class Mage_Sales_Block_Order_Creditmemo_Items extends Mage_Sales_Block_Items_Abs
     }
 
     /**
-     * @param Mage_Sales_Model_Order_Creditmemo $creditmemo
+     * @param  Mage_Sales_Model_Order_Creditmemo $creditmemo
      * @return string
      */
     public function getPrintCreditmemoUrl($creditmemo)
@@ -34,7 +34,7 @@ class Mage_Sales_Block_Order_Creditmemo_Items extends Mage_Sales_Block_Items_Abs
     }
 
     /**
-     * @param Mage_Sales_Model_Order $order
+     * @param  Mage_Sales_Model_Order $order
      * @return string
      */
     public function getPrintAllCreditmemosUrl($order)
@@ -45,8 +45,8 @@ class Mage_Sales_Block_Order_Creditmemo_Items extends Mage_Sales_Block_Items_Abs
     /**
      * Get creditmemo totals block html
      *
-     * @param   Mage_Sales_Model_Order_Creditmemo $creditmemo
-     * @return  string
+     * @param  Mage_Sales_Model_Order_Creditmemo $creditmemo
+     * @return string
      */
     public function getTotalsHtml($creditmemo)
     {
@@ -56,14 +56,15 @@ class Mage_Sales_Block_Order_Creditmemo_Items extends Mage_Sales_Block_Items_Abs
             $totals->setCreditmemo($creditmemo);
             $html = $totals->toHtml();
         }
+
         return $html;
     }
 
     /**
      * Get html of creditmemo comments block
      *
-     * @param   Mage_Sales_Model_Order_Creditmemo $creditmemo
-     * @return  string
+     * @param  Mage_Sales_Model_Order_Creditmemo $creditmemo
+     * @return string
      */
     public function getCommentsHtml($creditmemo)
     {
@@ -74,6 +75,7 @@ class Mage_Sales_Block_Order_Creditmemo_Items extends Mage_Sales_Block_Items_Abs
                 ->setTitle(Mage::helper('sales')->__('About Your Refund'));
             $html = $comments->toHtml();
         }
+
         return $html;
     }
 }

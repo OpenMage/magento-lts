@@ -14,6 +14,9 @@
  */
 class Mage_Catalog_Model_Resource_Product_Compare_Item extends Mage_Core_Model_Resource_Db_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('catalog/compare_item', 'catalog_compare_item_id');
@@ -22,17 +25,14 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item extends Mage_Core_Model_R
     /**
      * Load object by product
      *
-     * @param mixed $product
+     * @param  mixed $product
      * @return bool
      */
     public function loadByProduct(Mage_Catalog_Model_Product_Compare_Item $object, $product)
     {
         $read = $this->_getReadAdapter();
-        if ($product instanceof Mage_Catalog_Model_Product) {
-            $productId = $product->getId();
-        } else {
-            $productId = $product;
-        }
+        $productId = $product instanceof Mage_Catalog_Model_Product ? $product->getId() : $product;
+
         $select = $read->select()->from($this->getMainTable())
             ->where('product_id = ?', (int) $productId);
 
@@ -57,9 +57,9 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item extends Mage_Core_Model_R
     /**
      * Resource retrieve count compare items
      *
-     * @param int $customerId
-     * @param int $visitorId
-     * @return false|string|null
+     * @param  int               $customerId
+     * @param  int               $visitorId
+     * @return null|false|string
      */
     public function getCount($customerId, $visitorId)
     {
@@ -70,6 +70,7 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item extends Mage_Core_Model_R
             $bind['customer_id'] = (int) $customerId;
             $select->where('customer_id = :customer_id');
         }
+
         return $this->_getReadAdapter()->fetchOne($select, $bind);
     }
 
@@ -109,7 +110,7 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item extends Mage_Core_Model_R
     /**
      * Purge visitor data after customer logout
      *
-     * @param Mage_Catalog_Model_Product_Compare_Item $object
+     * @param  Mage_Catalog_Model_Product_Compare_Item $object
      * @return $this
      */
     public function purgeVisitorByCustomer($object)
@@ -132,7 +133,7 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item extends Mage_Core_Model_R
      * Update (Merge) customer data from visitor
      * After Login process
      *
-     * @param Mage_Catalog_Model_Product_Compare_Item $object
+     * @param  Mage_Catalog_Model_Product_Compare_Item $object
      * @return $this
      */
     public function updateCustomerFromVisitor($object)
@@ -186,15 +187,14 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item extends Mage_Core_Model_R
                 $this->_getWriteAdapter()->quoteInto($this->getIdFieldName() . ' IN(?)', $delete),
             );
         }
-        if ($update) {
-            foreach ($update as $itemId => $productId) {
-                $bind = $products[$productId];
-                $this->_getWriteAdapter()->update(
-                    $this->getMainTable(),
-                    $bind,
-                    $this->_getWriteAdapter()->quoteInto($this->getIdFieldName() . '=?', $itemId),
-                );
-            }
+
+        foreach ($update as $itemId => $productId) {
+            $bind = $products[$productId];
+            $this->_getWriteAdapter()->update(
+                $this->getMainTable(),
+                $bind,
+                $this->_getWriteAdapter()->quoteInto($this->getIdFieldName() . '=?', $itemId),
+            );
         }
 
         return $this;
@@ -203,8 +203,8 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item extends Mage_Core_Model_R
     /**
      * Clear compare items by visitor and/or customer
      *
-     * @param int $visitorId
-     * @param int $customerId
+     * @param  int   $visitorId
+     * @param  int   $customerId
      * @return $this
      */
     public function clearItems($visitorId = null, $customerId = null)
@@ -214,13 +214,16 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item extends Mage_Core_Model_R
             $customerId = (int) $customerId;
             $where[] = $this->_getWriteAdapter()->quoteInto('customer_id = ?', $customerId);
         }
+
         if ($visitorId) {
             $visitorId = (int) $visitorId;
             $where[] = $this->_getWriteAdapter()->quoteInto('visitor_id = ?', $visitorId);
         }
+
         if (!$where) {
             return $this;
         }
+
         $this->_getWriteAdapter()->delete($this->getMainTable(), $where);
         return $this;
     }

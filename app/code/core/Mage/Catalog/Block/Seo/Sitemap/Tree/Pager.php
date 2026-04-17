@@ -16,13 +16,17 @@
 class Mage_Catalog_Block_Seo_Sitemap_Tree_Pager extends Mage_Page_Block_Html_Pager
 {
     protected $_showPerPage     = false;
+
     protected $_lastPageNumber  = 1;
+
     protected $_totalNum        = 0;
+
     protected $_firstNum        = 0;
+
     protected $_lastNum         = 1;
 
     /**
-     * @param int $displacement
+     * @param  int       $displacement
      * @return int
      * @throws Exception
      */
@@ -32,8 +36,10 @@ class Mage_Catalog_Block_Seo_Sitemap_Tree_Pager extends Mage_Page_Block_Html_Pag
             if ($page > $this->getLastPageNum()) {
                 return $this->getLastPageNum();
             }
+
             return $page;
         }
+
         return 1;
     }
 
@@ -48,7 +54,7 @@ class Mage_Catalog_Block_Seo_Sitemap_Tree_Pager extends Mage_Page_Block_Html_Pag
     }
 
     /**
-     * @param Varien_Data_Collection $collection
+     * @param  Varien_Data_Collection           $collection
      * @return $this|Mage_Page_Block_Html_Pager
      */
     public function setCollection($collection)
@@ -74,7 +80,7 @@ class Mage_Catalog_Block_Seo_Sitemap_Tree_Pager extends Mage_Page_Block_Html_Pag
     }
 
     /**
-     * @param int $firstNum
+     * @param  int   $firstNum
      * @return $this
      */
     public function setFirstNum($firstNum)
@@ -92,7 +98,7 @@ class Mage_Catalog_Block_Seo_Sitemap_Tree_Pager extends Mage_Page_Block_Html_Pag
     }
 
     /**
-     * @param int $lastNum
+     * @param  int   $lastNum
      * @return $this
      */
     public function setLastNum($lastNum)
@@ -110,7 +116,7 @@ class Mage_Catalog_Block_Seo_Sitemap_Tree_Pager extends Mage_Page_Block_Html_Pag
     }
 
     /**
-     * @param int $totalNum
+     * @param  int   $totalNum
      * @return $this
      */
     public function setTotalNum($totalNum)
@@ -136,7 +142,7 @@ class Mage_Catalog_Block_Seo_Sitemap_Tree_Pager extends Mage_Page_Block_Html_Pag
     }
 
     /**
-     * @param int $lastPageNum
+     * @param  int   $lastPageNum
      * @return $this
      */
     public function setLastPageNum($lastPageNum)
@@ -162,22 +168,21 @@ class Mage_Catalog_Block_Seo_Sitemap_Tree_Pager extends Mage_Page_Block_Html_Pag
         $finish = 1;
 
         if ($this->getLastPageNum() <= $this->_displayPages) {
-            $pages = range(1, $this->getLastPageNum());
-        } else {
-            $half = ceil($this->_displayPages / 2);
-            if ($this->getCurrentPage() >= $half && $this->getCurrentPage() <= $this->getLastPageNum() - $half) {
-                $start  = ($this->getCurrentPage() - $half) + 1;
-                $finish = ($start + $this->_displayPages) - 1;
-            } elseif ($this->getCurrentPage() < $half) {
-                $finish = $this->_displayPages;
-            } elseif ($this->getCurrentPage() > ($this->getLastPageNum() - $half)) {
-                $finish = $this->getLastPageNum();
-                $start  = $finish - $this->_displayPages + 1;
-            }
-            $pages = range($start, $finish);
+            return range(1, $this->getLastPageNum());
         }
 
-        return $pages;
+        $half = ceil($this->_displayPages / 2);
+        if ($this->getCurrentPage() >= $half && $this->getCurrentPage() <= $this->getLastPageNum() - $half) {
+            $start  = ($this->getCurrentPage() - $half) + 1;
+            $finish = ($start + $this->_displayPages) - 1;
+        } elseif ($this->getCurrentPage() < $half) {
+            $finish = $this->_displayPages;
+        } elseif ($this->getCurrentPage() > ($this->getLastPageNum() - $half)) {
+            $finish = $this->getLastPageNum();
+            $start  = $finish - $this->_displayPages + 1;
+        }
+
+        return range($start, $finish);
     }
 
     /**

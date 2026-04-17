@@ -31,10 +31,9 @@ class Mage_Adminhtml_Helper_Config extends Mage_Core_Helper_Abstract
 
         if (is_null($inputType)) {
             return $inputTypes;
-        } elseif (isset($inputTypes[$inputType])) {
-            return $inputTypes[$inputType];
         }
-        return [];
+
+        return $inputTypes[$inputType] ?? [];
     }
 
     /**
@@ -46,6 +45,7 @@ class Mage_Adminhtml_Helper_Config extends Mage_Core_Helper_Abstract
         if (!empty($inputTypes[$inputType]['backend_model'])) {
             return $inputTypes[$inputType]['backend_model'];
         }
+
         return null;
     }
 
@@ -57,9 +57,11 @@ class Mage_Adminhtml_Helper_Config extends Mage_Core_Helper_Abstract
         if (isset($fieldConfig->backend_model)) {
             return (string) $fieldConfig->backend_model;
         }
+
         if (isset($fieldConfig->frontend_type)) {
             return $this->getBackendModelByInputType((string) $fieldConfig->frontend_type);
         }
+
         return null;
     }
 }

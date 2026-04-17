@@ -48,6 +48,7 @@ class Mage_PaypalUk_Model_Pro extends Mage_Paypal_Model_Pro
             $api = $this->getApi();
             $api->setAuthorizationId($captureTxnId);
         }
+
         parent::refund($payment, $amount);
     }
 
@@ -72,13 +73,14 @@ class Mage_PaypalUk_Model_Pro extends Mage_Paypal_Model_Pro
             return $payment->getTransaction($payment->getParentTransactionId())
                 ->getAdditionalInformation(self::TRANSPORT_PAYFLOW_TXN_ID);
         }
+
         return $payment->getParentTransactionId();
     }
 
     /**
      * Import capture results to payment
      *
-     * @param Mage_Paypal_Model_Api_Nvp $api
+     * @param Mage_Paypal_Model_Api_Nvp      $api
      * @param Mage_Sales_Model_Order_Payment $payment
      */
     protected function _importCaptureResultToPayment($api, $payment)
@@ -98,9 +100,9 @@ class Mage_PaypalUk_Model_Pro extends Mage_Paypal_Model_Pro
     /**
      * Fetch transaction details info method does not exists in PaypalUK
      *
-     * @param string $transactionId
-     * @throws Mage_Core_Exception
+     * @param  string              $transactionId
      * @return void
+     * @throws Mage_Core_Exception
      */
     public function fetchTransactionInfo(Mage_Payment_Model_Info $payment, $transactionId)
     {
@@ -112,9 +114,9 @@ class Mage_PaypalUk_Model_Pro extends Mage_Paypal_Model_Pro
     /**
      * Import refund results to payment
      *
-     * @param Mage_Paypal_Model_Api_Nvp $api
+     * @param Mage_Paypal_Model_Api_Nvp      $api
      * @param Mage_Sales_Model_Order_Payment $payment
-     * @param bool $canRefundMore
+     * @param bool                           $canRefundMore
      */
     protected function _importRefundResultToPayment($api, $payment, $canRefundMore)
     {

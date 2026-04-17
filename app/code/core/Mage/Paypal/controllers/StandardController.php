@@ -22,7 +22,7 @@ class Mage_Paypal_StandardController extends Mage_Core_Controller_Front_Action
     /**
      *  Get order
      *
-     *  @return  Mage_Sales_Model_Order
+     * @return Mage_Sales_Model_Order
      */
     public function getOrder()
     {
@@ -54,7 +54,6 @@ class Mage_Paypal_StandardController extends Mage_Core_Controller_Front_Action
 
     /**
      * When a customer chooses Paypal on Checkout/Payment page
-     *
      */
     public function redirectAction()
     {
@@ -77,8 +76,10 @@ class Mage_Paypal_StandardController extends Mage_Core_Controller_Front_Action
             if ($order->getId()) {
                 $order->cancel()->save();
             }
+
             Mage::helper('paypal/checkout')->restoreQuote();
         }
+
         $this->_redirect('checkout/cart');
     }
 

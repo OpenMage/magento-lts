@@ -50,15 +50,14 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
      */
     protected $_inlineCssFile = false;
 
-    /** @var Mage_Admin_Model_Variable  */
+    /** @var Mage_Admin_Model_Variable */
     protected $_permissionVariable;
 
-    /** @var Mage_Admin_Model_Block  */
+    /** @var Mage_Admin_Model_Block */
     protected $_permissionBlock;
 
     /**
      * Setup callbacks for filters
-     *
      */
     public function __construct()
     {
@@ -70,7 +69,7 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
     /**
      * Set use absolute links flag
      *
-     * @param bool $flag
+     * @param  bool  $flag
      * @return $this
      */
     public function setUseAbsoluteLinks($flag)
@@ -83,7 +82,7 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
      * Setter whether SID is allowed in store directive
      * Doesn't set anything intentionally, since SID is not allowed in any kind of emails
      *
-     * @param bool $flag
+     * @param  bool  $flag
      * @return $this
      */
     public function setUseSessionInUrl($flag)
@@ -95,7 +94,7 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
     /**
      * Setter
      *
-     * @param bool $plainTemplateMode
+     * @param  bool  $plainTemplateMode
      * @return $this
      */
     public function setPlainTemplateMode($plainTemplateMode)
@@ -117,7 +116,7 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
     /**
      * Setter
      *
-     * @param Mage_Core_Model_Store|int $storeId
+     * @param  int|Mage_Core_Model_Store $storeId
      * @return $this
      */
     public function setStoreId($storeId)
@@ -131,6 +130,7 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
      * if $_storeId is null return Design store id
      *
      * @return int
+     * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
      */
     public function getStoreId()
@@ -138,14 +138,16 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
         if ($this->_storeId === null) {
             $this->_storeId = Mage::app()->getStore()->getId();
         }
+
         return $this->_storeId;
     }
 
     /**
      * Retrieve Block html directive
      *
-     * @param array $construction
+     * @param  array               $construction
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function blockDirective($construction)
     {
@@ -170,11 +172,12 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
 
         if ($block) {
             $block->setBlockParams($blockParameters);
-            foreach ($blockParameters as $k => $v) {
-                if (in_array($k, $skipParams)) {
+            foreach ($blockParameters as $key => $value) {
+                if (in_array($key, $skipParams)) {
                     continue;
                 }
-                $block->setDataUsingMethod($k, $v);
+
+                $block->setDataUsingMethod($key, $value);
             }
         } else {
             return '';
@@ -183,16 +186,18 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
         if (isset($blockParameters['output'])) {
             $method = $blockParameters['output'];
         }
+
         if (!isset($method) || !is_string($method) || !method_exists($block, $method)) {
             $method = 'toHtml';
         }
+
         return $block->$method();
     }
 
     /**
      * Retrieve layout html directive
      *
-     * @param array $construction
+     * @param  array               $construction
      * @return string
      * @throws Mage_Core_Exception
      */
@@ -216,13 +221,13 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
         $layout->generateBlocks();
 
         /** @var Mage_Core_Block_Abstract $block */
-        foreach ($layout->getAllBlocks() as $blockName => $block) {
-            foreach ($params as $k => $v) {
-                if (in_array($k, $skipParams)) {
+        foreach ($layout->getAllBlocks() as $block) {
+            foreach ($params as $key => $value) {
+                if (in_array($key, $skipParams)) {
                     continue;
                 }
 
-                $block->setDataUsingMethod($k, $v);
+                $block->setDataUsingMethod($key, $value);
             }
         }
 
@@ -242,7 +247,7 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
     /**
      * Retrieve block parameters
      *
-     * @param mixed $value
+     * @param  mixed $value
      * @return array
      */
     protected function _getBlockParameters($value)
@@ -256,7 +261,7 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
     /**
      * Retrieve Skin URL directive
      *
-     * @param array $construction
+     * @param  array     $construction
      * @return string
      * @throws Exception
      */
@@ -271,7 +276,7 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
     /**
      * Retrieve media file URL directive
      *
-     * @param array $construction
+     * @param  array  $construction
      * @return string
      */
     public function mediaDirective($construction)
@@ -284,8 +289,9 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
      * Retrieve store URL directive
      * Support url and direct_url properties
      *
-     * @param array $construction
+     * @param  array                           $construction
      * @return string
+     * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
      */
     public function storeDirective($construction)
@@ -294,12 +300,14 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
         if (!isset($params['_query'])) {
             $params['_query'] = [];
         }
-        foreach ($params as $k => $v) {
-            if (str_starts_with($k, '_query_')) {
-                $params['_query'][substr($k, 7)] = $v;
-                unset($params[$k]);
+
+        foreach ($params as $key => $value) {
+            if (str_starts_with($key, '_query_')) {
+                $params['_query'][substr($key, 7)] = $value;
+                unset($params[$key]);
             }
         }
+
         $params['_absolute'] = $this->_useAbsoluteLinks;
 
         if ($this->_useSessionInUrl === false) {
@@ -323,7 +331,7 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
      * Supported options:
      *     allowed_tags - Comma separated html tags that have not to be converted
      *
-     * @param array $construction
+     * @param  array  $construction
      * @return string
      */
     public function htmlescapeDirective($construction)
@@ -344,7 +352,7 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
     /**
      * Var directive with modifiers support
      *
-     * @param array $construction
+     * @param  array               $construction
      * @return string
      * @throws Mage_Core_Exception
      */
@@ -360,6 +368,7 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
             [$variableName, $modifiersString] = $parts;
             return $this->_amplifyModifiers($this->_getVariable($variableName, ''), $modifiersString);
         }
+
         return $this->_getVariable($construction[2], '');
     }
 
@@ -368,8 +377,8 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
      *
      * Modifier syntax: modifier1[:param1:param2:...][|modifier2:...]
      *
-     * @param string $value
-     * @param string $modifiers
+     * @param  string $value
+     * @param  string $modifiers
      * @return string
      */
     protected function _amplifyModifiers($value, $modifiers)
@@ -378,6 +387,7 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
             if (empty($part)) {
                 continue;
             }
+
             $params   = explode(':', $part);
             $modifier = array_shift($params);
             if (isset($this->_modifiers[$modifier])) {
@@ -385,18 +395,20 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
                 if (!$callback) {
                     $callback = $modifier;
                 }
+
                 array_unshift($params, $value);
                 $value = call_user_func_array($callback, $params);
             }
         }
+
         return $value;
     }
 
     /**
      * Escape specified string
      *
-     * @param string $value
-     * @param string $type
+     * @param  string $value
+     * @param  string $type
      * @return string
      */
     public function modifierEscape($value, $type = 'html')
@@ -418,8 +430,9 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
      * {{protocol http="http://url" https="https://url"}
      * also allow additional parameter "store"
      *
-     * @param array $construction
+     * @param  array                           $construction
      * @return string
+     * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
      */
     public function protocolDirective($construction)
@@ -429,14 +442,18 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
         if (isset($params['store'])) {
             $store = Mage::app()->getSafeStore($params['store']);
         }
+
         $isSecure = Mage::app()->getStore($store)->isCurrentlySecure();
         $protocol = $isSecure ? 'https' : 'http';
         if (isset($params['url'])) {
             return $protocol . '://' . $params['url'];
-        } elseif (isset($params['http']) && isset($params['https'])) {
+        }
+
+        if (isset($params['http']) && isset($params['https'])) {
             if ($isSecure) {
                 return $params['https'];
             }
+
             return $params['http'];
         }
 
@@ -446,8 +463,9 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
     /**
      * Store config directive
      *
-     * @param array $construction
+     * @param  array                           $construction
      * @return string
+     * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
      */
     public function configDirective($construction)
@@ -456,16 +474,18 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
         $params = $this->_getIncludeParameters($construction[2]);
         $storeId = $this->getStoreId();
         if (isset($params['path']) && $this->_permissionVariable->isPathAllowed($params['path'])) {
-            $configValue = Mage::getStoreConfig($params['path'], $storeId);
+            return Mage::getStoreConfig($params['path'], $storeId);
         }
+
         return $configValue;
     }
 
     /**
      * Custom Variable directive
      *
-     * @param array $construction
+     * @param  array                           $construction
      * @return string
+     * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
      */
     public function customvarDirective($construction)
@@ -483,6 +503,7 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
                 $customVarValue = $value;
             }
         }
+
         return $customVarValue;
     }
 
@@ -491,7 +512,7 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
      * Syntax: {{inlinecss file=""}}  If this directive is used, the file will be stored on this object so that
      * it can be retrieved later
      *
-     * @param array $construction
+     * @param  array  $construction
      * @return string
      */
     public function inlinecssDirective($construction)
@@ -500,13 +521,14 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
         if (isset($params['file'])) {
             $this->_setInlineCssFile($params['file']);
         }
+
         return '';
     }
 
     /**
      * Set filename of CSS file to inline
      *
-     * @param string $filename
+     * @param  string $filename
      * @return $this
      */
     protected function _setInlineCssFile($filename)
@@ -529,25 +551,26 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
      * Filter the string as template.
      * Rewritten for logging exceptions
      *
-     * @param string $value
+     * @param  string $value
      * @return string
      */
     public function filter($value)
     {
         try {
             $value = parent::filter($value);
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $value = '';
-            Mage::logException($e);
+            Mage::logException($exception);
         }
+
         return $value;
     }
 
     /**
      * Return variable value for var construction
      *
-     * @param string $value raw parameters
-     * @param string $default default value
+     * @param  string              $value   raw parameters
+     * @param  string              $default default value
      * @return string
      * @throws Mage_Core_Exception
      */
@@ -556,10 +579,11 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
         Mage::register('varProcessing', true);
         try {
             $result = parent::_getVariable($value, $default);
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $result = '';
-            Mage::logException($e);
+            Mage::logException($exception);
         }
+
         Mage::unregister('varProcessing');
         return $result;
     }

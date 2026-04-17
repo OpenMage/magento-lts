@@ -19,8 +19,7 @@ class Mage_CatalogIndex_Model_Resource_Abstract extends Mage_Core_Model_Resource
     protected $_websiteId  = null;
 
     /**
-     * Initialize model
-     *
+     * @inheritDoc
      */
     protected function _construct() {}
 
@@ -55,6 +54,7 @@ class Mage_CatalogIndex_Model_Resource_Abstract extends Mage_Core_Model_Resource
             $result = Mage::app()->getStore($this->getStoreId())->getWebsiteId();
             $this->_websiteId = $result;
         }
+
         return $this->_websiteId;
     }
 }

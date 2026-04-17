@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -17,9 +19,9 @@ class Mage_CatalogRule_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Algorithm for calculating price rule
      *
-     * @param  string $actionOperator
-     * @param  int $ruleAmount
-     * @param  float $price
+     * @param  string    $actionOperator
+     * @param  int       $ruleAmount
+     * @param  float     $price
      * @return float|int
      */
     public function calcPriceRule($actionOperator, $ruleAmount, $price)

@@ -52,7 +52,7 @@ abstract class Mage_Catalog_Block_Product_View_Options_Abstract extends Mage_Cor
     /**
      * Set option
      *
-     * @return Mage_Catalog_Block_Product_View_Options_Abstract
+     * @return $this
      */
     public function setOption(Mage_Catalog_Model_Product_Option $option)
     {
@@ -82,14 +82,15 @@ abstract class Mage_Catalog_Block_Product_View_Options_Abstract extends Mage_Cor
                 'pricing_value' => $option->getPrice($option->getPriceType() === 'percent'),
             ]);
         }
+
         return '';
     }
 
     /**
      * Return formatted price
      *
-     * @param array $value
-     * @param bool $flag
+     * @param  array                           $value
+     * @param  bool                            $flag
      * @return string
      * @throws Mage_Core_Model_Store_Exception
      */
@@ -126,7 +127,7 @@ abstract class Mage_Catalog_Block_Product_View_Options_Abstract extends Mage_Cor
         }
 
         if ($flag) {
-            $priceStr = '<span class="price-notice">' . $priceStr . '</span>';
+            return '<span class="price-notice">' . $priceStr . '</span>';
         }
 
         return $priceStr;
@@ -135,25 +136,24 @@ abstract class Mage_Catalog_Block_Product_View_Options_Abstract extends Mage_Cor
     /**
      * Get price with including/excluding tax
      *
-     * @param float $price
-     * @param bool $includingTax
+     * @param  float                           $price
+     * @param  bool                            $includingTax
      * @return float
      * @throws Mage_Core_Model_Store_Exception
      */
     public function getPrice($price, $includingTax = null)
     {
         if (!is_null($includingTax)) {
-            $price = Mage::helper('tax')->getPrice($this->getProduct(), $price, true);
-        } else {
-            $price = Mage::helper('tax')->getPrice($this->getProduct(), $price);
+            return Mage::helper('tax')->getPrice($this->getProduct(), $price, true);
         }
-        return $price;
+
+        return Mage::helper('tax')->getPrice($this->getProduct(), $price);
     }
 
     /**
      * Returns price converted to current currency rate
      *
-     * @param float $price
+     * @param  float $price
      * @return float
      */
     public function getCurrencyPrice($price)

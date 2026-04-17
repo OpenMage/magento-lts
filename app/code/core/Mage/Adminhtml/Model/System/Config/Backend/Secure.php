@@ -20,6 +20,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Secure extends Mage_Core_Model_
         if ($this->isValueChanged()) {
             Mage::getModel('core/design_package')->cleanMergedJsCss();
         }
+
         return $this;
     }
 }

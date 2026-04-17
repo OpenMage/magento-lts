@@ -11,6 +11,8 @@
  * Totals item block
  *
  * @package    Mage_Adminhtml
+ *
+ * @method Mage_Sales_Block_Order_Totals getParentBlock()
  */
 class Mage_Adminhtml_Block_Sales_Order_Totals_Item extends Mage_Adminhtml_Block_Sales_Order_Totals
 {
@@ -48,14 +50,15 @@ class Mage_Adminhtml_Block_Sales_Order_Totals_Item extends Mage_Adminhtml_Block_
         } else {
             $this->getParentBlock()->addTotal($total, $this->getAfterCondition());
         }
+
         return $this;
     }
 
     /**
      * Price HTML getter
      *
-     * @param float $baseAmount
-     * @param float $amount
+     * @param  float  $baseAmount
+     * @param  float  $amount
      * @return string
      */
     public function displayPrices($baseAmount, $amount)
@@ -68,9 +71,9 @@ class Mage_Adminhtml_Block_Sales_Order_Totals_Item extends Mage_Adminhtml_Block_
     /**
      * Price attribute HTML getter
      *
-     * @param string $code
-     * @param bool $strong
-     * @param string $separator
+     * @param  string $code
+     * @param  bool   $strong
+     * @param  string $separator
      * @return string
      */
     public function displayPriceAttribute($code, $strong = false, $separator = '<br/>')
@@ -83,7 +86,7 @@ class Mage_Adminhtml_Block_Sales_Order_Totals_Item extends Mage_Adminhtml_Block_
     /**
      * Source order getter
      *
-     * @return Mage_Sales_Model_Order
+     * @return Mage_Sales_Model_Abstract
      */
     public function getSource()
     {

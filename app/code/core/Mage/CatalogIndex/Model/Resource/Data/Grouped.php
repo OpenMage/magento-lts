@@ -17,9 +17,9 @@ class Mage_CatalogIndex_Model_Resource_Data_Grouped extends Mage_CatalogIndex_Mo
     /**
      * Return minimal prices for specified products
      *
-     * @param array $products
-     * @param array $priceAttributes
-     * @param int $store
+     * @param  array $products
+     * @param  array $priceAttributes
+     * @param  int   $store
      * @return array
      */
     public function getMinimalPrice($products, $priceAttributes, $store)
@@ -58,6 +58,7 @@ class Mage_CatalogIndex_Model_Resource_Data_Grouped extends Mage_CatalogIndex_Mo
                         if ($tier['customer_group_id'] != $customerGroup && !$tier['all_groups']) {
                             continue;
                         }
+
                         if (($resultMinimal === null) || ($tier['value'] < $resultMinimal)) {
                             $resultMinimal    = $tier['value'];
                             $resultTaxClassId = $retreiver->getTaxClassId($tier['entity_id'], $store);
@@ -94,12 +95,12 @@ class Mage_CatalogIndex_Model_Resource_Data_Grouped extends Mage_CatalogIndex_Mo
     /**
      * Prepare select statement before 'fetchLinkInformation' function result fetch
      *
-     * @param int $store
+     * @param int    $store
      * @param string $table
      * @param string $idField
      * @param string $whereField
-     * @param int $id
-     * @param array $additionalWheres
+     * @param int    $id
+     * @param array  $additionalWheres
      */
     protected function _prepareLinkFetchSelect($store, $table, $idField, $whereField, $id, $additionalWheres = [])
     {

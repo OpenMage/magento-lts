@@ -17,7 +17,7 @@ abstract class Mage_Bundle_Model_Sales_Order_Pdf_Items_Abstract extends Mage_Sal
     /**
      * Getting all available children for Invoice, Shipmen or Creditmemo item
      *
-     * @param Varien_Object $item
+     * @param  Varien_Object $item
      * @return array
      */
     public function getChilds($item)
@@ -50,7 +50,7 @@ abstract class Mage_Bundle_Model_Sales_Order_Pdf_Items_Abstract extends Mage_Sal
     /**
      * Retrieve is Shipment Separately flag for Item
      *
-     * @param Varien_Object $item
+     * @param  Varien_Object $item
      * @return bool
      */
     public function isShipmentSeparately($item = null)
@@ -64,43 +64,26 @@ abstract class Mage_Bundle_Model_Sales_Order_Pdf_Items_Abstract extends Mage_Sal
             if ($parentItem) {
                 $options = $parentItem->getProductOptions();
                 if ($options) {
-                    if (isset($options['shipment_type'])
-                        && $options['shipment_type'] == Mage_Catalog_Model_Product_Type_Abstract::SHIPMENT_SEPARATELY
-                    ) {
-                        return true;
-                    } else {
-                        return false;
-                    }
+                    return isset($options['shipment_type'])
+                        && $options['shipment_type'] == Mage_Catalog_Model_Product_Type_Abstract::SHIPMENT_SEPARATELY;
                 }
             } else {
                 $options = $item->getProductOptions();
                 if ($options) {
-                    if (isset($options['shipment_type'])
-                        && $options['shipment_type'] == Mage_Catalog_Model_Product_Type_Abstract::SHIPMENT_SEPARATELY
-                    ) {
-                        return false;
-                    } else {
-                        return true;
-                    }
+                    return !(isset($options['shipment_type']) && $options['shipment_type'] == Mage_Catalog_Model_Product_Type_Abstract::SHIPMENT_SEPARATELY);
                 }
             }
         }
 
         $options = $this->getOrderItem()->getProductOptions();
-        if ($options) {
-            if (isset($options['shipment_type'])
-                && $options['shipment_type'] == Mage_Catalog_Model_Product_Type_Abstract::SHIPMENT_SEPARATELY
-            ) {
-                return true;
-            }
-        }
-        return false;
+        return $options
+            && (isset($options['shipment_type']) && $options['shipment_type'] == Mage_Catalog_Model_Product_Type_Abstract::SHIPMENT_SEPARATELY);
     }
 
     /**
      * Retrieve is Child Calculated
      *
-     * @param Varien_Object $item
+     * @param  Varien_Object $item
      * @return bool
      */
     public function isChildCalculated($item = null)
@@ -114,60 +97,42 @@ abstract class Mage_Bundle_Model_Sales_Order_Pdf_Items_Abstract extends Mage_Sal
             if ($parentItem) {
                 $options = $parentItem->getProductOptions();
                 if ($options) {
-                    if (isset($options['product_calculations']) &&
-                        $options['product_calculations'] == Mage_Catalog_Model_Product_Type_Abstract::CALCULATE_CHILD
-                    ) {
-                        return true;
-                    } else {
-                        return false;
-                    }
+                    return isset($options['product_calculations'])
+                        && $options['product_calculations'] == Mage_Catalog_Model_Product_Type_Abstract::CALCULATE_CHILD;
                 }
             } else {
                 $options = $item->getProductOptions();
                 if ($options) {
-                    if (isset($options['product_calculations']) &&
-                        $options['product_calculations'] == Mage_Catalog_Model_Product_Type_Abstract::CALCULATE_CHILD
-                    ) {
-                        return false;
-                    } else {
-                        return true;
-                    }
+                    return !(isset($options['product_calculations']) && $options['product_calculations'] == Mage_Catalog_Model_Product_Type_Abstract::CALCULATE_CHILD);
                 }
             }
         }
 
         $options = $this->getOrderItem()->getProductOptions();
-        if ($options) {
-            if (isset($options['product_calculations'])
-                && $options['product_calculations'] == Mage_Catalog_Model_Product_Type_Abstract::CALCULATE_CHILD
-            ) {
-                return true;
-            }
-        }
-        return false;
+        return $options
+            && (isset($options['product_calculations']) && $options['product_calculations'] == Mage_Catalog_Model_Product_Type_Abstract::CALCULATE_CHILD);
     }
 
     /**
      * Retrieve Bundle Options
      *
-     * @param Varien_Object $item
+     * @param  Varien_Object $item
      * @return array
      */
     public function getBundleOptions($item = null)
     {
         $options = $this->getOrderItem()->getProductOptions();
-        if ($options) {
-            if (isset($options['bundle_options'])) {
-                return $options['bundle_options'];
-            }
+        if ($options && isset($options['bundle_options'])) {
+            return $options['bundle_options'];
         }
+
         return [];
     }
 
     /**
      * Retrieve Selection attributes
      *
-     * @param Varien_Object $item
+     * @param  Varien_Object $item
      * @return mixed
      */
     public function getSelectionAttributes($item)
@@ -177,16 +142,18 @@ abstract class Mage_Bundle_Model_Sales_Order_Pdf_Items_Abstract extends Mage_Sal
         } else {
             $options = $item->getOrderItem()->getProductOptions();
         }
+
         if (isset($options['bundle_selection_attributes'])) {
             return unserialize($options['bundle_selection_attributes'], ['allowed_classes' => false]);
         }
+
         return null;
     }
 
     /**
      * Retrieve Order options
      *
-     * @param Varien_Object $item
+     * @param  Varien_Object $item
      * @return array
      */
     public function getOrderOptions($item = null)
@@ -198,13 +165,16 @@ abstract class Mage_Bundle_Model_Sales_Order_Pdf_Items_Abstract extends Mage_Sal
             if (isset($options['options'])) {
                 $result = array_merge($result, $options['options']);
             }
+
             if (isset($options['additional_options'])) {
                 $result = array_merge($result, $options['additional_options']);
             }
+
             if (!empty($options['attributes_info'])) {
                 $result = array_merge($options['attributes_info'], $result);
             }
         }
+
         return $result;
     }
 
@@ -222,7 +192,7 @@ abstract class Mage_Bundle_Model_Sales_Order_Pdf_Items_Abstract extends Mage_Sal
     /**
      * Retrieve Value HTML
      *
-     * @param Mage_Sales_Model_Order_Invoice_Item $item
+     * @param  Mage_Sales_Model_Order_Invoice_Item $item
      * @return string
      */
     public function getValueHtml($item)
@@ -234,28 +204,29 @@ abstract class Mage_Bundle_Model_Sales_Order_Pdf_Items_Abstract extends Mage_Sal
                 $result =  sprintf('%d', $attributes['qty']) . ' x ' . $result;
             }
         }
+
         if (!$this->isChildCalculated($item)) {
             $attributes = $this->getSelectionAttributes($item);
             if ($attributes) {
                 $result .= ' ' . strip_tags($this->getOrderItem()->getOrder()->formatPrice($attributes['price']));
             }
         }
+
         return $result;
     }
 
     /**
      * Can show price info for item
      *
-     * @param Mage_Sales_Model_Order_Invoice_Item $item
+     * @param  Mage_Sales_Model_Order_Invoice_Item $item
      * @return bool
      */
     public function canShowPriceInfo($item)
     {
-        if (($item->getOrderItem()->getParentItem() && $this->isChildCalculated())
-            || (!$item->getOrderItem()->getParentItem() && !$this->isChildCalculated())
-        ) {
+        if ($item->getOrderItem()->getParentItem() && $this->isChildCalculated()) {
             return true;
         }
-        return false;
+
+        return !$item->getOrderItem()->getParentItem() && !$this->isChildCalculated();
     }
 }

@@ -32,7 +32,7 @@ class Mage_Core_Model_Resource_Setup_Query_Modifier
     /**
      * Inits query modifier
      *
-     * @param Varien_Db_Adapter_Pdo_Mysql|array $args
+     * @param array|Varien_Db_Adapter_Pdo_Mysql $args
      */
     public function __construct($args)
     {
@@ -42,8 +42,8 @@ class Mage_Core_Model_Resource_Setup_Query_Modifier
     /**
      * Returns column definition from CREATE TABLE sql
      *
-     * @param string $sql
-     * @param string $column
+     * @param  string $sql
+     * @param  string $column
      * @return array
      */
     protected function _getColumnDefinitionFromSql($sql, $column)
@@ -54,6 +54,7 @@ class Mage_Core_Model_Resource_Setup_Query_Modifier
             if (!preg_match_all($pattern, $sql, $matches, PREG_SET_ORDER)) {
                 continue;
             }
+
             foreach ($matches as $match) {
                 $gotColumn = $this->_prepareIdentifier($match[1]);
                 if ($gotColumn != $column) {
@@ -69,6 +70,7 @@ class Mage_Core_Model_Resource_Setup_Query_Modifier
                 ];
                 break;
             }
+
             if ($result) {
                 break;
             }
@@ -80,10 +82,10 @@ class Mage_Core_Model_Resource_Setup_Query_Modifier
     /**
      * Replaces first occurrence of $needle in a $haystack
      *
-     * @param string $haystack
-     * @param string $needle
-     * @param string $replacement
-     * @param bool $caseInsensitive
+     * @param  string $haystack
+     * @param  string $needle
+     * @param  string $replacement
+     * @param  bool   $caseInsensitive
      * @return string
      */
     protected function _firstReplace($haystack, $needle, $replacement, $caseInsensitive = false)
@@ -99,9 +101,9 @@ class Mage_Core_Model_Resource_Setup_Query_Modifier
     /**
      * Fixes column definition in CREATE TABLE sql to match definition of column it's set to
      *
-     * @param string $sql
-     * @param string $column
-     * @param array $refColumnDefinition
+     * @param  string $sql
+     * @param  string $column
+     * @param  array  $refColumnDefinition
      * @return $this
      */
     protected function _fixColumnDefinitionInSql(&$sql, $column, $refColumnDefinition)
@@ -157,9 +159,9 @@ class Mage_Core_Model_Resource_Setup_Query_Modifier
     /**
      * Fixes column definition in already existing table, so outgoing foreign key will be successfully set
      *
-     * @param string $table
-     * @param string $column
-     * @param array $refColumnDefinition
+     * @param  string $table
+     * @param  string $column
+     * @param  array  $refColumnDefinition
      * @return $this
      */
     protected function _fixColumnDefinitionInTable($table, $column, $refColumnDefinition)
@@ -170,18 +172,22 @@ class Mage_Core_Model_Resource_Setup_Query_Modifier
             if ($columnName != $column) {
                 continue;
             }
+
             $definition = $refColumnDefinition['type'];
             if ($refColumnDefinition['unsigned']) {
                 $definition .= ' UNSIGNED';
             }
+
             if ($columnData['Null'] == 'YES') {
                 $definition .= ' NULL';
             } else {
                 $definition .= ' NOT NULL';
             }
+
             if ($columnData['Default']) {
                 $definition .= ' DEFAULT ' . $columnData['Default'];
             }
+
             if ($columnData['Extra']) {
                 $definition .= ' ' . $columnData['Extra'];
             }
@@ -189,15 +195,16 @@ class Mage_Core_Model_Resource_Setup_Query_Modifier
             $query = 'ALTER TABLE ' . $table . ' MODIFY COLUMN ' . $column . ' ' . $definition;
             $this->_adapter->query($query);
         }
+
         return $this;
     }
 
     /**
      * Returns column definition from already existing table
      *
-     * @param string $table
-     * @param string $column
-     * @return array|null
+     * @param  string     $table
+     * @param  string     $column
+     * @return null|array
      */
     protected function _getColumnDefinitionFromTable($table, $column)
     {
@@ -215,7 +222,7 @@ class Mage_Core_Model_Resource_Setup_Query_Modifier
     /**
      * Returns whether table exists
      *
-     * @param string $table
+     * @param  string $table
      * @return bool
      */
     protected function _tableExists($table)
@@ -227,13 +234,14 @@ class Mage_Core_Model_Resource_Setup_Query_Modifier
                 return true;
             }
         }
+
         return false;
     }
 
     /**
      * Trims and lowercases identifier, to make common view of all of them
      *
-     * @param string $identifier
+     * @param  string $identifier
      * @return string
      */
     protected function _prepareIdentifier($identifier)
@@ -244,8 +252,8 @@ class Mage_Core_Model_Resource_Setup_Query_Modifier
     /**
      * Processes query, modifies targeted columns to fit foreign keys restrictions
      *
-     * @param string $sql
-     * @param array $bind
+     * @param  string $sql
+     * @param  array  $bind
      * @return $this
      */
     public function processQuery(&$sql, &$bind)
@@ -279,6 +287,7 @@ class Mage_Core_Model_Resource_Setup_Query_Modifier
             if (($operation != 'create') && !($this->_tableExists($table))) {
                 continue;
             }
+
             if (!$this->_tableExists($refTable)) {
                 continue;
             }
@@ -296,18 +305,22 @@ class Mage_Core_Model_Resource_Setup_Query_Modifier
             }
 
             // We fix only int columns
-            if (!$columnDefinition || !in_array($columnDefinition['type'], $this->_processedTypes)) {
+            if (!$columnDefinition) {
+                continue;
+            }
+
+            if (!in_array($columnDefinition['type'], $this->_processedTypes)) {
                 continue;
             }
 
             // Extract referenced column type
             $refColumnDefinition = $this->_getColumnDefinitionFromTable($refTable, $refColumn);
+            // We fix only int columns
             if (!$refColumnDefinition) {
                 continue;
             }
 
-            // We fix only int columns
-            if (!$refColumnDefinition || !in_array($refColumnDefinition['type'], $this->_processedTypes)) {
+            if (!in_array($refColumnDefinition['type'], $this->_processedTypes)) {
                 continue;
             }
 

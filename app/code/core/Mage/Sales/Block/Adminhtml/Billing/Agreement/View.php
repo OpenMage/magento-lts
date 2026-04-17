@@ -30,6 +30,7 @@ class Mage_Sales_Block_Adminhtml_Billing_Agreement_View extends Mage_Adminhtml_B
         if (!$this->_isAllowed('sales/billing_agreement/actions/manage')) {
             $this->_removeButton('delete');
         }
+
         $this->_removeButton('reset');
         $this->_removeButton('save');
         $this->setId('billing_agreement_view');
@@ -82,7 +83,7 @@ class Mage_Sales_Block_Adminhtml_Billing_Agreement_View extends Mage_Adminhtml_B
     /**
      * Check current user permissions for specified action
      *
-     * @param string $action
+     * @param  string $action
      * @return bool
      */
     protected function _isAllowed($action)

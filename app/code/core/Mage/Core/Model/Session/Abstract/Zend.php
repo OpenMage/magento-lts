@@ -13,8 +13,8 @@
  * @package    Mage_Core
  *
  * @method string getCookieDomain()
- * @method string getCookiePath()
  * @method string getCookieLifetime()
+ * @method string getCookiePath()
  */
 abstract class Mage_Core_Model_Session_Abstract_Zend extends Varien_Object
 {
@@ -47,12 +47,15 @@ abstract class Mage_Core_Model_Session_Abstract_Zend extends Varien_Object
         if ($this->getCookieDomain()) {
             $options['cookie_domain'] = $this->getCookieDomain();
         }
+
         if ($this->getCookiePath()) {
             $options['cookie_path'] = $this->getCookiePath();
         }
+
         if ($this->getCookieLifetime()) {
             $options['cookie_lifetime'] = $this->getCookieLifetime();
         }
+
         Zend_Session::setOptions($options);
         Varien_Profiler::stop(__METHOD__ . '/setOptions');
         /*
@@ -73,7 +76,7 @@ abstract class Mage_Core_Model_Session_Abstract_Zend extends Varien_Object
     /**
      * Initialization session namespace
      *
-     * @param string $namespace
+     * @param  string $namespace
      * @return $this
      */
     public function init($namespace)
@@ -91,9 +94,9 @@ abstract class Mage_Core_Model_Session_Abstract_Zend extends Varien_Object
     /**
      * Redeclaration object setter
      *
-     * @param string $key
-     * @param mixed $value
-     * @param bool $isChanged
+     * @param  string $key
+     * @param  mixed  $value
+     * @param  bool   $isChanged
      * @return $this
      */
     public function setData($key, $value = '', $isChanged = false)
@@ -101,6 +104,7 @@ abstract class Mage_Core_Model_Session_Abstract_Zend extends Varien_Object
         if (!$this->_namespace->data) {
             $this->_namespace->data = new Varien_Object();
         }
+
         $this->_namespace->data->setData($key, $value, $isChanged);
         return $this;
     }
@@ -108,9 +112,9 @@ abstract class Mage_Core_Model_Session_Abstract_Zend extends Varien_Object
     /**
      * Redeclaration object getter
      *
-     * @param   string $var
-     * @param   bool $clear
-     * @return  mixed
+     * @param  string $var
+     * @param  bool   $clear
+     * @return mixed
      */
     public function getData($var = null, $clear = false)
     {
@@ -149,7 +153,7 @@ abstract class Mage_Core_Model_Session_Abstract_Zend extends Varien_Object
     }
 
     /**
-     * @param string|null $id
+     * @param  null|string $id
      * @return $this
      */
     public function setSessionId($id = null)
@@ -157,6 +161,7 @@ abstract class Mage_Core_Model_Session_Abstract_Zend extends Varien_Object
         if (!is_null($id)) {
             Zend_Session::setId($id);
         }
+
         return $this;
     }
 

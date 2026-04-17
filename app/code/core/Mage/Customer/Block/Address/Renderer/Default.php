@@ -51,19 +51,19 @@ class Mage_Customer_Block_Address_Renderer_Default extends Mage_Core_Block_Abstr
             ? false
             : $address->getCountryModel()->getFormat($this->getType()->getCode());
         if ($countryFormat) {
-            $format = $countryFormat->getFormat();
-        } else {
-            $regExp = "/^[^()\n]*+(\((?>[^()\n]|(?1))*+\)[^()\n]*+)++$|^[^()]+?$/m";
-            preg_match_all($regExp, $this->getType()->getDefaultFormat(), $matches, PREG_SET_ORDER);
-            $format = count($matches) ? $this->_prepareAddressTemplateData($this->getType()->getDefaultFormat()) : null;
+            return $countryFormat->getFormat();
         }
-        return $format;
+
+        $regExp = "/^[^()\n]*+(\((?>[^()\n]|(?1))*+\)[^()\n]*+)++$|^[^()]+?$/m";
+        preg_match_all($regExp, $this->getType()->getDefaultFormat(), $matches, PREG_SET_ORDER);
+
+        return count($matches) ? $this->_prepareAddressTemplateData($this->getType()->getDefaultFormat()) : null;
     }
 
     /**
      * Render address
      *
-     * @param string|null $format
+     * @param  null|string $format
      * @return string
      * @throws Exception
      */
@@ -85,6 +85,7 @@ class Mage_Customer_Block_Address_Renderer_Default extends Mage_Core_Block_Abstr
             if (!$attribute->getIsVisible()) {
                 continue;
             }
+
             if ($attribute->getAttributeCode() == 'country_id') {
                 $data['country'] = $address->getCountryModel()->getName();
             } elseif ($attribute->getAttributeCode() == 'region') {
@@ -95,11 +96,12 @@ class Mage_Customer_Block_Address_Renderer_Default extends Mage_Core_Block_Abstr
                 if ($attribute->getFrontendInput() == 'multiline') {
                     $values    = $dataModel->outputValue(Mage_Customer_Model_Attribute_Data::OUTPUT_FORMAT_ARRAY);
                     // explode lines
-                    foreach ($values as $k => $v) {
-                        $key = sprintf('%s%d', $attribute->getAttributeCode(), $k + 1);
-                        $data[$key] = $v;
+                    foreach ($values as $index => $val) {
+                        $key = sprintf('%s%d', $attribute->getAttributeCode(), $index + 1);
+                        $data[$key] = $val;
                     }
                 }
+
                 $data[$attribute->getAttributeCode()] = $value;
             }
         }
@@ -111,14 +113,14 @@ class Mage_Customer_Block_Address_Renderer_Default extends Mage_Core_Block_Abstr
         }
 
         $formater->setVariables($data);
-        $format = !is_null($format) ? $format : $this->_prepareAddressTemplateData($this->getFormat($address));
+        $format = is_null($format) ? $this->_prepareAddressTemplateData($this->getFormat($address)) : $format;
 
         return $formater->filter($format);
     }
 
     /**
      * Get address template data without url and js code
-     * @param string $data
+     * @param  string $data
      * @return string
      */
     protected function _prepareAddressTemplateData($data)
@@ -130,6 +132,7 @@ class Mage_Customer_Block_Address_Renderer_Default extends Mage_Core_Block_Abstr
             $maliciousCodeFilter = Mage::getSingleton('core/input_filter_maliciousCode');
             $result = preg_replace($urlRegExp, ' ', $maliciousCodeFilter->filter($data));
         }
+
         return $result;
     }
 }

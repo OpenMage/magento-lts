@@ -25,7 +25,7 @@ class Magento_Profiler_Output_Firebug extends Magento_Profiler_OutputAbstract
     /**
      * Start output buffering
      *
-     * @param string|null $filter Pattern to filter timers by their identifiers (SQL LIKE syntax)
+     * @param null|string $filter Pattern to filter timers by their identifiers (SQL LIKE syntax)
      */
     public function __construct($filter = null)
     {
@@ -51,6 +51,7 @@ class Magento_Profiler_Output_Firebug extends Magento_Profiler_OutputAbstract
 
     /**
      * Display profiling results and flush output buffer
+     * @throws Zend_Wildfire_Exception
      */
     public function display()
     {
@@ -62,10 +63,11 @@ class Magento_Profiler_Output_Firebug extends Magento_Profiler_OutputAbstract
             foreach ($this->_getColumns() as $columnId) {
                 $row[] = $this->_renderColumnValue($timerId, $columnId);
             }
+
             $firebugMessage->addRow($row);
         }
 
-        Zend_Wildfire_Plugin_FirePhp::getInstance()->send($firebugMessage);
+        Zend_Wildfire_Plugin_FirePhp::getInstance()::send($firebugMessage);
 
         // setup the wildfire channel
         $firebugChannel = Zend_Wildfire_Channel_HttpHeaders::getInstance();
@@ -84,7 +86,7 @@ class Magento_Profiler_Output_Firebug extends Magento_Profiler_OutputAbstract
     /**
      * Render timer id column value
      *
-     * @param string $timerId
+     * @param  string $timerId
      * @return string
      */
     protected function _renderTimerId($timerId)

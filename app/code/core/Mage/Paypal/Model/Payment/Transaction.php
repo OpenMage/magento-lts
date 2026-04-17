@@ -13,11 +13,11 @@
  *
  * @package    Mage_Paypal
  *
- * @method Mage_Paypal_Model_Resource_Payment_Transaction _getResource()
- * @method Mage_Paypal_Model_Resource_Payment_Transaction getResource()
- * @method string getTxnId()
- * @method string getCreatedAt()
- * @method $this setCreatedAt(string $value)
+ * @method Mage_Paypal_Model_Resource_Payment_Transaction            _getResource()
+ * @method Mage_Paypal_Model_Resource_Payment_Transaction_Collection getCollection()
+ * @method Mage_Paypal_Model_Resource_Payment_Transaction            getResource()
+ * @method Mage_Paypal_Model_Resource_Payment_Transaction_Collection getResourceCollection()
+ * @method string                                                    getTxnId()
  */
 class Mage_Paypal_Model_Payment_Transaction extends Mage_Core_Model_Abstract
 {
@@ -48,7 +48,7 @@ class Mage_Paypal_Model_Payment_Transaction extends Mage_Core_Model_Abstract
     protected $_orderWebsiteId = null;
 
     /**
-     * Initialize resource model
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -58,7 +58,7 @@ class Mage_Paypal_Model_Payment_Transaction extends Mage_Core_Model_Abstract
 
     /**
      * Transaction ID setter
-     * @param string $txnId
+     * @param  string $txnId
      * @return $this
      */
     public function setTxnId($txnId)
@@ -69,7 +69,7 @@ class Mage_Paypal_Model_Payment_Transaction extends Mage_Core_Model_Abstract
 
     /**
      * Check object before loading by by specified transaction ID
-     * @param string $txnId
+     * @param  string $txnId
      * @return $this
      */
     protected function _beforeLoadByTxnId($txnId)
@@ -83,7 +83,7 @@ class Mage_Paypal_Model_Payment_Transaction extends Mage_Core_Model_Abstract
 
     /**
      * Load self by specified transaction ID. Requires the valid payment object to be set
-     * @param string $txnId
+     * @param  string $txnId
      * @return $this
      */
     public function loadByTxnId($txnId)
@@ -113,8 +113,8 @@ class Mage_Paypal_Model_Payment_Transaction extends Mage_Core_Model_Abstract
      * Updates data inside the 'additional_information' array
      * Doesn't allow to set arrays
      *
-     * @param string $key
-     * @param mixed $value
+     * @param  string              $key
+     * @param  mixed               $value
      * @return $this
      * @throws Mage_Core_Exception
      */
@@ -123,18 +123,20 @@ class Mage_Paypal_Model_Payment_Transaction extends Mage_Core_Model_Abstract
         if (is_object($value)) {
             Mage::throwException(Mage::helper('paypal')->__('Payment transactions disallow storing objects.'));
         }
+
         $info = $this->_getData('additional_information');
         if (!$info) {
             $info = [];
         }
+
         $info[$key] = $value;
         return $this->setData('additional_information', $info);
     }
 
     /**
      * Getter for entire additional_information value or one of its element by key
-     * @param string $key
-     * @return array|null|mixed
+     * @param  string           $key
+     * @return null|array|mixed
      */
     public function getAdditionalInformation($key = null)
     {
@@ -142,15 +144,17 @@ class Mage_Paypal_Model_Payment_Transaction extends Mage_Core_Model_Abstract
         if (!$info) {
             $info = [];
         }
+
         if ($key) {
             return $info[$key] ?? null;
         }
+
         return $info;
     }
 
     /**
      * Unsetter for entire additional_information value or one of its element by key
-     * @param string $key
+     * @param  string $key
      * @return $this
      */
     public function unsAdditionalInformation($key = null)
@@ -163,20 +167,22 @@ class Mage_Paypal_Model_Payment_Transaction extends Mage_Core_Model_Abstract
         } else {
             $info = [];
         }
+
         return $this->setData('additional_information', $info);
     }
 
     /**
      * Setter/Getter whether transaction is supposed to prevent exceptions on saving
      *
-     * @param bool|null $setFailsafe
-     * @return bool|$this
+     * @param  null|bool  $setFailsafe
+     * @return $this|bool
      */
     public function isFailsafe($setFailsafe = null)
     {
         if ($setFailsafe === null) {
             return $this->_isFailsafe;
         }
+
         $this->_isFailsafe = (bool) $setFailsafe;
         return $this;
     }
@@ -190,12 +196,13 @@ class Mage_Paypal_Model_Payment_Transaction extends Mage_Core_Model_Abstract
         if (!$this->getId()) {
             $this->setCreatedAt(Mage::getModel('core/date')->gmtDate());
         }
+
         return parent::_beforeSave();
     }
 
     /**
      * Check whether specified transaction ID is valid
-     * @param string $txnId
+     * @param  string              $txnId
      * @throws Mage_Core_Exception
      */
     protected function _verifyTxnId($txnId)

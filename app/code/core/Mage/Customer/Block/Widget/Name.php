@@ -17,7 +17,7 @@
  */
 class Mage_Customer_Block_Widget_Name extends Mage_Customer_Block_Widget_Abstract
 {
-    public function _construct()
+    protected function _construct()
     {
         parent::_construct();
 
@@ -28,7 +28,7 @@ class Mage_Customer_Block_Widget_Name extends Mage_Customer_Block_Widget_Abstrac
     /**
      * Can show config value
      *
-     * @param string $key
+     * @param  string $key
      * @return bool
      */
     protected function _showConfig($key)
@@ -70,6 +70,7 @@ class Mage_Customer_Block_Widget_Name extends Mage_Customer_Block_Widget_Abstrac
             $oldPrefix = $this->escapeHtml(trim($this->getObject()->getPrefix() ?? ''));
             $prefixOptions[$oldPrefix] = $oldPrefix;
         }
+
         return $prefixOptions;
     }
 
@@ -127,6 +128,7 @@ class Mage_Customer_Block_Widget_Name extends Mage_Customer_Block_Widget_Abstrac
             $oldSuffix = $this->escapeHtml(trim($this->getObject()->getSuffix() ?? ''));
             $suffixOptions[$oldSuffix] = $oldSuffix;
         }
+
         return $suffixOptions;
     }
 
@@ -140,7 +142,8 @@ class Mage_Customer_Block_Widget_Name extends Mage_Customer_Block_Widget_Abstrac
         if (!$this->hasData('class_name')) {
             $this->setData('class_name', 'customer-name');
         }
-        return $this->getData('class_name');
+
+        return $this->getDataByKey('class_name');
     }
 
     /**
@@ -159,8 +162,8 @@ class Mage_Customer_Block_Widget_Name extends Mage_Customer_Block_Widget_Abstrac
     /**
      * Retrieve customer or customer address attribute instance
      *
-     * @param string $attributeCode
-     * @return Mage_Customer_Model_Attribute|false
+     * @param  string                              $attributeCode
+     * @return false|Mage_Customer_Model_Attribute
      */
     protected function _getAttribute($attributeCode)
     {
@@ -183,7 +186,7 @@ class Mage_Customer_Block_Widget_Name extends Mage_Customer_Block_Widget_Abstrac
     /**
      * Retrieve store attribute label
      *
-     * @param string $attributeCode
+     * @param  string                          $attributeCode
      * @return string
      * @throws Mage_Core_Model_Store_Exception
      */

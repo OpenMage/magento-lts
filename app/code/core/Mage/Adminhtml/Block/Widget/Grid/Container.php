@@ -12,11 +12,16 @@
  * Adminhtml grid container block
  *
  * @package    Mage_Adminhtml
+ *
+ * @method string getBackUrl()
+ * @method $this  setBackUrl(string $value)
  */
 class Mage_Adminhtml_Block_Widget_Grid_Container extends Mage_Adminhtml_Block_Widget_Container
 {
     protected $_addButtonLabel;
+
     protected $_backButtonLabel;
+
     protected $_blockGroup = 'adminhtml';
 
     /**
@@ -32,6 +37,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Container extends Mage_Adminhtml_Block_Wi
         if (is_null($this->_addButtonLabel)) {
             $this->_addButtonLabel = $this->__('Add New');
         }
+
         if (is_null($this->_backButtonLabel)) {
             $this->_backButtonLabel = $this->__('Back');
         }
@@ -48,7 +54,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Container extends Mage_Adminhtml_Block_Wi
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     protected function _prepareLayout()
     {

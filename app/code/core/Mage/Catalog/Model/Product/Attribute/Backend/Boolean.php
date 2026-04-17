@@ -17,7 +17,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Boolean extends Mage_Eav_Mode
     /**
      * Set attribute default value if value empty
      *
-     * @param Varien_Object $object
+     * @param  Varien_Object $object
      * @return $this
      */
     public function beforeSave($object)
@@ -26,6 +26,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Boolean extends Mage_Eav_Mode
         if ($object->getData('use_config_' . $attributeCode)) {
             $object->setData($attributeCode, '');
         }
+
         return $this;
     }
 }

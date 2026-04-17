@@ -10,46 +10,49 @@
 /**
  * @package    Mage_Log
  *
+ * @method Mage_Log_Model_Resource_Visitor _getResource()
+ * @method int                             getCustomerId()
+ * @method int                             getCustomerLogId()
+ * @method bool                            getDoCustomerLogin()
+ * @method bool                            getDoCustomerLogout()
+ * @method bool                            getDoQuoteCreate()
+ * @method bool                            getDoQuoteDestroy()
+ * @method string                          getHttpAcceptCharset()
+ * @method string                          getHttpAcceptLanguage()
+ * @method string                          getHttpHost()
+ * @method string                          getHttpReferer()
+ * @method string                          getHttpSecure()
+ * @method string                          getHttpUserAgent()
+ * @method bool                            getIsNewVisitor()
+ * @method int                             getLastUrlId()
+ * @method int                             getQuoteId()
+ * @method string                          getRemoteAddr()
+ * @method string                          getRequestUri()
  * @method Mage_Log_Model_Resource_Visitor getResource()
- * @method int getCustomerId()
- * @method $this setCustomerId(int $value)
- * @method int getCustomerLogId()
- * @method $this setCustomerLogId(int $value)
- * @method bool getDoCustomerLogin()
- * @method $this setDoCustomerLogin(bool $value)
- * @method bool getDoCustomerLogout()
- * @method $this setDoCustomerLogout(bool $value)
- * @method bool getDoQuoteCreate()
- * @method $this setDoQuoteCreate(bool $value)
- * @method bool getDoQuoteDestroy()
- * @method $this setDoQuoteDestroy(bool $value)
- * @method $this setFirstVisitAt(string $value)
- * @method string getHttpAcceptCharset()
- * @method string getHttpAcceptLanguage()
- * @method string getHttpHost()
- * @method string getHttpReferer()
- * @method string getHttpSecure()
- * @method string getHttpUserAgent()
- * @method bool getIsNewVisitor()
- * @method $this setIsNewVisitor(bool $value)
- * @method $this setLastVisitAt(string $value)
- * @method int getLastUrlId()
- * @method $this setLastUrlId(int $value)
- * @method int getQuoteId()
- * @method $this setQuoteId(int $value)
- * @method string getRemoteAddr()
- * @method string getRequestUri()
- * @method string getServerAddr()
- * @method string getSessionId()
- * @method $this setSessionId(string $value)
- * @method int getStoreId()
- * @method $this setStoreId(int $value)
- * @method int getVisitorId()
+ * @method string                          getServerAddr()
+ * @method string                          getSessionId()
+ * @method int                             getStoreId()
+ * @method int                             getVisitorId()
+ * @method $this                           setCustomerId(int $value)
+ * @method $this                           setCustomerLogId(int $value)
+ * @method $this                           setDoCustomerLogin(bool $value)
+ * @method $this                           setDoCustomerLogout(bool $value)
+ * @method $this                           setDoQuoteCreate(bool $value)
+ * @method $this                           setDoQuoteDestroy(bool $value)
+ * @method $this                           setFirstVisitAt(string $value)
+ * @method $this                           setIsNewVisitor(bool $value)
+ * @method $this                           setLastUrlId(int $value)
+ * @method $this                           setLastVisitAt(string $value)
+ * @method $this                           setQuoteId(int $value)
+ * @method $this                           setSessionId(string $value)
+ * @method $this                           setStoreId(int $value)
  */
 class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
 {
     public const DEFAULT_ONLINE_MINUTES_INTERVAL = 15;
+
     public const VISITOR_TYPE_CUSTOMER = 'c';
+
     public const VISITOR_TYPE_VISITOR  = 'v';
 
     protected $_skipRequestLogging = false;
@@ -79,16 +82,16 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
      */
     public function __construct(array $data = [])
     {
-        $this->_httpHelper = !empty($data['http_helper']) ? $data['http_helper'] : Mage::helper('core/http');
-        $this->_config = !empty($data['config']) ? $data['config'] : Mage::getConfig();
-        $this->_logCondition = !empty($data['log_condition']) ?
-            $data['log_condition'] : Mage::helper('log');
-        $this->_session = !empty($data['session']) ? $data['session'] : Mage::getSingleton('core/session');
+        $this->_httpHelper = empty($data['http_helper']) ? Mage::helper('core/http') : $data['http_helper'];
+        $this->_config = empty($data['config']) ? Mage::getConfig() : $data['config'];
+        $this->_logCondition = empty($data['log_condition'])
+            ? Mage::helper('log') : $data['log_condition'];
+        $this->_session = empty($data['session']) ? Mage::getSingleton('core/session') : $data['session'];
         parent::__construct($data);
     }
 
     /**
-     * Object initialization
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -176,7 +179,8 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
         if (!$this->hasData('first_visit_at')) {
             $this->setData('first_visit_at', Varien_Date::now());
         }
-        return $this->getData('first_visit_at');
+
+        return $this->getDataByKey('first_visit_at');
     }
 
     /**
@@ -187,7 +191,8 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
         if (!$this->hasData('last_visit_at')) {
             $this->setData('last_visit_at', Varien_Date::now());
         }
-        return $this->getData('last_visit_at');
+
+        return $this->getDataByKey('last_visit_at');
     }
 
     /**
@@ -195,8 +200,8 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
      *
      * Used in event "controller_action_predispatch"
      *
-     * @param   Varien_Event_Observer $observer
-     * @return  $this
+     * @param  Varien_Event_Observer $observer
+     * @return $this
      */
     public function initByRequest($observer)
     {
@@ -213,9 +218,11 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
             $this->setIsNewVisitor(true);
             $this->save();
         }
+
         if (!$visitorId || $this->_isVisitorSessionNew()) {
             Mage::dispatchEvent('visitor_init', ['visitor' => $this]);
         }
+
         return $this;
     }
 
@@ -231,6 +238,7 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
         if (is_array($visitorData) && isset($visitorData['session_id'])) {
             $visitorSessionId = $visitorData['session_id'];
         }
+
         return $this->_session->getSessionId() != $visitorSessionId;
     }
 
@@ -239,8 +247,8 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
      *
      * Used in event "controller_action_postdispatch"
      *
-     * @param   Varien_Event_Observer $observer
-     * @return  $this
+     * @param  Varien_Event_Observer $observer
+     * @return $this
      */
     public function saveByRequest($observer)
     {
@@ -253,9 +261,10 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
             $this->setLastVisitAt(Varien_Date::now());
             $this->save();
             $this->_session->setVisitorData($this->getData());
-        } catch (Exception $e) {
-            Mage::logException($e);
+        } catch (Exception $exception) {
+            Mage::logException($exception);
         }
+
         return $this;
     }
 
@@ -264,8 +273,8 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
      *
      * Used in event "customer_login"
      *
-     * @param   Varien_Event_Observer $observer
-     * @return  $this
+     * @param  Varien_Event_Observer $observer
+     * @return $this
      */
     public function bindCustomerLogin($observer)
     {
@@ -275,6 +284,7 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
             $this->setDoCustomerLogin(true);
             $this->setCustomerId($customer->getId());
         }
+
         return $this;
     }
 
@@ -283,36 +293,36 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
      *
      * Used in event "customer_logout"
      *
-     * @param   Varien_Event_Observer $observer
-     * @return  $this
+     * @param  Varien_Event_Observer $observer
+     * @return $this
      */
     public function bindCustomerLogout($observer)
     {
-        if ($this->getCustomerId() && $customer = $observer->getEvent()->getCustomer()) {
+        if ($this->getCustomerId() && $observer->getEvent()->getCustomer()) {
             $this->setDoCustomerLogout(true);
         }
+
         return $this;
     }
 
     /**
-     * @param Varien_Event_Observer $observer
+     * @param  Varien_Event_Observer $observer
      * @return $this
      */
     public function bindQuoteCreate($observer)
     {
         /** @var Mage_Sales_Model_Quote $quote */
         $quote = $observer->getEvent()->getQuote();
-        if ($quote) {
-            if ($quote->getIsCheckoutCart()) {
-                $this->setQuoteId($quote->getId());
-                $this->setDoQuoteCreate(true);
-            }
+        if ($quote && $quote->getIsCheckoutCart()) {
+            $this->setQuoteId($quote->getId());
+            $this->setDoQuoteCreate(true);
         }
+
         return $this;
     }
 
     /**
-     * @param Varien_Event_Observer $observer
+     * @param  Varien_Event_Observer $observer
      * @return $this
      */
     public function bindQuoteDestroy($observer)
@@ -322,12 +332,13 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
         if ($quote) {
             $this->setDoQuoteDestroy(true);
         }
+
         return $this;
     }
 
     /**
      * Methods for research (depends on customer online admin section)
-     * @param Varien_Object $data
+     * @param  Varien_Object $data
      * @return $this
      */
     public function addIpData($data)
@@ -338,7 +349,7 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @param Varien_Object $data
+     * @param  Varien_Object $data
      * @return $this
      */
     public function addCustomerData($data)
@@ -347,6 +358,7 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
         if ((int) $customerId <= 0) {
             return $this;
         }
+
         $customerData = Mage::getModel('customer/customer')->load($customerId);
         $newCustomerData = [];
         foreach ($customerData->getData() as $propName => $propValue) {
@@ -358,7 +370,7 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @param Varien_Object $data
+     * @param  Varien_Object $data
      * @return $this
      */
     public function addQuoteData($data)
@@ -367,12 +379,13 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
         if ((int) $quoteId <= 0) {
             return $this;
         }
+
         $data->setQuoteData(Mage::getModel('sales/quote')->load($quoteId));
         return $this;
     }
 
     /**
-     * @param Varien_Event_Observer $observer
+     * @param  Varien_Event_Observer $observer
      * @return bool
      */
     public function isModuleIgnored($observer)
@@ -385,6 +398,7 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
                 return true;
             }
         }
+
         return false;
     }
 }

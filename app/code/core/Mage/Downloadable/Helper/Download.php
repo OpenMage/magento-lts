@@ -15,6 +15,7 @@
 class Mage_Downloadable_Helper_Download extends Mage_Core_Helper_Abstract
 {
     public const LINK_TYPE_URL         = 'url';
+
     public const LINK_TYPE_FILE        = 'file';
 
     public const XML_PATH_CONTENT_DISPOSITION  = 'catalog/downloadable/content_disposition';
@@ -38,7 +39,7 @@ class Mage_Downloadable_Helper_Download extends Mage_Core_Helper_Abstract
     /**
      * Resource open handle
      *
-     * @var resource|Varien_Io_File|null
+     * @var null|resource|Varien_Io_File
      */
     protected $_handle          = null;
 
@@ -66,7 +67,9 @@ class Mage_Downloadable_Helper_Download extends Mage_Core_Helper_Abstract
     /**
      * Retrieve Resource file handle (socket, file pointer etc)
      *
-     * @return resource
+     * @return resource|Varien_Io_File
+     * @throws Exception
+     * @throws Mage_Core_Exception
      */
     protected function _getHandle()
     {
@@ -81,13 +84,15 @@ class Mage_Downloadable_Helper_Download extends Mage_Core_Helper_Abstract
                  */
                 $urlProp = parse_url($this->_resourceFile);
                 if (!isset($urlProp['scheme'])
-                    || strtolower($urlProp['scheme'] != 'http') && strtolower($urlProp['scheme'] != 'https')
+                    || strtolower($urlProp['scheme']) != 'http' && strtolower($urlProp['scheme']) != 'https'
                 ) {
                     Mage::throwException(Mage::helper('downloadable')->__('Invalid download URL scheme.'));
                 }
+
                 if (!isset($urlProp['host'])) {
                     Mage::throwException(Mage::helper('downloadable')->__('Invalid download URL host.'));
                 }
+
                 switch ($urlProp['scheme']) {
                     case 'https':
                         $scheme = 'ssl://';
@@ -98,10 +103,11 @@ class Mage_Downloadable_Helper_Download extends Mage_Core_Helper_Abstract
                         $scheme = '';
                         $port = 80;
                 }
+
                 $hostname = $scheme . $urlProp['host'];
 
                 if (isset($urlProp['port'])) {
-                    $port = (int) $urlProp['port'];
+                    $port = $urlProp['port'];
                 }
 
                 $path = $urlProp['path'] ?? '/';
@@ -112,8 +118,8 @@ class Mage_Downloadable_Helper_Download extends Mage_Core_Helper_Abstract
 
                 try {
                     $this->_handle = fsockopen($hostname, $port, $errno, $errstr);
-                } catch (Exception $e) {
-                    throw $e;
+                } catch (Exception $exception) {
+                    throw $exception;
                 }
 
                 if ($this->_handle === false) {
@@ -132,14 +138,15 @@ class Mage_Downloadable_Helper_Download extends Mage_Core_Helper_Abstract
                     if ($str == "\r\n") {
                         break;
                     }
+
                     $match = [];
                     if (preg_match('#^([^:]+): (.*)\s+$#', $str, $match)) {
-                        $k = strtolower($match[1]);
-                        if ($k == 'set-cookie') {
+                        $key = strtolower($match[1]);
+                        if ($key == 'set-cookie') {
                             continue;
-                        } else {
-                            $this->_urlHeaders[$k] = trim($match[2]);
                         }
+
+                        $this->_urlHeaders[$key] = trim($match[2]);
                     } elseif (preg_match('#^HTTP/[0-9\.]+ (\d+) (.*)\s$#', $str, $match)) {
                         $this->_urlHeaders['code'] = $match[1];
                         $this->_urlHeaders['code-string'] = trim($match[2]);
@@ -154,31 +161,37 @@ class Mage_Downloadable_Helper_Download extends Mage_Core_Helper_Abstract
                 if (!is_file($this->_resourceFile)) {
                     Mage::helper('core/file_storage_database')->saveFileToFilesystem($this->_resourceFile);
                 }
+
                 $this->_handle->open(['path' => Mage::getBaseDir('var')]);
                 if (!$this->_handle->fileExists($this->_resourceFile, true)) {
                     Mage::throwException(Mage::helper('downloadable')->__('The file does not exist.'));
                 }
+
                 $this->_handle->streamOpen($this->_resourceFile, 'r');
             } else {
                 Mage::throwException(Mage::helper('downloadable')->__('Invalid download link type.'));
             }
         }
+
         return $this->_handle;
     }
 
     /**
      * Retrieve file size in bytes
+     *
+     * @throws Mage_Core_Exception
      */
     public function getFilesize()
     {
         $handle = $this->_getHandle();
         if ($this->_linkType == self::LINK_TYPE_FILE) {
             return $handle->streamStat('size');
-        } elseif ($this->_linkType == self::LINK_TYPE_URL) {
-            if (isset($this->_urlHeaders['content-length'])) {
-                return $this->_urlHeaders['content-length'];
-            }
         }
+
+        if ($this->_linkType == self::LINK_TYPE_URL && isset($this->_urlHeaders['content-length'])) {
+            return $this->_urlHeaders['content-length'];
+        }
+
         return null;
     }
 
@@ -188,52 +201,58 @@ class Mage_Downloadable_Helper_Download extends Mage_Core_Helper_Abstract
      */
     public function getContentType()
     {
-        $handle = $this->_getHandle();
+        $this->_getHandle();
         if ($this->_linkType == self::LINK_TYPE_FILE) {
             if (function_exists('mime_content_type') && ($contentType = mime_content_type($this->_resourceFile))) {
                 return $contentType;
-            } else {
-                return Mage::helper('downloadable/file')->getFileType($this->_resourceFile);
             }
-        } elseif ($this->_linkType == self::LINK_TYPE_URL) {
-            if (isset($this->_urlHeaders['content-type'])) {
-                $contentType = explode('; ', $this->_urlHeaders['content-type']);
-                return $contentType[0];
-            }
+
+            return Mage::helper('downloadable/file')->getFileType($this->_resourceFile);
         }
+
+        if ($this->_linkType == self::LINK_TYPE_URL && isset($this->_urlHeaders['content-type'])) {
+            $contentType = explode('; ', $this->_urlHeaders['content-type']);
+            return $contentType[0];
+        }
+
         return $this->_contentType;
     }
 
     /**
-     * @return bool|mixed|string
-     * @throws Exception
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
+     * @return array|string
+     * @throws Exception
      */
     public function getFilename()
     {
-        $handle = $this->_getHandle();
+        $this->_getHandle();
         if ($this->_linkType == self::LINK_TYPE_FILE) {
             return pathinfo($this->_resourceFile, PATHINFO_BASENAME);
-        } elseif ($this->_linkType == self::LINK_TYPE_URL) {
+        }
+
+        if ($this->_linkType == self::LINK_TYPE_URL) {
             if (isset($this->_urlHeaders['content-disposition'])) {
                 $contentDisposition = explode('; ', $this->_urlHeaders['content-disposition']);
                 if (!empty($contentDisposition[1]) && str_contains($contentDisposition[1], 'filename=')) {
                     return substr($contentDisposition[1], 9);
                 }
             }
+
             if ($fileName = @pathinfo($this->_resourceFile, PATHINFO_BASENAME)) {
                 return $fileName;
             }
         }
+
         return $this->_fileName;
     }
 
     /**
      * Set resource file for download
      *
-     * @param string $resourceFile
-     * @param string $linkType
+     * @param  string              $resourceFile
+     * @param  string              $linkType
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function setResource($resourceFile, $linkType = self::LINK_TYPE_FILE)
     {
@@ -270,6 +289,9 @@ class Mage_Downloadable_Helper_Download extends Mage_Core_Helper_Abstract
         return Mage::app()->getFrontController()->getResponse();
     }
 
+    /**
+     * @throws Mage_Core_Exception
+     */
     public function output()
     {
         $handle = $this->_getHandle();
@@ -287,7 +309,7 @@ class Mage_Downloadable_Helper_Download extends Mage_Core_Helper_Abstract
     /**
      * Use Content-Disposition: attachment
      *
-     * @param mixed $store
+     * @param  mixed $store
      * @return bool
      */
     public function getContentDisposition($store = null)

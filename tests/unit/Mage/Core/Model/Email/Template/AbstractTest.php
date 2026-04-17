@@ -1,16 +1,10 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   OpenMage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    OpenMage_Tests
- * @copyright  Copyright (c) 2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 declare(strict_types=1);
@@ -25,10 +19,9 @@ final class AbstractTest extends OpenMageTest
 {
     use AbstractTrait;
 
-    /** @phpstan-ignore property.onlyWritten */
     private static Subject $subject;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         self::$subject = $this->getMockForAbstractClass(Subject::class);
     }
@@ -45,8 +38,6 @@ final class AbstractTest extends OpenMageTest
             self::assertFileDoesNotExist($filePath);
         }
 
-        self::markTestSkipped('wait...');
-        /** @phpstan-ignore deadCode.unreachable */
         self::assertSame($expectedResult, self::$subject->validateFileExension($filePath, $extension));
     }
 }

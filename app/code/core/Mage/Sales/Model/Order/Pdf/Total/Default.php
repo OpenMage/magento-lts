@@ -12,14 +12,14 @@
  *
  * @package    Mage_Sales
  *
- * @method string getAmountPrefix()
- * @method bool getDisplayZero()
- * @method int getFontSize()
+ * @method string                 getAmountPrefix()
+ * @method bool                   getDisplayZero()
+ * @method int                    getFontSize()
  * @method Mage_Sales_Model_Order getOrder()
- * @method Varien_Object getSource()
- * @method string getSourceField()
- * @method string getTitle()
- * @method string getTitleSourceField()
+ * @method Varien_Object          getSource()
+ * @method string                 getSourceField()
+ * @method string                 getTitle()
+ * @method string                 getTitleSourceField()
  */
 class Mage_Sales_Model_Order_Pdf_Total_Default extends Varien_Object
 {
@@ -32,7 +32,7 @@ class Mage_Sales_Model_Order_Pdf_Total_Default extends Varien_Object
      *      'font_size'=> $fontSize
      *  )
      * )
-     * @return array
+     * @return array<int, array<string, int|string>>
      */
     public function getTotalsForDisplay()
     {
@@ -40,12 +40,9 @@ class Mage_Sales_Model_Order_Pdf_Total_Default extends Varien_Object
         if ($this->getAmountPrefix()) {
             $amount = $this->getAmountPrefix() . $amount;
         }
+
         $title = $this->_getSalesHelper()->__($this->getTitle());
-        if ($this->getTitleSourceField()) {
-            $label = $title . ' (' . $this->getTitleDescription() . '):';
-        } else {
-            $label = $title . ':';
-        }
+        $label = $this->getTitleSourceField() ? $title . ' (' . $this->getTitleDescription() . '):' : $title . ':';
 
         $fontSize = $this->getFontSize() ? $this->getFontSize() : 7;
         $total = [
@@ -82,7 +79,7 @@ class Mage_Sales_Model_Order_Pdf_Total_Default extends Varien_Object
         $shippingTax    = $this->_getShippingTax();
         $taxClassAmount = array_merge($taxClassAmount, $shippingTax);
 
-        if (!empty($taxClassAmount)) {
+        if ($taxClassAmount !== []) {
             foreach ($taxClassAmount as &$tax) {
                 $percent          = $tax['percent'] ? ' (' . $tax['percent'] . '%)' : '';
                 $tax['amount']    = $this->getAmountPrefix() . $this->getOrder()->formatPriceTxt($tax['tax_amount']);
@@ -112,6 +109,7 @@ class Mage_Sales_Model_Order_Pdf_Total_Default extends Varien_Object
                     }
                 }
             }
+
             $taxClassAmount = $taxInfo;
         }
 
@@ -165,7 +163,11 @@ class Mage_Sales_Model_Order_Pdf_Total_Default extends Varien_Object
     public function canDisplay()
     {
         $amount = $this->getAmount();
-        return $this->getDisplayZero() || ($amount != 0);
+        if ($this->getDisplayZero()) {
+            return true;
+        }
+
+        return $amount != 0;
     }
 
     /**

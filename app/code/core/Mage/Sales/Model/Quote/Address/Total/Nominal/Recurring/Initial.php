@@ -20,6 +20,7 @@ class Mage_Sales_Model_Quote_Address_Total_Nominal_Recurring_Initial extends Mag
      * @var string
      */
     protected $_itemRowTotalKey = 'recurring_initial_fee';
+
     protected $_profileDataKey = 'init_amount';
 
     /**

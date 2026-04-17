@@ -7,24 +7,37 @@
  * @package    Mage_Core
  */
 
+use Carbon\Carbon;
+use Mage_Adminhtml_Model_System_Config_Source_Cookie_Samesite as CookieSamesite;
+
 /**
  * @package    Mage_Core
  *
- * @method bool|null getSkipEmptySessionCheck()
- * @method $this setSkipEmptySessionCheck(bool $flag)
+ * @method null|bool getSkipEmptySessionCheck()
+ * @method $this     setSkipEmptySessionCheck(bool $flag)
  */
 class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
 {
     public const VALIDATOR_KEY                         = '_session_validator_data';
+
     public const VALIDATOR_HTTP_USER_AGENT_KEY         = 'http_user_agent';
+
     public const VALIDATOR_HTTP_X_FORVARDED_FOR_KEY    = 'http_x_forwarded_for';
+
     public const VALIDATOR_HTTP_VIA_KEY                = 'http_via';
+
     public const VALIDATOR_REMOTE_ADDR_KEY             = 'remote_addr';
+
     public const VALIDATOR_SESSION_EXPIRE_TIMESTAMP    = 'session_expire_timestamp';
+
     public const VALIDATOR_SESSION_RENEW_TIMESTAMP     = 'session_renew_timestamp';
+
     public const VALIDATOR_SESSION_LIFETIME            = 'session_lifetime';
+
     public const VALIDATOR_PASSWORD_CREATE_TIMESTAMP   = 'password_create_timestamp';
+
     public const SECURE_COOKIE_CHECK_KEY               = '_secure_cookie_check';
+
     public const REGISTRY_CONCURRENCY_ERROR            = 'concurrent_connections_exceeded';
 
     /** @var bool Flag true if session validator data has already been evaluated */
@@ -40,7 +53,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
     /**
      * Configure and start session
      *
-     * @param string $sessionName
+     * @param  string                          $sessionName
      * @return $this
      * @throws Mage_Core_Model_Store_Exception
      * @SuppressWarnings("PHPMD.Superglobals")
@@ -70,6 +83,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
                 if (method_exists($sessionResource, 'setDieOnError')) {
                     $sessionResource->setDieOnError(false);
                 }
+
                 break;
             case 'user':
                 // getSessionSavePath represents static function for custom session handler setup
@@ -94,6 +108,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
             if ($adminSessionLifetime > $sessionMaxLifetime) {
                 $adminSessionLifetime = $sessionMaxLifetime;
             }
+
             if ($adminSessionLifetime > 60) {
                 $cookie->setLifetime($adminSessionLifetime);
             }
@@ -108,6 +123,11 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
             'httponly' => $cookie->getHttponly(),
             'samesite' => $cookie->getSameSite(),
         ];
+
+        if (!$cookie->isSecure() && $cookieParams['samesite'] === CookieSamesite::NONE) {
+            // PHP doesn't allow to set SameSite=None for non-secure cookies
+            unset($cookieParams['samesite']);
+        }
 
         if (!$cookieParams['httponly']) {
             unset($cookieParams['httponly']);
@@ -129,16 +149,17 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
             $this->setSessionName($sessionName);
 
             // Migrate old cookie from 'frontend'
-            if ($sessionName === \Mage_Core_Controller_Front_Action::SESSION_NAMESPACE
+            if ($sessionName === Mage_Core_Controller_Front_Action::SESSION_NAMESPACE
                 && $cookie->get('frontend')
-                && ! $cookie->get(\Mage_Core_Controller_Front_Action::SESSION_NAMESPACE)
+                && ! $cookie->get(Mage_Core_Controller_Front_Action::SESSION_NAMESPACE)
             ) {
                 $frontendValue = $cookie->get('frontend');
-                $_COOKIE[\Mage_Core_Controller_Front_Action::SESSION_NAMESPACE] = $frontendValue;
+                $_COOKIE[Mage_Core_Controller_Front_Action::SESSION_NAMESPACE] = $frontendValue;
                 $cookie->set(Mage_Core_Controller_Front_Action::SESSION_NAMESPACE, $frontendValue);
                 $cookie->delete('frontend');
             }
         }
+
         // potential custom logic for session id (ex. switching between hosts)
         $this->setSessionId();
 
@@ -153,14 +174,14 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
             if (session_start() === false) {
                 throw new Exception('Unable to start session.');
             }
-        } catch (Throwable $e) {
+        } catch (Throwable $throwable) {
             session_abort();
             if (Mage::registry(self::REGISTRY_CONCURRENCY_ERROR)) {
                 require_once Mage::getBaseDir() . DS . 'errors' . DS . '503.php';
                 die();
-            } else {
-                Mage::printException($e);
             }
+
+            Mage::printException($throwable);
         }
 
         Mage::dispatchEvent('session_before_renew_cookie', ['cookie' => $cookie]);
@@ -172,7 +193,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
 
             // Migrate old cookie from 'frontend'
             if (!$cookieValue
-                && $sessionName === \Mage_Core_Controller_Front_Action::SESSION_NAMESPACE
+                && $sessionName === Mage_Core_Controller_Front_Action::SESSION_NAMESPACE
                 && $cookie->get('frontend_cid')
             ) {
                 $cookieValue = $cookie->get('frontend_cid');
@@ -201,6 +222,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
                         $cookie->delete($this->getSessionName(), null, $host);
                     }
                 }
+
                 $_SESSION = [];
             }
         }
@@ -211,6 +233,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
         if ($cookie->get(session_name()) == $this->getSessionId()) {
             $cookie->renew(session_name());
         }
+
         Varien_Profiler::stop(__METHOD__ . '/start');
 
         return $this;
@@ -249,8 +272,8 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
 
     /**
      * Revalidate cookie
-     * @deprecated after 1.4 cookie renew moved to session start method
      * @return $this
+     * @deprecated after 1.4 cookie renew moved to session start method
      */
     public function revalidateCookie()
     {
@@ -260,8 +283,8 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
     /**
      * Init session with namespace
      *
-     * @param string $namespace
-     * @param string $sessionName
+     * @param  string $namespace
+     * @param  string $sessionName
      * @return $this
      * @SuppressWarnings("PHPMD.Superglobals")
      */
@@ -270,6 +293,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
         if (!isset($_SESSION)) {
             $this->start($sessionName);
         }
+
         if (!isset($_SESSION[$namespace])) {
             $_SESSION[$namespace] = [];
         }
@@ -285,8 +309,8 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
     /**
      * Additional get data with clear mode
      *
-     * @param string $key
-     * @param bool $clear
+     * @param  string $key
+     * @param  bool   $clear
      * @return mixed
      */
     public function getData($key = '', $clear = false)
@@ -295,6 +319,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
         if ($clear && isset($this->_data[$key])) {
             unset($this->_data[$key]);
         }
+
         return $data;
     }
 
@@ -311,7 +336,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
     /**
      * Set custom session id
      *
-     * @param string $id
+     * @param  string $id
      * @return $this
      */
     public function setSessionId($id = null)
@@ -319,6 +344,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
         if (!is_null($id) && preg_match('#^[0-9a-zA-Z,-]+$#', $id)) {
             session_id($id);
         }
+
         return $this;
     }
 
@@ -335,7 +361,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
     /**
      * Set session name
      *
-     * @param string $name
+     * @param  string $name
      * @return $this
      */
     public function setSessionName($name)
@@ -449,7 +475,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
     /**
      * Retrieve skip User Agent validation strings (Flash etc)
      *
-     * @return array
+     * @return array<int, string>|array<void>
      */
     public function getValidateHttpUserAgentSkip()
     {
@@ -459,8 +485,8 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
     /**
      * Validate session
      *
-     * @throws Mage_Core_Model_Session_Exception
      * @return $this
+     * @throws Mage_Core_Model_Session_Exception
      * @SuppressWarnings("PHPMD.Superglobals")
      */
     public function validate()
@@ -470,6 +496,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
             $_SESSION[self::VALIDATOR_KEY] = $this->_data[self::VALIDATOR_KEY];
             unset($this->_data[self::VALIDATOR_KEY]);
         }
+
         if (!isset($_SESSION[self::VALIDATOR_KEY])) {
             $_SESSION[self::VALIDATOR_KEY] = $this->getValidatorData();
         } else {
@@ -481,7 +508,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
 
             // Refresh expire timestamp
             if ($this->useValidateSessionExpire() || $this->useValidateSessionPasswordTimestamp()) {
-                $this->setValidatorSessionRenewTimestamp(time());
+                $this->setValidatorSessionRenewTimestamp(Carbon::now()->getTimestamp());
                 $_SESSION[self::VALIDATOR_KEY][self::VALIDATOR_SESSION_LIFETIME] = $this->getCookie()->getLifetime();
             }
         }
@@ -493,7 +520,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
      * Update the session's last legitimate renewal time (call when customer password is updated to avoid
      * being logged out)
      *
-     * @param int $timestamp
+     * @param  int  $timestamp
      * @return void
      * @SuppressWarnings("PHPMD.Superglobals")
      */
@@ -519,6 +546,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
         ) {
             return false;
         }
+
         if ($this->useValidateHttpVia()
                 && $sessionData[self::VALIDATOR_HTTP_VIA_KEY] != $validatorData[self::VALIDATOR_HTTP_VIA_KEY]
         ) {
@@ -530,6 +558,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
         ) {
             return false;
         }
+
         if ($this->useValidateHttpUserAgent()
             && $sessionData[self::VALIDATOR_HTTP_USER_AGENT_KEY] != $validatorData[self::VALIDATOR_HTTP_USER_AGENT_KEY]
         ) {
@@ -539,6 +568,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
                     return true;
                 }
             }
+
             return false;
         }
 
@@ -546,26 +576,23 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
             && isset($sessionData[self::VALIDATOR_SESSION_RENEW_TIMESTAMP])
             && isset($sessionData[self::VALIDATOR_SESSION_LIFETIME])
             && ((int) $sessionData[self::VALIDATOR_SESSION_RENEW_TIMESTAMP] + (int) $sessionData[self::VALIDATOR_SESSION_LIFETIME])
-            < time()
-        ) {
-            return false;
-        }
-        if ($this->useValidateSessionPasswordTimestamp()
-            && isset($validatorData[self::VALIDATOR_PASSWORD_CREATE_TIMESTAMP])
-            && isset($sessionData[self::VALIDATOR_SESSION_RENEW_TIMESTAMP])
-            && $validatorData[self::VALIDATOR_PASSWORD_CREATE_TIMESTAMP]
-            > $sessionData[self::VALIDATOR_SESSION_RENEW_TIMESTAMP]
+            < Carbon::now()->getTimestamp()
         ) {
             return false;
         }
 
-        return true;
+        return !(
+            $this->useValidateSessionPasswordTimestamp()
+            && isset($validatorData[self::VALIDATOR_PASSWORD_CREATE_TIMESTAMP])
+            && isset($sessionData[self::VALIDATOR_SESSION_RENEW_TIMESTAMP])
+            && $validatorData[self::VALIDATOR_PASSWORD_CREATE_TIMESTAMP] > $sessionData[self::VALIDATOR_SESSION_RENEW_TIMESTAMP]
+        );
     }
 
     /**
      * Retrieve unique user data for validator
      *
-     * @return array
+     * @return array<string, mixed>
      * @SuppressWarnings("PHPMD.Superglobals")
      */
     public function getValidatorData()
@@ -581,9 +608,11 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
         if (Mage::helper('core/http')->getRemoteAddr()) {
             $parts[self::VALIDATOR_REMOTE_ADDR_KEY] = Mage::helper('core/http')->getRemoteAddr();
         }
+
         if (isset($_ENV['HTTP_VIA'])) {
             $parts[self::VALIDATOR_HTTP_VIA_KEY] = (string) $_ENV['HTTP_VIA'];
         }
+
         if (isset($_ENV['HTTP_X_FORWARDED_FOR'])) {
             $parts[self::VALIDATOR_HTTP_X_FORVARDED_FOR_KEY] = (string) $_ENV['HTTP_X_FORWARDED_FOR'];
         }
@@ -595,8 +624,8 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
 
         // get time when password was last changed
         if (isset($this->_data['visitor_data']['customer_id'])) {
-            $parts[self::VALIDATOR_PASSWORD_CREATE_TIMESTAMP] =
-                Mage::helper('customer')->getPasswordTimestamp($this->_data['visitor_data']['customer_id']);
+            $parts[self::VALIDATOR_PASSWORD_CREATE_TIMESTAMP]
+                = Mage::helper('customer')->getPasswordTimestamp($this->_data['visitor_data']['customer_id']);
         }
 
         return $parts;

@@ -52,7 +52,7 @@ abstract class Mage_ImportExport_Model_Import_Adapter_Abstract implements Seekab
     /**
      * Adapter object constructor.
      *
-     * @param string $source Source file path.
+     * @param  string              $source source file path
      * @throws Mage_Core_Exception
      */
     final public function __construct($source)
@@ -62,9 +62,11 @@ abstract class Mage_ImportExport_Model_Import_Adapter_Abstract implements Seekab
         if (!is_string($source)) {
             Mage::throwException(Mage::helper('importexport')->__('Source file path must be a string'));
         }
+
         if (!is_readable($source)) {
             Mage::throwException(Mage::helper('importexport')->__('%s file does not exists or is not readable', $source));
         }
+
         $this->_source = $source;
 
         $this->_init();
@@ -101,7 +103,7 @@ abstract class Mage_ImportExport_Model_Import_Adapter_Abstract implements Seekab
      *
      * @return array
      */
-    #[\ReturnTypeWillChange]
+    #[ReturnTypeWillChange]
     public function current()
     {
         return array_combine(
@@ -125,9 +127,9 @@ abstract class Mage_ImportExport_Model_Import_Adapter_Abstract implements Seekab
     /**
      * Return the key of the current element.
      *
-     * @return int More than 0 integer on success, integer 0 on failure.
+     * @return int more than 0 integer on success, integer 0 on failure
      */
-    #[\ReturnTypeWillChange]
+    #[ReturnTypeWillChange]
     public function key()
     {
         return $this->_currentKey;
@@ -136,9 +138,9 @@ abstract class Mage_ImportExport_Model_Import_Adapter_Abstract implements Seekab
     /**
      * Seeks to a position.
      *
-     * @param int $position The position to seek to.
+     * @param int $position the position to seek to
      */
-    #[\ReturnTypeWillChange]
+    #[ReturnTypeWillChange]
     public function seek($position)
     {
         Mage::throwException(Mage::helper('importexport')->__('Not implemented yet'));
@@ -147,9 +149,9 @@ abstract class Mage_ImportExport_Model_Import_Adapter_Abstract implements Seekab
     /**
      * Checks if current position is valid.
      *
-     * @return bool Returns true on success or false on failure.
+     * @return bool returns true on success or false on failure
      */
-    #[\ReturnTypeWillChange]
+    #[ReturnTypeWillChange]
     public function valid()
     {
         return !empty($this->_currentRow);

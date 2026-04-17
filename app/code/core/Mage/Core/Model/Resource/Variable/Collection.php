@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -22,8 +24,7 @@ class Mage_Core_Model_Resource_Variable_Collection extends Mage_Core_Model_Resou
     protected $_storeId    = 0;
 
     /**
-     *  Define resource model
-     *
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -34,7 +35,7 @@ class Mage_Core_Model_Resource_Variable_Collection extends Mage_Core_Model_Resou
     /**
      * Setter
      *
-     * @param int $storeId
+     * @param  int   $storeId
      * @return $this
      */
     public function setStoreId($storeId)

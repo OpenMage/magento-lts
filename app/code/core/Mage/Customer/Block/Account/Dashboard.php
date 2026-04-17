@@ -13,7 +13,7 @@
  * @package    Mage_Customer
  *
  * @method string getRefererUrl()
- * @method $this setRefererUrl(string $value)
+ * @method $this  setRefererUrl(string $value)
  */
 class Mage_Customer_Block_Account_Dashboard extends Mage_Core_Block_Template
 {
@@ -44,7 +44,7 @@ class Mage_Customer_Block_Account_Dashboard extends Mage_Core_Block_Template
     }
 
     /**
-     * @param Mage_Customer_Model_Address $address
+     * @param  Mage_Customer_Model_Address $address
      * @return string
      */
     public function getAddressEditUrl($address)
@@ -122,6 +122,7 @@ class Mage_Customer_Block_Account_Dashboard extends Mage_Core_Block_Template
         if (empty($addresses)) {
             return false;
         }
+
         return $addresses;
     }
 
@@ -140,6 +141,7 @@ class Mage_Customer_Block_Account_Dashboard extends Mage_Core_Block_Template
         if ($this->getRefererUrl()) {
             return $this->getRefererUrl();
         }
+
         return $this->getUrl('customer/account/');
     }
 }

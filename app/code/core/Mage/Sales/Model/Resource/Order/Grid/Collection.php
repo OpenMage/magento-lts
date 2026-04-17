@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -29,6 +31,9 @@ class Mage_Sales_Model_Resource_Order_Grid_Collection extends Mage_Sales_Model_R
      */
     protected $_customerModeFlag = false;
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         parent::_construct();
@@ -64,7 +69,7 @@ class Mage_Sales_Model_Resource_Order_Grid_Collection extends Mage_Sales_Model_R
     /**
      * Set customer mode flag value
      *
-     * @param bool $value
+     * @param  bool  $value
      * @return $this
      */
     public function setIsCustomerMode($value)

@@ -31,6 +31,7 @@ class Mage_Catalog_Block_Product_View_Options_Type_Date extends Mage_Catalog_Blo
         if ($head = $this->getLayout()->getBlock('head')) {
             $head->setCanLoadCalendarJs(true);
         }
+
         return parent::_prepareLayout();
     }
 
@@ -53,9 +54,9 @@ class Mage_Catalog_Block_Product_View_Options_Type_Date extends Mage_Catalog_Blo
     {
         if ($this->useCalendar()) {
             return $this->getCalendarDateHtml();
-        } else {
-            return $this->getDropDownsDateHtml();
         }
+
+        return $this->getDropDownsDateHtml();
     }
 
     /**
@@ -137,6 +138,7 @@ class Mage_Catalog_Block_Product_View_Options_Type_Date extends Mage_Catalog_Blo
                 ])
                 ->getHtml();
         }
+
         $hoursHtml = $this->_getSelectFromToHtml('hour', $hourStart, $hourEnd);
         $minutesHtml = $this->_getSelectFromToHtml('minute', 0, 59);
 
@@ -146,20 +148,21 @@ class Mage_Catalog_Block_Product_View_Options_Type_Date extends Mage_Catalog_Blo
     /**
      * Return drop-down html with range of values
      *
-     * @param string $name      Id/name of html select element
-     * @param string|int $from  Start position
-     * @param string|int $to    End position
-     * @param string $value     Value selected
-     * @return string           Formatted Html
+     * @param  string     $name  Id/name of html select element
+     * @param  int|string $start Start position
+     * @param  int|string $end   End position
+     * @param  string     $value Value selected
+     * @return string     Formatted Html
      */
-    protected function _getSelectFromToHtml($name, $from, $to, $value = null)
+    protected function _getSelectFromToHtml($name, $start, $end, $value = null)
     {
         $options = [
             ['value' => '', 'label' => '-'],
         ];
-        for ($i = $from; $i <= $to; $i++) {
+        for ($i = $start; $i <= $end; $i++) {
             $options[] = ['value' => $i, 'label' => $this->_getValueWithLeadingZeros($i)];
         }
+
         return $this->_getHtmlSelect($name, $value)
             ->setOptions($options)
             ->getHtml();
@@ -168,8 +171,8 @@ class Mage_Catalog_Block_Product_View_Options_Type_Date extends Mage_Catalog_Blo
     /**
      * HTML select element
      *
-     * @param string $name Id/name of html select element
-     * @param string|null $value
+     * @param  string                      $name  Id/name of html select element
+     * @param  null|string                 $value
      * @return Mage_Core_Block_Html_Select
      */
     protected function _getHtmlSelect($name, $value = null)
@@ -187,11 +190,13 @@ class Mage_Catalog_Block_Product_View_Options_Type_Date extends Mage_Catalog_Blo
         if (!$this->getSkipJsReloadPrice()) {
             $extraParams .= ' onchange="opConfig.reloadPrice()"';
         }
+
         $select->setExtraParams($extraParams);
 
         if (is_null($value)) {
             $value = $this->getProduct()->getPreconfiguredValues()->getData('options/' . $option->getId() . '/' . $name);
         }
+
         if (!is_null($value)) {
             $select->setValue($value);
         }
@@ -202,7 +207,7 @@ class Mage_Catalog_Block_Product_View_Options_Type_Date extends Mage_Catalog_Blo
     /**
      * Add Leading Zeros to number less than 10
      *
-     * @param int $value
+     * @param  int        $value
      * @return int|string
      */
     protected function _getValueWithLeadingZeros($value)
@@ -210,6 +215,7 @@ class Mage_Catalog_Block_Product_View_Options_Type_Date extends Mage_Catalog_Blo
         if (!$this->_fillLeadingZeros) {
             return $value;
         }
+
         return $value < 10 ? '0' . $value : $value;
     }
 }

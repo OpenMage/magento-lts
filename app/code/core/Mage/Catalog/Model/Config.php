@@ -17,9 +17,11 @@ class Mage_Catalog_Model_Config extends Mage_Eav_Model_Config
     public const XML_PATH_LIST_DEFAULT_SORT_BY     = 'catalog/frontend/default_sort_by';
 
     protected $_attributeSetsById;
+
     protected $_attributeSetsByName;
 
     protected $_attributeGroupsById;
+
     protected $_attributeGroupsByName;
 
     /**
@@ -35,21 +37,21 @@ class Mage_Catalog_Model_Config extends Mage_Eav_Model_Config
     /**
      * Array of attributes codes needed for product load
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_productAttributes;
 
     /**
      * Product Attributes used in product listing
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_usedInProductListing;
 
     /**
      * Product Attributes For Sort By
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_usedForSortBy;
 
@@ -63,7 +65,7 @@ class Mage_Catalog_Model_Config extends Mage_Eav_Model_Config
     }
 
     /**
-     * @param int $storeId
+     * @param  int   $storeId
      * @return $this
      */
     public function setStoreId($storeId)
@@ -102,12 +104,13 @@ class Mage_Catalog_Model_Config extends Mage_Eav_Model_Config
             $this->_attributeSetsById[$entityTypeId][$id] = $name;
             $this->_attributeSetsByName[$entityTypeId][strtolower($name)] = $id;
         }
+
         return $this;
     }
 
     /**
-     * @param int $entityTypeId
-     * @param int $id
+     * @param  int  $entityTypeId
+     * @param  int  $id
      * @return bool
      */
     public function getAttributeSetName($entityTypeId, $id)
@@ -115,17 +118,19 @@ class Mage_Catalog_Model_Config extends Mage_Eav_Model_Config
         if (!is_numeric($id)) {
             return $id;
         }
+
         $this->loadAttributeSets();
 
         if (!is_numeric($entityTypeId)) {
             $entityTypeId = $this->getEntityType($entityTypeId)->getId();
         }
+
         return $this->_attributeSetsById[$entityTypeId][$id] ?? false;
     }
 
     /**
-     * @param int $entityTypeId
-     * @param string $name
+     * @param  int         $entityTypeId
+     * @param  string      $name
      * @return bool|string
      */
     public function getAttributeSetId($entityTypeId, $name)
@@ -133,11 +138,13 @@ class Mage_Catalog_Model_Config extends Mage_Eav_Model_Config
         if (is_numeric($name)) {
             return $name;
         }
+
         $this->loadAttributeSets();
 
         if (!is_numeric($entityTypeId)) {
             $entityTypeId = $this->getEntityType($entityTypeId)->getId();
         }
+
         $name = strtolower($name);
         return $this->_attributeSetsByName[$entityTypeId][$name] ?? false;
     }
@@ -162,12 +169,13 @@ class Mage_Catalog_Model_Config extends Mage_Eav_Model_Config
             $this->_attributeGroupsById[$attributeSetId][$id] = $name;
             $this->_attributeGroupsByName[$attributeSetId][strtolower($name)] = $id;
         }
+
         return $this;
     }
 
     /**
-     * @param int $attributeSetId
-     * @param int $id
+     * @param  int  $attributeSetId
+     * @param  int  $id
      * @return bool
      */
     public function getAttributeGroupName($attributeSetId, $id)
@@ -181,12 +189,13 @@ class Mage_Catalog_Model_Config extends Mage_Eav_Model_Config
         if (!is_numeric($attributeSetId)) {
             $attributeSetId = $this->getAttributeSetId($attributeSetId);
         }
+
         return $this->_attributeGroupsById[$attributeSetId][$id] ?? false;
     }
 
     /**
-     * @param int $attributeSetId
-     * @param string $name
+     * @param  int         $attributeSetId
+     * @param  string      $name
      * @return bool|string
      */
     public function getAttributeGroupId($attributeSetId, $name)
@@ -200,6 +209,7 @@ class Mage_Catalog_Model_Config extends Mage_Eav_Model_Config
         if (!is_numeric($attributeSetId)) {
             $attributeSetId = $this->getAttributeSetId($attributeSetId);
         }
+
         $name = strtolower($name);
         return $this->_attributeGroupsByName[$attributeSetId][$name] ?? false;
     }
@@ -217,8 +227,7 @@ class Mage_Catalog_Model_Config extends Mage_Eav_Model_Config
         $productTypeCollection = Mage::getResourceModel('catalog/product_type_collection')
             ->load();
         */
-        $productTypeCollection = Mage::getModel('catalog/product_type')
-            ->getOptionArray();
+        $productTypeCollection = Mage::getModel('catalog/product_type')::getOptionArray();
 
         $this->_productTypesById = [];
         $this->_productTypesByName = [];
@@ -228,11 +237,12 @@ class Mage_Catalog_Model_Config extends Mage_Eav_Model_Config
             $this->_productTypesById[$id] = $name;
             $this->_productTypesByName[strtolower($name)] = $id;
         }
+
         return $this;
     }
 
     /**
-     * @param string $name
+     * @param  string      $name
      * @return bool|string
      */
     public function getProductTypeId($name)
@@ -248,8 +258,8 @@ class Mage_Catalog_Model_Config extends Mage_Eav_Model_Config
     }
 
     /**
-     * @param int|string $id
-     * @return string|false
+     * @param  int|string   $id
+     * @return false|string
      */
     public function getProductTypeName($id)
     {
@@ -263,9 +273,9 @@ class Mage_Catalog_Model_Config extends Mage_Eav_Model_Config
     }
 
     /**
-     * @param Mage_Eav_Model_Entity_Attribute_Source_Interface $source
-     * @param string $value
-     * @return string|null
+     * @param  Mage_Eav_Model_Entity_Attribute_Source_Interface $source
+     * @param  string                                           $value
+     * @return null|string
      */
     public function getSourceOptionId($source, $value)
     {
@@ -274,6 +284,7 @@ class Mage_Catalog_Model_Config extends Mage_Eav_Model_Config
                 return $option['value'];
             }
         }
+
         return null;
     }
 
@@ -287,6 +298,7 @@ class Mage_Catalog_Model_Config extends Mage_Eav_Model_Config
         if (is_null($this->_productAttributes)) {
             $this->_productAttributes = array_keys($this->getAttributesUsedInProductListing());
         }
+
         return $this->_productAttributes;
     }
 
@@ -326,11 +338,12 @@ class Mage_Catalog_Model_Config extends Mage_Eav_Model_Config
                 ->getAttributes(Mage_Catalog_Model_Product::ENTITY);
             $this->_usedInProductListing = [];
             foreach ($allAttributes as $attribute) {
-                if ($attribute->getData('used_in_product_listing')) {
+                if ($attribute->getDataByKey('used_in_product_listing')) {
                     $this->_usedInProductListing[$attribute->getAttributeCode()] = $attribute;
                 }
             }
         }
+
         return $this->_usedInProductListing;
     }
 
@@ -346,11 +359,12 @@ class Mage_Catalog_Model_Config extends Mage_Eav_Model_Config
                 ->getAttributes(Mage_Catalog_Model_Product::ENTITY);
             $this->_usedForSortBy = [];
             foreach ($allAttributes as $attribute) {
-                if ($attribute->getData('used_for_sort_by')) {
+                if ($attribute->getDataByKey('used_for_sort_by')) {
                     $this->_usedForSortBy[$attribute->getAttributeCode()] = $attribute;
                 }
             }
         }
+
         return $this->_usedForSortBy;
     }
 
@@ -376,7 +390,7 @@ class Mage_Catalog_Model_Config extends Mage_Eav_Model_Config
     /**
      * Retrieve Product List Default Sort By
      *
-     * @param mixed $store
+     * @param  mixed  $store
      * @return string
      */
     public function getProductListDefaultSortBy($store = null)

@@ -18,7 +18,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Default extends Mage_Cat
     /**
      * Product type code
      *
-     * @var string|null
+     * @var null|string
      */
     protected $_typeId;
 
@@ -30,8 +30,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Default extends Mage_Cat
     protected $_isComposite    = false;
 
     /**
-     * Define main price index table
-     *
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -41,7 +40,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Default extends Mage_Cat
     /**
      * Set Product Type code
      *
-     * @param string $typeCode
+     * @param  string $typeCode
      * @return $this
      */
     public function setTypeId($typeCode)
@@ -60,13 +59,14 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Default extends Mage_Cat
         if (is_null($this->_typeId)) {
             Mage::throwException(Mage::helper('catalog')->__('A product type is not defined for the indexer.'));
         }
+
         return $this->_typeId;
     }
 
     /**
      * Set Product Type Composite flag
      *
-     * @param bool $flag
+     * @param  bool  $flag
      * @return $this
      */
     public function setIsComposite($flag)
@@ -99,17 +99,18 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Default extends Mage_Cat
             $this->_applyCustomOption();
             $this->_movePriceDataToIndexTable();
             $this->commit();
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $this->rollBack();
-            throw $e;
+            throw $exception;
         }
+
         return $this;
     }
 
     /**
      * Reindex temporary (price result data) for defined product(s)
      *
-     * @param int|array $entityIds
+     * @param  array|int $entityIds
      * @return $this
      */
     public function reindexEntity($entityIds)
@@ -124,15 +125,15 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Default extends Mage_Cat
     /**
      * Retrieve final price temporary index table name
      *
-     * @see _prepareDefaultFinalPriceTable()
-     *
      * @return string
+     * @see _prepareDefaultFinalPriceTable()
      */
     protected function _getDefaultFinalPriceTable()
     {
         if ($this->useIdxTable()) {
             return $this->getTable('catalog/product_price_indexer_final_idx');
         }
+
         return $this->getTable('catalog/product_price_indexer_final_tmp');
     }
 
@@ -160,7 +161,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Default extends Mage_Cat
     /**
      * Prepare products default final price in temporary index table
      *
-     * @param int|array $entityIds  the entity ids limitation
+     * @param  array|int $entityIds the entity ids limitation
      * @return $this
      */
     protected function _prepareFinalPriceData($entityIds = null)
@@ -222,6 +223,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Default extends Mage_Cat
         } else {
             $taxClassId = new Zend_Db_Expr('0');
         }
+
         $select->columns(['tax_class_id' => $taxClassId]);
 
         $price          = $this->_addAttributeToSelect($select, 'price', 'e.entity_id', 'cs.store_id');
@@ -302,6 +304,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Default extends Mage_Cat
         if ($this->useIdxTable()) {
             return $this->getTable('catalog/product_price_indexer_option_aggregate_idx');
         }
+
         return $this->getTable('catalog/product_price_indexer_option_aggregate_tmp');
     }
 
@@ -315,6 +318,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Default extends Mage_Cat
         if ($this->useIdxTable()) {
             return $this->getTable('catalog/product_price_indexer_option_idx');
         }
+
         return $this->getTable('catalog/product_price_indexer_option_tmp');
     }
 
@@ -400,13 +404,13 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Default extends Mage_Cat
 
         $tierPriceRound = new Zend_Db_Expr("ROUND(i.base_tier * ({$optPriceValue} / 100), 4)");
         $tierPriceExpr  = $write->getCheckSql("{$optPriceType} = 'fixed'", $optPriceValue, $tierPriceRound);
-        $tierPriceMin   = new Zend_Db_Expr("MIN($tierPriceExpr)");
+        $tierPriceMin   = new Zend_Db_Expr("MIN({$tierPriceExpr})");
         $tierPriceValue = $write->getCheckSql('MIN(o.is_require) > 0', $tierPriceMin, '0');
         $tierPrice      = $write->getCheckSql('MIN(i.base_tier) IS NOT NULL', $tierPriceValue, 'NULL');
 
         $groupPriceRound = new Zend_Db_Expr("ROUND(i.base_group_price * ({$optPriceValue} / 100), 4)");
         $groupPriceExpr  = $write->getCheckSql("{$optPriceType} = 'fixed'", $optPriceValue, $groupPriceRound);
-        $groupPriceMin   = new Zend_Db_Expr("MIN($groupPriceExpr)");
+        $groupPriceMin   = new Zend_Db_Expr("MIN({$groupPriceExpr})");
         $groupPriceValue = $write->getCheckSql('MIN(o.is_require) > 0', $groupPriceMin, '0');
         $groupPrice      = $write->getCheckSql('MIN(i.base_group_price) IS NOT NULL', $groupPriceValue, 'NULL');
 
@@ -414,8 +418,8 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Default extends Mage_Cat
         $maxPriceExpr   = $write->getCheckSql("{$optPriceType} = 'fixed'", $optPriceValue, $maxPriceRound);
         $maxPrice       = $write->getCheckSql(
             "(MIN(o.type)='radio' OR MIN(o.type)='drop_down')",
-            "MAX($maxPriceExpr)",
-            "SUM($maxPriceExpr)",
+            "MAX({$maxPriceExpr})",
+            "SUM({$maxPriceExpr})",
         );
 
         $select->columns([
@@ -593,7 +597,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Default extends Mage_Cat
     /**
      * Retrieve temporary index table name
      *
-     * @param string $table
+     * @param  string $table
      * @return string
      */
     public function getIdxTable($table = null)
@@ -601,6 +605,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Default extends Mage_Cat
         if ($this->useIdxTable()) {
             return $this->getTable('catalog/product_price_indexer_idx');
         }
+
         return $this->getTable('catalog/product_price_indexer_tmp');
     }
 }

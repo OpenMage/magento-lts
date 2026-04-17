@@ -18,8 +18,8 @@ class Mage_Customer_Model_Api2_Customer_Rest_Admin_V1 extends Mage_Customer_Mode
      * Retrieve information about customer
      * Add last logged in datetime
      *
-     * @throws Mage_Api2_Exception
      * @return array
+     * @throws Mage_Api2_Exception
      */
     protected function _retrieve()
     {
@@ -34,6 +34,7 @@ class Mage_Customer_Model_Api2_Customer_Rest_Admin_V1 extends Mage_Customer_Mode
         if ($lastLoginAt !== null) {
             $data['last_logged_in'] = $lastLoginAt;
         }
+
         return $data;
     }
 
@@ -46,10 +47,10 @@ class Mage_Customer_Model_Api2_Customer_Rest_Admin_V1 extends Mage_Customer_Mode
 
         try {
             $customer->delete();
-        } catch (Mage_Core_Exception $e) {
-            $this->_critical($e->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
-        } catch (Exception $e) {
-            Mage::logException($e);
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_critical($mageCoreException->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
+        } catch (Exception $exception) {
+            Mage::logException($exception);
             $this->_critical(self::RESOURCE_INTERNAL_ERROR);
         }
     }

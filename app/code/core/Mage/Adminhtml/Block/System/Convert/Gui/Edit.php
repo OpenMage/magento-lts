@@ -24,9 +24,9 @@ class Mage_Adminhtml_Block_System_Convert_Gui_Edit extends Mage_Adminhtml_Block_
         $this->_updateButton('save', 'label', Mage::helper('adminhtml')->__('Save Profile'));
         $this->_updateButton('delete', 'label', Mage::helper('adminhtml')->__('Delete Profile'));
         $this->_addButton('savecontinue', [
-            'label' => Mage::helper('adminhtml')->__('Save and Continue Edit'),
-            'onclick' => "$('edit_form').action += 'continue/true/'; editForm.submit();",
-            'class' => 'save',
+            'label'     => Mage::helper('adminhtml')->__('Save and Continue Edit'),
+            'onclick'   => "$('edit_form').action += 'continue/true/'; editForm.submit();",
+            'class'     => 'save continue',
         ], -100);
     }
 
@@ -43,6 +43,7 @@ class Mage_Adminhtml_Block_System_Convert_Gui_Edit extends Mage_Adminhtml_Block_
         if (Mage::registry('current_convert_profile')->getId()) {
             return $this->escapeHtml(Mage::registry('current_convert_profile')->getName());
         }
+
         return Mage::helper('adminhtml')->__('New Profile');
     }
 }

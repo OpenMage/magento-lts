@@ -15,7 +15,7 @@ use Composer\InstalledVersions;
  * @package    Mage_Cms
  *
  * @method string getStoreId()
- * @method $this setStoreId(string $value)
+ * @method $this  setStoreId(string $value)
  */
 class Mage_Cms_Model_Wysiwyg_Config extends Varien_Object
 {
@@ -64,7 +64,7 @@ class Mage_Cms_Model_Wysiwyg_Config extends Varien_Object
      * files_browser_*:         Files Browser (media, images) settings
      * encode_directives:       Encode template directives with JS or not
      *
-     * @param array $data constructor params to override default config values
+     * @param  array         $data constructor params to override default config values
      * @return Varien_Object
      */
     public function getConfig($data = [])
@@ -88,7 +88,7 @@ class Mage_Cms_Model_Wysiwyg_Config extends Varien_Object
             'plugins'                       => [],
             'lang'                          => $lang,
         ]);
-        $config->setData('directives_url_quoted', preg_quote($config->getData('directives_url')));
+        $config->setData('directives_url_quoted', preg_quote($config->getDataByKey('directives_url')));
 
         if (Mage::getSingleton('admin/session')->isAllowed('cms/media_gallery')) {
             $config->addData([
@@ -147,6 +147,7 @@ class Mage_Cms_Model_Wysiwyg_Config extends Varien_Object
         } else {
             $wysiwygState = Mage::getStoreConfig(self::WYSIWYG_CONFIG_ENABLED);
         }
+
         return in_array($wysiwygState, [self::WYSIWYG_ENABLED, self::WYSIWYG_HIDDEN]);
     }
 

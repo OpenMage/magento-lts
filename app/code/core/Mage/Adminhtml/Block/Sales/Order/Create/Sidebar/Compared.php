@@ -14,6 +14,9 @@
  */
 class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Compared extends Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         parent::_construct();
@@ -36,11 +39,11 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Compared extends Mage_Admi
      */
     public function getItemCollection()
     {
-        $collection = $this->getData('item_collection');
+        $collection = $this->getDataByKey('item_collection');
         if (is_null($collection)) {
             if ($collection = $this->getCreateOrderModel()->getCustomerCompareList()) {
                 $collection = $collection->getItemCollection()
-                    ->useProductItem(true)
+                    ->useProductItem()
                     ->setStoreId($this->getQuote()->getStoreId())
                     ->addStoreFilter($this->getQuote()->getStoreId())
                     ->setCustomerId($this->getCustomerId())
@@ -50,8 +53,10 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Compared extends Mage_Admi
                     ->addAttributeToSelect('status')
                     ->load();
             }
+
             $this->setData('item_collection', $collection);
         }
+
         return $collection;
     }
 

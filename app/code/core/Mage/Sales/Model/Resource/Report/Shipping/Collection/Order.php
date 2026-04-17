@@ -30,7 +30,6 @@ class Mage_Sales_Model_Resource_Report_Shipping_Collection_Order extends Mage_Sa
 
     /**
      * Initialize custom resource model
-     *
      */
     public function __construct()
     {
@@ -95,11 +94,13 @@ class Mage_Sales_Model_Resource_Report_Shipping_Collection_Order extends Mage_Sa
                 'shipping_description',
             ]);
         }
+
         if ($this->isSubTotals()) {
             $this->getSelect()->group([
                 $this->_periodFormat,
             ]);
         }
+
         return $this;
     }
 }

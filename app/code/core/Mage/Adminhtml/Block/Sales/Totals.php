@@ -15,8 +15,8 @@ class Mage_Adminhtml_Block_Sales_Totals extends Mage_Sales_Block_Order_Totals
     /**
      * Format total value based on order currency
      *
-     * @param   Varien_Object $total
-     * @return  string
+     * @param  Varien_Object $total
+     * @return string
      */
     public function formatValue($total)
     {
@@ -29,13 +29,14 @@ class Mage_Adminhtml_Block_Sales_Totals extends Mage_Sales_Block_Order_Totals
                 $total->getValue(),
             );
         }
+
         return $total->getValue();
     }
 
     /**
      * Initialize order totals array
      *
-     * @return Mage_Sales_Block_Order_Totals
+     * @return $this
      */
     protected function _initTotals()
     {
@@ -73,6 +74,7 @@ class Mage_Adminhtml_Block_Sales_Totals extends Mage_Sales_Block_Order_Totals
             } else {
                 $discountLabel = $this->helper('sales')->__('Discount');
             }
+
             $this->_totals['discount'] = new Varien_Object([
                 'code'      => 'discount',
                 'value'     => $this->getSource()->getDiscountAmount(),

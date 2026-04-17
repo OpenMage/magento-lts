@@ -16,9 +16,8 @@
  */
 class Mage_Adminhtml_Block_Report_Shopcart_Customer_Grid extends Mage_Adminhtml_Block_Report_Grid_Shopcart
 {
-    /**
-     * Mage_Adminhtml_Block_Report_Shopcart_Customer_Grid constructor.
-     */
+    protected string $_eventPrefix = 'adminhtml_report_shopcart_customer_grid';
+
     public function __construct()
     {
         parent::__construct();

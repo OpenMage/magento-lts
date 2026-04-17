@@ -26,6 +26,7 @@ class Mage_Adminhtml_Block_Newsletter_Template_Preview extends Mage_Adminhtml_Bl
             $template->setTemplateText($this->getRequest()->getParam('text'));
             $template->setTemplateStyles($this->getRequest()->getParam('styles'));
         }
+
         $template->setTemplateStyles(
             $this->maliciousCodeFilter((string) $template->getTemplateStyles()),
         );

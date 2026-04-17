@@ -13,17 +13,18 @@
  * @package    Mage_Catalog
  *
  * @method Mage_Catalog_Model_Resource_Product_Status _getResource()
+ * @method int                                        getProductId()
  * @method Mage_Catalog_Model_Resource_Product_Status getResource()
- * @method int getProductId()
- * @method $this setProductId(int $value)
- * @method int getStoreId()
- * @method $this setStoreId(int $value)
- * @method int getVisibility()
- * @method $this setVisibility(int $value)
+ * @method int                                        getStoreId()
+ * @method int                                        getVisibility()
+ * @method $this                                      setProductId(int $value)
+ * @method $this                                      setStoreId(int $value)
+ * @method $this                                      setVisibility(int $value)
  */
 class Mage_Catalog_Model_Product_Status extends Mage_Core_Model_Abstract
 {
     public const STATUS_ENABLED    = 1;
+
     public const STATUS_DISABLED   = 2;
 
     /**
@@ -33,6 +34,9 @@ class Mage_Catalog_Model_Product_Status extends Mage_Core_Model_Abstract
      */
     protected $_attribute;
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('catalog/product_status');
@@ -41,7 +45,7 @@ class Mage_Catalog_Model_Product_Status extends Mage_Core_Model_Abstract
     /**
      * Retrieve Product Attribute by code
      *
-     * @param string $attributeCode
+     * @param  string                                   $attributeCode
      * @return Mage_Eav_Model_Entity_Attribute_Abstract
      */
     public function getProductAttribute($attributeCode)
@@ -52,8 +56,8 @@ class Mage_Catalog_Model_Product_Status extends Mage_Core_Model_Abstract
     /**
      * Add visible filter to Product Collection
      *
-     * @deprecated remove on new builds
      * @return $this
+     * @deprecated remove on new builds
      */
     public function addVisibleFilterToCollection(Mage_Eav_Model_Entity_Collection_Abstract $collection)
     {
@@ -63,8 +67,8 @@ class Mage_Catalog_Model_Product_Status extends Mage_Core_Model_Abstract
     /**
      * Add saleable filter to Product Collection
      *
-     * @deprecated remove on new builds
      * @return $this
+     * @deprecated remove on new builds
      */
     public function addSaleableFilterToCollection(Mage_Eav_Model_Entity_Collection_Abstract $collection)
     {
@@ -74,7 +78,7 @@ class Mage_Catalog_Model_Product_Status extends Mage_Core_Model_Abstract
     /**
      * Retrieve Visible Status Ids
      *
-     * @return array
+     * @return array<int, int>
      */
     public function getVisibleStatusIds()
     {
@@ -85,7 +89,7 @@ class Mage_Catalog_Model_Product_Status extends Mage_Core_Model_Abstract
      * Retrieve Saleable Status Ids
      * Default Product Enable status
      *
-     * @return array
+     * @return array<int, int>
      */
     public function getSaleableStatusIds()
     {
@@ -95,7 +99,7 @@ class Mage_Catalog_Model_Product_Status extends Mage_Core_Model_Abstract
     /**
      * Retrieve option array
      *
-     * @return array
+     * @return array<int, string>
      */
     public static function getOptionArray()
     {
@@ -146,13 +150,14 @@ class Mage_Catalog_Model_Product_Status extends Mage_Core_Model_Abstract
                 'label' => $value,
             ];
         }
+
         return $res;
     }
 
     /**
      * Retrieve option text by option value
      *
-     * @param string $optionId
+     * @param  string $optionId
      * @return string
      */
     public static function getOptionText($optionId)
@@ -164,10 +169,10 @@ class Mage_Catalog_Model_Product_Status extends Mage_Core_Model_Abstract
     /**
      * Update status value for product
      *
-     * @param   int $productId
-     * @param   int $storeId
-     * @param   int $value
-     * @return  Mage_Catalog_Model_Product_Status
+     * @param  int                               $productId
+     * @param  int                               $storeId
+     * @param  int                               $value
+     * @return Mage_Catalog_Model_Product_Status
      */
     public function updateProductStatus($productId, $storeId, $value)
     {
@@ -201,8 +206,8 @@ class Mage_Catalog_Model_Product_Status extends Mage_Core_Model_Abstract
      * Retrieve Product(s) status for store
      * Return array where key is product, value - status
      *
-     * @param int|array $productIds
-     * @param int $storeId
+     * @param  array|int $productIds
+     * @param  int       $storeId
      * @return array
      */
     public function getProductStatus($productIds, $storeId = null)
@@ -261,8 +266,8 @@ class Mage_Catalog_Model_Product_Status extends Mage_Core_Model_Abstract
     /**
      * Retrieve Select For Flat Attribute update
      *
-     * @param int $store
-     * @return Varien_Db_Select|null
+     * @param  int                   $store
+     * @return null|Varien_Db_Select
      */
     public function getFlatUpdateSelect($store)
     {
@@ -273,7 +278,7 @@ class Mage_Catalog_Model_Product_Status extends Mage_Core_Model_Abstract
     /**
      * Set attribute instance
      *
-     * @param Mage_Catalog_Model_Resource_Eav_Attribute $attribute
+     * @param  Mage_Catalog_Model_Resource_Eav_Attribute $attribute
      * @return Mage_Catalog_Model_Product_Status
      */
     public function setAttribute($attribute)
@@ -295,8 +300,8 @@ class Mage_Catalog_Model_Product_Status extends Mage_Core_Model_Abstract
     /**
      * Add Value Sort To Collection Select
      *
-     * @param Mage_Eav_Model_Entity_Collection_Abstract $collection
-     * @param string $dir direction
+     * @param  Mage_Eav_Model_Entity_Collection_Abstract $collection
+     * @param  string                                    $dir        direction
      * @return Mage_Catalog_Model_Product_Status
      * @throws Mage_Core_Exception
      */

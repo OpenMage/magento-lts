@@ -18,7 +18,6 @@ class Mage_Catalog_Block_Layer_State extends Mage_Core_Block_Template
 {
     /**
      * Initialize Layer State template
-     *
      */
     public function __construct()
     {
@@ -35,8 +34,9 @@ class Mage_Catalog_Block_Layer_State extends Mage_Core_Block_Template
     {
         $filters = $this->getLayer()->getState()->getFilters();
         if (!is_array($filters)) {
-            $filters = [];
+            return [];
         }
+
         return $filters;
     }
 
@@ -52,6 +52,7 @@ class Mage_Catalog_Block_Layer_State extends Mage_Core_Block_Template
             $filter = $item->getFilter();
             $filterState[$filter->getRequestVar()] = $filter->getCleanValue();
         }
+
         $params['_current']     = true;
         $params['_use_rewrite'] = true;
         $params['_query']       = $filterState;
@@ -69,6 +70,7 @@ class Mage_Catalog_Block_Layer_State extends Mage_Core_Block_Template
         if (!$this->hasData('layer')) {
             $this->setLayer(Mage::getSingleton('catalog/layer'));
         }
+
         return $this->_getData('layer');
     }
 }

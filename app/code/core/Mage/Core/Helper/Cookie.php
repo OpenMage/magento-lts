@@ -91,8 +91,8 @@ class Mage_Core_Helper_Cookie extends Mage_Core_Helper_Abstract
     public function isUserNotAllowSaveCookie()
     {
         $acceptedSaveCookiesWebsites = $this->_getAcceptedSaveCookiesWebsites();
-        return $this->_currentStore->getConfig(self::XML_PATH_COOKIE_RESTRICTION) &&
-            empty($acceptedSaveCookiesWebsites[$this->_website->getId()]);
+        return $this->_currentStore->getConfig(self::XML_PATH_COOKIE_RESTRICTION)
+            && empty($acceptedSaveCookiesWebsites[$this->_website->getId()]);
     }
 
     /**

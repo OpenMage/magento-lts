@@ -1,5 +1,7 @@
 <?php
 
+use Monolog\Level;
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -18,11 +20,11 @@ class Mage_Core_Controller_Varien_Router_Admin extends Mage_Core_Controller_Vari
     public function fetchDefault()
     {
         // set defaults
-        $d = explode('/', $this->_getDefaultPath());
+        $path = explode('/', $this->_getDefaultPath());
         $this->getFront()->setDefault([
-            'module'     => !empty($d[0]) ? $d[0] : '',
-            'controller' => !empty($d[1]) ? $d[1] : 'index',
-            'action'     => !empty($d[2]) ? $d[2] : 'index',
+            'module'     => empty($path[0]) ? '' : $path[0],
+            'controller' => empty($path[1]) ? 'index' : $path[1],
+            'action'     => empty($path[2]) ? 'index' : $path[2],
         ]);
     }
 
@@ -36,12 +38,33 @@ class Mage_Core_Controller_Varien_Router_Admin extends Mage_Core_Controller_Vari
     }
 
     /**
-     * dummy call to pass through checking
+     * Validate admin domain before routing
      *
      * @return bool
      */
     protected function _beforeModuleMatch()
     {
+        // Check if custom admin domain is configured
+        if ($adminUrl = Mage_Adminhtml_Helper_Data::getCustomAdminUrl()) {
+            $adminHost = parse_url($adminUrl, PHP_URL_HOST);
+            if (!$adminHost) {
+                // Should never happen - URL is validated when saved
+                // If it does, fail secure (possible database corruption/bypass)
+                Mage::log(
+                    "Unable to parse custom admin URL host: {$adminUrl}. Access denied for security.",
+                    Level::Error,
+                    'system.log',
+                );
+                return false;
+            }
+
+            $currentHost = $this->getFront()->getRequest()->getHttpHost();
+            // Strip port for comparison (getHttpHost may include port)
+            $currentHost = preg_replace('/:\d+$/', '', $currentHost);
+
+            return strtolower($adminHost) === strtolower($currentHost);
+        }
+
         return true;
     }
 
@@ -59,6 +82,7 @@ class Mage_Core_Controller_Varien_Router_Admin extends Mage_Core_Controller_Vari
                 ->sendResponse();
             exit;
         }
+
         return true;
     }
 
@@ -76,7 +100,7 @@ class Mage_Core_Controller_Varien_Router_Admin extends Mage_Core_Controller_Vari
     /**
      * Check whether URL for corresponding path should use https protocol
      *
-     * @param string $path
+     * @param  string $path
      * @return bool
      */
     protected function _shouldBeSecure($path)
@@ -89,7 +113,7 @@ class Mage_Core_Controller_Varien_Router_Admin extends Mage_Core_Controller_Vari
     /**
      * Retrieve current secure url
      *
-     * @param Mage_Core_Controller_Request_Http $request
+     * @param  Mage_Core_Controller_Request_Http $request
      * @return string
      */
     protected function _getCurrentSecureUrl($request)
@@ -102,7 +126,7 @@ class Mage_Core_Controller_Varien_Router_Admin extends Mage_Core_Controller_Vari
      * Emulate custom admin url
      *
      * @param string $configArea
-     * @param bool $useRouterName
+     * @param bool   $useRouterName
      */
     public function collectRoutes($configArea, $useRouterName)
     {
@@ -113,6 +137,7 @@ class Mage_Core_Controller_Varien_Router_Admin extends Mage_Core_Controller_Vari
                 Mage::getConfig()->setNode($xmlPath, $customUrl, true);
             }
         }
+
         parent::collectRoutes($configArea, $useRouterName);
     }
 
@@ -131,15 +156,15 @@ class Mage_Core_Controller_Varien_Router_Admin extends Mage_Core_Controller_Vari
         );
         if ($isExtensionsCompatibilityMode || ($frontName == $configRouterFrontName)) {
             return parent::addModule($frontName, $moduleName, $routeName);
-        } else {
-            return $this;
         }
+
+        return $this;
     }
 
     /**
      * Check if current controller instance is allowed in current router.
      *
-     * @param Mage_Core_Controller_Varien_Action $controllerInstance
+     * @param  Mage_Core_Controller_Varien_Action $controllerInstance
      * @return true
      */
     protected function _validateControllerInstance($controllerInstance)

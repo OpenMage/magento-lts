@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -17,7 +19,7 @@ class Mage_Checkout_Model_Cart_Product_Api_V2 extends Mage_Checkout_Model_Cart_P
     /**
      * Return an Array of Object attributes.
      *
-     * @param object|array $data
+     * @param  array|object $data
      * @return array
      */
     protected function _prepareProductsData($data)
@@ -27,31 +29,32 @@ class Mage_Checkout_Model_Cart_Product_Api_V2 extends Mage_Checkout_Model_Cart_P
             foreach ($arr as $key => $value) {
                 $assocArr = [];
                 if (is_array($value)) {
-                    foreach ($value as $v) {
-                        if (is_object($v) && count(get_object_vars($v)) == 2
-                            && isset($v->key) && isset($v->value)
+                    foreach ($value as $item) {
+                        if (is_object($item) && count(get_object_vars($item)) == 2
+                            && isset($item->key) && isset($item->value)
                         ) {
-                            $assocArr[$v->key] = $v->value;
+                            $assocArr[$item->key] = $item->value;
                         }
                     }
                 }
-                if (!empty($assocArr)) {
+
+                if ($assocArr !== []) {
                     $arr[$key] = $assocArr;
                 }
             }
+
             $arr = $this->_prepareProductsData($arr);
             return parent::_prepareProductsData($arr);
         }
+
         if (is_array($data)) {
             foreach ($data as $key => $value) {
-                if (is_object($value) || is_array($value)) {
-                    $data[$key] = $this->_prepareProductsData($value);
-                } else {
-                    $data[$key] = $value;
-                }
+                $data[$key] = is_object($value) || is_array($value) ? $this->_prepareProductsData($value) : $value;
             }
+
             return parent::_prepareProductsData($data);
         }
+
         return $data;
     }
 }

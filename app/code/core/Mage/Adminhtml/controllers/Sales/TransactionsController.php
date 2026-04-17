@@ -17,7 +17,7 @@ class Mage_Adminhtml_Sales_TransactionsController extends Mage_Adminhtml_Control
     /**
      * Initialize payment transaction model
      *
-     * @return Mage_Sales_Model_Order_Payment_Transaction | bool
+     * @return bool|Mage_Sales_Model_Order_Payment_Transaction
      */
     protected function _initTransaction()
     {
@@ -31,6 +31,7 @@ class Mage_Adminhtml_Sales_TransactionsController extends Mage_Adminhtml_Control
             $this->setFlag('', self::FLAG_NO_DISPATCH, true);
             return false;
         }
+
         $orderId = $this->getRequest()->getParam('order_id');
         if ($orderId) {
             $txn->setOrderUrl(
@@ -70,6 +71,7 @@ class Mage_Adminhtml_Sales_TransactionsController extends Mage_Adminhtml_Control
         if (!$txn) {
             return;
         }
+
         $this->_title($this->__('Sales'))
             ->_title($this->__('Transactions'))
             ->_title(sprintf('#%s', $txn->getTxnId()));
@@ -88,6 +90,7 @@ class Mage_Adminhtml_Sales_TransactionsController extends Mage_Adminhtml_Control
         if (!$txn) {
             return;
         }
+
         try {
             $txn->getOrderPaymentObject()
                 ->setOrder($txn->getOrder())
@@ -96,21 +99,22 @@ class Mage_Adminhtml_Sales_TransactionsController extends Mage_Adminhtml_Control
             Mage::getSingleton('adminhtml/session')->addSuccess(
                 Mage::helper('adminhtml')->__('The transaction details have been updated.'),
             );
-        } catch (Mage_Core_Exception $e) {
-            Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
-        } catch (Exception $e) {
+        } catch (Mage_Core_Exception $mageCoreException) {
+            Mage::getSingleton('adminhtml/session')->addError($mageCoreException->getMessage());
+        } catch (Exception $exception) {
             Mage::getSingleton('adminhtml/session')->addError(
                 Mage::helper('adminhtml')->__('Unable to update transaction details.'),
             );
-            Mage::logException($e);
+            Mage::logException($exception);
         }
+
         $this->_redirect('*/sales_transactions/view', ['_current' => true]);
     }
 
     /**
      * @inheritDoc
      */
-    protected function _isAllowed()
+    protected function _isAllowed(): bool
     {
         $action = strtolower($this->getRequest()->getActionName());
         $aclPath = match ($action) {

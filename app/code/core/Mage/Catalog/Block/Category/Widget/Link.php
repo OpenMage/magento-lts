@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -15,7 +17,7 @@
 class Mage_Catalog_Block_Category_Widget_Link extends Mage_Catalog_Block_Widget_Link
 {
     /**
-     * Initialize entity model
+     * @inheritDoc
      */
     protected function _construct()
     {

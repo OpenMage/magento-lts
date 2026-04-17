@@ -24,21 +24,22 @@ abstract class Mage_ProductAlert_Block_Email_Abstract extends Mage_Core_Block_Te
     /**
      * Current Store scope object
      *
-     * @var Mage_Core_Model_Store|null
+     * @var null|Mage_Core_Model_Store
      */
     protected $_store;
 
     /**
      * Set Store scope
      *
-     * @param int|string|Mage_Core_Model_Website|Mage_Core_Model_Store $store
-     * @return Mage_ProductAlert_Block_Email_Abstract
+     * @param  int|Mage_Core_Model_Store|Mage_Core_Model_Website|string $store
+     * @return $this
      */
     public function setStore($store)
     {
         if ($store instanceof Mage_Core_Model_Website) {
             $store = $store->getDefaultStore();
         }
+
         if (!$store instanceof Mage_Core_Model_Store) {
             $store = Mage::app()->getStore($store);
         }
@@ -58,16 +59,17 @@ abstract class Mage_ProductAlert_Block_Email_Abstract extends Mage_Core_Block_Te
         if (is_null($this->_store)) {
             $this->_store = Mage::app()->getStore();
         }
+
         return $this->_store;
     }
 
     /**
      * Convert price from default currency to current currency
      *
-     * @param double $price
-     * @param bool $format             Format price to currency format
-     * @param bool $includeContainer   Enclose into <span class="price"><span>
-     * @return double
+     * @param  float $price
+     * @param  bool  $format           Format price to currency format
+     * @param  bool  $includeContainer Enclose into <span class="price"><span>
+     * @return float
      */
     public function formatPrice($price, $format = true, $includeContainer = true)
     {
@@ -76,7 +78,6 @@ abstract class Mage_ProductAlert_Block_Email_Abstract extends Mage_Core_Block_Te
 
     /**
      * Reset product collection
-     *
      */
     public function reset()
     {
@@ -104,7 +105,7 @@ abstract class Mage_ProductAlert_Block_Email_Abstract extends Mage_Core_Block_Te
     /**
      * Get store url params
      *
-     * @return array
+     * @return array<string, bool|Mage_Core_Model_Store>
      */
     protected function _getUrlParams()
     {
@@ -117,14 +118,15 @@ abstract class Mage_ProductAlert_Block_Email_Abstract extends Mage_Core_Block_Te
     /**
      * Get filtered product short description to be inserted into mail
      *
-     * @return string|null
+     * @return null|string
      */
     public function _getFilteredProductShortDescription(Mage_Catalog_Model_Product $product)
     {
         $shortDescription = $product->getShortDescription();
         if ($shortDescription) {
-            $shortDescription = Mage::getSingleton('core/input_filter_maliciousCode')->filter($shortDescription);
+            return Mage::getSingleton('core/input_filter_maliciousCode')->filter($shortDescription);
         }
+
         return $shortDescription;
     }
 }

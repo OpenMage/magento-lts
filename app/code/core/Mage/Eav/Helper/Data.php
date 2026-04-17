@@ -26,9 +26,9 @@ class Mage_Eav_Helper_Data extends Mage_Core_Helper_Abstract
     protected $_entityTypeFrontendClasses = [];
 
     /**
-     * Return default frontend classes value labal array
+     * Return default frontend classes value label array
      *
-     * @return array
+     * @return array<int, array<string, string>>
      */
     protected function _getDefaultFrontendClasses()
     {
@@ -67,7 +67,7 @@ class Mage_Eav_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Return merged default and entity type frontend classes value label array
      *
-     * @param string $entityTypeCode
+     * @param  string $entityTypeCode
      * @return array
      */
     public function getFrontendClasses($entityTypeCode)
@@ -79,6 +79,7 @@ class Mage_Eav_Helper_Data extends Mage_Core_Helper_Abstract
                 $this->_entityTypeFrontendClasses[$entityTypeCode],
             );
         }
+
         $_entityTypeClasses = Mage::app()->getConfig()
             ->getNode('global/eav_frontendclasses/' . $entityTypeCode);
         if ($_entityTypeClasses) {
@@ -88,18 +89,20 @@ class Mage_Eav_Helper_Data extends Mage_Core_Helper_Abstract
                     'label' => (string) $item->label,
                 ];
             }
+
             return array_merge(
                 $_defaultClasses,
                 $this->_entityTypeFrontendClasses[$entityTypeCode],
             );
         }
+
         return $_defaultClasses;
     }
 
     /**
      * Retrieve attributes locked fields to edit
      *
-     * @param string $entityTypeCode
+     * @param  string $entityTypeCode
      * @return array
      */
     public function getAttributeLockedFields($entityTypeCode)
@@ -107,17 +110,21 @@ class Mage_Eav_Helper_Data extends Mage_Core_Helper_Abstract
         if (!$entityTypeCode) {
             return [];
         }
+
         if (isset($this->_attributesLockedFields[$entityTypeCode])) {
             return $this->_attributesLockedFields[$entityTypeCode];
         }
+
         $_data = Mage::app()->getConfig()->getNode('global/eav_attributes/' . $entityTypeCode);
         if ($_data) {
             foreach ($_data->children() as $attribute) {
-                $this->_attributesLockedFields[$entityTypeCode][(string) $attribute->code] =
-                    array_keys($attribute->locked_fields->asArray());
+                $this->_attributesLockedFields[$entityTypeCode][(string) $attribute->code]
+                    = array_keys($attribute->locked_fields->asArray());
             }
+
             return $this->_attributesLockedFields[$entityTypeCode];
         }
+
         return [];
     }
 

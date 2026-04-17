@@ -51,7 +51,11 @@ class Mage_Catalog_Model_Category_Indexer_Flat extends Mage_Index_Model_Indexer_
     {
         /** @var Mage_Catalog_Helper_Category_Flat $categoryFlatHelper */
         $categoryFlatHelper = Mage::helper('catalog/category_flat');
-        return $categoryFlatHelper->isEnabled() || !$categoryFlatHelper->isBuilt();
+        if ($categoryFlatHelper->isEnabled()) {
+            return true;
+        }
+
+        return !$categoryFlatHelper->isBuilt();
     }
 
     /**
@@ -189,6 +193,7 @@ class Mage_Catalog_Model_Category_Indexer_Flat extends Mage_Index_Model_Indexer_
                 $event->addNewData('catalog_category_flat_category_id', $category->getId());
             }
         }
+
         return $this;
     }
 
@@ -204,6 +209,7 @@ class Mage_Catalog_Model_Category_Indexer_Flat extends Mage_Index_Model_Indexer_
             $store = $event->getDataObject();
             $event->addNewData('catalog_category_flat_delete_store_id', $store->getId());
         }
+
         return $this;
     }
 
@@ -231,7 +237,6 @@ class Mage_Catalog_Model_Category_Indexer_Flat extends Mage_Index_Model_Indexer_
 
     /**
      * Rebuild all index data
-     *
      */
     public function reindexAll()
     {

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -28,6 +30,7 @@ class Mage_Adminhtml_Helper_Addresses extends Mage_Core_Helper_Abstract
         if ($attribute->getScopeMultilineCount() <= 0) {
             $attribute->setScopeMultilineCount(self::DEFAULT_STREET_LINES_COUNT);
         }
+
         return $attribute;
     }
 }

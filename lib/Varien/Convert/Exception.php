@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -15,8 +17,11 @@
 class Varien_Convert_Exception extends Varien_Exception
 {
     public const NOTICE = 'NOTICE';
+
     public const WARNING = 'WARNING';
+
     public const ERROR = 'ERROR';
+
     public const FATAL = 'FATAL';
 
     protected $_container;

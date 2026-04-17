@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -17,7 +19,7 @@ class Mage_ImportExport_Model_Product_Attribute_Backend_Urlkey extends Mage_Cata
     /**
      * No need to validate url_key during import
      *
-     * @param Mage_Catalog_Model_Product $object
+     * @param  Mage_Catalog_Model_Product $object
      * @return $this
      */
     protected function _validateUrlKey($object)

@@ -18,6 +18,7 @@ abstract class Mage_Dataflow_Model_Resource_Batch_Abstract extends Mage_Core_Mod
      * Retrieve Id collection
      *
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function getIdCollection(Mage_Dataflow_Model_Batch_Abstract $object)
     {
@@ -25,7 +26,6 @@ abstract class Mage_Dataflow_Model_Resource_Batch_Abstract extends Mage_Core_Mod
             return [];
         }
 
-        $ids = [];
         $select = $this->_getWriteAdapter()->select()
             ->from($this->getMainTable(), [$this->getIdFieldName()])
             ->where('batch_id = :batch_id');
@@ -36,6 +36,7 @@ abstract class Mage_Dataflow_Model_Resource_Batch_Abstract extends Mage_Core_Mod
      * Delete current Batch collection
      *
      * @return Mage_Dataflow_Model_Resource_Batch_Abstract
+     * @throws Mage_Core_Exception
      */
     public function deleteCollection(Mage_Dataflow_Model_Batch_Abstract $object)
     {

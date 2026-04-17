@@ -41,6 +41,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Field_File extends Varien_Data_For
             $html .= '<input type="hidden" name="' . parent::getName() . '[value]" value="' . $this->getValue() . '" />';
             $html .= '</div>';
         }
+
         return $html;
     }
 }

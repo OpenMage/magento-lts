@@ -14,14 +14,13 @@
  */
 class Mage_Adminhtml_Block_Catalog_Category_Tree extends Mage_Adminhtml_Block_Catalog_Category_Abstract
 {
-    protected $_withProductCount;
+    protected $_withProductCount = true;
 
     public function __construct()
     {
         parent::__construct();
         $this->setTemplate('catalog/category/tree.phtml');
         $this->setUseAjax(true);
-        $this->_withProductCount = true;
     }
 
     protected function _prepareLayout()
@@ -74,11 +73,11 @@ class Mage_Adminhtml_Block_Catalog_Category_Tree extends Mage_Adminhtml_Block_Ca
     public function getCategoryCollection()
     {
         $storeId = $this->getRequest()->getParam('store', $this->_getDefaultStoreId());
-        $collection = $this->getData('category_collection');
+        $collection = $this->getDataByKey('category_collection');
         if (is_null($collection)) {
             $collection = Mage::getModel('catalog/category')->getCollection();
 
-            /** @var Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Collection $collection */
+            /** @var Mage_Catalog_Model_Resource_Category_Collection $collection */
             $collection->addAttributeToSelect('name')
                 ->addAttributeToSelect('is_active')
                 ->setProductStoreId($storeId)
@@ -87,6 +86,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Tree extends Mage_Adminhtml_Block_Ca
 
             $this->setData('category_collection', $collection);
         }
+
         return $collection;
     }
 
@@ -115,14 +115,21 @@ class Mage_Adminhtml_Block_Catalog_Category_Tree extends Mage_Adminhtml_Block_Ca
         return $this->getChildHtml('store_switcher');
     }
 
+    /**
+     * Tree JSON source URL
+     *
+     * @param  null|bool $expanded
+     * @return string
+     */
     public function getLoadTreeUrl($expanded = null)
     {
         $params = ['_current' => true, 'id' => null,'store' => null];
         if ((is_null($expanded) && Mage::getSingleton('admin/session')->getIsTreeWasExpanded())
-            || $expanded == true
+            || $expanded
         ) {
             $params['expand_all'] = true;
         }
+
         return $this->getUrl('*/*/categoriesJson', $params);
     }
 
@@ -164,8 +171,8 @@ class Mage_Adminhtml_Block_Catalog_Category_Tree extends Mage_Adminhtml_Block_Ca
     /**
      * Get JSON of array of categories, that are breadcrumbs for specified category path
      *
-     * @param string $path
-     * @param string $javascriptVarName
+     * @param  string $path
+     * @param  string $javascriptVarName
      * @return string
      */
     public function getBreadcrumbsJavascript($path, $javascriptVarName)
@@ -179,9 +186,11 @@ class Mage_Adminhtml_Block_Catalog_Category_Tree extends Mage_Adminhtml_Block_Ca
         if (empty($categories)) {
             return '';
         }
+
         foreach ($categories as $key => $category) {
             $categories[$key] = $this->_getNodeJson($category);
         }
+
         return
             '<script type="text/javascript">'
             . $javascriptVarName . ' = ' . Mage::helper('core')->jsonEncode($categories) . ';'
@@ -194,9 +203,9 @@ class Mage_Adminhtml_Block_Catalog_Category_Tree extends Mage_Adminhtml_Block_Ca
     /**
      * Get JSON of a tree node or an associative array
      *
-     * @param Varien_Data_Tree_Node|array $node
-     * @param int $level
-     * @return array
+     * @param  array|Varien_Data_Tree_Node $node
+     * @param  int                         $level
+     * @return array<string, mixed>
      */
     protected function _getNodeJson($node, $level = 0)
     {
@@ -215,7 +224,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Tree extends Mage_Adminhtml_Block_Ca
 
         $item['id']  = $node->getId();
         $item['store']  = (int) $this->getStore()->getId();
-        $item['path'] = $node->getData('path');
+        $item['path'] = $node->getDataByKey('path');
 
         $item['cls'] = 'folder ' . ($node->getIsActive() ? 'active-category' : 'no-active-category');
         //$item['allowDrop'] = ($level<3) ? true : false;
@@ -249,7 +258,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Tree extends Mage_Adminhtml_Block_Ca
     /**
      * Get category name
      *
-     * @param Varien_Object $node
+     * @param  Varien_Object $node
      * @return string
      */
     public function buildNodeName($node)
@@ -258,6 +267,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Tree extends Mage_Adminhtml_Block_Ca
         if ($this->_withProductCount) {
             $result .= ' (' . $node->getProductCount() . ')';
         }
+
         return $result;
     }
 

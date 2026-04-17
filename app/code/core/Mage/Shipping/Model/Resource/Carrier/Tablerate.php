@@ -45,14 +45,14 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
     /**
      * Array of countries keyed by iso2 code
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_importIso2Countries;
 
     /**
      * Array of countries keyed by iso3 code
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_importIso3Countries;
 
@@ -60,7 +60,7 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
      * Associative array of countries and regions
      * [country_id][region_code] = region_id
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_importRegions;
 
@@ -78,6 +78,9 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
      */
     protected $_conditionFullNames  = [];
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('shipping/tablerate', 'pk');
@@ -163,14 +166,15 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
         if ($result && $result['dest_zip'] == '*') {
             $result['dest_zip'] = '';
         }
+
         return $result;
     }
 
     /**
      * Upload table rate file and import data from it
      *
-     * @throws Mage_Core_Exception
      * @return $this
+     * @throws Mage_Core_Exception
      * @SuppressWarnings("PHPMD.Superglobals")
      */
     public function uploadAndImport(Varien_Object $object)
@@ -187,15 +191,15 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
         $this->_importErrors        = [];
         $this->_importedRows        = 0;
 
-        $io     = new Varien_Io_File();
+        $ioFile = new Varien_Io_File();
         $info   = pathinfo($csvFile);
-        $io->open(['path' => $info['dirname']]);
-        $io->streamOpen($info['basename'], 'r');
+        $ioFile->open(['path' => $info['dirname']]);
+        $ioFile->streamOpen($info['basename'], 'r');
 
         // check and skip headers
-        $headers = $io->streamReadCsv();
+        $headers = $ioFile->streamReadCsv();
         if ($headers === false || count($headers) < 5) {
-            $io->streamClose();
+            $ioFile->streamClose();
             Mage::throwException(Mage::helper('shipping')->__('Invalid Table Rates File Format'));
         }
 
@@ -204,6 +208,7 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
         } else {
             $conditionName = $object->getData('groups/tablerate/fields/condition_name/value');
         }
+
         $this->_importConditionName = $conditionName;
 
         $adapter = $this->_getWriteAdapter();
@@ -223,7 +228,7 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
             ];
             $adapter->delete($this->getMainTable(), $condition);
 
-            while (($csvLine = $io->streamReadCsv()) !== false) {
+            while (($csvLine = $ioFile->streamReadCsv()) !== false) {
                 $rowNumber++;
 
                 if (empty($csvLine)) {
@@ -240,17 +245,18 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
                     $importData = [];
                 }
             }
+
             $this->_saveImportData($importData);
-            $io->streamClose();
+            $ioFile->streamClose();
             $adapter->commit();
-        } catch (Mage_Core_Exception $e) {
+        } catch (Mage_Core_Exception $mageCoreException) {
             $adapter->rollBack();
-            $io->streamClose();
-            Mage::throwException($e->getMessage());
-        } catch (Exception $e) {
+            $ioFile->streamClose();
+            Mage::throwException($mageCoreException->getMessage());
+        } catch (Exception $exception) {
             $adapter->rollBack();
-            $io->streamClose();
-            Mage::logException($e);
+            $ioFile->streamClose();
+            Mage::logException($exception);
             Mage::throwException(Mage::helper('shipping')->__('An error occurred while import table rates.'));
         }
 
@@ -311,7 +317,7 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
     /**
      * Return import condition full name by condition name code
      *
-     * @param string $conditionName
+     * @param  string $conditionName
      * @return string
      */
     protected function _getConditionFullName($conditionName)
@@ -328,8 +334,8 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
      * Validate row for import and return table rate array or false
      * Error will be add to _importErrors array
      *
-     * @param array $row
-     * @param int $rowNumber
+     * @param  array       $row
+     * @param  int         $rowNumber
      * @return array|false
      */
     protected function _getImportRow($row, $rowNumber = 0)
@@ -341,8 +347,8 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
         }
 
         // strip whitespace from the beginning and end of each row
-        foreach ($row as $k => $v) {
-            $row[$k] = trim($v);
+        foreach ($row as $key => $val) {
+            $row[$key] = trim($val);
         }
 
         // validate country
@@ -368,11 +374,7 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
         }
 
         // detect zip code
-        if ($row[2] == '*' || $row[2] == '') {
-            $zipCode = '*';
-        } else {
-            $zipCode = $row[2];
-        }
+        $zipCode = $row[2] == '*' || $row[2] == '' ? '*' : $row[2];
 
         // validate condition value
         $value = $this->_parseDecimalValue($row[3]);
@@ -394,6 +396,7 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
             $this->_importErrors[] = Mage::helper('shipping')->__('Duplicate Row #%s (Country "%s", Region/State "%s", Zip "%s" and Value "%s").', $rowNumber, $row[0], $row[1], $zipCode, $value);
             return false;
         }
+
         $this->_importUniqueHash[$hash] = true;
 
         return [
@@ -410,11 +413,12 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
     /**
      * Save import data batch
      *
+     * @param  array<int, mixed[]> $data
      * @return $this
      */
     protected function _saveImportData(array $data)
     {
-        if (!empty($data)) {
+        if ($data !== []) {
             $columns = ['website_id', 'dest_country_id', 'dest_region_id', 'dest_zip',
                 'condition_name', 'condition_value', 'price'];
             $this->_getWriteAdapter()->insertArray($this->getMainTable(), $columns, $data);
@@ -428,7 +432,7 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
      * Parse and validate positive decimal value
      * Return false if value is not decimal or is not positive
      *
-     * @param string $value
+     * @param  string     $value
      * @return bool|float
      */
     protected function _parseDecimalValue($value)
@@ -436,23 +440,12 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
         if (!is_numeric($value)) {
             return false;
         }
+
         $value = (float) sprintf('%.4F', $value);
         if ($value < 0.0000) {
             return false;
         }
-        return $value;
-    }
 
-    /**
-     * Parse and validate positive decimal value
-     *
-     * @see self::_parseDecimalValue()
-     * @deprecated since 1.4.1.0
-     * @param string $value
-     * @return bool|float
-     */
-    protected function _isPositiveDecimalNumber($value)
-    {
-        return $this->_parseDecimalValue($value);
+        return $value;
     }
 }

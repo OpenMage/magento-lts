@@ -142,27 +142,15 @@ class Mage_CatalogSearch_Model_Indexer_Fulltext extends Mage_Index_Model_Indexer
             } else {
                 /** @var Mage_Core_Model_Store $store */
                 $store = $event->getDataObject();
-                if ($store && $store->isObjectNew()) {
-                    $result = true;
-                } else {
-                    $result = false;
-                }
+                $result = $store && $store->isObjectNew();
             }
         } elseif ($entity == Mage_Core_Model_Store_Group::ENTITY) {
             /** @var Mage_Core_Model_Store_Group $storeGroup */
             $storeGroup = $event->getDataObject();
-            if ($storeGroup && $storeGroup->dataHasChangedFor('website_id')) {
-                $result = true;
-            } else {
-                $result = false;
-            }
+            $result = $storeGroup && $storeGroup->dataHasChangedFor('website_id');
         } elseif ($entity == Mage_Core_Model_Config_Data::ENTITY) {
             $data = $event->getDataObject();
-            if ($data && in_array($data->getPath(), $this->_relatedConfigSettings)) {
-                $result = $data->isValueChanged();
-            } else {
-                $result = false;
-            }
+            $result = $data && in_array($data->getPath(), $this->_relatedConfigSettings) ? $data->isValueChanged() : false;
         } else {
             $result = parent::matchEvent($event);
         }
@@ -278,7 +266,7 @@ class Mage_CatalogSearch_Model_Indexer_Fulltext extends Mage_Index_Model_Indexer
                     $searchableAttributes = array_intersect($this->_getSearchableAttributes(), array_keys($attrData));
                 }
 
-                if (count($searchableAttributes) > 0) {
+                if ($searchableAttributes !== []) {
                     $rebuildIndex = true;
                     $reindexData['catalogsearch_force_reindex'] = true;
                 }
@@ -286,10 +274,11 @@ class Mage_CatalogSearch_Model_Indexer_Fulltext extends Mage_Index_Model_Indexer
                 // register affected products
                 if ($rebuildIndex) {
                     $reindexData['catalogsearch_product_ids'] = $actionObject->getProductIds();
-                    foreach ($reindexData as $k => $v) {
-                        $event->addNewData($k, $v);
+                    foreach ($reindexData as $key => $value) {
+                        $event->addNewData($key, $value);
                     }
                 }
+
                 break;
         }
 
@@ -320,7 +309,7 @@ class Mage_CatalogSearch_Model_Indexer_Fulltext extends Mage_Index_Model_Indexer
     /**
      * Check if product is composite
      *
-     * @param int $productId
+     * @param  int  $productId
      * @return bool
      */
     protected function _isProductComposite($productId)
@@ -389,6 +378,7 @@ class Mage_CatalogSearch_Model_Indexer_Fulltext extends Mage_Index_Model_Indexer
                     }
                 }
             }
+
             if (isset($data['catalogsearch_status'])) {
                 $status = $data['catalogsearch_status'];
                 if ($status == Mage_Catalog_Model_Product_Status::STATUS_ENABLED) {
@@ -401,6 +391,7 @@ class Mage_CatalogSearch_Model_Indexer_Fulltext extends Mage_Index_Model_Indexer
                         ->resetSearchResults();
                 }
             }
+
             if (isset($data['catalogsearch_force_reindex'])) {
                 $this->_getIndexer()
                     ->rebuildIndex(null, $productIds)
@@ -417,7 +408,6 @@ class Mage_CatalogSearch_Model_Indexer_Fulltext extends Mage_Index_Model_Indexer
 
     /**
      * Rebuild all index data
-     *
      */
     public function reindexAll()
     {
@@ -426,9 +416,9 @@ class Mage_CatalogSearch_Model_Indexer_Fulltext extends Mage_Index_Model_Indexer
         try {
             $this->_getIndexer()->rebuildIndex();
             $resourceModel->commit();
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $resourceModel->rollBack();
-            throw $e;
+            throw $exception;
         }
     }
 }

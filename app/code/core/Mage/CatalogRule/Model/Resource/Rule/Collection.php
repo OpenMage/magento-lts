@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -9,6 +11,8 @@
 
 /**
  * @package    Mage_CatalogRule
+ *
+ * @extends Mage_Rule_Model_Resource_Rule_Collection_Abstract<Mage_CatalogRule_Model_Rule>
  */
 class Mage_CatalogRule_Model_Resource_Rule_Collection extends Mage_Rule_Model_Resource_Rule_Collection_Abstract
 {
@@ -26,7 +30,7 @@ class Mage_CatalogRule_Model_Resource_Rule_Collection extends Mage_Rule_Model_Re
     ];
 
     /**
-     * Set resource model
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -36,7 +40,7 @@ class Mage_CatalogRule_Model_Resource_Rule_Collection extends Mage_Rule_Model_Re
     /**
      * Find product attribute in conditions or actions
      *
-     * @param string $attributeCode
+     * @param  string $attributeCode
      * @return $this
      */
     public function addAttributeInConditionFilter($attributeCode)

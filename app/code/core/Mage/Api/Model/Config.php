@@ -36,10 +36,8 @@ class Mage_Api_Model_Config extends Varien_Simplexml_Config
      */
     protected function _construct()
     {
-        if (Mage::app()->useCache('config_api')) {
-            if ($this->loadCache()) {
-                return $this;
-            }
+        if (Mage::app()->useCache('config_api') && $this->loadCache()) {
+            return $this;
         }
 
         $config = Mage::getConfig()->loadModulesConfiguration('api.xml');
@@ -48,6 +46,7 @@ class Mage_Api_Model_Config extends Varien_Simplexml_Config
         if (Mage::app()->useCache('config_api')) {
             $this->saveCache();
         }
+
         return $this;
     }
 
@@ -66,6 +65,7 @@ class Mage_Api_Model_Config extends Varien_Simplexml_Config
                 (string) $adapter->suggest_method, // model method name
             ];
         }
+
         return $aliases;
     }
 
@@ -80,10 +80,12 @@ class Mage_Api_Model_Config extends Varien_Simplexml_Config
         foreach ($this->getNode('adapters')->children() as $adapterName => $adapter) {
             /** @var Varien_Simplexml_Element $adapter */
             if (isset($adapter->use)) {
-                $adapter = $this->getNode('adapters/' . (string) $adapter->use);
+                $adapter = $this->getNode('adapters/' . $adapter->use);
             }
+
             $adapters[$adapterName] = $adapter;
         }
+
         return $adapters;
     }
 
@@ -96,12 +98,16 @@ class Mage_Api_Model_Config extends Varien_Simplexml_Config
     {
         $adapters = [];
         foreach ($this->getAdapters() as $adapterName => $adapter) {
-            if (!isset($adapter->active) || $adapter->active == '0') {
+            if (!isset($adapter->active)) {
+                continue;
+            }
+
+            if ($adapter->active == '0') {
                 continue;
             }
 
             if (isset($adapter->required) && isset($adapter->required->extensions)) {
-                foreach ($adapter->required->extensions->children() as $extension => $data) {
+                foreach ($adapter->required->extensions->children() as $extension => $ignored) {
                     if (!extension_loaded($extension)) {
                         continue;
                     }
@@ -147,8 +153,8 @@ class Mage_Api_Model_Config extends Varien_Simplexml_Config
     /**
      * Load Acl resources from config
      *
-     * @param Mage_Core_Model_Config_Element $resource
-     * @param string $parentName
+     * @param  Mage_Core_Model_Config_Element $resource
+     * @param  string                         $parentName
      * @return $this
      */
     public function loadAclResources(Mage_Api_Model_Acl $acl, $resource = null, $parentName = null)
@@ -158,7 +164,7 @@ class Mage_Api_Model_Config extends Varien_Simplexml_Config
             $resource = $this->getNode('acl/resources');
         } else {
             $resourceName = (is_null($parentName) ? '' : $parentName . '/') . $resource->getName();
-            $acl->add(Mage::getModel('api/acl_resource', $resourceName), $parentName);
+            $acl->addResource(Mage::getModel('api/acl_resource', $resourceName), $parentName);
         }
 
         $children = $resource->children();
@@ -172,13 +178,14 @@ class Mage_Api_Model_Config extends Varien_Simplexml_Config
                 $this->loadAclResources($acl, $res, $resourceName);
             }
         }
+
         return $this;
     }
 
     /**
      * Get acl assert config
      *
-     * @param string $name
+     * @param  string                                               $name
      * @return bool|Mage_Core_Model_Config_Element|SimpleXMLElement
      */
     public function getAclAssert($name = '')
@@ -194,7 +201,7 @@ class Mage_Api_Model_Config extends Varien_Simplexml_Config
     /**
      * Retrieve privilege set by name
      *
-     * @param string $name
+     * @param  string                                               $name
      * @return bool|Mage_Core_Model_Config_Element|SimpleXMLElement
      */
     public function getAclPrivilegeSet($name = '')
@@ -208,7 +215,7 @@ class Mage_Api_Model_Config extends Varien_Simplexml_Config
     }
 
     /**
-     * @param string|null $resourceName
+     * @param  null|string $resourceName
      * @return array
      */
     public function getFaults($resourceName = null)
@@ -221,6 +228,7 @@ class Mage_Api_Model_Config extends Varien_Simplexml_Config
         } else {
             $faultsNode = $this->getResources()->$resourceName->faults;
         }
+
         /** @var Varien_Simplexml_Element $faultsNode */
 
         $translateModule = 'api';
@@ -250,7 +258,7 @@ class Mage_Api_Model_Config extends Varien_Simplexml_Config
     }
 
     /**
-     * @param string $id
+     * @param  string     $id
      * @return bool|mixed
      */
     protected function _loadCache($id)
@@ -259,10 +267,10 @@ class Mage_Api_Model_Config extends Varien_Simplexml_Config
     }
 
     /**
-     * @param string $data
-     * @param string $id
-     * @param array $tags
-     * @param bool $lifetime
+     * @param  string                   $data
+     * @param  string                   $id
+     * @param  array                    $tags
+     * @param  bool                     $lifetime
      * @return bool|Mage_Core_Model_App
      */
     protected function _saveCache($data, $id, $tags = [], $lifetime = false)
@@ -271,7 +279,7 @@ class Mage_Api_Model_Config extends Varien_Simplexml_Config
     }
 
     /**
-     * @param string $id
+     * @param  string              $id
      * @return Mage_Core_Model_App
      */
     protected function _removeCache($id)

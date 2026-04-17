@@ -4,15 +4,18 @@ categories:
   - title: '🚨 Security'
     labels:
       - 'security'
-  - title: '🚀 Features'
-    labels:
-      - 'enhancement'
-      - 'new feature'
   - title: '🐛 Bug Fixes'
     labels:
       - 'fix'
       - 'bugfix'
       - 'bug'
+  - title: '🚀 Features'
+    labels:
+      - 'new feature'
+  - title: '🦾 Enhancements'
+    labels:
+      - 'enhancement'
+      - 'improvement'
   - title: '📖 Documentation'
     labels:
       - 'documentation'

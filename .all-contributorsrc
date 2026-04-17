@@ -1698,6 +1698,61 @@
       "contributions": [
         "doc"
       ]
+    },
+    {
+      "login": "lc-excell",
+      "name": "lc-excell",
+      "avatar_url": "https://avatars.githubusercontent.com/u/158118232?v=4",
+      "profile": "https://github.com/lc-excell",
+      "contributions": [
+        "bug"
+      ]
+    },
+    {
+      "login": "warleyelias",
+      "name": "Warley Elias",
+      "avatar_url": "https://avatars.githubusercontent.com/u/5356619?v=4",
+      "profile": "https://www.linkedin.com/in/warley-elias-531a4116/",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "vernad",
+      "name": "vernad",
+      "avatar_url": "https://avatars.githubusercontent.com/u/51973447?v=4",
+      "profile": "https://github.com/vernad",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "M-arcus",
+      "name": "Marcus Müller",
+      "avatar_url": "https://avatars.githubusercontent.com/u/25648755?v=4",
+      "profile": "https://github.com/M-arcus",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "IbrahimS2",
+      "name": "Ibrahim Saleh",
+      "avatar_url": "https://avatars.githubusercontent.com/u/19901858?v=4",
+      "profile": "https://github.com/IbrahimS2",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "B3Hana",
+      "name": "B3Hana",
+      "avatar_url": "https://avatars.githubusercontent.com/u/180432612?v=4",
+      "profile": "https://github.com/B3Hana",
+      "contributions": [
+        "doc",
+        "code"
+      ]
     }
   ],
   "commitType": "docs"

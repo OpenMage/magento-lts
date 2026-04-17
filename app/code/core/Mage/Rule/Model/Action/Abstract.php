@@ -12,19 +12,19 @@
  *
  * @package    Mage_Rule
  *
- * @method array getAttributeOption()
- * @method $this setAttributeOption(array $value)
- * @method array getOperatorOption()
- * @method $this setOperatorOption(array $value)
- * @method array getValueOption()
- * @method $this setValueOption(array $value)
- * @method string getAttribute()
- * @method $this setAttribute(string $value)
- * @method string getOperator()
- * @method $this setOperator(string $value)
- * @method string getType()
- * @method string getValue()
+ * @method string                   getAttribute()
+ * @method array                    getAttributeOption()
+ * @method string                   getOperator()
+ * @method array                    getOperatorOption()
  * @method Mage_Rule_Model_Abstract getRule()
+ * @method string                   getType()
+ * @method string                   getValue()
+ * @method array                    getValueOption()
+ * @method $this                    setAttribute(string $value)
+ * @method $this                    setAttributeOption(array $value)
+ * @method $this                    setOperator(string $value)
+ * @method $this                    setOperatorOption(array $value)
+ * @method $this                    setValueOption(array $value)
  */
 abstract class Mage_Rule_Model_Action_Abstract extends Varien_Object implements Mage_Rule_Model_Action_Interface
 {
@@ -49,6 +49,7 @@ abstract class Mage_Rule_Model_Action_Abstract extends Varien_Object implements 
             $this->setAttribute($attr);
             break;
         }
+
         foreach (array_keys($this->getOperatorOption()) as $operator) {
             $this->setOperator($operator);
             break;
@@ -64,7 +65,7 @@ abstract class Mage_Rule_Model_Action_Abstract extends Varien_Object implements 
     }
 
     /**
-     * @return array
+     * @return array<string, string>
      */
     public function asArray(array $arrAttributes = [])
     {
@@ -119,9 +120,13 @@ abstract class Mage_Rule_Model_Action_Abstract extends Varien_Object implements 
     public function getAttributeSelectOptions()
     {
         $opt = [];
-        foreach ($this->getAttributeOption() as $k => $v) {
-            $opt[] = ['value' => $k, 'label' => $v];
+        foreach ($this->getAttributeOption() as $key => $value) {
+            $opt[] = [
+                'value' => $key,
+                'label' => $value,
+            ];
         }
+
         return $opt;
     }
 
@@ -151,9 +156,13 @@ abstract class Mage_Rule_Model_Action_Abstract extends Varien_Object implements 
     public function getOperatorSelectOptions()
     {
         $opt = [];
-        foreach ($this->getOperatorOption() as $k => $v) {
-            $opt[] = ['value' => $k, 'label' => $v];
+        foreach ($this->getOperatorOption() as $key => $value) {
+            $opt[] = [
+                'value' => $key,
+                'label' => $value,
+            ];
         }
+
         return $opt;
     }
 
@@ -180,9 +189,13 @@ abstract class Mage_Rule_Model_Action_Abstract extends Varien_Object implements 
     public function getValueSelectOptions()
     {
         $opt = [];
-        foreach ($this->getValueOption() as $k => $v) {
-            $opt[] = ['value' => $k, 'label' => $v];
+        foreach ($this->getValueOption() as $key => $value) {
+            $opt[] = [
+                'value' => $key,
+                'label' => $value,
+            ];
         }
+
         return $opt;
     }
 
@@ -196,7 +209,7 @@ abstract class Mage_Rule_Model_Action_Abstract extends Varien_Object implements 
     }
 
     /**
-     * @return array
+     * @return array<int, array<string, string>>
      */
     public function getNewChildSelectOptions()
     {
@@ -320,7 +333,7 @@ abstract class Mage_Rule_Model_Action_Abstract extends Varien_Object implements 
     }
 
     /**
-     * @param string $format
+     * @param  string $format
      * @return string
      */
     public function asString($format = '')
@@ -329,7 +342,7 @@ abstract class Mage_Rule_Model_Action_Abstract extends Varien_Object implements 
     }
 
     /**
-     * @param int $level
+     * @param  int    $level
      * @return string
      */
     public function asStringRecursive($level = 0)

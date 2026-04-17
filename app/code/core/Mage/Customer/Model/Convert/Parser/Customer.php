@@ -24,9 +24,13 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
     protected $_collections;
 
     protected $_customerModel;
+
     protected $_customerAddressModel;
+
     protected $_newsletterModel;
+
     protected $_store;
+
     protected $_storeId;
 
     protected $_stores;
@@ -34,7 +38,7 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
     /**
      * Website collection array
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_websites;
 
@@ -49,13 +53,14 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
     protected $_customerGroups = null;
 
     /**
-     * @return Mage_Core_Model_Config_Element[]|SimpleXMLElement|null
+     * @return null|Mage_Core_Model_Config_Element[]|SimpleXMLElement
      */
     public function getFields()
     {
         if (!$this->_fields) {
             $this->_fields = Mage::getConfig()->getFieldset('customer_dataflow', 'admin');
         }
+
         return $this->_fields;
     }
 
@@ -70,6 +75,7 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
             $object = Mage::getModel('customer/customer');
             $this->_customerModel = Mage::objects()->save($object);
         }
+
         return Mage::objects()->load($this->_customerModel);
     }
 
@@ -84,6 +90,7 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
             $object = Mage::getModel('customer/address');
             $this->_customerAddressModel = Mage::objects()->save($object);
         }
+
         return Mage::objects()->load($this->_customerAddressModel);
     }
 
@@ -98,6 +105,7 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
             $object = Mage::getModel('newsletter/subscriber');
             $this->_newsletterModel = Mage::objects()->save($object);
         }
+
         return Mage::objects()->load($this->_newsletterModel);
     }
 
@@ -111,12 +119,14 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
         if (is_null($this->_store)) {
             try {
                 $store = Mage::app()->getStore($this->getVar('store'));
-            } catch (Exception $e) {
+            } catch (Exception $exception) {
                 $this->addException(Mage::helper('catalog')->__('An invalid store was specified.'), Varien_Convert_Exception::FATAL);
-                throw $e;
+                throw $exception;
             }
+
             $this->_store = $store;
         }
+
         return $this->_store;
     }
 
@@ -130,39 +140,42 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
         if (is_null($this->_storeId)) {
             $this->_storeId = $this->getStore()->getId();
         }
+
         return $this->_storeId;
     }
 
     /**
-     * @param int $storeId
-     * @return Mage_Core_Model_Store|bool
+     * @param  int                        $storeId
+     * @return bool|Mage_Core_Model_Store
      */
     public function getStoreById($storeId)
     {
         if (is_null($this->_stores)) {
             $this->_stores = Mage::app()->getStores(true);
         }
+
         return $this->_stores[$storeId] ?? false;
     }
 
     /**
      * Retrieve website model by id
      *
-     * @param int $websiteId
-     * @return Mage_Core_Model_Website|false
+     * @param  int                           $websiteId
+     * @return false|Mage_Core_Model_Website
      */
     public function getWebsiteById($websiteId)
     {
         if (is_null($this->_websites)) {
             $this->_websites = Mage::app()->getWebsites(true);
         }
+
         return $this->_websites[$websiteId] ?? false;
     }
 
     /**
      * Retrieve eav entity attribute model
      *
-     * @param string $code
+     * @param  string                          $code
      * @return Mage_Eav_Model_Entity_Attribute
      */
     public function getAttribute($code)
@@ -170,22 +183,12 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
         if (!isset($this->_attributes[$code])) {
             $this->_attributes[$code] = $this->getCustomerModel()->getResource()->getAttribute($code);
         }
+
         return $this->_attributes[$code];
     }
 
     /**
-     * @return Mage_Catalog_Model_Mysql4_Convert
-     */
-    public function getResource()
-    {
-        if (!$this->_resource) {
-            $this->_resource = Mage::getResourceSingleton('catalog_entity/convert');
-        }
-        return $this->_resource;
-    }
-
-    /**
-     * @param int $storeId
+     * @param  int                                              $storeId
      * @return Mage_Customer_Model_Resource_Customer_Collection
      */
     public function getCollection($storeId)
@@ -194,6 +197,7 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
             $this->_collections[$storeId] = Mage::getResourceModel('customer/customer_collection');
             $this->_collections[$storeId]->getEntity()->setStore($storeId);
         }
+
         return $this->_collections[$storeId];
     }
 
@@ -229,11 +233,16 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
                     if ($website === false) {
                         $website = $this->getWebsiteById(0);
                     }
+
                     $row['website'] = $website->getCode();
                     continue;
                 }
 
-                if (in_array($field, $systemFields) || is_object($value)) {
+                if (in_array($field, $systemFields)) {
+                    continue;
+                }
+
+                if (is_object($value)) {
                     continue;
                 }
 
@@ -249,15 +258,14 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
                         $this->addException($message, Mage_Dataflow_Model_Convert_Exception::ERROR);
                         continue;
                     }
-                    if (is_array($option)) {
-                        $value = implode(self::MULTI_DELIMITER, $option);
-                    } else {
-                        $value = $option;
-                    }
+
+                    $value = is_array($option) ? implode(self::MULTI_DELIMITER, $option) : $option;
+
                     unset($option);
                 } elseif (is_array($value)) {
                     continue;
                 }
+
                 $row[$field] = $value;
             }
 
@@ -292,6 +300,7 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
                 if ($defaultShippingId != $defaultBillingId) {
                     $customerAddress->load($defaultShippingId);
                 }
+
                 foreach ($this->getFields() as $code => $node) {
                     if ($node->is('shipping')) {
                         $row['shipping_' . $code] = $customerAddress->getDataUsingMethod($code);
@@ -303,6 +312,7 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
             if ($store === false) {
                 $store = $this->getStoreById(0);
             }
+
             $row['created_in'] = $store->getCode();
 
             $newsletter = $this->getNewsletterModel()
@@ -320,12 +330,12 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
                         Mage_Dataflow_Model_Convert_Exception::ERROR,
                     );
                     continue;
-                } else {
-                    $row['group'] = $groupCode;
                 }
+
+                $row['group'] = $groupCode;
             }
 
-            $batchExport = $this->getBatchExportModel()
+            $this->getBatchExportModel()
                 ->setId(null)
                 ->setBatchId($this->getBatchModel()->getId())
                 ->setBatchData($row)
@@ -368,16 +378,26 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
 
         foreach ($customerAttributes as $attr) {
             $code = $attr->getAttributeCode();
-            if (in_array($code, $internal) || $attr->getFrontendInput() == 'hidden') {
+            if (in_array($code, $internal)) {
                 continue;
             }
+
+            if ($attr->getFrontendInput() == 'hidden') {
+                continue;
+            }
+
             $attributes[$code] = $code;
         }
+
         $attributes['password_hash'] = 'password_hash';
 
         foreach ($addressAttributes as $attr) {
             $code = $attr->getAttributeCode();
-            if (in_array($code, $internal) || $attr->getFrontendInput() == 'hidden') {
+            if (in_array($code, $internal)) {
+                continue;
+            }
+
+            if ($attr->getFrontendInput() == 'hidden') {
                 continue;
             }
 
@@ -387,11 +407,16 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
                 $attributes['billing_' . $code] = 'billing_' . $code;
             }
         }
+
         $attributes['billing_country'] = 'billing_country';
 
         foreach ($addressAttributes as $attr) {
             $code = $attr->getAttributeCode();
-            if (in_array($code, $internal) || $attr->getFrontendInput() == 'hidden') {
+            if (in_array($code, $internal)) {
+                continue;
+            }
+
+            if ($attr->getFrontendInput() == 'hidden') {
                 continue;
             }
 
@@ -401,6 +426,7 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
                 $attributes['shipping_' . $code] = 'shipping_' . $code;
             }
         }
+
         $attributes['shipping_country'] = 'shipping_country';
 
         return $attributes;
@@ -409,8 +435,8 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
     /**
      * Gets group code by customer's groupId
      *
-     * @param Mage_Customer_Model_Customer $customer
-     * @return string|null
+     * @param  Mage_Customer_Model_Customer $customer
+     * @return null|string
      */
     protected function _getCustomerGroupCode($customer)
     {
@@ -420,7 +446,7 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
 
             /** @var Mage_Customer_Model_Group $group */
             foreach ($groups as $group) {
-                $this->_customerGroups[$group->getId()] = $group->getData('customer_group_code');
+                $this->_customerGroups[$group->getId()] = $group->getDataByKey('customer_group_code');
             }
         }
 
@@ -435,7 +461,6 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
         $data = $this->getData();
 
         $entityTypeId = Mage::getSingleton('eav/config')->getEntityType('customer')->getId();
-        $result = [];
         foreach ($data as $i => $row) {
             $this->setPosition('Line: ' . ($i + 1));
             try {
@@ -444,6 +469,7 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
                     $this->addException(Mage::helper('customer')->__('Missing email, skipping the record.'), Varien_Convert_Exception::ERROR);
                     continue;
                 }
+
                 $this->setPosition('Line: ' . ($i + 1) . ', email: ' . $row['email']);
 
                 // if attribute_set not set use default
@@ -490,6 +516,7 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
                     if (!empty($row['entity_id'])) {
                         $model->load($row['entity_id']);
                     }
+
                     foreach ($row as $field => $value) {
                         $attribute = $entity->getAttribute($field);
                         if (!$attribute) {
@@ -512,8 +539,10 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
                                 );
                                 continue;
                             }
+
                             $value = $optionId;
                         }
+
                         $model->setData($field, $value);
                     }//foreach ($row as $field=>$value)
 
@@ -545,6 +574,7 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
                     if (isset($regionId)) {
                         $billingAddress->setRegionId($regionId);
                     }
+
                     $billingAddress->setCountryId($row['billing_country']);
                     $billingAddress->setPostcode($row['billing_postcode']);
                     $billingAddress->setStreet([$row['billing_street1'],$row['billing_street2']]);
@@ -605,6 +635,7 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
                             $model->setDefaultShipping($shippingAddress->getId());
                             $model->addAddress($shippingAddress);
                         }
+
                         $shippingAddress->setIsDefaultShipping(true);
                     }
 
@@ -612,12 +643,13 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
                         $collection->addItem($model);
                     }
                 } //foreach ($storeIds as $storeId)
-            } catch (Exception $e) {
-                if (!$e instanceof Mage_Dataflow_Model_Convert_Exception) {
-                    $this->addException(Mage::helper('customer')->__('An error occurred while retrieving the option value: %s.', $e->getMessage()), Mage_Dataflow_Model_Convert_Exception::FATAL);
+            } catch (Exception $exception) {
+                if (!$exception instanceof Mage_Dataflow_Model_Convert_Exception) {
+                    $this->addException(Mage::helper('customer')->__('An error occurred while retrieving the option value: %s.', $exception->getMessage()), Mage_Dataflow_Model_Convert_Exception::FATAL);
                 }
             }
         }
+
         $this->setData($this->_collections);
         return $this;
     }

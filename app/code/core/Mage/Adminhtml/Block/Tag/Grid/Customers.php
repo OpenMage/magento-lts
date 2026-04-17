@@ -8,7 +8,7 @@
  */
 
 /**
- * Adminhtml tagginf customers grid block
+ * Adminhtml customers tag info grid block
  *
  * @package    Mage_Adminhtml
  *
@@ -16,6 +16,8 @@
  */
 class Mage_Adminhtml_Block_Tag_Grid_Customers extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_tag_grid_customers';
+
     /**
      * @inheritDoc
      * @throws Mage_Core_Exception
@@ -31,6 +33,7 @@ class Mage_Adminhtml_Block_Tag_Grid_Customers extends Mage_Adminhtml_Block_Widge
         if ($productId = $this->getRequest()->getParam('product_id')) {
             $collection->addProductFilter($productId);
         }
+
         if ($tagId = $this->getRequest()->getParam('tag_id')) {
             $collection->addTagFilter($tagId);
         }
@@ -88,14 +91,15 @@ class Mage_Adminhtml_Block_Tag_Grid_Customers extends Mage_Adminhtml_Block_Widge
     }
 
     /**
-     * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
-     * @return $this
+     * @inheritDoc
+     * @throws Mage_Core_Exception
      */
     protected function _addColumnFilterToCollection($column)
     {
         if ($this->getCollection() && $column->getFilter()->getValue()) {
             $this->getCollection()->addAttributeToFilter($column->getIndex(), $column->getFilter()->getCondition());
         }
+
         return $this;
     }
 }

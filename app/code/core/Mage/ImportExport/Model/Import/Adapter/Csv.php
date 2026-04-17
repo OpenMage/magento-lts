@@ -67,9 +67,9 @@ class Mage_ImportExport_Model_Import_Adapter_Csv extends Mage_ImportExport_Model
     /**
      * Move forward to next element
      *
-     * @return void Any returned value is ignored.
+     * @return void any returned value is ignored
      */
-    #[\ReturnTypeWillChange]
+    #[ReturnTypeWillChange]
     public function next()
     {
         $this->_currentRow = fgetcsv($this->_fileHandler, 0, $this->_delimiter, $this->_enclosure, $this->_escape);
@@ -79,9 +79,9 @@ class Mage_ImportExport_Model_Import_Adapter_Csv extends Mage_ImportExport_Model
     /**
      * Rewind the Iterator to the first element.
      *
-     * @return void Any returned value is ignored.
+     * @return void any returned value is ignored
      */
-    #[\ReturnTypeWillChange]
+    #[ReturnTypeWillChange]
     public function rewind()
     {
         // rewind resource, reset column names, read first row as current
@@ -97,27 +97,31 @@ class Mage_ImportExport_Model_Import_Adapter_Csv extends Mage_ImportExport_Model
     /**
      * Seeks to a position.
      *
-     * @param int $position The position to seek to.
-     * @throws OutOfBoundsException
+     * @param  int                  $position the position to seek to
      * @return void
+     * @throws OutOfBoundsException
      */
-    #[\ReturnTypeWillChange]
+    #[ReturnTypeWillChange]
     public function seek($position)
     {
         if ($position != $this->_currentKey) {
             if ($position == 0) {
                 $this->rewind();
                 return;
-            } elseif ($position > 0) {
+            }
+
+            if ($position > 0) {
                 if ($position < $this->_currentKey) {
                     $this->rewind();
                 }
+
                 while ($this->_currentRow = fgetcsv($this->_fileHandler, 0, $this->_delimiter, $this->_enclosure, $this->_escape)) {
                     if (++$this->_currentKey == $position) {
                         return;
                     }
                 }
             }
+
             throw new OutOfBoundsException(Mage::helper('importexport')->__('Invalid seek position'));
         }
     }

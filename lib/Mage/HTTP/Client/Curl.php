@@ -82,7 +82,7 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
 
     /**
      * Curl
-     * @var false|resource
+     * @var CurlHandle
      */
     protected $_ch;
 
@@ -112,11 +112,6 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
     }
 
     /**
-     * Constructor
-     */
-    public function __construct() {}
-
-    /**
      * Set headers from hash
 
      * @param array $headers
@@ -129,8 +124,8 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
     /**
      * Add header
      *
-     * @param $name name, ex. "Location"
-     * @param $value value ex. "http://google.com"
+     * @param string $name  name, ex. "Location"
+     * @param string $value value ex. "http://google.com"
      */
     public function addHeader($name, $value)
     {
@@ -152,12 +147,12 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
      * Login credentials support
      *
      * @param string $login username
-     * @param string $pass password
+     * @param string $pass  password
      */
     public function setCredentials($login, $pass)
     {
-        $val = base64_encode("$login:$pass");
-        $this->addHeader('Authorization', "Basic $val");
+        $val = base64_encode("{$login}:{$pass}");
+        $this->addHeader('Authorization', "Basic {$val}");
     }
 
     /**
@@ -248,19 +243,27 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
         if (empty($this->_responseHeaders['Set-Cookie'])) {
             return [];
         }
+
         $out = [];
         foreach ($this->_responseHeaders['Set-Cookie'] as $row) {
             $values = explode('; ', $row);
-            $c = count($values);
-            if (!$c) {
+            $count = count($values);
+            if (!$count) {
                 continue;
             }
-            [$key, $val] = array_pad(array_map('trim', explode('=', $values[0])), 2, null);
-            if (is_null($val) || !strlen($key)) {
+
+            [$key, $val] = array_pad(array_map(trim(...), explode('=', $values[0])), 2, null);
+            if (is_null($val)) {
                 continue;
             }
+
+            if (!strlen($key)) {
+                continue;
+            }
+
             $out[$key] = $val;
         }
+
         return $out;
     }
 
@@ -274,28 +277,37 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
         if (empty($this->_responseHeaders['Set-Cookie'])) {
             return [];
         }
+
         $out = [];
         foreach ($this->_responseHeaders['Set-Cookie'] as $row) {
             $values = explode('; ', $row);
-            $c = count($values);
-            if (!$c) {
+            $count = count($values);
+            if (!$count) {
                 continue;
             }
-            [$key, $val] = array_pad(array_map('trim', explode('=', $values[0])), 2, null);
-            if (is_null($val) || !strlen($key)) {
+
+            [$key, $val] = array_pad(array_map(trim(...), explode('=', $values[0])), 2, null);
+            if (is_null($val)) {
                 continue;
             }
+
+            if (!strlen($key)) {
+                continue;
+            }
+
             $out[$key] = ['value' => $val];
             array_shift($values);
-            $c--;
-            if (!$c) {
+            $count--;
+            if (!$count) {
                 continue;
             }
-            for ($i = 0; $i < $c; $i++) {
+
+            for ($i = 0; $i < $count; $i++) {
                 [$subkey, $val] = explode('=', $values[$i]);
                 $out[trim($key)][trim($subkey)] = trim($val);
             }
         }
+
         return $out;
     }
 
@@ -310,8 +322,8 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
 
     /**
      * Make request
-     * @param string $method
-     * @param string $uri
+     * @param string       $method
+     * @param string       $uri
      * @param array|string $params pass an array to form post, pass a json encoded string to directly post json
      */
     protected function makeRequest($method, $uri, $params = [])
@@ -329,17 +341,19 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
 
         if (count($this->_headers)) {
             $heads = [];
-            foreach ($this->_headers as $k => $v) {
-                $heads[] = $k . ': ' . $v;
+            foreach ($this->_headers as $key => $value) {
+                $heads[] = $key . ': ' . $value;
             }
+
             $this->curlOption(CURLOPT_HTTPHEADER, $heads);
         }
 
         if (count($this->_cookies)) {
             $cookies = [];
-            foreach ($this->_cookies as $k => $v) {
-                $cookies[] = "$k=$v";
+            foreach ($this->_cookies as $key => $value) {
+                $cookies[] = "{$key}={$value}";
             }
+
             $this->curlOption(CURLOPT_COOKIE, implode(';', $cookies));
         }
 
@@ -351,13 +365,13 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
             $this->curlOption(CURLOPT_PORT, $this->_port);
         }
 
-        //$this->curlOption(CURLOPT_HEADER, 1);
+        //$this->curlOption(CURLOPT_HEADER, true);
         $this->curlOption(CURLOPT_RETURNTRANSFER, 1);
         $this->curlOption(CURLOPT_HEADERFUNCTION, [$this,'parseHeaders']);
 
         if (count($this->_curlUserOptions)) {
-            foreach ($this->_curlUserOptions as $k => $v) {
-                $this->curlOption($k, $v);
+            foreach ($this->_curlUserOptions as $key => $value) {
+                $this->curlOption($key, $value);
             }
         }
 
@@ -368,14 +382,15 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
         if ($err) {
             $this->doError(curl_error($this->_ch));
         }
+
         curl_close($this->_ch);
     }
 
     /**
      * Throw error exception
-     * @param $string
-     * @throws Exception
+     * @param            $string
      * @return never
+     * @throws Exception
      */
     public function doError($string)
     {
@@ -385,10 +400,11 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
     /**
      * Parse headers - CURL callback function
      *
-     * @param resource $ch curl handle, not needed
+     * @param resource $handle curl handle, not needed
      * @param string   $data
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
-    protected function parseHeaders($ch, $data): int
+    protected function parseHeaders($handle, $data): int
     {
         if ($this->_headerCount === 0) {
             $line = explode(' ', trim($data), 3);
@@ -396,8 +412,8 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
             $this->validateHttpVersion($line);
             $this->_responseStatus = (int) $line[1];
         } else {
-            //var_dump($data);
-            $name = $value = '';
+            $name = '';
+            $value = '';
             $out  = explode(': ', trim($data), 2);
             if (count($out) === 2) {
                 [$name, $value] = $out;
@@ -408,12 +424,14 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
                     if (!isset($this->_responseHeaders[$name])) {
                         $this->_responseHeaders[$name] = [];
                     }
+
                     $this->_responseHeaders[$name][] = $value;
                 } else {
                     $this->_responseHeaders[$name] = $value;
                 }
             }
         }
+
         $this->_headerCount++;
 
         return strlen($data);
@@ -424,21 +442,22 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
      */
     protected function validateHttpVersion(array $line)
     {
-        if (in_array($line[0], ['HTTP/2', 'HTTP/1.0', 'HTTP/1.1'])) {
-            if (!in_array(count($line), [2, 3])) {
+        if (in_array($line[0], ['HTTP/2', 'HTTP/1.0', 'HTTP/1.1'], true)) {
+            if (!in_array(count($line), [2, 3], true)) {
                 $this->doError('Invalid response line returned from server: ' . implode(' ', $line));
             }
 
             return;
         }
+
         $this->doError('Invalid response line returned from server: ' . implode(' ', $line));
     }
 
     /**
      * Set curl option directly
      *
-     * @param int $name
-     * @param int|array|string $value
+     * @param int              $name
+     * @param array|int|string $value
      */
     protected function curlOption($name, $value)
     {
@@ -465,8 +484,8 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
     /**
      * Set curl option
      */
-    public function setOption($name, $value)
+    public function setOption($key, $value)
     {
-        $this->_curlUserOptions[$name] = $value;
+        $this->_curlUserOptions[$key] = $value;
     }
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -11,12 +13,13 @@
  * Admin user collection
  *
  * @package    Mage_Admin
+ *
+ * @extends Mage_Core_Model_Resource_Db_Collection_Abstract<Mage_Admin_Model_User>
  */
 class Mage_Admin_Model_Resource_User_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
     /**
-     * Define resource model
-     *
+     * @inheritDoc
      */
     protected function _construct()
     {

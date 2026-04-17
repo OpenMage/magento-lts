@@ -15,7 +15,7 @@ class Varien_Filter_Array extends Zend_Filter
     protected $_columnFilters = [];
 
     /**
-     * @param string $column
+     * @param  string $column
      * @return $this
      */
     public function addFilter(Zend_Filter_Interface $filter, $column = '')
@@ -26,13 +26,15 @@ class Varien_Filter_Array extends Zend_Filter
             if (!isset($this->_columnFilters[$column])) {
                 $this->_columnFilters[$column] = new Zend_Filter();
             }
+
             $this->_columnFilters[$column]->addFilter($filter);
         }
+
         return $this;
     }
 
     /**
-     * @param array $array
+     * @param  array $array
      * @return array
      */
     public function filter($array)
@@ -43,8 +45,10 @@ class Varien_Filter_Array extends Zend_Filter
             if (isset($this->_columnFilters[$column])) {
                 $value = $this->_columnFilters[$column]->filter($value);
             }
+
             $out[$column] = $value;
         }
+
         return $out;
     }
 }

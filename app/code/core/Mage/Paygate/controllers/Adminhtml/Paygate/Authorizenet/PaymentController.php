@@ -35,11 +35,11 @@ class Mage_Paygate_Adminhtml_Paygate_Authorizenet_PaymentController extends Mage
 
             $result['success']  = true;
             $result['update_html'] = $this->_getPaymentMethodsHtml();
-        } catch (Mage_Core_Exception $e) {
-            Mage::logException($e);
-            $result['error_message'] = $e->getMessage();
-        } catch (Exception $e) {
-            Mage::logException($e);
+        } catch (Mage_Core_Exception $mageCoreException) {
+            Mage::logException($mageCoreException);
+            $result['error_message'] = $mageCoreException->getMessage();
+        } catch (Exception $exception) {
+            Mage::logException($exception);
             $result['error_message'] = $this->__('There was an error canceling transactions. Please contact us or try again later.');
         }
 
@@ -57,6 +57,7 @@ class Mage_Paygate_Adminhtml_Paygate_Authorizenet_PaymentController extends Mage
         $layout = $this->getLayout();
         $update = $layout->getUpdate();
         $update->load('checkout_onepage_paymentmethod');
+
         $layout->generateXml();
         $layout->generateBlocks();
         return $layout->getOutput();

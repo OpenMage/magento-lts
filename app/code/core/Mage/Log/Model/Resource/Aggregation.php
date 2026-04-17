@@ -14,6 +14,9 @@
  */
 class Mage_Log_Model_Resource_Aggregation extends Mage_Core_Model_Resource_Db_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('log/summary_table', 'log_summary_id');
@@ -39,19 +42,19 @@ class Mage_Log_Model_Resource_Aggregation extends Mage_Core_Model_Resource_Db_Ab
     /**
      * Retrieve count of visitors, customers
      *
-     * @param string $from
-     * @param string $to
-     * @param int $store
-     * @return array
+     * @param  null|string                         $dateFrom
+     * @param  null|string                         $dateTo
+     * @param  int                                 $store
+     * @return array<string, null|bool|int|string>
      */
-    public function getCounts($from, $to, $store)
+    public function getCounts($dateFrom, $dateTo, $store)
     {
         $adapter    = $this->_getReadAdapter();
         $result     = ['customers' => 0, 'visitors' => 0];
         $select     = $adapter->select()
             ->from($this->getTable('log/customer'), 'visitor_id')
-            ->where('login_at >= ?', $from)
-            ->where('login_at <= ?', $to);
+            ->where('login_at >= ?', $dateFrom)
+            ->where('login_at <= ?', $dateTo);
         if ($store) {
             $select->where('store_id = ?', $store);
         }
@@ -61,12 +64,13 @@ class Mage_Log_Model_Resource_Aggregation extends Mage_Core_Model_Resource_Db_Ab
 
         $select = $adapter->select();
         $select->from($this->getTable('log/visitor'), 'COUNT(*)')
-            ->where('first_visit_at >= ?', $from)
-            ->where('first_visit_at <= ?', $to);
+            ->where('first_visit_at >= ?', $dateFrom)
+            ->where('first_visit_at <= ?', $dateTo);
 
         if ($store) {
             $select->where('store_id = ?', $store);
         }
+
         if ($result['customers']) {
             $select->where('visitor_id NOT IN(?)', $customers);
         }
@@ -79,7 +83,7 @@ class Mage_Log_Model_Resource_Aggregation extends Mage_Core_Model_Resource_Db_Ab
     /**
      * Save log
      *
-     * @param array $data
+     * @param array  $data
      * @param string $id
      */
     public function saveLog($data, $id = null)
@@ -112,17 +116,17 @@ class Mage_Log_Model_Resource_Aggregation extends Mage_Core_Model_Resource_Db_Ab
     /**
      * Retrieve log id
      *
-     * @param string $from
-     * @param string $to
+     * @param  string $dateFrom
+     * @param  string $dateTo
      * @return string
      */
-    public function getLogId($from, $to)
+    public function getLogId($dateFrom, $dateTo)
     {
         $adapter    = $this->_getReadAdapter();
         $select     = $adapter->select()
             ->from($this->getTable('log/summary_table'), 'summary_id')
-            ->where('add_date >= ?', $from)
-            ->where('add_date <= ?', $to);
+            ->where('add_date >= ?', $dateFrom)
+            ->where('add_date <= ?', $dateTo);
 
         return $adapter->fetchOne($select);
     }

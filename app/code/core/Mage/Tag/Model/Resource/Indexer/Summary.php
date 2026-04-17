@@ -14,6 +14,9 @@
  */
 class Mage_Tag_Model_Resource_Indexer_Summary extends Mage_Catalog_Model_Resource_Product_Indexer_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('tag/summary', 'tag_id');
@@ -30,6 +33,7 @@ class Mage_Tag_Model_Resource_Indexer_Summary extends Mage_Catalog_Model_Resourc
         if (empty($data['tag_reindex_tag_id'])) {
             return $this;
         }
+
         return $this->aggregate($data['tag_reindex_tag_id']);
     }
 
@@ -44,6 +48,7 @@ class Mage_Tag_Model_Resource_Indexer_Summary extends Mage_Catalog_Model_Resourc
         if (empty($data['tag_reindex_tag_id'])) {
             return $this;
         }
+
         return $this->aggregate($data['tag_reindex_tag_id']);
     }
 
@@ -79,6 +84,7 @@ class Mage_Tag_Model_Resource_Indexer_Summary extends Mage_Catalog_Model_Resourc
         if (empty($data['tag_reindex_tag_ids'])) {
             return $this;
         }
+
         return $this->aggregate($data['tag_reindex_tag_ids']);
     }
 
@@ -93,6 +99,7 @@ class Mage_Tag_Model_Resource_Indexer_Summary extends Mage_Catalog_Model_Resourc
         if (empty($data['tag_reindex_tag_ids'])) {
             return $this;
         }
+
         return $this->aggregate($data['tag_reindex_tag_ids']);
     }
 
@@ -109,7 +116,7 @@ class Mage_Tag_Model_Resource_Indexer_Summary extends Mage_Catalog_Model_Resourc
     /**
      * Aggregate tags by specified ids
      *
-     * @param null|int|array $tagIds
+     * @param  null|array|int $tagIds
      * @return $this
      */
     public function aggregate($tagIds = null)
@@ -229,9 +236,9 @@ class Mage_Tag_Model_Resource_Indexer_Summary extends Mage_Catalog_Model_Resourc
                 $agregateSelect->insertFromSelect($this->getTable('tag/summary'), array_keys($selectedFields)),
             );
             $this->commit();
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $this->rollBack();
-            throw $e;
+            throw $exception;
         }
 
         return $this;

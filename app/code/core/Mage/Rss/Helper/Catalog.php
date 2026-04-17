@@ -28,6 +28,7 @@ class Mage_Rss_Helper_Catalog extends Mage_Core_Helper_Abstract
                 return Mage::getUrl('rss/catalog/tag', ['tagName' => urlencode($tagModel->getName())]);
             }
         }
+
         return $url;
     }
 }

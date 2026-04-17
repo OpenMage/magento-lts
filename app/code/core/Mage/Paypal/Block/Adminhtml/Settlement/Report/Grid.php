@@ -14,21 +14,13 @@
  */
 class Mage_Paypal_Block_Adminhtml_Settlement_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
-    /**
-     * Retain filter parameters in session
-     *
-     * @var bool
-     */
-    protected $_saveParametersInSession = true;
+    protected string $_eventPrefix = 'paypal_adminhtml_settlement_report_grid';
 
-    /**
-     * Constructor
-     * Set main configuration of grid
-     */
     public function __construct()
     {
         parent::__construct();
         $this->setId('settlementGrid');
+        $this->setSaveParametersInSession(true);
         $this->setUseAjax(true);
     }
 
@@ -42,11 +34,13 @@ class Mage_Paypal_Block_Adminhtml_Settlement_Report_Grid extends Mage_Adminhtml_
         if (!$this->getParam($this->getVarNameSort())) {
             $collection->setOrder('row_id', 'desc');
         }
+
         return parent::_prepareCollection();
     }
 
     /**
      * @inheritDoc
+     * @throws Exception
      */
     protected function _prepareColumns()
     {
@@ -113,11 +107,12 @@ class Mage_Paypal_Block_Adminhtml_Settlement_Report_Grid extends Mage_Adminhtml_
     }
 
     /**
-     * Return item view URL
-     * @return string
+     * @inheritDoc
+     * @param  Mage_Paypal_Model_Report_Settlement $row
+     * @throws Mage_Core_Exception
      */
-    public function getRowUrl($item)
+    public function getRowUrl($row)
     {
-        return $this->getUrl('*/*/details', ['id' => $item->getId()]);
+        return $this->getUrl('*/*/details', ['id' => $row->getId()]);
     }
 }

@@ -14,6 +14,9 @@
  */
 class Mage_Widget_Model_Resource_Widget extends Mage_Core_Model_Resource_Db_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('widget/widget', 'widget_id');
@@ -22,7 +25,7 @@ class Mage_Widget_Model_Resource_Widget extends Mage_Core_Model_Resource_Db_Abst
     /**
      * Retrieves pre-configured parameters for widget
      *
-     * @param int $widgetId
+     * @param  int         $widgetId
      * @return array|false
      */
     public function loadPreconfiguredWidget($widgetId)
@@ -37,8 +40,10 @@ class Mage_Widget_Model_Resource_Widget extends Mage_Core_Model_Resource_Db_Abst
             if ($widget['parameters']) {
                 $widget['parameters'] = unserialize($widget['parameters'], ['allowed_classes' => false]);
             }
+
             return $widget;
         }
+
         return false;
     }
 }

@@ -19,14 +19,20 @@ class Mage_Adminhtml_Block_Report_Sales_Bestsellers_Grid extends Mage_Adminhtml_
     public function __construct()
     {
         parent::__construct();
-        $this->setCountTotals(true);
+        $this->setCountTotals();
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getResourceCollectionName()
     {
         return 'sales/report_bestsellers_collection';
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _prepareColumns()
     {
         $this->addColumn('period', [
@@ -50,6 +56,7 @@ class Mage_Adminhtml_Block_Report_Sales_Bestsellers_Grid extends Mage_Adminhtml_
         if ($this->getFilterData()->getStoreIds()) {
             $this->setStoreIds(explode(',', $this->getFilterData()->getStoreIds()));
         }
+
         $currencyCode = $this->getCurrentCurrencyCode();
 
         $this->addColumn('product_price', [

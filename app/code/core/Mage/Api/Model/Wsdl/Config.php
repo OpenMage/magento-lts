@@ -28,7 +28,7 @@ class Mage_Api_Model_Wsdl_Config extends Mage_Api_Model_Wsdl_Config_Base
     /**
      * Return wsdl content
      *
-     * @return string|bool
+     * @return bool|string
      */
     public function getWsdlContent()
     {
@@ -49,6 +49,7 @@ class Mage_Api_Model_Wsdl_Config extends Mage_Api_Model_Wsdl_Config_Base
                 self::$_namespacesPrefix[$namespace->asArray()] = $prefix;
             }
         }
+
         return self::$_namespacesPrefix;
     }
 
@@ -61,7 +62,7 @@ class Mage_Api_Model_Wsdl_Config extends Mage_Api_Model_Wsdl_Config_Base
     }
 
     /**
-     * @param string $id
+     * @param  string     $id
      * @return bool|mixed
      */
     protected function _loadCache($id)
@@ -70,10 +71,10 @@ class Mage_Api_Model_Wsdl_Config extends Mage_Api_Model_Wsdl_Config_Base
     }
 
     /**
-     * @param string $data
-     * @param string $id
-     * @param array $tags
-     * @param int|false|null $lifetime
+     * @param  string                   $data
+     * @param  string                   $id
+     * @param  array                    $tags
+     * @param  null|false|int           $lifetime
      * @return bool|Mage_Core_Model_App
      */
     protected function _saveCache($data, $id, $tags = [], $lifetime = false)
@@ -82,7 +83,7 @@ class Mage_Api_Model_Wsdl_Config extends Mage_Api_Model_Wsdl_Config_Base
     }
 
     /**
-     * @param string $id
+     * @param  string              $id
      * @return Mage_Core_Model_App
      */
     protected function _removeCache($id)
@@ -96,7 +97,6 @@ class Mage_Api_Model_Wsdl_Config extends Mage_Api_Model_Wsdl_Config_Base
     public function init()
     {
         $this->setCacheChecksum(null);
-        $saveCache = true;
 
         if (Mage::app()->useCache('config')) {
             $loaded = $this->loadCache();
@@ -140,7 +140,7 @@ class Mage_Api_Model_Wsdl_Config extends Mage_Api_Model_Wsdl_Config_Base
     /**
      * Return Xml of node as string
      *
-     * @return string|bool
+     * @return bool|string
      */
     public function getXmlString()
     {

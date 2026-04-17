@@ -37,13 +37,14 @@ class Mage_Widget_Model_Widget extends Varien_Object
                 );
             }
         }
+
         return $xmlConfig;
     }
 
     /**
      * Return widget XML config element based on its type
      *
-     * @param string $type Widget type
+     * @param  string                        $type Widget type
      * @return null|Varien_Simplexml_Element
      */
     public function getXmlElementByType($type)
@@ -52,13 +53,14 @@ class Mage_Widget_Model_Widget extends Varien_Object
         if (is_array($elements) && isset($elements[0]) && $elements[0] instanceof Varien_Simplexml_Element) {
             return $elements[0];
         }
+
         return null;
     }
 
     /**
      * Wrapper for getXmlElementByType method
      *
-     * @param string $type Widget type
+     * @param  string                        $type Widget type
      * @return null|Varien_Simplexml_Element
      */
     public function getConfigAsXml($type)
@@ -69,7 +71,7 @@ class Mage_Widget_Model_Widget extends Varien_Object
     /**
      * Return widget XML configuration as Varien_Object and makes some data preparations
      *
-     * @param string $type Widget type
+     * @param  string        $type Widget type
      * @return Varien_Object
      */
     public function getConfigAsObject($type)
@@ -92,7 +94,7 @@ class Mage_Widget_Model_Widget extends Varien_Object
         }
 
         // Correct widget parameters and convert its data to objects
-        $params = $object->getData('parameters');
+        $params = $object->getDataByKey('parameters');
         $newParams = [];
         if (is_array($params)) {
             $sortOrder = 0;
@@ -110,6 +112,7 @@ class Mage_Widget_Model_Widget extends Varien_Object
                             }
                         }
                     }
+
                     $data['values'] = $values;
 
                     // prepare helper block object
@@ -118,9 +121,11 @@ class Mage_Widget_Model_Widget extends Varien_Object
                         if (isset($data['helper_block']['data']) && is_array($data['helper_block']['data'])) {
                             $helper->addData($data['helper_block']['data']);
                         }
+
                         if (isset($data['helper_block']['type'])) {
                             $helper->setType($data['helper_block']['type']);
                         }
+
                         $data['helper_block'] = $helper;
                     }
 
@@ -129,6 +134,7 @@ class Mage_Widget_Model_Widget extends Varien_Object
                 }
             }
         }
+
         uasort($newParams, [$this, '_sortParameters']);
         $object->setData('parameters', $newParams);
 
@@ -138,7 +144,7 @@ class Mage_Widget_Model_Widget extends Varien_Object
     /**
      * Return filtered list of widgets as SimpleXml object
      *
-     * @param array $filters Key-value array of filters for widget node properties
+     * @param  array                    $filters Key-value array of filters for widget node properties
      * @return Varien_Simplexml_Element
      */
     public function getWidgetsXml($filters = [])
@@ -147,7 +153,7 @@ class Mage_Widget_Model_Widget extends Varien_Object
         $result = clone $widgets;
 
         // filter widgets by params
-        if (is_array($filters) && count($filters) > 0) {
+        if (is_array($filters) && $filters !== []) {
             foreach ($widgets as $code => $widget) {
                 try {
                     $reflection = new ReflectionObject($widget);
@@ -156,7 +162,7 @@ class Mage_Widget_Model_Widget extends Varien_Object
                             throw new Exception();
                         }
                     }
-                } catch (Exception $e) {
+                } catch (Exception) {
                     unset($result->{$code});
                     continue;
                 }
@@ -169,7 +175,7 @@ class Mage_Widget_Model_Widget extends Varien_Object
     /**
      * Return list of widgets as array
      *
-     * @param array $filters Key-value array of filters for widget node properties
+     * @param  array $filters Key-value array of filters for widget node properties
      * @return array
      */
     public function getWidgetsArray($filters = [])
@@ -188,18 +194,20 @@ class Mage_Widget_Model_Widget extends Varien_Object
                     'description'   => $helper->__((string) $widget->description),
                 ];
             }
+
             usort($result, [$this, '_sortWidgets']);
             $this->setData('widgets_array', $result);
         }
+
         return $this->_getData('widgets_array');
     }
 
     /**
      * Return widget presentation code in WYSIWYG editor
      *
-     * @param string $type Widget Type
-     * @param array $params Pre-configured Widget Params
-     * @param bool $asIs Return result as widget directive(true) or as placeholder image(false)
+     * @param  string $type   Widget Type
+     * @param  array  $params Pre-configured Widget Params
+     * @param  bool   $asIs   Return result as widget directive(true) or as placeholder image(false)
      * @return string Widget directive ready to parse
      */
     public function getWidgetDeclaration($type, $params = [], $asIs = true)
@@ -217,10 +225,12 @@ class Mage_Widget_Model_Widget extends Varien_Object
                     $value = $parameters[$name]->getValue();
                 }
             }
+
             if ($value) {
                 $directive .= sprintf(' %s="%s"', $name, $value);
             }
         }
+
         $directive .= '}}';
 
         if ($asIs) {
@@ -234,6 +244,7 @@ class Mage_Widget_Model_Widget extends Varien_Object
         } else {
             $image = $config->getPlaceholderImagesBaseUrl() . 'default.gif';
         }
+
         return sprintf(
             '<img id="%s" src="%s" title="%s">',
             $this->_idEncode($directive),
@@ -252,18 +263,19 @@ class Mage_Widget_Model_Widget extends Varien_Object
         $result = [];
         foreach ($this->getWidgetsXml() as $widget) {
             if ($widget->js) {
-                foreach (explode(',', (string) $widget->js) as $js) {
-                    $result[] = $js;
+                foreach (explode(',', (string) $widget->js) as $str) {
+                    $result[] = $str;
                 }
             }
         }
+
         return $result;
     }
 
     /**
      * Encode string to valid HTML id element, based on base64 encoding
      *
-     * @param string $string
+     * @param  string $string
      * @return string
      */
     protected function _idEncode($string)
@@ -274,8 +286,8 @@ class Mage_Widget_Model_Widget extends Varien_Object
     /**
      * User-defined widgets sorting by Name
      *
-     * @param array $a
-     * @param array $b
+     * @param  array      $a
+     * @param  array      $b
      * @return int<-1, 1>
      */
     protected function _sortWidgets($a, $b)
@@ -286,14 +298,12 @@ class Mage_Widget_Model_Widget extends Varien_Object
     /**
      * Widget parameters sort callback
      *
-     * @param Varien_Object $a
-     * @param Varien_Object $b
+     * @param  Varien_Object $a
+     * @param  Varien_Object $b
      * @return int
      */
     protected function _sortParameters($a, $b)
     {
-        $aOrder = (int) $a->getData('sort_order');
-        $bOrder = (int) $b->getData('sort_order');
-        return $aOrder <=> $bOrder;
+        return (int) $a->getDataByKey('sort_order') <=> (int) $b->getDataByKey('sort_order');
     }
 }

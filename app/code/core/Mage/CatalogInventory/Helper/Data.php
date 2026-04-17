@@ -13,7 +13,9 @@
 class Mage_CatalogInventory_Helper_Data extends Mage_Core_Helper_Abstract
 {
     public const XML_PATH_SHOW_OUT_OF_STOCK    = 'cataloginventory/options/show_out_of_stock';
+
     public const XML_PATH_ITEM_AUTO_RETURN     = 'cataloginventory/item_options/auto_return';
+
     /**
      * Path to configuration option 'Display product stock status'
      */
@@ -23,6 +25,7 @@ class Mage_CatalogInventory_Helper_Data extends Mage_Core_Helper_Abstract
      * Error codes, that Catalog Inventory module can set to quote or quote items
      */
     public const ERROR_QTY =               1;
+
     public const ERROR_QTY_INCREMENTS =    2;
 
     protected $_moduleName = 'Mage_CatalogInventory';
@@ -37,7 +40,7 @@ class Mage_CatalogInventory_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Check if quantity defined for specified product type
      *
-     * @param string $productTypeId
+     * @param  string $productTypeId
      * @return bool
      */
     public function isQty($productTypeId)
@@ -49,7 +52,7 @@ class Mage_CatalogInventory_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get all registered product type ids and if quantity is defined for them
      *
-     * @param bool $filter
+     * @param  bool  $filter
      * @return array
      */
     public function getIsQtyTypeIds($filter = null)
@@ -61,22 +64,25 @@ class Mage_CatalogInventory_Helper_Data extends Mage_Core_Helper_Abstract
                 self::$_isQtyTypeIds[$typeId] = (bool) $configXml->is_qty;
             }
         }
+
         if ($filter === null) {
             return self::$_isQtyTypeIds;
         }
+
         $result = self::$_isQtyTypeIds;
         foreach ($result as $key => $value) {
             if ($value !== $filter) {
                 unset($result[$key]);
             }
         }
+
         return $result;
     }
 
     /**
      * Retrieve inventory item options (used in config)
      *
-     * @return array
+     * @return array<int, string>
      */
     public function getConfigItemOptions()
     {

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -12,7 +14,6 @@
  *
  * @package    Varien_Filter
  */
-
 class Varien_Filter_Template_Tokenizer_Parameter extends Varien_Filter_Template_Tokenizer_Abstract
 {
     /**
@@ -27,13 +28,16 @@ class Varien_Filter_Template_Tokenizer_Parameter extends Varien_Filter_Template_
         while ($this->next()) {
             if ($this->isWhiteSpace()) {
                 continue;
-            } elseif ($this->char() != '=') {
+            }
+
+            if ($this->char() != '=') {
                 $parameterName .= $this->char();
             } else {
                 $parameters[$parameterName] = $this->getValue();
                 $parameterName = '';
             }
         }
+
         return $parameters;
     }
 
@@ -49,6 +53,7 @@ class Varien_Filter_Template_Tokenizer_Parameter extends Varien_Filter_Template_
         if ($this->isWhiteSpace()) {
             return $value;
         }
+
         $quoteStart = $this->char() == "'" || $this->char() == '"';
 
         if ($quoteStart) {

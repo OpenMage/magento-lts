@@ -14,45 +14,45 @@
  */
 class Mage_Reports_Model_Resource_Customer_Totals_Collection extends Mage_Reports_Model_Resource_Order_Collection
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         parent::_construct();
         $this->_useAnalyticFunction = true;
     }
+
     /**
      * Join fields
      *
-     * @param string $from
-     * @param string $to
+     * @param  null|string $dateFrom
+     * @param  null|string $dateTo
      * @return $this
      */
-    protected function _joinFields($from = '', $to = '')
+    protected function _joinFields($dateFrom = '', $dateTo = '')
     {
         $this->joinCustomerName()
             ->groupByCustomer()
             ->addOrdersCount()
-            ->addAttributeToFilter('created_at', ['from' => $from, 'to' => $to, 'datetime' => true]);
+            ->addAttributeToFilter('created_at', ['from' => $dateFrom, 'to' => $dateTo, 'datetime' => true]);
         return $this;
     }
 
     /**
-     * Set date range
-     *
-     * @param string $from
-     * @param string $to
-     * @return $this
+     * @inheritDoc
      */
-    public function setDateRange($from, $to)
+    public function setDateRange($dateFrom, $dateTo)
     {
         $this->_reset()
-            ->_joinFields($from, $to);
+            ->_joinFields($dateFrom, $dateTo);
         return $this;
     }
 
     /**
      * Set store filter collection
      *
-     * @param array $storeIds
+     * @param  array $storeIds
      * @return $this
      */
     public function setStoreIds($storeIds)

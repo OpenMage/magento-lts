@@ -17,7 +17,7 @@ class Mage_Dataflow_Model_Convert_Adapter_Io extends Mage_Dataflow_Model_Convert
     public const XML_PATH_EXPORT_LOCAL_VALID_PATH = 'general/file/importexport_local_valid_paths';
 
     /**
-     * @return Varien_Io_Abstract|false
+     * @return false|Varien_Io_Abstract
      */
     public function getResource($forWrite = false)
     {
@@ -25,8 +25,6 @@ class Mage_Dataflow_Model_Convert_Adapter_Io extends Mage_Dataflow_Model_Convert
             $type = $this->getVar('type', 'file');
             $className = 'Varien_Io_' . ucwords($type);
             $this->_resource = new $className();
-
-            $isError = false;
 
             $ioConfig = $this->getVars();
             switch (strtolower($this->getVar('type', 'file'))) {
@@ -43,8 +41,8 @@ class Mage_Dataflow_Model_Convert_Adapter_Io extends Mage_Dataflow_Model_Convert
                         }
                     }
 
-                    if (preg_match('#^' . preg_quote(DS, '#') . '#', $this->getVar('path')) ||
-                        preg_match('#^[a-z]:' . preg_quote(DS, '#') . '#i', $this->getVar('path'))
+                    if (preg_match('#^' . preg_quote(DS, '#') . '#', $this->getVar('path'))
+                        || preg_match('#^[a-z]:' . preg_quote(DS, '#') . '#i', $this->getVar('path'))
                     ) {
                         $path = $this->_resource->getCleanPath($this->getVar('path'));
                     } else {
@@ -55,37 +53,33 @@ class Mage_Dataflow_Model_Convert_Adapter_Io extends Mage_Dataflow_Model_Convert
                     $this->_resource->checkAndCreateFolder($path);
 
                     $realPath = realpath($path);
-
-                    if (!$isError && $realPath === false) {
+                    if ($realPath === false) {
                         $message = Mage::helper('dataflow')->__('The destination folder "%s" does not exist or there is no access to create it.', $ioConfig['path']);
                         Mage::throwException($message);
-                    } elseif (!$isError && !is_dir($realPath)) {
+                    } elseif (!is_dir($realPath)) {
                         $message = Mage::helper('dataflow')->__('Destination folder "%s" is not a directory.', $realPath);
                         Mage::throwException($message);
-                    } elseif (!$isError) {
-                        if ($forWrite && !is_writable($realPath)) {
-                            $message = Mage::helper('dataflow')->__('Destination folder "%s" is not writable.', $realPath);
-                            Mage::throwException($message);
-                        } else {
-                            $ioConfig['path'] = rtrim($realPath, DS);
-                        }
+                    } elseif ($forWrite && !is_writable($realPath)) {
+                        $message = Mage::helper('dataflow')->__('Destination folder "%s" is not writable.', $realPath);
+                        Mage::throwException($message);
+                    } else {
+                        $ioConfig['path'] = rtrim($realPath, DS);
                     }
+
                     break;
                 default:
                     $ioConfig['path'] = rtrim($this->getVar('path'), '/');
                     break;
             }
 
-            if ($isError) {
-                return false;
-            }
             try {
                 $this->_resource->open($ioConfig);
-            } catch (Exception $e) {
-                $message = Mage::helper('dataflow')->__('An error occurred while opening file: "%s".', $e->getMessage());
+            } catch (Exception $exception) {
+                $message = Mage::helper('dataflow')->__('An error occurred while opening file: "%s".', $exception->getMessage());
                 Mage::throwException($message);
             }
         }
+
         return $this->_resource;
     }
 
@@ -144,8 +138,10 @@ class Mage_Dataflow_Model_Convert_Adapter_Io extends Mage_Dataflow_Model_Convert
             if ($this->getVar('link')) {
                 $message .= Mage::helper('dataflow')->__('<a href="%s" target="_blank">Link</a>', $this->getVar('link'));
             }
+
             $this->addException($message);
         }
+
         return $this;
     }
 }

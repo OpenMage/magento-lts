@@ -52,6 +52,7 @@ class Mage_Catalog_Model_Product_Attribute_Source_Msrp_Type extends Mage_Eav_Mod
                 ],
             ];
         }
+
         return $this->_options;
     }
 

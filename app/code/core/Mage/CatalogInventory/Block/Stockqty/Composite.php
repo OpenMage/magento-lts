@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -38,13 +40,14 @@ abstract class Mage_CatalogInventory_Block_Stockqty_Composite extends Mage_Catal
         if ($this->_childProducts === null) {
             $this->_childProducts = $this->_getChildProducts();
         }
+
         return $this->_childProducts;
     }
 
     /**
      * Retrieve product stock qty
      *
-     * @param Mage_Catalog_Model_Product $product
+     * @param  Mage_Catalog_Model_Product $product
      * @return float
      */
     public function getProductStockQty($product)

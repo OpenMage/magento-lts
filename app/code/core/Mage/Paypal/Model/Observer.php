@@ -26,20 +26,20 @@ class Mage_Paypal_Model_Observer
             foreach ($credentials as $config) {
                 try {
                     $reports->fetchAndSave($config);
-                } catch (Exception $e) {
-                    Mage::logException($e);
+                } catch (Exception $exception) {
+                    Mage::logException($exception);
                 }
             }
-        } catch (Exception $e) {
-            Mage::logException($e);
+        } catch (Exception $exception) {
+            Mage::logException($exception);
         }
     }
 
     /**
      * Clean unfinished transaction
      *
-     * @deprecated since 1.6.2.0
      * @return $this
+     * @deprecated since 1.6.2.0
      */
     public function cleanTransactions()
     {
@@ -54,7 +54,7 @@ class Mage_Paypal_Model_Observer
     public function saveOrderAfterSubmit(Varien_Event_Observer $observer)
     {
         /** @var Mage_Sales_Model_Order $order */
-        $order = $observer->getEvent()->getData('order');
+        $order = $observer->getEvent()->getDataByKey('order');
         Mage::register('hss_order', $order, true);
 
         return $this;
@@ -74,7 +74,7 @@ class Mage_Paypal_Model_Observer
             $payment = $order->getPayment();
             if ($payment && in_array($payment->getMethod(), Mage::helper('paypal/hss')->getHssMethods())) {
                 /** @var Mage_Core_Controller_Varien_Action $controller */
-                $controller = $observer->getEvent()->getData('controller_action');
+                $controller = $observer->getEvent()->getDataByKey('controller_action');
                 $result = Mage::helper('core')->jsonDecode(
                     $controller->getResponse()->getBody('default'),
                     Zend_Json::TYPE_ARRAY,
@@ -116,7 +116,7 @@ class Mage_Paypal_Model_Observer
         $payments = $paymentGroups->xpath('paypal_payments/*');
         foreach ($payments as $payment) {
             if ((int) $payment->include) {
-                $fields = $paymentGroups->xpath((string) $payment->group . '/fields');
+                $fields = $paymentGroups->xpath($payment->group . '/fields');
                 if (isset($fields[0])) {
                     $fields[0]->appendChild($payment, true);
                 }

@@ -12,26 +12,31 @@
  *
  * @package    Mage_Catalog
  *
- * @method Mage_Catalog_Model_Resource_Product_Link _getResource()
- * @method Mage_Catalog_Model_Resource_Product_Link getResource()
- * @method int getProductId()
- * @method $this setProductId(int $value)
- * @method int getLinkedProductId()
- * @method $this setLinkedProductId(int $value)
- * @method int getLinkTypeId()
- * @method $this setLinkTypeId(int $value)
+ * @method Mage_Catalog_Model_Resource_Product_Link            _getResource()
+ * @method Mage_Catalog_Model_Resource_Product_Link_Collection getCollection()
+ * @method int                                                 getLinkedProductId()
+ * @method int                                                 getLinkTypeId()
+ * @method int                                                 getProductId()
+ * @method Mage_Catalog_Model_Resource_Product_Link            getResource()
+ * @method Mage_Catalog_Model_Resource_Product_Link_Collection getResourceCollection()
+ * @method $this                                               setLinkedProductId(int $value)
+ * @method $this                                               setLinkTypeId(int $value)
+ * @method $this                                               setProductId(int $value)
  */
 class Mage_Catalog_Model_Product_Link extends Mage_Core_Model_Abstract
 {
     public const LINK_TYPE_RELATED     = 1;
+
     public const LINK_TYPE_GROUPED     = 3;
+
     public const LINK_TYPE_UPSELL      = 4;
+
     public const LINK_TYPE_CROSSSELL   = 5;
 
     protected $_attributeCollection = null;
 
     /**
-     * Initialize resource
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -77,8 +82,8 @@ class Mage_Catalog_Model_Product_Link extends Mage_Core_Model_Abstract
     /**
      * Retrieve table name for attribute type
      *
-     * @param   string $type
-     * @return  string
+     * @param  string $type
+     * @return string
      */
     public function getAttributeTypeTable($type)
     {
@@ -106,7 +111,7 @@ class Mage_Catalog_Model_Product_Link extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @param int|null $type
+     * @param  null|int $type
      * @return array
      */
     public function getAttributes($type = null)
@@ -114,14 +119,15 @@ class Mage_Catalog_Model_Product_Link extends Mage_Core_Model_Abstract
         if (is_null($type)) {
             $type = $this->getLinkTypeId();
         }
+
         return $this->_getResource()->getAttributesByType($type);
     }
 
     /**
      * Save data for product relations
      *
-     * @param   Mage_Catalog_Model_Product $product
-     * @return  Mage_Catalog_Model_Product_Link
+     * @param  Mage_Catalog_Model_Product      $product
+     * @return Mage_Catalog_Model_Product_Link
      */
     public function saveProductRelations($product)
     {
@@ -129,21 +135,24 @@ class Mage_Catalog_Model_Product_Link extends Mage_Core_Model_Abstract
         if (!is_null($data)) {
             $this->_getResource()->saveProductLinks($product, $data, self::LINK_TYPE_RELATED);
         }
+
         $data = $product->getUpSellLinkData();
         if (!is_null($data)) {
             $this->_getResource()->saveProductLinks($product, $data, self::LINK_TYPE_UPSELL);
         }
+
         $data = $product->getCrossSellLinkData();
         if (!is_null($data)) {
             $this->_getResource()->saveProductLinks($product, $data, self::LINK_TYPE_CROSSSELL);
         }
+
         return $this;
     }
 
     /**
      * Save grouped product relation links
      *
-     * @param Mage_Catalog_Model_Product $product
+     * @param  Mage_Catalog_Model_Product $product
      * @return $this
      */
     public function saveGroupedLinks($product)
@@ -152,6 +161,7 @@ class Mage_Catalog_Model_Product_Link extends Mage_Core_Model_Abstract
         if (!is_null($data)) {
             $this->_getResource()->saveGroupedLinks($product, $data, self::LINK_TYPE_GROUPED);
         }
+
         return $this;
     }
 }

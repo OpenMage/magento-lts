@@ -53,29 +53,31 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_View extends Mage_Adminhtml_Block
                     $this->getEmailUrl(),
                     Mage::helper('sales')->__('Are you sure you want to send Invoice email to customer?'),
                 ),
+                'class'     => 'send-email',
             ]);
         }
 
         $orderPayment = $this->getInvoice()->getOrder()->getPayment();
 
-        if ($this->_isAllowedAction('creditmemo') && $this->getInvoice()->getOrder()->canCreditmemo()) {
-            if (($orderPayment->canRefundPartialPerInvoice()
+        if ($this->_isAllowedAction('creditmemo')
+            && $this->getInvoice()->getOrder()->canCreditmemo()
+            && ($orderPayment->canRefundPartialPerInvoice()
                 && $this->getInvoice()->canRefund()
-                && $orderPayment->getAmountPaid() > $orderPayment->getAmountRefunded())
-                || ($orderPayment->canRefund() && !$this->getInvoice()->getIsUsedForRefund())
-            ) {
-                $this->_addButton('capture', [ // capture?
-                    'label'     => Mage::helper('sales')->__('Credit Memo'),
-                    'class'     => 'go',
-                    'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getCreditMemoUrl()),
-                ]);
-            }
+                && $orderPayment->getAmountPaid() > $orderPayment->getAmountRefunded()
+                || $orderPayment->canRefund()
+                && !$this->getInvoice()->getIsUsedForRefund())
+        ) {
+            $this->_addButton('capture', [ // capture?
+                'label'     => Mage::helper('sales')->__('Credit Memo'),
+                'class'     => 'go',
+                'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getCreditMemoUrl()),
+            ]);
         }
 
         if ($this->_isAllowedAction('capture') && $this->getInvoice()->canCapture()) {
             $this->_addButton('capture', [
                 'label'     => Mage::helper('sales')->__('Capture'),
-                'class'     => 'save',
+                'class'     => 'save capture',
                 'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getCaptureUrl()),
             ]);
         }
@@ -83,7 +85,7 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_View extends Mage_Adminhtml_Block
         if ($this->getInvoice()->canVoid()) {
             $this->_addButton('void', [
                 'label'     => Mage::helper('sales')->__('Void'),
-                'class'     => 'save',
+                'class'     => 'save void',
                 'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getVoidUrl()),
             ]);
         }
@@ -91,7 +93,7 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_View extends Mage_Adminhtml_Block
         if ($this->getInvoice()->getId()) {
             $this->_addButton('print', [
                 'label'     => Mage::helper('sales')->__('Print'),
-                'class'     => 'save',
+                'class'     => 'save print',
                 'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getPrintUrl()),
             ]);
         }
@@ -117,6 +119,7 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_View extends Mage_Adminhtml_Block
         } else {
             $emailSent = Mage::helper('sales')->__('the invoice email is not sent');
         }
+
         return Mage::helper('sales')->__(
             'Invoice #%1$s | %2$s | %4$s (%3$s)',
             $this->getInvoice()->getIncrementId(),
@@ -201,7 +204,7 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_View extends Mage_Adminhtml_Block
     }
 
     /**
-     * @param string $flag
+     * @param  string $flag
      * @return $this
      */
     public function updateBackButtonUrl($flag)
@@ -214,19 +217,21 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_View extends Mage_Adminhtml_Block
                     Mage::helper('core/js')->getSetLocationJs($this->getInvoice()->getBackUrl()),
                 );
             }
+
             return $this->_updateButton(
                 'back',
                 'onclick',
                 Mage::helper('core/js')->getSetLocationJs($this->getUrl('*/sales_invoice/')),
             );
         }
+
         return $this;
     }
 
     /**
      * Check whether is allowed action
      *
-     * @param string $action
+     * @param  string $action
      * @return bool
      */
     protected function _isAllowedAction($action)

@@ -45,8 +45,8 @@ class Mage_Adminhtml_Block_Widget_Form_Element_Dependence extends Mage_Adminhtml
     /**
      * Add name => id mapping
      *
-     * @param string $fieldId - element ID in DOM
-     * @param string $fieldName - element name in their fieldset/form namespace
+     * @param  string $fieldId   - element ID in DOM
+     * @param  string $fieldName - element name in their fieldset/form namespace
      * @return $this
      */
     public function addFieldMap($fieldId, $fieldName)
@@ -58,9 +58,9 @@ class Mage_Adminhtml_Block_Widget_Form_Element_Dependence extends Mage_Adminhtml
     /**
      * Register field name dependence one from each other by specified values
      *
-     * @param string $fieldName
-     * @param string $fieldNameFrom
-     * @param string|array $refValues
+     * @param  string       $fieldName
+     * @param  string       $fieldNameFrom
+     * @param  array|string $refValues
      * @return $this
      */
     public function addFieldDependence($fieldName, $fieldNameFrom, $refValues)
@@ -89,6 +89,7 @@ class Mage_Adminhtml_Block_Widget_Form_Element_Dependence extends Mage_Adminhtml
         if (!$this->_depends) {
             return '';
         }
+
         return '<script type="text/javascript"> new FormElementDependenceController('
             . $this->_getDependsJson()
             . ($this->_configOptions ? ', ' . Mage::helper('core')->jsonEncode($this->_configOptions) : '')
@@ -102,11 +103,12 @@ class Mage_Adminhtml_Block_Widget_Form_Element_Dependence extends Mage_Adminhtml
     protected function _getDependsJson()
     {
         $result = [];
-        foreach ($this->_depends as $to => $row) {
+        foreach ($this->_depends as $key => $row) {
             foreach ($row as $from => $value) {
-                $result[$this->_fields[$to]][$this->_fields[$from]] = $value;
+                $result[$this->_fields[$key]][$this->_fields[$from]] = $value;
             }
         }
+
         return Mage::helper('core')->jsonEncode($result);
     }
 }

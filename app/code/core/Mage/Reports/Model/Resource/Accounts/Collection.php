@@ -17,14 +17,14 @@ class Mage_Reports_Model_Resource_Accounts_Collection extends Mage_Reports_Model
     /**
      * Join created_at and accounts fields
      *
-     * @param string $from
-     * @param string $to
+     * @param  null|string $dateFrom
+     * @param  null|string $dateTo
      * @return $this
      */
-    protected function _joinFields($from = '', $to = '')
+    protected function _joinFields($dateFrom = '', $dateTo = '')
     {
         $this->getSelect()->reset(Zend_Db_Select::COLUMNS);
-        $this->addAttributeToFilter('created_at', ['from' => $from, 'to' => $to, 'datetime' => true])
+        $this->addAttributeToFilter('created_at', ['from' => $dateFrom, 'to' => $dateTo, 'datetime' => true])
              ->addExpressionAttributeToSelect('accounts', 'COUNT({{entity_id}})', ['entity_id']);
 
         $this->getSelect()->having("{$this->_joinFields['accounts']['field']} > ?", 0);
@@ -35,21 +35,21 @@ class Mage_Reports_Model_Resource_Accounts_Collection extends Mage_Reports_Model
     /**
      * Set date range
      *
-     * @param string $from
-     * @param string $to
+     * @param  null|string $dateFrom
+     * @param  null|string $dateTo
      * @return $this
      */
-    public function setDateRange($from, $to)
+    public function setDateRange($dateFrom, $dateTo)
     {
         $this->_reset()
-             ->_joinFields($from, $to);
+             ->_joinFields($dateFrom, $dateTo);
         return $this;
     }
 
     /**
      * Set store ids to final result
      *
-     * @param array $storeIds
+     * @param  array $storeIds
      * @return $this
      */
     public function setStoreIds($storeIds)
@@ -57,6 +57,7 @@ class Mage_Reports_Model_Resource_Accounts_Collection extends Mage_Reports_Model
         if ($storeIds) {
             $this->addAttributeToFilter('store_id', ['in' => (array) $storeIds]);
         }
+
         return $this;
     }
 }

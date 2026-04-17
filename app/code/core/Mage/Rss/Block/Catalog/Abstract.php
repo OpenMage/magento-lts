@@ -14,13 +14,13 @@ class Mage_Rss_Block_Catalog_Abstract extends Mage_Rss_Block_Abstract
 {
     /**
      * Stored price block instances
-     * @var array
+     * @var Mage_Core_Block_Abstract[]
      */
     protected $_priceBlock = [];
 
     /**
      * Stored price blocks info
-     * @var array
+     * @var array<string, array{block: string, template: string}>
      */
     protected $_priceBlockTypes = [];
 
@@ -29,6 +29,11 @@ class Mage_Rss_Block_Catalog_Abstract extends Mage_Rss_Block_Abstract
      * @var string
      */
     protected $_priceBlockDefaultTemplate = 'catalog/rss/product/price.phtml';
+
+    /**
+     * Default price block type
+     * @var string
+     */
     protected $_priceBlockDefaultType = 'catalog/product_price';
 
     /**
@@ -47,45 +52,44 @@ class Mage_Rss_Block_Catalog_Abstract extends Mage_Rss_Block_Abstract
     /**
      * Return Price Block renderer for specified product type
      *
-     * @param string $productTypeId Catalog Product type
+     * @param  string                   $productTypeId Catalog Product type
      * @return Mage_Core_Block_Abstract
      */
     protected function _getPriceBlock($productTypeId)
     {
         if (!isset($this->_priceBlock[$productTypeId])) {
             $block = $this->_priceBlockDefaultType;
-            if (isset($this->_priceBlockTypes[$productTypeId])) {
-                if ($this->_priceBlockTypes[$productTypeId]['block'] != '') {
-                    $block = $this->_priceBlockTypes[$productTypeId]['block'];
-                }
+            if (isset($this->_priceBlockTypes[$productTypeId]) && $this->_priceBlockTypes[$productTypeId]['block'] != '') {
+                $block = $this->_priceBlockTypes[$productTypeId]['block'];
             }
+
             $this->_priceBlock[$productTypeId] = $this->getLayout()->createBlock($block);
         }
+
         return $this->_priceBlock[$productTypeId];
     }
 
     /**
      * Return template for Price Block renderer
      *
-     * @param string $productTypeId Catalog Product type
+     * @param  string $productTypeId Catalog Product type
      * @return string
      */
     protected function _getPriceBlockTemplate($productTypeId)
     {
-        if (isset($this->_priceBlockTypes[$productTypeId])) {
-            if ($this->_priceBlockTypes[$productTypeId]['template'] != '') {
-                return $this->_priceBlockTypes[$productTypeId]['template'];
-            }
+        if (isset($this->_priceBlockTypes[$productTypeId]) && $this->_priceBlockTypes[$productTypeId]['template'] != '') {
+            return $this->_priceBlockTypes[$productTypeId]['template'];
         }
+
         return $this->_priceBlockDefaultTemplate;
     }
 
     /**
      * Returns product price html for RSS feed
      *
-     * @param Mage_Catalog_Model_Product $product
-     * @param bool $displayMinimalPrice Display "As low as" etc.
-     * @param string $idSuffix Suffix for HTML containers
+     * @param  Mage_Catalog_Model_Product $product
+     * @param  bool                       $displayMinimalPrice display "As low as" etc
+     * @param  string                     $idSuffix            Suffix for HTML containers
      * @return string
      */
     public function getPriceHtml($product, $displayMinimalPrice = false, $idSuffix = '')
@@ -107,9 +111,10 @@ class Mage_Rss_Block_Catalog_Abstract extends Mage_Rss_Block_Abstract
     /**
      * Adding customized price template for product type, used as action in layouts
      *
-     * @param string $type Catalog Product Type
-     * @param string $block Block Type
-     * @param string $template Template
+     * @param  string $type     Catalog Product Type
+     * @param  string $block    Block Type
+     * @param  string $template Template
+     * @return void
      */
     public function addPriceBlockType($type, $block = '', $template = '')
     {

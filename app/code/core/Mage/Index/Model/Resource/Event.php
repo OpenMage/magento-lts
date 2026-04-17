@@ -14,6 +14,9 @@
  */
 class Mage_Index_Model_Resource_Event extends Mage_Core_Model_Resource_Db_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('index/event', 'event_id');
@@ -24,6 +27,7 @@ class Mage_Index_Model_Resource_Event extends Mage_Core_Model_Resource_Db_Abstra
      *
      * @param Mage_Index_Model_Event $object
      * @inheritDoc
+     * @throws Mage_Core_Exception
      */
     protected function _beforeSave(Mage_Core_Model_Abstract $object)
     {
@@ -38,11 +42,13 @@ class Mage_Index_Model_Resource_Event extends Mage_Core_Model_Resource_Db_Abstra
             if ($object->hasEntityPk()) {
                 $select->where('entity_pk=?', $object->getEntityPk());
             }
+
             $data = $this->_getWriteAdapter()->fetchRow($select);
             if ($data) {
                 $object->mergePreviousData($data);
             }
         }
+
         $object->cleanNewData();
         return parent::_beforeSave($object);
     }
@@ -52,13 +58,15 @@ class Mage_Index_Model_Resource_Event extends Mage_Core_Model_Resource_Db_Abstra
      *
      * @param Mage_Index_Model_Event $object
      * @inheritDoc
+     * @throws Mage_Core_Exception
+     * @throws Zend_Db_Exception
      */
     protected function _afterSave(Mage_Core_Model_Abstract $object)
     {
         $processIds = $object->getProcessIds();
         if (is_array($processIds)) {
             $processTable = $this->getTable('index/process_event');
-            if (empty($processIds)) {
+            if ($processIds === []) {
                 $this->_getWriteAdapter()->delete($processTable);
             } else {
                 foreach ($processIds as $processId => $processStatus) {
@@ -69,6 +77,7 @@ class Mage_Index_Model_Resource_Event extends Mage_Core_Model_Resource_Db_Abstra
                         ]);
                         continue;
                     }
+
                     $data = [
                         'process_id' => $processId,
                         'event_id'   => $object->getId(),
@@ -78,26 +87,30 @@ class Mage_Index_Model_Resource_Event extends Mage_Core_Model_Resource_Db_Abstra
                 }
             }
         }
+
         return parent::_afterSave($object);
     }
 
     /**
      * Update status for events of process
      *
-     * @param int|array|Mage_Index_Model_Process $process
-     * @param string $status
+     * @param  array|int|Mage_Index_Model_Process $process
+     * @param  string                             $status
      * @return $this
+     * @throws Mage_Core_Exception
+     * @throws Zend_Db_Adapter_Exception
      */
     public function updateProcessEvents($process, $status = Mage_Index_Model_Process::EVENT_STATUS_DONE)
     {
         $whereCondition = '';
         if ($process instanceof Mage_Index_Model_Process) {
             $whereCondition = ['process_id = ?' => $process->getId()];
-        } elseif (is_array($process) && !empty($process)) {
+        } elseif (is_array($process) && $process !== []) {
             $whereCondition = ['process_id IN (?)' => $process];
-        } elseif (!is_array($whereCondition)) {
+        } elseif (!empty($process)) {
             $whereCondition = ['process_id = ?' => $process];
         }
+
         $this->_getWriteAdapter()->update(
             $this->getTable('index/process_event'),
             ['status' => $status],
@@ -109,8 +122,9 @@ class Mage_Index_Model_Resource_Event extends Mage_Core_Model_Resource_Db_Abstra
     /**
      * Retrieve unprocessed events list by specified process
      *
-     * @param Mage_Index_Model_Process $process
+     * @param  Mage_Index_Model_Process $process
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function getUnprocessedEvents($process)
     {

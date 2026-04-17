@@ -17,7 +17,7 @@ class Mage_Bundle_Model_Observer
     /**
      * Setting Bundle Items Data to product for father processing
      *
-     * @param Varien_Event_Observer $observer
+     * @param  Varien_Event_Observer $observer
      * @return $this
      */
     public function prepareProductSave($observer)
@@ -41,6 +41,7 @@ class Mage_Bundle_Model_Observer
                 foreach (array_keys($customOptions) as $key) {
                     $customOptions[$key]['is_delete'] = 1;
                 }
+
                 $product->setProductOptions($customOptions);
             }
         }
@@ -55,7 +56,7 @@ class Mage_Bundle_Model_Observer
     /**
      * Append bundles in upsell list for current product
      *
-     * @param Varien_Event_Observer $observer
+     * @param  Varien_Event_Observer $observer
      * @return $this
      */
     public function appendUpsellProducts($observer)
@@ -70,7 +71,7 @@ class Mage_Bundle_Model_Observer
             return $this;
         }
 
-        /** @var Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Link_Product_Collection $collection */
+        /** @var Mage_Catalog_Model_Resource_Product_Link_Product_Collection $collection */
         $collection = $observer->getEvent()->getCollection();
         $limit      = $observer->getEvent()->getLimit();
         if (is_array($limit)) {
@@ -98,14 +99,13 @@ class Mage_Bundle_Model_Observer
             ->addAttributeToSelect(Mage::getSingleton('catalog/config')->getProductAttributes())
             ->addStoreFilter()
             ->addPriceData()
+            ->setVisibility(Mage::getSingleton('catalog/product_visibility')::getVisibleInCatalogIds())
             ->addTaxPercents();
-
-        Mage::getSingleton('catalog/product_visibility')
-            ->addVisibleInCatalogFilterToCollection($bundleCollection);
 
         if (!is_null($limit)) {
             $bundleCollection->setPageSize($limit);
         }
+
         $bundleCollection->addFieldToFilter('entity_id', ['in' => $bundleIds])
             ->setFlag('do_not_use_category_id', true);
 
@@ -118,6 +118,7 @@ class Mage_Bundle_Model_Observer
             foreach ($bundleCollection as $item) {
                 $items[$item->getEntityId()] = $item;
             }
+
             $collection->setItems($items);
         }
 
@@ -127,7 +128,7 @@ class Mage_Bundle_Model_Observer
     /**
      * Append selection attributes to selection's order item
      *
-     * @param Varien_Event_Observer $observer
+     * @param  Varien_Event_Observer $observer
      * @return $this
      */
     public function appendBundleSelectionData($observer)
@@ -150,7 +151,7 @@ class Mage_Bundle_Model_Observer
      * Add price index data for catalog product collection
      * only for front end
      *
-     * @param Varien_Event_Observer $observer
+     * @param  Varien_Event_Observer $observer
      * @return $this
      */
     public function loadProductOptions($observer)
@@ -165,7 +166,7 @@ class Mage_Bundle_Model_Observer
     /**
      * duplicating bundle options and selections
      *
-     * @param Varien_Event_Observer $observer
+     * @param  Varien_Event_Observer $observer
      * @return $this
      */
     public function duplicateProduct($observer)
@@ -185,6 +186,7 @@ class Mage_Bundle_Model_Observer
         $productType = $product->getTypeInstance(true);
 
         $productType->setStoreFilter($product->getStoreId(), $product);
+
         $optionCollection = $productType->getOptionsCollection($product);
         $selectionCollection = $productType->getSelectionsCollection(
             $productType->getOptionsIds($product),
@@ -198,10 +200,10 @@ class Mage_Bundle_Model_Observer
         $i = 0;
         foreach ($optionCollection as $option) {
             $optionRawData[$i] = [
-                'required' => $option->getData('required'),
-                'position' => $option->getData('position'),
-                'type' => $option->getData('type'),
-                'title' => $option->getData('title') ? $option->getData('title') : $option->getData('default_title'),
+                'required' => $option->getDataByKey('required'),
+                'position' => $option->getDataByKey('position'),
+                'type' => $option->getDataByKey('type'),
+                'title' => $option->getDataByKey('title') ? $option->getDataByKey('title') : $option->getDataByKey('default_title'),
                 'delete' => '',
             ];
             foreach ($option->getSelections() as $selection) {
@@ -216,6 +218,7 @@ class Mage_Bundle_Model_Observer
                     'delete' => '',
                 ];
             }
+
             $i++;
         }
 
@@ -227,7 +230,7 @@ class Mage_Bundle_Model_Observer
     /**
      * Setting attribute tab block for bundle
      *
-     * @param Varien_Event_Observer $observer
+     * @param  Varien_Event_Observer $observer
      * @return $this
      */
     public function setAttributeTabBlock($observer)
@@ -238,6 +241,7 @@ class Mage_Bundle_Model_Observer
             Mage::helper('adminhtml/catalog')
                 ->setAttributeTabBlock('bundle/adminhtml_catalog_product_edit_tab_attributes');
         }
+
         return $this;
     }
 
@@ -257,9 +261,8 @@ class Mage_Bundle_Model_Observer
     /**
      * Add price index to bundle product after load
      *
-     * @deprecated since 1.4.0.0
-     *
      * @return $this
+     * @deprecated since 1.4.0.0
      */
     public function catalogProductLoadAfter(Varien_Event_Observer $observer)
     {
@@ -276,10 +279,9 @@ class Mage_Bundle_Model_Observer
     /**
      * CatalogIndex Indexer after plain reindex process
      *
+     * @return $this
      * @deprecated since 1.4.0.0
      * @see Mage_Bundle_Model_Resource_Indexer_Price
-     *
-     * @return $this
      */
     public function catalogIndexPlainReindexAfter(Varien_Event_Observer $observer)
     {

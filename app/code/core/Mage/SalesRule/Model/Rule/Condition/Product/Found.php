@@ -45,13 +45,14 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Found extends Mage_SalesRule_M
         if ($this->getId() != '1') {
             $html .= $this->getRemoveLinkHtml();
         }
+
         return $html;
     }
 
     /**
      * validate
      *
-     * @param Varien_Object $object Quote
+     * @param  Varien_Object $object Quote
      * @return bool
      */
     public function validate(Varien_Object $object)
@@ -68,16 +69,19 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Found extends Mage_SalesRule_M
                     break;
                 }
             }
+
             if (($found && $true) || (!$true && $found)) {
                 break;
             }
         }
+
         // found an item and we're looking for existing one
         if ($found && $true) {
             return true;
-        } elseif (!$found && !$true) { // not found and we're making sure it doesn't exist
-            return true;
         }
-        return false;
+
+        // found an item and we're looking for existing one
+        // not found and we're making sure it doesn't exist
+        return !$found && !$true;
     }
 }

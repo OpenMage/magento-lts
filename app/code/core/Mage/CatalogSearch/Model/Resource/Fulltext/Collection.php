@@ -22,7 +22,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext_Collection extends Mage_Catalog
     /**
      * Found data
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_foundData = null;
 
@@ -60,7 +60,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext_Collection extends Mage_Catalog
     /**
      * Add search query filter
      *
-     * @param string $query
+     * @param  string $query
      * @return $this
      */
     public function addSearchFilter($query)
@@ -109,6 +109,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext_Collection extends Mage_Catalog
         } else {
             $this->getSelect()->where('FALSE');
         }
+
         $this->_isSearchFiltersApplied = true;
 
         return $this;
@@ -127,9 +128,11 @@ class Mage_CatalogSearch_Model_Resource_Fulltext_Collection extends Mage_Catalog
             $preparedResult->prepareResult();
             $this->_foundData = $preparedResult->getResource()->getFoundData();
         }
+
         if (isset($this->_orders[self::RELEVANCE_ORDER_NAME])) {
             $this->_resortFoundDataByRelevance();
         }
+
         return array_keys($this->_foundData);
     }
 
@@ -145,34 +148,36 @@ class Mage_CatalogSearch_Model_Resource_Fulltext_Collection extends Mage_Catalog
             foreach ($this->_foundData as $id => $relevance) {
                 $this->_foundData[$id] = $relevance . '_' . $id;
             }
+
             natsort($this->_foundData);
             if ($this->_relevanceSortOrder == SORT_DESC) {
                 $this->_foundData = array_reverse($this->_foundData);
             }
+
             foreach ($this->_foundData as $dataString) {
                 [$relevance, $id] = explode('_', $dataString);
                 $data[$id] = $relevance;
             }
+
             $this->_foundData = $data;
         }
+
         return $this;
     }
 
     /**
-     * Set Order field
-     *
-     * @param string $attribute
-     * @param string $dir
-     * @return $this
+     * @inheritDoc
      */
-    public function setOrder($attribute, $dir = 'desc')
+    public function setOrder($attribute, $dir = self::SORT_ORDER_DESC)
     {
-        if ($attribute == 'relevance') {
-            $this->_relevanceSortOrder = ($dir == 'asc') ? SORT_ASC : SORT_DESC;
+        if ($attribute === 'relevance') {
+            $normalizedDir = strtoupper((string) $dir);
+            $this->_relevanceSortOrder = ($normalizedDir === self::SORT_ORDER_ASC) ? SORT_ASC : SORT_DESC;
             $this->addOrder(self::RELEVANCE_ORDER_NAME);
         } else {
             parent::setOrder($attribute, $dir);
         }
+
         return $this;
     }
 
@@ -216,7 +221,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext_Collection extends Mage_Catalog
     /**
      * Render sql select orders
      *
-     * @return  Varien_Data_Collection_Db
+     * @return Varien_Data_Collection_Db
      */
     protected function _renderOrders()
     {
@@ -228,8 +233,10 @@ class Mage_CatalogSearch_Model_Resource_Fulltext_Collection extends Mage_Catalog
                     $this->addAttributeToSort($attribute, $direction);
                 }
             }
+
             $this->_isOrdersRendered = true;
         }
+
         return $this;
     }
 }

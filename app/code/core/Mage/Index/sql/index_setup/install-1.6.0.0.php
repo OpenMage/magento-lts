@@ -7,7 +7,7 @@
  * @package    Mage_Index
  */
 
-/** @var Mage_Index_Model_Resource_Setup $installer */
+/** @var Mage_Index_Model_Resource_Setup $this */
 $installer = $this;
 $installer->startSetup();
 

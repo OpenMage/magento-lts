@@ -14,6 +14,9 @@
  */
 class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Source extends Mage_Catalog_Model_Resource_Product_Indexer_Eav_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('catalog/product_index_eav', 'entity_id');
@@ -22,7 +25,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Source extends Mage_Catalo
     /**
      * Retrieve indexable eav attribute ids
      *
-     * @param bool $multiSelect
+     * @param  bool  $multiSelect
      * @return array
      */
     protected function _getIndexableAttributes($multiSelect)
@@ -50,8 +53,8 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Source extends Mage_Catalo
     /**
      * Prepare data index for indexable attributes
      *
-     * @param array $entityIds      the entity ids limitation
-     * @param int $attributeId      the attribute id limitation
+     * @param  array $entityIds   the entity ids limitation
+     * @param  int   $attributeId the attribute id limitation
      * @return $this
      */
     protected function _prepareIndex($entityIds = null, $attributeId = null)
@@ -65,8 +68,8 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Source extends Mage_Catalo
     /**
      * Prepare data index for indexable select attributes
      *
-     * @param array $entityIds      the entity ids limitation
-     * @param int $attributeId      the attribute id limitation
+     * @param  array $entityIds   the entity ids limitation
+     * @param  int   $attributeId the attribute id limitation
      * @return $this
      */
     protected function _prepareSelectIndex($entityIds = null, $attributeId = null)
@@ -74,11 +77,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Source extends Mage_Catalo
         $adapter    = $this->_getWriteAdapter();
         $idxTable   = $this->getIdxTable();
         // prepare select attributes
-        if (is_null($attributeId)) {
-            $attrIds    = $this->_getIndexableAttributes(false);
-        } else {
-            $attrIds    = [$attributeId];
-        }
+        $attrIds = is_null($attributeId) ? $this->_getIndexableAttributes(false) : [$attributeId];
 
         if (!$attrIds) {
             return $this;
@@ -146,8 +145,8 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Source extends Mage_Catalo
     /**
      * Prepare data index for indexable multiply select attributes
      *
-     * @param array $entityIds      the entity ids limitation
-     * @param int $attributeId      the attribute id limitation
+     * @param  array $entityIds   the entity ids limitation
+     * @param  int   $attributeId the attribute id limitation
      * @return $this
      */
     protected function _prepareMultiselectIndex($entityIds = null, $attributeId = null)
@@ -155,11 +154,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Source extends Mage_Catalo
         $adapter    = $this->_getWriteAdapter();
 
         // prepare multiselect attributes
-        if (is_null($attributeId)) {
-            $attrIds    = $this->_getIndexableAttributes(true);
-        } else {
-            $attrIds    = [$attributeId];
-        }
+        $attrIds = is_null($attributeId) ? $this->_getIndexableAttributes(true) : [$attributeId];
 
         if (!$attrIds) {
             return $this;
@@ -249,6 +244,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Source extends Mage_Catalo
     /**
      * Save a data to temporary source index table
      *
+     * @param  array<int, mixed[]> $data
      * @return $this
      */
     protected function _saveIndexData(array $data)
@@ -256,6 +252,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Source extends Mage_Catalo
         if (!$data) {
             return $this;
         }
+
         $adapter = $this->_getWriteAdapter();
         $adapter->insertArray($this->getIdxTable(), ['entity_id', 'attribute_id', 'store_id', 'value'], $data);
         return $this;
@@ -264,7 +261,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Source extends Mage_Catalo
     /**
      * Retrieve temporary source index table name
      *
-     * @param string $table
+     * @param  string $table
      * @return string
      */
     public function getIdxTable($table = null)
@@ -272,6 +269,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Source extends Mage_Catalo
         if ($this->useIdxTable()) {
             return $this->getTable('catalog/product_eav_indexer_idx');
         }
+
         return $this->getTable('catalog/product_eav_indexer_tmp');
     }
 }

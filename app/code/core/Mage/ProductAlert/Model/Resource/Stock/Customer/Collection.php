@@ -17,8 +17,8 @@ class Mage_ProductAlert_Model_Resource_Stock_Customer_Collection extends Mage_Cu
     /**
      * join productalert stock data to customer collection
      *
-     * @param int $productId
-     * @param int $websiteId
+     * @param  int   $productId
+     * @param  int   $websiteId
      * @return $this
      */
     public function join($productId, $websiteId)
@@ -33,6 +33,7 @@ class Mage_ProductAlert_Model_Resource_Stock_Customer_Collection extends Mage_Cu
         if ($websiteId) {
             $this->getSelect()->where('alert.website_id=?', $websiteId);
         }
+
         $this->_setIdFieldName('alert_stock_id');
         $this->addAttributeToSelect('*');
 

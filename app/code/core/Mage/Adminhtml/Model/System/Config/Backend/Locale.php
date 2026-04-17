@@ -17,7 +17,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Locale extends Mage_Core_Model_
     /**
      * Validate data before save data
      *
-     * @return Mage_Core_Model_Abstract
+     * @return $this
      * @throws Mage_Core_Exception
      */
     protected function _beforeSave()
@@ -29,7 +29,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Locale extends Mage_Core_Model_
 
         foreach ($this->getValue() as $currency) {
             if (!in_array($currency, $allCurrenciesValues)) {
-                Mage::throwException(Mage::helper('adminhtml')->__('Currency doesn\'t exist.'));
+                Mage::throwException(Mage::helper('adminhtml')->__("Currency doesn't exist."));
             }
         }
 
@@ -52,35 +52,34 @@ class Mage_Adminhtml_Model_System_Config_Backend_Locale extends Mage_Core_Model_
             $match = false;
             $scopeName = Mage::helper('adminhtml')->__('Default scope');
 
-            if (preg_match('/(base|default)$/', $data->getPath(), $match)) {
-                if (!in_array($data->getValue(), $values)) {
-                    $currencyName = Mage::app()->getLocale()->currency($data->getValue())->getName();
-                    if ($match[1] == 'base') {
-                        $fieldName = Mage::helper('adminhtml')->__('Base currency');
-                    } else {
-                        $fieldName = Mage::helper('adminhtml')->__('Display default currency');
-                    }
-
-                    switch ($data->getScope()) {
-                        case 'default':
-                            $scopeName = Mage::helper('adminhtml')->__('Default scope');
-                            break;
-
-                        case 'website':
-                            $websiteName = Mage::getModel('core/website')->load($data->getScopeId())->getName();
-                            $scopeName = Mage::helper('adminhtml')->__('website(%s) scope', $websiteName);
-                            break;
-
-                        case 'store':
-                            $storeName = Mage::getModel('core/store')->load($data->getScopeId())->getName();
-                            $scopeName = Mage::helper('adminhtml')->__('store(%s) scope', $storeName);
-                            break;
-                    }
-
-                    $exceptions[] = Mage::helper('adminhtml')->__('Currency "%s" is used as %s in %s.', $currencyName, $fieldName, $scopeName);
+            if (preg_match('/(base|default)$/', $data->getPath(), $match) && !in_array($data->getValue(), $values)) {
+                $currencyName = Mage::app()->getLocale()->currency($data->getValue())->getName();
+                if ($match[1] == 'base') {
+                    $fieldName = Mage::helper('adminhtml')->__('Base currency');
+                } else {
+                    $fieldName = Mage::helper('adminhtml')->__('Display default currency');
                 }
+
+                switch ($data->getScope()) {
+                    case 'default':
+                        $scopeName = Mage::helper('adminhtml')->__('Default scope');
+                        break;
+
+                    case 'website':
+                        $websiteName = Mage::getModel('core/website')->load($data->getScopeId())->getName();
+                        $scopeName = Mage::helper('adminhtml')->__('website(%s) scope', $websiteName);
+                        break;
+
+                    case 'store':
+                        $storeName = Mage::getModel('core/store')->load($data->getScopeId())->getName();
+                        $scopeName = Mage::helper('adminhtml')->__('store(%s) scope', $storeName);
+                        break;
+                }
+
+                $exceptions[] = Mage::helper('adminhtml')->__('Currency "%s" is used as %s in %s.', $currencyName, $fieldName, $scopeName);
             }
         }
+
         if ($exceptions) {
             Mage::throwException(implode("\n", $exceptions));
         }

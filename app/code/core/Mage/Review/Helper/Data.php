@@ -19,7 +19,7 @@ class Mage_Review_Helper_Data extends Mage_Core_Helper_Abstract
     protected $_moduleName = 'Mage_Review';
 
     /**
-     * @param string $origDetail
+     * @param  string $origDetail
      * @return string
      */
     public function getDetail($origDetail)
@@ -29,7 +29,7 @@ class Mage_Review_Helper_Data extends Mage_Core_Helper_Abstract
 
     /**
      * getDetailHtml return short detail info in HTML
-     * @param string $origDetail Full detail info
+     * @param  string $origDetail Full detail info
      * @return string
      */
     public function getDetailHtml($origDetail)
@@ -48,7 +48,7 @@ class Mage_Review_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get review statuses with their codes
      *
-     * @return array
+     * @return array<int, string>
      */
     public function getReviewStatuses()
     {
@@ -67,8 +67,11 @@ class Mage_Review_Helper_Data extends Mage_Core_Helper_Abstract
     public function getReviewStatusesOptionArray()
     {
         $result = [];
-        foreach ($this->getReviewStatuses() as $k => $v) {
-            $result[] = ['value' => $k, 'label' => $v];
+        foreach ($this->getReviewStatuses() as $key => $value) {
+            $result[] = [
+                'value' => $key,
+                'label' => $value,
+            ];
         }
 
         return $result;

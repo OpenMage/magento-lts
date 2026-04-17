@@ -19,10 +19,11 @@ class Mage_Catalog_Block_Product extends Mage_Core_Block_Template
      */
     public function getProduct()
     {
-        if (!$this->getData('product') instanceof Mage_Catalog_Model_Product) {
-            if ($this->getData('product')->getProductId()) {
-                $productId = $this->getData('product')->getProductId();
+        if (!$this->getDataByKey('product') instanceof Mage_Catalog_Model_Product) {
+            if ($this->getDataByKey('product')->getProductId()) {
+                $productId = $this->getDataByKey('product')->getProductId();
             }
+
             if ($productId) {
                 $product = Mage::getModel('catalog/product')->load($productId);
                 if ($product) {
@@ -30,7 +31,8 @@ class Mage_Catalog_Block_Product extends Mage_Core_Block_Template
                 }
             }
         }
-        return $this->getData('product');
+
+        return $this->getDataByKey('product');
     }
 
     /**
@@ -49,11 +51,12 @@ class Mage_Catalog_Block_Product extends Mage_Core_Block_Template
         if (!isset($this->_finalPrice[$this->getProduct()->getId()])) {
             $this->_finalPrice[$this->getProduct()->getId()] = $this->getProduct()->getFinalPrice();
         }
+
         return $this->_finalPrice[$this->getProduct()->getId()];
     }
 
     /**
-     * @param Mage_Catalog_Model_Product $product
+     * @param  Mage_Catalog_Model_Product $product
      * @return string
      */
     public function getPriceHtml($product)

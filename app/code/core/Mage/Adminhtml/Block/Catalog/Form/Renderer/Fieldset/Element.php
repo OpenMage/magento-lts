@@ -15,7 +15,7 @@
 class Mage_Adminhtml_Block_Catalog_Form_Renderer_Fieldset_Element extends Mage_Adminhtml_Block_Widget_Form_Renderer_Fieldset_Element
 {
     /**
-     * Initialize block template
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -25,7 +25,7 @@ class Mage_Adminhtml_Block_Catalog_Form_Renderer_Fieldset_Element extends Mage_A
     /**
      * Retrieve data object related with form
      *
-     * @return Mage_Catalog_Model_Product | Mage_Catalog_Model_Category
+     * @return Mage_Catalog_Model_Category|Mage_Catalog_Model_Product
      */
     public function getDataObject()
     {
@@ -59,16 +59,13 @@ class Mage_Adminhtml_Block_Catalog_Form_Renderer_Fieldset_Element extends Mage_A
      */
     public function canDisplayUseDefault()
     {
-        if ($attribute = $this->getAttribute()) {
-            if (!$attribute->isScopeGlobal()
+        return ($attribute = $this->getAttribute())
+            && (
+                !$attribute->isScopeGlobal()
                 && $this->getDataObject()
                 && $this->getDataObject()->getId()
                 && $this->getDataObject()->getStoreId()
-            ) {
-                return true;
-            }
-        }
-        return false;
+            );
     }
 
     /**
@@ -80,17 +77,19 @@ class Mage_Adminhtml_Block_Catalog_Form_Renderer_Fieldset_Element extends Mage_A
     {
         $attributeCode = $this->getAttribute()->getAttributeCode();
         $defaultValue = $this->getDataObject()->getAttributeDefaultValue($attributeCode);
-
         if (!$this->getDataObject()->getExistsStoreValueFlag($attributeCode)) {
             return true;
-        } elseif ($this->getElement()->getValue() == $defaultValue &&
-            $this->getDataObject()->getStoreId() != $this->_getDefaultStoreId()
-        ) {
+        }
+
+        if ($this->getElement()->getValue() == $defaultValue
+            && $this->getDataObject()->getStoreId() != $this->_getDefaultStoreId()) {
             return false;
         }
+
         if ($defaultValue === false && !$this->getAttribute()->getIsRequired() && $this->getElement()->getValue()) {
             return false;
         }
+
         return $defaultValue === false;
     }
 
@@ -104,6 +103,7 @@ class Mage_Adminhtml_Block_Catalog_Form_Renderer_Fieldset_Element extends Mage_A
         if ($this->canDisplayUseDefault() && $this->usedDefault()) {
             $this->getElement()->setDisabled(true);
         }
+
         return $this;
     }
 
@@ -157,6 +157,7 @@ class Mage_Adminhtml_Block_Catalog_Form_Renderer_Fieldset_Element extends Mage_A
         if (!empty($label)) {
             $element->setLabel($this->__($label));
         }
+
         return $element->getLabelHtml();
     }
 

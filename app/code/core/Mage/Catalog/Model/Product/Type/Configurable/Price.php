@@ -17,9 +17,9 @@ class Mage_Catalog_Model_Product_Type_Configurable_Price extends Mage_Catalog_Mo
     /**
      * Get product final price
      *
-     * @param float|null $qty
-     * @param Mage_Catalog_Model_Product $product
-     * @return  double
+     * @param  null|float                 $qty
+     * @param  Mage_Catalog_Model_Product $product
+     * @return float
      */
     public function getFinalPrice($qty, $product)
     {
@@ -31,7 +31,7 @@ class Mage_Catalog_Model_Product_Type_Configurable_Price extends Mage_Catalog_Mo
         $finalPrice = $basePrice;
         $product->setFinalPrice($finalPrice);
         Mage::dispatchEvent('catalog_product_get_final_price', ['product' => $product, 'qty' => $qty]);
-        $finalPrice = $product->getData('final_price');
+        $finalPrice = $product->getDataByKey('final_price');
 
         $finalPrice += $this->getTotalConfigurableItemsPrice($product, $finalPrice);
         $finalPrice += $this->_applyOptionsPrice($product, $qty, $basePrice) - $basePrice;
@@ -44,8 +44,8 @@ class Mage_Catalog_Model_Product_Type_Configurable_Price extends Mage_Catalog_Mo
     /**
      * Get Total price for configurable items
      *
-     * @param Mage_Catalog_Model_Product $product
-     * @param float $finalPrice
+     * @param  Mage_Catalog_Model_Product $product
+     * @param  float                      $finalPrice
      * @return float
      */
     public function getTotalConfigurableItemsPrice($product, $finalPrice)
@@ -55,6 +55,7 @@ class Mage_Catalog_Model_Product_Type_Configurable_Price extends Mage_Catalog_Mo
         /** @var Mage_Catalog_Model_Product_Type_Configurable $productType */
         $productType = $product->getTypeInstance(true);
         $productType->setStoreFilter($product->getStore(), $product);
+
         $attributes = $productType->getConfigurableAttributes($product);
 
         $selectedAttributes = [];
@@ -62,7 +63,6 @@ class Mage_Catalog_Model_Product_Type_Configurable_Price extends Mage_Catalog_Mo
             $selectedAttributes = unserialize($product->getCustomOption('attributes')->getValue(), ['allowed_classes' => false]);
         }
 
-        /** @var Mage_Catalog_Model_Product_Type_Configurable_Attribute $attribute */
         foreach ($attributes as $attribute) {
             $attributeId = $attribute->getProductAttribute()->getId();
             $value = $this->_getValueByIndex(
@@ -70,41 +70,39 @@ class Mage_Catalog_Model_Product_Type_Configurable_Price extends Mage_Catalog_Mo
                 $selectedAttributes[$attributeId] ?? null,
             );
             $product->setParentId(true);
-            if ($value) {
-                if ($value['pricing_value'] != 0) {
-                    $product->setConfigurablePrice($this->_calcSelectionPrice($value, $finalPrice));
-                    Mage::dispatchEvent(
-                        'catalog_product_type_configurable_price',
-                        ['product' => $product],
-                    );
-                    $price += $product->getConfigurablePrice();
-                }
+            if ($value && $value['pricing_value'] != 0) {
+                $product->setConfigurablePrice($this->_calcSelectionPrice($value, $finalPrice));
+                Mage::dispatchEvent(
+                    'catalog_product_type_configurable_price',
+                    ['product' => $product],
+                );
+                $price += $product->getConfigurablePrice();
             }
         }
+
         return $price;
     }
 
     /**
      * Calculate configurable product selection price
      *
-     * @param   array $priceInfo
-     * @param   float $productPrice
-     * @return  float
+     * @param  array $priceInfo
+     * @param  float $productPrice
+     * @return float
      */
     protected function _calcSelectionPrice($priceInfo, $productPrice)
     {
         if ($priceInfo['is_percent']) {
             $ratio = $priceInfo['pricing_value'] / 100;
-            $price = $productPrice * $ratio;
-        } else {
-            $price = $priceInfo['pricing_value'];
+            return $productPrice * $ratio;
         }
-        return $price;
+
+        return $priceInfo['pricing_value'];
     }
 
     /**
-     * @param array $values
-     * @param string $index
+     * @param  array       $values
+     * @param  string      $index
      * @return array|false
      */
     protected function _getValueByIndex($values, $index)
@@ -114,6 +112,7 @@ class Mage_Catalog_Model_Product_Type_Configurable_Price extends Mage_Catalog_Mo
                 return $value;
             }
         }
+
         return false;
     }
 }

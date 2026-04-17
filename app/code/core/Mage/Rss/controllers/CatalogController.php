@@ -14,6 +14,11 @@
  */
 class Mage_Rss_CatalogController extends Mage_Rss_Controller_Abstract
 {
+    /**
+     * @return void
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
+     */
     public function newAction()
     {
         if ($this->checkFeedEnable('catalog/new')) {
@@ -22,6 +27,11 @@ class Mage_Rss_CatalogController extends Mage_Rss_Controller_Abstract
         }
     }
 
+    /**
+     * @return void
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
+     */
     public function specialAction()
     {
         if ($this->checkFeedEnable('catalog/special')) {
@@ -30,6 +40,11 @@ class Mage_Rss_CatalogController extends Mage_Rss_Controller_Abstract
         }
     }
 
+    /**
+     * @return void
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
+     */
     public function salesruleAction()
     {
         if ($this->checkFeedEnable('catalog/salesrule')) {
@@ -38,6 +53,11 @@ class Mage_Rss_CatalogController extends Mage_Rss_Controller_Abstract
         }
     }
 
+    /**
+     * @return void
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
+     */
     public function tagAction()
     {
         if ($this->isFeedEnable('catalog/tag')) {
@@ -52,9 +72,15 @@ class Mage_Rss_CatalogController extends Mage_Rss_Controller_Abstract
                 return;
             }
         }
+
         $this->_forward('nofeed', 'index', 'rss');
     }
 
+    /**
+     * @return void
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
+     */
     public function notifystockAction()
     {
         if ($this->checkFeedEnable('catalog/notifystock')) {
@@ -63,6 +89,11 @@ class Mage_Rss_CatalogController extends Mage_Rss_Controller_Abstract
         }
     }
 
+    /**
+     * @return void
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
+     */
     public function reviewAction()
     {
         if ($this->checkFeedEnable('catalog/review')) {
@@ -71,6 +102,11 @@ class Mage_Rss_CatalogController extends Mage_Rss_Controller_Abstract
         }
     }
 
+    /**
+     * @return void
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
+     */
     public function categoryAction()
     {
         if ($this->checkFeedEnable('catalog/category')) {
@@ -91,10 +127,12 @@ class Mage_Rss_CatalogController extends Mage_Rss_Controller_Abstract
             $this->_currentArea = 'adminhtml';
             Mage::helper('rss')->authAdmin('catalog/products');
         }
+
         if ($action == 'review' && $this->isFeedEnable('catalog/review')) {
             $this->_currentArea = 'adminhtml';
             Mage::helper('rss')->authAdmin('catalog/reviews_ratings');
         }
+
         return parent::preDispatch();
     }
 }

@@ -29,6 +29,7 @@ class Mage_GiftMessage_Block_Adminhtml_Sales_Order_View_Form extends Mage_Adminh
                 }
             }
         }
+
         return false;
     }
 }

@@ -19,7 +19,7 @@ class Varien_Event_Collection
      *
      * @var array
      */
-    protected $_events;
+    protected $_events = [];
 
     /**
      * Global observers
@@ -37,11 +37,9 @@ class Varien_Event_Collection
 
     /**
      * Initializes global observers collection
-     *
      */
     public function __construct()
     {
-        $this->_events = [];
         $this->_globalObservers = new Varien_Event_Observer_Collection();
     }
 
@@ -70,7 +68,7 @@ class Varien_Event_Collection
      *
      * If event doesn't exist creates new one and returns it
      *
-     * @param string $eventName
+     * @param  string       $eventName
      * @return Varien_Event
      */
     public function getEventByName($eventName)
@@ -78,6 +76,7 @@ class Varien_Event_Collection
         if (!isset($this->_events[$eventName])) {
             $this->addEvent(new Varien_Event(['name' => $eventName]));
         }
+
         return $this->_events[$eventName];
     }
 
@@ -108,6 +107,7 @@ class Varien_Event_Collection
         } else {
             $this->getGlobalObservers()->addObserver($observer);
         }
+
         return $this;
     }
 
@@ -116,7 +116,7 @@ class Varien_Event_Collection
      *
      * Will dispatch specific event and will try all global observers
      *
-     * @param string $eventName
+     * @param  string                  $eventName
      * @return Varien_Event_Collection
      */
     public function dispatch($eventName, array $data = [])

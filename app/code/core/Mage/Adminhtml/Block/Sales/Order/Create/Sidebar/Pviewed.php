@@ -14,6 +14,9 @@
  */
 class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Pviewed extends Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         parent::_construct();
@@ -36,7 +39,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Pviewed extends Mage_Admin
      */
     public function getItemCollection()
     {
-        $productCollection = $this->getData('item_collection');
+        $productCollection = $this->getDataByKey('item_collection');
         if (is_null($productCollection)) {
             $stores = [];
             $website = Mage::app()->getStore($this->getStoreId())->getWebsite();
@@ -65,8 +68,10 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Pviewed extends Mage_Admin
                     ->addIdFilter($productIds)
                     ->load();
             }
+
             $this->setData('item_collection', $productCollection);
         }
+
         return $productCollection;
     }
 
@@ -83,7 +88,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Pviewed extends Mage_Admin
     /**
      * Retrieve identifier of block item
      *
-     * @param Varien_Object $item
+     * @param  Varien_Object $item
      * @return int
      */
     public function getIdentifierId($item)

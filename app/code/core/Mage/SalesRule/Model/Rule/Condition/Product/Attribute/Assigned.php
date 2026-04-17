@@ -37,7 +37,7 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Attribute_Assigned extends Mag
 
     /**
      * A cached options list
-     * @var array|null
+     * @var null|array
      */
     protected $_cachedOperatorSelectOptionsCache = null;
 
@@ -114,11 +114,13 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Attribute_Assigned extends Mag
     {
         $product    = $this->_getProduct($object);
         $attributes = $product->getAttributes();
+        if ($this->getOperator() == self::OPERATOR_ATTRIBUTE_IS_ASSIGNED
+            && array_key_exists($this->getAttribute(), $attributes)) {
+            return true;
+        }
 
-        return $this->getOperator() == self::OPERATOR_ATTRIBUTE_IS_ASSIGNED
-            && array_key_exists($this->getAttribute(), $attributes)
-            || $this->getOperator() == self::OPERATOR_ATTRIBUTE_IS_NOT_ASSIGNED
-            && !array_key_exists($this->getAttribute(), $attributes);
+        return $this->getOperator() == self::OPERATOR_ATTRIBUTE_IS_NOT_ASSIGNED
+        && !array_key_exists($this->getAttribute(), $attributes);
     }
 
     /**

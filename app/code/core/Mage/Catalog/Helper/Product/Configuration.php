@@ -46,6 +46,7 @@ class Mage_Catalog_Helper_Product_Configuration extends Mage_Core_Helper_Abstrac
                             if ($url) {
                                 $group->setCustomOptionDownloadUrl($url);
                             }
+
                             $urlParams = $downloadParams->getUrlParams();
                             if ($urlParams) {
                                 $group->setCustomOptionUrlParams($urlParams);
@@ -67,7 +68,7 @@ class Mage_Catalog_Helper_Product_Configuration extends Mage_Core_Helper_Abstrac
 
         $addOptions = $item->getOptionByCode('additional_options');
         if ($addOptions) {
-            $options = array_merge($options, unserialize($addOptions->getValue(), ['allowed_classes' => false]));
+            return array_merge($options, unserialize($addOptions->getValue(), ['allowed_classes' => false]));
         }
 
         return $options;
@@ -85,6 +86,7 @@ class Mage_Catalog_Helper_Product_Configuration extends Mage_Core_Helper_Abstrac
         if ($typeId != Mage_Catalog_Model_Product_Type_Configurable::TYPE_CODE) {
             Mage::throwException($this->__('Wrong product type to extract configurable options.'));
         }
+
         /** @var Mage_Catalog_Model_Product_Type_Configurable $productType */
         $productType = $product->getTypeInstance(true);
         $attributes = $productType->getSelectedAttributesInfo($product);
@@ -129,6 +131,7 @@ class Mage_Catalog_Helper_Product_Configuration extends Mage_Core_Helper_Abstrac
                 break;
             }
         }
+
         return $isUnConfigured ? [] : $options;
     }
 
@@ -151,23 +154,23 @@ class Mage_Catalog_Helper_Product_Configuration extends Mage_Core_Helper_Abstrac
      * Accept option value and return its formatted view
      *
      * @param mixed $optionValue
-     * Method works well with these $optionValue format:
-     *      1. String
-     *      2. Indexed array e.g. array(val1, val2, ...)
-     *      3. Associative array, containing additional option info, including option value, e.g.
-     *          array
-     *          (
-     *              [label] => ...,
-     *              [value] => ...,
-     *              [print_value] => ...,
-     *              [option_id] => ...,
-     *              [option_type] => ...,
-     *              [custom_view] =>...,
-     *          )
+     *                           Method works well with these $optionValue format:
+     *                           1. String
+     *                           2. Indexed array e.g. array(val1, val2, ...)
+     *                           3. Associative array, containing additional option info, including option value, e.g.
+     *                           array
+     *                           (
+     *                           [label] => ...,
+     *                           [value] => ...,
+     *                           [print_value] => ...,
+     *                           [option_id] => ...,
+     *                           [option_type] => ...,
+     *                           [custom_view] =>...,
+     *                           )
      * @param array $params
-     * All keys are options. Following supported:
-     *  - 'maxLength': truncate option value if needed, default: do not truncate
-     *  - 'cutReplacer': replacer for cut off value part when option value exceeds maxLength
+     *                           All keys are options. Following supported:
+     *                           - 'maxLength': truncate option value if needed, default: do not truncate
+     *                           - 'cutReplacer': replacer for cut off value part when option value exceeds maxLength
      *
      * @return array
      */
@@ -177,6 +180,7 @@ class Mage_Catalog_Helper_Product_Configuration extends Mage_Core_Helper_Abstrac
         if (!$params) {
             $params = [];
         }
+
         $maxLength = $params['max_length'] ?? null;
         $cutReplacer = $params['cut_replacer'] ?? '...';
 
@@ -202,10 +206,11 @@ class Mage_Catalog_Helper_Product_Configuration extends Mage_Core_Helper_Abstrac
                 try {
                     $group = Mage::getModel('catalog/product_option')->groupFactory($optionInfo['option_type']);
                     return ['value' => $group->getCustomizedView($optionInfo)];
-                } catch (Exception $e) {
+                } catch (Exception) {
                     return $_default;
                 }
             }
+
             return $_default;
         }
 
@@ -215,19 +220,16 @@ class Mage_Catalog_Helper_Product_Configuration extends Mage_Core_Helper_Abstrac
             $truncatedValue = implode("\n", $optionValue);
             $truncatedValue = nl2br($truncatedValue);
             return ['value' => $truncatedValue];
-        } else {
-            if ($maxLength) {
-                $truncatedValue = Mage::helper('core/string')->truncate($optionValue, $maxLength, '');
-            } else {
-                $truncatedValue = $optionValue;
-            }
-            $truncatedValue = nl2br($truncatedValue);
         }
+
+        $truncatedValue = $maxLength ? Mage::helper('core/string')->truncate($optionValue, $maxLength, '') : $optionValue;
+
+        $truncatedValue = nl2br($truncatedValue);
 
         $result = ['value' => $truncatedValue];
 
         if ($maxLength && (Mage::helper('core/string')->strlen($optionValue) > $maxLength)) {
-            $result['value'] = $result['value'] . $cutReplacer;
+            $result['value'] .= $cutReplacer;
             $optionValue = nl2br($optionValue);
             $result['full_view'] = $optionValue;
         }

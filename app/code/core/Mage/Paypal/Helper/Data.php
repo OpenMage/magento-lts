@@ -36,19 +36,21 @@ class Mage_Paypal_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Check whether customer should be asked confirmation whether to sign a billing agreement
      *
-     * @param int $customerId
+     * @param  int  $customerId
      * @return bool
      */
     public function shouldAskToCreateBillingAgreement(Mage_Paypal_Model_Config $config, $customerId)
     {
         if (self::$_shouldAskToCreateBillingAgreement === null) {
             self::$_shouldAskToCreateBillingAgreement = false;
-            if ($customerId && $config->shouldAskToCreateBillingAgreement()) {
-                if (Mage::getModel('sales/billing_agreement')->needToCreateForCustomer($customerId)) {
-                    self::$_shouldAskToCreateBillingAgreement = true;
-                }
+            if ($customerId
+                && $config->shouldAskToCreateBillingAgreement()
+                && Mage::getModel('sales/billing_agreement')->needToCreateForCustomer($customerId)
+            ) {
+                self::$_shouldAskToCreateBillingAgreement = true;
             }
         }
+
         return self::$_shouldAskToCreateBillingAgreement;
     }
 
@@ -63,13 +65,16 @@ class Mage_Paypal_Helper_Data extends Mage_Core_Helper_Abstract
         if (!$config) {
             return false;
         }
+
         $config = $config->asCanonicalArray();
         if (isset($config['enable_for_countries'])) {
             $config['enable_for_countries'] = explode(',', str_replace(' ', '', $config['enable_for_countries']));
         }
+
         if (isset($config['disable_for_countries'])) {
             $config['disable_for_countries'] = explode(',', str_replace(' ', '', $config['disable_for_countries']));
         }
+
         return Mage::helper('core')->jsonEncode($config);
     }
 
@@ -86,17 +91,19 @@ class Mage_Paypal_Helper_Data extends Mage_Core_Helper_Abstract
             $countryCode = (string) Mage::getSingleton('adminhtml/config_data')
                 ->getConfigDataValue(self::MERCHANT_COUNTRY_CONFIG_PATH);
         }
+
         if (empty($countryCode)) {
-            $countryCode = Mage::helper('core')->getDefaultCountry();
+            return Mage::helper('core')->getDefaultCountry();
         }
+
         return $countryCode;
     }
 
     /**
      * Get HTML representation of transaction id
      *
-     * @param string $methodCode
-     * @param string $txnId
+     * @param  string $methodCode
+     * @param  string $txnId
      * @return string
      */
     public function getHtmlTransactionId($methodCode, $txnId)
@@ -114,6 +121,7 @@ class Mage_Paypal_Helper_Data extends Mage_Core_Helper_Abstract
                 . 'paypal.com/cgi-bin/webscr?cmd=_view-a-trans&id=' . $txnId;
             return '<a target="_blank" href="' . $url . '">' . $txnId . '</a>';
         }
+
         return $txnId;
     }
 }

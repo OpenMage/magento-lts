@@ -32,6 +32,7 @@ class Mage_Tax_Model_Sales_Pdf_Shipping extends Mage_Sales_Model_Order_Pdf_Total
         if (!$amountInclTax) {
             $amountInclTax = $this->getAmount() + $this->getSource()->getShippingTaxAmount();
         }
+
         $amountInclTax = $this->getOrder()->formatPriceTxt($amountInclTax);
         $fontSize = $this->getFontSize() ? $this->getFontSize() : 7;
 

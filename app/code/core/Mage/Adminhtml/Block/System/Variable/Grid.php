@@ -14,9 +14,10 @@
  */
 class Mage_Adminhtml_Block_System_Variable_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_system_variable_grid';
+
     /**
-     * Internal constructor
-     *
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -27,9 +28,7 @@ class Mage_Adminhtml_Block_System_Variable_Grid extends Mage_Adminhtml_Block_Wid
     }
 
     /**
-     * Prepare grid collection object
-     *
-     * @return $this
+     * @inheritDoc
      */
     protected function _prepareCollection()
     {
@@ -40,9 +39,8 @@ class Mage_Adminhtml_Block_System_Variable_Grid extends Mage_Adminhtml_Block_Wid
     }
 
     /**
-     * Prepare grid columns
-     *
-     * @return $this
+     * @inheritDoc
+     * @throws Exception
      */
     protected function _prepareColumns()
     {
@@ -66,9 +64,9 @@ class Mage_Adminhtml_Block_System_Variable_Grid extends Mage_Adminhtml_Block_Wid
     }
 
     /**
-     * Row click url
-     *
-     * @return string
+     * @inheritDoc
+     * @param  Mage_Core_Model_Variable $row
+     * @throws Mage_Core_Exception
      */
     public function getRowUrl($row)
     {

@@ -22,10 +22,11 @@ class Varien_Convert_Adapter_Io extends Varien_Convert_Adapter_Abstract
             $this->_resource = new $className();
             try {
                 $this->_resource->open($this->getVars());
-            } catch (Exception $e) {
-                $this->addException('Error occured during file opening: ' . $e->getMessage(), Varien_Convert_Exception::FATAL);
+            } catch (Exception $exception) {
+                $this->addException('Error occured during file opening: ' . $exception->getMessage(), Varien_Convert_Exception::FATAL);
             }
         }
+
         return $this->_resource;
     }
 
@@ -38,6 +39,7 @@ class Varien_Convert_Adapter_Io extends Varien_Convert_Adapter_Abstract
         } else {
             $this->addException('Loaded successfully: ' . $filename . ' [' . strlen($data) . ' byte(s)]');
         }
+
         $this->setData($data);
         return $this;
     }
@@ -54,8 +56,10 @@ class Varien_Convert_Adapter_Io extends Varien_Convert_Adapter_Abstract
             if ($this->getVar('link')) {
                 $text .= ' <a href="' . $this->getVar('link') . '" target="_blank">Link</a>';
             }
+
             $this->addException($text);
         }
+
         return $this;
     }
 }

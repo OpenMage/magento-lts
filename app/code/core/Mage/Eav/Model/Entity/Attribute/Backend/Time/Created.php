@@ -16,7 +16,7 @@ class Mage_Eav_Model_Entity_Attribute_Backend_Time_Created extends Mage_Eav_Mode
 {
     /**
      * Returns date format if it matches a certain mask.
-     * @param string $date
+     * @param  string      $date
      * @return null|string
      */
     protected function _getFormat($date)
@@ -26,13 +26,15 @@ class Mage_Eav_Model_Entity_Attribute_Backend_Time_Created extends Mage_Eav_Mode
         ) {
             return 'yyyy-MM-dd HH:mm:ss';
         }
+
         return null;
     }
+
     /**
      * Set created date
      * Set created date in UTC time zone
      *
-     * @param Mage_Core_Model_Abstract $object
+     * @param  Mage_Core_Model_Abstract $object
      * @return $this
      */
     public function beforeSave($object)
@@ -55,7 +57,7 @@ class Mage_Eav_Model_Entity_Attribute_Backend_Time_Created extends Mage_Eav_Mode
     /**
      * Convert create date from UTC to current store time zone
      *
-     * @param Varien_Object $object
+     * @param  Varien_Object $object
      * @return $this
      */
     public function afterLoad($object)

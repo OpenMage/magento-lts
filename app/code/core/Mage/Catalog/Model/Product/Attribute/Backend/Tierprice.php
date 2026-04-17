@@ -25,21 +25,9 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Tierprice extends Mage_Catalo
     }
 
     /**
-     * Retrieve websites rates and base currency codes
-     *
-     * @deprecated since 1.12.0.0
-     * @return array
-     */
-    public function _getWebsiteRates()
-    {
-        return $this->_getWebsiteCurrencyRates();
-    }
-
-    /**
      * Add price qty to unique fields
      *
-     * @param array $objectArray
-     * @return array
+     * @inheritDoc
      */
     protected function _getAdditionalUniqueFields($objectArray)
     {
@@ -61,7 +49,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Tierprice extends Mage_Catalo
     /**
      * Whether tier price value fixed or percent of original price
      *
-     * @param Mage_Catalog_Model_Product_Type_Price $priceObject
+     * @param  Mage_Catalog_Model_Product_Type_Price $priceObject
      * @return bool
      */
     protected function _isPriceFixed($priceObject)

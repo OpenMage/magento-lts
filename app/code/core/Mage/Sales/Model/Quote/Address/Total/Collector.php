@@ -50,15 +50,14 @@ class Mage_Sales_Model_Quote_Address_Total_Collector extends Mage_Sales_Model_Co
     /**
      * Init corresponding total models
      *
-     * @param array $options
+     * @param  array                           $options
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function __construct($options)
     {
-        if (isset($options['store'])) {
-            $this->_store = $options['store'];
-        } else {
-            $this->_store = Mage::app()->getStore();
-        }
+        $this->_store = $options['store'] ?? Mage::app()->getStore();
+
         $this->_initModels()
             ->_initCollectors()
             ->_initRetrievers();
@@ -87,10 +86,10 @@ class Mage_Sales_Model_Quote_Address_Total_Collector extends Mage_Sales_Model_Co
     /**
      * Init model class by configuration
      *
-     * @param string $class
-     * @param string $totalCode
-     * @param array $totalConfig
-     * @return false|Mage_Core_Model_Abstract
+     * @param  string                                              $class
+     * @param  string                                              $totalCode
+     * @param  Mage_Core_Model_Config_Element                      $totalConfig
+     * @return false|Mage_Sales_Model_Quote_Address_Total_Abstract
      * @throws Mage_Core_Exception
      */
     protected function _initModelInstance($class, $totalCode, $totalConfig)
@@ -116,6 +115,7 @@ class Mage_Sales_Model_Quote_Address_Total_Collector extends Mage_Sales_Model_Co
      * Initialize total models configuration and objects
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     protected function _initModels()
     {
@@ -127,6 +127,7 @@ class Mage_Sales_Model_Quote_Address_Total_Collector extends Mage_Sales_Model_Co
                 $this->_models[$totalCode] = $this->_initModelInstance($class, $totalCode, $totalConfig);
             }
         }
+
         return $this;
     }
 
@@ -146,14 +147,17 @@ class Mage_Sales_Model_Quote_Address_Total_Collector extends Mage_Sales_Model_Co
                 while (isset($this->_retrievers[$retrieverId])) {
                     $retrieverId++;
                 }
+
                 $this->_retrievers[$retrieverId] = $this->_models[$code];
             }
         }
+
         ksort($this->_retrievers);
         $notSorted = array_diff(array_keys($this->_models), array_keys($sorts));
         foreach ($notSorted as $code) {
             $this->_retrievers[] = $this->_models[$code];
         }
+
         return $this;
     }
 }

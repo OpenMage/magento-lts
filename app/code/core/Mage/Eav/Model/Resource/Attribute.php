@@ -20,7 +20,7 @@ abstract class Mage_Eav_Model_Resource_Attribute extends Mage_Eav_Model_Resource
      * Get table, where website-dependent attribute parameters are stored
      * If realization doesn't demand this functionality, let this function just return null
      *
-     * @return string|null
+     * @return null|string
      */
     abstract protected function _getEavWebsiteTable();
 
@@ -29,7 +29,7 @@ abstract class Mage_Eav_Model_Resource_Attribute extends Mage_Eav_Model_Resource
      *
      * Get table, where dependency between form name and attribute ids are stored
      *
-     * @return string|null
+     * @return null|string
      */
     abstract protected function _getFormAttributeTable();
 
@@ -40,19 +40,20 @@ abstract class Mage_Eav_Model_Resource_Attribute extends Mage_Eav_Model_Resource
      */
     protected function _beforeSave(Mage_Core_Model_Abstract $object)
     {
-        $validateRules = $object->getData('validate_rules');
+        $validateRules = $object->getDataByKey('validate_rules');
         if (is_array($validateRules)) {
             $object->setData('validate_rules', serialize($validateRules));
         }
+
         return parent::_beforeSave($object);
     }
 
     /**
      * Retrieve select object for load object data
      *
-     * @param string $field
-     * @param mixed $value
-     * @param Mage_Core_Model_Abstract|Mage_Eav_Model_Attribute $object
+     * @param  string                                            $field
+     * @param  mixed                                             $value
+     * @param  Mage_Core_Model_Abstract|Mage_Eav_Model_Attribute $object
      * @return Varien_Db_Select
      */
     protected function _getLoadSelect($field, $value, $object)
@@ -68,6 +69,7 @@ abstract class Mage_Eav_Model_Resource_Attribute extends Mage_Eav_Model_Resource
             foreach (array_keys($describe) as $columnName) {
                 $columns['scope_' . $columnName] = $columnName;
             }
+
             $conditionSql = $adapter->quoteInto(
                 $this->getMainTable() . '.attribute_id = scope_table.attribute_id AND scope_table.website_id =?',
                 $websiteId,
@@ -90,7 +92,7 @@ abstract class Mage_Eav_Model_Resource_Attribute extends Mage_Eav_Model_Resource
      */
     protected function _afterSave(Mage_Core_Model_Abstract $object)
     {
-        $forms      = $object->getData('used_in_forms');
+        $forms      = $object->getDataByKey('used_in_forms');
         $adapter    = $this->_getWriteAdapter();
         if (is_array($forms)) {
             $where = ['attribute_id=?' => $object->getId()];
@@ -163,7 +165,7 @@ abstract class Mage_Eav_Model_Resource_Attribute extends Mage_Eav_Model_Resource
         $result = $adapter->fetchRow($select, $bind);
 
         if (!$result) {
-            $result = [];
+            return [];
         }
 
         return $result;

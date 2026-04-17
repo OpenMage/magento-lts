@@ -101,6 +101,7 @@ final class ListTest extends OpenMageTest
         // Replacing the block but keeping its order within the parent
         $layout->unsetBlock('target_block');
         $layout->setBlock('target_block', $childBlockB);
+
         $parentBlock->setChild('child', $childBlockB);
 
         self::assertSame('B', $parentBlock->toHtml());

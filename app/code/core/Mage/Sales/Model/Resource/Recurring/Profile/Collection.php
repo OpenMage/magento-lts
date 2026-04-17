@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -11,6 +13,8 @@
  * Recurring profile collection
  *
  * @package    Mage_Sales
+ *
+ * @extends Mage_Core_Model_Resource_Db_Collection_Abstract<Mage_Sales_Model_Recurring_Profile>
  */
 class Mage_Sales_Model_Resource_Recurring_Profile_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
@@ -25,8 +29,7 @@ class Mage_Sales_Model_Resource_Recurring_Profile_Collection extends Mage_Core_M
     protected $_eventObject    = 'recurring_profile_collection';
 
     /**
-     * Entity initialization
-     *
+     * @inheritDoc
      */
     protected function _construct()
     {

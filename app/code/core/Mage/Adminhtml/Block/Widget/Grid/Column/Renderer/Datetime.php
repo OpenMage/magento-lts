@@ -33,19 +33,21 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Datetime extends Mage_Adm
                     self::$_format = Mage::app()->getLocale()->getDateTimeFormat(
                         Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM,
                     );
-                } catch (Exception $e) {
-                    Mage::logException($e);
+                } catch (Exception $exception) {
+                    Mage::logException($exception);
                 }
             }
+
             $format = self::$_format;
         }
+
         return $format;
     }
 
     /**
      * Renders grid column
      *
-     * @return  string
+     * @return string
      */
     public function render(Varien_Object $row)
     {
@@ -57,12 +59,14 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Datetime extends Mage_Adm
                 $data = Mage::app()->getLocale()
                     ->date($data, Varien_Date::DATETIME_INTERNAL_FORMAT, $locale, $useTimezone)
                     ->toString($format);
-            } catch (Exception $e) {
+            } catch (Exception) {
                 $data = Mage::app()->getLocale()
                     ->date($data, Varien_Date::DATETIME_INTERNAL_FORMAT)->toString($format);
             }
+
             return $data;
         }
+
         return $this->getColumn()->getDefault();
     }
 }

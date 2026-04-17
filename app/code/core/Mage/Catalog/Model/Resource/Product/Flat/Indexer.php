@@ -15,6 +15,7 @@
 class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_Resource_Abstract
 {
     public const XML_NODE_MAX_INDEX_COUNT  = 'global/catalog/product/flat/max_index_count';
+
     public const XML_NODE_ATTRIBUTE_NODES  = 'global/catalog/product/flat/attribute_nodes';
 
     /**
@@ -80,6 +81,9 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
      */
     protected $_preparedFlatTables   = [];
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('catalog/product', 'entity_id');
@@ -88,7 +92,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
     /**
      * Rebuild Catalog Product Flat Data
      *
-     * @param Mage_Core_Model_Store|int $store
+     * @param  int|Mage_Core_Model_Store $store
      * @return $this
      */
     public function rebuild($store = null)
@@ -97,6 +101,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
             foreach (Mage::app()->getStores() as $store) {
                 $this->rebuild($store->getId());
             }
+
             return $this;
         }
 
@@ -174,6 +179,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
             foreach ($attributesData as $data) {
                 $this->_attributeCodes[$data['attribute_id']] = $data['attribute_code'];
             }
+
             unset($attributesData);
         }
 
@@ -201,6 +207,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
             $this->_entityTypeId = Mage::getResourceModel('catalog/config')
                 ->getEntityTypeId();
         }
+
         return $this->_entityTypeId;
     }
 
@@ -228,8 +235,8 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
                     $attribute->usesSource() && $attribute->getSource();
                     $attribute->getBackend();
                     $this->_attributes[$attributeCode] = $attribute;
-                } catch (Exception $e) {
-                    Mage::logException($e);
+                } catch (Exception $exception) {
+                    Mage::logException($exception);
                 }
             }
         }
@@ -240,9 +247,9 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
     /**
      * Retrieve loaded attribute by code
      *
-     * @param string $attributeCode
-     * @throws Mage_Core_Exception
+     * @param  string                          $attributeCode
      * @return Mage_Eav_Model_Entity_Attribute
+     * @throws Mage_Core_Exception
      */
     public function getAttribute($attributeCode)
     {
@@ -253,6 +260,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
             if (!$attribute->getId()) {
                 Mage::throwException(Mage::helper('catalog')->__('Invalid attribute %s', $attributeCode));
             }
+
             $entity = Mage::getSingleton('eav/config')
                 ->getEntityType($this->getEntityType())
                 ->getEntity();
@@ -271,7 +279,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
     /**
      * Retrieve Catalog Product Flat Table name
      *
-     * @param int $storeId
+     * @param  int    $storeId
      * @return string
      */
     public function getFlatTableName($storeId)
@@ -282,7 +290,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
     /**
      * Retrieve catalog product flat columns array in old format (used before MMDB support)
      *
-     * @return array
+     * @return array<string, array<string, null|bool|int|string>|array<string, null|bool|string>>
      */
     protected function _getFlatColumnsOldDefinition()
     {
@@ -310,6 +318,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
                 'extra'     => null,
             ];
         }
+
         $columns['attribute_set_id'] = [
             'type'      => 'smallint(5)',
             'unsigned'  => true,
@@ -331,7 +340,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
     /**
      * Retrieve catalog product flat columns array in DDL format
      *
-     * @return array
+     * @return array<string, array<string, bool|int|string>|array<string, null|bool|string>>
      */
     protected function _getFlatColumnsDdlDefinition()
     {
@@ -364,6 +373,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
                 'comment'   => 'Checks If Entity Is Child',
             ];
         }
+
         $columns['attribute_set_id'] = [
             'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
             'length'    => 5,
@@ -450,6 +460,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
                     'fields' => ['entity_id'],
                 ];
             }
+
             $this->_indexes['IDX_TYPE_ID'] = [
                 'type'   => Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX,
                 'fields' => ['type_id'],
@@ -485,8 +496,8 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
      * Compare Flat style with Describe style columns
      * If column a different - return false
      *
-     * @param array $column
-     * @param array $describe
+     * @param  array $column
+     * @param  array $describe
      * @return bool
      */
     protected function _compareColumnProperties($column, $describe)
@@ -498,13 +509,13 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
 
     /**
      * Retrieve column definition fragment
+     *
+     * @param  string $fieldName
+     * @param  array  $fieldProp
+     * @return string
      * @deprecated since 1.5.0.0
      *
      * Example: `field_name` smallint(5) unsigned NOT NULL default '0'
-     *
-     * @param string $fieldName
-     * @param array $fieldProp
-     * @return string
      */
     protected function _sqlColunmDefinition($fieldName, $fieldProp)
     {
@@ -530,13 +541,13 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
 
     /**
      * Retrieve index definition fragment
+     *
+     * @param  string $indexName
+     * @param  array  $indexProp
+     * @return string
      * @deprecated since 1.5.0.0
      *
      * Example: INDEX `IDX_NAME` (`field_id`)
-     *
-     * @param string $indexName
-     * @param array $indexProp
-     * @return string
      */
     protected function _sqlIndexDefinition($indexName, $indexProp)
     {
@@ -546,6 +557,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
             foreach ($fields as $field) {
                 $fieldSql[] = $this->_getReadAdapter()->quoteIdentifier($field);
             }
+
             $fieldSql = implode(',', $fieldSql);
         } else {
             $fieldSql = $this->_getReadAdapter()->quoteIdentifier($fields);
@@ -565,10 +577,10 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
     /**
      * Retrieve UNIQUE HASH for a Table foreign key
      *
-     * @param string $priTableName  the target table name
-     * @param string $priColumnName the target table column name
-     * @param string $refTableName  the reference table name
-     * @param string $refColumnName the reference table column name
+     * @param  string $priTableName  the target table name
+     * @param  string $priColumnName the target table column name
+     * @param  string $refTableName  the reference table name
+     * @param  string $refColumnName the reference table column name
      * @return string
      */
     public function getFkName($priTableName, $priColumnName, $refTableName, $refColumnName)
@@ -580,15 +592,16 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
     /**
      * Prepare flat table for store
      *
-     * @param int $storeId
-     * @throws Mage_Core_Exception
+     * @param  int                 $storeId
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function prepareFlatTable($storeId)
     {
         if (isset($this->_preparedFlatTables[$storeId])) {
             return $this;
         }
+
         $adapter   = $this->_getWriteAdapter();
         $tableName = $this->getFlatTableName($storeId);
 
@@ -618,11 +631,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
         foreach ($indexProps as $i => $indexProp) {
             $indexName = $adapter->getIndexName($tableName, $indexProp['fields'], $indexProp['type']);
             $indexProp['type'] = strtoupper($indexProp['type']);
-            if ($indexProp['type'] == $upperPrimaryKey) {
-                $indexKey = $upperPrimaryKey;
-            } else {
-                $indexKey = $indexName;
-            }
+            $indexKey = $indexProp['type'] == $upperPrimaryKey ? $upperPrimaryKey : $indexName;
 
             $indexProps[$i] = [
                 'KEY_NAME' => $indexName,
@@ -631,6 +640,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
             ];
             $indexKeys[$i] = $indexKey;
         }
+
         $indexesNeed = array_combine($indexKeys, $indexProps); // Array with index names as keys, except for primary
 
         // Foreign keys
@@ -646,8 +656,8 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
                     $fieldProp['type'],
                     $fieldProp['length'] ?? null,
                     [
-                        'nullable' => isset($fieldProp['nullable']) ? (bool) $fieldProp['nullable'] : false,
-                        'unsigned' => isset($fieldProp['unsigned']) ? (bool) $fieldProp['unsigned'] : false,
+                        'nullable' => isset($fieldProp['nullable']) && (bool) $fieldProp['nullable'],
+                        'unsigned' => isset($fieldProp['unsigned']) && (bool) $fieldProp['unsigned'],
                         'default'  => $fieldProp['default'] ?? false,
                         'primary'  => false,
                     ],
@@ -682,6 +692,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
                     Varien_Db_Ddl_Table::ACTION_CASCADE,
                 );
             }
+
             $table->setComment("Catalog Product Flat (Store {$storeId})");
 
             $adapter->createTable($table);
@@ -715,12 +726,14 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
                         $dropIndexes[$key] = $indexNow;
                         $addIndexes[$key] = $indexNeed;
                     }
+
                     unset($newIndexes[$key]);
                 } else {
                     $dropIndexes[$key] = $indexNow;
                 }
             }
-            $addIndexes = $addIndexes + $newIndexes;
+
+            $addIndexes += $newIndexes;
 
             // Compose contstraints
             $addConstraints = [];
@@ -738,6 +751,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
                 $adapter->delete($tableName, ['is_child = ?' => 1]);
                 $adapter->dropForeignKey($tableName, $foreignChildKey);
             }
+
             if ($isAddChildData && !isset($describe['is_child'])) {
                 $adapter->delete($tableName);
                 $dropIndexes['PRIMARY'] = $indexesNow['PRIMARY'];
@@ -773,6 +787,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
                 if (!isset($columnProp['COMMENT'])) {
                     $columnProp['COMMENT'] = ucwords(str_replace('_', ' ', $columnName));
                 }
+
                 $adapter->changeColumn($tableName, $columnName, $columnName, $columnProp);
             }
 
@@ -782,6 +797,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
                 if (!isset($columnProp['COMMENT'])) {
                     $columnProp['COMMENT'] = ucwords(str_replace('_', ' ', $columnName));
                 }
+
                 $adapter->addColumn($tableName, $columnName, $columnProp);
             }
 
@@ -817,8 +833,8 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
     /**
      * Add or Update static attributes
      *
-     * @param int $storeId
-     * @param int|array $productIds update only product(s)
+     * @param  int       $storeId
+     * @param  array|int $productIds update only product(s)
      * @return $this
      */
     public function updateStaticAttributes($storeId, $productIds = null)
@@ -826,6 +842,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
         if (!$this->_isFlatTableExists($storeId)) {
             return $this;
         }
+
         $adapter   = $this->_getWriteAdapter();
         $websiteId = (int) Mage::app()->getStore($storeId)->getWebsite()->getId();
         $status    = $this->getAttribute('status');
@@ -877,6 +894,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
                 if (!isset($columns[$attributeCode])) {
                     continue;
                 }
+
                 $fieldList[] = $attributeCode;
                 $select->columns($attributeCode, 'e');
             }
@@ -895,8 +913,8 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
     /**
      * Remove non website products
      *
-     * @param int $storeId
-     * @param int|array $productIds
+     * @param  int       $storeId
+     * @param  array|int $productIds
      * @return $this
      */
     public function cleanNonWebsiteProducts($storeId, $productIds = null)
@@ -915,6 +933,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
         if ($this->getFlatHelper()->isAddChildData()) {
             $joinCondition[] = 'e.child_id = wp.product_id';
         }
+
         $bind   = ['website_id'    => $websiteId];
         $select = $adapter->select()
             ->from(['e' => $this->getFlatTableName($storeId)], null)
@@ -930,6 +949,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
             if ($this->getFlatHelper()->isAddChildData()) {
                 $condition[] = $adapter->quoteInto('e.child_id IN(?)', $productIds);
             }
+
             $select->where(implode(' OR ', $condition));
         }
 
@@ -942,9 +962,9 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
     /**
      * Update attribute flat data
      *
-     * @param Mage_Eav_Model_Entity_Attribute $attribute
-     * @param int $storeId
-     * @param int|array $productIds update only product(s)
+     * @param  Mage_Eav_Model_Entity_Attribute $attribute
+     * @param  int                             $storeId
+     * @param  array|int                       $productIds update only product(s)
      * @return $this
      */
     public function updateAttribute($attribute, $storeId, $productIds = null)
@@ -952,6 +972,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
         if (!$this->_isFlatTableExists($storeId)) {
             return $this;
         }
+
         $adapter       = $this->_getWriteAdapter();
         $flatTableName = $this->getFlatTableName($storeId);
         $describe      = $adapter->describeTable($flatTableName);
@@ -970,6 +991,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
             if ($this->getFlatHelper()->isAddChildData()) {
                 $select->where('e.is_child = ?', 0);
             }
+
             if ($productIds !== null) {
                 $select->where('main_table.entity_id IN(?)', $productIds);
             }
@@ -981,6 +1003,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
             if (!$columns) {
                 return $this;
             }
+
             foreach (array_keys($columns) as $columnName) {
                 if (!isset($describe[$columnName])) {
                     return $this;
@@ -1004,8 +1027,8 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
     /**
      * Update non static EAV attributes flat data
      *
-     * @param int $storeId
-     * @param int|array $productIds update only product(s)
+     * @param  int       $storeId
+     * @param  array|int $productIds update only product(s)
      * @return $this
      */
     public function updateEavAttributes($storeId, $productIds = null)
@@ -1020,6 +1043,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
                 $this->updateAttribute($attribute, $storeId, $productIds);
             }
         }
+
         return $this;
     }
 
@@ -1050,18 +1074,18 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
 
             foreach (array_keys(Mage_Catalog_Model_Product_Type::getTypes()) as $typeId) {
                 $productEmulator->setTypeId($typeId);
-                $this->_productTypes[$typeId] = Mage::getSingleton('catalog/product_type')
-                    ->factory($productEmulator);
+                $this->_productTypes[$typeId] = Mage::getSingleton('catalog/product_type')::factory($productEmulator);
             }
         }
+
         return $this->_productTypes;
     }
 
     /**
      * Update relation products
      *
-     * @param int $storeId
-     * @param int|array $productIds Update child product(s) only
+     * @param  int       $storeId
+     * @param  array|int $productIds Update child product(s) only
      * @return $this
      */
     public function updateRelationProducts($storeId, $productIds = null)
@@ -1076,6 +1100,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
             if (!$typeInstance->isComposite()) {
                 continue;
             }
+
             $relation = $typeInstance->getRelationInfo();
             if ($relation
                 && $relation->getTable()
@@ -1101,6 +1126,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
                 if ($relation->getWhere() !== null) {
                     $select->where($relation->getWhere());
                 }
+
                 if ($productIds !== null) {
                     $cond = [
                         $adapter->quoteInto("{$relation->getChildFieldName()} IN(?)", $productIds),
@@ -1109,6 +1135,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
 
                     $select->where(implode(' OR ', $cond));
                 }
+
                 $sql = $select->insertFromSelect($this->getFlatTableName($storeId), $fieldList);
                 $adapter->query($sql);
             }
@@ -1120,8 +1147,8 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
     /**
      * Update children data from parent
      *
-     * @param int $storeId
-     * @param int|array $productIds
+     * @param  int       $storeId
+     * @param  array|int $productIds
      * @return $this
      */
     public function updateChildrenDataFromParent($storeId, $productIds = null)
@@ -1129,15 +1156,18 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
         if (!$this->getFlatHelper()->isAddChildData() || !$this->_isFlatTableExists($storeId)) {
             return $this;
         }
+
         $adapter = $this->_getWriteAdapter();
 
         $select = $adapter->select();
         foreach (array_keys($this->getFlatColumns()) as $columnName) {
-            if ($columnName === 'entity_id' || $columnName === 'child_id' || $columnName === 'is_child') {
+            if (in_array($columnName, ['entity_id', 'child_id', 'is_child'], true)) {
                 continue;
             }
+
             $select->columns([$columnName => new Zend_Db_Expr('t1.' . $columnName)]);
         }
+
         $select
             ->joinLeft(
                 ['t1' => $this->getFlatTableName($storeId)],
@@ -1159,7 +1189,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
     /**
      * Clean unused relation products
      *
-     * @param int $storeId
+     * @param  int   $storeId
      * @return $this
      */
     public function cleanRelationProducts($storeId)
@@ -1172,6 +1202,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
             if (!$typeInstance->isComposite()) {
                 continue;
             }
+
             $adapter  = $this->_getWriteAdapter();
             $relation = $typeInstance->getRelationInfo();
             if ($relation
@@ -1218,8 +1249,8 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
     /**
      * Remove product data from flat
      *
-     * @param int|array $productIds
-     * @param int $storeId
+     * @param  array|int $productIds
+     * @param  int       $storeId
      * @return $this
      */
     public function removeProduct($productIds, $storeId)
@@ -1227,6 +1258,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
         if (!$this->_isFlatTableExists($storeId)) {
             return $this;
         }
+
         $adapter = $this->_getWriteAdapter();
         $cond = [
             $adapter->quoteInto('entity_id IN(?)', $productIds),
@@ -1234,6 +1266,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
         if ($this->getFlatHelper()->isAddChildData()) {
             $cond[] = $adapter->quoteInto('child_id IN(?)', $productIds);
         }
+
         $cond = implode(' OR ', $cond);
         $adapter->delete($this->getFlatTableName($storeId), $cond);
 
@@ -1243,8 +1276,8 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
     /**
      * Remove children from parent product
      *
-     * @param int|array $productIds
-     * @param int $storeId
+     * @param  array|int $productIds
+     * @param  int       $storeId
      * @return $this
      */
     public function removeProductChildren($productIds, $storeId)
@@ -1252,6 +1285,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
         if (!$this->getFlatHelper()->isAddChildData()) {
             return $this;
         }
+
         $whereExpr = [
             'entity_id IN(?)' => $productIds,
             'is_child = ?'    => 1,
@@ -1264,8 +1298,8 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
     /**
      * Update flat data for product
      *
-     * @param int|array $productIds
-     * @param int $storeId
+     * @param  array|int $productIds
+     * @param  int       $storeId
      * @return $this
      */
     public function updateProduct($productIds, $storeId)
@@ -1288,8 +1322,8 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
     /**
      * Save product(s) data for store
      *
-     * @param int|array $productIds
-     * @param int $storeId
+     * @param  array|int $productIds
+     * @param  int       $storeId
      * @return $this
      */
     public function saveProduct($productIds, $storeId)
@@ -1307,7 +1341,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
     /**
      * Delete flat table process
      *
-     * @param int $storeId
+     * @param  int   $storeId
      * @return $this
      */
     public function deleteFlatTable($storeId)
@@ -1322,7 +1356,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
     /**
      * Check is flat table for store exists
      *
-     * @param int $storeId
+     * @param  int  $storeId
      * @return bool
      */
     protected function _isFlatTableExists($storeId)
@@ -1331,7 +1365,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
             $tableName     = $this->getFlatTableName($storeId);
             $isTableExists = $this->_getWriteAdapter()->isTableExists($tableName);
 
-            $this->_existsFlatTables[$storeId] = $isTableExists ? true : false;
+            $this->_existsFlatTables[$storeId] = $isTableExists;
         }
 
         return $this->_existsFlatTables[$storeId];
@@ -1340,7 +1374,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
     /**
      * Retrieve previous key from array by key
      *
-     * @param mixed $key
+     * @param  mixed $key
      * @return mixed
      */
     protected function _arrayPrevKey(array $array, $key)
@@ -1350,28 +1384,32 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
             if ($k == $key) {
                 return $prev;
             }
+
             $prev = $k;
         }
+
         return false;
     }
 
     /**
      * Retrieve next key from array by key
      *
-     * @param mixed $key
+     * @param  mixed $key
      * @return mixed
      */
     protected function _arrayNextKey(array $array, $key)
     {
         $next = false;
         foreach (array_keys($array) as $k) {
-            if ($next === true) {
+            if ($next) {
                 return $k;
             }
+
             if ($k == $key) {
                 $next = true;
             }
         }
+
         return false;
     }
 
@@ -1386,14 +1424,15 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
             if (!$store->getIsActive()) {
                 continue;
             }
+
             $this->prepareFlatTable($storeId);
             $this->beginTransaction();
             try {
                 $this->rebuild($store);
                 $this->commit();
-            } catch (Exception $e) {
+            } catch (Exception $exception) {
                 $this->rollBack();
-                throw $e;
+                throw $exception;
             }
         }
 

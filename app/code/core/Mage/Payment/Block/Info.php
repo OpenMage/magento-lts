@@ -19,10 +19,13 @@ class Mage_Payment_Block_Info extends Mage_Core_Block_Template
     /**
      * Payment rendered specific information
      *
-     * @var Varien_Object|null
+     * @var null|Varien_Object
      */
     protected $_paymentSpecificInformation = null;
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         parent::_construct();
@@ -36,10 +39,11 @@ class Mage_Payment_Block_Info extends Mage_Core_Block_Template
      */
     public function getInfo()
     {
-        $info = $this->getData('info');
+        $info = $this->getDataByKey('info');
         if (!($info instanceof Mage_Payment_Model_Info)) {
             Mage::throwException($this->__('Cannot retrieve the payment info model object.'));
         }
+
         return $info;
     }
 
@@ -78,6 +82,7 @@ class Mage_Payment_Block_Info extends Mage_Core_Block_Template
                 $result[] = $child->toPdf();
             }
         }
+
         return $result;
     }
 
@@ -94,8 +99,8 @@ class Mage_Payment_Block_Info extends Mage_Core_Block_Template
     /**
      * Render the value as an array
      *
-     * @param mixed $value
-     * @param bool $escapeHtml
+     * @param  mixed $value
+     * @param  bool  $escapeHtml
      * @return array $array
      */
     public function getValueAsArray($value, $escapeHtml = false)
@@ -103,14 +108,17 @@ class Mage_Payment_Block_Info extends Mage_Core_Block_Template
         if (empty($value)) {
             return [];
         }
+
         if (!is_array($value)) {
             $value = [$value];
         }
+
         if ($escapeHtml) {
             foreach ($value as $key => $val) {
                 $value[$key] = $this->escapeHtml($val);
             }
         }
+
         return $value;
     }
 
@@ -126,19 +134,22 @@ class Mage_Payment_Block_Info extends Mage_Core_Block_Template
         if ($this->hasIsSecureMode()) {
             return (bool) (int) $this->_getData('is_secure_mode');
         }
+
         if (!$payment = $this->getInfo()) {
             return true;
         }
+
         if (!$method = $payment->getMethodInstance()) {
             return true;
         }
+
         return !Mage::app()->getStore($method->getStore())->isAdmin();
     }
 
     /**
      * Prepare information specific to current payment method
      *
-     * @param Varien_Object|array $transport
+     * @param  array|Varien_Object $transport
      * @return Varien_Object
      */
     protected function _prepareSpecificInformation($transport = null)
@@ -149,6 +160,7 @@ class Mage_Payment_Block_Info extends Mage_Core_Block_Template
             } elseif (is_array($transport)) {
                 $transport = new Varien_Object($transport);
             }
+
             Mage::dispatchEvent('payment_info_block_prepare_specific_information', [
                 'transport' => $transport,
                 'payment'   => $this->getInfo(),
@@ -156,6 +168,7 @@ class Mage_Payment_Block_Info extends Mage_Core_Block_Template
             ]);
             $this->_paymentSpecificInformation = $transport;
         }
+
         return $this->_paymentSpecificInformation;
     }
 }

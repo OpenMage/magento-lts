@@ -16,7 +16,6 @@ class Mage_Adminhtml_Block_Catalog_Search_Edit_Form extends Mage_Adminhtml_Block
 {
     /**
      * Init Form properties
-     *
      */
     public function __construct()
     {
@@ -37,7 +36,7 @@ class Mage_Adminhtml_Block_Catalog_Search_Edit_Form extends Mage_Adminhtml_Block
 
         $form = new Varien_Data_Form([
             'id'        => 'edit_form',
-            'action'    => $this->getData('action'),
+            'action'    => $this->getDataByKey('action'),
             'method' => 'post',
         ]);
 

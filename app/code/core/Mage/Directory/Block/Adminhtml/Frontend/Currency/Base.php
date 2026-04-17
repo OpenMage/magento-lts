@@ -25,6 +25,7 @@ class Mage_Directory_Block_Adminhtml_Frontend_Currency_Base extends Mage_Adminht
                 return '';
             }
         }
+
         return parent::render($element);
     }
 }

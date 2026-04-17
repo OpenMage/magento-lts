@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -9,7 +11,6 @@
 
 /**
  * Catalog indexer interface
- *
  */
 interface Mage_CatalogIndex_Model_Indexer_Interface
 {

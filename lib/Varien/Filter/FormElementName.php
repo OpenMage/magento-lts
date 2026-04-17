@@ -1,12 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
  * @license    Open Software License (OSL 3.0)
  * @package    Varien_Filter
  */
-
 class Varien_Filter_FormElementName extends Zend_Filter_Alnum
 {
     /**
@@ -30,6 +31,7 @@ class Varien_Filter_FormElementName extends Zend_Filter_Alnum
             //The Alphabet means each language's alphabet.
             $pattern = '/[^\p{L}\p{N}\[\];_\-' . $whiteSpace . ']/u';
         }
+
         return preg_replace($pattern, '', (string) $value);
     }
 }

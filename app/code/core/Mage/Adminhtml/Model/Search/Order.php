@@ -12,13 +12,13 @@
  *
  * @package    Mage_Adminhtml
  *
- * @method bool hasLimit()
- * @method int getLimit()
- * @method bool hasQuery()
+ * @method int    getLimit()
  * @method string getQuery()
- * @method bool setResults(array $value)
- * @method bool hasStart()
- * @method int getStart()
+ * @method int    getStart()
+ * @method bool   hasLimit()
+ * @method bool   hasQuery()
+ * @method bool   hasStart()
+ * @method bool   setResults(array $value)
  */
 class Mage_Adminhtml_Model_Search_Order extends Varien_Object
 {
@@ -61,7 +61,7 @@ class Mage_Adminhtml_Model_Search_Order extends Varien_Object
                 'name'              => Mage::helper('adminhtml')->__('Order #%s', $order->getIncrementId()),
                 'description'       => $order->getBillingFirstname() . ' ' . $order->getBillingLastname(),
                 'form_panel_title'  => Mage::helper('adminhtml')->__('Order #%s (%s)', $order->getIncrementId(), $order->getBillingFirstname() . ' ' . $order->getBillingLastname()),
-                'url' => Mage::helper('adminhtml')->getUrl('*/sales_order/view', ['order_id' => $order->getId()]),
+                'url'               => Mage::helper('adminhtml')::getUrl('*/sales_order/view', ['order_id' => $order->getId()]),
             ];
         }
 

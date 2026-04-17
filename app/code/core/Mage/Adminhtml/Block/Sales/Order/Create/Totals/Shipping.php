@@ -43,8 +43,8 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Totals_Shipping extends Mage_Admin
      */
     public function getShippingIncludeTax()
     {
-        return $this->getTotal()->getAddress()->getShippingAmount() +
-            $this->getTotal()->getAddress()->getShippingTaxAmount();
+        return $this->getTotal()->getAddress()->getShippingAmount()
+            + $this->getTotal()->getAddress()->getShippingTaxAmount();
     }
 
     /**

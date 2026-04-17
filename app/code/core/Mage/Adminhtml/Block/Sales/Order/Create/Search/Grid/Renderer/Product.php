@@ -17,8 +17,8 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid_Renderer_Product exten
     /**
      * Render product name to add Configure link
      *
-     * @param   Mage_Catalog_Model_Product $row
-     * @return  string
+     * @param  Mage_Catalog_Model_Product $row
+     * @return string
      */
     public function render(Varien_Object $row)
     {

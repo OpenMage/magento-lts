@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -16,6 +18,9 @@ class Mage_Adminhtml_Block_Widget_Form_Renderer_Fieldset extends Mage_Adminhtml_
 {
     protected $_element;
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->setTemplate('widget/form/renderer/fieldset.phtml');

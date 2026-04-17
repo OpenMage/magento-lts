@@ -200,18 +200,15 @@ abstract class Mage_Adminhtml_Helper_Help_Mapping extends Mage_Core_Helper_Abstr
     /**
      * Compose reconstructed URL using mapping
      *
-     * @param string $frontModule
-     * @param string $controllerName
-     * @param string $actionName
-     * @return string|bool
+     * @param  string      $frontModule
+     * @param  string      $controllerName
+     * @param  string      $actionName
+     * @return bool|string
      */
     protected function findInMapping($frontModule, $controllerName, $actionName)
     {
-        if ($actionName === 'index') {
-            $targetToFind = $controllerName;
-        } else {
-            $targetToFind = $controllerName . '/' . $actionName;
-        }
+        $targetToFind = $actionName === 'index' ? $controllerName : $controllerName . '/' . $actionName;
+
         if (isset($this->_moduleMappings[$frontModule])
             && isset($this->_moduleMappings[$frontModule][$targetToFind])
         ) {
@@ -224,7 +221,7 @@ abstract class Mage_Adminhtml_Helper_Help_Mapping extends Mage_Core_Helper_Abstr
     /**
      * Determine which version of docs should target onto
      *
-     * @return Mage_Core_Model_Config_Element|Varien_Simplexml_Element|false
+     * @return false|Mage_Core_Model_Config_Element|Varien_Simplexml_Element
      */
     protected function getHelpTargetVersion()
     {

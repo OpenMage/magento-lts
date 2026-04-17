@@ -37,16 +37,14 @@ class Mage_Install_Block_Config extends Mage_Install_Block_Abstract
      */
     public function getFormData()
     {
-        $data = $this->getData('form_data');
+        $data = $this->getDataByKey('form_data');
         if (is_null($data)) {
             $data = Mage::getSingleton('install/session')->getConfigData(true);
-            if (empty($data)) {
-                $data = Mage::getModel('install/installer_config')->getFormData();
-            } else {
-                $data = new Varien_Object($data);
-            }
+            $data = empty($data) ? Mage::getModel('install/installer_config')->getFormData() : new Varien_Object($data);
+
             $this->setFormData($data);
         }
+
         return $data;
     }
 
@@ -60,6 +58,9 @@ class Mage_Install_Block_Config extends Mage_Install_Block_Abstract
         return Mage::getSingleton('install/session')->getSkipBaseUrlValidation();
     }
 
+    /**
+     * @return array<string, string>
+     */
     public function getSessionSaveOptions()
     {
         return [

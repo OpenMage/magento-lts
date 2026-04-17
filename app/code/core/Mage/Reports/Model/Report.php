@@ -12,11 +12,11 @@
  *
  * @package    Mage_Reports
  *
- * @method int getPageSize()
- * @method $this setPageSize(int $value)
+ * @method int   getPageSize()
  * @method array getStoreIds()
+ * @method $this setDateRange(string $dateFrom, string $dateTo)
+ * @method $this setPageSize(int $value)
  * @method $this setStoreIds( $value)
- * @method $this setDateRange(string $from, string $to)
  */
 class Mage_Reports_Model_Report extends Mage_Core_Model_Abstract
 {
@@ -26,38 +26,40 @@ class Mage_Reports_Model_Report extends Mage_Core_Model_Abstract
     protected $_reportModel;
 
     /**
-     * @param string $modelClass
+     * @param  string $modelClass
      * @return $this
      */
     public function initCollection($modelClass)
     {
-        $this->_reportModel = Mage::getResourceModel($modelClass);
+        /** @var Mage_Reports_Model_Report $model */
+        $model = Mage::getResourceModel($modelClass);
+        $this->_reportModel = $model;
 
         return $this;
     }
 
     /**
-     * @param string $from
-     * @param string $to
+     * @param  null|string               $dateFrom
+     * @param  null|string               $dateTo
      * @return Mage_Reports_Model_Report
      */
-    public function getReportFull($from, $to)
+    public function getReportFull($dateFrom, $dateTo)
     {
         return $this->_reportModel
-            ->setDateRange($from, $to)
+            ->setDateRange($dateFrom, $dateTo)
             ->setPageSize(false)
             ->setStoreIds($this->getStoreIds());
     }
 
     /**
-     * @param string $from
-     * @param string $to
+     * @param  null|string               $dateFrom
+     * @param  null|string               $dateTo
      * @return Mage_Reports_Model_Report
      */
-    public function getReport($from, $to)
+    public function getReport($dateFrom, $dateTo)
     {
         return $this->_reportModel
-            ->setDateRange($from, $to)
+            ->setDateRange($dateFrom, $dateTo)
             ->setPageSize($this->getPageSize())
             ->setStoreIds($this->getStoreIds());
     }

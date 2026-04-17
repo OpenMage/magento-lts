@@ -15,7 +15,9 @@
 class Mage_ImportExport_Model_Import_Uploader extends Mage_Core_Model_File_Uploader
 {
     protected $_tmpDir  = '';
+
     protected $_destDir = '';
+
     protected $_allowedMimeTypes = [
         'webp' => 'image/webp',
         'jpg' => 'image/jpeg',
@@ -23,11 +25,12 @@ class Mage_ImportExport_Model_Import_Uploader extends Mage_Core_Model_File_Uploa
         'gif' => 'image/gif',
         'png' => 'image/png',
     ];
+
     public const DEFAULT_FILE_TYPE = 'application/octet-stream';
 
     /**
      * Mage_ImportExport_Model_Import_Uploader constructor.
-     * @param string|null $filePath
+     * @param null|string $filePath
      */
     public function __construct($filePath = null)
     {
@@ -61,7 +64,7 @@ class Mage_ImportExport_Model_Import_Uploader extends Mage_Core_Model_File_Uploa
     /**
      * Proceed moving a file from TMP to destination folder
      *
-     * @param string $fileName
+     * @param  string    $fileName
      * @return array
      * @throws Exception
      */
@@ -84,6 +87,7 @@ class Mage_ImportExport_Model_Import_Uploader extends Mage_Core_Model_File_Uploa
         if (!is_readable($filePath)) {
             Mage::throwException("File '{$filePath}' was not found or has read restriction.");
         }
+
         $this->_file = $this->_readFileInfo($filePath);
 
         $this->_validateFile();
@@ -92,8 +96,8 @@ class Mage_ImportExport_Model_Import_Uploader extends Mage_Core_Model_File_Uploa
     /**
      * Reads file info
      *
-     * @param string $filePath
-     * @return array
+     * @param  string                         $filePath
+     * @return array<string, bool|int|string>
      */
     protected function _readFileInfo($filePath)
     {
@@ -114,16 +118,13 @@ class Mage_ImportExport_Model_Import_Uploader extends Mage_Core_Model_File_Uploa
     protected function _validateFile()
     {
         $filePath = $this->_file['tmp_name'];
-        if (is_readable($filePath)) {
-            $this->_fileExists = true;
-        } else {
-            $this->_fileExists = false;
-        }
+        $this->_fileExists = is_readable($filePath);
 
         $fileExtension = pathinfo($filePath, PATHINFO_EXTENSION);
         if (!$this->checkAllowedExtension($fileExtension)) {
             throw new Exception('Disallowed file type.');
         }
+
         //run validate callbacks
         foreach ($this->_validateCallbacks as $params) {
             if (is_object($params['object']) && method_exists($params['object'], $params['method'])) {
@@ -135,7 +136,7 @@ class Mage_ImportExport_Model_Import_Uploader extends Mage_Core_Model_File_Uploa
     /**
      * Returns file MIME type by extension
      *
-     * @param string $ext
+     * @param  string $ext
      * @return string
      */
     protected function _getMimeTypeByExt($ext)
@@ -143,6 +144,7 @@ class Mage_ImportExport_Model_Import_Uploader extends Mage_Core_Model_File_Uploa
         if (array_key_exists($ext, $this->_allowedMimeTypes)) {
             return $this->_allowedMimeTypes[$ext];
         }
+
         return '';
     }
 
@@ -159,7 +161,7 @@ class Mage_ImportExport_Model_Import_Uploader extends Mage_Core_Model_File_Uploa
     /**
      * Set TMP file path prefix
      *
-     * @param string $path
+     * @param  string $path
      * @return bool
      */
     public function setTmpDir($path)
@@ -168,6 +170,7 @@ class Mage_ImportExport_Model_Import_Uploader extends Mage_Core_Model_File_Uploa
             $this->_tmpDir = $path;
             return true;
         }
+
         return false;
     }
 
@@ -184,7 +187,7 @@ class Mage_ImportExport_Model_Import_Uploader extends Mage_Core_Model_File_Uploa
     /**
      * Set destination file path prefix
      *
-     * @param string $path
+     * @param  string $path
      * @return bool
      */
     public function setDestDir($path)
@@ -193,14 +196,15 @@ class Mage_ImportExport_Model_Import_Uploader extends Mage_Core_Model_File_Uploa
             $this->_destDir = $path;
             return true;
         }
+
         return false;
     }
 
     /**
      * Move files from TMP folder into destination folder
      *
-     * @param string $tmpPath
-     * @param string $destPath
+     * @param  string $tmpPath
+     * @param  string $destPath
      * @return bool
      */
     protected function _moveFile($tmpPath, $destPath)
@@ -208,8 +212,8 @@ class Mage_ImportExport_Model_Import_Uploader extends Mage_Core_Model_File_Uploa
         $sourceFile = realpath($tmpPath);
         if ($sourceFile !== false) {
             return copy($sourceFile, $destPath);
-        } else {
-            return false;
         }
+
+        return false;
     }
 }

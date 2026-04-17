@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -17,7 +19,7 @@
  *
  * @package    Varien_Db
  */
-class Varien_Db_Statement_Parameter
+class Varien_Db_Statement_Parameter implements Stringable
 {
     /**
      * Actual parameter value
@@ -67,7 +69,7 @@ class Varien_Db_Statement_Parameter
     /**
      * Sets parameter value.
      *
-     * @param mixed $value
+     * @param  mixed                         $value
      * @return Varien_Db_Statement_Parameter
      */
     public function setValue($value)
@@ -93,7 +95,7 @@ class Varien_Db_Statement_Parameter
      * TRUE means that DB adapter must ignore other options and use adapter's default options to bind this parameter
      * as a BLOB value.
      *
-     * @param bool $isBlob
+     * @param  bool                          $isBlob
      * @return Varien_Db_Statement_Parameter
      */
     public function setIsBlob($isBlob)
@@ -118,7 +120,7 @@ class Varien_Db_Statement_Parameter
     /**
      * Sets data type option to be used during binding parameter value.
      *
-     * @param mixed $dataType
+     * @param  mixed                         $dataType
      * @return Varien_Db_Statement_Parameter
      */
     public function setDataType($dataType)
@@ -140,7 +142,7 @@ class Varien_Db_Statement_Parameter
     /**
      * Sets length option to be used during binding parameter value.
      *
-     * @param mixed $length
+     * @param  mixed                         $length
      * @return Varien_Db_Statement_Parameter
      */
     public function setLength($length)
@@ -162,7 +164,7 @@ class Varien_Db_Statement_Parameter
     /**
      * Sets specific driver options to be used during binding parameter value.
      *
-     * @param mixed $driverOptions
+     * @param  mixed                         $driverOptions
      * @return Varien_Db_Statement_Parameter
      */
     public function setDriverOptions($driverOptions)
@@ -185,7 +187,7 @@ class Varien_Db_Statement_Parameter
      * Sets additional information for concrete DB adapter.
      * Set there any data you want to pass along with query parameter.
      *
-     * @param Varien_Object $additional
+     * @param  Varien_Object                 $additional
      * @return Varien_Db_Statement_Parameter
      */
     public function setAdditional($additional)
@@ -206,10 +208,8 @@ class Varien_Db_Statement_Parameter
 
     /**
      * Returns representation of a object to be used in string contexts
-     *
-     * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
         return (string) $this->_value;
     }

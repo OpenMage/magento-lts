@@ -52,10 +52,13 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
     /**
      * Array of info about stores
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_storesInfo;
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('catalog/category_product_index', 'category_id');
@@ -104,6 +107,7 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
             $categoryIds[]  = $id;
             $allCategoryIds = array_merge($allCategoryIds, explode('/', $path));
         }
+
         $allCategoryIds = array_unique($allCategoryIds);
         $allCategoryIds = array_diff($allCategoryIds, $categoryIds);
 
@@ -136,6 +140,7 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
         if (!isset($data['product_ids'])) {
             return $this;
         }
+
         $productIds     = $data['product_ids'];
         $categoryIds    = [];
         $allCategoryIds = [];
@@ -236,8 +241,10 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
                     }
                 }
             }
+
             $allCategoryIds = array_merge($allCategoryIds, explode('/', $path));
         }
+
         $allCategoryIds = array_unique($allCategoryIds);
 
         if ($checkRootCategories && count($affectedRootCategoryIds) > 1) {
@@ -278,6 +285,7 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
         if ($anchorIds) {
             $this->_refreshAnchorRelations($anchorIds);
         }
+
         if ($directIds) {
             $this->_refreshDirectRelations($directIds);
         }
@@ -412,8 +420,8 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
     /**
      * Rebuild index for direct associations categories and products
      *
-     * @param null|array $categoryIds
-     * @param null|array $productIds
+     * @param  null|array $categoryIds
+     * @param  null|array $productIds
      * @return $this
      */
     protected function _refreshDirectRelations($categoryIds = null, $productIds = null)
@@ -442,10 +450,10 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
             ->joinInner(['rc'  => $this->_categoryTable], 'rc.entity_id=g.root_category_id', [])
             ->joinInner(
                 ['ce' => $this->_categoryTable],
-                'ce.entity_id=cp.category_id AND (' .
-                $adapter->quoteIdentifier('ce.path') . ' LIKE ' .
-                $adapter->getConcatSql([$adapter->quoteIdentifier('rc.path') , $adapter->quote('/%')]) .
-                ' OR ce.entity_id=rc.entity_id)',
+                'ce.entity_id=cp.category_id AND ('
+                . $adapter->quoteIdentifier('ce.path') . ' LIKE '
+                . $adapter->getConcatSql([$adapter->quoteIdentifier('rc.path') , $adapter->quote('/%')])
+                . ' OR ce.entity_id=rc.entity_id)',
                 [],
             )
             ->joinLeft(
@@ -489,9 +497,11 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
         if ($categoryIds) {
             $select->where('cp.category_id IN (?)', $categoryIds);
         }
+
         if ($productIds) {
             $select->where('cp.product_id IN(?)', $productIds);
         }
+
         $sql = $select->insertFromSelect(
             $this->getMainTable(),
             ['category_id', 'product_id', 'position', 'is_parent', 'store_id', 'visibility'],
@@ -504,8 +514,8 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
     /**
      * Rebuild index for anchor categories and associated to child categories products
      *
-     * @param null|array $categoryIds
-     * @param null|array $productIds
+     * @param  null|array $categoryIds
+     * @param  null|array $productIds
      * @return $this
      */
     protected function _refreshAnchorRelations($categoryIds = null, $productIds = null)
@@ -523,11 +533,11 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
          */
         $adapter = $this->_getReadAdapter();
         $isParent = $adapter->getCheckSql('MIN(cp.category_id)=ce.entity_id', '1', '0');
-        $position = 'MIN(' .
-            $adapter->getCheckSql(
+        $position = 'MIN('
+            . $adapter->getCheckSql(
                 'cp.category_id = ce.entity_id',
                 'cp.position',
-                '(cc.position + 1) * (' . $adapter->quoteIdentifier('cc.level') . ' + 1) * 10000 + cp.position',
+                '(cc.position + 1) * (' . $adapter->quoteIdentifier('cc.level') . ' + 1 * 10000) + cp.position',
             )
         . ')';
 
@@ -536,8 +546,8 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
             ->from(['ce' => $this->_categoryTable], ['entity_id'])
             ->joinInner(
                 ['cc' => $this->_categoryTable],
-                $adapter->quoteIdentifier('cc.path') .
-                ' LIKE (' . $adapter->getConcatSql([$adapter->quoteIdentifier('ce.path'),$adapter->quote('/%')]) . ')'
+                $adapter->quoteIdentifier('cc.path')
+                . ' LIKE (' . $adapter->getConcatSql([$adapter->quoteIdentifier('ce.path'),$adapter->quote('/%')]) . ')'
                 . ' OR cc.entity_id=ce.entity_id',
                 [],
             )
@@ -587,10 +597,10 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
             /**
              * Condition for anchor or root category (all products should be assigned to root)
              */
-            ->where('(' .
-                $adapter->quoteIdentifier('ce.path') . ' LIKE ' .
-                $adapter->getConcatSql([$adapter->quoteIdentifier('rc.path'), $adapter->quote('/%')]) . ' AND ' .
-                $adapter->getCheckSql(
+            ->where('('
+                . $adapter->quoteIdentifier('ce.path') . ' LIKE '
+                . $adapter->getConcatSql([$adapter->quoteIdentifier('rc.path'), $adapter->quote('/%')]) . ' AND '
+                . $adapter->getCheckSql(
                     'sca.value_id IS NOT NULL',
                     $adapter->quoteIdentifier('sca.value'),
                     $adapter->quoteIdentifier('dca.value'),
@@ -603,6 +613,7 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
         if ($categoryIds) {
             $select->where('ce.entity_id IN (?)', $categoryIds);
         }
+
         if ($productIds) {
             $select->where('pw.product_id IN(?)', $productIds);
         }
@@ -615,7 +626,7 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
     /**
      * Add product association with root store category for products which are not assigned to any another category
      *
-     * @param int | array $productIds
+     * @param  array|int $productIds
      * @return $this
      */
     protected function _refreshRootRelations($productIds)
@@ -738,7 +749,7 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
     /**
      * Get is_anchor category attribute information
      *
-     * @return array array('id' => $id, 'table'=>$table)
+     * @return array<string, mixed> array('id' => $id, 'table'=>$table)
      */
     protected function _getAnchorAttributeInfo()
     {
@@ -753,7 +764,7 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
     /**
      * Get visibility product attribute information
      *
-     * @return array array('id' => $id, 'table'=>$table)
+     * @return array<string, mixed> array('id' => $id, 'table'=>$table)
      */
     protected function _getVisibilityAttributeInfo()
     {
@@ -768,7 +779,7 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
     /**
      * Get status product attribute information
      *
-     * @return array array('id' => $id, 'table'=>$table)
+     * @return array<string, mixed> array('id' => $id, 'table'=>$table)
      */
     protected function _getStatusAttributeInfo()
     {
@@ -856,8 +867,8 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
                 // phpcs:ignore Ecg.Performance.Loop.ModelLSD
                 $idxAdapter->delete($anchorProductsTable);
 
-                $position = 'MIN(' .
-                    $idxAdapter->getCheckSql(
+                $position = 'MIN('
+                    . $idxAdapter->getCheckSql(
                         'ca.category_id = ce.entity_id',
                         $idxAdapter->quoteIdentifier('cp.position'),
                         '(' . $idxAdapter->quoteIdentifier('ce.position') . ' + 1) * '
@@ -872,8 +883,8 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
                 ->from(['ca' => $anchorTable], ['category_id'])
                 ->joinInner(
                     ['ce' => $this->_categoryTable],
-                    $idxAdapter->quoteIdentifier('ce.path') . ' LIKE ' .
-                    $idxAdapter->quoteIdentifier('ca.path') . ' OR ce.entity_id = ca.category_id',
+                    $idxAdapter->quoteIdentifier('ce.path') . ' LIKE '
+                    . $idxAdapter->quoteIdentifier('ca.path') . ' OR ce.entity_id = ca.category_id',
                     [],
                 )
                 ->joinInner(
@@ -959,25 +970,29 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
             if (isset($enabledTable)) {
                 $idxAdapter->delete($enabledTable);
             }
+
             if (isset($anchorTable)) {
                 $idxAdapter->delete($anchorTable);
             }
+
             if (isset($anchorProductsTable)) {
                 $idxAdapter->delete($anchorProductsTable);
             }
+
             $this->commit();
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $this->rollBack();
-            throw $e;
+            throw $exception;
         }
+
         return $this;
     }
 
     /**
      * Create temporary table with enabled products visibility info
      *
-     * @param int $websiteId
-     * @param int $storeId
+     * @param  int    $websiteId
+     * @param  int    $storeId
      * @return string temporary table name
      */
     protected function _prepareEnabledProductsVisibility($websiteId, $storeId)
@@ -1054,6 +1069,7 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
         if ($this->useIdxTable()) {
             return $this->getTable('catalog/category_product_enabled_indexer_idx');
         }
+
         return $this->getTable('catalog/category_product_enabled_indexer_tmp');
     }
 
@@ -1088,8 +1104,8 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
     }
 
     /**
-     * @param int $storeId
-     * @param string $rootPath
+     * @param  int    $storeId
+     * @param  string $rootPath
      * @return string temporary table name
      */
     protected function _prepareAnchorCategories($storeId, $rootPath)
@@ -1145,6 +1161,7 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
         if ($this->useIdxTable()) {
             return $this->getTable('catalog/category_anchor_indexer_idx');
         }
+
         return $this->getTable('catalog/category_anchor_indexer_tmp');
     }
 
@@ -1158,13 +1175,14 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
         if ($this->useIdxTable()) {
             return $this->getTable('catalog/category_anchor_products_indexer_idx');
         }
+
         return $this->getTable('catalog/category_anchor_products_indexer_tmp');
     }
 
     /**
      * Retrieve temporary decimal index table name
      *
-     * @param string $table
+     * @param  string $table
      * @return string
      */
     public function getIdxTable($table = null)
@@ -1172,6 +1190,7 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
         if ($this->useIdxTable()) {
             return $this->getTable('catalog/category_product_indexer_idx');
         }
+
         return $this->getTable('catalog/category_product_indexer_tmp');
     }
 }

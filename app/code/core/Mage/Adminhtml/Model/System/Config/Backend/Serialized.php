@@ -23,13 +23,15 @@ class Mage_Adminhtml_Model_System_Config_Backend_Serialized extends Mage_Core_Mo
             if (!empty($serializedValue) && is_string($serializedValue)) {
                 try {
                     $unserializedValue = Mage::helper('core/unserializeArray')
-                        ->unserialize((string) $serializedValue);
-                } catch (Exception $e) {
-                    Mage::logException($e);
+                        ->unserialize($serializedValue);
+                } catch (Exception $exception) {
+                    Mage::logException($exception);
                 }
             }
+
             $this->setValue($unserializedValue);
         }
+
         return $this;
     }
 
@@ -41,6 +43,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Serialized extends Mage_Core_Mo
         if (is_array($this->getValue())) {
             $this->setValue(serialize($this->getValue()));
         }
+
         return $this;
     }
 }

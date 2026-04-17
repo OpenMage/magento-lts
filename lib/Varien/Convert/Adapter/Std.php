@@ -21,6 +21,7 @@ class Varien_Convert_Adapter_Std extends Varien_Convert_Adapter_Abstract
         while ($text = fread($stdin, 1024)) {
             $data .= $text;
         }
+
         $this->setData($data);
         return $this;
     }

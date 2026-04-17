@@ -12,16 +12,12 @@
  *
  * @package    Mage_Api2
  *
+ * @method Mage_Api2_Model_Resource_Acl_Global_Role            _getResource()
  * @method Mage_Api2_Model_Resource_Acl_Global_Role_Collection getCollection()
+ * @method Mage_Api2_Model_Resource_Acl_Global_Role            getResource()
  * @method Mage_Api2_Model_Resource_Acl_Global_Role_Collection getResourceCollection()
- * @method Mage_Api2_Model_Resource_Acl_Global_Role getResource()
- * @method Mage_Api2_Model_Resource_Acl_Global_Role _getResource()
- * @method string getCreatedAt()
- * @method $this setCreatedAt() setCreatedAt(string $createdAt)
- * @method string getUpdatedAt()
- * @method $this setUpdatedAt() setUpdatedAt(string $updatedAt)
- * @method string getRoleName()
- * @method $this setRoleName() setRoleName(string $roleName)
+ * @method string                                              getRoleName()
+ * @method $this                                               setRoleName() setRoleName(string $roleName)
  */
 class Mage_Api2_Model_Acl_Global_Role extends Mage_Core_Model_Abstract
 {
@@ -29,13 +25,16 @@ class Mage_Api2_Model_Acl_Global_Role extends Mage_Core_Model_Abstract
      * System roles identifiers
      */
     public const ROLE_GUEST_ID = 1;
+
     public const ROLE_CUSTOMER_ID = 2;
 
     /**
      * Config node identifiers
      */
     public const ROLE_CONFIG_NODE_NAME_GUEST = 'guest';
+
     public const ROLE_CONFIG_NODE_NAME_CUSTOMER = 'customer';
+
     public const ROLE_CONFIG_NODE_NAME_ADMIN = 'admin';
 
     /**
@@ -45,6 +44,9 @@ class Mage_Api2_Model_Acl_Global_Role extends Mage_Core_Model_Abstract
      */
     protected $_permissionModel;
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('api2/acl_global_role');
@@ -54,6 +56,7 @@ class Mage_Api2_Model_Acl_Global_Role extends Mage_Core_Model_Abstract
      * Before save actions
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     protected function _beforeSave()
     {
@@ -70,7 +73,7 @@ class Mage_Api2_Model_Acl_Global_Role extends Mage_Core_Model_Abstract
             $helper = Mage::helper('core');
 
             Mage::throwException(
-                Mage::helper('api2')->__('%s role is a special one and can\'t be changed.', $helper->escapeHtml($this->getRoleName())),
+                Mage::helper('api2')->__("%s role is a special one and can't be changed.", $helper->escapeHtml($this->getRoleName())),
             );
         }
 
@@ -82,6 +85,7 @@ class Mage_Api2_Model_Acl_Global_Role extends Mage_Core_Model_Abstract
      * Perform checks before role delete
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     protected function _beforeDelete()
     {
@@ -90,7 +94,7 @@ class Mage_Api2_Model_Acl_Global_Role extends Mage_Core_Model_Abstract
             $helper = Mage::helper('core');
 
             Mage::throwException(
-                Mage::helper('api2')->__('%s role is a special one and can\'t be deleted.', $helper->escapeHtml($this->getRoleName())),
+                Mage::helper('api2')->__("%s role is a special one and can't be deleted.", $helper->escapeHtml($this->getRoleName())),
             );
         }
 
@@ -108,13 +112,14 @@ class Mage_Api2_Model_Acl_Global_Role extends Mage_Core_Model_Abstract
         if ($this->_permissionModel == null) {
             $this->_permissionModel = Mage::getModel('api2/acl_global_rule_resourcePermission');
         }
+
         return $this->_permissionModel;
     }
 
     /**
      * Retrieve system roles
      *
-     * @return array
+     * @return array<int, int>
      */
     public static function getSystemRoles()
     {
@@ -127,8 +132,9 @@ class Mage_Api2_Model_Acl_Global_Role extends Mage_Core_Model_Abstract
     /**
      * Get role system belonging
      *
-     * @param Mage_Api2_Model_Acl_Global_Role $role
+     * @param  Mage_Api2_Model_Acl_Global_Role $role
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public static function isSystemRole($role)
     {
@@ -139,6 +145,7 @@ class Mage_Api2_Model_Acl_Global_Role extends Mage_Core_Model_Abstract
      * Get config node identifiers
      *
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function getConfigNodeName()
     {
@@ -152,6 +159,7 @@ class Mage_Api2_Model_Acl_Global_Role extends Mage_Core_Model_Abstract
             default:
                 $roleNodeName = self::ROLE_CONFIG_NODE_NAME_ADMIN;
         }
+
         return $roleNodeName;
     }
 }

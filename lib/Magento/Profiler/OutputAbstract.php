@@ -33,7 +33,7 @@ abstract class Magento_Profiler_OutputAbstract
     /**
      * Initialize profiler output with timer identifiers filter
      *
-     * @param string|null $filter Pattern to filter timers by their identifiers.
+     * @param null|string $filter Pattern to filter timers by their identifiers.
      *                            Supports syntax similar to SQL LIKE operator:
      *                            % - Matches any number of characters, even zero characters
      *                            _ - Matches exactly one character
@@ -51,7 +51,7 @@ abstract class Magento_Profiler_OutputAbstract
     /**
      * Retrieve the list of (column_label; column_id) pairs
      *
-     * @return array
+     * @return array<string, string>
      */
     protected function _getColumns()
     {
@@ -76,19 +76,19 @@ abstract class Magento_Profiler_OutputAbstract
         if ($columnId == 'timer_id') {
             return $this->_renderTimerId($timerId);
         }
+
         $value = (float) Magento_Profiler::fetch($timerId, $columnId);
         if (in_array($columnId, [Magento_Profiler::FETCH_TIME, Magento_Profiler::FETCH_AVG])) {
-            $value = number_format($value, 6);
-        } else {
-            $value = number_format($value);
+            return number_format($value, 6);
         }
-        return $value;
+
+        return number_format($value);
     }
 
     /**
      * Render timer id column value
      *
-     * @param string $timerId
+     * @param  string $timerId
      * @return string
      */
     protected function _renderTimerId($timerId)
@@ -122,6 +122,7 @@ abstract class Magento_Profiler_OutputAbstract
             if (!$timerId) {
                 continue;
             }
+
             /* Loop over all timers that need to be closed under previous timer */
             while (!str_starts_with($timerId, $prevTimerId . Magento_Profiler::NESTING_SEPARATOR)) {
                 /* Add to result all timers nested in the previous timer */
@@ -132,6 +133,7 @@ abstract class Magento_Profiler_OutputAbstract
                         $timerIds[$j] = null;
                     }
                 }
+
                 /* Go to upper level timer */
                 $count = 0;
                 $prevTimerId = preg_replace($patternLastTimerName, '', $prevTimerId, -1, $count);
@@ -141,10 +143,12 @@ abstract class Magento_Profiler_OutputAbstract
                     break;
                 }
             }
+
             /* Add current timer to the result */
             $result[] = $timerId;
             $prevTimerId = $timerId;
         }
+
         return $result;
     }
 
@@ -163,6 +167,7 @@ abstract class Magento_Profiler_OutputAbstract
             if ($pattern && !preg_match($pattern, $timerId)) {
                 continue;
             }
+
             /* Filter by column value thresholds */
             $skip = false;
             foreach ($this->_thresholds as $fetchKey => $minAllowedValue) {
@@ -172,10 +177,12 @@ abstract class Magento_Profiler_OutputAbstract
                     break;
                 }
             }
+
             if (!$skip) {
                 $result[] = $timerId;
             }
         }
+
         return $result;
     }
 
@@ -194,8 +201,8 @@ abstract class Magento_Profiler_OutputAbstract
      * Set threshold (minimal allowed) value for timer column.
      * Timer is being rendered if at least one of its columns is not less than the minimal allowed value.
      *
-     * @param string $fetchKey
-     * @param int|float|null $minAllowedValue
+     * @param string         $fetchKey
+     * @param null|float|int $minAllowedValue
      */
     public function setThreshold($fetchKey, $minAllowedValue)
     {

@@ -44,11 +44,11 @@ class Mage_Adminhtml_Sales_Order_EditController extends Mage_Adminhtml_Sales_Ord
             $this->_getSession()->setUseOldShippingMethod(true);
             $this->_getOrderCreateModel()->initFromOrder($order);
             $this->_redirect('*/*');
-        } catch (Mage_Core_Exception $e) {
-            Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            Mage::getSingleton('adminhtml/session')->addError($mageCoreException->getMessage());
             $this->_redirect('*/sales_order/view', ['order_id' => $orderId]);
-        } catch (Exception $e) {
-            Mage::getSingleton('adminhtml/session')->addException($e, $e->getMessage());
+        } catch (Exception $exception) {
+            Mage::getSingleton('adminhtml/session')->addException($exception, $exception->getMessage());
             $this->_redirect('*/sales_order/view', ['order_id' => $orderId]);
         }
     }

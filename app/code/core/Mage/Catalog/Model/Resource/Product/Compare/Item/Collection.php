@@ -31,12 +31,12 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item_Collection extends Mage_C
     /**
      * Comparable attributes cache
      *
-     * @var Mage_Eav_Model_Entity_Attribute_Abstract[]|null
+     * @var null|Mage_Eav_Model_Entity_Attribute_Abstract[]
      */
     protected $_comparableAttributes;
 
     /**
-     * Initialize resources
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -47,7 +47,7 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item_Collection extends Mage_C
     /**
      * Set customer filter to collection
      *
-     * @param int $customerId
+     * @param  int   $customerId
      * @return $this
      */
     public function setCustomerId($customerId)
@@ -60,7 +60,7 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item_Collection extends Mage_C
     /**
      * Set visitor filter to collection
      *
-     * @param int $visitorId
+     * @param  int   $visitorId
      * @return $this
      */
     public function setVisitorId($visitorId)
@@ -210,7 +210,7 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item_Collection extends Mage_C
                 $attributeSortInfo = [];
                 foreach ($attributeIds as $attributeId) {
                     $attribute = $eavConfig->getAttribute(Mage_Catalog_Model_Product::ENTITY, $attributeId);
-                    if ($attribute->getData('is_comparable')) {
+                    if ($attribute->getDataByKey('is_comparable')) {
                         $this->_comparableAttributes[$attribute->getAttributeCode()] = $attribute;
                         $attributeSortInfo[$attribute->getAttributeCode()] = $eavConfig->getAttributeSetGroupInfo($attributeId, $setIds);
                     }
@@ -227,6 +227,7 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item_Collection extends Mage_C
                 });
             }
         }
+
         return $this->_comparableAttributes;
     }
 
@@ -242,6 +243,7 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item_Collection extends Mage_C
         foreach ($comparableAttributes as $attribute) {
             $attributes[] = $attribute->getAttributeCode();
         }
+
         $this->addAttributeToSelect($attributes);
 
         return $this;
@@ -302,6 +304,7 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item_Collection extends Mage_C
         if (!Mage::helper('catalog/product_compare')->getAllowUsedFlat()) {
             return false;
         }
+
         return parent::isEnabledFlat();
     }
 }

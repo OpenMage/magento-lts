@@ -28,7 +28,7 @@ class Mage_Checkout_Block_Cart_Crosssell extends Mage_Catalog_Block_Product_Abst
      */
     public function getItems()
     {
-        $items = $this->getData('items');
+        $items = $this->getDataByKey('items');
         if (is_null($items)) {
             $items = [];
             $ninProductIds = $this->_getCartProductIds();
@@ -41,7 +41,6 @@ class Mage_Checkout_Block_Cart_Crosssell extends Mage_Catalog_Block_Product_Abst
                         ->setPositionOrder()
                         ->load();
 
-                    /** @var Mage_Catalog_Model_Product_Link $item */
                     foreach ($collection as $item) {
                         $ninProductIds[] = $item->getId();
                         $items[] = $item;
@@ -65,6 +64,7 @@ class Mage_Checkout_Block_Cart_Crosssell extends Mage_Catalog_Block_Product_Abst
 
             $this->setData('items', $items);
         }
+
         return $items;
     }
 
@@ -85,7 +85,7 @@ class Mage_Checkout_Block_Cart_Crosssell extends Mage_Catalog_Block_Product_Abst
      */
     protected function _getCartProductIds()
     {
-        $ids = $this->getData('_cart_product_ids');
+        $ids = $this->getDataByKey('_cart_product_ids');
         if (is_null($ids)) {
             $ids = [];
             foreach ($this->getQuote()->getAllItems() as $item) {
@@ -93,8 +93,10 @@ class Mage_Checkout_Block_Cart_Crosssell extends Mage_Catalog_Block_Product_Abst
                     $ids[] = $product->getId();
                 }
             }
+
             $this->setData('_cart_product_ids', $ids);
         }
+
         return $ids;
     }
 
@@ -123,7 +125,7 @@ class Mage_Checkout_Block_Cart_Crosssell extends Mage_Catalog_Block_Product_Abst
     /**
      * Get last product ID that was added to cart and remove this information from session
      *
-     * @return int|string|null
+     * @return null|int|string
      */
     protected function _getLastAddedProductId()
     {
@@ -151,13 +153,13 @@ class Mage_Checkout_Block_Cart_Crosssell extends Mage_Catalog_Block_Product_Abst
             ->getProductCollection()
             ->setStoreId(Mage::app()->getStore()->getId())
             ->addStoreFilter()
+            ->setVisibility(Mage::getSingleton('catalog/product_visibility')::getVisibleInCatalogIds())
             ->addAttributeToFilter('status', [
                 'in' => Mage::getSingleton('catalog/product_status')->getSaleableStatusIds(),
             ])
             ->setPageSize($this->_maxItemCount);
         $this->_addProductAttributesAndPrices($collection);
 
-        Mage::getSingleton('catalog/product_visibility')->addVisibleInCatalogFilterToCollection($collection);
         Mage::getSingleton('cataloginventory/stock')->addInStockFilterToCollection($collection);
 
         return $collection;

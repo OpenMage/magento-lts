@@ -11,6 +11,9 @@
  * Admin form widget
  *
  * @package    Mage_Adminhtml
+ *
+ * @method array getFormData()
+ * @method $this setFormData(array $value)
  */
 class Mage_Adminhtml_Block_Widget_Form extends Mage_Adminhtml_Block_Widget
 {
@@ -22,8 +25,7 @@ class Mage_Adminhtml_Block_Widget_Form extends Mage_Adminhtml_Block_Widget
     protected $_form;
 
     /**
-     * Class constructor
-     *
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -38,7 +40,7 @@ class Mage_Adminhtml_Block_Widget_Form extends Mage_Adminhtml_Block_Widget
      *
      * You can redefine this method in child classes for changin layout
      *
-     * @return Mage_Core_Block_Abstract
+     * @return $this
      */
     protected function _prepareLayout()
     {
@@ -71,18 +73,6 @@ class Mage_Adminhtml_Block_Widget_Form extends Mage_Adminhtml_Block_Widget
     }
 
     /**
-     * Get form object
-     *
-     * @deprecated deprecated since version 1.2
-     * @see getForm()
-     * @return Varien_Data_Form
-     */
-    public function getFormObject()
-    {
-        return $this->getForm();
-    }
-
-    /**
      * Get form HTML
      *
      * @return string
@@ -92,6 +82,7 @@ class Mage_Adminhtml_Block_Widget_Form extends Mage_Adminhtml_Block_Widget
         if (is_object($this->getForm())) {
             return $this->getForm()->getHtml();
         }
+
         return '';
     }
 
@@ -151,25 +142,30 @@ class Mage_Adminhtml_Block_Widget_Form extends Mage_Adminhtml_Block_Widget
     /**
      * Set Fieldset to Form
      *
-     * @param array $attributes attributes that are to be added
+     * @param array                             $attributes attributes that are to be added
      * @param Varien_Data_Form_Element_Fieldset $fieldset
-     * @param array $exclude attributes that should be skipped
+     * @param array                             $exclude    attributes that should be skipped
      */
     protected function _setFieldset($attributes, $fieldset, $exclude = [])
     {
         $this->_addElementTypes($fieldset);
         foreach ($attributes as $attribute) {
             /** @var Mage_Eav_Model_Entity_Attribute $attribute */
-            if (!$attribute || ($attribute->hasIsVisible() && !$attribute->getIsVisible())) {
+            if (!$attribute) {
                 continue;
             }
+
+            if ($attribute->hasIsVisible() && !$attribute->getIsVisible()) {
+                continue;
+            }
+
             if (($inputType = $attribute->getFrontend()->getInputType())
                  && !in_array($attribute->getAttributeCode(), $exclude)
                  && ($inputType != 'media_image')
             ) {
                 $fieldType      = $inputType;
                 $rendererClass  = $attribute->getFrontend()->getInputRendererClass();
-                if (!empty($rendererClass)) {
+                if (is_string($rendererClass) && $rendererClass !== '') {
                     $fieldType  = $inputType . '_' . $attribute->getAttributeCode();
                     $fieldset->addType($fieldType, $rendererClass);
                 }
@@ -225,7 +221,7 @@ class Mage_Adminhtml_Block_Widget_Form extends Mage_Adminhtml_Block_Widget
     /**
      * Retrieve predefined additional element types
      *
-     * @return array
+     * @return array<string, string>|array<void>
      */
     protected function _getAdditionalElementTypes()
     {
@@ -233,7 +229,7 @@ class Mage_Adminhtml_Block_Widget_Form extends Mage_Adminhtml_Block_Widget
     }
 
     /**
-     * @param Varien_Data_Form_Element_Abstract $element
+     * @param  Varien_Data_Form_Element_Abstract $element
      * @return string
      */
     protected function _getAdditionalElementHtml($element)

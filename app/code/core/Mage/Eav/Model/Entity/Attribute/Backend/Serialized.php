@@ -17,7 +17,7 @@ class Mage_Eav_Model_Entity_Attribute_Backend_Serialized extends Mage_Eav_Model_
     /**
      * Serialize before saving
      *
-     * @param Varien_Object $object
+     * @param  Varien_Object $object
      * @return $this
      */
     public function beforeSave($object)
@@ -34,7 +34,7 @@ class Mage_Eav_Model_Entity_Attribute_Backend_Serialized extends Mage_Eav_Model_
     /**
      * Unserialize after saving
      *
-     * @param Varien_Object $object
+     * @param  Varien_Object $object
      * @return $this
      */
     public function afterSave($object)
@@ -47,7 +47,7 @@ class Mage_Eav_Model_Entity_Attribute_Backend_Serialized extends Mage_Eav_Model_
     /**
      * Unserialize after loading
      *
-     * @param Varien_Object $object
+     * @param  Varien_Object $object
      * @return $this
      */
     public function afterLoad($object)
@@ -70,7 +70,7 @@ class Mage_Eav_Model_Entity_Attribute_Backend_Serialized extends Mage_Eav_Model_
                 $unserialized = Mage::helper('core/string')
                     ->unserialize($object->getData($attrCode));
                 $object->setData($attrCode, $unserialized);
-            } catch (Exception $e) {
+            } catch (Exception) {
                 $object->unsetData($attrCode);
             }
         }

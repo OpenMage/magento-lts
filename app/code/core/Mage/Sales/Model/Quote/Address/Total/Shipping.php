@@ -20,13 +20,12 @@ class Mage_Sales_Model_Quote_Address_Total_Shipping extends Mage_Sales_Model_Quo
     /**
      * Collect totals information about shipping
      *
-     * @return  Mage_Sales_Model_Quote_Address_Total_Shipping
+     * @return Mage_Sales_Model_Quote_Address_Total_Shipping
      */
     public function collect(Mage_Sales_Model_Quote_Address $address)
     {
         parent::collect($address);
 
-        $oldWeight = $address->getWeight();
         $address->setWeight(0);
         $address->setFreeMethodWeight(0);
         $this->_setAmount(0)
@@ -37,9 +36,7 @@ class Mage_Sales_Model_Quote_Address_Total_Shipping extends Mage_Sales_Model_Quo
             return $this;
         }
 
-        $method     = $address->getShippingMethod();
-        $freeAddress = $address->getFreeShipping();
-
+        $freeAddress        = $address->getFreeShipping();
         $addressWeight      = $address->getWeight();
         $freeMethodWeight   = $address->getFreeMethodWeight();
 
@@ -65,6 +62,7 @@ class Mage_Sales_Model_Quote_Address_Total_Shipping extends Mage_Sales_Model_Quo
                     if ($child->getProduct()->isVirtual()) {
                         continue;
                     }
+
                     $addressQty += $child->getTotalQty();
 
                     if (!$item->getProduct()->getWeightType()) {
@@ -76,16 +74,14 @@ class Mage_Sales_Model_Quote_Address_Total_Shipping extends Mage_Sales_Model_Quo
                             $rowWeight = 0;
                         } elseif (is_numeric($child->getFreeShipping())) {
                             $freeQty = $child->getFreeShipping();
-                            if ($itemQty > $freeQty) {
-                                $rowWeight = $itemWeight * ($itemQty - $freeQty);
-                            } else {
-                                $rowWeight = 0;
-                            }
+                            $rowWeight = $itemQty > $freeQty ? $itemWeight * ($itemQty - $freeQty) : 0;
                         }
+
                         $freeMethodWeight += $rowWeight;
                         $item->setRowWeight($rowWeight);
                     }
                 }
+
                 if ($item->getProduct()->getWeightType()) {
                     $itemWeight = $item->getWeight();
                     $rowWeight  = $itemWeight * $item->getQty();
@@ -94,12 +90,9 @@ class Mage_Sales_Model_Quote_Address_Total_Shipping extends Mage_Sales_Model_Quo
                         $rowWeight = 0;
                     } elseif (is_numeric($item->getFreeShipping())) {
                         $freeQty = $item->getFreeShipping();
-                        if ($item->getQty() > $freeQty) {
-                            $rowWeight = $itemWeight * ($item->getQty() - $freeQty);
-                        } else {
-                            $rowWeight = 0;
-                        }
+                        $rowWeight = $item->getQty() > $freeQty ? $itemWeight * ($item->getQty() - $freeQty) : 0;
                     }
+
                     $freeMethodWeight += $rowWeight;
                     $item->setRowWeight($rowWeight);
                 }
@@ -107,6 +100,7 @@ class Mage_Sales_Model_Quote_Address_Total_Shipping extends Mage_Sales_Model_Quo
                 if (!$item->getProduct()->isVirtual()) {
                     $addressQty += $item->getQty();
                 }
+
                 $itemWeight = $item->getWeight();
                 $rowWeight  = $itemWeight * $item->getQty();
                 $addressWeight += $rowWeight;
@@ -114,21 +108,15 @@ class Mage_Sales_Model_Quote_Address_Total_Shipping extends Mage_Sales_Model_Quo
                     $rowWeight = 0;
                 } elseif (is_numeric($item->getFreeShipping())) {
                     $freeQty = $item->getFreeShipping();
-                    if ($item->getQty() > $freeQty) {
-                        $rowWeight = $itemWeight * ($item->getQty() - $freeQty);
-                    } else {
-                        $rowWeight = 0;
-                    }
+                    $rowWeight = $item->getQty() > $freeQty ? $itemWeight * ($item->getQty() - $freeQty) : 0;
                 }
+
                 $freeMethodWeight += $rowWeight;
                 $item->setRowWeight($rowWeight);
             }
         }
 
-        if (isset($addressQty)) {
-            $address->setItemQty($addressQty);
-        }
-
+        $address->setItemQty($addressQty);
         $address->setWeight($addressWeight);
         $address->setFreeMethodWeight($freeMethodWeight);
 
@@ -168,12 +156,14 @@ class Mage_Sales_Model_Quote_Address_Total_Shipping extends Mage_Sales_Model_Quo
             if ($address->getShippingDescription()) {
                 $title .= ' (' . $address->getShippingDescription() . ')';
             }
+
             $address->addTotal([
                 'code' => $this->getCode(),
                 'title' => $title,
                 'value' => $address->getShippingAmount(),
             ]);
         }
+
         return $this;
     }
 

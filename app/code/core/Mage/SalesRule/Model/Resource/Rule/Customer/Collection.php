@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -11,12 +13,13 @@
  * SalesRule Model Resource Rule Customer_Collection
  *
  * @package    Mage_SalesRule
+ *
+ * @extends Mage_Core_Model_Resource_Db_Collection_Abstract<Mage_SalesRule_Model_Rule_Customer>
  */
 class Mage_SalesRule_Model_Resource_Rule_Customer_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
     /**
-     * Collection constructor
-     *
+     * @inheritDoc
      */
     protected function _construct()
     {

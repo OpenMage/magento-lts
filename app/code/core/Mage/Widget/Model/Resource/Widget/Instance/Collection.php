@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -17,10 +19,13 @@ class Mage_Widget_Model_Resource_Widget_Instance_Collection extends Mage_Core_Mo
     /**
      * Fields map for correlation names & real selected fields
      *
-     * @var array
+     * @inheritDoc
      */
     protected $_map = ['fields' => ['type' => 'instance_type']];
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         parent::_construct();
@@ -30,8 +35,8 @@ class Mage_Widget_Model_Resource_Widget_Instance_Collection extends Mage_Core_Mo
     /**
      * Filter by store ids
      *
-     * @param array|int $storeIds
-     * @param bool $withDefaultStore if TRUE also filter by store id '0'
+     * @param  array|int $storeIds
+     * @param  bool      $withDefaultStore if TRUE also filter by store id '0'
      * @return $this
      */
     public function addStoreFilter($storeIds = [], $withDefaultStore = true)
@@ -39,9 +44,11 @@ class Mage_Widget_Model_Resource_Widget_Instance_Collection extends Mage_Core_Mo
         if (!is_array($storeIds)) {
             $storeIds = [$storeIds];
         }
+
         if ($withDefaultStore && !in_array('0', $storeIds)) {
             array_unshift($storeIds, 0);
         }
+
         $where = [];
         foreach ($storeIds as $storeId) {
             $where[] = $this->_getConditionSql('store_ids', ['finset' => $storeId]);

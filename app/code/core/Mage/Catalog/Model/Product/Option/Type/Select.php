@@ -17,9 +17,9 @@ class Mage_Catalog_Model_Product_Option_Type_Select extends Mage_Catalog_Model_P
     /**
      * Validate user input for option
      *
-     * @throws Mage_Core_Exception
-     * @param array $values All product option values, i.e. array (option_id => mixed, option_id => mixed...)
+     * @param  array                                          $values All product option values, i.e. array (option_id => mixed, option_id => mixed...)
      * @return Mage_Catalog_Model_Product_Option_Type_Default
+     * @throws Mage_Core_Exception
      */
     public function validateUserValue($values)
     {
@@ -32,6 +32,7 @@ class Mage_Catalog_Model_Product_Option_Type_Select extends Mage_Catalog_Model_P
             $this->setIsValid(false);
             Mage::throwException(Mage::helper('catalog')->__('Please specify the product required option <em>%s</em>.', $option->getTitle()));
         }
+
         if (!$this->_isSingleSelection()) {
             $valuesCollection = $option->getOptionValuesByOptionId($value, $this->getProduct()->getStoreId())
                 ->load();
@@ -41,27 +42,28 @@ class Mage_Catalog_Model_Product_Option_Type_Select extends Mage_Catalog_Model_P
                 Mage::throwException(Mage::helper('catalog')->__('Please specify the product required option <em>%s</em>.', $option->getTitle()));
             }
         }
+
         return $this;
     }
 
     /**
      * Prepare option value for cart
      *
-     * @return int|string|null Prepared option value
+     * @return null|int|string Prepared option value
      */
     public function prepareForCart()
     {
         if ($this->getIsValid() && $this->getUserValue()) {
             return is_array($this->getUserValue()) ? implode(',', $this->getUserValue()) : $this->getUserValue();
-        } else {
-            return null;
         }
+
+        return null;
     }
 
     /**
      * Return formatted option value for quote option
      *
-     * @param string $optionValue Prepared for cart option value
+     * @param  string $optionValue Prepared for cart option value
      * @return string
      */
     public function getFormattedOptionValue($optionValue)
@@ -71,13 +73,14 @@ class Mage_Catalog_Model_Product_Option_Type_Select extends Mage_Catalog_Model_P
                 $this->getEditableOptionValue($optionValue),
             );
         }
+
         return $this->_formattedOptionValue;
     }
 
     /**
      * Return printable option value
      *
-     * @param string $optionValue Prepared for cart option value
+     * @param  string $optionValue Prepared for cart option value
      * @return string
      */
     public function getPrintableOptionValue($optionValue)
@@ -98,7 +101,7 @@ class Mage_Catalog_Model_Product_Option_Type_Select extends Mage_Catalog_Model_P
     /**
      * Return formatted option value ready to edit, ready to parse
      *
-     * @param string $optionValue Prepared for cart option value
+     * @param  string $optionValue Prepared for cart option value
      * @return string
      */
     public function getEditableOptionValue($optionValue)
@@ -119,6 +122,7 @@ class Mage_Catalog_Model_Product_Option_Type_Select extends Mage_Catalog_Model_P
                     break;
                 }
             }
+
             $result = Mage::helper('core/string')->substr($result, 0, -2);
         } elseif ($this->_isSingleSelection()) {
             if ($_result = $option->getValueById($optionValue)) {
@@ -131,20 +135,22 @@ class Mage_Catalog_Model_Product_Option_Type_Select extends Mage_Catalog_Model_P
                                 $this->_getWrongConfigurationMessage(),
                             );
                 }
+
                 $result = '';
             }
         } else {
             $result = $optionValue;
         }
+
         return $result;
     }
 
     /**
      * Parse user input value and return cart prepared value, i.e. "one, two" => "1,2"
      *
-     * @param string $optionValue
-     * @param array $productOptionValues Values for product option
-     * @return string|null
+     * @param  string      $optionValue
+     * @param  array       $productOptionValues Values for product option
+     * @return null|string
      */
     public function parseOptionValue($optionValue, $productOptionValues)
     {
@@ -159,17 +165,18 @@ class Mage_Catalog_Model_Product_Option_Type_Select extends Mage_Catalog_Model_P
         } elseif ($this->_isSingleSelection() && array_key_exists($optionValue, $productOptionValues)) {
             $_values[] = $productOptionValues[$optionValue];
         }
-        if (count($_values)) {
+
+        if ($_values !== []) {
             return implode(',', $_values);
-        } else {
-            return null;
         }
+
+        return null;
     }
 
     /**
      * Prepare option value for info buy request
      *
-     * @param string $optionValue
+     * @param  string $optionValue
      * @return mixed
      */
     public function prepareOptionValueForRequest($optionValue)
@@ -177,14 +184,15 @@ class Mage_Catalog_Model_Product_Option_Type_Select extends Mage_Catalog_Model_P
         if (!$this->_isSingleSelection()) {
             return explode(',', $optionValue);
         }
+
         return $optionValue;
     }
 
     /**
      * Return Price for selected option
      *
-     * @param string $optionValue Prepared for cart option value
-     * @param float $basePrice
+     * @param  string $optionValue Prepared for cart option value
+     * @param  float  $basePrice
      * @return float
      */
     public function getOptionPrice($optionValue, $basePrice)
@@ -231,8 +239,8 @@ class Mage_Catalog_Model_Product_Option_Type_Select extends Mage_Catalog_Model_P
     /**
      * Return SKU for selected option
      *
-     * @param string $optionValue Prepared for cart option value
-     * @param string $skuDelimiter Delimiter for Sku parts
+     * @param  string $optionValue  Prepared for cart option value
+     * @param  string $skuDelimiter Delimiter for Sku parts
      * @return string
      */
     public function getOptionSku($optionValue, $skuDelimiter)
@@ -253,20 +261,22 @@ class Mage_Catalog_Model_Product_Option_Type_Select extends Mage_Catalog_Model_P
                     break;
                 }
             }
+
             $result = implode($skuDelimiter, $skus);
         } elseif ($this->_isSingleSelection()) {
             if ($result = $option->getValueById($optionValue)) {
                 return $result->getSku();
-            } else {
-                if ($this->getListener()) {
-                    $this->getListener()
-                            ->setHasError(true)
-                            ->setMessage(
-                                $this->_getWrongConfigurationMessage(),
-                            );
-                }
-                return '';
             }
+
+            if ($this->getListener()) {
+                $this->getListener()
+                        ->setHasError(true)
+                        ->setMessage(
+                            $this->_getWrongConfigurationMessage(),
+                        );
+            }
+
+            return '';
         } else {
             $result = parent::getOptionSku($optionValue, $skuDelimiter);
         }

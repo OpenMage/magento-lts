@@ -40,6 +40,9 @@ class Mage_Sales_Model_Resource_Order_Invoice extends Mage_Sales_Model_Resource_
      */
     protected $_entityTypeForIncrementId     = 'invoice';
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('sales/invoice', 'entity_id');
@@ -64,7 +67,7 @@ class Mage_Sales_Model_Resource_Order_Invoice extends Mage_Sales_Model_Resource_
             $adapter->quote(' '),
             $checkedLastname,
         ]);
-        $concatName = new Zend_Db_Expr("TRIM(REPLACE($concatName,'  ', ' '))");
+        $concatName = new Zend_Db_Expr("TRIM(REPLACE({$concatName},'  ', ' '))");
 
         $this->addVirtualGridColumn(
             'billing_name',

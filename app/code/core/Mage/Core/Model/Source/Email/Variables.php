@@ -82,7 +82,7 @@ class Mage_Core_Model_Source_Email_Variables
     /**
      * Retrieve option array of store contact variables
      *
-     * @param bool $withGroup
+     * @param  bool  $withGroup
      * @return array
      */
     public function toOptionArray($withGroup = false)
@@ -94,12 +94,14 @@ class Mage_Core_Model_Source_Email_Variables
                 'label' => $variable['label'],
             ];
         }
+
         if ($withGroup && $optionArray) {
-            $optionArray = [
+            return [
                 'label' => Mage::helper('core')->__('Store Contact Information'),
                 'value' => $optionArray,
             ];
         }
+
         return $optionArray;
     }
 }

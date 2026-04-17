@@ -14,6 +14,9 @@
  */
 class Mage_Eav_Model_Resource_Entity_Attribute_Option extends Mage_Core_Model_Resource_Db_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('eav/attribute_option', 'option_id');
@@ -22,9 +25,9 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Option extends Mage_Core_Model_Re
     /**
      * Add Join with option value for collection select
      *
-     * @param Mage_Eav_Model_Entity_Collection_Abstract $collection
-     * @param Mage_Eav_Model_Entity_Attribute $attribute
-     * @param Zend_Db_Expr $valueExpr
+     * @param  Mage_Eav_Model_Entity_Collection_Abstract $collection
+     * @param  Mage_Eav_Model_Entity_Attribute           $attribute
+     * @param  Zend_Db_Expr                              $valueExpr
      * @return $this
      */
     public function addOptionValueToCollection($collection, $attribute, $valueExpr)
@@ -63,8 +66,8 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Option extends Mage_Core_Model_Re
     /**
      * Retrieve Select for update Flat data
      *
-     * @param int $store
-     * @param bool $hasValueField flag which require option value
+     * @param  int              $store
+     * @param  bool             $hasValueField flag which require option value
      * @return Varien_Db_Select
      */
     public function getFlatUpdateSelect(

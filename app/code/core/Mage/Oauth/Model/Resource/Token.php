@@ -7,6 +7,8 @@
  * @package    Mage_Oauth
  */
 
+use Carbon\Carbon;
+
 /**
  * OAuth token resource model
  *
@@ -15,7 +17,7 @@
 class Mage_Oauth_Model_Resource_Token extends Mage_Core_Model_Resource_Db_Abstract
 {
     /**
-     * Initialize resource model
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -25,14 +27,16 @@ class Mage_Oauth_Model_Resource_Token extends Mage_Core_Model_Resource_Db_Abstra
     /**
      * Clean up old authorized tokens for specified consumer-user pairs
      *
-     * @param Mage_Oauth_Model_Token $exceptToken Token just created to exclude from delete
-     * @return int The number of affected rows
+     * @param  Mage_Oauth_Model_Token $exceptToken Token just created to exclude from delete
+     * @return int                    The number of affected rows
+     * @throws Mage_Core_Exception
      */
     public function cleanOldAuthorizedTokensExcept(Mage_Oauth_Model_Token $exceptToken)
     {
         if (!$exceptToken->getId() || !$exceptToken->getAuthorized()) {
             Mage::throwException('Invalid token to except');
         }
+
         $adapter = $this->_getWriteAdapter();
         $where   = $adapter->quoteInto(
             'authorized = 1 AND consumer_id = ?',
@@ -48,14 +52,16 @@ class Mage_Oauth_Model_Resource_Token extends Mage_Core_Model_Resource_Db_Abstra
         } else {
             Mage::throwException('Invalid token to except');
         }
+
         return $adapter->delete($this->getMainTable(), $where);
     }
 
     /**
      * Delete old entries
      *
-     * @param int $minutes
+     * @param  int                 $minutes
      * @return int
+     * @throws Mage_Core_Exception
      */
     public function deleteOldEntries($minutes)
     {
@@ -66,11 +72,11 @@ class Mage_Oauth_Model_Resource_Token extends Mage_Core_Model_Resource_Db_Abstra
                 $this->getMainTable(),
                 $adapter->quoteInto(
                     'type = "' . Mage_Oauth_Model_Token::TYPE_REQUEST . '" AND created_at <= ?',
-                    Varien_Date::formatDate(time() - $minutes * 60),
+                    Varien_Date::formatDate(Carbon::now()->subMinutes($minutes)->getTimestamp()),
                 ),
             );
-        } else {
-            return 0;
         }
+
+        return 0;
     }
 }

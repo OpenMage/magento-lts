@@ -22,7 +22,7 @@ class Mage_Core_Model_Resource_Session implements SessionHandlerInterface
     /**
      * Session lifetime
      *
-     * @var string|int|null
+     * @var null|int|string
      */
     protected $_lifeTime;
 
@@ -66,7 +66,6 @@ class Mage_Core_Model_Resource_Session implements SessionHandlerInterface
 
     /**
      * Destructor
-     *
      */
     public function __destruct()
     {
@@ -81,8 +80,8 @@ class Mage_Core_Model_Resource_Session implements SessionHandlerInterface
     public function getLifeTime()
     {
         if (is_null($this->_lifeTime)) {
-            $configNode = Mage::app()->getStore()->isAdmin() ?
-                    'admin/security/session_cookie_lifetime' : 'web/cookie/cookie_lifetime';
+            $configNode = Mage::app()->getStore()->isAdmin()
+                    ? 'admin/security/session_cookie_lifetime' : 'web/cookie/cookie_lifetime';
             $this->_lifeTime = Mage::getStoreConfigAsInt($configNode);
 
             if ($this->_lifeTime < 60) {
@@ -97,6 +96,7 @@ class Mage_Core_Model_Resource_Session implements SessionHandlerInterface
                 $this->_lifeTime = self::SEESION_MAX_COOKIE_LIFETIME; // 100 years
             }
         }
+
         return $this->_lifeTime;
     }
 
@@ -110,11 +110,8 @@ class Mage_Core_Model_Resource_Session implements SessionHandlerInterface
         if (!$this->_read) {
             return false;
         }
-        if (!$this->_read->isTableExists($this->_sessionTable)) {
-            return false;
-        }
 
-        return true;
+        return $this->_read->isTableExists($this->_sessionTable);
     }
 
     /**
@@ -136,6 +133,7 @@ class Mage_Core_Model_Resource_Session implements SessionHandlerInterface
         } else {
             session_save_path(Mage::getBaseDir('session'));
         }
+
         return $this;
     }
 
@@ -151,11 +149,11 @@ class Mage_Core_Model_Resource_Session implements SessionHandlerInterface
     /**
      * Open session
      *
-     * @param string $savePath ignored
-     * @param string $sessName ignored
+     * @param  string $savePath ignored
+     * @param  string $sessName ignored
      * @return bool
      */
-    #[\ReturnTypeWillChange]
+    #[ReturnTypeWillChange]
     public function open($savePath, $sessName)
     {
         return true;
@@ -166,7 +164,7 @@ class Mage_Core_Model_Resource_Session implements SessionHandlerInterface
      *
      * @return bool
      */
-    #[\ReturnTypeWillChange]
+    #[ReturnTypeWillChange]
     public function close()
     {
         $this->gc($this->getLifeTime());
@@ -177,10 +175,10 @@ class Mage_Core_Model_Resource_Session implements SessionHandlerInterface
     /**
      * Fetch session data
      *
-     * @param string $sessId
+     * @param  string $sessId
      * @return string
      */
-    #[\ReturnTypeWillChange]
+    #[ReturnTypeWillChange]
     public function read($sessId)
     {
         $select = $this->_read->select()
@@ -200,11 +198,11 @@ class Mage_Core_Model_Resource_Session implements SessionHandlerInterface
     /**
      * Update session
      *
-     * @param string $sessId
-     * @param string $sessData
+     * @param  string $sessId
+     * @param  string $sessData
      * @return bool
      */
-    #[\ReturnTypeWillChange]
+    #[ReturnTypeWillChange]
     public function write($sessId, $sessData)
     {
         $bindValues = [
@@ -235,10 +233,10 @@ class Mage_Core_Model_Resource_Session implements SessionHandlerInterface
     /**
      * Destroy session
      *
-     * @param string $sessId
+     * @param  string $sessId
      * @return bool
      */
-    #[\ReturnTypeWillChange]
+    #[ReturnTypeWillChange]
     public function destroy($sessId)
     {
         $where = ['session_id = ?' => $sessId];
@@ -249,21 +247,20 @@ class Mage_Core_Model_Resource_Session implements SessionHandlerInterface
     /**
      * Garbage collection
      *
-     * @param int $sessMaxLifeTime ignored
+     * @param  int  $sessMaxLifeTime ignored
      * @return bool
      * @SuppressWarnings("PHPMD.ShortMethodName")
      */
-    #[\ReturnTypeWillChange]
+    #[ReturnTypeWillChange]
     public function gc($sessMaxLifeTime)
     {
-        if ($this->_automaticCleaningFactor > 0) {
-            if ($this->_automaticCleaningFactor == 1 ||
-                random_int(1, $this->_automaticCleaningFactor) == 1
-            ) {
-                $where = ['session_expires < ?' => Varien_Date::toTimestamp(true)];
-                $this->_write->delete($this->_sessionTable, $where);
-            }
+        if ($this->_automaticCleaningFactor > 0
+            && ($this->_automaticCleaningFactor == 1 || random_int(1, $this->_automaticCleaningFactor) == 1)
+        ) {
+            $where = ['session_expires < ?' => Varien_Date::toTimestamp(true)];
+            $this->_write->delete($this->_sessionTable, $where);
         }
+
         return true;
     }
 }

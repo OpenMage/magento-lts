@@ -25,7 +25,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Form extends Mage_Adminhtml_Block_Widge
             'legend'    => $this->helper('widget')->__('Widget'),
         ]);
 
-        $select = $fieldset->addField('select_widget_type', 'select', [
+        $fieldset->addField('select_widget_type', 'select', [
             'label'                 => $this->helper('widget')->__('Widget Type'),
             'title'                 => $this->helper('widget')->__('Widget Type'),
             'name'                  => 'widget_type',
@@ -53,6 +53,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Form extends Mage_Adminhtml_Block_Widge
         foreach ($this->_getAvailableWidgets(true) as $data) {
             $options[$data['type']] = $data['name'];
         }
+
         return $options;
     }
 
@@ -69,13 +70,14 @@ class Mage_Widget_Block_Adminhtml_Widget_Form extends Mage_Adminhtml_Block_Widge
             $html .= sprintf('<div id="widget-description-%s" class="no-display">%s</div>', $i, $data['description']);
             $i++;
         }
+
         return $html;
     }
 
     /**
      * Return array of available widgets based on configuration
      *
-     * @param bool $withEmptyElement
+     * @param  bool  $withEmptyElement
      * @return array
      */
     protected function _getAvailableWidgets($withEmptyElement = false)
@@ -88,8 +90,10 @@ class Mage_Widget_Block_Adminhtml_Widget_Form extends Mage_Adminhtml_Block_Widge
                 if (is_array($skipped) && in_array($widget['type'], $skipped)) {
                     continue;
                 }
+
                 $result[] = $widget;
             }
+
             if ($withEmptyElement) {
                 array_unshift($result, [
                     'type'        => '',
@@ -97,6 +101,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Form extends Mage_Adminhtml_Block_Widge
                     'description' => '',
                 ]);
             }
+
             $this->setData('available_widgets', $result);
         }
 

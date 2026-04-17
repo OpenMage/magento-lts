@@ -7,7 +7,7 @@
  * @package    Mage_Downloadable
  */
 
-/** @var Mage_Catalog_Model_Resource_Setup  $this */
+/** @var Mage_Catalog_Model_Resource_Setup $this */
 $installer = $this;
 
 $fieldList = [

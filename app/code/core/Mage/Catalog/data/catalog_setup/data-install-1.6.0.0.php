@@ -7,7 +7,7 @@
  * @package    Mage_Catalog
  */
 
-/** @var Mage_Catalog_Model_Resource_Setup  $installer */
+/** @var Mage_Catalog_Model_Resource_Setup $this */
 $installer = $this;
 
 // Create Root Catalog Node
@@ -180,12 +180,12 @@ $installer->getConnection()->insertMultiple($installer->getTable('catalog/produc
 
 /**
  * Remove Catalog specified attribute options (columns) from eav/attribute table
- *
  */
 $describe = $installer->getConnection()->describeTable($installer->getTable('catalog/eav_attribute'));
 foreach ($describe as $columnData) {
     if ($columnData['COLUMN_NAME'] == 'attribute_id') {
         continue;
     }
+
     $installer->getConnection()->dropColumn($installer->getTable('eav/attribute'), $columnData['COLUMN_NAME']);
 }

@@ -13,7 +13,7 @@
 class Mage_Sales_Model_Entity_Order_Attribute_Backend_Child extends Mage_Eav_Model_Entity_Attribute_Backend_Abstract
 {
     /**
-     * @param Varien_Object $object
+     * @param  Varien_Object $object
      * @return $this
      */
     public function beforeSave($object)
@@ -21,6 +21,7 @@ class Mage_Sales_Model_Entity_Order_Attribute_Backend_Child extends Mage_Eav_Mod
         if ($object->getOrder()) {
             $object->setParentId($object->getOrder()->getId());
         }
+
         parent::beforeSave($object);
         return $this;
     }

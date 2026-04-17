@@ -28,7 +28,7 @@ class Mage_Core_Model_Convert extends Mage_Dataflow_Model_Convert_Profile_Collec
     }
 
     /**
-     * @param string $type
+     * @param  string       $type
      * @return mixed|string
      */
     public function getClassNameByType($type)
@@ -36,6 +36,7 @@ class Mage_Core_Model_Convert extends Mage_Dataflow_Model_Convert_Profile_Collec
         if (str_contains($type, '/')) {
             return Mage::getConfig()->getModelClassName($type);
         }
+
         return parent::getClassNameByType($type);
     }
 }

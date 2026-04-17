@@ -4,6 +4,7 @@
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
  * @license    Open Software License (OSL 3.0)
+ * @package    OpenMage_Tests
  */
 
 declare(strict_types=1);
@@ -61,7 +62,7 @@ trait UserTrait
 
     public function provideValidateAdminUserData(): Generator
     {
-        yield 'fail #1' => [
+        yield 'fail different passwords' => [
             [
                 0 => 'User Name is required field.',
                 1 => 'First Name is required field.',
@@ -97,18 +98,18 @@ trait UserTrait
 
     public function provideIsResetPasswordLinkTokenExpiredData(): Generator
     {
-        yield '#1' => [
+        yield 'empty data' => [
             true,
             [
                 'getRpToken'       => '',
                 'getRpTokenCreatedAt' => '',
             ],
         ];
-        yield '#2' => [
+        yield '#valid data' => [
             true,
             [
                 'getRpToken'       => '1',
-                'getRpTokenCreatedAt' => '0',
+                'getRpTokenCreatedAt' => '2025-01-01 10:20:30',
             ],
         ];
     }

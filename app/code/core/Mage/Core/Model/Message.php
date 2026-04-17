@@ -15,15 +15,18 @@
 class Mage_Core_Model_Message
 {
     public const ERROR     = 'error';
+
     public const WARNING   = 'warning';
+
     public const NOTICE    = 'notice';
+
     public const SUCCESS   = 'success';
 
     /**
-     * @param string $code
-     * @param string $type
-     * @param string $class
-     * @param string $method
+     * @param  string                                                                                                                       $code
+     * @param  string                                                                                                                       $type
+     * @param  string                                                                                                                       $class
+     * @param  string                                                                                                                       $method
      * @return Mage_Core_Model_Message_Error|Mage_Core_Model_Message_Notice|Mage_Core_Model_Message_Success|Mage_Core_Model_Message_Warning
      */
     protected function _factory($code, $type, $class = '', $method = '')
@@ -41,9 +44,9 @@ class Mage_Core_Model_Message
     }
 
     /**
-     * @param string $code
-     * @param string $class
-     * @param string $method
+     * @param  string                                                                                                                       $code
+     * @param  string                                                                                                                       $class
+     * @param  string                                                                                                                       $method
      * @return Mage_Core_Model_Message_Error|Mage_Core_Model_Message_Notice|Mage_Core_Model_Message_Success|Mage_Core_Model_Message_Warning
      */
     public function error($code, $class = '', $method = '')
@@ -52,9 +55,9 @@ class Mage_Core_Model_Message
     }
 
     /**
-     * @param string $code
-     * @param string $class
-     * @param string $method
+     * @param  string                                                                                                                       $code
+     * @param  string                                                                                                                       $class
+     * @param  string                                                                                                                       $method
      * @return Mage_Core_Model_Message_Error|Mage_Core_Model_Message_Notice|Mage_Core_Model_Message_Success|Mage_Core_Model_Message_Warning
      */
     public function warning($code, $class = '', $method = '')
@@ -63,9 +66,9 @@ class Mage_Core_Model_Message
     }
 
     /**
-     * @param string $code
-     * @param string $class
-     * @param string $method
+     * @param  string                                                                                                                       $code
+     * @param  string                                                                                                                       $class
+     * @param  string                                                                                                                       $method
      * @return Mage_Core_Model_Message_Error|Mage_Core_Model_Message_Notice|Mage_Core_Model_Message_Success|Mage_Core_Model_Message_Warning
      */
     public function notice($code, $class = '', $method = '')
@@ -74,9 +77,9 @@ class Mage_Core_Model_Message
     }
 
     /**
-     * @param string $code
-     * @param string $class
-     * @param string $method
+     * @param  string                                                                                                                       $code
+     * @param  string                                                                                                                       $class
+     * @param  string                                                                                                                       $method
      * @return Mage_Core_Model_Message_Error|Mage_Core_Model_Message_Notice|Mage_Core_Model_Message_Success|Mage_Core_Model_Message_Warning
      */
     public function success($code, $class = '', $method = '')

@@ -15,7 +15,9 @@
 class Mage_Install_Model_Config extends Varien_Simplexml_Config
 {
     public const XML_PATH_WIZARD_STEPS     = 'wizard/steps';
+
     public const XML_PATH_CHECK_WRITEABLE  = 'check/filesystem/writeable';
+
     public const XML_PATH_CHECK_EXTENSIONS = 'check/php/extensions';
 
     protected $_optionsMapping = [self::XML_PATH_CHECK_WRITEABLE => [
@@ -34,9 +36,9 @@ class Mage_Install_Model_Config extends Varien_Simplexml_Config
     /**
      * Get array of wizard steps
      *
-     * array($inndex => Varien_Object )
+     * array($index => Varien_Object )
      *
-     * @return array
+     * @return array<array-key, Varien_Object>
      */
     public function getWizardSteps()
     {
@@ -46,6 +48,7 @@ class Mage_Install_Model_Config extends Varien_Simplexml_Config
             $stepObject->setName($stepName);
             $steps[] = $stepObject;
         }
+
         return $steps;
     }
 
@@ -61,9 +64,8 @@ class Mage_Install_Model_Config extends Varien_Simplexml_Config
      *      )
      * )
      *
+     * @return array<string, non-empty-list<array>>
      * @deprecated since 1.7.1.0
-     *
-     * @return array
      */
     public function getPathForCheck()
     {
@@ -96,6 +98,7 @@ class Mage_Install_Model_Config extends Varien_Simplexml_Config
             } else {
                 $value['path'] = dirname(Mage::getRoot()) . $value['path'];
             }
+
             $paths[$nodeKey] = $value;
         }
 
@@ -115,7 +118,7 @@ class Mage_Install_Model_Config extends Varien_Simplexml_Config
         foreach ($items as $name => $value) {
             if (!empty($value)) {
                 $res[$name] = [];
-                foreach ($value as $subname => $subvalue) {
+                foreach ($value as $subname => $ignored) {
                     $res[$name][] = $subname;
                 }
             } else {

@@ -34,13 +34,14 @@ class Mage_Catalog_Block_Product_View_Media extends Mage_Catalog_Block_Product_V
         if ($this->_isGalleryDisabled) {
             return [];
         }
+
         return $this->getProduct()->getMediaGalleryImages();
     }
 
     /**
      * Retrieve gallery url
      *
-     * @param null|Varien_Object $image
+     * @param  null|Varien_Object $image
      * @return string
      */
     public function getGalleryUrl($image = null)
@@ -49,14 +50,15 @@ class Mage_Catalog_Block_Product_View_Media extends Mage_Catalog_Block_Product_V
         if ($image) {
             $params['image'] = $image->getValueId();
         }
+
         return $this->getUrl('catalog/product/gallery', $params);
     }
 
     /**
      * Retrieve gallery image url
      *
-     * @param null|Varien_Object $image
-     * @return string|null
+     * @param  null|Varien_Object $image
+     * @return null|string
      */
     public function getGalleryImageUrl($image)
     {
@@ -71,15 +73,17 @@ class Mage_Catalog_Block_Product_View_Media extends Mage_Catalog_Block_Product_V
             if (is_numeric($size)) {
                 $helper->constrainOnly(true)->resize($size);
             }
+
             return (string) $helper;
         }
+
         return null;
     }
 
     /**
      * Retrieve visibility of gallery image based on gallery filter where present
      *
-     * @param null|Varien_Object $image
+     * @param  null|Varien_Object $image
      * @return bool
      */
     public function isGalleryImageVisible($image)
@@ -87,6 +91,7 @@ class Mage_Catalog_Block_Product_View_Media extends Mage_Catalog_Block_Product_V
         if (($filterClass = $this->getGalleryFilterHelper()) && ($filterMethod = $this->getGalleryFilterMethod())) {
             return Mage::helper($filterClass)->$filterMethod($this->getProduct(), $image);
         }
+
         return true;
     }
 

@@ -16,7 +16,6 @@ class Mage_Sales_Block_Adminhtml_Billing_Agreement extends Mage_Adminhtml_Block_
 {
     /**
      * Initialize billing agreements grid container
-     *
      */
     public function __construct()
     {

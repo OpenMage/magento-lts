@@ -14,6 +14,9 @@
  */
 class Mage_Api_Model_Resource_Rules extends Mage_Core_Model_Resource_Db_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('api/rule', 'rule_id');
@@ -34,7 +37,7 @@ class Mage_Api_Model_Resource_Rules extends Mage_Core_Model_Resource_Db_Abstract
             $masterResources = Mage::getModel('api/roles')->getResourcesList2D();
             $masterAdmin = false;
             if ($postedResources = $rule->getResources()) {
-                foreach ($masterResources as $index => $resName) {
+                foreach ($masterResources as $resName) {
                     if (!$masterAdmin) {
                         $permission = (in_array($resName, $postedResources)) ? 'allow' : 'deny';
                         $adapter->insert($this->getMainTable(), [
@@ -46,6 +49,7 @@ class Mage_Api_Model_Resource_Rules extends Mage_Core_Model_Resource_Db_Abstract
                             'api_permission'    => $permission,
                         ]);
                     }
+
                     if ($resName == 'all' && $permission == 'allow') {
                         $masterAdmin = true;
                     }
@@ -53,10 +57,10 @@ class Mage_Api_Model_Resource_Rules extends Mage_Core_Model_Resource_Db_Abstract
             }
 
             $adapter->commit();
-        } catch (Mage_Core_Exception $e) {
+        } catch (Mage_Core_Exception $mageCoreException) {
             $adapter->rollBack();
-            throw $e;
-        } catch (Exception $e) {
+            throw $mageCoreException;
+        } catch (Exception) {
             $adapter->rollBack();
         }
     }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -17,10 +19,13 @@ class Mage_Adminhtml_Block_Store_Switcher_Form_Renderer_Fieldset_Element extends
     /**
      * Form element which re-rendering
      *
-     * @var Varien_Data_Form_Element_Fieldset
+     * @var Varien_Data_Form_Element_Abstract
      */
     protected $_element;
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->setTemplate('store/switcher/form/renderer/fieldset/element.phtml');
@@ -29,7 +34,7 @@ class Mage_Adminhtml_Block_Store_Switcher_Form_Renderer_Fieldset_Element extends
     /**
      * Retrieve an element
      *
-     * @return Varien_Data_Form_Element_Fieldset
+     * @return Varien_Data_Form_Element_Abstract
      */
     public function getElement()
     {

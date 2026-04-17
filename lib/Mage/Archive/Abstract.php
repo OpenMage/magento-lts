@@ -17,8 +17,8 @@ class Mage_Archive_Abstract
     /**
      * Write data to file. If file can't be opened - throw exception
      *
-     * @param string $destination
-     * @param string $data
+     * @param  string         $destination
+     * @param  string         $data
      * @return bool
      * @throws Mage_Exception
      */
@@ -28,13 +28,14 @@ class Mage_Archive_Abstract
         if (false === file_put_contents($destination, $data)) {
             throw new Mage_Exception("Can't write to file: " . $destination);
         }
+
         return true;
     }
 
     /**
      * Read data from file. If file can't be opened, throw to exception.
      *
-     * @param string $source
+     * @param  string         $source
      * @return string
      * @throws Mage_Exception
      *
@@ -49,22 +50,24 @@ class Mage_Archive_Abstract
                 throw new Mage_Exception("Can't get contents from: " . $source);
             }
         }
+
         return $data;
     }
 
     /**
      * Get file name from source (URI) without last extension.
      *
-     * @param string $source
-     * @param bool $withExtension
+     * @param  string       $source
+     * @param  bool         $withExtension
      * @return mixed|string
      */
     public function getFilename($source, $withExtension = false)
     {
         $file = str_replace(dirname($source) . DS, '', $source);
         if (!$withExtension) {
-            $file = substr($file, 0, strrpos($file, '.'));
+            return substr($file, 0, strrpos($file, '.'));
         }
+
         return $file;
     }
 }

@@ -14,6 +14,9 @@
  */
 class Mage_Downloadable_Model_Resource_Link extends Mage_Core_Model_Resource_Db_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('downloadable/link', 'link_id');
@@ -22,7 +25,7 @@ class Mage_Downloadable_Model_Resource_Link extends Mage_Core_Model_Resource_Db_
     /**
      * Save title and price of link item
      *
-     * @param Mage_Downloadable_Model_Link $linkObject
+     * @param  Mage_Downloadable_Model_Link $linkObject
      * @return $this
      */
     public function saveItemTitleAndPrice($linkObject)
@@ -98,11 +101,8 @@ class Mage_Downloadable_Model_Resource_Link extends Mage_Core_Model_Resource_Db_
                 'website_id' => (int) $linkObject->getWebsiteId(),
                 'price'      => (float) $linkObject->getPrice(),
             ];
-            if ($linkObject->getOrigData('link_id') != $linkObject->getLinkId()) {
-                $_isNew = true;
-            } else {
-                $_isNew = false;
-            }
+            $_isNew = $linkObject->getOrigData('link_id') != $linkObject->getLinkId();
+
             if ($linkObject->getWebsiteId() == 0 && $_isNew && !Mage::helper('catalog')->isPriceGlobal()) {
                 $websiteIds = $linkObject->getProductWebsiteIds();
                 foreach ($websiteIds as $websiteId) {
@@ -111,10 +111,12 @@ class Mage_Downloadable_Model_Resource_Link extends Mage_Core_Model_Resource_Db_
                     if ($websiteCurrency == $baseCurrency) {
                         continue;
                     }
+
                     $rate = Mage::getModel('directory/currency')->load($baseCurrency)->getRate($websiteCurrency);
                     if (!$rate) {
                         $rate = 1;
                     }
+
                     $newPrice = $linkObject->getPrice() * $rate;
                     $dataToInsert[] = [
                         'link_id'       => $linkObject->getId(),
@@ -123,15 +125,17 @@ class Mage_Downloadable_Model_Resource_Link extends Mage_Core_Model_Resource_Db_
                     ];
                 }
             }
+
             $writeAdapter->insertMultiple($linkPriceTable, $dataToInsert);
         }
+
         return $this;
     }
 
     /**
      * Delete data by item(s)
      *
-     * @param Mage_Downloadable_Model_Link|array|int $items
+     * @param  array|int|Mage_Downloadable_Model_Link $items
      * @return $this
      */
     public function deleteItems($items)
@@ -145,6 +149,7 @@ class Mage_Downloadable_Model_Resource_Link extends Mage_Core_Model_Resource_Db_
         } else {
             $where = ['sample_id = ?'  => $items];
         }
+
         if ($where) {
             $writeAdapter->delete(
                 $this->getMainTable(),
@@ -159,14 +164,15 @@ class Mage_Downloadable_Model_Resource_Link extends Mage_Core_Model_Resource_Db_
                 $where,
             );
         }
+
         return $this;
     }
 
     /**
      * Retrieve links searchable data
      *
-     * @param int $productId
-     * @param int $storeId
+     * @param  int   $productId
+     * @param  int   $storeId
      * @return array
      */
     public function getSearchableData($productId, $storeId)

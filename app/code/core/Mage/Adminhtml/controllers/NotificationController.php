@@ -42,15 +42,16 @@ class Mage_Adminhtml_NotificationController extends Mage_Adminhtml_Controller_Ac
                 $model->setIsRead(1)
                     ->save();
                 $session->addSuccess(Mage::helper('adminnotification')->__('The message has been marked as read.'));
-            } catch (Mage_Core_Exception $e) {
-                $session->addError($e->getMessage());
-            } catch (Exception $e) {
-                $session->addException($e, Mage::helper('adminnotification')->__('An error occurred while marking notification as read.'));
+            } catch (Mage_Core_Exception $mageCoreException) {
+                $session->addError($mageCoreException->getMessage());
+            } catch (Exception $exception) {
+                $session->addException($exception, Mage::helper('adminnotification')->__('An error occurred while marking notification as read.'));
             }
 
             $this->_redirectReferer();
             return;
         }
+
         $this->_redirect('*/*/');
     }
 
@@ -70,15 +71,17 @@ class Mage_Adminhtml_NotificationController extends Mage_Adminhtml_Controller_Ac
                             ->save();
                     }
                 }
+
                 $this->_getSession()->addSuccess(
                     Mage::helper('adminnotification')->__('Total of %d record(s) have been marked as read.', count($ids)),
                 );
-            } catch (Mage_Core_Exception $e) {
-                $session->addError($e->getMessage());
-            } catch (Exception $e) {
-                $session->addException($e, Mage::helper('adminnotification')->__('An error occurred while marking the messages as read.'));
+            } catch (Mage_Core_Exception $mageCoreException) {
+                $session->addError($mageCoreException->getMessage());
+            } catch (Exception $exception) {
+                $session->addException($exception, Mage::helper('adminnotification')->__('An error occurred while marking the messages as read.'));
             }
         }
+
         $this->_redirect('*/*/');
     }
 
@@ -98,15 +101,16 @@ class Mage_Adminhtml_NotificationController extends Mage_Adminhtml_Controller_Ac
                 $model->setIsRemove(1)
                     ->save();
                 $session->addSuccess(Mage::helper('adminnotification')->__('The message has been removed.'));
-            } catch (Mage_Core_Exception $e) {
-                $session->addError($e->getMessage());
-            } catch (Exception $e) {
-                $session->addException($e, Mage::helper('adminnotification')->__('An error occurred while removing the message.'));
+            } catch (Mage_Core_Exception $mageCoreException) {
+                $session->addError($mageCoreException->getMessage());
+            } catch (Exception $exception) {
+                $session->addException($exception, Mage::helper('adminnotification')->__('An error occurred while removing the message.'));
             }
 
             $this->_redirect('*/*/');
             return;
         }
+
         $this->_redirect('*/*/');
     }
 
@@ -126,22 +130,24 @@ class Mage_Adminhtml_NotificationController extends Mage_Adminhtml_Controller_Ac
                             ->save();
                     }
                 }
+
                 $this->_getSession()->addSuccess(
                     Mage::helper('adminnotification')->__('Total of %d record(s) have been removed.', count($ids)),
                 );
-            } catch (Mage_Core_Exception $e) {
-                $session->addError($e->getMessage());
-            } catch (Exception $e) {
-                $session->addException($e, Mage::helper('adminnotification')->__('An error occurred while removing messages.'));
+            } catch (Mage_Core_Exception $mageCoreException) {
+                $session->addError($mageCoreException->getMessage());
+            } catch (Exception $exception) {
+                $session->addException($exception, Mage::helper('adminnotification')->__('An error occurred while removing messages.'));
             }
         }
+
         $this->_redirectReferer();
     }
 
     /**
      * @inheritDoc
      */
-    protected function _isAllowed()
+    protected function _isAllowed(): bool
     {
         $action = strtolower($this->getRequest()->getActionName());
         $acl = match ($action) {

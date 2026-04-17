@@ -17,8 +17,8 @@ class Mage_Widget_Model_Widget_Config extends Varien_Object
     /**
      * Return config settings for widgets insertion plugin based on editor element config
      *
-     * @param Varien_Object $config
-     * @return array
+     * @param  Varien_Object                 $config
+     * @return array<string, mixed[]|string>
      */
     public function getPluginSettings($config)
     {
@@ -76,17 +76,17 @@ class Mage_Widget_Model_Widget_Config extends Varien_Object
     /**
      * Return Widgets Insertion Plugin Window URL
      *
-     * @param Varien_Object $config Editor element config
+     * @param  Varien_Object $config Editor element config
      * @return string
      */
     public function getWidgetWindowUrl($config)
     {
         $params = [];
 
-        $skipped = is_array($config->getData('skip_widgets')) ? $config->getData('skip_widgets') : [];
+        $skipped = is_array($config->getDataByKey('skip_widgets')) ? $config->getDataByKey('skip_widgets') : [];
         if ($config->hasData('widget_filters')) {
             $all = Mage::getModel('widget/widget')->getWidgetsXml();
-            $filtered = Mage::getModel('widget/widget')->getWidgetsXml($config->getData('widget_filters'));
+            $filtered = Mage::getModel('widget/widget')->getWidgetsXml($config->getDataByKey('widget_filters'));
             $reflection = new ReflectionObject($filtered);
             foreach ($all as $code => $widget) {
                 if (!$reflection->hasProperty($code)) {
@@ -95,16 +95,17 @@ class Mage_Widget_Model_Widget_Config extends Varien_Object
             }
         }
 
-        if (count($skipped) > 0) {
+        if ($skipped !== []) {
             $params['skip_widgets'] = $this->encodeWidgetsToQuery($skipped);
         }
+
         return Mage::getSingleton('adminhtml/url')->getUrl('*/widget/index', $params);
     }
 
     /**
      * Encode list of widget types into query param
      *
-     * @param array $widgets List of widgets
+     * @param  array  $widgets List of widgets
      * @return string Query param value
      */
     public function encodeWidgetsToQuery($widgets)
@@ -117,8 +118,8 @@ class Mage_Widget_Model_Widget_Config extends Varien_Object
     /**
      * Decode URL query param and return list of widgets
      *
-     * @param string $queryParam Query param value to decode
-     * @return array Array of widget types
+     * @param  string $queryParam Query param value to decode
+     * @return array  Array of widget types
      */
     public function decodeWidgetsFromQuery($queryParam)
     {

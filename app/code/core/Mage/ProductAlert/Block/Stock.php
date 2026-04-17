@@ -32,14 +32,15 @@ class Mage_ProductAlert_Block_Stock extends Mage_Core_Block_Template
         if (!$product = Mage::helper('productalert')->getProduct()) {
             return false;
         }
+
         /** @var Mage_Catalog_Model_Product $product */
 
         return !$product->isSaleable();
     }
 
     /**
-     * @param string $route
-     * @param array $params
+     * @param  string $route
+     * @param  array  $params
      * @return string
      */
     public function getUrl($route = '', $params = [])

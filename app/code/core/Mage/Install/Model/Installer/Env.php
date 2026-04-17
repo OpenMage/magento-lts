@@ -14,13 +14,12 @@
  */
 class Mage_Install_Model_Installer_Env extends Mage_Install_Model_Installer_Abstract
 {
-    public function __construct() {}
-
     public function install()
     {
         if (!$this->_checkPhpExtensions()) {
             throw new Exception();
         }
+
         return $this;
     }
 
@@ -35,6 +34,7 @@ class Mage_Install_Model_Installer_Env extends Mage_Install_Model_Installer_Abst
                 $res = $this->_checkExtension($extension) && $res;
             }
         }
+
         return $res;
     }
 
@@ -64,6 +64,7 @@ class Mage_Install_Model_Installer_Env extends Mage_Install_Model_Installer_Abst
                 Mage::helper('install')->__("PHP Extension '%s' loaded", $extension)
             );*/
         }
+
         return true;
     }
 }

@@ -17,7 +17,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Concat extends Mage_Admin
     /**
      * Renders grid column
      *
-     * @return  string
+     * @return string
      */
     public function render(Varien_Object $row)
     {
@@ -27,6 +27,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Concat extends Mage_Admin
                 $dataArr[] = $data;
             }
         }
+
         // TODO run column type renderer
         return implode($this->getColumn()->getSeparator(), $dataArr);
     }

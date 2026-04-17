@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -28,6 +30,7 @@ class Mage_ImportExport_Model_Source_Import_Entity
         foreach ($comboOptions as $option) {
             $options[] = $option;
         }
+
         return $options;
     }
 }

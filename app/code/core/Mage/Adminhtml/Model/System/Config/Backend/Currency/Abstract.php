@@ -26,6 +26,7 @@ abstract class Mage_Adminhtml_Model_System_Config_Backend_Currency_Abstract exte
         if ($this->getData('groups/options/fields/allow/inherit')) {
             return explode(',', Mage::getConfig()->getNode('currency/options/allow', $this->getScope(), $this->getScopeId()));
         }
+
         return $this->getData('groups/options/fields/allow/value');
     }
 
@@ -53,11 +54,12 @@ abstract class Mage_Adminhtml_Model_System_Config_Backend_Currency_Abstract exte
                 $this->getScopeId(),
             );
         }
+
         return (string) $value;
     }
 
     /**
-     * Retrieve Default desplay Currency value for current scope
+     * Retrieve Default display Currency value for current scope
      *
      * @return string
      */
@@ -70,6 +72,7 @@ abstract class Mage_Adminhtml_Model_System_Config_Backend_Currency_Abstract exte
                 $this->getScopeId(),
             );
         }
+
         return (string) $value;
     }
 }

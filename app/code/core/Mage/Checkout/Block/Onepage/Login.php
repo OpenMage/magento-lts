@@ -14,11 +14,15 @@
  */
 class Mage_Checkout_Block_Onepage_Login extends Mage_Checkout_Block_Onepage_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         if (!$this->isCustomerLoggedIn()) {
             $this->getCheckout()->setStepData('login', ['label' => Mage::helper('checkout')->__('Checkout Method'), 'allow' => true]);
         }
+
         parent::_construct();
     }
 

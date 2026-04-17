@@ -29,7 +29,7 @@ class Mage_Api_Model_Server_Adapter_Soap extends Varien_Object implements Mage_A
     protected $_soap = null;
 
     /**
-     * Internal constructor
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -58,7 +58,7 @@ class Mage_Api_Model_Server_Adapter_Soap extends Varien_Object implements Mage_A
     /**
      * Set handler class name for webservice
      *
-     * @param string $handler
+     * @param  string $handler
      * @return $this
      */
     public function setHandler($handler)
@@ -74,7 +74,7 @@ class Mage_Api_Model_Server_Adapter_Soap extends Varien_Object implements Mage_A
      */
     public function getHandler()
     {
-        return $this->getData('handler');
+        return $this->getDataByKey('handler');
     }
 
     /**
@@ -95,7 +95,7 @@ class Mage_Api_Model_Server_Adapter_Soap extends Varien_Object implements Mage_A
      */
     public function getController()
     {
-        $controller = $this->getData('controller');
+        $controller = $this->getDataByKey('controller');
 
         if ($controller === null) {
             $controller = new Varien_Object(
@@ -104,6 +104,7 @@ class Mage_Api_Model_Server_Adapter_Soap extends Varien_Object implements Mage_A
 
             $this->setData('controller', $controller);
         }
+
         return $controller;
     }
 
@@ -119,10 +120,10 @@ class Mage_Api_Model_Server_Adapter_Soap extends Varien_Object implements Mage_A
 
         if ($this->getController()->getRequest()->getParam('wsdl') !== null) {
             // Generating wsdl content from template
-            $io = new Varien_Io_File();
-            $io->open(['path' => Mage::getModuleDir('etc', 'Mage_Api')]);
+            $ioFile = new Varien_Io_File();
+            $ioFile->open(['path' => Mage::getModuleDir('etc', 'Mage_Api')]);
 
-            $wsdlContent = $io->read('wsdl.xml');
+            $wsdlContent = $ioFile->read('wsdl.xml');
 
             $template = Mage::getModel('core/email_template_filter');
 
@@ -152,8 +153,10 @@ class Mage_Api_Model_Server_Adapter_Soap extends Varien_Object implements Mage_A
                             $this->_soap->handle(),
                         ),
                     );
-            } catch (Zend_Soap_Server_Exception|Exception $e) {
-                $this->fault($e->getCode(), $e->getMessage());
+            } catch (Zend_Soap_Server_Exception $zendSoapServerException) {
+                $this->fault($zendSoapServerException->getCode(), $zendSoapServerException->getMessage());
+            } catch (Exception $exception) {
+                $this->fault($exception->getCode(), $exception->getMessage());
             }
         }
 
@@ -163,7 +166,7 @@ class Mage_Api_Model_Server_Adapter_Soap extends Varien_Object implements Mage_A
     /**
      * Dispatch webservice fault
      *
-     * @param int $code
+     * @param int    $code
      * @param string $message
      * @SuppressWarnings("PHPMD.ExitExpression")
      */
@@ -171,8 +174,9 @@ class Mage_Api_Model_Server_Adapter_Soap extends Varien_Object implements Mage_A
     {
         if ($this->_extensionLoaded()) {
             throw new SoapFault($code, $message);
-        } else {
-            die('<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
+        }
+
+        die('<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
                 <SOAP-ENV:Body>
                 <SOAP-ENV:Fault>
                 <faultcode>' . $code . '</faultcode>
@@ -180,7 +184,6 @@ class Mage_Api_Model_Server_Adapter_Soap extends Varien_Object implements Mage_A
                 </SOAP-ENV:Fault>
                 </SOAP-ENV:Body>
                 </SOAP-ENV:Envelope>');
-        }
     }
 
     /**
@@ -196,15 +199,14 @@ class Mage_Api_Model_Server_Adapter_Soap extends Varien_Object implements Mage_A
     /**
      * Transform wsdl url if $_SERVER["PHP_AUTH_USER"] is set
      *
-     * @param array $params
-     * @param bool $withAuth
+     * @param  array              $params
+     * @param  bool               $withAuth
      * @return string
      * @throws Zend_Uri_Exception
      */
     protected function getWsdlUrl($params = null, $withAuth = true)
     {
-        $urlModel = Mage::getModel('core/url')
-            ->setUseSession(false);
+        Mage::getModel('core/url')->setUseSession(false);
 
         $wsdlUrl = $params !== null
             ? Mage::helper('api')->getServiceUrl('*/*/*', ['_current' => true, '_query' => $params])
@@ -254,16 +256,18 @@ class Mage_Api_Model_Server_Adapter_Soap extends Varien_Object implements Mage_A
                     $this->getWsdlUrl(['wsdl' => 1]),
                     ['encoding' => $apiConfigCharset],
                 );
-            } catch (SoapFault $e) {
-                if (str_contains($e->getMessage(), "can't import schema from 'http://schemas.xmlsoap.org/soap/encoding/'")) {
+            } catch (SoapFault $soapFault) {
+                if (str_contains($soapFault->getMessage(), "can't import schema from 'http://schemas.xmlsoap.org/soap/encoding/'")) {
                     $retry = true;
                     sleep(1);
                 } else {
-                    throw $e;
+                    throw $soapFault;
                 }
+
                 $tries++;
             }
         } while ($retry && $tries < 5);
+
         use_soap_error_handler(false);
         $this->_soap
             ->setReturnResponse(true)

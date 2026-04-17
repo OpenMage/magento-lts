@@ -92,9 +92,9 @@ class Mage_Adminhtml_Checkout_AgreementController extends Mage_Adminhtml_Control
                 $this->_redirect('*/*/');
 
                 return;
-            } catch (Mage_Core_Exception $e) {
-                Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
-            } catch (Exception $e) {
+            } catch (Mage_Core_Exception $mageCoreException) {
+                Mage::getSingleton('adminhtml/session')->addError($mageCoreException->getMessage());
+            } catch (Exception) {
                 Mage::getSingleton('adminhtml/session')->addError(Mage::helper('checkout')->__('An error occurred while saving this condition.'));
             }
 
@@ -121,9 +121,9 @@ class Mage_Adminhtml_Checkout_AgreementController extends Mage_Adminhtml_Control
             $this->_redirect('*/*/');
 
             return;
-        } catch (Mage_Core_Exception $e) {
-            Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
-        } catch (Exception $e) {
+        } catch (Mage_Core_Exception $mageCoreException) {
+            Mage::getSingleton('adminhtml/session')->addError($mageCoreException->getMessage());
+        } catch (Exception) {
             Mage::getSingleton('adminhtml/session')->addError(Mage::helper('checkout')->__('An error occurred while deleting this condition.'));
         }
 

@@ -20,7 +20,7 @@ class Unserialize_Reader_ArrValue
     /**
      * @var int
      */
-    protected $_status;
+    protected $_status = self::NOT_STARTED;
 
     /**
      * @object
@@ -28,18 +28,18 @@ class Unserialize_Reader_ArrValue
     protected $_reader;
 
     public const NOT_STARTED = 1;
+
     public const READING_VALUE = 2;
 
     public function __construct($key)
     {
-        $this->_status = self::NOT_STARTED;
         $this->key = $key;
     }
 
     /**
-     * @param string $char
-     * @param string $prevChar
-     * @return mixed|null
+     * @param  string     $char
+     * @param  string     $prevChar
+     * @return null|mixed
      * @throws Exception
      */
     public function read($char, $prevChar)
@@ -81,6 +81,7 @@ class Unserialize_Reader_ArrValue
                 return $value;
             }
         }
+
         return null;
     }
 }

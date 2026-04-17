@@ -31,6 +31,7 @@ abstract class Mage_Adminhtml_Controller_Report_Abstract extends Mage_Adminhtml_
         if (is_null($this->_adminSession)) {
             $this->_adminSession = Mage::getSingleton('admin/session');
         }
+
         return $this->_adminSession;
     }
 
@@ -49,7 +50,7 @@ abstract class Mage_Adminhtml_Controller_Report_Abstract extends Mage_Adminhtml_
     /**
      * Report action init operations
      *
-     * @param array|Varien_Object $blocks
+     * @param  array|Varien_Object                       $blocks
      * @return Mage_Adminhtml_Controller_Report_Abstract
      */
     public function _initReportAction($blocks)
@@ -71,7 +72,7 @@ abstract class Mage_Adminhtml_Controller_Report_Abstract extends Mage_Adminhtml_
 
         foreach ($blocks as $block) {
             if ($block) {
-                $block->setPeriodType($params->getData('period_type'));
+                $block->setPeriodType($params->getDataByKey('period_type'));
                 $block->setFilterData($params);
             }
         }
@@ -82,8 +83,8 @@ abstract class Mage_Adminhtml_Controller_Report_Abstract extends Mage_Adminhtml_
     /**
      * Add refresh statistics links
      *
-     * @param string $flagCode
-     * @param string $refreshCode
+     * @param  string                                    $flagCode
+     * @param  string                                    $refreshCode
      * @return Mage_Adminhtml_Controller_Report_Abstract
      */
     protected function _showLastExecutionTime($flagCode, $refreshCode)

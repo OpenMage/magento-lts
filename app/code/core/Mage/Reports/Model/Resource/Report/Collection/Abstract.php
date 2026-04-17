@@ -17,14 +17,14 @@ class Mage_Reports_Model_Resource_Report_Collection_Abstract extends Mage_Core_M
     /**
      * From date
      *
-     * @var string|null
+     * @var null|string
      */
     protected $_from               = null;
 
     /**
      * To date
      *
-     * @var string|null
+     * @var null|string
      */
     protected $_to                 = null;
 
@@ -38,7 +38,7 @@ class Mage_Reports_Model_Resource_Report_Collection_Abstract extends Mage_Core_M
     /**
      * Store ids
      *
-     * @var int|array
+     * @var array|int
      */
     protected $_storesIds          = 0;
 
@@ -94,21 +94,21 @@ class Mage_Reports_Model_Resource_Report_Collection_Abstract extends Mage_Core_M
     /**
      * Set date range
      *
-     * @param mixed $from
-     * @param mixed $to
+     * @param  null|string $dateFrom
+     * @param  null|string $dateTo
      * @return $this
      */
-    public function setDateRange($from = null, $to = null)
+    public function setDateRange($dateFrom = null, $dateTo = null)
     {
-        $this->_from = $from;
-        $this->_to   = $to;
+        $this->_from = $dateFrom;
+        $this->_to   = $dateTo;
         return $this;
     }
 
     /**
      * Set period
      *
-     * @param string $period
+     * @param  string $period
      * @return $this
      */
     public function setPeriod($period)
@@ -128,6 +128,7 @@ class Mage_Reports_Model_Resource_Report_Collection_Abstract extends Mage_Core_M
         if ($this->_from !== null) {
             $this->getSelect()->where('period >= ?', $this->_from);
         }
+
         if ($this->_to !== null) {
             $this->getSelect()->where('period <= ?', $this->_to);
         }
@@ -138,7 +139,7 @@ class Mage_Reports_Model_Resource_Report_Collection_Abstract extends Mage_Core_M
     /**
      * Set store ids
      *
-     * @param mixed $storeIds (null, int|string, array, array may contain null)
+     * @param  mixed $storeIds (null, int|string, array, array may contain null)
      * @return $this
      */
     public function addStoreFilter($storeIds)
@@ -192,7 +193,7 @@ class Mage_Reports_Model_Resource_Report_Collection_Abstract extends Mage_Core_M
     /**
      * Set apply filters flag
      *
-     * @param bool $flag
+     * @param  bool  $flag
      * @return $this
      */
     public function setApplyFilters($flag)
@@ -204,7 +205,7 @@ class Mage_Reports_Model_Resource_Report_Collection_Abstract extends Mage_Core_M
     /**
      * Getter/Setter for isTotals
      *
-     * @param null|bool $flag
+     * @param  null|bool  $flag
      * @return $this|bool
      */
     public function isTotals($flag = null)
@@ -212,6 +213,7 @@ class Mage_Reports_Model_Resource_Report_Collection_Abstract extends Mage_Core_M
         if (is_null($flag)) {
             return $this->_isTotals;
         }
+
         $this->_isTotals = $flag;
         return $this;
     }
@@ -219,7 +221,7 @@ class Mage_Reports_Model_Resource_Report_Collection_Abstract extends Mage_Core_M
     /**
      * Getter/Setter for isSubTotals
      *
-     * @param null|bool $flag
+     * @param  null|bool  $flag
      * @return $this|bool
      */
     public function isSubTotals($flag = null)
@@ -227,6 +229,7 @@ class Mage_Reports_Model_Resource_Report_Collection_Abstract extends Mage_Core_M
         if (is_null($flag)) {
             return $this->_isSubTotals;
         }
+
         $this->_isSubTotals = $flag;
         return $this;
     }
@@ -252,12 +255,14 @@ class Mage_Reports_Model_Resource_Report_Collection_Abstract extends Mage_Core_M
         if ($this->isLoaded()) {
             return $this;
         }
+
         $this->_initSelect();
         if ($this->_applyFilters) {
             $this->_applyDateRangeFilter();
             $this->_applyStoresFilter();
             $this->_applyCustomFilter();
         }
+
         return parent::load($printQuery, $logQuery);
     }
 
@@ -290,6 +295,7 @@ class Mage_Reports_Model_Resource_Report_Collection_Abstract extends Mage_Core_M
         if (!is_array($storeIds)) {
             $storeIds = [$storeIds];
         }
+
         $currentStoreIds = $this->_storesIds;
         if (isset($currentStoreIds) && $currentStoreIds != Mage_Core_Model_App::ADMIN_STORE_ID
             && $currentStoreIds != [Mage_Core_Model_App::ADMIN_STORE_ID]
@@ -297,6 +303,7 @@ class Mage_Reports_Model_Resource_Report_Collection_Abstract extends Mage_Core_M
             if (!is_array($currentStoreIds)) {
                 $currentStoreIds = [$currentStoreIds];
             }
+
             $this->_storesIds = array_intersect($currentStoreIds, $storeIds);
         } else {
             $this->_storesIds = $storeIds;

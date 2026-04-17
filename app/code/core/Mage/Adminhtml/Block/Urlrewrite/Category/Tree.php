@@ -17,7 +17,7 @@ class Mage_Adminhtml_Block_Urlrewrite_Category_Tree extends Mage_Adminhtml_Block
     /**
      * List of allowed category ids
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_allowedCategoryIds = null;
 
@@ -33,9 +33,9 @@ class Mage_Adminhtml_Block_Urlrewrite_Category_Tree extends Mage_Adminhtml_Block
     /**
      * Get categories tree as recursive array
      *
-     * @param int $parentId
-     * @param bool $asJson
-     * @param int $recursionLevel
+     * @param  int          $parentId
+     * @param  bool         $asJson
+     * @param  int          $recursionLevel
      * @return array|string
      */
     public function getTreeArray($parentId = null, $asJson = false, $recursionLevel = 3)
@@ -72,7 +72,7 @@ class Mage_Adminhtml_Block_Urlrewrite_Category_Tree extends Mage_Adminhtml_Block
     /**
      * Get categories collection
      *
-     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Collection
+     * @return Mage_Catalog_Model_Resource_Category_Collection
      */
     public function getCategoryCollection()
     {
@@ -90,8 +90,8 @@ class Mage_Adminhtml_Block_Urlrewrite_Category_Tree extends Mage_Adminhtml_Block
     /**
      * Convert categories tree to array recursively
      *
-     * @param  Varien_Data_Tree_Node $node
-     * @return array
+     * @param  Varien_Data_Tree_Node                                  $node
+     * @return array<string, null|bool|int|mixed[][]|string|string[]>
      */
     protected function _getNodesArray($node)
     {
@@ -115,6 +115,7 @@ class Mage_Adminhtml_Block_Urlrewrite_Category_Tree extends Mage_Adminhtml_Block
                 $result['children'][] = $this->_getNodesArray($childNode);
             }
         }
+
         $result['cls']      = ($result['is_active'] ? '' : 'no-') . 'active-category';
         $result['expanded'] = (!empty($result['children']));
 
@@ -128,6 +129,6 @@ class Mage_Adminhtml_Block_Urlrewrite_Category_Tree extends Mage_Adminhtml_Block
      */
     public function getLoadTreeUrl()
     {
-        return Mage::helper('adminhtml')->getUrl('*/*/categoriesJson');
+        return Mage::helper('adminhtml')::getUrl('*/*/categoriesJson');
     }
 }

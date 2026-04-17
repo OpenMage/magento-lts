@@ -15,7 +15,7 @@
 class Mage_Tax_Model_Class_Source_Product extends Mage_Eav_Model_Entity_Attribute_Source_Abstract
 {
     /**
-     * @param bool $withEmpty
+     * @param  bool  $withEmpty
      * @return array
      */
     public function getAllOptions($withEmpty = false)
@@ -32,14 +32,15 @@ class Mage_Tax_Model_Class_Source_Product extends Mage_Eav_Model_Entity_Attribut
         if ($withEmpty) {
             array_unshift($options, ['value' => '', 'label' => Mage::helper('tax')->__('-- Please Select --')]);
         }
+
         return $options;
     }
 
     /**
      * Get a text for option value
      *
-     * @param string|int $value
-     * @return string|false
+     * @param  int|string   $value
+     * @return false|string
      */
     public function getOptionText($value)
     {
@@ -50,6 +51,7 @@ class Mage_Tax_Model_Class_Source_Product extends Mage_Eav_Model_Entity_Attribut
                 return $item['label'];
             }
         }
+
         return false;
     }
 
@@ -64,9 +66,7 @@ class Mage_Tax_Model_Class_Source_Product extends Mage_Eav_Model_Entity_Attribut
     }
 
     /**
-     * Retrieve flat column definition
-     *
-     * @return array
+     * @inheritDoc
      */
     public function getFlatColums()
     {
@@ -92,8 +92,8 @@ class Mage_Tax_Model_Class_Source_Product extends Mage_Eav_Model_Entity_Attribut
     /**
      * Retrieve Select for update attribute value in flat table
      *
-     * @param   int $store
-     * @return  Varien_Db_Select|null
+     * @param  int                   $store
+     * @return null|Varien_Db_Select
      */
     public function getFlatUpdateSelect($store)
     {

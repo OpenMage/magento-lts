@@ -13,34 +13,34 @@
  * @package    Mage_Core
  *
  * @method Mage_Core_Model_Resource_Flag _getResource()
+ * @method string                        getFlagCode()
+ * @method string                        getLastUpdate()
  * @method Mage_Core_Model_Resource_Flag getResource()
- * @method string getFlagCode()
- * @method $this setFlagCode(string $value)
- * @method int getState()
- * @method $this setState(int $value)
- * @method string getLastUpdate()
- * @method $this setLastUpdate(string $value)
- * @method bool hasFlagData()
+ * @method int                           getState()
+ * @method bool                          hasFlagData()
+ * @method $this                         setFlagCode(string $value)
+ * @method $this                         setLastUpdate(string $value)
+ * @method $this                         setState(int $value)
  */
 class Mage_Core_Model_Flag extends Mage_Core_Model_Abstract
 {
     /**
      * Flag code
      *
-     * @var string|null
+     * @var null|string
      */
     protected $_flagCode = null;
 
     /**
      * Init resource model
      * Set flag_code if it is specified in arguments
-     *
      */
     protected function _construct()
     {
         if ($this->hasData('flag_code')) {
-            $this->_flagCode = $this->getData('flag_code');
+            $this->_flagCode = $this->getDataByKey('flag_code');
         }
+
         $this->_init('core/flag');
     }
 
@@ -67,16 +67,16 @@ class Mage_Core_Model_Flag extends Mage_Core_Model_Abstract
     public function getFlagData()
     {
         if ($this->hasFlagData()) {
-            return unserialize($this->getData('flag_data'), ['allowed_classes' => false]);
-        } else {
-            return null;
+            return unserialize($this->getDataByKey('flag_data'), ['allowed_classes' => false]);
         }
+
+        return null;
     }
 
     /**
      * Set flag data
      *
-     * @param mixed $value
+     * @param  mixed $value
      * @return $this
      */
     public function setFlagData($value)

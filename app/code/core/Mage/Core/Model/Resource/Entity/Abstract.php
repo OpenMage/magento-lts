@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -13,10 +15,11 @@
 abstract class Mage_Core_Model_Resource_Entity_Abstract
 {
     protected $_name = null;
+
     /**
      * Configuration object
      *
-     * @var Varien_Simplexml_Config
+     * @var array|Varien_Simplexml_Config
      */
     protected $_config = [];
 
@@ -33,17 +36,15 @@ abstract class Mage_Core_Model_Resource_Entity_Abstract
     /**
      * Get config by key
      *
-     * @param string $key
-     * @return string|bool
+     * @param  string                                     $key
+     * @return array|false|string|Varien_Simplexml_Config
      */
     public function getConfig($key = '')
     {
         if ($key === '') {
             return $this->_config;
-        } elseif (isset($this->_config->$key)) {
-            return $this->_config->$key;
-        } else {
-            return false;
         }
+
+        return $this->_config->$key ?? false;
     }
 }

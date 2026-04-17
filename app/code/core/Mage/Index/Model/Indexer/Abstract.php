@@ -71,19 +71,21 @@ abstract class Mage_Index_Model_Indexer_Abstract extends Mage_Core_Model_Abstrac
         if ($this->matchEvent($event)) {
             $this->_registerEvent($event);
         }
+
         return $this;
     }
 
     /**
      * Process event
      *
-     * @return  Mage_Index_Model_Indexer_Abstract
+     * @return Mage_Index_Model_Indexer_Abstract
      */
     public function processEvent(Mage_Index_Model_Event $event)
     {
         if ($this->matchEvent($event)) {
             $this->_processEvent($event);
         }
+
         return $this;
     }
 
@@ -102,18 +104,17 @@ abstract class Mage_Index_Model_Indexer_Abstract extends Mage_Core_Model_Abstrac
     /**
      * Check if indexer matched specific entity and action type
      *
-     * @param   string $entity
-     * @param   string $type
-     * @return  bool
+     * @param  string $entity
+     * @param  string $type
+     * @return bool
      */
     public function matchEntityAndType($entity, $type)
     {
-        if (isset($this->_matchedEntities[$entity])) {
-            if (in_array($type, $this->_matchedEntities[$entity])) {
-                return true;
-            }
+        if ($entity === null) {
+            $entity = '';
         }
-        return false;
+
+        return isset($this->_matchedEntities[$entity]) && in_array($type, $this->_matchedEntities[$entity]);
     }
 
     /**
@@ -128,7 +129,7 @@ abstract class Mage_Index_Model_Indexer_Abstract extends Mage_Core_Model_Abstrac
      * Try dynamically detect and call event handler from resource model.
      * Handler name will be generated from event entity and type code
      *
-     * @return  Mage_Index_Model_Indexer_Abstract
+     * @return Mage_Index_Model_Indexer_Abstract
      */
     public function callEventHandler(Mage_Index_Model_Event $event)
     {
@@ -142,15 +143,16 @@ abstract class Mage_Index_Model_Indexer_Abstract extends Mage_Core_Model_Abstrac
         if (method_exists($resourceModel, $method)) {
             $resourceModel->$method($event);
         }
+
         return $this;
     }
 
     /**
      * Set whether table changes are allowed
      *
-     * @deprecated after 1.6.1.0
-     * @param bool $value
+     * @param  bool                              $value
      * @return Mage_Index_Model_Indexer_Abstract
+     * @deprecated after 1.6.1.0
      */
     public function setAllowTableChanges($value = true)
     {

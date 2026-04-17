@@ -42,6 +42,7 @@ class Mage_Adminhtml_Block_System_Email_Template_Grid_Renderer_Action extends Ma
             $attributesObject->setData($action['@']);
             $html[] = '<a ' . $attributesObject->serialize() . '>' . $action['#'] . '</a>';
         }
+
         return implode(' <span class="separator">&nbsp;|&nbsp;</span> ', $html);
     }
 }

@@ -14,6 +14,9 @@
  */
 class Mage_Sales_Block_Order_Shipment extends Mage_Core_Block_Template
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         parent::_construct();
@@ -69,6 +72,7 @@ class Mage_Sales_Block_Order_Shipment extends Mage_Core_Block_Template
         if (Mage::getSingleton('customer/session')->isLoggedIn()) {
             return Mage::getUrl('*/*/history');
         }
+
         return Mage::getUrl('*/*/form');
     }
 
@@ -82,11 +86,12 @@ class Mage_Sales_Block_Order_Shipment extends Mage_Core_Block_Template
         if (Mage::getSingleton('customer/session')->isLoggedIn()) {
             return Mage::helper('sales')->__('Back to My Orders');
         }
+
         return Mage::helper('sales')->__('View Another Order');
     }
 
     /**
-     * @param Mage_Sales_Model_Order $order
+     * @param  Mage_Sales_Model_Order $order
      * @return string
      */
     public function getInvoiceUrl($order)
@@ -95,7 +100,7 @@ class Mage_Sales_Block_Order_Shipment extends Mage_Core_Block_Template
     }
 
     /**
-     * @param Mage_Sales_Model_Order $order
+     * @param  Mage_Sales_Model_Order $order
      * @return string
      */
     public function getViewUrl($order)
@@ -104,7 +109,7 @@ class Mage_Sales_Block_Order_Shipment extends Mage_Core_Block_Template
     }
 
     /**
-     * @param Mage_Sales_Model_Order $order
+     * @param  Mage_Sales_Model_Order $order
      * @return string
      */
     public function getCreditmemoUrl($order)
@@ -113,7 +118,7 @@ class Mage_Sales_Block_Order_Shipment extends Mage_Core_Block_Template
     }
 
     /**
-     * @param Mage_Sales_Model_Order_Shipment $shipment
+     * @param  Mage_Sales_Model_Order_Shipment $shipment
      * @return string
      */
     public function getPrintShipmentUrl($shipment)
@@ -122,7 +127,7 @@ class Mage_Sales_Block_Order_Shipment extends Mage_Core_Block_Template
     }
 
     /**
-     * @param Mage_Sales_Model_Order $order
+     * @param  Mage_Sales_Model_Order $order
      * @return string
      */
     public function getPrintAllShipmentsUrl($order)
@@ -135,6 +140,7 @@ class Mage_Sales_Block_Order_Shipment extends Mage_Core_Block_Template
         if (!$this->isModuleOutputEnabled('Mage_GiftMessage')) {
             return false;
         }
+
         /** @var Mage_GiftMessage_Helper_Message $helper */
         $helper = $this->helper('giftmessage/message');
         return $helper->getIsMessagesAvailable($helper::TYPE_ORDER, $this->getOrder());

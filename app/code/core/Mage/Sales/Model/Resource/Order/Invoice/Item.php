@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -19,6 +21,9 @@ class Mage_Sales_Model_Resource_Order_Invoice_Item extends Mage_Sales_Model_Reso
      */
     protected $_eventPrefix    = 'sales_order_invoice_item_resource';
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('sales/invoice_item', 'entity_id');

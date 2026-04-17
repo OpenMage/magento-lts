@@ -14,6 +14,9 @@
  */
 class Mage_Directory_Model_Resource_Country extends Mage_Core_Model_Resource_Db_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('directory/country', 'country_id');
@@ -24,8 +27,8 @@ class Mage_Directory_Model_Resource_Country extends Mage_Core_Model_Resource_Db_
      *
      * @param string $code
      *
-     * @throws Mage_Core_Exception
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function loadByCode(Mage_Directory_Model_Country $country, $code)
     {

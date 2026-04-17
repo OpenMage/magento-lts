@@ -12,18 +12,22 @@
  *
  * @package    Mage_Catalog
  */
-class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
+class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract implements Stringable
 {
     public const XML_NODE_PRODUCT_BASE_IMAGE_WIDTH = 'catalog/product_image/base_width';
+
     public const XML_NODE_PRODUCT_SMALL_IMAGE_WIDTH = 'catalog/product_image/small_width';
+
     public const XML_NODE_PRODUCT_MAX_DIMENSION = 'catalog/product_image/max_dimension';
+
+    public const XML_NODE_SKIP_IMAGE_ON_DUPLICATE_ACTION = 'catalog/product_image/images_on_duplicate_action';
 
     protected $_moduleName = 'Mage_Catalog';
 
     /**
      * Current model
      *
-     * @var Mage_Catalog_Model_Product_Image|null
+     * @var null|Mage_Catalog_Model_Product_Image
      */
     protected $_model;
 
@@ -44,49 +48,49 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
     /**
      * Angle
      *
-     * @var int|null
+     * @var null|int
      */
     protected $_angle;
 
     /**
      * Watermark file name
      *
-     * @var string|null
+     * @var null|string
      */
     protected $_watermark;
 
     /**
      * Watermark Position
      *
-     * @var string|null
+     * @var null|string
      */
     protected $_watermarkPosition;
 
     /**
      * Watermark Size
      *
-     * @var string|null
+     * @var null|string
      */
     protected $_watermarkSize;
 
     /**
      * Watermark Image opacity
      *
-     * @var int|null
+     * @var null|int
      */
     protected $_watermarkImageOpacity;
 
     /**
      * Current Product
      *
-     * @var Mage_Catalog_Model_Product|null
+     * @var null|Mage_Catalog_Model_Product
      */
     protected $_product;
 
     /**
      * Image File
      *
-     * @var string|null
+     * @var null|string
      */
     protected $_imageFile;
 
@@ -120,8 +124,8 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
     /**
      * Initialize Helper to work with Image
      *
-     * @param string $attributeName
-     * @param mixed $imageFile
+     * @param  string $attributeName
+     * @param  mixed  $imageFile
      * @return $this
      */
     public function init(Mage_Catalog_Model_Product $product, $attributeName, $imageFile = null)
@@ -150,6 +154,7 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
             // add for work original size
             $this->_getModel()->setBaseFile($this->getProduct()->getData($this->_getModel()->getDestinationSubdir()));
         }
+
         return $this;
     }
 
@@ -157,10 +162,10 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
      * Schedule resize of the image
      * $width *or* $height can be null - in this case, lacking dimension will be calculated.
      *
-     * @see Mage_Catalog_Model_Product_Image
-     * @param int $width
-     * @param int $height
+     * @param  int   $width
+     * @param  int   $height
      * @return $this
+     * @see Mage_Catalog_Model_Product_Image
      */
     public function resize($width, $height = null)
     {
@@ -172,7 +177,7 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
     /**
      * Set image quality, values in percentage from 0 to 100
      *
-     * @param int $quality
+     * @param  int   $quality
      * @return $this
      */
     public function setQuality($quality)
@@ -186,9 +191,9 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
      * Applicable before calling resize()
      * It is true by default.
      *
-     * @see Mage_Catalog_Model_Product_Image
-     * @param bool $flag
+     * @param  bool  $flag
      * @return $this
+     * @see Mage_Catalog_Model_Product_Image
      */
     public function keepAspectRatio($flag)
     {
@@ -203,10 +208,10 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
      *
      * $position - TODO, not used for now - picture position inside the frame.
      *
-     * @see Mage_Catalog_Model_Product_Image
-     * @param bool $flag
-     * @param array $position
+     * @param  bool  $flag
+     * @param  array $position
      * @return $this
+     * @see Mage_Catalog_Model_Product_Image
      */
     public function keepFrame($flag, $position = ['center', 'middle'])
     {
@@ -221,10 +226,10 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
      *
      * $alphaOpacity - TODO, not used for now
      *
-     * @see Mage_Catalog_Model_Product_Image
-     * @param bool $flag
-     * @param int $alphaOpacity
+     * @param  bool  $flag
+     * @param  int   $alphaOpacity
      * @return $this
+     * @see Mage_Catalog_Model_Product_Image
      */
     public function keepTransparency($flag, $alphaOpacity = null)
     {
@@ -237,7 +242,7 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
      * Applicable before calling resize()
      * It is false by default
      *
-     * @param bool $flag
+     * @param  bool  $flag
      * @return $this
      */
     public function constrainOnly($flag)
@@ -252,9 +257,9 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
      * The keepTransparency(true) overrides this (if image has transparent color)
      * It is white by default.
      *
-     * @see Mage_Catalog_Model_Product_Image
-     * @param array $colorRGB
+     * @param  array $colorRGB
      * @return $this
+     * @see Mage_Catalog_Model_Product_Image
      */
     public function backgroundColor($colorRGB)
     {
@@ -263,6 +268,7 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
         if (!is_array($colorRGB)) {
             $colorRGB = $args;
         }
+
         $this->_getModel()->setBackgroundColor($colorRGB);
         return $this;
     }
@@ -270,7 +276,7 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
     /**
      * Rotate image into specified angle
      *
-     * @param int $angle
+     * @param  int   $angle
      * @return $this
      */
     public function rotate($angle)
@@ -285,10 +291,10 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
      * Add watermark to image
      * size param in format 100x200
      *
-     * @param string $fileName
-     * @param string $position
-     * @param string $size
-     * @param int $imageOpacity
+     * @param  string $fileName
+     * @param  string $position
+     * @param  string $size
+     * @param  int    $imageOpacity
      * @return $this
      */
     public function watermark($fileName, $position, $size = null, $imageOpacity = null)
@@ -321,15 +327,14 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
             $attr = $this->_getModel()->getDestinationSubdir();
             $this->_placeholder = 'images/catalog/product/placeholder/' . $attr . '.jpg';
         }
+
         return $this->_placeholder;
     }
 
     /**
      * Return Image URL
-     *
-     * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
         try {
             $model = $this->_getModel();
@@ -342,32 +347,33 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
 
             if ($model->isCached()) {
                 return $model->getUrl();
-            } else {
-                if ($this->_scheduleRotate) {
-                    $model->rotate($this->getAngle());
-                }
-
-                if ($this->_scheduleResize) {
-                    $model->resize();
-                }
-
-                if ($this->getWatermark()) {
-                    $model->setWatermark($this->getWatermark());
-                }
-
-                $url = $model->saveFile()->getUrl();
             }
-        } catch (Exception $e) {
-            Mage::logException($e);
+
+            if ($this->_scheduleRotate) {
+                $model->rotate($this->getAngle());
+            }
+
+            if ($this->_scheduleResize) {
+                $model->resize();
+            }
+
+            if ($this->getWatermark()) {
+                $model->setWatermark($this->getWatermark());
+            }
+
+            $url = $model->saveFile()->getUrl();
+        } catch (Exception $exception) {
+            Mage::logException($exception);
             $url = Mage::getDesign()->getSkinUrl($this->getPlaceholder());
         }
+
         return $url;
     }
 
     /**
      * Set current Image model
      *
-     * @param Mage_Catalog_Model_Product_Image $model
+     * @param  Mage_Catalog_Model_Product_Image $model
      * @return $this
      */
     protected function _setModel($model)
@@ -389,7 +395,7 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
     /**
      * Set Rotation Angle
      *
-     * @param int $angle
+     * @param  int   $angle
      * @return $this
      */
     protected function setAngle($angle)
@@ -411,7 +417,7 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
     /**
      * Set watermark file name
      *
-     * @param string $watermark
+     * @param  string $watermark
      * @return $this
      */
     protected function setWatermark($watermark)
@@ -434,7 +440,7 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
     /**
      * Set watermark position
      *
-     * @param string $position
+     * @param  string $position
      * @return $this
      */
     protected function setWatermarkPosition($position)
@@ -458,7 +464,7 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
      * Set watermark size
      * param size in format 100x200
      *
-     * @param string $size
+     * @param  string $size
      * @return $this
      */
     public function setWatermarkSize($size)
@@ -481,7 +487,7 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
     /**
      * Set watermark image opacity
      *
-     * @param int $imageOpacity
+     * @param  int   $imageOpacity
      * @return $this
      */
     public function setWatermarkImageOpacity($imageOpacity)
@@ -508,7 +514,7 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
     /**
      * Set current Product
      *
-     * @param Mage_Catalog_Model_Product $product
+     * @param  Mage_Catalog_Model_Product $product
      * @return $this
      */
     protected function setProduct($product)
@@ -530,7 +536,7 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
     /**
      * Set Image file
      *
-     * @param string $file
+     * @param  string $file
      * @return $this
      */
     protected function setImageFile($file)
@@ -552,7 +558,7 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
     /**
      * Retrieve size from string
      *
-     * @param string $string
+     * @param  string     $string
      * @return array|bool
      */
     protected function parseSize($string)
@@ -575,7 +581,7 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
     /**
      * Retrieve original image width
      *
-     * @return int|null
+     * @return null|int
      */
     public function getOriginalWidth()
     {
@@ -585,18 +591,7 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
     /**
      * Retrieve original image height
      *
-     * @deprecated
-     * @return int|null
-     */
-    public function getOriginalHeigh()
-    {
-        return $this->getOriginalHeight();
-    }
-
-    /**
-     * Retrieve original image height
-     *
-     * @return int|null
+     * @return null|int
      */
     public function getOriginalHeight()
     {
@@ -607,7 +602,7 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
      * Retrieve Original image size as array
      * 0 - width, 1 - height
      *
-     * @return array
+     * @return array<int, null|int>
      */
     public function getOriginalSizeArray()
     {
@@ -620,7 +615,7 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
     /**
      * Check - is this file an image
      *
-     * @param string $filePath
+     * @param  string              $filePath
      * @return bool
      * @throws Mage_Core_Exception
      */
@@ -643,5 +638,10 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
         unset($_processor);
 
         return $mimeType !== null;
+    }
+
+    public function skipProductImageOnDuplicate(): int
+    {
+        return Mage::getStoreConfigAsInt(self::XML_NODE_SKIP_IMAGE_ON_DUPLICATE_ACTION);
     }
 }

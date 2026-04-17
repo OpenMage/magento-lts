@@ -23,13 +23,14 @@ class Mage_Customer_Model_Entity_Address_Attribute_Source_Country extends Mage_C
 
     public function __construct(array $args = [])
     {
-        $this->_factory = !empty($args['factory']) ? $args['factory'] : Mage::getSingleton('core/factory');
+        $this->_factory = empty($args['factory']) ? Mage::getSingleton('core/factory') : $args['factory'];
     }
+
     /**
      * Retrieve all options
      *
-     * @param bool $withEmpty       Argument has no effect, included for PHP 7.2 method signature compatibility
-     * @param bool $defaultValues   Argument has no effect, included for PHP 7.2 method signature compatibility
+     * @param  bool  $withEmpty     Argument has no effect, included for PHP 7.2 method signature compatibility
+     * @param  bool  $defaultValues Argument has no effect, included for PHP 7.2 method signature compatibility
      * @return array
      */
     public function getAllOptions($withEmpty = true, $defaultValues = false)
@@ -38,6 +39,7 @@ class Mage_Customer_Model_Entity_Address_Attribute_Source_Country extends Mage_C
             $this->_options = $this->_factory->getResourceModel('directory/country_collection')
                 ->loadByStore($this->getAttribute()->getStoreId())->toOptionArray();
         }
+
         return $this->_options;
     }
 }

@@ -24,7 +24,7 @@
     </thead>
 
     <?php $i=0; foreach ($_shipment->getAllItems() as $_item): ?>
-    <?php if($_item->getOrderItem()->getParentItem()) continue; else $i++; ?>
+    <?php if($_item->getOrderItem()->getParentItem()) continue; $i++; ?>
     <tbody<?php echo $i%2 ? ' bgcolor="#F6F6F6"' : '' ?>>
         <?php echo $this->getItemHtml($_item) ?>
     </tbody>

@@ -12,11 +12,12 @@
  *
  * @package    Mage_Checkout
  *
- * @method \Mage_Checkout_Block_Cart_Sidebar getRenderedBlock()
+ * @method Mage_Checkout_Block_Cart_Sidebar getRenderedBlock()
  */
 class Mage_Checkout_Block_Cart_Item_Renderer_Grouped extends Mage_Checkout_Block_Cart_Item_Renderer
 {
     public const GROUPED_PRODUCT_IMAGE = 'checkout/cart/grouped_product_image';
+
     public const USE_PARENT_IMAGE      = 'parent';
 
     /**
@@ -30,6 +31,7 @@ class Mage_Checkout_Block_Cart_Item_Renderer_Grouped extends Mage_Checkout_Block
         if ($option) {
             return $option->getProduct();
         }
+
         return $this->getProduct();
     }
 
@@ -41,8 +43,8 @@ class Mage_Checkout_Block_Cart_Item_Renderer_Grouped extends Mage_Checkout_Block
     public function getProductThumbnail()
     {
         $product = $this->getProduct();
-        if (!$product->getData('thumbnail')
-            || ($product->getData('thumbnail') === 'no_selection')
+        if (!$product->getDataByKey('thumbnail')
+            || ($product->getDataByKey('thumbnail') === 'no_selection')
             || (Mage::getStoreConfig(self::GROUPED_PRODUCT_IMAGE) === self::USE_PARENT_IMAGE)
         ) {
             $product = $this->getGroupedProduct();
@@ -66,6 +68,7 @@ class Mage_Checkout_Block_Cart_Item_Renderer_Grouped extends Mage_Checkout_Block
         $renderer = $this->getRenderedBlock()->getItemRenderer($this->getItem()->getRealProductType());
         $renderer->setItem($this->getItem());
         $renderer->overrideProductThumbnail($this->getProductThumbnail());
+
         $rendererHtml = $renderer->toHtml();
         $renderer->overrideProductThumbnail(null);
         return $rendererHtml;

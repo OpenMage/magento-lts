@@ -16,12 +16,13 @@ abstract class Mage_Sales_Model_Payment_Method_Billing_AgreementAbstract extends
 {
     /**
      * Transport billing agreement id
-     *
      */
     public const TRANSPORT_BILLING_AGREEMENT_ID = 'ba_agreement_id';
+
     public const PAYMENT_INFO_REFERENCE_ID      = 'ba_reference_id';
 
     protected $_infoBlockType = 'sales/payment_info_billing_agreement';
+
     protected $_formBlockType = 'sales/payment_form_billing_agreement';
 
     /**
@@ -34,7 +35,7 @@ abstract class Mage_Sales_Model_Payment_Method_Billing_AgreementAbstract extends
     /**
      * Check whether method is available
      *
-     * @param Mage_Sales_Model_Quote $quote
+     * @param  Mage_Sales_Model_Quote $quote
      * @return bool
      */
     public function isAvailable($quote = null)
@@ -45,20 +46,24 @@ abstract class Mage_Sales_Model_Payment_Method_Billing_AgreementAbstract extends
                     $quote->getCustomer()->getId(),
                 );
                 $isAvailableBA = count($availableBA) > 0;
-                $this->_canUseForMultishipping = $this->_canUseCheckout = $this->_canUseInternal = $isAvailableBA;
+                $this->_canUseForMultishipping = $isAvailableBA;
+                $this->_canUseCheckout = $isAvailableBA;
+                $this->_canUseInternal = $isAvailableBA;
             }
+
             $this->_isAvailable = parent::isAvailable($quote) && $this->_isAvailable($quote);
             $this->_canUseCheckout = ($this->_isAvailable && $this->_canUseCheckout);
             $this->_canUseForMultishipping = ($this->_isAvailable && $this->_canUseForMultishipping);
             $this->_canUseInternal = ($this->_isAvailable && $this->_canUseInternal);
         }
+
         return $this->_isAvailable;
     }
 
     /**
      * Assign data to info model instance
      *
-     * @param mixed $data
+     * @param  mixed                              $data
      * @return Mage_Payment_Model_Method_Abstract
      * @throws Mage_Core_Exception
      */
@@ -73,20 +78,20 @@ abstract class Mage_Sales_Model_Payment_Method_Billing_AgreementAbstract extends
         } elseif ($data instanceof Varien_Object && $data->getData($key)) {
             $id = $data->getData($key);
         }
+
         if ($id) {
             $info = $this->getInfoInstance();
-            $ba = Mage::getModel('sales/billing_agreement')->load($id);
-            if ($ba->getId() && $ba->getCustomerId() == $info->getQuote()->getCustomer()->getId()) {
+            $agreement = Mage::getModel('sales/billing_agreement')->load($id);
+            if ($agreement->getId() && $agreement->getCustomerId() == $info->getQuote()->getCustomer()->getId()) {
                 $info->setAdditionalInformation($key, $id)
-                    ->setAdditionalInformation(self::PAYMENT_INFO_REFERENCE_ID, $ba->getReferenceId());
+                    ->setAdditionalInformation(self::PAYMENT_INFO_REFERENCE_ID, $agreement->getReferenceId());
             }
         }
+
         return $result;
     }
 
     /**
-     *
-     *
      * @param Mage_Sales_Model_Quote $quote
      */
     abstract protected function _isAvailable($quote);

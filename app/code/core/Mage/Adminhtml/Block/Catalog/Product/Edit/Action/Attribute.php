@@ -37,6 +37,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Action_Attribute extends Mage_Ad
                 ->setData([
                     'label'     => Mage::helper('catalog')->__('Reset'),
                     'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getUrl('*/*/*', ['_current' => true])),
+                    'class'     => 'reset',
                 ]),
         );
 

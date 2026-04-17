@@ -17,7 +17,7 @@ class Mage_Sales_GuestController extends Mage_Sales_Controller_Abstract
     /**
      * Try to load valid order and register it
      *
-     * @param int $orderId
+     * @param  int  $orderId
      * @return bool
      */
     protected function _loadValidOrder($orderId = null)
@@ -28,16 +28,13 @@ class Mage_Sales_GuestController extends Mage_Sales_Controller_Abstract
     /**
      * Check order view availability
      *
-     * @param   Mage_Sales_Model_Order $order
-     * @return  bool
+     * @param  Mage_Sales_Model_Order $order
+     * @return bool
      */
     protected function _canViewOrder($order)
     {
         $currentOrder = Mage::registry('current_order');
-        if ($order->getId() && ($order->getId() === $currentOrder->getId())) {
-            return true;
-        }
-        return false;
+        return $order->getId() && ($order->getId() === $currentOrder->getId());
     }
 
     protected function _viewAction()
@@ -60,6 +57,7 @@ class Mage_Sales_GuestController extends Mage_Sales_Controller_Abstract
             $this->_redirect('customer/account/');
             return;
         }
+
         $this->loadLayout();
         Mage::helper('sales/guest')->getBreadcrumbs($this);
         $this->renderLayout();
@@ -83,6 +81,7 @@ class Mage_Sales_GuestController extends Mage_Sales_Controller_Abstract
             if (isset($invoice)) {
                 Mage::register('current_invoice', $invoice);
             }
+
             $this->loadLayout('print');
             $this->renderLayout();
         } else {
@@ -103,10 +102,12 @@ class Mage_Sales_GuestController extends Mage_Sales_Controller_Abstract
         } else {
             $order = Mage::registry('current_order');
         }
+
         if ($this->_canViewOrder($order)) {
             if (isset($shipment)) {
                 Mage::register('current_shipment', $shipment);
             }
+
             $this->loadLayout('print');
             $this->renderLayout();
         } else {
@@ -132,6 +133,7 @@ class Mage_Sales_GuestController extends Mage_Sales_Controller_Abstract
             if (isset($creditmemo)) {
                 Mage::register('current_creditmemo', $creditmemo);
             }
+
             $this->loadLayout('print');
             $this->renderLayout();
         } else {

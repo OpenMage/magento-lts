@@ -7,34 +7,34 @@
  * @package    Mage_CatalogIndex
  */
 
+use Carbon\Carbon;
+
 /**
  * CatalogIndex Index operation model
  *
  * @package    Mage_CatalogIndex
  *
  * @method Mage_CatalogIndex_Model_Resource_Indexer _getResource()
+ * @method int                                      getAttributeSetId()
+ * @method int                                      getEntityTypeId()
+ * @method int                                      getHasOptions()
+ * @method int                                      getRequiredOptions()
  * @method Mage_CatalogIndex_Model_Resource_Indexer getResource()
- * @method int getEntityTypeId()
- * @method $this setEntityTypeId(int $value)
- * @method int getAttributeSetId()
- * @method $this setAttributeSetId(int $value)
- * @method string getTypeId()
- * @method $this setTypeId(string $value)
- * @method string getSku()
- * @method $this setSku(string $value)
- * @method int getHasOptions()
- * @method $this setHasOptions(int $value)
- * @method int getRequiredOptions()
- * @method $this setRequiredOptions(int $value)
- * @method string getCreatedAt()
- * @method $this setCreatedAt(string $value)
- * @method string getUpdatedAt()
- * @method $this setUpdatedAt(string $value)
+ * @method string                                   getSku()
+ * @method string                                   getTypeId()
+ * @method $this                                    setAttributeSetId(int $value)
+ * @method $this                                    setEntityTypeId(int $value)
+ * @method $this                                    setHasOptions(int $value)
+ * @method $this                                    setRequiredOptions(int $value)
+ * @method $this                                    setSku(string $value)
+ * @method $this                                    setTypeId(string $value)
  */
 class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
 {
     public const REINDEX_TYPE_ALL = 0;
+
     public const REINDEX_TYPE_PRICE = 1;
+
     public const REINDEX_TYPE_ATTRIBUTE = 2;
 
     public const STEP_SIZE = 1000;
@@ -65,13 +65,12 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
     /**
      * Tproduct types sorted by index priority
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_productTypePriority = null;
 
     /**
-     * Initialize all indexers and resource model
-     *
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -89,6 +88,7 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
         foreach ($this->_getRegisteredIndexers() as $name => $class) {
             $this->_indexers[$name] = Mage::getSingleton($class);
         }
+
         return $this;
     }
 
@@ -105,6 +105,7 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
         foreach ($indexerRegistry->children() as $node) {
             $result[$node->getName()] = (string) $node->class;
         }
+
         return $result;
     }
 
@@ -124,6 +125,7 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
                 $result = array_merge($result, $codes);
             }
         }
+
         return $result;
     }
 
@@ -134,11 +136,12 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
      */
     protected function _getStores()
     {
-        $stores = $this->getData('_stores');
+        $stores = $this->getDataByKey('_stores');
         if (is_null($stores)) {
             $stores = Mage::app()->getStores();
             $this->setData('_stores', $stores);
         }
+
         return $stores;
     }
 
@@ -149,21 +152,22 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
      */
     protected function _getWebsites()
     {
-        $websites = $this->getData('_websites');
+        $websites = $this->getDataByKey('_websites');
         if (is_null($websites)) {
             /** @var Mage_Core_Model_Resource_Website_Collection $websites */
             $websites = Mage::getModel('core/website')->getCollection()->load();
 
             $this->setData('_websites', $websites);
         }
+
         return $websites;
     }
 
     /**
      * Remove index data for specifuc product
      *
-     * @param   mixed $product
-     * @return  Mage_CatalogIndex_Model_Indexer
+     * @param  mixed                           $product
+     * @return Mage_CatalogIndex_Model_Indexer
      */
     public function cleanup($product)
     {
@@ -176,10 +180,10 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
     /**
      * Reindex catalog product data which used in layered navigation and in product list
      *
-     * @param   mixed $products
-     * @param   mixed $attributes
-     * @param   mixed $stores
-     * @return  Mage_CatalogIndex_Model_Indexer
+     * @param  mixed                           $products
+     * @param  mixed                           $attributes
+     * @param  mixed                           $stores
+     * @return Mage_CatalogIndex_Model_Indexer
      */
     public function plainReindex($products = null, $attributes = null, $stores = null)
     {
@@ -190,16 +194,17 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
         if ($flag->getState() == Mage_CatalogIndex_Model_Catalog_Index_Flag::STATE_RUNNING) {
             /*if ($flag->getState() == Mage_CatalogIndex_Model_Catalog_Index_Flag::STATE_QUEUED)*/
             return $this;
-        } else {
-            $flag->setState(Mage_CatalogIndex_Model_Catalog_Index_Flag::STATE_RUNNING)->save();
         }
+
+        $flag->setState(Mage_CatalogIndex_Model_Catalog_Index_Flag::STATE_RUNNING)->save();
 
         try {
             /**
              * Collect initialization data
              */
             $websites = [];
-            $attributeCodes = $priceAttributeCodes = [];
+            $attributeCodes = [];
+            $priceAttributeCodes = [];
 
             /**
              * Prepare stores and websites information
@@ -214,7 +219,7 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
                 foreach ($stores as $one) {
                     $websites[] = Mage::app()->getStore($one)->getWebsiteId();
                 }
-            } elseif (!is_array($stores)) {
+            } else {
                 Mage::throwException('Invalid stores supplied for indexing');
             }
 
@@ -228,6 +233,7 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
                 if ($this->_indexers['eav']->isAttributeIndexable($attributes)) {
                     $attributeCodes[] = $attributes->getAttributeId();
                 }
+
                 if ($this->_indexers['price']->isAttributeIndexable($attributes)) {
                     $priceAttributeCodes[] = $attributes->getAttributeId();
                 }
@@ -257,12 +263,12 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
              * (prices depends from website level)
              */
             foreach ($websites as $website) {
-                $ws = Mage::app()->getWebsite($website);
-                if (!$ws) {
+                $appWebsite = Mage::app()->getWebsite($website);
+                if (!$appWebsite) {
                     continue;
                 }
 
-                $group = $ws->getDefaultGroup();
+                $group = $appWebsite->getDefaultGroup();
                 if (!$group) {
                     continue;
                 }
@@ -285,7 +291,7 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
                     $collection->addFieldToFilter('type_id', $type);
                     $this->_walkCollection($collection, $store, [], $priceAttributeCodes);
                     if (!is_null($products) && !$this->getRetreiver($type)->getTypeInstance()->isComposite()) {
-                        $this->_walkCollectionRelation($collection, $ws, [], $priceAttributeCodes);
+                        $this->_walkCollectionRelation($collection, $appWebsite, [], $priceAttributeCodes);
                     }
                 }
             }
@@ -296,7 +302,7 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
             foreach ($stores as $store) {
                 foreach ($this->_getPriorifiedProductTypes() as $type) {
                     $collection = $this->_getProductCollection($store, $products);
-                    Mage::getSingleton('catalog/product_visibility')->addVisibleInSiteFilterToCollection($collection);
+                    $collection->setVisibility(Mage::getSingleton('catalog/product_visibility')::getVisibleInSiteIds());
                     $collection->addFieldToFilter('type_id', $type);
 
                     $this->_walkCollection($collection, $store, $attributeCodes);
@@ -318,9 +324,9 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
                     $this->updateCatalogProductFlat($store, $products);
                 }
             }
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $flag->delete();
-            throw $e;
+            throw $exception;
         }
 
         if ($flag->getState() == Mage_CatalogIndex_Model_Catalog_Index_Flag::STATE_RUNNING) {
@@ -333,8 +339,8 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
     /**
      * After plain reindex process
      *
-     * @param Mage_Core_Model_Store|array|int|Mage_Core_Model_Website $store
-     * @param int|array|Mage_Catalog_Model_Product_Condition_Interface|Mage_Catalog_Model_Product $products
+     * @param  array|int|Mage_Core_Model_Store|Mage_Core_Model_Website                             $store
+     * @param  array|int|Mage_Catalog_Model_Product|Mage_Catalog_Model_Product_Condition_Interface $products
      * @return $this
      */
     protected function _afterPlainReindex($store, $products = null)
@@ -353,13 +359,17 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
                 foreach ($store->getStores() as $storeObject) {
                     $this->_afterPlainReindex($storeObject->getId(), $products);
                 }
+
                 return $this;
-            } elseif ($store instanceof Mage_Core_Model_Store) {
+            }
+
+            if ($store instanceof Mage_Core_Model_Store) {
                 $store = $store->getId();
             } elseif (is_array($store)) { // array of stores
                 foreach ($store as $storeObject) {
                     $this->_afterPlainReindex($storeObject->getId(), $products);
                 }
+
                 return $this;
             }
 
@@ -372,8 +382,8 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
     /**
      * Return collection with product and store filters
      *
-     * @param Mage_Core_Model_Store $store
-     * @param mixed $products
+     * @param  Mage_Core_Model_Store                          $store
+     * @param  mixed                                          $products
      * @return Mage_Catalog_Model_Resource_Product_Collection
      */
     protected function _getProductCollection($store, $products)
@@ -396,10 +406,10 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
     /**
      * Walk Product Collection for Relation Parent products
      *
-     * @param Mage_Catalog_Model_Resource_Product_Collection $collection
-     * @param Mage_Core_Model_Store|Mage_Core_Model_Website $store
-     * @param array $attributes
-     * @param array $prices
+     * @param  Mage_Catalog_Model_Resource_Product_Collection $collection
+     * @param  Mage_Core_Model_Store|Mage_Core_Model_Website  $store
+     * @param  array                                          $attributes
+     * @param  array                                          $prices
      * @return $this
      */
     public function _walkCollectionRelation($collection, $store, $attributes = [], $prices = [])
@@ -444,11 +454,11 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
     /**
      * Run indexing process for product collection
      *
-     * @param   Mage_Catalog_Model_Resource_Product_Collection $collection
-     * @param   mixed $store
-     * @param   array $attributes
-     * @param   array $prices
-     * @return  Mage_CatalogIndex_Model_Indexer
+     * @param  Mage_Catalog_Model_Resource_Product_Collection $collection
+     * @param  mixed                                          $store
+     * @param  array                                          $attributes
+     * @param  array                                          $prices
+     * @return Mage_CatalogIndex_Model_Indexer
      */
     protected function _walkCollection($collection, $store, $attributes = [], $prices = [])
     {
@@ -490,22 +500,23 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
                 } else {
                     $this->_getResource()->commit();
                 }
-            } catch (Exception $e) {
+            } catch (Exception $exception) {
                 $this->_getResource()->rollBack();
-                throw $e;
+                throw $exception;
             }
 
             if ($deleteKill && isset($kill)) {
                 $kill->delete();
             }
         }
+
         return $this;
     }
 
     /**
      * Retrieve Data retriever
      *
-     * @param string $type
+     * @param  string                                $type
      * @return Mage_CatalogIndex_Model_Data_Abstract
      */
     public function getRetreiver($type)
@@ -547,16 +558,18 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
                 $typePriority = (string) $type->index_priority;
                 $this->_productTypePriority[$typePriority] = $typeName;
             }
+
             ksort($this->_productTypePriority);
         }
+
         return $this->_productTypePriority;
     }
 
     /**
      * Retrieve Base to Specified Currency Rate
      *
-     * @param string $code
-     * @return double
+     * @param  string $code
+     * @return float
      */
     protected function _getBaseToSpecifiedCurrencyRate($code)
     {
@@ -566,10 +579,10 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
     /**
      * Build Entity price filter
      *
-     * @param array $attributes
-     * @param array $values
-     * @param array $filteredAttributes
-     * @param Mage_Catalog_Model_Resource_Product_Collection $productCollection
+     * @param  array                                          $attributes
+     * @param  array                                          $values
+     * @param  array                                          $filteredAttributes
+     * @param  Mage_Catalog_Model_Resource_Product_Collection $productCollection
      * @return array
      */
     public function buildEntityPriceFilter($attributes, $values, &$filteredAttributes, $productCollection)
@@ -587,89 +600,90 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
                 foreach ($this->_priceIndexers as $indexerName) {
                     $indexer = $this->_indexers[$indexerName];
                     /** @var Mage_CatalogIndex_Model_Indexer_Abstract $indexer */
-                    if ($indexer->isAttributeIndexable($attribute)) {
-                        if ($values[$code]) {
-                            if (isset($values[$code]['from']) && isset($values[$code]['to'])
-                                && (strlen($values[$code]['from']) == 0 && strlen($values[$code]['to']) == 0)
-                            ) {
-                                continue;
-                            }
-                            $table = $indexer->getResource()->getMainTable();
-                            if (!isset($filter[$code])) {
-                                $filter[$code] = $this->_getSelect();
-                                $filter[$code]->from($table, ['entity_id']);
-                                $filter[$code]->distinct(true);
-
-                                $response = new Varien_Object();
-                                $response->setAdditionalCalculations([]);
-                                $args = [
-                                    'select' => $filter[$code],
-                                    'table' => $table,
-                                    'store_id' => $store,
-                                    'response_object' => $response,
-                                ];
-                                Mage::dispatchEvent('catalogindex_prepare_price_select', $args);
-                                $additionalCalculations[$code] = $response->getAdditionalCalculations();
-
-                                if ($indexer->isAttributeIdUsed()) {
-                                    //$filter[$code]->where("$table.attribute_id = ?", $attribute->getId());
-                                }
-                            }
-                            if (is_array($values[$code])) {
-                                $rateConversion = 1;
-                                $filter[$code]->distinct(true);
-
-                                if (isset($values[$code]['from']) && isset($values[$code]['to'])) {
-                                    if (isset($values[$code]['currency'])) {
-                                        $rateConversion = $this->_getBaseToSpecifiedCurrencyRate(
-                                            $values[$code]['currency'],
-                                        );
-                                    } else {
-                                        $rateConversion = $this->_getBaseToSpecifiedCurrencyRate($currentStoreCurrency);
-                                    }
-
-                                    if (strlen($values[$code]['from']) > 0) {
-                                        $filter[$code]->where(
-                                            "($table.min_price"
-                                            . implode('', $additionalCalculations[$code]) . ")*{$rateConversion} >= ?",
-                                            $values[$code]['from'],
-                                        );
-                                    }
-
-                                    if (strlen($values[$code]['to']) > 0) {
-                                        $filter[$code]->where(
-                                            "($table.min_price"
-                                            . implode('', $additionalCalculations[$code]) . ")*{$rateConversion} <= ?",
-                                            $values[$code]['to'],
-                                        );
-                                    }
-                                }
-                            }
-                            $filter[$code]->where("$table.website_id = ?", $website);
-
-                            if ($code == 'price') {
-                                $filter[$code]->where(
-                                    $table . '.customer_group_id = ?',
-                                    Mage::getSingleton('customer/session')->getCustomerGroupId(),
-                                );
-                            }
-
-                            $filteredAttributes[] = $code;
+                    if ($indexer->isAttributeIndexable($attribute) && $values[$code]) {
+                        if (isset($values[$code]['from']) && isset($values[$code]['to'])
+                            && (strlen($values[$code]['from']) == 0 && strlen($values[$code]['to']) == 0)
+                        ) {
+                            continue;
                         }
+
+                        $table = $indexer->getResource()->getMainTable();
+                        if (!isset($filter[$code])) {
+                            $filter[$code] = $this->_getSelect();
+                            $filter[$code]->from($table, ['entity_id']);
+                            $filter[$code]->distinct(true);
+
+                            $response = new Varien_Object();
+                            $response->setAdditionalCalculations([]);
+                            $args = [
+                                'select' => $filter[$code],
+                                'table' => $table,
+                                'store_id' => $store,
+                                'response_object' => $response,
+                            ];
+                            Mage::dispatchEvent('catalogindex_prepare_price_select', $args);
+                            $additionalCalculations[$code] = $response->getAdditionalCalculations();
+
+                            if ($indexer->isAttributeIdUsed()) {
+                                //$filter[$code]->where("$table.attribute_id = ?", $attribute->getId());
+                            }
+                        }
+
+                        if (is_array($values[$code])) {
+                            $rateConversion = 1;
+                            $filter[$code]->distinct(true);
+
+                            if (isset($values[$code]['from']) && isset($values[$code]['to'])) {
+                                if (isset($values[$code]['currency'])) {
+                                    $rateConversion = $this->_getBaseToSpecifiedCurrencyRate(
+                                        $values[$code]['currency'],
+                                    );
+                                } else {
+                                    $rateConversion = $this->_getBaseToSpecifiedCurrencyRate($currentStoreCurrency);
+                                }
+
+                                if ((string) $values[$code]['from'] !== '') {
+                                    $filter[$code]->where(
+                                        "({$table}.min_price"
+                                        . implode('', $additionalCalculations[$code]) . ")*{$rateConversion} >= ?",
+                                        $values[$code]['from'],
+                                    );
+                                }
+
+                                if ((string) $values[$code]['to'] !== '') {
+                                    $filter[$code]->where(
+                                        "({$table}.min_price"
+                                        . implode('', $additionalCalculations[$code]) . ")*{$rateConversion} <= ?",
+                                        $values[$code]['to'],
+                                    );
+                                }
+                            }
+                        }
+
+                        $filter[$code]->where("{$table}.website_id = ?", $website);
+                        if ($code == 'price') {
+                            $filter[$code]->where(
+                                $table . '.customer_group_id = ?',
+                                Mage::getSingleton('customer/session')->getCustomerGroupId(),
+                            );
+                        }
+
+                        $filteredAttributes[] = $code;
                     }
                 }
             }
         }
+
         return $filter;
     }
 
     /**
      * Build Entity filter
      *
-     * @param array $attributes
-     * @param array $values
-     * @param array $filteredAttributes
-     * @param Mage_Catalog_Model_Resource_Product_Collection $productCollection
+     * @param  array                                          $attributes
+     * @param  array                                          $values
+     * @param  array                                          $filteredAttributes
+     * @param  Mage_Catalog_Model_Resource_Product_Collection $productCollection
      * @return array
      */
     public function buildEntityFilter($attributes, $values, &$filteredAttributes, $productCollection)
@@ -683,52 +697,55 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
                 foreach ($this->_attributeIndexers as $indexerName) {
                     $indexer = $this->_indexers[$indexerName];
                     /** @var Mage_CatalogIndex_Model_Indexer_Abstract $indexer */
-                    if ($indexer->isAttributeIndexable($attribute)) {
-                        if ($values[$code]) {
-                            if (isset($values[$code]['from']) && isset($values[$code]['to'])
-                                && (!$values[$code]['from'] && !$values[$code]['to'])
-                            ) {
-                                continue;
-                            }
+                    if ($indexer->isAttributeIndexable($attribute) && $values[$code]) {
+                        if (isset($values[$code]['from']) && isset($values[$code]['to'])
+                            && (!$values[$code]['from'] && !$values[$code]['to'])
+                        ) {
+                            continue;
+                        }
 
-                            $table = $indexer->getResource()->getMainTable();
-                            if (!isset($filter[$code])) {
-                                $filter[$code] = $this->_getSelect();
-                                $filter[$code]->from($table, ['entity_id']);
-                            }
-                            if ($indexer->isAttributeIdUsed()) {
-                                $filter[$code]->where('attribute_id = ?', $attribute->getId());
-                            }
-                            if (is_array($values[$code])) {
-                                if (isset($values[$code]['from']) && isset($values[$code]['to'])) {
-                                    if ($values[$code]['from']) {
-                                        if (!is_numeric($values[$code]['from'])) {
-                                            $_date = date(Varien_Db_Adapter_Pdo_Mysql::TIMESTAMP_FORMAT, strtotime($values[$code]['from']));
-                                            $values[$code]['from'] = $_date;
-                                        }
+                        $table = $indexer->getResource()->getMainTable();
+                        if (!isset($filter[$code])) {
+                            $filter[$code] = $this->_getSelect();
+                            $filter[$code]->from($table, ['entity_id']);
+                        }
 
-                                        $filter[$code]->where('value >= ?', $values[$code]['from']);
+                        if ($indexer->isAttributeIdUsed()) {
+                            $filter[$code]->where('attribute_id = ?', $attribute->getId());
+                        }
+
+                        if (is_array($values[$code])) {
+                            if (isset($values[$code]['from']) && isset($values[$code]['to'])) {
+                                if ($values[$code]['from']) {
+                                    if (!is_numeric($values[$code]['from'])) {
+                                        $_date = Carbon::parse($values[$code]['from'])->format(Varien_Db_Adapter_Pdo_Mysql::TIMESTAMP_FORMAT);
+                                        $values[$code]['from'] = $_date;
                                     }
 
-                                    if ($values[$code]['to']) {
-                                        if (!is_numeric($values[$code]['to'])) {
-                                            $values[$code]['to'] = date(Varien_Db_Adapter_Pdo_Mysql::TIMESTAMP_FORMAT, strtotime($values[$code]['to']));
-                                        }
-                                        $filter[$code]->where('value <= ?', $values[$code]['to']);
+                                    $filter[$code]->where('value >= ?', $values[$code]['from']);
+                                }
+
+                                if ($values[$code]['to']) {
+                                    if (!is_numeric($values[$code]['to'])) {
+                                        $values[$code]['to'] = Carbon::parse($values[$code]['to'])->format(Varien_Db_Adapter_Pdo_Mysql::TIMESTAMP_FORMAT);
                                     }
-                                } else {
-                                    $filter[$code]->where('value in (?)', $values[$code]);
+
+                                    $filter[$code]->where('value <= ?', $values[$code]['to']);
                                 }
                             } else {
-                                $filter[$code]->where('value = ?', $values[$code]);
+                                $filter[$code]->where('value in (?)', $values[$code]);
                             }
-                            $filter[$code]->where('store_id = ?', $store);
-                            $filteredAttributes[] = $code;
+                        } else {
+                            $filter[$code]->where('value = ?', $values[$code]);
                         }
+
+                        $filter[$code]->where('store_id = ?', $store);
+                        $filteredAttributes[] = $code;
                     }
                 }
             }
         }
+
         return $filter;
     }
 
@@ -745,9 +762,9 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
     /**
      * Add indexable attributes to product collection select
      *
+     * @param  Mage_Catalog_Model_Resource_Product_Collection $collection
+     * @return Mage_CatalogIndex_Model_Indexer
      * @deprecated
-     * @param   Mage_Catalog_Model_Resource_Product_Collection $collection
-     * @return  Mage_CatalogIndex_Model_Indexer
      */
     protected function _addFilterableAttributesToCollection($collection)
     {
@@ -786,9 +803,9 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
     /**
      * Update price process for catalog product flat
      *
-     * @param Mage_Core_Model_Store|int $store
-     * @param Mage_Catalog_Model_Product|int|array|null $products
-     * @param string $resourceTable
+     * @param  int|Mage_Core_Model_Store                 $store
+     * @param  null|array|int|Mage_Catalog_Model_Product $products
+     * @param  string                                    $resourceTable
      * @return $this
      */
     public function updateCatalogProductFlat($store, $products = null, $resourceTable = null)
@@ -796,9 +813,11 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
         if ($store instanceof Mage_Core_Model_Store) {
             $store = $store->getId();
         }
+
         if ($products instanceof Mage_Catalog_Model_Product) {
             $products = $products->getId();
         }
+
         $this->_getResource()->updateCatalogProductFlat($store, $products, $resourceTable);
 
         return $this;

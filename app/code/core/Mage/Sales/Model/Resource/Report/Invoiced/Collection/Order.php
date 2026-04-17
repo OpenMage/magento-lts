@@ -30,7 +30,6 @@ class Mage_Sales_Model_Resource_Report_Invoiced_Collection_Order extends Mage_Sa
 
     /**
      * Initialize custom resource model
-     *
      */
     public function __construct()
     {
@@ -86,6 +85,7 @@ class Mage_Sales_Model_Resource_Report_Invoiced_Collection_Order extends Mage_Sa
             $this->getSelect()->group($this->_periodFormat);
             $this->getSelect()->having('SUM(orders_count) > 0');
         }
+
         return $this;
     }
 }

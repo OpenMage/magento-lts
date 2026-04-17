@@ -209,7 +209,6 @@
             </catalog>
             <catalog_resource>
                 <class>Mage_Catalog_Model_Resource</class>
-                <deprecatedNode>catalog_resource_eav_mysql4</deprecatedNode>
                 <entities>
                     <product>
                         <table>catalog_product_entity</table>
@@ -708,7 +707,6 @@
                 <observers>
                     <disable_advanced_search>
                         <class>catalog/observer_disableAdvancedSearch</class>
-                        <method>execute</method>
                     </disable_advanced_search>
                 </observers>
             </controller_action_predispatch_catalogsearch_advanced_index>
@@ -716,7 +714,6 @@
                 <observers>
                     <disable_advanced_search>
                         <class>catalog/observer_disableAdvancedSearch</class>
-                        <method>execute</method>
                     </disable_advanced_search>
                 </observers>
             </controller_action_predispatch_catalogsearch_advanced_result>
@@ -803,10 +800,14 @@
             <product>
                 <default_tax_group>2</default_tax_group>
             </product>
+            <price>
+                <rounding_precision>2</rounding_precision>
+            </price>
             <product_image>
                 <base_width>1800</base_width>
                 <small_width>210</small_width>
                 <max_dimension>5000</max_dimension>
+                <images_on_duplicate_action>-1</images_on_duplicate_action>
             </product_image>
             <seo>
                 <product_url_suffix>.html</product_url_suffix>
@@ -820,7 +821,7 @@
             <custom_options>
                 <date_fields_order>m,d,y</date_fields_order>
                 <time_format>12h</time_format>
-                <forbidden_extensions>php,exe</forbidden_extensions>
+                <forbidden_extensions>exe</forbidden_extensions>
             </custom_options>
             <layered_navigation>
                 <price_range_calculation>auto</price_range_calculation>

@@ -32,6 +32,7 @@ class Mage_GoogleAnalytics_Block_Gtm extends Mage_Core_Block_Template
         if (!$this->_isAvailable()) {
             return '';
         }
+
         return parent::_toHtml();
     }
 }

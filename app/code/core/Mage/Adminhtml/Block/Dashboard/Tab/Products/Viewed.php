@@ -14,12 +14,17 @@
  */
 class Mage_Adminhtml_Block_Dashboard_Tab_Products_Viewed extends Mage_Adminhtml_Block_Dashboard_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_dashboard_tab_products_viewed';
+
     public function __construct()
     {
         parent::__construct();
         $this->setId('productsReviewedGrid');
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _prepareCollection()
     {
         if ($this->getParam('website')) {
@@ -31,6 +36,7 @@ class Mage_Adminhtml_Block_Dashboard_Tab_Products_Viewed extends Mage_Adminhtml_
         } else {
             $storeId = (int) $this->getParam('store');
         }
+
         $collection = Mage::getResourceModel('reports/product_collection')
             ->addAttributeToSelect('*')
             ->addViewsCount()
@@ -43,6 +49,9 @@ class Mage_Adminhtml_Block_Dashboard_Tab_Products_Viewed extends Mage_Adminhtml_
     }
 
     /**
+     * @inheritDoc
+     * @throws Exception
+     * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
      */
     protected function _prepareColumns()
@@ -74,8 +83,8 @@ class Mage_Adminhtml_Block_Dashboard_Tab_Products_Viewed extends Mage_Adminhtml_
     }
 
     /**
-     * @param Mage_Catalog_Model_Product $row
-     * @return string
+     * @inheritDoc
+     * @param  Mage_Catalog_Model_Product $row
      * @throws Exception
      */
     public function getRowUrl($row)
@@ -84,6 +93,7 @@ class Mage_Adminhtml_Block_Dashboard_Tab_Products_Viewed extends Mage_Adminhtml_
         if ($this->getRequest()->getParam('store')) {
             $params['store'] = $this->getRequest()->getParam('store');
         }
+
         return $this->getUrl('*/catalog_product/edit', $params);
     }
 }

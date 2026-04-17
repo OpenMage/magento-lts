@@ -18,17 +18,24 @@ class Mage_Api2_Model_Acl_Global_Rule_Tree extends Mage_Core_Helper_Abstract
      * Tree types
      */
     public const TYPE_ATTRIBUTE = 'attribute';
+
     public const TYPE_PRIVILEGE = 'privilege';
 
     /**
      * Names
      */
     public const NAME_CHILDREN         = 'children';
+
     public const NAME_PRIVILEGE        = 'privilege';
+
     public const NAME_OPERATION        = 'operation';
+
     public const NAME_ATTRIBUTE        = 'attribute';
+
     public const NAME_RESOURCE         = 'resource';
+
     public const NAME_RESOURCE_GROUPS  = 'resource_groups';
+
     public const NAME_GROUP            = 'group';
 
     /**
@@ -109,13 +116,13 @@ class Mage_Api2_Model_Acl_Global_Rule_Tree extends Mage_Core_Helper_Abstract
             case self::TYPE_ATTRIBUTE:
                 /** @var Mage_Api2_Model_Acl_Filter_Attribute_Operation $operationSource */
                 $operationSource = Mage::getModel('api2/acl_filter_attribute_operation');
-                $this->_existOperations = $operationSource->toArray();
+                $this->_existOperations = $operationSource::toArray();
                 break;
 
             case self::TYPE_PRIVILEGE:
                 /** @var Mage_Api2_Model_Acl_Global_Rule_Privilege $privilegeSource */
                 $privilegeSource = Mage::getModel('api2/acl_global_rule_privilege');
-                $this->_existPrivileges = $privilegeSource->toArray();
+                $this->_existPrivileges = $privilegeSource::toArray();
                 break;
 
             default:
@@ -162,7 +169,7 @@ class Mage_Api2_Model_Acl_Global_Rule_Tree extends Mage_Core_Helper_Abstract
         if ($isAll) {
             $resources = [
                 Mage_Api2_Model_Acl_Global_Rule::RESOURCE_ALL => [
-                    null => $allow,
+                    '' => $allow,
                 ],
             ];
         } else {
@@ -185,6 +192,7 @@ class Mage_Api2_Model_Acl_Global_Rule_Tree extends Mage_Core_Helper_Abstract
                             unset($checkedResources[$i]);
                         }
                     }
+
                     break;
 
                 case self::TYPE_ATTRIBUTE:
@@ -211,11 +219,13 @@ class Mage_Api2_Model_Acl_Global_Rule_Tree extends Mage_Core_Helper_Abstract
                             unset($checkedResources[$i]);
                         }
                     }
+
                     break;
 
                     //no default
             }
         }
+
         return $resources;
     }
 
@@ -247,9 +257,9 @@ class Mage_Api2_Model_Acl_Global_Rule_Tree extends Mage_Core_Helper_Abstract
     /**
      * Get tree node
      *
-     * @param Varien_Simplexml_Element|array $node
-     * @param int $level
-     * @return array|null
+     * @param  array|Varien_Simplexml_Element $node
+     * @param  int                            $level
+     * @return null|array
      */
     protected function _getTreeNode($node, $level = 0)
     {
@@ -266,20 +276,19 @@ class Mage_Api2_Model_Acl_Global_Rule_Tree extends Mage_Core_Helper_Abstract
                     $isGroup = true;
                     $item['id'] = self::NAME_GROUP . self::ID_SEPARATOR . $name;
                 }
+
                 $item['text'] = (string) $node->title;
             } else {
                 $isResource = true;
                 $item['id'] = self::NAME_RESOURCE . self::ID_SEPARATOR . $name;
                 $item['text'] = $this->__('%s', (string) $node->title);
             }
+
             $item['checked'] = false;
             $item['sort_order'] = isset($node->sort_order) ? (string) $node->sort_order : 0;
         }
-        if (isset($node->children)) {
-            $children = $node->children->children();
-        } else {
-            $children = $node->children();
-        }
+
+        $children = isset($node->children) ? $node->children->children() : $node->children();
 
         if (empty($children)) {
             /**
@@ -315,31 +324,35 @@ class Mage_Api2_Model_Acl_Global_Rule_Tree extends Mage_Core_Helper_Abstract
                     if (!$subNode) {
                         continue;
                     }
+
                     //if sub-node check then check current node
                     if (!empty($subNode['checked'])) {
                         $item['checked'] = true;
                     }
+
                     $item[self::NAME_CHILDREN][] = $subNode;
                 } else {
                     $item = $this->_getTreeNode($child, $level + 1);
                 }
             }
         }
+
         if (!empty($item[self::NAME_CHILDREN])) {
             usort($item[self::NAME_CHILDREN], [$this, '_sortTree']);
         } elseif ($isGroup) {
             //skip empty group
             return null;
         }
+
         return $item;
     }
 
     /**
      * Add privileges
      *
-     * @param array $item                       Tree node
-     * @param Varien_Simplexml_Element $node    XML node
-     * @param string $name                      Resource name
+     * @param  array                    $item Tree node
+     * @param  Varien_Simplexml_Element $node XML node
+     * @param  string                   $name Resource name
      * @return bool
      */
     protected function _addPrivileges(&$item, Varien_Simplexml_Element $node, $name)
@@ -362,6 +375,7 @@ class Mage_Api2_Model_Acl_Global_Rule_Tree extends Mage_Core_Helper_Abstract
             if (empty($possibleList[$key])) {
                 continue;
             }
+
             $checked = !empty($this->_resourcesPermissions[$name]['privileges'][$roleConfigNodeName][$key]);
             $item['checked'] = $checked ? $checked : $item['checked'];
             $subItem = [
@@ -372,15 +386,16 @@ class Mage_Api2_Model_Acl_Global_Rule_Tree extends Mage_Core_Helper_Abstract
             ];
             $item[self::NAME_CHILDREN][] = $subItem;
         }
+
         return true;
     }
 
     /**
      * Add operation
      *
-     * @param array $item                       Tree node
-     * @param Varien_Simplexml_Element $node    XML node
-     * @param string $name                      Resource name
+     * @param  array                    $item Tree node
+     * @param  Varien_Simplexml_Element $node XML node
+     * @param  string                   $name Resource name
      * @return bool
      */
     protected function _addOperations(&$item, Varien_Simplexml_Element $node, $name)
@@ -403,24 +418,24 @@ class Mage_Api2_Model_Acl_Global_Rule_Tree extends Mage_Core_Helper_Abstract
                 $cnt--;
                 continue;
             }
+
             if (!empty($subItem['checked'])) {
                 $item['checked'] = true;
             }
+
             $item[self::NAME_CHILDREN][] = $subItem;
         }
-        if (!$cnt) {
-            return false;
-        }
-        return true;
+
+        return (bool) $cnt;
     }
 
     /**
      * Add privileges
      *
-     * @param array $item Tree node
-     * @param Varien_Simplexml_Element $node XML node
-     * @param string $name Node name
-     * @param string $privilege Privilege name
+     * @param  array                    $item      Tree node
+     * @param  Varien_Simplexml_Element $node      XML node
+     * @param  string                   $name      Node name
+     * @param  string                   $privilege Privilege name
      * @return bool
      */
     protected function _addAttribute(&$item, Varien_Simplexml_Element $node, $name, $privilege)
@@ -447,8 +462,8 @@ class Mage_Api2_Model_Acl_Global_Rule_Tree extends Mage_Core_Helper_Abstract
     /**
      * Compare two nodes of the Resource Tree
      *
-     * @param array $a
-     * @param array $b
+     * @param  array $a
+     * @param  array $b
      * @return int
      */
     protected function _sortTree($a, $b)
@@ -459,7 +474,7 @@ class Mage_Api2_Model_Acl_Global_Rule_Tree extends Mage_Core_Helper_Abstract
     /**
      * Set role
      *
-     * @param Mage_Api2_Model_Acl_Global_Role $role
+     * @param  Mage_Api2_Model_Acl_Global_Role $role
      * @return $this
      */
     public function setRole($role)
@@ -481,7 +496,7 @@ class Mage_Api2_Model_Acl_Global_Rule_Tree extends Mage_Core_Helper_Abstract
     /**
      * Set resources permissions
      *
-     * @param array $resourcesPermissions
+     * @param  array $resourcesPermissions
      * @return $this
      */
     public function setResourcesPermissions($resourcesPermissions)
@@ -503,7 +518,7 @@ class Mage_Api2_Model_Acl_Global_Rule_Tree extends Mage_Core_Helper_Abstract
     /**
      * Set has entity only attributes flag
      *
-     * @param bool $hasEntityOnlyAttributes
+     * @param  bool  $hasEntityOnlyAttributes
      * @return $this
      */
     public function setHasEntityOnlyAttributes($hasEntityOnlyAttributes)

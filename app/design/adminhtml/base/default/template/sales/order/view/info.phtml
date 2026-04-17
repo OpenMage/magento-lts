@@ -1,0 +1,158 @@
+<?php
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Academic Free License (AFL 3.0)
+ * @package     default_default
+ */
+
+/** @var Mage_Adminhtml_Block_Sales_Order_View_Info $this */
+?>
+<?php $_order = $this->getOrder() ?>
+<?php
+$orderAdminDate = $this->formatDate($_order->getCreatedAtDate(), 'medium', true);
+$orderStoreDate = $this->formatDate($_order->getCreatedAtStoreDate(), 'medium', true);
+$emailSentInfo  = $_order->getEmailSent() ? Mage::helper('sales')->__('Sent') : Mage::helper('sales')->__('Not sent');
+?>
+<div class="box-left">
+    <!--Order Information-->
+    <div class="entry-edit">
+        <div class="entry-edit-head">
+        <?php if ($this->getNoUseOrderLink()): ?>
+            <h4 class="icon-head head-account" data-copy-text="<?php echo $_order->getRealOrderId() ?>"><?php echo Mage::helper('sales')->__('Order # %s', $this->escapeHtml($_order->getRealOrderId())) ?></h4>
+        <?php else: ?>
+            <a href="<?php echo $this->getViewUrl($_order->getId()) ?>"><?php echo Mage::helper('sales')->__('Order # %s', $this->escapeHtml($_order->getRealOrderId())) ?></a>
+        <?php endif ?>
+        </div>
+        <div class="fieldset">
+            <table cellspacing="0" class="form-list">
+            <tr>
+                <td class="label"><label><?php echo Mage::helper('sales')->__('Order Date') ?></label></td>
+                <td class="value"><strong><?php echo $orderAdminDate ?></strong></td>
+            </tr>
+            <?php if ($orderAdminDate != $orderStoreDate):?>
+            <tr>
+                <td class="label"><label><?php echo Mage::helper('sales')->__('Order Date (%s)', $_order->getCreatedAtStoreDate()->getTimezone()) ?></label></td>
+                <td class="value"><strong><?php echo $orderStoreDate ?></strong></td>
+            </tr>
+            <?php endif ?>
+            <tr>
+                <td class="label"><label><?php echo Mage::helper('sales')->__('Order Status') ?></label></td>
+                <td class="value"><strong><span id="order_status"><?php echo $_order->getStatusLabel() ?></span></strong></td>
+            </tr>
+            <tr>
+                <td class="label"><label><?php echo Mage::helper('sales')->__('Order Confirmation') ?></label></td>
+                <td class="value"><strong><?php echo $emailSentInfo ?></strong></td>
+            </tr>
+            <tr>
+                <td class="label"><label><?php echo Mage::helper('sales')->__('Purchased From') ?></label></td>
+                <td class="value"><strong><?php echo $this->getOrderStoreName(); ?></strong></td>
+            </tr>
+            <?php if($_order->getRelationChildId()): ?>
+            <tr>
+                <td class="label"><label><?php echo Mage::helper('sales')->__('Link to the New Order') ?></label></td>
+                <td class="value"><a href="<?php echo $this->getViewUrl($_order->getRelationChildId()) ?>">
+                    <?php echo $this->escapeHtml($_order->getRelationChildRealId()) ?>
+                </a></td>
+            </tr>
+            <?php endif ?>
+            <?php if($_order->getRelationParentId()): ?>
+            <tr>
+                <td class="label"><label><?php echo Mage::helper('sales')->__('Link to the Previous Order') ?></label></td>
+                <td class="value"><a href="<?php echo $this->getViewUrl($_order->getRelationParentId()) ?>">
+                    <?php echo $this->escapeHtml($_order->getRelationParentRealId()) ?>
+                </a></td>
+            </tr>
+            <?php endif ?>
+            <?php if($_order->getRemoteIp() && $this->shouldDisplayCustomerIp()): ?>
+            <tr>
+                <td class="label"><label><?php echo Mage::helper('sales')->__('Placed from IP') ?></label></td>
+                <td class="value"><strong><?php echo $this->escapeHtml($_order->getRemoteIp()) . (($_order->getXForwardedFor()) ? ' (' . $this->escapeHtml($_order->getXForwardedFor()) . ')' : ''); ?></strong></td>
+            </tr>
+            <?php endif ?>
+            <?php if($_order->getGlobalCurrencyCode() != $_order->getBaseCurrencyCode()): ?>
+            <tr>
+                <td class="label"><label><?php echo Mage::helper('sales')->__('%s / %s rate:', $_order->getGlobalCurrencyCode(), $_order->getBaseCurrencyCode()) ?></label></td>
+                <td class="value"><strong><?php echo $_order->getBaseToGlobalRate() ?></strong></td>
+            </tr>
+            <?php endif ?>
+            <?php if($_order->getBaseCurrencyCode() != $_order->getOrderCurrencyCode()): ?>
+            <tr>
+                <td class="label"><label><?php echo Mage::helper('sales')->__('%s / %s rate:', $_order->getOrderCurrencyCode(), $_order->getBaseCurrencyCode()) ?></label></td>
+                <td class="value"><strong><?php echo $_order->getBaseToOrderRate() ?></strong></td>
+            </tr>
+            <?php endif ?>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="box-right">
+    <!--Account Information-->
+    <div class="entry-edit">
+        <div class="entry-edit-head">
+            <h4 class="icon-head head-account"><?php echo Mage::helper('sales')->__('Account Information') ?></h4>
+            <div class="tools"><?php echo $this->getAccountEditLink()?></div>
+        </div>
+        <div class="fieldset">
+            <div class="hor-scroll">
+                <table cellspacing="0" class="form-list">
+                <tr>
+                    <td class="label"><label><?php echo Mage::helper('sales')->__('Customer Name') ?></label></td>
+                    <td class="value">
+                    <?php if ($_customerUrl = $this->getCustomerViewUrl()) : ?>
+                        <a href="<?php echo $_customerUrl ?>" target="_blank"><strong><?php echo $this->escapeHtml($_order->getCustomerName()) ?></strong></a>
+                    <?php else: ?>
+                        <strong><?php echo $this->escapeHtml($_order->getCustomerName()) ?></strong>
+                    <?php endif ?>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label"><label><?php echo Mage::helper('sales')->__('Email') ?></label></td>
+                    <td class="value"><a href="mailto:<?php echo $this->escapeHtml($_order->getCustomerEmail()) ?>" data-copy-text="<?php echo $_order->getCustomerEmail()?>"><strong><?php echo $this->escapeHtml($_order->getCustomerEmail()) ?></strong></a></td>
+                </tr>
+                <?php if ($_groupName = $this->getCustomerGroupName()) : ?>
+                <tr>
+                    <td class="label"><label><?php echo Mage::helper('sales')->__('Customer Group') ?></label></td>
+                    <td class="value"><strong><?php echo $this->escapeHtml($_groupName) ?></strong></td>
+                </tr>
+                <?php endif ?>
+                <?php foreach ($this->getCustomerAccountData() as $data):?>
+                <tr>
+                    <td class="label"><label><?php echo $data['label'] ?></label></td>
+                    <td class="value"><strong><?php echo $data['value'] ?></strong></td>
+                </tr>
+                <?php endforeach ?>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="clear"></div>
+
+<div class="box-left">
+    <!--Billing Address-->
+    <div class="entry-edit">
+        <div class="entry-edit-head">
+            <h4 class="icon-head head-billing-address"><?php echo Mage::helper('sales')->__('Billing Address') ?></h4>
+            <div class="tools"><?php echo $this->getAddressEditLink($_order->getBillingAddress())?></div>
+        </div>
+        <fieldset>
+            <address><?php echo $this->maliciousCodeFilter($_order->getBillingAddress()->getFormated(true)) ?></address>
+        </fieldset>
+    </div>
+</div>
+<?php if (!$this->getOrder()->getIsVirtual()): ?>
+<div class="box-right">
+    <!--Shipping Address-->
+    <div class="entry-edit">
+        <div class="entry-edit-head">
+            <h4 class="icon-head head-shipping-address"><?php echo Mage::helper('sales')->__('Shipping Address') ?></h4>
+            <div class="tools"><?php echo $this->getAddressEditLink($_order->getShippingAddress())?></div>
+        </div>
+        <fieldset>
+            <address><?php echo $this->maliciousCodeFilter($_order->getShippingAddress()->getFormated(true)) ?></address>
+        </fieldset>
+    </div>
+</div>
+<div class="clear"></div>
+<?php endif ?>

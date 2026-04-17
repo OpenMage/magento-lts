@@ -15,7 +15,7 @@
 class Mage_Adminhtml_Block_System_Config_System_Storage_Media_Synchronize extends Mage_Adminhtml_Block_System_Config_Form_Field
 {
     /**
-     * Set template
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -90,7 +90,7 @@ class Mage_Adminhtml_Block_System_Config_System_Storage_Media_Synchronize extend
      *  => connection_name  string
      * )
      *
-     * @return array
+     * @return array<string, mixed>
      */
     public function getSyncStorageParams()
     {

@@ -29,7 +29,7 @@ class Mage_Admin_Helper_Rules_Fallback extends Mage_Core_Helper_Abstract
 
     /**
      * Fallback resource permissions similarly to zend_acl
-     * @param array $resources
+     * @param array  $resources
      * @param string $resourceId
      * @param string $defaultValue
      *

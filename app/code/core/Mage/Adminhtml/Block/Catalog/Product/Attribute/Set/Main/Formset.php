@@ -14,7 +14,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main_Formset extends Ma
 {
     /**
      * Prepares attribute set form
-     *
      */
     protected function _prepareForm()
     {

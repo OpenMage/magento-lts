@@ -7,7 +7,7 @@
  * @package    Mage_Sales
  */
 
-/** @var Mage_Sales_Model_Entity_Setup $installer */
+/** @var Mage_Sales_Model_Entity_Setup $this */
 $installer = $this;
 $installer->startSetup();
 
@@ -15,7 +15,7 @@ $installer->getConnection()->changeColumn(
     $installer->getTable('sales/quote'),
     'remote_ip',
     'remote_ip',
-    'VARCHAR(255) default NULL COMMENT \'Remote Ip\'',
+    "VARCHAR(255) default NULL COMMENT 'Remote Ip'",
 );
 
 $installer->endSetup();

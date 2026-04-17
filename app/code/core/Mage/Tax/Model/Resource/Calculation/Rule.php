@@ -14,6 +14,9 @@
  */
 class Mage_Tax_Model_Resource_Calculation_Rule extends Mage_Core_Model_Resource_Db_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('tax/tax_calculation_rule', 'tax_calculation_rule_id');
@@ -37,9 +40,9 @@ class Mage_Tax_Model_Resource_Calculation_Rule extends Mage_Core_Model_Resource_
      * Fetches rules by rate, customer tax class and product tax class
      * Returns array of rule codes
      *
-     * @param array $rateId
-     * @param array $customerTaxClassId
-     * @param array $productTaxClassId
+     * @param  array $rateId
+     * @param  array $customerTaxClassId
+     * @param  array $productTaxClassId
      * @return array
      */
     public function fetchRuleCodes($rateId, $customerTaxClassId, $productTaxClassId)

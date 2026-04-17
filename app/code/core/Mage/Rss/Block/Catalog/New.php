@@ -14,6 +14,9 @@
  */
 class Mage_Rss_Block_Catalog_New extends Mage_Rss_Block_Catalog_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct() {}
 
     /**
@@ -53,6 +56,7 @@ class Mage_Rss_Block_Catalog_New extends Mage_Rss_Block_Catalog_Abstract
         $products = $product->getCollection()
             ->setStoreId($storeId)
             ->addStoreFilter()
+            ->setVisibility(Mage::getSingleton('catalog/product_visibility')::getVisibleInCatalogIds())
             ->addAttributeToFilter('news_from_date', ['or' => [
                 0 => ['date' => true, 'to' => $todayEndOfDayDate],
                 1 => ['is' => new Zend_Db_Expr('null')]],
@@ -78,8 +82,6 @@ class Mage_Rss_Block_Catalog_New extends Mage_Rss_Block_Catalog_Abstract
             )
             ->applyFrontendPriceLimitations()
         ;
-
-        $products->setVisibility(Mage::getSingleton('catalog/product_visibility')->getVisibleInCatalogIds());
 
         /*
         using resource iterator to load the data one by one
@@ -121,15 +123,15 @@ class Mage_Rss_Block_Catalog_New extends Mage_Rss_Block_Catalog_Abstract
         $description = '<table><tr>'
             . '<td><a href="' . $product->getProductUrl() . '"><img src="'
             . $helper->init($product, 'thumbnail')->resize(75, 75)
-            . '" border="0" align="left" height="75" width="75"></a></td>' .
-            '<td  style="text-decoration:none;">' . $product->getDescription();
+            . '" border="0" align="left" height="75" width="75"></a></td>'
+            . '<td  style="text-decoration:none;">' . $product->getDescription();
 
         if ($allowedPriceInRss) {
             $description .= $this->getPriceHtml($product, true);
         }
 
-        $description .= '</td>' .
-            '</tr></table>';
+        $description .= '</td>'
+            . '</tr></table>';
 
         $rssObj = $args['rssObj'];
         $data = [

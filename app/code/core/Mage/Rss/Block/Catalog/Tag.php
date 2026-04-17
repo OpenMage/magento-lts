@@ -14,6 +14,9 @@
  */
 class Mage_Rss_Block_Catalog_Tag extends Mage_Rss_Block_Catalog_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         /*
@@ -23,6 +26,7 @@ class Mage_Rss_Block_Catalog_Tag extends Mage_Rss_Block_Catalog_Abstract
         if ($tagModel) {
             $this->setCacheKey('rss_catalog_tag_' . $this->getStoreId() . '_' . $tagModel->getName());
         }
+
         $this->setCacheLifetime(600);
     }
 
@@ -52,7 +56,7 @@ class Mage_Rss_Block_Catalog_Tag extends Mage_Rss_Block_Catalog_Abstract
             ->addTagFilter($tagModel->getId())
             ->addStoreFilter($storeId);
 
-        $collection->setVisibility(Mage::getSingleton('catalog/product_visibility')->getVisibleInCatalogIds());
+        $collection->setVisibility(Mage::getSingleton('catalog/product_visibility')::getVisibleInCatalogIds());
 
         $product = Mage::getModel('catalog/product');
 

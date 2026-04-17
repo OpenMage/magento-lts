@@ -31,7 +31,6 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Collection_Abstract ext
 
     /**
      * Retrieve Product Index table name
-     *
      */
     abstract protected function _getTableName();
 
@@ -55,6 +54,7 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Collection_Abstract ext
             );
             $this->setFlag('is_idx_table_joined', true);
         }
+
         return $this;
     }
 
@@ -75,7 +75,7 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Collection_Abstract ext
     /**
      * Add filter by product ids
      *
-     * @param array $ids
+     * @param  array                                                         $ids
      * @return Mage_Reports_Model_Resource_Product_Index_Collection_Abstract
      */
     public function addFilterByIds($ids)
@@ -85,13 +85,14 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Collection_Abstract ext
         } else {
             $this->getSelect()->where('e.entity_id IN(?)', $ids);
         }
+
         return $this;
     }
 
     /**
      * Retrieve Where Condition to Index table
      *
-     * @return array
+     * @return array<string, mixed>
      */
     protected function _getWhereCondition()
     {
@@ -111,7 +112,7 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Collection_Abstract ext
     /**
      * Set customer id, that will be used in 'whereCondition'
      *
-     * @param int $id
+     * @param  int                                                           $id
      * @return Mage_Reports_Model_Resource_Product_Index_Collection_Abstract
      */
     public function setCustomerId($id)
@@ -123,7 +124,7 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Collection_Abstract ext
     /**
      * Add order by "added at"
      *
-     * @param string $dir
+     * @param  string                                                        $dir
      * @return Mage_Reports_Model_Resource_Product_Index_Collection_Abstract
      */
     public function setAddedAtOrder($dir = self::SORT_ORDER_DESC)
@@ -131,6 +132,7 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Collection_Abstract ext
         if ($this->getFlag('is_idx_table_joined')) {
             $this->getSelect()->order('added_at ' . $dir);
         }
+
         return $this;
     }
 
@@ -152,15 +154,17 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Collection_Abstract ext
      */
     protected function _sort()
     {
-        if (!empty($this->_sortIds)) {
+        if ($this->_sortIds !== []) {
             $orderedItems = [];
             foreach ($this->_sortIds as $id) {
                 if (isset($this->_items[$id])) {
                     $orderedItems[$id] = $this->_items[$id];
                 }
             }
+
             $this->_items = $orderedItems;
         }
+
         return $this;
     }
 
@@ -179,7 +183,7 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Collection_Abstract ext
     /**
      * Add exclude Product Ids
      *
-     * @param int|array $productIds
+     * @param  array|int                                                     $productIds
      * @return Mage_Reports_Model_Resource_Product_Index_Collection_Abstract
      */
     public function excludeProductIds($productIds)
@@ -187,6 +191,7 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Collection_Abstract ext
         if (empty($productIds)) {
             return $this;
         }
+
         $this->_joinIdxTable();
         $this->getSelect()->where('idx_table.product_id NOT IN(?)', $productIds);
         return $this;

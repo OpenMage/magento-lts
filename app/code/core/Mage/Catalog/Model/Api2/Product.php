@@ -17,8 +17,8 @@ class Mage_Catalog_Model_Api2_Product extends Mage_Api2_Model_Resource
     /**
      * Get available attributes of API resource
      *
-     * @param string $userType
-     * @param string $operation
+     * @param  string $userType
+     * @param  string $operation
      * @return array
      */
     public function getAvailableAttributes($userType, $operation)
@@ -33,12 +33,14 @@ class Mage_Catalog_Model_Api2_Product extends Mage_Api2_Model_Resource
                 $attributes[$attribute->getAttributeCode()] = $attribute->getFrontendLabel();
             }
         }
+
         $excludedAttrs = $this->getExcludedAttributes($userType, $operation);
         $includedAttrs = $this->getIncludedAttributes($userType, $operation);
         foreach (array_keys($attributes) as $code) {
             if (in_array($code, $excludedAttrs) || ($includedAttrs && !in_array($code, $includedAttrs))) {
                 unset($attributes[$code]);
             }
+
             if (in_array($code, $entityOnlyAttrs)) {
                 $attributes[$code] .= ' *';
             }
@@ -50,7 +52,7 @@ class Mage_Catalog_Model_Api2_Product extends Mage_Api2_Model_Resource
     /**
      * Define if attribute should be visible for passed user type
      *
-     * @param string $userType
+     * @param  string $userType
      * @return bool
      */
     protected function _isAttributeVisible(Mage_Catalog_Model_Resource_Eav_Attribute $attribute, $userType)
@@ -69,6 +71,7 @@ class Mage_Catalog_Model_Api2_Product extends Mage_Api2_Model_Resource
                 $isAttributeVisible = true;
             }
         }
+
         return (bool) $isAttributeVisible;
     }
 }

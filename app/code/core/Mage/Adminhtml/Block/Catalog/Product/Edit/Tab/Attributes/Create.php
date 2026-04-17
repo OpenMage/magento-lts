@@ -11,13 +11,16 @@
  * New attribute panel on product edit page
  *
  * @package    Mage_Adminhtml
+ *
+ * @method bool  getCanShow()
+ * @method $this setCanShow(bool $value)
  */
 class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Attributes_Create extends Mage_Adminhtml_Block_Widget_Button
 {
     /**
      * Config of create new attribute
      *
-     * @var Varien_Object|null
+     * @var null|Varien_Object
      */
     protected $_config = null;
 

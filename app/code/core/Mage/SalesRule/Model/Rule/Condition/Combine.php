@@ -41,7 +41,7 @@ class Mage_SalesRule_Model_Rule_Condition_Combine extends Mage_Rule_Model_Condit
         $additional = new Varien_Object();
         Mage::dispatchEvent('salesrule_rule_condition_combine', ['additional' => $additional]);
         if ($additionalConditions = $additional->getConditions()) {
-            $conditions = array_merge_recursive($conditions, $additionalConditions);
+            return array_merge_recursive($conditions, $additionalConditions);
         }
 
         return $conditions;

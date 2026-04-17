@@ -17,8 +17,8 @@ class Mage_Customer_Model_Customer_Attribute_Source_Website extends Mage_Eav_Mod
     /**
      * Retrieve Full Option values array
      *
-     * @param bool $withEmpty       Argument has no effect, included for PHP 7.2 method signature compatibility
-     * @param bool $defaultValues   Argument has no effect, included for PHP 7.2 method signature compatibility
+     * @param  bool  $withEmpty     Argument has no effect, included for PHP 7.2 method signature compatibility
+     * @param  bool  $defaultValues Argument has no effect, included for PHP 7.2 method signature compatibility
      * @return array
      */
     public function getAllOptions($withEmpty = true, $defaultValues = false)
@@ -38,11 +38,13 @@ class Mage_Customer_Model_Customer_Attribute_Source_Website extends Mage_Eav_Mod
         if (!$this->_options) {
             $this->_options = $this->getAllOptions();
         }
+
         foreach ($this->_options as $option) {
             if ($option['value'] == $value) {
                 return $option['label'];
             }
         }
+
         return false;
     }
 }

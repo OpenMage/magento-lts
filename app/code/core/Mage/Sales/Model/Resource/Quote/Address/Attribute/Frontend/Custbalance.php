@@ -29,6 +29,7 @@ class Mage_Sales_Model_Resource_Quote_Address_Attribute_Frontend_Custbalance ext
                 'value' => -$custbalance,
             ]);
         }
+
         return $this;
     }
 }

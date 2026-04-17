@@ -27,11 +27,12 @@ class Mage_Install_Block_Locale extends Mage_Install_Block_Abstract
      */
     public function getLocale()
     {
-        $locale = $this->getData('locale');
+        $locale = $this->getDataByKey('locale');
         if (is_null($locale)) {
             $locale = Mage::app()->getLocale()->getLocale();
             $this->setData('locale', $locale);
         }
+
         return $locale;
     }
 
@@ -101,8 +102,9 @@ class Mage_Install_Block_Locale extends Mage_Install_Block_Abstract
             ? Mage::getSingleton('install/session')->getTimezone()
             : Mage::app()->getLocale()->getTimezone();
         if ($timezone == Mage_Core_Model_Locale::DEFAULT_TIMEZONE) {
-            $timezone = 'America/Los_Angeles';
+            return 'America/Los_Angeles';
         }
+
         return $timezone;
     }
 
@@ -137,11 +139,12 @@ class Mage_Install_Block_Locale extends Mage_Install_Block_Abstract
 
     public function getFormData()
     {
-        $data = $this->getData('form_data');
+        $data = $this->getDataByKey('form_data');
         if (is_null($data)) {
             $data = new Varien_Object();
             $this->setData('form_data', $data);
         }
+
         return $data;
     }
 }

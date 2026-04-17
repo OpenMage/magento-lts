@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -24,6 +26,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Msrp_Enabled extends Vari
         if (is_null($this->getValue())) {
             $this->setValue(Mage_Catalog_Model_Product_Attribute_Source_Msrp_Type_Enabled::MSRP_ENABLE_USE_CONFIG);
         }
+
         return parent::getElementHtml();
     }
 }

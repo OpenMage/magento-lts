@@ -28,7 +28,7 @@ class Varien_Data_Form_Element_Checkbox extends Varien_Data_Form_Element_Abstrac
     }
 
     /**
-     * @return array
+     * @return array<int, string>
      */
     public function getHtmlAttributes()
     {
@@ -45,13 +45,14 @@ class Varien_Data_Form_Element_Checkbox extends Varien_Data_Form_Element_Abstrac
         } else {
             $this->unsetData('checked');
         }
+
         return parent::getElementHtml();
     }
 
     /**
      * Set check status of checkbox
      *
-     * @param bool $value
+     * @param  bool                              $value
      * @return Varien_Data_Form_Element_Checkbox
      */
     public function setIsChecked($value = false)
@@ -67,6 +68,6 @@ class Varien_Data_Form_Element_Checkbox extends Varien_Data_Form_Element_Abstrac
      */
     public function getIsChecked()
     {
-        return $this->getData('checked');
+        return $this->getDataByKey('checked');
     }
 }

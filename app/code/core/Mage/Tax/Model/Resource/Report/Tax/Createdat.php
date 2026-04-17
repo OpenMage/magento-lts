@@ -14,6 +14,9 @@
  */
 class Mage_Tax_Model_Resource_Report_Tax_Createdat extends Mage_Reports_Model_Resource_Report_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('tax/tax_order_aggregated_created', 'id');
@@ -22,55 +25,55 @@ class Mage_Tax_Model_Resource_Report_Tax_Createdat extends Mage_Reports_Model_Re
     /**
      * Aggregate Tax data by order created at
      *
-     * @param mixed $from
-     * @param mixed $to
+     * @param  null|string $dateFrom
+     * @param  null|string $dateTo
      * @return $this
      */
-    public function aggregate($from = null, $to = null)
+    public function aggregate($dateFrom = null, $dateTo = null)
     {
-        return $this->_aggregateByOrder('created_at', $from, $to);
+        return $this->_aggregateByOrder('created_at', $dateFrom, $dateTo);
     }
 
     /**
      * Aggregate Tax data by orders
      *
-     * @throws Exception
-     * @param string $aggregationField
-     * @param mixed $from
-     * @param mixed $to
+     * @param  string      $aggregationField
+     * @param  null|string $dateFrom
+     * @param  null|string $dateTo
      * @return $this
+     * @throws Exception
      */
-    protected function _aggregateByOrder($aggregationField, $from, $to)
+    protected function _aggregateByOrder($aggregationField, $dateFrom, $dateTo)
     {
         // convert input dates to UTC to be comparable with DATETIME fields in DB
-        $from = $this->_dateToUtc($from);
-        $to = $this->_dateToUtc($to);
+        $dateFrom = $this->_dateToUtc($dateFrom);
+        $dateTo = $this->_dateToUtc($dateTo);
 
-        $this->_checkDates($from, $to);
+        $this->_checkDates($dateFrom, $dateTo);
         $writeAdapter = $this->_getWriteAdapter();
         $writeAdapter->beginTransaction();
 
         try {
-            if ($from !== null || $to !== null) {
+            if ($dateFrom !== null || $dateTo !== null) {
                 $subSelect = $this->_getTableDateRangeSelect(
                     $this->getTable('sales/order'),
                     'created_at',
                     'updated_at',
-                    $from,
-                    $to,
+                    $dateFrom,
+                    $dateTo,
                 );
             } else {
                 $subSelect = null;
             }
 
-            $this->_clearTableByDateRange($this->getMainTable(), $from, $to, $subSelect);
+            $this->_clearTableByDateRange($this->getMainTable(), $dateFrom, $dateTo, $subSelect);
             // convert dates from UTC to current admin timezone
             $periodExpr = $writeAdapter->getDatePartSql(
                 $this->getStoreTZOffsetQuery(
                     ['e' => $this->getTable('sales/order')],
                     'e.' . $aggregationField,
-                    $from,
-                    $to,
+                    $dateFrom,
+                    $dateTo,
                 ),
             );
 
@@ -127,9 +130,9 @@ class Mage_Tax_Model_Resource_Report_Tax_Createdat extends Mage_Reports_Model_Re
             $insertQuery = $writeAdapter->insertFromSelect($select, $this->getMainTable(), array_keys($columns));
             $writeAdapter->query($insertQuery);
             $writeAdapter->commit();
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $writeAdapter->rollBack();
-            throw $e;
+            throw $exception;
         }
 
         return $this;

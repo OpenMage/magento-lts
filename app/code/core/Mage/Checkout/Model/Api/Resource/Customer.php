@@ -7,6 +7,8 @@
  * @package    Mage_Checkout
  */
 
+use Carbon\Carbon;
+
 /**
  * Checkout api resource for Customer
  *
@@ -18,17 +20,20 @@ class Mage_Checkout_Model_Api_Resource_Customer extends Mage_Checkout_Model_Api_
      * Customer address types
      */
     public const ADDRESS_BILLING    = Mage_Sales_Model_Quote_Address::TYPE_BILLING;
+
     public const ADDRESS_SHIPPING   = Mage_Sales_Model_Quote_Address::TYPE_SHIPPING;
 
     /**
      * Customer checkout types
      */
     public const MODE_CUSTOMER = Mage_Checkout_Model_Type_Onepage::METHOD_CUSTOMER;
+
     public const MODE_REGISTER = Mage_Checkout_Model_Type_Onepage::METHOD_REGISTER;
+
     public const MODE_GUEST    = Mage_Checkout_Model_Type_Onepage::METHOD_GUEST;
 
     /**
-     * @param int $customerId
+     * @param  int                          $customerId
      * @return Mage_Customer_Model_Customer
      * @throws Mage_Api_Exception
      */
@@ -47,8 +52,8 @@ class Mage_Checkout_Model_Api_Resource_Customer extends Mage_Checkout_Model_Api_
     /**
      * Get customer address by identifier
      *
-     * @param   int $addressId
-     * @return  Mage_Customer_Model_Address
+     * @param  int                         $addressId
+     * @return Mage_Customer_Model_Address
      */
     protected function _getCustomerAddress($addressId)
     {
@@ -61,6 +66,7 @@ class Mage_Checkout_Model_Api_Resource_Customer extends Mage_Checkout_Model_Api_
         if ($address->getRegionId()) {
             $address->setRegion($address->getRegionId());
         }
+
         return $address;
     }
 
@@ -128,7 +134,7 @@ class Mage_Checkout_Model_Api_Resource_Customer extends Mage_Checkout_Model_Api_
 
         Mage::helper('core')->copyFieldset('checkout_onepage_quote', 'to_customer', $quote, $customer);
         $customer->setPassword($customer->decryptPassword($quote->getPasswordHash()));
-        $customer->setPasswordCreatedAt(time());
+        $customer->setPasswordCreatedAt(Carbon::now()->getTimestamp());
         $quote->setCustomer($customer)
             ->setCustomerId(true);
         $quote->setPasswordHash('');
@@ -151,6 +157,7 @@ class Mage_Checkout_Model_Api_Resource_Customer extends Mage_Checkout_Model_Api_
             $customer->addAddress($customerBilling);
             $billing->setCustomerAddress($customerBilling);
         }
+
         if ($shipping && ((!$shipping->getCustomerId() && !$shipping->getSameAsBilling())
             || (!$shipping->getSameAsBilling() && $shipping->getSaveInAddressBook()))
         ) {
@@ -162,11 +169,13 @@ class Mage_Checkout_Model_Api_Resource_Customer extends Mage_Checkout_Model_Api_
         if (isset($customerBilling) && !$customer->getDefaultBilling()) {
             $customerBilling->setIsDefaultBilling(true);
         }
+
         if ($shipping && isset($customerShipping) && !$customer->getDefaultShipping()) {
             $customerShipping->setIsDefaultShipping(true);
         } elseif (isset($customerBilling) && !$customer->getDefaultShipping()) {
             $customerBilling->setIsDefaultShipping(true);
         }
+
         $quote->setCustomer($customer);
 
         return $this;

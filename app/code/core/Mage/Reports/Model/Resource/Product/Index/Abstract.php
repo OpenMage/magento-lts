@@ -15,7 +15,7 @@
 abstract class Mage_Reports_Model_Resource_Product_Index_Abstract extends Mage_Core_Model_Resource_Db_Abstract
 {
     /**
-     * Fields List for update in forsedSave
+     * Fields List for update in forcedSave
      *
      * @var array
      */
@@ -34,6 +34,7 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Abstract extends Mage_C
         if (!$object->getCustomerId() || !$object->getVisitorId()) {
             return $this;
         }
+
         $adapter = $this->_getWriteAdapter();
         $select  = $adapter->select()
             ->from($this->getMainTable())
@@ -74,6 +75,7 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Abstract extends Mage_C
 
             $adapter->update($this->getMainTable(), $data, $where);
         }
+
         return $this;
     }
 
@@ -162,14 +164,14 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Abstract extends Mage_C
                 $this->_getWriteAdapter()->quoteInto($this->getIdFieldName() . ' IN(?)', $indexIds),
             );
         }
+
         return $this;
     }
 
     /**
      * Add information about product ids to visitor/customer
      *
-     *
-     * @param array $productIds
+     * @param  array                                              $productIds
      * @return Mage_Reports_Model_Resource_Product_Index_Abstract
      */
     public function registerIds(Varien_Object $object, $productIds)
@@ -188,6 +190,7 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Abstract extends Mage_C
                 $row['added_at']   = Varien_Date::formatDate($addedAt);
                 $data[] = $row;
             }
+
             $addedAt -= ($addedAt > 0) ? 1 : 0;
         }
 
@@ -202,6 +205,7 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Abstract extends Mage_C
                 $matchFields,
             );
         }
+
         return $this;
     }
 }

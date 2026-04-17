@@ -22,7 +22,7 @@ class Varien_Data_Form_Element_Obscure extends Varien_Data_Form_Element_Password
     /**
      * Hide value to make sure it will not show in HTML
      *
-     * @param string $index
+     * @param  string $index
      * @return string
      */
     public function getEscapedValue($index = null)
@@ -31,13 +31,14 @@ class Varien_Data_Form_Element_Obscure extends Varien_Data_Form_Element_Password
         if (!empty($value)) {
             return $this->_obscuredValue;
         }
+
         return $value;
     }
 
     /**
      * Returns list of html attributes possible to output in HTML
      *
-     * @return array
+     * @return array<int, string>
      */
     public function getHtmlAttributes()
     {

@@ -19,16 +19,7 @@ class Varien_Event_Observer_Collection
      *
      * @var array
      */
-    protected $_observers;
-
-    /**
-     * Initializes observers
-     *
-     */
-    public function __construct()
-    {
-        $this->_observers = [];
-    }
+    protected $_observers = [];
 
     /**
      * Returns all observers in the collection
@@ -43,7 +34,7 @@ class Varien_Event_Observer_Collection
     /**
      * Returns observer by its name
      *
-     * @param string $observerName
+     * @param  string                $observerName
      * @return Varien_Event_Observer
      */
     public function getObserverByName($observerName)
@@ -65,7 +56,7 @@ class Varien_Event_Observer_Collection
     /**
      * Removes an observer from the collection by its name
      *
-     * @param string $observerName
+     * @param  string $observerName
      * @return $this
      */
     public function removeObserverByName($observerName)
@@ -84,6 +75,7 @@ class Varien_Event_Observer_Collection
         foreach ($this->_observers as $observer) {
             $observer->dispatch($event);
         }
+
         return $this;
     }
 }

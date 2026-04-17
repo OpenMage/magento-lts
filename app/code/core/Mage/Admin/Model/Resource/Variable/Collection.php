@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -12,14 +14,12 @@
  *
  * @package    Mage_Admin
  *
- * @method Mage_Admin_Model_Variable getItemById(int $value)
- * @method Mage_Admin_Model_Variable[] getItems()
+ * @extends Mage_Core_Model_Resource_Db_Collection_Abstract<Mage_Admin_Model_Variable>
  */
 class Mage_Admin_Model_Resource_Variable_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
     /**
-     * Define resource model
-     *
+     * @inheritDoc
      */
     protected function _construct()
     {

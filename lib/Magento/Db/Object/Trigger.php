@@ -33,11 +33,7 @@ class Magento_Db_Object_Trigger extends Magento_Db_Object implements Magento_Db_
             $this->describe();
         }
 
-        if (isset($this->_data['triggers'][$this->_schemaName][$this->_objectName])) {
-            return true;
-        }
-
-        return false;
+        return isset($this->_data['triggers'][$this->_schemaName][$this->_objectName]);
     }
 
     public function describe()
@@ -80,8 +76,10 @@ class Magento_Db_Object_Trigger extends Magento_Db_Object implements Magento_Db_
             if (null !== $row['created']) {
                 $row['created'] = new DateTime($row['created']);
             }
+
             $data[$row['trigger_name']] = $row;
         }
+
         $this->_data['triggers'][$schema] = $data;
 
         return $data;

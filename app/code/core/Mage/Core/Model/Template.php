@@ -18,6 +18,7 @@ abstract class Mage_Core_Model_Template extends Mage_Core_Model_Abstract
      * Types of template
      */
     public const TYPE_TEXT = 1;
+
     public const TYPE_HTML = 2;
 
     /**
@@ -28,14 +29,14 @@ abstract class Mage_Core_Model_Template extends Mage_Core_Model_Abstract
     /**
      * Configuration of design package for template
      *
-     * @var Varien_Object|null
+     * @var null|Varien_Object
      */
     protected $_designConfig;
 
     /**
      * Configuration of emulated design package.
      *
-     * @var Varien_Object|false
+     * @var false|Varien_Object
      */
     protected $_emulatedDesignConfig = false;
 
@@ -43,7 +44,7 @@ abstract class Mage_Core_Model_Template extends Mage_Core_Model_Abstract
      * Initial environment information
      * @see self::_applyDesignConfig()
      *
-     * @var Varien_Object|null
+     * @var null|Varien_Object
      */
     protected $_initialEnvironmentInfo = null;
 
@@ -62,6 +63,7 @@ abstract class Mage_Core_Model_Template extends Mage_Core_Model_Abstract
             $appEmulation = Mage::getSingleton('core/app_emulation');
             $this->_initialEnvironmentInfo = $appEmulation->startEnvironmentEmulation($storeId, $area);
         }
+
         return $this;
     }
 
@@ -77,6 +79,7 @@ abstract class Mage_Core_Model_Template extends Mage_Core_Model_Abstract
             $appEmulation->stopEnvironmentEmulation($this->_initialEnvironmentInfo);
             $this->_initialEnvironmentInfo = null;
         }
+
         return $this;
     }
 
@@ -95,13 +98,14 @@ abstract class Mage_Core_Model_Template extends Mage_Core_Model_Abstract
                 'store' => $storeId,
             ]);
         }
+
         return $this->_designConfig;
     }
 
     /**
      * Initialize design information for template processing
      *
-     * @return  $this
+     * @return $this
      */
     public function setDesignConfig(array $config)
     {
@@ -114,7 +118,7 @@ abstract class Mage_Core_Model_Template extends Mage_Core_Model_Abstract
      * Event is not dispatched.
      *
      * @param int|string $storeId
-     * @param string $area
+     * @param string     $area
      */
     public function emulateDesign($storeId, $area = self::DEFAULT_DESIGN_AREA)
     {

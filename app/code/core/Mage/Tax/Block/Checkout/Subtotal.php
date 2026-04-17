@@ -25,7 +25,6 @@ class Mage_Tax_Block_Checkout_Subtotal extends Mage_Checkout_Block_Total_Default
      * The factory instance to get helper
      *
      * @var Mage_Core_Model_Factory
-     *
      */
     protected $_factory;
 
@@ -34,7 +33,7 @@ class Mage_Tax_Block_Checkout_Subtotal extends Mage_Checkout_Block_Total_Default
      */
     public function __construct(array $args = [])
     {
-        $this->_factory = !empty($args['factory']) ? $args['factory'] : Mage::getSingleton('core/factory');
+        $this->_factory = empty($args['factory']) ? Mage::getSingleton('core/factory') : $args['factory'];
     }
 
     /**

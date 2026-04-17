@@ -31,6 +31,7 @@ class Mage_Sales_Model_Resource_Report_Bestsellers_Collection extends Mage_Sales
     /**
      * Initialize custom resource model
      *
+     * @throws Zend_Exception
      */
     public function __construct()
     {
@@ -70,25 +71,27 @@ class Mage_Sales_Model_Resource_Report_Bestsellers_Collection extends Mage_Sales
                 }
             }
         }
+
         return $this->_selectedColumns;
     }
 
     /**
      * Make select object for date boundary
      *
-     * @param mixed $from
-     * @param mixed $to
-     * @return Zend_Db_Select
+     * @param  null|string         $dateFrom
+     * @param  null|string         $dateTo
+     * @return Varien_Db_Select
+     * @throws Mage_Core_Exception
      */
-    protected function _makeBoundarySelect($from, $to)
+    protected function _makeBoundarySelect($dateFrom, $dateTo)
     {
         $adapter = $this->getConnection();
         $cols    = $this->_getSelectedColumns();
         $cols['qty_ordered'] = 'SUM(qty_ordered)';
         $sel     = $adapter->select()
             ->from($this->getResource()->getMainTable(), $cols)
-            ->where('period >= ?', $from)
-            ->where('period <= ?', $to)
+            ->where('period >= ?', $dateFrom)
+            ->where('period <= ?', $dateTo)
             ->group('product_id')
             ->order('qty_ordered DESC')
             ->limit($this->_ratingLimit);
@@ -103,6 +106,7 @@ class Mage_Sales_Model_Resource_Report_Bestsellers_Collection extends Mage_Sales
      * Add selected data
      *
      * @return $this
+     * @throws Zend_Db_Select_Exception
      */
     protected function _initSelect()
     {
@@ -142,9 +146,11 @@ class Mage_Sales_Model_Resource_Report_Bestsellers_Collection extends Mage_Sales
             $mainTable = $this->getTable('sales/bestsellers_aggregated_daily');
             $select->from($mainTable, $this->_getSelectedColumns());
         }
+
         if (!$this->isTotals()) {
             $select->group(['period', 'product_id']);
         }
+
         $select->where('rating_pos <= ?', $this->_ratingLimit);
 
         return $this;
@@ -155,6 +161,9 @@ class Mage_Sales_Model_Resource_Report_Bestsellers_Collection extends Mage_Sales
      * but before adding unions and calculating totals
      *
      * @return $this
+     * @throws Mage_Core_Exception
+     * @throws Zend_Date_Exception
+     * @throws Zend_Db_Select_Exception
      */
     protected function _beforeLoad()
     {
@@ -167,115 +176,118 @@ class Mage_Sales_Model_Resource_Report_Bestsellers_Collection extends Mage_Sales
 
             // apply date boundaries (before calling $this->_applyDateRangeFilter())
             $dtFormat   = Varien_Date::DATE_INTERNAL_FORMAT;
-            $periodFrom = (!is_null($this->_from) ? new Zend_Date($this->_from, $dtFormat) : null);
-            $periodTo   = (!is_null($this->_to) ? new Zend_Date($this->_to, $dtFormat) : null);
+            $periodFrom = (is_null($this->_from) ? null : new Zend_Date($this->_from, $dtFormat));
+            $periodTo   = (is_null($this->_to) ? null : new Zend_Date($this->_to, $dtFormat));
             if ($this->_period == 'year') {
-                if ($periodFrom) {
-                    // not the first day of the year
-                    if ($periodFrom->toValue(Zend_Date::MONTH) != 1 || $periodFrom->toValue(Zend_Date::DAY) != 1) {
-                        $dtFrom = $periodFrom->getDate();
-                        // last day of the year
-                        $dtTo = $periodFrom->getDate()->setMonth(12)->setDay(31);
-                        if (!$periodTo || $dtTo->isEarlier($periodTo)) {
-                            $selectUnions[] = $this->_makeBoundarySelect(
-                                $dtFrom->toString($dtFormat),
-                                $dtTo->toString($dtFormat),
-                            );
-
-                            // first day of the next year
-                            $this->_from = $periodFrom->getDate()
-                                ->addYear(1)
-                                ->setMonth(1)
-                                ->setDay(1)
-                                ->toString($dtFormat);
-                        }
-                    }
-                }
-
-                if ($periodTo) {
-                    // not the last day of the year
-                    if ($periodTo->toValue(Zend_Date::MONTH) != 12 || $periodTo->toValue(Zend_Date::DAY) != 31) {
-                        $dtFrom = $periodTo->getDate()->setMonth(1)->setDay(1);  // first day of the year
-                        $dtTo = $periodTo->getDate();
-                        if (!$periodFrom || $dtFrom->isLater($periodFrom)) {
-                            $selectUnions[] = $this->_makeBoundarySelect(
-                                $dtFrom->toString($dtFormat),
-                                $dtTo->toString($dtFormat),
-                            );
-
-                            // last day of the previous year
-                            $this->_to = $periodTo->getDate()
-                                ->subYear(1)
-                                ->setMonth(12)
-                                ->setDay(31)
-                                ->toString($dtFormat);
-                        }
-                    }
-                }
-
-                if ($periodFrom && $periodTo) {
-                    // the same year
-                    if ($periodFrom->toValue(Zend_Date::YEAR) == $periodTo->toValue(Zend_Date::YEAR)) {
-                        $dtFrom = $periodFrom->getDate();
-                        $dtTo = $periodTo->getDate();
+                // not the first day of the year
+                if ($periodFrom
+                    && ($periodFrom->toValue(Zend_Date::MONTH) != 1 || $periodFrom->toValue(Zend_Date::DAY) != 1)
+                ) {
+                    $dtFrom = $periodFrom->getDate();
+                    // last day of the year
+                    $dtTo = $periodFrom->getDate()->setMonth(12)->setDay(31);
+                    if (!$periodTo || $dtTo->isEarlier($periodTo)) {
                         $selectUnions[] = $this->_makeBoundarySelect(
                             $dtFrom->toString($dtFormat),
                             $dtTo->toString($dtFormat),
                         );
 
-                        $this->getSelect()->where('1<>1');
+                        // first day of the next year
+                        $this->_from = $periodFrom->getDate()
+                            ->addYear(1)
+                            ->setMonth(1)
+                            ->setDay(1)
+                            ->toString($dtFormat);
                     }
+                }
+
+                // not the last day of the year
+                if ($periodTo
+                    && ($periodTo->toValue(Zend_Date::MONTH) != 12 || $periodTo->toValue(Zend_Date::DAY) != 31)
+                ) {
+                    $dtFrom = $periodTo->getDate()->setMonth(1)->setDay(1);
+                    // first day of the year
+                    $dtTo = $periodTo->getDate();
+                    if (!$periodFrom || $dtFrom->isLater($periodFrom)) {
+                        $selectUnions[] = $this->_makeBoundarySelect(
+                            $dtFrom->toString($dtFormat),
+                            $dtTo->toString($dtFormat),
+                        );
+
+                        // last day of the previous year
+                        $this->_to = $periodTo->getDate()
+                            ->subYear(1)
+                            ->setMonth(12)
+                            ->setDay(31)
+                            ->toString($dtFormat);
+                    }
+                }
+
+                // the same year
+                if ($periodFrom
+                    && $periodTo
+                    && $periodFrom->toValue(Zend_Date::YEAR) == $periodTo->toValue(Zend_Date::YEAR)
+                ) {
+                    $dtFrom = $periodFrom->getDate();
+                    $dtTo = $periodTo->getDate();
+                    $selectUnions[] = $this->_makeBoundarySelect(
+                        $dtFrom->toString($dtFormat),
+                        $dtTo->toString($dtFormat),
+                    );
+                    $this->getSelect()->where('1<>1');
                 }
             } elseif ($this->_period == 'month') {
-                if ($periodFrom) {
-                    // not the first day of the month
-                    if ($periodFrom->toValue(Zend_Date::DAY) != 1) {
-                        $dtFrom = $periodFrom->getDate();
-                        // last day of the month
-                        $dtTo = $periodFrom->getDate()->addMonth(1)->setDay(1)->subDay(1);
-                        if (!$periodTo || $dtTo->isEarlier($periodTo)) {
-                            $selectUnions[] = $this->_makeBoundarySelect(
-                                $dtFrom->toString($dtFormat),
-                                $dtTo->toString($dtFormat),
-                            );
-
-                            // first day of the next month
-                            $this->_from = $periodFrom->getDate()->addMonth(1)->setDay(1)->toString($dtFormat);
-                        }
-                    }
-                }
-
-                if ($periodTo) {
-                    // not the last day of the month
-                    if ($periodTo->toValue(Zend_Date::DAY) != $periodTo->toValue(Zend_Date::MONTH_DAYS)) {
-                        $dtFrom = $periodTo->getDate()->setDay(1);  // first day of the month
-                        $dtTo = $periodTo->getDate();
-                        if (!$periodFrom || $dtFrom->isLater($periodFrom)) {
-                            $selectUnions[] = $this->_makeBoundarySelect(
-                                $dtFrom->toString($dtFormat),
-                                $dtTo->toString($dtFormat),
-                            );
-
-                            // last day of the previous month
-                            $this->_to = $periodTo->getDate()->setDay(1)->subDay(1)->toString($dtFormat);
-                        }
-                    }
-                }
-
-                if ($periodFrom && $periodTo) {
-                    // the same month
-                    if ($periodFrom->toValue(Zend_Date::YEAR) == $periodTo->toValue(Zend_Date::YEAR)
-                        && $periodFrom->toValue(Zend_Date::MONTH) == $periodTo->toValue(Zend_Date::MONTH)
-                    ) {
-                        $dtFrom = $periodFrom->getDate();
-                        $dtTo = $periodTo->getDate();
+                // not the first day of the month
+                if ($periodFrom
+                    && $periodFrom->toValue(Zend_Date::DAY) != 1
+                ) {
+                    $dtFrom = $periodFrom->getDate();
+                    // last day of the month
+                    $dtTo = $periodFrom->getDate()->addMonth(1)->setDay(1)->subDay(1);
+                    if (!$periodTo || $dtTo->isEarlier($periodTo)) {
                         $selectUnions[] = $this->_makeBoundarySelect(
                             $dtFrom->toString($dtFormat),
                             $dtTo->toString($dtFormat),
                         );
 
-                        $this->getSelect()->where('1<>1');
+                        // first day of the next month
+                        $this->_from = $periodFrom->getDate()->addMonth(1)->setDay(1)->toString($dtFormat);
                     }
+                }
+
+                // not the last day of the month
+                if ($periodTo
+                    && $periodTo->toValue(Zend_Date::DAY) != $periodTo->toValue(Zend_Date::MONTH_DAYS)
+                ) {
+                    $dtFrom = $periodTo->getDate()->setDay(1);
+                    // first day of the month
+                    $dtTo = $periodTo->getDate();
+                    if (!$periodFrom || $dtFrom->isLater($periodFrom)) {
+                        $selectUnions[] = $this->_makeBoundarySelect(
+                            $dtFrom->toString($dtFormat),
+                            $dtTo->toString($dtFormat),
+                        );
+
+                        // last day of the previous month
+                        $this->_to = $periodTo->getDate()->setDay(1)->subDay(1)->toString($dtFormat);
+                    }
+                }
+
+                // the same month
+                if ($periodFrom
+                    && $periodTo
+                    && (
+                        $periodFrom->toValue(Zend_Date::YEAR) == $periodTo->toValue(Zend_Date::YEAR)
+                        && $periodFrom->toValue(Zend_Date::MONTH) == $periodTo->toValue(Zend_Date::MONTH)
+                    )
+                ) {
+                    $dtFrom = $periodFrom->getDate();
+                    $dtTo = $periodTo->getDate();
+                    $selectUnions[] = $this->_makeBoundarySelect(
+                        $dtFrom->toString($dtFormat),
+                        $dtTo->toString($dtFormat),
+                    );
+                    $this->getSelect()->where('1<>1');
                 }
             }
 
@@ -293,6 +305,7 @@ class Mage_Sales_Model_Resource_Report_Bestsellers_Collection extends Mage_Sales
                     $query = $helper->getQueryUsingAnalyticFunction($union);
                     $unionParts[] = '(' . $query . ')';
                 }
+
                 $this->getSelect()->reset()->union($unionParts, Zend_Db_Select::SQL_UNION_ALL);
             }
 

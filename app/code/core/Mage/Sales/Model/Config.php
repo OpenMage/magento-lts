@@ -15,27 +15,27 @@ class Mage_Sales_Model_Config
     public const XML_PATH_ORDER_STATES = 'global/sales/order/states';
 
     /**
-     * @param string $type
+     * @param  string $type
      * @return bool
      */
     public function getQuoteRuleConditionInstance($type)
     {
-        return Mage::getConfig()->getNodeClassInstance("global/sales/quote/rule/conditions/$type");
+        return Mage::getConfig()->getNodeClassInstance("global/sales/quote/rule/conditions/{$type}");
     }
 
     /**
-     * @param string $type
+     * @param  string $type
      * @return bool
      */
     public function getQuoteRuleActionInstance($type)
     {
-        return Mage::getConfig()->getNodeClassInstance("global/sales/quote/rule/actions/$type");
+        return Mage::getConfig()->getNodeClassInstance("global/sales/quote/rule/actions/{$type}");
     }
 
     /**
      * Retrieve order statuses for state
      *
-     * @param string $state
+     * @param  string $state
      * @return array
      */
     public function getOrderStatusesForState($state)
@@ -46,10 +46,10 @@ class Mage_Sales_Model_Config
         }
 
         $statuses = [];
-
-        foreach ($states->$state->statuses->children() as $status => $node) {
+        foreach ($states->$state->statuses->children() as $status => $ignored) {
             $statuses[] = $status;
         }
+
         return $statuses;
     }
 }

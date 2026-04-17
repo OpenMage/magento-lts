@@ -11,6 +11,9 @@
  * Abstract Rule entity resource collection model
  *
  * @package    Mage_Rule
+ *
+ * @template T of Mage_Rule_Model_Abstract
+ * @extends Mage_Core_Model_Resource_Db_Collection_Abstract<T>
  */
 abstract class Mage_Rule_Model_Resource_Rule_Collection_Abstract extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
@@ -54,7 +57,6 @@ abstract class Mage_Rule_Model_Resource_Rule_Collection_Abstract extends Mage_Co
     {
         parent::_afterLoad();
         if ($this->getFlag('add_websites_to_result') && $this->_items) {
-            /** @var Mage_Rule_Model_Abstract $item */
             foreach ($this->_items as $item) {
                 $item->afterLoad();
             }
@@ -66,13 +68,13 @@ abstract class Mage_Rule_Model_Resource_Rule_Collection_Abstract extends Mage_Co
     /**
      * Init flag for adding rule website ids to collection result
      *
-     * @param bool|null $flag
+     * @param null|bool $flag
      *
      * @return Mage_Rule_Model_Resource_Rule_Collection_Abstract
      */
     public function addWebsitesToResult($flag = null)
     {
-        $flag = $flag ?? true;
+        $flag ??= true;
         $this->setFlag('add_websites_to_result', $flag);
         return $this;
     }
@@ -80,7 +82,7 @@ abstract class Mage_Rule_Model_Resource_Rule_Collection_Abstract extends Mage_Co
     /**
      * Limit rules collection by specific websites
      *
-     * @param int|array|Mage_Core_Model_Website $websiteId
+     * @param array|int|Mage_Core_Model_Website $websiteId
      *
      * @return Mage_Rule_Model_Resource_Rule_Collection_Abstract
      */
@@ -101,6 +103,7 @@ abstract class Mage_Rule_Model_Resource_Rule_Collection_Abstract extends Mage_Co
                 'main_table.' . $entityInfo['rule_id_field'] . ' = website.' . $entityInfo['rule_id_field'],
             );
         }
+
         return $this;
     }
 
@@ -108,7 +111,7 @@ abstract class Mage_Rule_Model_Resource_Rule_Collection_Abstract extends Mage_Co
      * Provide support for website id filter
      *
      * @param string $field
-     * @param mixed $condition
+     * @param mixed  $condition
      *
      * @return Mage_Rule_Model_Resource_Rule_Collection_Abstract
      */
@@ -135,6 +138,7 @@ abstract class Mage_Rule_Model_Resource_Rule_Collection_Abstract extends Mage_Co
             $this->addFieldToFilter('is_active', (int) $isActive ? 1 : 0);
             $this->setFlag('is_active_filter', true);
         }
+
         return $this;
     }
 
@@ -163,7 +167,6 @@ abstract class Mage_Rule_Model_Resource_Rule_Collection_Abstract extends Mage_Co
      *
      * @return $this
      * @deprecated after 1.6.2.0
-     *
      */
     public function setEnv(?Mage_Rule_Model_Environment $env = null)
     {
@@ -176,7 +179,6 @@ abstract class Mage_Rule_Model_Resource_Rule_Collection_Abstract extends Mage_Co
      *
      * @return Mage_Rule_Model_Environment
      * @deprecated after 1.6.2.0
-     *
      */
     public function getEnv()
     {
@@ -186,9 +188,8 @@ abstract class Mage_Rule_Model_Resource_Rule_Collection_Abstract extends Mage_Co
     /**
      * Set filter for the collection based on the environment
      *
-     * @deprecated after 1.6.2.0
-     *
      * @return Mage_Rule_Model_Resource_Rule_Collection_Abstract
+     * @deprecated after 1.6.2.0
      */
     public function setActiveFilter()
     {
@@ -198,9 +199,8 @@ abstract class Mage_Rule_Model_Resource_Rule_Collection_Abstract extends Mage_Co
     /**
      * Process the quote with all the rules in collection
      *
-     * @deprecated after 1.6.2.0
-     *
      * @return Mage_Rule_Model_Resource_Rule_Collection_Abstract
+     * @deprecated after 1.6.2.0
      */
     public function process()
     {

@@ -12,18 +12,18 @@
  *
  * @package    Mage_Catalog
  *
- * @method array getAvailableOrders()
- * @method $this setAvailableOrders(array $value)
- * @method int getCategoryId()
- * @method $this setCategoryId(int $value)
+ * @method array  getAvailableOrders()
+ * @method int    getCategoryId()
  * @method string getDefaultDirection()
- * @method $this setDefaultDirection(string $value)
- * @method array getModes()
- * @method $this setModes(array $value)
- * @method string getToolbarBlockName()
+ * @method array  getModes()
+ * @method bool   getShowRootCategory()
  * @method string getSortBy()
- * @method $this setSortBy(string $value)
- * @method bool getShowRootCategory()
+ * @method string getToolbarBlockName()
+ * @method $this  setAvailableOrders(array $value)
+ * @method $this  setCategoryId(int $value)
+ * @method $this  setDefaultDirection(string $value)
+ * @method $this  setModes(array $value)
+ * @method $this  setSortBy(string $value)
  */
 class Mage_Catalog_Block_Product_List extends Mage_Catalog_Block_Product_Abstract
 {
@@ -37,7 +37,7 @@ class Mage_Catalog_Block_Product_List extends Mage_Catalog_Block_Product_Abstrac
     /**
      * Product Collection
      *
-     * @var Mage_Catalog_Model_Resource_Product_Collection|null
+     * @var null|Mage_Catalog_Model_Resource_Product_Collection
      */
     protected $_productCollection;
 
@@ -74,6 +74,7 @@ class Mage_Catalog_Block_Product_List extends Mage_Catalog_Block_Product_Abstrac
                     $this->addModelTags($category);
                 }
             }
+
             $this->_productCollection = $layer->getProductCollection();
 
             $this->prepareSortableFieldsByCategory($layer->getCurrentCategory());
@@ -97,13 +98,14 @@ class Mage_Catalog_Block_Product_List extends Mage_Catalog_Block_Product_Abstrac
         if ($layer) {
             return $layer;
         }
+
         return Mage::getSingleton('catalog/layer');
     }
 
     /**
      * Retrieve loaded category collection
      *
-     * @return Mage_Eav_Model_Entity_Collection_Abstract
+     * @return Mage_Catalog_Model_Resource_Product_Collection
      */
     public function getLoadedProductCollection()
     {
@@ -135,12 +137,15 @@ class Mage_Catalog_Block_Product_List extends Mage_Catalog_Block_Product_Abstrac
         if ($orders = $this->getAvailableOrders()) {
             $toolbar->setAvailableOrders($orders);
         }
+
         if ($sort = $this->getSortBy()) {
             $toolbar->setDefaultOrder($sort);
         }
+
         if ($dir = $this->getDefaultDirection()) {
             $toolbar->setDefaultDirection($dir);
         }
+
         if ($modes = $this->getModes()) {
             $toolbar->setModes($modes);
         }
@@ -165,11 +170,10 @@ class Mage_Catalog_Block_Product_List extends Mage_Catalog_Block_Product_Abstrac
      */
     public function getToolbarBlock()
     {
-        if ($blockName = $this->getToolbarBlockName()) {
-            if ($block = $this->getLayout()->getBlock($blockName)) {
-                return $block;
-            }
+        if (($blockName = $this->getToolbarBlockName()) && $block = $this->getLayout()->getBlock($blockName)) {
+            return $block;
         }
+
         return $this->getLayout()->createBlock($this->_defaultToolbarBlock, microtime());
     }
 
@@ -194,7 +198,7 @@ class Mage_Catalog_Block_Product_List extends Mage_Catalog_Block_Product_Abstrac
     }
 
     /**
-     * @param Mage_Catalog_Model_Resource_Product_Collection $collection
+     * @param  Mage_Catalog_Model_Resource_Product_Collection $collection
      * @return $this
      */
     public function setCollection($collection)
@@ -204,7 +208,7 @@ class Mage_Catalog_Block_Product_List extends Mage_Catalog_Block_Product_Abstrac
     }
 
     /**
-     * @param array|string|int|Mage_Core_Model_Config_Element $code
+     * @param  array|int|Mage_Core_Model_Config_Element|string $code
      * @return $this
      * @throws Mage_Core_Exception
      */
@@ -235,7 +239,7 @@ class Mage_Catalog_Block_Product_List extends Mage_Catalog_Block_Product_Abstrac
     /**
      * Prepare Sort By fields from Category Data
      *
-     * @param Mage_Catalog_Model_Category $category
+     * @param  Mage_Catalog_Model_Category $category
      * @return $this
      */
     public function prepareSortableFieldsByCategory($category)
@@ -243,15 +247,15 @@ class Mage_Catalog_Block_Product_List extends Mage_Catalog_Block_Product_Abstrac
         if (!$this->getAvailableOrders()) {
             $this->setAvailableOrders($category->getAvailableSortByOptions());
         }
+
         $availableOrders = $this->getAvailableOrders();
-        if (!$this->getSortBy()) {
-            if ($categorySortBy = $category->getDefaultSortBy()) {
-                if (!$availableOrders) {
-                    $availableOrders = $this->_getConfig()->getAttributeUsedForSortByArray();
-                }
-                if (isset($availableOrders[$categorySortBy])) {
-                    $this->setSortBy($categorySortBy);
-                }
+        if (!$this->getSortBy() && $categorySortBy = $category->getDefaultSortBy()) {
+            if (!$availableOrders) {
+                $availableOrders = $this->_getConfig()->getAttributeUsedForSortByArray();
+            }
+
+            if (isset($availableOrders[$categorySortBy])) {
+                $this->setSortBy($categorySortBy);
             }
         }
 

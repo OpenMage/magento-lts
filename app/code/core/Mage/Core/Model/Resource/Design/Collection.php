@@ -15,8 +15,7 @@
 class Mage_Core_Model_Resource_Design_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
     /**
-     * Core Design resource collection
-     *
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -40,16 +39,12 @@ class Mage_Core_Model_Resource_Design_Collection extends Mage_Core_Model_Resourc
     /**
      * Add date filter to collection
      *
-     * @param null|int|string|Zend_Date $date
+     * @param  null|int|string|Zend_Date $date
      * @return $this
      */
     public function addDateFilter($date = null)
     {
-        if (is_null($date)) {
-            $date = $this->formatDate(true);
-        } else {
-            $date = $this->formatDate($date);
-        }
+        $date = is_null($date) ? $this->formatDate(true) : $this->formatDate($date);
 
         $this->addFieldToFilter('date_from', ['lteq' => $date]);
         $this->addFieldToFilter('date_to', ['gteq' => $date]);
@@ -59,7 +54,7 @@ class Mage_Core_Model_Resource_Design_Collection extends Mage_Core_Model_Resourc
     /**
      * Add store filter to collection
      *
-     * @param int|array $storeId
+     * @param  array|int $storeId
      * @return $this
      */
     public function addStoreFilter($storeId)

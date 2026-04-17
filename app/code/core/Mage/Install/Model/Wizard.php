@@ -25,7 +25,7 @@ class Mage_Install_Model_Wizard
     {
         $this->_steps = Mage::getSingleton('install/config')->getWizardSteps();
 
-        foreach ($this->_steps as $index => $step) {
+        foreach (array_keys($this->_steps) as $index) {
             $this->_steps[$index]->setUrl(
                 $this->_getUrl($this->_steps[$index]->getController(), $this->_steps[$index]->getAction()),
             );
@@ -38,6 +38,7 @@ class Mage_Install_Model_Wizard
                     $this->_getUrlPath($this->_steps[$index + 1]->getController(), $this->_steps[$index + 1]->getAction()),
                 );
             }
+
             if (isset($this->_steps[$index - 1])) {
                 $this->_steps[$index]->setPrevUrl(
                     $this->_getUrl($this->_steps[$index - 1]->getController(), $this->_steps[$index - 1]->getAction()),
@@ -52,7 +53,7 @@ class Mage_Install_Model_Wizard
     /**
      * Get wizard step by request
      *
-     * @return  Varien_Object | false
+     * @return false|Varien_Object
      */
     public function getStepByRequest(Zend_Controller_Request_Abstract $request)
     {
@@ -63,14 +64,15 @@ class Mage_Install_Model_Wizard
                 return $step;
             }
         }
+
         return false;
     }
 
     /**
      * Get wizard step by name
      *
-     * @param   string $name
-     * @return  Varien_Object | false
+     * @param  string              $name
+     * @return false|Varien_Object
      */
     public function getStepByName($name)
     {
@@ -79,6 +81,7 @@ class Mage_Install_Model_Wizard
                 return $step;
             }
         }
+
         return false;
     }
 
@@ -100,8 +103,8 @@ class Mage_Install_Model_Wizard
     /**
      * Retrieve Url Path
      *
-     * @param string $controller
-     * @param string $action
+     * @param  string $controller
+     * @param  string $action
      * @return string
      */
     protected function _getUrlPath($controller, $action)

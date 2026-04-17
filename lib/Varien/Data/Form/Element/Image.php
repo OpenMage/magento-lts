@@ -39,7 +39,7 @@ class Varien_Data_Form_Element_Image extends Varien_Data_Form_Element_Abstract
         if ((string) $this->getValue()) {
             $url = $this->_getUrl();
 
-            if (!preg_match("/^http\:\/\/|https\:\/\//", $url)) {
+            if (!preg_match('/^http\:\/\/|https\:\/\//', $url)) {
                 $url = Mage::getBaseUrl('media') . $url;
             }
 
@@ -49,6 +49,7 @@ class Varien_Data_Form_Element_Image extends Varien_Data_Form_Element_Abstract
                 . ' alt="' . $this->getValue() . '" height="22" width="22" class="small-image-preview v-middle" />'
                 . '</a> ';
         }
+
         $this->setClass('input-file');
         $html .= parent::getElementHtml();
 
@@ -92,7 +93,7 @@ class Varien_Data_Form_Element_Image extends Varien_Data_Form_Element_Abstract
     /**
      * Get image preview url
      *
-     * @return string
+     * @return null|string
      */
     protected function _getUrl()
     {
@@ -106,6 +107,6 @@ class Varien_Data_Form_Element_Image extends Varien_Data_Form_Element_Abstract
      */
     public function getName()
     {
-        return  $this->getData('name');
+        return  $this->getDataByKey('name');
     }
 }

@@ -16,19 +16,20 @@
  */
 class Mage_Adminhtml_Block_Api_Role_Grid_User extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_api_role_grid_user';
+
     public function __construct()
     {
         parent::__construct();
         $this->setDefaultSort('role_user_id');
-        $this->setDefaultDir('asc');
+        $this->setDefaultDir('ASC');
         $this->setId('roleUserGrid');
         $this->setDefaultFilter(['in_role_users' => 1]);
         $this->setUseAjax(true);
     }
 
     /**
-     * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
-     * @return $this
+     * @inheritDoc
      * @throws Exception
      */
     protected function _addColumnFilterToCollection($column)
@@ -38,6 +39,7 @@ class Mage_Adminhtml_Block_Api_Role_Grid_User extends Mage_Adminhtml_Block_Widge
             if (empty($inRoleIds)) {
                 $inRoleIds = 0;
             }
+
             if ($column->getFilter()->getValue()) {
                 $this->getCollection()->addFieldToFilter('user_id', ['in' => $inRoleIds]);
             } elseif ($inRoleIds) {
@@ -46,6 +48,7 @@ class Mage_Adminhtml_Block_Api_Role_Grid_User extends Mage_Adminhtml_Block_Widge
         } else {
             parent::_addColumnFilterToCollection($column);
         }
+
         return $this;
     }
 
@@ -121,7 +124,7 @@ class Mage_Adminhtml_Block_Api_Role_Grid_User extends Mage_Adminhtml_Block_Widge
     }
 
     /**
-     * @return string
+     * @inheritDoc
      * @throws Exception
      */
     public function getGridUrl()
@@ -131,7 +134,7 @@ class Mage_Adminhtml_Block_Api_Role_Grid_User extends Mage_Adminhtml_Block_Widge
     }
 
     /**
-     * @param bool $json
+     * @param  bool             $json
      * @return array|int|string
      * @throws Exception
      */
@@ -140,6 +143,7 @@ class Mage_Adminhtml_Block_Api_Role_Grid_User extends Mage_Adminhtml_Block_Widge
         if ($this->getRequest()->getParam('in_role_user') != '') {
             return (int) $this->getRequest()->getParam('in_role_user');
         }
+
         $roleId = ($this->getRequest()->getParam('rid') > 0) ? $this->getRequest()->getParam('rid') : Mage::registry('RID');
         $users  = Mage::getModel('api/roles')->setId($roleId)->getRoleUsers();
         if (count($users)) {
@@ -148,6 +152,7 @@ class Mage_Adminhtml_Block_Api_Role_Grid_User extends Mage_Adminhtml_Block_Widge
                 foreach ($users as $usrid) {
                     $jsonUsers[$usrid] = 0;
                 }
+
                 return Mage::helper('core')->jsonEncode((object) $jsonUsers);
             }
 

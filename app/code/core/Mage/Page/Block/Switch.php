@@ -56,9 +56,11 @@ class Mage_Page_Block_Switch extends Mage_Core_Block_Template
             foreach ($websiteGroups as $group) {
                 $groups[$group->getId()] = $group;
             }
+
             $this->setData('raw_groups', $groups);
         }
-        return $this->getData('raw_groups');
+
+        return $this->getDataByKey('raw_groups');
     }
 
     /**
@@ -74,6 +76,7 @@ class Mage_Page_Block_Switch extends Mage_Core_Block_Template
                 if (!$store->getIsActive()) {
                     continue;
                 }
+
                 $store->setLocaleCode(Mage::getStoreConfig('general/locale/code', $store->getId()));
 
                 $params = [
@@ -82,14 +85,17 @@ class Mage_Page_Block_Switch extends Mage_Core_Block_Template
                 if (!$this->isStoreInUrl()) {
                     $params['_query']['___store'] = $store->getCode();
                 }
+
                 $baseUrl = $store->getUrl('', $params);
 
                 $store->setHomeUrl($baseUrl);
                 $stores[$store->getGroupId()][$store->getId()] = $store;
             }
+
             $this->setData('raw_stores', $stores);
         }
-        return $this->getData('raw_stores');
+
+        return $this->getDataByKey('raw_stores');
     }
 
     /**
@@ -109,6 +115,7 @@ class Mage_Page_Block_Switch extends Mage_Core_Block_Template
                 if (!isset($rawStores[$group->getId()])) {
                     continue;
                 }
+
                 if ($group->getId() == $this->getCurrentGroupId()) {
                     $groups[] = $group;
                     continue;
@@ -121,9 +128,11 @@ class Mage_Page_Block_Switch extends Mage_Core_Block_Template
                     $groups[] = $group;
                 }
             }
+
             $this->setData('groups', $groups);
         }
-        return $this->getData('groups');
+
+        return $this->getDataByKey('groups');
     }
 
     /**
@@ -131,18 +140,16 @@ class Mage_Page_Block_Switch extends Mage_Core_Block_Template
      */
     public function getStores()
     {
-        if (!$this->getData('stores')) {
+        if (!$this->getDataByKey('stores')) {
             $rawStores = $this->getRawStores();
 
             $groupId = $this->getCurrentGroupId();
-            if (!isset($rawStores[$groupId])) {
-                $stores = [];
-            } else {
-                $stores = $rawStores[$groupId];
-            }
+            $stores = $rawStores[$groupId] ?? [];
+
             $this->setData('stores', $stores);
         }
-        return $this->getData('stores');
+
+        return $this->getDataByKey('stores');
     }
 
     /**
@@ -162,6 +169,7 @@ class Mage_Page_Block_Switch extends Mage_Core_Block_Template
         if (is_null($this->_storeInUrl)) {
             $this->_storeInUrl = Mage::getStoreConfigFlag(Mage_Core_Model_Store::XML_PATH_STORE_IN_URL);
         }
+
         return $this->_storeInUrl;
     }
 }

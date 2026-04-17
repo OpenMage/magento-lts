@@ -62,20 +62,21 @@ class Mage_Paypal_Block_Express_Review extends Mage_Core_Block_Template
     /**
      * Return quote shipping address
      *
-     * @return Mage_Sales_Model_Quote_Address|false
+     * @return false|Mage_Sales_Model_Quote_Address
      */
     public function getShippingAddress()
     {
         if ($this->_quote->getIsVirtual()) {
             return false;
         }
+
         return $this->_quote->getShippingAddress();
     }
 
     /**
      * Get HTML output for specified address
      *
-     * @param Mage_Sales_Model_Quote_Address $address
+     * @param  Mage_Sales_Model_Quote_Address $address
      * @return string
      */
     public function renderAddress($address)
@@ -86,7 +87,7 @@ class Mage_Paypal_Block_Express_Review extends Mage_Core_Block_Template
     /**
      * Return carrier name from config, base on carrier code
      *
-     * @param string $carrierCode
+     * @param  string $carrierCode
      * @return string
      */
     public function getCarrierName($carrierCode)
@@ -94,6 +95,7 @@ class Mage_Paypal_Block_Express_Review extends Mage_Core_Block_Template
         if ($name = Mage::getStoreConfig("carriers/{$carrierCode}/title")) {
             return $name;
         }
+
         return $carrierCode;
     }
 
@@ -107,15 +109,16 @@ class Mage_Paypal_Block_Express_Review extends Mage_Core_Block_Template
         if ($rate->getErrorMessage()) {
             return '';
         }
+
         return $rate->getCode();
     }
 
     /**
      * Get shipping rate code title and its price or error message
      *
-     * @param Varien_Object $rate
-     * @param string $format
-     * @param string $inclTaxFormat
+     * @param  Varien_Object $rate
+     * @param  string        $format
+     * @param  string        $inclTaxFormat
      * @return string
      */
     public function renderShippingRateOption($rate, $format = '%s - %s%s', $inclTaxFormat = ' (%s %s)')
@@ -133,6 +136,7 @@ class Mage_Paypal_Block_Express_Review extends Mage_Core_Block_Template
                 $renderedInclTax = sprintf($inclTaxFormat, Mage::helper('tax')->__('Incl. Tax'), $incl);
             }
         }
+
         return sprintf($format, $this->escapeHtml($rate->getMethodTitle()), $price, $renderedInclTax);
     }
 
@@ -158,8 +162,8 @@ class Mage_Paypal_Block_Express_Review extends Mage_Core_Block_Template
     /**
      * Return formatted shipping price
      *
-     * @param float $price
-     * @param bool $isInclTax
+     * @param  float $price
+     * @param  bool  $isInclTax
      * @return float
      */
     protected function _getShippingPrice($price, $isInclTax)
@@ -172,7 +176,7 @@ class Mage_Paypal_Block_Express_Review extends Mage_Core_Block_Template
     /**
      * Format price base on store convert price method
      *
-     * @param float $price
+     * @param  float $price
      * @return float
      */
     protected function _formatPrice($price)
@@ -200,7 +204,7 @@ class Mage_Paypal_Block_Express_Review extends Mage_Core_Block_Template
             if ($groups && $this->_address) {
                 $this->setShippingRateGroups($groups);
                 // determine current selected code & name
-                foreach ($groups as $code => $rates) {
+                foreach ($groups as $rates) {
                     foreach ($rates as $rate) {
                         if ($this->_address->getShippingMethod() == $rate->getCode()) {
                             $this->_currentShippingRate = $rate;

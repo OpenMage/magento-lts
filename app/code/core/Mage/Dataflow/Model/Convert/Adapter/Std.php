@@ -21,6 +21,7 @@ class Mage_Dataflow_Model_Convert_Adapter_Std extends Mage_Dataflow_Model_Conver
         while ($text = fread($stdin, 1024)) {
             $data .= $text;
         }
+
         $this->setData($data);
         return $this;
     }

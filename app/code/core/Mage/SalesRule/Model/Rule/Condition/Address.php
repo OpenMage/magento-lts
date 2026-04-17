@@ -90,7 +90,8 @@ class Mage_SalesRule_Model_Rule_Condition_Address extends Mage_Rule_Model_Condit
             };
             $this->setData('value_select_options', $options);
         }
-        return $this->getData('value_select_options');
+
+        return $this->getDataByKey('value_select_options');
     }
 
     /**

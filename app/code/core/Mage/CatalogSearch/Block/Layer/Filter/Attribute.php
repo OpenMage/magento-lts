@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -16,7 +18,6 @@ class Mage_CatalogSearch_Block_Layer_Filter_Attribute extends Mage_Catalog_Block
 {
     /**
      * Set filter model name
-     *
      */
     public function __construct()
     {

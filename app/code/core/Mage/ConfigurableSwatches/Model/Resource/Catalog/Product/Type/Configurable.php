@@ -16,8 +16,8 @@ class Mage_ConfigurableSwatches_Model_Resource_Catalog_Product_Type_Configurable
      * Retrieve Required children ids
      * Grouped by parent id.
      *
-     * @param mixed $parentId may be array of integers or scalar integer.
-     * @param bool $required
+     * @param  mixed $parentId may be array of integers or scalar integer
+     * @param  bool  $required
      * @return array
      * @see Mage_Catalog_Model_Resource_Product_Type_Configurable::getChildrenIds()
      */
@@ -25,7 +25,7 @@ class Mage_ConfigurableSwatches_Model_Resource_Catalog_Product_Type_Configurable
     {
         if (is_array($parentId)) {
             $childrenIds = [];
-            if (!empty($parentId)) {
+            if ($parentId !== []) {
                 $select = $this->_getReadAdapter()->select()
                     ->from(['l' => $this->getMainTable()], ['product_id', 'parent_id'])
                     ->join(
@@ -39,9 +39,10 @@ class Mage_ConfigurableSwatches_Model_Resource_Catalog_Product_Type_Configurable
                     $childrenIds[$row['parent_id']][$row['product_id']] = $row['product_id'];
                 }
             }
+
             return $childrenIds;
-        } else {
-            return parent::getChildrenIds($parentId, $required);
         }
+
+        return parent::getChildrenIds($parentId, $required);
     }
 }

@@ -47,11 +47,13 @@ class Mage_Paypal_Block_Logo extends Mage_Core_Block_Template
         if (!$logoUrl) {
             return '';
         }
+
         $country = Mage::getStoreConfig(Mage_Paypal_Helper_Data::MERCHANT_COUNTRY_CONFIG_PATH);
         if ($country == Mage_Paypal_Helper_Data::US_COUNTRY) {
             $this->setTemplate('paypal/partner/us_logo.phtml');
             return parent::_toHtml();
         }
+
         $this->setLogoImageUrl($logoUrl);
         return parent::_toHtml();
     }

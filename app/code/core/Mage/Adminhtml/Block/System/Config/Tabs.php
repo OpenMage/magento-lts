@@ -19,6 +19,9 @@ class Mage_Adminhtml_Block_System_Config_Tabs extends Mage_Adminhtml_Block_Widge
      */
     protected $_tabs;
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->setId('system_config_tabs');
@@ -27,8 +30,8 @@ class Mage_Adminhtml_Block_System_Config_Tabs extends Mage_Adminhtml_Block_Widge
     }
 
     /**
-     * @param Mage_Core_Model_Config_Element $a
-     * @param Mage_Core_Model_Config_Element $b
+     * @param  Mage_Core_Model_Config_Element $a
+     * @param  Mage_Core_Model_Config_Element $b
      * @return int
      */
     protected function _sort($a, $b)
@@ -87,6 +90,7 @@ class Mage_Adminhtml_Block_System_Config_Tabs extends Mage_Adminhtml_Block_Widge
                     $this->_addBreadcrumb($label, '', $url->getUrl('*/*/*', ['section' => $code]));
                 }
             }
+
             if ($sectionAllowed && $hasChildren) {
                 $this->addSection($code, (string) $section->tab, [
                     'class'     => (string) $section->class,
@@ -117,8 +121,8 @@ class Mage_Adminhtml_Block_System_Config_Tabs extends Mage_Adminhtml_Block_Widge
     /**
      * Add tab
      *
-     * @param string $code
-     * @param array $config
+     * @param  string $code
+     * @param  array  $config
      * @return $this
      */
     public function addTab($code, $config)
@@ -132,7 +136,7 @@ class Mage_Adminhtml_Block_System_Config_Tabs extends Mage_Adminhtml_Block_Widge
     /**
      * Retrieve tab
      *
-     * @param string $code
+     * @param  string        $code
      * @return Varien_Object
      */
     public function getTab($code)
@@ -141,9 +145,9 @@ class Mage_Adminhtml_Block_System_Config_Tabs extends Mage_Adminhtml_Block_Widge
     }
 
     /**
-     * @param string $code
-     * @param string $tabCode
-     * @param array $config
+     * @param  string $code
+     * @param  string $tabCode
+     * @param  array  $config
      * @return $this
      */
     public function addSection($code, $tabCode, $config)
@@ -152,10 +156,12 @@ class Mage_Adminhtml_Block_System_Config_Tabs extends Mage_Adminhtml_Block_Widge
             if (!$tab->getSections()) {
                 $tab->setSections(new Varien_Data_Collection());
             }
+
             $section = new Varien_Object($config);
             $section->setId($code);
             $tab->getSections()->addItem($section);
         }
+
         return $this;
     }
 
@@ -198,11 +204,13 @@ class Mage_Adminhtml_Block_System_Config_Tabs extends Mage_Adminhtml_Block_Widge
                 if ($group->getWebsiteId() != $website->getId()) {
                     continue;
                 }
+
                 $groupShow = false;
                 foreach ($storeModel->getStoreCollection() as $store) {
                     if ($store->getGroupId() != $group->getId()) {
                         continue;
                     }
+
                     if (!$websiteShow) {
                         $websiteShow = true;
                         $options['website_' . $website->getCode()] = [
@@ -212,6 +220,7 @@ class Mage_Adminhtml_Block_System_Config_Tabs extends Mage_Adminhtml_Block_Widge
                             'style'    => 'padding-left:16px; background:#DDD; font-weight:bold;',
                         ];
                     }
+
                     if (!$groupShow) {
                         $groupShow = true;
                         $options['group_' . $group->getId() . '_open'] = [
@@ -221,6 +230,7 @@ class Mage_Adminhtml_Block_System_Config_Tabs extends Mage_Adminhtml_Block_Widge
                             'style'     => 'padding-left:32px;',
                         ];
                     }
+
                     $storeCode = $store->getCode();
                     $options['store_' . $storeCode] = [
                         'label'    => $store->getName(),
@@ -229,6 +239,7 @@ class Mage_Adminhtml_Block_System_Config_Tabs extends Mage_Adminhtml_Block_Widge
                         'style'    => '',
                     ];
                 }
+
                 if ($groupShow) {
                     $options['group_' . $group->getId() . '_close'] = [
                         'is_group'  => true,
@@ -288,7 +299,7 @@ class Mage_Adminhtml_Block_System_Config_Tabs extends Mage_Adminhtml_Block_Widge
     }
 
     /**
-     * @param string $code
+     * @param  string $code
      * @return bool
      */
     public function checkSectionPermissions($code = null)
@@ -305,8 +316,9 @@ class Mage_Adminhtml_Block_System_Config_Tabs extends Mage_Adminhtml_Block_Widge
 
         $showTab = false;
         if ($permissions->isAllowed('system/config/' . $code)) {
-            $showTab = true;
+            return true;
         }
+
         return $showTab;
     }
 }

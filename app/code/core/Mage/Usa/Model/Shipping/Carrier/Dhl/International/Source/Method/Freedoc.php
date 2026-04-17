@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -17,7 +19,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International_Source_Method_Freedoc ex
     /**
      * Carrier Product Type Indicator
      *
-     * @var string $_contentType
+     * @var string
      */
     protected $_contentType = Mage_Usa_Model_Shipping_Carrier_Dhl_International::DHL_CONTENT_TYPE_DOC;
 

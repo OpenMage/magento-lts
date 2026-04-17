@@ -14,18 +14,22 @@
  */
 class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Alerts_Price extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_catalog_product_edit_tab_alerts_price';
+
     public function __construct()
     {
         parent::__construct();
 
         $this->setId('alertPrice');
         $this->setDefaultSort('add_date');
-        $this->setDefaultDir('desc');
         $this->setUseAjax(true);
         $this->setFilterVisibility(false);
         $this->setEmptyText(Mage::helper('catalog')->__('There are no customers for this alert'));
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _prepareCollection()
     {
         $productId = $this->getRequest()->getParam('id');
@@ -33,15 +37,21 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Alerts_Price extends Mage_Ad
         if ($store = $this->getRequest()->getParam('store')) {
             $websiteId = Mage::app()->getStore($store)->getWebsiteId();
         }
+
         if ($this->isModuleEnabled('Mage_ProductAlert', 'catalog')) {
             $collection = Mage::getModel('productalert/price')
                 ->getCustomerCollection()
                 ->join($productId, $websiteId);
             $this->setCollection($collection);
         }
+
         return parent::_prepareCollection();
     }
 
+    /**
+     * @inheritDoc
+     * @throws Exception
+     */
     protected function _prepareColumns()
     {
         $this->addColumn('firstname', [
@@ -90,6 +100,10 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Alerts_Price extends Mage_Ad
         return parent::_prepareColumns();
     }
 
+    /**
+     * @inheritDoc
+     * @throws Exception
+     */
     public function getGridUrl()
     {
         $productId = $this->getRequest()->getParam('id');
@@ -97,6 +111,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Alerts_Price extends Mage_Ad
         if ($storeId) {
             $storeId = Mage::app()->getStore($storeId)->getId();
         }
+
         return $this->getUrl('*/catalog_product/alertsPriceGrid', [
             'id'    => $productId,
             'store' => $storeId,

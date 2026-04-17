@@ -8,6 +8,8 @@
  * @package    Mage_Adminhtml
  */
 
+use Carbon\Carbon;
+
 /**
  * Adminhtml dashboard google chart block
  *
@@ -16,6 +18,7 @@
 class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboard_Abstract
 {
     public const AXIS_X = 'x';
+
     public const AXIS_Y = 'y';
 
     /**
@@ -68,10 +71,13 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
     protected $_htmlId = '';
 
     protected $_max;
+
     protected $_min;
 
     protected string $dataDelimiter = ',';
+
     protected string $dataSetdelimiter = '|';
+
     protected string $dataMissing = '_';
 
     /**
@@ -128,7 +134,7 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
     /**
      * Get series
      *
-     * @param string $seriesId
+     * @param  string $seriesId
      * @return mixed
      */
     public function getSeries($seriesId)
@@ -178,8 +184,8 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
 
         $valueBuffer = [];
 
-        if (!array_key_exists(self::AXIS_X, $this->_axisLabels) ||
-            !array_key_exists(self::AXIS_Y, $this->_axisLabels)
+        if (!array_key_exists(self::AXIS_X, $this->_axisLabels)
+            || !array_key_exists(self::AXIS_Y, $this->_axisLabels)
         ) {
             return $params;
         }
@@ -211,7 +217,7 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
                             $formats = Mage::app()->getLocale()->getTranslationList('datetime');
                             $format = $formats['yyMM'] ?? 'MM/yyyy';
                             $format = str_replace(['yyyy', 'yy', 'MM'], ['Y', 'y', 'm'], $format);
-                            $this->_axisLabels[$idx][$_index] = date($format, strtotime($_label));
+                            $this->_axisLabels[$idx][$_index] = Carbon::parse($_label)->format($format);
                             break;
                     }
                 }
@@ -226,12 +232,14 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
 
             $indexid++;
         }
+
         $params['chxl'] = implode('|', $valueBuffer);
 
         return $params;
     }
 
     /**
+     * @return array<int, mixed[]>
      * @throws Mage_Core_Model_Store_Exception
      */
     private function getChartDatasAndDates(): array
@@ -271,6 +279,7 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
                     $dateStart->addMonth(1);
                     break;
             }
+
             if (in_array($period, [
                 Mage_Reports_Helper_Data::PERIOD_3_MONTHS,
                 Mage_Reports_Helper_Data::PERIOD_6_MONTHS,
@@ -280,6 +289,7 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
                     $axisTimestamps[] = (new Zend_Date($axisDate, 'yyyy-MM-dd'))->getTimestamp();
                 }
             }
+
             foreach (array_keys($this->getAllSeries()) as $index) {
                 if (isset($axisTimestamps)) {
                     $dateObj = new Zend_Date($date, 'yyyy-MM-dd');
@@ -304,8 +314,10 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
                         : 0;
                 }
             }
+
             $dates[] = $date;
         }
+
         return [$datas, $dates];
     }
 
@@ -326,6 +338,7 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
                     $chartdata[] = $this->dataMissing . $this->dataDelimiter;
                 }
             }
+
             $chartdata[] = $this->dataSetdelimiter;
         }
 
@@ -349,25 +362,17 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
             $localminvalue[$index] = min($serie);
         }
 
-        if (is_numeric($this->_max)) {
-            $maxvalue = $this->_max;
-        } else {
-            $maxvalue = max($localmaxvalue);
-        }
-        if (is_numeric($this->_min)) {
-            $minvalue = $this->_min;
-        } else {
-            $minvalue = min($localminvalue);
-        }
+        $maxvalue = is_numeric($this->_max) ? $this->_max : max($localmaxvalue);
+        $minvalue = is_numeric($this->_min) ? $this->_min : min($localminvalue);
 
         // default values
         $yLabels = [];
         if ($minvalue >= 0 && $maxvalue >= 0) {
             $miny = 0;
             if ($maxvalue > 10) {
-                $p = 10 ** $this->_getPow($maxvalue);
-                $maxy = (ceil($maxvalue / $p)) * $p;
-                $yLabels = range($miny, $maxy, $p);
+                $step = 10 ** $this->_getPow($maxvalue);
+                $maxy = (ceil($maxvalue / $step)) * $step;
+                $yLabels = range($miny, $maxy, $step);
             } else {
                 $maxy = ceil($maxvalue + 1);
                 $yLabels = range($miny, $maxy, 1);
@@ -380,8 +385,8 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
     /**
      * Get rows data
      *
-     * @param array $attributes
-     * @param bool $single
+     * @param  array $attributes
+     * @param  bool  $single
      * @return array
      */
     protected function getRowsData($attributes, $single = false)
@@ -397,6 +402,7 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
                 }
             }
         }
+
         return $options;
     }
 
@@ -404,7 +410,7 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
      * Set axis labels
      *
      * @param string $axis
-     * @param array $labels
+     * @param array  $labels
      */
     public function setAxisLabels($axis, $labels)
     {
@@ -434,16 +440,17 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
     /**
      * Return pow
      *
-     * @param int $number
+     * @param  int $number
      * @return int
      */
     protected function _getPow($number)
     {
         $pow = 0;
         while ($number >= 10) {
-            $number = $number / 10;
+            $number /= 10;
             $pow++;
         }
+
         return $pow;
     }
 

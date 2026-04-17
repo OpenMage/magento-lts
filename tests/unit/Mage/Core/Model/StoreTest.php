@@ -22,7 +22,7 @@ final class StoreTest extends OpenMageTest
 
     private static Subject $subject;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         self::$subject = Mage::getModel('core/store');
     }
@@ -30,7 +30,7 @@ final class StoreTest extends OpenMageTest
     /**
      * @covers Mage_Core_Model_Store::getId()
      * @dataProvider provideGetStoreId
-     * @param string|int|null $withStore
+     * @param null|int|string $withStore
      * @group Model
      */
     public function testGetId(?int $expectedResult, $withStore): void
@@ -38,6 +38,7 @@ final class StoreTest extends OpenMageTest
         if ($withStore) {
             self::$subject->setData('store_id', $withStore);
         }
+
         self::assertSame($expectedResult, self::$subject->getId());
     }
 }

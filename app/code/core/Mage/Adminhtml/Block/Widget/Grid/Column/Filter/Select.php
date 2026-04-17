@@ -28,21 +28,23 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Select extends Mage_Adminht
         }
 
         $colOptions = $this->getColumn()->getOptions();
-        if (!empty($colOptions) && is_array($colOptions)) {
+        if (is_array($colOptions) && $colOptions !== []) {
             $options = [$emptyOption];
             foreach ($colOptions as $value => $label) {
                 $options[] = ['value' => $value, 'label' => $label];
             }
+
             return $options;
         }
+
         return [];
     }
 
     /**
      * Render an option with selected value
      *
-     * @param array $option
-     * @param string|null $value
+     * @param  array       $option
+     * @param  null|string $value
      * @return string
      */
     protected function _renderOption($option, $value)
@@ -64,22 +66,25 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Select extends Mage_Adminht
                 foreach ($option['value'] as $subOption) {
                     $html .= $this->_renderOption($subOption, $value);
                 }
+
                 $html .= '</optgroup>';
             } else {
                 $html .= $this->_renderOption($option, $value);
             }
         }
+
         return $html . '</select>';
     }
 
     /**
-     * @return array|null
+     * @inheritDoc
      */
     public function getCondition()
     {
         if (is_null($this->getValue())) {
             return null;
         }
+
         return ['eq' => $this->getValue()];
     }
 }

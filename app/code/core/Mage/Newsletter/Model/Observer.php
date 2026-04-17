@@ -23,6 +23,7 @@ class Mage_Newsletter_Model_Observer
         if (($customer instanceof Mage_Customer_Model_Customer)) {
             Mage::getModel('newsletter/subscriber')->subscribeCustomer($customer);
         }
+
         return $this;
     }
 
@@ -38,6 +39,7 @@ class Mage_Newsletter_Model_Observer
         if ($subscriber->getId()) {
             $subscriber->delete();
         }
+
         return $this;
     }
 

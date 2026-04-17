@@ -15,8 +15,8 @@
 class Mage_Core_Block_Text_List_Item extends Mage_Core_Block_Text
 {
     /**
-     * @param array $liParams
-     * @param array $innerText
+     * @param  array $liParams
+     * @param  array $innerText
      * @return $this
      */
     public function setLink($liParams, $innerText)
@@ -41,6 +41,7 @@ class Mage_Core_Block_Text_List_Item extends Mage_Core_Block_Text
         } elseif (is_string($params)) {
             $this->addText(' ' . $params);
         }
+
         $this->addText('>' . $this->getInnerText() . '</li>' . "\r\n");
 
         return parent::_toHtml();

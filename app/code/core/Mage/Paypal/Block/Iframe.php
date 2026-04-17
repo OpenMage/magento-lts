@@ -43,7 +43,6 @@ class Mage_Paypal_Block_Iframe extends Mage_Payment_Block_Form
     /**
      * Internal constructor
      * Set info template for payment step
-     *
      */
     protected function _construct()
     {
@@ -81,6 +80,7 @@ class Mage_Paypal_Block_Iframe extends Mage_Payment_Block_Form
             if (!$block instanceof Mage_Paypal_Block_Iframe) {
                 Mage::throwException('Invalid block type');
             }
+
             $this->_block = $block;
         }
 
@@ -99,6 +99,7 @@ class Mage_Paypal_Block_Iframe extends Mage_Payment_Block_Form
             $this->_order = Mage::getModel('sales/order')
                 ->loadByIncrementId($incrementId);
         }
+
         return $this->_order;
     }
 
@@ -115,13 +116,13 @@ class Mage_Paypal_Block_Iframe extends Mage_Payment_Block_Form
     /**
      * Before rendering html, check if is block rendering needed
      *
-     * @return Mage_Core_Block_Abstract
+     * @return $this
      */
     protected function _beforeToHtml()
     {
-        if ($this->_getOrder()->getId() &&
-            $this->_getOrder()->getQuoteId() == $this->_getCheckout()->getLastQuoteId() &&
-            $this->_paymentMethodCode
+        if ($this->_getOrder()->getId()
+            && $this->_getOrder()->getQuoteId() == $this->_getCheckout()->getLastQuoteId()
+            && $this->_paymentMethodCode
         ) {
             $this->_shouldRender = true;
         }
@@ -145,9 +146,11 @@ class Mage_Paypal_Block_Iframe extends Mage_Payment_Block_Form
             $this->setTemplate('paypal/hss/js.phtml');
             return parent::_toHtml();
         }
+
         if (!$this->_shouldRender) {
             return '';
         }
+
         return parent::_toHtml();
     }
 
@@ -160,15 +163,10 @@ class Mage_Paypal_Block_Iframe extends Mage_Payment_Block_Form
     protected function _isAfterPaymentSave()
     {
         $quote = $this->_getCheckout()->getQuote();
-        if ($quote->getPayment()->getMethod() == $this->_paymentMethodCode &&
-            $quote->getIsActive() &&
-            $this->getTemplate() &&
-            $this->getRequest()->getActionName() == 'savePayment'
-        ) {
-            return true;
-        }
-
-        return false;
+        return $quote->getPayment()->getMethod() == $this->_paymentMethodCode
+            && $quote->getIsActive()
+            && $this->getTemplate()
+            && $this->getRequest()->getActionName() == 'savePayment';
     }
 
     /**

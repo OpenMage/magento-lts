@@ -7,6 +7,8 @@
  * @package    Mage_Core
  */
 
+use Carbon\Carbon;
+
 /**
  * Date conversion model
  *
@@ -22,20 +24,11 @@ class Mage_Core_Model_Date
     private $_offset = 0;
 
     /**
-     * Current system offset in seconds
-     *
-     * @var int
-     */
-    private $_systemOffset = 0;
-
-    /**
      * Init offset
-     *
      */
     public function __construct()
     {
         $this->_offset = $this->calculateOffset($this->_getConfigTimezone());
-        $this->_systemOffset = $this->calculateOffset();
     }
 
     /**
@@ -52,7 +45,7 @@ class Mage_Core_Model_Date
      * Calculates timezone offset
      *
      * @param  string $timezone
-     * @return int offset between timezone and gmt
+     * @return int    offset between timezone and gmt
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
@@ -66,8 +59,8 @@ class Mage_Core_Model_Date
             $result = date_default_timezone_set($timezone);
         }
 
-        if ($result === true) {
-            $offset = (int) date('Z');
+        if ($result) {
+            $offset = (int) Carbon::now()->format('Z');
         }
 
         if (!is_null($timezone)) {
@@ -80,8 +73,8 @@ class Mage_Core_Model_Date
     /**
      * Forms GMT date
      *
-     * @param  string $format
-     * @param  int|string $input date in current timezone
+     * @param  string       $format
+     * @param  int|string   $input  date in current timezone
      * @return false|string
      */
     public function gmtDate($format = null, $input = null)
@@ -96,15 +89,15 @@ class Mage_Core_Model_Date
             return false;
         }
 
-        return date($format, (int) $date);
+        return Carbon::createFromTimestamp((int) $date)->format($format);
     }
 
     /**
      * Converts input date into date with timezone offset
      * Input date must be in GMT timezone
      *
-     * @param  string $format
-     * @param  int|string $input date in GMT timezone
+     * @param  string     $format
+     * @param  int|string $input  date in GMT timezone
      * @return string
      */
     public function date($format = null, $input = null)
@@ -113,24 +106,22 @@ class Mage_Core_Model_Date
             $format = Varien_Date::DATETIME_PHP_FORMAT;
         }
 
-        return date($format, $this->timestamp($input));
+        return Carbon::createFromTimestamp($this->timestamp($input))->format($format);
     }
 
     /**
      * Forms GMT timestamp
      *
-     * @param  int|string $input date in current timezone
-     * @return string|false|int
+     * @param  int|string       $input date in current timezone
+     * @return false|int|string
      */
     public function gmtTimestamp($input = null)
     {
         if (is_null($input)) {
             return gmdate('U');
-        } elseif (is_numeric($input)) {
-            $result = $input;
-        } else {
-            $result = strtotime($input);
         }
+
+        $result = is_numeric($input) ? $input : Carbon::parse($input)->getTimestamp();
 
         if ($result === false) {
             // strtotime() unable to parse string (it's not a date or has incorrect format)
@@ -158,7 +149,7 @@ class Mage_Core_Model_Date
         } elseif (is_numeric($input)) {
             $result = $input;
         } else {
-            $result = strtotime($input);
+            $result = Carbon::parse($input)->getTimestamp();
         }
 
         $date      = Mage::app()->getLocale()->date($result);
@@ -183,23 +174,24 @@ class Mage_Core_Model_Date
                 break;
 
             case 'minutes':
-                $result = $result / 60;
+                $result /= 60;
                 break;
 
             case 'hours':
                 $result = $result / 60 / 60;
                 break;
         }
+
         return $result;
     }
 
     /**
-     * @param int $year
-     * @param int $month
-     * @param int $day
-     * @param int $hour
-     * @param int $minute
-     * @param int $second
+     * @param  int  $year
+     * @param  int  $month
+     * @param  int  $day
+     * @param  int  $hour
+     * @param  int  $minute
+     * @param  int  $second
      * @return bool
      * @deprecated since 1.1.7
      */
@@ -208,18 +200,20 @@ class Mage_Core_Model_Date
         if (!checkdate($month, $day, $year)) {
             return false;
         }
+
         foreach (['hour' => 23, 'minute' => 59, 'second' => 59] as $var => $maxValue) {
             $value = (int) ${$var};
             if (($value < 0) || ($value > $maxValue)) {
                 return false;
             }
         }
+
         return true;
     }
 
     /**
-     * @param string $dateTimeString
-     * @param string $dateTimeFormat
+     * @param  string              $dateTimeString
+     * @param  string              $dateTimeFormat
      * @return array
      * @throws Mage_Core_Exception
      * @deprecated since 1.1.7
@@ -249,6 +243,7 @@ class Mage_Core_Model_Date
                 break;
             }
         }
+
         if (!$isSupportedFormatFound) {
             Mage::throwException(Mage::helper('core')->__('Date/time format "%s" is not supported.', $dateTimeFormat));
         }
@@ -267,6 +262,7 @@ class Mage_Core_Model_Date
             if (isset($mask[$key]) && isset($matches[$mask[$key]])) {
                 $value = (int) $matches[$mask[$key]];
             }
+
             $result[] = $value;
         }
 

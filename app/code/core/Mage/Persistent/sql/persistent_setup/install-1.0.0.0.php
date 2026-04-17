@@ -7,7 +7,7 @@
  * @package    Mage_Persistent
  */
 
-/** @var Mage_Core_Model_Resource_Setup $installer */
+/** @var Mage_Core_Model_Resource_Setup $this */
 $installer = $this;
 $installer->startSetup();
 
@@ -62,7 +62,6 @@ $installer->getConnection()->createTable($table);
 
 /**
  * Alter sales_flat_quote table with is_persistent flag
- *
  */
 $installer->getConnection()
     ->addColumn(

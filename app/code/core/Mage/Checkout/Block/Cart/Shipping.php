@@ -42,6 +42,7 @@ class Mage_Checkout_Block_Cart_Shipping extends Mage_Checkout_Block_Cart_Abstrac
             $groups = $this->getAddress()->getGroupedAllShippingRates();
             $this->_rates = $groups;
         }
+
         return $this->_rates;
     }
 
@@ -55,13 +56,14 @@ class Mage_Checkout_Block_Cart_Shipping extends Mage_Checkout_Block_Cart_Abstrac
         if (is_null($this->_address)) {
             $this->_address = $this->getQuote()->getShippingAddress();
         }
+
         return $this->_address;
     }
 
     /**
      * Get Carrier Name
      *
-     * @param string $carrierCode
+     * @param  string $carrierCode
      * @return mixed
      */
     public function getCarrierName($carrierCode)
@@ -69,6 +71,7 @@ class Mage_Checkout_Block_Cart_Shipping extends Mage_Checkout_Block_Cart_Abstrac
         if ($name = Mage::getStoreConfig('carriers/' . $carrierCode . '/title')) {
             return $name;
         }
+
         return $carrierCode;
     }
 
@@ -139,8 +142,11 @@ class Mage_Checkout_Block_Cart_Shipping extends Mage_Checkout_Block_Cart_Abstrac
      */
     public function getCityActive()
     {
-        return Mage::getStoreConfigFlag('carriers/dhl/active')
-            || Mage::getStoreConfigFlag('carriers/dhlint/active');
+        if (Mage::getStoreConfigFlag('carriers/dhl/active')) {
+            return true;
+        }
+
+        return Mage::getStoreConfigFlag('carriers/dhlint/active');
     }
 
     /**
@@ -150,15 +156,21 @@ class Mage_Checkout_Block_Cart_Shipping extends Mage_Checkout_Block_Cart_Abstrac
      */
     public function getStateActive()
     {
-        return Mage::getStoreConfigFlag('carriers/dhl/active')
-            || Mage::getStoreConfigFlag('carriers/tablerate/active')
-            || Mage::getStoreConfigFlag('carriers/dhlint/active');
+        if (Mage::getStoreConfigFlag('carriers/dhl/active')) {
+            return true;
+        }
+
+        if (Mage::getStoreConfigFlag('carriers/tablerate/active')) {
+            return true;
+        }
+
+        return Mage::getStoreConfigFlag('carriers/dhlint/active');
     }
 
     /**
      * Convert price from default currency to current currency
      *
-     * @param float $price
+     * @param  float $price
      * @return float
      */
     public function formatPrice($price)
@@ -169,8 +181,8 @@ class Mage_Checkout_Block_Cart_Shipping extends Mage_Checkout_Block_Cart_Abstrac
     /**
      * Get Shipping Price
      *
-     * @param float $price
-     * @param bool $flag
+     * @param  float $price
+     * @param  bool  $flag
      * @return float
      */
     public function getShippingPrice($price, $flag)
@@ -203,6 +215,7 @@ class Mage_Checkout_Block_Cart_Shipping extends Mage_Checkout_Block_Cart_Abstrac
                 }
             }
         }
+
         return $this->_carriers;
     }
 
@@ -218,6 +231,7 @@ class Mage_Checkout_Block_Cart_Shipping extends Mage_Checkout_Block_Cart_Abstrac
                 return true;
             }
         }
+
         return false;
     }
 
@@ -233,6 +247,7 @@ class Mage_Checkout_Block_Cart_Shipping extends Mage_Checkout_Block_Cart_Abstrac
                 return true;
             }
         }
+
         return false;
     }
 
@@ -248,6 +263,7 @@ class Mage_Checkout_Block_Cart_Shipping extends Mage_Checkout_Block_Cart_Abstrac
                 return true;
             }
         }
+
         return false;
     }
 

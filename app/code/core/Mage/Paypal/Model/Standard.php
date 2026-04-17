@@ -8,7 +8,6 @@
  */
 
 /**
- *
  * PayPal Standard Checkout Module
  *
  * @package    Mage_Paypal
@@ -16,10 +15,15 @@
 class Mage_Paypal_Model_Standard extends Mage_Payment_Model_Method_Abstract
 {
     protected $_code  = Mage_Paypal_Model_Config::METHOD_WPS;
+
     protected $_formBlockType = 'paypal/standard_form';
+
     protected $_infoBlockType = 'paypal/payment_info';
+
     protected $_isInitializeNeeded      = true;
+
     protected $_canUseInternal          = false;
+
     protected $_canUseForMultishipping  = false;
 
     /**
@@ -31,7 +35,7 @@ class Mage_Paypal_Model_Standard extends Mage_Payment_Model_Method_Abstract
     /**
      * Whether method is available for specified currency
      *
-     * @param string $currencyCode
+     * @param  string $currencyCode
      * @return bool
      */
     public function canUseForCurrency($currencyCode)
@@ -40,10 +44,10 @@ class Mage_Paypal_Model_Standard extends Mage_Payment_Model_Method_Abstract
     }
 
     /**
-    * Get paypal session namespace
-    *
-    * @return Mage_Paypal_Model_Session
-    */
+     * Get paypal session namespace
+     *
+     * @return Mage_Paypal_Model_Session
+     */
     public function getSession()
     {
         return Mage::getSingleton('paypal/session');
@@ -71,7 +75,6 @@ class Mage_Paypal_Model_Standard extends Mage_Payment_Model_Method_Abstract
 
     /**
      * Create main block for standard form
-     *
      */
     public function createFormBlock($name)
     {
@@ -130,7 +133,7 @@ class Mage_Paypal_Model_Standard extends Mage_Payment_Model_Method_Abstract
 
     /**
      * Instantiate state and set it to state object
-     * @param string $paymentAction
+     * @param string        $paymentAction
      * @param Varien_Object $stateObject
      */
     public function initialize($paymentAction, $stateObject)
@@ -154,29 +157,28 @@ class Mage_Paypal_Model_Standard extends Mage_Payment_Model_Method_Abstract
             if ($store = $this->getStore()) {
                 $params[] = is_object($store) ? $store->getId() : $store;
             }
+
             $this->_config = Mage::getModel('paypal/config', $params);
         }
+
         return $this->_config;
     }
 
     /**
      * Check whether payment method can be used
-     * @param Mage_Sales_Model_Quote|null $quote
+     * @param  null|Mage_Sales_Model_Quote $quote
      * @return bool
      */
     public function isAvailable($quote = null)
     {
-        if (parent::isAvailable($quote) && $this->getConfig()->isMethodAvailable()) {
-            return true;
-        }
-        return false;
+        return parent::isAvailable($quote) && $this->getConfig()->isMethodAvailable();
     }
 
     /**
      * Custom getter for payment configuration
      *
-     * @param string $field
-     * @param int $storeId
+     * @param  string $field
+     * @param  int    $storeId
      * @return mixed
      */
     public function getConfigData($field, $storeId = null)
@@ -194,6 +196,7 @@ class Mage_Paypal_Model_Standard extends Mage_Payment_Model_Method_Abstract
         if ($this->_config->lineItemsSummary) {
             return $this->_config->lineItemsSummary;
         }
+
         return Mage::app()->getStore($this->getStore())->getFrontendName();
     }
 }

@@ -17,8 +17,8 @@ abstract class Mage_Customer_Model_Api2_Customer_Address_Rest extends Mage_Custo
     /**
      * Create customer address
      *
-     * @throws Mage_Api2_Exception
      * @return string
+     * @throws Mage_Api2_Exception
      */
     protected function _create(array $data)
     {
@@ -30,6 +30,7 @@ abstract class Mage_Customer_Model_Api2_Customer_Address_Rest extends Mage_Custo
             foreach ($validator->getErrors() as $error) {
                 $this->_error($error, Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
             }
+
             $this->_critical(self::RESOURCE_DATA_PRE_VALIDATION_ERROR);
         }
 
@@ -44,20 +45,21 @@ abstract class Mage_Customer_Model_Api2_Customer_Address_Rest extends Mage_Custo
 
         try {
             $address->save();
-        } catch (Mage_Core_Exception $e) {
-            $this->_error($e->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
-        } catch (Exception $e) {
-            Mage::logException($e);
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_error($mageCoreException->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
+        } catch (Exception $exception) {
+            Mage::logException($exception);
             $this->_critical(self::RESOURCE_INTERNAL_ERROR);
         }
+
         return $this->_getLocation($address);
     }
 
     /**
      * Retrieve information about specified customer address
      *
-     * @throws Mage_Api2_Exception
      * @return array
+     * @throws Mage_Api2_Exception
      */
     protected function _retrieve()
     {
@@ -81,6 +83,7 @@ abstract class Mage_Customer_Model_Api2_Customer_Address_Rest extends Mage_Custo
             $addressData['street'] = $address->getStreet();
             $data[]                = array_merge($addressData, $this->_getDefaultAddressesInfo($address));
         }
+
         return $data;
     }
 
@@ -103,7 +106,7 @@ abstract class Mage_Customer_Model_Api2_Customer_Address_Rest extends Mage_Custo
     /**
      * Get array with default addresses information if possible
      *
-     * @return array
+     * @return array<string, int>
      */
     protected function _getDefaultAddressesInfo(Mage_Customer_Model_Address $address)
     {
@@ -130,8 +133,10 @@ abstract class Mage_Customer_Model_Api2_Customer_Address_Rest extends Mage_Custo
             foreach ($validator->getErrors() as $error) {
                 $this->_error($error, Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
             }
+
             $this->_critical(self::RESOURCE_DATA_PRE_VALIDATION_ERROR);
         }
+
         if (isset($data['region'])) {
             $data['region'] = $this->_getRegionIdByNameOrCode(
                 $data['region'],
@@ -139,14 +144,15 @@ abstract class Mage_Customer_Model_Api2_Customer_Address_Rest extends Mage_Custo
             );
             $data['region_id'] = null; // to avoid overwrite region during update in address model _beforeSave()
         }
+
         $address->addData($data);
 
         try {
             $address->save();
-        } catch (Mage_Core_Exception $e) {
-            $this->_error($e->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
-        } catch (Exception $e) {
-            Mage::logException($e);
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_error($mageCoreException->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
+        } catch (Exception $exception) {
+            Mage::logException($exception);
             $this->_critical(self::RESOURCE_INTERNAL_ERROR);
         }
     }
@@ -164,12 +170,13 @@ abstract class Mage_Customer_Model_Api2_Customer_Address_Rest extends Mage_Custo
                 Mage_Api2_Model_Server::HTTP_BAD_REQUEST,
             );
         }
+
         try {
             $address->delete();
-        } catch (Mage_Core_Exception $e) {
-            $this->_critical($e->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
-        } catch (Exception $e) {
-            Mage::logException($e);
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_critical($mageCoreException->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
+        } catch (Exception $exception) {
+            Mage::logException($exception);
             $this->_critical(self::RESOURCE_INTERNAL_ERROR);
         }
     }

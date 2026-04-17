@@ -21,6 +21,9 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Cart extends Mage_Adminhtm
      */
     protected $_sidebarStorageAction = 'add_cart_item';
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         parent::_construct();
@@ -43,11 +46,12 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Cart extends Mage_Adminhtm
      */
     public function getItemCollection()
     {
-        $collection = $this->getData('item_collection');
+        $collection = $this->getDataByKey('item_collection');
         if (is_null($collection)) {
             $collection = $this->getCreateOrderModel()->getCustomerCart()->getAllVisibleItems();
             $this->setData('item_collection', $collection);
         }
+
         return $collection;
     }
 
@@ -62,7 +66,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Cart extends Mage_Adminhtm
     /**
      * Retrieve identifier of block item
      *
-     * @param Varien_Object $item
+     * @param  Varien_Object $item
      * @return int
      */
     public function getIdentifierId($item)
@@ -73,8 +77,8 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Cart extends Mage_Adminhtm
     /**
      * Retrieve product identifier linked with item
      *
-     * @param   Mage_Sales_Model_Quote_Item $item
-     * @return  int
+     * @param  Mage_Sales_Model_Quote_Item $item
+     * @return int
      */
     public function getProductId($item)
     {
@@ -91,7 +95,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Cart extends Mage_Adminhtm
         );
         $button = $this->getLayout()->createBlock('adminhtml/widget_button')->setData([
             'label' => Mage::helper('sales')->__('Clear Shopping Cart'),
-            'onclick' => 'order.clearShoppingCart(\'' . $deleteAllConfirmString . '\')',
+            'onclick' => "order.clearShoppingCart('" . $deleteAllConfirmString . "')",
             'style' => 'float: right;',
         ]);
         $this->setChild('empty_customer_cart_button', $button);

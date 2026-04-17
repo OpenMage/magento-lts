@@ -17,8 +17,8 @@ class Mage_Api2_Model_Acl_Global
     /**
      * Check if the operation is allowed on resources of given type type for given user type/role
      *
-     * @param string $resourceType
-     * @param string $operation
+     * @param  string              $resourceType
+     * @param  string              $operation
      * @return bool
      * @throws Mage_Api2_Exception
      */
@@ -28,6 +28,7 @@ class Mage_Api2_Model_Acl_Global
         if ($apiUser->getRole() === null) {
             return true;
         }
+
         /** @var Mage_Api2_Model_Acl $aclInstance */
         $aclInstance = Mage::getSingleton(
             'api2/acl',
@@ -37,9 +38,11 @@ class Mage_Api2_Model_Acl_Global
         if (!$aclInstance->hasRole($apiUser->getRole())) {
             throw new Mage_Api2_Exception('Role not found', Mage_Api2_Model_Server::HTTP_UNAUTHORIZED);
         }
+
         if (!$aclInstance->has($resourceType)) {
             throw new Mage_Api2_Exception('Resource not found', Mage_Api2_Model_Server::HTTP_NOT_FOUND);
         }
+
         return $aclInstance->isAllowed($apiUser->getRole(), $resourceType, $operation);
     }
 }

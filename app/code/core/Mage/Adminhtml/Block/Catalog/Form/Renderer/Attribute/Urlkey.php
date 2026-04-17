@@ -21,11 +21,12 @@ class Mage_Adminhtml_Block_Catalog_Form_Renderer_Attribute_Urlkey extends Mage_A
         if (!$element->getValue()) {
             return parent::getElementHtml();
         }
+
         $element->setOnkeyup("onUrlkeyChanged('" . $element->getHtmlId() . "')");
         $element->setOnchange("onUrlkeyChanged('" . $element->getHtmlId() . "')");
 
         $data = [
-            'name' => $element->getData('name') . '_create_redirect',
+            'name' => $element->getDataByKey('name') . '_create_redirect',
             'disabled' => true,
         ];
         $hidden =  new Varien_Data_Form_Element_Hidden($data);

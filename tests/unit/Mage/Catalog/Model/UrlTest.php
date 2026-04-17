@@ -23,7 +23,9 @@ use Varien_Object;
 final class UrlTest extends OpenMageTest
 {
     use CatalogTrait;
+
     use IntOrNullTrait;
+
     use UrlTrait;
 
     private static Subject $subject;
@@ -65,8 +67,8 @@ final class UrlTest extends OpenMageTest
     ): void {
         try {
             self::assertSame($expectedResult, self::$subject->generatePath($type, $product, $category, $parentPath));
-        } catch (Mage_Core_Exception $e) {
-            self::assertSame($expectedResult, $e->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            self::assertSame($expectedResult, $mageCoreException->getMessage());
         }
     }
 

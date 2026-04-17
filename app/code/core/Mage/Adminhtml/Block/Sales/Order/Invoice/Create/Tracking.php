@@ -14,7 +14,7 @@
  */
 class Mage_Adminhtml_Block_Sales_Order_Invoice_Create_Tracking extends Mage_Adminhtml_Block_Template
 {
-    public function _construct()
+    protected function _construct()
     {
         $this->setTemplate('sales/order/invoice/create/tracking.phtml');
     }
@@ -75,6 +75,7 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_Create_Tracking extends Mage_Admi
                 $carriers[$code] = $carrier->getConfigData('title');
             }
         }
+
         return $carriers;
     }
 }

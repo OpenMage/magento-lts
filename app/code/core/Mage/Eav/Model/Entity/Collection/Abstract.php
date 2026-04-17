@@ -11,6 +11,8 @@
  * Entity/Attribute/Model - collection abstract
  *
  * @package    Mage_Eav
+ * @template T of Mage_Core_Model_Abstract
+ * @extends Varien_Data_Collection_Db<T>
  */
 abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Collection_Db
 {
@@ -97,7 +99,10 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
     /**
      * Collection constructor
      *
-     * @param Mage_Core_Model_Resource_Abstract $resource
+     * @param  Mage_Core_Model_Resource_Abstract|Varien_Db_Adapter_Interface $resource
+     * @throws Mage_Core_Exception
+     * @throws Zend_Exception
+     * @phpstan-ignore constructor.unusedParameter
      */
     public function __construct($resource = null)
     {
@@ -109,15 +114,18 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
     }
 
     /**
-     * Initialize collection
+     * Collection initialization
+     *
+     * @return void
      */
     protected function _construct() {}
 
     /**
      * Retrieve table name
      *
-     * @param string $table
+     * @param  string              $table
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function getTable($table)
     {
@@ -128,12 +136,14 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
      * Prepare static entity fields
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     protected function _prepareStaticFields()
     {
         foreach ($this->getEntity()->getDefaultAttributes() as $field) {
             $this->_staticFields[$field] = $field;
         }
+
         return $this;
     }
 
@@ -141,6 +151,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
      * Init select
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     protected function _initSelect()
     {
@@ -156,8 +167,8 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
     /**
      * Standard resource collection initialization
      *
-     * @param string $model
-     * @param null|string $entityModel
+     * @param  string      $model
+     * @param  null|string $entityModel
      * @return $this
      */
     protected function _init($model, $entityModel = null)
@@ -166,6 +177,8 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
         if ($entityModel === null) {
             $entityModel = $model;
         }
+
+        /** @var Mage_Eav_Model_Entity_Abstract $entity */
         $entity = Mage::getResourceSingleton($entityModel);
         $this->setEntity($entity);
 
@@ -175,9 +188,10 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
     /**
      * Set entity to use for attributes
      *
-     * @param Mage_Eav_Model_Entity_Abstract $entity
-     * @throws Mage_Eav_Exception
+     * @param  Mage_Eav_Model_Entity_Abstract $entity
      * @return $this
+     * @throws Mage_Core_Exception
+     * @throws Mage_Eav_Exception
      * @SuppressWarnings("PHPMD.DevelopmentCodeFragment")
      */
     public function setEntity($entity)
@@ -189,6 +203,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
         } else {
             throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('Invalid entity supplied: %s', print_r($entity, true)));
         }
+
         return $this;
     }
 
@@ -196,12 +211,14 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
      * Get collection's entity object
      *
      * @return Mage_Eav_Model_Entity_Abstract
+     * @throws Mage_Core_Exception
      */
     public function getEntity()
     {
-        if (empty($this->_entity)) {
+        if (is_null($this->_entity)) {
             throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('Entity is not initialized'));
         }
+
         return $this->_entity;
     }
 
@@ -219,8 +236,8 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
     /**
      * Set template object for the collection
      *
-     * @param   Varien_Object $object
-     * @return  $this
+     * @param  string|Varien_Object $object
+     * @return $this
      */
     public function setObject($object = null)
     {
@@ -238,19 +255,21 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
      *
      * @inheritDoc
      */
-    public function addItem(Varien_Object $object)
+    public function addItem(Varien_Object $item)
     {
-        if ($object::class !== $this->_itemObjectClass) {
+        if ($item::class !== $this->_itemObjectClass) {
             throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('Attempt to add an invalid object'));
         }
-        return parent::addItem($object);
+
+        return parent::addItem($item);
     }
 
     /**
      * Retrieve entity attribute
      *
-     * @param   string $attributeCode
-     * @return  Mage_Eav_Model_Entity_Attribute_Abstract
+     * @param  string                                   $attributeCode
+     * @return Mage_Eav_Model_Entity_Attribute_Abstract
+     * @throws Mage_Core_Exception
      */
     public function getAttribute($attributeCode)
     {
@@ -270,11 +289,12 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
      *     array('attribute'=>'lastname', 'like'=>'test%'),
      * )
      *
-     * @see self::_getConditionSql for $condition
-     * @param Mage_Eav_Model_Entity_Attribute_Interface|int|string|array $attribute
-     * @param null|int|string|array $condition
-     * @param string $joinType
+     * @param  array|int|Mage_Eav_Model_Entity_Attribute_Interface|string $attribute
+     * @param  null|array|int|string                                      $condition
+     * @param  string                                                     $joinType
      * @return $this
+     * @throws Mage_Core_Exception
+     * @see self::_getConditionSql for $condition
      */
     public function addAttributeToFilter($attribute, $condition = null, $joinType = 'inner')
     {
@@ -294,11 +314,13 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
             foreach ($attribute as $condition) {
                 $sqlArr[] = $this->_getAttributeConditionSql($condition['attribute'], $condition, $joinType);
             }
+
             $conditionSql = '(' . implode(') OR (', $sqlArr) . ')';
         } elseif (is_string($attribute)) {
             if ($condition === null) {
                 $condition = '';
             }
+
             $conditionSql = $this->_getAttributeConditionSql($attribute, $condition, $joinType);
         }
 
@@ -315,18 +337,21 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
      * Wrapper for compatibility with Varien_Data_Collection_Db
      *
      * @inheritDoc
+     * @throws Mage_Core_Exception
      */
-    public function addFieldToFilter($attribute, $condition = null)
+    public function addFieldToFilter($field, $condition = null)
     {
-        return $this->addAttributeToFilter($attribute, $condition);
+        return $this->addAttributeToFilter($field, $condition);
     }
 
     /**
      * Add attribute to sort order
      *
-     * @param string $attribute
-     * @param string $dir
+     * @param  string                   $attribute
+     * @param  string                   $dir
      * @return $this
+     * @throws Mage_Core_Exception
+     * @throws Zend_Db_Select_Exception
      */
     public function addAttributeToSort($attribute, $dir = self::SORT_ORDER_ASC)
     {
@@ -334,10 +359,12 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
             $this->getSelect()->order($this->_getAttributeFieldName($attribute) . ' ' . $dir);
             return $this;
         }
+
         if (isset($this->_staticFields[$attribute])) {
             $this->getSelect()->order("e.{$attribute} {$dir}");
             return $this;
         }
+
         if (isset($this->_joinAttributes[$attribute])) {
             $attrInstance = $this->_joinAttributes[$attribute]['attribute'];
             $entityField = $this->_getAttributeTableAlias($attribute) . '.' . $attrInstance->getAttributeCode();
@@ -367,14 +394,16 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
             $orderExpr .= ' ' . $dir;
             $this->getSelect()->order($orderExpr);
         }
+
         return $this;
     }
 
     /**
      * Retrieve attribute expression by specified column
      *
-     * @param string $field
+     * @param  string                   $field
      * @return string|Zend_Db_Expr
+     * @throws Zend_Db_Select_Exception
      */
     protected function _prepareOrderExpression($field)
     {
@@ -382,10 +411,12 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
             if ($columnEntry[2] != $field) {
                 continue;
             }
+
             if ($columnEntry[1] instanceof Zend_Db_Expr) {
                 return $columnEntry[1];
             }
         }
+
         return $field;
     }
 
@@ -394,18 +425,21 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
      *
      * If $attribute=='*' select all attributes
      *
-     * @param   array|string|int|Mage_Core_Model_Config_Element $attribute
-     * @param   bool|string $joinType flag for joining attribute
-     * @return  $this
+     * @param  array|int|Mage_Core_Model_Config_Element|string $attribute
+     * @param  bool|string                                     $joinType  flag for joining attribute
+     * @return $this
+     * @throws Mage_Core_Exception
      */
     public function addAttributeToSelect($attribute, $joinType = false)
     {
         if (is_array($attribute)) {
-            foreach ($attribute as $a) {
-                $this->addAttributeToSelect($a, $joinType);
+            foreach ($attribute as $value) {
+                $this->addAttributeToSelect($value, $joinType);
             }
+
             return $this;
         }
+
         if ($joinType !== false && !$this->getEntity()->getAttribute($attribute)->isStatic()) {
             $this->_addAttributeJoin($attribute, $joinType);
         } elseif ($attribute === '*') {
@@ -427,20 +461,23 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
                     return $this;
                 }
             }
+
             if (empty($attrInstance)) {
                 throw Mage::exception(
                     'Mage_Eav',
                     Mage::helper('eav')->__('Invalid attribute requested: %s', (string) $attribute),
                 );
             }
+
             $this->_selectAttributes[$attrInstance->getAttributeCode()] = $attrInstance->getId();
         }
+
         return $this;
     }
 
     /**
-     * @param string $entityType
-     * @param string $prefix
+     * @param  string $entityType
+     * @param  string $prefix
      * @return $this
      */
     public function addEntityTypeToSelect($entityType, $prefix)
@@ -454,7 +491,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
     /**
      * Add field to static
      *
-     * @param string $field
+     * @param  string $field
      * @return $this
      */
     public function addStaticField($field)
@@ -462,6 +499,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
         if (!isset($this->_staticFields[$field])) {
             $this->_staticFields[$field] = $field;
         }
+
         return $this;
     }
 
@@ -473,10 +511,11 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
      *
      * For some functions like SUM use groupByAttribute.
      *
-     * @param string $alias
-     * @param string $expression
-     * @param string|array $attribute
+     * @param  string              $alias
+     * @param  string              $expression
+     * @param  array|string        $attribute
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function addExpressionAttributeToSelect($alias, $expression, $attribute)
     {
@@ -487,6 +526,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
                 Mage::helper('eav')->__('Joint field or attribute expression with this alias is already declared'),
             );
         }
+
         if (!is_array($attribute)) {
             $attribute = [$attribute];
         }
@@ -524,8 +564,9 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
     /**
      * Groups results by specified attribute
      *
-     * @param string|array $attribute
+     * @param  array|string        $attribute
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function groupByAttribute($attribute)
     {
@@ -576,12 +617,12 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
      * Developer is encouraged to use existing instances of attributes and entities
      * After first use of string entity name it will be cached in the collection
      *
-     * @param string $alias alias for the joined attribute
-     * @param string|Mage_Eav_Model_Entity_Attribute_Abstract $attribute
-     * @param string $bind attribute of the main entity to link with joined $filter
-     * @param string $filter primary key for the joined entity (entity_id default)
-     * @param string $joinType inner|left
-     * @param int $storeId
+     * @param  string                                          $alias     alias for the joined attribute
+     * @param  Mage_Eav_Model_Entity_Attribute_Abstract|string $attribute
+     * @param  string                                          $bind      attribute of the main entity to link with joined $filter
+     * @param  string                                          $filter    primary key for the joined entity (entity_id default)
+     * @param  string                                          $joinType  inner|left
+     * @param  int                                             $storeId
      * @return $this
      * @throws Mage_Core_Exception
      * @throws Mage_Eav_Exception
@@ -622,6 +663,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
             // retrieve cached entity if possible
             $entity = $this->_joinEntities[$entity] ?? Mage::getModel('eav/entity')->setType($attrArr[0]);
         }
+
         if (isset($entity) && (!$entity || !$entity->getTypeId())) {
             throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('Invalid entity type'));
         }
@@ -635,6 +677,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
         if (isset($entity) && is_string($attribute)) {
             $attribute = $entity->getAttribute($attribute);
         }
+
         if (!$attribute) {
             throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('Invalid attribute type'));
         }
@@ -664,13 +707,14 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
      * ('country_name', 'directory/country_name', 'name', 'country_id=shipping_country',
      *      "{{table}}.language_code='en'", 'left')
      *
-     * @param string $alias 'country_name'
-     * @param string $table 'directory/country_name'
-     * @param string $field 'name'
-     * @param string $bind 'PK(country_id)=FK(shipping_country_id)'
-     * @param string|array $cond "{{table}}.language_code='en'" OR array('language_code'=>'en')
-     * @param string $joinType 'left'
+     * @param  string              $alias    'country_name'
+     * @param  string              $table    'directory/country_name'
+     * @param  string              $field    'name'
+     * @param  string              $bind     'PK(country_id)=FK(shipping_country_id)'
+     * @param  array|string        $cond     "{{table}}.language_code='en'" OR array('language_code'=>'en')
+     * @param  string              $joinType 'left'
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function joinField($alias, $table, $field, $bind, $cond = null, $joinType = 'inner')
     {
@@ -686,12 +730,13 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
         if (str_contains($table, '/')) {
             $table = Mage::getSingleton('core/resource')->getTableName($table);
         }
+
         $tableAlias = $this->_getAttributeTableAlias($alias);
 
         // validate bind
-        [$pk, $fk] = explode('=', $bind);
-        $pk = $this->getSelect()->getAdapter()->quoteColumnAs(trim($pk), null);
-        $bindCond = $tableAlias . '.' . trim($pk) . '=' . $this->_getAttributeFieldName(trim($fk));
+        [$privateKey, $foreignKey] = explode('=', $bind);
+        $privateKey = $this->getSelect()->getAdapter()->quoteColumnAs(trim($privateKey), null);
+        $bindCond = $tableAlias . '.' . trim($privateKey) . '=' . $this->_getAttributeFieldName(trim($foreignKey));
 
         // process join type
         $joinMethod = match ($joinType) {
@@ -703,13 +748,14 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
         // add where condition if needed
         if ($cond !== null) {
             if (is_array($cond)) {
-                foreach ($cond as $k => $v) {
-                    $condArr[] = $this->_getConditionSql($tableAlias . '.' . $k, $v);
+                foreach ($cond as $key => $value) {
+                    $condArr[] = $this->_getConditionSql($tableAlias . '.' . $key, $value);
                 }
             } else {
                 $condArr[] = str_replace('{{table}}', $tableAlias, $cond);
             }
         }
+
         $cond = '(' . implode(') AND (', $condArr) . ')';
 
         // join table
@@ -728,12 +774,13 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
     /**
      * Join a table
      *
-     * @param array|string|Zend_Db_Expr $table
-     * @param string $bind
-     * @param string|array $fields
-     * @param string|array|null $cond
-     * @param string $joinType
+     * @param  array|string|Zend_Db_Expr $table
+     * @param  string                    $bind
+     * @param  array|string              $fields
+     * @param  null|array|string         $cond
+     * @param  string                    $joinType
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function joinTable($table, $bind, $fields = null, $cond = null, $joinType = 'inner')
     {
@@ -749,6 +796,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
         if (is_string($tableName) && str_contains($tableName, '/')) {
             $tableName = Mage::getSingleton('core/resource')->getTableName($tableName);
         }
+
         if (empty($tableAlias)) {
             $tableAlias = $tableName;
         }
@@ -757,6 +805,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
         if (!$fields) {
             throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('Invalid joint fields'));
         }
+
         foreach ($fields as $alias => $field) {
             if (isset($this->_joinFields[$alias])) {
                 throw Mage::exception(
@@ -764,6 +813,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
                     Mage::helper('eav')->__('A joint field with this alias (%s) is already declared', $alias),
                 );
             }
+
             $this->_joinFields[$alias] = [
                 'table' => $tableAlias,
                 'field' => $field,
@@ -771,8 +821,8 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
         }
 
         // validate bind
-        [$pk, $fk] = explode('=', $bind);
-        $bindCond = $tableAlias . '.' . $pk . '=' . $this->_getAttributeFieldName($fk);
+        [$privateKey, $foreignKey] = explode('=', $bind);
+        $bindCond = $tableAlias . '.' . $privateKey . '=' . $this->_getAttributeFieldName($foreignKey);
 
         // process join type
         $joinMethod = match ($joinType) {
@@ -784,13 +834,14 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
         // add where condition if needed
         if ($cond !== null) {
             if (is_array($cond)) {
-                foreach ($cond as $k => $v) {
-                    $condArr[] = $this->_getConditionSql($tableAlias . '.' . $k, $v);
+                foreach ($cond as $key => $value) {
+                    $condArr[] = $this->_getConditionSql($tableAlias . '.' . $key, $value);
                 }
             } else {
                 $condArr[] = str_replace('{{table}}', $tableAlias, $cond);
             }
         }
+
         $cond = '(' . implode(') AND (', $condArr) . ')';
 
         // join table
@@ -802,7 +853,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
     /**
      * Remove an attribute from selection list
      *
-     * @param string $attribute
+     * @param  string $attribute
      * @return $this
      */
     public function removeAttributeToSelect($attribute = null)
@@ -812,14 +863,15 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
         } else {
             unset($this->_selectAttributes[$attribute]);
         }
+
         return $this;
     }
 
     /**
      * Set collection page start and records to show
      *
-     * @param int $pageNum
-     * @param int $pageSize
+     * @param  int   $pageNum
+     * @param  int   $pageSize
      * @return $this
      */
     public function setPage($pageNum, $pageSize)
@@ -832,17 +884,19 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
     /**
      * Load collection data into object items
      *
-     * @param bool $printQuery
-     * @param bool $logQuery
+     * @param  bool                 $printQuery
+     * @param  bool                 $logQuery
      * @return $this
      * @throws Mage_Core_Exception
      * @throws Mage_Eav_Exception
+     * @throws Zend_Cache_Exception
      */
     public function load($printQuery = false, $logQuery = false)
     {
         if ($this->isLoaded()) {
             return $this;
         }
+
         Varien_Profiler::start('__EAV_COLLECTION_BEFORE_LOAD__');
         Mage::dispatchEvent('eav_collection_abstract_load_before', ['collection' => $this]);
         $this->_beforeLoad();
@@ -862,6 +916,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
         foreach ($this->_items as $item) {
             $item->setOrigData();
         }
+
         Varien_Profiler::stop('__EAV_COLLECTION_ORIG_DATA__');
 
         $this->_setIsLoaded();
@@ -874,8 +929,8 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
     /**
      * Clone and reset collection
      *
-     * @param int $limit
-     * @param int $offset
+     * @param  int                 $limit
+     * @param  int                 $offset
      * @return Varien_Db_Select
      * @throws Mage_Core_Exception
      */
@@ -895,9 +950,10 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
     /**
      * Retrieve all ids for collection
      *
-     * @param int $limit
-     * @param int $offset
+     * @param  int                 $limit
+     * @param  int                 $offset
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function getAllIds($limit = null, $offset = null)
     {
@@ -907,8 +963,9 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
     /**
      * Retrieve all ids sql
      *
-     * @deprecated
      * @return Varien_Db_Select
+     * @throws Mage_Core_Exception
+     * @deprecated
      */
     public function getAllIdsSql()
     {
@@ -934,21 +991,25 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
             // phpcs:ignore Ecg.Performance.Loop.ModelLSD
             $item->save();
         }
+
         return $this;
     }
 
     /**
      * Delete all the entities in the collection
      *
+     * @throws Exception
+     * @throws Mage_Core_Exception
      * @todo make batch delete directly from collection
      */
     public function delete()
     {
-        foreach ($this->getItems() as $k => $item) {
+        foreach ($this->getItems() as $key => $item) {
             // phpcs:ignore Ecg.Performance.Loop.ModelLSD
             $this->getEntity()->delete($item);
-            unset($this->_items[$k]);
+            unset($this->_items[$key]);
         }
+
         return $this;
     }
 
@@ -957,8 +1018,9 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
      *
      * If the imported items already exist, update the data for existing objects
      *
-     * @param array $arr
+     * @param  array               $arr
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function importFromArray($arr)
     {
@@ -972,6 +1034,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
                 $this->_items[$entityId]->addData($row);
             }
         }
+
         return $this;
     }
 
@@ -979,6 +1042,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
      * Get collection data as a 2D array
      *
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function exportToArray()
     {
@@ -987,6 +1051,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
         foreach ($this->getItems() as $item) {
             $result[$item->getData($entityIdField)] = $item->getData();
         }
+
         return $result;
     }
 
@@ -994,18 +1059,20 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
      * Retrieve row id field name
      *
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function getRowIdFieldName()
     {
         if ($this->_idFieldName === null) {
             $this->_setIdFieldName($this->getEntity()->getIdFieldName());
         }
+
         return $this->getIdFieldName();
     }
 
     /**
      * Set row id field name
-     * @param string $fieldName
+     * @param  string $fieldName
      * @return $this
      */
     public function setRowIdFieldName($fieldName)
@@ -1016,10 +1083,11 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
     /**
      * Load entities records into items
      *
-     * @param bool $printQuery
-     * @param bool $logQuery
+     * @param  bool                 $printQuery
+     * @param  bool                 $logQuery
      * @return $this
-     * @throws Mage_Core_Exception
+     * @throws Exception
+     * @throws Zend_Cache_Exception
      */
     public function _loadEntities($printQuery = false, $logQuery = false)
     {
@@ -1036,15 +1104,15 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
              */
             $query = $this->_prepareSelect($this->getSelect());
             $rows = $this->_fetchAll($query);
-        } catch (Exception $e) {
-            Mage::printException($e, $query);
+        } catch (Exception $exception) {
+            Mage::printException($exception, $query);
             $this->printLogQuery(true, true, $query);
-            throw $e;
+            throw $exception;
         }
 
-        foreach ($rows as $v) {
+        foreach ($rows as $row) {
             $object = $this->getNewEmptyItem()
-                ->setData($v);
+                ->setData($row);
             $this->addItem($object);
             if (isset($this->_itemsById[$object->getId()])) {
                 $this->_itemsById[$object->getId()][] = $object;
@@ -1059,15 +1127,16 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
     /**
      * Load attributes into loaded entities
      *
-     * @param bool $printQuery
-     * @param bool $logQuery
+     * @param  bool                $printQuery
+     * @param  bool                $logQuery
      * @return $this
+     * @throws Exception
      * @throws Mage_Core_Exception
      * @throws Mage_Eav_Exception
      */
     public function _loadAttributes($printQuery = false, $logQuery = false)
     {
-        if (empty($this->_items) || empty($this->_itemsById) || empty($this->_selectAttributes)) {
+        if (empty($this->_items) || $this->_itemsById === [] || $this->_selectAttributes === []) {
             return $this;
         }
 
@@ -1079,6 +1148,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
             if (!$attributeId) {
                 continue;
             }
+
             $attribute = Mage::getSingleton('eav/config')->getAttribute($entity->getType(), $attributeCode);
             if ($attribute && !$attribute->isStatic()) {
                 $tableAttributes[$attribute->getBackendTable()][] = $attributeId;
@@ -1105,17 +1175,13 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
         foreach ($selectGroups as $selects) {
             if (!empty($selects)) {
                 try {
-                    if (is_array($selects)) {
-                        $select = implode(' UNION ALL ', $selects);
-                    } else {
-                        $select = $selects;
-                    }
+                    $select = is_array($selects) ? implode(' UNION ALL ', $selects) : $selects;
 
                     $values = $this->getConnection()->fetchAll($select);
-                } catch (Exception $e) {
-                    Mage::printException($e, $select);
+                } catch (Exception $exception) {
+                    Mage::printException($exception, $select);
                     $this->printLogQuery(true, true, $select);
-                    throw $e;
+                    throw $exception;
                 }
 
                 foreach ($values as $value) {
@@ -1130,9 +1196,9 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
     /**
      * Retrieve attributes load select
      *
-     * @param   string $table
-     * @param array $attributeIds
-     * @return  Varien_Db_Select
+     * @param  string              $table
+     * @param  array               $attributeIds
+     * @return Varien_Db_Select
      * @throws Mage_Core_Exception
      */
     protected function _getLoadAttributesSelect($table, $attributeIds = [])
@@ -1140,19 +1206,19 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
         if (empty($attributeIds)) {
             $attributeIds = $this->_selectAttributes;
         }
-        $helper = Mage::getResourceHelper('eav');
+
         $entityIdField = $this->getEntity()->getEntityIdField();
         return $this->getConnection()->select()
             ->from($table, [$entityIdField, 'attribute_id'])
             ->where('entity_type_id =?', $this->getEntity()->getTypeId())
-            ->where("$entityIdField IN (?)", array_keys($this->_itemsById))
+            ->where("{$entityIdField} IN (?)", array_keys($this->_itemsById))
             ->where('attribute_id IN (?)', $attributeIds);
     }
 
     /**
-     * @param Varien_Db_Select $select
-     * @param string $table
-     * @param string $type
+     * @param  Varien_Db_Select $select
+     * @param  string           $table
+     * @param  string           $type
      * @return Varien_Db_Select
      */
     protected function _addLoadAttributesSelectValues($select, $table, $type)
@@ -1167,13 +1233,14 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
     }
 
     /**
-     * Initialize entity ubject property value
+     * Initialize entity object property value
      *
      * $valueInfo is _getLoadAttributesSelect fetch result row
      *
-     * @param   array $valueInfo
+     * @param  array               $valueInfo
+     * @return $this
+     * @throws Mage_Core_Exception
      * @throws Mage_Eav_Exception
-     * @return  $this
      */
     protected function _setItemAttributeValue($valueInfo)
     {
@@ -1185,6 +1252,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
                 Mage::helper('eav')->__('Data integrity: No header row found for attribute'),
             );
         }
+
         $attributeCode = array_search($valueInfo['attribute_id'], $this->_selectAttributes);
         if (!$attributeCode) {
             $attribute = Mage::getSingleton('eav/config')->getAttribute(
@@ -1204,7 +1272,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
     /**
      * Get alias for attribute value table
      *
-     * @param string $attributeCode
+     * @param  string $attributeCode
      * @return string
      */
     protected function _getAttributeTableAlias($attributeCode)
@@ -1215,8 +1283,9 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
     /**
      * Retrieve attribute field name by attribute code
      *
-     * @param string $attributeCode
+     * @param  string              $attributeCode
      * @return string
+     * @throws Mage_Core_Exception
      */
     protected function _getAttributeFieldName($attributeCode)
     {
@@ -1224,9 +1293,11 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
         if (isset($this->_joinAttributes[$attributeCode]['condition_alias'])) {
             return $this->_joinAttributes[$attributeCode]['condition_alias'];
         }
+
         if (isset($this->_staticFields[$attributeCode])) {
             return sprintf('e.%s', $attributeCode);
         }
+
         if (isset($this->_joinFields[$attributeCode])) {
             $attr = $this->_joinFields[$attributeCode];
             return $attr['table'] ? $attr['table'] . '.' . $attr['field'] : $attr['field'];
@@ -1253,10 +1324,11 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
     /**
      * Add attribute value table to the join if it wasn't added previously
      *
-     * @param   string $attributeCode
-     * @param   bool|string $joinType inner|left
-     * @throws  Mage_Eav_Exception
-     * @return  $this
+     * @param  string              $attributeCode
+     * @param  bool|string         $joinType      inner|left
+     * @return $this
+     * @throws Mage_Core_Exception
+     * @throws Mage_Eav_Exception
      */
     protected function _addAttributeJoin($attributeCode, $joinType = 'inner')
     {
@@ -1277,21 +1349,22 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
 
             if ($fkAttribute->getBackend()->isStatic()) {
                 if (isset($this->_joinAttributes[$fkName])) {
-                    $fk = $fkTable . '.' . $fkAttribute->getAttributeCode();
+                    $foreignKey = $fkTable . '.' . $fkAttribute->getAttributeCode();
                 } else {
-                    $fk = 'e.' . $fkAttribute->getAttributeCode();
+                    $foreignKey = 'e.' . $fkAttribute->getAttributeCode();
                 }
             } else {
                 $this->_addAttributeJoin($fkAttribute->getAttributeCode(), $joinType);
-                $fk = $fkTable . '.value';
+                $foreignKey = $fkTable . '.value';
             }
-            $pk = $attrTable . '.' . $this->_joinAttributes[$attributeCode]['filter'];
+
+            $privateKey = $attrTable . '.' . $this->_joinAttributes[$attributeCode]['filter'];
         } else {
             $entity         = $this->getEntity();
             $entityIdField  = $entity->getEntityIdField();
             $attribute      = $entity->getAttribute($attributeCode);
-            $fk             = 'e.' . $entityIdField;
-            $pk             = $attrTable . '.' . $entityIdField;
+            $foreignKey     = 'e.' . $entityIdField;
+            $privateKey     = $attrTable . '.' . $entityIdField;
         }
 
         if (!$attribute) {
@@ -1304,13 +1377,13 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
             $attrFieldName = $attrTable . '.value';
         }
 
-        $fk = $adapter->quoteColumnAs($fk, null);
-        $pk = $adapter->quoteColumnAs($pk, null);
+        $foreignKey = $adapter->quoteColumnAs($foreignKey, null);
+        $privateKey = $adapter->quoteColumnAs($privateKey, null);
 
-        $condArr = ["$pk = $fk"];
+        $condArr = ["{$privateKey} = {$foreignKey}"];
         if (!$attribute->getBackend()->isStatic()) {
             $condArr[] = $this->getConnection()->quoteInto(
-                $adapter->quoteColumnAs("$attrTable.attribute_id", null) . ' = ?',
+                $adapter->quoteColumnAs("{$attrTable}.attribute_id", null) . ' = ?',
                 $attribute->getId(),
             );
         }
@@ -1339,13 +1412,13 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
     /**
      * Adding join statement to collection select instance
      *
-     * @param   string $method
-     * @param   object $attribute
-     * @param   string $tableAlias
-     * @param   array $condition
-     * @param   string $fieldCode
-     * @param   string $fieldAlias
-     * @return  $this
+     * @param  string $method
+     * @param  object $attribute
+     * @param  string $tableAlias
+     * @param  array  $condition
+     * @param  string $fieldCode
+     * @param  string $fieldAlias
+     * @return $this
      */
     protected function _joinAttributeToSelect($method, $attribute, $tableAlias, $condition, $fieldCode, $fieldAlias)
     {
@@ -1360,41 +1433,37 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
     /**
      * Get condition sql for the attribute
      *
-     * @see self::_getConditionSql
-     * @param string $attribute
-     * @param mixed $condition
-     * @param string $joinType
+     * @param  string              $attribute
+     * @param  mixed               $condition
+     * @param  string              $joinType
      * @return string
+     * @throws Mage_Core_Exception
+     * @see self::_getConditionSql
      */
     protected function _getAttributeConditionSql($attribute, $condition, $joinType = 'inner')
     {
         if (isset($this->_joinFields[$attribute])) {
             return $this->_getConditionSql($this->_getAttributeFieldName($attribute), $condition);
         }
+
         if (isset($this->_staticFields[$attribute])) {
             return $this->_getConditionSql($this->getConnection()->quoteIdentifier('e.' . $attribute), $condition);
         }
+
         // process linked attribute
-        if (isset($this->_joinAttributes[$attribute])) {
-            $entity      = $this->getAttribute($attribute)->getEntity();
-            $entityTable = $entity->getEntityTable();
-        } else {
-            $entity      = $this->getEntity();
-            $entityTable = 'e';
-        }
+        $entity = isset($this->_joinAttributes[$attribute]) ? $this->getAttribute($attribute)->getEntity() : $this->getEntity();
 
         if ($entity->isAttributeStatic($attribute)) {
-            $conditionSql = $this->_getConditionSql(
+            return $this->_getConditionSql(
                 $this->getConnection()->quoteIdentifier('e.' . $attribute),
                 $condition,
             );
-        } else {
-            $this->_addAttributeJoin($attribute, $joinType);
-            $field = $this->_joinAttributes[$attribute]['condition_alias'] ?? ($this->_getAttributeTableAlias($attribute) . '.value');
-            $conditionSql = $this->_getConditionSql($field, $condition);
         }
 
-        return $conditionSql;
+        $this->_addAttributeJoin($attribute, $joinType);
+        $field = $this->_joinAttributes[$attribute]['condition_alias'] ?? ($this->_getAttributeTableAlias($attribute) . '.value');
+
+        return $this->_getConditionSql($field, $condition);
     }
 
     /**
@@ -1404,29 +1473,32 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
      *
      * @inheritDoc
      */
-    public function setOrder($attribute, $dir = self::SORT_ORDER_ASC)
+    public function setOrder($field, $dir = self::SORT_ORDER_ASC)
     {
-        if (is_array($attribute)) {
-            foreach ($attribute as $attr) {
+        if (is_array($field)) {
+            foreach ($field as $attr) {
                 parent::setOrder($attr, $dir);
             }
+
             return $this;
         }
-        return parent::setOrder($attribute, $dir);
+
+        return parent::setOrder($field, $dir);
     }
 
     /**
      * Retrieve array of attributes
      *
-     * @param array $arrAttributes
+     * @param  array $arrRequiredFields
      * @return array
      */
-    public function toArray($arrAttributes = [])
+    public function toArray($arrRequiredFields = [])
     {
         $arr = [];
-        foreach ($this->_items as $k => $item) {
-            $arr[$k] = $item->toArray($arrAttributes);
+        foreach ($this->_items as $key => $item) {
+            $arr[$key] = $item->toArray($arrRequiredFields);
         }
+
         return $arr;
     }
 
@@ -1441,8 +1513,10 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
             foreach ($this->_orders as $attribute => $direction) {
                 $this->addAttributeToSort($attribute, $direction);
             }
+
             $this->_isOrdersRendered = true;
         }
+
         return $this;
     }
 
@@ -1488,7 +1562,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
     /**
      * Prepare select for load
      *
-     * @param Varien_Db_Select $select OPTIONAL
+     * @param  Varien_Db_Select $select OPTIONAL
      * @return string
      */
     public function _prepareSelect(Varien_Db_Select $select)

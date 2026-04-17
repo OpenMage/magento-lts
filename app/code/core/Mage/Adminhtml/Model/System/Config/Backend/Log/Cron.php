@@ -15,6 +15,7 @@
 class Mage_Adminhtml_Model_System_Config_Backend_Log_Cron extends Mage_Core_Model_Config_Data
 {
     public const CRON_STRING_PATH  = 'crontab/jobs/log_clean/schedule/cron_expr';
+
     public const CRON_MODEL_PATH   = 'crontab/jobs/log_clean/run/model';
 
     /**
@@ -56,9 +57,10 @@ class Mage_Adminhtml_Model_System_Config_Backend_Log_Cron extends Mage_Core_Mode
                 ->setValue((string) Mage::getConfig()->getNode(self::CRON_MODEL_PATH))
                 ->setPath(self::CRON_MODEL_PATH)
                 ->save();
-        } catch (Exception $e) {
+        } catch (Exception) {
             Mage::throwException(Mage::helper('adminhtml')->__('Unable to save the cron expression.'));
         }
+
         return $this;
     }
 }

@@ -29,6 +29,9 @@ class Mage_CatalogIndex_Model_Resource_Price extends Mage_CatalogIndex_Model_Res
      */
     protected $_taxRates           = null;
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('catalogindex/price', 'index_id');
@@ -50,6 +53,7 @@ class Mage_CatalogIndex_Model_Resource_Price extends Mage_CatalogIndex_Model_Res
         if (!$this->_rate) {
             $this->_rate = 1;
         }
+
         return $this->_rate;
     }
 
@@ -70,8 +74,8 @@ class Mage_CatalogIndex_Model_Resource_Price extends Mage_CatalogIndex_Model_Res
     }
 
     /**
-     * @param Mage_Eav_Model_Entity_Attribute $attribute
-     * @param Zend_Db_Select $entitySelect
+     * @param  Mage_Eav_Model_Entity_Attribute $attribute
+     * @param  Zend_Db_Select                  $entitySelect
      * @return float|int
      */
     public function getMaxValue($attribute, $entitySelect)
@@ -107,9 +111,9 @@ class Mage_CatalogIndex_Model_Resource_Price extends Mage_CatalogIndex_Model_Res
     }
 
     /**
-     * @param int $range
-     * @param Mage_Eav_Model_Entity_Attribute $attribute
-     * @param Zend_Db_Select $entitySelect
+     * @param  int                             $range
+     * @param  Mage_Eav_Model_Entity_Attribute $attribute
+     * @param  Zend_Db_Select                  $entitySelect
      * @return array
      */
     public function getCount($range, $attribute, $entitySelect)
@@ -121,6 +125,7 @@ class Mage_CatalogIndex_Model_Resource_Price extends Mage_CatalogIndex_Model_Res
         $select->reset(Zend_Db_Select::LIMIT_OFFSET);
 
         $select->join(['price_table' => $this->getMainTable()], 'price_table.entity_id=e.entity_id', []);
+
         $response = new Varien_Object();
         $response->setAdditionalCalculations([]);
 
@@ -153,11 +158,11 @@ class Mage_CatalogIndex_Model_Resource_Price extends Mage_CatalogIndex_Model_Res
     }
 
     /**
-     * @param int $range
-     * @param int $index
-     * @param Mage_Eav_Model_Entity_Attribute $attribute
-     * @param array $entityIdsFilter
-     * @param string $tableName
+     * @param  int                             $range
+     * @param  int                             $index
+     * @param  Mage_Eav_Model_Entity_Attribute $attribute
+     * @param  array                           $entityIdsFilter
+     * @param  string                          $tableName
      * @return array
      */
     public function getFilteredEntities($range, $index, $attribute, $entityIdsFilter, $tableName = 'price_table')
@@ -192,11 +197,11 @@ class Mage_CatalogIndex_Model_Resource_Price extends Mage_CatalogIndex_Model_Res
     }
 
     /**
-     * @param Mage_Eav_Model_Resource_Entity_Attribute_Collection $collection
-     * @param Mage_Eav_Model_Entity_Attribute $attribute
-     * @param int $range
-     * @param int $index
-     * @param string $tableName
+     * @param  Mage_Eav_Model_Resource_Entity_Attribute_Collection $collection
+     * @param  Mage_Eav_Model_Entity_Attribute                     $attribute
+     * @param  int                                                 $range
+     * @param  int                                                 $index
+     * @param  string                                              $tableName
      * @return $this
      */
     public function applyFilterToCollection($collection, $attribute, $range, $index, $tableName = 'price_table')
@@ -239,7 +244,7 @@ class Mage_CatalogIndex_Model_Resource_Price extends Mage_CatalogIndex_Model_Res
     }
 
     /**
-     * @param array $ids
+     * @param  array $ids
      * @return array
      */
     public function getMinimalPrices($ids)
@@ -247,6 +252,7 @@ class Mage_CatalogIndex_Model_Resource_Price extends Mage_CatalogIndex_Model_Res
         if (!$ids) {
             return [];
         }
+
         $select = $this->_getReadAdapter()->select();
         $select->from(
             ['price_table' => $this->getTable('catalogindex/minimal_price')],

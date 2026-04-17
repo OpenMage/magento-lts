@@ -18,9 +18,13 @@ class Mage_Centinel_Model_Service extends Varien_Object
      * Cmpi public keys
      */
     public const CMPI_PARES    = 'centinel_authstatus';
+
     public const CMPI_ENROLLED = 'centinel_mpivendor';
+
     public const CMPI_CAVV     = 'centinel_cavv';
+
     public const CMPI_ECI      = 'centinel_eci';
+
     public const CMPI_XID      = 'centinel_xid';
 
     /**
@@ -40,14 +44,14 @@ class Mage_Centinel_Model_Service extends Varien_Object
     /**
      * Validation api model
      *
-     * @var Mage_Centinel_Model_Api|null
+     * @var null|Mage_Centinel_Model_Api
      */
     protected $_api;
 
     /**
      * Validation state model
      *
-     * @var Mage_Centinel_Model_StateAbstract|false
+     * @var false|Mage_Centinel_Model_StateAbstract
      */
     protected $_validationState;
 
@@ -75,12 +79,12 @@ class Mage_Centinel_Model_Service extends Varien_Object
     /**
      * Generate checksum from all passed parameters
      *
-     * @param string $cardType
-     * @param string $cardNumber
-     * @param string $cardExpMonth
-     * @param string $cardExpYear
-     * @param double $amount
-     * @param string $currencyCode
+     * @param  string $cardType
+     * @param  string $cardNumber
+     * @param  string $cardExpMonth
+     * @param  string $cardExpYear
+     * @param  float  $amount
+     * @param  string $currencyCode
      * @return string
      */
     protected function _generateChecksum($paymentMethodCode, $cardType, $cardNumber, $cardExpMonth, $cardExpYear, $amount, $currencyCode)
@@ -91,8 +95,8 @@ class Mage_Centinel_Model_Service extends Varien_Object
     /**
      * Unified validation/authentication URL getter
      *
-     * @param string $suffix
-     * @param bool $current
+     * @param  string $suffix
+     * @param  bool   $current
      * @return string
      */
     private function _getUrl($suffix, $current = false)
@@ -105,9 +109,9 @@ class Mage_Centinel_Model_Service extends Varien_Object
         ];
         if (Mage::app()->getStore()->isAdmin()) {
             return Mage::getSingleton('adminhtml/url')->getUrl('*/centinel_index/' . $suffix, $params);
-        } else {
-            return Mage::getUrl('centinel/index/' . $suffix, $params);
         }
+
+        return Mage::getUrl('centinel/index/' . $suffix, $params);
     }
 
     /**
@@ -136,8 +140,8 @@ class Mage_Centinel_Model_Service extends Varien_Object
     /**
      * Create and return validation state model for card type
      *
-     * @param string $cardType
-     * @return Mage_Centinel_Model_StateAbstract|false
+     * @param  string                                  $cardType
+     * @return false|Mage_Centinel_Model_StateAbstract
      */
     protected function _getValidationStateModel($cardType)
     {
@@ -146,32 +150,34 @@ class Mage_Centinel_Model_Service extends Varien_Object
             $model = Mage::getModel($modelClass);
             return $model;
         }
+
         return false;
     }
 
     /**
      * Return validation state model
      *
-     * @param string $cardType
-     * @return Mage_Centinel_Model_StateAbstract|false
+     * @param  string                                  $cardType
+     * @return false|Mage_Centinel_Model_StateAbstract
      */
     protected function _getValidationState($cardType = null)
     {
-        $type = $cardType ? $cardType : $this->_getSession()->getData('card_type');
+        $type = $cardType ? $cardType : $this->_getSession()->getDataByKey('card_type');
         if (!$this->_validationState && $type) {
             $model = $this->_getValidationStateModel($type);
             if (!$model) {
                 return false;
             }
+
             $model->setDataStorage($this->_getSession());
             $this->_validationState = $model;
         }
+
         return $this->_validationState;
     }
 
     /**
      * Drop validation state model
-     *
      */
     protected function _resetValidationState()
     {
@@ -182,8 +188,8 @@ class Mage_Centinel_Model_Service extends Varien_Object
     /**
      * Drop old and init new validation state model
      *
-     * @param string $cardType
-     * @param string $dataChecksum
+     * @param  string                            $cardType
+     * @param  string                            $dataChecksum
      * @return Mage_Centinel_Model_StateAbstract
      */
     protected function _initValidationState($cardType, $dataChecksum)
@@ -247,7 +253,7 @@ class Mage_Centinel_Model_Service extends Varien_Object
      * This check is performed on payment information submission, as well as on placing order.
      * Workflow state is stored validation state model
      *
-     * @param Varien_Object $data
+     * @param  Varien_Object       $data
      * @throws Mage_Core_Exception
      */
     public function validate($data)
@@ -273,18 +279,22 @@ class Mage_Centinel_Model_Service extends Varien_Object
             if ($validationState->getChecksum() != $newChecksum) {
                 Mage::throwException(Mage::helper('centinel')->__('Payment information error. Please start over.'));
             }
+
             if ($validationState->isAuthenticateSuccessful()) {
                 return;
             }
+
             Mage::throwException(Mage::helper('centinel')->__('Please verify the card with the issuer bank before placing the order.'));
         } else {
             if ($validationState->getChecksum() != $newChecksum || !$validationState->isLookupSuccessful()) {
                 $this->lookup($data);
                 $validationState = $this->_getValidationState();
             }
+
             if ($validationState->isLookupSuccessful()) {
                 return;
             }
+
             Mage::throwException(Mage::helper('centinel')->__('This card has failed validation and cannot be used.'));
         }
     }
@@ -335,7 +345,7 @@ class Mage_Centinel_Model_Service extends Varien_Object
     /**
      * Return data for start authentication (redirect customer to bank page)
      *
-     * @return array
+     * @return array<string, mixed>
      */
     public function getAuthenticateStartData()
     {
@@ -343,6 +353,7 @@ class Mage_Centinel_Model_Service extends Varien_Object
         if (!$validationState && $this->shouldAuthenticate()) {
             throw new Exception('Authentication impossible: validation state is wrong.');
         }
+
         return [
             'acs_url' => $validationState->getLookupAcsUrl(),
             'pa_req' => $validationState->getLookupPayload(),
@@ -363,20 +374,22 @@ class Mage_Centinel_Model_Service extends Varien_Object
     }
 
     /**
-    * Export cmpi lookups and authentication information stored in session into array
-    *
-    * @param mixed $to
-    * @param array|false $map
-    * @return mixed $to
-    */
-    public function exportCmpiData($to, $map = false)
+     * Export cmpi lookups and authentication information stored in session into array
+     *
+     * @param  mixed       $target
+     * @param  array|false $map
+     * @return mixed
+     */
+    public function exportCmpiData($target, $map = false)
     {
         if (!$map) {
             $map = $this->_cmpiMap;
         }
+
         if ($validationState = $this->_getValidationState()) {
-            $to = Varien_Object_Mapper::accumulateByMap($validationState, $to, $map);
+            return Varien_Object_Mapper::accumulateByMap($validationState, $target, $map);
         }
-        return $to;
+
+        return $target;
     }
 }

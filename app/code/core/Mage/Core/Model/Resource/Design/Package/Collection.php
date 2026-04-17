@@ -21,7 +21,7 @@ class Mage_Core_Model_Resource_Design_Package_Collection extends Varien_Object
      */
     public function load()
     {
-        $packages = $this->getData('packages');
+        $packages = $this->getDataByKey('packages');
         if (is_null($packages)) {
             $packages = Mage::getModel('core/design_package')->getPackageList();
             $this->setData('packages', $packages);
@@ -38,10 +38,11 @@ class Mage_Core_Model_Resource_Design_Package_Collection extends Varien_Object
     public function toOptionArray()
     {
         $options = [];
-        $packages = $this->getData('packages');
+        $packages = $this->getDataByKey('packages');
         foreach ($packages as $package) {
             $options[] = ['value' => $package, 'label' => $package];
         }
+
         array_unshift($options, ['value' => '', 'label' => '']);
 
         return $options;

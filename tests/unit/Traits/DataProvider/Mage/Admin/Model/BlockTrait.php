@@ -4,6 +4,7 @@
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
  * @license    Open Software License (OSL 3.0)
+ * @package    OpenMage_Tests
  */
 
 declare(strict_types=1);
@@ -35,7 +36,6 @@ trait BlockTrait
         yield 'errors: blank blockname' => [
             [
                 'Block Name is required field.',
-                'Block Name is incorrect.',
                 'Is Allowed is required field.',
             ],
             [
@@ -60,7 +60,6 @@ trait BlockTrait
         yield 'errors: null blockname' => [
             [
                 'Block Name is required field.',
-                $errorIncorrectBlockName,
             ],
             [
                 'getBlockName' => null,

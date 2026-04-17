@@ -12,15 +12,14 @@
  *
  * @package    Mage_ImportExport
  *
- * @method string getRunAt()
- * @method int getScheduledOperationId()
  * @method string getOperationType()
+ * @method string getRunAt()
+ * @method int    getScheduledOperationId()
  */
 abstract class Mage_ImportExport_Model_Abstract extends Varien_Object
 {
     /**
      * Log directory
-     *
      */
     public const LOG_DIRECTORY = 'log/import_export/';
 
@@ -55,8 +54,8 @@ abstract class Mage_ImportExport_Model_Abstract extends Varien_Object
      * Log debug data to file.
      * Log file dir: var/log/import_export/%Y/%m/%d/%time%_%operation_type%_%entity_type%.log
      *
-     * @param mixed $debugData
-     * @return Mage_ImportExport_Model_Abstract
+     * @param  mixed $debugData
+     * @return $this
      */
     public function addLogComment($debugData)
     {
@@ -65,6 +64,7 @@ abstract class Mage_ImportExport_Model_Abstract extends Varien_Object
         } else {
             $this->_logTrace[] = $debugData;
         }
+
         if (!$this->_debugMode) {
             return $this;
         }
@@ -82,11 +82,13 @@ abstract class Mage_ImportExport_Model_Abstract extends Varien_Object
             if (!is_dir($dirPath)) {
                 mkdir($dirPath, 0750, true);
             }
+
             $fileName = substr(strstr(self::LOG_DIRECTORY, DS), 1)
                 . $dirName . $fileName . '.log';
             $this->_logInstance = Mage::getModel('core/log_adapter', $fileName)
                 ->setFilterDataKeys($this->_debugReplacePrivateDataKeys);
         }
+
         $this->_logInstance->log($debugData);
         return $this;
     }
@@ -103,14 +105,15 @@ abstract class Mage_ImportExport_Model_Abstract extends Varien_Object
         foreach ($this->_logTrace as &$info) {
             $trace .= $lineNumber++ . ': ' . $info . "\n";
         }
+
         return $trace;
     }
 
     /**
      * Sets debug mode
      *
-     * @param bool $mode
-     * @return Mage_ImportExport_Model_Abstract
+     * @param  bool  $mode
+     * @return $this
      */
     public function setDebugMode($mode = true)
     {

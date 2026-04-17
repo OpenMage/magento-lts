@@ -29,7 +29,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Customer_Show_Customer extends 
     /**
      * Retrieve attribute objects
      *
-     * @return array
+     * @return array<int, mixed>
      */
     protected function _getAttributeObjects()
     {
@@ -70,6 +70,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Customer_Show_Customer extends 
                 $attributeObject->setWebsite($website);
                 $attributeObject->load($attributeObject->getId());
             }
+
             $attributeObject->setData($dataFieldPrefix . 'is_required', $data['is_required']);
             $attributeObject->setData($dataFieldPrefix . 'is_visible', $data['is_visible']);
             $attributeObject->save();
@@ -81,7 +82,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Customer_Show_Customer extends 
     /**
      * Processing object after delete data
      *
-     * @return Mage_Core_Model_Abstract
+     * @return $this
      */
     protected function _afterDelete()
     {

@@ -54,21 +54,21 @@ class Mage_Adminhtml_Permissions_OrphanedResourceController extends Mage_Adminht
         try {
             $deletedRows = Mage::getResourceSingleton('admin/rules')->deleteOrphanedResources($resourceIds);
             $this->_getSession()->addSuccess($this->__('Total of %d record(s) have been deleted.', $deletedRows));
-        } catch (Mage_Core_Exception $e) {
-            $this->_getSession()->addError($e->getMessage());
-        } catch (Exception $e) {
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_getSession()->addError($mageCoreException->getMessage());
+        } catch (Exception $exception) {
             $error = Mage::getIsDeveloperMode()
-                ? $e->getMessage()
+                ? $exception->getMessage()
                 : $this->__('An error occurred while deleting record(s).');
             $this->_getSession()->addError($error);
-            Mage::logException($e);
+            Mage::logException($exception);
         }
 
         $this->_redirect('*/*/');
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     public function preDispatch()
     {

@@ -27,31 +27,45 @@ class Mage_Customer_Model_Observer
     /**
      * Check whether specified billing address is default for its customer
      *
-     * @param Mage_Customer_Model_Address $address
+     * @param  Mage_Customer_Model_Address $address
      * @return bool
      */
     protected function _isDefaultBilling($address)
     {
-        return ($address->getId() && $address->getId() == $address->getCustomer()->getDefaultBilling())
-            || $address->getIsPrimaryBilling() || $address->getIsDefaultBilling();
+        if ($address->getId() && $address->getId() == $address->getCustomer()->getDefaultBilling()) {
+            return true;
+        }
+
+        if ($address->getIsPrimaryBilling()) {
+            return true;
+        }
+
+        return $address->getIsDefaultBilling();
     }
 
     /**
      * Check whether specified shipping address is default for its customer
      *
-     * @param Mage_Customer_Model_Address $address
+     * @param  Mage_Customer_Model_Address $address
      * @return bool
      */
     protected function _isDefaultShipping($address)
     {
-        return ($address->getId() && $address->getId() == $address->getCustomer()->getDefaultShipping())
-            || $address->getIsPrimaryShipping() || $address->getIsDefaultShipping();
+        if ($address->getId() && $address->getId() == $address->getCustomer()->getDefaultShipping()) {
+            return true;
+        }
+
+        if ($address->getIsPrimaryShipping()) {
+            return true;
+        }
+
+        return $address->getIsDefaultShipping();
     }
 
     /**
      * Check whether specified address should be processed in after_save event handler
      *
-     * @param Mage_Customer_Model_Address $address
+     * @param  Mage_Customer_Model_Address $address
      * @return bool
      */
     protected function _canProcessAddress($address)
@@ -68,6 +82,7 @@ class Mage_Customer_Model_Observer
         if ($configAddressType == Mage_Customer_Model_Address_Abstract::TYPE_SHIPPING) {
             return $this->_isDefaultShipping($address);
         }
+
         return $this->_isDefaultBilling($address);
     }
 
@@ -178,7 +193,7 @@ class Mage_Customer_Model_Observer
                     }
                 }
             }
-        } catch (Exception $e) {
+        } catch (Exception) {
             Mage::register(self::VIV_PROCESSED_FLAG, false, true);
         }
     }
@@ -209,7 +224,6 @@ class Mage_Customer_Model_Observer
 
     /**
      * Clear customer flow password table
-     *
      */
     public function deleteCustomerFlowPassword()
     {
@@ -243,6 +257,7 @@ class Mage_Customer_Model_Observer
                 break;
             }
         }
+
         if (Mage_Core_Model_Encryption::HASH_VERSION_SHA256 !== $currentVersionHash) {
             $model->changePassword($password, false);
         }

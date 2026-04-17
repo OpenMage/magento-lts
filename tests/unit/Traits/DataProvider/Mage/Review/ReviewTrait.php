@@ -4,6 +4,7 @@
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
  * @license    Open Software License (OSL 3.0)
+ * @package    OpenMage_Tests
  */
 
 declare(strict_types=1);
@@ -33,21 +34,21 @@ trait ReviewTrait
         $data = $validReview;
         $data['getTitle'] = '';
         yield 'missing title' => [
-            ['Review summary can\'t be empty'],
+            ["Review summary can't be empty"],
             $data,
         ];
 
         $data = $validReview;
         $data['getDetail'] = '';
         yield 'missing detail' => [
-            ['Review can\'t be empty'],
+            ["Review can't be empty"],
             $data,
         ];
 
         $data = $validReview;
         $data['getNickname'] = '';
         yield 'missing nickname' => [
-            ['Nickname can\'t be empty'],
+            ["Nickname can't be empty"],
             $data,
         ];
     }

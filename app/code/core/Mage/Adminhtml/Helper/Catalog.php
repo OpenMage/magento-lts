@@ -21,7 +21,7 @@ class Mage_Adminhtml_Helper_Catalog extends Mage_Core_Helper_Abstract
     /**
      * Attribute Tab block name for product edit
      *
-     * @var string|null
+     * @var null|string
      */
     protected $_attributeTabBlock = null;
 
@@ -35,7 +35,7 @@ class Mage_Adminhtml_Helper_Catalog extends Mage_Core_Helper_Abstract
     /**
      * Retrieve Attribute Tab Block Name for Product Edit
      *
-     * @return string|null
+     * @return null|string
      */
     public function getAttributeTabBlock()
     {
@@ -45,7 +45,7 @@ class Mage_Adminhtml_Helper_Catalog extends Mage_Core_Helper_Abstract
     /**
      * Set Custom Attribute Tab Block Name for Product Edit
      *
-     * @param string $attributeTabBlock
+     * @param  string $attributeTabBlock
      * @return $this
      */
     public function setAttributeTabBlock($attributeTabBlock)
@@ -67,7 +67,7 @@ class Mage_Adminhtml_Helper_Catalog extends Mage_Core_Helper_Abstract
     /**
      * Set Custom Attribute Tab Block Name for Category Edit
      *
-     * @param string $attributeTabBlock
+     * @param  string $attributeTabBlock
      * @return $this
      */
     public function setCategoryAttributeTabBlock($attributeTabBlock)

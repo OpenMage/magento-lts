@@ -10,7 +10,9 @@
 class Varien_Image_Adapter
 {
     public const ADAPTER_GD    = 'GD';
+
     public const ADAPTER_GD2   = 'GD2';
+
     public const ADAPTER_IM    = 'IMAGEMAGIC';
 
     public static function factory($adapter)

@@ -15,6 +15,7 @@
 class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle extends Mage_Adminhtml_Block_Widget implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
     protected $_product = null;
+
     public function __construct()
     {
         parent::__construct();

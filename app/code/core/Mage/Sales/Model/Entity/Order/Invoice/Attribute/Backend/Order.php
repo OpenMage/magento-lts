@@ -13,7 +13,7 @@
 class Mage_Sales_Model_Entity_Order_Invoice_Attribute_Backend_Order extends Mage_Eav_Model_Entity_Attribute_Backend_Abstract
 {
     /**
-     * @param Varien_Object $object
+     * @param  Varien_Object                                    $object
      * @return Mage_Eav_Model_Entity_Attribute_Backend_Abstract
      */
     public function beforeSave($object)
@@ -22,6 +22,7 @@ class Mage_Sales_Model_Entity_Order_Invoice_Attribute_Backend_Order extends Mage
             $object->setOrderId($object->getOrder()->getId());
             $object->setBillingAddressId($object->getOrder()->getBillingAddress()->getId());
         }
+
         return parent::beforeSave($object);
     }
 }

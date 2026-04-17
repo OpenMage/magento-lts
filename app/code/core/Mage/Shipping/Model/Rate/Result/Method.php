@@ -18,20 +18,20 @@
  *
  * @package    Mage_Shipping
  *
- * @method $this setCarrier(string $value)
- * @method $this setCarrierTitle(string $value)
  * @method string getMethod()
- * @method $this setMethod(string $value)
- * @method $this setMethodTitle(string $value)
- * @method float getPrice()
- * @method $this setCost(float $value)
+ * @method float  getPrice()
+ * @method $this  setCarrier(string $value)
+ * @method $this  setCarrierTitle(string $value)
+ * @method $this  setCost(float $value)
+ * @method $this  setMethod(string $value)
+ * @method $this  setMethodTitle(string $value)
  */
 class Mage_Shipping_Model_Rate_Result_Method extends Mage_Shipping_Model_Rate_Result_Abstract
 {
     /**
      * Round shipping carrier's method price
      *
-     * @param string|float|int $price
+     * @param  float|int|string $price
      * @return $this
      */
     public function setPrice($price)

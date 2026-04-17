@@ -17,15 +17,15 @@ class Mage_Directory_Model_Region_Api extends Mage_Api_Model_Resource_Abstract
     /**
      * Retrieve regions list
      *
-     * @param string $country
+     * @param  string $country
      * @return array
      */
     public function items($country)
     {
         try {
             $country = Mage::getModel('directory/country')->loadByCode($country);
-        } catch (Mage_Core_Exception $e) {
-            $this->_fault('country_not_exists', $e->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_fault('country_not_exists', $mageCoreException->getMessage());
         }
 
         if (!$country->getId()) {

@@ -21,15 +21,26 @@ class Mage_Adminhtml_Block_Cms_Block_Edit extends Mage_Adminhtml_Block_Widget_Fo
 
         parent::__construct();
 
-        $this->_updateButton('save', 'label', Mage::helper('cms')->__('Save Block'));
-        $this->_updateButton('delete', 'label', Mage::helper('cms')->__('Delete Block'));
+        if ($this->_isAllowedAction('save')) {
+            $this->_addButton('saveandcontinue', [
+                'label'     => Mage::helper('adminhtml')->__('Save and Continue Edit'),
+                'onclick'   => 'saveAndContinueEdit()',
+                'class'     => 'save continue',
+            ], -100);
+        } else {
+            $this->_removeButton('save');
+        }
 
-        $this->_addButton('saveandcontinue', [
-            'label'     => Mage::helper('adminhtml')->__('Save and Continue Edit'),
-            'onclick'   => 'saveAndContinueEdit()',
-            'class'     => 'save',
-        ], -100);
+        if (!$this->_isAllowedAction('delete')) {
+            $this->_removeButton('delete');
+        }
+    }
 
+    /**
+     * @inheritDoc
+     */
+    protected function _prepareLayout()
+    {
         $this->_formScripts[] = "
             function toggleEditor() {
                 tinymce.execCommand('mceToggleEditor', false, wysiwygblock_content);
@@ -39,6 +50,8 @@ class Mage_Adminhtml_Block_Cms_Block_Edit extends Mage_Adminhtml_Block_Widget_Fo
                 editForm.submit($('edit_form').action+'back/edit/');
             }
         ";
+
+        return parent::_prepareLayout();
     }
 
     /**
@@ -51,6 +64,15 @@ class Mage_Adminhtml_Block_Cms_Block_Edit extends Mage_Adminhtml_Block_Widget_Fo
         if (Mage::registry('cms_block')->getId()) {
             return Mage::helper('cms')->__("Edit Block '%s'", $this->escapeHtml(Mage::registry('cms_block')->getTitle()));
         }
+
         return Mage::helper('cms')->__('New Block');
+    }
+
+    /**
+     * Check permission for passed action
+     */
+    protected function _isAllowedAction(string $action): bool
+    {
+        return Mage::getSingleton('admin/session')->isAllowed('cms/block/' . $action);
     }
 }

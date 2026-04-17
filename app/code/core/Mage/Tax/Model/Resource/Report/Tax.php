@@ -14,6 +14,9 @@
  */
 class Mage_Tax_Model_Resource_Report_Tax extends Mage_Reports_Model_Resource_Report_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('tax/tax_order_aggregated_created', 'id');
@@ -22,14 +25,14 @@ class Mage_Tax_Model_Resource_Report_Tax extends Mage_Reports_Model_Resource_Rep
     /**
      * Aggregate Tax data
      *
-     * @param mixed $from
-     * @param mixed $to
+     * @param  null|string $dateFrom
+     * @param  null|string $dateTo
      * @return $this
      */
-    public function aggregate($from = null, $to = null)
+    public function aggregate($dateFrom = null, $dateTo = null)
     {
-        Mage::getResourceModel('tax/report_tax_createdat')->aggregate($from, $to);
-        Mage::getResourceModel('tax/report_tax_updatedat')->aggregate($from, $to);
+        Mage::getResourceModel('tax/report_tax_createdat')->aggregate($dateFrom, $dateTo);
+        Mage::getResourceModel('tax/report_tax_updatedat')->aggregate($dateFrom, $dateTo);
         $this->_setFlagData(Mage_Reports_Model_Flag::REPORT_TAX_FLAG_CODE);
 
         return $this;

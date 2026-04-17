@@ -11,9 +11,14 @@
  * Quote addresses collection
  *
  * @package    Mage_Sales
+ *
+ * @extends Mage_Core_Model_Resource_Db_Collection_Abstract<Mage_Sales_Model_Quote_Address_Item>
  */
 class Mage_Sales_Model_Resource_Quote_Address_Item_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('sales/quote_address_item');
@@ -42,7 +47,7 @@ class Mage_Sales_Model_Resource_Quote_Address_Item_Collection extends Mage_Core_
     /**
      * Set address filter
      *
-     * @param int $addressId
+     * @param  int   $addressId
      * @return $this
      */
     public function setAddressFilter($addressId)

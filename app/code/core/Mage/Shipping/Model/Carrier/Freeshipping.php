@@ -31,7 +31,7 @@ class Mage_Shipping_Model_Carrier_Freeshipping extends Mage_Shipping_Model_Carri
     /**
      * FreeShipping Rates Collector
      *
-     * @return Mage_Shipping_Model_Rate_Result|false
+     * @return false|Mage_Shipping_Model_Rate_Result
      */
     public function collectRates(Mage_Shipping_Model_Rate_Request $request)
     {
@@ -44,8 +44,8 @@ class Mage_Shipping_Model_Carrier_Freeshipping extends Mage_Shipping_Model_Carri
         $this->_updateFreeMethodQuote($request);
 
         if (($request->getFreeShipping())
-            || ($request->getBaseSubtotalInclTax() >=
-                $this->getConfigData('free_shipping_subtotal'))
+            || ($request->getBaseSubtotalInclTax()
+                >= $this->getConfigData('free_shipping_subtotal'))
         ) {
             $method = Mage::getModel('shipping/rate_result_method');
 
@@ -73,16 +73,17 @@ class Mage_Shipping_Model_Carrier_Freeshipping extends Mage_Shipping_Model_Carri
     {
         $freeShipping = false;
         $items = $request->getAllItems();
-        $c = count($items);
-        for ($i = 0; $i < $c; $i++) {
-            if ($items[$i]->getProduct() instanceof Mage_Catalog_Model_Product) {
-                if ($items[$i]->getFreeShipping()) {
+        $count = count($items);
+        for ($index = 0; $index < $count; $index++) {
+            if ($items[$index]->getProduct() instanceof Mage_Catalog_Model_Product) {
+                if ($items[$index]->getFreeShipping()) {
                     $freeShipping = true;
                 } else {
                     return;
                 }
             }
         }
+
         if ($freeShipping) {
             $request->setFreeShipping(true);
         }
@@ -91,7 +92,7 @@ class Mage_Shipping_Model_Carrier_Freeshipping extends Mage_Shipping_Model_Carri
     /**
      * Get allowed shipping methods
      *
-     * @return array
+     * @return array<string, bool|string>
      */
     public function getAllowedMethods()
     {

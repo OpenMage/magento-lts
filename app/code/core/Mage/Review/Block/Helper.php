@@ -12,9 +12,9 @@
  *
  * @package    Mage_Review
  *
- * @method $this setDisplayIfEmpty(bool $value)
  * @method Mage_Catalog_Model_Product getProduct()
- * @method $this setProduct(Mage_Catalog_Model_Product $value)
+ * @method $this                      setDisplayIfEmpty(bool $value)
+ * @method $this                      setProduct(Mage_Catalog_Model_Product $value)
  */
 class Mage_Review_Block_Helper extends Mage_Core_Block_Template
 {
@@ -24,9 +24,9 @@ class Mage_Review_Block_Helper extends Mage_Core_Block_Template
     ];
 
     /**
-     * @param Mage_Catalog_Model_Product $product
-     * @param string $templateType
-     * @param bool $displayIfNoReviews
+     * @param  Mage_Catalog_Model_Product      $product
+     * @param  string                          $templateType
+     * @param  bool                            $displayIfNoReviews
      * @return string
      * @throws Mage_Core_Model_Store_Exception
      */
@@ -36,6 +36,7 @@ class Mage_Review_Block_Helper extends Mage_Core_Block_Template
         if (empty($this->_availableTemplates[$templateType])) {
             $templateType = 'default';
         }
+
         $this->setTemplate($this->_availableTemplates[$templateType]);
 
         $this->setDisplayIfEmpty($displayIfNoReviews);
@@ -44,6 +45,7 @@ class Mage_Review_Block_Helper extends Mage_Core_Block_Template
             Mage::getModel('review/review')
                ->getEntitySummary($product, Mage::app()->getStore()->getId());
         }
+
         $this->setProduct($product);
 
         return $this->toHtml();

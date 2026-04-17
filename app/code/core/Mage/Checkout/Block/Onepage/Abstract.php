@@ -17,10 +17,15 @@
 abstract class Mage_Checkout_Block_Onepage_Abstract extends Mage_Core_Block_Template
 {
     protected $_customer;
+
     protected $_checkout;
+
     protected $_quote;
+
     protected $_countryCollection;
+
     protected $_regionCollection;
+
     protected $_addressesCollection;
 
     /**
@@ -33,6 +38,7 @@ abstract class Mage_Checkout_Block_Onepage_Abstract extends Mage_Core_Block_Temp
         if (empty($this->_customer)) {
             $this->_customer = Mage::getSingleton('customer/session')->getCustomer();
         }
+
         return $this->_customer;
     }
 
@@ -46,6 +52,7 @@ abstract class Mage_Checkout_Block_Onepage_Abstract extends Mage_Core_Block_Temp
         if (empty($this->_checkout)) {
             $this->_checkout = Mage::getSingleton('checkout/session');
         }
+
         return $this->_checkout;
     }
 
@@ -59,6 +66,7 @@ abstract class Mage_Checkout_Block_Onepage_Abstract extends Mage_Core_Block_Temp
         if (empty($this->_quote)) {
             $this->_quote = $this->getCheckout()->getQuote();
         }
+
         return $this->_quote;
     }
 
@@ -79,6 +87,7 @@ abstract class Mage_Checkout_Block_Onepage_Abstract extends Mage_Core_Block_Temp
             $this->_countryCollection = Mage::getSingleton('directory/country')->getResourceCollection()
                 ->loadByStore();
         }
+
         return $this->_countryCollection;
     }
 
@@ -92,6 +101,7 @@ abstract class Mage_Checkout_Block_Onepage_Abstract extends Mage_Core_Block_Temp
                 ->addCountryFilter($this->getAddress()->getCountryId())
                 ->load();
         }
+
         return $this->_regionCollection;
     }
 
@@ -105,7 +115,7 @@ abstract class Mage_Checkout_Block_Onepage_Abstract extends Mage_Core_Block_Temp
 
     /* */
     /**
-     * @param string $type
+     * @param  string $type
      * @return string
      */
     public function getAddressesHtmlSelect($type)
@@ -126,6 +136,7 @@ abstract class Mage_Checkout_Block_Onepage_Abstract extends Mage_Core_Block_Temp
                 } else {
                     $address = $this->getCustomer()->getPrimaryShippingAddress();
                 }
+
                 if ($address) {
                     $addressId = $address->getId();
                 }
@@ -143,11 +154,12 @@ abstract class Mage_Checkout_Block_Onepage_Abstract extends Mage_Core_Block_Temp
 
             return $select->getHtml();
         }
+
         return '';
     }
 
     /**
-     * @param string $type
+     * @param  string                          $type
      * @return string
      * @throws Mage_Core_Model_Store_Exception
      */
@@ -162,7 +174,7 @@ abstract class Mage_Checkout_Block_Onepage_Abstract extends Mage_Core_Block_Temp
     }
 
     /**
-     * @param string $type
+     * @param  string $type
      * @return string
      */
     public function getRegionHtmlSelect($type)
@@ -179,9 +191,9 @@ abstract class Mage_Checkout_Block_Onepage_Abstract extends Mage_Core_Block_Temp
     }
 
     /**
-     * @deprecated
      * @return bool|mixed
      * @throws Mage_Core_Model_Store_Exception
+     * @deprecated
      */
     public function getCountryOptions()
     {
@@ -201,13 +213,14 @@ abstract class Mage_Checkout_Block_Onepage_Abstract extends Mage_Core_Block_Temp
                 Mage::app()->saveCache(serialize($options), $cacheId, $cacheTags);
             }
         }
+
         return $options;
     }
 
     /**
      * Get checkout steps codes
      *
-     * @return array
+     * @return array<int, string>
      */
     protected function _getStepCodes()
     {

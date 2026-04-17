@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -16,14 +18,13 @@ interface Mage_Catalog_Model_Resource_Product_Indexer_Price_Interface
 {
     /**
      * Reindex temporary (price result data) for all products
-     *
      */
     public function reindexAll();
 
     /**
      * Reindex temporary (price result data) for defined product(s)
      *
-     * @param int|array $entityIds
+     * @param array|int $entityIds
      */
     public function reindexEntity($entityIds);
 

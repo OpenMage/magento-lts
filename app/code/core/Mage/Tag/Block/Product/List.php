@@ -17,7 +17,7 @@ class Mage_Tag_Block_Product_List extends Mage_Core_Block_Template
     /**
      * Unique Html Id
      *
-     * @var string|null
+     * @var null|string
      */
     protected $_uniqueHtmlId = null;
 
@@ -47,6 +47,7 @@ class Mage_Tag_Block_Product_List extends Mage_Core_Block_Template
         if ($product = Mage::registry('current_product')) {
             return $product->getId();
         }
+
         return false;
     }
 
@@ -67,6 +68,7 @@ class Mage_Tag_Block_Product_List extends Mage_Core_Block_Template
                 ->setActiveFilter()
                 ->load();
         }
+
         return $this->_collection;
     }
 
@@ -97,8 +99,8 @@ class Mage_Tag_Block_Product_List extends Mage_Core_Block_Template
     /**
      * Render tags by specified pattern and implode them by specified 'glue' string
      *
-     * @param string $pattern
-     * @param string $glue
+     * @param  string                          $pattern
+     * @param  string                          $glue
      * @return string
      * @throws Mage_Core_Model_Store_Exception
      */
@@ -113,13 +115,14 @@ class Mage_Tag_Block_Product_List extends Mage_Core_Block_Template
                 $tag->getProducts(),
             );
         }
+
         return implode($glue, $out);
     }
 
     /**
      * Generate unique html id
      *
-     * @param string $prefix
+     * @param  string $prefix
      * @return string
      */
     public function getUniqueHtmlId($prefix = '')
@@ -127,6 +130,7 @@ class Mage_Tag_Block_Product_List extends Mage_Core_Block_Template
         if (is_null($this->_uniqueHtmlId)) {
             $this->_uniqueHtmlId = Mage::helper('core/data')->uniqHash($prefix);
         }
+
         return $this->_uniqueHtmlId;
     }
 }

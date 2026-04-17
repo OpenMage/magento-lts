@@ -20,7 +20,7 @@ class Mage_Bundle_Helper_Catalog_Product_Configuration extends Mage_Core_Helper_
      * Get selection quantity
      *
      * @param Mage_Catalog_Model_Product $product
-     * @param int $selectionId
+     * @param int                        $selectionId
      *
      * @return float
      */
@@ -30,13 +30,14 @@ class Mage_Bundle_Helper_Catalog_Product_Configuration extends Mage_Core_Helper_
         if ($selectionQty) {
             return $selectionQty->getValue();
         }
+
         return 0;
     }
 
     /**
      * Obtain final price of selection in a bundle product
      *
-     * @param Mage_Catalog_Model_Product $selectionProduct
+     * @param  Mage_Catalog_Model_Product $selectionProduct
      * @return float
      */
     public function getSelectionFinalPrice(
@@ -55,7 +56,7 @@ class Mage_Bundle_Helper_Catalog_Product_Configuration extends Mage_Core_Helper_
     }
 
     /**
-     * Get bundled selections (slections-products collection)
+     * Get bundled selections (selections-products collection)
      *
      * Returns array of options objects.
      * Each option object will contain array of selections objects
@@ -102,7 +103,7 @@ class Mage_Bundle_Helper_Catalog_Product_Configuration extends Mage_Core_Helper_
                             $qty = $this->getSelectionQty($product, $bundleSelection->getSelectionId()) * 1;
                             if ($qty) {
                                 $option['value'][] = $qty . ' x ' . $this->escapeHtml($bundleSelection->getName())
-                                    . ' ' . Mage::helper('core')->currency(
+                                    . ' ' . Mage::helper('core')::currency(
                                         $this->getSelectionFinalPrice($item, $bundleSelection),
                                     );
                             }

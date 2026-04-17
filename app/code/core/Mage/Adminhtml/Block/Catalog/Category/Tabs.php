@@ -23,7 +23,6 @@ class Mage_Adminhtml_Block_Catalog_Category_Tabs extends Mage_Adminhtml_Block_Wi
 
     /**
      * Initialize Tabs
-     *
      */
     public function __construct()
     {
@@ -64,6 +63,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Tabs extends Mage_Adminhtml_Block_Wi
         if ($block = $this->getCatalogHelper()->getCategoryAttributeTabBlock()) {
             return $block;
         }
+
         return $this->_attributeTabBlock;
     }
 
@@ -102,7 +102,6 @@ class Mage_Adminhtml_Block_Catalog_Category_Tabs extends Mage_Adminhtml_Block_Wi
             /** @var Mage_Eav_Model_Entity_Attribute_Group $group */
             $attributes = [];
             foreach ($categoryAttributes as $attribute) {
-                /** @var Mage_Eav_Model_Entity_Attribute $attribute */
                 if ($attribute->isInGroup($attributeSetId, $group->getId())) {
                     $attributes[] = $attribute;
                 }

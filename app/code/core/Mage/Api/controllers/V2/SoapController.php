@@ -16,11 +16,7 @@ class Mage_Api_V2_SoapController extends Mage_Api_Controller_Action
 {
     public function indexAction()
     {
-        if (Mage::helper('api/data')->isComplianceWSI()) {
-            $handlerName = 'soap_wsi';
-        } else {
-            $handlerName = 'soap_v2';
-        }
+        $handlerName = Mage::helper('api/data')->isComplianceWSI() ? 'soap_wsi' : 'soap_v2';
 
         $this->_getServer()->init($this, $handlerName, $handlerName)->run();
     }

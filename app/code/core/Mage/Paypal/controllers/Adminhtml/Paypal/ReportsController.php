@@ -46,6 +46,7 @@ class Mage_Paypal_Adminhtml_Paypal_ReportsController extends Mage_Adminhtml_Cont
             $this->_redirect('*/*/');
             return;
         }
+
         Mage::register('current_transaction', $row);
         $this->_initAction()
             ->_title($this->__('View Transaction'))
@@ -59,30 +60,32 @@ class Mage_Paypal_Adminhtml_Paypal_ReportsController extends Mage_Adminhtml_Cont
     public function fetchAction()
     {
         try {
-            $reports = Mage::getModel('paypal/report_settlement');
             /** @var Mage_Paypal_Model_Report_Settlement $reports */
+            $reports = Mage::getModel('paypal/report_settlement');
             $credentials = $reports->getSftpCredentials();
             if (empty($credentials)) {
                 Mage::throwException(Mage::helper('paypal')->__('Nothing to fetch because of an empty configuration.'));
             }
+
             foreach ($credentials as $config) {
                 try {
                     $fetched = $reports->fetchAndSave($config);
                     $this->_getSession()->addSuccess(
                         Mage::helper('paypal')->__("Fetched %s report rows from '%s@%s'.", $fetched, $config['username'], $config['hostname']),
                     );
-                } catch (Exception $e) {
+                } catch (Exception $exception) {
                     $this->_getSession()->addError(
                         Mage::helper('paypal')->__("Failed to fetch reports from '%s@%s'.", $config['username'], $config['hostname']),
                     );
-                    Mage::logException($e);
+                    Mage::logException($exception);
                 }
             }
-        } catch (Mage_Core_Exception $e) {
-            $this->_getSession()->addError($e->getMessage());
-        } catch (Exception $e) {
-            Mage::logException($e);
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_getSession()->addError($mageCoreException->getMessage());
+        } catch (Exception $exception) {
+            Mage::logException($exception);
         }
+
         $this->_redirect('*/*/index');
     }
 
@@ -104,7 +107,7 @@ class Mage_Paypal_Adminhtml_Paypal_ReportsController extends Mage_Adminhtml_Cont
     /**
      * @inheritDoc
      */
-    protected function _isAllowed()
+    protected function _isAllowed(): bool
     {
         $action = strtolower($this->getRequest()->getActionName());
         $aclPath = match ($action) {

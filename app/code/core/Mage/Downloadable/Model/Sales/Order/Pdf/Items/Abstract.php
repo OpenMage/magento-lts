@@ -47,6 +47,7 @@ abstract class Mage_Downloadable_Model_Sales_Order_Pdf_Items_Abstract extends Ma
         if ($this->_purchasedLinks->getLinkSectionTitle()) {
             return $this->_purchasedLinks->getLinkSectionTitle();
         }
+
         return Mage::getStoreConfig(Mage_Downloadable_Model_Link::XML_PATH_LINKS_TITLE);
     }
 }

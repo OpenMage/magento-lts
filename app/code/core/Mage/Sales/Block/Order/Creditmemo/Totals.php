@@ -15,7 +15,7 @@ class Mage_Sales_Block_Order_Creditmemo_Totals extends Mage_Sales_Block_Order_To
     protected $_creditmemo = null;
 
     /**
-     * @return mixed|null
+     * @return null|mixed
      */
     public function getCreditmemo()
     {
@@ -28,11 +28,12 @@ class Mage_Sales_Block_Order_Creditmemo_Totals extends Mage_Sales_Block_Order_To
                 $this->_creditmemo = $this->getParentBlock()->getCreditmemo();
             }
         }
+
         return $this->_creditmemo;
     }
 
     /**
-     * @param Mage_Sales_Model_Order_Creditmemo $creditmemo
+     * @param  Mage_Sales_Model_Order_Creditmemo $creditmemo
      * @return $this
      */
     public function setCreditmemo($creditmemo)
@@ -54,7 +55,7 @@ class Mage_Sales_Block_Order_Creditmemo_Totals extends Mage_Sales_Block_Order_To
     /**
      * Initialize order totals array
      *
-     * @return Mage_Sales_Block_Order_Totals
+     * @return $this
      */
     protected function _initTotals()
     {
@@ -68,6 +69,7 @@ class Mage_Sales_Block_Order_Creditmemo_Totals extends Mage_Sales_Block_Order_To
             ]);
             $this->addTotal($total);
         }
+
         if ((float) $this->getSource()->getAdjustmentNegative()) {
             $total = new Varien_Object([
                 'code'  => 'adjustment_negative',
@@ -76,6 +78,7 @@ class Mage_Sales_Block_Order_Creditmemo_Totals extends Mage_Sales_Block_Order_To
             ]);
             $this->addTotal($total);
         }
+
         /**
         <?php if ($this->getCanDisplayTotalPaid()): ?>
         <tr>

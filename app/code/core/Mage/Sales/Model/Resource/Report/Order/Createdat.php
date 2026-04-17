@@ -14,6 +14,9 @@
  */
 class Mage_Sales_Model_Resource_Report_Order_Createdat extends Mage_Sales_Model_Resource_Report_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('sales/order_aggregated_created', 'id');
@@ -22,53 +25,54 @@ class Mage_Sales_Model_Resource_Report_Order_Createdat extends Mage_Sales_Model_
     /**
      * Aggregate Orders data by order created at
      *
-     * @param mixed $from
-     * @param mixed $to
+     * @param  null|string $dateFrom
+     * @param  null|string $dateTo
      * @return $this
      */
-    public function aggregate($from = null, $to = null)
+    public function aggregate($dateFrom = null, $dateTo = null)
     {
-        return $this->_aggregateByField('created_at', $from, $to);
+        return $this->_aggregateByField('created_at', $dateFrom, $dateTo);
     }
 
     /**
      * Aggregate Orders data by custom field
      *
-     * @throws Exception
-     * @param string $aggregationField
-     * @param mixed $from
-     * @param mixed $to
+     * @param  string      $aggregationField
+     * @param  null|string $dateFrom
+     * @param  null|string $dateTo
      * @return $this
+     * @throws Exception
      */
-    protected function _aggregateByField($aggregationField, $from, $to)
+    protected function _aggregateByField($aggregationField, $dateFrom, $dateTo)
     {
         // convert input dates to UTC to be comparable with DATETIME fields in DB
-        $from = $this->_dateToUtc($from);
-        $to   = $this->_dateToUtc($to);
+        $dateFrom = $this->_dateToUtc($dateFrom);
+        $dateTo   = $this->_dateToUtc($dateTo);
 
-        $this->_checkDates($from, $to);
+        $this->_checkDates($dateFrom, $dateTo);
         $adapter = $this->_getWriteAdapter();
 
         $adapter->beginTransaction();
         try {
-            if ($from !== null || $to !== null) {
+            if ($dateFrom !== null || $dateTo !== null) {
                 $subSelect = $this->_getTableDateRangeSelect(
                     $this->getTable('sales/order'),
                     $aggregationField,
                     $aggregationField,
-                    $from,
-                    $to,
+                    $dateFrom,
+                    $dateTo,
                 );
             } else {
                 $subSelect = null;
             }
-            $this->_clearTableByDateRange($this->getMainTable(), $from, $to, $subSelect);
+
+            $this->_clearTableByDateRange($this->getMainTable(), $dateFrom, $dateTo, $subSelect);
 
             $periodExpr = $adapter->getDatePartSql($this->getStoreTZOffsetQuery(
                 ['o' => $this->getTable('sales/order')],
                 'o.' . $aggregationField,
-                $from,
-                $to,
+                $dateFrom,
+                $dateTo,
             ));
             // Columns list
             $columns = [
@@ -226,6 +230,7 @@ class Mage_Sales_Model_Resource_Report_Order_Createdat extends Mage_Sales_Model_
             foreach (array_keys($columns) as $k) {
                 $columns[$k] = new Zend_Db_Expr('SUM(' . $k . ')');
             }
+
             $columns['period']         = 'period';
             $columns['store_id']       = new Zend_Db_Expr((string) Mage_Core_Model_App::ADMIN_STORE_ID);
             $columns['order_status']   = 'order_status';
@@ -244,9 +249,9 @@ class Mage_Sales_Model_Resource_Report_Order_Createdat extends Mage_Sales_Model_
             ]);
             $adapter->query($select->insertFromSelect($this->getMainTable(), array_keys($columns)));
             $adapter->commit();
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $adapter->rollBack();
-            throw $e;
+            throw $exception;
         }
 
         return $this;

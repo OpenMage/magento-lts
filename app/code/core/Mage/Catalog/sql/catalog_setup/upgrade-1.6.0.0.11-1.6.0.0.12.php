@@ -7,7 +7,7 @@
  * @package    Mage_Catalog
  */
 
-/** @var Mage_Catalog_Model_Resource_Setup $installer */
+/** @var Mage_Catalog_Model_Resource_Setup $this */
 $installer  = $this;
 
 $indexFields = ['website_id', 'customer_group_id', 'min_price'];

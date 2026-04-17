@@ -16,7 +16,7 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
     /**
      * Available options
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_options;
 
@@ -30,7 +30,7 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
     /**
      * Installer data model to store data between installations steps
      *
-     * @var Mage_Install_Model_Installer_Data|Mage_Install_Model_Session|null
+     * @var null|Mage_Install_Model_Installer_Data|Mage_Install_Model_Session
      */
     protected $_dataModel;
 
@@ -77,13 +77,14 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
                 'enable_charts'     => ['comment' => ''],
             ];
         }
+
         return $this->_options;
     }
 
     /**
      * Set and validate arguments
      *
-     * @param array $args
+     * @param  array $args
      * @return bool
      * @SuppressWarnings("PHPMD.Superglobals")
      */
@@ -110,6 +111,7 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
                 if ($currentArg) {
                     $args[$currentArg] = $arg;
                 }
+
                 $currentArg = false;
             }
         }
@@ -124,10 +126,11 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
          */
         foreach ($this->_getOptions() as $name => $option) {
             if (isset($option['required']) && $option['required'] && !isset($args[$name])) {
-                $error = 'ERROR: ' . 'You should provide the value for --' . $name . ' parameter';
+                $error = 'ERROR: You should provide the value for --' . $name . ' parameter';
                 if (!empty($option['comment'])) {
                     $error .= ': ' . $option['comment'];
                 }
+
                 $this->addError($error);
             }
         }
@@ -159,7 +162,7 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
     /**
      * Add error
      *
-     * @param string $error
+     * @param  string $error
      * @return $this
      */
     public function addError($error)
@@ -194,7 +197,7 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
      * Returns true for 'yes', 1, 'true'
      * Case insensitive
      *
-     * @param string $value
+     * @param  string $value
      * @return bool
      */
     protected function _checkFlag($value)
@@ -213,6 +216,7 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
         if (is_null($this->_dataModel)) {
             $this->_dataModel = Mage::getModel('install/installer_data');
         }
+
         return $this->_dataModel;
     }
 
@@ -415,8 +419,8 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
              */
             @chmod('var/cache', 0777);
             @chmod('var/session', 0777);
-        } catch (Exception $e) {
-            $this->addError('ERROR: ' . $e->getMessage());
+        } catch (Exception $exception) {
+            $this->addError('ERROR: ' . $exception->getMessage());
             return false;
         }
 
@@ -442,7 +446,7 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
     /**
      * Check if installer is run in shell, and redirect if run on web
      *
-     * @param string $url fallback url to redirect to
+     * @param  string $url fallback url to redirect to
      * @return bool
      */
     public function checkConsole($url = null)
@@ -450,10 +454,12 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
         if (defined('STDIN') && defined('STDOUT') && (defined('STDERR'))) {
             return true;
         }
+
         if (is_null($url)) {
             $url = preg_replace('/install\.php/i', '', Mage::getBaseUrl());
             $url = preg_replace('/\/\/$/', '/', $url);
         }
+
         header('Location: ' . $url);
         return false;
     }

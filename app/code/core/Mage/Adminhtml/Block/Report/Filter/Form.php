@@ -32,8 +32,8 @@ class Mage_Adminhtml_Block_Report_Filter_Form extends Mage_Adminhtml_Block_Widge
     /**
      * Set field visibility
      *
-     * @param string $fieldId Field id
-     * @param bool $visibility Field visibility
+     * @param string $fieldId    Field id
+     * @param bool   $visibility Field visibility
      */
     public function setFieldVisibility($fieldId, $visibility)
     {
@@ -43,8 +43,8 @@ class Mage_Adminhtml_Block_Report_Filter_Form extends Mage_Adminhtml_Block_Widge
     /**
      * Get field visibility
      *
-     * @param string $fieldId Field id
-     * @param bool $defaultVisibility Default field visibility
+     * @param  string $fieldId           Field id
+     * @param  bool   $defaultVisibility Default field visibility
      * @return bool
      */
     public function getFieldVisibility($fieldId, $defaultVisibility = true)
@@ -52,6 +52,7 @@ class Mage_Adminhtml_Block_Report_Filter_Form extends Mage_Adminhtml_Block_Widge
         if (!array_key_exists($fieldId, $this->_fieldVisibility)) {
             return $defaultVisibility;
         }
+
         return $this->_fieldVisibility[$fieldId];
     }
 
@@ -59,29 +60,27 @@ class Mage_Adminhtml_Block_Report_Filter_Form extends Mage_Adminhtml_Block_Widge
      * Set field option(s)
      *
      * @param string $fieldId Field id
-     * @param mixed $option Field option name
-     * @param mixed $value Field option value
+     * @param mixed  $option  Field option name
+     * @param mixed  $value   Field option value
      */
     public function setFieldOption($fieldId, $option, $value = null)
     {
-        if (is_array($option)) {
-            $options = $option;
-        } else {
-            $options = [$option => $value];
-        }
+        $options = is_array($option) ? $option : [$option => $value];
+
         if (!array_key_exists($fieldId, $this->_fieldOptions)) {
             $this->_fieldOptions[$fieldId] = [];
         }
-        foreach ($options as $k => $v) {
-            $this->_fieldOptions[$fieldId][$k] = $v;
+
+        foreach ($options as $key => $val) {
+            $this->_fieldOptions[$fieldId][$key] = $val;
         }
     }
 
     /**
      * Add report type option
      *
-     * @param string $key
-     * @param string $value
+     * @param  string $key
+     * @param  string $value
      * @return $this
      */
     public function addReportTypeOption($key, $value)
@@ -166,7 +165,7 @@ class Mage_Adminhtml_Block_Report_Filter_Form extends Mage_Adminhtml_Block_Widge
      * Initialize form fields values
      * Method will be called after prepareForm and can be used for field values initialization
      *
-     * @return Mage_Adminhtml_Block_Widget_Form
+     * @return $this
      */
     protected function _initFormValues()
     {
@@ -176,6 +175,7 @@ class Mage_Adminhtml_Block_Report_Filter_Form extends Mage_Adminhtml_Block_Widge
                 $data[$key] = explode(',', $value[0]);
             }
         }
+
         $this->getForm()->addValues($data);
         return parent::_initFormValues();
     }
@@ -183,7 +183,7 @@ class Mage_Adminhtml_Block_Report_Filter_Form extends Mage_Adminhtml_Block_Widge
     /**
      * This method is called before rendering HTML
      *
-     * @return Mage_Adminhtml_Block_Widget_Form
+     * @return $this
      */
     protected function _beforeToHtml()
     {
@@ -199,13 +199,14 @@ class Mage_Adminhtml_Block_Report_Filter_Form extends Mage_Adminhtml_Block_Widge
                     $fieldset->removeField($field->getId());
                 }
             }
+
             // apply field options
             foreach ($this->_fieldOptions as $fieldId => $fieldOptions) {
                 $field = $fieldset->getElements()->searchById($fieldId);
                 /** @var Varien_Object $field */
                 if ($field) {
-                    foreach ($fieldOptions as $k => $v) {
-                        $field->setDataUsingMethod($k, $v);
+                    foreach ($fieldOptions as $key => $option) {
+                        $field->setDataUsingMethod($key, $option);
                     }
                 }
             }

@@ -16,7 +16,7 @@ class Mage_Adminhtml_Model_System_Config_Source_Shipping_Allmethods
      * Return array of carriers.
      * If $isActiveOnlyFlag is set to true, will return only active carriers
      *
-     * @param bool $isActiveOnlyFlag
+     * @param  bool  $isActiveOnlyFlag
      * @return array
      */
     public function toOptionArray($isActiveOnlyFlag = false)
@@ -24,13 +24,15 @@ class Mage_Adminhtml_Model_System_Config_Source_Shipping_Allmethods
         $methods = [['value' => '', 'label' => '']];
         $carriers = Mage::getSingleton('shipping/config')->getAllCarriers();
         foreach ($carriers as $carrierCode => $carrierModel) {
-            if (!$carrierModel->isActive() && (bool) $isActiveOnlyFlag === true) {
+            if (!$carrierModel->isActive() && (bool) $isActiveOnlyFlag) {
                 continue;
             }
+
             $carrierMethods = $carrierModel->getAllowedMethods();
             if (!$carrierMethods) {
                 continue;
             }
+
             $carrierTitle = Mage::getStoreConfig('carriers/' . $carrierCode . '/title');
             $methods[$carrierCode] = [
                 'label'   => $carrierTitle,

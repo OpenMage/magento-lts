@@ -7,6 +7,8 @@
  * @package    Mage_Core
  */
 
+use Carbon\Carbon;
+
 /**
  * Base front controller
  *
@@ -62,6 +64,7 @@ class Mage_Core_Controller_Front_Action extends Mage_Core_Controller_Varien_Acti
         if (!$this->getFlag('', self::FLAG_NO_START_SESSION)) {
             Mage::getSingleton('core/session')->setLastUrl(Mage::getUrl('*/*/*', ['_current' => true]));
         }
+
         return $this;
     }
 
@@ -83,11 +86,11 @@ class Mage_Core_Controller_Front_Action extends Mage_Core_Controller_Varien_Acti
     /**
      * Declare headers and content file in response for file download
      *
-     * @param string $fileName
-     * @param string|array $content set to null to avoid starting output, $contentLength should be set explicitly in
-     *                              that case
-     * @param string $contentType
-     * @param int $contentLength    explicit content length, if strlen($content) isn't applicable
+     * @param  string       $fileName
+     * @param  array|string $content       set to null to avoid starting output, $contentLength should be set explicitly in
+     *                                     that case
+     * @param  string       $contentType
+     * @param  int          $contentLength explicit content length, if strlen($content) isn't applicable
      * @return $this
      * @SuppressWarnings("PHPMD.ExitExpression")
      */
@@ -109,6 +112,7 @@ class Mage_Core_Controller_Front_Action extends Mage_Core_Controller_Varien_Acti
             if (!isset($content['type']) || !isset($content['value'])) {
                 return $this;
             }
+
             if ($content['type'] == 'filename') {
                 $isFile         = true;
                 $file           = $content['value'];
@@ -123,7 +127,7 @@ class Mage_Core_Controller_Front_Action extends Mage_Core_Controller_Varien_Acti
             ->setHeader('Content-type', $contentType, true)
             ->setHeader('Content-Length', is_null($contentLength) ? strlen($content) : $contentLength)
             ->setHeader('Content-Disposition', 'attachment; filename="' . $fileName . '"')
-            ->setHeader('Last-Modified', date('r'));
+            ->setHeader('Last-Modified', Carbon::now()->format('r'));
 
         if (!is_null($content)) {
             if ($isFile) {
@@ -134,21 +138,24 @@ class Mage_Core_Controller_Front_Action extends Mage_Core_Controller_Varien_Acti
                 if (!$ioAdapter->fileExists($file)) {
                     Mage::throwException(Mage::helper('core')->__('File not found'));
                 }
+
                 $ioAdapter->open(['path' => $ioAdapter->dirname($file)]);
                 $ioAdapter->streamOpen($file, 'r');
                 while ($buffer = $ioAdapter->streamRead()) {
                     print $buffer;
                 }
+
                 $ioAdapter->streamClose();
                 if (!empty($content['rm'])) {
                     $ioAdapter->rm($file);
                 }
 
                 exit(0);
-            } else {
-                $this->getResponse()->setBody($content);
             }
+
+            $this->getResponse()->setBody($content);
         }
+
         return $this;
     }
 
@@ -161,8 +168,9 @@ class Mage_Core_Controller_Front_Action extends Mage_Core_Controller_Varien_Acti
     {
         $validated = true;
         if ($this->_isFormKeyEnabled()) {
-            $validated = parent::_validateFormKey();
+            return parent::_validateFormKey();
         }
+
         return $validated;
     }
 

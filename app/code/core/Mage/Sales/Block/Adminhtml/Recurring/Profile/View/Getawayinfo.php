@@ -26,6 +26,7 @@ class Mage_Adminhtml_Block_Sales_Recurring_Profile_View_Getawayinfo extends Mage
         foreach ($recurringProfile->getData() as $kay => $value) {
             $information[$recurringProfile->getFieldLabel($kay)] = $value;
         }
+
         return $information;
     }
 }

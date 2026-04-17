@@ -10,8 +10,11 @@
 class Varien_Filter_Sprintf implements Zend_Filter_Interface
 {
     protected $_format = null;
+
     protected $_decimals = null;
+
     protected $_decPoint = null;
+
     protected $_thousandsSep = null;
 
     public function __construct($format, $decimals = null, $decPoint = '.', $thousandsSep = ',')
@@ -27,6 +30,7 @@ class Varien_Filter_Sprintf implements Zend_Filter_Interface
         if (!is_null($this->_decimals)) {
             $value = number_format($value, $this->_decimals, $this->_decPoint, $this->_thousandsSep);
         }
+
         return sprintf($this->_format, $value);
     }
 }

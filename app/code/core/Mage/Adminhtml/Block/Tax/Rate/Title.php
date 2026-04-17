@@ -16,6 +16,9 @@ class Mage_Adminhtml_Block_Tax_Rate_Title extends Mage_Core_Block_Template
 {
     protected $_titles;
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->setTemplate('tax/rate/title.phtml');
@@ -29,18 +32,20 @@ class Mage_Adminhtml_Block_Tax_Rate_Title extends Mage_Core_Block_Template
             foreach ($titles as $title) {
                 $this->_titles[$title->getStoreId()] = $title->getValue();
             }
+
             foreach ($this->getStores() as $store) {
                 if (!isset($this->_titles[$store->getId()])) {
                     $this->_titles[$store->getId()] = '';
                 }
             }
         }
+
         return $this->_titles;
     }
 
     public function getStores()
     {
-        $stores = $this->getData('stores');
+        $stores = $this->getDataByKey('stores');
         if (is_null($stores)) {
             $stores = Mage::getModel('core/store')
                 ->getResourceCollection()
@@ -48,6 +53,7 @@ class Mage_Adminhtml_Block_Tax_Rate_Title extends Mage_Core_Block_Template
                 ->load();
             $this->setData('stores', $stores);
         }
+
         return $stores;
     }
 }

@@ -11,6 +11,8 @@
  * Emulation model
  *
  * @package    Mage_Core
+ *
+ * @phpstan-import-type ConfigStoreId from Mage
  */
 class Mage_Core_Model_App_Emulation extends Varien_Object
 {
@@ -30,8 +32,8 @@ class Mage_Core_Model_App_Emulation extends Varien_Object
 
     public function __construct(array $args = [])
     {
-        $this->_factory = !empty($args['factory']) ? $args['factory'] : Mage::getSingleton('core/factory');
-        $this->_app = !empty($args['app']) ? $args['app'] : Mage::app();
+        $this->_factory = empty($args['factory']) ? Mage::getSingleton('core/factory') : $args['factory'];
+        $this->_app = empty($args['app']) ? Mage::app() : $args['app'];
         unset($args['factory'], $args['app']);
         parent::__construct($args);
     }
@@ -41,9 +43,9 @@ class Mage_Core_Model_App_Emulation extends Varien_Object
      *
      * Function returns information about initial store environment and emulates environment of another store
      *
-     * @param int $storeId
+     * @param int    $storeId
      * @param string $area
-     * @param bool $emulateStoreInlineTranslation emulate inline translation of the specified store or just disable it
+     * @param bool   $emulateStoreInlineTranslation emulate inline translation of the specified store or just disable it
      *
      * @return Varien_Object information about environment of the initial store
      */
@@ -55,11 +57,13 @@ class Mage_Core_Model_App_Emulation extends Varien_Object
         if (is_null($area)) {
             $area = Mage_Core_Model_App_Area::AREA_FRONTEND;
         }
+
         if ($emulateStoreInlineTranslation) {
             $initialTranslateInline = $this->_emulateInlineTranslation($storeId, $area);
         } else {
             $initialTranslateInline = $this->_emulateInlineTranslation();
         }
+
         $initialDesign = $this->_emulateDesign($storeId, $area);
         // Current store needs to be changed right before locale change and after design change
         $this->_app->setCurrentStore($storeId);
@@ -100,8 +104,8 @@ class Mage_Core_Model_App_Emulation extends Varien_Object
      *
      * Function disables inline translation if $storeId is null
      *
-     * @param int|null $storeId
-     * @param string $area
+     * @param null|int $storeId
+     * @param string   $area
      *
      * @return bool initial inline translation state
      */
@@ -114,6 +118,7 @@ class Mage_Core_Model_App_Emulation extends Varien_Object
         } else {
             $newTranslateInline = Mage::getStoreConfigFlag('dev/translate_inline/active', $storeId);
         }
+
         $translateModel = Mage::getSingleton('core/translate');
         $initialTranslateInline = $translateModel->getTranslateInline();
         $translateModel->setTranslateInline($newTranslateInline);
@@ -123,7 +128,7 @@ class Mage_Core_Model_App_Emulation extends Varien_Object
     /**
      * Apply design of the specified store
      *
-     * @param int $storeId
+     * @param int    $storeId
      * @param string $area
      *
      * @return array initial design parameters(package, store, area)
@@ -143,8 +148,8 @@ class Mage_Core_Model_App_Emulation extends Varien_Object
     /**
      * Apply locale of the specified store
      *
-     * @param null|string|bool|int|Mage_Core_Model_Store $storeId
-     * @param string $area
+     * @param ConfigStoreId $storeId
+     * @param string        $area
      *
      * @return string initial locale code
      */
@@ -156,14 +161,15 @@ class Mage_Core_Model_App_Emulation extends Varien_Object
             $this->_app->getLocale()->setLocaleCode($newLocaleCode);
             $this->_factory->getSingleton('core/translate')->setLocale($newLocaleCode)->init($area, true);
         }
+
         return $initialLocaleCode;
     }
 
     /**
      * Retrieve config value for store by path
      *
-     * @param string $path
-     * @param null|string|bool|int|Mage_Core_Model_Store $store
+     * @param  string        $path
+     * @param  ConfigStoreId $store
      * @return mixed
      */
     protected function _getStoreConfig($path, $store = null)
@@ -187,7 +193,6 @@ class Mage_Core_Model_App_Emulation extends Varien_Object
 
     /**
      * Restore design of the initial store
-     *
      *
      * @return $this
      */
@@ -216,6 +221,7 @@ class Mage_Core_Model_App_Emulation extends Varien_Object
             $this->_app->getLocale()->setLocaleCode($initialLocaleCode);
             $this->_factory->getSingleton('core/translate')->setLocale($initialLocaleCode)->init($initialArea, true);
         }
+
         return $this;
     }
 }

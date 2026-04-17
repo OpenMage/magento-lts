@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -15,7 +17,7 @@ class Mage_Install_Controller_Router_Install extends Mage_Core_Controller_Varien
     /**
      * Check if current controller instance is allowed in current router.
      *
-     * @param Mage_Core_Controller_Varien_Action $controllerInstance
+     * @param  Mage_Core_Controller_Varien_Action $controllerInstance
      * @return bool
      */
     protected function _validateControllerInstance($controllerInstance)

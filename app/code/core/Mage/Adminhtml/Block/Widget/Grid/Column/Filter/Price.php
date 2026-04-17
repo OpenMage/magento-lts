@@ -15,6 +15,7 @@
 class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Price extends Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Abstract
 {
     protected $_currencyList = null;
+
     protected $_currencyModel = null;
 
     public function getHtml()
@@ -34,20 +35,20 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Price extends Mage_Adminhtm
 
     public function getDisplayCurrencySelect()
     {
-        if (!is_null($this->getColumn()->getData('display_currency_select'))) {
-            return $this->getColumn()->getData('display_currency_select');
-        } else {
-            return true;
+        if (!is_null($this->getColumn()->getDataByKey('display_currency_select'))) {
+            return $this->getColumn()->getDataByKey('display_currency_select');
         }
+
+        return true;
     }
 
     public function getCurrencyAffect()
     {
-        if (!is_null($this->getColumn()->getData('currency_affect'))) {
-            return $this->getColumn()->getData('currency_affect');
-        } else {
-            return true;
+        if (!is_null($this->getColumn()->getDataByKey('currency_affect'))) {
+            return $this->getColumn()->getDataByKey('currency_affect');
         }
+
+        return true;
     }
 
     protected function _getCurrencyModel()
@@ -72,6 +73,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Price extends Mage_Adminhtm
             $html .= '<option value="' . $currency . '" ' . ($currency == $value ? 'selected="selected"' : '') . '>'
                 . $currency . '</option>';
         }
+
         return $html . '</select>';
     }
 
@@ -80,6 +82,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Price extends Mage_Adminhtm
         if (is_null($this->_currencyList)) {
             $this->_currencyList = $this->_getCurrencyModel()->getConfigAllowCurrencies();
         }
+
         return $this->_currencyList;
     }
 
@@ -88,15 +91,20 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Price extends Mage_Adminhtm
         if ($index) {
             return $this->getData('value', $index);
         }
-        $value = $this->getData('value');
-        if ((isset($value['from']) && strlen($value['from']) > 0)
-            || (isset($value['to']) && strlen($value['to']) > 0)
+
+        $value = $this->getDataByKey('value');
+        if ((isset($value['from']) && (string) $value['from'] !== '')
+            || (isset($value['to']) && (string) $value['to'] !== '')
         ) {
             return $value;
         }
+
         return null;
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getCondition()
     {
         $value = $this->getValue();
@@ -106,6 +114,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Price extends Mage_Adminhtm
         } else {
             $displayCurrency = $this->getColumn()->getCurrencyCode();
         }
+
         $rate = $this->_getRate($displayCurrency, $this->getColumn()->getCurrencyCode());
 
         foreach (['from', 'to'] as $key) {
@@ -118,9 +127,9 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Price extends Mage_Adminhtm
         return $value;
     }
 
-    protected function _getRate($from, $to)
+    protected function _getRate($min, $max)
     {
-        return Mage::getModel('directory/currency')->load($from)->getAnyRate($to);
+        return Mage::getModel('directory/currency')->load($min)->getAnyRate($max);
     }
 
     public function prepareRates($displayCurrency)

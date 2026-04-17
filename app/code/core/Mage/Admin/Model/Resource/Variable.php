@@ -16,6 +16,9 @@ class Mage_Admin_Model_Resource_Variable extends Mage_Core_Model_Resource_Db_Abs
 {
     public const CACHE_ID = 'permission_variable';
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('admin/permission_variable', 'variable_id');
@@ -26,6 +29,7 @@ class Mage_Admin_Model_Resource_Variable extends Mage_Core_Model_Resource_Db_Abs
         /** @var Mage_Admin_Model_Resource_Variable_Collection $collection */
         $collection = Mage::getResourceModel('admin/variable_collection');
         $collection->addFieldToFilter('is_allowed', ['eq' => 1]);
+
         $data = $collection->getColumnValues('variable_name');
         $data = array_flip($data);
         Mage::app()->saveCache(
@@ -45,6 +49,7 @@ class Mage_Admin_Model_Resource_Variable extends Mage_Core_Model_Resource_Db_Abs
             $this->_generateCache();
             $data = Mage::app()->getCacheInstance()->load(self::CACHE_ID);
         }
+
         return Mage::helper('core')->jsonDecode($data);
     }
 

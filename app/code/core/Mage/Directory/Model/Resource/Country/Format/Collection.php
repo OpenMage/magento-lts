@@ -11,9 +11,14 @@
  * Directory country format resource model
  *
  * @package    Mage_Directory
+ *
+ * @extends Mage_Core_Model_Resource_Db_Collection_Abstract<Mage_Directory_Model_Country_Format>
  */
 class Mage_Directory_Model_Resource_Country_Format_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('directory/country_format');
@@ -22,16 +27,12 @@ class Mage_Directory_Model_Resource_Country_Format_Collection extends Mage_Core_
     /**
      * Set country filter
      *
-     * @param string|Mage_Directory_Model_Country $country
+     * @param  Mage_Directory_Model_Country|string $country
      * @return $this
      */
     public function setCountryFilter($country)
     {
-        if ($country instanceof Mage_Directory_Model_Country) {
-            $countryId = $country->getId();
-        } else {
-            $countryId = $country;
-        }
+        $countryId = $country instanceof Mage_Directory_Model_Country ? $country->getId() : $country;
 
         return $this->addFieldToFilter('country_id', $countryId);
     }

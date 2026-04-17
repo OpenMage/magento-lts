@@ -24,7 +24,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Abstract extends Mage_Admin
     /**
      * Set column related to filter
      *
-     * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
+     * @param  Mage_Adminhtml_Block_Widget_Grid_Column $column
      * @return $this
      */
     public function setColumn($column)
@@ -68,7 +68,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Abstract extends Mage_Admin
     /**
      * Retrieve escaped value
      *
-     * @param mixed $index
+     * @param  mixed  $index
      * @return string
      */
     public function getEscapedValue($index = null)
@@ -77,9 +77,20 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Abstract extends Mage_Admin
     }
 
     /**
-     * Retrieve condition
+     * Retrieve filter condition for collection
      *
-     * @return array
+     * @return null|array<void>|array{
+     *     eq?: string,
+     *     neq?: string,
+     *     in?: array,
+     *     nin?: array,
+     *     from?: string,
+     *     to?: string,
+     *     is?: string|Zend_Db_Expr,
+     *     like?: string|Zend_Db_Expr,
+     *     null?: bool,
+     *     currency?: string
+     * }|int
      */
     public function getCondition()
     {
@@ -89,9 +100,9 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Abstract extends Mage_Admin
     }
 
     /**
-     * @deprecated after 1.5.0.0
-     * @param array|string $value
+     * @param  array|string $value
      * @return array|string
+     * @deprecated after 1.5.0.0
      */
     protected function _escapeValue($value)
     {

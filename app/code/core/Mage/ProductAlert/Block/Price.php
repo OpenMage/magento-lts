@@ -26,16 +26,12 @@ class Mage_ProductAlert_Block_Price extends Mage_Core_Block_Template
      */
     public function isShow()
     {
-        if (!Mage::getStoreConfig('catalog/productalert/allow_price')) {
-            return false;
-        }
-
-        return true;
+        return Mage::getStoreConfigFlag('catalog/productalert/allow_price');
     }
 
     /**
-     * @param string $route
-     * @param array $params
+     * @param  string $route
+     * @param  array  $params
      * @return string
      */
     public function getUrl($route = '', $params = [])

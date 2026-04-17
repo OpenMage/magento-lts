@@ -97,6 +97,7 @@ class Mage_Paypal_Model_Config
     public const METHOD_PAYFLOWPRO         = 'verisign';
 
     public const METHOD_PAYFLOWLINK        = 'payflow_link';
+
     public const METHOD_PAYFLOWADVANCED    = 'payflow_advanced';
 
     public const METHOD_HOSTEDPRO          = 'hosted_pro';
@@ -108,12 +109,19 @@ class Mage_Paypal_Model_Config
      * @var string
      */
     public const EC_FLAVOR_DYNAMIC = 'dynamic';
+
     public const EC_FLAVOR_STATIC  = 'static';
+
     public const EC_BUTTON_TYPE_SHORTCUT = 'ecshortcut';
+
     public const EC_BUTTON_TYPE_MARK     = 'ecmark';
+
     public const PAYMENT_MARK_37X23   = '37x23';
+
     public const PAYMENT_MARK_50X34   = '50x34';
+
     public const PAYMENT_MARK_60X38   = '60x38';
+
     public const PAYMENT_MARK_180X113 = '180x113';
 
     public const DEFAULT_LOGO_TYPE = 'wePrefer_150x60';
@@ -123,7 +131,9 @@ class Mage_Paypal_Model_Config
      * @var string
      */
     public const PAYMENT_ACTION_SALE  = 'Sale';
+
     public const PAYMENT_ACTION_ORDER = 'Order';
+
     public const PAYMENT_ACTION_AUTH  = 'Authorization';
 
     /**
@@ -133,7 +143,9 @@ class Mage_Paypal_Model_Config
      * @var int
      */
     public const AUTHORIZATION_AMOUNT_ZERO = 0;
+
     public const AUTHORIZATION_AMOUNT_ONE = 1;
+
     public const AUTHORIZATION_AMOUNT_FULL = 2;
 
     /**
@@ -141,7 +153,9 @@ class Mage_Paypal_Model_Config
      * @var int
      */
     public const REQUIRE_BILLING_ADDRESS_NO = 0;
+
     public const REQUIRE_BILLING_ADDRESS_ALL = 1;
+
     public const REQUIRE_BILLING_ADDRESS_VIRTUAL = 2;
 
     /**
@@ -149,6 +163,7 @@ class Mage_Paypal_Model_Config
      * @var string
      */
     public const FRAUD_ACTION_ACCEPT = 'Acept';
+
     public const FRAUD_ACTION_DENY   = 'Deny';
 
     /**
@@ -156,6 +171,7 @@ class Mage_Paypal_Model_Config
      * @var string
      */
     public const REFUND_TYPE_FULL = 'Full';
+
     public const REFUND_TYPE_PARTIAL = 'Partial';
 
     /**
@@ -163,6 +179,7 @@ class Mage_Paypal_Model_Config
      * @var string
      */
     public const EC_SOLUTION_TYPE_SOLE = 'Sole';
+
     public const EC_SOLUTION_TYPE_MARK = 'Mark';
 
     /**
@@ -171,7 +188,9 @@ class Mage_Paypal_Model_Config
      * @var string
      */
     public const WPS_TRANSPORT_IPN      = 'ipn';
+
     public const WPS_TRANSPORT_PDT      = 'pdt';
+
     public const WPS_TRANSPORT_IPN_PDT  = 'ipn_n_pdt';
 
     /**
@@ -180,7 +199,9 @@ class Mage_Paypal_Model_Config
      * @var string
      */
     public const EC_BA_SIGNUP_AUTO     = 'auto';
+
     public const EC_BA_SIGNUP_ASK      = 'ask';
+
     public const EC_BA_SIGNUP_NEVER    = 'never';
 
     /**
@@ -199,7 +220,7 @@ class Mage_Paypal_Model_Config
 
     /**
      * Current payment method code
-     * @var string|null
+     * @var null|string
      */
     protected $_methodCode = null;
 
@@ -641,7 +662,7 @@ class Mage_Paypal_Model_Config
     /**
      * Method code setter
      *
-     * @param string|Mage_Payment_Model_Method_Abstract $method
+     * @param  Mage_Payment_Model_Method_Abstract|string $method
      * @return $this
      */
     public function setMethod($method)
@@ -651,6 +672,7 @@ class Mage_Paypal_Model_Config
         } elseif (is_string($method)) {
             $this->_methodCode = $method;
         }
+
         return $this;
     }
 
@@ -667,7 +689,7 @@ class Mage_Paypal_Model_Config
     /**
      * Store ID setter
      *
-     * @param int $storeId
+     * @param  int   $storeId
      * @return $this
      */
     public function setStoreId($storeId)
@@ -679,24 +701,20 @@ class Mage_Paypal_Model_Config
     /**
      * Check whether method active in configuration and supported for merchant country or not
      *
-     * @param string $method Method code
+     * @param  string $method Method code
      * @return bool
      */
     public function isMethodActive($method)
     {
-        if ($this->isMethodSupportedForCountry($method)
-            && Mage::getStoreConfigFlag("payment/{$method}/active", $this->_storeId)
-        ) {
-            return true;
-        }
-        return false;
+        return $this->isMethodSupportedForCountry($method)
+            && Mage::getStoreConfigFlag("payment/{$method}/active", $this->_storeId);
     }
 
     /**
      * Check whether method available for checkout or not
      * Logic based on merchant country, methods dependence
      *
-     * @param string|null $methodCode Method code
+     * @param  null|string $methodCode Method code
      * @return bool
      */
     public function isMethodAvailable($methodCode = null)
@@ -717,12 +735,14 @@ class Mage_Paypal_Model_Config
                     $result = false;
                     break;
                 }
+
                 // check for direct payments dependence
                 if ($this->isMethodActive(self::METHOD_WPP_DIRECT)
                     || $this->isMethodActive(self::METHOD_WPP_PE_DIRECT)
                 ) {
                     $result = false;
                 }
+
                 break;
             case self::METHOD_WPP_EXPRESS:
                 // check for direct payments dependence
@@ -731,12 +751,14 @@ class Mage_Paypal_Model_Config
                 } elseif ($this->isMethodActive(self::METHOD_WPP_DIRECT)) {
                     $result = true;
                 }
+
                 break;
             case self::METHOD_BML:
                 // check for express payments dependence
                 if (!$this->isMethodActive(self::METHOD_WPP_EXPRESS)) {
                     $result = false;
                 }
+
                 break;
             case self::METHOD_WPP_PE_EXPRESS:
                 // check for direct payments dependence
@@ -747,12 +769,14 @@ class Mage_Paypal_Model_Config
                 ) {
                     $result = false;
                 }
+
                 break;
             case self::METHOD_WPP_PE_BML:
                 // check for express payments dependence
                 if (!$this->isMethodActive(self::METHOD_WPP_PE_EXPRESS)) {
                     $result = false;
                 }
+
                 break;
             case self::METHOD_BILLING_AGREEMENT:
                 $result = $this->isWppApiAvailabe();
@@ -761,6 +785,7 @@ class Mage_Paypal_Model_Config
             case self::METHOD_WPP_PE_DIRECT:
                 break;
         }
+
         return $result;
     }
 
@@ -770,8 +795,8 @@ class Mage_Paypal_Model_Config
      * Tries to map specified value according to set payment method code, into the configuration value
      * Sets the values into public class parameters, to avoid redundant calls of this method
      *
-     * @param string $key
-     * @return string|null
+     * @param  string      $key
+     * @return null|string
      */
     public function __get($key)
     {
@@ -794,8 +819,8 @@ class Mage_Paypal_Model_Config
     /**
      * Perform additional config value preparation and return new value if needed
      *
-     * @param string $key Underscored key
-     * @param string $value Old value
+     * @param  string $key   Underscored key
+     * @param  string $value Old value
      * @return string Modified value or old value
      */
     protected function _prepareValue($key, $value)
@@ -808,6 +833,7 @@ class Mage_Paypal_Model_Config
         ) {
             return self::PAYMENT_ACTION_SALE;
         }
+
         return $value;
     }
 
@@ -840,8 +866,9 @@ class Mage_Paypal_Model_Config
     {
         $countryCode = Mage::getStoreConfig($this->_mapGeneralFieldset('merchant_country'), $this->_storeId);
         if (!$countryCode) {
-            $countryCode = Mage::helper('core')->getDefaultCountry($this->_storeId);
+            return Mage::helper('core')->getDefaultCountry($this->_storeId);
         }
+
         return $countryCode;
     }
 
@@ -856,20 +883,19 @@ class Mage_Paypal_Model_Config
         if ($method === null) {
             $method = $this->getMethodCode();
         }
+
         if ($countryCode === null) {
             $countryCode = $this->getMerchantCountry();
         }
+
         $countryMethods = $this->getCountryMethods($countryCode);
-        if (in_array($method, $countryMethods)) {
-            return true;
-        }
-        return false;
+        return in_array($method, $countryMethods);
     }
 
     /**
      * Return list of allowed methods for specified country iso code
      *
-     * @param string $countryCode 2-letters iso code
+     * @param  string $countryCode 2-letters iso code
      * @return array
      */
     public function getCountryMethods($countryCode = null)
@@ -956,13 +982,14 @@ class Mage_Paypal_Model_Config
         if ($countryCode === null) {
             return $countryMethods;
         }
+
         return $countryMethods[$countryCode] ?? $countryMethods['other'];
     }
 
     /**
      * Return start url for PayPal Basic
      *
-     * @param string $token
+     * @param  string $token
      * @return string
      */
     public function getPayPalBasicStartUrl($token)
@@ -992,7 +1019,7 @@ class Mage_Paypal_Model_Config
     /**
      * Get url for dispatching customer to express checkout start
      *
-     * @param string $token
+     * @param  string $token
      * @return string
      */
     public function getExpressCheckoutStartUrl($token)
@@ -1006,7 +1033,7 @@ class Mage_Paypal_Model_Config
     /**
      * Get url for dispatching customer to checkout retrial
      *
-     * @param string $orderId
+     * @param  string $orderId
      * @return string
      */
     public function getExpressCheckoutOrderUrl($orderId)
@@ -1020,7 +1047,7 @@ class Mage_Paypal_Model_Config
     /**
      * Get url that allows to edit checkout details on paypal side
      *
-     * @param string $token
+     * @param  string $token
      * @return string
      */
     public function getExpressCheckoutEditUrl($token)
@@ -1036,7 +1063,7 @@ class Mage_Paypal_Model_Config
      * Get url for additional actions that PayPal may require customer to do after placing the order.
      * For instance, redirecting customer to bank for payment confirmation.
      *
-     * @param string $token
+     * @param  string $token
      * @return string
      */
     public function getExpressCheckoutCompleteUrl($token)
@@ -1050,7 +1077,7 @@ class Mage_Paypal_Model_Config
     /**
      * Retrieve url for initialization of billing agreement
      *
-     * @param string $token
+     * @param  string $token
      * @return string
      */
     public function getStartBillingAgreementUrl($token)
@@ -1064,6 +1091,7 @@ class Mage_Paypal_Model_Config
     /**
      * PayPal web URL generic getter
      *
+     * @param  array<string, string> $params
      * @return string
      */
     public function getPaypalUrl(array $params = [])
@@ -1099,9 +1127,9 @@ class Mage_Paypal_Model_Config
      * Express checkout shortcut pic URL getter
      * PayPal will ignore "pal", if there is no total amount specified
      *
-     * @param string $localeCode
-     * @param float $orderTotal
-     * @param string $pal encrypted summary about merchant
+     * @param  string $localeCode
+     * @param  float  $orderTotal
+     * @param  string $pal        encrypted summary about merchant
      * @return string
      * @see Paypal_Model_Api_Nvp::callGetPalDetails()
      */
@@ -1113,12 +1141,15 @@ class Mage_Paypal_Model_Config
         ) {
             return 'https://www.paypalobjects.com/webstatic/en_US/i/buttons/checkout-logo-medium.png';
         }
+
         if ($this->areButtonsDynamic()) {
             return $this->_getDynamicImageUrl(self::EC_BUTTON_TYPE_SHORTCUT, $localeCode, $orderTotal, $pal);
         }
+
         if ($this->buttonType === self::EC_BUTTON_TYPE_MARK) {
             return $this->getPaymentMarkImageUrl($localeCode);
         }
+
         return sprintf(
             'https://www.paypal.com/%s/i/btn/btn_xpressCheckout.gif',
             $this->_getSupportedLocaleCode($localeCode),
@@ -1130,10 +1161,10 @@ class Mage_Paypal_Model_Config
      * Supposed to be used on payment methods selection
      * $staticSize is applicable for static images only
      *
-     * @param string $localeCode
-     * @param float $orderTotal
-     * @param string $pal
-     * @param string $staticSize
+     * @param  string $localeCode
+     * @param  float  $orderTotal
+     * @param  string $pal
+     * @param  string $staticSize
      * @return string
      */
     public function getPaymentMarkImageUrl($localeCode, $orderTotal = null, $pal = null, $staticSize = null)
@@ -1142,6 +1173,7 @@ class Mage_Paypal_Model_Config
         if ($country == Mage_Paypal_Helper_Data::US_COUNTRY) {
             return 'https://www.paypalobjects.com/webstatic/en_US/i/buttons/pp-acceptance-medium.png';
         }
+
         if ($this->areButtonsDynamic()) {
             return $this->_getDynamicImageUrl(self::EC_BUTTON_TYPE_MARK, $localeCode, $orderTotal, $pal);
         }
@@ -1149,6 +1181,7 @@ class Mage_Paypal_Model_Config
         if ($staticSize === null) {
             $staticSize = $this->paymentMarkSize;
         }
+
         switch ($staticSize) {
             case self::PAYMENT_MARK_37X23:
             case self::PAYMENT_MARK_50X34:
@@ -1158,6 +1191,7 @@ class Mage_Paypal_Model_Config
             default:
                 $staticSize = self::PAYMENT_MARK_37X23;
         }
+
         return sprintf(
             'https://www.paypal.com/%s/i/logo/PayPal_mark_%s.gif',
             $this->_getSupportedLocaleCode($localeCode),
@@ -1179,11 +1213,13 @@ class Mage_Paypal_Model_Config
             if ($shouldEmulate) {
                 $locale->emulate($this->_storeId);
             }
+
             $countryCode = $locale->getLocale()->getRegion();
             if ($shouldEmulate) {
                 $locale->revert();
             }
         }
+
         return sprintf(
             'https://www.paypal.com/%s/cgi-bin/webscr?cmd=xpt/Marketing/popup/OLCWhatIsPayPal-outside',
             strtolower($countryCode),
@@ -1193,9 +1229,9 @@ class Mage_Paypal_Model_Config
     /**
      * Getter for Solution banner images
      *
-     * @param string $localeCode
-     * @param bool $isVertical
-     * @param bool $isEcheck
+     * @param  string $localeCode
+     * @param  bool   $isVertical
+     * @param  bool   $isEcheck
      * @return string
      */
     public function getSolutionImageUrl($localeCode, $isVertical = false, $isEcheck = false)
@@ -1211,7 +1247,7 @@ class Mage_Paypal_Model_Config
     /**
      * Getter for Payment form logo images
      *
-     * @param string $localeCode
+     * @param  string $localeCode
      * @return string
      */
     public function getPaymentFormLogoUrl($localeCode)
@@ -1248,13 +1284,14 @@ class Mage_Paypal_Model_Config
                 $countryPrefix = '';
                 break;
         }
+
         return sprintf('https://www.%s/%s/%si/%s/%s.gif', $domain, $locale, $countryPrefix, $imageType, $imageName);
     }
 
     /**
      * Return supported types for PayPal logo
      *
-     * @return array
+     * @return array<string, string>
      */
     public function getAdditionalOptionsLogoTypes()
     {
@@ -1273,9 +1310,9 @@ class Mage_Paypal_Model_Config
     /**
      * Return PayPal logo URL with additional options
      *
-     * @param string $localeCode Supported locale code
-     * @param string|false $type One of supported logo types
-     * @return string|bool Logo Image URL or false if logo disabled in configuration
+     * @param  string       $localeCode Supported locale code
+     * @param  false|string $type       One of supported logo types
+     * @return bool|string  Logo Image URL or false if logo disabled in configuration
      */
     public function getAdditionalOptionsLogoUrl($localeCode, $type = false)
     {
@@ -1283,11 +1320,13 @@ class Mage_Paypal_Model_Config
         if (!$configType) {
             return false;
         }
+
         $type = $type ? $type : $configType;
         $locale = $this->_getSupportedLocaleCode($localeCode);
         if (!array_key_exists($type, $this->getAdditionalOptionsLogoTypes())) {
             $type = self::DEFAULT_LOGO_TYPE;
         }
+
         return sprintf('https://www.paypalobjects.com/%s/i/bnr/bnr_%s.gif', $locale, $type);
     }
 
@@ -1304,7 +1343,7 @@ class Mage_Paypal_Model_Config
     /**
      * Express Checkout button "flavors" source getter
      *
-     * @return array
+     * @return array<string, string>
      */
     public function getExpressCheckoutButtonFlavors()
     {
@@ -1317,7 +1356,7 @@ class Mage_Paypal_Model_Config
     /**
      * Express Checkout button types source getter
      *
-     * @return array
+     * @return array<string, string>
      */
     public function getExpressCheckoutButtonTypes()
     {
@@ -1330,7 +1369,7 @@ class Mage_Paypal_Model_Config
     /**
      * Payment actions source getter
      *
-     * @return array
+     * @return array<string, string>
      */
     public function getPaymentActions()
     {
@@ -1341,13 +1380,14 @@ class Mage_Paypal_Model_Config
         if (!is_null($this->_methodCode) && $this->_methodCode == self::METHOD_WPP_EXPRESS) {
             $paymentActions[self::PAYMENT_ACTION_ORDER] = Mage::helper('paypal')->__('Order');
         }
+
         return $paymentActions;
     }
 
     /**
      * Require Billing Address source getter
      *
-     * @return array
+     * @return array<int, string>
      */
     public function getRequireBillingAddressOptions()
     {
@@ -1361,7 +1401,7 @@ class Mage_Paypal_Model_Config
     /**
      * Mapper from PayPal-specific payment actions to Magento payment actions
      *
-     * @return string|null
+     * @return null|string
      */
     public function getPaymentAction()
     {
@@ -1376,8 +1416,8 @@ class Mage_Paypal_Model_Config
     /**
      * Returns array of possible Authorization Amounts for Account Verification
      *
+     * @return array<void>
      * @deprecated since 1.6.2.0
-     * @return array
      */
     public function getAuthorizationAmounts()
     {
@@ -1389,7 +1429,7 @@ class Mage_Paypal_Model_Config
      * "sole" = "Express Checkout for Auctions" - PayPal allows guest checkout
      * "mark" = "Normal Express Checkout" - PayPal requires to checkout with PayPal buyer account only
      *
-     * @return array
+     * @return array<string, string>
      */
     public function getExpressCheckoutSolutionTypes()
     {
@@ -1402,7 +1442,7 @@ class Mage_Paypal_Model_Config
     /**
      * Retrieve express checkout billing agreement signup options
      *
-     * @return array
+     * @return array<string, string>
      */
     public function getExpressCheckoutBASignupOptions()
     {
@@ -1447,7 +1487,7 @@ class Mage_Paypal_Model_Config
     /**
      * Payment data delivery methods getter for PayPal Standard
      *
-     * @return array
+     * @return array<string, string>
      */
     public function getWpsPaymentDeliveryMethods()
     {
@@ -1492,7 +1532,7 @@ class Mage_Paypal_Model_Config
     /**
      * Check whether the specified payment method is a CC-based one
      *
-     * @param string $code
+     * @param  string $code
      * @return bool
      */
     public static function getIsCreditCardMethod($code)
@@ -1506,7 +1546,7 @@ class Mage_Paypal_Model_Config
     /**
      * Check whether specified currency code is supported
      *
-     * @param string $code
+     * @param  string $code
      * @return bool
      */
     public function isCurrencyCodeSupported($code)
@@ -1514,23 +1554,22 @@ class Mage_Paypal_Model_Config
         if (in_array($code, $this->_supportedCurrencyCodes)) {
             return true;
         }
+
         if ($this->getMerchantCountry() == 'BR' && $code == 'BRL') {
             return true;
         }
-        if ($this->getMerchantCountry() == 'MY' && $code == 'MYR') {
-            return true;
-        }
-        return false;
+
+        return $this->getMerchantCountry() == 'MY' && $code == 'MYR';
     }
 
     /**
      * Export page style current settings to specified object
      */
-    public function exportExpressCheckoutStyleSettings(Varien_Object $to)
+    public function exportExpressCheckoutStyleSettings(Varien_Object $target)
     {
         foreach ($this->_ecStyleConfigMap as $key => $exportKey) {
             if ($this->$key) {
-                $to->setData($exportKey, $this->$key);
+                $target->setData($exportKey, $this->$key);
             }
         }
     }
@@ -1539,10 +1578,10 @@ class Mage_Paypal_Model_Config
      * Dynamic PayPal image URL getter
      * Also can render dynamic Acceptance Mark
      *
-     * @param string $type
-     * @param string $localeCode
-     * @param float $orderTotal
-     * @param string $pal
+     * @param  string $type
+     * @param  string $localeCode
+     * @param  float  $orderTotal
+     * @param  string $pal
      * @return string
      */
     protected function _getDynamicImageUrl($type, $localeCode, $orderTotal, $pal)
@@ -1558,6 +1597,7 @@ class Mage_Paypal_Model_Config
                 $params['pal'] = $pal;
             }
         }
+
         return sprintf(
             'https://fpdbs%s.paypal.com/dynamicimageweb?%s',
             $this->sandboxFlag ? '.sandbox' : '',
@@ -1568,7 +1608,7 @@ class Mage_Paypal_Model_Config
     /**
      * Check whether specified locale code is supported. Fallback to en_US
      *
-     * @param string $localeCode
+     * @param  string $localeCode
      * @return string
      */
     protected function _getSupportedLocaleCode($localeCode = null)
@@ -1576,14 +1616,15 @@ class Mage_Paypal_Model_Config
         if (!$localeCode || !in_array($localeCode, $this->_supportedImageLocales)) {
             return self::LOCALE_US;
         }
+
         return $localeCode;
     }
 
     /**
      * Map any supported payment method into a config path by specified field name
      *
-     * @param string $fieldName
-     * @return string|null
+     * @param  string      $fieldName
+     * @return null|string
      */
     protected function _getSpecificConfigPath($fieldName)
     {
@@ -1633,17 +1674,19 @@ class Mage_Paypal_Model_Config
         if ($path === null) {
             $path = $this->_mapGeneralFieldset($fieldName);
         }
+
         if ($path === null) {
-            $path = $this->_mapGenericStyleFieldset($fieldName);
+            return $this->_mapGenericStyleFieldset($fieldName);
         }
+
         return $path;
     }
 
     /**
      * Map PayPal Standard config fields
      *
-     * @param string $fieldName
-     * @return string|null
+     * @param  string      $fieldName
+     * @return null|string
      */
     protected function _mapStandardFieldset($fieldName)
     {
@@ -1656,8 +1699,8 @@ class Mage_Paypal_Model_Config
     /**
      * Map PayPal Express config fields
      *
-     * @param string $fieldName
-     * @return string|null
+     * @param  string      $fieldName
+     * @return null|string
      */
     protected function _mapExpressFieldset($fieldName)
     {
@@ -1670,8 +1713,8 @@ class Mage_Paypal_Model_Config
     /**
      * Map PayPal Express Bill Me Later config fields
      *
-     * @param string $fieldName
-     * @return string|null
+     * @param  string      $fieldName
+     * @return null|string
      */
     protected function _mapBmlFieldset($fieldName)
     {
@@ -1684,8 +1727,8 @@ class Mage_Paypal_Model_Config
     /**
      * Map PayPal Express Bill Me Later config fields (Payflow Edition)
      *
-     * @param string $fieldName
-     * @return string|null
+     * @param  string      $fieldName
+     * @return null|string
      */
     protected function _mapBmlUkFieldset($fieldName)
     {
@@ -1698,8 +1741,8 @@ class Mage_Paypal_Model_Config
     /**
      * Map PayPal Direct config fields
      *
-     * @param string $fieldName
-     * @return string|null
+     * @param  string      $fieldName
+     * @return null|string
      */
     protected function _mapDirectFieldset($fieldName)
     {
@@ -1712,8 +1755,8 @@ class Mage_Paypal_Model_Config
     /**
      * Map PayPal Website Payments Pro common config fields
      *
-     * @param string $fieldName
-     * @return string|null
+     * @param  string      $fieldName
+     * @return null|string
      */
     protected function _mapWppFieldset($fieldName)
     {
@@ -1726,8 +1769,8 @@ class Mage_Paypal_Model_Config
     /**
      * Map PayPal Website Payments Pro common config fields
      *
-     * @param string $fieldName
-     * @return string|null
+     * @param  string      $fieldName
+     * @return null|string
      */
     protected function _mapWpukFieldset($fieldName)
     {
@@ -1742,6 +1785,7 @@ class Mage_Paypal_Model_Config
         ) {
             $pathPrefix = self::XML_PATH_PAYMENT_SECTION . $this->_methodCode;
         }
+
         return match ($fieldName) {
             'partner', 'user', 'vendor', 'pwd', 'sandbox_flag', 'use_proxy', 'proxy_host', 'proxy_port' => $pathPrefix . '/' . $fieldName,
             default => null,
@@ -1751,8 +1795,8 @@ class Mage_Paypal_Model_Config
     /**
      * Map PayPal common style config fields
      *
-     * @param string $fieldName
-     * @return string|null
+     * @param  string      $fieldName
+     * @return null|string
      */
     protected function _mapGenericStyleFieldset($fieldName)
     {
@@ -1765,8 +1809,8 @@ class Mage_Paypal_Model_Config
     /**
      * Map PayPal General Settings
      *
-     * @param string $fieldName
-     * @return string|null
+     * @param  string      $fieldName
+     * @return null|string
      */
     protected function _mapGeneralFieldset($fieldName)
     {
@@ -1779,14 +1823,15 @@ class Mage_Paypal_Model_Config
     /**
      * Map PayPal General Settings
      *
-     * @param string $fieldName
-     * @return string|null
+     * @param  string      $fieldName
+     * @return null|string
      */
     protected function _mapMethodFieldset($fieldName)
     {
         if (!$this->_methodCode) {
             return null;
         }
+
         return match ($fieldName) {
             'active', 'title', 'payment_action', 'allowspecific', 'specificcountry', 'line_items_enabled', 'cctypes', 'sort_order', 'debug', 'verify_peer', 'mobile_optimized' => "payment/{$this->_methodCode}/{$fieldName}",
             default => null,
@@ -1796,7 +1841,7 @@ class Mage_Paypal_Model_Config
     /**
      * Payment API authentication methods source getter
      *
-     * @return array
+     * @return array<int, string>
      */
     public function getApiAuthenticationMethods()
     {

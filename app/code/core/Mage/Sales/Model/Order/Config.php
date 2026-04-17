@@ -17,7 +17,7 @@ class Mage_Sales_Model_Order_Config extends Mage_Core_Model_Config_Base
     /**
      * Statuses per state array
      *
-     * @var array
+     * @var array<array-key, array<string, string>>
      */
     protected $_stateStatuses;
 
@@ -41,7 +41,7 @@ class Mage_Sales_Model_Order_Config extends Mage_Core_Model_Config_Base
     }
 
     /**
-     * @param string $status
+     * @param  string                   $status
      * @return Varien_Simplexml_Element
      */
     protected function _getStatus($status)
@@ -50,7 +50,7 @@ class Mage_Sales_Model_Order_Config extends Mage_Core_Model_Config_Base
     }
 
     /**
-     * @param string $state
+     * @param  string                   $state
      * @return Varien_Simplexml_Element
      */
     protected function _getState($state)
@@ -61,8 +61,8 @@ class Mage_Sales_Model_Order_Config extends Mage_Core_Model_Config_Base
     /**
      * Retrieve default status for state
      *
-     * @param   string $state
-     * @return  string
+     * @param  string $state
+     * @return string
      */
     public function getStateDefaultStatus($state)
     {
@@ -73,14 +73,15 @@ class Mage_Sales_Model_Order_Config extends Mage_Core_Model_Config_Base
                 ->loadDefaultByState($state);
             $status = $status->getStatus();
         }
+
         return $status;
     }
 
     /**
      * Retrieve status label
      *
-     * @param   string $code
-     * @return  string
+     * @param  string $code
+     * @return string
      */
     public function getStatusLabel($code)
     {
@@ -89,14 +90,15 @@ class Mage_Sales_Model_Order_Config extends Mage_Core_Model_Config_Base
             $status = Mage::getModel('sales/order_status')->load($code);
             $this->_statuses[$key] = $status->getStoreLabel();
         }
+
         return $this->_statuses[$key];
     }
 
     /**
      * State label getter
      *
-     * @param   string $state
-     * @return  string
+     * @param  string $state
+     * @return string
      */
     public function getStateLabel($state)
     {
@@ -105,13 +107,14 @@ class Mage_Sales_Model_Order_Config extends Mage_Core_Model_Config_Base
             $state = (string) $stateNode->label;
             return Mage::helper('sales')->__($state);
         }
+
         return $state;
     }
 
     /**
      * Retrieve all statuses
      *
-     * @return array
+     * @return array<array-key, string>
      */
     public function getStatuses()
     {
@@ -131,6 +134,7 @@ class Mage_Sales_Model_Order_Config extends Mage_Core_Model_Config_Base
             $label = (string) $state->label;
             $states[$state->getName()] = Mage::helper('sales')->__($label);
         }
+
         return $states;
     }
 
@@ -139,24 +143,23 @@ class Mage_Sales_Model_Order_Config extends Mage_Core_Model_Config_Base
      * Get all possible statuses, or for specified state, or specified states array
      * Add labels by default. Return plain array of statuses, if no labels.
      *
-     * @param mixed $state
-     * @param bool $addLabels
+     * @param  string|string[] $state
+     * @param  bool            $addLabels
      * @return array
      */
     public function getStateStatuses($state, $addLabels = true)
     {
-        if (is_array($state)) {
-            $key = implode('|', $state) . $addLabels;
-        } else {
-            $key = $state . $addLabels;
-        }
+        $key = is_array($state) ? implode('|', $state) . $addLabels : $state . $addLabels;
+
         if (isset($this->_stateStatuses[$key])) {
             return $this->_stateStatuses[$key];
         }
+
         $statuses = [];
         if (empty($state) || !is_array($state)) {
             $state = [$state];
         }
+
         foreach ($state as $_state) {
             $stateNode = $this->_getState($_state);
             if ($stateNode) {
@@ -174,6 +177,7 @@ class Mage_Sales_Model_Order_Config extends Mage_Core_Model_Config_Base
                 }
             }
         }
+
         $this->_stateStatuses[$key] = $statuses;
         return $statuses;
     }
@@ -182,7 +186,7 @@ class Mage_Sales_Model_Order_Config extends Mage_Core_Model_Config_Base
      * Retrieve state available for status
      * Get all assigned states for specified status
      *
-     * @param string $status
+     * @param  string $status
      * @return array
      */
     public function getStatusStates($status)
@@ -192,6 +196,7 @@ class Mage_Sales_Model_Order_Config extends Mage_Core_Model_Config_Base
         foreach ($collection as $state) {
             $states[] = $state;
         }
+
         return $states;
     }
 
@@ -238,6 +243,7 @@ class Mage_Sales_Model_Order_Config extends Mage_Core_Model_Config_Base
                 } else {
                     $this->_states['invisible'][] = $name;
                 }
+
                 foreach ($state->statuses->children() as $status) {
                     $this->_states['statuses'][$name][] = $status->getName();
                 }

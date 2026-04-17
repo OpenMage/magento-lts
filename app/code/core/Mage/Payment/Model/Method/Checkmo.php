@@ -13,14 +13,16 @@
 class Mage_Payment_Model_Method_Checkmo extends Mage_Payment_Model_Method_Abstract
 {
     protected $_code  = 'checkmo';
+
     protected $_formBlockType = 'payment/form_checkmo';
+
     protected $_infoBlockType = 'payment/info_checkmo';
 
     /**
      * Assign data to info model instance
      *
-     * @param   mixed $data
-     * @return  Mage_Payment_Model_Method_Checkmo
+     * @param  mixed                             $data
+     * @return Mage_Payment_Model_Method_Checkmo
      */
     public function assignData($data)
     {
@@ -28,12 +30,15 @@ class Mage_Payment_Model_Method_Checkmo extends Mage_Payment_Model_Method_Abstra
         if ($this->getPayableTo()) {
             $details['payable_to'] = $this->getPayableTo();
         }
+
         if ($this->getMailingAddress()) {
             $details['mailing_address'] = $this->getMailingAddress();
         }
+
         if (!empty($details)) {
             $this->getInfoInstance()->setAdditionalData(serialize($details));
         }
+
         return $this;
     }
 

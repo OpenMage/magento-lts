@@ -23,7 +23,7 @@ class Mage_Adminhtml_Block_Review_Product_Grid extends Mage_Adminhtml_Block_Cata
     }
 
     /**
-     * @return $this
+     * @inheritDoc
      */
     protected function _prepareColumns()
     {
@@ -66,7 +66,7 @@ class Mage_Adminhtml_Block_Review_Product_Grid extends Mage_Adminhtml_Block_Cata
             'index'     => 'status',
             'type'      => 'options',
             'source'    => 'catalog/product_status',
-            'options'   => Mage::getSingleton('catalog/product_status')->getOptionArray(),
+            'options'   => Mage::getSingleton('catalog/product_status')::getOptionArray(),
         ]);
 
         /**
@@ -86,7 +86,7 @@ class Mage_Adminhtml_Block_Review_Product_Grid extends Mage_Adminhtml_Block_Cata
             );
         }
 
-        return $this;
+        return Mage_Adminhtml_Block_Widget_Grid::_prepareColumns();
     }
 
     /**
@@ -98,7 +98,7 @@ class Mage_Adminhtml_Block_Review_Product_Grid extends Mage_Adminhtml_Block_Cata
     }
 
     /**
-     * @param Varien_Object $row
+     * @param  Varien_Object $row
      * @return string
      */
     public function getRowUrl($row)

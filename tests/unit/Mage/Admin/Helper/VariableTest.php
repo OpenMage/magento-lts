@@ -26,6 +26,7 @@ final class VariableTest extends OpenMageTest
     }
 
     /**
+     * @covers Mage_Admin_Helper_Variable::__construct()
      * @covers Mage_Admin_Helper_Variable::isPathAllowed()
      * @group Helper
      */

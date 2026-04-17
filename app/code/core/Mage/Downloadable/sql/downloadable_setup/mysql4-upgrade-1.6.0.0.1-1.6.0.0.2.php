@@ -12,7 +12,7 @@ if (file_exists($installFile)) {
     include $installFile;
 }
 
-/** @var Mage_Catalog_Model_Resource_Setup $installer */
+/** @var Mage_Catalog_Model_Resource_Setup $this */
 $installer = $this;
 
 /** @var Varien_Db_Adapter_Pdo_Mysql $connection */

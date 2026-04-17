@@ -12,13 +12,21 @@
  */
 class Mage_Usa_Model_Shipping_Carrier_Usps_Source_Machinable
 {
+    /**
+     * @return array<int, array<string, string>>
+     */
     public function toOptionArray()
     {
-        $usps = Mage::getSingleton('usa/shipping_carrier_usps');
-        $arr = [];
-        foreach ($usps->getCode('machinable') as $k => $v) {
-            $arr[] = ['value' => $k, 'label' => $v];
+        $codes = Mage::getSingleton('usa/shipping_carrier_usps')->getCode('machinable');
+        if (!is_array($codes)) {
+            return [];
         }
+
+        $arr = [];
+        foreach ($codes as $key => $value) {
+            $arr[] = ['value' => $key, 'label' => $value];
+        }
+
         return $arr;
     }
 }

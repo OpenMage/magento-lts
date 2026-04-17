@@ -9,7 +9,9 @@
 class Mage_Xml_Parser
 {
     protected $_dom = null;
+
     protected $_currentDom;
+
     protected $_content = [];
 
     public function __construct()
@@ -45,6 +47,7 @@ class Mage_Xml_Parser
         if (!$currentNode) {
             $currentNode = $this->getDom();
         }
+
         $content = [];
         foreach ($currentNode->childNodes as $node) {
             switch ($node->nodeType) {
@@ -53,31 +56,38 @@ class Mage_Xml_Parser
                     if ($node->hasChildNodes()) {
                         $value = $this->_xmlToArray($node);
                     }
+
                     $attributes = [];
                     if ($node->hasAttributes()) {
                         foreach ($node->attributes as $attribute) {
                             $attributes += [$attribute->name => $attribute->value];
                         }
+
                         $value = ['_value' => $value, '_attribute' => $attributes];
                     }
+
                     if (isset($content[$node->nodeName])) {
                         if (!isset($content[$node->nodeName][0]) || !is_array($content[$node->nodeName][0])) {
                             $oldValue = $content[$node->nodeName];
                             $content[$node->nodeName] = [];
                             $content[$node->nodeName][] = $oldValue;
                         }
+
                         $content[$node->nodeName][] = $value;
                     } else {
                         $content[$node->nodeName] = $value;
                     }
+
                     break;
                 case XML_TEXT_NODE:
                     if (trim($node->nodeValue)) {
                         $content = $node->nodeValue;
                     }
+
                     break;
             }
         }
+
         return $content;
     }
 

@@ -15,13 +15,19 @@
 class Mage_Core_Model_App_Area
 {
     public const AREA_GLOBAL   = 'global';
+
     public const AREA_FRONTEND = 'frontend';
+
     public const AREA_ADMIN    = 'admin';
+
     public const AREA_ADMINHTML = 'adminhtml';
 
     public const PART_CONFIG   = 'config';
+
     public const PART_EVENTS   = 'events';
+
     public const PART_TRANSLATE = 'translate';
+
     public const PART_DESIGN   = 'design';
 
     /**
@@ -47,7 +53,7 @@ class Mage_Core_Model_App_Area
 
     /**
      * Mage_Core_Model_App_Area constructor.
-     * @param string $areaCode
+     * @param string              $areaCode
      * @param Mage_Core_Model_App $application
      */
     public function __construct($areaCode, $application)
@@ -69,8 +75,8 @@ class Mage_Core_Model_App_Area
     /**
      * Load area data
      *
-     * @param   string|null $part
-     * @return  Mage_Core_Model_App_Area
+     * @param  null|string              $part
+     * @return Mage_Core_Model_App_Area
      */
     public function load($part = null)
     {
@@ -82,20 +88,22 @@ class Mage_Core_Model_App_Area
         } else {
             $this->_loadPart($part);
         }
+
         return $this;
     }
 
     /**
      * Loading part of area
      *
-     * @param   string $part
-     * @return  Mage_Core_Model_App_Area
+     * @param  string                   $part
+     * @return Mage_Core_Model_App_Area
      */
     protected function _loadPart($part)
     {
         if (isset($this->_loadedParts[$part])) {
             return $this;
         }
+
         Varien_Profiler::start('mage::dispatch::controller::action::predispatch::load_area::' . $this->_code . '::' . $part);
         switch ($part) {
             case self::PART_CONFIG:
@@ -111,6 +119,7 @@ class Mage_Core_Model_App_Area
                 $this->_initDesign();
                 break;
         }
+
         $this->_loadedParts[$part] = true;
         Varien_Profiler::stop('mage::dispatch::controller::action::predispatch::load_area::' . $this->_code . '::' . $part);
         return $this;
@@ -138,7 +147,7 @@ class Mage_Core_Model_App_Area
     }
 
     /**
-     * @return $this|void
+     * @return null|$this
      * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
      */
@@ -147,9 +156,10 @@ class Mage_Core_Model_App_Area
         if (Mage::app()->getRequest()->isStraight()) {
             return $this;
         }
+
         $designPackage = Mage::getSingleton('core/design_package');
         if ($designPackage->getArea() != self::AREA_FRONTEND) {
-            return;
+            return null;
         }
 
         $currentStore = Mage::app()->getStore()->getStoreId();
@@ -161,5 +171,7 @@ class Mage_Core_Model_App_Area
             $designPackage->setPackageName($designChange->getPackage())
                 ->setTheme($designChange->getTheme());
         }
+
+        return null;
     }
 }

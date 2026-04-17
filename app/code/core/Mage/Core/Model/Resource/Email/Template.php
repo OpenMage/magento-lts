@@ -14,6 +14,9 @@
  */
 class Mage_Core_Model_Resource_Email_Template extends Mage_Core_Model_Resource_Db_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('core/email_template', 'template_id');
@@ -22,7 +25,7 @@ class Mage_Core_Model_Resource_Email_Template extends Mage_Core_Model_Resource_D
     /**
      * Load by template code from DB.
      *
-     * @param string $templateCode
+     * @param  string $templateCode
      * @return array
      */
     public function loadByCode($templateCode)
@@ -35,6 +38,7 @@ class Mage_Core_Model_Resource_Email_Template extends Mage_Core_Model_Resource_D
         if (!$result) {
             return [];
         }
+
         return $result;
     }
 
@@ -64,6 +68,7 @@ class Mage_Core_Model_Resource_Email_Template extends Mage_Core_Model_Resource_D
                 return true;
             }
         }
+
         return false;
     }
 
@@ -78,6 +83,7 @@ class Mage_Core_Model_Resource_Email_Template extends Mage_Core_Model_Resource_D
         if ($object->isObjectNew()) {
             $object->setCreatedAt($this->formatDate(true));
         }
+
         $object->setModifiedAt($this->formatDate(true));
         $object->setTemplateType((int) $object->getTemplateType());
 
@@ -87,8 +93,8 @@ class Mage_Core_Model_Resource_Email_Template extends Mage_Core_Model_Resource_D
     /**
      * Retrieve config scope and scope id of specified email template by email paths
      *
-     * @param array $paths
-     * @param int|string $templateId
+     * @param  array      $paths
+     * @param  int|string $templateId
      * @return array
      */
     public function getSystemConfigByPathsAndTemplateId($paths, $templateId)
@@ -102,6 +108,7 @@ class Mage_Core_Model_Resource_Email_Template extends Mage_Core_Model_Resource_D
             $bind[$pathAlias] = $path;
             $pathesCounter++;
         }
+
         $bind['template_id'] = $templateId;
         $select = $this->_getReadAdapter()->select()
             ->from($this->getTable('core/config_data'), ['scope', 'scope_id', 'path'])

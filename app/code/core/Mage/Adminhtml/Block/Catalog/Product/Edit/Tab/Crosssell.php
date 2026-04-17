@@ -16,9 +16,10 @@
  */
 class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Crosssell extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_catalog_product_edit_tab_crosssell';
+
     /**
-     * Set grid params
-     *
+     * @throws Mage_Core_Exception
      */
     public function __construct()
     {
@@ -29,6 +30,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Crosssell extends Mage_Admin
         if ($this->_getProduct()->getId()) {
             $this->setDefaultFilter(['in_products' => 1]);
         }
+
         if ($this->isReadonly()) {
             $this->setFilterVisibility(false);
         }
@@ -45,10 +47,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Crosssell extends Mage_Admin
     }
 
     /**
-     * Add filter
-     *
-     * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
-     * @return $this
+     * @inheritDoc
+     * @throws Mage_Core_Exception
      */
     protected function _addColumnFilterToCollection($column)
     {
@@ -58,6 +58,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Crosssell extends Mage_Admin
             if (empty($productIds)) {
                 $productIds = 0;
             }
+
             if ($column->getFilter()->getValue()) {
                 $this->getCollection()->addFieldToFilter('entity_id', ['in' => $productIds]);
             } elseif ($productIds) {
@@ -66,6 +67,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Crosssell extends Mage_Admin
         } else {
             parent::_addColumnFilterToCollection($column);
         }
+
         return $this;
     }
 
@@ -85,6 +87,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Crosssell extends Mage_Admin
             if (empty($productIds)) {
                 $productIds = [0];
             }
+
             $collection->addFieldToFilter('entity_id', ['in' => $productIds]);
         }
 
@@ -105,6 +108,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Crosssell extends Mage_Admin
 
     /**
      * @inheritDoc
+     * @throws Exception
      */
     protected function _prepareColumns()
     {
@@ -134,7 +138,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Crosssell extends Mage_Admin
             'width'     => 100,
             'index'     => 'type_id',
             'type'      => 'options',
-            'options'   => Mage::getSingleton('catalog/product_type')->getOptionArray(),
+            'options'   => Mage::getSingleton('catalog/product_type')::getOptionArray(),
         ]);
 
         $sets = Mage::getResourceModel('eav/entity_attribute_set_collection')
@@ -155,7 +159,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Crosssell extends Mage_Admin
             'width'     => 90,
             'index'     => 'status',
             'type'      => 'options',
-            'options'   => Mage::getSingleton('catalog/product_status')->getOptionArray(),
+            'options'   => Mage::getSingleton('catalog/product_status')::getOptionArray(),
         ]);
 
         $this->addColumn('visibility', [
@@ -163,7 +167,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Crosssell extends Mage_Admin
             'width'     => 90,
             'index'     => 'visibility',
             'type'      => 'options',
-            'options'   => Mage::getSingleton('catalog/product_visibility')->getOptionArray(),
+            'options'   => Mage::getSingleton('catalog/product_visibility')::getOptionArray(),
         ]);
 
         $this->addColumn('sku', [
@@ -193,7 +197,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Crosssell extends Mage_Admin
     }
 
     /**
-     * Rerieve grid URL
+     * Retrieve grid URL
      *
      * @return string
      */
@@ -211,8 +215,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Crosssell extends Mage_Admin
     {
         $products = $this->getProductsCrossSell();
         if (!is_array($products)) {
-            $products = array_keys($this->getSelectedCrossSellProducts());
+            return array_keys($this->getSelectedCrossSellProducts());
         }
+
         return $products;
     }
 
@@ -227,6 +232,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Crosssell extends Mage_Admin
         foreach (Mage::registry('current_product')->getCrossSellProducts() as $product) {
             $products[$product->getId()] = ['position' => $product->getPosition()];
         }
+
         return $products;
     }
 }

@@ -38,7 +38,7 @@ class Mage_Core_Block_Html_Calendar extends Mage_Core_Block_Template
         ]);
 
         // get "today" and "week" words
-        $this->assign('today', Mage::helper('core')->jsonEncode(Zend_Locale_Data::getContent($localeCode, 'relative', 0)));
+        $this->assign('today', Mage::helper('core')->jsonEncode(Zend_Locale_Data::getContent($localeCode, 'relative', '0')));
         $this->assign('week', Mage::helper('core')->jsonEncode(Zend_Locale_Data::getContent($localeCode, 'field', 'week')));
 
         // get "am" & "pm" words
@@ -53,8 +53,7 @@ class Mage_Core_Block_Html_Calendar extends Mage_Core_Block_Template
         $this->assign('defaultFormat', Mage::helper('core')->jsonEncode(Mage::app()->getLocale()->getDateStrFormat(Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM)));
         $this->assign('toolTipFormat', Mage::helper('core')->jsonEncode(Mage::app()->getLocale()->getDateStrFormat(Mage_Core_Model_Locale::FORMAT_TYPE_LONG)));
 
-        // get days and months for en_US locale - calendar will parse exactly in this locale
-        $days = Zend_Locale_Data::getList('en_US', 'days');
+        // get months for en_US locale - calendar will parse exactly in this locale
         $months = Zend_Locale_Data::getList('en_US', 'months');
         $enUS = new stdClass();
         $enUS->m = new stdClass();
@@ -78,7 +77,7 @@ class Mage_Core_Block_Html_Calendar extends Mage_Core_Block_Template
     /**
      * Getter for store timestamp based on store timezone settings
      *
-     * @param mixed $store
+     * @param  mixed $store
      * @return int
      */
     public function getStoreTimestamp($store = null)

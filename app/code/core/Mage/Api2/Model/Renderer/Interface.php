@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -17,7 +19,7 @@ interface Mage_Api2_Model_Renderer_Interface
     /**
      * Render content in a certain format
      *
-     * @param array|object $data
+     * @param  array|object $data
      * @return string
      */
     public function render($data);

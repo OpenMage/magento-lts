@@ -14,16 +14,8 @@
  */
 class Mage_Oauth_Block_Adminhtml_Oauth_Consumer_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
-    /**
-     * Allow edit status
-     *
-     * @var bool
-     */
-    protected $_editAllow = false;
+    protected string $_eventPrefix = 'oauth_adminhtml_oauth_consumer_grid';
 
-    /**
-     * Construct grid block
-     */
     public function __construct()
     {
         parent::__construct();
@@ -32,15 +24,9 @@ class Mage_Oauth_Block_Adminhtml_Oauth_Consumer_Grid extends Mage_Adminhtml_Bloc
         $this->setSaveParametersInSession(true);
         $this->setDefaultSort('entity_id')
             ->setDefaultDir(Varien_Db_Select::SQL_DESC);
-
-        /** @var Mage_Admin_Model_Session $session */
-        $session = Mage::getSingleton('admin/session');
-        $this->_editAllow = $session->isAllowed('system/oauth/consumer/edit');
     }
 
     /**
-     * Prepare collection
-     *
      * @inheritDoc
      */
     protected function _prepareCollection()
@@ -52,9 +38,8 @@ class Mage_Oauth_Block_Adminhtml_Oauth_Consumer_Grid extends Mage_Adminhtml_Bloc
     }
 
     /**
-     * Prepare columns
-     *
      * @inheritDoc
+     * @throws Exception
      */
     protected function _prepareColumns()
     {
@@ -75,9 +60,7 @@ class Mage_Oauth_Block_Adminhtml_Oauth_Consumer_Grid extends Mage_Adminhtml_Bloc
     }
 
     /**
-     * Get grid URL
-     *
-     * @return string
+     * @inheritDoc
      */
     public function getGridUrl()
     {
@@ -85,16 +68,16 @@ class Mage_Oauth_Block_Adminhtml_Oauth_Consumer_Grid extends Mage_Adminhtml_Bloc
     }
 
     /**
-     * Get row URL
-     *
-     * @param Mage_Oauth_Model_Consumer $row
-     * @return string|null
+     * @inheritDoc
+     * @param  Mage_Oauth_Model_Consumer $row
+     * @throws Mage_Core_Exception
      */
     public function getRowUrl($row)
     {
-        if ($this->_editAllow) {
+        if ($this->isAllowed('system/oauth/consumer/edit')) {
             return $this->getUrl('*/*/edit', ['id' => $row->getId()]);
         }
-        return null;
+
+        return '';
     }
 }

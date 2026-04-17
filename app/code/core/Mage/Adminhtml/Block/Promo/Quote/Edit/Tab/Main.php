@@ -136,6 +136,7 @@ class Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Main extends Mage_Adminhtml_Bloc
                 $found = true;
             }
         }
+
         if (!$found) {
             array_unshift($customerGroups, [
                 'value' => 0,
@@ -248,17 +249,17 @@ class Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Main extends Mage_Adminhtml_Bloc
             ->addFieldDependence(
                 $couponCodeFiled->getName(),
                 $couponTypeFiled->getName(),
-                Mage_SalesRule_Model_Rule::COUPON_TYPE_SPECIFIC,
+                (string) Mage_SalesRule_Model_Rule::COUPON_TYPE_SPECIFIC,
             )
             ->addFieldDependence(
                 $autoGenerationCheckbox->getName(),
                 $couponTypeFiled->getName(),
-                Mage_SalesRule_Model_Rule::COUPON_TYPE_SPECIFIC,
+                (string) Mage_SalesRule_Model_Rule::COUPON_TYPE_SPECIFIC,
             )
             ->addFieldDependence(
                 $usesPerCouponFiled->getName(),
                 $couponTypeFiled->getName(),
-                Mage_SalesRule_Model_Rule::COUPON_TYPE_SPECIFIC,
+                (string) Mage_SalesRule_Model_Rule::COUPON_TYPE_SPECIFIC,
             ));
 
         Mage::dispatchEvent('adminhtml_promo_quote_edit_tab_main_prepare_form', ['form' => $form]);

@@ -11,13 +11,21 @@
  * Adminhtml footer block
  *
  * @package    Mage_Adminhtml
+ *
+ * @method bool  getShowProfiler()
+ * @method $this setShowProfiler(bool $value)
  */
 class Mage_Adminhtml_Block_Page_Footer extends Mage_Adminhtml_Block_Template
 {
     public const LOCALE_CACHE_LIFETIME = 7200;
+
     public const LOCALE_CACHE_KEY      = 'footer_locale';
+
     public const LOCALE_CACHE_TAG      = 'adminhtml';
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->setTemplate('page/footer.phtml');
@@ -74,23 +82,6 @@ class Mage_Adminhtml_Block_Page_Footer extends Mage_Adminhtml_Block_Template
 
     /**
      * @return $this
-     * @deprecated see setReportIssuesUrl()
-     */
-    public function setBugreportUrl(string $url)
-    {
-        return $this->setReportIssuesUrl($url);
-    }
-
-    /**
-     * @deprecated see getReportIssuesUrl()
-     */
-    public function getBugreportUrl(): string
-    {
-        return $this->getReportIssuesUrl();
-    }
-
-    /**
-     * @return $this
      */
     public function setReportIssuesUrl(string $url)
     {
@@ -100,23 +91,6 @@ class Mage_Adminhtml_Block_Page_Footer extends Mage_Adminhtml_Block_Template
     public function getReportIssuesUrl(): string
     {
         return (string) $this->_getData('report_issues_url');
-    }
-
-    /**
-     * @return $this
-     * @deprecated see setOpenMageProjectUrl()
-     */
-    public function setConnectWithMagentoUrl(string $url)
-    {
-        return $this->setOpenMageProjectUrl($url);
-    }
-
-    /**
-     * @deprecated see getOpenMageProjectUrl()
-     */
-    public function getConnectWithMagentoUrl(): string
-    {
-        return $this->getOpenMageProjectUrl();
     }
 
     /**

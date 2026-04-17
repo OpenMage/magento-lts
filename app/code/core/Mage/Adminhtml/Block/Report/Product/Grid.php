@@ -11,15 +11,18 @@
  * Adminhtml products report grid block
  *
  * @package    Mage_Adminhtml
+ *
+ * @method Mage_Reports_Model_Resource_Report_Collection getCollection()
  */
 class Mage_Adminhtml_Block_Report_Product_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_report_product_grid';
+
     public function __construct()
     {
         parent::__construct();
         $this->setId('productsReportGrid');
         $this->setDefaultSort('entity_id');
-        $this->setDefaultDir('desc');
     }
 
     /**
@@ -28,6 +31,7 @@ class Mage_Adminhtml_Block_Report_Product_Grid extends Mage_Adminhtml_Block_Widg
      */
     protected function _prepareCollection()
     {
+        /** @var Mage_Reports_Model_Resource_Product_Collection $collection */
         $collection = Mage::getResourceModel('reports/product_collection');
         $collection->getEntity()->setStore(0);
 
@@ -104,7 +108,7 @@ class Mage_Adminhtml_Block_Report_Product_Grid extends Mage_Adminhtml_Block_Widg
             'total'     => 'sum',
         ]);
 
-        $this->setCountTotals(true);
+        $this->setCountTotals();
 
         $this->addExportType('*/*/exportProductsCsv', Mage::helper('reports')->__('CSV'));
         $this->addExportType('*/*/exportProductsExcel', Mage::helper('reports')->__('Excel XML'));

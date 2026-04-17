@@ -17,21 +17,21 @@ class Mage_Dataflow_Model_Convert_Mapper_Column extends Mage_Dataflow_Model_Conv
     /**
      * Dataflow batch model
      *
-     * @var Mage_Dataflow_Model_Batch|null
+     * @var null|Mage_Dataflow_Model_Batch
      */
     protected $_batch;
 
     /**
      * Dataflow batch export model
      *
-     * @var Mage_Dataflow_Model_Batch_Export|string|false|null
+     * @var null|false|Mage_Dataflow_Model_Batch_Export|string
      */
     protected $_batchExport;
 
     /**
      * Dataflow batch import model
      *
-     * @var Mage_Dataflow_Model_Batch_Import|string|false|null
+     * @var null|false|Mage_Dataflow_Model_Batch_Import|string
      */
     protected $_batchImport;
 
@@ -45,6 +45,7 @@ class Mage_Dataflow_Model_Convert_Mapper_Column extends Mage_Dataflow_Model_Conv
         if (is_null($this->_batch)) {
             $this->_batch = Mage::getSingleton('dataflow/batch');
         }
+
         return $this->_batch;
     }
 
@@ -52,6 +53,7 @@ class Mage_Dataflow_Model_Convert_Mapper_Column extends Mage_Dataflow_Model_Conv
      * Retrieve Batch export model
      *
      * @return Mage_Dataflow_Model_Batch_Export
+     * @throws Varien_Exception
      */
     public function getBatchExportModel()
     {
@@ -59,13 +61,17 @@ class Mage_Dataflow_Model_Convert_Mapper_Column extends Mage_Dataflow_Model_Conv
             $object = Mage::getModel('dataflow/batch_export');
             $this->_batchExport = Varien_Object_Cache::singleton()->save($object);
         }
-        return Varien_Object_Cache::singleton()->load($this->_batchExport);
+
+        /** @var Mage_Dataflow_Model_Batch_Export $cache */
+        $cache = Varien_Object_Cache::singleton()->load($this->_batchExport);
+        return $cache;
     }
 
     /**
      * Retrieve Batch import model
      *
-     * @return Mage_Dataflow_Model_Import_Export
+     * @return Mage_Dataflow_Model_Batch_Import
+     * @throws Varien_Exception
      */
     public function getBatchImportModel()
     {
@@ -73,9 +79,17 @@ class Mage_Dataflow_Model_Convert_Mapper_Column extends Mage_Dataflow_Model_Conv
             $object = Mage::getModel('dataflow/batch_import');
             $this->_batchImport = Varien_Object_Cache::singleton()->save($object);
         }
-        return Varien_Object_Cache::singleton()->load($this->_batchImport);
+
+        /** @var Mage_Dataflow_Model_Batch_Import $cache */
+        $cache = Varien_Object_Cache::singleton()->load($this->_batchImport);
+        return $cache;
     }
 
+    /**
+     * @throws Mage_Core_Exception
+     * @throws Throwable
+     * @throws Varien_Exception
+     */
     public function map()
     {
         $batchModel  = $this->getBatchModel();
@@ -85,7 +99,7 @@ class Mage_Dataflow_Model_Convert_Mapper_Column extends Mage_Dataflow_Model_Conv
             ->setBatchId($this->getBatchModel()->getId())
             ->getIdCollection();
 
-        $onlySpecified = (bool) $this->getVar('_only_specified') === true;
+        $onlySpecified = (bool) $this->getVar('_only_specified');
 
         if (!$onlySpecified) {
             foreach ($batchExportIds as $batchExportId) {
@@ -96,11 +110,7 @@ class Mage_Dataflow_Model_Convert_Mapper_Column extends Mage_Dataflow_Model_Conv
             return $this;
         }
 
-        if ($this->getVar('map') && is_array($this->getVar('map'))) {
-            $attributesToSelect = $this->getVar('map');
-        } else {
-            $attributesToSelect = [];
-        }
+        $attributesToSelect = $this->getVar('map') && is_array($this->getVar('map')) ? $this->getVar('map') : [];
 
         if (!$attributesToSelect) {
             $this->getBatchExportModel()

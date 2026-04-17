@@ -7,6 +7,8 @@
  * @package    Mage_Eav
  */
 
+use Carbon\Carbon;
+
 /**
  * EAV Entity Attribute Date Data Model
  *
@@ -17,7 +19,8 @@ class Mage_Eav_Model_Attribute_Data_Date extends Mage_Eav_Model_Attribute_Data_A
     /**
      * Extract data from request and return value
      *
-     * @return array|string|false
+     * @return false|string
+     * @throws Mage_Core_Exception
      */
     public function extractValue(Zend_Controller_Request_Http $request)
     {
@@ -29,8 +32,10 @@ class Mage_Eav_Model_Attribute_Data_Date extends Mage_Eav_Model_Attribute_Data_A
      * Validate data
      * Return true or array of errors
      *
-     * @param array|string $value
-     * @return bool|array
+     * @param  array|string                    $value
+     * @return array|bool
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function validateValue($value)
     {
@@ -58,15 +63,29 @@ class Mage_Eav_Model_Attribute_Data_Date extends Mage_Eav_Model_Attribute_Data_A
 
         //range validation
         $validateRules = $attribute->getValidateRules();
-        if ((!empty($validateRules['date_range_min']) && (strtotime($value) < $validateRules['date_range_min']))
-            || (!empty($validateRules['date_range_max']) && (strtotime($value) > $validateRules['date_range_max']))
+        if ((!empty($validateRules['date_range_min']) && (Carbon::parse($value)->getTimestamp() < $validateRules['date_range_min']))
+            || (!empty($validateRules['date_range_max']) && (Carbon::parse($value)->getTimestamp() > $validateRules['date_range_max']))
         ) {
+            $format = 'd/m/Y';
             if (!empty($validateRules['date_range_min']) && !empty($validateRules['date_range_max'])) {
-                $errors[] = Mage::helper('customer')->__('Please enter a valid date between %s and %s at %s.', date('d/m/Y', $validateRules['date_range_min']), date('d/m/Y', $validateRules['date_range_max']), $label);
+                $errors[] = Mage::helper('customer')->__(
+                    'Please enter a valid date between %s and %s at %s.',
+                    Carbon::createFromTimestamp($validateRules['date_range_min'])->format($format),
+                    Carbon::createFromTimestamp($validateRules['date_range_max'])->format($format),
+                    $label,
+                );
             } elseif (!empty($validateRules['date_range_min'])) {
-                $errors[] = Mage::helper('customer')->__('Please enter a valid date equal to or greater than %s at %s.', date('d/m/Y', $validateRules['date_range_min']), $label);
+                $errors[] = Mage::helper('customer')->__(
+                    'Please enter a valid date equal to or greater than %s at %s.',
+                    Carbon::createFromTimestamp($validateRules['date_range_min'])->format($format),
+                    $label,
+                );
             } elseif (!empty($validateRules['date_range_max'])) {
-                $errors[] = Mage::helper('customer')->__('Please enter a valid date less than or equal to %s at %s.', date('d/m/Y', $validateRules['date_range_max']), $label);
+                $errors[] = Mage::helper('customer')->__(
+                    'Please enter a valid date less than or equal to %s at %s.',
+                    Carbon::createFromTimestamp($validateRules['date_range_max'])->format($format),
+                    $label,
+                );
             }
         }
 
@@ -80,14 +99,16 @@ class Mage_Eav_Model_Attribute_Data_Date extends Mage_Eav_Model_Attribute_Data_A
     /**
      * Export attribute value to entity model
      *
-     * @param array|string $value
+     * @param  array|string        $value
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function compactValue($value)
     {
         if ($value !== false && empty($value)) {
             $value = null;
         }
+
         $this->getEntity()->setDataUsingMethod($this->getAttribute()->getAttributeCode(), $value);
 
         return $this;
@@ -96,8 +117,9 @@ class Mage_Eav_Model_Attribute_Data_Date extends Mage_Eav_Model_Attribute_Data_A
     /**
      * Restore attribute value from SESSION to entity model
      *
-     * @param array|string $value
+     * @param  array|string        $value
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function restoreValue($value)
     {
@@ -107,8 +129,10 @@ class Mage_Eav_Model_Attribute_Data_Date extends Mage_Eav_Model_Attribute_Data_A
     /**
      * Return formatted attribute value from entity model
      *
-     * @param string $format
-     * @return string|array
+     * @param  string                $format
+     * @return array|string
+     * @throws Mage_Core_Exception
+     * @throws Zend_Locale_Exception
      */
     public function outputValue($format = Mage_Eav_Model_Attribute_Data::OUTPUT_FORMAT_TEXT)
     {
@@ -121,6 +145,7 @@ class Mage_Eav_Model_Attribute_Data_Date extends Mage_Eav_Model_Attribute_Data_A
                     $this->_dateFilterFormat(Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM);
                     break;
             }
+
             $value = $this->_applyOutputFilter($value);
         }
 

@@ -22,6 +22,7 @@ class Mage_Adminhtml_Block_Sales_Order_Comments_View extends Mage_Adminhtml_Bloc
         if (!$this->getParentBlock()) {
             Mage::throwException(Mage::helper('adminhtml')->__('Invalid parent block for this block.'));
         }
+
         $this->setEntity($this->getParentBlock()->getSource());
         return parent::_beforeToHtml();
     }
@@ -66,9 +67,9 @@ class Mage_Adminhtml_Block_Sales_Order_Comments_View extends Mage_Adminhtml_Bloc
     /**
      * Replace links in string
      *
-     * @param string|string[] $data
-     * @param array|null $allowedTags
-     * @return null|string|string[]
+     * @param  null|string|string[]                        $data
+     * @param  null|string[]                               $allowedTags
+     * @return ($data is array ? array<?string> : ?string)
      */
     public function escapeHtml($data, $allowedTags = null)
     {

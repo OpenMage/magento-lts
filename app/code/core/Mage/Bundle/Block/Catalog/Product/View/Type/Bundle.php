@@ -82,10 +82,7 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle extends Mage_Catalog_Bl
     public function hasOptions()
     {
         $this->getOptions();
-        if (empty($this->_options) || !$this->getProduct()->isSalable()) {
-            return false;
-        }
-        return true;
+        return !empty($this->_options) && $this->getProduct()->isSalable();
     }
 
     /**
@@ -131,14 +128,14 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle extends Mage_Catalog_Bl
             $taxHelper = Mage::helper('tax');
             foreach ($bundleOption->getSelections() as $bundleSelection) {
                 $selectionId = $bundleSelection->getSelectionId();
-                $_qty = !($bundleSelection->getSelectionQty() * 1) ? '1' : $bundleSelection->getSelectionQty() * 1;
+                $_qty = $bundleSelection->getSelectionQty() * 1 ? $bundleSelection->getSelectionQty() * 1 : '1';
                 // recalculate currency
                 $tierPrices = $bundleSelection->getTierPrice();
                 foreach ($tierPrices as &$tierPriceInfo) {
-                    $tierPriceInfo['price'] =
-                        $bundlePriceModel->getLowestPrice($currentProduct, $tierPriceInfo['price']);
-                    $tierPriceInfo['website_price'] =
-                        $bundlePriceModel->getLowestPrice($currentProduct, $tierPriceInfo['website_price']);
+                    $tierPriceInfo['price']
+                        = $bundlePriceModel->getLowestPrice($currentProduct, $tierPriceInfo['price']);
+                    $tierPriceInfo['website_price']
+                        = $bundlePriceModel->getLowestPrice($currentProduct, $tierPriceInfo['website_price']);
                     $tierPriceInfo['price'] = $coreHelper::currency($tierPriceInfo['price'], false, false);
                     $tierPriceInfo['priceInclTax'] = $taxHelper->getPrice(
                         $bundleSelection,
@@ -163,6 +160,7 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle extends Mage_Catalog_Bl
                         false,
                     );
                 }
+
                 unset($tierPriceInfo); // break the reference with the last element
 
                 $itemPrice = $bundlePriceModel->getSelectionFinalTotalPrice(
@@ -247,10 +245,11 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle extends Mage_Catalog_Bl
                 $args = ['response_object' => $responseObject, 'selection' => $bundleSelection];
                 Mage::dispatchEvent('bundle_product_view_config', $args);
                 if (is_array($responseObject->getAdditionalOptions())) {
-                    foreach ($responseObject->getAdditionalOptions() as $o => $v) {
-                        $selection[$o] = $v;
+                    foreach ($responseObject->getAdditionalOptions() as $key => $additionalOption) {
+                        $selection[$key] = $additionalOption;
                     }
                 }
+
                 $option['selections'][$selectionId] = $selection;
 
                 if (($bundleSelection->getIsDefault() || ($selectionCount == 1 && $bundleOption->getRequired()))
@@ -259,6 +258,7 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle extends Mage_Catalog_Bl
                     $selected[$optionId][] = $selectionId;
                 }
             }
+
             $options[$optionId] = $option;
 
             // Add attribute default value (if set)
@@ -283,7 +283,7 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle extends Mage_Catalog_Bl
             'isMAPAppliedDirectly' => Mage::helper('catalog')->canApplyMsrp($this->getProduct(), null, false),
         ];
 
-        if ($preConfiguredFlag && !empty($defaultValues)) {
+        if ($preConfiguredFlag && $defaultValues !== []) {
             $config['defaultValues'] = $defaultValues;
         }
 
@@ -304,7 +304,7 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle extends Mage_Catalog_Bl
     /**
      * Get option html
      *
-     * @param Mage_Catalog_Model_Product_Option $option
+     * @param  Mage_Catalog_Model_Product_Option $option
      * @return string
      */
     public function getOptionHtml($option)
@@ -312,6 +312,7 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle extends Mage_Catalog_Bl
         if (!isset($this->_optionRenderers[$option->getType()])) {
             return $this->__('There is no defined renderer for "%s" option type.', $option->getType());
         }
+
         return $this->getLayout()->createBlock($this->_optionRenderers[$option->getType()])
             ->setOption($option)->toHtml();
     }

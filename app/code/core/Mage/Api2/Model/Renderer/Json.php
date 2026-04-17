@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -22,7 +24,7 @@ class Mage_Api2_Model_Renderer_Json implements Mage_Api2_Model_Renderer_Interfac
     /**
      * Convert Array to JSON
      *
-     * @param array|object $data
+     * @param  array|object $data
      * @return string
      */
     public function render($data)

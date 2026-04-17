@@ -113,8 +113,8 @@ class Mage_SalesRule_Model_Quote_Discount extends Mage_Sales_Model_Quote_Address
     /**
      * Aggregate item discount information to address data and related properties
      *
-     * @param   Mage_Sales_Model_Quote_Item_Abstract $item
-     * @return  $this
+     * @param  Mage_Sales_Model_Quote_Item_Abstract $item
+     * @return $this
      */
     protected function _aggregateItemDiscount($item)
     {
@@ -139,12 +139,14 @@ class Mage_SalesRule_Model_Quote_Discount extends Mage_Sales_Model_Quote_Address
             } else {
                 $title = Mage::helper('sales')->__('Discount');
             }
+
             $address->addTotal([
                 'code'  => $this->getCode(),
                 'title' => $title,
                 'value' => $amount,
             ]);
         }
+
         return $this;
     }
 }

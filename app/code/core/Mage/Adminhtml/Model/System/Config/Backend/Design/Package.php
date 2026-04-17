@@ -18,9 +18,11 @@ class Mage_Adminhtml_Model_System_Config_Backend_Design_Package extends Mage_Cor
         if (empty($value)) {
             throw new Exception('package name is empty.');
         }
+
         if (!Mage::getDesign()->designPackageExists($value)) {
             throw new Exception('package with this name does not exist and cannot be set.');
         }
+
         return $this;
     }
 }

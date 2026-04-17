@@ -14,6 +14,9 @@
  */
 class Mage_Reports_Model_Resource_Tag_Product_Collection extends Mage_Tag_Model_Resource_Product_Collection
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         parent::_construct();
@@ -22,6 +25,7 @@ class Mage_Reports_Model_Resource_Tag_Product_Collection extends Mage_Tag_Model_
          */
         $this->_useAnalyticFunction = true;
     }
+
     /**
      * Add unique target count to result
      *
@@ -95,7 +99,7 @@ class Mage_Reports_Model_Resource_Tag_Product_Collection extends Mage_Tag_Model_
     /**
      * Add product filter
      *
-     * @param int $customerId
+     * @param  int   $customerId
      * @return $this
      */
     public function addProductFilter($customerId)
@@ -107,15 +111,11 @@ class Mage_Reports_Model_Resource_Tag_Product_Collection extends Mage_Tag_Model_
     }
 
     /**
-     * Set order
-     *
-     * @param string $attribute
-     * @param string $dir
-     * @return $this
+     * @inheritDoc
      */
     public function setOrder($attribute, $dir = self::SORT_ORDER_DESC)
     {
-        if ($attribute == 'utaged' || $attribute == 'taged' || $attribute == 'tag_name') {
+        if (in_array($attribute, ['utaged', 'taged', 'tag_name'])) {
             $this->getSelect()->order($attribute . ' ' . $dir);
         } else {
             parent::setOrder($attribute, $dir);

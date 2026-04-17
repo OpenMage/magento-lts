@@ -24,28 +24,28 @@ abstract class Mage_Catalog_Helper_Flat_Abstract extends Mage_Core_Helper_Abstra
     /**
      * Store catalog Flat index process instance
      *
-     * @var Mage_Index_Model_Process|null
+     * @var null|Mage_Index_Model_Process
      */
     protected $_process = null;
 
     /**
      * Flag for accessibility
      *
-     * @var bool|null
+     * @var null|bool
      */
     protected $_isAccessible = null;
 
     /**
      * Flag for availability
      *
-     * @var bool|null
+     * @var null|bool
      */
     protected $_isAvailable = null;
 
     /**
      * Check if Catalog Flat Data has been initialized
      *
-     * @param null|bool|int|Mage_Core_Model_Store $store Store(id) for which the value is checked
+     * @param  null|bool|int|Mage_Core_Model_Store $store Store(id) for which the value is checked
      * @return bool
      */
     abstract public function isBuilt($store = null);
@@ -71,6 +71,7 @@ abstract class Mage_Catalog_Helper_Flat_Abstract extends Mage_Core_Helper_Abstra
             $this->_isAccessible = $this->isEnabled()
                 && $this->getProcess()->getStatus() != Mage_Index_Model_Process::STATUS_RUNNING;
         }
+
         return $this->_isAccessible;
     }
 
@@ -84,6 +85,7 @@ abstract class Mage_Catalog_Helper_Flat_Abstract extends Mage_Core_Helper_Abstra
         if (is_null($this->_isAvailable)) {
             $this->_isAvailable = $this->isAccessible() && !$this->getProcess()->isLocked();
         }
+
         return $this->_isAvailable;
     }
 
@@ -98,6 +100,7 @@ abstract class Mage_Catalog_Helper_Flat_Abstract extends Mage_Core_Helper_Abstra
             $this->_process = Mage::getModel('index/process')
                 ->load($this->_indexerCode, 'indexer_code');
         }
+
         return $this->_process;
     }
 }

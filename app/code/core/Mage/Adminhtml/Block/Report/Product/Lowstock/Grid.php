@@ -14,6 +14,8 @@
  */
 class Mage_Adminhtml_Block_Report_Product_Lowstock_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_report_product_lowstock_grid';
+
     public function __construct()
     {
         parent::__construct();
@@ -21,6 +23,9 @@ class Mage_Adminhtml_Block_Report_Product_Lowstock_Grid extends Mage_Adminhtml_B
         $this->setUseAjax(false);
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _prepareCollection()
     {
         if ($this->getRequest()->getParam('website')) {
@@ -35,7 +40,7 @@ class Mage_Adminhtml_Block_Report_Product_Lowstock_Grid extends Mage_Adminhtml_B
             $storeId = '';
         }
 
-        /** @var Mage_Reports_Model_Resource_Product_Lowstock_Collection $collection  */
+        /** @var Mage_Reports_Model_Resource_Product_Lowstock_Collection $collection */
         $collection = Mage::getResourceModel('reports/product_lowstock_collection')
             ->addAttributeToSelect('*')
             ->setStoreId($storeId)
@@ -53,6 +58,10 @@ class Mage_Adminhtml_Block_Report_Product_Lowstock_Grid extends Mage_Adminhtml_B
         return parent::_prepareCollection();
     }
 
+    /**
+     * @inheritDoc
+     * @throws Exception
+     */
     protected function _prepareColumns()
     {
         $this->addColumn('name', [

@@ -17,7 +17,7 @@ class Mage_Rss_Model_Rss
     protected $_feedArray = [];
 
     /**
-     * @param array $data
+     * @param  array $data
      * @return $this
      */
     public function _addHeader($data = [])
@@ -27,7 +27,7 @@ class Mage_Rss_Model_Rss
     }
 
     /**
-     * @param array $entries
+     * @param  array $entries
      * @return $this
      */
     public function _addEntries($entries)
@@ -37,7 +37,7 @@ class Mage_Rss_Model_Rss
     }
 
     /**
-     * @param array $entry
+     * @param  array $entry
      * @return $this
      */
     public function _addEntry($entry)
@@ -62,8 +62,8 @@ class Mage_Rss_Model_Rss
         try {
             $rssFeedFromArray = Zend_Feed::importArray($this->getFeedArray(), 'rss');
             return $rssFeedFromArray->saveXml();
-        } catch (Exception $e) {
-            return Mage::helper('rss')->__('Error in processing xml. %s', $e->getMessage());
+        } catch (Exception $exception) {
+            return Mage::helper('rss')->__('Error in processing xml. %s', $exception->getMessage());
         }
     }
 }

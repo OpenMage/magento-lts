@@ -63,32 +63,35 @@ class Mage_Adminhtml_Block_System_Config_Form_Field extends Mage_Adminhtml_Block
             $html .= '<td class="value">';
             $html .= $this->_getElementHtml($element);
         }
+
         if ($element->getComment()) {
             $html .= '<p class="note"><span>' . $element->getComment() . '</span></p>';
         }
+
         $html .= '</td>';
 
         if ($addInheritCheckbox) {
             $defText = (string) $element->getDefaultValue();
             if ($options) {
                 $defTextArr = [];
-                foreach ($options as $k => $v) {
+                foreach ($options as $key => $value) {
                     if ($isMultiple) {
-                        if (is_array($v['value']) && in_array($k, $v['value'])) {
-                            $defTextArr[] = $v['label'];
+                        if (is_array($value['value']) && in_array($key, $value['value'])) {
+                            $defTextArr[] = $value['label'];
                         }
-                    } elseif (isset($v['value'])) {
-                        if ($v['value'] == $defText) {
-                            $defTextArr[] = $v['label'];
+                    } elseif (isset($value['value'])) {
+                        if ($value['value'] == $defText) {
+                            $defTextArr[] = $value['label'];
                             break;
                         }
-                    } elseif (!is_array($v)) {
-                        if ($k == $defText) {
-                            $defTextArr[] = $v;
+                    } elseif (!is_array($value)) {
+                        if ($key == $defText) {
+                            $defTextArr[] = $value;
                             break;
                         }
                     }
                 }
+
                 $defText = implode(', ', $defTextArr);
             }
 
@@ -106,6 +109,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Field extends Mage_Adminhtml_Block
         if ($element->getScope()) {
             $html .= $element->getScopeLabel();
         }
+
         $html .= '</td>';
 
         $html .= '<td class="">';
@@ -114,6 +118,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Field extends Mage_Adminhtml_Block
             $html .= '<div style="display: none;">' . $element->getHint() . '</div>';
             $html .= '</div>';
         }
+
         $html .= '</td>';
 
         return $this->_decorateRowHtml($element, $html);
@@ -122,8 +127,8 @@ class Mage_Adminhtml_Block_System_Config_Form_Field extends Mage_Adminhtml_Block
     /**
      * Decorate field row html
      *
-     * @param Varien_Data_Form_Element_Abstract $element
-     * @param string $html
+     * @param  Varien_Data_Form_Element_Abstract $element
+     * @param  string                            $html
      * @return string
      */
     protected function _decorateRowHtml($element, $html)

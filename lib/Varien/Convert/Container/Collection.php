@@ -15,6 +15,7 @@
 class Varien_Convert_Container_Collection
 {
     protected $_items = [];
+
     protected $_defaultClass = 'Varien_Convert_Container_Generic';
 
     public function setDefaultClass($className)
@@ -26,11 +27,7 @@ class Varien_Convert_Container_Collection
     public function addItem($name, Varien_Convert_Container_Interface $item)
     {
         if (is_null($name)) {
-            if ($item->getName()) {
-                $name = $item->getName();
-            } else {
-                $name = count($this->_items);
-            }
+            $name = $item->getName() ? $item->getName() : count($this->_items);
         }
 
         $this->_items[$name] = $item;
@@ -43,6 +40,7 @@ class Varien_Convert_Container_Collection
         if (!isset($this->_items[$name])) {
             $this->addItem($name, new $this->_defaultClass());
         }
+
         return $this->_items[$name];
     }
 

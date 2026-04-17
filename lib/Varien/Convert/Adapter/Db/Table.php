@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -19,6 +21,7 @@ class Varien_Convert_Adapter_Db_Table extends Varien_Convert_Adapter_Abstract
         if (!$this->_resource) {
             $this->_resource = Zend_Db::factory($this->getVar('type'), $this->getVars());
         }
+
         return $this->_resource;
     }
 

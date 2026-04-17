@@ -11,6 +11,8 @@
  * Sales Rules resource collection model
  *
  * @package    Mage_SalesRule
+ *
+ * @extends Mage_Rule_Model_Resource_Rule_Collection_Abstract<Mage_SalesRule_Model_Rule>
  */
 class Mage_SalesRule_Model_Resource_Rule_Collection extends Mage_Rule_Model_Resource_Rule_Collection_Abstract
 {
@@ -33,7 +35,7 @@ class Mage_SalesRule_Model_Resource_Rule_Collection extends Mage_Rule_Model_Reso
     ];
 
     /**
-     * Set resource model and determine field mapping
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -46,10 +48,10 @@ class Mage_SalesRule_Model_Resource_Rule_Collection extends Mage_Rule_Model_Reso
      * Filter collection to use only active rules.
      * Involved sorting by sort_order column.
      *
-     * @param int $websiteId
-     * @param int $customerGroupId
-     * @param string $couponCode
-     * @param string|null $now
+     * @param int         $websiteId
+     * @param int         $customerGroupId
+     * @param string      $couponCode
+     * @param null|string $now
      * @uses Mage_SalesRule_Model_Resource_Rule_Collection::addWebsiteGroupDateFilter()
      *
      * @return $this
@@ -102,6 +104,7 @@ class Mage_SalesRule_Model_Resource_Rule_Collection extends Mage_Rule_Model_Reso
             } else {
                 $this->addFieldToFilter('main_table.coupon_type', Mage_SalesRule_Model_Rule::COUPON_TYPE_NO_COUPON);
             }
+
             $this->setOrder('sort_order', self::SORT_ORDER_ASC);
             $this->setFlag('validation_filter', true);
         }
@@ -114,9 +117,9 @@ class Mage_SalesRule_Model_Resource_Rule_Collection extends Mage_Rule_Model_Reso
      * Filter collection to only active rules.
      * Sorting is not involved
      *
-     * @param int $websiteId
-     * @param int $customerGroupId
-     * @param string|null $now
+     * @param int         $websiteId
+     * @param int         $customerGroupId
+     * @param null|string $now
      * @uses Mage_SalesRule_Model_Resource_Rule_Collection::addWebsiteFilter()
      *
      * @return $this
@@ -159,7 +162,7 @@ class Mage_SalesRule_Model_Resource_Rule_Collection extends Mage_Rule_Model_Reso
      *
      * @return $this
      */
-    public function _initSelect()
+    protected function _initSelect()
     {
         parent::_initSelect();
         $this->getSelect()

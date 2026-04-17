@@ -12,16 +12,17 @@
  *
  * @package    Mage_Shipping
  *
- * @method int getFreeBoxes()
+ * @method int   getFreeBoxes()
  * @method $this setFreeBoxes(int $value)
  */
 class Mage_Shipping_Model_Carrier_Flatrate extends Mage_Shipping_Model_Carrier_Abstract implements Mage_Shipping_Model_Carrier_Interface
 {
     protected $_code = 'flatrate';
+
     protected $_isFixed = true;
 
     /**
-     * @return Mage_Shipping_Model_Rate_Result|false
+     * @return false|Mage_Shipping_Model_Rate_Result
      */
     public function collectRates(Mage_Shipping_Model_Rate_Request $request)
     {
@@ -32,7 +33,11 @@ class Mage_Shipping_Model_Carrier_Flatrate extends Mage_Shipping_Model_Carrier_A
         $freeBoxes = 0;
         if ($request->getAllItems()) {
             foreach ($request->getAllItems() as $item) {
-                if ($item->getProduct()->isVirtual() || $item->getParentItem()) {
+                if ($item->getProduct()->isVirtual()) {
+                    continue;
+                }
+
+                if ($item->getParentItem()) {
                     continue;
                 }
 
@@ -47,6 +52,7 @@ class Mage_Shipping_Model_Carrier_Flatrate extends Mage_Shipping_Model_Carrier_A
                 }
             }
         }
+
         $this->setFreeBoxes($freeBoxes);
 
         $result = Mage::getModel('shipping/rate_result');
@@ -84,7 +90,7 @@ class Mage_Shipping_Model_Carrier_Flatrate extends Mage_Shipping_Model_Carrier_A
     }
 
     /**
-     * @return array
+     * @return array<string, bool|string>
      */
     public function getAllowedMethods()
     {

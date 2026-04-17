@@ -12,8 +12,8 @@
  *
  * @package    Mage_Persistent
  *
- * @method $this setHref(string $value)
  * @method $this setAnchorText(string $value)
+ * @method $this setHref(string $value)
  */
 class Mage_Persistent_Block_Header_Additional extends Mage_Core_Block_Html_Link
 {

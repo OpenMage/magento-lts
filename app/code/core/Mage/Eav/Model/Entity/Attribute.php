@@ -12,19 +12,18 @@
  *
  * @package    Mage_Eav
  *
- * @method Mage_Eav_Model_Resource_Entity_Attribute _getResource()
- * @method Mage_Eav_Model_Resource_Entity_Attribute getResource()
+ * @method Mage_Eav_Model_Resource_Entity_Attribute            _getResource()
+ * @method int                                                 getAttributeGroupId()
  * @method Mage_Eav_Model_Resource_Entity_Attribute_Collection getCollection()
+ * @method int                                                 getEntityAttributeId()
+ * @method array                                               getFilterOptions()
+ * @method Mage_Eav_Model_Resource_Entity_Attribute            getResource()
  * @method Mage_Eav_Model_Resource_Entity_Attribute_Collection getResourceCollection()
- *
- * @method int getAttributeGroupId()
- * @method $this setDefaultValue(int $value)
- * @method int getEntityAttributeId()
- * @method $this setEntityAttributeId(int $value)
- * @method $this setIsFilterable(int $value)
- * @method array getFilterOptions()
- * @method $this setFrontendLabel(string $value)
- * @method $this unsIsVisible()
+ * @method $this                                               setDefaultValue(int $value)
+ * @method $this                                               setEntityAttributeId(int $value)
+ * @method $this                                               setFrontendLabel(string $value)
+ * @method $this                                               setIsFilterable(int $value)
+ * @method $this                                               unsIsVisible()
  */
 class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Abstract
 {
@@ -47,6 +46,7 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
     protected $_eventObject = 'attribute';
 
     public const CACHE_TAG         = 'EAV_ATTRIBUTE';
+
     protected $_cacheTag    = 'EAV_ATTRIBUTE';
 
     /**
@@ -85,6 +85,7 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
         if ($this->getAttributeCode() == 'store_id') {
             return 'eav/entity_attribute_source_store';
         }
+
         return parent::_getDefaultSourceModel();
     }
 
@@ -114,6 +115,7 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
             // getFirstItem() can be used as we can have one or zero records in the collection
             $this->setEntityAttributeId($filteredAttributes->getFirstItem()->getEntityAttributeId());
         }
+
         return $this;
     }
 
@@ -121,19 +123,20 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
      * Prepare data for save
      *
      * @inheritDoc
+     * @throws Mage_Core_Exception
      * @throws Mage_Eav_Exception
      */
     protected function _beforeSave()
     {
-        /**
+        /*
          * Check for maximum attribute_code length
          */
-        if (isset($this->_data['attribute_code']) &&
-            !Zend_Validate::is(
-                $this->_data['attribute_code'],
-                'StringLength',
-                ['max' => self::ATTRIBUTE_CODE_MAX_LENGTH],
-            )
+        $validator = $this->getValidationHelper();
+        if (isset($this->_data['attribute_code'])
+            && $validator->validateLength(
+                value: $this->_data['attribute_code'],
+                max: self::ATTRIBUTE_CODE_MAX_LENGTH,
+            )->count() > 0
         ) {
             throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('Maximum length of attribute code must be less then %s symbols', self::ATTRIBUTE_CODE_MAX_LENGTH));
         }
@@ -152,7 +155,7 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
                     ['locale' => Mage::app()->getLocale()->getLocaleCode()],
                 );
                 $this->setDefaultValue($filter->filter($defaultValue));
-            } catch (Exception $e) {
+            } catch (Exception) {
                 throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('Invalid default decimal value'));
             }
         }
@@ -172,16 +175,14 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
                 try {
                     $defaultValue = Mage::app()->getLocale()->date($defaultValue, $format, null, false)->toValue();
                     $this->setDefaultValue($defaultValue);
-                } catch (Exception $e) {
+                } catch (Exception) {
                     throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('Invalid default date'));
                 }
             }
         }
 
-        if ($this->getBackendType() == 'gallery') {
-            if (!$this->getBackendModel()) {
-                $this->setBackendModel('eav/entity_attribute_backend_media');
-            }
+        if ($this->getBackendType() == 'gallery' && !$this->getBackendModel()) {
+            $this->setBackendModel('eav/entity_attribute_backend_media');
         }
 
         return parent::_beforeSave();
@@ -201,8 +202,8 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
     /**
      * Detect backend storage type using frontend input type
      *
+     * @param  string $type frontend_input field value
      * @return string backend_type field value
-     * @param string $type frontend_input field value
      */
     public function getBackendTypeByInput($type)
     {
@@ -221,8 +222,8 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
     /**
      * Detect default value using frontend input type
      *
+     * @param  string $type frontend_input field name
      * @return string default_value field value
-     * @param string $type frontend_input field name
      */
     public function getDefaultValueByInput($type)
     {
@@ -262,7 +263,7 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
     /**
      * Retrieve attribute codes by frontend type
      *
-     * @param string $type
+     * @param  string $type
      * @return array
      */
     public function getAttributeCodesByFrontendType($type)
@@ -277,33 +278,35 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
      */
     public function getStoreLabels()
     {
-        if (!$this->getData('store_labels')) {
+        if (!$this->getDataByKey('store_labels')) {
             $storeLabel = $this->getResource()->getStoreLabelsByAttributeId($this->getId());
             $this->setData('store_labels', $storeLabel);
         }
-        return $this->getData('store_labels');
+
+        return $this->getDataByKey('store_labels');
     }
 
     /**
      * Return store label of attribute
      *
-     * @param int $storeId
+     * @param  int                             $storeId
      * @return string
      * @throws Mage_Core_Model_Store_Exception
      */
     public function getStoreLabel($storeId = null)
     {
         if ($this->hasData('store_label')) {
-            return $this->getData('store_label');
+            return $this->getDataByKey('store_label');
         }
+
         $store = Mage::app()->getStore($storeId);
-        $label = false;
         if (!$store->isAdmin()) {
             $labels = $this->getStoreLabels();
             if (isset($labels[$store->getId()])) {
                 return $labels[$store->getId()];
             }
         }
+
         return $this->getFrontendLabel();
     }
 }

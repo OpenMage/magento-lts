@@ -78,11 +78,12 @@ class Mage_ImportExport_Adminhtml_ImportController extends Mage_Adminhtml_Contro
                 $importModel->invalidateIndex();
                 $resultBlock->addAction('show', 'import_validation_container')
                     ->addAction('innerHTML', 'import_validation_container_header', $this->__('Status'));
-            } catch (Exception $e) {
-                $resultBlock->addError($e->getMessage());
+            } catch (Exception $exception) {
+                $resultBlock->addError($exception->getMessage());
                 $this->renderLayout();
                 return;
             }
+
             $resultBlock->addAction('hide', ['edit_form', 'upload_button', 'messages'])
                 ->addSuccess($this->__('Import successfully done.'));
             $this->renderLayout();
@@ -137,6 +138,7 @@ class Mage_ImportExport_Adminhtml_ImportController extends Mage_Adminhtml_Contro
                                 false,
                             );
                         }
+
                         // errors info
                         foreach ($import->getErrors() as $errorCode => $rows) {
                             $error = $errorCode . ' ' . $this->__('in rows:') . ' ' . implode(', ', $rows);
@@ -152,13 +154,15 @@ class Mage_ImportExport_Adminhtml_ImportController extends Mage_Adminhtml_Contro
                             $this->__('File is valid, but import is not possible'),
                         );
                     }
+
                     $resultBlock->addNotice($import->getNotices());
                     $resultBlock->addNotice($this->__('Checked rows: %d, checked entities: %d, invalid rows: %d, total errors: %d', $import->getProcessedRowsCount(), $import->getProcessedEntitiesCount(), $import->getInvalidRowsCount(), $import->getErrorsCount()));
                 }
-            } catch (Exception $e) {
+            } catch (Exception $exception) {
                 $resultBlock->addNotice($this->__('Please fix errors and re-upload file'))
-                    ->addError($e->getMessage());
+                    ->addError($exception->getMessage());
             }
+
             $this->renderLayout();
         } elseif ($this->getRequest()->isPost() && empty($_FILES)) {
             $this->loadLayout(false);

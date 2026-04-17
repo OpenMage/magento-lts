@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -19,6 +21,7 @@ class Mage_Adminhtml_Model_System_Config_Source_Currency
         if (!$this->_options) {
             $this->_options = Mage::app()->getLocale()->getOptionCurrencies();
         }
+
         return $this->_options;
     }
 }

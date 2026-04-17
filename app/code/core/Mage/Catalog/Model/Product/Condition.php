@@ -12,15 +12,15 @@
  *
  * @package    Mage_Catalog
  *
- * @method string getTable()
- * @method $this setTable(string $tableName)
  * @method string getPkFieldName()
- * @method $this setPkFieldName(string $fieldName)
+ * @method string getTable()
+ * @method $this  setPkFieldName(string $fieldName)
+ * @method $this  setTable(string $tableName)
  */
 class Mage_Catalog_Model_Product_Condition extends Varien_Object implements Mage_Catalog_Model_Product_Condition_Interface
 {
     /**
-     * @param Mage_Catalog_Model_Resource_Product_Collection $collection
+     * @param  Mage_Catalog_Model_Resource_Product_Collection $collection
      * @return $this
      */
     public function applyToCollection($collection)
@@ -32,11 +32,12 @@ class Mage_Catalog_Model_Product_Condition extends Varien_Object implements Mage
                 ['affected_product_id' => $this->getPkFieldName()],
             );
         }
+
         return $this;
     }
 
     /**
-     * @param Magento_Db_Adapter_Pdo_Mysql $dbAdapter
+     * @param  Magento_Db_Adapter_Pdo_Mysql $dbAdapter
      * @return string|Varien_Db_Select
      */
     public function getIdsSelect($dbAdapter)
@@ -45,6 +46,7 @@ class Mage_Catalog_Model_Product_Condition extends Varien_Object implements Mage
             return $dbAdapter->select()
                 ->from($this->getTable(), $this->getPkFieldName());
         }
+
         return '';
     }
 }

@@ -12,7 +12,7 @@
  *
  * @package    Mage_Sales
  *
- * @method Mage_Sales_Model_Order_Item getItemById(int $value)
+ * @extends Mage_Sales_Model_Resource_Order_Collection_Abstract<Mage_Sales_Model_Order_Item>
  */
 class Mage_Sales_Model_Resource_Order_Item_Collection extends Mage_Sales_Model_Resource_Order_Collection_Abstract
 {
@@ -33,6 +33,9 @@ class Mage_Sales_Model_Resource_Order_Item_Collection extends Mage_Sales_Model_R
      */
     protected $_orderField     = 'order_id';
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('sales/order_item');
@@ -54,6 +57,7 @@ class Mage_Sales_Model_Resource_Order_Item_Collection extends Mage_Sales_Model_R
                 $item->setParentItem($this->getItemById($item->getParentItemId()));
             }
         }
+
         return $this;
     }
 
@@ -71,7 +75,7 @@ class Mage_Sales_Model_Resource_Order_Item_Collection extends Mage_Sales_Model_R
     /**
      * Set filter by item id
      *
-     * @param mixed $item
+     * @param  mixed $item
      * @return $this
      */
     public function addIdFilter($item)
@@ -83,13 +87,14 @@ class Mage_Sales_Model_Resource_Order_Item_Collection extends Mage_Sales_Model_R
         } else {
             $this->addFieldToFilter('item_id', $item);
         }
+
         return $this;
     }
 
     /**
      * Filter collection by specified product types
      *
-     * @param array $typeIds
+     * @param  array $typeIds
      * @return $this
      */
     public function filterByTypes($typeIds)
@@ -101,7 +106,7 @@ class Mage_Sales_Model_Resource_Order_Item_Collection extends Mage_Sales_Model_R
     /**
      * Filter collection by parent_item_id
      *
-     * @param int $parentId
+     * @param  int   $parentId
      * @return $this
      */
     public function filterByParent($parentId = null)
@@ -111,6 +116,7 @@ class Mage_Sales_Model_Resource_Order_Item_Collection extends Mage_Sales_Model_R
         } else {
             $this->addFieldToFilter('parent_item_id', $parentId);
         }
+
         return $this;
     }
 
@@ -130,7 +136,7 @@ class Mage_Sales_Model_Resource_Order_Item_Collection extends Mage_Sales_Model_R
     /**
      * Filter by customerId
      *
-     * @param int|array $customerId
+     * @param  array|int $customerId
      * @return $this
      */
     public function addFilterByCustomerId($customerId)

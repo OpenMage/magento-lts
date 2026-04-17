@@ -12,30 +12,37 @@
  *
  * @package    Mage_Widget
  *
- * @method Mage_Widget_Model_Resource_Widget_Instance _getResource()
- * @method Mage_Widget_Model_Resource_Widget_Instance getResource()
+ * @method Mage_Widget_Model_Resource_Widget_Instance            _getResource()
  * @method Mage_Widget_Model_Resource_Widget_Instance_Collection getCollection()
- *
- * @method array getPageGroups()
- * @method $this setPageGroups(array $value)
- * @method $this setStoreIds(string $value)
- * @method string getTitle()
- * @method $this setTitle(string $value)
- * @method $this setWidgetParameters(string $value)
- * @method int getSortOrder()
- * @method $this setSortOrder(int $value)
+ * @method array                                                 getPageGroups()
+ * @method Mage_Widget_Model_Resource_Widget_Instance            getResource()
+ * @method Mage_Widget_Model_Resource_Widget_Instance_Collection getResourceCollection()
+ * @method int                                                   getSortOrder()
+ * @method string                                                getTitle()
+ * @method $this                                                 setPageGroups(array $value)
+ * @method $this                                                 setSortOrder(int $value)
+ * @method $this                                                 setStoreIds(string $value)
+ * @method $this                                                 setTitle(string $value)
+ * @method $this                                                 setWidgetParameters(string $value)
  */
 class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
 {
     public const SPECIFIC_ENTITIES = 'specific';
+
     public const ALL_ENTITIES      = 'all';
 
     public const DEFAULT_LAYOUT_HANDLE            = 'default';
+
     public const PRODUCT_LAYOUT_HANDLE            = 'catalog_product_view';
+
     public const SINGLE_PRODUCT_LAYOUT_HANLDE     = 'PRODUCT_{{ID}}';
+
     public const PRODUCT_TYPE_LAYOUT_HANDLE       = 'PRODUCT_TYPE_{{TYPE}}';
+
     public const ANCHOR_CATEGORY_LAYOUT_HANDLE    = 'catalog_category_layered';
+
     public const NOTANCHOR_CATEGORY_LAYOUT_HANDLE = 'catalog_category_default';
+
     public const SINGLE_CATEGORY_LAYOUT_HANDLE    = 'CATEGORY_{{ID}}';
 
     public const XML_NODE_RELATED_CACHE = 'global/widget/related_cache_types';
@@ -57,7 +64,7 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
     protected $_eventPrefix = 'widget_widget_instance';
 
     /**
-     * Internal Constructor
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -75,7 +82,7 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
             'notanchor_categories' => self::SINGLE_CATEGORY_LAYOUT_HANDLE,
             'all_products' => self::SINGLE_PRODUCT_LAYOUT_HANLDE,
         ];
-        foreach (Mage_Catalog_Model_Product_Type::getTypes() as $typeId => $type) {
+        foreach (array_keys(Mage_Catalog_Model_Product_Type::getTypes()) as $typeId) {
             $layoutHandle = str_replace('{{TYPE}}', $typeId, self::PRODUCT_TYPE_LAYOUT_HANDLE);
             $this->_layoutHandles[$typeId . '_products'] = $layoutHandle;
             $this->_specificEntitiesLayoutHandles[$typeId . '_products'] = self::SINGLE_PRODUCT_LAYOUT_HANLDE;
@@ -105,7 +112,7 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
     {
         $pageGroupIds = [];
         $tmpPageGroups = [];
-        $pageGroups = $this->getData('page_groups');
+        $pageGroups = $this->getDataByKey('page_groups');
         if ($pageGroups) {
             foreach ($pageGroups as $pageGroup) {
                 if (isset($pageGroup[$pageGroup['page_group']])) {
@@ -113,14 +120,17 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
                     if ($pageGroupData['page_id']) {
                         $pageGroupIds[] = $pageGroupData['page_id'];
                     }
+
                     if ($pageGroup['page_group'] == 'pages') {
                         $layoutHandle = $pageGroupData['layout_handle'];
                     } else {
                         $layoutHandle = $this->_layoutHandles[$pageGroup['page_group']];
                     }
+
                     if (!isset($pageGroupData['template'])) {
                         $pageGroupData['template'] = '';
                     }
+
                     $tmpPageGroup = [
                         'page_id' => $pageGroupData['page_id'],
                         'group' => $pageGroup['page_group'],
@@ -140,19 +150,24 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
                                 $this->_specificEntitiesLayoutHandles[$pageGroup['page_group']],
                             );
                         }
+
                         $tmpPageGroup['entities'] = $pageGroupData['entities'];
                         $tmpPageGroup['layout_handle_updates'] = $layoutHandleUpdates;
                     }
+
                     $tmpPageGroups[] = $tmpPageGroup;
                 }
             }
         }
-        if (is_array($this->getData('store_ids'))) {
-            $this->setData('store_ids', implode(',', $this->getData('store_ids')));
+
+        if (is_array($this->getDataByKey('store_ids'))) {
+            $this->setData('store_ids', implode(',', $this->getDataByKey('store_ids')));
         }
-        if (is_array($this->getData('widget_parameters'))) {
-            $this->setData('widget_parameters', serialize($this->getData('widget_parameters')));
+
+        if (is_array($this->getDataByKey('widget_parameters'))) {
+            $this->setData('widget_parameters', serialize($this->getDataByKey('widget_parameters')));
         }
+
         $this->setData('page_groups', $tmpPageGroups);
         $this->setData('page_group_ids', $pageGroupIds);
 
@@ -162,13 +177,14 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
     /**
      * Validate widget instance data
      *
-     * @return string|bool
+     * @return string|true
      */
     public function validate()
     {
         if ($this->isCompleteToCreate()) {
             return true;
         }
+
         return Mage::helper('widget')->__('Widget instance is not full complete to create.');
     }
 
@@ -179,14 +195,14 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
      */
     public function isCompleteToCreate()
     {
-        return (bool) ($this->getType() && $this->getPackageTheme());
+        return $this->getType() && $this->getPackageTheme();
     }
 
     /**
      * Setter
      * Prepare widget type
      *
-     * @param string $type
+     * @param  string $type
      * @return $this
      */
     public function setType($type)
@@ -218,6 +234,7 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
         if (str_contains((string) $this->_getData('type'), '-')) {
             $this->setData('type', str_replace('-', '/', $this->_getData('type')));
         }
+
         return $this;
     }
 
@@ -225,7 +242,7 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
      * Setter
      * Prepare widget package theme
      *
-     * @param string $packageTheme
+     * @param  string $packageTheme
      * @return $this
      */
     public function setPackageTheme($packageTheme)
@@ -248,9 +265,8 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
     /**
      * Replace '_' to '/', if was set from request(GET request)
      *
-     * @deprecated after 1.6.1.0-alpha1
-     *
      * @return $this
+     * @deprecated after 1.6.1.0-alpha1
      */
     protected function _preparePackageTheme()
     {
@@ -268,6 +284,7 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
         if (!$this->_getData('area')) {
             return Mage_Core_Model_Design_Package::DEFAULT_AREA;
         }
+
         return $this->_getData('area');
     }
 
@@ -281,6 +298,7 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
         if (!$this->_getData('package')) {
             $this->_parsePackageTheme();
         }
+
         return $this->_getData('package');
     }
 
@@ -294,6 +312,7 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
         if (!$this->_getData('theme')) {
             $this->_parsePackageTheme();
         }
+
         return $this->_getData('theme');
     }
 
@@ -309,6 +328,7 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
             $this->setData('package', $package);
             $this->setData('theme', $theme);
         }
+
         return $this;
     }
 
@@ -320,10 +340,11 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
      */
     public function getStoreIds()
     {
-        if (is_string($this->getData('store_ids'))) {
-            return explode(',', $this->getData('store_ids'));
+        if (is_string($this->getDataByKey('store_ids'))) {
+            return explode(',', $this->getDataByKey('store_ids'));
         }
-        return $this->getData('store_ids');
+
+        return $this->getDataByKey('store_ids');
     }
 
     /**
@@ -334,14 +355,15 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
      */
     public function getWidgetParameters()
     {
-        if (is_string($this->getData('widget_parameters'))) {
+        if (is_string($this->getDataByKey('widget_parameters'))) {
             try {
-                return Mage::helper('core/unserializeArray')->unserialize($this->getData('widget_parameters'));
-            } catch (Exception $e) {
-                Mage::logException($e);
+                return Mage::helper('core/unserializeArray')->unserialize($this->getDataByKey('widget_parameters'));
+            } catch (Exception $exception) {
+                Mage::logException($exception);
             }
         }
-        return (is_array($this->getData('widget_parameters'))) ? $this->getData('widget_parameters') : [];
+
+        return (is_array($this->getDataByKey('widget_parameters'))) ? $this->getDataByKey('widget_parameters') : [];
     }
 
     /**
@@ -359,13 +381,14 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
                 'label' => $widget['name'],
             ];
         }
+
         return $widgets;
     }
 
     /**
      * Load widget XML config and merge with theme widget config
      *
-     * @return Varien_Simplexml_Element|null
+     * @return null|Varien_Simplexml_Element
      */
     public function getWidgetConfig()
     {
@@ -388,6 +411,7 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
                 }
             }
         }
+
         return $this->_widgetConfigXml;
     }
 
@@ -415,6 +439,7 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
                 ];
             }
         }
+
         return $templates;
     }
 
@@ -431,13 +456,14 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
                 $blocks[] = (string) $block->block_name;
             }
         }
+
         return $blocks;
     }
 
     /**
      * Retrieve widget templates that supported by given block reference
      *
-     * @param string $blockReference
+     * @param  string $blockReference
      * @return array
      */
     public function getWidgetSupportedTemplatesByBlock($blockReference)
@@ -449,6 +475,7 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
             if (!($supportedBlocks = $this->getWidgetConfig()->supported_blocks)) {
                 return $widgetTemplates;
             }
+
             foreach ($supportedBlocks->children() as $block) {
                 if ((string) $block->block_name == $blockReference) {
                     if ($block->template && $block->template->children()) {
@@ -465,14 +492,15 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
         } else {
             return $widgetTemplates;
         }
+
         return $templates;
     }
 
     /**
      * Generate layout update xml
      *
-     * @param string $blockReference
-     * @param string $templatePath
+     * @param  string $blockReference
+     * @param  string $templatePath
      * @return string
      */
     public function generateLayoutUpdateXml($blockReference, $templatePath = '')
@@ -493,12 +521,14 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
         ) {
             return '';
         }
+
         $parameters = $this->getWidgetParameters();
         $xml = '<reference name="' . $blockReference . '">';
         $template = '';
         if (isset($parameters['template'])) {
             unset($parameters['template']);
         }
+
         if ($templatePath) {
             $template = ' template="' . $templatePath . '"';
         }
@@ -509,6 +539,7 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
             if (is_array($value)) {
                 $value = implode(',', $value);
             }
+
             if ($name && strlen((string) $value)) {
                 $xml .= '<action method="setData">'
                     . '<name>' . $name . '</name>'
@@ -532,6 +563,7 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
             $types = $types->asArray();
             Mage::app()->getCacheInstance()->invalidateType(array_keys($types));
         }
+
         return $this;
     }
 
@@ -543,6 +575,7 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
         if ($this->dataHasChangedFor('page_groups') || $this->dataHasChangedFor('widget_parameters')) {
             $this->_invalidateCache();
         }
+
         return parent::_afterSave();
     }
 
@@ -554,6 +587,7 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
         if ($this->getPageGroups()) {
             $this->_invalidateCache();
         }
+
         return parent::_beforeDelete();
     }
 }

@@ -9,22 +9,22 @@
 
 /**
  * Csv parse
- *
  */
 class Varien_File_Csv
 {
     protected $_lineLength = 0;
-    protected $_delimiter = ',';
-    protected $_enclosure = '"';
-    protected $_escape = '\\';
 
-    public function __construct() {}
+    protected $_delimiter = ',';
+
+    protected $_enclosure = '"';
+
+    protected $_escape = '\\';
 
     /**
      * Set max file line length
      *
-     * @param   int $length
-     * @return  Varien_File_Csv
+     * @param  int             $length
+     * @return Varien_File_Csv
      */
     public function setLineLength($length)
     {
@@ -35,8 +35,8 @@ class Varien_File_Csv
     /**
      * Set CSV column delimiter
      *
-     * @param   string $delimiter
-     * @return  Varien_File_Csv
+     * @param  string          $delimiter
+     * @return Varien_File_Csv
      */
     public function setDelimiter($delimiter)
     {
@@ -47,8 +47,8 @@ class Varien_File_Csv
     /**
      * Set CSV column value enclosure
      *
-     * @param   string $enclosure
-     * @return  Varien_File_Csv
+     * @param  string          $enclosure
+     * @return Varien_File_Csv
      */
     public function setEnclosure($enclosure)
     {
@@ -59,8 +59,8 @@ class Varien_File_Csv
     /**
      * Retrieve CSV file data as array
      *
-     * @param   string $file
-     * @return  array
+     * @param  string $file
+     * @return array
      */
     public function getData($file)
     {
@@ -73,6 +73,7 @@ class Varien_File_Csv
         while ($rowData = fgetcsv($fh, $this->_lineLength, $this->_delimiter, $this->_enclosure, $this->_escape)) {
             $data[] = $rowData;
         }
+
         fclose($fh);
         return $data;
     }
@@ -80,10 +81,10 @@ class Varien_File_Csv
     /**
      * Retrieve CSV file data as pairs
      *
-     * @param   string $file
-     * @param   int $keyIndex
-     * @param   int $valueIndex
-     * @return  array
+     * @param  string $file
+     * @param  int    $keyIndex
+     * @param  int    $valueIndex
+     * @return array
      */
     public function getDataPairs($file, $keyIndex = 0, $valueIndex = 1)
     {
@@ -94,15 +95,16 @@ class Varien_File_Csv
                 $data[$rowData[$keyIndex]] = $rowData[$valueIndex] ?? null;
             }
         }
+
         return $data;
     }
 
     /**
      * Saving data row array into file
      *
-     * @param   string $file
-     * @param   array $data
-     * @return  Varien_File_Csv
+     * @param  string          $file
+     * @param  array           $data
+     * @return Varien_File_Csv
      */
     public function saveData($file, $data)
     {
@@ -110,6 +112,7 @@ class Varien_File_Csv
         foreach ($data as $dataRow) {
             $this->fputcsv($fh, $dataRow, $this->_delimiter, $this->_enclosure);
         }
+
         fclose($fh);
         return $this;
     }
@@ -119,12 +122,12 @@ class Varien_File_Csv
         $str = '';
         $escape_char = '\\';
         foreach ($fields as $value) {
-            if (str_contains($value, $delimiter) ||
-                str_contains($value, $enclosure) ||
-                str_contains($value, "\n") ||
-                str_contains($value, "\r") ||
-                str_contains($value, "\t") ||
-                str_contains($value, ' ')
+            if (str_contains($value, $delimiter)
+                || str_contains($value, $enclosure)
+                || str_contains($value, "\n")
+                || str_contains($value, "\r")
+                || str_contains($value, "\t")
+                || str_contains($value, ' ')
             ) {
                 $str2 = $enclosure;
                 $escaped = 0;
@@ -137,14 +140,17 @@ class Varien_File_Csv
                     } else {
                         $escaped = 0;
                     }
+
                     $str2 .= $value[$i];
                 }
+
                 $str2 .= $enclosure;
                 $str .= $str2 . $delimiter;
             } else {
                 $str .= $enclosure . $value . $enclosure . $delimiter;
             }
         }
+
         $str = substr($str, 0, -1);
         $str .= "\n";
         return fwrite($handle, $str);

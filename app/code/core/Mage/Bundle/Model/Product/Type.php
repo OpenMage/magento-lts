@@ -85,14 +85,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
     }
 
     /**
-     * Retrieve Required children ids
-     * Return grouped array, ex array(
-     *   group => array(ids)
-     * )
-     *
-     * @param int $parentId
-     * @param bool $required
-     * @return array
+     * @inheritDoc
      */
     public function getChildrenIds($parentId, $required = true)
     {
@@ -103,7 +96,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
     /**
      * Retrieve parent ids array by requered child
      *
-     * @param int|array $childId
+     * @param  array|int $childId
      * @return array
      */
     public function getParentIdsByChild($childId)
@@ -115,68 +108,67 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
     /**
      * Return product sku based on sku_type attribute
      *
-     * @param Mage_Catalog_Model_Product $product
+     * @param  Mage_Catalog_Model_Product $product
      * @return string
      */
     public function getSku($product = null)
     {
         $sku = parent::getSku($product);
 
-        if ($this->getProduct($product)->getData('sku_type')) {
+        if ($this->getProduct($product)->getDataByKey('sku_type')) {
             return $sku;
-        } else {
-            $skuParts = [$sku];
+        }
 
-            if ($this->getProduct($product)->hasCustomOptions()) {
-                $customOption = $this->getProduct($product)->getCustomOption('bundle_selection_ids');
-                $selectionIds = unserialize($customOption->getValue(), ['allowed_classes' => false]);
-                if (!empty($selectionIds)) {
-                    $selections = $this->getSelectionsByIds($selectionIds, $product);
-                    foreach ($selections->getItems() as $selection) {
-                        $skuParts[] = $selection->getSku();
-                    }
+        $skuParts = [$sku];
+        if ($this->getProduct($product)->hasCustomOptions()) {
+            $customOption = $this->getProduct($product)->getCustomOption('bundle_selection_ids');
+            $selectionIds = unserialize($customOption->getValue(), ['allowed_classes' => false]);
+            if (!empty($selectionIds)) {
+                $selections = $this->getSelectionsByIds($selectionIds, $product);
+                foreach ($selections->getItems() as $selection) {
+                    $skuParts[] = $selection->getSku();
                 }
             }
-
-            return implode('-', $skuParts);
         }
+
+        return implode('-', $skuParts);
     }
 
     /**
      * Return product weight based on weight_type attribute
      *
-     * @param Mage_Catalog_Model_Product $product
+     * @param  Mage_Catalog_Model_Product $product
      * @return float
      */
     public function getWeight($product = null)
     {
-        if ($this->getProduct($product)->getData('weight_type')) {
-            return $this->getProduct($product)->getData('weight');
-        } else {
-            $weight = 0;
+        if ($this->getProduct($product)->getDataByKey('weight_type')) {
+            return $this->getProduct($product)->getDataByKey('weight');
+        }
 
-            if ($this->getProduct($product)->hasCustomOptions()) {
-                $customOption = $this->getProduct($product)->getCustomOption('bundle_selection_ids');
-                $selectionIds = unserialize($customOption->getValue(), ['allowed_classes' => false]);
-                $selections = $this->getSelectionsByIds($selectionIds, $product);
-                foreach ($selections->getItems() as $selection) {
-                    $qtyOption = $this->getProduct($product)
-                        ->getCustomOption('selection_qty_' . $selection->getSelectionId());
-                    if ($qtyOption) {
-                        $weight += $selection->getWeight() * $qtyOption->getValue();
-                    } else {
-                        $weight += $selection->getWeight();
-                    }
+        $weight = 0;
+        if ($this->getProduct($product)->hasCustomOptions()) {
+            $customOption = $this->getProduct($product)->getCustomOption('bundle_selection_ids');
+            $selectionIds = unserialize($customOption->getValue(), ['allowed_classes' => false]);
+            $selections = $this->getSelectionsByIds($selectionIds, $product);
+            foreach ($selections->getItems() as $selection) {
+                $qtyOption = $this->getProduct($product)
+                    ->getCustomOption('selection_qty_' . $selection->getSelectionId());
+                if ($qtyOption) {
+                    $weight += $selection->getWeight() * $qtyOption->getValue();
+                } else {
+                    $weight += $selection->getWeight();
                 }
             }
-            return $weight;
         }
+
+        return $weight;
     }
 
     /**
      * Check is virtual product
      *
-     * @param Mage_Catalog_Model_Product $product
+     * @param  Mage_Catalog_Model_Product $product
      * @return bool
      */
     public function isVirtual($product = null)
@@ -191,17 +183,19 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
                     $virtualCount++;
                 }
             }
+
             if ($virtualCount == count($selections)) {
                 return true;
             }
         }
+
         return false;
     }
 
     /**
      * Before save type related data
      *
-     * @param Mage_Catalog_Model_Product $product
+     * @param  Mage_Catalog_Model_Product $product
      * @return $this
      */
     public function beforeSave($product = null)
@@ -210,7 +204,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
         $product = $this->getProduct($product);
 
         // If bundle product has dynamic weight, than delete weight attribute
-        if (!$product->getData('weight_type') && $product->hasData('weight')) {
+        if (!$product->getDataByKey('weight_type') && $product->hasData('weight')) {
             $product->setData('weight', false);
         }
 
@@ -243,13 +237,14 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
                 }
             }
         }
+
         return $this;
     }
 
     /**
      * Save type related data
      *
-     * @param Mage_Catalog_Model_Product $product
+     * @param  Mage_Catalog_Model_Product $product
      * @return $this
      */
     public function save($product = null)
@@ -287,7 +282,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
             $selections = $product->getBundleSelectionsData();
             if ($selections) {
                 foreach ($selections as $index => $group) {
-                    foreach ($group as $key => $selection) {
+                    foreach ($group as $selection) {
                         if (isset($selection['selection_id']) && $selection['selection_id'] == '') {
                             unset($selection['selection_id']);
                         }
@@ -318,7 +313,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
                 $resource->saveProductRelations($product->getId(), array_unique($usedProductIds));
             }
 
-            if ($product->getData('price_type') != $product->getOrigData('price_type')) {
+            if ($product->getDataByKey('price_type') != $product->getOrigData('price_type')) {
                 $resource->dropAllQuoteChildItems($product->getId());
             }
         }
@@ -329,7 +324,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
     /**
      * Retrieve bundle options items
      *
-     * @param Mage_Catalog_Model_Product $product
+     * @param  Mage_Catalog_Model_Product $product
      * @return array
      */
     public function getOptions($product = null)
@@ -340,7 +335,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
     /**
      * Retrieve bundle options ids
      *
-     * @param Mage_Catalog_Model_Product $product
+     * @param  Mage_Catalog_Model_Product $product
      * @return array
      */
     public function getOptionsIds($product = null)
@@ -351,7 +346,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
     /**
      * Retrieve bundle option collection
      *
-     * @param Mage_Catalog_Model_Product $product
+     * @param  Mage_Catalog_Model_Product                   $product
      * @return Mage_Bundle_Model_Resource_Option_Collection
      */
     public function getOptionsCollection($product = null)
@@ -369,14 +364,15 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
             $optionsCollection->joinValues($storeId);
             $this->getProduct($product)->setData($this->_keyOptionsCollection, $optionsCollection);
         }
+
         return $this->getProduct($product)->getData($this->_keyOptionsCollection);
     }
 
     /**
      * Retrieve bundle selections collection based on used options
      *
-     * @param array $optionIds
-     * @param Mage_Catalog_Model_Product $product
+     * @param  array                                           $optionIds
+     * @param  Mage_Catalog_Model_Product                      $product
      * @return Mage_Bundle_Model_Resource_Selection_Collection
      */
     public function getSelectionsCollection($optionIds, $product = null)
@@ -403,6 +399,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
 
             $this->getProduct($product)->setData($key, $selectionsCollection);
         }
+
         return $this->getProduct($product)->getData($key);
     }
 
@@ -412,10 +409,10 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
      * Example: the cataloginventory validation of decimal qty can change qty to int,
      * so need to change quote item qty option value too.
      *
-     * @param   array           $options
-     * @param   mixed           $value
-     * @param   Mage_Catalog_Model_Product $product
-     * @return  Mage_Bundle_Model_Product_Type
+     * @param  array                          $options
+     * @param  mixed                          $value
+     * @param  Mage_Catalog_Model_Product     $product
+     * @return Mage_Bundle_Model_Product_Type
      */
     public function updateQtyOption($options, Varien_Object $option, $value, $product = null)
     {
@@ -425,7 +422,6 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
 
         $selections = $this->getSelectionsCollection($optionCollection->getAllIds(), $product);
 
-        /** @var Mage_Bundle_Model_Selection $selection */
         foreach ($selections as $selection) {
             if ($selection->getProductId() == $optionProduct->getId()) {
                 foreach ($options as &$option) {
@@ -446,8 +442,8 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
     /**
      * Prepare Quote Item Quantity
      *
-     * @param mixed $qty
-     * @param Mage_Catalog_Model_Product $product
+     * @param  mixed                      $qty
+     * @param  Mage_Catalog_Model_Product $product
      * @return int
      */
     public function prepareQuoteItemQty($qty, $product = null)
@@ -458,7 +454,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
     /**
      * Checking if we can sale this bundle
      *
-     * @param Mage_Catalog_Model_Product $product
+     * @param  Mage_Catalog_Model_Product $product
      * @return bool
      */
     public function isSalable($product = null)
@@ -487,6 +483,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
         if (!count($selectionCollection->getItems())) {
             return false;
         }
+
         $salableSelectionCount = 0;
         /** @var Mage_Bundle_Model_Selection $selection */
         foreach ($selectionCollection as $selection) {
@@ -503,8 +500,8 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
      * Prepare product and its configuration to be added to some products list.
      * Perform standard preparation process and then prepare of bundle selections options.
      *
-     * @param Mage_Catalog_Model_Product $product
-     * @param string $processMode
+     * @param  Mage_Catalog_Model_Product $product
+     * @param  string                     $processMode
      * @return array|string
      */
     protected function _prepareProduct(Varien_Object $buyRequest, $product, $processMode)
@@ -522,18 +519,20 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
         $skipSaleableCheck = Mage::helper('catalog/product')->getSkipSaleableCheck();
         $_appendAllSelections = (bool) $product->getSkipCheckRequiredOption() || $skipSaleableCheck;
 
+        /** @var null|array<int, string|string[]> $options */
         $options = $buyRequest->getBundleOption();
         if (is_array($options)) {
-            $options = array_filter($options, '\intval');
+            $options = array_filter($options, fn(mixed $value) => (int) $value !== 0);
             $qtys = $buyRequest->getBundleOptionQty();
             foreach ($options as $_optionId => $_selections) {
                 if (empty($_selections)) {
                     unset($options[$_optionId]);
                 }
             }
+
             $optionIds = array_keys($options);
 
-            if (empty($optionIds) && $isStrictProcessMode) {
+            if ($optionIds === [] && $isStrictProcessMode) {
                 return Mage::helper('bundle')->__('Please select options for product.');
             }
 
@@ -546,9 +545,10 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
                     }
                 }
             }
+
             $selectionIds = [];
 
-            foreach ($options as $optionId => $selectionId) {
+            foreach ($options as $selectionId) {
                 if (!is_array($selectionId)) {
                     if ($selectionId != '') {
                         $selectionIds[] = (int) $selectionId;
@@ -561,8 +561,9 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
                     }
                 }
             }
+
             // If product has not been configured yet then $selections array should be empty
-            if (!empty($selectionIds)) {
+            if ($selectionIds !== []) {
                 $selections = $this->getSelectionsByIds($selectionIds, $product);
 
                 // Check if added selections are still on sale
@@ -574,6 +575,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
                         } else {
                             $moreSelections = false;
                         }
+
                         if ($selectedOption->getRequired()
                             && (!$selectedOption->isMultiSelection() || ($selectedOption->isMultiSelection() && !$moreSelections))
                         ) {
@@ -615,6 +617,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
                 }
             }
         }
+
         if (count($selections) > 0 || !$isStrictProcessMode) {
             $uniqueKey = [$product->getId()];
             $selectionIds = [];
@@ -628,6 +631,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
                 } else {
                     $qty = (float) $selection->getSelectionQty() ? $selection->getSelectionQty() : 1;
                 }
+
                 $qty = (float) $qty;
 
                 $product->addCustomOption('selection_qty_' . $selection->getSelectionId(), $qty, $selection);
@@ -647,7 +651,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
                 ];
 
                 $_result = $selection->getTypeInstance(true)->prepareForCart($buyRequest, $selection);
-                if (is_string($_result) && !is_array($_result)) {
+                if (is_string($_result)) {
                     return $_result;
                 }
 
@@ -656,7 +660,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
                 }
 
                 $result[] = $_result[0]->setParentProductId($product->getId())
-                    ->addCustomOption('bundle_option_ids', serialize(array_map('\intval', $optionIds)))
+                    ->addCustomOption('bundle_option_ids', serialize(array_map(\intval(...), $optionIds)))
                     ->addCustomOption('bundle_selection_attributes', serialize($attributes));
 
                 if ($isStrictProcessMode) {
@@ -673,7 +677,8 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
             foreach ($result as $item) {
                 $item->addCustomOption('bundle_identity', $uniqueKey);
             }
-            $product->addCustomOption('bundle_option_ids', serialize(array_map('\intval', $optionIds)));
+
+            $product->addCustomOption('bundle_option_ids', serialize(array_map(\intval(...), $optionIds)));
             $product->addCustomOption('bundle_selection_ids', serialize($selectionIds));
 
             return $result;
@@ -695,8 +700,8 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
     /**
      * Retrieve bundle selections collection based on ids
      *
-     * @param array $selectionIds
-     * @param Mage_Catalog_Model_Product $product
+     * @param  array                                           $selectionIds
+     * @param  Mage_Catalog_Model_Product                      $product
      * @return Mage_Bundle_Model_Resource_Selection_Collection
      */
     public function getSelectionsByIds($selectionIds, $product = null)
@@ -722,17 +727,19 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
                 $websiteId = Mage::app()->getStore($storeId)->getWebsiteId();
                 $usedSelections->joinPrices($websiteId);
             }
+
             $this->getProduct($product)->setData($this->_keyUsedSelections, $usedSelections);
             $this->getProduct($product)->setData($this->_keyUsedSelectionsIds, $selectionIds);
         }
+
         return $usedSelections;
     }
 
     /**
      * Retrieve bundle options collection based on ids
      *
-     * @param array $optionIds
-     * @param Mage_Catalog_Model_Product $product
+     * @param  array                                        $optionIds
+     * @param  Mage_Catalog_Model_Product                   $product
      * @return Mage_Bundle_Model_Resource_Option_Collection
      */
     public function getOptionsByIds($optionIds, $product = null)
@@ -751,6 +758,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
             $this->getProduct($product)->setData($this->_keyUsedOptions, $usedOptions);
             $this->getProduct($product)->setData($this->_keyUsedOptionsIds, $optionIds);
         }
+
         return $usedOptions;
     }
 
@@ -758,7 +766,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
      * Prepare additional options/information for order item which will be
      * created from this product
      *
-     * @param Mage_Catalog_Model_Product $product
+     * @param  Mage_Catalog_Model_Product $product
      * @return array
      */
     public function getOrderOptions($product = null)
@@ -811,12 +819,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
         /**
          * Product Prices calculations save
          */
-        if ($product->getPriceType()) {
-            $optionArr['product_calculations'] = self::CALCULATE_PARENT;
-        } else {
-            $optionArr['product_calculations'] = self::CALCULATE_CHILD;
-        }
-
+        $optionArr['product_calculations'] = $product->getPriceType() ? self::CALCULATE_PARENT : self::CALCULATE_CHILD;
         $optionArr['shipment_type'] = $product->getShipmentType();
 
         return $optionArr;
@@ -832,25 +835,23 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
      */
     public function shakeSelections($a, $b)
     {
-        $aPosition = [
+        return [
             $a->getOption()->getPosition(),
             $a->getOptionId(),
             $a->getPosition(),
             $a->getSelectionId(),
-        ];
-        $bPosition = [
+        ] <=> [
             $b->getOption()->getPosition(),
             $b->getOptionId(),
             $b->getPosition(),
             $b->getSelectionId(),
         ];
-        return $aPosition <=> $bPosition;
     }
 
     /**
      * Return true if product has options
      *
-     * @param Mage_Catalog_Model_Product $product
+     * @param  Mage_Catalog_Model_Product $product
      * @return bool
      */
     public function hasOptions($product = null)
@@ -859,18 +860,13 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
         $this->setStoreFilter($product->getStoreId(), $product);
         $optionIds  = $this->getOptionsCollection($product)->getAllIds();
         $collection = $this->getSelectionsCollection($optionIds, $product);
-
-        if (count($collection) > 0 || $product->getOptions()) {
-            return true;
-        }
-
-        return false;
+        return count($collection) > 0 || $product->getOptions();
     }
 
     /**
      * Allow for updates of chidren qty's
      *
-     * @param Mage_Catalog_Model_Product $product
+     * @param  Mage_Catalog_Model_Product $product
      * @return true
      */
     public function getForceChildItemQtyChanges($product = null)
@@ -882,7 +878,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
      * Retrieve additional searchable data from type instance
      * Using based on product id and store_id data
      *
-     * @param Mage_Catalog_Model_Product $product
+     * @param  Mage_Catalog_Model_Product $product
      * @return array
      */
     public function getSearchableData($product = null)
@@ -893,7 +889,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
         $optionSearchData = Mage::getSingleton('bundle/option')
             ->getSearchableData($product->getId(), $product->getStoreId());
         if ($optionSearchData) {
-            $searchData = array_merge($searchData, $optionSearchData);
+            return array_merge($searchData, $optionSearchData);
         }
 
         return $searchData;
@@ -902,7 +898,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
     /**
      * Check if product can be bought
      *
-     * @param Mage_Catalog_Model_Product $product
+     * @param  Mage_Catalog_Model_Product $product
      * @return $this
      * @throws Mage_Core_Exception
      */
@@ -914,17 +910,18 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
         $productSelections  = $this->getSelectionsCollection($productOptionIds, $product);
         $selectionIds       = $product->getCustomOption('bundle_selection_ids');
         $selectionIds       = (array) unserialize($selectionIds->getValue(), ['allowed_classes' => false]);
+
         $buyRequest         = $product->getCustomOption('info_buyRequest');
         $buyRequest         = new Varien_Object(unserialize($buyRequest->getValue(), ['allowed_classes' => false]));
+
         $bundleOption       = $buyRequest->getBundleOption();
 
-        if (empty($bundleOption) && empty($selectionIds)) {
+        if (empty($bundleOption) && $selectionIds === []) {
             Mage::throwException($this->getSpecifyOptionMessage());
         }
 
         $skipSaleableCheck = Mage::helper('catalog/product')->getSkipSaleableCheck();
         foreach ($selectionIds as $selectionId) {
-            /** @var Mage_Bundle_Model_Selection $selection */
             $selection = $productSelections->getItemById($selectionId);
             if (!$selection || (!$selection->isSalable() && !$skipSaleableCheck)) {
                 Mage::throwException(
@@ -936,7 +933,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
         $product->getTypeInstance(true)->setStoreFilter($product->getStoreId(), $product);
         $optionsCollection = $this->getOptionsCollection($product);
         foreach ($optionsCollection->getItems() as $option) {
-            if ($option->getRequired() && empty($selectionIds) && empty($bundleOption[$option->getId()])) {
+            if ($option->getRequired() && $selectionIds === [] && empty($bundleOption[$option->getId()])) {
                 Mage::throwException(
                     Mage::helper('bundle')->__('Required options are not selected.'),
                 );
@@ -965,31 +962,35 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
                 $groupProducts[] = $childProduct;
                 $allProducts[] = $childProduct;
             }
+
             if ($option->getRequired()) {
                 $groups[] = $groupProducts;
                 $hasRequiredOptions = true;
             }
         }
+
         if (!$hasRequiredOptions) {
-            $groups = [$allProducts];
+            return [$allProducts];
         }
+
         return $groups;
     }
 
     /**
      * Prepare selected options for bundle product
      *
-     * @param  Mage_Catalog_Model_Product $product
-     * @param  Varien_Object $buyRequest
-     * @return array
+     * @inheritDoc
+     * @return array<string, string[]|string[][]>
      */
     public function processBuyRequest($product, $buyRequest)
     {
+        /** @var null|array<int, string|string[]> $option */
         $option     = $buyRequest->getBundleOption();
+        /** @var null|string[] $optionQty */
         $optionQty  = $buyRequest->getBundleOptionQty();
 
-        $option     = (is_array($option)) ? array_filter($option, '\intval') : [];
-        $optionQty  = (is_array($optionQty)) ? array_filter($optionQty, '\intval') : [];
+        $option     = (is_array($option)) ? array_filter($option, fn(mixed $value) => (int) $value !== 0) : [];
+        $optionQty  = (is_array($optionQty)) ? array_filter($optionQty, fn(mixed $value) => (float) $value !== 0.0) : [];
 
         return [
             'bundle_option'     => $option,
@@ -1000,7 +1001,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
     /**
      * Check if product can be configured
      *
-     * @param Mage_Catalog_Model_Product $product
+     * @param  Mage_Catalog_Model_Product $product
      * @return bool
      */
     public function canConfigure($product = null)
@@ -1013,9 +1014,9 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
     /**
      * Check if Minimum Advertise Price is enabled at least in one option
      *
-     * @param Mage_Catalog_Model_Product $product
-     * @param int $visibility
-     * @return bool|null
+     * @param  Mage_Catalog_Model_Product $product
+     * @param  int                        $visibility
+     * @return null|bool
      */
     public function isMapEnabledInOptions($product, $visibility = null)
     {

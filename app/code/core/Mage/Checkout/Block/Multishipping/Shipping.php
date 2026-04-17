@@ -25,13 +25,14 @@ class Mage_Checkout_Block_Multishipping_Shipping extends Mage_Sales_Block_Items_
     }
 
     /**
-     * @return Mage_Sales_Block_Items_Abstract
+     * @return $this
      */
     protected function _prepareLayout()
     {
         if ($headBlock = $this->getLayout()->getBlock('head')) {
             $headBlock->setTitle(Mage::helper('checkout')->__('Shipping Methods') . ' - ' . $headBlock->getDefaultTitle());
         }
+
         return parent::_prepareLayout();
     }
 
@@ -48,16 +49,17 @@ class Mage_Checkout_Block_Multishipping_Shipping extends Mage_Sales_Block_Items_
      */
     public function getAddressCount()
     {
-        $count = $this->getData('address_count');
+        $count = $this->getDataByKey('address_count');
         if (is_null($count)) {
             $count = count($this->getAddresses());
             $this->setData('address_count', $count);
         }
+
         return $count;
     }
 
     /**
-     * @param Mage_Sales_Model_Quote_Address $address
+     * @param  Mage_Sales_Model_Quote_Address $address
      * @return array|mixed
      * @throws Exception
      */
@@ -68,16 +70,18 @@ class Mage_Checkout_Block_Multishipping_Shipping extends Mage_Sales_Block_Items_
             if ($item->getParentItemId()) {
                 continue;
             }
+
             $item->setQuoteItem($this->getCheckout()->getQuote()->getItemById($item->getQuoteItemId()));
             $items[] = $item;
         }
+
         $itemsFilter = new Varien_Filter_Object_Grid();
         $itemsFilter->addFilter(new Varien_Filter_Sprintf('%d'), 'qty');
         return $itemsFilter->filter($items);
     }
 
     /**
-     * @param Mage_Sales_Model_Quote_Address $address
+     * @param  Mage_Sales_Model_Quote_Address $address
      * @return string
      */
     public function getAddressShippingMethod($address)
@@ -86,7 +90,7 @@ class Mage_Checkout_Block_Multishipping_Shipping extends Mage_Sales_Block_Items_
     }
 
     /**
-     * @param Mage_Sales_Model_Quote_Address $address
+     * @param  Mage_Sales_Model_Quote_Address $address
      * @return array
      */
     public function getShippingRates($address)
@@ -95,7 +99,7 @@ class Mage_Checkout_Block_Multishipping_Shipping extends Mage_Sales_Block_Items_
     }
 
     /**
-     * @param string $carrierCode
+     * @param  string $carrierCode
      * @return string
      */
     public function getCarrierName($carrierCode)
@@ -103,11 +107,12 @@ class Mage_Checkout_Block_Multishipping_Shipping extends Mage_Sales_Block_Items_
         if ($name = Mage::getStoreConfig('carriers/' . $carrierCode . '/title')) {
             return $name;
         }
+
         return $carrierCode;
     }
 
     /**
-     * @param Mage_Sales_Model_Quote_Address $address
+     * @param  Mage_Sales_Model_Quote_Address $address
      * @return string
      */
     public function getAddressEditUrl($address)
@@ -140,9 +145,9 @@ class Mage_Checkout_Block_Multishipping_Shipping extends Mage_Sales_Block_Items_
     }
 
     /**
-     * @param Mage_Sales_Model_Quote_Address $address
-     * @param float $price
-     * @param bool $flag
+     * @param  Mage_Sales_Model_Quote_Address $address
+     * @param  float                          $price
+     * @param  bool                           $flag
      * @return float
      */
     public function getShippingPrice($address, $price, $flag)

@@ -36,14 +36,15 @@ class Mage_Paypal_Helper_Checkout extends Mage_Core_Helper_Abstract
                 return true;
             }
         }
+
         return false;
     }
 
     /**
      * Cancel last placed order with specified comment message
      *
-     * @param string $comment Comment appended to order history
-     * @return bool True if order cancelled, false otherwise
+     * @param  string $comment Comment appended to order history
+     * @return bool   True if order cancelled, false otherwise
      */
     public function cancelCurrentOrder($comment)
     {
@@ -52,6 +53,7 @@ class Mage_Paypal_Helper_Checkout extends Mage_Core_Helper_Abstract
             $order->registerCancellation($comment)->save();
             return true;
         }
+
         return false;
     }
 
@@ -68,7 +70,7 @@ class Mage_Paypal_Helper_Checkout extends Mage_Core_Helper_Abstract
     /**
      * Return sales quote instance for specified ID
      *
-     * @param int $quoteId Quote identifier
+     * @param  int                    $quoteId Quote identifier
      * @return Mage_Sales_Model_Quote
      */
     protected function _getQuote($quoteId)

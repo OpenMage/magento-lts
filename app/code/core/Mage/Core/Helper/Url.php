@@ -32,6 +32,7 @@ class Mage_Core_Helper_Url extends Mage_Core_Helper_Abstract
             ];
             $port = (in_array($port, $defaultPorts)) ? '' : ':' . $port;
         }
+
         $url = $request->getScheme() . '://' . $request->getHttpHost() . $port . $request->getServer('REQUEST_URI');
         return $this->escapeUrl($url);
     }
@@ -49,7 +50,7 @@ class Mage_Core_Helper_Url extends Mage_Core_Helper_Abstract
     /**
      * Return encoded url
      *
-     * @param null|string $url
+     * @param  null|string $url
      * @return string
      */
     public function getEncodedUrl($url = null)
@@ -57,6 +58,7 @@ class Mage_Core_Helper_Url extends Mage_Core_Helper_Abstract
         if (!$url) {
             $url = $this->getCurrentUrl();
         }
+
         return $this->urlEncode($url);
     }
 
@@ -73,7 +75,7 @@ class Mage_Core_Helper_Url extends Mage_Core_Helper_Abstract
     /**
      * Formatting string
      *
-     * @param string $string
+     * @param  string $string
      * @return string
      */
     protected function _prepareString($string)
@@ -87,17 +89,21 @@ class Mage_Core_Helper_Url extends Mage_Core_Helper_Abstract
     /**
      * Add request parameter into url
      *
-     * @param string $url
-     * @param array $param ( 'key' => value )
+     * @param  string $url
+     * @param  array  $param ( 'key' => value )
      * @return string
      */
     public function addRequestParam($url, $param)
     {
-        $startDelimiter = (!str_contains($url, '?')) ? '?' : '&';
+        $startDelimiter = (str_contains($url, '?')) ? '&' : '?';
 
         $arrQueryParams = [];
         foreach ($param as $key => $value) {
-            if (is_numeric($key) || is_object($value)) {
+            if (is_numeric($key)) {
+                continue;
+            }
+
+            if (is_object($value)) {
                 continue;
             }
 
@@ -116,9 +122,9 @@ class Mage_Core_Helper_Url extends Mage_Core_Helper_Abstract
     /**
      * Remove request parameter from url
      *
-     * @param string $url
-     * @param string $paramKey
-     * @param bool $caseSensitive
+     * @param  string $url
+     * @param  string $paramKey
+     * @param  bool   $caseSensitive
      * @return string
      */
     public function removeRequestParam($url, $paramKey, $caseSensitive = false)
@@ -149,8 +155,8 @@ class Mage_Core_Helper_Url extends Mage_Core_Helper_Abstract
     /**
      * Return singleton model instance
      *
-     * @param string $name
-     * @param array $arguments
+     * @param  string                   $name
+     * @param  array                    $arguments
      * @return Mage_Core_Model_Abstract
      */
     protected function _getSingletonModel($name, $arguments = [])
@@ -161,7 +167,7 @@ class Mage_Core_Helper_Url extends Mage_Core_Helper_Abstract
     /**
      * Retrieve encoding domain name in punycode
      *
-     * @param string $url encode url to Punycode
+     * @param  string $url encode url to Punycode
      * @return string
      */
     public function encodePunycode($url)
@@ -178,7 +184,7 @@ class Mage_Core_Helper_Url extends Mage_Core_Helper_Abstract
     /**
      * Retrieve decoding domain name from punycode
      *
-     * @param string $url decode url from Punycode
+     * @param  string    $url decode url from Punycode
      * @return string
      * @throws Exception
      */
@@ -196,17 +202,13 @@ class Mage_Core_Helper_Url extends Mage_Core_Helper_Abstract
     /**
      * Check domain name for IDN using ACE prefix http://tools.ietf.org/html/rfc3490#section-5
      *
-     * @param string $host domain name
+     * @param  string $host domain name
      * @return bool
      */
     // phpcs:ignore Ecg.PHP.PrivateClassMember.PrivateClassMemberError
     private function _isPunycode($host)
     {
-        if (str_starts_with($host, 'xn--') || str_contains($host, '.xn--')
-            || str_starts_with($host, 'XN--') || str_contains($host, '.XN--')
-        ) {
-            return true;
-        }
-        return false;
+        return str_starts_with($host, 'xn--') || str_contains($host, '.xn--')
+            || str_starts_with($host, 'XN--') || str_contains($host, '.XN--');
     }
 }

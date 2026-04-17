@@ -7,7 +7,7 @@
  * @package    Mage_Reports
  */
 
-/** @var Mage_Core_Model_Resource_Setup $installer */
+/** @var Mage_Core_Model_Resource_Setup $this */
 $installer = $this;
 $installer->startSetup();
 
@@ -53,6 +53,7 @@ $installer->endSetup();
 /**
  * Cms Page  with 'home' identifier page modification for report pages
  */
+
 /** @var Mage_Cms_Model_Page $cms */
 $cms = Mage::getModel('cms/page')->load('home', 'identifier');
 

@@ -25,6 +25,7 @@ abstract class Mage_Sales_Model_Resource_Abstract extends Mage_Core_Model_Resour
         if ((!$object->getId() || $object->isObjectNew()) && !$object->getCreatedAt()) {
             $object->setCreatedAt($currentTime);
         }
+
         $object->setUpdatedAt($currentTime);
         return parent::_prepareDataForSave($object);
     }

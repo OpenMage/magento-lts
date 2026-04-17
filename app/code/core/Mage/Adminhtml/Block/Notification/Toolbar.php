@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -15,8 +17,7 @@
 class Mage_Adminhtml_Block_Notification_Toolbar extends Mage_Adminhtml_Block_Template
 {
     /**
-     * Initialize Toolbar block
-     *
+     * @inheritDoc
      */
     protected function _construct() {}
 
@@ -41,16 +42,12 @@ class Mage_Adminhtml_Block_Notification_Toolbar extends Mage_Adminhtml_Block_Tem
         if (!$this->isModuleOutputEnabled('Mage_AdminNotification')) {
             return false;
         }
+
         if ($this->getRequest()->getControllerName() === 'notification') {
             return false;
         }
-        if ($this->getCriticalCount() == 0 && $this->getMajorCount() == 0 && $this->getMinorCount() == 0
-            && $this->getNoticeCount() == 0
-        ) {
-            return false;
-        }
 
-        return true;
+        return !($this->getCriticalCount() == 0 && $this->getMajorCount() == 0 && $this->getMinorCount() == 0 && $this->getNoticeCount() == 0);
     }
 
     /**
@@ -140,6 +137,7 @@ class Mage_Adminhtml_Block_Notification_Toolbar extends Mage_Adminhtml_Block_Tem
         if ($block) {
             return $block->canShow();
         }
+
         return false;
     }
 }

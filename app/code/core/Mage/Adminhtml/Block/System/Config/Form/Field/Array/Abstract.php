@@ -11,13 +11,16 @@
  * Adminhtml system config array field renderer
  *
  * @package    Mage_Adminhtml
+ *
+ * @method Varien_Data_Form_Element_Abstract getElement()
+ * @method $this                             setElement(Varien_Data_Form_Element_Abstract $element)
  */
 abstract class Mage_Adminhtml_Block_System_Config_Form_Field_Array_Abstract extends Mage_Adminhtml_Block_System_Config_Form_Field
 {
     /**
      * Grid columns
      *
-     * @var array<string, array{label: string, size: string|false, style: ?string, class: ?string, renderer: Mage_Core_Block_Abstract|false}>
+     * @var array<string, array{label: string, size: false|string, style: ?string, class: ?string, renderer: false|Mage_Core_Block_Abstract}>
      */
     protected $_columns = [];
 
@@ -38,7 +41,7 @@ abstract class Mage_Adminhtml_Block_System_Config_Form_Field_Array_Abstract exte
     /**
      * Rows cache
      *
-     * @var array<string, Varien_Object>|null
+     * @var null|array<string, Varien_Object>
      */
     protected $_arrayRowsCache;
 
@@ -51,13 +54,13 @@ abstract class Mage_Adminhtml_Block_System_Config_Form_Field_Array_Abstract exte
 
     /**
      * Check if columns are defined, set template
-     *
      */
     public function __construct()
     {
         if (!$this->_addButtonLabel) {
             $this->_addButtonLabel = Mage::helper('adminhtml')->__('Add');
         }
+
         parent::__construct();
         if (!$this->getTemplate()) {
             $this->setTemplate('system/config/form/field/array.phtml');
@@ -68,7 +71,7 @@ abstract class Mage_Adminhtml_Block_System_Config_Form_Field_Array_Abstract exte
      * Add a column to array-grid
      *
      * @param string $name
-     * @param array $params
+     * @param array  $params
      */
     public function addColumn($name, $params)
     {
@@ -117,19 +120,21 @@ abstract class Mage_Adminhtml_Block_System_Config_Form_Field_Array_Abstract exte
         if ($this->_arrayRowsCache !== null) {
             return $this->_arrayRowsCache;
         }
+
         $result = [];
-        /** @var Varien_Data_Form_Element_Abstract $element */
         $element = $this->getElement();
         if ($element->getValue() && is_array($element->getValue())) {
             foreach ($element->getValue() as $rowId => $row) {
                 foreach ($row as $key => $value) {
                     $row[$key] = $this->escapeHtml($value);
                 }
+
                 $row['_id'] = $rowId;
                 $result[$rowId] = new Varien_Object($row);
                 $this->_prepareArrayRow($result[$rowId]);
             }
         }
+
         $this->_arrayRowsCache = $result;
         return $this->_arrayRowsCache;
     }
@@ -137,7 +142,7 @@ abstract class Mage_Adminhtml_Block_System_Config_Form_Field_Array_Abstract exte
     /**
      * Render array cell for prototypeJS template
      *
-     * @param string $columnName
+     * @param  string $columnName
      * @return string
      */
     protected function _renderCellTemplate($columnName)
@@ -145,6 +150,7 @@ abstract class Mage_Adminhtml_Block_System_Config_Form_Field_Array_Abstract exte
         if (empty($this->_columns[$columnName])) {
             throw new Exception('Wrong column name specified.');
         }
+
         $column     = $this->_columns[$columnName];
         $inputName  = $this->getElement()->getName() . '[#{_id}][' . $columnName . ']';
 
@@ -153,10 +159,10 @@ abstract class Mage_Adminhtml_Block_System_Config_Form_Field_Array_Abstract exte
                 ->toHtml();
         }
 
-        return '<input type="text" name="' . $inputName . '" value="#{' . $columnName . '}" ' .
-            ($column['size'] ? 'size="' . $column['size'] . '"' : '') . ' class="' .
-            ($column['class'] ?? 'input-text') . '"' .
-            (isset($column['style']) ? ' style="' . $column['style'] . '"' : '') . '/>';
+        return '<input type="text" name="' . $inputName . '" value="#{' . $columnName . '}" '
+            . ($column['size'] ? 'size="' . $column['size'] . '"' : '') . ' class="'
+            . ($column['class'] ?? 'input-text') . '"'
+            . (isset($column['style']) ? ' style="' . $column['style'] . '"' : '') . '/>';
     }
 
     /**
@@ -178,9 +184,11 @@ abstract class Mage_Adminhtml_Block_System_Config_Form_Field_Array_Abstract exte
             $this->_prepareToRender();
             $this->_isPreparedToRender = true;
         }
-        if (empty($this->_columns)) {
+
+        if ($this->_columns === []) {
             throw new Exception('At least one column must be defined.');
         }
+
         return parent::_toHtml();
     }
 }

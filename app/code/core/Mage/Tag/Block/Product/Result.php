@@ -17,7 +17,7 @@
 class Mage_Tag_Block_Product_Result extends Mage_Catalog_Block_Product_Abstract
 {
     /**
-     * @var Mage_Tag_Model_Resource_Product_Collection|null
+     * @var null|Mage_Tag_Model_Resource_Product_Collection
      */
     protected $_productCollection;
 
@@ -88,12 +88,10 @@ class Mage_Tag_Block_Product_Result extends Mage_Catalog_Block_Product_Abstract
                 ->addAttributeToFilter('status', [
                     'in' => Mage::getSingleton('catalog/product_status')->getSaleableStatusIds(),
                 ])
-                ->addMinimalPrice()
+                ->addPriceData()
                 ->addUrlRewrite()
+                ->setVisibility(Mage::getSingleton('catalog/product_visibility')::getVisibleInSiteIds())
                 ->setActiveFilter();
-            Mage::getSingleton('catalog/product_visibility')->addVisibleInSiteFilterToCollection(
-                $this->_productCollection,
-            );
         }
 
         return $this->_productCollection;
@@ -105,11 +103,12 @@ class Mage_Tag_Block_Product_Result extends Mage_Catalog_Block_Product_Abstract
      */
     public function getResultCount()
     {
-        if (!$this->getData('result_count')) {
+        if (!$this->getDataByKey('result_count')) {
             $size = $this->_getProductCollection()->getSize();
             $this->setResultCount($size);
         }
-        return $this->getData('result_count');
+
+        return $this->getDataByKey('result_count');
     }
 
     /**
@@ -120,6 +119,7 @@ class Mage_Tag_Block_Product_Result extends Mage_Catalog_Block_Product_Abstract
         if ($this->getTag()->getName()) {
             return Mage::helper('tag')->__("Products tagged with '%s'", $this->escapeHtml($this->getTag()->getName()));
         }
+
         return false;
     }
 

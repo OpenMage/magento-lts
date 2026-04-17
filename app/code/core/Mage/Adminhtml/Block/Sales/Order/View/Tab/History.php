@@ -14,6 +14,9 @@
  */
 class Mage_Adminhtml_Block_Sales_Order_View_Tab_History extends Mage_Adminhtml_Block_Template implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         parent::_construct();
@@ -116,8 +119,8 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_History extends Mage_Adminhtml_B
     /**
      * Status history date/datetime getter
      *
-     * @param string $dateType
-     * @param string $format
+     * @param  string $dateType
+     * @param  string $format
      * @return string
      */
     public function getItemCreatedAt(array $item, $dateType = 'date', $format = 'medium')
@@ -125,9 +128,11 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_History extends Mage_Adminhtml_B
         if (!isset($item['created_at'])) {
             return '';
         }
+
         if ($dateType === 'date') {
             return $this->formatDate($item['created_at'], $format);
         }
+
         return $this->formatTime($item['created_at'], $format);
     }
 
@@ -144,7 +149,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_History extends Mage_Adminhtml_B
     /**
      * Check whether status history comment is with customer notification
      *
-     * @param bool $isSimpleCheck
+     * @param  bool $isSimpleCheck
      * @return bool
      */
     public function isItemNotified(array $item, $isSimpleCheck = true)
@@ -152,6 +157,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_History extends Mage_Adminhtml_B
         if ($isSimpleCheck) {
             return !empty($item['notified']);
         }
+
         return isset($item['notified']) && $item['notified'] !== false;
     }
 
@@ -169,17 +175,18 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_History extends Mage_Adminhtml_B
             $salesHelper = Mage::helper('adminhtml/sales');
             $strItemComment = $salesHelper->escapeHtmlWithLinks($item['comment'], $allowedTags);
         }
+
         return $strItemComment;
     }
 
     /**
      * Map history items as array
      *
-     * @param string $label
-     * @param bool $notified
-     * @param Zend_Date $created
-     * @param string $comment
-     * @return array
+     * @param  string                               $label
+     * @param  bool                                 $notified
+     * @param  Zend_Date                            $created
+     * @param  string                               $comment
+     * @return array<string, bool|string|Zend_Date>
      */
     protected function _prepareHistoryItem($label, $notified, $created, $comment = '')
     {
@@ -264,7 +271,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_History extends Mage_Adminhtml_B
     /**
      * Customer Notification Applicable check method
      *
-     * @param array $historyItem
+     * @param  array $historyItem
      * @return bool
      */
     public function isCustomerNotificationNotApplicable($historyItem)
@@ -275,8 +282,8 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_History extends Mage_Adminhtml_B
     /**
      * Comparison For Sorting History By Timestamp
      *
-     * @param mixed $a
-     * @param mixed $b
+     * @param  mixed $a
+     * @param  mixed $b
      * @return int
      */
     // phpcs:ignore Ecg.PHP.PrivateClassMember.PrivateClassMemberError

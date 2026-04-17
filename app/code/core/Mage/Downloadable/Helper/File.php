@@ -50,9 +50,9 @@ class Mage_Downloadable_Helper_File extends Mage_Core_Helper_Abstract
     /**
      * Checking file for moving and move it
      *
-     * @param string $baseTmpPath
-     * @param string $basePath
-     * @param array $file
+     * @param  string $baseTmpPath
+     * @param  string $basePath
+     * @param  array  $file
      * @return string
      */
     public function moveFileFromTmp($baseTmpPath, $basePath, $file)
@@ -66,21 +66,23 @@ class Mage_Downloadable_Helper_File extends Mage_Core_Helper_Abstract
                         $basePath,
                         $file[0]['file'],
                     );
-                } catch (Exception $e) {
+                } catch (Exception) {
                     Mage::throwException(Mage::helper('downloadable')->__('An error occurred while saving the file(s).'));
                 }
             }
+
             return $fileName;
         }
+
         return '';
     }
 
     /**
      * Move file from tmp path to base path
      *
-     * @param string $baseTmpPath
-     * @param string $basePath
-     * @param string $file
+     * @param  string $baseTmpPath
+     * @param  string $basePath
+     * @param  string $file
      * @return string
      */
     protected function _moveFileFromTmp($baseTmpPath, $basePath, $file)
@@ -89,7 +91,7 @@ class Mage_Downloadable_Helper_File extends Mage_Core_Helper_Abstract
         $destDirectory = dirname($this->getFilePath($basePath, $file));
         try {
             $ioObject->open(['path' => $destDirectory]);
-        } catch (Exception $e) {
+        } catch (Exception) {
             $ioObject->mkdir($destDirectory, 0777, true);
             $ioObject->open(['path' => $destDirectory]);
         }
@@ -106,7 +108,7 @@ class Mage_Downloadable_Helper_File extends Mage_Core_Helper_Abstract
             $this->getFilePath($basePath, $destFile),
         );
 
-        $result = $ioObject->mv(
+        $ioObject->mv(
             $this->getFilePath($baseTmpPath, $file),
             $this->getFilePath($basePath, $destFile),
         );
@@ -116,8 +118,8 @@ class Mage_Downloadable_Helper_File extends Mage_Core_Helper_Abstract
     /**
      * Return full path to file
      *
-     * @param string $path
-     * @param string|null $file
+     * @param  string      $path
+     * @param  null|string $file
      * @return string
      */
     public function getFilePath($path, $file)
@@ -138,7 +140,7 @@ class Mage_Downloadable_Helper_File extends Mage_Core_Helper_Abstract
     /**
      * Replace slashes with directory separator
      *
-     * @param string $file
+     * @param  string $file
      * @return string
      */
     protected function _prepareFileForPath($file)
@@ -149,20 +151,18 @@ class Mage_Downloadable_Helper_File extends Mage_Core_Helper_Abstract
     /**
      * Return file name form file path
      *
-     * @param string $pathFile
+     * @param  string $pathFile
      * @return string
      */
     public function getFileFromPathFile($pathFile)
     {
-        $file = '';
-
         return substr($pathFile, strrpos($this->_prepareFileForPath($pathFile), DS) + 1);
     }
 
     /**
      * Get MIME type for $filePath
      *
-     * @param string $filePath
+     * @param  string $filePath
      * @return string
      */
     public function getFileType($filePath)
@@ -174,7 +174,7 @@ class Mage_Downloadable_Helper_File extends Mage_Core_Helper_Abstract
     /**
      * Get MIME type by file extension
      *
-     * @param string $ext
+     * @param  string $ext
      * @return string
      * @deprecated
      */

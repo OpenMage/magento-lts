@@ -76,6 +76,7 @@ class Mage_Reports_Model_Resource_Customer_Collection extends Mage_Customer_Mode
                 $item->remove();
             }
         }
+
         return $this;
     }
 
@@ -93,17 +94,13 @@ class Mage_Reports_Model_Resource_Customer_Collection extends Mage_Customer_Mode
     /**
      * Order for each customer
      *
-     * @param string $from
-     * @param string $to
+     * @param  string $dateFrom
+     * @param  string $dateTo
      * @return $this
      */
-    public function joinOrders($from = '', $to = '')
+    public function joinOrders($dateFrom = '', $dateTo = '')
     {
-        if ($from != '' && $to != '') {
-            $dateFilter = " AND orders.created_at BETWEEN '{$from}' AND '{$to}'";
-        } else {
-            $dateFilter = '';
-        }
+        $dateFilter = $dateFrom != '' && $dateTo != '' ? " AND orders.created_at BETWEEN '{$dateFrom}' AND '{$dateTo}'" : '';
 
         $this->getSelect()
             ->joinLeft(
@@ -134,7 +131,7 @@ class Mage_Reports_Model_Resource_Customer_Collection extends Mage_Customer_Mode
      * Order summary info for each customer
      * such as orders_count, orders_avg_amount, orders_total_amount
      *
-     * @param int $storeId
+     * @param  int   $storeId
      * @return $this
      */
     public function addSumAvgTotals($storeId = 0)
@@ -160,7 +157,7 @@ class Mage_Reports_Model_Resource_Customer_Collection extends Mage_Customer_Mode
     /**
      * Order by total amount
      *
-     * @param string $dir
+     * @param  string $dir
      * @return $this
      */
     public function orderByTotalAmount($dir = self::SORT_ORDER_DESC)
@@ -173,7 +170,7 @@ class Mage_Reports_Model_Resource_Customer_Collection extends Mage_Customer_Mode
     /**
      * Add order statistics
      *
-     * @param int|bool $isFilter
+     * @param  bool|int $isFilter
      * @return $this
      */
     public function addOrdersStatistics($isFilter = false)
@@ -197,9 +194,9 @@ class Mage_Reports_Model_Resource_Customer_Collection extends Mage_Customer_Mode
             $baseSubtotalRefunded   = $adapter->getIfNullSql('orders.base_subtotal_refunded', 0);
             $baseSubtotalCanceled   = $adapter->getIfNullSql('orders.base_subtotal_canceled', 0);
 
-            $totalExpr = (!$this->_addOrderStatisticsIsFilter)
-                ? "(orders.base_subtotal - {$baseSubtotalCanceled} - {$baseSubtotalRefunded}) * orders.base_to_global_rate"
-                : "orders.base_subtotal - {$baseSubtotalCanceled} - {$baseSubtotalRefunded}";
+            $totalExpr = ($this->_addOrderStatisticsIsFilter)
+                ? "orders.base_subtotal - {$baseSubtotalCanceled} - {$baseSubtotalRefunded}"
+                : "(orders.base_subtotal - {$baseSubtotalCanceled} - {$baseSubtotalRefunded}) * orders.base_to_global_rate";
 
             $select = $this->getConnection()->select();
             $select->from(['orders' => $this->getTable('sales/order')], [
@@ -241,7 +238,7 @@ class Mage_Reports_Model_Resource_Customer_Collection extends Mage_Customer_Mode
     /**
      * Order by customer registration
      *
-     * @param string $dir
+     * @param  string $dir
      * @return $this
      */
     public function orderByCustomerRegistration($dir = self::SORT_ORDER_DESC)

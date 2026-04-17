@@ -8,7 +8,7 @@
  */
 
 /**
- * Paypal expess checkout shortcut link
+ * Paypal express checkout shortcut link
  *
  * @package    Mage_PaypalUk
  */
@@ -36,7 +36,7 @@ class Mage_PaypalUk_Block_Express_Shortcut extends Mage_Paypal_Block_Express_Sho
     protected $_checkoutType = 'paypaluk/express_checkout';
 
     /**
-     * @param $quote
+     * @param        $quote
      * @return $this
      */
     protected function _getBmlShortcut($quote)

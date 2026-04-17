@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -12,19 +14,25 @@ require_once 'Varien/Db/Tree/Node/Exception.php';
 class Varien_Db_Tree_Node
 {
     private $left;
+
     private $right;
+
     private $id;
+
     private $pid;
+
     private $level;
+
     private $data;
 
     public $hasChild = false;
+
     public $numChild = 0;
 
     /**
      * Varien_Db_Tree_Node constructor.
-     * @param array $nodeData
-     * @param array $keys
+     * @param  array                         $nodeData
+     * @param  array                         $keys
      * @throws Varien_Db_Tree_Node_Exception
      */
     public function __construct($nodeData, $keys)
@@ -32,6 +40,7 @@ class Varien_Db_Tree_Node
         if (empty($nodeData)) {
             throw new Varien_Db_Tree_Node_Exception('Empty array of node information');
         }
+
         if (empty($keys)) {
             throw new Varien_Db_Tree_Node_Exception('Empty keys array');
         }
@@ -52,11 +61,7 @@ class Varien_Db_Tree_Node
 
     public function getData($name)
     {
-        if (isset($this->data[$name])) {
-            return $this->data[$name];
-        } else {
-            return null;
-        }
+        return $this->data[$name] ?? null;
     }
 
     public function getLevel()
@@ -91,10 +96,6 @@ class Varien_Db_Tree_Node
      */
     public function isParent()
     {
-        if ($this->right - $this->left > 1) {
-            return true;
-        } else {
-            return false;
-        }
+        return $this->right - $this->left > 1;
     }
 }

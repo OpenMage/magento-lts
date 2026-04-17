@@ -13,9 +13,9 @@
  * @package    Mage_Widget
  *
  * @method string getMainFieldsetHtmlId()
- * @method $this setMainFieldsetHtmlId(string $value)
  * @method string getWidgetType()
- * @method array getWidgetValues()
+ * @method array  getWidgetValues()
+ * @method $this  setMainFieldsetHtmlId(string $value)
  */
 class Mage_Widget_Block_Adminhtml_Widget_Options extends Mage_Adminhtml_Block_Widget_Form
 {
@@ -56,6 +56,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Options extends Mage_Adminhtml_Block_Wi
         if ($this->_form instanceof Varien_Data_Form) {
             return $this->_form;
         }
+
         $form = new Varien_Data_Form();
         $this->setForm($form);
         return $form;
@@ -71,6 +72,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Options extends Mage_Adminhtml_Block_Wi
         if ($this->_getData('main_fieldset') instanceof Varien_Data_Form_Element_Fieldset) {
             return $this->_getData('main_fieldset');
         }
+
         $mainFieldsetHtmlId = 'options_fieldset' . md5($this->getWidgetType());
         $this->setMainFieldsetHtmlId($mainFieldsetHtmlId);
         $fieldset = $this->getForm()->addFieldset($mainFieldsetHtmlId, [
@@ -89,7 +91,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Options extends Mage_Adminhtml_Block_Wi
     /**
      * Add fields to main fieldset based on specified widget type
      *
-     * @return Mage_Adminhtml_Block_Widget_Form
+     * @return $this
      */
     public function addFields()
     {
@@ -97,10 +99,12 @@ class Mage_Widget_Block_Adminhtml_Widget_Options extends Mage_Adminhtml_Block_Wi
         if (!$this->getWidgetType()) {
             Mage::throwException($this->__('Widget Type is not specified'));
         }
+
         $config = Mage::getSingleton('widget/widget')->getConfigAsObject($this->getWidgetType());
         if (!$config->getParameters()) {
             return $this;
         }
+
         $module = $config->getModule();
         $this->_translationHelper = Mage::helper($module ? $module : 'widget');
         foreach ($config->getParameters() as $parameter) {
@@ -113,7 +117,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Options extends Mage_Adminhtml_Block_Wi
     /**
      * Add field to Options form based on parameter configuration
      *
-     * @param Varien_Object $parameter
+     * @param  Varien_Object                     $parameter
      * @return Varien_Data_Form_Element_Abstract
      */
     protected function _addField($parameter)
@@ -187,6 +191,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Options extends Mage_Adminhtml_Block_Wi
         }
 
         // dependencies from other fields
+        /** @var Mage_Adminhtml_Block_Widget_Form_Element_Dependence $dependenceBlock */
         $dependenceBlock = $this->getChild('form_after');
         $dependenceBlock->addFieldMap($field->getId(), $fieldName);
         if ($parameter->getDepends()) {

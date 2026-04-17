@@ -14,11 +14,15 @@
  */
 class Mage_Reports_Model_Resource_Review_Product_Collection extends Mage_Catalog_Model_Resource_Product_Collection
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         parent::_construct();
         $this->_useAnalyticFunction = true;
     }
+
     /**
      * Join review table to result
      *
@@ -26,9 +30,6 @@ class Mage_Reports_Model_Resource_Review_Product_Collection extends Mage_Catalog
      */
     public function joinReview()
     {
-        /** @var Mage_Core_Model_Resource_Helper_Mysql4 $helper */
-        $helper    = Mage::getResourceHelper('core');
-
         $subSelect = clone $this->getSelect();
         $subSelect->reset()
             ->from(['rev' => $this->getTable('review/review')], 'COUNT(DISTINCT rev.review_id)')
@@ -62,8 +63,8 @@ class Mage_Reports_Model_Resource_Review_Product_Collection extends Mage_Catalog
                 ['table_rating' => $this->getTable('rating/rating_vote_aggregated')],
                 implode(' AND ', $joinCondition),
                 [
-                    'avg_rating'          => new Zend_Db_Expr("$sumPercentField / $countRatingId"),
-                    'avg_rating_approved' => new Zend_Db_Expr("$sumPercentApproved / $countRatingId"),
+                    'avg_rating'          => new Zend_Db_Expr("{$sumPercentField} / {$countRatingId}"),
+                    'avg_rating_approved' => new Zend_Db_Expr("{$sumPercentApproved} / {$countRatingId}"),
                 ],
             );
 

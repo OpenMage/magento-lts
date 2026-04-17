@@ -12,39 +12,35 @@
  *
  * @package    Mage_Sales
  *
- * @method Mage_Sales_Model_Resource_Billing_Agreement _getResource()
- * @method Mage_Sales_Model_Resource_Billing_Agreement getResource()
+ * @method Mage_Sales_Model_Resource_Billing_Agreement            _getResource()
+ * @method int                                                    getAgreementId()
+ * @method string                                                 getAgreementLabel()
+ * @method int                                                    getBillingAgreementId()
  * @method Mage_Sales_Model_Resource_Billing_Agreement_Collection getCollection()
- *
- * @method int getAgreementId()
- * @method string getAgreementLabel()
- * @method $this setAgreementLabel(string $value)
- * @method string getCreatedAt()
- * @method $this setCreatedAt(string $value)
- * @method Mage_Customer_Model_Customer getCustomer()
- * @method $this setCustomer(Mage_Customer_Model_Customer $value)
- * @method int getCustomerId()
- * @method $this setCustomerId(int $value)
- * @method string getMethodCode()
- * @method $this setMethodCode(string $value)
- * @method string getReferenceId()
- * @method $this setReferenceId(string $value)
- * @method string getStatus()
- * @method $this setStatus(string $value)
- * @method int getStoreId()
- * @method $this setStoreId(int $value)
- * @method string getUpdatedAt()
- * @method $this setUpdatedAt(string $value)
- *
- * @method $this setCancelUrl(string $value)
- * @method string getRedirectUrl()
- * @method $this setReturnUrl(string $value)
- * @method $this setToken(string $value)
- * @method int getBillingAgreementId()
+ * @method Mage_Customer_Model_Customer                           getCustomer()
+ * @method int                                                    getCustomerId()
+ * @method string                                                 getMethodCode()
+ * @method string                                                 getRedirectUrl()
+ * @method string                                                 getReferenceId()
+ * @method Mage_Sales_Model_Resource_Billing_Agreement            getResource()
+ * @method Mage_Sales_Model_Resource_Billing_Agreement_Collection getResourceCollection()
+ * @method string                                                 getStatus()
+ * @method int                                                    getStoreId()
+ * @method $this                                                  setAgreementLabel(string $value)
+ * @method $this                                                  setCancelUrl(string $value)
+ * @method $this                                                  setCustomer(Mage_Customer_Model_Customer $value)
+ * @method $this                                                  setCustomerId(int $value)
+ * @method $this                                                  setMethodCode(string $value)
+ * @method $this                                                  setReferenceId(string $value)
+ * @method $this                                                  setReturnUrl(string $value)
+ * @method $this                                                  setStatus(string $value)
+ * @method $this                                                  setStoreId(int $value)
+ * @method $this                                                  setToken(string $value)
  */
 class Mage_Sales_Model_Billing_Agreement extends Mage_Payment_Model_Billing_AgreementAbstract
 {
     public const STATUS_ACTIVE     = 'active';
+
     public const STATUS_CANCELED   = 'canceled';
 
     /**
@@ -55,7 +51,7 @@ class Mage_Sales_Model_Billing_Agreement extends Mage_Payment_Model_Billing_Agre
     protected $_relatedOrders = [];
 
     /**
-     * Init model
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -65,7 +61,7 @@ class Mage_Sales_Model_Billing_Agreement extends Mage_Payment_Model_Billing_Agre
     /**
      * Set created_at parameter
      *
-     * @inheritdoc
+     * @inheritDoc
      */
     protected function _beforeSave()
     {
@@ -75,19 +71,21 @@ class Mage_Sales_Model_Billing_Agreement extends Mage_Payment_Model_Billing_Agre
         } else {
             $this->setUpdatedAt($date);
         }
+
         return parent::_beforeSave();
     }
 
     /**
      * Save agreement order relations
      *
-     * @return Mage_Core_Model_Abstract
+     * @return $this
      */
     protected function _afterSave()
     {
         if (!empty($this->_relatedOrders)) {
             $this->_saveOrderRelations();
         }
+
         return parent::_afterSave();
     }
 
@@ -133,7 +131,7 @@ class Mage_Sales_Model_Billing_Agreement extends Mage_Payment_Model_Billing_Agre
     /**
      * Check for permissions
      *
-     * @param int $customerIdSession
+     * @param  int  $customerIdSession
      * @return bool
      */
     public function canPerformAction($customerIdSession)
@@ -188,7 +186,7 @@ class Mage_Sales_Model_Billing_Agreement extends Mage_Payment_Model_Billing_Agre
     /**
      * Retrieve billing agreement statuses array
      *
-     * @return array
+     * @return array<string, string>
      */
     public function getStatusesArray()
     {
@@ -209,10 +207,12 @@ class Mage_Sales_Model_Billing_Agreement extends Mage_Payment_Model_Billing_Agre
         if (!$this->getCustomerId()) {
             $this->_errors[] = Mage::helper('payment')->__('Customer ID is not set.');
         }
+
         if (!$this->getStatus()) {
             $this->_errors[] = Mage::helper('payment')->__('Billing Agreement status is not set.');
         }
-        return $result && empty($this->_errors);
+
+        return $result && $this->_errors === [];
     }
 
     /**
@@ -238,13 +238,14 @@ class Mage_Sales_Model_Billing_Agreement extends Mage_Payment_Model_Billing_Agre
                 ->setReferenceId($baData['billing_agreement_id'])
                 ->setStatus(self::STATUS_ACTIVE);
         }
+
         return $this;
     }
 
     /**
      * Retrieve available customer Billing Agreements
      *
-     * @param int $customerId
+     * @param  int                                                    $customerId
      * @return Mage_Sales_Model_Resource_Billing_Agreement_Collection
      */
     public function getAvailableCustomerBillingAgreements($customerId)
@@ -259,18 +260,18 @@ class Mage_Sales_Model_Billing_Agreement extends Mage_Payment_Model_Billing_Agre
     /**
      * Check whether need to create billing agreement for customer
      *
-     * @param int $customerId
+     * @param  int  $customerId
      * @return bool
      */
     public function needToCreateForCustomer($customerId)
     {
-        return $customerId ? count($this->getAvailableCustomerBillingAgreements($customerId)) == 0 : false;
+        return $customerId && count($this->getAvailableCustomerBillingAgreements($customerId)) == 0;
     }
 
     /**
      * Add order relation to current billing agreement
      *
-     * @param int|Mage_Sales_Model_Order $orderId
+     * @param  int|Mage_Sales_Model_Order $orderId
      * @return $this
      */
     public function addOrderRelation($orderId)

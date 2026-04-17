@@ -17,11 +17,11 @@ class Mage_Adminhtml_Helper_Sales extends Mage_Core_Helper_Abstract
     /**
      * Display price attribute value in base order currency and in place order currency
      *
-     * @param   Varien_Object $dataObject
-     * @param   string $code
-     * @param   bool $strong
-     * @param   string $separator
-     * @return  string
+     * @param  Varien_Object $dataObject
+     * @param  string        $code
+     * @param  bool          $strong
+     * @param  string        $separator
+     * @return string
      */
     public function displayPriceAttribute($dataObject, $code, $strong = false, $separator = '<br/>')
     {
@@ -37,22 +37,16 @@ class Mage_Adminhtml_Helper_Sales extends Mage_Core_Helper_Abstract
     /**
      * Get "double" prices html (block with base and place currency)
      *
-     * @param   Varien_Object $dataObject
-     * @param   float $basePrice
-     * @param   float $price
-     * @param   bool $strong
-     * @param   string $separator
-     * @return  string
+     * @param  Varien_Object $dataObject
+     * @param  float         $basePrice
+     * @param  float         $price
+     * @param  bool          $strong
+     * @param  string        $separator
+     * @return string
      */
     public function displayPrices($dataObject, $basePrice, $price, $strong = false, $separator = '<br/>')
     {
-        $order = false;
-        if ($dataObject instanceof Mage_Sales_Model_Order) {
-            $order = $dataObject;
-        } else {
-            $order = $dataObject->getOrder();
-        }
-
+        $order = $dataObject instanceof Mage_Sales_Model_Order ? $dataObject : $dataObject->getOrder();
         if ($order && $order->isCurrencyDifferent()) {
             $res = '<strong>';
             $res .= $order->formatBasePrice($basePrice);
@@ -69,13 +63,14 @@ class Mage_Adminhtml_Helper_Sales extends Mage_Core_Helper_Abstract
                 $res = '<strong>' . $res . '</strong>';
             }
         }
+
         return $res;
     }
 
     /**
      * Filter collection by removing not available product types
      *
-     * @param Mage_Catalog_Model_Resource_Product_Collection $collection
+     * @param  Mage_Catalog_Model_Resource_Product_Collection $collection
      * @return Mage_Catalog_Model_Resource_Product_Collection
      */
     public function applySalableProductTypesFilter($collection)
@@ -92,25 +87,27 @@ class Mage_Adminhtml_Helper_Sales extends Mage_Core_Helper_Abstract
             } else {
                 $type = '';
             }
+
             if (!in_array($type, $productTypes)) {
                 $collection->removeItemByKey($key);
             }
         }
+
         return $collection;
     }
 
     /**
      * Escape string preserving links
      *
-     * @param string|string[] $data
-     * @param array|null $allowedTags
-     * @return null|string|string[]
+     * @param  null|string|string[]                        $data
+     * @param  null|string[]                               $allowedTags
+     * @return ($data is array ? array<?string> : ?string)
      */
     public function escapeHtmlWithLinks($data, $allowedTags = null)
     {
         if (!empty($data) && is_array($allowedTags) && in_array('a', $allowedTags)) {
             $links = [];
-            $i = 1;
+            $index = 1;
             $data = str_replace('%', '%%', $data);
             $regexp = "/<a\s[^>]*href\s*?=\s*?([\"\']??)([^\" >]*?)\\1[^>]*>(.*)<\/a>/siU";
             while (preg_match($regexp, $data, $matches)) {
@@ -124,22 +121,26 @@ class Mage_Adminhtml_Helper_Sales extends Mage_Core_Helper_Abstract
                         $url = null;
                     }
                 }
+
                 //Use hash tag as fallback
                 if (!$url) {
                     $url = '#';
                 }
+
                 //Recreate a minimalistic secure a tag
                 $links[] = sprintf(
                     '<a href="%s">%s</a>',
                     htmlspecialchars($url, ENT_QUOTES, 'UTF-8', false),
                     parent::escapeHtml($text),
                 );
-                $data = str_replace($matches[0], '%' . $i . '$s', $data);
-                ++$i;
+                $data = str_replace($matches[0], '%' . $index . '$s', $data);
+                ++$index;
             }
+
             $data = parent::escapeHtml($data, $allowedTags);
             return vsprintf($data, $links);
         }
+
         return parent::escapeHtml($data, $allowedTags);
     }
 }

@@ -8,13 +8,15 @@
  */
 
 /**
- *
  * Authorizenet Payment Action Dropdown source
  *
  * @package    Mage_Paygate
  */
 class Mage_Paygate_Model_Authorizenet_Source_PaymentAction
 {
+    /**
+     * @return array<int, array<string, string>>
+     */
     public function toOptionArray()
     {
         return [

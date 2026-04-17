@@ -15,6 +15,7 @@
 class Mage_Checkout_Block_Cart_Item_Renderer_Configurable extends Mage_Checkout_Block_Cart_Item_Renderer
 {
     public const CONFIGURABLE_PRODUCT_IMAGE = 'checkout/cart/configurable_product_image';
+
     public const USE_PARENT_IMAGE          = 'parent';
 
     /**
@@ -27,6 +28,7 @@ class Mage_Checkout_Block_Cart_Item_Renderer_Configurable extends Mage_Checkout_
         if ($option = $this->getItem()->getOptionByCode('product_type')) {
             return $option->getProduct();
         }
+
         return $this->getProduct();
     }
 
@@ -40,6 +42,7 @@ class Mage_Checkout_Block_Cart_Item_Renderer_Configurable extends Mage_Checkout_
         if ($option = $this->getItem()->getOptionByCode('simple_product')) {
             return $option->getProduct();
         }
+
         return $this->getProduct();
     }
 
@@ -51,8 +54,8 @@ class Mage_Checkout_Block_Cart_Item_Renderer_Configurable extends Mage_Checkout_
     public function getProductThumbnail()
     {
         $product = $this->getChildProduct();
-        if (!$product || !$product->getData('thumbnail')
-            || ($product->getData('thumbnail') === 'no_selection')
+        if (!$product || !$product->getDataByKey('thumbnail')
+            || ($product->getDataByKey('thumbnail') === 'no_selection')
             || (Mage::getStoreConfig(self::CONFIGURABLE_PRODUCT_IMAGE) === self::USE_PARENT_IMAGE)
         ) {
             $product = $this->getProduct();

@@ -12,203 +12,180 @@
  *
  * @package    Mage_Sales
  *
- * @method Mage_Sales_Model_Resource_Quote_Address _getResource()
- * @method Mage_Sales_Model_Resource_Quote_Address getResource()
+ * @method Mage_Sales_Model_Resource_Quote_Address            _getResource()
+ * @method string                                             getAddressType()
+ * @method array                                              getAppliedRuleIds()
+ * @method bool                                               getAppliedTaxesReset()
+ * @method float                                              getBaseCustbalanceAmount()
+ * @method float                                              getBaseDiscountAmount()
+ * @method float                                              getBaseExtraTaxAmount()
+ * @method float                                              getBaseGrandTotal()
+ * @method float                                              getBaseHiddenTaxAmount()
+ * @method float                                              getBaseRowTotal()
+ * @method float                                              getBaseShippingAmount()
+ * @method float                                              getBaseShippingAmountForDiscount()
+ * @method float                                              getBaseShippingDiscountAmount()
+ * @method float                                              getBaseShippingHiddenTaxAmount()
+ * @method float                                              getBaseShippingInclTax()
+ * @method float                                              getBaseShippingTaxable()
+ * @method float                                              getBaseShippingTaxAmount()
+ * @method float                                              getBaseSubtotal()
+ * @method float                                              getBaseSubtotalInclTax()
+ * @method float                                              getBaseSubtotalTotalInclTax()
+ * @method float                                              getBaseTaxAmount()
+ * @method float                                              getBaseVirtualAmount()
+ * @method float                                              getBaseWeeeDiscount()
+ * @method array                                              getCartFixedRules()
+ * @method Mage_Sales_Model_Quote_Address[]                   getChildren()
+ * @method string                                             getCity()
  * @method Mage_Sales_Model_Resource_Quote_Address_Collection getCollection()()
+ * @method int                                                getCollectShippingRates()
+ * @method string                                             getCompany()
+ * @method string                                             getCountryId()
+ * @method float                                              getCustbalanceAmount()
+ * @method Mage_Customer_Model_Address                        getCustomerAddress()
+ * @method int                                                getCustomerAddressId()
+ * @method int                                                getCustomerId()
+ * @method string                                             getCustomerNotes()
+ * @method string                                             getCustomerPassword()
+ * @method float                                              getDiscountAmount()
+ * @method string                                             getDiscountDescription()
+ * @method null|array                                         getDiscountDescriptionArray()
+ * @method float                                              getDiscountTaxCompensation()
+ * @method string                                             getDob()
+ * @method string                                             getEmail()
+ * @method float                                              getExtraTaxAmount()
+ * @method string                                             getFax()
+ * @method string                                             getFirstname()
+ * @method float                                              getFreeMethodWeight()
+ * @method int                                                getFreeShipping()
+ * @method string                                             getGender()
+ * @method int                                                getGiftMessageId()
+ * @method float                                              getGrandTotal()
+ * @method bool                                               getHasChildren()
+ * @method float                                              getHiddenTaxAmount()
+ * @method bool                                               getIsShippingInclTax()
+ * @method string                                             getLastname()
+ * @method string                                             getLimitCarrier()
+ * @method string                                             getMiddlename()
+ * @method Mage_Sales_Model_Quote_Address                     getParentItem()
+ * @method int                                                getParentItemId()
+ * @method string                                             getPostcode()
+ * @method string                                             getPrefix()
+ * @method Mage_Catalog_Model_Product                         getProduct()
+ * @method float                                              getQty()
+ * @method int                                                getQuoteId()
+ * @method Mage_Sales_Model_Resource_Quote_Address            getResource()
+ * @method array                                              getRoundingDeltas()
+ * @method float                                              getRowTotal()
+ * @method int                                                getSameAsBilling()
+ * @method int                                                getSaveInAddressBook()
+ * @method float                                              getShippingAmount()
+ * @method float                                              getShippingAmountForDiscount()
+ * @method string                                             getShippingDescription()
+ * @method float                                              getShippingDiscountAmount()
+ * @method float                                              getShippingDiscountPercent()
+ * @method float                                              getShippingHiddenTaxAmount()
+ * @method float                                              getShippingInclTax()
+ * @method string                                             getShippingMethod()
+ * @method float                                              getShippingTaxable()
+ * @method float                                              getShippingTaxAmount()
+ * @method int                                                getStoreId()
+ * @method float                                              getSubtotal()
+ * @method float                                              getSubtotalInclTax()
+ * @method string                                             getSuffix()
+ * @method float                                              getTaxAmount()
+ * @method string                                             getTaxvat()
+ * @method string                                             getTelephone()
+ * @method float                                              getTotalQty()
+ * @method float                                              getWeeeDiscount()
+ * @method float                                              getWeight()
+ * @method bool                                               hasCouponCode()
+ * @method bool                                               hasPaymentMethod()
+ * @method $this                                              setAddressType(string $value)
+ * @method $this                                              setAppliedRuleIds(string $value)
+ * @method $this                                              setAppliedTaxesReset(bool $value)
+ * @method $this                                              setBaseCustbalanceAmount(float $float)
+ * @method $this                                              setBaseDiscountAmount(float $float)
+ * @method $this                                              setBaseExtraTaxAmount(float $float)
+ * @method $this                                              setBaseGrandTotal(float $float)
+ * @method $this                                              setBaseHiddenTaxAmount(float $float)
+ * @method $this                                              setBaseShippingAmountForDiscount(float $float)
+ * @method $this                                              setBaseShippingDiscountAmount(float $float)
+ * @method $this                                              setBaseShippingHiddenTaxAmount(float $float)
+ * @method $this                                              setBaseShippingInclTax(float $float)
+ * @method $this                                              setBaseShippingTaxable(float $float)
+ * @method $this                                              setBaseShippingTaxAmount(float $float)
+ * @method $this                                              setBaseSubtotal(float $float)
+ * @method $this                                              setBaseSubtotalInclTax(float $float)
+ * @method $this                                              setBaseSubtotalTotalInclTax(float $float)
+ * @method $this                                              setBaseSubtotalWithDiscount(float $float)
+ * @method $this                                              setBaseTaxAmount(float $value)
+ * @method $this                                              setBaseVirtualAmount(float $value)
+ * @method $this                                              setBaseWeeeDiscount(float $value)
+ * @method $this                                              setCartFixedRules(array $value)
+ * @method $this                                              setCity(string $value)
+ * @method $this                                              setCollectShippingRates(int $value)
+ * @method $this                                              setCompany(string $value)
+ * @method $this                                              setCountryId(string $value)
+ * @method $this                                              setCouponCode(string $value)
+ * @method $this                                              setCustbalanceAmount(float $int)
+ * @method $this                                              setCustomerAddress(Mage_Customer_Model_Address $value)
+ * @method $this                                              setCustomerAddressId(int $value)
+ * @method $this                                              setCustomerId(int $value)
+ * @method $this                                              setCustomerNotes(string $value)
+ * @method $this                                              setDeleteImmediately(bool $value)
+ * @method $this                                              setDiscountAmount(float $value)
+ * @method $this                                              setDiscountDescription(string $value)
+ * @method $this                                              setDiscountDescriptionArray(array $value)
+ * @method $this                                              setEmail(string $value)
+ * @method $this                                              setExtraTaxAmount(float $value)
+ * @method $this                                              setFax(string $value)
+ * @method $this                                              setFirstname(string $value)
+ * @method $this                                              setFreeMethodWeight(int $value)
+ * @method $this                                              setFreeShipping(int $value)
+ * @method $this                                              setGiftMessageId(int $value)
+ * @method $this                                              setGrandTotal(float $value)
+ * @method $this                                              setHiddenTaxAmount(float $value)
+ * @method $this                                              setIsShippingInclTax(bool $value)
+ * @method $this                                              setItemQty(float $value)
+ * @method $this                                              setLastname(string $string)
+ * @method $this                                              setMiddlename(string $string)
+ * @method $this                                              setPaymentMethod(null|string $value)
+ * @method $this                                              setPostcode(string $string)
+ * @method $this                                              setPrefix(string $string)
+ * @method $this                                              setPrevQuoteCustomerGroupId(int $groupId)
+ * @method $this                                              setQuoteId(int $value)
+ * @method $this                                              setRegion(string $value)
+ * @method $this                                              setRegionId(int $value)
+ * @method $this                                              setRoundingDeltas(array $value)
+ * @method $this                                              setRowWeight(float $value)
+ * @method $this                                              setSameAsBilling(int $value)
+ * @method $this                                              setSaveInAddressBook(int $value)
+ * @method $this                                              setShippingAmountForDiscount(float|int $value)
+ * @method $this                                              setShippingDescription(string $value)
+ * @method $this                                              setShippingDiscountAmount(float $value)
+ * @method $this                                              setShippingDiscountPercent(float $value)
+ * @method $this                                              setShippingHiddenTaxAmount(float $value)
+ * @method $this                                              setShippingInclTax(float $value)
+ * @method $this                                              setShippingMethod(string $value)
+ * @method $this                                              setShippingTaxable(float $value)
+ * @method $this                                              setShippingTaxAmount(float $value)
+ * @method $this                                              setSubtotal(float $value)
+ * @method $this                                              setSubtotalInclTax(float $value)
+ * @method $this                                              setSubtotalWithDiscount(float $value)
+ * @method $this                                              setSuffix(string $value)
+ * @method $this                                              setTaxAmount(float $value)
+ * @method $this                                              setTelephone(string $value)
+ * @method $this                                              setTotalQty(float $int)
+ * @method $this                                              setVirtualAmount(float $value)
+ * @method $this                                              setWeeeDiscount(float $value)
+ * @method $this                                              setWeight(float $value)
+ * @method $this                                              unsAddressId()
+ * @method $this                                              unsAddressType()
  *
- * @method $this unsAddressId()
- * @method string getAddressType()
- * @method $this setAddressType(string $value)
- * @method $this unsAddressType()
- * @method array getAppliedRuleIds()
- * @method $this setAppliedRuleIds(array $value)
- * @method bool getAppliedTaxesReset()
- * @method $this setAppliedTaxesReset(bool $value)
- *
- * @method float getBaseCustbalanceAmount()
- * @method $this setBaseCustbalanceAmount(float $float)
- * @method float getBaseDiscountAmount()
- * @method $this setBaseDiscountAmount(float $float)
- * @method float getBaseExtraTaxAmount()
- * @method $this setBaseExtraTaxAmount(float $float)
- * @method float getBaseGrandTotal()
- * @method $this setBaseGrandTotal(float $float)
- * @method float getBaseHiddenTaxAmount()
- * @method $this setBaseHiddenTaxAmount(float $float)
- * @method float getBaseRowTotal()
- * @method float getBaseShippingAmount()
- * @method float getBaseShippingAmountForDiscount()
- * @method $this setBaseShippingAmountForDiscount(float $float)
- * @method float getBaseShippingDiscountAmount()
- * @method $this setBaseShippingDiscountAmount(float $float)
- * @method float getBaseShippingInclTax()
- * @method $this setBaseShippingInclTax(float $float)
- * @method float getBaseShippingHiddenTaxAmount()
- * @method $this setBaseShippingHiddenTaxAmount(float $float)
- * @method float getBaseShippingTaxable()
- * @method $this setBaseShippingTaxable(float $float)
- * @method float getBaseShippingTaxAmount()
- * @method $this setBaseShippingTaxAmount(float $float)
- * @method float getBaseSubtotal()
- * @method $this setBaseSubtotal(float $float)
- * @method float getBaseSubtotalInclTax()
- * @method $this setBaseSubtotalInclTax(float $float)
  * @method $this unsBaseSubtotalInclTax()
- * @method float getBaseSubtotalTotalInclTax()
- * @method $this setBaseSubtotalTotalInclTax(float $float)
- * @method $this setBaseSubtotalWithDiscount(float $float)
- * @method float getBaseTaxAmount()
- * @method $this setBaseTaxAmount(float $value)
- * @method float getBaseWeeeDiscount()
- * @method $this setBaseWeeeDiscount(float $value)
- * @method float getBaseVirtualAmount()
- * @method $this setBaseVirtualAmount(float $value)
- *
- * @method array getCartFixedRules()
- * @method $this setCartFixedRules(array $value)
- * @method string getCity()
- * @method $this setCity(string $value)
- * @method int getCollectShippingRates()
- * @method $this setCollectShippingRates(int $value)
- * @method string getCompany()
- * @method $this setCompany(string $value)
- * @method string getCountryId()
- * @method $this setCountryId(string $value)
- * @method $this setCouponCode(string $value)
- * @method string getCreatedAt()
- * @method $this setCreatedAt(string $value)
- * @method float getCustbalanceAmount()
- * @method $this setCustbalanceAmount(float $int)
- * @method Mage_Customer_Model_Address getCustomerAddress()
- * @method $this setCustomerAddress(Mage_Customer_Model_Address $value)
- * @method int getCustomerAddressId()
- * @method $this setCustomerAddressId(int $value)
- * @method int getCustomerId()
- * @method $this setCustomerId(int $value)
- * @method string getCustomerNotes()
- * @method $this setCustomerNotes(string $value)
- * @method string getCustomerPassword()
- *
- * @method $this setDeleteImmediately(bool $value)
- * @method float getDiscountAmount()
- * @method $this setDiscountAmount(float $value)
- * @method string getDiscountDescription()
- * @method $this setDiscountDescription(string $value)
- * @method null|array getDiscountDescriptionArray()
- * @method $this setDiscountDescriptionArray(array $value)
- * @method float getDiscountTaxCompensation()
- * @method string getDob()
- *
- * @method string getEmail()
- * @method $this setEmail(string $value)
- * @method float getExtraTaxAmount()
- * @method $this setExtraTaxAmount(float $value)
- *
- * @method string getFax()
- * @method $this setFax(string $value)
- * @method string getFirstname()
- * @method $this setFirstname(string $value)
- * @method float getFreeMethodWeight()
- * @method $this setFreeMethodWeight(int $value)
- * @method int getFreeShipping()
- * @method $this setFreeShipping(int $value)
- *
- * @method string getGender()
- * @method int getGiftMessageId()
- * @method $this setGiftMessageId(int $value)
- * @method float getGrandTotal()
- * @method $this setGrandTotal(float $value)
- *
- * @method bool getHasChildren()
- * @method bool hasPaymentMethod()
- * @method bool hasCouponCode()
- * @method float getHiddenTaxAmount()
- * @method $this setHiddenTaxAmount(float $value)
- *
- * @method bool getIsShippingInclTax()
- * @method $this setIsShippingInclTax(bool $value)
- * @method $this setItemQty(float $value)
- *
- * @method string getLastname()
- * @method $this setLastname(string $string)
- * @method string getLimitCarrier()
- *
- * @method string getMiddlename()
- * @method $this setMiddlename(string $string)
- *
- * @method int getParentItemId()
- * @method $this setPaymentMethod(string|null $value)
- * @method string getPostcode()
- * @method $this setPostcode(string $string)
- * @method string getPrefix()
- * @method $this setPrefix(string $string)
- * @method $this setPrevQuoteCustomerGroupId(int $groupId)
- * @method Mage_Catalog_Model_Product getProduct()
- *
- * @method float getQty()
- * @method int getQuoteId()
- * @method $this setQuoteId(int $value)
- *
- * @method $this setRegion(string $value)
- * @method $this setRegionId(int $value)
- * @method array getRoundingDeltas()
- * @method $this setRoundingDeltas(array $value)
- * @method float getRowTotal()
- * @method $this setRowWeight(float $value)
- *
- * @method int getSameAsBilling()
- * @method $this setSameAsBilling(int $value)
- * @method int getSaveInAddressBook()
- * @method $this setSaveInAddressBook(int $value)
- * @method float getShippingAmount()
- * @method float getShippingAmountForDiscount()
- * @method $this setShippingAmountForDiscount(float|int $value)
- * @method float getShippingDiscountAmount()
- * @method $this setShippingDiscountAmount(float $value)
- * @method float getShippingDiscountPercent()
- * @method $this setShippingDiscountPercent(float $value)
- * @method string getShippingDescription()
- * @method $this setShippingDescription(string $value)
- * @method float getShippingHiddenTaxAmount()
- * @method $this setShippingHiddenTaxAmount(float $value)
- * @method float getShippingInclTax()
- * @method $this setShippingInclTax(float $value)
- * @method string getShippingMethod()
- * @method $this setShippingMethod(string $value)
- * @method float getShippingTaxable()
- * @method $this setShippingTaxable(float $value)
- * @method float getShippingTaxAmount()
- * @method $this setShippingTaxAmount(float $value)
- * @method int getStoreId()
- * @method float getSubtotal()
- * @method $this setSubtotal(float $value)
- * @method float getSubtotalInclTax()
- * @method $this setSubtotalInclTax(float $value)
  * @method $this unsSubtotalInclTax()
- * @method $this setSubtotalWithDiscount(float $value)
- * @method string getSuffix()
- * @method $this setSuffix(string $value)
- *
- * @method float getTaxAmount()
- * @method $this setTaxAmount(float $value)
- * @method string getTaxvat()
- * @method string getTelephone()
- * @method $this setTelephone(string $value)
- * @method float getTotalQty()
- * @method $this setTotalQty(float $int)
- *
- * @method string getUpdatedAt()
- * @method $this setUpdatedAt(string $value)
- *
- * @method $this setVirtualAmount(float $value)
- * @method float getWeeeDiscount()
- * @method $this setWeeeDiscount(float $value)
- * @method float getWeight()
- * @method $this setWeight(float $value)
- *
- *
- * @method Mage_Sales_Model_Quote_Address getParentItem()
- * @method Mage_Sales_Model_Quote_Address[] getChildren()
  */
 class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstract
 {
@@ -234,7 +211,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
     /**
      * Quote object
      *
-     * @var Mage_Sales_Model_Resource_Quote_Address_Item_Collection|Mage_Sales_Model_Quote_Address_Item[]|null
+     * @var null|Mage_Sales_Model_Quote_Address_Item[]|Mage_Sales_Model_Resource_Quote_Address_Item_Collection
      */
     protected $_items = null;
 
@@ -248,7 +225,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
     /**
      * Sales Quote address rates
      *
-     * @var Mage_Sales_Model_Resource_Quote_Address_Rate_Collection|Mage_Sales_Model_Quote_Address_Rate[]|null
+     * @var null|Mage_Sales_Model_Quote_Address_Rate[]|Mage_Sales_Model_Resource_Quote_Address_Rate_Collection
      */
     protected $_rates = null;
 
@@ -269,26 +246,26 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
     /**
      * Total amounts
      *
-     * @var array
+     * @var array<string, float>
      */
     protected $_totalAmounts = [];
 
     /**
      * Total base amounts
      *
-     * @var array
+     * @var array<string, float>
      */
     protected $_baseTotalAmounts = [];
 
     /**
      * Whether to segregate by nominal items only
      *
-     * @var bool|null
+     * @var null|bool
      */
     protected $_nominalOnly = null;
 
     /**
-     * Initialize resource
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -309,6 +286,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
      * Initialize Quote identifier before save
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     protected function _beforeSave()
     {
@@ -319,6 +297,8 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
 
     /**
      * Set the required fields
+     *
+     * @throws Mage_Core_Exception
      */
     protected function _populateBeforeSaveData()
     {
@@ -328,6 +308,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
             if ($this->getQuote()->getId()) {
                 $this->setQuoteId($this->getQuote()->getId());
             }
+
             $this->setCustomerId($this->getQuote()->getCustomerId());
 
             /**
@@ -341,7 +322,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
              * Set same_as_billing to "1" when default shipping address is set as default
              * and it is not equal billing address
              */
-            if (!$this->getId()) {
+            if (!$this->getId() && !$this->hasSameAsBilling()) {
                 $this->setSameAsBilling((int) $this->_isSameAsBilling());
             }
         }
@@ -351,6 +332,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
      * Returns true if the billing address is same as the shipping
      *
      * @return bool
+     * @throws Mage_Core_Exception
      */
     protected function _isSameAsBilling()
     {
@@ -362,29 +344,39 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
      * Checks if the user is a registered customer
      *
      * @return bool
+     * @throws Mage_Core_Exception
      */
     protected function _isNotRegisteredCustomer()
     {
-        return !$this->getQuote()->getCustomerId() || $this->getCustomerAddressId() === null;
+        if (!$this->getQuote()->getCustomerId()) {
+            return true;
+        }
+
+        return $this->getCustomerAddressId() === null;
     }
 
     /**
      * Returns true if the def billing address is same as customer address
      *
      * @return bool
+     * @throws Mage_Core_Exception
      */
     protected function _isDefaultShippingNullOrSameAsBillingAddress()
     {
         $customer = $this->getQuote()->getCustomer();
-        return !$customer->getDefaultShippingAddress()
-            || $customer->getDefaultBillingAddress() && $customer->getDefaultShippingAddress()
-                && $customer->getDefaultBillingAddress()->getId() == $customer->getDefaultShippingAddress()->getId();
+        if (!$customer->getDefaultShippingAddress()) {
+            return true;
+        }
+
+        return $customer->getDefaultBillingAddress() && $customer->getDefaultShippingAddress()
+            && $customer->getDefaultBillingAddress()->getId() == $customer->getDefaultShippingAddress()->getId();
     }
 
     /**
      * Save child collections
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     protected function _afterSave()
     {
@@ -392,16 +384,19 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
         if ($this->_items !== null) {
             $this->getItemsCollection()->save();
         }
+
         if ($this->_rates !== null) {
             $this->getShippingRatesCollection()->save();
         }
+
         return $this;
     }
 
     /**
      * Declare address quote model object
      *
-     * @return  $this
+     * @return $this
+     * @throws Mage_Core_Exception
      */
     public function setQuote(Mage_Sales_Model_Quote $quote)
     {
@@ -409,6 +404,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
         if ($this->getQuoteId() != $quote->getId()) {
             $this->setQuoteId($quote->getId());
         }
+
         return $this;
     }
 
@@ -416,19 +412,21 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
      * Retrieve quote object
      *
      * @return Mage_Sales_Model_Quote
+     * @throws Mage_Core_Exception
      */
     public function getQuote()
     {
         if (is_null($this->_quote)) {
             $this->_quote = Mage::getModel('sales/quote')->load($this->getQuoteId());
         }
+
         return $this->_quote;
     }
 
     /**
      * Import quote address data from customer address object
      *
-     * @return  $this
+     * @return $this
      */
     public function importCustomerAddress(Mage_Customer_Model_Address $address)
     {
@@ -439,9 +437,11 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
         } elseif ($address->getCustomer()) {
             $email = $address->getCustomer()->getEmail();
         }
+
         if ($email) {
             $this->setEmail($email);
         }
+
         return $this;
     }
 
@@ -460,7 +460,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
     /**
      * Import address data from order address
      *
-     * @return  $this
+     * @return $this
      */
     public function importOrderAddress(Mage_Sales_Model_Order_Address $address)
     {
@@ -477,23 +477,26 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
     /**
      * Convert object to array
      *
-     * @return  array
+     * @return array
+     * @throws Mage_Core_Exception
      */
     public function toArray(array $arrAttributes = [])
     {
         $arr = parent::toArray($arrAttributes);
         $arr['rates'] = $this->getShippingRatesCollection()->toArray($arrAttributes);
         $arr['items'] = $this->getItemsCollection()->toArray($arrAttributes);
-        foreach ($this->getTotals() as $k => $total) {
-            $arr['totals'][$k] = $total->toArray();
+        foreach ($this->getTotals() as $key => $total) {
+            $arr['totals'][$key] = $total->toArray();
         }
+
         return $arr;
     }
 
     /**
      * Retrieve address items collection
      *
-     * @return Mage_Eav_Model_Entity_Collection_Abstract
+     * @return Mage_Sales_Model_Resource_Quote_Address_Item_Collection
+     * @throws Mage_Core_Exception
      */
     public function getItemsCollection()
     {
@@ -507,6 +510,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
                 }
             }
         }
+
         return $this->_items;
     }
 
@@ -514,6 +518,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
      * Get all available address items
      *
      * @return Mage_Sales_Model_Quote_Address_Item[]
+     * @throws Mage_Core_Exception
      */
     public function getAllItems()
     {
@@ -545,6 +550,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
                             $aItem->importQuoteItem($qItem);
                         }
                     }
+
                     $items[] = $aItem;
                     if ($this->_filterNominal($aItem)) {
                         $nominalItems[] = $aItem;
@@ -566,6 +572,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
                         if ($qItem->isDeleted()) {
                             continue;
                         }
+
                         $items[] = $qItem;
                         if ($this->_filterNominal($qItem)) {
                             $nominalItems[] = $qItem;
@@ -583,6 +590,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
 
             $this->_nominalOnly = $wasNominal; // Restore original value before we changed it
         }
+
         return $this->getData($key);
     }
 
@@ -590,6 +598,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
      * Getter for all non-nominal items
      *
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function getAllNonNominalItems()
     {
@@ -603,6 +612,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
      * Getter for all nominal items
      *
      * @return Mage_Sales_Model_Quote_Address_Item[]
+     * @throws Mage_Core_Exception
      */
     public function getAllNominalItems()
     {
@@ -619,8 +629,8 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
      * false: get non-nominals only
      * null: get all
      *
-     * @param Mage_Sales_Model_Quote_Item_Abstract $item
-     * @return Mage_Sales_Model_Quote_Item_Abstract|false
+     * @param  Mage_Sales_Model_Quote_Item_Abstract       $item
+     * @return false|Mage_Sales_Model_Quote_Item_Abstract
      */
     protected function _filterNominal($item)
     {
@@ -634,6 +644,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
      * Retrieve all visible items
      *
      * @return Mage_Sales_Model_Quote_Address_Item[]
+     * @throws Mage_Core_Exception
      */
     public function getAllVisibleItems()
     {
@@ -643,19 +654,21 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
                 $items[] = $item;
             }
         }
+
         return $items;
     }
 
     /**
      * Retrieve item quantity by id
      *
-     * @param int $itemId
+     * @param  int                 $itemId
      * @return float|int
+     * @throws Mage_Core_Exception
      */
     public function getItemQty($itemId = 0)
     {
         if ($this->hasData('item_qty')) {
-            return $this->getData('item_qty');
+            return $this->getDataByKey('item_qty');
         }
 
         $qty = 0;
@@ -669,6 +682,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
                 $qty = $item->getQty();
             }
         }
+
         return $qty;
     }
 
@@ -676,6 +690,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
      * Check Quote address has Items
      *
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function hasItems()
     {
@@ -685,8 +700,9 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
     /**
      * Get address item object by id without
      *
-     * @param int $itemId
-     * @return Mage_Sales_Model_Quote_Address_Item|false
+     * @param  int                                       $itemId
+     * @return false|Mage_Sales_Model_Quote_Address_Item
+     * @throws Mage_Core_Exception
      */
     public function getItemById($itemId)
     {
@@ -695,14 +711,16 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
                 return $item;
             }
         }
+
         return false;
     }
 
     /**
      * Get prepared not deleted item
      *
-     * @param int $itemId
-     * @return Mage_Sales_Model_Quote_Address_Item|false
+     * @param  int                                       $itemId
+     * @return false|Mage_Sales_Model_Quote_Address_Item
+     * @throws Mage_Core_Exception
      */
     public function getValidItemById($itemId)
     {
@@ -711,14 +729,16 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
                 return $item;
             }
         }
+
         return false;
     }
 
     /**
      * Retrieve item object by quote item Id
      *
-     * @param int $itemId
-     * @return Mage_Sales_Model_Quote_Address_Item|false
+     * @param  int                                       $itemId
+     * @return false|Mage_Sales_Model_Quote_Address_Item
+     * @throws Mage_Core_Exception
      */
     public function getItemByQuoteItemId($itemId)
     {
@@ -727,14 +747,16 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
                 return $item;
             }
         }
+
         return false;
     }
 
     /**
      * Remove item from collection
      *
-     * @param int $itemId
+     * @param  int                 $itemId
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function removeItem($itemId)
     {
@@ -742,14 +764,17 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
         if ($item) {
             $item->isDeleted(true);
         }
+
         return $this;
     }
 
     /**
      * Add item to address
      *
-     * @param   int $qty
-     * @return  $this
+     * @param  int                 $qty
+     * @return $this
+     * @throws Exception
+     * @throws Mage_Core_Exception
      */
     public function addItem(Mage_Sales_Model_Quote_Item_Abstract $item, $qty = null)
     {
@@ -757,12 +782,14 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
             if ($item->getParentItemId()) {
                 return $this;
             }
+
             $addressItem = Mage::getModel('sales/quote_address_item')
                 ->setAddress($this)
                 ->importQuoteItem($item);
             $this->getItemsCollection()->addItem($addressItem);
 
             if ($item->getHasChildren()) {
+                /** @var Mage_Sales_Model_Quote_Item $child */
                 foreach ($item->getChildren() as $child) {
                     $addressChildItem = Mage::getModel('sales/quote_address_item')
                         ->setAddress($this)
@@ -771,7 +798,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
                     $this->getItemsCollection()->addItem($addressChildItem);
                 }
             }
-        } else {
+        } elseif ($item instanceof Mage_Sales_Model_Quote_Address_Item) {
             $addressItem = $item;
             $addressItem->setAddress($this);
             if (!$addressItem->getId()) {
@@ -779,9 +806,10 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
             }
         }
 
-        if ($qty) {
+        if ($qty && isset($addressItem)) {
             $addressItem->setQty($qty);
         }
+
         return $this;
     }
 
@@ -789,6 +817,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
      * Retrieve collection of quote shipping rates
      *
      * @return Mage_Sales_Model_Resource_Quote_Address_Rate_Collection
+     * @throws Mage_Core_Exception
      */
     public function getShippingRatesCollection()
     {
@@ -798,12 +827,14 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
             if ($this->getQuote()->hasNominalItems(false)) {
                 $this->_rates->setFixedOnlyFilter(true);
             }
+
             if ($this->getId()) {
                 foreach ($this->_rates as $rate) {
                     $rate->setAddress($this);
                 }
             }
         }
+
         return $this->_rates;
     }
 
@@ -811,6 +842,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
      * Retrieve all address shipping rates
      *
      * @return Mage_Sales_Model_Quote_Address_Rate[]
+     * @throws Mage_Core_Exception
      */
     public function getAllShippingRates()
     {
@@ -820,6 +852,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
                 $rates[] = $rate;
             }
         }
+
         return $rates;
     }
 
@@ -827,6 +860,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
      * Retrieve all grouped shipping rates
      *
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function getGroupedAllShippingRates()
     {
@@ -838,36 +872,32 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
                 }
 
                 $rates[$rate->getCarrier()][] = $rate;
-                $rates[$rate->getCarrier()][0]->carrier_sort_order = $rate->getCarrierInstance()->getSortOrder();
+                $rates[$rate->getCarrier()][0]->setCarrierSortOrder($rate->getCarrierInstance()->getSortOrder());
             }
         }
-        uasort($rates, [$this, '_sortRates']);
+
+        uasort($rates, $this->_sortRates(...));
         return $rates;
     }
 
     /**
      * Sort rates recursive callback
      *
-     * @param array $a
-     * @param array $b
+     * @param  Mage_Sales_Model_Quote_Address_Rate[] $a
+     * @param  Mage_Sales_Model_Quote_Address_Rate[] $b
      * @return int
      */
     protected function _sortRates($a, $b)
     {
-        if ((int) $a[0]->carrier_sort_order < (int) $b[0]->carrier_sort_order) {
-            return -1;
-        } elseif ((int) $a[0]->carrier_sort_order > (int) $b[0]->carrier_sort_order) {
-            return 1;
-        } else {
-            return 0;
-        }
+        return $a[0]->getCarrierSortOrder() <=> $b[0]->getCarrierSortOrder();
     }
 
     /**
      * Retrieve shipping rate by identifier
      *
-     * @param   int $rateId
-     * @return  Mage_Sales_Model_Quote_Address_Rate | false
+     * @param  int                                       $rateId
+     * @return false|Mage_Sales_Model_Quote_Address_Rate
+     * @throws Mage_Core_Exception
      */
     public function getShippingRateById($rateId)
     {
@@ -876,14 +906,16 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
                 return $rate;
             }
         }
+
         return false;
     }
 
     /**
      * Retrieve shipping rate by code
      *
-     * @param   string $code
-     * @return  Mage_Sales_Model_Quote_Address_Rate|false
+     * @param  string                                    $code
+     * @return false|Mage_Sales_Model_Quote_Address_Rate
+     * @throws Mage_Core_Exception
      */
     public function getShippingRateByCode($code)
     {
@@ -892,6 +924,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
                 return $rate;
             }
         }
+
         return false;
     }
 
@@ -899,12 +932,14 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
      * Mark all shipping rates as deleted
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function removeAllShippingRates()
     {
         foreach ($this->getShippingRatesCollection() as $rate) {
             $rate->isDeleted(true);
         }
+
         return $this;
     }
 
@@ -912,6 +947,8 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
      * Add shipping rate
      *
      * @return $this
+     * @throws Exception
+     * @throws Mage_Core_Exception
      */
     public function addShippingRate(Mage_Sales_Model_Quote_Address_Rate $rate)
     {
@@ -924,6 +961,8 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
      * Collecting shipping rates by address
      *
      * @return $this
+     * @throws Mage_Core_Exception
+     * @throws Zend_Controller_Response_Exception
      */
     public function collectShippingRates()
     {
@@ -955,6 +994,8 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
      * Returns true if current selected shipping method code corresponds to one of the found rates
      *
      * @return bool
+     * @throws Mage_Core_Exception
+     * @throws Zend_Controller_Response_Exception
      */
     public function requestShippingRates(?Mage_Sales_Model_Quote_Item_Abstract $item = null)
     {
@@ -972,6 +1013,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
         $request->setDestCity($this->getCity());
         $request->setDestPostcode($this->getPostcode());
         $request->setPackageValue($item ? $item->getBaseRowTotal() : $this->getBaseSubtotal());
+
         $packageValueWithDiscount = $item
             ? $item->getBaseRowTotal() - $item->getBaseDiscountAmount()
             : $this->getBaseSubtotalWithDiscount();
@@ -1016,12 +1058,12 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
             foreach ($shippingRates as $shippingRate) {
                 $rate = Mage::getModel('sales/quote_address_rate')
                     ->importShippingRate($shippingRate);
-                if (!$item) {
+                if (!$item instanceof Mage_Sales_Model_Quote_Item_Abstract) {
                     $this->addShippingRate($rate);
                 }
 
                 if ($this->getShippingMethod() == $rate->getCode()) {
-                    if ($item) {
+                    if ($item instanceof Mage_Sales_Model_Quote_Item_Abstract) {
                         $item->setBaseShippingAmount($rate->getPrice());
                     } else {
                         /**
@@ -1037,6 +1079,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
                 }
             }
         }
+
         return $found;
     }
 
@@ -1044,6 +1087,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
      * Get totals collector model
      *
      * @return Mage_Sales_Model_Quote_Address_Total_Collector
+     * @throws Mage_Core_Exception
      */
     public function getTotalCollector()
     {
@@ -1053,14 +1097,16 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
                 ['store' => $this->getQuote()->getStore()],
             );
         }
+
         return $this->_totalCollector;
     }
 
     /**
      * Retrieve total models
      *
-     * @deprecated
      * @return array
+     * @throws Mage_Core_Exception
+     * @deprecated
      */
     public function getTotalModels()
     {
@@ -1071,6 +1117,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
      * Collect address totals
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function collectTotals()
     {
@@ -1078,6 +1125,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
         foreach ($this->getTotalCollector()->getCollectors() as $model) {
             $model->collect($this);
         }
+
         Mage::dispatchEvent($this->_eventPrefix . '_collect_totals_after', [$this->_eventObject => $this]);
         return $this;
     }
@@ -1086,19 +1134,21 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
      * Get address totals as array
      *
      * @return Mage_Sales_Model_Quote_Address_Total[]
+     * @throws Mage_Core_Exception
      */
     public function getTotals()
     {
         foreach ($this->getTotalCollector()->getRetrievers() as $model) {
             $model->fetch($this);
         }
+
         return $this->_totals;
     }
 
     /**
      * Add total data or model
      *
-     * @param Mage_Sales_Model_Quote_Address_Total|array $total
+     * @param  array|Mage_Sales_Model_Quote_Address_Total $total
      * @return $this
      */
     public function addTotal($total)
@@ -1120,6 +1170,8 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
 
     /**
      * Rewrite clone method
+     *
+     * @throws Mage_Core_Exception
      */
     public function __clone()
     {
@@ -1130,6 +1182,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
      * Validate minimum amount
      *
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function validateMinimumAmount()
     {
@@ -1140,15 +1193,14 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
 
         if ($this->getQuote()->getIsVirtual() && $this->getAddressType() == self::TYPE_SHIPPING) {
             return true;
-        } elseif (!$this->getQuote()->getIsVirtual() && $this->getAddressType() != self::TYPE_SHIPPING) {
+        }
+
+        if (!$this->getQuote()->getIsVirtual() && $this->getAddressType() != self::TYPE_SHIPPING) {
             return true;
         }
 
         $amount = Mage::getStoreConfig('sales/minimum_order/amount', $storeId);
-        if ($this->getBaseSubtotalWithDiscount() < $amount) {
-            return false;
-        }
-        return true;
+        return $this->getBaseSubtotalWithDiscount() >= $amount;
     }
 
     /**
@@ -1158,22 +1210,24 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
      */
     public function getAppliedTaxes()
     {
-        $tax = $this->getData('applied_taxes');
+        $tax = $this->getDataByKey('applied_taxes');
         if (empty($tax)) {
             return [];
         }
+
         try {
             $return = Mage::helper('core/unserializeArray')->unserialize($tax);
-        } catch (Exception $e) {
+        } catch (Exception) {
             $return = [];
         }
+
         return $return;
     }
 
     /**
      * Set applied taxes
      *
-     * @param array $data
+     * @param  array $data
      * @return $this
      */
     public function setAppliedTaxes($data)
@@ -1184,8 +1238,8 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
     /**
      * Set shipping amount
      *
-     * @param float $value
-     * @param bool $alreadyExclTax
+     * @param  float $value
+     * @param  bool  $alreadyExclTax
      * @return $this
      */
     public function setShippingAmount($value, $alreadyExclTax = false)
@@ -1196,8 +1250,8 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
     /**
      * Set base shipping amount
      *
-     * @param float $value
-     * @param bool $alreadyExclTax
+     * @param  float $value
+     * @param  bool  $alreadyExclTax
      * @return $this
      */
     public function setBaseShippingAmount($value, $alreadyExclTax = false)
@@ -1208,16 +1262,17 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
     /**
      * Set total amount value
      *
-     * @param   string $code
-     * @param   float $amount
-     * @return  $this
+     * @param  string $code
+     * @param  float  $amount
+     * @return $this
      */
     public function setTotalAmount($code, $amount)
     {
         $this->_totalAmounts[$code] = $amount;
         if ($code != 'subtotal') {
-            $code = $code . '_amount';
+            $code .= '_amount';
         }
+
         $this->setData($code, $amount);
         return $this;
     }
@@ -1225,16 +1280,17 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
     /**
      * Set total amount value in base store currency
      *
-     * @param   string $code
-     * @param   float $amount
-     * @return  $this
+     * @param  string $code
+     * @param  float  $amount
+     * @return $this
      */
     public function setBaseTotalAmount($code, $amount)
     {
         $this->_baseTotalAmounts[$code] = $amount;
         if ($code != 'subtotal') {
-            $code = $code . '_amount';
+            $code .= '_amount';
         }
+
         $this->setData('base_' . $code, $amount);
         return $this;
     }
@@ -1242,9 +1298,9 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
     /**
      * Add amount total amount value
      *
-     * @param   string $code
-     * @param   float $amount
-     * @return  $this
+     * @param  string $code
+     * @param  float  $amount
+     * @return $this
      */
     public function addTotalAmount($code, $amount)
     {
@@ -1256,9 +1312,9 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
     /**
      * Add amount total amount value in base store currency
      *
-     * @param   string $code
-     * @param   float $amount
-     * @return  $this
+     * @param  string $code
+     * @param  float  $amount
+     * @return $this
      */
     public function addBaseTotalAmount($code, $amount)
     {
@@ -1270,8 +1326,8 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
     /**
      * Get total amount value by code
      *
-     * @param   string $code
-     * @return  float
+     * @param  string $code
+     * @return float
      */
     public function getTotalAmount($code)
     {
@@ -1279,10 +1335,10 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
     }
 
     /**
-     * Get total amount value by code in base store curncy
+     * Get total amount value by code in base store currency
      *
-     * @param   string $code
-     * @return  float
+     * @param  string $code
+     * @return float
      */
     public function getBaseTotalAmount($code)
     {
@@ -1292,7 +1348,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
     /**
      * Get all total amount values
      *
-     * @return array
+     * @return array<string, float>
      */
     public function getAllTotalAmounts()
     {
@@ -1302,7 +1358,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
     /**
      * Get all total amount values in base currency
      *
-     * @return array
+     * @return array<string, float>
      */
     public function getAllBaseTotalAmounts()
     {

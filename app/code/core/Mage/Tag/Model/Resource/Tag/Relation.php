@@ -7,6 +7,8 @@
  * @package    Mage_Tag
  */
 
+use Carbon\Carbon;
+
 /**
  * Tag Relation resource model
  *
@@ -15,8 +17,7 @@
 class Mage_Tag_Model_Resource_Tag_Relation extends Mage_Core_Model_Resource_Db_Abstract
 {
     /**
-     * Initialize resource connection and define table resource
-     *
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -26,7 +27,7 @@ class Mage_Tag_Model_Resource_Tag_Relation extends Mage_Core_Model_Resource_Db_A
     /**
      * Load by Tag and Customer
      *
-     * @param Mage_Tag_Model_Tag_Relation $model
+     * @param  Mage_Tag_Model_Tag_Relation $model
      * @return $this
      */
     public function loadByTagCustomer($model)
@@ -56,6 +57,7 @@ class Mage_Tag_Model_Resource_Tag_Relation extends Mage_Core_Model_Resource_Db_A
                 $select->where($this->getMainTable() . '.store_id = :sore_id');
                 $bind['sore_id'] = $model->getStoreId();
             }
+
             $data = $read->fetchRow($select, $bind);
             $model->setData((is_array($data)) ? $data : []);
         }
@@ -66,7 +68,7 @@ class Mage_Tag_Model_Resource_Tag_Relation extends Mage_Core_Model_Resource_Db_A
     /**
      * Retrieve Tagged Products
      *
-     * @param Mage_Tag_Model_Tag_Relation $model
+     * @param  Mage_Tag_Model_Tag_Relation $model
      * @return array
      */
     public function getProductIds($model)
@@ -103,7 +105,7 @@ class Mage_Tag_Model_Resource_Tag_Relation extends Mage_Core_Model_Resource_Db_A
     /**
      * Retrieve related to product tag ids
      *
-     * @param Mage_Tag_Model_Tag_Relation $model
+     * @param  Mage_Tag_Model_Tag_Relation $model
      * @return array
      */
     public function getRelatedTagIds($model)
@@ -119,8 +121,8 @@ class Mage_Tag_Model_Resource_Tag_Relation extends Mage_Core_Model_Resource_Db_A
     /**
      * Deactivate tag relations by tag and customer
      *
-     * @param int $tagId
-     * @param int $customerId
+     * @param  int   $tagId
+     * @param  int   $customerId
      * @return $this
      */
     public function deactivate($tagId, $customerId)
@@ -138,7 +140,7 @@ class Mage_Tag_Model_Resource_Tag_Relation extends Mage_Core_Model_Resource_Db_A
     /**
      * Add TAG to PRODUCT relations
      *
-     * @param Mage_Tag_Model_Tag_Relation $model
+     * @param  Mage_Tag_Model_Tag_Relation $model
      * @return $this
      */
     public function addRelations($model)
@@ -160,7 +162,7 @@ class Mage_Tag_Model_Resource_Tag_Relation extends Mage_Core_Model_Resource_Db_A
         $insert = array_diff($addedIds, $oldRelationIds);
         $delete = array_diff($oldRelationIds, $addedIds);
 
-        if (!empty($insert)) {
+        if ($insert !== []) {
             $insertData = [];
             foreach ($insert as $value) {
                 $insertData[] = [
@@ -168,13 +170,14 @@ class Mage_Tag_Model_Resource_Tag_Relation extends Mage_Core_Model_Resource_Db_A
                     'store_id'      => $model->getStoreId(),
                     'product_id'    => $value,
                     'customer_id'   => $model->getCustomerId(),
-                    'created_at'    => $this->formatDate(time()),
+                    'created_at'    => $this->formatDate(Carbon::now()->getTimestamp()),
                 ];
             }
+
             $write->insertMultiple($this->getMainTable(), $insertData);
         }
 
-        if (!empty($delete)) {
+        if ($delete !== []) {
             $write->delete($this->getMainTable(), [
                 'product_id IN (?)' => $delete,
                 'store_id = ?'      => $model->getStoreId(),

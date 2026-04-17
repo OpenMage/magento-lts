@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -17,14 +19,14 @@ class Mage_Sales_Model_Resource_Report_Collection_Abstract extends Mage_Reports_
     /**
      * Order status
      *
-     * @var string|null
+     * @var null|string
      */
     protected $_orderStatus = null;
 
     /**
      * Set status filter
      *
-     * @param string $orderStatus
+     * @param  string $orderStatus
      * @return $this
      */
     public function addOrderStatusFilter($orderStatus)
@@ -43,10 +45,12 @@ class Mage_Sales_Model_Resource_Report_Collection_Abstract extends Mage_Reports_
         if (is_null($this->_orderStatus)) {
             return $this;
         }
+
         $orderStatus = $this->_orderStatus;
         if (!is_array($orderStatus)) {
             $orderStatus = [$orderStatus];
         }
+
         $this->getSelect()->where('order_status IN(?)', $orderStatus);
         return $this;
     }

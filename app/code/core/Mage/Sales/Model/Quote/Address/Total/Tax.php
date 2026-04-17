@@ -36,6 +36,7 @@ class Mage_Sales_Model_Quote_Address_Total_Tax extends Mage_Sales_Model_Quote_Ad
         if (!count($items)) {
             return $this;
         }
+
         $custTaxClassId = $address->getQuote()->getCustomerTaxClassId();
 
         $taxCalculationModel = Mage::getSingleton('tax/calculation');
@@ -54,6 +55,7 @@ class Mage_Sales_Model_Quote_Address_Total_Tax extends Mage_Sales_Model_Quote_Ad
             if ($item->getParentItemId()) {
                 continue;
             }
+
             /**
              * We calculate parent tax amount as sum of children's tax amounts
              */
@@ -94,6 +96,7 @@ class Mage_Sales_Model_Quote_Address_Total_Tax extends Mage_Sales_Model_Quote_Ad
                         $rate,
                     );
                 }
+
                 $itemTaxAmount = $item->getTaxAmount() + $item->getDiscountTaxCompensation();
                 $address->setTaxAmount($address->getTaxAmount() + $itemTaxAmount);
                 $itemBaseTaxAmount = $item->getBaseTaxAmount() + $item->getBaseDiscountTaxCompensation();
@@ -146,30 +149,26 @@ class Mage_Sales_Model_Quote_Address_Total_Tax extends Mage_Sales_Model_Quote_Ad
         $shippingTax      = 0;
         $shippingBaseTax  = 0;
 
-        if ($shippingTaxClass) {
-            if ($rate = $taxCalculationModel->getRate($request->setProductClassId($shippingTaxClass))) {
-                if (!Mage::helper('tax')->shippingPriceIncludesTax()) {
-                    $shippingTax    = $address->getShippingAmount() * $rate / 100;
-                    $shippingBaseTax = $address->getBaseShippingAmount() * $rate / 100;
-                } else {
-                    $shippingTax    = $address->getShippingTaxAmount();
-                    $shippingBaseTax = $address->getBaseShippingTaxAmount();
-                }
-
-                $shippingTax    = $store->roundPrice($shippingTax);
-                $shippingBaseTax = $store->roundPrice($shippingBaseTax);
-
-                $address->setTaxAmount($address->getTaxAmount() + $shippingTax);
-                $address->setBaseTaxAmount($address->getBaseTaxAmount() + $shippingBaseTax);
-
-                $this->_saveAppliedTaxes(
-                    $address,
-                    $taxCalculationModel->getAppliedRates($request),
-                    $shippingTax,
-                    $shippingBaseTax,
-                    $rate,
-                );
+        if ($shippingTaxClass && $rate = $taxCalculationModel->getRate($request->setProductClassId($shippingTaxClass))) {
+            if (!Mage::helper('tax')->shippingPriceIncludesTax()) {
+                $shippingTax    = $address->getShippingAmount() * $rate / 100;
+                $shippingBaseTax = $address->getBaseShippingAmount() * $rate / 100;
+            } else {
+                $shippingTax    = $address->getShippingTaxAmount();
+                $shippingBaseTax = $address->getBaseShippingTaxAmount();
             }
+
+            $shippingTax    = $store->roundPrice($shippingTax);
+            $shippingBaseTax = $store->roundPrice($shippingBaseTax);
+            $address->setTaxAmount($address->getTaxAmount() + $shippingTax);
+            $address->setBaseTaxAmount($address->getBaseTaxAmount() + $shippingBaseTax);
+            $this->_saveAppliedTaxes(
+                $address,
+                $taxCalculationModel->getAppliedRates($request),
+                $shippingTax,
+                $shippingBaseTax,
+                $rate,
+            );
         }
 
         if (!Mage::helper('tax')->shippingPriceIncludesTax()) {
@@ -223,6 +222,7 @@ class Mage_Sales_Model_Quote_Address_Total_Tax extends Mage_Sales_Model_Quote_Ad
                 unset($previouslyAppliedTaxes[$row['id']]);
             }
         }
+
         $address->setAppliedTaxes($previouslyAppliedTaxes);
     }
 
@@ -243,6 +243,7 @@ class Mage_Sales_Model_Quote_Address_Total_Tax extends Mage_Sales_Model_Quote_Ad
                 'value' => $amount,
             ]);
         }
+
         return $this;
     }
 }

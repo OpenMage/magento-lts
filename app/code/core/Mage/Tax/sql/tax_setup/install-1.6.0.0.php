@@ -7,7 +7,7 @@
  * @package    Mage_Tax
  */
 
-/** @var Mage_Tax_Model_Resource_Setup $installer */
+/** @var Mage_Tax_Model_Resource_Setup $this */
 $installer = $this;
 $installer->startSetup();
 
@@ -299,7 +299,7 @@ $table = $installer->getConnection()
         $installer->getIdxName(
             'tax/tax_order_aggregated_created',
             ['period', 'store_id', 'code', 'percent', 'order_status'],
-            true,
+            true, // @phpstan-ignore argument.type
         ),
         ['period', 'store_id', 'code', 'percent', 'order_status'],
         ['type' => 'unique'],
@@ -322,6 +322,7 @@ $installer->getConnection()->createTable($table);
 /**
  * Add tax_class_id attribute to the 'eav/attribute' table
  */
+// @phpstan-ignore argument.type
 $catalogInstaller = Mage::getResourceModel('catalog/setup', 'catalog_setup');
 $catalogInstaller->addAttribute(Mage_Catalog_Model_Product::ENTITY, 'tax_class_id', [
     'group'                      => 'Prices',

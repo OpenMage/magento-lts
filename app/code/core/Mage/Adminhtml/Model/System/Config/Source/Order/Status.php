@@ -31,6 +31,7 @@ class Mage_Adminhtml_Model_System_Config_Source_Order_Status
         } else {
             $statuses = Mage::getSingleton('sales/order_config')->getStatuses();
         }
+
         $options = [];
         $options[] = [
             'value' => '',
@@ -42,6 +43,7 @@ class Mage_Adminhtml_Model_System_Config_Source_Order_Status
                 'label' => $label,
             ];
         }
+
         return $options;
     }
 }

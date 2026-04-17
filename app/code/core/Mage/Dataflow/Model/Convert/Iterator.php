@@ -7,6 +7,8 @@
  * @package    Mage_Dataflow
  */
 
+use Carbon\Carbon;
+
 /**
  * @package    Mage_Dataflow
  */
@@ -22,9 +24,11 @@ class Mage_Dataflow_Model_Session_Adapter_Iterator extends Mage_Dataflow_Model_C
         if ($mapperCb = $this->_parseCallback($this->getVar('mapper'), 'mapRow')) {
             $callbacks[] = $mapperCb;
         }
+
         if ($adapterCb = $this->_parseCallback($this->getVar('adapter'), 'saveRow')) {
             $callbacks[] = $adapterCb;
         }
+
         $callbacks[] = [$this, 'updateProgress'];
 
         echo $this->_getProgressBarHtml($sessionId, $total['cnt']);
@@ -54,7 +58,7 @@ class Mage_Dataflow_Model_Session_Adapter_Iterator extends Mage_Dataflow_Model_C
 <script type="text/javascript">
 function updateProgress(sessionId, idx, time, memory) {
     var total_rows = ' . $totalRows . ';
-    var elapsed_time = time-' . time() . ';
+    var elapsed_time = time-' . Carbon::now()->getTimestamp() . ';
     var total_time = Math.round(elapsed_time*total_rows/idx);
     var eta = total_time-elapsed_time;
     var eta_str = "";
@@ -68,13 +72,13 @@ function updateProgress(sessionId, idx, time, memory) {
     } else {
         if (eta_hours) {
             eta_str += eta_hours+" "+(eta_hours>1 ? \''
-            . Mage::helper('core')->jsQuoteEscape($this->__('hours')) . '\' : \''
+            . Mage::helper('core')->jsQuoteEscape($this->__('hours')) . "' : '"
             . Mage::helper('core')->jsQuoteEscape($this->__('hour')) . '\'");
         }
         if (eta_minutes) {
             eta_str += eta_minutes+" "+(eta_minutes>1 ? \''
             . Mage::helper('core')->jsQuoteEscape($this->__('minutes'))
-            . '\' : \'' . Mage::helper('core')->jsQuoteEscape($this->__('minute')) . '\');
+            . "' : '" . Mage::helper('core')->jsQuoteEscape($this->__('minute')) . '\');
         }
     }
 
@@ -86,11 +90,14 @@ function updateProgress(sessionId, idx, time, memory) {
 </script>';
     }
 
+    /**
+     * @return array<void>
+     */
     public function updateProgress($args)
     {
-        $memory = !empty($args['memory']) ? $args['memory'] : '';
+        $memory = empty($args['memory']) ? '' : $args['memory'];
         echo '<script type="text/javascript">updateProgress("'
-            . $args['row']['session_id'] . '", "' . $args['idx'] . '", "' . time() . '", "' . $memory . '");</script>';
+            . $args['row']['session_id'] . '", "' . $args['idx'] . '", "' . Carbon::now()->getTimestamp() . '", "' . $memory . '");</script>';
         echo '<li>' . $memory . '</li>';
 
         return [];
@@ -101,12 +108,15 @@ function updateProgress(sessionId, idx, time, memory) {
         if (!preg_match('#^([a-z0-9_/]+)(::([a-z0-9_]+))?$#i', $callback, $match)) {
             return false;
         }
+
         if (!($model = Mage::getModel($match[1]))) {
             return false;
         }
+
         if (!($method = $match[3] ? $match[3] : $defaultMethod)) {
             return false;
         }
+
         return [$model, $method];
     }
 }

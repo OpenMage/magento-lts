@@ -19,6 +19,7 @@ class Varien_Convert_Adapter_Zend_Cache extends Varien_Convert_Adapter_Abstract
         if (!$this->_resource) {
             $this->_resource = Zend_Cache::factory($this->getVar('frontend', 'Core'), $this->getVar('backend', 'File'));
         }
+
         return $this->_resource;
     }
 

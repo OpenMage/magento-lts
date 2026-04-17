@@ -12,10 +12,10 @@
  *
  * @package    Mage_Rule
  *
- * @method array getActions()
- * @method $this setActions(array $value)
- * @method $this setType(string $value)
+ * @method array                    getActions()
  * @method Mage_Rule_Model_Abstract getRule()
+ * @method $this                    setActions(array $value)
+ * @method $this                    setType(string $value)
  */
 class Mage_Rule_Model_Action_Collection extends Mage_Rule_Model_Action_Abstract
 {
@@ -44,11 +44,12 @@ class Mage_Rule_Model_Action_Collection extends Mage_Rule_Model_Action_Abstract
         foreach ($this->getActions() as $item) {
             $out['actions'][] = $item->asArray();
         }
+
         return $out;
     }
 
     /**
-     * @return $this|Mage_Rule_Model_Action_Abstract
+     * @return $this
      */
     public function loadArray(array $arr)
     {
@@ -57,11 +58,14 @@ class Mage_Rule_Model_Action_Collection extends Mage_Rule_Model_Action_Abstract
                 if (empty($actArr['type'])) {
                     continue;
                 }
+
+                /** @var Mage_Rule_Model_Action_Abstract $action */
                 $action = Mage::getModel($actArr['type']);
                 $action->loadArray($actArr);
                 $this->addAction($action);
             }
         }
+
         return $this;
     }
 
@@ -92,6 +96,7 @@ class Mage_Rule_Model_Action_Collection extends Mage_Rule_Model_Action_Abstract
         if ($this->getId() != '1') {
             $html .= $this->getRemoveLinkHtml();
         }
+
         return $html;
     }
 
@@ -123,11 +128,12 @@ class Mage_Rule_Model_Action_Collection extends Mage_Rule_Model_Action_Abstract
         foreach ($this->getActions() as $cond) {
             $html .= '<li>' . $cond->asHtmlRecursive() . '</li>';
         }
+
         return $html . ('<li>' . $this->getNewChildElement()->getHtml() . '</li></ul>');
     }
 
     /**
-     * @param string $format
+     * @param  string $format
      * @return string
      */
     public function asString($format = '')
@@ -136,7 +142,7 @@ class Mage_Rule_Model_Action_Collection extends Mage_Rule_Model_Action_Abstract
     }
 
     /**
-     * @param int $level
+     * @param  int    $level
      * @return string
      */
     public function asStringRecursive($level = 0)
@@ -145,6 +151,7 @@ class Mage_Rule_Model_Action_Collection extends Mage_Rule_Model_Action_Abstract
         foreach ($this->getActions() as $action) {
             $str .= "\n" . $action->asStringRecursive($level + 1);
         }
+
         return $str;
     }
 
@@ -156,6 +163,7 @@ class Mage_Rule_Model_Action_Collection extends Mage_Rule_Model_Action_Abstract
         foreach ($this->getActions() as $action) {
             $action->process();
         }
+
         return $this;
     }
 }

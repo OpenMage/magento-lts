@@ -12,7 +12,7 @@
  *
  * @package    Mage_Reports
  *
- * @method int getCustomerId()
+ * @method int   getCustomerId()
  * @method array getProductIds()
  */
 abstract class Mage_Reports_Block_Product_Abstract extends Mage_Catalog_Block_Product_Abstract
@@ -20,21 +20,21 @@ abstract class Mage_Reports_Block_Product_Abstract extends Mage_Catalog_Block_Pr
     /**
      * Product Index model name
      *
-     * @var string|null
+     * @var null|string
      */
     protected $_indexName;
 
     /**
      * Product Index model instance
      *
-     * @var Mage_Core_Model_Abstract|Mage_Reports_Model_Product_Index_Abstract|null
+     * @var null|Mage_Core_Model_Abstract|Mage_Reports_Model_Product_Index_Abstract
      */
     protected $_indexModel;
 
     /**
      * Product Index Collection
      *
-     * @var Mage_Reports_Model_Resource_Product_Index_Collection_Abstract|null
+     * @var null|Mage_Reports_Model_Resource_Product_Index_Collection_Abstract
      */
     protected $_collection;
 
@@ -60,15 +60,16 @@ abstract class Mage_Reports_Block_Product_Abstract extends Mage_Catalog_Block_Pr
     public function getPageSize()
     {
         if ($this->hasData('page_size')) {
-            return $this->getData('page_size');
+            return $this->getDataByKey('page_size');
         }
+
         return 5;
     }
 
     /**
      * Retrieve product ids, that must not be included in collection
      *
-     * @return array
+     * @return array<void>
      */
     protected function _getProductsToSkip()
     {
@@ -127,7 +128,8 @@ abstract class Mage_Reports_Block_Product_Abstract extends Mage_Catalog_Block_Pr
                     ->setCurPage(1);
 
             /* Price data is added to consider item stock status using price index */
-            $this->_collection->addPriceData();
+            $this->_collection->addPriceData()
+                ->setVisibility(Mage::getSingleton('catalog/product_visibility')::getVisibleInSiteIds());
 
             $ids = $this->getProductIds();
             if (empty($ids)) {
@@ -135,13 +137,11 @@ abstract class Mage_Reports_Block_Product_Abstract extends Mage_Catalog_Block_Pr
             } else {
                 $this->_collection->addFilterByIds($ids);
             }
+
             $this->_collection->setAddedAtOrder();
             if ($this-> _useProductIdsOrder && is_array($ids)) {
                 $this->_collection->setSortIds($ids);
             }
-
-            Mage::getSingleton('catalog/product_visibility')
-                ->addVisibleInSiteFilterToCollection($this->_collection);
         }
 
         return $this->_collection;
@@ -150,8 +150,8 @@ abstract class Mage_Reports_Block_Product_Abstract extends Mage_Catalog_Block_Pr
     /**
      * Set flag that defines whether products ids order should be used
      *
-     * @param bool $use
-     * @return Mage_Reports_Block_Product_Abstract
+     * @param  bool  $use
+     * @return $this
      */
     public function useProductIdsOrder($use = true)
     {
@@ -169,6 +169,7 @@ abstract class Mage_Reports_Block_Product_Abstract extends Mage_Catalog_Block_Pr
         if (!$this->_getModel()->getCount()) {
             return 0;
         }
+
         return $this->getItemsCollection()->count();
     }
 

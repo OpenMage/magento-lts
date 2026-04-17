@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -26,7 +28,7 @@ interface Mage_Api2_Model_Acl_PermissionInterface
     /**
      * Set filter value
      *
-     * @param mixed $filterValue
+     * @param  mixed                                   $filterValue
      * @return Mage_Api2_Model_Acl_PermissionInterface
      */
     public function setFilterValue($filterValue);
