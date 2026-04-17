@@ -8,13 +8,14 @@
  */
 
 use Carbon\Carbon;
+use Laminas\Captcha\Image;
 
 /**
- * Implementation of Zend_Captcha
+ * Implementation of Laminas\Captcha
  *
  * @package    Mage_Captcha
  */
-class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha_Model_Interface
+class Mage_Captcha_Model_Zend extends Image implements Mage_Captcha_Model_Interface
 {
     /**
      * Key in session for captcha code
@@ -46,7 +47,7 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
     /**
      * Override default value to prevent a captcha cut off
      * @var int
-     * @see Zend_Captcha_Image::$_fsize
+     * @see \Laminas\Captcha\Image::$_fsize
      */
     protected $_fsize = 22;
 
@@ -218,6 +219,11 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
     public function getFont()
     {
         return $this->_getFontPath();
+    }
+
+    public function getFontSize(): int
+    {
+        return (int) $this->_getHelper()->getConfigNode('font_size');
     }
 
     /**
@@ -457,25 +463,23 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
     }
 
     /**
-     * Get captcha word
-     *
-     * @return null|string
+     * @inheritDoc
      */
     public function getWord()
     {
         $sessionData = $this->getSession()->getData($this->_getFormIdKey(self::SESSION_WORD));
         if (!is_array($sessionData)) {
-            return null;
+            return $this->_generateWord();
         }
 
-        return Carbon::now()->getTimestamp() < $sessionData['expires'] ? $sessionData['data'] : null;
+        return Carbon::now()->getTimestamp() < $sessionData['expires'] ? $sessionData['data'] : $this->_generateWord();
     }
 
     /**
      * Set captcha word
      *
-     * @param  string            $word
-     * @return Zend_Captcha_Word
+     * @param  string $word
+     * @return $this
      */
     protected function _setWord($word)
     {
@@ -503,7 +507,7 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
      * Override function to generate less curly captcha that will not cut off
      *
      * @return int
-     * @see Zend_Captcha_Image::_randomSize()
+     * @see \Laminas\Captcha\Image::_randomSize()
      */
     protected function _randomSize()
     {

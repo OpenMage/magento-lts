@@ -22,7 +22,7 @@
                             <label>Enable CAPTCHA in Admin</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
-                            <sort_order>1</sort_order>
+                            <sort_order>10</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
@@ -31,17 +31,25 @@
                             <label>Font</label>
                             <frontend_type>select</frontend_type>
                             <source_model>captcha/config_font</source_model>
-                            <sort_order>2</sort_order>
+                            <sort_order>20</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
                             <depends><enable>1</enable></depends>
                         </font>
+                        <font_size translate="label">
+                            <label>Font Size</label>
+                            <sort_order>25</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends><enable>1</enable></depends>
+                        </font_size>
                         <forms translate="label">
                             <label>Forms</label>
                             <frontend_type>multiselect</frontend_type>
                             <source_model>captcha/config_form_backend</source_model>
-                            <sort_order>3</sort_order>
+                            <sort_order>30</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
@@ -51,7 +59,7 @@
                             <label>Displaying Mode</label>
                             <frontend_type>select</frontend_type>
                             <source_model>captcha/config_mode</source_model>
-                            <sort_order>4</sort_order>
+                            <sort_order>40</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
@@ -60,7 +68,7 @@
                         <failed_attempts_login translate="label comment">
                             <label>Number of Unsuccessful Attempts to Login</label>
                             <comment>If 0 is specified, CAPTCHA on the Login form will be always available.</comment>
-                            <sort_order>5</sort_order>
+                            <sort_order>50</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
@@ -72,7 +80,7 @@
                         </failed_attempts_login>
                         <failed_attempts_ip translate="label">
                             <label>Number of Unsuccessful Attempts to Login per IP Address</label>
-                            <sort_order>6</sort_order>
+                            <sort_order>60</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
@@ -84,7 +92,7 @@
                         </failed_attempts_ip>
                         <timeout translate="label">
                             <label>CAPTCHA Timeout (minutes)</label>
-                            <sort_order>7</sort_order>
+                            <sort_order>70</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
@@ -94,7 +102,7 @@
                         <length translate="label comment">
                             <label>Number of Symbols</label>
                             <comment>Please specify 8 symbols at the most. Range allowed (e.g. 3-5)</comment>
-                            <sort_order>8</sort_order>
+                            <sort_order>80</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
@@ -104,7 +112,7 @@
                         <symbols translate="label comment">
                             <label>Symbols Used in CAPTCHA</label>
                             <comment><![CDATA[Please use only letters (a-z or A-Z) or numbers (0-9) in this field. No spaces or other characters are allowed.<br />Similar looking characters (e.g. "i", "l", "1") decrease chance of correct recognition by customer.]]></comment>
-                            <sort_order>9</sort_order>
+                            <sort_order>90</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
@@ -115,7 +123,7 @@
                             <label>Case Sensitive</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
-                            <sort_order>10</sort_order>
+                            <sort_order>100</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>

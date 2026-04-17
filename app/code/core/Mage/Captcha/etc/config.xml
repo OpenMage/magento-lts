@@ -196,6 +196,7 @@
                 <type>zend</type>
                 <enable>0</enable>
                 <font>linlibertine</font>
+                <font_size>40</font_size>
                 <mode>after_fail</mode>
                 <forms>backend_forgotpassword</forms>
                 <failed_attempts_login>3</failed_attempts_login>
