@@ -1,12 +1,13 @@
 <?php
 
+use Laminas\Db\Sql\Select;
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
  * @license    Open Software License (OSL 3.0)
  * @package    Mage_Reports
  */
-
 /**
  * Reports orders collection
  *
@@ -158,7 +159,7 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
             ->where('main_table.state NOT IN (?)', [
                 Mage_Sales_Model_Order::STATE_PENDING_PAYMENT,
                 Mage_Sales_Model_Order::STATE_NEW])
-            ->order('range ' . Zend_Db_Select::SQL_ASC)
+            ->order('range ' . Select::ORDER_ASCENDING)
             ->group($tzRangeOffsetExpression);
 
         $this->addFieldToFilter('created_at', $dateRange);

@@ -1,12 +1,13 @@
 <?php
 
+use Laminas\Db\Sql\Select;
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
  * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
  */
-
 /**
  * Url rewrite resource model class
  *
@@ -64,7 +65,7 @@ class Mage_Core_Model_Resource_Url_Rewrite extends Mage_Core_Model_Resource_Db_A
 
         if (!is_null($object->getStoreId())) {
             $select->where('store_id = ?', $object->getStoreId());
-            $select->order('is_system ' . Varien_Db_Select::SQL_DESC);
+            $select->order('is_system ' . Select::ORDER_DESCENDING);
             $select->limit(1);
         }
 

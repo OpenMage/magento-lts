@@ -1,12 +1,13 @@
 <?php
 
+use Laminas\Db\Sql\Select;
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
  * @license    Open Software License (OSL 3.0)
  * @package    Mage_Weee
  */
-
 /**
  * Model to calculate Weee amount
  *
@@ -212,7 +213,7 @@ class Mage_Weee_Model_Tax extends Mage_Core_Model_Abstract
                     ->where('entity_id = ?', (int) $product->getId())
                     ->limit(1);
 
-                $order = ['state ' . Varien_Db_Select::SQL_DESC, 'website_id ' . Varien_Db_Select::SQL_DESC];
+                $order = ['state ' . Select::ORDER_DESCENDING, 'website_id ' . Select::ORDER_DESCENDING];
                 $attributeSelect->order($order);
                 $value = (float) $this->getResource()->getReadConnection()->fetchOne($attributeSelect);
 

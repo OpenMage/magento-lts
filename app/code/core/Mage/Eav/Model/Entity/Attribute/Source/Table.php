@@ -1,12 +1,13 @@
 <?php
 
+use Laminas\Db\Sql\Select;
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
  * @license    Open Software License (OSL 3.0)
  * @package    Mage_Eav
  */
-
 /**
  * @package    Mage_Eav
  */
@@ -105,7 +106,7 @@ class Mage_Eav_Model_Entity_Attribute_Source_Table extends Mage_Eav_Model_Entity
      *
      * @return $this
      */
-    public function addValueSortToCollection($collection, $dir = Varien_Db_Select::SQL_ASC)
+    public function addValueSortToCollection($collection, $dir = Select::ORDER_ASCENDING)
     {
         $valueTable1    = $this->getAttribute()->getAttributeCode() . '_t1';
         $valueTable2    = $this->getAttribute()->getAttributeCode() . '_t2';

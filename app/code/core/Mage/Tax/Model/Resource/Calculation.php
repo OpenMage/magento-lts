@@ -1,12 +1,13 @@
 <?php
 
+use Laminas\Db\Sql\Select;
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
  * @license    Open Software License (OSL 3.0)
  * @package    Mage_Tax
  */
-
 /**
  * Tax Calculation Resource Model
  *
@@ -354,12 +355,12 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
                 );
             }
 
-            $select->order('priority ' . Varien_Db_Select::SQL_ASC)
-                   ->order('tax_calculation_rule_id ' . Varien_Db_Select::SQL_ASC)
-                   ->order('tax_country_id ' . Varien_Db_Select::SQL_DESC)
-                   ->order('tax_region_id ' . Varien_Db_Select::SQL_DESC)
-                   ->order('tax_postcode ' . Varien_Db_Select::SQL_DESC)
-                   ->order('value ' . Varien_Db_Select::SQL_DESC);
+            $select->order('priority ' . Select::ORDER_ASCENDING)
+                   ->order('tax_calculation_rule_id ' . Select::ORDER_ASCENDING)
+                   ->order('tax_country_id ' . Select::ORDER_DESCENDING)
+                   ->order('tax_region_id ' . Select::ORDER_DESCENDING)
+                   ->order('tax_postcode ' . Select::ORDER_DESCENDING)
+                   ->order('value ' . Select::ORDER_DESCENDING);
 
             $this->_ratesCache[$cacheKey] = $this->_getReadAdapter()->fetchAll($select);
         }

@@ -1,12 +1,13 @@
 <?php
 
+use Laminas\Db\Sql\Select;
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
  * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
  */
-
 /**
  * Websites collection
  *
@@ -109,8 +110,8 @@ class Mage_Core_Model_Resource_Website_Collection extends Mage_Core_Model_Resour
             $this->getSelect()->where('main_table.website_id > ?', 0);
         }
 
-        $this->unshiftOrder('main_table.name', Varien_Db_Select::SQL_ASC)       // website name SECOND
-             ->unshiftOrder('main_table.sort_order', Varien_Db_Select::SQL_ASC); // website sort order FIRST
+        $this->unshiftOrder('main_table.name', Select::ORDER_ASCENDING)       // website name SECOND
+             ->unshiftOrder('main_table.sort_order', Select::ORDER_ASCENDING); // website sort order FIRST
 
         return parent::load($printQuery, $logQuery);
     }
@@ -137,10 +138,10 @@ class Mage_Core_Model_Resource_Website_Collection extends Mage_Core_Model_Resour
                 'group_table.group_id = store_table.group_id',
                 ['store_id' => 'store_id', 'store_title' => 'name'],
             );
-            $this->addOrder('group_table.name', Varien_Db_Select::SQL_ASC)       // store name
-                ->addOrder('CASE WHEN store_table.store_id = 0 THEN 0 ELSE 1 END', Varien_Db_Select::SQL_ASC) // view is admin
-                ->addOrder('store_table.sort_order', Varien_Db_Select::SQL_ASC) // view sort order
-                ->addOrder('store_table.name', Varien_Db_Select::SQL_ASC)       // view name
+            $this->addOrder('group_table.name', Select::ORDER_ASCENDING)       // store name
+                ->addOrder('CASE WHEN store_table.store_id = 0 THEN 0 ELSE 1 END', Select::ORDER_ASCENDING) // view is admin
+                ->addOrder('store_table.sort_order', Select::ORDER_ASCENDING) // view sort order
+                ->addOrder('store_table.name', Select::ORDER_ASCENDING)       // view name
             ;
             $this->setFlag('groups_and_stores_joined', true);
         }

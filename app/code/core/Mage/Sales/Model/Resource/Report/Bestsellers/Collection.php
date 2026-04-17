@@ -1,12 +1,13 @@
 <?php
 
+use Laminas\Db\Sql\Select;
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
  * @license    Open Software License (OSL 3.0)
  * @package    Mage_Sales
  */
-
 /**
  * Report bestsellers collection
  *
@@ -130,7 +131,7 @@ class Mage_Sales_Model_Resource_Report_Bestsellers_Collection extends Mage_Sales
 
             $select->exists($subSelect, $mainTable . '.product_id = existed_products.entity_id')
                 ->group('product_id')
-                ->order('qty_ordered ' . Varien_Db_Select::SQL_DESC)
+                ->order('qty_ordered ' . Select::ORDER_DESCENDING)
                 ->limit($this->_ratingLimit);
 
             return $this;

@@ -1,12 +1,13 @@
 <?php
 
+use Laminas\Db\Sql\Select;
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
  * @license    Open Software License (OSL 3.0)
  * @package    Mage_Admin
  */
-
 /**
  * Rules collection
  *
@@ -45,7 +46,7 @@ class Mage_Admin_Model_Resource_Rules_Collection extends Mage_Core_Model_Resourc
     {
         $length = $this->getConnection()->getLengthSql('{{resource_id}}');
         $this->addExpressionFieldToSelect('length', $length, 'resource_id');
-        $this->getSelect()->order('length ' . Zend_Db_Select::SQL_DESC);
+        $this->getSelect()->order('length ' . Select::ORDER_DESCENDING);
 
         return $this;
     }

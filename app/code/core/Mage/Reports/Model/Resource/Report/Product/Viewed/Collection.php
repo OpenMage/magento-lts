@@ -1,12 +1,13 @@
 <?php
 
+use Laminas\Db\Sql\Select;
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
  * @license    Open Software License (OSL 3.0)
  * @package    Mage_Reports
  */
-
 /**
  * Report most viewed collection
  *
@@ -129,7 +130,7 @@ class Mage_Reports_Model_Resource_Report_Product_Viewed_Collection extends Mage_
 
             $select->exists($subSelect, $mainTable . '.product_id = existed_products.entity_id')
                 ->group('product_id')
-                ->order('views_num ' . Varien_Db_Select::SQL_DESC)
+                ->order('views_num ' . Select::ORDER_DESCENDING)
                 ->limit($this->_ratingLimit);
 
             return $this;

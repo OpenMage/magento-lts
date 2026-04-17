@@ -1,12 +1,13 @@
 <?php
 
+use Laminas\Db\Sql\Select;
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
  * @license    Open Software License (OSL 3.0)
  * @package    Mage_Weee
  */
-
 /**
  * Class Mage_Weee_Model_Observer
  *
@@ -139,8 +140,8 @@ class Mage_Weee_Model_Observer extends Mage_Core_Model_Abstract
                 ->where("{$quotedTableAlias}.state IN(?)", [$rateRequest->getRegionId(), '*']);
 
             $order = [
-                sprintf('%s.state %s', $tableAlias, Varien_Db_Select::SQL_DESC),
-                sprintf('%s.website_id %s', $tableAlias, Varien_Db_Select::SQL_DESC),
+                sprintf('%s.state %s', $tableAlias, Select::ORDER_DESCENDING),
+                sprintf('%s.website_id %s', $tableAlias, Select::ORDER_DESCENDING),
             ];
             $attributeSelect->order($order);
 

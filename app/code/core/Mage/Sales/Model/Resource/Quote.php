@@ -1,12 +1,13 @@
 <?php
 
+use Laminas\Db\Sql\Select;
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
  * @license    Open Software License (OSL 3.0)
  * @package    Mage_Sales
  */
-
 /**
  * Quote resource model
  *
@@ -58,7 +59,7 @@ class Mage_Sales_Model_Resource_Quote extends Mage_Sales_Model_Resource_Abstract
         $adapter = $this->_getReadAdapter();
         $select  = $this->_getLoadSelect('customer_id', $customerId, $quote)
             ->where('is_active = ?', 1)
-            ->order('updated_at ' . Varien_Db_Select::SQL_DESC)
+            ->order('updated_at ' . Select::ORDER_DESCENDING)
             ->limit(1);
 
         $data    = $adapter->fetchRow($select);
