@@ -791,7 +791,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
         $condition  = 'e.entity_id = ' . $tableAlias . '.entity_id
             AND ' . $this->_getConditionSql($tableAlias . '.attribute_id', $attribute->getId());
 
-        $select->reset(Zend_Db_Select::GROUP);
+        $select->reset(Select::GROUP);
         $select->join(
             [$tableAlias => $attribute->getBackend()->getTable()],
             $condition,
@@ -828,7 +828,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
         $attributeCode = $attribute->getAttributeCode();
         $tableAlias    = $attributeCode . '_value_count';
 
-        $select->reset(Zend_Db_Select::GROUP);
+        $select->reset(Select::GROUP);
         $condition  = 'e.entity_id=' . $tableAlias . '.entity_id
             AND ' . $this->_getConditionSql($tableAlias . '.attribute_id', $attribute->getId());
 
@@ -916,7 +916,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
             ? $this->_getClearSelect()
             : $this->_buildClearSelect($select);
         // Clear GROUP condition for count method
-        $countSelect->reset(Zend_Db_Select::GROUP);
+        $countSelect->reset(Select::GROUP);
         $countSelect->columns('COUNT(DISTINCT e.entity_id)');
         if ($resetLeftJoins) {
             $countSelect->resetJoinLeft();
@@ -1009,7 +1009,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
         if ($this->_productCountSelect === null) {
             $this->_productCountSelect = clone $this->getSelect();
             $this->_productCountSelect->reset(Select::COLUMNS)
-                ->reset(Zend_Db_Select::GROUP)
+                ->reset(Select::GROUP)
                 ->reset(Select::ORDER)
                 ->distinct(false)
                 ->join(
@@ -1746,7 +1746,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
             $this->getConnection()->quoteInto('store_cat_index.visibility IN(?)', $filters['visibility']),
         ]);
 
-        $wherePart = $this->getSelect()->getPart(Zend_Db_Select::WHERE);
+        $wherePart = $this->getSelect()->getPart(Select::WHERE);
         $hasCond   = false;
         foreach ($wherePart as $cond) {
             if ($cond == '(' . $whereCond . ')') {
