@@ -205,8 +205,9 @@
     $('billing-address-select') && billing.newAddress(!$('billing-address-select').value);
 
     var billingRegionUpdater = new RegionUpdater('billing:country_id', 'billing:region', 'billing:region_id', <?php echo Mage::helper('directory')->getRegionJsonByStore() ?>, undefined, 'billing:postcode');
-    if ($('onepage-guest-register-button')) {
-        Event.observe($('onepage-guest-register-button'), 'click', function(event) {
+    var onepageGuestRegisterButton = document.getElementById('onepage-guest-register-button');
+    if (onepageGuestRegisterButton) {
+        onepageGuestRegisterButton.addEventListener('click', function(event) {
             var billingRememberMe = $('co-billing-form').select('#remember-me-box');
             if (billingRememberMe.length > 0) {
                 if ($('login:guest') && $('login:guest').checked) {

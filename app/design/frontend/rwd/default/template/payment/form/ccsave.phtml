@@ -114,7 +114,7 @@
             }
         };
 
-        Event.observe($('<?php echo $_code ?>_cc_type'), 'change', SSChecked<?php echo $_code ?>);
+        document.getElementById('<?php echo $_code ?>_cc_type').addEventListener('change', SSChecked<?php echo $_code ?>);
         SSChecked<?php echo $_code ?>();
         //]]>
         </script>
