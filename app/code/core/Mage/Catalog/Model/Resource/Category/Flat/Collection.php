@@ -1,12 +1,13 @@
 <?php
 
+use Laminas\Db\Sql\Select;
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
  * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
  */
-
 /**
  * Catalog category flat collection
  *
@@ -197,8 +198,8 @@ class Mage_Catalog_Model_Resource_Category_Flat_Collection extends Mage_Core_Mod
     {
         if ($attribute == '*') {
             // Save previous selected columns
-            $columns = $this->getSelect()->getPart(Zend_Db_Select::COLUMNS);
-            $this->getSelect()->reset(Zend_Db_Select::COLUMNS);
+            $columns = $this->getSelect()->getPart(Select::COLUMNS);
+            $this->getSelect()->reset(Select::COLUMNS);
             foreach ($columns as $column) {
                 if ($column[0] == 'main_table') {
                     // If column selected from main table,

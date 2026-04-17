@@ -1,12 +1,13 @@
 <?php
 
+use Laminas\Db\Sql\Select;
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
  * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
  */
-
 /**
  * Core Resource Resource Model
  *
@@ -48,7 +49,7 @@ class Mage_Core_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstra
         $stores = [];
         $select = $read->select()
             ->from($this->getTable('core/store'), ['store_id', 'code', 'name', 'website_id'])
-            ->order('sort_order ' . Varien_Db_Select::SQL_ASC);
+            ->order('sort_order ' . Select::ORDER_ASCENDING);
         $rowset = $read->fetchAssoc($select);
         foreach ($rowset as $set) {
             if (!isset($websites[$set['website_id']])) {

@@ -102,7 +102,7 @@ class Mage_Tag_Model_Resource_Popular_Collection extends Mage_Core_Model_Resourc
     {
         $this->_renderFilters();
         $select = clone $this->getSelect();
-        $select->reset(Zend_Db_Select::ORDER);
+        $select->reset(Select::ORDER);
         $select->reset(Zend_Db_Select::LIMIT_COUNT);
         $select->reset(Zend_Db_Select::LIMIT_OFFSET);
 

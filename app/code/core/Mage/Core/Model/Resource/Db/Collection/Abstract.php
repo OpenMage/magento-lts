@@ -1,12 +1,13 @@
 <?php
 
+use Laminas\Db\Sql\Select;
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
  * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
  */
-
 /**
  * Abstract Core Resource Collection
  *
@@ -205,7 +206,7 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
      */
     protected function _initSelectFields()
     {
-        $columns = $this->_select->getPart(Zend_Db_Select::COLUMNS);
+        $columns = $this->_select->getPart(Select::COLUMNS);
         $columnsToSelect = [];
         foreach ($columns as $columnEntry) {
             [$correlationName, $column, $alias] = $columnEntry;
@@ -242,7 +243,7 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
             array_unshift($columns, ['main_table', '*', null]);
         }
 
-        $this->_select->setPart(Zend_Db_Select::COLUMNS, $columns);
+        $this->_select->setPart(Select::COLUMNS, $columns);
 
         return $this;
     }
@@ -489,10 +490,10 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
     public function getAllIds()
     {
         $idsSelect = clone $this->getSelect();
-        $idsSelect->reset(Zend_Db_Select::ORDER);
+        $idsSelect->reset(Select::ORDER);
         $idsSelect->reset(Zend_Db_Select::LIMIT_COUNT);
         $idsSelect->reset(Zend_Db_Select::LIMIT_OFFSET);
-        $idsSelect->reset(Zend_Db_Select::COLUMNS);
+        $idsSelect->reset(Select::COLUMNS);
 
         $idsSelect->columns($this->getResource()->getIdFieldName(), 'main_table');
         return $this->getConnection()->fetchCol($idsSelect);

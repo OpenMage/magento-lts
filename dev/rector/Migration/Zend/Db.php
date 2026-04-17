@@ -22,6 +22,8 @@ final class Db
     public static function renameClassConst(): array
     {
         return [
+            new RenameClassAndConstFetch('Zend_Db_Select', 'COLUMNS', Select::class, 'COLUMNS'),
+            new RenameClassAndConstFetch('Zend_Db_Select', 'ORDER', Select::class, 'ORDER'),
             new RenameClassAndConstFetch('Zend_Db_Select', 'SQL_ASC', Select::class, 'ORDER_ASCENDING'),
             new RenameClassAndConstFetch('Zend_Db_Select', 'SQL_DESC', Select::class, 'ORDER_DESCENDING'),
         ];

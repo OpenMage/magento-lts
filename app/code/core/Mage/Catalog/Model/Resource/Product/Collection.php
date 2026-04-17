@@ -1,12 +1,13 @@
 <?php
 
+use Laminas\Db\Sql\Select;
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
  * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
  */
-
 /**
  * Product collection
  *
@@ -974,10 +975,10 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
             $select = clone $this->getSelect();
         }
 
-        $select->reset(Zend_Db_Select::ORDER);
+        $select->reset(Select::ORDER);
         $select->reset(Zend_Db_Select::LIMIT_COUNT);
         $select->reset(Zend_Db_Select::LIMIT_OFFSET);
-        $select->reset(Zend_Db_Select::COLUMNS);
+        $select->reset(Select::COLUMNS);
 
         return $select;
     }
@@ -1007,9 +1008,9 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     {
         if ($this->_productCountSelect === null) {
             $this->_productCountSelect = clone $this->getSelect();
-            $this->_productCountSelect->reset(Zend_Db_Select::COLUMNS)
+            $this->_productCountSelect->reset(Select::COLUMNS)
                 ->reset(Zend_Db_Select::GROUP)
-                ->reset(Zend_Db_Select::ORDER)
+                ->reset(Select::ORDER)
                 ->distinct(false)
                 ->join(
                     ['count_table' => $this->getTable('catalog/category_product_index')],
@@ -1101,7 +1102,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     public function getSetIds()
     {
         $select = clone $this->getSelect();
-        $select->reset(Zend_Db_Select::COLUMNS);
+        $select->reset(Select::COLUMNS);
         $select->distinct(true);
         $select->columns('attribute_set_id');
         return $this->getConnection()->fetchCol($select);
@@ -1115,7 +1116,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     public function getProductTypeIds()
     {
         $select = clone $this->getSelect();
-        $select->reset(Zend_Db_Select::COLUMNS);
+        $select->reset(Select::COLUMNS);
         $select->distinct(true);
         $select->columns('type_id');
         return $this->getConnection()->fetchCol($select);
@@ -1411,7 +1412,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
         $this->_allIdsCache = null;
 
         if (is_string($attribute) && $attribute == 'is_saleable') {
-            $columns = $this->getSelect()->getPart(Zend_Db_Select::COLUMNS);
+            $columns = $this->getSelect()->getPart(Select::COLUMNS);
             foreach ($columns as $columnEntry) {
                 [$correlationName, $column, $alias] = $columnEntry;
                 if ($alias == 'is_saleable') {
@@ -1695,7 +1696,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
         }
 
         $hasColumn = false;
-        foreach ($this->getSelect()->getPart(Zend_Db_Select::COLUMNS) as $columnEntry) {
+        foreach ($this->getSelect()->getPart(Select::COLUMNS) as $columnEntry) {
             [, , $alias] = $columnEntry;
             if ($alias == 'visibility') {
                 $hasColumn = true;

@@ -1,12 +1,13 @@
 <?php
 
+use Laminas\Db\Sql\Select;
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
  * @license    Open Software License (OSL 3.0)
  * @package    Mage_Cms
  */
-
 /**
  * Cms page mysql resource
  *
@@ -314,7 +315,7 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
     {
         $stores = [Mage_Core_Model_App::ADMIN_STORE_ID, $storeId];
         $select = $this->_getLoadByIdentifierSelect($identifier, $stores, 1);
-        $select->reset(Zend_Db_Select::COLUMNS)
+        $select->reset(Select::COLUMNS)
             ->columns('cp.page_id')
             ->order('cps.store_id DESC')
             ->limit(1);
@@ -337,7 +338,7 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
         }
 
         $select = $this->_getLoadByIdentifierSelect($identifier, $stores);
-        $select->reset(Zend_Db_Select::COLUMNS)
+        $select->reset(Select::COLUMNS)
             ->columns('cp.title')
             ->order('cps.store_id DESC')
             ->limit(1);
