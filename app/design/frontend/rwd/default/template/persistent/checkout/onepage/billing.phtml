@@ -208,11 +208,13 @@
     var onepageGuestRegisterButton = document.getElementById('onepage-guest-register-button');
     if (onepageGuestRegisterButton) {
         onepageGuestRegisterButton.addEventListener('click', function(event) {
-            var billingRememberMe = $('co-billing-form').select('#remember-me-box');
+            var billingRememberMe = document.querySelectorAll('#co-billing-form #remember-me-box');
             if (billingRememberMe.length > 0) {
-                if ($('login:guest') && $('login:guest').checked) {
+                var loginGuest = document.getElementById('login:guest');
+                var loginRegister = document.getElementById('login:register');
+                if (loginGuest && loginGuest.checked) {
                     billingRememberMe[0].hide();
-                } else if ($('login:register') && ($('login:register').checked || $('login:register').type == 'hidden')) {
+                } else if (loginRegister && (loginRegister.checked || loginRegister.type == 'hidden')) {
                     billingRememberMe[0].show();
                 }
             }

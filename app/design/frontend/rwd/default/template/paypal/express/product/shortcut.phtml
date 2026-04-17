@@ -42,7 +42,7 @@
                 }
                 <?php endif ?>
                 <?php if ($this->getIsInCatalogProduct()): ?>
-                $('pp_checkout_url').value = this.href;
+                document.getElementById('pp_checkout_url').value = this.href;
                 productAddToCartForm.submit(this);
                 event.preventDefault();
                 event.stopPropagation();
