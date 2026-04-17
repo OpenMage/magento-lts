@@ -76,3 +76,22 @@ describe('Checks customer account create', () => {
         validation.hasSuccessMessage(message, { screenshot: false, filename: filename });
     });
 });
+
+describe('Check newsletter resubscription for logged in customer', () => {
+    const newsletter = cy.openmage.test.frontend.homepage.newsletter.config;
+    const success = 'Thank you for your subscription.';
+
+    it('subscribes to newsletter', () => {
+        cy.visit(cy.openmage.test.frontend.homepage._url);
+        cy.get(newsletter._id).type(email);
+        tools.click(newsletter._buttonSubmit);
+        validation.hasSuccessMessage(success, { screenshot: false, filename: 'message.newsletter.subscribe.loggedin.success' });
+    });
+
+    it('resubscribes to newsletter with own email without error', () => {
+        cy.visit(cy.openmage.test.frontend.homepage._url);
+        cy.get(newsletter._id).type(email);
+        tools.click(newsletter._buttonSubmit);
+        validation.hasSuccessMessage(success, { screenshot: false, filename: 'message.newsletter.subscribe.loggedin.resubscribe' });
+    });
+});
