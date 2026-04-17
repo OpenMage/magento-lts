@@ -1,0 +1,6 @@
+<?php
+
+/**
+ * @deprecated use \Laminas\Db instead
+ */
+class Zend_Db {}
