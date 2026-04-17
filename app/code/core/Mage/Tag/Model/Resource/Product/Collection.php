@@ -1,12 +1,13 @@
 <?php
 
+use Laminas\Db\Sql\Select;
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
  * @license    Open Software License (OSL 3.0)
  * @package    Mage_Tag
  */
-
 /**
  * Tagged Product(s) Collection
  *
@@ -399,11 +400,11 @@ class Mage_Tag_Model_Resource_Product_Collection extends Mage_Catalog_Model_Reso
     {
         $countSelect = clone $this->getSelect();
 
-        $countSelect->reset(Zend_Db_Select::COLUMNS);
-        $countSelect->reset(Zend_Db_Select::ORDER);
+        $countSelect->reset(Select::COLUMNS);
+        $countSelect->reset(Select::ORDER);
         $countSelect->reset(Zend_Db_Select::LIMIT_COUNT);
         $countSelect->reset(Zend_Db_Select::LIMIT_OFFSET);
-        $countSelect->reset(Zend_Db_Select::GROUP);
+        $countSelect->reset(Select::GROUP);
 
         $field = $this->getFlag('group_tag') ? 'relation.tag_id' : 'e.entity_id';
 
@@ -427,7 +428,7 @@ class Mage_Tag_Model_Resource_Product_Collection extends Mage_Catalog_Model_Reso
             parent::_renderOrders();
 
             $orders = $this->getSelect()
-                ->getPart(Zend_Db_Select::ORDER);
+                ->getPart(Select::ORDER);
 
             $appliedOrders = [];
             foreach ($orders as $order) {

@@ -24,10 +24,13 @@ final class Db
         return [
             new RenameClassAndConstFetch('Zend_Db_Select', 'COLUMNS', Select::class, 'COLUMNS'),
             new RenameClassAndConstFetch('Zend_Db_Select', 'GROUP', Select::class, 'GROUP'),
+            new RenameClassAndConstFetch('Zend_Db_Select', 'HAVING', Select::class, 'HAVING'),
             new RenameClassAndConstFetch('Zend_Db_Select', 'ORDER', Select::class, 'ORDER'),
             new RenameClassAndConstFetch('Zend_Db_Select', 'SQL_ASC', Select::class, 'ORDER_ASCENDING'),
             new RenameClassAndConstFetch('Zend_Db_Select', 'SQL_DESC', Select::class, 'ORDER_DESCENDING'),
+            new RenameClassAndConstFetch('Zend_Db_Select', 'UNION', Select::class, 'COMBINE_UNION'),
             new RenameClassAndConstFetch('Zend_Db_Select', 'WHERE', Select::class, 'WHERE'),
+            new RenameClassAndConstFetch('Zend_Db_Select', 'SQL_WILDCARD', Select::class, 'SQL_STAR'),
         ];
     }
 }

@@ -531,7 +531,7 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
         /** @var Mage_Core_Model_Resource_Helper_Mysql4 $helper */
         $helper = Mage::getResourceHelper('core');
 
-        $unionParts = $select->getPart(Zend_Db_Select::UNION);
+        $unionParts = $select->getPart(Select::COMBINE_UNION);
         if (!empty($unionParts)) {
             $select = $helper->limitUnion($select);
         }

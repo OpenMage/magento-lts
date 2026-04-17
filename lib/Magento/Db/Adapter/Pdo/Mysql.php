@@ -1,12 +1,13 @@
 <?php
 
+use Laminas\Db\Sql\Select;
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
  * @license    Open Software License (OSL 3.0)
  * @package    Magento_Db
  */
-
 /**
  * Magento PDO MySQL DB adapter
  *
@@ -67,7 +68,7 @@ class Magento_Db_Adapter_Pdo_Mysql extends Varien_Db_Adapter_Pdo_Mysql
     {
         $countSelect = clone $select;
 
-        $countSelect->reset(Zend_Db_Select::COLUMNS);
+        $countSelect->reset(Select::COLUMNS);
         $countSelect->reset(Zend_Db_Select::LIMIT_COUNT);
         $countSelect->reset(Zend_Db_Select::LIMIT_OFFSET);
         $countSelect->columns('COUNT(' . $entityIdField . ')');

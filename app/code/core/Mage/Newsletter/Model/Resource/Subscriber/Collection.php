@@ -1,12 +1,13 @@
 <?php
 
+use Laminas\Db\Sql\Select;
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
  * @license    Open Software License (OSL 3.0)
  * @package    Mage_Newsletter
  */
-
 /**
  * Newsletter subscribers collection
  *
@@ -195,7 +196,7 @@ class Mage_Newsletter_Model_Resource_Subscriber_Collection extends Mage_Core_Mod
     {
         $select = parent::getSelectCountSql();
         $countSelect = clone $this->getSelect();
-        $countSelect->reset(Zend_Db_Select::HAVING);
+        $countSelect->reset(Select::HAVING);
         return $select;
     }
 

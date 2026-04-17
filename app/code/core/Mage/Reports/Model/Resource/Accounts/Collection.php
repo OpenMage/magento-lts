@@ -1,12 +1,13 @@
 <?php
 
+use Laminas\Db\Sql\Select;
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
  * @license    Open Software License (OSL 3.0)
  * @package    Mage_Reports
  */
-
 /**
  * New Accounts Report collection
  *
@@ -23,7 +24,7 @@ class Mage_Reports_Model_Resource_Accounts_Collection extends Mage_Reports_Model
      */
     protected function _joinFields($dateFrom = '', $dateTo = '')
     {
-        $this->getSelect()->reset(Zend_Db_Select::COLUMNS);
+        $this->getSelect()->reset(Select::COLUMNS);
         $this->addAttributeToFilter('created_at', ['from' => $dateFrom, 'to' => $dateTo, 'datetime' => true])
              ->addExpressionAttributeToSelect('accounts', 'COUNT({{entity_id}})', ['entity_id']);
 

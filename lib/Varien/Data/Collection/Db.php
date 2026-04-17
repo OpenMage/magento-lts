@@ -1,12 +1,13 @@
 <?php
 
+use Laminas\Db\Sql\Select;
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
  * @license    Open Software License (OSL 3.0)
  * @package    Varien_Data
  */
-
 /**
  * Base items collection class
  *
@@ -227,15 +228,15 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
         $this->_renderFilters();
 
         $countSelect = clone $this->getSelect();
-        $countSelect->reset(Zend_Db_Select::ORDER);
+        $countSelect->reset(Select::ORDER);
         $countSelect->reset(Zend_Db_Select::LIMIT_COUNT);
         $countSelect->reset(Zend_Db_Select::LIMIT_OFFSET);
-        $countSelect->reset(Zend_Db_Select::COLUMNS);
+        $countSelect->reset(Select::COLUMNS);
 
-        if (count($this->getSelect()->getPart(Zend_Db_Select::GROUP)) > 0) {
-            $countSelect->reset(Zend_Db_Select::GROUP);
+        if (count($this->getSelect()->getPart(Select::GROUP)) > 0) {
+            $countSelect->reset(Select::GROUP);
             $countSelect->distinct(true);
-            $group = $this->getSelect()->getPart(Zend_Db_Select::GROUP);
+            $group = $this->getSelect()->getPart(Select::GROUP);
             $group = array_map(function ($token) {
                 return $this->getSelect()->getAdapter()->quoteIdentifier($token, true);
             }, $group);
@@ -257,7 +258,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
                 $mainTable = key($mainTable);
                 $mainTable = preg_quote($mainTable, '/');
                 $pattern = "/^{$mainTable}\\.\\w+/";
-                $whereUsingJoin = array_filter($countSelect->getPart(Zend_Db_Select::WHERE), function ($clause) use ($pattern) {
+                $whereUsingJoin = array_filter($countSelect->getPart(Select::WHERE), function ($clause) use ($pattern) {
                     $clauses = preg_split('/(^|\s+)(AND|OR)\s+/', $clause, -1, PREG_SPLIT_NO_EMPTY);
                     return array_filter($clauses, function ($clause) use ($pattern) {
                         $clause = preg_replace('/[()`\s]+/', '', $clause);

@@ -1,12 +1,13 @@
 <?php
 
+use Laminas\Db\Sql\Select;
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
  * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
  */
-
 /**
  * Resource helper class for MySql Varien DB Adapter
  *
@@ -81,7 +82,7 @@ class Mage_Core_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_He
      */
     protected function _prepareOrder(Varien_Db_Select $select, $autoReset = false)
     {
-        $selectOrders = $select->getPart(Zend_Db_Select::ORDER);
+        $selectOrders = $select->getPart(Select::ORDER);
         if (!$selectOrders) {
             return [];
         }
@@ -98,7 +99,7 @@ class Mage_Core_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_He
         }
 
         if ($autoReset) {
-            $select->reset(Zend_Db_Select::ORDER);
+            $select->reset(Select::ORDER);
         }
 
         return $orders;
@@ -135,7 +136,7 @@ class Mage_Core_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_He
      */
     protected function _prepareGroup(Varien_Db_Select $select, $autoReset = false)
     {
-        $selectGroups = $select->getPart(Zend_Db_Select::GROUP);
+        $selectGroups = $select->getPart(Select::GROUP);
         if (!$selectGroups) {
             return [];
         }
@@ -146,7 +147,7 @@ class Mage_Core_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_He
         }
 
         if ($autoReset) {
-            $select->reset(Zend_Db_Select::GROUP);
+            $select->reset(Select::GROUP);
         }
 
         return $groups;
@@ -161,13 +162,13 @@ class Mage_Core_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_He
      */
     protected function _prepareHaving(Varien_Db_Select $select, $autoReset = false)
     {
-        $selectHavings = $select->getPart(Zend_Db_Select::HAVING);
+        $selectHavings = $select->getPart(Select::HAVING);
         if (!$selectHavings) {
             return [];
         }
 
         $havings = [];
-        $columns = $select->getPart(Zend_Db_Select::COLUMNS);
+        $columns = $select->getPart(Select::COLUMNS);
         foreach ($columns as $columnEntry) {
             $correlationName = (string) $columnEntry[1];
             $column          = $columnEntry[2];
@@ -189,7 +190,7 @@ class Mage_Core_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_He
         }
 
         if ($autoReset) {
-            $select->reset(Zend_Db_Select::HAVING);
+            $select->reset(Select::HAVING);
         }
 
         return $havings;
@@ -231,10 +232,10 @@ class Mage_Core_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_He
     public function prepareColumnsList(Varien_Db_Select $select, $groupByCondition = null)
     {
         if (!count($select->getPart(Zend_Db_Select::FROM))) {
-            return $select->getPart(Zend_Db_Select::COLUMNS);
+            return $select->getPart(Select::COLUMNS);
         }
 
-        $columns          = $select->getPart(Zend_Db_Select::COLUMNS);
+        $columns          = $select->getPart(Select::COLUMNS);
         $tables           = $select->getPart(Zend_Db_Select::FROM);
         $preparedColumns  = [];
 
@@ -250,7 +251,7 @@ class Mage_Core_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_He
                 } else {
                     throw new Zend_Db_Exception("Can't prepare expression without alias");
                 }
-            } elseif ($column == Zend_Db_Select::SQL_WILDCARD) {
+            } elseif ($column == Select::SQL_STAR) {
                 if ($tables[$correlationName]['tableName'] instanceof Zend_Db_Expr) {
                     throw new Zend_Db_Exception("Can't prepare expression when tableName is instance of Zend_Db_Expr");
                 }

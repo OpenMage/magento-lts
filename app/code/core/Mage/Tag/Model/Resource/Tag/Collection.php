@@ -1,12 +1,13 @@
 <?php
 
+use Laminas\Db\Sql\Select;
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
  * @license    Open Software License (OSL 3.0)
  * @package    Mage_Tag
  */
-
 /**
  * Tag collection model
  *
@@ -258,9 +259,9 @@ class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db
     {
         $select = parent::getSelectCountSql();
 
-        $select->reset(Zend_Db_Select::COLUMNS);
-        $select->reset(Zend_Db_Select::GROUP);
-        $select->reset(Zend_Db_Select::HAVING);
+        $select->reset(Select::COLUMNS);
+        $select->reset(Select::GROUP);
+        $select->reset(Select::HAVING);
         $select->columns('COUNT(DISTINCT main_table.tag_id)');
         return $select;
     }

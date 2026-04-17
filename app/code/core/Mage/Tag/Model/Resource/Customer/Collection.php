@@ -1,12 +1,13 @@
 <?php
 
+use Laminas\Db\Sql\Select;
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
  * @license    Open Software License (OSL 3.0)
  * @package    Mage_Tag
  */
-
 /**
  * Tags customer collection
  *
@@ -242,8 +243,8 @@ class Mage_Tag_Model_Resource_Customer_Collection extends Mage_Customer_Model_Re
         $countSelect = parent::getSelectCountSql();
 
         if ($this->_allowDisableGrouping) {
-            $countSelect->reset(Zend_Db_Select::COLUMNS);
-            $countSelect->reset(Zend_Db_Select::GROUP);
+            $countSelect->reset(Select::COLUMNS);
+            $countSelect->reset(Select::GROUP);
             $countSelect->columns('COUNT(DISTINCT ' . $this->getCountAttribute() . ')');
         }
 
@@ -370,7 +371,7 @@ class Mage_Tag_Model_Resource_Customer_Collection extends Mage_Customer_Model_Re
             parent::_renderOrders();
 
             $orders = $this->getSelect()
-                ->getPart(Zend_Db_Select::ORDER);
+                ->getPart(Select::ORDER);
 
             $appliedOrders = [];
             foreach ($orders as $order) {

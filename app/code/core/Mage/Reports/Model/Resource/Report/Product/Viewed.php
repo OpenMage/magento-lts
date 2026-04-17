@@ -1,12 +1,13 @@
 <?php
 
+use Laminas\Db\Sql\Select;
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
  * @license    Open Software License (OSL 3.0)
  * @package    Mage_Reports
  */
-
 /**
  * Most viewed product report aggregate resource model
  *
@@ -104,7 +105,7 @@ class Mage_Reports_Model_Resource_Report_Product_Viewed extends Mage_Sales_Model
                                 0,
                             ),
                         ),
-                        $select->getPart(Zend_Db_Select::GROUP),
+                        $select->getPart(Select::GROUP),
                     ),
                 ),
             ),

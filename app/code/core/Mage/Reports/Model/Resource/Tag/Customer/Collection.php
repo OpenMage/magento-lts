@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use Laminas\Db\Sql\Select;
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -45,11 +47,11 @@ class Mage_Reports_Model_Resource_Tag_Customer_Collection extends Mage_Tag_Model
     public function getSelectCountSql()
     {
         $countSelect = clone $this->getSelect();
-        $countSelect->reset(Zend_Db_Select::ORDER);
-        $countSelect->reset(Zend_Db_Select::GROUP);
+        $countSelect->reset(Select::ORDER);
+        $countSelect->reset(Select::GROUP);
         $countSelect->reset(Zend_Db_Select::LIMIT_COUNT);
         $countSelect->reset(Zend_Db_Select::LIMIT_OFFSET);
-        $countSelect->reset(Zend_Db_Select::COLUMNS);
+        $countSelect->reset(Select::COLUMNS);
         $countSelect->columns('COUNT(DISTINCT tr.customer_id)');
 
         return $countSelect;

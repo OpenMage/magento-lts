@@ -1,12 +1,13 @@
 <?php
 
+use Laminas\Db\Sql\Select;
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
  * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
  */
-
 /**
  * Stores collection
  *
@@ -145,9 +146,9 @@ class Mage_Core_Model_Resource_Store_Collection extends Mage_Core_Model_Resource
         }
 
         if (!$this->isLoaded()) {
-            $this->addOrder('CASE WHEN main_table.store_id = 0 THEN 0 ELSE 1 END', Varien_Db_Select::SQL_ASC)
-                ->addOrder('main_table.sort_order', Varien_Db_Select::SQL_ASC)
-                ->addOrder('main_table.name', Varien_Db_Select::SQL_ASC);
+            $this->addOrder('CASE WHEN main_table.store_id = 0 THEN 0 ELSE 1 END', Select::ORDER_ASCENDING)
+                ->addOrder('main_table.sort_order', Select::ORDER_ASCENDING)
+                ->addOrder('main_table.name', Select::ORDER_ASCENDING);
         }
 
         return parent::load($printQuery, $logQuery);

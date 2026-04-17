@@ -1,5 +1,6 @@
 <?php
 
+use Laminas\Db\Sql\Select;
 use Pdo\Mysql;
 
 /**
@@ -3867,7 +3868,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
 
         // render UPDATE SET
         $columns = [];
-        foreach ($select->getPart(Zend_Db_Select::COLUMNS) as $columnEntry) {
+        foreach ($select->getPart(Select::COLUMNS) as $columnEntry) {
             [$correlationName, $column, $alias] = $columnEntry;
             if (empty($alias)) {
                 $alias = $column;
@@ -3887,7 +3888,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
         $query = sprintf("%s\nSET %s", $query, implode(', ', $columns));
 
         // render WHERE
-        $wherePart = $select->getPart(Zend_Db_Select::WHERE);
+        $wherePart = $select->getPart(Select::WHERE);
         if ($wherePart) {
             return sprintf("%s\nWHERE %s", $query, implode(' ', $wherePart));
         }
@@ -3905,7 +3906,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
     {
         $select = clone $select;
         $select->reset(Zend_Db_Select::DISTINCT);
-        $select->reset(Zend_Db_Select::COLUMNS);
+        $select->reset(Select::COLUMNS);
 
         return sprintf('DELETE %s %s', $this->quoteIdentifier($table), $select->assemble());
     }

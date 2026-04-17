@@ -1,12 +1,13 @@
 <?php
 
+use Laminas\Db\Sql\Select;
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
  * @license    Open Software License (OSL 3.0)
  * @package    Mage_Wishlist
  */
-
 /**
  * Wishlist item collection
  *
@@ -296,7 +297,7 @@ class Mage_Wishlist_Model_Resource_Item_Collection extends Mage_Core_Model_Resou
      */
     public function resetSortOrder()
     {
-        $this->getSelect()->reset(Zend_Db_Select::ORDER);
+        $this->getSelect()->reset(Select::ORDER);
         return $this;
     }
 

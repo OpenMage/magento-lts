@@ -1,12 +1,13 @@
 <?php
 
+use Laminas\Db\Sql\Select;
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
  * @license    Open Software License (OSL 3.0)
  * @package    Mage_Wishlist
  */
-
 /**
  * Wishlist Product collection
  * Deprecated because after Magento 1.4.2.0 it's impossible
@@ -104,7 +105,7 @@ class Mage_Wishlist_Model_Resource_Product_Collection extends Mage_Catalog_Model
      */
     public function resetSortOrder()
     {
-        $this->getSelect()->reset(Zend_Db_Select::ORDER);
+        $this->getSelect()->reset(Select::ORDER);
         return $this;
     }
 
@@ -157,7 +158,7 @@ class Mage_Wishlist_Model_Resource_Product_Collection extends Mage_Catalog_Model
      *
      * @param  bool                                            $printQuery
      * @param  bool                                            $logQuery
-     * @return Mage_Wishlist_Model_Resource_Product_Collection
+     * @return $this
      */
     public function load($printQuery = false, $logQuery = false)
     {

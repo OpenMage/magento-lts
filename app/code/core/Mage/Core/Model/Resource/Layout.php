@@ -1,12 +1,13 @@
 <?php
 
+use Laminas\Db\Sql\Select;
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
  * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
  */
-
 /**
  * Core layout update resource model
  *
@@ -61,7 +62,7 @@ class Mage_Core_Model_Resource_Layout extends Mage_Core_Model_Resource_Db_Abstra
                 ->where('link.package = :package')
                 ->where('link.theme = :theme')
                 ->where('layout_update.handle = :layout_update_handle')
-                ->order('layout_update.sort_order ' . Varien_Db_Select::SQL_ASC);
+                ->order('layout_update.sort_order ' . Select::ORDER_ASCENDING);
 
             $result = implode('', $readAdapter->fetchCol($select, $bind));
         }

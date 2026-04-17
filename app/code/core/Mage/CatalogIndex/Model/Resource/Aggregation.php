@@ -6,7 +6,7 @@
  * @license    Open Software License (OSL 3.0)
  * @package    Mage_CatalogIndex
  */
-
+use Laminas\Db\Sql\Select;
 use Carbon\Carbon;
 
 /**
@@ -187,7 +187,7 @@ class Mage_CatalogIndex_Model_Resource_Aggregation extends Mage_Core_Model_Resou
         $newTags = array_diff($tags, array_keys($tagIds));
         if ($newTags !== []) {
             $this->_addTags($newTags);
-            $select->reset(Zend_Db_Select::WHERE)
+            $select->reset(Select::WHERE)
                 ->where('tags.tag_code IN (?)', $newTags);
             $newTags = $this->_getReadAdapter()->fetchPairs($select);
             $tagIds = array_merge($tagIds, $newTags);
