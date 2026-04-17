@@ -99,9 +99,8 @@ class Mage_Adminhtml_Block_System_Config_Form_Field_Csp_Hosts extends Mage_Admin
      */
     private function _parseNodePath(): array
     {
-        /** @var Varien_Data_Form_Element_Abstract $element */
         $element = $this->getElement();
-        $configPath = $element->getData('config_path');
+        $configPath = $element->getDataByKey('config_path');
 
         $allowedDirectives = implode('|', Mage_Csp_Helper_Data::CSP_DIRECTIVES);
         $allowedAreas = Mage_Core_Model_App_Area::AREA_FRONTEND . '|' . Mage_Core_Model_App_Area::AREA_ADMINHTML;

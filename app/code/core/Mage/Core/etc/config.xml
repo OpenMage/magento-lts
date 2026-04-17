@@ -10,7 +10,7 @@
 <config>
     <modules>
         <Mage_Core>
-            <version>1.6.0.11</version>
+            <version>1.6.0.12</version>
         </Mage_Core>
     </modules>
     <global>

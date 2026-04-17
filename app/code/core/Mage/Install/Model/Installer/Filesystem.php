@@ -24,8 +24,6 @@ class Mage_Install_Model_Installer_Filesystem extends Mage_Install_Model_Install
      */
     public const MODE_READ  = 'read';
 
-    public function __construct() {}
-
     /**
      * Check and prepare file system
      */
@@ -50,8 +48,8 @@ class Mage_Install_Model_Installer_Filesystem extends Mage_Install_Model_Install
 
         if (is_array($config)) {
             foreach ($config as $item) {
-                $recursive = isset($item['recursive']) ? (bool) $item['recursive'] : false;
-                $existence = isset($item['existence']) ? (bool) $item['existence'] : false;
+                $recursive = isset($item['recursive']) && (bool) $item['recursive'];
+                $existence = isset($item['existence']) && (bool) $item['existence'];
                 $checkRes = $this->_checkFullPath($item['path'], $recursive, $existence);
                 $res = $res && $checkRes;
             }

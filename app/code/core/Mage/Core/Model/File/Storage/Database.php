@@ -113,7 +113,7 @@ class Mage_Core_Model_File_Storage_Database extends Mage_Core_Model_File_Storage
      */
     public function hasErrors()
     {
-        return (!empty($this->_errors) || $this->getDirectoryModel()->hasErrors());
+        return ($this->_errors !== [] || $this->getDirectoryModel()->hasErrors());
     }
 
     /**
@@ -185,7 +185,15 @@ class Mage_Core_Model_File_Storage_Database extends Mage_Core_Model_File_Storage
 
         $dateSingleton = Mage::getSingleton('core/date');
         foreach ($files as $file) {
-            if (!isset($file['filename']) || !strlen($file['filename']) || !isset($file['content'])) {
+            if (!isset($file['filename'])) {
+                continue;
+            }
+
+            if (!strlen($file['filename'])) {
+                continue;
+            }
+
+            if (!isset($file['content'])) {
                 continue;
             }
 
@@ -200,9 +208,9 @@ class Mage_Core_Model_File_Storage_Database extends Mage_Core_Model_File_Storage
                     : null;
 
                 $this->_getResource()->saveFile($file);
-            } catch (Exception $e) {
-                $this->_errors[] = $e->getMessage();
-                Mage::logException($e);
+            } catch (Exception $exception) {
+                $this->_errors[] = $exception->getMessage();
+                Mage::logException($exception);
             }
         }
 

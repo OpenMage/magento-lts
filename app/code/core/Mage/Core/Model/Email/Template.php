@@ -47,7 +47,6 @@
  * @method bool                                               getUseAbsoluteLinks()
  * @method int                                                hasQueue()
  * @method $this                                              setAddedAt(string $value)
- * @method $this                                              setCreatedAt(string $value)
  * @method $this                                              setInlineCssFile(string $value)
  * @method $this                                              setModifiedAt(string $value)
  * @method $this                                              setOrigTemplateCode(string $value)
@@ -224,11 +223,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
 
         $idLabel = [];
         foreach (self::getDefaultTemplates() as $templateId => $row) {
-            if (isset($row['@']) && isset($row['@']['module'])) {
-                $module = $row['@']['module'];
-            } else {
-                $module = 'adminhtml';
-            }
+            $module = isset($row['@']) && isset($row['@']['module']) ? $row['@']['module'] : 'adminhtml';
 
             $idLabel[$templateId] = Mage::helper($module)->__($row['label']);
         }
@@ -342,7 +337,9 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
     {
         if ($this->isPlain() && $html) {
             return $html;
-        } elseif ($this->isPlain()) {
+        }
+
+        if ($this->isPlain()) {
             return $this->getTemplateText();
         }
 
@@ -358,7 +355,6 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
     public function getInclude($template, array $variables)
     {
         $thisClass = self::class;
-        /** @var Mage_Core_Model_Email_Template $includeTemplate */
         $includeTemplate = new $thisClass();
         $includeTemplate->loadByCode($template);
 
@@ -627,7 +623,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
     public function getVariablesOptionArray($withGroup = false)
     {
         $optionArray = [];
-        $variables = $this->_parseVariablesString($this->getData('orig_template_variables'));
+        $variables = $this->_parseVariablesString($this->getDataByKey('orig_template_variables'));
         if ($variables) {
             foreach ($variables as $value => $label) {
                 $optionArray[] = [

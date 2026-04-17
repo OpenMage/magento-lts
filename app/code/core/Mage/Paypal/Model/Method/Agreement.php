@@ -59,11 +59,7 @@ class Mage_Paypal_Model_Method_Agreement extends Mage_Sales_Model_Payment_Method
     public function __construct($params = [])
     {
         $proInstance = array_shift($params);
-        if ($proInstance instanceof Mage_Paypal_Model_Pro) {
-            $this->_pro = $proInstance;
-        } else {
-            $this->_pro = Mage::getModel('paypal/pro');
-        }
+        $this->_pro = $proInstance instanceof Mage_Paypal_Model_Pro ? $proInstance : Mage::getModel('paypal/pro');
 
         $this->_pro->setMethod($this->_code);
     }
@@ -109,7 +105,7 @@ class Mage_Paypal_Model_Method_Agreement extends Mage_Sales_Model_Payment_Method
     /**
      * Retrieve billing agreement customer details by token
      *
-     * @return array
+     * @return array<string, mixed>
      */
     public function getBillingAgreementTokenInfo(Mage_Payment_Model_Billing_AgreementAbstract $agreement)
     {
@@ -118,10 +114,10 @@ class Mage_Paypal_Model_Method_Agreement extends Mage_Sales_Model_Payment_Method
         $api->callGetBillingAgreementCustomerDetails();
 
         $responseData = [
-            'token'         => $api->getData('token'),
-            'email'         => $api->getData('email'),
-            'payer_id'      => $api->getData('payer_id'),
-            'payer_status'  => $api->getData('payer_status'),
+            'token'         => $api->getDataByKey('token'),
+            'email'         => $api->getDataByKey('email'),
+            'payer_id'      => $api->getDataByKey('payer_id'),
+            'payer_status'  => $api->getDataByKey('payer_status'),
         ];
         $agreement->addData($responseData);
         return $responseData;
@@ -138,7 +134,7 @@ class Mage_Paypal_Model_Method_Agreement extends Mage_Sales_Model_Payment_Method
             ->setToken($agreement->getToken());
         $api->callCreateBillingAgreement();
 
-        $agreement->setBillingAgreementId($api->getData('billing_agreement_id'));
+        $agreement->setBillingAgreementId($api->getDataByKey('billing_agreement_id'));
         return $this;
     }
 
@@ -273,10 +269,7 @@ class Mage_Paypal_Model_Method_Agreement extends Mage_Sales_Model_Payment_Method
     }
 
     /**
-     * Fetch transaction details info
-     *
-     * @param  string $transactionId
-     * @return array
+     * @inheritDoc
      */
     public function fetchTransactionInfo(Mage_Payment_Model_Info $payment, $transactionId)
     {

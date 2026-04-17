@@ -104,9 +104,13 @@ class Mage_Core_Model_Encryption
     {
         if (self::HASH_VERSION_LATEST === $version && $version === $this->_helper->getVersionHash($this)) {
             return password_hash($data, PASSWORD_DEFAULT);
-        } elseif (self::HASH_VERSION_SHA256 == $version) {
+        }
+
+        if (self::HASH_VERSION_SHA256 == $version) {
             return hash('sha256', $data);
-        } elseif (self::HASH_VERSION_SHA512 == $version) {
+        }
+
+        if (self::HASH_VERSION_SHA512 == $version) {
             return hash('sha512', $data);
         }
 
@@ -127,10 +131,19 @@ class Mage_Core_Model_Encryption
             return false;
         }
 
-        return $this->validateHashByVersion($password, $hash, self::HASH_VERSION_LATEST)
-            || $this->validateHashByVersion($password, $hash, self::HASH_VERSION_SHA512)
-            || $this->validateHashByVersion($password, $hash, self::HASH_VERSION_SHA256)
-            || $this->validateHashByVersion($password, $hash, self::HASH_VERSION_MD5);
+        if ($this->validateHashByVersion($password, $hash, self::HASH_VERSION_LATEST)) {
+            return true;
+        }
+
+        if ($this->validateHashByVersion($password, $hash, self::HASH_VERSION_SHA512)) {
+            return true;
+        }
+
+        if ($this->validateHashByVersion($password, $hash, self::HASH_VERSION_SHA256)) {
+            return true;
+        }
+
+        return $this->validateHashByVersion($password, $hash, self::HASH_VERSION_MD5);
     }
 
     /**

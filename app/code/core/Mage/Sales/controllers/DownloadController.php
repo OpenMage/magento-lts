@@ -84,14 +84,14 @@ class Mage_Sales_DownloadController extends Mage_Core_Controller_Front_Action
         $directory = dirname($filePath);
         @mkdir($directory, 0777, true);
 
-        $io = new Varien_Io_File();
-        $io->cd($directory);
+        $ioFile = new Varien_Io_File();
+        $ioFile->cd($directory);
 
-        $io->streamOpen($filePath);
-        $io->streamLock(true);
-        $io->streamWrite($file->getContent());
-        $io->streamUnlock();
-        $io->streamClose();
+        $ioFile->streamOpen($filePath);
+        $ioFile->streamLock(true);
+        $ioFile->streamWrite($file->getContent());
+        $ioFile->streamUnlock();
+        $ioFile->streamClose();
 
         return true;
     }
@@ -107,7 +107,7 @@ class Mage_Sales_DownloadController extends Mage_Core_Controller_Front_Action
             $this->_forward('noRoute');
         }
 
-        $orderItemInfo = $recurringProfile->getData('order_item_info');
+        $orderItemInfo = $recurringProfile->getDataByKey('order_item_info');
         try {
             $request = unserialize($orderItemInfo['info_buyRequest'], ['allowed_classes' => false]);
 

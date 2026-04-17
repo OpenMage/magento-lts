@@ -33,10 +33,10 @@ abstract class Mage_Checkout_Block_Cart_Abstract extends Mage_Core_Block_Templat
     /**
      * Add renderer for item product type
      *
-     * @param  string                            $productType
-     * @param  string                            $blockType
-     * @param  string                            $template
-     * @return Mage_Checkout_Block_Cart_Abstract
+     * @param  string $productType
+     * @param  string $blockType
+     * @param  string $template
+     * @return $this
      */
     public function addItemRender($productType, $blockType, $template)
     {
@@ -46,19 +46,6 @@ abstract class Mage_Checkout_Block_Cart_Abstract extends Mage_Core_Block_Templat
             'blockInstance' => null,
         ];
         return $this;
-    }
-
-    /**
-     * Get renderer information by product type code
-     *
-     * @param  string $type
-     * @return array
-     * @deprecated please use getItemRendererInfo() method instead
-     * @see getItemRendererInfo()
-     */
-    public function getItemRender($type)
-    {
-        return $this->getItemRendererInfo($type);
     }
 
     /**

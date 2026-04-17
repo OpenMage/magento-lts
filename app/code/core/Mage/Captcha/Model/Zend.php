@@ -115,9 +115,15 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
             return false;
         }
 
-        return ($this->_isShowAlways() || $this->_isOverLimitAttempts($login)
-            || $this->getSession()->getData($this->_getFormIdKey('show_captcha'))
-        );
+        if ($this->_isShowAlways()) {
+            return true;
+        }
+
+        if ($this->_isOverLimitAttempts($login)) {
+            return true;
+        }
+
+        return (bool) $this->getSession()->getData($this->_getFormIdKey('show_captcha'));
     }
 
     /**
@@ -128,7 +134,11 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
      */
     protected function _isOverLimitAttempts($login)
     {
-        return ($this->_isOverLimitIpAttempt() || $this->_isOverLimitLoginAttempts($login));
+        if ($this->_isOverLimitIpAttempt()) {
+            return true;
+        }
+
+        return $this->_isOverLimitLoginAttempts($login);
     }
 
     /**
@@ -320,13 +330,12 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
         $fonts = $this->_getHelper()->getFonts();
 
         if (isset($fonts[$font])) {
-            $fontPath = $fonts[$font]['path'];
-        } else {
-            $fontData = array_shift($fonts);
-            $fontPath = $fontData['path'];
+            return $fonts[$font]['path'];
         }
 
-        return $fontPath;
+        $fontData = array_shift($fonts);
+
+        return $fontData['path'];
     }
 
     /**
@@ -377,25 +386,25 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
      */
     protected function _getWordLen()
     {
-        $from = 0;
-        $to = 0;
+        $min = 0;
+        $max = 0;
         $length = (string) $this->_getHelper()->getConfigNode('length');
         if (!is_numeric($length)) {
             if (preg_match('/(\d+)-(\d+)/', $length, $matches)) {
-                $from = (int) $matches[1];
-                $to = (int) $matches[2];
+                $min = (int) $matches[1];
+                $max = (int) $matches[2];
             }
         } else {
-            $from = (int) $length;
-            $to = (int) $length;
+            $min = (int) $length;
+            $max = (int) $length;
         }
 
-        if (($to < $from) || ($from < 1) || ($to < 1)) {
-            $from = self::DEFAULT_WORD_LENGTH_FROM;
-            $to = self::DEFAULT_WORD_LENGTH_TO;
+        if (($max < $min) || ($min < 1) || ($max < 1)) {
+            $min = self::DEFAULT_WORD_LENGTH_FROM;
+            $max = self::DEFAULT_WORD_LENGTH_TO;
         }
 
-        return mt_rand($from, $to);
+        return mt_rand($min, $max);
     }
 
     /**

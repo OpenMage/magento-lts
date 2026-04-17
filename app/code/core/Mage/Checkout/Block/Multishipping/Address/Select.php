@@ -15,7 +15,7 @@
 class Mage_Checkout_Block_Multishipping_Address_Select extends Mage_Checkout_Block_Multishipping_Abstract
 {
     /**
-     * @return Mage_Checkout_Block_Multishipping_Abstract
+     * @return $this
      */
     protected function _prepareLayout()
     {
@@ -39,7 +39,7 @@ class Mage_Checkout_Block_Multishipping_Address_Select extends Mage_Checkout_Blo
      */
     public function getAddressCollection()
     {
-        $collection = $this->getData('address_collection');
+        $collection = $this->getDataByKey('address_collection');
         if (is_null($collection)) {
             $collection = $this->_getCheckout()->getCustomer()->getAddresses();
             $this->setData('address_collection', $collection);

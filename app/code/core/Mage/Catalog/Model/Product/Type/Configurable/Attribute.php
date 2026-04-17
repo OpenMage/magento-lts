@@ -69,13 +69,15 @@ class Mage_Catalog_Model_Product_Type_Configurable_Attribute extends Mage_Core_M
      */
     public function getLabel()
     {
-        if ($this->getData('use_default') && $this->getProductAttribute()) {
+        if ($this->getDataByKey('use_default') && $this->getProductAttribute()) {
             return $this->getProductAttribute()->getStoreLabel();
-        } elseif (is_null($this->getData('label')) && $this->getProductAttribute()) {
+        }
+
+        if (is_null($this->getDataByKey('label')) && $this->getProductAttribute()) {
             $this->setData('label', $this->getProductAttribute()->getStoreLabel());
         }
 
-        return $this->getData('label');
+        return $this->getDataByKey('label');
     }
 
     /**

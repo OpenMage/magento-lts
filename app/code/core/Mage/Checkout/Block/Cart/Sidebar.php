@@ -34,7 +34,7 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Minicart
      */
     public function getItemCount()
     {
-        $count = $this->getData('item_count');
+        $count = $this->getDataByKey('item_count');
         if (is_null($count)) {
             $count = Mage::getStoreConfig(self::XML_PATH_CHECKOUT_SIDEBAR_COUNT);
             $this->setData('item_count', $count);
@@ -77,11 +77,7 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Minicart
         $config = Mage::getSingleton('tax/config');
         if (isset($totals['subtotal'])) {
             if ($config->displayCartSubtotalBoth()) {
-                if ($skipTax) {
-                    $subtotal = $totals['subtotal']->getValueExclTax();
-                } else {
-                    $subtotal = $totals['subtotal']->getValueInclTax();
-                }
+                $subtotal = $skipTax ? $totals['subtotal']->getValueExclTax() : $totals['subtotal']->getValueInclTax();
             } elseif ($config->displayCartSubtotalInclTax()) {
                 $subtotal = $totals['subtotal']->getValueInclTax();
             } else {
@@ -237,11 +233,19 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Minicart
         }
 
         $renders = explode('|', $renders);
-        while (!empty($renders)) {
+        while ($renders !== []) {
             $template = array_pop($renders);
             $block = array_pop($renders);
             $type = array_pop($renders);
-            if (!$template || !$block || !$type) {
+            if (!$template) {
+                continue;
+            }
+
+            if (!$block) {
+                continue;
+            }
+
+            if (!$type) {
                 continue;
             }
 

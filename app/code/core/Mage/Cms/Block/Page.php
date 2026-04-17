@@ -37,7 +37,7 @@ class Mage_Cms_Block_Page extends Mage_Core_Block_Abstract
             $this->setData('page', $page);
         }
 
-        return $this->getData('page');
+        return $this->getDataByKey('page');
     }
 
     /**
@@ -47,14 +47,15 @@ class Mage_Cms_Block_Page extends Mage_Core_Block_Abstract
     protected function _prepareLayout()
     {
         $page = $this->getPage();
+        $helper = Mage::helper('cms/page');
         $breadcrumbsArray = [];
         $breadcrumbs = null;
 
         // show breadcrumbs
         if (Mage::getStoreConfig('web/default/show_cms_breadcrumbs')
             && ($breadcrumbs = $this->getLayout()->getBlock('breadcrumbs'))
-            && ($page->getIdentifier() !== Mage::getStoreConfig('web/default/cms_home_page'))
-            && ($page->getIdentifier() !== Mage::getStoreConfig('web/default/cms_no_route'))
+            && ($page->getIdentifier() !== $helper->getIdentifierFromConfigPath(Mage_Cms_Helper_Page::XML_PATH_HOME_PAGE))
+            && ($page->getIdentifier() !== $helper->getIdentifierFromConfigPath(Mage_Cms_Helper_Page::XML_PATH_NO_ROUTE_PAGE))
         ) {
             $breadcrumbsArray[] = [
                 'crumbName' => 'home',
@@ -140,11 +141,12 @@ class Mage_Cms_Block_Page extends Mage_Core_Block_Abstract
 
         // Get the page identifier
         $identifier = $page->getIdentifier();
+        $helper = Mage::helper('cms/page');
 
         // Handle special pages differently
-        $homePageId = Mage::getStoreConfig('web/default/cms_home_page');
-        $noRoutePageId = Mage::getStoreConfig('web/default/cms_no_route');
-        $noCookiesPageId = Mage::getStoreConfig('web/default/cms_no_cookies');
+        $homePageId = $helper->getIdentifierFromConfigPath(Mage_Cms_Helper_Page::XML_PATH_HOME_PAGE);
+        $noRoutePageId = $helper->getIdentifierFromConfigPath(Mage_Cms_Helper_Page::XML_PATH_NO_ROUTE_PAGE);
+        $noCookiesPageId = $helper->getIdentifierFromConfigPath(Mage_Cms_Helper_Page::XML_PATH_NO_COOKIES_PAGE);
 
         // For homepage, use base URL
         if ($identifier === $homePageId) {

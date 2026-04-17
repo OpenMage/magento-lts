@@ -94,9 +94,16 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
     /**
      * Rate result data
      *
-     * @var null|Mage_Shipping_Model_Rate_Result|Mage_Shipping_Model_Tracking_Result
+     * @var null|Mage_Shipping_Model_Rate_Result
      */
     protected $_result;
+
+    /**
+     * Tracking result data
+     *
+     * @var null|Mage_Shipping_Model_Tracking_Result
+     */
+    protected $_trackingResult;
 
     /**
      * Retrieve information from carrier configuration
@@ -164,7 +171,7 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
     /**
      * Return container types of carrier
      *
-     * @return array
+     * @return array<void>|string[]
      */
     public function getContainerTypes(?Varien_Object $params = null)
     {
@@ -223,7 +230,7 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
             }
         }
 
-        return empty($containersFiltered) ? $containersAll : $containersFiltered;
+        return $containersFiltered === [] ? $containersAll : $containersFiltered;
     }
 
     /**
@@ -239,7 +246,7 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
     /**
      * Return delivery confirmation types of carrier
      *
-     * @return array
+     * @return array<void>|string[]
      */
     public function getDeliveryConfirmationTypes(?Varien_Object $params = null)
     {
@@ -264,21 +271,22 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
 
             if ($availableCountries && in_array($request->getDestCountryId(), $availableCountries)) {
                 return $this;
-            } elseif ($showMethod && (!$availableCountries || ($availableCountries
-                 && !in_array($request->getDestCountryId(), $availableCountries)))
-            ) {
+            }
+
+            if ($showMethod && (!$availableCountries || ($availableCountries
+                 && !in_array($request->getDestCountryId(), $availableCountries)))) {
                 $error = Mage::getModel('shipping/rate_result_error');
                 $error->setCarrier($this->_code);
                 $error->setCarrierTitle($this->getConfigData('title'));
                 $errorMsg = $this->getConfigData('specificerrmsg');
                 $error->setErrorMessage($errorMsg ? $errorMsg : Mage::helper('shipping')->__('The shipping module is not available for selected delivery country.'));
                 return $error;
-            } else {
-                /*
-                * The admin set not to show the shipping module if the devliery country is not within specific countries
-                */
-                return false;
             }
+
+            /*
+             * The admin set not to show the shipping module if the delivery country is not within specific countries
+             */
+            return false;
         }
 
         return $this;
@@ -595,7 +603,7 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
     /**
      * Return content types of package
      *
-     * @return array
+     * @return array<string, string>|array<void>
      */
     public function getContentTypes(Varien_Object $params)
     {

@@ -78,7 +78,7 @@ class Mage_Catalog_Model_Product_Status extends Mage_Core_Model_Abstract
     /**
      * Retrieve Visible Status Ids
      *
-     * @return array
+     * @return array<int, int>
      */
     public function getVisibleStatusIds()
     {
@@ -89,7 +89,7 @@ class Mage_Catalog_Model_Product_Status extends Mage_Core_Model_Abstract
      * Retrieve Saleable Status Ids
      * Default Product Enable status
      *
-     * @return array
+     * @return array<int, int>
      */
     public function getSaleableStatusIds()
     {
@@ -99,7 +99,7 @@ class Mage_Catalog_Model_Product_Status extends Mage_Core_Model_Abstract
     /**
      * Retrieve option array
      *
-     * @return array
+     * @return array<int, string>
      */
     public static function getOptionArray()
     {

@@ -11,21 +11,31 @@
  * Button widget
  *
  * @package    Mage_Adminhtml
+ *
+ * @method string getAfterHtml()
+ * @method string getBeforeHtml()
+ * @method string getClass()
+ * @method bool   getDisabled()
+ * @method string getElementName()
+ * @method string getLabel()
+ * @method string getStyle()
+ * @method string getTitle()
+ * @method string getValue()
  */
 class Mage_Adminhtml_Block_Widget_Button extends Mage_Adminhtml_Block_Widget
 {
     public function getType()
     {
-        return ($type = $this->getData('type')) ? $type : 'button';
+        return ($type = $this->getDataByKey('type')) ? $type : 'button';
     }
 
     public function getOnClick()
     {
-        if (!$this->getData('on_click')) {
-            return $this->getData('onclick');
+        if (!$this->getDataByKey('on_click')) {
+            return $this->getDataByKey('onclick');
         }
 
-        return $this->getData('on_click');
+        return $this->getDataByKey('on_click');
     }
 
     protected function _toHtml()

@@ -132,11 +132,7 @@ class Mage_Core_Model_Locale
      */
     public function setLocale($locale = null)
     {
-        if (($locale !== null) && is_string($locale)) {
-            $this->_localeCode = $locale;
-        } else {
-            $this->_localeCode = $this->getDefaultLocale();
-        }
+        $this->_localeCode = $locale !== null && is_string($locale) ? $locale : $this->getDefaultLocale();
 
         Mage::dispatchEvent('core_locale_set_locale', ['locale' => $this]);
         return $this;
@@ -197,8 +193,8 @@ class Mage_Core_Model_Locale
     /**
      * Specify current locale code
      *
-     * @param  string                 $code
-     * @return Mage_Core_Model_Locale
+     * @param  string $code
+     * @return $this
      */
     public function setLocaleCode($code)
     {
@@ -239,8 +235,8 @@ class Mage_Core_Model_Locale
     protected function _getOptionLocales($translatedName = false)
     {
         $options = [];
-        $zendLocales = $this->getLocale()->getLocaleList();
-        $languages = $this->getLocale()->getTranslationList('language', $this->getLocale());
+        $zendLocales = $this->getLocale()::getLocaleList();
+        $languages = $this->getLocale()::getTranslationList('language', $this->getLocale());
         $countries = $this->getCountryTranslationList();
 
         //Zend locale codes for internal allowed locale codes
@@ -267,13 +263,17 @@ class Mage_Core_Model_Locale
                 }
 
                 $data = explode('_', $code);
-                if (!isset($languages[$data[0]]) || !isset($countries[$data[1]])) {
+                if (!isset($languages[$data[0]])) {
+                    continue;
+                }
+
+                if (!isset($countries[$data[1]])) {
                     continue;
                 }
 
                 if ($translatedName) {
-                    $label = ucwords($this->getLocale()->getTranslation($data[0], 'language', $code))
-                        . ' (' . $this->getLocale()->getTranslation($data[1], 'country', $code) . ') / '
+                    $label = ucwords($this->getLocale()::getTranslation($data[0], 'language', $code))
+                        . ' (' . $this->getLocale()::getTranslation($data[1], 'country', $code) . ') / '
                         . $languages[$data[0]] . ' (' . $countries[$data[1]] . ')';
                 } else {
                     $label = $languages[$data[0]] . ' (' . $countries[$data[1]] . ')';
@@ -455,11 +455,9 @@ class Mage_Core_Model_Locale
         if (Mage::isInstalled()) {
             $data = Mage::app()->getStore()->getConfig(self::XML_PATH_ALLOW_CURRENCIES_INSTALLED);
             return explode(',', $data);
-        } else {
-            $data = Mage::getSingleton('core/locale_config')->getAllowedCurrencies();
         }
 
-        return $data;
+        return Mage::getSingleton('core/locale_config')->getAllowedCurrencies();
     }
 
     /**
@@ -561,10 +559,8 @@ class Mage_Core_Model_Locale
         }
 
         $date = new Zend_Date($date, $part, $locale);
-        if ($useTimezone) {
-            if ($timezone = Mage::app()->getStore()->getConfig(self::XML_PATH_DEFAULT_TIMEZONE)) {
-                $date->setTimezone($timezone);
-            }
+        if ($useTimezone && $timezone = Mage::app()->getStore()->getConfig(self::XML_PATH_DEFAULT_TIMEZONE)) {
+            $date->setTimezone($timezone);
         }
 
         return $date;
@@ -729,7 +725,7 @@ class Mage_Core_Model_Locale
      * Functions returns array with price formatting info for js function
      * formatCurrency in js/varien/js.js
      *
-     * @return array
+     * @return array<string, mixed>
      * @throws Zend_Locale_Exception
      */
     public function getJsPriceFormat()
@@ -752,17 +748,13 @@ class Mage_Core_Model_Locale
         }
 
         $requiredPrecision = $totalPrecision;
-        $t = substr($format, $decimalPoint);
-        $pos = strpos($t, '#');
+        $str = substr($format, $decimalPoint);
+        $pos = strpos($str, '#');
         if ($pos !== false) {
-            $requiredPrecision = strlen($t) - $pos - $totalPrecision;
+            $requiredPrecision = strlen($str) - $pos - $totalPrecision;
         }
 
-        if (strrpos($format, ',') !== false) {
-            $group = ($decimalPoint - strrpos($format, ',') - 1);
-        } else {
-            $group = strrpos($format, '.');
-        }
+        $group = strrpos($format, ',') !== false ? $decimalPoint - strrpos($format, ',') - 1 : strrpos($format, '.');
 
         $integerRequired = (strpos($format, '.') - strpos($format, '0'));
 
@@ -820,7 +812,7 @@ class Mage_Core_Model_Locale
      */
     public function getTranslationList($path = null, $value = null)
     {
-        return $this->getLocale()->getTranslationList($path, $this->getLocale(), $value);
+        return $this->getLocale()::getTranslationList($path, $this->getLocale(), $value);
     }
 
     /**
@@ -834,7 +826,7 @@ class Mage_Core_Model_Locale
      */
     public function getTranslation($value = null, $path = null)
     {
-        return $this->getLocale()->getTranslation($value, $path, $this->getLocale());
+        return $this->getLocale()::getTranslation($value, $path, $this->getLocale());
     }
 
     /**
@@ -857,7 +849,7 @@ class Mage_Core_Model_Locale
      */
     public function getCountryTranslation($value)
     {
-        return $this->getLocale()->getTranslation($value, 'country', $this->getLocale());
+        return $this->getLocale()::getTranslation($value, 'country', $this->getLocale());
     }
 
     /**
@@ -868,7 +860,7 @@ class Mage_Core_Model_Locale
      */
     public function getCountryTranslationList()
     {
-        return $this->getLocale()->getTranslationList('territory', $this->getLocale(), '2');
+        return $this->getLocale()::getTranslationList('territory', $this->getLocale(), '2');
     }
 
     /**

@@ -55,11 +55,7 @@ class Mage_Catalog_Model_Resource_Product_Flat extends Mage_Core_Model_Resource_
      */
     public function setStoreId($store)
     {
-        if (is_int($store)) {
-            $this->_storeId = $store;
-        } else {
-            $this->_storeId = (int) Mage::app()->getStore($store)->getId();
-        }
+        $this->_storeId = is_int($store) ? $store : (int) Mage::app()->getStore($store)->getId();
 
         return $this;
     }
@@ -212,7 +208,7 @@ class Mage_Catalog_Model_Resource_Product_Flat extends Mage_Core_Model_Resource_
     /**
      * Check if Catalog Product Flat Data has been initialized
      *
-     * @param  null|bool|int|\Mage_Core_Model_Store $storeView Store(id) for which the value is checked
+     * @param  null|bool|int|Mage_Core_Model_Store $storeView Store(id) for which the value is checked
      * @return bool
      */
     public function isBuilt($storeView = null)

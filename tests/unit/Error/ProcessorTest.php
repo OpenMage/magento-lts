@@ -21,19 +21,20 @@ final class ProcessorTest extends TestCase
 
     public array $server;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->subject = new Subject();
         $this->server  = $_SERVER;
     }
 
-    public function tearDown(): void
+    protected function tearDown(): void
     {
         $_SERVER = $this->server;
     }
 
     /**
      * @dataProvider provideGetHostUrl
+     * @param array<string, int|string> $serverVars
      */
     public function testGetHostUrl(string $expectedResult, array $serverVars): void
     {

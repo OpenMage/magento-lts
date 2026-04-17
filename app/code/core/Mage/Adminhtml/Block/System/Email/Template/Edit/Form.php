@@ -152,7 +152,7 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit_Form extends Mage_Adminhtm
     /**
      * Retrieve variables to insert into email
      *
-     * @return array
+     * @return array<int, mixed>
      */
     public function getVariables()
     {

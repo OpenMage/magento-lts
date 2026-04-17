@@ -92,13 +92,13 @@ class Mage_Customer_Model_Group extends Mage_Core_Model_Abstract
         if (!is_null($groupId)) {
             if (empty(self::$_taxClassIds[$groupId])) {
                 $this->load($groupId);
-                self::$_taxClassIds[$groupId] = $this->getData('tax_class_id');
+                self::$_taxClassIds[$groupId] = $this->getDataByKey('tax_class_id');
             }
 
             $this->setData('tax_class_id', self::$_taxClassIds[$groupId]);
         }
 
-        return $this->getData('tax_class_id');
+        return $this->getDataByKey('tax_class_id');
     }
 
     /**
@@ -107,11 +107,7 @@ class Mage_Customer_Model_Group extends Mage_Core_Model_Abstract
     public function usesAsDefault()
     {
         $data = Mage::getConfig()->getStoresConfigByPath(self::XML_PATH_DEFAULT_ID);
-        if (in_array($this->getId(), $data)) {
-            return true;
-        }
-
-        return false;
+        return in_array($this->getId(), $data);
     }
 
     /**

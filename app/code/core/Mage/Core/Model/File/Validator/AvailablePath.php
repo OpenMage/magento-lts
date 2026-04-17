@@ -27,7 +27,7 @@
  *
  * @package    Mage_Core
  */
-class Mage_Core_Model_File_Validator_AvailablePath extends Mage_Core_Helper_Validate_Abstract
+class Mage_Core_Model_File_Validator_AvailablePath extends Mage_Core_Model_Validate_Abstract
 {
     public const PROTECTED_PATH     = 'protectedPath';
 
@@ -38,7 +38,7 @@ class Mage_Core_Model_File_Validator_AvailablePath extends Mage_Core_Helper_Vali
     /**
      * The path
      *
-     * @var string
+     * @inheritDoc
      */
     protected $_value;
 
@@ -272,7 +272,7 @@ class Mage_Core_Model_File_Validator_AvailablePath extends Mage_Core_Helper_Vali
                     $reg = $options['file_mask'];
                     $reg = str_replace('.', '\.', $reg);
                     $reg = str_replace('*', '.*?', $reg);
-                    $reg = "/^($reg)$/";
+                    $reg = "/^({$reg})$/";
                 } else {
                     $reg = $this->_pathsData[$path]['regFilename'];
                 }
@@ -292,26 +292,23 @@ class Mage_Core_Model_File_Validator_AvailablePath extends Mage_Core_Helper_Vali
                 $reg = str_replace(DS, '[\\' . DS . ']', $reg);
                 $reg = str_replace('?', '([^\\' . DS . ']+)', $reg);
                 $reg = str_replace('||', '(.*[\\' . DS . '])?', $reg);
-                $reg = "/^$reg$/";
+                $reg = "/^{$reg}$/";
             } else {
                 $reg = $this->_pathsData[$path]['regDir'];
             }
 
             $resultDir = preg_match($reg, $valuePathInfo['dirname'] . DS);
-
             if ($protected && ($resultDir && $resultFile)) {
                 return false;
-            } elseif (!$protected && ($resultDir && $resultFile)) {
+            }
+
+            if (!$protected && ($resultDir && $resultFile)) {
                 //return true because one match with available path mask
                 return true;
             }
         }
 
-        if ($protected) {
-            return true;
-        } else {
-            //return false because no one match with available path mask
-            return false;
-        }
+        //return false because no one match with available path mask
+        return $protected;
     }
 }

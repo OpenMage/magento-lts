@@ -131,11 +131,7 @@ class Mage_Paypal_Model_Payflowpro extends Mage_Payment_Model_Method_Cc
     {
         $storeId = Mage::app()->getStore($this->getStore())->getId();
         $config = Mage::getModel('paypal/config')->setStoreId($storeId);
-        if (parent::isAvailable($quote) && $config->isMethodAvailable($this->getCode())) {
-            return true;
-        }
-
-        return false;
+        return parent::isAvailable($quote) && $config->isMethodAvailable($this->getCode());
     }
 
     /**
@@ -332,10 +328,7 @@ class Mage_Paypal_Model_Payflowpro extends Mage_Payment_Model_Method_Cc
     }
 
     /**
-     * Fetch transaction details info
-     *
-     * @param  string                     $transactionId
-     * @return array
+     * @inheritDoc
      * @throws Mage_Core_Exception
      * @throws Zend_Http_Client_Exception
      */
@@ -371,11 +364,7 @@ class Mage_Paypal_Model_Payflowpro extends Mage_Payment_Model_Method_Cc
      */
     protected static function _isTransactionUnderReview($status)
     {
-        if (in_array($status, [self::RESPONSE_CODE_APPROVED, self::RESPONSE_CODE_DECLINED_BY_MERCHANT])) {
-            return false;
-        }
-
-        return true;
+        return !in_array($status, [self::RESPONSE_CODE_APPROVED, self::RESPONSE_CODE_DECLINED_BY_MERCHANT]);
     }
 
     /**
@@ -570,9 +559,10 @@ class Mage_Paypal_Model_Payflowpro extends Mage_Payment_Model_Method_Cc
     {
         if ($response->getResultCode() == self::RESPONSE_CODE_VOID_ERROR) {
             throw new Mage_Paypal_Exception(Mage::helper('paypal')->__('You cannot void a verification transaction'));
-        } elseif ($response->getResultCode() != self::RESPONSE_CODE_APPROVED
-            && $response->getResultCode() != self::RESPONSE_CODE_FRAUDSERVICE_FILTER
-        ) {
+        }
+
+        if ($response->getResultCode() != self::RESPONSE_CODE_APPROVED
+            && $response->getResultCode() != self::RESPONSE_CODE_FRAUDSERVICE_FILTER) {
             Mage::throwException($response->getRespmsg());
         }
     }

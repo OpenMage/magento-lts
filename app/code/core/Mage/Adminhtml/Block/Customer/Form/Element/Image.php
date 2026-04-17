@@ -76,7 +76,7 @@ class Mage_Adminhtml_Block_Customer_Form_Element_Image extends Mage_Adminhtml_Bl
             return false;
         }
 
-        return Mage::helper('adminhtml')->getUrl('adminhtml/customer/viewfile', [
+        return Mage::helper('adminhtml')::getUrl('adminhtml/customer/viewfile', [
             'image'      => Mage::helper('core')->urlEncode($this->getValue()),
         ]);
     }

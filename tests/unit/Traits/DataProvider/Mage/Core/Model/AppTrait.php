@@ -4,6 +4,7 @@
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
  * @license    Open Software License (OSL 3.0)
+ * @package    OpenMage_Tests
  */
 
 declare(strict_types=1);
@@ -17,21 +18,21 @@ use Mage_Core_Model_Website;
 
 trait AppTrait
 {
-    public function provideGetStore(): Generator
+    public function provideGetStoreData(): Generator
     {
         yield 'Mage_Core_Model_Store' => [
             new Mage_Core_Model_Store(),
         ];
     }
 
-    public function provideGetWebsite(): Generator
+    public function provideGetWebsiteData(): Generator
     {
         yield 'Mage_Core_Model_Website' => [
             new Mage_Core_Model_Website(),
         ];
     }
 
-    public function provideGetGroup(): Generator
+    public function provideGetGroupData(): Generator
     {
         yield 'Mage_Core_Model_Store_Group' => [
             new Mage_Core_Model_Store_Group(),

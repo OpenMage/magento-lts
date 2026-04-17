@@ -52,9 +52,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Billing_Address extends Mage_Admin
     }
 
     /**
-     * Return Form Elements values
-     *
-     * @return array
+     * @inheritDoc
      */
     public function getFormValues()
     {
@@ -62,9 +60,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Billing_Address extends Mage_Admin
     }
 
     /**
-     * Return customer address id
-     *
-     * @return bool|int
+     * @inheritDoc
      */
     public function getAddressId()
     {

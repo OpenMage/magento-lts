@@ -53,8 +53,8 @@ class Mage_CatalogInventory_Block_Adminhtml_Form_Field_Customergroup extends Mag
     }
 
     /**
-     * @param  string                                                         $value
-     * @return Mage_CatalogInventory_Block_Adminhtml_Form_Field_Customergroup
+     * @param  string $value
+     * @return $this
      */
     public function setInputName($value)
     {
@@ -66,7 +66,7 @@ class Mage_CatalogInventory_Block_Adminhtml_Form_Field_Customergroup extends Mag
      *
      * @return string
      */
-    public function _toHtml()
+    protected function _toHtml()
     {
         if (!$this->getOptions()) {
             if ($this->_addGroupAllOption) {

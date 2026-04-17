@@ -531,10 +531,10 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
             if (Mage::getSingleton('admin/session')->isAllowed($aclResource)) {
                 if (!$child->children) {
                     return (string) $child->action;
-                } elseif ($child->children) {
-                    $action = $this->findFirstAvailableMenu($child->children, $path . $childName . '/', $level + 1);
-                    return $action ?: (string) $child->action;
                 }
+
+                $action = $this->findFirstAvailableMenu($child->children, $path . $childName . '/', $level + 1);
+                return $action ?: (string) $child->action;
             }
         }
 
@@ -550,19 +550,6 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
     public function hasAvailableResources()
     {
         return $this->_hasAvailableResources;
-    }
-
-    /**
-     * Find admin start page url
-     *
-     * @return string
-     * @deprecated Please use getStartupPageUrl() method instead
-     * @see getStartupPageUrl()
-     * @codeCoverageIgnore
-     */
-    public function getStatrupPageUrl()
-    {
-        return $this->getStartupPageUrl();
     }
 
     /**
@@ -714,7 +701,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
      */
     public function changeResetPasswordLinkToken($newResetPasswordLinkToken)
     {
-        if (!is_string($newResetPasswordLinkToken) || empty($newResetPasswordLinkToken)) {
+        if (!is_string($newResetPasswordLinkToken) || $newResetPasswordLinkToken === '') {
             throw Mage::exception('Mage_Core', Mage::helper('adminhtml')->__('Invalid password reset token.'));
         }
 
@@ -749,11 +736,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
         }
 
         $hoursDifference = floor(($currentTimestamp - $tokenTimestamp) / (60 * 60));
-        if ($hoursDifference >= $tokenExpirationPeriod) {
-            return true;
-        }
-
-        return false;
+        return $hoursDifference >= $tokenExpirationPeriod;
     }
 
     /**
@@ -763,10 +746,10 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
      */
     public function cleanPasswordsValidationData()
     {
-        $this->setData('password', null);
-        $this->setData('current_password', null);
-        $this->setData('new_password', null);
-        $this->setData('password_confirmation', null);
+        $this->setData('password');
+        $this->setData('current_password');
+        $this->setData('new_password');
+        $this->setData('password_confirmation');
         return $this;
     }
 

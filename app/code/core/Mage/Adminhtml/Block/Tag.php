@@ -20,7 +20,7 @@ class Mage_Adminhtml_Block_Tag extends Mage_Adminhtml_Block_Template
         $this->setTemplate('tag/index.phtml');
     }
 
-    public function _beforeToHtml()
+    protected function _beforeToHtml()
     {
         $this->assign('createUrl', $this->getUrl('*/tag/new'));
         $this->setChild('tag_frame', $this->getLayout()->createBlock('adminhtml/tag_tab_all', 'tag.frame'));

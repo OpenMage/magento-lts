@@ -38,7 +38,7 @@ class Mage_Adminhtml_Block_Urlrewrite_Edit_Form extends Mage_Adminhtml_Block_Wid
         $form = new Varien_Data_Form(
             [
                 'id' => 'edit_form',
-                'action' => $this->getData('action'),
+                'action' => $this->getDataByKey('action'),
                 'method' => 'post',
             ],
         );
@@ -235,7 +235,7 @@ class Mage_Adminhtml_Block_Urlrewrite_Edit_Form extends Mage_Adminhtml_Block_Wid
         ]);
 
         $form->setUseContainer(true);
-        $form->setAction(Mage::helper('adminhtml')->getUrl('*/*/save', [
+        $form->setAction(Mage::helper('adminhtml')::getUrl('*/*/save', [
             'id'       => $model->getId(),
             'product'  => $product->getId(),
             'category' => $category->getId(),

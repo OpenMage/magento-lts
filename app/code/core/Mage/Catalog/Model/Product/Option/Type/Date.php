@@ -93,7 +93,6 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
     public function prepareForCart()
     {
         if ($this->getIsValid() && $this->getUserValue() !== null) {
-            $option = $this->getOption();
             $value = $this->getUserValue();
 
             if (isset($value['date_internal']) && $value['date_internal'] != '') {
@@ -135,9 +134,9 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
             $this->_setInternalInRequest($result);
 
             return $result;
-        } else {
-            return null;
         }
+
+        return null;
     }
 
     /**
@@ -152,7 +151,6 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
     public function getFormattedOptionValue($optionValue)
     {
         if ($this->_formattedOptionValue === null) {
-            $option = $this->getOption();
             if ($this->getOption()->getType() == Mage_Catalog_Model_Product_Option::OPTION_TYPE_DATE) {
                 $format = Mage::app()->getLocale()->getDateFormat(Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM);
                 $result = Mage::app()->getLocale()->date($optionValue, Zend_Date::ISO_8601, null, false)
@@ -234,9 +232,9 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
             $value = unserialize($infoBuyRequest->getValue());
             if (is_array($value) && isset($value['options']) && isset($value['options'][$this->getOption()->getId()])) {
                 return $value['options'][$this->getOption()->getId()];
-            } else {
-                return ['date_internal' => $optionValue];
             }
+
+            return ['date_internal' => $optionValue];
         } catch (Exception) {
             return ['date_internal' => $optionValue];
         }
@@ -259,7 +257,7 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
      */
     public function is24hTimeFormat()
     {
-        return (bool) ($this->getConfigData('time_format') == '24h');
+        return $this->getConfigData('time_format') === '24h';
     }
 
     /**
@@ -272,9 +270,9 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
         $_range = explode(',', $this->getConfigData('year_range'));
         if (isset($_range[0]) && !empty($_range[0])) {
             return $_range[0];
-        } else {
-            return Carbon::now()->format('Y');
         }
+
+        return Carbon::now()->format('Y');
     }
 
     /**
@@ -287,9 +285,9 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
         $_range = explode(',', $this->getConfigData('year_range'));
         if (isset($_range[1]) && !empty($_range[1])) {
             return $_range[1];
-        } else {
-            return Carbon::now()->format('Y');
         }
+
+        return Carbon::now()->format('Y');
     }
 
     /**

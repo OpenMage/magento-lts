@@ -28,7 +28,7 @@ class Mage_Reports_Model_Resource_Quote_Collection extends Mage_Sales_Model_Reso
     /**
      * Map
      *
-     * @var array
+     * @inheritDoc
      */
     protected $_map              = ['fields' => ['store_id' => 'main_table.store_id']];
 
@@ -67,7 +67,8 @@ class Mage_Reports_Model_Resource_Quote_Collection extends Mage_Sales_Model_Reso
             ->addSubtotal($storeIds, $filter)
             ->addCustomerData($filter)
             ->setOrder('updated_at');
-        if (is_array($storeIds) && !empty($storeIds)) {
+
+        if (is_array($storeIds) && $storeIds !== []) {
             $this->addFieldToFilter('store_id', ['in' => $storeIds]);
         }
 
@@ -184,7 +185,7 @@ class Mage_Reports_Model_Resource_Quote_Collection extends Mage_Sales_Model_Reso
                 ['cust_fname' => $attrFirstnameTableName],
                 implode(' AND ', [
                     'cust_fname.entity_id = main_table.customer_id',
-                    $adapter->quoteInto('cust_fname.attribute_id = ?', (int) $attrFirstnameId),
+                    $adapter->quoteInto('cust_fname.attribute_id = ?', $attrFirstnameId),
                 ]),
                 ['firstname' => 'cust_fname.value'],
             )
@@ -192,7 +193,7 @@ class Mage_Reports_Model_Resource_Quote_Collection extends Mage_Sales_Model_Reso
                 ['cust_mname' => $attrMiddlenameTableName],
                 implode(' AND ', [
                     'cust_mname.entity_id = main_table.customer_id',
-                    $adapter->quoteInto('cust_mname.attribute_id = ?', (int) $attrMiddlenameId),
+                    $adapter->quoteInto('cust_mname.attribute_id = ?', $attrMiddlenameId),
                 ]),
                 ['middlename' => 'cust_mname.value'],
             )
@@ -200,7 +201,7 @@ class Mage_Reports_Model_Resource_Quote_Collection extends Mage_Sales_Model_Reso
                 ['cust_lname' => $attrLastnameTableName],
                 implode(' AND ', [
                     'cust_lname.entity_id = main_table.customer_id',
-                    $adapter->quoteInto('cust_lname.attribute_id = ?', (int) $attrLastnameId),
+                    $adapter->quoteInto('cust_lname.attribute_id = ?', $attrLastnameId),
                 ]),
                 [
                     'lastname'      => 'cust_lname.value',

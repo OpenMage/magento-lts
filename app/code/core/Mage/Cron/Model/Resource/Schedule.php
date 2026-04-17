@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -8,7 +10,7 @@
  */
 
 /**
- * Schedule mysql4 resource
+ * Schedule resource
  *
  * @package    Mage_Cron
  */
@@ -17,7 +19,7 @@ class Mage_Cron_Model_Resource_Schedule extends Mage_Core_Model_Resource_Db_Abst
     /**
      * Initialize resource
      */
-    public function _construct()
+    protected function _construct()
     {
         $this->_init('cron/schedule', 'schedule_id');
     }
@@ -40,10 +42,6 @@ class Mage_Cron_Model_Resource_Schedule extends Mage_Core_Model_Resource_Db_Abst
             ['status' => $newStatus],
             ['schedule_id = ?' => $scheduleId, 'status = ?' => $currentStatus],
         );
-        if ($result == 1) {
-            return true;
-        }
-
-        return false;
+        return $result == 1;
     }
 }

@@ -1725,6 +1725,34 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "M-arcus",
+      "name": "Marcus Müller",
+      "avatar_url": "https://avatars.githubusercontent.com/u/25648755?v=4",
+      "profile": "https://github.com/M-arcus",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "IbrahimS2",
+      "name": "Ibrahim Saleh",
+      "avatar_url": "https://avatars.githubusercontent.com/u/19901858?v=4",
+      "profile": "https://github.com/IbrahimS2",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "B3Hana",
+      "name": "B3Hana",
+      "avatar_url": "https://avatars.githubusercontent.com/u/180432612?v=4",
+      "profile": "https://github.com/B3Hana",
+      "contributions": [
+        "doc",
+        "code"
+      ]
     }
   ],
   "commitType": "docs"

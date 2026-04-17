@@ -42,7 +42,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Search_
     }
 
     /**
-     * @return Mage_Adminhtml_Block_Widget_Grid
+     * @inheritDoc
      * @throws Mage_Core_Model_Store_Exception
      */
     protected function _prepareCollection()
@@ -61,7 +61,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Search_
             ]);
 
         if ($products = $this->_getProducts()) {
-            $collection->addIdFilter($this->_getProducts(), true);
+            $collection->addIdFilter($products, true);
         }
 
         if ($this->getFirstShow()) {
@@ -75,9 +75,11 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Search_
     }
 
     /**
-     * @return Mage_Adminhtml_Block_Widget_Grid
+     * @inheritDoc
+     * @throws Exception
      * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
+     * @throws Zend_Cache_Exception
      */
     protected function _prepareColumns()
     {
@@ -146,7 +148,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Search_
     }
 
     /**
-     * @return string
+     * @inheritDoc
      * @throws Exception
      */
     public function getGridUrl()
@@ -169,17 +171,20 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Search_
      */
     protected function _getProducts()
     {
-        if ($products = $this->getRequest()->getPost('products', null)) {
+        if ($products = $this->getRequest()->getPost('products')) {
             return $products;
-        } elseif ($productss = $this->getRequest()->getParam('productss', null)) {
-            return explode(',', $productss);
-        } else {
-            return [];
         }
+
+        if ($productss = $this->getRequest()->getParam('productss')) {
+            return explode(',', $productss);
+        }
+
+        return [];
     }
 
     /**
      * @return Mage_Core_Model_Store
+     * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
      */
     public function getStore()

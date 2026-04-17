@@ -29,9 +29,8 @@ class Varien_Image
     /**
      * Constructor
      *
-     * @param  string $fileName
-     * @param  string $adapter  Default value is GD2
-     * @return void
+     * @param string $fileName
+     * @param string $adapter  Default value is GD2
      */
     public function __construct($fileName = null, $adapter = Varien_Image_Adapter::ADAPTER_GD2)
     {
@@ -63,6 +62,10 @@ class Varien_Image
     public function open()
     {
         $this->_getAdapter()->checkDependencies();
+
+        if (str_starts_with($this->_fileName, 'phar://')) {
+            throw new Exception("File '{$this->_fileName}' is not readable.");
+        }
 
         if (!file_exists($this->_fileName)) {
             throw new Exception("File '{$this->_fileName}' does not exists.");

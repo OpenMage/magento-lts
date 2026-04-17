@@ -25,7 +25,6 @@
  * @method Mage_CatalogSearch_Model_Resource_Query            getResource()
  * @method Mage_CatalogSearch_Model_Resource_Query_Collection getResourceCollection()
  * @method string                                             getSynonymFor()
- * @method string                                             getUpdatedAt()
  * @method $this                                              setDisplayInTerms(int $value)
  * @method $this                                              setIsActive(int $value)
  * @method $this                                              setIsProcessed(int $value)
@@ -35,7 +34,6 @@
  * @method $this                                              setRatio(float $value)
  * @method $this                                              setRedirect(string $value)
  * @method $this                                              setSynonymFor(string $value)
- * @method $this                                              setUpdatedAt(string $value)
  */
 class Mage_CatalogSearch_Model_Query extends Mage_Core_Model_Abstract
 {
@@ -81,7 +79,7 @@ class Mage_CatalogSearch_Model_Query extends Mage_Core_Model_Abstract
      */
     public function getResultCollection()
     {
-        $collection = $this->getData('result_collection');
+        $collection = $this->getDataByKey('result_collection');
         if (is_null($collection)) {
             $collection = $this->getSearchCollection();
 
@@ -92,7 +90,7 @@ class Mage_CatalogSearch_Model_Query extends Mage_Core_Model_Abstract
 
             $collection->addSearchFilter($text)
                 ->addStoreFilter()
-                ->addMinimalPrice()
+                ->addPriceData()
                 ->addTaxPercents();
             $this->setData('result_collection', $collection);
         }
@@ -107,7 +105,7 @@ class Mage_CatalogSearch_Model_Query extends Mage_Core_Model_Abstract
      */
     public function getSuggestCollection()
     {
-        $collection = $this->getData('suggest_collection');
+        $collection = $this->getDataByKey('suggest_collection');
         if (is_null($collection)) {
             $collection = Mage::getResourceModel('catalogsearch/query_collection')
                 ->setStoreId($this->getStoreId())
@@ -163,7 +161,7 @@ class Mage_CatalogSearch_Model_Query extends Mage_Core_Model_Abstract
      */
     public function getStoreId()
     {
-        if (!$storeId = $this->getData('store_id')) {
+        if (!$storeId = $this->getDataByKey('store_id')) {
             return Mage::app()->getStore()->getId();
         }
 
@@ -191,32 +189,10 @@ class Mage_CatalogSearch_Model_Query extends Mage_Core_Model_Abstract
      * Retrieve minimum query length
      *
      * @return int
-     * @deprecated after 1.3.2.3 use getMinQueryLength() instead
-     */
-    public function getMinQueryLenght()
-    {
-        return Mage::getStoreConfig(self::XML_PATH_MIN_QUERY_LENGTH, $this->getStoreId());
-    }
-
-    /**
-     * Retrieve minimum query length
-     *
-     * @return int
      */
     public function getMinQueryLength()
     {
-        return $this->getMinQueryLenght();
-    }
-
-    /**
-     * Retrieve maximum query length
-     *
-     * @return int
-     * @deprecated after 1.3.2.3 use getMaxQueryLength() instead
-     */
-    public function getMaxQueryLenght()
-    {
-        return 0;
+        return Mage::getStoreConfig(self::XML_PATH_MIN_QUERY_LENGTH, $this->getStoreId());
     }
 
     /**

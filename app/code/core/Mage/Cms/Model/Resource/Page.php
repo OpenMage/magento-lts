@@ -122,7 +122,7 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
     {
         $oldStores = $this->lookupStoreIds($object->getId());
         $newStores = (array) $object->getStores();
-        if (empty($newStores)) {
+        if ($newStores === []) {
             $newStores = (array) $object->getStoreId();
         }
 
@@ -248,23 +248,15 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
      */
     public function getIsUniquePageToStores(Mage_Core_Model_Abstract $object)
     {
-        if (!$object->hasStores()) {
-            $stores = [Mage_Core_Model_App::ADMIN_STORE_ID];
-        } else {
-            $stores = (array) $object->getData('stores');
-        }
+        $stores = $object->hasStores() ? (array) $object->getDataByKey('stores') : [Mage_Core_Model_App::ADMIN_STORE_ID];
 
-        $select = $this->_getLoadByIdentifierSelect($object->getData('identifier'), $stores);
+        $select = $this->_getLoadByIdentifierSelect($object->getDataByKey('identifier'), $stores);
 
         if ($object->getId()) {
             $select->where('cps.page_id <> ?', $object->getId());
         }
 
-        if ($this->_getWriteAdapter()->fetchRow($select)) {
-            return false;
-        }
-
-        return true;
+        return !$this->_getWriteAdapter()->fetchRow($select);
     }
 
     /**
@@ -274,7 +266,7 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
      */
     protected function isNumericPageIdentifier(Mage_Core_Model_Abstract $object)
     {
-        return preg_match('/^\d+$/', $object->getData('identifier'));
+        return preg_match('/^\d+$/', $object->getDataByKey('identifier'));
     }
 
     /**
@@ -284,7 +276,7 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
      */
     protected function isValidPageIdentifier(Mage_Core_Model_Abstract $object)
     {
-        return preg_match('/^[a-z0-9][a-z0-9_\/-]+(\.[a-z0-9_-]+)?$/', $object->getData('identifier'));
+        return preg_match('/^[a-z0-9][a-z0-9_\/-]+(\.[a-z0-9_-]+)?$/', $object->getDataByKey('identifier'));
     }
 
     public function getUsedInStoreConfigCollection(Mage_Cms_Model_Page $page, ?array $paths = []): Mage_Core_Model_Resource_Db_Collection_Abstract

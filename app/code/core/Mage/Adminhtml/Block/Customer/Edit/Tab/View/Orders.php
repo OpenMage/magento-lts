@@ -22,17 +22,21 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Orders extends Mage_Adminhtml_
         parent::__construct();
         $this->setId('customer_view_orders_grid');
         $this->setDefaultSort('created_at');
-        $this->setDefaultDir('desc');
         $this->setSortable(false);
         $this->setPagerVisibility(false);
         $this->setFilterVisibility(false);
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _preparePage()
     {
         $this->getCollection()
             ->setPageSize(5)
             ->setCurPage(1);
+
+        return $this;
     }
 
     /**
@@ -111,6 +115,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Orders extends Mage_Adminhtml_
 
     /**
      * @return bool
+     * @throws Zend_Db_Select_Exception
      */
     public function getHeadersVisibility()
     {

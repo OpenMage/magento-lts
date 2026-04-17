@@ -281,30 +281,30 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
                     }
                 } elseif (Mage_ImportExport_Model_Export::FILTER_TYPE_DATE == $attrFilterType) {
                     if (is_array($exportFilter[$attrCode]) && count($exportFilter[$attrCode]) == 2) {
-                        $from = array_shift($exportFilter[$attrCode]);
-                        $to   = array_shift($exportFilter[$attrCode]);
+                        $source = array_shift($exportFilter[$attrCode]);
+                        $target = array_shift($exportFilter[$attrCode]);
 
-                        if (is_scalar($from) && !empty($from)) {
-                            $date = Mage::app()->getLocale()->date($from, null, null, false)->toString('MM/dd/YYYY');
+                        if (is_scalar($source) && !empty($source)) {
+                            $date = Mage::app()->getLocale()->date($source, null, null, false)->toString('MM/dd/YYYY');
                             $collection->addAttributeToFilter($attrCode, ['from' => $date, 'date' => true]);
                         }
 
-                        if (is_scalar($to) && !empty($to)) {
-                            $date = Mage::app()->getLocale()->date($to, null, null, false)->toString('MM/dd/YYYY');
+                        if (is_scalar($target) && !empty($target)) {
+                            $date = Mage::app()->getLocale()->date($target, null, null, false)->toString('MM/dd/YYYY');
                             $collection->addAttributeToFilter($attrCode, ['to' => $date, 'date' => true]);
                         }
                     }
                 } elseif (Mage_ImportExport_Model_Export::FILTER_TYPE_NUMBER == $attrFilterType) {
                     if (is_array($exportFilter[$attrCode]) && count($exportFilter[$attrCode]) == 2) {
-                        $from = array_shift($exportFilter[$attrCode]);
-                        $to   = array_shift($exportFilter[$attrCode]);
+                        $source = array_shift($exportFilter[$attrCode]);
+                        $target   = array_shift($exportFilter[$attrCode]);
 
-                        if (is_numeric($from)) {
-                            $collection->addAttributeToFilter($attrCode, ['from' => $from]);
+                        if (is_numeric($source)) {
+                            $collection->addAttributeToFilter($attrCode, ['from' => $source]);
                         }
 
-                        if (is_numeric($to)) {
-                            $collection->addAttributeToFilter($attrCode, ['to' => $to]);
+                        if (is_numeric($target)) {
+                            $collection->addAttributeToFilter($attrCode, ['to' => $target]);
                         }
                     }
                 }

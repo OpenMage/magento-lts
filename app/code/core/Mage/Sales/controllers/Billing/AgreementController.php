@@ -32,13 +32,13 @@ class Mage_Sales_Billing_AgreementController extends Mage_Core_Controller_Front_
      *
      * Check customer authentication
      *
-     * @return $this|void
+     * @return null|$this
      */
     public function preDispatch()
     {
         parent::preDispatch();
         if (!$this->getRequest()->isDispatched()) {
-            return;
+            return null;
         }
 
         if (!$this->_getSession()->authenticate($this)) {
@@ -80,7 +80,7 @@ class Mage_Sales_Billing_AgreementController extends Mage_Core_Controller_Front_
     /**
      * Wizard start action
      *
-     * @return $this|void
+     * @return null|$this
      */
     public function startWizardAction()
     {
@@ -95,15 +95,16 @@ class Mage_Sales_Billing_AgreementController extends Mage_Core_Controller_Front_
 
                 $this->_redirectUrl($agreement->initToken());
                 return $this;
-            } catch (Mage_Core_Exception $e) {
-                $this->_getSession()->addError($e->getMessage());
-            } catch (Exception $e) {
-                Mage::logException($e);
+            } catch (Mage_Core_Exception $mageCoreException) {
+                $this->_getSession()->addError($mageCoreException->getMessage());
+            } catch (Exception $exception) {
+                Mage::logException($exception);
                 $this->_getSession()->addError($this->__('Failed to start billing agreement wizard.'));
             }
         }
 
         $this->_redirect('*/*/');
+        return null;
     }
 
     /**
@@ -126,10 +127,10 @@ class Mage_Sales_Billing_AgreementController extends Mage_Core_Controller_Front_
                 );
                 $this->_redirect('*/*/view', ['agreement' => $agreement->getId()]);
                 return;
-            } catch (Mage_Core_Exception $e) {
-                $this->_getSession()->addError($e->getMessage());
-            } catch (Exception $e) {
-                Mage::logException($e);
+            } catch (Mage_Core_Exception $mageCoreException) {
+                $this->_getSession()->addError($mageCoreException->getMessage());
+            } catch (Exception $exception) {
+                Mage::logException($exception);
                 $this->_getSession()->addError($this->__('Failed to finish billing agreement wizard.'));
             }
 
@@ -167,10 +168,10 @@ class Mage_Sales_Billing_AgreementController extends Mage_Core_Controller_Front_
             try {
                 $agreement->cancel();
                 $this->_getSession()->addNotice($this->__('The billing agreement "%s" has been canceled.', $agreement->getReferenceId()));
-            } catch (Mage_Core_Exception $e) {
-                $this->_getSession()->addError($e->getMessage());
-            } catch (Exception $e) {
-                Mage::logException($e);
+            } catch (Mage_Core_Exception $mageCoreException) {
+                $this->_getSession()->addError($mageCoreException->getMessage());
+            } catch (Exception $exception) {
+                Mage::logException($exception);
                 $this->_getSession()->addError($this->__('Failed to cancel the billing agreement.'));
             }
         }

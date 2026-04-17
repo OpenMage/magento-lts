@@ -11,6 +11,8 @@
  * Abstract Core Resource Collection
  *
  * @package    Mage_Core
+ * @template T of Mage_Core_Model_Abstract
+ * @extends Varien_Data_Collection_Db<T>
  */
 abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Data_Collection_Db
 {
@@ -33,7 +35,7 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
     /**
      * Resource instance
      *
-     * @var Mage_Core_Model_Resource_Db_Abstract
+     * @var Mage_Core_Model_Resource_Db_Abstract|Mage_Core_Model_Resource_Db_Collection_Abstract
      */
     protected $_resource = null;
 
@@ -610,7 +612,6 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
      */
     public function resetItemsDataChanged()
     {
-        /** @var Varien_Object $item */
         foreach ($this->_items as $item) {
             $item->setDataChanges(false);
         }
@@ -626,7 +627,6 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
     protected function _afterLoad()
     {
         parent::_afterLoad();
-        /** @var Varien_Object $item */
         foreach ($this->_items as $item) {
             $item->setOrigData();
             if ($this->_resetItemsDataChanged) {
@@ -639,6 +639,20 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
             Mage::dispatchEvent($this->_eventPrefix . '_load_after', [
                 $this->_eventObject => $this,
             ]);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Delete all the entities in the collection
+     *
+     * @return $this
+     */
+    public function delete()
+    {
+        foreach ($this->getItems() as $item) {
+            $item->delete();
         }
 
         return $this;

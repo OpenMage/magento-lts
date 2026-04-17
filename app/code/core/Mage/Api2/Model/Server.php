@@ -106,15 +106,15 @@ class Mage_Api2_Model_Server
             if ($response->isException()) {
                 throw new Mage_Api2_Exception('Unhandled simple errors.', self::HTTP_INTERNAL_ERROR);
             }
-        } catch (Mage_Api2_Exception $e) {
-            if ($e->shouldLog()) {
-                Mage::logException($e);
+        } catch (Mage_Api2_Exception $mageApi2Exception) {
+            if ($mageApi2Exception->shouldLog()) {
+                Mage::logException($mageApi2Exception);
             }
 
-            $this->_renderException($e, $renderer, $response);
-        } catch (Exception $e) {
-            Mage::logException($e);
-            $this->_renderException($e, $renderer, $response);
+            $this->_renderException($mageApi2Exception, $renderer, $response);
+        } catch (Exception $exception) {
+            Mage::logException($exception);
+            $this->_renderException($exception, $renderer, $response);
         }
 
         $response->sendResponse();
@@ -280,14 +280,14 @@ class Mage_Api2_Model_Server
                 $renderer->getMimeType(),
                 Mage_Api2_Model_Response::RESPONSE_CHARSET,
             ));
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             //tunnelling of 406(Not acceptable) error
-            $httpCode = $e->getCode() == self::HTTP_NOT_ACCEPTABLE    //$e->getCode() can result in one more loop
-                    ? self::HTTP_NOT_ACCEPTABLE                      // of try..catch
+            $httpCode = $exception->getCode() == self::HTTP_NOT_ACCEPTABLE    //$exception->getCode() can result in one more loop
+                    ? self::HTTP_NOT_ACCEPTABLE                               // of try..catch
                     : self::HTTP_INTERNAL_ERROR;
 
             //if error appeared in "error rendering" process then show it in plain text
-            $response->setBody($e->getMessage());
+            $response->setBody($exception->getMessage());
             $response->setHeader('Content-Type', 'text/plain; charset=' . Mage_Api2_Model_Response::RESPONSE_CHARSET);
         }
 

@@ -122,18 +122,6 @@ class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
     }
 
     /**
-     * Getter for Quote Item Option
-     * Deprecated in favor of getConfigurationItemOption()
-     *
-     * @return Mage_Catalog_Model_Product_Configuration_Item_Option_Interface
-     * @deprecated after 1.4.2.0
-     */
-    public function getQuoteItemOption()
-    {
-        return $this->getConfigurationItemOption();
-    }
-
-    /**
      * Getter for Configuration Item
      *
      * @return Mage_Catalog_Model_Product_Configuration_Item_Interface
@@ -150,18 +138,6 @@ class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
         }
 
         Mage::throwException(Mage::helper('catalog')->__('Wrong configuration item instance in options group.'));
-    }
-
-    /**
-     * Getter for Quote Item
-     * Deprecated in favor of getConfigurationItem()
-     *
-     * @return Mage_Catalog_Model_Product_Configuration_Item_Interface
-     * @deprecated after 1.4.2.0
-     */
-    public function getQuoteItem()
-    {
-        return $this->getConfigurationItem();
     }
 
     /**
@@ -220,8 +196,11 @@ class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
      */
     public function getSkipCheckRequiredOption()
     {
-        return $this->getProduct()->getSkipCheckRequiredOption()
-            || $this->getProcessMode() == Mage_Catalog_Model_Product_Type_Abstract::PROCESS_MODE_LITE;
+        if ($this->getProduct()->getSkipCheckRequiredOption()) {
+            return true;
+        }
+
+        return $this->getProcessMode() == Mage_Catalog_Model_Product_Type_Abstract::PROCESS_MODE_LITE;
     }
 
     /**
@@ -263,8 +242,8 @@ class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
     /**
      * Return option html
      *
-     * @param  array        $optionInfo
-     * @return array|string
+     * @param  array<string, mixed>        $optionInfo
+     * @return array<string, mixed>|string
      */
     public function getCustomizedView($optionInfo)
     {
@@ -385,8 +364,8 @@ class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
     {
         if ($isPercent) {
             return ($basePrice * $price / 100);
-        } else {
-            return $price;
         }
+
+        return $price;
     }
 }

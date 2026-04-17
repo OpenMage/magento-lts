@@ -74,7 +74,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Block extends Mag
 
     /**
      * Setter
-     * If string given exlopde to array by ',' delimiter
+     * If string given explode to array by ',' delimiter
      *
      * @param  array|string $layoutHandle
      * @return $this
@@ -244,10 +244,6 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Block extends Mag
             return true;
         }
 
-        if (in_array((string) $block->getAttribute('name'), $this->getAllowedBlocks())) {
-            return true;
-        }
-
-        return false;
+        return in_array((string) $block->getAttribute('name'), $this->getAllowedBlocks());
     }
 }

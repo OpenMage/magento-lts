@@ -79,8 +79,8 @@ class Mage_ImportExport_Model_Import extends Mage_ImportExport_Model_Abstract
                     /** @var Mage_ImportExport_Model_Import_Entity_Abstract $_entityAdapter */
                     $_entityAdapter = Mage::getModel($validTypes[$this->getEntity()]['model']);
                     $this->_entityAdapter = $_entityAdapter;
-                } catch (Exception $e) {
-                    Mage::logException($e);
+                } catch (Exception $exception) {
+                    Mage::logException($exception);
                     Mage::throwException(
                         Mage::helper('importexport')->__('Invalid entity model'),
                     );
@@ -176,11 +176,13 @@ class Mage_ImportExport_Model_Import extends Mage_ImportExport_Model_Abstract
         if ($attribute->usesSource()) {
             return $attribute->getFrontendInput() == 'multiselect'
                 ? 'multiselect' : 'select';
-        } elseif ($attribute->isStatic()) {
-            return $attribute->getFrontendInput() == 'date' ? 'datetime' : 'varchar';
-        } else {
-            return $attribute->getBackendType();
         }
+
+        if ($attribute->isStatic()) {
+            return $attribute->getFrontendInput() == 'date' ? 'datetime' : 'varchar';
+        }
+
+        return $attribute->getBackendType();
     }
 
     /**
@@ -368,9 +370,9 @@ class Mage_ImportExport_Model_Import extends Mage_ImportExport_Model_Abstract
             foreach ($adapter as $row) {
                 foreach ($colReg as $colName => $regExpType) {
                     if (!empty($row[$colName])) {
-                        preg_match($regExps[$regExpType], $row[$colName], $m);
+                        preg_match($regExps[$regExpType], $row[$colName], $matches);
 
-                        $row[$colName] = $m[1] . ((int) $m[2] + $size) . ($regExpType == 'middle' ? $m[3] : '');
+                        $row[$colName] = $matches[1] . ((int) $matches[2] + $size) . ($regExpType == 'middle' ? $matches[3] : '');
                     }
                 }
 

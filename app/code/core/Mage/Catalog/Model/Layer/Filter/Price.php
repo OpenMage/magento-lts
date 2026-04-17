@@ -86,7 +86,7 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
      */
     public function getPriceRange()
     {
-        $range = $this->getData('price_range');
+        $range = $this->getDataByKey('price_range');
         if (!$range) {
             $currentCategory = Mage::registry('current_category_filter');
             if ($currentCategory) {
@@ -123,7 +123,7 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
      */
     public function getMaxPriceInt()
     {
-        $maxPrice = $this->getData('max_price_int');
+        $maxPrice = $this->getDataByKey('max_price_int');
         if (is_null($maxPrice)) {
             $maxPrice = $this->getLayer()->getProductCollection()->getMaxPrice();
             $maxPrice = floor($maxPrice);
@@ -199,15 +199,17 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
         $formattedFromPrice  = $store->formatPrice($fromPrice);
         if ($toPrice === '') {
             return Mage::helper('catalog')->__('%s and above', $formattedFromPrice);
-        } elseif ($fromPrice == $toPrice && Mage::app()->getStore()->getConfig(self::XML_PATH_ONE_PRICE_INTERVAL)) {
-            return $formattedFromPrice;
-        } else {
-            if ($fromPrice != $toPrice) {
-                $toPrice = (float) $toPrice - .01;
-            }
-
-            return Mage::helper('catalog')->__('%s - %s', $formattedFromPrice, $store->formatPrice($toPrice));
         }
+
+        if ($fromPrice == $toPrice && Mage::app()->getStore()->getConfig(self::XML_PATH_ONE_PRICE_INTERVAL)) {
+            return $formattedFromPrice;
+        }
+
+        if ($fromPrice != $toPrice) {
+            $toPrice = (float) $toPrice - .01;
+        }
+
+        return Mage::helper('catalog')->__('%s - %s', $formattedFromPrice, $store->formatPrice($toPrice));
     }
 
     /**
@@ -297,16 +299,17 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
     }
 
     /**
-     * Get data for build price filter items
-     *
-     * @return array
+     * @inheritDoc
+     * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
      */
     protected function _getItemsData()
     {
         if (Mage::app()->getStore()->getConfig(self::XML_PATH_RANGE_CALCULATION) == self::RANGE_CALCULATION_IMPROVED) {
             return $this->_getCalculatedItemsData();
-        } elseif ($this->getInterval()) {
+        }
+
+        if ($this->getInterval()) {
             return [];
         }
 
@@ -390,9 +393,9 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
             return $this;
         }
 
-        [$from, $to] = $filter;
+        [$min, $max] = $filter;
 
-        $this->setInterval([$from, $to]);
+        $this->setInterval([$min, $max]);
 
         $priorFilters = [];
         $counter = count($filterParams);
@@ -413,7 +416,7 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
 
         $this->_applyPriceRange();
         $this->getLayer()->getState()->addFilter($this->_createItem(
-            $this->_renderRangeLabel(empty($from) ? 0 : $from, $to),
+            $this->_renderRangeLabel(empty($min) ? 0 : $min, $max),
             $filter,
         ));
 

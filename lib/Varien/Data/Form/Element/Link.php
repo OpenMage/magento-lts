@@ -41,7 +41,7 @@ class Varien_Data_Form_Element_Link extends Varien_Data_Form_Element_Abstract
     /**
      * Prepare array of anchor attributes
      *
-     * @return array
+     * @return array<int, string>
      */
     public function getHtmlAttributes()
     {

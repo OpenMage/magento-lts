@@ -1,4 +1,4 @@
---- /dev/null
+--- ../library/Zend/Controller/Request/Http.php
 +++ ../library/Zend/Controller/Request/Http.php
 @@ -1041,7 +1041,9 @@
       */

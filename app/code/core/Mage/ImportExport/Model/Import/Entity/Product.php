@@ -743,21 +743,24 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
             if (!isset($rowData['_tier_price_website']) || !isset($rowData['_tier_price_customer_group'])
                     || !isset($rowData['_tier_price_qty']) || !isset($rowData['_tier_price_price'])
                     || !strlen($rowData['_tier_price_website']) || !strlen($rowData['_tier_price_customer_group'])
-                    || !strlen($rowData['_tier_price_qty']) || !strlen($rowData['_tier_price_price'])
-            ) {
+                    || !strlen($rowData['_tier_price_qty']) || !strlen($rowData['_tier_price_price'])) {
                 $this->addRowError(self::ERROR_TIER_DATA_INCOMPLETE, $rowNum);
                 return false;
-            } elseif ($rowData['_tier_price_website'] != self::VALUE_ALL
-                    && !isset($this->_websiteCodeToId[$rowData['_tier_price_website']])
-            ) {
+            }
+
+            if ($rowData['_tier_price_website'] != self::VALUE_ALL
+                    && !isset($this->_websiteCodeToId[$rowData['_tier_price_website']])) {
                 $this->addRowError(self::ERROR_INVALID_TIER_PRICE_SITE, $rowNum);
                 return false;
-            } elseif ($rowData['_tier_price_customer_group'] != self::VALUE_ALL
-                    && !isset($this->_customerGroups[$rowData['_tier_price_customer_group']])
-            ) {
+            }
+
+            if ($rowData['_tier_price_customer_group'] != self::VALUE_ALL
+                    && !isset($this->_customerGroups[$rowData['_tier_price_customer_group']])) {
                 $this->addRowError(self::ERROR_INVALID_TIER_PRICE_GROUP, $rowNum);
                 return false;
-            } elseif ($rowData['_tier_price_qty'] <= 0 || $rowData['_tier_price_price'] <= 0) {
+            }
+
+            if ($rowData['_tier_price_qty'] <= 0 || $rowData['_tier_price_price'] <= 0) {
                 $this->addRowError(self::ERROR_INVALID_TIER_PRICE_QTY, $rowNum);
                 return false;
             }
@@ -780,18 +783,19 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
         ) {
             if (!isset($rowData['_group_price_website']) || !isset($rowData['_group_price_customer_group'])
                 || !strlen($rowData['_group_price_website']) || !strlen($rowData['_group_price_customer_group'])
-                || !strlen($rowData['_group_price_price'])
-            ) {
+                || !strlen($rowData['_group_price_price'])) {
                 $this->addRowError(self::ERROR_GROUP_PRICE_DATA_INCOMPLETE, $rowNum);
                 return false;
-            } elseif ($rowData['_group_price_website'] != self::VALUE_ALL
-                && !isset($this->_websiteCodeToId[$rowData['_group_price_website']])
-            ) {
+            }
+
+            if ($rowData['_group_price_website'] != self::VALUE_ALL
+                && !isset($this->_websiteCodeToId[$rowData['_group_price_website']])) {
                 $this->addRowError(self::ERROR_INVALID_GROUP_PRICE_SITE, $rowNum);
                 return false;
-            } elseif ($rowData['_group_price_customer_group'] != self::VALUE_ALL
-                && !isset($this->_customerGroups[$rowData['_group_price_customer_group']])
-            ) {
+            }
+
+            if ($rowData['_group_price_customer_group'] != self::VALUE_ALL
+                && !isset($this->_customerGroups[$rowData['_group_price_customer_group']])) {
                 $this->addRowError(self::ERROR_INVALID_GROUP_PRICE_GROUP, $rowNum);
                 return false;
             }
@@ -1074,7 +1078,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
             $productIds = array_keys($customOptions['product_id']);
             $productIds = array_diff($productIds, $alreadyUsedProductIds);
             if ($this->getBehavior() != Mage_ImportExport_Model_Import::BEHAVIOR_APPEND
-                && !empty($productIds)
+                && $productIds !== []
             ) { // remove old data?
                 $this->_connection->delete(
                     $optionTable,
@@ -1353,6 +1357,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Save product categories.
      *
+     * @param  array<non-empty-array<true>>|array<void> $categoriesData
      * @return $this
      * @throws Zend_Db_Exception
      */
@@ -1395,8 +1400,8 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Update and insert data in entity table.
      *
-     * @param  array               $entityRowsIn Row for insert
-     * @param  array               $entityRowsUp Row for update
+     * @param  array<mixed, array<string, mixed>> $entityRowsIn Row for insert
+     * @param  array<int, array<string, mixed>>   $entityRowsUp Row for update
      * @return $this
      * @throws Mage_Core_Exception
      * @throws Zend_Db_Exception
@@ -1723,6 +1728,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Save product tier prices.
      *
+     * @param  array<list<array<string, mixed>>> $tierPriceData
      * @return $this
      * @throws Zend_Db_Exception
      */
@@ -1767,6 +1773,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Save product group prices.
      *
+     * @param  array<list<array<string, mixed>>> $groupPriceData
      * @return $this
      * @throws Zend_Db_Exception
      */
@@ -1859,12 +1866,13 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Save product media gallery.
      *
+     * @param  array<list<array<string, mixed>>> $mediaGalleryData
      * @return $this
      * @throws Zend_Db_Exception
      */
     protected function _saveMediaGallery(array $mediaGalleryData)
     {
-        if (empty($mediaGalleryData)) {
+        if ($mediaGalleryData === []) {
             return $this;
         }
 
@@ -1941,6 +1949,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Save product websites.
      *
+     * @param  array<array<bool>> $websiteData
      * @return $this
      * @throws Zend_Db_Exception
      */
@@ -2199,11 +2208,13 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     {
         if (isset($rowData[self::COL_SKU]) && strlen(trim($rowData[self::COL_SKU]))) {
             return self::SCOPE_DEFAULT;
-        } elseif (empty($rowData[self::COL_STORE])) {
-            return self::SCOPE_NULL;
-        } else {
-            return self::SCOPE_STORE;
         }
+
+        if (empty($rowData[self::COL_STORE])) {
+            return self::SCOPE_NULL;
+        }
+
+        return self::SCOPE_STORE;
     }
 
     /**

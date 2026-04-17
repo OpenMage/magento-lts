@@ -24,7 +24,6 @@
  * @method bool                                 hasStoreId()
  * @method $this                                setActive(int $value)
  * @method $this                                setAddedProductIds(array $value)
- * @method $this                                setCreatedAt(string $value)
  * @method $this                                setCustomerId(int $value)
  * @method $this                                setProductId(int $value)
  * @method $this                                setProductIds(array $value)
@@ -101,7 +100,7 @@ class Mage_Tag_Model_Tag_Relation extends Mage_Core_Model_Abstract
      */
     public function getProductIds()
     {
-        $ids = $this->getData('product_ids');
+        $ids = $this->getDataByKey('product_ids');
         if (is_null($ids)) {
             $ids = $this->_getResource()->getProductIds($this);
             $this->setProductIds($ids);
@@ -117,11 +116,11 @@ class Mage_Tag_Model_Tag_Relation extends Mage_Core_Model_Abstract
      */
     public function getRelatedTagIds()
     {
-        if (is_null($this->getData('related_tag_ids'))) {
+        if (is_null($this->getDataByKey('related_tag_ids'))) {
             $this->setRelatedTagIds($this->_getResource()->getRelatedTagIds($this));
         }
 
-        return $this->getData('related_tag_ids');
+        return $this->getDataByKey('related_tag_ids');
     }
 
     /**

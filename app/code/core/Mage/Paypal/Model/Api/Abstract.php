@@ -158,15 +158,6 @@ abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
     }
 
     /**
-     * @return bool
-     * @deprecated after 1.4.1.0
-     */
-    public function getDebug()
-    {
-        return $this->getDebugFlag();
-    }
-
-    /**
      * PayPal page CSS getter
      *
      * @return string
@@ -237,12 +228,12 @@ abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
     /**
      * Import $this public data to specified object or array
      *
-     * @param  array|Varien_Object $to
+     * @param  array|Varien_Object $target
      * @return array|Varien_Object
      */
-    public function &import($to, array $publicMap = [])
+    public function &import($target, array $publicMap = [])
     {
-        return Varien_Object_Mapper::accumulateByMap([$this, 'getDataUsingMethod'], $to, $publicMap);
+        return Varien_Object_Mapper::accumulateByMap([$this, 'getDataUsingMethod'], $target, $publicMap);
     }
 
     /**
@@ -414,7 +405,8 @@ abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
      * Prepare shipping options request
      * Returns false if there are no shipping options
      *
-     * @param  int  $index
+     * @param  array<string, mixed> $request
+     * @param  int                  $index
      * @return bool
      */
     protected function _exportShippingOptions(array &$request, $index = 0)
@@ -500,7 +492,7 @@ abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
      */
     protected function _lookupRegionCodeFromAddress(Varien_Object $address)
     {
-        if ($regionId = $address->getData('region_id')) {
+        if ($regionId = $address->getDataByKey('region_id')) {
             $region = Mage::getModel('directory/region')->load($regionId);
             if ($region->getId()) {
                 return $region->getCode();
@@ -513,8 +505,9 @@ abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
     /**
      * Street address workaround: divides address lines into parts by specified keys
      * (keys should go as 3rd, 4th[...] parameters)
+     * @param mixed[]|string[] $target
      */
-    protected function _importStreetFromAddress(Varien_Object $address, array &$to)
+    protected function _importStreetFromAddress(Varien_Object $address, array &$target)
     {
         $keys = func_get_args();
         array_shift($keys);
@@ -529,7 +522,7 @@ abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
 
         $index = 0;
         foreach ($keys as $key) {
-            $to[$key] = $street[$index] ?? '';
+            $target[$key] = $street[$index] ?? '';
             $index++;
         }
     }

@@ -28,7 +28,7 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
     /**
      * Retrieve customer entity default attributes
      *
-     * @return array
+     * @return array<int, string>
      */
     protected function _getDefaultAttributes()
     {
@@ -122,16 +122,16 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
      */
     protected function _saveAddresses(Mage_Customer_Model_Customer $customer)
     {
-        $defaultBillingId  = $customer->getData('default_billing');
-        $defaultShippingId = $customer->getData('default_shipping');
+        $defaultBillingId  = $customer->getDataByKey('default_billing');
+        $defaultShippingId = $customer->getDataByKey('default_shipping');
         foreach ($customer->getAddresses() as $address) {
-            if ($address->getData('_deleted')) {
+            if ($address->getDataByKey('_deleted')) {
                 if ($address->getId() == $defaultBillingId) {
-                    $customer->setData('default_billing', null);
+                    $customer->setData('default_billing');
                 }
 
                 if ($address->getId() == $defaultShippingId) {
-                    $customer->setData('default_shipping', null);
+                    $customer->setData('default_shipping');
                 }
 
                 $address->delete();
@@ -280,11 +280,7 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
             ->limit(1);
 
         $result = $adapter->fetchOne($select, $bind);
-        if ($result) {
-            return true;
-        }
-
-        return false;
+        return (bool) $result;
     }
 
     /**
@@ -330,7 +326,7 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
      */
     public function changeResetPasswordLinkToken(Mage_Customer_Model_Customer $customer, $newResetPasswordLinkToken)
     {
-        if (is_string($newResetPasswordLinkToken) && !empty($newResetPasswordLinkToken)) {
+        if (is_string($newResetPasswordLinkToken) && $newResetPasswordLinkToken !== '') {
             $customer->setRpToken($newResetPasswordLinkToken);
             $currentDate = Varien_Date::now();
             $customer->setRpTokenCreatedAt($currentDate);
@@ -354,7 +350,7 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
         Mage_Customer_Model_Customer $customer,
         $newResetPasswordLinkCustomerId
     ) {
-        if (is_string($newResetPasswordLinkCustomerId) && !empty($newResetPasswordLinkCustomerId)) {
+        if (is_string($newResetPasswordLinkCustomerId) && $newResetPasswordLinkCustomerId !== '') {
             $customer->setRpCustomerId($newResetPasswordLinkCustomerId);
             $this->saveAttribute($customer, 'rp_customer_id');
         }

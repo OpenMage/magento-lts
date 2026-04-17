@@ -68,7 +68,7 @@ class Mage_Adminhtml_Sales_Billing_AgreementController extends Mage_Adminhtml_Co
     }
 
     /**
-     * Cutomer billing agreements ajax action
+     * Customer billing agreements ajax action
      */
     public function customerGridAction()
     {
@@ -90,11 +90,11 @@ class Mage_Adminhtml_Sales_Billing_AgreementController extends Mage_Adminhtml_Co
                 $this->_getSession()->addSuccess($this->__('The billing agreement has been canceled.'));
                 $this->_redirect('*/*/view', ['_current' => true]);
                 return;
-            } catch (Mage_Core_Exception $e) {
-                $this->_getSession()->addError($e->getMessage());
-            } catch (Exception $e) {
+            } catch (Mage_Core_Exception $mageCoreException) {
+                $this->_getSession()->addError($mageCoreException->getMessage());
+            } catch (Exception $exception) {
                 $this->_getSession()->addError($this->__('Failed to cancel the billing agreement.'));
-                Mage::logException($e);
+                Mage::logException($exception);
             }
 
             $this->_redirect('*/*/view', ['_current' => true]);
@@ -116,11 +116,11 @@ class Mage_Adminhtml_Sales_Billing_AgreementController extends Mage_Adminhtml_Co
                 $this->_getSession()->addSuccess($this->__('The billing agreement has been deleted.'));
                 $this->_redirect('*/*/');
                 return;
-            } catch (Mage_Core_Exception $e) {
-                $this->_getSession()->addError($e->getMessage());
-            } catch (Exception $e) {
+            } catch (Mage_Core_Exception $mageCoreException) {
+                $this->_getSession()->addError($mageCoreException->getMessage());
+            } catch (Exception $exception) {
                 $this->_getSession()->addError($this->__('Failed to delete the billing agreement.'));
-                Mage::logException($e);
+                Mage::logException($exception);
             }
 
             $this->_redirect('*/*/view', ['_current' => true]);
@@ -179,7 +179,7 @@ class Mage_Adminhtml_Sales_Billing_AgreementController extends Mage_Adminhtml_Co
     /**
      * @inheritDoc
      */
-    protected function _isAllowed()
+    protected function _isAllowed(): bool
     {
         $action = strtolower($this->getRequest()->getActionName());
         $aclPath = match ($action) {

@@ -14,14 +14,13 @@
  */
 class Mage_Adminhtml_Block_Catalog_Category_Tree extends Mage_Adminhtml_Block_Catalog_Category_Abstract
 {
-    protected $_withProductCount;
+    protected $_withProductCount = true;
 
     public function __construct()
     {
         parent::__construct();
         $this->setTemplate('catalog/category/tree.phtml');
         $this->setUseAjax(true);
-        $this->_withProductCount = true;
     }
 
     protected function _prepareLayout()
@@ -74,11 +73,11 @@ class Mage_Adminhtml_Block_Catalog_Category_Tree extends Mage_Adminhtml_Block_Ca
     public function getCategoryCollection()
     {
         $storeId = $this->getRequest()->getParam('store', $this->_getDefaultStoreId());
-        $collection = $this->getData('category_collection');
+        $collection = $this->getDataByKey('category_collection');
         if (is_null($collection)) {
             $collection = Mage::getModel('catalog/category')->getCollection();
 
-            /** @var Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Collection $collection */
+            /** @var Mage_Catalog_Model_Resource_Category_Collection $collection */
             $collection->addAttributeToSelect('name')
                 ->addAttributeToSelect('is_active')
                 ->setProductStoreId($storeId)
@@ -116,11 +115,17 @@ class Mage_Adminhtml_Block_Catalog_Category_Tree extends Mage_Adminhtml_Block_Ca
         return $this->getChildHtml('store_switcher');
     }
 
+    /**
+     * Tree JSON source URL
+     *
+     * @param  null|bool $expanded
+     * @return string
+     */
     public function getLoadTreeUrl($expanded = null)
     {
         $params = ['_current' => true, 'id' => null,'store' => null];
         if ((is_null($expanded) && Mage::getSingleton('admin/session')->getIsTreeWasExpanded())
-            || $expanded == true
+            || $expanded
         ) {
             $params['expand_all'] = true;
         }
@@ -200,7 +205,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Tree extends Mage_Adminhtml_Block_Ca
      *
      * @param  array|Varien_Data_Tree_Node $node
      * @param  int                         $level
-     * @return array
+     * @return array<string, mixed>
      */
     protected function _getNodeJson($node, $level = 0)
     {
@@ -219,7 +224,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Tree extends Mage_Adminhtml_Block_Ca
 
         $item['id']  = $node->getId();
         $item['store']  = (int) $this->getStore()->getId();
-        $item['path'] = $node->getData('path');
+        $item['path'] = $node->getDataByKey('path');
 
         $item['cls'] = 'folder ' . ($node->getIsActive() ? 'active-category' : 'no-active-category');
         //$item['allowDrop'] = ($level<3) ? true : false;

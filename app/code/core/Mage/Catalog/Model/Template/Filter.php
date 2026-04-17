@@ -97,10 +97,10 @@ class Mage_Catalog_Model_Template_Filter extends Varien_Filter_Template
             $params['_query'] = [];
         }
 
-        foreach ($params as $k => $v) {
-            if (str_starts_with($k, '_query_')) {
-                $params['_query'][substr($k, 7)] = $v;
-                unset($params[$k]);
+        foreach ($params as $key => $value) {
+            if (str_starts_with($key, '_query_')) {
+                $params['_query'][substr($key, 7)] = $value;
+                unset($params[$key]);
             }
         }
 

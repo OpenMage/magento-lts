@@ -12,18 +12,32 @@
  *
  * @package    Mage_Adminhtml
  *
- * @method array  getActions()
- * @method bool   getCopyable()
- * @method string getDir()
- * @method array  getFilterConditionCallback()
- * @method string getFilterIndex()
- * @method string getIndex()
- * @method bool   getNoLink()
- * @method array  getSelected()
- * @method $this  setActions(array $value)
- * @method $this  setCopyable(bool $value)
- * @method $this  setFormat(string $value)
- * @method $this  setSelected(array $value)
+ * @method array           getActions()
+ * @method string          getAlign()
+ * @method bool            getCopyable()
+ * @method string          getDir()
+ * @method bool            getEditable()
+ * @method bool            getEditOnly()
+ * @method array           getFilterConditionCallback()
+ * @method string          getFilterIndex()
+ * @method callable        getFrameCallback()
+ * @method callable|string getGetter()
+ * @method string          getHeader()
+ * @method string          getHtmlName()
+ * @method string          getIndex()
+ * @method bool            getNoLink()
+ * @method array           getSelected()
+ * @method bool            getSortable()
+ * @method string          getValidateClass()
+ * @method string          getValue()
+ * @method array           getValues()
+ * @method $this           setActions(array $value)
+ * @method $this           setCopyable(bool $value)
+ * @method $this           setEditable(bool $value)
+ * @method $this           setEditOnly(bool $value)
+ * @method $this           setFormat(string $value)
+ * @method $this           setGetter(callable|string $value)
+ * @method $this           setSelected(array $value)
  */
 class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widget
 {
@@ -93,7 +107,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
 
             // Add a custom css class for column
             if ($this->hasData('column_css_class')) {
-                $this->_cssClass .= ' ' . $this->getData('column_css_class');
+                $this->_cssClass .= ' ' . $this->getDataByKey('column_css_class');
             }
 
             if ($this->getEditable()) {
@@ -122,7 +136,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
      */
     public function getHeaderCssClass()
     {
-        $class = $this->getData('header_css_class');
+        $class = $this->getDataByKey('header_css_class');
         if (($this->getSortable() === false) || ($this->getGrid()->getSortable() === false)) {
             $class .= ' no-link';
         }
@@ -215,13 +229,11 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
      */
     protected function &_applyDecorators($value, $decorators)
     {
-        if (!is_array($decorators)) {
-            if (is_string($decorators)) {
-                $decorators = explode(' ', $decorators);
-            }
+        if (!is_array($decorators) && is_string($decorators)) {
+            $decorators = explode(' ', $decorators);
         }
 
-        if (empty($decorators)) {
+        if ($decorators === []) {
             return $value;
         }
 
@@ -229,7 +241,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
             $value = '<span class="nobr">' . $value . '</span>';
         }
 
-        if (!empty($decorators)) {
+        if ($decorators !== []) {
             return $this->_applyDecorators($value, $decorators);
         }
 
@@ -289,7 +301,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
     public function getRenderer()
     {
         if (!$this->_renderer) {
-            $rendererClass = $this->getData('renderer');
+            $rendererClass = $this->getDataByKey('renderer');
             if (!$rendererClass) {
                 $rendererClass = $this->_getRendererByType();
             }
@@ -344,7 +356,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
     public function getFilter()
     {
         if (!$this->_filter) {
-            $filterClass = $this->getData('filter');
+            $filterClass = $this->getDataByKey('filter');
             if ($filterClass === false) {
                 return false;
             }

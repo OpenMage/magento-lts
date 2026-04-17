@@ -110,20 +110,20 @@ abstract class Mage_Core_Model_Resource_Helper_Abstract
     {
         $value = str_replace('\\', '\\\\', $value);
 
-        $from = [];
-        $to = [];
+        $search  = [];
+        $replace = [];
         if (empty($options['allow_symbol_mask'])) {
-            $from[] = '_';
-            $to[] = '\_';
+            $search[] = '_';
+            $replace[] = '\_';
         }
 
         if (empty($options['allow_string_mask'])) {
-            $from[] = '%';
-            $to[] = '\%';
+            $search[] = '%';
+            $replace[] = '\%';
         }
 
-        if ($from) {
-            $value = str_replace($from, $to, $value);
+        if ($search) {
+            $value = str_replace($search, $replace, $value);
         }
 
         if (isset($options['position'])) {
@@ -178,8 +178,8 @@ abstract class Mage_Core_Model_Resource_Helper_Abstract
      *
      * E.g. Converts type 'varchar(255)' to array('type' => Varien_Db_Ddl_Table::TYPE_TEXT, 'length' => 255)
      *
-     * @param  array $column
-     * @return array
+     * @param  array                $column
+     * @return array<string, mixed>
      */
     public function convertOldColumnDefinition($column)
     {

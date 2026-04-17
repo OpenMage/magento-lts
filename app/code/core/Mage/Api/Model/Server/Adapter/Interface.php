@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -17,8 +19,8 @@ interface Mage_Api_Model_Server_Adapter_Interface
     /**
      * Set handler class name for webservice
      *
-     * @param  string                                  $handler
-     * @return Mage_Api_Model_Server_Adapter_Interface
+     * @param  string $handler
+     * @return $this
      */
     public function setHandler($handler);
 
@@ -32,7 +34,7 @@ interface Mage_Api_Model_Server_Adapter_Interface
     /**
      * Set webservice api controller
      *
-     * @return Mage_Api_Model_Server_Adapter_Interface
+     * @return $this
      */
     public function setController(Mage_Api_Controller_Action $controller);
 
@@ -46,7 +48,7 @@ interface Mage_Api_Model_Server_Adapter_Interface
     /**
      * Run webservice
      *
-     * @return Mage_Api_Model_Server_Adapter_Interface
+     * @return $this
      */
     public function run();
 

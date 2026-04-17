@@ -35,8 +35,8 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Store extends Mage_Adminh
      */
     protected function _getShowAllStoresLabelFlag()
     {
-        return $this->getColumn()->getData('skipAllStoresLabel')
-            ? $this->getColumn()->getData('skipAllStoresLabel')
+        return $this->getColumn()->getDataByKey('skipAllStoresLabel')
+            ? $this->getColumn()->getDataByKey('skipAllStoresLabel')
             : $this->_skipAllStoresLabel;
     }
 
@@ -47,8 +47,8 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Store extends Mage_Adminh
      */
     protected function _getShowEmptyStoresLabelFlag()
     {
-        return $this->getColumn()->getData('skipEmptyStoresLabel')
-            ? $this->getColumn()->getData('skipEmptyStoresLabel')
+        return $this->getColumn()->getDataByKey('skipEmptyStoresLabel')
+            ? $this->getColumn()->getDataByKey('skipEmptyStoresLabel')
             : $this->_skipEmptyStoresLabel;
     }
 
@@ -81,9 +81,11 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Store extends Mage_Adminh
             $origStores = [$origStores];
         }
 
-        if (empty($origStores)) {
+        if ($origStores === []) {
             return '';
-        } elseif (in_array(0, $origStores) && count($origStores) == 1 && !$skipAllStoresLabel) {
+        }
+
+        if (in_array(0, $origStores) && count($origStores) == 1 && !$skipAllStoresLabel) {
             return Mage::helper('adminhtml')->__('All Store Views');
         }
 

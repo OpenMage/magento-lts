@@ -11,6 +11,17 @@
  * Convert profiles run block
  *
  * @package    Mage_Adminhtml
+ *
+ * @method array getBatchConfig()
+ * @method int   getBatchItemsCount()
+ * @method bool  getBatchModelHasAdapter()
+ * @method array getImportData()
+ * @method bool  getShowFinished()
+ * @method $this setBatchConfig(array $value)
+ * @method $this setBatchItemsCount(int $value)
+ * @method $this setBatchModelHasAdapter(bool $value)
+ * @method $this setImportData(array $value)
+ * @method $this setShowFinished(bool $value)
  */
 class Mage_Adminhtml_Block_System_Convert_Profile_Run extends Mage_Adminhtml_Block_Abstract
 {
@@ -164,8 +175,8 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Run extends Mage_Adminhtml_Blo
 
         $exceptions = [];
         $this->getProfile()->run();
-        foreach ($this->getProfile()->getExceptions() as $e) {
-            switch ($e->getLevel()) {
+        foreach ($this->getProfile()->getExceptions() as $exception) {
+            switch ($exception->getLevel()) {
                 case Varien_Convert_Exception::FATAL:
                     $img = 'error_msg_icon.gif';
                     $liStyle = 'background-color:#FBB; ';
@@ -188,8 +199,8 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Run extends Mage_Adminhtml_Blo
             $exceptions[] = [
                 'style'     => $liStyle,
                 'src'       => Mage::getDesign()->getSkinUrl('images/' . $img),
-                'message'   => $e->getMessage(),
-                'position'  => $e->getPosition(),
+                'message'   => $exception->getMessage(),
+                'position'  => $exception->getPosition(),
             ];
         }
 

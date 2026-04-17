@@ -48,7 +48,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer_Address extends Mage_Import
     protected $_attributes = [];
 
     /**
-     * Countrys and its regions.
+     * Country's and their regions.
      *
      * array(
      *   [country_id_lowercased_1] => array(
@@ -341,6 +341,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer_Address extends Mage_Import
     /**
      * Save customer address attributes.
      *
+     * @param  non-empty-array<int, non-empty-array>[] $attributesData
      * @return $this
      */
     protected function _saveAddressAttributes(array $attributesData)
@@ -368,7 +369,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer_Address extends Mage_Import
     /**
      * Update and insert data in entity table.
      *
-     * @param  array $entityRows Rows for insert
+     * @param  array<int, array<string, null|int|string>> $entityRows Rows for insert
      * @return $this
      */
     protected function _saveAddressEntity(array $entityRows)
@@ -396,6 +397,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer_Address extends Mage_Import
     /**
      * Save customer default addresses.
      *
+     * @param  non-empty-array<string, non-empty-array<(int | string), int>>[] $defaults
      * @return $this
      */
     protected function _saveCustomerDefaults(array $defaults)

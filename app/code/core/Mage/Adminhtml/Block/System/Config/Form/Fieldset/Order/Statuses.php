@@ -57,7 +57,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Fieldset_Order_Statuses extends Ma
         $path = 'sales/order_statuses/status_' . $id; //TODO: move as property of form
         $data = $configData[$path] ?? [];
 
-        $e = $this->_getDummyElement();
+        $element = $this->_getDummyElement();
 
         $field = $fieldset->addField(
             $id,
@@ -69,8 +69,8 @@ class Mage_Adminhtml_Block_System_Config_Form_Fieldset_Order_Statuses extends Ma
                 'default_value' => $data['default_value'] ?? '',
                 'old_value'     => $data['old_value'] ?? '',
                 'inherit'       => $data['inherit'] ?? '',
-                'can_use_default_value' => $this->getForm()->canUseDefaultValue($e),
-                'can_use_website_value' => $this->getForm()->canUseWebsiteValue($e),
+                'can_use_default_value' => $this->getForm()->canUseDefaultValue($element),
+                'can_use_website_value' => $this->getForm()->canUseWebsiteValue($element),
             ],
         )->setRenderer($this->_getFieldRenderer());
 

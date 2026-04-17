@@ -47,8 +47,8 @@ class Mage_Sales_Model_Resource_Order_Payment_Transaction extends Mage_Sales_Mod
             try {
                 $unserializedValue = Mage::helper('core/unserializeArray')
                 ->unserialize($value);
-            } catch (Exception $e) {
-                Mage::logException($e);
+            } catch (Exception $exception) {
+                Mage::logException($exception);
             }
 
             $object->setData($field, $unserializedValue);
@@ -140,10 +140,10 @@ class Mage_Sales_Model_Resource_Order_Payment_Transaction extends Mage_Sales_Mod
      */
     protected function _beforeSave(Mage_Core_Model_Abstract $transaction)
     {
-        $parentTxnId = $transaction->getData('parent_txn_id');
-        $txnId       = $transaction->getData('txn_id');
-        $orderId     = $transaction->getData('order_id');
-        $paymentId   = $transaction->getData('payment_id');
+        $parentTxnId = $transaction->getDataByKey('parent_txn_id');
+        $txnId       = $transaction->getDataByKey('txn_id');
+        $orderId     = $transaction->getDataByKey('order_id');
+        $paymentId   = $transaction->getDataByKey('payment_id');
         $idFieldName = $this->getIdFieldName();
 
         if ($parentTxnId) {

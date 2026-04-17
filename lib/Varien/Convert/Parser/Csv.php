@@ -27,20 +27,20 @@ class Varien_Convert_Parser_Csv extends Varien_Convert_Parser_Abstract
         // fixed for multibyte characters
         setlocale(LC_ALL, Mage::app()->getLocale()->getLocaleCode() . '.UTF-8');
 
-        $fp = tmpfile();
-        fwrite($fp, $this->getData());
-        fseek($fp, 0);
+        $resource = tmpfile();
+        fwrite($resource, $this->getData());
+        fseek($resource, 0);
 
         $data = [];
-        for ($i = 0; $line = fgetcsv($fp, 4096, $fDel, $fEnc, $fEsc); $i++) {
+        for ($i = 0; $line = fgetcsv($resource, 4096, $fDel, $fEnc, $fEsc); $i++) {
             if (0 == $i) {
                 if ($this->getVar('fieldnames')) {
                     $fields = $line;
                     continue;
-                } else {
-                    foreach (array_keys($line) as $j) {
-                        $fields[$j] = 'column' . ($j + 1);
-                    }
+                }
+
+                foreach (array_keys($line) as $j) {
+                    $fields[$j] = 'column' . ($j + 1);
                 }
             }
 
@@ -52,7 +52,7 @@ class Varien_Convert_Parser_Csv extends Varien_Convert_Parser_Abstract
             $data[] = $row;
         }
 
-        fclose($fp);
+        fclose($resource);
         $this->setData($data);
         return $this;
     }
@@ -71,23 +71,21 @@ class Varien_Convert_Parser_Csv extends Varien_Convert_Parser_Abstract
         // fixed for multibyte characters
         setlocale(LC_ALL, Mage::app()->getLocale()->getLocaleCode() . '.UTF-8');
 
-        $fp = tmpfile();
-        fwrite($fp, $this->getData());
-        fseek($fp, 0);
-
-        $data = [];
+        $resource = tmpfile();
+        fwrite($resource, $this->getData());
+        fseek($resource, 0);
         $sessionId = Mage::registry('current_dataflow_session_id');
         $import = Mage::getModel('dataflow/import');
         $map = new Varien_Convert_Mapper_Column();
-        for ($i = 0; $line = fgetcsv($fp, 4096, $fDel, $fEnc, $fEsc); $i++) {
+        for ($i = 0; $line = fgetcsv($resource, 4096, $fDel, $fEnc, $fEsc); $i++) {
             if (0 == $i) {
                 if ($this->getVar('fieldnames')) {
                     $fields = $line;
                     continue;
-                } else {
-                    foreach (array_keys($line) as $j) {
-                        $fields[$j] = 'column' . ($j + 1);
-                    }
+                }
+
+                foreach (array_keys($line) as $j) {
+                    $fields[$j] = 'column' . ($j + 1);
                 }
             }
 
@@ -106,15 +104,13 @@ class Varien_Convert_Parser_Csv extends Varien_Convert_Parser_Abstract
             $import->save();
         }
 
-        fclose($fp);
+        fclose($resource);
         unset($sessionId);
         return $this;
     }
 
     public function unparse()
     {
-        $csv = '';
-
         $fDel = $this->getVar('delimiter', ',');
         $fEnc = $this->getVar('enclose', '"');
         $fEsc = $this->getVar('escape', '\\');
@@ -146,9 +142,9 @@ class Varien_Convert_Parser_Csv extends Varien_Convert_Parser_Abstract
                     echo str_replace('"', '\"',$tmp).'<br>';
                 }
                 */
-                $v = isset($row[$f]) ? str_replace(['"', '\\'], [$fEnc . '"', $fEsc . '\\'], $row[$f]) : '';
+                $str = isset($row[$f]) ? str_replace(['"', '\\'], [$fEnc . '"', $fEsc . '\\'], $row[$f]) : '';
 
-                $line[] = $fEnc . $v . $fEnc;
+                $line[] = $fEnc . $str . $fEnc;
             }
 
             $lines[] = implode($fDel, $line);

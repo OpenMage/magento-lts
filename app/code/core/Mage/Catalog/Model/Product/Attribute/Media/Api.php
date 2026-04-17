@@ -48,10 +48,9 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
     {
         $product = $this->_initProduct($productId, $store, $identifierType);
 
-        $gallery = $this->_getGalleryAttribute($product);
+        $this->_getGalleryAttribute($product);
 
         $galleryData = $product->getData(self::ATTRIBUTE_CODE);
-
         if (!isset($galleryData['images']) || !is_array($galleryData['images'])) {
             return [];
         }
@@ -125,11 +124,7 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
 
         $tmpDirectory = Mage::getBaseDir('var') . DS . 'api' . DS . $this->_getSession()->getSessionId();
 
-        if (isset($data['file']['name']) && $data['file']['name']) {
-            $fileName  = $data['file']['name'];
-        } else {
-            $fileName  = 'image';
-        }
+        $fileName = isset($data['file']['name']) && $data['file']['name'] ? $data['file']['name'] : 'image';
 
         $fileName .= '.' . $this->_mimeTypes[$data['file']['mime']];
 
@@ -147,11 +142,11 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
                 $filePath = $tmpDirectory . DS . $fileName;
                 Mage::getModel('varien/image', $filePath);
                 Mage::getModel('core/file_validator_image')->validate($filePath);
-            } catch (Exception $e) {
+            } catch (Exception $exception) {
                 // Remove temporary directory
                 $ioAdapter->rmdir($tmpDirectory, true);
 
-                throw new Mage_Core_Exception($e->getMessage(), $e->getCode(), $e);
+                throw new Mage_Core_Exception($exception->getMessage(), $exception->getCode(), $exception);
             }
 
             // Adding image to gallery
@@ -172,8 +167,8 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
             }
 
             $product->save();
-        } catch (Mage_Core_Exception $e) {
-            $this->_fault('not_created', $e->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_fault('not_created', $mageCoreException->getMessage());
         } catch (Exception) {
             $this->_fault('not_created', Mage::helper('catalog')->__('Cannot create image.'));
         }
@@ -353,8 +348,7 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
     }
 
     /**
-     * Retrie
-     * ve media config
+     * Retrieve media config
      *
      * @return Mage_Catalog_Model_Product_Media_Config
      */
@@ -368,7 +362,7 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
      *
      * @param  array                      $image
      * @param  Mage_Catalog_Model_Product $product
-     * @return array
+     * @return array<string, mixed>
      */
     protected function _imageToArray(&$image, $product)
     {

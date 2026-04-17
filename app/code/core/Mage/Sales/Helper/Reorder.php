@@ -34,11 +34,7 @@ class Mage_Sales_Helper_Reorder extends Mage_Core_Helper_Data
      */
     public function isAllowed($store = null)
     {
-        if (Mage::getStoreConfig(self::XML_PATH_SALES_REORDER_ALLOW, $store)) {
-            return true;
-        }
-
-        return false;
+        return Mage::getStoreConfigFlag(self::XML_PATH_SALES_REORDER_ALLOW, $store);
     }
 
     /**
@@ -52,8 +48,8 @@ class Mage_Sales_Helper_Reorder extends Mage_Core_Helper_Data
 
         if (Mage::getSingleton('customer/session')->isLoggedIn()) {
             return $order->canReorder();
-        } else {
-            return true;
         }
+
+        return true;
     }
 }

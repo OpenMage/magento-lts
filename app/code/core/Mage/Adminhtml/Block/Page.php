@@ -11,6 +11,9 @@
  * Adminhtml page
  *
  * @package    Mage_Adminhtml
+ *
+ * @method string getBodyClass()
+ * @method $this  setBodyClass(string $value)
  */
 class Mage_Adminhtml_Block_Page extends Mage_Adminhtml_Block_Template
 {
@@ -35,7 +38,7 @@ class Mage_Adminhtml_Block_Page extends Mage_Adminhtml_Block_Template
             $this->setData('lang', substr(Mage::app()->getLocale()->getLocaleCode(), 0, 2));
         }
 
-        return $this->getData('lang');
+        return $this->getDataByKey('lang');
     }
 
     /**

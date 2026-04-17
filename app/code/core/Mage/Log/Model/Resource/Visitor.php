@@ -38,7 +38,7 @@ class Mage_Log_Model_Resource_Visitor extends Mage_Core_Model_Resource_Db_Abstra
     /**
      * Prepare data for save
      *
-     * @return array
+     * @return array<string, mixed>
      */
     protected function _prepareDataForSave(Mage_Core_Model_Abstract $visitor)
     {
@@ -115,10 +115,10 @@ class Mage_Log_Model_Resource_Visitor extends Mage_Core_Model_Resource_Db_Abstra
                 }
             }
 
-            if ($this->_urlLoggingCondition->isVisitorLogEnabled()) {
-                if ($visitor->getDoQuoteCreate() || $visitor->getDoQuoteDestroy()) {
-                    $this->_saveQuoteInfo($visitor);
-                }
+            if ($this->_urlLoggingCondition->isVisitorLogEnabled()
+                && ($visitor->getDoQuoteCreate() || $visitor->getDoQuoteDestroy())
+            ) {
+                $this->_saveQuoteInfo($visitor);
             }
         }
 

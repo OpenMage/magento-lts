@@ -13,10 +13,8 @@
  * @package    Mage_Sales
  *
  * @method Mage_Sales_Model_Resource_Order_Shipment            _getResource()
- * @method string                                              getBackUrl()
  * @method int                                                 getBillingAddressId()
  * @method Mage_Sales_Model_Resource_Order_Shipment_Collection getCollection()
- * @method string                                              getCreatedAt()
  * @method int                                                 getCustomerId()
  * @method int                                                 getEmailSent()
  * @method string                                              getIncrementId()
@@ -29,9 +27,7 @@
  * @method int                                                 getStoreId()
  * @method float                                               getTotalQty()
  * @method float                                               getTotalWeight()
- * @method string                                              getUpdatedAt()
  * @method $this                                               setBillingAddressId(int $value)
- * @method $this                                               setCreatedAt(string $value)
  * @method $this                                               setCustomerId(int $value)
  * @method $this                                               setEmailSent(int $value)
  * @method $this                                               setIncrementId(string $value)
@@ -42,7 +38,6 @@
  * @method $this                                               setStoreId(int $value)
  * @method $this                                               setTotalQty(float $value)
  * @method $this                                               setTotalWeight(float $value)
- * @method $this                                               setUpdatedAt(string $value)
  */
 class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
 {
@@ -268,8 +263,8 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
     }
 
     /**
-     * @param  int  $itemId
-     * @return bool
+     * @param  int                                       $itemId
+     * @return null|Mage_Sales_Model_Order_Shipment_Item
      */
     public function getItemById($itemId)
     {
@@ -279,7 +274,7 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
             }
         }
 
-        return false;
+        return null;
     }
 
     /**
@@ -703,7 +698,7 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
      */
     public function getShippingLabel()
     {
-        $label = $this->getData('shipping_label');
+        $label = $this->getDataByKey('shipping_label');
         if ($label) {
             return $this->getResource()->getReadConnection()->decodeVarbinary($label);
         }

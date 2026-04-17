@@ -40,7 +40,6 @@
  * @method float                                           getBaseWeeeTaxDisposition()
  * @method float                                           getBaseWeeeTaxRowDisposition()
  * @method Mage_Sales_Model_Resource_Order_Item_Collection getCollection()
- * @method string                                          getCreatedAt()
  * @method string                                          getDescription()
  * @method float                                           getDiscountAmount()
  * @method float                                           getDiscountInvoiced()
@@ -91,7 +90,6 @@
  * @method float                                           getTaxInvoiced()
  * @method float                                           getTaxPercent()
  * @method float                                           getTaxRefunded()
- * @method string                                          getUpdatedAt()
  * @method string                                          getWeeeTaxApplied()
  * @method float                                           getWeeeTaxAppliedAmount()
  * @method float                                           getWeeeTaxAppliedRowAmount()
@@ -123,7 +121,6 @@
  * @method $this                                           setBaseWeeeTaxAppliedRowAmount(float $value)
  * @method $this                                           setBaseWeeeTaxDisposition(float $value)
  * @method $this                                           setBaseWeeeTaxRowDisposition(float $value)
- * @method $this                                           setCreatedAt(string $value)
  * @method $this                                           setDescription(string $value)
  * @method $this                                           setDiscountAmount(float $value)
  * @method $this                                           setDiscountInvoiced(float $value)
@@ -175,7 +172,6 @@
  * @method $this                                           setTaxInvoiced(float $value)
  * @method $this                                           setTaxPercent(float $value)
  * @method $this                                           setTaxRefunded(float $value)
- * @method $this                                           setUpdatedAt(string $value)
  * @method $this                                           setWeeeTaxApplied(string $value)
  * @method $this                                           setWeeeTaxAppliedAmount(float $value)
  * @method $this                                           setWeeeTaxAppliedRowAmount(float $value)
@@ -613,7 +609,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
      */
     public function getOriginalPrice()
     {
-        $price = $this->getData('original_price');
+        $price = $this->getDataByKey('original_price');
         if (is_null($price)) {
             return $this->getPrice();
         }
@@ -709,19 +705,10 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
      */
     public function isChildrenCalculated()
     {
-        if ($parentItem = $this->getParentItem()) {
-            $options = $parentItem->getProductOptions();
-        } else {
-            $options = $this->getProductOptions();
-        }
+        $options = ($parentItem = $this->getParentItem()) ? $parentItem->getProductOptions() : $this->getProductOptions();
 
-        if (isset($options['product_calculations'])
-             && $options['product_calculations'] == Mage_Catalog_Model_Product_Type_Abstract::CALCULATE_CHILD
-        ) {
-            return true;
-        }
-
-        return false;
+        return isset($options['product_calculations'])
+             && $options['product_calculations'] == Mage_Catalog_Model_Product_Type_Abstract::CALCULATE_CHILD;
     }
 
     /**
@@ -731,11 +718,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
      */
     public function getForceApplyDiscountToParentItem()
     {
-        if ($this->getParentItem()) {
-            $product = $this->getParentItem()->getProduct();
-        } else {
-            $product = $this->getProduct();
-        }
+        $product = $this->getParentItem() ? $this->getParentItem()->getProduct() : $this->getProduct();
 
         return $product->getTypeInstance()->getForceApplyDiscountToParentItem();
     }
@@ -748,19 +731,10 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
      */
     public function isShipSeparately()
     {
-        if ($parentItem = $this->getParentItem()) {
-            $options = $parentItem->getProductOptions();
-        } else {
-            $options = $this->getProductOptions();
-        }
+        $options = ($parentItem = $this->getParentItem()) ? $parentItem->getProductOptions() : $this->getProductOptions();
 
-        if (isset($options['shipment_type'])
-            && $options['shipment_type'] == Mage_Catalog_Model_Product_Type_Abstract::SHIPMENT_SEPARATELY
-        ) {
-            return true;
-        }
-
-        return false;
+        return isset($options['shipment_type'])
+            && $options['shipment_type'] == Mage_Catalog_Model_Product_Type_Abstract::SHIPMENT_SEPARATELY;
     }
 
     /**
@@ -835,12 +809,12 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
      */
     public function getProduct()
     {
-        if (!$this->getData('product')) {
+        if (!$this->getDataByKey('product')) {
             $product = Mage::getModel('catalog/product')->setStoreId($this->getStoreId())->load($this->getProductId());
             $this->setProduct($product);
         }
 
-        return $this->getData('product');
+        return $this->getDataByKey('product');
     }
 
     /**
@@ -859,9 +833,9 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
         foreach ($weeeTaxAppliedAmounts as $weeeTaxAppliedAmount) {
             if (isset($weeeTaxAppliedAmount['total_base_weee_discount'])) {
                 return $weeeTaxAppliedAmount['total_base_weee_discount'];
-            } else {
-                $totalDiscount += $weeeTaxAppliedAmount['base_weee_discount'] ?? 0;
             }
+
+            $totalDiscount += $weeeTaxAppliedAmount['base_weee_discount'] ?? 0;
         }
 
         return $totalDiscount;
@@ -883,9 +857,9 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
         foreach ($weeeTaxAppliedAmounts as $weeeTaxAppliedAmount) {
             if (isset($weeeTaxAppliedAmount['total_weee_discount'])) {
                 return $weeeTaxAppliedAmount['total_weee_discount'];
-            } else {
-                $totalDiscount += $weeeTaxAppliedAmount['weee_discount'] ?? 0;
             }
+
+            $totalDiscount += $weeeTaxAppliedAmount['weee_discount'] ?? 0;
         }
 
         return $totalDiscount;

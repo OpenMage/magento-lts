@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -17,7 +19,7 @@ class Mage_Widget_Model_Resource_Widget_Instance_Collection extends Mage_Core_Mo
     /**
      * Fields map for correlation names & real selected fields
      *
-     * @var array
+     * @inheritDoc
      */
     protected $_map = ['fields' => ['type' => 'instance_type']];
 

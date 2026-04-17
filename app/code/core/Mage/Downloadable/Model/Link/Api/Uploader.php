@@ -37,9 +37,9 @@ class Mage_Downloadable_Model_Link_Api_Uploader extends Mage_Core_Model_File_Upl
         $this->_setUploadFile($file);
         if (!file_exists($this->_file['tmp_name'])) {
             throw new Exception('file_not_uploaded');
-        } else {
-            $this->_fileExists = true;
         }
+
+        $this->_fileExists = true;
     }
 
     /**
@@ -61,8 +61,8 @@ class Mage_Downloadable_Model_Link_Api_Uploader extends Mage_Core_Model_File_Upl
     /**
      * Decode uploaded file base64 encoded content
      *
-     * @param  array $fileInfo
-     * @return array
+     * @param  array                $fileInfo
+     * @return array<string, mixed>
      */
     private function _decodeFile($fileInfo)
     {

@@ -11,7 +11,6 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Page\Block\Html;
 
-use Mage;
 use Mage_Core_Model_Security_HtmlEscapedString;
 use Mage_Page_Block_Html_Header as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
@@ -20,7 +19,7 @@ final class HeaderTest extends OpenMageTest
 {
     private static Subject $subject;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         self::$subject = new Subject();
     }

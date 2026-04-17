@@ -23,7 +23,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Options extends Mage_Admi
     {
         $options = $this->getColumn()->getOptions();
         $showMissingOptionValues = (bool) $this->getColumn()->getShowMissingOptionValues();
-        if (!empty($options) && is_array($options)) {
+        if (is_array($options) && $options !== []) {
             $value = $row->getData($this->getColumn()->getIndex());
             if (is_array($value)) {
                 $res = [];
@@ -36,9 +36,13 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Options extends Mage_Admi
                 }
 
                 return implode(', ', $res);
-            } elseif (isset($options[$value])) {
+            }
+
+            if (isset($options[$value])) {
                 return $this->escapeHtml($options[$value]);
-            } elseif (in_array($value, $options)) {
+            }
+
+            if (in_array($value, $options)) {
                 return $this->escapeHtml($value);
             }
         }

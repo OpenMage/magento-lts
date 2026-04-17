@@ -28,6 +28,7 @@ class Varien_Convert_Parser_Xml_Excel extends Varien_Convert_Parser_Abstract
         $dom = new DOMDocument();
         $dom->loadXML($this->getData());
 
+        $data = [];
         $worksheets = $dom->getElementsByTagName('Worksheet');
         /** @var DOMElement $worksheet */
         foreach ($worksheets as $worksheet) {
@@ -63,7 +64,7 @@ class Varien_Convert_Parser_Xml_Excel extends Varien_Convert_Parser_Abstract
                 }
 
                 $firstRow = false;
-                if (!empty($rowData)) {
+                if ($rowData !== []) {
                     $wsData[] = $rowData;
                 }
             }
@@ -87,11 +88,7 @@ class Varien_Convert_Parser_Xml_Excel extends Varien_Convert_Parser_Abstract
 
     public function unparse()
     {
-        if ($wsName = $this->getVar('single_sheet')) {
-            $data = [$wsName => $this->getData()];
-        } else {
-            $data = $this->getData();
-        }
+        $data = ($wsName = $this->getVar('single_sheet')) ? [$wsName => $this->getData()] : $this->getData();
 
         $this->validateDataGrid();
 
@@ -125,9 +122,15 @@ class Varien_Convert_Parser_Xml_Excel extends Varien_Convert_Parser_Abstract
 
                     $xml .= '<ss:Row>';
                     foreach ($fields as $fieldName) {
-                        $data = $row[$fieldName] ?? '';
-                        $fieldType = is_numeric($data) ? 'Number' : 'String';
-                        $xml .= '<ss:Cell><Data ss:Type="' . $fieldType . '">' . $data . '</Data></ss:Cell>';
+                        $value = $row[$fieldName] ?? '';
+                        $dataType = 'String';
+                        if (is_numeric($value)) {
+                            $dataType = 'Number';
+                            // is_numeric(' 96000') returns true, but Excel argues about space
+                            $value = trim($value);
+                        }
+
+                        $xml .= '<ss:Cell><Data ss:Type="' . $dataType . '">' . $value . '</Data></ss:Cell>';
                     }
 
                     $xml .= '</ss:Row>';

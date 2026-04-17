@@ -31,7 +31,7 @@ class Mage_Page_Block_Html_Topmenu extends Mage_Core_Block_Template
     /**
      * Init top menu tree structure and cache
      */
-    public function _construct()
+    protected function _construct()
     {
         $this->_menu = new Varien_Data_Tree_Node([], 'root', new Varien_Data_Tree());
         /*
@@ -154,7 +154,7 @@ class Mage_Page_Block_Html_Topmenu extends Mage_Core_Block_Template
     /**
      * Returns array of menu item's attributes
      *
-     * @return array
+     * @return array<string, string>
      */
     protected function _getMenuItemAttributes(Varien_Data_Tree_Node $item)
     {
@@ -167,7 +167,7 @@ class Mage_Page_Block_Html_Topmenu extends Mage_Core_Block_Template
     /**
      * Returns array of menu item's classes
      *
-     * @return array
+     * @return array<int, string>
      */
     protected function _getMenuItemClasses(Varien_Data_Tree_Node $item)
     {

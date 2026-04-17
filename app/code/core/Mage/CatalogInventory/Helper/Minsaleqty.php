@@ -38,7 +38,9 @@ class Mage_CatalogInventory_Helper_Minsaleqty
         if (is_numeric($value)) {
             $data = (float) $value;
             return (string) $data;
-        } elseif (is_array($value)) {
+        }
+
+        if (is_array($value)) {
             $data = [];
             foreach ($value as $groupId => $qty) {
                 if (!array_key_exists($groupId, $data)) {
@@ -51,9 +53,9 @@ class Mage_CatalogInventory_Helper_Minsaleqty
             }
 
             return serialize($data);
-        } else {
-            return '';
         }
+
+        return '';
     }
 
     /**
@@ -68,7 +70,9 @@ class Mage_CatalogInventory_Helper_Minsaleqty
             return [
                 Mage_Customer_Model_Group::CUST_GROUP_ALL => $this->_fixQty($value),
             ];
-        } elseif (is_string($value) && !empty($value)) {
+        }
+
+        if (is_string($value) && $value !== '') {
             try {
                 return Mage::helper('core/unserializeArray')->unserialize($value);
             } catch (Exception) {
@@ -130,7 +134,15 @@ class Mage_CatalogInventory_Helper_Minsaleqty
         $result = [];
         unset($value['__empty']);
         foreach ($value as $row) {
-            if (!is_array($row) || !array_key_exists('customer_group_id', $row) || !array_key_exists('min_sale_qty', $row)) {
+            if (!is_array($row)) {
+                continue;
+            }
+
+            if (!array_key_exists('customer_group_id', $row)) {
+                continue;
+            }
+
+            if (!array_key_exists('min_sale_qty', $row)) {
                 continue;
             }
 

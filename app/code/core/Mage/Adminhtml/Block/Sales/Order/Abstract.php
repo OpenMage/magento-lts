@@ -11,6 +11,8 @@
  * Adminhtml order abstract block
  *
  * @package    Mage_Adminhtml
+ *
+ * @method bool hasOrder()
  */
 class Mage_Adminhtml_Block_Sales_Order_Abstract extends Mage_Adminhtml_Block_Widget
 {
@@ -23,7 +25,7 @@ class Mage_Adminhtml_Block_Sales_Order_Abstract extends Mage_Adminhtml_Block_Wid
     public function getOrder()
     {
         if ($this->hasOrder()) {
-            return $this->getData('order');
+            return $this->getDataByKey('order');
         }
 
         if (Mage::registry('current_order')) {
@@ -39,7 +41,7 @@ class Mage_Adminhtml_Block_Sales_Order_Abstract extends Mage_Adminhtml_Block_Wid
 
     public function getPriceDataObject()
     {
-        $obj = $this->getData('price_data_object');
+        $obj = $this->getDataByKey('price_data_object');
         if (is_null($obj)) {
             return $this->getOrder();
         }
@@ -77,7 +79,7 @@ class Mage_Adminhtml_Block_Sales_Order_Abstract extends Mage_Adminhtml_Block_Wid
     /**
      * Retrieve order totals block settings
      *
-     * @return array
+     * @return array<string, bool|string>|array<void>
      */
     public function getOrderTotalData()
     {
@@ -87,7 +89,7 @@ class Mage_Adminhtml_Block_Sales_Order_Abstract extends Mage_Adminhtml_Block_Wid
     /**
      * Retrieve order info block settings
      *
-     * @return array
+     * @return array<string, mixed>|array<void>
      */
     public function getOrderInfoData()
     {

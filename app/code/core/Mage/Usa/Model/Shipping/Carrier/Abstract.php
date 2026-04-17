@@ -61,7 +61,7 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
             if ($trackings = $result->getAllTrackings()) {
                 return $trackings[0];
             }
-        } elseif (is_string($result) && !empty($result)) {
+        } elseif (is_string($result) && $result !== '') {
             return $result;
         }
 
@@ -119,15 +119,19 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
      * bundle itself, otherwise we may not get a rate at all (e.g. when total weight of a bundle exceeds max weight
      * despite each item by itself is not)
      *
-     * @return array
+     * @return Mage_Sales_Model_Quote_Item_Abstract[]
      */
     public function getAllItems(Mage_Shipping_Model_Rate_Request $request)
     {
         $items = [];
         if ($request->getAllItems()) {
             foreach ($request->getAllItems() as $item) {
-                /** @var Mage_Sales_Model_Quote_Item $item */
-                if ($item->getProduct()->isVirtual() || $item->getParentItem()) {
+                if ($item->getProduct()->isVirtual()) {
+                    // Don't process children here - we will process (or already have processed) them below
+                    continue;
+                }
+
+                if ($item->getParentItem()) {
                     // Don't process children here - we will process (or already have processed) them below
                     continue;
                 }
@@ -199,7 +203,9 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
             $error->setCarrierTitle($this->getConfigData('title'));
             $error->setErrorMessage($errorMsg);
             return $error;
-        } elseif ($errorMsg) {
+        }
+
+        if ($errorMsg) {
             return false;
         }
 

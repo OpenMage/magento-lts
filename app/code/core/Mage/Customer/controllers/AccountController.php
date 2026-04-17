@@ -150,8 +150,8 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
                     if ($session->getCustomer()->getIsJustConfirmed()) {
                         $this->_welcomeCustomer($session->getCustomer(), true);
                     }
-                } catch (Mage_Core_Exception $e) {
-                    switch ($e->getCode()) {
+                } catch (Mage_Core_Exception $mageCoreException) {
+                    switch ($mageCoreException->getCode()) {
                         case Mage_Customer_Model_Customer::EXCEPTION_EMAIL_NOT_CONFIRMED:
                             /** @var Helper $helper */
                             $helper = $this->_getHelper('customer');
@@ -159,16 +159,16 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
                             $message = $helper->__('This account is not confirmed. <a href="%s">Click here</a> to resend confirmation email.', $value);
                             break;
                         case Mage_Customer_Model_Customer::EXCEPTION_INVALID_EMAIL_OR_PASSWORD:
-                            $message = $e->getMessage();
+                            $message = $mageCoreException->getMessage();
                             break;
                         default:
-                            $message = $e->getMessage();
+                            $message = $mageCoreException->getMessage();
                     }
 
                     $session->addError($message);
                     $session->setUsername($login['username']);
                 } catch (Exception) {
-                    // Mage::logException($e); // PA DSS violation: this exception log can disclose customer password
+                    // PA DSS violation: this exception log can disclose customer password
                 }
             } else {
                 $session->addError($this->__('Login and password are required.'));
@@ -290,6 +290,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
         }
 
         $customer = $this->_getCustomer();
+        $customer->setIsChangePassword(true);
 
         try {
             $errors = $this->_getCustomerErrors($customer);
@@ -301,22 +302,22 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
                 $this->_dispatchRegisterSuccess($customer);
                 $this->_successProcessRegistration($customer);
                 return;
-            } else {
-                $this->_addSessionError($errors);
             }
-        } catch (Mage_Core_Exception $e) {
+
+            $this->_addSessionError($errors);
+        } catch (Mage_Core_Exception $mageCoreException) {
             $session->setCustomerFormData($this->getRequest()->getPost());
-            if ($e->getCode() === Mage_Customer_Model_Customer::EXCEPTION_EMAIL_EXISTS) {
+            if ($mageCoreException->getCode() === Mage_Customer_Model_Customer::EXCEPTION_EMAIL_EXISTS) {
                 $url = $this->_getUrl('customer/account/forgotpassword');
                 $message = $this->__('There is already an account with this email address. If you are sure that it is your email address, <a href="%s">click here</a> to get your password and access your account.', $url);
             } else {
-                $message = $this->_escapeHtml($e->getMessage());
+                $message = $this->_escapeHtml($mageCoreException->getMessage());
             }
 
             $session->addError($message);
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $session->setCustomerFormData($this->getRequest()->getPost());
-            $session->addException($e, $this->__('Cannot save the customer.'));
+            $session->addException($exception, $this->__('Cannot save the customer.'));
         }
 
         $this->_redirectError($errUrl);
@@ -617,8 +618,8 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
                 if (!$customer->getId()) {
                     throw new Exception('Failed to load customer by id.');
                 }
-            } catch (Exception $e) {
-                throw new Exception($this->__('Wrong customer account specified.'), $e->getCode(), $e);
+            } catch (Exception $exception) {
+                throw new Exception($this->__('Wrong customer account specified.'), $exception->getCode(), $exception);
             }
 
             // check if it is inactive
@@ -631,8 +632,8 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
                 try {
                     $customer->setConfirmation(null);
                     $customer->save();
-                } catch (Exception $e) {
-                    throw new Exception($this->__('Failed to confirm customer account.'), $e->getCode(), $e);
+                } catch (Exception $exception) {
+                    throw new Exception($this->__('Failed to confirm customer account.'), $exception->getCode(), $exception);
                 }
 
                 // log in and send greeting email, then die happy
@@ -682,8 +683,8 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
 
                 $this->_getSession()->setUsername($email);
                 $this->_redirectSuccess($this->_getUrl('*/*/index', ['_secure' => true]));
-            } catch (Exception $e) {
-                $this->_getSession()->addException($e, $this->__('Wrong email.'));
+            } catch (Exception $exception) {
+                $this->_getSession()->addException($exception, $this->__('Wrong email.'));
                 $this->_redirectError($this->_getUrl('*/*/*', ['email' => $email, '_secure' => true]));
             }
 
@@ -871,7 +872,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
             $errorMessages = array_merge($errorMessages, $validationErrorMessages);
         }
 
-        if (!empty($errorMessages)) {
+        if ($errorMessages !== []) {
             $this->_getSession()->setCustomerFormData($this->getRequest()->getPost());
             foreach ($errorMessages as $errorMessage) {
                 $this->_getSession()->addError($errorMessage);
@@ -1045,7 +1046,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
                 }
             }
 
-            if (!empty($errors)) {
+            if ($errors !== []) {
                 $this->_getSession()->setCustomerFormData($this->getRequest()->getPost());
                 foreach ($errors as $message) {
                     $this->_getSession()->addError($message);
@@ -1075,12 +1076,12 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
 
                 $this->_redirect('customer/account');
                 return;
-            } catch (Mage_Core_Exception $e) {
+            } catch (Mage_Core_Exception $mageCoreException) {
                 $this->_getSession()->setCustomerFormData($this->getRequest()->getPost())
-                    ->addError($e->getMessage());
-            } catch (Exception $e) {
+                    ->addError($mageCoreException->getMessage());
+            } catch (Exception $exception) {
                 $this->_getSession()->setCustomerFormData($this->getRequest()->getPost())
-                    ->addException($e, $this->__('Cannot save the customer.'));
+                    ->addException($exception, $this->__('Cannot save the customer.'));
             }
         }
 
@@ -1114,7 +1115,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
     /**
      * Get restore password params.
      *
-     * @return array array ($customerId, $resetPasswordToken)
+     * @return array<int, int|string> array ($customerId, $resetPasswordToken)
      */
     protected function _getRestorePasswordParameters(Mage_Customer_Model_Session $session)
     {

@@ -117,7 +117,7 @@ class Mage_ImportExport_Model_Export_Entity_Customer extends Mage_ImportExport_M
      *     'value' => path to created file
      * )
      *
-     * @return array
+     * @return array<string, int|string>
      */
     public function exportFile()
     {
@@ -136,6 +136,9 @@ class Mage_ImportExport_Model_Export_Entity_Customer extends Mage_ImportExport_M
      */
     protected function _prepareExport()
     {
+        /**
+         * @var Mage_Customer_Model_Resource_Customer_Collection $collection
+         */
         $collection = $this->_prepareEntityCollection(Mage::getResourceModel('customer/customer_collection'));
         $validAttrCodes = $this->_getExportAttrCodes();
         $writer         = $this->getWriter();
@@ -358,7 +361,7 @@ class Mage_ImportExport_Model_Export_Entity_Customer extends Mage_ImportExport_M
     /**
      * Get Address Attributes
      *
-     * @param  Mage_Catalog_Model_Resource_Eav_Attribute $attribute
+     * @param  Mage_Eav_Model_Entity_Attribute $attribute
      * @return array
      */
     protected function _getAddressAttributeOptions($attribute)

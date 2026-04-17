@@ -64,11 +64,11 @@ class Mage_Sales_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
     protected function _flatTableExist($table)
     {
         $tablesList = $this->getConnection()->listTables();
-        return in_array(strtoupper($this->getTable($table)), array_map(strtoupper(...), $tablesList));
+        return in_array(strtoupper($this->getTable($table)), array_map(strtoupper(...), $tablesList), true);
     }
 
     /**
-     * Add entity attribute. Overwrited for flat entities support
+     * Add entity attribute. Overwrite for flat entities support
      *
      * @param  int|string $entityTypeId
      * @param  string     $code
@@ -119,7 +119,7 @@ class Mage_Sales_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
      */
     protected function _addGridAttribute($table, $attribute, $attr, $entityTypeId)
     {
-        if (in_array($entityTypeId, $this->_flatEntitiesGrid) && !empty($attr['grid'])) {
+        if (in_array($entityTypeId, $this->_flatEntitiesGrid, true) && !empty($attr['grid'])) {
             $columnDefinition = $this->_getAttributeColumnDefinition($attribute, $attr);
             $this->getConnection()->addColumn($this->getTable($table . '_grid'), $attribute, $columnDefinition);
         }
@@ -137,7 +137,7 @@ class Mage_Sales_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
     protected function _getAttributeColumnDefinition($code, $data)
     {
         // Convert attribute type to column info
-        $data['type'] = $data['type'] ?? 'varchar';
+        $data['type'] ??= 'varchar';
         $type = null;
         $length = null;
         switch ($data['type']) {
@@ -171,14 +171,14 @@ class Mage_Sales_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
         }
 
         $data['nullable'] = isset($data['required']) ? !$data['required'] : true;
-        $data['comment']  = $data['comment'] ?? ucwords(str_replace('_', ' ', $code));
+        $data['comment'] ??= ucwords(str_replace('_', ' ', $code));
         return $data;
     }
 
     /**
      * Retrieve default entities
      *
-     * @return array
+     * @return array<string, non-empty-array<\lowercase-string, mixed>>
      */
     public function getDefaultEntities()
     {

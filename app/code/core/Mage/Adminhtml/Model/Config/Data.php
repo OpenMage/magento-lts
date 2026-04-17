@@ -242,7 +242,7 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
     public function extendConfig($path, $full = true, $oldConfig = [])
     {
         $extended = $this->_getPathConfig($path, $full);
-        if (is_array($oldConfig) && !empty($oldConfig)) {
+        if (is_array($oldConfig) && $oldConfig !== []) {
             return $oldConfig + $extended;
         }
 
@@ -262,9 +262,9 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
         try {
             $session = Mage::getSingleton('admin/session');
             $resourceLookup = "admin/system/config/{$section}";
-            if ($session->getData('acl') instanceof Mage_Admin_Model_Acl) {
+            if ($session->getDataByKey('acl') instanceof Mage_Admin_Model_Acl) {
                 return $session->isAllowed(
-                    $session->getData('acl')->get($resourceLookup)->getResourceId(),
+                    $session->getDataByKey('acl')->get($resourceLookup)->getResourceId(),
                 );
             }
         } catch (Exception) {

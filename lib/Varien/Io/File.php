@@ -412,7 +412,11 @@ class Varien_Io_File extends Varien_Io_Abstract
         if ($recursive) {
             if (is_dir($dir)) {
                 foreach (scandir($dir) as $item) {
-                    if (!strcmp($item, '.') || !strcmp($item, '..')) {
+                    if (!strcmp($item, '.')) {
+                        continue;
+                    }
+
+                    if (!strcmp($item, '..')) {
                         continue;
                     }
 
@@ -455,9 +459,9 @@ class Varien_Io_File extends Varien_Io_Abstract
             @chdir($this->_iwd);
             $this->_cwd = realpath($dir);
             return true;
-        } else {
-            throw new Exception('Unable to list current working directory.');
         }
+
+        throw new Exception('Unable to list current working directory.');
     }
 
     /**
@@ -540,11 +544,10 @@ class Varien_Io_File extends Varien_Io_Abstract
             // If its a file we check for null byte
             // If it's not a valid path, file_exists() will return a falsey value, and the @ will keep it from complaining about the bad string.
             return !(@file_exists($src) && str_contains($src, chr(0)));
-        } elseif (is_resource($src)) {
-            return true;
         }
 
-        return false;
+        // In case of a string
+        return is_resource($src);
     }
 
     /**
@@ -796,7 +799,7 @@ class Varien_Io_File extends Varien_Io_Abstract
             chdir($this->_cwd);
         }
 
-        $result = file_exists($filename) ? @chmod($filename, $mode) : false;
+        $result = file_exists($filename) && @chmod($filename, $mode);
         if ($this->_iwd) {
             chdir($this->_iwd);
         }
@@ -838,12 +841,15 @@ class Varien_Io_File extends Varien_Io_Abstract
                 $listItem = [];
 
                 $fullpath = $dir . DIRECTORY_SEPARATOR . $entry;
-
                 if (($grep == self::GREP_DIRS) && (!is_dir($fullpath))) {
                     continue;
-                } elseif (($grep == self::GREP_FILES) && (!is_file($fullpath))) {
+                }
+
+                if (($grep == self::GREP_FILES) && (!is_file($fullpath))) {
                     continue;
-                } elseif (in_array($entry, $ignoredDirectories)) {
+                }
+
+                if (in_array($entry, $ignoredDirectories, true)) {
                     continue;
                 }
 
@@ -857,7 +863,7 @@ class Varien_Io_File extends Varien_Io_Abstract
                     $listItem['size'] = filesize($fullpath);
                     $listItem['leaf'] = true;
                     if (isset($pathinfo['extension'])
-                        && in_array(strtolower($pathinfo['extension']), self::ALLOWED_IMAGES_EXTENSIONS)
+                        && in_array(strtolower($pathinfo['extension']), self::ALLOWED_IMAGES_EXTENSIONS, true)
                         && $listItem['size'] > 0
                     ) {
                         $listItem['is_image'] = true;

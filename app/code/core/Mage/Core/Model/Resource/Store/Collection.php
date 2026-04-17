@@ -12,8 +12,7 @@
  *
  * @package    Mage_Core
  *
- * @method Mage_Core_Model_Store   getItemById(int $value)
- * @method Mage_Core_Model_Store[] getItems()
+ * @extends Mage_Core_Model_Resource_Db_Collection_Abstract<Mage_Core_Model_Store>
  */
 class Mage_Core_Model_Resource_Store_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
@@ -204,7 +203,7 @@ class Mage_Core_Model_Resource_Store_Collection extends Mage_Core_Model_Resource
 
         if ($globalConfigCache !== false) {
             try {
-                $data = unserialize($globalConfigCache);
+                $data = unserialize($globalConfigCache, ['allowed_classes' => false]);
             } catch (Exception $exception) {
                 Mage::logException($exception);
             }

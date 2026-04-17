@@ -120,7 +120,7 @@ class Mage_Adminhtml_Block_Widget_Form_Container extends Mage_Adminhtml_Block_Wi
     public function getFormActionUrl()
     {
         if ($this->hasFormActionUrl()) {
-            return $this->getData('form_action_url');
+            return $this->getDataByKey('form_action_url');
         }
 
         return $this->getUrl('*/' . $this->_controller . '/save');

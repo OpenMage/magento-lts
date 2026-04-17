@@ -60,7 +60,7 @@ class Mage_SalesRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abstra
      * @return $this
      * @throws Zend_Date_Exception
      */
-    public function _beforeSave(Mage_Core_Model_Abstract $object)
+    protected function _beforeSave(Mage_Core_Model_Abstract $object)
     {
         if (!$object->getDiscountQty()) {
             $object->setDiscountQty(new Zend_Db_Expr('NULL'));
@@ -171,7 +171,7 @@ class Mage_SalesRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abstra
 
         $adapter->beginTransaction();
         try {
-            if (!empty($data)) {
+            if ($data !== []) {
                 $adapter->insertOnDuplicate(
                     $table,
                     $data,
@@ -179,7 +179,7 @@ class Mage_SalesRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abstra
                 );
             }
 
-            if (!empty($deleteByStoreIds)) {
+            if ($deleteByStoreIds !== []) {
                 $adapter->delete($table, [
                     'rule_id=?'       => $ruleId,
                     'store_id IN (?)' => $deleteByStoreIds,

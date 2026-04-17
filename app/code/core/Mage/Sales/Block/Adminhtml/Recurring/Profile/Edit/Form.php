@@ -44,7 +44,7 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_Edit_Form extends Mage_Adminh
     /**
      * Setter for parent element
      *
-     * @return Mage_Sales_Block_Adminhtml_Recurring_Profile_Edit_Form
+     * @return $this
      */
     public function setParentElement(Varien_Data_Form_Element_Abstract $element)
     {
@@ -55,7 +55,7 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_Edit_Form extends Mage_Adminh
     /**
      * Setter for current product
      *
-     * @return Mage_Sales_Block_Adminhtml_Recurring_Profile_Edit_Form
+     * @return $this
      */
     public function setProductEntity(Mage_Catalog_Model_Product $product)
     {

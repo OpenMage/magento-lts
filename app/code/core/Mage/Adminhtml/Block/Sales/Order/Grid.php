@@ -16,13 +16,14 @@ use Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract as MassAction;
  */
 class Mage_Adminhtml_Block_Sales_Order_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_sales_order_grid';
+
     public function __construct()
     {
         parent::__construct();
         $this->setId('sales_order_grid');
         $this->setUseAjax(true);
         $this->setDefaultSort('created_at');
-        $this->setDefaultDir('DESC');
         $this->setSaveParametersInSession(true);
     }
 
@@ -49,6 +50,7 @@ class Mage_Adminhtml_Block_Sales_Order_Grid extends Mage_Adminhtml_Block_Widget_
 
     /**
      * @inheritDoc
+     * @throws Exception
      * @throws Mage_Core_Model_Store_Exception
      */
     protected function _prepareColumns()
@@ -140,6 +142,8 @@ class Mage_Adminhtml_Block_Sales_Order_Grid extends Mage_Adminhtml_Block_Widget_
      * Add link to RSS feed when enabled for filtered store-view
      *
      * @return $this
+     * @throws Exception
+     * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
      */
     public function addRssFeedLink()
@@ -163,7 +167,7 @@ class Mage_Adminhtml_Block_Sales_Order_Grid extends Mage_Adminhtml_Block_Widget_
     }
 
     /**
-     * @return $this
+     * @inheritDoc
      */
     protected function _prepareMassaction()
     {
@@ -217,24 +221,25 @@ class Mage_Adminhtml_Block_Sales_Order_Grid extends Mage_Adminhtml_Block_Widget_
             'url'  => $this->getUrl('*/sales_order_shipment/massPrintShippingLabel'),
         ]);
 
-        return $this;
+        return parent::_prepareMassaction();
     }
 
     /**
+     * @inheritDoc
      * @param  Mage_Sales_Model_Order $row
-     * @return false|string
+     * @throws Mage_Core_Exception
      */
     public function getRowUrl($row)
     {
-        if (Mage::getSingleton('admin/session')->isAllowed('sales/order/actions/view')) {
+        if ($this->isAllowed('sales/order/actions/view')) {
             return $this->getUrl('*/sales_order/view', ['order_id' => $row->getId()]);
         }
 
-        return false;
+        return '';
     }
 
     /**
-     * @return string
+     * @inheritDoc
      */
     public function getGridUrl()
     {

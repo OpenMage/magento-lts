@@ -78,7 +78,7 @@ class Mage_CatalogIndex_Model_Indexer_Eav extends Mage_CatalogIndex_Model_Indexe
     }
 
     /**
-     * @return string
+     * @inheritDoc
      */
     protected function _getIndexableAttributeConditions()
     {

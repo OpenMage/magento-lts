@@ -106,7 +106,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
      * Add attribute parameters to appropriate attribute set.
      *
      * @param  string                                                      $attrSetName name of attribute set
-     * @param  array                                                       $attrParams  refined attribute parameters
+     * @param  array<string, mixed>                                        $attrParams  refined attribute parameters
      * @return Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
      */
     protected function _addAttributeParams($attrSetName, array $attrParams)
@@ -128,9 +128,9 @@ abstract class Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
     {
         if (is_array($attrSetData)) {
             return $this->_attributes[$attrSetData[Mage_ImportExport_Model_Import_Entity_Product::COL_ATTR_SET]];
-        } else {
-            return $this->_attributes[$attrSetData];
         }
+
+        return $this->_attributes[$attrSetData];
     }
 
     /**

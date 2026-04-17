@@ -148,7 +148,11 @@ class Mage_Api_Model_Wsdl_Config_Element extends Varien_Simplexml_Element
         $namespaces = $source->getNamespaces(true);
         $attributes[''] = $source->attributes('');
         foreach ($namespaces as $key => $value) {
-            if ($key == '' || $key == 'soap') {
+            if ($key == '') {
+                continue;
+            }
+
+            if ($key == 'soap') {
                 continue;
             }
 
@@ -163,7 +167,7 @@ class Mage_Api_Model_Wsdl_Config_Element extends Varien_Simplexml_Element
      * @return array
      * @deprecated due to conflict with PHP8 parent class update
      */
-    #[\ReturnTypeWillChange]
+    #[ReturnTypeWillChange]
     public function getChildren($source = null)
     {
         Mage::log('Use of deprecated method: ' . __METHOD__);
@@ -184,7 +188,11 @@ class Mage_Api_Model_Wsdl_Config_Element extends Varien_Simplexml_Element
         $isWsi = Mage::helper('api/data')->isComplianceWSI();
 
         foreach ($namespaces as $key => $value) {
-            if ($key == '' || (!$isWsi && $key == 'wsdl')) {
+            if ($key == '') {
+                continue;
+            }
+
+            if (!$isWsi && $key == 'wsdl') {
                 continue;
             }
 
@@ -200,7 +208,7 @@ class Mage_Api_Model_Wsdl_Config_Element extends Varien_Simplexml_Element
      *
      * @return bool
      */
-    #[\ReturnTypeWillChange]
+    #[ReturnTypeWillChange]
     public function hasChildren()
     {
         if (!self::_getChildren($this)) {
@@ -209,7 +217,7 @@ class Mage_Api_Model_Wsdl_Config_Element extends Varien_Simplexml_Element
 
         // simplexml bug: @attributes is in children() but invisible in foreach
         foreach (self::_getChildren($this) as $children) {
-            foreach ($children as $child) {
+            foreach ($children as $ignored) {
                 return true;
             }
         }

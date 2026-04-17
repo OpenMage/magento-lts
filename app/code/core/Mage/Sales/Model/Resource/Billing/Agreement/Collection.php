@@ -11,13 +11,15 @@
  * Billing agreements resource collection
  *
  * @package    Mage_Sales
+ *
+ * @extends Mage_Core_Model_Resource_Db_Collection_Abstract<Mage_Sales_Model_Billing_Agreement>
  */
 class Mage_Sales_Model_Resource_Billing_Agreement_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
     /**
      * Mapping for fields
      *
-     * @var array
+     * @inheritDoc
      */
     protected $_map = ['fields' => [
         'customer_email'       => 'ce.email',
@@ -37,7 +39,7 @@ class Mage_Sales_Model_Resource_Billing_Agreement_Collection extends Mage_Core_M
     }
 
     /**
-     * Add cutomer details(email, firstname, lastname) to select
+     * Add customer details(email, firstname, lastname) to select
      *
      * @return $this
      */

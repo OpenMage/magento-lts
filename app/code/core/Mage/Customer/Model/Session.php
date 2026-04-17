@@ -96,10 +96,8 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
     public function setCustomer(Mage_Customer_Model_Customer $customer)
     {
         // check if customer is not confirmed
-        if ($customer->isConfirmationRequired()) {
-            if ($customer->getConfirmation()) {
-                return $this->_logout();
-            }
+        if ($customer->isConfirmationRequired() && $customer->getConfirmation()) {
+            return $this->_logout();
         }
 
         $this->_customer = $customer;
@@ -153,8 +151,8 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
      */
     public function getCustomerId()
     {
-        if ($this->getData('customer_id')) {
-            return $this->getData('customer_id');
+        if ($this->getDataByKey('customer_id')) {
+            return $this->getDataByKey('customer_id');
         }
 
         return ($this->isLoggedIn()) ? $this->getId() : null;
@@ -180,8 +178,8 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
      */
     public function getCustomerGroupId()
     {
-        if ($this->getData('customer_group_id')) {
-            return $this->getData('customer_group_id');
+        if ($this->getDataByKey('customer_group_id')) {
+            return $this->getDataByKey('customer_group_id');
         }
 
         if ($this->isLoggedIn() && $this->getCustomer()) {

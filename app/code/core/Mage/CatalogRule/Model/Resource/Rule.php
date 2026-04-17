@@ -125,11 +125,11 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
     /**
      * Deletes records in catalogrule/product_data by rule ID and product IDs
      *
-     * @param int $ruleId
+     * @param int                               $ruleId
+     * @param array<void>|int[]|null[]|string[] $productIds
      */
     public function cleanProductData($ruleId, array $productIds = [])
     {
-        /** @var Varien_Db_Adapter_Interface $write */
         $write = $this->_getWriteAdapter();
 
         $conditions = ['rule_id = ?' => $ruleId];
@@ -165,9 +165,9 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
             }
 
             return false;
-        } else {
-            return $rule->getConditions()->validate($product);
         }
+
+        return $rule->getConditions()->validate($product);
     }
 
     /**
@@ -175,7 +175,6 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
      */
     public function insertRuleData(Mage_CatalogRule_Model_Rule $rule, array $websiteIds, array $productIds = [])
     {
-        /** @var Varien_Db_Adapter_Interface $write */
         $write = $this->_getWriteAdapter();
 
         $customerGroupIds = $rule->getCustomerGroupIds();
@@ -295,7 +294,7 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
                 }
             }
 
-            if (!empty($rows)) {
+            if ($rows !== []) {
                 $write->insertMultiple($this->getTable('catalogrule/rule_product'), $rows);
             }
         }
@@ -329,7 +328,7 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
                 $websiteIds = explode(',', $websiteIds);
             }
 
-            if (empty($websiteIds)) {
+            if ($websiteIds === []) {
                 $write->commit();
                 return $this;
             }

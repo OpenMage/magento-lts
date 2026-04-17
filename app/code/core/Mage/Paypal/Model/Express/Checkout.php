@@ -359,14 +359,15 @@ class Mage_Paypal_Model_Express_Checkout
         ;
 
         // add shipping options if needed and line items are available
-        if ($this->_config->lineItemsEnabled && $this->_config->transferShippingOptions && $paypalCart->getItems()) {
-            if (!$this->_quote->getIsVirtual() && !$this->_quote->hasNominalItems()) {
-                if ($options = $this->_prepareShippingOptions($address, true)) {
-                    $this->_api->setShippingOptionsCallbackUrl(
-                        Mage::getUrl('*/*/shippingOptionsCallback', ['quote_id' => $this->_quote->getId()]),
-                    )->setShippingOptions($options);
-                }
-            }
+        if ($this->_config->lineItemsEnabled
+            && $this->_config->transferShippingOptions
+            && $paypalCart->getItems()
+            && (!$this->_quote->getIsVirtual() && !$this->_quote->hasNominalItems())
+            && $options = $this->_prepareShippingOptions($address, true)
+        ) {
+            $this->_api->setShippingOptionsCallbackUrl(
+                Mage::getUrl('*/*/shippingOptionsCallback', ['quote_id' => $this->_quote->getId()]),
+            )->setShippingOptions($options);
         }
 
         // add recurring payment profiles information
@@ -440,6 +441,12 @@ class Mage_Paypal_Model_Express_Checkout
             $shippingAddress = $quote->getShippingAddress();
             if ($shippingAddress) {
                 if ($exportedShippingAddress) {
+
+                    if (!$exportedShippingAddress->getRegion()) {
+                        $shippingAddress->setRegion(null);
+                        $shippingAddress->setRegionId(null);
+                    }
+
                     $this->_setExportedAddressData($shippingAddress, $exportedShippingAddress);
 
                     if ($quote->getPayment()->getAdditionalInformation(self::PAYMENT_INFO_BUTTON) == 1) {
@@ -456,11 +463,11 @@ class Mage_Paypal_Model_Express_Checkout
 
                 // import shipping method
                 $code = '';
-                if ($this->_api->getShippingRateCode()) {
-                    if ($code = $this->_matchShippingMethodCode($shippingAddress, $this->_api->getShippingRateCode())) {
-                        // possible bug of double collecting rates :-/
-                        $shippingAddress->setShippingMethod($code)->setCollectShippingRates(true);
-                    }
+                if ($this->_api->getShippingRateCode()
+                    && $code = $this->_matchShippingMethodCode($shippingAddress, $this->_api->getShippingRateCode())
+                ) {
+                    // possible bug of double collecting rates :-/
+                    $shippingAddress->setShippingMethod($code)->setCollectShippingRates(true);
                 }
 
                 $quote->getPayment()->setAdditionalInformation(
@@ -487,8 +494,14 @@ class Mage_Paypal_Model_Express_Checkout
         }
 
         $exportedBillingAddress = $this->_api->getExportedBillingAddress();
+
+        if (!$exportedBillingAddress->getRegion()) {
+            $billingAddress->setRegion(null);
+            $billingAddress->setRegionId(null);
+        }
+
         $this->_setExportedAddressData($billingAddress, $exportedBillingAddress);
-        $billingAddress->setCustomerNotes($exportedBillingAddress->getData('note'));
+        $billingAddress->setCustomerNotes($exportedBillingAddress->getDataByKey('note'));
         $quote->setBillingAddress($billingAddress);
 
         // import payment info
@@ -574,12 +587,13 @@ class Mage_Paypal_Model_Express_Checkout
      */
     public function updateShippingMethod($methodCode)
     {
-        if (!$this->_quote->getIsVirtual() && $shippingAddress = $this->_quote->getShippingAddress()) {
-            if ($methodCode != $shippingAddress->getShippingMethod()) {
-                $this->_ignoreAddressValidation();
-                $shippingAddress->setShippingMethod($methodCode)->setCollectShippingRates(true);
-                $this->_quote->collectTotals()->save();
-            }
+        if (!$this->_quote->getIsVirtual()
+            && ($shippingAddress = $this->_quote->getShippingAddress())
+            && $methodCode != $shippingAddress->getShippingMethod()
+        ) {
+            $this->_ignoreAddressValidation();
+            $shippingAddress->setShippingMethod($methodCode)->setCollectShippingRates(true);
+            $this->_quote->collectTotals()->save();
         }
     }
 
@@ -792,8 +806,7 @@ class Mage_Paypal_Model_Express_Checkout
         $isRequested = $this->_isBARequested || $this->_quote->getPayment()
             ->getAdditionalInformation(self::PAYMENT_INFO_TRANSPORT_BILLING_AGREEMENT);
 
-        if (!($this->_config->allow_ba_signup == Mage_Paypal_Model_Config::EC_BA_SIGNUP_AUTO
-            || $isRequested && $this->_config->shouldAskToCreateBillingAgreement())
+        if ($this->_config->allow_ba_signup != Mage_Paypal_Model_Config::EC_BA_SIGNUP_AUTO && !($isRequested && $this->_config->shouldAskToCreateBillingAgreement())
         ) {
             return $this;
         }
@@ -893,7 +906,7 @@ class Mage_Paypal_Model_Express_Checkout
             usort($options, [static::class,'cmpShippingOptions']);
             array_splice($options, 10);
             // User selected option will be always included in options list
-            if (!is_null($userSelectedOption) && !in_array($userSelectedOption, $options)) {
+            if (!is_null($userSelectedOption) && !in_array($userSelectedOption, $options, true)) {
                 $options[9] = $userSelectedOption;
             }
         }
@@ -1004,7 +1017,7 @@ class Mage_Paypal_Model_Express_Checkout
         }
 
         /**
-         * @todo integration with dynamica attributes customer_dob, customer_taxvat, customer_gender
+         * @todo integration with dynamic attributes customer_dob, customer_taxvat, customer_gender
          */
         if ($quote->getCustomerDob() && !$billing->getCustomerDob()) {
             $billing->setCustomerDob($quote->getCustomerDob());

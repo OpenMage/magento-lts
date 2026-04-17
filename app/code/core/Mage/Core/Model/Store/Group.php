@@ -241,21 +241,21 @@ class Mage_Core_Model_Store_Group extends Mage_Core_Model_Abstract
     {
         if ($this->getDefaultStore() && $this->getDefaultStore()->getLocaleCode() == $locale) {
             return $this->getDefaultStore();
-        } else {
-            $stores = $this->getStoresByLocale($locale);
-            if (count($stores)) {
-                return $stores[0];
-            } else {
-                return $this->getDefaultStore() ? $this->getDefaultStore() : null;
-            }
         }
+
+        $stores = $this->getStoresByLocale($locale);
+        if (count($stores)) {
+            return $stores[0];
+        }
+
+        return $this->getDefaultStore() ? $this->getDefaultStore() : null;
     }
 
     /**
      * Retrieve list of stores with given locale
      *
-     * @param  string $locale
-     * @return array
+     * @param  string                  $locale
+     * @return Mage_Core_Model_Store[]
      */
     public function getStoresByLocale($locale)
     {

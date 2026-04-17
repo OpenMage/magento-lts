@@ -208,12 +208,12 @@ class Mage_Catalog_Model_Product_Api_V2 extends Mage_Catalog_Model_Product_Api
         foreach ($productIds as $index => $productId) {
             try {
                 $this->update($productId, $productData[$index], $store, $identifierType);
-            } catch (Mage_Api_Exception $e) {
-                $failMessages[] = sprintf("Product ID %d:\n %s", $productId, $e->getMessage());
+            } catch (Mage_Api_Exception $mageApiException) {
+                $failMessages[] = sprintf("Product ID %d:\n %s", $productId, $mageApiException->getMessage());
             }
         }
 
-        if (empty($failMessages)) {
+        if ($failMessages === []) {
             return true;
         }
 

@@ -19,17 +19,23 @@ class Mage_Adminhtml_Block_Report_Sales_Shipping_Grid extends Mage_Adminhtml_Blo
     public function __construct()
     {
         parent::__construct();
-        $this->setCountTotals(true);
-        $this->setCountSubTotals(true);
+        $this->setCountTotals();
+        $this->setCountSubTotals();
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getResourceCollectionName()
     {
-        return ($this->getFilterData()->getData('report_type') == 'created_at_shipment')
+        return ($this->getFilterData()->getDataByKey('report_type') === 'created_at_shipment')
             ? 'sales/report_shipping_collection_shipment'
             : 'sales/report_shipping_collection_order';
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _prepareColumns()
     {
         $this->addColumn('period', [

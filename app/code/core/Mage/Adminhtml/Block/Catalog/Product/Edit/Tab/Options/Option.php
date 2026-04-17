@@ -11,6 +11,11 @@
  * customers defined options
  *
  * @package    Mage_Adminhtml
+ *
+ * @method bool  getCanEditPrice()
+ * @method bool  getCanReadPrice()
+ * @method $this setCanEditPrice(bool $value)
+ * @method $this setCanReadPrice(bool $value)
  */
 class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options_Option extends Mage_Adminhtml_Block_Widget
 {
@@ -52,11 +57,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options_Option extends Mage_
     public function getProduct()
     {
         if (!$this->_productInstance) {
-            if ($product = Mage::registry('product')) {
-                $this->_productInstance = $product;
-            } else {
-                $this->_productInstance = Mage::getSingleton('catalog/product');
-            }
+            $this->_productInstance = ($product = Mage::registry('product')) ? $product : Mage::getSingleton('catalog/product');
         }
 
         return $this->_productInstance;
@@ -330,8 +331,12 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options_Option extends Mage_
     {
         if ($type == 'percent') {
             return number_format($value, 2, null, '');
-        } elseif ($type == 'fixed') {
+        }
+
+        if ($type == 'fixed') {
             return number_format($value, 2, null, '');
         }
+
+        return null;
     }
 }

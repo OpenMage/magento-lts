@@ -11,6 +11,15 @@
  * Manage currency block
  *
  * @package    Mage_Adminhtml
+ *
+ * @method array getAllowedCurrencies()
+ * @method array getDefaultCurrencies()
+ * @method array getNewRates()
+ * @method array getOldRates()
+ * @method $this setAllowedCurrencies(array $value)
+ * @method $this setDefaultCurrencies(array $value)
+ * @method $this setNewRates(array $value)
+ * @method $this setOldRates(array $value)
  */
 class Mage_Adminhtml_Block_System_Currency_Rate_Matrix extends Mage_Adminhtml_Block_Template
 {
@@ -19,6 +28,9 @@ class Mage_Adminhtml_Block_System_Currency_Rate_Matrix extends Mage_Adminhtml_Bl
         $this->setTemplate('system/currency/rate/matrix.phtml');
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _prepareLayout()
     {
         $newRates = Mage::getSingleton('adminhtml/session')->getRates();

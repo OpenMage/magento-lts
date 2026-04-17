@@ -62,7 +62,7 @@ class Mage_Bundle_Model_Option extends Mage_Core_Model_Abstract
             return false;
         }
 
-        if (!$selections = $this->getData('selections')) {
+        if (!$selections = $this->getDataByKey('selections')) {
             $selections = [];
         }
 
@@ -87,9 +87,9 @@ class Mage_Bundle_Model_Option extends Mage_Core_Model_Abstract
             }
 
             return (bool) $saleable;
-        } else {
-            return false;
         }
+
+        return false;
     }
 
     /**
@@ -118,11 +118,11 @@ class Mage_Bundle_Model_Option extends Mage_Core_Model_Abstract
      */
     public function isMultiSelection()
     {
-        if ($this->getType() == 'checkbox' || $this->getType() == 'multi') {
+        if ($this->getType() === 'checkbox') {
             return true;
-        } else {
-            return false;
         }
+
+        return $this->getType() === 'multi';
     }
 
     /**
