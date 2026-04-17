@@ -669,7 +669,7 @@ Product.ConfigurableSwatches.prototype = {
             });
             this._E.cartBtn.btn.each(function(el) {
                 var el = $(el);
-                el.addClassName('out-of-stock');
+                el.classList.add('out-of-stock');
                 el.disabled = true;
                 el.removeAttribute('onclick');
                 el.addEventListener('click', function(event) {
