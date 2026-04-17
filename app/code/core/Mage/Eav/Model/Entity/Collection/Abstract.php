@@ -1,12 +1,13 @@
 <?php
 
+use Laminas\Db\Sql\Select;
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
  * @license    Open Software License (OSL 3.0)
  * @package    Mage_Eav
  */
-
 /**
  * Entity/Attribute/Model - collection abstract
  *
@@ -407,7 +408,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
      */
     protected function _prepareOrderExpression($field)
     {
-        foreach ($this->getSelect()->getPart(Zend_Db_Select::COLUMNS) as $columnEntry) {
+        foreach ($this->getSelect()->getPart(Select::COLUMNS) as $columnEntry) {
             if ($columnEntry[2] != $field) {
                 continue;
             }
@@ -937,10 +938,10 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
     protected function _getAllIdsSelect($limit = null, $offset = null)
     {
         $idsSelect = clone $this->getSelect();
-        $idsSelect->reset(Zend_Db_Select::ORDER);
+        $idsSelect->reset(Select::ORDER);
         $idsSelect->reset(Zend_Db_Select::LIMIT_COUNT);
         $idsSelect->reset(Zend_Db_Select::LIMIT_OFFSET);
-        $idsSelect->reset(Zend_Db_Select::COLUMNS);
+        $idsSelect->reset(Select::COLUMNS);
         $idsSelect->columns('e.' . $this->getEntity()->getIdFieldName());
         $idsSelect->limit($limit, $offset);
 
@@ -970,11 +971,11 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
     public function getAllIdsSql()
     {
         $idsSelect = clone $this->getSelect();
-        $idsSelect->reset(Zend_Db_Select::ORDER);
+        $idsSelect->reset(Select::ORDER);
         $idsSelect->reset(Zend_Db_Select::LIMIT_COUNT);
         $idsSelect->reset(Zend_Db_Select::LIMIT_OFFSET);
-        $idsSelect->reset(Zend_Db_Select::COLUMNS);
-        $idsSelect->reset(Zend_Db_Select::GROUP);
+        $idsSelect->reset(Select::COLUMNS);
+        $idsSelect->reset(Select::GROUP);
         $idsSelect->columns('e.' . $this->getEntity()->getIdFieldName());
 
         return $idsSelect;

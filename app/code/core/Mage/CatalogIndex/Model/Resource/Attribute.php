@@ -1,12 +1,13 @@
 <?php
 
+use Laminas\Db\Sql\Select;
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
  * @license    Open Software License (OSL 3.0)
  * @package    Mage_CatalogIndex
  */
-
 /**
  * Attribute index resource model
  *
@@ -51,8 +52,8 @@ class Mage_CatalogIndex_Model_Resource_Attribute extends Mage_CatalogIndex_Model
     public function getCount($attribute, $entitySelect)
     {
         $select = clone $entitySelect;
-        $select->reset(Zend_Db_Select::COLUMNS);
-        $select->reset(Zend_Db_Select::ORDER);
+        $select->reset(Select::COLUMNS);
+        $select->reset(Select::ORDER);
         $select->reset(Zend_Db_Select::LIMIT_COUNT);
         $select->reset(Zend_Db_Select::LIMIT_OFFSET);
 

@@ -1,12 +1,13 @@
 <?php
 
+use Laminas\Db\Sql\Select;
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
  * @license    Open Software License (OSL 3.0)
  * @package    Mage_Reports
  */
-
 /**
  * Report collection abstract model
  *
@@ -278,7 +279,7 @@ class Mage_Reports_Model_Resource_Report_Collection_Abstract extends Mage_Core_M
     {
         $this->_renderFilters();
         $select = clone $this->getSelect();
-        $select->reset(Zend_Db_Select::ORDER);
+        $select->reset(Select::ORDER);
         return $this->getConnection()->select()->from($select, 'COUNT(*)');
     }
 

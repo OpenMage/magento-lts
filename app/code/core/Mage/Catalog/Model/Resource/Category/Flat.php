@@ -1,12 +1,13 @@
 <?php
 
+use Laminas\Db\Sql\Select;
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
  * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
  */
-
 /**
  * Category flat model
  *
@@ -1292,7 +1293,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
             ->where('entity_id IN (?)', $pathIds)
             ->where('custom_use_parent_settings = ?', 0)
             ->where($levelField . ' != ?', 0)
-            ->order('level ' . Varien_Db_Select::SQL_DESC);
+            ->order('level ' . Select::ORDER_DESCENDING);
         $result = $adapter->fetchRow($select);
         return Mage::getModel('catalog/category')->setData($result);
     }
@@ -1423,7 +1424,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
             )
             ->where('main_table.entity_id IN (?)', $pathIds)
             ->where('main_table.is_active = ?', '1')
-            ->order('main_table.path ' . Varien_Db_Select::SQL_DESC);
+            ->order('main_table.path ' . Select::ORDER_DESCENDING);
         $result = $this->_getReadAdapter()->fetchAll($select);
         foreach ($result as $row) {
             $row['id'] = $row['entity_id'];

@@ -1,12 +1,13 @@
 <?php
 
+use Laminas\Db\Sql\Select;
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
  * @license    Open Software License (OSL 3.0)
  * @package    Mage_Reports
  */
-
 /**
  * Report Products Review collection
  *
@@ -96,10 +97,10 @@ class Mage_Reports_Model_Resource_Review_Product_Collection extends Mage_Catalog
         $this->_renderFilters();
 
         $select = clone $this->getSelect();
-        $select->reset(Zend_Db_Select::ORDER);
+        $select->reset(Select::ORDER);
         $select->reset(Zend_Db_Select::LIMIT_COUNT);
         $select->reset(Zend_Db_Select::LIMIT_OFFSET);
-        $select->reset(Zend_Db_Select::COLUMNS);
+        $select->reset(Select::COLUMNS);
         $select->resetJoinLeft();
         $select->columns(new Zend_Db_Expr('1'));
 

@@ -1,12 +1,13 @@
 <?php
 
+use Laminas\Db\Sql\Select;
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
  * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
  */
-
 /**
  * Category tree model
  *
@@ -505,7 +506,7 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
             $select = $this->_createCollectionDataSelect();
         } else {
             $select = clone $this->_select;
-            $select->order($this->_orderField . ' ' . Varien_Db_Select::SQL_ASC);
+            $select->order($this->_orderField . ' ' . Select::ORDER_ASCENDING);
         }
 
         $select->where(implode(' OR ', $where));
@@ -553,7 +554,7 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
 
             $select
                 ->where('e.entity_id IN(?)', $pathIds)
-                ->order($this->_conn->getLengthSql('e.path') . ' ' . Varien_Db_Select::SQL_ASC);
+                ->order($this->_conn->getLengthSql('e.path') . ' ' . Select::ORDER_ASCENDING);
             $result = $this->_conn->fetchAll($select);
             $this->_updateAnchorProductCount($result);
         }

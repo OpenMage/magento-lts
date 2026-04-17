@@ -1,12 +1,13 @@
 <?php
 
+use Laminas\Db\Sql\Select;
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
  * @license    Open Software License (OSL 3.0)
  * @package    Mage_Api2
  */
-
 /**
  * API2 role list for admin user permissions
  *
@@ -31,7 +32,7 @@ class Mage_Api2_Block_Adminhtml_Permissions_User_Edit_Tab_Roles extends Mage_Adm
 
         $this->setId('api2_roles_section')
             ->setDefaultSort('sort_order')
-            ->setDefaultDir(Varien_Db_Select::SQL_ASC)
+            ->setDefaultDir(Select::ORDER_ASCENDING)
             ->setTitle($this->__('REST Roles Information'))
             ->setUseAjax(true);
     }

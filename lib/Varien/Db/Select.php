@@ -1,12 +1,13 @@
 <?php
 
+use Laminas\Db\Sql\Select;
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
  * @license    Open Software License (OSL 3.0)
  * @package    Varien_Db
  */
-
 /**
  * Class for SQL SELECT generation and results.
  *
@@ -116,7 +117,7 @@ class Varien_Db_Select extends Zend_Db_Select
         foreach ($this->_parts[self::FROM] as $tableId => $tableProp) {
             if ($tableProp['joinType'] == self::LEFT_JOIN) {
                 $useJoin = false;
-                foreach ($this->_parts[self::COLUMNS] as $columnEntry) {
+                foreach ($this->_parts[Select::COLUMNS] as $columnEntry) {
                     [$correlationName, $column] = $columnEntry;
                     if ($column instanceof Zend_Db_Expr) {
                         if ($this->_findTableInCond($tableId, $column)
@@ -129,7 +130,7 @@ class Varien_Db_Select extends Zend_Db_Select
                     }
                 }
 
-                foreach ($this->_parts[self::WHERE] as $where) {
+                foreach ($this->_parts[Select::WHERE] as $where) {
                     if ($this->_findTableInCond($tableId, $where)
                         || $this->_findTableInCond($tableProp['tableName'], $where)
                     ) {
@@ -447,7 +448,7 @@ class Varien_Db_Select extends Zend_Db_Select
     {
         $exists = $isExists ? 'EXISTS (%s)' : 'NOT EXISTS (%s)';
 
-        $select->reset(self::COLUMNS)
+        $select->reset(Select::COLUMNS)
             ->columns([new Zend_Db_Expr('1')])
             ->where($joinCondition);
 

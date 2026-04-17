@@ -1,12 +1,13 @@
 <?php
 
+use Laminas\Db\Sql\Select;
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
  * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
  */
-
 /**
  * Catalog product media gallery attribute backend resource
  *
@@ -239,7 +240,7 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media extends Mage_C
             )
             ->where('main.attribute_id = ?', $attributeId)
             ->where('main.entity_id in (?)', $productIds)
-            ->order($positionCheckSql . ' ' . Varien_Db_Select::SQL_ASC);
+            ->order($positionCheckSql . ' ' . Select::ORDER_ASCENDING);
     }
 
     /**

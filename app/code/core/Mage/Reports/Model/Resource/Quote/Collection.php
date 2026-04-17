@@ -1,12 +1,13 @@
 <?php
 
+use Laminas\Db\Sql\Select;
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
  * @license    Open Software License (OSL 3.0)
  * @package    Mage_Reports
  */
-
 /**
  * Reports quote collection
  *
@@ -102,7 +103,7 @@ class Mage_Reports_Model_Resource_Quote_Collection extends Mage_Sales_Model_Reso
 
         $this->getSelect()
             ->useStraightJoin(true)
-            ->reset(Zend_Db_Select::COLUMNS)
+            ->reset(Select::COLUMNS)
             ->joinInner(
                 ['quote_items' => $this->getTable('sales/quote_item')],
                 'quote_items.quote_id = main_table.entity_id',
@@ -276,11 +277,11 @@ class Mage_Reports_Model_Resource_Quote_Collection extends Mage_Sales_Model_Reso
     public function getSelectCountSql()
     {
         $countSelect = clone $this->getSelect();
-        $countSelect->reset(Zend_Db_Select::ORDER);
+        $countSelect->reset(Select::ORDER);
         $countSelect->reset(Zend_Db_Select::LIMIT_COUNT);
         $countSelect->reset(Zend_Db_Select::LIMIT_OFFSET);
-        $countSelect->reset(Zend_Db_Select::COLUMNS);
-        $countSelect->reset(Zend_Db_Select::GROUP);
+        $countSelect->reset(Select::COLUMNS);
+        $countSelect->reset(Select::GROUP);
         $countSelect->resetJoinLeft();
 
         if ($this->_selectCountSqlType == self::SELECT_COUNT_SQL_TYPE_CART) {

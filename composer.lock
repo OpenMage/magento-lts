@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "416833ac523a8f6849aea118fa0c1c2b",
+    "content-hash": "1ea70abf47eeac9e3f70d42f996c30b8",
     "packages": [
         {
             "name": "carbonphp/carbon-doctrine-types",
@@ -1202,6 +1202,136 @@
                 "source": "https://github.com/jsonrainbow/json-schema/tree/5.3.1"
             },
             "time": "2025-12-12T08:56:22+00:00"
+        },
+        {
+            "name": "laminas/laminas-db",
+            "version": "2.21.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laminas/laminas-db.git",
+                "reference": "758c2ca28c831188edb8d4dd1eaf46ee28b85625"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laminas/laminas-db/zipball/758c2ca28c831188edb8d4dd1eaf46ee28b85625",
+                "reference": "758c2ca28c831188edb8d4dd1eaf46ee28b85625",
+                "shasum": ""
+            },
+            "require": {
+                "laminas/laminas-stdlib": "^3.7.1",
+                "php": "~8.1.0 || ~8.2.0 || ~8.3.0 || ~8.4.0"
+            },
+            "conflict": {
+                "zendframework/zend-db": "*"
+            },
+            "require-dev": {
+                "laminas/laminas-coding-standard": "^2.4.0",
+                "laminas/laminas-eventmanager": "^3.6.0",
+                "laminas/laminas-hydrator": "^4.7",
+                "laminas/laminas-servicemanager": "^3.19.0",
+                "phpunit/phpunit": "^9.6.34"
+            },
+            "suggest": {
+                "laminas/laminas-eventmanager": "Laminas\\EventManager component",
+                "laminas/laminas-hydrator": "(^3.2 || ^4.3) Laminas\\Hydrator component for using HydratingResultSets",
+                "laminas/laminas-servicemanager": "Laminas\\ServiceManager component"
+            },
+            "type": "library",
+            "extra": {
+                "laminas": {
+                    "component": "Laminas\\Db",
+                    "config-provider": "Laminas\\Db\\ConfigProvider"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Laminas\\Db\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "description": "Database abstraction layer, SQL abstraction, result set abstraction, and RowDataGateway and TableDataGateway implementations",
+            "homepage": "https://laminas.dev",
+            "keywords": [
+                "db",
+                "laminas"
+            ],
+            "support": {
+                "chat": "https://laminas.dev/chat",
+                "docs": "https://docs.laminas.dev/laminas-db/",
+                "forum": "https://discourse.laminas.dev",
+                "issues": "https://github.com/laminas/laminas-db/issues",
+                "rss": "https://github.com/laminas/laminas-db/releases.atom",
+                "source": "https://github.com/laminas/laminas-db"
+            },
+            "funding": [
+                {
+                    "url": "https://funding.communitybridge.org/projects/laminas-project",
+                    "type": "community_bridge"
+                }
+            ],
+            "time": "2026-03-20T16:11:27+00:00"
+        },
+        {
+            "name": "laminas/laminas-stdlib",
+            "version": "3.20.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laminas/laminas-stdlib.git",
+                "reference": "8974a1213be42c3e2f70b2c27b17f910291ab2f4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laminas/laminas-stdlib/zipball/8974a1213be42c3e2f70b2c27b17f910291ab2f4",
+                "reference": "8974a1213be42c3e2f70b2c27b17f910291ab2f4",
+                "shasum": ""
+            },
+            "require": {
+                "php": "~8.1.0 || ~8.2.0 || ~8.3.0 || ~8.4.0"
+            },
+            "conflict": {
+                "zendframework/zend-stdlib": "*"
+            },
+            "require-dev": {
+                "laminas/laminas-coding-standard": "^3.0",
+                "phpbench/phpbench": "^1.3.1",
+                "phpunit/phpunit": "^10.5.38",
+                "psalm/plugin-phpunit": "^0.19.0",
+                "vimeo/psalm": "^5.26.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Laminas\\Stdlib\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "description": "SPL extensions, array utilities, error handlers, and more",
+            "homepage": "https://laminas.dev",
+            "keywords": [
+                "laminas",
+                "stdlib"
+            ],
+            "support": {
+                "chat": "https://laminas.dev/chat",
+                "docs": "https://docs.laminas.dev/laminas-stdlib/",
+                "forum": "https://discourse.laminas.dev",
+                "issues": "https://github.com/laminas/laminas-stdlib/issues",
+                "rss": "https://github.com/laminas/laminas-stdlib/releases.atom",
+                "source": "https://github.com/laminas/laminas-stdlib"
+            },
+            "funding": [
+                {
+                    "url": "https://funding.communitybridge.org/projects/laminas-project",
+                    "type": "community_bridge"
+                }
+            ],
+            "time": "2024-10-29T13:46:07+00:00"
         },
         {
             "name": "magento-hackathon/magento-composer-installer",

@@ -1,12 +1,13 @@
 <?php
 
+use Laminas\Db\Sql\Select;
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
  * @license    Open Software License (OSL 3.0)
  * @package    Mage_Tag
  */
-
 /**
  * Popular tags collection model
  *
@@ -43,7 +44,7 @@ class Mage_Tag_Model_Resource_Popular_Collection extends Mage_Core_Model_Resourc
             )
             ->where('tag_summary.store_id = ?', $storeId)
             ->where('tag_summary.products > ?', 0)
-            ->order('popularity ' . Varien_Db_Select::SQL_DESC);
+            ->order('popularity ' . Select::ORDER_DESCENDING);
 
         return $this;
     }
@@ -101,7 +102,7 @@ class Mage_Tag_Model_Resource_Popular_Collection extends Mage_Core_Model_Resourc
     {
         $this->_renderFilters();
         $select = clone $this->getSelect();
-        $select->reset(Zend_Db_Select::ORDER);
+        $select->reset(Select::ORDER);
         $select->reset(Zend_Db_Select::LIMIT_COUNT);
         $select->reset(Zend_Db_Select::LIMIT_OFFSET);
 

@@ -1,12 +1,13 @@
 <?php
 
+use Laminas\Db\Sql\Select;
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
  * @license    Open Software License (OSL 3.0)
  * @package    Mage_Sales
  */
-
 /**
  * Bestsellers report resource model
  *
@@ -101,7 +102,7 @@ class Mage_Sales_Model_Resource_Report_Bestsellers extends Mage_Sales_Model_Reso
                                     0,
                                 ),
                             ),
-                            $select->getPart(Zend_Db_Select::GROUP),
+                            $select->getPart(Select::GROUP),
                         ),
                     ),
                 ),
@@ -252,7 +253,7 @@ class Mage_Sales_Model_Resource_Report_Bestsellers extends Mage_Sales_Model_Reso
                             'MIN(%s)',
                             $adapter->getIfNullSql('product_default_price.value', 0),
                         ),
-                        $select->getPart(Zend_Db_Select::GROUP),
+                        $select->getPart(Select::GROUP),
                     ),
                 ),
             ),

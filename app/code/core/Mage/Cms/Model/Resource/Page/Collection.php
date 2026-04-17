@@ -1,12 +1,13 @@
 <?php
 
+use Laminas\Db\Sql\Select;
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
  * @license    Open Software License (OSL 3.0)
  * @package    Mage_Cms
  */
-
 /**
  * CMS page collection
  *
@@ -178,7 +179,7 @@ class Mage_Cms_Model_Resource_Page_Collection extends Mage_Core_Model_Resource_D
     {
         $countSelect = parent::getSelectCountSql();
 
-        $countSelect->reset(Zend_Db_Select::GROUP);
+        $countSelect->reset(Select::GROUP);
 
         return $countSelect;
     }

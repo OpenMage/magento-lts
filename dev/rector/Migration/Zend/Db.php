@@ -1,0 +1,36 @@
+<?php
+
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
+ * @package    OpenMage_Rector
+ */
+
+declare(strict_types=1);
+
+namespace OpenMage\Rector\Migration\Zend;
+
+use Laminas\Db\Sql\Select;
+use Rector\Renaming\ValueObject\RenameClassAndConstFetch;
+
+final class Db
+{
+    /**
+     * @return RenameClassAndConstFetch[]
+     */
+    public static function renameClassConst(): array
+    {
+        return [
+            new RenameClassAndConstFetch('Zend_Db_Select', 'COLUMNS', Select::class, 'COLUMNS'),
+            new RenameClassAndConstFetch('Zend_Db_Select', 'GROUP', Select::class, 'GROUP'),
+            new RenameClassAndConstFetch('Zend_Db_Select', 'HAVING', Select::class, 'HAVING'),
+            new RenameClassAndConstFetch('Zend_Db_Select', 'ORDER', Select::class, 'ORDER'),
+            new RenameClassAndConstFetch('Zend_Db_Select', 'SQL_ASC', Select::class, 'ORDER_ASCENDING'),
+            new RenameClassAndConstFetch('Zend_Db_Select', 'SQL_DESC', Select::class, 'ORDER_DESCENDING'),
+            new RenameClassAndConstFetch('Zend_Db_Select', 'UNION', Select::class, 'COMBINE_UNION'),
+            new RenameClassAndConstFetch('Zend_Db_Select', 'WHERE', Select::class, 'WHERE'),
+            new RenameClassAndConstFetch('Zend_Db_Select', 'SQL_WILDCARD', Select::class, 'SQL_STAR'),
+        ];
+    }
+}

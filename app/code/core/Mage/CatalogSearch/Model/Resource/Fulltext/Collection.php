@@ -1,12 +1,13 @@
 <?php
 
+use Laminas\Db\Sql\Select;
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
  * @license    Open Software License (OSL 3.0)
  * @package    Mage_CatalogSearch
  */
-
 /**
  * Fulltext Collection
  *
@@ -201,7 +202,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext_Collection extends Mage_Catalog
                     'e.' . $this->getResource()->getIdFieldName(),
                     $foundIds,
                 )
-                . ' ' . Zend_Db_Select::SQL_ASC,
+                . ' ' . Select::ORDER_ASCENDING,
             ),
         );
 

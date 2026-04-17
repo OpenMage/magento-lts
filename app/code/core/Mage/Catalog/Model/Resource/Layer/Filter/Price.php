@@ -1,12 +1,13 @@
 <?php
 
+use Laminas\Db\Sql\Select;
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
  * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
  */
-
 /**
  * Catalog Layer Price Filter resource model
  *
@@ -80,8 +81,8 @@ class Mage_Catalog_Model_Resource_Layer_Filter_Price extends Mage_Core_Model_Res
         }
 
         // reset columns, order and limitation conditions
-        $select->reset(Zend_Db_Select::COLUMNS);
-        $select->reset(Zend_Db_Select::ORDER);
+        $select->reset(Select::COLUMNS);
+        $select->reset(Select::ORDER);
         $select->reset(Zend_Db_Select::LIMIT_COUNT);
         $select->reset(Zend_Db_Select::LIMIT_OFFSET);
 
@@ -108,7 +109,7 @@ class Mage_Catalog_Model_Resource_Layer_Filter_Price extends Mage_Core_Model_Res
         $select->setPart(Zend_Db_Select::FROM, $fromPart);
 
         // processing WHERE part
-        $wherePart = $select->getPart(Zend_Db_Select::WHERE);
+        $wherePart = $select->getPart(Select::WHERE);
         $excludedWherePart = Mage_Catalog_Model_Resource_Product_Collection::MAIN_TABLE_ALIAS . '.status';
         foreach ($wherePart as $key => $wherePartItem) {
             if (str_contains($wherePartItem, $excludedWherePart)) {
@@ -119,7 +120,7 @@ class Mage_Catalog_Model_Resource_Layer_Filter_Price extends Mage_Core_Model_Res
             $wherePart[$key] = $this->_replaceTableAlias($wherePartItem);
         }
 
-        $select->setPart(Zend_Db_Select::WHERE, $wherePart);
+        $select->setPart(Select::WHERE, $wherePart);
         $excludeJoinPart = Mage_Catalog_Model_Resource_Product_Collection::MAIN_TABLE_ALIAS . '.entity_id';
         foreach ($priceIndexJoinConditions as $condition) {
             if (str_contains($condition, $excludeJoinPart)) {

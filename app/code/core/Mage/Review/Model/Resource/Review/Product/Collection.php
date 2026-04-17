@@ -1,12 +1,13 @@
 <?php
 
+use Laminas\Db\Sql\Select;
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
  * @license    Open Software License (OSL 3.0)
  * @package    Mage_Review
  */
-
 /**
  * Review Product Collection
  *
@@ -279,10 +280,10 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
     public function getAllIds($limit = null, $offset = null)
     {
         $idsSelect = clone $this->getSelect();
-        $idsSelect->reset(Zend_Db_Select::ORDER);
+        $idsSelect->reset(Select::ORDER);
         $idsSelect->reset(Zend_Db_Select::LIMIT_COUNT);
         $idsSelect->reset(Zend_Db_Select::LIMIT_OFFSET);
-        $idsSelect->reset(Zend_Db_Select::COLUMNS);
+        $idsSelect->reset(Select::COLUMNS);
         $idsSelect->columns('rt.review_id');
         return $this->getConnection()->fetchCol($idsSelect);
     }
@@ -295,9 +296,9 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
     public function getSelectCountSql()
     {
         $select = parent::getSelectCountSql();
-        $select->reset(Zend_Db_Select::COLUMNS)
+        $select->reset(Select::COLUMNS)
             ->columns('COUNT(e.entity_id)')
-            ->reset(Zend_Db_Select::HAVING);
+            ->reset(Select::HAVING);
 
         return $select;
     }

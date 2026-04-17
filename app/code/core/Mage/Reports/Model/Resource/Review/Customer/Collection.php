@@ -1,12 +1,13 @@
 <?php
 
+use Laminas\Db\Sql\Select;
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
  * @license    Open Software License (OSL 3.0)
  * @package    Mage_Reports
  */
-
 /**
  * Report Customers Review collection
  *
@@ -90,7 +91,7 @@ class Mage_Reports_Model_Resource_Review_Customer_Collection extends Mage_Review
             "table_customer_middlename.{$middlenameField}",
             "table_customer_lastname.{$lastnameField}",
         ], ' ');
-        $this->getSelect()->reset(Zend_Db_Select::COLUMNS)
+        $this->getSelect()->reset(Select::COLUMNS)
             ->joinInner(
                 ['table_customer_lastname' => $lastnameAttr->getBackend()->getTable()],
                 implode(' AND ', $lastnameCondition),
@@ -113,12 +114,12 @@ class Mage_Reports_Model_Resource_Review_Customer_Collection extends Mage_Review
     public function getSelectCountSql()
     {
         $countSelect = clone $this->_select;
-        $countSelect->reset(Zend_Db_Select::ORDER);
-        $countSelect->reset(Zend_Db_Select::GROUP);
-        $countSelect->reset(Zend_Db_Select::HAVING);
+        $countSelect->reset(Select::ORDER);
+        $countSelect->reset(Select::GROUP);
+        $countSelect->reset(Select::HAVING);
         $countSelect->reset(Zend_Db_Select::LIMIT_COUNT);
         $countSelect->reset(Zend_Db_Select::LIMIT_OFFSET);
-        $countSelect->reset(Zend_Db_Select::COLUMNS);
+        $countSelect->reset(Select::COLUMNS);
 
         $countSelect->columns(new Zend_Db_Expr('COUNT(DISTINCT detail.customer_id)'));
 

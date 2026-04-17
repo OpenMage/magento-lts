@@ -1,12 +1,13 @@
 <?php
 
+use Laminas\Db\Sql\Select;
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
  * @license    Open Software License (OSL 3.0)
  * @package    Mage_Reports
  */
-
 /**
  * Reports orders collection
  *
@@ -122,7 +123,7 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
         /**
          * Reset all columns, because result will group only by 'created_at' field
          */
-        $this->getSelect()->reset(Zend_Db_Select::COLUMNS);
+        $this->getSelect()->reset(Select::COLUMNS);
 
         $expression = $this->_getSalesAmountExpression();
         if ($isFilter == 0) {
@@ -158,7 +159,7 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
             ->where('main_table.state NOT IN (?)', [
                 Mage_Sales_Model_Order::STATE_PENDING_PAYMENT,
                 Mage_Sales_Model_Order::STATE_NEW])
-            ->order('range ' . Zend_Db_Select::SQL_ASC)
+            ->order('range ' . Select::ORDER_ASCENDING)
             ->group($tzRangeOffsetExpression);
 
         $this->addFieldToFilter('created_at', $dateRange);
@@ -180,7 +181,7 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
         /**
          * Reset all columns, because result will group only by 'created_at' field
          */
-        $this->getSelect()->reset(Zend_Db_Select::COLUMNS);
+        $this->getSelect()->reset(Select::COLUMNS);
         $rangePeriod = $this->_getRangeExpressionForAttribute($range, 'main_table.period');
 
         $tableName = $this->getConnection()->quoteIdentifier('main_table.period');
@@ -759,12 +760,12 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
     public function getSelectCountSql()
     {
         $countSelect = clone $this->getSelect();
-        $countSelect->reset(Zend_Db_Select::ORDER);
+        $countSelect->reset(Select::ORDER);
         $countSelect->reset(Zend_Db_Select::LIMIT_COUNT);
         $countSelect->reset(Zend_Db_Select::LIMIT_OFFSET);
-        $countSelect->reset(Zend_Db_Select::COLUMNS);
-        $countSelect->reset(Zend_Db_Select::GROUP);
-        $countSelect->reset(Zend_Db_Select::HAVING);
+        $countSelect->reset(Select::COLUMNS);
+        $countSelect->reset(Select::GROUP);
+        $countSelect->reset(Select::HAVING);
         $countSelect->columns('COUNT(DISTINCT main_table.entity_id)');
 
         return $countSelect;

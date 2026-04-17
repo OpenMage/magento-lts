@@ -1,12 +1,13 @@
 <?php
 
+use Laminas\Db\Sql\Select;
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
  * @license    Open Software License (OSL 3.0)
  * @package    Mage_Reports
  */
-
 /**
  * Report events resource model
  *
@@ -93,7 +94,7 @@ class Mage_Reports_Model_Resource_Event extends Mage_Core_Model_Resource_Db_Abst
                 "{$idFieldName} = evt.object_id",
                 [],
             )
-            ->order('evt.event_id ' . Varien_Db_Select::SQL_DESC);
+            ->order('evt.event_id ' . Select::ORDER_DESCENDING);
 
         return $this;
     }

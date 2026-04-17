@@ -6,7 +6,7 @@
  * @license    Open Software License (OSL 3.0)
  * @package    Mage_CatalogRule
  */
-
+use Laminas\Db\Sql\Select;
 use Carbon\Carbon;
 
 /**
@@ -208,7 +208,7 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
                             $write->quoteInto('cg.customer_group_id IN (?)', $customerGroupIds),
                             ['cg.customer_group_id'],
                         )
-                        ->reset(Varien_Db_Select::COLUMNS)
+                        ->reset(Select::COLUMNS)
                         ->columns([
                             new Zend_Db_Expr((string) $store->getWebsiteId()),
                             'cg.customer_group_id',

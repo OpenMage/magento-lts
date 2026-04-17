@@ -1,12 +1,13 @@
 <?php
 
+use Laminas\Db\Sql\Select;
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
  * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
  */
-
 /**
  * Catalog Layer Attribute Filter Resource Model
  *
@@ -62,8 +63,8 @@ class Mage_Catalog_Model_Resource_Layer_Filter_Attribute extends Mage_Core_Model
         // clone select from collection with filters
         $select = clone $filter->getLayer()->getProductCollection()->getSelect();
         // reset columns, order and limitation conditions
-        $select->reset(Zend_Db_Select::COLUMNS);
-        $select->reset(Zend_Db_Select::ORDER);
+        $select->reset(Select::COLUMNS);
+        $select->reset(Select::ORDER);
         $select->reset(Zend_Db_Select::LIMIT_COUNT);
         $select->reset(Zend_Db_Select::LIMIT_OFFSET);
 

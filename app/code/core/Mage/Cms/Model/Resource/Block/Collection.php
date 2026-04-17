@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use Laminas\Db\Sql\Select;
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -71,7 +73,7 @@ class Mage_Cms_Model_Resource_Block_Collection extends Mage_Core_Model_Resource_
     {
         $countSelect = parent::getSelectCountSql();
 
-        $countSelect->reset(Zend_Db_Select::GROUP);
+        $countSelect->reset(Select::GROUP);
 
         return $countSelect;
     }
