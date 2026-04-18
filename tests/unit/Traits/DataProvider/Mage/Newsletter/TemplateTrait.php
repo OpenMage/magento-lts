@@ -15,7 +15,7 @@ use Generator;
 
 trait TemplateTrait
 {
-    public function provideValidateData(): Generator
+    public static function provideValidateData(): Generator
     {
         $validData = [
             'setTemplateCode'           => 'Valid Code',

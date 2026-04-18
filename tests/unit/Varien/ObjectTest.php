@@ -37,7 +37,7 @@ final class ObjectTest extends OpenMageTest
      *
      * @group Varien_Object
      */
-    public function testGetData($expectedResult, $setKey, $setValue, null|string $key, $index = null): void
+    public function testGetData($expectedResult, $setKey, $setValue, ?string $key, $index = null): void
     {
         self::$subject->setData($setKey, $setValue);
         self::assertSame($expectedResult, self::$subject->getData($key, $index));

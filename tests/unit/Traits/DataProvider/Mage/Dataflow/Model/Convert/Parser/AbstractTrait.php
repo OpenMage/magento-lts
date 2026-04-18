@@ -16,7 +16,7 @@ use Mage;
 
 trait AbstractTrait
 {
-    public function provideGetCopyFile(): Generator
+    public static function provideGetCopyFile(): Generator
     {
         $prefix = Mage::app()->getConfig()->getTempVarDir() . '/import/';
         $string = 'test';

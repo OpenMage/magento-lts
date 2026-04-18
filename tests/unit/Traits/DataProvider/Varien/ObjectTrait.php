@@ -17,7 +17,7 @@ use Varien_Object;
 
 trait ObjectTrait
 {
-    public function provideGetDataData(): Generator
+    public static function provideGetDataData(): Generator
     {
         yield 'null_key' => [
             null,
@@ -141,7 +141,7 @@ trait ObjectTrait
         ];
     }
 
-    public function provideToStringData(): Generator
+    public static function provideToStringData(): Generator
     {
         yield 'no format' => [
             '0, one, two, three',
