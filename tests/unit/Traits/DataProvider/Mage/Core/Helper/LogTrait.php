@@ -15,7 +15,7 @@ use Monolog\Level;
 
 trait LogTrait
 {
-    public function provideGetLogLevelData(): Generator
+    public static function provideGetLogLevelData(): Generator
     {
         yield 'null' => [
             Level::Debug->toRFC5424Level(),
@@ -67,7 +67,7 @@ trait LogTrait
         ];
     }
 
-    public function provideGetLogFilePathData(): Generator
+    public static function provideGetLogFilePathData(): Generator
     {
         yield 'empty' => [
             null,

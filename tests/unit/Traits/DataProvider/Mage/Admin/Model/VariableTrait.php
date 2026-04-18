@@ -15,7 +15,7 @@ use Generator;
 
 trait VariableTrait
 {
-    public function provideValidateAdminVariableData(): Generator
+    public static function provideValidateAdminVariableData(): Generator
     {
         yield 'test passes' => [
             true,
