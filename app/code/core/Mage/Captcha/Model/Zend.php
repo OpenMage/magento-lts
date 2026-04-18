@@ -221,11 +221,6 @@ class Mage_Captcha_Model_Zend extends Image implements Mage_Captcha_Model_Interf
         return $this->_getFontPath();
     }
 
-    public function getFontSize(): int
-    {
-        return (int) $this->_getHelper()->getConfigNode('font_size');
-    }
-
     /**
      * After this time isCorrect() is going to return FALSE even if word was guessed correctly
      *
