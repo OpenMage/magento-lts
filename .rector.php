@@ -38,7 +38,7 @@ try {
         )
         ->withImportNames(removeUnusedImports: true)
         ->withPhpSets(
-            php81: true,
+            php83: true,
         )
         ->withPreparedSets(
             deadCode: true,

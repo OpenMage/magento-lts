@@ -10,7 +10,7 @@ parameters:
 #    universalObjectCratesClasses:
 #        - Varien_Object
     phpVersion:
-        min: 80100
+        min: 80300
         max: 80599
     strictRules:
         allRules: false
