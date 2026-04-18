@@ -15,7 +15,7 @@ use Generator;
 
 trait DataTrait
 {
-    public function provideSplitSku(): Generator
+    public static function provideSplitSku(): Generator
     {
         yield 'test #1' => [
             [

@@ -45,7 +45,7 @@ final class ProcessorTest extends TestCase
         self::assertSame($expectedResult, $this->subject->getHostUrl());
     }
 
-    public function provideGetHostUrl(): Generator
+    public static function provideGetHostUrl(): Generator
     {
         yield 'default' => [
             'http://localhost',

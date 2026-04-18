@@ -23,7 +23,7 @@ trait ReportsTrait
 
     public static string $dateLastDay   = '2025-12-31';
 
-    public function provideReportsDateIntervalsData(): Generator
+    public static function provideReportsDateIntervalsData(): Generator
     {
         $prefix = Mage_Reports_Helper_Data::REPORT_PERIOD_TYPE_DAY . ': ';
 
