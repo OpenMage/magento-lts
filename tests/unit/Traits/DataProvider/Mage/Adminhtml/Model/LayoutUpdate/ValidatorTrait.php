@@ -16,7 +16,7 @@ use Varien_Simplexml_Element;
 
 trait ValidatorTrait
 {
-    public function provideIsValidData(): Generator
+    public static function provideIsValidData(): Generator
     {
         yield 'string' => [
             true,

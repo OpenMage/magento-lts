@@ -15,7 +15,7 @@ use Generator;
 
 trait ConfigTrait
 {
-    public function provideGetModelClassNameData(): Generator
+    public static function provideGetModelClassNameData(): Generator
     {
         yield 'old' => [
             'Mage_Core_Model_Config',

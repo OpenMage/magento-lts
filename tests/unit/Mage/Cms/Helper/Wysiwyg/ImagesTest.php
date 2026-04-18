@@ -58,7 +58,7 @@ final class ImagesTest extends OpenMageTest
      */
     public function testIdEncode(): void
     {
-        self::assertIsString(self::$subject->idEncode($this->getTestString()));
+        self::assertIsString(self::$subject->idEncode(self::getTestString()));
     }
 
     /**
@@ -66,7 +66,7 @@ final class ImagesTest extends OpenMageTest
      */
     public function testIdDecode(): void
     {
-        self::assertIsString(self::$subject->idDecode($this->getTestString()));
+        self::assertIsString(self::$subject->idDecode(self::getTestString()));
     }
 
     /**
