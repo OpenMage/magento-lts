@@ -26,7 +26,7 @@ return ECSConfig::configure()
     ->withFileExtensions(['php'])
     ->withRootFiles()
     ->withCache(directory: __DIR__ . '/.cache/.ecs.cache')
-    ->withPhpCsFixerSets(perCS20: true)
+    ->withPhpCsFixerSets(perCS30: true)
     ->withRules([
         // RISKY: Replaces intval, floatval, doubleval, strval and boolval function calls with according type casting operators
         PhpCsFixer\CastNotation\ModernizeTypesCastingFixer::class,
@@ -64,7 +64,7 @@ return ECSConfig::configure()
     ->withConfiguredRule(
     // Operators - when multiline - must always be at the beginning or at the end of the line.
         PhpCsFixer\ClassNotation\OrderedTypesFixer::class,
-        ['null_adjustment' => 'always_first', 'sort_algorithm' => 'alpha'],
+        ['sort_algorithm' => 'alpha'],
     )
     ->withConfiguredRule(
     // All items of the given PHPDoc tags must be either left-aligned or (by default) aligned vertically
@@ -94,7 +94,7 @@ return ECSConfig::configure()
     ->withConfiguredRule(
     // Sorts PHPDoc types
         PhpCsFixer\Phpdoc\PhpdocTypesOrderFixer::class,
-        ['sort_algorithm' => 'alpha', 'null_adjustment' => 'always_first'],
+        ['sort_algorithm' => 'alpha'],
     )
     ->withConfiguredRule(
     // Calls to PHPUnit\Framework\TestCase static methods must all be of the same type, either $this->, self:: or static::
