@@ -42,7 +42,7 @@ jobs:
             php-cs-fixer-result-cache-
 
       - name: PHP-CS-Fixer
-        run: php vendor/bin/php-cs-fixer fix --diff --dry-run
+        run: php vendor/bin/ecs --config=.php-cs-fixer.dist.php
 
       - name: Save result cache
         uses: actions/cache/save@v5
