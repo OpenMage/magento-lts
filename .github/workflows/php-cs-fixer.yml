@@ -36,10 +36,10 @@ jobs:
       - name: Restore result cache
         uses: actions/cache/restore@v5
         with:
-          path: .cache/.php-cs-fixer.cache
-          key: php-cs-fixer-result-cache-${{ github.run_id }}
+          path: .cache/.ecs.cache
+          key: ecs-cache-${{ github.run_id }}
           restore-keys: |
-            php-cs-fixer-result-cache-
+            ecs-cache-
 
       - name: PHP-CS-Fixer
         run: php vendor/bin/ecs --config=.php-cs-fixer.dist.php
@@ -48,5 +48,5 @@ jobs:
         uses: actions/cache/save@v5
         if: always()
         with:
-          path: .cache/.php-cs-fixer.cache
-          key: php-cs-fixer-result-cache-${{ github.run_id }}
+          path: .cache/.ecs.cache
+          key: ecs-cache-${{ github.run_id }}
