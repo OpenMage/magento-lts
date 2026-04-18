@@ -38,16 +38,16 @@ trait LayoutTrait
 
     public static function provideGetBlockSingleton(): Generator
     {
-        $notInstanceOfMageCoreBlockAbstract = $this->getBlockClassesNotInstanceOfMageCoreBlockAbstract();
+        $notInstanceOfMageCoreBlockAbstract = static::getBlockClassesNotInstanceOfMageCoreBlockAbstract();
 
         $ignoredClasses = array_merge(
-            $this->getAbstractBlockClasses(),
-            $this->getBlockClassesToMock(),
-            $this->getBlockClassesWithErrors(),
-            $this->getBlockClassesWithSessions(),
+            static::getAbstractBlockClasses(),
+            static::getBlockClassesToMock(),
+            static::getBlockClassesWithErrors(),
+            static::getBlockClassesWithSessions(),
         );
 
-        #$allBlocks = $this->getAllBlockClasses();
+        #$allBlocks = static::getAllBlockClasses();
         $allBlocks = [
             'adminhtml/api_buttons' => Mage_Adminhtml_Block_Api_Buttons::class,
             'adminhtml/catalog_category_helper_pricestep' => Mage_Adminhtml_Block_Catalog_Category_Helper_Pricestep::class,

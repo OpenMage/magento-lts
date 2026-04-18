@@ -90,17 +90,17 @@ trait CmsTrait
     {
         yield 'full length' => [
             '0123456789',
-            $this->getTestString(),
+            static::getTestString(),
             20,
         ];
         yield 'truncated' => [
             '01234...',
-            $this->getTestString(),
+            static::getTestString(),
             5,
         ];
     }
 
-    public function getTestString(): string
+    public static function getTestString(): string
     {
         return static::$testString;
     }

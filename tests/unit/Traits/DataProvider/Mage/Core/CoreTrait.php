@@ -25,7 +25,7 @@ trait CoreTrait
             null, #Mage_Adminhtml
         ];
 
-        foreach ($this->provideAllActiveModules() as $module) {
+        foreach (static::provideAllActiveModules() as $module) {
             yield $module => [
                 true,
                 $module,
