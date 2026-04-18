@@ -15,7 +15,7 @@ use Generator;
 
 trait PurifierTrait
 {
-    public function providePurify(): Generator
+    public static function providePurify(): Generator
     {
         yield 'array' => [
             [],
