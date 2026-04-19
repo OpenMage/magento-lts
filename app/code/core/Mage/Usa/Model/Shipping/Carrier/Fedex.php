@@ -52,27 +52,27 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
     /**
      * Rate request data
      *
-     * @var Mage_Shipping_Model_Rate_Request|null
+     * @var null|Mage_Shipping_Model_Rate_Request
      */
     protected $_request = null;
 
     /**
      * Raw rate request data
      *
-     * @var Varien_Object|null
+     * @var null|Varien_Object
      */
     protected $_rawRequest = null;
 
     /**
      * Rate / tracking result data
-     * @var Mage_Shipping_Model_Rate_Result|Mage_Shipping_Model_Tracking_Result|null
+     * @var null|Mage_Shipping_Model_Rate_Result|Mage_Shipping_Model_Tracking_Result
      */
     protected $_result = null;
 
     /**
      * Raw tracking rate request data
      *
-     * @var Varien_Object|null
+     * @var null|Varien_Object
      */
     protected $_rawTrackingRequest = null;
 
@@ -86,7 +86,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
     /**
      * Collect and get rates
      *
-     * @return Mage_Shipping_Model_Rate_Result|bool|null
+     * @return null|bool|Mage_Shipping_Model_Rate_Result
      */
     public function collectRates(Mage_Shipping_Model_Rate_Request $request)
     {
@@ -193,7 +193,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
     /**
      * Do remote request for and handle errors
      *
-     * @return Mage_Shipping_Model_Rate_Result|bool
+     * @return bool|Mage_Shipping_Model_Rate_Result
      */
     protected function _getQuotes()
     {
@@ -305,8 +305,8 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
     }
 
     /**
-     * @param list<array{service_type:string,rated_type:string,currency:string,amount:float}> $rates
-     * @return array<string,float> service_type => chosen amount
+     * @param  list<array{service_type:string,rated_type:string,currency:string,amount:float}> $rates
+     * @return array<string,float>                                                             service_type => chosen amount
      */
     protected function _selectRatesByPriority(array $rates): array
     {
@@ -367,7 +367,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
     /**
      * Set free method request
      *
-     * @param  $freeMethod
+     * @param $freeMethod
      */
     protected function _setFreeMethodRequest($freeMethod)
     {
@@ -561,7 +561,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
     /**
      *  Return FeDex currency ISO code by Magento Base Currency Code
      *
-     *  @return string 3-digit currency code
+     * @return string 3-digit currency code
      */
     public function getCurrencyCode()
     {
@@ -589,8 +589,8 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
     /**
      * Get tracking
      *
-     * @param mixed $trackings
-     * @return Mage_Shipping_Model_Rate_Result|Mage_Shipping_Model_Tracking_Result|null
+     * @param  mixed                                                                    $trackings
+     * @return null|Mage_Shipping_Model_Rate_Result|Mage_Shipping_Model_Tracking_Result
      */
     public function getTracking($trackings)
     {
@@ -782,7 +782,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
      * For multi package shipments. Delete requested shipments if the current shipment
      * request is failed
      *
-     * @param array $data
+     * @param  array $data
      * @return bool
      */
     public function rollBack($data)

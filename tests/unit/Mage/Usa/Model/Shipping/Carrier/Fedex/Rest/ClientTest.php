@@ -46,7 +46,7 @@ class ClientTest extends OpenMageTest
 
         $response = $client->getRates($this->validRatePayload());
 
-        $this->assertSame($expected, $response);
+        self::assertSame($expected, $response);
     }
 
     public function testGetRatesHydratesInternationalCustomsClearanceDetail(): void
@@ -73,7 +73,7 @@ class ClientTest extends OpenMageTest
 
         $response = $client->getRates($payload);
 
-        $this->assertSame($expected, $response);
+        self::assertSame($expected, $response);
     }
 
     public function testTrackReturnsDecodedBody(): void
@@ -88,7 +88,7 @@ class ClientTest extends OpenMageTest
             'trackingInfo' => [['trackingNumberInfo' => ['trackingNumber' => '794644746111']]],
         ]);
 
-        $this->assertSame($expected, $response);
+        self::assertSame($expected, $response);
     }
 
     public function testProcessShipmentReturnsDecodedBody(): void
@@ -100,7 +100,7 @@ class ClientTest extends OpenMageTest
 
         $response = $client->processShipment($this->validShipmentPayload());
 
-        $this->assertSame($expected, $response);
+        self::assertSame($expected, $response);
     }
 
     public function testDeleteShipmentReturnsDecodedBody(): void
@@ -116,7 +116,7 @@ class ClientTest extends OpenMageTest
             'deletionControl' => 'DELETE_ONE_PACKAGE',
         ]);
 
-        $this->assertSame($expected, $response);
+        self::assertSame($expected, $response);
     }
 
     public function testRestExceptionReturnsErrorBody(): void
@@ -128,7 +128,7 @@ class ClientTest extends OpenMageTest
 
         $response = $client->getRates($this->validRatePayload());
 
-        $this->assertSame($errorBody, $response);
+        self::assertSame($errorBody, $response);
     }
 
     private function clientWithMocks(array $responses): Client

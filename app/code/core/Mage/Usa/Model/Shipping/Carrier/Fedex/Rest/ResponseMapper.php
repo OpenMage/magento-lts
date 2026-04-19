@@ -233,8 +233,8 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_ResponseMapper
         $label = null;
 
         foreach ($packageDocuments as $document) {
-            if ((string)($document['contentType'] ?? '') === 'LABEL') {
-                $label = (string)($document['encodedLabel'] ?? '');
+            if ((string) ($document['contentType'] ?? '') === 'LABEL') {
+                $label = (string) ($document['encodedLabel'] ?? '');
                 break;
             }
         }

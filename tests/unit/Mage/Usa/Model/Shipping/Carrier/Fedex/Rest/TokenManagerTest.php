@@ -25,7 +25,7 @@ class TokenManagerTest extends OpenMageTest
 
     public function testReturnsFalseOnCacheMiss(): void
     {
-        $this->assertFalse(TokenManager::get('client-miss.sandbox'));
+        self::assertFalse(TokenManager::get('client-miss.sandbox'));
     }
 
     public function testStoresAndReturnsAuthenticatorOnHit(): void
@@ -39,8 +39,8 @@ class TokenManagerTest extends OpenMageTest
         TokenManager::set('client-hit.sandbox', $authenticator);
 
         $retrieved = TokenManager::get('client-hit.sandbox');
-        $this->assertInstanceOf(AccessTokenAuthenticator::class, $retrieved);
-        $this->assertSame('access-token-value', $retrieved->getAccessToken());
+        self::assertInstanceOf(AccessTokenAuthenticator::class, $retrieved);
+        self::assertSame('access-token-value', $retrieved->getAccessToken());
     }
 
     public function testTreatsTokenAsExpiredWithinBufferWindow(): void
@@ -53,7 +53,7 @@ class TokenManagerTest extends OpenMageTest
 
         TokenManager::set('client-near-expiry.sandbox', $authenticator);
 
-        $this->assertFalse(TokenManager::get('client-near-expiry.sandbox'));
+        self::assertFalse(TokenManager::get('client-near-expiry.sandbox'));
     }
 
     public function testSkipsWriteWhenTokenAlreadyInsideBuffer(): void
@@ -66,6 +66,6 @@ class TokenManagerTest extends OpenMageTest
 
         TokenManager::set('client-past.sandbox', $authenticator);
 
-        $this->assertFalse(TokenManager::get('client-past.sandbox'));
+        self::assertFalse(TokenManager::get('client-past.sandbox'));
     }
 }

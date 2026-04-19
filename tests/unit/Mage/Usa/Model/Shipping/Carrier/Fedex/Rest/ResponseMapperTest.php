@@ -45,13 +45,13 @@ class ResponseMapperTest extends OpenMageTest
 
         $mapped = $this->mapper->mapRateReply($json);
 
-        $this->assertCount(2, $mapped['rates']);
-        $this->assertSame('FEDEX_GROUND', $mapped['rates'][0]['service_type']);
-        $this->assertSame('ACCOUNT', $mapped['rates'][0]['rated_type']);
-        $this->assertSame(12.34, $mapped['rates'][0]['amount']);
-        $this->assertSame('USD', $mapped['rates'][0]['currency']);
-        $this->assertSame(ResponseMapper::SEVERITY_WARNING, $mapped['alerts'][0]['severity']);
-        $this->assertSame([], $mapped['errors']);
+        self::assertCount(2, $mapped['rates']);
+        self::assertSame('FEDEX_GROUND', $mapped['rates'][0]['service_type']);
+        self::assertSame('ACCOUNT', $mapped['rates'][0]['rated_type']);
+        self::assertSame(12.34, $mapped['rates'][0]['amount']);
+        self::assertSame('USD', $mapped['rates'][0]['currency']);
+        self::assertSame(ResponseMapper::SEVERITY_WARNING, $mapped['alerts'][0]['severity']);
+        self::assertSame([], $mapped['errors']);
     }
 
     public function testRateReplyHandlesStructuredTotalNetCharge(): void
@@ -70,8 +70,8 @@ class ResponseMapperTest extends OpenMageTest
 
         $mapped = $this->mapper->mapRateReply($json);
 
-        $this->assertSame(9.99, $mapped['rates'][0]['amount']);
-        $this->assertSame('EUR', $mapped['rates'][0]['currency']);
+        self::assertSame(9.99, $mapped['rates'][0]['amount']);
+        self::assertSame('EUR', $mapped['rates'][0]['currency']);
     }
 
     public function testMapsRateReplyErrorsFromTopLevel(): void
@@ -84,9 +84,9 @@ class ResponseMapperTest extends OpenMageTest
 
         $mapped = $this->mapper->mapRateReply($json);
 
-        $this->assertSame([], $mapped['rates']);
-        $this->assertSame(ResponseMapper::SEVERITY_ERROR, $mapped['errors'][0]['severity']);
-        $this->assertSame('Bad input', $mapped['errors'][0]['message']);
+        self::assertSame([], $mapped['rates']);
+        self::assertSame(ResponseMapper::SEVERITY_ERROR, $mapped['errors'][0]['severity']);
+        self::assertSame('Bad input', $mapped['errors'][0]['message']);
     }
 
     public function testMapsTrackReply(): void
@@ -118,14 +118,14 @@ class ResponseMapperTest extends OpenMageTest
 
         $mapped = $this->mapper->mapTrackReply($json, '794644746111');
 
-        $this->assertSame('Delivered', $mapped['status']);
-        $this->assertSame('FedEx Ground', $mapped['service']);
-        $this->assertSame('2026-04-17', $mapped['deliverydate']);
-        $this->assertSame('2026-04-15', $mapped['shippeddate']);
-        $this->assertSame('J. DOE', $mapped['signedby']);
-        $this->assertSame('Beverly Hills, CA, US', $mapped['deliverylocation']);
-        $this->assertCount(1, $mapped['progressdetail']);
-        $this->assertSame('Delivered', $mapped['progressdetail'][0]['activity']);
+        self::assertSame('Delivered', $mapped['status']);
+        self::assertSame('FedEx Ground', $mapped['service']);
+        self::assertSame('2026-04-17', $mapped['deliverydate']);
+        self::assertSame('2026-04-15', $mapped['shippeddate']);
+        self::assertSame('J. DOE', $mapped['signedby']);
+        self::assertSame('Beverly Hills, CA, US', $mapped['deliverylocation']);
+        self::assertCount(1, $mapped['progressdetail']);
+        self::assertSame('Delivered', $mapped['progressdetail'][0]['activity']);
     }
 
     public function testTrackReplyReturnsEmptyWhenNumberNotFound(): void
@@ -133,8 +133,8 @@ class ResponseMapperTest extends OpenMageTest
         $json = ['output' => ['completeTrackResults' => []]];
         $mapped = $this->mapper->mapTrackReply($json, '000');
 
-        $this->assertNull($mapped['status']);
-        $this->assertSame([], $mapped['progressdetail']);
+        self::assertNull($mapped['status']);
+        self::assertSame([], $mapped['progressdetail']);
     }
 
     public function testMapsShipReply(): void
@@ -156,10 +156,10 @@ class ResponseMapperTest extends OpenMageTest
 
         $mapped = $this->mapper->mapShipReply($json);
 
-        $this->assertSame('794644746111', $mapped['tracking_number']);
-        $this->assertSame('794644746111', $mapped['master_tracking_number']);
-        $this->assertSame('LABEL_BYTES', $mapped['label_content']);
-        $this->assertSame([], $mapped['errors']);
+        self::assertSame('794644746111', $mapped['tracking_number']);
+        self::assertSame('794644746111', $mapped['master_tracking_number']);
+        self::assertSame('LABEL_BYTES', $mapped['label_content']);
+        self::assertSame([], $mapped['errors']);
     }
 
     public function testMapsCancelReply(): void
@@ -167,7 +167,7 @@ class ResponseMapperTest extends OpenMageTest
         $json = ['output' => ['cancelledShipment' => true, 'cancellationMessage' => 'OK']];
         $mapped = $this->mapper->mapCancelReply($json);
 
-        $this->assertTrue($mapped['cancelled']);
-        $this->assertSame('OK', $mapped['message']);
+        self::assertTrue($mapped['cancelled']);
+        self::assertSame('OK', $mapped['message']);
     }
 }

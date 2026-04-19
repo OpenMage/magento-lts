@@ -42,7 +42,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_Client
     public function getRates(array $payload): array
     {
         return $this->send(
-            fn () => $this->connector->ratesTransitTimesV1()->rateAndTransitTimes(
+            fn() => $this->connector->ratesTransitTimesV1()->rateAndTransitTimes(
                 FullSchemaQuoteRate::deserialize($payload),
             ),
         );
@@ -51,7 +51,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_Client
     public function track(array $payload): array
     {
         return $this->send(
-            fn () => $this->connector->trackV1()->trackByTrackingNumber(
+            fn() => $this->connector->trackV1()->trackByTrackingNumber(
                 FullSchemaTrackingNumbers::deserialize($payload),
             ),
         );
@@ -60,7 +60,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_Client
     public function processShipment(array $payload): array
     {
         return $this->send(
-            fn () => $this->connector->shipV1()->createShipment(
+            fn() => $this->connector->shipV1()->createShipment(
                 FullSchemaShip::deserialize($payload),
             ),
         );
@@ -69,7 +69,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_Client
     public function deleteShipment(array $payload): array
     {
         return $this->send(
-            fn () => $this->connector->shipV1()->cancelShipment(
+            fn() => $this->connector->shipV1()->cancelShipment(
                 FullSchemaCancelShipment::deserialize($payload),
             ),
         );

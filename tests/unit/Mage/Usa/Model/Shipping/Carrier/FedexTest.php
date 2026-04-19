@@ -31,13 +31,13 @@ final class FedexTest extends OpenMageTest
 
     public function testInheritsTheAbstractCarrierContract(): void
     {
-        $this->assertInstanceOf(\Mage_Usa_Model_Shipping_Carrier_Abstract::class, self::$subject);
-        $this->assertInstanceOf(\Mage_Shipping_Model_Carrier_Interface::class, self::$subject);
+        self::assertInstanceOf(\Mage_Usa_Model_Shipping_Carrier_Abstract::class, self::$subject);
+        self::assertInstanceOf(\Mage_Shipping_Model_Carrier_Interface::class, self::$subject);
     }
 
     public function testVersionInfoStaysByteForByteCompatibleWithSoapAncestor(): void
     {
-        $this->assertSame([
+        self::assertSame([
             'ServiceId'    => 'crs',
             'Major'        => '10',
             'Intermediate' => '0',
@@ -48,18 +48,18 @@ final class FedexTest extends OpenMageTest
     public function testContainerTypesMatchesCoreShape(): void
     {
         $all = self::$subject->getContainerTypesAll();
-        $this->assertArrayHasKey('YOUR_PACKAGING', $all);
-        $this->assertArrayHasKey('FEDEX_ENVELOPE', $all);
+        self::assertArrayHasKey('YOUR_PACKAGING', $all);
+        self::assertArrayHasKey('FEDEX_ENVELOPE', $all);
 
         $filters = self::$subject->getContainerTypesFilter();
-        $this->assertCount(4, $filters);
-        $this->assertSame(['FEDEX_ENVELOPE', 'FEDEX_PAK'], $filters[0]['containers']);
+        self::assertCount(4, $filters);
+        self::assertSame(['FEDEX_ENVELOPE', 'FEDEX_PAK'], $filters[0]['containers']);
     }
 
     public function testCollectRatesReturnsFalseWhenDisabled(): void
     {
         $fedex = $this->fedexWithConfig(['active' => false]);
-        $this->assertFalse($fedex->collectRates($this->domesticRateRequest()));
+        self::assertFalse($fedex->collectRates($this->domesticRateRequest()));
     }
 
     public function testSetRequestUsesSandboxSmartPostHubIdWhenSandboxModeEnabled(): void
@@ -71,7 +71,7 @@ final class FedexTest extends OpenMageTest
 
         $fedex->setRequest($this->domesticRateRequest());
 
-        $this->assertSame('5531', $this->rawRequest($fedex)->getSmartpostHubid());
+        self::assertSame('5531', $this->rawRequest($fedex)->getSmartpostHubid());
     }
 
     public function testSetRequestUsesConfiguredSmartPostHubIdOutsideSandbox(): void
@@ -83,13 +83,13 @@ final class FedexTest extends OpenMageTest
 
         $fedex->setRequest($this->domesticRateRequest());
 
-        $this->assertSame('9999', $this->rawRequest($fedex)->getSmartpostHubid());
+        self::assertSame('9999', $this->rawRequest($fedex)->getSmartpostHubid());
     }
 
     public function testCollectRatesBuildsResultFromRestResponse(): void
     {
         $restClient = $this->createMock(RestClient::class);
-        $restClient->expects($this->once())
+        $restClient->expects(self::once())
             ->method('getRates')
             ->willReturn([
                 'output' => [
@@ -113,17 +113,17 @@ final class FedexTest extends OpenMageTest
 
         $result = $fedex->collectRates($this->domesticRateRequest());
 
-        $this->assertInstanceOf(\Mage_Shipping_Model_Rate_Result::class, $result);
+        self::assertInstanceOf(\Mage_Shipping_Model_Rate_Result::class, $result);
         $rates = $result->getAllRates();
-        $this->assertCount(1, $rates);
-        $this->assertSame('FEDEX_GROUND', $rates[0]->getMethod());
-        $this->assertSame(12.34, (float) $rates[0]->getCost());
+        self::assertCount(1, $rates);
+        self::assertSame('FEDEX_GROUND', $rates[0]->getMethod());
+        self::assertSame(12.34, (float) $rates[0]->getCost());
     }
 
     public function testGetTrackingBuildsStatusFromRestResponse(): void
     {
         $restClient = $this->createMock(RestClient::class);
-        $restClient->expects($this->once())
+        $restClient->expects(self::once())
             ->method('track')
             ->willReturn([
                 'output' => [
@@ -146,10 +146,10 @@ final class FedexTest extends OpenMageTest
         $fedex->setData('tracking_rest_client', $restClient);
 
         $result = $fedex->getTracking('794644746111');
-        $this->assertInstanceOf(\Mage_Shipping_Model_Tracking_Result::class, $result);
+        self::assertInstanceOf(\Mage_Shipping_Model_Tracking_Result::class, $result);
         $trackings = $result->getAllTrackings();
-        $this->assertCount(1, $trackings);
-        $this->assertSame('Delivered', $trackings[0]->getStatus());
+        self::assertCount(1, $trackings);
+        self::assertSame('Delivered', $trackings[0]->getStatus());
     }
 
     public function testGetTrackingReturnsErrorResultWhenTrackingCredentialsMissing(): void
@@ -162,14 +162,14 @@ final class FedexTest extends OpenMageTest
 
         $result = $fedex->getTracking('794644746111');
 
-        $this->assertInstanceOf(\Mage_Shipping_Model_Tracking_Result::class, $result);
+        self::assertInstanceOf(\Mage_Shipping_Model_Tracking_Result::class, $result);
         $errors = array_filter(
             $result->getAllTrackings(),
-            static fn ($entry) => $entry instanceof \Mage_Shipping_Model_Tracking_Result_Error,
+            static fn($entry) => $entry instanceof \Mage_Shipping_Model_Tracking_Result_Error,
         );
-        $this->assertCount(1, $errors);
+        self::assertCount(1, $errors);
         $error = array_values($errors)[0];
-        $this->assertSame('794644746111', $error->getTracking());
+        self::assertSame('794644746111', $error->getTracking());
     }
 
     /**
@@ -199,9 +199,9 @@ final class FedexTest extends OpenMageTest
 
         try {
             $method->invoke($fedex);
-            $this->fail('Expected Mage_Core_Exception when tracking credentials are missing');
+            self::fail('Expected Mage_Core_Exception when tracking credentials are missing');
         } catch (\Mage_Core_Exception $e) {
-            $this->assertStringContainsString($missingField, $e->getMessage());
+            self::assertStringContainsString($missingField, $e->getMessage());
         }
     }
 
@@ -227,7 +227,7 @@ final class FedexTest extends OpenMageTest
 
         $fedex->collectRates($this->domesticRateRequest());
 
-        $this->assertSame(
+        self::assertSame(
             [['client_id' => 'rates-id', 'client_secret' => 'rates-secret', 'sandbox_mode' => true]],
             $calls->getArrayCopy(),
         );
@@ -252,7 +252,7 @@ final class FedexTest extends OpenMageTest
 
         $fedex->getTracking('794644746111');
 
-        $this->assertSame(
+        self::assertSame(
             [['client_id' => 'track-id', 'client_secret' => 'track-secret', 'sandbox_mode' => false]],
             $calls->getArrayCopy(),
         );
@@ -273,7 +273,7 @@ final class FedexTest extends OpenMageTest
     public function testDoShipmentRequestReturnsTrackingAndLabel(): void
     {
         $restClient = $this->createMock(RestClient::class);
-        $restClient->expects($this->once())
+        $restClient->expects(self::once())
             ->method('processShipment')
             ->willReturn([
                 'output' => [
@@ -299,21 +299,21 @@ final class FedexTest extends OpenMageTest
 
         $result = $this->invokeDoShipmentRequest($fedex, $this->shipmentRequestVarien());
 
-        $this->assertSame('794644746111', $result->getTrackingNumber());
-        $this->assertSame('LBL', $result->getShippingLabelContent());
+        self::assertSame('794644746111', $result->getTrackingNumber());
+        self::assertSame('LBL', $result->getShippingLabelContent());
     }
 
     public function testRollBackCancelsShipmentForEachTrackingNumber(): void
     {
         $restClient = $this->createMock(RestClient::class);
-        $restClient->expects($this->exactly(2))
+        $restClient->expects(self::exactly(2))
             ->method('deleteShipment')
-            ->with($this->callback(fn ($payload) => isset($payload['trackingNumber']) && $payload['deletionControl'] === 'DELETE_ONE_PACKAGE'));
+            ->with(self::callback(fn($payload) => isset($payload['trackingNumber']) && $payload['deletionControl'] === 'DELETE_ONE_PACKAGE'));
 
         $fedex = $this->fedexWithConfig(['account' => '510510510']);
         $fedex->setData('rest_client', $restClient);
 
-        $this->assertTrue($fedex->rollBack([
+        self::assertTrue($fedex->rollBack([
             ['tracking_number' => '111', 'label_content' => 'L1'],
             ['tracking_number' => '222', 'label_content' => 'L2'],
         ]));
@@ -323,7 +323,7 @@ final class FedexTest extends OpenMageTest
     {
         $payloads = [];
         $restClient = $this->createMock(RestClient::class);
-        $restClient->expects($this->once())
+        $restClient->expects(self::once())
             ->method('getRates')
             ->willReturnCallback(function (array $payload) use (&$payloads): array {
                 $payloads[] = $payload;
@@ -339,17 +339,17 @@ final class FedexTest extends OpenMageTest
 
         $fedex->collectRates($this->domesticRateRequest());
 
-        $this->assertCount(1, $payloads);
+        self::assertCount(1, $payloads);
         $rs = $payloads[0]['requestedShipment'];
-        $this->assertArrayNotHasKey('serviceType', $rs);
-        $this->assertSame('5531', $rs['smartPostInfoDetail']['hubId']);
+        self::assertArrayNotHasKey('serviceType', $rs);
+        self::assertSame('5531', $rs['smartPostInfoDetail']['hubId']);
     }
 
     public function testParentClearsHubIdForInternationalDestinations(): void
     {
         $payloads = [];
         $restClient = $this->createMock(RestClient::class);
-        $restClient->expects($this->once())
+        $restClient->expects(self::once())
             ->method('getRates')
             ->willReturnCallback(function (array $payload) use (&$payloads): array {
                 $payloads[] = $payload;
@@ -365,14 +365,14 @@ final class FedexTest extends OpenMageTest
 
         $fedex->collectRates($this->domesticRateRequest()->setDestCountryId('CA'));
 
-        $this->assertArrayNotHasKey('smartPostInfoDetail', $payloads[0]['requestedShipment']);
+        self::assertArrayNotHasKey('smartPostInfoDetail', $payloads[0]['requestedShipment']);
     }
 
     public function testParentClearsHubIdWhenSmartPostNotInAllowedMethods(): void
     {
         $payloads = [];
         $restClient = $this->createMock(RestClient::class);
-        $restClient->expects($this->once())
+        $restClient->expects(self::once())
             ->method('getRates')
             ->willReturnCallback(function (array $payload) use (&$payloads): array {
                 $payloads[] = $payload;
@@ -388,13 +388,13 @@ final class FedexTest extends OpenMageTest
 
         $fedex->collectRates($this->domesticRateRequest());
 
-        $this->assertArrayNotHasKey('smartPostInfoDetail', $payloads[0]['requestedShipment']);
+        self::assertArrayNotHasKey('smartPostInfoDetail', $payloads[0]['requestedShipment']);
     }
 
     public function testRequestToShipmentRollsBackPriorPackagesOnError(): void
     {
         $restClient = $this->createMock(RestClient::class);
-        $restClient->expects($this->exactly(2))
+        $restClient->expects(self::exactly(2))
             ->method('processShipment')
             ->willReturnOnConsecutiveCalls(
                 ['output' => ['transactionShipments' => [[
@@ -407,9 +407,9 @@ final class FedexTest extends OpenMageTest
                 ['errors' => [['code' => 'FAIL', 'message' => 'Second package failed']]],
             );
 
-        $restClient->expects($this->once())
+        $restClient->expects(self::once())
             ->method('deleteShipment')
-            ->with($this->callback(fn ($p) => $p['trackingNumber'] === 'FIRST'));
+            ->with(self::callback(fn($p) => $p['trackingNumber'] === 'FIRST'));
 
         $fedex = $this->fedexWithConfig([
             'account' => '510510510',
@@ -427,14 +427,14 @@ final class FedexTest extends OpenMageTest
 
         $response = $fedex->requestToShipment($shipmentRequest);
         $info = (array) $response->getData('info');
-        $this->assertSame('FIRST', $info[0]['tracking_number']);
-        $this->assertNotEmpty($response->getErrors());
+        self::assertSame('FIRST', $info[0]['tracking_number']);
+        self::assertNotEmpty($response->getErrors());
     }
 
     /**
      * @param array<string,mixed> $config
      */
-    private function fedexWithConfig(array $config = []): Subject & MockObject
+    private function fedexWithConfig(array $config = []): MockObject&Subject
     {
         $fedex = $this->getMockBuilder(Subject::class)
             ->onlyMethods(['getConfigData', 'getConfigFlag'])
@@ -456,10 +456,10 @@ final class FedexTest extends OpenMageTest
         $configMap = array_map('strval', array_merge($defaults, $config));
 
         $fedex->method('getConfigData')->willReturnCallback(
-            fn ($field) => $configMap[$field] ?? false,
+            fn($field) => $configMap[$field] ?? false,
         );
         $fedex->method('getConfigFlag')->willReturnCallback(
-            fn ($field) => (bool) ((int) ($configMap[$field] ?? '0')),
+            fn($field) => (bool) ((int) ($configMap[$field] ?? '0')),
         );
 
         return $fedex;

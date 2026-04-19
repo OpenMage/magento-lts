@@ -91,15 +91,15 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_RequestBuilder
     }
 
     /**
-     * @param object[] $containers
+     * @param  object[]                          $containers
      * @return array<int,float>|array<int,never> indexed by container index when
-     *                                            declaredValue should be emitted; empty otherwise
+     *                                           declaredValue should be emitted; empty otherwise
      */
     private function distributeDeclaredValue(Varien_Object $raw, array $containers): array
     {
         $total = (float) $raw->getValue();
         $totalWeight = array_sum(array_map(
-            static fn ($container) => (float) $container->getTotalWeight(),
+            static fn($container) => (float) $container->getTotalWeight(),
             $containers,
         ));
 
@@ -166,7 +166,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_RequestBuilder
 
         if ($origCountry !== '' && $destCountry !== '' && $origCountry !== $destCountry) {
             $totalWeight = array_sum(array_map(
-                static fn (array $item): float => (float) $item['weight']['value'],
+                static fn(array $item): float => (float) $item['weight']['value'],
                 $lineItems,
             ));
             $requestedShipment['customsClearanceDetail'] = [
