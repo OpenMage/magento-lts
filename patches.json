@@ -12,7 +12,7 @@
             "ECG-72 - Fix LoopSniff": "https://raw.githubusercontent.com/OpenMage/magento-lts/de83e28a673e3c1a249b51433abf6dc93e59063c/.vendor-patches/ECG-72.patch"
         },
         "react/promise": {
-            "PR-264 - PHP 8.5 syntax": "https://github.com/reactphp/promise/commit/501b4aa15121cd015d9f6f548cbda4c27bc16ced.patch"
+            "PR-264 - PHP 8.5 syntax": ".vendor-patches/react-promise-PR-264.patch"
         }
     }
 }

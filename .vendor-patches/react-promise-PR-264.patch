@@ -1,0 +1,11 @@
+--- /dev/null
++++ ../src/functions.php
+@@ -366,7 +366,7 @@
+             break;
+         case $type instanceof \ReflectionIntersectionType:
+             $isTypeUnion = false;
+-        case $type instanceof \ReflectionUnionType;
++        case $type instanceof \ReflectionUnionType:
+             $types = $type->getTypes();
+             break;
+         default:
