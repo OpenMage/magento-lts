@@ -82,8 +82,8 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_ResponseMapper
         $packaging = $result['packageDetails'] ?? [];
         $weight = null;
         if (!empty($packaging['weightAndDimensions']['weight'][0])) {
-            $w = $packaging['weightAndDimensions']['weight'][0];
-            $weight = trim(($w['value'] ?? '') . ' ' . ($w['unit'] ?? ''));
+            $weightItem = $packaging['weightAndDimensions']['weight'][0];
+            $weight = trim(($weightItem['value'] ?? '') . ' ' . ($weightItem['unit'] ?? ''));
         }
 
         $deliveryLocation = $result['deliveryDetails']['actualDeliveryAddress']
@@ -207,14 +207,14 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_ResponseMapper
 
     private function formatDate(string $iso): string
     {
-        $ts = strtotime($iso);
-        return $ts ? date('Y-m-d', $ts) : '';
+        $timestamp = strtotime($iso);
+        return $timestamp ? date('Y-m-d', $timestamp) : '';
     }
 
     private function formatTime(string $iso): string
     {
-        $ts = strtotime($iso);
-        return $ts ? date('H:i:s', $ts) : '';
+        $timestamp = strtotime($iso);
+        return $timestamp ? date('H:i:s', $timestamp) : '';
     }
 
     private function formatAddress(array $address): string

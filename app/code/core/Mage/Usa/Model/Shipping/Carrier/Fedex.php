@@ -112,55 +112,55 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
     {
         $this->_request = $request;
 
-        $r = new Varien_Object();
+        $payload = new Varien_Object();
 
         if ($request->getLimitMethod()) {
-            $r->setService($request->getLimitMethod());
+            $payload->setService($request->getLimitMethod());
         }
 
-        $r->setAccount($request->getFedexAccount() ?: $this->getConfigData('account'));
-        $r->setDropoffType($request->getFedexDropoff() ?: $this->getConfigData('dropoff'));
-        $r->setPackaging($request->getFedexPackaging() ?: $this->getConfigData('packaging'));
+        $payload->setAccount($request->getFedexAccount() ?: $this->getConfigData('account'));
+        $payload->setDropoffType($request->getFedexDropoff() ?: $this->getConfigData('dropoff'));
+        $payload->setPackaging($request->getFedexPackaging() ?: $this->getConfigData('packaging'));
 
         $origCountry = $request->getOrigCountry() ?: Mage::getStoreConfig(
             Mage_Shipping_Model_Shipping::XML_PATH_STORE_COUNTRY_ID,
             $request->getStoreId(),
         );
-        $r->setOrigCountry(Mage::getModel('directory/country')->load($origCountry)->getIso2Code());
+        $payload->setOrigCountry(Mage::getModel('directory/country')->load($origCountry)->getIso2Code());
 
         if ($request->getOrigPostcode()) {
-            $r->setOrigPostal($request->getOrigPostcode());
+            $payload->setOrigPostal($request->getOrigPostcode());
         } else {
-            $r->setOrigPostal(Mage::getStoreConfig(
+            $payload->setOrigPostal(Mage::getStoreConfig(
                 Mage_Shipping_Model_Shipping::XML_PATH_STORE_ZIP,
                 $request->getStoreId(),
             ));
         }
 
         $destCountry = $request->getDestCountryId() ?: self::USA_COUNTRY_ID;
-        $r->setDestCountry(Mage::getModel('directory/country')->load($destCountry)->getIso2Code());
+        $payload->setDestCountry(Mage::getModel('directory/country')->load($destCountry)->getIso2Code());
 
         if ($request->getDestPostcode()) {
-            $r->setDestPostal($request->getDestPostcode());
+            $payload->setDestPostal($request->getDestPostcode());
         }
 
-        $r->setWeight($this->getTotalNumOfBoxes($request->getPackageWeight()));
+        $payload->setWeight($this->getTotalNumOfBoxes($request->getPackageWeight()));
         if ($request->getFreeMethodWeight() != $request->getPackageWeight()) {
-            $r->setFreeMethodWeight($request->getFreeMethodWeight());
+            $payload->setFreeMethodWeight($request->getFreeMethodWeight());
         }
 
-        $r->setValue($request->getPackagePhysicalValue());
-        $r->setValueWithDiscount($request->getPackageValueWithDiscount());
+        $payload->setValue($request->getPackagePhysicalValue());
+        $payload->setValueWithDiscount($request->getPackageValueWithDiscount());
 
-        $r->setUnitOfMeasure($this->getConfigData('unit_of_measure'));
-        $r->setResidenceDelivery((bool) $this->getConfigData('residence_delivery'));
-        $r->setSmartpostHubid($this->getEffectiveSmartpostHubId());
+        $payload->setUnitOfMeasure($this->getConfigData('unit_of_measure'));
+        $payload->setResidenceDelivery((bool) $this->getConfigData('residence_delivery'));
+        $payload->setSmartpostHubid($this->getEffectiveSmartpostHubId());
 
-        $r->setIsReturn($request->getIsReturn());
+        $payload->setIsReturn($request->getIsReturn());
 
-        $r->setBaseSubtotalInclTax($request->getBaseSubtotalInclTax());
+        $payload->setBaseSubtotalInclTax($request->getBaseSubtotalInclTax());
 
-        $this->_rawRequest = $r;
+        $this->_rawRequest = $payload;
 
         return $this;
     }
