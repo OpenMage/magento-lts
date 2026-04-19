@@ -176,9 +176,15 @@
             </dhl>
             <fedex>
                 <account backend_model="adminhtml/system_config_backend_encrypted"/>
+                <!-- deprecated legacy soap api fields -->
                 <meter_number backend_model="adminhtml/system_config_backend_encrypted"/>
                 <key backend_model="adminhtml/system_config_backend_encrypted"/>
                 <password backend_model="adminhtml/system_config_backend_encrypted"/>
+                <!-- // end deprecated -->
+                <client_id backend_model="adminhtml/system_config_backend_encrypted"/>
+                <client_secret backend_model="adminhtml/system_config_backend_encrypted"/>
+                <tracking_client_id backend_model="adminhtml/system_config_backend_encrypted"/>
+                <tracking_client_secret backend_model="adminhtml/system_config_backend_encrypted"/>
                 <sandbox_mode>0</sandbox_mode>
                 <shipment_requesttype>0</shipment_requesttype>
                 <active>0</active>
