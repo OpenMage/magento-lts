@@ -25,9 +25,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Viewed extends Mage_Adminh
     }
 
     /**
-     * Retrieve display block availability
-     *
-     * @return false|int
+     * @inheritDoc
      */
     public function canDisplay()
     {
@@ -35,9 +33,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Viewed extends Mage_Adminh
     }
 
     /**
-     * Retrieve availability removing items in block
-     *
-     * @return false
+     * @inheritDoc
      */
     public function canRemoveItems()
     {
