@@ -21,7 +21,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
     protected $_eventPrefix = 'catalog_product_import';
 
     /**
-     * @var false|null|string
+     * @var null|false|string
      */
     protected $_productModel;
 
