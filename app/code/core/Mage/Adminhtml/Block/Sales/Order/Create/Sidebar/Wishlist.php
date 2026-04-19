@@ -105,7 +105,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Wishlist extends Mage_Admi
     }
 
     /**
-     * @return false|int
+     * @inheritDoc
      */
     #[Override]
     public function canDisplay()
@@ -118,9 +118,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Wishlist extends Mage_Admi
     }
 
     /**
-     * Retrieve possibility to display quantity column in grid of wishlist block
-     *
-     * @return bool
+     * @inheritDoc
      */
     #[Override]
     public function canDisplayItemQty()

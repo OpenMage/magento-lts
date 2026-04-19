@@ -346,7 +346,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get encryption method depending on the presence of the function - password_hash.
      *
-     * @return int
+     * @return Mage_Core_Model_Encryption::HASH_VERSION_*
      */
     public function getVersionHash(Mage_Core_Model_Encryption $encryptionModel)
     {

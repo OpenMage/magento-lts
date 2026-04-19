@@ -15,7 +15,7 @@ use Generator;
 
 trait CustomerTrait
 {
-    public function provideGetLoginAtTimestampData(): Generator
+    public static function provideGetLoginAtTimestampData(): Generator
     {
         yield 'valid' => [
             true,

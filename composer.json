@@ -60,7 +60,7 @@
     },
     "require-dev": {
         "ext-xmlreader": "*",
-        "composer/composer": "^2.2.27",
+        "composer/composer": ">= 2.2.27 <2.3 || >= 2.9.6",
         "dealerdirect/phpcodesniffer-composer-installer": "^1.0.0",
         "friendsofphp/php-cs-fixer": "^3.6",
         "macopedia/phpstan-magento1": "^1.1",
@@ -77,6 +77,7 @@
         "phpunit/phpunit": "^9.6",
         "rector/rector": "^2.1.12",
         "squizlabs/php_codesniffer": "^3.7",
+        "symplify/easy-coding-standard": "^13.0",
         "symplify/vendor-patches": "^12.0, !=12.0.5, !=12.0.6"
     },
     "replace": {
@@ -171,8 +172,8 @@
         "n98/magerun": "The n98 magerun cli tools provides some handy tools to work with Magento from command line."
     },
     "scripts": {
-        "php-cs-fixer:test": "vendor/bin/php-cs-fixer fix --dry-run --diff",
-        "php-cs-fixer:fix": "vendor/bin/php-cs-fixer fix",
+        "php-cs-fixer:test": "vendor/bin/ecs --config=.php-cs-fixer.dist.php",
+        "php-cs-fixer:fix": "vendor/bin/ecs --config=.php-cs-fixer.dist.php --fix",
         "phpmd:test": "vendor/bin/phpmd app/code/core/Mage html .phpmd.dist.xml --color --cache --cache-file .cache/.phpmd.result-cache.php --baseline-file .phpmd.dist.baseline.xml --report-file build/phpmd/report.html",
         "phpmd:baseline": "vendor/bin/phpmd app/code/core/Mage html .phpmd.dist.xml --color --cache --cache-file .cache/.phpmd.result-cache.php --baseline-file .phpmd.dist.baseline.xml --report-file build/phpmd/report.html --update-baseline --generate-baseline",
         "phpstan:test": "XDEBUG_MODE=off php vendor/bin/phpstan analyze",
