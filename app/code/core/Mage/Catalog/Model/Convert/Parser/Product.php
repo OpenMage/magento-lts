@@ -52,7 +52,7 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
     protected $_inventoryItems = [];
 
     /**
-     * @var null|string
+     * @var null|false|string
      */
     protected $_productModel;
 

@@ -160,7 +160,7 @@
  * @method $this                                              setRegionId(int $value)
  * @method $this                                              setRoundingDeltas(array $value)
  * @method $this                                              setRowWeight(float $value)
- * @method $this                                              setSameAsBilling(int $value)
+ * @method $this                                              setSameAsBilling(bool $value)
  * @method $this                                              setSaveInAddressBook(int $value)
  * @method $this                                              setShippingAmountForDiscount(float|int $value)
  * @method $this                                              setShippingDescription(string $value)
