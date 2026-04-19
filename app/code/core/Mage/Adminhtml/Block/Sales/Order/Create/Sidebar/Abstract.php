@@ -41,7 +41,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Abstract extends Mage_Admi
      */
     public function canDisplay()
     {
-        return !is_null($this->getCustomerId());
+        return (bool) $this->getCustomerId();
     }
 
     /**
