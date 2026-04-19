@@ -1,5 +1,5 @@
 {
-    "_hash": "9c9d2e3ae647f1700ad1df32a4f349da112801a2daa44dbcd2ed5e77947ec837",
+    "_hash": "a49e60c81639b93abdce339c42f47380ff09e1d30c30ae62e5f5139660a40669",
     "patches": {
         "shardj/zf1-future": [
             {
@@ -80,7 +80,7 @@
                 "package": "react/promise",
                 "description": "PR-264 - PHP 8.5 syntax",
                 "url": ".vendor-patches/react-promise-PR-264.patch",
-                "sha256": "71f534f630ad5bd255764b035b0f9b03ed018ff451f748156f5405c31c7e16ca",
+                "sha256": "18a23416887525048e0f5d9998189790afc3358a86e17eae4b04988d7f74f376",
                 "depth": 1,
                 "extra": {
                     "provenance": "patches-file:patches.json"

@@ -1,4 +1,4 @@
---- /dev/null
+--- ../src/functions.php
 +++ ../src/functions.php
 @@ -366,7 +366,7 @@
              break;
