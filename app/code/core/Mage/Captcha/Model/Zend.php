@@ -523,6 +523,7 @@ class Mage_Captcha_Model_Zend extends Image implements Mage_Captcha_Model_Interf
      *
      * Now deleting old captcha images make crontab script
      * @see Mage_Captcha_Model_Observer::deleteExpiredImages
+     * @SuppressWarnings("PHPMD.ShortMethodName")
      */
     #[Override]
     protected function gc()
