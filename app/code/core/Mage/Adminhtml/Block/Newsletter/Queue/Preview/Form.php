@@ -19,6 +19,7 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Preview_Form extends Mage_Adminhtml_
      *
      * @return $this
      */
+    #[Override]
     protected function _prepareForm()
     {
         $form = new Varien_Data_Form([

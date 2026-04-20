@@ -32,6 +32,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Edit_Form extends Mage_Adminhtml_Blo
      *
      * @return $this
      */
+    #[Override]
     protected function _prepareLayout()
     {
         $category = $this->getCategory();

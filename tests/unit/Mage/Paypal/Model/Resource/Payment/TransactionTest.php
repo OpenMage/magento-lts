@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Paypal\Model\Resource\Payment;
 
 // use Mage;
 // use Mage_Paypal_Model_Resource_Payment_Transaction as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Paypal\Model\Resource\Payment\TransactionTrait;
 
@@ -22,6 +23,7 @@ final class TransactionTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

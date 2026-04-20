@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Model\System\Config\Source\Email;
 
 // use Mage;
 // use Mage_Adminhtml_Model_System_Config_Source_Email_Smtpauth as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Model\System\Config\Source\Email\SmtpauthTrait;
 
@@ -22,6 +23,7 @@ final class SmtpauthTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

@@ -27,6 +27,7 @@ class Mage_Admin_Model_Resource_Roles_User_Collection extends Mage_Core_Model_Re
     /**
      * @return $this
      */
+    #[Override]
     protected function _initSelect()
     {
         parent::_initSelect();

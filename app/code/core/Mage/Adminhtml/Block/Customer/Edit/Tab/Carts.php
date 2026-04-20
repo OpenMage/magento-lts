@@ -19,6 +19,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Carts extends Mage_Adminhtml_Block_
      *
      * @return $this
      */
+    #[Override]
     protected function _prepareLayout()
     {
         $sharedWebsiteIds = Mage::registry('current_customer')->getSharedWebsiteIds();
@@ -45,6 +46,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Carts extends Mage_Adminhtml_Block_
      *
      * @return string
      */
+    #[Override]
     protected function _toHtml()
     {
         Mage::dispatchEvent('adminhtml_block_html_before', ['block' => $this]);

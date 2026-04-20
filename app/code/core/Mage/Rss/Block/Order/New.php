@@ -24,6 +24,7 @@ class Mage_Rss_Block_Order_New extends Mage_Core_Block_Template
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _construct()
     {
         $this->setCacheTags([self::CACHE_TAG]);
@@ -38,6 +39,7 @@ class Mage_Rss_Block_Order_New extends Mage_Core_Block_Template
      * @return string
      * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _toHtml()
     {
         $storeId = $this->getRequest()->getParam('store');

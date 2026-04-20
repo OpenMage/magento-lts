@@ -48,6 +48,7 @@ class Mage_Sales_Model_Quote_Item_Option extends Mage_Core_Model_Abstract implem
      *
      * @return bool
      */
+    #[Override]
     protected function _hasModelChanged()
     {
         if (!$this->hasDataChanges()) {
@@ -124,6 +125,7 @@ class Mage_Sales_Model_Quote_Item_Option extends Mage_Core_Model_Abstract implem
      *
      * @inheritDoc
      */
+    #[Override]
     protected function _beforeSave()
     {
         if ($this->getItem()) {

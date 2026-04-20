@@ -531,6 +531,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      * @param  string $key data key
      * @return $this
      */
+    #[Override]
     public function unsetData($key = null)
     {
         parent::unsetData($key);
@@ -2149,6 +2150,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      * @param  null|int|string $index
      * @return float|mixed
      */
+    #[Override]
     public function getData($key = '', $index = null)
     {
         if ($key == 'total_due') {
@@ -2359,6 +2361,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      *
      * @return $this
      */
+    #[Override]
     protected function _beforeSave()
     {
         parent::_beforeSave();
@@ -2462,6 +2465,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      *
      * @inheritDoc
      */
+    #[Override]
     protected function _afterSave()
     {
         if ($this->_addresses !== null) {
@@ -2594,6 +2598,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      * Protect order delete from not admin scope
      * @inheritDoc
      */
+    #[Override]
     protected function _beforeDelete()
     {
         $this->_protectFromNonAdmin();

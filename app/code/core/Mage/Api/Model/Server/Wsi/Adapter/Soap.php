@@ -19,6 +19,7 @@ class Mage_Api_Model_Server_Wsi_Adapter_Soap extends Mage_Api_Model_Server_Adapt
      *
      * @return Mage_Api_Model_Wsdl_Config
      */
+    #[Override]
     protected function _getWsdlConfig()
     {
         $wsdlConfig = Mage::getModel('api/wsdl_config');
@@ -33,6 +34,7 @@ class Mage_Api_Model_Server_Wsi_Adapter_Soap extends Mage_Api_Model_Server_Adapt
      * @return $this
      * @throws SoapFault
      */
+    #[Override]
     public function run()
     {
         $apiConfigCharset = Mage::getStoreConfig('api/config/charset');

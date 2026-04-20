@@ -33,6 +33,7 @@ class Mage_Adminhtml_Block_Report_Sales_Shipping extends Mage_Adminhtml_Block_Wi
         return $this->getUrl('*/*/shipping', ['_current' => true]);
     }
 
+    #[Override]
     public function getHeaderCssClass()
     {
         return 'icon-head head-report';

@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Core\Helper;
 
+use Override;
 use Mage;
 use Mage_Core_Helper_Log as Subject;
 use Monolog\Formatter\LineFormatter;
@@ -26,6 +27,7 @@ final class LogTest extends OpenMageTest
     // @phpstan-ignore property.onlyWritten
     private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

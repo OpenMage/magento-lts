@@ -17,6 +17,7 @@ class Mage_Rss_Block_Catalog_Salesrule extends Mage_Rss_Block_Abstract
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _construct()
     {
         /*
@@ -31,6 +32,7 @@ class Mage_Rss_Block_Catalog_Salesrule extends Mage_Rss_Block_Abstract
      *
      * @return string
      */
+    #[Override]
     protected function _toHtml()
     {
         $storeId       = $this->_getStoreId();

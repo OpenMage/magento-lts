@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Model\System\Config\Source\Dev;
 
 // use Mage;
 // use Mage_Adminhtml_Model_System_Config_Source_Dev_Dbautoup as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Model\System\Config\Source\Dev\DbautoupTrait;
 
@@ -22,6 +23,7 @@ final class DbautoupTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Paypal\Model\System\Config\Backend;
 
 // use Mage;
 // use Mage_Paypal_Model_System_Config_Backend_Cert as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Paypal\Model\System\Config\Backend\CertTrait;
 
@@ -22,6 +23,7 @@ final class CertTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

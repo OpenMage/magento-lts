@@ -35,6 +35,7 @@ class Mage_Weee_Model_Total_Quote_Nominal_Weee extends Mage_Weee_Model_Total_Quo
      *
      * @return array
      */
+    #[Override]
     protected function _getAddressItems(Mage_Sales_Model_Quote_Address $address)
     {
         return $address->getAllNominalItems();

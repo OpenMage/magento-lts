@@ -21,6 +21,7 @@ class Mage_Reports_Model_Resource_Product_Ordered_Collection extends Mage_Report
      * @param  null|string $dateTo
      * @return $this
      */
+    #[Override]
     protected function _joinFields($dateFrom = '', $dateTo = '')
     {
         $this->addAttributeToSelect('*')

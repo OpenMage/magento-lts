@@ -35,6 +35,7 @@ class Mage_Core_Model_Resource_Url_Rewrite extends Mage_Core_Model_Resource_Db_A
      *
      * @return $this
      */
+    #[Override]
     protected function _initUniqueFields()
     {
         $this->_uniqueFields = [
@@ -58,6 +59,7 @@ class Mage_Core_Model_Resource_Url_Rewrite extends Mage_Core_Model_Resource_Db_A
      * @param  Mage_Core_Model_Url_Rewrite $object
      * @return Zend_Db_Select
      */
+    #[Override]
     protected function _getLoadSelect($field, $value, $object)
     {
         $select = parent::_getLoadSelect($field, $value, $object);

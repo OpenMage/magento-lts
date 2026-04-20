@@ -17,6 +17,7 @@ class Mage_Sales_Block_Adminhtml_Report_Filter_Form_Order extends Mage_Sales_Blo
     /**
      * @return $this
      */
+    #[Override]
     protected function _prepareForm()
     {
         parent::_prepareForm();

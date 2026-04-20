@@ -21,6 +21,7 @@ class Mage_Catalog_Model_Product_Option_Value_Api_V2 extends Mage_Catalog_Model_
      * @param  null|int|string $store
      * @return array
      */
+    #[Override]
     public function items($optionId, $store = null)
     {
         $result = parent::items($optionId, $store);
@@ -38,6 +39,7 @@ class Mage_Catalog_Model_Product_Option_Value_Api_V2 extends Mage_Catalog_Model_
      * @param  null|int|string $store
      * @return array
      */
+    #[Override]
     public function info($valueId, $store = null)
     {
         return Mage::helper('api')->wsiArrayPacker(
@@ -53,6 +55,7 @@ class Mage_Catalog_Model_Product_Option_Value_Api_V2 extends Mage_Catalog_Model_
      * @param  null|int|string $store
      * @return bool
      */
+    #[Override]
     public function add($optionId, $data, $store = null)
     {
         Mage::helper('api')->toArray($data);
@@ -67,6 +70,7 @@ class Mage_Catalog_Model_Product_Option_Value_Api_V2 extends Mage_Catalog_Model_
      * @param  null|int|string $store
      * @return bool
      */
+    #[Override]
     public function update($valueId, $data, $store = null)
     {
         Mage::helper('api')->toArray($data);
@@ -79,6 +83,7 @@ class Mage_Catalog_Model_Product_Option_Value_Api_V2 extends Mage_Catalog_Model_
      * @param  int  $valueId
      * @return bool
      */
+    #[Override]
     public function remove($valueId)
     {
         return parent::remove($valueId);

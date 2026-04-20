@@ -1226,6 +1226,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
      *
      * @return bool
      */
+    #[Override]
     public function isStateProvinceRequired()
     {
         return true;
@@ -1318,6 +1319,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
      *
      * @return array|bool
      */
+    #[Override]
     public function getContainerTypes(?Varien_Object $params = null)
     {
         return $this->getCode('shipment_type');

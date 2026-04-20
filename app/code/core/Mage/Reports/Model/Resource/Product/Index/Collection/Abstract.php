@@ -173,6 +173,7 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Collection_Abstract ext
      *
      * @return Mage_Catalog_Model_Resource_Product_Collection
      */
+    #[Override]
     protected function _afterLoad()
     {
         $result = parent::_afterLoad();

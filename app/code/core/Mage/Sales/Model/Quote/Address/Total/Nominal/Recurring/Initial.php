@@ -28,6 +28,7 @@ class Mage_Sales_Model_Quote_Address_Total_Nominal_Recurring_Initial extends Mag
      *
      * @return string
      */
+    #[Override]
     public function getLabel()
     {
         return Mage::helper('sales')->__('Initial Fee');

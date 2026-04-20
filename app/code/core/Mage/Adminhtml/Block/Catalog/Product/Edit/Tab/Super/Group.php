@@ -67,6 +67,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Group extends Mage_Adm
      * @inheritDoc
      * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _addColumnFilterToCollection($column)
     {
         // Set custom filter for in product flag
@@ -91,6 +92,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Group extends Mage_Adm
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareCollection()
     {
         $allowProductTypes = [];
@@ -119,6 +121,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Group extends Mage_Adm
      * @inheritDoc
      * @throws Exception
      */
+    #[Override]
     protected function _prepareColumns()
     {
         $this->addColumn('in_products', [
@@ -197,6 +200,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Group extends Mage_Adm
     /**
      * @inheritDoc
      */
+    #[Override]
     public function getGridUrl()
     {
         return $this->_getData('grid_url') ?: $this->getUrl('*/*/superGroupGridOnly', ['_current' => true]);

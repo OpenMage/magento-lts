@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Usa\Model\Shipping\Carrier\Fedex\Source;
 
 // use Mage;
 // use Mage_Usa_Model_Shipping_Carrier_Fedex_Source_Dropoff as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Usa\Model\Shipping\Carrier\Fedex\Source\DropoffTrait;
 
@@ -22,6 +23,7 @@ final class DropoffTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

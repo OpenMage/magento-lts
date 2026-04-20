@@ -41,6 +41,7 @@ class Mage_Sales_Model_Resource_Order_Address_Collection extends Mage_Sales_Mode
      *
      * @return $this
      */
+    #[Override]
     protected function _afterLoad()
     {
         parent::_afterLoad();

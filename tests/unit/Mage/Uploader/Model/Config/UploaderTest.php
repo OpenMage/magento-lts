@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Uploader\Model\Config;
 
 // use Mage;
 // use Mage_Uploader_Model_Config_Uploader as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Uploader\Model\Config\UploaderTrait;
 
@@ -22,6 +23,7 @@ final class UploaderTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

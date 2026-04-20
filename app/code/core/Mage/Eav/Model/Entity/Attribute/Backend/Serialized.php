@@ -20,6 +20,7 @@ class Mage_Eav_Model_Entity_Attribute_Backend_Serialized extends Mage_Eav_Model_
      * @param  Varien_Object $object
      * @return $this
      */
+    #[Override]
     public function beforeSave($object)
     {
         // parent::beforeSave() is not called intentionally
@@ -37,6 +38,7 @@ class Mage_Eav_Model_Entity_Attribute_Backend_Serialized extends Mage_Eav_Model_
      * @param  Varien_Object $object
      * @return $this
      */
+    #[Override]
     public function afterSave($object)
     {
         parent::afterSave($object);
@@ -50,6 +52,7 @@ class Mage_Eav_Model_Entity_Attribute_Backend_Serialized extends Mage_Eav_Model_
      * @param  Varien_Object $object
      * @return $this
      */
+    #[Override]
     public function afterLoad($object)
     {
         parent::afterLoad($object);

@@ -81,6 +81,7 @@ class Mage_Sales_Model_Resource_Report_Shipping_Collection_Order extends Mage_Sa
      *
      * @return $this
      */
+    #[Override]
     protected function _initSelect()
     {
         $this->getSelect()->from(

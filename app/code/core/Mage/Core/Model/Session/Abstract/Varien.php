@@ -312,6 +312,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
      * @param  bool   $clear
      * @return mixed
      */
+    #[Override]
     public function getData($key = '', $clear = false)
     {
         $data = parent::getData($key);

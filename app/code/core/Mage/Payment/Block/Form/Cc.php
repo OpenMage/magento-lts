@@ -15,6 +15,7 @@ class Mage_Payment_Block_Form_Cc extends Mage_Payment_Block_Form
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _construct()
     {
         parent::_construct();
@@ -145,6 +146,7 @@ class Mage_Payment_Block_Form_Cc extends Mage_Payment_Block_Form
      *
      * @return string
      */
+    #[Override]
     protected function _toHtml()
     {
         Mage::dispatchEvent('payment_form_block_to_html_before', [

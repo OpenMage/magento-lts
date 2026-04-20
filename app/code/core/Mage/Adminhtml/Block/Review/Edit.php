@@ -107,6 +107,7 @@ class Mage_Adminhtml_Block_Review_Edit extends Mage_Adminhtml_Block_Widget_Form_
     /**
      * @return string
      */
+    #[Override]
     public function getHeaderText()
     {
         if (Mage::registry('review_data') && Mage::registry('review_data')->getId()) {

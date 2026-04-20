@@ -56,6 +56,7 @@ class Mage_Api_Model_Wsdl_Config extends Mage_Api_Model_Wsdl_Config_Base
     /**
      * @return Varien_Simplexml_Config_Cache_Abstract|Zend_Cache_Core
      */
+    #[Override]
     public function getCache()
     {
         return Mage::app()->getCache();
@@ -65,6 +66,7 @@ class Mage_Api_Model_Wsdl_Config extends Mage_Api_Model_Wsdl_Config_Base
      * @param  string     $id
      * @return bool|mixed
      */
+    #[Override]
     protected function _loadCache($id)
     {
         return Mage::app()->loadCache($id);
@@ -77,6 +79,7 @@ class Mage_Api_Model_Wsdl_Config extends Mage_Api_Model_Wsdl_Config_Base
      * @param  null|false|int           $lifetime
      * @return bool|Mage_Core_Model_App
      */
+    #[Override]
     protected function _saveCache($data, $id, $tags = [], $lifetime = false)
     {
         return Mage::app()->saveCache($data, $id, $tags, $lifetime);
@@ -86,6 +89,7 @@ class Mage_Api_Model_Wsdl_Config extends Mage_Api_Model_Wsdl_Config_Base
      * @param  string              $id
      * @return Mage_Core_Model_App
      */
+    #[Override]
     protected function _removeCache($id)
     {
         return Mage::app()->removeCache($id);
@@ -142,6 +146,7 @@ class Mage_Api_Model_Wsdl_Config extends Mage_Api_Model_Wsdl_Config_Base
      *
      * @return bool|string
      */
+    #[Override]
     public function getXmlString()
     {
         return $this->getNode()->asXML();

@@ -21,6 +21,7 @@ class Mage_Checkout_Block_Cart_Totals extends Mage_Checkout_Block_Cart_Abstract
     /**
      * @return null|array
      */
+    #[Override]
     public function getTotals()
     {
         if (is_null($this->_totals)) {
@@ -138,6 +139,7 @@ class Mage_Checkout_Block_Cart_Totals extends Mage_Checkout_Block_Cart_Abstract
      *
      * @return Mage_Sales_Model_Quote
      */
+    #[Override]
     public function getQuote()
     {
         if ($this->getCustomQuote()) {

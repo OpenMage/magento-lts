@@ -31,6 +31,7 @@ class Mage_Adminhtml_Block_Api_User_Edit extends Mage_Adminhtml_Block_Widget_For
     /**
      * @return string
      */
+    #[Override]
     public function getHeaderText()
     {
         if (Mage::registry('api_user')->getId()) {

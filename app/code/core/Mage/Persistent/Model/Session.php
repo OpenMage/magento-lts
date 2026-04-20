@@ -92,6 +92,7 @@ class Mage_Persistent_Model_Session extends Mage_Core_Model_Abstract
      *
      * @return $this
      */
+    #[Override]
     protected function _beforeSave()
     {
         parent::_beforeSave();
@@ -122,6 +123,7 @@ class Mage_Persistent_Model_Session extends Mage_Core_Model_Abstract
      *
      * @return $this
      */
+    #[Override]
     protected function _afterLoad()
     {
         parent::_afterLoad();
@@ -226,6 +228,7 @@ class Mage_Persistent_Model_Session extends Mage_Core_Model_Abstract
      *
      * @inheritDoc
      */
+    #[Override]
     protected function _afterDeleteCommit()
     {
         Mage::getSingleton('core/cookie')->delete(Mage_Persistent_Model_Session::COOKIE_NAME);
@@ -237,6 +240,7 @@ class Mage_Persistent_Model_Session extends Mage_Core_Model_Abstract
      *
      * @inheritDoc
      */
+    #[Override]
     public function save()
     {
         $this->setUpdatedAt(gmdate(Varien_Date::DATETIME_PHP_FORMAT));

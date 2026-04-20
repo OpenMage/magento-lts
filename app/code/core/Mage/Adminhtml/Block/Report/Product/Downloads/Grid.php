@@ -26,6 +26,7 @@ class Mage_Adminhtml_Block_Report_Product_Downloads_Grid extends Mage_Adminhtml_
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareCollection()
     {
         if ($this->getRequest()->getParam('website')) {
@@ -58,6 +59,7 @@ class Mage_Adminhtml_Block_Report_Product_Downloads_Grid extends Mage_Adminhtml_
      * @inheritDoc
      * @throws Exception
      */
+    #[Override]
     protected function _prepareColumns()
     {
         $this->addColumn('name', [

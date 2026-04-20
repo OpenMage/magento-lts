@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Catalog\Model\Product\Option\Type;
 
+use Override;
 use Mage;
 use Mage_Catalog_Model_Product_Option;
 use Mage_Catalog_Model_Product_Option_Type_Text as Subject;
@@ -23,6 +24,7 @@ final class TextTest extends OpenMageTest
 
     private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

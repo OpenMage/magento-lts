@@ -73,6 +73,7 @@ abstract class Mage_Api2_Model_Route_Abstract extends Zend_Controller_Router_Rou
      * @param  bool                    $partial Partial path matching
      * @return array|bool              An array of assigned values or a boolean false on a mismatch
      */
+    #[Override]
     public function match($request, $partial = false)
     {
         return parent::match(ltrim($request->getPathInfo(), $this->_urlDelimiter), $partial);

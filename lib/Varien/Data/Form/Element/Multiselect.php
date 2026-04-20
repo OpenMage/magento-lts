@@ -34,6 +34,7 @@ class Varien_Data_Form_Element_Multiselect extends Varien_Data_Form_Element_Abst
     /**
      * @return string
      */
+    #[Override]
     public function getName()
     {
         $name = parent::getName();
@@ -47,6 +48,7 @@ class Varien_Data_Form_Element_Multiselect extends Varien_Data_Form_Element_Abst
     /**
      * @return string
      */
+    #[Override]
     public function getElementHtml()
     {
         $this->addClass('select multiselect');
@@ -88,6 +90,7 @@ class Varien_Data_Form_Element_Multiselect extends Varien_Data_Form_Element_Abst
     /**
      * @return array<int, string>
      */
+    #[Override]
     public function getHtmlAttributes()
     {
         return ['title', 'class', 'style', 'onclick', 'onchange', 'disabled', 'size', 'tabindex'];
@@ -96,6 +99,7 @@ class Varien_Data_Form_Element_Multiselect extends Varien_Data_Form_Element_Abst
     /**
      * @return string
      */
+    #[Override]
     public function getDefaultHtml()
     {
         $result = ($this->getNoSpan() === true) ? '' : '<span class="field-row">' . "\n";
