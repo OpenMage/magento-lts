@@ -43,6 +43,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
      *
      * Check customer authentication for some actions
      */
+    #[Override]
     public function preDispatch()
     {
         // @todo a brute-force protection here would be nice
@@ -84,6 +85,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
      *
      * Remove No-referer flag from customer session after each action
      */
+    #[Override]
     public function postDispatch()
     {
         parent::postDispatch();

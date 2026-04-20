@@ -37,6 +37,7 @@ class Mage_Adminhtml_Catalog_Product_AttributeController extends Mage_Adminhtml_
         return explode(',', Mage::getStoreConfig(self::XML_PATH_ALLOWED_TAGS));
     }
 
+    #[Override]
     public function preDispatch()
     {
         $this->_setForcedFormKeyActions('delete');

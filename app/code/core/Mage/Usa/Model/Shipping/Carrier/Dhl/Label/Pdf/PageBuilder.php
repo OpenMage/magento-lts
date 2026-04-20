@@ -18,6 +18,8 @@
  */
 class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
 {
+    public $_fontNormal;
+    public $_fontBold;
     /**
      * X coordinate of a block
      */

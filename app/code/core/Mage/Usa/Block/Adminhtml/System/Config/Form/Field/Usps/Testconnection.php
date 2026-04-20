@@ -36,6 +36,7 @@ class Mage_Usa_Block_Adminhtml_System_Config_Form_Field_Usps_Testconnection exte
         return 'Testing...';
     }
 
+    #[Override]
     protected function _getFailureText(): string
     {
         return 'Connection failed.';

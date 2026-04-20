@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Core\Model;
 
+use Override;
 use Mage;
 use Mage_Core_Exception;
 use Mage_Core_Model_App as Subject;
@@ -23,6 +24,7 @@ final class AppTest extends OpenMageTest
 
     private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         self::$subject = Mage::app();

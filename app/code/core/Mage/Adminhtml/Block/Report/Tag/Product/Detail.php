@@ -25,6 +25,7 @@ class Mage_Adminhtml_Block_Report_Tag_Product_Detail extends Mage_Adminhtml_Bloc
         $this->_addBackButton();
     }
 
+    #[Override]
     public function getHeaderCssClass()
     {
         return 'icon-head head-report';

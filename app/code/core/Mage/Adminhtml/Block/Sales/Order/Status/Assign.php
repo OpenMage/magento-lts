@@ -26,6 +26,7 @@ class Mage_Adminhtml_Block_Sales_Order_Status_Assign extends Mage_Adminhtml_Bloc
      *
      * @return string
      */
+    #[Override]
     public function getHeaderText()
     {
         return Mage::helper('sales')->__('Assign Order Status to State');

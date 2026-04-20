@@ -21,6 +21,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Currency_Base extends Mage_Admi
      *
      * @return $this
      */
+    #[Override]
     protected function _afterSave()
     {
         if (!in_array($this->getValue(), $this->_getInstalledCurrencies())) {

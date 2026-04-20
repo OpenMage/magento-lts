@@ -68,6 +68,7 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
     /**
      * @return $this
      */
+    #[Override]
     public function save()
     {
         $this->_beforeSave();
@@ -110,6 +111,7 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
      * @return $this|Mage_Core_Model_Abstract
      * @throws Mage_Core_Exception
      */
+    #[Override]
     public function delete()
     {
         $this->_beforeDelete();
@@ -189,6 +191,7 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
      *
      * @return Mage_Api_Model_Resource_User_Collection|Object
      */
+    #[Override]
     public function getCollection()
     {
         return Mage::getResourceModel('api/user_collection');
@@ -210,6 +213,7 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
      *
      * @return string
      */
+    #[Override]
     public function getId()
     {
         return $this->getUserId();

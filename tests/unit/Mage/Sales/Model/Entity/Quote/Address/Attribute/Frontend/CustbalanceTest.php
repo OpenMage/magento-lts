@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Sales\Model\Entity\Quote\Address\Attribute\Fr
 
 // use Mage;
 // use Mage_Sales_Model_Entity_Quote_Address_Attribute_Frontend_Custbalance as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sales\Model\Entity\Quote\Address\Attribute\Frontend\CustbalanceTrait;
 
@@ -22,6 +23,7 @@ final class CustbalanceTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

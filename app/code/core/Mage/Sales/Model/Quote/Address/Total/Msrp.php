@@ -20,6 +20,7 @@ class Mage_Sales_Model_Quote_Address_Total_Msrp extends Mage_Sales_Model_Quote_A
      *
      * @return Mage_Sales_Model_Quote_Address_Total_Msrp
      */
+    #[Override]
     public function collect(Mage_Sales_Model_Quote_Address $address)
     {
         parent::collect($address);

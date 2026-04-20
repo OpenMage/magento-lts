@@ -24,6 +24,7 @@ class Mage_Cms_Model_Adminhtml_Template_Filter extends Mage_Cms_Model_Template_F
      * @return string
      * @throws Mage_Core_Exception
      */
+    #[Override]
     public function mediaDirective($construction)
     {
         $params = $this->_getIncludeParameters($construction[2]);

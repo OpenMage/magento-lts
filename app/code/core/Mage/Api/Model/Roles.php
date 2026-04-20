@@ -169,6 +169,7 @@ class Mage_Api_Model_Roles extends Mage_Core_Model_Abstract
      *
      * @return $this
      */
+    #[Override]
     protected function _beforeSave()
     {
         $this->filter();

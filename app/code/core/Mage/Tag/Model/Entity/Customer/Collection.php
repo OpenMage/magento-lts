@@ -16,6 +16,7 @@
  */
 class Mage_Tag_Model_Entity_Customer_Collection extends Mage_Customer_Model_Entity_Customer_Collection
 {
+    public $_read;
     protected $_tagTable;
 
     protected $_tagRelTable;
@@ -59,6 +60,7 @@ class Mage_Tag_Model_Entity_Customer_Collection extends Mage_Customer_Model_Enti
      * @throws Mage_Core_Exception
      * @throws Zend_Cache_Exception
      */
+    #[Override]
     public function load($printQuery = false, $logQuery = false)
     {
         parent::load($printQuery, $logQuery);

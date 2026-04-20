@@ -21,6 +21,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Admin_Password_Link_Expirationp
      *
      * @return $this
      */
+    #[Override]
     protected function _beforeSave()
     {
         parent::_beforeSave();

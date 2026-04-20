@@ -29,6 +29,7 @@ class Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Coupons_Grid extends Mage_Adminh
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareCollection()
     {
         $priceRule = Mage::registry('current_promo_quote_rule');
@@ -49,6 +50,7 @@ class Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Coupons_Grid extends Mage_Adminh
      * @inheritDoc
      * @throws Exception
      */
+    #[Override]
     protected function _prepareColumns()
     {
         $this->addColumn('code', [
@@ -93,6 +95,7 @@ class Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Coupons_Grid extends Mage_Adminh
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareMassaction()
     {
         $this->setMassactionIdField('coupon_id');
@@ -113,6 +116,7 @@ class Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Coupons_Grid extends Mage_Adminh
     /**
      * @inheritDoc
      */
+    #[Override]
     public function getGridUrl()
     {
         return $this->getUrl('*/*/couponsGrid', ['_current' => true]);
@@ -122,6 +126,7 @@ class Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Coupons_Grid extends Mage_Adminh
      * @inheritDoc
      * @param Mage_SalesRule_Model_Coupon $row
      */
+    #[Override]
     public function getRowUrl($row)
     {
         return '';

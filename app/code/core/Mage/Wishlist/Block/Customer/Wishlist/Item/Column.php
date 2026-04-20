@@ -29,6 +29,7 @@ class Mage_Wishlist_Block_Customer_Wishlist_Item_Column extends Mage_Wishlist_Bl
      *
      * @return string
      */
+    #[Override]
     protected function _toHtml()
     {
         if ($this->isEnabled()) {

@@ -73,6 +73,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext_Collection extends Mage_Catalog
      *
      * @return Mage_Catalog_Model_Resource_Product_Collection
      */
+    #[Override]
     protected function _beforeLoad()
     {
         if (!$this->_isSearchFiltersApplied) {
@@ -87,6 +88,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext_Collection extends Mage_Catalog
      *
      * @return int
      */
+    #[Override]
     public function getSize()
     {
         if (!$this->_isSearchFiltersApplied) {
@@ -168,6 +170,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext_Collection extends Mage_Catalog
     /**
      * @inheritDoc
      */
+    #[Override]
     public function setOrder($attribute, $dir = self::SORT_ORDER_DESC)
     {
         if ($attribute === 'relevance') {
@@ -223,6 +226,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext_Collection extends Mage_Catalog
      *
      * @return Varien_Data_Collection_Db
      */
+    #[Override]
     protected function _renderOrders()
     {
         if (!$this->_isOrdersRendered) {

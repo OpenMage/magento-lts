@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Core\Model\Purifier;
 
+use Override;
 use HTMLPurifier;
 use HTMLPurifier_Config;
 use HTMLPurifier_DefinitionCacheFactory;
@@ -35,6 +36,7 @@ final class DefinitionCacheTest extends OpenMageTest
     /** @var bool */
     private static $originalCachingOption;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

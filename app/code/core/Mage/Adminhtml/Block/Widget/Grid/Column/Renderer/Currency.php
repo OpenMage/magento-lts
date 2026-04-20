@@ -26,6 +26,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Currency extends Mage_Adm
      *
      * @return string
      */
+    #[Override]
     public function render(Varien_Object $row)
     {
         if ($data = (string) $row->getData($this->getColumn()->getIndex())) {

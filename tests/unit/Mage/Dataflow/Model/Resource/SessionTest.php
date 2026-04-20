@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Dataflow\Model\Resource;
 
 // use Mage;
 // use Mage_Dataflow_Model_Resource_Session as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Dataflow\Model\Resource\SessionTrait;
 
@@ -22,6 +23,7 @@ final class SessionTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

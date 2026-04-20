@@ -94,6 +94,7 @@ class Mage_Customer_Model_Address extends Mage_Customer_Model_Address_Abstract
      *
      * @return $this
      */
+    #[Override]
     public function delete()
     {
         parent::delete();
@@ -155,6 +156,7 @@ class Mage_Customer_Model_Address extends Mage_Customer_Model_Address_Abstract
      *
      * @return int
      */
+    #[Override]
     public function getRegionId()
     {
         return (int) $this->getDataByKey('region_id');

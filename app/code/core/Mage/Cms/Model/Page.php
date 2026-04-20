@@ -92,6 +92,7 @@ class Mage_Cms_Model_Page extends Mage_Core_Model_Abstract
     /**
      * @inheritDoc
      */
+    #[Override]
     public function load($id, $field = null)
     {
         if (is_null($id)) {

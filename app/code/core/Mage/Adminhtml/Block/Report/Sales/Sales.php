@@ -33,6 +33,7 @@ class Mage_Adminhtml_Block_Report_Sales_Sales extends Mage_Adminhtml_Block_Widge
         return $this->getUrl('*/*/sales', ['_current' => true]);
     }
 
+    #[Override]
     public function getHeaderCssClass()
     {
         return 'icon-head head-report';

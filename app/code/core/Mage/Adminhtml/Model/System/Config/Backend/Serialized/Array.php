@@ -20,6 +20,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Serialized_Array extends Mage_A
      * @inheritDoc
      * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _beforeSave()
     {
         try {

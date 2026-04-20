@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Catalog\Model\Convert\Adapter;
 
 // use Mage;
 // use Mage_Catalog_Model_Convert_Adapter_Product as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\Model\Convert\Adapter\ProductTrait;
 
@@ -22,6 +23,7 @@ final class ProductTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

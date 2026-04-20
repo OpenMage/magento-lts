@@ -17,6 +17,7 @@ class Mage_Core_Block_Text_List extends Mage_Core_Block_Text
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _toHtml()
     {
         $this->setText('');

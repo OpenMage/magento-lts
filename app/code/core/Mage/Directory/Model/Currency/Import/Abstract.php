@@ -17,6 +17,7 @@
  */
 abstract class Mage_Directory_Model_Currency_Import_Abstract
 {
+    public $_messages;
     /**
      * Retrieve currency codes
      *

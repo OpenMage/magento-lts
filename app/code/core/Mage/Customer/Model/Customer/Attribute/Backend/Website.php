@@ -17,6 +17,7 @@ class Mage_Customer_Model_Customer_Attribute_Backend_Website extends Mage_Eav_Mo
     /**
      * @inheritDoc
      */
+    #[Override]
     public function beforeSave($object)
     {
         if ($object->getId()) {

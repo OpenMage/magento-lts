@@ -20,6 +20,7 @@ class Mage_GiftMessage_Model_Api_V2 extends Mage_GiftMessage_Model_Api
      * @param  array|object $data
      * @return array
      */
+    #[Override]
     protected function _prepareData($data)
     {
         if (is_object($data)) {
@@ -64,6 +65,7 @@ class Mage_GiftMessage_Model_Api_V2 extends Mage_GiftMessage_Model_Api
      * @param  Mage_Sales_Model_Quote            $quote
      * @return stdClass
      */
+    #[Override]
     protected function _setGiftMessage($entityId, $request, $quote)
     {
         $response = new stdClass();

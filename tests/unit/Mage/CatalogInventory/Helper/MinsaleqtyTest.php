@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\CatalogInventory\Helper;
 
 // use Mage;
 // use Mage_CatalogInventory_Helper_Minsaleqty as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\CatalogInventory\Helper\MinsaleqtyTrait;
 
@@ -22,6 +23,7 @@ final class MinsaleqtyTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

@@ -22,6 +22,7 @@ class Mage_Catalog_Model_Entity_Product_Attribute_Design_Options_Container exten
      * @param  int|string   $value
      * @return false|string
      */
+    #[Override]
     public function getOptionText($value)
     {
         $options = $this->getAllOptions();

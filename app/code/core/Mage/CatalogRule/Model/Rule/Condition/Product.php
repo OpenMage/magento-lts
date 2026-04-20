@@ -21,6 +21,7 @@ class Mage_CatalogRule_Model_Rule_Condition_Product extends Mage_Rule_Model_Cond
      *
      * @return bool
      */
+    #[Override]
     public function validate(Varien_Object $object)
     {
         $attrCode = $this->getAttribute();

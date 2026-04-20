@@ -30,6 +30,7 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
      *
      * @return array<int, string>
      */
+    #[Override]
     protected function _getDefaultAttributes()
     {
         return [
@@ -51,6 +52,7 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
      * @throws Mage_Core_Exception
      * @throws Mage_Eav_Model_Entity_Attribute_Exception
      */
+    #[Override]
     protected function _beforeSave(Varien_Object $object)
     {
         parent::_beforeSave($object);
@@ -106,6 +108,7 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
      * @return Mage_Eav_Model_Entity_Abstract
      * @throws Mage_Eav_Model_Entity_Attribute_Exception
      */
+    #[Override]
     protected function _afterSave(Varien_Object $object)
     {
         $this->_saveAddresses($object);
@@ -182,6 +185,7 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
      * @return Zend_Db_Select
      * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _getLoadRowSelect($object, $rowId)
     {
         $select = parent::_getLoadRowSelect($object, $rowId);
@@ -306,6 +310,7 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
      * @return $this
      * @throws Mage_Core_Exception
      */
+    #[Override]
     public function setNewIncrementId(Varien_Object $object)
     {
         if (Mage::getStoreConfig(Mage_Customer_Model_Customer::XML_PATH_GENERATE_HUMAN_FRIENDLY_ID)) {

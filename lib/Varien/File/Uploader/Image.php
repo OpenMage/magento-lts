@@ -17,6 +17,7 @@
  */
 class Varien_File_Uploader_Image extends Varien_File_Uploader
 {
+    public $uploader;
     public function __construct()
     {
         register_shutdown_function([$this, 'destruct']);

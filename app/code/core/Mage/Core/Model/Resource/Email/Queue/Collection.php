@@ -29,6 +29,7 @@ class Mage_Core_Model_Resource_Email_Queue_Collection extends Mage_Core_Model_Re
      *
      * @return $this
      */
+    #[Override]
     protected function _afterLoad()
     {
         $this->walk('afterLoad');

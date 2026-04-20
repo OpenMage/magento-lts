@@ -84,6 +84,7 @@ class Varien_Db_Select extends Zend_Db_Select
      * @param  null|int|string                                         $type  OPTIONAL The type of the given value e.g. Zend_Db::INT_TYPE, "INT"
      * @return $this
      */
+    #[Override]
     public function where($cond, $value = null, $type = null)
     {
         if (is_null($value) && is_null($type)) {
@@ -262,6 +263,7 @@ class Varien_Db_Select extends Zend_Db_Select
      * The $name and $cols parameters follow the same logic
      * as described in the from() method.
      */
+    #[Override]
     protected function _join($type, $name, $cond, $cols, $schema = null)
     {
         if ($type == self::INNER_JOIN && empty($cond)) {
@@ -278,6 +280,7 @@ class Varien_Db_Select extends Zend_Db_Select
      * @param  int   $offset OPTIONAL Start returning after this many rows
      * @return $this this Zend_Db_Select object
      */
+    #[Override]
     public function limit($count = null, $offset = null)
     {
         if ($count === null) {
@@ -393,6 +396,7 @@ class Varien_Db_Select extends Zend_Db_Select
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _tableCols($correlationName, $cols, $afterCorrelationName = null)
     {
         if (!is_array($cols)) {
@@ -426,6 +430,7 @@ class Varien_Db_Select extends Zend_Db_Select
      * @param  string $sql SQL query
      * @return string
      */
+    #[Override]
     protected function _renderForupdate($sql)
     {
         if ($this->_parts[self::FOR_UPDATE]) {

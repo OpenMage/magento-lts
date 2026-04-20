@@ -812,6 +812,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
      *
      * @inheritDoc
      */
+    #[Override]
     protected function _beforeDelete()
     {
         $this->_protectFromNonAdmin();
@@ -1031,6 +1032,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
      * @throws Mage_Core_Exception
      * @throws Throwable
      */
+    #[Override]
     public function afterCommitCallback()
     {
         parent::afterCommitCallback();
