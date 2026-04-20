@@ -8,10 +8,11 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_RequestBuilder
 {
     public function buildRatePayload(Varien_Object $raw, string $currencyCode): array
     {
+        $units = (string) $raw->getUnitOfMeasure();
         $requestedPackageLineItem = [
             'groupPackageCount' => 1,
             'weight' => [
-                'units' => (string) $raw->getUnitOfMeasure() ?: Uom::WEIGHT_POUND,
+                'units' => $units !== '' ? $units : Uom::WEIGHT_POUND,
                 'value' => (float) $raw->getWeight(),
             ],
             'declaredValue' => [
@@ -149,7 +150,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_RequestBuilder
                 ],
             ],
             'pickupType' => $this->mapDropoffType((string) $raw->getDropoffType()),
-            'packagingType' => (string) $raw->getPackaging() ?: 'YOUR_PACKAGING',
+            'packagingType' => (string) $raw->getPackaging() ? (string) $raw->getPackaging() : 'YOUR_PACKAGING',
             'rateRequestType' => ['LIST', 'ACCOUNT'],
             'totalPackageCount' => $totalPackageCount,
             'shippingChargesPayment' => [
@@ -285,7 +286,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_RequestBuilder
                 ],
             ]],
             'pickupType' => $this->mapDropoffType($dropoffType),
-            'packagingType' => (string) $request->getPackagingType() ?: 'YOUR_PACKAGING',
+            'packagingType' => (string) $request->getPackagingType() ? (string) $request->getPackagingType() : 'YOUR_PACKAGING',
             'serviceType' => (string) $request->getShippingMethod(),
             'shippingChargesPayment' => [
                 'paymentType' => $paymentType,

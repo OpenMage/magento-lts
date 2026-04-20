@@ -13,9 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Usa\Model\Shipping\Carrier\Fedex\Rest;
 
 use Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_RequestBuilder as RequestBuilder;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Usa\Model\Shipping\Carrier\Fedex\Rest\RequestBuilderTrait;
 
 class RequestBuilderTest extends OpenMageTest
 {
+    use RequestBuilderTrait;
+
     private RequestBuilder $builder;
 
     public function setUp(): void
@@ -357,28 +360,14 @@ class RequestBuilderTest extends OpenMageTest
 
     private function shipmentRequest(): \Varien_Object
     {
-        $request = new \Varien_Object();
+        $request = \Mage::getModel('shipping/shipment_request');
+        $this->populateShipmentRequest($request);
+
         $request->setPackageId(1);
         $request->setReferenceData('REF-');
         $request->setShippingMethod('FEDEX_GROUND');
         $request->setPackagingType('YOUR_PACKAGING');
         $request->setPackageWeight(15.0);
-        $request->setShipperContactPersonName('Shipper');
-        $request->setShipperContactCompanyName('Ship Co');
-        $request->setShipperContactPhoneNumber('8005551212');
-        $request->setShipperAddressStreet1('123 Ship St');
-        $request->setShipperAddressCity('Memphis');
-        $request->setShipperAddressStateOrProvinceCode('TN');
-        $request->setShipperAddressPostalCode('38116');
-        $request->setShipperAddressCountryCode('US');
-        $request->setRecipientContactPersonName('Recipient');
-        $request->setRecipientContactCompanyName('Recip Co');
-        $request->setRecipientContactPhoneNumber('2125551212');
-        $request->setRecipientAddressStreet1('1 Test Ave');
-        $request->setRecipientAddressCity('Beverly Hills');
-        $request->setRecipientAddressStateOrProvinceCode('CA');
-        $request->setRecipientAddressPostalCode('90210');
-        $request->setRecipientAddressCountryCode('US');
         $request->setIsReturn(false);
 
         $packageParams = new \Varien_Object([

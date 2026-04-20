@@ -146,6 +146,41 @@ final class FedexTest extends OpenMageTest
         self::assertSame('Delivered', $trackings[0]->getStatus());
     }
 
+    public function testGetResponseReturnsStatusesFromTrackingResult(): void
+    {
+        $restClient = $this->createMock(RestClient::class);
+        $restClient->method('track')->willReturn([
+            'output' => [
+                'completeTrackResults' => [[
+                    'trackingNumber' => '794644746111',
+                    'trackResults' => [[
+                        'latestStatusDetail' => ['description' => 'Delivered'],
+                        'serviceDetail' => ['description' => 'FedEx Ground'],
+                        'scanEvents' => [],
+                    ]],
+                ]],
+            ],
+        ]);
+
+        $fedex = $this->fedexWithConfig([
+            'title' => 'FedEx',
+            'tracking_client_id' => 'track-id',
+            'tracking_client_secret' => 'track-secret',
+        ]);
+        $fedex->setData('tracking_rest_client', $restClient);
+
+        $fedex->getTracking('794644746111');
+
+        self::assertStringContainsString('Delivered', $fedex->getResponse());
+    }
+
+    public function testGetResponseReturnsEmptyResponseWhenTrackingResultUnset(): void
+    {
+        $fedex = $this->fedexWithConfig(['title' => 'FedEx']);
+
+        self::assertSame('Empty response', $fedex->getResponse());
+    }
+
     public function testGetTrackingReturnsErrorResultWhenTrackingCredentialsMissing(): void
     {
         $fedex = $this->fedexWithConfig([
@@ -515,28 +550,6 @@ final class FedexTest extends OpenMageTest
     private function invokeDoShipmentRequest(Subject $fedex, \Varien_Object $request): \Varien_Object
     {
         return (new \ReflectionMethod(Subject::class, '_doShipmentRequest'))->invoke($fedex, $request);
-    }
-
-    private function populateShipmentRequest(\Mage_Shipping_Model_Shipment_Request $request): void
-    {
-        $request->setShipperContactPersonName('Shipper');
-        $request->setShipperContactCompanyName('Ship Co');
-        $request->setShipperContactPhoneNumber('800-555-1212');
-        $request->setShipperAddressStreet1('123 Ship St');
-        $request->setShipperAddressCity('Memphis');
-        $request->setShipperAddressStateOrProvinceCode('TN');
-        $request->setShipperAddressPostalCode('38116');
-        $request->setShipperAddressCountryCode('US');
-        $request->setRecipientContactPersonName('Recipient');
-        $request->setRecipientContactCompanyName('R Co');
-        $request->setRecipientContactPhoneNumber('212-555-1212');
-        $request->setRecipientAddressStreet1('1 Test Ave');
-        $request->setRecipientAddressCity('Beverly Hills');
-        $request->setRecipientAddressStateOrProvinceCode('CA');
-        $request->setRecipientAddressPostalCode('90210');
-        $request->setRecipientAddressCountryCode('US');
-        $request->setShippingMethod('FEDEX_GROUND');
-        $request->setStoreId(0);
     }
 
     /**

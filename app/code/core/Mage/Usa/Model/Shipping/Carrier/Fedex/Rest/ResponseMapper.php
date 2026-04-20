@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use Carbon\Carbon;
+
 class Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_ResponseMapper
 {
     public const SEVERITY_ERROR = 'ERROR';
@@ -207,14 +209,20 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_ResponseMapper
 
     private function formatDate(string $iso): string
     {
-        $timestamp = strtotime($iso);
-        return $timestamp ? date('Y-m-d', $timestamp) : '';
+        try {
+            return Carbon::parse($iso)->format('Y-m-d');
+        } catch (InvalidArgumentException) {
+            return '';
+        }
     }
 
     private function formatTime(string $iso): string
     {
-        $timestamp = strtotime($iso);
-        return $timestamp ? date('H:i:s', $timestamp) : '';
+        try {
+            return Carbon::parse($iso)->format('H:i:s');
+        } catch (InvalidArgumentException) {
+            return '';
+        }
     }
 
     private function formatAddress(array $address): string
