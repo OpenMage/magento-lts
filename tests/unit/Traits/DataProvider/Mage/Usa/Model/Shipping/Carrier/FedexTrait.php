@@ -13,7 +13,7 @@ namespace OpenMage\Tests\Unit\Traits\DataProvider\Mage\Usa\Model\Shipping\Carrie
 
 trait FedexTrait
 {
-    private function populateShipmentRequest(\Mage_Shipping_Model_Shipment_Request $request): void
+    private function populateShipmentRequest(\Varien_Object $request): void
     {
         $request->setShipperContactPersonName('Shipper');
         $request->setShipperContactCompanyName('Ship Co');

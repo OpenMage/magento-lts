@@ -447,7 +447,7 @@ final class FedexTest extends OpenMageTest
         ]);
         $fedex->setData('rest_client', $restClient);
 
-        $shipmentRequest = new \Mage_Shipping_Model_Shipment_Request();
+        $shipmentRequest = \Mage::getModel('shipping/shipment_request');
         $this->populateShipmentRequest($shipmentRequest);
         $shipmentRequest->setPackages([
             1 => $this->packageFixture(),
@@ -496,7 +496,7 @@ final class FedexTest extends OpenMageTest
 
     private function domesticRateRequest(): \Mage_Shipping_Model_Rate_Request
     {
-        return (new \Mage_Shipping_Model_Rate_Request())
+        return \Mage::getModel('shipping/rate_request')
             ->setOrigPostcode('38116')
             ->setOrigCountryId('US')
             ->setDestPostcode('90210')
@@ -518,22 +518,7 @@ final class FedexTest extends OpenMageTest
         $request->setShippingMethod('FEDEX_GROUND');
         $request->setPackagingType('YOUR_PACKAGING');
         $request->setPackageWeight(15.0);
-        $request->setShipperContactPersonName('Shipper');
-        $request->setShipperContactCompanyName('Ship Co');
-        $request->setShipperContactPhoneNumber('800-555-1212');
-        $request->setShipperAddressStreet1('123 Ship St');
-        $request->setShipperAddressCity('Memphis');
-        $request->setShipperAddressStateOrProvinceCode('TN');
-        $request->setShipperAddressPostalCode('38116');
-        $request->setShipperAddressCountryCode('US');
-        $request->setRecipientContactPersonName('Recipient');
-        $request->setRecipientContactCompanyName('R Co');
-        $request->setRecipientContactPhoneNumber('212-555-1212');
-        $request->setRecipientAddressStreet1('1 Test Ave');
-        $request->setRecipientAddressCity('Beverly Hills');
-        $request->setRecipientAddressStateOrProvinceCode('CA');
-        $request->setRecipientAddressPostalCode('90210');
-        $request->setRecipientAddressCountryCode('US');
+        $this->populateShipmentRequest($request);
         $request->setPackageParams(new \Varien_Object([
             'weight_units' => \Zend_Measure_Weight::POUND,
             'dimension_units' => \Zend_Measure_Length::INCH,
