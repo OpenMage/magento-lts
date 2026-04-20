@@ -22,9 +22,9 @@ final class InboxTest extends OpenMageTest
 {
     use InboxTrait;
 
-    public const TITLE = 'PhpUnit test';
+    public const string TITLE = 'PhpUnit test';
 
-    public const URL = 'https://openmage.org';
+    public const string URL = 'https://openmage.org';
 
     private static Subject $subject;
 

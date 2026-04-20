@@ -18,7 +18,7 @@ jobs:
     strategy:
       matrix:
         operating-system: [ubuntu-latest]
-        php-versions: ['8.1', '8.5']
+        php-versions: ['8.3', '8.5']
         mysql-version: ['5.7', '8.0', '8.4']
 
     services:
@@ -118,7 +118,7 @@ jobs:
       - name: SonarQube Scan
         uses: SonarSource/sonarqube-scan-action@v7
         continue-on-error: true
-        if: ${{ (matrix.php-versions == '8.1') && (matrix.mysql-version == '5.7') }}
+        if: ${{ (matrix.php-versions == '8.3') && (matrix.mysql-version == '5.7') }}
         with:
           args: >
             -Dproject.settings=tests/sonar-project.properties

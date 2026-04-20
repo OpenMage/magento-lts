@@ -30,13 +30,13 @@ final class AbstractTest extends OpenMageTest
 
     use RuleTrait;
 
-    public const CALL_TO_A_MEMBER_FUNCTION_SET_RULE_ON_NULL = 'Call to a member function setRule() on null';
+    public const string CALL_TO_A_MEMBER_FUNCTION_SET_RULE_ON_NULL = 'Call to a member function setRule() on null';
 
     private static Subject $subject;
 
     protected function setUp(): void
     {
-        self::$subject = $this->getMockForAbstractClass(Subject::class);
+        self::$subject = $this->createMock(Subject::class);
     }
 
     /**
@@ -123,7 +123,7 @@ final class AbstractTest extends OpenMageTest
      */
     public function testValidateData(array|bool $expectedResul, ?array $data = null): void
     {
-        if (PHP_VERSION_ID >= 80300 && version_compare(InstalledVersions::getPrettyVersion('shardj/zf1-future'), '1.24.2', '<=')) {
+        if (version_compare(InstalledVersions::getPrettyVersion('shardj/zf1-future'), '1.24.2', '<=')) {
             self::markTestSkipped('see https://github.com/Shardj/zf1-future/pull/465');
         }
 

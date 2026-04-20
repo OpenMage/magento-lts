@@ -24,7 +24,7 @@ final class DataTest extends OpenMageTest
 {
     use DataTrait;
 
-    public const TEST_STRING = '1234567890';
+    public const string TEST_STRING = '1234567890';
 
     private static Subject $subject;
 

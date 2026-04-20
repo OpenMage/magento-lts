@@ -1,0 +1,70 @@
+<?php
+
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
+ * @package    OpenMage_Tests
+ */
+
+declare(strict_types=1);
+
+namespace OpenMage\Tests\Unit\Traits\DataProvider\Mage\Oauth\Model;
+
+use Generator;
+
+trait TokenTrait
+{
+    public static function provideValidateData(): Generator
+    {
+        $validData = [
+            'setConsumerId'     => '1',
+            'setCallbackUrl'    => 'https://example.com/callback',
+            'setSecret'         => str_repeat('x', 32),
+            'setToken'          => str_repeat('x', 32),
+            'setVerifier'       => str_repeat('x', 32),
+        ];
+
+        $error = 'This value should have exactly 32 characters.';
+
+        yield 'valid' => [
+            true,
+            $validData,
+        ];
+
+        $data = $validData;
+        $data['setSecret'] = str_repeat('x', 3);
+        yield 'invalid to short secret' => [
+            $error,
+            $data,
+        ];
+
+        $data = $validData;
+        $data['setSecret'] = str_repeat('x', 33);
+        yield 'invalid to long secret' => [
+            $error,
+            $data,
+        ];
+
+        $data = $validData;
+        $data['setToken'] = str_repeat('x', 3);
+        yield 'invalid to short token' => [
+            $error,
+            $data,
+        ];
+
+        $data = $validData;
+        $data['setToken'] = str_repeat('x', 33);
+        yield 'invalid to long token' => [
+            $error,
+            $data,
+        ];
+
+        $data = $validData;
+        $data['setCallbackUrl'] = 'invalid-url';
+        yield 'invalid url' => [
+            'Invalid URL "invalid-url".',
+            $data,
+        ];
+    }
+}

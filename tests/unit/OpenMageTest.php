@@ -34,7 +34,7 @@ abstract class OpenMageTest extends TestCase
     public function getMockWithCalledMethods(string $class, array $methods, ?bool $expectOnce =  false): MockObject
     {
         $mock = $this->getMockBuilder($class)
-            ->setMethods(array_keys($methods))
+            ->onlyMethods(array_keys($methods))
             ->getMock();
 
         if (is_null($expectOnce)) {

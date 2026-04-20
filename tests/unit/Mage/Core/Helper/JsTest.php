@@ -18,7 +18,7 @@ use OpenMage\Tests\Unit\OpenMageTest;
 
 final class JsTest extends OpenMageTest
 {
-    public const TEST_URL = 'foo';
+    public const string TEST_URL = 'foo';
 
     private static Subject $subject;
 

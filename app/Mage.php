@@ -135,13 +135,13 @@ final class Mage
     /**
      * Magento edition constants
      */
-    public const EDITION_COMMUNITY    = 'Community';
+    public const string EDITION_COMMUNITY    = 'Community';
 
-    public const EDITION_ENTERPRISE   = 'Enterprise';
+    public const string EDITION_ENTERPRISE   = 'Enterprise';
 
-    public const EDITION_PROFESSIONAL = 'Professional';
+    public const string EDITION_PROFESSIONAL = 'Professional';
 
-    public const EDITION_GO           = 'Go';
+    public const string EDITION_GO           = 'Go';
 
     /**
      * Current Magento edition.

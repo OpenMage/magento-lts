@@ -34,10 +34,7 @@ final class SecurityTest extends OpenMageTest
         self::$subject = Mage::helper('core/security');
     }
 
-    /**
-     * @group Helper
-     */
-    public function validateAgainstBlockMethodBlacklistDataProvider(): Generator
+    public static function provideValidateAgainstBlockMethodBlacklistData(): Generator
     {
         $topmenu = new Mage_Page_Block_Html_Topmenu_Renderer();
         $template = new Mage_Core_Block_Template();
@@ -54,7 +51,7 @@ final class SecurityTest extends OpenMageTest
     }
 
     /**
-     * @dataProvider validateAgainstBlockMethodBlacklistDataProvider
+     * @dataProvider provideValidateAgainstBlockMethodBlacklistData
      * @doesNotPerformAssertions if data is correct, then NO exception is thrown, so we don't need an assertion
      * @param  string[]            $args
      * @throws Mage_Core_Exception
@@ -69,7 +66,7 @@ final class SecurityTest extends OpenMageTest
         self::$subject->validateAgainstBlockMethodBlacklist($block, $method, $args);
     }
 
-    public function forbiddenBlockMethodsDataProvider(): Generator
+    public static function provideForbiddenBlockMethodsData(): Generator
     {
         $topmenu = new Mage_Page_Block_Html_Topmenu_Renderer();
         $template = new Mage_Core_Block_Template();
@@ -111,7 +108,7 @@ final class SecurityTest extends OpenMageTest
     }
 
     /**
-     * @dataProvider forbiddenBlockMethodsDataProvider
+     * @dataProvider provideForbiddenBlockMethodsData
      * @param  string[]            $args
      * @throws Mage_Core_Exception
      *

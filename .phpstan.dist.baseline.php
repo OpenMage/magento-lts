@@ -9023,6 +9023,12 @@ after 1.6.1.0',
 	'path' => __DIR__ . '/tests/unit/Mage/Index/Model/IndexerTest.php',
 ];
 $ignoreErrors[] = [
+	'rawMessage' => '@@dataProvider loadByCustomerDataProvider related method must be static in PHPUnit 10 and newer.',
+	'identifier' => 'phpunit.dataProviderStatic',
+	'count' => 1,
+	'path' => __DIR__ . '/tests/unit/Mage/Log/Model/CustomerTest.php',
+];
+$ignoreErrors[] = [
 	'rawMessage' => 'Call to deprecated method isValidForSend() of class Mage_Newsletter_Model_Template:
 since 1.4.0.1',
 	'identifier' => 'method.deprecated',
@@ -9109,13 +9115,6 @@ since 1.4.0.0',
 	'identifier' => 'method.deprecated',
 	'count' => 1,
 	'path' => __DIR__ . '/tests/unit/Mage/Wishlist/Model/ItemTest.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Call to deprecated method setMethods() of class PHPUnit\\Framework\\MockObject\\MockBuilder:
-https://github.com/sebastianbergmann/phpunit/pull/3687',
-	'identifier' => 'method.deprecated',
-	'count' => 1,
-	'path' => __DIR__ . '/tests/unit/OpenMageTest.php',
 ];
 
 return ['parameters' => ['ignoreErrors' => $ignoreErrors]];

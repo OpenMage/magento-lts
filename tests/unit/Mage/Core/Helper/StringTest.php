@@ -19,9 +19,9 @@ use OpenMage\Tests\Unit\OpenMageTest;
 
 final class StringTest extends OpenMageTest
 {
-    public const TEST_STRING        = '1234567890';
+    public const string TEST_STRING        = '1234567890';
 
-    public const TEST_STRING_JSON   = '{"name":"John", "age":30, "car":null}';
+    public const string TEST_STRING_JSON   = '{"name":"John", "age":30, "car":null}';
 
     private static Subject $subject;
 

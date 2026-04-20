@@ -16,11 +16,11 @@ use PHPUnit\Framework\TestCase;
 
 final class TinyMCELicenseTest extends TestCase
 {
-    public const TINY_MCE_NAMESPACE = 'tinymce/tinymce';
+    public const string TINY_MCE_NAMESPACE = 'tinymce/tinymce';
 
-    public const ERROR_MESSAGE = "License file doesn't exist.";
+    public const string ERROR_MESSAGE = "License file doesn't exist.";
 
-    public const SKIP_MESSAGE = 'TinyMCE is not installed.';
+    public const string SKIP_MESSAGE = 'TinyMCE is not installed.';
 
     /**
      * @group Base

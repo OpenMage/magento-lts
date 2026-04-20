@@ -25,9 +25,9 @@ final class DataTest extends OpenMageTest
 
     private static Subject $subject;
 
-    public const SKIP_INCOMPLETE = 'incomplete';
+    public const string SKIP_INCOMPLETE = 'incomplete';
 
-    public const SKIP_WITH_LOCAL_DATA = 'Constant DATA_MAY_CHANGED is defined.';
+    public const string SKIP_WITH_LOCAL_DATA = 'Constant DATA_MAY_CHANGED is defined.';
 
     #[Override]
     public static function setUpBeforeClass(): void
