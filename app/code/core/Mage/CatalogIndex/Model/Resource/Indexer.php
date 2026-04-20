@@ -212,7 +212,7 @@ class Mage_CatalogIndex_Model_Resource_Indexer extends Mage_Core_Model_Resource_
         $attributeIndex = $this->getTierData($products, $store);
         foreach ($attributeIndex as $index) {
             $type = $index['type_id'];
-            $id = ($forcedId ?? $index['entity_id']);
+            $id = $forcedId ?? $index['entity_id'];
             if ($id && $index['value']) {
                 if ($index['all_groups'] == 1) {
                     foreach (Mage::getSingleton('catalogindex/retreiver')->getCustomerGroups() as $group) {
@@ -419,7 +419,7 @@ class Mage_CatalogIndex_Model_Resource_Indexer extends Mage_Core_Model_Resource_
         $attributeIndex = $this->getProductData($products, $attributeIds, $store);
         foreach ($attributeIndex as $index) {
             $type = $index['type_id'];
-            $id = ($forcedId ?? $index['entity_id']);
+            $id = $forcedId ?? $index['entity_id'];
 
             if ($id && $index['attribute_id'] && isset($index['value'])) {
                 $attribute = $this->_loadAttribute($index['attribute_id']);
@@ -433,7 +433,7 @@ class Mage_CatalogIndex_Model_Resource_Indexer extends Mage_Core_Model_Resource_
                             $id,
                             $index['attribute_id'],
                             $value,
-                            ($websiteId ?? $store->getId()),
+                            $websiteId ?? $store->getId(),
                         ]);
                     }
                 } else {
@@ -441,7 +441,7 @@ class Mage_CatalogIndex_Model_Resource_Indexer extends Mage_Core_Model_Resource_
                         $id,
                         $index['attribute_id'],
                         $index['value'],
-                        ($websiteId ?? $store->getId()),
+                        $websiteId ?? $store->getId(),
                     ]);
                 }
             }
