@@ -152,17 +152,13 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
             $rawRequest->setService('ALL');
         }
 
-        $requestContainer = $request->getUspsContainer();
-        $container = $requestContainer ? $requestContainer : $this->getConfigData('container');
+        $container = $request->getUspsContainer() ?? $this->getConfigData('container');
         $rawRequest->setContainer($container);
 
-        $requestUspsSize = $request->getUspsSize();
-        $size = $requestUspsSize ? $requestUspsSize : $this->getConfigData('size');
+        $size = $request->getUspsSize() ?? $this->getConfigData('size');
         $rawRequest->setSize($size);
 
-        $girth = $request->getGirth();
-        $girth = $girth ? $girth : $this->getConfigData('girth');
-
+        $girth = $request->getGirth() ?? $this->getConfigData('girth');
         $rawRequest->setGirth($girth);
 
         // Calculate dimensions from product attributes instead of using
@@ -173,8 +169,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
         $rawRequest->setWidth($dimensions['width']);
         // End @customization
 
-        $requestMachinable = $request->getUspsMachinable();
-        $machinable = $requestMachinable ? $requestMachinable : $this->getConfigData('machinable');
+        $machinable = $request->getUspsMachinable() ?? $this->getConfigData('machinable');
         $rawRequest->setMachinable($machinable);
 
         if ($request->getOrigPostcode()) {

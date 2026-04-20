@@ -182,41 +182,31 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
             $response->setService($request->getLimitMethod());
         }
 
-        $id = $request->getDhlId() ? $request->getDhlId() : $this->getConfigData('id');
+        $id = $request->getDhlId() ?? $this->getConfigData('id');
         $response->setId($id);
 
-        $password = $request->getDhlPassword() ? $request->getDhlPassword() : $this->getConfigData('password');
+        $password = $request->getDhlPassword() ?? $this->getConfigData('password');
         $response->setPassword($password);
 
-        $accountNbr = $request->getDhlAccount() ? $request->getDhlAccount() : $this->getConfigData('account');
+        $accountNbr = $request->getDhlAccount() ?? $this->getConfigData('account');
         $response->setAccountNbr($accountNbr);
 
-        $shippingKey = $request->getDhlShippingKey() ? $request->getDhlShippingKey() : $this->getConfigData('shipping_key');
+        $shippingKey = $request->getDhlShippingKey() ?? $this->getConfigData('shipping_key');
         $response->setShippingKey($shippingKey);
 
-        if ($request->getDhlShippingIntlKey()) {
-            $shippingKey = $request->getDhlShippingIntlKey();
-        } else {
-            $shippingKey = $this->getConfigData('shipping_intlkey');
-        }
-
+        $shippingKey = $request->getDhlShippingIntlKey() ?? $this->getConfigData('shipping_intlkey');
         $response->setShippingIntlKey($shippingKey);
 
-        $shipmentType = $request->getDhlShipmentType() ? $request->getDhlShipmentType() : $this->getConfigData('shipment_type');
+        $shipmentType = $request->getDhlShipmentType() ?? $this->getConfigData('shipment_type');
         $response->setShipmentType($shipmentType);
 
-        $shipmentDutible = $request->getDhlDutiable() ? $request->getDhlDutiable() : $this->getConfigData('dutiable');
+        $shipmentDutible = $request->getDhlDutiable() ?? $this->getConfigData('dutiable');
         $response->setDutiable($shipmentDutible);
 
-        if ($request->getDhlDutyPaymentType()) {
-            $dutypaytype = $request->getDhlDutyPaymentType();
-        } else {
-            $dutypaytype = $this->getConfigData('dutypaymenttype');
-        }
-
+        $dutypaytype = $request->getDhlDutyPaymentType() ?? $this->getConfigData('dutypaymenttype');
         $response->setDutyPaymentType($dutypaytype);
 
-        $contentdesc = $request->getDhlContentDesc() ? $request->getDhlContentDesc() : $this->getConfigData('contentdesc');
+        $contentdesc = $request->getDhlContentDesc() ?? $this->getConfigData('contentdesc');
         $response->setContentDesc($contentdesc);
 
         if ($request->getDestPostcode()) {
