@@ -7,8 +7,6 @@
  * @package    Mage_Captcha
  */
 
-use Carbon\Carbon;
-
 /**
  * Implementation of Zend_Captcha
  *
@@ -475,7 +473,7 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
             return null;
         }
 
-        return Carbon::now()->getTimestamp() < $sessionData['expires'] ? $sessionData['data'] : null;
+        return Mage::helper('core/clock')->getTimestamp() < $sessionData['expires'] ? $sessionData['data'] : null;
     }
 
     /**
@@ -489,7 +487,7 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
     {
         $this->getSession()->setData(
             $this->_getFormIdKey(self::SESSION_WORD),
-            ['data' => $word, 'expires' => Carbon::now()->getTimestamp() + $this->getTimeout()],
+            ['data' => $word, 'expires' => Mage::helper('core/clock')->getTimestamp() + $this->getTimeout()],
         );
         $this->_word = $word;
         return $this;

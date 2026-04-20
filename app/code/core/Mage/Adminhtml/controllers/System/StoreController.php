@@ -7,8 +7,6 @@
  * @package    Mage_Adminhtml
  */
 
-use Carbon\Carbon;
-
 /**
  * Store controller
  *
@@ -483,7 +481,7 @@ class Mage_Adminhtml_System_StoreController extends Mage_Adminhtml_Controller_Ac
         try {
             $backupDb = Mage::getModel('backup/db');
             $backup   = Mage::getModel('backup/backup')
-                ->setTime(Carbon::now()->getTimestamp())
+                ->setTime(Mage::helper('core/clock')->getTimestamp())
                 ->setType('db')
                 ->setPath(Mage::getBaseDir('var') . DS . 'backups');
 
