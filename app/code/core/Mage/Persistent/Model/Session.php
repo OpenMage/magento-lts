@@ -7,8 +7,6 @@
  * @package    Mage_Persistent
  */
 
-use Carbon\Carbon;
-
 /**
  * Persistent Session Model
  *
@@ -84,7 +82,7 @@ class Mage_Persistent_Model_Session extends Mage_Core_Model_Abstract
     {
         return gmdate(
             Varien_Db_Adapter_Pdo_Mysql::TIMESTAMP_FORMAT,
-            Carbon::now()->getTimestamp() - Mage::helper('persistent')->getLifeTime($store),
+            Mage::helper('core/clock')->getTimestamp() - Mage::helper('persistent')->getLifeTime($store),
         );
     }
 
@@ -216,7 +214,7 @@ class Mage_Persistent_Model_Session extends Mage_Core_Model_Abstract
         if ($lifetime) {
             $this->getResource()->deleteExpired(
                 $websiteId,
-                gmdate(Varien_Date::DATETIME_PHP_FORMAT, Carbon::now()->getTimestamp() - $lifetime),
+                gmdate(Varien_Date::DATETIME_PHP_FORMAT, Mage::helper('core/clock')->getTimestamp() - $lifetime),
             );
         }
 

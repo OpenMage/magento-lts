@@ -7,8 +7,6 @@
  * @package    Mage_Oauth
  */
 
-use Carbon\Carbon;
-
 /**
  * Application model
  *
@@ -57,7 +55,7 @@ class Mage_Oauth_Model_Consumer extends Mage_Core_Model_Abstract
     protected function _beforeSave()
     {
         if (!$this->getId()) {
-            $this->setUpdatedAt(Carbon::now()->getTimestamp());
+            $this->setUpdatedAt($this->getClockHelper()->getTimestamp());
         }
 
         $this->setCallbackUrl(trim($this->getCallbackUrl()));
