@@ -17,12 +17,9 @@
  * @property string   $_enclosure
  * @property string   $_escape
  */
+#[AllowDynamicProperties]
 abstract class Mage_ImportExport_Model_Export_Adapter_Abstract
 {
-    public $_fileHandler;
-    public $_delimiter;
-    public $_enclosure;
-    public $_escape;
     /**
      * Destination file path.
      *

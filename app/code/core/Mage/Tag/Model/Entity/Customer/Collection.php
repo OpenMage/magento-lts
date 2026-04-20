@@ -14,9 +14,9 @@
  *
  * @property Magento_Db_Adapter_Pdo_Mysql $_read
  */
+#[AllowDynamicProperties]
 class Mage_Tag_Model_Entity_Customer_Collection extends Mage_Customer_Model_Entity_Customer_Collection
 {
-    public $_read;
     protected $_tagTable;
 
     protected $_tagRelTable;

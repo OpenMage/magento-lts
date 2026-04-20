@@ -15,9 +15,9 @@
  * @property string $_url
  * @property array  $_messages
  */
+#[AllowDynamicProperties]
 abstract class Mage_Directory_Model_Currency_Import_Abstract
 {
-    public $_messages;
     /**
      * Retrieve currency codes
      *
