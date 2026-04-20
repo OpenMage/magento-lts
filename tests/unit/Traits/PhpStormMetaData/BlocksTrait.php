@@ -1320,7 +1320,7 @@ use Mage_Wishlist_Block_Share_Wishlist;
  */
 trait BlocksTrait
 {
-    public function getAllBlockClasses(): array
+    public static function getAllBlockClasses(): array
     {
         return [
             'adminhtml/abstract' => Mage_Adminhtml_Block_Abstract::class,
@@ -2629,7 +2629,7 @@ trait BlocksTrait
         ];
     }
 
-    public function getAbstractBlockClasses(): array
+    public static function getAbstractBlockClasses(): array
     {
         return [
             Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Group_Abstract::class,
@@ -2665,7 +2665,7 @@ trait BlocksTrait
         ];
     }
 
-    public function getBlockClassesNotInstanceOfMageCoreBlockAbstract(): array
+    public static function getBlockClassesNotInstanceOfMageCoreBlockAbstract(): array
     {
         return [
             Mage_Adminhtml_Block_Catalog_Category_Helper_Pricestep::class,
@@ -2697,7 +2697,7 @@ trait BlocksTrait
     /**
      * classes require some mocked data ... call member function on null|bool
      */
-    public function getBlockClassesToMock(): array
+    public static function getBlockClassesToMock(): array
     {
         return [
             Mage_Adminhtml_Block_Api_Role::class,
@@ -2791,7 +2791,7 @@ trait BlocksTrait
         ];
     }
 
-    public function getBlockClassesWithErrors(): array
+    public static function getBlockClassesWithErrors(): array
     {
         # exeption thrown ... check
         return [
@@ -2818,7 +2818,7 @@ trait BlocksTrait
         ];
     }
 
-    public function getBlockClassesWithSessions(): array
+    public static function getBlockClassesWithSessions(): array
     {
         return [
             Mage_Adminhtml_Block_Api_Buttons::class,

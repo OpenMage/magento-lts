@@ -47,6 +47,8 @@ final class LoggerTest extends OpenMageTest
             }
 
             self::assertFileDoesNotExist($file, 'Log file was not deleted.');
+        } else {
+            self::markTestSkipped('Testing logging to stdout and stderr is not supported at the moment.');
         }
     }
 }

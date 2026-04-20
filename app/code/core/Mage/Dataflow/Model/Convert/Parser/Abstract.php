@@ -24,14 +24,14 @@ abstract class Mage_Dataflow_Model_Convert_Parser_Abstract extends Mage_Dataflow
     /**
      * Dataflow batch export model
      *
-     * @var null|false|Mage_Dataflow_Model_Batch_Export|string
+     * @var null|string
      */
     protected $_batchExport;
 
     /**
      * Dataflow batch import model
      *
-     * @var null|false|Mage_Dataflow_Model_Batch_Import|string
+     * @var null|string
      */
     protected $_batchImport;
 
@@ -68,7 +68,9 @@ abstract class Mage_Dataflow_Model_Convert_Parser_Abstract extends Mage_Dataflow
             $this->_batchExport = Varien_Object_Cache::singleton()->save($object);
         }
 
-        return Varien_Object_Cache::singleton()->load($this->_batchExport);
+        /** @var Mage_Dataflow_Model_Batch_Export $object */
+        $object = Varien_Object_Cache::singleton()->load($this->_batchExport);
+        return $object;
     }
 
     /**
@@ -83,7 +85,9 @@ abstract class Mage_Dataflow_Model_Convert_Parser_Abstract extends Mage_Dataflow
             $this->_batchImport = Varien_Object_Cache::singleton()->save($object);
         }
 
-        return Varien_Object_Cache::singleton()->load($this->_batchImport);
+        /** @var Mage_Dataflow_Model_Batch_Import $object */
+        $object = Varien_Object_Cache::singleton()->load($this->_batchImport);
+        return $object;
     }
 
     protected function _copy($file)
