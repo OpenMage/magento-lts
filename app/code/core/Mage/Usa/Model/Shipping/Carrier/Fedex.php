@@ -793,7 +793,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
 
         $this->_debug($debugData);
 
-        $hasErrors = isset($mapped['errors']) && is_array($mapped['errors'] && $mapped['errors'] !== []);
+        $hasErrors = isset($mapped['errors']) && is_array($mapped['errors']) && $mapped['errors'] !== [];
         $hasTracking = isset($mapped['tracking_number']) && (string) $mapped['tracking_number'] !== '';
         if ($hasTracking && !$hasErrors) {
             $result->setTrackingNumber($mapped['tracking_number']);
