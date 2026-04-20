@@ -7,8 +7,6 @@
  * @package    Mage_Payment
  */
 
-use Carbon\Carbon;
-
 /**
  * @package    Mage_Payment
  */
@@ -132,7 +130,7 @@ class Mage_Payment_Block_Form_Cc extends Mage_Payment_Block_Form
     public function getSsStartYears()
     {
         $years = [];
-        $first = Carbon::now()->format('Y');
+        $first = (int) Mage::helper('core/clock')->format('Y');
 
         for ($index = 5; $index >= 0; $index--) {
             $year = $first - $index;

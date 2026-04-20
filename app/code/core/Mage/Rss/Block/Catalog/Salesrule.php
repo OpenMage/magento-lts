@@ -7,8 +7,6 @@
  * @package    Mage_Rss
  */
 
-use Carbon\Carbon;
-
 /**
  * Review form block
  *
@@ -38,7 +36,7 @@ class Mage_Rss_Block_Catalog_Salesrule extends Mage_Rss_Block_Abstract
         $storeId       = $this->_getStoreId();
         $websiteId     = Mage::app()->getStore($storeId)->getWebsiteId();
         $customerGroup = $this->_getCustomerGroupId();
-        $now           = Carbon::now()->format('Y-m-d');
+        $now           = Mage::helper('core/clock')->format('Y-m-d');
         $url           = Mage::getUrl('');
         $newUrl        = Mage::getUrl('rss/catalog/salesrule');
         $lang          = Mage::getStoreConfig('general/locale/code');

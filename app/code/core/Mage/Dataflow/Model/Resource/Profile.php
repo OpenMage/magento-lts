@@ -7,8 +7,6 @@
  * @package    Mage_Dataflow
  */
 
-use Carbon\Carbon;
-
 /**
  * Convert profile resource model
  *
@@ -32,10 +30,10 @@ class Mage_Dataflow_Model_Resource_Profile extends Mage_Core_Model_Resource_Db_A
     protected function _beforeSave(Mage_Core_Model_Abstract $object)
     {
         if (!$object->getCreatedAt()) {
-            $object->setCreatedAt($this->formatDate(Carbon::now()->getTimestamp()));
+            $object->setCreatedAt($this->formatDate(Mage::helper('core/clock')->getTimestamp()));
         }
 
-        $object->setUpdatedAt($this->formatDate(Carbon::now()->getTimestamp()));
+        $object->setUpdatedAt($this->formatDate(Mage::helper('core/clock')->getTimestamp()));
         return parent::_beforeSave($object);
     }
 
