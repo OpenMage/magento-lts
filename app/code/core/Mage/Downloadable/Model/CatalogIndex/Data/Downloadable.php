@@ -21,6 +21,7 @@ class Mage_Downloadable_Model_CatalogIndex_Data_Downloadable extends Mage_Catalo
      *
      * @return string
      */
+    #[Override]
     public function getTypeCode()
     {
         return Mage_Downloadable_Model_Product_Type::TYPE_DOWNLOADABLE;

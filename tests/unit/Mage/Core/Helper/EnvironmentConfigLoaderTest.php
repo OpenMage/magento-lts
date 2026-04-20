@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Core\Helper;
 
+use Override;
 use Mage_Core_Model_Store;
 use Generator;
 use Mage;
@@ -24,19 +25,19 @@ use Varien_Simplexml_Config;
  */
 final class EnvironmentConfigLoaderTest extends OpenMageTest
 {
-    public const XML_PATH_GENERAL = 'general/store_information/name';
+    public const string XML_PATH_GENERAL = 'general/store_information/name';
 
-    public const XML_PATH_DEFAULT = 'default/general/store_information/name';
+    public const string XML_PATH_DEFAULT = 'default/general/store_information/name';
 
-    public const XML_PATH_WEBSITE = 'websites/base/general/store_information/name';
+    public const string XML_PATH_WEBSITE = 'websites/base/general/store_information/name';
 
-    public const XML_PATH_STORE = 'stores/german/general/store_information/name';
+    public const string XML_PATH_STORE = 'stores/german/general/store_information/name';
 
-    private const ENV_TEST_STORES = ['german_ch', 'german', 'german-at'];
+    private const array ENV_TEST_STORES = ['german_ch', 'german', 'german-at'];
 
     private string $testXml;
 
-    private const WEBSITES = [
+    private const array WEBSITES = [
         'base' => self::ENV_TEST_STORES,
     ];
 
@@ -52,6 +53,7 @@ final class EnvironmentConfigLoaderTest extends OpenMageTest
         Mage::unregister(Mage_Core_Helper_EnvironmentConfigLoader::REGISTRY_KEY);
     }
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         Mage::app('admin');

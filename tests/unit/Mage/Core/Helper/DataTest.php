@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Core\Helper;
 
+use Override;
 use Mage;
 use Mage_Core_Helper_Data as Subject;
 use Mage_Core_Model_Encryption;
@@ -23,10 +24,11 @@ final class DataTest extends OpenMageTest
 {
     use DataTrait;
 
-    public const TEST_STRING = '1234567890';
+    public const string TEST_STRING = '1234567890';
 
     private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

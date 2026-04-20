@@ -145,17 +145,17 @@ abstract class Mage_Core_Model_Purifier_Abstract implements Mage_Core_Model_Puri
      */
     protected const OPTION_ESCAPE_INVALID_TAGS = 'escapeInvalidTags';
 
-    private const CONFIG_ATTR_ALLOWED_CLASSES = 'Attr.AllowedClasses';
+    private const string CONFIG_ATTR_ALLOWED_CLASSES = 'Attr.AllowedClasses';
 
-    private const CONFIG_CACHE_DEFINITION_IMPL = 'Cache.DefinitionImpl';
+    private const string CONFIG_CACHE_DEFINITION_IMPL = 'Cache.DefinitionImpl';
 
-    private const CONFIG_CORE_ESCAPE_INVALID_TAGS = 'Core.EscapeInvalidTags';
+    private const string CONFIG_CORE_ESCAPE_INVALID_TAGS = 'Core.EscapeInvalidTags';
 
-    private const CONFIG_CSS_ALLOWED_PROPERTIES = 'CSS.AllowedProperties';
+    private const string CONFIG_CSS_ALLOWED_PROPERTIES = 'CSS.AllowedProperties';
 
-    private const CONFIG_HTML_ALLOWED_ELEMENTS = 'HTML.AllowedElements';
+    private const string CONFIG_HTML_ALLOWED_ELEMENTS = 'HTML.AllowedElements';
 
-    private const CONFIG_HTML_ALLOWED_ATTRIBUTES = 'HTML.AllowedAttributes';
+    private const string CONFIG_HTML_ALLOWED_ATTRIBUTES = 'HTML.AllowedAttributes';
 
     private readonly HTMLPurifier $purifier;
 

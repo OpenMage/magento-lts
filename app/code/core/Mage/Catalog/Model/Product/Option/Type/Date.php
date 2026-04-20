@@ -27,6 +27,7 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
      * @return Mage_Catalog_Model_Product_Option_Type_Default
      * @throws Mage_Core_Exception
      */
+    #[Override]
     public function validateUserValue($values)
     {
         parent::validateUserValue($values);
@@ -90,6 +91,7 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
      * @throws Zend_Date_Exception
      * @throws Zend_Locale_Exception
      */
+    #[Override]
     public function prepareForCart()
     {
         if ($this->getIsValid() && $this->getUserValue() !== null) {
@@ -148,6 +150,7 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
      * @throws Zend_Date_Exception
      * @throws Zend_Locale_Exception
      */
+    #[Override]
     public function getFormattedOptionValue($optionValue)
     {
         if ($this->_formattedOptionValue === null) {
@@ -178,6 +181,7 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
      * @param  string $optionValue Prepared for cart option value
      * @return string
      */
+    #[Override]
     public function getPrintableOptionValue($optionValue)
     {
         return $this->getFormattedOptionValue($optionValue);
@@ -189,6 +193,7 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
      * @param  string $optionValue Prepared for cart option value
      * @return string
      */
+    #[Override]
     public function getEditableOptionValue($optionValue)
     {
         return $this->getFormattedOptionValue($optionValue);
@@ -202,6 +207,7 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
      * @return null|string
      * @throws Zend_Date_Exception
      */
+    #[Override]
     public function parseOptionValue($optionValue, $productOptionValues)
     {
         try {
@@ -224,6 +230,7 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
      * @param  string $optionValue
      * @return mixed
      */
+    #[Override]
     public function prepareOptionValueForRequest($optionValue)
     {
         $confItem = $this->getConfigurationItem();

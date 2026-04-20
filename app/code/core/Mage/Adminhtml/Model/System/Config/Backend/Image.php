@@ -18,6 +18,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Image extends Mage_Adminhtml_Mo
      * Getter for allowed extensions of uploaded files
      * @return array
      */
+    #[Override]
     protected function _getAllowedExtensions()
     {
         return Varien_Io_File::ALLOWED_IMAGES_EXTENSIONS;
@@ -26,6 +27,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Image extends Mage_Adminhtml_Mo
     /**
      * Overwritten parent method for adding validators
      */
+    #[Override]
     protected function addValidators(Mage_Core_Model_File_Uploader $uploader)
     {
         parent::addValidators($uploader);

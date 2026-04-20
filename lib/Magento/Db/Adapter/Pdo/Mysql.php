@@ -90,6 +90,7 @@ class Magento_Db_Adapter_Pdo_Mysql extends Varien_Db_Adapter_Pdo_Mysql
      * @param  float|string $value Raw string
      * @return float|string Quoted string
      */
+    #[Override]
     protected function _quote($value)
     {
         if (is_float($value)) {
@@ -114,6 +115,7 @@ class Magento_Db_Adapter_Pdo_Mysql extends Varien_Db_Adapter_Pdo_Mysql
      * @param  null|int|string                                         $type  OPTIONAL The type of the given value e.g. Zend_Db::INT_TYPE, "INT"
      * @return string                                                  an SQL-safe quoted value (or string of separated values)
      */
+    #[Override]
     public function quote($value, $type = null)
     {
         $this->_connect();

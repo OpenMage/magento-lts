@@ -30,6 +30,7 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_View_Form extends Mage_Adminhtml
      *
      * @return Mage_Sales_Model_Order
      */
+    #[Override]
     public function getOrder()
     {
         return $this->getShipment()->getOrder();

@@ -17,6 +17,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Encrypted extends Mage_Core_Mod
     /**
      * Decrypt value after loading
      */
+    #[Override]
     protected function _afterLoad()
     {
         $value = (string) $this->getValue();
@@ -30,6 +31,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Encrypted extends Mage_Core_Mod
     /**
      * Encrypt value before saving
      */
+    #[Override]
     protected function _beforeSave()
     {
         $value = (string) $this->getValue();
@@ -50,6 +52,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Encrypted extends Mage_Core_Mod
      *
      * @return string
      */
+    #[Override]
     public function getOldValue()
     {
         return Mage::helper('core')->decrypt(parent::getOldValue());

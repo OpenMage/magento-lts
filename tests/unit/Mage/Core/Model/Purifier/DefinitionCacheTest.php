@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Core\Model\Purifier;
 
+use Override;
 use HTMLPurifier;
 use HTMLPurifier_Config;
 use HTMLPurifier_DefinitionCacheFactory;
@@ -24,7 +25,7 @@ use Zend_Cache_Backend_ExtendedInterface;
 
 final class DefinitionCacheTest extends OpenMageTest
 {
-    private const CACHE_DEFINITION_IMPL = self::class;
+    private const string CACHE_DEFINITION_IMPL = self::class;
 
     /** @var Zend_Cache_Backend&Zend_Cache_Backend_ExtendedInterface */
     private static $cacheBackend;
@@ -35,6 +36,7 @@ final class DefinitionCacheTest extends OpenMageTest
     /** @var bool */
     private static $originalCachingOption;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

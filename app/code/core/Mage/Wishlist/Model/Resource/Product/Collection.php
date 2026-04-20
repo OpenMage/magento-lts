@@ -142,6 +142,7 @@ class Mage_Wishlist_Model_Resource_Product_Collection extends Mage_Catalog_Model
      *
      * @inheritDoc
      */
+    #[Override]
     protected function _getAttributeFieldName($attributeCode)
     {
         if ($attributeCode === 'days_in_wishlist') {
@@ -159,6 +160,7 @@ class Mage_Wishlist_Model_Resource_Product_Collection extends Mage_Catalog_Model
      * @param  bool                                            $logQuery
      * @return Mage_Wishlist_Model_Resource_Product_Collection
      */
+    #[Override]
     public function load($printQuery = false, $logQuery = false)
     {
         return $this;

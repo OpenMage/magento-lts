@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\AdminNotification\Model;
 
+use Override;
 use Mage;
 use Mage_AdminNotification_Model_Inbox as Subject;
 use Mage_Core_Exception;
@@ -21,12 +22,13 @@ final class InboxTest extends OpenMageTest
 {
     use InboxTrait;
 
-    public const TITLE = 'PhpUnit test';
+    public const string TITLE = 'PhpUnit test';
 
-    public const URL = 'https://openmage.org';
+    public const string URL = 'https://openmage.org';
 
     private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

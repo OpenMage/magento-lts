@@ -215,6 +215,7 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
      *
      * @return string
      */
+    #[Override]
     public function getFont()
     {
         return $this->_getFontPath();
@@ -225,6 +226,7 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
      *
      * @return int
      */
+    #[Override]
     public function getTimeout()
     {
         if (!$this->_expiration) {
@@ -243,6 +245,7 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
      *
      * @return string
      */
+    #[Override]
     public function getImgDir()
     {
         return $this->_helper->getImgDir();
@@ -253,6 +256,7 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
      *
      * @return string
      */
+    #[Override]
     public function getImgUrl()
     {
         return $this->_helper->getImgUrl();
@@ -286,6 +290,7 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
      *
      * @return Mage_Customer_Model_Session
      */
+    #[Override]
     public function getSession()
     {
         return Mage::getSingleton('customer/session');
@@ -357,6 +362,7 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
      *
      * @return string
      */
+    #[Override]
     protected function _generateWord()
     {
         $word = '';
@@ -461,6 +467,7 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
      *
      * @return null|string
      */
+    #[Override]
     public function getWord()
     {
         $sessionData = $this->getSession()->getData($this->_getFormIdKey(self::SESSION_WORD));
@@ -477,6 +484,7 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
      * @param  string            $word
      * @return Zend_Captcha_Word
      */
+    #[Override]
     protected function _setWord($word)
     {
         $this->getSession()->setData(
@@ -505,6 +513,7 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
      * @return int
      * @see Zend_Captcha_Image::_randomSize()
      */
+    #[Override]
     protected function _randomSize()
     {
         return mt_rand(280, 300) / 100;
@@ -516,6 +525,7 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
      * Now deleting old captcha images make crontab script
      * @see Mage_Captcha_Model_Observer::deleteExpiredImages
      */
+    #[Override]
     protected function _gc()
     {
         //do nothing

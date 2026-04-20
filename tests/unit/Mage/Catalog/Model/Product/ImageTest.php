@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Catalog\Model\Product;
 
+use Override;
 use Mage;
 use Mage_Catalog_Model_Product_Image as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
@@ -22,6 +23,7 @@ final class ImageTest extends OpenMageTest
 
     private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

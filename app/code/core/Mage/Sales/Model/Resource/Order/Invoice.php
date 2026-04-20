@@ -53,6 +53,7 @@ class Mage_Sales_Model_Resource_Order_Invoice extends Mage_Sales_Model_Resource_
      *
      * @return $this
      */
+    #[Override]
     protected function _initVirtualGridColumns()
     {
         parent::_initVirtualGridColumns();

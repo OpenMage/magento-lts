@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Downloadable\Block\Checkout\Cart\Item;
 
 // use Mage_Downloadable_Block_Checkout_Cart_Item_Renderer as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Downloadable\Block\Checkout\Cart\Item\RendererTrait;
 
@@ -21,6 +22,7 @@ final class RendererTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

@@ -23,6 +23,7 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_View extends Mage_Adminhtml_B
      * TODO: implement ACL restrictions
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareLayout()
     {
         $this->_addButton('back', [
@@ -85,6 +86,7 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_View extends Mage_Adminhtml_B
      *
      * @inheritDoc
      */
+    #[Override]
     protected function _beforeToHtml()
     {
         $profile = Mage::registry('current_recurring_profile');

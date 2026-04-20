@@ -91,6 +91,7 @@ class Mage_CatalogInventory_Model_Indexer_Stock extends Mage_Index_Model_Indexer
      *
      * @return string
      */
+    #[Override]
     public function getDescription()
     {
         return Mage::helper('cataloginventory')->__('Index Product Stock Status');
@@ -102,6 +103,7 @@ class Mage_CatalogInventory_Model_Indexer_Stock extends Mage_Index_Model_Indexer
      *
      * @return bool
      */
+    #[Override]
     public function matchEvent(Mage_Index_Model_Event $event)
     {
         $data = $event->getNewData();

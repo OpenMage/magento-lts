@@ -27,7 +27,7 @@ final class AbstractTest extends OpenMageTest
     protected function setUp(): void
     {
         parent::setUp();
-        self::$subject = $this->getMockBuilder(Subject::class)->getMock();
+        self::$subject = $this->createMock(Subject::class);
     }
 
     /**

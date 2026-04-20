@@ -29,6 +29,7 @@ class Mage_Adminhtml_Block_Tax_Rate_Toolbar_Save extends Mage_Adminhtml_Block_Te
      * @inheritDoc
      * @throws Exception
      */
+    #[Override]
     protected function _prepareLayout()
     {
         $this->setChild(

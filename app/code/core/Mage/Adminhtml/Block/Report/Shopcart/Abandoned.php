@@ -22,6 +22,7 @@ class Mage_Adminhtml_Block_Report_Shopcart_Abandoned extends Mage_Adminhtml_Bloc
         $this->_removeButton('add');
     }
 
+    #[Override]
     protected function _prepareLayout()
     {
         $this->setChild(
@@ -39,11 +40,13 @@ class Mage_Adminhtml_Block_Report_Shopcart_Abandoned extends Mage_Adminhtml_Bloc
         return Mage::app()->isSingleStoreMode() ? '' : $this->getChildHtml('store_switcher');
     }
 
+    #[Override]
     public function getGridHtml()
     {
         return $this->getStoreSwitcherHtml() . parent::getGridHtml();
     }
 
+    #[Override]
     public function getHeaderCssClass()
     {
         return 'icon-head head-report';

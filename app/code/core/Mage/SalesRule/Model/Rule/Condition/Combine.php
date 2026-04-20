@@ -21,6 +21,7 @@ class Mage_SalesRule_Model_Rule_Condition_Combine extends Mage_Rule_Model_Condit
     /**
      * @return array
      */
+    #[Override]
     public function getNewChildSelectOptions()
     {
         $addressCondition = Mage::getModel('salesrule/rule_condition_address');

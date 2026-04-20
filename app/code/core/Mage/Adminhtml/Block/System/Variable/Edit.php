@@ -17,6 +17,7 @@ class Mage_Adminhtml_Block_System_Variable_Edit extends Mage_Adminhtml_Block_Wid
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _construct()
     {
         parent::_construct();
@@ -35,6 +36,7 @@ class Mage_Adminhtml_Block_System_Variable_Edit extends Mage_Adminhtml_Block_Wid
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareLayout()
     {
         $this->_addButton('save_and_edit', [
@@ -54,6 +56,7 @@ class Mage_Adminhtml_Block_System_Variable_Edit extends Mage_Adminhtml_Block_Wid
      *
      * @return string
      */
+    #[Override]
     public function getFormHtml()
     {
         $formHtml = parent::getFormHtml();
@@ -71,6 +74,7 @@ class Mage_Adminhtml_Block_System_Variable_Edit extends Mage_Adminhtml_Block_Wid
      *
      * @return string
      */
+    #[Override]
     public function getHeaderText()
     {
         if ($this->getVariable()->getId()) {
@@ -95,6 +99,7 @@ class Mage_Adminhtml_Block_System_Variable_Edit extends Mage_Adminhtml_Block_Wid
      *
      * @return string
      */
+    #[Override]
     public function getSaveUrl()
     {
         return $this->getUrl('*/*/save', ['_current' => true, 'back' => null]);

@@ -123,6 +123,7 @@ class Mage_Adminhtml_Sales_Order_InvoiceController extends Mage_Adminhtml_Contro
      *
      * @throws Mage_Core_Exception
      */
+    #[Override]
     public function viewAction()
     {
         $invoice = $this->_initInvoice();
@@ -486,6 +487,7 @@ class Mage_Adminhtml_Sales_Order_InvoiceController extends Mage_Adminhtml_Contro
      *
      * @throws Mage_Core_Exception
      */
+    #[Override]
     public function printAction()
     {
         $this->_initInvoice();

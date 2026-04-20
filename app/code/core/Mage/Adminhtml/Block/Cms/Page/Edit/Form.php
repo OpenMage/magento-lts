@@ -16,6 +16,7 @@ declare(strict_types=1);
  */
 class Mage_Adminhtml_Block_Cms_Page_Edit_Form extends Mage_Adminhtml_Block_Widget_Form
 {
+    #[Override]
     protected function _prepareForm()
     {
         $form = new Varien_Data_Form(['id' => 'edit_form', 'action' => $this->getDataByKey('action'), 'method' => 'post']);

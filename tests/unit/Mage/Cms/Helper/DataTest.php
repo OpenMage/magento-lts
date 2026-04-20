@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Cms\Helper;
 
+use Override;
 use Mage;
 use Mage_Cms_Helper_Data as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
@@ -18,10 +19,11 @@ use Varien_Filter_Template;
 
 final class DataTest extends OpenMageTest
 {
-    public const TEST_STRING = '1234567890';
+    public const string TEST_STRING = '1234567890';
 
     private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

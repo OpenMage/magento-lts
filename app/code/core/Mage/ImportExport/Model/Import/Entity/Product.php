@@ -25,7 +25,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Allowed column name format
      */
-    private const COL_NAME_FORMAT = '/[\x00-\x1F\x7F]/';
+    private const string COL_NAME_FORMAT = '/[\x00-\x1F\x7F]/';
 
     /**
      * Size of bunch - part of products to save in one step.
@@ -705,6 +705,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
      *
      * @return array
      */
+    #[Override]
     protected function _prepareRowForDb(array $rowData)
     {
         $rowData = parent::_prepareRowForDb($rowData);

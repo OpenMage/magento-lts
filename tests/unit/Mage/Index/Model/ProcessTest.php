@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Index\Model;
 
+use Override;
 use Mage;
 use Mage_Core_Exception;
 use Mage_Index_Model_Process as Subject;
@@ -19,10 +20,11 @@ use OpenMage\Tests\Unit\OpenMageTest;
 
 final class ProcessTest extends OpenMageTest
 {
-    public const INDEXER_MODEL_IS_NOT_DEFINED = 'Indexer model is not defined.';
+    public const string INDEXER_MODEL_IS_NOT_DEFINED = 'Indexer model is not defined.';
 
     private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

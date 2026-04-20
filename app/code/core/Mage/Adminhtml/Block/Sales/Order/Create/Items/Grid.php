@@ -407,6 +407,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Items_Grid extends Mage_Adminhtml_
      *
      * @return Mage_Core_Model_Store
      */
+    #[Override]
     public function getStore()
     {
         return $this->getQuote()->getStore();

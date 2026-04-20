@@ -14,6 +14,7 @@
  */
 class Mage_Adminhtml_Block_Sales_Order_Create_Header extends Mage_Adminhtml_Block_Sales_Order_Create_Abstract
 {
+    #[Override]
     protected function _toHtml()
     {
         if ($this->_getSession()->getOrder()->getId()) {

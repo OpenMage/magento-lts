@@ -102,6 +102,7 @@ class Mage_Reports_Model_Resource_Invoiced_Collection extends Mage_Sales_Model_E
      *
      * @return Varien_Db_Select
      */
+    #[Override]
     public function getSelectCountSql()
     {
         $countSelect = clone $this->getSelect();

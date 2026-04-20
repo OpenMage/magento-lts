@@ -11,16 +11,18 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Core\Helper;
 
+use Override;
 use Mage;
 use Mage_Core_Helper_Js as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 
 final class JsTest extends OpenMageTest
 {
-    public const TEST_URL = 'foo';
+    public const string TEST_URL = 'foo';
 
     private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

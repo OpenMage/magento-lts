@@ -61,6 +61,7 @@ class Mage_Catalog_Model_Resource_Category_Flat_Collection extends Mage_Core_Mod
     /**
      * @return $this
      */
+    #[Override]
     protected function _initSelect()
     {
         $this->getSelect()->from(

@@ -16,7 +16,7 @@ class Mage_Usa_Adminhtml_UspsController extends Mage_Adminhtml_Controller_Action
     /**
      * Environment-to-URL allowlist
      */
-    private const ALLOWED_ENVIRONMENTS = [
+    private const array ALLOWED_ENVIRONMENTS = [
         'production' => 'https://apis.usps.com/',
         'sandbox' => 'https://apis-tem.usps.com/',
     ];
@@ -145,6 +145,7 @@ class Mage_Usa_Adminhtml_UspsController extends Mage_Adminhtml_Controller_Action
         }
     }
 
+    #[Override]
     protected function _isAllowed(): bool
     {
         return Mage::getSingleton('admin/session')->isAllowed('system/config');

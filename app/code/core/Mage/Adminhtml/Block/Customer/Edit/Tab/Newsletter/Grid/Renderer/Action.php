@@ -14,6 +14,7 @@
  */
 class Mage_Adminhtml_Block_Customer_Edit_Tab_Newsletter_Grid_Renderer_Action extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
 {
+    #[Override]
     public function render(Varien_Object $row)
     {
         $actions = [];

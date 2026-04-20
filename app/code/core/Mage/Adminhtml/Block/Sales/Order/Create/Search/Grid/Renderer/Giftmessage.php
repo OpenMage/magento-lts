@@ -20,6 +20,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid_Renderer_Giftmessage e
      *
      * @return string
      */
+    #[Override]
     public function render(Varien_Object $row)
     {
         /** @var Mage_GiftMessage_Helper_Message $helper */

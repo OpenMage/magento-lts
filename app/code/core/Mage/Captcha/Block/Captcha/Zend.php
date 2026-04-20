@@ -29,6 +29,7 @@ class Mage_Captcha_Block_Captcha_Zend extends Mage_Core_Block_Template
      *
      * @return string
      */
+    #[Override]
     public function getTemplate()
     {
         return $this->getIsAjax() ? '' : $this->_template;
@@ -52,6 +53,7 @@ class Mage_Captcha_Block_Captcha_Zend extends Mage_Core_Block_Template
      *
      * @return string
      */
+    #[Override]
     protected function _toHtml()
     {
         if (Mage::helper('captcha')->isEnabled() && $this->getCaptchaModel()->isRequired()) {

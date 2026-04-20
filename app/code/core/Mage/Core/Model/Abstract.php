@@ -191,6 +191,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
      * @return string
      * @throws Mage_Core_Exception
      */
+    #[Override]
     public function getIdFieldName()
     {
         if (!($fieldName = parent::getIdFieldName())) {
@@ -207,6 +208,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
      * @return null|int|string
      * @throws Mage_Core_Exception
      */
+    #[Override]
     public function getId()
     {
         $fieldName = $this->getIdFieldName();
@@ -224,6 +226,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
      * @return $this
      * @throws Mage_Core_Exception
      */
+    #[Override]
     public function setId($value)
     {
         if ($this->getIdFieldName()) {

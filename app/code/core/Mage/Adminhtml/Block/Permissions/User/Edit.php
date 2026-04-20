@@ -31,6 +31,7 @@ class Mage_Adminhtml_Block_Permissions_User_Edit extends Mage_Adminhtml_Block_Wi
     /**
      * @return string
      */
+    #[Override]
     public function getHeaderText()
     {
         if (Mage::registry('permissions_user')->getId()) {

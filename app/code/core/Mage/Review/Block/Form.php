@@ -74,6 +74,7 @@ class Mage_Review_Block_Form extends Mage_Core_Block_Template
     /**
      * @return string
      */
+    #[Override]
     public function getAction()
     {
         $productId = Mage::app()->getRequest()->getParam('id', false);

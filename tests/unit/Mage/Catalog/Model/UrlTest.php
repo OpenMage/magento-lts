@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Catalog\Model;
 
+use Override;
 use Mage;
 use Mage_Catalog_Model_Url as Subject;
 use Mage_Core_Exception;
@@ -30,6 +31,7 @@ final class UrlTest extends OpenMageTest
 
     private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

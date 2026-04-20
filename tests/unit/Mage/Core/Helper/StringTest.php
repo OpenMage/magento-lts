@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Core\Helper;
 
+use Override;
 use Mage;
 use Mage_Core_Helper_Array;
 use Mage_Core_Helper_String as Subject;
@@ -18,12 +19,13 @@ use OpenMage\Tests\Unit\OpenMageTest;
 
 final class StringTest extends OpenMageTest
 {
-    public const TEST_STRING        = '1234567890';
+    public const string TEST_STRING        = '1234567890';
 
-    public const TEST_STRING_JSON   = '{"name":"John", "age":30, "car":null}';
+    public const string TEST_STRING_JSON   = '{"name":"John", "age":30, "car":null}';
 
     private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

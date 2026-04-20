@@ -30,13 +30,13 @@ final class AbstractTest extends OpenMageTest
 
     use RuleTrait;
 
-    public const CALL_TO_A_MEMBER_FUNCTION_SET_RULE_ON_NULL = 'Call to a member function setRule() on null';
+    public const string CALL_TO_A_MEMBER_FUNCTION_SET_RULE_ON_NULL = 'Call to a member function setRule() on null';
 
     private static Subject $subject;
 
     protected function setUp(): void
     {
-        self::$subject = $this->getMockBuilder(Subject::class)->getMock();
+        self::$subject = $this->createMock(Subject::class);
     }
 
     /**

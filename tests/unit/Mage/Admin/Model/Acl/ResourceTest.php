@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Admin\Model\Acl;
 
 // use Mage;
 // use Mage_Admin_Model_Acl_Resource as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Admin\Model\Acl\ResourceTrait;
 
@@ -22,6 +23,7 @@ final class ResourceTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

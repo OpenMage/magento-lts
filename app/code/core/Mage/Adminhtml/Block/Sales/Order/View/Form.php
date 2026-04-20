@@ -19,6 +19,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Form extends Mage_Adminhtml_Block_Te
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _construct()
     {
         parent::_construct();

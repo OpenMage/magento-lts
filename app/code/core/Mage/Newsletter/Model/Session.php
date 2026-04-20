@@ -23,6 +23,7 @@ class Mage_Newsletter_Model_Session extends Mage_Core_Model_Session_Abstract
      * @param  string $message
      * @return $this
      */
+    #[Override]
     public function addError($message)
     {
         $this->setErrorMessage($message);
@@ -33,6 +34,7 @@ class Mage_Newsletter_Model_Session extends Mage_Core_Model_Session_Abstract
      * @param  string $message
      * @return $this
      */
+    #[Override]
     public function addSuccess($message)
     {
         $this->setSuccessMessage($message);

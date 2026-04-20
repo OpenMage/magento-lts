@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Cms\Model\Wysiwyg;
 
+use Override;
 use Mage;
 use Mage_Cms_Model_Wysiwyg_Config as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
@@ -18,10 +19,11 @@ use Varien_Object;
 
 final class ConfigTest extends OpenMageTest
 {
-    public const TEST_STRING = '0123456789';
+    public const string TEST_STRING = '0123456789';
 
     private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

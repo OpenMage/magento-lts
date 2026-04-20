@@ -37,6 +37,7 @@ class Mage_Adminhtml_Block_Dashboard_Grids extends Mage_Adminhtml_Block_Widget_T
      * @return $this
      * @throws Exception
      */
+    #[Override]
     protected function _prepareLayout()
     {
         // load this active tab statically

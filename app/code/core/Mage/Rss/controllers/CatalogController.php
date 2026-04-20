@@ -120,6 +120,7 @@ class Mage_Rss_CatalogController extends Mage_Rss_Controller_Abstract
      *
      * @return $this
      */
+    #[Override]
     public function preDispatch()
     {
         $action = strtolower($this->getRequest()->getActionName());
