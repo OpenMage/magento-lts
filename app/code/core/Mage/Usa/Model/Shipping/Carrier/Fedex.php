@@ -40,7 +40,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
     /**
      * Smart post hub id valid in sandbox
      */
-    private const SANDBOX_SMARTPOST_HUB_ID = '5531';
+    protected const SANDBOX_SMARTPOST_HUB_ID = '5531';
 
     /**
      * Code of the carrier
@@ -65,7 +65,8 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
 
     /**
      * Rate / tracking result data
-     * @var null|Mage_Shipping_Model_Rate_Result|Mage_Shipping_Model_Tracking_Result
+     *
+     * @var null|Mage_Shipping_Model_Rate_Result
      */
     protected $_result = null;
 
@@ -118,9 +119,9 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
             $payload->setService($request->getLimitMethod());
         }
 
-        $payload->setAccount($request->getFedexAccount() ?: $this->getConfigData('account'));
-        $payload->setDropoffType($request->getFedexDropoff() ?: $this->getConfigData('dropoff'));
-        $payload->setPackaging($request->getFedexPackaging() ?: $this->getConfigData('packaging'));
+        $payload->setAccount($request->getFedexAccount() ? $request->getFedexAccount() : $this->getConfigData('account'));
+        $payload->setDropoffType($request->getFedexDropoff() ? $request->getFedexDropoff() : $this->getConfigData('dropoff'));
+        $payload->setPackaging($request->getFedexPackaging() ? $request->getFedexPackaging() : $this->getConfigData('packaging'));
 
         $origCountry = $request->getOrigCountry() ?: Mage::getStoreConfig(
             Mage_Shipping_Model_Shipping::XML_PATH_STORE_COUNTRY_ID,
@@ -137,7 +138,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
             ));
         }
 
-        $destCountry = $request->getDestCountryId() ?: self::USA_COUNTRY_ID;
+        $destCountry = $request->getDestCountryId() ? $request->getDestCountryId() : self::USA_COUNTRY_ID;
         $payload->setDestCountry(Mage::getModel('directory/country')->load($destCountry)->getIso2Code());
 
         if ($request->getDestPostcode()) {
@@ -281,7 +282,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
         asort($priceArr);
 
         $result = Mage::getModel('shipping/rate_result');
-        if (empty($priceArr)) {
+        if ($priceArr === []) {
             $errorMessage = $this->_firstErrorMessage($mapped) ?? (string) $this->getConfigData('specificerrmsg');
             $error = Mage::getModel('shipping/rate_result_error');
             $error->setCarrier($this->_code);
@@ -337,7 +338,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
                 }
             }
 
-            if (!isset($selected[$serviceType]) && $ratedTypes) {
+            if (!isset($selected[$serviceType])) {
                 $selected[$serviceType] = (float) reset($ratedTypes);
             }
         }
@@ -693,21 +694,21 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
     public function getResponse()
     {
         $statuses = '';
-        if ($this->_result instanceof Mage_Shipping_Model_Tracking_Result) {
-            if ($trackings = $this->_result->getAllTrackings()) {
-                foreach ($trackings as $tracking) {
-                    if ($data = $tracking->getAllData()) {
-                        if (!empty($data['status'])) {
-                            $statuses .= Mage::helper('usa')->__((string) $data['status']) . "\n<br/>";
-                        } else {
-                            $statuses .= Mage::helper('usa')->__('Empty response') . "\n<br/>";
-                        }
+
+        if (($this->_result instanceof Mage_Shipping_Model_Tracking_Result)
+            && $trackings = $this->_result->getAllTrackings()) {
+            foreach ($trackings as $tracking) {
+                if ($data = $tracking->getAllData()) {
+                    if (!empty($data['status'])) {
+                        $statuses .= Mage::helper('usa')->__((string) $data['status']) . "\n<br/>";
+                    } else {
+                        $statuses .= Mage::helper('usa')->__('Empty response') . "\n<br/>";
                     }
                 }
             }
         }
 
-        if (empty($statuses)) {
+        if ($statuses === '') {
             $statuses = Mage::helper('usa')->__('Empty response');
         }
 

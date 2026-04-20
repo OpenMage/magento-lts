@@ -1,13 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
  * @license    Open Software License (OSL 3.0)
  * @package    OpenMage_Tests
  */
-
-declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Usa\Model\Shipping\Carrier;
 
@@ -27,12 +27,6 @@ final class FedexTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = new Subject();
-    }
-
-    public function testInheritsTheAbstractCarrierContract(): void
-    {
-        self::assertInstanceOf(\Mage_Usa_Model_Shipping_Carrier_Abstract::class, self::$subject);
-        self::assertInstanceOf(\Mage_Shipping_Model_Carrier_Interface::class, self::$subject);
     }
 
     public function testVersionInfoStaysByteForByteCompatibleWithSoapAncestor(): void

@@ -240,7 +240,8 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_ResponseMapper
         }
 
         if ($label !== null) {
-            $label = base64_decode($label, true) ?: $label;
+            $decodedLabel = base64_decode($label, true);
+            $label = $decodedLabel ? $decodedLabel : $label;
         }
 
         return $label;
