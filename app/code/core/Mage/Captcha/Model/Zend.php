@@ -474,7 +474,7 @@ class Mage_Captcha_Model_Zend extends Image implements Mage_Captcha_Model_Interf
             return $this->generateWord();
         }
 
-        return Mage::helper('core/clock')->getTimestamp() < $sessionData['expires'] ? $sessionData['data'] : null;
+        return Mage::helper('core/clock')->getTimestamp() < $sessionData['expires'] ? $sessionData['data'] : $this->generateWord();
     }
 
     /**
