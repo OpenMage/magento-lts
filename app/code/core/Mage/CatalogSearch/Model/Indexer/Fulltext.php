@@ -195,7 +195,7 @@ class Mage_CatalogSearch_Model_Indexer_Fulltext extends Mage_Index_Model_Indexer
     /**
      * Get data required for category'es products reindex
      *
-     * @return Mage_CatalogSearch_Model_Indexer_Fulltext
+     * @return $this
      */
     protected function _registerCatalogCategoryEvent(Mage_Index_Model_Event $event)
     {
@@ -221,7 +221,7 @@ class Mage_CatalogSearch_Model_Indexer_Fulltext extends Mage_Index_Model_Indexer
     /**
      * Register data required by catatalog product process in event object
      *
-     * @return Mage_CatalogSearch_Model_Indexer_Fulltext
+     * @return $this
      */
     protected function _registerCatalogProductEvent(Mage_Index_Model_Event $event)
     {

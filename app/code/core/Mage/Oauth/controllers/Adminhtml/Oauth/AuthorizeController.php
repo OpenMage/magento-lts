@@ -190,8 +190,8 @@ class Mage_Oauth_Adminhtml_Oauth_AuthorizeController extends Mage_Adminhtml_Cont
     /**
      * Init reject page
      *
-     * @param  bool                                           $simple
-     * @return Mage_Oauth_Adminhtml_Oauth_AuthorizeController
+     * @param  bool  $simple
+     * @return $this
      */
     protected function _initRejectPage($simple = false)
     {

@@ -48,8 +48,8 @@ class Mage_Api2_Model_Request_Internal extends Mage_Api2_Model_Request
     /**
      * Set request body data
      *
-     * @param  array                   $data
-     * @return Mage_Api2_Model_Request
+     * @param  array $data
+     * @return $this
      */
     public function setBodyParams($data)
     {

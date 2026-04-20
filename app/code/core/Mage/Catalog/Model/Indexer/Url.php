@@ -121,7 +121,7 @@ class Mage_Catalog_Model_Indexer_Url extends Mage_Index_Model_Indexer_Abstract
     /**
      * Register data required by process in event object
      *
-     * @return Mage_Catalog_Model_Indexer_Url
+     * @return $this
      */
     protected function _registerEvent(Mage_Index_Model_Event $event)
     {

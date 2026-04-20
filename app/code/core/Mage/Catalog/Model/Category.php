@@ -227,9 +227,9 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
     /**
      * Move category
      *
-     * @param  int                         $parentId        new parent category id
-     * @param  int                         $afterCategoryId category id after which we have put current category
-     * @return Mage_Catalog_Model_Category
+     * @param  int                 $parentId        new parent category id
+     * @param  int                 $afterCategoryId category id after which we have put current category
+     * @return $this
      * @throws Mage_Core_Exception
      * @throws Throwable
      */

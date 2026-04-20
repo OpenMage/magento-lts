@@ -227,7 +227,7 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
      * Set attribute instance
      *
      * @param  Mage_Catalog_Model_Resource_Eav_Attribute $attribute
-     * @return Mage_Catalog_Model_Product_Visibility
+     * @return $this
      */
     public function setAttribute($attribute)
     {

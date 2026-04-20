@@ -34,8 +34,8 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
     /**
      * Set flag for check carriers for activity
      *
-     * @param  string                                   $code
-     * @return Mage_Usa_Model_Shipping_Carrier_Abstract
+     * @param  string $code
+     * @return $this
      */
     public function setActiveFlag($code = 'active')
     {
@@ -258,9 +258,9 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
     /**
      * Sets received carrier quotes to cache
      *
-     * @param  array|string                             $requestParams
-     * @param  string                                   $response
-     * @return Mage_Usa_Model_Shipping_Carrier_Abstract
+     * @param  array|string $requestParams
+     * @param  string       $response
+     * @return $this
      */
     protected function _setCachedQuotes($requestParams, $response)
     {
