@@ -25,6 +25,7 @@ class Mage_Adminhtml_Block_System_Account_Edit extends Mage_Adminhtml_Block_Widg
     /**
      * @return string
      */
+    #[Override]
     public function getHeaderText()
     {
         return Mage::helper('adminhtml')->__('My Account');

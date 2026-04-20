@@ -17,6 +17,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Email_Address extends Mage_Core
     /**
      * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _beforeSave()
     {
         $email = $this->getValue();

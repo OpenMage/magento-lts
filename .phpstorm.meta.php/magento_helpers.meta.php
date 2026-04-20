@@ -2,10 +2,6 @@
 namespace PHPSTORM_META {
     override( \Mage::helper(0),
         map( [
-            'mm_ignition' => \MM_Ignition_Helper_Data::class,
-            'mm_ignition/data' => \MM_Ignition_Helper_Data::class,
-            'mm_ignition/flare' => \MM_Ignition_Helper_Flare::class,
-            'mm_ignition/openAi' => \MM_Ignition_Helper_OpenAi::class,
             'adminnotification' => \Mage_AdminNotification_Helper_Data::class,
             'adminnotification/data' => \Mage_AdminNotification_Helper_Data::class,
             'admin/block' => \Mage_Admin_Helper_Block::class,
@@ -86,6 +82,7 @@ namespace PHPSTORM_META {
             'configurableswatches/swatchdimensions' => \Mage_ConfigurableSwatches_Helper_Swatchdimensions::class,
             'core/abstract' => \Mage_Core_Helper_Abstract::class,
             'core/array' => \Mage_Core_Helper_Array::class,
+            'core/clock' => \Mage_Core_Helper_Clock::class,
             'core/cookie' => \Mage_Core_Helper_Cookie::class,
             'core' => \Mage_Core_Helper_Data::class,
             'core/data' => \Mage_Core_Helper_Data::class,

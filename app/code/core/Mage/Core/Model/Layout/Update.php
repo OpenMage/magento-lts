@@ -491,9 +491,9 @@ class Mage_Core_Model_Layout_Update
      */
     public function addFallbackThemesLayoutUpdates(Mage_Core_Model_Config_Element $updates): Mage_Core_Model_Config_Element
     {
-        /* @var Mage_Core_Model_Design_Package $designPackage */
+        /** @var Mage_Core_Model_Design_Package $designPackage */
         $designPackage = Mage::getSingleton('core/design_package');
-        /* @var Mage_Core_Model_Design_Fallback $fallbackModel */
+        /** @var Mage_Core_Model_Design_Fallback $fallbackModel */
         $fallbackModel = Mage::getModel('core/design_fallback');
 
         $fallbacks = array_reverse($fallbackModel->getFallbackScheme(

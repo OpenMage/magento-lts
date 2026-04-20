@@ -21,6 +21,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Price extends Mage_Eav_Model_
      * @param  Mage_Catalog_Model_Resource_Eav_Attribute $attribute
      * @return $this
      */
+    #[Override]
     public function setAttribute($attribute)
     {
         parent::setAttribute($attribute);
@@ -51,6 +52,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Price extends Mage_Eav_Model_
      * @param  Mage_Catalog_Model_Product $object
      * @return $this
      */
+    #[Override]
     public function afterSave($object)
     {
         $value = $object->getData($this->getAttribute()->getAttributeCode());

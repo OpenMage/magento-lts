@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\GoogleCheckout\Model;
 
 // use Mage;
 // use Mage_GoogleCheckout_Model_Payment as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\GoogleCheckout\Model\PaymentTrait;
 
@@ -22,6 +23,7 @@ final class PaymentTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

@@ -41,6 +41,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Giftmessage extends Mage_Adminhtml_B
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _beforeToHtml()
     {
         if ($this->isModuleOutputEnabled('Mage_GiftMessage')) {
@@ -57,6 +58,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Giftmessage extends Mage_Adminhtml_B
     /**
      * @return $this
      */
+    #[Override]
     protected function _prepareLayout()
     {
         if ($this->isModuleOutputEnabled('Mage_GiftMessage')) {
@@ -264,6 +266,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Giftmessage extends Mage_Adminhtml_B
      * @return string
      * @throws Exception
      */
+    #[Override]
     public function getHtmlId()
     {
         return substr($this->getFieldIdPrefix(), 0, -1);

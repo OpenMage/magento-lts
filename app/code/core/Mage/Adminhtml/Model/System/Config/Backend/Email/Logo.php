@@ -38,6 +38,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Email_Logo extends Mage_Adminht
      *
      * @return string
      */
+    #[Override]
     protected function _getUploadDir()
     {
         $uploadDir  = $this->_appendScopeInfo(self::UPLOAD_DIR);
@@ -50,6 +51,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Email_Logo extends Mage_Adminht
      *
      * @return bool
      */
+    #[Override]
     protected function _addWhetherScopeInfo()
     {
         return true;

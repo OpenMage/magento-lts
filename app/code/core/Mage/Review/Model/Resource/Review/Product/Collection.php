@@ -45,6 +45,7 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _construct()
     {
         $this->_init('catalog/product');
@@ -58,6 +59,7 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
      *
      * @return $this
      */
+    #[Override]
     protected function _initSelect()
     {
         parent::_initSelect();
@@ -71,6 +73,7 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
      * @param  mixed $storeId
      * @return $this
      */
+    #[Override]
     public function addStoreFilter($storeId = null)
     {
         if (is_null($storeId)) {
@@ -276,6 +279,7 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
      *
      * @inheritDoc
      */
+    #[Override]
     public function getAllIds($limit = null, $offset = null)
     {
         $idsSelect = clone $this->getSelect();
@@ -292,6 +296,7 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
      *
      * @return null|Varien_Db_Select
      */
+    #[Override]
     public function getSelectCountSql()
     {
         $select = parent::getSelectCountSql();
@@ -303,13 +308,10 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
     }
 
     /**
-     * Set order to attribute
-     *
-     * @param  string $attribute
-     * @param  string $dir
-     * @return $this
+     * @inheritDoc
      */
-    public function setOrder($attribute, $dir = 'DESC')
+    #[Override]
+    public function setOrder($attribute, $dir = self::SORT_ORDER_DESC)
     {
         switch ($attribute) {
             case 'rt.review_id':
@@ -341,6 +343,7 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
      * @param  string                                          $joinType
      * @return $this
      */
+    #[Override]
     public function addAttributeToFilter($attribute, $condition = null, $joinType = 'inner')
     {
         switch ($attribute) {
@@ -390,6 +393,7 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
      * @param  string $colName
      * @return array
      */
+    #[Override]
     public function getColumnValues($colName)
     {
         $col = [];
@@ -405,6 +409,7 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
      *
      * @return $this
      */
+    #[Override]
     protected function _afterLoad()
     {
         parent::_afterLoad();
@@ -455,6 +460,7 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
      *
      * @return $this
      */
+    #[Override]
     protected function _beforeLoad()
     {
         parent::_beforeLoad();

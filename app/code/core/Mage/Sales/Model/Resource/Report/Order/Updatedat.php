@@ -17,6 +17,7 @@ class Mage_Sales_Model_Resource_Report_Order_Updatedat extends Mage_Sales_Model_
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _construct()
     {
         $this->_init('sales/order_aggregated_updated', 'id');
@@ -27,6 +28,7 @@ class Mage_Sales_Model_Resource_Report_Order_Updatedat extends Mage_Sales_Model_
      *
      * @inheritDoc
      */
+    #[Override]
     public function aggregate($dateFrom = null, $dateTo = null)
     {
         return $this->_aggregateByField('updated_at', $dateFrom, $dateTo);

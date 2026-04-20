@@ -19,6 +19,7 @@ class Mage_ImportExport_Block_Adminhtml_Export_Edit_Form extends Mage_Adminhtml_
      *
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareForm()
     {
         $form = new Varien_Data_Form([

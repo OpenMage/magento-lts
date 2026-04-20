@@ -45,6 +45,7 @@ abstract class Mage_Wishlist_Block_Abstract extends Mage_Catalog_Block_Product_A
     /**
      * Internal constructor, that is called from real constructor
      */
+    #[Override]
     protected function _construct()
     {
         parent::_construct();
@@ -167,6 +168,7 @@ abstract class Mage_Wishlist_Block_Abstract extends Mage_Catalog_Block_Product_A
      * @param  Mage_Catalog_Model_Product|Mage_Wishlist_Model_Item $product
      * @return string
      */
+    #[Override]
     public function getAddToWishlistUrl($product)
     {
         return $this->getAddToWishlistUrlCustom($product);
@@ -327,6 +329,7 @@ abstract class Mage_Wishlist_Block_Abstract extends Mage_Catalog_Block_Product_A
      *
      * @return string
      */
+    #[Override]
     public function getPriceHtml($product, $displayMinimalPrice = false, $idSuffix = '')
     {
         $typeId = $product->getTypeId();
@@ -356,6 +359,7 @@ abstract class Mage_Wishlist_Block_Abstract extends Mage_Catalog_Block_Product_A
      * @param  array                                               $additional
      * @return string
      */
+    #[Override]
     public function getProductUrl($item, $additional = [])
     {
         $product = $item instanceof Mage_Catalog_Model_Product ? $item : $item->getProduct();
@@ -380,6 +384,7 @@ abstract class Mage_Wishlist_Block_Abstract extends Mage_Catalog_Block_Product_A
      * @param  bool                                                $addFormKey
      * @return string
      */
+    #[Override]
     public function getAddToWishlistUrlCustom($product, $addFormKey = true)
     {
         if (!$addFormKey) {

@@ -255,6 +255,7 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
      * @param  bool  $logQuery
      * @return $this
      */
+    #[Override]
     public function loadData($printQuery = false, $logQuery = false)
     {
         if ($this->isLoaded()) {
@@ -352,13 +353,12 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
      * Set select order
      * Currently supports only sorting by one column
      *
-     * @param  string $field
-     * @param  string $direction
-     * @return $this
+     * @inheritDoc
      */
-    public function setOrder($field, $direction = self::SORT_ORDER_DESC)
+    #[Override]
+    public function setOrder($field, $dir = self::SORT_ORDER_DESC)
     {
-        $this->_orders = [$field => $direction];
+        $this->_orders = [$field => $dir];
         return $this;
     }
 
@@ -607,6 +607,7 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
      * @param  string       $type  and|or|string
      * @return $this
      */
+    #[Override]
     public function addFilter($field, $value, $type = 'and')
     {
         return $this;
@@ -617,6 +618,7 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
      *
      * @return array
      */
+    #[Override]
     public function getAllIds()
     {
         return array_keys($this->_items);

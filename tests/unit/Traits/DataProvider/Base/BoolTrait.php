@@ -15,7 +15,7 @@ use Generator;
 
 trait BoolTrait
 {
-    public function provideBool(): Generator
+    public static function provideBool(): Generator
     {
         yield 'true' => [
             true,

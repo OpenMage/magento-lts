@@ -63,6 +63,7 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_View extends Mage_Adminhtml_Bloc
     /**
      * @return string
      */
+    #[Override]
     public function getHeaderText()
     {
         if ($this->getShipment()->getEmailSent()) {
@@ -86,6 +87,7 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_View extends Mage_Adminhtml_Bloc
     /**
      * @return string
      */
+    #[Override]
     public function getBackUrl()
     {
         return $this->getUrl(

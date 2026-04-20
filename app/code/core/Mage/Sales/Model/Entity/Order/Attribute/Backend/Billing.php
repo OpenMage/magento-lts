@@ -20,6 +20,7 @@ class Mage_Sales_Model_Entity_Order_Attribute_Backend_Billing extends Mage_Eav_M
      * @param  Mage_Sales_Model_Order $object
      * @return $this
      */
+    #[Override]
     public function beforeSave($object)
     {
         $billingAddressId = $object->getBillingAddressId();
@@ -36,6 +37,7 @@ class Mage_Sales_Model_Entity_Order_Attribute_Backend_Billing extends Mage_Eav_M
      * @param  Mage_Sales_Model_Order $object
      * @return $this
      */
+    #[Override]
     public function afterSave($object)
     {
         $billingAddressId = false;

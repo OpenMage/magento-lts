@@ -17,6 +17,7 @@ class Mage_Directory_Block_Adminhtml_Frontend_Currency_Base extends Mage_Adminht
     /**
      * @inheritDoc
      */
+    #[Override]
     public function render(Varien_Data_Form_Element_Abstract $element)
     {
         if ($this->getRequest()->getParam('website') != '') {

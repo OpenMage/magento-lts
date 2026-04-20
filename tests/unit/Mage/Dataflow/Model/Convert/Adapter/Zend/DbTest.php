@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Dataflow\Model\Convert\Adapter\Zend;
 
 // use Mage;
 // use Mage_Dataflow_Model_Convert_Adapter_Zend_Db as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Dataflow\Model\Convert\Adapter\Zend\DbTrait;
 
@@ -22,6 +23,7 @@ final class DbTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

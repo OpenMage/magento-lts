@@ -14,6 +14,7 @@
  */
 class Mage_Adminhtml_Model_System_Config_Backend_Category extends Mage_Core_Model_Config_Data
 {
+    #[Override]
     protected function _afterSave()
     {
         if ($this->getScope() == 'stores') {

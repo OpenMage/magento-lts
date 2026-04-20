@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Bundle\Block\Adminhtml\Sales\Order\View\Items;
 
 // use Mage_Bundle_Block_Adminhtml_Sales_Order_View_Items_Renderer as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Bundle\Block\Adminhtml\Sales\Order\View\Items\RendererTrait;
 
@@ -21,6 +22,7 @@ final class RendererTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

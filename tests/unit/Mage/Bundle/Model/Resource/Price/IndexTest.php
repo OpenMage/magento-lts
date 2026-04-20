@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Bundle\Model\Resource\Price;
 
 // use Mage;
 // use Mage_Bundle_Model_Resource_Price_Index as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Bundle\Model\Resource\Price\IndexTrait;
 
@@ -22,6 +23,7 @@ final class IndexTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

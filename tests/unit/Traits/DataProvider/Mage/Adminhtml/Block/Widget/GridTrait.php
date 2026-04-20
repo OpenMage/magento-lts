@@ -15,7 +15,7 @@ use Generator;
 
 trait GridTrait
 {
-    public function provideAddColumnDefaultData(): Generator
+    public static function provideAddColumnDefaultData(): Generator
     {
         yield 'empty' => [
             [],

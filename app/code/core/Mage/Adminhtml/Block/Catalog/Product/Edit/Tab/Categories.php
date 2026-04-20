@@ -89,6 +89,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Categories extends Mage_Admi
      * @param  int                              $recursionLevel
      * @return Varien_Data_Tree_Node
      */
+    #[Override]
     public function getRoot($parentNodeCategory = null, $recursionLevel = 3)
     {
         if (!is_null($parentNodeCategory) && $parentNodeCategory->getId()) {
@@ -140,6 +141,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Categories extends Mage_Admi
      * @param  int                   $level How deep is the node in the tree
      * @return array
      */
+    #[Override]
     protected function _getNodeJson($node, $level = 1)
     {
         $item = parent::_getNodeJson($node, $level);
@@ -165,6 +167,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Categories extends Mage_Admi
      * @param  Varien_Data_Tree_Node $node
      * @return bool
      */
+    #[Override]
     protected function _isParentSelectedCategory($node)
     {
         foreach ($this->_getSelectedNodes() as $selected) {
@@ -225,6 +228,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Categories extends Mage_Admi
     /**
      * @inheritDoc
      */
+    #[Override]
     public function getLoadTreeUrl($expanded = null)
     {
         return $this->getUrl('*/*/categoriesJson', ['_current' => true]);

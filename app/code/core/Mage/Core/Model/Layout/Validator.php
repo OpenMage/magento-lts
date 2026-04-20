@@ -78,7 +78,7 @@ class Mage_Core_Model_Layout_Validator extends Mage_Core_Model_Validate_Abstract
     /**
      * Initialize messages templates with translating
      *
-     * @return Mage_Core_Model_Layout_Validator
+     * @return $this
      */
     protected function _initMessageTemplates()
     {

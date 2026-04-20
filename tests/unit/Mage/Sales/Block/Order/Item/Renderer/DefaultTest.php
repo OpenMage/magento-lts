@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Sales\Block\Order\Item\Renderer;
 
+use Override;
 use Mage_Sales_Block_Order_Item_Renderer_Default as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use Varien_Object;
@@ -19,6 +20,7 @@ final class DefaultTest extends OpenMageTest
 {
     private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

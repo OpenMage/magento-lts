@@ -185,6 +185,7 @@ class Mage_Checkout_Block_Cart extends Mage_Checkout_Block_Cart_Abstract
      *
      * @return Mage_Sales_Model_Quote_Item[]
      */
+    #[Override]
     public function getItems()
     {
         if ($this->getCustomItems()) {

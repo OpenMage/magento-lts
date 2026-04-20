@@ -240,6 +240,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
      * Return template id
      * return int|null
      */
+    #[Override]
     public function getId()
     {
         return $this->getTemplateId();
@@ -250,6 +251,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
      * @param  int   $value
      * @return $this
      */
+    #[Override]
     public function setId($value)
     {
         return $this->setTemplateId($value);
@@ -648,6 +650,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
      *
      * {@inheritDoc}
      */
+    #[Override]
     protected function _beforeSave()
     {
         $code = $this->getTemplateCode();

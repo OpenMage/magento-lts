@@ -18,6 +18,7 @@ class Mage_Adminhtml_Block_System_Store_Grid_Render_Website extends Mage_Adminht
     /**
      * @return string
      */
+    #[Override]
     public function render(Varien_Object $row)
     {
         return '<a title="' . Mage::helper('core')->__('Edit Website') . '"

@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Oauth\Block\Adminhtml\Oauth\Authorize;
 
 // use Mage_Oauth_Block_Adminhtml_Oauth_Authorize_Button as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Oauth\Block\Adminhtml\Oauth\Authorize\ButtonTrait;
 
@@ -21,6 +22,7 @@ final class ButtonTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

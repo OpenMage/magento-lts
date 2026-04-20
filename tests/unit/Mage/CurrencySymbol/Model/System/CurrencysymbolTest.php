@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\CurrencySymbol\Model\System;
 
 // use Mage;
 // use Mage_CurrencySymbol_Model_System_Currencysymbol as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\CurrencySymbol\Model\System\CurrencysymbolTrait;
 
@@ -22,6 +23,7 @@ final class CurrencysymbolTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
