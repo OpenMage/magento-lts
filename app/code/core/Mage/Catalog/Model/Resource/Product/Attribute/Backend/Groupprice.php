@@ -28,6 +28,7 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Groupprice extends M
      * @param  array $columns
      * @return array
      */
+    #[Override]
     protected function _loadPriceDataColumns($columns)
     {
         $columns               = parent::_loadPriceDataColumns($columns);

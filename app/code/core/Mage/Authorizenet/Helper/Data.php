@@ -35,6 +35,7 @@ class Mage_Authorizenet_Helper_Data extends Mage_Core_Helper_Abstract
      * @param  array  $params
      * @return string
      */
+    #[Override]
     protected function _getUrl($route, $params = [])
     {
         $params['_type'] = Mage_Core_Model_Store::URL_TYPE_LINK;

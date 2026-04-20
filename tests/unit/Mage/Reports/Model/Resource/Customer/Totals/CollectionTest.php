@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Reports\Model\Resource\Customer\Totals;
 
 // use Mage;
 // use Mage_Reports_Model_Resource_Customer_Totals_Collection as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Reports\Model\Resource\Customer\Totals\CollectionTrait;
 
@@ -22,6 +23,7 @@ final class CollectionTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

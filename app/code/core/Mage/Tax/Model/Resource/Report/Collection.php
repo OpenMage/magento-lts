@@ -81,6 +81,7 @@ class Mage_Tax_Model_Resource_Report_Collection extends Mage_Sales_Model_Resourc
      *
      * @return $this
      */
+    #[Override]
     protected function _initSelect()
     {
         $this->getSelect()->from($this->getResource()->getMainTable(), $this->_getSelectedColumns());

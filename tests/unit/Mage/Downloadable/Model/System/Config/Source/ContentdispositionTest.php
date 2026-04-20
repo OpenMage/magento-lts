@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Downloadable\Model\System\Config\Source;
 
 // use Mage;
 // use Mage_Downloadable_Model_System_Config_Source_Contentdisposition as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Downloadable\Model\System\Config\Source\ContentdispositionTrait;
 
@@ -22,6 +23,7 @@ final class ContentdispositionTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

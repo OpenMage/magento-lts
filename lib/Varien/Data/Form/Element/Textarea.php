@@ -33,6 +33,7 @@ class Varien_Data_Form_Element_Textarea extends Varien_Data_Form_Element_Abstrac
     /**
      * @return array<int, string>
      */
+    #[Override]
     public function getHtmlAttributes()
     {
         return ['title', 'class', 'style', 'onclick', 'onchange', 'rows', 'cols', 'readonly', 'disabled', 'onkeyup', 'tabindex'];
@@ -41,6 +42,7 @@ class Varien_Data_Form_Element_Textarea extends Varien_Data_Form_Element_Abstrac
     /**
      * @return string
      */
+    #[Override]
     public function getElementHtml()
     {
         $this->addClass('textarea');

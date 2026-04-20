@@ -28,6 +28,7 @@ class Mage_Adminhtml_Block_Checkout_Agreement_Edit_Form extends Mage_Adminhtml_B
     /**
      * return Mage_Adminhtml_Block_Widget_Form
      */
+    #[Override]
     protected function _prepareForm()
     {
         $model  = Mage::registry('checkout_agreement');

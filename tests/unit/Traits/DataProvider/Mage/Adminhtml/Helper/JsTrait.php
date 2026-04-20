@@ -15,7 +15,7 @@ use Generator;
 
 trait JsTrait
 {
-    public function provideDecodeGridSerializedInput(): Generator
+    public static function provideDecodeGridSerializedInput(): Generator
     {
         yield 'w/o keys' => [
             [

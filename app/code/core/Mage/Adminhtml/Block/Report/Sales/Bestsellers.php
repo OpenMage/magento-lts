@@ -33,6 +33,7 @@ class Mage_Adminhtml_Block_Report_Sales_Bestsellers extends Mage_Adminhtml_Block
         return $this->getUrl('*/*/bestsellers', ['_current' => true]);
     }
 
+    #[Override]
     public function getHeaderCssClass()
     {
         return 'icon-head head-report';

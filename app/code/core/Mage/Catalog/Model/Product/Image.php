@@ -332,7 +332,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
      */
     protected function _getNeedMemoryForFile($file = null)
     {
-        $file = is_null($file) ? $this->getBaseFile() : $file;
+        $file ??= $this->getBaseFile();
         if (!$file) {
             return 0;
         }

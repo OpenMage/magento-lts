@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\CatalogInventory\Model\Resource\Indexer;
 
 // use Mage;
 // use Mage_CatalogInventory_Model_Resource_Indexer_Stock as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\CatalogInventory\Model\Resource\Indexer\StockTrait;
 
@@ -22,6 +23,7 @@ final class StockTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

@@ -30,6 +30,7 @@ class Mage_Wishlist_Block_Customer_Sidebar extends Mage_Wishlist_Block_Abstract
      * @param  Mage_Wishlist_Model_Resource_Item_Collection $collection
      * @return $this
      */
+    #[Override]
     protected function _prepareCollection($collection)
     {
         $collection->setCurPage(1)
@@ -45,6 +46,7 @@ class Mage_Wishlist_Block_Customer_Sidebar extends Mage_Wishlist_Block_Abstract
      *
      * @return string
      */
+    #[Override]
     protected function _toHtml()
     {
         if ($this->getItemCount()) {
@@ -70,6 +72,7 @@ class Mage_Wishlist_Block_Customer_Sidebar extends Mage_Wishlist_Block_Abstract
      *
      * @return Mage_Wishlist_Model_Resource_Item_Collection
      */
+    #[Override]
     public function getWishlistItems()
     {
         if (is_null($this->_collection)) {
@@ -96,6 +99,7 @@ class Mage_Wishlist_Block_Customer_Sidebar extends Mage_Wishlist_Block_Abstract
      *
      * @return bool
      */
+    #[Override]
     public function hasWishlistItems()
     {
         return $this->getItemCount() > 0;
@@ -106,6 +110,7 @@ class Mage_Wishlist_Block_Customer_Sidebar extends Mage_Wishlist_Block_Abstract
      *
      * @return array
      */
+    #[Override]
     public function getCacheTags()
     {
         if ($this->getItemCount()) {

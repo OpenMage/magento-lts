@@ -19,6 +19,7 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option_Select extends M
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _construct()
     {
         $this->setTemplate('bundle/catalog/product/view/type/bundle/option/select.phtml');

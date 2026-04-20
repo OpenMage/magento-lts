@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Newsletter\Model;
 
 // use Mage;
 // use Mage_Newsletter_Model_Subscriber as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Newsletter\Model\SubscriberTrait;
 
@@ -22,6 +23,7 @@ final class SubscriberTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

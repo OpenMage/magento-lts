@@ -22,6 +22,7 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _construct()
     {
         $this->setTemplate('page/html/head.phtml');

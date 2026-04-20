@@ -202,6 +202,7 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
      *
      * @return $this
      */
+    #[Override]
     protected function _initWebsites()
     {
         foreach (Mage::app()->getWebsites() as $website) {
@@ -1110,6 +1111,7 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
      *
      * @return Mage_Eav_Model_Resource_Entity_Attribute_Collection
      */
+    #[Override]
     public function filterAttributeCollection(Mage_Eav_Model_Resource_Entity_Attribute_Collection $collection)
     {
         $validTypes = array_keys($this->_productTypeModels);

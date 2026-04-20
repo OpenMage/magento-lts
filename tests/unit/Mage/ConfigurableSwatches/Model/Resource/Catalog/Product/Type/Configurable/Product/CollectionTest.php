@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\ConfigurableSwatches\Model\Resource\Catalog\P
 
 // use Mage;
 // use Mage_ConfigurableSwatches_Model_Resource_Catalog_Product_Type_Configurable_Product_Collection as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\ConfigurableSwatches\Model\Resource\Catalog\Product\Type\Configurable\Product\CollectionTrait;
 
@@ -22,6 +23,7 @@ final class CollectionTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

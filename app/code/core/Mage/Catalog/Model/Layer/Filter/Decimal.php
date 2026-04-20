@@ -55,6 +55,7 @@ class Mage_Catalog_Model_Layer_Filter_Decimal extends Mage_Catalog_Model_Layer_F
      * @return $this
      * @throws Mage_Core_Model_Store_Exception
      */
+    #[Override]
     public function apply(Zend_Controller_Request_Abstract $request, $filterBlock)
     {
         parent::apply($request, $filterBlock);
@@ -196,6 +197,7 @@ class Mage_Catalog_Model_Layer_Filter_Decimal extends Mage_Catalog_Model_Layer_F
      * @throws Mage_Core_Model_Store_Exception
      * @throws Zend_Controller_Response_Exception
      */
+    #[Override]
     protected function _getItemsData()
     {
         $key = $this->_getCacheKey();

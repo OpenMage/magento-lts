@@ -34,6 +34,7 @@ class Mage_Api2_Block_Adminhtml_Attribute_Edit extends Mage_Adminhtml_Block_Widg
      *
      * @return string
      */
+    #[Override]
     public function getHeaderText()
     {
         $userTypes = Mage_Api2_Model_Auth_User::getUserTypes();

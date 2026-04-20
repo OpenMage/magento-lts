@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Captcha\Model\Config\Form;
 
 // use Mage;
 // use Mage_Captcha_Model_Config_Form_Backend as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Captcha\Model\Config\Form\BackendTrait;
 
@@ -22,6 +23,7 @@ final class BackendTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

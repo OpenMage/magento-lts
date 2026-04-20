@@ -40,6 +40,7 @@ class Mage_Page_Block_Html_Wrapper extends Mage_Core_Block_Abstract
      *
      * @return string
      */
+    #[Override]
     protected function _toHtml()
     {
         $html = empty($this->_children) ? '' : trim($this->getChildHtml('', true, true));

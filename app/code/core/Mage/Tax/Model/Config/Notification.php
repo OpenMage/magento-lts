@@ -52,6 +52,7 @@ class Mage_Tax_Model_Config_Notification extends Mage_Core_Model_Config_Data
      * @inheritDoc
      * @throws Throwable
      */
+    #[Override]
     protected function _afterSave()
     {
         if ($this->isValueChanged()) {

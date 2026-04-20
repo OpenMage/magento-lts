@@ -47,6 +47,7 @@ class Mage_Sales_Block_Order_Invoice_Totals extends Mage_Sales_Block_Order_Total
      *
      * @return Mage_Sales_Model_Order
      */
+    #[Override]
     public function getSource()
     {
         return $this->getInvoice();
@@ -57,6 +58,7 @@ class Mage_Sales_Block_Order_Invoice_Totals extends Mage_Sales_Block_Order_Total
      *
      * @return $this
      */
+    #[Override]
     protected function _initTotals()
     {
         parent::_initTotals();

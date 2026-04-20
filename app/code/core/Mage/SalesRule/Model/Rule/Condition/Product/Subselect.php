@@ -29,6 +29,7 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Subselect extends Mage_SalesRu
      * @param  string                                                    $key
      * @return $this|Mage_SalesRule_Model_Rule_Condition_Product_Combine
      */
+    #[Override]
     public function loadArray($arr, $key = 'conditions')
     {
         $this->setAttribute($arr['attribute']);
@@ -42,6 +43,7 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Subselect extends Mage_SalesRu
      * @param  string $itemKey
      * @return string
      */
+    #[Override]
     public function asXml($containerKey = 'conditions', $itemKey = 'condition')
     {
         return '<attribute>' . $this->getAttribute() . '</attribute>'
@@ -52,6 +54,7 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Subselect extends Mage_SalesRu
     /**
      * @return $this|Mage_SalesRule_Model_Rule_Condition_Product_Combine
      */
+    #[Override]
     public function loadAttributeOptions()
     {
         $this->setAttributeOption([
@@ -64,6 +67,7 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Subselect extends Mage_SalesRu
     /**
      * @return $this|Mage_SalesRule_Model_Rule_Condition_Product_Combine
      */
+    #[Override]
     public function loadValueOptions()
     {
         return $this;
@@ -72,6 +76,7 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Subselect extends Mage_SalesRu
     /**
      * @return $this|Mage_SalesRule_Model_Rule_Condition_Product_Combine
      */
+    #[Override]
     public function loadOperatorOptions()
     {
         $this->setOperatorOption([
@@ -90,6 +95,7 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Subselect extends Mage_SalesRu
     /**
      * @return string
      */
+    #[Override]
     public function getValueElementType()
     {
         return 'text';
@@ -99,6 +105,7 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Subselect extends Mage_SalesRu
      * @return string
      * @throws Exception
      */
+    #[Override]
     public function asHtml()
     {
         $html = $this->getTypeElement()->getHtml()
@@ -116,6 +123,7 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Subselect extends Mage_SalesRu
      * @param  Varien_Object $object Quote
      * @return bool
      */
+    #[Override]
     public function validate(Varien_Object $object)
     {
         if (!$this->getConditions()) {

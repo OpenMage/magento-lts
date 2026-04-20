@@ -73,6 +73,7 @@ class Mage_Catalog_Model_Indexer_Url extends Mage_Index_Model_Indexer_Abstract
      *
      * @return string
      */
+    #[Override]
     public function getDescription()
     {
         return Mage::helper('catalog')->__('Index product and categories URL rewrites');
@@ -84,6 +85,7 @@ class Mage_Catalog_Model_Indexer_Url extends Mage_Index_Model_Indexer_Abstract
      *
      * @return bool
      */
+    #[Override]
     public function matchEvent(Mage_Index_Model_Event $event)
     {
         $data       = $event->getNewData();
@@ -221,6 +223,7 @@ class Mage_Catalog_Model_Indexer_Url extends Mage_Index_Model_Indexer_Abstract
     /**
      * Rebuild all index data
      */
+    #[Override]
     public function reindexAll()
     {
         /** @var Mage_Catalog_Model_Resource_Url $resourceModel */

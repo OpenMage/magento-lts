@@ -22,6 +22,7 @@ class Mage_Sales_Model_Quote_Address_Total_Tax extends Mage_Sales_Model_Quote_Ad
     /**
      * @return $this
      */
+    #[Override]
     public function collect(Mage_Sales_Model_Quote_Address $address)
     {
         $store = $address->getQuote()->getStore();
@@ -229,6 +230,7 @@ class Mage_Sales_Model_Quote_Address_Total_Tax extends Mage_Sales_Model_Quote_Ad
     /**
      * @return $this
      */
+    #[Override]
     public function fetch(Mage_Sales_Model_Quote_Address $address)
     {
         $applied = $address->getAppliedTaxes();

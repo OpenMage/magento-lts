@@ -57,6 +57,7 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
      *
      * @return $this
      */
+    #[Override]
     public function collect(Mage_Sales_Model_Quote_Address $address)
     {
         Mage_Sales_Model_Quote_Address_Total_Abstract::collect($address);
@@ -322,6 +323,7 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
      *
      * @return $this
      */
+    #[Override]
     protected function _recalculateParent(Mage_Sales_Model_Quote_Item_Abstract $item)
     {
         return $this;
@@ -354,6 +356,7 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
      *
      * @return $this
      */
+    #[Override]
     public function fetch(Mage_Sales_Model_Quote_Address $address)
     {
         return $this;
@@ -367,6 +370,7 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
      * @param  Mage_Core_Model_Store $store
      * @return array
      */
+    #[Override]
     public function processConfigArray($config, $store)
     {
         return $config;
@@ -622,6 +626,7 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
      *
      * TODO: fix
      */
+    #[Override]
     public function getLabel()
     {
         return '';

@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\ImportExport\Model\Export\Entity;
 
 // use Mage;
 // use Mage_ImportExport_Model_Export_Entity_Customer as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\ImportExport\Model\Export\Entity\CustomerTrait;
 
@@ -22,6 +23,7 @@ final class CustomerTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

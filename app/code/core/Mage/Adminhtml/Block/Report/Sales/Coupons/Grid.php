@@ -26,6 +26,7 @@ class Mage_Adminhtml_Block_Report_Sales_Coupons_Grid extends Mage_Adminhtml_Bloc
     /**
      * @inheritDoc
      */
+    #[Override]
     public function getResourceCollectionName()
     {
         if (($this->getFilterData()->getDataByKey('report_type') === 'updated_at_order')) {
@@ -38,6 +39,7 @@ class Mage_Adminhtml_Block_Report_Sales_Coupons_Grid extends Mage_Adminhtml_Bloc
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareColumns()
     {
         $this->addColumn('period', [
@@ -152,6 +154,7 @@ class Mage_Adminhtml_Block_Report_Sales_Coupons_Grid extends Mage_Adminhtml_Bloc
      * @param  Varien_Object                                   $filterData
      * @return $this
      */
+    #[Override]
     protected function _addCustomFilter($collection, $filterData)
     {
         if ($filterData->getPriceRuleType()) {

@@ -14,6 +14,7 @@ class Varien_Filter_Object_Grid extends Varien_Filter_Object
      * @return array
      * @throws Exception
      */
+    #[Override]
     public function filter($grid)
     {
         $out = [];

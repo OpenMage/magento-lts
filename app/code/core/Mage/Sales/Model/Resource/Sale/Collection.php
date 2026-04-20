@@ -98,6 +98,7 @@ class Mage_Sales_Model_Resource_Sale_Collection extends Varien_Data_Collection_D
      *
      * @return Varien_Data_Collection_Db
      */
+    #[Override]
     protected function _beforeLoad()
     {
         $this->getSelect()
@@ -144,6 +145,7 @@ class Mage_Sales_Model_Resource_Sale_Collection extends Varien_Data_Collection_D
      * @return Varien_Data_Collection_Db
      * @throws Mage_Core_Model_Store_Exception
      */
+    #[Override]
     public function load($printQuery = false, $logQuery = false)
     {
         if ($this->isLoaded()) {

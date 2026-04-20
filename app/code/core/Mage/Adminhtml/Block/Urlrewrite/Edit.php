@@ -32,6 +32,7 @@ class Mage_Adminhtml_Block_Urlrewrite_Edit extends Mage_Adminhtml_Block_Widget_C
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareLayout()
     {
         $this->setTemplate('urlrewrite/edit.phtml');
@@ -187,6 +188,7 @@ class Mage_Adminhtml_Block_Urlrewrite_Edit extends Mage_Adminhtml_Block_Widget_C
      *
      * @return string
      */
+    #[Override]
     public function getButtonsHtml($area = null)
     {
         if ($this->_buttonsHtml === null) {
@@ -271,6 +273,7 @@ class Mage_Adminhtml_Block_Urlrewrite_Edit extends Mage_Adminhtml_Block_Widget_C
     /**
      * @return string
      */
+    #[Override]
     public function getHeaderCssClass()
     {
         return 'icon-head head-urlrewrite';

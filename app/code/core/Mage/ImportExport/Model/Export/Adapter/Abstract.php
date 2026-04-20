@@ -17,6 +17,7 @@
  * @property string   $_enclosure
  * @property string   $_escape
  */
+#[AllowDynamicProperties]
 abstract class Mage_ImportExport_Model_Export_Adapter_Abstract
 {
     /**

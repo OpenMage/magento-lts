@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Index\Model\Resource;
 
 // use Mage;
 // use Mage_Index_Model_Resource_Abstract as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Index\Model\Resource\AbstractTrait;
 
@@ -22,6 +23,7 @@ final class AbstractTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

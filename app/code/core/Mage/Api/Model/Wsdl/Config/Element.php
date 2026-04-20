@@ -19,6 +19,7 @@ class Mage_Api_Model_Wsdl_Config_Element extends Varien_Simplexml_Element
      * @param  bool                           $overwrite
      * @return $this|Varien_Simplexml_Element
      */
+    #[Override]
     public function extend($source, $overwrite = false)
     {
         if (!$source instanceof Varien_Simplexml_Element) {
@@ -42,6 +43,7 @@ class Mage_Api_Model_Wsdl_Config_Element extends Varien_Simplexml_Element
      * @param  string                   $elmNamespace
      * @return Varien_Simplexml_Element
      */
+    #[Override]
     public function extendChild($source, $overwrite = false, $elmNamespace = '')
     {
         // this will be our new target node
@@ -209,6 +211,7 @@ class Mage_Api_Model_Wsdl_Config_Element extends Varien_Simplexml_Element
      * @return bool
      */
     #[ReturnTypeWillChange]
+    #[Override]
     public function hasChildren()
     {
         if (!self::_getChildren($this)) {
@@ -271,6 +274,7 @@ class Mage_Api_Model_Wsdl_Config_Element extends Varien_Simplexml_Element
      * @param  string      $namespace
      * @return null|string
      */
+    #[Override]
     public function getAttribute($name, $namespace = '')
     {
         $attrs = $this->attributes($namespace);

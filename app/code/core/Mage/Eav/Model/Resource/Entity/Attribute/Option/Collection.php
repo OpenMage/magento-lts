@@ -107,6 +107,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Option_Collection extends Mage_Co
      * @param  string $valueKey
      * @return array
      */
+    #[Override]
     public function toOptionArray($valueKey = 'value')
     {
         return $this->_toOptionArray('option_id', $valueKey);

@@ -459,6 +459,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service extends Mage_Usa_Model_
      *
      * @param array<string, mixed> $data
      */
+    #[Override]
     protected function _debug(array $data): void
     {
         if (isset($data['request']['paymentInfo']['accountNumber'])) {
