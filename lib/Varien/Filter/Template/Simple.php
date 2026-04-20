@@ -29,8 +29,8 @@ class Varien_Filter_Template_Simple extends Varien_Object implements Zend_Filter
     /**
      * Define start tag and end tag
      *
-     * @param  string                        $start
-     * @param  string                        $end
+     * @param  string $start
+     * @param  string $end
      * @return $this
      */
     public function setTags($start, $end)

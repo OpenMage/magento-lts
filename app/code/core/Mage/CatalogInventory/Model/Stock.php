@@ -157,7 +157,7 @@ class Mage_CatalogInventory_Model_Stock extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @param  array                             $items
+     * @param  array $items
      * @return $this
      */
     public function revertProductsSale($items)
@@ -220,7 +220,7 @@ class Mage_CatalogInventory_Model_Stock extends Mage_Core_Model_Abstract
     /**
      * Lock stock items for product ids array
      *
-     * @param  array                             $productIds
+     * @param  array $productIds
      * @return $this
      */
     public function lockProductItems($productIds)

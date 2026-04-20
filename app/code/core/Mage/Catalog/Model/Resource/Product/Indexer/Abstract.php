@@ -93,9 +93,9 @@ abstract class Mage_Catalog_Model_Resource_Product_Indexer_Abstract extends Mage
      *  csg for store group table (joined by website default group)
      *  cs for store table (joined by website default store)
      *
-     * @param  Varien_Db_Select                                     $select        the select object
-     * @param  bool                                                 $store         add default store join
-     * @param  string|Zend_Db_Expr                                  $joinCondition the limitation for website_id
+     * @param  Varien_Db_Select    $select        the select object
+     * @param  bool                $store         add default store join
+     * @param  string|Zend_Db_Expr $joinCondition the limitation for website_id
      * @return $this
      */
     protected function _addWebsiteJoinToSelect($select, $store = true, $joinCondition = null)

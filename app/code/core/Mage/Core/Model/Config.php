@@ -573,7 +573,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
     /**
      * Save configuration cache
      *
-     * @param  array                  $tags cache tags
+     * @param  array $tags cache tags
      * @return $this
      */
     #[Override]
@@ -1716,9 +1716,9 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
     /**
      * Delete config value from DB
      *
-     * @param  string                 $path
-     * @param  string                 $scope
-     * @param  int                    $scopeId
+     * @param  string $path
+     * @param  string $scope
+     * @param  int    $scopeId
      * @return $this
      */
     public function deleteConfig($path, $scope = 'default', $scopeId = 0)

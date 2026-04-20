@@ -107,7 +107,7 @@ abstract class Mage_Index_Model_Resource_Abstract extends Mage_Core_Model_Resour
     /**
      * Create temporary table for index data pregeneration
      *
-     * @param  bool                               $asOriginal
+     * @param  bool  $asOriginal
      * @return $this
      * @deprecated since 1.5.0.0
      */
@@ -119,9 +119,9 @@ abstract class Mage_Index_Model_Resource_Abstract extends Mage_Core_Model_Resour
     /**
      * Copy data from source table of read adapter to destination table of index adapter
      *
-     * @param  string                             $sourceTable
-     * @param  string                             $destTable
-     * @param  bool                               $readToIndex data migration direction (true - read=>index, false - index=>read)
+     * @param  string $sourceTable
+     * @param  string $destTable
+     * @param  bool   $readToIndex data migration direction (true - read=>index, false - index=>read)
      * @return $this
      */
     public function insertFromTable($sourceTable, $destTable, $readToIndex = true)
@@ -146,9 +146,9 @@ abstract class Mage_Index_Model_Resource_Abstract extends Mage_Core_Model_Resour
      * Insert data from select statement of read adapter to
      * destination table related with index adapter
      *
-     * @param  Varien_Db_Select                   $select
-     * @param  string                             $destTable
-     * @param  bool                               $readToIndex data migration direction (true - read=>index, false - index=>read)
+     * @param  Varien_Db_Select $select
+     * @param  string           $destTable
+     * @param  bool             $readToIndex data migration direction (true - read=>index, false - index=>read)
      * @return $this
      */
     public function insertFromSelect($select, $destTable, array $columns, $readToIndex = true)
@@ -227,7 +227,7 @@ abstract class Mage_Index_Model_Resource_Abstract extends Mage_Core_Model_Resour
     /**
      * Set whether table changes are allowed
      *
-     * @param  bool                               $value
+     * @param  bool  $value
      * @return $this
      * @deprecated after 1.6.1.0
      */

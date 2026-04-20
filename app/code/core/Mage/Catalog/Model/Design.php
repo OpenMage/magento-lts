@@ -268,10 +268,10 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @param  mixed                     $designUpdateData
-     * @param  int                       $calledFrom
-     * @param  bool                      $loaded
-     * @param  int                       $pass
+     * @param  mixed $designUpdateData
+     * @param  int   $calledFrom
+     * @param  bool  $loaded
+     * @param  int   $pass
      * @return $this
      * @deprecated after 1.4.2.0-beta1
      */

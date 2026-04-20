@@ -166,7 +166,7 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
     /**
      * Remove index data for specifuc product
      *
-     * @param  mixed                           $product
+     * @param  mixed $product
      * @return $this
      */
     public function cleanup($product)
@@ -180,9 +180,9 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
     /**
      * Reindex catalog product data which used in layered navigation and in product list
      *
-     * @param  mixed                           $products
-     * @param  mixed                           $attributes
-     * @param  mixed                           $stores
+     * @param  mixed $products
+     * @param  mixed $attributes
+     * @param  mixed $stores
      * @return $this
      */
     public function plainReindex($products = null, $attributes = null, $stores = null)

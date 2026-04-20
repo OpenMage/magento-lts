@@ -75,7 +75,7 @@ class Mage_Core_Model_App_Area
     /**
      * Load area data
      *
-     * @param  null|string              $part
+     * @param  null|string $part
      * @return $this
      */
     public function load($part = null)
@@ -95,7 +95,7 @@ class Mage_Core_Model_App_Area
     /**
      * Loading part of area
      *
-     * @param  string                   $part
+     * @param  string $part
      * @return $this
      */
     protected function _loadPart($part)

@@ -169,9 +169,9 @@ class Mage_Catalog_Model_Product_Status extends Mage_Core_Model_Abstract
     /**
      * Update status value for product
      *
-     * @param  int                               $productId
-     * @param  int                               $storeId
-     * @param  int                               $value
+     * @param  int   $productId
+     * @param  int   $storeId
+     * @param  int   $value
      * @return $this
      */
     public function updateProductStatus($productId, $storeId, $value)

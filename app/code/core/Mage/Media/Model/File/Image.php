@@ -200,7 +200,7 @@ class Mage_Media_Model_File_Image extends Mage_Core_Model_Resource_Abstract
     /**
      * Destroys resource object
      *
-     * @param  GdImage|resource            $resource
+     * @param  GdImage|resource $resource
      * @return $this
      */
     public function destroyResource(&$resource)

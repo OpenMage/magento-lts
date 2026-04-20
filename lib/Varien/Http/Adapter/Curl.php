@@ -91,8 +91,8 @@ class Varien_Http_Adapter_Curl implements Zend_Http_Client_Adapter_Interface
     /**
      * Add additional option to cURL
      *
-     * @param  int                      $option the CURLOPT_* constants
-     * @param  mixed                    $value
+     * @param  int   $option the CURLOPT_* constants
+     * @param  mixed $value
      * @return $this
      */
     public function addOption($option, $value)
@@ -115,7 +115,7 @@ class Varien_Http_Adapter_Curl implements Zend_Http_Client_Adapter_Interface
     /**
      * Set the configuration array for the adapter
      *
-     * @param  array                    $config
+     * @param  array $config
      * @return $this
      */
     public function setConfig($config = [])

@@ -352,7 +352,7 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
      *
      * Is overridden here to set defaultUrl to admin url
      *
-     * @param  string                           $defaultUrl
+     * @param  string $defaultUrl
      * @return $this
      */
     #[Override]

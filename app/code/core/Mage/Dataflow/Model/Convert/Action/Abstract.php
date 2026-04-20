@@ -58,8 +58,8 @@ abstract class Mage_Dataflow_Model_Convert_Action_Abstract implements Mage_Dataf
     /**
      * Set action parameter
      *
-     * @param  string                                      $key
-     * @param  mixed                                       $value
+     * @param  string $key
+     * @param  mixed  $value
      * @return $this
      */
     public function setParam($key, $value = null)
@@ -86,7 +86,7 @@ abstract class Mage_Dataflow_Model_Convert_Action_Abstract implements Mage_Dataf
     /**
      * Set all action parameters
      *
-     * @param  array                                       $params
+     * @param  array $params
      * @return $this
      */
     public function setParams($params)

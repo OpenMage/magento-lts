@@ -31,7 +31,7 @@ class Mage_Catalog_Model_Layer_State extends Varien_Object
     /**
      * Set layer state filter items
      *
-     * @param  array                          $filters
+     * @param  array $filters
      * @return $this
      */
     public function setFilters($filters)

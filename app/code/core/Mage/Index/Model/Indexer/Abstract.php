@@ -150,7 +150,7 @@ abstract class Mage_Index_Model_Indexer_Abstract extends Mage_Core_Model_Abstrac
     /**
      * Set whether table changes are allowed
      *
-     * @param  bool                              $value
+     * @param  bool  $value
      * @return $this
      * @deprecated after 1.6.1.0
      */

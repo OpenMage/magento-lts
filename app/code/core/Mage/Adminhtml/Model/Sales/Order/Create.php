@@ -164,7 +164,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
     /**
      * Set collect totals flag for quote
      *
-     * @param  bool                                    $flag
+     * @param  bool  $flag
      * @return $this
      */
     public function setRecollect($flag)
@@ -715,8 +715,8 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
     /**
      * Remove item from some of customer items storage (shopping cart, wishlist etc.)
      *
-     * @param  int                                     $itemId
-     * @param  string                                  $from
+     * @param  int    $itemId
+     * @param  string $from
      * @return $this
      */
     public function removeItem($itemId, $from)
@@ -755,7 +755,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
     /**
      * Remove quote item
      *
-     * @param  int                                     $item
+     * @param  int   $item
      * @return $this
      */
     public function removeQuoteItem($item)
@@ -770,8 +770,8 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
      * $product can be either product id or product model
      * $config can be either buyRequest config, or just qty
      *
-     * @param  int|Mage_Catalog_Model_Product          $product
-     * @param  array|float|Varien_Object               $config
+     * @param  int|Mage_Catalog_Model_Product $product
+     * @param  array|float|Varien_Object      $config
      * @return $this
      */
     public function addProduct($product, $config = 1)
@@ -852,7 +852,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
     /**
      * Update quantity of order quote items
      *
-     * @param  array                                   $data
+     * @param  array $data
      * @return $this
      */
     public function updateQuoteItems($data)
@@ -1324,7 +1324,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
     /**
      * Parse data retrieved from request
      *
-     * @param  array                                   $data
+     * @param  array $data
      * @return $this
      */
     public function importPostData($data)

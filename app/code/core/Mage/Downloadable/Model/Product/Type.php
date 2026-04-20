@@ -341,7 +341,7 @@ class Mage_Downloadable_Model_Product_Type extends Mage_Catalog_Model_Product_Ty
     /**
      * Check if product can be bought
      *
-     * @param  Mage_Catalog_Model_Product           $product
+     * @param  Mage_Catalog_Model_Product $product
      * @return $this
      * @throws Mage_Core_Exception
      */

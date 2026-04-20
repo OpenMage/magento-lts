@@ -177,7 +177,7 @@ class Mage_Tax_Model_Observer
     /**
      * Add tax percent values to product collection items
      *
-     * @param  Varien_Event_Observer   $observer
+     * @param  Varien_Event_Observer $observer
      * @return $this
      */
     public function addTaxPercentToProductCollection($observer)

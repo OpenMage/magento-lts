@@ -417,9 +417,9 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
      * Example: the cataloginventory validation of decimal qty can change qty to int,
      * so need to change quote item qty option value too.
      *
-     * @param  array                          $options
-     * @param  mixed                          $value
-     * @param  Mage_Catalog_Model_Product     $product
+     * @param  array                      $options
+     * @param  mixed                      $value
+     * @param  Mage_Catalog_Model_Product $product
      * @return $this
      */
     #[Override]

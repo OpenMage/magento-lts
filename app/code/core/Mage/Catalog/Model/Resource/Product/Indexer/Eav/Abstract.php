@@ -43,7 +43,7 @@ abstract class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Abstract extends 
     /**
      * Rebuild index data by entities
      *
-     * @param  array|int                                                $processIds
+     * @param  array|int $processIds
      * @return $this
      * @throws Exception
      */
@@ -93,8 +93,8 @@ abstract class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Abstract extends 
      * Rebuild index data by attribute id
      * If attribute is not indexable remove data by attribute
      *
-     * @param  int                                                      $attributeId
-     * @param  bool                                                     $isIndexable
+     * @param  int   $attributeId
+     * @param  bool  $isIndexable
      * @return $this
      */
     public function reindexAttribute($attributeId, $isIndexable = true)
@@ -153,7 +153,7 @@ abstract class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Abstract extends 
     /**
      * Prepare data index for product relations
      *
-     * @param  array                                                    $parentIds the parent entity ids limitation
+     * @param  array $parentIds the parent entity ids limitation
      * @return $this
      */
     protected function _prepareRelationIndex($parentIds = null)
@@ -216,7 +216,7 @@ abstract class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Abstract extends 
     /**
      * Remove index data from index by attribute id
      *
-     * @param  int                                                      $attributeId
+     * @param  int   $attributeId
      * @return $this
      */
     protected function _removeAttributeIndexData($attributeId)
@@ -238,7 +238,7 @@ abstract class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Abstract extends 
     /**
      * Synchronize temporary index table with index table by attribute id
      *
-     * @param  int                                                      $attributeId
+     * @param  int       $attributeId
      * @return $this
      * @throws Exception
      */

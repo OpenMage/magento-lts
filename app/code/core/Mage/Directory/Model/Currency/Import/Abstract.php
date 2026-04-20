@@ -50,7 +50,7 @@ abstract class Mage_Directory_Model_Currency_Import_Abstract
     /**
      * Saving currency rates
      *
-     * @param  array                                         $rates
+     * @param  array $rates
      * @return $this
      */
     protected function _saveRates($rates)

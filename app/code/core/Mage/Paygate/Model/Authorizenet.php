@@ -1092,8 +1092,8 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
     /**
      * Mock capture transaction id in invoice
      *
-     * @param  Mage_Sales_Model_Order_Invoice     $invoice
-     * @param  Mage_Sales_Model_Order_Payment     $payment
+     * @param  Mage_Sales_Model_Order_Invoice $invoice
+     * @param  Mage_Sales_Model_Order_Payment $payment
      * @return $this
      */
     #[Override]
@@ -1105,8 +1105,8 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
 
     /**
      * Set transaction ID into creditmemo for informational purposes
-     * @param  Mage_Sales_Model_Order_Creditmemo  $creditmemo
-     * @param  Mage_Sales_Model_Order_Payment     $payment
+     * @param  Mage_Sales_Model_Order_Creditmemo $creditmemo
+     * @param  Mage_Sales_Model_Order_Payment    $payment
      * @return $this
      */
     #[Override]

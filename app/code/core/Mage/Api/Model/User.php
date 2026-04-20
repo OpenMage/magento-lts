@@ -256,8 +256,8 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
     /**
      * Login user
      *
-     * @param  string              $username
-     * @param  string              $apiKey
+     * @param  string    $username
+     * @param  string    $apiKey
      * @return $this
      * @throws Exception
      */

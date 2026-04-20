@@ -40,7 +40,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Startdate_Specialprice extend
      * Before save hook.
      * Prepare attribute value for save
      *
-     * @param  Varien_Object                                          $object
+     * @param  Varien_Object $object
      * @return $this
      */
     #[Override]

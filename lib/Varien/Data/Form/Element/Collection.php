@@ -134,7 +134,7 @@ class Varien_Data_Form_Element_Collection implements ArrayAccess, IteratorAggreg
     /**
      * Sort elements by values using a user-defined comparison function
      *
-     * @param  mixed                               $callback
+     * @param  mixed $callback
      * @return $this
      */
     public function usort($callback)
@@ -146,7 +146,7 @@ class Varien_Data_Form_Element_Collection implements ArrayAccess, IteratorAggreg
     /**
      * Remove element from collection
      *
-     * @param  mixed                               $elementId
+     * @param  mixed $elementId
      * @return $this
      */
     public function remove($elementId)

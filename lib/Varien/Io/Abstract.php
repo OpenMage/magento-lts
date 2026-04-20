@@ -25,7 +25,7 @@ abstract class Varien_Io_Abstract implements Varien_Io_Interface
     /**
      * Allow automatically create non-existent directories
      *
-     * @param  bool               $flag
+     * @param  bool  $flag
      * @return $this
      */
     public function setAllowCreateFolders($flag)

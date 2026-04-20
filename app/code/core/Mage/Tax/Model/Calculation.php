@@ -186,7 +186,7 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
     /**
      * Delete calculation settings by rule id
      *
-     * @param  int                        $ruleId
+     * @param  int                 $ruleId
      * @return $this
      * @throws Mage_Core_Exception
      */

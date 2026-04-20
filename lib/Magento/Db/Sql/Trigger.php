@@ -228,7 +228,7 @@ class Magento_Db_Sql_Trigger implements Stringable
     /**
      * Set trigger target, table name
      *
-     * @param                         $target
+     * @param        $target
      * @return $this
      */
     public function setTarget($target)
@@ -240,7 +240,7 @@ class Magento_Db_Sql_Trigger implements Stringable
     /**
      * Set trigger name
      *
-     * @param                         $name
+     * @param        $name
      * @return $this
      */
     public function setName($name)
@@ -267,7 +267,7 @@ class Magento_Db_Sql_Trigger implements Stringable
     /**
      * Set trigger body
      *
-     * @param  array|string           $body
+     * @param  array|string $body
      * @return $this
      */
     public function setBody($body)

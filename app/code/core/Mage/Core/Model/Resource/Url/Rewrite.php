@@ -102,7 +102,7 @@ class Mage_Core_Model_Resource_Url_Rewrite extends Mage_Core_Model_Resource_Db_A
      * Load rewrite information for request
      * If $path is array - we must load all possible records and choose one matching earlier record in array
      *
-     * @param  array|string                         $path
+     * @param  array|string $path
      * @return $this
      */
     public function loadByRequestPath(Mage_Core_Model_Url_Rewrite $object, $path)

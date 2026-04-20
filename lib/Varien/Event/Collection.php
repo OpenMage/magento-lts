@@ -116,7 +116,7 @@ class Varien_Event_Collection
      *
      * Will dispatch specific event and will try all global observers
      *
-     * @param  string                  $eventName
+     * @param  string $eventName
      * @return $this
      */
     public function dispatch($eventName, array $data = [])

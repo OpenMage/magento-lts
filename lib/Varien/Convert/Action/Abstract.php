@@ -58,8 +58,8 @@ abstract class Varien_Convert_Action_Abstract implements Varien_Convert_Action_I
     /**
      * Set action parameter
      *
-     * @param  string                         $key
-     * @param  mixed                          $value
+     * @param  string $key
+     * @param  mixed  $value
      * @return $this
      */
     public function setParam($key, $value = null)
@@ -86,7 +86,7 @@ abstract class Varien_Convert_Action_Abstract implements Varien_Convert_Action_I
     /**
      * Set all action parameters
      *
-     * @param  array                          $params
+     * @param  array $params
      * @return $this
      */
     public function setParams($params)

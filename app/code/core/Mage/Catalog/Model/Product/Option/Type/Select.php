@@ -17,7 +17,7 @@ class Mage_Catalog_Model_Product_Option_Type_Select extends Mage_Catalog_Model_P
     /**
      * Validate user input for option
      *
-     * @param  array                                          $values All product option values, i.e. array (option_id => mixed, option_id => mixed...)
+     * @param  array               $values All product option values, i.e. array (option_id => mixed, option_id => mixed...)
      * @return $this
      * @throws Mage_Core_Exception
      */

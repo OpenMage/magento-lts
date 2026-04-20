@@ -83,7 +83,7 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
      * Load rewrite information for request
      * If $path is array - we must load possible records and choose one matching earlier record in array
      *
-     * @param  mixed                       $path
+     * @param  mixed               $path
      * @return $this
      * @throws Mage_Core_Exception
      */

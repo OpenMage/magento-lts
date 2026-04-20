@@ -90,8 +90,8 @@ class Mage_CatalogIndex_Model_Aggregation extends Mage_Core_Model_Abstract
     /**
      * Delete cached aggregation data
      *
-     * @param  array                               $tags
-     * @param  null|int|string                     $store
+     * @param  array           $tags
+     * @param  null|int|string $store
      * @return $this
      */
     public function clearCacheData($tags = [], $store = null)
@@ -108,7 +108,7 @@ class Mage_CatalogIndex_Model_Aggregation extends Mage_Core_Model_Abstract
     /**
      * Clear all cache data related with products
      *
-     * @param  array                               $productIds
+     * @param  array $productIds
      * @return $this
      */
     public function clearProductData($productIds)

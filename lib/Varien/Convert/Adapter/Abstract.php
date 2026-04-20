@@ -36,7 +36,7 @@ abstract class Varien_Convert_Adapter_Abstract extends Varien_Convert_Container_
     /**
      * Set resource for the adapter
      *
-     * @param  object                          $resource
+     * @param  object $resource
      * @return $this
      */
     public function setResource($resource)

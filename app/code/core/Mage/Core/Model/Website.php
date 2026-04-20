@@ -158,7 +158,7 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
     /**
      * Load website configuration
      *
-     * @param  string                  $code
+     * @param  string              $code
      * @return $this
      * @throws Mage_Core_Exception
      */

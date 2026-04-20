@@ -93,9 +93,9 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
      * Init process load collection of rules for specific website,
      * customer group and coupon code
      *
-     * @param  int                            $websiteId
-     * @param  int                            $customerGroupId
-     * @param  string                         $couponCode
+     * @param  int                  $websiteId
+     * @param  int                  $customerGroupId
+     * @param  string               $couponCode
      * @return $this
      * @throws Zend_Cache_Exception
      */

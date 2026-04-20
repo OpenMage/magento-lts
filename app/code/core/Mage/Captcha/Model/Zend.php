@@ -479,7 +479,7 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
     /**
      * Set captcha word
      *
-     * @param  string            $word
+     * @param  string $word
      * @return $this
      */
     #[Override]

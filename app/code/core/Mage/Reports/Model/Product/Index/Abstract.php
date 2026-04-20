@@ -215,7 +215,7 @@ abstract class Mage_Reports_Model_Product_Index_Abstract extends Mage_Core_Model
 
     /**
      * Add product ids to current visitor/customer log
-     * @param  array                                     $productIds
+     * @param  array $productIds
      * @return $this
      */
     public function registerIds($productIds)

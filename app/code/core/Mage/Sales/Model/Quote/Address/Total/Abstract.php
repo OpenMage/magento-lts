@@ -44,7 +44,7 @@ abstract class Mage_Sales_Model_Quote_Address_Total_Abstract
     /**
      * Set total code code name
      *
-     * @param  string                                        $code
+     * @param  string $code
      * @return $this
      */
     public function setCode($code)
@@ -131,7 +131,7 @@ abstract class Mage_Sales_Model_Quote_Address_Total_Abstract
     /**
      * Set total model amount value to address
      *
-     * @param  float                                         $amount
+     * @param  float $amount
      * @return $this
      */
     protected function _setAmount($amount)
@@ -146,7 +146,7 @@ abstract class Mage_Sales_Model_Quote_Address_Total_Abstract
     /**
      * Set total model base amount value to address
      *
-     * @param  float                                         $baseAmount
+     * @param  float $baseAmount
      * @return $this
      */
     protected function _setBaseAmount($baseAmount)
@@ -161,7 +161,7 @@ abstract class Mage_Sales_Model_Quote_Address_Total_Abstract
     /**
      * Add total model amount value to address
      *
-     * @param  float                                         $amount
+     * @param  float $amount
      * @return $this
      */
     protected function _addAmount($amount)
@@ -176,7 +176,7 @@ abstract class Mage_Sales_Model_Quote_Address_Total_Abstract
     /**
      * Add total model base amount value to address
      *
-     * @param  float                                         $baseAmount
+     * @param  float $baseAmount
      * @return $this
      */
     protected function _addBaseAmount($baseAmount)

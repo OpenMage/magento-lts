@@ -162,7 +162,7 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
     /**
      * Set option that define ability skip first catalog level.
      *
-     * @param  mixed            $skipRoot
+     * @param  mixed $skipRoot
      * @return $this
      */
     protected function _setSkipRoot($skipRoot)
@@ -174,7 +174,7 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
     /**
      * Set file which is packing.
      *
-     * @param  string           $file
+     * @param  string $file
      * @return $this
      */
     protected function _setCurrentFile($file)
@@ -186,7 +186,7 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
     /**
      * Set path to file where tarball should be placed
      *
-     * @param  string           $destinationFilePath
+     * @param  string $destinationFilePath
      * @return $this
      */
     protected function _setDestinationFilePath($destinationFilePath)
@@ -208,7 +208,7 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
     /**
      * Set path to file which is packing.
      *
-     * @param  string           $path
+     * @param  string $path
      * @return $this
      */
     protected function _setCurrentPath($path)

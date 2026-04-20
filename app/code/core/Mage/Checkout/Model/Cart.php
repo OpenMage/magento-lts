@@ -295,7 +295,7 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
     /**
      * Adding products to cart by ids
      *
-     * @param  array                    $productIds
+     * @param  array               $productIds
      * @return $this
      * @throws Mage_Core_Exception
      */
@@ -387,7 +387,7 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
     /**
      * Update cart items information
      *
-     * @param  array                    $data
+     * @param  array               $data
      * @return $this
      * @throws Mage_Core_Exception
      */
@@ -440,7 +440,7 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
     /**
      * Remove item from cart
      *
-     * @param  int                      $itemId
+     * @param  int                 $itemId
      * @return $this
      * @throws Mage_Core_Exception
      */

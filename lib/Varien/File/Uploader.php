@@ -165,7 +165,7 @@ class Varien_File_Uploader
     /**
      * After save logic
      *
-     * @param  array                $result
+     * @param  array $result
      * @return $this
      */
     protected function _afterSave($result)
@@ -293,10 +293,10 @@ class Varien_File_Uploader
     /**
      * Add validation callback model for us in self::_validateFile()
      *
-     * @param  string               $callbackName
-     * @param  object               $callbackObject
-     * @param  string               $callbackMethod Method name of $callbackObject. It must
-     *                                              have interface (string $tmpFilePath)
+     * @param  string $callbackName
+     * @param  object $callbackObject
+     * @param  string $callbackMethod Method name of $callbackObject. It must
+     *                                have interface (string $tmpFilePath)
      * @return $this
      */
     public function addValidateCallback($callbackName, $callbackObject, $callbackMethod)
@@ -445,7 +445,7 @@ class Varien_File_Uploader
     /**
      * Filenames Case-sensitivity  setter
      *
-     * @param  mixed                $flag
+     * @param  mixed $flag
      * @return $this
      */
     public function setFilenamesCaseSensitivity($flag)
@@ -466,7 +466,7 @@ class Varien_File_Uploader
     /**
      * Set valid MIME-types.
      *
-     * @param  array                $mimeTypes
+     * @param  array $mimeTypes
      * @return $this
      */
     public function setValidMimeTypes($mimeTypes = [])

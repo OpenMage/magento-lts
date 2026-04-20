@@ -188,8 +188,8 @@ class Mage_Index_Model_Indexer
      * Indexing all pending events.
      * Events set can be limited by event entity and type
      *
-     * @param  null|string              $entity
-     * @param  null|string              $type
+     * @param  null|string $entity
+     * @param  null|string $type
      * @return $this
      * @throws Exception
      */
