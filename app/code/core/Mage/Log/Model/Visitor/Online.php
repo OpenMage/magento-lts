@@ -75,7 +75,7 @@ class Mage_Log_Model_Visitor_Online extends Mage_Core_Model_Abstract
     public function setPrepareAt($time = null)
     {
         if (is_null($time)) {
-            $time = Mage::helper('core/clock')->now()->getTimestamp();
+            $time = $this->getClockHelper()->getTimestamp();
         }
 
         Mage::app()->saveCache($time, 'log_visitor_online_prepare_at');

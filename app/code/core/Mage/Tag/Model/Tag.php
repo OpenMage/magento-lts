@@ -363,7 +363,7 @@ class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
             ->setProductId($productId)
             ->setCustomerId($customerId)
             ->setActive(Mage_Tag_Model_Tag_Relation::STATUS_ACTIVE)
-            ->setCreatedAt($relationModel->getResource()->formatDate(Mage::helper('core/clock')->now()->getTimestamp()));
+            ->setCreatedAt($relationModel->getResource()->formatDate($this->getClockHelper()->getTimestamp()));
 
         $result = '';
         $relationModelSaveNeed = false;

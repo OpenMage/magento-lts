@@ -30,7 +30,7 @@ class Mage_Dataflow_Model_Resource_Profile_History extends Mage_Core_Model_Resou
     protected function _beforeSave(Mage_Core_Model_Abstract $object)
     {
         if (!$object->getPerformedAt()) {
-            $object->setPerformedAt($this->formatDate(Mage::helper('core/clock')->now()->getTimestamp()));
+            $object->setPerformedAt($this->formatDate(Mage::helper('core/clock')->getTimestamp()));
         }
 
         parent::_beforeSave($object);

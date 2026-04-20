@@ -99,7 +99,7 @@ class Mage_CatalogIndex_Model_Resource_Aggregation extends Mage_Core_Model_Resou
 
         $this->_getWriteAdapter()->insertOnDuplicate($this->getMainTable(), [
             'store_id'  => $storeId,
-            'created_at' => $this->formatDate(Mage::helper('core/clock')->now()->getTimestamp()),
+            'created_at' => $this->formatDate(Mage::helper('core/clock')->getTimestamp()),
             'key'       => $key,
             'data'      => $data,
         ], ['created_at', 'data']);

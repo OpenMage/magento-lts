@@ -31,7 +31,7 @@ class Mage_Api_Model_Session extends Mage_Core_Model_Session_Abstract
      */
     public function start($sessionName = null)
     {
-        $this->_currentSessId = md5(Mage::helper('core/clock')->now()->getTimestamp() . uniqid('', true) . $sessionName);
+        $this->_currentSessId = md5(Mage::helper('core/clock')->getTimestamp() . uniqid('', true) . $sessionName);
         $this->sessionIds[] = $this->getSessionId();
         return $this;
     }

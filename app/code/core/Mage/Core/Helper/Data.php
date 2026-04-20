@@ -243,7 +243,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
 
         $locale = Mage::app()->getLocale();
         if (is_null($time)) {
-            $date = $locale->date(Mage::helper('core/clock')->now()->getTimestamp());
+            $date = $locale->date(Mage::helper('core/clock')->getTimestamp());
         } elseif ($time instanceof Zend_Date) {
             $date = $time;
         } else {

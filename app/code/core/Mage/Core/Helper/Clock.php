@@ -22,4 +22,9 @@ class Mage_Core_Helper_Clock extends Mage_Core_Helper_Abstract implements ClockI
         static $clock = new FactoryImmutable();
         return $clock->now();
     }
+
+    public function getTimestamp(): int
+    {
+        return $this->now()->getTimestamp();
+    }
 }

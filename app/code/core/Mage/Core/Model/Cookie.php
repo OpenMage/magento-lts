@@ -228,7 +228,7 @@ class Mage_Core_Model_Cookie
             $period = $this->getLifetime();
         }
 
-        $expire = $period == 0 ? 0 : Mage::helper('core/clock')->now()->getTimestamp() + $period;
+        $expire = $period == 0 ? 0 : Mage::helper('core/clock')->getTimestamp() + $period;
 
         if (is_null($path)) {
             $path = $this->getPath();

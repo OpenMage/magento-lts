@@ -29,7 +29,7 @@ class Mage_Log_Model_Resource_Visitor_Online extends Mage_Core_Model_Resource_Db
      */
     public function prepare(Mage_Log_Model_Visitor_Online $object)
     {
-        if (($object->getUpdateFrequency() + $object->getPrepareAt()) > Mage::helper('core/clock')->now()->getTimestamp()) {
+        if (($object->getUpdateFrequency() + $object->getPrepareAt()) > Mage::helper('core/clock')->getTimestamp()) {
             return $this;
         }
 

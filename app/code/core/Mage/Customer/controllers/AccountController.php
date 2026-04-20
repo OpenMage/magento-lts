@@ -296,7 +296,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
 
             if (empty($errors)) {
                 $customer->cleanPasswordsValidationData();
-                $customer->setPasswordCreatedAt(Mage::helper('core/clock')->now()->getTimestamp());
+                $customer->setPasswordCreatedAt(Mage::helper('core/clock')->getTimestamp());
                 $customer->save();
                 $this->_dispatchRegisterSuccess($customer);
                 $this->_successProcessRegistration($customer);
@@ -886,7 +886,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
             $customer->setRpToken(null);
             $customer->setRpTokenCreatedAt(null);
             $customer->cleanPasswordsValidationData();
-            $customer->setPasswordCreatedAt(Mage::helper('core/clock')->now()->getTimestamp());
+            $customer->setPasswordCreatedAt(Mage::helper('core/clock')->getTimestamp());
             $customer->setRpCustomerId(null);
             $customer->setConfirmation(null); // Set email is confirmed.
             $customer->save();
@@ -1057,7 +1057,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
 
             try {
                 $customer->cleanPasswordsValidationData();
-                $customer->setPasswordCreatedAt(Mage::helper('core/clock')->now()->getTimestamp());
+                $customer->setPasswordCreatedAt(Mage::helper('core/clock')->getTimestamp());
 
                 // Reset all password reset tokens if all data was sufficient and correct on email change
                 if ($customer->getIsChangeEmail()) {

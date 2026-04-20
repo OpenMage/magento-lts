@@ -752,7 +752,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
 
         imageinterlace($image, false);
         $tmpFileName = sys_get_temp_dir() . DS . 'shipping_labels_'
-                     . uniqid((string) mt_rand()) . Mage::helper('core/clock')->now()->getTimestamp() . '.png';
+                     . uniqid((string) mt_rand()) . Mage::helper('core/clock')->getTimestamp() . '.png';
         imagepng($image, $tmpFileName);
         $pdfImage = Zend_Pdf_Image::imageWithPath($tmpFileName);
         $page->drawImage($pdfImage, 0, 0, $xSize, $ySize);

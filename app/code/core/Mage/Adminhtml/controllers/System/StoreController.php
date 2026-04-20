@@ -480,7 +480,7 @@ class Mage_Adminhtml_System_StoreController extends Mage_Adminhtml_Controller_Ac
         try {
             $backupDb = Mage::getModel('backup/db');
             $backup   = Mage::getModel('backup/backup')
-                ->setTime(Mage::helper('core/clock')->now()->getTimestamp())
+                ->setTime(Mage::helper('core/clock')->getTimestamp())
                 ->setType('db')
                 ->setPath(Mage::getBaseDir('var') . DS . 'backups');
 

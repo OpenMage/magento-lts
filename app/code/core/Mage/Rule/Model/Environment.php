@@ -24,7 +24,7 @@ class Mage_Rule_Model_Environment extends Varien_Object
      */
     public function collect()
     {
-        $this->setNow(Mage::helper('core/clock')->now()->getTimestamp());
+        $this->setNow(Mage::helper('core/clock')->getTimestamp());
 
         Mage::dispatchEvent('rule_environment_collect', ['env' => $this]);
 

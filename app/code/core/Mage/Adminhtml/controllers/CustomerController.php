@@ -336,7 +336,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
                 // Force new customer confirmation
                 if ($isNewCustomer) {
                     $customer->setPassword($data['account']['password']);
-                    $customer->setPasswordCreatedAt(Mage::helper('core/clock')->now()->getTimestamp());
+                    $customer->setPasswordCreatedAt(Mage::helper('core/clock')->getTimestamp());
                     $customer->setForceConfirmed(true);
                     if ($customer->getPassword() === 'auto') {
                         $sendPassToEmail = true;

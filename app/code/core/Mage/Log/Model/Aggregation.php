@@ -58,7 +58,7 @@ class Mage_Log_Model_Aggregation extends Mage_Core_Model_Abstract
     {
         $lastDateRecord = null;
         $start          = $this->_lastRecord;
-        $end            = Mage::helper('core/clock')->now()->getTimestamp();
+        $end            = $this->getClockHelper()->getTimestamp();
         $date           = $start;
 
         while ($date < $end) {

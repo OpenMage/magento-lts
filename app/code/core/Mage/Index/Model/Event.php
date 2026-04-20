@@ -331,7 +331,7 @@ class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
         $newData = $this->getNewData(false);
         $this->setNewData(serialize($newData));
         if (!$this->hasCreatedAt()) {
-            $this->setCreatedAt($this->_getResource()->formatDate(Mage::helper('core/clock')->now()->getTimestamp(), true));
+            $this->setCreatedAt($this->_getResource()->formatDate($this->getClockHelper()->getTimestamp(), true));
         }
 
         return parent::_beforeSave();

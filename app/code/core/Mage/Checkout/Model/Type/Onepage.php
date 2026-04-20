@@ -717,7 +717,7 @@ class Mage_Checkout_Model_Type_Onepage
 
         Mage::helper('core')->copyFieldset('checkout_onepage_quote', 'to_customer', $quote, $customer);
         $customer->setPassword($customer->decryptPassword($quote->getPasswordHash()));
-        $customer->setPasswordCreatedAt(Mage::helper('core/clock')->now()->getTimestamp());
+        $customer->setPasswordCreatedAt(Mage::helper('core/clock')->getTimestamp());
         $quote->setCustomer($customer)
             ->setCustomerId(true);
         $quote->setPasswordHash('');
