@@ -510,7 +510,7 @@ class Mage_Captcha_Model_Zend extends Image implements Mage_Captcha_Model_Interf
      * Override function to generate less curly captcha that will not cut off
      *
      * @return int
-     * @see \Laminas\Captcha\Image::_randomSize()
+     * @see \Laminas\Captcha\Image::randomSize()
      */
     #[Override]
     protected function randomSize()
