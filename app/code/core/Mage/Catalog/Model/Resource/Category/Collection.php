@@ -128,6 +128,7 @@ class Mage_Catalog_Model_Resource_Category_Collection extends Mage_Catalog_Model
      *
      * @inheritDoc
      */
+    #[Override]
     protected function _beforeLoad()
     {
         Mage::dispatchEvent(
@@ -142,6 +143,7 @@ class Mage_Catalog_Model_Resource_Category_Collection extends Mage_Catalog_Model
      *
      * @inheritDoc
      */
+    #[Override]
     protected function _afterLoad()
     {
         Mage::dispatchEvent(
@@ -185,6 +187,7 @@ class Mage_Catalog_Model_Resource_Category_Collection extends Mage_Catalog_Model
      * @param  bool  $logQuery
      * @return $this
      */
+    #[Override]
     public function load($printQuery = false, $logQuery = false)
     {
         if ($this->isLoaded()) {
@@ -487,6 +490,7 @@ class Mage_Catalog_Model_Resource_Category_Collection extends Mage_Catalog_Model
      *
      * @return Mage_Catalog_Model_Category
      */
+    #[Override]
     public function getNewEmptyItem()
     {
         return new $this->_itemObjectClass(['disable_flat' => $this->getDisableFlat()]);

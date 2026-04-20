@@ -85,6 +85,7 @@ class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
      *
      * @return $this
      */
+    #[Override]
     public function afterCommitCallback()
     {
         parent::afterCommitCallback();
@@ -340,6 +341,7 @@ class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
      * @return $this
      * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _beforeDelete()
     {
         $this->_protectFromNonAdmin();
@@ -467,6 +469,7 @@ class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
      *
      * @return $this
      */
+    #[Override]
     protected function _afterSave()
     {
         if ($this->hasData('tag_assigned_products')) {

@@ -30,6 +30,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Alerts_Stock extends Mage_Ad
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareCollection()
     {
         $productId = $this->getRequest()->getParam('id');
@@ -52,6 +53,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Alerts_Stock extends Mage_Ad
      * @inheritDoc
      * @throws Exception
      */
+    #[Override]
     protected function _prepareColumns()
     {
         $this->addColumn('firstname', [
@@ -98,6 +100,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Alerts_Stock extends Mage_Ad
      * @inheritDoc
      * @throws Exception
      */
+    #[Override]
     public function getGridUrl()
     {
         $productId = $this->getRequest()->getParam('id');

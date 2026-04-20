@@ -27,6 +27,7 @@ class Mage_Sales_Block_Adminhtml_Billing_Agreement_View_Tab_Orders extends Mage_
      *
      * @return $this|Mage_Adminhtml_Block_Widget_Grid
      */
+    #[Override]
     protected function _prepareCollection()
     {
         $collection = Mage::getResourceModel('sales/order_grid_collection');
@@ -70,6 +71,7 @@ class Mage_Sales_Block_Adminhtml_Billing_Agreement_View_Tab_Orders extends Mage_
     /**
      * @inheritDoc
      */
+    #[Override]
     public function getGridUrl()
     {
         return $this->getUrl('*/*/ordersGrid', ['_current' => true]);
@@ -80,6 +82,7 @@ class Mage_Sales_Block_Adminhtml_Billing_Agreement_View_Tab_Orders extends Mage_
      *
      * @inheritDoc
      */
+    #[Override]
     public function getExportTypes()
     {
         return false;
@@ -90,6 +93,7 @@ class Mage_Sales_Block_Adminhtml_Billing_Agreement_View_Tab_Orders extends Mage_
      *
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareMassaction()
     {
         return $this;

@@ -24,6 +24,7 @@ class Mage_Payment_Model_Method_Purchaseorder extends Mage_Payment_Model_Method_
      * @param  mixed                                   $data
      * @return $this
      */
+    #[Override]
     public function assignData($data)
     {
         if (!($data instanceof Varien_Object)) {

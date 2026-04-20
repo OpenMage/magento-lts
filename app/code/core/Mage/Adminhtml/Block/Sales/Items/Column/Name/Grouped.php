@@ -21,6 +21,7 @@ class Mage_Adminhtml_Block_Sales_Items_Column_Name_Grouped extends Mage_Adminhtm
      *
      * @return string
      */
+    #[Override]
     protected function _toHtml()
     {
         $item = $this->getItem()->getOrderItem() ? $this->getItem()->getOrderItem() : $this->getItem();

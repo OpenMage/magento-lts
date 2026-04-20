@@ -114,6 +114,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
      *
      * @throws Mage_Core_Exception
      */
+    #[Override]
     public function viewAction()
     {
         $shipment = $this->_initShipment();

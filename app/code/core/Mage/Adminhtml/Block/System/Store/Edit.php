@@ -69,6 +69,7 @@ class Mage_Adminhtml_Block_System_Store_Edit extends Mage_Adminhtml_Block_Widget
      *
      * @return string
      */
+    #[Override]
     public function getHeaderText()
     {
         $addLabel   = '';

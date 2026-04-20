@@ -48,6 +48,7 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
      *
      * @return null|string
      */
+    #[Override]
     public function getCarrierCode()
     {
         return $this->_code ?? null;
@@ -74,6 +75,7 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
      *
      * @return bool
      */
+    #[Override]
     public function isTrackingAvailable()
     {
         return true;
@@ -84,6 +86,7 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
      *
      * @return bool
      */
+    #[Override]
     public function isCityRequired()
     {
         return true;
@@ -95,6 +98,7 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
      * @param  null|string $countryId
      * @return bool
      */
+    #[Override]
     public function isZipCodeRequired($countryId = null)
     {
         if ($countryId != null) {
@@ -109,6 +113,7 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
      *
      * @return bool
      */
+    #[Override]
     public function isShippingLabelsAvailable()
     {
         return true;
@@ -157,6 +162,7 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
      *
      * @return bool|Mage_Shipping_Model_Carrier_Abstract|Mage_Shipping_Model_Rate_Result_Error
      */
+    #[Override]
     public function proccessAdditionalValidation(Mage_Shipping_Model_Rate_Request $request)
     {
         //Skip by item validation if there is no items in request
@@ -298,6 +304,7 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
      *
      * @return Varien_Object
      */
+    #[Override]
     public function requestToShipment(Mage_Shipping_Model_Shipment_Request $request)
     {
         $packages = $request->getPackages();
@@ -350,6 +357,7 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
      * @param                $request
      * @return Varien_Object
      */
+    #[Override]
     public function returnOfShipment($request)
     {
         $request->setIsReturn(true);

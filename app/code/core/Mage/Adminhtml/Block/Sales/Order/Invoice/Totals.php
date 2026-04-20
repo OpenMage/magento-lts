@@ -31,6 +31,7 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_Totals extends Mage_Adminhtml_Blo
         return $this->_invoice;
     }
 
+    #[Override]
     public function getSource()
     {
         return $this->getInvoice();
@@ -41,6 +42,7 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_Totals extends Mage_Adminhtml_Blo
      *
      * @return $this
      */
+    #[Override]
     protected function _initTotals()
     {
         parent::_initTotals();

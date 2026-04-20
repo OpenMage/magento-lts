@@ -34,6 +34,7 @@ class Mage_Weee_Model_Attribute_Backend_Weee_Tax extends Mage_Catalog_Model_Prod
      * @param  Mage_Catalog_Model_Product $object
      * @return $this
      */
+    #[Override]
     public function validate($object)
     {
         $taxes = $object->getData($this->getAttribute()->getName());
@@ -69,6 +70,7 @@ class Mage_Weee_Model_Attribute_Backend_Weee_Tax extends Mage_Catalog_Model_Prod
      * @param  Mage_Catalog_Model_Product $object
      * @return $this
      */
+    #[Override]
     public function afterLoad($object)
     {
         $data = $this->_getResource()->loadProductData($object, $this->getAttribute());
@@ -94,6 +96,7 @@ class Mage_Weee_Model_Attribute_Backend_Weee_Tax extends Mage_Catalog_Model_Prod
      * @param  Mage_Catalog_Model_Product                               $object
      * @return $this|Mage_Catalog_Model_Product_Attribute_Backend_Price
      */
+    #[Override]
     public function afterSave($object)
     {
         $orig = $object->getOrigData($this->getAttribute()->getName());
@@ -141,6 +144,7 @@ class Mage_Weee_Model_Attribute_Backend_Weee_Tax extends Mage_Catalog_Model_Prod
      * @param  Varien_Object                                          $object
      * @return $this|Mage_Eav_Model_Entity_Attribute_Backend_Abstract
      */
+    #[Override]
     public function afterDelete($object)
     {
         $this->_getResource()->deleteProductData($object, $this->getAttribute());
@@ -150,6 +154,7 @@ class Mage_Weee_Model_Attribute_Backend_Weee_Tax extends Mage_Catalog_Model_Prod
     /**
      * @return string
      */
+    #[Override]
     public function getTable()
     {
         return $this->_getResource()->getTable('weee/tax');

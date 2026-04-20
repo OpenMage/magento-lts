@@ -29,6 +29,7 @@ class Mage_Sales_Model_Resource_Order_Invoice_Grid_Collection extends Mage_Sales
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _construct()
     {
         parent::_construct();

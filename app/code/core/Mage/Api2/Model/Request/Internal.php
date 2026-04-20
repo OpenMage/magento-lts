@@ -35,6 +35,7 @@ class Mage_Api2_Model_Request_Internal extends Mage_Api2_Model_Request
      *
      * @return array
      */
+    #[Override]
     public function getBodyParams()
     {
         if ($this->_bodyParams === null) {
@@ -79,6 +80,7 @@ class Mage_Api2_Model_Request_Internal extends Mage_Api2_Model_Request
      *
      * @return string
      */
+    #[Override]
     public function getMethod()
     {
         $method = $this->_method;

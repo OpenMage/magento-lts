@@ -17,6 +17,7 @@ class Mage_Sales_Block_Order_Email_Creditmemo_Items extends Mage_Sales_Block_Ite
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareItem(Mage_Core_Block_Abstract $renderer)
     {
         $renderer->getItem()->setOrder($this->getOrder());

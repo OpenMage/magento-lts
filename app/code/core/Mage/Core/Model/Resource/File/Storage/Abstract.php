@@ -38,6 +38,7 @@ abstract class Mage_Core_Model_Resource_File_Storage_Abstract extends Mage_Core_
      *
      * @return Varien_Db_Adapter_Interface
      */
+    #[Override]
     protected function _getReadAdapter()
     {
         return $this->_getConnection($this->_connectionName);
@@ -48,6 +49,7 @@ abstract class Mage_Core_Model_Resource_File_Storage_Abstract extends Mage_Core_
      *
      * @return Varien_Db_Adapter_Interface
      */
+    #[Override]
     protected function _getWriteAdapter()
     {
         return $this->_getConnection($this->_connectionName);
@@ -59,6 +61,7 @@ abstract class Mage_Core_Model_Resource_File_Storage_Abstract extends Mage_Core_
      * @param  string                      $connectionName
      * @return Varien_Db_Adapter_Interface
      */
+    #[Override]
     protected function _getConnection($connectionName)
     {
         if (isset($this->_connections[$connectionName])) {

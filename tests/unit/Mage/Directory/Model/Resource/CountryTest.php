@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Directory\Model\Resource;
 
 // use Mage;
 // use Mage_Directory_Model_Resource_Country as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Directory\Model\Resource\CountryTrait;
 
@@ -22,6 +23,7 @@ final class CountryTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

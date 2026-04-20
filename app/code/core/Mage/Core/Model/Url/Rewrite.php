@@ -67,6 +67,7 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
      *
      * @return $this
      */
+    #[Override]
     protected function _afterSave()
     {
         if ($this->hasCategoryId()) {

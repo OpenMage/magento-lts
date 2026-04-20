@@ -26,6 +26,7 @@ class Mage_Adminhtml_Block_Report_Sales_Shipping_Grid extends Mage_Adminhtml_Blo
     /**
      * @inheritDoc
      */
+    #[Override]
     public function getResourceCollectionName()
     {
         return ($this->getFilterData()->getDataByKey('report_type') === 'created_at_shipment')
@@ -36,6 +37,7 @@ class Mage_Adminhtml_Block_Report_Sales_Shipping_Grid extends Mage_Adminhtml_Blo
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareColumns()
     {
         $this->addColumn('period', [

@@ -17,6 +17,7 @@ class Mage_CatalogSearch_TermController extends Mage_Core_Controller_Front_Actio
     /**
      * @return $this|Mage_Core_Controller_Front_Action
      */
+    #[Override]
     public function preDispatch()
     {
         parent::preDispatch();

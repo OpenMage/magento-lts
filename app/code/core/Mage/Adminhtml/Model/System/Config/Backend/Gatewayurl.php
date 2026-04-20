@@ -20,6 +20,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Gatewayurl extends Mage_Core_Mo
      * @return $this
      * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _beforeSave()
     {
         if ($this->getValue()) {

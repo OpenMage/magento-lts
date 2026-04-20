@@ -106,6 +106,7 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Abstract extends Mage_C
      * @return Mage_Reports_Model_Resource_Product_Index_Abstract
      * @throws Mage_Core_Exception
      */
+    #[Override]
     public function save(Mage_Core_Model_Abstract  $object)
     {
         if ($object->isDeleted()) {

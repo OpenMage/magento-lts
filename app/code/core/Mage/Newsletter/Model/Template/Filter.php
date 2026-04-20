@@ -20,6 +20,7 @@ class Mage_Newsletter_Model_Template_Filter extends Mage_Widget_Model_Template_F
      * @param  array  $construction
      * @return string
      */
+    #[Override]
     public function widgetDirective($construction)
     {
         if (!isset($this->_templateVars['subscriber'])) {

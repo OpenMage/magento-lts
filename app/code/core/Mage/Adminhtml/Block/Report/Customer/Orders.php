@@ -22,6 +22,7 @@ class Mage_Adminhtml_Block_Report_Customer_Orders extends Mage_Adminhtml_Block_W
         $this->_removeButton('add');
     }
 
+    #[Override]
     public function getHeaderCssClass()
     {
         return 'icon-head head-report';

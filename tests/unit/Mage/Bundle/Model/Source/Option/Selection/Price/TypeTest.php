@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Bundle\Model\Source\Option\Selection\Price;
 
 // use Mage;
 // use Mage_Bundle_Model_Source_Option_Selection_Price_Type as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Bundle\Model\Source\Option\Selection\Price\TypeTrait;
 
@@ -22,6 +23,7 @@ final class TypeTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

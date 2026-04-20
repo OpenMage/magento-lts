@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\CatalogIndex\Model\Indexer;
 
 // use Mage;
 // use Mage_CatalogIndex_Model_Indexer_Price as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\CatalogIndex\Model\Indexer\PriceTrait;
 
@@ -22,6 +23,7 @@ final class PriceTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

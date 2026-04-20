@@ -20,6 +20,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Passwordlength extends Mage_Cor
      * @return $this
      * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _beforeSave()
     {
         if ((int) $this->getValue() < Mage_Core_Model_App::ABSOLUTE_MIN_PASSWORD_LENGTH) {

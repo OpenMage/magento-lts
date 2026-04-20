@@ -19,6 +19,7 @@ class Mage_Adminhtml_Block_Customer_Grid_Renderer_Multiaction extends Mage_Admin
      *
      * @return string
      */
+    #[Override]
     public function render(Varien_Object $row)
     {
         $html = '';
@@ -50,6 +51,7 @@ class Mage_Adminhtml_Block_Customer_Grid_Renderer_Multiaction extends Mage_Admin
      * @param  array  $action
      * @return string
      */
+    #[Override]
     protected function _toLinkHtml($action, Varien_Object $row)
     {
         $product = $row->getProduct();

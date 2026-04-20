@@ -25,6 +25,7 @@ class Mage_Adminhtml_Checkout_AgreementController extends Mage_Adminhtml_Control
      *
      * @return Mage_Adminhtml_Controller_Action
      */
+    #[Override]
     public function preDispatch()
     {
         $this->_setForcedFormKeyActions('delete');

@@ -43,6 +43,7 @@ class Mage_Core_Controller_Front_Action extends Mage_Core_Controller_Varien_Acti
      *
      * @return $this
      */
+    #[Override]
     public function preDispatch()
     {
         $this->getLayout()->setArea($this->_currentArea);
@@ -56,6 +57,7 @@ class Mage_Core_Controller_Front_Action extends Mage_Core_Controller_Varien_Acti
      *
      * @return $this
      */
+    #[Override]
     public function postDispatch()
     {
         parent::postDispatch();
@@ -92,6 +94,7 @@ class Mage_Core_Controller_Front_Action extends Mage_Core_Controller_Varien_Acti
      * @return $this
      * @SuppressWarnings("PHPMD.ExitExpression")
      */
+    #[Override]
     protected function _prepareDownloadResponse(
         $fileName,
         $content,
@@ -162,6 +165,7 @@ class Mage_Core_Controller_Front_Action extends Mage_Core_Controller_Varien_Acti
      *
      * @return bool
      */
+    #[Override]
     protected function _validateFormKey()
     {
         $validated = true;

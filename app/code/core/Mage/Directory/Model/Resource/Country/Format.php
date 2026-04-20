@@ -27,6 +27,7 @@ class Mage_Directory_Model_Resource_Country_Format extends Mage_Core_Model_Resou
      *
      * @return $this
      */
+    #[Override]
     protected function _initUniqueFields()
     {
         $this->_uniqueFields = [[

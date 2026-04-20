@@ -56,6 +56,7 @@ abstract class Mage_Centinel_Model_StateAbstract extends Varien_Object
      * @return mixed
      * @see Mage_Core_Model_Session_Abstract::getData()
      */
+    #[Override]
     public function getData($key = '', $index = null)
     {
         return $this->getDataStorage()->getData($key);
@@ -73,6 +74,7 @@ abstract class Mage_Centinel_Model_StateAbstract extends Varien_Object
      * @param  mixed                             $value
      * @return $this
      */
+    #[Override]
     public function setData($key, $value = null)
     {
         $this->getDataStorage()->setData($key, $value);

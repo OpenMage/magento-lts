@@ -31,6 +31,7 @@ class Mage_Catalog_Block_Breadcrumbs extends Mage_Core_Block_Template
      *
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareLayout()
     {
         /** @var Mage_Page_Block_Html_Breadcrumbs $breadcrumbsBlock */

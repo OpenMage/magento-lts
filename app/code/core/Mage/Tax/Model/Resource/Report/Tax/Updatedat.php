@@ -17,6 +17,7 @@ class Mage_Tax_Model_Resource_Report_Tax_Updatedat extends Mage_Tax_Model_Resour
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _construct()
     {
         $this->_init('tax/tax_order_aggregated_updated', 'id');
@@ -27,6 +28,7 @@ class Mage_Tax_Model_Resource_Report_Tax_Updatedat extends Mage_Tax_Model_Resour
      *
      * @inheritDoc
      */
+    #[Override]
     public function aggregate($dateFrom = null, $dateTo = null)
     {
         return $this->_aggregateByOrder('updated_at', $dateFrom, $dateTo);

@@ -73,6 +73,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create extends Mage_Adminhtml_Block_Widge
      *
      * @return string
      */
+    #[Override]
     public function getHeaderHtml()
     {
         return '<div id="order-header">'
@@ -85,6 +86,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create extends Mage_Adminhtml_Block_Widge
      *
      * @return string
      */
+    #[Override]
     public function getFormHtml()
     {
         $html = parent::getFormHtml();
@@ -94,6 +96,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create extends Mage_Adminhtml_Block_Widge
     /**
      * @return string
      */
+    #[Override]
     public function getHeaderWidth()
     {
         return 'width: 70%;';
@@ -128,6 +131,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create extends Mage_Adminhtml_Block_Widge
      *
      * @return string
      */
+    #[Override]
     public function getBackUrl()
     {
         return $this->getUrl('*/' . $this->_controller . '/');

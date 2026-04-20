@@ -24,6 +24,7 @@ class Mage_Payment_Model_Method_Checkmo extends Mage_Payment_Model_Method_Abstra
      * @param  mixed                             $data
      * @return $this
      */
+    #[Override]
     public function assignData($data)
     {
         $details = [];

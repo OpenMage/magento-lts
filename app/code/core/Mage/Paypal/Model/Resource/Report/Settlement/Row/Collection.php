@@ -27,6 +27,7 @@ class Mage_Paypal_Model_Resource_Report_Settlement_Row_Collection extends Mage_C
      *
      * @return $this
      */
+    #[Override]
     protected function _initSelect()
     {
         parent::_initSelect();

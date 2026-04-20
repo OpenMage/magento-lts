@@ -26,6 +26,7 @@ abstract class Mage_Adminhtml_Controller_Report_Abstract extends Mage_Adminhtml_
      *
      * @return Mage_Admin_Model_Session
      */
+    #[Override]
     protected function _getSession()
     {
         if (is_null($this->_adminSession)) {

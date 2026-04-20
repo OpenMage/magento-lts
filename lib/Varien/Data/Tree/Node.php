@@ -73,6 +73,7 @@ class Varien_Data_Tree_Node extends Varien_Object
      *
      * @return mixed
      */
+    #[Override]
     public function getId()
     {
         return $this->getData($this->getIdField());
