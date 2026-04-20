@@ -327,7 +327,7 @@ class Mage_Sales_Model_Resource_Report_Bestsellers_Collection extends Mage_Sales
     /**
      * Apply filter to exclude certain product types from the collection
      *
-     * @return Mage_Sales_Model_Resource_Report_Collection_Abstract
+     * @return $this
      */
     protected function _applyProductTypeFilter(Zend_Db_Select $select)
     {

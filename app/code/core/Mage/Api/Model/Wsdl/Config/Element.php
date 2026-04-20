@@ -41,7 +41,7 @@ class Mage_Api_Model_Wsdl_Config_Element extends Varien_Simplexml_Element
      * @param  Varien_Simplexml_Element $source
      * @param  bool                     $overwrite
      * @param  string                   $elmNamespace
-     * @return Varien_Simplexml_Element
+     * @return $this
      */
     #[Override]
     public function extendChild($source, $overwrite = false, $elmNamespace = '')

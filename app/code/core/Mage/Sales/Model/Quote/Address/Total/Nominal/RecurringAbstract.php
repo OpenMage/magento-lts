@@ -38,7 +38,7 @@ abstract class Mage_Sales_Model_Quote_Address_Total_Nominal_RecurringAbstract ex
     /**
      * Collect recurring item parameters and copy to the address items
      *
-     * @return Mage_Sales_Model_Quote_Address_Total_Nominal_RecurringAbstract
+     * @return $this
      */
     #[Override]
     public function collect(Mage_Sales_Model_Quote_Address $address)

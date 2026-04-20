@@ -159,9 +159,9 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
     /**
      * Declare attribute identifiers used for assign subproducts
      *
-     * @param  array                                        $ids
-     * @param  Mage_Catalog_Model_Product                   $product
-     * @return Mage_Catalog_Model_Product_Type_Configurable
+     * @param  array                      $ids
+     * @param  Mage_Catalog_Model_Product $product
+     * @return $this
      */
     public function setUsedProductAttributeIds($ids, $product = null)
     {

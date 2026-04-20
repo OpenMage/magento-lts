@@ -208,7 +208,7 @@ class Mage_Oauth_Model_Token extends Mage_Core_Model_Abstract
     /**
      * Before save actions
      *
-     * @return Mage_Oauth_Model_Token
+     * @return $this
      */
     #[Override]
     protected function _beforeSave()

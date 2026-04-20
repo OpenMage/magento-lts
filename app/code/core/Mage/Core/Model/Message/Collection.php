@@ -26,7 +26,7 @@ class Mage_Core_Model_Message_Collection
     /**
      * Adding new message to collection
      *
-     * @return Mage_Core_Model_Message_Collection
+     * @return $this
      */
     public function add(Mage_Core_Model_Message_Abstract $message)
     {
@@ -36,7 +36,7 @@ class Mage_Core_Model_Message_Collection
     /**
      * Adding new message to collection
      *
-     * @return Mage_Core_Model_Message_Collection
+     * @return $this
      */
     public function addMessage(Mage_Core_Model_Message_Abstract $message)
     {

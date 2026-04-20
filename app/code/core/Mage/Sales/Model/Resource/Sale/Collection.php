@@ -96,7 +96,7 @@ class Mage_Sales_Model_Resource_Sale_Collection extends Varien_Data_Collection_D
     /**
      * Before load action
      *
-     * @return Varien_Data_Collection_Db
+     * @return $this
      */
     #[Override]
     protected function _beforeLoad()
@@ -142,7 +142,7 @@ class Mage_Sales_Model_Resource_Sale_Collection extends Varien_Data_Collection_D
      *
      * @param  bool                            $printQuery
      * @param  bool                            $logQuery
-     * @return Varien_Data_Collection_Db
+     * @return $this
      * @throws Mage_Core_Model_Store_Exception
      */
     #[Override]

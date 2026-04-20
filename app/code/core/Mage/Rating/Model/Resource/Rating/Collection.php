@@ -32,8 +32,8 @@ class Mage_Rating_Model_Resource_Rating_Collection extends Mage_Core_Model_Resou
     /**
      * Add entity filter
      *
-     * @param  int|string                                   $entity
-     * @return Mage_Rating_Model_Resource_Rating_Collection
+     * @param  int|string $entity
+     * @return $this
      */
     public function addEntityFilter($entity)
     {
@@ -66,8 +66,8 @@ class Mage_Rating_Model_Resource_Rating_Collection extends Mage_Core_Model_Resou
     /**
      * set order by position field
      *
-     * @param  string                                       $dir
-     * @return Mage_Rating_Model_Resource_Rating_Collection
+     * @param  string $dir
+     * @return $this
      */
     public function setPositionOrder($dir = 'ASC')
     {

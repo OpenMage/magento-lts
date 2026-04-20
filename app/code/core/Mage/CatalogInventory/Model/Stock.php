@@ -59,7 +59,7 @@ class Mage_CatalogInventory_Model_Stock extends Mage_Core_Model_Abstract
      * Add stock item objects to products
      *
      * @param  Mage_Catalog_Model_Resource_Product_Collection $productCollection
-     * @return Mage_CatalogInventory_Model_Stock
+     * @return $this
      */
     public function addItemsToProducts($productCollection)
     {
@@ -157,8 +157,8 @@ class Mage_CatalogInventory_Model_Stock extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @param  array                             $items
-     * @return Mage_CatalogInventory_Model_Stock
+     * @param  array $items
+     * @return $this
      */
     public function revertProductsSale($items)
     {
@@ -170,7 +170,7 @@ class Mage_CatalogInventory_Model_Stock extends Mage_Core_Model_Abstract
     /**
      * Subtract ordered qty for product
      *
-     * @return Mage_CatalogInventory_Model_Stock
+     * @return $this
      */
     public function registerItemSale(Varien_Object $item)
     {
@@ -220,8 +220,8 @@ class Mage_CatalogInventory_Model_Stock extends Mage_Core_Model_Abstract
     /**
      * Lock stock items for product ids array
      *
-     * @param  array                             $productIds
-     * @return Mage_CatalogInventory_Model_Stock
+     * @param  array $productIds
+     * @return $this
      */
     public function lockProductItems($productIds)
     {

@@ -121,8 +121,8 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
      * Set the PATH_INFO string
      * Set the ORIGINAL_PATH_INFO string
      *
-     * @param  null|string                  $pathInfo
-     * @return Zend_Controller_Request_Http
+     * @param  null|string $pathInfo
+     * @return $this
      */
     #[Override]
     public function setPathInfo($pathInfo = null)
@@ -179,8 +179,8 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
      * Specify new path info
      * It happen when occur rewrite based on configuration
      *
-     * @param  string                            $pathInfo
-     * @return Mage_Core_Controller_Request_Http
+     * @param  string $pathInfo
+     * @return $this
      */
     public function rewritePathInfo($pathInfo)
     {
@@ -374,8 +374,8 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
     /**
      * Specify module name where was found currently used controller
      *
-     * @param  string                            $module
-     * @return Mage_Core_Controller_Request_Http
+     * @param  string $module
+     * @return $this
      */
     public function setControllerModule($module)
     {
