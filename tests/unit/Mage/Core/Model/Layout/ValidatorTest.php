@@ -15,11 +15,11 @@ use Generator;
 use Mage;
 use Mage_Core_Model_Layout_Validator as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
-use OpenMage\Tests\Unit\Traits\DataProvider\Base\UrlTrait;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\Model\Layout\ValidatorTrait;
 
 final class ValidatorTest extends OpenMageTest
 {
-    use UrlTrait;
+    use ValidatorTrait;
 
     private static Subject $subject;
 
@@ -30,7 +30,7 @@ final class ValidatorTest extends OpenMageTest
     }
 
     /**
-     * @dataProvider isValidDataProvider
+     * @dataProvider provideIsValidData
      * @group Model
      * @param array<string, string> $expectedErrors
      */
@@ -43,22 +43,5 @@ final class ValidatorTest extends OpenMageTest
             self::assertIsArray($messages);
             self::assertSame($expectedErrors, $messages);
         }
-    }
-
-    public function isValidDataProvider(): Generator
-    {
-        yield 'valid string' => [
-            true,
-            'default',
-            [],
-        ];
-
-        yield 'invalid string' => [
-            false,
-            '<invalid-node>',
-            [
-                'invalidXml' => 'XML data is invalid.',
-            ],
-        ];
     }
 }

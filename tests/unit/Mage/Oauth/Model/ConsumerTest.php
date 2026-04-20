@@ -16,9 +16,12 @@ use Mage;
 use Mage_Core_Exception;
 use Mage_Oauth_Model_Consumer as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Oauth\Model\ConsumerTrait;
 
 final class ConsumerTest extends OpenMageTest
 {
+    use ConsumerTrait;
+
     // @phpstan-ignore property.onlyWritten
     private static Subject $subject;
 
@@ -29,7 +32,7 @@ final class ConsumerTest extends OpenMageTest
     }
 
     /**
-     * @dataProvider validateDataProvider
+     * @dataProvider provideValidateData
      * @group Model
      * @param array<string, string> $methods
      */
@@ -44,48 +47,5 @@ final class ConsumerTest extends OpenMageTest
         } catch (Mage_Core_Exception $mageCoreException) {
             self::assertSame($expected, $mageCoreException->getMessage());
         }
-    }
-
-    public function validateDataProvider(): Generator
-    {
-        $validData = [
-            'setKey'    => str_repeat('x', 32),
-            'setSecret' => str_repeat('x', 32),
-        ];
-
-        $error = 'This value should have exactly 32 characters.';
-
-        yield 'valid' => [
-            true,
-            $validData,
-        ];
-
-        $data = $validData;
-        $data['setKey'] = str_repeat('x', 3);
-        yield 'invalid to short key' => [
-            $error,
-            $data,
-        ];
-
-        $data = $validData;
-        $data['setKey'] = str_repeat('x', 33);
-        yield 'invalid to long key' => [
-            $error,
-            $data,
-        ];
-
-        $data = $validData;
-        $data['setSecret'] = str_repeat('x', 3);
-        yield 'invalid to short secret' => [
-            $error,
-            $data,
-        ];
-
-        $data = $validData;
-        $data['setSecret'] = str_repeat('x', 33);
-        yield 'invalid to long secret' => [
-            $error,
-            $data,
-        ];
     }
 }
