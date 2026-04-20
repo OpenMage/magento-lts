@@ -209,8 +209,12 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_RequestBuilder
         ];
     }
 
-    public function buildShipmentPayload(Varien_Object $request, string $dropoffType, string $accountNumber, string $storeCountryCode): array
-    {
+    public function buildShipmentPayload(
+        Varien_Object $request,
+        string $dropoffType,
+        string $accountNumber,
+        string $storeCountryCode
+    ): array {
         $packageParams = $request->getPackageParams();
         $weightUnits = $packageParams && $packageParams->getWeightUnits() === Zend_Measure_Weight::POUND ? Uom::WEIGHT_POUND : Uom::WEIGHT_KILOGRAM;
         $dimensionsUnits = $packageParams && $packageParams->getDimensionUnits() === Zend_Measure_Length::INCH ? Uom::DIMENSION_INCH : Uom::DIMENSION_CENTIMETER;
@@ -220,7 +224,6 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_RequestBuilder
             : $this->defaultReferenceData($request);
 
         $paymentType = $request->getIsReturn() ? 'RECIPIENT' : 'SENDER';
-        $isInternational = $request->getShipperAddressCountryCode() !== $request->getRecipientAddressCountryCode();
 
         $lineItem = [
             'sequenceNumber' => 1,
@@ -307,7 +310,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_RequestBuilder
             'requestedPackageLineItems' => [$lineItem],
         ];
 
-        if ($isInternational) {
+        if ($request->getShipperAddressCountryCode() !== $request->getRecipientAddressCountryCode()) {
             $customsValue = $packageParams ? (float) $packageParams->getCustomsValue() : 0.0;
             $unitPrice = 0.0;
             $itemsQty = 0;
@@ -339,7 +342,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_RequestBuilder
                 'commodities' => [[
                     'numberOfPieces' => 1,
                     'description' => implode(', ', array_filter($itemsDesc)),
-                    'countryOfManufacture' => $countriesOfManufacture ? implode(',', array_unique($countriesOfManufacture)) : '',
+                    'countryOfManufacture' => implode(',', array_unique($countriesOfManufacture)),
                     'weight' => [
                         'units' => $weightUnits,
                         'value' => (float) $request->getPackageWeight(),

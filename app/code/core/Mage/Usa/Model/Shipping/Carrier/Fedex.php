@@ -726,7 +726,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
             && ($trackings = $this->_trackingResult->getAllTrackings())) {
             foreach ($trackings as $tracking) {
                 if ($data = $tracking->getAllData()) {
-                    if (!empty($data['status'])) {
+                    if (isset($data['status']) && ((string) $data['status'] !== '')) {
                         $statuses .= Mage::helper('usa')->__((string) $data['status']) . "\n<br/>";
                     } else {
                         $statuses .= Mage::helper('usa')->__('Empty response') . "\n<br/>";
@@ -793,9 +793,13 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
 
         $this->_debug($debugData);
 
-        if ($mapped !== null && !empty($mapped['tracking_number']) && empty($mapped['errors'])) {
+        $hasErrors = isset($mapped['errors']) && is_array($mapped['errors'] && $mapped['errors'] !== []);
+        $hasTracking = isset($mapped['tracking_number']) && (string) $mapped['tracking_number'] !== '';
+        if ($hasTracking && !$hasErrors) {
             $result->setTrackingNumber($mapped['tracking_number']);
-            $result->setShippingLabelContent($mapped['label_content']);
+            if (isset($mapped['label_content']) && (string) $mapped['label_content'] !== '') {
+                $result->setShippingLabelContent($mapped['label_content']);
+            }
         } else {
             $errorMessage = $mapped !== null
                 ? $this->_firstErrorMessage($mapped) ?? Mage::helper('usa')->__('FedEx shipment request failed')
@@ -817,7 +821,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
     {
         $accountNumber = (string) $this->getConfigData('account');
         foreach ((array) $data as $item) {
-            if (empty($item['tracking_number'])) {
+            if (!isset($item['tracking_number']) || (string) $item['tracking_number'] === '') {
                 continue;
             }
 

@@ -10,6 +10,13 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_ResponseMapper
     public const SEVERITY_WARNING = 'WARNING';
     public const SEVERITY_NOTE = 'NOTE';
 
+    /**
+     * @return array{
+     *     rates: list<array{service_type: string, rated_type: string, currency: string, amount: float}>,
+     *     alerts: list<array{severity: string, code: string, message: string}>,
+     *     errors: list<array{severity: string, code: string, message: string}>
+     * }
+     */
     public function mapRateReply(array $json): array
     {
         $output = $json['output'] ?? $json;
@@ -49,6 +56,20 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_ResponseMapper
         ];
     }
 
+    /**
+     * @return array{
+     *     status: ?string,
+     *     service: ?string,
+     *     deliverydate: ?string,
+     *     deliverytime: ?string,
+     *     deliverylocation: ?string,
+     *     shippeddate: ?string,
+     *     signedby: ?string,
+     *     weight: ?string,
+     *     progressdetail: list<array{activity: string, deliverydate?: string, deliverytime?: string, deliverylocation?: string}>,
+     *     errors: list<array{severity: string, code: string, message: string}>
+     * }
+     */
     public function mapTrackReply(array $json, string $trackingNumber): array
     {
         $output = $json['output'] ?? $json;
@@ -83,7 +104,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_ResponseMapper
 
         $packaging = $result['packageDetails'] ?? [];
         $weight = null;
-        if (!empty($packaging['weightAndDimensions']['weight'][0])) {
+        if (isset($packaging['weightAndDimensions']['weight'][0])) {
             $weightItem = $packaging['weightAndDimensions']['weight'][0];
             $weight = trim(($weightItem['value'] ?? '') . ' ' . ($weightItem['unit'] ?? ''));
         }
@@ -106,6 +127,14 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_ResponseMapper
         ];
     }
 
+    /**
+     * @return array{
+     *     tracking_number: string,
+     *     master_tracking_number: string,
+     *     label_content: ?string,
+     *     errors: list<array{severity: string, code: string, message: string}>
+     * }
+     */
     public function mapShipReply(array $json): array
     {
         $output = $json['output'] ?? $json;
@@ -121,6 +150,9 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_ResponseMapper
         ];
     }
 
+    /**
+     * @return array{cancelled: bool, message: string, errors: list<array{severity: string, code: string, message: string}>}
+     */
     public function mapCancelReply(array $json): array
     {
         $output = $json['output'] ?? $json;
@@ -131,6 +163,9 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_ResponseMapper
         ];
     }
 
+    /**
+     * @return list<array{severity: string, code: string, message: string}>
+     */
     private function mapAlerts(array $alerts): array
     {
         $out = [];
@@ -145,6 +180,9 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_ResponseMapper
         return $out;
     }
 
+    /**
+     * @return list<array{severity: string, code: string, message: string}>
+     */
     private function mapErrors(array $json): array
     {
         $errors = [];
@@ -182,6 +220,9 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_ResponseMapper
         return $out;
     }
 
+    /**
+     * @return list<array{activity: string, deliverydate?: string, deliverytime?: string, deliverylocation?: string}>
+     */
     private function mapScanEvents(array $events): array
     {
         $out = [];

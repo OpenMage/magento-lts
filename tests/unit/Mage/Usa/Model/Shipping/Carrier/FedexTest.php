@@ -438,7 +438,7 @@ final class FedexTest extends OpenMageTest
 
         $restClient->expects(self::once())
             ->method('deleteShipment')
-            ->with(self::callback(fn($p) => $p['trackingNumber'] === 'FIRST'));
+            ->with(self::callback(static fn($p) => $p['trackingNumber'] === 'FIRST'));
 
         $fedex = $this->fedexWithConfig([
             'account' => '510510510',
