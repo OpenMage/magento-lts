@@ -26,20 +26,19 @@ class Mage_Api_Model_Session extends Mage_Core_Model_Session_Abstract
     protected $_currentSessId = null;
 
     /**
-     * @param  null|string $sessionName
      * @return $this
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function start($sessionName = null)
     {
-        $this->_currentSessId = md5(Carbon::now()->getTimestamp() . uniqid('', true) . $sessionName);
+        $this->_currentSessId = bin2hex(random_bytes(32));
         $this->sessionIds[] = $this->getSessionId();
         return $this;
     }
 
     /**
-     * @param  string      $namespace
-     * @param  null|string $sessionName
      * @return $this
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function init($namespace, $sessionName = null)
     {
