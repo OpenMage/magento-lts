@@ -60,7 +60,7 @@ class Mage_Core_Model_Date
         }
 
         if ($result) {
-            $offset = (int) Mage::helper('core/clock')->now()->format('Z');
+            $offset = (int) Mage::helper('core/clock')->format('Z');
         }
 
         if (!is_null($timezone)) {

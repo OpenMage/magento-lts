@@ -389,7 +389,7 @@ class Mage_Cron_Model_Observer
         /** @var Mage_Cron_Model_Schedule $schedule */
         $schedule = Mage::getModel('cron/schedule')->load($jobCode, 'job_code');
         if ($schedule->getId() === null) {
-            $timestamp = Mage::helper('core/clock')->now()->format('Y-m-d H:i:00');
+            $timestamp = Mage::helper('core/clock')->format('Y-m-d H:i:00');
             $schedule->setJobCode($jobCode)
                 ->setCreatedAt($timestamp)
                 ->setScheduledAt($timestamp);

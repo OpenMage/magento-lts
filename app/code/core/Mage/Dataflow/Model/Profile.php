@@ -237,7 +237,7 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
                     }
 
                     if ($uploadFile) {
-                        $newFilename = 'import-' . Mage::helper('core/clock')->now()->format('YmdHis') . '-' . ($index + 1) . '_' . $uploadFile;
+                        $newFilename = 'import-' . Mage::helper('core/clock')->format('YmdHis') . '-' . ($index + 1) . '_' . $uploadFile;
                         rename($path . $uploadFile, $path . $newFilename);
                         $newUploadedFilenames[] = $newFilename;
                     }

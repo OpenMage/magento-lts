@@ -273,7 +273,7 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
             return $_range[0];
         }
 
-        return Mage::helper('core/clock')->now()->format('Y');
+        return Mage::helper('core/clock')->format('Y');
     }
 
     /**
@@ -288,7 +288,7 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
             return $_range[1];
         }
 
-        return Mage::helper('core/clock')->now()->format('Y');
+        return Mage::helper('core/clock')->format('Y');
     }
 
     /**

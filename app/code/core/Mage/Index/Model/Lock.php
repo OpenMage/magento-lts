@@ -294,7 +294,7 @@ class Mage_Index_Model_Lock
                 throw new Exception(sprintf("Unable to open lock file '%s': %s", $file, error_get_last()));
             }
 
-            fwrite(self::$_lockFileResource[$lockName], Mage::helper('core/clock')->now()->format('r'));
+            fwrite(self::$_lockFileResource[$lockName], Mage::helper('core/clock')->format('r'));
         }
 
         return self::$_lockFileResource[$lockName];

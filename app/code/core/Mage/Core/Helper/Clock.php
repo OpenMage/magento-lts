@@ -27,4 +27,9 @@ class Mage_Core_Helper_Clock extends Mage_Core_Helper_Abstract implements ClockI
     {
         return $this->now()->getTimestamp();
     }
+
+    public function format(string $format): string
+    {
+        return $this->now()->format($format);
+    }
 }

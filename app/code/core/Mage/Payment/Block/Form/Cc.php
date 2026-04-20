@@ -130,7 +130,7 @@ class Mage_Payment_Block_Form_Cc extends Mage_Payment_Block_Form
     public function getSsStartYears()
     {
         $years = [];
-        $first = Mage::helper('core/clock')->now()->format('Y');
+        $first = Mage::helper('core/clock')->format('Y');
 
         for ($index = 5; $index >= 0; $index--) {
             $year = $first - $index;

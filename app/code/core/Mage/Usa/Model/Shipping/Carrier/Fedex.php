@@ -288,7 +288,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
             'Version' => $this->getVersionInfo(),
             'RequestedShipment' => [
                 'DropoffType'   => $request->getDropoffType(),
-                'ShipTimestamp' => Mage::helper('core/clock')->now()->format('c'),
+                'ShipTimestamp' => Mage::helper('core/clock')->format('c'),
                 'PackagingType' => $request->getPackaging(),
                 'TotalInsuredValue' => [
                     'Amount'  => $request->getValue(),
@@ -583,7 +583,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
         $requestHeader->addChild('AccountNumber', $rawRequest->getAccount());
         $requestHeader->addChild('MeterNumber', '0');
 
-        $xml->addChild('ShipDate', Mage::helper('core/clock')->now()->format('Y-m-d'));
+        $xml->addChild('ShipDate', Mage::helper('core/clock')->format('Y-m-d'));
         $xml->addChild('DropoffType', $rawRequest->getDropoffType());
         if ($rawRequest->hasService()) {
             $xml->addChild('Service', $rawRequest->getService());

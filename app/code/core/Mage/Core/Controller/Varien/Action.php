@@ -1100,7 +1100,7 @@ abstract class Mage_Core_Controller_Varien_Action
             ->setHeader('Content-type', $contentType, true)
             ->setHeader('Content-Length', is_null($contentLength) ? strlen($content) : $contentLength, true)
             ->setHeader('Content-Disposition', 'attachment; filename="' . $fileName . '"', true)
-            ->setHeader('Last-Modified', Mage::helper('core/clock')->now()->format('r'), true);
+            ->setHeader('Last-Modified', Mage::helper('core/clock')->format('r'), true);
 
         if (!is_null($content)) {
             if ($isFile) {

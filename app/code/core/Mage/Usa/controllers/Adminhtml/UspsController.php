@@ -168,7 +168,7 @@ class Mage_Usa_Adminhtml_UspsController extends Mage_Adminhtml_Controller_Action
                 'height' => 2.0,
                 'mailClasses' => ['USPS_GROUND_ADVANTAGE', 'PRIORITY_MAIL', 'PRIORITY_MAIL_EXPRESS'],
                 'priceType' => 'COMMERCIAL',
-                'mailingDate' => Mage::helper('core/clock')->now()->format('Y-m-d'),
+                'mailingDate' => Mage::helper('core/clock')->format('Y-m-d'),
             ];
 
             $curl = curl_init();

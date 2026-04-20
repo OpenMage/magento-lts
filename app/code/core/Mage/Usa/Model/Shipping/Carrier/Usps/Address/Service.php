@@ -278,7 +278,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Address_Service extends Mage_Usa_Mode
 
         // Mark as verified
         $address->setData('usps_address_verified', true);
-        $address->setData('usps_address_verified_at', Mage::helper('core/clock')->now()->format('Y-m-d H:i:s'));
+        $address->setData('usps_address_verified_at', Mage::helper('core/clock')->format('Y-m-d H:i:s'));
 
         $this->_debug([
             'action' => 'apply_correction',
