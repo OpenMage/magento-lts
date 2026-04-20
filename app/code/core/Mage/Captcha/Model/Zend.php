@@ -7,7 +7,7 @@
  * @package    Mage_Captcha
  */
 
-use Carbon\Carbon;
+
 use Laminas\Captcha\Image;
 
 /**
@@ -364,7 +364,7 @@ class Mage_Captcha_Model_Zend extends Image implements Mage_Captcha_Model_Interf
      * @return string
      */
     #[Override]
-    protected function _generateWord()
+    protected function generateWord()
     {
         $word = '';
         $symbols = $this->_getSymbols();
@@ -471,7 +471,7 @@ class Mage_Captcha_Model_Zend extends Image implements Mage_Captcha_Model_Interf
     {
         $sessionData = $this->getSession()->getData($this->_getFormIdKey(self::SESSION_WORD));
         if (!is_array($sessionData)) {
-            return $this->_generateWord();
+            return $this->generateWord();
         }
 
         return Mage::helper('core/clock')->getTimestamp() < $sessionData['expires'] ? $sessionData['data'] : null;
@@ -484,7 +484,7 @@ class Mage_Captcha_Model_Zend extends Image implements Mage_Captcha_Model_Interf
      * @return $this
      */
     #[Override]
-    protected function _setWord($word)
+    protected function setWord($word)
     {
         $this->getSession()->setData(
             $this->_getFormIdKey(self::SESSION_WORD),
@@ -513,7 +513,7 @@ class Mage_Captcha_Model_Zend extends Image implements Mage_Captcha_Model_Interf
      * @see \Laminas\Captcha\Image::_randomSize()
      */
     #[Override]
-    protected function _randomSize()
+    protected function randomSize()
     {
         return mt_rand(280, 300) / 100;
     }
@@ -525,7 +525,7 @@ class Mage_Captcha_Model_Zend extends Image implements Mage_Captcha_Model_Interf
      * @see Mage_Captcha_Model_Observer::deleteExpiredImages
      */
     #[Override]
-    protected function _gc()
+    protected function gc()
     {
         //do nothing
     }
