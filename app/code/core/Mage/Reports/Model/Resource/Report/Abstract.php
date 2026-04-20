@@ -42,7 +42,7 @@ abstract class Mage_Reports_Model_Resource_Report_Abstract extends Mage_Core_Mod
      *
      * @param  string                                      $code
      * @param  mixed                                       $value
-     * @return Mage_Reports_Model_Resource_Report_Abstract
+     * @return $this
      * @throws Throwable
      */
     protected function _setFlagData($code, $value = null)
@@ -85,7 +85,7 @@ abstract class Mage_Reports_Model_Resource_Report_Abstract extends Mage_Core_Mod
      * Truncate table
      *
      * @param  string                                      $table
-     * @return Mage_Reports_Model_Resource_Report_Abstract
+     * @return $this
      */
     protected function _truncateTable($table)
     {
@@ -108,7 +108,7 @@ abstract class Mage_Reports_Model_Resource_Report_Abstract extends Mage_Core_Mod
      * @param  null|string                                 $dateTo
      * @param  null|string|Zend_Db_Select                  $subSelect
      * @param  bool                                        $doNotUseTruncate
-     * @return Mage_Reports_Model_Resource_Report_Abstract
+     * @return $this
      */
     protected function _clearTableByDateRange(
         $table,
@@ -332,7 +332,7 @@ abstract class Mage_Reports_Model_Resource_Report_Abstract extends Mage_Core_Mod
      *
      * @param  mixed                                       $dateFrom
      * @param  mixed                                       $dateTo
-     * @return Mage_Reports_Model_Resource_Report_Abstract
+     * @return $this
      */
     protected function _checkDates(&$dateFrom, &$dateTo)
     {

@@ -42,7 +42,7 @@ class Mage_Catalog_ProductController extends Mage_Core_Controller_Front_Action
      * Initialize product view layout
      *
      * @param  Mage_Catalog_Model_Product     $product
-     * @return Mage_Catalog_ProductController
+     * @return $this
      */
     protected function _initProductLayout($product)
     {

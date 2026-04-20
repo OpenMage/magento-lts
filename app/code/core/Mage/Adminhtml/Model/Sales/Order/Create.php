@@ -165,7 +165,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
      * Set collect totals flag for quote
      *
      * @param  bool                                    $flag
-     * @return Mage_Adminhtml_Model_Sales_Order_Create
+     * @return $this
      */
     public function setRecollect($flag)
     {
@@ -177,7 +177,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
      * Recollect totals for customer cart.
      * Set recollect totals flag for quote
      *
-     * @return Mage_Adminhtml_Model_Sales_Order_Create
+     * @return $this
      */
     public function recollectCart()
     {
@@ -536,7 +536,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
      * @param  int|Mage_Sales_Model_Quote_Item_Abstract $item
      * @param  string                                   $moveTo
      * @param  int                                      $qty
-     * @return Mage_Adminhtml_Model_Sales_Order_Create
+     * @return $this
      */
     public function moveQuoteItem($item, $moveTo, $qty)
     {
@@ -717,7 +717,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
      *
      * @param  int                                     $itemId
      * @param  string                                  $from
-     * @return Mage_Adminhtml_Model_Sales_Order_Create
+     * @return $this
      */
     public function removeItem($itemId, $from)
     {
@@ -756,7 +756,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
      * Remove quote item
      *
      * @param  int                                     $item
-     * @return Mage_Adminhtml_Model_Sales_Order_Create
+     * @return $this
      */
     public function removeQuoteItem($item)
     {
@@ -772,7 +772,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
      *
      * @param  int|Mage_Catalog_Model_Product          $product
      * @param  array|float|Varien_Object               $config
-     * @return Mage_Adminhtml_Model_Sales_Order_Create
+     * @return $this
      */
     public function addProduct($product, $config = 1)
     {
@@ -853,7 +853,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
      * Update quantity of order quote items
      *
      * @param  array                                   $data
-     * @return Mage_Adminhtml_Model_Sales_Order_Create
+     * @return $this
      */
     public function updateQuoteItems($data)
     {
@@ -1325,7 +1325,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
      * Parse data retrieved from request
      *
      * @param  array                                   $data
-     * @return Mage_Adminhtml_Model_Sales_Order_Create
+     * @return $this
      */
     public function importPostData($data)
     {

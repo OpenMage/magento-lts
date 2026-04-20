@@ -21,7 +21,7 @@ abstract class Mage_Dataflow_Model_Batch_Abstract extends Mage_Core_Model_Abstra
      * automatic convert to serialize data
      *
      * @param  mixed                              $data
-     * @return Mage_Dataflow_Model_Batch_Abstract
+     * @return $this
      */
     public function setBatchData($data)
     {

@@ -70,7 +70,7 @@ class Varien_Db_Statement_Parameter implements Stringable
      * Sets parameter value.
      *
      * @param  mixed                         $value
-     * @return Varien_Db_Statement_Parameter
+     * @return $this
      */
     public function setValue($value)
     {
@@ -96,7 +96,7 @@ class Varien_Db_Statement_Parameter implements Stringable
      * as a BLOB value.
      *
      * @param  bool                          $isBlob
-     * @return Varien_Db_Statement_Parameter
+     * @return $this
      */
     public function setIsBlob($isBlob)
     {
@@ -121,7 +121,7 @@ class Varien_Db_Statement_Parameter implements Stringable
      * Sets data type option to be used during binding parameter value.
      *
      * @param  mixed                         $dataType
-     * @return Varien_Db_Statement_Parameter
+     * @return $this
      */
     public function setDataType($dataType)
     {
@@ -143,7 +143,7 @@ class Varien_Db_Statement_Parameter implements Stringable
      * Sets length option to be used during binding parameter value.
      *
      * @param  mixed                         $length
-     * @return Varien_Db_Statement_Parameter
+     * @return $this
      */
     public function setLength($length)
     {
@@ -165,7 +165,7 @@ class Varien_Db_Statement_Parameter implements Stringable
      * Sets specific driver options to be used during binding parameter value.
      *
      * @param  mixed                         $driverOptions
-     * @return Varien_Db_Statement_Parameter
+     * @return $this
      */
     public function setDriverOptions($driverOptions)
     {
@@ -188,7 +188,7 @@ class Varien_Db_Statement_Parameter implements Stringable
      * Set there any data you want to pass along with query parameter.
      *
      * @param  Varien_Object                 $additional
-     * @return Varien_Db_Statement_Parameter
+     * @return $this
      */
     public function setAdditional($additional)
     {

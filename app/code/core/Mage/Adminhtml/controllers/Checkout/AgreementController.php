@@ -133,7 +133,7 @@ class Mage_Adminhtml_Checkout_AgreementController extends Mage_Adminhtml_Control
     /**
      * Initialize action
      *
-     * @return Mage_Adminhtml_Controller_Action
+     * @return $this
      */
     protected function _initAction()
     {

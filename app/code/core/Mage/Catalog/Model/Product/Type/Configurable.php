@@ -157,7 +157,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
      *
      * @param  array                                        $ids
      * @param  Mage_Catalog_Model_Product                   $product
-     * @return Mage_Catalog_Model_Product_Type_Configurable
+     * @return $this
      */
     public function setUsedProductAttributeIds($ids, $product = null)
     {

@@ -480,7 +480,7 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
      * Set capture transaction ID to invoice for informational purposes
      * @param  Mage_Sales_Model_Order_Invoice     $invoice
      * @param  Mage_Sales_Model_Order_Payment     $payment
-     * @return Mage_Payment_Model_Method_Abstract
+     * @return $this
      */
     public function processInvoice($invoice, $payment)
     {
@@ -495,7 +495,7 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
      *
      * @param  Mage_Sales_Model_Order_Invoice     $invoice
      * @param  Mage_Sales_Model_Order_Payment     $payment
-     * @return Mage_Payment_Model_Method_Abstract
+     * @return $this
      */
     public function processBeforeRefund($invoice, $payment)
     {
@@ -522,7 +522,7 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
      * Set transaction ID into creditmemo for informational purposes
      * @param  Mage_Sales_Model_Order_Creditmemo  $creditmemo
      * @param  Mage_Sales_Model_Order_Payment     $payment
-     * @return Mage_Payment_Model_Method_Abstract
+     * @return $this
      */
     public function processCreditmemo($creditmemo, $payment)
     {
@@ -543,7 +543,7 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
     /**
      * @param  Mage_Sales_Model_Order_Invoice     $invoice
      * @param  Mage_Sales_Model_Order_Payment     $payment
-     * @return Mage_Payment_Model_Method_Abstract
+     * @return $this
      * @deprecated after 1.4.0.0-alpha3
      * this method doesn't make sense, because invoice must not void entire authorization
      * there should be method for invoice cancellation

@@ -33,7 +33,7 @@ class Mage_Reports_Model_Resource_Report_Product_Viewed extends Mage_Sales_Model
      *
      * @param  null|string                                       $dateFrom
      * @param  null|string                                       $dateTo
-     * @return Mage_Reports_Model_Resource_Report_Product_Viewed
+     * @return $this
      * @throws Mage_Core_Exception
      * @throws Zend_Db_Select_Exception
      */

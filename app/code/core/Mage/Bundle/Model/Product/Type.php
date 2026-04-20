@@ -412,7 +412,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
      * @param  array                          $options
      * @param  mixed                          $value
      * @param  Mage_Catalog_Model_Product     $product
-     * @return Mage_Bundle_Model_Product_Type
+     * @return $this
      */
     public function updateQtyOption($options, Varien_Object $option, $value, $product = null)
     {

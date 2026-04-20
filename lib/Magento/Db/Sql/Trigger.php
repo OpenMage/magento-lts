@@ -94,7 +94,7 @@ class Magento_Db_Sql_Trigger implements Stringable
     /**
      * Validate where all trigger parts set?
      *
-     * @return Magento_Db_Sql_Trigger
+     * @return $this
      * @throws Exception
      */
     protected function _validateIsComplete()
@@ -113,7 +113,7 @@ class Magento_Db_Sql_Trigger implements Stringable
      *
      * @param                           $part
      * @param                           $value
-     * @return Magento_Db_Sql_Trigger
+     * @return $this
      * @throws InvalidArgumentException
      */
     protected function _setPart($part, $value)
@@ -148,7 +148,7 @@ class Magento_Db_Sql_Trigger implements Stringable
      *
      * @param                           $part
      * @param                           $value
-     * @return Magento_Db_Sql_Trigger
+     * @return $this
      * @throws InvalidArgumentException
      */
     public function setBodyPart($part, $value)
@@ -193,7 +193,7 @@ class Magento_Db_Sql_Trigger implements Stringable
     /**
      * Set trigger time {BEFORE/AFTER}
      * @param                           $time
-     * @return Magento_Db_Sql_Trigger
+     * @return $this
      * @throws InvalidArgumentException
      */
     public function setTime($time)
@@ -211,7 +211,7 @@ class Magento_Db_Sql_Trigger implements Stringable
      * Set trigger event {INSERT/UPDATE/DELETE}
      *
      * @param                           $event
-     * @return Magento_Db_Sql_Trigger
+     * @return $this
      * @throws InvalidArgumentException
      */
     public function setEvent($event)
@@ -229,7 +229,7 @@ class Magento_Db_Sql_Trigger implements Stringable
      * Set trigger target, table name
      *
      * @param                         $target
-     * @return Magento_Db_Sql_Trigger
+     * @return $this
      */
     public function setTarget($target)
     {
@@ -241,7 +241,7 @@ class Magento_Db_Sql_Trigger implements Stringable
      * Set trigger name
      *
      * @param                         $name
-     * @return Magento_Db_Sql_Trigger
+     * @return $this
      */
     public function setName($name)
     {
@@ -268,7 +268,7 @@ class Magento_Db_Sql_Trigger implements Stringable
      * Set trigger body
      *
      * @param  array|string           $body
-     * @return Magento_Db_Sql_Trigger
+     * @return $this
      */
     public function setBody($body)
     {
@@ -338,7 +338,7 @@ class Magento_Db_Sql_Trigger implements Stringable
     /**
      * Reset trigger parts
      *
-     * @return Magento_Db_Sql_Trigger
+     * @return $this
      */
     public function reset()
     {

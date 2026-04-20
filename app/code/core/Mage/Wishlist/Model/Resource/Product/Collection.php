@@ -157,7 +157,7 @@ class Mage_Wishlist_Model_Resource_Product_Collection extends Mage_Catalog_Model
      *
      * @param  bool                                            $printQuery
      * @param  bool                                            $logQuery
-     * @return Mage_Wishlist_Model_Resource_Product_Collection
+     * @return $this
      */
     public function load($printQuery = false, $logQuery = false)
     {

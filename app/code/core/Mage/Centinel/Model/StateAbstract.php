@@ -25,7 +25,7 @@ abstract class Mage_Centinel_Model_StateAbstract extends Varien_Object
      * Setter for storage data model
      *
      * @param  Varien_Object                     $dataStorageModel
-     * @return Mage_Centinel_Model_StateAbstract
+     * @return $this
      */
     public function setDataStorage($dataStorageModel)
     {
@@ -71,7 +71,7 @@ abstract class Mage_Centinel_Model_StateAbstract extends Varien_Object
      *
      * @param  array|string                      $key
      * @param  mixed                             $value
-     * @return Mage_Centinel_Model_StateAbstract
+     * @return $this
      */
     public function setData($key, $value = null)
     {
@@ -83,7 +83,7 @@ abstract class Mage_Centinel_Model_StateAbstract extends Varien_Object
      * Save lookup result in state model
      *
      * @param  Varien_Object                     $result
-     * @return Mage_Centinel_Model_StateAbstract
+     * @return $this
      */
     public function setLookupResult($result)
     {
@@ -98,7 +98,7 @@ abstract class Mage_Centinel_Model_StateAbstract extends Varien_Object
      * Save authenticate result in state model
      *
      * @param  Varien_Object                     $result
-     * @return Mage_Centinel_Model_StateAbstract
+     * @return $this
      */
     public function setAuthenticateResult($result)
     {

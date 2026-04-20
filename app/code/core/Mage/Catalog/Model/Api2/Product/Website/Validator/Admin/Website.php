@@ -60,7 +60,7 @@ class Mage_Catalog_Model_Api2_Product_Website_Validator_Admin_Website extends Ma
      * @param  Mage_Catalog_Model_Product                                       $product
      * @param  Mage_Core_Model_Website                                          $website
      * @param  array                                                            $data
-     * @return \Mage_Catalog_Model_Api2_Product_Website_Validator_Admin_Website
+     * @return $this
      */
     protected function _addErrorsIfCopyToStoresDataIsNotValid($product, $website, $data)
     {
@@ -80,7 +80,7 @@ class Mage_Catalog_Model_Api2_Product_Website_Validator_Admin_Website extends Ma
      * @param  Mage_Catalog_Model_Product                                       $product
      * @param  Mage_Core_Model_Website                                          $website
      * @param  array                                                            $storeData
-     * @return \Mage_Catalog_Model_Api2_Product_Website_Validator_Admin_Website
+     * @return $this
      */
     protected function _checkStoreFrom($product, $website, $storeData)
     {
@@ -117,7 +117,7 @@ class Mage_Catalog_Model_Api2_Product_Website_Validator_Admin_Website extends Ma
      *
      * @param  Mage_Core_Model_Website                                          $website
      * @param  array                                                            $storeData
-     * @return \Mage_Catalog_Model_Api2_Product_Website_Validator_Admin_Website
+     * @return $this
      */
     protected function _checkStoreTo($website, $storeData)
     {

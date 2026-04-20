@@ -172,7 +172,7 @@ class Mage_Catalog_Model_Product_Status extends Mage_Core_Model_Abstract
      * @param  int                               $productId
      * @param  int                               $storeId
      * @param  int                               $value
-     * @return Mage_Catalog_Model_Product_Status
+     * @return $this
      */
     public function updateProductStatus($productId, $storeId, $value)
     {
@@ -279,7 +279,7 @@ class Mage_Catalog_Model_Product_Status extends Mage_Core_Model_Abstract
      * Set attribute instance
      *
      * @param  Mage_Catalog_Model_Resource_Eav_Attribute $attribute
-     * @return Mage_Catalog_Model_Product_Status
+     * @return $this
      */
     public function setAttribute($attribute)
     {

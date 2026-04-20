@@ -138,7 +138,7 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
     /**
      * Specify customer object which can be used for rate calculation
      *
-     * @return Mage_Tax_Model_Calculation
+     * @return $this
      */
     public function setCustomer(Mage_Customer_Model_Customer $customer)
     {
@@ -187,7 +187,7 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
      * Delete calculation settings by rule id
      *
      * @param  int                        $ruleId
-     * @return Mage_Tax_Model_Calculation
+     * @return $this
      * @throws Mage_Core_Exception
      */
     public function deleteByRuleId($ruleId)

@@ -69,7 +69,7 @@ abstract class Mage_Core_Helper_Abstract
      * @param  string                    $id
      * @param  array                     $tags
      * @param  null|false|int            $lifeTime
-     * @return Mage_Core_Helper_Abstract
+     * @return $this
      */
     protected function _saveCache($data, $id, $tags = [], $lifeTime = false)
     {
@@ -81,7 +81,7 @@ abstract class Mage_Core_Helper_Abstract
      * Removing cache
      *
      * @param  string                    $id
-     * @return Mage_Core_Helper_Abstract
+     * @return $this
      */
     protected function _removeCache($id)
     {
@@ -93,7 +93,7 @@ abstract class Mage_Core_Helper_Abstract
      * Cleaning cache
      *
      * @param  array                     $tags
-     * @return Mage_Core_Helper_Abstract
+     * @return $this
      */
     protected function _cleanCache($tags = [])
     {
@@ -353,7 +353,7 @@ abstract class Mage_Core_Helper_Abstract
      * Declare layout
      *
      * @param  Mage_Core_Model_Layout    $layout
-     * @return Mage_Core_Helper_Abstract
+     * @return $this
      */
     public function setLayout($layout)
     {

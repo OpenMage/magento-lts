@@ -17,7 +17,7 @@ class Mage_Sales_Model_Quote_Address_Total_Subtotal extends Mage_Sales_Model_Quo
     /**
      * Collect address subtotal
      *
-     * @return Mage_Sales_Model_Quote_Address_Total_Subtotal
+     * @return $this
      */
     public function collect(Mage_Sales_Model_Quote_Address $address)
     {
@@ -134,7 +134,7 @@ class Mage_Sales_Model_Quote_Address_Total_Subtotal extends Mage_Sales_Model_Quo
     /**
      * Assign subtotal amount and label to address object
      *
-     * @return Mage_Sales_Model_Quote_Address_Total_Subtotal
+     * @return $this
      */
     public function fetch(Mage_Sales_Model_Quote_Address $address)
     {

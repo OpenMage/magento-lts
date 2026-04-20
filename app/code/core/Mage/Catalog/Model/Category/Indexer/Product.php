@@ -124,7 +124,7 @@ class Mage_Catalog_Model_Category_Indexer_Product extends Mage_Index_Model_Index
      * Register data required by process in event object
      * Check if category ids was changed
      *
-     * @return Mage_Catalog_Model_Category_Indexer_Product
+     * @return $this
      */
     protected function _registerEvent(Mage_Index_Model_Event $event)
     {

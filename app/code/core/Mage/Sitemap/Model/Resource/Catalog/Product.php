@@ -81,7 +81,7 @@ class Mage_Sitemap_Model_Resource_Catalog_Product extends Mage_Sitemap_Model_Res
      * Loads product attribute by given attribute code
      *
      * @param  string                                       $attributeCode
-     * @return Mage_Sitemap_Model_Resource_Catalog_Abstract
+     * @return $this
      */
     protected function _loadAttribute($attributeCode)
     {

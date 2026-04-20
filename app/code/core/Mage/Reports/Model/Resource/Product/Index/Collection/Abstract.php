@@ -37,7 +37,7 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Collection_Abstract ext
     /**
      * Join index table
      *
-     * @return Mage_Reports_Model_Resource_Product_Index_Collection_Abstract
+     * @return $this
      */
     protected function _joinIdxTable()
     {
@@ -61,7 +61,7 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Collection_Abstract ext
     /**
      * Add Viewed Products Index to Collection
      *
-     * @return Mage_Reports_Model_Resource_Product_Index_Collection_Abstract
+     * @return $this
      */
     public function addIndexFilter()
     {
@@ -76,7 +76,7 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Collection_Abstract ext
      * Add filter by product ids
      *
      * @param  array                                                         $ids
-     * @return Mage_Reports_Model_Resource_Product_Index_Collection_Abstract
+     * @return $this
      */
     public function addFilterByIds($ids)
     {
@@ -113,7 +113,7 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Collection_Abstract ext
      * Set customer id, that will be used in 'whereCondition'
      *
      * @param  int                                                           $id
-     * @return Mage_Reports_Model_Resource_Product_Index_Collection_Abstract
+     * @return $this
      */
     public function setCustomerId($id)
     {
@@ -125,7 +125,7 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Collection_Abstract ext
      * Add order by "added at"
      *
      * @param  string                                                        $dir
-     * @return Mage_Reports_Model_Resource_Product_Index_Collection_Abstract
+     * @return $this
      */
     public function setAddedAtOrder($dir = self::SORT_ORDER_DESC)
     {
@@ -139,7 +139,7 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Collection_Abstract ext
     /**
      * Set list of ids with expected order
      *
-     * @return Mage_Reports_Model_Resource_Product_Index_Collection_Abstract
+     * @return $this
      */
     public function setSortIds(array $ids)
     {
@@ -150,7 +150,7 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Collection_Abstract ext
     /**
      * Sort loaded collection by predefined items ids
      *
-     * @return Mage_Reports_Model_Resource_Product_Index_Collection_Abstract
+     * @return $this
      */
     protected function _sort()
     {
@@ -184,7 +184,7 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Collection_Abstract ext
      * Add exclude Product Ids
      *
      * @param  array|int                                                     $productIds
-     * @return Mage_Reports_Model_Resource_Product_Index_Collection_Abstract
+     * @return $this
      */
     public function excludeProductIds($productIds)
     {

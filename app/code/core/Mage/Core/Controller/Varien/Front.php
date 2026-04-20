@@ -82,7 +82,7 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
      * Adding new router
      *
      * @param  string                            $name
-     * @return Mage_Core_Controller_Varien_Front
+     * @return $this
      */
     public function addRouter($name, Mage_Core_Controller_Varien_Router_Abstract $router)
     {

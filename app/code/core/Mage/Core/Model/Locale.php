@@ -97,7 +97,7 @@ class Mage_Core_Model_Locale
      * Set default locale code
      *
      * @param  string                 $locale
-     * @return Mage_Core_Model_Locale
+     * @return $this
      */
     public function setDefaultLocale($locale)
     {
@@ -128,7 +128,7 @@ class Mage_Core_Model_Locale
      * Set locale
      *
      * @param  string                 $locale
-     * @return Mage_Core_Model_Locale
+     * @return $this
      */
     public function setLocale($locale = null)
     {

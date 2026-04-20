@@ -237,7 +237,7 @@ class Varien_Image
      * Set watermark position
      *
      * @param  string       $position
-     * @return Varien_Image
+     * @return $this
      */
     public function setWatermarkPosition($position)
     {
@@ -249,7 +249,7 @@ class Varien_Image
      * Set watermark image opacity
      *
      * @param  int          $imageOpacity
-     * @return Varien_Image
+     * @return $this
      */
     public function setWatermarkImageOpacity($imageOpacity)
     {
@@ -261,7 +261,7 @@ class Varien_Image
      * Set watermark width
      *
      * @param  int          $width
-     * @return Varien_Image
+     * @return $this
      */
     public function setWatermarkWidth($width)
     {
@@ -273,7 +273,7 @@ class Varien_Image
      * Set watermark height
      *
      * @param  int          $heigth
-     * @return Varien_Image
+     * @return $this
      */
     public function setWatermarkHeigth($heigth)
     {

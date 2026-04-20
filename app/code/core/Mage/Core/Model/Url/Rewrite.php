@@ -65,7 +65,7 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
     /**
      * Clean cache for front-end menu
      *
-     * @return Mage_Core_Model_Url_Rewrite
+     * @return $this
      */
     protected function _afterSave()
     {
@@ -83,7 +83,7 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
      * If $path is array - we must load possible records and choose one matching earlier record in array
      *
      * @param  mixed                       $path
-     * @return Mage_Core_Model_Url_Rewrite
+     * @return $this
      * @throws Mage_Core_Exception
      */
     public function loadByRequestPath($path)

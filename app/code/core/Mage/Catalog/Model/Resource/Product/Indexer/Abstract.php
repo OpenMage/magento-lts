@@ -96,7 +96,7 @@ abstract class Mage_Catalog_Model_Resource_Product_Indexer_Abstract extends Mage
      * @param  Varien_Db_Select                                     $select        the select object
      * @param  bool                                                 $store         add default store join
      * @param  string|Zend_Db_Expr                                  $joinCondition the limitation for website_id
-     * @return Mage_Catalog_Model_Resource_Product_Indexer_Abstract
+     * @return $this
      */
     protected function _addWebsiteJoinToSelect($select, $store = true, $joinCondition = null)
     {

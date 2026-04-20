@@ -207,7 +207,7 @@ abstract class Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract 
      * Assign group prices to product data
      *
      * @param  Mage_Catalog_Model_Product                                       $object
-     * @return Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract
+     * @return $this
      */
     public function afterLoad($object)
     {
@@ -246,7 +246,7 @@ abstract class Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract 
      * After Save Attribute manipulation
      *
      * @param  Mage_Catalog_Model_Product                                       $object
-     * @return Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract
+     * @return $this
      */
     public function afterSave($object)
     {

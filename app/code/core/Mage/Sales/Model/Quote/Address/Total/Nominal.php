@@ -19,7 +19,7 @@ class Mage_Sales_Model_Quote_Address_Total_Nominal extends Mage_Sales_Model_Quot
     /**
      * Invoke collector for nominal items
      *
-     * @return Mage_Sales_Model_Quote_Address_Total_Nominal
+     * @return $this
      */
     public function collect(Mage_Sales_Model_Quote_Address $address)
     {

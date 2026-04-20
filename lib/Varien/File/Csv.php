@@ -24,7 +24,7 @@ class Varien_File_Csv
      * Set max file line length
      *
      * @param  int             $length
-     * @return Varien_File_Csv
+     * @return $this
      */
     public function setLineLength($length)
     {
@@ -36,7 +36,7 @@ class Varien_File_Csv
      * Set CSV column delimiter
      *
      * @param  string          $delimiter
-     * @return Varien_File_Csv
+     * @return $this
      */
     public function setDelimiter($delimiter)
     {
@@ -48,7 +48,7 @@ class Varien_File_Csv
      * Set CSV column value enclosure
      *
      * @param  string          $enclosure
-     * @return Varien_File_Csv
+     * @return $this
      */
     public function setEnclosure($enclosure)
     {
@@ -104,7 +104,7 @@ class Varien_File_Csv
      *
      * @param  string          $file
      * @param  array           $data
-     * @return Varien_File_Csv
+     * @return $this
      */
     public function saveData($file, $data)
     {

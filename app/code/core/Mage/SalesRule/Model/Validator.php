@@ -96,7 +96,7 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
      * @param  int                            $websiteId
      * @param  int                            $customerGroupId
      * @param  string                         $couponCode
-     * @return Mage_SalesRule_Model_Validator
+     * @return $this
      * @throws Zend_Cache_Exception
      */
     public function init($websiteId, $customerGroupId, $couponCode)
@@ -237,7 +237,7 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
      * This process not affect information about applied rules, coupon code etc.
      * This information will be added during discount amounts processing
      *
-     * @return Mage_SalesRule_Model_Validator
+     * @return $this
      * @throws Mage_Core_Exception
      */
     public function processFreeShipping(Mage_Sales_Model_Quote_Item_Abstract $item)
@@ -295,7 +295,7 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
     /**
      * Quote item discount calculation process
      *
-     * @return Mage_SalesRule_Model_Validator
+     * @return $this
      * @throws Mage_Core_Exception
      */
     public function process(Mage_Sales_Model_Quote_Item_Abstract $item)
@@ -749,7 +749,7 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
     /**
      * Apply discounts to shipping amount
      *
-     * @return Mage_SalesRule_Model_Validator
+     * @return $this
      * @throws Mage_Core_Exception
      */
     public function processShippingAmount(Mage_Sales_Model_Quote_Address $address)
@@ -970,7 +970,7 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
      *
      * @param  Mage_Sales_Model_Quote_Address $address
      * @param  Mage_SalesRule_Model_Rule      $rule
-     * @return Mage_SalesRule_Model_Validator
+     * @return $this
      * @throws Mage_Core_Exception
      */
     protected function _addDiscountDescription($address, $rule)

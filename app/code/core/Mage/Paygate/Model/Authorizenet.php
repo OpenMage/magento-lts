@@ -1085,7 +1085,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
      *
      * @param  Mage_Sales_Model_Order_Invoice     $invoice
      * @param  Mage_Sales_Model_Order_Payment     $payment
-     * @return Mage_Payment_Model_Method_Abstract
+     * @return $this
      */
     public function processInvoice($invoice, $payment)
     {
@@ -1097,7 +1097,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
      * Set transaction ID into creditmemo for informational purposes
      * @param  Mage_Sales_Model_Order_Creditmemo  $creditmemo
      * @param  Mage_Sales_Model_Order_Payment     $payment
-     * @return Mage_Payment_Model_Method_Abstract
+     * @return $this
      */
     public function processCreditmemo($creditmemo, $payment)
     {

@@ -39,7 +39,7 @@ abstract class Mage_Rule_Model_Resource_Abstract extends Mage_Core_Model_Resourc
     /**
      * Prepare rule's active "from" and "to" dates
      *
-     * @return Mage_Rule_Model_Resource_Abstract
+     * @return $this
      */
     protected function _beforeSave(Mage_Core_Model_Abstract $object)
     {
@@ -101,7 +101,7 @@ abstract class Mage_Rule_Model_Resource_Abstract extends Mage_Core_Model_Resourc
      * @param string           $entityType
      * @param bool             $deleteOldResults
      *
-     * @return Mage_Rule_Model_Resource_Abstract
+     * @return $this
      * @throws Exception
      */
     public function bindRuleToEntity($ruleIds, $entityIds, $entityType, $deleteOldResults = true)
@@ -177,7 +177,7 @@ abstract class Mage_Rule_Model_Resource_Abstract extends Mage_Core_Model_Resourc
      * @param array|int|string $entityIds
      * @param string           $entityType
      *
-     * @return Mage_Rule_Model_Resource_Abstract
+     * @return $this
      */
     public function unbindRuleFromEntity($ruleIds, $entityIds, $entityType)
     {

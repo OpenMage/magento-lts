@@ -95,7 +95,7 @@ abstract class Mage_Core_Model_Message_Abstract
      * Set message identifier
      *
      * @param  string                           $id
-     * @return Mage_Core_Model_Message_Abstract
+     * @return $this
      */
     public function setIdentifier($id)
     {
@@ -117,7 +117,7 @@ abstract class Mage_Core_Model_Message_Abstract
      * Set message sticky status
      *
      * @param  bool                             $isSticky
-     * @return Mage_Core_Model_Message_Abstract
+     * @return $this
      */
     public function setIsSticky($isSticky = true)
     {
@@ -139,7 +139,7 @@ abstract class Mage_Core_Model_Message_Abstract
      * Set code
      *
      * @param  string                           $code
-     * @return Mage_Core_Model_Message_Abstract
+     * @return $this
      */
     public function setCode($code)
     {

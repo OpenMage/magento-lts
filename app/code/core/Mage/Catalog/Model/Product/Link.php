@@ -127,7 +127,7 @@ class Mage_Catalog_Model_Product_Link extends Mage_Core_Model_Abstract
      * Save data for product relations
      *
      * @param  Mage_Catalog_Model_Product      $product
-     * @return Mage_Catalog_Model_Product_Link
+     * @return $this
      */
     public function saveProductRelations($product)
     {

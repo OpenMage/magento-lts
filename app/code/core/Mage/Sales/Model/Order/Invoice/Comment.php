@@ -44,7 +44,7 @@ class Mage_Sales_Model_Order_Invoice_Comment extends Mage_Sales_Model_Abstract
     /**
      * Declare invoice instance
      *
-     * @return Mage_Sales_Model_Order_Invoice_Comment
+     * @return $this
      */
     public function setInvoice(Mage_Sales_Model_Order_Invoice $invoice)
     {

@@ -67,7 +67,7 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
     /**
      * Initialize tarball writer
      *
-     * @return Mage_Archive_Tar
+     * @return $this
      */
     protected function _initWriter()
     {
@@ -91,7 +91,7 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
     /**
      * Destroy tarball writer
      *
-     * @return Mage_Archive_Tar
+     * @return $this
      */
     protected function _destroyWriter()
     {
@@ -120,7 +120,7 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
     /**
      * Initialize tarball reader
      *
-     * @return Mage_Archive_Tar
+     * @return $this
      */
     protected function _initReader()
     {
@@ -133,7 +133,7 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
     /**
      * Destroy tarball reader
      *
-     * @return Mage_Archive_Tar
+     * @return $this
      */
     protected function _destroyReader()
     {
@@ -163,7 +163,7 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
      * Set option that define ability skip first catalog level.
      *
      * @param  mixed            $skipRoot
-     * @return Mage_Archive_Tar
+     * @return $this
      */
     protected function _setSkipRoot($skipRoot)
     {
@@ -175,7 +175,7 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
      * Set file which is packing.
      *
      * @param  string           $file
-     * @return Mage_Archive_Tar
+     * @return $this
      */
     protected function _setCurrentFile($file)
     {
@@ -187,7 +187,7 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
      * Set path to file where tarball should be placed
      *
      * @param  string           $destinationFilePath
-     * @return Mage_Archive_Tar
+     * @return $this
      */
     protected function _setDestinationFilePath($destinationFilePath)
     {
@@ -209,7 +209,7 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
      * Set path to file which is packing.
      *
      * @param  string           $path
-     * @return Mage_Archive_Tar
+     * @return $this
      */
     protected function _setCurrentPath($path)
     {

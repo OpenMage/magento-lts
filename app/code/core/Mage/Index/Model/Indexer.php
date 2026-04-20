@@ -190,7 +190,7 @@ class Mage_Index_Model_Indexer
      *
      * @param  null|string              $entity
      * @param  null|string              $type
-     * @return Mage_Index_Model_Indexer
+     * @return $this
      * @throws Exception
      */
     public function indexEvents($entity = null, $type = null)
@@ -229,7 +229,7 @@ class Mage_Index_Model_Indexer
     /**
      * Index one event by all processes
      *
-     * @return Mage_Index_Model_Indexer
+     * @return $this
      */
     public function indexEvent(Mage_Index_Model_Event $event)
     {

@@ -473,7 +473,7 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
      * Set captcha word
      *
      * @param  string            $word
-     * @return Zend_Captcha_Word
+     * @return $this
      */
     protected function _setWord($word)
     {

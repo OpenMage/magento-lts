@@ -121,7 +121,7 @@ class Mage_Sales_Model_Entity_Sale_Collection extends Varien_Object implements I
      * @param  bool                                    $printQuery
      * @param  bool                                    $logQuery
      * @param  null|string                             $sql
-     * @return Mage_Sales_Model_Entity_Sale_Collection
+     * @return $this
      */
     public function printLogQuery($printQuery = false, $logQuery = false, $sql = null)
     {

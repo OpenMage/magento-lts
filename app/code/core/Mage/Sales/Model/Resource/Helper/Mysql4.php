@@ -21,7 +21,7 @@ class Mage_Sales_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_H
      * @param  array                                   $aggregationAliases
      * @param  string                                  $mainTable
      * @param  string                                  $aggregationTable
-     * @return Mage_Sales_Model_Resource_Helper_Mysql4
+     * @return $this
      */
     public function getBestsellersReportUpdateRatingPos(
         $aggregation,

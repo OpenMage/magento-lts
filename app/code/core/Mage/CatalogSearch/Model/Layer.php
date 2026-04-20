@@ -36,7 +36,7 @@ class Mage_CatalogSearch_Model_Layer extends Mage_Catalog_Model_Layer
      * Prepare product collection
      *
      * @param  Mage_CatalogSearch_Model_Resource_Fulltext_Collection $collection
-     * @return Mage_Catalog_Model_Layer
+     * @return $this
      */
     public function prepareProductCollection($collection)
     {

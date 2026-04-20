@@ -272,7 +272,7 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
      * @param  int                       $calledFrom
      * @param  bool                      $loaded
      * @param  int                       $pass
-     * @return Mage_Catalog_Model_Design
+     * @return $this
      * @deprecated after 1.4.2.0-beta1
      */
     protected function _applyDesign($designUpdateData, $calledFrom = 0, $loaded = false, $pass = 0)

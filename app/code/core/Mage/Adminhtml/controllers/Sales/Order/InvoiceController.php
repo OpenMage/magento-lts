@@ -75,7 +75,7 @@ class Mage_Adminhtml_Sales_Order_InvoiceController extends Mage_Adminhtml_Contro
      * Save data for invoice and related order
      *
      * @param  Mage_Sales_Model_Order_Invoice               $invoice
-     * @return Mage_Adminhtml_Sales_Order_InvoiceController
+     * @return $this
      * @throws Exception
      */
     protected function _saveInvoice($invoice)

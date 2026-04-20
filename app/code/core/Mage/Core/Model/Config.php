@@ -573,7 +573,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      * Save configuration cache
      *
      * @param  array                  $tags cache tags
-     * @return Mage_Core_Model_Config
+     * @return $this
      */
     public function saveCache($tags = [])
     {
@@ -615,7 +615,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      * @param  Varien_Simplexml_Element $source
      * @param  int                      $recursionLevel
      * @param  array                    $tags
-     * @return Mage_Core_Model_Config
+     * @return $this
      */
     protected function _saveSectionCache($idPrefix, $sectionName, $source, $recursionLevel = 0, $tags = [])
     {
@@ -1711,7 +1711,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      * @param  string                 $path
      * @param  string                 $scope
      * @param  int                    $scopeId
-     * @return Mage_Core_Model_Config
+     * @return $this
      */
     public function deleteConfig($path, $scope = 'default', $scopeId = 0)
     {

@@ -27,7 +27,7 @@ class Mage_Api_Model_Server_V2_Adapter_Soap extends Mage_Api_Model_Server_Adapte
     /**
      * Run webservice
      *
-     * @return Mage_Api_Model_Server_Adapter_Soap
+     * @return $this
      * @throws SoapFault
      */
     public function run()

@@ -38,7 +38,7 @@ abstract class Mage_Adminhtml_Controller_Report_Abstract extends Mage_Adminhtml_
     /**
      * Add report breadcrumbs
      *
-     * @return Mage_Adminhtml_Controller_Report_Abstract
+     * @return $this
      */
     public function _initAction()
     {
@@ -51,7 +51,7 @@ abstract class Mage_Adminhtml_Controller_Report_Abstract extends Mage_Adminhtml_
      * Report action init operations
      *
      * @param  array|Varien_Object                       $blocks
-     * @return Mage_Adminhtml_Controller_Report_Abstract
+     * @return $this
      */
     public function _initReportAction($blocks)
     {
@@ -85,7 +85,7 @@ abstract class Mage_Adminhtml_Controller_Report_Abstract extends Mage_Adminhtml_
      *
      * @param  string                                    $flagCode
      * @param  string                                    $refreshCode
-     * @return Mage_Adminhtml_Controller_Report_Abstract
+     * @return $this
      */
     protected function _showLastExecutionTime($flagCode, $refreshCode)
     {

@@ -33,7 +33,7 @@ class Mage_Wishlist_Model_Observer extends Mage_Core_Model_Abstract
      * Check move quote item to wishlist request
      *
      * @param  Varien_Event_Observer        $observer
-     * @return Mage_Wishlist_Model_Observer
+     * @return $this
      * @throws Throwable
      */
     public function processCartUpdateBefore($observer)

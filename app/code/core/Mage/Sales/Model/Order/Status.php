@@ -110,7 +110,7 @@ class Mage_Sales_Model_Order_Status extends Mage_Core_Model_Abstract
      * Load default status per state
      *
      * @param  string                        $state
-     * @return Mage_Sales_Model_Order_Status
+     * @return $this
      */
     public function loadDefaultByState($state)
     {

@@ -113,7 +113,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      * Specify type instance product
      *
      * @param  Mage_Catalog_Model_Product               $product
-     * @return Mage_Catalog_Model_Product_Type_Abstract
+     * @return $this
      */
     public function setProduct($product)
     {
@@ -125,7 +125,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      * Specify type identifier
      *
      * @param  string                                   $typeId
-     * @return Mage_Catalog_Model_Product_Type_Abstract
+     * @return $this
      */
     public function setTypeId($typeId)
     {
@@ -416,7 +416,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
 
     /**
      * Process File Queue
-     * @return Mage_Catalog_Model_Product_Type_Abstract
+     * @return $this
      */
     public function processFileQueue()
     {
@@ -556,7 +556,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      * Check if product can be bought
      *
      * @param  Mage_Catalog_Model_Product               $product
-     * @return Mage_Catalog_Model_Product_Type_Abstract
+     * @return $this
      * @throws Mage_Core_Exception
      */
     public function checkProductBuyState($product = null)
@@ -662,7 +662,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      * Before save type related data
      *
      * @param  Mage_Catalog_Model_Product               $product
-     * @return Mage_Catalog_Model_Product_Type_Abstract
+     * @return $this
      */
     public function beforeSave($product = null)
     {
@@ -869,7 +869,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      * @param  Mage_Catalog_Model_Product               $optionProduct
      * @param  Mage_Sales_Model_Quote_Item_Option       $option
      * @param  Mage_Catalog_Model_Product               $product
-     * @return Mage_Catalog_Model_Product_Type_Abstract
+     * @return $this
      */
     public function assignProductToOption($optionProduct, $option, $product = null)
     {
@@ -881,7 +881,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      * Setting specified product type variables
      *
      * @param  array                                    $config
-     * @return Mage_Catalog_Model_Product_Type_Abstract
+     * @return $this
      */
     public function setConfig($config)
     {
