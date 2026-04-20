@@ -55,7 +55,6 @@ class Mage_ProductAlert_AddController extends Mage_Core_Controller_Front_Action
         $productId  = (int) $this->getRequest()->getParam('product_id');
         if (!$backUrl || !$productId) {
             $this->_redirect('/');
-
             return;
         }
 
@@ -113,6 +112,7 @@ class Mage_ProductAlert_AddController extends Mage_Core_Controller_Front_Action
             } else {
                 $this->_redirect('/');
             }
+
             return;
         }
 
