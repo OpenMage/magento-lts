@@ -73,6 +73,7 @@ class Mage_Core_Model_Purifier_DefinitionCache extends HTMLPurifier_DefinitionCa
      * @param  HTMLPurifier_Config $config Instance of HTMLPurifier_Config
      * @return string
      */
+    #[Override]
     public function generateKey($config)
     {
         $version = str_replace('.', '_', $config->version);
@@ -93,6 +94,7 @@ class Mage_Core_Model_Purifier_DefinitionCache extends HTMLPurifier_DefinitionCa
      *                                     test against
      * @return bool
      */
+    #[Override]
     public function isOld($key, $config)
     {
         $parts = explode('__', $key, 5);

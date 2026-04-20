@@ -21,6 +21,7 @@ class Mage_CatalogInventory_Model_Stock_Item_Api_V2 extends Mage_CatalogInventor
      * @param  array  $data
      * @return bool
      */
+    #[Override]
     public function update($productId, $data)
     {
         /** @var Mage_Catalog_Model_Product $product */

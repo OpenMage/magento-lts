@@ -42,6 +42,7 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Main_Abstract extends Mag
      * @throws Mage_Core_Exception
      * @throws Zend_Locale_Exception
      */
+    #[Override]
     protected function _prepareForm()
     {
         $attributeObject = $this->getAttributeObject();
@@ -161,6 +162,7 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Main_Abstract extends Mag
      *
      * @inheritDoc
      */
+    #[Override]
     protected function _initFormValues()
     {
         Mage::dispatchEvent('adminhtml_block_eav_attribute_edit_form_init', ['form' => $this->getForm()]);
@@ -175,6 +177,7 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Main_Abstract extends Mag
      * @return $this
      * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _beforeToHtml()
     {
         parent::_beforeToHtml();
@@ -203,6 +206,7 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Main_Abstract extends Mag
      * @param  string $html
      * @return string
      */
+    #[Override]
     protected function _afterToHtml($html)
     {
         $jsScripts = $this->getLayout()

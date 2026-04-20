@@ -18,6 +18,7 @@ class Mage_Customer_Model_Customer_Attribute_Backend_Shipping extends Mage_Eav_M
      * @param  Mage_Customer_Model_Customer $object
      * @return $this
      */
+    #[Override]
     public function beforeSave($object)
     {
         $defaultShipping = $object->getDefaultShipping();
@@ -32,6 +33,7 @@ class Mage_Customer_Model_Customer_Attribute_Backend_Shipping extends Mage_Eav_M
      * @param  Mage_Customer_Model_Customer $object
      * @return $this
      */
+    #[Override]
     public function afterSave($object)
     {
         if ($defaultShipping = $object->getDefaultShipping()) {

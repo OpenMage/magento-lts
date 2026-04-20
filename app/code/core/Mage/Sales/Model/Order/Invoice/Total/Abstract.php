@@ -19,7 +19,7 @@ abstract class Mage_Sales_Model_Order_Invoice_Total_Abstract extends Mage_Sales_
     /**
      * Collect invoice subtotal
      *
-     * @return Mage_Sales_Model_Order_Invoice_Total_Abstract
+     * @return $this
      */
     public function collect(Mage_Sales_Model_Order_Invoice $invoice)
     {

@@ -20,6 +20,7 @@ class Mage_Core_Block_Text_Tag_Js extends Mage_Core_Block_Text_Tag
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _construct()
     {
         parent::_construct();

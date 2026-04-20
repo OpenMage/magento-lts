@@ -10,7 +10,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 10,
+	'count' => 8,
 	'path' => __DIR__ . '/app/Mage.php',
 ];
 $ignoreErrors[] = [
@@ -36,14 +36,6 @@ $ignoreErrors[] = [
 	'identifier' => 'methodTag.deprecatedClass',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Admin/Model/Acl/Role.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Call to deprecated method add() of class Zend_Acl:
-in version 1.9.1 and will be available till 2.0.  New code
-            should use addResource() instead.',
-	'identifier' => 'method.deprecated',
-	'count' => 2,
-	'path' => __DIR__ . '/app/code/core/Mage/Admin/Model/Config.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
@@ -1286,14 +1278,6 @@ $ignoreErrors[] = [
 	'identifier' => 'property.phpDocType',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Api/Model/Acl.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Call to deprecated method add() of class Zend_Acl:
-in version 1.9.1 and will be available till 2.0.  New code
-            should use addResource() instead.',
-	'identifier' => 'method.deprecated',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Api/Model/Config.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
@@ -3974,12 +3958,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Core/Model/Resource/Iterator.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Parameter #6 $gc of function session_set_save_handler expects callable(string): bool, array{$this(Mage_Core_Model_Resource_Session), \'gc\'} given.',
-	'identifier' => 'argument.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Core/Model/Resource/Session.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 2,
@@ -6624,12 +6602,6 @@ $ignoreErrors[] = [
 	'identifier' => 'instanceof.alwaysTrue',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Sales/Model/Quote/Item.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Call to Exception::__construct() on a separate line has no effect.',
-	'identifier' => 'new.resultUnused',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Sales/Model/Recurring/Profile.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Call to an undefined method Mage_Payment_Model_Method_Abstract::canGetRecurringProfileDetails().',

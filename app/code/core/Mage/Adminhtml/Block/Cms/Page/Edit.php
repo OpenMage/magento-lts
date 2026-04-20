@@ -45,6 +45,7 @@ class Mage_Adminhtml_Block_Cms_Page_Edit extends Mage_Adminhtml_Block_Widget_For
      *
      * @return string
      */
+    #[Override]
     public function getHeaderText()
     {
         if (Mage::registry('cms_page')->getId()) {
@@ -83,6 +84,7 @@ class Mage_Adminhtml_Block_Cms_Page_Edit extends Mage_Adminhtml_Block_Widget_For
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareLayout()
     {
         $tabsBlock = $this->getLayout()->getBlock('cms_page_edit_tabs');

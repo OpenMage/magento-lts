@@ -26,6 +26,7 @@ class Mage_Adminhtml_Block_System_Store_Store extends Mage_Adminhtml_Block_Widge
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareLayout()
     {
         /* Add website button */

@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Core\Helper;
 
 // use Mage;
 // use Mage_Core_Helper_Validate as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\Helper\ValidateTrait;
 
@@ -22,6 +23,7 @@ final class ValidateTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

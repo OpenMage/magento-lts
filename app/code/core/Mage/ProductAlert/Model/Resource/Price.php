@@ -28,6 +28,7 @@ class Mage_ProductAlert_Model_Resource_Price extends Mage_ProductAlert_Model_Res
      * @param Mage_ProductAlert_Model_Price $object
      * @inheritDoc
      */
+    #[Override]
     protected function _beforeSave(Mage_Core_Model_Abstract $object)
     {
         if (is_null($object->getId())

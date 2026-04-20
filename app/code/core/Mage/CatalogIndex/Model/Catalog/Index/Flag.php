@@ -21,6 +21,7 @@ class Mage_CatalogIndex_Model_Catalog_Index_Flag extends Mage_Core_Model_Flag
     /**
      * @return Mage_Core_Model_Flag
      */
+    #[Override]
     protected function _beforeSave()
     {
         switch ($this->getState()) {

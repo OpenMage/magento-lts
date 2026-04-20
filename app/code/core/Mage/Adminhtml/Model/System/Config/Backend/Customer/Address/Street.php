@@ -19,6 +19,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Customer_Address_Street extends
      *
      * @return $this
      */
+    #[Override]
     protected function _afterSave()
     {
         $attribute = Mage::getSingleton('eav/config')->getAttribute('customer_address', 'street');
@@ -48,6 +49,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Customer_Address_Street extends
      *
      * @return $this
      */
+    #[Override]
     protected function _afterDelete()
     {
         $result = parent::_afterDelete();

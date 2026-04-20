@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Admin\Model\Resource\User;
 
 // use Mage;
 // use Mage_Admin_Model_Resource_User_Collection as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Admin\Model\Resource\User\CollectionTrait;
 
@@ -22,6 +23,7 @@ final class CollectionTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

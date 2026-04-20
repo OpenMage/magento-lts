@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Checkout\Block\Onepage\Shipping\Method;
 
 // use Mage_Checkout_Block_Onepage_Shipping_Method_Additional as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Checkout\Block\Onepage\Shipping\Method\AdditionalTrait;
 
@@ -21,6 +22,7 @@ final class AdditionalTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

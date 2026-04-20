@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Admin\Model;
 
 // use Mage;
 // use Mage_Admin_Model_Rules as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Admin\Model\RulesTrait;
 
@@ -22,6 +23,7 @@ final class RulesTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

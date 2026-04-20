@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Reports\Model\Event;
 
 // use Mage;
 // use Mage_Reports_Model_Event_Observer as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Reports\Model\Event\ObserverTrait;
 
@@ -22,6 +23,7 @@ final class ObserverTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

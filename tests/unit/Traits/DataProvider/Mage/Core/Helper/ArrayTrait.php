@@ -15,7 +15,7 @@ use Generator;
 
 trait ArrayTrait
 {
-    public function provideMergeRecursiveWithoutOverwriteNumKeysData(): Generator
+    public static function provideMergeRecursiveWithoutOverwriteNumKeysData(): Generator
     {
         yield 'empty' => [
             [],

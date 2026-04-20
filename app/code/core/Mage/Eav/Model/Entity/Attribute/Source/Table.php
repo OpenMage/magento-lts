@@ -67,6 +67,7 @@ class Mage_Eav_Model_Entity_Attribute_Source_Table extends Mage_Eav_Model_Entity
      * @param  int|string         $value
      * @return array|false|string
      */
+    #[Override]
     public function getOptionText($value)
     {
         $isMultiple = false;
@@ -105,6 +106,7 @@ class Mage_Eav_Model_Entity_Attribute_Source_Table extends Mage_Eav_Model_Entity
      *
      * @return $this
      */
+    #[Override]
     public function addValueSortToCollection($collection, $dir = Varien_Db_Select::SQL_ASC)
     {
         $valueTable1    = $this->getAttribute()->getAttributeCode() . '_t1';
@@ -139,6 +141,7 @@ class Mage_Eav_Model_Entity_Attribute_Source_Table extends Mage_Eav_Model_Entity
     /**
      * @inheritDoc
      */
+    #[Override]
     public function getFlatColums()
     {
         $columns = [];
@@ -192,6 +195,7 @@ class Mage_Eav_Model_Entity_Attribute_Source_Table extends Mage_Eav_Model_Entity
     /**
      * @inheritDoc
      */
+    #[Override]
     public function getFlatIndexes()
     {
         $indexes = [];

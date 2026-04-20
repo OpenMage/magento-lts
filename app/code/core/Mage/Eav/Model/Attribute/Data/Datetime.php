@@ -19,6 +19,7 @@ class Mage_Eav_Model_Attribute_Data_Datetime extends Mage_Eav_Model_Attribute_Da
      *
      * @return false|Varien_Data_Form_Filter_Interface
      */
+    #[Override]
     protected function _getFormFilter()
     {
         $filterCode = $this->getAttribute()->getInputFilter();

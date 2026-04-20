@@ -32,6 +32,7 @@ class Mage_Paypal_Block_Adminhtml_Settlement_Details extends Mage_Adminhtml_Bloc
      * Initialize form
      * @return $this
      */
+    #[Override]
     protected function _prepareLayout()
     {
         parent::_prepareLayout();

@@ -34,6 +34,7 @@ class Mage_Tag_Block_Customer_View extends Mage_Catalog_Block_Product_Abstract
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _construct()
     {
         parent::_construct();
@@ -91,6 +92,7 @@ class Mage_Tag_Block_Customer_View extends Mage_Catalog_Block_Product_Abstract
      *
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareLayout()
     {
         $toolbar = $this->getLayout()

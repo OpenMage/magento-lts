@@ -17,6 +17,7 @@ class Mage_Checkout_Block_Onepage_Login extends Mage_Checkout_Block_Onepage_Abst
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _construct()
     {
         if (!$this->isCustomerLoggedIn()) {

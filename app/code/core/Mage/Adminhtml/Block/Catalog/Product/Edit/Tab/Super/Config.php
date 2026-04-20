@@ -81,6 +81,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config extends Mage_Ad
      *
      * @return $this
      */
+    #[Override]
     protected function _prepareLayout()
     {
         $this->setChild(

@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Eav\Model;
 
 // use Mage;
 // use Mage_Eav_Model_Form as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Eav\Model\FormTrait;
 
@@ -22,6 +23,7 @@ final class FormTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

@@ -30,6 +30,7 @@ class Mage_ConfigurableSwatches_Block_Catalog_Media_Js_List extends Mage_Configu
      *
      * @return string
      */
+    #[Override]
     public function getImageType()
     {
         $type = parent::getImageType();
@@ -57,6 +58,7 @@ class Mage_ConfigurableSwatches_Block_Catalog_Media_Js_List extends Mage_Configu
      *
      * @return string
      */
+    #[Override]
     protected function _toHtml()
     {
         if (!Mage::getStoreConfigFlag(Mage_ConfigurableSwatches_Helper_Data::CONFIG_PATH_LIST_SWATCH_ATTRIBUTE)) {

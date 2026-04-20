@@ -63,6 +63,7 @@ class Mage_Paypal_Block_Express_Shortcut extends Mage_Core_Block_Template
     /**
      * @return $this
      */
+    #[Override]
     protected function _beforeToHtml()
     {
         $result = parent::_beforeToHtml();
@@ -165,6 +166,7 @@ class Mage_Paypal_Block_Express_Shortcut extends Mage_Core_Block_Template
      *
      * @return string
      */
+    #[Override]
     protected function _toHtml()
     {
         if (!$this->_shouldRender) {

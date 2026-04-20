@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\CatalogIndex\Model\Catalog\Index\Kill;
 
 // use Mage;
 // use Mage_CatalogIndex_Model_Catalog_Index_Kill_Flag as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\CatalogIndex\Model\Catalog\Index\Kill\FlagTrait;
 
@@ -22,6 +23,7 @@ final class FlagTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

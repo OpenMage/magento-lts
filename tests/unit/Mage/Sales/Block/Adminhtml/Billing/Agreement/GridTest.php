@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Sales\Block\Adminhtml\Billing\Agreement;
 
 // use Mage_Sales_Block_Adminhtml_Billing_Agreement_Grid as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sales\Block\Adminhtml\Billing\Agreement\GridTrait;
 
@@ -21,6 +22,7 @@ final class GridTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

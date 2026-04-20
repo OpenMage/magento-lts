@@ -39,6 +39,7 @@ class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
     /**
      * @return string
      */
+    #[Override]
     public function getElementHtml()
     {
         $str = '

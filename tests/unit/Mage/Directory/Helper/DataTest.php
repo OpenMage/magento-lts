@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Directory\Helper;
 
+use Override;
 use Mage;
 use Mage_Directory_Helper_Data as Subject;
 use Mage_Directory_Model_Resource_Country_Collection;
@@ -24,6 +25,7 @@ final class DataTest extends OpenMageTest
 
     private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

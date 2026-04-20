@@ -31,6 +31,7 @@ class Varien_Data_Form_Element_Select extends Varien_Data_Form_Element_Abstract
     /**
      * @return string
      */
+    #[Override]
     public function getElementHtml()
     {
         $this->addClass('select');
@@ -121,6 +122,7 @@ class Varien_Data_Form_Element_Select extends Varien_Data_Form_Element_Abstract
     /**
      * @return array<int, string>
      */
+    #[Override]
     public function getHtmlAttributes()
     {
         return ['title', 'class', 'style', 'onclick', 'onchange', 'disabled', 'readonly', 'tabindex'];

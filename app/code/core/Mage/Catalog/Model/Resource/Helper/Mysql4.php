@@ -21,6 +21,7 @@ class Mage_Catalog_Model_Resource_Helper_Mysql4 extends Mage_Eav_Model_Resource_
      * @param  string $eavType
      * @return string
      */
+    #[Override]
     public function attributeSelectFields($tableAlias, $eavType)
     {
         return '*';
