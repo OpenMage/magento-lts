@@ -136,7 +136,7 @@ class Mage_Payment_Model_Config
     public function getYears()
     {
         $years = [];
-        $first = Mage::helper('core/clock')->format('Y');
+        $first = (int) Mage::helper('core/clock')->format('Y');
 
         for ($index = 0; $index <= 10; $index++) {
             $year = $first + $index;
