@@ -179,7 +179,7 @@ class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
         $this->setIsValid(false);
 
         $option = $this->getOption();
-        $optionId = is_null($option->getId()) ? '' : $option->getId();
+        $optionId = $option->getId() ?? '';
         if (!isset($values[$optionId]) && $option->getIsRequire() && !$this->getSkipCheckRequiredOption()) {
             Mage::throwException(Mage::helper('catalog')->__('Please specify the product required option <em>%s</em>.', $option->getTitle()));
         } elseif (isset($values[$optionId])) {
