@@ -6,6 +6,9 @@ use Mage_Usa_Model_Shipping_Carrier_Fedex_UnitOfMeasure as Uom;
 
 class Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_RequestBuilder
 {
+    /**
+     * @return array<string, mixed[]>
+     */
     public function buildRatePayload(Varien_Object $raw, string $currencyCode): array
     {
         $units = (string) $raw->getUnitOfMeasure();
@@ -126,6 +129,10 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_RequestBuilder
         return $amounts;
     }
 
+    /**
+     * @param array<array<int, array<string, mixed>>, mixed> $lineItems
+     * @return array<string, string|int|array<int|string, mixed>>
+     */
     private function buildRequestedShipment(
         Varien_Object $raw,
         string $currencyCode,
@@ -199,6 +206,9 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_RequestBuilder
         return $requestedShipment;
     }
 
+    /**
+     * @return array<string, array<int, array<string, array<string, string>>>|bool>
+     */
     public function buildTrackingPayload(string $trackingNumber): array
     {
         return [
@@ -209,6 +219,9 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_RequestBuilder
         ];
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function buildShipmentPayload(
         Varien_Object $request,
         string $dropoffType,
@@ -216,8 +229,8 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_RequestBuilder
         string $storeCountryCode
     ): array {
         $packageParams = $request->getPackageParams();
-        $weightUnits = $packageParams && $packageParams->getWeightUnits() === Zend_Measure_Weight::POUND ? Uom::WEIGHT_POUND : Uom::WEIGHT_KILOGRAM;
-        $dimensionsUnits = $packageParams && $packageParams->getDimensionUnits() === Zend_Measure_Length::INCH ? Uom::DIMENSION_INCH : Uom::DIMENSION_CENTIMETER;
+        $weightUnits = $packageParams && $packageParams->getWeightUnits() === Mage_Core_Helper_Measure_Weight::POUND ? Uom::WEIGHT_POUND : Uom::WEIGHT_KILOGRAM;
+        $dimensionsUnits = $packageParams && $packageParams->getDimensionUnits() === Mage_Core_Helper_Measure_Length::INCH ? Uom::DIMENSION_INCH : Uom::DIMENSION_CENTIMETER;
 
         $referenceData = $request->getReferenceData() !== null
             ? $request->getReferenceData() . $request->getPackageId()
@@ -373,6 +386,9 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_RequestBuilder
         ];
     }
 
+    /**
+     * @return array<string, string|array<string, string>>
+     */
     public function buildCancelShipmentPayload(string $accountNumber, string $trackingNumber): array
     {
         return [
@@ -389,7 +405,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_RequestBuilder
             ? (string) $shipment->getOrder()->getIncrementId()
             : '';
 
-        return 'Order #' . $incrementId . ' P' . (string) $request->getPackageId();
+        return 'Order #' . $incrementId . ' P' . $request->getPackageId();
     }
 
     private function mapDropoffType(string $dropoff): string

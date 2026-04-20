@@ -11,9 +11,11 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Traits\DataProvider\Mage\Usa\Model\Shipping\Carrier;
 
+use Varien_Object;
+
 trait FedexTrait
 {
-    private function populateShipmentRequest(\Varien_Object $request): void
+    private function populateShipmentRequest(Varien_Object $request): void
     {
         $request->setShipperContactPersonName('Shipper');
         $request->setShipperContactCompanyName('Ship Co');

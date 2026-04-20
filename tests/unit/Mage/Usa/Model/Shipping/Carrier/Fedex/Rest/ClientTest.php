@@ -11,6 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Usa\Model\Shipping\Carrier\Fedex\Rest;
 
+use Carbon\CarbonImmutable;
+use Varien_Object;
 use Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_Client as Client;
 use Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_RequestBuilder as RequestBuilder;
 use OpenMage\Tests\Unit\OpenMageTest;
@@ -25,15 +27,15 @@ use ShipStream\FedEx\Auth\MemoryCache;
 use ShipStream\FedEx\Enums\Endpoint;
 use ShipStream\FedEx\FedEx;
 
-class ClientTest extends OpenMageTest
+final class ClientTest extends OpenMageTest
 {
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         MemoryCache::set('test-id.sandbox', new AccessTokenAuthenticator(
             'test-access-token',
             null,
-            new \DateTimeImmutable('+1 hour'),
+            CarbonImmutable::now()->addHours(1),
         ));
     }
 
@@ -56,7 +58,7 @@ class ClientTest extends OpenMageTest
             RateAndTransitTimes::class => MockResponse::make($expected, 200),
         ]);
 
-        $raw = (new \Varien_Object())
+        $raw = (new Varien_Object())
             ->setAccount('510510510')
             ->setDropoffType('REGULAR_PICKUP')
             ->setPackaging('YOUR_PACKAGING')
@@ -131,6 +133,9 @@ class ClientTest extends OpenMageTest
         self::assertSame($errorBody, $response);
     }
 
+    /**
+     * @param array<string, MockResponse> $responses
+     */
     private function clientWithMocks(array $responses): Client
     {
         $connector = new FedEx(
@@ -143,6 +148,9 @@ class ClientTest extends OpenMageTest
         return Client::fromConnector($connector);
     }
 
+    /**
+     * @return array<string, array<array<string, mixed>, mixed>>
+     */
     private function validRatePayload(): array
     {
         return [
@@ -171,6 +179,9 @@ class ClientTest extends OpenMageTest
         ];
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     private function validShipmentPayload(): array
     {
         return [

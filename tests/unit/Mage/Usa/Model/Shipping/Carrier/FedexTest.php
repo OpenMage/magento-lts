@@ -11,6 +11,19 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Usa\Model\Shipping\Carrier;
 
+use Mage_Shipping_Model_Rate_Result;
+use Mage_Shipping_Model_Tracking_Result;
+use Mage_Shipping_Model_Tracking_Result_Error;
+use ReflectionMethod;
+use Mage_Core_Exception;
+use ArrayObject;
+use Closure;
+use Mage;
+use Mage_Shipping_Model_Rate_Request;
+use Varien_Object;
+use ReflectionProperty;
+use Mage_Core_Helper_Measure_Weight;
+use Mage_Core_Helper_Measure_Length;
 use Mage_Usa_Model_Shipping_Carrier_Fedex as Subject;
 use Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_Client as RestClient;
 use OpenMage\Tests\Unit\OpenMageTest;
@@ -107,7 +120,7 @@ final class FedexTest extends OpenMageTest
 
         $result = $fedex->collectRates($this->domesticRateRequest());
 
-        self::assertInstanceOf(\Mage_Shipping_Model_Rate_Result::class, $result);
+        self::assertInstanceOf(Mage_Shipping_Model_Rate_Result::class, $result);
         $rates = $result->getAllRates();
         self::assertCount(1, $rates);
         self::assertSame('FEDEX_GROUND', $rates[0]->getMethod());
@@ -140,7 +153,7 @@ final class FedexTest extends OpenMageTest
         $fedex->setData('tracking_rest_client', $restClient);
 
         $result = $fedex->getTracking('794644746111');
-        self::assertInstanceOf(\Mage_Shipping_Model_Tracking_Result::class, $result);
+        self::assertInstanceOf(Mage_Shipping_Model_Tracking_Result::class, $result);
         $trackings = $result->getAllTrackings();
         self::assertCount(1, $trackings);
         self::assertSame('Delivered', $trackings[0]->getStatus());
@@ -191,10 +204,10 @@ final class FedexTest extends OpenMageTest
 
         $result = $fedex->getTracking('794644746111');
 
-        self::assertInstanceOf(\Mage_Shipping_Model_Tracking_Result::class, $result);
+        self::assertInstanceOf(Mage_Shipping_Model_Tracking_Result::class, $result);
         $errors = array_filter(
             $result->getAllTrackings(),
-            static fn($entry) => $entry instanceof \Mage_Shipping_Model_Tracking_Result_Error,
+            static fn($entry) => $entry instanceof Mage_Shipping_Model_Tracking_Result_Error,
         );
         self::assertCount(1, $errors);
         $error = array_values($errors)[0];
@@ -224,13 +237,13 @@ final class FedexTest extends OpenMageTest
     {
         $fedex = $this->fedexWithConfig($config);
 
-        $method = new \ReflectionMethod(Subject::class, '_getTrackingRestClient');
+        $method = new ReflectionMethod(Subject::class, '_getTrackingRestClient');
 
         try {
             $method->invoke($fedex);
             self::fail('Expected Mage_Core_Exception when tracking credentials are missing');
-        } catch (\Mage_Core_Exception $e) {
-            self::assertStringContainsString($missingField, $e->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            self::assertStringContainsString($missingField, $mageCoreException->getMessage());
         }
     }
 
@@ -251,7 +264,7 @@ final class FedexTest extends OpenMageTest
         ]);
         $fedex->setData('cache_enabled', false);
 
-        $calls = new \ArrayObject();
+        $calls = new ArrayObject();
         $fedex->setData('rest_client_factory', $this->recordingFactory($calls, $stubClient));
 
         $fedex->collectRates($this->domesticRateRequest());
@@ -276,7 +289,7 @@ final class FedexTest extends OpenMageTest
             'sandbox_mode' => '0',
         ]);
 
-        $calls = new \ArrayObject();
+        $calls = new ArrayObject();
         $fedex->setData('rest_client_factory', $this->recordingFactory($calls, $stubClient));
 
         $fedex->getTracking('794644746111');
@@ -287,7 +300,7 @@ final class FedexTest extends OpenMageTest
         );
     }
 
-    private function recordingFactory(\ArrayObject $calls, RestClient $stubClient): \Closure
+    private function recordingFactory(ArrayObject $calls, RestClient $stubClient): Closure
     {
         return static function (string $clientId, string $clientSecret, bool $sandboxMode) use ($calls, $stubClient): RestClient {
             $calls[] = [
@@ -447,7 +460,7 @@ final class FedexTest extends OpenMageTest
         ]);
         $fedex->setData('rest_client', $restClient);
 
-        $shipmentRequest = \Mage::getModel('shipping/shipment_request');
+        $shipmentRequest = Mage::getModel('shipping/shipment_request');
         $this->populateShipmentRequest($shipmentRequest);
         $shipmentRequest->setPackages([
             1 => $this->packageFixture(),
@@ -482,7 +495,7 @@ final class FedexTest extends OpenMageTest
             'smartpost_hubid' => '',
         ];
 
-        $configMap = array_map('strval', array_merge($defaults, $config));
+        $configMap = array_map(strval(...), array_merge($defaults, $config));
 
         $fedex->method('getConfigData')->willReturnCallback(
             fn($field) => $configMap[$field] ?? false,
@@ -494,9 +507,9 @@ final class FedexTest extends OpenMageTest
         return $fedex;
     }
 
-    private function domesticRateRequest(): \Mage_Shipping_Model_Rate_Request
+    private function domesticRateRequest(): Mage_Shipping_Model_Rate_Request
     {
-        return \Mage::getModel('shipping/rate_request')
+        return Mage::getModel('shipping/rate_request')
             ->setOrigPostcode('38116')
             ->setOrigCountryId('US')
             ->setDestPostcode('90210')
@@ -506,22 +519,22 @@ final class FedexTest extends OpenMageTest
             ->setFreeMethodWeight(10.0);
     }
 
-    private function rawRequest(Subject $fedex): \Varien_Object
+    private function rawRequest(Subject $fedex): Varien_Object
     {
-        return (new \ReflectionProperty(Subject::class, '_rawRequest'))->getValue($fedex);
+        return (new ReflectionProperty(Subject::class, '_rawRequest'))->getValue($fedex);
     }
 
-    private function shipmentRequestVarien(): \Varien_Object
+    private function shipmentRequestVarien(): Varien_Object
     {
-        $request = new \Varien_Object();
+        $request = new Varien_Object();
         $request->setPackageId(1);
         $request->setShippingMethod('FEDEX_GROUND');
         $request->setPackagingType('YOUR_PACKAGING');
         $request->setPackageWeight(15.0);
         $this->populateShipmentRequest($request);
-        $request->setPackageParams(new \Varien_Object([
-            'weight_units' => \Zend_Measure_Weight::POUND,
-            'dimension_units' => \Zend_Measure_Length::INCH,
+        $request->setPackageParams(new Varien_Object([
+            'weight_units' => Mage_Core_Helper_Measure_Weight::POUND,
+            'dimension_units' => Mage_Core_Helper_Measure_Length::INCH,
             'length' => 10,
             'width' => 8,
             'height' => 4,
@@ -532,9 +545,9 @@ final class FedexTest extends OpenMageTest
         return $request;
     }
 
-    private function invokeDoShipmentRequest(Subject $fedex, \Varien_Object $request): \Varien_Object
+    private function invokeDoShipmentRequest(Subject $fedex, Varien_Object $request): Varien_Object
     {
-        return (new \ReflectionMethod(Subject::class, '_doShipmentRequest'))->invoke($fedex, $request);
+        return (new ReflectionMethod(Subject::class, '_doShipmentRequest'))->invoke($fedex, $request);
     }
 
     /**
@@ -550,8 +563,8 @@ final class FedexTest extends OpenMageTest
                 'length' => 10,
                 'width' => 8,
                 'height' => 4,
-                'weight_units' => \Zend_Measure_Weight::POUND,
-                'dimension_units' => \Zend_Measure_Length::INCH,
+                'weight_units' => Mage_Core_Helper_Measure_Weight::POUND,
+                'dimension_units' => Mage_Core_Helper_Measure_Length::INCH,
                 'delivery_confirmation' => 'NO_SIGNATURE_REQUIRED',
             ],
             'items' => [],

@@ -11,17 +11,21 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Usa\Model\Shipping\Carrier\Fedex\Rest;
 
+use Varien_Object;
+use Mage;
+use Mage_Core_Helper_Measure_Weight;
+use Mage_Core_Helper_Measure_Length;
 use Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_RequestBuilder as RequestBuilder;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Usa\Model\Shipping\Carrier\Fedex\Rest\RequestBuilderTrait;
 
-class RequestBuilderTest extends OpenMageTest
+final class RequestBuilderTest extends OpenMageTest
 {
     use RequestBuilderTrait;
 
     private RequestBuilder $builder;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->builder = new RequestBuilder();
@@ -324,6 +328,7 @@ class RequestBuilderTest extends OpenMageTest
         $request = $this->shipmentRequest();
         $request->setRecipientAddressCountryCode('CA');
         $request->setBaseCurrencyCode('USD');
+
         $payload = $this->builder->buildShipmentPayload($request, 'REGULAR_PICKUP', '510510510', 'US');
 
         $details = $payload['requestedShipment']['customsClearanceDetail'];
@@ -332,9 +337,9 @@ class RequestBuilderTest extends OpenMageTest
         self::assertSame('Widget', $details['commodities'][0]['description']);
     }
 
-    private function container(float $totalWeight, int $length, int $width, int $height): \Varien_Object
+    private function container(float $totalWeight, int $length, int $width, int $height): Varien_Object
     {
-        return new \Varien_Object([
+        return new Varien_Object([
             'total_weight' => $totalWeight,
             'length' => $length,
             'width' => $width,
@@ -342,9 +347,9 @@ class RequestBuilderTest extends OpenMageTest
         ]);
     }
 
-    private function domesticRawRequest(): \Varien_Object
+    private function domesticRawRequest(): Varien_Object
     {
-        return (new \Varien_Object())
+        return (new Varien_Object())
             ->setAccount('510510510')
             ->setDropoffType('REGULAR_PICKUP')
             ->setPackaging('YOUR_PACKAGING')
@@ -358,9 +363,9 @@ class RequestBuilderTest extends OpenMageTest
             ->setResidenceDelivery(false);
     }
 
-    private function shipmentRequest(): \Varien_Object
+    private function shipmentRequest(): Varien_Object
     {
-        $request = \Mage::getModel('shipping/shipment_request');
+        $request = Mage::getModel('shipping/shipment_request');
         $this->populateShipmentRequest($request);
 
         $request->setPackageId(1);
@@ -370,9 +375,9 @@ class RequestBuilderTest extends OpenMageTest
         $request->setPackageWeight(15.0);
         $request->setIsReturn(false);
 
-        $packageParams = new \Varien_Object([
-            'weight_units' => \Zend_Measure_Weight::POUND,
-            'dimension_units' => \Zend_Measure_Length::INCH,
+        $packageParams = new Varien_Object([
+            'weight_units' => Mage_Core_Helper_Measure_Weight::POUND,
+            'dimension_units' => Mage_Core_Helper_Measure_Length::INCH,
             'length' => 10,
             'width' => 8,
             'height' => 4,

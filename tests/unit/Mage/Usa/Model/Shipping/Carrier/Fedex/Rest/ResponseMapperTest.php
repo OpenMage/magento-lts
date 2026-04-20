@@ -15,11 +15,11 @@ namespace OpenMage\Tests\Unit\Mage\Usa\Model\Shipping\Carrier\Fedex\Rest;
 use Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_ResponseMapper as ResponseMapper;
 use OpenMage\Tests\Unit\OpenMageTest;
 
-class ResponseMapperTest extends OpenMageTest
+final class ResponseMapperTest extends OpenMageTest
 {
     private ResponseMapper $mapper;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->mapper = new ResponseMapper();

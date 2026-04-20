@@ -2,13 +2,16 @@
 
 declare(strict_types=1);
 
+use Carbon\Carbon;
 use Saloon\Http\Auth\AccessTokenAuthenticator;
 use ShipStream\FedEx\Contracts\TokenCache;
 
 class Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_TokenManager implements TokenCache
 {
     public const CACHE_KEY_PREFIX = 'fedex_oauth_';
+
     public const CACHE_TAG = 'FEDEX_OAUTH';
+
     public const EXPIRY_BUFFER_SECONDS = 60;
 
     public static function get(string $key): AccessTokenAuthenticator|false
@@ -61,19 +64,19 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_TokenManager implements TokenCa
 
     private static function isExpiringSoon(AccessTokenAuthenticator $authenticator): bool
     {
-        if ($authenticator->expiresAt === null) {
+        if (!$authenticator->expiresAt instanceof DateTimeImmutable) {
             return false;
         }
 
-        return $authenticator->expiresAt->getTimestamp() - self::EXPIRY_BUFFER_SECONDS <= time();
+        return $authenticator->expiresAt->getTimestamp() - self::EXPIRY_BUFFER_SECONDS <= Carbon::now()->getTimestamp();
     }
 
     private static function ttlSeconds(AccessTokenAuthenticator $authenticator): int
     {
-        if ($authenticator->expiresAt === null) {
+        if (!$authenticator->expiresAt instanceof DateTimeImmutable) {
             return 0;
         }
 
-        return max(0, $authenticator->expiresAt->getTimestamp() - self::EXPIRY_BUFFER_SECONDS - time());
+        return max(0, $authenticator->expiresAt->getTimestamp() - self::EXPIRY_BUFFER_SECONDS - Carbon::now()->getTimestamp());
     }
 }

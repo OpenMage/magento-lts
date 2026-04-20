@@ -11,16 +11,19 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Usa\Model\Shipping\Carrier\Fedex\Rest;
 
+use Mage;
+use Zend_Cache;
+use Carbon\CarbonImmutable;
 use Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_TokenManager as TokenManager;
 use OpenMage\Tests\Unit\OpenMageTest;
 use Saloon\Http\Auth\AccessTokenAuthenticator;
 
-class TokenManagerTest extends OpenMageTest
+final class TokenManagerTest extends OpenMageTest
 {
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
-        \Mage::app()->getCache()->clean(\Zend_Cache::CLEANING_MODE_MATCHING_TAG, [TokenManager::CACHE_TAG]);
+        Mage::app()->getCache()->clean(Zend_Cache::CLEANING_MODE_MATCHING_TAG, [TokenManager::CACHE_TAG]);
     }
 
     public function testReturnsFalseOnCacheMiss(): void
@@ -33,7 +36,7 @@ class TokenManagerTest extends OpenMageTest
         $authenticator = new AccessTokenAuthenticator(
             'access-token-value',
             null,
-            new \DateTimeImmutable('+1 hour'),
+            CarbonImmutable::now()->addHours(1),
         );
 
         TokenManager::set('client-hit.sandbox', $authenticator);
@@ -48,7 +51,7 @@ class TokenManagerTest extends OpenMageTest
         $authenticator = new AccessTokenAuthenticator(
             'near-expiry',
             null,
-            new \DateTimeImmutable('+' . (TokenManager::EXPIRY_BUFFER_SECONDS - 5) . ' seconds'),
+            CarbonImmutable::now()->addSeconds(TokenManager::EXPIRY_BUFFER_SECONDS - 5),
         );
 
         TokenManager::set('client-near-expiry.sandbox', $authenticator);
@@ -61,7 +64,7 @@ class TokenManagerTest extends OpenMageTest
         $authenticator = new AccessTokenAuthenticator(
             'already-expired',
             null,
-            new \DateTimeImmutable('-5 seconds'),
+            CarbonImmutable::now()->subSeconds(5),
         );
 
         TokenManager::set('client-past.sandbox', $authenticator);

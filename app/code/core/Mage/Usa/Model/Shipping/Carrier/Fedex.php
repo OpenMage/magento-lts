@@ -264,18 +264,18 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
             }
 
             $debugData['result'] = $mapped;
-        } catch (Throwable $e) {
+        } catch (Throwable $throwable) {
             $mapped = [
                 'rates' => [],
                 'alerts' => [],
                 'errors' => [[
                     'severity' => Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_ResponseMapper::SEVERITY_ERROR,
-                    'code' => (string) $e->getCode(),
-                    'message' => $e->getMessage(),
+                    'code' => (string) $throwable->getCode(),
+                    'message' => $throwable->getMessage(),
                 ]],
             ];
-            $debugData['result'] = ['error' => $e->getMessage(), 'code' => $e->getCode()];
-            Mage::logException($e);
+            $debugData['result'] = ['error' => $throwable->getMessage(), 'code' => $throwable->getCode()];
+            Mage::logException($throwable);
         }
 
         $this->_debug($debugData);
@@ -365,13 +365,16 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
             }
 
             if (!isset($selected[$serviceType])) {
-                $selected[$serviceType] = (float) reset($ratedTypes);
+                $selected[$serviceType] = reset($ratedTypes);
             }
         }
 
         return $selected;
     }
 
+    /**
+     * @param array<array<string, mixed>, mixed> $mapped
+     */
     protected function _firstErrorMessage(array $mapped): ?string
     {
         foreach ($mapped['errors'] ?? [] as $error) {
@@ -658,9 +661,9 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
             $response = $this->_getTrackingRestClient()->track($payload);
             $mapped = $this->_getResponseMapper()->mapTrackReply($response, $trackingNumber);
             $debugData['result'] = $mapped;
-        } catch (Throwable $e) {
-            $debugData['result'] = ['error' => $e->getMessage(), 'code' => $e->getCode()];
-            Mage::logException($e);
+        } catch (Throwable $throwable) {
+            $debugData['result'] = ['error' => $throwable->getMessage(), 'code' => $throwable->getCode()];
+            Mage::logException($throwable);
             $mapped = null;
         }
 
@@ -690,6 +693,9 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
         }
     }
 
+    /**
+     * @param array<array<string, mixed>, mixed> $mapped
+     */
     protected function _trackingStatusData(array $mapped): array
     {
         $fields = [
@@ -736,7 +742,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
         }
 
         if ($statuses === '') {
-            $statuses = Mage::helper('usa')->__('Empty response');
+            return Mage::helper('usa')->__('Empty response');
         }
 
         return $statuses;
@@ -785,19 +791,19 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
             $response = $this->_getRestClient()->processShipment($payload);
             $mapped = $this->_getResponseMapper()->mapShipReply($response);
             $debugData['result'] = $mapped;
-        } catch (Throwable $e) {
+        } catch (Throwable $throwable) {
             $mapped = null;
-            $debugData['result'] = ['error' => $e->getMessage(), 'code' => $e->getCode()];
-            Mage::logException($e);
+            $debugData['result'] = ['error' => $throwable->getMessage(), 'code' => $throwable->getCode()];
+            Mage::logException($throwable);
         }
 
         $this->_debug($debugData);
 
         $hasErrors = isset($mapped['errors']) && is_array($mapped['errors']) && $mapped['errors'] !== [];
-        $hasTracking = isset($mapped['tracking_number']) && (string) $mapped['tracking_number'] !== '';
+        $hasTracking = isset($mapped['tracking_number']) && $mapped['tracking_number'] !== '';
         if ($hasTracking && !$hasErrors) {
             $result->setTrackingNumber($mapped['tracking_number']);
-            if (isset($mapped['label_content']) && (string) $mapped['label_content'] !== '') {
+            if (isset($mapped['label_content']) && $mapped['label_content'] !== '') {
                 $result->setShippingLabelContent($mapped['label_content']);
             }
         } else {
@@ -821,7 +827,11 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
     {
         $accountNumber = (string) $this->getConfigData('account');
         foreach ((array) $data as $item) {
-            if (!isset($item['tracking_number']) || (string) $item['tracking_number'] === '') {
+            if (!isset($item['tracking_number'])) {
+                continue;
+            }
+
+            if ((string) $item['tracking_number'] === '') {
                 continue;
             }
 
@@ -847,7 +857,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
      */
     public function getContainerTypes(?Varien_Object $params = null)
     {
-        if ($params === null) {
+        if (!$params instanceof Varien_Object) {
             return $this->_getAllowedContainers($params);
         }
 
@@ -950,9 +960,11 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
         if ($clientId === '') {
             $missing[] = 'tracking_client_id';
         }
+
         if ($clientSecret === '') {
             $missing[] = 'tracking_client_secret';
         }
+
         if ($missing !== []) {
             Mage::throwException(sprintf(
                 'FedEx Track API credentials are not configured (missing: %s). FedEx apps are per-API; register a separate developer.fedex.com app for Track and populate both fields.',

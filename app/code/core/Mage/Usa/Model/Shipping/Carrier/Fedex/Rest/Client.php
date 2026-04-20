@@ -86,6 +86,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_Client
             } catch (JsonException $jsonException) {
                 return ['errors' => [['message' => 'Could not parse client response', 'detail' => $jsonException->getMessage()]]];
             }
+
             return is_array($body) ? $body : ['errors' => [['message' => $requestException->getMessage()]]];
         } catch (JsonException $jsonException) {
             return ['errors' => [['message' => 'Could not parse client response', 'detail' => $jsonException->getMessage()]]];

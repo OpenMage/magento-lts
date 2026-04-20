@@ -7,7 +7,9 @@ use Carbon\Carbon;
 class Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_ResponseMapper
 {
     public const SEVERITY_ERROR = 'ERROR';
+
     public const SEVERITY_WARNING = 'WARNING';
+
     public const SEVERITY_NOTE = 'NOTE';
 
     /**
@@ -274,7 +276,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_ResponseMapper
             $address['countryCode'] ?? null,
         ]);
 
-        return implode(', ', array_map('strval', $parts));
+        return implode(', ', array_map(strval(...), $parts));
     }
 
     private function buildLabel(array $packageDocuments): ?string
