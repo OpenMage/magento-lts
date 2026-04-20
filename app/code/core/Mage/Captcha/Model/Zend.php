@@ -471,10 +471,10 @@ class Mage_Captcha_Model_Zend extends Image implements Mage_Captcha_Model_Interf
     {
         $sessionData = $this->getSession()->getData($this->_getFormIdKey(self::SESSION_WORD));
         if (!is_array($sessionData)) {
-            return $this->generateWord();
+            return '';
         }
 
-        return Mage::helper('core/clock')->getTimestamp() < $sessionData['expires'] ? $sessionData['data'] : $this->generateWord();
+        return Mage::helper('core/clock')->getTimestamp() < $sessionData['expires'] ? $sessionData['data'] : '';
     }
 
     /**
