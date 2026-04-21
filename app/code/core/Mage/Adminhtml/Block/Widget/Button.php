@@ -38,7 +38,7 @@ class Mage_Adminhtml_Block_Widget_Button extends Mage_Adminhtml_Block_Widget
         return $this->getDataByKey('on_click');
     }
 
-    public function getTestId(): string
+    final public function getTestId(): string
     {
         return 'admin-' . $this->getType() . '-' . str_replace([' ', '_'], '-', (string) $this->getClass());
     }
