@@ -26,22 +26,6 @@ test.config.index = {
     title: 'Google Sitemap',
     url: test.config.url,
     grid: {...base.__grid, ...{ sort: { order: 'sitemap_id', dir: 'desc' } }},
-    __buttons: {},
-}
-
-/**
- * Configuration for buttons on "Google Sitemap" page
- * @type {{add: {__class: string[], click: cy.openmage.test.backend.catalog.sitemap.config.index.__buttons.add.click, _: string}}}
- * @private
- */
-test.config.index.__buttons = {
-    add: {
-        _: base._button + '[title="Add Sitemap"]',
-        __class: base.__buttons.add.__class,
-        click: () => {
-            tools.click(test.config.index.__buttons.add._, 'Add New Sitemap button clicked');
-        },
-    },
 }
 
 /**
