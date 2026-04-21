@@ -19,6 +19,7 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Create_Form extends Mage_Adminht
      *
      * @return Mage_Sales_Model_Order
      */
+    #[Override]
     public function getOrder()
     {
         return $this->getShipment()->getOrder();
@@ -44,6 +45,7 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Create_Form extends Mage_Adminht
         return Mage::registry('current_shipment');
     }
 
+    #[Override]
     protected function _prepareLayout()
     {
         $this->setChild(

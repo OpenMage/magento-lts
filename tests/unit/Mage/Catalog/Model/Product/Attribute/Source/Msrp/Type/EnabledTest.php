@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Catalog\Model\Product\Attribute\Source\Msrp\T
 
 // use Mage;
 // use Mage_Catalog_Model_Product_Attribute_Source_Msrp_Type_Enabled as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\Model\Product\Attribute\Source\Msrp\Type\EnabledTrait;
 
@@ -22,6 +23,7 @@ final class EnabledTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

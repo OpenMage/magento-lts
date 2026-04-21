@@ -200,6 +200,7 @@ class Mage_Catalog_Model_Resource_Product_Flat extends Mage_Core_Model_Resource_
      *
      * @return string
      */
+    #[Override]
     public function getMainTable()
     {
         return $this->getFlatTableName($this->getStoreId());

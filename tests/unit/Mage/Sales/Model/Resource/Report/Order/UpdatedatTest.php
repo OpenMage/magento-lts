@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Sales\Model\Resource\Report\Order;
 
 // use Mage;
 // use Mage_Sales_Model_Resource_Report_Order_Updatedat as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sales\Model\Resource\Report\Order\UpdatedatTrait;
 
@@ -22,6 +23,7 @@ final class UpdatedatTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

@@ -17,6 +17,7 @@ class Mage_Paypal_Block_Hosted_Pro_Iframe extends Mage_Paypal_Block_Iframe
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _construct()
     {
         parent::_construct();
@@ -27,6 +28,7 @@ class Mage_Paypal_Block_Hosted_Pro_Iframe extends Mage_Paypal_Block_Iframe
      * Get iframe action URL
      * @return string
      */
+    #[Override]
     public function getFrameActionUrl()
     {
         return $this->_getOrder()

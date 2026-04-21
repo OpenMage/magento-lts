@@ -1418,6 +1418,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
      *
      * @return $this
      */
+    #[Override]
     public function reindexAll()
     {
         foreach (Mage::app()->getStores() as $storeId => $store) {

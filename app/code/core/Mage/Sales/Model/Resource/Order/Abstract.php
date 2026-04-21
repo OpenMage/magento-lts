@@ -351,6 +351,7 @@ abstract class Mage_Sales_Model_Resource_Order_Abstract extends Mage_Sales_Model
      * @throws Exception
      * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _beforeSave(Mage_Core_Model_Abstract $object)
     {
         if ($this->_useIncrementId && !$object->getIncrementId()) {
@@ -404,6 +405,7 @@ abstract class Mage_Sales_Model_Resource_Order_Abstract extends Mage_Sales_Model
      *
      * @return $this
      */
+    #[Override]
     public function save(Mage_Core_Model_Abstract $object)
     {
         if (!$object->getForceObjectSave()) {

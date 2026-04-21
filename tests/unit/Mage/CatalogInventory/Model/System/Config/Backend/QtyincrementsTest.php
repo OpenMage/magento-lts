@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\CatalogInventory\Model\System\Config\Backend;
 
 // use Mage;
 // use Mage_CatalogInventory_Model_System_Config_Backend_Qtyincrements as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\CatalogInventory\Model\System\Config\Backend\QtyincrementsTrait;
 
@@ -22,6 +23,7 @@ final class QtyincrementsTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

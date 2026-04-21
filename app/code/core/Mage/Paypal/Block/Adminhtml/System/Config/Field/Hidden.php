@@ -23,6 +23,7 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Field_Hidden extends Mage_Adminh
      * @param  string                            $html
      * @return string
      */
+    #[Override]
     protected function _decorateRowHtml($element, $html)
     {
         return '<tr id="row_' . $element->getHtmlId() . '" style="display: none;">' . $html . '</tr>';

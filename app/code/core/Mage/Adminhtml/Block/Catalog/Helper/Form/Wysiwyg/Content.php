@@ -20,6 +20,7 @@ class Mage_Adminhtml_Block_Catalog_Helper_Form_Wysiwyg_Content extends Mage_Admi
      *
      * @return $this
      */
+    #[Override]
     protected function _prepareForm()
     {
         $form = new Varien_Data_Form(['id' => 'wysiwyg_edit_form', 'action' => $this->getDataByKey('action'), 'method' => 'post']);

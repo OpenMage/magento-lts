@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Tag\Model\Resource;
 
 // use Mage;
 // use Mage_Tag_Model_Resource_Tag as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Tag\Model\Resource\TagTrait;
 
@@ -22,6 +23,7 @@ final class TagTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

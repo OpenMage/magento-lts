@@ -42,6 +42,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Field_Csp_Hosts extends Mage_Admin
      * @return array<string, Varien_Object> Array of rows
      * @throws Exception
      */
+    #[Override]
     public function getArrayRows(): array
     {
         if ($this->_arrayRowsCache !== null) {
@@ -124,6 +125,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Field_Csp_Hosts extends Mage_Admin
      * @return string
      * @throws Exception
      */
+    #[Override]
     protected function _renderCellTemplate($columnName)
     {
         if (empty($this->_columns[$columnName])) {

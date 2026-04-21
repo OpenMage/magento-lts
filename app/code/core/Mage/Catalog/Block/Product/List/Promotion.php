@@ -15,6 +15,7 @@ class Mage_Catalog_Block_Product_List_Promotion extends Mage_Catalog_Block_Produ
     /**
      * @return Mage_Catalog_Model_Resource_Product_Collection|Mage_Eav_Model_Entity_Collection_Abstract|Object
      */
+    #[Override]
     protected function _getProductCollection()
     {
         if (is_null($this->_productCollection)) {

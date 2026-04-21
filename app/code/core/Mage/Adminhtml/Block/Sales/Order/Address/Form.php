@@ -17,6 +17,7 @@ class Mage_Adminhtml_Block_Sales_Order_Address_Form extends Mage_Adminhtml_Block
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _construct()
     {
         parent::_construct();
@@ -38,6 +39,7 @@ class Mage_Adminhtml_Block_Sales_Order_Address_Form extends Mage_Adminhtml_Block
      *
      * @return $this
      */
+    #[Override]
     protected function _prepareForm()
     {
         parent::_prepareForm();
@@ -61,6 +63,7 @@ class Mage_Adminhtml_Block_Sales_Order_Address_Form extends Mage_Adminhtml_Block
     /**
      * @inheritDoc
      */
+    #[Override]
     public function getFormValues()
     {
         return $this->_getAddress()->getData();

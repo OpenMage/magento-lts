@@ -46,6 +46,7 @@ class Mage_Admin_Model_Resource_Roles extends Mage_Core_Model_Resource_Db_Abstra
      * @return $this
      * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _beforeSave(Mage_Core_Model_Abstract $object)
     {
         parent::_beforeSave($object);
@@ -87,6 +88,7 @@ class Mage_Admin_Model_Resource_Roles extends Mage_Core_Model_Resource_Db_Abstra
      * @throws Zend_Cache_Exception
      * @throws Zend_Db_Adapter_Exception
      */
+    #[Override]
     protected function _afterSave(Mage_Core_Model_Abstract $object)
     {
         parent::_afterSave($object);
@@ -108,6 +110,7 @@ class Mage_Admin_Model_Resource_Roles extends Mage_Core_Model_Resource_Db_Abstra
      * @return $this
      * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _afterDelete(Mage_Core_Model_Abstract $object)
     {
         parent::_afterDelete($object);

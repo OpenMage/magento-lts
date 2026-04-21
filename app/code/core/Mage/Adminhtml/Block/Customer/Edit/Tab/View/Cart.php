@@ -34,6 +34,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Cart extends Mage_Adminhtml_Bl
      * @inheritDoc
      * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _prepareCollection()
     {
         /** @var Mage_Sales_Model_Quote $quote */
@@ -57,6 +58,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Cart extends Mage_Adminhtml_Bl
      * @inheritDoc
      * @throws Exception
      */
+    #[Override]
     protected function _prepareColumns()
     {
         $currencyCode = Mage_Directory_Helper_Data::getConfigCurrencyBase();
@@ -93,6 +95,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Cart extends Mage_Adminhtml_Bl
      * @inheritDoc
      * @param Mage_Sales_Model_Quote_Item $row
      */
+    #[Override]
     public function getRowUrl($row)
     {
         return $this->getUrl('*/catalog_product/edit', ['id' => $row->getProductId()]);
@@ -104,6 +107,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Cart extends Mage_Adminhtml_Bl
      * @return bool
      * @throws Zend_Db_Select_Exception
      */
+    #[Override]
     public function getHeadersVisibility()
     {
         return ($this->getCollection()->getSize() > 0);

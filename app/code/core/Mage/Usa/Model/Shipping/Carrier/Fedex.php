@@ -288,7 +288,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
             'Version' => $this->getVersionInfo(),
             'RequestedShipment' => [
                 'DropoffType'   => $request->getDropoffType(),
-                'ShipTimestamp' => Carbon::now()->format('c'),
+                'ShipTimestamp' => Mage::helper('core/clock')->format('c'),
                 'PackagingType' => $request->getPackaging(),
                 'TotalInsuredValue' => [
                     'Amount'  => $request->getValue(),
@@ -583,7 +583,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
         $requestHeader->addChild('AccountNumber', $rawRequest->getAccount());
         $requestHeader->addChild('MeterNumber', '0');
 
-        $xml->addChild('ShipDate', Carbon::now()->format('Y-m-d'));
+        $xml->addChild('ShipDate', Mage::helper('core/clock')->format('Y-m-d'));
         $xml->addChild('DropoffType', $rawRequest->getDropoffType());
         if ($rawRequest->hasService()) {
             $xml->addChild('Service', $rawRequest->getService());
@@ -1348,7 +1348,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
         $paymentType = $request->getIsReturn() ? 'RECIPIENT' : 'SENDER';
         $requestClient = [
             'RequestedShipment' => [
-                'ShipTimestamp' => Carbon::now()->getTimestamp(),
+                'ShipTimestamp' => Mage::helper('core/clock')->getTimestamp(),
                 'DropoffType'   => $this->getConfigData('dropoff'),
                 'PackagingType' => $request->getPackagingType(),
                 'ServiceType' => $request->getShippingMethod(),
@@ -1535,6 +1535,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
      * @param  array $data
      * @return bool
      */
+    #[Override]
     public function rollBack($data)
     {
         $requestData = $this->_getAuthDetails();
@@ -1553,6 +1554,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
      *
      * @return array|bool
      */
+    #[Override]
     public function getContainerTypes(?Varien_Object $params = null)
     {
         if ($params == null) {
@@ -1614,6 +1616,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
      *
      * @return array
      */
+    #[Override]
     public function getDeliveryConfirmationTypes(?Varien_Object $params = null)
     {
         return $this->getCode('delivery_confirmation_types');

@@ -23,6 +23,7 @@ class Mage_Adminhtml_Permissions_UserController extends Mage_Adminhtml_Controlle
      *
      * @return Mage_Adminhtml_Controller_Action
      */
+    #[Override]
     public function preDispatch()
     {
         $this->_setForcedFormKeyActions('delete');

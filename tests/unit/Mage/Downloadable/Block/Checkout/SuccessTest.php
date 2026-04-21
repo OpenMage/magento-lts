@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Downloadable\Block\Checkout;
 
 // use Mage_Downloadable_Block_Checkout_Success as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Downloadable\Block\Checkout\SuccessTrait;
 
@@ -21,6 +22,7 @@ final class SuccessTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

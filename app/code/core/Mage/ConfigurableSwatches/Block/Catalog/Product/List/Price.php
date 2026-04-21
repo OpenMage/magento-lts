@@ -76,6 +76,7 @@ class Mage_ConfigurableSwatches_Block_Catalog_Product_List_Price extends Mage_Co
      *
      * @return string
      */
+    #[Override]
     protected function _toHtml()
     {
         /** @var Mage_ConfigurableSwatches_Helper_List_Price $helper */

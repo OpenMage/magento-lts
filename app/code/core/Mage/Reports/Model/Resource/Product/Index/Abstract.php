@@ -24,7 +24,7 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Abstract extends Mage_C
     /**
      * Update Customer from visitor (Customer logged in)
      *
-     * @return Mage_Reports_Model_Resource_Product_Index_Abstract
+     * @return $this
      */
     public function updateCustomerFromVisitor(Mage_Reports_Model_Product_Index_Abstract $object)
     {
@@ -82,7 +82,7 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Abstract extends Mage_C
     /**
      * Purge visitor data by customer (logout)
      *
-     * @return Mage_Reports_Model_Resource_Product_Index_Abstract
+     * @return $this
      */
     public function purgeVisitorByCustomer(Mage_Reports_Model_Product_Index_Abstract $object)
     {
@@ -106,6 +106,7 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Abstract extends Mage_C
      * @return Mage_Reports_Model_Resource_Product_Index_Abstract
      * @throws Mage_Core_Exception
      */
+    #[Override]
     public function save(Mage_Core_Model_Abstract  $object)
     {
         if ($object->isDeleted()) {
@@ -138,7 +139,7 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Abstract extends Mage_C
     /**
      * Clean index (visitor)
      *
-     * @return Mage_Reports_Model_Resource_Product_Index_Abstract
+     * @return $this
      */
     public function clean()
     {
@@ -171,8 +172,8 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Abstract extends Mage_C
     /**
      * Add information about product ids to visitor/customer
      *
-     * @param  array                                              $productIds
-     * @return Mage_Reports_Model_Resource_Product_Index_Abstract
+     * @param  array $productIds
+     * @return $this
      */
     public function registerIds(Varien_Object $object, $productIds)
     {

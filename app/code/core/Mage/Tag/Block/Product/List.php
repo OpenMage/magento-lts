@@ -75,6 +75,7 @@ class Mage_Tag_Block_Product_List extends Mage_Core_Block_Template
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _beforeToHtml()
     {
         if (!$this->getProductId()) {

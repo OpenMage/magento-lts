@@ -16,6 +16,7 @@ class Mage_Sales_Model_Entity_Order_Shipment_Attribute_Backend_Parent extends Ma
      * @param  Mage_Sales_Model_Order_Shipment|Varien_Object $object
      * @return $this
      */
+    #[Override]
     public function afterSave($object)
     {
         parent::afterSave($object);

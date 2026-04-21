@@ -54,6 +54,7 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
     /**
      * @return Mage_Reports_Model_Grouped_Collection|Varien_Data_Collection
      */
+    #[Override]
     public function getCollection()
     {
         if (is_null($this->_collection)) {
@@ -95,6 +96,7 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
      * @return Mage_Adminhtml_Block_Report_Grid_Abstract
      * @throws Exception
      */
+    #[Override]
     public function addColumn($columnId, $column)
     {
         if (is_array($column) && array_key_exists('visibility_filter', $column)) {
@@ -147,6 +149,7 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
         return array_values($storeIds);
     }
 
+    #[Override]
     protected function _prepareCollection()
     {
         $filterData = $this->getFilterData();
@@ -224,6 +227,7 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
         return parent::_prepareCollection();
     }
 
+    #[Override]
     public function getCountTotals()
     {
         if (!$this->getTotals()) {
@@ -253,6 +257,7 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
         return parent::getCountTotals();
     }
 
+    #[Override]
     public function getSubTotals()
     {
         $filterData = $this->getFilterData();

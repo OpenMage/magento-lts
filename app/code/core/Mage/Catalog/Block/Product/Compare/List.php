@@ -55,6 +55,7 @@ class Mage_Catalog_Block_Product_Compare_List extends Mage_Catalog_Block_Product
      * @param  Mage_Catalog_Model_Product $product
      * @return string
      */
+    #[Override]
     public function getAddToWishlistUrl($product)
     {
         return $this->getAddToWishlistUrlCustom($product);
@@ -65,6 +66,7 @@ class Mage_Catalog_Block_Product_Compare_List extends Mage_Catalog_Block_Product
      *
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareLayout()
     {
         $headBlock = $this->getLayout()->getBlock('head');
@@ -176,6 +178,7 @@ class Mage_Catalog_Block_Product_Compare_List extends Mage_Catalog_Block_Product
      * @param  bool                       $addFormKey
      * @return string
      */
+    #[Override]
     public function getAddToWishlistUrlCustom($product, $addFormKey = true)
     {
         $continueUrl = Mage::helper('core')->urlEncode($this->getUrl('customer/account'));

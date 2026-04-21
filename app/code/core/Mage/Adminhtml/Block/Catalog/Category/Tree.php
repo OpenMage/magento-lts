@@ -23,6 +23,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Tree extends Mage_Adminhtml_Block_Ca
         $this->setUseAjax(true);
     }
 
+    #[Override]
     protected function _prepareLayout()
     {
         $addUrl = $this->getUrl('*/*/add', [

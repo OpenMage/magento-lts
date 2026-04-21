@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Payment\Model\Method;
 
 // use Mage;
 // use Mage_Payment_Model_Method_Abstract as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Payment\Model\Method\AbstractTrait;
 
@@ -22,6 +23,7 @@ final class AbstractTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

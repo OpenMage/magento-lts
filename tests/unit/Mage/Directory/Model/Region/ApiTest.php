@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Directory\Model\Region;
 
 // use Mage;
 // use Mage_Directory_Model_Region_Api as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Directory\Model\Region\ApiTrait;
 
@@ -22,6 +23,7 @@ final class ApiTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

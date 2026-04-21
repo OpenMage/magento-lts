@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\ProductAlert\Block\Email;
 
 // use Mage_ProductAlert_Block_Email_Price as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\ProductAlert\Block\Email\PriceTrait;
 
@@ -21,6 +22,7 @@ final class PriceTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

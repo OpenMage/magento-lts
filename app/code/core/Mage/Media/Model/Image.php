@@ -51,7 +51,7 @@ class Mage_Media_Model_Image extends Mage_Core_Model_Abstract
 
     /**
      * Set media image config instance
-     * @return Mage_Media_Model_Image
+     * @return $this
      */
     public function setConfig(Mage_Media_Model_Image_Config_Interface $config)
     {

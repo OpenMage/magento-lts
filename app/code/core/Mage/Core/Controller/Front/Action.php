@@ -7,8 +7,6 @@
  * @package    Mage_Core
  */
 
-use Carbon\Carbon;
-
 /**
  * Base front controller
  *
@@ -45,6 +43,7 @@ class Mage_Core_Controller_Front_Action extends Mage_Core_Controller_Varien_Acti
      *
      * @return $this
      */
+    #[Override]
     public function preDispatch()
     {
         $this->getLayout()->setArea($this->_currentArea);
@@ -58,6 +57,7 @@ class Mage_Core_Controller_Front_Action extends Mage_Core_Controller_Varien_Acti
      *
      * @return $this
      */
+    #[Override]
     public function postDispatch()
     {
         parent::postDispatch();
@@ -94,6 +94,7 @@ class Mage_Core_Controller_Front_Action extends Mage_Core_Controller_Varien_Acti
      * @return $this
      * @SuppressWarnings("PHPMD.ExitExpression")
      */
+    #[Override]
     protected function _prepareDownloadResponse(
         $fileName,
         $content,
@@ -127,7 +128,7 @@ class Mage_Core_Controller_Front_Action extends Mage_Core_Controller_Varien_Acti
             ->setHeader('Content-type', $contentType, true)
             ->setHeader('Content-Length', $contentLength ?? strlen($content))
             ->setHeader('Content-Disposition', 'attachment; filename="' . $fileName . '"')
-            ->setHeader('Last-Modified', Carbon::now()->format('r'));
+            ->setHeader('Last-Modified', Mage::helper('core/clock')->format('r'));
 
         if (!is_null($content)) {
             if ($isFile) {
@@ -164,6 +165,7 @@ class Mage_Core_Controller_Front_Action extends Mage_Core_Controller_Varien_Acti
      *
      * @return bool
      */
+    #[Override]
     protected function _validateFormKey()
     {
         $validated = true;

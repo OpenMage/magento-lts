@@ -99,6 +99,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options_Option extends Mage_
         return $this->getProduct()->getOptionsReadonly();
     }
 
+    #[Override]
     protected function _prepareLayout()
     {
         $this->setChild(

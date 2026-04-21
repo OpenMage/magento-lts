@@ -29,6 +29,7 @@ class Mage_Adminhtml_Block_Newsletter_Template_Edit_Form extends Mage_Adminhtml_
      *
      * @return $this
      */
+    #[Override]
     protected function _prepareForm()
     {
         $model  = $this->getModel();

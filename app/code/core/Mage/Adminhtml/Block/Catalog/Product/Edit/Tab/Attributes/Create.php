@@ -41,6 +41,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Attributes_Create extends Ma
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _beforeToHtml()
     {
         $this->setId('create_attribute_' . $this->getConfig()->getGroupId())
@@ -69,6 +70,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Attributes_Create extends Ma
     /**
      * @return string
      */
+    #[Override]
     protected function _toHtml()
     {
         $this->setCanShow(true);

@@ -20,6 +20,7 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Expanded extends Mage_A
      * @param  Varien_Data_Form_Element_Abstract $element
      * @return bool
      */
+    #[Override]
     protected function _getCollapseState($element)
     {
         $extra = Mage::getSingleton('admin/session')->getUser()->getExtra();

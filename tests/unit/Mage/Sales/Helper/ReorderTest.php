@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Sales\Helper;
 
+use Override;
 use Mage;
 use Mage_Sales_Helper_Reorder as Subject;
 use Mage_Sales_Model_Order;
@@ -20,6 +21,7 @@ final class ReorderTest extends OpenMageTest
 {
     private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

@@ -20,6 +20,7 @@ class Mage_Customer_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
      * @param  array $attr
      * @return array
      */
+    #[Override]
     protected function _prepareValues($attr)
     {
         $data = parent::_prepareValues($attr);

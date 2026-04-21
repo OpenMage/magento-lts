@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Catalog\Model\Resource\Product\Compare;
 
 // use Mage;
 // use Mage_Catalog_Model_Resource_Product_Compare_Item as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\Model\Resource\Product\Compare\ItemTrait;
 
@@ -22,6 +23,7 @@ final class ItemTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

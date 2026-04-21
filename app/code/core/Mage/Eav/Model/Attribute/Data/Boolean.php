@@ -20,6 +20,7 @@ class Mage_Eav_Model_Attribute_Data_Boolean extends Mage_Eav_Model_Attribute_Dat
      * @param  int    $value
      * @return string
      */
+    #[Override]
     protected function _getOptionText($value)
     {
         return match ($value) {

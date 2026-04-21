@@ -19,6 +19,7 @@ class Mage_Sales_Model_Order_Creditmemo_Total_Tax extends Mage_Sales_Model_Order
      *
      * @return $this
      */
+    #[Override]
     public function collect(Mage_Sales_Model_Order_Creditmemo $creditmemo)
     {
         $shippingTaxAmount     = 0;
