@@ -25,28 +25,12 @@ test.config.index = {
     title: 'Manage Products',
     url: test.config.url,
     grid: {...base.__grid, ...{ sort: { order: 'entity_id', dir: 'desc' } }},
-    __buttons: {},
-}
-
-/**
- * Configuration for buttons on "Manage Products" page
- * @type {{add: {__class: string[], click: cy.openmage.test.backend.catalog.product.config.index.__buttons.add.click, _: string}}}
- * @private
- */
-test.config.index.__buttons = {
-    add: {
-        _: test.config._button + '[title="Add Product"]',
-        __class: base.__buttons.add.__class,
-        click: () => {
-            tools.click(test.config.index.__buttons.add._, 'Add New Products button clicked');
-        },
-    },
 }
 
 /**
  * Configuration for "Edit Product" page
  * @type {{title: string, url: string, __buttons: {save: {_: string}, saveAndContinue: {_: string}, delete: {_: string}, back: {_: string}, reset: {_: string}, duplicate: {_: string}}}}
- * TODO: rmove dupluctate require-entry class from fields
+ * TODO: remove dupluctate require-entry class from fields
  */
 test.config.edit = {
     title: 'Plaid Cotton',
