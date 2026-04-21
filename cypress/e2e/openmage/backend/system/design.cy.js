@@ -49,7 +49,7 @@ describe(`Checks admin system "${test.index.title}"`, () => {
         // TODO: There is no edit route for design updates, update sample data?
         validation.pageElements(test, test.index);
 
-        //test.edit.__buttons.reset.click(test.edit.url);
+        //tools.admin.buttons.clickReset(test.edit.url);
         //tools.admin.buttons.clickBack(test.index.url);
     });
 
@@ -57,7 +57,7 @@ describe(`Checks admin system "${test.index.title}"`, () => {
         test.index.__buttons.add.click();
         validation.pageElements(test, test.new);
 
-        test.new.__buttons.reset.click(test.new.url);
+        tools.admin.buttons.clickReset(test.new.url);
         tools.admin.buttons.clickBack(test.index.url);
     });
 });
