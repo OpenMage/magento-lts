@@ -3747,12 +3747,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Core/Model/Factory.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-	'identifier' => 'empty.notAllowed',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Core/Model/File/Storage/Database.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Parameter #1 $params of method Mage_Core_Model_File_Storage_Database_Abstract::__construct() expects array, string|null given.',
 	'identifier' => 'argument.type',
 	'count' => 1,

@@ -214,7 +214,7 @@ class Mage_Paypal_Model_Hostedpro_Request extends Varien_Object
     /**
      * Format price string
      *
-     * @param  mixed  $string
+     * @param  float|int|string $string
      * @return string
      */
     protected function _formatPrice($string)
