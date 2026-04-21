@@ -132,7 +132,7 @@ jobs:
 
   unit_tests:
     name: PHPUnit
-    needs: [check, php-cs-fixer]
+    needs: [check, php-cs-fixer, phpstan]
     if: |
       needs.check.outputs.php > 0 ||
       needs.check.outputs.phpunit-test > 0 ||
