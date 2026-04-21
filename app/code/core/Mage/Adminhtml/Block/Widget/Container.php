@@ -86,7 +86,7 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
      */
     protected function _addPreparedButton(
         string $id,
-        array  $data,
+        array  $data = [],
         int    $level = 0,
         int    $sortOrder = 0,
         string $area = 'header',
