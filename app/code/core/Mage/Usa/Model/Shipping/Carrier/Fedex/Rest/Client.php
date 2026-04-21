@@ -12,7 +12,7 @@ use ShipStream\FedEx\FedEx;
 class Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_Client
 {
     public function __construct(
-        private FedEx $connector,
+        private readonly FedEx $connector,
     ) {}
 
     public function getRates(array $payload): array

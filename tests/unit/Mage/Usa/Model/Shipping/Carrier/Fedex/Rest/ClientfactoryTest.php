@@ -17,8 +17,6 @@ use Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_Clientfactory as ClientFactory;
 use Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_Tokenmanager as TokenManager;
 use OpenMage\Tests\Unit\OpenMageTest;
 use ReflectionProperty;
-use Saloon\Http\Auth\AccessTokenAuthenticator;
-use ShipStream\FedEx\Contracts\TokenCache;
 use ShipStream\FedEx\Enums\Endpoint;
 use ShipStream\FedEx\FedEx;
 
@@ -36,18 +34,14 @@ final class ClientfactoryTest extends OpenMageTest
 
     public function testCreateUsesProvidedTokenCacheWhenSupplied(): void
     {
-        $custom = new class implements TokenCache {
-            public static function get(string $key): AccessTokenAuthenticator|false
-            {
-                return false;
-            }
+        $defaultCache = Mage::getSingleton('usa/shipping_carrier_fedex_rest_tokenmanager');
+        $customCache = Mage::getModel('usa/shipping_carrier_fedex_rest_tokenmanager');
 
-            public static function set(string $key, AccessTokenAuthenticator $authenticator): void {}
-        };
+        $client = (new ClientFactory())->create('id', 'secret', true, $customCache);
+        $connector = self::connector($client);
 
-        $client = (new ClientFactory())->create('id', 'secret', true, $custom);
-
-        self::assertSame($custom, self::connector($client)->tokenCache);
+        self::assertNotSame($defaultCache, $connector->tokenCache);
+        self::assertSame($customCache, $connector->tokenCache);
     }
 
     public function testCreateMapsSandboxFlagToEndpoint(): void

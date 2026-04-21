@@ -14,8 +14,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_Clientfactory implements Mage_U
         bool $sandboxMode,
         ?TokenCache $tokenCache = null,
     ): Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_Client {
-        $tokenCache = $tokenCache
-            ?? Mage::getSingleton('usa/shipping_carrier_fedex_rest_tokenmanager');
+        $tokenCache ??= Mage::getSingleton('usa/shipping_carrier_fedex_rest_tokenmanager');
 
         $connector = new FedEx(
             clientId: $clientId,
@@ -24,6 +23,6 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_Clientfactory implements Mage_U
             tokenCache: $tokenCache,
         );
 
-        return new Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_Client($connector);
+        return Mage::getModel('usa/shipping_carrier_fedex_rest_client', $connector);
     }
 }
