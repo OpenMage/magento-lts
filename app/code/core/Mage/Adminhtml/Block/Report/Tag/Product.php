@@ -22,6 +22,7 @@ class Mage_Adminhtml_Block_Report_Tag_Product extends Mage_Adminhtml_Block_Widge
         $this->_removeButton('add');
     }
 
+    #[Override]
     public function getHeaderCssClass()
     {
         return 'icon-head head-report';

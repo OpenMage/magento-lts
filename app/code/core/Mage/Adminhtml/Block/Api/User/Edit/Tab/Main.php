@@ -14,6 +14,7 @@
  */
 class Mage_Adminhtml_Block_Api_User_Edit_Tab_Main extends Mage_Adminhtml_Block_Widget_Form
 {
+    #[Override]
     protected function _prepareForm()
     {
         $model = Mage::registry('api_user');

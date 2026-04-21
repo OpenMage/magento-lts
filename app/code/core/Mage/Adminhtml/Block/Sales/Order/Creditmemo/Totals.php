@@ -31,6 +31,7 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_Totals extends Mage_Adminhtml_
         return $this->_creditmemo;
     }
 
+    #[Override]
     public function getSource()
     {
         return $this->getCreditmemo();
@@ -41,6 +42,7 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_Totals extends Mage_Adminhtml_
      *
      * @return $this
      */
+    #[Override]
     protected function _initTotals()
     {
         parent::_initTotals();

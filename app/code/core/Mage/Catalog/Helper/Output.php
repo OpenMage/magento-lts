@@ -48,9 +48,9 @@ class Mage_Catalog_Helper_Output extends Mage_Core_Helper_Abstract
     /**
      * Adding method handler
      *
-     * @param  string                     $method
-     * @param  object                     $handler
-     * @return Mage_Catalog_Helper_Output
+     * @param  string $method
+     * @param  object $handler
+     * @return $this
      */
     public function addHandler($method, $handler)
     {

@@ -58,6 +58,7 @@ class Mage_Adminhtml_Block_Customer_Edit extends Mage_Adminhtml_Block_Widget_For
     /**
      * @return string
      */
+    #[Override]
     public function getHeaderText()
     {
         if (Mage::registry('current_customer')->getId()) {
@@ -72,6 +73,7 @@ class Mage_Adminhtml_Block_Customer_Edit extends Mage_Adminhtml_Block_Widget_For
      *
      * @return string
      */
+    #[Override]
     public function getFormHtml()
     {
         $html = parent::getFormHtml();
@@ -89,6 +91,7 @@ class Mage_Adminhtml_Block_Customer_Edit extends Mage_Adminhtml_Block_Widget_For
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareLayout()
     {
         if (!Mage::registry('current_customer')->isReadonly()) {

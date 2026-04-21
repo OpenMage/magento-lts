@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Mage\Oauth\Model;
 
+use Override;
 use Generator;
 use Mage;
 use Mage_Core_Exception;
@@ -22,6 +23,7 @@ final class ConsumerTest extends OpenMageTest
     // @phpstan-ignore property.onlyWritten
     private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

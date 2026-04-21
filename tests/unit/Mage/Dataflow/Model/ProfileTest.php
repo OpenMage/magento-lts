@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Dataflow\Model;
 
 // use Mage;
 // use Mage_Dataflow_Model_Profile as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Dataflow\Model\ProfileTrait;
 
@@ -22,6 +23,7 @@ final class ProfileTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

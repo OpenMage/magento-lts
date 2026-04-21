@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Payment\Model\Billing;
 
 // use Mage;
 // use Mage_Payment_Model_Billing_AgreementAbstract as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Payment\Model\Billing\AgreementAbstractTrait;
 
@@ -22,6 +23,7 @@ final class AgreementAbstractTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

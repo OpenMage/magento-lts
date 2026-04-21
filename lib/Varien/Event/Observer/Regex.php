@@ -21,6 +21,7 @@ class Varien_Event_Observer_Regex extends Varien_Event_Observer
      *
      * @return bool
      */
+    #[Override]
     public function isValidFor(Varien_Event $event)
     {
         return preg_match($this->getEventRegex(), $event->getName());

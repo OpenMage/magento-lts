@@ -20,6 +20,7 @@ class Mage_Adminhtml_Block_Sitemap_Grid_Renderer_Link extends Mage_Adminhtml_Blo
      * @return string
      * @throws Mage_Core_Exception|Mage_Core_Model_Store_Exception
      */
+    #[Override]
     public function render(Varien_Object $row)
     {
         $fileName = preg_replace('/^\//', '', $row->getSitemapPath() . $row->getSitemapFilename());

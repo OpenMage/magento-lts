@@ -29,6 +29,7 @@ class Mage_Core_Model_Resource_Language_Collection extends Mage_Core_Model_Resou
      *
      * @return array
      */
+    #[Override]
     public function toOptionArray()
     {
         return $this->_toOptionArray('language_code', 'language_title', ['title' => 'language_title']);
@@ -39,6 +40,7 @@ class Mage_Core_Model_Resource_Language_Collection extends Mage_Core_Model_Resou
      *
      * @return array
      */
+    #[Override]
     public function toOptionHash()
     {
         return $this->_toOptionHash('language_code', 'language_title');

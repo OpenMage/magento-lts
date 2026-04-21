@@ -35,6 +35,7 @@ class Mage_Paypal_Model_Resource_Payment_Transaction extends Mage_Core_Model_Res
     /**
      * @see Mage_Core_Model_Resource_Abstract::_unserializeField()
      */
+    #[Override]
     protected function _unserializeField(Varien_Object $object, $field, $defaultValue = null)
     {
         $value = $object->getData($field);
@@ -73,6 +74,7 @@ class Mage_Paypal_Model_Resource_Payment_Transaction extends Mage_Core_Model_Res
      * @param  Mage_Paypal_Model_Payment_Transaction $transaction
      * @return $this
      */
+    #[Override]
     protected function _beforeSave(Mage_Core_Model_Abstract $transaction)
     {
         $txnId       = $transaction->getDataByKey('txn_id');

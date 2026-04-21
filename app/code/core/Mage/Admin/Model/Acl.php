@@ -49,6 +49,7 @@ class Mage_Admin_Model_Acl extends Zend_Acl
      *
      * @return Mage_Admin_Model_Acl_Role_Registry
      */
+    #[Override]
     protected function _getRoleRegistry()
     {
         if ($this->_roleRegistry === null) {

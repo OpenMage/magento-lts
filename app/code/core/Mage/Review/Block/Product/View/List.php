@@ -28,6 +28,7 @@ class Mage_Review_Block_Product_View_List extends Mage_Review_Block_Product_View
      * @return $this
      * @throws Mage_Core_Model_Store_Exception
      */
+    #[Override]
     protected function _prepareLayout()
     {
         parent::_prepareLayout();
@@ -44,6 +45,7 @@ class Mage_Review_Block_Product_View_List extends Mage_Review_Block_Product_View
      * @inheritDoc
      * @throws Mage_Core_Model_Store_Exception
      */
+    #[Override]
     protected function _beforeToHtml()
     {
         $this->getReviewsCollection()

@@ -26,6 +26,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Translate extends Mage_Core_Mod
      *
      * @return $this
      */
+    #[Override]
     protected function _afterSave()
     {
         $types = array_keys(Mage::getStoreConfig(self::XML_PATH_INVALID_CACHES));

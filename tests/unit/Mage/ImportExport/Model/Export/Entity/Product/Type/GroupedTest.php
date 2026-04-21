@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\ImportExport\Model\Export\Entity\Product\Type
 
 // use Mage;
 // use Mage_ImportExport_Model_Export_Entity_Product_Type_Grouped as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\ImportExport\Model\Export\Entity\Product\Type\GroupedTrait;
 
@@ -22,6 +23,7 @@ final class GroupedTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

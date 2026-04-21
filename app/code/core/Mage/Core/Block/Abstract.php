@@ -218,7 +218,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      */
     protected function _getFactory()
     {
-        return is_null($this->_factory) ? Mage::getSingleton('core/factory') : $this->_factory;
+        return $this->_factory ?? Mage::getSingleton('core/factory');
     }
 
     /**
@@ -228,7 +228,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      */
     protected function _getApp()
     {
-        return is_null($this->_app) ? Mage::app() : $this->_app;
+        return $this->_app ?? Mage::app();
     }
 
     /**

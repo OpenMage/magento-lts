@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\GiftMessage\Helper;
 
 // use Mage;
 // use Mage_GiftMessage_Helper_Data as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\GiftMessage\Helper\DataTrait;
 
@@ -22,6 +23,7 @@ final class DataTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

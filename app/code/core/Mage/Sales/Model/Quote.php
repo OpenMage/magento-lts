@@ -217,7 +217,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      * Init mapping array of short fields to
      * its full names
      *
-     * @return Varien_Object
+     * @return $this
      */
     protected function _initOldFieldsMap()
     {
@@ -286,6 +286,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      * @inheritDoc
      * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _beforeSave()
     {
         /**
@@ -342,6 +343,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      * @return $this
      * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _afterSave()
     {
         parent::_afterSave();
@@ -2110,6 +2112,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      * @throws Throwable
      * @throws Zend_Db_Adapter_Exception
      */
+    #[Override]
     protected function _afterLoad()
     {
         // collect totals and save me, if required
@@ -2173,6 +2176,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      *
      * @inheritDoc
      */
+    #[Override]
     public function save()
     {
         if ($this->_preventSaving) {

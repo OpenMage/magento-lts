@@ -31,6 +31,7 @@ class Varien_Data_Form_Element_Color extends Varien_Data_Form_Element_Abstract
     /**
      * @return array<int, string>
      */
+    #[Override]
     public function getHtmlAttributes()
     {
         return ['type', 'title', 'class', 'style', 'oninput', 'disabled', 'readonly', 'tabindex'];
@@ -39,6 +40,7 @@ class Varien_Data_Form_Element_Color extends Varien_Data_Form_Element_Abstract
     /**
      * @return string
      */
+    #[Override]
     public function getElementHtml()
     {
         $id = $this->getHtmlId();

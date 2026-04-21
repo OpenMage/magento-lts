@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Core\Model\File;
 
 // use Mage;
 // use Mage_Core_Model_File_Storage as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\Model\File\StorageTrait;
 
@@ -22,6 +23,7 @@ final class StorageTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

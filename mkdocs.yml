@@ -207,7 +207,7 @@ nav:
           - developers/tools/ddev.md
           - developers/tools/oneline.md
       - 'Coding Style':
-          - developers/coding-style/per-2.0.md
+          - developers/coding-style/per-version.md
       - 'Events':
           - developers/events/list.md
       - 'Tools':

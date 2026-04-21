@@ -25,6 +25,7 @@ class Mage_Adminhtml_Block_Sales_Order extends Mage_Adminhtml_Block_Widget_Grid_
         }
     }
 
+    #[Override]
     public function getCreateUrl()
     {
         return $this->getUrl('*/sales_order_create/start');

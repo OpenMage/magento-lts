@@ -41,6 +41,7 @@ class Mage_Sales_Model_Quote_Address_Total_Nominal_Shipping extends Mage_Sales_M
      *
      * @return $this
      */
+    #[Override]
     public function collect(Mage_Sales_Model_Quote_Address $address)
     {
         $items = $address->getAllNominalItems();
@@ -74,6 +75,7 @@ class Mage_Sales_Model_Quote_Address_Total_Nominal_Shipping extends Mage_Sales_M
      *
      * @return array|Mage_Sales_Model_Quote_Address_Total_Abstract
      */
+    #[Override]
     public function fetch(Mage_Sales_Model_Quote_Address $address)
     {
         return Mage_Sales_Model_Quote_Address_Total_Abstract::fetch($address);
@@ -84,6 +86,7 @@ class Mage_Sales_Model_Quote_Address_Total_Nominal_Shipping extends Mage_Sales_M
      *
      * @return array
      */
+    #[Override]
     protected function _getAddressItems(Mage_Sales_Model_Quote_Address $address)
     {
         if ($this->_shouldGetAllItems) {

@@ -19,6 +19,7 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Create_Items extends Mage_Adminh
      *
      * @return Mage_Sales_Model_Order
      */
+    #[Override]
     public function getOrder()
     {
         return $this->getShipment()->getOrder();
@@ -29,6 +30,7 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Create_Items extends Mage_Adminh
      *
      * @return Mage_Sales_Model_Order_Shipment
      */
+    #[Override]
     public function getSource()
     {
         return $this->getShipment();
@@ -47,6 +49,7 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Create_Items extends Mage_Adminh
     /**
      * Prepare child blocks
      */
+    #[Override]
     protected function _beforeToHtml()
     {
         $this->setChild(
@@ -67,6 +70,7 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Create_Items extends Mage_Adminh
      * @param  float  $price
      * @return string
      */
+    #[Override]
     public function formatPrice($price)
     {
         return $this->getShipment()->getOrder()->formatPrice($price);

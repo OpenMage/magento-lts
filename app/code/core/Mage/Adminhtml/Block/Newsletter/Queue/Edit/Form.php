@@ -21,6 +21,7 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Edit_Form extends Mage_Adminhtml_Blo
      *
      * @return $this
      */
+    #[Override]
     protected function _prepareForm()
     {
         /** @var Mage_Newsletter_Model_Queue $queue */

@@ -16,6 +16,7 @@ class Mage_Adminhtml_Block_System_Design extends Mage_Adminhtml_Block_Template
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareLayout()
     {
         $this->setTemplate('system/design/index.phtml');

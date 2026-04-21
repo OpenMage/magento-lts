@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Tag\Model\Tag;
 
 // use Mage;
 // use Mage_Tag_Model_Tag_Relation as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Tag\Model\Tag\RelationTrait;
 
@@ -22,6 +23,7 @@ final class RelationTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

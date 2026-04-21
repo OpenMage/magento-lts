@@ -31,6 +31,7 @@ class Mage_CatalogSearch_Model_Indexer_Fulltext extends Mage_Index_Model_Indexer
      *
      * @return Mage_CatalogSearch_Model_Resource_Indexer_Fulltext
      */
+    #[Override]
     protected function _getResource()
     {
         return Mage::getResourceSingleton('catalogsearch/indexer_fulltext');
@@ -103,6 +104,7 @@ class Mage_CatalogSearch_Model_Indexer_Fulltext extends Mage_Index_Model_Indexer
      *
      * @return string
      */
+    #[Override]
     public function getDescription()
     {
         return Mage::helper('catalogsearch')->__('Rebuild Catalog product fulltext search index');
@@ -115,6 +117,7 @@ class Mage_CatalogSearch_Model_Indexer_Fulltext extends Mage_Index_Model_Indexer
      *
      * @return bool
      */
+    #[Override]
     public function matchEvent(Mage_Index_Model_Event $event)
     {
         $data       = $event->getNewData();
@@ -192,7 +195,7 @@ class Mage_CatalogSearch_Model_Indexer_Fulltext extends Mage_Index_Model_Indexer
     /**
      * Get data required for category'es products reindex
      *
-     * @return Mage_CatalogSearch_Model_Indexer_Fulltext
+     * @return $this
      */
     protected function _registerCatalogCategoryEvent(Mage_Index_Model_Event $event)
     {
@@ -218,7 +221,7 @@ class Mage_CatalogSearch_Model_Indexer_Fulltext extends Mage_Index_Model_Indexer
     /**
      * Register data required by catatalog product process in event object
      *
-     * @return Mage_CatalogSearch_Model_Indexer_Fulltext
+     * @return $this
      */
     protected function _registerCatalogProductEvent(Mage_Index_Model_Event $event)
     {
@@ -409,6 +412,7 @@ class Mage_CatalogSearch_Model_Indexer_Fulltext extends Mage_Index_Model_Indexer
     /**
      * Rebuild all index data
      */
+    #[Override]
     public function reindexAll()
     {
         $resourceModel = $this->_getIndexer()->getResource();

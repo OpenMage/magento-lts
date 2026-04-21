@@ -83,6 +83,7 @@ class Varien_Cache_Backend_Memcached extends Zend_Cache_Backend_Memcached implem
      * @return bool
      * @see Zend_Cache_Backend_Memcached::save()
      */
+    #[Override]
     public function save($data, $id, $tags = [], $specificLifetime = false)
     {
         if (is_string($data) && (strlen($data) > $this->_options['slab_size'])) {
@@ -111,6 +112,7 @@ class Varien_Cache_Backend_Memcached extends Zend_Cache_Backend_Memcached implem
      * @return bool|false|string
      * @see Zend_Cache_Backend_Memcached::load()
      */
+    #[Override]
     public function load($id, $doNotTestCacheValidity = false)
     {
         $data = parent::load($id, $doNotTestCacheValidity);
