@@ -103,11 +103,10 @@ class Mage_Adminhtml_Block_Widget_Grid_Container extends Mage_Adminhtml_Block_Wi
 
     protected function _addBackButton()
     {
-        $this->_addButton('back', [
-            'label'     => $this->getBackButtonLabel(),
-            'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getBackUrl()),
-            'class'     => 'back',
-        ]);
+        $this->_addPreparedButton(
+            id: self::BUTTON_TYPE_BACK,
+            onClick: Mage::helper('core/js')->getSetLocationJs($this->getBackUrl()),
+        );
     }
 
     /**

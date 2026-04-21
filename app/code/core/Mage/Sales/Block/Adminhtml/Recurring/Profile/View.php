@@ -26,11 +26,7 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_View extends Mage_Adminhtml_B
     #[Override]
     protected function _prepareLayout()
     {
-        $this->_addButton('back', [
-            'label'     => Mage::helper('adminhtml')->__('Back'),
-            'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getUrl('*/*/')),
-            'class'     => 'back',
-        ]);
+        $this->_addPreparedButton(id: self::BUTTON_TYPE_BACK);
 
         $profile = Mage::registry('current_recurring_profile');
 

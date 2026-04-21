@@ -46,14 +46,10 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit extends Mage_Adminhtml_Bl
     protected function _prepareLayout()
     {
         if ($this->getWidgetInstance()->isCompleteToCreate()) {
-            $this->_addButton(
-                'save_and_edit_button',
-                [
-                    'label'     => Mage::helper('widget')->__('Save and Continue Edit'),
-                    'class'     => 'save continue',
-                    'onclick'   => 'saveAndContinueEdit()',
-                ],
-                100,
+            $this->_addPreparedButton(
+                id: self::BUTTON_TYPE_SAVE_EDIT,
+                level: 100,
+                module: 'widget',
             );
         } else {
             $this->removeButton('save');

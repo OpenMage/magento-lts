@@ -22,11 +22,10 @@ class Mage_Adminhtml_Block_Widget_View_Container extends Mage_Adminhtml_Block_Wi
 
         $this->setTemplate('widget/view/container.phtml');
 
-        $this->_addButton('back', [
-            'label'     => Mage::helper('adminhtml')->__('Back'),
-            'onclick'   => "window.location.href='" . $this->getUrl('*/*/') . "'",
-            'class'     => 'back',
-        ]);
+        $this->_addPreparedButton(
+            id: self::BUTTON_TYPE_BACK,
+            onClick: "window.location.href='" . $this->getUrl('*/*/') . "'",
+        );
 
         $this->_addButton('edit', [
             'label'     => Mage::helper('adminhtml')->__('Edit'),

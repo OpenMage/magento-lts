@@ -95,11 +95,12 @@ class Mage_Adminhtml_Block_Customer_Edit extends Mage_Adminhtml_Block_Widget_For
     protected function _prepareLayout()
     {
         if (!Mage::registry('current_customer')->isReadonly()) {
-            $this->_addButton('save_and_continue', [
-                'label'     => Mage::helper('customer')->__('Save and Continue Edit'),
-                'onclick'   => Mage::helper('core/js')->getSaveAndContinueEditJs($this->_getSaveAndContinueUrl()),
-                'class'     => 'save continue',
-            ], 10);
+            $this->_addPreparedButton(
+                id: self::BUTTON_TYPE_SAVE_EDIT,
+                level: 10,
+                module: 'customer',
+                onClick: Mage::helper('core/js')->getSaveAndContinueEditJs($this->_getSaveAndContinueUrl()),
+            );
         }
 
         return parent::_prepareLayout();

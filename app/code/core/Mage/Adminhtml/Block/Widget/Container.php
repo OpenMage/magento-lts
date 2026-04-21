@@ -14,6 +14,16 @@
  */
 class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Template
 {
+    public const BUTTON_TYPE_BACK       = 'back';
+
+    public const BUTTON_TYPE_DELETE     = 'delete';
+
+    public const BUTTON_TYPE_RESET      = 'reset';
+
+    public const BUTTON_TYPE_SAVE       = 'save';
+
+    public const BUTTON_TYPE_SAVE_EDIT  = 'save-edit';
+
     /**
      * So-called "container controller" to specify group of blocks participating in some action
      *
@@ -60,6 +70,62 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
         $this->_buttons[$level][$id]['sort_order'] = $sortOrder ? $sortOrder : count($this->_buttons[$level]) * 10;
 
         return $this;
+    }
+
+    /**
+     * @param  self::BUTTON_TYPE_* $id
+     * @return $this
+     */
+    protected function _addPreparedButton(
+        string $id,
+        array  $data,
+        int    $level = 0,
+        int    $sortOrder = 0,
+        string $area = 'header',
+        string $module = 'adminhtml',
+        ?string $onClick = null
+    ) {
+        if (is_null($onClick)) {
+            $onClick = match ($id) {
+                self::BUTTON_TYPE_BACK      => Mage::helper('core/js')->getSetLocationJs(Mage::helper('adminhtml')::getUrl('*/*/')),
+                self::BUTTON_TYPE_RESET     => 'setLocation(window.location.href)',
+                self::BUTTON_TYPE_SAVE      => 'editForm.submit();',
+                self::BUTTON_TYPE_SAVE_EDIT => 'saveAndContinueEdit()',
+                default => '',
+            };
+        }
+
+        match ($id) {
+            self::BUTTON_TYPE_BACK => $data = array_merge([
+                'label'     => Mage::helper($module)->__('Back'),
+                'class'     => 'back',
+                'onclick'   => $onClick,
+                'level'     => -1,
+            ], $data),
+            self::BUTTON_TYPE_DELETE => $data = array_merge([
+                'label' => Mage::helper($module)->__('Delete'),
+                'class' => 'delete',
+            ], $data),
+            self::BUTTON_TYPE_RESET => $data = array_merge([
+                'label'     => Mage::helper($module)->__('Reset'),
+                'class'     => 'reset',
+                'onclick'   => $onClick,
+                'level'     => -1,
+            ], $data),
+            self::BUTTON_TYPE_SAVE => $data = array_merge([
+                'label'     => Mage::helper($module)->__('Save'),
+                'class'     => 'save',
+                'onclick'   => $onClick,
+                'level'     => 1,
+            ], $data),
+            self::BUTTON_TYPE_SAVE_EDIT => $data = array_merge([
+                'label'     => Mage::helper($module)->__('Save and Continue Edit'),
+                'class'     => 'save continue',
+                'onclick'   => $onClick,
+            ], $data),
+        };
+
+        return $this->_addButton($id, $data);
     }
 
     /**

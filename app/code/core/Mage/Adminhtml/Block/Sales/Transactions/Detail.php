@@ -50,11 +50,10 @@ class Mage_Adminhtml_Block_Sales_Transactions_Detail extends Mage_Adminhtml_Bloc
         $this->_txn = Mage::registry('current_transaction');
 
         $backUrl = ($this->_txn->getOrderUrl()) ? $this->_txn->getOrderUrl() : $this->getUrl('*/*/');
-        $this->_addButton('back', [
-            'label'   => Mage::helper('sales')->__('Back'),
-            'onclick' => Mage::helper('core/js')->getSetLocationJs($backUrl),
-            'class'   => 'back',
-        ]);
+        $this->_addPreparedButton(
+            id: self::BUTTON_TYPE_BACK,
+            onClick: Mage::helper('core/js')->getSetLocationJs($backUrl),
+        );
 
         if (Mage::getSingleton('admin/session')->isAllowed('sales/transactions/fetch')
             && $this->_txn->getOrderPaymentObject()->getMethodInstance()->canFetchTransactionInfo()

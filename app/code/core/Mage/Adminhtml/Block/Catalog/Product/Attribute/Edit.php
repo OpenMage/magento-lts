@@ -33,14 +33,10 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit extends Mage_Adminhtml
                 ],
             );
         } else {
-            $this->_addButton(
-                'save_and_edit_button',
-                [
-                    'label'     => Mage::helper('catalog')->__('Save and Continue Edit'),
-                    'onclick'   => 'saveAndContinueEdit()',
-                    'class'     => 'save continue',
-                ],
-                100,
+            $this->_addPreparedButton(
+                id: self::BUTTON_TYPE_SAVE_EDIT,
+                level: 100,
+                module: 'catalog',
             );
         }
 
