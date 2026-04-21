@@ -123,6 +123,7 @@ class Mage_Tax_Model_Resource_Calculation_Rate_Collection extends Mage_Core_Mode
      *
      * @return array
      */
+    #[Override]
     public function toOptionArray()
     {
         return $this->_toOptionArray('tax_calculation_rate_id', 'code');
@@ -133,6 +134,7 @@ class Mage_Tax_Model_Resource_Calculation_Rate_Collection extends Mage_Core_Mode
      *
      * @return array
      */
+    #[Override]
     public function toOptionHash()
     {
         return $this->_toOptionHash('tax_calculation_rate_id', 'code');

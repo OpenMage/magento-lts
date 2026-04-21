@@ -21,6 +21,7 @@ class Mage_Tag_Model_Api_V2 extends Mage_Tag_Model_Api
      * @param  int|string $store
      * @return array
      */
+    #[Override]
     public function items($productId, $store = null)
     {
         $result = parent::items($productId, $store);
@@ -38,6 +39,7 @@ class Mage_Tag_Model_Api_V2 extends Mage_Tag_Model_Api
      * @param  array $data
      * @return array
      */
+    #[Override]
     public function add($data)
     {
         $result = [];
@@ -55,6 +57,7 @@ class Mage_Tag_Model_Api_V2 extends Mage_Tag_Model_Api
      * @param  int|string   $store
      * @return array|object
      */
+    #[Override]
     public function info($tagId, $store)
     {
         $result = parent::info($tagId, $store);
@@ -72,6 +75,7 @@ class Mage_Tag_Model_Api_V2 extends Mage_Tag_Model_Api
      * @param  array|object $data
      * @return array
      */
+    #[Override]
     protected function _prepareDataForAdd($data)
     {
         Mage::helper('api')->toArray($data);
@@ -84,6 +88,7 @@ class Mage_Tag_Model_Api_V2 extends Mage_Tag_Model_Api
      * @param  array|object $data
      * @return array
      */
+    #[Override]
     protected function _prepareDataForUpdate($data)
     {
         Mage::helper('api')->toArray($data);

@@ -28,6 +28,7 @@ class Mage_Adminhtml_Block_Sales_Order_Address extends Mage_Adminhtml_Block_Widg
      *
      * @return string
      */
+    #[Override]
     public function getHeaderText()
     {
         $address = Mage::registry('order_address');
@@ -46,6 +47,7 @@ class Mage_Adminhtml_Block_Sales_Order_Address extends Mage_Adminhtml_Block_Widg
      *
      * @return string
      */
+    #[Override]
     public function getBackUrl()
     {
         return $this->getUrl(

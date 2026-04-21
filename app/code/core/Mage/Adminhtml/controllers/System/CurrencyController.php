@@ -23,7 +23,7 @@ class Mage_Adminhtml_System_CurrencyController extends Mage_Adminhtml_Controller
     /**
      * Init currency by currency code from request
      *
-     * @return Mage_Adminhtml_Controller_Action
+     * @return $this
      * @throws Mage_Core_Exception
      */
     protected function _initCurrency()

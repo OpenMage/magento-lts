@@ -507,6 +507,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      *
      * @return Zend_Cache_Core
      */
+    #[Override]
     public function getCache()
     {
         return Mage::app()->getCache();
@@ -572,9 +573,10 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
     /**
      * Save configuration cache
      *
-     * @param  array                  $tags cache tags
-     * @return Mage_Core_Model_Config
+     * @param  array $tags cache tags
+     * @return $this
      */
+    #[Override]
     public function saveCache($tags = [])
     {
         if (!Mage::app()->useCache('config')) {
@@ -615,7 +617,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      * @param  Varien_Simplexml_Element $source
      * @param  int                      $recursionLevel
      * @param  array                    $tags
-     * @return Mage_Core_Model_Config
+     * @return $this
      */
     protected function _saveSectionCache($idPrefix, $sectionName, $source, $recursionLevel = 0, $tags = [])
     {
@@ -665,6 +667,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _loadCache($id)
     {
         return Mage::app()->loadCache($id);
@@ -679,6 +682,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      * @param  false|int           $lifetime
      * @return Mage_Core_Model_App
      */
+    #[Override]
     protected function _saveCache($data, $id, $tags = [], $lifetime = false)
     {
         return Mage::app()->saveCache($data, $id, $tags, $lifetime);
@@ -690,6 +694,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      * @param  string              $id
      * @return Mage_Core_Model_App
      */
+    #[Override]
     protected function _removeCache($id)
     {
         return Mage::app()->removeCache($id);
@@ -700,6 +705,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      *
      * {@inheritDoc}
      */
+    #[Override]
     public function removeCache()
     {
         Mage::app()->cleanCache([self::CACHE_TAG]);
@@ -765,6 +771,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      * @inheritDoc
      * @return false|Mage_Core_Model_Config_Element
      */
+    #[Override]
     public function getNode($path = null, $scope = '', $scopeCode = null)
     {
         if ($scope !== '') {
@@ -810,6 +817,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      * @param  bool                    $overwrite
      * @return Varien_Simplexml_Config
      */
+    #[Override]
     public function setNode($path, $value, $overwrite = true)
     {
         if ($this->_useCache && ($path !== null)) {
@@ -1705,10 +1713,10 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
     /**
      * Delete config value from DB
      *
-     * @param  string                 $path
-     * @param  string                 $scope
-     * @param  int                    $scopeId
-     * @return Mage_Core_Model_Config
+     * @param  string $path
+     * @param  string $scope
+     * @param  int    $scopeId
+     * @return $this
      */
     public function deleteConfig($path, $scope = 'default', $scopeId = 0)
     {

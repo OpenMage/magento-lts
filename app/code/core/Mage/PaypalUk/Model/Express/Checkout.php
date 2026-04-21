@@ -32,6 +32,7 @@ class Mage_PaypalUk_Model_Express_Checkout extends Mage_Paypal_Model_Express_Che
      * Set shipping method to quote, if needed
      * @param string $methodCode
      */
+    #[Override]
     public function updateShippingMethod($methodCode)
     {
         parent::updateShippingMethod($methodCode);

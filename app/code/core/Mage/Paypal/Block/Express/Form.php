@@ -23,6 +23,7 @@ class Mage_Paypal_Block_Express_Form extends Mage_Paypal_Block_Standard_Form
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _construct()
     {
         parent::_construct();
@@ -34,6 +35,7 @@ class Mage_Paypal_Block_Express_Form extends Mage_Paypal_Block_Standard_Form
      *
      * @return $this
      */
+    #[Override]
     protected function _beforeToHtml()
     {
         $customerId = Mage::getSingleton('customer/session')->getCustomerId();

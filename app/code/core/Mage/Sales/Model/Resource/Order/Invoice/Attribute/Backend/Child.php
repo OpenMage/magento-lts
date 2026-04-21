@@ -20,6 +20,7 @@ class Mage_Sales_Model_Resource_Order_Invoice_Attribute_Backend_Child extends Ma
      * @param  Varien_Object                                    $object
      * @return Mage_Eav_Model_Entity_Attribute_Backend_Abstract
      */
+    #[Override]
     public function beforeSave($object)
     {
         if ($object->getInvoice()) {

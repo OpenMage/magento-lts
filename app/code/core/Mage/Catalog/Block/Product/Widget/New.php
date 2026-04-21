@@ -53,6 +53,7 @@ class Mage_Catalog_Block_Product_Widget_New extends Mage_Catalog_Block_Product_N
     /**
      * Initialize block's cache and template settings
      */
+    #[Override]
     protected function _construct()
     {
         parent::_construct();
@@ -64,6 +65,7 @@ class Mage_Catalog_Block_Product_Widget_New extends Mage_Catalog_Block_Product_N
      *
      * @return Mage_Catalog_Model_Resource_Product_Collection|Object|Varien_Data_Collection
      */
+    #[Override]
     protected function _getProductCollection()
     {
         return match ($this->getDisplayType()) {
@@ -94,6 +96,7 @@ class Mage_Catalog_Block_Product_Widget_New extends Mage_Catalog_Block_Product_N
      *
      * @return array
      */
+    #[Override]
     public function getCacheKeyInfo()
     {
         return array_merge(parent::getCacheKeyInfo(), [
@@ -122,6 +125,7 @@ class Mage_Catalog_Block_Product_Widget_New extends Mage_Catalog_Block_Product_N
      *
      * @return int
      */
+    #[Override]
     public function getProductsCount()
     {
         if (!$this->hasData('products_count')) {

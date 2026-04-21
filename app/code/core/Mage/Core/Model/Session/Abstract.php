@@ -76,6 +76,7 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
      * @param  string $sessionName
      * @return $this
      */
+    #[Override]
     public function init($namespace, $sessionName = null)
     {
         parent::init($namespace, $sessionName);
@@ -118,6 +119,7 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
      *
      * @return bool
      */
+    #[Override]
     public function useValidateRemoteAddr()
     {
         $use = Mage::getStoreConfig(self::XML_PATH_USE_REMOTE_ADDR);
@@ -133,6 +135,7 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
      *
      * @return bool
      */
+    #[Override]
     public function useValidateHttpVia()
     {
         $use = Mage::getStoreConfig(self::XML_PATH_USE_HTTP_VIA);
@@ -148,6 +151,7 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
      *
      * @return bool
      */
+    #[Override]
     public function useValidateHttpXForwardedFor()
     {
         $use = Mage::getStoreConfig(self::XML_PATH_USE_X_FORWARDED);
@@ -163,6 +167,7 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
      *
      * @return bool
      */
+    #[Override]
     public function useValidateHttpUserAgent()
     {
         $use = Mage::getStoreConfig(self::XML_PATH_USE_USER_AGENT);
@@ -191,6 +196,7 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
     /**
      * @inheritDoc
      */
+    #[Override]
     public function getValidateHttpUserAgentSkip()
     {
         $userAgents = [];
@@ -374,6 +380,7 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
      * @inheritDoc
      * @SuppressWarnings("PHPMD.Superglobals")
      */
+    #[Override]
     public function setSessionId($id = null)
     {
         if (is_null($id) && $this->useSid()) {
@@ -532,6 +539,7 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
      *
      * @return array
      */
+    #[Override]
     public function getSessionHosts()
     {
         return parent::getSessionHosts();
@@ -540,6 +548,7 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
     /**
      * @inheritDoc
      */
+    #[Override]
     public function getSessionSaveMethod()
     {
         if (Mage::isInstalled() && ($sessionSave = (string) Mage::getConfig()->getNode(self::XML_NODE_SESSION_SAVE))) {
@@ -554,6 +563,7 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
      *
      * @return false|Mage_Core_Model_Config_Element|string|Varien_Simplexml_Element
      */
+    #[Override]
     public function getSessionSavePath()
     {
         if (Mage::isInstalled() && $sessionSavePath = Mage::getConfig()->getNode(self::XML_NODE_SESSION_SAVE_PATH)) {

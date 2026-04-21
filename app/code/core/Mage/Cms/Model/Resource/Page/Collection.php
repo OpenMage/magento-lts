@@ -35,6 +35,7 @@ class Mage_Cms_Model_Resource_Page_Collection extends Mage_Core_Model_Resource_D
      * @return array
      * @deprecated after 1.4.0.1, use toOptionIdArray()
      */
+    #[Override]
     public function toOptionArray()
     {
         return $this->_toOptionArray('identifier', 'title');
@@ -83,6 +84,7 @@ class Mage_Cms_Model_Resource_Page_Collection extends Mage_Core_Model_Resource_D
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _afterLoad()
     {
         if ($this->_previewFlag) {
@@ -174,6 +176,7 @@ class Mage_Cms_Model_Resource_Page_Collection extends Mage_Core_Model_Resource_D
      *
      * @return Varien_Db_Select
      */
+    #[Override]
     public function getSelectCountSql()
     {
         $countSelect = parent::getSelectCountSql();

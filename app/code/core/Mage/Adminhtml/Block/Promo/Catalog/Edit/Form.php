@@ -19,6 +19,7 @@ class Mage_Adminhtml_Block_Promo_Catalog_Edit_Form extends Mage_Adminhtml_Block_
         $this->setTitle(Mage::helper('catalogrule')->__('Rule Information'));
     }
 
+    #[Override]
     protected function _prepareForm()
     {
         $form = new Varien_Data_Form(['id' => 'edit_form', 'action' => $this->getDataByKey('action'), 'method' => 'post']);

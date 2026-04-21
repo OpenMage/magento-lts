@@ -69,8 +69,8 @@ class Varien_Db_Statement_Parameter implements Stringable
     /**
      * Sets parameter value.
      *
-     * @param  mixed                         $value
-     * @return Varien_Db_Statement_Parameter
+     * @param  mixed $value
+     * @return $this
      */
     public function setValue($value)
     {
@@ -95,8 +95,8 @@ class Varien_Db_Statement_Parameter implements Stringable
      * TRUE means that DB adapter must ignore other options and use adapter's default options to bind this parameter
      * as a BLOB value.
      *
-     * @param  bool                          $isBlob
-     * @return Varien_Db_Statement_Parameter
+     * @param  bool  $isBlob
+     * @return $this
      */
     public function setIsBlob($isBlob)
     {
@@ -120,8 +120,8 @@ class Varien_Db_Statement_Parameter implements Stringable
     /**
      * Sets data type option to be used during binding parameter value.
      *
-     * @param  mixed                         $dataType
-     * @return Varien_Db_Statement_Parameter
+     * @param  mixed $dataType
+     * @return $this
      */
     public function setDataType($dataType)
     {
@@ -142,8 +142,8 @@ class Varien_Db_Statement_Parameter implements Stringable
     /**
      * Sets length option to be used during binding parameter value.
      *
-     * @param  mixed                         $length
-     * @return Varien_Db_Statement_Parameter
+     * @param  mixed $length
+     * @return $this
      */
     public function setLength($length)
     {
@@ -164,8 +164,8 @@ class Varien_Db_Statement_Parameter implements Stringable
     /**
      * Sets specific driver options to be used during binding parameter value.
      *
-     * @param  mixed                         $driverOptions
-     * @return Varien_Db_Statement_Parameter
+     * @param  mixed $driverOptions
+     * @return $this
      */
     public function setDriverOptions($driverOptions)
     {
@@ -187,8 +187,8 @@ class Varien_Db_Statement_Parameter implements Stringable
      * Sets additional information for concrete DB adapter.
      * Set there any data you want to pass along with query parameter.
      *
-     * @param  Varien_Object                 $additional
-     * @return Varien_Db_Statement_Parameter
+     * @param  Varien_Object $additional
+     * @return $this
      */
     public function setAdditional($additional)
     {

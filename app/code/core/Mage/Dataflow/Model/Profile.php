@@ -7,8 +7,6 @@
  * @package    Mage_Dataflow
  */
 
-use Carbon\Carbon;
-
 /**
  * Convert profile
  *
@@ -63,6 +61,7 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
         $this->_init('dataflow/profile');
     }
 
+    #[Override]
     protected function _afterLoad()
     {
         $guiData = '';
@@ -83,6 +82,7 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
     /**
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
+    #[Override]
     protected function _beforeSave()
     {
         parent::_beforeSave();
@@ -143,6 +143,7 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
     /**
      * @SuppressWarnings("PHPMD.Superglobals")
      */
+    #[Override]
     protected function _afterSave()
     {
         if ($this->getGuiData() && is_string($this->getGuiData())) {
@@ -239,7 +240,7 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
                     }
 
                     if ($uploadFile) {
-                        $newFilename = 'import-' . Carbon::now()->format('YmdHis') . '-' . ($index + 1) . '_' . $uploadFile;
+                        $newFilename = 'import-' . Mage::helper('core/clock')->format('YmdHis') . '-' . ($index + 1) . '_' . $uploadFile;
                         rename($path . $uploadFile, $path . $newFilename);
                         $newUploadedFilenames[] = $newFilename;
                     }

@@ -33,6 +33,7 @@ class Mage_PaypalUk_Model_Direct extends Mage_Paypal_Model_Direct
      *
      * @return string
      */
+    #[Override]
     public function getAllowedCcTypes()
     {
         return $this->_pro->getConfig()->cctypes;
@@ -43,6 +44,7 @@ class Mage_PaypalUk_Model_Direct extends Mage_Paypal_Model_Direct
      *
      * @return bool
      */
+    #[Override]
     public function getIsCentinelValidationEnabled()
     {
         if (!parent::getIsCentinelValidationEnabled()) {
@@ -59,6 +61,7 @@ class Mage_PaypalUk_Model_Direct extends Mage_Paypal_Model_Direct
      * @param Mage_Paypal_Model_Api_Nvp      $api
      * @param Mage_Sales_Model_Order_Payment $payment
      */
+    #[Override]
     protected function _importResultToPayment($api, $payment)
     {
         $payment->setTransactionId($api->getPaypalTransactionId())->setIsTransactionClosed(0)
@@ -77,6 +80,7 @@ class Mage_PaypalUk_Model_Direct extends Mage_Paypal_Model_Direct
      * @param  int|string $year
      * @return string
      */
+    #[Override]
     protected function _getFormattedCcExpirationDate($month, $year)
     {
         return sprintf('%02d', $month) . sprintf('%02d', substr($year, -2, 2));

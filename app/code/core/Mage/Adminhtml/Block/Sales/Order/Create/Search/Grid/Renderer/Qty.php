@@ -30,6 +30,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid_Renderer_Qty extends M
      *
      * @return string
      */
+    #[Override]
     public function render(Varien_Object $row)
     {
         // Prepare values

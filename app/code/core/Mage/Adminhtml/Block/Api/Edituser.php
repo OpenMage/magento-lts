@@ -19,6 +19,7 @@ class Mage_Adminhtml_Block_Api_Edituser extends Mage_Adminhtml_Block_Widget_Tabs
         $this->setDestElementId('user_edit_form');
     }
 
+    #[Override]
     protected function _beforeToHtml()
     {
         $this->addTab('account', [

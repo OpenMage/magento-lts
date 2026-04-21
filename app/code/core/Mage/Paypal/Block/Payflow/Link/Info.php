@@ -21,6 +21,7 @@ class Mage_Paypal_Block_Payflow_Link_Info extends Mage_Paypal_Block_Payment_Info
      *
      * @return false
      */
+    #[Override]
     public function getCcTypeName()
     {
         return false;

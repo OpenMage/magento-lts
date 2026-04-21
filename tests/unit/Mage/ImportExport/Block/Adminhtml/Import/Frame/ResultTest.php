@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\ImportExport\Block\Adminhtml\Import\Frame;
 
 // use Mage_ImportExport_Block_Adminhtml_Import_Frame_Result as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\ImportExport\Block\Adminhtml\Import\Frame\ResultTrait;
 
@@ -21,6 +22,7 @@ final class ResultTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Api\Model\Wsdl\Config;
 
 // use Mage;
 // use Mage_Api_Model_Wsdl_Config_Base as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Api\Model\Wsdl\Config\BaseTrait;
 
@@ -22,6 +23,7 @@ final class BaseTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

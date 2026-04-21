@@ -35,6 +35,7 @@ class Mage_Adminhtml_Block_Widget_View_Container extends Mage_Adminhtml_Block_Wi
         ]);
     }
 
+    #[Override]
     protected function _prepareLayout()
     {
         $this->setChild('plane', $this->getLayout()->createBlock('adminhtml/' . $this->_controller . '_view_plane'));

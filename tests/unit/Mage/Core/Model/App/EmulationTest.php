@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Core\Model\App;
 
 // use Mage;
 // use Mage_Core_Model_App_Emulation as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\Model\App\EmulationTrait;
 
@@ -22,6 +23,7 @@ final class EmulationTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

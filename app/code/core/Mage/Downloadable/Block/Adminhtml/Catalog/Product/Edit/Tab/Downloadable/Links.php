@@ -243,6 +243,7 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
     /**
      * Prepare block Layout
      */
+    #[Override]
     protected function _prepareLayout()
     {
         parent::_prepareLayout();
@@ -296,6 +297,7 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
      * @param  string $type
      * @return string
      */
+    #[Override]
     public function getBrowseButtonHtml($type = '')
     {
         return $this->getChild('browse_button')
@@ -312,6 +314,7 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
      * @param  string $type
      * @return string
      */
+    #[Override]
     public function getDeleteButtonHtml($type = '')
     {
         return $this->getChild('delete_button')

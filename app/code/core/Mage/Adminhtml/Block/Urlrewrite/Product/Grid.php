@@ -19,6 +19,7 @@ class Mage_Adminhtml_Block_Urlrewrite_Product_Grid extends Mage_Adminhtml_Block_
      *
      * @return $this
      */
+    #[Override]
     protected function _prepareMassaction()
     {
         return $this;
@@ -29,6 +30,7 @@ class Mage_Adminhtml_Block_Urlrewrite_Product_Grid extends Mage_Adminhtml_Block_
      *
      * @return Mage_Adminhtml_Block_Widget_Grid
      */
+    #[Override]
     protected function _prepareColumns()
     {
         $this->addColumn(
@@ -71,6 +73,7 @@ class Mage_Adminhtml_Block_Urlrewrite_Product_Grid extends Mage_Adminhtml_Block_
     /**
      * @inheritDoc
      */
+    #[Override]
     public function getGridUrl()
     {
         return $this->getUrl('*/*/productGrid', ['_current' => true]);
@@ -81,6 +84,7 @@ class Mage_Adminhtml_Block_Urlrewrite_Product_Grid extends Mage_Adminhtml_Block_
      * @param  Mage_Catalog_Model_Product $row
      * @throws Mage_Core_Exception
      */
+    #[Override]
     public function getRowUrl($row)
     {
         return $this->getUrl('*/*/edit', ['product' => $row->getId()]) . 'category';

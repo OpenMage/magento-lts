@@ -252,6 +252,7 @@ class Mage_Api_Model_Config extends Varien_Simplexml_Config
      *
      * @return Zend_Cache_Core
      */
+    #[Override]
     public function getCache()
     {
         return Mage::app()->getCache();
@@ -260,6 +261,7 @@ class Mage_Api_Model_Config extends Varien_Simplexml_Config
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _loadCache($id)
     {
         return Mage::app()->loadCache($id);
@@ -272,6 +274,7 @@ class Mage_Api_Model_Config extends Varien_Simplexml_Config
      * @param  bool                $lifetime
      * @return Mage_Core_Model_App
      */
+    #[Override]
     protected function _saveCache($data, $id, $tags = [], $lifetime = false)
     {
         return Mage::app()->saveCache($data, $id, $tags, $lifetime);
@@ -281,6 +284,7 @@ class Mage_Api_Model_Config extends Varien_Simplexml_Config
      * @param  string              $id
      * @return Mage_Core_Model_App
      */
+    #[Override]
     protected function _removeCache($id)
     {
         return Mage::app()->removeCache($id);

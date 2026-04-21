@@ -14,6 +14,7 @@
  */
 class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Range extends Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Abstract
 {
+    #[Override]
     public function getHtml()
     {
         $fromLabel = Mage::helper('adminhtml')->__('From');
@@ -45,6 +46,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Range extends Mage_Adminhtm
     /**
      * @inheritDoc
      */
+    #[Override]
     public function getCondition()
     {
         $value = $this->getValue();

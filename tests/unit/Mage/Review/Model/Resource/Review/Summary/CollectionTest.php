@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Review\Model\Resource\Review\Summary;
 
 // use Mage;
 // use Mage_Review_Model_Resource_Review_Summary_Collection as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Review\Model\Resource\Review\Summary\CollectionTrait;
 
@@ -22,6 +23,7 @@ final class CollectionTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

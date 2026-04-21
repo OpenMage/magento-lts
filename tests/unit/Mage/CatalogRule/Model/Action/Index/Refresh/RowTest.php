@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\CatalogRule\Model\Action\Index\Refresh;
 
 // use Mage;
 // use Mage_CatalogRule_Model_Action_Index_Refresh_Row as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\CatalogRule\Model\Action\Index\Refresh\RowTrait;
 
@@ -22,6 +23,7 @@ final class RowTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

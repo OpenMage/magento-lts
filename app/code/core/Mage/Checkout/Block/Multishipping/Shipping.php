@@ -27,6 +27,7 @@ class Mage_Checkout_Block_Multishipping_Shipping extends Mage_Sales_Block_Items_
     /**
      * @return $this
      */
+    #[Override]
     protected function _prepareLayout()
     {
         if ($headBlock = $this->getLayout()->getBlock('head')) {
@@ -59,8 +60,8 @@ class Mage_Checkout_Block_Multishipping_Shipping extends Mage_Sales_Block_Items_
     }
 
     /**
-     * @param  Mage_Sales_Model_Quote_Address $address
-     * @return array
+     * @param  Mage_Sales_Model_Quote_Address                        $address
+     * @return array<array-key, Mage_Sales_Model_Quote_Address_Item>
      * @throws Exception
      */
     public function getAddressItems($address)

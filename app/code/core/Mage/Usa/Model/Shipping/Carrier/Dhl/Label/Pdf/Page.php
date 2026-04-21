@@ -49,6 +49,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_Page extends Zend_Pdf_Page
      *
      * @return string
      */
+    #[Override]
     public function getContents()
     {
         return $this->_contents;
@@ -80,6 +81,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_Page extends Zend_Pdf_Page
      * @inheritDoc
      * @SuppressWarnings("PHPMD.ShortVariable")
      */
+    #[Override]
     public function drawText($text, $x, $y, $charEncoding = 'UTF-8', $align = self::ALIGN_LEFT)
     {
         $left = null;

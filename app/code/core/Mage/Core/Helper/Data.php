@@ -243,7 +243,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
 
         $locale = Mage::app()->getLocale();
         if (is_null($time)) {
-            $date = $locale->date(Carbon::now()->getTimestamp());
+            $date = $locale->date(Mage::helper('core/clock')->getTimestamp());
         } elseif ($time instanceof Zend_Date) {
             $date = $time;
         } else {
@@ -357,6 +357,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
      * Get encryption method depending on the presence of the function - password_hash.
      *
      * @return Mage_Core_Model_Encryption::HASH_VERSION_*
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function getVersionHash(Mage_Core_Model_Encryption $encryptionModel)
     {

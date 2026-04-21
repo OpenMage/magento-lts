@@ -229,6 +229,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      * @return $this
      * @throws Exception
      */
+    #[Override]
     public function beginTransaction()
     {
         if ($this->_transactionLevel === 0) {
@@ -247,6 +248,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      * @return $this
      * @throws Exception
      */
+    #[Override]
     public function commit()
     {
         if ($this->_transactionLevel === 1) {
@@ -268,6 +270,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      * @return $this
      * @throws Exception
      */
+    #[Override]
     public function rollBack()
     {
         if ($this->_transactionLevel === 1) {
@@ -364,6 +367,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      * @throws Exception
      * @throws Zend_Db_Adapter_Exception
      */
+    #[Override]
     protected function _connect()
     {
         if ($this->_connection) {
@@ -511,6 +515,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      * @throws Exception
      * @throws Zend_Db_Adapter_Exception                                  to re-throw PDOException
      */
+    #[Override]
     public function query($sql, $bind = [])
     {
         $this->_debugTimer();
@@ -1483,6 +1488,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      *
      * @return Varien_Db_Select
      */
+    #[Override]
     public function select()
     {
         return new Varien_Db_Select($this);
@@ -1613,6 +1619,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      * @param  int                                                     $count OPTIONAL count of placeholders to replace
      * @return string                                                  an SQL-safe quoted value placed into the original text
      */
+    #[Override]
     public function quoteInto($text, $value, $type = null, $count = null)
     {
         if ($value === []) {
@@ -1808,6 +1815,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      * @return array
      * @throws Zend_Cache_Exception
      */
+    #[Override]
     public function describeTable($tableName, $schemaName = null)
     {
         $cacheKey = $this->_getTableName($tableName, $schemaName);

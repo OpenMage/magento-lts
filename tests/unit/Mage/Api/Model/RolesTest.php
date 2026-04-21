@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Api\Model;
 
 // use Mage;
 // use Mage_Api_Model_Roles as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Api\Model\RolesTrait;
 
@@ -22,6 +23,7 @@ final class RolesTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

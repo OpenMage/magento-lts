@@ -21,6 +21,7 @@ class Mage_Catalog_Model_Api2_Product extends Mage_Api2_Model_Resource
      * @param  string $operation
      * @return array
      */
+    #[Override]
     public function getAvailableAttributes($userType, $operation)
     {
         $attributes = $this->getAvailableAttributesFromConfig();

@@ -166,6 +166,7 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
      *
      * @return bool
      */
+    #[Override]
     protected function _hasModelChanged()
     {
         if (!$this->hasDataChanges()) {
@@ -203,6 +204,7 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
      * Save model plus its options
      * Ensures saving options in case when resource model was not changed
      */
+    #[Override]
     public function save()
     {
         $hasDataChanges = $this->hasDataChanges();
@@ -222,6 +224,7 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
      *
      * @inheritDoc
      */
+    #[Override]
     protected function _afterSave()
     {
         $this->_saveItemOptions();
@@ -252,6 +255,7 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
      *
      * @return $this
      */
+    #[Override]
     protected function _beforeSave()
     {
         parent::_beforeSave();

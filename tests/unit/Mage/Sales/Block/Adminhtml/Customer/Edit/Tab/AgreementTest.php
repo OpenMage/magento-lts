@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Sales\Block\Adminhtml\Customer\Edit\Tab;
 
 // use Mage_Sales_Block_Adminhtml_Customer_Edit_Tab_Agreement as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sales\Block\Adminhtml\Customer\Edit\Tab\AgreementTrait;
 
@@ -21,6 +22,7 @@ final class AgreementTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

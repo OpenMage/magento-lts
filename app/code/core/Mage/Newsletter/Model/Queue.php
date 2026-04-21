@@ -346,9 +346,7 @@ class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Template
     }
 
     /**
-     * Getter for template type
-     *
-     * @return int
+     * @inheritDoc
      */
     public function getType()
     {
