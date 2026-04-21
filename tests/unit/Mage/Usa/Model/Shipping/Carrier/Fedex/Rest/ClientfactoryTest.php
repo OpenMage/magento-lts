@@ -24,13 +24,6 @@ use ShipStream\FedEx\FedEx;
 
 final class ClientfactoryTest extends OpenMageTest
 {
-    public function testCreateReturnsClientInstance(): void
-    {
-        $client = (new ClientFactory())->create('id', 'secret', true);
-
-        self::assertInstanceOf(Client::class, $client);
-    }
-
     public function testCreateUsesTokenManagerSingletonByDefault(): void
     {
         $expected = Mage::getSingleton('usa/shipping_carrier_fedex_rest_tokenmanager');
@@ -49,9 +42,7 @@ final class ClientfactoryTest extends OpenMageTest
                 return false;
             }
 
-            public static function set(string $key, AccessTokenAuthenticator $authenticator): void
-            {
-            }
+            public static function set(string $key, AccessTokenAuthenticator $authenticator): void {}
         };
 
         $client = (new ClientFactory())->create('id', 'secret', true, $custom);

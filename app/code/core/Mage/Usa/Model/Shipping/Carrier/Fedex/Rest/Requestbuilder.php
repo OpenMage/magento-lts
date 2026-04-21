@@ -130,8 +130,8 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_Requestbuilder
     }
 
     /**
-     * @param array<array<int, array<string, mixed>>, mixed> $lineItems
-     * @return array<string, string|int|array<int|string, mixed>>
+     * @param  array<array<int, array<string, mixed>>, mixed>     $lineItems
+     * @return array<string, array<int|string, mixed>|int|string>
      */
     private function buildRequestedShipment(
         Varien_Object $raw,
@@ -387,7 +387,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_Requestbuilder
     }
 
     /**
-     * @return array<string, string|array<string, string>>
+     * @return array<string, array<string, string>|string>
      */
     public function buildCancelShipmentPayload(string $accountNumber, string $trackingNumber): array
     {
