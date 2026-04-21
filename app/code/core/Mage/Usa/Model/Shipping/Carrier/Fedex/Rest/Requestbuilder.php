@@ -18,10 +18,6 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_Requestbuilder
                 'units' => $units !== '' ? $units : Uom::WEIGHT_POUND,
                 'value' => (float) $raw->getWeight(),
             ],
-            'declaredValue' => [
-                'amount' => (float) $raw->getValue(),
-                'currency' => $currencyCode,
-            ],
         ];
 
         return [
@@ -32,34 +28,30 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_Requestbuilder
                 [$requestedPackageLineItem],
                 1,
             ),
+            'carrierCodes' => ['FDXE', 'FDXG', 'FXSP'],
         ];
     }
 
     /**
      * Multi-piece rate payload for cubed shipments. Each container becomes one
-     * `requestedPackageLineItems` entry with its own weight + dimensions. The
-     * per-line-item `declaredValue` is split proportionally by weight; the last
-     * container absorbs the rounding remainder so the sum equals
-     * `$raw->getValue()` exactly. Zero shipment value / zero total weight omits
-     * declaredValue entirely.
+     * `requestedPackageLineItems` entry with its own weight + dimensions.
      *
-     * @param object[] $containers
+     * @param list<Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_Container> $containers
      */
     public function buildRatePayloadForContainers(
         Varien_Object $raw,
         string $currencyCode,
         array $containers,
         string $weightUnits = Uom::WEIGHT_POUND,
+        string $dimensionUnits = Uom::DIMENSION_INCH,
     ): array {
         if ($containers === []) {
             return $this->buildRatePayload($raw, $currencyCode);
         }
 
-        $perItemAmounts = $this->distributeDeclaredValue($raw, $containers);
-
         $lineItems = [];
-        foreach ($containers as $i => $container) {
-            $lineItem = [
+        foreach ($containers as $container) {
+            $lineItems[] = [
                 'groupPackageCount' => 1,
                 'weight' => [
                     'units' => $weightUnits,
@@ -69,18 +61,9 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_Requestbuilder
                     'length' => (int) $container->getLength(),
                     'width' => (int) $container->getWidth(),
                     'height' => (int) $container->getHeight(),
-                    'units' => Uom::DIMENSION_INCH,
+                    'units' => $dimensionUnits,
                 ],
             ];
-
-            if (isset($perItemAmounts[$i])) {
-                $lineItem['declaredValue'] = [
-                    'amount' => $perItemAmounts[$i],
-                    'currency' => $currencyCode,
-                ];
-            }
-
-            $lineItems[] = $lineItem;
         }
 
         return [
@@ -91,42 +74,8 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_Requestbuilder
                 $lineItems,
                 count($containers),
             ),
+            'carrierCodes' => ['FDXE', 'FDXG', 'FXSP'],
         ];
-    }
-
-    /**
-     * @param  object[]                          $containers
-     * @return array<int,float>|array<int,never> indexed by container index when
-     *                                           declaredValue should be emitted; empty otherwise
-     */
-    private function distributeDeclaredValue(Varien_Object $raw, array $containers): array
-    {
-        $total = (float) $raw->getValue();
-        $totalWeight = array_sum(array_map(
-            static fn($container) => (float) $container->getTotalWeight(),
-            $containers,
-        ));
-
-        if ($total <= 0 || $totalWeight <= 0) {
-            return [];
-        }
-
-        $amounts = [];
-        $allocated = 0.0;
-        $lastIndex = count($containers) - 1;
-
-        foreach ($containers as $i => $container) {
-            if ($i === $lastIndex) {
-                $amounts[$i] = round($total - $allocated, 2);
-                continue;
-            }
-
-            $share = round($total * ((float) $container->getTotalWeight() / $totalWeight), 2);
-            $amounts[$i] = $share;
-            $allocated += $share;
-        }
-
-        return $amounts;
     }
 
     /**
@@ -137,7 +86,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_Requestbuilder
         Varien_Object $raw,
         string $currencyCode,
         array $lineItems,
-        int $totalPackageCount
+        int $totalPackageCount,
     ): array {
         $origCountry = (string) $raw->getOrigCountry();
         $destCountry = (string) $raw->getDestCountry();
@@ -195,14 +144,6 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_Requestbuilder
             ];
         }
 
-        $hubId = (string) $raw->getSmartpostHubid();
-        if ($hubId !== '') {
-            $requestedShipment['smartPostInfoDetail'] = [
-                'indicia' => ((float) $raw->getWeight() >= 1) ? 'PARCEL_SELECT' : 'PRESORTED_STANDARD',
-                'hubId' => $hubId,
-            ];
-        }
-
         return $requestedShipment;
     }
 
@@ -226,7 +167,8 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_Requestbuilder
         Varien_Object $request,
         string $dropoffType,
         string $accountNumber,
-        string $storeCountryCode
+        string $storeCountryCode,
+        string $smartPostHubId = '',
     ): array {
         $packageParams = $request->getPackageParams();
         $weightUnits = $packageParams && $packageParams->getWeightUnits() === Mage_Core_Helper_Measure_Weight::POUND ? Uom::WEIGHT_POUND : Uom::WEIGHT_KILOGRAM;
@@ -334,6 +276,17 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_Requestbuilder
                 $unitPrice += (float) $item->getPrice();
                 $itemsQty += (int) $item->getQty();
                 $itemsDesc[] = (string) $item->getName();
+                $country = (string) $item->getCountryOfManufacture();
+                if ($country !== '') {
+                    $countriesOfManufacture[] = $country;
+                }
+            }
+
+            // FedEx rejects customs payloads with an empty countryOfManufacture
+            // (INVALID.INPUT.EXCEPTION). Items don't always carry the field
+            // populated, so default to shipper country
+            if ($countriesOfManufacture === []) {
+                $countriesOfManufacture[] = (string) $request->getShipperAddressCountryCode();
             }
 
             $requestedShipment['customsClearanceDetail'] = [
@@ -346,11 +299,9 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_Requestbuilder
                         ],
                     ],
                 ],
-                'commercialInvoice' => [
-                    'customsValue' => [
-                        'amount' => $customsValue,
-                        'currency' => (string) $request->getBaseCurrencyCode(),
-                    ],
+                'totalCustomsValue' => [
+                    'amount' => $customsValue,
+                    'currency' => (string) $request->getBaseCurrencyCode(),
                 ],
                 'commodities' => [[
                     'numberOfPieces' => 1,
@@ -376,6 +327,16 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_Requestbuilder
 
         if ($request->getMasterTrackingId()) {
             $requestedShipment['masterTrackingId'] = ['trackingNumber' => (string) $request->getMasterTrackingId()];
+        }
+
+        // FedEx rejects a SMART_POST shipment without `smartPostInfoDetail`
+        // (SHIPMENT.SMARTPOST.INVALID). Indicia mirrors the rate payload:
+        // PARCEL_SELECT once the package hits 1 lb, PRESORTED_STANDARD below.
+        if ($smartPostHubId !== '' && (string) $request->getShippingMethod() === 'SMART_POST') {
+            $requestedShipment['smartPostInfoDetail'] = [
+                'indicia' => ((float) $request->getPackageWeight() >= 1) ? 'PARCEL_SELECT' : 'PRESORTED_STANDARD',
+                'hubId' => $smartPostHubId,
+            ];
         }
 
         return [

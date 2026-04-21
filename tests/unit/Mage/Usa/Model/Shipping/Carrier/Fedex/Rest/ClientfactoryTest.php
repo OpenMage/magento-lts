@@ -29,7 +29,7 @@ final class ClientfactoryTest extends OpenMageTest
         $client = (new ClientFactory())->create('id', 'secret', true);
 
         self::assertInstanceOf(TokenManager::class, $expected);
-        self::assertSame($expected, self::connector($client)->tokenCache);
+        self::assertSame($expected, $this->connector($client)->tokenCache);
     }
 
     public function testCreateUsesProvidedTokenCacheWhenSupplied(): void
@@ -38,7 +38,7 @@ final class ClientfactoryTest extends OpenMageTest
         $customCache = Mage::getModel('usa/shipping_carrier_fedex_rest_tokenmanager');
 
         $client = (new ClientFactory())->create('id', 'secret', true, $customCache);
-        $connector = self::connector($client);
+        $connector = $this->connector($client);
 
         self::assertNotSame($defaultCache, $connector->tokenCache);
         self::assertSame($customCache, $connector->tokenCache);
@@ -49,11 +49,11 @@ final class ClientfactoryTest extends OpenMageTest
         $sandboxClient = (new ClientFactory())->create('id', 'secret', true);
         $prodClient    = (new ClientFactory())->create('id', 'secret', false);
 
-        self::assertSame(Endpoint::SANDBOX, self::connector($sandboxClient)->endpoint);
-        self::assertSame(Endpoint::PROD, self::connector($prodClient)->endpoint);
+        self::assertSame(Endpoint::SANDBOX, $this->connector($sandboxClient)->endpoint);
+        self::assertSame(Endpoint::PROD, $this->connector($prodClient)->endpoint);
     }
 
-    private static function connector(Client $client): FedEx
+    private function connector(Client $client): FedEx
     {
         return (new ReflectionProperty(Client::class, 'connector'))->getValue($client);
     }

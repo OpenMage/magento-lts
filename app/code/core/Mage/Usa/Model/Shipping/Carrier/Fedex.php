@@ -228,27 +228,25 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
     protected function _getQuotes()
     {
         $this->_result = Mage::getModel('shipping/rate_result');
-        $allowedMethods = explode(',', (string) $this->getConfigData('allowed_methods'));
-        $destCountry = (string) $this->_request->getDestCountryId();
-        if (!in_array(self::RATE_REQUEST_SMARTPOST, $allowedMethods, true) || !$this->_isUSCountry($destCountry)) {
-            $this->_rawRequest->setSmartpostHubid('');
-        }
+        $mapped = $this->_requestRates($this->_buildRatePayload());
 
-        $mapped = $this->_requestRates();
         $prepared = $this->_buildRateResult($mapped);
+        $this->_result->append($prepared);
+
         if ($prepared->getError()) {
             return $prepared->getError();
         }
 
-        $this->_result->append($prepared);
         $this->_removeErrorsIfRateExist();
 
         return $this->_result;
     }
 
-    protected function _requestRates(): array
+    /**
+     * @param array<string, mixed[]> $payload
+     */
+    protected function _requestRates(array $payload): array
     {
-        $payload = $this->_buildRatePayload();
         $requestString = serialize($payload);
         $cached = $this->isCacheEnabled() ? $this->_getCachedQuotes($requestString) : null;
         if ($cached !== null) {
@@ -282,6 +280,9 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
         return $mapped;
     }
 
+    /**
+     * @return array<string, mixed[]>
+     */
     protected function _buildRatePayload(): array
     {
         return $this->_getRequestBuilder()->buildRatePayload(
@@ -783,6 +784,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
             (string) $this->getConfigData('dropoff'),
             (string) $this->getConfigData('account'),
             $storeCountryCode,
+            $this->getEffectiveSmartpostHubId(),
         );
 
         $debugData = ['request' => $payload];
@@ -820,9 +822,13 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
      * For multi package shipments. Delete requested shipments if the current shipment
      * request is failed
      *
+     * This method historically has always returned true, so any errors cancelling a shipment get swallowed. Now at
+     * least the error and stacktrace are emitted to the exception log
+     *
      * @param  array $data
      * @return bool
      */
+    #[Override]
     public function rollBack($data)
     {
         $accountNumber = (string) $this->getConfigData('account');
@@ -855,6 +861,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
      *
      * @return array|bool
      */
+    #[Override]
     public function getContainerTypes(?Varien_Object $params = null)
     {
         if (!$params instanceof Varien_Object) {
@@ -864,9 +871,9 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
         $method             = $params->getMethod();
         $countryShipper     = $params->getCountryShipper();
         $countryRecipient   = $params->getCountryRecipient();
-        if (($countryShipper === self::USA_COUNTRY_ID && $countryRecipient === self::CANADA_COUNTRY_ID
-            || $countryShipper === self::CANADA_COUNTRY_ID && $countryRecipient === self::USA_COUNTRY_ID)
-            && $method == 'FEDEX_GROUND') {
+        if ((($countryShipper === self::USA_COUNTRY_ID && $countryRecipient === self::CANADA_COUNTRY_ID)
+            || ($countryShipper === self::CANADA_COUNTRY_ID && $countryRecipient === self::USA_COUNTRY_ID))
+            && $method === 'FEDEX_GROUND') {
             return ['YOUR_PACKAGING' => Mage::helper('usa')->__('Your Packaging')];
         }
 
@@ -916,6 +923,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
      *
      * @return array
      */
+    #[Override]
     public function getDeliveryConfirmationTypes(?Varien_Object $params = null)
     {
         return $this->getCode('delivery_confirmation_types');

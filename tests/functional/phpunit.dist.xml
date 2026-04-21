@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<phpunit
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.6/phpunit.xsd"
+        cacheResultFile=".cache/.phpunit.functional.result.cache"
+        colors="true"
+        bootstrap="../bootstrap.php"
+>
+    <php>
+        <env name="MAGE_IS_DEVELOPER_MODE" value="1"/>
+        <env name="NO_XHGUI" value="1"/>
+    </php>
+
+    <testsuites>
+        <testsuite name="Fedex">
+            <directory>Usa/Shipping/Carrier/Fedex</directory>
+        </testsuite>
+    </testsuites>
+</phpunit>

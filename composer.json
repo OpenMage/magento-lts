@@ -139,6 +139,7 @@
         ],
         "psr-4": {
             "OpenMage\\Rector\\": "dev/rector",
+            "OpenMage\\Tests\\Functional\\": "tests/functional",
             "OpenMage\\Tests\\Unit\\": "tests/unit"
         }
     },

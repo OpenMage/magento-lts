@@ -15,6 +15,7 @@ use Varien_Object;
 use Mage;
 use Mage_Core_Helper_Measure_Weight;
 use Mage_Core_Helper_Measure_Length;
+use Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_Container as Container;
 use Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_Requestbuilder as Requestbuilder;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Usa\Model\Shipping\Carrier\Fedex\Rest\RequestbuilderTrait;
@@ -36,6 +37,7 @@ final class RequestbuilderTest extends OpenMageTest
         $payload = $this->builder->buildRatePayload($this->domesticRawRequest(), 'USD');
 
         self::assertSame('510510510', $payload['accountNumber']['value']);
+        self::assertSame(['FDXE', 'FDXG', 'FXSP'], $payload['carrierCodes']);
 
         $rs = $payload['requestedShipment'];
         self::assertSame('38116', $rs['shipper']['address']['postalCode']);
@@ -52,43 +54,27 @@ final class RequestbuilderTest extends OpenMageTest
         $line = $rs['requestedPackageLineItems'][0];
         self::assertSame(10.0, $line['weight']['value']);
         self::assertSame('LB', $line['weight']['units']);
-        self::assertSame(100.0, $line['declaredValue']['amount']);
-        self::assertSame('USD', $line['declaredValue']['currency']);
+        // declaredValue on rate line items silently drops SMART_POST from the
+        // multi-service reply — so rate payloads never emit it. The customs
+        // block on international quotes is where shipment value lives instead.
+        self::assertArrayNotHasKey('declaredValue', $line);
 
         self::assertArrayNotHasKey('customsClearanceDetail', $rs);
     }
 
-    public function testRatePayloadIncludesSmartPostInfoDetailWhenHubIdSet(): void
+    public function testRatePayloadCarrierCodesIncludeFxspSoFedExReturnsSmartPost(): void
     {
-        $raw = $this->domesticRawRequest()
-            ->setWeight(0.5)
-            ->setSmartpostHubid('5531');
+        // `carrierCodes: [FDXE, FDXG, FXSP]` at the root is the single knob
+        // that makes FedEx include SMART_POST in a multi-service rate reply
+        // (verified against both sandbox and production REST). Without FXSP
+        // the general call returns only FDXE/FDXG services.
+        $payload = $this->builder->buildRatePayload($this->domesticRawRequest(), 'USD');
 
-        $payload = $this->builder->buildRatePayload($raw, 'USD');
+        self::assertSame(['FDXE', 'FDXG', 'FXSP'], $payload['carrierCodes']);
 
         $rs = $payload['requestedShipment'];
         self::assertArrayNotHasKey('serviceType', $rs);
-        self::assertSame('PRESORTED_STANDARD', $rs['smartPostInfoDetail']['indicia']);
-        self::assertSame('5531', $rs['smartPostInfoDetail']['hubId']);
-        self::assertSame(100.0, $rs['requestedPackageLineItems'][0]['declaredValue']['amount']);
-    }
-
-    public function testSmartPostIndiciaSwitchesToParcelSelectAtOneLb(): void
-    {
-        $raw = $this->domesticRawRequest()
-            ->setWeight(1.0)
-            ->setSmartpostHubid('5531');
-
-        $payload = $this->builder->buildRatePayload($raw, 'USD');
-
-        self::assertSame('PARCEL_SELECT', $payload['requestedShipment']['smartPostInfoDetail']['indicia']);
-    }
-
-    public function testRatePayloadOmitsSmartPostInfoDetailWhenHubIdBlank(): void
-    {
-        $payload = $this->builder->buildRatePayload($this->domesticRawRequest(), 'USD');
-
-        self::assertArrayNotHasKey('smartPostInfoDetail', $payload['requestedShipment']);
+        self::assertArrayNotHasKey('smartPostInfoDetail', $rs);
     }
 
     public function testBuildsInternationalRatePayloadWithCustoms(): void
@@ -172,107 +158,35 @@ final class RequestbuilderTest extends OpenMageTest
         self::assertArrayNotHasKey('sequenceNumber', $second);
     }
 
-    public function testMultiContainerGeneralDeclaredValueSumsExactly(): void
+    public function testMultiContainerPayloadAlsoIncludesCarrierCodesAtRoot(): void
     {
-        // value = 100, weight split 8 / 2 → first container ~80, last absorbs
-        // the rounding remainder so the per-line-item amounts sum to 100.00 exactly.
+        $payload = $this->builder->buildRatePayloadForContainers(
+            $this->domesticRawRequest(),
+            'USD',
+            [$this->container(5.0, 10, 10, 10)],
+        );
+
+        self::assertSame(['FDXE', 'FDXG', 'FXSP'], $payload['carrierCodes']);
+    }
+
+    public function testMultiContainerRatePayloadPropagatesWeightAndDimensionUnits(): void
+    {
         $containers = [
             $this->container(8.0, 12, 10, 6),
             $this->container(2.0, 8, 6, 4),
         ];
 
         $payload = $this->builder->buildRatePayloadForContainers(
-            $this->domesticRawRequest()->setValue(100.0),
+            $this->domesticRawRequest(),
             'USD',
             $containers,
+            weightUnits: 'KG',
+            dimensionUnits: 'CM',
         );
 
-        $items = $payload['requestedShipment']['requestedPackageLineItems'];
-        $sum = $items[0]['declaredValue']['amount'] + $items[1]['declaredValue']['amount'];
-        self::assertSame(100.0, round($sum, 2));
-        self::assertSame('USD', $items[0]['declaredValue']['currency']);
-    }
-
-    public function testMultiContainerSplitAbsorbsRoundingDriftIntoLastItem(): void
-    {
-        // value = 10.00 across 3 equal containers → naive round = 3.33 + 3.33 + 3.33 = 9.99.
-        // The remainder approach should give 3.33 + 3.33 + 3.34 = 10.00.
-        $containers = [
-            $this->container(1.0, 5, 5, 5),
-            $this->container(1.0, 5, 5, 5),
-            $this->container(1.0, 5, 5, 5),
-        ];
-
-        $payload = $this->builder->buildRatePayloadForContainers(
-            $this->domesticRawRequest()->setValue(10.0),
-            'USD',
-            $containers,
-        );
-
-        $items = $payload['requestedShipment']['requestedPackageLineItems'];
-        $sum = array_sum(array_map(static fn($i) => $i['declaredValue']['amount'], $items));
-        self::assertSame(10.0, round($sum, 2));
-        self::assertSame(3.33, $items[0]['declaredValue']['amount']);
-        self::assertSame(3.33, $items[1]['declaredValue']['amount']);
-        self::assertSame(3.34, $items[2]['declaredValue']['amount']);
-    }
-
-    public function testMultiContainerPayloadIncludesSmartPostInfoDetailWhenHubIdSet(): void
-    {
-        $containers = [
-            $this->container(0.5, 5, 4, 2),
-            $this->container(0.5, 5, 4, 2),
-        ];
-
-        $payload = $this->builder->buildRatePayloadForContainers(
-            $this->domesticRawRequest()->setWeight(0.5)->setSmartpostHubid('5531'),
-            'USD',
-            $containers,
-        );
-
-        $rs = $payload['requestedShipment'];
-        self::assertArrayNotHasKey('serviceType', $rs);
-        self::assertSame('5531', $rs['smartPostInfoDetail']['hubId']);
-        self::assertSame('PRESORTED_STANDARD', $rs['smartPostInfoDetail']['indicia']);
-        $items = $rs['requestedPackageLineItems'];
-        $sum = array_sum(array_map(static fn($i) => $i['declaredValue']['amount'], $items));
-        self::assertSame(100.0, round($sum, 2));
-    }
-
-    public function testMultiContainerOmitsDeclaredValueWhenShipmentValueIsZero(): void
-    {
-        $containers = [
-            $this->container(5.0, 10, 10, 10),
-            $this->container(5.0, 10, 10, 10),
-        ];
-
-        $payload = $this->builder->buildRatePayloadForContainers(
-            $this->domesticRawRequest()->setValue(0),
-            'USD',
-            $containers,
-        );
-
-        foreach ($payload['requestedShipment']['requestedPackageLineItems'] as $item) {
-            self::assertArrayNotHasKey('declaredValue', $item);
-        }
-    }
-
-    public function testMultiContainerOmitsDeclaredValueWhenContainerWeightsAreZero(): void
-    {
-        // Guard against divide-by-zero when containers report zero weight.
-        $containers = [
-            $this->container(0.0, 10, 10, 10),
-            $this->container(0.0, 10, 10, 10),
-        ];
-
-        $payload = $this->builder->buildRatePayloadForContainers(
-            $this->domesticRawRequest()->setValue(50.0),
-            'USD',
-            $containers,
-        );
-
-        foreach ($payload['requestedShipment']['requestedPackageLineItems'] as $item) {
-            self::assertArrayNotHasKey('declaredValue', $item);
+        foreach ($payload['requestedShipment']['requestedPackageLineItems'] as $lineItem) {
+            self::assertSame('KG', $lineItem['weight']['units']);
+            self::assertSame('CM', $lineItem['dimensions']['units']);
         }
     }
 
@@ -333,18 +247,62 @@ final class RequestbuilderTest extends OpenMageTest
 
         $details = $payload['requestedShipment']['customsClearanceDetail'];
         self::assertSame('SENDER', $details['dutiesPayment']['paymentType']);
-        self::assertSame(200.0, $details['commercialInvoice']['customsValue']['amount']);
+        self::assertSame(200.0, $details['totalCustomsValue']['amount']);
+        self::assertSame('USD', $details['totalCustomsValue']['currency']);
         self::assertSame('Widget', $details['commodities'][0]['description']);
     }
 
-    private function container(float $totalWeight, int $length, int $width, int $height): Varien_Object
+    public function testSmartPostShipmentIncludesSmartPostInfoDetailWithParcelSelect(): void
     {
-        return new Varien_Object([
-            'total_weight' => $totalWeight,
-            'length' => $length,
-            'width' => $width,
-            'height' => $height,
-        ]);
+        $request = $this->shipmentRequest();
+        $request->setShippingMethod('SMART_POST');
+        $request->setPackageWeight(5.0);
+
+        $payload = $this->builder->buildShipmentPayload($request, 'REGULAR_PICKUP', '510510510', 'US', '5531');
+
+        $rs = $payload['requestedShipment'];
+        self::assertSame('SMART_POST', $rs['serviceType']);
+        self::assertSame('PARCEL_SELECT', $rs['smartPostInfoDetail']['indicia']);
+        self::assertSame('5531', $rs['smartPostInfoDetail']['hubId']);
+    }
+
+    public function testSmartPostShipmentSwitchesIndiciaToPresortedStandardBelowOneLb(): void
+    {
+        $request = $this->shipmentRequest();
+        $request->setShippingMethod('SMART_POST');
+        $request->setPackageWeight(0.5);
+
+        $payload = $this->builder->buildShipmentPayload($request, 'REGULAR_PICKUP', '510510510', 'US', '5531');
+
+        self::assertSame('PRESORTED_STANDARD', $payload['requestedShipment']['smartPostInfoDetail']['indicia']);
+    }
+
+    public function testSmartPostShipmentOmitsInfoDetailWhenHubIdBlank(): void
+    {
+        $request = $this->shipmentRequest();
+        $request->setShippingMethod('SMART_POST');
+
+        $payload = $this->builder->buildShipmentPayload($request, 'REGULAR_PICKUP', '510510510', 'US', '');
+
+        self::assertArrayNotHasKey('smartPostInfoDetail', $payload['requestedShipment']);
+    }
+
+    public function testNonSmartPostShipmentOmitsInfoDetailEvenWhenHubIdProvided(): void
+    {
+        $request = $this->shipmentRequest();
+
+        $payload = $this->builder->buildShipmentPayload($request, 'REGULAR_PICKUP', '510510510', 'US', '5531');
+
+        self::assertArrayNotHasKey('smartPostInfoDetail', $payload['requestedShipment']);
+    }
+
+    private function container(float $totalWeight, int $length, int $width, int $height): Container
+    {
+        return (new Container())
+            ->setTotalWeight($totalWeight)
+            ->setLength($length)
+            ->setWidth($width)
+            ->setHeight($height);
     }
 
     private function domesticRawRequest(): Varien_Object

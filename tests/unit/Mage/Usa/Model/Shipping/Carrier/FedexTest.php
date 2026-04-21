@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Usa\Model\Shipping\Carrier;
 
+use Override;
 use Mage_Shipping_Model_Rate_Result;
 use Mage_Shipping_Model_Tracking_Result;
 use Mage_Shipping_Model_Tracking_Result_Error;
@@ -38,6 +39,7 @@ final class FedexTest extends OpenMageTest
 
     private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
@@ -317,7 +319,7 @@ final class FedexTest extends OpenMageTest
         return new class ($calls, $stubClient) implements ClientFactoryInterface {
             public function __construct(
                 private ArrayObject $calls,
-                private RestClient $stubClient,
+                private readonly RestClient $stubClient,
             ) {}
 
             public function create(
@@ -369,6 +371,70 @@ final class FedexTest extends OpenMageTest
         self::assertSame('LBL', $result->getShippingLabelContent());
     }
 
+    public function testDoShipmentRequestBuildsCustomsPayloadForInternationalDestination(): void
+    {
+        $payloads = [];
+        $restClient = $this->createMock(RestClient::class);
+        $restClient->expects(self::once())
+            ->method('processShipment')
+            ->willReturnCallback(function (array $payload) use (&$payloads): array {
+                $payloads[] = $payload;
+                return [
+                    'output' => [
+                        'transactionShipments' => [[
+                            'masterTrackingNumber' => '794644746222',
+                            'pieceResponses' => [[
+                                'trackingNumber' => '794644746222',
+                                'packageDocuments' => [[
+                                    'contentType' => 'LABEL',
+                                    'encodedLabel' => base64_encode('INTL-LBL'),
+                                ]],
+                            ]],
+                        ]],
+                    ],
+                ];
+            });
+
+        $fedex = $this->fedexWithConfig([
+            'account' => '510510510',
+            'dropoff' => 'REGULAR_PICKUP',
+            'title' => 'FedEx',
+        ]);
+        $fedex->setData('rest_client', $restClient);
+
+        $request = $this->shipmentRequestVarien();
+        $request->setShippingMethod('INTERNATIONAL_PRIORITY');
+        $request->setRecipientAddressStreet1('1 Canada Square');
+        $request->setRecipientAddressCity('London');
+        $request->setRecipientAddressStateOrProvinceCode('');
+        $request->setRecipientAddressPostalCode('E14 5AB');
+        $request->setRecipientAddressCountryCode('GB');
+        $request->setBaseCurrencyCode('USD');
+        $request->getPackageParams()->setCustomsValue(250.0);
+        $request->setPackageItems([
+            ['name' => 'Widget', 'qty' => 1, 'price' => 250.0, 'country_of_manufacture' => ''],
+        ]);
+
+        $result = $this->invokeDoShipmentRequest($fedex, $request);
+
+        self::assertSame('794644746222', $result->getTrackingNumber());
+        self::assertSame('INTL-LBL', $result->getShippingLabelContent());
+
+        self::assertCount(1, $payloads);
+        $rs = $payloads[0]['requestedShipment'];
+        self::assertSame('INTERNATIONAL_PRIORITY', $rs['serviceType']);
+        self::assertArrayHasKey('customsClearanceDetail', $rs);
+        $customs = $rs['customsClearanceDetail'];
+        self::assertSame(250.0, $customs['totalCustomsValue']['amount']);
+        self::assertSame('USD', $customs['totalCustomsValue']['currency']);
+        self::assertArrayNotHasKey('commercialInvoice', $customs);
+        self::assertSame('Widget', $customs['commodities'][0]['description']);
+        // Falls back to shipper country when items don't carry a country of
+        // manufacture. Empty countryOfManufacture is a hard INVALID.INPUT
+        // rejection from FedEx.
+        self::assertSame('US', $customs['commodities'][0]['countryOfManufacture']);
+    }
+
     public function testRollBackCancelsShipmentForEachTrackingNumber(): void
     {
         $restClient = $this->createMock(RestClient::class);
@@ -385,8 +451,13 @@ final class FedexTest extends OpenMageTest
         ]));
     }
 
-    public function testSingleRequestIncludesSmartPostForUsDomestic(): void
+    public function testCollectRatesFiresSingleCallWithCarrierCodesForSmartPost(): void
     {
+        // A single general rate call with `carrierCodes: [FDXE, FDXG, FXSP]`
+        // at the root is what makes FedEx include SMART_POST in the reply.
+        // No SMART_POST-specific serviceType or smartPostInfoDetail is needed
+        // — and eligibility checks (US destination, hubId config) do not
+        // affect the rate call shape.
         $payloads = [];
         $restClient = $this->createMock(RestClient::class);
         $restClient->expects(self::once())
@@ -406,55 +477,12 @@ final class FedexTest extends OpenMageTest
         $fedex->collectRates($this->domesticRateRequest());
 
         self::assertCount(1, $payloads);
+        self::assertSame(['FDXE', 'FDXG', 'FXSP'], $payloads[0]['carrierCodes']);
+
         $rs = $payloads[0]['requestedShipment'];
         self::assertArrayNotHasKey('serviceType', $rs);
-        self::assertSame('5531', $rs['smartPostInfoDetail']['hubId']);
-    }
-
-    public function testParentClearsHubIdForInternationalDestinations(): void
-    {
-        $payloads = [];
-        $restClient = $this->createMock(RestClient::class);
-        $restClient->expects(self::once())
-            ->method('getRates')
-            ->willReturnCallback(function (array $payload) use (&$payloads): array {
-                $payloads[] = $payload;
-                return ['output' => ['rateReplyDetails' => []]];
-            });
-
-        $fedex = $this->fedexWithConfig([
-            'allowed_methods' => 'FEDEX_GROUND,SMART_POST,INTERNATIONAL_PRIORITY',
-            'smartpost_hubid' => '5531',
-        ]);
-        $fedex->setData('rest_client', $restClient);
-        $fedex->setData('cache_enabled', false);
-
-        $fedex->collectRates($this->domesticRateRequest()->setDestCountryId('CA'));
-
-        self::assertArrayNotHasKey('smartPostInfoDetail', $payloads[0]['requestedShipment']);
-    }
-
-    public function testParentClearsHubIdWhenSmartPostNotInAllowedMethods(): void
-    {
-        $payloads = [];
-        $restClient = $this->createMock(RestClient::class);
-        $restClient->expects(self::once())
-            ->method('getRates')
-            ->willReturnCallback(function (array $payload) use (&$payloads): array {
-                $payloads[] = $payload;
-                return ['output' => ['rateReplyDetails' => []]];
-            });
-
-        $fedex = $this->fedexWithConfig([
-            'allowed_methods' => 'FEDEX_GROUND,FEDEX_2_DAY',
-            'smartpost_hubid' => '5531',
-        ]);
-        $fedex->setData('rest_client', $restClient);
-        $fedex->setData('cache_enabled', false);
-
-        $fedex->collectRates($this->domesticRateRequest());
-
-        self::assertArrayNotHasKey('smartPostInfoDetail', $payloads[0]['requestedShipment']);
+        self::assertArrayNotHasKey('smartPostInfoDetail', $rs);
+        self::assertArrayNotHasKey('declaredValue', $rs['requestedPackageLineItems'][0]);
     }
 
     public function testRequestToShipmentRollsBackPriorPackagesOnError(): void
