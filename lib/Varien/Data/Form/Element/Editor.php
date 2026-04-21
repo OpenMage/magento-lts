@@ -89,6 +89,7 @@ class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
                 . '<textarea name="' . $this->getName() . '" title="' . $this->getTitle()
                 . '" id="' . $this->getHtmlId() . '"'
                 . ' class="textarea ' . $this->getClass() . '" '
+                . ' data-test="' . $this->getTestId() . '"'
                 . $this->serialize($this->getHtmlAttributes()) . ' >' . $this->getEscapedValue() . '</textarea>'
                 . $str . '
                 <script type="text/javascript">
