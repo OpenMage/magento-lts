@@ -81,7 +81,7 @@
     [-] LongClassName
     [x] ShortClassName
     [-] LongVariable
-    [x] ShortVariable - @todo fix later, avoid as possible
+    [x] ShortVariable - @todo fix later
     [x] ShortMethodName
     -->
     <rule ref="rulesets/naming.xml">
