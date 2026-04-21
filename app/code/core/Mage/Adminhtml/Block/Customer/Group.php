@@ -30,6 +30,7 @@ class Mage_Adminhtml_Block_Customer_Group extends Mage_Adminhtml_Block_Widget_Gr
      *
      * @return string
      */
+    #[Override]
     public function getHeaderCssClass()
     {
         return 'icon-head head-customer-groups';

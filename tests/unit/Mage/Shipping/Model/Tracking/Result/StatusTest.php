@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Shipping\Model\Tracking\Result;
 
 // use Mage;
 // use Mage_Shipping_Model_Tracking_Result_Status as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Shipping\Model\Tracking\Result\StatusTrait;
 
@@ -22,6 +23,7 @@ final class StatusTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

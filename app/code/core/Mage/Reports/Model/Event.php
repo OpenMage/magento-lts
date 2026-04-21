@@ -56,6 +56,7 @@ class Mage_Reports_Model_Event extends Mage_Core_Model_Abstract
      *
      * @inheritDoc
      */
+    #[Override]
     protected function _beforeSave()
     {
         $this->setLoggedAt(Mage::getModel('core/date')->gmtDate());

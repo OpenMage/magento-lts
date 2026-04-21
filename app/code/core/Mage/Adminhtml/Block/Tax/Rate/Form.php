@@ -34,6 +34,7 @@ class Mage_Adminhtml_Block_Tax_Rate_Form extends Mage_Adminhtml_Block_Widget_For
      * @inheritDoc
      * @throws Exception
      */
+    #[Override]
     protected function _prepareForm()
     {
         $rateObject = new Varien_Object(Mage::getSingleton('tax/calculation_rate')->getData());

@@ -15,6 +15,7 @@
  *
  * @property mixed $uploader
  */
+#[AllowDynamicProperties]
 class Varien_File_Uploader_Image extends Varien_File_Uploader
 {
     public function __construct()

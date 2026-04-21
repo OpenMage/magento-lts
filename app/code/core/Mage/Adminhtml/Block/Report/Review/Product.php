@@ -22,6 +22,7 @@ class Mage_Adminhtml_Block_Report_Review_Product extends Mage_Adminhtml_Block_Wi
         $this->_removeButton('add');
     }
 
+    #[Override]
     public function getHeaderCssClass()
     {
         return 'icon-head head-report';

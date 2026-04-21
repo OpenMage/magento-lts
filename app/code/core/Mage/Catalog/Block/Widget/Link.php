@@ -117,6 +117,7 @@ class Mage_Catalog_Block_Widget_Link extends Mage_Core_Block_Html_Link implement
      *
      * @return string
      */
+    #[Override]
     protected function _toHtml()
     {
         if ($this->getHref()) {

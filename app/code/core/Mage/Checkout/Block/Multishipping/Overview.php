@@ -17,6 +17,7 @@ class Mage_Checkout_Block_Multishipping_Overview extends Mage_Sales_Block_Items_
     /**
      * Initialize default item renderer for row-level items output
      */
+    #[Override]
     protected function _construct()
     {
         parent::_construct();
@@ -40,6 +41,7 @@ class Mage_Checkout_Block_Multishipping_Overview extends Mage_Sales_Block_Items_
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareLayout()
     {
         if ($headBlock = $this->getLayout()->getBlock('head')) {

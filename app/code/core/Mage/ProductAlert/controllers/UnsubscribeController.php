@@ -17,6 +17,7 @@ class Mage_ProductAlert_UnsubscribeController extends Mage_Core_Controller_Front
     /**
      * @inheritDoc
      */
+    #[Override]
     public function preDispatch()
     {
         parent::preDispatch();

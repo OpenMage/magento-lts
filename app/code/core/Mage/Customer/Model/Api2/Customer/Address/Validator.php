@@ -24,6 +24,7 @@ class Mage_Customer_Model_Api2_Customer_Address_Validator extends Mage_Api2_Mode
      *
      * @return array Filtered data
      */
+    #[Override]
     public function filter(array $data)
     {
         $filteredData = parent::filter($data);

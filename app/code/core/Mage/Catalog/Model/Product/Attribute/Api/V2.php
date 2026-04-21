@@ -20,6 +20,7 @@ class Mage_Catalog_Model_Product_Attribute_Api_V2 extends Mage_Catalog_Model_Pro
      * @param  array $data input data
      * @return int
      */
+    #[Override]
     public function create($data)
     {
         $helper = Mage::helper('api');
@@ -35,6 +36,7 @@ class Mage_Catalog_Model_Product_Attribute_Api_V2 extends Mage_Catalog_Model_Pro
      * @param  array      $data
      * @return bool
      */
+    #[Override]
     public function update($attribute, $data)
     {
         $helper = Mage::helper('api');
@@ -50,6 +52,7 @@ class Mage_Catalog_Model_Product_Attribute_Api_V2 extends Mage_Catalog_Model_Pro
      * @param  array      $data
      * @return bool
      */
+    #[Override]
     public function addOption($attribute, $data)
     {
         Mage::helper('api')->toArray($data);
@@ -62,6 +65,7 @@ class Mage_Catalog_Model_Product_Attribute_Api_V2 extends Mage_Catalog_Model_Pro
      * @param  int|string $attribute attribute ID or code
      * @return array
      */
+    #[Override]
     public function info($attribute)
     {
         $result = parent::info($attribute);

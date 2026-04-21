@@ -217,6 +217,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Items_Renderer_Default extends Mage_
      * @param  Mage_Sales_Model_Order_Item $item
      * @return string
      */
+    #[Override]
     public function displaySubtotalInclTax($item)
     {
         /** @var Mage_Checkout_Helper_Data $helper */
@@ -232,6 +233,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Items_Renderer_Default extends Mage_
      *
      * @return string
      */
+    #[Override]
     public function displayPriceInclTax(Varien_Object $item)
     {
         /** @var Mage_Checkout_Helper_Data $helper */

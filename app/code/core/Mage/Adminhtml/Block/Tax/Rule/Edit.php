@@ -24,6 +24,7 @@ class Mage_Adminhtml_Block_Tax_Rule_Edit extends Mage_Adminhtml_Block_Widget_For
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareLayout()
     {
         $this->_addButton('save_and_continue', [
@@ -42,6 +43,7 @@ class Mage_Adminhtml_Block_Tax_Rule_Edit extends Mage_Adminhtml_Block_Widget_For
      *
      * @return string
      */
+    #[Override]
     public function getHeaderText()
     {
         if (Mage::registry('tax_rule')->getId()) {

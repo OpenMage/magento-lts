@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\CatalogInventory\Model\Stock;
 
 // use Mage;
 // use Mage_CatalogInventory_Model_Stock_Status as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\CatalogInventory\Model\Stock\StatusTrait;
 
@@ -22,6 +23,7 @@ final class StatusTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

@@ -21,6 +21,7 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Location extends Mage_A
      * @param  bool                              $tooltipsExist Init tooltips observer or not
      * @return string
      */
+    #[Override]
     protected function _getExtraJs($element, $tooltipsExist = false)
     {
         $str = '

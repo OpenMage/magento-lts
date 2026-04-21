@@ -24,6 +24,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Created extends Mage_Adminhtml_Block_
         $this->setTemplate('catalog/product/created.phtml');
     }
 
+    #[Override]
     protected function _prepareLayout()
     {
         $this->setChild(

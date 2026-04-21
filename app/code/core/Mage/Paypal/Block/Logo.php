@@ -40,6 +40,7 @@ class Mage_Paypal_Block_Logo extends Mage_Core_Block_Template
      *
      * @return string
      */
+    #[Override]
     protected function _toHtml()
     {
         $type = $this->getLogoType(); // assigned in layout etc.

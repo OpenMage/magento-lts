@@ -22,6 +22,7 @@ class Mage_Adminhtml_Block_Report_Customer_Accounts extends Mage_Adminhtml_Block
         $this->_removeButton('add');
     }
 
+    #[Override]
     public function getHeaderCssClass()
     {
         return 'icon-head head-report';

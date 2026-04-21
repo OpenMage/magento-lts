@@ -27,6 +27,7 @@ class Mage_Adminhtml_Block_Permissions_Variable extends Mage_Adminhtml_Block_Wid
      *
      * @return string
      */
+    #[Override]
     protected function _toHtml()
     {
         Mage::dispatchEvent('permissions_variable_html_before', ['block' => $this]);

@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Bundle\Model;
 
 // use Mage;
 // use Mage_Bundle_Model_Observer as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Bundle\Model\ObserverTrait;
 
@@ -22,6 +23,7 @@ final class ObserverTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

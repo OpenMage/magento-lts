@@ -283,6 +283,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     /**
      * @inheritDoc
      */
+    #[Override]
     public function load($id, $field = null)
     {
         if (!is_numeric($id) && is_null($field)) {
@@ -723,6 +724,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      *
      * @return null|int
      */
+    #[Override]
     public function getId()
     {
         $storeId = $this->_getData('store_id');
@@ -1219,6 +1221,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      *
      * {@inheritDoc}
      */
+    #[Override]
     protected function _beforeDelete()
     {
         $this->_protectFromNonAdmin();
@@ -1231,6 +1234,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      *
      * @return $this
      */
+    #[Override]
     protected function _afterDelete()
     {
         parent::_afterDelete();
@@ -1244,6 +1248,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      * @return $this
      * @throws Exception
      */
+    #[Override]
     protected function _afterDeleteCommit()
     {
         parent::_afterDeleteCommit();

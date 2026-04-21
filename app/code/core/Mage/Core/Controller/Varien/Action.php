@@ -7,8 +7,6 @@
  * @package    Mage_Core
  */
 
-use Carbon\Carbon;
-
 /**
  * Custom Zend_Controller_Action class (formally)
  *
@@ -1100,9 +1098,9 @@ abstract class Mage_Core_Controller_Varien_Action
             ->setHeader('Pragma', 'public', true)
             ->setHeader('Cache-Control', 'must-revalidate, post-check=0, pre-check=0', true)
             ->setHeader('Content-type', $contentType, true)
-            ->setHeader('Content-Length', is_null($contentLength) ? strlen($content) : $contentLength, true)
+            ->setHeader('Content-Length', $contentLength ?? strlen($content), true)
             ->setHeader('Content-Disposition', 'attachment; filename="' . $fileName . '"', true)
-            ->setHeader('Last-Modified', Carbon::now()->format('r'), true);
+            ->setHeader('Last-Modified', Mage::helper('core/clock')->format('r'), true);
 
         if (!is_null($content)) {
             if ($isFile) {

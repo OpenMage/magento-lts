@@ -101,7 +101,7 @@ class Mage_Core_Model_Observer
     /**
      * Checks method availability for processing in variable
      *
-     * @return Mage_Core_Model_Observer
+     * @return $this
      * @throws Exception
      */
     public function secureVarProcessing(Varien_Event_Observer $observer)

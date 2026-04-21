@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Weee\Model\Total\Quote\Nominal;
 
 // use Mage;
 // use Mage_Weee_Model_Total_Quote_Nominal_Weee as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Weee\Model\Total\Quote\Nominal\WeeeTrait;
 
@@ -22,6 +23,7 @@ final class WeeeTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

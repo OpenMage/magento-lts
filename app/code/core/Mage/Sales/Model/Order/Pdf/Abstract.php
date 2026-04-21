@@ -728,7 +728,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
      *
      * @param Mage_Sales_Model_Order_Pdf_Items_Abstract $renderer
      *
-     * @return Mage_Sales_Model_Order_Pdf_Abstract
+     * @return $this
      */
     public function renderItem(Varien_Object $item, Zend_Pdf_Page $page, Mage_Sales_Model_Order $order, $renderer)
     {
@@ -816,7 +816,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
     /**
      * Set PDF object
      *
-     * @return Mage_Sales_Model_Order_Pdf_Abstract
+     * @return $this
      */
     protected function _setPdf(Zend_Pdf $pdf)
     {

@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Usa\Block\Adminhtml\Dhl;
 
 // use Mage_Usa_Block_Adminhtml_Dhl_Unitofmeasure as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Usa\Block\Adminhtml\Dhl\UnitofmeasureTrait;
 
@@ -21,6 +22,7 @@ final class UnitofmeasureTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\CatalogIndex\Model\Resource\Data;
 
 // use Mage;
 // use Mage_CatalogIndex_Model_Resource_Data_Configurable as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\CatalogIndex\Model\Resource\Data\ConfigurableTrait;
 
@@ -22,6 +23,7 @@ final class ConfigurableTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

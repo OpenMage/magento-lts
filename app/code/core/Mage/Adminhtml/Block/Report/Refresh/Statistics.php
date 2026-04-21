@@ -22,6 +22,7 @@ class Mage_Adminhtml_Block_Report_Refresh_Statistics extends Mage_Adminhtml_Bloc
         $this->_removeButton('add');
     }
 
+    #[Override]
     public function getHeaderCssClass()
     {
         return 'icon-head head-report';

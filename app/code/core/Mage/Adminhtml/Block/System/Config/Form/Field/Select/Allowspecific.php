@@ -14,6 +14,7 @@
  */
 class Mage_Adminhtml_Block_System_Config_Form_Field_Select_Allowspecific extends Varien_Data_Form_Element_Select
 {
+    #[Override]
     public function getAfterElementHtml()
     {
         $javaScript = "
@@ -26,6 +27,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Field_Select_Allowspecific extends
         return $javaScript . parent::getAfterElementHtml();
     }
 
+    #[Override]
     public function getHtml()
     {
         if (!$this->getValue() || $this->getValue() != 1) {

@@ -33,6 +33,7 @@ class Mage_Adminhtml_Block_Dashboard_Tab_Orders extends Mage_Adminhtml_Block_Das
      * @return void
      * @throws Exception
      */
+    #[Override]
     protected function _prepareData()
     {
         $this->setDataRows('quantity');

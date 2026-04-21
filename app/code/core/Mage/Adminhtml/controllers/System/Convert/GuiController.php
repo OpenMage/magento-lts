@@ -25,6 +25,7 @@ class Mage_Adminhtml_System_Convert_GuiController extends Mage_Adminhtml_System_
     /**
      * Profiles list action
      */
+    #[Override]
     public function indexAction()
     {
         $this->_title($this->__('System'))
@@ -59,6 +60,7 @@ class Mage_Adminhtml_System_Convert_GuiController extends Mage_Adminhtml_System_
         $this->renderLayout();
     }
 
+    #[Override]
     public function gridAction()
     {
         $this->getResponse()->setBody($this->getLayout()->createBlock('adminhtml/system_convert_gui_grid')->toHtml());
@@ -67,6 +69,7 @@ class Mage_Adminhtml_System_Convert_GuiController extends Mage_Adminhtml_System_
     /**
      * Profile edit action
      */
+    #[Override]
     public function editAction()
     {
         $this->_initProfile();
