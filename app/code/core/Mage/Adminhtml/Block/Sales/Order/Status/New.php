@@ -19,8 +19,8 @@ class Mage_Adminhtml_Block_Sales_Order_Status_New extends Mage_Adminhtml_Block_W
         $this->_mode = 'new';
 
         parent::__construct();
-        $this->_updateButton('save', 'label', Mage::helper('sales')->__('Save Status'));
-        $this->_removeButton('delete');
+        $this->_updateButton(self::BUTTON_TYPE_SAVE, 'label', Mage::helper('sales')->__('Save Status'));
+        $this->_removeButton(self::BUTTON_TYPE_DELETE);
     }
 
     /**

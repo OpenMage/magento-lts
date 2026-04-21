@@ -19,7 +19,7 @@ class Mage_Adminhtml_Block_System_Account_Edit extends Mage_Adminhtml_Block_Widg
         parent::__construct();
 
         $this->_controller = 'system_account';
-        $this->_removeButton('delete');
+        $this->_removeButton(self::BUTTON_TYPE_DELETE);
     }
 
     /**

@@ -33,12 +33,12 @@ class Mage_Adminhtml_Block_Customer_Edit extends Mage_Adminhtml_Block_Widget_For
         parent::__construct();
 
         if (Mage::registry('current_customer')->isReadonly()) {
-            $this->_removeButton('save');
-            $this->_removeButton('reset');
+            $this->_removeButton(self::BUTTON_TYPE_SAVE);
+            $this->_removeButton(self::BUTTON_TYPE_RESET);
         }
 
         if (!Mage::registry('current_customer')->isDeleteable()) {
-            $this->_removeButton('delete');
+            $this->_removeButton(self::BUTTON_TYPE_DELETE);
         }
     }
 

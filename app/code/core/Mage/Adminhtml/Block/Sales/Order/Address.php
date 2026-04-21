@@ -19,8 +19,8 @@ class Mage_Adminhtml_Block_Sales_Order_Address extends Mage_Adminhtml_Block_Widg
         $this->_controller = 'sales_order';
         $this->_mode       = 'address';
         parent::__construct();
-        $this->_updateButton('save', 'label', Mage::helper('sales')->__('Save Order Address'));
-        $this->_removeButton('delete');
+        $this->_updateButton(self::BUTTON_TYPE_SAVE, 'label', Mage::helper('sales')->__('Save Order Address'));
+        $this->_removeButton(self::BUTTON_TYPE_DELETE);
     }
 
     /**
