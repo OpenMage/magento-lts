@@ -239,7 +239,7 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
         return $this->_renderer;
     }
 
-    final public function getTestId(): string
+    private function getTestId(): string
     {
         return 'input-' . str_replace('_', '-', $this->getHtmlId());
     }
