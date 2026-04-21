@@ -17,7 +17,6 @@ use Mage_Shipping_Model_Tracking_Result_Error;
 use ReflectionMethod;
 use Mage_Core_Exception;
 use ArrayObject;
-use Closure;
 use Mage;
 use Mage_Shipping_Model_Rate_Request;
 use Varien_Object;
@@ -26,9 +25,12 @@ use Mage_Core_Helper_Measure_Weight;
 use Mage_Core_Helper_Measure_Length;
 use Mage_Usa_Model_Shipping_Carrier_Fedex as Subject;
 use Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_Client as RestClient;
+use Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_Clientfactory as ClientFactory;
+use Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_ClientfactoryInterface as ClientFactoryInterface;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Usa\Model\Shipping\Carrier\FedexTrait;
 use PHPUnit\Framework\MockObject\MockObject;
+use ShipStream\FedEx\Contracts\TokenCache;
 
 final class FedexTest extends OpenMageTest
 {
@@ -300,15 +302,37 @@ final class FedexTest extends OpenMageTest
         );
     }
 
-    private function recordingFactory(ArrayObject $calls, RestClient $stubClient): Closure
+    public function testCreateRestClientDefaultsToClientfactory(): void
     {
-        return static function (string $clientId, string $clientSecret, bool $sandboxMode) use ($calls, $stubClient): RestClient {
-            $calls[] = [
-                'client_id' => $clientId,
-                'client_secret' => $clientSecret,
-                'sandbox_mode' => $sandboxMode,
-            ];
-            return $stubClient;
+        $fedex = $this->fedexWithConfig();
+        $method = new ReflectionMethod(Subject::class, '_createRestClient');
+        $client = $method->invoke($fedex, 'id', 'secret', true);
+
+        self::assertInstanceOf(RestClient::class, $client);
+        self::assertInstanceOf(ClientFactory::class, $fedex->getData('rest_client_factory'));
+    }
+
+    private function recordingFactory(ArrayObject $calls, RestClient $stubClient): ClientFactoryInterface
+    {
+        return new class ($calls, $stubClient) implements ClientFactoryInterface {
+            public function __construct(
+                private ArrayObject $calls,
+                private RestClient $stubClient,
+            ) {}
+
+            public function create(
+                string $clientId,
+                string $clientSecret,
+                bool $sandboxMode,
+                ?TokenCache $tokenCache = null,
+            ): RestClient {
+                $this->calls[] = [
+                    'client_id' => $clientId,
+                    'client_secret' => $clientSecret,
+                    'sandbox_mode' => $sandboxMode,
+                ];
+                return $this->stubClient;
+            }
         };
     }
 

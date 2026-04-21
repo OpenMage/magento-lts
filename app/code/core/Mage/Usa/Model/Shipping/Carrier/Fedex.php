@@ -269,7 +269,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
                 'rates' => [],
                 'alerts' => [],
                 'errors' => [[
-                    'severity' => Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_ResponseMapper::SEVERITY_ERROR,
+                    'severity' => Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_Responsemapper::SEVERITY_ERROR,
                     'code' => (string) $throwable->getCode(),
                     'message' => $throwable->getMessage(),
                 ]],
@@ -384,7 +384,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
         }
 
         foreach ($mapped['alerts'] ?? [] as $alert) {
-            if (($alert['severity'] ?? '') === Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_ResponseMapper::SEVERITY_ERROR
+            if (($alert['severity'] ?? '') === Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_Responsemapper::SEVERITY_ERROR
                 && !empty($alert['message'])
             ) {
                 return (string) $alert['message'];
@@ -574,8 +574,8 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
             ],
 
             'unit_of_measure' => [
-                Mage_Usa_Model_Shipping_Carrier_Fedex_UnitOfMeasure::WEIGHT_POUND   =>  Mage::helper('usa')->__('Pounds'),
-                Mage_Usa_Model_Shipping_Carrier_Fedex_UnitOfMeasure::WEIGHT_KILOGRAM   =>  Mage::helper('usa')->__('Kilograms'),
+                Mage_Usa_Model_Shipping_Carrier_Fedex_Unitofmeasure::WEIGHT_POUND   =>  Mage::helper('usa')->__('Pounds'),
+                Mage_Usa_Model_Shipping_Carrier_Fedex_Unitofmeasure::WEIGHT_KILOGRAM   =>  Mage::helper('usa')->__('Kilograms'),
             ],
         ];
 
@@ -978,37 +978,41 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
         return $client;
     }
 
-    protected function _createRestClient(string $clientId, string $clientSecret, bool $sandboxMode): Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_Client
-    {
+    protected function _createRestClient(
+        string $clientId,
+        string $clientSecret,
+        bool $sandboxMode
+    ): Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_Client {
         $factory = $this->getData('rest_client_factory');
-        if ($factory instanceof Closure) {
-            return $factory($clientId, $clientSecret, $sandboxMode);
+        if (!$factory instanceof Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_ClientfactoryInterface) {
+            $factory = Mage::getModel('usa/shipping_carrier_fedex_rest_clientfactory');
+            $this->setData('rest_client_factory', $factory);
         }
 
-        return new Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_Client($clientId, $clientSecret, $sandboxMode);
+        return $factory->create($clientId, $clientSecret, $sandboxMode);
     }
 
-    protected function _getRequestBuilder(): Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_RequestBuilder
+    protected function _getRequestBuilder(): Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_Requestbuilder
     {
         $builder = $this->getData('request_builder');
-        if ($builder instanceof Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_RequestBuilder) {
+        if ($builder instanceof Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_Requestbuilder) {
             return $builder;
         }
 
-        $builder = new Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_RequestBuilder();
+        $builder = Mage::getModel('usa/shipping_carrier_fedex_rest_requestbuilder');
         $this->setData('request_builder', $builder);
 
         return $builder;
     }
 
-    protected function _getResponseMapper(): Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_ResponseMapper
+    protected function _getResponseMapper(): Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_Responsemapper
     {
         $mapper = $this->getData('response_mapper');
-        if ($mapper instanceof Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_ResponseMapper) {
+        if ($mapper instanceof Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_Responsemapper) {
             return $mapper;
         }
 
-        $mapper = new Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_ResponseMapper();
+        $mapper = Mage::getModel('usa/shipping_carrier_fedex_rest_responsemapper');
         $this->setData('response_mapper', $mapper);
 
         return $mapper;

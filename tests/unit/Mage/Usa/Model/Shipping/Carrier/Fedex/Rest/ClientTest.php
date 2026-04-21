@@ -14,7 +14,7 @@ namespace OpenMage\Tests\Unit\Mage\Usa\Model\Shipping\Carrier\Fedex\Rest;
 use Carbon\CarbonImmutable;
 use Varien_Object;
 use Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_Client as Client;
-use Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_RequestBuilder as RequestBuilder;
+use Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_Requestbuilder as RequestBuilder;
 use OpenMage\Tests\Unit\OpenMageTest;
 use Saloon\Http\Auth\AccessTokenAuthenticator;
 use Saloon\Http\Faking\MockClient;
@@ -145,7 +145,7 @@ final class ClientTest extends OpenMageTest
         );
         $connector->withMockClient(new MockClient($responses));
 
-        return Client::fromConnector($connector);
+        return new Client($connector);
     }
 
     /**

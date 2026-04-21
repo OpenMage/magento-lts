@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-use Mage_Usa_Model_Shipping_Carrier_Fedex_UnitOfMeasure as Uom;
+use Mage_Usa_Model_Shipping_Carrier_Fedex_Unitofmeasure as Uom;
 
-class Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_RequestBuilder
+class Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_Requestbuilder
 {
     /**
      * @return array<string, mixed[]>

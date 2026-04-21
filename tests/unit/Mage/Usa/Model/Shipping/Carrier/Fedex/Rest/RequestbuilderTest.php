@@ -15,20 +15,20 @@ use Varien_Object;
 use Mage;
 use Mage_Core_Helper_Measure_Weight;
 use Mage_Core_Helper_Measure_Length;
-use Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_RequestBuilder as RequestBuilder;
+use Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_Requestbuilder as Requestbuilder;
 use OpenMage\Tests\Unit\OpenMageTest;
-use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Usa\Model\Shipping\Carrier\Fedex\Rest\RequestBuilderTrait;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Usa\Model\Shipping\Carrier\Fedex\Rest\RequestbuilderTrait;
 
-final class RequestBuilderTest extends OpenMageTest
+final class RequestbuilderTest extends OpenMageTest
 {
-    use RequestBuilderTrait;
+    use RequestbuilderTrait;
 
-    private RequestBuilder $builder;
+    private Requestbuilder $builder;
 
     protected function setUp(): void
     {
         parent::setUp();
-        $this->builder = new RequestBuilder();
+        $this->builder = new Requestbuilder();
     }
 
     public function testBuildsGeneralRatePayload(): void

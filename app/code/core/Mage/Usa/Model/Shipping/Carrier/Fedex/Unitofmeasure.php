@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-class Mage_Usa_Model_Shipping_Carrier_Fedex_UnitOfMeasure
+class Mage_Usa_Model_Shipping_Carrier_Fedex_Unitofmeasure
 {
     /**
      * @var string

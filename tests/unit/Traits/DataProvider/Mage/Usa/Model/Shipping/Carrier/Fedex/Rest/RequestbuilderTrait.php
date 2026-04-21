@@ -13,7 +13,7 @@ namespace OpenMage\Tests\Unit\Traits\DataProvider\Mage\Usa\Model\Shipping\Carrie
 
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Usa\Model\Shipping\Carrier\FedexTrait;
 
-trait RequestBuilderTrait
+trait RequestbuilderTrait
 {
     use FedexTrait;
 }

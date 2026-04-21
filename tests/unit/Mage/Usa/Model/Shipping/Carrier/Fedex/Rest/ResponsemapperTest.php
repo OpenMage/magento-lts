@@ -12,17 +12,17 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Usa\Model\Shipping\Carrier\Fedex\Rest;
 
-use Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_ResponseMapper as ResponseMapper;
+use Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_Responsemapper as Responsemapper;
 use OpenMage\Tests\Unit\OpenMageTest;
 
-final class ResponseMapperTest extends OpenMageTest
+final class ResponsemapperTest extends OpenMageTest
 {
-    private ResponseMapper $mapper;
+    private Responsemapper $mapper;
 
     protected function setUp(): void
     {
         parent::setUp();
-        $this->mapper = new ResponseMapper();
+        $this->mapper = new Responsemapper();
     }
 
     public function testMapsRateReply(): void
@@ -51,7 +51,7 @@ final class ResponseMapperTest extends OpenMageTest
         self::assertSame('ACCOUNT', $mapped['rates'][0]['rated_type']);
         self::assertSame(12.34, $mapped['rates'][0]['amount']);
         self::assertSame('USD', $mapped['rates'][0]['currency']);
-        self::assertSame(ResponseMapper::SEVERITY_WARNING, $mapped['alerts'][0]['severity']);
+        self::assertSame(Responsemapper::SEVERITY_WARNING, $mapped['alerts'][0]['severity']);
         self::assertSame([], $mapped['errors']);
     }
 
@@ -86,7 +86,7 @@ final class ResponseMapperTest extends OpenMageTest
         $mapped = $this->mapper->mapRateReply($json);
 
         self::assertSame([], $mapped['rates']);
-        self::assertSame(ResponseMapper::SEVERITY_ERROR, $mapped['errors'][0]['severity']);
+        self::assertSame(Responsemapper::SEVERITY_ERROR, $mapped['errors'][0]['severity']);
         self::assertSame('Bad input', $mapped['errors'][0]['message']);
     }
 

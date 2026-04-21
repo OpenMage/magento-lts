@@ -6,7 +6,7 @@ use Carbon\Carbon;
 use Saloon\Http\Auth\AccessTokenAuthenticator;
 use ShipStream\FedEx\Contracts\TokenCache;
 
-class Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_TokenManager implements TokenCache
+class Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_Tokenmanager implements TokenCache
 {
     public const CACHE_KEY_PREFIX = 'fedex_oauth_';
 
@@ -50,10 +50,23 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_TokenManager implements TokenCa
         }
 
         Mage::app()->getCache()->save(
-            serialize($authenticator),
+            serialize(self::normalize($authenticator)),
             self::cacheKey($key),
             [self::CACHE_TAG],
             $ttl,
+        );
+    }
+
+    private static function normalize(AccessTokenAuthenticator $authenticator): AccessTokenAuthenticator
+    {
+        $expiresAt = $authenticator->expiresAt instanceof DateTimeImmutable
+            ? DateTimeImmutable::createFromInterface($authenticator->expiresAt)
+            : null;
+
+        return new AccessTokenAuthenticator(
+            $authenticator->accessToken,
+            $authenticator->refreshToken,
+            $expiresAt,
         );
     }
 

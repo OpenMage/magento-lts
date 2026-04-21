@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use Carbon\Carbon;
 
-class Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_ResponseMapper
+class Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_Responsemapper
 {
     public const SEVERITY_ERROR = 'ERROR';
 

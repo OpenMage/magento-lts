@@ -14,21 +14,21 @@ namespace OpenMage\Tests\Unit\Mage\Usa\Model\Shipping\Carrier\Fedex\Rest;
 use Mage;
 use Zend_Cache;
 use Carbon\CarbonImmutable;
-use Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_TokenManager as TokenManager;
+use Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_Tokenmanager as Tokenmanager;
 use OpenMage\Tests\Unit\OpenMageTest;
 use Saloon\Http\Auth\AccessTokenAuthenticator;
 
-final class TokenManagerTest extends OpenMageTest
+final class TokenmanagerTest extends OpenMageTest
 {
     protected function setUp(): void
     {
         parent::setUp();
-        Mage::app()->getCache()->clean(Zend_Cache::CLEANING_MODE_MATCHING_TAG, [TokenManager::CACHE_TAG]);
+        Mage::app()->getCache()->clean(Zend_Cache::CLEANING_MODE_MATCHING_TAG, [Tokenmanager::CACHE_TAG]);
     }
 
     public function testReturnsFalseOnCacheMiss(): void
     {
-        self::assertFalse(TokenManager::get('client-miss.sandbox'));
+        self::assertFalse(Tokenmanager::get('client-miss.sandbox'));
     }
 
     public function testStoresAndReturnsAuthenticatorOnHit(): void
@@ -39,9 +39,9 @@ final class TokenManagerTest extends OpenMageTest
             CarbonImmutable::now()->addHours(1),
         );
 
-        TokenManager::set('client-hit.sandbox', $authenticator);
+        Tokenmanager::set('client-hit.sandbox', $authenticator);
 
-        $retrieved = TokenManager::get('client-hit.sandbox');
+        $retrieved = Tokenmanager::get('client-hit.sandbox');
         self::assertInstanceOf(AccessTokenAuthenticator::class, $retrieved);
         self::assertSame('access-token-value', $retrieved->getAccessToken());
     }
@@ -51,12 +51,12 @@ final class TokenManagerTest extends OpenMageTest
         $authenticator = new AccessTokenAuthenticator(
             'near-expiry',
             null,
-            CarbonImmutable::now()->addSeconds(TokenManager::EXPIRY_BUFFER_SECONDS - 5),
+            CarbonImmutable::now()->addSeconds(Tokenmanager::EXPIRY_BUFFER_SECONDS - 5),
         );
 
-        TokenManager::set('client-near-expiry.sandbox', $authenticator);
+        Tokenmanager::set('client-near-expiry.sandbox', $authenticator);
 
-        self::assertFalse(TokenManager::get('client-near-expiry.sandbox'));
+        self::assertFalse(Tokenmanager::get('client-near-expiry.sandbox'));
     }
 
     public function testSkipsWriteWhenTokenAlreadyInsideBuffer(): void
@@ -67,8 +67,8 @@ final class TokenManagerTest extends OpenMageTest
             CarbonImmutable::now()->subSeconds(5),
         );
 
-        TokenManager::set('client-past.sandbox', $authenticator);
+        Tokenmanager::set('client-past.sandbox', $authenticator);
 
-        self::assertFalse(TokenManager::get('client-past.sandbox'));
+        self::assertFalse(Tokenmanager::get('client-past.sandbox'));
     }
 }
