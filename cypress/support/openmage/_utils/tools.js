@@ -13,9 +13,29 @@ cy.openmage.tools = {
 
 cy.openmage.tools.admin = {
     buttons: {
+        clickAdd: (afterClickUrl) => {
+            cy.log('Add button clicked');
+            cy.getBySel('admin-button-add')
+                .first()
+                .click({ force: true, multiple: false });
+
+            if (afterClickUrl !== undefined) {
+                cy.url().should('include', afterClickUrl);
+            }
+        },
         clickBack: (afterClickUrl) => {
             cy.log('Back button clicked');
             cy.getBySel('admin-button-back')
+                .first()
+                .click({ force: true, multiple: false });
+
+            if (afterClickUrl !== undefined) {
+                cy.url().should('include', afterClickUrl);
+            }
+        },
+        clickDelete: (afterClickUrl) => {
+            cy.log('Delete button clicked');
+            cy.getBySel('admin-button-delete')
                 .first()
                 .click({ force: true, multiple: false });
 

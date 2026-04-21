@@ -10,7 +10,7 @@ describe(`Checks admin system "${test.index.title}"`, () => {
     });
 
     it(`tests save empty values, no js`, () => {
-        test.index.__buttons.add.click();
+        tools.admin.buttons.clickAdd();
         validation.removeClassesFromInput();
         validation.removeClassesFromTextarea();
 
@@ -37,7 +37,7 @@ describe(`Checks admin system "${test.index.title}"`, () => {
     });
 
     it(`tests new route`, () => {
-        test.index.__buttons.add.click();
+        tools.admin.buttons.clickAdd();
         validation.pageElements(test, test.new);
 
         tools.admin.buttons.clickReset(test.new.url);

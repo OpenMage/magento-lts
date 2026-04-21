@@ -10,7 +10,7 @@ describe(`Checks admin system "${test.index.title}"`, () => {
     });
 
     it(`tests save empty values, no js`, () => {
-        test.index.__buttons.add.click();
+        tools.admin.buttons.clickAdd();
         validation.removeClassesAll();
 
         tools.admin.buttons.clickSaveAndContinue(test.edit.url);
@@ -33,7 +33,7 @@ describe(`Checks admin system "${test.index.title}"`, () => {
     });
 
     it(`tests new route`, () => {
-        test.index.__buttons.add.click();
+        tools.admin.buttons.clickAdd();
         validation.pageElements(test, test.new);
     });
 });

@@ -11,7 +11,7 @@ describe(`Checks admin system "${test.index.title}"`, () => {
     });
 
     it(`tests save empty values, no js`, function () {
-        test.index.__buttons.add.click();
+        tools.admin.buttons.clickAdd();
         validation.fixture.removeClasses(this.fixture.default);
 
         // TODO: Clicking "Save" instead of "Save and Continue" because not implemented in this section
@@ -22,7 +22,7 @@ describe(`Checks admin system "${test.index.title}"`, () => {
     });
 
     it(`tests save empty values, no js, 2nd time`, function () {
-        test.index.__buttons.add.click();
+        tools.admin.buttons.clickAdd();
         validation.fixture.removeClasses(this.fixture.default);
 
         // TODO: Clicking "Save" instead of "Save and Continue" because not implemented in this section
@@ -54,7 +54,7 @@ describe(`Checks admin system "${test.index.title}"`, () => {
     });
 
     it(`tests new route`, () => {
-        test.index.__buttons.add.click();
+        tools.admin.buttons.clickAdd();
         validation.pageElements(test, test.new);
 
         tools.admin.buttons.clickReset(test.new.url);
