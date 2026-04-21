@@ -55,13 +55,12 @@ final class ClientfactoryTest extends OpenMageTest
         $sandboxClient = (new ClientFactory())->create('id', 'secret', true);
         $prodClient    = (new ClientFactory())->create('id', 'secret', false);
 
-        self::assertSame(Endpoint::SANDBOX, $this->connector($sandboxClient)->endpoint);
-        self::assertSame(Endpoint::PROD, $this->connector($prodClient)->endpoint);
+        self::assertSame(Endpoint::SANDBOX, self::connector($sandboxClient)->endpoint);
+        self::assertSame(Endpoint::PROD, self::connector($prodClient)->endpoint);
     }
 
     private static function connector(Client $client): FedEx
     {
-        $property = new ReflectionProperty(Client::class, 'connector');
-        return $property->getValue($client);
+        return (new ReflectionProperty(Client::class, 'connector'))->getValue($client);
     }
 }
