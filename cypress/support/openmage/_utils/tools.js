@@ -9,69 +9,42 @@ cy.openmage.tools = {
             .first()
             .click({ force: true, multiple: false });
     },
+    _click: (selector, afterClickUrl) => {
+        cy.getBySel(selector)
+            .first()
+            .click({ force: true, multiple: false });
+
+        if (afterClickUrl !== undefined) {
+            cy.url().should('include', afterClickUrl);
+        }
+    },
 }
 
 cy.openmage.tools.admin = {
     buttons: {
         clickAdd: (afterClickUrl) => {
             cy.log('Add button clicked');
-            cy.getBySel('admin-button-add')
-                .first()
-                .click({ force: true, multiple: false });
-
-            if (afterClickUrl !== undefined) {
-                cy.url().should('include', afterClickUrl);
-            }
+            cy.openmage.tools._click('admin-button-add', afterClickUrl);
         },
         clickBack: (afterClickUrl) => {
             cy.log('Back button clicked');
-            cy.getBySel('admin-button-back')
-                .first()
-                .click({ force: true, multiple: false });
-
-            if (afterClickUrl !== undefined) {
-                cy.url().should('include', afterClickUrl);
-            }
+            cy.openmage.tools._click('admin-button-back', afterClickUrl);
         },
         clickDelete: (afterClickUrl) => {
             cy.log('Delete button clicked');
-            cy.getBySel('admin-button-delete')
-                .first()
-                .click({ force: true, multiple: false });
-
-            if (afterClickUrl !== undefined) {
-                cy.url().should('include', afterClickUrl);
-            }
+            cy.openmage.tools._click('admin-button-delete', afterClickUrl);
         },
         clickReset: (afterClickUrl) => {
             cy.log('Reset button clicked');
-            cy.getBySel('admin-button-reset')
-                .first()
-                .click({ force: true, multiple: false });
-
-            if (afterClickUrl !== undefined) {
-                cy.url().should('include', afterClickUrl);
-            }
+            cy.openmage.tools._click('admin-button-reset', afterClickUrl);
         },
         clickSave: (afterClickUrl) => {
             cy.log('Save button clicked');
-            cy.getBySel('admin-button-save')
-                .first()
-                .click({ force: true, multiple: false });
-
-            if (afterClickUrl !== undefined) {
-                cy.url().should('include', afterClickUrl);
-            }
+            cy.openmage.tools._click('admin-button-save', afterClickUrl);
         },
         clickSaveAndContinue: (afterClickUrl) => {
             cy.log('Save and Continue button clicked');
-            cy.getBySel('admin-button-save-and-continue')
-                .first()
-                .click({ force: true, multiple: false });
-
-            if (afterClickUrl !== undefined) {
-                cy.url().should('include', afterClickUrl);
-            }
+            cy.openmage.tools._click('admin-button-save-and-continue', afterClickUrl);
         }
     }
 }
