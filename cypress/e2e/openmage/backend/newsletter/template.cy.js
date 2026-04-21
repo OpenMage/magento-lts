@@ -15,7 +15,7 @@ describe(`Checks admin system "${test.index.title}"`, () => {
         validation.removeClassesFromTextarea();
 
         // TODO: add save and continue functionality
-        test.new.__buttons.save.click();
+        tools.admin.buttons.clickSave(test.index.url);
         validation.hasErrorMessage('You must give a non-empty value for field \'template_code\'.', { match: 'have.text' });
     });
 
@@ -32,7 +32,7 @@ describe(`Checks admin system "${test.index.title}"`, () => {
         validation.pageElements(test, test.edit);
 
         tools.admin.buttons.clickReset(test.edit.url);
-        test.edit.__buttons.save.click(test.index.url);
+        tools.admin.buttons.clickSave(test.index.url);
         validation.hasSuccessMessage('The template has been saved.');
     });
 

@@ -15,7 +15,7 @@ describe(`Checks admin system "${test.index.title}"`, () => {
         validation.fixture.removeClasses(this.fixture.default);
 
         // TODO: Clicking "Save" instead of "Save and Continue" because not implemented in this section
-        test.new.__buttons.save.click();
+        tools.admin.buttons.clickSave(test.index.url);
         validation.hasErrorMessage('Please use only letters (a-z or A-Z), numbers (0-9) or underscore (_) in the filename. No spaces or other characters are allowed.', { match: 'have.text' });
     });
 

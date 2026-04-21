@@ -15,7 +15,7 @@ describe(`Checks admin system "${test.index.title}"`, () => {
         validation.fixture.removeClasses(this.fixture.default);
 
         // TODO: Clicking "Save" instead of "Save and Continue" because not implemented in this section
-        test.new.__buttons.save.click();
+        tools.admin.buttons.clickSave(test.index.url);
 
         // TODO: see https://github.com/OpenMage/magento-lts/pull/5281
         validation.hasSuccessMessage();

@@ -29,35 +29,8 @@ cy.openmage.test.backend.__base = {
  * @private
  */
 cy.openmage.test.backend.__base.__buttons = {
-    add: {},
-    save: {},
     saveAndContinue: {},
     delete: {},
-    back: {},
-    reset: {},
-};
-
-/**
- * Configuration for "Add" button
- * @type {{__class: string[]}}
- */
-cy.openmage.test.backend.__base.__buttons.add = {
-    __class: ['scalable', 'add'],
-};
-
-/**
- * Configuration for "Save" button
- * @type {{_: string, __class: string[], click: cy.openmage.test.backend.__base.__buttons.save.click}}
- */
-cy.openmage.test.backend.__base.__buttons.save = {
-    _: cy.openmage.test.backend.__base._button + '[title="Save"]',
-    __class: ['scalable', 'save'],
-    click: (afterClickUrl) => {
-        cy.openmage.tools.click(cy.openmage.test.backend.__base.__buttons.save._, 'Save button clicked');
-        if (afterClickUrl !== undefined) {
-            cy.url().should('include', afterClickUrl);
-        }
-    },
 };
 
 /**

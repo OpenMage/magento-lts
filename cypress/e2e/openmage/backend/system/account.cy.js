@@ -13,7 +13,7 @@ describe(`Checks admin system "${test.index.title}"`, () => {
         validation.fixture.fillFields(this.fixture.default, true);
         validation.fixture.removeClasses(this.fixture.default);
 
-        test.index.__buttons.save.click();
+        tools.admin.buttons.clickSave(test.index.url);
         validation.hasErrorMessage('Current password field cannot be empty.');
 
         /// with filling password
@@ -24,7 +24,7 @@ describe(`Checks admin system "${test.index.title}"`, () => {
             .type(this.fixture.default.currentPassword.value)
             .should('have.value', this.fixture.default.currentPassword.value);
 
-        test.index.__buttons.save.click();
+        tools.admin.buttons.clickSave(test.index.url);
         validation.hasErrorMessage('User Name is required field.');
         validation.hasErrorMessage('First Name is required field.');
         validation.hasErrorMessage('Last Name is required field.');
@@ -33,7 +33,7 @@ describe(`Checks admin system "${test.index.title}"`, () => {
 
     it(`tests save empty input`, function () {
         validation.fixture.fillFields(this.fixture.default, true);
-        test.index.__buttons.save.click();
+        tools.admin.buttons.clickSave();
         validation.fixture.validateFields(this.fixture.default, validation.requiredEntry);
     });
 
