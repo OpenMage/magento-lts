@@ -3747,12 +3747,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Core/Model/Factory.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-	'identifier' => 'empty.notAllowed',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Core/Model/File/Storage/Database.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Parameter #1 $params of method Mage_Core_Model_File_Storage_Database_Abstract::__construct() expects array, string|null given.',
 	'identifier' => 'argument.type',
 	'count' => 1,
@@ -3767,7 +3761,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 2,
+	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Core/Model/File/Storage/Directory/Database.php',
 ];
 $ignoreErrors[] = [
@@ -7659,12 +7653,6 @@ $ignoreErrors[] = [
 	'rawMessage' => 'PHPDoc tag @var references deprecated class Mage_GiftMessage_Block_Message_Helper:
 after 1.3.2.4',
 	'identifier' => 'varTag.deprecatedClass',
-	'count' => 1,
-	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/giftmessage/helper.phtml',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Parameter #1 $value of method Mage_GiftMessage_Block_Message_Helper::setScriptIncluded() expects string, true given.',
-	'identifier' => 'argument.type',
 	'count' => 1,
 	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/giftmessage/helper.phtml',
 ];

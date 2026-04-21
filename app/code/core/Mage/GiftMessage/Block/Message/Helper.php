@@ -77,7 +77,7 @@ class Mage_GiftMessage_Block_Message_Helper extends Mage_Core_Block_Template
     }
 
     /**
-     * @param  string $value
+     * @param  bool $value
      * @return $this
      */
     public function setScriptIncluded($value)
@@ -87,7 +87,7 @@ class Mage_GiftMessage_Block_Message_Helper extends Mage_Core_Block_Template
     }
 
     /**
-     * @return string
+     * @return bool
      */
     public function getScriptIncluded()
     {
