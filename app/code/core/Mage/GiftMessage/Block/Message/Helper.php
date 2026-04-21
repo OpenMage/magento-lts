@@ -77,7 +77,7 @@ class Mage_GiftMessage_Block_Message_Helper extends Mage_Core_Block_Template
     }
 
     /**
-     * @param  bool $value
+     * @param  bool  $value
      * @return $this
      */
     public function setScriptIncluded($value)
