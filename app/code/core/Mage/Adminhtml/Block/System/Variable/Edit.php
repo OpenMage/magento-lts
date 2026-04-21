@@ -46,7 +46,7 @@ class Mage_Adminhtml_Block_System_Variable_Edit extends Mage_Adminhtml_Block_Wid
         );
 
         if (!$this->getVariable()->getId()) {
-            $this->removeButton('delete');
+            $this->removeButton(self::BUTTON_TYPE_DELETE);
         }
 
         return parent::_prepareLayout();

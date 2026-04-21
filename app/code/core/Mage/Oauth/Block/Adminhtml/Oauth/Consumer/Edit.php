@@ -54,10 +54,10 @@ class Mage_Oauth_Block_Adminhtml_Oauth_Consumer_Edit extends Mage_Adminhtml_Bloc
         $this->_formScripts[] = 'function saveAndContinueEdit()'
         . "{editForm.submit($('edit_form').action + 'back/edit/')}";
 
-        $this->_updateButton('save', 'label', $this->__('Save'));
-        $this->_updateButton('save', 'id', 'save_button');
-        $this->_updateButton('delete', 'label', $this->__('Delete'));
-        $this->_updateButton('delete', 'onclick', "if(confirm('" . Mage::helper('core')->jsQuoteEscape(
+        $this->_updateButton(self::BUTTON_TYPE_SAVE, 'label', $this->__('Save'));
+        $this->_updateButton(self::BUTTON_TYPE_SAVE, 'id', 'save_button');
+        $this->_updateButton(self::BUTTON_TYPE_DELETE, 'label', $this->__('Delete'));
+        $this->_updateButton(self::BUTTON_TYPE_DELETE, 'onclick', "if(confirm('" . Mage::helper('core')->jsQuoteEscape(
             Mage::helper('adminhtml')->__('Are you sure you want to do this?'),
         ) . "')) editForm.submit('" . $this->getUrl('*/*/delete') . "'); return false;");
 

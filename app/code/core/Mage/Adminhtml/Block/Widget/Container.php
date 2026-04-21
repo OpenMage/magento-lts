@@ -16,6 +16,10 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
 {
     public const BUTTON_TYPE_BACK       = 'back';
 
+    public const BUTTON_TYPE_CANCEL     = 'cancel';
+
+    public const BUTTON_TYPE_CLOSE      = 'close';
+
     public const BUTTON_TYPE_DELETE     = 'delete';
 
     public const BUTTON_TYPE_RESET      = 'reset';
@@ -88,6 +92,7 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
         if (is_null($onClick)) {
             $onClick = match ($id) {
                 self::BUTTON_TYPE_BACK      => Mage::helper('core/js')->getSetLocationJs(Mage::helper('adminhtml')::getUrl('*/*/')),
+                self::BUTTON_TYPE_CLOSE     => 'window.close()',
                 self::BUTTON_TYPE_RESET     => 'setLocation(window.location.href)',
                 self::BUTTON_TYPE_SAVE      => 'editForm.submit();',
                 self::BUTTON_TYPE_SAVE_EDIT => 'saveAndContinueEdit()',
@@ -99,6 +104,18 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
             self::BUTTON_TYPE_BACK => $data = array_merge([
                 'label'     => Mage::helper($module)->__('Back'),
                 'class'     => 'back',
+                'onclick'   => $onClick,
+                'level'     => -1,
+            ], $data),
+            self::BUTTON_TYPE_CANCEL => $data = array_merge([
+                'label'     => Mage::helper($module)->__('Cancel'),
+                'class'     => 'cancel',
+                'onclick'   => $onClick,
+                'level'     => -1,
+            ], $data),
+            self::BUTTON_TYPE_CLOSE => $data = array_merge([
+                'label'     => Mage::helper($module)->__('Close Window'),
+                'class'     => 'cancel',
                 'onclick'   => $onClick,
                 'level'     => -1,
             ], $data),

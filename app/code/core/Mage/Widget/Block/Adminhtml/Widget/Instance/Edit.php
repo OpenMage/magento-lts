@@ -52,7 +52,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit extends Mage_Adminhtml_Bl
                 module: 'widget',
             );
         } else {
-            $this->removeButton('save');
+            $this->removeButton(self::BUTTON_TYPE_SAVE);
         }
 
         return parent::_prepareLayout();

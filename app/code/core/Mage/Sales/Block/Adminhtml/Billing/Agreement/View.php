@@ -28,24 +28,23 @@ class Mage_Sales_Block_Adminhtml_Billing_Agreement_View extends Mage_Adminhtml_B
         parent::__construct();
 
         if (!$this->_isAllowed('sales/billing_agreement/actions/manage')) {
-            $this->_removeButton('delete');
+            $this->_removeButton(self::BUTTON_TYPE_DELETE);
         }
 
-        $this->_removeButton('reset');
-        $this->_removeButton('save');
+        $this->_removeButton(self::BUTTON_TYPE_RESET);
+        $this->_removeButton(self::BUTTON_TYPE_SAVE);
         $this->setId('billing_agreement_view');
 
         $this->_addPreparedButton(
             id: self::BUTTON_TYPE_BACK,
-            onClick: Mage::helper('core/js')->getSetLocationJs($this->getBackUrl())
+            onClick: Mage::helper('core/js')->getSetLocationJs($this->getBackUrl()),
         );
 
         if ($this->_getBillingAgreement()->canCancel() && $this->_isAllowed('sales/billing_agreement/actions/manage')) {
-            $this->_addButton('cancel', [
-                'label'     => Mage::helper('adminhtml')->__('Cancel'),
-                'onclick'   => Mage::helper('core/js')->getConfirmSetLocationJs($this->_getCancelUrl()),
-                'class'     => 'cancel',
-            ], -1);
+            $this->_addPreparedButton(
+                id: self::BUTTON_TYPE_CANCEL,
+                onClick: Mage::helper('core/js')->getConfirmSetLocationJs($this->_getCancelUrl()),
+            );
         }
     }
 

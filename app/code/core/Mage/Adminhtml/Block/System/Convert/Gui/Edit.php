@@ -21,8 +21,8 @@ class Mage_Adminhtml_Block_System_Convert_Gui_Edit extends Mage_Adminhtml_Block_
 
         parent::__construct();
 
-        $this->_updateButton('save', 'label', Mage::helper('adminhtml')->__('Save Profile'));
-        $this->_updateButton('delete', 'label', Mage::helper('adminhtml')->__('Delete Profile'));
+        $this->_updateButton(self::BUTTON_TYPE_SAVE, 'label', Mage::helper('adminhtml')->__('Save Profile'));
+        $this->_updateButton(self::BUTTON_TYPE_DELETE, 'label', Mage::helper('adminhtml')->__('Delete Profile'));
 
         $this->_addPreparedButton(
             id: self::BUTTON_TYPE_SAVE_EDIT,

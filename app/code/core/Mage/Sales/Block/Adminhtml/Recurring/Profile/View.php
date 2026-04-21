@@ -32,13 +32,13 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_View extends Mage_Adminhtml_B
 
         // cancel
         if ($profile->canCancel()) {
-            $this->_addButton('cancel', [
-                'label'     => Mage::helper('sales')->__('Cancel'),
-                'onclick'   => Mage::helper('core/js')->getConfirmSetLocationJs(
+            $this->_addPreparedButton(
+                id: self::BUTTON_TYPE_CANCEL,
+                module: 'sales',
+                onClick: Mage::helper('core/js')->getConfirmSetLocationJs(
                     $this->getUrl('*/*/updateState', ['profile' => $profile->getId(), 'action' => 'cancel']),
                 ),
-                'class'     => 'delete',
-            ]);
+            );
         }
 
         // suspend

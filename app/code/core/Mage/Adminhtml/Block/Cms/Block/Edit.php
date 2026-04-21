@@ -28,11 +28,11 @@ class Mage_Adminhtml_Block_Cms_Block_Edit extends Mage_Adminhtml_Block_Widget_Fo
                 module: 'catalog',
             );
         } else {
-            $this->_removeButton('save');
+            $this->_removeButton(self::BUTTON_TYPE_SAVE);
         }
 
         if (!$this->_isAllowedAction('delete')) {
-            $this->_removeButton('delete');
+            $this->_removeButton(self::BUTTON_TYPE_DELETE);
         }
     }
 
