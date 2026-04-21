@@ -49,7 +49,7 @@ class Varien_Data_Form_Element_Textarea extends Varien_Data_Form_Element_Abstrac
         $html = '<textarea id="' . $this->getHtmlId();
         $html .= '" name="' . $this->getName();
         $html .= '" ' . $this->serialize($this->getHtmlAttributes());
-        $html .= ' data-test="' . $this->getDataTestId() . '"';
+        $html .= ' data-test="' . $this->getTestId() . '"';
         $html .= ' >';
         $html .= $this->getEscapedValue();
         $html .= '</textarea>';

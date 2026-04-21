@@ -161,7 +161,7 @@ class Varien_Data_Form_Element_Date extends Varien_Data_Form_Element_Abstract
             $this->getHtmlId(),
             $this->_escape($this->getValue()),
             $this->serialize($this->getHtmlAttributes()),
-            $this->getDataTestId(),
+            $this->getTestId(),
             $this->getImage(),
             $this->getHtmlId(),
             'Select Date',

@@ -38,6 +38,11 @@ class Mage_Adminhtml_Block_Widget_Button extends Mage_Adminhtml_Block_Widget
         return $this->getDataByKey('on_click');
     }
 
+    public function getTestId(): string
+    {
+        return 'admin-' . $this->getType() . '-' . str_replace([' ', '_'], '-', (string) $this->getClass());
+    }
+
     #[Override]
     protected function _toHtml()
     {
@@ -51,7 +56,7 @@ class Mage_Adminhtml_Block_Widget_Button extends Mage_Adminhtml_Block_Widget
             . ' class="scalable ' . $this->getClass() . ($this->getDisabled() ? ' disabled' : '') . '"'
             . ' onclick="' . $this->getOnClick() . '"'
             . ' style="' . $this->getStyle() . '"'
-            . ' data-test="admin-' . $this->getType() . '-' . str_replace(' ', '-', (string) $this->getClass()) . '"'
+            . ' data-test="' . $this->getTestId() . '"'
             . ($this->getValue() ? ' value="' . $this->getValue() . '"' : '')
             . ($this->getDisabled() ? ' disabled="disabled"' : '')
             . '><span><span><span>' . $this->getLabel() . '</span></span></span></button>' . $this->getAfterHtml();
