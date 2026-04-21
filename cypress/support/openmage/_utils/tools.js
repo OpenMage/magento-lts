@@ -11,6 +11,51 @@ cy.openmage.tools = {
     },
 }
 
+cy.openmage.tools.admin = {
+    buttons: {
+        clickBack: (afterClickUrl) => {
+            cy.log('Back button clicked');
+            cy.getBySel('admin-button-back')
+                .first()
+                .click({ force: true, multiple: false });
+
+            if (afterClickUrl !== undefined) {
+                cy.url().should('include', afterClickUrl);
+            }
+        },
+        clickReset: (afterClickUrl) => {
+            cy.log('Reset button clicked');
+            cy.getBySel('admin-button-reset')
+                .first()
+                .click({ force: true, multiple: false });
+
+            if (afterClickUrl !== undefined) {
+                cy.url().should('include', afterClickUrl);
+            }
+        },
+        clickSave: (afterClickUrl) => {
+            cy.log('Save button clicked');
+            cy.getBySel('admin-button-save')
+                .first()
+                .click({ force: true, multiple: false });
+
+            if (afterClickUrl !== undefined) {
+                cy.url().should('include', afterClickUrl);
+            }
+        },
+        clickSaveAndContinue: (afterClickUrl) => {
+            cy.log('Save and Continue button clicked');
+            cy.getBySel('admin-button-save-and-continue')
+                .first()
+                .click({ force: true, multiple: false });
+
+            if (afterClickUrl !== undefined) {
+                cy.url().should('include', afterClickUrl);
+            }
+        }
+    }
+}
+
 /**
  * Namespace for grid related tools
  * @type {{clickFirstRow: (function(*): void), clickContains: (function(*, *, *=): void)}}
