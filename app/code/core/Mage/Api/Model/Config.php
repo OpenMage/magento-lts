@@ -272,7 +272,7 @@ class Mage_Api_Model_Config extends Varien_Simplexml_Config
      * @param  string              $data
      * @param  string              $id
      * @param  array               $tags
-     * @param  bool                $lifetime
+     * @param  null|false|int      $lifetime
      * @return Mage_Core_Model_App
      */
     #[Override]
