@@ -24,22 +24,12 @@ test.config = {
  *      title: string,
  *      url: string,
  *      grid: {},
- *      __buttons: {add: {_: string, __class: string, click: test.config.index.__buttons.add.click}}
  * }}
  */
 test.config.index = {
     title: 'Transactional Emails',
     url: test.config.url,
     grid: {...base.__grid, ...{ sort: { order: 'template_id', dir: 'asc' } }},
-    __buttons: {
-        add: {
-            _: base._button + '[title="Add New Template"]',
-            __class: base.__buttons.add.__class,
-            click: () => {
-                tools.click(test.config.index.__buttons.add._, 'Add New Transactional Emails button clicked');
-            },
-        },
-    },
 }
 
 /**

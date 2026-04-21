@@ -20,30 +20,14 @@ test.config = {
 
 /**
  * Configuration for "Manage Customers" page
- * @type {{title: string, url: string, grid: {}, __buttons: {}, clickGridRow: (function(*=, *=): void)}}
+ * @type {{title: string, url: string, grid: {}, clickGridRow: (function(*=, *=): void)}}
  */
 test.config.index = {
     title: 'Manage Customers',
     url: test.config.url,
     grid: {...base.__grid, ...{ sort: { order: 'entity_id', dir: 'desc' } }},
-    __buttons: {},
     clickGridRow: (content = '', _ = 'td') => {
         tools.grid.clickContains(test.config.index, content, _);
-    },
-}
-
-/**
- * Configuration for buttons on "Manage Customers" page
- * @type {{add: {__class: string[], click: cy.openmage.test.backend.customer.customer.config.index.__buttons.add.click, _: string}}}
- * @private
- */
-test.config.index.__buttons = {
-    add: {
-        _: base._button + '[title="Add New Customer"]',
-        __class: base.__buttons.add.__class,
-        click: () => {
-            tools.click(test.config.index.__buttons.add._, 'Add New Customers button clicked');
-        },
     },
 }
 
