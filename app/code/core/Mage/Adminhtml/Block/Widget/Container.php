@@ -22,11 +22,15 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
 
     public const BUTTON_TYPE_DELETE     = 'delete';
 
+    public const BUTTON_TYPE_PRINT      = 'print';
+
     public const BUTTON_TYPE_RESET      = 'reset';
 
     public const BUTTON_TYPE_SAVE       = 'save';
 
     public const BUTTON_TYPE_SAVE_EDIT  = 'save-edit';
+
+    public const BUTTON_TYPE_VOID       = 'void';
 
     /**
      * So-called "container controller" to specify group of blocks participating in some action
@@ -109,7 +113,7 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
             ], $data),
             self::BUTTON_TYPE_CANCEL => $data = array_merge([
                 'label'     => Mage::helper($module)->__('Cancel'),
-                'class'     => 'cancel',
+                'class'     => 'cancel delete',
                 'onclick'   => $onClick,
                 'level'     => -1,
             ], $data),
@@ -122,6 +126,10 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
             self::BUTTON_TYPE_DELETE => $data = array_merge([
                 'label' => Mage::helper($module)->__('Delete'),
                 'class' => 'delete',
+            ], $data),
+            self::BUTTON_TYPE_PRINT => $data = array_merge([
+                'label' => Mage::helper($module)->__('Print'),
+                'class' => 'save print',
             ], $data),
             self::BUTTON_TYPE_RESET => $data = array_merge([
                 'label'     => Mage::helper($module)->__('Reset'),
@@ -140,9 +148,14 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
                 'class'     => 'save continue',
                 'onclick'   => $onClick,
             ], $data),
+            self::BUTTON_TYPE_VOID => $data = array_merge([
+                'label'     => Mage::helper($module)->__('Void'),
+                'class'     => 'save void',
+                'onclick'   => $onClick,
+            ], $data),
         };
 
-        return $this->_addButton($id, $data);
+        return $this->_addButton($id, $data, $level, $sortOrder, $area);
     }
 
     /**

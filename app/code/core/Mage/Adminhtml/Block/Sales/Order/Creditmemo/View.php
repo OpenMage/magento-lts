@@ -26,16 +26,16 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_View extends Mage_Adminhtml_Bl
 
         parent::__construct();
 
-        $this->_removeButton('save');
-        $this->_removeButton('reset');
-        $this->_removeButton('delete');
+        $this->_removeButton(self::BUTTON_TYPE_SAVE);
+        $this->_removeButton(self::BUTTON_TYPE_RESET);
+        $this->_removeButton(self::BUTTON_TYPE_DELETE);
 
         if ($this->getCreditmemo()->canCancel()) {
-            $this->_addButton('cancel', [
-                'label'     => Mage::helper('sales')->__('Cancel'),
-                'class'     => 'delete',
-                'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getCancelUrl()),
-            ]);
+            $this->_addPreparedButton(
+                id: self::BUTTON_TYPE_CANCEL,
+                module: 'sales',
+                onClick: Mage::helper('core/js')->getSetLocationJs($this->getCancelUrl()),
+            );
         }
 
         if ($this->_isAllowedAction('emails')) {
@@ -58,20 +58,19 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_View extends Mage_Adminhtml_Bl
         }
 
         if ($this->getCreditmemo()->canVoid()) {
-            $this->_addButton('void', [
-                'label'     => Mage::helper('sales')->__('Void'),
-                'class'     => 'save void',
-                'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getVoidUrl()),
-
-            ]);
+            $this->_addPreparedButton(
+                id: self::BUTTON_TYPE_VOID,
+                module: 'sales',
+                onClick: Mage::helper('core/js')->getSetLocationJs($this->getVoidUrl()),
+            );
         }
 
         if ($this->getCreditmemo()->getId()) {
-            $this->_addButton('print', [
-                'label'     => Mage::helper('sales')->__('Print'),
-                'class'     => 'save print',
-                'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getPrintUrl()),
-            ]);
+            $this->_addPreparedButton(
+                id: self::BUTTON_TYPE_PRINT,
+                module: 'sales',
+                onClick: Mage::helper('core/js')->getSetLocationJs($this->getPrintUrl()),
+            );
         }
     }
 

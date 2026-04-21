@@ -28,16 +28,19 @@ class Mage_Adminhtml_Block_System_Store_Delete extends Mage_Adminhtml_Block_Widg
 
         parent::__construct();
 
-        $this->_removeButton('save');
-        $this->_removeButton('reset');
+        $this->_removeButton(self::BUTTON_TYPE_SAVE);
+        $this->_removeButton(self::BUTTON_TYPE_RESET);
 
-        $this->_updateButton('delete', 'area', 'footer');
-        $this->_updateButton('delete', 'onclick', 'editForm.submit();');
+        $this->_updateButton(self::BUTTON_TYPE_DELETE, 'area', 'footer');
+        $this->_updateButton(self::BUTTON_TYPE_DELETE, 'onclick', 'editForm.submit();');
 
-        $this->_addButton('cancel', [
-            'label'     => Mage::helper('adminhtml')->__('Cancel'),
-            'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getBackUrl()),
-        ], 2, 100, 'footer');
+        $this->_addPreparedButton(
+            id: self::BUTTON_TYPE_CANCEL,
+            level: 2,
+            sortOrder: 100,
+            area: 'footer',
+            onClick: Mage::helper('core/js')->getSetLocationJs($this->getBackUrl()),
+        );
     }
 
     /**
