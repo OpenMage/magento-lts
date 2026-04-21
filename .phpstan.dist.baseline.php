@@ -1292,12 +1292,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Api/Model/Config.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Parameter #4 $lifeTime of method Mage_Core_Model_App::saveCache() expects int|false|null, bool given.',
-	'identifier' => 'argument.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Api/Model/Config.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Cannot call method getClassName() on bool|SimpleXMLElement.',
 	'identifier' => 'method.nonObject',
 	'count' => 1,

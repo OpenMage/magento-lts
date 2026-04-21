@@ -667,8 +667,8 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
     /**
      * Load cached data by identifier
      *
-     * @param  string $id
-     * @return string
+     * @param  string       $id
+     * @return false|string
      */
     #[Override]
     protected function _loadCache($id)
