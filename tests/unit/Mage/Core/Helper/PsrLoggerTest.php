@@ -42,7 +42,7 @@ final class PsrLoggerTest extends OpenMageTest
     public function testLog($level, $message, $context)
     {
         $logger = $this->createMock(Mage_Core_Model_Logger::class);
-        $logger->expects($this->once())->method('log')->with($message, $level, '', false, $context);
+        $logger->expects(self::once())->method('log')->with($message, $level, '', false, $context);
         $registryKey = '_singleton/core/logger';
         Mage::unregister($registryKey);
         Mage::register($registryKey, $logger);
