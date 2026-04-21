@@ -892,7 +892,7 @@ final class Mage
         }
 
         try {
-            $logger = self::getModel('core/logger');
+            $logger = self::getSingleton('core/logger');
             if ($logger instanceof Mage_Core_Model_Logger) {
                 $logger->log($message, $level, $file, $forceLog, $context);
             }
