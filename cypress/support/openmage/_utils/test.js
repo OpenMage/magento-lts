@@ -91,21 +91,6 @@ cy.openmage.test.backend.__base.__buttons.delete = {
 };
 
 /**
- * Configuration for "Back" button
- * @type {{_: string, __class: string[], click: cy.openmage.test.backend.__base.__buttons.back.click}}
- */
-cy.openmage.test.backend.__base.__buttons.back = {
-    _: cy.openmage.test.backend.__base._button + '[title="Back"]',
-    __class: ['scalable', 'back'],
-    click: (afterClickUrl) => {
-        cy.openmage.tools.click(cy.openmage.test.backend.__base.__buttons.back._, 'Back button clicked');
-        if (afterClickUrl !== undefined) {
-            cy.url().should('include', afterClickUrl);
-        }
-    },
-};
-
-/**
  * Configuration for "Reset" button
  * @type {{_: string, __class: string[], click: cy.openmage.test.backend.__base.__buttons.reset.click}}
  */

@@ -41,6 +41,6 @@ describe(`Checks admin system "${test.index.title}"`, () => {
         validation.pageElements(test, test.new);
 
         test.new.__buttons.reset.click(test.new.url);
-        test.new.__buttons.back.click(test.index.url);
+        tools.admin.buttons.clickBack(test.index.url);
     });
 });

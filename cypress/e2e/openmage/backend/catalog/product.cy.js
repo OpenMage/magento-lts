@@ -22,7 +22,7 @@ describe(`Checks admin system "${test.index.title}"`, () => {
         validation.pageElements(test, test.edit);
 
         test.edit.__buttons.reset.click(test.edit.url);
-        test.edit.__buttons.back.click(test.index.url);
+        tools.admin.buttons.clickBack(test.index.url);
     });
 
     it(`tests new route`, () => {
@@ -30,7 +30,7 @@ describe(`Checks admin system "${test.index.title}"`, () => {
         validation.pageElements(test, test.new);
 
         test.new.__buttons.reset.click(test.new.url);
-        test.new.__buttons.back.click(test.index.url);
+        tools.admin.buttons.clickBack(test.index.url);
     });
 
     it(`tests filter options`, () => {
