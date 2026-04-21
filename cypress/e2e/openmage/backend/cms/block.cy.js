@@ -14,7 +14,7 @@ describe(`Checks admin system "${test.index.title}"`, () => {
         test.index.__buttons.add.click();
         validation.fixture.removeClasses(this.fixture.default);
 
-        test.new.__buttons.saveAndContinue.click();
+        tools.admin.buttons.clickSaveAndContinue(test.edit.url);
         // TODO: see https://github.com/OpenMage/magento-lts/pull/5281
         // validation.hasSuccessMessage();
         // validation.hasErrorMessage();

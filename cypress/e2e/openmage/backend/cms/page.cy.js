@@ -15,7 +15,7 @@ describe(`Checks admin system "${test.index.title}"`, () => {
         test.index.__buttons.add.click();
         validation.fixture.removeClasses(this.fixture.default);
 
-        test.new.__buttons.saveAndContinue.click();
+        tools.admin.buttons.clickSaveAndContinue(test.edit.url);
         // TODO: see https://github.com/OpenMage/magento-lts/pull/5281
         // validation.hasSuccessMessage();
         // validation.hasErrorMessage();
@@ -47,7 +47,7 @@ describe(`Checks admin system "${test.index.title}"`, () => {
 
     it('tests to add a CMS page', () => {
         test.index.__buttons.add.click();
-        test.edit.__buttons.saveAndContinue.click();
+        tools.admin.buttons.clickSaveAndContinue(test.edit.url);
 
         // @todo add validation for required fields
     });
@@ -56,7 +56,7 @@ describe(`Checks admin system "${test.index.title}"`, () => {
         test.index.clickGridRow('no-route');
 
         test.edit.disablePage();
-        test.edit.__buttons.saveAndContinue.click();
+        tools.admin.buttons.clickSaveAndContinue(test.edit.url);
 
         validation.hasWarningMessage('You cannot disable this page as it is used to configure');
         validation.hasSuccessMessage('The page has been saved.');
@@ -77,12 +77,12 @@ describe(`Checks admin system "${test.index.title}"`, () => {
         //cy.log('Assign another store to the CMS page');
         //cy.get(test.edit.__fields.page_store_id.selector)
         //    .select(4);
-        //test.edit.__buttons.saveAndContinue.click();
+        //tools.admin.buttons.clickSaveAndContinue(test.edit.url);
         //validation.hasSuccessMessage(message);
         //utils.screenshot(cy.get('#messages'), 'cms.page.unassignActivePage');
 
         test.edit.resetStores();
-        test.edit.__buttons.saveAndContinue.click();
+        tools.admin.buttons.clickSaveAndContinue(test.edit.url);
         validation.hasSuccessMessage('The page has been saved.');
     });
 });

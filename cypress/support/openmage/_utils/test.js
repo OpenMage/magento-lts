@@ -29,23 +29,7 @@ cy.openmage.test.backend.__base = {
  * @private
  */
 cy.openmage.test.backend.__base.__buttons = {
-    saveAndContinue: {},
     delete: {},
-};
-
-/**
- * Configuration for "Save and Continue Edit" button
- * @type {{_: string, __class: string[], click: cy.openmage.test.backend.__base.__buttons.saveAndContinue.click}}
- */
-cy.openmage.test.backend.__base.__buttons.saveAndContinue = {
-    _: cy.openmage.test.backend.__base._button + '[title="Save and Continue Edit"]',
-    __class: ['scalable', 'save', 'continue'],
-    click: (afterClickUrl) => {
-        cy.openmage.tools.click(cy.openmage.test.backend.__base.__buttons.saveAndContinue._, 'Save and Continue button clicked');
-        if (afterClickUrl !== undefined) {
-            cy.url().should('include', afterClickUrl);
-        }
-    },
 };
 
 /**

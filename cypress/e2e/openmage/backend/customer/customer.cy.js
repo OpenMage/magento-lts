@@ -14,7 +14,7 @@ describe(`Checks admin system "${test.index.title}"`, () => {
         test.index.__buttons.add.click();
         validation.fixture.removeClasses(this.fixture.default);
 
-        test.new.__buttons.saveAndContinue.click();
+        tools.admin.buttons.clickSaveAndContinue(test.edit.url);
         validation.hasErrorMessage('"First Name" is a required value.');
         validation.hasErrorMessage('"First Name" length must be equal or greater than 1 characters.');
         validation.hasErrorMessage('"Last Name" is a required value.');
@@ -34,7 +34,7 @@ describe(`Checks admin system "${test.index.title}"`, () => {
         test.index.clickGridRow('John Doe');
         validation.pageElements(test, test.edit);
 
-        test.edit.__buttons.saveAndContinue.click(test.edit.url);
+        tools.admin.buttons.clickSaveAndContinue(test.edit.url);
         validation.hasSuccessMessage('The customer has been saved.');
 
         tools.admin.buttons.clickReset(test.edit.url);
