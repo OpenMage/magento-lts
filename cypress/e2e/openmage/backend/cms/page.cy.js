@@ -65,7 +65,7 @@ describe(`Checks admin system "${test.index.title}"`, () => {
     it('tests to delete a CMS page that is used in config', () => {
         test.index.clickGridRow('no-route');
 
-        test.edit.__buttons.delete.click();
+        tools.admin.buttons.clickDelete(test.index.url);
         validation.hasErrorMessage('You cannot delete this page as it is used to configure');
     });
 

@@ -24,30 +24,6 @@ cy.openmage.test.backend.__base = {
 };
 
 /**
- * Base buttons configuration for backend tests
- * @type {{add: {}, save: {}, saveAndContinue: {}, delete: {}, back: {}, reset: {}}}
- * @private
- */
-cy.openmage.test.backend.__base.__buttons = {
-    delete: {},
-};
-
-/**
- * Configuration for "Delete" button
- * @type {{_: string, __class: string[], click: cy.openmage.test.backend.__base.__buttons.delete.click}}
- */
-cy.openmage.test.backend.__base.__buttons.delete = {
-    _: cy.openmage.test.backend.__base._button + '[title="Delete"]',
-    __class: ['scalable', 'delete'],
-    click: (afterClickUrl) => {
-        cy.openmage.tools.click(cy.openmage.test.backend.__base.__buttons.delete._, 'Delete button clicked');
-        if (afterClickUrl !== undefined) {
-            cy.url().should('include', afterClickUrl);
-        }
-    },
-};
-
-/**
  * Configuration for "Print" button
  * @type {{__class: string[], click: cy.openmage.test.backend.__base.__buttons.print.click, _: string}}
  */

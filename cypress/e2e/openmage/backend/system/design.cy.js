@@ -33,7 +33,7 @@ describe(`Checks admin system "${test.index.title}"`, () => {
     it(`tests delete last added design`, () => {
         tools.grid.clickFirstRow(test.index);
 
-        test.edit.__buttons.delete.click();
+        tools.admin.buttons.clickDelete(test.index.url);
         validation.hasSuccessMessage('The design change has been deleted.', { match: 'have.text' });
     });
 
