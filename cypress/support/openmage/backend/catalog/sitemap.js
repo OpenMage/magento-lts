@@ -20,7 +20,7 @@ test.config = {
 
 /**
  * Configuration for "Google Sitemap" page
- * @type {{title: string, url: string, grid: {}, __buttons: {}}}
+ * @type {{title: string, url: string, grid: {}}}
  */
 test.config.index = {
     title: 'Google Sitemap',

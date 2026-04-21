@@ -20,28 +20,12 @@ test.config = {
 
 /**
  * Configuration for "Custom Variables" page
- * @type {{title: string, url: string, grid: {}, __buttons: {}}}
+ * @type {{title: string, url: string, grid: {}}}
  */
 test.config.index = {
     title: 'Custom Variables',
     url: test.config.url,
     grid: {...base.__grid, ...{ sort: { order: 'variable_id', dir: 'asc' } }},
-    __buttons: {},
-}
-
-/**
- * Buttons for "Custom Variables" page
- * @type {{add: {__class: string[], click: cy.openmage.test.backend.system.variable.config.index.__buttons.add.click, _: string}}}
- * @private
- */
-test.config.index.__buttons = {
-    add: {
-        _: base._button + '[title="Add New Variable"]',
-        __class: base.__buttons.add.__class,
-        click: () => {
-            tools.click(test.config.index.__buttons.add._, 'Add New Custom Variable button clicked');
-        },
-    },
 }
 
 /**

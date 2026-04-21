@@ -19,7 +19,7 @@ test.config = {
 
 /**
  * Configuration for "Manage Products" page
- * @type {{title: string, url: string, grid: {}, __buttons: {})}}
+ * @type {{title: string, url: string, grid: {})}}
  */
 test.config.index = {
     title: 'Manage Products',

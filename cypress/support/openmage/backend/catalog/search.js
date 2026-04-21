@@ -20,7 +20,7 @@ test.config = {
 
 /**
  * Configuration for "Search Terms" page
- * @type {{title: string, url: string, grid: {}, __buttons: {}}}
+ * @type {{title: string, url: string, grid: {}}}
  */
 test.config.index = {
     title: 'Search',

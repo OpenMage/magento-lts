@@ -20,28 +20,12 @@ test.config = {
 
 /**
  * Configuration for "Design" page
- * @type {{title: string, url: string, grid: {}, __buttons: {}}}
+ * @type {{title: string, url: string, grid: {}}}
  */
 test.config.index = {
     title: 'Design',
     url: test.config.url,
     grid: {...base.__grid, ...{ sort: { order: 'package', dir: 'asc' } }},
-    __buttons: {},
-}
-
-/**
- * Configuration for buttons on "Design" page
- * @type {{add: {__class: string[], click: cy.openmage.test.backend.system.design.config.index.__buttons.add.click, _: string}}}
- * @private
- */
-test.config.index.__buttons = {
-    add: {
-        _: base._button + '[title="Add Design Change"]',
-        __class: base.__buttons.add.__class,
-        click: () => {
-            tools.click(test.config.index.__buttons.add._, 'Add New Design button clicked');
-        },
-    },
 }
 
 /**

@@ -20,28 +20,12 @@ test.config = {
 
 /**
  * Configuration for "Static Blocks" page
- * @type {{title: string, url: string, grid: {}, __buttons: {}}}
+ * @type {{title: string, url: string, grid: {}}}
  */
 test.config.index = {
     title: 'Static Blocks',
     url: test.config.url,
     grid: {...base.__grid, ...{ sort: {order: 'title', dir: 'asc' } }},
-    __buttons: {},
-}
-
-/**
- * Configuration for buttons on "Static Blocks" page
- * @type {{add: {__class: string[], click: cy.openmage.test.backend.cms.block.config.index.__buttons.add.click, _: string}}}
- * @private
- */
-test.config.index.__buttons = {
-    add: {
-        _: base._button + '[title="Add New Block"]',
-        __class: base.__buttons.add.__class,
-        click: () => {
-            tools.click(test.config.index.__buttons.add._, 'Add CMS Blocks button clicked');
-        },
-    },
 }
 
 /**
