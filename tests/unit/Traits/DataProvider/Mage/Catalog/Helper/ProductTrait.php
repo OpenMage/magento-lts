@@ -4,6 +4,7 @@
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
  * @license    Open Software License (OSL 3.0)
+ * @package    OpenMage_Tests
  */
 
 declare(strict_types=1);
@@ -14,7 +15,7 @@ use Generator;
 
 trait ProductTrait
 {
-    public function provideGetAttributeInputTypes(): Generator
+    public static function provideGetAttributeInputTypes(): Generator
     {
         yield 'null' => [
             2,
@@ -34,7 +35,7 @@ trait ProductTrait
         ];
     }
 
-    public function provideGetAttributeBackendModelByInputType(): Generator
+    public static function provideGetAttributeBackendModelByInputType(): Generator
     {
         yield 'multiselect' => [
             'eav/entity_attribute_backend_array',
@@ -42,7 +43,7 @@ trait ProductTrait
         ];
     }
 
-    public function provideGetAttributeSourceModelByInputType(): Generator
+    public static function provideGetAttributeSourceModelByInputType(): Generator
     {
         yield 'boolean' => [
             'eav/entity_attribute_source_boolean',

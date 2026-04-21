@@ -79,6 +79,7 @@ class Mage_Catalog_Model_Resource_Collection_Abstract extends Mage_Eav_Model_Ent
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _getLoadAttributesSelect($table, $attributeIds = [])
     {
         if (empty($attributeIds)) {
@@ -118,6 +119,7 @@ class Mage_Catalog_Model_Resource_Collection_Abstract extends Mage_Eav_Model_Ent
      * @param  string           $type
      * @return Varien_Db_Select
      */
+    #[Override]
     protected function _addLoadAttributesSelectValues($select, $table, $type)
     {
         $storeId = $this->getStoreId();
@@ -154,6 +156,7 @@ class Mage_Catalog_Model_Resource_Collection_Abstract extends Mage_Eav_Model_Ent
      * @param  string                                    $fieldAlias
      * @return Mage_Eav_Model_Entity_Collection_Abstract
      */
+    #[Override]
     protected function _joinAttributeToSelect($method, $attribute, $tableAlias, $condition, $fieldCode, $fieldAlias)
     {
         $storeId = $this->_joinAttributes[$fieldCode]['store_id'] ?? $this->getStoreId();
@@ -173,7 +176,7 @@ class Mage_Catalog_Model_Resource_Collection_Abstract extends Mage_Eav_Model_Ent
 
             $defCondition = str_replace($tableAlias, $defAlias, $defCondition);
             $defCondition .= $adapter->quoteInto(
-                ' AND ' . $adapter->quoteColumnAs("$defAlias.store_id", null) . ' = ?',
+                ' AND ' . $adapter->quoteColumnAs("{$defAlias}.store_id", null) . ' = ?',
                 $this->getDefaultStoreId(),
             );
 
@@ -196,7 +199,7 @@ class Mage_Catalog_Model_Resource_Collection_Abstract extends Mage_Eav_Model_Ent
         }
 
         $condition[] = $adapter->quoteInto(
-            $adapter->quoteColumnAs("$tableAlias.store_id", null) . ' = ?',
+            $adapter->quoteColumnAs("{$tableAlias}.store_id", null) . ' = ?',
             $storeId,
         );
         return parent::_joinAttributeToSelect($method, $attribute, $tableAlias, $condition, $fieldCode, $fieldAlias);

@@ -26,6 +26,7 @@ class Mage_Catalog_Block_Product_View_Options_Type_Date extends Mage_Catalog_Blo
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareLayout()
     {
         if ($head = $this->getLayout()->getBlock('head')) {
@@ -149,17 +150,17 @@ class Mage_Catalog_Block_Product_View_Options_Type_Date extends Mage_Catalog_Blo
      * Return drop-down html with range of values
      *
      * @param  string     $name  Id/name of html select element
-     * @param  int|string $from  Start position
-     * @param  int|string $to    End position
+     * @param  int|string $start Start position
+     * @param  int|string $end   End position
      * @param  string     $value Value selected
      * @return string     Formatted Html
      */
-    protected function _getSelectFromToHtml($name, $from, $to, $value = null)
+    protected function _getSelectFromToHtml($name, $start, $end, $value = null)
     {
         $options = [
             ['value' => '', 'label' => '-'],
         ];
-        for ($i = $from; $i <= $to; $i++) {
+        for ($i = $start; $i <= $end; $i++) {
             $options[] = ['value' => $i, 'label' => $this->_getValueWithLeadingZeros($i)];
         }
 

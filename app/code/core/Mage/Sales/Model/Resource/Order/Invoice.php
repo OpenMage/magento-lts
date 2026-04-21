@@ -53,6 +53,7 @@ class Mage_Sales_Model_Resource_Order_Invoice extends Mage_Sales_Model_Resource_
      *
      * @return $this
      */
+    #[Override]
     protected function _initVirtualGridColumns()
     {
         parent::_initVirtualGridColumns();
@@ -67,7 +68,7 @@ class Mage_Sales_Model_Resource_Order_Invoice extends Mage_Sales_Model_Resource_
             $adapter->quote(' '),
             $checkedLastname,
         ]);
-        $concatName = new Zend_Db_Expr("TRIM(REPLACE($concatName,'  ', ' '))");
+        $concatName = new Zend_Db_Expr("TRIM(REPLACE({$concatName},'  ', ' '))");
 
         $this->addVirtualGridColumn(
             'billing_name',

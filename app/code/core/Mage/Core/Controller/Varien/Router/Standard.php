@@ -113,17 +113,13 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
         $front = $this->getFront();
         $path = trim($request->getPathInfo(), '/');
 
-        if ($path) {
-            $p = explode('/', $path);
-        } else {
-            $p = explode('/', $this->_getDefaultPath());
-        }
+        $pathArray = $path ? explode('/', $path) : explode('/', $this->_getDefaultPath());
 
         // get module name
         if ($request->getModuleName()) {
             $module = $request->getModuleName();
-        } elseif (!empty($p[0])) {
-            $module = $p[0];
+        } elseif (!empty($pathArray[0])) {
+            $module = $pathArray[0];
         } else {
             $module = $this->getFront()->getDefault('module');
             $request->setAlias(Mage_Core_Model_Url_Rewrite::REWRITE_REQUEST_PATH_ALIAS, '');
@@ -161,8 +157,8 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
             // get controller name
             if ($request->getControllerName()) {
                 $controller = $request->getControllerName();
-            } elseif (!empty($p[1])) {
-                $controller = $p[1];
+            } elseif (!empty($pathArray[1])) {
+                $controller = $pathArray[1];
             } else {
                 $controller = $front->getDefault('controller');
                 $request->setAlias(
@@ -176,7 +172,7 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
                 if ($request->getActionName()) {
                     $action = $request->getActionName();
                 } else {
-                    $action = empty($p[2]) ? $front->getDefault('action') : $p[2];
+                    $action = empty($pathArray[2]) ? $front->getDefault('action') : $pathArray[2];
                 }
             }
 
@@ -247,8 +243,8 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
         }
 
         // set parameters from path info
-        for ($i = 3, $l = count($p); $i < $l; $i += 2) {
-            $request->setParam($p[$i], isset($p[$i + 1]) ? urldecode($p[$i + 1]) : '');
+        for ($i = 3, $l = count($pathArray); $i < $l; $i += 2) {
+            $request->setParam($pathArray[$i], isset($pathArray[$i + 1]) ? urldecode($pathArray[$i + 1]) : '');
         }
 
         // dispatch action
@@ -400,6 +396,7 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
      * @param  string       $routeName
      * @return false|string
      */
+    #[Override]
     public function getFrontNameByRoute($routeName)
     {
         return $this->_routes[(string) $routeName] ?? false;
@@ -409,6 +406,7 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
      * @param  string           $frontName
      * @return false|int|string
      */
+    #[Override]
     public function getRouteByFrontName($frontName)
     {
         return array_search($frontName, $this->_routes);
@@ -451,25 +449,25 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
     }
 
     /**
-     * @param  string[] $p
+     * @param  string[] $paths
      * @return string[]
      */
-    public function rewrite(array $p)
+    public function rewrite(array $paths)
     {
         $rewrite = Mage::getConfig()->getNode('global/rewrite');
-        if (($module = $rewrite->{$p[0]}) && !$module->children()) {
-            $p[0] = trim((string) $module);
+        if (($module = $rewrite->{$paths[0]}) && !$module->children()) {
+            $paths[0] = trim((string) $module);
         }
 
-        if (isset($p[1]) && ($controller = $rewrite->{$p[0]}->{$p[1]}) && !$controller->children()) {
-            $p[1] = trim((string) $controller);
+        if (isset($paths[1]) && ($controller = $rewrite->{$paths[0]}->{$paths[1]}) && !$controller->children()) {
+            $paths[1] = trim((string) $controller);
         }
 
-        if (isset($p[2]) && ($action = $rewrite->{$p[0]}->{$p[1]}->{$p[2]}) && !$action->children()) {
-            $p[2] = trim((string) $action);
+        if (isset($paths[2]) && ($action = $rewrite->{$paths[0]}->{$paths[1]}->{$paths[2]}) && !$action->children()) {
+            $paths[2] = trim((string) $action);
         }
 
-        return $p;
+        return $paths;
     }
 
     /**

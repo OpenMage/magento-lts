@@ -8,6 +8,7 @@ use Monolog\Level;
  * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
  */
+
 /**
  * Core configuration class
  *
@@ -201,7 +202,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
     protected $_cachePartsForSave = [];
 
     /**
-     * Empty configuration object for loading and megring configuration parts
+     * Empty configuration object for loading and merging configuration parts
      *
      * @var Mage_Core_Model_Config_Base
      */
@@ -470,13 +471,13 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
         }
 
         $disableLocalModules = (string) $this->getNode('global/disable_local_modules');
-        if (!empty($disableLocalModules)) {
+        if ($disableLocalModules !== '') {
             $disableLocalModules = (($disableLocalModules === 'true') || ($disableLocalModules === '1'));
         } else {
             $disableLocalModules = false;
         }
 
-        if ($disableLocalModules === true) {
+        if ($disableLocalModules) {
             set_include_path(
                 BP . DS . 'app' . DS . 'code' . DS . 'community' . PS
                 . BP . DS . 'app' . DS . 'code' . DS . 'core' . PS
@@ -506,6 +507,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      *
      * @return Zend_Cache_Core
      */
+    #[Override]
     public function getCache()
     {
         return Mage::app()->getCache();
@@ -571,9 +573,10 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
     /**
      * Save configuration cache
      *
-     * @param  array                  $tags cache tags
-     * @return Mage_Core_Model_Config
+     * @param  array $tags cache tags
+     * @return $this
      */
+    #[Override]
     public function saveCache($tags = [])
     {
         if (!Mage::app()->useCache('config')) {
@@ -614,14 +617,14 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      * @param  Varien_Simplexml_Element $source
      * @param  int                      $recursionLevel
      * @param  array                    $tags
-     * @return Mage_Core_Model_Config
+     * @return $this
      */
     protected function _saveSectionCache($idPrefix, $sectionName, $source, $recursionLevel = 0, $tags = [])
     {
         if ($source && $source->$sectionName) {
             $cacheId = $idPrefix . '_' . $sectionName;
             if ($recursionLevel > 0) {
-                foreach ($source->$sectionName->children() as $subSectionName => $node) {
+                foreach ($source->$sectionName->children() as $subSectionName => $ignored) {
                     $this->_saveSectionCache(
                         $cacheId,
                         $subSectionName,
@@ -667,6 +670,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      * @param  string $id
      * @return string
      */
+    #[Override]
     protected function _loadCache($id)
     {
         return Mage::app()->loadCache($id);
@@ -681,6 +685,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      * @param  false|int           $lifetime
      * @return Mage_Core_Model_App
      */
+    #[Override]
     protected function _saveCache($data, $id, $tags = [], $lifetime = false)
     {
         return Mage::app()->saveCache($data, $id, $tags, $lifetime);
@@ -692,6 +697,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      * @param  string              $id
      * @return Mage_Core_Model_App
      */
+    #[Override]
     protected function _removeCache($id)
     {
         return Mage::app()->removeCache($id);
@@ -702,6 +708,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      *
      * {@inheritDoc}
      */
+    #[Override]
     public function removeCache()
     {
         Mage::app()->cleanCache([self::CACHE_TAG]);
@@ -767,6 +774,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      * @inheritDoc
      * @return false|Mage_Core_Model_Config_Element
      */
+    #[Override]
     public function getNode($path = null, $scope = '', $scopeCode = null)
     {
         if ($scope !== '') {
@@ -812,6 +820,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      * @param  bool                    $overwrite
      * @return Varien_Simplexml_Config
      */
+    #[Override]
     public function setNode($path, $value, $overwrite = true)
     {
         if ($this->_useCache && ($path !== null)) {
@@ -846,14 +855,14 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
             'custom' => [],
         ];
 
-        foreach ($moduleFiles as $v) {
-            $name = explode(DIRECTORY_SEPARATOR, $v);
+        foreach ($moduleFiles as $moduleFile) {
+            $name = explode(DIRECTORY_SEPARATOR, $moduleFile);
             $name = substr($name[count($name) - 1], 0, -4);
 
             if (array_key_exists($name, self::MAGE_MODULES)) {
-                $collectModuleFiles['mage'][self::MAGE_MODULES[$name]] = $v;
+                $collectModuleFiles['mage'][self::MAGE_MODULES[$name]] = $moduleFile;
             } else {
-                $collectModuleFiles['custom'][] = $v;
+                $collectModuleFiles['custom'][] = $moduleFile;
             }
         }
 
@@ -903,13 +912,13 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      * Load declared modules configuration
      *
      * @param  null       $mergeConfig deprecated
-     * @return $this|void
+     * @return null|$this
      */
     protected function _loadDeclaredModules($mergeConfig = null)
     {
         $moduleFiles = $this->_getDeclaredModuleFiles();
         if (!$moduleFiles) {
-            return ;
+            return null;
         }
 
         Varien_Profiler::start('config/load-modules-declaration');
@@ -1037,9 +1046,9 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
     {
         if ($this->_moduleNamespaces === null) {
             $this->_moduleNamespaces = [];
-            foreach ($this->_xml->xpath('modules/*') as $m) {
-                if ((string) $m->active == 'true') {
-                    $moduleName = $m->getName();
+            foreach ($this->_xml->xpath('modules/*') as $config) {
+                if ((string) $config->active == 'true') {
+                    $moduleName = $config->getName();
                     $module = strtolower($moduleName);
                     $this->_moduleNamespaces[substr($module, 0, strpos($module, '_'))][$module] = $moduleName;
                 }
@@ -1166,8 +1175,8 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
                 'base_url'  => $baseUrl,
             ];
 
-            foreach ($this->_distroServerVars as $k => $v) {
-                $this->_substServerVars['{{' . $k . '}}'] = $v;
+            foreach ($this->_distroServerVars as $key => $serverVar) {
+                $this->_substServerVars['{{' . $key . '}}'] = $serverVar;
             }
         }
 
@@ -1301,7 +1310,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      */
     public function loadEventObservers($area)
     {
-        $events = $this->getNode("$area/events");
+        $events = $this->getNode("{$area}/events");
         if ($events) {
             $events = $events->children();
         } else {
@@ -1707,10 +1716,10 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
     /**
      * Delete config value from DB
      *
-     * @param  string                 $path
-     * @param  string                 $scope
-     * @param  int                    $scopeId
-     * @return Mage_Core_Model_Config
+     * @param  string $path
+     * @param  string $scope
+     * @param  int    $scopeId
+     * @return $this
      */
     public function deleteConfig($path, $scope = 'default', $scopeId = 0)
     {

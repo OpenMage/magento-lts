@@ -196,9 +196,9 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
                 try {
                     $this->_processEventsCollection($eventsCollection, false);
                     $this->_getResource()->commit();
-                } catch (Exception $e) {
+                } catch (Exception $exception) {
                     $this->_getResource()->rollBack();
-                    throw $e;
+                    throw $exception;
                 }
             } else {
                 //Update existing events since we'll do reindexAll
@@ -233,7 +233,7 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
      */
     public function reindexEverything()
     {
-        if ($this->getData('runed_reindexall')) {
+        if ($this->getDataByKey('runed_reindexall')) {
             return $this;
         }
 
@@ -549,7 +549,7 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
      */
     public function getDepends()
     {
-        $depends = $this->getData('depends');
+        $depends = $this->getDataByKey('depends');
         if (is_null($depends)) {
             $depends = [];
             $path = self::XML_PATH_INDEXER_DATA . '/' . $this->getIndexerCode();

@@ -19,6 +19,7 @@ include_once '3Dsecure/CentinelClient.php';
  */
 class Mage_Centinel_Model_Api_Client extends CentinelClient
 {
+    #[Override]
     public function sendHttp($url, $connectTimeout, $timeout)
     {
         // verify that the URL uses a supported protocol.
@@ -27,22 +28,22 @@ class Mage_Centinel_Model_Api_Client extends CentinelClient
             $data = $this->getRequestXml();
 
             // create a new cURL resource
-            $ch = curl_init($url);
+            $handle = curl_init($url);
 
             // set URL and other appropriate options
-            curl_setopt($ch, CURLOPT_POST, true);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-            curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
-            curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
+            curl_setopt($handle, CURLOPT_POST, true);
+            curl_setopt($handle, CURLOPT_POSTFIELDS, $data);
+            curl_setopt($handle, CURLOPT_SSL_VERIFYHOST, 2);
+            curl_setopt($handle, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($handle, CURLOPT_SSL_VERIFYPEER, true);
+            curl_setopt($handle, CURLOPT_TIMEOUT, $timeout);
 
             // Execute the request.
-            $result = curl_exec($ch);
-            $succeeded = curl_errno($ch) == 0;
+            $result = curl_exec($handle);
+            $succeeded = curl_errno($handle) == 0;
 
             // close cURL resource, and free up system resources
-            curl_close($ch);
+            curl_close($handle);
 
             // If Communication was not successful set error result, otherwise
             if (!$succeeded) {

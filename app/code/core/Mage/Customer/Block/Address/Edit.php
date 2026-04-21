@@ -28,6 +28,7 @@ class Mage_Customer_Block_Address_Edit extends Mage_Directory_Block_Data
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareLayout()
     {
         parent::_prepareLayout();
@@ -79,7 +80,7 @@ class Mage_Customer_Block_Address_Edit extends Mage_Directory_Block_Data
      */
     public function getTitle()
     {
-        if ($title = $this->getData('title')) {
+        if ($title = $this->getDataByKey('title')) {
             return $title;
         }
 
@@ -95,8 +96,8 @@ class Mage_Customer_Block_Address_Edit extends Mage_Directory_Block_Data
      */
     public function getBackUrl()
     {
-        if ($this->getData('back_url')) {
-            return $this->getData('back_url');
+        if ($this->getDataByKey('back_url')) {
+            return $this->getDataByKey('back_url');
         }
 
         if ($this->getCustomerAddressCount()) {
@@ -125,6 +126,7 @@ class Mage_Customer_Block_Address_Edit extends Mage_Directory_Block_Data
     /**
      * @return string
      */
+    #[Override]
     public function getCountryId()
     {
         if ($countryId = $this->getAddress()->getCountryId()) {

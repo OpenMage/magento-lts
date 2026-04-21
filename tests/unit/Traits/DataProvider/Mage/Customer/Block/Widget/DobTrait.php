@@ -4,6 +4,7 @@
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
  * @license    Open Software License (OSL 3.0)
+ * @package    OpenMage_Tests
  */
 
 declare(strict_types=1);
@@ -14,7 +15,7 @@ use Generator;
 
 trait DobTrait
 {
-    public function provideGetYearData(): Generator
+    public static function provideGetYearData(): Generator
     {
         yield 'jan-1-2000' => ['2000', '2000-01-01'];
         yield 'jan-1-1999' => ['1999', '1999-01-01'];

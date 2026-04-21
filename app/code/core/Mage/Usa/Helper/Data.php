@@ -120,7 +120,8 @@ class Mage_Usa_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Validate ups type value
      *
-     * @param  string $valueForCheck ups type value for check
+     * @param string $valueForCheck ups type value for check
+     *
      * @return bool
      */
     public function validateUpsType($valueForCheck)
@@ -135,5 +136,54 @@ class Mage_Usa_Helper_Data extends Mage_Core_Helper_Abstract
         }
 
         return $result;
+    }
+
+    /**
+     * Check if USPS address verification is enabled
+     *
+     * @param  mixed $store
+     * @return bool
+     */
+    public function isAddressVerificationEnabled($store = null)
+    {
+        return Mage::getStoreConfigFlag('carriers/usps/verify_addresses', $store);
+    }
+
+    /**
+     * Check if USPS delivery estimates are enabled
+     *
+     * @param  mixed $store
+     * @return bool
+     */
+    public function isDeliveryEstimatesEnabled($store = null)
+    {
+        return Mage::getStoreConfigFlag('carriers/usps/show_delivery_estimates', $store);
+    }
+
+    /**
+     * Check if USPS labels are enabled
+     *
+     * @param  mixed $store
+     * @return bool
+     */
+    public function isLabelsEnabled($store = null)
+    {
+        return Mage::getStoreConfigFlag('carriers/usps/enable_labels', $store);
+    }
+
+    /**
+     * Get USPS API cache TTL
+     *
+     * @param  mixed $store
+     * @return int
+     */
+    public function getCacheTtl($store = null)
+    {
+        $ttl = Mage::getStoreConfig('carriers/usps/cache_ttl', $store);
+        if ($ttl === null || $ttl === '') {
+            return 3600;
+        }
+
+        return (int) $ttl;
     }
 }

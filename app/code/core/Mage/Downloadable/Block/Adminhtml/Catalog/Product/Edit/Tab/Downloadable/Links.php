@@ -141,7 +141,6 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
         $linkArr = [];
         /** @var Mage_Downloadable_Model_Product_Type $productType */
         $productType = $this->getProduct()->getTypeInstance(true);
-        /** @var Mage_Downloadable_Model_Link[] $links */
         $links = $productType->getLinks($this->getProduct());
         $priceWebsiteScope = Mage::helper('downloadable')->getIsPriceWebsiteScope();
         foreach ($links as $item) {
@@ -244,6 +243,7 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
     /**
      * Prepare block Layout
      */
+    #[Override]
     protected function _prepareLayout()
     {
         parent::_prepareLayout();
@@ -297,6 +297,7 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
      * @param  string $type
      * @return string
      */
+    #[Override]
     public function getBrowseButtonHtml($type = '')
     {
         return $this->getChild('browse_button')
@@ -313,6 +314,7 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
      * @param  string $type
      * @return string
      */
+    #[Override]
     public function getDeleteButtonHtml($type = '')
     {
         return $this->getChild('delete_button')

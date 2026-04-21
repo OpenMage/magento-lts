@@ -12,6 +12,8 @@
  *
  * @package    Mage_Payment
  *
+ * @phpstan-import-type ConfigStoreId from Mage
+ *
  * @method array  getBillingAgreementTokenInfo(Mage_Sales_Model_Billing_Agreement $agreement)
  * @method string getCheckoutRedirectUrl()
  * @method string getInstructions()
@@ -401,7 +403,7 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
     public function getInfoInstance()
     {
         /** @var Mage_Sales_Model_Order_Payment|Mage_Sales_Model_Quote_Payment $instance */
-        $instance = $this->getData('info_instance');
+        $instance = $this->getDataByKey('info_instance');
         if (!$instance instanceof Mage_Payment_Model_Info) {
             Mage::throwException(Mage::helper('payment')->__('Cannot retrieve the payment information object instance.'));
         }
@@ -478,9 +480,9 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
 
     /**
      * Set capture transaction ID to invoice for informational purposes
-     * @param  Mage_Sales_Model_Order_Invoice     $invoice
-     * @param  Mage_Sales_Model_Order_Payment     $payment
-     * @return Mage_Payment_Model_Method_Abstract
+     * @param  Mage_Sales_Model_Order_Invoice $invoice
+     * @param  Mage_Sales_Model_Order_Payment $payment
+     * @return $this
      */
     public function processInvoice($invoice, $payment)
     {
@@ -493,9 +495,9 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
      * Candidate to be deprecated:
      * there can be multiple refunds per payment, thus payment.refund_transaction_id doesn't make big sense
      *
-     * @param  Mage_Sales_Model_Order_Invoice     $invoice
-     * @param  Mage_Sales_Model_Order_Payment     $payment
-     * @return Mage_Payment_Model_Method_Abstract
+     * @param  Mage_Sales_Model_Order_Invoice $invoice
+     * @param  Mage_Sales_Model_Order_Payment $payment
+     * @return $this
      */
     public function processBeforeRefund($invoice, $payment)
     {
@@ -520,9 +522,9 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
 
     /**
      * Set transaction ID into creditmemo for informational purposes
-     * @param  Mage_Sales_Model_Order_Creditmemo  $creditmemo
-     * @param  Mage_Sales_Model_Order_Payment     $payment
-     * @return Mage_Payment_Model_Method_Abstract
+     * @param  Mage_Sales_Model_Order_Creditmemo $creditmemo
+     * @param  Mage_Sales_Model_Order_Payment    $payment
+     * @return $this
      */
     public function processCreditmemo($creditmemo, $payment)
     {
@@ -541,9 +543,9 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
     }
 
     /**
-     * @param  Mage_Sales_Model_Order_Invoice     $invoice
-     * @param  Mage_Sales_Model_Order_Payment     $payment
-     * @return Mage_Payment_Model_Method_Abstract
+     * @param  Mage_Sales_Model_Order_Invoice $invoice
+     * @param  Mage_Sales_Model_Order_Payment $payment
+     * @return $this
      * @deprecated after 1.4.0.0-alpha3
      * this method doesn't make sense, because invoice must not void entire authorization
      * there should be method for invoice cancellation
@@ -621,9 +623,8 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
     /**
      * Retrieve information from payment configuration
      *
-     * @param string                                $field
-     * @param null|int|Mage_Core_Model_Store|string $storeId
-     *
+     * @param  string        $field
+     * @param  ConfigStoreId $storeId
      * @return mixed
      */
     public function getConfigData($field, $storeId = null)

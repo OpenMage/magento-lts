@@ -55,6 +55,7 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _construct()
     {
         $this->setTemplate('widget/tabs.phtml');
@@ -207,6 +208,7 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
      * @inheritDoc
      * @throws Exception
      */
+    #[Override]
     protected function _beforeToHtml()
     {
         Mage::dispatchEvent('adminhtml_block_widget_tabs_html_before', ['block' => $this]);
@@ -436,12 +438,12 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
             foreach ($tabs as $tabId) {
                 foreach ($tabs as $tabToId) {
                     if ($tabId !== $tabToId) {
-                        if (!$this->_tabs[$tabToId]->getData('shadow_tabs')) {
+                        if (!$this->_tabs[$tabToId]->getDataByKey('shadow_tabs')) {
                             $this->_tabs[$tabToId]->setData('shadow_tabs', []);
                         }
 
                         $this->_tabs[$tabToId]->setData('shadow_tabs', array_merge(
-                            $this->_tabs[$tabToId]->getData('shadow_tabs'),
+                            $this->_tabs[$tabToId]->getDataByKey('shadow_tabs'),
                             [$blockId . '_' . $tabId],
                         ));
                     }
@@ -462,8 +464,8 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
         if (!empty($this->_tabs)) {
             $blockId = $this->getId();
             foreach (array_keys($this->_tabs) as $tabId) {
-                if ($this->_tabs[$tabId]->getData('shadow_tabs')) {
-                    $result[$blockId . '_' . $tabId] = $this->_tabs[$tabId]->getData('shadow_tabs');
+                if ($this->_tabs[$tabId]->getDataByKey('shadow_tabs')) {
+                    $result[$blockId . '_' . $tabId] = $this->_tabs[$tabId]->getDataByKey('shadow_tabs');
                 }
             }
         }

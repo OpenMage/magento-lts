@@ -417,6 +417,7 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
      * @throws Exception
      * @throws Mage_Core_Exception
      */
+    #[Override]
     public function move($node, $newParent, $prevNode = null)
     {
         $this->_beforeMove($node, $newParent, $prevNode);
@@ -492,7 +493,7 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
                 // phpcs:ignore Ecg.Performance.Loop.ArraySize
                 $pathIds[count($pathIds) - 1] = '%';
                 $path = implode('/', $pathIds);
-                $where["$levelField=$level AND $pathField LIKE '$path'"] = true;
+                $where["{$levelField}={$level} AND {$pathField} LIKE '{$path}'"] = true;
                 array_pop($pathIds);
                 $level--;
             }
@@ -549,11 +550,7 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
 
         $result = [];
         if ($pathIds !== []) {
-            if ($addCollectionData) {
-                $select = $this->_createCollectionDataSelect(false);
-            } else {
-                $select = clone $this->_select;
-            }
+            $select = $addCollectionData ? $this->_createCollectionDataSelect(false) : clone $this->_select;
 
             $select
                 ->where('e.entity_id IN(?)', $pathIds)

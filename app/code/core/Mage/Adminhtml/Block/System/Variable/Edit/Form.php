@@ -29,11 +29,12 @@ class Mage_Adminhtml_Block_System_Variable_Edit_Form extends Mage_Adminhtml_Bloc
      *
      * @return $this
      */
+    #[Override]
     protected function _prepareForm()
     {
         $form = new Varien_Data_Form([
             'id' => 'edit_form',
-            'action' => $this->getData('action'),
+            'action' => $this->getDataByKey('action'),
             'method' => 'post',
         ]);
 
@@ -59,10 +60,7 @@ class Mage_Adminhtml_Block_System_Variable_Edit_Form extends Mage_Adminhtml_Bloc
 
         $useDefault = false;
         if ($this->getVariable()->getId() && $this->getVariable()->getStoreId()) {
-            $useDefault = !(
-                (bool) $this->getVariable()->getStoreHtmlValue()
-                || (bool) $this->getVariable()->getStorePlainValue()
-            );
+            $useDefault = !(bool) $this->getVariable()->getStoreHtmlValue() && !(bool) $this->getVariable()->getStorePlainValue();
             $this->getVariable()->setUseDefaultValue((int) $useDefault);
             $fieldset->addField('use_default_value', 'select', [
                 'name'   => 'use_default_value',

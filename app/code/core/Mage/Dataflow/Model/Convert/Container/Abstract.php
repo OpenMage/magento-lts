@@ -184,8 +184,8 @@ abstract class Mage_Dataflow_Model_Convert_Container_Abstract implements Mage_Da
     {
         $fields = [];
         foreach ($grid as $row) {
-            foreach ($row as $fieldName => $data) {
-                if (!in_array($fieldName, $fields)) {
+            foreach (array_keys($row) as $fieldName) {
+                if (!in_array($fieldName, $fields, true)) {
                     $fields[] = $fieldName;
                 }
             }
@@ -196,16 +196,16 @@ abstract class Mage_Dataflow_Model_Convert_Container_Abstract implements Mage_Da
 
     public function addException($error, $level = null)
     {
-        $e = new Mage_Dataflow_Model_Convert_Exception($error);
-        $e->setLevel(is_null($level) ? Mage_Dataflow_Model_Convert_Exception::NOTICE : $level);
-        $e->setContainer($this);
-        $e->setPosition($this->getPosition());
+        $exception = new Mage_Dataflow_Model_Convert_Exception($error);
+        $exception->setLevel($level ?? Mage_Dataflow_Model_Convert_Exception::NOTICE);
+        $exception->setContainer($this);
+        $exception->setPosition($this->getPosition());
 
         if ($this->getProfile()) {
-            $this->getProfile()->addException($e);
+            $this->getProfile()->addException($exception);
         }
 
-        return $e;
+        return $exception;
     }
 
     public function getPosition()

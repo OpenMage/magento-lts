@@ -96,9 +96,9 @@ class Mage_Core_Model_Encryption
     /**
      * Hash a string
      *
-     * @param  string      $data
-     * @param  int         $version
-     * @return bool|string
+     * @param  string               $data
+     * @param  self::HASH_VERSION_* $version
+     * @return null|false|string
      */
     public function hash($data, $version = self::HASH_VERSION_MD5)
     {
@@ -131,18 +131,27 @@ class Mage_Core_Model_Encryption
             return false;
         }
 
-        return $this->validateHashByVersion($password, $hash, self::HASH_VERSION_LATEST)
-            || $this->validateHashByVersion($password, $hash, self::HASH_VERSION_SHA512)
-            || $this->validateHashByVersion($password, $hash, self::HASH_VERSION_SHA256)
-            || $this->validateHashByVersion($password, $hash, self::HASH_VERSION_MD5);
+        if ($this->validateHashByVersion($password, $hash, self::HASH_VERSION_LATEST)) {
+            return true;
+        }
+
+        if ($this->validateHashByVersion($password, $hash, self::HASH_VERSION_SHA512)) {
+            return true;
+        }
+
+        if ($this->validateHashByVersion($password, $hash, self::HASH_VERSION_SHA256)) {
+            return true;
+        }
+
+        return $this->validateHashByVersion($password, $hash, self::HASH_VERSION_MD5);
     }
 
     /**
      * Validate hash by specified version
      *
-     * @param  string      $password
-     * @param  null|string $hash
-     * @param  int         $version
+     * @param  string               $password
+     * @param  null|string          $hash
+     * @param  self::HASH_VERSION_* $version
      * @return bool
      */
     public function validateHashByVersion($password, $hash, $version = self::HASH_VERSION_MD5)

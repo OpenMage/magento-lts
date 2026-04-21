@@ -8,6 +8,7 @@ use Monolog\Level;
  * @license    Open Software License (OSL 3.0)
  * @package    Mage_Api
  */
+
 /**
  * Webservice default handler
  *
@@ -72,8 +73,8 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
     /**
      * Start webservice session
      *
-     * @param  string                                 $sessionId
-     * @return Mage_Api_Model_Server_Handler_Abstract
+     * @param  string $sessionId
+     * @return $this
      */
     protected function _startSession($sessionId = null)
     {
@@ -133,7 +134,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
 
         $this->_getServer()->getAdapter()->fault(
             $faults[$faultName]['code'],
-            (is_null($customMessage) ? $faults[$faultName]['message'] : $customMessage),
+            $customMessage ?? $faults[$faultName]['message'],
         );
     }
 
@@ -159,7 +160,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
         return [
             'isFault'      => true,
             'faultCode'    => $faults[$faultName]['code'],
-            'faultMessage' => (is_null($customMessage) ? $faults[$faultName]['message'] : $customMessage),
+            'faultMessage' => $customMessage ?? $faults[$faultName]['message'],
         ];
     }
 
@@ -316,9 +317,9 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
         } catch (Mage_Api_Exception $mageApiException) {
             $this->_fault($mageApiException->getMessage(), $resourceName, $mageApiException->getCustomMessage());
             return;
-        } catch (Exception $e) {
-            Mage::logException($e);
-            $this->_fault('internal', null, $e->getMessage());
+        } catch (Exception $exception) {
+            Mage::logException($exception);
+            $this->_fault('internal', null, $exception->getMessage());
             return;
         }
     }
@@ -326,9 +327,9 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
     /**
      * Multiple calls of resource functionality
      *
-     * @param  string     $sessionId
-     * @param  array      $options
-     * @return array|void
+     * @param  string       $sessionId
+     * @param  array        $options
+     * @return null|mixed[]
      */
     public function multiCall($sessionId, array $calls = [], $options = [])
     {
@@ -337,7 +338,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
 
         if (!$this->_getSession()->isLoggedIn($sessionId)) {
             $this->_fault('session_expired');
-            return;
+            return null;
         }
 
         $result = [];
@@ -444,8 +445,8 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
                 } else {
                     continue;
                 }
-            } catch (Exception $e) {
-                Mage::logException($e);
+            } catch (Exception $exception) {
+                Mage::logException($exception);
                 $result[] = $this->_faultAsArray('internal');
                 if (isset($options['break']) && $options['break'] == 1) {
                     break;
@@ -461,8 +462,8 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
     /**
      * List of available resources
      *
-     * @param  string     $sessionId
-     * @return array|void
+     * @param  string       $sessionId
+     * @return null|mixed[]
      */
     public function resources($sessionId)
     {
@@ -471,7 +472,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
 
         if (!$this->_getSession()->isLoggedIn($sessionId)) {
             $this->_fault('session_expired');
-            return;
+            return null;
         }
 
         $resources = [];
@@ -527,9 +528,9 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
     /**
      * List of resource faults
      *
-     * @param  string     $sessionId
-     * @param  string     $resourceName
-     * @return array|void
+     * @param  string       $sessionId
+     * @param  string       $resourceName
+     * @return null|mixed[]
      */
     public function resourceFaults($sessionId, $resourceName)
     {
@@ -538,7 +539,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
 
         if (!$this->_getSession()->isLoggedIn($sessionId)) {
             $this->_fault('session_expired');
-            return;
+            return null;
         }
 
         $resourcesAlias = $this->_getConfig()->getResourcesAlias();
@@ -552,14 +553,14 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
             || !isset($resources->$resourceName)
         ) {
             $this->_fault('resource_path_invalid');
-            return;
+            return null;
         }
 
         if (isset($resources->$resourceName->acl)
             && !$this->_isAllowed((string) $resources->$resourceName->acl)
         ) {
             $this->_fault('access_denied');
-            return;
+            return null;
         }
 
         return array_values($this->_getConfig()->getFaults($resourceName));

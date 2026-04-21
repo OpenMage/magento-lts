@@ -202,6 +202,7 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
      *
      * @return $this
      */
+    #[Override]
     protected function _initWebsites()
     {
         foreach (Mage::app()->getWebsites() as $website) {
@@ -836,9 +837,6 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
                         $row['_custom_option_sku']            = $option['sku'];
                         $row['_custom_option_max_characters'] = $option['max_characters'];
                         $row['_custom_option_sort_order']     = $option['sort_order'];
-
-                        // remember default title for later comparisons
-                        $defaultTitles[$option['option_id']] = $option['title'];
                     } elseif ($option['title'] != $customOptions[0]['_custom_option_title']) {
                         $row['_custom_option_title'] = $option['title'];
                     }
@@ -853,8 +851,6 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
                             $row['_custom_option_row_price'] = $firstValue['price'] . $priceType;
                             $row['_custom_option_row_sku']   = $firstValue['sku'];
                             $row['_custom_option_row_sort']  = $firstValue['sort_order'];
-
-                            $defaultValueTitles[$firstValue['option_type_id']] = $firstValue['title'];
                         } elseif ($firstValue['title'] != $customOptions[0]['_custom_option_row_title']) {
                             $row['_custom_option_row_title'] = $firstValue['title'];
                         }
@@ -887,13 +883,11 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
                             $row['_custom_option_row_title'] = $value['title'];
                         }
 
-                        if ($row) {
-                            if ($defaultStoreId != $storeId) {
-                                $row['_custom_option_store'] = $this->_storeIdToCode[$storeId];
-                            }
-
-                            $customOptionsDataPre[$option['product_id']][$option['option_id']][] = $row;
+                        if ($defaultStoreId != $storeId) {
+                            $row['_custom_option_store'] = $this->_storeIdToCode[$storeId];
                         }
+
+                        $customOptionsDataPre[$option['product_id']][$option['option_id']][] = $row;
                     }
 
                     $option = null;
@@ -1117,6 +1111,7 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
      *
      * @return Mage_Eav_Model_Resource_Entity_Attribute_Collection
      */
+    #[Override]
     public function filterAttributeCollection(Mage_Eav_Model_Resource_Entity_Attribute_Collection $collection)
     {
         $validTypes = array_keys($this->_productTypeModels);

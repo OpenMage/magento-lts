@@ -7,8 +7,6 @@
  * @package    Mage_Core
  */
 
-use Carbon\Carbon;
-
 /**
  * Custom Zend_Controller_Action class (formally)
  *
@@ -309,9 +307,9 @@ abstract class Mage_Core_Controller_Varien_Action
         );
 
         // load layout updates by specified handles
-        Varien_Profiler::start("$profilerKey::layout_load");
+        Varien_Profiler::start("{$profilerKey}::layout_load");
         $this->getLayout()->getUpdate()->load();
-        Varien_Profiler::stop("$profilerKey::layout_load");
+        Varien_Profiler::stop("{$profilerKey}::layout_load");
 
         return $this;
     }
@@ -331,9 +329,9 @@ abstract class Mage_Core_Controller_Varien_Action
         }
 
         // generate xml from collected text updates
-        Varien_Profiler::start("$profilerKey::layout_generate_xml");
+        Varien_Profiler::start("{$profilerKey}::layout_generate_xml");
         $this->getLayout()->generateXml();
-        Varien_Profiler::stop("$profilerKey::layout_generate_xml");
+        Varien_Profiler::stop("{$profilerKey}::layout_generate_xml");
 
         return $this;
     }
@@ -353,9 +351,9 @@ abstract class Mage_Core_Controller_Varien_Action
         }
 
         // generate blocks from xml layout
-        Varien_Profiler::start("$profilerKey::layout_generate_blocks");
+        Varien_Profiler::start("{$profilerKey}::layout_generate_blocks");
         $this->getLayout()->generateBlocks();
-        Varien_Profiler::stop("$profilerKey::layout_generate_blocks");
+        Varien_Profiler::stop("{$profilerKey}::layout_generate_blocks");
 
         if (!$this->getFlag('', self::FLAG_NO_DISPATCH_BLOCK_EVENT)) {
             Mage::dispatchEvent(
@@ -371,7 +369,7 @@ abstract class Mage_Core_Controller_Varien_Action
      * Rendering layout
      *
      * @param  string              $output
-     * @return $this|void
+     * @return null|$this
      * @throws Mage_Core_Exception
      */
     public function renderLayout($output = '')
@@ -379,16 +377,16 @@ abstract class Mage_Core_Controller_Varien_Action
         $profilerKey = self::PROFILER_KEY . '::' . $this->getFullActionName();
 
         if ($this->getFlag('', 'no-renderLayout')) {
-            return;
+            return null;
         }
 
         if (Mage::app()->getFrontController()->getNoRender()) {
-            return;
+            return null;
         }
 
         $this->_renderTitles();
 
-        Varien_Profiler::start("$profilerKey::layout_render");
+        Varien_Profiler::start("{$profilerKey}::layout_render");
 
         if ($output !== '') {
             $this->getLayout()->addOutputBlock($output);
@@ -403,7 +401,7 @@ abstract class Mage_Core_Controller_Varien_Action
         $output = $this->getLayout()->getOutput();
         Mage::getSingleton('core/translate_inline')->processResponseBody($output);
         $this->getResponse()->appendBody($output);
-        Varien_Profiler::stop("$profilerKey::layout_render");
+        Varien_Profiler::stop("{$profilerKey}::layout_render");
 
         return $this;
     }
@@ -932,7 +930,7 @@ abstract class Mage_Core_Controller_Varien_Action
      */
     protected function _validateFormKey()
     {
-        if (!($formKey = $this->getRequest()->getParam('form_key', null))
+        if (!($formKey = $this->getRequest()->getParam('form_key'))
             || $formKey != Mage::getSingleton('core/session')->getFormKey()
         ) {
             return false;
@@ -1100,9 +1098,9 @@ abstract class Mage_Core_Controller_Varien_Action
             ->setHeader('Pragma', 'public', true)
             ->setHeader('Cache-Control', 'must-revalidate, post-check=0, pre-check=0', true)
             ->setHeader('Content-type', $contentType, true)
-            ->setHeader('Content-Length', is_null($contentLength) ? strlen($content) : $contentLength, true)
+            ->setHeader('Content-Length', $contentLength ?? strlen($content), true)
             ->setHeader('Content-Disposition', 'attachment; filename="' . $fileName . '"', true)
-            ->setHeader('Last-Modified', Carbon::now()->format('r'), true);
+            ->setHeader('Last-Modified', Mage::helper('core/clock')->format('r'), true);
 
         if (!is_null($content)) {
             if ($isFile) {

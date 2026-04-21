@@ -29,7 +29,7 @@ class Varien_Data_Form_Element_Radios extends Varien_Data_Form_Element_Abstract
      */
     public function getSeparator()
     {
-        $separator = $this->getData('separator');
+        $separator = $this->getDataByKey('separator');
         if (is_null($separator)) {
             return '&nbsp;';
         }
@@ -40,6 +40,7 @@ class Varien_Data_Form_Element_Radios extends Varien_Data_Form_Element_Abstract
     /**
      * @return string
      */
+    #[Override]
     public function getElementHtml()
     {
         $html = '';

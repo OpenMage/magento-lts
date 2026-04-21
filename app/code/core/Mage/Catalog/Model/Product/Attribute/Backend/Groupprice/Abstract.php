@@ -106,6 +106,7 @@ abstract class Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract 
      * @return bool
      * @throws Mage_Core_Exception
      */
+    #[Override]
     public function validate($object)
     {
         $attribute = $this->getAttribute();
@@ -185,17 +186,17 @@ abstract class Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract 
         $rates  = $this->_getWebsiteCurrencyRates($websiteId);
         $data   = [];
         $price  = Mage::getSingleton('catalog/product_type')::priceFactory($productTypeId);
-        foreach ($priceData as $v) {
-            $key = implode('-', array_merge([$v['cust_group']], $this->_getAdditionalUniqueFields($v)));
-            if ($v['website_id'] == $websiteId) {
-                $data[$key] = $v;
-                $data[$key]['website_price'] = $v['price'];
-            } elseif ($v['website_id'] == 0 && !isset($data[$key])) {
-                $data[$key] = $v;
+        foreach ($priceData as $value) {
+            $key = implode('-', array_merge([$value['cust_group']], $this->_getAdditionalUniqueFields($value)));
+            if ($value['website_id'] == $websiteId) {
+                $data[$key] = $value;
+                $data[$key]['website_price'] = $value['price'];
+            } elseif ($value['website_id'] == 0 && !isset($data[$key])) {
+                $data[$key] = $value;
                 $data[$key]['website_id'] = $websiteId;
                 if ($this->_isPriceFixed($price)) {
-                    $data[$key]['price'] = $v['price'] * $rates[$websiteId]['rate'];
-                    $data[$key]['website_price'] = $v['price'] * $rates[$websiteId]['rate'];
+                    $data[$key]['price'] = $value['price'] * $rates[$websiteId]['rate'];
+                    $data[$key]['website_price'] = $value['price'] * $rates[$websiteId]['rate'];
                 }
             }
         }
@@ -206,9 +207,10 @@ abstract class Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract 
     /**
      * Assign group prices to product data
      *
-     * @param  Mage_Catalog_Model_Product                                       $object
-     * @return Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract
+     * @param  Mage_Catalog_Model_Product $object
+     * @return $this
      */
+    #[Override]
     public function afterLoad($object)
     {
         $storeId   = $object->getStoreId();
@@ -220,15 +222,15 @@ abstract class Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract 
         }
 
         $data = $this->_getResource()->loadPriceData($object->getId(), $websiteId);
-        foreach ($data as $k => $v) {
-            $data[$k]['website_price'] = $v['price'];
-            $data[$k]['is_percent']    = isset($v['is_percent']) ? isset($v['is_percent']) : 0;
-            if ($v['all_groups']) {
-                $data[$k]['cust_group'] = Mage_Customer_Model_Group::CUST_GROUP_ALL;
+        foreach ($data as $key => $value) {
+            $data[$key]['website_price'] = $value['price'];
+            $data[$key]['is_percent']    = isset($value['is_percent']) ? isset($value['is_percent']) : 0;
+            if ($value['all_groups']) {
+                $data[$key]['cust_group'] = Mage_Customer_Model_Group::CUST_GROUP_ALL;
             }
         }
 
-        if (!$object->getData('_edit_mode') && $websiteId) {
+        if (!$object->getDataByKey('_edit_mode') && $websiteId) {
             $data = $this->preparePriceData($data, $object->getTypeId(), $websiteId);
         }
 
@@ -245,9 +247,10 @@ abstract class Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract 
     /**
      * After Save Attribute manipulation
      *
-     * @param  Mage_Catalog_Model_Product                                       $object
-     * @return Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract
+     * @param  Mage_Catalog_Model_Product $object
+     * @return $this
      */
+    #[Override]
     public function afterSave($object)
     {
         $websiteId  = Mage::app()->getStore($object->getStoreId())->getWebsiteId();
@@ -350,12 +353,12 @@ abstract class Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract 
             $isChanged = true;
         }
 
-        foreach ($update as $k => $v) {
-            if ($old[$k]['price'] != $v['value'] || $old[$k]['is_percent'] != $v['is_percent']) {
+        foreach ($update as $index => $value) {
+            if ($old[$index]['price'] != $value['value'] || $old[$index]['is_percent'] != $value['is_percent']) {
                 $price = new Varien_Object([
-                    'value_id'   => $old[$k]['price_id'],
-                    'value'      => $v['value'],
-                    'is_percent' => $v['is_percent'],
+                    'value_id'   => $old[$index]['price_id'],
+                    'value'      => $value['value'],
+                    'is_percent' => $value['is_percent'],
                 ]);
                 $this->_getResource()->savePriceData($price);
 

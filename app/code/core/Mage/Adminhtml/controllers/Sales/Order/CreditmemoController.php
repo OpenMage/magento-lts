@@ -118,11 +118,7 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
             $data['qtys'] = $qtys;
 
             $service = Mage::getModel('sales/service_order', $order);
-            if ($invoice) {
-                $creditmemo = $service->prepareInvoiceCreditmemo($invoice, $data);
-            } else {
-                $creditmemo = $service->prepareCreditmemo($data);
-            }
+            $creditmemo = $invoice ? $service->prepareInvoiceCreditmemo($invoice, $data) : $service->prepareCreditmemo($data);
 
             /**
              * Process back to stock flags
@@ -172,6 +168,7 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
     /**
      * creditmemo information page
      */
+    #[Override]
     public function viewAction()
     {
         $creditmemo = $this->_initCreditmemo();
@@ -232,7 +229,7 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
     public function updateQtyAction()
     {
         try {
-            $creditmemo = $this->_initCreditmemo(true);
+            $this->_initCreditmemo(true);
             $this->loadLayout();
             $response = $this->getLayout()->getBlock('order_items')->toHtml();
         } catch (Mage_Core_Exception $mageCoreException) {
@@ -445,6 +442,7 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
     /**
      * Create pdf for current creditmemo
      */
+    #[Override]
     public function printAction()
     {
         $this->_initCreditmemo();

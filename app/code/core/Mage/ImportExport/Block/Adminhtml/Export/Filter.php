@@ -101,7 +101,8 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
             }
         }
 
-        if (($size = count($options))) {
+        $size = count($options);
+        if ($size) {
             $selectBlock = new Mage_Core_Block_Html_Select([
                 'name'         => $this->getFilterElementName($attribute->getAttributeCode()) . '[]',
                 'id'           => $this->getFilterElementId($attribute->getAttributeCode()),
@@ -150,7 +151,7 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
             $options = $attribute->getSource()->getAllOptions(false);
         }
 
-        if (($size = count($options))) {
+        if (count($options)) {
             // add empty value option
             $firstOption = reset($options);
 
@@ -239,7 +240,8 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
             }
         }
 
-        if (($size = count($options))) {
+        $size = count($options);
+        if ($size) {
             $selectBlock = new Mage_Core_Block_Html_Select([
                 'name'         => $this->getFilterElementName($attribute->getAttributeCode()) . '[]',
                 'id'           => $this->getFilterElementId($attribute->getAttributeCode()),
@@ -326,6 +328,7 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
      * @return $this
      * @throws Exception
      */
+    #[Override]
     protected function _prepareColumns()
     {
         parent::_prepareColumns();
@@ -406,7 +409,7 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
      */
     public function getFilterElementId($attributeCode)
     {
-        return Mage_ImportExport_Model_Export::FILTER_ELEMENT_GROUP . "_$attributeCode";
+        return Mage_ImportExport_Model_Export::FILTER_ELEMENT_GROUP . "_{$attributeCode}";
     }
 
     /**
@@ -417,13 +420,14 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
      */
     public function getFilterElementName($attributeCode)
     {
-        return Mage_ImportExport_Model_Export::FILTER_ELEMENT_GROUP . "[$attributeCode]";
+        return Mage_ImportExport_Model_Export::FILTER_ELEMENT_GROUP . "[{$attributeCode}]";
     }
 
     /**
      * @inheritDoc
      * @param Mage_Catalog_Model_Resource_Eav_Attribute $row
      */
+    #[Override]
     public function getRowUrl($row)
     {
         return '';

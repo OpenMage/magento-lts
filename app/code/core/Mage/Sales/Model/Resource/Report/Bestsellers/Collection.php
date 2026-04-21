@@ -78,20 +78,20 @@ class Mage_Sales_Model_Resource_Report_Bestsellers_Collection extends Mage_Sales
     /**
      * Make select object for date boundary
      *
-     * @param  mixed               $from
-     * @param  mixed               $to
+     * @param  null|string         $dateFrom
+     * @param  null|string         $dateTo
      * @return Varien_Db_Select
      * @throws Mage_Core_Exception
      */
-    protected function _makeBoundarySelect($from, $to)
+    protected function _makeBoundarySelect($dateFrom, $dateTo)
     {
         $adapter = $this->getConnection();
         $cols    = $this->_getSelectedColumns();
         $cols['qty_ordered'] = 'SUM(qty_ordered)';
         $sel     = $adapter->select()
             ->from($this->getResource()->getMainTable(), $cols)
-            ->where('period >= ?', $from)
-            ->where('period <= ?', $to)
+            ->where('period >= ?', $dateFrom)
+            ->where('period <= ?', $dateTo)
             ->group('product_id')
             ->order('qty_ordered DESC')
             ->limit($this->_ratingLimit);
@@ -108,6 +108,7 @@ class Mage_Sales_Model_Resource_Report_Bestsellers_Collection extends Mage_Sales
      * @return $this
      * @throws Zend_Db_Select_Exception
      */
+    #[Override]
     protected function _initSelect()
     {
         $select = $this->getSelect();
@@ -165,6 +166,7 @@ class Mage_Sales_Model_Resource_Report_Bestsellers_Collection extends Mage_Sales
      * @throws Zend_Date_Exception
      * @throws Zend_Db_Select_Exception
      */
+    #[Override]
     protected function _beforeLoad()
     {
         parent::_beforeLoad();
@@ -325,7 +327,7 @@ class Mage_Sales_Model_Resource_Report_Bestsellers_Collection extends Mage_Sales
     /**
      * Apply filter to exclude certain product types from the collection
      *
-     * @return Mage_Sales_Model_Resource_Report_Collection_Abstract
+     * @return $this
      */
     protected function _applyProductTypeFilter(Zend_Db_Select $select)
     {

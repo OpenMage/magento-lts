@@ -21,6 +21,7 @@ class Mage_Catalog_Model_Product_Type_Configurable_Price extends Mage_Catalog_Mo
      * @param  Mage_Catalog_Model_Product $product
      * @return float
      */
+    #[Override]
     public function getFinalPrice($qty, $product)
     {
         if (is_null($qty) && !is_null($product->getCalculatedFinalPrice())) {
@@ -31,7 +32,7 @@ class Mage_Catalog_Model_Product_Type_Configurable_Price extends Mage_Catalog_Mo
         $finalPrice = $basePrice;
         $product->setFinalPrice($finalPrice);
         Mage::dispatchEvent('catalog_product_get_final_price', ['product' => $product, 'qty' => $qty]);
-        $finalPrice = $product->getData('final_price');
+        $finalPrice = $product->getDataByKey('final_price');
 
         $finalPrice += $this->getTotalConfigurableItemsPrice($product, $finalPrice);
         $finalPrice += $this->_applyOptionsPrice($product, $qty, $basePrice) - $basePrice;
@@ -63,7 +64,6 @@ class Mage_Catalog_Model_Product_Type_Configurable_Price extends Mage_Catalog_Mo
             $selectedAttributes = unserialize($product->getCustomOption('attributes')->getValue(), ['allowed_classes' => false]);
         }
 
-        /** @var Mage_Catalog_Model_Product_Type_Configurable_Attribute $attribute */
         foreach ($attributes as $attribute) {
             $attributeId = $attribute->getProductAttribute()->getId();
             $value = $this->_getValueByIndex(

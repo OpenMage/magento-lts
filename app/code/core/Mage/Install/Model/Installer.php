@@ -89,7 +89,7 @@ class Mage_Install_Model_Installer extends Varien_Object
      */
     public function getServerCheckStatus()
     {
-        $status = $this->getData('server_check_status');
+        $status = $this->getDataByKey('server_check_status');
         if (is_null($status)) {
             return $this->checkServer();
         }
@@ -100,8 +100,8 @@ class Mage_Install_Model_Installer extends Varien_Object
     /**
      * Installation config data
      *
-     * @param  array                        $data
-     * @return Mage_Install_Model_Installer
+     * @param  array $data
+     * @return $this
      */
     public function installConfig($data)
     {
@@ -184,7 +184,6 @@ class Mage_Install_Model_Installer extends Varien_Object
      * @param  array                       $data
      * @return array|Mage_Admin_Model_User
      * @throws Mage_Core_Exception
-     * @throws Zend_Validate_Exception
      */
     public function validateAndPrepareAdministrator($data)
     {
@@ -281,13 +280,16 @@ class Mage_Install_Model_Installer extends Varien_Object
         return $this;
     }
 
+    /**
+     * @return $this
+     */
     public function finish()
     {
         Mage::getSingleton('install/installer_config')->replaceTmpInstallDate();
         Mage::app()->cleanCache();
 
         $cacheData = [];
-        foreach (Mage::helper('core')->getCacheTypes() as $type => $label) {
+        foreach (array_keys(Mage::helper('core')->getCacheTypes()) as $type) {
             $cacheData[$type] = 1;
         }
 

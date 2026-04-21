@@ -119,8 +119,8 @@ class Mage_Adminhtml_Block_Catalog_Category_Widget_Chooser extends Mage_Adminhtm
      */
     public function getNodeClickListener()
     {
-        if ($this->getData('node_click_listener')) {
-            return $this->getData('node_click_listener');
+        if ($this->getDataByKey('node_click_listener')) {
+            return $this->getDataByKey('node_click_listener');
         }
 
         if ($this->getUseMassaction()) {
@@ -151,6 +151,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Widget_Chooser extends Mage_Adminhtm
      * @param  int                         $level
      * @return array
      */
+    #[Override]
     protected function _getNodeJson($node, $level = 0)
     {
         $item = parent::_getNodeJson($node, $level);
@@ -159,7 +160,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Widget_Chooser extends Mage_Adminhtm
         }
 
         $item['is_anchor'] = (int) $node->getIsAnchor();
-        $item['url_key'] = $node->getData('url_key');
+        $item['url_key'] = $node->getDataByKey('url_key');
         return $item;
     }
 
@@ -168,6 +169,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Widget_Chooser extends Mage_Adminhtm
      *
      * @return Mage_Catalog_Model_Resource_Category_Collection
      */
+    #[Override]
     public function getCategoryCollection()
     {
         return parent::getCategoryCollection()->addAttributeToSelect('url_key')->addAttributeToSelect('is_anchor');
@@ -176,6 +178,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Widget_Chooser extends Mage_Adminhtm
     /**
      * @inheritDoc
      */
+    #[Override]
     public function getLoadTreeUrl($expanded = null)
     {
         return $this->getUrl('*/catalog_category_widget/categoriesJson', [

@@ -22,6 +22,7 @@ class Mage_Catalog_Model_Category_Api_V2 extends Mage_Catalog_Model_Category_Api
      * @param  array      $attributes
      * @return array
      */
+    #[Override]
     public function info($categoryId, $store = null, $attributes = null)
     {
         $category = $this->_initCategory($categoryId, $store);
@@ -58,6 +59,7 @@ class Mage_Catalog_Model_Category_Api_V2 extends Mage_Catalog_Model_Category_Api
      * @throws Mage_Core_Exception
      * @throws Mage_Eav_Model_Entity_Attribute_Exception
      */
+    #[Override]
     public function create($parentId, $categoryData, $store = null)
     {
         $parentCategory = $this->_initCategory($parentId, $store);
@@ -112,6 +114,7 @@ class Mage_Catalog_Model_Category_Api_V2 extends Mage_Catalog_Model_Category_Api
      * @return bool
      * @throws Mage_Core_Exception
      */
+    #[Override]
     public function update($categoryId, $categoryData, $store = null)
     {
         $category = $this->_initCategory($categoryId, $store);

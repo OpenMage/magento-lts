@@ -36,9 +36,9 @@ class Mage_Install_Model_Config extends Varien_Simplexml_Config
     /**
      * Get array of wizard steps
      *
-     * array($inndex => Varien_Object )
+     * array($index => Varien_Object )
      *
-     * @return array
+     * @return array<array-key, Varien_Object>
      */
     public function getWizardSteps()
     {
@@ -118,7 +118,7 @@ class Mage_Install_Model_Config extends Varien_Simplexml_Config
         foreach ($items as $name => $value) {
             if (!empty($value)) {
                 $res[$name] = [];
-                foreach ($value as $subname => $subvalue) {
+                foreach ($value as $subname => $ignored) {
                     $res[$name][] = $subname;
                 }
             } else {

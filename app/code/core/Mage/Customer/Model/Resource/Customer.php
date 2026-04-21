@@ -7,8 +7,6 @@
  * @package    Mage_Customer
  */
 
-use Carbon\Carbon;
-
 /**
  * Customer entity resource model
  *
@@ -30,6 +28,7 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
      *
      * @return array<int, string>
      */
+    #[Override]
     protected function _getDefaultAttributes()
     {
         return [
@@ -51,6 +50,7 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
      * @throws Mage_Core_Exception
      * @throws Mage_Eav_Model_Entity_Attribute_Exception
      */
+    #[Override]
     protected function _beforeSave(Varien_Object $object)
     {
         parent::_beforeSave($object);
@@ -106,6 +106,7 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
      * @return Mage_Eav_Model_Entity_Abstract
      * @throws Mage_Eav_Model_Entity_Attribute_Exception
      */
+    #[Override]
     protected function _afterSave(Varien_Object $object)
     {
         $this->_saveAddresses($object);
@@ -122,16 +123,16 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
      */
     protected function _saveAddresses(Mage_Customer_Model_Customer $customer)
     {
-        $defaultBillingId  = $customer->getData('default_billing');
-        $defaultShippingId = $customer->getData('default_shipping');
+        $defaultBillingId  = $customer->getDataByKey('default_billing');
+        $defaultShippingId = $customer->getDataByKey('default_shipping');
         foreach ($customer->getAddresses() as $address) {
-            if ($address->getData('_deleted')) {
+            if ($address->getDataByKey('_deleted')) {
                 if ($address->getId() == $defaultBillingId) {
-                    $customer->setData('default_billing', null);
+                    $customer->setData('default_billing');
                 }
 
                 if ($address->getId() == $defaultShippingId) {
-                    $customer->setData('default_shipping', null);
+                    $customer->setData('default_shipping');
                 }
 
                 $address->delete();
@@ -182,6 +183,7 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
      * @return Zend_Db_Select
      * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _getLoadRowSelect($object, $rowId)
     {
         $select = parent::_getLoadRowSelect($object, $rowId);
@@ -237,7 +239,7 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
      */
     public function changePassword(Mage_Customer_Model_Customer $customer, $newPassword)
     {
-        $customer->setPassword($newPassword)->setPasswordCreatedAt(Carbon::now()->getTimestamp());
+        $customer->setPassword($newPassword)->setPasswordCreatedAt(Mage::helper('core/clock')->getTimestamp());
         $this->saveAttribute($customer, 'password_hash');
         $this->saveAttribute($customer, 'password_created_at');
         return $this;
@@ -306,6 +308,7 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
      * @return $this
      * @throws Mage_Core_Exception
      */
+    #[Override]
     public function setNewIncrementId(Varien_Object $object)
     {
         if (Mage::getStoreConfig(Mage_Customer_Model_Customer::XML_PATH_GENERATE_HUMAN_FRIENDLY_ID)) {

@@ -25,6 +25,7 @@ class Mage_Adminhtml_System_CacheController extends Mage_Adminhtml_Controller_Ac
      *
      * @return Mage_Adminhtml_Model_Session
      */
+    #[Override]
     protected function _getSession()
     {
         return Mage::getSingleton('adminhtml/session');
@@ -65,12 +66,12 @@ class Mage_Adminhtml_System_CacheController extends Mage_Adminhtml_Controller_Ac
             Mage::app()->cleanCache();
         }
 
-        $e = $this->getRequest()->getPost('enable');
+        $param  = $this->getRequest()->getPost('enable');
         $enable = [];
         $clean  = [];
         $cacheTypes = array_keys(Mage::helper('core')->getCacheTypes());
         foreach ($cacheTypes as $type) {
-            $flag = $allCache != 'disable' && (!empty($e[$type]) || $allCache == 'enable');
+            $flag = $allCache != 'disable' && (!empty($param[$type]) || $allCache == 'enable');
             $enable[$type] = $flag ? 1 : 0;
             if ($allCache == '' && !$flag) {
                 $clean[] = $type;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -18,11 +20,13 @@ class Mage_Adminhtml_Block_Newsletter_Subscriber_Grid_Filter_Checkbox extends Ma
      * @inheritDoc
      * @return array<void>
      */
+    #[Override]
     public function getCondition()
     {
         return [];
     }
 
+    #[Override]
     public function getHtml()
     {
         return '<input type="checkbox" onclick="subscriberController.checkCheckboxes(this)"/>';

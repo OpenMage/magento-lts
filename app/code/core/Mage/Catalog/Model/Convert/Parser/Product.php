@@ -51,6 +51,9 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
 
     protected $_inventoryItems = [];
 
+    /**
+     * @var null|false|string
+     */
     protected $_productModel;
 
     protected $_setInstances = [];
@@ -148,7 +151,7 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
     /**
      * Retrieve product model cache
      *
-     * @return Mage_Catalog_Model_Product|object
+     * @return Mage_Catalog_Model_Product
      */
     public function getProductModel()
     {
@@ -157,7 +160,9 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
             $this->_productModel = Mage::objects()->save($productModel);
         }
 
-        return Mage::objects()->load($this->_productModel);
+        /** @var Mage_Catalog_Model_Product $productModel */
+        $productModel = Mage::objects()->load($this->_productModel);
+        return $productModel;
     }
 
     /**
@@ -170,12 +175,12 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
         if (is_null($this->_store)) {
             try {
                 $store = Mage::app()->getStore($this->getVar('store'));
-            } catch (Exception $e) {
+            } catch (Exception $exception) {
                 $this->addException(
                     Mage::helper('catalog')->__('Invalid store specified'),
                     Varien_Convert_Exception::FATAL,
                 );
-                throw $e;
+                throw $exception;
             }
 
             $this->_store = $store;
@@ -361,10 +366,10 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
 
                     unset($model);
                 } //foreach ($storeIds as $storeId)
-            } catch (Exception $e) {
-                if (!$e instanceof Mage_Dataflow_Model_Convert_Exception) {
+            } catch (Exception $exception) {
+                if (!$exception instanceof Mage_Dataflow_Model_Convert_Exception) {
                     $this->addException(
-                        Mage::helper('catalog')->__('Error during retrieval of option value: %s', $e->getMessage()),
+                        Mage::helper('catalog')->__('Error during retrieval of option value: %s', $exception->getMessage()),
                         Mage_Dataflow_Model_Convert_Exception::FATAL,
                     );
                 }
@@ -466,11 +471,7 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
                         continue;
                     }
 
-                    if (is_array($option)) {
-                        $value = implode(self::MULTI_DELIMITER, $option);
-                    } else {
-                        $value = $option;
-                    }
+                    $value = is_array($option) ? implode(self::MULTI_DELIMITER, $option) : $option;
 
                     unset($option);
                 } elseif (is_array($value)) {

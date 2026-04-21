@@ -14,6 +14,7 @@
  */
 class Varien_Convert_Adapter_Io extends Varien_Convert_Adapter_Abstract
 {
+    #[Override]
     public function getResource()
     {
         if (!$this->_resource) {
@@ -22,8 +23,8 @@ class Varien_Convert_Adapter_Io extends Varien_Convert_Adapter_Abstract
             $this->_resource = new $className();
             try {
                 $this->_resource->open($this->getVars());
-            } catch (Exception $e) {
-                $this->addException('Error occured during file opening: ' . $e->getMessage(), Varien_Convert_Exception::FATAL);
+            } catch (Exception $exception) {
+                $this->addException('Error occured during file opening: ' . $exception->getMessage(), Varien_Convert_Exception::FATAL);
             }
         }
 

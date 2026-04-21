@@ -57,6 +57,7 @@ class Mage_SalesRule_Model_Coupon extends Mage_Core_Model_Abstract
      * @return $this
      * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _beforeSave()
     {
         if (!$this->getRuleId() && $this->_rule instanceof Mage_SalesRule_Model_Rule) {

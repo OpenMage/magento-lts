@@ -30,6 +30,7 @@ class Mage_Adminhtml_Block_Permissions_User_Edit_Tab_Roles extends Mage_Adminhtm
      * @inheritDoc
      * @throws Exception
      */
+    #[Override]
     protected function _addColumnFilterToCollection($column)
     {
         if ($column->getId() == 'assigned_user_role') {
@@ -53,6 +54,7 @@ class Mage_Adminhtml_Block_Permissions_User_Edit_Tab_Roles extends Mage_Adminhtm
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareCollection()
     {
         $collection = Mage::getResourceModel('admin/role_collection');
@@ -65,6 +67,7 @@ class Mage_Adminhtml_Block_Permissions_User_Edit_Tab_Roles extends Mage_Adminhtm
      * @inheritDoc
      * @throws Exception
      */
+    #[Override]
     protected function _prepareColumns()
     {
         $this->addColumn('assigned_user_role', [
@@ -95,6 +98,7 @@ class Mage_Adminhtml_Block_Permissions_User_Edit_Tab_Roles extends Mage_Adminhtm
     /**
      * @inheritDoc
      */
+    #[Override]
     public function getGridUrl()
     {
         return $this->getUrl('*/*/rolesGrid', ['user_id' => Mage::registry('permissions_user')->getUserId()]);
@@ -113,11 +117,7 @@ class Mage_Adminhtml_Block_Permissions_User_Edit_Tab_Roles extends Mage_Adminhtm
         $user = Mage::registry('permissions_user');
         //checking if we have this data and we
         //don't need load it through resource model
-        if ($user->hasData('roles')) {
-            $uRoles = $user->getData('roles');
-        } else {
-            $uRoles = $user->getRoles();
-        }
+        $uRoles = $user->hasData('roles') ? $user->getDataByKey('roles') : $user->getRoles();
 
         if ($json) {
             $jsonRoles = [];

@@ -63,6 +63,7 @@ class Mage_Sales_Model_Billing_Agreement extends Mage_Payment_Model_Billing_Agre
      *
      * @inheritDoc
      */
+    #[Override]
     protected function _beforeSave()
     {
         $date = Mage::getModel('core/date')->gmtDate();
@@ -80,6 +81,7 @@ class Mage_Sales_Model_Billing_Agreement extends Mage_Payment_Model_Billing_Agre
      *
      * @return $this
      */
+    #[Override]
     protected function _afterSave()
     {
         if (!empty($this->_relatedOrders)) {
@@ -201,6 +203,7 @@ class Mage_Sales_Model_Billing_Agreement extends Mage_Payment_Model_Billing_Agre
      *
      * @return bool
      */
+    #[Override]
     public function isValid()
     {
         $result = parent::isValid();
@@ -265,7 +268,7 @@ class Mage_Sales_Model_Billing_Agreement extends Mage_Payment_Model_Billing_Agre
      */
     public function needToCreateForCustomer($customerId)
     {
-        return $customerId ? count($this->getAvailableCustomerBillingAgreements($customerId)) == 0 : false;
+        return $customerId && count($this->getAvailableCustomerBillingAgreements($customerId)) == 0;
     }
 
     /**

@@ -96,8 +96,8 @@ class Mage_Core_Model_Locale
     /**
      * Set default locale code
      *
-     * @param  string                 $locale
-     * @return Mage_Core_Model_Locale
+     * @param  string $locale
+     * @return $this
      */
     public function setDefaultLocale($locale)
     {
@@ -127,16 +127,12 @@ class Mage_Core_Model_Locale
     /**
      * Set locale
      *
-     * @param  string                 $locale
-     * @return Mage_Core_Model_Locale
+     * @param  string $locale
+     * @return $this
      */
     public function setLocale($locale = null)
     {
-        if (($locale !== null) && is_string($locale)) {
-            $this->_localeCode = $locale;
-        } else {
-            $this->_localeCode = $this->getDefaultLocale();
-        }
+        $this->_localeCode = $locale !== null && is_string($locale) ? $locale : $this->getDefaultLocale();
 
         Mage::dispatchEvent('core_locale_set_locale', ['locale' => $this]);
         return $this;
@@ -752,17 +748,13 @@ class Mage_Core_Model_Locale
         }
 
         $requiredPrecision = $totalPrecision;
-        $t = substr($format, $decimalPoint);
-        $pos = strpos($t, '#');
+        $str = substr($format, $decimalPoint);
+        $pos = strpos($str, '#');
         if ($pos !== false) {
-            $requiredPrecision = strlen($t) - $pos - $totalPrecision;
+            $requiredPrecision = strlen($str) - $pos - $totalPrecision;
         }
 
-        if (strrpos($format, ',') !== false) {
-            $group = ($decimalPoint - strrpos($format, ',') - 1);
-        } else {
-            $group = strrpos($format, '.');
-        }
+        $group = strrpos($format, ',') !== false ? $decimalPoint - strrpos($format, ',') - 1 : strrpos($format, '.');
 
         $integerRequired = (strpos($format, '.') - strpos($format, '0'));
 

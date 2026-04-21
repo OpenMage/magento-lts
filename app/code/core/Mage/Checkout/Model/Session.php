@@ -114,6 +114,7 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
     /**
      * Unset all data associated with object
      */
+    #[Override]
     public function unsetAll()
     {
         parent::unsetAll();
@@ -378,13 +379,13 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
      */
     public function getAdditionalMessages($clear = false)
     {
-        $additionalMessages = $this->getData('additional_messages');
+        $additionalMessages = $this->getDataByKey('additional_messages');
         if (!$additionalMessages) {
             return [];
         }
 
         if ($clear) {
-            $this->setData('additional_messages', null);
+            $this->setData('additional_messages');
         }
 
         return $additionalMessages;
@@ -465,6 +466,7 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
     /**
      * @return $this
      */
+    #[Override]
     public function clear()
     {
         Mage::dispatchEvent('checkout_quote_destroy', ['quote' => $this->getQuote()]);

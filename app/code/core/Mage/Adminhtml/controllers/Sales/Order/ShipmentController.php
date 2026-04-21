@@ -7,8 +7,6 @@
  * @package    Mage_Adminhtml
  */
 
-use Carbon\Carbon;
-
 /**
  * Adminhtml sales order shipment controller
  *
@@ -116,6 +114,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
      *
      * @throws Mage_Core_Exception
      */
+    #[Override]
     public function viewAction()
     {
         $shipment = $this->_initShipment();
@@ -342,9 +341,8 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
      */
     public function removeTrackAction()
     {
-        $trackId    = $this->getRequest()->getParam('track_id');
-        $shipmentId = $this->getRequest()->getParam('shipment_id');
-        $track = Mage::getModel('sales/order_shipment_track')->load($trackId);
+        $trackId = $this->getRequest()->getParam('track_id');
+        $track   = Mage::getModel('sales/order_shipment_track')->load($trackId);
         if ($track->getId()) {
             try {
                 if ($this->_initShipment()) {
@@ -383,9 +381,8 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
      */
     public function viewTrackAction()
     {
-        $trackId    = $this->getRequest()->getParam('track_id');
-        $shipmentId = $this->getRequest()->getParam('shipment_id');
-        $track = Mage::getModel('sales/order_shipment_track')->load($trackId);
+        $trackId = $this->getRequest()->getParam('track_id');
+        $track   = Mage::getModel('sales/order_shipment_track')->load($trackId);
         if ($track->getId()) {
             try {
                 $response = $track->getNumberDetail();
@@ -666,7 +663,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
         switch ($request->getParam('massaction_prepare_key')) {
             case 'shipment_ids':
                 $ids = $request->getParam('shipment_ids');
-                $ids = array_filter($ids, fn(mixed $o) => (int) $o !== 0);
+                $ids = array_filter($ids, fn(mixed $value) => (int) $value !== 0);
                 if ($ids !== []) {
                     $shipments = Mage::getResourceModel('sales/order_shipment_collection')
                         ->addFieldToFilter('entity_id', ['in' => $ids]);
@@ -675,7 +672,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
                 break;
             case 'order_ids':
                 $ids = $request->getParam('order_ids');
-                $ids = array_filter($ids, fn(mixed $o) => (int) $o !== 0);
+                $ids = array_filter($ids, fn(mixed $value) => (int) $value !== 0);
                 if ($ids !== []) {
                     $shipments = Mage::getResourceModel('sales/order_shipment_collection')
                         ->setOrderFilter(['in' => $ids]);
@@ -756,7 +753,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
 
         imageinterlace($image, false);
         $tmpFileName = sys_get_temp_dir() . DS . 'shipping_labels_'
-                     . uniqid((string) mt_rand()) . Carbon::now()->getTimestamp() . '.png';
+                     . uniqid((string) mt_rand()) . Mage::helper('core/clock')->getTimestamp() . '.png';
         imagepng($image, $tmpFileName);
         $pdfImage = Zend_Pdf_Image::imageWithPath($tmpFileName);
         $page->drawImage($pdfImage, 0, 0, $xSize, $ySize);

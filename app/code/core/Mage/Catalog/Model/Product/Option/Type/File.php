@@ -12,7 +12,7 @@
  *
  * @package    Mage_Catalog
  *
- * @method array getCustomOptionUrlParams()
+ * @method null|array<string, mixed> getCustomOptionUrlParams()
  */
 class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Product_Option_Type_Default
 {
@@ -35,17 +35,16 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
     /**
      * @return bool
      */
+    #[Override]
     public function isCustomizedView()
     {
         return true;
     }
 
     /**
-     * Return option html
-     *
-     * @param  array  $optionInfo
-     * @return string
+     * @inheritDoc
      */
+    #[Override]
     public function getCustomizedView($optionInfo)
     {
         try {
@@ -71,7 +70,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
     protected function _getProcessingParams()
     {
         $buyRequest = $this->getRequest();
-        $params = $buyRequest->getData('_processing_params');
+        $params = $buyRequest->getDataByKey('_processing_params');
         /*
          * Notice check for params to be Varien_Object - by using object we protect from
          * params being forged and contain data from user frontend input
@@ -87,7 +86,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
      * Returns file info array if we need to get file from already existing file.
      * Or returns null, if we need to get file from uploaded array.
      *
-     * @return null|array
+     * @return null|array<mixed>
      * @throws Mage_Core_Exception
      */
     protected function _getCurrentConfigFileInfo()
@@ -115,10 +114,11 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
     /**
      * Validate user input for option
      *
-     * @param  array               $values All product option values, i.e. array (option_id => mixed, option_id => mixed...)
+     * @param  array<string, mixed> $values All product option values, i.e. array (option_id => mixed, option_id => mixed...)
      * @return $this
      * @throws Mage_Core_Exception
      */
+    #[Override]
     public function validateUserValue($values)
     {
         Mage::getSingleton('checkout/session')->setUseNotice(false);
@@ -133,11 +133,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
         $fileInfo = $this->_getCurrentConfigFileInfo();
 
         if ($fileInfo !== null) {
-            if (is_array($fileInfo) && $this->_validateFile($fileInfo)) {
-                $value = $fileInfo;
-            } else {
-                $value = null;
-            }
+            $value = is_array($fileInfo) && $this->_validateFile($fileInfo) ? $fileInfo : null;
 
             $this->setUserValue($value);
             return $this;
@@ -230,11 +226,15 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
         $_allowed = $this->_parseExtensionsString($option->getFileExtension());
         if ($_allowed !== null) {
             $upload->addValidator('Extension', false, $_allowed);
-        } else {
-            $_forbidden = $this->_parseExtensionsString($this->getConfigData('forbidden_extensions'));
-            if ($_forbidden !== null) {
-                $upload->addValidator('ExcludeExtension', false, $_forbidden);
-            }
+        }
+
+        // Block both protected extensions and legacy forbidden_extensions for backwards compatibility
+        $_forbidden = array_unique(array_merge(
+            $this->_getProtectedFileExtensions(),
+            $this->_getForbiddenExtensions(),
+        ));
+        if ($_forbidden !== []) {
+            $upload->addValidator('ExcludeExtension', false, $_forbidden);
         }
 
         // Maximum filesize
@@ -309,7 +309,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
     /**
      * Validate file
      *
-     * @param  array               $optionValue
+     * @param  array<string, mixed> $optionValue
      * @return bool
      * @throws Mage_Core_Exception
      */
@@ -402,9 +402,15 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
                     $option->getTitle(),
                 ),
             ));
-        } else {
-            $_forbidden = $this->_parseExtensionsString($this->getConfigData('forbidden_extensions'));
-            if ($_forbidden !== null) {
+        }
+
+        if ($_allowed !== null) {
+            // Block both protected extensions and legacy forbidden_extensions for backwards compatibility
+            $_forbidden = array_unique(array_merge(
+                $this->_getProtectedFileExtensions(),
+                $this->_getForbiddenExtensions(),
+            ));
+            if ($_forbidden !== []) {
                 $validatorChain->append($validator->validateChoice(
                     value: $_allowed,
                     choices: $_forbidden,
@@ -432,9 +438,10 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
 
     /**
      * Get Error messages for validator Errors
-     * @param  array               $errors   Array of validation failure message codes
-     * @param  array               $fileInfo File info
-     * @return array               Array of error messages
+     *
+     * @param  string[]            $errors   Array of validation failure message codes
+     * @param  string[]            $fileInfo File info
+     * @return string[]            Array of error messages
      * @throws Mage_Core_Exception
      */
     protected function _getValidatorErrors($errors, $fileInfo)
@@ -489,6 +496,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
      * @return null|string         Prepared option value
      * @throws Mage_Core_Exception
      */
+    #[Override]
     public function prepareForCart()
     {
         $option = $this->getOption();
@@ -536,16 +544,20 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
      * @param  string $optionValue Prepared for cart option value
      * @return string
      */
+    #[Override]
     public function getFormattedOptionValue($optionValue)
     {
         if ($this->_formattedOptionValue === null) {
             try {
                 $value = Mage::helper('core/unserializeArray')->unserialize($optionValue);
 
-                $customOptionUrlParams = $this->getCustomOptionUrlParams() ?: [
-                    'id'  => $this->getConfigurationItemOption()->getId(),
-                    'key' => $value['secret_key'],
-                ];
+                $customOptionUrlParams = $this->getCustomOptionUrlParams();
+                $customOptionUrlParams = $customOptionUrlParams
+                    ? $customOptionUrlParams
+                    : [
+                        'id'  => $this->getConfigurationItemOption()->getId(),
+                        'key' => $value['secret_key'],
+                    ];
 
                 $value['url'] = ['route' => $this->_customOptionDownloadUrl, 'params' => $customOptionUrlParams];
 
@@ -563,7 +575,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
     /**
      * Format File option html
      *
-     * @param  array|string        $optionValue Serialized string of option data or its data array
+     * @param  array<mixed>|string $optionValue Serialized string of option data or its data array
      * @return string
      * @throws Mage_Core_Exception
      */
@@ -597,8 +609,8 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
     /**
      * Create a value from a storable representation
      *
-     * @param  mixed     $value
-     * @return array
+     * @param  mixed                    $value
+     * @return array<mixed>|array<void>
      * @throws Exception
      */
     protected function _unserializeValue($value)
@@ -620,6 +632,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
      * @param  string $optionValue Prepared for cart option value
      * @return string
      */
+    #[Override]
     public function getPrintableOptionValue($optionValue)
     {
         $value = $this->getFormattedOptionValue($optionValue);
@@ -632,6 +645,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
      * @param  string $optionValue Prepared for cart option value
      * @return string
      */
+    #[Override]
     public function getEditableOptionValue($optionValue)
     {
         try {
@@ -650,9 +664,11 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
      * Parse user input value and return cart prepared value
      *
      * @param  string      $optionValue
-     * @param  array       $productOptionValues Values for product option
+     * @param  array<void> $productOptionValues Values for product option
      * @return null|string
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
+    #[Override]
     public function parseOptionValue($optionValue, $productOptionValues)
     {
         // search quote item option Id in option value
@@ -675,6 +691,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
      * @param  string $optionValue
      * @return mixed
      */
+    #[Override]
     public function prepareOptionValueForRequest($optionValue)
     {
         try {
@@ -765,6 +782,8 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
 
     /**
      * Directory structure initializing
+     *
+     * @return void
      * @throws Mage_Core_Exception
      */
     protected function _initFilesystem()
@@ -774,14 +793,14 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
         $this->_createWriteableDir($this->getOrderTargetDir());
 
         // Directory listing and hotlink secure
-        $io = new Varien_Io_File();
-        $io->cd($this->getTargetDir());
-        if (!$io->fileExists($this->getTargetDir() . DS . '.htaccess')) {
-            $io->streamOpen($this->getTargetDir() . DS . '.htaccess');
-            $io->streamLock(true);
-            $io->streamWrite("Order deny,allow\nDeny from all");
-            $io->streamUnlock();
-            $io->streamClose();
+        $ioFile = new Varien_Io_File();
+        $ioFile->cd($this->getTargetDir());
+        if (!$ioFile->fileExists($this->getTargetDir() . DS . '.htaccess')) {
+            $ioFile->streamOpen($this->getTargetDir() . DS . '.htaccess');
+            $ioFile->streamLock(true);
+            $ioFile->streamWrite("Order deny,allow\nDeny from all");
+            $ioFile->streamUnlock();
+            $ioFile->streamClose();
         }
     }
 
@@ -789,12 +808,13 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
      * Create Writeable directory if it doesn't exist
      *
      * @param  string              $path Absolute directory path
+     * @return void
      * @throws Mage_Core_Exception
      */
     protected function _createWriteableDir($path)
     {
-        $io = new Varien_Io_File();
-        if (!$io->isWriteable($path) && !$io->mkdir($path, 0777, true)) {
+        $ioFile = new Varien_Io_File();
+        if (!$ioFile->isWriteable($path) && !$ioFile->mkdir($path, 0777, true)) {
             Mage::throwException(Mage::helper('catalog')->__("Cannot create writeable directory '%s'.", $path));
         }
     }
@@ -803,7 +823,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
      * Return URL for option file download
      *
      * @param  string                          $route
-     * @param  array                           $params
+     * @param  array<string, mixed>            $params
      * @return string
      * @throws Mage_Core_Model_Store_Exception
      */
@@ -822,10 +842,53 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
     }
 
     /**
+     * Get protected file extensions from core configuration
+     *
+     * @return string[]
+     */
+    protected function _getProtectedFileExtensions(): array
+    {
+        $extensions = Mage::helper('core')->getProtectedFileExtensions();
+        if (is_string($extensions)) {
+            $extensions = explode(',', $extensions);
+        }
+
+        $result = [];
+        foreach ((array) $extensions as $ext) {
+            $result[] = strtolower(trim($ext));
+        }
+
+        return $result;
+    }
+
+    /**
+     * Get legacy forbidden_extensions from config for backwards compatibility
+     *
+     * @return string[]
+     */
+    protected function _getForbiddenExtensions(): array
+    {
+        $extensions = $this->getConfigData('forbidden_extensions');
+        if (is_string($extensions)) {
+            $extensions = $this->_parseExtensionsString($extensions);
+        }
+
+        $result = [];
+        foreach ((array) $extensions as $ext) {
+            $ext = strtolower(trim($ext));
+            if ($ext !== '') {
+                $result[] = $ext;
+            }
+        }
+
+        return $result;
+    }
+
+    /**
      * Parse file extensions string with various separators
      *
-     * @param  string     $extensions String to parse
-     * @return null|array
+     * @param  string        $extensions String to parse
+     * @return null|string[]
      */
     protected function _parseExtensionsString($extensions)
     {
@@ -840,7 +903,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
     /**
      * Simple check if file is image
      *
-     * @param  array|string $fileInfo - either file data from Zend_File_Transfer or file path
+     * @param  array<string, mixed>|string $fileInfo - either file data from Zend_File_Transfer or file path
      * @return bool
      */
     protected function _isImage($fileInfo)

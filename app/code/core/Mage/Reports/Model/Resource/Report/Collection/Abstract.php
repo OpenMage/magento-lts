@@ -94,14 +94,14 @@ class Mage_Reports_Model_Resource_Report_Collection_Abstract extends Mage_Core_M
     /**
      * Set date range
      *
-     * @param  mixed $from
-     * @param  mixed $to
+     * @param  null|string $dateFrom
+     * @param  null|string $dateTo
      * @return $this
      */
-    public function setDateRange($from = null, $to = null)
+    public function setDateRange($dateFrom = null, $dateTo = null)
     {
-        $this->_from = $from;
-        $this->_to   = $to;
+        $this->_from = $dateFrom;
+        $this->_to   = $dateTo;
         return $this;
     }
 
@@ -250,6 +250,7 @@ class Mage_Reports_Model_Resource_Report_Collection_Abstract extends Mage_Core_M
      *
      * @inheritDoc
      */
+    #[Override]
     public function load($printQuery = false, $logQuery = false)
     {
         if ($this->isLoaded()) {
@@ -274,6 +275,7 @@ class Mage_Reports_Model_Resource_Report_Collection_Abstract extends Mage_Core_M
      * @see Mage_Reports_Model_Resource_Report_Product_Viewed_Collection
      * @see Mage_Sales_Model_Resource_Report_Bestsellers_Collection
      */
+    #[Override]
     public function getSelectCountSql()
     {
         $this->_renderFilters();

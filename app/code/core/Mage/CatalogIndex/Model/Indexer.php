@@ -136,7 +136,7 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
      */
     protected function _getStores()
     {
-        $stores = $this->getData('_stores');
+        $stores = $this->getDataByKey('_stores');
         if (is_null($stores)) {
             $stores = Mage::app()->getStores();
             $this->setData('_stores', $stores);
@@ -152,7 +152,7 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
      */
     protected function _getWebsites()
     {
-        $websites = $this->getData('_websites');
+        $websites = $this->getDataByKey('_websites');
         if (is_null($websites)) {
             /** @var Mage_Core_Model_Resource_Website_Collection $websites */
             $websites = Mage::getModel('core/website')->getCollection()->load();
@@ -166,8 +166,8 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
     /**
      * Remove index data for specifuc product
      *
-     * @param  mixed                           $product
-     * @return Mage_CatalogIndex_Model_Indexer
+     * @param  mixed $product
+     * @return $this
      */
     public function cleanup($product)
     {
@@ -180,10 +180,10 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
     /**
      * Reindex catalog product data which used in layered navigation and in product list
      *
-     * @param  mixed                           $products
-     * @param  mixed                           $attributes
-     * @param  mixed                           $stores
-     * @return Mage_CatalogIndex_Model_Indexer
+     * @param  mixed $products
+     * @param  mixed $attributes
+     * @param  mixed $stores
+     * @return $this
      */
     public function plainReindex($products = null, $attributes = null, $stores = null)
     {
@@ -263,12 +263,12 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
              * (prices depends from website level)
              */
             foreach ($websites as $website) {
-                $ws = Mage::app()->getWebsite($website);
-                if (!$ws) {
+                $appWebsite = Mage::app()->getWebsite($website);
+                if (!$appWebsite) {
                     continue;
                 }
 
-                $group = $ws->getDefaultGroup();
+                $group = $appWebsite->getDefaultGroup();
                 if (!$group) {
                     continue;
                 }
@@ -291,7 +291,7 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
                     $collection->addFieldToFilter('type_id', $type);
                     $this->_walkCollection($collection, $store, [], $priceAttributeCodes);
                     if (!is_null($products) && !$this->getRetreiver($type)->getTypeInstance()->isComposite()) {
-                        $this->_walkCollectionRelation($collection, $ws, [], $priceAttributeCodes);
+                        $this->_walkCollectionRelation($collection, $appWebsite, [], $priceAttributeCodes);
                     }
                 }
             }
@@ -458,7 +458,7 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
      * @param  mixed                                          $store
      * @param  array                                          $attributes
      * @param  array                                          $prices
-     * @return Mage_CatalogIndex_Model_Indexer
+     * @return $this
      */
     protected function _walkCollection($collection, $store, $attributes = [], $prices = [])
     {
@@ -500,9 +500,9 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
                 } else {
                     $this->_getResource()->commit();
                 }
-            } catch (Exception $e) {
+            } catch (Exception $exception) {
                 $this->_getResource()->rollBack();
-                throw $e;
+                throw $exception;
             }
 
             if ($deleteKill && isset($kill)) {
@@ -644,7 +644,7 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
 
                                 if ((string) $values[$code]['from'] !== '') {
                                     $filter[$code]->where(
-                                        "($table.min_price"
+                                        "({$table}.min_price"
                                         . implode('', $additionalCalculations[$code]) . ")*{$rateConversion} >= ?",
                                         $values[$code]['from'],
                                     );
@@ -652,7 +652,7 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
 
                                 if ((string) $values[$code]['to'] !== '') {
                                     $filter[$code]->where(
-                                        "($table.min_price"
+                                        "({$table}.min_price"
                                         . implode('', $additionalCalculations[$code]) . ")*{$rateConversion} <= ?",
                                         $values[$code]['to'],
                                     );
@@ -660,7 +660,7 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
                             }
                         }
 
-                        $filter[$code]->where("$table.website_id = ?", $website);
+                        $filter[$code]->where("{$table}.website_id = ?", $website);
                         if ($code == 'price') {
                             $filter[$code]->where(
                                 $table . '.customer_group_id = ?',
@@ -763,7 +763,7 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
      * Add indexable attributes to product collection select
      *
      * @param  Mage_Catalog_Model_Resource_Product_Collection $collection
-     * @return Mage_CatalogIndex_Model_Indexer
+     * @return $this
      * @deprecated
      */
     protected function _addFilterableAttributesToCollection($collection)

@@ -50,6 +50,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
      *
      * @return array<int, string>
      */
+    #[Override]
     protected function _getDefaultAttributes()
     {
         return ['entity_id', 'entity_type_id', 'attribute_set_id', 'type_id', 'created_at', 'updated_at'];
@@ -66,11 +67,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
     {
         $adapter = $this->_getReadAdapter();
 
-        if ($product instanceof Mage_Catalog_Model_Product) {
-            $productId = $product->getId();
-        } else {
-            $productId = $product;
-        }
+        $productId = $product instanceof Mage_Catalog_Model_Product ? $product->getId() : $product;
 
         $select = $adapter->select()
             ->from($this->_productWebsiteTable, 'website_id')
@@ -147,6 +144,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
      * @inheritDoc
      * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _beforeSave(Varien_Object $object)
     {
         /**
@@ -176,6 +174,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
      * @inheritDoc
      * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _afterSave(Varien_Object $object)
     {
         $this->_saveWebsiteIds($object)
@@ -534,6 +533,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
      *
      * @return string
      */
+    #[Override]
     public function getDefaultAttributeSourceModel()
     {
         return 'eav/entity_attribute_source_table';

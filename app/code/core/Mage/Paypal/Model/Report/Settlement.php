@@ -158,6 +158,7 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
      *
      * @return $this
      */
+    #[Override]
     protected function _beforeSave()
     {
         $this->_dataSaveAllowed = true;
@@ -250,8 +251,8 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
         $rowMap = $this->_csvColumns[$format]['rowmap'];
 
         $flippedSectionColumns = array_flip($sectionColumns);
-        $fp = fopen($localCsv, 'r');
-        while ($line = fgetcsv($fp, 0, ',', '"', '\\')) {
+        $resource = fopen($localCsv, 'r');
+        while ($line = fgetcsv($resource, 0, ',', '"', '\\')) {
             if ($line === []) { // The line was empty, so skip it.
                 continue;
             }

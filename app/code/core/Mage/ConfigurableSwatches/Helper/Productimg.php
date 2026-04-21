@@ -74,7 +74,7 @@ class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstr
             return $resultImages[$type];
         }
 
-        return (is_null($resultImages['swatch'])) ? $resultImages['standard'] : $resultImages['swatch'];
+        return $resultImages['swatch'] ?? $resultImages['standard'];
     }
 
     /**
@@ -298,13 +298,13 @@ class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstr
         ];
         $destPath = implode('/', $destPathArr);
         if (!is_dir(Mage::getBaseDir(Mage_Core_Model_Store::URL_TYPE_MEDIA) . DS . dirname($destPath))) {
-            $io = new Varien_Io_File();
-            $io->mkdir(Mage::getBaseDir(Mage_Core_Model_Store::URL_TYPE_MEDIA) . DS . dirname($destPath), 0777, true);
+            $ioFile = new Varien_Io_File();
+            $ioFile->mkdir(Mage::getBaseDir(Mage_Core_Model_Store::URL_TYPE_MEDIA) . DS . dirname($destPath), 0777, true);
         }
 
         $newImage = imagecreatetruecolor($width, $height);
-        [$r, $g, $b] = sscanf($optionSwatch->getValue(), '#%02x%02x%02x');
-        $backgroundColor = imagecolorallocate($newImage, (int) $r, (int) $g, (int) $b);
+        [$rgbR, $rgbG, $rgbB] = sscanf($optionSwatch->getValue(), '#%02x%02x%02x');
+        $backgroundColor = imagecolorallocate($newImage, (int) $rgbR, (int) $rgbG, (int) $rgbB);
         imagefill($newImage, 0, 0, $backgroundColor);
         imagepng($newImage, Mage::getBaseDir(Mage_Core_Model_Store::URL_TYPE_MEDIA) . DS . $destPath);
         imagedestroy($newImage);
@@ -371,8 +371,8 @@ class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstr
     public function clearSwatchesCache()
     {
         $directory = Mage::getBaseDir(Mage_Core_Model_Store::URL_TYPE_MEDIA) . DS . self::SWATCH_CACHE_DIR;
-        $io = new Varien_Io_File();
-        $io->rmdir($directory, true);
+        $ioFile = new Varien_Io_File();
+        $ioFile->rmdir($directory, true);
 
         Mage::helper('core/file_storage_database')->deleteFolder($directory);
     }

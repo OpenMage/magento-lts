@@ -57,13 +57,6 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
     protected $_rawRequest = null;
 
     /**
-     * Rate result data
-     *
-     * @var null|Mage_Shipping_Model_Rate_Result|Mage_Shipping_Model_Tracking_Result
-     */
-    protected $_result = null;
-
-    /**
      * Countries parameters data
      *
      * @var null|SimpleXMLElement
@@ -246,11 +239,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
     {
         $request = $this->_request;
         foreach ($this->_requestVariables as $code => $objectCode) {
-            if ($request->getDhlId()) {
-                $value = $request->getData($objectCode['code']);
-            } else {
-                $value = $this->getConfigData($code);
-            }
+            $value = $request->getDhlId() ? $request->getData($objectCode['code']) : $this->getConfigData($code);
 
             $requestObject->setData($objectCode['setCode'], $value);
         }
@@ -332,11 +321,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
             $requestObject->setOrigState($request->getOrigState());
         }
 
-        if ($request->getDestCountryId()) {
-            $destCountry = $request->getDestCountryId();
-        } else {
-            $destCountry = self::USA_COUNTRY_ID;
-        }
+        $destCountry = $request->getDestCountryId() ? $request->getDestCountryId() : self::USA_COUNTRY_ID;
 
         // for DHL, Puerto Rico state for US will assume as Puerto Rico country
         // for Puerto Rico, dhl will ship as international
@@ -788,7 +773,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
                 $debugPoint = &$debugData['try-' . $offset];
 
                 $requestXml = $this->_buildQuotesRequestXml();
-                $date = Carbon::parse($this->_getShipDate() . " +$offset days")->format(self::REQUEST_DATE_FORMAT);
+                $date = Carbon::parse($this->_getShipDate() . " +{$offset} days")->format(self::REQUEST_DATE_FORMAT);
                 $this->_setQuotesRequestXmlDate($requestXml, $date);
 
                 $request = $requestXml->asXML();
@@ -956,8 +941,8 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
                         try {
                             $labelContent = (string) $xml->LabelImage->OutputImage;
                             $result->setShippingLabelContent(base64_decode($labelContent));
-                        } catch (Exception $e) {
-                            Mage::throwException(Mage::helper('usa')->__($e->getMessage()));
+                        } catch (Exception $exception) {
+                            Mage::throwException(Mage::helper('usa')->__($exception->getMessage()));
                         }
 
                         return $result;
@@ -1139,6 +1124,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
      *
      * @return bool|Mage_Shipping_Model_Carrier_Abstract|Mage_Shipping_Model_Rate_Result_Error
      */
+    #[Override]
     public function proccessAdditionalValidation(Mage_Shipping_Model_Rate_Request $request)
     {
         //Skip by item validation if there is no items in request
@@ -1187,6 +1173,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
      *
      * @return array<string, string>
      */
+    #[Override]
     public function getContainerTypes(?Varien_Object $params = null)
     {
         return [
@@ -1420,8 +1407,8 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
                 $responseBody = $client->request(Varien_Http_Client::POST)->getBody();
                 $debugData['result'] = $responseBody;
                 $this->_setCachedQuotes($request, $responseBody);
-            } catch (Exception $e) {
-                $this->_errors[$e->getCode()] = $e->getMessage();
+            } catch (Exception $exception) {
+                $this->_errors[$exception->getCode()] = $exception->getMessage();
                 $responseBody = '';
             }
 
@@ -1553,8 +1540,8 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
     /**
      * Get tracking
      *
-     * @param  mixed                                $trackings
-     * @return null|Mage_Shipping_Model_Rate_Result
+     * @param  mixed                                    $trackings
+     * @return null|Mage_Shipping_Model_Tracking_Result
      */
     public function getTracking($trackings)
     {
@@ -1564,7 +1551,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
 
         $this->_getXMLTracking($trackings);
 
-        return $this->_result;
+        return $this->_trackingResult;
     }
 
     /**
@@ -1630,8 +1617,8 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
                 $responseBody = $client->request(Varien_Http_Client::POST)->getBody();
                 $debugData['result'] = $responseBody;
                 $this->_setCachedQuotes($request, $responseBody);
-            } catch (Exception $e) {
-                $this->_errors[$e->getCode()] = $e->getMessage();
+            } catch (Exception $exception) {
+                $this->_errors[$exception->getCode()] = $exception->getMessage();
                 $responseBody = '';
             }
 
@@ -1730,7 +1717,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
             }
         }
 
-        $this->_result = $result;
+        $this->_trackingResult = $result;
     }
 
     /**
@@ -1741,6 +1728,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
      * @param  float  $handlingFee
      * @return float
      */
+    #[Override]
     protected function _getPerpackagePrice($cost, $handlingType, $handlingFee)
     {
         if ($handlingType == Mage_Shipping_Model_Carrier_Abstract::HANDLING_TYPE_PERCENT) {
@@ -1755,6 +1743,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
      *
      * @return Varien_Object
      */
+    #[Override]
     public function requestToShipment(Mage_Shipping_Model_Shipment_Request $request)
     {
         $packages = $request->getPackages();

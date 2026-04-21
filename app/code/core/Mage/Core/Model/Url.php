@@ -152,8 +152,8 @@ class Mage_Core_Model_Url extends Varien_Object
     /**
      * Initialize object data from retrieved url
      *
-     * @param  string              $url
-     * @return Mage_Core_Model_Url
+     * @param  string $url
+     * @return $this
      */
     public function parseUrl($url)
     {
@@ -319,7 +319,7 @@ class Mage_Core_Model_Url extends Varien_Object
     public function getSecure()
     {
         if ($this->hasData('secure_is_forced')) {
-            return (bool) $this->getData('secure');
+            return (bool) $this->getDataByKey('secure');
         }
 
         $store = $this->getStore();
@@ -341,7 +341,7 @@ class Mage_Core_Model_Url extends Varien_Object
             }
         }
 
-        return $this->getData('secure');
+        return $this->getDataByKey('secure');
     }
 
     /**
@@ -422,7 +422,6 @@ class Mage_Core_Model_Url extends Varien_Object
         }
 
         $this->setRouteName($route);
-        $routePath = $route . '/';
 
         if ($arr !== []) {
             $controller = array_shift($arr);
@@ -431,7 +430,6 @@ class Mage_Core_Model_Url extends Varien_Object
             }
 
             $this->setControllerName($controller);
-            $routePath .= $controller . '/';
         }
 
         if ($arr !== []) {
@@ -441,7 +439,6 @@ class Mage_Core_Model_Url extends Varien_Object
             }
 
             $this->setActionName($action);
-            $routePath .= $action . '/';
         }
 
         if ($arr !== []) {
@@ -451,7 +448,6 @@ class Mage_Core_Model_Url extends Varien_Object
                 if ($arr !== []) {
                     $value = array_shift($arr);
                     $this->setRouteParam($key, $value);
-                    $routePath .= $key . '/' . $value . '/';
                 }
             }
         }
@@ -642,7 +638,8 @@ class Mage_Core_Model_Url extends Varien_Object
     /**
      * Set route params
      *
-     * @param  bool  $unsetOldParams
+     * @param  non-empty-array<mixed, mixed> $data
+     * @param  bool                          $unsetOldParams
      * @return $this
      */
     public function setRouteParams(array $data, $unsetOldParams = true)
@@ -716,7 +713,7 @@ class Mage_Core_Model_Url extends Varien_Object
         }
 
         if (isset($data['_store_to_url'])
-            && (bool) $data['_store_to_url'] === true
+            && (bool) $data['_store_to_url']
             && (!Mage::getStoreConfig(Mage_Core_Model_Store::XML_PATH_STORE_IN_URL, $this->getStore()) && !Mage::app()->isSingleStoreMode())
         ) {
             $this->setQueryParam('___store', $this->getStore()->getCode());
@@ -724,8 +721,8 @@ class Mage_Core_Model_Url extends Varien_Object
 
         unset($data['_store_to_url']);
 
-        foreach ($data as $k => $v) {
-            $this->setRouteParam($k, $v);
+        foreach ($data as $index => $val) {
+            $this->setRouteParam($index, $val);
         }
 
         return $this;
@@ -1137,11 +1134,7 @@ class Mage_Core_Model_Url extends Varien_Object
     {
         $this->parseUrl($url);
         $port = $this->getPort();
-        if ($port) {
-            $port = ':' . $port;
-        } else {
-            $port = '';
-        }
+        $port = $port ? ':' . $port : '';
 
         $url = $this->getScheme() . '://' . $this->getHost() . $port . $this->getPath();
 

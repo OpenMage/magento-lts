@@ -43,11 +43,7 @@ class Mage_Rule_Model_Resource_Rule_Condition_SqlBuilder
                 break;
             case '{}':
             case '!{}':
-                if (preg_match('/^.*(category_id)$/', $field) && is_array($value)) {
-                    $selectOperator = ' IN (?)';
-                } else {
-                    $selectOperator = ' LIKE ?';
-                }
+                $selectOperator = preg_match('/^.*(category_id)$/', $field) && is_array($value) ? ' IN (?)' : ' LIKE ?';
 
                 if (str_starts_with($operator, '!')) {
                     $selectOperator = ' NOT' . $selectOperator;
@@ -75,8 +71,8 @@ class Mage_Rule_Model_Resource_Rule_Condition_SqlBuilder
 
         if (is_array($value) && in_array($operator, ['==', '!=', '>=', '<=', '>', '<', '{}', '!{}'], true)) {
             $results = [];
-            foreach ($value as $v) {
-                $results[] = $this->_adapter->quoteInto("{$field}{$selectOperator}", $v);
+            foreach ($value as $item) {
+                $results[] = $this->_adapter->quoteInto("{$field}{$selectOperator}", $item);
             }
 
             $result = implode(' AND ', $results);
@@ -86,8 +82,8 @@ class Mage_Rule_Model_Resource_Rule_Condition_SqlBuilder
             }
 
             $results = [];
-            foreach ($value as $v) {
-                $results[] = $this->_adapter->quoteInto("{$selectOperator}", $v);
+            foreach ($value as $item) {
+                $results[] = $this->_adapter->quoteInto("{$selectOperator}", $item);
             }
 
             $result = implode(in_array($operator, ['()', '!()'], true) ? ' OR ' : ' AND ', $results);

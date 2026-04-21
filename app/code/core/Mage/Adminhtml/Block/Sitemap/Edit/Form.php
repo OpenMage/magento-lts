@@ -24,13 +24,14 @@ class Mage_Adminhtml_Block_Sitemap_Edit_Form extends Mage_Adminhtml_Block_Widget
         $this->setTitle(Mage::helper('adminhtml')->__('Sitemap Information'));
     }
 
+    #[Override]
     protected function _prepareForm()
     {
         $model = Mage::registry('sitemap_sitemap');
 
         $form = new Varien_Data_Form([
             'id'        => 'edit_form',
-            'action'    => $this->getData('action'),
+            'action'    => $this->getDataByKey('action'),
             'method'    => 'post',
         ]);
 

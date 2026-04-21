@@ -14,6 +14,7 @@
  */
 class Mage_Install_WizardController extends Mage_Install_Controller_Action
 {
+    #[Override]
     public function preDispatch()
     {
         if (Mage::isInstalled()) {
@@ -202,7 +203,7 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
     /**
      * Process configuration POST data
      *
-     * @return Mage_Core_Controller_Varien_Action|void
+     * @return null|Mage_Core_Controller_Varien_Action
      */
     public function configPostAction()
     {
@@ -225,13 +226,14 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
                 $this->_getInstaller()->installConfig($data);
                 $this->_redirect('*/*/installDb');
                 return $this;
-            } catch (Exception $e) {
-                Mage::getSingleton('install/session')->addError($e->getMessage());
+            } catch (Exception $exception) {
+                Mage::getSingleton('install/session')->addError($exception->getMessage());
                 $this->getResponse()->setRedirect($step->getUrl());
             }
         }
 
         $this->getResponse()->setRedirect($step->getUrl());
+        return null;
     }
 
     /**
@@ -276,7 +278,7 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
     /**
      * Process administrator installation POST data
      *
-     * @return false|void
+     * @return null|false
      */
     public function administratorPostAction()
     {
@@ -318,6 +320,7 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
         }
 
         $this->getResponse()->setRedirect($step->getNextUrl());
+        return null;
     }
 
     /**

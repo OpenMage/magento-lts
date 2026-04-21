@@ -21,9 +21,10 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Location extends Mage_A
      * @param  bool                              $tooltipsExist Init tooltips observer or not
      * @return string
      */
+    #[Override]
     protected function _getExtraJs($element, $tooltipsExist = false)
     {
-        $js = '
+        $str = '
             document.observe("dom:loaded", function() {
                 $$(".with-button button.button").each(function(configureButton) {
                     togglePaypalSolutionConfigureButton(configureButton, true);
@@ -363,6 +364,6 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Location extends Mage_A
 
         /** @var Mage_Adminhtml_Helper_Js $helper */
         $helper = $this->helper('adminhtml/js');
-        return parent::_getExtraJs($element, $tooltipsExist) . $helper->getScript($js);
+        return parent::_getExtraJs($element, $tooltipsExist) . $helper->getScript($str);
     }
 }

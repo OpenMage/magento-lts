@@ -159,8 +159,11 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Items_Grid extends Mage_Adminhtml_
      */
     public function displayTotalsIncludeTax()
     {
-        return Mage::getSingleton('tax/config')->displayCartSubtotalInclTax($this->getStore())
-            || Mage::getSingleton('tax/config')->displayCartSubtotalBoth($this->getStore());
+        if (Mage::getSingleton('tax/config')->displayCartSubtotalInclTax($this->getStore())) {
+            return true;
+        }
+
+        return (bool) Mage::getSingleton('tax/config')->displayCartSubtotalBoth($this->getStore());
     }
 
     /**
@@ -315,15 +318,12 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Items_Grid extends Mage_Adminhtml_
             foreach (explode(',', $optionIds->getValue()) as $optionId) {
                 $option = $item->getProduct()->getOptionById($optionId);
                 if ($option) {
-                    $optionValue = $item->getOptionByCode('option_' . $option->getId())->getValue();
-
-                    $optionStr .= $option->getTitle() . ':';
-
                     $quoteItemOption = $item->getOptionByCode('option_' . $option->getId());
                     $group = $option->groupFactory($option->getType())
                         ->setOption($option)
                         ->setQuoteItemOption($quoteItemOption);
 
+                    $optionStr .= $option->getTitle() . ':';
                     $optionStr .= $group->getEditableOptionValue($quoteItemOption->getValue());
                     $optionStr .= "\n";
                 }
@@ -407,6 +407,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Items_Grid extends Mage_Adminhtml_
      *
      * @return Mage_Core_Model_Store
      */
+    #[Override]
     public function getStore()
     {
         return $this->getQuote()->getStore();

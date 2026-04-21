@@ -25,10 +25,11 @@ class Mage_Adminhtml_Model_Url extends Mage_Core_Model_Url
      *
      * @return bool
      */
+    #[Override]
     public function getSecure()
     {
         if ($this->hasData('secure_is_forced')) {
-            return $this->getData('secure');
+            return $this->getDataByKey('secure');
         }
 
         return Mage::getStoreConfigFlag(Mage_Core_Model_Store::XML_PATH_SECURE_IN_ADMINHTML);
@@ -39,6 +40,7 @@ class Mage_Adminhtml_Model_Url extends Mage_Core_Model_Url
      *
      * @return Mage_Core_Model_Url
      */
+    #[Override]
     public function setRouteParams(array $data, $unsetOldParams = true)
     {
         if (isset($data['_nosecret'])) {
@@ -58,6 +60,7 @@ class Mage_Adminhtml_Model_Url extends Mage_Core_Model_Url
      * @param  array  $routeParams
      * @return string
      */
+    #[Override]
     public function getUrl($routePath = null, $routeParams = null)
     {
         $cacheSecretKey = false;
@@ -81,11 +84,7 @@ class Mage_Adminhtml_Model_Url extends Mage_Core_Model_Url
             $secret = [self::SECRET_KEY_PARAM_NAME => $this->getSecretKey($controller, $action)];
         }
 
-        if (is_array($routeParams)) {
-            $routeParams = array_merge($secret, $routeParams);
-        } else {
-            $routeParams = $secret;
-        }
+        $routeParams = is_array($routeParams) ? array_merge($secret, $routeParams) : $secret;
 
         if (is_array($this->getRouteParams())) {
             $routeParams = array_merge($this->getRouteParams(), $routeParams);
@@ -105,13 +104,13 @@ class Mage_Adminhtml_Model_Url extends Mage_Core_Model_Url
     {
         $salt = Mage::getSingleton('core/session')->getFormKey();
 
-        $p = explode('/', trim($this->getRequest()->getOriginalPathInfo(), '/'));
+        $path = explode('/', trim($this->getRequest()->getOriginalPathInfo(), '/'));
         if (!$controller) {
-            $controller = empty($p[1]) ? $this->getRequest()->getControllerName() : $p[1];
+            $controller = empty($path[1]) ? $this->getRequest()->getControllerName() : $path[1];
         }
 
         if (!$action) {
-            $action = empty($p[2]) ? $this->getRequest()->getActionName() : $p[2];
+            $action = empty($path[2]) ? $this->getRequest()->getActionName() : $path[2];
         }
 
         $secret = $controller . $action . $salt;

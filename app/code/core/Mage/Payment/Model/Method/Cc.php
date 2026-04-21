@@ -24,6 +24,7 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
      * @param  mixed $data
      * @return $this
      */
+    #[Override]
     public function assignData($data)
     {
         if (!($data instanceof Varien_Object)) {
@@ -50,6 +51,7 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
      *
      * @return $this
      */
+    #[Override]
     public function prepareSave()
     {
         $info = $this->getInfoInstance();
@@ -70,6 +72,7 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
      * @throws Mage_Core_Exception
      * @throws Zend_Date_Exception
      */
+    #[Override]
     public function validate()
     {
         /*
@@ -88,14 +91,11 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
 
         $info->setCcNumber($ccNumber);
 
-        $ccType = '';
-
         if (in_array($info->getCcType(), $availableTypes)) {
             if ($this->validateCcNum($ccNumber)
                 // Other credit card type number validation
                 || ($this->otherCcType($info->getCcType()) && $this->validateCcNumOther($ccNumber))
             ) {
-                $ccType = 'OT';
                 $discoverNetworkRegexp = '/^(30[0-5]\d{13}|3095\d{12}|35(2[8-9]\d{12}|[3-8]\d{13})|36\d{12}'
                     . '|3[8-9]\d{14}|6011(0\d{11}|[2-4]\d{11}|74\d{10}|7[7-9]\d{10}|8[6-9]\d{10}|9\d{11})'
                     . '|62(2(12[6-9]\d{10}|1[3-9]\d{11}|[2-8]\d{12}|9[0-1]\d{11}|92[0-5]\d{10})|[4-6]\d{13}'
@@ -148,7 +148,7 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
             }
         }
 
-        if ($ccType != 'SS' && !$this->_validateExpDate($info->getCcExpYear(), $info->getCcExpMonth())) {
+        if (!$this->_validateExpDate($info->getCcExpYear(), $info->getCcExpMonth())) {
             $errorMsg = Mage::helper('payment')->__('Incorrect credit card expiration date.');
         }
 
@@ -278,6 +278,7 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
      * @param  null|Mage_Sales_Model_Quote $quote
      * @return bool
      */
+    #[Override]
     public function isAvailable($quote = null)
     {
         return $this->getConfigData('cctypes', ($quote ? $quote->getStoreId() : null))

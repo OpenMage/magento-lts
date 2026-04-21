@@ -212,8 +212,8 @@ class Varien_Db_Ddl_Table
     /**
      * Set table name
      *
-     * @param  string              $name
-     * @return Varien_Db_Ddl_Table
+     * @param  string $name
+     * @return $this
      */
     public function setName($name)
     {
@@ -228,8 +228,8 @@ class Varien_Db_Ddl_Table
     /**
      * Set schema name
      *
-     * @param  string              $name
-     * @return Varien_Db_Ddl_Table
+     * @param  string $name
+     * @return $this
      */
     public function setSchema($name)
     {
@@ -240,8 +240,8 @@ class Varien_Db_Ddl_Table
     /**
      * Set comment for table
      *
-     * @param  string              $comment
-     * @return Varien_Db_Ddl_Table
+     * @param  string $comment
+     * @return $this
      */
     public function setComment($comment)
     {
@@ -297,12 +297,12 @@ class Varien_Db_Ddl_Table
      * - 'primary_position', only for column in primary index. Default: count of primary columns + 1.
      * - 'identity' or 'auto_increment'. Default: FALSE.
      *
-     * @param  string              $name    the column name
-     * @param  string              $type    the column data type
-     * @param  array|int|string    $size    the column length
-     * @param  array               $options array of additional options
-     * @param  string              $comment column description
-     * @return Varien_Db_Ddl_Table
+     * @param  string            $name    the column name
+     * @param  string            $type    the column data type
+     * @param  array|int|string  $size    the column length
+     * @param  array             $options array of additional options
+     * @param  string            $comment column description
+     * @return $this
      * @throws Zend_Db_Exception
      */
     public function addColumn($name, $type, $size = null, $options = [], $comment = null)
@@ -414,8 +414,8 @@ class Varien_Db_Ddl_Table
                 $primaryPosition = (int) $options['primary_position'];
             } else {
                 $primaryPosition = 0;
-                foreach ($this->_columns as $v) {
-                    if ($v['PRIMARY']) {
+                foreach ($this->_columns as $column) {
+                    if ($column['PRIMARY']) {
                         $primaryPosition++;
                     }
                 }
@@ -454,13 +454,13 @@ class Varien_Db_Ddl_Table
     /**
      * Add Foreign Key to table
      *
-     * @param  string              $fkName    the foreign key name
-     * @param  string              $column    the foreign key column name
-     * @param  string              $refTable  the reference table name
-     * @param  string              $refColumn the reference table column name
-     * @param  string              $onDelete  the action on delete row
-     * @param  string              $onUpdate  the action on update
-     * @return Varien_Db_Ddl_Table
+     * @param  string            $fkName    the foreign key name
+     * @param  string            $column    the foreign key column name
+     * @param  string            $refTable  the reference table name
+     * @param  string            $refColumn the reference table column name
+     * @param  string            $onDelete  the action on delete row
+     * @param  string            $onUpdate  the action on update
+     * @return $this
      * @throws Zend_Db_Exception
      */
     public function addForeignKey($fkName, $column, $refTable, $refColumn, $onDelete = null, $onUpdate = null)
@@ -507,10 +507,10 @@ class Varien_Db_Ddl_Table
     /**
      * Add index to table
      *
-     * @param  string              $indexName the index name
-     * @param  array|string        $fields    array of columns or column string
-     * @param  array               $options   array of additional options
-     * @return Varien_Db_Ddl_Table
+     * @param  string       $indexName the index name
+     * @param  array|string $fields    array of columns or column string
+     * @param  array        $options   array of additional options
+     * @return $this
      */
     public function addIndex($indexName, $fields, $options = [])
     {
@@ -587,8 +587,8 @@ class Varien_Db_Ddl_Table
     /**
      * Set column, formatted according to DDL Table format, into columns structure
      *
-     * @param  array               $column
-     * @return Varien_Db_Ddl_Table
+     * @param  array $column
+     * @return $this
      */
     public function setColumn($column)
     {

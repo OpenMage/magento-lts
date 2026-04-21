@@ -216,22 +216,22 @@ class Mage_Directory_Helper_Data extends Mage_Core_Helper_Abstract
      * Convert currency
      *
      * @param  float                           $amount
-     * @param  string                          $from
-     * @param  string                          $to
+     * @param  string                          $source
+     * @param  string                          $target
      * @return float
      * @throws Mage_Core_Model_Store_Exception
      */
-    public function currencyConvert($amount, $from, $to = null)
+    public function currencyConvert($amount, $source, $target = null)
     {
-        if (empty($this->_currencyCache[$from])) {
-            $this->_currencyCache[$from] = Mage::getModel('directory/currency')->load($from);
+        if (empty($this->_currencyCache[$source])) {
+            $this->_currencyCache[$source] = Mage::getModel('directory/currency')->load($source);
         }
 
-        if (is_null($to)) {
-            $to = Mage::app()->getStore()->getCurrentCurrencyCode();
+        if (is_null($target)) {
+            $target = Mage::app()->getStore()->getCurrentCurrencyCode();
         }
 
-        return $this->_currencyCache[$from]->convert($amount, $to);
+        return $this->_currencyCache[$source]->convert($amount, $target);
     }
 
     /**
@@ -326,6 +326,6 @@ class Mage_Directory_Helper_Data extends Mage_Core_Helper_Abstract
         $transportObject->setData('top_countries', $topCountries);
         Mage::dispatchEvent('directory_get_top_countries', ['topCountries' => $transportObject]);
 
-        return $transportObject->getData('top_countries');
+        return $transportObject->getDataByKey('top_countries');
     }
 }

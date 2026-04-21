@@ -20,6 +20,7 @@ class Mage_Eav_Model_Entity_Attribute_Backend_Increment extends Mage_Eav_Model_E
      * @param  Varien_Object $object
      * @return $this
      */
+    #[Override]
     public function beforeSave($object)
     {
         if (!$object->getId()) {

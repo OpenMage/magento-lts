@@ -118,12 +118,7 @@ class Mage_Sales_Model_Order_Shipment_Item extends Mage_Core_Model_Abstract
      */
     public function setQty($qty)
     {
-        if ($this->getOrderItem()->getIsQtyDecimal()) {
-            $qty = (float) $qty;
-        } else {
-            $qty = (int) $qty;
-        }
-
+        $qty = $this->getOrderItem()->getIsQtyDecimal() ? (float) $qty : (int) $qty;
         $qty = $qty > 0 ? $qty : 0;
         /**
          * Check qty availability
@@ -157,6 +152,7 @@ class Mage_Sales_Model_Order_Shipment_Item extends Mage_Core_Model_Abstract
      *
      * @return $this
      */
+    #[Override]
     protected function _beforeSave()
     {
         parent::_beforeSave();

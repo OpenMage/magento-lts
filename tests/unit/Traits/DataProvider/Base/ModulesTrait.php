@@ -4,6 +4,7 @@
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
  * @license    Open Software License (OSL 3.0)
+ * @package    OpenMage_Tests
  */
 
 declare(strict_types=1);
@@ -20,7 +21,7 @@ trait ModulesTrait
     /**
      * @return array<int, string>
      */
-    final public function provideAllModules(): array
+    final public static function provideAllModules(): array
     {
         return [
             'Mage_Admin',
@@ -85,10 +86,10 @@ trait ModulesTrait
         ];
     }
 
-    public function provideAllActiveModules(): array
+    public static function provideAllActiveModules(): array
     {
         $disabled   = static::$disabledModules;
-        $modules    = $this->provideAllModules();
+        $modules    = static::provideAllModules();
 
         foreach ($modules as $idx => $module) {
             if (in_array($module, $disabled)) {

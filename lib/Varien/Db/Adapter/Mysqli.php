@@ -24,6 +24,7 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
+    #[Override]
     protected function _connect()
     {
         if ($this->_connection) {
@@ -193,11 +194,11 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
      * @throws Exception
      * @throws Zend_Db_Adapter_Mysqli_Exception
      */
-    public function dropForeignKey($table, $fk)
+    public function dropForeignKey($table, $foreignKey)
     {
-        $create = $this->raw_fetchRow("show create table `$table`", 'Create Table');
-        if (str_contains($create, "CONSTRAINT `$fk` FOREIGN KEY (")) {
-            return $this->raw_query("ALTER TABLE `$table` DROP FOREIGN KEY `$fk`");
+        $create = $this->raw_fetchRow("show create table `{$table}`", 'Create Table');
+        if (str_contains($create, "CONSTRAINT `{$foreignKey}` FOREIGN KEY (")) {
+            return $this->raw_query("ALTER TABLE `{$table}` DROP FOREIGN KEY `{$foreignKey}`");
         }
 
         return true;
@@ -209,9 +210,9 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
      */
     public function dropKey($table, $key)
     {
-        $create = $this->raw_fetchRow("show create table `$table`", 'Create Table');
-        if (str_contains($create, "KEY `$key` (")) {
-            return $this->raw_query("ALTER TABLE `$table` DROP KEY `$key`");
+        $create = $this->raw_fetchRow("show create table `{$table}`", 'Create Table');
+        if (str_contains($create, "KEY `{$key}` (")) {
+            return $this->raw_query("ALTER TABLE `{$table}` DROP KEY `{$key}`");
         }
 
         return true;
@@ -275,7 +276,7 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
             return true;
         }
 
-        return $this->raw_query("alter table `$tableName` add column `$columnName` " . $definition);
+        return $this->raw_query("alter table `{$tableName}` add column `{$columnName}` " . $definition);
     }
 
     /**
@@ -311,6 +312,7 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
      *
      * @return Varien_Db_Select
      */
+    #[Override]
     public function select()
     {
         return new Varien_Db_Select($this);

@@ -14,6 +14,7 @@
  */
 class Mage_Adminhtml_Block_Catalog_Product_Composite_Fieldset_Qty extends Mage_Core_Block_Template
 {
+    #[Override]
     protected function _construct()
     {
         parent::_construct();
@@ -31,7 +32,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Composite_Fieldset_Qty extends Mage_C
             $this->setData('product', Mage::registry('product'));
         }
 
-        return $this->getData('product');
+        return $this->getDataByKey('product');
     }
 
     /**

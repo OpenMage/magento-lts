@@ -11,6 +11,8 @@
  * Catalog data helper
  *
  * @package    Mage_Catalog
+ *
+ * @phpstan-import-type ConfigStoreId from Mage
  */
 class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
 {
@@ -245,7 +247,7 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Indicate whether to save URL Rewrite History or not (create redirects to old URLs)
      *
-     * @param  null|bool|int|Mage_Core_Model_Store|string $storeId Store View
+     * @param  ConfigStoreId $storeId
      * @return bool
      */
     public function shouldSaveUrlRewritesHistory($storeId = null)

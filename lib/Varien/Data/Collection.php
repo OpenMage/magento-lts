@@ -525,12 +525,12 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
      * Set select order
      *
      * @param  string $field
-     * @param  string $direction
+     * @param  string $dir
      * @return $this
      */
-    public function setOrder($field, $direction = self::SORT_ORDER_DESC)
+    public function setOrder($field, $dir = self::SORT_ORDER_DESC)
     {
-        $this->_orders[$field] = $direction;
+        $this->_orders[$field] = $dir;
         return $this;
     }
 
@@ -723,9 +723,9 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
      * return items hash
      * array($value => $label)
      *
-     * @param  string $valueField
-     * @param  string $labelField
-     * @return array
+     * @param  string                   $valueField
+     * @param  string                   $labelField
+     * @return array<array-key, string>
      */
     protected function _toOptionHash($valueField = 'id', $labelField = 'name')
     {

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -38,7 +40,7 @@ class Mage_Core_Block_Text extends Mage_Core_Block_Abstract
      */
     public function getText()
     {
-        return $this->getData('text');
+        return $this->getDataByKey('text');
     }
 
     /**
@@ -57,6 +59,7 @@ class Mage_Core_Block_Text extends Mage_Core_Block_Abstract
     /**
      * @return string
      */
+    #[Override]
     protected function _toHtml()
     {
         if (!$this->_beforeToHtml()) {

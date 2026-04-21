@@ -160,8 +160,8 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
                 }
 
                 return $this->_redirect('*/tag/' . $this->getRequest()->getParam('ret', 'index'));
-            } catch (Exception $e) {
-                Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
+            } catch (Exception $exception) {
+                Mage::getSingleton('adminhtml/session')->addError($exception->getMessage());
                 Mage::getSingleton('adminhtml/session')->setTagData($data);
 
                 return $this->_redirect('*/*/edit', ['tag_id' => $model->getId(), 'store' => $model->getStoreId()]);
@@ -183,8 +183,8 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
             try {
                 $model->delete();
                 $session->addSuccess(Mage::helper('adminhtml')->__('The tag has been deleted.'));
-            } catch (Exception $e) {
-                $session->addError($e->getMessage());
+            } catch (Exception $exception) {
+                $session->addError($exception->getMessage());
             }
         } else {
             $session->addError(Mage::helper('adminhtml')->__('Unable to find a tag to delete.'));
@@ -268,8 +268,8 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
                 Mage::getSingleton('adminhtml/session')->addSuccess(
                     $this->__('Total of %d record(s) have been deleted.', count($tagIds)),
                 );
-            } catch (Exception $e) {
-                Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
+            } catch (Exception $exception) {
+                Mage::getSingleton('adminhtml/session')->addError($exception->getMessage());
             }
         }
 
@@ -282,7 +282,6 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
     public function massStatusAction()
     {
         $tagIds = $this->getRequest()->getParam('tag');
-        $storeId = (int) $this->getRequest()->getParam('store', 0);
         if (!is_array($tagIds)) {
             // No products selected
             Mage::getSingleton('adminhtml/session')->addError($this->__('Please select tag(s).'));
@@ -298,8 +297,8 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
                 Mage::getSingleton('adminhtml/session')->addSuccess(
                     $this->__('Total of %d record(s) have been updated.', count($tagIds)),
                 );
-            } catch (Exception $e) {
-                Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
+            } catch (Exception $exception) {
+                Mage::getSingleton('adminhtml/session')->addError($exception->getMessage());
             }
         }
 
@@ -310,6 +309,7 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _isAllowed(): bool
     {
         $action = strtolower($this->getRequest()->getActionName());

@@ -24,12 +24,13 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tabs extends Mage_Adminhtml_Bloc
         $this->setTitle(Mage::helper('catalog')->__('Product Information'));
     }
 
+    #[Override]
     protected function _prepareLayout()
     {
         $product = $this->getProduct();
 
         if (!($setId = $product->getAttributeSetId())) {
-            $setId = $this->getRequest()->getParam('set', null);
+            $setId = $this->getRequest()->getParam('set');
         }
 
         if ($setId) {
@@ -107,11 +108,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tabs extends Mage_Adminhtml_Bloc
                 'class'     => 'ajax',
             ]);
 
-            $storeId = 0;
-            if ($this->getRequest()->getParam('store')) {
-                $storeId = Mage::app()->getStore($this->getRequest()->getParam('store'))->getId();
-            }
-
             $alertPriceAllow = Mage::getStoreConfig('catalog/productalert/allow_price');
             $alertStockAllow = Mage::getStoreConfig('catalog/productalert/allow_stock');
 
@@ -181,11 +177,11 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tabs extends Mage_Adminhtml_Bloc
      */
     public function getProduct()
     {
-        if (!($this->getData('product') instanceof Mage_Catalog_Model_Product)) {
+        if (!($this->getDataByKey('product') instanceof Mage_Catalog_Model_Product)) {
             $this->setData('product', Mage::registry('product'));
         }
 
-        return $this->getData('product');
+        return $this->getDataByKey('product');
     }
 
     /**

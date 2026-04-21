@@ -31,14 +31,14 @@ class Mage_Reports_Model_Resource_Coupons_Collection extends Mage_Sales_Model_En
     /**
      * Set date range
      *
-     * @param  string $from
-     * @param  string $to
+     * @param  null|string $dateFrom
+     * @param  null|string $dateTo
      * @return $this
      */
-    public function setDateRange($from, $to)
+    public function setDateRange($dateFrom, $dateTo)
     {
-        $this->_from = $from;
-        $this->_to   = $to;
+        $this->_from = $dateFrom;
+        $this->_to   = $dateTo;
         $this->_reset();
         return $this;
     }
@@ -58,14 +58,14 @@ class Mage_Reports_Model_Resource_Coupons_Collection extends Mage_Sales_Model_En
     /**
      * Join fields
      *
-     * @param string $from
-     * @param string $to
-     * @param array  $storeIds
+     * @param null|string $dateFrom
+     * @param null|string $dateTo
+     * @param array       $storeIds
      */
-    public function joinFields($from, $to, $storeIds = [])
+    public function joinFields($dateFrom, $dateTo, $storeIds = [])
     {
         $this->groupByAttribute('coupon_code')
-            ->addAttributeToFilter('created_at', ['from' => $from, 'to' => $to, 'datetime' => true])
+            ->addAttributeToFilter('created_at', ['from' => $dateFrom, 'to' => $dateTo, 'datetime' => true])
             ->addAttributeToFilter('coupon_code', ['neq' => ''])
             ->getSelect()->columns(['uses' => 'COUNT(e.entity_id)'])
             ->having('uses > ?', 0)
@@ -113,6 +113,7 @@ class Mage_Reports_Model_Resource_Coupons_Collection extends Mage_Sales_Model_En
      *
      * @return Varien_Db_Select
      */
+    #[Override]
     public function getSelectCountSql()
     {
         $countSelect = clone $this->getSelect();

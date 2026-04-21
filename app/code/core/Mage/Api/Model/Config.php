@@ -107,7 +107,7 @@ class Mage_Api_Model_Config extends Varien_Simplexml_Config
             }
 
             if (isset($adapter->required) && isset($adapter->required->extensions)) {
-                foreach ($adapter->required->extensions->children() as $extension => $data) {
+                foreach ($adapter->required->extensions->children() as $extension => $ignored) {
                     if (!extension_loaded($extension)) {
                         continue;
                     }
@@ -164,7 +164,7 @@ class Mage_Api_Model_Config extends Varien_Simplexml_Config
             $resource = $this->getNode('acl/resources');
         } else {
             $resourceName = (is_null($parentName) ? '' : $parentName . '/') . $resource->getName();
-            $acl->add(Mage::getModel('api/acl_resource', $resourceName), $parentName);
+            $acl->addResource(Mage::getModel('api/acl_resource', $resourceName), $parentName);
         }
 
         $children = $resource->children();
@@ -252,6 +252,7 @@ class Mage_Api_Model_Config extends Varien_Simplexml_Config
      *
      * @return Zend_Cache_Core
      */
+    #[Override]
     public function getCache()
     {
         return Mage::app()->getCache();
@@ -261,6 +262,7 @@ class Mage_Api_Model_Config extends Varien_Simplexml_Config
      * @param  string     $id
      * @return bool|mixed
      */
+    #[Override]
     protected function _loadCache($id)
     {
         return Mage::app()->loadCache($id);
@@ -273,6 +275,7 @@ class Mage_Api_Model_Config extends Varien_Simplexml_Config
      * @param  bool                     $lifetime
      * @return bool|Mage_Core_Model_App
      */
+    #[Override]
     protected function _saveCache($data, $id, $tags = [], $lifetime = false)
     {
         return Mage::app()->saveCache($data, $id, $tags, $lifetime);
@@ -282,6 +285,7 @@ class Mage_Api_Model_Config extends Varien_Simplexml_Config
      * @param  string              $id
      * @return Mage_Core_Model_App
      */
+    #[Override]
     protected function _removeCache($id)
     {
         return Mage::app()->removeCache($id);

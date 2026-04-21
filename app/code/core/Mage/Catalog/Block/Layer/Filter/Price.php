@@ -29,6 +29,7 @@ class Mage_Catalog_Block_Layer_Filter_Price extends Mage_Catalog_Block_Layer_Fil
      *
      * @return $this
      */
+    #[Override]
     protected function _prepareFilter()
     {
         $this->_filter->setAttributeModel($this->getAttributeModel());

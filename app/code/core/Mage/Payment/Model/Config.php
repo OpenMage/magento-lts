@@ -7,14 +7,14 @@
  * @package    Mage_Payment
  */
 
-use Carbon\Carbon;
-
 /**
  * Payment configuration model
  *
  * Used for retrieving configuration data by payment models
  *
  * @package    Mage_Payment
+ *
+ * @phpstan-import-type ConfigStoreId from Mage
  */
 class Mage_Payment_Model_Config
 {
@@ -23,7 +23,7 @@ class Mage_Payment_Model_Config
     /**
      * Retrieve active system payments
      *
-     * @param  null|bool|int|Mage_Core_Model_Store|string $store
+     * @param  ConfigStoreId $store
      * @return array
      */
     public function getActiveMethods($store = null)
@@ -45,7 +45,7 @@ class Mage_Payment_Model_Config
     /**
      * Retrieve all system payments
      *
-     * @param  null|bool|int|Mage_Core_Model_Store|string $store
+     * @param  ConfigStoreId $store
      * @return array
      */
     public function getAllMethods($store = null)
@@ -94,7 +94,7 @@ class Mage_Payment_Model_Config
     /**
      * Retrieve array of credit card types
      *
-     * @return array
+     * @return array<string, string>
      */
     public function getCcTypes()
     {
@@ -136,7 +136,7 @@ class Mage_Payment_Model_Config
     public function getYears()
     {
         $years = [];
-        $first = Carbon::now()->format('Y');
+        $first = (int) Mage::helper('core/clock')->format('Y');
 
         for ($index = 0; $index <= 10; $index++) {
             $year = $first + $index;
@@ -147,7 +147,7 @@ class Mage_Payment_Model_Config
     }
 
     /**
-     * Statis Method for compare sort order of CC Types
+     * Static Method for compare sort order of CC Types
      *
      * @param  array $sortA
      * @param  array $sortB

@@ -7,8 +7,6 @@
  * @package    Mage_Dataflow
  */
 
-use Carbon\Carbon;
-
 /**
  * Convert profile
  *
@@ -63,6 +61,7 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
         $this->_init('dataflow/profile');
     }
 
+    #[Override]
     protected function _afterLoad()
     {
         $guiData = '';
@@ -70,8 +69,8 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
             try {
                 $guiData = Mage::helper('core/unserializeArray')
                     ->unserialize($this->getGuiData());
-            } catch (Exception $e) {
-                Mage::logException($e);
+            } catch (Exception $exception) {
+                Mage::logException($exception);
             }
         }
 
@@ -83,10 +82,11 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
     /**
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
+    #[Override]
     protected function _beforeSave()
     {
         parent::_beforeSave();
-        $actionsXML = $this->getData('actions_xml');
+        $actionsXML = $this->getDataByKey('actions_xml');
         // @phpstan-ignore-next-line because of https://github.com/phpstan/phpstan/issues/10570
         if ($actionsXML !== null && strlen($actionsXML) < 0
             && @simplexml_load_string('<data>' . $actionsXML . '</data>', null, LIBXML_NOERROR) === false
@@ -143,6 +143,7 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
     /**
      * @SuppressWarnings("PHPMD.Superglobals")
      */
+    #[Override]
     protected function _afterSave()
     {
         if ($this->getGuiData() && is_string($this->getGuiData())) {
@@ -150,8 +151,8 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
                 $guiData = Mage::helper('core/unserializeArray')
                     ->unserialize($this->getGuiData());
                 $this->setGuiData($guiData);
-            } catch (Exception $e) {
-                Mage::logException($e);
+            } catch (Exception $exception) {
+                Mage::logException($exception);
             }
         }
 
@@ -175,20 +176,20 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
         $xmlParser = new DOMDocument();
         $newUploadedFilenames = [];
 
-        if (isset($_FILES['file_1']['tmp_name']) || isset($_FILES['file_2']['tmp_name'])
+        if (isset($_FILES['file_1']['tmp_name'])
+            || isset($_FILES['file_2']['tmp_name'])
             || isset($_FILES['file_3']['tmp_name'])
         ) {
             for ($index = 0; $index < 3; $index++) {
-                if ($file = $_FILES['file_' . ($index + 1)]['tmp_name']) {
+                $file = $_FILES['file_' . ($index + 1)];
+                if ($file['tmp_name']) {
                     $uploader = Mage::getModel('core/file_uploader', 'file_' . ($index + 1));
                     $uploader->setAllowedExtensions(['csv','xml']);
                     $path = Mage::app()->getConfig()->getTempVarDir() . '/import/';
                     $uploader->save($path);
                     $uploadFile = $uploader->getUploadedFileName();
 
-                    if ($_FILES['file_' . ($index + 1)]['type'] == 'text/csv'
-                        || $_FILES['file_' . ($index + 1)]['type'] == 'application/vnd.ms-excel'
-                    ) {
+                    if ($file['type'] == 'text/csv' || $file['type'] == 'application/vnd.ms-excel') {
                         $fileData = $csvParser->getData($path . $uploadFile);
                         $fileData = array_shift($fileData);
                     } else {
@@ -202,8 +203,8 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
                                 $fileData[] = $this->getNode($cell, 'Data')->item(0)->nodeValue;
                             }
                         } catch (Exception) {
-                            foreach ($newUploadedFilenames as $v) {
-                                unlink($path . $v);
+                            foreach ($newUploadedFilenames as $newUploadedFilename) {
+                                unlink($path . $newUploadedFilename);
                             }
 
                             unlink($path . $uploadFile);
@@ -224,8 +225,8 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
 
                     $colsAbsent = array_diff($attributes, $fileData);
                     if ($colsAbsent) {
-                        foreach ($newUploadedFilenames as $v) {
-                            unlink($path . $v);
+                        foreach ($newUploadedFilenames as $newUploadedFilename) {
+                            unlink($path . $newUploadedFilename);
                         }
 
                         unlink($path . $uploadFile);
@@ -239,7 +240,7 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
                     }
 
                     if ($uploadFile) {
-                        $newFilename = 'import-' . Carbon::now()->format('YmdHis') . '-' . ($index + 1) . '_' . $uploadFile;
+                        $newFilename = 'import-' . Mage::helper('core/clock')->format('YmdHis') . '-' . ($index + 1) . '_' . $uploadFile;
                         rename($path . $uploadFile, $path . $newFilename);
                         $newUploadedFilenames[] = $newFilename;
                     }
@@ -307,13 +308,13 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
 
     public function _parseGuiData()
     {
-        $nl = "\r\n";
+        $newLine = "\r\n";
         $import = $this->getDirection() === 'import';
-        $p = $this->getGuiData();
+        $data = $this->getGuiData();
 
         if ($this->getDataTransfer() === 'interactive') {
             $interactiveXml = '<action type="dataflow/convert_adapter_http" method="'
-                . ($import ? 'load' : 'save') . '">' . $nl;
+                . ($import ? 'load' : 'save') . '">' . $newLine;
             $interactiveXml .= '</action>';
 
             $fileXml = '';
@@ -321,107 +322,107 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
             $interactiveXml = '';
 
             $fileXml = '<action type="dataflow/convert_adapter_io" method="'
-                . ($import ? 'load' : 'save') . '">' . $nl;
-            $fileXml .= '    <var name="type">' . $p['file']['type'] . '</var>' . $nl;
-            $fileXml .= '    <var name="path">' . $p['file']['path'] . '</var>' . $nl;
-            $fileXml .= '    <var name="filename"><![CDATA[' . $p['file']['filename'] . ']]></var>' . $nl;
-            if ($p['file']['type'] === 'ftp') {
-                $hostArr = explode(':', $p['file']['host']);
-                $fileXml .= '    <var name="host"><![CDATA[' . $hostArr[0] . ']]></var>' . $nl;
+                . ($import ? 'load' : 'save') . '">' . $newLine;
+            $fileXml .= '    <var name="type">' . $data['file']['type'] . '</var>' . $newLine;
+            $fileXml .= '    <var name="path">' . $data['file']['path'] . '</var>' . $newLine;
+            $fileXml .= '    <var name="filename"><![CDATA[' . $data['file']['filename'] . ']]></var>' . $newLine;
+            if ($data['file']['type'] === 'ftp') {
+                $hostArr = explode(':', $data['file']['host']);
+                $fileXml .= '    <var name="host"><![CDATA[' . $hostArr[0] . ']]></var>' . $newLine;
                 if (isset($hostArr[1])) {
-                    $fileXml .= '    <var name="port"><![CDATA[' . $hostArr[1] . ']]></var>' . $nl;
+                    $fileXml .= '    <var name="port"><![CDATA[' . $hostArr[1] . ']]></var>' . $newLine;
                 }
 
-                if (!empty($p['file']['passive'])) {
-                    $fileXml .= '    <var name="passive">true</var>' . $nl;
+                if (!empty($data['file']['passive'])) {
+                    $fileXml .= '    <var name="passive">true</var>' . $newLine;
                 }
 
-                if ((!empty($p['file']['file_mode']))
-                        && ($p['file']['file_mode'] == FTP_ASCII || $p['file']['file_mode'] == FTP_BINARY)
+                if ((!empty($data['file']['file_mode']))
+                        && ($data['file']['file_mode'] == FTP_ASCII || $data['file']['file_mode'] == FTP_BINARY)
                 ) {
-                    $fileXml .= '    <var name="file_mode">' . $p['file']['file_mode'] . '</var>' . $nl;
+                    $fileXml .= '    <var name="file_mode">' . $data['file']['file_mode'] . '</var>' . $newLine;
                 }
 
-                if (!empty($p['file']['user'])) {
-                    $fileXml .= '    <var name="user"><![CDATA[' . $p['file']['user'] . ']]></var>' . $nl;
+                if (!empty($data['file']['user'])) {
+                    $fileXml .= '    <var name="user"><![CDATA[' . $data['file']['user'] . ']]></var>' . $newLine;
                 }
 
-                if (!empty($p['file']['password'])) {
-                    $fileXml .= '    <var name="password"><![CDATA[' . $p['file']['password'] . ']]></var>' . $nl;
+                if (!empty($data['file']['password'])) {
+                    $fileXml .= '    <var name="password"><![CDATA[' . $data['file']['password'] . ']]></var>' . $newLine;
                 }
             }
 
             if ($import) {
-                $fileXml .= '    <var name="format"><![CDATA[' . $p['parse']['type'] . ']]></var>' . $nl;
+                $fileXml .= '    <var name="format"><![CDATA[' . $data['parse']['type'] . ']]></var>' . $newLine;
             }
 
-            $fileXml .= '</action>' . $nl . $nl;
+            $fileXml .= '</action>' . $newLine . $newLine;
         }
 
         $parseFileXml = '';
-        switch ($p['parse']['type']) {
+        switch ($data['parse']['type']) {
             case 'excel_xml':
                 $parseFileXml = '<action type="dataflow/convert_parser_xml_excel" method="'
-                    . ($import ? 'parse' : 'unparse') . '">' . $nl;
+                    . ($import ? 'parse' : 'unparse') . '">' . $newLine;
                 $parseFileXml .= '    <var name="single_sheet"><![CDATA['
-                    . ($p['parse']['single_sheet'])
-                    . ']]></var>' . $nl;
+                    . ($data['parse']['single_sheet'])
+                    . ']]></var>' . $newLine;
                 break;
 
             case 'csv':
                 $parseFileXml = '<action type="dataflow/convert_parser_csv" method="'
-                    . ($import ? 'parse' : 'unparse') . '">' . $nl;
+                    . ($import ? 'parse' : 'unparse') . '">' . $newLine;
                 $parseFileXml .= '    <var name="delimiter"><![CDATA['
-                    . $p['parse']['delimiter'] . ']]></var>' . $nl;
+                    . $data['parse']['delimiter'] . ']]></var>' . $newLine;
                 $parseFileXml .= '    <var name="enclose"><![CDATA['
-                    . $p['parse']['enclose'] . ']]></var>' . $nl;
+                    . $data['parse']['enclose'] . ']]></var>' . $newLine;
                 break;
         }
 
-        $parseFileXml .= '    <var name="fieldnames">' . $p['parse']['fieldnames'] . '</var>' . $nl;
+        $parseFileXml .= '    <var name="fieldnames">' . $data['parse']['fieldnames'] . '</var>' . $newLine;
         $parseFileXmlInter = $parseFileXml;
-        $parseFileXml .= '</action>' . $nl . $nl;
+        $parseFileXml .= '</action>' . $newLine . $newLine;
 
         $mapXml = '';
 
-        if (isset($p['map']) && is_array($p['map'])) {
-            foreach ($p['map'] as $side => $fields) {
+        if (isset($data['map']) && is_array($data['map'])) {
+            foreach ($data['map'] as $side => $fields) {
                 if (!is_array($fields)) {
                     continue;
                 }
 
                 foreach ($fields['db'] as $i => $k) {
                     if ($k == '' || $k == '0') {
-                        unset($p['map'][$side]['db'][$i]);
-                        unset($p['map'][$side]['file'][$i]);
+                        unset($data['map'][$side]['db'][$i]);
+                        unset($data['map'][$side]['file'][$i]);
                     }
                 }
             }
         }
 
-        $mapXml .= '<action type="dataflow/convert_mapper_column" method="map">' . $nl;
-        $map = $p['map'][$this->getEntityType()];
+        $mapXml .= '<action type="dataflow/convert_mapper_column" method="map">' . $newLine;
+        $map = $data['map'][$this->getEntityType()];
         if (count($map['db'])) {
-            $from = $map[$import ? 'file' : 'db'];
-            $to = $map[$import ? 'db' : 'file'];
-            $mapXml .= '    <var name="map">' . $nl;
-            $parseFileXmlInter .= '    <var name="map">' . $nl;
-            foreach ($from as $i => $f) {
-                $mapXml .= '        <map name="' . $f . '"><![CDATA[' . $to[$i] . ']]></map>' . $nl;
-                $parseFileXmlInter .= '        <map name="' . $f . '"><![CDATA[' . $to[$i] . ']]></map>' . $nl;
+            $importFrom = $map[$import ? 'file' : 'db'];
+            $importTo   = $map[$import ? 'db' : 'file'];
+            $mapXml .= '    <var name="map">' . $newLine;
+            $parseFileXmlInter .= '    <var name="map">' . $newLine;
+            foreach ($importFrom as $i => $f) {
+                $mapXml .= '        <map name="' . $f . '"><![CDATA[' . $importTo[$i] . ']]></map>' . $newLine;
+                $parseFileXmlInter .= '        <map name="' . $f . '"><![CDATA[' . $importTo[$i] . ']]></map>' . $newLine;
             }
 
-            $mapXml .= '    </var>' . $nl;
-            $parseFileXmlInter .= '    </var>' . $nl;
+            $mapXml .= '    </var>' . $newLine;
+            $parseFileXmlInter .= '    </var>' . $newLine;
         }
 
-        if ($p['map']['only_specified']) {
-            $mapXml .= '    <var name="_only_specified">' . $p['map']['only_specified'] . '</var>' . $nl;
-            //$mapXml .= '    <var name="map">' . $nl;
-            $parseFileXmlInter .= '    <var name="_only_specified">' . $p['map']['only_specified'] . '</var>' . $nl;
+        if ($data['map']['only_specified']) {
+            $mapXml .= '    <var name="_only_specified">' . $data['map']['only_specified'] . '</var>' . $newLine;
+            //$mapXml .= '    <var name="map">' . $newLine;
+            $parseFileXmlInter .= '    <var name="_only_specified">' . $data['map']['only_specified'] . '</var>' . $newLine;
         }
 
-        $mapXml .= '</action>' . $nl . $nl;
+        $mapXml .= '</action>' . $newLine . $newLine;
 
         $parsers = [
             'product' => 'catalog/convert_parser_product',
@@ -429,16 +430,16 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
         ];
 
         if ($import) {
-            $parseFileXmlInter .= '    <var name="store"><![CDATA[' . $this->getStoreId() . ']]></var>' . $nl;
+            $parseFileXmlInter .= '    <var name="store"><![CDATA[' . $this->getStoreId() . ']]></var>' . $newLine;
         } else {
-            $parseDataXml = '<action type="' . $parsers[$this->getEntityType()] . '" method="unparse">' . $nl;
-            $parseDataXml .= '    <var name="store"><![CDATA[' . $this->getStoreId() . ']]></var>' . $nl;
-            if (isset($p['export']['add_url_field'])) {
+            $parseDataXml = '<action type="' . $parsers[$this->getEntityType()] . '" method="unparse">' . $newLine;
+            $parseDataXml .= '    <var name="store"><![CDATA[' . $this->getStoreId() . ']]></var>' . $newLine;
+            if (isset($data['export']['add_url_field'])) {
                 $parseDataXml .= '    <var name="url_field"><![CDATA['
-                    . $p['export']['add_url_field'] . ']]></var>' . $nl;
+                    . $data['export']['add_url_field'] . ']]></var>' . $newLine;
             }
 
-            $parseDataXml .= '</action>' . $nl . $nl;
+            $parseDataXml .= '</action>' . $newLine . $newLine;
         }
 
         $adapters = [
@@ -447,66 +448,64 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
         ];
 
         if ($import) {
-            $entityXml = '<action type="' . $adapters[$this->getEntityType()] . '" method="save">' . $nl;
-            $entityXml .= '    <var name="store"><![CDATA[' . $this->getStoreId() . ']]></var>' . $nl;
-            $entityXml .= '</action>' . $nl . $nl;
+            $entityXml = '<action type="' . $adapters[$this->getEntityType()] . '" method="save">' . $newLine;
+            $entityXml .= '    <var name="store"><![CDATA[' . $this->getStoreId() . ']]></var>' . $newLine;
+            $entityXml .= '</action>' . $newLine . $newLine;
         } else {
-            $entityXml = '<action type="' . $adapters[$this->getEntityType()] . '" method="load">' . $nl;
-            $entityXml .= '    <var name="store"><![CDATA[' . $this->getStoreId() . ']]></var>' . $nl;
-            foreach ($p[$this->getEntityType()]['filter'] as $f => $v) {
-                if (empty($v)) {
+            $entityXml = '<action type="' . $adapters[$this->getEntityType()] . '" method="load">' . $newLine;
+            $entityXml .= '    <var name="store"><![CDATA[' . $this->getStoreId() . ']]></var>' . $newLine;
+            foreach ($data[$this->getEntityType()]['filter'] as $filter => $value) {
+                if (empty($value)) {
                     continue;
                 }
 
-                if (is_scalar($v)) {
-                    $entityXml .= '    <var name="filter/' . $f . '"><![CDATA[' . $v . ']]></var>' . $nl;
-                    $parseFileXmlInter .= '    <var name="filter/' . $f . '"><![CDATA[' . $v . ']]></var>' . $nl;
-                } elseif (is_array($v)) {
-                    foreach ($v as $a => $b) {
+                if (is_scalar($value)) {
+                    $entityXml .= '    <var name="filter/' . $filter . '"><![CDATA[' . $value . ']]></var>' . $newLine;
+                    $parseFileXmlInter .= '    <var name="filter/' . $filter . '"><![CDATA[' . $value . ']]></var>' . $newLine;
+                } elseif (is_array($value)) {
+                    foreach ($value as $a => $b) {
                         if (strlen($b) == 0) {
                             continue;
                         }
 
-                        $entityXml .= '    <var name="filter/' . $f . '/' . $a
-                            . '"><![CDATA[' . $b . ']]></var>' . $nl;
-                        $parseFileXmlInter .= '    <var name="filter/' . $f . '/'
-                            . $a . '"><![CDATA[' . $b . ']]></var>' . $nl;
+                        $entityXml .= '    <var name="filter/' . $filter . '/' . $a
+                            . '"><![CDATA[' . $b . ']]></var>' . $newLine;
+                        $parseFileXmlInter .= '    <var name="filter/' . $filter . '/'
+                            . $a . '"><![CDATA[' . $b . ']]></var>' . $newLine;
                     }
                 }
             }
 
-            $entityXml .= '</action>' . $nl . $nl;
+            $entityXml .= '</action>' . $newLine . $newLine;
         }
 
         // Need to rewrite the whole xml action format
         if ($import) {
-            $numberOfRecords = $p['import']['number_of_records'] ?? 1;
-            $decimalSeparator = $p['import']['decimal_separator'] ?? ' . ';
+            $numberOfRecords = $data['import']['number_of_records'] ?? 1;
+            $decimalSeparator = $data['import']['decimal_separator'] ?? ' . ';
             $parseFileXmlInter .= '    <var name="number_of_records">'
-                . $numberOfRecords . '</var>' . $nl;
+                . $numberOfRecords . '</var>' . $newLine;
             $parseFileXmlInter .= '    <var name="decimal_separator"><![CDATA['
-                . $decimalSeparator . ']]></var>' . $nl;
+                . $decimalSeparator . ']]></var>' . $newLine;
             if ($this->getDataTransfer() === 'interactive') {
                 $xml = $parseFileXmlInter;
-                $xml .= '    <var name="adapter">' . $adapters[$this->getEntityType()] . '</var>' . $nl;
-                $xml .= '    <var name="method">parse</var>' . $nl;
+                $xml .= '    <var name="adapter">' . $adapters[$this->getEntityType()] . '</var>' . $newLine;
+                $xml .= '    <var name="method">parse</var>' . $newLine;
                 $xml .= '</action>';
             } else {
                 $xml = $fileXml;
                 $xml .= $parseFileXmlInter;
-                $xml .= '    <var name="adapter">' . $adapters[$this->getEntityType()] . '</var>' . $nl;
-                $xml .= '    <var name="method">parse</var>' . $nl;
+                $xml .= '    <var name="adapter">' . $adapters[$this->getEntityType()] . '</var>' . $newLine;
+                $xml .= '    <var name="method">parse</var>' . $newLine;
                 $xml .= '</action>';
             }
         } else {
             $xml = $entityXml . $parseDataXml . $mapXml . $parseFileXml . $fileXml . $interactiveXml;
         }
 
-        $this->setGuiData($p);
+        $this->setGuiData($data);
         $this->setActionsXml($xml);
-        /*echo "<pre>" . print_r($p,1) . "</pre>";
-        echo "<xmp>" . $xml . "</xmp>";
-        die;*/
+
         return $this;
     }
 

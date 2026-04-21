@@ -134,6 +134,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Chooser extends Mage_Adminhtml_Block_Te
      *
      * @return string
      */
+    #[Override]
     protected function _toHtml()
     {
         $element   = $this->getElement();

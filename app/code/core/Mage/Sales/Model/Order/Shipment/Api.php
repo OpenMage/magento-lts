@@ -8,7 +8,7 @@
  */
 
 /**
- * Sales order shippment API
+ * Sales order shipment API
  *
  * @package    Mage_Sales
  */

@@ -23,6 +23,7 @@ class Mage_Adminhtml_CacheController extends Mage_Adminhtml_Controller_Action
      *
      * @return Mage_Adminhtml_Model_Session
      */
+    #[Override]
     protected function _getSession()
     {
         return Mage::getSingleton('adminhtml/session');
@@ -113,7 +114,7 @@ class Mage_Adminhtml_CacheController extends Mage_Adminhtml_Controller_Action
                 $updatedTypes++;
             }
 
-            $tags = Mage::app()->getCacheInstance()->cleanType($code);
+            Mage::app()->getCacheInstance()->cleanType($code);
         }
 
         if ($updatedTypes > 0) {
@@ -131,9 +132,9 @@ class Mage_Adminhtml_CacheController extends Mage_Adminhtml_Controller_Action
     {
         $types = $this->getRequest()->getParam('types');
         $updatedTypes = 0;
-        if (!empty($types)) {
+        if (is_array($types) && $types !== []) {
             foreach ($types as $type) {
-                $tags = Mage::app()->getCacheInstance()->cleanType($type);
+                Mage::app()->getCacheInstance()->cleanType($type);
                 Mage::dispatchEvent('adminhtml_cache_refresh_type', ['type' => $type]);
                 $updatedTypes++;
             }

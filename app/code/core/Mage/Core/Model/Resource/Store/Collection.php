@@ -120,6 +120,7 @@ class Mage_Core_Model_Resource_Store_Collection extends Mage_Core_Model_Resource
      *
      * @return array
      */
+    #[Override]
     public function toOptionArray()
     {
         return $this->_toOptionArray('store_id', 'name');
@@ -130,6 +131,7 @@ class Mage_Core_Model_Resource_Store_Collection extends Mage_Core_Model_Resource
      *
      * @return array
      */
+    #[Override]
     public function toOptionHash()
     {
         return $this->_toOptionHash('store_id', 'name');
@@ -138,6 +140,7 @@ class Mage_Core_Model_Resource_Store_Collection extends Mage_Core_Model_Resource
     /**
      * @inheritDoc
      */
+    #[Override]
     public function load($printQuery = false, $logQuery = false)
     {
         if (!$this->getLoadDefault()) {
@@ -203,7 +206,7 @@ class Mage_Core_Model_Resource_Store_Collection extends Mage_Core_Model_Resource
 
         if ($globalConfigCache !== false) {
             try {
-                $data = unserialize($globalConfigCache);
+                $data = unserialize($globalConfigCache, ['allowed_classes' => false]);
             } catch (Exception $exception) {
                 Mage::logException($exception);
             }

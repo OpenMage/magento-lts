@@ -14,6 +14,8 @@ use Carbon\Exceptions\InvalidFormatException;
  * Core data helper
  *
  * @package    Mage_Core
+ *
+ * @phpstan-import-type ConfigStoreId from Mage
  */
 class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
 {
@@ -27,15 +29,30 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
 
     public const XML_PATH_DEV_ALLOW_IPS                = 'dev/restrict/allow_ips';
 
-    public const XML_PATH_DEV_LOG_ENABLED              = 'dev/log/active';
+    /**
+     * @deprecated use Mage_Core_Helper_Log::XML_PATH_DEV_LOG_ENABLED instead
+     */
+    public const XML_PATH_DEV_LOG_ENABLED              = Mage_Core_Helper_Log::XML_PATH_DEV_LOG_ENABLED;
 
-    public const XML_PATH_DEV_LOG_ALLOWED_EXTENSIONS   = 'dev/log/allowedFileExtensions';
+    /**
+     * @deprecated use Mage_Core_Helper_Log::XML_PATH_DEV_LOG_ALLOWED_EXTENSIONS instead
+     */
+    public const XML_PATH_DEV_LOG_ALLOWED_EXTENSIONS   = Mage_Core_Helper_Log::XML_PATH_DEV_LOG_ALLOWED_EXTENSIONS;
 
-    public const XML_PATH_DEV_LOG_FILE                 = 'dev/log/file';
+    /**
+     * @deprecated use Mage_Core_Helper_Log::XML_PATH_DEV_LOG_FILE instead
+     */
+    public const XML_PATH_DEV_LOG_FILE                 = Mage_Core_Helper_Log::XML_PATH_DEV_LOG_FILE;
 
-    public const XML_PATH_DEV_LOG_EXCEPTION_FILE       = 'dev/log/exception_file';
+    /**
+     * @deprecated use Mage_Core_Helper_Log::XML_PATH_DEV_LOG_EXCEPTION_FILE instead
+     */
+    public const XML_PATH_DEV_LOG_EXCEPTION_FILE       = Mage_Core_Helper_Log::XML_PATH_DEV_LOG_EXCEPTION_FILE;
 
-    public const XML_PATH_DEV_LOG_MAX_LEVEL            = 'dev/log/max_level';
+    /**
+     * @deprecated use Mage_Core_Helper_Log::XML_PATH_DEV_LOG_MAX_LEVEL instead
+     */
+    public const XML_PATH_DEV_LOG_MAX_LEVEL            = Mage_Core_Helper_Log::XML_PATH_DEV_LOG_MAX_LEVEL;
 
     public const XML_PATH_CACHE_BETA_TYPES             = 'global/cache/betatypes';
 
@@ -92,11 +109,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
     {
         if ($this->_encryptor === null) {
             $encryptionModel = (string) Mage::getConfig()->getNode(self::XML_PATH_ENCRYPTION_MODEL);
-            if ($encryptionModel) {
-                $this->_encryptor = new $encryptionModel();
-            } else {
-                $this->_encryptor = Mage::getModel('core/encryption');
-            }
+            $this->_encryptor = $encryptionModel ? new $encryptionModel() : Mage::getModel('core/encryption');
 
             $this->_encryptor->setHelper($this);
         }
@@ -230,18 +243,14 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
 
         $locale = Mage::app()->getLocale();
         if (is_null($time)) {
-            $date = $locale->date(Carbon::now()->getTimestamp());
+            $date = $locale->date(Mage::helper('core/clock')->getTimestamp());
         } elseif ($time instanceof Zend_Date) {
             $date = $time;
         } else {
             $date = $locale->date(Carbon::parse($time)->getTimestamp());
         }
 
-        if ($showDate) {
-            $format = $locale->getDateTimeFormat($format);
-        } else {
-            $format = $locale->getTimeFormat($format);
-        }
+        $format = $showDate ? $locale->getDateTimeFormat($format) : $locale->getTimeFormat($format);
 
         return $date->toString($format);
     }
@@ -347,7 +356,8 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get encryption method depending on the presence of the function - password_hash.
      *
-     * @return int
+     * @return Mage_Core_Model_Encryption::HASH_VERSION_*
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function getVersionHash(Mage_Core_Model_Encryption $encryptionModel)
     {
@@ -368,9 +378,9 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * @param  string       $string
-     * @param  bool         $german
-     * @return false|string
+     * @param  string $string
+     * @param  bool   $german
+     * @return string
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
@@ -411,15 +421,15 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
             }
 
             $replacements[$german] = [];
-            foreach ($subst as $k => $v) {
-                $replacements[$german][$k < 256 ? chr($k) : '&#' . $k . ';'] = $v;
+            foreach ($subst as $key => $value) {
+                $replacements[$german][$key < 256 ? chr($key) : '&#' . $key . ';'] = $value;
             }
         }
 
         // convert string from default database format (UTF-8)
         // to encoding which replacement arrays made with (ISO-8859-1)
-        if ($s = @iconv('UTF-8', 'ISO-8859-1', $string)) {
-            $string = $s;
+        if ($str = @iconv('UTF-8', 'ISO-8859-1', $string)) {
+            $string = $str;
         }
 
         // Replace
@@ -429,7 +439,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * @param  null|bool|int|Mage_Core_Model_Store|string $storeId
+     * @param  ConfigStoreId $storeId
      * @return bool
      */
     public function isDevAllowed($storeId = null)
@@ -453,7 +463,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get information about available cache types
      *
-     * @return array
+     * @return array<string, string>
      */
     public function getCacheTypes()
     {
@@ -500,8 +510,8 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function copyFieldset($fieldset, $aspect, $source, $target, $root = 'global')
     {
-        if (!(is_array($source) || $source instanceof Varien_Object)
-            || !(is_array($target) || $target instanceof Varien_Object)
+        if ((!is_array($source) && !($source instanceof Varien_Object))
+            || (!is_array($target) && !($target instanceof Varien_Object))
         ) {
             return false;
         }
@@ -520,11 +530,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
                 continue;
             }
 
-            if ($sourceIsArray) {
-                $value = $source[$code] ?? null;
-            } else {
-                $value = $source->getDataUsingMethod($code);
-            }
+            $value = $sourceIsArray ? $source[$code] ?? null : $source->getDataUsingMethod($code);
 
             $targetCode = (string) $node->$aspect;
             $targetCode = $targetCode == '*' ? $code : $targetCode;
@@ -571,7 +577,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
     public function decorateArray($array, $prefix = 'decorated_', $forceSetAll = false)
     {
         // check if array or an object to be iterated given
-        if (!(is_array($array) || is_object($array))) {
+        if (!is_array($array) && !is_object($array)) {
             return $array;
         }
 
@@ -649,7 +655,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
 
         $xmlstr = <<<XML
 <?xml version='1.0' encoding='UTF-8' standalone='yes'?>
-<$rootName></$rootName>
+<{$rootName}></{$rootName}>
 XML;
         $xml = new SimpleXMLElement($xmlstr);
         foreach (array_keys($array) as $key) {
@@ -710,8 +716,8 @@ XML;
         foreach ($xml as $key => $value) {
             if (isset($value->$key)) {
                 $i = 0;
-                foreach ($value->$key as $v) {
-                    $array[$key][$i++] = (string) $v;
+                foreach ($value->$key as $item) {
+                    $array[$key][$i++] = (string) $item;
                 }
             } else {
                 // try to transform it into string value, trimming spaces between elements

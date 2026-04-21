@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -15,6 +17,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main_Tree_Attribute ext
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _construct()
     {
         $this->setTemplate('catalog/product/attribute/set/main/tree/attribute.phtml');

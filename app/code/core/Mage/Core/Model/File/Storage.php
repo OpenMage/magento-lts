@@ -48,11 +48,13 @@ class Mage_Core_Model_File_Storage extends Mage_Core_Model_Abstract
      *
      * @return bool
      */
-    protected function _synchronizeHasErrors(
-        Mage_Core_Model_Abstract $sourceModel,
-        Mage_Core_Model_Abstract $destinationModel
-    ) {
-        return $sourceModel->hasErrors() || $destinationModel->hasErrors();
+    protected function _synchronizeHasErrors(Mage_Core_Model_Abstract $sourceModel, Mage_Core_Model_Abstract $destinationModel)
+    {
+        if ($sourceModel->hasErrors()) {
+            return true;
+        }
+
+        return $destinationModel->hasErrors();
     }
 
     /**

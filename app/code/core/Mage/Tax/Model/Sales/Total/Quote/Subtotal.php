@@ -108,8 +108,9 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
      * and subtotal including/excluding tax.
      * Determine discount price if needed
      *
-     * @return Mage_Tax_Model_Sales_Total_Quote_Subtotal
+     * @return $this
      */
+    #[Override]
     public function collect(Mage_Sales_Model_Quote_Address $address)
     {
         $this->_store = $address->getQuote()->getStore();
@@ -739,7 +740,7 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
     /**
      * Recalculate row information for item based on children calculation
      *
-     * @return Mage_Tax_Model_Sales_Total_Quote_Subtotal
+     * @return $this
      */
     protected function _recalculateParent(Mage_Sales_Model_Quote_Item_Abstract $item)
     {
@@ -810,8 +811,8 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
     /**
      * Add row total item amount to subtotal
      *
-     * @param  Mage_Sales_Model_Quote_Item_Abstract      $item
-     * @return Mage_Tax_Model_Sales_Total_Quote_Subtotal
+     * @param  Mage_Sales_Model_Quote_Item_Abstract $item
+     * @return $this
      */
     protected function _addSubtotalAmount(Mage_Sales_Model_Quote_Address $address, $item)
     {
@@ -840,7 +841,7 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
      * Unset item prices/totals with price include tax.
      * Operation is necessary for reset item state in case if configuration was changed
      *
-     * @return Mage_Tax_Model_Sales_Total_Quote_Subtotal
+     * @return $this
      * @deprecated after 1.4.1
      */
     protected function _resetItemPriceInclTax(Mage_Sales_Model_Quote_Item_Abstract $item)
@@ -849,8 +850,8 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
     }
 
     /**
-     * @param  Mage_Sales_Model_Quote_Address            $address
-     * @return Mage_Tax_Model_Sales_Total_Quote_Subtotal
+     * @param  Mage_Sales_Model_Quote_Address $address
+     * @return $this
      * @deprecated after 1.4.0.1
      */
     protected function _processShippingAmount($address)
@@ -864,7 +865,7 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
      *
      * @param Mage_Sales_Model_Quote_Address $address
      *
-     * @return Mage_Tax_Model_Sales_Total_Quote_Subtotal
+     * @return $this
      * @deprecated after 1.4.1
      */
     protected function _recollectItem($address, Mage_Sales_Model_Quote_Item_Abstract $item)
@@ -954,7 +955,11 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
     protected function _needSubtractTax($address)
     {
         $store = $address->getQuote()->getStore();
-        return $this->_config->priceIncludesTax($store) || $this->_config->getNeedUsePriceExcludeTax();
+        if ($this->_config->priceIncludesTax($store)) {
+            return true;
+        }
+
+        return $this->_config->getNeedUsePriceExcludeTax();
     }
 
     /**
@@ -968,6 +973,10 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
     protected function _needSubtractShippingTax($address)
     {
         $store = $address->getQuote()->getStore();
-        return $this->_config->shippingPriceIncludesTax($store) || $this->_config->getNeedUseShippingExcludeTax();
+        if ($this->_config->shippingPriceIncludesTax($store)) {
+            return true;
+        }
+
+        return $this->_config->getNeedUseShippingExcludeTax();
     }
 }

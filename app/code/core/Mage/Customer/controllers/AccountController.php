@@ -7,7 +7,6 @@
  * @package    Mage_Customer
  */
 
-use Carbon\Carbon;
 use Mage_Customer_Helper_Data as Helper;
 
 /**
@@ -43,6 +42,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
      *
      * Check customer authentication for some actions
      */
+    #[Override]
     public function preDispatch()
     {
         // @todo a brute-force protection here would be nice
@@ -84,6 +84,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
      *
      * Remove No-referer flag from customer session after each action
      */
+    #[Override]
     public function postDispatch()
     {
         parent::postDispatch();
@@ -290,13 +291,14 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
         }
 
         $customer = $this->_getCustomer();
+        $customer->setIsChangePassword(true);
 
         try {
             $errors = $this->_getCustomerErrors($customer);
 
             if (empty($errors)) {
                 $customer->cleanPasswordsValidationData();
-                $customer->setPasswordCreatedAt(Carbon::now()->getTimestamp());
+                $customer->setPasswordCreatedAt(Mage::helper('core/clock')->getTimestamp());
                 $customer->save();
                 $this->_dispatchRegisterSuccess($customer);
                 $this->_successProcessRegistration($customer);
@@ -617,8 +619,8 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
                 if (!$customer->getId()) {
                     throw new Exception('Failed to load customer by id.');
                 }
-            } catch (Exception $e) {
-                throw new Exception($this->__('Wrong customer account specified.'), $e->getCode(), $e);
+            } catch (Exception $exception) {
+                throw new Exception($this->__('Wrong customer account specified.'), $exception->getCode(), $exception);
             }
 
             // check if it is inactive
@@ -631,8 +633,8 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
                 try {
                     $customer->setConfirmation(null);
                     $customer->save();
-                } catch (Exception $e) {
-                    throw new Exception($this->__('Failed to confirm customer account.'), $e->getCode(), $e);
+                } catch (Exception $exception) {
+                    throw new Exception($this->__('Failed to confirm customer account.'), $exception->getCode(), $exception);
                 }
 
                 // log in and send greeting email, then die happy
@@ -682,8 +684,8 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
 
                 $this->_getSession()->setUsername($email);
                 $this->_redirectSuccess($this->_getUrl('*/*/index', ['_secure' => true]));
-            } catch (Exception $e) {
-                $this->_getSession()->addException($e, $this->__('Wrong email.'));
+            } catch (Exception $exception) {
+                $this->_getSession()->addException($exception, $this->__('Wrong email.'));
                 $this->_redirectError($this->_getUrl('*/*/*', ['email' => $email, '_secure' => true]));
             }
 
@@ -886,7 +888,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
             $customer->setRpToken(null);
             $customer->setRpTokenCreatedAt(null);
             $customer->cleanPasswordsValidationData();
-            $customer->setPasswordCreatedAt(Carbon::now()->getTimestamp());
+            $customer->setPasswordCreatedAt(Mage::helper('core/clock')->getTimestamp());
             $customer->setRpCustomerId(null);
             $customer->setConfirmation(null); // Set email is confirmed.
             $customer->save();
@@ -1057,7 +1059,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
 
             try {
                 $customer->cleanPasswordsValidationData();
-                $customer->setPasswordCreatedAt(Carbon::now()->getTimestamp());
+                $customer->setPasswordCreatedAt(Mage::helper('core/clock')->getTimestamp());
 
                 // Reset all password reset tokens if all data was sufficient and correct on email change
                 if ($customer->getIsChangeEmail()) {

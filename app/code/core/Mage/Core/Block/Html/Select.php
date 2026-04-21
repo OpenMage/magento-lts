@@ -66,6 +66,7 @@ class Mage_Core_Block_Html_Select extends Mage_Core_Block_Abstract
      * @param  string $id ID
      * @return $this
      */
+    #[Override]
     public function setId($id)
     {
         $this->setData('id', $id);
@@ -101,9 +102,10 @@ class Mage_Core_Block_Html_Select extends Mage_Core_Block_Abstract
      *
      * @return string
      */
+    #[Override]
     public function getId()
     {
-        return $this->getData('id');
+        return $this->getDataByKey('id');
     }
 
     /**
@@ -113,7 +115,7 @@ class Mage_Core_Block_Html_Select extends Mage_Core_Block_Abstract
      */
     public function getClass()
     {
-        return $this->getData('class');
+        return $this->getDataByKey('class');
     }
 
     /**
@@ -123,7 +125,7 @@ class Mage_Core_Block_Html_Select extends Mage_Core_Block_Abstract
      */
     public function getTitle()
     {
-        return $this->getData('title');
+        return $this->getDataByKey('title');
     }
 
     /**
@@ -131,6 +133,7 @@ class Mage_Core_Block_Html_Select extends Mage_Core_Block_Abstract
      *
      * @return string
      */
+    #[Override]
     protected function _toHtml()
     {
         if (!$this->_beforeToHtml()) {
@@ -142,11 +145,7 @@ class Mage_Core_Block_Html_Select extends Mage_Core_Block_Abstract
         $values = $this->getValue();
 
         if (!is_array($values)) {
-            if (!is_null($values)) {
-                $values = [$values];
-            } else {
-                $values = [];
-            }
+            $values = is_null($values) ? [] : [$values];
         }
 
         $isArrayOption = true;

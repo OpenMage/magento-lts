@@ -64,6 +64,7 @@ class Mage_Catalog_Model_Product_Compare_Item extends Mage_Core_Model_Abstract
      *
      * @return $this
      */
+    #[Override]
     protected function _beforeSave()
     {
         parent::_beforeSave();
@@ -79,6 +80,7 @@ class Mage_Catalog_Model_Product_Compare_Item extends Mage_Core_Model_Abstract
      *
      * @return $this
      */
+    #[Override]
     public function save()
     {
         if ($this->hasCustomerId() || $this->hasVisitorId()) {
@@ -203,7 +205,7 @@ class Mage_Catalog_Model_Product_Compare_Item extends Mage_Core_Model_Abstract
             $this->setData('customer_id', $customerId);
         }
 
-        return $this->getData('customer_id');
+        return $this->getDataByKey('customer_id');
     }
 
     /**
@@ -218,6 +220,6 @@ class Mage_Catalog_Model_Product_Compare_Item extends Mage_Core_Model_Abstract
             $this->setData('visitor_id', $visitorId);
         }
 
-        return $this->getData('visitor_id');
+        return $this->getDataByKey('visitor_id');
     }
 }

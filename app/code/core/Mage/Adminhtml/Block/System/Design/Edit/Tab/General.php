@@ -12,6 +12,7 @@
  */
 class Mage_Adminhtml_Block_System_Design_Edit_Tab_General extends Mage_Adminhtml_Block_Widget_Form
 {
+    #[Override]
     protected function _prepareForm()
     {
         $form = new Varien_Data_Form();
@@ -62,11 +63,7 @@ class Mage_Adminhtml_Block_System_Design_Edit_Tab_General extends Mage_Adminhtml
         ]);
 
         $formData = Mage::getSingleton('adminhtml/session')->getDesignData(true);
-        if (!$formData) {
-            $formData = Mage::registry('design')->getData();
-        } else {
-            $formData = $formData['design'];
-        }
+        $formData = $formData ? $formData['design'] : Mage::registry('design')->getData();
 
         $form->addValues($formData);
         $form->setFieldNameSuffix('design');

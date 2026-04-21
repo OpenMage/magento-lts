@@ -313,6 +313,7 @@ class Varien_Io_File extends Varien_Io_Abstract
      * @return bool
      * @throws Exception
      */
+    #[Override]
     public function open(array $args = [])
     {
         if (!empty($args['path']) && $this->_allowCreateFolders) {
@@ -332,6 +333,7 @@ class Varien_Io_File extends Varien_Io_Abstract
      * @return $this
      * @see _allowCreateFolders
      */
+    #[Override]
     public function setAllowCreateFolders($flag)
     {
         $this->_allowCreateFolders = $flag;
@@ -799,7 +801,7 @@ class Varien_Io_File extends Varien_Io_Abstract
             chdir($this->_cwd);
         }
 
-        $result = file_exists($filename) ? @chmod($filename, $mode) : false;
+        $result = file_exists($filename) && @chmod($filename, $mode);
         if ($this->_iwd) {
             chdir($this->_iwd);
         }
@@ -971,6 +973,7 @@ class Varien_Io_File extends Varien_Io_Abstract
         return $owner['name'] . ' / ' . $groupinfo;
     }
 
+    #[Override]
     public function dirsep()
     {
         return DIRECTORY_SEPARATOR;

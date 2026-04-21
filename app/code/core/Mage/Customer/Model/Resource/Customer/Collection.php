@@ -99,6 +99,7 @@ class Mage_Customer_Model_Resource_Customer_Collection extends Mage_Eav_Model_En
      *
      * @return Varien_Db_Select
      */
+    #[Override]
     public function getSelectCountSql()
     {
         $select = parent::getSelectCountSql();
@@ -114,6 +115,7 @@ class Mage_Customer_Model_Resource_Customer_Collection extends Mage_Eav_Model_En
      * @param  int              $offset
      * @return Varien_Db_Select
      */
+    #[Override]
     protected function _getAllIdsSelect($limit = null, $offset = null)
     {
         $idsSelect = parent::_getAllIdsSelect($limit, $offset);

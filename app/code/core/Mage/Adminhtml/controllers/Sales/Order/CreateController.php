@@ -30,6 +30,7 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
      *
      * @return Mage_Adminhtml_Model_Session_Quote
      */
+    #[Override]
     protected function _getSession()
     {
         return Mage::getSingleton('adminhtml/session_quote');
@@ -82,7 +83,7 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
         /**
          * Identify guest
          */
-        if ($customerIsGuest = $this->getRequest()->getParam('customer_is_guest')) {
+        if ($this->getRequest()->getParam('customer_is_guest')) {
             $this->_getSession()->setCustomerGroupId(Mage_Customer_Model_Group::NOT_LOGGED_IN_ID);
             $this->_getSession()->setCustomerIsGuest(true);
         }
@@ -528,6 +529,7 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _isAllowed(): bool
     {
         $action = strtolower($this->getRequest()->getActionName());
@@ -628,6 +630,8 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
             $session->unsUpdateResult();
             return false;
         }
+
+        return null;
     }
 
     /**

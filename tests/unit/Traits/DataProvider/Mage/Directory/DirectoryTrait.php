@@ -4,6 +4,7 @@
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
  * @license    Open Software License (OSL 3.0)
+ * @package    OpenMage_Tests
  */
 
 declare(strict_types=1);
@@ -14,7 +15,7 @@ use Generator;
 
 trait DirectoryTrait
 {
-    public function provideGetCountriesWithOptionalZip(): Generator
+    public static function provideGetCountriesWithOptionalZip(): Generator
     {
         yield 'as json' => [
             '["HK","IE","MO","PA"]',
@@ -32,7 +33,7 @@ trait DirectoryTrait
     }
 
 
-    public function provideGetCountriesWithStatesRequired(): Generator
+    public static function provideGetCountriesWithStatesRequired(): Generator
     {
         yield 'as json' => [
             '["AT","CA","CH","DE","EE","ES","FI","FR","LT","LV","RO","US"]',

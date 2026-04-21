@@ -59,7 +59,7 @@ abstract class Mage_Adminhtml_Model_System_Config_Backend_Currency_Abstract exte
     }
 
     /**
-     * Retrieve Default desplay Currency value for current scope
+     * Retrieve Default display Currency value for current scope
      *
      * @return string
      */

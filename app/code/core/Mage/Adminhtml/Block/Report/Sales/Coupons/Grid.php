@@ -23,9 +23,13 @@ class Mage_Adminhtml_Block_Report_Sales_Coupons_Grid extends Mage_Adminhtml_Bloc
         $this->setCountSubTotals();
     }
 
+    /**
+     * @inheritDoc
+     */
+    #[Override]
     public function getResourceCollectionName()
     {
-        if (($this->getFilterData()->getData('report_type') == 'updated_at_order')) {
+        if (($this->getFilterData()->getDataByKey('report_type') === 'updated_at_order')) {
             return 'salesrule/report_updatedat_collection';
         }
 
@@ -35,6 +39,7 @@ class Mage_Adminhtml_Block_Report_Sales_Coupons_Grid extends Mage_Adminhtml_Bloc
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareColumns()
     {
         $this->addColumn('period', [
@@ -149,10 +154,11 @@ class Mage_Adminhtml_Block_Report_Sales_Coupons_Grid extends Mage_Adminhtml_Bloc
      * @param  Varien_Object                                   $filterData
      * @return $this
      */
+    #[Override]
     protected function _addCustomFilter($collection, $filterData)
     {
         if ($filterData->getPriceRuleType()) {
-            $rulesList = $filterData->getData('rules_list');
+            $rulesList = $filterData->getDataByKey('rules_list');
             if (isset($rulesList[0])) {
                 $rulesIds = explode(',', $rulesList[0]);
                 $collection->addRuleFilter($rulesIds);

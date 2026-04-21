@@ -67,6 +67,7 @@ class Mage_Adminhtml_Block_Notification_Curl extends Mage_Adminhtml_Block_Templa
      *
      * @return string
      */
+    #[Override]
     protected function _toHtml()
     {
         if (!$this->_canShow()) {

@@ -33,6 +33,7 @@ class Mage_Adminhtml_Block_Report_Sales_Coupons extends Mage_Adminhtml_Block_Wid
         return $this->getUrl('*/*/coupons', ['_current' => true]);
     }
 
+    #[Override]
     public function getHeaderCssClass()
     {
         return 'icon-head head-report';

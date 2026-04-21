@@ -4,6 +4,7 @@
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
  * @license    Open Software License (OSL 3.0)
+ * @package    OpenMage_Tests
  */
 
 declare(strict_types=1);
@@ -14,7 +15,7 @@ use Generator;
 
 trait SitemapTrait
 {
-    public function provideGetPreparedFilenameData(): Generator
+    public static function provideGetPreparedFilenameData(): Generator
     {
         yield 'default' => [
             [
@@ -23,7 +24,7 @@ trait SitemapTrait
         ];
     }
 
-    public function provideGenerateXmlData(): Generator
+    public static function provideGenerateXmlData(): Generator
     {
         yield 'default' => [
             [

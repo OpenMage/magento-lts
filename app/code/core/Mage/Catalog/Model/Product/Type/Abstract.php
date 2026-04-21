@@ -112,8 +112,8 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
     /**
      * Specify type instance product
      *
-     * @param  Mage_Catalog_Model_Product               $product
-     * @return Mage_Catalog_Model_Product_Type_Abstract
+     * @param  Mage_Catalog_Model_Product $product
+     * @return $this
      */
     public function setProduct($product)
     {
@@ -124,8 +124,8 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
     /**
      * Specify type identifier
      *
-     * @param  string                                   $typeId
-     * @return Mage_Catalog_Model_Product_Type_Abstract
+     * @param  string $typeId
+     * @return $this
      */
     public function setTypeId($typeId)
     {
@@ -284,7 +284,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
     {
         $salable = $this->getProduct($product)->getStatus() == Mage_Catalog_Model_Product_Status::STATUS_ENABLED;
         if ($salable && $this->getProduct($product)->hasData('is_salable')) {
-            $salable = $this->getProduct($product)->getData('is_salable');
+            $salable = $this->getProduct($product)->getDataByKey('is_salable');
         } elseif ($salable && $this->isComposite()) {
             return null;
         }
@@ -416,7 +416,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
 
     /**
      * Process File Queue
-     * @return Mage_Catalog_Model_Product_Type_Abstract
+     * @return $this
      */
     public function processFileQueue()
     {
@@ -434,8 +434,8 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
                         $uploader = $queueOptions['uploader'] ?? null;
 
                         $path = dirname($dst);
-                        $io = new Varien_Io_File();
-                        if (!$io->isWriteable($path) && !$io->mkdir($path, 0777, true)) {
+                        $ioFile = new Varien_Io_File();
+                        if (!$ioFile->isWriteable($path) && !$ioFile->mkdir($path, 0777, true)) {
                             Mage::throwException(Mage::helper('catalog')->__("Cannot create writeable directory '%s'.", $path));
                         }
 
@@ -555,8 +555,8 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
     /**
      * Check if product can be bought
      *
-     * @param  Mage_Catalog_Model_Product               $product
-     * @return Mage_Catalog_Model_Product_Type_Abstract
+     * @param  Mage_Catalog_Model_Product $product
+     * @return $this
      * @throws Mage_Core_Exception
      */
     public function checkProductBuyState($product = null)
@@ -661,8 +661,8 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
     /**
      * Before save type related data
      *
-     * @param  Mage_Catalog_Model_Product               $product
-     * @return Mage_Catalog_Model_Product_Type_Abstract
+     * @param  Mage_Catalog_Model_Product $product
+     * @return $this
      */
     public function beforeSave($product = null)
     {
@@ -711,7 +711,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      */
     public function getSku($product = null)
     {
-        $sku = $this->getProduct($product)->getData('sku');
+        $sku = $this->getProduct($product)->getDataByKey('sku');
         if ($this->getProduct($product)->getCustomOption('option_ids')) {
             return $this->getOptionSku($product, $sku);
         }
@@ -730,7 +730,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
     {
         $skuDelimiter = '-';
         if (empty($sku)) {
-            $sku = $this->getProduct($product)->getData('sku');
+            $sku = $this->getProduct($product)->getDataByKey('sku');
         }
 
         if ($optionIds = $this->getProduct($product)->getCustomOption('option_ids')) {
@@ -767,7 +767,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      */
     public function getWeight($product = null)
     {
-        return $this->getProduct($product)->getData('weight');
+        return $this->getProduct($product)->getDataByKey('weight');
     }
 
     /**
@@ -866,10 +866,10 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      * Implementation of product specify logic of which product needs to be assigned to option.
      * For example if product which was added to option already removed from catalog.
      *
-     * @param  Mage_Catalog_Model_Product               $optionProduct
-     * @param  Mage_Sales_Model_Quote_Item_Option       $option
-     * @param  Mage_Catalog_Model_Product               $product
-     * @return Mage_Catalog_Model_Product_Type_Abstract
+     * @param  Mage_Catalog_Model_Product         $optionProduct
+     * @param  Mage_Sales_Model_Quote_Item_Option $option
+     * @param  Mage_Catalog_Model_Product         $product
+     * @return $this
      */
     public function assignProductToOption($optionProduct, $option, $product = null)
     {
@@ -880,8 +880,8 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
     /**
      * Setting specified product type variables
      *
-     * @param  array                                    $config
-     * @return Mage_Catalog_Model_Product_Type_Abstract
+     * @param  array $config
+     * @return $this
      */
     public function setConfig($config)
     {

@@ -78,20 +78,20 @@ class Mage_Reports_Model_Resource_Report_Product_Viewed_Collection extends Mage_
     /**
      * Make select object for date boundary
      *
-     * @param  mixed               $from
-     * @param  mixed               $to
+     * @param  null|string         $dateFrom
+     * @param  null|string         $dateTo
      * @return Varien_Db_Select
      * @throws Mage_Core_Exception
      */
-    protected function _makeBoundarySelect($from, $to)
+    protected function _makeBoundarySelect($dateFrom, $dateTo)
     {
         $adapter = $this->getConnection();
         $cols    = $this->_getSelectedColumns();
         $cols['views_num'] = 'SUM(views_num)';
         $select  = $adapter->select()
             ->from($this->getResource()->getMainTable(), $cols)
-            ->where('period >= ?', $from)
-            ->where('period <= ?', $to)
+            ->where('period >= ?', $dateFrom)
+            ->where('period <= ?', $dateTo)
             ->group('product_id')
             ->order('views_num DESC')
             ->limit($this->_ratingLimit);
@@ -107,6 +107,7 @@ class Mage_Reports_Model_Resource_Report_Product_Viewed_Collection extends Mage_
      * @return $this
      * @throws Zend_Db_Select_Exception
      */
+    #[Override]
     protected function _initSelect()
     {
         $select = $this->getSelect();
@@ -164,6 +165,7 @@ class Mage_Reports_Model_Resource_Report_Product_Viewed_Collection extends Mage_
      * @throws Zend_Date_Exception
      * @throws Zend_Db_Select_Exception
      */
+    #[Override]
     protected function _beforeLoad()
     {
         parent::_beforeLoad();

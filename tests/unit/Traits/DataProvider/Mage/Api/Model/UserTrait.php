@@ -4,6 +4,7 @@
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
  * @license    Open Software License (OSL 3.0)
+ * @package    OpenMage_Tests
  */
 
 declare(strict_types=1);
@@ -14,7 +15,7 @@ use Generator;
 
 trait UserTrait
 {
-    public function provideValidateApiUserData(): Generator
+    public static function provideValidateApiUserData(): Generator
     {
         $errorAlphaNumeric = 'Api Key must include both numeric and alphabetic characters.';
         $errorIdentical = 'Api Key confirmation must be same as Api Key.';

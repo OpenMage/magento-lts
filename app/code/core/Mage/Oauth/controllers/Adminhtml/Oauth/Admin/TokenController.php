@@ -23,6 +23,7 @@ class Mage_Oauth_Adminhtml_Oauth_Admin_TokenController extends Mage_Adminhtml_Co
      *
      * @return $this
      */
+    #[Override]
     public function preDispatch()
     {
         $this->_title($this->__('System'))
@@ -75,7 +76,7 @@ class Mage_Oauth_Adminhtml_Oauth_Admin_TokenController extends Mage_Adminhtml_Co
 
         try {
             /** @var Mage_Admin_Model_User $user */
-            $user = Mage::getSingleton('admin/session')->getData('user');
+            $user = Mage::getSingleton('admin/session')->getDataByKey('user');
 
             /** @var Mage_Oauth_Model_Resource_Token_Collection $collection */
             $collection = Mage::getModel('oauth/token')->getCollection();
@@ -91,11 +92,7 @@ class Mage_Oauth_Adminhtml_Oauth_Admin_TokenController extends Mage_Adminhtml_Co
                 $item->setRevoked($status)->save();
             }
 
-            if ($status) {
-                $message = $this->__('Selected entries revoked.');
-            } else {
-                $message = $this->__('Selected entries enabled.');
-            }
+            $message = $status ? $this->__('Selected entries revoked.') : $this->__('Selected entries enabled.');
 
             $this->_getSession()->addSuccess($message);
         } catch (Mage_Core_Exception $mageCoreException) {
@@ -124,7 +121,7 @@ class Mage_Oauth_Adminhtml_Oauth_Admin_TokenController extends Mage_Adminhtml_Co
 
         try {
             /** @var Mage_Admin_Model_User $user */
-            $user = Mage::getSingleton('admin/session')->getData('user');
+            $user = Mage::getSingleton('admin/session')->getDataByKey('user');
 
             /** @var Mage_Oauth_Model_Resource_Token_Collection $collection */
             $collection = Mage::getModel('oauth/token')->getCollection();

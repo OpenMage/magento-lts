@@ -21,6 +21,7 @@ class Mage_Api2_Adminhtml_Api2_RoleController extends Mage_Adminhtml_Controller_
      *
      * @return Mage_Adminhtml_Controller_Action
      */
+    #[Override]
     public function preDispatch()
     {
         $this->_setForcedFormKeyActions(['delete', 'save']);
@@ -152,14 +153,14 @@ class Mage_Api2_Adminhtml_Api2_RoleController extends Mage_Adminhtml_Controller_
 
         if (!$role->getId() && $id) {
             $this->_getSession()->addError(
-                $this->__('Role "%s" no longer exists', $role->getData('role_name')),
+                $this->__('Role "%s" no longer exists', $role->getDataByKey('role_name')),
             );
             $this->_redirect('*/*/');
             return;
         }
 
         //Validate current admin password
-        $currentPassword = $request->getParam('current_password', null);
+        $currentPassword = $request->getParam('current_password');
         $request->setParam('current_password', null);
         $result = $this->_validateCurrentPassword($currentPassword);
 
@@ -177,7 +178,7 @@ class Mage_Api2_Adminhtml_Api2_RoleController extends Mage_Adminhtml_Controller_
             return;
         }
 
-        $roleUsers  = $request->getParam('in_role_users', null);
+        $roleUsers  = $request->getParam('in_role_users');
         parse_str($roleUsers, $roleUsers);
         $roleUsers = array_keys($roleUsers);
 
@@ -255,7 +256,7 @@ class Mage_Api2_Adminhtml_Api2_RoleController extends Mage_Adminhtml_Controller_
         $id = $this->getRequest()->getParam('id', false);
 
         //Validate current admin password
-        $currentPassword = $this->getRequest()->getParam('current_password', null);
+        $currentPassword = $this->getRequest()->getParam('current_password');
         $this->getRequest()->setParam('current_password', null);
         $result = $this->_validateCurrentPassword($currentPassword);
 

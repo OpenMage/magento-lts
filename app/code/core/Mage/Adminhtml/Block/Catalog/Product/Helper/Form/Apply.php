@@ -14,6 +14,7 @@
  */
 class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Apply extends Varien_Data_Form_Element_Multiselect
 {
+    #[Override]
     public function getElementHtml()
     {
         $elementAttributeHtml = '';
@@ -40,6 +41,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Apply extends Varien_Data
      * @param  bool  $useDisabled
      * @return $this
      */
+    #[Override]
     public function setReadonly($readonly, $useDisabled = false)
     {
         $this->setData('readonly', $readonly);

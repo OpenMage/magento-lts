@@ -36,6 +36,7 @@ class Mage_Oauth_Adminhtml_Oauth_AuthorizeController extends Mage_Adminhtml_Cont
      * @return $this
      * @see Mage_Admin_Model_Observer::actionPreDispatchAdmin() method for explanation
      */
+    #[Override]
     public function preDispatch()
     {
         Mage::app()->getRequest()->setInternallyForwarded();
@@ -49,10 +50,9 @@ class Mage_Oauth_Adminhtml_Oauth_AuthorizeController extends Mage_Adminhtml_Cont
         if ($loginError) {
             Mage::getSingleton('adminhtml/session')
                 ->addError(Mage::helper('adminhtml')->__('Invalid User Name or Password.'));
-            $params = ['_query' => ['oauth_token' => $this->getRequest()->getParam('oauth_token', null)]];
             $this->setFlag('', self::FLAG_NO_DISPATCH, true);
             $this->setFlag('', self::FLAG_NO_POST_DISPATCH, true);
-            $params = ['_query' => ['oauth_token' => $this->getRequest()->getParam('oauth_token', null)]];
+            $params = ['_query' => ['oauth_token' => $this->getRequest()->getParam('oauth_token')]];
             $this->_redirect('*/*/*', $params);
         }
 
@@ -146,7 +146,7 @@ class Mage_Oauth_Adminhtml_Oauth_AuthorizeController extends Mage_Adminhtml_Cont
         $session = Mage::getSingleton($this->_sessionName);
 
         /** @var Mage_Admin_Model_User $user */
-        $user = $session->getData('user');
+        $user = $session->getDataByKey('user');
         if (!$user) {
             $session->addError($this->__('Please login to proceed authorization.'));
             $url = $helper->getAuthorizeUrl(Mage_Oauth_Model_Token::USER_TYPE_ADMIN);
@@ -190,8 +190,8 @@ class Mage_Oauth_Adminhtml_Oauth_AuthorizeController extends Mage_Adminhtml_Cont
     /**
      * Init reject page
      *
-     * @param  bool                                           $simple
-     * @return Mage_Oauth_Adminhtml_Oauth_AuthorizeController
+     * @param  bool  $simple
+     * @return $this
      */
     protected function _initRejectPage($simple = false)
     {

@@ -35,8 +35,8 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Store extends Mage_Adminh
      */
     protected function _getShowAllStoresLabelFlag()
     {
-        return $this->getColumn()->getData('skipAllStoresLabel')
-            ? $this->getColumn()->getData('skipAllStoresLabel')
+        return $this->getColumn()->getDataByKey('skipAllStoresLabel')
+            ? $this->getColumn()->getDataByKey('skipAllStoresLabel')
             : $this->_skipAllStoresLabel;
     }
 
@@ -47,8 +47,8 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Store extends Mage_Adminh
      */
     protected function _getShowEmptyStoresLabelFlag()
     {
-        return $this->getColumn()->getData('skipEmptyStoresLabel')
-            ? $this->getColumn()->getData('skipEmptyStoresLabel')
+        return $this->getColumn()->getDataByKey('skipEmptyStoresLabel')
+            ? $this->getColumn()->getDataByKey('skipEmptyStoresLabel')
             : $this->_skipEmptyStoresLabel;
     }
 
@@ -57,6 +57,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Store extends Mage_Adminh
      *
      * @return string
      */
+    #[Override]
     public function render(Varien_Object $row)
     {
         $out = '';
@@ -109,6 +110,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Store extends Mage_Adminh
      *
      * @return string
      */
+    #[Override]
     public function renderExport(Varien_Object $row)
     {
         $out = '';

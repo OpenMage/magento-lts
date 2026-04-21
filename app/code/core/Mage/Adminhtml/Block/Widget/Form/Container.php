@@ -64,6 +64,7 @@ class Mage_Adminhtml_Block_Widget_Form_Container extends Mage_Adminhtml_Block_Wi
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareLayout()
     {
         if ($this->_blockGroup && $this->_controller && $this->_mode) {
@@ -120,7 +121,7 @@ class Mage_Adminhtml_Block_Widget_Form_Container extends Mage_Adminhtml_Block_Wi
     public function getFormActionUrl()
     {
         if ($this->hasFormActionUrl()) {
-            return $this->getData('form_action_url');
+            return $this->getDataByKey('form_action_url');
         }
 
         return $this->getUrl('*/' . $this->_controller . '/save');
@@ -170,6 +171,7 @@ class Mage_Adminhtml_Block_Widget_Form_Container extends Mage_Adminhtml_Block_Wi
     /**
      * @return string
      */
+    #[Override]
     public function getHeaderCssClass()
     {
         return 'icon-head head-' . strtr($this->_controller, '_', '-');
@@ -178,6 +180,7 @@ class Mage_Adminhtml_Block_Widget_Form_Container extends Mage_Adminhtml_Block_Wi
     /**
      * @return string
      */
+    #[Override]
     public function getHeaderHtml()
     {
         return '<h3 class="' . $this->getHeaderCssClass() . '">' . $this->getHeaderText() . '</h3>';

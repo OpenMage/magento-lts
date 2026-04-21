@@ -11,16 +11,20 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Catalog\Model\Product\Option\Type;
 
-use Generator;
+use Override;
 use Mage;
 use Mage_Catalog_Model_Product_Option;
 use Mage_Catalog_Model_Product_Option_Type_Text as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\Model\Product\Option\Type\TextTrait;
 
 final class TextTest extends OpenMageTest
 {
+    use TextTrait;
+
     private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
@@ -47,18 +51,6 @@ final class TextTest extends OpenMageTest
     {
         self::$subject->setIsValid($setIsValid)->setUserValue($setUserValue);
         self::assertSame($expectedResult, self::$subject->prepareForCart());
-    }
-
-    public function providePrepareForCart(): Generator
-    {
-        yield 'valid' => [
-            'test',
-            true,
-            'test',
-        ];
-        yield 'invalid' => [
-            null,
-        ];
     }
 
     /**

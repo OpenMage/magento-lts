@@ -11,6 +11,8 @@
  * Catalog category helper
  *
  * @package    Mage_Catalog
+ *
+ * @phpstan-import-type ConfigStoreId from Mage
  */
 class Mage_Catalog_Helper_Category extends Mage_Core_Helper_Abstract
 {
@@ -114,7 +116,7 @@ class Mage_Catalog_Helper_Category extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * Retrieve category rewrite sufix for store
+     * Retrieve category rewrite suffix for store
      *
      * @param  int    $storeId
      * @return string
@@ -161,7 +163,7 @@ class Mage_Catalog_Helper_Category extends Mage_Core_Helper_Abstract
     /**
      * Check if <link rel="canonical"> can be used for category
      *
-     * @param  null|bool|int|Mage_Core_Model_Store|string $store
+     * @param  ConfigStoreId $store
      * @return bool
      */
     public function canUseCanonicalTag($store = null)

@@ -66,7 +66,7 @@ class Mage_Adminhtml_Report_StatisticsController extends Mage_Adminhtml_Controll
 
         foreach ($blocks as $block) {
             if ($block) {
-                $block->setPeriodType($params->getData('period_type'));
+                $block->setPeriodType($params->getDataByKey('period_type'));
                 $block->setFilterData($params);
             }
         }
@@ -193,6 +193,7 @@ class Mage_Adminhtml_Report_StatisticsController extends Mage_Adminhtml_Controll
      *
      * @return Mage_Admin_Model_Session
      */
+    #[Override]
     protected function _getSession()
     {
         if (is_null($this->_adminSession)) {

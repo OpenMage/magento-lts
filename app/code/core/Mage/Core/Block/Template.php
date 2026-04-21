@@ -8,6 +8,7 @@ use Monolog\Level;
  * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
  */
+
 /**
  * Base html block
  *
@@ -71,6 +72,7 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
      *
      * @return void
      */
+    #[Override]
     protected function _construct()
     {
         parent::_construct();
@@ -82,7 +84,7 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
          * not via Mage_Core_Model_Layout::addBlock()
          */
         if ($this->hasData('template')) {
-            $this->setTemplate($this->getData('template'));
+            $this->setTemplate($this->getDataByKey('template'));
         }
     }
 
@@ -143,8 +145,8 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
     public function assign($key, $value = null)
     {
         if (is_array($key)) {
-            foreach ($key as $k => $v) {
-                $this->assign($k, $v);
+            foreach ($key as $index => $val) {
+                $this->assign($index, $val);
             }
         } else {
             $this->_viewVars[$key] = $value;
@@ -249,11 +251,11 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
         // EXTR_SKIP protects from overriding
         // already defined variables
         extract($this->_viewVars, EXTR_SKIP);
-        $do = $this->getDirectOutput();
+        $directOutput = $this->getDirectOutput();
 
         $hints = Mage::app()->getStore()->isAdmin() ? $this->getShowTemplateHintsAdmin() : $this->getShowTemplateHints();
 
-        if (!$do) {
+        if (!$directOutput) {
             ob_start();
         }
 
@@ -285,9 +287,9 @@ HTML;
                 Mage::log('Not valid template file:' . $fileName . ' class: ' . $thisClass, Level::Critical, null, true);
             }
         } catch (Throwable $throwable) {
-            if (!$do) {
+            if (!$directOutput) {
                 ob_get_clean();
-                $do = true;
+                $directOutput = true;
             }
 
             if (Mage::getIsDeveloperMode()) {
@@ -301,11 +303,7 @@ HTML;
             echo '</div>';
         }
 
-        if (!$do) {
-            $html = ob_get_clean();
-        } else {
-            $html = '';
-        }
+        $html = $directOutput ? '' : ob_get_clean();
 
         Varien_Profiler::stop($fileName);
         return $html;
@@ -327,6 +325,7 @@ HTML;
      *
      * @return string
      */
+    #[Override]
     protected function _toHtml()
     {
         if (!$this->getTemplate()) {
@@ -382,6 +381,7 @@ HTML;
      * @inheritDoc
      * @return array<int|string, string>
      */
+    #[Override]
     public function getCacheKeyInfo()
     {
         return [

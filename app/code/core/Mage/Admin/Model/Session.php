@@ -100,6 +100,7 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
      * @return $this
      * @see self::login()
      */
+    #[Override]
     public function init($namespace, $sessionName = null)
     {
         parent::init($namespace, $sessionName);
@@ -305,17 +306,17 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
     /**
      * Login failed process
      *
-     * @param Exception                              $e
+     * @param Exception                              $exception
      * @param null|Mage_Core_Controller_Request_Http $request
      * @param string                                 $username
      * @param string                                 $message
      */
-    protected function _loginFailed($e, $request, $username, $message)
+    protected function _loginFailed($exception, $request, $username, $message)
     {
         try {
             Mage::dispatchEvent('admin_session_user_login_failed', [
                 'user_name' => $username,
-                'exception' => $e,
+                'exception' => $exception,
             ]);
         } catch (Exception) {
         }

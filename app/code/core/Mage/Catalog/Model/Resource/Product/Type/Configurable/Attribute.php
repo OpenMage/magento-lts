@@ -162,18 +162,18 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute extends Ma
         }
 
         // prepare new values
-        foreach ($values as $v) {
-            if (empty($v['value_index'])) {
+        foreach ($values as $val) {
+            if (empty($val['value_index'])) {
                 continue;
             }
 
-            $key = implode('-', [$websiteId, $v['value_index']]);
+            $key = implode('-', [$websiteId, $val['value_index']]);
             $new[$key] = [
-                'value_index'   => $v['value_index'],
-                'pricing_value' => $v['pricing_value'],
-                'is_percent'    => $v['is_percent'],
+                'value_index'   => $val['value_index'],
+                'pricing_value' => $val['pricing_value'],
+                'is_percent'    => $val['is_percent'],
                 'website_id'    => $websiteId,
-                'use_default'   => !empty($v['use_default_value']),
+                'use_default'   => !empty($val['use_default_value']),
             ];
         }
 
@@ -181,13 +181,13 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute extends Ma
         $update = [];
         $delete = [];
 
-        foreach ($old as $k => $v) {
-            if (!isset($new[$k])) {
-                $delete[] = $v['value_id'];
+        foreach ($old as $index => $val) {
+            if (!isset($new[$index])) {
+                $delete[] = $val['value_id'];
             }
         }
 
-        foreach ($new as $k => $v) {
+        foreach ($new as $index => $val) {
             $needInsert = false;
             $needUpdate = false;
             $needDelete = false;
@@ -197,13 +197,13 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute extends Ma
                 $isGlobal = false;
             }
 
-            $hasValue   = ($isGlobal && !empty($v['pricing_value']))
-                || (!$isGlobal && !$v['use_default']);
+            $hasValue   = ($isGlobal && !empty($val['pricing_value']))
+                || (!$isGlobal && !$val['use_default']);
 
-            if (isset($old[$k])) {
+            if (isset($old[$index])) {
                 // data changed
-                $dataChanged = ($old[$k]['is_percent'] != $v['is_percent'])
-                    || ($old[$k]['pricing_value'] != $v['pricing_value']);
+                $dataChanged = ($old[$index]['is_percent'] != $val['is_percent'])
+                    || ($old[$index]['pricing_value'] != $val['pricing_value']);
                 if (!$hasValue) {
                     $needDelete = true;
                 } elseif ($dataChanged) {
@@ -213,30 +213,30 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute extends Ma
                 $needInsert = true;
             }
 
-            if (!$isGlobal && empty($v['pricing_value'])) {
-                $v['pricing_value'] = 0;
-                $v['is_percent']    = 0;
+            if (!$isGlobal && empty($val['pricing_value'])) {
+                $val['pricing_value'] = 0;
+                $val['is_percent']    = 0;
             }
 
             if ($needInsert) {
                 $insert[] = [
                     'product_super_attribute_id' => $attribute->getId(),
-                    'value_index'                => $v['value_index'],
-                    'is_percent'                 => $v['is_percent'],
-                    'pricing_value'              => $v['pricing_value'],
+                    'value_index'                => $val['value_index'],
+                    'is_percent'                 => $val['is_percent'],
+                    'pricing_value'              => $val['pricing_value'],
                     'website_id'                 => $websiteId,
                 ];
             }
 
             if ($needUpdate) {
-                $update[$old[$k]['value_id']] = [
-                    'is_percent'    => $v['is_percent'],
-                    'pricing_value' => $v['pricing_value'],
+                $update[$old[$index]['value_id']] = [
+                    'is_percent'    => $val['is_percent'],
+                    'pricing_value' => $val['pricing_value'],
                 ];
             }
 
             if ($needDelete) {
-                $delete[] = $old[$k]['value_id'];
+                $delete[] = $old[$index]['value_id'];
             }
         }
 

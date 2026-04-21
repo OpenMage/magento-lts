@@ -22,15 +22,16 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
     protected $_cookieCheckActions = ['post'];
 
     /**
-     * @return $this|Mage_Core_Controller_Front_Action|void
+     * @return null|$this|Mage_Core_Controller_Front_Action
      */
+    #[Override]
     public function preDispatch()
     {
         parent::preDispatch();
 
         $allowGuest = Mage::helper('review')->getIsGuestAllowToWrite();
         if (!$this->getRequest()->isDispatched()) {
-            return;
+            return null;
         }
 
         $action = strtolower($this->getRequest()->getActionName());

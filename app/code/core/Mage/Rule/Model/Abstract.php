@@ -100,6 +100,7 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
      *
      * @return $this
      */
+    #[Override]
     protected function _beforeSave()
     {
         // Check if discount amount not negative
@@ -315,8 +316,8 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
                         $node = & $node[$key][$path[$i]] ?? [];
                     }
 
-                    foreach ($data as $k => $v) {
-                        $node[$k] = $v;
+                    foreach ($data as $index => $val) {
+                        $node[$index] = $val;
                     }
                 }
             } else {
