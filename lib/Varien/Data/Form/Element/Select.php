@@ -36,10 +36,10 @@ class Varien_Data_Form_Element_Select extends Varien_Data_Form_Element_Abstract
     {
         $this->addClass('select');
         $html = '<select id="' . $this->getHtmlId() . '"
-            . name="' . $this->getName() . '"
-            . data-test="' . $this->getTestId() . '"
+            name="' . $this->getName() . '"
+            data-test="' . $this->getTestId() . '"
             ' . $this->serialize($this->getHtmlAttributes()) . '
-            . ">'
+            ">'
             . "\n";
 
         $value = $this->getValue();
