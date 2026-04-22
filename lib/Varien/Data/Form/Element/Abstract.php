@@ -253,7 +253,7 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
             . name="' . $this->getName() . '"
             . value="' . $this->getEscapedValue() . '"
             . data-test="' . $this->getTestId() . '"
-            . ' . $this->serialize($this->getHtmlAttributes()) . '
+            ' . $this->serialize($this->getHtmlAttributes()) . '
             . "/>'
             . "\n";
         return $html . $this->getAfterElementHtml();
