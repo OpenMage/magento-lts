@@ -55,11 +55,18 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
             $this->_buttons[$level] = [];
         }
 
+        $data['test_id'] = $this->getTestIdentifier($id);
+
         $this->_buttons[$level][$id] = $data;
         $this->_buttons[$level][$id]['area'] = $area;
         $this->_buttons[$level][$id]['sort_order'] = $sortOrder ? $sortOrder : count($this->_buttons[$level]) * 10;
 
         return $this;
+    }
+
+    private function getTestIdentifier(string $id): string
+    {
+        return 'admin-button-' . str_replace([' ', '_'], '-', $id);
     }
 
     /**
