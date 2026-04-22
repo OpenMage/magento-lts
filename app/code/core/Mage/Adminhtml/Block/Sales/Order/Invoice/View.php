@@ -39,7 +39,7 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_View extends Mage_Adminhtml_Block
         $this->_removeButton(self::BUTTON_TYPE_DELETE);
 
         if ($this->_isAllowedAction('cancel') && $this->getInvoice()->canCancel()) {
-            $this->_addButton('cancel', [
+            $this->_addButton(self::BUTTON_TYPE_CANCEL, [
                 'label'     => Mage::helper('sales')->__('Cancel'),
                 'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getCancelUrl()),
                 'class'     => 'delete',
@@ -83,7 +83,7 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_View extends Mage_Adminhtml_Block
         }
 
         if ($this->getInvoice()->canVoid()) {
-            $this->_addButton('void', [
+            $this->_addButton(self::BUTTON_TYPE_VOID, [
                 'label'     => Mage::helper('sales')->__('Void'),
                 'class'     => 'save void',
                 'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getVoidUrl()),
@@ -91,7 +91,7 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_View extends Mage_Adminhtml_Block
         }
 
         if ($this->getInvoice()->getId()) {
-            $this->_addButton('print', [
+            $this->_addButton(self::BUTTON_TYPE_PRINT, [
                 'label'     => Mage::helper('sales')->__('Print'),
                 'class'     => 'save print',
                 'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getPrintUrl()),

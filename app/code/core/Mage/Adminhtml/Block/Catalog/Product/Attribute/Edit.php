@@ -24,7 +24,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit extends Mage_Adminhtml
         if ($this->getRequest()->getParam('popup')) {
             $this->_removeButton(self::BUTTON_TYPE_BACK);
             $this->_addButton(
-                'close',
+                self::BUTTON_TYPE_CLOSE,
                 [
                     'label'     => Mage::helper('catalog')->__('Close Window'),
                     'class'     => 'cancel',

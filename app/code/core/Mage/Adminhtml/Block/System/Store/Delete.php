@@ -34,7 +34,7 @@ class Mage_Adminhtml_Block_System_Store_Delete extends Mage_Adminhtml_Block_Widg
         $this->_updateButton(self::BUTTON_TYPE_DELETE, 'area', 'footer');
         $this->_updateButton(self::BUTTON_TYPE_DELETE, 'onclick', 'editForm.submit();');
 
-        $this->_addButton('cancel', [
+        $this->_addButton(self::BUTTON_TYPE_CANCEL, [
             'label'     => Mage::helper('adminhtml')->__('Cancel'),
             'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getBackUrl()),
         ], 2, 100, 'footer');

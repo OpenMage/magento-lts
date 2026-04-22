@@ -48,6 +48,19 @@ final class Adminhtml
     public static function replaceArgumentDefaultValue(): array
     {
         return [
+            new ReplaceArgumentDefaultValue(Mage_Adminhtml_Block_Widget_Container::class, '_addButton', 0, 'add', 'self::BUTTON_TYPE_ADD'),
+            new ReplaceArgumentDefaultValue(Mage_Adminhtml_Block_Widget_Container::class, '_addButton', 0, 'back', 'self::BUTTON_TYPE_BACK'),
+            new ReplaceArgumentDefaultValue(Mage_Adminhtml_Block_Widget_Container::class, '_addButton', 0, 'cancel', 'self::BUTTON_TYPE_CANCEL'),
+            new ReplaceArgumentDefaultValue(Mage_Adminhtml_Block_Widget_Container::class, '_addButton', 0, 'close', 'self::BUTTON_TYPE_CLOSE'),
+            new ReplaceArgumentDefaultValue(Mage_Adminhtml_Block_Widget_Container::class, '_addButton', 0, 'delete', 'self::BUTTON_TYPE_DELETE'),
+            new ReplaceArgumentDefaultValue(Mage_Adminhtml_Block_Widget_Container::class, '_addButton', 0, 'print', 'self::BUTTON_TYPE_PRINT'),
+            new ReplaceArgumentDefaultValue(Mage_Adminhtml_Block_Widget_Container::class, '_addButton', 0, 'reset', 'self::BUTTON_TYPE_RESET'),
+            new ReplaceArgumentDefaultValue(Mage_Adminhtml_Block_Widget_Container::class, '_addButton', 0, 'save', 'self::BUTTON_TYPE_SAVE'),
+            new ReplaceArgumentDefaultValue(Mage_Adminhtml_Block_Widget_Container::class, '_addButton', 0, 'savecontinue', 'self::BUTTON_TYPE_SAVE_EDIT'),
+            new ReplaceArgumentDefaultValue(Mage_Adminhtml_Block_Widget_Container::class, '_addButton', 0, 'saveandcontinue', 'self::BUTTON_TYPE_SAVE_EDIT'),
+            new ReplaceArgumentDefaultValue(Mage_Adminhtml_Block_Widget_Container::class, '_addButton', 0, 'save_and_continue', 'self::BUTTON_TYPE_SAVE_EDIT'),
+            new ReplaceArgumentDefaultValue(Mage_Adminhtml_Block_Widget_Container::class, '_addButton', 0, 'save_and_edit', 'self::BUTTON_TYPE_SAVE_EDIT'),
+            new ReplaceArgumentDefaultValue(Mage_Adminhtml_Block_Widget_Container::class, '_addButton', 0, 'void', 'self::BUTTON_TYPE_VOID'),
             new ReplaceArgumentDefaultValue(Mage_Adminhtml_Block_Widget_Container::class, '_removeButton', 0, 'add', 'self::BUTTON_TYPE_ADD'),
             new ReplaceArgumentDefaultValue(Mage_Adminhtml_Block_Widget_Container::class, '_removeButton', 0, 'back', 'self::BUTTON_TYPE_BACK'),
             new ReplaceArgumentDefaultValue(Mage_Adminhtml_Block_Widget_Container::class, '_removeButton', 0, 'cancel', 'self::BUTTON_TYPE_CANCEL'),
