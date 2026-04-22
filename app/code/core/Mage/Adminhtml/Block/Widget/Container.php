@@ -92,6 +92,8 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
     /**
      * @param  self::BUTTON_TYPE_* $id
      * @return $this
+     *
+     * @SuppressWarnings("PHPMD.ExcessiveParameterList")
      */
     protected function _addPreparedButton(
         string $id,
