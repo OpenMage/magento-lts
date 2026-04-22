@@ -97,7 +97,7 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
         string $id,
         string $label = '',
         array  $data = [],
-        int    $level = 0,
+        ?int   $level = null,
         int    $sortOrder = 0,
         string $area = 'header',
         string $module = 'adminhtml',
@@ -125,6 +125,18 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
             };
         }
 
+        if (is_null($level)) {
+            $level = match ($id) {
+                self::BUTTON_TYPE_BACK      => -1,
+                self::BUTTON_TYPE_CANCEL    => -1,
+                self::BUTTON_TYPE_CLOSE     => -1,
+                self::BUTTON_TYPE_RESET     => -1,
+                self::BUTTON_TYPE_SAVE      => 1,
+                self::BUTTON_TYPE_SAVE_EDIT => 1,
+                default => 0,
+            };
+        }
+
         match ($id) {
             self::BUTTON_TYPE_ADD => $data = array_merge([
                 'label'     => $label ? $label : Mage::helper($module)->__('Add'),
@@ -135,19 +147,16 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
                 'label'     => $label ? $label : Mage::helper($module)->__('Back'),
                 'class'     => 'back',
                 'onclick'   => $onClick,
-                'level'     => -1,
             ], $data),
             self::BUTTON_TYPE_CANCEL => $data = array_merge([
                 'label'     => $label ? $label : Mage::helper($module)->__('Cancel'),
                 'class'     => 'cancel delete',
                 'onclick'   => $onClick,
-                'level'     => -1,
             ], $data),
             self::BUTTON_TYPE_CLOSE => $data = array_merge([
                 'label'     => $label ? $label : Mage::helper($module)->__('Close Window'),
                 'class'     => 'cancel',
                 'onclick'   => $onClick,
-                'level'     => -1,
             ], $data),
             self::BUTTON_TYPE_DELETE => $data = array_merge([
                 'label' => $label ? $label : Mage::helper($module)->__('Delete'),
@@ -161,13 +170,11 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
                 'label'     => $label ? $label : Mage::helper($module)->__('Reset'),
                 'class'     => 'reset',
                 'onclick'   => $onClick,
-                'level'     => -1,
             ], $data),
             self::BUTTON_TYPE_SAVE => $data = array_merge([
                 'label'     => $label ? $label : Mage::helper($module)->__('Save'),
                 'class'     => 'save',
                 'onclick'   => $onClick,
-                'level'     => 1,
             ], $data),
             self::BUTTON_TYPE_SAVE_EDIT => $data = array_merge([
                 'label'     => $label ? $label : Mage::helper($module)->__('Save and Continue Edit'),
