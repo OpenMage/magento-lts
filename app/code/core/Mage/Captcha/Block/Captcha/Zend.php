@@ -65,6 +65,10 @@ class Mage_Captcha_Block_Captcha_Zend extends Mage_Core_Block_Template
                 $this->getCaptchaModel()->setHeight($this->getDataByKey('img_height'));
             }
 
+            if ($this->hasData('font_size')) {
+                $this->getCaptchaModel()->setFontSize($this->getDataByKey('font_size'));
+            }
+
             $this->getCaptchaModel()->generate();
             return parent::_toHtml();
         }

@@ -36,6 +36,7 @@
         "empiricompany/openmage_ignition": "^1.5",
         "ezyang/htmlpurifier": "^4.17",
         "flowjs/flowjs": "dev-master",
+        "laminas/laminas-captcha": "^2.18",
         "magento-hackathon/magento-composer-installer": "^3.1 || ^2.1 || ^4.0",
         "mklkj/tinymce-i18n": "^26.1",
         "monolog/monolog": "^3.9",
