@@ -51,16 +51,16 @@ class Mage_Adminhtml_Block_System_Store_Edit extends Mage_Adminhtml_Block_Widget
 
         parent::__construct();
 
-        $this->_updateButton('save', 'label', $saveLabel);
-        $this->_updateButton('delete', 'label', $deleteLabel);
-        $this->_updateButton('delete', 'onclick', Mage::helper('core/js')->getConfirmSetLocationJs($deleteUrl));
+        $this->_updateButton(self::BUTTON_TYPE_SAVE, 'label', $saveLabel);
+        $this->_updateButton(self::BUTTON_TYPE_DELETE, 'label', $deleteLabel);
+        $this->_updateButton(self::BUTTON_TYPE_DELETE, 'onclick', Mage::helper('core/js')->getConfirmSetLocationJs($deleteUrl));
 
         if (!Mage::registry('store_data')->isCanDelete()) {
-            $this->_removeButton('delete');
+            $this->_removeButton(self::BUTTON_TYPE_DELETE);
         }
 
         if (Mage::registry('store_data')->isReadOnly()) {
-            $this->_removeButton('save')->_removeButton('reset');
+            $this->_removeButton(self::BUTTON_TYPE_SAVE)->_removeButton(self::BUTTON_TYPE_RESET);
         }
     }
 

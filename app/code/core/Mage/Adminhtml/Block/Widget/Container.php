@@ -14,6 +14,26 @@
  */
 class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Template
 {
+    public const BUTTON_TYPE_ADD        = 'add';
+
+    public const BUTTON_TYPE_BACK       = 'back';
+
+    public const BUTTON_TYPE_CANCEL     = 'cancel';
+
+    public const BUTTON_TYPE_CLOSE      = 'close';
+
+    public const BUTTON_TYPE_DELETE     = 'delete';
+
+    public const BUTTON_TYPE_PRINT      = 'print';
+
+    public const BUTTON_TYPE_RESET      = 'reset';
+
+    public const BUTTON_TYPE_SAVE       = 'save';
+
+    public const BUTTON_TYPE_SAVE_EDIT  = 'save-edit';
+
+    public const BUTTON_TYPE_VOID       = 'void';
+
     /**
      * So-called "container controller" to specify group of blocks participating in some action
      *

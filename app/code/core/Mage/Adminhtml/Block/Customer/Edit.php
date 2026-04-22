@@ -33,12 +33,12 @@ class Mage_Adminhtml_Block_Customer_Edit extends Mage_Adminhtml_Block_Widget_For
         parent::__construct();
 
         if (Mage::registry('current_customer')->isReadonly()) {
-            $this->_removeButton('save');
-            $this->_removeButton('reset');
+            $this->_removeButton(self::BUTTON_TYPE_SAVE);
+            $this->_removeButton(self::BUTTON_TYPE_RESET);
         }
 
         if (!Mage::registry('current_customer')->isDeleteable()) {
-            $this->_removeButton('delete');
+            $this->_removeButton(self::BUTTON_TYPE_DELETE);
         }
     }
 
@@ -95,7 +95,7 @@ class Mage_Adminhtml_Block_Customer_Edit extends Mage_Adminhtml_Block_Widget_For
     protected function _prepareLayout()
     {
         if (!Mage::registry('current_customer')->isReadonly()) {
-            $this->_addButton('save_and_continue', [
+            $this->_addButton(self::BUTTON_TYPE_SAVE_EDIT, [
                 'label'     => Mage::helper('customer')->__('Save and Continue Edit'),
                 'onclick'   => Mage::helper('core/js')->getSaveAndContinueEditJs($this->_getSaveAndContinueUrl()),
                 'class'     => 'save continue',
