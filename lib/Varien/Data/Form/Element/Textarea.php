@@ -46,10 +46,10 @@ class Varien_Data_Form_Element_Textarea extends Varien_Data_Form_Element_Abstrac
     public function getElementHtml()
     {
         $this->addClass('textarea');
-        $html = '<textarea id="' . $this->getHtmlId(). '" 
-            name="' . $this->getName(). '" 
+        $html = '<textarea id="' . $this->getHtmlId() . '" 
+            name="' . $this->getName() . '" 
             data-test="' . $this->getTestId() . '"
-            ' . $this->serialize($this->getHtmlAttributes()) .'
+            ' . $this->serialize($this->getHtmlAttributes()) . '
         >'
         . $this->getEscapedValue()
         . '</textarea>';
