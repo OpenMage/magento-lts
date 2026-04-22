@@ -147,7 +147,6 @@
         "magento-deploystrategy": "copy",
         "magento-deploystrategy-dev": "symlink",
         "magento-deploystrategy-overwrite": {
-            "openmage/dev-copyright": "copy",
             "openmage/dev-translations": "copy",
             "openmage/legacy-frontend-themes": "copy"
         },

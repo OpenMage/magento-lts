@@ -29,8 +29,8 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_View extends Mage_Adminhtml_Bloc
         $this->_removeButton(self::BUTTON_TYPE_RESET);
         $this->_removeButton(self::BUTTON_TYPE_DELETE);
         if (Mage::getSingleton('admin/session')->isAllowed('sales/order/actions/emails')) {
-            $this->_updateButton('save', 'label', Mage::helper('sales')->__('Send Tracking Information'));
-            $this->_updateButton('save', 'class', 'save send-email');
+            $this->_updateButton(self::BUTTON_TYPE_SAVE, 'label', Mage::helper('sales')->__('Send Tracking Information'));
+            $this->_updateButton(self::BUTTON_TYPE_SAVE, 'class', 'save send-email');
             $this->_updateButton(
                 self::BUTTON_TYPE_SAVE,
                 'onclick',
@@ -126,14 +126,14 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_View extends Mage_Adminhtml_Bloc
         if ($flag) {
             if ($this->getShipment()->getBackUrl()) {
                 return $this->_updateButton(
-                    'back',
+                    self::BUTTON_TYPE_BACK,
                     'onclick',
                     Mage::helper('core/js')->getSetLocationJs($this->getShipment()->getBackUrl()),
                 );
             }
 
             return $this->_updateButton(
-                'back',
+                self::BUTTON_TYPE_BACK,
                 'onclick',
                 Mage::helper('core/js')->getSetLocationJs($this->getUrl('*/sales_shipment/')),
             );

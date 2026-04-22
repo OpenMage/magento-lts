@@ -21,13 +21,13 @@ class Mage_Adminhtml_Block_Review_Edit extends Mage_Adminhtml_Block_Widget_Form_
         $this->_objectId = 'id';
         $this->_controller = 'review';
 
-        $this->_updateButton('save', 'label', Mage::helper('review')->__('Save Review'));
-        $this->_updateButton('save', 'id', 'save_button');
-        $this->_updateButton('delete', 'label', Mage::helper('review')->__('Delete Review'));
+        $this->_updateButton(self::BUTTON_TYPE_SAVE, 'label', Mage::helper('review')->__('Save Review'));
+        $this->_updateButton(self::BUTTON_TYPE_SAVE, 'id', 'save_button');
+        $this->_updateButton(self::BUTTON_TYPE_DELETE, 'label', Mage::helper('review')->__('Delete Review'));
 
         if ($this->getRequest()->getParam('productId', false)) {
             $this->_updateButton(
-                'back',
+                self::BUTTON_TYPE_BACK,
                 'onclick',
                 Mage::helper('core/js')->getSetLocationJs(
                     $this->getUrl(
@@ -40,7 +40,7 @@ class Mage_Adminhtml_Block_Review_Edit extends Mage_Adminhtml_Block_Widget_Form_
 
         if ($this->getRequest()->getParam('customerId', false)) {
             $this->_updateButton(
-                'back',
+                self::BUTTON_TYPE_BACK,
                 'onclick',
                 Mage::helper('core/js')->getSetLocationJs(
                     $this->getUrl(
@@ -53,12 +53,12 @@ class Mage_Adminhtml_Block_Review_Edit extends Mage_Adminhtml_Block_Widget_Form_
 
         if ($this->getRequest()->getParam('ret', false) == 'pending') {
             $this->_updateButton(
-                'back',
+                self::BUTTON_TYPE_BACK,
                 'onclick',
                 Mage::helper('core/js')->getSetLocationJs($this->getUrl('*/*/pending')),
             );
             $this->_updateButton(
-                'delete',
+                self::BUTTON_TYPE_DELETE,
                 'onclick',
                 Mage::helper('core/js')->getDeleteConfirmJs(
                     $this->getUrl(
