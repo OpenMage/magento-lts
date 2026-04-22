@@ -47,7 +47,6 @@
         "php-units-of-measure/php-units-of-measure": "^2.2",
         "phpseclib/mcrypt_compat": "^2.0.3",
         "phpseclib/phpseclib": "^3.0.14",
-        "saloonphp/saloon": "v3.14.1",
         "shardj/zf1-future": "^1.24.1",
         "shipstream/fedex-rest-sdk": "^1.4",
         "symfony/mime": "^6.4",
