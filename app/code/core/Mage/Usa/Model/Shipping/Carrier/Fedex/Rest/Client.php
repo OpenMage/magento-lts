@@ -54,16 +54,14 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_Client
     private function send(Closure $call): array
     {
         try {
-            $response = $call();
-            $body = $response->json();
-        } catch (RequestException $requestException) {
             try {
+                $response = $call();
+            } catch (RequestException $requestException) {
                 $body = $requestException->getResponse()->json();
-            } catch (JsonException $jsonException) {
-                return ['errors' => [['message' => 'Could not parse client response', 'detail' => $jsonException->getMessage()]]];
+                return is_array($body) ? $body : ['errors' => [['message' => $requestException->getMessage()]]];
             }
 
-            return is_array($body) ? $body : ['errors' => [['message' => $requestException->getMessage()]]];
+            $body = $response->json();
         } catch (JsonException $jsonException) {
             return ['errors' => [['message' => 'Could not parse client response', 'detail' => $jsonException->getMessage()]]];
         }

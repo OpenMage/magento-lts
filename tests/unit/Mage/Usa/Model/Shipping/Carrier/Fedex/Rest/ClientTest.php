@@ -133,6 +133,30 @@ final class ClientTest extends OpenMageTest
         self::assertSame($errorBody, $response);
     }
 
+    public function testInvalidJsonOnSuccessReturnsParseError(): void
+    {
+        $client = $this->clientWithMocks([
+            RateAndTransitTimes::class => MockResponse::make('{not json', 200),
+        ]);
+
+        $response = $client->getRates($this->validRatePayload());
+
+        self::assertSame('Could not parse client response', $response['errors'][0]['message']);
+        self::assertArrayHasKey('detail', $response['errors'][0]);
+    }
+
+    public function testInvalidJsonOnErrorReturnsParseError(): void
+    {
+        $client = $this->clientWithMocks([
+            RateAndTransitTimes::class => MockResponse::make('{not json', 500),
+        ]);
+
+        $response = $client->getRates($this->validRatePayload());
+
+        self::assertSame('Could not parse client response', $response['errors'][0]['message']);
+        self::assertArrayHasKey('detail', $response['errors'][0]);
+    }
+
     /**
      * @param array<string, MockResponse> $responses
      */

@@ -265,78 +265,20 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_Requestbuilder
             'requestedPackageLineItems' => [$lineItem],
         ];
 
-        if ($request->getShipperAddressCountryCode() !== $request->getRecipientAddressCountryCode()) {
-            $customsValue = $packageParams ? (float) $packageParams->getCustomsValue() : 0.0;
-            $unitPrice = 0.0;
-            $itemsQty = 0;
-            $itemsDesc = [];
-            $countriesOfManufacture = [];
-            foreach ((array) $request->getPackageItems() as $itemShipment) {
-                $item = new Varien_Object($itemShipment);
-                $unitPrice += (float) $item->getPrice();
-                $itemsQty += (int) $item->getQty();
-                $itemsDesc[] = (string) $item->getName();
-                $country = (string) $item->getCountryOfManufacture();
-                if ($country !== '') {
-                    $countriesOfManufacture[] = $country;
-                }
-            }
-
-            // FedEx rejects customs payloads with an empty countryOfManufacture
-            // (INVALID.INPUT.EXCEPTION). Items don't always carry the field
-            // populated, so default to shipper country
-            if ($countriesOfManufacture === []) {
-                $countriesOfManufacture[] = (string) $request->getShipperAddressCountryCode();
-            }
-
-            $requestedShipment['customsClearanceDetail'] = [
-                'dutiesPayment' => [
-                    'paymentType' => $paymentType,
-                    'payor' => [
-                        'responsibleParty' => [
-                            'accountNumber' => ['value' => $accountNumber],
-                            'address' => ['countryCode' => $storeCountryCode],
-                        ],
-                    ],
-                ],
-                'totalCustomsValue' => [
-                    'amount' => $customsValue,
-                    'currency' => (string) $request->getBaseCurrencyCode(),
-                ],
-                'commodities' => [[
-                    'numberOfPieces' => 1,
-                    'description' => implode(', ', array_filter($itemsDesc)),
-                    'countryOfManufacture' => implode(',', array_unique($countriesOfManufacture)),
-                    'weight' => [
-                        'units' => $weightUnits,
-                        'value' => (float) $request->getPackageWeight(),
-                    ],
-                    'quantity' => max(1, (int) ceil($itemsQty)),
-                    'quantityUnits' => 'PCS',
-                    'unitPrice' => [
-                        'amount' => $unitPrice,
-                        'currency' => (string) $request->getBaseCurrencyCode(),
-                    ],
-                    'customsValue' => [
-                        'amount' => $customsValue,
-                        'currency' => (string) $request->getBaseCurrencyCode(),
-                    ],
-                ]],
-            ];
+        if ($this->isInternationalShipment($request)) {
+            $requestedShipment['customsClearanceDetail'] = $this->buildCustomsClearanceDetail(
+                $request,
+                $accountNumber,
+                $storeCountryCode,
+            );
         }
 
         if ($request->getMasterTrackingId()) {
             $requestedShipment['masterTrackingId'] = ['trackingNumber' => (string) $request->getMasterTrackingId()];
         }
 
-        // FedEx rejects a SMART_POST shipment without `smartPostInfoDetail`
-        // (SHIPMENT.SMARTPOST.INVALID). Indicia mirrors the rate payload:
-        // PARCEL_SELECT once the package hits 1 lb, PRESORTED_STANDARD below.
-        if ($smartPostHubId !== '' && (string) $request->getShippingMethod() === 'SMART_POST') {
-            $requestedShipment['smartPostInfoDetail'] = [
-                'indicia' => ((float) $request->getPackageWeight() >= 1) ? 'PARCEL_SELECT' : 'PRESORTED_STANDARD',
-                'hubId' => $smartPostHubId,
-            ];
+        if ($this->isSmartPostShipment($request, $smartPostHubId)) {
+            $requestedShipment['smartPostInfoDetail'] = $this->buildSmartPostInfoDetail($request, $smartPostHubId);
         }
 
         return [
@@ -367,6 +309,106 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_Requestbuilder
             : '';
 
         return 'Order #' . $incrementId . ' P' . $request->getPackageId();
+    }
+
+    private function isInternationalShipment(Varien_Object $request): bool
+    {
+        return $request->getShipperAddressCountryCode() !== $request->getRecipientAddressCountryCode();
+    }
+
+    private function isSmartPostShipment(Varien_Object $request, string $smartPostHubId): bool
+    {
+        return $smartPostHubId !== '' && (string) $request->getShippingMethod() === 'SMART_POST';
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    private function buildCustomsClearanceDetail(
+        Varien_Object $request,
+        string $accountNumber,
+        string $storeCountryCode,
+    ): array {
+        $packageParams = $request->getPackageParams();
+        $paymentType = $request->getIsReturn() ? 'RECIPIENT' : 'SENDER';
+        $weightUnits = $packageParams && $packageParams->getWeightUnits() === Mage_Core_Helper_Measure_Weight::POUND
+            ? Uom::WEIGHT_POUND
+            : Uom::WEIGHT_KILOGRAM;
+        $customsValue = $packageParams ? (float) $packageParams->getCustomsValue() : 0.0;
+
+        $unitPrice = 0.0;
+        $itemsQty = 0;
+        $itemsDesc = [];
+        $countriesOfManufacture = [];
+        foreach ((array) $request->getPackageItems() as $itemShipment) {
+            $item = new Varien_Object($itemShipment);
+            $unitPrice += (float) $item->getPrice();
+            $itemsQty += (int) $item->getQty();
+            $itemsDesc[] = (string) $item->getName();
+            $country = (string) $item->getCountryOfManufacture();
+            if ($country !== '') {
+                $countriesOfManufacture[] = $country;
+            }
+        }
+
+        // FedEx rejects customs payloads with an empty countryOfManufacture
+        // (INVALID.INPUT.EXCEPTION). Items don't always carry the field
+        // populated, so default to shipper country.
+        if ($countriesOfManufacture === []) {
+            $countriesOfManufacture[] = (string) $request->getShipperAddressCountryCode();
+        }
+
+        $currency = (string) $request->getBaseCurrencyCode();
+
+        return [
+            'dutiesPayment' => [
+                'paymentType' => $paymentType,
+                'payor' => [
+                    'responsibleParty' => [
+                        'accountNumber' => ['value' => $accountNumber],
+                        'address' => ['countryCode' => $storeCountryCode],
+                    ],
+                ],
+            ],
+            'totalCustomsValue' => [
+                'amount' => $customsValue,
+                'currency' => $currency,
+            ],
+            'commodities' => [[
+                'numberOfPieces' => 1,
+                'description' => implode(', ', array_filter($itemsDesc)),
+                'countryOfManufacture' => implode(',', array_unique($countriesOfManufacture)),
+                'weight' => [
+                    'units' => $weightUnits,
+                    'value' => (float) $request->getPackageWeight(),
+                ],
+                'quantity' => max(1, (int) ceil($itemsQty)),
+                'quantityUnits' => 'PCS',
+                'unitPrice' => [
+                    'amount' => $unitPrice,
+                    'currency' => $currency,
+                ],
+                'customsValue' => [
+                    'amount' => $customsValue,
+                    'currency' => $currency,
+                ],
+            ]],
+        ];
+    }
+
+    /**
+     * FedEx rejects a SMART_POST shipment without `smartPostInfoDetail`
+     * (SHIPMENT.SMARTPOST.INVALID). Indicia mirrors the rate payload:
+     * PARCEL_SELECT once the package hits 1 lb, PRESORTED_STANDARD below.
+     *
+     * @return array<string, string>
+     */
+    private function buildSmartPostInfoDetail(Varien_Object $request, string $smartPostHubId): array
+    {
+        return [
+            'indicia' => ((float) $request->getPackageWeight() >= 1) ? 'PARCEL_SELECT' : 'PRESORTED_STANDARD',
+            'hubId' => $smartPostHubId,
+        ];
     }
 
     private function mapDropoffType(string $dropoff): string

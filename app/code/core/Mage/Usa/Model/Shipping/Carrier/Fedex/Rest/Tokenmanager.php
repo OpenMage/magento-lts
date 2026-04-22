@@ -16,30 +16,13 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_Tokenmanager implements TokenCa
 
     public static function get(string $key): AccessTokenAuthenticator|false
     {
-        $raw = Mage::app()->getCache()->load(self::cacheKey($key));
-        if (!is_string($raw) || $raw === '') {
-            return false;
-        }
-
         try {
-            $authenticator = unserialize($raw, ['allowed_classes' => [
-                AccessTokenAuthenticator::class,
-                DateTimeImmutable::class,
-                DateTimeZone::class,
-            ]]);
+            $authenticator = self::hydrateAuthenticator(Mage::app()->getCache(), self::cacheKey($key));
         } catch (Throwable) {
             return false;
         }
 
-        if (!$authenticator instanceof AccessTokenAuthenticator) {
-            return false;
-        }
-
-        if (self::isExpiringSoon($authenticator)) {
-            return false;
-        }
-
-        return $authenticator;
+        return $authenticator instanceof AccessTokenAuthenticator && !self::isExpiringSoon($authenticator) ? $authenticator : false;
     }
 
     public static function set(string $key, AccessTokenAuthenticator $authenticator): void
@@ -91,5 +74,22 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_Tokenmanager implements TokenCa
         }
 
         return max(0, $authenticator->expiresAt->getTimestamp() - self::EXPIRY_BUFFER_SECONDS - Carbon::now()->getTimestamp());
+    }
+
+    private static function hydrateAuthenticator(Zend_Cache_Core $cache, string $key): ?AccessTokenAuthenticator
+    {
+        $cachedAuth = $cache->load($key);
+
+        if (!is_string($cachedAuth) || $cachedAuth === '') {
+            return null;
+        }
+
+        $authenticator = unserialize($cachedAuth, ['allowed_classes' => [
+            AccessTokenAuthenticator::class,
+            DateTimeImmutable::class,
+            DateTimeZone::class,
+        ]]);
+
+        return $authenticator instanceof AccessTokenAuthenticator ? $authenticator : null;
     }
 }
