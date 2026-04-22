@@ -25,7 +25,6 @@ class Mage_Adminhtml_Block_Cms_Block_Edit extends Mage_Adminhtml_Block_Widget_Fo
             $this->_addPreparedButton(
                 id: self::BUTTON_TYPE_SAVE_EDIT,
                 level: -100,
-                module: 'catalog',
             );
         } else {
             $this->_removeButton(self::BUTTON_TYPE_SAVE);
