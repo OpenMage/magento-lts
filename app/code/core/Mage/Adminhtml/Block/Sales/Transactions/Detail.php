@@ -52,7 +52,7 @@ class Mage_Adminhtml_Block_Sales_Transactions_Detail extends Mage_Adminhtml_Bloc
         $backUrl = ($this->_txn->getOrderUrl()) ? $this->_txn->getOrderUrl() : $this->getUrl('*/*/');
         $this->_addPreparedButton(
             id: self::BUTTON_TYPE_BACK,
-            onClick: Mage::helper('core/js')->getSetLocationJs($backUrl),
+            onClickUrl: $backUrl,
         );
 
         if (Mage::getSingleton('admin/session')->isAllowed('sales/transactions/fetch')

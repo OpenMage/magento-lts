@@ -35,7 +35,7 @@ class Mage_Adminhtml_Block_Widget_Form_Container extends Mage_Adminhtml_Block_Wi
 
         $this->_addPreparedButton(
             id: self::BUTTON_TYPE_BACK,
-            onClick: Mage::helper('core/js')->getSetLocationJs($this->getBackUrl()),
+            onClickUrl: $this->getBackUrl(),
         );
 
         $this->_addPreparedButton(id: self::BUTTON_TYPE_RESET);

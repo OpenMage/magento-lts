@@ -14,6 +14,8 @@
  */
 class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Template
 {
+    public const BUTTON_TYPE_ADD        = 'add';
+
     public const BUTTON_TYPE_BACK       = 'back';
 
     public const BUTTON_TYPE_CANCEL     = 'cancel';
@@ -93,13 +95,25 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
      */
     protected function _addPreparedButton(
         string $id,
+        string $label = '',
         array  $data = [],
         int    $level = 0,
         int    $sortOrder = 0,
         string $area = 'header',
         string $module = 'adminhtml',
-        ?string $onClick = null
+        ?string $onClick = null,
+        ?string $onClickUrl = null,
+        ?string $onClickConfirmUrl = null,
     ) {
+        if (is_string($onClickUrl) && $onClickUrl !== '') {
+            $onClick = Mage::helper('core/js')->getSetLocationJs($onClickUrl);
+        }
+
+        if (is_string($onClickConfirmUrl) && $onClickConfirmUrl !== '') {
+            $onClick = Mage::helper('core/js')->getConfirmSetLocationJs($onClickConfirmUrl);
+        }
+
+        # ... todo
         if (is_null($onClick)) {
             $onClick = match ($id) {
                 self::BUTTON_TYPE_BACK      => Mage::helper('core/js')->getSetLocationJs(Mage::helper('adminhtml')::getUrl('*/*/')),
@@ -112,51 +126,56 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
         }
 
         match ($id) {
+            self::BUTTON_TYPE_ADD => $data = array_merge([
+                'label'     => $label ? $label : Mage::helper($module)->__('Add'),
+                'class'     => 'add',
+                'onclick'   => $onClick,
+            ], $data),
             self::BUTTON_TYPE_BACK => $data = array_merge([
-                'label'     => Mage::helper($module)->__('Back'),
+                'label'     => $label ? $label : Mage::helper($module)->__('Back'),
                 'class'     => 'back',
                 'onclick'   => $onClick,
                 'level'     => -1,
             ], $data),
             self::BUTTON_TYPE_CANCEL => $data = array_merge([
-                'label'     => Mage::helper($module)->__('Cancel'),
+                'label'     => $label ? $label : Mage::helper($module)->__('Cancel'),
                 'class'     => 'cancel delete',
                 'onclick'   => $onClick,
                 'level'     => -1,
             ], $data),
             self::BUTTON_TYPE_CLOSE => $data = array_merge([
-                'label'     => Mage::helper($module)->__('Close Window'),
+                'label'     => $label ? $label : Mage::helper($module)->__('Close Window'),
                 'class'     => 'cancel',
                 'onclick'   => $onClick,
                 'level'     => -1,
             ], $data),
             self::BUTTON_TYPE_DELETE => $data = array_merge([
-                'label' => Mage::helper($module)->__('Delete'),
+                'label' => $label ? $label : Mage::helper($module)->__('Delete'),
                 'class' => 'delete',
             ], $data),
             self::BUTTON_TYPE_PRINT => $data = array_merge([
-                'label' => Mage::helper($module)->__('Print'),
+                'label' => $label ? $label : Mage::helper($module)->__('Print'),
                 'class' => 'save print',
             ], $data),
             self::BUTTON_TYPE_RESET => $data = array_merge([
-                'label'     => Mage::helper($module)->__('Reset'),
+                'label'     => $label ? $label : Mage::helper($module)->__('Reset'),
                 'class'     => 'reset',
                 'onclick'   => $onClick,
                 'level'     => -1,
             ], $data),
             self::BUTTON_TYPE_SAVE => $data = array_merge([
-                'label'     => Mage::helper($module)->__('Save'),
+                'label'     => $label ? $label : Mage::helper($module)->__('Save'),
                 'class'     => 'save',
                 'onclick'   => $onClick,
                 'level'     => 1,
             ], $data),
             self::BUTTON_TYPE_SAVE_EDIT => $data = array_merge([
-                'label'     => Mage::helper($module)->__('Save and Continue Edit'),
+                'label'     => $label ? $label : Mage::helper($module)->__('Save and Continue Edit'),
                 'class'     => 'save continue',
                 'onclick'   => $onClick,
             ], $data),
             self::BUTTON_TYPE_VOID => $data = array_merge([
-                'label'     => Mage::helper($module)->__('Void'),
+                'label'     => $label ? $label : Mage::helper($module)->__('Void'),
                 'class'     => 'save void',
                 'onclick'   => $onClick,
             ], $data),

@@ -39,7 +39,7 @@ class Mage_Adminhtml_Block_System_Store_Delete extends Mage_Adminhtml_Block_Widg
             level: 2,
             sortOrder: 100,
             area: 'footer',
-            onClick: Mage::helper('core/js')->getSetLocationJs($this->getBackUrl()),
+            onClickUrl: $this->getBackUrl(),
         );
     }
 

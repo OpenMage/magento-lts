@@ -42,7 +42,7 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_View extends Mage_Adminhtml_Block
             $this->_addPreparedButton(
                 id: self::BUTTON_TYPE_CANCEL,
                 module: 'sales',
-                onClick: Mage::helper('core/js')->getSetLocationJs($this->getCancelUrl()),
+                onClickUrl: $this->getCancelUrl(),
             );
         }
 

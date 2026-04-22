@@ -69,7 +69,7 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_View extends Mage_Adminhtml_Bl
             $this->_addPreparedButton(
                 id: self::BUTTON_TYPE_PRINT,
                 module: 'sales',
-                onClick: Mage::helper('core/js')->getSetLocationJs($this->getPrintUrl()),
+                onClickUrl: $this->getPrintUrl(),
             );
         }
     }
