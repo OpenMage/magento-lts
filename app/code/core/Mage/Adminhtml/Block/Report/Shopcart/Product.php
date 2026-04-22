@@ -19,7 +19,7 @@ class Mage_Adminhtml_Block_Report_Shopcart_Product extends Mage_Adminhtml_Block_
         $this->_controller = 'report_shopcart_product';
         $this->_headerText = Mage::helper('reports')->__('Products in carts');
         parent::__construct();
-        $this->_removeButton('add');
+        $this->_removeButton(self::BUTTON_TYPE_ADD);
     }
 
     #[Override]

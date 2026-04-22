@@ -25,7 +25,7 @@ class Mage_Adminhtml_Block_Tag_Product extends Mage_Adminhtml_Block_Widget_Grid_
 
         $this->_block = 'tag_product';
         $this->_controller = 'tag_product';
-        $this->_removeButton('add');
+        $this->_removeButton(self::BUTTON_TYPE_ADD);
         $this->setBackUrl($this->getUrl($route));
         $this->_addBackButton();
 

@@ -20,7 +20,7 @@ class Mage_Adminhtml_Block_Report_Product_Viewed extends Mage_Adminhtml_Block_Wi
         $this->_headerText = Mage::helper('reports')->__('Most Viewed');
         parent::__construct();
         $this->setTemplate('report/grid/container.phtml');
-        $this->_removeButton('add');
+        $this->_removeButton(self::BUTTON_TYPE_ADD);
         $this->addButton('filter_form_submit', [
             'label'     => Mage::helper('reports')->__('Show Report'),
             'onclick'   => 'filterFormSubmit()',

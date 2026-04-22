@@ -21,8 +21,8 @@ class Mage_Adminhtml_Block_Checkout_Agreement_Edit extends Mage_Adminhtml_Block_
 
         parent::__construct();
 
-        $this->_updateButton('save', 'label', Mage::helper('checkout')->__('Save Condition'));
-        $this->_updateButton('delete', 'label', Mage::helper('checkout')->__('Delete Condition'));
+        $this->_updateButton(self::BUTTON_TYPE_SAVE, 'label', Mage::helper('checkout')->__('Save Condition'));
+        $this->_updateButton(self::BUTTON_TYPE_DELETE, 'label', Mage::helper('checkout')->__('Delete Condition'));
     }
 
     /**

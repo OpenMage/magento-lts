@@ -20,7 +20,7 @@ class Mage_Adminhtml_Block_Report_Sales_Sales extends Mage_Adminhtml_Block_Widge
         $this->_headerText = Mage::helper('reports')->__('Total Ordered Report');
         parent::__construct();
         $this->setTemplate('report/grid/container.phtml');
-        $this->_removeButton('add');
+        $this->_removeButton(self::BUTTON_TYPE_ADD);
         $this->addButton('filter_form_submit', [
             'label'     => Mage::helper('reports')->__('Show Report'),
             'onclick'   => 'filterFormSubmit()',
