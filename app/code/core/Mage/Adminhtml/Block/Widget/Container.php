@@ -14,7 +14,6 @@
  */
 class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Template
 {
-
     public const BUTTON_TYPE_ADD        = 'add';
 
     public const BUTTON_TYPE_BACK       = 'back';
