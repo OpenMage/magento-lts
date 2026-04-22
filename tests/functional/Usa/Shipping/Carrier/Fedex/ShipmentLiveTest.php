@@ -162,7 +162,7 @@ final class ShipmentLiveTest extends FedexTestCase
 
     private function assertShipmentSucceedsAndCancel(Mage_Shipping_Model_Shipment_Request $request): void
     {
-        $this->assertInstanceOf(Mage_Usa_Model_Shipping_Carrier_Fedex::class, $this->carrier);
+        self::assertInstanceOf(Mage_Usa_Model_Shipping_Carrier_Fedex::class, $this->carrier);
 
         $response = $this->carrier->requestToShipment($request);
 
@@ -221,7 +221,7 @@ final class ShipmentLiveTest extends FedexTestCase
         Mage_Shipping_Model_Shipment_Request $request,
         int $expectedPackageCount,
     ): void {
-        $this->assertInstanceOf(Mage_Usa_Model_Shipping_Carrier_Fedex::class, $this->carrier);
+        self::assertInstanceOf(Mage_Usa_Model_Shipping_Carrier_Fedex::class, $this->carrier);
 
         $response = $this->carrier->requestToShipment($request);
 
@@ -306,16 +306,16 @@ final class ShipmentLiveTest extends FedexTestCase
      */
     private function cancelShipment(string $trackingNumber): array
     {
-        $this->assertInstanceOf(Mage_Usa_Model_Shipping_Carrier_Fedex::class, $this->carrier);
+        self::assertInstanceOf(Mage_Usa_Model_Shipping_Carrier_Fedex::class, $this->carrier);
 
         $builder = $this->carrier->getData('request_builder');
-        $this->assertInstanceOf(Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_Requestbuilder::class, $builder);
+        self::assertInstanceOf(Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_Requestbuilder::class, $builder);
 
         $client = $this->carrier->getData('rest_client');
-        $this->assertInstanceOf(Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_Client::class, $client);
+        self::assertInstanceOf(Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_Client::class, $client);
 
         $mapper = $this->carrier->getData('response_mapper');
-        $this->assertInstanceOf(Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_Responsemapper::class, $mapper);
+        self::assertInstanceOf(Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_Responsemapper::class, $mapper);
 
         $payload = $builder->buildCancelShipmentPayload(
             (string) self::env('FEDEX_ACCOUNT', ''),
