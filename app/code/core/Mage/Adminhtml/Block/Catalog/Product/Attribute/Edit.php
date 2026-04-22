@@ -22,7 +22,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit extends Mage_Adminhtml
         parent::__construct();
 
         if ($this->getRequest()->getParam('popup')) {
-            $this->_removeButton('back');
+            $this->_removeButton(self::BUTTON_TYPE_BACK);
             $this->_addButton(
                 'close',
                 [
@@ -44,13 +44,13 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit extends Mage_Adminhtml
             );
         }
 
-        $this->_updateButton('save', 'label', Mage::helper('catalog')->__('Save Attribute'));
-        $this->_updateButton('save', 'onclick', 'saveAttribute()');
+        $this->_updateButton(self::BUTTON_TYPE_SAVE, 'label', Mage::helper('catalog')->__('Save Attribute'));
+        $this->_updateButton(self::BUTTON_TYPE_SAVE, 'onclick', 'saveAttribute()');
 
         if (!Mage::registry('entity_attribute')->getIsUserDefined()) {
-            $this->_removeButton('delete');
+            $this->_removeButton(self::BUTTON_TYPE_DELETE);
         } else {
-            $this->_updateButton('delete', 'label', Mage::helper('catalog')->__('Delete Attribute'));
+            $this->_updateButton(self::BUTTON_TYPE_DELETE, 'label', Mage::helper('catalog')->__('Delete Attribute'));
         }
     }
 

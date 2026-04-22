@@ -34,9 +34,9 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_View extends Mage_Adminhtml_Block
 
         parent::__construct();
 
-        $this->_removeButton('save');
-        $this->_removeButton('reset');
-        $this->_removeButton('delete');
+        $this->_removeButton(self::BUTTON_TYPE_SAVE);
+        $this->_removeButton(self::BUTTON_TYPE_RESET);
+        $this->_removeButton(self::BUTTON_TYPE_DELETE);
 
         if ($this->_isAllowedAction('cancel') && $this->getInvoice()->canCancel()) {
             $this->_addButton('cancel', [
@@ -214,14 +214,14 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_View extends Mage_Adminhtml_Block
         if ($flag) {
             if ($this->getInvoice()->getBackUrl()) {
                 return $this->_updateButton(
-                    'back',
+                    self::BUTTON_TYPE_BACK,
                     'onclick',
                     Mage::helper('core/js')->getSetLocationJs($this->getInvoice()->getBackUrl()),
                 );
             }
 
             return $this->_updateButton(
-                'back',
+                self::BUTTON_TYPE_BACK,
                 'onclick',
                 Mage::helper('core/js')->getSetLocationJs($this->getUrl('*/sales_invoice/')),
             );

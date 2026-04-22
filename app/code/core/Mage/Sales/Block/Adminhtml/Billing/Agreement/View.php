@@ -28,11 +28,11 @@ class Mage_Sales_Block_Adminhtml_Billing_Agreement_View extends Mage_Adminhtml_B
         parent::__construct();
 
         if (!$this->_isAllowed('sales/billing_agreement/actions/manage')) {
-            $this->_removeButton('delete');
+            $this->_removeButton(self::BUTTON_TYPE_DELETE);
         }
 
-        $this->_removeButton('reset');
-        $this->_removeButton('save');
+        $this->_removeButton(self::BUTTON_TYPE_RESET);
+        $this->_removeButton(self::BUTTON_TYPE_SAVE);
         $this->setId('billing_agreement_view');
 
         $this->_addButton('back', [

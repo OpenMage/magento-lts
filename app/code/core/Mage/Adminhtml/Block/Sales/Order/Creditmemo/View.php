@@ -26,9 +26,9 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_View extends Mage_Adminhtml_Bl
 
         parent::__construct();
 
-        $this->_removeButton('save');
-        $this->_removeButton('reset');
-        $this->_removeButton('delete');
+        $this->_removeButton(self::BUTTON_TYPE_SAVE);
+        $this->_removeButton(self::BUTTON_TYPE_RESET);
+        $this->_removeButton(self::BUTTON_TYPE_DELETE);
 
         if ($this->getCreditmemo()->canCancel()) {
             $this->_addButton('cancel', [
@@ -194,14 +194,14 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_View extends Mage_Adminhtml_Bl
         if ($flag) {
             if ($this->getCreditmemo()->getBackUrl()) {
                 return $this->_updateButton(
-                    'back',
+                    self::BUTTON_TYPE_BACK,
                     'onclick',
                     Mage::helper('core/js')->getSetLocationJs($this->getCreditmemo()->getBackUrl()),
                 );
             }
 
             return $this->_updateButton(
-                'back',
+                self::BUTTON_TYPE_BACK,
                 'onclick',
                 Mage::helper('core/js')->getSetLocationJs($this->getUrl('*/sales_creditmemo/')),
             );

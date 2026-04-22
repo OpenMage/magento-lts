@@ -32,11 +32,11 @@ class Mage_Adminhtml_Block_Cms_Page_Edit extends Mage_Adminhtml_Block_Widget_For
                 'class'     => 'save continue',
             ], -100);
         } else {
-            $this->_removeButton('save');
+            $this->_removeButton(self::BUTTON_TYPE_SAVE);
         }
 
         if (!$this->_isAllowedAction('delete')) {
-            $this->_removeButton('delete');
+            $this->_removeButton(self::BUTTON_TYPE_DELETE);
         }
     }
 

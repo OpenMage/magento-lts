@@ -22,8 +22,8 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_Create extends Mage_Adminhtml_Blo
 
         parent::__construct();
 
-        $this->_removeButton('save');
-        $this->_removeButton('delete');
+        $this->_removeButton(self::BUTTON_TYPE_SAVE);
+        $this->_removeButton(self::BUTTON_TYPE_DELETE);
     }
 
     /**

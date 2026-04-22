@@ -96,7 +96,7 @@ class Mage_Adminhtml_Block_Urlrewrite_Edit extends Mage_Adminhtml_Block_Widget_C
                     ]),
                 );
                 $this->_updateButton(
-                    'back',
+                    self::BUTTON_TYPE_BACK,
                     'onclick',
                     Mage::helper('core/js')->getSetLocationJs(Mage::helper('adminhtml')::getUrl('*/*/edit') . 'product'),
                 );
@@ -172,7 +172,7 @@ class Mage_Adminhtml_Block_Urlrewrite_Edit extends Mage_Adminhtml_Block_Widget_C
         }
 
         $this->_updateButton(
-            'back',
+            self::BUTTON_TYPE_BACK,
             'onclick',
             Mage::helper('core/js')->getSetLocationJs(Mage::helper('adminhtml')::getUrl('*/*/' . $action, $params) . $suffix),
         );
