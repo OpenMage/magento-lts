@@ -64,7 +64,7 @@ class Varien_Data_Form_Element_Multiselect extends Varien_Data_Form_Element_Abst
             data-test="' . $this->getTestId() . '"
             ' . $this->serialize($this->getHtmlAttributes()) . '
             multiple="multiple
-            ">'
+            >'
             . "\n";
 
         $value = $this->getValue();
