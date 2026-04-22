@@ -16,7 +16,7 @@ We will keep the details of your security vulnerability report private and only 
 
 To report a vulnerability, please *DO NOT* open a public Issue or Pull Request.
 
-Please [add your security advisory](https://github.com/OpenMage/magento-lts/security/advisories/new) and you may be added to it as a collaborator for further review.
+Please [create a new draft security advisory](https://github.com/OpenMage/magento-lts/security/advisories/new) and you may be added to it as a collaborator for further review.
 
 We will review the advisory and work with you to find a suitable solution. We will publicly disclose the vulnerability once a patch is prepared and our community and partners have an easy path forward to apply the patch promptly. We will be sure to give you credit for the vulnerability discovery unless you request otherwise.
 
