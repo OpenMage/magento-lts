@@ -6,6 +6,7 @@ namespace OpenMage\Tests\Functional\Usa\Shipping\Carrier\Fedex;
 
 use Override;
 use Mage;
+use Mage_Shipping_Model_Rate_Request;
 use Mage_Shipping_Model_Rate_Result;
 use Mage_Shipping_Model_Rate_Result_Error;
 use Mage_Shipping_Model_Rate_Result_Method;
@@ -42,34 +43,12 @@ final class RateQuoteLiveTest extends FedexTestCase
 
     public function testLiveRateQuoteReturnsAtLeastOneMethod(): void
     {
-        $carrier = $this->buildFedexCarrier();
-
-        $result = $carrier->collectRates($this->buildRateRequest());
-
-        self::assertInstanceOf(
-            Mage_Shipping_Model_Rate_Result::class,
-            $result,
-            'collectRates should return a Rate_Result against the live API',
-        );
-
-        $rates = $result->getAllRates();
-        $errors = array_values(array_filter(
-            $rates,
-            static fn($rate): bool => $rate instanceof Mage_Shipping_Model_Rate_Result_Error,
-        ));
-        $methods = array_values(array_filter(
-            $rates,
-            static fn($rate): bool => $rate instanceof Mage_Shipping_Model_Rate_Result_Method,
-        ));
+        ['methods' => $methods, 'errors' => $errors] = $this->collectLiveRates($this->buildRateRequest());
 
         if ($methods === []) {
-            $messages = array_map(
-                static fn($error): string => (string) $error->getErrorMessage(),
-                $errors,
-            );
             self::fail(sprintf(
                 "FedEx returned no rate methods. Errors:\n  - %s",
-                implode("\n  - ", $messages !== [] ? $messages : ['(no error messages returned)']),
+                $this->formatRateErrorMessages($errors),
             ));
         }
 
@@ -87,17 +66,11 @@ final class RateQuoteLiveTest extends FedexTestCase
             explode(',', $this->allowedMethods),
         ));
 
-        $carrier = $this->buildFedexCarrier();
-
-        $result = $carrier->collectRates($this->buildRateRequest());
-        self::assertInstanceOf(Mage_Shipping_Model_Rate_Result::class, $result);
+        ['methods' => $methods] = $this->collectLiveRates($this->buildRateRequest());
 
         $returnedMethods = array_map(
             static fn(Mage_Shipping_Model_Rate_Result_Method $method): string => (string) $method->getMethod(),
-            array_values(array_filter(
-                $result->getAllRates(),
-                static fn($rate): bool => $rate instanceof Mage_Shipping_Model_Rate_Result_Method,
-            )),
+            $methods,
         );
 
         $intersect = array_values(array_intersect($allowed, $returnedMethods));
@@ -113,37 +86,15 @@ final class RateQuoteLiveTest extends FedexTestCase
 
     public function testLiveRateQuoteToUkReturnsInternationalMethod(): void
     {
-        $carrier = $this->buildFedexCarrier();
-
-        $result = $carrier->collectRates($this->buildRateRequest(
+        ['methods' => $methods, 'errors' => $errors] = $this->collectLiveRates($this->buildRateRequest(
             destPostcode: $this->intlDestPostcode,
             destCountry: $this->intlDestCountry,
         ));
 
-        self::assertInstanceOf(
-            Mage_Shipping_Model_Rate_Result::class,
-            $result,
-            'collectRates should return a Rate_Result against the live API',
-        );
-
-        $rates = $result->getAllRates();
-        $errors = array_values(array_filter(
-            $rates,
-            static fn($rate): bool => $rate instanceof Mage_Shipping_Model_Rate_Result_Error,
-        ));
-        $methods = array_values(array_filter(
-            $rates,
-            static fn($rate): bool => $rate instanceof Mage_Shipping_Model_Rate_Result_Method,
-        ));
-
         if ($methods === []) {
-            $messages = array_map(
-                static fn($error): string => (string) $error->getErrorMessage(),
-                $errors,
-            );
             self::fail(sprintf(
                 "FedEx returned no international rate methods for US→GB. Errors:\n  - %s",
-                implode("\n  - ", $messages !== [] ? $messages : ['(no error messages returned)']),
+                $this->formatRateErrorMessages($errors),
             ));
         }
 
@@ -177,26 +128,8 @@ final class RateQuoteLiveTest extends FedexTestCase
     {
         $this->overrideAllowedMethods('SMART_POST,FEDEX_GROUND');
 
-        $carrier = $this->buildFedexCarrier();
-
-        $result = $carrier->collectRates($this->buildRateRequest(
+        ['methods' => $methods, 'errors' => $errors] = $this->collectLiveRates($this->buildRateRequest(
             weight: $this->smartpostPackageWeight,
-        ));
-
-        self::assertInstanceOf(
-            Mage_Shipping_Model_Rate_Result::class,
-            $result,
-            'collectRates should return a Rate_Result against the live API',
-        );
-
-        $rates = $result->getAllRates();
-        $errors = array_values(array_filter(
-            $rates,
-            static fn($rate): bool => $rate instanceof Mage_Shipping_Model_Rate_Result_Error,
-        ));
-        $methods = array_values(array_filter(
-            $rates,
-            static fn($rate): bool => $rate instanceof Mage_Shipping_Model_Rate_Result_Method,
         ));
 
         $returnedMethods = array_map(
@@ -205,14 +138,10 @@ final class RateQuoteLiveTest extends FedexTestCase
         );
 
         if (!in_array('SMART_POST', $returnedMethods, true)) {
-            $messages = array_map(
-                static fn($error): string => (string) $error->getErrorMessage(),
-                $errors,
-            );
             self::fail(sprintf(
                 "FedEx did not return a SMART_POST rate. Returned methods: %s. Errors:\n  - %s",
                 $returnedMethods === [] ? '(empty)' : implode(',', $returnedMethods),
-                implode("\n  - ", $messages !== [] ? $messages : ['(no error messages returned)']),
+                $this->formatRateErrorMessages($errors),
             ));
         }
 
@@ -337,6 +266,49 @@ final class RateQuoteLiveTest extends FedexTestCase
         );
 
         return $mapper->mapRateReply($client->getRates($payload));
+    }
+
+    /**
+     * @return array{
+     *     methods: list<Mage_Shipping_Model_Rate_Result_Method>,
+     *     errors: list<Mage_Shipping_Model_Rate_Result_Error>,
+     * }
+     */
+    private function collectLiveRates(Mage_Shipping_Model_Rate_Request $request): array
+    {
+        $result = $this->buildFedexCarrier()->collectRates($request);
+
+        self::assertInstanceOf(
+            Mage_Shipping_Model_Rate_Result::class,
+            $result,
+            'collectRates should return a Rate_Result against the live API',
+        );
+
+        $rates = $result->getAllRates();
+
+        return [
+            'methods' => array_values(array_filter(
+                $rates,
+                static fn($rate): bool => $rate instanceof Mage_Shipping_Model_Rate_Result_Method,
+            )),
+            'errors' => array_values(array_filter(
+                $rates,
+                static fn($rate): bool => $rate instanceof Mage_Shipping_Model_Rate_Result_Error,
+            )),
+        ];
+    }
+
+    /**
+     * @param list<Mage_Shipping_Model_Rate_Result_Error> $errors
+     */
+    private function formatRateErrorMessages(array $errors): string
+    {
+        $messages = array_map(
+            static fn(Mage_Shipping_Model_Rate_Result_Error $error): string => (string) $error->getErrorMessage(),
+            $errors,
+        );
+
+        return implode("\n  - ", $messages !== [] ? $messages : ['(no error messages returned)']);
     }
 
     /**

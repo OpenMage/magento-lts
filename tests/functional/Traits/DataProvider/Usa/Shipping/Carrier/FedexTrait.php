@@ -78,7 +78,7 @@ trait FedexTrait
     {
         return [
             'person_name' => 'Sandbox Shipper',
-            'company_name' => 'OpenMage Functional Harness',
+            'company_name' => 'A Co LLC',
             'phone' => '9015551212',
             'street' => '3610 Hacks Cross Rd',
             'city' => 'Memphis',
@@ -96,7 +96,7 @@ trait FedexTrait
     {
         return [
             'person_name' => 'Sandbox Recipient',
-            'company_name' => 'OpenMage Functional Harness',
+            'company_name' => 'B Co LLC',
             'phone' => '3105551212',
             'street' => '455 N Rexford Dr',
             'city' => 'Beverly Hills',
@@ -114,7 +114,7 @@ trait FedexTrait
     {
         return [
             'person_name' => 'Sandbox UK Recipient',
-            'company_name' => 'OpenMage Functional Harness',
+            'company_name' => 'C Co Ltd',
             'phone' => '442071234567',
             'street' => '1 Canada Square',
             'city' => 'London',

@@ -55,8 +55,7 @@ final class RequestbuilderTest extends OpenMageTest
         self::assertSame(10.0, $line['weight']['value']);
         self::assertSame('LB', $line['weight']['units']);
         // declaredValue on rate line items silently drops SMART_POST from the
-        // multi-service reply — so rate payloads never emit it. The customs
-        // block on international quotes is where shipment value lives instead.
+        // multi-service reply — so rate payloads never emit it.
         self::assertArrayNotHasKey('declaredValue', $line);
 
         self::assertArrayNotHasKey('customsClearanceDetail', $rs);
@@ -64,10 +63,6 @@ final class RequestbuilderTest extends OpenMageTest
 
     public function testRatePayloadCarrierCodesIncludeFxspSoFedExReturnsSmartPost(): void
     {
-        // `carrierCodes: [FDXE, FDXG, FXSP]` at the root is the single knob
-        // that makes FedEx include SMART_POST in a multi-service rate reply
-        // (verified against both sandbox and production REST). Without FXSP
-        // the general call returns only FDXE/FDXG services.
         $payload = $this->builder->buildRatePayload($this->domesticRawRequest(), 'USD');
 
         self::assertSame(['FDXE', 'FDXG', 'FXSP'], $payload['carrierCodes']);
