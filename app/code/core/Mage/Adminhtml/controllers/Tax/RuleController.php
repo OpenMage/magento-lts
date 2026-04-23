@@ -104,7 +104,7 @@ class Mage_Adminhtml_Tax_RuleController extends Mage_Adminhtml_Controller_Action
         }
 
         $ruleId = (int) $this->getRequest()->getParam('tax_calculation_rule_id');
-        $ruleModel = $this->_getSingletonModel('tax/calculation_rule')->load($ruleId);
+        $ruleModel = Mage::getModel('tax/calculation_rule')->load($ruleId);
         $ruleModel->setData($postData);
         $ruleModel->setCalculateSubtotal($this->getRequest()->getParam('calculate_subtotal', 0));
 
