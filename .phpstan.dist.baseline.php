@@ -1262,18 +1262,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/controllers/Tax/RuleController.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc tag @var with type Mage_Adminhtml_Model_Session is not subtype of type Mage_Core_Model_Abstract.',
-	'identifier' => 'varTag.type',
-	'count' => 2,
-	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/controllers/Tax/RuleController.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Parameter #1 $ruleModel of method Mage_Adminhtml_Tax_RuleController::_isValidRuleRequest() expects Mage_Tax_Model_Calculation_Rule, Mage_Core_Model_Abstract given.',
-	'identifier' => 'argument.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/controllers/Tax/RuleController.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'PHPDoc type Mage_Api_Model_Acl_Role_Registry of property Mage_Api_Model_Acl::$_roleRegistry is not the same as PHPDoc type Zend_Acl_Role_Registry of overridden property Zend_Acl::$_roleRegistry.',
 	'identifier' => 'property.phpDocType',
 	'count' => 1,
