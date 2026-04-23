@@ -149,6 +149,7 @@ class Mage_Eav_Model_Resource_Form_Attribute_Collection extends Mage_Core_Model_
      *
      * @inheritDoc
      */
+    #[Override]
     protected function _beforeLoad()
     {
         $select     = $this->getSelect();

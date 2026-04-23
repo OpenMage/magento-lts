@@ -15,7 +15,7 @@ use Generator;
 
 trait BlockTrait
 {
-    public function provideValidateAdminBlockData(): Generator
+    public static function provideValidateAdminBlockData(): Generator
     {
         $errorIncorrectBlockName = 'Block Name is incorrect.';
 

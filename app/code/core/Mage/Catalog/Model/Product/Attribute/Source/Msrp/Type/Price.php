@@ -24,6 +24,7 @@ class Mage_Catalog_Model_Product_Attribute_Source_Msrp_Type_Price extends Mage_C
      *
      * @return array
      */
+    #[Override]
     public function getAllOptions()
     {
         if (!$this->_options) {
@@ -40,6 +41,7 @@ class Mage_Catalog_Model_Product_Attribute_Source_Msrp_Type_Price extends Mage_C
     /**
      * @inheritDoc
      */
+    #[Override]
     public function getFlatColums()
     {
         $attributeType = $this->getAttribute()->getBackendType();

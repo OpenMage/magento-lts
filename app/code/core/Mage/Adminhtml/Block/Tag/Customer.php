@@ -29,7 +29,7 @@ class Mage_Adminhtml_Block_Tag_Customer extends Mage_Adminhtml_Block_Widget_Grid
 
         $this->_block = 'tag_customer';
         $this->_controller = 'tag_customer';
-        $this->_removeButton('add');
+        $this->_removeButton(self::BUTTON_TYPE_ADD);
         $this->setBackUrl($this->getUrl($route));
         $this->_addBackButton();
 

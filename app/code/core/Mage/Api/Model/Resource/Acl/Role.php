@@ -29,6 +29,7 @@ class Mage_Api_Model_Resource_Acl_Role extends Mage_Core_Model_Resource_Db_Abstr
      *
      * @return $this
      */
+    #[Override]
     protected function _beforeSave(Mage_Core_Model_Abstract $object)
     {
         if (!$object->getId()) {

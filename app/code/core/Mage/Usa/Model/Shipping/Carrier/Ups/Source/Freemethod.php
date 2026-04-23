@@ -12,6 +12,7 @@
  */
 class Mage_Usa_Model_Shipping_Carrier_Ups_Source_Freemethod extends Mage_Usa_Model_Shipping_Carrier_Ups_Source_Method
 {
+    #[Override]
     public function toOptionArray()
     {
         $arr = parent::toOptionArray();

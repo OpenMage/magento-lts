@@ -37,6 +37,7 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
      * @return null|$this
      * @throws Mage_Core_Exception
      */
+    #[Override]
     public function preDispatch()
     {
         parent::preDispatch();

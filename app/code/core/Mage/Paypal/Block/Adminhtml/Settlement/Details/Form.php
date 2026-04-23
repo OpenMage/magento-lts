@@ -19,6 +19,7 @@ class Mage_Paypal_Block_Adminhtml_Settlement_Details_Form extends Mage_Adminhtml
      * @return $this
      * @throws Zend_Currency_Exception
      */
+    #[Override]
     protected function _prepareForm()
     {
         /** @var Mage_Paypal_Model_Report_Settlement_Row $model */

@@ -78,6 +78,7 @@ class Mage_Sales_Model_Resource_Report_Invoiced_Collection_Order extends Mage_Sa
      *
      * @return $this
      */
+    #[Override]
     protected function _initSelect()
     {
         $this->getSelect()->from($this->getResource()->getMainTable(), $this->_getSelectedColumns());

@@ -45,7 +45,7 @@ class Mage_Oauth_Block_Adminhtml_Oauth_Consumer_Edit extends Mage_Adminhtml_Bloc
         $this->_controller = 'adminhtml_oauth_consumer';
         $this->_mode = 'edit';
 
-        $this->_addButton('save_and_continue', [
+        $this->_addButton(self::BUTTON_TYPE_SAVE_EDIT, [
             'label'     => Mage::helper('oauth')->__('Save and Continue Edit'),
             'onclick'   => 'saveAndContinueEdit()',
             'class'     => 'save continue',
@@ -54,17 +54,17 @@ class Mage_Oauth_Block_Adminhtml_Oauth_Consumer_Edit extends Mage_Adminhtml_Bloc
         $this->_formScripts[] = 'function saveAndContinueEdit()'
         . "{editForm.submit($('edit_form').action + 'back/edit/')}";
 
-        $this->_updateButton('save', 'label', $this->__('Save'));
-        $this->_updateButton('save', 'id', 'save_button');
-        $this->_updateButton('delete', 'label', $this->__('Delete'));
-        $this->_updateButton('delete', 'onclick', "if(confirm('" . Mage::helper('core')->jsQuoteEscape(
+        $this->_updateButton(self::BUTTON_TYPE_SAVE, 'label', $this->__('Save'));
+        $this->_updateButton(self::BUTTON_TYPE_SAVE, 'id', 'save_button');
+        $this->_updateButton(self::BUTTON_TYPE_DELETE, 'label', $this->__('Delete'));
+        $this->_updateButton(self::BUTTON_TYPE_DELETE, 'onclick', "if(confirm('" . Mage::helper('core')->jsQuoteEscape(
             Mage::helper('adminhtml')->__('Are you sure you want to do this?'),
         ) . "')) editForm.submit('" . $this->getUrl('*/*/delete') . "'); return false;");
 
         /** @var Mage_Admin_Model_Session $session */
         $session = Mage::getSingleton('admin/session');
         if (!$this->getModel() || !$this->getModel()->getId() || !$session->isAllowed('system/oauth/consumer/delete')) {
-            $this->_removeButton('delete');
+            $this->_removeButton(self::BUTTON_TYPE_DELETE);
         }
     }
 
@@ -73,6 +73,7 @@ class Mage_Oauth_Block_Adminhtml_Oauth_Consumer_Edit extends Mage_Adminhtml_Bloc
      *
      * @return string
      */
+    #[Override]
     public function getHeaderText()
     {
         if ($this->getModel()->getId()) {

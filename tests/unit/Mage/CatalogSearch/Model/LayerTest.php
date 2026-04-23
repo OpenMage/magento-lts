@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\CatalogSearch\Model;
 
 // use Mage;
 // use Mage_CatalogSearch_Model_Layer as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\CatalogSearch\Model\LayerTrait;
 
@@ -22,6 +23,7 @@ final class LayerTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

@@ -68,7 +68,7 @@ class Mage_Sales_Model_Service_Quote
     /**
      * Quote converter declaration
      *
-     * @return Mage_Sales_Model_Service_Quote
+     * @return $this
      */
     public function setConvertor(Mage_Sales_Model_Convert_Quote $convertor)
     {

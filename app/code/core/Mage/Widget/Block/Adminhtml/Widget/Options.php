@@ -39,6 +39,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Options extends Mage_Adminhtml_Block_Wi
      *
      * @return $this
      */
+    #[Override]
     protected function _prepareForm()
     {
         $this->getForm()->setUseContainer(false);
@@ -51,6 +52,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Options extends Mage_Adminhtml_Block_Wi
      *
      * @return Varien_Data_Form
      */
+    #[Override]
     public function getForm()
     {
         if ($this->_form instanceof Varien_Data_Form) {

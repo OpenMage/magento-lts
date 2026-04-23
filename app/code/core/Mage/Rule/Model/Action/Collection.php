@@ -37,6 +37,7 @@ class Mage_Rule_Model_Action_Collection extends Mage_Rule_Model_Action_Abstract
      *
      * @return array
      */
+    #[Override]
     public function asArray(array $arrAttributes = [])
     {
         $out = parent::asArray();
@@ -51,6 +52,7 @@ class Mage_Rule_Model_Action_Collection extends Mage_Rule_Model_Action_Abstract
     /**
      * @return $this
      */
+    #[Override]
     public function loadArray(array $arr)
     {
         if (!empty($arr['actions']) && is_array($arr['actions'])) {
@@ -90,6 +92,7 @@ class Mage_Rule_Model_Action_Collection extends Mage_Rule_Model_Action_Abstract
     /**
      * @return string
      */
+    #[Override]
     public function asHtml()
     {
         $html = $this->getTypeElement()->toHtml() . 'Perform following actions: ';
@@ -122,6 +125,7 @@ class Mage_Rule_Model_Action_Collection extends Mage_Rule_Model_Action_Abstract
     /**
      * @return string
      */
+    #[Override]
     public function asHtmlRecursive()
     {
         $html = $this->asHtml() . '<ul id="action:' . $this->getId() . ':children">';
@@ -136,6 +140,7 @@ class Mage_Rule_Model_Action_Collection extends Mage_Rule_Model_Action_Abstract
      * @param  string $format
      * @return string
      */
+    #[Override]
     public function asString($format = '')
     {
         return Mage::helper('rule')->__('Perform following actions');
@@ -145,6 +150,7 @@ class Mage_Rule_Model_Action_Collection extends Mage_Rule_Model_Action_Abstract
      * @param  int    $level
      * @return string
      */
+    #[Override]
     public function asStringRecursive($level = 0)
     {
         $str = $this->asString();
@@ -158,6 +164,7 @@ class Mage_Rule_Model_Action_Collection extends Mage_Rule_Model_Action_Abstract
     /**
      * @return $this|Mage_Rule_Model_Action_Abstract
      */
+    #[Override]
     public function process()
     {
         foreach ($this->getActions() as $action) {

@@ -18,6 +18,7 @@ class Mage_Adminhtml_Block_System_Store_Delete_Website extends Mage_Adminhtml_Bl
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareLayout()
     {
         $itemId = $this->getRequest()->getParam('website_id');

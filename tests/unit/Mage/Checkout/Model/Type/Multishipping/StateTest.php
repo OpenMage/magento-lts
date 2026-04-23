@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Checkout\Model\Type\Multishipping;
 
 // use Mage;
 // use Mage_Checkout_Model_Type_Multishipping_State as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Checkout\Model\Type\Multishipping\StateTrait;
 
@@ -22,6 +23,7 @@ final class StateTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

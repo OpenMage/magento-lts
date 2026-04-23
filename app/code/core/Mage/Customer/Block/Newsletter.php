@@ -33,6 +33,7 @@ class Mage_Customer_Block_Newsletter extends Mage_Customer_Block_Account_Dashboa
     /**
      * @return string
      */
+    #[Override]
     public function getAction()
     {
         return $this->getUrl('*/*/save');

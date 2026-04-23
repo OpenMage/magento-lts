@@ -68,6 +68,7 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
      * @return bool
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
+    #[Override]
     public function open(array $args = [])
     {
         if (empty($args['host'])) {

@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\SalesRule\Model\Resource\Report\Rule;
 
 // use Mage;
 // use Mage_SalesRule_Model_Resource_Report_Rule_Createdat as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\SalesRule\Model\Resource\Report\Rule\CreatedatTrait;
 
@@ -22,6 +23,7 @@ final class CreatedatTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

@@ -108,6 +108,7 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
      * @throws Mage_Eav_Model_Entity_Attribute_Exception
      * @throws Zend_Db_Adapter_Exception
      */
+    #[Override]
     protected function _beforeDelete(Varien_Object $object)
     {
         parent::_beforeDelete($object);
@@ -168,6 +169,7 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
      * @throws Mage_Eav_Model_Entity_Attribute_Exception
      * @throws Zend_Db_Adapter_Exception
      */
+    #[Override]
     protected function _beforeSave(Varien_Object $object)
     {
         parent::_beforeSave($object);
@@ -212,6 +214,7 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
      * @throws Mage_Core_Exception
      * @throws Zend_Db_Adapter_Exception
      */
+    #[Override]
     protected function _afterSave(Varien_Object $object)
     {
         /**

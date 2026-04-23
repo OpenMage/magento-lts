@@ -20,6 +20,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tabs extends Mage_Adminht
      * @return $this
      * @throws Exception
      */
+    #[Override]
     protected function _prepareLayout()
     {
         parent::_prepareLayout();

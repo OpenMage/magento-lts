@@ -21,6 +21,7 @@ class Mage_Catalog_Block_Seo_Sitemap_Product extends Mage_Catalog_Block_Seo_Site
      *
      * @return $this
      */
+    #[Override]
     protected function _prepareLayout()
     {
         /** @var Mage_Catalog_Model_Resource_Product_Collection $collection */
@@ -44,6 +45,7 @@ class Mage_Catalog_Block_Seo_Sitemap_Product extends Mage_Catalog_Block_Seo_Site
      * @param  Mage_Catalog_Model_Product $product
      * @return string
      */
+    #[Override]
     public function getItemUrl($product)
     {
         /** @var Mage_Catalog_Helper_Product $helper */

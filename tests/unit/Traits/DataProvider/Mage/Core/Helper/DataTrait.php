@@ -16,7 +16,7 @@ use Generator;
 
 trait DataTrait
 {
-    public function provideFormatTimezoneDate(): Generator
+    public static function provideFormatTimezoneDate(): Generator
     {
         /** @phpstan-ignore method.nonObject */
         $date           = date_create()->getTimestamp();
@@ -65,7 +65,7 @@ trait DataTrait
         //        ];
     }
 
-    public function provideRemoveAccents(): Generator
+    public static function provideRemoveAccents(): Generator
     {
         $string = 'Ae-Ä Oe-Ö Ue-Ü ae-ä oe-ö ue-ü';
 
@@ -81,7 +81,7 @@ trait DataTrait
         ];
     }
 
-    public function provideIsCountryInEUData(): Generator
+    public static function provideIsCountryInEUData(): Generator
     {
         yield 'DE true' => [
             true,

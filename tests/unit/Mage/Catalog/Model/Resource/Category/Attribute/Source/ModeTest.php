@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Catalog\Model\Resource\Category\Attribute\Sou
 
 // use Mage;
 // use Mage_Catalog_Model_Resource_Category_Attribute_Source_Mode as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\Model\Resource\Category\Attribute\Source\ModeTrait;
 
@@ -22,6 +23,7 @@ final class ModeTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

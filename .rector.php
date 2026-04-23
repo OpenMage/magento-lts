@@ -62,6 +62,7 @@ try {
         ])
         ->withSkipPath(__DIR__ . '/vendor')
         ->withRules([
+            Php83\ClassMethod\AddOverrideAttributeToOverriddenMethodsRector::class,
             Php85\ArrayDimFetch\ArrayFirstLastRector::class,
         ])
         ->withRules(Migration\TypeDeclarationDocblocks::getRules())
@@ -84,6 +85,7 @@ try {
         ->withConfiguredRule(Renaming\MethodCall\RenameMethodRector::class, Migration\Mage\Usa::renameMethod())
         ->withConfiguredRule(Renaming\MethodCall\RenameMethodRector::class, Migration\Mage\Wishlist::renameMethod())
         ->withConfiguredRule(Renaming\MethodCall\RenameMethodRector::class, Migration\Zend\Acl::renameMethod())
+        ->withConfiguredRule(Renaming\MethodCall\RenameMethodRector::class, Migration\Zend\Captcha::renameMethod())
         ->withConfiguredRule(ReplaceArgumentDefaultValueRector::class, Migration\Mage\Adminhtml::replaceArgumentDefaultValue())
         # skip: do not apply
         ->withSkip([

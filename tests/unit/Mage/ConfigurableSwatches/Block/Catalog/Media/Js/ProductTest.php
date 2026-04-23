@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\ConfigurableSwatches\Block\Catalog\Media\Js;
 
 // use Mage_ConfigurableSwatches_Block_Catalog_Media_Js_Product as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\ConfigurableSwatches\Block\Catalog\Media\Js\ProductTrait;
 
@@ -21,6 +22,7 @@ final class ProductTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

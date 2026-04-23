@@ -19,6 +19,7 @@ class Mage_Adminhtml_Block_Customer_System_Config_Validatevat extends Mage_Admin
      *
      * @return $this
      */
+    #[Override]
     protected function _prepareLayout()
     {
         parent::_prepareLayout();
@@ -34,6 +35,7 @@ class Mage_Adminhtml_Block_Customer_System_Config_Validatevat extends Mage_Admin
      *
      * @return string
      */
+    #[Override]
     public function render(Varien_Data_Form_Element_Abstract $element)
     {
         $element->unsScope()->unsCanUseWebsiteValue()->unsCanUseDefaultValue();
@@ -45,6 +47,7 @@ class Mage_Adminhtml_Block_Customer_System_Config_Validatevat extends Mage_Admin
      *
      * @return string
      */
+    #[Override]
     protected function _getElementHtml(Varien_Data_Form_Element_Abstract $element)
     {
         $originalData = $element->getOriginalData();

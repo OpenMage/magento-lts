@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\ConfigurableSwatches\Block\Catalog\Layer\State;
 
 // use Mage_ConfigurableSwatches_Block_Catalog_Layer_State_Swatch as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\ConfigurableSwatches\Block\Catalog\Layer\State\SwatchTrait;
 
@@ -21,6 +22,7 @@ final class SwatchTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

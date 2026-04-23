@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Core\Helper;
 
+use Override;
 use Mage;
 use Mage_Core_Helper_Log as Subject;
 use Monolog\Formatter\LineFormatter;
@@ -26,6 +27,7 @@ final class LogTest extends OpenMageTest
     // @phpstan-ignore property.onlyWritten
     private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
@@ -34,7 +36,6 @@ final class LogTest extends OpenMageTest
 
     /**
      * @dataProvider provideGetLogLevelData
-     * @covers Mage_Core_Helper_Log::getLogLevelMaxValue()
      * @covers Mage_Core_Helper_Log::getLogLevelValue()
      * @group Helper
      */
@@ -47,7 +48,7 @@ final class LogTest extends OpenMageTest
      * @covers Mage_Core_Helper_Log::getConfigAllowedFileExtensions()
      * @group Helper
      */
-    public function testGetConfigAlowedFileExtensions(): void
+    public function testGetConfigAllowedFileExtensions(): void
     {
         self::assertIsArray(Subject::getConfigAllowedFileExtensions());
     }
@@ -80,7 +81,7 @@ final class LogTest extends OpenMageTest
     }
 
     /**
-     * @covers Mage_Core_Helper_Log::getLogLevelMax()
+     * @covers Mage_Core_Helper_Log::getLogLevelMaxValue()
      * @group Helper
      */
     public function testGetLogLevelMaxValue(): void

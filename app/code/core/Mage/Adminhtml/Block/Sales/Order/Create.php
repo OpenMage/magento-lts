@@ -28,28 +28,28 @@ class Mage_Adminhtml_Block_Sales_Order_Create extends Mage_Adminhtml_Block_Widge
         $customerId = $this->_getSession()->getCustomerId();
         $storeId    = $this->_getSession()->getStoreId();
 
-        $this->_updateButton('save', 'label', Mage::helper('sales')->__('Submit Order'));
-        $this->_updateButton('save', 'onclick', 'order.submit()');
-        $this->_updateButton('save', 'id', 'submit_order_top_button');
+        $this->_updateButton(self::BUTTON_TYPE_SAVE, 'label', Mage::helper('sales')->__('Submit Order'));
+        $this->_updateButton(self::BUTTON_TYPE_SAVE, 'onclick', 'order.submit()');
+        $this->_updateButton(self::BUTTON_TYPE_SAVE, 'id', 'submit_order_top_button');
         if (is_null($customerId) || !$storeId) {
-            $this->_updateButton('save', 'style', 'display:none');
+            $this->_updateButton(self::BUTTON_TYPE_SAVE, 'style', 'display:none');
         }
 
-        $this->_updateButton('back', 'id', 'back_order_top_button');
-        $this->_updateButton('back', 'onclick', Mage::helper('core/js')->getSetLocationJs($this->getBackUrl()));
+        $this->_updateButton(self::BUTTON_TYPE_BACK, 'id', 'back_order_top_button');
+        $this->_updateButton(self::BUTTON_TYPE_BACK, 'onclick', Mage::helper('core/js')->getSetLocationJs($this->getBackUrl()));
 
-        $this->_updateButton('reset', 'id', 'reset_order_top_button');
+        $this->_updateButton(self::BUTTON_TYPE_RESET, 'id', 'reset_order_top_button');
 
         if (!$this->_isCanCancel() || is_null($customerId)) {
-            $this->_updateButton('reset', 'style', 'display:none');
+            $this->_updateButton(self::BUTTON_TYPE_RESET, 'style', 'display:none');
         } else {
-            $this->_updateButton('back', 'style', 'display:none');
+            $this->_updateButton(self::BUTTON_TYPE_BACK, 'style', 'display:none');
         }
 
-        $this->_updateButton('reset', 'label', Mage::helper('sales')->__('Cancel'));
-        $this->_updateButton('reset', 'class', 'cancel');
+        $this->_updateButton(self::BUTTON_TYPE_RESET, 'label', Mage::helper('sales')->__('Cancel'));
+        $this->_updateButton(self::BUTTON_TYPE_RESET, 'class', 'cancel');
         $this->_updateButton(
-            'reset',
+            self::BUTTON_TYPE_RESET,
             'onclick',
             Mage::helper('core/js')->getDeleteConfirmJs(
                 $this->getCancelUrl(),
@@ -73,6 +73,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create extends Mage_Adminhtml_Block_Widge
      *
      * @return string
      */
+    #[Override]
     public function getHeaderHtml()
     {
         return '<div id="order-header">'
@@ -85,6 +86,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create extends Mage_Adminhtml_Block_Widge
      *
      * @return string
      */
+    #[Override]
     public function getFormHtml()
     {
         $html = parent::getFormHtml();
@@ -94,6 +96,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create extends Mage_Adminhtml_Block_Widge
     /**
      * @return string
      */
+    #[Override]
     public function getHeaderWidth()
     {
         return 'width: 70%;';
@@ -128,6 +131,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create extends Mage_Adminhtml_Block_Widge
      *
      * @return string
      */
+    #[Override]
     public function getBackUrl()
     {
         return $this->getUrl('*/' . $this->_controller . '/');

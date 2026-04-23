@@ -88,6 +88,7 @@ class Mage_Page_Block_Html_Toplinks extends Mage_Core_Block_Template
     /**
      * @return string
      */
+    #[Override]
     protected function _toHtml()
     {
         if (is_array($this->_toplinks) && $this->_toplinks) {

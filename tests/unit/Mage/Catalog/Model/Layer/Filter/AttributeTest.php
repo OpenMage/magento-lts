@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Catalog\Model\Layer\Filter;
 
 // use Mage;
 // use Mage_Catalog_Model_Layer_Filter_Attribute as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\Model\Layer\Filter\AttributeTrait;
 
@@ -22,6 +23,7 @@ final class AttributeTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

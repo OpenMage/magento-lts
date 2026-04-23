@@ -64,6 +64,7 @@ class Mage_Catalog_Model_Product_Compare_Item extends Mage_Core_Model_Abstract
      *
      * @return $this
      */
+    #[Override]
     protected function _beforeSave()
     {
         parent::_beforeSave();
@@ -79,6 +80,7 @@ class Mage_Catalog_Model_Product_Compare_Item extends Mage_Core_Model_Abstract
      *
      * @return $this
      */
+    #[Override]
     public function save()
     {
         if ($this->hasCustomerId() || $this->hasVisitorId()) {

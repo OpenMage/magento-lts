@@ -23,6 +23,7 @@ class Mage_Adminhtml_Block_Urlrewrite_Link extends Mage_Core_Block_Abstract
      *
      * @return string
      */
+    #[Override]
     protected function _toHtml()
     {
         if ($this->getItem()) {
