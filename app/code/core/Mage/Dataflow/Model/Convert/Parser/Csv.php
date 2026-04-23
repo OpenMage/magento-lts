@@ -62,7 +62,7 @@ class Mage_Dataflow_Model_Convert_Parser_Csv extends Mage_Dataflow_Model_Convert
         $batchModel = $this->getBatchModel();
         $batchIoAdapter = $this->getBatchModel()->getIoAdapter();
 
-        $files = Mage::app()->getRequest()->getParam('files');
+        $files = Mage::helper('dataflow')->escapeHtml(Mage::app()->getRequest()->getParam('files'));
         if ($files) {
             $file = $this->getCopyFile($files);
             $this->_copy($file);
@@ -109,11 +109,14 @@ class Mage_Dataflow_Model_Convert_Parser_Csv extends Mage_Dataflow_Model_Convert
             ->setAdapter($adapterName)
             ->save();
 
-        //$adapter->$adapterMethod();
-
         return $this;
     }
 
+    /**
+     * @param int $i
+     * @param array $line
+     * @return array|false|null
+     */
     public function parseRow($i, $line)
     {
         if (count($line) === 1) {
