@@ -22,6 +22,7 @@ class Mage_CurrencySymbol_Adminhtml_System_CurrencysymbolController extends Mage
 
     /**
      * Show Currency Symbols Management dialog
+     * @return void
      */
     public function indexAction()
     {
@@ -44,6 +45,7 @@ class Mage_CurrencySymbol_Adminhtml_System_CurrencysymbolController extends Mage
 
     /**
      * Save custom Currency symbol
+     * @return void
      */
     public function saveAction()
     {
@@ -68,6 +70,7 @@ class Mage_CurrencySymbol_Adminhtml_System_CurrencysymbolController extends Mage
 
     /**
      * Resets custom Currency symbol for all store views, websites and default value
+     * @return void
      */
     public function resetAction()
     {

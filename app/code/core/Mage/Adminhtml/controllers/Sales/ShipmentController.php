@@ -16,6 +16,7 @@ class Mage_Adminhtml_Sales_ShipmentController extends Mage_Adminhtml_Controller_
 {
     /**
      * Export shipment grid to CSV format
+     * @return void
      */
     public function exportCsvAction()
     {
@@ -26,6 +27,7 @@ class Mage_Adminhtml_Sales_ShipmentController extends Mage_Adminhtml_Controller_
 
     /**
      *  Export shipment grid to Excel XML format
+     * @return void
      */
     public function exportExcelAction()
     {
