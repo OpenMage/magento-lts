@@ -100,7 +100,7 @@
 "Start Date","Start Date"
 "Start date has invalid format.","Start date has invalid format."
 "Start date is undefined.","Start date is undefined."
-"Status ""%s"" cannot be unassigned. It is in used in %d payment method configuration(s): %s","Status ""%s"" cannot be unassigned. It is in used in %d payment method configuration(s): %s"
+"Status ""%s"" cannot be unassigned. It is in used in %d payment method configuration(s): %s","Status ""%s"" cannot be unassigned. It is in use in %d payment method configuration(s): %s"
 "Subscriber Name","Subscriber Name"
 "Switch/Solo/Maestro Issue Number","Switch/Solo/Maestro Issue Number"
 "Switch/Solo/Maestro Only","Switch/Solo/Maestro Only"

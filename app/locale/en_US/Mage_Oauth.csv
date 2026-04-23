@@ -1,5 +1,5 @@
-"%name% '%value%' is too long. It must has length %max% symbols.","%name% '%value%' is too long. It must has length %max% symbols."
-"%name% '%value%' is too short. It must has length %min% symbols.","%name% '%value%' is too short. It must has length %min% symbols."
+"%name% '%value%' is too long. It must has length %max% symbols.","%name% '%value%' is too long. It must have a maximum length of %max% symbols."
+"%name% '%value%' is too short. It must has length %min% symbols.","%name% '%value%' is too short. It must have a minimum length of %min% symbols."
 "%name% '%value%' should have exactly %min% symbols.","%name% '%value%' should have exactly %min% symbols."
 "* Required Fields","* Required Fields"
 "<strong>%s</strong> requests access to your account","<strong>%s</strong> requests access to your account"

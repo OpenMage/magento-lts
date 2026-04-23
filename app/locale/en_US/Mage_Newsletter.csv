@@ -121,7 +121,7 @@
 "The subscription has been removed.","The subscription has been removed."
 "The subscription has been saved.","The subscription has been saved."
 "The template has been saved.","The template has been saved."
-"The value %1$s you selected for ""%3$s"" is not a valid choices %2$s.","The value %1$s you selected for ""%3$s"" is not a valid choices %2$s."
+"The value %1$s you selected for ""%3$s"" is not a valid choices %2$s.","The value %1$s you selected for ""%3$s"" is not a valid choice %2$s."
 "There was a problem with the subscription.","There was a problem with the subscription."
 "There was a problem with the subscription: %s","There was a problem with the subscription: %s"
 "There was a problem with the un-subscription.","There was a problem with the un-subscription."
