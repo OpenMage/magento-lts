@@ -482,38 +482,6 @@
                             <show_in_store>0</show_in_store>
                             <depends><active>1</active></depends>
                         </tracking_client_secret>
-                        <!-- deprecated legacy soap api fields -->
-                        <meter_number translate="label">
-                            <label>Meter Number</label>
-                            <frontend_type>obscure</frontend_type>
-                            <backend_model>adminhtml/system_config_backend_encrypted</backend_model>
-                            <sort_order>50</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
-                            <depends><active>1</active></depends>
-                        </meter_number>
-                        <key translate="label">
-                            <label>Key</label>
-                            <frontend_type>obscure</frontend_type>
-                            <backend_model>adminhtml/system_config_backend_encrypted</backend_model>
-                            <sort_order>60</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
-                            <depends><active>1</active></depends>
-                        </key>
-                        <password translate="label">
-                            <label>Password</label>
-                            <frontend_type>obscure</frontend_type>
-                            <backend_model>adminhtml/system_config_backend_encrypted</backend_model>
-                            <sort_order>70</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
-                            <depends><active>1</active></depends>
-                        </password>
-                        <!-- // end deprecated -->
                         <sandbox_mode translate="label">
                             <label>Sandbox Mode</label>
                             <frontend_type>select</frontend_type>

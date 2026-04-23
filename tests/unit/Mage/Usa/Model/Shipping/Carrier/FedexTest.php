@@ -46,16 +46,6 @@ final class FedexTest extends OpenMageTest
         self::$subject = new Subject();
     }
 
-    public function testVersionInfoStaysByteForByteCompatibleWithSoapAncestor(): void
-    {
-        self::assertSame([
-            'ServiceId'    => 'crs',
-            'Major'        => '10',
-            'Intermediate' => '0',
-            'Minor'        => '0',
-        ], self::$subject->getVersionInfo());
-    }
-
     public function testContainerTypesMatchesCoreShape(): void
     {
         $all = self::$subject->getContainerTypesAll();

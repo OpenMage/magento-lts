@@ -206,21 +206,6 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
     }
 
     /**
-     * Get version of rates request
-     *
-     * @return array<string, string>
-     */
-    public function getVersionInfo()
-    {
-        return [
-            'ServiceId'    => 'crs',
-            'Major'        => '10',
-            'Intermediate' => '0',
-            'Minor'        => '0',
-        ];
-    }
-
-    /**
      * Do remote request for and handle errors
      *
      * @return bool|Mage_Shipping_Model_Rate_Result
