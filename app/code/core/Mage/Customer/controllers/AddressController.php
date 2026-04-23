@@ -27,6 +27,7 @@ class Mage_Customer_AddressController extends Mage_Core_Controller_Front_Action
     /**
      * @inheritDoc
      */
+    #[Override]
     public function preDispatch()
     {
         parent::preDispatch();

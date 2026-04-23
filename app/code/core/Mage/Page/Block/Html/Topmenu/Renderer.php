@@ -24,6 +24,7 @@ class Mage_Page_Block_Html_Topmenu_Renderer extends Mage_Page_Block_Html_Topmenu
      * @return string
      * @throws Exception
      */
+    #[Override]
     protected function _toHtml()
     {
         $this->_addCacheTags();

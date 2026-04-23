@@ -49,6 +49,7 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Grouped extends Mage_Im
      *
      * @return Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
      */
+    #[Override]
     public function saveData()
     {
         $groupedLinkId = Mage_Catalog_Model_Product_Link::LINK_TYPE_GROUPED;

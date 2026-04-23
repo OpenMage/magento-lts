@@ -34,11 +34,11 @@
                     </div>
                     <div class="input-box input-left">
                         <label for="username"><?php echo Mage::helper('adminhtml')->__('User Name:') ?></label><br />
-                        <input type="text" id="username" name="login[username]" value="" class="required-entry input-text" autofocus="autofocus" />
+                        <input type="text" id="username" name="login[username]" value="" class="required-entry input-text" autofocus="autofocus" data-test="input-login-username" />
                     </div>
                     <div class="input-box input-right">
                         <label for="login"><?php echo Mage::helper('adminhtml')->__('Password:') ?></label><br />
-                        <input type="password" id="login" name="login[password]" value="" class="required-entry input-text" />
+                        <input type="password" id="login" name="login[password]" value="" class="required-entry input-text" data-test="input-login-password" />
                     </div>
                     <?php echo $this->getChildHtml('form.additional.info') ?>
                     <div class="clear"></div>

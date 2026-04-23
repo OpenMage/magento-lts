@@ -20,6 +20,7 @@ class Mage_Catalog_Model_Resource_Category_Attribute_Collection extends Mage_Eav
      *
      * @return $this
      */
+    #[Override]
     protected function _initSelect()
     {
         $this->getSelect()->from(['main_table' => $this->getResource()->getMainTable()])
@@ -37,6 +38,7 @@ class Mage_Catalog_Model_Resource_Category_Attribute_Collection extends Mage_Eav
      * @param  int   $typeId
      * @return $this
      */
+    #[Override]
     public function setEntityTypeFilter($typeId)
     {
         return $this;

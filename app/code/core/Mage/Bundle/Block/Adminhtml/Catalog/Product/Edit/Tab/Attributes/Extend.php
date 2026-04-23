@@ -41,6 +41,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Attributes_Extend ext
      *
      * @return string
      */
+    #[Override]
     public function getElementHtml()
     {
         $elementHtml = parent::getElementHtml();

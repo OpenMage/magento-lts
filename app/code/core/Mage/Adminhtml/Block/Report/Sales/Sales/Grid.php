@@ -22,9 +22,13 @@ class Mage_Adminhtml_Block_Report_Sales_Sales_Grid extends Mage_Adminhtml_Block_
         $this->setCountTotals();
     }
 
+    /**
+     * @inheritDoc
+     */
+    #[Override]
     public function getResourceCollectionName()
     {
-        return ($this->getFilterData()->getDataByKey('report_type') == 'updated_at_order')
+        return ($this->getFilterData()->getDataByKey('report_type') === 'updated_at_order')
             ? 'sales/report_order_updatedat_collection'
             : 'sales/report_order_collection';
     }
@@ -32,6 +36,7 @@ class Mage_Adminhtml_Block_Report_Sales_Sales_Grid extends Mage_Adminhtml_Block_
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareColumns()
     {
         $this->addColumn('period', [

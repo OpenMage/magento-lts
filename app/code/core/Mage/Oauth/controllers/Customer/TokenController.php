@@ -35,6 +35,7 @@ class Mage_Oauth_Customer_TokenController extends Mage_Core_Controller_Front_Act
      *
      * Check customer authentication for some actions
      */
+    #[Override]
     public function preDispatch()
     {
         parent::preDispatch();

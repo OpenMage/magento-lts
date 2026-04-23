@@ -53,6 +53,7 @@ class Mage_Adminhtml_Block_Widget_Breadcrumbs extends Mage_Adminhtml_Block_Templ
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _beforeToHtml()
     {
         // TODO - Moved to Beta 2, no breadcrumbs displaying in Beta 1

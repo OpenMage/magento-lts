@@ -169,6 +169,7 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
      * creditmemo information page
      * @return void
      */
+    #[Override]
     public function viewAction()
     {
         $creditmemo = $this->_initCreditmemo();
@@ -450,6 +451,7 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
      * Create pdf for current creditmemo
      * @return void
      */
+    #[Override]
     public function printAction()
     {
         $this->_initCreditmemo();

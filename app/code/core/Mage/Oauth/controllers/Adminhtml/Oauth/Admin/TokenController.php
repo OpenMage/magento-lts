@@ -23,6 +23,7 @@ class Mage_Oauth_Adminhtml_Oauth_Admin_TokenController extends Mage_Adminhtml_Co
      *
      * @return $this
      */
+    #[Override]
     public function preDispatch()
     {
         $this->_title($this->__('System'))

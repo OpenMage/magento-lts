@@ -22,7 +22,7 @@ class Mage_Adminhtml_Block_Widget_View_Container extends Mage_Adminhtml_Block_Wi
 
         $this->setTemplate('widget/view/container.phtml');
 
-        $this->_addButton('back', [
+        $this->_addButton(self::BUTTON_TYPE_BACK, [
             'label'     => Mage::helper('adminhtml')->__('Back'),
             'onclick'   => "window.location.href='" . $this->getUrl('*/*/') . "'",
             'class'     => 'back',
@@ -35,6 +35,7 @@ class Mage_Adminhtml_Block_Widget_View_Container extends Mage_Adminhtml_Block_Wi
         ]);
     }
 
+    #[Override]
     protected function _prepareLayout()
     {
         $this->setChild('plane', $this->getLayout()->createBlock('adminhtml/' . $this->_controller . '_view_plane'));

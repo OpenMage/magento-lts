@@ -27,6 +27,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
      *
      * @return Mage_Adminhtml_Controller_Action
      */
+    #[Override]
     public function preDispatch()
     {
         $this->_setForcedFormKeyActions(['delete', 'massDelete']);
@@ -344,7 +345,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
                 // Force new customer confirmation
                 if ($isNewCustomer) {
                     $customer->setPassword($data['account']['password']);
-                    $customer->setPasswordCreatedAt(Carbon::now()->getTimestamp());
+                    $customer->setPasswordCreatedAt(Mage::helper('core/clock')->getTimestamp());
                     $customer->setForceConfirmed(true);
                     if ($customer->getPassword() === 'auto') {
                         $sendPassToEmail = true;

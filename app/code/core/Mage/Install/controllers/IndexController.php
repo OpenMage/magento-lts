@@ -16,6 +16,7 @@ declare(strict_types=1);
  */
 class Mage_Install_IndexController extends Mage_Install_Controller_Action
 {
+    #[Override]
     public function preDispatch()
     {
         $this->setFlag('', self::FLAG_NO_CHECK_INSTALLATION, true);

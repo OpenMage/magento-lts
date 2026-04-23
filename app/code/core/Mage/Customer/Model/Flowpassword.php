@@ -33,6 +33,7 @@ class Mage_Customer_Model_Flowpassword extends Mage_Core_Model_Abstract
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _beforeSave()
     {
         $this->_prepareData();

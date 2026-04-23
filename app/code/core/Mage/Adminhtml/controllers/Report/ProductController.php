@@ -19,6 +19,7 @@ class Mage_Adminhtml_Report_ProductController extends Mage_Adminhtml_Controller_
      *
      * @return $this
      */
+    #[Override]
     public function _initAction()
     {
         parent::_initAction();
@@ -246,6 +247,7 @@ class Mage_Adminhtml_Report_ProductController extends Mage_Adminhtml_Controller_
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _isAllowed(): bool
     {
         $action = strtolower($this->getRequest()->getActionName());

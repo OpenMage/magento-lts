@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Core\Helper\Measure;
 
 // use Mage;
 // use Mage_Core_Helper_Measure_Length as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\Helper\Measure\LengthTrait;
 
@@ -22,6 +23,7 @@ final class LengthTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

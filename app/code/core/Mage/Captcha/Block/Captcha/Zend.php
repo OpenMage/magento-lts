@@ -29,6 +29,7 @@ class Mage_Captcha_Block_Captcha_Zend extends Mage_Core_Block_Template
      *
      * @return string
      */
+    #[Override]
     public function getTemplate()
     {
         return $this->getIsAjax() ? '' : $this->_template;
@@ -52,6 +53,7 @@ class Mage_Captcha_Block_Captcha_Zend extends Mage_Core_Block_Template
      *
      * @return string
      */
+    #[Override]
     protected function _toHtml()
     {
         if (Mage::helper('captcha')->isEnabled() && $this->getCaptchaModel()->isRequired()) {
@@ -61,6 +63,10 @@ class Mage_Captcha_Block_Captcha_Zend extends Mage_Core_Block_Template
 
             if ($this->hasData('img_height')) {
                 $this->getCaptchaModel()->setHeight($this->getDataByKey('img_height'));
+            }
+
+            if ($this->hasData('font_size')) {
+                $this->getCaptchaModel()->setFontSize($this->getDataByKey('font_size'));
             }
 
             $this->getCaptchaModel()->generate();

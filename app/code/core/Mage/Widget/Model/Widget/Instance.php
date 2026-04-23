@@ -93,7 +93,7 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
      * Init mapping array of short fields to
      * its full names
      *
-     * @return Varien_Object
+     * @return $this
      */
     protected function _initOldFieldsMap()
     {
@@ -108,6 +108,7 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
      *
      * @inheritDoc
      */
+    #[Override]
     protected function _beforeSave()
     {
         $pageGroupIds = [];
@@ -570,6 +571,7 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
     /**
      * Invalidate related cache if instance contain layout updates
      */
+    #[Override]
     protected function _afterSave()
     {
         if ($this->dataHasChangedFor('page_groups') || $this->dataHasChangedFor('widget_parameters')) {
@@ -582,6 +584,7 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
     /**
      * Invalidate related cache if instance contain layout updates
      */
+    #[Override]
     protected function _beforeDelete()
     {
         if ($this->getPageGroups()) {

@@ -118,6 +118,7 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Configurable extends Ma
      * @param  array                                                       $attrParams  refined attribute parameters
      * @return Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
      */
+    #[Override]
     protected function _addAttributeParams($attrSetName, array $attrParams)
     {
         // save super attributes for simpler and quicker search in future
@@ -146,6 +147,7 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Configurable extends Ma
      * @param  string $attrCode
      * @return bool
      */
+    #[Override]
     protected function _isAttributeRequiredCheckNeeded($attrCode)
     {
         return !$this->_isAttributeSuper($attrCode); // do not check super attributes
@@ -168,6 +170,7 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Configurable extends Ma
      * @param  int  $rowNum
      * @return bool
      */
+    #[Override]
     protected function _isParticularAttributesValid(array $rowData, $rowNum)
     {
         if (!empty($rowData['_super_attribute_code'])) {
@@ -355,6 +358,7 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Configurable extends Ma
      * @return Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
      * @throws Exception
      */
+    #[Override]
     public function saveData()
     {
         $connection      = $this->_entityModel->getConnection();

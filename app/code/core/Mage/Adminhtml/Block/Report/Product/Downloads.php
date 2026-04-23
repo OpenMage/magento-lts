@@ -19,9 +19,10 @@ class Mage_Adminhtml_Block_Report_Product_Downloads extends Mage_Adminhtml_Block
         $this->_controller = 'report_product_downloads';
         $this->_headerText = Mage::helper('reports')->__('Downloads');
         parent::__construct();
-        $this->_removeButton('add');
+        $this->_removeButton(self::BUTTON_TYPE_ADD);
     }
 
+    #[Override]
     protected function _prepareLayout()
     {
         $this->setChild(
@@ -39,11 +40,13 @@ class Mage_Adminhtml_Block_Report_Product_Downloads extends Mage_Adminhtml_Block
         return Mage::app()->isSingleStoreMode() ? '' : $this->getChildHtml('store_switcher');
     }
 
+    #[Override]
     public function getGridHtml()
     {
         return $this->getStoreSwitcherHtml() . parent::getGridHtml();
     }
 
+    #[Override]
     public function getHeaderCssClass()
     {
         return 'icon-head head-report';

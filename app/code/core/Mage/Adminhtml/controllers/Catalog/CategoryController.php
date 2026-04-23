@@ -268,11 +268,7 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
             if (!$category->getId()) {
                 $parentId = $this->getRequest()->getParam('parent');
                 if (!$parentId) {
-                    if ($storeId) {
-                        $parentId = Mage::app()->getStore($storeId)->getRootCategoryId();
-                    } else {
-                        $parentId = Mage_Catalog_Model_Category::TREE_ROOT_ID;
-                    }
+                    $parentId = $storeId ? Mage::app()->getStore($storeId)->getRootCategoryId() : Mage_Catalog_Model_Category::TREE_ROOT_ID;
                 }
 
                 $parentCategory = Mage::getModel('catalog/category')->load($parentId);
@@ -493,6 +489,7 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
      *
      * @return Mage_Adminhtml_Controller_Action
      */
+    #[Override]
     public function preDispatch()
     {
         $this->_setForcedFormKeyActions('delete');

@@ -184,6 +184,7 @@ class Mage_Tax_Block_Adminhtml_Notifications extends Mage_Adminhtml_Block_Templa
      *
      * @return string
      */
+    #[Override]
     protected function _toHtml()
     {
         /** @var Mage_Admin_Model_Session $model */

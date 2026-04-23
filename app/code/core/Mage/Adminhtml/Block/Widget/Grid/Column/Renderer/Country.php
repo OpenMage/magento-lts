@@ -19,6 +19,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Country extends Mage_Admi
      *
      * @return null|string
      */
+    #[Override]
     public function render(Varien_Object $row)
     {
         if ($data = $row->getData($this->getColumn()->getIndex())) {

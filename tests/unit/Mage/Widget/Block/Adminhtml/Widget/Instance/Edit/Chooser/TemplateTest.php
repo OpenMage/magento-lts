@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Widget\Block\Adminhtml\Widget\Instance\Edit\Chooser;
 
 // use Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Template as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Widget\Block\Adminhtml\Widget\Instance\Edit\Chooser\TemplateTrait;
 
@@ -21,6 +22,7 @@ final class TemplateTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

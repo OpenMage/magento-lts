@@ -58,6 +58,7 @@ class Mage_Directory_Model_Resource_Country_Collection extends Mage_Core_Model_R
      * @param  string                                                             $idValue
      * @return Mage_Directory_Model_Country|Mage_Directory_Model_Resource_Country
      */
+    #[Override]
     public function getItemById($idValue)
     {
         foreach ($this->_items as $country) {
@@ -133,6 +134,7 @@ class Mage_Directory_Model_Resource_Country_Collection extends Mage_Core_Model_R
      * @param  false|string $emptyLabel
      * @return array
      */
+    #[Override]
     public function toOptionArray($emptyLabel = ' ')
     {
         $options = $this->_toOptionArray('country_id', 'name', ['title' => 'iso2_code']);

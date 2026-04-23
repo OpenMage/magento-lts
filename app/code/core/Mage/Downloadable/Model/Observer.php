@@ -19,8 +19,8 @@ class Mage_Downloadable_Model_Observer
     /**
      * Prepare product to save
      *
-     * @param  Varien_Event_Observer            $observer
-     * @return Mage_Downloadable_Model_Observer
+     * @param  Varien_Event_Observer $observer
+     * @return $this
      */
     public function prepareProductSave($observer)
     {

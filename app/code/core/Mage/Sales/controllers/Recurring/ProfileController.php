@@ -25,6 +25,7 @@ class Mage_Sales_Recurring_ProfileController extends Mage_Core_Controller_Front_
      * @return null|$this
      * @throws Mage_Core_Exception
      */
+    #[Override]
     public function preDispatch()
     {
         parent::preDispatch();

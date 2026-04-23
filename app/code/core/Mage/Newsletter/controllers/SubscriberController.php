@@ -134,6 +134,7 @@ class Mage_Newsletter_SubscriberController extends Mage_Core_Controller_Front_Ac
      *
      * @return bool
      */
+    #[Override]
     protected function _isFormKeyEnabled()
     {
         return Mage::getStoreConfigFlag(self::XML_CSRF_USE_FLAG_CONFIG_PATH);

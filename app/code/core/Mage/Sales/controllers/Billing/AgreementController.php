@@ -35,6 +35,7 @@ class Mage_Sales_Billing_AgreementController extends Mage_Core_Controller_Front_
      *
      * @return null|$this
      */
+    #[Override]
     public function preDispatch()
     {
         parent::preDispatch();

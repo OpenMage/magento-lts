@@ -23,6 +23,7 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit extends Mage_Adminhtml_Blo
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareLayout()
     {
         $this->setChild(
@@ -219,11 +220,11 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit extends Mage_Adminhtml_Blo
     /**
      * Return edit flag for block
      *
-     * @return int|string
+     * @return bool
      */
     public function getEditMode()
     {
-        return $this->getEmailTemplate()->getId();
+        return (bool) $this->getEmailTemplate()->getId();
     }
 
     /**

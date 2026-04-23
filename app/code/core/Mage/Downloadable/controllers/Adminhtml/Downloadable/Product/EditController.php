@@ -19,6 +19,7 @@ class Mage_Downloadable_Adminhtml_Downloadable_Product_EditController extends Ma
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _construct()
     {
         $this->setUsedModuleName('Mage_Downloadable');

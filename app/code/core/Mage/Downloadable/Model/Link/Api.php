@@ -262,6 +262,7 @@ class Mage_Downloadable_Model_Link_Api extends Mage_Catalog_Model_Api_Resource
      * @param  string                     $identifierType
      * @return Mage_Catalog_Model_Product
      */
+    #[Override]
     protected function _getProduct($productId, $store = null, $identifierType = null)
     {
         $product = parent::_getProduct($productId, $store, $identifierType);

@@ -23,6 +23,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Log_Cron extends Mage_Core_Mode
      *
      * @return $this
      */
+    #[Override]
     protected function _afterSave()
     {
         $enabled    = $this->getData('groups/log/fields/enabled/value');

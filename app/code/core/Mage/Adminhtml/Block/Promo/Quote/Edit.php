@@ -38,6 +38,7 @@ class Mage_Adminhtml_Block_Promo_Quote_Edit extends Mage_Adminhtml_Block_Widget_
      *
      * @return string
      */
+    #[Override]
     public function getHeaderText()
     {
         $rule = Mage::registry('current_promo_quote_rule');

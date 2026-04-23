@@ -19,6 +19,7 @@ class Mage_Newsletter_ManageController extends Mage_Core_Controller_Front_Action
      *
      * Check customer authentication for some actions
      */
+    #[Override]
     public function preDispatch()
     {
         parent::preDispatch();

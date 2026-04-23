@@ -32,9 +32,10 @@ class Mage_Adminhtml_Block_Report_Sales_Tax_Grid extends Mage_Adminhtml_Block_Re
     /**
      * @inheritDoc
      */
+    #[Override]
     public function getResourceCollectionName()
     {
-        return ($this->getFilterData()->getDataByKey('report_type') == 'updated_at_order')
+        return ($this->getFilterData()->getDataByKey('report_type') === 'updated_at_order')
             ? 'tax/report_updatedat_collection'
             : 'tax/report_collection';
     }
@@ -42,6 +43,7 @@ class Mage_Adminhtml_Block_Report_Sales_Tax_Grid extends Mage_Adminhtml_Block_Re
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareColumns()
     {
         $this->addColumn('period', [
@@ -107,6 +109,7 @@ class Mage_Adminhtml_Block_Report_Sales_Tax_Grid extends Mage_Adminhtml_Block_Re
      *
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareCollection()
     {
         $filterData = $this->getFilterData();

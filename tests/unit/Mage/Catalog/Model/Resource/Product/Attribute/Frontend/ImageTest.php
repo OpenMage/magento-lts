@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Catalog\Model\Resource\Product\Attribute\Fron
 
 // use Mage;
 // use Mage_Catalog_Model_Resource_Product_Attribute_Frontend_Image as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\Model\Resource\Product\Attribute\Frontend\ImageTrait;
 
@@ -22,6 +23,7 @@ final class ImageTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

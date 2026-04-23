@@ -61,6 +61,7 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
      *
      * @return $this
      */
+    #[Override]
     public function preDispatch()
     {
         parent::preDispatch();

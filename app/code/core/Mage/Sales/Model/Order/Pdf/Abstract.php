@@ -82,12 +82,12 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
      */
     public function widthForStringUsingFontSize($string, $font, $fontSize)
     {
-        $drawingString = '"libiconv"' == ICONV_IMPL
+        $drawingString = '"libiconv"' === ICONV_IMPL
             ? iconv('UTF-8', 'UTF-16BE//IGNORE', $string)
             : @iconv('UTF-8', 'UTF-16BE', $string);
 
         $characters = [];
-        for ($i = 0; $i < strlen($drawingString); $i++) {
+        for ($i = 0, $lenMax = strlen($drawingString); $i < $lenMax; $i++) {
             $characters[] = (ord($drawingString[$i++]) << 8) | ord($drawingString[$i]);
         }
 
@@ -256,9 +256,9 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
     /**
      * Insert order to pdf page
      *
-     * @param Zend_Pdf_Page          $page
-     * @param Mage_Sales_Model_Order $obj
-     * @param bool                   $putOrderId
+     * @param Zend_Pdf_Page                                          $page
+     * @param Mage_Sales_Model_Order|Mage_Sales_Model_Order_Shipment $obj
+     * @param bool                                                   $putOrderId
      */
     protected function insertOrder(&$page, $obj, $putOrderId = true)
     {
@@ -728,7 +728,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
      *
      * @param Mage_Sales_Model_Order_Pdf_Items_Abstract $renderer
      *
-     * @return Mage_Sales_Model_Order_Pdf_Abstract
+     * @return $this
      */
     public function renderItem(Varien_Object $item, Zend_Pdf_Page $page, Mage_Sales_Model_Order $order, $renderer)
     {
@@ -816,7 +816,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
     /**
      * Set PDF object
      *
-     * @return Mage_Sales_Model_Order_Pdf_Abstract
+     * @return $this
      */
     protected function _setPdf(Zend_Pdf $pdf)
     {

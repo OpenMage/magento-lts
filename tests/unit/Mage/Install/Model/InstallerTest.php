@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Install\Model;
 
 // use Mage;
 // use Mage_Install_Model_Installer as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Install\Model\InstallerTrait;
 
@@ -22,6 +23,7 @@ final class InstallerTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

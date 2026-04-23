@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\ImportExport\Model\Import;
 
 // use Mage;
 // use Mage_ImportExport_Model_Import_Adapter as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\ImportExport\Model\Import\AdapterTrait;
 
@@ -22,6 +23,7 @@ final class AdapterTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

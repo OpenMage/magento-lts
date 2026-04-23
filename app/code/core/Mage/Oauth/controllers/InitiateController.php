@@ -19,6 +19,7 @@ class Mage_Oauth_InitiateController extends Mage_Core_Controller_Front_Action
      *
      * @inheritDoc
      */
+    #[Override]
     public function preDispatch()
     {
         $this->setFlag('', self::FLAG_NO_START_SESSION, 1);

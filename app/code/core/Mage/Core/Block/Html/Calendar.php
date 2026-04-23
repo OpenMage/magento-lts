@@ -19,6 +19,7 @@ class Mage_Core_Block_Html_Calendar extends Mage_Core_Block_Template
      * @return string
      * @throws Zend_Locale_Exception
      */
+    #[Override]
     protected function _toHtml()
     {
         $localeCode = Mage::app()->getLocale()->getLocaleCode();

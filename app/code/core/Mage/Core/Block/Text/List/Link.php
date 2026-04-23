@@ -34,6 +34,7 @@ class Mage_Core_Block_Text_List_Link extends Mage_Core_Block_Text
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _toHtml()
     {
         $this->setText('<li');

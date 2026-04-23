@@ -17,6 +17,7 @@ class Mage_CatalogInventory_Model_System_Config_Backend_Qtyincrements extends Ma
     /**
      * Validate data before save
      */
+    #[Override]
     protected function _beforeSave()
     {
         $value = $this->getValue();
