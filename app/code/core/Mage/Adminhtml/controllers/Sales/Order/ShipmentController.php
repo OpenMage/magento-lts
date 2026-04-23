@@ -776,7 +776,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
     /**
      * Return grid with shipping items for Ajax request
      *
-     * @return void
+     * @return Mage_Core_Controller_Response_Http|Zend_Controller_Response_Abstract
      * @throws Mage_Core_Exception
      */
     public function getShippingItemsGridAction()

@@ -210,7 +210,7 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
     /**
      * Process configuration POST data
      *
-     * @return void
+     * @return null|$this
      */
     public function configPostAction()
     {
@@ -287,7 +287,7 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
     /**
      * Process administrator installation POST data
      *
-     * @return void
+     * @return null|false
      */
     public function administratorPostAction()
     {
