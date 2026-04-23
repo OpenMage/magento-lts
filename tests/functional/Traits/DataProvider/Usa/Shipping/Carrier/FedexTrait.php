@@ -165,35 +165,14 @@ trait FedexTrait
     }
 
     /**
-     * @param Address             $recipient
-     * @param list<CommodityItem> $items
+     * @param Address $shipper
+     * @param Address $recipient
      */
-    protected function buildShipmentRequest(
-        array $recipient,
-        string $shippingMethod,
-        float $customsValue,
-        array $items,
+    protected function shipmentRequest(
+        array $shipper,
+        array $recipient
     ): Mage_Shipping_Model_Shipment_Request {
-        /** @var Mage_Shipping_Model_Shipment_Request $request */
-        $request = Mage::getModel('shipping/shipment_request');
-
-        $shipper = $this->domesticShipper();
-        $weight = $this->shipmentPackageWeight;
-
-        $packageParams = [
-            'container' => 'YOUR_PACKAGING',
-            'weight' => $weight,
-            'weight_units' => Mage_Core_Helper_Measure_Weight::POUND,
-            'dimension_units' => Mage_Core_Helper_Measure_Length::INCH,
-            'length' => $this->packageLength,
-            'width' => $this->packageWidth,
-            'height' => $this->packageHeight,
-            'customs_value' => $customsValue,
-            'content_type' => '',
-            'content_type_other' => '',
-        ];
-
-        $request
+        return Mage::getModel('shipping/shipment_request')
             ->setShipperContactPersonName($shipper['person_name'])
             ->setShipperContactCompanyName($shipper['company_name'])
             ->setShipperContactPhoneNumber($shipper['phone'])
@@ -210,7 +189,35 @@ trait FedexTrait
             ->setRecipientAddressStateOrProvinceCode($recipient['state'])
             ->setRecipientAddressPostalCode($recipient['postcode'])
             ->setRecipientAddressCountryCode($recipient['country'])
-            ->setRecipientAddressResidential($recipient['residential'])
+            ->setRecipientAddressResidential($recipient['residential']);
+    }
+
+    /**
+     * @param Address             $recipient
+     * @param list<CommodityItem> $items
+     */
+    protected function buildShipmentRequest(
+        array $recipient,
+        string $shippingMethod,
+        float $customsValue,
+        array $items,
+    ): Mage_Shipping_Model_Shipment_Request {
+        $weight = $this->shipmentPackageWeight;
+
+        $packageParams = [
+            'container' => 'YOUR_PACKAGING',
+            'weight' => $weight,
+            'weight_units' => Mage_Core_Helper_Measure_Weight::POUND,
+            'dimension_units' => Mage_Core_Helper_Measure_Length::INCH,
+            'length' => $this->packageLength,
+            'width' => $this->packageWidth,
+            'height' => $this->packageHeight,
+            'customs_value' => $customsValue,
+            'content_type' => '',
+            'content_type_other' => '',
+        ];
+
+        return $this->shipmentRequest($this->domesticShipper(), $recipient)
             ->setShippingMethod($shippingMethod)
             ->setPackageWeight($weight)
             ->setBaseCurrencyCode('USD')
@@ -220,8 +227,6 @@ trait FedexTrait
                     'items' => $items,
                 ],
             ]);
-
-        return $request;
     }
 
     /**
@@ -233,11 +238,6 @@ trait FedexTrait
         string $shippingMethod,
         array $packageSpecs,
     ): Mage_Shipping_Model_Shipment_Request {
-        /** @var Mage_Shipping_Model_Shipment_Request $request */
-        $request = Mage::getModel('shipping/shipment_request');
-
-        $shipper = $this->domesticShipper();
-
         $packages = [];
         foreach ($packageSpecs as $i => $spec) {
             $packages[$i + 1] = [
@@ -257,30 +257,11 @@ trait FedexTrait
             ];
         }
 
-        $request
-            ->setShipperContactPersonName($shipper['person_name'])
-            ->setShipperContactCompanyName($shipper['company_name'])
-            ->setShipperContactPhoneNumber($shipper['phone'])
-            ->setShipperAddressStreet1($shipper['street'])
-            ->setShipperAddressCity($shipper['city'])
-            ->setShipperAddressStateOrProvinceCode($shipper['state'])
-            ->setShipperAddressPostalCode($shipper['postcode'])
-            ->setShipperAddressCountryCode($shipper['country'])
-            ->setRecipientContactPersonName($recipient['person_name'])
-            ->setRecipientContactCompanyName($recipient['company_name'])
-            ->setRecipientContactPhoneNumber($recipient['phone'])
-            ->setRecipientAddressStreet1($recipient['street'])
-            ->setRecipientAddressCity($recipient['city'])
-            ->setRecipientAddressStateOrProvinceCode($recipient['state'])
-            ->setRecipientAddressPostalCode($recipient['postcode'])
-            ->setRecipientAddressCountryCode($recipient['country'])
-            ->setRecipientAddressResidential($recipient['residential'])
+        return $this->shipmentRequest($this->domesticShipper(), $recipient)
             ->setShippingMethod($shippingMethod)
             ->setPackageWeight($packageSpecs[0]['weight'])
             ->setBaseCurrencyCode('USD')
             ->setPackages($packages);
-
-        return $request;
     }
 
     protected function buildRawRateRequest(
