@@ -142,56 +142,54 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
             };
         }
 
-        match ($id) {
-            self::BUTTON_TYPE_ADD => $data = array_merge([
-                'label'     => $label ? $label : Mage::helper($module)->__('Add'),
-                'class'     => $class ? $class : 'add',
-                'onclick'   => $onClick,
-            ], $data),
-            self::BUTTON_TYPE_BACK => $data = array_merge([
-                'label'     => $label ? $label : Mage::helper($module)->__('Back'),
-                'class'     => $class ? $class : 'back',
-                'onclick'   => $onClick,
-            ], $data),
-            self::BUTTON_TYPE_CANCEL => $data = array_merge([
-                'label'     => $label ? $label : Mage::helper($module)->__('Cancel'),
-                'class'     => $class ? $class : 'cancel delete',
-                'onclick'   => $onClick,
-            ], $data),
-            self::BUTTON_TYPE_CLOSE => $data = array_merge([
-                'label'     => $label ? $label : Mage::helper($module)->__('Close Window'),
-                'class'     => $class ? $class : 'cancel',
-                'onclick'   => $onClick,
-            ], $data),
-            self::BUTTON_TYPE_DELETE => $data = array_merge([
-                'label'     => $label ? $label : Mage::helper($module)->__('Delete'),
-                'class'     => $class ? $class : 'delete',
-            ], $data),
-            self::BUTTON_TYPE_PRINT => $data = array_merge([
-                'label'     => $label ? $label : Mage::helper($module)->__('Print'),
-                'class'     => $class ? $class : 'save print',
-            ], $data),
-            self::BUTTON_TYPE_RESET => $data = array_merge([
-                'label'     => $label ? $label : Mage::helper($module)->__('Reset'),
-                'class'     => $class ? $class : 'reset',
-                'onclick'   => $onClick,
-            ], $data),
-            self::BUTTON_TYPE_SAVE => $data = array_merge([
-                'label'     => $label ? $label : Mage::helper($module)->__('Save'),
-                'class'     => $class ? $class : 'save',
-                'onclick'   => $onClick,
-            ], $data),
-            self::BUTTON_TYPE_SAVE_EDIT => $data = array_merge([
-                'label'     => $label ? $label : Mage::helper($module)->__('Save and Continue Edit'),
-                'class'     => $class ? $class : 'save continue',
-                'onclick'   => $onClick,
-            ], $data),
-            self::BUTTON_TYPE_VOID => $data = array_merge([
-                'label'     => $label ? $label : Mage::helper($module)->__('Void'),
-                'class'     => $class ? $class : 'save void',
-                'onclick'   => $onClick,
-            ], $data),
+        $prefData = match ($id) {
+            self::BUTTON_TYPE_ADD => [
+                'label'     => Mage::helper($module)->__('Add'),
+                'class'     => 'add',
+            ],
+            self::BUTTON_TYPE_BACK => [
+                'label'     => Mage::helper($module)->__('Back'),
+                'class'     => 'back',
+            ],
+            self::BUTTON_TYPE_CANCEL => [
+                'label'     => Mage::helper($module)->__('Cancel'),
+                'class'     => 'cancel delete',
+            ],
+            self::BUTTON_TYPE_CLOSE => [
+                'label'     => Mage::helper($module)->__('Close Window'),
+                'class'     => 'cancel',
+            ],
+            self::BUTTON_TYPE_DELETE => [
+                'label'     => Mage::helper($module)->__('Delete'),
+                'class'     => 'delete',
+            ],
+            self::BUTTON_TYPE_PRINT => [
+                'label'     => Mage::helper($module)->__('Print'),
+                'class'     => 'save print',
+            ],
+            self::BUTTON_TYPE_RESET => [
+                'label'     => Mage::helper($module)->__('Reset'),
+                'class'     => 'reset',
+            ],
+            self::BUTTON_TYPE_SAVE => [
+                'label'     => Mage::helper($module)->__('Save'),
+                'class'     => 'save',
+            ],
+            self::BUTTON_TYPE_SAVE_EDIT => [
+                'label'     => Mage::helper($module)->__('Save and Continue Edit'),
+                'class'     => 'save continue',
+            ],
+            self::BUTTON_TYPE_VOID => [
+                'label'     => Mage::helper($module)->__('Void'),
+                'class'     => 'save void',
+            ],
         };
+
+        $data = array_merge($prefData, array_filter([
+            'label'     => $label,
+            'class'     => $class,
+            'onclick'   => $onClick,
+        ]), $data);
 
         return $this->_addButton($id, $data, $level, $sortOrder, $area);
     }
