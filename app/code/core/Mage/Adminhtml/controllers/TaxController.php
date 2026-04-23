@@ -18,6 +18,7 @@ class Mage_Adminhtml_TaxController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Set tax ignore notification flag and redirect back
+     * @return void
      */
     public function ignoreTaxNotificationAction()
     {

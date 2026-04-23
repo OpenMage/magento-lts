@@ -23,7 +23,7 @@ class Mage_Adminhtml_Tax_RuleController extends Mage_Adminhtml_Controller_Action
     /**
      * Index action
      *
-     * @return $this
+     * @return void
      */
     public function indexAction()
     {
@@ -39,6 +39,7 @@ class Mage_Adminhtml_Tax_RuleController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Redirect to edit action
+     * @return void
      */
     public function newAction()
     {
@@ -47,6 +48,7 @@ class Mage_Adminhtml_Tax_RuleController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Edit action
+     * @return void
      */
     public function editAction()
     {
@@ -88,6 +90,7 @@ class Mage_Adminhtml_Tax_RuleController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Save action
+     * @return $this|void
      */
     public function saveAction()
     {
@@ -162,6 +165,7 @@ class Mage_Adminhtml_Tax_RuleController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Delete action
+     * @return void
      */
     public function deleteAction()
     {

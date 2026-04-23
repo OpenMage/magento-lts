@@ -20,6 +20,9 @@ class Mage_Adminhtml_Customer_ConfigController extends Mage_Adminhtml_Controller
      */
     public const ADMIN_RESOURCE = 'customer/config';
 
+    /**
+     * @return void
+     */
     public function indexAction()
     {
         $this->loadLayout();

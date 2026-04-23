@@ -20,6 +20,9 @@ class Mage_Adminhtml_CatalogController extends Mage_Adminhtml_Controller_Action
      */
     public const ADMIN_RESOURCE = 'catalog';
 
+    /**
+     * @return void
+     */
     public function indexAction()
     {
         $this->loadLayout();

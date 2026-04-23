@@ -16,5 +16,8 @@ class Mage_Adminhtml_Catalog_DatafeedsController extends Mage_Adminhtml_Controll
 {
     public const ADMIN_RESOURCE = true;
 
+    /**
+     * @return void
+     */
     public function indexAction() {}
 }

@@ -30,6 +30,9 @@ class Mage_Newsletter_ManageController extends Mage_Core_Controller_Front_Action
         return $this;
     }
 
+    /**
+     * @return void
+     */
     public function indexAction()
     {
         $this->loadLayout();
@@ -44,6 +47,9 @@ class Mage_Newsletter_ManageController extends Mage_Core_Controller_Front_Action
         $this->renderLayout();
     }
 
+    /**
+     * @return $this|void
+     */
     public function saveAction()
     {
         if (!$this->_validateFormKey()) {

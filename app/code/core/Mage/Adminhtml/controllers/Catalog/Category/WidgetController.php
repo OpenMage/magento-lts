@@ -22,6 +22,7 @@ class Mage_Adminhtml_Catalog_Category_WidgetController extends Mage_Adminhtml_Co
 
     /**
      * Chooser Source action
+     * @return void
      */
     public function chooserAction()
     {
@@ -32,6 +33,7 @@ class Mage_Adminhtml_Catalog_Category_WidgetController extends Mage_Adminhtml_Co
 
     /**
      * Categories tree node (Ajax version)
+     * @return void
      */
     public function categoriesJsonAction()
     {

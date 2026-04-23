@@ -14,6 +14,9 @@
  */
 class Mage_Adminhtml_Report_ReviewController extends Mage_Adminhtml_Controller_Action
 {
+    /**
+     * @return $this
+     */
     public function _initAction()
     {
         $act = $this->getRequest()->getActionName();
@@ -27,6 +30,9 @@ class Mage_Adminhtml_Report_ReviewController extends Mage_Adminhtml_Controller_A
         return $this;
     }
 
+    /**
+     * @return void
+     */
     public function customerAction()
     {
         $this->_title($this->__('Reports'))
@@ -42,6 +48,7 @@ class Mage_Adminhtml_Report_ReviewController extends Mage_Adminhtml_Controller_A
 
     /**
      * Export review customer report to CSV format
+     * @return void
      */
     public function exportCustomerCsvAction()
     {
@@ -54,6 +61,7 @@ class Mage_Adminhtml_Report_ReviewController extends Mage_Adminhtml_Controller_A
 
     /**
      * Export review customer report to Excel XML format
+     * @return void
      */
     public function exportCustomerExcelAction()
     {
@@ -64,6 +72,9 @@ class Mage_Adminhtml_Report_ReviewController extends Mage_Adminhtml_Controller_A
         $this->_prepareDownloadResponse($fileName, $content);
     }
 
+    /**
+     * @return void
+     */
     public function productAction()
     {
         $this->_title($this->__('Reports'))
@@ -79,6 +90,7 @@ class Mage_Adminhtml_Report_ReviewController extends Mage_Adminhtml_Controller_A
 
     /**
      * Export review product report to CSV format
+     * @return void
      */
     public function exportProductCsvAction()
     {
@@ -91,6 +103,7 @@ class Mage_Adminhtml_Report_ReviewController extends Mage_Adminhtml_Controller_A
 
     /**
      * Export review product report to Excel XML format
+     * @return void
      */
     public function exportProductExcelAction()
     {
@@ -101,6 +114,9 @@ class Mage_Adminhtml_Report_ReviewController extends Mage_Adminhtml_Controller_A
         $this->_prepareDownloadResponse($fileName, $content);
     }
 
+    /**
+     * @return void
+     */
     public function productDetailAction()
     {
         $this->_title($this->__('Reports'))
@@ -118,6 +134,7 @@ class Mage_Adminhtml_Report_ReviewController extends Mage_Adminhtml_Controller_A
 
     /**
      * Export review product detail report to CSV format
+     * @return void
      */
     public function exportProductDetailCsvAction()
     {
@@ -130,6 +147,7 @@ class Mage_Adminhtml_Report_ReviewController extends Mage_Adminhtml_Controller_A
 
     /**
      * Export review product detail report to ExcelXML format
+     * @return void
      */
     public function exportProductDetailExcelAction()
     {

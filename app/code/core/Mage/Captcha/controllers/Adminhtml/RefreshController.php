@@ -19,6 +19,7 @@ class Mage_Captcha_Adminhtml_RefreshController extends Mage_Adminhtml_Controller
     /**
      * Refreshes captcha and returns JSON encoded URL to image (AJAX action)
      * Example: {'imgSrc': 'http://example.com/media/captcha/67842gh187612ngf8s.png'}
+     * @return void
      */
     public function refreshAction()
     {
