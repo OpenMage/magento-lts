@@ -30,7 +30,7 @@ class Mage_Adminhtml_Block_System_Store_Store extends Mage_Adminhtml_Block_Widge
     protected function _prepareLayout()
     {
         /* Add website button */
-        $this->_addButton(self::BUTTON_TYPE_ADD, [
+        $this->_addButton('add_website', [
             'label'     => Mage::helper('core')->__('Create Website'),
             'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getUrl('*/*/newWebsite')),
             'class'     => 'add website',
