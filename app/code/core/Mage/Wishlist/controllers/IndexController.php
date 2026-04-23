@@ -136,8 +136,7 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
             Mage::getSingleton('core/session')->addError(Mage::helper('wishlist')->__(
                 'Please add product to wishlist again.',
             ));
-            $this->_redirectUrl(Mage::getSingleton('customer/session')->getBeforeWishlistUrl());
-            return;
+            return $this->_redirectUrl(Mage::getSingleton('customer/session')->getBeforeWishlistUrl());
         }
 
         $session = Mage::getSingleton('customer/session');
@@ -167,8 +166,7 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
     public function addAction()
     {
         if (!$this->_validateFormKey()) {
-            $this->_redirect('*/*');
-            return;
+            return $this->_redirect('*/*');
         }
 
         $this->_addItemToWishList();
@@ -373,8 +371,7 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
     public function updateAction()
     {
         if (!$this->_validateFormKey()) {
-            $this->_redirect('*/*/');
-            return;
+            return $this->_redirect('*/*/');
         }
 
         $wishlist = $this->_getWishlist();
@@ -471,8 +468,7 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
     public function removeAction()
     {
         if (!$this->_validateFormKey()) {
-            $this->_redirect('*/*');
-            return;
+            return $this->_redirect('*/*');
         }
 
         $id = (int) $this->getRequest()->getParam('item');
@@ -518,8 +514,7 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
     public function cartAction()
     {
         if (!$this->_validateFormKey()) {
-            $this->_redirect('*/*');
-            return;
+            return $this->_redirect('*/*');
         }
 
         $itemId = (int) $this->getRequest()->getParam('item');
@@ -527,14 +522,12 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
         /** @var Mage_Wishlist_Model_Item $item */
         $item = Mage::getModel('wishlist/item')->load($itemId);
         if (!$item->getId()) {
-            $this->_redirect('*/*');
-            return;
+            return $this->_redirect('*/*');
         }
 
         $wishlist = $this->_getWishlist($item->getWishlistId());
         if (!$wishlist) {
-            $this->_redirect('*/*');
-            return;
+            return $this->_redirect('*/*');
         }
 
         // Set qty
@@ -601,7 +594,7 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
 
         Mage::helper('wishlist')->calculate();
 
-        $this->_redirectUrl($redirectUrl);
+        return $this->_redirectUrl($redirectUrl);
     }
 
     /**
@@ -652,7 +645,7 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
             $session->addException($exception, Mage::helper('wishlist')->__('Cannot move item to wishlist'));
         }
 
-        $this->_redirectUrl(Mage::helper('checkout/cart')->getCartUrl());
+        return $this->_redirectUrl(Mage::helper('checkout/cart')->getCartUrl());
     }
 
     /**
@@ -680,8 +673,7 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
     public function sendAction()
     {
         if (!$this->_validateFormKey()) {
-            $this->_redirect('*/*/');
-            return;
+            return $this->_redirect('*/*/');
         }
 
         $wishlist = $this->_getWishlist();

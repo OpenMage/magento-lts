@@ -45,8 +45,7 @@ class Mage_Adminhtml_Catalog_Product_ReviewController extends Mage_Adminhtml_Con
         $this->_title($this->__('All Reviews'));
 
         if ($this->getRequest()->getParam('ajax')) {
-            $this->_forward('reviewGrid');
-            return;
+            return $this->_forward('reviewGrid');
         }
 
         $this->loadLayout();
@@ -70,8 +69,7 @@ class Mage_Adminhtml_Catalog_Product_ReviewController extends Mage_Adminhtml_Con
 
         if ($this->getRequest()->getParam('ajax')) {
             Mage::register('usePendingFilter', true);
-            $this->_forward('reviewGrid');
-            return;
+            return $this->_forward('reviewGrid');
         }
 
         $this->loadLayout();
@@ -173,8 +171,7 @@ class Mage_Adminhtml_Catalog_Product_ReviewController extends Mage_Adminhtml_Con
                 }
             }
 
-            $this->getResponse()->setRedirect($this->getUrl($this->getRequest()->getParam('ret') == 'pending' ? '*/*/pending' : '*/*/'));
-            return;
+            return $this->getResponse()->setRedirect($this->getUrl($this->getRequest()->getParam('ret') == 'pending' ? '*/*/pending' : '*/*/'));
         }
 
         $this->_redirect('*/*/');

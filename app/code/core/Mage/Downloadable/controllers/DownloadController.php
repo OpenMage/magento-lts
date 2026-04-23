@@ -162,8 +162,7 @@ class Mage_Downloadable_DownloadController extends Mage_Core_Controller_Front_Ac
         $linkPurchasedItem = Mage::getModel('downloadable/link_purchased_item')->load($id, 'link_hash');
         if (!$linkPurchasedItem->getId()) {
             $this->_getCustomerSession()->addNotice(Mage::helper('downloadable')->__('Requested link does not exist.'));
-            $this->_redirect('*/customer/products');
-            return;
+            return $this->_redirect('*/customer/products');
         }
 
         if (!Mage::helper('downloadable')->getIsShareable($linkPurchasedItem)) {
@@ -188,8 +187,7 @@ class Mage_Downloadable_DownloadController extends Mage_Core_Controller_Front_Ac
             $linkPurchased = Mage::getModel('downloadable/link_purchased')->load($linkPurchasedItem->getPurchasedId());
             if ($linkPurchased->getCustomerId() != $customerId) {
                 $this->_getCustomerSession()->addNotice(Mage::helper('downloadable')->__('Requested link does not exist.'));
-                $this->_redirect('*/customer/products');
-                return;
+                return $this->_redirect('*/customer/products');
             }
         }
 
@@ -240,6 +238,6 @@ class Mage_Downloadable_DownloadController extends Mage_Core_Controller_Front_Ac
             );
         }
 
-        $this->_redirect('*/customer/products');
+        return $this->_redirect('*/customer/products');
     }
 }

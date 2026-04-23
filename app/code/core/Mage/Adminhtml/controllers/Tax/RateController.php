@@ -95,7 +95,7 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
 
                 Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('tax')->__('The tax rate has been saved.'));
                 $this->getResponse()->setRedirect($this->getUrl('*/*/'));
-                return;
+                return true;
             } catch (Mage_Core_Exception $mageCoreException) {
                 Mage::getSingleton('adminhtml/session')->setFormData($ratePost);
                 Mage::getSingleton('adminhtml/session')->addError($mageCoreException->getMessage());
@@ -104,10 +104,11 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
             }
 
             $this->_redirectReferer();
-            return;
+            return null;
         }
 
         $this->getResponse()->setRedirect($this->getUrl('*/tax_rate'));
+        return null;
     }
 
     /**
@@ -167,7 +168,7 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
 
                     Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('tax')->__('The tax rate has been deleted.'));
                     $this->getResponse()->setRedirect($this->getUrl('*/*/'));
-                    return;
+                    return true;
                 } catch (Mage_Core_Exception $mageCoreException) {
                     Mage::getSingleton('adminhtml/session')->addError($mageCoreException->getMessage());
                 } catch (Exception) {
@@ -184,6 +185,8 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
                 $this->getResponse()->setRedirect($this->getUrl('*/*/'));
             }
         }
+
+        return null;
     }
 
     /**

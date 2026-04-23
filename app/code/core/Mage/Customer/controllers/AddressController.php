@@ -98,8 +98,7 @@ class Mage_Customer_AddressController extends Mage_Core_Controller_Front_Action
     public function formPostAction()
     {
         if (!$this->_validateFormKey()) {
-            $this->_redirect('*/*/');
-            return;
+            return $this->_redirect('*/*/');
         }
 
         // Save data
@@ -159,8 +158,7 @@ class Mage_Customer_AddressController extends Mage_Core_Controller_Front_Action
                     ->addException($exception, $this->__('Cannot save address.'));
             }
 
-            $this->_redirectError(Mage::getUrl('*/*/edit', ['id' => $address->getId()]));
-            return;
+            return $this->_redirectError(Mage::getUrl('*/*/edit', ['id' => $address->getId()]));
         }
 
         $this->_redirectReferer();
@@ -172,8 +170,7 @@ class Mage_Customer_AddressController extends Mage_Core_Controller_Front_Action
     public function deleteAction()
     {
         if (!$this->_validateFormKey()) {
-            $this->_redirect('*/*/');
-            return;
+            return $this->_redirect('*/*/');
         }
 
         $addressId = $this->getRequest()->getParam('id', false);

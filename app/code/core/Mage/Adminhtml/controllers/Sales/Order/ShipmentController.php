@@ -782,7 +782,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
     public function getShippingItemsGridAction()
     {
         $this->_initShipment();
-        $this->getResponse()->setBody(
+        return $this->getResponse()->setBody(
             $this->getLayout()
                 ->createBlock('adminhtml/sales_order_shipment_packaging_grid')
                 ->setIndex($this->getRequest()->getParam('index'))

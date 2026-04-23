@@ -39,10 +39,11 @@ class Mage_Rss_OrderController extends Mage_Rss_Controller_Abstract
                 Mage::helper('rss')->authFrontend();
             } else {
                 $this->_redirect('rss/order/customer', ['_secure' => true]);
-                return;
+                return $this;
             }
         }
 
+        return null;
     }
 
     /**

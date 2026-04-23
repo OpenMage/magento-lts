@@ -224,7 +224,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
         $prevStep = $this->getRequest()->getParam('prevStep', false);
 
         if ($this->_expireAjax() || !$prevStep) {
-            return;
+            return null;
         }
 
         $layout = $this->getLayout();
@@ -237,6 +237,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
 
         $output = $layout->getOutput();
         $this->getResponse()->setBody($output);
+        return $output;
     }
 
     /**

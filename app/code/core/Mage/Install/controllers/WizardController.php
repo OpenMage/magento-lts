@@ -232,7 +232,7 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
             try {
                 $this->_getInstaller()->installConfig($data);
                 $this->_redirect('*/*/installDb');
-                return;
+                return $this;
             } catch (Exception $exception) {
                 Mage::getSingleton('install/session')->addError($exception->getMessage());
                 $this->getResponse()->setRedirect($step->getUrl());
@@ -240,6 +240,7 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
         }
 
         $this->getResponse()->setRedirect($step->getUrl());
+        return null;
     }
 
     /**
@@ -313,7 +314,7 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
         if ($errors !== []) {
             Mage::getSingleton('install/session')->setAdminData($adminData);
             $this->getResponse()->setRedirect($step->getUrl());
-            return;
+            return false;
         }
 
         try {
@@ -324,10 +325,11 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
                 ->setAdminData($adminData)
                 ->addError($exception->getMessage());
             $this->getResponse()->setRedirect($step->getUrl());
-            return;
+            return false;
         }
 
         $this->getResponse()->setRedirect($step->getNextUrl());
+        return null;
     }
 
     /**

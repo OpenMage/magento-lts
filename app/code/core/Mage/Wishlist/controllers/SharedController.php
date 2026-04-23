@@ -87,8 +87,7 @@ class Mage_Wishlist_SharedController extends Mage_Wishlist_Controller_Abstract
         $wishlist = Mage::getModel('wishlist/wishlist')->loadByCode($code);
 
         if (!$item->getId() || !$wishlist->getId() || (int) $item->getWishlistId() !== (int) $wishlist->getId()) {
-            $this->_forward('noRoute');
-            return;
+            return $this->_forward('noRoute');
         }
 
         $redirectUrl = Mage::getUrl('*/*/index', ['code' => $code]);
@@ -127,6 +126,6 @@ class Mage_Wishlist_SharedController extends Mage_Wishlist_Controller_Abstract
             $session->addException($exception, Mage::helper('wishlist')->__('Cannot add item to shopping cart'));
         }
 
-        $this->_redirectUrl($redirectUrl);
+        return $this->_redirectUrl($redirectUrl);
     }
 }

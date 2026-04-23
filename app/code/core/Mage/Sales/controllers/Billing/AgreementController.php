@@ -97,7 +97,7 @@ class Mage_Sales_Billing_AgreementController extends Mage_Core_Controller_Front_
                     ->setCancelUrl(Mage::getUrl('*/*/cancelWizard', ['payment_method' => $paymentCode]));
 
                 $this->_redirectUrl($agreement->initToken());
-                return;
+                return $this;
             } catch (Mage_Core_Exception $mageCoreException) {
                 $this->_getSession()->addError($mageCoreException->getMessage());
             } catch (Exception $exception) {
@@ -107,6 +107,7 @@ class Mage_Sales_Billing_AgreementController extends Mage_Core_Controller_Front_
         }
 
         $this->_redirect('*/*/');
+        return null;
     }
 
     /**

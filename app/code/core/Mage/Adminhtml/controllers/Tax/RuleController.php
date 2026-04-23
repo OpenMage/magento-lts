@@ -34,6 +34,7 @@ class Mage_Adminhtml_Tax_RuleController extends Mage_Adminhtml_Controller_Action
         $this->_initAction()
             ->_addContent($this->getLayout()->createBlock('adminhtml/tax_rule'))
             ->renderLayout();
+        return $this;
     }
 
     /**
@@ -95,8 +96,7 @@ class Mage_Adminhtml_Tax_RuleController extends Mage_Adminhtml_Controller_Action
     {
         $postData = $this->getRequest()->getPost();
         if (!$postData) {
-            $this->getResponse()->setRedirect($this->getUrl('*/tax_rule'));
-            return;
+            return $this->getResponse()->setRedirect($this->getUrl('*/tax_rule'));
         }
 
         $ruleId = (int) $this->getRequest()->getParam('tax_calculation_rule_id');
@@ -110,8 +110,7 @@ class Mage_Adminhtml_Tax_RuleController extends Mage_Adminhtml_Controller_Action
         try {
             //Check if the rule already exists
             if (!$this->_isValidRuleRequest($ruleModel)) {
-                $this->_redirectReferer();
-                return;
+                return $this->_redirectReferer();
             }
 
             $ruleModel->save();

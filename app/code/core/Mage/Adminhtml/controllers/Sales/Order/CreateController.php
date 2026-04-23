@@ -350,8 +350,7 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
         $orderId = $this->getRequest()->getParam('order_id');
         $order = Mage::getModel('sales/order')->load($orderId);
         if (!Mage::helper('sales/reorder')->canReorder($order)) {
-            $this->_forward('noRoute');
-            return;
+            return $this->_forward('noRoute');
         }
 
         if ($order->getId()) {
@@ -579,6 +578,8 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
         /** @var Mage_Adminhtml_Helper_Catalog_Product_Composite $helper */
         $helper = Mage::helper('adminhtml/catalog_product_composite');
         $helper->renderConfigureResult($this, $configureResult);
+
+        return $this;
     }
 
     /**
@@ -620,6 +621,8 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
         /** @var Mage_Adminhtml_Helper_Catalog_Product_Composite $helper */
         $helper = Mage::helper('adminhtml/catalog_product_composite');
         $helper->renderConfigureResult($this, $configureResult);
+
+        return $this;
     }
 
     /**
@@ -635,8 +638,10 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
             $session->unsUpdateResult();
         } else {
             $session->unsUpdateResult();
-            return;
+            return false;
         }
+
+        return null;
     }
 
     /**

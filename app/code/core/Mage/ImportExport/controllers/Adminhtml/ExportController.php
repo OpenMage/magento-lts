@@ -74,7 +74,7 @@ class Mage_ImportExport_Adminhtml_ExportController extends Mage_Adminhtml_Contro
             $this->_getSession()->addError($this->__('No valid data sent'));
         }
 
-        $this->_redirect('*/*/index');
+        return $this->_redirect('*/*/index');
     }
 
     /**
@@ -111,8 +111,7 @@ class Mage_ImportExport_Adminhtml_ExportController extends Mage_Adminhtml_Contro
                         $export->setData($data)->getEntityAttributeCollection(),
                     ),
                 );
-                $this->renderLayout();
-                return;
+                return $this->renderLayout();
             } catch (Exception $exception) {
                 $this->_getSession()->addError($exception->getMessage());
             }
