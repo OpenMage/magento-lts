@@ -31,6 +31,7 @@ class Mage_Adminhtml_CacheController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Display cache management grid
+     * @return void
      */
     public function indexAction()
     {
@@ -43,6 +44,7 @@ class Mage_Adminhtml_CacheController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Flush cache storage
+     * @return void
      */
     public function flushAllAction()
     {
@@ -54,6 +56,7 @@ class Mage_Adminhtml_CacheController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Flush all magento cache
+     * @return void
      */
     public function flushSystemAction()
     {
@@ -77,6 +80,7 @@ class Mage_Adminhtml_CacheController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Mass action for cache enabling
+     * @return void
      */
     public function massEnableAction()
     {
@@ -101,6 +105,7 @@ class Mage_Adminhtml_CacheController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Mass action for cache disabling
+     * @return void
      */
     public function massDisableAction()
     {
@@ -127,6 +132,7 @@ class Mage_Adminhtml_CacheController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Mass action for cache refresh
+     * @return void
      */
     public function massRefreshAction()
     {
@@ -149,6 +155,7 @@ class Mage_Adminhtml_CacheController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Clean JS/css files cache
+     * @return void
      */
     public function cleanMediaAction()
     {
@@ -172,6 +179,7 @@ class Mage_Adminhtml_CacheController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Clean catalog files cache
+     * @return void
      */
     public function cleanImagesAction()
     {
@@ -195,6 +203,7 @@ class Mage_Adminhtml_CacheController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Clean configurable swatches files cache
+     * @return void
      */
     public function cleanSwatchesAction()
     {

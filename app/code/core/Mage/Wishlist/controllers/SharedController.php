@@ -74,7 +74,7 @@ class Mage_Wishlist_SharedController extends Mage_Wishlist_Controller_Abstract
      * If Product has required options - redirect
      * to product view page with message about needed defined required options
      *
-     * @return $this
+     * @return void
      * @throws Mage_Core_Exception
      */
     public function cartAction()

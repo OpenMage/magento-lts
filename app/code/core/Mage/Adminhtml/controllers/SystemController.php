@@ -20,6 +20,9 @@ class Mage_Adminhtml_SystemController extends Mage_Adminhtml_Controller_Action
      */
     public const ADMIN_RESOURCE = 'system';
 
+    /**
+     * @return void
+     */
     public function indexAction()
     {
         $this->loadLayout();
@@ -28,6 +31,9 @@ class Mage_Adminhtml_SystemController extends Mage_Adminhtml_Controller_Action
         $this->renderLayout();
     }
 
+    /**
+     * @return void
+     */
     public function setStoreAction()
     {
         $storeId = (int) $this->getRequest()->getParam('store');

@@ -34,6 +34,7 @@ class Mage_Oauth_TokenController extends Mage_Core_Controller_Front_Action
 
     /**
      * Index action. Process request and response permanent token
+     * @return void
      */
     public function indexAction()
     {

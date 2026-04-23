@@ -98,6 +98,7 @@ class Mage_Sales_DownloadController extends Mage_Core_Controller_Front_Action
 
     /**
      * Profile custom options download action
+     * @return void
      */
     public function downloadProfileCustomOptionAction()
     {
@@ -146,6 +147,7 @@ class Mage_Sales_DownloadController extends Mage_Core_Controller_Front_Action
      * Custom options download action
      *
      * @SuppressWarnings("PHPMD.ExitExpression")
+     * @return void
      */
     public function downloadCustomOptionAction()
     {
