@@ -58,7 +58,7 @@ class Mage_Dataflow_Model_Convert_Parser_Xml_Excel extends Mage_Dataflow_Model_C
         $batchModel = $this->getBatchModel();
         $batchIoAdapter = $this->getBatchModel()->getIoAdapter();
 
-        $files = Mage::app()->getRequest()->getParam('files');
+        $files = Mage::helper('dataflow')->escapeHtml(Mage::app()->getRequest()->getParam('files'));
         if ($files) {
             $file = $this->getCopyFile($files);
             $this->_copy($file);
@@ -176,6 +176,12 @@ class Mage_Dataflow_Model_Convert_Parser_Xml_Excel extends Mage_Dataflow_Model_C
         return $xmlString;
     }
 
+    /**
+     * @param string $xmlString
+     * @return $this
+     * @throws Mage_Core_Exception
+     * @throws Throwable
+     */
     protected function _saveParsedRow($xmlString)
     {
         $xml = '<?xml version="1.0"?><?mso-application progid="Excel.Sheet"?><Workbook'
@@ -238,6 +244,10 @@ class Mage_Dataflow_Model_Convert_Parser_Xml_Excel extends Mage_Dataflow_Model_C
         return $this;
     }
 
+    /**
+     * @return $this
+     * @throws Mage_Core_Exception
+     */
     public function unparse()
     {
         $batchExport = $this->getBatchExportModel()
