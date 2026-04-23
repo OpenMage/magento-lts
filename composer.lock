@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "42fd2e2950eed3dcf9ddc16e27cf38c7",
+    "content-hash": "84f4ebff9fdd6a0569ce381a560b93d8",
     "packages": [
         {
             "name": "carbonphp/carbon-doctrine-types",
@@ -6751,58 +6751,22 @@
             "time": "2025-12-06T11:56:16+00:00"
         },
         {
-            "name": "openmage/dev-meta-package",
-            "version": "1.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/OpenMage/dev-meta-package.git",
-                "reference": "d463c0e3a7ea0067f48dc21c1ce47ebd04345677"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/OpenMage/dev-meta-package/zipball/d463c0e3a7ea0067f48dc21c1ce47ebd04345677",
-                "reference": "d463c0e3a7ea0067f48dc21c1ce47ebd04345677",
-                "shasum": ""
-            },
-            "require": {
-                "openmage/dev-translations": "dev-main"
-            },
-            "type": "metapackage",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "OSL-3.0"
-            ],
-            "authors": [
-                {
-                    "name": "Sven Reichel",
-                    "email": "github-sr@hotmail.com"
-                }
-            ],
-            "description": "OpenMage tools that are only needed for development.",
-            "support": {
-                "issues": "https://github.com/OpenMage/dev-meta-package/issues",
-                "source": "https://github.com/OpenMage/dev-meta-package/tree/v1.1.0"
-            },
-            "time": "2025-11-02T07:56:11+00:00"
-        },
-        {
             "name": "openmage/dev-translations",
-            "version": "dev-main",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/OpenMage/dev-translations.git",
-                "reference": "cac06c24c2bc32eb7c75eb414708070da9648b9a"
+                "reference": "78e3ee754d34be591e1a7034d3a5a787fe9c142f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/OpenMage/dev-translations/zipball/cac06c24c2bc32eb7c75eb414708070da9648b9a",
-                "reference": "cac06c24c2bc32eb7c75eb414708070da9648b9a",
+                "url": "https://api.github.com/repos/OpenMage/dev-translations/zipball/78e3ee754d34be591e1a7034d3a5a787fe9c142f",
+                "reference": "78e3ee754d34be591e1a7034d3a5a787fe9c142f",
                 "shasum": ""
             },
             "require": {
                 "magento-hackathon/magento-composer-installer": "*"
             },
-            "default-branch": true,
             "type": "magento-module",
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -6817,9 +6781,9 @@
             "description": "Finds missing and unused translations.",
             "support": {
                 "issues": "https://github.com/OpenMage/dev-translations/issues",
-                "source": "https://github.com/OpenMage/dev-translations/tree/main"
+                "source": "https://github.com/OpenMage/dev-translations/tree/1.0.1"
             },
-            "time": "2025-11-02T07:57:54+00:00"
+            "time": "2026-04-23T19:49:36+00:00"
         },
         {
             "name": "pdepend/pdepend",
