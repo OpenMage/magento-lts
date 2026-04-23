@@ -107,18 +107,20 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
         ?string $onClickUrl = null,
         ?string $onClickConfirmUrl = null,
     ) {
+        $jsHelper = Mage::helper('core/js');
+
         if (is_string($onClickUrl) && $onClickUrl !== '') {
-            $onClick = Mage::helper('core/js')->getSetLocationJs($onClickUrl);
+            $onClick = $jsHelper->getSetLocationJs($onClickUrl);
         }
 
         if (is_string($onClickConfirmUrl) && $onClickConfirmUrl !== '') {
-            $onClick = Mage::helper('core/js')->getConfirmSetLocationJs($onClickConfirmUrl);
+            $onClick = $jsHelper->getConfirmSetLocationJs($onClickConfirmUrl);
         }
 
         # ... todo
         if (is_null($onClick)) {
             $onClick = match ($id) {
-                self::BUTTON_TYPE_BACK      => Mage::helper('core/js')->getSetLocationJs(Mage::helper('adminhtml')::getUrl('*/*/')),
+                self::BUTTON_TYPE_BACK      => $jsHelper->getSetLocationJs(Mage::helper('adminhtml')::getUrl('*/*/')),
                 self::BUTTON_TYPE_CLOSE     => 'window.close()',
                 self::BUTTON_TYPE_RESET     => 'setLocation(window.location.href)',
                 self::BUTTON_TYPE_SAVE      => 'editForm.submit();',
