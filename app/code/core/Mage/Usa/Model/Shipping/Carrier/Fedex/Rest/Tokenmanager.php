@@ -2,6 +2,13 @@
 
 declare(strict_types=1);
 
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
+ * @package    Mage_Usa
+ */
+
 use Carbon\Carbon;
 use Saloon\Http\Auth\AccessTokenAuthenticator;
 use ShipStream\FedEx\Contracts\TokenCache;

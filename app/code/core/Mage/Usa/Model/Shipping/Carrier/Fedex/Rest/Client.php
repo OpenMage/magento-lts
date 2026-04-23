@@ -2,6 +2,13 @@
 
 declare(strict_types=1);
 
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
+ * @package    Mage_Usa
+ */
+
 use Saloon\Exceptions\Request\RequestException;
 use ShipStream\FedEx\Api\RatesAndTransitTimesV1\Dto\FullSchemaQuoteRate;
 use ShipStream\FedEx\Api\ShipV1\Dto\FullSchemaCancelShipment;
