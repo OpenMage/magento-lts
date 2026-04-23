@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "54f30f5fef7092cc4f2dd7192722d5f7",
+    "content-hash": "84f4ebff9fdd6a0569ce381a560b93d8",
     "packages": [
         {
             "name": "carbonphp/carbon-doctrine-types",
@@ -6752,16 +6752,16 @@
         },
         {
             "name": "openmage/dev-translations",
-            "version": "1.0.0",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/OpenMage/dev-translations.git",
-                "reference": "b764dd3e4354d79b54e3ad07b9c09e2fd5eca2ac"
+                "reference": "78e3ee754d34be591e1a7034d3a5a787fe9c142f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/OpenMage/dev-translations/zipball/b764dd3e4354d79b54e3ad07b9c09e2fd5eca2ac",
-                "reference": "b764dd3e4354d79b54e3ad07b9c09e2fd5eca2ac",
+                "url": "https://api.github.com/repos/OpenMage/dev-translations/zipball/78e3ee754d34be591e1a7034d3a5a787fe9c142f",
+                "reference": "78e3ee754d34be591e1a7034d3a5a787fe9c142f",
                 "shasum": ""
             },
             "require": {
@@ -6781,9 +6781,9 @@
             "description": "Finds missing and unused translations.",
             "support": {
                 "issues": "https://github.com/OpenMage/dev-translations/issues",
-                "source": "https://github.com/OpenMage/dev-translations/tree/1.0.0"
+                "source": "https://github.com/OpenMage/dev-translations/tree/1.0.1"
             },
-            "time": "2026-04-23T19:35:17+00:00"
+            "time": "2026-04-23T19:49:36+00:00"
         },
         {
             "name": "pdepend/pdepend",
