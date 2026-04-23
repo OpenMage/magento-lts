@@ -22,7 +22,7 @@ class Mage_Adminhtml_Block_Customer_Group_Edit extends Mage_Adminhtml_Block_Widg
         $this->_controller = 'customer_group';
 
         if (!Mage::registry('current_group')->getId() || Mage::registry('current_group')->usesAsDefault()) {
-            $this->_removeButton('delete');
+            $this->_removeButton(self::BUTTON_TYPE_DELETE);
         }
     }
 

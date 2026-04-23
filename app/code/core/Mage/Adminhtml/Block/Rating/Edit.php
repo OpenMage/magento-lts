@@ -20,8 +20,8 @@ class Mage_Adminhtml_Block_Rating_Edit extends Mage_Adminhtml_Block_Widget_Form_
         $this->_objectId = 'id';
         $this->_controller = 'rating';
 
-        $this->_updateButton('save', 'label', Mage::helper('rating')->__('Save Rating'));
-        $this->_updateButton('delete', 'label', Mage::helper('rating')->__('Delete Rating'));
+        $this->_updateButton(self::BUTTON_TYPE_SAVE, 'label', Mage::helper('rating')->__('Save Rating'));
+        $this->_updateButton(self::BUTTON_TYPE_DELETE, 'label', Mage::helper('rating')->__('Delete Rating'));
 
         if ($this->getRequest()->getParam($this->_objectId)) {
             $ratingData = Mage::getModel('rating/rating')

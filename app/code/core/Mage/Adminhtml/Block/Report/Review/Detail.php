@@ -20,7 +20,7 @@ class Mage_Adminhtml_Block_Report_Review_Detail extends Mage_Adminhtml_Block_Wid
         $product = Mage::getModel('catalog/product')->load($this->getRequest()->getParam('id'));
         $this->_headerText = Mage::helper('reports')->__('Reviews for %s', $this->escapeHtml($product->getName()));
         parent::__construct();
-        $this->_removeButton('add');
+        $this->_removeButton(self::BUTTON_TYPE_ADD);
         $this->setBackUrl($this->getUrl('*/report_review/product/'));
         $this->_addBackButton();
     }

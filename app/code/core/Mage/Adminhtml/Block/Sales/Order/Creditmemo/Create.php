@@ -22,8 +22,8 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_Create extends Mage_Adminhtml_
 
         parent::__construct();
 
-        $this->_removeButton('delete');
-        $this->_removeButton('save');
+        $this->_removeButton(self::BUTTON_TYPE_DELETE);
+        $this->_removeButton(self::BUTTON_TYPE_SAVE);
     }
 
     /**

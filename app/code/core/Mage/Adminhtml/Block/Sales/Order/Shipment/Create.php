@@ -22,8 +22,8 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Create extends Mage_Adminhtml_Bl
 
         parent::__construct();
 
-        $this->_removeButton('save');
-        $this->_removeButton('delete');
+        $this->_removeButton(self::BUTTON_TYPE_SAVE);
+        $this->_removeButton(self::BUTTON_TYPE_DELETE);
     }
 
     /**
