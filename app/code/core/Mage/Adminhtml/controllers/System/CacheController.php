@@ -46,7 +46,7 @@ class Mage_Adminhtml_System_CacheController extends Mage_Adminhtml_Controller_Ac
     }
 
     /**
-     * Seva cache settings
+     * Save cache settings
      * @return void
      */
     public function saveAction()
