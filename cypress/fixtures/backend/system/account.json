@@ -1,23 +1,23 @@
 {
     "default": {
         "username": {
-            "_": "#username",
+            "_": "input-username",
             "value": "admin"
         },
         "firstname": {
-            "_": "#firstname",
+            "_": "input-firstname",
             "value": "OpenMage"
         },
         "lastname": {
-            "_": "#lastname",
+            "_": "input-lastname",
             "value": "Administrator"
         },
         "email": {
-            "_": "#email",
+            "_": "input-email",
             "value": "admin@example.com"
         },
         "currentPassword": {
-            "_": "#current_password",
+            "_": "input-current-password",
             "value": "veryl0ngpassw0rd"
         }
     }

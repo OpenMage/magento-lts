@@ -20,7 +20,7 @@ describe(`Checks admin system "${test.index.title}"`, () => {
         validation.fixture.fillFields(this.fixture.default, true);
         validation.fixture.removeClasses(this.fixture.default);
 
-        cy.get(this.fixture.default.currentPassword._)
+        cy.getBySel(this.fixture.default.currentPassword._)
             .type(this.fixture.default.currentPassword.value)
             .should('have.value', this.fixture.default.currentPassword.value);
 
