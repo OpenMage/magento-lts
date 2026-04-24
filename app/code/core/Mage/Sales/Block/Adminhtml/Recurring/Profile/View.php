@@ -57,24 +57,30 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_View extends Mage_Adminhtml_B
 
         // activate
         if ($profile->canActivate()) {
-            $this->_addButton('activate', [
-                'label'     => Mage::helper('sales')->__('Activate'),
-                'onclick'   => Mage::helper('core/js')->getConfirmSetLocationJs(
-                    $this->getUrl('*/*/updateState', ['profile' => $profile->getId(), 'action' => 'activate']),
-                ),
-                'class'     => 'add',
-            ]);
+            $onClick = Mage::helper('core/js')->getConfirmSetLocationJs(
+                $this->getUrl('*/*/updateState', ['profile' => $profile->getId(), 'action' => 'activate']),
+            );
+
+            $this->_addPreparedButton(
+                id: 'activate',
+                label: Mage::helper('sales')->__('Activate'),
+                class: 'add',
+                onClick: $onClick,
+            );
         }
 
         // get update
         if ($profile->canFetchUpdate()) {
-            $this->_addButton('update', [
-                'label'     => Mage::helper('sales')->__('Get Update'),
-                'onclick'   => Mage::helper('core/js')->getConfirmSetLocationJs(
-                    $this->getUrl('*/*/updateProfile', ['profile' => $profile->getId()]),
-                ),
-                'class'     => 'add',
-            ]);
+            $onClick = Mage::helper('core/js')->getConfirmSetLocationJs(
+                $this->getUrl('*/*/updateProfile', ['profile' => $profile->getId()]),
+            );
+
+            $this->_addPreparedButton(
+                id: 'update',
+                label: Mage::helper('sales')->__('Get Update'),
+                class: 'add',
+                onClick: $onClick,
+            );
         }
 
         return parent::_prepareLayout();
