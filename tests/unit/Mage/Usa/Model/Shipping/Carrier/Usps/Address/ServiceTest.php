@@ -9,7 +9,7 @@
 
 declare(strict_types=1);
 
-namespace OpenMage\Tests\Unit\Mage\Usa\Model\Shipping\Carrier\Usps\Adress;
+namespace OpenMage\Tests\Unit\Mage\Usa\Model\Shipping\Carrier\Usps\Address;
 
 use Mage;
 use Mage_Usa_Model_Shipping_Carrier_Usps_Address_Service as Subject;
