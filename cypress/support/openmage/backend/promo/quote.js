@@ -19,28 +19,12 @@ test.config = {
 
 /**
  * Configuration for "Shopping Cart Price Rules" page
- * @type {{title: string, url: string, grid: {}, __buttons: {}}}
+ * @type {{title: string, url: string, grid: {}}}
  */
 test.config.index = {
     title: 'Shopping Cart Price Rules',
     url: test.config.url,
     grid: {...base.__grid, ...{ sort: {order: 'sort_order', dir: 'asc' } }},
-    __buttons: {},
-}
-
-/**
- * Configuration for buttons on "Shopping Cart Price Rules" page
- * @type {{add: {__class: string[], click: cy.openmage.test.backend.promo.quote.config.index.__buttons.add.click, _: string}}}
- * @private
- */
-test.config.index.__buttons = {
-    add: {
-        _: base._button + '[title="Add New Rule"]',
-        __class: base.__buttons.add.__class,
-        click: () => {
-            tools.click(test.config.index.__buttons.add._, 'Add New Shopping Cart Price Rules button clicked');
-        },
-    },
 }
 
 /**

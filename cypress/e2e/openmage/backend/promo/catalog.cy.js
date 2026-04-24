@@ -10,10 +10,10 @@ describe(`Checks admin system "${test.index.title}"`, () => {
     });
 
     it(`tests save empty values, no js`, () => {
-        test.index.__buttons.add.click();
+        tools.admin.buttons.clickAdd();
         validation.removeClassesAll();
 
-        test.new.__buttons.saveAndContinue.click();
+        tools.admin.buttons.clickSaveAndContinue(test.edit.url);
         // TODO: see https://github.com/OpenMage/magento-lts/pull/5281
         validation.hasSuccessMessage('The rule has been saved.', { match: 'have.text' });
         // validation.hasErrorMessage();
@@ -33,7 +33,7 @@ describe(`Checks admin system "${test.index.title}"`, () => {
     });
 
     it(`tests new route`, () => {
-        test.index.__buttons.add.click();
+        tools.admin.buttons.clickAdd();
         validation.pageElements(test, test.new);
     });
 });

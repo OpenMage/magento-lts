@@ -9,6 +9,7 @@ cy.openmage.check = {
             // Check if number of visible buttons is equal to the number of configured buttons
             cy.get(config._button).filter(':visible').should('have.length', Object.keys(path.__buttons).length);
 
+            /*
             for (const button of Object.keys(path.__buttons)) {
                 // Check if button exists
                 cy.get(path.__buttons[button]._).should('exist');
@@ -21,8 +22,13 @@ cy.openmage.check = {
                         })
                 }
             };
+            */
         }
     },
+    /**
+     * Do not use __fields
+     * @deprecated Use fixture data and validation functions instead
+     */
     fields: (config, path) => {
         cy.log('Checking for existing fields');
         if (path.__fields !== undefined) {

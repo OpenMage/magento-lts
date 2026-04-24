@@ -7,13 +7,14 @@ describe(`Checks admin system "${test.index.title}"`, () => {
     beforeEach('Log in the user', () => {
         cy.openmage.admin.login();
         cy.openmage.admin.goToPage(test, test.index);
+        cy.fixture(test.__fixture).as('fixture');
     });
 
-    it(`tests save empty values, no js`, () => {
-        test.index.__buttons.add.click();
-        validation.removeClasses(test.new);
+    it(`tests save empty values, no js`, function () {
+        tools.admin.buttons.clickAdd();
+        validation.fixture.removeClasses(this.fixture.default);
 
-        test.new.__buttons.saveAndContinue.click();
+        tools._click('admin-button-save-continue', test.new.url);
         validation.hasErrorMessage('Validation has failed.', { match: 'have.text' });
     });
 
@@ -26,18 +27,18 @@ describe(`Checks admin system "${test.index.title}"`, () => {
     });
 
     it(`tests new route`, () => {
-        test.index.__buttons.add.click();
+        tools.admin.buttons.clickAdd();
         validation.pageElements(test, test.new);
 
-        test.new.__buttons.reset.click(test.new.url);
-        test.new.__buttons.back.click(test.index.url);
+        tools.admin.buttons.clickReset(test.new.url);
+        tools.admin.buttons.clickBack(test.index.url);
     });
 
     it(`tests edit route`, () => {
         // TODO: There is no sample data for custom variables, need to create one first
         validation.pageElements(test, test.index);
 
-        //test.edit.__buttons.reset.click(test.edit.url);
-        //test.edit.__buttons.back.click(test.index.url);
+        //tools.admin.buttons.clickReset(test.edit.url);
+        //tools.admin.buttons.clickBack(test.index.url);
     });
 });
