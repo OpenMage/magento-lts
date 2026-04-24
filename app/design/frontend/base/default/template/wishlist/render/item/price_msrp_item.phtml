@@ -23,6 +23,7 @@
     $_product = $this->getProduct();
     $_id = $_product->getId();
     $_msrpPrice = '';
+    $_addToCartUrl = $_product->isSalable() ? $this->getAddToCartUrlCustom($_product, [], false) : '';
 ?>
     <div class="price-box map-info">
     <?php $_price = $this->helper('tax')->getPrice($_product, $_product->getMsrp()) ?>
@@ -63,10 +64,10 @@
 
                 Catalog.Map.addHelpLink(
                     $('<?php echo $popupId ?>'),
-                    "<?php echo $_product->getName() ?>",
+                    <?php echo $_coreHelper->jsonEncode($_product->getName()) ?>,
                     $("<?php echo $priceElementId ?>"),
-                    '<?php echo $_msrpPrice ?>',
-                    "<?php echo $_product->isSalable() ? $this->getAddToCartUrlCustom($_product, [], false) : '' ?>"
+                    <?php echo $_coreHelper->jsonEncode($_msrpPrice) ?>,
+                    <?php echo $_coreHelper->jsonEncode($_addToCartUrl) ?>
                 );
             </script>
         <?php else: ?>

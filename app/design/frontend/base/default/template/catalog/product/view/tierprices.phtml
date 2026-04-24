@@ -18,6 +18,8 @@ $_finalPriceInclTax = $this->helper('tax')->getPrice($_product, $_product->getFi
 
 /** @var Mage_Catalog_Helper_Data $_catalogHelper */
 $_catalogHelper = Mage::helper('catalog');
+/** @var Mage_Core_Helper_Data $_coreHelper */
+$_coreHelper = Mage::helper('core');
 
 $_weeeTaxAmount = Mage::helper('weee')->getAmountForDisplay($_product);
 if (Mage::helper('weee')->typeOfDisplay($_product, [1,2,4])) {
@@ -184,20 +186,20 @@ if (Mage::helper('weee')->typeOfDisplay($_product, [1,2,4])) {
             ?>
             <?php if (!$this->getInGrouped()): ?>
                 var newLink = {
-                    url: "<?php echo $addToCartUrl; ?>",
-                    qty: "<?php echo $_price['price_qty']?>"
+                    url: <?php echo $_coreHelper->jsonEncode($addToCartUrl) ?>,
+                    qty: <?php echo $_coreHelper->jsonEncode($_price['price_qty']) ?>
                 };
             <?php else: ?>
                 var newLink = {
-                    url: "<?php echo $addToCartUrl; ?>",
+                    url: <?php echo $_coreHelper->jsonEncode($addToCartUrl) ?>,
                     notUseForm: true
                 };
             <?php endif ?>
                 Catalog.Map.addHelpLink(
                     $('<?php echo $popupId ?>'),
-                    "<?php echo $this->escapeHtml($_product->getName()) ?>",
-                    <?php echo json_encode($_price['real_price_html']) ?>,
-                    "<?php echo $this->helper('core')::currency($_product->getMsrp(),true,false) ?>",
+                    <?php echo $_coreHelper->jsonEncode($_product->getName()) ?>,
+                    <?php echo $_coreHelper->jsonEncode($_price['real_price_html']) ?>,
+                    <?php echo $_coreHelper->jsonEncode($_coreHelper::currency($_product->getMsrp(), true, false)) ?>,
                     newLink
                 );
             </script>
