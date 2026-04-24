@@ -30,7 +30,6 @@ class Mage_Adminhtml_Report_ProductController extends Mage_Adminhtml_Controller_
     /**
      * Bestsellers
      *
-     * @return void
      * @deprecated after 1.4.0.1
      */
     public function orderedAction()
@@ -41,7 +40,6 @@ class Mage_Adminhtml_Report_ProductController extends Mage_Adminhtml_Controller_
     /**
      * Export products bestsellers report to CSV format
      *
-     * @return void
      * @deprecated after 1.4.0.1
      */
     public function exportOrderedCsvAction()
@@ -52,7 +50,6 @@ class Mage_Adminhtml_Report_ProductController extends Mage_Adminhtml_Controller_
     /**
      * Export products bestsellers report to XML format
      *
-     * @return void
      * @deprecated after 1.4.0.1
      */
     public function exportOrderedExcelAction()

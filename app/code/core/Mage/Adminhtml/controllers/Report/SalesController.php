@@ -113,7 +113,6 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Re
     /**
      * Refresh statistics for last 25 hours
      *
-     * @return void
      * @deprecated after 1.4.0.1
      */
     public function refreshRecentAction()
@@ -124,7 +123,6 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Re
     /**
      * Refresh statistics for all period
      *
-     * @return void
      * @deprecated after 1.4.0.1
      */
     public function refreshLifetimeAction()
@@ -397,7 +395,6 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Re
     }
 
     /**
-     * @return void
      * @deprecated after 1.4.0.1
      */
     public function refreshStatisticsAction()

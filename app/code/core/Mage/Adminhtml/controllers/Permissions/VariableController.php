@@ -106,7 +106,7 @@ class Mage_Adminhtml_Permissions_VariableController extends Mage_Adminhtml_Contr
     /**
      * Save action
      *
-     * @return void
+     * @return null|$this
      * @throws Mage_Core_Exception
      */
     public function saveAction()

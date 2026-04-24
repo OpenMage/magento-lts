@@ -65,7 +65,7 @@ class Mage_Adminhtml_Customer_Wishlist_Product_Composite_WishlistController exte
     /**
      * Ajax handler to response configuration fieldset of composite product in customer's wishlist
      *
-     * @return void
+     * @return $this
      */
     public function configureAction()
     {
@@ -95,7 +95,7 @@ class Mage_Adminhtml_Customer_Wishlist_Product_Composite_WishlistController exte
     /**
      * IFrame handler for submitted configuration for wishlist item
      *
-     * @return void
+     * @return false
      */
     public function updateAction()
     {
