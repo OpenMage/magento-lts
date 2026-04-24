@@ -287,6 +287,55 @@ class Mage_Adminhtml_Model_Config extends Varien_Simplexml_Config
             }
         }
 
+        if (!$explodePathToEntities) {
+            $paths = array_merge($paths, $this->_getEncryptedDefaultConfigPaths());
+            $paths = array_values(array_unique($paths));
+        }
+
         return $paths;
+    }
+
+    /**
+     * Look for encrypted node entries in merged default configuration and return their config paths.
+     *
+     * @return array
+     */
+    protected function _getEncryptedDefaultConfigPaths()
+    {
+        $paths = [];
+        $defaultConfig = Mage::getConfig()->getNode('default');
+        if (!$defaultConfig) {
+            return $paths;
+        }
+
+        foreach ($defaultConfig->xpath('.//*[@backend_model="adminhtml/system_config_backend_encrypted"]') as $node) {
+            $path = $this->_getDefaultConfigNodePath($node);
+            if ($path !== '') {
+                $paths[] = $path;
+            }
+        }
+
+        return $paths;
+    }
+
+    /**
+     * Return a slash-delimited path for a node below the merged default config root.
+     *
+     * @param Varien_Simplexml_Element $node
+     * @return string
+     */
+    protected function _getDefaultConfigNodePath(Varien_Simplexml_Element $node)
+    {
+        $path = [];
+        while ($node->getName() !== 'default') {
+            array_unshift($path, $node->getName());
+            $parents = $node->xpath('..');
+            if (!$parents) {
+                return '';
+            }
+            $node = $parents[0];
+        }
+
+        return implode('/', $path);
     }
 }
