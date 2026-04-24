@@ -58,11 +58,12 @@ class Mage_Adminhtml_Block_Sales_Transactions_Detail extends Mage_Adminhtml_Bloc
         if (Mage::getSingleton('admin/session')->isAllowed('sales/transactions/fetch')
             && $this->_txn->getOrderPaymentObject()->getMethodInstance()->canFetchTransactionInfo()
         ) {
-            $this->_addButton('fetch', [
-                'label'   => Mage::helper('sales')->__('Fetch'),
-                'onclick' => Mage::helper('core/js')->getSetLocationJs($this->getUrl('*/*/fetch', ['_current' => true])),
-                'class'   => 'button',
-            ]);
+            $this->_addPreparedButton(
+                id: 'fetch',
+                label: Mage::helper('sales')->__('Fetch'),
+                class: 'button',
+                onClickUrl: $this->getUrl('*/*/fetch', ['_current' => true]),
+            );
         }
     }
 

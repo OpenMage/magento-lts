@@ -23,11 +23,12 @@ class Mage_Adminhtml_Block_Customer_Edit extends Mage_Adminhtml_Block_Widget_For
         if ($this->getCustomerId()
             && Mage::getSingleton('admin/session')->isAllowed('sales/order/actions/create')
         ) {
-            $this->_addButton('order', [
-                'label'     => Mage::helper('customer')->__('Create Order'),
-                'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getCreateOrderUrl()),
-                'class'     => 'add create-order',
-            ], 0);
+            $this->_addPreparedButton(
+                id: 'order',
+                label: Mage::helper('customer')->__('Create Order'),
+                class: 'add create-order',
+                onClickUrl: $this->getCreateOrderUrl(),
+            );
         }
 
         parent::__construct();

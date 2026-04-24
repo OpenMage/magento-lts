@@ -27,11 +27,12 @@ class Mage_Adminhtml_Block_Widget_View_Container extends Mage_Adminhtml_Block_Wi
             onClick: "window.location.href='" . $this->getUrl('*/*/') . "'",
         );
 
-        $this->_addButton('edit', [
-            'label'     => Mage::helper('adminhtml')->__('Edit'),
-            'class'     => 'edit',
-            'onclick'   => "window.location.href='" . $this->getEditUrl() . "'",
-        ]);
+        $this->_addPreparedButton(
+            id: 'edit',
+            label: Mage::helper('adminhtml')->__('Edit'),
+            class: 'edit',
+            onClick: "window.location.href='" . $this->getEditUrl() . "'",
+        );
     }
 
     #[Override]

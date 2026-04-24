@@ -30,25 +30,28 @@ class Mage_Adminhtml_Block_System_Store_Store extends Mage_Adminhtml_Block_Widge
     protected function _prepareLayout()
     {
         /* Add website button */
-        $this->_addButton('add_website', [
-            'label'     => Mage::helper('core')->__('Create Website'),
-            'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getUrl('*/*/newWebsite')),
-            'class'     => 'add website',
-        ]);
+        $this->_addPreparedButton(
+            id: 'add_website',
+            label: Mage::helper('core')->__('Create Website'),
+            class: 'add website',
+            onClickUrl: $this->getUrl('*/*/newWebsite'),
+        );
 
         /* Add Store Group button */
-        $this->_addButton('add_group', [
-            'label'     => Mage::helper('core')->__('Create Store'),
-            'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getUrl('*/*/newGroup')),
-            'class'     => 'add store',
-        ]);
+        $this->_addPreparedButton(
+            id: 'add_group',
+            label: Mage::helper('core')->__('Create Store'),
+            class: 'add store',
+            onClickUrl: $this->getUrl('*/*/newGroup'),
+        );
 
         /* Add Store button */
-        $this->_addButton('add_store', [
-            'label'     => Mage::helper('core')->__('Create Store View'),
-            'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getUrl('*/*/newStore')),
-            'class'     => 'add storeview',
-        ]);
+        $this->_addPreparedButton(
+            id: 'add_store',
+            label: Mage::helper('core')->__('Create Store View'),
+            class: 'add storeview',
+            onClickUrl: $this->getUrl('*/*/newStore'),
+        );
 
         return parent::_prepareLayout();
     }

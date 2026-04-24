@@ -43,13 +43,16 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_View extends Mage_Adminhtml_B
 
         // suspend
         if ($profile->canSuspend()) {
-            $this->_addButton('suspend', [
-                'label'     => Mage::helper('sales')->__('Suspend'),
-                'onclick'   => Mage::helper('core/js')->getConfirmSetLocationJs(
-                    $this->getUrl('*/*/updateState', ['profile' => $profile->getId(), 'action' => 'suspend']),
-                ),
-                'class'     => 'delete',
-            ]);
+            $onClick = Mage::helper('core/js')->getConfirmSetLocationJs(
+                $this->getUrl('*/*/updateState', ['profile' => $profile->getId(), 'action' => 'suspend']),
+            );
+
+            $this->_addPreparedButton(
+                id: 'suspend',
+                label: Mage::helper('sales')->__('Suspend'),
+                class: 'delete',
+                onClick: $onClick,
+            );
         }
 
         // activate
