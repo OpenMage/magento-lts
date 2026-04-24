@@ -28,7 +28,6 @@ final class StandardsTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('usa/shipping_carrier_usps_service_standards');
-        self::markTestSkipped('');
     }
 
     /**

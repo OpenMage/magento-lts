@@ -28,7 +28,6 @@ final class ServiceTest extends OpenMageTest
     {
         parent::setUpBeforeClass();
         self::$subject = Mage::getModel('usa/shipping_carrier_usps_address_service');
-        self::markTestSkipped('');
     }
 
     /**
