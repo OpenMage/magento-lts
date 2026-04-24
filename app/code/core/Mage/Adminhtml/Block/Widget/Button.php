@@ -40,8 +40,8 @@ class Mage_Adminhtml_Block_Widget_Button extends Mage_Adminhtml_Block_Widget
 
     public function getTestId(): bool|string
     {
-        if ($this->getDataByKey('id')) {
-            return 'admin-button-' . str_replace('_', '-', $this->getDataByKey('id'));
+        if ($this->getDataByKey('test_id')) {
+            return 'admin-button-' . str_replace('_', '-', $this->getDataByKey('test_id'));
         }
 
         return false;
