@@ -17,7 +17,6 @@ describe(`Checks admin system "${test.index.title}"`, () => {
         // TODO: Clicking "Save" instead of "Save and Continue" because not implemented in this section
         tools.admin.buttons.clickSave(test.index.url);
 
-        // TODO: see https://github.com/OpenMage/magento-lts/pull/5281
         validation.hasSuccessMessage();
         // validation.hasErrorMessage();
     });
