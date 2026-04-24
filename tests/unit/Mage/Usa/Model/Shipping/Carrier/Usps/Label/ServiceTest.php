@@ -38,6 +38,7 @@ final class ServiceTest extends OpenMageTest
      */
     public function testIsEnabled(): void
     {
+        $result = self::$subject->isEnabled();
         self::markTestSkipped('');
     }
 }

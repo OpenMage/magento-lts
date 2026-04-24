@@ -38,6 +38,7 @@ final class StandardsTest extends OpenMageTest
      */
     public function testIsEnabled(): void
     {
+        $result = self::$subject->isEnabled();
         self::markTestSkipped('');
     }
 }
