@@ -90,6 +90,118 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
     }
 
     /**
+     * @param  self::BUTTON_TYPE_*|string $id
+     * @param  null|string                $onClick           Url or JS code to be executed on click
+     * @param  null|string                $onClickUrl        Url to be executed on click, using getSetLocationJs()
+     * @param  null|string                $onClickConfirmUrl Url to be executed on click with confirmation, using getConfirmSetLocationJs()
+     * @return $this
+     *
+     * @SuppressWarnings("PHPMD.ExcessiveParameterList")
+     */
+    protected function _addPreparedButton(
+        string $id,
+        string $label = '',
+        string $class = '',
+        array  $data = [],
+        ?int   $level = null,
+        int    $sortOrder = 0,
+        string $area = 'header',
+        string $module = 'adminhtml',
+        ?string $onClick = null,
+        ?string $onClickUrl = null,
+        ?string $onClickConfirmUrl = null,
+    ) {
+        $jsHelper = Mage::helper('core/js');
+
+        if (is_string($onClickUrl) && $onClickUrl !== '') {
+            $onClick = $jsHelper->getSetLocationJs($onClickUrl);
+        }
+
+        if (is_string($onClickConfirmUrl) && $onClickConfirmUrl !== '') {
+            $onClick = $jsHelper->getConfirmSetLocationJs($onClickConfirmUrl);
+        }
+
+        # ... todo
+        if (is_null($onClick)) {
+            $onClick = match ($id) {
+                self::BUTTON_TYPE_BACK      => $jsHelper->getSetLocationJs(Mage::helper('adminhtml')::getUrl('*/*/')),
+                self::BUTTON_TYPE_CLOSE     => 'window.close()',
+                self::BUTTON_TYPE_RESET     => 'setLocation(window.location.href)',
+                self::BUTTON_TYPE_SAVE      => 'editForm.submit();',
+                self::BUTTON_TYPE_SAVE_EDIT => 'saveAndContinueEdit()',
+                default => '',
+            };
+        }
+
+        if (is_null($level)) {
+            $level = match ($id) {
+                self::BUTTON_TYPE_BACK      => -1,
+                self::BUTTON_TYPE_CANCEL    => -1,
+                self::BUTTON_TYPE_CLOSE     => -1,
+                self::BUTTON_TYPE_RESET     => -1,
+                self::BUTTON_TYPE_SAVE      => 1,
+                self::BUTTON_TYPE_SAVE_EDIT => 1,
+                default => 0,
+            };
+        }
+
+        $prefData = match ($id) {
+            self::BUTTON_TYPE_ADD => [
+                'label'     => Mage::helper($module)->__('Add'),
+                'class'     => 'add',
+            ],
+            self::BUTTON_TYPE_BACK => [
+                'label'     => Mage::helper($module)->__('Back'),
+                'class'     => 'back',
+            ],
+            self::BUTTON_TYPE_CANCEL => [
+                'label'     => Mage::helper($module)->__('Cancel'),
+                'class'     => 'cancel delete',
+            ],
+            self::BUTTON_TYPE_CLOSE => [
+                'label'     => Mage::helper($module)->__('Close Window'),
+                'class'     => 'cancel',
+            ],
+            self::BUTTON_TYPE_DELETE => [
+                'label'     => Mage::helper($module)->__('Delete'),
+                'class'     => 'delete',
+            ],
+            self::BUTTON_TYPE_PRINT => [
+                'label'     => Mage::helper($module)->__('Print'),
+                'class'     => 'save print',
+            ],
+            self::BUTTON_TYPE_RESET => [
+                'label'     => Mage::helper($module)->__('Reset'),
+                'class'     => 'reset',
+            ],
+            self::BUTTON_TYPE_SAVE => [
+                'label'     => Mage::helper($module)->__('Save'),
+                'class'     => 'save',
+            ],
+            self::BUTTON_TYPE_SAVE_EDIT => [
+                'label'     => Mage::helper($module)->__('Save and Continue Edit'),
+                'class'     => 'save continue',
+            ],
+            self::BUTTON_TYPE_VOID => [
+                'label'     => Mage::helper($module)->__('Void'),
+                'class'     => 'save void',
+            ],
+            default => [
+                'label'     => $label,
+                'class'     => $class,
+            ],
+        };
+
+        $data = array_merge($prefData, array_filter([
+            'label'     => $label,
+            'class'     => $class,
+            'onclick'   => $onClick,
+        ]), $data);
+
+        return $this->_addButton($id, $data, $level, $sortOrder, $area);
+    }
+
+    /**
      * Public wrapper for protected _addButton method
      *
      * @param  string      $id

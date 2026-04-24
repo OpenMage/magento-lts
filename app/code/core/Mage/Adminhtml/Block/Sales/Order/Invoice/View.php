@@ -39,22 +39,25 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_View extends Mage_Adminhtml_Block
         $this->_removeButton(self::BUTTON_TYPE_DELETE);
 
         if ($this->_isAllowedAction('cancel') && $this->getInvoice()->canCancel()) {
-            $this->_addButton(self::BUTTON_TYPE_CANCEL, [
-                'label'     => Mage::helper('sales')->__('Cancel'),
-                'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getCancelUrl()),
-                'class'     => 'delete',
-            ]);
+            $this->_addPreparedButton(
+                id: self::BUTTON_TYPE_CANCEL,
+                module: 'sales',
+                onClickUrl: $this->getCancelUrl(),
+            );
         }
 
         if ($this->_isAllowedAction('emails')) {
-            $this->addButton('send_notification', [
-                'label'     => Mage::helper('sales')->__('Send Email'),
-                'onclick'   => Mage::helper('core/js')->getConfirmSetLocationJs(
-                    $this->getEmailUrl(),
-                    Mage::helper('sales')->__('Are you sure you want to send Invoice email to customer?'),
-                ),
-                'class'     => 'send-email',
-            ]);
+            $onClick = Mage::helper('core/js')->getConfirmSetLocationJs(
+                $this->getEmailUrl(),
+                Mage::helper('sales')->__('Are you sure you want to send Invoice email to customer?'),
+            );
+
+            $this->_addPreparedButton(
+                id: 'send_notification',
+                label: Mage::helper('sales')->__('Send Email'),
+                class: 'send-email',
+                onClick: $onClick,
+            );
         }
 
         $orderPayment = $this->getInvoice()->getOrder()->getPayment();
@@ -67,35 +70,37 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_View extends Mage_Adminhtml_Block
                 || $orderPayment->canRefund()
                 && !$this->getInvoice()->getIsUsedForRefund())
         ) {
-            $this->_addButton('capture', [ // capture?
-                'label'     => Mage::helper('sales')->__('Credit Memo'),
-                'class'     => 'go',
-                'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getCreditMemoUrl()),
-            ]);
+            $this->_addPreparedButton(
+                id: 'capture', // capture?
+                label: Mage::helper('sales')->__('Credit Memo'),
+                class: 'go',
+                onClickUrl: $this->getCreditMemoUrl(),
+            );
         }
 
         if ($this->_isAllowedAction('capture') && $this->getInvoice()->canCapture()) {
-            $this->_addButton('capture', [
-                'label'     => Mage::helper('sales')->__('Capture'),
-                'class'     => 'save capture',
-                'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getCaptureUrl()),
-            ]);
+            $this->_addPreparedButton(
+                id: 'capture',
+                label: Mage::helper('sales')->__('Capture'),
+                class: 'save capture',
+                onClickUrl: $this->getCaptureUrl(),
+            );
         }
 
         if ($this->getInvoice()->canVoid()) {
-            $this->_addButton(self::BUTTON_TYPE_VOID, [
-                'label'     => Mage::helper('sales')->__('Void'),
-                'class'     => 'save void',
-                'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getVoidUrl()),
-            ]);
+            $this->_addPreparedButton(
+                id: self::BUTTON_TYPE_VOID,
+                module: 'sales',
+                onClickUrl: $this->getVoidUrl(),
+            );
         }
 
         if ($this->getInvoice()->getId()) {
-            $this->_addButton(self::BUTTON_TYPE_PRINT, [
-                'label'     => Mage::helper('sales')->__('Print'),
-                'class'     => 'save print',
-                'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getPrintUrl()),
-            ]);
+            $this->_addPreparedButton(
+                id: self::BUTTON_TYPE_PRINT,
+                module: 'sales',
+                onClickUrl: $this->getPrintUrl(),
+            );
         }
     }
 
