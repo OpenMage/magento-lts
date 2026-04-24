@@ -20,6 +20,9 @@ class Mage_Adminhtml_PromoController extends Mage_Adminhtml_Controller_Action
      */
     public const ADMIN_RESOURCE = 'promo';
 
+    /**
+     * @return void
+     */
     public function indexAction()
     {
         $this->loadLayout();

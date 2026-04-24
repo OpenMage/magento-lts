@@ -58,9 +58,9 @@ abstract class Mage_Dataflow_Model_Convert_Action_Abstract implements Mage_Dataf
     /**
      * Set action parameter
      *
-     * @param  string                                      $key
-     * @param  mixed                                       $value
-     * @return Mage_Dataflow_Model_Convert_Action_Abstract
+     * @param  string $key
+     * @param  mixed  $value
+     * @return $this
      */
     public function setParam($key, $value = null)
     {
@@ -86,8 +86,8 @@ abstract class Mage_Dataflow_Model_Convert_Action_Abstract implements Mage_Dataf
     /**
      * Set all action parameters
      *
-     * @param  array                                       $params
-     * @return Mage_Dataflow_Model_Convert_Action_Abstract
+     * @param  array $params
+     * @return $this
      */
     public function setParams($params)
     {
@@ -109,7 +109,7 @@ abstract class Mage_Dataflow_Model_Convert_Action_Abstract implements Mage_Dataf
      * Set profile instance the action belongs to
      *
      * @param  Mage_Dataflow_Model_Convert_Profile_Abstract $profile
-     * @return Mage_Dataflow_Model_Convert_Action_Abstract
+     * @return $this
      */
     public function setProfile(Mage_Dataflow_Model_Convert_Profile_Interface $profile)
     {
@@ -131,7 +131,7 @@ abstract class Mage_Dataflow_Model_Convert_Action_Abstract implements Mage_Dataf
     /**
      * Set action's container
      *
-     * @return Mage_Dataflow_Model_Convert_Action_Abstract
+     * @return $this
      */
     public function setContainer(Mage_Dataflow_Model_Convert_Container_Interface $container)
     {
@@ -167,7 +167,7 @@ abstract class Mage_Dataflow_Model_Convert_Action_Abstract implements Mage_Dataf
             $this->setParam($key, (string) $value);
         }
 
-        if ($actionNode['use']) {
+        if ($actionNode['use'] instanceof Varien_Simplexml_Element) {
             $container = $this->getProfile()->getContainer((string) $actionNode['use']);
         } else {
             $this->setParam('class', $this->getClassNameByType((string) $actionNode['type']));
@@ -194,7 +194,7 @@ abstract class Mage_Dataflow_Model_Convert_Action_Abstract implements Mage_Dataf
     /**
      * Run current action
      *
-     * @return Mage_Dataflow_Model_Convert_Action_Abstract
+     * @return $this
      */
     public function run(array $args = [])
     {

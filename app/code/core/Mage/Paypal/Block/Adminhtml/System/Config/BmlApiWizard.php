@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -25,6 +27,7 @@ class Mage_Paypal_Block_Adminhtml_System_Config_BmlApiWizard extends Mage_Paypal
      * @inheritDoc
      * @return array<void>
      */
+    #[Override]
     protected function _getSandboxButtonData($elementHtmlId, $originalData)
     {
         return [];

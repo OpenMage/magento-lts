@@ -120,11 +120,7 @@ class Mage_Core_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_He
         $string = $field;
         if (!is_numeric($field) && (str_contains($field, '.'))) {
             $size  = strpos($field, '.');
-            if ($reverse) {
-                $string = substr($field, 0, $size);
-            } else {
-                $string = substr($field, $size + 1);
-            }
+            $string = $reverse ? substr($field, 0, $size) : substr($field, $size + 1);
         }
 
         return $string;
@@ -246,7 +242,7 @@ class Mage_Core_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_He
             [$correlationName, $column, $alias] = $columnEntry;
             if ($column instanceof Zend_Db_Expr) {
                 if ($alias !== null) {
-                    if (preg_match('/(^|[^a-zA-Z_])^(SELECT)?(SUM|MIN|MAX|AVG|COUNT)\s*\(/i', (string) $column, $matches)) {
+                    if (preg_match('/(^|[^a-zA-Z_])^(SELECT)?(SUM|MIN|MAX|AVG|COUNT)\s*\(/i', (string) $column)) {
                         $column = $this->prepareColumn($column, $groupByCondition);
                     }
 
@@ -264,7 +260,7 @@ class Mage_Core_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_He
                     $preparedColumns[strtoupper($col)] = [$correlationName, $col, null];
                 }
             } else {
-                $columnKey = is_null($alias) ? $column : $alias;
+                $columnKey = $alias ?? $column;
                 $preparedColumns[strtoupper($columnKey)] = [$correlationName, $column, $alias];
             }
         }
@@ -285,11 +281,7 @@ class Mage_Core_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_He
      */
     public function addGroupConcatColumn($select, $fieldAlias, $fields, $groupConcatDelimiter = ',', $fieldsDelimiter = '', $additionalWhere = '')
     {
-        if (is_array($fields)) {
-            $fieldExpr = $this->_getReadAdapter()->getConcatSql($fields, $fieldsDelimiter);
-        } else {
-            $fieldExpr = $fields;
-        }
+        $fieldExpr = is_array($fields) ? $this->_getReadAdapter()->getConcatSql($fields, $fieldsDelimiter) : $fields;
 
         if ($additionalWhere) {
             $fieldExpr = $this->_getReadAdapter()->getCheckSql($additionalWhere, $fieldExpr, "''");

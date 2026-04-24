@@ -77,6 +77,7 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
      *
      * @inheritDoc
      */
+    #[Override]
     protected function _getResource()
     {
         $resourceName = $this->_engine->getResourceName();
@@ -95,7 +96,7 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
     public function getAttributes()
     {
         /** @var Mage_Catalog_Model_Resource_Product_Attribute_Collection $attributes */
-        $attributes = $this->getData('attributes');
+        $attributes = $this->getDataByKey('attributes');
         if (is_null($attributes)) {
             $product = Mage::getModel('catalog/product');
             $attributes = Mage::getResourceModel('catalog/product_attribute_collection')
@@ -154,11 +155,7 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
                 $value['from'] = isset($value['from']) ? trim($value['from']) : '';
                 $value['to'] = isset($value['to']) ? trim($value['to']) : '';
                 if (is_numeric($value['from']) || is_numeric($value['to'])) {
-                    if (!empty($value['currency'])) {
-                        $rate = Mage::app()->getStore()->getBaseCurrency()->getRate($value['currency']);
-                    } else {
-                        $rate = 1;
-                    }
+                    $rate = empty($value['currency']) ? 1 : Mage::app()->getStore()->getBaseCurrency()->getRate($value['currency']);
 
                     if ($this->_getResource()
                         ->addRatedPriceFilter(
@@ -191,11 +188,7 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
                 $this->_addSearchCriteria($attribute, $value);
 
                 $table = $attribute->getBackend()->getTable();
-                if ($attribute->getBackendType() == 'static') {
-                    $attributeId = $attribute->getAttributeCode();
-                } else {
-                    $attributeId = $attribute->getId();
-                }
+                $attributeId = $attribute->getBackendType() == 'static' ? $attribute->getAttributeCode() : $attribute->getId();
 
                 $allConditions[$table][$attributeId] = $condition;
             }

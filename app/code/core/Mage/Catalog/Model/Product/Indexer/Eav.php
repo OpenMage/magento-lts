@@ -68,6 +68,7 @@ class Mage_Catalog_Model_Product_Indexer_Eav extends Mage_Index_Model_Indexer_Ab
      *
      * @return string
      */
+    #[Override]
     public function getDescription()
     {
         return Mage::helper('catalog')->__('Index product attributes for layered navigation building');
@@ -245,9 +246,9 @@ class Mage_Catalog_Model_Product_Indexer_Eav extends Mage_Index_Model_Indexer_Ab
             $before = $attribute->getOrigData('is_filterable')
                 || $attribute->getOrigData('is_filterable_in_search')
                 || $attribute->getOrigData('is_visible_in_advanced_search');
-            $after  = $attribute->getData('is_filterable')
-                || $attribute->getData('is_filterable_in_search')
-                || $attribute->getData('is_visible_in_advanced_search');
+            $after  = $attribute->getDataByKey('is_filterable')
+                || $attribute->getDataByKey('is_filterable_in_search')
+                || $attribute->getDataByKey('is_visible_in_advanced_search');
 
             if (!$before && $after || $before && !$after) {
                 $event->addNewData('reindex_attribute', 1);

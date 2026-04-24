@@ -45,6 +45,7 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _construct()
     {
         $this->addData(['cache_lifetime' => false]);
@@ -60,6 +61,7 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
      * @return array
      * @throws Mage_Core_Exception
      */
+    #[Override]
     public function getCacheKeyInfo()
     {
         $shortCacheId = [
@@ -94,11 +96,7 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
     {
         if (!$this->_currentCategoryKey) {
             $category = Mage::registry('current_category');
-            if ($category) {
-                $this->_currentCategoryKey = $category->getPath();
-            } else {
-                $this->_currentCategoryKey = Mage::app()->getStore()->getRootCategoryId();
-            }
+            $this->_currentCategoryKey = $category ? $category->getPath() : Mage::app()->getStore()->getRootCategoryId();
         }
 
         return $this->_currentCategoryKey;

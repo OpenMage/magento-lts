@@ -255,6 +255,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
      *
      * @inheritDoc
      */
+    #[Override]
     public function addItem(Varien_Object $item)
     {
         if ($item::class !== $this->_itemObjectClass) {
@@ -339,6 +340,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
      * @inheritDoc
      * @throws Mage_Core_Exception
      */
+    #[Override]
     public function addFieldToFilter($field, $condition = null)
     {
         return $this->addAttributeToFilter($field, $condition);
@@ -891,6 +893,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
      * @throws Mage_Eav_Exception
      * @throws Zend_Cache_Exception
      */
+    #[Override]
     public function load($printQuery = false, $logQuery = false)
     {
         if ($this->isLoaded()) {
@@ -955,6 +958,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
      * @return array
      * @throws Mage_Core_Exception
      */
+    #[Override]
     public function getAllIds($limit = null, $offset = null)
     {
         return $this->getConnection()->fetchCol($this->_getAllIdsSelect($limit, $offset), $this->_bindParams);
@@ -1175,11 +1179,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
         foreach ($selectGroups as $selects) {
             if (!empty($selects)) {
                 try {
-                    if (is_array($selects)) {
-                        $select = implode(' UNION ALL ', $selects);
-                    } else {
-                        $select = $selects;
-                    }
+                    $select = is_array($selects) ? implode(' UNION ALL ', $selects) : $selects;
 
                     $values = $this->getConnection()->fetchAll($select);
                 } catch (Exception $exception) {
@@ -1211,7 +1211,6 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
             $attributeIds = $this->_selectAttributes;
         }
 
-        $helper = Mage::getResourceHelper('eav');
         $entityIdField = $this->getEntity()->getEntityIdField();
         return $this->getConnection()->select()
             ->from($table, [$entityIdField, 'attribute_id'])
@@ -1238,7 +1237,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
     }
 
     /**
-     * Initialize entity ubject property value
+     * Initialize entity object property value
      *
      * $valueInfo is _getLoadAttributesSelect fetch result row
      *
@@ -1456,13 +1455,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
         }
 
         // process linked attribute
-        if (isset($this->_joinAttributes[$attribute])) {
-            $entity      = $this->getAttribute($attribute)->getEntity();
-            $entityTable = $entity->getEntityTable();
-        } else {
-            $entity      = $this->getEntity();
-            $entityTable = 'e';
-        }
+        $entity = isset($this->_joinAttributes[$attribute]) ? $this->getAttribute($attribute)->getEntity() : $this->getEntity();
 
         if ($entity->isAttributeStatic($attribute)) {
             return $this->_getConditionSql(
@@ -1484,17 +1477,18 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
      *
      * @inheritDoc
      */
-    public function setOrder($field, $direction = self::SORT_ORDER_ASC)
+    #[Override]
+    public function setOrder($field, $dir = self::SORT_ORDER_ASC)
     {
         if (is_array($field)) {
             foreach ($field as $attr) {
-                parent::setOrder($attr, $direction);
+                parent::setOrder($attr, $dir);
             }
 
             return $this;
         }
 
-        return parent::setOrder($field, $direction);
+        return parent::setOrder($field, $dir);
     }
 
     /**
@@ -1503,6 +1497,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
      * @param  array $arrRequiredFields
      * @return array
      */
+    #[Override]
     public function toArray($arrRequiredFields = [])
     {
         $arr = [];
@@ -1518,6 +1513,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
      *
      * @return $this
      */
+    #[Override]
     protected function _renderOrders()
     {
         if (!$this->_isOrdersRendered) {
@@ -1536,6 +1532,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
      *
      * @return $this
      */
+    #[Override]
     protected function _afterLoad()
     {
         return $this;
@@ -1546,6 +1543,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
      *
      * @return $this
      */
+    #[Override]
     protected function _reset()
     {
         parent::_reset();

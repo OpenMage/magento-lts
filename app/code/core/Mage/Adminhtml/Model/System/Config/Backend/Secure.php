@@ -15,6 +15,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Secure extends Mage_Core_Model_
     /**
      * Clean compiled JS/CSS when updating configuration settings
      */
+    #[Override]
     protected function _afterSave()
     {
         if ($this->isValueChanged()) {

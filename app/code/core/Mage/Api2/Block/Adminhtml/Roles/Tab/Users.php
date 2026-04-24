@@ -35,6 +35,7 @@ class Mage_Api2_Block_Adminhtml_Roles_Tab_Users extends Mage_Adminhtml_Block_Wid
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareCollection()
     {
         /** @var Mage_Admin_Model_Resource_User_Collection $collection */
@@ -56,6 +57,7 @@ class Mage_Api2_Block_Adminhtml_Roles_Tab_Users extends Mage_Adminhtml_Block_Wid
      * @inheritDoc
      * @throws Exception
      */
+    #[Override]
     protected function _prepareColumns()
     {
         $this->addColumn('filter_in_role_users', [
@@ -89,6 +91,7 @@ class Mage_Api2_Block_Adminhtml_Roles_Tab_Users extends Mage_Adminhtml_Block_Wid
     /**
      * @inheritDoc
      */
+    #[Override]
     public function getGridUrl()
     {
         return $this->getUrl('*/*/usersGrid', ['_current' => true]);
@@ -98,6 +101,7 @@ class Mage_Api2_Block_Adminhtml_Roles_Tab_Users extends Mage_Adminhtml_Block_Wid
      * @inheritDoc
      * @param Mage_Api2_Model_Acl_Global_Role $row
      */
+    #[Override]
     public function getRowUrl($row)
     {
         return '';
@@ -149,6 +153,7 @@ class Mage_Api2_Block_Adminhtml_Roles_Tab_Users extends Mage_Adminhtml_Block_Wid
      * @inheritDoc
      * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _toHtml()
     {
         if (!$this->isHidden()) {
@@ -162,6 +167,7 @@ class Mage_Api2_Block_Adminhtml_Roles_Tab_Users extends Mage_Adminhtml_Block_Wid
      * @param  Mage_Adminhtml_Block_Widget_Grid_Column $column
      * @return $this
      */
+    #[Override]
     protected function _addColumnFilterToCollection($column)
     {
         if ($column->getId() == 'filter_in_role_users') {
@@ -190,7 +196,7 @@ class Mage_Api2_Block_Adminhtml_Roles_Tab_Users extends Mage_Adminhtml_Block_Wid
      */
     public function getUsers($json = false)
     {
-        $users = $this->getData('users');
+        $users = $this->getDataByKey('users');
 
         if ($json) {
             if ($users === []) {

@@ -28,6 +28,7 @@ class Varien_Convert_Parser_Xml_Excel extends Varien_Convert_Parser_Abstract
         $dom = new DOMDocument();
         $dom->loadXML($this->getData());
 
+        $data = [];
         $worksheets = $dom->getElementsByTagName('Worksheet');
         /** @var DOMElement $worksheet */
         foreach ($worksheets as $worksheet) {
@@ -87,11 +88,7 @@ class Varien_Convert_Parser_Xml_Excel extends Varien_Convert_Parser_Abstract
 
     public function unparse()
     {
-        if ($wsName = $this->getVar('single_sheet')) {
-            $data = [$wsName => $this->getData()];
-        } else {
-            $data = $this->getData();
-        }
+        $data = ($wsName = $this->getVar('single_sheet')) ? [$wsName => $this->getData()] : $this->getData();
 
         $this->validateDataGrid();
 

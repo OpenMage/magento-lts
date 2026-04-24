@@ -215,6 +215,7 @@ class Mage_Api2_Model_Resource_Validator_Eav extends Mage_Api2_Model_Resource_Va
      *
      * @return array
      */
+    #[Override]
     public function getErrors()
     {
         // business asked to avoid additional validation message, so we filter it here

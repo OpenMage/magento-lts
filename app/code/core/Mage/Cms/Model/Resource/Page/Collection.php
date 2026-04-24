@@ -35,6 +35,7 @@ class Mage_Cms_Model_Resource_Page_Collection extends Mage_Core_Model_Resource_D
      * @return array
      * @deprecated after 1.4.0.1, use toOptionIdArray()
      */
+    #[Override]
     public function toOptionArray()
     {
         return $this->_toOptionArray('identifier', 'title');
@@ -51,13 +52,13 @@ class Mage_Cms_Model_Resource_Page_Collection extends Mage_Core_Model_Resource_D
         $res = [];
         $existingIdentifiers = [];
         foreach ($this as $item) {
-            $identifier = $item->getData('identifier');
+            $identifier = $item->getDataByKey('identifier');
 
             $data['value'] = $identifier;
-            $data['label'] = $item->getData('title');
+            $data['label'] = $item->getDataByKey('title');
 
             if (in_array($identifier, $existingIdentifiers)) {
-                $data['value'] .= '|' . $item->getData('page_id');
+                $data['value'] .= '|' . $item->getDataByKey('page_id');
             } else {
                 $existingIdentifiers[] = $identifier;
             }
@@ -83,6 +84,7 @@ class Mage_Cms_Model_Resource_Page_Collection extends Mage_Core_Model_Resource_D
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _afterLoad()
     {
         if ($this->_previewFlag) {
@@ -95,16 +97,16 @@ class Mage_Cms_Model_Resource_Page_Collection extends Mage_Core_Model_Resource_D
 
                 if ($result = $connection->fetchPairs($select)) {
                     foreach ($this as $item) {
-                        if (!isset($result[$item->getData('page_id')])) {
+                        if (!isset($result[$item->getDataByKey('page_id')])) {
                             continue;
                         }
 
-                        if ($result[$item->getData('page_id')] == 0) {
+                        if ($result[$item->getDataByKey('page_id')] == 0) {
                             $stores = Mage::app()->getStores(false, true);
                             $storeId = current($stores)->getId();
                             $storeCode = key($stores);
                         } else {
-                            $storeId = $result[$item->getData('page_id')];
+                            $storeId = $result[$item->getDataByKey('page_id')];
                             $storeCode = Mage::app()->getStore($storeId)->getCode();
                         }
 
@@ -174,6 +176,7 @@ class Mage_Cms_Model_Resource_Page_Collection extends Mage_Core_Model_Resource_D
      *
      * @return Varien_Db_Select
      */
+    #[Override]
     public function getSelectCountSql()
     {
         $countSelect = parent::getSelectCountSql();

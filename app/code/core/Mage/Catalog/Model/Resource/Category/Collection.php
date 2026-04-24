@@ -99,20 +99,12 @@ class Mage_Catalog_Model_Resource_Category_Collection extends Mage_Catalog_Model
     public function addIdFilter($categoryIds)
     {
         if (is_array($categoryIds)) {
-            if ($categoryIds === []) {
-                $condition = '';
-            } else {
-                $condition = ['in' => $categoryIds];
-            }
+            $condition = $categoryIds === [] ? '' : ['in' => $categoryIds];
         } elseif (is_numeric($categoryIds)) {
             $condition = $categoryIds;
         } elseif (is_string($categoryIds)) {
             $ids = explode(',', $categoryIds);
-            if ($ids === []) {
-                $condition = $categoryIds;
-            } else {
-                $condition = ['in' => $ids];
-            }
+            $condition = $ids === [] ? $categoryIds : ['in' => $ids];
         }
 
         $this->addFieldToFilter('entity_id', $condition);
@@ -136,6 +128,7 @@ class Mage_Catalog_Model_Resource_Category_Collection extends Mage_Catalog_Model
      *
      * @inheritDoc
      */
+    #[Override]
     protected function _beforeLoad()
     {
         Mage::dispatchEvent(
@@ -150,6 +143,7 @@ class Mage_Catalog_Model_Resource_Category_Collection extends Mage_Catalog_Model
      *
      * @inheritDoc
      */
+    #[Override]
     protected function _afterLoad()
     {
         Mage::dispatchEvent(
@@ -193,6 +187,7 @@ class Mage_Catalog_Model_Resource_Category_Collection extends Mage_Catalog_Model
      * @param  bool  $logQuery
      * @return $this
      */
+    #[Override]
     public function load($printQuery = false, $logQuery = false)
     {
         if ($this->isLoaded()) {
@@ -277,7 +272,7 @@ class Mage_Catalog_Model_Resource_Category_Collection extends Mage_Catalog_Model
         if ($countAnchor) {
             // Retrieve Anchor categories product counts
             foreach ($anchor as $item) {
-                if ($allChildren = $item->getAllChildren()) {
+                if ($item->getAllChildren()) {
                     $bind = [
                         'entity_id' => $item->getId(),
                         'c_path'    => $item->getPath() . '/%',
@@ -495,6 +490,7 @@ class Mage_Catalog_Model_Resource_Category_Collection extends Mage_Catalog_Model
      *
      * @return Mage_Catalog_Model_Category
      */
+    #[Override]
     public function getNewEmptyItem()
     {
         return new $this->_itemObjectClass(['disable_flat' => $this->getDisableFlat()]);

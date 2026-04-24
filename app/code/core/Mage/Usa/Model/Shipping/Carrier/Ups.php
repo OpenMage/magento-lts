@@ -8,6 +8,7 @@ use Monolog\Level;
  * @license    Open Software License (OSL 3.0)
  * @package    Mage_Usa
  */
+
 /**
  * UPS shipping implementation
  *
@@ -51,20 +52,6 @@ class Mage_Usa_Model_Shipping_Carrier_Ups extends Mage_Usa_Model_Shipping_Carrie
      * @var null|Varien_Object
      */
     protected $_rawRequest = null;
-
-    /**
-     * Rate result data
-     *
-     * @var null|Mage_Shipping_Model_Rate_Result
-     */
-    protected $_result = null;
-
-    /**
-     * Tracking result data
-     *
-     * @var null|Mage_Shipping_Model_Tracking_Result
-     */
-    protected $_trackingResult = null;
 
     /**
      * Base currency rate
@@ -157,28 +144,13 @@ class Mage_Usa_Model_Shipping_Carrier_Ups extends Mage_Usa_Model_Shipping_Carrie
             $result->setProduct('GND' . $this->getConfigData('dest_type'));
         }
 
-        if ($request->getUpsPickup()) {
-            $pickup = $request->getUpsPickup();
-        } else {
-            $pickup = $this->getConfigData('pickup');
-        }
-
+        $pickup = $request->getUpsPickup() ? $request->getUpsPickup() : $this->getConfigData('pickup');
         $result->setPickup($this->getCode('pickup', $pickup));
 
-        if ($request->getUpsContainer()) {
-            $container = $request->getUpsContainer();
-        } else {
-            $container = $this->getConfigData('container');
-        }
-
+        $container = $request->getUpsContainer() ? $request->getUpsContainer() : $this->getConfigData('container');
         $result->setContainer($this->getCode('container', $container));
 
-        if ($request->getUpsDestType()) {
-            $destType = $request->getUpsDestType();
-        } else {
-            $destType = $this->getConfigData('dest_type');
-        }
-
+        $destType = $request->getUpsDestType() ? $request->getUpsDestType() : $this->getConfigData('dest_type');
         $result->setDestType($this->getCode('dest_type', $destType));
 
         if ($request->getOrigCountry()) {
@@ -225,11 +197,7 @@ class Mage_Usa_Model_Shipping_Carrier_Ups extends Mage_Usa_Model_Shipping_Carrie
             ));
         }
 
-        if ($request->getDestCountryId()) {
-            $destCountry = $request->getDestCountryId();
-        } else {
-            $destCountry = self::USA_COUNTRY_ID;
-        }
+        $destCountry = $request->getDestCountryId() ? $request->getDestCountryId() : self::USA_COUNTRY_ID;
 
         //for UPS, puero rico state for US will assume as puerto rico country
         if ($destCountry == self::USA_COUNTRY_ID
@@ -260,11 +228,7 @@ class Mage_Usa_Model_Shipping_Carrier_Ups extends Mage_Usa_Model_Shipping_Carrie
         $result->setValue($request->getPackageValue());
         $result->setValueWithDiscount($request->getPackageValueWithDiscount());
 
-        if ($request->getUpsUnitMeasure()) {
-            $unit = $request->getUpsUnitMeasure();
-        } else {
-            $unit = $this->getConfigData('unit_of_measure');
-        }
+        $unit = $request->getUpsUnitMeasure() ? $request->getUpsUnitMeasure() : $this->getConfigData('unit_of_measure');
 
         $result->setUnitMeasure($unit);
         if ($result->getUnitMeasure() == 'LBS') {
@@ -680,11 +644,7 @@ class Mage_Usa_Model_Shipping_Carrier_Ups extends Mage_Usa_Model_Shipping_Carrie
     {
         $url = $this->getConfigData('gateway_xml_url');
         if (!$url) {
-            if ($this->getConfigFlag('mode_xml')) {
-                $url = $this->_liveUrls['Rate'];
-            } else {
-                $url = $this->_defaultUrls['Rate'];
-            }
+            $url = $this->getConfigFlag('mode_xml') ? $this->_liveUrls['Rate'] : $this->_defaultUrls['Rate'];
         }
 
         $this->setXMLAccessRequest();
@@ -905,7 +865,6 @@ XMLRequest;
         }
 
         $result = Mage::getModel('shipping/rate_result');
-        $defaults = $this->getDefaults();
         if ($priceArr === []) {
             $error = Mage::getModel('shipping/rate_result_error');
             $error->setCarrier('ups');
@@ -986,11 +945,7 @@ XMLAuth;
     {
         $url = $this->getConfigData('tracking_xml_url');
         if (!$url) {
-            if ($this->getConfigFlag('mode_xml')) {
-                $url = $this->_liveUrls['Track'];
-            } else {
-                $url = $this->_defaultUrls['Track'];
-            }
+            $url = $this->getConfigFlag('mode_xml') ? $this->_liveUrls['Track'] : $this->_defaultUrls['Track'];
         }
 
         foreach ($trackings as $tracking) {
@@ -1144,11 +1099,7 @@ XMLAuth;
     {
         $url = $this->getConfigData('tracking_rest_url');
         if (!$url) {
-            if ($this->getConfigFlag('mode_xml')) {
-                $url = $this->_liveUrls['TrackRest'] . '/';
-            } else {
-                $url = $this->_defaultUrls['TrackRest'] . '/';
-            }
+            $url = $this->getConfigFlag('mode_xml') ? $this->_liveUrls['TrackRest'] . '/' : $this->_defaultUrls['TrackRest'] . '/';
         }
 
         try {
@@ -1321,11 +1272,7 @@ XMLAuth;
      */
     public function getResponse()
     {
-        if ($this->_trackingResult === null) {
-            $trackings = [];
-        } else {
-            $trackings = $this->_trackingResult->getAllTrackings();
-        }
+        $trackings = $this->_trackingResult === null ? [] : $this->_trackingResult->getAllTrackings();
 
         $statuses = '';
         foreach ($trackings as $tracking) {
@@ -1582,11 +1529,7 @@ XMLAuth;
         $debugData = ['request' => $xmlRequest->asXML()];
         $url = $this->getConfigData('shipaccept_xml_url');
         if (!$url) {
-            if ($this->getConfigFlag('mode_xml')) {
-                $url = $this->_liveUrls['ShipAccept'];
-            } else {
-                $url = $this->_defaultUrls['ShipAccept'];
-            }
+            $url = $this->getConfigFlag('mode_xml') ? $this->_liveUrls['ShipAccept'] : $this->_defaultUrls['ShipAccept'];
         }
 
         $handle = curl_init($url);
@@ -2001,11 +1944,7 @@ XMLAuth;
         if ($xmlResponse === null) {
             $url = $this->getConfigData('shipconfirm_xml_url');
             if (!$url) {
-                if ($this->getConfigFlag('mode_xml')) {
-                    $url = $this->_liveUrls['ShipConfirm'];
-                } else {
-                    $url = $this->_defaultUrls['ShipConfirm'];
-                }
+                $url = $this->getConfigFlag('mode_xml') ? $this->_liveUrls['ShipConfirm'] : $this->_defaultUrls['ShipConfirm'];
             }
 
             $debugData = ['request' => $xmlRequest];
@@ -2053,6 +1992,7 @@ XMLAuth;
      *
      * @return array|bool
      */
+    #[Override]
     public function getContainerTypes(?Varien_Object $params = null)
     {
         if ($params == null) {
@@ -2138,6 +2078,7 @@ XMLAuth;
      *
      * @return array<int, string>
      */
+    #[Override]
     public function getDeliveryConfirmationTypes(?Varien_Object $params = null)
     {
         $countryRecipient           = $params != null ? $params->getCountryRecipient() : null;
@@ -2167,6 +2108,7 @@ XMLAuth;
      *
      * @return array
      */
+    #[Override]
     public function getCustomizableContainerTypes()
     {
         $result = [];
@@ -2207,11 +2149,7 @@ XMLAuth;
     {
         $url = $this->getConfigData('gateway_rest_url');
         if (!$url) {
-            if ($this->getConfigFlag('mode_xml')) {
-                $url = $this->_liveUrls['RateRest'] . '/';
-            } else {
-                $url = $this->_defaultUrls['RateRest'] . '/';
-            }
+            $url = $this->getConfigFlag('mode_xml') ? $this->_liveUrls['RateRest'] . '/' : $this->_defaultUrls['RateRest'] . '/';
         }
 
         try {
@@ -2533,11 +2471,7 @@ XMLAuth;
     {
         $userId = $this->getConfigData('client_id');
         $userIdPass = $this->getConfigData('client_secret');
-        if ($this->getConfigFlag('mode_xml')) {
-            $authUrl = $this->_liveUrls['AuthUrl'];
-        } else {
-            $authUrl = $this->_defaultUrls['AuthUrl'];
-        }
+        $authUrl = $this->getConfigFlag('mode_xml') ? $this->_liveUrls['AuthUrl'] : $this->_defaultUrls['AuthUrl'];
 
         return Mage::getModel('usa/shipping_carrier_upsAuth')->getAccessToken($userId, $userIdPass, $authUrl);
     }

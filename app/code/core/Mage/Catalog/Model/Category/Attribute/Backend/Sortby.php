@@ -20,10 +20,11 @@ class Mage_Catalog_Model_Category_Attribute_Backend_Sortby extends Mage_Eav_Mode
      * @param  Varien_Object $object
      * @return bool
      */
+    #[Override]
     public function validate($object)
     {
         $attributeCode = $this->getAttribute()->getName();
-        $postDataConfig = $object->getData('use_post_data_config');
+        $postDataConfig = $object->getDataByKey('use_post_data_config');
         if ($postDataConfig) {
             $isUseConfig = in_array($attributeCode, $postDataConfig);
         } else {
@@ -49,7 +50,7 @@ class Mage_Catalog_Model_Category_Attribute_Backend_Sortby extends Mage_Eav_Mode
         }
 
         if ($attributeCode == 'default_sort_by') {
-            if ($available = $object->getData('available_sort_by')) {
+            if ($available = $object->getDataByKey('available_sort_by')) {
                 if (!is_array($available)) {
                     $available = explode(',', $available);
                 }
@@ -73,6 +74,7 @@ class Mage_Catalog_Model_Category_Attribute_Backend_Sortby extends Mage_Eav_Mode
      * @param  Varien_Object $object
      * @return $this
      */
+    #[Override]
     public function beforeSave($object)
     {
         $attributeCode = $this->getAttribute()->getName();
@@ -96,6 +98,7 @@ class Mage_Catalog_Model_Category_Attribute_Backend_Sortby extends Mage_Eav_Mode
      * @param  Varien_Object                                          $object
      * @return $this|Mage_Eav_Model_Entity_Attribute_Backend_Abstract
      */
+    #[Override]
     public function afterLoad($object)
     {
         $attributeCode = $this->getAttribute()->getName();

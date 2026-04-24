@@ -7,8 +7,6 @@
  * @package    Mage_Payment
  */
 
-use Carbon\Carbon;
-
 /**
  * Payment configuration model
  *
@@ -96,7 +94,7 @@ class Mage_Payment_Model_Config
     /**
      * Retrieve array of credit card types
      *
-     * @return array
+     * @return array<string, string>
      */
     public function getCcTypes()
     {
@@ -138,7 +136,7 @@ class Mage_Payment_Model_Config
     public function getYears()
     {
         $years = [];
-        $first = Carbon::now()->format('Y');
+        $first = (int) Mage::helper('core/clock')->format('Y');
 
         for ($index = 0; $index <= 10; $index++) {
             $year = $first + $index;
@@ -149,7 +147,7 @@ class Mage_Payment_Model_Config
     }
 
     /**
-     * Statis Method for compare sort order of CC Types
+     * Static Method for compare sort order of CC Types
      *
      * @param  array $sortA
      * @param  array $sortB

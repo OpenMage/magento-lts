@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -17,6 +19,7 @@ class Mage_Oauth_InitiateController extends Mage_Core_Controller_Front_Action
      *
      * @inheritDoc
      */
+    #[Override]
     public function preDispatch()
     {
         $this->setFlag('', self::FLAG_NO_START_SESSION, 1);
@@ -29,6 +32,7 @@ class Mage_Oauth_InitiateController extends Mage_Core_Controller_Front_Action
 
     /**
      * Index action. Receive initiate request and response OAuth token
+     * @return void
      */
     public function indexAction()
     {

@@ -7,7 +7,6 @@
  * @package    Mage_Core
  */
 
-use Carbon\Carbon;
 use Mage_Adminhtml_Model_System_Config_Source_Cookie_Samesite as CookieSameSite;
 
 /**
@@ -229,11 +228,7 @@ class Mage_Core_Model_Cookie
             $period = $this->getLifetime();
         }
 
-        if ($period == 0) {
-            $expire = 0;
-        } else {
-            $expire = Carbon::now()->getTimestamp() + $period;
-        }
+        $expire = $period == 0 ? 0 : Mage::helper('core/clock')->getTimestamp() + $period;
 
         if (is_null($path)) {
             $path = $this->getPath();

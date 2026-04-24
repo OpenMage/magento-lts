@@ -23,10 +23,11 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
     /**
      * Validate user input for option
      *
-     * @param  array                                          $values All product option values, i.e. array (option_id => mixed, option_id => mixed...)
-     * @return Mage_Catalog_Model_Product_Option_Type_Default
+     * @param  array               $values All product option values, i.e. array (option_id => mixed, option_id => mixed...)
+     * @return $this
      * @throws Mage_Core_Exception
      */
+    #[Override]
     public function validateUserValue($values)
     {
         parent::validateUserValue($values);
@@ -90,10 +91,10 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
      * @throws Zend_Date_Exception
      * @throws Zend_Locale_Exception
      */
+    #[Override]
     public function prepareForCart()
     {
         if ($this->getIsValid() && $this->getUserValue() !== null) {
-            $option = $this->getOption();
             $value = $this->getUserValue();
 
             if (isset($value['date_internal']) && $value['date_internal'] != '') {
@@ -111,7 +112,8 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
                     $timestamp += mktime(0, 0, 0, $value['month'], $value['day'], $value['year']);
                 }
             } else {
-                $timestamp += mktime(0, 0, 0, Carbon::now()->format('m'), Carbon::now()->format('d'), Carbon::now()->format('Y'));
+                $now = Mage::helper('core/clock')->now();
+                $timestamp += mktime(0, 0, 0, $now->format('m'), $now->format('d'), $now->format('Y'));
             }
 
             if ($this->_timeExists()) {
@@ -149,10 +151,10 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
      * @throws Zend_Date_Exception
      * @throws Zend_Locale_Exception
      */
+    #[Override]
     public function getFormattedOptionValue($optionValue)
     {
         if ($this->_formattedOptionValue === null) {
-            $option = $this->getOption();
             if ($this->getOption()->getType() == Mage_Catalog_Model_Product_Option::OPTION_TYPE_DATE) {
                 $format = Mage::app()->getLocale()->getDateFormat(Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM);
                 $result = Mage::app()->getLocale()->date($optionValue, Zend_Date::ISO_8601, null, false)
@@ -180,6 +182,7 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
      * @param  string $optionValue Prepared for cart option value
      * @return string
      */
+    #[Override]
     public function getPrintableOptionValue($optionValue)
     {
         return $this->getFormattedOptionValue($optionValue);
@@ -191,6 +194,7 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
      * @param  string $optionValue Prepared for cart option value
      * @return string
      */
+    #[Override]
     public function getEditableOptionValue($optionValue)
     {
         return $this->getFormattedOptionValue($optionValue);
@@ -204,6 +208,7 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
      * @return null|string
      * @throws Zend_Date_Exception
      */
+    #[Override]
     public function parseOptionValue($optionValue, $productOptionValues)
     {
         try {
@@ -226,6 +231,7 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
      * @param  string $optionValue
      * @return mixed
      */
+    #[Override]
     public function prepareOptionValueForRequest($optionValue)
     {
         $confItem = $this->getConfigurationItem();
@@ -259,7 +265,7 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
      */
     public function is24hTimeFormat()
     {
-        return (bool) ($this->getConfigData('time_format') == '24h');
+        return $this->getConfigData('time_format') === '24h';
     }
 
     /**
@@ -274,7 +280,7 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
             return $_range[0];
         }
 
-        return Carbon::now()->format('Y');
+        return Mage::helper('core/clock')->format('Y');
     }
 
     /**
@@ -289,7 +295,7 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
             return $_range[1];
         }
 
-        return Carbon::now()->format('Y');
+        return Mage::helper('core/clock')->format('Y');
     }
 
     /**

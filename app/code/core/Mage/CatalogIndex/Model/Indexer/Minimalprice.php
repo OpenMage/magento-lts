@@ -60,7 +60,7 @@ class Mage_CatalogIndex_Model_Indexer_Minimalprice extends Mage_CatalogIndex_Mod
      */
     public function getTierPriceAttribute()
     {
-        $data = $this->getData('tier_price_attribute');
+        $data = $this->getDataByKey('tier_price_attribute');
         if (is_null($data)) {
             $data = Mage::getSingleton('eav/config')->getAttribute(Mage_Catalog_Model_Product::ENTITY, 'tier_price');
             $this->setData('tier_price_attribute', $data);
@@ -75,7 +75,7 @@ class Mage_CatalogIndex_Model_Indexer_Minimalprice extends Mage_CatalogIndex_Mod
      */
     public function getPriceAttribute()
     {
-        $data = $this->getData('price_attribute');
+        $data = $this->getDataByKey('price_attribute');
         if (is_null($data)) {
             $data = Mage::getSingleton('eav/config')->getAttribute(Mage_Catalog_Model_Product::ENTITY, 'price');
             $this->setData('price_attribute', $data);
@@ -136,6 +136,7 @@ class Mage_CatalogIndex_Model_Indexer_Minimalprice extends Mage_CatalogIndex_Mod
     /**
      * @return bool
      */
+    #[Override]
     public function isAttributeIdUsed()
     {
         return false;
@@ -144,6 +145,7 @@ class Mage_CatalogIndex_Model_Indexer_Minimalprice extends Mage_CatalogIndex_Mod
     /**
      * @return bool
      */
+    #[Override]
     protected function _isAttributeIndexable(Mage_Eav_Model_Entity_Attribute_Abstract $attribute)
     {
         return $attribute->getAttributeCode() == 'minimal_price';

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -17,6 +19,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Helper_Image extends Varien_Data_For
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _getUrl()
     {
         if ($this->getValue()) {

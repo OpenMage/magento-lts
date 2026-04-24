@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -12,7 +14,6 @@
  *
  * @package    Varien_Filter
  */
-
 class Varien_Filter_Template_Tokenizer_Variable extends Varien_Filter_Template_Tokenizer_Abstract
 {
     /**
@@ -139,7 +140,6 @@ class Varien_Filter_Template_Tokenizer_Variable extends Varien_Filter_Template_T
     public function getMethodArgs()
     {
         $value = [];
-        $numberStr = '';
 
         while ($this->next() && $this->char() != ')') {
             if ($this->isWhiteSpace()) {
@@ -150,11 +150,7 @@ class Varien_Filter_Template_Tokenizer_Variable extends Varien_Filter_Template_T
                 continue;
             }
 
-            if ($this->isNumeric()) {
-                $value[] = $this->getNumber();
-            } else {
-                $value[] = $this->getString();
-            }
+            $value[] = $this->isNumeric() ? $this->getNumber() : $this->getString();
         }
 
         return $value;

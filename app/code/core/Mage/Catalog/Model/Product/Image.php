@@ -332,7 +332,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
      */
     protected function _getNeedMemoryForFile($file = null)
     {
-        $file = is_null($file) ? $this->getBaseFile() : $file;
+        $file ??= $this->getBaseFile();
         if (!$file) {
             return 0;
         }
@@ -370,11 +370,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
     {
         $result = [];
         foreach ($rgbArray as $value) {
-            if ($value === null) {
-                $result[] = 'null';
-            } else {
-                $result[] = sprintf('%02s', dechex($value));
-            }
+            $result[] = $value === null ? 'null' : sprintf('%02s', dechex($value));
         }
 
         return implode('', $result);

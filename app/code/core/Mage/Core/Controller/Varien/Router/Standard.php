@@ -113,11 +113,7 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
         $front = $this->getFront();
         $path = trim($request->getPathInfo(), '/');
 
-        if ($path) {
-            $pathArray = explode('/', $path);
-        } else {
-            $pathArray = explode('/', $this->_getDefaultPath());
-        }
+        $pathArray = $path ? explode('/', $path) : explode('/', $this->_getDefaultPath());
 
         // get module name
         if ($request->getModuleName()) {
@@ -400,6 +396,7 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
      * @param  string       $routeName
      * @return false|string
      */
+    #[Override]
     public function getFrontNameByRoute($routeName)
     {
         return $this->_routes[(string) $routeName] ?? false;
@@ -409,6 +406,7 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
      * @param  string           $frontName
      * @return false|int|string
      */
+    #[Override]
     public function getRouteByFrontName($frontName)
     {
         return array_search($frontName, $this->_routes);

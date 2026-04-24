@@ -19,6 +19,7 @@ class Mage_CatalogSearch_Block_Advanced_Result extends Mage_Core_Block_Template
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareLayout()
     {
         /** @var Mage_Page_Block_Html_Breadcrumbs $breadcrumbs */
@@ -90,12 +91,12 @@ class Mage_CatalogSearch_Block_Advanced_Result extends Mage_Core_Block_Template
      */
     public function getResultCount()
     {
-        if (!$this->getData('result_count')) {
+        if (!$this->getDataByKey('result_count')) {
             $size = $this->getSearchModel()->getProductCollection()->getSize();
             $this->setResultCount($size);
         }
 
-        return $this->getData('result_count');
+        return $this->getDataByKey('result_count');
     }
 
     /**

@@ -94,9 +94,16 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
     /**
      * Rate result data
      *
-     * @var null|Mage_Shipping_Model_Rate_Result|Mage_Shipping_Model_Tracking_Result
+     * @var null|Mage_Shipping_Model_Rate_Result
      */
     protected $_result;
+
+    /**
+     * Tracking result data
+     *
+     * @var null|Mage_Shipping_Model_Tracking_Result
+     */
+    protected $_trackingResult;
 
     /**
      * Retrieve information from carrier configuration
@@ -277,7 +284,7 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
             }
 
             /*
-             * The admin set not to show the shipping module if the devliery country is not within specific countries
+             * The admin set not to show the shipping module if the delivery country is not within specific countries
              */
             return false;
         }

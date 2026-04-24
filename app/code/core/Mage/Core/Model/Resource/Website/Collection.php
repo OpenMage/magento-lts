@@ -64,6 +64,7 @@ class Mage_Core_Model_Resource_Website_Collection extends Mage_Core_Model_Resour
      *
      * @return array
      */
+    #[Override]
     public function toOptionArray()
     {
         return $this->_toOptionArray('website_id', 'name');
@@ -74,6 +75,7 @@ class Mage_Core_Model_Resource_Website_Collection extends Mage_Core_Model_Resour
      *
      * @return array
      */
+    #[Override]
     public function toOptionHash()
     {
         return $this->_toOptionHash('website_id', 'name');
@@ -103,6 +105,7 @@ class Mage_Core_Model_Resource_Website_Collection extends Mage_Core_Model_Resour
     /**
      * @inheritDoc
      */
+    #[Override]
     public function load($printQuery = false, $logQuery = false)
     {
         if (!$this->getLoadDefault()) {

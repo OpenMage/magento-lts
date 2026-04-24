@@ -34,6 +34,7 @@ class Mage_Adminhtml_Block_Newsletter_Template_Edit extends Mage_Adminhtml_Block
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareLayout()
     {
         // Load Wysiwyg on demand and Prepare layout

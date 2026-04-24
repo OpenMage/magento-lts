@@ -342,11 +342,7 @@ class Mage_Core_Model_Translate_Inline
      */
     protected function _prepareTagAttributesForContent(&$content)
     {
-        if ($this->getIsJson()) {
-            $quoteHtml   = '\"';
-        } else {
-            $quoteHtml   = '"';
-        }
+        $quoteHtml = $this->getIsJson() ? '\"' : '"';
 
         $tagMatch   = [];
         $nextTag    = 0;
@@ -520,11 +516,7 @@ class Mage_Core_Model_Translate_Inline
      */
     protected function _otherText()
     {
-        if ($this->getIsJson()) {
-            $quoteHtml = '\"';
-        } else {
-            $quoteHtml = '"';
-        }
+        $quoteHtml = $this->getIsJson() ? '\"' : '"';
 
         $next = 0;
         $matches = [];

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -17,7 +19,7 @@ abstract class Mage_Sales_Model_Order_Creditmemo_Total_Abstract extends Mage_Sal
     /**
      * Collect credit memo subtotal
      *
-     * @return Mage_Sales_Model_Order_Creditmemo_Total_Abstract
+     * @return $this
      */
     public function collect(Mage_Sales_Model_Order_Creditmemo $creditmemo)
     {

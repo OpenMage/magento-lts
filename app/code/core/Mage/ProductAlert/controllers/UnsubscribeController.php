@@ -17,6 +17,7 @@ class Mage_ProductAlert_UnsubscribeController extends Mage_Core_Controller_Front
     /**
      * @inheritDoc
      */
+    #[Override]
     public function preDispatch()
     {
         parent::preDispatch();
@@ -31,6 +32,9 @@ class Mage_ProductAlert_UnsubscribeController extends Mage_Core_Controller_Front
         return $this;
     }
 
+    /**
+     * @return void
+     */
     public function priceAction()
     {
         $productId  = (int) $this->getRequest()->getParam('product');
@@ -69,6 +73,9 @@ class Mage_ProductAlert_UnsubscribeController extends Mage_Core_Controller_Front
         $this->_redirectUrl($product->getProductUrl());
     }
 
+    /**
+     * @return void
+     */
     public function priceAllAction()
     {
         $session = Mage::getSingleton('customer/session');
@@ -87,6 +94,9 @@ class Mage_ProductAlert_UnsubscribeController extends Mage_Core_Controller_Front
         $this->_redirect('customer/account/');
     }
 
+    /**
+     * @return void
+     */
     public function stockAction()
     {
         $productId  = (int) $this->getRequest()->getParam('product');
@@ -123,6 +133,9 @@ class Mage_ProductAlert_UnsubscribeController extends Mage_Core_Controller_Front
         $this->_redirectUrl($product->getProductUrl());
     }
 
+    /**
+     * @return void
+     */
     public function stockAllAction()
     {
         $session = Mage::getSingleton('customer/session');

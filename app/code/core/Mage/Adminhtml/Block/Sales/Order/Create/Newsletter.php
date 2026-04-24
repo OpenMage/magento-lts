@@ -39,6 +39,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Newsletter extends Mage_Adminhtml_
     /**
      * @return string
      */
+    #[Override]
     protected function _toHtml()
     {
         return '';

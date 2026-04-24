@@ -19,6 +19,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid_Renderer_I
      *
      * @return string
      */
+    #[Override]
     public function render(Varien_Object $row)
     {
         $inStock = $this->_getValue($row);

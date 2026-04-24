@@ -709,7 +709,7 @@ class Mage_Catalog_Model_Url extends Varien_Object
             }
 
             $match['prefix'] .= '-';
-            $match['suffix'] = $match['suffix'] ?? '';
+            $match['suffix'] ??= '';
 
             $lastRequestPath = $this->getResource()
                 ->getLastUsedRewriteRequestIncrement($match['prefix'], $match['suffix'], $storeId);

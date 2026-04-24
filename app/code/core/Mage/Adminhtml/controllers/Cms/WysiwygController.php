@@ -24,6 +24,7 @@ class Mage_Adminhtml_Cms_WysiwygController extends Mage_Adminhtml_Controller_Act
      * Template directives callback
      *
      * TODO: move this to some model
+     * @return void
      */
     public function directiveAction()
     {

@@ -162,6 +162,7 @@ class Varien_Directory_Collection extends Varien_Data_Collection implements IFac
      * @param  IFactory $item - item of collection
      * @return void
      */
+    #[Override]
     public function addItem(IFactory $item)
     {
         $this->_items[] = $item;
@@ -177,7 +178,7 @@ class Varien_Directory_Collection extends Varien_Data_Collection implements IFac
         $this->clear();
         $iter = new RecursiveDirectoryIterator($this->getPath());
         while ($iter->valid()) {
-            $curr = (string) $iter->getSubPathname();
+            $curr = $iter->getSubPathname();
             if (!$iter->isDot() && $curr[0] != '.') {
                 $this->addItem(Varien_Directory_Factory::getFactory($iter->current(), $this->getRecursion(), $this->getRecursionLevel()));
             }
@@ -321,6 +322,7 @@ class Varien_Directory_Collection extends Varien_Data_Collection implements IFac
      * @param  array &$arr - this collection array
      * @return void
      */
+    #[Override]
     public function toArray(&$arr)
     {
         if ($this->getRecursionLevel() > 0) {
@@ -351,6 +353,7 @@ class Varien_Directory_Collection extends Varien_Data_Collection implements IFac
      * @param  string $rootName   - root element name
      * @return void
      */
+    #[Override]
     public function toXml(&$xml, $recursionLevel = 0, $addOpenTag = true, $rootName = 'Struct')
     {
         if ($recursionLevel == 0) {
@@ -375,6 +378,7 @@ class Varien_Directory_Collection extends Varien_Data_Collection implements IFac
      * apply filters
      * @return void
      */
+    #[Override]
     protected function _renderFilters()
     {
         $exts = [];
@@ -416,23 +420,9 @@ class Varien_Directory_Collection extends Varien_Data_Collection implements IFac
         }
 
         $filter = [];
-        if ($exts !== []) {
-            $filter['extension'] = $exts;
-        } else {
-            $filter['extension'] = null;
-        }
-
-        if ($names !== []) {
-            $filter['name'] = $names;
-        } else {
-            $filter['name'] = null;
-        }
-
-        if ($regName !== []) {
-            $filter['regName'] = $regName;
-        } else {
-            $filter['regName'] = null;
-        }
+        $filter['extension'] = $exts !== [] ? $exts : null;
+        $filter['name'] = $names !== [] ? $names : null;
+        $filter['regName'] = $regName !== [] ? $regName : null;
 
         $this->setFilesFilter($filter);
     }
@@ -440,6 +430,7 @@ class Varien_Directory_Collection extends Varien_Data_Collection implements IFac
     /**
      * @inheritDoc
      */
+    #[Override]
     public function addFilter($field, $value, $type = 'and')
     {
         $filter = [];

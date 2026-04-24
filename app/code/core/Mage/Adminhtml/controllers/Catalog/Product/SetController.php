@@ -20,6 +20,9 @@ class Mage_Adminhtml_Catalog_Product_SetController extends Mage_Adminhtml_Contro
      */
     public const ADMIN_RESOURCE = 'catalog/attributes/sets';
 
+    /**
+     * @return void
+     */
     public function indexAction()
     {
         $this->_title($this->__('Catalog'))
@@ -43,6 +46,9 @@ class Mage_Adminhtml_Catalog_Product_SetController extends Mage_Adminhtml_Contro
         $this->renderLayout();
     }
 
+    /**
+     * @return void
+     */
     public function editAction()
     {
         $this->_title($this->__('Catalog'))
@@ -77,6 +83,9 @@ class Mage_Adminhtml_Catalog_Product_SetController extends Mage_Adminhtml_Contro
         $this->renderLayout();
     }
 
+    /**
+     * @return void
+     */
     public function setGridAction()
     {
         $this->_setTypeId();
@@ -92,6 +101,7 @@ class Mage_Adminhtml_Catalog_Product_SetController extends Mage_Adminhtml_Contro
      *
      * [POST] Create attribute set from another set and redirect to edit page
      * [AJAX] Save attribute set data
+     * @return void
      */
     public function saveAction()
     {
@@ -169,6 +179,9 @@ class Mage_Adminhtml_Catalog_Product_SetController extends Mage_Adminhtml_Contro
         }
     }
 
+    /**
+     * @return void
+     */
     public function addAction()
     {
         $this->_title($this->__('Catalog'))
@@ -186,6 +199,9 @@ class Mage_Adminhtml_Catalog_Product_SetController extends Mage_Adminhtml_Contro
         $this->renderLayout();
     }
 
+    /**
+     * @return void
+     */
     public function deleteAction()
     {
         $setId = $this->getRequest()->getParam('id');
@@ -207,6 +223,7 @@ class Mage_Adminhtml_Catalog_Product_SetController extends Mage_Adminhtml_Contro
      *
      * @return Mage_Adminhtml_Controller_Action
      */
+    #[Override]
     public function preDispatch()
     {
         $this->_setForcedFormKeyActions('delete');

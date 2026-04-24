@@ -512,7 +512,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      * Init mapping array of short fields to
      * its full names
      *
-     * @return Varien_Object
+     * @return $this
      */
     protected function _initOldFieldsMap()
     {
@@ -531,6 +531,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      * @param  string $key data key
      * @return $this
      */
+    #[Override]
     public function unsetData($key = null)
     {
         parent::unsetData($key);
@@ -687,7 +688,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      */
     protected function _canVoidOrder()
     {
-        return !($this->canUnhold() || $this->isPaymentReview());
+        return !$this->canUnhold() && !$this->isPaymentReview();
     }
 
     /**
@@ -1145,7 +1146,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      */
     public function addStatusToHistory($status, $comment = '', $isCustomerNotified = false)
     {
-        $history = $this->addStatusHistoryComment($comment, $status)
+        $this->addStatusHistoryComment($comment, $status)
             ->setIsCustomerNotified($isCustomerNotified);
         return $this;
     }
@@ -1264,11 +1265,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
             $cancelState = self::STATE_CANCELED;
             foreach ($this->getAllItems() as $item) {
                 if ($cancelState != self::STATE_PROCESSING && $item->getQtyToRefund()) {
-                    if ($item->getQtyToShip() > $item->getQtyToCancel()) {
-                        $cancelState = self::STATE_PROCESSING;
-                    } else {
-                        $cancelState = self::STATE_COMPLETE;
-                    }
+                    $cancelState = $item->getQtyToShip() > $item->getQtyToCancel() ? self::STATE_PROCESSING : self::STATE_COMPLETE;
                 }
 
                 $item->cancel();
@@ -1304,8 +1301,8 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      */
     public function getTrackingNumbers()
     {
-        if ($this->getData('tracking_numbers')) {
-            return explode(',', $this->getData('tracking_numbers'));
+        if ($this->getDataByKey('tracking_numbers')) {
+            return explode(',', $this->getDataByKey('tracking_numbers'));
         }
 
         return [];
@@ -1318,7 +1315,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      */
     public function getShippingCarrier()
     {
-        $carrierModel = $this->getData('shipping_carrier');
+        $carrierModel = $this->getDataByKey('shipping_carrier');
         if (is_null($carrierModel)) {
             $carrierModel = false;
             /**
@@ -1370,7 +1367,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      */
     public function getCurrentCustomerEmail()
     {
-        if (!$this->getData('current_customer_email')) {
+        if (!$this->getDataByKey('current_customer_email')) {
             if ($this->getCustomer()) {
                 $email = $this->getCustomer()->getEmail();
             } elseif ($this->getCustomerId()) {
@@ -1385,7 +1382,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
             $this->setData('current_customer_email', $email);
         }
 
-        return $this->getData('current_customer_email');
+        return $this->getDataByKey('current_customer_email');
     }
 
     /**
@@ -2015,7 +2012,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      */
     public function getRealOrderId()
     {
-        $id = $this->getData('real_order_id');
+        $id = $this->getDataByKey('real_order_id');
         if (is_null($id)) {
             return $this->getIncrementId();
         }
@@ -2094,7 +2091,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      */
     public function getStoreCurrency()
     {
-        return $this->getData('store_currency');
+        return $this->getDataByKey('store_currency');
     }
 
     /**
@@ -2153,6 +2150,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      * @param  null|int|string $index
      * @return float|mixed
      */
+    #[Override]
     public function getData($key = '', $index = null)
     {
         if ($key == 'total_due') {
@@ -2363,6 +2361,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      *
      * @return $this
      */
+    #[Override]
     protected function _beforeSave()
     {
         parent::_beforeSave();
@@ -2466,6 +2465,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      *
      * @inheritDoc
      */
+    #[Override]
     protected function _afterSave()
     {
         if ($this->_addresses !== null) {
@@ -2598,6 +2598,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      * Protect order delete from not admin scope
      * @inheritDoc
      */
+    #[Override]
     protected function _beforeDelete()
     {
         $this->_protectFromNonAdmin();

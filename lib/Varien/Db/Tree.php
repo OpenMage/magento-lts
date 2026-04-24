@@ -120,8 +120,8 @@ class Varien_Db_Tree
     /**
      * set name of id field
      *
-     * @param  string         $name
-     * @return Varien_Db_Tree
+     * @param  string $name
+     * @return $this
      */
     public function setIdField($name)
     {
@@ -132,8 +132,8 @@ class Varien_Db_Tree
     /**
      * set name of left field
      *
-     * @param  string         $name
-     * @return Varien_Db_Tree
+     * @param  string $name
+     * @return $this
      */
     public function setLeftField($name)
     {
@@ -144,8 +144,8 @@ class Varien_Db_Tree
     /**
      * set name of right field
      *
-     * @param  string         $name
-     * @return Varien_Db_Tree
+     * @param  string $name
+     * @return $this
      */
     public function setRightField($name)
     {
@@ -156,8 +156,8 @@ class Varien_Db_Tree
     /**
      * set name of level field
      *
-     * @param  string         $name
-     * @return Varien_Db_Tree
+     * @param  string $name
+     * @return $this
      */
     public function setLevelField($name)
     {
@@ -168,8 +168,8 @@ class Varien_Db_Tree
     /**
      * set name of pid Field
      *
-     * @param  string         $name
-     * @return Varien_Db_Tree
+     * @param  string $name
+     * @return $this
      */
     public function setPidField($name)
     {
@@ -180,8 +180,8 @@ class Varien_Db_Tree
     /**
      * set table name
      *
-     * @param  string         $name
-     * @return Varien_Db_Tree
+     * @param  string $name
+     * @return $this
      */
     public function setTable($name)
     {
@@ -404,7 +404,6 @@ class Varien_Db_Tree
     public function __moveNode($eId, $pId, $aId = 0)
     {
         $eInfo = $this->getNodeInfo($eId);
-        $level = $eInfo[$this->_level];
         $left_key = $eInfo[$this->_left];
         $right_key = $eInfo[$this->_right];
         $right_key_near = 0;

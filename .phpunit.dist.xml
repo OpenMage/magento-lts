@@ -15,7 +15,8 @@
         bootstrap="tests/bootstrap.php"
 >
     <php>
-        <env name="NO_XHGUI" value="1"/>
+        <env name="MAGE_IS_DEVELOPER_MODE" value="1"/>
+        <env name="NO_XHGUI" value="1"/> <!-- @todo: still needed? -->
     </php>
 
     <coverage
@@ -70,11 +71,44 @@
         <testsuite name="Mage_Api">
             <directory>tests/unit/Mage/Api</directory>
         </testsuite>
+        <testsuite name="Mage_Api2">
+            <directory>tests/unit/Mage/Api2</directory>
+        </testsuite>
+        <testsuite name="Mage_Authorizenet">
+            <directory>tests/unit/Mage/Authorizenet</directory>
+        </testsuite>
+        <testsuite name="Mage_Bundle">
+            <directory>tests/unit/Mage/Bundle</directory>
+        </testsuite>
+        <testsuite name="Mage_Captcha">
+            <directory>tests/unit/Mage/Captcha</directory>
+        </testsuite>
         <testsuite name="Mage_Catalog">
             <directory>tests/unit/Mage/Catalog</directory>
         </testsuite>
+        <testsuite name="Mage_CatalogIndex">
+            <directory>tests/unit/Mage/CatalogIndex</directory>
+        </testsuite>
+        <testsuite name="Mage_CatalogInventory">
+            <directory>tests/unit/Mage/CatalogInventory</directory>
+        </testsuite>
+        <testsuite name="Mage_CatalogRule">
+            <directory>tests/unit/Mage/CatalogRule</directory>
+        </testsuite>
+        <testsuite name="Mage_CatalogSearch">
+            <directory>tests/unit/Mage/CatalogSearch</directory>
+        </testsuite>
+        <testsuite name="Mage_Centinel">
+            <directory>tests/unit/Mage/Centinel</directory>
+        </testsuite>
+        <testsuite name="Mage_Checkout">
+            <directory>tests/unit/Mage/Checkout</directory>
+        </testsuite>
         <testsuite name="Mage_Cms">
             <directory>tests/unit/Mage/Cms</directory>
+        </testsuite>
+        <testsuite name="Mage_ConfigurableSwatches">
+            <directory>tests/unit/Mage/ConfigurableSwatches</directory>
         </testsuite>
         <testsuite name="Mage_Contacts">
             <directory>tests/unit/Mage/Contacts</directory>
@@ -82,11 +116,20 @@
         <testsuite name="Mage_Core">
             <directory>tests/unit/Mage/Core</directory>
         </testsuite>
+        <testsuite name="Mage_Cron">
+            <directory>tests/unit/Mage/Cron</directory>
+        </testsuite>
         <testsuite name="Mage_Csp">
             <directory>tests/unit/Mage/Csp</directory>
         </testsuite>
+        <testsuite name="Mage_CurrencySymbol">
+            <directory>tests/unit/Mage/CurrencySymbol</directory>
+        </testsuite>
         <testsuite name="Mage_Customer">
             <directory>tests/unit/Mage/Customer</directory>
+        </testsuite>
+        <testsuite name="Mage_Dataflow">
+            <directory>tests/unit/Mage/Dataflow</directory>
         </testsuite>
         <testsuite name="Mage_Directory">
             <directory>tests/unit/Mage/Directory</directory>
@@ -100,11 +143,26 @@
         <testsuite name="Mage_GiftMessage">
             <directory>tests/unit/Mage/GiftMessage</directory>
         </testsuite>
+        <testsuite name="Mage_GoogleAnalytics">
+            <directory>tests/unit/Mage/GoogleAnalytics</directory>
+        </testsuite>
+        <testsuite name="Mage_GoogleCheckout">
+            <directory>tests/unit/Mage/GoogleCheckout</directory>
+        </testsuite>
+        <testsuite name="Mage_ImportExport">
+            <directory>tests/unit/Mage/ImportExport</directory>
+        </testsuite>
         <testsuite name="Mage_Index">
             <directory>tests/unit/Mage/Index</directory>
         </testsuite>
+        <testsuite name="Mage_Install">
+            <directory>tests/unit/Mage/Install</directory>
+        </testsuite>
         <testsuite name="Mage_Log">
             <directory>tests/unit/Mage/Log</directory>
+        </testsuite>
+        <testsuite name="Mage_Media">
+            <directory>tests/unit/Mage/Media</directory>
         </testsuite>
         <testsuite name="Mage_Newsletter">
             <directory>tests/unit/Mage/Newsletter</directory>
@@ -115,11 +173,35 @@
         <testsuite name="Mage_Page">
             <directory>tests/unit/Mage/Page</directory>
         </testsuite>
+        <testsuite name="Mage_Paygate">
+            <directory>tests/unit/Mage/Paygate</directory>
+        </testsuite>
+        <testsuite name="Mage_Payment">
+            <directory>tests/unit/Mage/Payment</directory>
+        </testsuite>
+        <testsuite name="Mage_Paypal">
+            <directory>tests/unit/Mage/Paypal</directory>
+        </testsuite>
+        <testsuite name="Mage_PaypalUk">
+            <directory>tests/unit/Mage/PaypalUk</directory>
+        </testsuite>
+        <testsuite name="Mage_Persistent">
+            <directory>tests/unit/Mage/Persistent</directory>
+        </testsuite>
+        <testsuite name="Mage_ProductAlert">
+            <directory>tests/unit/Mage/ProductAlert</directory>
+        </testsuite>
+        <testsuite name="Mage_Rating">
+            <directory>tests/unit/Mage/Rating</directory>
+        </testsuite>
         <testsuite name="Mage_Reports">
             <directory>tests/unit/Mage/Reports</directory>
         </testsuite>
         <testsuite name="Mage_Review">
             <directory>tests/unit/Mage/Review</directory>
+        </testsuite>
+        <testsuite name="Mage_Rss">
+            <directory>tests/unit/Mage/Rss</directory>
         </testsuite>
         <testsuite name="Mage_Rule">
             <directory>tests/unit/Mage/Rule</directory>
@@ -127,8 +209,17 @@
         <testsuite name="Mage_Sales">
             <directory>tests/unit/Mage/Sales</directory>
         </testsuite>
+        <testsuite name="Mage_SalesRule">
+            <directory>tests/unit/Mage/SalesRule</directory>
+        </testsuite>
+        <testsuite name="Mage_Shipping">
+            <directory>tests/unit/Mage/Shipping</directory>
+        </testsuite>
         <testsuite name="Mage_Sitemap">
             <directory>tests/unit/Mage/Sitemap</directory>
+        </testsuite>
+        <testsuite name="Mage_Tag">
+            <directory>tests/unit/Mage/Tag</directory>
         </testsuite>
         <testsuite name="Mage_Tax">
             <directory>tests/unit/Mage/Tax</directory>
@@ -138,6 +229,12 @@
         </testsuite>
         <testsuite name="Mage_Usa">
             <directory>tests/unit/Mage/Usa</directory>
+        </testsuite>
+        <testsuite name="Mage_Weee">
+            <directory>tests/unit/Mage/Weee</directory>
+        </testsuite>
+        <testsuite name="Mage_Widget">
+            <directory>tests/unit/Mage/Widget</directory>
         </testsuite>
         <testsuite name="Mage_Wishlist">
             <directory>tests/unit/Mage/Wishlist</directory>

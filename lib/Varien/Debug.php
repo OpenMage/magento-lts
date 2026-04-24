@@ -31,11 +31,7 @@ class Varien_Debug
     public static function getRootPath()
     {
         if (is_null(self::$_filePath)) {
-            if (defined('BP')) {
-                self::$_filePath = BP;
-            } else {
-                self::$_filePath = dirname(__DIR__);
-            }
+            self::$_filePath = defined('BP') ? BP : dirname(__DIR__);
         }
 
         return self::$_filePath;
@@ -186,7 +182,7 @@ class Varien_Debug
             $arg = strtr($arg, ["\t" => '\t', "\r" => '\r', "\n" => '\n', "'" => '\\\'']);
             $out .= "'" . $arg . "'";
         } elseif (is_bool($arg)) {
-            $out .= $arg === true ? 'true' : 'false';
+            $out .= $arg ? 'true' : 'false';
         }
 
         return $out;

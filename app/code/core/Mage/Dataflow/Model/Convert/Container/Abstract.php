@@ -184,8 +184,8 @@ abstract class Mage_Dataflow_Model_Convert_Container_Abstract implements Mage_Da
     {
         $fields = [];
         foreach ($grid as $row) {
-            foreach ($row as $fieldName => $data) {
-                if (!in_array($fieldName, $fields)) {
+            foreach (array_keys($row) as $fieldName) {
+                if (!in_array($fieldName, $fields, true)) {
                     $fields[] = $fieldName;
                 }
             }
@@ -197,7 +197,7 @@ abstract class Mage_Dataflow_Model_Convert_Container_Abstract implements Mage_Da
     public function addException($error, $level = null)
     {
         $exception = new Mage_Dataflow_Model_Convert_Exception($error);
-        $exception->setLevel(is_null($level) ? Mage_Dataflow_Model_Convert_Exception::NOTICE : $level);
+        $exception->setLevel($level ?? Mage_Dataflow_Model_Convert_Exception::NOTICE);
         $exception->setContainer($this);
         $exception->setPosition($this->getPosition());
 

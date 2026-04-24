@@ -20,9 +20,10 @@ class Mage_Customer_Model_Resource_Address_Attribute_Backend_Region extends Mage
      * @param  Mage_Customer_Model_Address|Varien_Object $object
      * @return $this
      */
+    #[Override]
     public function beforeSave($object)
     {
-        $region = $object->getData('region');
+        $region = $object->getDataByKey('region');
         if (is_numeric($region)) {
             $regionModel = Mage::getModel('directory/region')->load($region);
             if ($regionModel->getId() && $object->getCountryId() == $regionModel->getCountryId()) {

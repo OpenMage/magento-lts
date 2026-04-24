@@ -220,7 +220,7 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
         }
 
         if (!empty($parts['port'])) {
-            $this->_port = (int) $parts['port'];
+            $this->_port = $parts['port'];
         }
 
         if (!empty($parts['host'])) {
@@ -402,7 +402,6 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
      */
     protected function processResponse()
     {
-        $response = '';
         $responseLine = trim(fgets($this->_sock, 1024));
 
         $line = explode(' ', $responseLine, 3);
@@ -411,10 +410,9 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
         }
 
         $this->_responseStatus = (int) $line[1];
+
         $this->processResponseHeaders();
-
         $this->processRedirect();
-
         $this->processResponseBody();
     }
 

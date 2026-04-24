@@ -118,11 +118,7 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
             $data['qtys'] = $qtys;
 
             $service = Mage::getModel('sales/service_order', $order);
-            if ($invoice) {
-                $creditmemo = $service->prepareInvoiceCreditmemo($invoice, $data);
-            } else {
-                $creditmemo = $service->prepareCreditmemo($data);
-            }
+            $creditmemo = $invoice ? $service->prepareInvoiceCreditmemo($invoice, $data) : $service->prepareCreditmemo($data);
 
             /**
              * Process back to stock flags
@@ -171,7 +167,9 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
 
     /**
      * creditmemo information page
+     * @return void
      */
+    #[Override]
     public function viewAction()
     {
         $creditmemo = $this->_initCreditmemo();
@@ -193,6 +191,7 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
 
     /**
      * Start create creditmemo action
+     * @return void
      */
     public function startAction()
     {
@@ -204,6 +203,7 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
 
     /**
      * creditmemo create page
+     * @return void
      */
     public function newAction()
     {
@@ -228,11 +228,12 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
 
     /**
      * Update items qty action
+     * @return void
      */
     public function updateQtyAction()
     {
         try {
-            $creditmemo = $this->_initCreditmemo(true);
+            $this->_initCreditmemo(true);
             $this->loadLayout();
             $response = $this->getLayout()->getBlock('order_items')->toHtml();
         } catch (Mage_Core_Exception $mageCoreException) {
@@ -255,6 +256,7 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
     /**
      * Save creditmemo
      * We can save only new creditmemo. Existing creditmemos are not editable
+     * @return void
      */
     public function saveAction()
     {
@@ -321,6 +323,7 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
 
     /**
      * Cancel creditmemo action
+     * @return void
      */
     public function cancelAction()
     {
@@ -344,6 +347,7 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
 
     /**
      * Void creditmemo action
+     * @return void
      */
     public function voidAction()
     {
@@ -367,6 +371,7 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
 
     /**
      * Add comment to creditmemo history
+     * @return void
      */
     public function addCommentAction()
     {
@@ -444,7 +449,9 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
 
     /**
      * Create pdf for current creditmemo
+     * @return void
      */
+    #[Override]
     public function printAction()
     {
         $this->_initCreditmemo();

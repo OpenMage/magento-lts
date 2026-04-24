@@ -7,8 +7,6 @@
  * @package    Mage_Index
  */
 
-use Carbon\Carbon;
-
 /**
  * Lock model
  *
@@ -289,18 +287,14 @@ class Mage_Index_Model_Lock
         if (!isset(self::$_lockFileResource[$lockName]) || self::$_lockFileResource[$lockName] === null) {
             $varDir = Mage::getConfig()->getVarDir('locks');
             $file = $varDir . DS . $lockName . '.lock';
-            if (is_file($file)) {
-                self::$_lockFileResource[$lockName] = fopen($file, 'w');
-            } else {
-                self::$_lockFileResource[$lockName] = fopen($file, 'x');
-            }
+            self::$_lockFileResource[$lockName] = is_file($file) ? fopen($file, 'w') : fopen($file, 'x');
 
             if (!self::$_lockFileResource[$lockName]) {
                 self::$_lockFileResource[$lockName] = null;
                 throw new Exception(sprintf("Unable to open lock file '%s': %s", $file, error_get_last()));
             }
 
-            fwrite(self::$_lockFileResource[$lockName], Carbon::now()->format('r'));
+            fwrite(self::$_lockFileResource[$lockName], Mage::helper('core/clock')->format('r'));
         }
 
         return self::$_lockFileResource[$lockName];

@@ -20,6 +20,7 @@ class Mage_GiftMessage_Model_Api_V2 extends Mage_GiftMessage_Model_Api
      * @param  array|object $data
      * @return array
      */
+    #[Override]
     protected function _prepareData($data)
     {
         if (is_object($data)) {
@@ -47,11 +48,7 @@ class Mage_GiftMessage_Model_Api_V2 extends Mage_GiftMessage_Model_Api
 
         if (is_array($data)) {
             foreach ($data as $key => $value) {
-                if (is_object($value) || is_array($value)) {
-                    $data[$key] = $this->_prepareData($value);
-                } else {
-                    $data[$key] = $value;
-                }
+                $data[$key] = is_object($value) || is_array($value) ? $this->_prepareData($value) : $value;
             }
 
             return parent::_prepareData($data);
@@ -68,6 +65,7 @@ class Mage_GiftMessage_Model_Api_V2 extends Mage_GiftMessage_Model_Api
      * @param  Mage_Sales_Model_Quote            $quote
      * @return stdClass
      */
+    #[Override]
     protected function _setGiftMessage($entityId, $request, $quote)
     {
         $response = new stdClass();

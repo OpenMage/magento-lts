@@ -17,6 +17,7 @@ class Mage_Adminhtml_Block_System_Config_System_Storage_Media_Synchronize extend
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _construct()
     {
         parent::_construct();
@@ -28,6 +29,7 @@ class Mage_Adminhtml_Block_System_Config_System_Storage_Media_Synchronize extend
      *
      * @return string
      */
+    #[Override]
     public function render(Varien_Data_Form_Element_Abstract $element)
     {
         $element->unsScope()->unsCanUseWebsiteValue()->unsCanUseDefaultValue();
@@ -39,6 +41,7 @@ class Mage_Adminhtml_Block_System_Config_System_Storage_Media_Synchronize extend
      *
      * @return string
      */
+    #[Override]
     protected function _getElementHtml(Varien_Data_Form_Element_Abstract $element)
     {
         return $this->_toHtml();

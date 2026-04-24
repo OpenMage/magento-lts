@@ -19,6 +19,7 @@ class Mage_Core_Block_Html_Calendar extends Mage_Core_Block_Template
      * @return string
      * @throws Zend_Locale_Exception
      */
+    #[Override]
     protected function _toHtml()
     {
         $localeCode = Mage::app()->getLocale()->getLocaleCode();
@@ -53,8 +54,7 @@ class Mage_Core_Block_Html_Calendar extends Mage_Core_Block_Template
         $this->assign('defaultFormat', Mage::helper('core')->jsonEncode(Mage::app()->getLocale()->getDateStrFormat(Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM)));
         $this->assign('toolTipFormat', Mage::helper('core')->jsonEncode(Mage::app()->getLocale()->getDateStrFormat(Mage_Core_Model_Locale::FORMAT_TYPE_LONG)));
 
-        // get days and months for en_US locale - calendar will parse exactly in this locale
-        $days = Zend_Locale_Data::getList('en_US', 'days');
+        // get months for en_US locale - calendar will parse exactly in this locale
         $months = Zend_Locale_Data::getList('en_US', 'months');
         $enUS = new stdClass();
         $enUS->m = new stdClass();

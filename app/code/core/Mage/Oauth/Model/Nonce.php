@@ -36,6 +36,7 @@ class Mage_Oauth_Model_Nonce extends Mage_Core_Model_Abstract
      *
      * @return $this
      */
+    #[Override]
     protected function _afterSave()
     {
         parent::_afterSave();

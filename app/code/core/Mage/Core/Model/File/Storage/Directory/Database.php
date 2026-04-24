@@ -93,7 +93,7 @@ class Mage_Core_Model_File_Storage_Directory_Database extends Mage_Core_Model_Fi
     public function getParentId()
     {
         $parentId = null;
-        if (!$this->getData('parent_id')) {
+        if (!$this->getDataByKey('parent_id')) {
             $parentId = $this->_getResource()->getParentId($this->getPath());
             if (empty($parentId)) {
                 $parentId = null;
@@ -139,9 +139,9 @@ class Mage_Core_Model_File_Storage_Directory_Database extends Mage_Core_Model_Fi
     /**
      * Export directories from storage
      *
-     * @param  int  $offset
-     * @param  int  $count
-     * @return bool
+     * @param  int         $offset
+     * @param  int         $count
+     * @return array|false
      */
     public function exportDirectories($offset = 0, $count = 100)
     {
@@ -150,7 +150,7 @@ class Mage_Core_Model_File_Storage_Directory_Database extends Mage_Core_Model_Fi
 
         $result = $this->_getResource()->exportDirectories($offset, $count);
 
-        if (empty($result)) {
+        if ($result === []) {
             return false;
         }
 
@@ -221,7 +221,7 @@ class Mage_Core_Model_File_Storage_Directory_Database extends Mage_Core_Model_Fi
      * Return subdirectories
      *
      * @param  string $directory
-     * @return mixed
+     * @return array
      */
     public function getSubdirectories($directory)
     {

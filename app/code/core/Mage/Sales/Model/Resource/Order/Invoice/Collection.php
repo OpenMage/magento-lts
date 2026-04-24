@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -45,6 +47,7 @@ class Mage_Sales_Model_Resource_Order_Invoice_Collection extends Mage_Sales_Mode
      * Used to emulate after load functionality for each item without loading them
      * @return $this
      */
+    #[Override]
     protected function _afterLoad()
     {
         $this->walk('afterLoad');

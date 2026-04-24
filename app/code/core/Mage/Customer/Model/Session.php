@@ -151,8 +151,8 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
      */
     public function getCustomerId()
     {
-        if ($this->getData('customer_id')) {
-            return $this->getData('customer_id');
+        if ($this->getDataByKey('customer_id')) {
+            return $this->getDataByKey('customer_id');
         }
 
         return ($this->isLoggedIn()) ? $this->getId() : null;
@@ -178,8 +178,8 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
      */
     public function getCustomerGroupId()
     {
-        if ($this->getData('customer_group_id')) {
-            return $this->getData('customer_group_id');
+        if ($this->getDataByKey('customer_group_id')) {
+            return $this->getDataByKey('customer_group_id');
         }
 
         if ($this->isLoggedIn() && $this->getCustomer()) {
@@ -365,6 +365,7 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
      *
      * @return $this
      */
+    #[Override]
     public function renewSession()
     {
         parent::renewSession();

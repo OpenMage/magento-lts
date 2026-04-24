@@ -279,7 +279,7 @@ class Mage_Eav_Model_Config
             return false;
         }
 
-        $cacheData = unserialize($cacheData);
+        $cacheData = unserialize($cacheData, ['allowed_classes' => false]);
 
         $this->_entityTypes = [];
         $this->_entityTypeByCode = [];
@@ -487,7 +487,7 @@ class Mage_Eav_Model_Config
             return $code;
         }
 
-        $storeId = $storeId ?? $this->_storeId();
+        $storeId ??= $this->_storeId();
         $this->_initializeStore($storeId);
         $entityType = $this->getEntityType($entityType);
 

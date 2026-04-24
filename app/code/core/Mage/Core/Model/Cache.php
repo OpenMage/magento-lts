@@ -270,11 +270,7 @@ class Mage_Core_Model_Cache
             $options['auto_refresh_fast_cache'] = false;
         }
 
-        if (isset($cacheOptions['slow_backend'])) {
-            $options['slow_backend'] = $cacheOptions['slow_backend'];
-        } else {
-            $options['slow_backend'] = $this->_defaultBackend;
-        }
+        $options['slow_backend'] = $cacheOptions['slow_backend'] ?? $this->_defaultBackend;
 
         if (isset($cacheOptions['slow_backend_options'])) {
             $options['slow_backend_options'] = $cacheOptions['slow_backend_options'];
@@ -483,8 +479,8 @@ class Mage_Core_Model_Cache
             $this->_allowedCacheOptions = unserialize($options, ['allowed_classes' => false]);
         }
 
-        if (Mage::getConfig()->getOptions()->getData('global_ban_use_cache')) {
-            foreach ($this->_allowedCacheOptions as $key => $val) {
+        if (Mage::getConfig()->getOptions()->getDataByKey('global_ban_use_cache')) {
+            foreach (array_keys($this->_allowedCacheOptions) as $key) {
                 $this->_allowedCacheOptions[$key] = false;
             }
         }

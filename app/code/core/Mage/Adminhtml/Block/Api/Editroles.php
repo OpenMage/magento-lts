@@ -20,6 +20,7 @@ class Mage_Adminhtml_Block_Api_Editroles extends Mage_Adminhtml_Block_Widget_Tab
         $this->setTitle(Mage::helper('adminhtml')->__('Role Information'));
     }
 
+    #[Override]
     protected function _beforeToHtml()
     {
         $roleId = $this->getRequest()->getParam('rid', false);

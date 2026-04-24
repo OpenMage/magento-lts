@@ -25,8 +25,7 @@ class Mage_Shipping_Model_Carrier_Pickup extends Mage_Shipping_Model_Carrier_Abs
             return false;
         }
 
-        $result = Mage::getModel('shipping/rate_result');
-
+        /*
         if (!empty($rate)) {
             $method = Mage::getModel('shipping/rate_result_method');
 
@@ -41,8 +40,9 @@ class Mage_Shipping_Model_Carrier_Pickup extends Mage_Shipping_Model_Carrier_Abs
 
             $result->append($method);
         }
+        */
 
-        return $result;
+        return Mage::getModel('shipping/rate_result');
     }
 
     /**

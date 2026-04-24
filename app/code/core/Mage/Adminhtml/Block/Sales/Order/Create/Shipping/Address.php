@@ -39,6 +39,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Shipping_Address extends Mage_Admi
      *
      * @return $this
      */
+    #[Override]
     protected function _prepareForm()
     {
         $this->setJsVariablePrefix('shippingAddress');
@@ -84,16 +85,16 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Shipping_Address extends Mage_Admi
     /**
      * @inheritDoc
      */
+    #[Override]
     public function getFormValues()
     {
         return $this->getAddress()->getData();
     }
 
     /**
-     * Return customer address id
-     *
-     * @return bool|int
+     * @inheritDoc
      */
+    #[Override]
     public function getAddressId()
     {
         return $this->getAddress()->getCustomerAddressId();

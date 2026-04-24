@@ -373,7 +373,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
     {
         try {
             $authTransaction = $this->closeAuthorization('', true);
-            return !($authTransaction->hasChildTransaction() || $this->_children);
+            return !$authTransaction->hasChildTransaction() && !$this->_children;
         } catch (Mage_Core_Exception) {
             // jam all logical exceptions, fallback to false
         }
@@ -395,11 +395,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
         }
 
         if ($this->_hasChild === null) {
-            if ($this->getChildTransactions()) {
-                $this->_hasChild = true;
-            } else {
-                $this->_hasChild = false;
-            }
+            $this->_hasChild = (bool) $this->getChildTransactions();
         }
 
         return $this->_hasChild;
@@ -656,6 +652,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
      * @inheritDoc
      * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _beforeSave()
     {
         // set parent id

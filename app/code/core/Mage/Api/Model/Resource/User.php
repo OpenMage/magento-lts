@@ -27,6 +27,7 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
      *
      * @return $this
      */
+    #[Override]
     protected function _initUniqueFields()
     {
         $this->_uniqueFields = [
@@ -114,7 +115,7 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
         $where = [
             $readAdapter->quote(Varien_Date::now()) . ' > ' . $timeSubtract,
         ];
-        if ($user) {
+        if ($user instanceof Mage_Api_Model_User) {
             $where['user_id = ?'] = $user->getId();
         }
 
@@ -213,6 +214,7 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
      * @return $this
      * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _beforeSave(Mage_Core_Model_Abstract $object)
     {
         $now = Varien_Date::now();
@@ -232,6 +234,7 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
      * @throws Exception
      * @throws Throwable
      */
+    #[Override]
     public function delete(Mage_Core_Model_Abstract $object)
     {
         $dbh = $this->_getWriteAdapter();

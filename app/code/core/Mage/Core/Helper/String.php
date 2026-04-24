@@ -362,7 +362,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
      */
     protected function _validateQueryStr($str)
     {
-        return !(!$str || !str_contains($str, '='));
+        return $str && str_contains($str, '=');
     }
 
     /**
@@ -417,11 +417,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
         $subKeyBrackets = $this->_getLastSubkey($key);
         $subKey = $this->_getLastSubkey($key, false);
         if ($subKeyBrackets) {
-            if ($subKey) {
-                $param['value'] = [$subKey => $value];
-            } else {
-                $param['value'] = [$value];
-            }
+            $param['value'] = $subKey ? [$subKey => $value] : [$value];
 
             $param['key'] = $this->_removeSubkeyPartFromKey($key, $subKeyBrackets);
             $param = $this->_handleRecursiveParamForQueryStr($param);

@@ -15,7 +15,7 @@ use Generator;
 
 trait SitemapTrait
 {
-    public function provideGetPreparedFilenameData(): Generator
+    public static function provideGetPreparedFilenameData(): Generator
     {
         yield 'default' => [
             [
@@ -24,7 +24,7 @@ trait SitemapTrait
         ];
     }
 
-    public function provideGenerateXmlData(): Generator
+    public static function provideGenerateXmlData(): Generator
     {
         yield 'default' => [
             [

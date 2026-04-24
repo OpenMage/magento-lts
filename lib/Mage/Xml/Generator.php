@@ -6,7 +6,7 @@
  * @license    Open Software License (OSL 3.0)
  * @package    Mage_Xml
  */
-class Mage_Xml_Generator
+class Mage_Xml_Generator implements Stringable
 {
     protected $_dom = null;
 
@@ -98,12 +98,9 @@ class Mage_Xml_Generator
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function __toString()
+    public function __toString(): string
     {
-        return $this->getDom()->saveXML();
+        return (string) $this->getDom()->saveXML();
     }
 
     /**

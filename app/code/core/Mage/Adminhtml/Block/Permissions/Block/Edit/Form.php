@@ -18,6 +18,7 @@ class Mage_Adminhtml_Block_Permissions_Block_Edit_Form extends Mage_Adminhtml_Bl
      * @return $this
      * @throws Exception
      */
+    #[Override]
     protected function _prepareForm()
     {
         $block = Mage::getModel('admin/block')->load((int) $this->getRequest()->getParam('block_id'));

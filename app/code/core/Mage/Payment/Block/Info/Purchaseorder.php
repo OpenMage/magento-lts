@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -15,6 +17,7 @@ class Mage_Payment_Block_Info_Purchaseorder extends Mage_Payment_Block_Info
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _construct()
     {
         parent::_construct();
@@ -24,6 +27,7 @@ class Mage_Payment_Block_Info_Purchaseorder extends Mage_Payment_Block_Info
     /**
      * @return string
      */
+    #[Override]
     public function toPdf()
     {
         $this->setTemplate('payment/info/pdf/purchaseorder.phtml');

@@ -78,7 +78,7 @@
  * @method Mage_Sales_Model_Resource_Quote_Address            getResource()
  * @method array                                              getRoundingDeltas()
  * @method float                                              getRowTotal()
- * @method int                                                getSameAsBilling()
+ * @method bool                                               getSameAsBilling()
  * @method int                                                getSaveInAddressBook()
  * @method float                                              getShippingAmount()
  * @method float                                              getShippingAmountForDiscount()
@@ -160,7 +160,7 @@
  * @method $this                                              setRegionId(int $value)
  * @method $this                                              setRoundingDeltas(array $value)
  * @method $this                                              setRowWeight(float $value)
- * @method $this                                              setSameAsBilling(int $value)
+ * @method $this                                              setSameAsBilling(bool $value)
  * @method $this                                              setSaveInAddressBook(int $value)
  * @method $this                                              setShippingAmountForDiscount(float|int $value)
  * @method $this                                              setShippingDescription(string $value)
@@ -288,6 +288,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
      * @return $this
      * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _beforeSave()
     {
         parent::_beforeSave();
@@ -378,6 +379,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
      * @return $this
      * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _afterSave()
     {
         parent::_afterSave();
@@ -480,6 +482,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
      * @return array
      * @throws Mage_Core_Exception
      */
+    #[Override]
     public function toArray(array $arrAttributes = [])
     {
         $arr = parent::toArray($arrAttributes);
@@ -668,7 +671,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
     public function getItemQty($itemId = 0)
     {
         if ($this->hasData('item_qty')) {
-            return $this->getData('item_qty');
+            return $this->getDataByKey('item_qty');
         }
 
         $qty = 0;
@@ -1058,12 +1061,12 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
             foreach ($shippingRates as $shippingRate) {
                 $rate = Mage::getModel('sales/quote_address_rate')
                     ->importShippingRate($shippingRate);
-                if (!$item) {
+                if (!$item instanceof Mage_Sales_Model_Quote_Item_Abstract) {
                     $this->addShippingRate($rate);
                 }
 
                 if ($this->getShippingMethod() == $rate->getCode()) {
-                    if ($item) {
+                    if ($item instanceof Mage_Sales_Model_Quote_Item_Abstract) {
                         $item->setBaseShippingAmount($rate->getPrice());
                     } else {
                         /**
@@ -1210,7 +1213,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
      */
     public function getAppliedTaxes()
     {
-        $tax = $this->getData('applied_taxes');
+        $tax = $this->getDataByKey('applied_taxes');
         if (empty($tax)) {
             return [];
         }
@@ -1335,7 +1338,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
     }
 
     /**
-     * Get total amount value by code in base store curncy
+     * Get total amount value by code in base store currency
      *
      * @param  string $code
      * @return float

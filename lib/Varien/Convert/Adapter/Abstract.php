@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -34,8 +36,8 @@ abstract class Varien_Convert_Adapter_Abstract extends Varien_Convert_Container_
     /**
      * Set resource for the adapter
      *
-     * @param  object                          $resource
-     * @return Varien_Convert_Adapter_Abstract
+     * @param  object $resource
+     * @return $this
      */
     public function setResource($resource)
     {

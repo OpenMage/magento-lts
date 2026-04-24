@@ -14,16 +14,13 @@
  */
 class Mage_Adminhtml_Block_Catalog_Form_Renderer_Config_YearRange extends Mage_Adminhtml_Block_System_Config_Form_Field
 {
+    #[Override]
     protected function _getElementHtml(Varien_Data_Form_Element_Abstract $element)
     {
         $element->setStyle('width:70px;')
             ->setName($element->getName() . '[]');
 
-        if ($element->getValue()) {
-            $values = explode(',', $element->getValue());
-        } else {
-            $values = [];
-        }
+        $values = $element->getValue() ? explode(',', $element->getValue()) : [];
 
         $dateFrom = $element->setValue($values[0] ?? null)->getElementHtml();
         $dateTo   = $element->setValue($values[1] ?? null)->getElementHtml();

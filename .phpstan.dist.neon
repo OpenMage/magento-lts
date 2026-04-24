@@ -15,6 +15,7 @@ parameters:
     strictRules:
         allRules: false
         disallowedEmpty: true
+        disallowedShortTernary: true
         dynamicCallOnStaticMethod: true
         matchingInheritedMethodNames: true
     stubFiles:
@@ -131,6 +132,10 @@ parameters:
         -
             # tmp strict rule
             identifier: method.childReturnType
+            reportUnmatched: false
+        -
+           # tmp level 8 rule
+            identifier: cast.string
             reportUnmatched: false
         -
             identifier: phpunit.coversMethod

@@ -106,6 +106,7 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
      *
      * @return int
      */
+    #[Override]
     public function getId()
     {
         return $this->getSubscriberId();
@@ -117,6 +118,7 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
      * @param  int   $value
      * @return $this
      */
+    #[Override]
     public function setId($value)
     {
         return $this->setSubscriberId($value);
@@ -337,7 +339,7 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
         if (!$this->getId() || $this->getStatus() == self::STATUS_UNSUBSCRIBED
             || $this->getStatus() == self::STATUS_NOT_ACTIVE
         ) {
-            if ($isConfirmNeed === true) {
+            if ($isConfirmNeed) {
                 // if user subscribes own login email - confirmation is not needed
                 $isOwnSubscribes = $isSubscribeOwnEmail;
                 if ($isOwnSubscribes == true) {
@@ -365,9 +367,7 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
         $this->setIsStatusChanged(true);
 
         $this->save();
-        if ($isConfirmNeed === true
-            && $isOwnSubscribes === false
-        ) {
+        if ($isConfirmNeed && $isOwnSubscribes === false) {
             $this->sendConfirmationRequestEmail();
         } else {
             $this->sendConfirmationSuccessEmail();
@@ -467,7 +467,7 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
         }
 
         $this->save();
-        $sendSubscription = $customer->getData('sendSubscription') || $sendInformationEmail;
+        $sendSubscription = $customer->getDataByKey('sendSubscription') || $sendInformationEmail;
         if ($sendSubscription) {
             if ($this->getIsStatusChanged() && $status == self::STATUS_UNSUBSCRIBED) {
                 $this->sendUnsubscriptionEmail();

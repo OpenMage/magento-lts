@@ -19,6 +19,7 @@ class Mage_Adminhtml_Block_Tax_Rate_Title extends Mage_Core_Block_Template
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _construct()
     {
         $this->setTemplate('tax/rate/title.phtml');
@@ -45,7 +46,7 @@ class Mage_Adminhtml_Block_Tax_Rate_Title extends Mage_Core_Block_Template
 
     public function getStores()
     {
-        $stores = $this->getData('stores');
+        $stores = $this->getDataByKey('stores');
         if (is_null($stores)) {
             $stores = Mage::getModel('core/store')
                 ->getResourceCollection()

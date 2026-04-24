@@ -217,7 +217,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      * Init mapping array of short fields to
      * its full names
      *
-     * @return Varien_Object
+     * @return $this
      */
     protected function _initOldFieldsMap()
     {
@@ -286,6 +286,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      * @inheritDoc
      * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _beforeSave()
     {
         /**
@@ -309,11 +310,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         $globalCurrencyCode  = Mage::app()->getBaseCurrencyCode();
         $baseCurrency = $this->getStore()->getBaseCurrency();
 
-        if ($this->hasForcedCurrency()) {
-            $quoteCurrency = $this->getForcedCurrency();
-        } else {
-            $quoteCurrency = $this->getStore()->getCurrentCurrency();
-        }
+        $quoteCurrency = $this->hasForcedCurrency() ? $this->getForcedCurrency() : $this->getStore()->getCurrentCurrency();
 
         $this->setGlobalCurrencyCode($globalCurrencyCode);
         $this->setBaseCurrencyCode($baseCurrency->getCode());
@@ -346,6 +343,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      * @return $this
      * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _afterSave()
     {
         parent::_afterSave();
@@ -374,11 +372,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      */
     public function loadByCustomer($customer)
     {
-        if ($customer instanceof Mage_Customer_Model_Customer) {
-            $customerId = $customer->getId();
-        } else {
-            $customerId = (int) $customer;
-        }
+        $customerId = $customer instanceof Mage_Customer_Model_Customer ? $customer->getId() : (int) $customer;
 
         $this->_getResource()->loadByCustomerId($this, $customerId);
         $this->_afterLoad();
@@ -516,7 +510,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     public function getCustomerGroupId()
     {
         if ($this->hasData('customer_group_id')) {
-            return $this->getData('customer_group_id');
+            return $this->getDataByKey('customer_group_id');
         }
 
         if ($this->getCustomerId()) {
@@ -535,12 +529,12 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         * tax class can vary at any time. so instead of using the value from session,
         * we need to retrieve from db every time to get the correct tax class
         */
-        //if (!$this->getData('customer_group_id') && !$this->getData('customer_tax_class_id')) {
+        //if (!$this->getDataByKey('customer_group_id') && !$this->getDataByKey('customer_tax_class_id')) {
         $classId = Mage::getModel('customer/group')->getTaxClassId($this->getCustomerGroupId());
         $this->setCustomerTaxClassId($classId);
         //}
 
-        return $this->getData('customer_tax_class_id');
+        return $this->getDataByKey('customer_tax_class_id');
     }
 
     /**
@@ -820,7 +814,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     public function getItemsCollection($useCache = true)
     {
         if ($this->hasItemsCollection()) {
-            return $this->getData('items_collection');
+            return $this->getDataByKey('items_collection');
         }
 
         if (is_null($this->_items)) {
@@ -1310,7 +1304,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      */
     public function getItemsSummaryQty()
     {
-        $qty = $this->getData('all_items_qty');
+        $qty = $this->getDataByKey('all_items_qty');
         if (is_null($qty)) {
             $qty = 0;
             foreach ($this->getAllItems() as $item) {
@@ -1339,7 +1333,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      */
     public function getItemVirtualQty()
     {
-        $qty = $this->getData('virtual_items_qty');
+        $qty = $this->getDataByKey('virtual_items_qty');
         if (is_null($qty)) {
             $qty = 0;
             foreach ($this->getAllItems() as $item) {
@@ -1602,7 +1596,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      */
     public function addMessage($message, $index = 'error')
     {
-        $messages = $this->getData('messages');
+        $messages = $this->getDataByKey('messages');
         if (is_null($messages)) {
             $messages = [];
         }
@@ -1627,7 +1621,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      */
     public function getMessages()
     {
-        $messages = $this->getData('messages');
+        $messages = $this->getDataByKey('messages');
         if (is_null($messages)) {
             $messages = [];
             $this->setData('messages', $messages);
@@ -1781,7 +1775,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      */
     public function removeMessageByText($type, $text)
     {
-        $messages = $this->getData('messages');
+        $messages = $this->getDataByKey('messages');
         if (is_null($messages)) {
             $messages = [];
         }
@@ -2118,10 +2112,11 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      * @throws Throwable
      * @throws Zend_Db_Adapter_Exception
      */
+    #[Override]
     protected function _afterLoad()
     {
         // collect totals and save me, if required
-        if ($this->getData('trigger_recollect') == 1) {
+        if ($this->getDataByKey('trigger_recollect') == 1) {
             $this->setTriggerRecollect(0)->getResource()->save($this);
             $this->collectTotals()->save();
         }
@@ -2181,6 +2176,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      *
      * @inheritDoc
      */
+    #[Override]
     public function save()
     {
         if ($this->_preventSaving) {

@@ -23,6 +23,7 @@ class Mage_Adminhtml_CacheController extends Mage_Adminhtml_Controller_Action
      *
      * @return Mage_Adminhtml_Model_Session
      */
+    #[Override]
     protected function _getSession()
     {
         return Mage::getSingleton('adminhtml/session');
@@ -30,6 +31,7 @@ class Mage_Adminhtml_CacheController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Display cache management grid
+     * @return void
      */
     public function indexAction()
     {
@@ -42,6 +44,7 @@ class Mage_Adminhtml_CacheController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Flush cache storage
+     * @return void
      */
     public function flushAllAction()
     {
@@ -53,6 +56,7 @@ class Mage_Adminhtml_CacheController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Flush all magento cache
+     * @return void
      */
     public function flushSystemAction()
     {
@@ -76,6 +80,7 @@ class Mage_Adminhtml_CacheController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Mass action for cache enabling
+     * @return void
      */
     public function massEnableAction()
     {
@@ -100,6 +105,7 @@ class Mage_Adminhtml_CacheController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Mass action for cache disabling
+     * @return void
      */
     public function massDisableAction()
     {
@@ -113,7 +119,7 @@ class Mage_Adminhtml_CacheController extends Mage_Adminhtml_Controller_Action
                 $updatedTypes++;
             }
 
-            $tags = Mage::app()->getCacheInstance()->cleanType($code);
+            Mage::app()->getCacheInstance()->cleanType($code);
         }
 
         if ($updatedTypes > 0) {
@@ -126,14 +132,15 @@ class Mage_Adminhtml_CacheController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Mass action for cache refresh
+     * @return void
      */
     public function massRefreshAction()
     {
         $types = $this->getRequest()->getParam('types');
         $updatedTypes = 0;
-        if (!empty($types)) {
+        if (is_array($types) && $types !== []) {
             foreach ($types as $type) {
-                $tags = Mage::app()->getCacheInstance()->cleanType($type);
+                Mage::app()->getCacheInstance()->cleanType($type);
                 Mage::dispatchEvent('adminhtml_cache_refresh_type', ['type' => $type]);
                 $updatedTypes++;
             }
@@ -148,6 +155,7 @@ class Mage_Adminhtml_CacheController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Clean JS/css files cache
+     * @return void
      */
     public function cleanMediaAction()
     {
@@ -171,6 +179,7 @@ class Mage_Adminhtml_CacheController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Clean catalog files cache
+     * @return void
      */
     public function cleanImagesAction()
     {
@@ -194,6 +203,7 @@ class Mage_Adminhtml_CacheController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Clean configurable swatches files cache
+     * @return void
      */
     public function cleanSwatchesAction()
     {

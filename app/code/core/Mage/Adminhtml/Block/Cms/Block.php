@@ -22,7 +22,7 @@ class Mage_Adminhtml_Block_Cms_Block extends Mage_Adminhtml_Block_Widget_Grid_Co
         parent::__construct();
 
         if (!$this->_isAllowedAction('save')) {
-            $this->_removeButton('add');
+            $this->_removeButton(self::BUTTON_TYPE_ADD);
         }
     }
 

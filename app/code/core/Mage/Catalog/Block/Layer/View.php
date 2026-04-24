@@ -52,6 +52,7 @@ class Mage_Catalog_Block_Layer_View extends Mage_Core_Block_Template
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _construct()
     {
         parent::_construct();
@@ -88,6 +89,7 @@ class Mage_Catalog_Block_Layer_View extends Mage_Core_Block_Template
      * @inheritDoc
      * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _prepareLayout()
     {
         $stateBlock = $this->getLayout()->createBlock($this->_stateBlockName)
@@ -142,7 +144,7 @@ class Mage_Catalog_Block_Layer_View extends Mage_Core_Block_Template
      */
     protected function _getFilterableAttributes()
     {
-        $attributes = $this->getData('_filterable_attributes');
+        $attributes = $this->getDataByKey('_filterable_attributes');
         if (is_null($attributes)) {
             $attributes = $this->getLayer()->getFilterableAttributes();
             $this->setData('_filterable_attributes', $attributes);

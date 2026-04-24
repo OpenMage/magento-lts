@@ -227,9 +227,9 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
     /**
      * Move category
      *
-     * @param  int                         $parentId        new parent category id
-     * @param  int                         $afterCategoryId category id after which we have put current category
-     * @return Mage_Catalog_Model_Category
+     * @param  int                 $parentId        new parent category id
+     * @param  int                 $afterCategoryId category id after which we have put current category
+     * @return $this
      * @throws Mage_Core_Exception
      * @throws Throwable
      */
@@ -368,7 +368,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
             return [];
         }
 
-        $array = $this->getData('products_position');
+        $array = $this->getDataByKey('products_position');
         if (is_null($array)) {
             $array = $this->getResource()->getProductsPosition($this);
             $this->setData('products_position', $array);
@@ -389,7 +389,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
             return [];
         }
 
-        if ($storeIds = $this->getData('store_ids')) {
+        if ($storeIds = $this->getDataByKey('store_ids')) {
             return $storeIds;
         }
 
@@ -564,7 +564,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
      */
     public function getUrlPath()
     {
-        $path = $this->getData('url_path');
+        $path = $this->getDataByKey('url_path');
         if ($path) {
             return $path;
         }
@@ -627,8 +627,8 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
     public function getCustomDesignDate()
     {
         return [
-            'from' => $this->getData('custom_design_from'),
-            'to' => $this->getData('custom_design_to'),
+            'from' => $this->getDataByKey('custom_design_from'),
+            'to' => $this->getDataByKey('custom_design_to'),
         ];
     }
 
@@ -738,7 +738,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
      */
     public function getPathIds()
     {
-        $ids = $this->getData('path_ids');
+        $ids = $this->getDataByKey('path_ids');
         if (is_null($ids)) {
             $ids = explode('/', (string) $this->getPath());
             $this->setData('path_ids', $ids);
@@ -758,7 +758,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
             return count(explode('/', (string) $this->getPath())) - 1;
         }
 
-        return $this->getData('level');
+        return $this->getDataByKey('level');
     }
 
     /**
@@ -812,6 +812,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
      *
      * @inheritDoc
      */
+    #[Override]
     protected function _beforeDelete()
     {
         $this->_protectFromNonAdmin();
@@ -866,7 +867,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
             $this->setData('product_count', $count);
         }
 
-        return $this->getData('product_count');
+        return $this->getDataByKey('product_count');
     }
 
     /**
@@ -948,7 +949,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
      */
     public function getAvailableSortBy()
     {
-        $available = $this->getData('available_sort_by');
+        $available = $this->getDataByKey('available_sort_by');
         if (empty($available)) {
             return [];
         }
@@ -994,7 +995,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
      */
     public function getDefaultSortBy()
     {
-        $sortBy = $this->getData('default_sort_by');
+        $sortBy = $this->getDataByKey('default_sort_by');
         $available = $this->getAvailableSortByOptions();
 
         // When not set or not available use default from system config
@@ -1031,6 +1032,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
      * @throws Mage_Core_Exception
      * @throws Throwable
      */
+    #[Override]
     public function afterCommitCallback()
     {
         parent::afterCommitCallback();

@@ -108,6 +108,7 @@ class Mage_Tag_Model_Resource_Indexer_Summary extends Mage_Catalog_Model_Resourc
      *
      * @return $this
      */
+    #[Override]
     public function reindexAll()
     {
         return $this->aggregate();

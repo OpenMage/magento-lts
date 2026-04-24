@@ -29,6 +29,7 @@ class Mage_Sales_Model_Resource_Order_Status_Collection extends Mage_Core_Model_
      *
      * @return array
      */
+    #[Override]
     public function toOptionArray()
     {
         return $this->_toOptionArray('status', 'label');
@@ -37,8 +38,9 @@ class Mage_Sales_Model_Resource_Order_Status_Collection extends Mage_Core_Model_
     /**
      * Get collection data as options hash
      *
-     * @return array
+     * @return array<array-key, string>
      */
+    #[Override]
     public function toOptionHash()
     {
         return $this->_toOptionHash('status', 'label');

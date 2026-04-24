@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -20,6 +22,7 @@ class Mage_Checkout_Model_Cart_Product_Api_V2 extends Mage_Checkout_Model_Cart_P
      * @param  array|object $data
      * @return array
      */
+    #[Override]
     protected function _prepareProductsData($data)
     {
         if (is_object($data)) {
@@ -47,11 +50,7 @@ class Mage_Checkout_Model_Cart_Product_Api_V2 extends Mage_Checkout_Model_Cart_P
 
         if (is_array($data)) {
             foreach ($data as $key => $value) {
-                if (is_object($value) || is_array($value)) {
-                    $data[$key] = $this->_prepareProductsData($value);
-                } else {
-                    $data[$key] = $value;
-                }
+                $data[$key] = is_object($value) || is_array($value) ? $this->_prepareProductsData($value) : $value;
             }
 
             return parent::_prepareProductsData($data);

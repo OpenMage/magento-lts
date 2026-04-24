@@ -69,6 +69,7 @@ abstract class Mage_Oauth_Block_Authorize_Abstract extends Mage_Core_Block_Templ
      *
      * @return string
      */
+    #[Override]
     public function getTemplateFile()
     {
         if (!$this->getIsSimple()) {

@@ -52,6 +52,7 @@ class Mage_Cms_Model_Block extends Mage_Core_Model_Abstract
      * @return $this
      * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _beforeSave()
     {
         $needle = 'block_id="' . $this->getBlockId() . '"';

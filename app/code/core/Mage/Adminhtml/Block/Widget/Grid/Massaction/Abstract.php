@@ -200,7 +200,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
      */
     public function getFormFieldName()
     {
-        return ($this->getData('form_field_name') ? $this->getData('form_field_name') : 'massaction');
+        return ($this->getDataByKey('form_field_name') ? $this->getDataByKey('form_field_name') : 'massaction');
     }
 
     /**
@@ -308,6 +308,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
     /**
      * @return string
      */
+    #[Override]
     public function getHtmlId()
     {
         return $this->getParentBlock()->getHtmlId() . '_massaction';
@@ -365,8 +366,8 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
         ];
 
         foreach ($this->getItems() as $item) {
-            if ($item->getData('group')) {
-                $groupedItems['grouped'][$item->getData('group')][$item->getId()] = $item;
+            if ($item->getDataByKey('group')) {
+                $groupedItems['grouped'][$item->getDataByKey('group')][$item->getId()] = $item;
             } else {
                 $groupedItems['default'][$item->getId()] = $item;
             }

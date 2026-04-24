@@ -121,9 +121,10 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
      * Set the PATH_INFO string
      * Set the ORIGINAL_PATH_INFO string
      *
-     * @param  null|string                  $pathInfo
-     * @return Zend_Controller_Request_Http
+     * @param  null|string $pathInfo
+     * @return $this
      */
+    #[Override]
     public function setPathInfo($pathInfo = null)
     {
         if ($pathInfo === null) {
@@ -165,7 +166,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
                 }
             }
 
-            $this->_originalPathInfo = (string) $pathInfo;
+            $this->_originalPathInfo = $pathInfo;
 
             $this->_requestString = $pathInfo . ($pos !== false ? substr($requestUri, $pos) : '');
         }
@@ -178,8 +179,8 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
      * Specify new path info
      * It happen when occur rewrite based on configuration
      *
-     * @param  string                            $pathInfo
-     * @return Mage_Core_Controller_Request_Http
+     * @param  string $pathInfo
+     * @return $this
      */
     public function rewritePathInfo($pathInfo)
     {
@@ -254,6 +255,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
     /**
      * @return string
      */
+    #[Override]
     public function getBasePath()
     {
         $path = parent::getBasePath();
@@ -268,6 +270,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
      * @param  bool   $raw
      * @return string
      */
+    #[Override]
     public function getBaseUrl($raw = false)
     {
         $url = parent::getBaseUrl($raw);
@@ -307,6 +310,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
      *
      * @return string
      */
+    #[Override]
     public function getScheme()
     {
         return $this->getServer('HTTPS') == 'on'
@@ -325,6 +329,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
      * @SuppressWarnings("PHPMD.ExitExpression")
      * @SuppressWarnings("PHPMD.Superglobals")
      */
+    #[Override]
     public function getHttpHost($trimPort = true)
     {
         if (!isset($_SERVER['HTTP_HOST'])) {
@@ -354,6 +359,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
      * @return $this
      * @SuppressWarnings("PHPMD.Superglobals")
      */
+    #[Override]
     public function setPost($key, $value = null)
     {
         if (is_array($key)) {
@@ -368,8 +374,8 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
     /**
      * Specify module name where was found currently used controller
      *
-     * @param  string                            $module
-     * @return Mage_Core_Controller_Request_Http
+     * @param  string $module
+     * @return $this
      */
     public function setControllerModule($module)
     {
@@ -392,6 +398,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
      *
      * @return string
      */
+    #[Override]
     public function getModuleName()
     {
         return $this->_module;
@@ -402,6 +409,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
      *
      * @return string
      */
+    #[Override]
     public function getControllerName()
     {
         return $this->_controller;
@@ -412,6 +420,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
      *
      * @return string
      */
+    #[Override]
     public function getActionName()
     {
         return $this->_action;
@@ -425,6 +434,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
      * @param  string      $name
      * @return null|string Returns null when no alias exists
      */
+    #[Override]
     public function getAlias($name)
     {
         $aliases = $this->getAliases();
@@ -436,6 +446,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
      *
      * @return array
      */
+    #[Override]
     public function getAliases()
     {
         return $this->_routingInfo['aliases'] ?? parent::getAliases();

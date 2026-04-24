@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Admin\Model;
 
+use Override;
 use Mage;
 use Mage_Admin_Model_Resource_User_Collection;
 use Mage_Admin_Model_Roles;
@@ -25,6 +26,7 @@ final class UserTest extends OpenMageTest
 
     private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
@@ -287,10 +289,10 @@ final class UserTest extends OpenMageTest
 
         self::$subject->cleanPasswordsValidationData();
 
-        self::assertNull(self::$subject->getData('password'));
-        self::assertNull(self::$subject->getData('current_password'));
-        self::assertNull(self::$subject->getData('new_password'));
-        self::assertNull(self::$subject->getData('password_confirmation'));
+        self::assertNull(self::$subject->getDataByKey('password'));
+        self::assertNull(self::$subject->getDataByKey('current_password'));
+        self::assertNull(self::$subject->getDataByKey('new_password'));
+        self::assertNull(self::$subject->getDataByKey('password_confirmation'));
     }
 
     /**

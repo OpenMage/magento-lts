@@ -23,6 +23,7 @@ class Mage_Adminhtml_Permissions_UserController extends Mage_Adminhtml_Controlle
      *
      * @return Mage_Adminhtml_Controller_Action
      */
+    #[Override]
     public function preDispatch()
     {
         $this->_setForcedFormKeyActions('delete');
@@ -40,6 +41,9 @@ class Mage_Adminhtml_Permissions_UserController extends Mage_Adminhtml_Controlle
         return $this;
     }
 
+    /**
+     * @return void
+     */
     public function indexAction()
     {
         $this->_title($this->__('System'))
@@ -51,11 +55,17 @@ class Mage_Adminhtml_Permissions_UserController extends Mage_Adminhtml_Controlle
             ->renderLayout();
     }
 
+    /**
+     * @return void
+     */
     public function newAction()
     {
         $this->_forward('edit');
     }
 
+    /**
+     * @return void
+     */
     public function editAction()
     {
         $this->_title($this->__('System'))
@@ -84,11 +94,7 @@ class Mage_Adminhtml_Permissions_UserController extends Mage_Adminhtml_Controlle
 
         Mage::register('permissions_user', $model);
 
-        if (isset($id)) {
-            $breadcrumb = $this->__('Edit User');
-        } else {
-            $breadcrumb = $this->__('New User');
-        }
+        $breadcrumb = isset($id) ? $this->__('Edit User') : $this->__('New User');
 
         $this->_initAction()
             ->_addBreadcrumb($breadcrumb, $breadcrumb);
@@ -99,6 +105,9 @@ class Mage_Adminhtml_Permissions_UserController extends Mage_Adminhtml_Controlle
         $this->renderLayout();
     }
 
+    /**
+     * @return void
+     */
     public function saveAction()
     {
         if ($data = $this->getRequest()->getPost()) {
@@ -177,6 +186,9 @@ class Mage_Adminhtml_Permissions_UserController extends Mage_Adminhtml_Controlle
         $this->_redirect('*/*/');
     }
 
+    /**
+     * @return void
+     */
     public function deleteAction()
     {
         $id = $this->getRequest()->getParam('user_id');
@@ -222,6 +234,9 @@ class Mage_Adminhtml_Permissions_UserController extends Mage_Adminhtml_Controlle
         $this->_redirect('*/*/');
     }
 
+    /**
+     * @return void
+     */
     public function rolesGridAction()
     {
         $id = $this->getRequest()->getParam('user_id');
@@ -239,6 +254,9 @@ class Mage_Adminhtml_Permissions_UserController extends Mage_Adminhtml_Controlle
         );
     }
 
+    /**
+     * @return void
+     */
     public function roleGridAction()
     {
         $this->getResponse()

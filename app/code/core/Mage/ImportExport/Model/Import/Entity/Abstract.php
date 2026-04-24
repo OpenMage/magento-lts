@@ -316,10 +316,10 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
     /**
      * Add error with corresponding current data source row number.
      *
-     * @param  string                                         $errorCode   Error code or simply column name
-     * @param  int                                            $errorRowNum row number
-     * @param  string                                         $colName     OPTIONAL Column name
-     * @return Mage_ImportExport_Model_Import_Entity_Abstract
+     * @param  string $errorCode   Error code or simply column name
+     * @param  int    $errorRowNum row number
+     * @param  string $colName     OPTIONAL Column name
+     * @return $this
      */
     public function addRowError($errorCode, $errorRowNum, $colName = null)
     {
@@ -333,9 +333,9 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
     /**
      * Add message template for specific error code from outside.
      *
-     * @param  string                                         $errorCode Error code
-     * @param  string                                         $message   Message template
-     * @return Mage_ImportExport_Model_Import_Entity_Abstract
+     * @param  string $errorCode Error code
+     * @param  string $message   Message template
+     * @return $this
      */
     public function addMessageTemplate($errorCode, $message)
     {
@@ -597,7 +597,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
             $this->_uniqueAttributes[$attrCode][$rowData[$attrCode]] = true;
         }
 
-        return (bool) $valid;
+        return $valid;
     }
 
     /**
@@ -644,7 +644,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
     /**
      * Set data from outside to change behavior. I.e. for setting some default parameters etc.
      *
-     * @return Mage_ImportExport_Model_Import_Entity_Abstract
+     * @return $this
      */
     public function setParameters(array $params)
     {
@@ -655,7 +655,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
     /**
      * Source model setter.
      *
-     * @return Mage_ImportExport_Model_Import_Entity_Abstract
+     * @return $this
      */
     public function setSource(Mage_ImportExport_Model_Import_Adapter_Abstract $source)
     {
@@ -668,7 +668,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
     /**
      * Validate data.
      *
-     * @return Mage_ImportExport_Model_Import_Entity_Abstract
+     * @return $this
      * @throws Exception
      */
     public function validateData()

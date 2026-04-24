@@ -14,6 +14,9 @@
  */
 class Mage_Adminhtml_NotificationController extends Mage_Adminhtml_Controller_Action
 {
+    /**
+     * @return void
+     */
     public function indexAction()
     {
         $this->_title($this->__('System'))->_title($this->__('Notifications'));
@@ -25,6 +28,9 @@ class Mage_Adminhtml_NotificationController extends Mage_Adminhtml_Controller_Ac
             ->renderLayout();
     }
 
+    /**
+     * @return void
+     */
     public function markAsReadAction()
     {
         if ($id = $this->getRequest()->getParam('id')) {
@@ -55,6 +61,9 @@ class Mage_Adminhtml_NotificationController extends Mage_Adminhtml_Controller_Ac
         $this->_redirect('*/*/');
     }
 
+    /**
+     * @return void
+     */
     public function massMarkAsReadAction()
     {
         $session = Mage::getSingleton('adminhtml/session');
@@ -85,6 +94,9 @@ class Mage_Adminhtml_NotificationController extends Mage_Adminhtml_Controller_Ac
         $this->_redirect('*/*/');
     }
 
+    /**
+     * @return void
+     */
     public function removeAction()
     {
         if ($id = $this->getRequest()->getParam('id')) {
@@ -114,6 +126,9 @@ class Mage_Adminhtml_NotificationController extends Mage_Adminhtml_Controller_Ac
         $this->_redirect('*/*/');
     }
 
+    /**
+     * @return void
+     */
     public function massRemoveAction()
     {
         $session = Mage::getSingleton('adminhtml/session');
@@ -147,6 +162,7 @@ class Mage_Adminhtml_NotificationController extends Mage_Adminhtml_Controller_Ac
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _isAllowed(): bool
     {
         $action = strtolower($this->getRequest()->getActionName());

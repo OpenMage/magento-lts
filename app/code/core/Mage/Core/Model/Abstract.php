@@ -191,6 +191,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
      * @return string
      * @throws Mage_Core_Exception
      */
+    #[Override]
     public function getIdFieldName()
     {
         if (!($fieldName = parent::getIdFieldName())) {
@@ -207,6 +208,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
      * @return null|int|string
      * @throws Mage_Core_Exception
      */
+    #[Override]
     public function getId()
     {
         $fieldName = $this->getIdFieldName();
@@ -224,6 +226,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
      * @return $this
      * @throws Mage_Core_Exception
      */
+    #[Override]
     public function setId($value)
     {
         if ($this->getIdFieldName()) {
@@ -463,11 +466,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
             if ($this->_cacheTag === true) {
                 $tags = [];
             } else {
-                if (is_array($this->_cacheTag)) {
-                    $tags = $this->_cacheTag;
-                } else {
-                    $tags = [$this->_cacheTag];
-                }
+                $tags = is_array($this->_cacheTag) ? $this->_cacheTag : [$this->_cacheTag];
 
                 $idTags = $this->getCacheIdTags();
                 if ($idTags) {
@@ -670,5 +669,12 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
         /** @var Mage_Core_Helper_Validate $validator */
         $validator = Mage::helper('core/validate');
         return $validator;
+    }
+
+    protected function getClockHelper(): Mage_Core_Helper_Clock
+    {
+        /** @var Mage_Core_Helper_Clock $clock */
+        $clock = Mage::helper('core/clock');
+        return $clock;
     }
 }

@@ -92,6 +92,7 @@ class Mage_Downloadable_Model_Link extends Mage_Core_Model_Abstract
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _afterSave()
     {
         $this->getResource()->saveItemTitleAndPrice($this);
