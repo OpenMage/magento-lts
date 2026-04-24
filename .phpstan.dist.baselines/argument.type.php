@@ -1,12 +1,22 @@
 <?php declare(strict_types = 1);
 
-// total 128 errors
+// total 132 errors
 
 $ignoreErrors = [];
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $grid of method Mage_Reports_Model_Totals::countTotals() expects Mage_Adminhtml_Block_Report_Product_Grid, $this(Mage_Adminhtml_Block_Report_Grid) given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Report/Grid.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Parameter #2 $block of method Mage_Core_Block_Abstract::setChild() expects Mage_Core_Block_Abstract, Mage_Adminhtml_Block_Sales_Grid given.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Sales.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Parameter #2 $block of method Mage_Core_Block_Abstract::setChild() expects Mage_Core_Block_Abstract, Mage_Adminhtml_Block_Tag_Tab_All given.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Tag.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $cache of method Varien_Simplexml_Config::setCache() expects Varien_Simplexml_Config_Cache_Abstract, Zend_Cache_Core given.',
@@ -17,6 +27,16 @@ $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $field of method Mage_Adminhtml_Model_Config_Data::_isValidField() expects Mage_Core_Model_Config_Element, Varien_Simplexml_Element|false given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Model/Config/Data.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Parameter #1 $block of method Mage_Adminhtml_Controller_Action::_addContent() expects Mage_Core_Block_Abstract, Mage_Adminhtml_Block_Customer_Config given.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/controllers/Customer/ConfigController.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Parameter #1 $block of method Mage_Core_Block_Abstract::append() expects Mage_Core_Block_Abstract|string, Mage_Adminhtml_Block_Customer_Config_Tabs given.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/controllers/Customer/ConfigController.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $content of method Zend_Controller_Response_Abstract::setBody() expects string, int given.',

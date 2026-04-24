@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-// total 52 errors
+// total 53 errors
 
 $ignoreErrors = [];
 $ignoreErrors[] = [
@@ -142,6 +142,11 @@ $ignoreErrors[] = [
     'rawMessage' => 'PHPDoc tag @var with type Varien_Simplexml_Element is not subtype of type Mage_Core_Model_Config_Element.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Config.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'PHPDoc tag @var with type Mage_Core_Block_Abstract is not subtype of type Mage_Adminhtml_Block_Widget_Button.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/CurrencySymbol/Block/Adminhtml/System/Currencysymbol.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'PHPDoc tag @var with type Mage_Dataflow_Model_Batch_Export is not subtype of type string|false.',

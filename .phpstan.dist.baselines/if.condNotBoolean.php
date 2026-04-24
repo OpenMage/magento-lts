@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-// total 2777 errors
+// total 2778 errors
 
 $ignoreErrors = [];
 $ignoreErrors[] = [
@@ -3912,6 +3912,11 @@ $ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in an if condition, string|null given.',
     'count' => 2,
     'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Email/Template/Abstract.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in an if condition, Mage_Cms_Block_Block given.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Email/Template/Filter.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in an if condition, string given.',

@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-// total 91 errors
+// total 63 errors
 
 $ignoreErrors = [];
 $ignoreErrors[] = [
@@ -179,21 +179,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Shipping/Model/Shipping.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method isEnabled() on Mage_Core_Block_Abstract|false.',
-    'count' => 5,
-    'path' => __DIR__ . '/../app/design/frontend/base/default/template/checkout/onepage/billing.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method isEnabled() on Mage_Core_Block_Abstract|false.',
-    'count' => 3,
-    'path' => __DIR__ . '/../app/design/frontend/base/default/template/customer/form/edit.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method isEnabled() on Mage_Core_Block_Abstract|false.',
-    'count' => 3,
-    'path' => __DIR__ . '/../app/design/frontend/base/default/template/customer/form/register.phtml',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Cannot call method getMessage() on string.',
     'count' => 4,
     'path' => __DIR__ . '/../app/design/frontend/base/default/template/giftmessage/inline.phtml',
@@ -207,31 +192,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Cannot call method getSender() on string.',
     'count' => 4,
     'path' => __DIR__ . '/../app/design/frontend/base/default/template/giftmessage/inline.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method isEnabled() on Mage_Core_Block_Abstract|false.',
-    'count' => 4,
-    'path' => __DIR__ . '/../app/design/frontend/base/default/template/persistent/checkout/onepage/billing.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method isEnabled() on Mage_Core_Block_Abstract|false.',
-    'count' => 3,
-    'path' => __DIR__ . '/../app/design/frontend/base/default/template/persistent/customer/form/register.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method isEnabled() on Mage_Core_Block_Abstract|false.',
-    'count' => 3,
-    'path' => __DIR__ . '/../app/design/frontend/rwd/default/template/customer/form/edit.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method isEnabled() on Mage_Core_Block_Abstract|false.',
-    'count' => 4,
-    'path' => __DIR__ . '/../app/design/frontend/rwd/default/template/persistent/checkout/onepage/billing.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method isEnabled() on Mage_Core_Block_Abstract|false.',
-    'count' => 3,
-    'path' => __DIR__ . '/../app/design/frontend/rwd/default/template/persistent/customer/form/register.phtml',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Cannot call method bindParam() on object|resource.',
