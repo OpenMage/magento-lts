@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-// total 399 errors
+// total 400 errors
 
 $ignoreErrors = [];
 $ignoreErrors[] = [
@@ -150,6 +150,11 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in a ternary operator condition, string given.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Widget/Button.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in a ternary operator condition, string|null given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Widget/Button.php',
 ];

@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-// total 2777 errors
+// total 2778 errors
 
 $ignoreErrors = [];
 $ignoreErrors[] = [
@@ -922,6 +922,11 @@ $ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in an if condition, mixed given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Urlrewrite/Edit/Form.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in an if condition, mixed given.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Widget/Button.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in an if condition, Varien_Data_Collection given.',
