@@ -1,16 +1,16 @@
 {
     "default": {
         "storeId" : {
-            "_": "#store_id"
+            "_": "input-store-id"
         },
         "design" : {
-            "_": "#design"
+            "_": "input-design"
         },
         "dateFrom" : {
-            "_": "#date_from"
+            "_": "input-date-from"
         },
         "dateTo" : {
-            "_": "#date_to"
+            "_": "input-date-to"
         }
     }
 }
