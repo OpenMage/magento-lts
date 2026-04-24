@@ -31,13 +31,13 @@ cy.openmage.validation = {
             Object.keys(fixture).forEach(field => {
                 if (setEmpty !== undefined && setEmpty === true) {
                     cy
-                        .get(fixture[field]._)
+                        .getBySel(fixture[field]._)
                         .clear({ force: true })
                         .should('have.value', '');
                 }
                 if (setEmpty !== true && fixture[field].value !== '') {
                     cy
-                        .get(fixture[field]._)
+                        .getBySel(fixture[field]._)
                         .type(fixture[field].value, { force: true })
                         .should('have.value', fixture[field].value);
                 }
