@@ -1,0 +1,3 @@
+"Current password field cannot be empty.","Current password field cannot be empty."
+"Invalid current password.","Invalid current password."
+"The following role resources are no longer available in the system: %s. You can delete them by <a href=""%s"">clicking here</a>.","The following role resources are no longer available in the system: %s. You can delete them by <a href=""%s"">clicking here</a>."
