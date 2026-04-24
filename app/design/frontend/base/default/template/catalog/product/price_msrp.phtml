@@ -16,7 +16,9 @@
 ?>
 <?php
     $_product = $this->getProduct();
+    $_coreHelper = $this->helper('core');
     $_msrpPrice = "";
+    $_addToCartUrl = $_product->isSalable() ? $this->getAddToCartUrlCustom($_product, [], false) : '';
 ?>
     <div class="price-box map-info">
     <?php $_price = $this->helper('tax')->getPrice($_product, $_product->getMsrp()) ?>
@@ -30,19 +32,19 @@
             <?php if ($this->helper('catalog')->isShowPriceOnGesture($_product)): ?>
                 var newLink = Catalog.Map.addHelpLink(
                         $('<?php echo $helpLinkId ?>'),
-                        "<?php echo $this->escapeHtml($_product->getName()) ?>",
+                        <?php echo $_coreHelper->jsonEncode($_product->getName()) ?>,
                         <?php echo $this->getRealPriceJs($_product) ?>,
-                        '<?php echo $_msrpPrice ?>',
-                        "<?php echo $_product->isSalable() ? $this->getAddToCartUrlCustom($_product, [], false) : '' ?>"
+                        <?php echo $_coreHelper->jsonEncode($_msrpPrice) ?>,
+                        <?php echo $_coreHelper->jsonEncode($_addToCartUrl) ?>
                 );
                 newLink.product_id = '<?php echo $_product->getId() ?>';
             <?php else: ?>
                 Catalog.Map.addHelpLink(
                         $('<?php echo $helpLinkId ?>'),
-                        "<?php echo $this->escapeHtml($_product->getName()) ?>",
+                        <?php echo $_coreHelper->jsonEncode($_product->getName()) ?>,
                         null,
                         null,
-                        "<?php echo $_product->getProductUrl() ?>"
+                        <?php echo $_coreHelper->jsonEncode($_product->getProductUrl()) ?>
                 );
             <?php endif ?>
 
