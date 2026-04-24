@@ -7,8 +7,6 @@
  * @package    Mage_Persistent
  */
 
-use Carbon\Carbon;
-
 /**
  * Persistent Session Model
  *
@@ -84,7 +82,7 @@ class Mage_Persistent_Model_Session extends Mage_Core_Model_Abstract
     {
         return gmdate(
             Varien_Db_Adapter_Pdo_Mysql::TIMESTAMP_FORMAT,
-            Carbon::now()->getTimestamp() - Mage::helper('persistent')->getLifeTime($store),
+            Mage::helper('core/clock')->getTimestamp() - Mage::helper('persistent')->getLifeTime($store),
         );
     }
 
@@ -94,6 +92,7 @@ class Mage_Persistent_Model_Session extends Mage_Core_Model_Abstract
      *
      * @return $this
      */
+    #[Override]
     protected function _beforeSave()
     {
         parent::_beforeSave();
@@ -124,6 +123,7 @@ class Mage_Persistent_Model_Session extends Mage_Core_Model_Abstract
      *
      * @return $this
      */
+    #[Override]
     protected function _afterLoad()
     {
         parent::_afterLoad();
@@ -216,7 +216,7 @@ class Mage_Persistent_Model_Session extends Mage_Core_Model_Abstract
         if ($lifetime) {
             $this->getResource()->deleteExpired(
                 $websiteId,
-                gmdate(Varien_Date::DATETIME_PHP_FORMAT, Carbon::now()->getTimestamp() - $lifetime),
+                gmdate(Varien_Date::DATETIME_PHP_FORMAT, Mage::helper('core/clock')->getTimestamp() - $lifetime),
             );
         }
 
@@ -228,6 +228,7 @@ class Mage_Persistent_Model_Session extends Mage_Core_Model_Abstract
      *
      * @inheritDoc
      */
+    #[Override]
     protected function _afterDeleteCommit()
     {
         Mage::getSingleton('core/cookie')->delete(Mage_Persistent_Model_Session::COOKIE_NAME);
@@ -239,6 +240,7 @@ class Mage_Persistent_Model_Session extends Mage_Core_Model_Abstract
      *
      * @inheritDoc
      */
+    #[Override]
     public function save()
     {
         $this->setUpdatedAt(gmdate(Varien_Date::DATETIME_PHP_FORMAT));

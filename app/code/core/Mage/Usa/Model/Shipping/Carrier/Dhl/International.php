@@ -57,13 +57,6 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
     protected $_rawRequest = null;
 
     /**
-     * Rate result data
-     *
-     * @var null|Mage_Shipping_Model_Rate_Result|Mage_Shipping_Model_Tracking_Result
-     */
-    protected $_result = null;
-
-    /**
      * Countries parameters data
      *
      * @var null|SimpleXMLElement
@@ -1131,6 +1124,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
      *
      * @return bool|Mage_Shipping_Model_Carrier_Abstract|Mage_Shipping_Model_Rate_Result_Error
      */
+    #[Override]
     public function proccessAdditionalValidation(Mage_Shipping_Model_Rate_Request $request)
     {
         //Skip by item validation if there is no items in request
@@ -1179,6 +1173,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
      *
      * @return array<string, string>
      */
+    #[Override]
     public function getContainerTypes(?Varien_Object $params = null)
     {
         return [
@@ -1545,8 +1540,8 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
     /**
      * Get tracking
      *
-     * @param  mixed                                $trackings
-     * @return null|Mage_Shipping_Model_Rate_Result
+     * @param  mixed                                    $trackings
+     * @return null|Mage_Shipping_Model_Tracking_Result
      */
     public function getTracking($trackings)
     {
@@ -1556,7 +1551,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
 
         $this->_getXMLTracking($trackings);
 
-        return $this->_result;
+        return $this->_trackingResult;
     }
 
     /**
@@ -1722,7 +1717,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
             }
         }
 
-        $this->_result = $result;
+        $this->_trackingResult = $result;
     }
 
     /**
@@ -1733,6 +1728,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
      * @param  float  $handlingFee
      * @return float
      */
+    #[Override]
     protected function _getPerpackagePrice($cost, $handlingType, $handlingFee)
     {
         if ($handlingType == Mage_Shipping_Model_Carrier_Abstract::HANDLING_TYPE_PERCENT) {
@@ -1747,6 +1743,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
      *
      * @return Varien_Object
      */
+    #[Override]
     public function requestToShipment(Mage_Shipping_Model_Shipment_Request $request)
     {
         $packages = $request->getPackages();

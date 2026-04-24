@@ -34,7 +34,7 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Minicart
      */
     public function getItemCount()
     {
-        $count = $this->getData('item_count');
+        $count = $this->getDataByKey('item_count');
         if (is_null($count)) {
             $count = Mage::getStoreConfig(self::XML_PATH_CHECKOUT_SIDEBAR_COUNT);
             $this->setData('item_count', $count);
@@ -169,6 +169,7 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Minicart
      *
      * @return array
      */
+    #[Override]
     public function getItems()
     {
         if ($this->getCustomQuote()) {
@@ -183,6 +184,7 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Minicart
      *
      * @return array
      */
+    #[Override]
     public function getTotalsCache()
     {
         if (empty($this->_totals)) {
@@ -198,6 +200,7 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Minicart
      *
      * @return array
      */
+    #[Override]
     public function getCacheKeyInfo()
     {
         $cacheKeyInfo = parent::getCacheKeyInfo();
@@ -260,6 +263,7 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Minicart
      *
      * @return array
      */
+    #[Override]
     public function getCacheTags()
     {
         $quoteTags = $this->getQuote()->getCacheIdTags();
@@ -283,6 +287,7 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Minicart
      * @param  string $html
      * @return string
      */
+    #[Override]
     protected function _afterToHtml($html)
     {
         $html = parent::_afterToHtml($html);

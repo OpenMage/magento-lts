@@ -426,7 +426,7 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
     }
 
     /**
-     * Check invice void action availability
+     * Check Creditmemo void action availability
      *
      * @return false
      */
@@ -955,6 +955,7 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
      * @return $this
      * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _beforeDelete()
     {
         $this->_protectFromNonAdmin();
@@ -967,6 +968,7 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
      * @inheritDoc
      * @throws Throwable
      */
+    #[Override]
     protected function _afterSave()
     {
         if ($this->_items != null) {
@@ -990,6 +992,7 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
      * @return $this
      * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _beforeSave()
     {
         parent::_beforeSave();

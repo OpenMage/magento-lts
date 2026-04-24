@@ -37,8 +37,8 @@ foreach ($websites as $website) {
         /** @var Mage_Customer_Model_Attribute $attribute */
         $attribute      = $eavConfig->getAttribute('customer', $attributeCode);
         $configValue    = $addressHelper->getConfig($attributeCode . '_show', $store);
-        $isVisible      = $attribute->getData('is_visible');
-        $isRequired     = $attribute->getData('is_required');
+        $isVisible      = $attribute->getDataByKey('is_visible');
+        $isRequired     = $attribute->getDataByKey('is_required');
 
         if ($configValue == 'opt' || $configValue == '1') {
             $scopeIsVisible     = '1';
@@ -69,8 +69,8 @@ foreach ($websites as $website) {
     foreach ($attributes as $attributeCode) {
         $attribute      = $eavConfig->getAttribute('customer_address', $attributeCode);
         $configValue    = $addressHelper->getConfig($attributeCode . '_show', $store);
-        $isVisible      = $attribute->getData('is_visible');
-        $isRequired     = $attribute->getData('is_required');
+        $isVisible      = $attribute->getDataByKey('is_visible');
+        $isRequired     = $attribute->getDataByKey('is_required');
 
         if ($configValue == 'opt' || $configValue == '1') {
             $scopeIsVisible     = '1';
@@ -93,7 +93,7 @@ foreach ($websites as $website) {
 
     $attribute = $eavConfig->getAttribute('customer_address', 'street');
     $value     = $addressHelper->getConfig('street_lines', $store);
-    if ($attribute->getData('multiline_count') != $value) {
+    if ($attribute->getDataByKey('multiline_count') != $value) {
         $attribute->setWebsite($website);
         $attribute->setScopeMultilineCount($value);
         $attribute->save();

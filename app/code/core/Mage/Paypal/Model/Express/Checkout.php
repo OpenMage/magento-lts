@@ -7,8 +7,6 @@
  * @package    Mage_Paypal
  */
 
-use Carbon\Carbon;
-
 /**
  * Wrapper that performs Paypal Express and Checkout communication
  * Use current Paypal Express method instance
@@ -501,7 +499,7 @@ class Mage_Paypal_Model_Express_Checkout
         }
 
         $this->_setExportedAddressData($billingAddress, $exportedBillingAddress);
-        $billingAddress->setCustomerNotes($exportedBillingAddress->getData('note'));
+        $billingAddress->setCustomerNotes($exportedBillingAddress->getDataByKey('note'));
         $quote->setBillingAddress($billingAddress);
 
         // import payment info
@@ -1017,7 +1015,7 @@ class Mage_Paypal_Model_Express_Checkout
         }
 
         /**
-         * @todo integration with dynamica attributes customer_dob, customer_taxvat, customer_gender
+         * @todo integration with dynamic attributes customer_dob, customer_taxvat, customer_gender
          */
         if ($quote->getCustomerDob() && !$billing->getCustomerDob()) {
             $billing->setCustomerDob($quote->getCustomerDob());
@@ -1040,7 +1038,7 @@ class Mage_Paypal_Model_Express_Checkout
         $customer->setSuffix($quote->getCustomerSuffix());
         $customer->setPassword($customer->decryptPassword($quote->getPasswordHash()));
         $customer->setPasswordHash($customer->hashPassword($customer->getPassword()));
-        $customer->setPasswordCreatedAt(Carbon::now()->getTimestamp());
+        $customer->setPasswordCreatedAt(Mage::helper('core/clock')->getTimestamp());
         $customer->save();
 
         $quote->setCustomer($customer);

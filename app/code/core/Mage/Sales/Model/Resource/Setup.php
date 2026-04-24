@@ -68,12 +68,13 @@ class Mage_Sales_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
     }
 
     /**
-     * Add entity attribute. Overwrited for flat entities support
+     * Add entity attribute. Overwrite for flat entities support
      *
      * @param  int|string $entityTypeId
      * @param  string     $code
      * @return $this
      */
+    #[Override]
     public function addAttribute($entityTypeId, $code, array $attr)
     {
         if (isset($this->_flatEntityTables[$entityTypeId])

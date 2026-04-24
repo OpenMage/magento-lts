@@ -152,8 +152,8 @@ class Mage_Core_Model_Url extends Varien_Object
     /**
      * Initialize object data from retrieved url
      *
-     * @param  string              $url
-     * @return Mage_Core_Model_Url
+     * @param  string $url
+     * @return $this
      */
     public function parseUrl($url)
     {
@@ -319,7 +319,7 @@ class Mage_Core_Model_Url extends Varien_Object
     public function getSecure()
     {
         if ($this->hasData('secure_is_forced')) {
-            return (bool) $this->getData('secure');
+            return (bool) $this->getDataByKey('secure');
         }
 
         $store = $this->getStore();
@@ -341,7 +341,7 @@ class Mage_Core_Model_Url extends Varien_Object
             }
         }
 
-        return $this->getData('secure');
+        return $this->getDataByKey('secure');
     }
 
     /**
@@ -422,7 +422,6 @@ class Mage_Core_Model_Url extends Varien_Object
         }
 
         $this->setRouteName($route);
-        $routePath = $route . '/';
 
         if ($arr !== []) {
             $controller = array_shift($arr);
@@ -431,7 +430,6 @@ class Mage_Core_Model_Url extends Varien_Object
             }
 
             $this->setControllerName($controller);
-            $routePath .= $controller . '/';
         }
 
         if ($arr !== []) {
@@ -441,7 +439,6 @@ class Mage_Core_Model_Url extends Varien_Object
             }
 
             $this->setActionName($action);
-            $routePath .= $action . '/';
         }
 
         if ($arr !== []) {
@@ -451,7 +448,6 @@ class Mage_Core_Model_Url extends Varien_Object
                 if ($arr !== []) {
                     $value = array_shift($arr);
                     $this->setRouteParam($key, $value);
-                    $routePath .= $key . '/' . $value . '/';
                 }
             }
         }

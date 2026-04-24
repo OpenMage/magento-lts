@@ -28,7 +28,7 @@ class Mage_Adminhtml_Block_Tag_Tag_Edit extends Mage_Adminhtml_Block_Widget_Form
 
         if ($this->getRequest()->getParam('product_id')) {
             $this->_updateButton(
-                'back',
+                self::BUTTON_TYPE_BACK,
                 'onclick',
                 Mage::helper('core/js')->getSetLocationJs(
                     $this->getUrl('*/catalog_product/edit', ['id' => $this->getRequest()->getParam('product_id')]),
@@ -38,7 +38,7 @@ class Mage_Adminhtml_Block_Tag_Tag_Edit extends Mage_Adminhtml_Block_Widget_Form
 
         if ($this->getRequest()->getParam('customer_id')) {
             $this->_updateButton(
-                'back',
+                self::BUTTON_TYPE_BACK,
                 'onclick',
                 Mage::helper('core/js')->getSetLocationJs(
                     $this->getUrl('*/customer/edit', ['id' => $this->getRequest()->getParam('customer_id')]),
@@ -48,13 +48,13 @@ class Mage_Adminhtml_Block_Tag_Tag_Edit extends Mage_Adminhtml_Block_Widget_Form
 
         if ($this->getRequest()->getParam('ret', false) == 'pending') {
             $this->_updateButton(
-                'back',
+                self::BUTTON_TYPE_BACK,
                 'onclick',
                 Mage::helper('core/js')->getSetLocationJs($this->getUrl('*/*/pending')),
             );
 
             $this->_updateButton(
-                'delete',
+                self::BUTTON_TYPE_DELETE,
                 'onclick',
                 Mage::helper('core/js')->getDeleteConfirmJs(
                     $this->getUrl(
@@ -66,8 +66,8 @@ class Mage_Adminhtml_Block_Tag_Tag_Edit extends Mage_Adminhtml_Block_Widget_Form
             Mage::register('ret', 'pending');
         }
 
-        $this->_updateButton('save', 'label', Mage::helper('tag')->__('Save Tag'));
-        $this->_updateButton('delete', 'label', Mage::helper('tag')->__('Delete Tag'));
+        $this->_updateButton(self::BUTTON_TYPE_SAVE, 'label', Mage::helper('tag')->__('Save Tag'));
+        $this->_updateButton(self::BUTTON_TYPE_DELETE, 'label', Mage::helper('tag')->__('Delete Tag'));
     }
 
     /**
@@ -75,6 +75,7 @@ class Mage_Adminhtml_Block_Tag_Tag_Edit extends Mage_Adminhtml_Block_Widget_Form
      *
      * @return $this
      */
+    #[Override]
     protected function _prepareLayout()
     {
         parent::_prepareLayout();
@@ -87,6 +88,7 @@ class Mage_Adminhtml_Block_Tag_Tag_Edit extends Mage_Adminhtml_Block_Widget_Form
      *
      * @return string
      */
+    #[Override]
     public function getFormHtml()
     {
         $html = parent::getFormHtml();
@@ -96,6 +98,7 @@ class Mage_Adminhtml_Block_Tag_Tag_Edit extends Mage_Adminhtml_Block_Widget_Form
     /**
      * @return string
      */
+    #[Override]
     public function getHeaderText()
     {
         if (Mage::registry('tag_tag')->getId()) {

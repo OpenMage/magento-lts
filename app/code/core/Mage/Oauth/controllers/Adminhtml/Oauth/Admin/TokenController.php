@@ -23,6 +23,7 @@ class Mage_Oauth_Adminhtml_Oauth_Admin_TokenController extends Mage_Adminhtml_Co
      *
      * @return $this
      */
+    #[Override]
     public function preDispatch()
     {
         $this->_title($this->__('System'))
@@ -34,6 +35,7 @@ class Mage_Oauth_Adminhtml_Oauth_Admin_TokenController extends Mage_Adminhtml_Co
 
     /**
      * Render grid page
+     * @return void
      */
     public function indexAction()
     {
@@ -44,6 +46,7 @@ class Mage_Oauth_Adminhtml_Oauth_Admin_TokenController extends Mage_Adminhtml_Co
 
     /**
      * Render grid AJAX request
+     * @return void
      */
     public function gridAction()
     {
@@ -53,6 +56,7 @@ class Mage_Oauth_Adminhtml_Oauth_Admin_TokenController extends Mage_Adminhtml_Co
 
     /**
      * Update revoke status action
+     * @return void
      */
     public function revokeAction()
     {
@@ -75,7 +79,7 @@ class Mage_Oauth_Adminhtml_Oauth_Admin_TokenController extends Mage_Adminhtml_Co
 
         try {
             /** @var Mage_Admin_Model_User $user */
-            $user = Mage::getSingleton('admin/session')->getData('user');
+            $user = Mage::getSingleton('admin/session')->getDataByKey('user');
 
             /** @var Mage_Oauth_Model_Resource_Token_Collection $collection */
             $collection = Mage::getModel('oauth/token')->getCollection();
@@ -106,6 +110,7 @@ class Mage_Oauth_Adminhtml_Oauth_Admin_TokenController extends Mage_Adminhtml_Co
 
     /**
      * Delete action
+     * @return void
      */
     public function deleteAction()
     {
@@ -120,7 +125,7 @@ class Mage_Oauth_Adminhtml_Oauth_Admin_TokenController extends Mage_Adminhtml_Co
 
         try {
             /** @var Mage_Admin_Model_User $user */
-            $user = Mage::getSingleton('admin/session')->getData('user');
+            $user = Mage::getSingleton('admin/session')->getDataByKey('user');
 
             /** @var Mage_Oauth_Model_Resource_Token_Collection $collection */
             $collection = Mage::getModel('oauth/token')->getCollection();

@@ -871,7 +871,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
         }
 
         try {
-            $response = $this->call('ManageRecurringPaymentsProfileStatus', $request);
+            $this->call('ManageRecurringPaymentsProfileStatus', $request);
         } catch (Mage_Core_Exception $mageCoreException) {
             if ((in_array(11556, $this->_callErrors) && $request['ACTION'] === 'Cancel')
                 || (in_array(11557, $this->_callErrors) && $request['ACTION'] === 'Suspend')
@@ -1231,6 +1231,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
      * @param  int       $i
      * @return bool|void
      */
+    #[Override]
     protected function _exportLineItems(array &$request, $i = 0)
     {
         if (!$this->_cart) {

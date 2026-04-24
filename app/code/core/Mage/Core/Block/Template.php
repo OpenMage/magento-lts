@@ -8,6 +8,7 @@ use Monolog\Level;
  * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
  */
+
 /**
  * Base html block
  *
@@ -71,6 +72,7 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
      *
      * @return void
      */
+    #[Override]
     protected function _construct()
     {
         parent::_construct();
@@ -82,7 +84,7 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
          * not via Mage_Core_Model_Layout::addBlock()
          */
         if ($this->hasData('template')) {
-            $this->setTemplate($this->getData('template'));
+            $this->setTemplate($this->getDataByKey('template'));
         }
     }
 
@@ -323,6 +325,7 @@ HTML;
      *
      * @return string
      */
+    #[Override]
     protected function _toHtml()
     {
         if (!$this->getTemplate()) {
@@ -378,6 +381,7 @@ HTML;
      * @inheritDoc
      * @return array<int|string, string>
      */
+    #[Override]
     public function getCacheKeyInfo()
     {
         return [

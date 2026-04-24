@@ -608,13 +608,11 @@ class Mage_Core_Model_Resource_Setup
             try {
                 switch ($fileType) {
                     case 'php':
-                        $conn   = $this->getConnection();
                         $result = include $fileName;
                         break;
                     case 'sql':
                         $sql = file_get_contents($fileName);
-                        $result = empty($sql) ? true : $this->run($sql);
-
+                        $result = $sql ? $this->run($sql) : true;
                         break;
                     default:
                         $result = false;

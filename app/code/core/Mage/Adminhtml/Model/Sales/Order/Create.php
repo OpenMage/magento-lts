@@ -7,8 +7,6 @@
  * @package    Mage_Adminhtml
  */
 
-use Carbon\Carbon;
-
 /**
  * Order create model
  *
@@ -166,8 +164,8 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
     /**
      * Set collect totals flag for quote
      *
-     * @param  bool                                    $flag
-     * @return Mage_Adminhtml_Model_Sales_Order_Create
+     * @param  bool  $flag
+     * @return $this
      */
     public function setRecollect($flag)
     {
@@ -179,7 +177,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
      * Recollect totals for customer cart.
      * Set recollect totals flag for quote
      *
-     * @return Mage_Adminhtml_Model_Sales_Order_Create
+     * @return $this
      */
     public function recollectCart()
     {
@@ -538,7 +536,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
      * @param  int|Mage_Sales_Model_Quote_Item_Abstract $item
      * @param  string                                   $moveTo
      * @param  int                                      $qty
-     * @return Mage_Adminhtml_Model_Sales_Order_Create
+     * @return $this
      */
     public function moveQuoteItem($item, $moveTo, $qty)
     {
@@ -664,7 +662,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
     public function applySidebarData($data)
     {
         if (isset($data['add_order_item'])) {
-            foreach ($data['add_order_item'] as $orderItemId => $value) {
+            foreach (array_keys($data['add_order_item']) as $orderItemId) {
                 /** @var Mage_Sales_Model_Order_Item $orderItem */
                 // phpcs:ignore Ecg.Performance.Loop.ModelLSD
                 $orderItem = Mage::getModel('sales/order_item')->load($orderItemId);
@@ -717,9 +715,9 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
     /**
      * Remove item from some of customer items storage (shopping cart, wishlist etc.)
      *
-     * @param  int                                     $itemId
-     * @param  string                                  $from
-     * @return Mage_Adminhtml_Model_Sales_Order_Create
+     * @param  int    $itemId
+     * @param  string $from
+     * @return $this
      */
     public function removeItem($itemId, $from)
     {
@@ -728,7 +726,8 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
                 $this->removeQuoteItem($itemId);
                 break;
             case 'cart':
-                if ($cart = $this->getCustomerCart()) {
+                $cart = $this->getCustomerCart();
+                if ($cart) {
                     $cart->removeItem($itemId);
                     $cart->collectTotals()
                         ->save();
@@ -736,16 +735,17 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
 
                 break;
             case 'wishlist':
-                if ($wishlist = $this->getCustomerWishlist()) {
+                if ($this->getCustomerWishlist()) {
+                    # todo: check load/delete
                     $item = Mage::getModel('wishlist/item')->load($itemId);
                     $item->delete();
                 }
 
                 break;
             case 'compared':
-                $item = Mage::getModel('catalog/product_compare_item')
-                    ->load($itemId)
-                    ->delete();
+                # todo: check load/delete
+                $item = Mage::getModel('catalog/product_compare_item')->load($itemId);
+                $item->delete();
                 break;
         }
 
@@ -755,8 +755,8 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
     /**
      * Remove quote item
      *
-     * @param  int                                     $item
-     * @return Mage_Adminhtml_Model_Sales_Order_Create
+     * @param  int   $item
+     * @return $this
      */
     public function removeQuoteItem($item)
     {
@@ -770,9 +770,9 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
      * $product can be either product id or product model
      * $config can be either buyRequest config, or just qty
      *
-     * @param  int|Mage_Catalog_Model_Product          $product
-     * @param  array|float|Varien_Object               $config
-     * @return Mage_Adminhtml_Model_Sales_Order_Create
+     * @param  int|Mage_Catalog_Model_Product $product
+     * @param  array|float|Varien_Object      $config
+     * @return $this
      */
     public function addProduct($product, $config = 1)
     {
@@ -852,8 +852,8 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
     /**
      * Update quantity of order quote items
      *
-     * @param  array                                   $data
-     * @return Mage_Adminhtml_Model_Sales_Order_Create
+     * @param  array $data
+     * @return $this
      */
     public function updateQuoteItems($data)
     {
@@ -1063,7 +1063,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
     }
 
     /**
-     * Retrieve oreder quote shipping address
+     * Retrieve order quote shipping address
      *
      * @return Mage_Sales_Model_Quote_Address
      */
@@ -1324,8 +1324,8 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
     /**
      * Parse data retrieved from request
      *
-     * @param  array                                   $data
-     * @return Mage_Adminhtml_Model_Sales_Order_Create
+     * @param  array $data
+     * @return $this
      */
     public function importPostData($data)
     {
@@ -1702,9 +1702,9 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
             $host = $this->getSession()
                 ->getStore()
                 ->getConfig(Mage_Customer_Model_Customer::XML_PATH_DEFAULT_EMAIL_DOMAIN);
-            $account = $customer->getIncrementId() ? $customer->getIncrementId() : Carbon::now()->getTimestamp();
+            $account = $customer->getIncrementId() ? $customer->getIncrementId() : $this->getClockHelper()->getTimestamp();
             $email = $account . '@' . $host;
-            $account = $this->getData('account');
+            $account = $this->getDataByKey('account');
             $account['email'] = $email;
             $this->setData('account', $account);
         }
@@ -1723,7 +1723,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
             $customer = Mage::getModel('customer/customer');
 
             $customer->addData($this->getBillingAddress()->exportCustomerAddress()->getData())
-                     ->addData($this->getData('account'))
+                     ->addData($this->getDataByKey('account'))
                      ->setPassword($customer->generatePassword())
                      ->setWebsiteId($this->getSession()->getStore()->getWebsiteId())
                      ->setStoreId($this->getSession()->getStore()->getId())
@@ -1736,10 +1736,10 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
             $customer->setStore($this->getSession()->getStore())
                 ->save();
             $this->getSession()->setCustomer($customer);
-            $customer->addData($this->getData('account'));
+            $customer->addData($this->getDataByKey('account'));
         } else {
             $customer = $this->getSession()->getCustomer();
-            $customer->addData($this->getData('account'));
+            $customer->addData($this->getDataByKey('account'));
         }
 
         $this->getQuote()->setCustomer($customer);
@@ -1823,7 +1823,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
             $billingAddress = $this->getBillingAddress()->exportCustomerAddress();
 
             $customer->addData($billingAddress->getData())
-                ->addData($this->getData('account'))
+                ->addData($this->getDataByKey('account'))
                 ->setPassword($customer->generatePassword())
                 ->setWebsiteId($this->getSession()->getStore()->getWebsiteId())
                 ->setStoreId($this->getSession()->getStore()->getId())
@@ -1876,7 +1876,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
                 $customer->save();
             }
 
-            $customer->addData($this->getData('account'));
+            $customer->addData($this->getDataByKey('account'));
             /**
              * don't save account information, use it only for order creation
              */

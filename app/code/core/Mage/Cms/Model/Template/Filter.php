@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -27,6 +29,7 @@ class Mage_Cms_Model_Template_Filter extends Mage_Core_Model_Email_Template_Filt
      * @param  bool  $flag
      * @return $this
      */
+    #[Override]
     public function setUseSessionInUrl($flag)
     {
         $this->_useSessionInUrl = (bool) $flag;

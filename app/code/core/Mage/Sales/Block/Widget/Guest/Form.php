@@ -49,7 +49,7 @@ class Mage_Sales_Block_Widget_Guest_Form extends Mage_Core_Block_Template implem
      */
     protected function _getFormOptions()
     {
-        $options = $this->getData('identifymeby_options');
+        $options = $this->getDataByKey('identifymeby_options');
         if (is_null($options)) {
             $options = [];
             $options[] = [

@@ -41,8 +41,8 @@ class Mage_Catalog_ProductController extends Mage_Core_Controller_Front_Action
     /**
      * Initialize product view layout
      *
-     * @param  Mage_Catalog_Model_Product     $product
-     * @return Mage_Catalog_ProductController
+     * @param  Mage_Catalog_Model_Product $product
+     * @return $this
      */
     protected function _initProductLayout($product)
     {
@@ -98,6 +98,7 @@ class Mage_Catalog_ProductController extends Mage_Core_Controller_Front_Action
      * Product view action
      *
      * @SuppressWarnings("PHPMD.Superglobals")
+     * @return void
      */
     public function viewAction()
     {
@@ -136,6 +137,7 @@ class Mage_Catalog_ProductController extends Mage_Core_Controller_Front_Action
      * View product gallery action
      *
      * @SuppressWarnings("PHPMD.Superglobals")
+     * @return void
      */
     public function galleryAction()
     {
@@ -156,6 +158,7 @@ class Mage_Catalog_ProductController extends Mage_Core_Controller_Front_Action
     /**
      * Display product image action
      *
+     * @return void
      * @deprecated
      */
     public function imageAction()

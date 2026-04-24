@@ -7,6 +7,7 @@
  * @package    Mage_Customer
  */
 
+use Carbon\Carbon;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 
 /**
@@ -22,7 +23,6 @@ use Symfony\Component\Validator\ConstraintViolationListInterface;
  * @method null|int                                         getDefaultBilling()
  * @method null|int                                         getDefaultShipping()
  * @method int                                              getDisableAutoGroupChange()
- * @method null|string                                      getDob()
  * @method string                                           getEmail()
  * @method string                                           getFirstname()
  * @method bool                                             getForceConfirmed()
@@ -53,7 +53,6 @@ use Symfony\Component\Validator\ConstraintViolationListInterface;
  * @method int                                              getTagId()
  * @method string                                           getTaxvat()
  * @method int                                              getWebsiteId()
- * @method bool                                             hasIsChangePassword()
  * @method bool                                             hasIsSubscribed()
  * @method bool                                             hasSkipConfirmationIfEmail()
  * @method bool                                             hasStoreId()
@@ -62,7 +61,6 @@ use Symfony\Component\Validator\ConstraintViolationListInterface;
  * @method $this                                            setCustomerId(null|int $value)
  * @method $this                                            setDefaultBilling(null|int $value)
  * @method $this                                            setDefaultShipping(null|int $value)
- * @method $this                                            setDob(string  $value)
  * @method $this                                            setEmail(string $value)
  * @method $this                                            setFirstname(string $value)
  * @method $this                                            setForceConfirmed(bool $value)
@@ -308,6 +306,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
      */
+    #[Override]
     protected function _beforeSave()
     {
         parent::_beforeSave();
@@ -963,7 +962,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
             $this->setData('group_id', $groupId);
         }
 
-        return $this->getData('group_id');
+        return $this->getDataByKey('group_id');
     }
 
     /**
@@ -975,11 +974,11 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      */
     public function getTaxClassId()
     {
-        if (!$this->getData('tax_class_id')) {
+        if (!$this->getDataByKey('tax_class_id')) {
             $this->setTaxClassId(Mage::getModel('customer/group')->getTaxClassId($this->getGroupId()));
         }
 
-        return $this->getData('tax_class_id');
+        return $this->getDataByKey('tax_class_id');
     }
 
     /**
@@ -1100,7 +1099,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
             message: Mage::helper('customer')->__('Invalid email address "%s".', $email),
         ));
 
-        if (!$this->hasIsChangePassword() || $this->getIsChangePassword()) {
+        if ($this->getIsChangePassword()) {
             $violations->append($this->getPasswordValidator(value: $this->getPassword()));
 
             $violations->append($validator->validateIdentical(
@@ -1112,7 +1111,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
 
         $entityType = Mage::getSingleton('eav/config')->getEntityType('customer');
 
-        $violations->append($validator->validateDate(
+        $violations->append($validator->validateDateTime(
             value: trim((string) $this->getDob()),
             message: Mage::helper('customer')->__('The Date of Birth is not a valid date.'),
             empty: !$this->shouldValidateDob($entityType),
@@ -1216,14 +1215,14 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
         }
 
         if (empty($row['entity_id'])) {
-            if ($this->getData('entity_id')) {
+            if ($this->getDataByKey('entity_id')) {
                 $this->addError(Mage::helper('customer')->__(
                     'The customer email (%s) already exists, skipping the record, line: %s',
                     $row['email'],
                     $line,
                 ));
             }
-        } elseif ($row['entity_id'] != $this->getData('entity_id')) {
+        } elseif ($row['entity_id'] != $this->getDataByKey('entity_id')) {
             $this->addError(Mage::helper('customer')->__(
                 'The customer ID and email did not match, skipping the record, line: %s',
                 $line,
@@ -1503,6 +1502,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      *
      * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _beforeDelete()
     {
         $this->_protectFromNonAdmin();
@@ -1629,7 +1629,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      */
     public function getEntityTypeId()
     {
-        $entityTypeId = $this->getData('entity_type_id');
+        $entityTypeId = $this->getDataByKey('entity_type_id');
         if (!$entityTypeId) {
             $entityTypeId = $this->getEntityType()->getId();
             $this->setData('entity_type_id', $entityTypeId);
@@ -1788,5 +1788,25 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
         /** @var Mage_Customer_Model_Attribute $model */
         $model = Mage::getModel('customer/attribute');
         return $model;
+    }
+
+    public function setDob(?string $dob)
+    {
+        if (is_string($dob) && $dob !== '') {
+            $dob = Carbon::parse($dob)
+                ->setHour(0)
+                ->setMinute(0)
+                ->setSecond(0)
+                ->toDateTimeString();
+        }
+
+        $this->setData('dob', $dob);
+
+        return $this;
+    }
+
+    public function getDob(): ?string
+    {
+        return $this->getDataByKey('dob');
     }
 }

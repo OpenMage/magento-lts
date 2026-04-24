@@ -63,7 +63,7 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
         if (count($attributes)) {
             foreach ($attributes as $attribute) {
                 /** @var Mage_Catalog_Model_Product_Type_Configurable_Attribute $attribute */
-                if ($attribute->getData('prices')) {
+                if ($attribute->getDataByKey('prices')) {
                     return true;
                 }
             }
@@ -98,7 +98,7 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
             $this->setAllowProducts($products);
         }
 
-        return $this->getData('allow_products');
+        return $this->getDataByKey('allow_products');
     }
 
     /**
@@ -299,9 +299,9 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
     /**
      * Calculation real price
      *
-     * @param  float $price
-     * @param  bool  $isPercent
-     * @return mixed
+     * @param  float  $price
+     * @param  bool   $isPercent
+     * @return string
      * @deprecated
      */
     protected function _preparePrice($price, $isPercent = false)
@@ -312,9 +312,9 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
     /**
      * Calculation price before special price
      *
-     * @param  float $price
-     * @param  bool  $isPercent
-     * @return mixed
+     * @param  float  $price
+     * @param  bool   $isPercent
+     * @return string
      * @deprecated
      */
     protected function _prepareOldPrice($price, $isPercent = false)

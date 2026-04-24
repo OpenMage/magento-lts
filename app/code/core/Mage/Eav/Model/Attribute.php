@@ -65,6 +65,7 @@ abstract class Mage_Eav_Model_Attribute extends Mage_Eav_Model_Entity_Attribute
      *
      * @inheritDoc
      */
+    #[Override]
     protected function _afterSave()
     {
         Mage::getSingleton('eav/config')->clear();
@@ -78,7 +79,7 @@ abstract class Mage_Eav_Model_Attribute extends Mage_Eav_Model_Entity_Attribute
      */
     public function getUsedInForms()
     {
-        $forms = $this->getData('used_in_forms');
+        $forms = $this->getDataByKey('used_in_forms');
         if (is_null($forms)) {
             $forms = $this->_getResource()->getUsedInForms($this);
             $this->setData('used_in_forms', $forms);
@@ -94,7 +95,7 @@ abstract class Mage_Eav_Model_Attribute extends Mage_Eav_Model_Entity_Attribute
      */
     public function getValidateRules()
     {
-        $rules = $this->getData('validate_rules');
+        $rules = $this->getDataByKey('validate_rules');
         if (is_array($rules)) {
             return $rules;
         }
@@ -162,6 +163,7 @@ abstract class Mage_Eav_Model_Attribute extends Mage_Eav_Model_Entity_Attribute
      *
      * @return mixed
      */
+    #[Override]
     public function getDefaultValue()
     {
         return $this->_getScopeValue('default_value');

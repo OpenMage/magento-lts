@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Weee\Model\Config\Source\Fpt;
 
 // use Mage;
 // use Mage_Weee_Model_Config_Source_Fpt_Tax as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Weee\Model\Config\Source\Fpt\TaxTrait;
 
@@ -22,6 +23,7 @@ final class TaxTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

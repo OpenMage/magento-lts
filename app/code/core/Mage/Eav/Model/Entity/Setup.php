@@ -132,8 +132,6 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
             $this->_conn->insert($this->getTable('eav/entity_type'), $data);
         }
 
-        $defaultGroup = empty($params['default_group']) ? $this->_defaultGroupName : $params['default_group'];
-
         $this->addAttributeSet($code, $this->_defaultAttributeSetName);
         $this->addAttributeGroup($code, $this->_defaultGroupName, $this->_generalGroupName);
 
@@ -745,7 +743,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
     }
 
     /**
-     * Add Attribure Option
+     * Add Attribute Option
      *
      * @param  array               $option
      * @throws Mage_Core_Exception

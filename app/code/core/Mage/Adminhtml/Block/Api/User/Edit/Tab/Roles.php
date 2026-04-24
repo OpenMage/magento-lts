@@ -31,6 +31,7 @@ class Mage_Adminhtml_Block_Api_User_Edit_Tab_Roles extends Mage_Adminhtml_Block_
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _addColumnFilterToCollection($column)
     {
         if ($column->getId() === 'assigned_user_role') {
@@ -55,6 +56,7 @@ class Mage_Adminhtml_Block_Api_User_Edit_Tab_Roles extends Mage_Adminhtml_Block_
      * @inheritDoc
      * @throws Exception
      */
+    #[Override]
     protected function _prepareCollection()
     {
         $collection = Mage::getResourceModel('api/role_collection');
@@ -67,6 +69,7 @@ class Mage_Adminhtml_Block_Api_User_Edit_Tab_Roles extends Mage_Adminhtml_Block_
      * @inheritDoc
      * @throws Exception
      */
+    #[Override]
     protected function _prepareColumns()
     {
         $this->addColumn('assigned_user_role', [
@@ -90,6 +93,7 @@ class Mage_Adminhtml_Block_Api_User_Edit_Tab_Roles extends Mage_Adminhtml_Block_
     /**
      * @inheritDoc
      */
+    #[Override]
     public function getGridUrl()
     {
         return $this->getUrl('*/*/rolesGrid', ['user_id' => Mage::registry('api_user')->getUserId()]);

@@ -7,8 +7,6 @@
  * @package    Mage_Cms
  */
 
-use Carbon\Carbon;
-
 /**
  * Wysiwyg Images model
  *
@@ -105,6 +103,12 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
             }
         }
 
+        if (str_starts_with($path, 'phar://')) {
+            return $this->getCollection()
+                ->setCollectDirs(false)
+                ->setCollectFiles(false);
+        }
+
         $collection = $this->getCollection($path)
             ->setCollectDirs(false)
             ->setCollectFiles(true)
@@ -153,7 +157,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
     /**
      * Storage collection
      *
-     * @param  string                            $path Path to the directory
+     * @param  null|string                       $path Path to the directory
      * @return Varien_Data_Collection_Filesystem
      */
     public function getCollection($path = null)
@@ -350,7 +354,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
         if (str_starts_with($filePath, $mediaRootDir)) {
             $thumbSuffix = self::THUMBS_DIRECTORY_NAME . DS . substr($filePath, strlen($mediaRootDir));
             if (!$checkFile || is_readable($this->getHelper()->getStorageRoot() . $thumbSuffix)) {
-                $randomIndex = '?rand=' . Carbon::now()->getTimestamp();
+                $randomIndex = '?rand=' . Mage::helper('core/clock')->getTimestamp();
                 $thumbUrl = $this->getHelper()->getBaseUrl() . Mage_Cms_Model_Wysiwyg_Config::IMAGE_DIRECTORY
                     . DS . $thumbSuffix;
                 return str_replace('\\', '/', $thumbUrl) . $randomIndex;

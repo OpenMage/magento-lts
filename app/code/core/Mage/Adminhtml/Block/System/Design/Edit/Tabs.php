@@ -20,6 +20,7 @@ class Mage_Adminhtml_Block_System_Design_Edit_Tabs extends Mage_Adminhtml_Block_
         $this->setTitle(Mage::helper('core')->__('Design Change'));
     }
 
+    #[Override]
     protected function _prepareLayout()
     {
         $this->addTab('general', [

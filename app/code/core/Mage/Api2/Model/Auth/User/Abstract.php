@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -65,8 +67,8 @@ abstract class Mage_Api2_Model_Auth_User_Abstract
     /**
      * Set user identifier
      *
-     * @param  int                                $userId User identifier
-     * @return Mage_Api2_Model_Auth_User_Abstract
+     * @param  int   $userId User identifier
+     * @return $this
      */
     public function setUserId($userId)
     {

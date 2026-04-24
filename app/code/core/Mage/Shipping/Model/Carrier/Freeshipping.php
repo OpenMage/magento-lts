@@ -69,6 +69,7 @@ class Mage_Shipping_Model_Carrier_Freeshipping extends Mage_Shipping_Model_Carri
      *
      * @param Mage_Shipping_Model_Rate_Request $request
      */
+    #[Override]
     protected function _updateFreeMethodQuote($request)
     {
         $freeShipping = false;

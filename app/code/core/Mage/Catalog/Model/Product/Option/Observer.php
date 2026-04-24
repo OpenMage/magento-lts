@@ -35,7 +35,7 @@ class Mage_Catalog_Model_Product_Option_Observer
                 ) {
                     /** @var Mage_Catalog_Model_Product_Option $option */
                     try {
-                        $group = $option->groupFactory($option->getType())
+                        $option->groupFactory($option->getType())
                             ->setQuoteItemOption($itemOption)
                             ->copyQuoteToOrder();
                     } catch (Exception) {

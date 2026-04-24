@@ -27,6 +27,7 @@ class Mage_Checkout_Block_Multishipping_Addresses extends Mage_Sales_Block_Items
     /**
      * @return $this
      */
+    #[Override]
     protected function _prepareLayout()
     {
         if ($headBlock = $this->getLayout()->getBlock('head')) {
@@ -73,7 +74,7 @@ class Mage_Checkout_Block_Multishipping_Addresses extends Mage_Sales_Block_Items
      */
     public function getAddressOptions()
     {
-        $options = $this->getData('address_options');
+        $options = $this->getDataByKey('address_options');
         if (is_null($options)) {
             $options = [];
             foreach ($this->getCustomer()->getAddresses() as $address) {

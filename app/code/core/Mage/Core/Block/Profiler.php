@@ -16,6 +16,7 @@ class Mage_Core_Block_Profiler extends Mage_Core_Block_Abstract
      * @return string
      * @SuppressWarnings("PHPMD.DevelopmentCodeFragment")
      */
+    #[Override]
     protected function _toHtml()
     {
         if (!$this->_beforeToHtml()
@@ -34,7 +35,7 @@ class Mage_Core_Block_Profiler extends Mage_Core_Block_Abstract
         $out .= '<pre>Memory usage: real: ' . memory_get_usage(true) . ', emalloc: ' . memory_get_usage() . '</pre>';
         $out .= '<table border="1" cellspacing="0" cellpadding="2" style="width:auto">';
         $out .= '<tr><th>Code Profiler</th><th>Time</th><th>Cnt</th><th>Emalloc</th><th>RealMem</th></tr>';
-        foreach ($timers as $name => $timer) {
+        foreach (array_keys($timers) as $name) {
             $sum = Varien_Profiler::fetch($name, 'sum');
             $count = Varien_Profiler::fetch($name, 'count');
             $realmem = Varien_Profiler::fetch($name, 'realmem');

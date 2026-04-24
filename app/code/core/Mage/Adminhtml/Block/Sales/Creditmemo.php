@@ -19,6 +19,6 @@ class Mage_Adminhtml_Block_Sales_Creditmemo extends Mage_Adminhtml_Block_Widget_
         $this->_controller = 'sales_creditmemo';
         $this->_headerText = Mage::helper('sales')->__('Credit Memos');
         parent::__construct();
-        $this->_removeButton('add');
+        $this->_removeButton(self::BUTTON_TYPE_ADD);
     }
 }

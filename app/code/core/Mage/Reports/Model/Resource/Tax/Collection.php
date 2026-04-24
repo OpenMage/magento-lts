@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -17,6 +19,7 @@ class Mage_Reports_Model_Resource_Tax_Collection extends Mage_Sales_Model_Entity
     /**
      * Set row identifier field name
      */
+    #[Override]
     protected function _construct()
     {
         parent::_construct();
@@ -79,6 +82,7 @@ class Mage_Reports_Model_Resource_Tax_Collection extends Mage_Sales_Model_Entity
      *
      * @return Varien_Db_Select
      */
+    #[Override]
     public function getSelectCountSql()
     {
         $countSelect = clone $this->getSelect();

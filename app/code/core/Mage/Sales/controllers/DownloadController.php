@@ -98,6 +98,7 @@ class Mage_Sales_DownloadController extends Mage_Core_Controller_Front_Action
 
     /**
      * Profile custom options download action
+     * @return void
      */
     public function downloadProfileCustomOptionAction()
     {
@@ -107,7 +108,7 @@ class Mage_Sales_DownloadController extends Mage_Core_Controller_Front_Action
             $this->_forward('noRoute');
         }
 
-        $orderItemInfo = $recurringProfile->getData('order_item_info');
+        $orderItemInfo = $recurringProfile->getDataByKey('order_item_info');
         try {
             $request = unserialize($orderItemInfo['info_buyRequest'], ['allowed_classes' => false]);
 
@@ -146,6 +147,7 @@ class Mage_Sales_DownloadController extends Mage_Core_Controller_Front_Action
      * Custom options download action
      *
      * @SuppressWarnings("PHPMD.ExitExpression")
+     * @return void
      */
     public function downloadCustomOptionAction()
     {

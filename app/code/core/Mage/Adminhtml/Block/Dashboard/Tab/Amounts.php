@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -35,6 +37,7 @@ class Mage_Adminhtml_Block_Dashboard_Tab_Amounts extends Mage_Adminhtml_Block_Da
      * @return void
      * @throws Exception
      */
+    #[Override]
     protected function _prepareData()
     {
         $this->setDataRows('revenue');

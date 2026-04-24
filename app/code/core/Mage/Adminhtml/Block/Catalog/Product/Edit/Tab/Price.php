@@ -14,6 +14,7 @@
  */
 class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price extends Mage_Adminhtml_Block_Widget_Form
 {
+    #[Override]
     protected function _prepareForm()
     {
         $product = Mage::registry('product');
@@ -32,7 +33,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price extends Mage_Adminhtml
         $fieldset->addField('tier_price', 'text', [
             'name' => 'tier_price',
             'class' => 'requried-entry',
-            'value' => $product->getData('tier_price'),
+            'value' => $product->getDataByKey('tier_price'),
         ]);
 
         $renderer = $this->getLayout()->createBlock('adminhtml/catalog_product_edit_tab_price_tier');

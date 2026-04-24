@@ -17,6 +17,7 @@ class Mage_Adminhtml_Block_Sales_Order_Payment extends Mage_Adminhtml_Block_Temp
     /**
      * Retrieve required options from parent
      */
+    #[Override]
     protected function _beforeToHtml()
     {
         if (!$this->getParentBlock()) {
@@ -35,6 +36,7 @@ class Mage_Adminhtml_Block_Sales_Order_Payment extends Mage_Adminhtml_Block_Temp
         return $this;
     }
 
+    #[Override]
     protected function _toHtml()
     {
         return $this->getChildHtml('info');

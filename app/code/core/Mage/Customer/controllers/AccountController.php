@@ -7,7 +7,6 @@
  * @package    Mage_Customer
  */
 
-use Carbon\Carbon;
 use Mage_Customer_Helper_Data as Helper;
 
 /**
@@ -43,6 +42,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
      *
      * Check customer authentication for some actions
      */
+    #[Override]
     public function preDispatch()
     {
         // @todo a brute-force protection here would be nice
@@ -84,6 +84,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
      *
      * Remove No-referer flag from customer session after each action
      */
+    #[Override]
     public function postDispatch()
     {
         parent::postDispatch();
@@ -93,6 +94,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
 
     /**
      * Default customer account page
+     * @return void
      */
     public function indexAction()
     {
@@ -109,6 +111,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
 
     /**
      * Customer login form page
+     * @return void
      */
     public function loginAction()
     {
@@ -127,6 +130,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
 
     /**
      * Login post action
+     * @return void
      */
     public function loginPostAction()
     {
@@ -227,6 +231,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
 
     /**
      * Customer logout action
+     * @return void
      */
     public function logoutAction()
     {
@@ -244,6 +249,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
 
     /**
      * Logout success page
+     * @return void
      */
     public function logoutSuccessAction()
     {
@@ -253,6 +259,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
 
     /**
      * Customer register form page
+     * @return void
      */
     public function createAction()
     {
@@ -268,6 +275,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
 
     /**
      * Create customer account action
+     * @return void
      */
     public function createPostAction()
     {
@@ -290,13 +298,14 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
         }
 
         $customer = $this->_getCustomer();
+        $customer->setIsChangePassword(true);
 
         try {
             $errors = $this->_getCustomerErrors($customer);
 
             if (empty($errors)) {
                 $customer->cleanPasswordsValidationData();
-                $customer->setPasswordCreatedAt(Carbon::now()->getTimestamp());
+                $customer->setPasswordCreatedAt(Mage::helper('core/clock')->getTimestamp());
                 $customer->save();
                 $this->_dispatchRegisterSuccess($customer);
                 $this->_successProcessRegistration($customer);
@@ -595,6 +604,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
 
     /**
      * Confirm customer account by id and confirmation key
+     * @return void
      */
     public function confirmAction()
     {
@@ -655,6 +665,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
 
     /**
      * Send confirmation link to specified email
+     * @return void
      */
     public function confirmationAction()
     {
@@ -714,6 +725,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
 
     /**
      * Forgot customer password page
+     * @return void
      */
     public function forgotPasswordAction()
     {
@@ -730,6 +742,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
 
     /**
      * Forgot customer password action
+     * @return void
      * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
      */
@@ -799,6 +812,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
 
     /**
      * Display reset forgotten password form
+     * @return void
      */
     public function changeForgottenAction()
     {
@@ -817,6 +831,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
      * Checks reset forgotten password token
      *
      * User is redirected on this action when he clicks on the corresponding link in password reset confirmation email.
+     * @return void
      */
     public function resetPasswordAction()
     {
@@ -836,6 +851,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
     /**
      * Reset forgotten password
      * Used to handle data received from reset forgotten password form
+     * @return void
      */
     public function resetPasswordPostAction()
     {
@@ -886,7 +902,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
             $customer->setRpToken(null);
             $customer->setRpTokenCreatedAt(null);
             $customer->cleanPasswordsValidationData();
-            $customer->setPasswordCreatedAt(Carbon::now()->getTimestamp());
+            $customer->setPasswordCreatedAt(Mage::helper('core/clock')->getTimestamp());
             $customer->setRpCustomerId(null);
             $customer->setConfirmation(null); // Set email is confirmed.
             $customer->save();
@@ -953,6 +969,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
 
     /**
      * Forgot customer account information page
+     * @return void
      */
     public function editAction()
     {
@@ -982,6 +999,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
 
     /**
      * Change customer password action
+     * @return $this|void
      */
     public function editPostAction()
     {
@@ -1057,7 +1075,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
 
             try {
                 $customer->cleanPasswordsValidationData();
-                $customer->setPasswordCreatedAt(Carbon::now()->getTimestamp());
+                $customer->setPasswordCreatedAt(Mage::helper('core/clock')->getTimestamp());
 
                 // Reset all password reset tokens if all data was sufficient and correct on email change
                 if ($customer->getIsChangeEmail()) {

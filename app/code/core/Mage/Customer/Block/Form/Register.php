@@ -29,6 +29,7 @@ class Mage_Customer_Block_Form_Register extends Mage_Directory_Block_Data
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareLayout()
     {
         $this->getLayout()->getBlock('head')->setTitle(Mage::helper('customer')->__('Create New Customer Account'));
@@ -54,7 +55,7 @@ class Mage_Customer_Block_Form_Register extends Mage_Directory_Block_Data
      */
     public function getBackUrl()
     {
-        $url = $this->getData('back_url');
+        $url = $this->getDataByKey('back_url');
         if (is_null($url)) {
             /** @var Mage_Customer_Helper_Data $helper */
             $helper = $this->helper('customer');
@@ -71,7 +72,7 @@ class Mage_Customer_Block_Form_Register extends Mage_Directory_Block_Data
      */
     public function getFormData()
     {
-        $data = $this->getData('form_data');
+        $data = $this->getDataByKey('form_data');
         if (is_null($data)) {
             $formData = Mage::getSingleton('customer/session')->getCustomerFormData(true);
             $data = new Varien_Object();
@@ -100,6 +101,7 @@ class Mage_Customer_Block_Form_Register extends Mage_Directory_Block_Data
      *
      * @return string
      */
+    #[Override]
     public function getCountryId()
     {
         $countryId = $this->getFormData()->getCountryId();

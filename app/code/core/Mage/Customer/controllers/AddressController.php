@@ -27,6 +27,7 @@ class Mage_Customer_AddressController extends Mage_Core_Controller_Front_Action
     /**
      * @inheritDoc
      */
+    #[Override]
     public function preDispatch()
     {
         parent::preDispatch();
@@ -39,6 +40,7 @@ class Mage_Customer_AddressController extends Mage_Core_Controller_Front_Action
 
     /**
      * Customer addresses list
+     * @return void
      */
     public function indexAction()
     {
@@ -58,11 +60,17 @@ class Mage_Customer_AddressController extends Mage_Core_Controller_Front_Action
         }
     }
 
+    /**
+     * @return void
+     */
     public function editAction()
     {
         $this->_forward('form');
     }
 
+    /**
+     * @return void
+     */
     public function newAction()
     {
         $this->_forward('form');
@@ -70,6 +78,7 @@ class Mage_Customer_AddressController extends Mage_Core_Controller_Front_Action
 
     /**
      * Address book form
+     * @return void
      */
     public function formAction()
     {
@@ -84,7 +93,7 @@ class Mage_Customer_AddressController extends Mage_Core_Controller_Front_Action
     }
 
     /**
-     * @return Mage_Core_Controller_Varien_Action|void
+     * @return void
      */
     public function formPostAction()
     {
@@ -156,7 +165,7 @@ class Mage_Customer_AddressController extends Mage_Core_Controller_Front_Action
     }
 
     /**
-     * @return Mage_Core_Controller_Varien_Action|void
+     * @return void
      */
     public function deleteAction()
     {

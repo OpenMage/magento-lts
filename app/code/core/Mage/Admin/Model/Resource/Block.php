@@ -76,6 +76,7 @@ class Mage_Admin_Model_Resource_Block extends Mage_Core_Model_Resource_Db_Abstra
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _afterSave(Mage_Core_Model_Abstract $object)
     {
         $this->_generateCache();
@@ -85,6 +86,7 @@ class Mage_Admin_Model_Resource_Block extends Mage_Core_Model_Resource_Db_Abstra
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _afterDelete(Mage_Core_Model_Abstract $object)
     {
         $this->_generateCache();

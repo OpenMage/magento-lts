@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Uploader\Helper;
 
+use Override;
 use Mage;
 use Mage_Core_Model_Config;
 use Mage_Uploader_Helper_File as Subject;
@@ -23,6 +24,7 @@ final class FileTest extends OpenMageTest
 
     private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

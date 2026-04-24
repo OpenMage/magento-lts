@@ -44,6 +44,7 @@ class Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Tem
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _construct()
     {
         $this->addColumnRender('qty', 'adminhtml/sales_items_column_qty', 'sales/items/column/qty.phtml');
@@ -214,7 +215,7 @@ class Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Tem
     public function getOrder()
     {
         if ($this->hasOrder()) {
-            return $this->getData('order');
+            return $this->getDataByKey('order');
         }
 
         if (Mage::registry('current_order')) {
@@ -247,7 +248,7 @@ class Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Tem
      */
     public function getPriceDataObject()
     {
-        $obj = $this->getData('price_data_object');
+        $obj = $this->getDataByKey('price_data_object');
         if (is_null($obj)) {
             return $this->getOrder();
         }
@@ -389,7 +390,7 @@ class Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Tem
     }
 
     /**
-     * Retrieve tax with persent html content
+     * Retrieve tax with percent HTML content
      *
      * @return string
      */

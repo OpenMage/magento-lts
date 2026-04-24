@@ -335,7 +335,7 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
                 $row['group'] = $groupCode;
             }
 
-            $batchExport = $this->getBatchExportModel()
+            $this->getBatchExportModel()
                 ->setId(null)
                 ->setBatchId($this->getBatchModel()->getId())
                 ->setBatchData($row)
@@ -446,7 +446,7 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
 
             /** @var Mage_Customer_Model_Group $group */
             foreach ($groups as $group) {
-                $this->_customerGroups[$group->getId()] = $group->getData('customer_group_code');
+                $this->_customerGroups[$group->getId()] = $group->getDataByKey('customer_group_code');
             }
         }
 
@@ -461,7 +461,6 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
         $data = $this->getData();
 
         $entityTypeId = Mage::getSingleton('eav/config')->getEntityType('customer')->getId();
-        $result = [];
         foreach ($data as $i => $row) {
             $this->setPosition('Line: ' . ($i + 1));
             try {

@@ -8,6 +8,7 @@ use Monolog\Level;
  * @license    Open Software License (OSL 3.0)
  * @package    Mage_Api
  */
+
 /**
  * Webservice default handler
  *
@@ -72,8 +73,8 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
     /**
      * Start webservice session
      *
-     * @param  string                                 $sessionId
-     * @return Mage_Api_Model_Server_Handler_Abstract
+     * @param  string $sessionId
+     * @return $this
      */
     protected function _startSession($sessionId = null)
     {
@@ -133,7 +134,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
 
         $this->_getServer()->getAdapter()->fault(
             $faults[$faultName]['code'],
-            (is_null($customMessage) ? $faults[$faultName]['message'] : $customMessage),
+            $customMessage ?? $faults[$faultName]['message'],
         );
     }
 
@@ -159,7 +160,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
         return [
             'isFault'      => true,
             'faultCode'    => $faults[$faultName]['code'],
-            'faultMessage' => (is_null($customMessage) ? $faults[$faultName]['message'] : $customMessage),
+            'faultMessage' => $customMessage ?? $faults[$faultName]['message'],
         ];
     }
 
@@ -607,8 +608,8 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
      * Prepare Api row data for XML exporting
      * Convert not allowed symbol to numeric character reference
      *
-     * @param  mixed $row
-     * @return mixed
+     * @param  mixed                      $row
+     * @return null|array|string|string[]
      */
     public function processingRow($row)
     {

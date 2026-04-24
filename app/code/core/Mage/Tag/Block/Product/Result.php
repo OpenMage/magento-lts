@@ -32,6 +32,7 @@ class Mage_Tag_Block_Product_Result extends Mage_Catalog_Block_Product_Abstract
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareLayout()
     {
         $title = $this->getHeaderText();
@@ -103,12 +104,12 @@ class Mage_Tag_Block_Product_Result extends Mage_Catalog_Block_Product_Abstract
      */
     public function getResultCount()
     {
-        if (!$this->getData('result_count')) {
+        if (!$this->getDataByKey('result_count')) {
             $size = $this->_getProductCollection()->getSize();
             $this->setResultCount($size);
         }
 
-        return $this->getData('result_count');
+        return $this->getDataByKey('result_count');
     }
 
     /**

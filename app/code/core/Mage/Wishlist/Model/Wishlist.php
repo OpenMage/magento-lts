@@ -154,6 +154,7 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
      * @return $this
      * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _beforeSave()
     {
         parent::_beforeSave();
@@ -168,6 +169,7 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
      * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
      */
+    #[Override]
     protected function _afterSave()
     {
         parent::_afterSave();
@@ -279,7 +281,7 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
      */
     public function getProductCollection()
     {
-        $collection = $this->getData('product_collection');
+        $collection = $this->getDataByKey('product_collection');
         if (is_null($collection)) {
             $collection = Mage::getResourceModel('wishlist/product_collection');
             $this->setData('product_collection', $collection);
@@ -624,6 +626,7 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
      *
      * @inheritDoc
      */
+    #[Override]
     public function save()
     {
         $this->_hasDataChanges = true;

@@ -28,6 +28,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Group extends Mage_Adm
      * @param  array $data
      * @return array
      */
+    #[Override]
     protected function _sortValues($data)
     {
         usort($data, [$this, '_sortGroupPrices']);
@@ -61,6 +62,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Group extends Mage_Adm
      *
      * @return $this
      */
+    #[Override]
     protected function _prepareLayout()
     {
         $button = $this->getLayout()->createBlock('adminhtml/widget_button')
@@ -82,6 +84,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Group extends Mage_Adm
      */
     public function getIsPercent()
     {
-        return $this->getData('is_percent') ? $this->getData('is_percent') : 0;
+        return $this->getDataByKey('is_percent') ? $this->getDataByKey('is_percent') : 0;
     }
 }

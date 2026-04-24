@@ -95,6 +95,7 @@ class Mage_Adminhtml_Block_Shipping_Carrier_Tablerate_Grid extends Mage_Adminhtm
      * @inheritDoc
      * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _prepareCollection()
     {
         /** @var Mage_Shipping_Model_Resource_Carrier_Tablerate_Collection $collection */
@@ -112,6 +113,7 @@ class Mage_Adminhtml_Block_Shipping_Carrier_Tablerate_Grid extends Mage_Adminhtm
      * @throws Exception
      * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _prepareColumns()
     {
         $this->addColumn('dest_country', [

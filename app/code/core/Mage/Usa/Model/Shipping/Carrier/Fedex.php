@@ -62,13 +62,6 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
     protected $_rawRequest = null;
 
     /**
-     * Rate result data
-     *
-     * @var null|Mage_Shipping_Model_Rate_Result|Mage_Shipping_Model_Tracking_Result
-     */
-    protected $_result = null;
-
-    /**
      * Path to wsdl file of rate service
      *
      * @var string
@@ -98,7 +91,6 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
 
     public function __construct()
     {
-        parent::__construct();
         $wsdlBasePath = Mage::getModuleDir('etc', 'Mage_Usa') . DS . 'wsdl' . DS . 'FedEx' . DS;
         $this->_shipServiceWsdl = $wsdlBasePath . 'ShipService_v10.wsdl';
         $this->_rateServiceWsdl = $wsdlBasePath . 'RateService_v10.wsdl';
@@ -296,7 +288,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
             'Version' => $this->getVersionInfo(),
             'RequestedShipment' => [
                 'DropoffType'   => $request->getDropoffType(),
-                'ShipTimestamp' => Carbon::now()->format('c'),
+                'ShipTimestamp' => Mage::helper('core/clock')->format('c'),
                 'PackagingType' => $request->getPackaging(),
                 'TotalInsuredValue' => [
                     'Amount'  => $request->getValue(),
@@ -591,7 +583,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
         $requestHeader->addChild('AccountNumber', $rawRequest->getAccount());
         $requestHeader->addChild('MeterNumber', '0');
 
-        $xml->addChild('ShipDate', Carbon::now()->format('Y-m-d'));
+        $xml->addChild('ShipDate', Mage::helper('core/clock')->format('Y-m-d'));
         $xml->addChild('DropoffType', $rawRequest->getDropoffType());
         if ($rawRequest->hasService()) {
             $xml->addChild('Service', $rawRequest->getService());
@@ -940,8 +932,8 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
     /**
      * Get tracking
      *
-     * @param  mixed                                $trackings
-     * @return null|Mage_Shipping_Model_Rate_Result
+     * @param  mixed                                    $trackings
+     * @return null|Mage_Shipping_Model_Tracking_Result
      */
     public function getTracking($trackings)
     {
@@ -955,7 +947,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
             $this->_getXMLTracking($tracking);
         }
 
-        return $this->_result;
+        return $this->_trackingResult;
     }
 
     /**
@@ -1122,8 +1114,8 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
             }
         }
 
-        if (!$this->_result) {
-            $this->_result = Mage::getModel('shipping/tracking_result');
+        if (!$this->_trackingResult) {
+            $this->_trackingResult = Mage::getModel('shipping/tracking_result');
         }
 
         if (isset($resultArray)) {
@@ -1132,14 +1124,14 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
             $tracking->setCarrierTitle($this->getConfigData('title'));
             $tracking->setTracking($trackingValue);
             $tracking->addData($resultArray);
-            $this->_result->append($tracking);
+            $this->_trackingResult->append($tracking);
         } else {
             $error = Mage::getModel('shipping/tracking_result_error');
             $error->setCarrier('fedex');
             $error->setCarrierTitle($this->getConfigData('title'));
             $error->setTracking($trackingValue);
             $error->setErrorMessage($errorTitle ? $errorTitle : Mage::helper('usa')->__('Unable to retrieve tracking'));
-            $this->_result->append($error);
+            $this->_trackingResult->append($error);
         }
     }
 
@@ -1210,8 +1202,8 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
             $errorTitle = false;
         }
 
-        if (!$this->_result) {
-            $this->_result = Mage::getModel('shipping/tracking_result');
+        if (!$this->_trackingResult) {
+            $this->_trackingResult = Mage::getModel('shipping/tracking_result');
         }
 
         if ($resultArr) {
@@ -1220,14 +1212,14 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
             $tracking->setCarrierTitle($this->getConfigData('title'));
             $tracking->setTracking($trackingvalue);
             $tracking->addData($resultArr);
-            $this->_result->append($tracking);
+            $this->_trackingResult->append($tracking);
         } elseif (isset($errorTitle)) {
             $error = Mage::getModel('shipping/tracking_result_error');
             $error->setCarrier('fedex');
             $error->setCarrierTitle($this->getConfigData('title'));
             $error->setTracking($trackingvalue);
             $error->setErrorMessage($errorTitle ? $errorTitle : Mage::helper('usa')->__('Unable to retrieve tracking'));
-            $this->_result->append($error);
+            $this->_trackingResult->append($error);
         }
     }
 
@@ -1239,7 +1231,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
     public function getResponse()
     {
         $statuses = '';
-        if ($this->_result instanceof Mage_Shipping_Model_Tracking_Result && $trackings = $this->_result->getAllTrackings()) {
+        if ($this->_trackingResult instanceof Mage_Shipping_Model_Tracking_Result && ($trackings = $this->_trackingResult->getAllTrackings())) {
             foreach ($trackings as $tracking) {
                 if ($data = $tracking->getAllData()) {
                     if (!empty($data['status'])) {
@@ -1356,7 +1348,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
         $paymentType = $request->getIsReturn() ? 'RECIPIENT' : 'SENDER';
         $requestClient = [
             'RequestedShipment' => [
-                'ShipTimestamp' => Carbon::now()->getTimestamp(),
+                'ShipTimestamp' => Mage::helper('core/clock')->getTimestamp(),
                 'DropoffType'   => $this->getConfigData('dropoff'),
                 'PackagingType' => $request->getPackagingType(),
                 'ServiceType' => $request->getShippingMethod(),
@@ -1543,6 +1535,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
      * @param  array $data
      * @return bool
      */
+    #[Override]
     public function rollBack($data)
     {
         $requestData = $this->_getAuthDetails();
@@ -1561,6 +1554,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
      *
      * @return array|bool
      */
+    #[Override]
     public function getContainerTypes(?Varien_Object $params = null)
     {
         if ($params == null) {
@@ -1622,6 +1616,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
      *
      * @return array
      */
+    #[Override]
     public function getDeliveryConfirmationTypes(?Varien_Object $params = null)
     {
         return $this->getCode('delivery_confirmation_types');

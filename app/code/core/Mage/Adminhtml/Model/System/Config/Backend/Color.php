@@ -18,6 +18,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Color extends Mage_Core_Model_C
      * @return $this
      * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _beforeSave()
     {
         /** @var Mage_Core_Model_Config_Element $config */

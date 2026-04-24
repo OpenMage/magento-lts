@@ -16,6 +16,7 @@ class Mage_Adminhtml_Tax_ClassController extends Mage_Adminhtml_Controller_Actio
 {
     /**
      * save class action
+     * @return void
      */
     public function saveAction()
     {
@@ -24,9 +25,8 @@ class Mage_Adminhtml_Tax_ClassController extends Mage_Adminhtml_Controller_Actio
 
             try {
                 $model->save();
-                $classId    = $model->getId();
-                $classType  = $model->getClassType();
-                $classUrl   = '*/tax_class_' . strtolower($classType);
+                $classType = $model->getClassType();
+                $classUrl  = '*/tax_class_' . strtolower($classType);
 
                 Mage::getSingleton('adminhtml/session')->addSuccess(
                     Mage::helper('tax')->__('The tax class has been saved.'),
@@ -56,7 +56,7 @@ class Mage_Adminhtml_Tax_ClassController extends Mage_Adminhtml_Controller_Actio
     /**
      * Initialize action
      *
-     * @return Mage_Adminhtml_Controller_Action
+     * @return $this
      */
     protected function _initAction()
     {
@@ -73,6 +73,7 @@ class Mage_Adminhtml_Tax_ClassController extends Mage_Adminhtml_Controller_Actio
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _isAllowed(): bool
     {
         if (Mage::getSingleton('admin/session')->isAllowed('sales/tax/classes_product')) {

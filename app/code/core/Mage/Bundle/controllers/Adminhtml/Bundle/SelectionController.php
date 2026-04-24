@@ -29,7 +29,7 @@ class Mage_Bundle_Adminhtml_Bundle_SelectionController extends Mage_Adminhtml_Co
     }
 
     /**
-     * @return Zend_Controller_Response_Abstract
+     * @return void
      */
     public function searchAction()
     {
@@ -43,7 +43,7 @@ class Mage_Bundle_Adminhtml_Bundle_SelectionController extends Mage_Adminhtml_Co
     }
 
     /**
-     * @return Zend_Controller_Response_Abstract
+     * @return void
      */
     public function gridAction()
     {

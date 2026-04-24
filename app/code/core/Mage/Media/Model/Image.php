@@ -51,7 +51,7 @@ class Mage_Media_Model_Image extends Mage_Core_Model_Abstract
 
     /**
      * Set media image config instance
-     * @return Mage_Media_Model_Image
+     * @return $this
      */
     public function setConfig(Mage_Media_Model_Image_Config_Interface $config)
     {
@@ -99,11 +99,11 @@ class Mage_Media_Model_Image extends Mage_Core_Model_Abstract
      */
     public function getDimensions()
     {
-        if (!$this->getData('dimensions')) {
+        if (!$this->getDataByKey('dimensions')) {
             $this->setData('dimensions', $this->_getResource()->getDimensions($this));
         }
 
-        return $this->getData('dimensions');
+        return $this->getDataByKey('dimensions');
     }
 
     /**
@@ -113,15 +113,15 @@ class Mage_Media_Model_Image extends Mage_Core_Model_Abstract
      */
     public function getDestanationDimensions()
     {
-        if (!$this->getData('destanation_dimensions')) {
+        if (!$this->getDataByKey('destanation_dimensions')) {
             $this->setData('destanation_dimensions', clone $this->getDimensions());
         }
 
-        return $this->getData('destanation_dimensions');
+        return $this->getDataByKey('destanation_dimensions');
     }
 
     /**
-     * @return bool|string
+     * @return string
      */
     public function getExtension()
     {
@@ -153,7 +153,7 @@ class Mage_Media_Model_Image extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @return bool|string
+     * @return string
      */
     public function getName()
     {

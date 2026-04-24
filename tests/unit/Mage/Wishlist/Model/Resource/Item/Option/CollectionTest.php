@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Wishlist\Model\Resource\Item\Option;
 
 // use Mage;
 // use Mage_Wishlist_Model_Resource_Item_Option_Collection as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Wishlist\Model\Resource\Item\Option\CollectionTrait;
 
@@ -22,6 +23,7 @@ final class CollectionTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

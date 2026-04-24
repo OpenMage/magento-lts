@@ -20,6 +20,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options extends Mage_Adminht
         $this->setTemplate('catalog/product/edit/options.phtml');
     }
 
+    #[Override]
     protected function _prepareLayout()
     {
         $this->setChild(

@@ -234,7 +234,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
      * Init mapping array of short fields to
      * its full names
      *
-     * @return Varien_Object
+     * @return $this
      */
     protected function _initOldFieldsMap()
     {
@@ -250,6 +250,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
      *
      * @return $this
      */
+    #[Override]
     protected function _beforeSave()
     {
         parent::_beforeSave();
@@ -609,7 +610,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
      */
     public function getOriginalPrice()
     {
-        $price = $this->getData('original_price');
+        $price = $this->getDataByKey('original_price');
         if (is_null($price)) {
             return $this->getPrice();
         }
@@ -705,11 +706,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
      */
     public function isChildrenCalculated()
     {
-        if ($parentItem = $this->getParentItem()) {
-            $options = $parentItem->getProductOptions();
-        } else {
-            $options = $this->getProductOptions();
-        }
+        $options = ($parentItem = $this->getParentItem()) ? $parentItem->getProductOptions() : $this->getProductOptions();
 
         return isset($options['product_calculations'])
              && $options['product_calculations'] == Mage_Catalog_Model_Product_Type_Abstract::CALCULATE_CHILD;
@@ -735,11 +732,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
      */
     public function isShipSeparately()
     {
-        if ($parentItem = $this->getParentItem()) {
-            $options = $parentItem->getProductOptions();
-        } else {
-            $options = $this->getProductOptions();
-        }
+        $options = ($parentItem = $this->getParentItem()) ? $parentItem->getProductOptions() : $this->getProductOptions();
 
         return isset($options['shipment_type'])
             && $options['shipment_type'] == Mage_Catalog_Model_Product_Type_Abstract::SHIPMENT_SEPARATELY;
@@ -817,12 +810,12 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
      */
     public function getProduct()
     {
-        if (!$this->getData('product')) {
+        if (!$this->getDataByKey('product')) {
             $product = Mage::getModel('catalog/product')->setStoreId($this->getStoreId())->load($this->getProductId());
             $this->setProduct($product);
         }
 
-        return $this->getData('product');
+        return $this->getDataByKey('product');
     }
 
     /**

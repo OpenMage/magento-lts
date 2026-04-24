@@ -46,8 +46,7 @@ class Mage_Sales_Model_Config
         }
 
         $statuses = [];
-
-        foreach ($states->$state->statuses->children() as $status => $node) {
+        foreach ($states->$state->statuses->children() as $status => $ignored) {
             $statuses[] = $status;
         }
 

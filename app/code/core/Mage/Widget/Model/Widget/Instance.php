@@ -82,7 +82,7 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
             'notanchor_categories' => self::SINGLE_CATEGORY_LAYOUT_HANDLE,
             'all_products' => self::SINGLE_PRODUCT_LAYOUT_HANLDE,
         ];
-        foreach (Mage_Catalog_Model_Product_Type::getTypes() as $typeId => $type) {
+        foreach (array_keys(Mage_Catalog_Model_Product_Type::getTypes()) as $typeId) {
             $layoutHandle = str_replace('{{TYPE}}', $typeId, self::PRODUCT_TYPE_LAYOUT_HANDLE);
             $this->_layoutHandles[$typeId . '_products'] = $layoutHandle;
             $this->_specificEntitiesLayoutHandles[$typeId . '_products'] = self::SINGLE_PRODUCT_LAYOUT_HANLDE;
@@ -93,7 +93,7 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
      * Init mapping array of short fields to
      * its full names
      *
-     * @return Varien_Object
+     * @return $this
      */
     protected function _initOldFieldsMap()
     {
@@ -108,11 +108,12 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
      *
      * @inheritDoc
      */
+    #[Override]
     protected function _beforeSave()
     {
         $pageGroupIds = [];
         $tmpPageGroups = [];
-        $pageGroups = $this->getData('page_groups');
+        $pageGroups = $this->getDataByKey('page_groups');
         if ($pageGroups) {
             foreach ($pageGroups as $pageGroup) {
                 if (isset($pageGroup[$pageGroup['page_group']])) {
@@ -160,12 +161,12 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
             }
         }
 
-        if (is_array($this->getData('store_ids'))) {
-            $this->setData('store_ids', implode(',', $this->getData('store_ids')));
+        if (is_array($this->getDataByKey('store_ids'))) {
+            $this->setData('store_ids', implode(',', $this->getDataByKey('store_ids')));
         }
 
-        if (is_array($this->getData('widget_parameters'))) {
-            $this->setData('widget_parameters', serialize($this->getData('widget_parameters')));
+        if (is_array($this->getDataByKey('widget_parameters'))) {
+            $this->setData('widget_parameters', serialize($this->getDataByKey('widget_parameters')));
         }
 
         $this->setData('page_groups', $tmpPageGroups);
@@ -340,11 +341,11 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
      */
     public function getStoreIds()
     {
-        if (is_string($this->getData('store_ids'))) {
-            return explode(',', $this->getData('store_ids'));
+        if (is_string($this->getDataByKey('store_ids'))) {
+            return explode(',', $this->getDataByKey('store_ids'));
         }
 
-        return $this->getData('store_ids');
+        return $this->getDataByKey('store_ids');
     }
 
     /**
@@ -355,15 +356,15 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
      */
     public function getWidgetParameters()
     {
-        if (is_string($this->getData('widget_parameters'))) {
+        if (is_string($this->getDataByKey('widget_parameters'))) {
             try {
-                return Mage::helper('core/unserializeArray')->unserialize($this->getData('widget_parameters'));
+                return Mage::helper('core/unserializeArray')->unserialize($this->getDataByKey('widget_parameters'));
             } catch (Exception $exception) {
                 Mage::logException($exception);
             }
         }
 
-        return (is_array($this->getData('widget_parameters'))) ? $this->getData('widget_parameters') : [];
+        return (is_array($this->getDataByKey('widget_parameters'))) ? $this->getDataByKey('widget_parameters') : [];
     }
 
     /**
@@ -570,6 +571,7 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
     /**
      * Invalidate related cache if instance contain layout updates
      */
+    #[Override]
     protected function _afterSave()
     {
         if ($this->dataHasChangedFor('page_groups') || $this->dataHasChangedFor('widget_parameters')) {
@@ -582,6 +584,7 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
     /**
      * Invalidate related cache if instance contain layout updates
      */
+    #[Override]
     protected function _beforeDelete()
     {
         if ($this->getPageGroups()) {

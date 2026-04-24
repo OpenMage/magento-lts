@@ -37,6 +37,7 @@ class Mage_Adminhtml_Catalog_Product_AttributeController extends Mage_Adminhtml_
         return explode(',', Mage::getStoreConfig(self::XML_PATH_ALLOWED_TAGS));
     }
 
+    #[Override]
     public function preDispatch()
     {
         $this->_setForcedFormKeyActions('delete');
@@ -67,6 +68,9 @@ class Mage_Adminhtml_Catalog_Product_AttributeController extends Mage_Adminhtml_
         return $this;
     }
 
+    /**
+     * @return void
+     */
     public function indexAction()
     {
         $this->_initAction()
@@ -74,11 +78,17 @@ class Mage_Adminhtml_Catalog_Product_AttributeController extends Mage_Adminhtml_
             ->renderLayout();
     }
 
+    /**
+     * @return void
+     */
     public function newAction()
     {
         $this->_forward('edit');
     }
 
+    /**
+     * @return void
+     */
     public function editAction()
     {
         $id = $this->getRequest()->getParam('attribute_id');
@@ -128,6 +138,9 @@ class Mage_Adminhtml_Catalog_Product_AttributeController extends Mage_Adminhtml_
         $this->renderLayout();
     }
 
+    /**
+     * @return void
+     */
     public function validateAction()
     {
         $response = new Varien_Object();
@@ -184,6 +197,9 @@ class Mage_Adminhtml_Catalog_Product_AttributeController extends Mage_Adminhtml_
         return $data;
     }
 
+    /**
+     * @return void
+     */
     public function saveAction()
     {
         $data = $this->getRequest()->getPost();
@@ -342,6 +358,9 @@ class Mage_Adminhtml_Catalog_Product_AttributeController extends Mage_Adminhtml_
         $this->_redirect('*/*/');
     }
 
+    /**
+     * @return void
+     */
     public function deleteAction()
     {
         if ($id = $this->getRequest()->getParam('attribute_id')) {

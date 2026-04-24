@@ -19,6 +19,7 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Re
      *
      * @return $this
      */
+    #[Override]
     public function _initAction()
     {
         parent::_initAction();
@@ -26,6 +27,9 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Re
         return $this;
     }
 
+    /**
+     * @return void
+     */
     public function salesAction()
     {
         $this->_title($this->__('Reports'))->_title($this->__('Sales'))->_title($this->__('Sales'));
@@ -47,6 +51,9 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Re
         $this->renderLayout();
     }
 
+    /**
+     * @return void
+     */
     public function bestsellersAction()
     {
         $this->_title($this->__('Reports'))->_title($this->__('Products'))->_title($this->__('Bestsellers'));
@@ -70,6 +77,7 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Re
 
     /**
      * Export bestsellers report grid to CSV format
+     * @return void
      */
     public function exportBestsellersCsvAction()
     {
@@ -81,6 +89,7 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Re
 
     /**
      * Export bestsellers report grid to Excel XML format
+     * @return void
      */
     public function exportBestsellersExcelAction()
     {
@@ -104,7 +113,7 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Re
     /**
      * Refresh statistics for last 25 hours
      *
-     * @return $this
+     * @return void
      * @deprecated after 1.4.0.1
      */
     public function refreshRecentAction()
@@ -115,7 +124,7 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Re
     /**
      * Refresh statistics for all period
      *
-     * @return $this
+     * @return void
      * @deprecated after 1.4.0.1
      */
     public function refreshLifetimeAction()
@@ -125,6 +134,7 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Re
 
     /**
      * Export sales report grid to CSV format
+     * @return void
      */
     public function exportSalesCsvAction()
     {
@@ -136,6 +146,7 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Re
 
     /**
      * Export sales report grid to Excel XML format
+     * @return void
      */
     public function exportSalesExcelAction()
     {
@@ -145,6 +156,9 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Re
         $this->_prepareDownloadResponse($fileName, $grid->getExcelFile($fileName));
     }
 
+    /**
+     * @return void
+     */
     public function taxAction()
     {
         $this->_title($this->__('Reports'))->_title($this->__('Sales'))->_title($this->__('Tax'));
@@ -168,6 +182,7 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Re
 
     /**
      * Export tax report grid to CSV format
+     * @return void
      */
     public function exportTaxCsvAction()
     {
@@ -179,6 +194,7 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Re
 
     /**
      * Export tax report grid to Excel XML format
+     * @return void
      */
     public function exportTaxExcelAction()
     {
@@ -188,6 +204,9 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Re
         $this->_prepareDownloadResponse($fileName, $grid->getExcelFile($fileName));
     }
 
+    /**
+     * @return void
+     */
     public function shippingAction()
     {
         $this->_title($this->__('Reports'))->_title($this->__('Sales'))->_title($this->__('Shipping'));
@@ -211,6 +230,7 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Re
 
     /**
      * Export shipping report grid to CSV format
+     * @return void
      */
     public function exportShippingCsvAction()
     {
@@ -222,6 +242,7 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Re
 
     /**
      * Export shipping report grid to Excel XML format
+     * @return void
      */
     public function exportShippingExcelAction()
     {
@@ -231,6 +252,9 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Re
         $this->_prepareDownloadResponse($fileName, $grid->getExcelFile($fileName));
     }
 
+    /**
+     * @return void
+     */
     public function invoicedAction()
     {
         $this->_title($this->__('Reports'))->_title($this->__('Sales'))->_title($this->__('Total Invoiced'));
@@ -254,6 +278,7 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Re
 
     /**
      * Export invoiced report grid to CSV format
+     * @return void
      */
     public function exportInvoicedCsvAction()
     {
@@ -265,6 +290,7 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Re
 
     /**
      * Export invoiced report grid to Excel XML format
+     * @return void
      */
     public function exportInvoicedExcelAction()
     {
@@ -274,6 +300,9 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Re
         $this->_prepareDownloadResponse($fileName, $grid->getExcelFile($fileName));
     }
 
+    /**
+     * @return void
+     */
     public function refundedAction()
     {
         $this->_title($this->__('Reports'))->_title($this->__('Sales'))->_title($this->__('Total Refunded'));
@@ -297,6 +326,7 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Re
 
     /**
      * Export refunded report grid to CSV format
+     * @return void
      */
     public function exportRefundedCsvAction()
     {
@@ -308,6 +338,7 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Re
 
     /**
      * Export refunded report grid to Excel XML format
+     * @return void
      */
     public function exportRefundedExcelAction()
     {
@@ -317,6 +348,9 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Re
         $this->_prepareDownloadResponse($fileName, $grid->getExcelFile($fileName));
     }
 
+    /**
+     * @return void
+     */
     public function couponsAction()
     {
         $this->_title($this->__('Reports'))->_title($this->__('Sales'))->_title($this->__('Coupons'));
@@ -340,6 +374,7 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Re
 
     /**
      * Export coupons report grid to CSV format
+     * @return void
      */
     public function exportCouponsCsvAction()
     {
@@ -351,6 +386,7 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Re
 
     /**
      * Export coupons report grid to Excel XML format
+     * @return void
      */
     public function exportCouponsExcelAction()
     {
@@ -361,6 +397,7 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Re
     }
 
     /**
+     * @return void
      * @deprecated after 1.4.0.1
      */
     public function refreshStatisticsAction()
@@ -371,6 +408,7 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Re
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _isAllowed(): bool
     {
         $action = strtolower($this->getRequest()->getActionName());

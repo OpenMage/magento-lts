@@ -108,6 +108,7 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
      *
      * @return bool
      */
+    #[Override]
     public function validate()
     {
         return true;
@@ -119,6 +120,7 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
      * @param  null|Mage_Sales_Model_Quote $quote
      * @return bool
      */
+    #[Override]
     public function isAvailable($quote = null)
     {
         $storeId = Mage::app()->getStore($this->getStore())->getId();
@@ -147,6 +149,7 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
      * @param  Varien_Object $stateObject
      * @return $this
      */
+    #[Override]
     public function initialize($paymentAction, $stateObject)
     {
         switch ($paymentAction) {
@@ -209,15 +212,15 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
         }
 
         // process AVS data separately
-        $avsAddr = $this->getResponse()->getData('avsaddr');
-        $avsZip = $this->getResponse()->getData('avszip');
+        $avsAddr = $this->getResponse()->getDataByKey('avsaddr');
+        $avsZip = $this->getResponse()->getDataByKey('avszip');
         if (isset($avsAddr) && isset($avsZip)) {
             $this->getResponse()->setData('avsdata', $avsAddr . $avsZip);
         }
 
         // process Name separately
-        $firstnameParameter = $this->getResponse()->getData('billtofirstname');
-        $lastnameParameter = $this->getResponse()->getData('billtolastname');
+        $firstnameParameter = $this->getResponse()->getDataByKey('billtofirstname');
+        $lastnameParameter = $this->getResponse()->getDataByKey('billtolastname');
         if (isset($firstnameParameter) && isset($lastnameParameter)) {
             $this->getResponse()->setData('name', $firstnameParameter . ' ' . $lastnameParameter);
         }
@@ -442,6 +445,7 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
      *
      * @return Mage_Paypal_Model_Payflow_Request
      */
+    #[Override]
     protected function _buildBasicRequest(Varien_Object $payment)
     {
         $request = Mage::getModel('paypal/payflow_request');

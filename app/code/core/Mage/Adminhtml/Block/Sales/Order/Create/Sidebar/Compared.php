@@ -17,6 +17,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Compared extends Mage_Admi
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _construct()
     {
         parent::_construct();
@@ -37,9 +38,10 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Compared extends Mage_Admi
      *
      * @return mixed
      */
+    #[Override]
     public function getItemCollection()
     {
-        $collection = $this->getData('item_collection');
+        $collection = $this->getDataByKey('item_collection');
         if (is_null($collection)) {
             if ($collection = $this->getCreateOrderModel()->getCustomerCompareList()) {
                 $collection = $collection->getItemCollection()
@@ -60,6 +62,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Compared extends Mage_Admi
         return $collection;
     }
 
+    #[Override]
     public function getItemId($item)
     {
         return $item->getCatalogCompareItemId();

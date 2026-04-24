@@ -35,6 +35,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Catalog_Inventory_Managestock e
      *
      * @return $this
      */
+    #[Override]
     protected function _afterSave()
     {
         if ($this->getValue() != $this->getOldValue()) {

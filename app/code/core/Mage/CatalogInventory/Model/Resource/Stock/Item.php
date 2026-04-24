@@ -49,6 +49,7 @@ class Mage_CatalogInventory_Model_Resource_Stock_Item extends Mage_Core_Model_Re
      * @param  Mage_CatalogInventory_Model_Stock_Item $object
      * @return Varien_Db_Select
      */
+    #[Override]
     protected function _getLoadSelect($field, $value, $object)
     {
         return parent::_getLoadSelect($field, $value, $object)
@@ -92,6 +93,7 @@ class Mage_CatalogInventory_Model_Resource_Stock_Item extends Mage_Core_Model_Re
      * @param  string                                 $table
      * @return array
      */
+    #[Override]
     protected function _prepareDataForTable(Varien_Object $object, $table)
     {
         $data = parent::_prepareDataForTable($object, $table);

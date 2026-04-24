@@ -74,7 +74,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Block extends Mag
 
     /**
      * Setter
-     * If string given exlopde to array by ',' delimiter
+     * If string given explode to array by ',' delimiter
      *
      * @param  array|string $layoutHandle
      * @return $this
@@ -104,6 +104,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Block extends Mag
      *
      * @return string
      */
+    #[Override]
     public function getArea()
     {
         if (!$this->_getData('area')) {
@@ -146,6 +147,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Block extends Mag
      *
      * @return string
      */
+    #[Override]
     protected function _toHtml()
     {
         $selectBlock = $this->getLayout()->createBlock('core/html_select')

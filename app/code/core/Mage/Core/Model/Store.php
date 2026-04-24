@@ -283,6 +283,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     /**
      * @inheritDoc
      */
+    #[Override]
     public function load($id, $field = null)
     {
         if (!is_numeric($id) && is_null($field)) {
@@ -674,8 +675,8 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      * If we use Database file storage and server doesn't support rewrites (.htaccess in media folder)
      * we have to put name of fetching media script exactly into URL
      *
-     * @param  null|bool $secure
-     * @param  string    $type
+     * @param  null|bool        $secure
+     * @param  self::URL_TYPE_* $type
      * @return string
      */
     protected function _updateMediaPathUseRewrites($secure = null, $type = self::URL_TYPE_MEDIA)
@@ -723,6 +724,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      *
      * @return null|int
      */
+    #[Override]
     public function getId()
     {
         $storeId = $this->_getData('store_id');
@@ -809,7 +811,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      */
     public function getBaseCurrency()
     {
-        $currency = $this->getData('base_currency');
+        $currency = $this->getDataByKey('base_currency');
         if (is_null($currency)) {
             $currency = Mage::getModel('directory/currency')->load($this->getBaseCurrencyCode());
             $this->setData('base_currency', $currency);
@@ -836,7 +838,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      */
     public function getDefaultCurrency()
     {
-        $currency = $this->getData('default_currency');
+        $currency = $this->getDataByKey('default_currency');
         if (is_null($currency)) {
             $currency = Mage::getModel('directory/currency')->load($this->getDefaultCurrencyCode());
             $this->setData('default_currency', $currency);
@@ -906,7 +908,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      */
     public function getAvailableCurrencyCodes($skipBaseNotAllowed = false)
     {
-        $codes = $this->getData('available_currency_codes');
+        $codes = $this->getDataByKey('available_currency_codes');
         if (is_null($codes)) {
             $codes = explode(',', $this->getConfig(Mage_Directory_Model_Currency::XML_PATH_CURRENCY_ALLOW));
             // add base currency, if it is not in allowed currencies
@@ -925,7 +927,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
 
         // remove base currency code, if it is not allowed by config (optional)
         if ($skipBaseNotAllowed) {
-            $disallowedBaseCodeIndex = $this->getData('disallowed_base_currency_code_index');
+            $disallowedBaseCodeIndex = $this->getDataByKey('disallowed_base_currency_code_index');
             if ($disallowedBaseCodeIndex !== null) {
                 unset($codes[$disallowedBaseCodeIndex]);
             }
@@ -943,7 +945,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      */
     public function getCurrentCurrency()
     {
-        $currency = $this->getData('current_currency');
+        $currency = $this->getDataByKey('current_currency');
 
         if (is_null($currency)) {
             $currency     = Mage::getModel('directory/currency')->load($this->getCurrentCurrencyCode());
@@ -1219,6 +1221,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      *
      * {@inheritDoc}
      */
+    #[Override]
     protected function _beforeDelete()
     {
         $this->_protectFromNonAdmin();
@@ -1231,6 +1234,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      *
      * @return $this
      */
+    #[Override]
     protected function _afterDelete()
     {
         parent::_afterDelete();
@@ -1244,6 +1248,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      * @return $this
      * @throws Exception
      */
+    #[Override]
     protected function _afterDeleteCommit()
     {
         parent::_afterDeleteCommit();

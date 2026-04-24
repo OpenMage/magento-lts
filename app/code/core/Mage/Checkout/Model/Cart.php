@@ -81,7 +81,7 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
      */
     public function getQuoteProductIds()
     {
-        $products = $this->getData('product_ids');
+        $products = $this->getDataByKey('product_ids');
         if (is_null($products)) {
             $products = [];
             foreach ($this->getQuote()->getAllItems() as $item) {
@@ -229,7 +229,7 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
      *
      * @param  int|Mage_Catalog_Model_Product $productInfo
      * @param  mixed                          $requestInfo
-     * @return Mage_Checkout_Model_Cart
+     * @return $this
      * @throws Mage_Core_Exception
      */
     public function addProduct($productInfo, $requestInfo = null)
@@ -295,8 +295,8 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
     /**
      * Adding products to cart by ids
      *
-     * @param  array                    $productIds
-     * @return Mage_Checkout_Model_Cart
+     * @param  array               $productIds
+     * @return $this
      * @throws Mage_Core_Exception
      */
     public function addProductsByIds($productIds)
@@ -387,8 +387,8 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
     /**
      * Update cart items information
      *
-     * @param  array                    $data
-     * @return Mage_Checkout_Model_Cart
+     * @param  array               $data
+     * @return $this
      * @throws Mage_Core_Exception
      */
     public function updateItems($data)
@@ -440,8 +440,8 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
     /**
      * Remove item from cart
      *
-     * @param  int                      $itemId
-     * @return Mage_Checkout_Model_Cart
+     * @param  int                 $itemId
+     * @return $this
      * @throws Mage_Core_Exception
      */
     public function removeItem($itemId)
@@ -500,7 +500,6 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
      */
     public function getProductIds()
     {
-        $quoteId = Mage::getSingleton('checkout/session')->getQuoteId();
         if ($this->_productIds === null) {
             $this->_productIds = [];
             if ($this->getSummaryQty() > 0) {
@@ -528,7 +527,7 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
         //and get new quote id. This is done for cases when quote was created
         //not by customer (from backend for example).
         if (!$quoteId && Mage::getSingleton('customer/session')->isLoggedIn()) {
-            $quote = Mage::getSingleton('checkout/session')->getQuote();
+            Mage::getSingleton('checkout/session')->getQuote();
             $quoteId = Mage::getSingleton('checkout/session')->getQuoteId();
         }
 

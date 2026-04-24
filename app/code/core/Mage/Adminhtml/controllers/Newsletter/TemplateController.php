@@ -6,6 +6,7 @@
  * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
  */
+
 /**
  * Manage Newsletter Template Controller
  *
@@ -27,6 +28,7 @@ class Mage_Adminhtml_Newsletter_TemplateController extends Mage_Adminhtml_Contro
 
     /**
      * View Templates list
+     * @return void
      */
     public function indexAction()
     {
@@ -46,6 +48,7 @@ class Mage_Adminhtml_Newsletter_TemplateController extends Mage_Adminhtml_Contro
 
     /**
      * JSON Grid Action
+     * @return void
      */
     public function gridAction()
     {
@@ -57,6 +60,7 @@ class Mage_Adminhtml_Newsletter_TemplateController extends Mage_Adminhtml_Contro
 
     /**
      * Create new Newsletter Template
+     * @return void
      */
     public function newAction()
     {
@@ -65,6 +69,7 @@ class Mage_Adminhtml_Newsletter_TemplateController extends Mage_Adminhtml_Contro
 
     /**
      * Edit Newsletter Template
+     * @return void
      */
     public function editAction()
     {
@@ -106,6 +111,7 @@ class Mage_Adminhtml_Newsletter_TemplateController extends Mage_Adminhtml_Contro
 
     /**
      * Drop Newsletter Template
+     * @return void
      */
     public function dropAction()
     {
@@ -120,6 +126,7 @@ class Mage_Adminhtml_Newsletter_TemplateController extends Mage_Adminhtml_Contro
 
     /**
      * Save Newsletter Template
+     * @return void
      */
     public function saveAction()
     {
@@ -163,7 +170,9 @@ class Mage_Adminhtml_Newsletter_TemplateController extends Mage_Adminhtml_Contro
             }
 
             $template->save();
+            $this->_getSession()->addSuccess(Mage::helper('newsletter')->__('The template has been saved.'));
             $this->_redirect('*/*');
+            return;
         } catch (Mage_Core_Exception $mageCoreException) {
             $this->_getSession()->addError(nl2br($mageCoreException->getMessage()));
             $this->_getSession()->setData(
@@ -180,6 +189,7 @@ class Mage_Adminhtml_Newsletter_TemplateController extends Mage_Adminhtml_Contro
 
     /**
      * Delete newsletter Template
+     * @return void
      */
     public function deleteAction()
     {
@@ -200,6 +210,7 @@ class Mage_Adminhtml_Newsletter_TemplateController extends Mage_Adminhtml_Contro
 
     /**
      * Preview Newsletter template
+     * @return null|$this
      */
     public function previewAction()
     {
@@ -225,6 +236,7 @@ class Mage_Adminhtml_Newsletter_TemplateController extends Mage_Adminhtml_Contro
      *
      * @return Mage_Adminhtml_Controller_Action
      */
+    #[Override]
     public function preDispatch()
     {
         $this->_setForcedFormKeyActions('delete');

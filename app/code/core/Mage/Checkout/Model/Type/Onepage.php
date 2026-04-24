@@ -7,8 +7,6 @@
  * @package    Mage_Checkout
  */
 
-use Carbon\Carbon;
-
 /**
  * One page checkout processing model
  *
@@ -501,7 +499,7 @@ class Mage_Checkout_Model_Type_Onepage
                 ];
             }
         } elseif (self::METHOD_GUEST == $this->getQuote()->getCheckoutMethod()) {
-            $email = $address->getData('email');
+            $email = $address->getDataByKey('email');
             /** @var Mage_Core_Helper_Validate $validator */
             $validator = Mage::helper('core/validate');
             if ($validator->validateEmail($email)->count() > 0) {
@@ -719,7 +717,7 @@ class Mage_Checkout_Model_Type_Onepage
 
         Mage::helper('core')->copyFieldset('checkout_onepage_quote', 'to_customer', $quote, $customer);
         $customer->setPassword($customer->decryptPassword($quote->getPasswordHash()));
-        $customer->setPasswordCreatedAt(Carbon::now()->getTimestamp());
+        $customer->setPasswordCreatedAt(Mage::helper('core/clock')->getTimestamp());
         $quote->setCustomer($customer)
             ->setCustomerId(true);
         $quote->setPasswordHash('');

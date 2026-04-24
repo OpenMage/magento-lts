@@ -80,8 +80,8 @@ class Mage_Sales_Block_Recurring_Profiles extends Mage_Core_Block_Template
                 'reference_id' => $profile->getReferenceId(),
                 'reference_id_link_url' => $this->getUrl('sales/recurring_profile/view/', ['profile' => $profile->getId()]),
                 'state'       => $profile->renderData('state'),
-                'created_at'  => $this->formatDate($profile->getData('created_at'), 'medium', true),
-                'updated_at'  => $profile->getData('updated_at') ? $this->formatDate($profile->getData('updated_at'), 'short', true) : '',
+                'created_at'  => $this->formatDate($profile->getDataByKey('created_at'), 'medium', true),
+                'updated_at'  => $profile->getDataByKey('updated_at') ? $this->formatDate($profile->getDataByKey('updated_at'), 'short', true) : '',
                 'method_code' => $profile->renderData('method_code'),
             ]);
         }
@@ -89,8 +89,6 @@ class Mage_Sales_Block_Recurring_Profiles extends Mage_Core_Block_Template
         if ($profiles) {
             $this->setGridElements($profiles);
         }
-
-        $orders = [];
     }
 
     /**
@@ -112,6 +110,7 @@ class Mage_Sales_Block_Recurring_Profiles extends Mage_Core_Block_Template
      *
      * @inheritDoc
      */
+    #[Override]
     protected function _beforeToHtml()
     {
         $this->setBackUrl($this->getUrl('customer/account/'));

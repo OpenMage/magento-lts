@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Helper\Dashboard;
 
 // use Mage;
 // use Mage_Adminhtml_Helper_Dashboard_Order as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Helper\Dashboard\OrderTrait;
 
@@ -22,6 +23,7 @@ final class OrderTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

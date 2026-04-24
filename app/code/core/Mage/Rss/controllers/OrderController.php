@@ -28,7 +28,7 @@ class Mage_Rss_OrderController extends Mage_Rss_Controller_Abstract
     }
 
     /**
-     * @return null|$this
+     * @return void
      * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
      */
@@ -73,6 +73,7 @@ class Mage_Rss_OrderController extends Mage_Rss_Controller_Abstract
      *
      * @return $this
      */
+    #[Override]
     public function preDispatch()
     {
         $action = strtolower($this->getRequest()->getActionName());

@@ -56,6 +56,7 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
      *
      * @return array
      */
+    #[Override]
     public function getDefaultOperatorInputByType()
     {
         if ($this->_defaultOperatorInputByType === null) {
@@ -92,6 +93,7 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
      *
      * @return string
      */
+    #[Override]
     public function prepareConditionSql()
     {
         $alias     = 'cpf';
@@ -165,6 +167,7 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
      *
      * @return $this
      */
+    #[Override]
     public function loadAttributeOptions()
     {
         $productAttributes = Mage::getResourceSingleton('catalog/product')
@@ -204,8 +207,8 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
     protected function _prepareValueOptions()
     {
         // Check that both keys exist. Maybe somehow only one was set not in this routine, but externally.
-        $selectReady = $this->getData('value_select_options');
-        $hashedReady = $this->getData('value_option');
+        $selectReady = $this->getDataByKey('value_select_options');
+        $hashedReady = $this->getDataByKey('value_option');
         if ($selectReady && $hashedReady) {
             return $this;
         }
@@ -269,10 +272,11 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
      *
      * @return array
      */
+    #[Override]
     public function getValueSelectOptions()
     {
         $this->_prepareValueOptions();
-        return $this->getData('value_select_options');
+        return $this->getDataByKey('value_select_options');
     }
 
     /**
@@ -307,6 +311,7 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
      *
      * @return Varien_Data_Form_Element_Abstract
      */
+    #[Override]
     public function getAttributeElement()
     {
         $element = parent::getAttributeElement();
@@ -342,6 +347,7 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
      *
      * @return string
      */
+    #[Override]
     public function getInputType()
     {
         if ($this->getAttribute() === 'attribute_set_id') {
@@ -370,6 +376,7 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
      *
      * @return string
      */
+    #[Override]
     public function getValueElementType()
     {
         if ($this->getAttribute() === 'attribute_set_id') {
@@ -393,6 +400,7 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
      *
      * @return Varien_Data_Form_Element_Abstract
      */
+    #[Override]
     public function getValueElement()
     {
         $element = parent::getValueElement();
@@ -444,6 +452,7 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
      *
      * @inheritDoc
      */
+    #[Override]
     public function loadArray($arr)
     {
         $this->setAttribute($arr['attribute'] ?? false);
@@ -481,6 +490,7 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
      *
      * @return bool
      */
+    #[Override]
     public function validate(Varien_Object $object)
     {
         $attrCode = $this->getAttribute();
@@ -547,6 +557,7 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
      *
      * @return string
      */
+    #[Override]
     public function getOperatorForValidate()
     {
         return $this->correctOperator($this->getOperator(), $this->getInputType());

@@ -43,7 +43,7 @@ final class XmlFileLoadingTest extends TestCase
         self::assertTrue($xml->isValid());
     }
 
-    public function provideXmlFiles(): Generator
+    public static function provideXmlFiles(): Generator
     {
         $root = realpath(__DIR__ . '/../../../') . '/';
 

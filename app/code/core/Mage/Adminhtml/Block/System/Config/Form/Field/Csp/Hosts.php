@@ -42,6 +42,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Field_Csp_Hosts extends Mage_Admin
      * @return array<string, Varien_Object> Array of rows
      * @throws Exception
      */
+    #[Override]
     public function getArrayRows(): array
     {
         if ($this->_arrayRowsCache !== null) {
@@ -100,7 +101,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Field_Csp_Hosts extends Mage_Admin
     private function _parseNodePath(): array
     {
         $element = $this->getElement();
-        $configPath = $element->getData('config_path');
+        $configPath = $element->getDataByKey('config_path');
 
         $allowedDirectives = implode('|', Mage_Csp_Helper_Data::CSP_DIRECTIVES);
         $allowedAreas = Mage_Core_Model_App_Area::AREA_FRONTEND . '|' . Mage_Core_Model_App_Area::AREA_ADMINHTML;
@@ -124,6 +125,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Field_Csp_Hosts extends Mage_Admin
      * @return string
      * @throws Exception
      */
+    #[Override]
     protected function _renderCellTemplate($columnName)
     {
         if (empty($this->_columns[$columnName])) {

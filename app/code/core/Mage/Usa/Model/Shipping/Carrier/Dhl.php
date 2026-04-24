@@ -45,11 +45,6 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
     protected $_rawRequest = null;
 
     /**
-     * @inheritDoc
-     */
-    protected $_result = null;
-
-    /**
      * Errors placeholder
      *
      * @var array
@@ -305,7 +300,6 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
         $response->setOrigCity($request->getOrigCity());
         $response->setOrigPostal($request->getOrigPostal());
 
-        $originStreet1 = Mage::getStoreConfig(Mage_Shipping_Model_Shipping::XML_PATH_STORE_ADDRESS1, $response->getStoreId());
         $originStreet2 = Mage::getStoreConfig(Mage_Shipping_Model_Shipping::XML_PATH_STORE_ADDRESS2, $response->getStoreId());
         $response->setOrigStreet($request->getOrigStreet() ? $request->getOrigStreet() : $originStreet2);
         $response->setOrigStreetLine2($request->getOrigStreetLine2());
@@ -711,9 +705,6 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
     protected function _parseXmlResponse($response)
     {
         $request = $this->_rawRequest;
-        $costArr = [];
-        $priceArr = [];
-        $errorTitle = 'Unable to retrieve quotes';
 
         if (trim($response) !== '') {
             if (str_starts_with(trim($response), '<?xml')) {
@@ -931,8 +922,8 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
     /**
      * Get tracking
      *
-     * @param  mixed                                $trackings
-     * @return null|Mage_Shipping_Model_Rate_Result
+     * @param  mixed                                    $trackings
+     * @return null|Mage_Shipping_Model_Tracking_Result
      */
     public function getTracking($trackings)
     {
@@ -944,7 +935,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
 
         $this->_getXMLTracking($trackings);
 
-        return $this->_result;
+        return $this->_trackingResult;
     }
 
     /**
@@ -1184,7 +1175,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
             }
         }
 
-        $this->_result = $result;
+        $this->_trackingResult = $result;
     }
 
     /**
@@ -1195,7 +1186,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
     public function getResponse()
     {
         $statuses = '';
-        if ($this->_result instanceof Mage_Shipping_Model_Tracking_Result && ($trackings = $this->_result->getAllTrackings())) {
+        if ($this->_trackingResult instanceof Mage_Shipping_Model_Tracking_Result && ($trackings = $this->_trackingResult->getAllTrackings())) {
             foreach ($trackings as $tracking) {
                 if ($data = $tracking->getAllData()) {
                     if (isset($data['status'])) {
@@ -1235,6 +1226,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
      *
      * @return bool
      */
+    #[Override]
     public function isStateProvinceRequired()
     {
         return true;
@@ -1327,6 +1319,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
      *
      * @return array|bool
      */
+    #[Override]
     public function getContainerTypes(?Varien_Object $params = null)
     {
         return $this->getCode('shipment_type');

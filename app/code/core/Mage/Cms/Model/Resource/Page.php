@@ -33,6 +33,7 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
      * @inheritDoc
      * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _beforeDelete(Mage_Core_Model_Abstract $object)
     {
         if ($object instanceof Mage_Cms_Model_Page) {
@@ -64,6 +65,7 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
      * @inheritDoc
      * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _beforeSave(Mage_Core_Model_Abstract $object)
     {
         /**
@@ -118,6 +120,7 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
      * @inheritDoc
      * @throws Zend_Db_Exception
      */
+    #[Override]
     protected function _afterSave(Mage_Core_Model_Abstract $object)
     {
         $oldStores = $this->lookupStoreIds($object->getId());
@@ -161,6 +164,7 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * @inheritDoc
      */
+    #[Override]
     public function load(Mage_Core_Model_Abstract $object, $value, $field = null)
     {
         if (!is_numeric($value) && is_null($field)) {
@@ -173,6 +177,7 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _afterLoad(Mage_Core_Model_Abstract $object)
     {
         if ($object->getId()) {
@@ -193,6 +198,7 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
      * @return Zend_Db_Select
      * @throws Exception
      */
+    #[Override]
     protected function _getLoadSelect($field, $value, $object)
     {
         $select = parent::_getLoadSelect($field, $value, $object);
@@ -248,9 +254,9 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
      */
     public function getIsUniquePageToStores(Mage_Core_Model_Abstract $object)
     {
-        $stores = $object->hasStores() ? (array) $object->getData('stores') : [Mage_Core_Model_App::ADMIN_STORE_ID];
+        $stores = $object->hasStores() ? (array) $object->getDataByKey('stores') : [Mage_Core_Model_App::ADMIN_STORE_ID];
 
-        $select = $this->_getLoadByIdentifierSelect($object->getData('identifier'), $stores);
+        $select = $this->_getLoadByIdentifierSelect($object->getDataByKey('identifier'), $stores);
 
         if ($object->getId()) {
             $select->where('cps.page_id <> ?', $object->getId());
@@ -266,7 +272,7 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
      */
     protected function isNumericPageIdentifier(Mage_Core_Model_Abstract $object)
     {
-        return preg_match('/^\d+$/', $object->getData('identifier'));
+        return preg_match('/^\d+$/', $object->getDataByKey('identifier'));
     }
 
     /**
@@ -276,7 +282,7 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
      */
     protected function isValidPageIdentifier(Mage_Core_Model_Abstract $object)
     {
-        return preg_match('/^[a-z0-9][a-z0-9_\/-]+(\.[a-z0-9_-]+)?$/', $object->getData('identifier'));
+        return preg_match('/^[a-z0-9][a-z0-9_\/-]+(\.[a-z0-9_-]+)?$/', $object->getDataByKey('identifier'));
     }
 
     public function getUsedInStoreConfigCollection(Mage_Cms_Model_Page $page, ?array $paths = []): Mage_Core_Model_Resource_Db_Collection_Abstract

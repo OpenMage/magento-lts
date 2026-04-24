@@ -130,6 +130,10 @@ parameters:
             identifier: method.childReturnType
             reportUnmatched: false
         -
+           # tmp level 8 rule
+            identifier: cast.string
+            reportUnmatched: false
+        -
             identifier: phpunit.coversMethod
         -
             # update phpstan plugin

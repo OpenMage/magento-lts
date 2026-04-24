@@ -20,15 +20,9 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/Mage.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Call to function in_array() requires parameter #3 to be set.',
-	'identifier' => 'function.strict',
-	'count' => 1,
-	'path' => __DIR__ . '/app/Mage.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 10,
+	'count' => 8,
 	'path' => __DIR__ . '/app/Mage.php',
 ];
 $ignoreErrors[] = [
@@ -50,12 +44,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/Mage.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Only booleans are allowed in a negated boolean, Mage_Core_Model_App|null given.',
-	'identifier' => 'booleanNot.exprNotBoolean',
-	'count' => 1,
-	'path' => __DIR__ . '/app/Mage.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Only booleans are allowed in a negated boolean, Mage_Core_Model_Config|null given.',
 	'identifier' => 'booleanNot.exprNotBoolean',
 	'count' => 2,
@@ -65,12 +53,6 @@ $ignoreErrors[] = [
 	'rawMessage' => 'Only booleans are allowed in a negated boolean, Varien_Object_Cache|null given.',
 	'identifier' => 'booleanNot.exprNotBoolean',
 	'count' => 1,
-	'path' => __DIR__ . '/app/Mage.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Only booleans are allowed in a negated boolean, string given.',
-	'identifier' => 'booleanNot.exprNotBoolean',
-	'count' => 2,
 	'path' => __DIR__ . '/app/Mage.php',
 ];
 $ignoreErrors[] = [
@@ -102,14 +84,6 @@ $ignoreErrors[] = [
 	'identifier' => 'methodTag.deprecatedClass',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Admin/Model/Acl/Role.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Call to deprecated method add() of class Zend_Acl:
-in version 1.9.1 and will be available till 2.0.  New code
-            should use addResource() instead.',
-	'identifier' => 'method.deprecated',
-	'count' => 2,
-	'path' => __DIR__ . '/app/code/core/Mage/Admin/Model/Config.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
@@ -1204,8 +1178,8 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Options/Option.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Only booleans are allowed in an if condition, mixed given.',
-	'identifier' => 'if.condNotBoolean',
+	'rawMessage' => 'Only booleans are allowed in a ternary operator condition, mixed given.',
+	'identifier' => 'ternary.condNotBoolean',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Options/Option.php',
 ];
@@ -1482,7 +1456,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Only booleans are allowed in an if condition, mixed given.',
 	'identifier' => 'if.condNotBoolean',
-	'count' => 2,
+	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tabs.php',
 ];
 $ignoreErrors[] = [
@@ -2570,46 +2544,10 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Report/Product/Viewed/Grid.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Loose comparison via "==" between mixed and string is not allowed.',
-	'identifier' => 'equal.notAllowed',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Report/Sales/Coupons/Grid.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Only booleans are allowed in an if condition, mixed given.',
 	'identifier' => 'if.condNotBoolean',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Report/Sales/Grid/Column/Renderer/Date.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Loose comparison via "==" between mixed and string is not allowed.',
-	'identifier' => 'equal.notAllowed',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Report/Sales/Invoiced/Grid.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Loose comparison via "==" between mixed and string is not allowed.',
-	'identifier' => 'equal.notAllowed',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Report/Sales/Refunded/Grid.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Loose comparison via "==" between mixed and string is not allowed.',
-	'identifier' => 'equal.notAllowed',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Report/Sales/Sales/Grid.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Loose comparison via "==" between mixed and string is not allowed.',
-	'identifier' => 'equal.notAllowed',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Report/Sales/Shipping/Grid.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Loose comparison via "==" between mixed and string is not allowed.',
-	'identifier' => 'equal.notAllowed',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Report/Sales/Tax/Grid.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Call to function base64_decode() requires parameter #2 to be set.',
@@ -3340,7 +3278,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Implicit array creation is not allowed - variable $data does not exist.',
 	'identifier' => 'variable.implicitArray',
-	'count' => 2,
+	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Sales/Order/Shipment/View/Form.php',
 ];
 $ignoreErrors[] = [
@@ -3987,12 +3925,6 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Only booleans are allowed in an if condition, array given.',
-	'identifier' => 'if.condNotBoolean',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/System/Email/Template/Edit.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Only booleans are allowed in an if condition, int|string given.',
 	'identifier' => 'if.condNotBoolean',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/System/Email/Template/Edit.php',
@@ -5036,64 +4968,22 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Controller/Report/Abstract.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-	'identifier' => 'empty.notAllowed',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Controller/Sales/Creditmemo.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Only booleans are allowed in &&, Mage_Sales_Model_Order_Creditmemo given on the right side.',
-	'identifier' => 'booleanAnd.rightNotBoolean',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Controller/Sales/Creditmemo.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Only booleans are allowed in &&, mixed given on the left side.',
-	'identifier' => 'booleanAnd.leftNotBoolean',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Controller/Sales/Creditmemo.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Only booleans are allowed in an if condition, Mage_Sales_Model_Order_Creditmemo given.',
-	'identifier' => 'if.condNotBoolean',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Controller/Sales/Creditmemo.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Only booleans are allowed in an if condition, Mage_Sales_Model_Order_Status_History|null given.',
 	'identifier' => 'if.condNotBoolean',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Controller/Sales/Creditmemo.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Only booleans are allowed in an if condition, mixed given.',
+	'rawMessage' => 'Only booleans are allowed in an if condition, int|string|null given.',
 	'identifier' => 'if.condNotBoolean',
 	'count' => 2,
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Controller/Sales/Creditmemo.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-	'identifier' => 'empty.notAllowed',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Controller/Sales/Invoice.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Only booleans are allowed in &&, Mage_Sales_Model_Order_Invoice given on the right side.',
-	'identifier' => 'booleanAnd.rightNotBoolean',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Controller/Sales/Invoice.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Only booleans are allowed in &&, mixed given on the left side.',
-	'identifier' => 'booleanAnd.leftNotBoolean',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Controller/Sales/Invoice.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Only booleans are allowed in an if condition, Mage_Sales_Model_Order_Invoice given.',
+	'rawMessage' => 'Only booleans are allowed in an if condition, mixed given.',
 	'identifier' => 'if.condNotBoolean',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Controller/Sales/Invoice.php',
+	'count' => 3,
+	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Controller/Sales/Creditmemo.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Only booleans are allowed in an if condition, Mage_Sales_Model_Order_Status_History|null given.',
@@ -5102,19 +4992,19 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Controller/Sales/Invoice.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Only booleans are allowed in an if condition, mixed given.',
+	'rawMessage' => 'Only booleans are allowed in an if condition, int|string|null given.',
 	'identifier' => 'if.condNotBoolean',
 	'count' => 2,
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Controller/Sales/Invoice.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-	'identifier' => 'empty.notAllowed',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Controller/Sales/Shipment.php',
+	'rawMessage' => 'Only booleans are allowed in an if condition, mixed given.',
+	'identifier' => 'if.condNotBoolean',
+	'count' => 3,
+	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Controller/Sales/Invoice.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Only booleans are allowed in an if condition, Mage_Sales_Model_Order_Shipment given.',
+	'rawMessage' => 'Only booleans are allowed in an if condition, int|string|null given.',
 	'identifier' => 'if.condNotBoolean',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Controller/Sales/Shipment.php',
@@ -6125,7 +6015,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 3,
+	'count' => 2,
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/controllers/CacheController.php',
 ];
 $ignoreErrors[] = [
@@ -6195,6 +6085,12 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/controllers/Catalog/CategoryController.php',
 ];
 $ignoreErrors[] = [
+	'rawMessage' => 'Only booleans are allowed in a ternary operator condition, mixed given.',
+	'identifier' => 'ternary.condNotBoolean',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/controllers/Catalog/CategoryController.php',
+];
+$ignoreErrors[] = [
 	'rawMessage' => 'Only booleans are allowed in an if condition, array<string, mixed> given.',
 	'identifier' => 'if.condNotBoolean',
 	'count' => 1,
@@ -6209,7 +6105,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Only booleans are allowed in an if condition, mixed given.',
 	'identifier' => 'if.condNotBoolean',
-	'count' => 5,
+	'count' => 4,
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/controllers/Catalog/CategoryController.php',
 ];
 $ignoreErrors[] = [
@@ -6363,6 +6259,24 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/controllers/Catalog/Product/ReviewController.php',
 ];
 $ignoreErrors[] = [
+	'rawMessage' => 'Method Mage_Adminhtml_Catalog_Product_ReviewController::indexAction() with return type void returns mixed but should not return anything.',
+	'identifier' => 'return.void',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/controllers/Catalog/Product/ReviewController.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Method Mage_Adminhtml_Catalog_Product_ReviewController::pendingAction() with return type void returns mixed but should not return anything.',
+	'identifier' => 'return.void',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/controllers/Catalog/Product/ReviewController.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Method Mage_Adminhtml_Catalog_Product_ReviewController::saveAction() with return type void returns Mage_Core_Controller_Response_Http but should not return anything.',
+	'identifier' => 'return.void',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/controllers/Catalog/Product/ReviewController.php',
+];
+$ignoreErrors[] = [
 	'rawMessage' => 'Only booleans are allowed in &&, array<string, mixed> given on the left side.',
 	'identifier' => 'booleanAnd.leftNotBoolean',
 	'count' => 1,
@@ -6486,6 +6400,24 @@ $ignoreErrors[] = [
 	'rawMessage' => 'Loose comparison via "==" between mixed and string is not allowed.',
 	'identifier' => 'equal.notAllowed',
 	'count' => 4,
+	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/controllers/Catalog/ProductController.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Method Mage_Adminhtml_Catalog_ProductController::addCustomersToAlertQueueAction() with return type void returns $this(Mage_Adminhtml_Catalog_ProductController) but should not return anything.',
+	'identifier' => 'return.void',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/controllers/Catalog/ProductController.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Method Mage_Adminhtml_Catalog_ProductController::showUpdateResultAction() with return type void returns false but should not return anything.',
+	'identifier' => 'return.void',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/controllers/Catalog/ProductController.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Method Mage_Adminhtml_Catalog_ProductController::showUpdateResultAction() with return type void returns null but should not return anything.',
+	'identifier' => 'return.void',
+	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/controllers/Catalog/ProductController.php',
 ];
 $ignoreErrors[] = [
@@ -6735,6 +6667,18 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/controllers/Cms/Wysiwyg/ImagesController.php',
 ];
 $ignoreErrors[] = [
+	'rawMessage' => 'Method Mage_Adminhtml_Customer_Cart_Product_Composite_CartController::configureAction() with return type void returns $this(Mage_Adminhtml_Customer_Cart_Product_Composite_CartController) but should not return anything.',
+	'identifier' => 'return.void',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/controllers/Customer/Cart/Product/Composite/CartController.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Method Mage_Adminhtml_Customer_Cart_Product_Composite_CartController::updateAction() with return type void returns $this(Mage_Adminhtml_Customer_Cart_Product_Composite_CartController) but should not return anything.',
+	'identifier' => 'return.void',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/controllers/Customer/Cart/Product/Composite/CartController.php',
+];
+$ignoreErrors[] = [
 	'rawMessage' => 'Only booleans are allowed in a negated boolean, int given.',
 	'identifier' => 'booleanNot.exprNotBoolean',
 	'count' => 1,
@@ -6763,6 +6707,18 @@ $ignoreErrors[] = [
 	'identifier' => 'argument.type',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/controllers/Customer/System/Config/ValidatevatController.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Method Mage_Adminhtml_Customer_Wishlist_Product_Composite_WishlistController::configureAction() with return type void returns $this(Mage_Adminhtml_Customer_Wishlist_Product_Composite_WishlistController) but should not return anything.',
+	'identifier' => 'return.void',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/controllers/Customer/Wishlist/Product/Composite/WishlistController.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Method Mage_Adminhtml_Customer_Wishlist_Product_Composite_WishlistController::updateAction() with return type void returns false but should not return anything.',
+	'identifier' => 'return.void',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/controllers/Customer/Wishlist/Product/Composite/WishlistController.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Only booleans are allowed in a negated boolean, int given.',
@@ -7041,6 +6997,18 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/controllers/Permissions/BlockController.php',
 ];
 $ignoreErrors[] = [
+	'rawMessage' => 'Method Mage_Adminhtml_Permissions_BlockController::saveAction() with return type void returns $this(Mage_Adminhtml_Permissions_BlockController) but should not return anything.',
+	'identifier' => 'return.void',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/controllers/Permissions/BlockController.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Method Mage_Adminhtml_Permissions_BlockController::saveAction() with return type void returns null but should not return anything.',
+	'identifier' => 'return.void',
+	'count' => 4,
+	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/controllers/Permissions/BlockController.php',
+];
+$ignoreErrors[] = [
 	'rawMessage' => 'Only booleans are allowed in &&, int given on the right side.',
 	'identifier' => 'booleanAnd.rightNotBoolean',
 	'count' => 1,
@@ -7176,6 +7144,18 @@ $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/controllers/Permissions/VariableController.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Method Mage_Adminhtml_Permissions_VariableController::saveAction() with return type void returns $this(Mage_Adminhtml_Permissions_VariableController) but should not return anything.',
+	'identifier' => 'return.void',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/controllers/Permissions/VariableController.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Method Mage_Adminhtml_Permissions_VariableController::saveAction() with return type void returns null but should not return anything.',
+	'identifier' => 'return.void',
+	'count' => 4,
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/controllers/Permissions/VariableController.php',
 ];
 $ignoreErrors[] = [
@@ -7359,10 +7339,46 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/controllers/Report/CustomerController.php',
 ];
 $ignoreErrors[] = [
+	'rawMessage' => 'Method Mage_Adminhtml_Report_ProductController::exportOrderedCsvAction() with return type void returns mixed but should not return anything.',
+	'identifier' => 'return.void',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/controllers/Report/ProductController.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Method Mage_Adminhtml_Report_ProductController::exportOrderedExcelAction() with return type void returns mixed but should not return anything.',
+	'identifier' => 'return.void',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/controllers/Report/ProductController.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Method Mage_Adminhtml_Report_ProductController::orderedAction() with return type void returns mixed but should not return anything.',
+	'identifier' => 'return.void',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/controllers/Report/ProductController.php',
+];
+$ignoreErrors[] = [
 	'rawMessage' => 'Only booleans are allowed in a negated boolean, string given.',
 	'identifier' => 'booleanNot.exprNotBoolean',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/controllers/Report/ReviewController.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Method Mage_Adminhtml_Report_SalesController::refreshLifetimeAction() with return type void returns mixed but should not return anything.',
+	'identifier' => 'return.void',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/controllers/Report/SalesController.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Method Mage_Adminhtml_Report_SalesController::refreshRecentAction() with return type void returns mixed but should not return anything.',
+	'identifier' => 'return.void',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/controllers/Report/SalesController.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Method Mage_Adminhtml_Report_SalesController::refreshStatisticsAction() with return type void returns mixed but should not return anything.',
+	'identifier' => 'return.void',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/controllers/Report/SalesController.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Call to deprecated method _getCollectionNames() of class Mage_Adminhtml_Report_StatisticsController:
@@ -7380,6 +7396,18 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/controllers/Report/StatisticsController.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Method Mage_Adminhtml_Report_StatisticsController::refreshLifetimeAction() with return type void returns $this(Mage_Adminhtml_Report_StatisticsController) but should not return anything.',
+	'identifier' => 'return.void',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/controllers/Report/StatisticsController.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Method Mage_Adminhtml_Report_StatisticsController::refreshRecentAction() with return type void returns $this(Mage_Adminhtml_Report_StatisticsController) but should not return anything.',
+	'identifier' => 'return.void',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/controllers/Report/StatisticsController.php',
 ];
@@ -7434,6 +7462,36 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Method Mage_Adminhtml_Model_Sales_Order_Create::moveQuoteItem() invoked with 2 parameters, 3 required.',
 	'identifier' => 'arguments.count',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/controllers/Sales/Order/CreateController.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Method Mage_Adminhtml_Sales_Order_CreateController::configureProductToAddAction() with return type void returns $this(Mage_Adminhtml_Sales_Order_CreateController) but should not return anything.',
+	'identifier' => 'return.void',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/controllers/Sales/Order/CreateController.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Method Mage_Adminhtml_Sales_Order_CreateController::configureQuoteItemsAction() with return type void returns $this(Mage_Adminhtml_Sales_Order_CreateController) but should not return anything.',
+	'identifier' => 'return.void',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/controllers/Sales/Order/CreateController.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Method Mage_Adminhtml_Sales_Order_CreateController::reorderAction() with return type void returns mixed but should not return anything.',
+	'identifier' => 'return.void',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/controllers/Sales/Order/CreateController.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Method Mage_Adminhtml_Sales_Order_CreateController::showUpdateResultAction() with return type void returns false but should not return anything.',
+	'identifier' => 'return.void',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/controllers/Sales/Order/CreateController.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Method Mage_Adminhtml_Sales_Order_CreateController::showUpdateResultAction() with return type void returns null but should not return anything.',
+	'identifier' => 'return.void',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/controllers/Sales/Order/CreateController.php',
 ];
@@ -7612,6 +7670,12 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/controllers/Sales/Order/ShipmentController.php',
 ];
 $ignoreErrors[] = [
+	'rawMessage' => 'Method Mage_Adminhtml_Sales_Order_ShipmentController::getShippingItemsGridAction() with return type void returns Mage_Core_Controller_Response_Http but should not return anything.',
+	'identifier' => 'return.void',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/controllers/Sales/Order/ShipmentController.php',
+];
+$ignoreErrors[] = [
 	'rawMessage' => 'Negated boolean expression is always false.',
 	'identifier' => 'booleanNot.alwaysFalse',
 	'count' => 1,
@@ -7758,6 +7822,12 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Dead catch - Exception is never thrown in the try block.',
 	'identifier' => 'catch.neverThrown',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/controllers/Sales/Recurring/ProfileController.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Method Mage_Adminhtml_Sales_Recurring_ProfileController::indexAction() with return type void returns $this(Mage_Adminhtml_Sales_Recurring_ProfileController) but should not return anything.',
+	'identifier' => 'return.void',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/controllers/Sales/Recurring/ProfileController.php',
 ];
@@ -8356,6 +8426,30 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/controllers/Tax/RateController.php',
 ];
 $ignoreErrors[] = [
+	'rawMessage' => 'Method Mage_Adminhtml_Tax_RateController::deleteAction() with return type void returns null but should not return anything.',
+	'identifier' => 'return.void',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/controllers/Tax/RateController.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Method Mage_Adminhtml_Tax_RateController::deleteAction() with return type void returns true but should not return anything.',
+	'identifier' => 'return.void',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/controllers/Tax/RateController.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Method Mage_Adminhtml_Tax_RateController::saveAction() with return type void returns null but should not return anything.',
+	'identifier' => 'return.void',
+	'count' => 2,
+	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/controllers/Tax/RateController.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Method Mage_Adminhtml_Tax_RateController::saveAction() with return type void returns true but should not return anything.',
+	'identifier' => 'return.void',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/controllers/Tax/RateController.php',
+];
+$ignoreErrors[] = [
 	'rawMessage' => 'Method Mage_Directory_Model_Country::loadByCode() invoked with 2 parameters, 1 required.',
 	'identifier' => 'arguments.count',
 	'count' => 1,
@@ -8400,6 +8494,18 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/controllers/Tax/RuleController.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Method Mage_Adminhtml_Tax_RuleController::indexAction() with return type void returns $this(Mage_Adminhtml_Tax_RuleController) but should not return anything.',
+	'identifier' => 'return.void',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/controllers/Tax/RuleController.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Method Mage_Adminhtml_Tax_RuleController::saveAction() should return $this(Mage_Adminhtml_Tax_RuleController)|void but returns Mage_Core_Controller_Response_Http.',
+	'identifier' => 'return.type',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/controllers/Tax/RuleController.php',
 ];
@@ -8518,14 +8624,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Api/Model/Acl.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Call to deprecated method add() of class Zend_Acl:
-in version 1.9.1 and will be available till 2.0.  New code
-            should use addResource() instead.',
-	'identifier' => 'method.deprecated',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Api/Model/Config.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 1,
@@ -8545,12 +8643,6 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Parameter #2 $resource of method Mage_Api_Model_Config::loadAclResources() expects Mage_Core_Model_Config_Element|null, Varien_Simplexml_Element given.',
-	'identifier' => 'argument.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Api/Model/Config.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Parameter #4 $lifeTime of method Mage_Core_Model_App::saveCache() expects int|false|null, bool given.',
 	'identifier' => 'argument.type',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Api/Model/Config.php',
@@ -8757,12 +8849,6 @@ $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 9,
-	'path' => __DIR__ . '/app/code/core/Mage/Api/Model/Server/Handler/Abstract.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Foreach overwrites $alias with its value variable.',
-	'identifier' => 'foreach.valueOverwrite',
-	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Api/Model/Server/Handler/Abstract.php',
 ];
 $ignoreErrors[] = [
@@ -10363,12 +10449,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Bundle/Model/Product/Price.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Short ternary operator is not allowed. Use null coalesce operator if applicable or consider using long ternary.',
-	'identifier' => 'ternary.shortNotAllowed',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Bundle/Model/Product/Price.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 5,
@@ -10777,6 +10857,18 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Bundle/Model/Sales/Order/Pdf/Items/Shipment.php',
 ];
 $ignoreErrors[] = [
+	'rawMessage' => 'Method Mage_Bundle_Adminhtml_Bundle_SelectionController::gridAction() with return type void returns Mage_Core_Controller_Response_Http but should not return anything.',
+	'identifier' => 'return.void',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Bundle/controllers/Adminhtml/Bundle/SelectionController.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Method Mage_Bundle_Adminhtml_Bundle_SelectionController::searchAction() with return type void returns Mage_Core_Controller_Response_Http but should not return anything.',
+	'identifier' => 'return.void',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Bundle/controllers/Adminhtml/Bundle/SelectionController.php',
+];
+$ignoreErrors[] = [
 	'rawMessage' => 'Call to function array_search() requires parameter #3 to be set.',
 	'identifier' => 'function.strict',
 	'count' => 1,
@@ -10874,7 +10966,7 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Captcha/Model/Zend.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Mage_Captcha_Model_Zend::__construct() does not call parent constructor from Zend_Captcha_Base.',
+	'rawMessage' => 'Mage_Captcha_Model_Zend::__construct() does not call parent constructor from Laminas\\Captcha\\Image.',
 	'identifier' => 'constructor.missingParentCall',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Captcha/Model/Zend.php',
@@ -10900,13 +10992,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Only booleans are allowed in a negated boolean, string given.',
 	'identifier' => 'booleanNot.exprNotBoolean',
-	'count' => 3,
-	'path' => __DIR__ . '/app/code/core/Mage/Captcha/Model/Zend.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Only booleans are allowed in a negated boolean, string|null given.',
-	'identifier' => 'booleanNot.exprNotBoolean',
-	'count' => 1,
+	'count' => 4,
 	'path' => __DIR__ . '/app/code/core/Mage/Captcha/Model/Zend.php',
 ];
 $ignoreErrors[] = [
@@ -12814,7 +12900,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Only booleans are allowed in &&, mixed given on the right side.',
 	'identifier' => 'booleanAnd.rightNotBoolean',
-	'count' => 1,
+	'count' => 2,
 	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Convert/Adapter/Product.php',
 ];
 $ignoreErrors[] = [
@@ -12845,6 +12931,12 @@ $ignoreErrors[] = [
 	'rawMessage' => 'Only booleans are allowed in a ternary operator condition, mixed given.',
 	'identifier' => 'ternary.condNotBoolean',
 	'count' => 3,
+	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Convert/Adapter/Product.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Only booleans are allowed in an if condition, string given.',
+	'identifier' => 'if.condNotBoolean',
+	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Convert/Adapter/Product.php',
 ];
 $ignoreErrors[] = [
@@ -12896,20 +12988,8 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Convert/Parser/Product.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Only booleans are allowed in &&, mixed given on the left side.',
-	'identifier' => 'booleanAnd.leftNotBoolean',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Convert/Parser/Product.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Only booleans are allowed in a negated boolean, Mage_Eav_Model_Entity_Attribute given.',
 	'identifier' => 'booleanNot.exprNotBoolean',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Convert/Parser/Product.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Only booleans are allowed in an if condition, Mage_CatalogInventory_Model_Stock_Item given.',
-	'identifier' => 'if.condNotBoolean',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Convert/Parser/Product.php',
 ];
@@ -14409,12 +14489,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Product/Option/Type/File.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Short ternary operator is not allowed. Use null coalesce operator if applicable or consider using long ternary.',
-	'identifier' => 'ternary.shortNotAllowed',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Product/Option/Type/File.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Call to function in_array() requires parameter #3 to be set.',
 	'identifier' => 'function.strict',
 	'count' => 1,
@@ -14828,12 +14902,6 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Loose comparison via "==" between mixed and mixed is not allowed.',
 	'identifier' => 'equal.notAllowed',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Product/Type/Price.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Only booleans are allowed in a ternary operator condition, array<mixed> given.',
-	'identifier' => 'ternary.condNotBoolean',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Product/Type/Price.php',
 ];
@@ -15659,7 +15727,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
 	'identifier' => 'equal.notAllowed',
-	'count' => 5,
+	'count' => 4,
 	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Resource/Product/Collection.php',
 ];
 $ignoreErrors[] = [
@@ -16086,12 +16154,6 @@ $ignoreErrors[] = [
 	'rawMessage' => 'Loose comparison via "==" between mixed and string is not allowed.',
 	'identifier' => 'equal.notAllowed',
 	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Resource/Product/Link/Product/Collection.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
-	'identifier' => 'equal.notAllowed',
-	'count' => 2,
 	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Resource/Product/Link/Product/Collection.php',
 ];
 $ignoreErrors[] = [
@@ -18366,7 +18428,7 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/CatalogSearch/Model/Resource/Fulltext.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Only booleans are allowed in a ternary operator condition, string|Zend_Db_Expr given.',
+	'rawMessage' => 'Only booleans are allowed in a ternary operator condition, Zend_Db_Expr given.',
 	'identifier' => 'ternary.condNotBoolean',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/CatalogSearch/Model/Resource/Fulltext.php',
@@ -18441,12 +18503,6 @@ $ignoreErrors[] = [
 	'rawMessage' => 'Loose comparison via "==" between int and int is not allowed.',
 	'identifier' => 'equal.notAllowed',
 	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/CatalogSearch/Model/Resource/Fulltext/Collection.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
-	'identifier' => 'equal.notAllowed',
-	'count' => 2,
 	'path' => __DIR__ . '/app/code/core/Mage/CatalogSearch/Model/Resource/Fulltext/Collection.php',
 ];
 $ignoreErrors[] = [
@@ -19324,15 +19380,9 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Checkout/Model/Cart/Customer/Api.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Call to function in_array() requires parameter #3 to be set.',
-	'identifier' => 'function.strict',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Checkout/Model/Cart/Payment/Api.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 4,
+	'count' => 3,
 	'path' => __DIR__ . '/app/code/core/Mage/Checkout/Model/Cart/Payment/Api.php',
 ];
 $ignoreErrors[] = [
@@ -19890,12 +19940,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Checkout/controllers/MultishippingController.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Only booleans are allowed in an if condition, array given.',
-	'identifier' => 'if.condNotBoolean',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Checkout/controllers/MultishippingController.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Only booleans are allowed in an if condition, array|null given.',
 	'identifier' => 'if.condNotBoolean',
 	'count' => 1,
@@ -19934,6 +19978,18 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
 	'identifier' => 'equal.notAllowed',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Checkout/controllers/OnepageController.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Method Mage_Checkout_OnepageController::progressAction() with return type void returns null but should not return anything.',
+	'identifier' => 'return.void',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Checkout/controllers/OnepageController.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Method Mage_Checkout_OnepageController::progressAction() with return type void returns string but should not return anything.',
+	'identifier' => 'return.void',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Checkout/controllers/OnepageController.php',
 ];
@@ -21444,6 +21500,31 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Core/Helper/Js.php',
 ];
 $ignoreErrors[] = [
+	'rawMessage' => 'Only booleans are allowed in a negated boolean, Mage_Core_Model_App given.',
+	'identifier' => 'booleanNot.exprNotBoolean',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Core/Helper/Log.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Only booleans are allowed in a negated boolean, string given.',
+	'identifier' => 'booleanNot.exprNotBoolean',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Core/Helper/Log.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to function in_array() requires parameter #3 to be set.',
+	'identifier' => 'function.strict',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Core/Helper/PsrLogger.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Access to deprecated property $purifier of class Mage_Core_Helper_Purifier:
+No longer used. See {@link static::$defaultPurifier}.',
+	'identifier' => 'property.deprecated',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Core/Helper/Purifier.php',
+];
+$ignoreErrors[] = [
 	'rawMessage' => 'Loose comparison via "==" between int and int is not allowed.',
 	'identifier' => 'equal.notAllowed',
 	'count' => 1,
@@ -21884,7 +21965,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Only booleans are allowed in a negated boolean, string given.',
 	'identifier' => 'booleanNot.exprNotBoolean',
-	'count' => 2,
+	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Core/Model/Config.php',
 ];
 $ignoreErrors[] = [
@@ -22334,13 +22415,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Loose comparison via "==" between int and int is not allowed.',
 	'identifier' => 'equal.notAllowed',
-	'count' => 3,
-	'path' => __DIR__ . '/app/code/core/Mage/Core/Model/Encryption.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Loose comparison via "==" between int and int<min, 0>|int<2, max> is not allowed.',
-	'identifier' => 'equal.notAllowed',
-	'count' => 1,
+	'count' => 4,
 	'path' => __DIR__ . '/app/code/core/Mage/Core/Model/Encryption.php',
 ];
 $ignoreErrors[] = [
@@ -22366,12 +22441,6 @@ $ignoreErrors[] = [
 	'identifier' => 'equal.notAllowed',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Core/Model/File/Storage/Abstract.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-	'identifier' => 'empty.notAllowed',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Core/Model/File/Storage/Database.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Only booleans are allowed in &&, int<0, max> given on the right side.',
@@ -22418,7 +22487,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 2,
+	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Core/Model/File/Storage/Directory/Database.php',
 ];
 $ignoreErrors[] = [
@@ -22554,8 +22623,8 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Core/Model/File/Validator/Image.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Only booleans are allowed in an if condition, int given.',
-	'identifier' => 'if.condNotBoolean',
+	'rawMessage' => 'Only booleans are allowed in &&, int given on the left side.',
+	'identifier' => 'booleanAnd.leftNotBoolean',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Core/Model/File/Validator/Image.php',
 ];
@@ -23299,15 +23368,9 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Core/Model/Resource/Session.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Parameter #6 $gc of function session_set_save_handler expects callable(string): bool, array{$this(Mage_Core_Model_Resource_Session), \'gc\'} given.',
-	'identifier' => 'argument.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Core/Model/Resource/Session.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 3,
+	'count' => 2,
 	'path' => __DIR__ . '/app/code/core/Mage/Core/Model/Resource/Setup.php',
 ];
 $ignoreErrors[] = [
@@ -23876,7 +23939,7 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Core/Model/Template.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Loose comparison via "==" between int|string and int is not allowed.',
+	'rawMessage' => 'Loose comparison via "==" between int|null and int is not allowed.',
 	'identifier' => 'equal.notAllowed',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Core/Model/Template.php',
@@ -25677,6 +25740,18 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Customer/controllers/AddressController.php',
 ];
 $ignoreErrors[] = [
+	'rawMessage' => 'Method Mage_Customer_AddressController::deleteAction() with return type void returns $this(Mage_Customer_AddressController) but should not return anything.',
+	'identifier' => 'return.void',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Customer/controllers/AddressController.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Method Mage_Customer_AddressController::formPostAction() with return type void returns $this(Mage_Customer_AddressController) but should not return anything.',
+	'identifier' => 'return.void',
+	'count' => 2,
+	'path' => __DIR__ . '/app/code/core/Mage/Customer/controllers/AddressController.php',
+];
+$ignoreErrors[] = [
 	'rawMessage' => 'Only booleans are allowed in &&, int|string|null given on the left side.',
 	'identifier' => 'booleanAnd.leftNotBoolean',
 	'count' => 1,
@@ -25880,12 +25955,6 @@ $ignoreErrors[] = [
 	'identifier' => 'if.condNotBoolean',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Dataflow/Model/Convert/Adapter/Http.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Call to function in_array() requires parameter #3 to be set.',
-	'identifier' => 'function.strict',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Dataflow/Model/Convert/Container/Abstract.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
@@ -26913,6 +26982,12 @@ $ignoreErrors[] = [
 	'rawMessage' => 'Method Mage_Customer_Model_Session::setBeforeAuthUrl() invoked with 2 parameters, 1 required.',
 	'identifier' => 'arguments.count',
 	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Downloadable/controllers/DownloadController.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Method Mage_Downloadable_DownloadController::linkAction() with return type void returns $this(Mage_Downloadable_DownloadController) but should not return anything.',
+	'identifier' => 'return.void',
+	'count' => 3,
 	'path' => __DIR__ . '/app/code/core/Mage/Downloadable/controllers/DownloadController.php',
 ];
 $ignoreErrors[] = [
@@ -27992,7 +28067,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 10,
+	'count' => 9,
 	'path' => __DIR__ . '/app/code/core/Mage/Eav/Model/Entity/Setup.php',
 ];
 $ignoreErrors[] = [
@@ -28868,24 +28943,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/ImportExport/Model/Export/Entity/Product.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'If condition is always true.',
-	'identifier' => 'if.alwaysTrue',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/ImportExport/Model/Export/Entity/Product.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Implicit array creation is not allowed - variable $defaultTitles might not exist.',
-	'identifier' => 'variable.implicitArray',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/ImportExport/Model/Export/Entity/Product.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Implicit array creation is not allowed - variable $defaultValueTitles might not exist.',
-	'identifier' => 'variable.implicitArray',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/ImportExport/Model/Export/Entity/Product.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Loose comparison via "!=" between int and int|string is not allowed.',
 	'identifier' => 'notEqual.notAllowed',
 	'count' => 3,
@@ -28990,7 +29047,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Only booleans are allowed in an if condition, array<string, mixed> given.',
 	'identifier' => 'if.condNotBoolean',
-	'count' => 2,
+	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/ImportExport/Model/Export/Entity/Product.php',
 ];
 $ignoreErrors[] = [
@@ -30272,6 +30329,30 @@ $ignoreErrors[] = [
 	'identifier' => 'equal.notAllowed',
 	'count' => 3,
 	'path' => __DIR__ . '/app/code/core/Mage/Install/Model/Wizard.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Method Mage_Install_WizardController::administratorPostAction() with return type void returns false but should not return anything.',
+	'identifier' => 'return.void',
+	'count' => 2,
+	'path' => __DIR__ . '/app/code/core/Mage/Install/controllers/WizardController.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Method Mage_Install_WizardController::administratorPostAction() with return type void returns null but should not return anything.',
+	'identifier' => 'return.void',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Install/controllers/WizardController.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Method Mage_Install_WizardController::configPostAction() with return type void returns $this(Mage_Install_WizardController) but should not return anything.',
+	'identifier' => 'return.void',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Install/controllers/WizardController.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Method Mage_Install_WizardController::configPostAction() with return type void returns null but should not return anything.',
+	'identifier' => 'return.void',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Install/controllers/WizardController.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Only booleans are allowed in &&, mixed given on the left side.',
@@ -33608,12 +33689,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Paypal/Model/Payflowpro.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Parameter #2 $storeId of method Mage_Payment_Model_Method_Abstract::getConfigData() expects int|Mage_Core_Model_Store|string|null, false given.',
-	'identifier' => 'argument.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Paypal/Model/Payflowpro.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Call to method loadObjectByTxnId() of deprecated class Mage_Paypal_Model_Resource_Payment_Transaction:
 since 1.6.2.0',
 	'identifier' => 'method.deprecatedClass',
@@ -35008,12 +35083,6 @@ after 1.4.2.0',
 	'path' => __DIR__ . '/app/code/core/Mage/Reports/Model/Resource/Wishlist/Product/Collection.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
-	'identifier' => 'equal.notAllowed',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Reports/Model/Resource/Wishlist/Product/Collection.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Mage_Reports_Model_Session::__construct() does not call parent constructor from Varien_Object.',
 	'identifier' => 'constructor.missingParentCall',
 	'count' => 1,
@@ -35526,6 +35595,18 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
 	'identifier' => 'equal.notAllowed',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Rss/controllers/OrderController.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Method Mage_Rss_OrderController::customerAction() with return type void returns $this(Mage_Rss_OrderController) but should not return anything.',
+	'identifier' => 'return.void',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Rss/controllers/OrderController.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Method Mage_Rss_OrderController::customerAction() with return type void returns null but should not return anything.',
+	'identifier' => 'return.void',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Rss/controllers/OrderController.php',
 ];
@@ -36563,12 +36644,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Sales/Model/Entity/Quote/Payment.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-	'identifier' => 'empty.notAllowed',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Sales/Model/Entity/Sale/Collection.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Mage_Sales_Model_Entity_Sale_Collection::__construct() does not call parent constructor from Varien_Object.',
 	'identifier' => 'constructor.missingParentCall',
 	'count' => 1,
@@ -37171,13 +37246,13 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Only booleans are allowed in a ternary operator condition, $this(Mage_Sales_Model_Order_Item)|null given.',
 	'identifier' => 'ternary.condNotBoolean',
-	'count' => 1,
+	'count' => 3,
 	'path' => __DIR__ . '/app/code/core/Mage/Sales/Model/Order/Item.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Only booleans are allowed in an if condition, $this(Mage_Sales_Model_Order_Item)|null given.',
 	'identifier' => 'if.condNotBoolean',
-	'count' => 3,
+	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Sales/Model/Order/Item.php',
 ];
 $ignoreErrors[] = [
@@ -37506,12 +37581,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Sales/Model/Order/Pdf/Abstract.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Loose comparison via "!=" between mixed and string is not allowed.',
-	'identifier' => 'notEqual.notAllowed',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Sales/Model/Order/Pdf/Abstract.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Loose comparison via "!=" between string and string is not allowed.',
 	'identifier' => 'notEqual.notAllowed',
 	'count' => 1,
@@ -37526,7 +37595,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
 	'identifier' => 'equal.notAllowed',
-	'count' => 2,
+	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Sales/Model/Order/Pdf/Abstract.php',
 ];
 $ignoreErrors[] = [
@@ -38611,12 +38680,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Sales/Model/Quote/Payment.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Call to Exception::__construct() on a separate line has no effect.',
-	'identifier' => 'new.resultUnused',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Sales/Model/Recurring/Profile.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Call to an undefined method Mage_Payment_Model_Method_Abstract::canGetRecurringProfileDetails().',
 	'identifier' => 'method.notFound',
 	'count' => 1,
@@ -39269,6 +39332,18 @@ $ignoreErrors[] = [
 	'identifier' => 'booleanNot.exprNotBoolean',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Sales/Model/Status/List.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Method Mage_Sales_Billing_AgreementController::startWizardAction() with return type void returns $this(Mage_Sales_Billing_AgreementController) but should not return anything.',
+	'identifier' => 'return.void',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Sales/controllers/Billing/AgreementController.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Method Mage_Sales_Billing_AgreementController::startWizardAction() with return type void returns null but should not return anything.',
+	'identifier' => 'return.void',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Sales/controllers/Billing/AgreementController.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Only booleans are allowed in &&, mixed given on the left side.',
@@ -39924,18 +39999,6 @@ $ignoreErrors[] = [
 	'identifier' => 'property.phpDocType',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Shipping/Model/Carrier/Freeshipping.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-	'identifier' => 'empty.notAllowed',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Shipping/Model/Carrier/Pickup.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Variable $rate in empty() is never defined.',
-	'identifier' => 'empty.variable',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Shipping/Model/Carrier/Pickup.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
@@ -41183,6 +41246,12 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Tax/Model/System/Config/Source/Tax/Region.php',
 ];
 $ignoreErrors[] = [
+	'rawMessage' => 'Only booleans are allowed in an if condition, int given.',
+	'identifier' => 'if.condNotBoolean',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Usa/Block/Adminhtml/System/Config/Form/Field/Usps/Createdimensions.php',
+];
+$ignoreErrors[] = [
 	'rawMessage' => 'Call to function in_array() requires parameter #3 to be set.',
 	'identifier' => 'function.strict',
 	'count' => 1,
@@ -41199,6 +41268,42 @@ $ignoreErrors[] = [
 	'identifier' => 'if.condNotBoolean',
 	'count' => 2,
 	'path' => __DIR__ . '/app/code/core/Mage/Usa/Helper/Data.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Only booleans are allowed in a negated boolean, Mage_Sales_Model_Quote given.',
+	'identifier' => 'booleanNot.exprNotBoolean',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Usa/Model/Observer/LogAddressVerification.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Only booleans are allowed in a negated boolean, Mage_Sales_Model_Quote_Address given.',
+	'identifier' => 'booleanNot.exprNotBoolean',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Usa/Model/Observer/LogAddressVerification.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Only booleans are allowed in an if condition, mixed given.',
+	'identifier' => 'if.condNotBoolean',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Usa/Model/Observer/LogAddressVerification.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Only booleans are allowed in a negated boolean, Mage_Sales_Model_Order given.',
+	'identifier' => 'booleanNot.exprNotBoolean',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Usa/Model/Observer/PrepareShipmentForLabels.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Only booleans are allowed in a negated boolean, Mage_Sales_Model_Order_Shipment given.',
+	'identifier' => 'booleanNot.exprNotBoolean',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Usa/Model/Observer/PrepareShipmentForLabels.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Only booleans are allowed in a negated boolean, Mage_Sales_Model_Order given.',
+	'identifier' => 'booleanNot.exprNotBoolean',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Usa/Model/Observer/ValidateOrderAddress.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Loose comparison via "!=" between mixed and null is not allowed.',
@@ -41753,7 +41858,13 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Only booleans are allowed in a negated boolean, Mage_Shipping_Model_Rate_Result|Mage_Shipping_Model_Tracking_Result|null given.',
+	'rawMessage' => 'Mage_Usa_Model_Shipping_Carrier_Fedex::__construct() does not call parent constructor from Varien_Object.',
+	'identifier' => 'constructor.missingParentCall',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Only booleans are allowed in a negated boolean, Mage_Shipping_Model_Tracking_Result|null given.',
 	'identifier' => 'booleanNot.exprNotBoolean',
 	'count' => 2,
 	'path' => __DIR__ . '/app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php',
@@ -41921,12 +42032,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Usa/Model/Shipping/Carrier/Ups.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc type Mage_Shipping_Model_Rate_Result|null of property Mage_Usa_Model_Shipping_Carrier_Ups::$_result is not the same as PHPDoc type Mage_Shipping_Model_Rate_Result|Mage_Shipping_Model_Tracking_Result|null of overridden property Mage_Shipping_Model_Carrier_Abstract::$_result.',
-	'identifier' => 'property.phpDocType',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Usa/Model/Shipping/Carrier/Ups.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'PHPDoc type string of property Mage_Usa_Model_Shipping_Carrier_Ups::$_code is not the same as PHPDoc type string|null of overridden property Mage_Shipping_Model_Carrier_Abstract::$_code.',
 	'identifier' => 'property.phpDocType',
 	'count' => 1,
@@ -41947,13 +42052,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Call to function base64_decode() requires parameter #2 to be set.',
 	'identifier' => 'function.strict',
-	'count' => 3,
-	'path' => __DIR__ . '/app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-	'identifier' => 'empty.notAllowed',
-	'count' => 5,
+	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps.php',
 ];
 $ignoreErrors[] = [
@@ -41969,33 +42068,15 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Loose comparison via "!=" between mixed and null is not allowed.',
-	'identifier' => 'notEqual.notAllowed',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Loose comparison via "!=" between mixed and string is not allowed.',
 	'identifier' => 'notEqual.notAllowed',
-	'count' => 7,
-	'path' => __DIR__ . '/app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Loose comparison via "!=" between string and string is not allowed.',
-	'identifier' => 'notEqual.notAllowed',
-	'count' => 5,
+	'count' => 2,
 	'path' => __DIR__ . '/app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Loose comparison via "==" between Varien_Object|null and null is not allowed.',
 	'identifier' => 'equal.notAllowed',
 	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Loose comparison via "==" between array|bool and string is not allowed.',
-	'identifier' => 'equal.notAllowed',
-	'count' => 6,
 	'path' => __DIR__ . '/app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps.php',
 ];
 $ignoreErrors[] = [
@@ -42013,29 +42094,59 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Loose comparison via "==" between mixed and string is not allowed.',
 	'identifier' => 'equal.notAllowed',
-	'count' => 12,
+	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
-	'identifier' => 'equal.notAllowed',
-	'count' => 3,
+	'rawMessage' => 'Only booleans are allowed in &&, string given on the right side.',
+	'identifier' => 'booleanAnd.rightNotBoolean',
+	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Only booleans are allowed in a negated boolean, Mage_Shipping_Model_Rate_Result|Mage_Shipping_Model_Tracking_Result|null given.',
+	'rawMessage' => 'Only booleans are allowed in a negated boolean, Mage_Shipping_Model_Tracking_Result|null given.',
 	'identifier' => 'booleanNot.exprNotBoolean',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Only booleans are allowed in an if condition, array<string, string> given.',
+	'rawMessage' => 'Only booleans are allowed in a negated boolean, mixed given.',
+	'identifier' => 'booleanNot.exprNotBoolean',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Only booleans are allowed in a negated boolean, string given.',
+	'identifier' => 'booleanNot.exprNotBoolean',
+	'count' => 4,
+	'path' => __DIR__ . '/app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Only booleans are allowed in a negated boolean, string|null given.',
+	'identifier' => 'booleanNot.exprNotBoolean',
+	'count' => 5,
+	'path' => __DIR__ . '/app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Only booleans are allowed in a ternary operator condition, mixed given.',
+	'identifier' => 'ternary.condNotBoolean',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Only booleans are allowed in a ternary operator condition, string given.',
+	'identifier' => 'ternary.condNotBoolean',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Only booleans are allowed in an if condition, Mage_Shipping_Model_Tracking_Result|null given.',
 	'identifier' => 'if.condNotBoolean',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Only booleans are allowed in an if condition, int<0, max> given.',
+	'rawMessage' => 'Only booleans are allowed in an if condition, mixed given.',
 	'identifier' => 'if.condNotBoolean',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps.php',
@@ -42047,16 +42158,208 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Parameter #2 $serviceType of method Mage_Usa_Model_Shipping_Carrier_Usps::_formUsSignatureConfirmationShipmentRequest() expects string, array|bool given.',
-	'identifier' => 'argument.type',
+	'rawMessage' => 'Only booleans are allowed in an if condition, mixed given.',
+	'identifier' => 'if.condNotBoolean',
 	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps.php',
+	'path' => __DIR__ . '/app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps/AbstractService.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Short ternary operator is not allowed. Use null coalesce operator if applicable or consider using long ternary.',
-	'identifier' => 'ternary.shortNotAllowed',
+	'rawMessage' => 'Only booleans are allowed in a negated boolean, Mage_Sales_Model_Quote given.',
+	'identifier' => 'booleanNot.exprNotBoolean',
 	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps.php',
+	'path' => __DIR__ . '/app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps/Address/Service.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Only booleans are allowed in a negated boolean, Mage_Sales_Model_Quote_Address given.',
+	'identifier' => 'booleanNot.exprNotBoolean',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps/Address/Service.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Only booleans are allowed in a negated boolean, int|string|null given.',
+	'identifier' => 'booleanNot.exprNotBoolean',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps/Address/Service.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Only booleans are allowed in a negated boolean, mixed given.',
+	'identifier' => 'booleanNot.exprNotBoolean',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps/Address/Service.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Only booleans are allowed in a ternary operator condition, Mage_Sales_Model_Quote given.',
+	'identifier' => 'ternary.condNotBoolean',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps/Address/Service.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Only booleans are allowed in a ternary operator condition, int|string|null given.',
+	'identifier' => 'ternary.condNotBoolean',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps/Address/Service.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Only booleans are allowed in an if condition, int|null given.',
+	'identifier' => 'if.condNotBoolean',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps/Address/Service.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Only booleans are allowed in a ternary operator condition, string|null given.',
+	'identifier' => 'ternary.condNotBoolean',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps/Error/Dictionary.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Only booleans are allowed in an if condition, mixed given.',
+	'identifier' => 'if.condNotBoolean',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps/Error/Dictionary.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Only booleans are allowed in an if condition, string|null given.',
+	'identifier' => 'if.condNotBoolean',
+	'count' => 5,
+	'path' => __DIR__ . '/app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps/Error/Dictionary.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Only booleans are allowed in &&, mixed given on the right side.',
+	'identifier' => 'booleanAnd.rightNotBoolean',
+	'count' => 3,
+	'path' => __DIR__ . '/app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps/Label/Service.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Only booleans are allowed in a negated boolean, mixed given.',
+	'identifier' => 'booleanNot.exprNotBoolean',
+	'count' => 4,
+	'path' => __DIR__ . '/app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps/Label/Service.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Call to function array_filter() requires parameter #2 to be passed to avoid loose comparison semantics.',
+	'identifier' => 'arrayFilter.strict',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps/Rest/Client.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Only booleans are allowed in &&, string|null given on the right side.',
+	'identifier' => 'booleanAnd.rightNotBoolean',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps/Rest/Client.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Only booleans are allowed in a ternary operator condition, string|null given.',
+	'identifier' => 'ternary.condNotBoolean',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps/Rest/Client.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Only booleans are allowed in an if condition, array<string, mixed>|null given.',
+	'identifier' => 'if.condNotBoolean',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps/Rest/Client.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Only booleans are allowed in ||, mixed given on the left side.',
+	'identifier' => 'booleanOr.leftNotBoolean',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps/Rest/Client.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Only booleans are allowed in &&, mixed given on the left side.',
+	'identifier' => 'booleanAnd.leftNotBoolean',
+	'count' => 2,
+	'path' => __DIR__ . '/app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps/Service/Standards.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Only booleans are allowed in a negated boolean, string|null given.',
+	'identifier' => 'booleanNot.exprNotBoolean',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps/Service/Standards.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Only booleans are allowed in an if condition, array<string, mixed>|null given.',
+	'identifier' => 'if.condNotBoolean',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps/Service/Standards.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Only booleans are allowed in an if condition, mixed given.',
+	'identifier' => 'if.condNotBoolean',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps/Service/Standards.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Only booleans are allowed in an if condition, string|null given.',
+	'identifier' => 'if.condNotBoolean',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps/Service/Standards.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Only booleans are allowed in &&, Mage_Usa_Model_Shipping_Carrier_Usps|null given on the left side.',
+	'identifier' => 'booleanAnd.leftNotBoolean',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps/Tracking/Service.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Only booleans are allowed in a negated boolean, string given.',
+	'identifier' => 'booleanNot.exprNotBoolean',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps/Tracking/Service.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Only booleans are allowed in a ternary operator condition, string given.',
+	'identifier' => 'ternary.condNotBoolean',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps/Tracking/Service.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Only booleans are allowed in an if condition, mixed given.',
+	'identifier' => 'if.condNotBoolean',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Usa/Model/Shipping/Carrier/UspsAuth.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Only booleans are allowed in a ternary operator condition, mixed given.',
+	'identifier' => 'ternary.condNotBoolean',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Usa/controllers/AddressController.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Only booleans are allowed in an if condition, mixed given.',
+	'identifier' => 'if.condNotBoolean',
+	'count' => 2,
+	'path' => __DIR__ . '/app/code/core/Mage/Usa/controllers/AddressController.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Only booleans are allowed in &&, mixed given on the left side.',
+	'identifier' => 'booleanAnd.leftNotBoolean',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Usa/controllers/Adminhtml/UspsController.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Only booleans are allowed in a negated boolean, int given.',
+	'identifier' => 'booleanNot.exprNotBoolean',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Usa/controllers/Adminhtml/UspsController.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Only booleans are allowed in a negated boolean, mixed given.',
+	'identifier' => 'booleanNot.exprNotBoolean',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Usa/controllers/Adminhtml/UspsController.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Only booleans are allowed in an if condition, int|string|null given.',
+	'identifier' => 'if.condNotBoolean',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Usa/controllers/Adminhtml/UspsController.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Only booleans are allowed in an if condition, string given.',
+	'identifier' => 'if.condNotBoolean',
+	'count' => 2,
+	'path' => __DIR__ . '/app/code/core/Mage/Usa/controllers/Adminhtml/UspsController.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Loose comparison via "!=" between string and mixed is not allowed.',
@@ -43170,6 +43473,48 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Wishlist/controllers/IndexController.php',
 ];
 $ignoreErrors[] = [
+	'rawMessage' => 'Method Mage_Wishlist_IndexController::addAction() with return type void returns $this(Mage_Wishlist_IndexController) but should not return anything.',
+	'identifier' => 'return.void',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Wishlist/controllers/IndexController.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Method Mage_Wishlist_IndexController::cartAction() with return type void returns $this(Mage_Wishlist_IndexController) but should not return anything.',
+	'identifier' => 'return.void',
+	'count' => 4,
+	'path' => __DIR__ . '/app/code/core/Mage/Wishlist/controllers/IndexController.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Method Mage_Wishlist_IndexController::fromcartAction() with return type void returns $this(Mage_Wishlist_IndexController) but should not return anything.',
+	'identifier' => 'return.void',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Wishlist/controllers/IndexController.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Method Mage_Wishlist_IndexController::indexAction() with return type void returns $this(Mage_Wishlist_IndexController) but should not return anything.',
+	'identifier' => 'return.void',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Wishlist/controllers/IndexController.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Method Mage_Wishlist_IndexController::removeAction() with return type void returns $this(Mage_Wishlist_IndexController) but should not return anything.',
+	'identifier' => 'return.void',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Wishlist/controllers/IndexController.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Method Mage_Wishlist_IndexController::sendAction() with return type void returns $this(Mage_Wishlist_IndexController) but should not return anything.',
+	'identifier' => 'return.void',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Wishlist/controllers/IndexController.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Method Mage_Wishlist_IndexController::updateAction() with return type void returns $this(Mage_Wishlist_IndexController) but should not return anything.',
+	'identifier' => 'return.void',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Wishlist/controllers/IndexController.php',
+];
+$ignoreErrors[] = [
 	'rawMessage' => 'Only booleans are allowed in &&, array<string, mixed> given on the left side.',
 	'identifier' => 'booleanAnd.leftNotBoolean',
 	'count' => 1,
@@ -43272,6 +43617,18 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Wishlist/controllers/SharedController.php',
 ];
 $ignoreErrors[] = [
+	'rawMessage' => 'Method Mage_Wishlist_SharedController::cartAction() with return type void returns $this(Mage_Wishlist_SharedController) but should not return anything.',
+	'identifier' => 'return.void',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Wishlist/controllers/SharedController.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Method Mage_Wishlist_SharedController::cartAction() with return type void returns mixed but should not return anything.',
+	'identifier' => 'return.void',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Wishlist/controllers/SharedController.php',
+];
+$ignoreErrors[] = [
 	'rawMessage' => 'Only booleans are allowed in &&, int given on the right side.',
 	'identifier' => 'booleanAnd.rightNotBoolean',
 	'count' => 1,
@@ -43286,7 +43643,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Only booleans are allowed in a negated boolean, int|string|null given.',
 	'identifier' => 'booleanNot.exprNotBoolean',
-	'count' => 1,
+	'count' => 3,
 	'path' => __DIR__ . '/app/code/core/Mage/Wishlist/controllers/SharedController.php',
 ];
 $ignoreErrors[] = [
@@ -44277,12 +44634,6 @@ after 1.3.2.4',
 	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/giftmessage/helper.phtml',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Only booleans are allowed in a negated boolean, string given.',
-	'identifier' => 'booleanNot.exprNotBoolean',
-	'count' => 1,
-	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/giftmessage/helper.phtml',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Only booleans are allowed in an if condition, Mage_GiftMessage_Model_Message given.',
 	'identifier' => 'if.condNotBoolean',
 	'count' => 2,
@@ -44292,12 +44643,6 @@ $ignoreErrors[] = [
 	'rawMessage' => 'PHPDoc tag @var references deprecated class Mage_GiftMessage_Block_Message_Helper:
 after 1.3.2.4',
 	'identifier' => 'varTag.deprecatedClass',
-	'count' => 1,
-	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/giftmessage/helper.phtml',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Parameter #1 $value of method Mage_GiftMessage_Block_Message_Helper::setScriptIncluded() expects string, true given.',
-	'identifier' => 'argument.type',
 	'count' => 1,
 	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/giftmessage/helper.phtml',
 ];
@@ -44816,7 +45161,7 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/sales/order/create/form.phtml',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Loose comparison via "==" between mixed and false is not allowed.',
+	'rawMessage' => 'Loose comparison via "==" between mixed and int|false is not allowed.',
 	'identifier' => 'equal.notAllowed',
 	'count' => 1,
 	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/sales/order/create/form/address.phtml',
@@ -45503,18 +45848,6 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Loose comparison via "==" between string and mixed is not allowed.',
 	'identifier' => 'equal.notAllowed',
-	'count' => 1,
-	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/system/email/template/edit.phtml',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Only booleans are allowed in a negated boolean, int|string given.',
-	'identifier' => 'booleanNot.exprNotBoolean',
-	'count' => 1,
-	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/system/email/template/edit.phtml',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Only booleans are allowed in an if condition, int|string given.',
-	'identifier' => 'if.condNotBoolean',
 	'count' => 1,
 	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/system/email/template/edit.phtml',
 ];
@@ -46572,12 +46905,6 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Loose comparison via "!=" between string and string is not allowed.',
 	'identifier' => 'notEqual.notAllowed',
-	'count' => 1,
-	'path' => __DIR__ . '/app/design/frontend/base/default/template/checkout/multishipping/overview.phtml',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Parameter #1 $totals of method Mage_Checkout_Block_Multishipping_Overview::renderTotals() expects Mage_Sales_Model_Order_Total, array<Mage_Sales_Model_Quote_Address_Total> given.',
-	'identifier' => 'argument.type',
 	'count' => 1,
 	'path' => __DIR__ . '/app/design/frontend/base/default/template/checkout/multishipping/overview.phtml',
 ];
@@ -48627,12 +48954,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/design/frontend/rwd/default/template/checkout/multishipping/overview.phtml',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Parameter #1 $totals of method Mage_Checkout_Block_Multishipping_Overview::renderTotals() expects Mage_Sales_Model_Order_Total, array<Mage_Sales_Model_Quote_Address_Total> given.',
-	'identifier' => 'argument.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/design/frontend/rwd/default/template/checkout/multishipping/overview.phtml',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Method Mage_Checkout_Helper_Data::formatPrice() invoked with 3 parameters, 1 required.',
 	'identifier' => 'arguments.count',
 	'count' => 12,
@@ -49691,12 +50012,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/lib/Mage/Archive/Tar.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
-	'identifier' => 'equal.notAllowed',
-	'count' => 1,
-	'path' => __DIR__ . '/lib/Mage/Archive/Tar.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Only booleans are allowed in &&, mixed given on the left side.',
 	'identifier' => 'booleanAnd.leftNotBoolean',
 	'count' => 1,
@@ -50199,12 +50514,6 @@ $ignoreErrors[] = [
 	'identifier' => 'if.condNotBoolean',
 	'count' => 1,
 	'path' => __DIR__ . '/lib/Varien/Convert/Adapter/Http.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Call to function in_array() requires parameter #3 to be set.',
-	'identifier' => 'function.strict',
-	'count' => 1,
-	'path' => __DIR__ . '/lib/Varien/Convert/Container/Abstract.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Loose comparison via "==" between int<0, max> and int is not allowed.',
@@ -51703,13 +52012,13 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Call to function array_filter() requires parameter #2 to be passed to avoid loose comparison semantics.',
 	'identifier' => 'arrayFilter.strict',
-	'count' => 2,
+	'count' => 3,
 	'path' => __DIR__ . '/shell/translations.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Call to function in_array() requires parameter #3 to be set.',
 	'identifier' => 'function.strict',
-	'count' => 1,
+	'count' => 2,
 	'path' => __DIR__ . '/shell/translations.php',
 ];
 $ignoreErrors[] = [
@@ -51721,13 +52030,13 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Only booleans are allowed in an if condition, int<0, max> given.',
 	'identifier' => 'if.condNotBoolean',
-	'count' => 4,
+	'count' => 5,
 	'path' => __DIR__ . '/shell/translations.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Only booleans are allowed in an if condition, mixed given.',
 	'identifier' => 'if.condNotBoolean',
-	'count' => 5,
+	'count' => 6,
 	'path' => __DIR__ . '/shell/translations.php',
 ];
 $ignoreErrors[] = [
@@ -51743,12 +52052,6 @@ v19.4.16',
 	'identifier' => 'method.deprecated',
 	'count' => 1,
 	'path' => __DIR__ . '/tests/unit/Mage/AdminNotification/Helper/DataTest.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Call to function in_array() requires parameter #3 to be set.',
-	'identifier' => 'function.strict',
-	'count' => 1,
-	'path' => __DIR__ . '/tests/unit/Mage/Adminhtml/Block/Api/UsersTest.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Call to function in_array() requires parameter #3 to be set.',
@@ -51818,12 +52121,6 @@ since 19.5.0',
 	'identifier' => 'method.deprecated',
 	'count' => 1,
 	'path' => __DIR__ . '/tests/unit/Mage/Cms/Helper/DataTest.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Only booleans are allowed in an if condition, string|null given.',
-	'identifier' => 'if.condNotBoolean',
-	'count' => 1,
-	'path' => __DIR__ . '/tests/unit/Mage/Contacts/Controllers/IndexControllerTest.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Only booleans are allowed in a negated boolean, int|null given.',

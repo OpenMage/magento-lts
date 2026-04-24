@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Downloadable\Model\Resource;
 
 // use Mage;
 // use Mage_Downloadable_Model_Resource_Link as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Downloadable\Model\Resource\LinkTrait;
 
@@ -22,6 +23,7 @@ final class LinkTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

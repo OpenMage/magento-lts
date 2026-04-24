@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -15,6 +17,7 @@ class Mage_Sales_Model_Quote_Address_Total_Custbalance extends Mage_Sales_Model_
     /**
      * @return $this
      */
+    #[Override]
     public function collect(Mage_Sales_Model_Quote_Address $address)
     {
         $address->setCustbalanceAmount(0);
