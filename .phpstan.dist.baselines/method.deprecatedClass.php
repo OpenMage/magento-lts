@@ -1,8 +1,14 @@
 <?php declare(strict_types = 1);
 
-// total 79 errors
+// total 80 errors
 
 $ignoreErrors = [];
+$ignoreErrors[] = [
+    'rawMessage' => 'Call to method setCanDisplayContainer() of deprecated class Mage_GiftMessage_Block_Message_Helper:
+after 1.3.2.4',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/GiftMessage/Helper/Message.php',
+];
 $ignoreErrors[] = [
     'rawMessage' => 'Call to method loadObjectByTxnId() of deprecated class Mage_Paypal_Model_Resource_Payment_Transaction:
 since 1.6.2.0',
