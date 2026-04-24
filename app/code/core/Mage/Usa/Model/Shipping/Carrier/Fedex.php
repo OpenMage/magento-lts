@@ -228,19 +228,26 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
     }
 
     /**
-     * @param array<string, mixed[]> $payload
+     * @param array<string, mixed[]> $ratesRequest
      */
-    protected function _requestRates(array $payload): array
+    protected function _requestRates(array $ratesRequest): array
     {
-        $requestString = serialize($payload);
+        $requestString = serialize($ratesRequest);
+        $debugData = ['request' => $ratesRequest];
+
         $cached = $this->isCacheEnabled() ? $this->_getCachedQuotes($requestString) : null;
         if ($cached !== null) {
-            return unserialize($cached);
+            $mapped = unserialize($cached, ['allowed_classes' => false]);
+
+            if (is_array($mapped) && $mapped !== []) {
+                $debugData['response'] = $mapped;
+                $this->_debug($debugData);
+                return $mapped;
+            }
         }
 
-        $debugData = ['request' => $payload];
         try {
-            $response = $this->_getRestClient()->getRates($payload);
+            $response = $this->_getRestClient()->getRates($ratesRequest);
             $mapped = $this->_getResponseMapper()->mapRateReply($response);
             if ($this->isCacheEnabled()) {
                 $this->_setCachedQuotes($requestString, serialize($mapped));
