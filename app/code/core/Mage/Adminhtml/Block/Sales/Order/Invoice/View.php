@@ -47,14 +47,17 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_View extends Mage_Adminhtml_Block
         }
 
         if ($this->_isAllowedAction('emails')) {
-            $this->addButton('send_notification', [
-                'label'     => Mage::helper('sales')->__('Send Email'),
-                'onclick'   => Mage::helper('core/js')->getConfirmSetLocationJs(
-                    $this->getEmailUrl(),
-                    Mage::helper('sales')->__('Are you sure you want to send Invoice email to customer?'),
-                ),
-                'class'     => 'send-email',
-            ]);
+            $onClick = Mage::helper('core/js')->getConfirmSetLocationJs(
+                $this->getEmailUrl(),
+                Mage::helper('sales')->__('Are you sure you want to send Invoice email to customer?'),
+            );
+
+            $this->_addPreparedButton(
+                id: 'send_notification',
+                label: Mage::helper('sales')->__('Send Email'),
+                class: 'send-email',
+                onClick: $onClick,
+            );
         }
 
         $orderPayment = $this->getInvoice()->getOrder()->getPayment();
@@ -67,26 +70,28 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_View extends Mage_Adminhtml_Block
                 || $orderPayment->canRefund()
                 && !$this->getInvoice()->getIsUsedForRefund())
         ) {
-            $this->_addButton('capture', [ // capture?
-                'label'     => Mage::helper('sales')->__('Credit Memo'),
-                'class'     => 'go',
-                'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getCreditMemoUrl()),
-            ]);
+            $this->_addPreparedButton(
+                id: 'capture', // capture?
+                label: Mage::helper('sales')->__('Credit Memo'),
+                class: 'go',
+                onClickUrl: $this->getCreditMemoUrl(),
+            );
         }
 
         if ($this->_isAllowedAction('capture') && $this->getInvoice()->canCapture()) {
-            $this->_addButton('capture', [
-                'label'     => Mage::helper('sales')->__('Capture'),
-                'class'     => 'save capture',
-                'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getCaptureUrl()),
-            ]);
+            $this->_addPreparedButton(
+                id: 'capture',
+                label: Mage::helper('sales')->__('Capture'),
+                class: 'save capture',
+                onClickUrl: $this->getCaptureUrl(),
+            );
         }
 
         if ($this->getInvoice()->canVoid()) {
             $this->_addPreparedButton(
                 id: self::BUTTON_TYPE_VOID,
                 module: 'sales',
-                onClick: Mage::helper('core/js')->getSetLocationJs($this->getVoidUrl()),
+                onClickUrl: $this->getVoidUrl(),
             );
         }
 
@@ -94,7 +99,7 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_View extends Mage_Adminhtml_Block
             $this->_addPreparedButton(
                 id: self::BUTTON_TYPE_PRINT,
                 module: 'sales',
-                onClick: Mage::helper('core/js')->getSetLocationJs($this->getPrintUrl()),
+                onClickUrl: $this->getPrintUrl(),
             );
         }
     }

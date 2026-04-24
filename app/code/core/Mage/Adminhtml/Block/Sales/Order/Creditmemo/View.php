@@ -34,34 +34,38 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_View extends Mage_Adminhtml_Bl
             $this->_addPreparedButton(
                 id: self::BUTTON_TYPE_CANCEL,
                 module: 'sales',
-                onClick: Mage::helper('core/js')->getSetLocationJs($this->getCancelUrl()),
+                onClickUrl: $this->getCancelUrl(),
             );
         }
 
         if ($this->_isAllowedAction('emails')) {
-            $this->addButton('send_notification', [
-                'label'     => Mage::helper('sales')->__('Send Email'),
-                'onclick'   => Mage::helper('core/js')->getConfirmSetLocationJs(
-                    $this->getEmailUrl(),
-                    Mage::helper('sales')->__('Are you sure you want to send Creditmemo email to customer?'),
-                ),
-                'class'     => 'send-email',
-            ]);
+            $onClick = Mage::helper('core/js')->getConfirmSetLocationJs(
+                $this->getEmailUrl(),
+                Mage::helper('sales')->__('Are you sure you want to send Creditmemo email to customer?'),
+            );
+
+            $this->_addPreparedButton(
+                id: 'send_notification',
+                label: Mage::helper('sales')->__('Send Email'),
+                class: 'send-email',
+                onClick: $onClick,
+            );
         }
 
         if ($this->getCreditmemo()->canRefund()) {
-            $this->_addButton('refund', [
-                'label'     => Mage::helper('sales')->__('Refund'),
-                'class'     => 'save refund',
-                'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getRefundUrl()),
-            ]);
+            $this->_addPreparedButton(
+                id: 'refund',
+                label: Mage::helper('sales')->__('Refund'),
+                class: 'save refund',
+                onClickUrl: $this->getRefundUrl(),
+            );
         }
 
         if ($this->getCreditmemo()->canVoid()) {
             $this->_addPreparedButton(
                 id: self::BUTTON_TYPE_VOID,
                 module: 'sales',
-                onClick: Mage::helper('core/js')->getSetLocationJs($this->getVoidUrl()),
+                onClickUrl: $this->getVoidUrl(),
             );
         }
 
