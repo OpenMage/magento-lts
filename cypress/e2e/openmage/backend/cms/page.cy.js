@@ -15,10 +15,9 @@ describe(`Checks admin system "${test.index.title}"`, () => {
         tools.admin.buttons.clickAdd();
         validation.fixture.removeClasses(this.fixture.default);
 
-        tools.admin.buttons.clickSaveAndContinue(test.edit.url);
+        tools._click('admin-button-save-continue', test.edit.url);
         // TODO: see https://github.com/OpenMage/magento-lts/pull/5281
-        // validation.hasSuccessMessage();
-        // validation.hasErrorMessage();
+        validation.hasSuccessMessage();
     });
 
     it(`tests index route`, () => {
@@ -47,7 +46,7 @@ describe(`Checks admin system "${test.index.title}"`, () => {
 
     it('tests to add a CMS page', () => {
         tools.admin.buttons.clickAdd();
-        tools.admin.buttons.clickSaveAndContinue(test.edit.url);
+        tools._click('admin-button-save-continue', test.edit.url);
 
         // @todo add validation for required fields
     });
@@ -56,7 +55,7 @@ describe(`Checks admin system "${test.index.title}"`, () => {
         test.index.clickGridRow('no-route');
 
         test.edit.disablePage();
-        tools.admin.buttons.clickSaveAndContinue(test.edit.url);
+        tools._click('admin-button-save-continue', test.edit.url);
 
         validation.hasWarningMessage('You cannot disable this page as it is used to configure');
         validation.hasSuccessMessage('The page has been saved.');
@@ -77,12 +76,12 @@ describe(`Checks admin system "${test.index.title}"`, () => {
         //cy.log('Assign another store to the CMS page');
         //cy.get(test.edit.__fields.page_store_id.selector)
         //    .select(4);
-        //tools.admin.buttons.clickSaveAndContinue(test.edit.url);
+        //tools._click('admin-button-save-continue', test.edit.url);
         //validation.hasSuccessMessage(message);
         //utils.screenshot(cy.get('#messages'), 'cms.page.unassignActivePage');
 
         test.edit.resetStores();
-        tools.admin.buttons.clickSaveAndContinue(test.edit.url);
+        tools._click('admin-button-save-continue', test.edit.url);
         validation.hasSuccessMessage('The page has been saved.');
     });
 });

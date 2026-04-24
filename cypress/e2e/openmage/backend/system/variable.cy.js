@@ -14,7 +14,7 @@ describe(`Checks admin system "${test.index.title}"`, () => {
         tools.admin.buttons.clickAdd();
         validation.fixture.removeClasses(this.fixture.default);
 
-        tools.admin.buttons.clickSaveAndContinue(test.edit.url);
+        tools._click('admin-button-save-continue', test.new.url);
         validation.hasErrorMessage('Validation has failed.', { match: 'have.text' });
     });
 
