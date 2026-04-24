@@ -23,7 +23,7 @@ class Mage_Adminhtml_Tax_RuleController extends Mage_Adminhtml_Controller_Action
     /**
      * Index action
      *
-     * @return void
+     * @return $this
      */
     public function indexAction()
     {
@@ -90,7 +90,7 @@ class Mage_Adminhtml_Tax_RuleController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Save action
-     * @return $this|void
+     * @return $this|Mage_Core_Controller_Response_Http|void
      */
     public function saveAction()
     {

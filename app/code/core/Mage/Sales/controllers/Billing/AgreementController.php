@@ -83,7 +83,7 @@ class Mage_Sales_Billing_AgreementController extends Mage_Core_Controller_Front_
     /**
      * Wizard start action
      *
-     * @return void
+     * @return null|$this
      */
     public function startWizardAction()
     {
