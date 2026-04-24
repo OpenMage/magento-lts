@@ -90,9 +90,9 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
     }
 
     /**
-     * @param  string|self::BUTTON_TYPE_* $id
-     * @param  null|string                $onClick Url or JS code to be executed on click
-     * @param  null|string                $onClickUrl Url to be executed on click, using getSetLocationJs()
+     * @param  self::BUTTON_TYPE_*|string $id
+     * @param  null|string                $onClick           Url or JS code to be executed on click
+     * @param  null|string                $onClickUrl        Url to be executed on click, using getSetLocationJs()
      * @param  null|string                $onClickConfirmUrl Url to be executed on click with confirmation, using getConfirmSetLocationJs()
      * @return $this
      *
