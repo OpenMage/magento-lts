@@ -33,9 +33,6 @@ class Mage_Adminhtml_Catalog_Product_ReviewController extends Mage_Adminhtml_Con
         return parent::preDispatch();
     }
 
-    /**
-     * @return void
-     */
     public function indexAction()
     {
         $this->_title($this->__('Catalog'))
@@ -56,9 +53,6 @@ class Mage_Adminhtml_Catalog_Product_ReviewController extends Mage_Adminhtml_Con
         $this->renderLayout();
     }
 
-    /**
-     * @return void
-     */
     public function pendingAction()
     {
         $this->_title($this->__('Catalog'))
@@ -127,7 +121,7 @@ class Mage_Adminhtml_Catalog_Product_ReviewController extends Mage_Adminhtml_Con
     }
 
     /**
-     * @return void
+     * @return Mage_Core_Controller_Response_Http|void|Zend_Controller_Response_Abstract
      */
     public function saveAction()
     {

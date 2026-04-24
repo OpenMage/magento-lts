@@ -931,7 +931,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
     }
 
     /**
-     * @return void
+     * @return $this
      * @deprecated since 1.5.0.0
      */
     public function addCustomersToAlertQueueAction()
@@ -1193,7 +1193,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
      * Show item update result from updateAction
      * in Wishlist and Cart controllers.
      *
-     * @return void
+     * @return null|false
      */
     public function showUpdateResultAction()
     {

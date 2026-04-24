@@ -93,7 +93,7 @@ class Mage_Customer_AddressController extends Mage_Core_Controller_Front_Action
     }
 
     /**
-     * @return void
+     * @return $this|void
      */
     public function formPostAction()
     {
@@ -165,7 +165,7 @@ class Mage_Customer_AddressController extends Mage_Core_Controller_Front_Action
     }
 
     /**
-     * @return void
+     * @return $this|void
      */
     public function deleteAction()
     {

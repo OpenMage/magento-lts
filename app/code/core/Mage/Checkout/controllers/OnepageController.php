@@ -216,7 +216,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
      * This function is called from the reloadProgessBlock
      * function from the javascript
      *
-     * @return void
+     * @return null|string
      */
     public function progressAction()
     {

@@ -117,7 +117,7 @@ class Mage_Adminhtml_Report_StatisticsController extends Mage_Adminhtml_Controll
     /**
      * Refresh statistics for last 25 hours
      *
-     * @return void
+     * @return $this
      */
     public function refreshRecentAction()
     {
@@ -149,7 +149,7 @@ class Mage_Adminhtml_Report_StatisticsController extends Mage_Adminhtml_Controll
     /**
      * Refresh statistics for all period
      *
-     * @return void
+     * @return $this
      */
     public function refreshLifetimeAction()
     {

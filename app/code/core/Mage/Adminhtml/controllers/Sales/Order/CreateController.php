@@ -341,9 +341,6 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
             ->renderLayout();
     }
 
-    /**
-     * @return void
-     */
     public function reorderAction()
     {
         $this->_getSession()->clear();
@@ -559,7 +556,7 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
     /**
      * Ajax handler to response configuration fieldset of composite product in order
      *
-     * @return void
+     * @return $this
      */
     public function configureProductToAddAction()
     {
@@ -585,7 +582,7 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
     /**
      * Ajax handler to response configuration fieldset of composite product in quote items
      *
-     * @return void
+     * @return $this
      */
     public function configureQuoteItemsAction()
     {
@@ -628,7 +625,7 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
     /**
      * Show item update result from loadBlockAction
      * to prevent popup alert with resend data question
-     * @return void
+     * @return null|false
      */
     public function showUpdateResultAction()
     {
