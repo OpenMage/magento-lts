@@ -38,6 +38,7 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
     /**
      * Admin area entry point
      * Always redirects to the startup page url
+     * @return void
      */
     public function indexAction()
     {
@@ -53,6 +54,7 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Administrator login action
+     * @return void
      */
     public function loginAction()
     {
@@ -67,6 +69,7 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Administrator logout action
+     * @return void
      */
     public function logoutAction()
     {
@@ -81,6 +84,7 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Global Search Action
+     * @return void
      */
     public function globalSearchAction()
     {
@@ -135,6 +139,7 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Example action
+     * @return void
      */
     public function exampleAction()
     {
@@ -143,6 +148,7 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Test action
+     * @return void
      */
     public function testAction()
     {
@@ -151,6 +157,7 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Change locale action
+     * @return void
      */
     public function changeLocaleAction()
     {
@@ -164,6 +171,7 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Denied JSON action
+     * @return void
      */
     public function deniedJsonAction()
     {
@@ -183,6 +191,7 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Denied IFrame action
+     * @return void
      */
     public function deniedIframeAction()
     {
@@ -200,6 +209,7 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Forgot administrator password action
+     * @return void
      * @throws Mage_Core_Exception
      * @throws Throwable
      */
@@ -264,6 +274,7 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
      * Display reset forgotten password form
      *
      * User is redirected on this action when he clicks on the corresponding link in password reset confirmation email
+     * @return void
      */
     public function resetPasswordAction()
     {
@@ -287,6 +298,7 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
      * Reset forgotten password
      *
      * Used to handle data received from reset forgotten password form
+     * @return void
      */
     public function resetPasswordPostAction()
     {

@@ -16,6 +16,9 @@ declare(strict_types=1);
  */
 class Mage_Api_JsonrpcController extends Mage_Api_Controller_Action
 {
+    /**
+     * @return void
+     */
     public function indexAction()
     {
         $this->_getServer()->init($this, 'jsonrpc')
