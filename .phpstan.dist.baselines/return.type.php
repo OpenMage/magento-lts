@@ -1,13 +1,8 @@
 <?php declare(strict_types = 1);
 
-// total 13 errors
+// total 12 errors
 
 $ignoreErrors = [];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Adminhtml_Tax_RuleController::saveAction() should return $this(Mage_Adminhtml_Tax_RuleController)|void but returns Mage_Core_Controller_Response_Http.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/controllers/Tax/RuleController.php',
-];
 $ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Api2_Model_Config::getResourceGroup() should return bool|Mage_Core_Model_Config_Element but returns Varien_Simplexml_Element.',
     'count' => 1,
