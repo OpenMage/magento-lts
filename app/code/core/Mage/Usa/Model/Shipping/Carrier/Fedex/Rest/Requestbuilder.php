@@ -252,7 +252,9 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_Requestbuilder
             ]],
             'pickupType' => $this->mapDropoffType($dropoffType),
             'packagingType' => (string) $request->getPackagingType() ? (string) $request->getPackagingType() : 'YOUR_PACKAGING',
-            'serviceType' => (string) $request->getShippingMethod(),
+            'serviceType' => Mage_Usa_Model_Shipping_Carrier_Fedex::translateLegacyServiceType(
+                (string) $request->getShippingMethod(),
+            ),
             'shippingChargesPayment' => [
                 'paymentType' => $paymentType,
                 'payor' => [
@@ -420,11 +422,12 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex_Rest_Requestbuilder
 
     private function mapDropoffType(string $dropoff): string
     {
+        // REST collapsed the three SOAP-only dropoff values into DROPOFF_AT_FEDEX_LOCATION.
         return match ($dropoff) {
             'REQUEST_COURIER' => 'CONTACT_FEDEX_TO_SCHEDULE',
-            'DROP_BOX' => 'DROP_BOX',
-            'BUSINESS_SERVICE_CENTER' => 'BUSINESS_SERVICE_CENTER',
-            'STATION' => 'STATION',
+            'DROP_BOX',
+            'BUSINESS_SERVICE_CENTER',
+            'STATION' => 'DROPOFF_AT_FEDEX_LOCATION',
             default => 'USE_SCHEDULED_PICKUP',
         };
     }

@@ -58,7 +58,7 @@ trait FedexTrait
 
     protected string $intlDestCountry = 'GB';
 
-    protected string $intlShipMethod = 'INTERNATIONAL_PRIORITY';
+    protected string $intlShipMethod = 'FEDEX_INTERNATIONAL_PRIORITY';
 
     protected float $intlCustomsValue = 100.0;
 

@@ -291,6 +291,51 @@ final class RequestbuilderTest extends OpenMageTest
         self::assertArrayNotHasKey('smartPostInfoDetail', $payload['requestedShipment']);
     }
 
+    public function testShipmentPayloadTranslatesLegacySoapServiceTypeToRestCode(): void
+    {
+        $request = $this->shipmentRequest();
+        $request->setShippingMethod('INTERNATIONAL_PRIORITY');
+
+        $payload = $this->builder->buildShipmentPayload($request, 'REGULAR_PICKUP', '510510510', 'US');
+
+        self::assertSame('FEDEX_INTERNATIONAL_PRIORITY', $payload['requestedShipment']['serviceType']);
+    }
+
+    public function testShipmentPayloadPassesRetiredServiceCodeThroughUnchanged(): void
+    {
+        // Retired codes have no REST replacement — pass through so FedEx surfaces the error.
+        $request = $this->shipmentRequest();
+        $request->setShippingMethod('INTERNATIONAL_GROUND');
+
+        $payload = $this->builder->buildShipmentPayload($request, 'REGULAR_PICKUP', '510510510', 'US');
+
+        self::assertSame('INTERNATIONAL_GROUND', $payload['requestedShipment']['serviceType']);
+    }
+
+    /**
+     * @return iterable<string, array{string, string}>
+     */
+    public static function dropoffMappingProvider(): iterable
+    {
+        yield 'regular pickup (default)' => ['REGULAR_PICKUP', 'USE_SCHEDULED_PICKUP'];
+        yield 'request courier' => ['REQUEST_COURIER', 'CONTACT_FEDEX_TO_SCHEDULE'];
+        yield 'legacy drop box' => ['DROP_BOX', 'DROPOFF_AT_FEDEX_LOCATION'];
+        yield 'legacy business service center' => ['BUSINESS_SERVICE_CENTER', 'DROPOFF_AT_FEDEX_LOCATION'];
+        yield 'legacy station' => ['STATION', 'DROPOFF_AT_FEDEX_LOCATION'];
+    }
+
+    /**
+     * @dataProvider dropoffMappingProvider
+     */
+    public function testShipmentPayloadMapsDropoffTypeToValidRestPickupType(string $configuredDropoff, string $expectedPickupType): void
+    {
+        $request = $this->shipmentRequest();
+
+        $payload = $this->builder->buildShipmentPayload($request, $configuredDropoff, '510510510', 'US');
+
+        self::assertSame($expectedPickupType, $payload['requestedShipment']['pickupType']);
+    }
+
     private function container(float $totalWeight, int $length, int $width, int $height): Container
     {
         return (new Container())

@@ -42,6 +42,20 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
      */
     protected const SANDBOX_SMARTPOST_HUB_ID = '5531';
 
+    /** SOAP-era service code → REST code. */
+    private const LEGACY_SERVICE_TYPE_MAP = [
+        'INTERNATIONAL_PRIORITY' => 'FEDEX_INTERNATIONAL_PRIORITY',
+    ];
+
+    /** Fallback labels for codes absent from the active map (retired or renamed). */
+    private const DEPRECATED_METHOD_LABELS = [
+        'INTERNATIONAL_PRIORITY'              => 'International Priority',
+        'INTERNATIONAL_GROUND'                => 'International Ground',
+        'EUROPE_FIRST_INTERNATIONAL_PRIORITY' => 'Europe First Priority',
+        'FEDEX_FREIGHT'                       => 'Freight',
+        'FEDEX_NATIONAL_FREIGHT'              => 'National Freight',
+    ];
+
     /**
      * Code of the carrier
      *
@@ -285,7 +299,10 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
 
     protected function _buildRateResult(array $mapped): Mage_Shipping_Model_Rate_Result
     {
-        $allowedMethods = explode(',', (string) $this->getConfigData('allowed_methods'));
+        $allowedMethods = array_map(
+            static fn(string $method) => self::translateLegacyServiceType(trim($method)),
+            explode(',', (string) $this->getConfigData('allowed_methods')),
+        );
         $priceArr = [];
         $costArr = [];
 
@@ -325,21 +342,40 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
     }
 
     /**
+     * @param  float        $cost
+     * @param  string       $method
+     * @return float|string
+     */
+    #[Override]
+    public function getMethodPrice($cost, $method = '')
+    {
+        $freeMethod = self::translateLegacyServiceType(
+            (string) $this->getConfigData($this->_freeMethod),
+        );
+
+        return $method === $freeMethod
+            && $this->getConfigFlag('free_shipping_enable')
+            && $this->getConfigData('free_shipping_subtotal') <= $this->_rawRequest->getBaseSubtotalInclTax()
+            ? '0.00'
+            : $this->getFinalPriceWithHandlingFee($cost);
+    }
+
+    /**
      * @param  list<array{service_type:string,rated_type:string,currency:string,amount:float}> $rates
      * @return array<string,float>                                                             service_type => chosen amount
      */
     protected function _selectRatesByPriority(array $rates): array
     {
+        // maps to jsonv1 schema RateReplyDetail > RatedShipmentDetail > rateType
         $ratesOrder = [
-            'RATED_ACCOUNT_PACKAGE',
-            'PAYOR_ACCOUNT_PACKAGE',
-            'RATED_ACCOUNT_SHIPMENT',
-            'PAYOR_ACCOUNT_SHIPMENT',
+            //            'PREFERRED_CURRENCY' // unsupported
+            'PREFERRED_INCENTIVE',
+            'INCENTIVE',
+            'PREFERRED',
             'ACCOUNT',
-            'RATED_LIST_PACKAGE',
-            'PAYOR_LIST_PACKAGE',
-            'RATED_LIST_SHIPMENT',
-            'PAYOR_LIST_SHIPMENT',
+            'ACTUAL',
+            'CUSTOM',
+            'CURRENT',
             'LIST',
         ];
 
@@ -358,7 +394,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
             }
 
             if (!isset($selected[$serviceType])) {
-                $selected[$serviceType] = reset($ratedTypes);
+                $selected[$serviceType] = array_first($ratedTypes);
             }
         }
 
@@ -425,7 +461,6 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
     {
         $codes = [
             'method' => [
-                'EUROPE_FIRST_INTERNATIONAL_PRIORITY' => Mage::helper('usa')->__('Europe First Priority'),
                 'FEDEX_1_DAY_FREIGHT'                 => Mage::helper('usa')->__('1 Day Freight'),
                 'FEDEX_2_DAY_FREIGHT'                 => Mage::helper('usa')->__('2 Day Freight'),
                 'FEDEX_2_DAY'                         => Mage::helper('usa')->__('2 Day'),
@@ -438,14 +473,11 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
                 'INTERNATIONAL_ECONOMY'               => Mage::helper('usa')->__('International Economy'),
                 'INTERNATIONAL_ECONOMY_FREIGHT'       => Mage::helper('usa')->__('Intl Economy Freight'),
                 'INTERNATIONAL_FIRST'                 => Mage::helper('usa')->__('International First'),
-                'INTERNATIONAL_GROUND'                => Mage::helper('usa')->__('International Ground'),
-                'INTERNATIONAL_PRIORITY'              => Mage::helper('usa')->__('International Priority'),
+                'FEDEX_INTERNATIONAL_PRIORITY'        => Mage::helper('usa')->__('International Priority'),
                 'INTERNATIONAL_PRIORITY_FREIGHT'      => Mage::helper('usa')->__('Intl Priority Freight'),
                 'PRIORITY_OVERNIGHT'                  => Mage::helper('usa')->__('Priority Overnight'),
                 'SMART_POST'                          => Mage::helper('usa')->__('Smart Post'),
                 'STANDARD_OVERNIGHT'                  => Mage::helper('usa')->__('Standard Overnight'),
-                'FEDEX_FREIGHT'                       => Mage::helper('usa')->__('Freight'),
-                'FEDEX_NATIONAL_FREIGHT'              => Mage::helper('usa')->__('National Freight'),
             ],
             'dropoff' => [
                 'REGULAR_PICKUP'          => Mage::helper('usa')->__('Regular Pickup'),
@@ -481,7 +513,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
                             'method' => [
                                 'INTERNATIONAL_FIRST',
                                 'INTERNATIONAL_ECONOMY',
-                                'INTERNATIONAL_PRIORITY',
+                                'FEDEX_INTERNATIONAL_PRIORITY',
                             ],
                         ],
                     ],
@@ -496,18 +528,16 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
                                 'STANDARD_OVERNIGHT',
                                 'PRIORITY_OVERNIGHT',
                                 'FIRST_OVERNIGHT',
-                                'FEDEX_FREIGHT',
                                 'FEDEX_1_DAY_FREIGHT',
                                 'FEDEX_2_DAY_FREIGHT',
                                 'FEDEX_3_DAY_FREIGHT',
-                                'FEDEX_NATIONAL_FREIGHT',
                             ],
                         ],
                         'from_us' => [
                             'method' => [
                                 'INTERNATIONAL_FIRST',
                                 'INTERNATIONAL_ECONOMY',
-                                'INTERNATIONAL_PRIORITY',
+                                'FEDEX_INTERNATIONAL_PRIORITY',
                             ],
                         ],
                     ],
@@ -516,7 +546,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
                     'containers' => ['FEDEX_10KG_BOX', 'FEDEX_25KG_BOX'],
                     'filters'    => [
                         'within_us' => [],
-                        'from_us' => ['method' => ['INTERNATIONAL_PRIORITY']],
+                        'from_us' => ['method' => ['FEDEX_INTERNATIONAL_PRIORITY']],
                     ],
                 ],
                 [
@@ -533,24 +563,19 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
                                 'STANDARD_OVERNIGHT',
                                 'PRIORITY_OVERNIGHT',
                                 'FIRST_OVERNIGHT',
-                                'FEDEX_FREIGHT',
                                 'FEDEX_1_DAY_FREIGHT',
                                 'FEDEX_2_DAY_FREIGHT',
                                 'FEDEX_3_DAY_FREIGHT',
-                                'FEDEX_NATIONAL_FREIGHT',
                             ],
                         ],
                         'from_us' => [
                             'method' => [
                                 'INTERNATIONAL_FIRST',
                                 'INTERNATIONAL_ECONOMY',
-                                'INTERNATIONAL_PRIORITY',
-                                'INTERNATIONAL_GROUND',
-                                'FEDEX_FREIGHT',
+                                'FEDEX_INTERNATIONAL_PRIORITY',
                                 'FEDEX_1_DAY_FREIGHT',
                                 'FEDEX_2_DAY_FREIGHT',
                                 'FEDEX_3_DAY_FREIGHT',
-                                'FEDEX_NATIONAL_FREIGHT',
                                 'INTERNATIONAL_ECONOMY_FREIGHT',
                                 'INTERNATIONAL_PRIORITY_FREIGHT',
                             ],
@@ -580,7 +605,20 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
             return $codes[$type];
         }
 
-        return $codes[$type][$code] ?? false;
+        if (isset($codes[$type][$code])) {
+            return $codes[$type][$code];
+        }
+
+        if ($type === 'method' && isset(self::DEPRECATED_METHOD_LABELS[$code])) {
+            return Mage::helper('usa')->__(self::DEPRECATED_METHOD_LABELS[$code]);
+        }
+
+        return false;
+    }
+
+    public static function translateLegacyServiceType(string $code): string
+    {
+        return self::LEGACY_SERVICE_TYPE_MAP[$code] ?? $code;
     }
 
     /**
@@ -872,12 +910,6 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
         if ($method === 'INTERNATIONAL_ECONOMY' || $method === 'INTERNATIONAL_FIRST') {
             $allTypes = $this->getContainerTypesAll();
             $exclude = ['FEDEX_10KG_BOX' => '', 'FEDEX_25KG_BOX' => ''];
-            return array_diff_key($allTypes, $exclude);
-        }
-
-        if ($method === 'EUROPE_FIRST_INTERNATIONAL_PRIORITY') {
-            $allTypes = $this->getContainerTypesAll();
-            $exclude = ['FEDEX_BOX' => '', 'FEDEX_TUBE' => ''];
             return array_diff_key($allTypes, $exclude);
         }
 

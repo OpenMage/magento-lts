@@ -113,8 +113,7 @@ final class RateQuoteLiveTest extends FedexTestCase
         $internationalMethods = array_values(array_filter(
             $returnedMethods,
             static fn(string $method): bool => str_starts_with($method, 'INTERNATIONAL_')
-                || str_starts_with($method, 'FEDEX_INTERNATIONAL_')
-                || $method === 'EUROPE_FIRST_INTERNATIONAL_PRIORITY',
+                || str_starts_with($method, 'FEDEX_INTERNATIONAL_'),
         ));
 
         self::assertNotEmpty(
@@ -208,8 +207,7 @@ final class RateQuoteLiveTest extends FedexTestCase
         $international = array_values(array_filter(
             $services,
             static fn(string $service): bool => str_starts_with($service, 'INTERNATIONAL_')
-                || str_starts_with($service, 'FEDEX_INTERNATIONAL_')
-                || $service === 'EUROPE_FIRST_INTERNATIONAL_PRIORITY',
+                || str_starts_with($service, 'FEDEX_INTERNATIONAL_'),
         ));
 
         self::assertNotEmpty(

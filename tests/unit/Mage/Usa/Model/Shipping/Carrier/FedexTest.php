@@ -412,7 +412,8 @@ final class FedexTest extends OpenMageTest
 
         self::assertCount(1, $payloads);
         $rs = $payloads[0]['requestedShipment'];
-        self::assertSame('INTERNATIONAL_PRIORITY', $rs['serviceType']);
+        // Legacy input → REST code on the wire.
+        self::assertSame('FEDEX_INTERNATIONAL_PRIORITY', $rs['serviceType']);
         self::assertArrayHasKey('customsClearanceDetail', $rs);
         $customs = $rs['customsClearanceDetail'];
         self::assertSame(250.0, $customs['totalCustomsValue']['amount']);
@@ -513,6 +514,77 @@ final class FedexTest extends OpenMageTest
         $info = (array) $response->getData('info');
         self::assertSame('FIRST', $info[0]['tracking_number']);
         self::assertNotEmpty($response->getErrors());
+    }
+
+    public function testGetCodeMethodReturnsDeprecatedLabelFallbackForLegacyServiceTypes(): void
+    {
+        self::assertSame('International Priority', self::$subject->getCode('method', 'FEDEX_INTERNATIONAL_PRIORITY'));
+        self::assertSame('International Priority', self::$subject->getCode('method', 'INTERNATIONAL_PRIORITY'));
+        self::assertSame('Europe First Priority', self::$subject->getCode('method', 'EUROPE_FIRST_INTERNATIONAL_PRIORITY'));
+        self::assertSame('International Ground', self::$subject->getCode('method', 'INTERNATIONAL_GROUND'));
+        self::assertSame('Freight', self::$subject->getCode('method', 'FEDEX_FREIGHT'));
+        self::assertSame('National Freight', self::$subject->getCode('method', 'FEDEX_NATIONAL_FREIGHT'));
+        self::assertFalse(self::$subject->getCode('method', 'NOT_A_SERVICE'));
+    }
+
+    public function testGetCodeMethodWithoutCodeExcludesDeprecatedKeys(): void
+    {
+        $methods = self::$subject->getCode('method');
+        self::assertIsArray($methods);
+
+        foreach (['INTERNATIONAL_PRIORITY', 'INTERNATIONAL_GROUND', 'EUROPE_FIRST_INTERNATIONAL_PRIORITY', 'FEDEX_FREIGHT', 'FEDEX_NATIONAL_FREIGHT'] as $deprecated) {
+            self::assertArrayNotHasKey($deprecated, $methods);
+        }
+
+        self::assertArrayHasKey('FEDEX_INTERNATIONAL_PRIORITY', $methods);
+    }
+
+    public function testBuildRateResultSurfacesRateWhenAllowedMethodsStillContainsLegacyServiceCode(): void
+    {
+        $fedex = $this->fedexWithConfig([
+            'active' => true,
+            'allowed_methods' => 'INTERNATIONAL_PRIORITY',
+            'title' => 'FedEx',
+        ]);
+
+        $mapped = [
+            'rates' => [[
+                'service_type' => 'FEDEX_INTERNATIONAL_PRIORITY',
+                'rated_type' => 'ACCOUNT',
+                'currency' => 'USD',
+                'amount' => 42.0,
+            ]],
+            'alerts' => [],
+            'errors' => [],
+        ];
+
+        $result = (new ReflectionMethod(Subject::class, '_buildRateResult'))->invoke($fedex, $mapped);
+
+        self::assertInstanceOf(Mage_Shipping_Model_Rate_Result::class, $result);
+        $rates = $result->getAllRates();
+        self::assertCount(1, $rates);
+        self::assertSame('FEDEX_INTERNATIONAL_PRIORITY', $rates[0]->getMethod());
+    }
+
+    public function testGetMethodPriceAppliesFreeShippingWhenFreeMethodIsLegacyAndReturnedCodeIsRest(): void
+    {
+        $fedex = $this->fedexWithConfig([
+            'free_method' => 'INTERNATIONAL_PRIORITY',
+            'free_shipping_enable' => '1',
+            'free_shipping_subtotal' => '0',
+        ]);
+        (new ReflectionProperty(Subject::class, '_rawRequest'))->setValue($fedex, new Varien_Object(['base_subtotal_incl_tax' => 100.0]));
+
+        self::assertSame('0.00', $fedex->getMethodPrice(15.0, 'FEDEX_INTERNATIONAL_PRIORITY'));
+    }
+
+    public function testTranslateLegacyServiceTypeIsNoOpForRetiredAndRestCodes(): void
+    {
+        self::assertSame('FEDEX_INTERNATIONAL_PRIORITY', Subject::translateLegacyServiceType('INTERNATIONAL_PRIORITY'));
+        self::assertSame('FEDEX_INTERNATIONAL_PRIORITY', Subject::translateLegacyServiceType('FEDEX_INTERNATIONAL_PRIORITY'));
+        self::assertSame('EUROPE_FIRST_INTERNATIONAL_PRIORITY', Subject::translateLegacyServiceType('EUROPE_FIRST_INTERNATIONAL_PRIORITY'));
+        self::assertSame('FEDEX_FREIGHT', Subject::translateLegacyServiceType('FEDEX_FREIGHT'));
+        self::assertSame('FEDEX_GROUND', Subject::translateLegacyServiceType('FEDEX_GROUND'));
     }
 
     /**
