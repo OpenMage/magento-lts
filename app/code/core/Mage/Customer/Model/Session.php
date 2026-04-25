@@ -365,6 +365,7 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
      *
      * @return $this
      */
+    #[Override]
     public function renewSession()
     {
         parent::renewSession();

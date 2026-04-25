@@ -16,6 +16,7 @@ class Mage_Adminhtml_Sales_CreditmemoController extends Mage_Adminhtml_Controlle
 {
     /**
      * Export credit memo grid to CSV format
+     * @return void
      */
     public function exportCsvAction()
     {
@@ -26,6 +27,7 @@ class Mage_Adminhtml_Sales_CreditmemoController extends Mage_Adminhtml_Controlle
 
     /**
      *  Export credit memo grid to Excel XML format
+     * @return void
      */
     public function exportExcelAction()
     {
@@ -36,7 +38,9 @@ class Mage_Adminhtml_Sales_CreditmemoController extends Mage_Adminhtml_Controlle
 
     /**
      *  Index page
+     * @return void
      */
+    #[Override]
     public function indexAction()
     {
         $this->_title($this->__('Sales'))->_title($this->__('Credit Memos'));

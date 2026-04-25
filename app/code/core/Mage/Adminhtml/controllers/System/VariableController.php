@@ -58,6 +58,7 @@ class Mage_Adminhtml_System_VariableController extends Mage_Adminhtml_Controller
 
     /**
      * Index Action
+     * @return void
      */
     public function indexAction()
     {
@@ -70,6 +71,7 @@ class Mage_Adminhtml_System_VariableController extends Mage_Adminhtml_Controller
 
     /**
      * New Action (forward to edit action)
+     * @return void
      */
     public function newAction()
     {
@@ -78,6 +80,7 @@ class Mage_Adminhtml_System_VariableController extends Mage_Adminhtml_Controller
 
     /**
      * Edit Action
+     * @return void
      * @throws Mage_Core_Exception
      */
     public function editAction()
@@ -96,6 +99,7 @@ class Mage_Adminhtml_System_VariableController extends Mage_Adminhtml_Controller
 
     /**
      * Validate Action
+     * @return void
      * @throws Mage_Core_Exception
      */
     public function validateAction()
@@ -117,6 +121,7 @@ class Mage_Adminhtml_System_VariableController extends Mage_Adminhtml_Controller
 
     /**
      * Save Action
+     * @return void
      * @throws Mage_Core_Exception|Throwable
      */
     public function saveAction()
@@ -151,6 +156,7 @@ class Mage_Adminhtml_System_VariableController extends Mage_Adminhtml_Controller
 
     /**
      * Delete Action
+     * @return void
      * @throws Mage_Core_Exception|Throwable
      */
     public function deleteAction()
@@ -174,6 +180,7 @@ class Mage_Adminhtml_System_VariableController extends Mage_Adminhtml_Controller
 
     /**
      * WYSIWYG Plugin Action
+     * @return void
      */
     public function wysiwygPluginAction()
     {

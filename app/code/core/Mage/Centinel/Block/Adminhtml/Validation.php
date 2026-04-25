@@ -45,6 +45,7 @@ class Mage_Centinel_Block_Adminhtml_Validation extends Mage_Adminhtml_Block_Sale
      *
      * @return string
      */
+    #[Override]
     protected function _toHtml()
     {
         $payment = $this->getQuote()->getPayment();

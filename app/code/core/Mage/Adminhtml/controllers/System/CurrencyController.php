@@ -23,7 +23,7 @@ class Mage_Adminhtml_System_CurrencyController extends Mage_Adminhtml_Controller
     /**
      * Init currency by currency code from request
      *
-     * @return Mage_Adminhtml_Controller_Action
+     * @return $this
      * @throws Mage_Core_Exception
      */
     protected function _initCurrency()
@@ -39,6 +39,7 @@ class Mage_Adminhtml_System_CurrencyController extends Mage_Adminhtml_Controller
     /**
      * Currency management main page
      *
+     * @return void
      * @throws Mage_Core_Exception
      */
     public function indexAction()
@@ -51,6 +52,9 @@ class Mage_Adminhtml_System_CurrencyController extends Mage_Adminhtml_Controller
         $this->renderLayout();
     }
 
+    /**
+     * @return void
+     */
     public function fetchRatesAction()
     {
         try {
@@ -89,6 +93,9 @@ class Mage_Adminhtml_System_CurrencyController extends Mage_Adminhtml_Controller
         $this->_redirect('*/*/');
     }
 
+    /**
+     * @return void
+     */
     public function saveRatesAction()
     {
         $data = $this->getRequest()->getParam('rate');

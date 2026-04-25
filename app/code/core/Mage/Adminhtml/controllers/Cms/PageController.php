@@ -38,6 +38,7 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Index action
+     * @return void
      */
     public function indexAction()
     {
@@ -51,6 +52,7 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Create new CMS page
+     * @return void
      */
     public function newAction()
     {
@@ -60,6 +62,7 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Edit CMS page
+     * @return void
      */
     public function editAction()
     {
@@ -109,6 +112,7 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Save action
+     * @return void
      */
     public function saveAction()
     {
@@ -171,6 +175,7 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Delete action
+     * @return void
      */
     public function deleteAction()
     {
@@ -207,6 +212,9 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
         $this->_redirect('*/*/');
     }
 
+    /**
+     * @return void
+     */
     public function massDeleteAction()
     {
         $pageIds = $this->getRequest()->getParam('page');
@@ -229,6 +237,9 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
         $this->_redirect('*/*/index');
     }
 
+    /**
+     * @return void
+     */
     public function massStatusAction()
     {
         $pageIds = (array) $this->getRequest()->getParam('page');
@@ -260,6 +271,7 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
      *
      * @return Mage_Adminhtml_Controller_Action
      */
+    #[Override]
     public function preDispatch()
     {
         $this->_setForcedFormKeyActions(['delete', 'massDelete']);
@@ -269,6 +281,7 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _isAllowed(): bool
     {
         $action = strtolower($this->getRequest()->getActionName());

@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Page\Block\Html\Topmenu;
 
 // use Mage_Page_Block_Html_Topmenu_Renderer as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Page\Block\Html\Topmenu\RendererTrait;
 
@@ -21,6 +22,7 @@ final class RendererTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

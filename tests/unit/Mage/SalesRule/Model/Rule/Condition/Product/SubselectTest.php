@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\SalesRule\Model\Rule\Condition\Product;
 
 // use Mage;
 // use Mage_SalesRule_Model_Rule_Condition_Product_Subselect as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\SalesRule\Model\Rule\Condition\Product\SubselectTrait;
 
@@ -22,6 +23,7 @@ final class SubselectTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

@@ -142,6 +142,7 @@ class Mage_Sales_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Abst
      *
      * @return Zend_Pdf_Page
      */
+    #[Override]
     public function newPage(array $settings = [])
     {
         /* Add new table head */

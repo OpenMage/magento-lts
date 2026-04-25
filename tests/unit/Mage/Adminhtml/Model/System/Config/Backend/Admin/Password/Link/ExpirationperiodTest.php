@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Model\System\Config\Backend\Admin\P
 
 // use Mage;
 // use Mage_Adminhtml_Model_System_Config_Backend_Admin_Password_Link_Expirationperiod as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Model\System\Config\Backend\Admin\Password\Link\ExpirationperiodTrait;
 
@@ -22,6 +23,7 @@ final class ExpirationperiodTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

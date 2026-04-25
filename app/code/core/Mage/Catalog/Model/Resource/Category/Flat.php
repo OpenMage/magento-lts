@@ -150,6 +150,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
      *
      * @return string
      */
+    #[Override]
     public function getMainTable()
     {
         return $this->getMainStoreTable($this->getStoreId());
@@ -1509,6 +1510,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
      * @return $this
      * @throws Exception
      */
+    #[Override]
     public function reindexAll()
     {
         $this->_createTables();

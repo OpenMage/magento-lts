@@ -37,6 +37,7 @@ class Mage_Paypal_Block_Express_Review_Details extends Mage_Checkout_Block_Cart_
      *
      * @return array
      */
+    #[Override]
     public function getTotals()
     {
         return $this->getQuote()->getTotals();

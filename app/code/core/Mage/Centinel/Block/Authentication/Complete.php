@@ -19,6 +19,7 @@ class Mage_Centinel_Block_Authentication_Complete extends Mage_Core_Block_Templa
      *
      * @return string
      */
+    #[Override]
     protected function _toHtml()
     {
         $validator = Mage::registry('current_centinel_validator');

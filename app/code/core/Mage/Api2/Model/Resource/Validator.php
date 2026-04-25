@@ -31,7 +31,7 @@ abstract class Mage_Api2_Model_Resource_Validator
     /**
      * Set an array of errors
      *
-     * @return Mage_Api2_Model_Resource_Validator
+     * @return $this
      */
     protected function _setErrors(array $data)
     {
@@ -42,8 +42,8 @@ abstract class Mage_Api2_Model_Resource_Validator
     /**
      * Add errors
      *
-     * @param  array                              $errors
-     * @return Mage_Api2_Model_Resource_Validator
+     * @param  array $errors
+     * @return $this
      */
     protected function _addErrors($errors)
     {
@@ -57,8 +57,8 @@ abstract class Mage_Api2_Model_Resource_Validator
     /**
      * Add error
      *
-     * @param  string                             $error
-     * @return Mage_Api2_Model_Resource_Validator
+     * @param  string $error
+     * @return $this
      */
     protected function _addError($error)
     {

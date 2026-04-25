@@ -16,6 +16,7 @@ class Mage_Adminhtml_Sales_InvoiceController extends Mage_Adminhtml_Controller_S
 {
     /**
      * Export invoice grid to CSV format
+     * @return void
      */
     public function exportCsvAction()
     {
@@ -26,6 +27,7 @@ class Mage_Adminhtml_Sales_InvoiceController extends Mage_Adminhtml_Controller_S
 
     /**
      *  Export invoice grid to Excel XML format
+     * @return void
      */
     public function exportExcelAction()
     {

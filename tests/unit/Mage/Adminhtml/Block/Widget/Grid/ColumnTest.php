@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Widget\Grid;
 
+use Override;
 use Mage_Adminhtml_Block_Widget_Grid_Column as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 
@@ -18,6 +19,7 @@ final class ColumnTest extends OpenMageTest
 {
     private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         self::$subject = new Subject();

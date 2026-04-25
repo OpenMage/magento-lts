@@ -25,6 +25,7 @@ class Mage_Tax_Model_Sales_Pdf_Subtotal extends Mage_Sales_Model_Order_Pdf_Total
      * )
      * @return array
      */
+    #[Override]
     public function getTotalsForDisplay()
     {
         $store = $this->getOrder()->getStore();

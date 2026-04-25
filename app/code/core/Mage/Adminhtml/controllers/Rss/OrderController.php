@@ -22,6 +22,9 @@ class Mage_Adminhtml_Rss_OrderController extends Mage_Adminhtml_Controller_Rss_A
      */
     public const ADMIN_RESOURCE = 'sales/order/actions/view';
 
+    /**
+     * @return void
+     */
     public function newAction()
     {
         if ($this->checkFeedEnable('order/new')) {

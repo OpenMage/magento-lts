@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\ConfigurableSwatches\Helper;
 
 // use Mage;
 // use Mage_ConfigurableSwatches_Helper_Productimg as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\ConfigurableSwatches\Helper\ProductimgTrait;
 
@@ -22,6 +23,7 @@ final class ProductimgTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

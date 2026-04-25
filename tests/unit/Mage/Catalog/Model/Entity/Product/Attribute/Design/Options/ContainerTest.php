@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Catalog\Model\Entity\Product\Attribute\Design
 
 // use Mage;
 // use Mage_Catalog_Model_Entity_Product_Attribute_Design_Options_Container as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\Model\Entity\Product\Attribute\Design\Options\ContainerTrait;
 
@@ -22,6 +23,7 @@ final class ContainerTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

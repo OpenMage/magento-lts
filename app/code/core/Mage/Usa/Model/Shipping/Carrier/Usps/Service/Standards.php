@@ -2,8 +2,6 @@
 
 declare(strict_types=1);
 
-use Carbon\Carbon;
-
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -93,7 +91,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Service_Standards extends Mage_Usa_Mo
 
         $originZip = $this->_cleanZip($originZip);
         $destZip = $this->_cleanZip($destZip);
-        $acceptDate = $acceptDate ? $acceptDate : Carbon::now()->format('Y-m-d');
+        $acceptDate ??= Mage::helper('core/clock')->format('Y-m-d');
 
         $estimates = [];
         $uncached = [];
@@ -199,7 +197,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Service_Standards extends Mage_Usa_Mo
         $scheduledDate = $standard['scheduledDeliveryDate'] ?? null;
 
         if ($scheduledDate) {
-            $today = Carbon::now();
+            $today = Mage::helper('core/clock')->now();
             $delivery = new DateTime($scheduledDate);
             $diff = $today->diff($delivery);
             $days = (int) $diff->days;

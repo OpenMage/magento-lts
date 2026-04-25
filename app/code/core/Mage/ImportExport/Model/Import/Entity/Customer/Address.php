@@ -461,6 +461,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer_Address extends Mage_Import
      * @param  string $attrCode
      * @return bool
      */
+    #[Override]
     public function isAttributeParticular($attrCode)
     {
         return isset($this->_attributes[$attrCode]) || in_array($attrCode, $this->_particularAttributes);

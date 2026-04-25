@@ -17,6 +17,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Viewed extends Mage_Adminh
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _construct()
     {
         parent::_construct();
@@ -27,6 +28,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Viewed extends Mage_Adminh
     /**
      * @inheritDoc
      */
+    #[Override]
     public function canDisplay()
     {
         return false;
@@ -35,6 +37,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Viewed extends Mage_Adminh
     /**
      * @inheritDoc
      */
+    #[Override]
     public function canRemoveItems()
     {
         return false;

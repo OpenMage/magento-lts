@@ -38,6 +38,7 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item_Collection extends Mage_C
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _construct()
     {
         $this->_init('catalog/product_compare_item', 'catalog/product');
@@ -284,6 +285,7 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item_Collection extends Mage_C
      *
      * @return $this
      */
+    #[Override]
     public function clear()
     {
         Mage::getResourceSingleton('catalog/product_compare_item')
@@ -299,6 +301,7 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item_Collection extends Mage_C
      *
      * @return bool
      */
+    #[Override]
     public function isEnabledFlat()
     {
         if (!Mage::helper('catalog/product_compare')->getAllowUsedFlat()) {

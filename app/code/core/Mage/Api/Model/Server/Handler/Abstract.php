@@ -73,8 +73,8 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
     /**
      * Start webservice session
      *
-     * @param  string                                 $sessionId
-     * @return Mage_Api_Model_Server_Handler_Abstract
+     * @param  string $sessionId
+     * @return $this
      */
     protected function _startSession($sessionId = null)
     {
@@ -608,8 +608,8 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
      * Prepare Api row data for XML exporting
      * Convert not allowed symbol to numeric character reference
      *
-     * @param  mixed $row
-     * @return mixed
+     * @param  mixed                      $row
+     * @return null|array|string|string[]
      */
     public function processingRow($row)
     {

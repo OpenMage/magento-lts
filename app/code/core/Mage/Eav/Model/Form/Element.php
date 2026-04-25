@@ -49,6 +49,7 @@ class Mage_Eav_Model_Form_Element extends Mage_Core_Model_Abstract
      * @throws Mage_Core_Exception
      * @inheritDoc
      */
+    #[Override]
     protected function _beforeSave()
     {
         if (!$this->getTypeId()) {

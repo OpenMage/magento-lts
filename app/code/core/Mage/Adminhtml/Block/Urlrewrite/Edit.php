@@ -32,10 +32,11 @@ class Mage_Adminhtml_Block_Urlrewrite_Edit extends Mage_Adminhtml_Block_Widget_C
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareLayout()
     {
         $this->setTemplate('urlrewrite/edit.phtml');
-        $this->_addButton('back', [
+        $this->_addButton(self::BUTTON_TYPE_BACK, [
             'label'   => Mage::helper('adminhtml')->__('Back'),
             'onclick' => Mage::helper('core/js')->getSetLocationJs(Mage::helper('adminhtml')::getUrl('*/*/')),
             'class'   => 'back',
@@ -95,7 +96,7 @@ class Mage_Adminhtml_Block_Urlrewrite_Edit extends Mage_Adminhtml_Block_Widget_C
                     ]),
                 );
                 $this->_updateButton(
-                    'back',
+                    self::BUTTON_TYPE_BACK,
                     'onclick',
                     Mage::helper('core/js')->getSetLocationJs(Mage::helper('adminhtml')::getUrl('*/*/edit') . 'product'),
                 );
@@ -129,13 +130,13 @@ class Mage_Adminhtml_Block_Urlrewrite_Edit extends Mage_Adminhtml_Block_Widget_C
     {
         $this->setChild('form', Mage::getBlockSingleton('adminhtml/urlrewrite_edit_form'));
         if ($this->getUrlrewriteId()) {
-            $this->_addButton('reset', [
+            $this->_addButton(self::BUTTON_TYPE_RESET, [
                 'label'   => Mage::helper('adminhtml')->__('Reset'),
                 'onclick' => '$(\'edit_form\').reset()',
                 'class'   => 'scalable reset',
                 'level'   => -1,
             ]);
-            $this->_addButton('delete', [
+            $this->_addButton(self::BUTTON_TYPE_DELETE, [
                 'label'   => Mage::helper('adminhtml')->__('Delete'),
                 'onclick' => "deleteConfirm('"
                     . Mage::helper('core')->jsQuoteEscape(
@@ -149,7 +150,7 @@ class Mage_Adminhtml_Block_Urlrewrite_Edit extends Mage_Adminhtml_Block_Widget_C
             ]);
         }
 
-        $this->_addButton('save', [
+        $this->_addButton(self::BUTTON_TYPE_SAVE, [
             'label'   => Mage::helper('adminhtml')->__('Save'),
             'onclick' => 'editForm.submit()',
             'class'   => 'save',
@@ -171,7 +172,7 @@ class Mage_Adminhtml_Block_Urlrewrite_Edit extends Mage_Adminhtml_Block_Widget_C
         }
 
         $this->_updateButton(
-            'back',
+            self::BUTTON_TYPE_BACK,
             'onclick',
             Mage::helper('core/js')->getSetLocationJs(Mage::helper('adminhtml')::getUrl('*/*/' . $action, $params) . $suffix),
         );
@@ -187,6 +188,7 @@ class Mage_Adminhtml_Block_Urlrewrite_Edit extends Mage_Adminhtml_Block_Widget_C
      *
      * @return string
      */
+    #[Override]
     public function getButtonsHtml($area = null)
     {
         if ($this->_buttonsHtml === null) {
@@ -271,6 +273,7 @@ class Mage_Adminhtml_Block_Urlrewrite_Edit extends Mage_Adminhtml_Block_Widget_C
     /**
      * @return string
      */
+    #[Override]
     public function getHeaderCssClass()
     {
         return 'icon-head head-urlrewrite';

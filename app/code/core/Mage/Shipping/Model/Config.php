@@ -23,6 +23,11 @@ class Mage_Shipping_Model_Config extends Varien_Object
 
     public const XML_PATH_ORIGIN_POSTCODE   = 'shipping/origin/postcode';
 
+    /**
+     * Cache for carrier instances
+     *
+     * @var Mage_Shipping_Model_Carrier_Abstract[]
+     */
     protected static $_carriers;
 
     /**

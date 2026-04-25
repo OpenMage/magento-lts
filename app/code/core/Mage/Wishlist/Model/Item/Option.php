@@ -42,6 +42,7 @@ class Mage_Wishlist_Model_Item_Option extends Mage_Core_Model_Abstract implement
      *
      * @return bool
      */
+    #[Override]
     protected function _hasModelChanged()
     {
         if (!$this->hasDataChanges()) {
@@ -54,8 +55,8 @@ class Mage_Wishlist_Model_Item_Option extends Mage_Core_Model_Abstract implement
     /**
      * Set quote item
      *
-     * @param  Mage_Wishlist_Model_Item        $item
-     * @return Mage_Wishlist_Model_Item_Option
+     * @param  Mage_Wishlist_Model_Item $item
+     * @return $this
      */
     public function setItem($item)
     {
@@ -80,8 +81,8 @@ class Mage_Wishlist_Model_Item_Option extends Mage_Core_Model_Abstract implement
     /**
      * Set option product
      *
-     * @param  Mage_Catalog_Model_Product      $product
-     * @return Mage_Wishlist_Model_Item_Option
+     * @param  Mage_Catalog_Model_Product $product
+     * @return $this
      */
     public function setProduct($product)
     {
@@ -118,6 +119,7 @@ class Mage_Wishlist_Model_Item_Option extends Mage_Core_Model_Abstract implement
      *
      * @inheritDoc
      */
+    #[Override]
     protected function _beforeSave()
     {
         if ($this->getItem()) {

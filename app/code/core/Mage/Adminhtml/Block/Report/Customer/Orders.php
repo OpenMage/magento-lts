@@ -19,9 +19,10 @@ class Mage_Adminhtml_Block_Report_Customer_Orders extends Mage_Adminhtml_Block_W
         $this->_controller = 'report_customer_orders';
         $this->_headerText = Mage::helper('reports')->__('Customers by number of orders');
         parent::__construct();
-        $this->_removeButton('add');
+        $this->_removeButton(self::BUTTON_TYPE_ADD);
     }
 
+    #[Override]
     public function getHeaderCssClass()
     {
         return 'icon-head head-report';

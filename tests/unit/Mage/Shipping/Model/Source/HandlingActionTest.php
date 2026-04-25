@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Shipping\Model\Source;
 
 // use Mage;
 // use Mage_Shipping_Model_Source_HandlingAction as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Shipping\Model\Source\HandlingActionTrait;
 
@@ -22,6 +23,7 @@ final class HandlingActionTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

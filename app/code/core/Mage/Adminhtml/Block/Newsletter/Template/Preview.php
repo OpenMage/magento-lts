@@ -14,6 +14,7 @@
  */
 class Mage_Adminhtml_Block_Newsletter_Template_Preview extends Mage_Adminhtml_Block_Widget
 {
+    #[Override]
     protected function _toHtml()
     {
         /** @var Mage_Newsletter_Model_Template $template */

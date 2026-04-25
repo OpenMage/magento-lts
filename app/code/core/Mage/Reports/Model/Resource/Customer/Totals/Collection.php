@@ -17,6 +17,7 @@ class Mage_Reports_Model_Resource_Customer_Totals_Collection extends Mage_Report
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _construct()
     {
         parent::_construct();
@@ -42,6 +43,7 @@ class Mage_Reports_Model_Resource_Customer_Totals_Collection extends Mage_Report
     /**
      * @inheritDoc
      */
+    #[Override]
     public function setDateRange($dateFrom, $dateTo)
     {
         $this->_reset()
@@ -55,6 +57,7 @@ class Mage_Reports_Model_Resource_Customer_Totals_Collection extends Mage_Report
      * @param  array $storeIds
      * @return $this
      */
+    #[Override]
     public function setStoreIds($storeIds)
     {
         if ($storeIds) {

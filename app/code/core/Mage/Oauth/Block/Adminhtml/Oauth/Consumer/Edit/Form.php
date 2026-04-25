@@ -40,6 +40,7 @@ class Mage_Oauth_Block_Adminhtml_Oauth_Consumer_Edit_Form extends Mage_Adminhtml
      *
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareForm()
     {
         $model = $this->getModel();

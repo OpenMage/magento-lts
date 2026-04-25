@@ -77,6 +77,7 @@ class Mage_Sales_Model_Resource_Report_Refunded_Collection_Order extends Mage_Sa
      *
      * @return $this
      */
+    #[Override]
     protected function _initSelect()
     {
         $this->getSelect()->from(

@@ -21,6 +21,7 @@ class Mage_Reports_Model_Resource_Shopcart_Product_Collection extends Mage_Repor
      *
      * @return $this
      */
+    #[Override]
     protected function _joinFields()
     {
         parent::_joinFields();

@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Directory\Helper;
 
 // use Mage;
 // use Mage_Directory_Helper_Url as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Directory\Helper\UrlTrait;
 
@@ -22,6 +23,7 @@ final class UrlTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
