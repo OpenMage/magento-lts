@@ -86,10 +86,7 @@ class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
     /**
      * @return false|Mage_Sales_Model_Order
      */
-    #[Deprecated(message: <<<'TXT'
-    after 1.4.0.0-alpha3
-     Initialize order model instance
-    TXT)]
+    #[Deprecated(message: 'Initialize order model instance', since: MagentoVersionInterface::VERSION_1_4_0_0_ALPHA_3)]
     protected function _initOrder()
     {
         $order = Mage::getModel('sales/order')->load($this->getOrderId());
@@ -104,10 +101,7 @@ class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
     /**
      * @return false|Mage_Sales_Model_Order_Shipment
      */
-    #[Deprecated(message: <<<'TXT'
-    after 1.4.0.0-alpha3
-     Initialize ship model instance
-    TXT)]
+    #[Deprecated(message: 'Initialize ship model instance', since: MagentoVersionInterface::VERSION_1_4_0_0_ALPHA_3)]
     protected function _initShipment()
     {
         $ship = Mage::getModel('sales/order_shipment')->load($this->getShipId());
@@ -135,10 +129,7 @@ class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
     /**
      * @return array
      */
-    #[Deprecated(message: <<<'TXT'
-    after 1.4.0.0-alpha3
-     Retrieve all tracking by orders id
-    TXT)]
+    #[Deprecated(message: 'Retrieve all tracking by orders id', since: MagentoVersionInterface::VERSION_1_4_0_0_ALPHA_3)]
     public function getTrackingInfoByOrder()
     {
         $shipTrack = [];
@@ -164,10 +155,7 @@ class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
     /**
      * @return array
      */
-    #[Deprecated(message: <<<'TXT'
-    after 1.4.0.0-alpha3
-     Retrieve all tracking by ship id
-    TXT)]
+    #[Deprecated(message: 'Retrieve all tracking by ship id', since: MagentoVersionInterface::VERSION_1_4_0_0_ALPHA_3)]
     public function getTrackingInfoByShip()
     {
         $shipTrack = [];
@@ -189,10 +177,7 @@ class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
     /**
      * @return array
      */
-    #[Deprecated(message: <<<'TXT'
-    after 1.4.0.0-alpha3
-     Retrieve tracking by tracking entity id
-    TXT)]
+    #[Deprecated(message: 'Retrieve tracking by tracking entity id', since: MagentoVersionInterface::VERSION_1_4_0_0_ALPHA_3)]
     public function getTrackingInfoByTrackId()
     {
         $track = Mage::getModel('sales/order_shipment_track')->load($this->getTrackId());

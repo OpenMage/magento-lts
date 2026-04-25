@@ -132,7 +132,7 @@ class Varien_Http_Adapter_Curl implements Zend_Http_Client_Adapter_Interface
      * @param  bool                     $secure
      * @return Varien_Http_Adapter_Curl
      */
-    #[Deprecated(message: 'since 1.4.0.0-rc1')]
+    #[Deprecated(since: MagentoVersionInterface::VERSION_1_4_0_0_RC_1)]
     public function connect($host, $port = 80, $secure = false)
     {
         return $this->_applyConfig();

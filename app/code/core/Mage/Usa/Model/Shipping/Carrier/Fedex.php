@@ -1141,7 +1141,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
      * @param array  $trackingvalue
      * @param string $response
      */
-    #[Deprecated(message: 'after 1.6.0.0 see _parseTrackingResponse()')]
+    #[Deprecated(message: 'see _parseTrackingResponse()', since: MagentoVersionInterface::VERSION_1_6_0_0)]
     protected function _parseXmlTrackingResponse($trackingvalue, $response)
     {
         $resultArr = [];
