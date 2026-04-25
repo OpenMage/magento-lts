@@ -11,6 +11,8 @@ declare(strict_types=1);
 
 interface MagentoVersionInterface
 {
+    public const VERSION_1_1_5              = '1.1.5';
+
     public const VERSION_1_1_7              = '1.1.7';
 
     public const VERSION_1_11_2_0           = '1.11.2.0';

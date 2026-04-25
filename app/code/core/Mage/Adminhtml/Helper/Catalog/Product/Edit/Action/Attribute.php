@@ -136,7 +136,7 @@ class Mage_Adminhtml_Helper_Catalog_Product_Edit_Action_Attribute extends Mage_C
      *
      * @return array<void>
      */
-    #[Deprecated(message: 'since 1.4.1')]
+    #[Deprecated(since: MagentoVersionInterface::VERSION_1_4_1_0)]
     public function getProductsNotInStoreIds()
     {
         return [];

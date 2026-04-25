@@ -1556,7 +1556,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      *
      * @return string current grid url
      */
-    #[Deprecated(message: 'after 1.3.2.3 Use getAbsoluteGridUrl() method instead')]
+    #[Deprecated(message: 'Use getAbsoluteGridUrl() method instead', since: MagentoVersionInterface::VERSION_1_3_2_3)]
     public function getGridUrl()
     {
         return $this->getCurrentUrl();
