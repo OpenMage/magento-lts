@@ -1813,7 +1813,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
     /**
      * @return $this
      */
-    #[Deprecated(since: MagentoVersionInterface::VERSION_1_1_7)]
+    #[Deprecated(since: MagentoVersionInterface::VERSION_1_1_7_0)]
     protected function _saveCustomer()
     {
         if (!$this->getSession()->getCustomer()->getId()) {

@@ -1641,7 +1641,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      * @param  Varien_Object $row
      * @return string
      */
-    #[Deprecated(since: MagentoVersionInterface::VERSION_1_1_7)]
+    #[Deprecated(since: MagentoVersionInterface::VERSION_1_1_7_0)]
     public function getRowId($row)
     {
         return $this->getRowUrl($row);

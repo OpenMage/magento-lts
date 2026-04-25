@@ -1471,7 +1471,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
         return $this->_addTaxPercents;
     }
 
-    #[Deprecated(since: MagentoVersionInterface::VERSION_1_3_0)]
+    #[Deprecated(since: MagentoVersionInterface::VERSION_1_3_0_0)]
     protected function _addTaxPercents()
     {
         $classToRate = [];

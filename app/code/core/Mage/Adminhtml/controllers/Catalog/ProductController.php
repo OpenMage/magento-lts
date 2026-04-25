@@ -500,7 +500,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
      * @return void
      * @throws Mage_Core_Exception
      */
-    #[Deprecated(since: MagentoVersionInterface::VERSION_1_2_0)]
+    #[Deprecated(since: MagentoVersionInterface::VERSION_1_2_0_0)]
     public function bundlesAction()
     {
         $product = $this->_initProduct();

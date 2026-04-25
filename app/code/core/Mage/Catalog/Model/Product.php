@@ -2136,7 +2136,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      *
      * @return string
      */
-    #[Deprecated(since: MagentoVersionInterface::VERSION_1_1_5)]
+    #[Deprecated(since: MagentoVersionInterface::VERSION_1_1_5_0)]
     public function getImageUrl()
     {
         return (string) $this->_getImageHelper()->init($this, 'image')->resize(265);
@@ -2149,7 +2149,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      * @param  int    $height
      * @return string
      */
-    #[Deprecated(since: MagentoVersionInterface::VERSION_1_1_5)]
+    #[Deprecated(since: MagentoVersionInterface::VERSION_1_1_5_0)]
     public function getSmallImageUrl($width = 88, $height = 77)
     {
         return (string) $this->_getImageHelper()->init($this, 'small_image')->resize($width, $height);
@@ -2162,7 +2162,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      * @param  int    $height
      * @return string
      */
-    #[Deprecated(since: MagentoVersionInterface::VERSION_1_1_5)]
+    #[Deprecated(since: MagentoVersionInterface::VERSION_1_1_5_0)]
     public function getThumbnailUrl($width = 75, $height = 75)
     {
         return (string) $this->_getImageHelper()->init($this, 'thumbnail')->resize($width, $height);

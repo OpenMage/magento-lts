@@ -1656,7 +1656,7 @@ class Mage_Core_Model_App
      *
      * @return bool
      */
-    #[Deprecated(since: MagentoVersionInterface::VERSION_1_2_0)]
+    #[Deprecated(since: MagentoVersionInterface::VERSION_1_2_0_0)]
     public function isInstalled()
     {
         return Mage::isInstalled();
