@@ -22,23 +22,24 @@ class Mage_Adminhtml_Block_Cms_Block_Edit extends Mage_Adminhtml_Block_Widget_Fo
         parent::__construct();
 
         if ($this->_isAllowedAction('save')) {
-            $this->_addButton('saveandcontinue', [
+            $this->_addButton(self::BUTTON_TYPE_SAVE_EDIT, [
                 'label'     => Mage::helper('adminhtml')->__('Save and Continue Edit'),
                 'onclick'   => 'saveAndContinueEdit()',
                 'class'     => 'save continue',
             ], -100);
         } else {
-            $this->_removeButton('save');
+            $this->_removeButton(self::BUTTON_TYPE_SAVE);
         }
 
         if (!$this->_isAllowedAction('delete')) {
-            $this->_removeButton('delete');
+            $this->_removeButton(self::BUTTON_TYPE_DELETE);
         }
     }
 
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareLayout()
     {
         $this->_formScripts[] = "
@@ -59,6 +60,7 @@ class Mage_Adminhtml_Block_Cms_Block_Edit extends Mage_Adminhtml_Block_Widget_Fo
      *
      * @return string
      */
+    #[Override]
     public function getHeaderText()
     {
         if (Mage::registry('cms_block')->getId()) {

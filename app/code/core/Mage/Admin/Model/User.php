@@ -131,6 +131,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _beforeSave()
     {
         $data = [
@@ -290,6 +291,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
      *
      * @return Mage_Admin_Model_Resource_User_Collection
      */
+    #[Override]
     public function getCollection()
     {
         return Mage::getResourceModel('admin/user_collection');
@@ -348,6 +350,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
      *
      * @return int
      */
+    #[Override]
     public function getId()
     {
         return $this->getUserId();

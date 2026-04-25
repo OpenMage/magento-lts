@@ -26,6 +26,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Wrapline extends Mage_Adm
      *
      * @return string
      */
+    #[Override]
     public function render(Varien_Object $row)
     {
         $line = parent::_getValue($row);

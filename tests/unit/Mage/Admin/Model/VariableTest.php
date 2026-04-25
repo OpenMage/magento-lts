@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Admin\Model;
 
+use Override;
 use Exception;
 use Mage;
 use Mage_Admin_Model_Variable as Subject;
@@ -23,6 +24,7 @@ final class VariableTest extends OpenMageTest
 
     private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

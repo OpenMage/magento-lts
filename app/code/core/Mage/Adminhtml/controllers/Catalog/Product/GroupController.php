@@ -19,6 +19,9 @@ class Mage_Adminhtml_Catalog_Product_GroupController extends Mage_Adminhtml_Cont
      */
     public const ADMIN_RESOURCE = 'catalog/products';
 
+    /**
+     * @return void
+     */
     public function saveAction()
     {
         $model = Mage::getModel('eav/entity_attribute_group');

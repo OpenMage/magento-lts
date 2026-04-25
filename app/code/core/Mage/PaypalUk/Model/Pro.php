@@ -42,6 +42,7 @@ class Mage_PaypalUk_Model_Pro extends Mage_Paypal_Model_Pro
      *
      * @param float $amount
      */
+    #[Override]
     public function refund(Varien_Object $payment, $amount)
     {
         if ($captureTxnId = $this->_getParentTransactionId($payment)) {
@@ -67,6 +68,7 @@ class Mage_PaypalUk_Model_Pro extends Mage_Paypal_Model_Pro
      *
      * @return string
      */
+    #[Override]
     protected function _getParentTransactionId(Varien_Object $payment)
     {
         if ($payment->getParentTransactionId()) {
@@ -83,6 +85,7 @@ class Mage_PaypalUk_Model_Pro extends Mage_Paypal_Model_Pro
      * @param Mage_Paypal_Model_Api_Nvp      $api
      * @param Mage_Sales_Model_Order_Payment $payment
      */
+    #[Override]
     protected function _importCaptureResultToPayment($api, $payment)
     {
         $payment->setTransactionId($api->getPaypalTransactionId())
@@ -104,6 +107,7 @@ class Mage_PaypalUk_Model_Pro extends Mage_Paypal_Model_Pro
      * @return void
      * @throws Mage_Core_Exception
      */
+    #[Override]
     public function fetchTransactionInfo(Mage_Payment_Model_Info $payment, $transactionId)
     {
         Mage::throwException(
@@ -118,6 +122,7 @@ class Mage_PaypalUk_Model_Pro extends Mage_Paypal_Model_Pro
      * @param Mage_Sales_Model_Order_Payment $payment
      * @param bool                           $canRefundMore
      */
+    #[Override]
     protected function _importRefundResultToPayment($api, $payment, $canRefundMore)
     {
         $payment->setTransactionId($api->getPaypalTransactionId())

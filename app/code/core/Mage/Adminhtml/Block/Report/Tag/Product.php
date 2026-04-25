@@ -19,9 +19,10 @@ class Mage_Adminhtml_Block_Report_Tag_Product extends Mage_Adminhtml_Block_Widge
         $this->_controller = 'report_tag_product';
         $this->_headerText = Mage::helper('reports')->__('Products Tags');
         parent::__construct();
-        $this->_removeButton('add');
+        $this->_removeButton(self::BUTTON_TYPE_ADD);
     }
 
+    #[Override]
     public function getHeaderCssClass()
     {
         return 'icon-head head-report';

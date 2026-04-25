@@ -35,6 +35,7 @@ class Mage_Catalog_Block_Seo_Sitemap_Tree_Category extends Mage_Catalog_Block_Se
      *
      * @return $this
      */
+    #[Override]
     protected function _prepareLayout()
     {
         $parent = Mage::getModel('catalog/category')
@@ -53,6 +54,7 @@ class Mage_Catalog_Block_Seo_Sitemap_Tree_Category extends Mage_Catalog_Block_Se
      *
      * @param string $pagerName
      */
+    #[Override]
     public function bindPager($pagerName)
     {
         $pager = $this->getLayout()->getBlock($pagerName);

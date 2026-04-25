@@ -22,6 +22,7 @@ class Mage_Centinel_Adminhtml_Centinel_IndexController extends Mage_Adminhtml_Co
 
     /**
      * Process validate payment data action
+     * @return void
      */
     public function validatePaymentDataAction()
     {
@@ -48,6 +49,7 @@ class Mage_Centinel_Adminhtml_Centinel_IndexController extends Mage_Adminhtml_Co
 
     /**
      * Process authentication start action
+     * @return void
      */
     public function authenticationStartAction()
     {
@@ -60,6 +62,7 @@ class Mage_Centinel_Adminhtml_Centinel_IndexController extends Mage_Adminhtml_Co
 
     /**
      * Process authentication complete action
+     * @return void
      */
     public function authenticationCompleteAction()
     {

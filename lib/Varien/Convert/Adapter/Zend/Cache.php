@@ -14,6 +14,7 @@
  */
 class Varien_Convert_Adapter_Zend_Cache extends Varien_Convert_Adapter_Abstract
 {
+    #[Override]
     public function getResource()
     {
         if (!$this->_resource) {

@@ -24,6 +24,7 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
     /**
      * @return null|$this|Mage_Core_Controller_Front_Action
      */
+    #[Override]
     public function preDispatch()
     {
         parent::preDispatch();
@@ -137,6 +138,7 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
 
     /**
      * Submit new review action
+     * @return void
      */
     public function postAction()
     {
@@ -209,6 +211,7 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
 
     /**
      * Show list of product's reviews
+     * @return void
      */
     public function listAction()
     {
@@ -243,6 +246,7 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
 
     /**
      * Show details of one review
+     * @return void
      */
     public function viewAction()
     {

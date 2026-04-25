@@ -19,6 +19,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Recurring extends Mage
      *
      * @return string
      */
+    #[Override]
     public function getElementHtml()
     {
         $result = new stdClass();

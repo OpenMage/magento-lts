@@ -24,6 +24,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tabs extends Mage_Adminhtml_Bloc
         $this->setTitle(Mage::helper('catalog')->__('Product Information'));
     }
 
+    #[Override]
     protected function _prepareLayout()
     {
         $product = $this->getProduct();

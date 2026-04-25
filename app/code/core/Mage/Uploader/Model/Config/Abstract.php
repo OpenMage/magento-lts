@@ -34,6 +34,7 @@ abstract class Mage_Uploader_Model_Config_Abstract extends Varien_Object
      * @throws Varien_Exception
      * @SuppressWarnings("PHPMD.DevelopmentCodeFragment")
      */
+    #[Override]
     public function __call($method, $args)
     {
         $key = lcfirst($this->_camelize(substr($method, 3)));

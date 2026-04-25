@@ -27,6 +27,7 @@ class Mage_Adminhtml_Block_Widget_Form extends Mage_Adminhtml_Block_Widget
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _construct()
     {
         parent::_construct();
@@ -42,6 +43,7 @@ class Mage_Adminhtml_Block_Widget_Form extends Mage_Adminhtml_Block_Widget
      *
      * @return $this
      */
+    #[Override]
     protected function _prepareLayout()
     {
         $renderer = $this->getLayout()->createBlock('adminhtml/widget_form_renderer_element');
@@ -114,6 +116,7 @@ class Mage_Adminhtml_Block_Widget_Form extends Mage_Adminhtml_Block_Widget
      *
      * @return $this
      */
+    #[Override]
     protected function _beforeToHtml()
     {
         $this->_prepareForm();

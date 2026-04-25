@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Bundle\Model\CatalogIndex\Data;
 
 // use Mage;
 // use Mage_Bundle_Model_CatalogIndex_Data_Bundle as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Bundle\Model\CatalogIndex\Data\BundleTrait;
 
@@ -22,6 +23,7 @@ final class BundleTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

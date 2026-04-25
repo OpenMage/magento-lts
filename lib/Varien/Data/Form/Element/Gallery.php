@@ -27,6 +27,7 @@ class Varien_Data_Form_Element_Gallery extends Varien_Data_Form_Element_Abstract
     /**
      * @return string
      */
+    #[Override]
     public function getElementHtml()
     {
         $html = '<table id="gallery" class="gallery" border="0" cellspacing="3" cellpadding="0">';
@@ -165,6 +166,7 @@ EndSCRIPT;
     /**
      * @return string
      */
+    #[Override]
     public function getName()
     {
         return $this->getDataByKey('name');

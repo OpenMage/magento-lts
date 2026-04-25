@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Bundle\Helper\Catalog\Product;
 
 // use Mage;
 // use Mage_Bundle_Helper_Catalog_Product_Configuration as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Bundle\Helper\Catalog\Product\ConfigurationTrait;
 
@@ -22,6 +23,7 @@ final class ConfigurationTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

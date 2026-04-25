@@ -19,9 +19,10 @@ class Mage_Adminhtml_Block_Report_Shopcart_Customer extends Mage_Adminhtml_Block
         $this->_controller = 'report_shopcart_customer';
         $this->_headerText = Mage::helper('reports')->__('Customers');
         parent::__construct();
-        $this->_removeButton('add');
+        $this->_removeButton(self::BUTTON_TYPE_ADD);
     }
 
+    #[Override]
     public function getHeaderCssClass()
     {
         return 'icon-head head-report';

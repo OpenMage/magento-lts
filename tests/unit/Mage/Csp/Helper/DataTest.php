@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Csp\Helper;
 
+use Override;
 use Mage;
 use Mage_Core_Model_App_Area;
 use Mage_Csp_Helper_Data as Subject;
@@ -20,6 +21,7 @@ final class DataTest extends OpenMageTest
 {
     private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

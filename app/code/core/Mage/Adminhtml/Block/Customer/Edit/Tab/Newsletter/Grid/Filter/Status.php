@@ -32,6 +32,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Newsletter_Grid_Filter_Status exten
     /**
      * @return array
      */
+    #[Override]
     protected function _getOptions()
     {
         $result = [];
@@ -45,6 +46,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Newsletter_Grid_Filter_Status exten
     /**
      * @inheritDoc
      */
+    #[Override]
     public function getCondition()
     {
         if (is_null($this->getValue())) {

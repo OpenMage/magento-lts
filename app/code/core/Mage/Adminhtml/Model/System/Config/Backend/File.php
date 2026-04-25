@@ -29,6 +29,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_File extends Mage_Core_Model_Co
      * @return $this
      * @SuppressWarnings("PHPMD.Superglobals")
      */
+    #[Override]
     protected function _beforeSave()
     {
         $value = $this->getValue();
@@ -86,6 +87,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_File extends Mage_Core_Model_Co
      *
      * @return $this
      */
+    #[Override]
     protected function _afterSave()
     {
         parent::_afterSave();

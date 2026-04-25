@@ -34,6 +34,7 @@ class Mage_Archive_Helper_File_Gz extends Mage_Archive_Helper_File
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
+    #[Override]
     protected function _open($mode)
     {
         $this->_fileHandler = @gzopen($this->_filePath, $mode);
@@ -48,6 +49,7 @@ class Mage_Archive_Helper_File_Gz extends Mage_Archive_Helper_File
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
+    #[Override]
     protected function _write($data)
     {
         $result = @gzwrite($this->_fileHandler, $data);
@@ -60,6 +62,7 @@ class Mage_Archive_Helper_File_Gz extends Mage_Archive_Helper_File
     /**
      * @see Mage_Archive_Helper_File::_read()
      */
+    #[Override]
     protected function _read($length)
     {
         return gzread($this->_fileHandler, $length);
@@ -68,6 +71,7 @@ class Mage_Archive_Helper_File_Gz extends Mage_Archive_Helper_File
     /**
      * @see Mage_Archive_Helper_File::_eof()
      */
+    #[Override]
     protected function _eof()
     {
         return gzeof($this->_fileHandler);
@@ -76,6 +80,7 @@ class Mage_Archive_Helper_File_Gz extends Mage_Archive_Helper_File
     /**
      * @see Mage_Archive_Helper_File::_close()
      */
+    #[Override]
     protected function _close()
     {
         gzclose($this->_fileHandler);

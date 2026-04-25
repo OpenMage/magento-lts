@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Paygate\Model\Authorizenet;
 
 // use Mage;
 // use Mage_Paygate_Model_Authorizenet_Debug as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Paygate\Model\Authorizenet\DebugTrait;
 
@@ -22,6 +23,7 @@ final class DebugTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

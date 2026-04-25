@@ -50,6 +50,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Related extends Mage_Adminht
      * @inheritDoc
      * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _addColumnFilterToCollection($column)
     {
         // Set custom filter for in product flag
@@ -74,6 +75,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Related extends Mage_Adminht
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareCollection()
     {
         $collection = Mage::getModel('catalog/product_link')->useRelatedLinks()
@@ -108,6 +110,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Related extends Mage_Adminht
      * @inheritDoc
      * @throws Exception
      */
+    #[Override]
     protected function _prepareColumns()
     {
         if (!$this->isReadonly()) {
@@ -199,6 +202,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Related extends Mage_Adminht
      *
      * @return string
      */
+    #[Override]
     public function getGridUrl()
     {
         return $this->getDataByKey('grid_url') ?: $this->getUrl('*/*/relatedGrid', ['_current' => true]);

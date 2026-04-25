@@ -15,7 +15,7 @@ use Generator;
 
 trait DobTrait
 {
-    public function provideGetYearData(): Generator
+    public static function provideGetYearData(): Generator
     {
         yield 'jan-1-2000' => ['2000', '2000-01-01'];
         yield 'jan-1-1999' => ['1999', '1999-01-01'];

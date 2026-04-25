@@ -2,8 +2,6 @@
 
 declare(strict_types=1);
 
-use Carbon\Carbon;
-
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -145,6 +143,7 @@ class Mage_Usa_Adminhtml_UspsController extends Mage_Adminhtml_Controller_Action
         }
     }
 
+    #[Override]
     protected function _isAllowed(): bool
     {
         return Mage::getSingleton('admin/session')->isAllowed('system/config');
@@ -170,7 +169,7 @@ class Mage_Usa_Adminhtml_UspsController extends Mage_Adminhtml_Controller_Action
                 'height' => 2.0,
                 'mailClasses' => ['USPS_GROUND_ADVANTAGE', 'PRIORITY_MAIL', 'PRIORITY_MAIL_EXPRESS'],
                 'priceType' => 'COMMERCIAL',
-                'mailingDate' => Carbon::now()->format('Y-m-d'),
+                'mailingDate' => Mage::helper('core/clock')->format('Y-m-d'),
             ];
 
             $curl = curl_init();

@@ -35,6 +35,7 @@ class Mage_Adminhtml_Permissions_VariableController extends Mage_Adminhtml_Contr
 
     /**
      * Index action
+     * @return void
      */
     public function indexAction()
     {
@@ -50,6 +51,7 @@ class Mage_Adminhtml_Permissions_VariableController extends Mage_Adminhtml_Contr
 
     /**
      * New action
+     * @return void
      */
     public function newAction()
     {
@@ -59,6 +61,7 @@ class Mage_Adminhtml_Permissions_VariableController extends Mage_Adminhtml_Contr
     /**
      * Edit action
      *
+     * @return void
      * @throws Mage_Core_Exception
      */
     public function editAction()
@@ -159,6 +162,7 @@ class Mage_Adminhtml_Permissions_VariableController extends Mage_Adminhtml_Contr
 
     /**
      * Delete action
+     * @return void
      */
     public function deleteAction()
     {
@@ -184,6 +188,7 @@ class Mage_Adminhtml_Permissions_VariableController extends Mage_Adminhtml_Contr
 
     /**
      * Grid action
+     * @return void
      */
     public function variableGridAction()
     {

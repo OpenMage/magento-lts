@@ -19,11 +19,15 @@ class Mage_Bundle_Adminhtml_Bundle_Product_EditController extends Mage_Adminhtml
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _construct()
     {
         $this->setUsedModuleName('Mage_Bundle');
     }
 
+    /**
+     * @return void
+     */
     public function formAction()
     {
         $product = $this->_initProduct();

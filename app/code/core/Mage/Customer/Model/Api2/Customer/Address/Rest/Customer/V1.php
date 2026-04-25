@@ -21,6 +21,7 @@ class Mage_Customer_Model_Api2_Customer_Address_Rest_Customer_V1 extends Mage_Cu
      * @return Mage_Customer_Model_Address
      * @throws Mage_Api2_Exception
      */
+    #[Override]
     protected function _loadCustomerAddressById($id)
     {
         $customerAddress = parent::_loadCustomerAddressById($id);
@@ -39,6 +40,7 @@ class Mage_Customer_Model_Api2_Customer_Address_Rest_Customer_V1 extends Mage_Cu
      * @return Mage_Customer_Model_Customer
      * @throws Mage_Api2_Exception
      */
+    #[Override]
     protected function _loadCustomerById($id)
     {
         $customer = parent::_loadCustomerById($id);

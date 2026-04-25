@@ -184,6 +184,7 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
      *
      * @inheritDoc
      */
+    #[Override]
     protected function _afterLoad()
     {
         $this->setCouponCode($this->getPrimaryCoupon()->getCode());
@@ -199,6 +200,7 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
      *
      * @return $this
      */
+    #[Override]
     protected function _afterSave()
     {
         $couponCode = trim((string) $this->getCouponCode());
@@ -226,6 +228,7 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
      *
      * @return $this
      */
+    #[Override]
     public function loadPost(array $data)
     {
         parent::loadPost($data);
@@ -521,6 +524,7 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
      * @return string
      * @deprecated after 1.6.2.0
      */
+    #[Override]
     public function toString($format = '')
     {
         return '';
@@ -541,6 +545,7 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
      * @return array
      * @deprecated after 1.6.2.0
      */
+    #[Override]
     public function toArray(array $arrAttributes = [])
     {
         return parent::toArray($arrAttributes);

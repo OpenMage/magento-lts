@@ -7,8 +7,6 @@
  * @package    Mage_Tag
  */
 
-use Carbon\Carbon;
-
 /**
  * Tag model
  *
@@ -87,6 +85,7 @@ class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
      *
      * @return $this
      */
+    #[Override]
     public function afterCommitCallback()
     {
         parent::afterCommitCallback();
@@ -334,7 +333,7 @@ class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
      */
     public function isAvailableInStore($storeId = null)
     {
-        $storeId = (is_null($storeId)) ? Mage::app()->getStore()->getId() : $storeId;
+        $storeId ??= Mage::app()->getStore()->getId();
         return in_array($storeId, $this->getVisibleInStoreIds());
     }
 
@@ -342,6 +341,7 @@ class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
      * @return $this
      * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _beforeDelete()
     {
         $this->_protectFromNonAdmin();
@@ -365,7 +365,7 @@ class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
             ->setProductId($productId)
             ->setCustomerId($customerId)
             ->setActive(Mage_Tag_Model_Tag_Relation::STATUS_ACTIVE)
-            ->setCreatedAt($relationModel->getResource()->formatDate(Carbon::now()->getTimestamp()));
+            ->setCreatedAt($relationModel->getResource()->formatDate($this->getClockHelper()->getTimestamp()));
 
         $result = '';
         $relationModelSaveNeed = false;
@@ -469,6 +469,7 @@ class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
      *
      * @return $this
      */
+    #[Override]
     protected function _afterSave()
     {
         if ($this->hasData('tag_assigned_products')) {

@@ -152,8 +152,8 @@ class Mage_Core_Model_Url extends Varien_Object
     /**
      * Initialize object data from retrieved url
      *
-     * @param  string              $url
-     * @return Mage_Core_Model_Url
+     * @param  string $url
+     * @return $this
      */
     public function parseUrl($url)
     {

@@ -21,11 +21,12 @@ class Mage_Adminhtml_Block_Report_Tag_Customer_Detail extends Mage_Adminhtml_Blo
         $customerName = $this->escapeHtml($customer->getName());
         $this->_headerText = Mage::helper('reports')->__('Tags Submitted by %s', $customerName);
         parent::__construct();
-        $this->_removeButton('add');
+        $this->_removeButton(self::BUTTON_TYPE_ADD);
         $this->setBackUrl($this->getUrl('*/report_tag/customer/'));
         $this->_addBackButton();
     }
 
+    #[Override]
     public function getHeaderCssClass()
     {
         return 'icon-head head-report';

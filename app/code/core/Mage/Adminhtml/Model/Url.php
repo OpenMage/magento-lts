@@ -25,6 +25,7 @@ class Mage_Adminhtml_Model_Url extends Mage_Core_Model_Url
      *
      * @return bool
      */
+    #[Override]
     public function getSecure()
     {
         if ($this->hasData('secure_is_forced')) {
@@ -39,6 +40,7 @@ class Mage_Adminhtml_Model_Url extends Mage_Core_Model_Url
      *
      * @return Mage_Core_Model_Url
      */
+    #[Override]
     public function setRouteParams(array $data, $unsetOldParams = true)
     {
         if (isset($data['_nosecret'])) {
@@ -58,6 +60,7 @@ class Mage_Adminhtml_Model_Url extends Mage_Core_Model_Url
      * @param  array  $routeParams
      * @return string
      */
+    #[Override]
     public function getUrl($routePath = null, $routeParams = null)
     {
         $cacheSecretKey = false;

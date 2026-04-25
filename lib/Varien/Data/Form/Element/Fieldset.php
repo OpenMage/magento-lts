@@ -45,6 +45,7 @@ class Varien_Data_Form_Element_Fieldset extends Varien_Data_Form_Element_Abstrac
     /**
      * @return string
      */
+    #[Override]
     public function getElementHtml()
     {
         $html = '<fieldset id="' . $this->getHtmlId() . '"' . $this->serialize(['class']) . '>' . "\n";
@@ -90,6 +91,7 @@ class Varien_Data_Form_Element_Fieldset extends Varien_Data_Form_Element_Abstrac
     /**
      * @return string
      */
+    #[Override]
     public function getDefaultHtml()
     {
         $html = '<div><h4 class="icon-head head-edit-form fieldset-legend">' . $this->getLegend() . '</h4>' . "\n";
@@ -103,6 +105,7 @@ class Varien_Data_Form_Element_Fieldset extends Varien_Data_Form_Element_Abstrac
      * @param  false|string                      $after
      * @return Varien_Data_Form_Element_Abstract
      */
+    #[Override]
     public function addField($elementId, $type, $config, $after = false)
     {
         $element = parent::addField($elementId, $type, $config, $after);
@@ -116,9 +119,9 @@ class Varien_Data_Form_Element_Fieldset extends Varien_Data_Form_Element_Abstrac
     /**
      * Commence sorting elements by values by specified data key
      *
-     * @param  string                            $key
-     * @param  int                               $direction
-     * @return Varien_Data_Form_Element_Fieldset
+     * @param  string $key
+     * @param  int    $direction
+     * @return $this
      */
     public function setSortElementsByAttribute($key, $direction = SORT_ASC)
     {

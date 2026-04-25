@@ -113,10 +113,10 @@ class Mage_Reports_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * @param Varien_Data_Collection $collection
-     * @param null|string            $dateFrom
-     * @param null|string            $dateTo
-     * @param string                 $periodType
+     * @param Varien_Data_Collection     $collection
+     * @param null|string                $dateFrom
+     * @param null|string                $dateTo
+     * @param self::REPORT_PERIOD_TYPE_* $periodType
      */
     public function prepareIntervalsCollection($collection, $dateFrom, $dateTo, $periodType = self::REPORT_PERIOD_TYPE_DAY)
     {

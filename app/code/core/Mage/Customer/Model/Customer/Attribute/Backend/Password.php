@@ -23,6 +23,7 @@ class Mage_Customer_Model_Customer_Attribute_Backend_Password extends Mage_Eav_M
      * @return $this
      * @throws Mage_Core_Exception
      */
+    #[Override]
     public function beforeSave($object)
     {
         $password = trim($object->getPassword());
@@ -49,6 +50,7 @@ class Mage_Customer_Model_Customer_Attribute_Backend_Password extends Mage_Eav_M
      * @return bool
      * @throws Mage_Eav_Exception
      */
+    #[Override]
     public function validate($object)
     {
         if (($password = $object->getPassword()) && $password == $object->getPasswordConfirm()) {

@@ -1992,6 +1992,7 @@ XMLAuth;
      *
      * @return array|bool
      */
+    #[Override]
     public function getContainerTypes(?Varien_Object $params = null)
     {
         if ($params == null) {
@@ -2077,6 +2078,7 @@ XMLAuth;
      *
      * @return array<int, string>
      */
+    #[Override]
     public function getDeliveryConfirmationTypes(?Varien_Object $params = null)
     {
         $countryRecipient           = $params != null ? $params->getCountryRecipient() : null;
@@ -2106,6 +2108,7 @@ XMLAuth;
      *
      * @return array
      */
+    #[Override]
     public function getCustomizableContainerTypes()
     {
         $result = [];

@@ -19,6 +19,7 @@ class Mage_Eav_Model_Attribute_Data_Multiline extends Mage_Eav_Model_Attribute_D
      *
      * @return array|false
      */
+    #[Override]
     public function extractValue(Zend_Controller_Request_Http $request)
     {
         $value = $this->_getRequestValue($request);
@@ -36,6 +37,7 @@ class Mage_Eav_Model_Attribute_Data_Multiline extends Mage_Eav_Model_Attribute_D
      * @param  array|string $value
      * @return array|bool
      */
+    #[Override]
     public function validateValue($value)
     {
         $errors     = [];
@@ -84,6 +86,7 @@ class Mage_Eav_Model_Attribute_Data_Multiline extends Mage_Eav_Model_Attribute_D
      *
      * @inheritDoc
      */
+    #[Override]
     public function compactValue($value)
     {
         if (is_array($value)) {
@@ -99,6 +102,7 @@ class Mage_Eav_Model_Attribute_Data_Multiline extends Mage_Eav_Model_Attribute_D
      * @param  array|string                       $value
      * @return Mage_Eav_Model_Attribute_Data_Text
      */
+    #[Override]
     public function restoreValue($value)
     {
         return $this->compactValue($value);
@@ -111,6 +115,7 @@ class Mage_Eav_Model_Attribute_Data_Multiline extends Mage_Eav_Model_Attribute_D
      * @return array|string
      * @throws Mage_Core_Exception
      */
+    #[Override]
     public function outputValue($format = Mage_Eav_Model_Attribute_Data::OUTPUT_FORMAT_TEXT)
     {
         $values = $this->getEntity()->getData($this->getAttribute()->getAttributeCode());

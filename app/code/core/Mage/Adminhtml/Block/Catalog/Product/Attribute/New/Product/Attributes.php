@@ -14,6 +14,7 @@
  */
 class Mage_Adminhtml_Block_Catalog_Product_Attribute_New_Product_Attributes extends Mage_Adminhtml_Block_Catalog_Form
 {
+    #[Override]
     protected function _prepareForm()
     {
         $form = new Varien_Data_Form();
@@ -48,6 +49,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_New_Product_Attributes exte
         return $this;
     }
 
+    #[Override]
     protected function _getAdditionalElementTypes()
     {
         $result = [
@@ -67,6 +69,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_New_Product_Attributes exte
         return $result;
     }
 
+    #[Override]
     protected function _toHtml()
     {
         parent::_toHtml();

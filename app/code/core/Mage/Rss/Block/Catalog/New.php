@@ -17,6 +17,7 @@ class Mage_Rss_Block_Catalog_New extends Mage_Rss_Block_Catalog_Abstract
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _construct() {}
 
     /**
@@ -25,6 +26,7 @@ class Mage_Rss_Block_Catalog_New extends Mage_Rss_Block_Catalog_Abstract
      * @throws Mage_Core_Model_Store_Exception
      * @throws Zend_Date_Exception
      */
+    #[Override]
     protected function _toHtml()
     {
         $storeId = $this->_getStoreId();

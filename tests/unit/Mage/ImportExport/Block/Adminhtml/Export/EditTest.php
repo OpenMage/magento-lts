@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\ImportExport\Block\Adminhtml\Export;
 
 // use Mage_ImportExport_Block_Adminhtml_Export_Edit as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\ImportExport\Block\Adminhtml\Export\EditTrait;
 
@@ -21,6 +22,7 @@ final class EditTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

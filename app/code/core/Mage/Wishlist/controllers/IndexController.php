@@ -37,6 +37,7 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
      * @return null|$this
      * @throws Mage_Core_Exception
      */
+    #[Override]
     public function preDispatch()
     {
         parent::preDispatch();
@@ -119,7 +120,7 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
     /**
      * Display customer wishlist
      *
-     * @return Mage_Core_Controller_Varien_Action|void
+     * @return $this|void
      * @throws Mage_Core_Exception
      */
     public function indexAction()
@@ -159,7 +160,7 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
     /**
      * Adding new item
      *
-     * @return Mage_Core_Controller_Varien_Action|void
+     * @return $this|void
      * @throws Throwable
      */
     public function addAction()
@@ -364,7 +365,7 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
     /**
      * Update wishlist item comments
      *
-     * @return Mage_Core_Controller_Varien_Action|void
+     * @return $this|void
      * @throws Mage_Core_Exception
      */
     public function updateAction()
@@ -461,7 +462,7 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
     /**
      * Remove item
      *
-     * @return Mage_Core_Controller_Varien_Action|void
+     * @return $this|void
      * @throws Mage_Core_Exception
      */
     public function removeAction()
@@ -507,7 +508,7 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
      * If Product has required options - item removed from wishlist and redirect
      * to product view page with message about needed defined required options
      *
-     * @return Mage_Core_Controller_Varien_Action
+     * @return $this
      * @throws Mage_Core_Exception
      */
     public function cartAction()
@@ -599,7 +600,7 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
     /**
      * Add cart item to wishlist and remove from cart
      *
-     * @return Mage_Core_Controller_Varien_Action|void
+     * @return $this|void
      * @throws Mage_Core_Exception
      */
     public function fromcartAction()
@@ -666,7 +667,7 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
     /**
      * Share wishlist
      *
-     * @return Mage_Core_Controller_Varien_Action|void
+     * @return $this|void
      * @throws Mage_Core_Exception
      */
     public function sendAction()
