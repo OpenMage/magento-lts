@@ -168,7 +168,6 @@ final class Mage
      *
      * @return array<string, string>
      */
-    #[Deprecated]
     public static function getVersionInfo()
     {
         return [
