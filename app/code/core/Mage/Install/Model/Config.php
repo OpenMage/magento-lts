@@ -66,7 +66,7 @@ class Mage_Install_Model_Config extends Varien_Simplexml_Config
      *
      * @return array<string, non-empty-list<array>>
      */
-    #[Deprecated(since: MagentoVersionInterface::VERSION_1_7_0_1)]
+    #[Deprecated(message: 'since 1.7.1.0')]
     public function getPathForCheck()
     {
         $res = [];
