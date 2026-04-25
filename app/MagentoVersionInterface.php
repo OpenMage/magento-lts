@@ -65,5 +65,9 @@ interface MagentoVersionInterface
 
     public const VERSION_1_7_0_0            = '1.7.0.0';
 
+    public const VERSION_1_7_0_1            = '1.7.0.1';
+
     public const VERSION_1_7_0_2            = '1.7.0.2';
+
+    public const VERSION_1_7_1_0            = '1.7.1.0';
 }

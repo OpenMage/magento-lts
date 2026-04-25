@@ -58,7 +58,7 @@ class Mage_Sales_Model_Order_Creditmemo_Api extends Mage_Sales_Model_Api_Resourc
      * @param  null|array $filter
      * @return null|array
      */
-    #[Deprecated(message: 'since 1.7.0.1')]
+    #[Deprecated(since: MagentoVersionInterface::VERSION_1_7_0_1)]
     protected function _prepareListFilter($filter = null)
     {
         // prepare filter, map field creditmemo_id to entity_id

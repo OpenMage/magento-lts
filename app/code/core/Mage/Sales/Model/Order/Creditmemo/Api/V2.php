@@ -21,7 +21,7 @@ class Mage_Sales_Model_Order_Creditmemo_Api_V2 extends Mage_Sales_Model_Order_Cr
      * @return array
      */
     #[Override]
-    #[Deprecated(message: 'since 1.7.0.1')]
+    #[Deprecated(since: MagentoVersionInterface::VERSION_1_7_0_1)]
     protected function _prepareListFilter($filters = null)
     {
         $preparedFilters = [];
