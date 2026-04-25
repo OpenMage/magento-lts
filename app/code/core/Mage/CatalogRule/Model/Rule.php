@@ -450,7 +450,7 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
      * @return string
      */
     #[Override]
-    #[Deprecated(since: '1.11.2.0')]
+    #[Deprecated(since: MagentoVersionInterface::VERSION_1_11_2_0)]
     public function toString($format = '')
     {
         return '';
@@ -471,7 +471,7 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
      * @return array
      */
     #[Override]
-    #[Deprecated(since: '1.11.2.0')]
+    #[Deprecated(since: MagentoVersionInterface::VERSION_1_11_2_0)]
     public function toArray(array $arrAttributes = [])
     {
         return parent::toArray($arrAttributes);

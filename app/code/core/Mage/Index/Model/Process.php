@@ -573,7 +573,7 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
      * @param  bool  $value
      * @return $this
      */
-    #[Deprecated(since: '1.6.1.0')]
+    #[Deprecated(since: MagentoVersionInterface::VERSION_1_6_1_0)]
     public function setAllowTableChanges($value = true)
     {
         $this->_allowTableChanges = $value;

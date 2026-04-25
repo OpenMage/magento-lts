@@ -19,7 +19,7 @@ class Mage_Reports_Model_Resource_Tag_Collection extends Mage_Tag_Model_Resource
      *
      * @return $this
      */
-    #[Deprecated(since: '1.4.0.1')]
+    #[Deprecated(since: MagentoVersionInterface::VERSION_1_4_0_1)]
     public function addGroupByTag()
     {
         return $this;

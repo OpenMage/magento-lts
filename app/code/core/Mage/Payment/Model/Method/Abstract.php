@@ -550,7 +550,7 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
     #[Deprecated(message: <<<'TXT'
      this method doesn't make sense, because invoice must not void entire authorization
      there should be method for invoice cancellation
-    TXT, since: '1.4.0.0-alpha3')]
+    TXT, since: MagentoVersionInterface::VERSION_1_4_0_0_ALPHA_3)]
     public function processBeforeVoid($invoice, $payment)
     {
         $payment->setVoidTransactionId($invoice->getTransactionId());

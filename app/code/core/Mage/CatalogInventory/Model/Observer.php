@@ -578,7 +578,7 @@ class Mage_CatalogInventory_Model_Observer
      * @param  float       $itemQty
      * @return float|mixed
      */
-    #[Deprecated(since: '1.4.2.0-rc1')]
+    #[Deprecated(since: MagentoVersionInterface::VERSION_1_4_2_0_RC_1)]
     protected function _getProductQtyForCheck($productId, $itemQty)
     {
         $qty = $itemQty;
@@ -982,7 +982,7 @@ class Mage_CatalogInventory_Model_Observer
      * @param  Varien_Event_Observer $observer
      * @return $this
      */
-    #[Deprecated(since: '1.4')]
+    #[Deprecated(since: MagentoVersionInterface::VERSION_1_4_0_0)]
     public function lockOrderInventoryData($observer)
     {
         /** @var Mage_Sales_Model_Order $order */
@@ -1015,7 +1015,7 @@ class Mage_CatalogInventory_Model_Observer
      * @param  Varien_Event_Observer $observer
      * @return $this
      */
-    #[Deprecated(since: '1.4')]
+    #[Deprecated(since: MagentoVersionInterface::VERSION_1_4_0_0)]
     public function createOrderItem($observer)
     {
         /** @var Mage_Sales_Model_Order_Item $item */
@@ -1039,7 +1039,7 @@ class Mage_CatalogInventory_Model_Observer
      * @param  Varien_Event_Observer $observer
      * @return $this
      */
-    #[Deprecated(since: '1.4')]
+    #[Deprecated(since: MagentoVersionInterface::VERSION_1_4_0_0)]
     public function refundOrderItem($observer)
     {
         /** @var Mage_Sales_Model_Order_Creditmemo_Item $item */

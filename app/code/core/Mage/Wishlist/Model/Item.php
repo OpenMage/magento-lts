@@ -43,7 +43,7 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
      * We can store product store product configuration
      * and add grouped attributes after 1.4.2.0
      */
-    #[Deprecated(since: '1.4.2.0')]
+    #[Deprecated(since: MagentoVersionInterface::VERSION_1_4_2_0)]
     public const EXCEPTION_CODE_IS_GROUPED_PRODUCT     = 903;
 
     public const EXCEPTION_CODE_NOT_SPECIFIED_PRODUCT  = 904;

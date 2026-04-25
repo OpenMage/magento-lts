@@ -65,7 +65,7 @@ class Mage_Catalog_CategoryController extends Mage_Core_Controller_Front_Action
      *
      * @return $this
      */
-    #[Deprecated(message: 'functionality moved to Mage_Catalog_Model_Design', since: '1.4.2.0-beta1')]
+    #[Deprecated(message: 'functionality moved to Mage_Catalog_Model_Design', since: MagentoVersionInterface::VERSION_1_4_2_0_BETA_1)]
     protected function _applyCustomDesignSettings($category, $update)
     {
         if ($category->getCustomUseParentSettings() && $category->getLevel() > 1) {

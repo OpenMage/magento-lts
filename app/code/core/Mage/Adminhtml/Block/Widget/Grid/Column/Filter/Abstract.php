@@ -103,7 +103,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Abstract extends Mage_Admin
      * @param  array|string $value
      * @return array|string
      */
-    #[Deprecated(since: '1.5.0.0')]
+    #[Deprecated(since: MagentoVersionInterface::VERSION_1_5_0_0)]
     protected function _escapeValue($value)
     {
         return str_replace('_', '\_', str_replace('\\', '\\\\', $value));

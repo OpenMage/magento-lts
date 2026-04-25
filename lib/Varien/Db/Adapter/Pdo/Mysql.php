@@ -4156,7 +4156,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      *
      * @return string
      */
-    #[Deprecated(since: '1.5.1.0')]
+    #[Deprecated(since: MagentoVersionInterface::VERSION_1_5_1_0)]
     public function getSuggestedZeroDate()
     {
         return '0000-00-00 00:00:00';
@@ -4168,7 +4168,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      * @param  string $fkName
      * @return string
      */
-    #[Deprecated(since: '1.6.0.0')]
+    #[Deprecated(since: MagentoVersionInterface::VERSION_1_6_0_0)]
     protected function _getForeignKeyName($fkName)
     {
         if (!str_starts_with($fkName, 'FK_')) {

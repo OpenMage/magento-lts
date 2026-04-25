@@ -1143,7 +1143,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      * @param  bool   $isCustomerNotified
      * @return $this
      */
-    #[Deprecated(since: '1.4.0.0-alpha3')]
+    #[Deprecated(since: MagentoVersionInterface::VERSION_1_4_0_0_ALPHA_3)]
     public function addStatusToHistory($status, $comment = '', $isCustomerNotified = false)
     {
         $this->addStatusHistoryComment($comment, $status)

@@ -496,7 +496,7 @@ class Varien_File_Uploader
      * @param  string $extension
      * @return bool
      */
-    #[Deprecated(since: '1.5.0.0-beta2')]
+    #[Deprecated(since: MagentoVersionInterface::VERSION_1_5_0_0_BETA_2)]
     public function chechAllowedExtension($extension)
     {
         return $this->checkAllowedExtension($extension);

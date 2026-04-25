@@ -39,13 +39,13 @@ class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
      * @param  int   $oid
      * @return $this
      */
-    #[Deprecated(since: '1.3.2.3')]
+    #[Deprecated(since: MagentoVersionInterface::VERSION_1_3_2_3)]
     public function setOrderId($oid)
     {
         return $this->setData('order_id', $oid);
     }
 
-    #[Deprecated(since: '1.3.2.3')]
+    #[Deprecated(since: MagentoVersionInterface::VERSION_1_3_2_3)]
     public function getOrderId()
     {
         return $this->_getData('order_id');
@@ -55,13 +55,13 @@ class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
      * @param  int   $oid
      * @return $this
      */
-    #[Deprecated(since: '1.3.2.3')]
+    #[Deprecated(since: MagentoVersionInterface::VERSION_1_3_2_3)]
     public function setShipId($oid)
     {
         return $this->setData('ship_id', $oid);
     }
 
-    #[Deprecated(since: '1.3.2.3')]
+    #[Deprecated(since: MagentoVersionInterface::VERSION_1_3_2_3)]
     public function getShipId()
     {
         return $this->_getData('ship_id');
@@ -71,13 +71,13 @@ class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
      * @param  string $tid
      * @return $this
      */
-    #[Deprecated(since: '1.3.2.3')]
+    #[Deprecated(since: MagentoVersionInterface::VERSION_1_3_2_3)]
     public function setTrackId($tid = '')
     {
         return $this->setData('track_id', $tid);
     }
 
-    #[Deprecated(since: '1.3.2.3')]
+    #[Deprecated(since: MagentoVersionInterface::VERSION_1_3_2_3)]
     public function getTrackId()
     {
         return $this->_getData('track_id');

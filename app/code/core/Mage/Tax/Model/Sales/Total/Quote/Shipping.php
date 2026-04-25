@@ -207,7 +207,7 @@ class Mage_Tax_Model_Sales_Total_Quote_Shipping extends Mage_Sales_Model_Quote_A
      * @param  Mage_Sales_Model_Quote_Address $address
      * @return Varien_Object
      */
-    #[Deprecated(since: '1.4.0.0')]
+    #[Deprecated(since: MagentoVersionInterface::VERSION_1_4_0_0)]
     protected function _getStoreTaxRequest($address)
     {
         if (is_null($this->_storeTaxRequest)) {
@@ -223,7 +223,7 @@ class Mage_Tax_Model_Sales_Total_Quote_Shipping extends Mage_Sales_Model_Quote_A
      * @param  Mage_Sales_Model_Quote_Address $address
      * @return Varien_Object
      */
-    #[Deprecated(since: '1.4.0.0')]
+    #[Deprecated(since: MagentoVersionInterface::VERSION_1_4_0_0)]
     protected function _getAddressTaxRequest($address)
     {
         return $this->_calculator->getRateRequest(
@@ -240,7 +240,7 @@ class Mage_Tax_Model_Sales_Total_Quote_Shipping extends Mage_Sales_Model_Quote_A
      * @param  Mage_Sales_Model_Quote_Address $address
      * @return bool
      */
-    #[Deprecated(since: '1.4.0.0')]
+    #[Deprecated(since: MagentoVersionInterface::VERSION_1_4_0_0)]
     protected function _needSubtractShippingTax($address)
     {
         $store = $address->getQuote()->getStore();
@@ -256,6 +256,6 @@ class Mage_Tax_Model_Sales_Total_Quote_Shipping extends Mage_Sales_Model_Quote_A
      *
      * @param Mage_Sales_Model_Quote_Address $address
      */
-    #[Deprecated(since: '1.4.0.0')]
+    #[Deprecated(since: MagentoVersionInterface::VERSION_1_4_0_0)]
     protected function _processShippingAmount($address) {}
 }

@@ -23,7 +23,7 @@ class Mage_Checkout_Block_Cart extends Mage_Checkout_Block_Cart_Abstract
     /**
      * Prepare cart items URLs
      */
-    #[Deprecated(since: '1.7.0.2')]
+    #[Deprecated(since: MagentoVersionInterface::VERSION_1_7_0_2)]
     public function prepareItemUrls()
     {
         $products = [];

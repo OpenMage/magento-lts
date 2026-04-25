@@ -98,7 +98,7 @@ class Mage_Admin_Model_Observer
      *
      * @param Varien_Event_Observer $event
      */
-    #[Deprecated(message: 'logic moved to admin session', since: '1.4.0.1')]
+    #[Deprecated(message: 'logic moved to admin session', since: MagentoVersionInterface::VERSION_1_4_0_1)]
     public function actionPostDispatchAdmin($event) {}
 
     /**

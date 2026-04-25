@@ -239,7 +239,7 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
      * @param  bool   $skipRoot
      * @return string
      */
-    #[Deprecated(since: '1.7.0.0')]
+    #[Deprecated(since: MagentoVersionInterface::VERSION_1_7_0_0)]
     protected function _packToTar($skipRoot = false)
     {
         $file = $this->_getCurrentFile();
@@ -458,7 +458,7 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
      * @param  resource    $pointer
      * @return array|false
      */
-    #[Deprecated(since: '1.7.0.0')]
+    #[Deprecated(since: MagentoVersionInterface::VERSION_1_7_0_0)]
     protected function _parseHeader(&$pointer)
     {
         $firstLine = fread($pointer, 512);

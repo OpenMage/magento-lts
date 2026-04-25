@@ -435,7 +435,7 @@ class Mage_Adminhtml_Sales_Order_InvoiceController extends Mage_Adminhtml_Contro
      * @return bool
      * @throws Mage_Core_Exception
      */
-    #[Deprecated(message: 'Mage_Sales_Model_Service_Order used', since: '1.4')]
+    #[Deprecated(message: 'Mage_Sales_Model_Service_Order used', since: MagentoVersionInterface::VERSION_1_4_0_0)]
     protected function _needToAddDummy($item, $qtys)
     {
         if ($item->getHasChildren()) {
@@ -465,7 +465,7 @@ class Mage_Adminhtml_Sales_Order_InvoiceController extends Mage_Adminhtml_Contro
      * @return bool
      * @throws Mage_Core_Exception
      */
-    #[Deprecated(message: 'Mage_Sales_Model_Service_Order used', since: '1.4')]
+    #[Deprecated(message: 'Mage_Sales_Model_Service_Order used', since: MagentoVersionInterface::VERSION_1_4_0_0)]
     protected function _needToAddDummyForShipment($item, $qtys)
     {
         if ($item->getHasChildren()) {

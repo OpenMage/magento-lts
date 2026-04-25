@@ -218,7 +218,7 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
      * @return string
      * @throws Mage_Core_Model_Store_Exception
      */
-    #[Deprecated(since: '1.4')]
+    #[Deprecated(since: MagentoVersionInterface::VERSION_1_4_0_0)]
     protected function _getCacheKey()
     {
         $key = $this->getLayer()->getStateKey()

@@ -22,7 +22,7 @@ class Mage_Core_Model_Design_Package
 
     public const BASE_PACKAGE    = 'base';
 
-    #[Deprecated(since: '1.4.0.0-alpha3')]
+    #[Deprecated(since: MagentoVersionInterface::VERSION_1_4_0_0_ALPHA_3)]
     public const FALLBACK_THEME  = 'default';
 
     // phpcs:ignore Ecg.PHP.PrivateClassMember.PrivateClassMemberError

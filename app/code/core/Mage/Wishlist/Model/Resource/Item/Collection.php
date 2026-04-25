@@ -283,7 +283,7 @@ class Mage_Wishlist_Model_Resource_Item_Collection extends Mage_Core_Model_Resou
      * @return $this
      * @see Varien_Data_Collection_Db::setOrder() is used instead
      */
-    #[Deprecated(since: '1.6.0.0-rc2')]
+    #[Deprecated(since: MagentoVersionInterface::VERSION_1_6_0_0_RC_2)]
     public function addWishListSortOrder($attribute = 'added_at', $dir = 'desc')
     {
         $this->setOrder($attribute, $dir);
@@ -349,7 +349,7 @@ class Mage_Wishlist_Model_Resource_Item_Collection extends Mage_Core_Model_Resou
      *
      * @return $this
      */
-    #[Deprecated(since: '1.4.2.0')]
+    #[Deprecated(since: MagentoVersionInterface::VERSION_1_4_2_0)]
     public function addDaysInWishlist()
     {
         $this->_addDaysInWishlist = true;

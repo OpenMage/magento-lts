@@ -1056,7 +1056,7 @@ interface Varien_Db_Adapter_Interface
      *
      * @return string
      */
-    #[Deprecated(since: '1.5.1.0')]
+    #[Deprecated(since: MagentoVersionInterface::VERSION_1_5_1_0)]
     public function getSuggestedZeroDate();
 
     /**
