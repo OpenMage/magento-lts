@@ -100,7 +100,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Customer_Grid extends Mage_Adminht
     }
 
     #[Override]
-    #[Deprecated(message: 'since 1.1.7')]
+    #[Deprecated(since: MagentoVersionInterface::VERSION_1_1_7)]
     public function getRowId($row)
     {
         return $row->getId();

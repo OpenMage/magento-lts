@@ -17,6 +17,8 @@ interface MagentoVersionInterface
 
     public const VERSION_1_3_0              = '1.3.0';
 
+    public const VERSION_1_3_2              = '1.3.2';
+
     public const VERSION_1_3_2_3            = '1.3.2.3';
 
     public const VERSION_1_3_2_4            = '1.3.2.4';
