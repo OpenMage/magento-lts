@@ -383,7 +383,7 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
      * @param  bool                                 $updateParent
      * @return $this
      */
-    #[Deprecated(message: 'since 1.3.2.3')]
+    #[Deprecated(since: MagentoVersionInterface::VERSION_1_3_2_3)]
     protected function _processItem(Mage_Sales_Model_Quote_Address $address, $item, $updateParent = false)
     {
         $store = $address->getQuote()->getStore();

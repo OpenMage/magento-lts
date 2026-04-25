@@ -500,7 +500,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
      * @return void
      * @throws Mage_Core_Exception
      */
-    #[Deprecated(message: 'since 1.2')]
+    #[Deprecated(since: MagentoVersionInterface::VERSION_1_2_0)]
     public function bundlesAction()
     {
         $product = $this->_initProduct();
@@ -864,7 +864,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
         }
     }
 
-    #[Deprecated(message: 'since 1.4.0.0-alpha2')]
+    #[Deprecated(since: MagentoVersionInterface::VERSION_1_4_0_0_ALPHA_2)]
     protected function _decodeInput($encoded)
     {
         parse_str($encoded, $data);

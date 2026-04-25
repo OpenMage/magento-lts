@@ -1139,7 +1139,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      * @return $this
      * @throws Mage_Core_Exception
      */
-    #[Deprecated(message: 'after 1.7.0.2. Method is not used anywhere in the code.')]
+    #[Deprecated(message: 'Method is not used anywhere in the code.', since: MagentoVersionInterface::VERSION_1_7_0_2)]
     public function joinUrlRewrite()
     {
         $this->joinTable(
@@ -1471,7 +1471,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
         return $this->_addTaxPercents;
     }
 
-    #[Deprecated(message: 'from 1.3.0')]
+    #[Deprecated(since: MagentoVersionInterface::VERSION_1_3_0)]
     protected function _addTaxPercents()
     {
         $classToRate = [];

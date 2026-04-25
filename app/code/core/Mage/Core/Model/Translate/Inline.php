@@ -541,7 +541,7 @@ class Mage_Core_Model_Translate_Inline
      *
      * @return bool
      */
-    #[\Deprecated(message: '1.3.2.2')]
+    #[\Deprecated(since: MagentoVersionInterface::VERSION_1_3_2_2)]
     public function getIsAjaxRequest()
     {
         return (bool) Mage::app()->getRequest()->getQuery('isAjax');
@@ -553,7 +553,7 @@ class Mage_Core_Model_Translate_Inline
      * @param  bool  $flag
      * @return $this
      */
-    #[\Deprecated(message: '1.3.2.2')]
+    #[\Deprecated(since: MagentoVersionInterface::VERSION_1_3_2_2)]
     public function setIsAjaxRequest($flag)
     {
         Mage::app()->getRequest()->setQuery('isAjax', (int) (bool) $flag);

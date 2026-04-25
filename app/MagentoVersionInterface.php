@@ -11,19 +11,27 @@ declare(strict_types=1);
 
 interface MagentoVersionInterface
 {
+    public const VERSION_1_1_5              = '1.1.5';
+
     public const VERSION_1_1_7              = '1.1.7';
 
     public const VERSION_1_11_2_0           = '1.11.2.0';
 
+    public const VERSION_1_2_0              = '1.2.0';
+
     public const VERSION_1_3_0              = '1.3.0';
 
     public const VERSION_1_3_2              = '1.3.2';
+
+    public const VERSION_1_3_2_2            = '1.3.2.2';
 
     public const VERSION_1_3_2_3            = '1.3.2.3';
 
     public const VERSION_1_3_2_4            = '1.3.2.4';
 
     public const VERSION_1_4_0_0            = '1.4.0.0';
+
+    public const VERSION_1_4_0_0_ALPHA_2    = '1.4.0.0-alpha2';
 
     public const VERSION_1_4_0_0_ALPHA_3    = '1.4.0.0-alpha3';
 
