@@ -16,6 +16,7 @@ class Mage_Paypal_HostedproController extends Mage_Core_Controller_Front_Action
 {
     /**
      * When a customer return to website from gateway.
+     * @return void
      */
     public function returnAction()
     {
@@ -28,6 +29,7 @@ class Mage_Paypal_HostedproController extends Mage_Core_Controller_Front_Action
 
     /**
      * When a customer cancel payment from gateway.
+     * @return void
      */
     public function cancelAction()
     {

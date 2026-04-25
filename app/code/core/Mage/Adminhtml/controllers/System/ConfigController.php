@@ -47,6 +47,7 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
 
     /**
      * Index action
+     * @return void
      */
     public function indexAction()
     {
@@ -55,6 +56,7 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
 
     /**
      * Edit configuration section
+     * @return void
      */
     public function editAction()
     {
@@ -126,6 +128,7 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
      * Save configuration
      *
      * @SuppressWarnings("PHPMD.Superglobals")
+     * @return void
      */
     public function saveAction()
     {
@@ -228,6 +231,7 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
 
     /**
      * Save fieldset state through AJAX
+     * @return void
      */
     public function stateAction()
     {
@@ -246,6 +250,7 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
     /**
      * Export shipping table rates in csv format
      *
+     * @return void
      * @throws Exception
      * @throws Mage_Core_Exception
      */

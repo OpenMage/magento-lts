@@ -59,6 +59,7 @@ class Mage_Adminhtml_Report_ProductController extends Mage_Adminhtml_Controller_
 
     /**
      * Sold Products Report Action
+     * @return void
      */
     public function soldAction()
     {
@@ -75,6 +76,7 @@ class Mage_Adminhtml_Report_ProductController extends Mage_Adminhtml_Controller_
 
     /**
      * Export Sold Products report to CSV format action
+     * @return void
      */
     public function exportSoldCsvAction()
     {
@@ -88,6 +90,7 @@ class Mage_Adminhtml_Report_ProductController extends Mage_Adminhtml_Controller_
 
     /**
      * Export Sold Products report to XML format action
+     * @return void
      */
     public function exportSoldExcelAction()
     {
@@ -101,6 +104,7 @@ class Mage_Adminhtml_Report_ProductController extends Mage_Adminhtml_Controller_
 
     /**
      * Most viewed products
+     * @return void
      */
     public function viewedAction()
     {
@@ -125,6 +129,7 @@ class Mage_Adminhtml_Report_ProductController extends Mage_Adminhtml_Controller_
 
     /**
      * Export products most viewed report to CSV format
+     * @return void
      */
     public function exportViewedCsvAction()
     {
@@ -136,6 +141,7 @@ class Mage_Adminhtml_Report_ProductController extends Mage_Adminhtml_Controller_
 
     /**
      * Export products most viewed report to XML format
+     * @return void
      */
     public function exportViewedExcelAction()
     {
@@ -147,6 +153,7 @@ class Mage_Adminhtml_Report_ProductController extends Mage_Adminhtml_Controller_
 
     /**
      * Low stock action
+     * @return void
      */
     public function lowstockAction()
     {
@@ -163,6 +170,7 @@ class Mage_Adminhtml_Report_ProductController extends Mage_Adminhtml_Controller_
 
     /**
      * Export low stock products report to CSV format
+     * @return void
      */
     public function exportLowstockCsvAction()
     {
@@ -176,6 +184,7 @@ class Mage_Adminhtml_Report_ProductController extends Mage_Adminhtml_Controller_
 
     /**
      * Export low stock products report to XML format
+     * @return void
      */
     public function exportLowstockExcelAction()
     {
@@ -189,6 +198,7 @@ class Mage_Adminhtml_Report_ProductController extends Mage_Adminhtml_Controller_
 
     /**
      * Downloads action
+     * @return void
      */
     public function downloadsAction()
     {
@@ -205,6 +215,7 @@ class Mage_Adminhtml_Report_ProductController extends Mage_Adminhtml_Controller_
 
     /**
      * Export products downloads report to CSV format
+     * @return void
      */
     public function exportDownloadsCsvAction()
     {
@@ -218,6 +229,7 @@ class Mage_Adminhtml_Report_ProductController extends Mage_Adminhtml_Controller_
 
     /**
      * Export products downloads report to XLS format
+     * @return void
      */
     public function exportDownloadsExcelAction()
     {

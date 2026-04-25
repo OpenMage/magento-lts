@@ -46,6 +46,9 @@ class Mage_Contacts_IndexController extends Mage_Core_Controller_Front_Action
         return $this;
     }
 
+    /**
+     * @return void
+     */
     public function indexAction()
     {
         $this->loadLayout();
@@ -57,6 +60,9 @@ class Mage_Contacts_IndexController extends Mage_Core_Controller_Front_Action
         $this->renderLayout();
     }
 
+    /**
+     * @return void
+     */
     public function postAction()
     {
         $post = $this->getRequest()->getPost();

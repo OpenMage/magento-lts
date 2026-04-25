@@ -16,6 +16,9 @@ declare(strict_types=1);
  */
 class Mage_Api_SoapController extends Mage_Api_Controller_Action
 {
+    /**
+     * @return void
+     */
     public function indexAction()
     {
         $this->_getServer()->init($this, 'soap')->run();

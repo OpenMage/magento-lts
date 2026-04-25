@@ -41,6 +41,9 @@ class Mage_Adminhtml_Permissions_UserController extends Mage_Adminhtml_Controlle
         return $this;
     }
 
+    /**
+     * @return void
+     */
     public function indexAction()
     {
         $this->_title($this->__('System'))
@@ -52,11 +55,17 @@ class Mage_Adminhtml_Permissions_UserController extends Mage_Adminhtml_Controlle
             ->renderLayout();
     }
 
+    /**
+     * @return void
+     */
     public function newAction()
     {
         $this->_forward('edit');
     }
 
+    /**
+     * @return void
+     */
     public function editAction()
     {
         $this->_title($this->__('System'))
@@ -96,6 +105,9 @@ class Mage_Adminhtml_Permissions_UserController extends Mage_Adminhtml_Controlle
         $this->renderLayout();
     }
 
+    /**
+     * @return void
+     */
     public function saveAction()
     {
         if ($data = $this->getRequest()->getPost()) {
@@ -174,6 +186,9 @@ class Mage_Adminhtml_Permissions_UserController extends Mage_Adminhtml_Controlle
         $this->_redirect('*/*/');
     }
 
+    /**
+     * @return void
+     */
     public function deleteAction()
     {
         $id = $this->getRequest()->getParam('user_id');
@@ -219,6 +234,9 @@ class Mage_Adminhtml_Permissions_UserController extends Mage_Adminhtml_Controlle
         $this->_redirect('*/*/');
     }
 
+    /**
+     * @return void
+     */
     public function rolesGridAction()
     {
         $id = $this->getRequest()->getParam('user_id');
@@ -236,6 +254,9 @@ class Mage_Adminhtml_Permissions_UserController extends Mage_Adminhtml_Controlle
         );
     }
 
+    /**
+     * @return void
+     */
     public function roleGridAction()
     {
         $this->getResponse()

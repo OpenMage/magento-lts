@@ -61,6 +61,7 @@ class Mage_Adminhtml_SitemapController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Index action
+     * @return void
      */
     public function indexAction()
     {
@@ -73,6 +74,7 @@ class Mage_Adminhtml_SitemapController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Create new sitemap
+     * @return void
      */
     public function newAction()
     {
@@ -82,6 +84,7 @@ class Mage_Adminhtml_SitemapController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Edit sitemap
+     * @return void
      */
     public function editAction()
     {
@@ -126,6 +129,7 @@ class Mage_Adminhtml_SitemapController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Save action
+     * @return void
      */
     public function saveAction()
     {
@@ -225,6 +229,7 @@ class Mage_Adminhtml_SitemapController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Delete action
+     * @return void
      */
     public function deleteAction()
     {
@@ -270,6 +275,7 @@ class Mage_Adminhtml_SitemapController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Generate sitemap
+     * @return void
      */
     public function generateAction()
     {
