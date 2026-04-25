@@ -24,6 +24,7 @@ class Mage_Adminhtml_Sales_Order_EditController extends Mage_Adminhtml_Sales_Ord
 
     /**
      * Start edit order initialization
+     * @return void
      */
     #[Override]
     public function startAction()
@@ -56,6 +57,7 @@ class Mage_Adminhtml_Sales_Order_EditController extends Mage_Adminhtml_Sales_Ord
 
     /**
      * Index page
+     * @return void
      */
     #[Override]
     public function indexAction()

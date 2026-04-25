@@ -20,6 +20,9 @@ class Mage_Adminhtml_Newsletter_ProblemController extends Mage_Adminhtml_Control
      */
     public const ADMIN_RESOURCE = 'newsletter/problem';
 
+    /**
+     * @return void
+     */
     public function indexAction()
     {
         $this->_title($this->__('Newsletter'))->_title($this->__('Newsletter Problems'));
@@ -45,6 +48,9 @@ class Mage_Adminhtml_Newsletter_ProblemController extends Mage_Adminhtml_Control
         $this->renderLayout();
     }
 
+    /**
+     * @return void
+     */
     public function gridAction()
     {
         if ($this->getRequest()->getParam('_unsubscribe')) {

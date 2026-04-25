@@ -56,6 +56,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Customers list action
+     * @return void
      */
     public function indexAction()
     {
@@ -89,6 +90,9 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
         $this->renderLayout();
     }
 
+    /**
+     * @return void
+     */
     public function gridAction()
     {
         $this->loadLayout();
@@ -98,6 +102,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
     /**
      * Customer edit action
      *
+     * @return void
      * @throws Mage_Core_Exception
      */
     public function editAction()
@@ -161,6 +166,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Create new customer action
+     * @return void
      */
     public function newAction()
     {
@@ -170,6 +176,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
     /**
      * Delete customer action
      *
+     * @return void
      * @throws Mage_Core_Exception
      */
     public function deleteAction()
@@ -192,6 +199,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
     /**
      * Save customer action
      *
+     * @return void
      * @throws Mage_Core_Exception
      */
     public function saveAction()
@@ -337,7 +345,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
                 // Force new customer confirmation
                 if ($isNewCustomer) {
                     $customer->setPassword($data['account']['password']);
-                    $customer->setPasswordCreatedAt(Carbon::now()->getTimestamp());
+                    $customer->setPasswordCreatedAt(Mage::helper('core/clock')->getTimestamp());
                     $customer->setForceConfirmed(true);
                     if ($customer->getPassword() === 'auto') {
                         $sendPassToEmail = true;
@@ -419,6 +427,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
     /**
      * Export customer grid to CSV format
      *
+     * @return void
      * @throws Exception
      */
     public function exportCsvAction()
@@ -433,6 +442,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
     /**
      * Export customer grid to XML format
      *
+     * @return void
      * @throws Exception
      */
     public function exportXmlAction()
@@ -447,6 +457,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
     /**
      * Customer orders grid
      *
+     * @return void
      * @throws Mage_Core_Exception
      */
     public function ordersAction()
@@ -459,6 +470,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
     /**
      * Customer last orders grid for ajax
      *
+     * @return void
      * @throws Mage_Core_Exception
      */
     public function lastOrdersAction()
@@ -471,6 +483,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
     /**
      * Customer newsletter grid
      *
+     * @return void
      * @throws Mage_Core_Exception
      */
     public function newsletterAction()
@@ -485,6 +498,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
     }
 
     /**
+     * @return void
      * @throws Mage_Core_Exception
      * @throws Throwable
      */
@@ -511,6 +525,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
     /**
      * Customer last view wishlist for ajax
      *
+     * @return void
      * @throws Mage_Core_Exception
      */
     public function viewWishlistAction()
@@ -523,6 +538,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
     /**
      * [Handle and then] get a cart grid contents
      *
+     * @return void
      * @throws Mage_Core_Exception
      * @throws Throwable
      */
@@ -552,6 +568,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
     /**
      * Get shopping cart to view only
      *
+     * @return void
      * @throws Mage_Core_Exception
      */
     public function viewCartAction()
@@ -567,6 +584,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
     /**
      * Get shopping carts from all websites for specified client
      *
+     * @return void
      * @throws Mage_Core_Exception
      */
     public function cartsAction()
@@ -579,6 +597,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
     /**
      * Get customer's product reviews list
      *
+     * @return void
      * @throws Mage_Core_Exception
      */
     public function productReviewsAction()
@@ -595,6 +614,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
     /**
      * Get customer's tags list
      *
+     * @return void
      * @throws Mage_Core_Exception
      */
     public function productTagsAction()
@@ -609,6 +629,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
     }
 
     /**
+     * @return void
      * @throws Mage_Core_Exception
      */
     public function tagGridAction()
@@ -622,6 +643,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
     }
 
     /**
+     * @return void
      * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
      */
@@ -713,6 +735,9 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
         $this->getResponse()->setBody($response->toJson());
     }
 
+    /**
+     * @return void
+     */
     public function massSubscribeAction()
     {
         $customersIds = $this->getRequest()->getParam('customer');
@@ -739,6 +764,9 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
         $this->_redirect('*/*/index');
     }
 
+    /**
+     * @return void
+     */
     public function massUnsubscribeAction()
     {
         $customersIds = $this->getRequest()->getParam('customer');
@@ -765,6 +793,9 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
         $this->_redirect('*/*/index');
     }
 
+    /**
+     * @return void
+     */
     public function massDeleteAction()
     {
         $customersIds = $this->getRequest()->getParam('customer');
@@ -792,6 +823,9 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
         $this->_redirect('*/*/index');
     }
 
+    /**
+     * @return void
+     */
     public function massAssignGroupAction()
     {
         $customersIds = $this->getRequest()->getParam('customer');
@@ -820,6 +854,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
 
     /**
      * @SuppressWarnings("PHPMD.ExitExpression")
+     * @return void
      * @throws Exception
      * @throws Zend_Controller_Response_Exception
      */

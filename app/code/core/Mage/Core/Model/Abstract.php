@@ -670,4 +670,11 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
         $validator = Mage::helper('core/validate');
         return $validator;
     }
+
+    protected function getClockHelper(): Mage_Core_Helper_Clock
+    {
+        /** @var Mage_Core_Helper_Clock $clock */
+        $clock = Mage::helper('core/clock');
+        return $clock;
+    }
 }

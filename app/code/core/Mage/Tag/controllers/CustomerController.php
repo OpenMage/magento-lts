@@ -132,10 +132,10 @@ class Mage_Tag_CustomerController extends Mage_Core_Controller_Front_Action
         }
     }
 
-    #[Deprecated(message: <<<'TXT'
-    after 1.3.2.3
-     This functionality was removed
-    TXT)]
+    /**
+     * @return void
+     */
+    #[Deprecated(message: 'This functionality was removed', since: '1.3.2.3')]
     public function saveAction()
     {
         $this->_forward('noRoute');

@@ -25,8 +25,8 @@ class Mage_Api2_Block_Adminhtml_Attribute_Edit extends Mage_Adminhtml_Block_Widg
 
         parent::__construct();
 
-        $this->_updateButton('save', 'label', $this->__('Save'))
-            ->_removeButton('delete');
+        $this->_updateButton(self::BUTTON_TYPE_SAVE, 'label', $this->__('Save'))
+            ->_removeButton(self::BUTTON_TYPE_DELETE);
     }
 
     /**

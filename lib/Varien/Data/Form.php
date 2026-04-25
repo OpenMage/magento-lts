@@ -101,8 +101,8 @@ class Varien_Data_Form extends Varien_Data_Form_Abstract
     /**
      * Add form element
      *
-     * @param  false|string     $after
-     * @return Varien_Data_Form
+     * @param  false|string $after
+     * @return $this
      * @throws Exception
      */
     #[Override]
@@ -210,8 +210,8 @@ class Varien_Data_Form extends Varien_Data_Form_Abstract
     /**
      * Add suffix to name of all elements
      *
-     * @param  string           $suffix
-     * @return Varien_Data_Form
+     * @param  string $suffix
+     * @return $this
      */
     public function addFieldNameSuffix($suffix)
     {

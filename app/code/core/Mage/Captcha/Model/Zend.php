@@ -7,14 +7,15 @@
  * @package    Mage_Captcha
  */
 
-use Carbon\Carbon;
+
+use Laminas\Captcha\Image;
 
 /**
- * Implementation of Zend_Captcha
+ * Implementation of Laminas\Captcha
  *
  * @package    Mage_Captcha
  */
-class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha_Model_Interface
+class Mage_Captcha_Model_Zend extends Image implements Mage_Captcha_Model_Interface
 {
     /**
      * Key in session for captcha code
@@ -46,7 +47,7 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
     /**
      * Override default value to prevent a captcha cut off
      * @var int
-     * @see Zend_Captcha_Image::$_fsize
+     * @see \Laminas\Captcha\Image::$_fsize
      */
     protected $_fsize = 22;
 
@@ -363,7 +364,7 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
      * @return string
      */
     #[Override]
-    protected function _generateWord()
+    protected function generateWord()
     {
         $word = '';
         $symbols = $this->_getSymbols();
@@ -463,33 +464,31 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
     }
 
     /**
-     * Get captcha word
-     *
-     * @return null|string
+     * @inheritDoc
      */
     #[Override]
     public function getWord()
     {
         $sessionData = $this->getSession()->getData($this->_getFormIdKey(self::SESSION_WORD));
         if (!is_array($sessionData)) {
-            return null;
+            return '';
         }
 
-        return Carbon::now()->getTimestamp() < $sessionData['expires'] ? $sessionData['data'] : null;
+        return Mage::helper('core/clock')->getTimestamp() < $sessionData['expires'] ? $sessionData['data'] : '';
     }
 
     /**
      * Set captcha word
      *
-     * @param  string            $word
-     * @return Zend_Captcha_Word
+     * @param  string $word
+     * @return $this
      */
     #[Override]
-    protected function _setWord($word)
+    protected function setWord($word)
     {
         $this->getSession()->setData(
             $this->_getFormIdKey(self::SESSION_WORD),
-            ['data' => $word, 'expires' => Carbon::now()->getTimestamp() + $this->getTimeout()],
+            ['data' => $word, 'expires' => Mage::helper('core/clock')->getTimestamp() + $this->getTimeout()],
         );
         $this->_word = $word;
         return $this;
@@ -511,10 +510,10 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
      * Override function to generate less curly captcha that will not cut off
      *
      * @return int
-     * @see Zend_Captcha_Image::_randomSize()
+     * @see \Laminas\Captcha\Image::randomSize()
      */
     #[Override]
-    protected function _randomSize()
+    protected function randomSize()
     {
         return mt_rand(280, 300) / 100;
     }
@@ -524,9 +523,10 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
      *
      * Now deleting old captcha images make crontab script
      * @see Mage_Captcha_Model_Observer::deleteExpiredImages
+     * @SuppressWarnings("PHPMD.ShortMethodName")
      */
     #[Override]
-    protected function _gc()
+    protected function gc()
     {
         //do nothing
     }

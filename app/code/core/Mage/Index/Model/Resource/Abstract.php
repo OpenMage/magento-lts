@@ -43,7 +43,7 @@ abstract class Mage_Index_Model_Resource_Abstract extends Mage_Core_Model_Resour
     /**
      * Reindex all
      *
-     * @return Mage_Index_Model_Resource_Abstract
+     * @return $this
      */
     public function reindexAll()
     {
@@ -84,7 +84,7 @@ abstract class Mage_Index_Model_Resource_Abstract extends Mage_Core_Model_Resour
     /**
      * Synchronize data between index storage and original storage
      *
-     * @return Mage_Index_Model_Resource_Abstract
+     * @return $this
      */
     public function syncData()
     {
@@ -107,8 +107,8 @@ abstract class Mage_Index_Model_Resource_Abstract extends Mage_Core_Model_Resour
     /**
      * Create temporary table for index data pregeneration
      *
-     * @param  bool                               $asOriginal
-     * @return Mage_Index_Model_Resource_Abstract
+     * @param  bool  $asOriginal
+     * @return $this
      */
     #[Deprecated(message: 'since 1.5.0.0')]
     public function cloneIndexTable($asOriginal = false)
@@ -119,10 +119,10 @@ abstract class Mage_Index_Model_Resource_Abstract extends Mage_Core_Model_Resour
     /**
      * Copy data from source table of read adapter to destination table of index adapter
      *
-     * @param  string                             $sourceTable
-     * @param  string                             $destTable
-     * @param  bool                               $readToIndex data migration direction (true - read=>index, false - index=>read)
-     * @return Mage_Index_Model_Resource_Abstract
+     * @param  string $sourceTable
+     * @param  string $destTable
+     * @param  bool   $readToIndex data migration direction (true - read=>index, false - index=>read)
+     * @return $this
      */
     public function insertFromTable($sourceTable, $destTable, $readToIndex = true)
     {
@@ -146,10 +146,10 @@ abstract class Mage_Index_Model_Resource_Abstract extends Mage_Core_Model_Resour
      * Insert data from select statement of read adapter to
      * destination table related with index adapter
      *
-     * @param  Varien_Db_Select                   $select
-     * @param  string                             $destTable
-     * @param  bool                               $readToIndex data migration direction (true - read=>index, false - index=>read)
-     * @return Mage_Index_Model_Resource_Abstract
+     * @param  Varien_Db_Select $select
+     * @param  string           $destTable
+     * @param  bool             $readToIndex data migration direction (true - read=>index, false - index=>read)
+     * @return $this
      */
     public function insertFromSelect($select, $destTable, array $columns, $readToIndex = true)
     {
@@ -227,8 +227,8 @@ abstract class Mage_Index_Model_Resource_Abstract extends Mage_Core_Model_Resour
     /**
      * Set whether table changes are allowed
      *
-     * @param  bool                               $value
-     * @return Mage_Index_Model_Resource_Abstract
+     * @param  bool  $value
+     * @return $this
      */
     #[Deprecated(since: '1.6.1.0')]
     public function setAllowTableChanges($value = true)
@@ -240,7 +240,7 @@ abstract class Mage_Index_Model_Resource_Abstract extends Mage_Core_Model_Resour
     /**
      * Disable Main Table keys
      *
-     * @return Mage_Index_Model_Resource_Abstract
+     * @return $this
      */
     public function disableTableKeys()
     {
@@ -254,7 +254,7 @@ abstract class Mage_Index_Model_Resource_Abstract extends Mage_Core_Model_Resour
     /**
      * Enable Main Table keys
      *
-     * @return Mage_Index_Model_Resource_Abstract
+     * @return $this
      */
     public function enableTableKeys()
     {

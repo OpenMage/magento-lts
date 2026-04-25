@@ -100,10 +100,10 @@ class Mage_Core_Model_File_Storage_File extends Mage_Core_Model_File_Storage_Abs
     /**
      * Collect files and directories from storage
      *
-     * @param  int        $offset
-     * @param  int        $count
-     * @param  string     $type
-     * @return array|bool
+     * @param  int         $offset
+     * @param  int         $count
+     * @param  string      $type
+     * @return array|false
      */
     public function collectData($offset = 0, $count = 100, $type = 'files')
     {
@@ -129,9 +129,9 @@ class Mage_Core_Model_File_Storage_File extends Mage_Core_Model_File_Storage_Abs
     /**
      * Export directories list from storage
      *
-     * @param  int        $offset
-     * @param  int        $count
-     * @return array|bool
+     * @param  int         $offset
+     * @param  int         $count
+     * @return array|false
      */
     public function exportDirectories($offset = 0, $count = 100)
     {

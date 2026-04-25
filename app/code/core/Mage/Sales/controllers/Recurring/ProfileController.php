@@ -44,6 +44,7 @@ class Mage_Sales_Recurring_ProfileController extends Mage_Core_Controller_Front_
 
     /**
      * Profiles listing
+     * @return void
      */
     public function indexAction()
     {
@@ -55,6 +56,7 @@ class Mage_Sales_Recurring_ProfileController extends Mage_Core_Controller_Front_
 
     /**
      * Profile main view
+     * @return void
      */
     public function viewAction()
     {
@@ -63,6 +65,7 @@ class Mage_Sales_Recurring_ProfileController extends Mage_Core_Controller_Front_
 
     /**
      * Profile related orders view
+     * @return void
      */
     public function ordersAction()
     {
@@ -71,6 +74,7 @@ class Mage_Sales_Recurring_ProfileController extends Mage_Core_Controller_Front_
 
     /**
      * Attempt to set profile state
+     * @return void
      */
     public function updateStateAction()
     {
@@ -107,6 +111,7 @@ class Mage_Sales_Recurring_ProfileController extends Mage_Core_Controller_Front_
 
     /**
      * Fetch an update with profile
+     * @return void
      */
     public function updateProfileAction()
     {

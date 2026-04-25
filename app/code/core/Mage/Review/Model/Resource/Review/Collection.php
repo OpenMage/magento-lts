@@ -73,7 +73,7 @@ class Mage_Review_Model_Resource_Review_Collection extends Mage_Core_Model_Resou
     /**
      * init select
      *
-     * @return Mage_Review_Model_Resource_Review_Collection
+     * @return $this
      */
     #[Override]
     protected function _initSelect()

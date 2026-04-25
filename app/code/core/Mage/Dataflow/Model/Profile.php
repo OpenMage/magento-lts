@@ -7,8 +7,6 @@
  * @package    Mage_Dataflow
  */
 
-use Carbon\Carbon;
-
 /**
  * Convert profile
  *
@@ -89,8 +87,7 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
     {
         parent::_beforeSave();
         $actionsXML = $this->getDataByKey('actions_xml');
-        // @phpstan-ignore-next-line because of https://github.com/phpstan/phpstan/issues/10570
-        if ($actionsXML !== null && strlen($actionsXML) < 0
+        if ($actionsXML !== null && is_string($actionsXML) && $actionsXML !== ''
             && @simplexml_load_string('<data>' . $actionsXML . '</data>', null, LIBXML_NOERROR) === false
         ) {
             Mage::throwException(Mage::helper('dataflow')->__('Actions XML is not valid.'));
@@ -242,7 +239,7 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
                     }
 
                     if ($uploadFile) {
-                        $newFilename = 'import-' . Carbon::now()->format('YmdHis') . '-' . ($index + 1) . '_' . $uploadFile;
+                        $newFilename = 'import-' . Mage::helper('core/clock')->format('YmdHis') . '-' . ($index + 1) . '_' . $uploadFile;
                         rename($path . $uploadFile, $path . $newFilename);
                         $newUploadedFilenames[] = $newFilename;
                     }

@@ -37,7 +37,7 @@ abstract class Mage_Reports_Model_Product_Index_Abstract extends Mage_Core_Model
     /**
      * Save object data
      *
-     * @return Mage_Reports_Model_Product_Index_Abstract
+     * @return $this
      * @see Mage_Core_Model_Abstract::save()
      */
     #[Override]
@@ -128,7 +128,7 @@ abstract class Mage_Reports_Model_Product_Index_Abstract extends Mage_Core_Model
     /**
      * On customer login merge visitor/customer index
      *
-     * @return Mage_Reports_Model_Product_Index_Abstract
+     * @return $this
      */
     public function updateCustomerFromVisitor()
     {
@@ -139,7 +139,7 @@ abstract class Mage_Reports_Model_Product_Index_Abstract extends Mage_Core_Model
     /**
      * Purge visitor data by customer (logout)
      *
-     * @return Mage_Reports_Model_Product_Index_Abstract
+     * @return $this
      */
     public function purgeVisitorByCustomer()
     {
@@ -160,7 +160,7 @@ abstract class Mage_Reports_Model_Product_Index_Abstract extends Mage_Core_Model
     /**
      * Calculate count of product index items cache
      *
-     * @return Mage_Reports_Model_Product_Index_Abstract
+     * @return $this
      */
     public function calculate()
     {
@@ -205,7 +205,7 @@ abstract class Mage_Reports_Model_Product_Index_Abstract extends Mage_Core_Model
     /**
      * Clean index (visitors)
      *
-     * @return Mage_Reports_Model_Product_Index_Abstract
+     * @return $this
      */
     public function clean()
     {
@@ -215,8 +215,8 @@ abstract class Mage_Reports_Model_Product_Index_Abstract extends Mage_Core_Model
 
     /**
      * Add product ids to current visitor/customer log
-     * @param  array                                     $productIds
-     * @return Mage_Reports_Model_Product_Index_Abstract
+     * @param  array $productIds
+     * @return $this
      */
     public function registerIds($productIds)
     {

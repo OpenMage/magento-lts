@@ -156,9 +156,9 @@ class Mage_Wishlist_Model_Resource_Product_Collection extends Mage_Catalog_Model
      * Prevent loading collection because after Magento 1.4.2.0 it's impossible
      * to use product collection in wishlist
      *
-     * @param  bool                                            $printQuery
-     * @param  bool                                            $logQuery
-     * @return Mage_Wishlist_Model_Resource_Product_Collection
+     * @param  bool  $printQuery
+     * @param  bool  $logQuery
+     * @return $this
      */
     #[Override]
     public function load($printQuery = false, $logQuery = false)

@@ -224,7 +224,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext_Collection extends Mage_Catalog
     /**
      * Render sql select orders
      *
-     * @return Varien_Data_Collection_Db
+     * @return $this
      */
     #[Override]
     protected function _renderOrders()

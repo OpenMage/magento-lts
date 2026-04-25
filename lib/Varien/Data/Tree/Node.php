@@ -126,7 +126,7 @@ class Varien_Data_Tree_Node extends Varien_Object
      * Set node parent
      *
      * @param  Varien_Data_Tree_Node $parent
-     * @return Varien_Data_Tree_Node
+     * @return $this
      */
     public function setParent($parent)
     {
@@ -183,8 +183,8 @@ class Varien_Data_Tree_Node extends Varien_Object
     /**
      * Load node children
      *
-     * @param  int                   $recursionLevel
-     * @return Varien_Data_Tree_Node
+     * @param  int   $recursionLevel
+     * @return $this
      */
     public function loadChildren($recursionLevel = 0)
     {
@@ -228,7 +228,7 @@ class Varien_Data_Tree_Node extends Varien_Object
      * Add child node
      *
      * @param  Varien_Data_Tree_Node $node
-     * @return Varien_Data_Tree_Node
+     * @return $this
      */
     public function addChild($node)
     {

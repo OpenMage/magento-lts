@@ -207,8 +207,8 @@ abstract class Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract 
     /**
      * Assign group prices to product data
      *
-     * @param  Mage_Catalog_Model_Product                                       $object
-     * @return Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract
+     * @param  Mage_Catalog_Model_Product $object
+     * @return $this
      */
     #[Override]
     public function afterLoad($object)
@@ -247,8 +247,8 @@ abstract class Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract 
     /**
      * After Save Attribute manipulation
      *
-     * @param  Mage_Catalog_Model_Product                                       $object
-     * @return Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract
+     * @param  Mage_Catalog_Model_Product $object
+     * @return $this
      */
     #[Override]
     public function afterSave($object)

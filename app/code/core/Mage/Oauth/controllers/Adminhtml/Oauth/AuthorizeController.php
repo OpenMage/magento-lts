@@ -190,8 +190,8 @@ class Mage_Oauth_Adminhtml_Oauth_AuthorizeController extends Mage_Adminhtml_Cont
     /**
      * Init reject page
      *
-     * @param  bool                                           $simple
-     * @return Mage_Oauth_Adminhtml_Oauth_AuthorizeController
+     * @param  bool  $simple
+     * @return $this
      */
     protected function _initRejectPage($simple = false)
     {
@@ -255,6 +255,7 @@ class Mage_Oauth_Adminhtml_Oauth_AuthorizeController extends Mage_Adminhtml_Cont
 
     /**
      * Confirm token authorization action
+     * @return void
      */
     public function confirmAction()
     {
@@ -263,6 +264,7 @@ class Mage_Oauth_Adminhtml_Oauth_AuthorizeController extends Mage_Adminhtml_Cont
 
     /**
      * Confirm token authorization simple page
+     * @return void
      */
     public function confirmSimpleAction()
     {
@@ -271,6 +273,7 @@ class Mage_Oauth_Adminhtml_Oauth_AuthorizeController extends Mage_Adminhtml_Cont
 
     /**
      * Reject token authorization action
+     * @return void
      */
     public function rejectAction()
     {
@@ -279,6 +282,7 @@ class Mage_Oauth_Adminhtml_Oauth_AuthorizeController extends Mage_Adminhtml_Cont
 
     /**
      * Reject token authorization simple page
+     * @return void
      */
     public function rejectSimpleAction()
     {

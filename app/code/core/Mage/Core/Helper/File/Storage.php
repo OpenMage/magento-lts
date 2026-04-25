@@ -86,8 +86,8 @@ class Mage_Core_Helper_File_Storage extends Mage_Core_Helper_Abstract
      * Check if needed to copy file from storage to file system and
      * if file exists in the storage
      *
-     * @param  string   $filename
-     * @return bool|int
+     * @param  string $filename
+     * @return bool
      */
     public function processStorageFile($filename)
     {
@@ -111,7 +111,7 @@ class Mage_Core_Helper_File_Storage extends Mage_Core_Helper_Abstract
      * Save file to file system
      *
      * @param  Mage_Core_Model_File_Storage_Database $file
-     * @return bool|int
+     * @return bool
      */
     public function saveFileToFileSystem($file)
     {

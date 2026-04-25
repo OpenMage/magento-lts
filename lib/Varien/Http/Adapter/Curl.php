@@ -52,7 +52,7 @@ class Varien_Http_Adapter_Curl implements Zend_Http_Client_Adapter_Interface
     /**
      * Apply current configuration array to transport resource
      *
-     * @return Varien_Http_Adapter_Curl
+     * @return $this
      */
     protected function _applyConfig()
     {
@@ -80,7 +80,7 @@ class Varien_Http_Adapter_Curl implements Zend_Http_Client_Adapter_Interface
     /**
      * Set array of additional cURL options
      *
-     * @return Varien_Http_Adapter_Curl
+     * @return $this
      */
     public function setOptions(array $options = [])
     {
@@ -91,9 +91,9 @@ class Varien_Http_Adapter_Curl implements Zend_Http_Client_Adapter_Interface
     /**
      * Add additional option to cURL
      *
-     * @param  int                      $option the CURLOPT_* constants
-     * @param  mixed                    $value
-     * @return Varien_Http_Adapter_Curl
+     * @param  int   $option the CURLOPT_* constants
+     * @param  mixed $value
+     * @return $this
      */
     public function addOption($option, $value)
     {
@@ -104,7 +104,7 @@ class Varien_Http_Adapter_Curl implements Zend_Http_Client_Adapter_Interface
     /**
      * Add additional options list to curl
      *
-     * @return Varien_Http_Adapter_Curl
+     * @return $this
      */
     public function addOptions(array $options)
     {
@@ -115,8 +115,8 @@ class Varien_Http_Adapter_Curl implements Zend_Http_Client_Adapter_Interface
     /**
      * Set the configuration array for the adapter
      *
-     * @param  array                    $config
-     * @return Varien_Http_Adapter_Curl
+     * @param  array $config
+     * @return $this
      */
     public function setConfig($config = [])
     {
@@ -212,7 +212,7 @@ class Varien_Http_Adapter_Curl implements Zend_Http_Client_Adapter_Interface
     /**
      * Close the connection to the server
      *
-     * @return Varien_Http_Adapter_Curl
+     * @return $this
      */
     public function close()
     {

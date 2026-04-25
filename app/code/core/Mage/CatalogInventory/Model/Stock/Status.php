@@ -435,7 +435,7 @@ class Mage_CatalogInventory_Model_Stock_Status extends Mage_Core_Model_Abstract
      * @param  Mage_Catalog_Model_Resource_Product_Collection $productCollection
      * @param  null|int                                       $websiteId
      * @param  null|int                                       $stockId
-     * @return Mage_CatalogInventory_Model_Stock_Status
+     * @return $this
      */
     public function addStockStatusToProducts($productCollection, $websiteId = null, $stockId = null)
     {

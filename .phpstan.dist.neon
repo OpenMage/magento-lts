@@ -1,6 +1,6 @@
 includes:
     - vendor/macopedia/phpstan-magento1/extension.neon
-    - .phpstan.dist.baseline.php
+    - .phpstan.dist.baselines/_loader.php
     - phar://phpstan.phar/conf/bleedingEdge.neon
 parameters:
     level: 5
@@ -13,11 +13,7 @@ parameters:
         min: 80100
         max: 80599
     strictRules:
-        allRules: false
-        disallowedEmpty: true
-        disallowedShortTernary: true
-        dynamicCallOnStaticMethod: true
-        matchingInheritedMethodNames: true
+        allRules: true
     stubFiles:
         - dev/phpstan/stubs/Zend/Log.stub
         - dev/phpstan/stubs/Zend/Measure.stub

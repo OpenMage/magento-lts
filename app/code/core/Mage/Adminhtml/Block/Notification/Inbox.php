@@ -24,7 +24,7 @@ class Mage_Adminhtml_Block_Notification_Inbox extends Mage_Adminhtml_Block_Widge
     #[Override]
     protected function _prepareLayout()
     {
-        $this->_removeButton('add');
+        $this->_removeButton(self::BUTTON_TYPE_ADD);
 
         return parent::_prepareLayout();
     }

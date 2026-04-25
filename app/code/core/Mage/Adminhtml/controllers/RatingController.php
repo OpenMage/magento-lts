@@ -20,6 +20,9 @@ class Mage_Adminhtml_RatingController extends Mage_Adminhtml_Controller_Action
      */
     public const ADMIN_RESOURCE = 'catalog/reviews_ratings/ratings';
 
+    /**
+     * @return void
+     */
     public function indexAction()
     {
         $this->_initEnityId();
@@ -32,6 +35,9 @@ class Mage_Adminhtml_RatingController extends Mage_Adminhtml_Controller_Action
         $this->renderLayout();
     }
 
+    /**
+     * @return void
+     */
     public function editAction()
     {
         $this->_initEnityId();
@@ -52,6 +58,9 @@ class Mage_Adminhtml_RatingController extends Mage_Adminhtml_Controller_Action
         $this->renderLayout();
     }
 
+    /**
+     * @return void
+     */
     public function newAction()
     {
         $this->_forward('edit');
@@ -59,6 +68,7 @@ class Mage_Adminhtml_RatingController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Save rating
+     * @return void
      */
     public function saveAction()
     {
@@ -114,6 +124,9 @@ class Mage_Adminhtml_RatingController extends Mage_Adminhtml_Controller_Action
         $this->_redirect('*/*/');
     }
 
+    /**
+     * @return void
+     */
     public function deleteAction()
     {
         if ($this->getRequest()->getParam('id') > 0) {

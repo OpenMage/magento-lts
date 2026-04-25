@@ -7,8 +7,6 @@
  * @package    Mage_Rss
  */
 
-use Carbon\Carbon;
-
 /**
  * Review form block
  *
@@ -47,8 +45,9 @@ class Mage_Rss_Block_Order_New extends Mage_Core_Block_Template
         $storeId = $this->getRequest()->getParam('store');
         $order = Mage::getModel('sales/order');
         $period = Mage::helper('rss')->getRssAdminOrderNewPeriod($storeId);
+        $now = Mage::helper('core/clock')->now();
         $passDate = $order->getResource()->formatDate(
-            mktime(0, 0, 0, (int) Carbon::now()->format('m'), (int) Carbon::now()->format('d') - $period),
+            mktime(0, 0, 0, (int) $now->format('m'), (int) $now->format('d') - $period),
         );
 
         $newurl = Mage::helper('adminhtml')::getUrl('adminhtml/sales_order', ['_secure' => true, '_nosecret' => true]);

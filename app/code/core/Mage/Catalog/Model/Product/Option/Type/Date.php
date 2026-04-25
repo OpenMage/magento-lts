@@ -23,8 +23,8 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
     /**
      * Validate user input for option
      *
-     * @param  array                                          $values All product option values, i.e. array (option_id => mixed, option_id => mixed...)
-     * @return Mage_Catalog_Model_Product_Option_Type_Default
+     * @param  array               $values All product option values, i.e. array (option_id => mixed, option_id => mixed...)
+     * @return $this
      * @throws Mage_Core_Exception
      */
     #[Override]
@@ -112,7 +112,8 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
                     $timestamp += mktime(0, 0, 0, $value['month'], $value['day'], $value['year']);
                 }
             } else {
-                $timestamp += mktime(0, 0, 0, Carbon::now()->format('m'), Carbon::now()->format('d'), Carbon::now()->format('Y'));
+                $now = Mage::helper('core/clock')->now();
+                $timestamp += mktime(0, 0, 0, $now->format('m'), $now->format('d'), $now->format('Y'));
             }
 
             if ($this->_timeExists()) {
@@ -279,7 +280,7 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
             return $_range[0];
         }
 
-        return Carbon::now()->format('Y');
+        return Mage::helper('core/clock')->format('Y');
     }
 
     /**
@@ -294,7 +295,7 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
             return $_range[1];
         }
 
-        return Carbon::now()->format('Y');
+        return Mage::helper('core/clock')->format('Y');
     }
 
     /**
