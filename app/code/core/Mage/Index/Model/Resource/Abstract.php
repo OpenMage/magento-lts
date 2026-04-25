@@ -110,7 +110,7 @@ abstract class Mage_Index_Model_Resource_Abstract extends Mage_Core_Model_Resour
      * @param  bool  $asOriginal
      * @return $this
      */
-    #[Deprecated(message: 'since 1.5.0.0')]
+    #[Deprecated(since: MagentoVersionInterface::VERSION_1_5_0_0)]
     public function cloneIndexTable($asOriginal = false)
     {
         return $this;

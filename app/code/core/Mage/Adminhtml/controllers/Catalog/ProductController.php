@@ -931,7 +931,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
     /**
      * @return $this
      */
-    #[Deprecated(message: 'since 1.5.0.0')]
+    #[Deprecated(since: MagentoVersionInterface::VERSION_1_5_0_0)]
     public function addCustomersToAlertQueueAction()
     {
         return $this;

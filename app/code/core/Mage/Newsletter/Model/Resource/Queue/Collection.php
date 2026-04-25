@@ -42,7 +42,7 @@ class Mage_Newsletter_Model_Resource_Queue_Collection extends Mage_Core_Model_Re
      *
      * @return $this
      */
-    #[Deprecated(message: 'since 1.4.0.1')]
+    #[Deprecated(since: MagentoVersionInterface::VERSION_1_4_0_1)]
     public function addTemplateInfo()
     {
         $this->getSelect()->joinLeft(

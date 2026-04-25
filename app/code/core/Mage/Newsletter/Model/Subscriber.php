@@ -65,7 +65,7 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
 
     public const XML_PATH_ALLOW_GUEST_SUBSCRIBE_FLAG   = 'newsletter/subscription/allow_guest_subscribe';
 
-    #[Deprecated(message: 'since 1.4.0.1')]
+    #[Deprecated(since: MagentoVersionInterface::VERSION_1_4_0_1)]
     public const XML_PATH_SENDING_SET_RETURN_PATH      = Mage_Core_Model_Email_Template::XML_PATH_SENDING_SET_RETURN_PATH;
 
     /**

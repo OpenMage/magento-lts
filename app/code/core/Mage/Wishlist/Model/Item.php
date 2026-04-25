@@ -280,7 +280,7 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
      *
      * @return array<string, mixed>
      */
-    #[Deprecated(message: 'since 1.4.0.0')]
+    #[Deprecated(since: MagentoVersionInterface::VERSION_1_4_0_0)]
     public function getDataForSave()
     {
         return [

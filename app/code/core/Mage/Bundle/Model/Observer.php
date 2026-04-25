@@ -263,7 +263,7 @@ class Mage_Bundle_Model_Observer
      *
      * @return $this
      */
-    #[Deprecated(message: 'since 1.4.0.0')]
+    #[Deprecated(since: MagentoVersionInterface::VERSION_1_4_0_0)]
     public function catalogProductLoadAfter(Varien_Event_Observer $observer)
     {
         /** @var Mage_Catalog_Model_Product $product */
@@ -282,7 +282,7 @@ class Mage_Bundle_Model_Observer
      * @return $this
      * @see Mage_Bundle_Model_Resource_Indexer_Price
      */
-    #[Deprecated(message: 'since 1.4.0.0')]
+    #[Deprecated(since: MagentoVersionInterface::VERSION_1_4_0_0)]
     public function catalogIndexPlainReindexAfter(Varien_Event_Observer $observer)
     {
         $products = $observer->getEvent()->getProducts();

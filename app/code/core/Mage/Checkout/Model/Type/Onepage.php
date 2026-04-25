@@ -447,7 +447,7 @@ class Mage_Checkout_Model_Type_Onepage
      *
      * @return array|true
      */
-    #[Deprecated(message: 'since 1.4.0.1')]
+    #[Deprecated(since: MagentoVersionInterface::VERSION_1_4_0_1)]
     protected function _processValidateCustomer(Mage_Sales_Model_Quote_Address $address)
     {
         // set customer date of birth for further usage
