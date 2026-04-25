@@ -32,7 +32,7 @@ class Mage_Core_Model_Locale
 
     public const XML_PATH_DEFAULT_TIMEZONE = 'general/locale/timezone';
 
-    #[Deprecated(message: 'since 1.4.1.0')]
+    #[Deprecated(since: MagentoVersionInterface::VERSION_1_4_1_0)]
     public const XML_PATH_DEFAULT_COUNTRY  = 'general/country/default';
 
     public const XML_PATH_ALLOW_CODES      = 'global/locale/allow/codes';

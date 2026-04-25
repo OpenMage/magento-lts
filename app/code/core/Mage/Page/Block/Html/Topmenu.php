@@ -80,7 +80,7 @@ class Mage_Page_Block_Html_Topmenu extends Mage_Core_Block_Template
      * @param  string $childrenWrapClass
      * @return string
      */
-    #[Deprecated(message: 'since 1.8.2.0 use child block catalog.topnav.renderer instead')]
+    #[Deprecated(message: 'use child block catalog.topnav.renderer instead', since: MagentoVersionInterface::VERSION_1_8_2_0)]
     protected function _getHtml(Varien_Data_Tree_Node $menuTree, $childrenWrapClass)
     {
         $html = '';
