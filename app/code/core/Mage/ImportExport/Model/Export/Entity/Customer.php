@@ -101,7 +101,7 @@ class Mage_ImportExport_Model_Export_Entity_Customer extends Mage_ImportExport_M
      *
      * @return string
      */
-    #[Deprecated(message: 'after ver 1.9.2.4 use $this->exportFile() instead')]
+    #[Deprecated(message: 'use $this->exportFile() instead', since: MagentoVersionInterface::VERSION_1_9_2_4)]
     public function export()
     {
         $this->_prepareExport();

@@ -353,7 +353,7 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
      *
      * @return string
      */
-    #[Deprecated(message: 'after ver 1.9.2.4 use $this->exportFile() instead')]
+    #[Deprecated(message: 'use $this->exportFile() instead', since: MagentoVersionInterface::VERSION_1_9_2_4)]
     abstract public function export();
 
     /**

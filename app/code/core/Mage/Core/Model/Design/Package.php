@@ -969,7 +969,7 @@ class Mage_Core_Model_Design_Package
      * Default theme getter
      * @return string
      */
-    #[Deprecated(message: 'since 1.8.2.0')]
+    #[Deprecated(since: MagentoVersionInterface::VERSION_1_8_2_0)]
     public function getFallbackTheme()
     {
         return Mage::getStoreConfig('design/theme/default', $this->getStore());

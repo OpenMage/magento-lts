@@ -133,6 +133,11 @@
             "url": "https://opencollective.com/openmage"
         }
     ],
+    "autoload": {
+        "classmap": [
+            "app/*VersionInterface.php"
+        ]
+    },
     "autoload-dev": {
         "classmap": [
             "app/code/*/*/*/controllers",

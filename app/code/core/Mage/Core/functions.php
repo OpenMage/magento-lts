@@ -31,7 +31,7 @@ function destruct($object)
  * @return string
  * @SuppressWarnings("PHPMD.ShortMethodName")
  */
-#[Deprecated(message: '1.3')]
+#[Deprecated(since: MagentoVersionInterface::VERSION_1_3_0_0)]
 function __()
 {
     return Mage::app()->getTranslator()->translate(func_get_args());

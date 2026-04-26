@@ -11,6 +11,9 @@ declare(strict_types=1);
 
 interface MagentoVersionInterface
 {
+    # EE only?
+    public const VERSION_1_14_2_0           = '1.14.2.0';
+
     public const VERSION_1_1_5_0            = '1.1.5.0';
 
     public const VERSION_1_1_7_0            = '1.1.7.0';
@@ -30,6 +33,8 @@ interface MagentoVersionInterface
     public const VERSION_1_3_2_4            = '1.3.2.4';
 
     public const VERSION_1_4_0_0            = '1.4.0.0';
+
+    public const VERSION_1_4_0_0_ALPHA_1    = '1.4.0.0-alpha';
 
     public const VERSION_1_4_0_0_ALPHA_2    = '1.4.0.0-alpha2';
 
@@ -76,4 +81,6 @@ interface MagentoVersionInterface
     public const VERSION_1_8_0_0            = '1.8.0.0';
 
     public const VERSION_1_8_2_0            = '1.8.2.0';
+
+    public const VERSION_1_9_2_4            = '1.9.2.4';
 }

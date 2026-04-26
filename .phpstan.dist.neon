@@ -38,8 +38,6 @@ parameters:
         - lib/Varien
         - shell
         - tests/unit
-    scanFiles:
-          - app/MagentoVersionInterface.php
     excludePaths:
         #incompatible interfaces
         - lib/Varien/Directory/Collection.php

@@ -215,7 +215,7 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
      * @throws Zend_Controller_Response_Exception
      * @SuppressWarnings("PHPMD.Superglobals")
      */
-    #[Deprecated(message: 'since 1.7.0.2. Refactored and moved to Mage_Core_Controller_Request_Rewrite')]
+    #[Deprecated(message: 'Refactored and moved to Mage_Core_Controller_Request_Rewrite', since: MagentoVersionInterface::VERSION_1_7_0_2)]
     public function rewrite(?Zend_Controller_Request_Http $request = null, ?Zend_Controller_Response_Http $response = null)
     {
         if (!Mage::isInstalled()) {
@@ -329,7 +329,7 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
      * @return bool|string
      * @SuppressWarnings("PHPMD.Superglobals")
      */
-    #[Deprecated(message: 'since 1.7.0.2. Refactored and moved to Mage_Core_Controller_Request_Rewrite')]
+    #[Deprecated(message: 'Refactored and moved to Mage_Core_Controller_Request_Rewrite', since: MagentoVersionInterface::VERSION_1_7_0_2)]
     protected function _getQueryString()
     {
         if (!empty($_SERVER['QUERY_STRING'])) {
@@ -368,7 +368,7 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
      * @param bool   $isPermanent
      * @SuppressWarnings("PHPMD.ExitExpression")
      */
-    #[Deprecated(message: 'since 1.7.0.2. Refactored and moved to Mage_Core_Controller_Request_Rewrite')]
+    #[Deprecated(message: 'Refactored and moved to Mage_Core_Controller_Request_Rewrite', since: MagentoVersionInterface::VERSION_1_7_0_2)]
     protected function _sendRedirectHeaders($url, $isPermanent = false)
     {
         if ($isPermanent) {

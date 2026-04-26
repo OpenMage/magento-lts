@@ -880,7 +880,7 @@ class Mage_Checkout_Model_Type_Onepage
      *
      * @throws Mage_Core_Exception
      */
-    #[Deprecated(message: 'after 1.4 - service model doing quote validation')]
+    #[Deprecated(message: 'service model doing quote validation', since: MagentoVersionInterface::VERSION_1_4_0_0)]
     protected function validateOrder()
     {
         if ($this->getQuote()->getIsMultiShipping()) {
