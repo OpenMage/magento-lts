@@ -33,7 +33,6 @@ final class StandardsTest extends OpenMageTest
     /**
      * @covers \Mage_Usa_Model_Shipping_Carrier_Usps_Service_Standards::isEnabled()
      * @group Model
-     * @group test
      */
     public function testIsEnabled(): void
     {
