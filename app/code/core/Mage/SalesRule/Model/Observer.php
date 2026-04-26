@@ -26,8 +26,8 @@ class Mage_SalesRule_Model_Observer
      *
      * @param  Varien_Event                   $event
      * @return Mage_SalesRule_Model_Validator
-     * @deprecated
      */
+    #[Deprecated]
     public function getValidator($event)
     {
         if (!$this->_validator) {
@@ -43,10 +43,10 @@ class Mage_SalesRule_Model_Observer
      *
      * @param  Varien_Event_Observer $observer
      * @throws Mage_Core_Exception
-     * @deprecated process call moved to total model
      * @SuppressWarnings("PHPMD.CamelCaseMethodName")
      */
     // phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
+    #[Deprecated(message: 'process call moved to total model')]
     public function sales_quote_address_discount_item($observer)
     {
         $this->getValidator($observer->getEvent())

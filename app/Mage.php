@@ -167,7 +167,6 @@ final class Mage
      * Gets the detailed Magento version information
      *
      * @return array<string, string>
-     * @deprecated
      */
     public static function getVersionInfo()
     {

@@ -136,9 +136,7 @@ class Varien_File_Uploader
 
     public const MULTIPLE_STYLE = 1;
 
-    /**
-     * @deprecated Use UPLOAD_ERR_NO_FILE instead
-     */
+    #[Deprecated(message: 'Use UPLOAD_ERR_NO_FILE instead')]
     public const TMP_NAME_EMPTY = UPLOAD_ERR_NO_FILE;
 
     /**
@@ -497,8 +495,8 @@ class Varien_File_Uploader
     /**
      * @param  string $extension
      * @return bool
-     * @deprecated after 1.5.0.0-beta2
      */
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_5_0_0_BETA_2)]
     public function chechAllowedExtension($extension)
     {
         return $this->checkAllowedExtension($extension);

@@ -29,29 +29,19 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
 
     public const XML_PATH_DEV_ALLOW_IPS                = 'dev/restrict/allow_ips';
 
-    /**
-     * @deprecated use Mage_Core_Helper_Log::XML_PATH_DEV_LOG_ENABLED instead
-     */
+    #[Deprecated(message: 'use Mage_Core_Helper_Log::XML_PATH_DEV_LOG_ENABLED instead')]
     public const XML_PATH_DEV_LOG_ENABLED              = Mage_Core_Helper_Log::XML_PATH_DEV_LOG_ENABLED;
 
-    /**
-     * @deprecated use Mage_Core_Helper_Log::XML_PATH_DEV_LOG_ALLOWED_EXTENSIONS instead
-     */
+    #[Deprecated(message: 'use Mage_Core_Helper_Log::XML_PATH_DEV_LOG_ALLOWED_EXTENSIONS instead')]
     public const XML_PATH_DEV_LOG_ALLOWED_EXTENSIONS   = Mage_Core_Helper_Log::XML_PATH_DEV_LOG_ALLOWED_EXTENSIONS;
 
-    /**
-     * @deprecated use Mage_Core_Helper_Log::XML_PATH_DEV_LOG_FILE instead
-     */
+    #[Deprecated(message: 'use Mage_Core_Helper_Log::XML_PATH_DEV_LOG_FILE instead')]
     public const XML_PATH_DEV_LOG_FILE                 = Mage_Core_Helper_Log::XML_PATH_DEV_LOG_FILE;
 
-    /**
-     * @deprecated use Mage_Core_Helper_Log::XML_PATH_DEV_LOG_EXCEPTION_FILE instead
-     */
+    #[Deprecated(message: 'use Mage_Core_Helper_Log::XML_PATH_DEV_LOG_EXCEPTION_FILE instead')]
     public const XML_PATH_DEV_LOG_EXCEPTION_FILE       = Mage_Core_Helper_Log::XML_PATH_DEV_LOG_EXCEPTION_FILE;
 
-    /**
-     * @deprecated use Mage_Core_Helper_Log::XML_PATH_DEV_LOG_MAX_LEVEL instead
-     */
+    #[Deprecated(message: 'use Mage_Core_Helper_Log::XML_PATH_DEV_LOG_MAX_LEVEL instead')]
     public const XML_PATH_DEV_LOG_MAX_LEVEL            = Mage_Core_Helper_Log::XML_PATH_DEV_LOG_MAX_LEVEL;
 
     public const XML_PATH_CACHE_BETA_TYPES             = 'global/cache/betatypes';

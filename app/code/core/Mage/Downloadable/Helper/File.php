@@ -176,8 +176,8 @@ class Mage_Downloadable_Helper_File extends Mage_Core_Helper_Abstract
      *
      * @param  string $ext
      * @return string
-     * @deprecated
      */
+    #[Deprecated]
     protected function _getFileTypeByExt($ext)
     {
         return $this->_getFileHelper()->getMimeTypeByExtension($ext);

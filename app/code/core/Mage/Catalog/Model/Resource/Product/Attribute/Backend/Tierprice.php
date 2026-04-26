@@ -55,8 +55,8 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Tierprice extends Ma
      * @param  Mage_Catalog_Model_Product                $product
      * @param  Mage_Catalog_Model_Resource_Eav_Attribute $attribute
      * @return array
-     * @deprecated since 1.3.2.3
      */
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_3_2_3)]
     public function loadProductPrices($product, $attribute)
     {
         $websiteId = null;
@@ -75,8 +75,8 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Tierprice extends Ma
      * @param  Mage_Catalog_Model_Product                $product
      * @param  Mage_Catalog_Model_Resource_Eav_Attribute $attribute
      * @return $this
-     * @deprecated since 1.3.2.3
      */
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_3_2_3)]
     public function deleteProductPrices($product, $attribute)
     {
         $websiteId = null;
@@ -98,8 +98,8 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Tierprice extends Ma
      * @param  Mage_Catalog_Model_Product $product
      * @param  array                      $data
      * @return $this
-     * @deprecated since 1.3.2.3
      */
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_3_2_3)]
     public function insertProductPrice($product, $data)
     {
         $priceObject = new Varien_Object($data);

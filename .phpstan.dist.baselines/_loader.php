@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-// total 14262 errors
+// total 14257 errors
 
 return ['includes' => [
     __DIR__ . '/argument.type.php',
@@ -75,7 +75,6 @@ return ['includes' => [
     __DIR__ . '/return.empty.php',
     __DIR__ . '/return.missing.php',
     __DIR__ . '/return.type.php',
-    __DIR__ . '/staticMethod.deprecated.php',
     __DIR__ . '/staticMethod.notFound.php',
     __DIR__ . '/switch.type.php',
     __DIR__ . '/ternary.alwaysTrue.php',

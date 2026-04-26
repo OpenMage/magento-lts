@@ -228,8 +228,8 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
 
     /**
      * @return $this
-     * @deprecated after 1.4.0.0 alpha, logic moved to Mage_Adminhtml_Block_Notification_Baseurl
      */
+    #[Deprecated(message: 'logic moved to Mage_Adminhtml_Block_Notification_Baseurl', since: OpenMageVersionInterface::VERSION_1_4_0_0_ALPHA_1)]
     protected function _checkUrlSettings()
     {
         /**

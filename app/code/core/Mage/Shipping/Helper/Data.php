@@ -44,8 +44,8 @@ class Mage_Shipping_Helper_Data extends Mage_Core_Helper_Abstract
      * @param  int|Mage_Sales_Model_Order|Mage_Sales_Model_Order_Shipment|Mage_Sales_Model_Order_Shipment_Track $model
      * @param  string                                                                                           $method - option
      * @return string
-     * @deprecated the non-model usage
      */
+    #[Deprecated(message: 'the non-model usage')]
     protected function _getTrackingUrl($key, $model, $method = 'getId')
     {
         if (empty($model)) {
@@ -69,8 +69,8 @@ class Mage_Shipping_Helper_Data extends Mage_Core_Helper_Abstract
      * @param  string              $order
      * @return string
      * @throws Mage_Core_Exception
-     * @deprecated after 1.4.0.0-alpha3
      */
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_4_0_0_ALPHA_3)]
     public function getTrackingPopUpUrlByOrderId($order = '')
     {
         if ($order && !is_object($order)) {
@@ -86,8 +86,8 @@ class Mage_Shipping_Helper_Data extends Mage_Core_Helper_Abstract
      * @param  string              $track
      * @return string
      * @throws Mage_Core_Exception
-     * @deprecated after 1.4.0.0-alpha3
      */
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_4_0_0_ALPHA_3)]
     public function getTrackingPopUpUrlByTrackId($track = '')
     {
         if ($track && !is_object($track)) {
@@ -103,8 +103,8 @@ class Mage_Shipping_Helper_Data extends Mage_Core_Helper_Abstract
      * @param  string              $ship
      * @return string
      * @throws Mage_Core_Exception
-     * @deprecated after 1.4.0.0-alpha3
      */
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_4_0_0_ALPHA_3)]
     public function getTrackingPopUpUrlByShipId($ship = '')
     {
         if ($ship && !is_object($ship)) {

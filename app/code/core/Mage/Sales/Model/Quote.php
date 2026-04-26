@@ -2124,9 +2124,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         return parent::_afterLoad();
     }
 
-    /**
-     * @deprecated after 1.4 beta1 - one page checkout responsibility
-     */
+    #[Deprecated(message: 'one page checkout responsibility', since: OpenMageVersionInterface::VERSION_1_4_0_0_BETA_1)]
     public const CHECKOUT_METHOD_REGISTER  = 'register';
 
     public const CHECKOUT_METHOD_GUEST     = 'guest';
@@ -2138,8 +2136,8 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      *
      * @param  bool   $originalMethod if true return defined method from beginning
      * @return string
-     * @deprecated after 1.4 beta1 it is checkout module responsibility
      */
+    #[Deprecated(message: 'checkout module responsibility', since: OpenMageVersionInterface::VERSION_1_4_0_0_BETA_1)]
     public function getCheckoutMethod($originalMethod = false)
     {
         if ($this->getCustomerId() && !$originalMethod) {
@@ -2153,8 +2151,8 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      * Check is allow Guest Checkout
      *
      * @return bool
-     * @deprecated after 1.4 beta1 it is checkout module responsibility
      */
+    #[Deprecated(message: 'checkout module responsibility', since: OpenMageVersionInterface::VERSION_1_4_0_0_BETA_1)]
     public function isAllowedGuestCheckout()
     {
         return Mage::helper('checkout')->isAllowedGuestCheckout($this, $this->getStoreId());

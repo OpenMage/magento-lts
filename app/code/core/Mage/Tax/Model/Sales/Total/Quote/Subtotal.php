@@ -842,8 +842,8 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
      * Operation is necessary for reset item state in case if configuration was changed
      *
      * @return $this
-     * @deprecated after 1.4.1
      */
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_4_1_0)]
     protected function _resetItemPriceInclTax(Mage_Sales_Model_Quote_Item_Abstract $item)
     {
         return $this;
@@ -852,8 +852,8 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
     /**
      * @param  Mage_Sales_Model_Quote_Address $address
      * @return $this
-     * @deprecated after 1.4.0.1
      */
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_4_0_1)]
     protected function _processShippingAmount($address)
     {
         return $this;
@@ -863,11 +863,10 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
      * Recollect item price and row total using after taxes subtract.
      * Declare item price including tax attributes
      *
-     * @param Mage_Sales_Model_Quote_Address $address
-     *
+     * @param  Mage_Sales_Model_Quote_Address $address
      * @return $this
-     * @deprecated after 1.4.1
      */
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_4_1_0)]
     protected function _recollectItem($address, Mage_Sales_Model_Quote_Item_Abstract $item)
     {
         $store = $address->getQuote()->getStore();
@@ -950,8 +949,8 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
      * @param Mage_Sales_Model_Quote_Address $address
      *
      * @return bool
-     * @deprecated after 1.4.1
      */
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_4_1_0)]
     protected function _needSubtractTax($address)
     {
         $store = $address->getQuote()->getStore();
@@ -968,8 +967,8 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
      * @param Mage_Sales_Model_Quote_Address $address
      *
      * @return bool
-     * @deprecated after 1.4.0.1
      */
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_4_0_1)]
     protected function _needSubtractShippingTax($address)
     {
         $store = $address->getQuote()->getStore();

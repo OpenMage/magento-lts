@@ -153,8 +153,8 @@ class Mage_Index_Model_Indexer
      * Lock indexer actions
      *
      * @return $this
-     * @deprecated after 1.6.1.0
      */
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_6_1_0)]
     public function lockIndexer()
     {
         $this->_lockFlag = true;
@@ -165,8 +165,8 @@ class Mage_Index_Model_Indexer
      * Unlock indexer actions
      *
      * @return $this
-     * @deprecated after 1.6.1.0
      */
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_6_1_0)]
     public function unlockIndexer()
     {
         $this->_lockFlag = false;
@@ -177,8 +177,8 @@ class Mage_Index_Model_Indexer
      * Check if object actions are locked
      *
      * @return bool
-     * @deprecated after 1.6.1.0
      */
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_6_1_0)]
     public function isLocked()
     {
         return $this->_lockFlag;

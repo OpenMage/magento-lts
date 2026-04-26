@@ -544,8 +544,8 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
      * @param int             $productId
      *
      * @return $this
-     * @deprecated after 1.7.0.2 use method applyAllRules
      */
+    #[Deprecated(message: 'use method applyAllRules', since: OpenMageVersionInterface::VERSION_1_7_0_2)]
     public function applyAllRulesForDateRange($fromDate = null, $toDate = null, $productId = null)
     {
         return $this->applyAllRules($productId);

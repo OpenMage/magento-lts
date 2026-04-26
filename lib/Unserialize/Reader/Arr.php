@@ -13,7 +13,7 @@
 class Unserialize_Reader_Arr
 {
     /**
-     * @var array
+     * @var null|array
      */
     protected $_result = null;
 

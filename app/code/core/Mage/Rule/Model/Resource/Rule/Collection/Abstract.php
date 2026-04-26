@@ -168,8 +168,8 @@ abstract class Mage_Rule_Model_Resource_Rule_Collection_Abstract extends Mage_Co
      * Set environment for all rules in collection
      *
      * @return $this
-     * @deprecated after 1.6.2.0
      */
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_6_2_0)]
     public function setEnv(?Mage_Rule_Model_Environment $env = null)
     {
         $this->_env = $env;
@@ -180,8 +180,8 @@ abstract class Mage_Rule_Model_Resource_Rule_Collection_Abstract extends Mage_Co
      * Retrieve environment for the rules in collection
      *
      * @return Mage_Rule_Model_Environment
-     * @deprecated after 1.6.2.0
      */
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_6_2_0)]
     public function getEnv()
     {
         return $this->_env;
@@ -191,8 +191,8 @@ abstract class Mage_Rule_Model_Resource_Rule_Collection_Abstract extends Mage_Co
      * Set filter for the collection based on the environment
      *
      * @return $this
-     * @deprecated after 1.6.2.0
      */
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_6_2_0)]
     public function setActiveFilter()
     {
         return $this;
@@ -202,8 +202,8 @@ abstract class Mage_Rule_Model_Resource_Rule_Collection_Abstract extends Mage_Co
      * Process the quote with all the rules in collection
      *
      * @return $this
-     * @deprecated after 1.6.2.0
      */
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_6_2_0)]
     public function process()
     {
         return $this;

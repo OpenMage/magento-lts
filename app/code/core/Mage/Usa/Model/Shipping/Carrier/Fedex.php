@@ -568,8 +568,8 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
      * Get xml quotes
      *
      * @return Mage_Shipping_Model_Rate_Result
-     * @deprecated
      */
+    #[Deprecated]
     protected function _getXmlQuotes()
     {
         $rawRequest = $this->_rawRequest;
@@ -1140,8 +1140,8 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
      *
      * @param array  $trackingvalue
      * @param string $response
-     * @deprecated after 1.6.0.0 see _parseTrackingResponse()
      */
+    #[Deprecated(message: 'see _parseTrackingResponse()', since: OpenMageVersionInterface::VERSION_1_6_0_0)]
     protected function _parseXmlTrackingResponse($trackingvalue, $response)
     {
         $resultArr = [];
