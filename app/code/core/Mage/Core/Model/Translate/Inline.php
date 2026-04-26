@@ -304,10 +304,10 @@ class Mage_Core_Model_Translate_Inline
     /**
      * Get translate data by regexp
      *
-     * @param  string                $regexp
-     * @param  string                $text
+     * @param  string               $regexp
+     * @param  string               $text
      * @param  array|Closure|string $locationCallback
-     * @param  array                 $options
+     * @param  array                $options
      * @return array
      */
     protected function _getTranslateData($regexp, &$text, $locationCallback, $options = [])
