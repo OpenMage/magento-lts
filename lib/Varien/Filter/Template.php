@@ -76,7 +76,7 @@ class Varien_Filter_Template implements Zend_Filter_Interface
     /**
      * Sets the proccessor of templates.
      *
-     * @return null|array
+     * @return null|array|Closure
      */
     public function getTemplateProcessor()
     {
@@ -98,7 +98,7 @@ class Varien_Filter_Template implements Zend_Filter_Interface
     /**
      * Sets the proccessor of includes.
      *
-     * @return null|array
+     * @return null|array|Closure
      */
     public function getIncludeProcessor()
     {
