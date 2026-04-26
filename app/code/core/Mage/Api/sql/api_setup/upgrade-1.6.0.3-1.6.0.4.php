@@ -20,8 +20,8 @@ $this->getConnection()->changeColumn(
         'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
         'length'    => 64,
         'nullable'  => false,
-        'comment'   => 'Session ID'
-    ]
+        'comment'   => 'Session ID',
+    ],
 );
 
 $this->endSetup();
