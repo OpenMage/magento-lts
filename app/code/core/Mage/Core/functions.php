@@ -299,13 +299,7 @@ function isDirWriteable($dir)
  *
  * @see isDirWriteable()
  */
-#[Deprecated(message: <<<'TXT'
-avoid php_codesniffer error
- 
-     An error occurred during processing; checking has been aborted. The error message was: Undefined index: ^is_dir/i_writeab in
-     /var/www/html/vendor/squizlabs/php_codesniffer/src/Standards/Generic/Sniffs/PHP/ForbiddenFunctionsSniff.php on line 228
-     The error originated in the Generic.PHP.ForbiddenFunctions sniff on line 228. (Internal.Exception)
-TXT)]
+#[Deprecated(message: 'avoid php_codesniffer error')]
 function is_dir_writeable($dir)
 {
     return isDirWriteable($dir);
