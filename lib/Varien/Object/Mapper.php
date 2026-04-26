@@ -33,8 +33,8 @@ class Varien_Object_Mapper
      *     <Varien_Object> => $from->setData($key, <from>)
      *     array(<Varien_Object>, <method>) => $from->$method($key, <from>)
      *
-     * @param  array|callable|Varien_Object $source
-     * @param  array|callable|Varien_Object $target
+     * @param  array|Varien_Object $source
+     * @param  array|Varien_Object $target
      * @return array|Varien_Object
      */
     public static function &accumulateByMap($source, $target, array $map, array $defaults = [])
@@ -42,18 +42,10 @@ class Varien_Object_Mapper
         $get = 'getData';
         if (is_array($source) && isset($source[0]) && is_object($source[0]) && isset($source[1]) && is_string($source[1]) && is_callable($source)) {
             [$source, $get] = $source;
-        } elseif ($target instanceof Closure) {
-            $reflection = new ReflectionFunction($target);
-            $source = $reflection->getClosureThis();
-            [$source, $get] = $source;
         }
 
         $set = 'setData';
         if (is_array($target) && isset($target[0]) && is_object($target[0]) && isset($target[1]) && is_string($target[1]) && is_callable($target)) {
-            [$target, $set] = $target;
-        } elseif ($target instanceof Closure) {
-            $reflection = new ReflectionFunction($target);
-            $target = $reflection->getClosureThis();
             [$target, $set] = $target;
         }
 
@@ -102,11 +94,6 @@ class Varien_Object_Mapper
                     $target->$set($keyTo, $value);
                 }
             }
-        }
-
-        if ($target instanceof Closure) {
-            $reflection = new ReflectionFunction($target);
-            return $reflection->getClosureThis();
         }
 
         return $target;
