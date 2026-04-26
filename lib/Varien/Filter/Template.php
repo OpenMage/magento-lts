@@ -37,14 +37,14 @@ class Varien_Filter_Template implements Zend_Filter_Interface
     /**
      * Template processor
      *
-     * @var null|array|string
+     * @var null|array|Closure|string
      */
     protected $_templateProcessor = null;
 
     /**
      * Include processor
      *
-     * @var null|array|callable|string
+     * @var null|array|Closure|string
      */
     protected $_includeProcessor = null;
 

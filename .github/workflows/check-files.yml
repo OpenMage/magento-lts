@@ -119,7 +119,7 @@ jobs:
         id: changes-js
         if: steps.changed-files-specific.outputs.any_modified == 'true'
         run: |
-          count="$(grep -oE "^[^.].+\.js" <<< "${{ steps.changed-files-specific.outputs.all_modified_files }}" | wc -l)"
+          count="$(grep -oE "\.js" <<< "${{ steps.changed-files-specific.outputs.all_modified_files }}" | wc -l)"
           echo "$count JS file(s) changed"
           echo "js=$count" >> $GITHUB_OUTPUT
 
@@ -127,7 +127,7 @@ jobs:
         id: changes-php
         if: steps.changed-files-specific.outputs.any_modified == 'true'
         run: |
-          count="$(grep -oE "^[^.].+\.php" <<< "${{ steps.changed-files-specific.outputs.all_modified_files }}" | wc -l)"
+          count="$(grep -oE "\.php" <<< "${{ steps.changed-files-specific.outputs.all_modified_files }}" | wc -l)"
           echo "$count PHP file(s) changed"
           echo "php=$count" >> $GITHUB_OUTPUT
 
@@ -135,7 +135,7 @@ jobs:
         id: changes-phtml
         if: steps.changed-files-specific.outputs.any_modified == 'true'
         run: |
-          count="$(grep -oE "^[^.].+\.phtml" <<< "${{ steps.changed-files-specific.outputs.all_modified_files }}" | wc -l)"
+          count="$(grep -oE "\.phtml" <<< "${{ steps.changed-files-specific.outputs.all_modified_files }}" | wc -l)"
           echo "$count Template file(s) changed"
           echo "phtml=$count" >> $GITHUB_OUTPUT
 
@@ -143,7 +143,7 @@ jobs:
         id: changes-xml
         if: steps.changed-files-specific.outputs.any_modified == 'true'
         run: |
-          count="$(grep -oE "^[^.].+\.xml" <<< "${{ steps.changed-files-specific.outputs.all_modified_files }}" | wc -l)"
+          count="$(grep -oE "\.xml" <<< "${{ steps.changed-files-specific.outputs.all_modified_files }}" | wc -l)"
           echo "$count XML file(s) changed"
           echo "xml=$count" >> $GITHUB_OUTPUT
 
@@ -207,7 +207,7 @@ jobs:
         id: changes-markdown
         if: steps.changed-files-specific.outputs.any_modified == 'true'
         run: |
-          count="$(grep -oE "^[^.].+\.md" <<< "${{ steps.changed-files-specific.outputs.all_modified_files }}" | wc -l)"
+          count="$(grep -oE "\.md" <<< "${{ steps.changed-files-specific.outputs.all_modified_files }}" | wc -l)"
           echo "$count Markdown file(s) changed"
           echo "markdown=$count" >> $GITHUB_OUTPUT
 

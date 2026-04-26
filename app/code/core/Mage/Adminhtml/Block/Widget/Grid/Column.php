@@ -35,8 +35,9 @@
  * @method $this           setCopyable(bool $value)
  * @method $this           setEditable(bool $value)
  * @method $this           setEditOnly(bool $value)
- * @method $this           setFilterConditionCallback(array|callable $value)
+ * @method $this           setFilterConditionCallback(array|Closure $value)
  * @method $this           setFormat(string $value)
+ * @method $this           setFrameCallback(array|Closure $value)
  * @method $this           setGetter(callable|string $value)
  * @method $this           setSelected(array $value)
  */
