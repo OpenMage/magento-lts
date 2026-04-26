@@ -24,8 +24,7 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Websites.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Call to deprecated method addTemplateInfo() of class Mage_Newsletter_Model_Resource_Queue_Collection:
-since 1.4.0.1',
+    'rawMessage' => 'Call to deprecated method addTemplateInfo() of class Mage_Newsletter_Model_Resource_Queue_Collection.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Customer/Edit/Tab/Newsletter/Grid.php',
 ];
@@ -40,8 +39,7 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Customer/Edit/Tab/Wishlist.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Call to deprecated method isValidForSend() of class Mage_Newsletter_Model_Template:
-since 1.4.0.1',
+    'rawMessage' => 'Call to deprecated method isValidForSend() of class Mage_Newsletter_Model_Template.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Newsletter/Template/Grid/Renderer/Action.php',
 ];
@@ -72,7 +70,7 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Call to deprecated method getCheckoutMethod() of class Mage_Sales_Model_Quote:
-after 1.4 beta1 it is checkout module responsibility',
+checkout module responsibility',
     'count' => 2,
     'path' => __DIR__ . '/../app/code/core/Mage/Captcha/Model/Observer.php',
 ];
@@ -147,49 +145,48 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Call to deprecated method getCheckoutMethod() of class Mage_Sales_Model_Quote:
-after 1.4 beta1 it is checkout module responsibility',
+checkout module responsibility',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Checkout/Block/Onepage/Billing.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Call to deprecated method getCheckoutMethod() of class Mage_Sales_Model_Quote:
-after 1.4 beta1 it is checkout module responsibility',
+checkout module responsibility',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Checkout/Block/Onepage/Shipping.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Call to deprecated method getCheckoutMethod() of class Mage_Sales_Model_Quote:
-after 1.4 beta1 it is checkout module responsibility',
+checkout module responsibility',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Checkout/Model/Api/Resource/Customer.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Call to deprecated method getCheckoutMethod() of class Mage_Sales_Model_Quote:
-after 1.4 beta1 it is checkout module responsibility',
+checkout module responsibility',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Checkout/Model/Cart/Api.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Call to deprecated method getCheckoutMethod() of class Mage_Sales_Model_Quote:
-after 1.4 beta1 it is checkout module responsibility',
+checkout module responsibility',
     'count' => 6,
     'path' => __DIR__ . '/../app/code/core/Mage/Checkout/Model/Type/Onepage.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Call to deprecated method isAllowedGuestCheckout() of class Mage_Sales_Model_Quote:
-after 1.4 beta1 it is checkout module responsibility',
+checkout module responsibility',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Checkout/Model/Type/Onepage.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Call to deprecated method isInstalled() of class Mage_Core_Model_App:
-since 1.2',
+    'rawMessage' => 'Call to deprecated method isInstalled() of class Mage_Core_Model_App.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Layout/Update.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Call to deprecated method revalidateCookie() of class Mage_Core_Model_Session_Abstract_Varien:
-after 1.4 cookie renew moved to session start method',
+cookie renew moved to session start method',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Session/Abstract/Varien.php',
 ];
@@ -243,7 +240,7 @@ moved to catalog attribute model',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Call to deprecated method _getHtml() of class Mage_Page_Block_Html_Topmenu:
-since 1.8.2.0 use child block catalog.topnav.renderer instead',
+use child block catalog.topnav.renderer instead',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Page/Block/Html/Topmenu.php',
 ];
@@ -255,13 +252,13 @@ for public function format',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Call to deprecated method getCheckoutMethod() of class Mage_Sales_Model_Quote:
-after 1.4 beta1 it is checkout module responsibility',
+checkout module responsibility',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Controller/Express/Abstract.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Call to deprecated method getCheckoutMethod() of class Mage_Sales_Model_Quote:
-after 1.4 beta1 it is checkout module responsibility',
+checkout module responsibility',
     'count' => 2,
     'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Express/Checkout.php',
 ];
@@ -361,19 +358,17 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Call to deprecated method getGridUrl() of class Mage_Adminhtml_Block_Widget_Grid:
-after 1.3.2.3 Use getAbsoluteGridUrl() method instead',
+Use getAbsoluteGridUrl() method instead',
     'count' => 1,
     'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/dashboard/grid.phtml',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Call to deprecated method getRowId() of class Mage_Adminhtml_Block_Widget_Grid:
-since 1.1.7',
+    'rawMessage' => 'Call to deprecated method getRowId() of class Mage_Adminhtml_Block_Widget_Grid.',
     'count' => 1,
     'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/dashboard/grid.phtml',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Call to deprecated method getIsPriceWebsiteScope() of class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Links:
-since 1.14.2.0',
+    'rawMessage' => 'Call to deprecated method getIsPriceWebsiteScope() of class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Links.',
     'count' => 2,
     'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/downloadable/product/edit/downloadable/links.phtml',
 ];
@@ -384,7 +379,7 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Call to deprecated method getGridUrl() of class Mage_Adminhtml_Block_Widget_Grid:
-after 1.3.2.3 Use getAbsoluteGridUrl() method instead',
+Use getAbsoluteGridUrl() method instead',
     'count' => 1,
     'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/report/grid.phtml',
 ];
@@ -455,43 +450,43 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Call to deprecated method getGridUrl() of class Mage_Adminhtml_Block_Widget_Grid:
-after 1.3.2.3 Use getAbsoluteGridUrl() method instead',
+Use getAbsoluteGridUrl() method instead',
     'count' => 1,
     'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/widget/grid.phtml',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Call to deprecated method getCheckoutMethod() of class Mage_Sales_Model_Quote:
-after 1.4 beta1 it is checkout module responsibility',
+checkout module responsibility',
     'count' => 2,
     'path' => __DIR__ . '/../app/design/frontend/base/default/template/checkout/onepage/login.phtml',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Call to deprecated method isAllowedGuestCheckout() of class Mage_Sales_Model_Quote:
-after 1.4 beta1 it is checkout module responsibility',
+checkout module responsibility',
     'count' => 6,
     'path' => __DIR__ . '/../app/design/frontend/base/default/template/checkout/onepage/login.phtml',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Call to deprecated method getCheckoutMethod() of class Mage_Sales_Model_Quote:
-after 1.4 beta1 it is checkout module responsibility',
+checkout module responsibility',
     'count' => 2,
     'path' => __DIR__ . '/../app/design/frontend/base/default/template/persistent/checkout/onepage/login.phtml',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Call to deprecated method isAllowedGuestCheckout() of class Mage_Sales_Model_Quote:
-after 1.4 beta1 it is checkout module responsibility',
+checkout module responsibility',
     'count' => 1,
     'path' => __DIR__ . '/../app/design/frontend/base/default/template/persistent/checkout/onepage/login.phtml',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Call to deprecated method getCheckoutMethod() of class Mage_Sales_Model_Quote:
-after 1.4 beta1 it is checkout module responsibility',
+checkout module responsibility',
     'count' => 2,
     'path' => __DIR__ . '/../app/design/frontend/rwd/default/template/persistent/checkout/onepage/login.phtml',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Call to deprecated method isAllowedGuestCheckout() of class Mage_Sales_Model_Quote:
-after 1.4 beta1 it is checkout module responsibility',
+checkout module responsibility',
     'count' => 1,
     'path' => __DIR__ . '/../app/design/frontend/rwd/default/template/persistent/checkout/onepage/login.phtml',
 ];
@@ -502,8 +497,7 @@ deprecated since version 1.6.1.0',
     'path' => __DIR__ . '/../tests/unit/Mage/Admin/Model/UserTest.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Call to deprecated method getPopupObjectUrl() of class Mage_AdminNotification_Helper_Data:
-v19.4.16',
+    'rawMessage' => 'Call to deprecated method getPopupObjectUrl() of class Mage_AdminNotification_Helper_Data.',
     'count' => 1,
     'path' => __DIR__ . '/../tests/unit/Mage/AdminNotification/Helper/DataTest.php',
 ];
@@ -533,8 +527,7 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../tests/unit/Mage/Catalog/Helper/Product/UrlTest.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Call to deprecated method isSwfDisabled() of class Mage_Cms_Helper_Data:
-since 19.5.0',
+    'rawMessage' => 'Call to deprecated method isSwfDisabled() of class Mage_Cms_Helper_Data.',
     'count' => 1,
     'path' => __DIR__ . '/../tests/unit/Mage/Cms/Helper/DataTest.php',
 ];
@@ -554,8 +547,7 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../tests/unit/Mage/Index/Model/IndexerTest.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Call to deprecated method isValidForSend() of class Mage_Newsletter_Model_Template:
-since 1.4.0.1',
+    'rawMessage' => 'Call to deprecated method isValidForSend() of class Mage_Newsletter_Model_Template.',
     'count' => 1,
     'path' => __DIR__ . '/../tests/unit/Mage/Newsletter/Model/TemplateTest.php',
 ];
@@ -570,20 +562,17 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../tests/unit/Mage/Page/Block/Html/HeadTest.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Call to deprecated method asArray() of class Mage_Rule_Model_Abstract:
-since 1.7.0.0',
+    'rawMessage' => 'Call to deprecated method asArray() of class Mage_Rule_Model_Abstract.',
     'count' => 1,
     'path' => __DIR__ . '/../tests/unit/Mage/Rule/Model/AbstractTest.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Call to deprecated method asHtml() of class Mage_Rule_Model_Abstract:
-since 1.7.0.0',
+    'rawMessage' => 'Call to deprecated method asHtml() of class Mage_Rule_Model_Abstract.',
     'count' => 1,
     'path' => __DIR__ . '/../tests/unit/Mage/Rule/Model/AbstractTest.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Call to deprecated method asString() of class Mage_Rule_Model_Abstract:
-since 1.7.0.0',
+    'rawMessage' => 'Call to deprecated method asString() of class Mage_Rule_Model_Abstract.',
     'count' => 1,
     'path' => __DIR__ . '/../tests/unit/Mage/Rule/Model/AbstractTest.php',
 ];
@@ -598,8 +587,7 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../tests/unit/Mage/Wishlist/Block/LinksTest.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Call to deprecated method getDataForSave() of class Mage_Wishlist_Model_Item:
-since 1.4.0.0',
+    'rawMessage' => 'Call to deprecated method getDataForSave() of class Mage_Wishlist_Model_Item.',
     'count' => 1,
     'path' => __DIR__ . '/../tests/unit/Mage/Wishlist/Model/ItemTest.php',
 ];
