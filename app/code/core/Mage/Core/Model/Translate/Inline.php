@@ -306,7 +306,7 @@ class Mage_Core_Model_Translate_Inline
      *
      * @param  string                $regexp
      * @param  string                $text
-     * @param  array|callable|string $locationCallback
+     * @param  array|Closure|string $locationCallback
      * @param  array                 $options
      * @return array
      */

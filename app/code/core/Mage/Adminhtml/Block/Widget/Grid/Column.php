@@ -18,9 +18,9 @@
  * @method string          getDir()
  * @method bool            getEditable()
  * @method bool            getEditOnly()
- * @method array|callable  getFilterConditionCallback()
+ * @method array|Closure   getFilterConditionCallback()
  * @method string          getFilterIndex()
- * @method callable        getFrameCallback()
+ * @method array|Closure   getFrameCallback()
  * @method callable|string getGetter()
  * @method string          getHeader()
  * @method string          getHtmlName()
@@ -186,7 +186,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
          * should return new version of rendered value
          */
         $frameCallback = $this->getFrameCallback();
-        if (is_array($frameCallback) || is_callable($frameCallback)) {
+        if (is_array($frameCallback) || $frameCallback instanceof Closure) {
             $renderedValue = call_user_func($frameCallback, $renderedValue, $row, $this, false);
         }
 
@@ -214,7 +214,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
          * should return new version of rendered value
          */
         $frameCallback = $this->getFrameCallback();
-        if (is_array($frameCallback)) {
+        if (is_array($frameCallback) || $frameCallback instanceof Closure) {
             return call_user_func($frameCallback, $renderedValue, $row, $this, true);
         }
 
