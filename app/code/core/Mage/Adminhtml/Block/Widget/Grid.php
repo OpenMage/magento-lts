@@ -617,12 +617,8 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
             return $callback[0] instanceof self && method_exists($callback[0], $callback[1]);
         }
 
-        if ($callback instanceof Closure) {
-            $reflection = new ReflectionFunction($callback);
-            return is_subclass_of($reflection->getClosureCalledClass()->getName(), self::class);
-        }
-
-        return false;
+        $reflection = new ReflectionFunction($callback);
+        return is_subclass_of($reflection->getClosureCalledClass()->getName(), self::class);
     }
 
     /**
