@@ -9,7 +9,7 @@
 
 declare(strict_types=1);
 
-namespace OpenMage\Tests\Unit\Traits\DataProvider\Varien\Object;
+namespace OpenMage\Tests\Unit\Traits\DataProvider\Varien\Object_;
 
 use Generator;
 use Varien_Object;
@@ -23,7 +23,7 @@ trait MapperTrait
         yield 'array, array' => [
             [
                 'key' => 'targetValue',
-                'newKey' => 'sourceValue'
+                'newKey' => 'sourceValue',
             ],
             ['key' => 'sourceValue'],
             ['key' => 'targetValue'],
@@ -41,7 +41,7 @@ trait MapperTrait
 
         yield 'array, empty array' => [
             [
-                'newKey' => 'sourceValue'
+                'newKey' => 'sourceValue',
             ],
             ['key' => 'sourceValue'],
             [],
@@ -51,7 +51,7 @@ trait MapperTrait
         yield 'varien, varien' => [
             [
                 'key' => 'value',
-                'newKey' => 'value'
+                'newKey' => 'value',
             ],
             new Varien_Object(['key' => 'value']),
             new Varien_Object(['key' => 'value']),
@@ -60,7 +60,7 @@ trait MapperTrait
 
         yield 'varien, empty varien' => [
             [
-                'newKey' => 'value'
+                'newKey' => 'value',
             ],
             new Varien_Object(['key' => 'value']),
             new Varien_Object(),
@@ -69,7 +69,7 @@ trait MapperTrait
 
         yield 'empty varien, varien' => [
             [
-                'key' => 'value'
+                'key' => 'value',
             ],
             new Varien_Object(),
             new Varien_Object(['key' => 'value']),
