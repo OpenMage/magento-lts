@@ -42,33 +42,35 @@ class Varien_Object_Mapper
         $get = 'getData';
         if (is_array($source) && isset($source[0]) && is_object($source[0]) && isset($source[1]) && is_string($source[1]) && is_callable($source)) {
             [$source, $get] = $source;
+        } elseif ($target instanceof Closure) {
+            $reflection = new ReflectionFunction($target);
+            $source = $reflection->getClosureThis();
+            [$source, $get] = $source;
         }
-
-        $fromIsArray = is_array($source);
-        $fromIsVO    = $source instanceof Varien_Object;
 
         $set = 'setData';
         if (is_array($target) && isset($target[0]) && is_object($target[0]) && isset($target[1]) && is_string($target[1]) && is_callable($target)) {
             [$target, $set] = $target;
+        } elseif ($target instanceof Closure) {
+            $reflection = new ReflectionFunction($target);
+            $target = $reflection->getClosureThis();
+            [$target, $set] = $target;
         }
-
-        $toIsArray = is_array($target);
-        $toIsVO    = $target instanceof Varien_Object;
 
         foreach ($map as $keyFrom => $keyTo) {
             if (!is_string($keyFrom)) {
                 $keyFrom = $keyTo;
             }
 
-            if ($fromIsArray) {
+            if (is_array($source)) {
                 if (array_key_exists($keyFrom, $source)) {
-                    if ($toIsArray) {
+                    if (is_array($target)) {
                         $target[$keyTo] = $source[$keyFrom];
-                    } elseif ($toIsVO) {
+                    } elseif ($target instanceof Varien_Object) {
                         $target->$set($keyTo, $source[$keyFrom]);
                     }
                 }
-            } elseif ($fromIsVO) {
+            } elseif ($source instanceof Varien_Object) {
                 // get value if (any) value is found as in magic data or a non-empty value with declared getter
                 $value = null;
                 if ($shouldGet = $source->hasData($keyFrom)) {
@@ -81,9 +83,9 @@ class Varien_Object_Mapper
                 }
 
                 if ($shouldGet) {
-                    if ($toIsArray) {
+                    if (is_array($target)) {
                         $target[$keyTo] = $value;
-                    } elseif ($toIsVO) {
+                    } elseif ($target instanceof Varien_Object) {
                         $target->$set($keyTo, $value);
                     }
                 }
@@ -91,12 +93,11 @@ class Varien_Object_Mapper
         }
 
         foreach ($defaults as $keyTo => $value) {
-            if ($toIsArray) {
+            if (is_array($target)) {
                 if (!isset($target[$keyTo])) {
                     $target[$keyTo] = $value;
                 }
-            } elseif ($toIsVO) {
-                /** @var Varien_Object $target */
+            } elseif ($target instanceof Varien_Object) {
                 if (!$target->hasData($keyTo)) {
                     $target->$set($keyTo, $value);
                 }
