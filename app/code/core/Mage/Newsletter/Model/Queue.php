@@ -123,7 +123,7 @@ class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Template
      * @param  Varien_Object $data
      * @return $this
      */
-    #[Deprecated(since: MagentoVersionInterface::VERSION_1_4_0_1)]
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_4_0_1)]
     public function addTemplateData($data)
     {
         $template = $this->getTemplate();
@@ -264,7 +264,7 @@ class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Template
      * @param  bool|int|string $value
      * @return $this
      */
-    #[Deprecated(since: MagentoVersionInterface::VERSION_1_4_0_1)]
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_4_0_1)]
     public function setSaveTemplateFlag($value)
     {
         $this->_saveTemplateFlag = (bool) $value;
@@ -276,7 +276,7 @@ class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Template
      *
      * @return bool
      */
-    #[Deprecated(since: MagentoVersionInterface::VERSION_1_4_0_1)]
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_4_0_1)]
     public function getSaveTemplateFlag()
     {
         return $this->_saveTemplateFlag;

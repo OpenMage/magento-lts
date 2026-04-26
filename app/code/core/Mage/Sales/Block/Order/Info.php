@@ -128,7 +128,7 @@ class Mage_Sales_Block_Order_Info extends Mage_Core_Block_Template
      * @param  Mage_Sales_Model_Order $order
      * @return string
      */
-    #[Deprecated(message: 'logic moved to new block', since: MagentoVersionInterface::VERSION_1_6_0_0)]
+    #[Deprecated(message: 'logic moved to new block', since: OpenMageVersionInterface::VERSION_1_6_0_0)]
     public function getReorderUrl($order)
     {
         if (!Mage::getSingleton('customer/session')->isLoggedIn()) {
@@ -144,7 +144,7 @@ class Mage_Sales_Block_Order_Info extends Mage_Core_Block_Template
      * @param  Mage_Sales_Model_Order $order
      * @return string
      */
-    #[Deprecated(message: 'logic moved to new block', since: MagentoVersionInterface::VERSION_1_6_0_0)]
+    #[Deprecated(message: 'logic moved to new block', since: OpenMageVersionInterface::VERSION_1_6_0_0)]
     public function getPrintUrl($order)
     {
         if (!Mage::getSingleton('customer/session')->isLoggedIn()) {

@@ -40,7 +40,7 @@ class Mage_Paypal_Model_Observer
      *
      * @return $this
      */
-    #[Deprecated(since: MagentoVersionInterface::VERSION_1_6_2_0)]
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_6_2_0)]
     public function cleanTransactions()
     {
         return $this;

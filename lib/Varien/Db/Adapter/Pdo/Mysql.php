@@ -845,7 +845,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      * @return bool|Zend_Db_Statement_Interface
      * @throws Throwable
      */
-    #[Deprecated(since: MagentoVersionInterface::VERSION_1_4_0_1)]
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_4_0_1)]
     public function dropKey($tableName, $keyName, $schemaName = null)
     {
         return $this->dropIndex($tableName, $keyName, $schemaName);
@@ -912,7 +912,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      * @return PDOStatement|Zend_Db_Statement|Zend_Db_Statement_Interface
      * @throws Throwable
      */
-    #[Deprecated(since: MagentoVersionInterface::VERSION_1_4_0_1)]
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_4_0_1)]
     public function addConstraint(
         $fkName,
         $tableName,
@@ -1439,7 +1439,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      * @return Zend_Db_Statement_Interface
      * @throws Zend_Db_Exception
      */
-    #[Deprecated(since: MagentoVersionInterface::VERSION_1_5_0_0)]
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_5_0_0)]
     public function addKey($tableName, $indexName, $fields, $indexType = 'index', $schemaName = null)
     {
         return $this->addIndex($tableName, $indexName, $fields, $indexType, $schemaName);
@@ -2029,7 +2029,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      * @param  string $schemaName
      * @return $this
      */
-    #[Deprecated(since: MagentoVersionInterface::VERSION_1_4_0_1)]
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_4_0_1)]
     public function truncate($tableName, $schemaName = null)
     {
         return $this->truncateTable($tableName, $schemaName);
@@ -4156,7 +4156,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      *
      * @return string
      */
-    #[Deprecated(since: MagentoVersionInterface::VERSION_1_5_1_0)]
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_5_1_0)]
     public function getSuggestedZeroDate()
     {
         return '0000-00-00 00:00:00';
@@ -4168,7 +4168,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      * @param  string $fkName
      * @return string
      */
-    #[Deprecated(since: MagentoVersionInterface::VERSION_1_6_0_0)]
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_6_0_0)]
     protected function _getForeignKeyName($fkName)
     {
         if (!str_starts_with($fkName, 'FK_')) {

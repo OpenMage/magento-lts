@@ -18,7 +18,7 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
 
     public const APPLY_FOR_CATEGORY    = 2;
 
-    #[Deprecated(message: 'Category / Custom Design / Apply To constants', since: MagentoVersionInterface::VERSION_1_4_1_0)]
+    #[Deprecated(message: 'Category / Custom Design / Apply To constants', since: OpenMageVersionInterface::VERSION_1_4_1_0)]
     public const CATEGORY_APPLY_CATEGORY_AND_PRODUCT_RECURSIVE = 1;
 
     public const CATEGORY_APPLY_CATEGORY_ONLY                  = 2;
@@ -34,7 +34,7 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
      * @param  int                                                          $calledFrom
      * @return $this
      */
-    #[Deprecated(since: MagentoVersionInterface::VERSION_1_4_2_0_BETA_1)]
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_4_2_0_BETA_1)]
     public function applyDesign($object, $calledFrom = 0)
     {
         if ($calledFrom != self::APPLY_FOR_CATEGORY && $calledFrom != self::APPLY_FOR_PRODUCT) {
@@ -91,7 +91,7 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
      * @param  int  $pass
      * @return bool
      */
-    #[Deprecated(since: MagentoVersionInterface::VERSION_1_4_1_0)]
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_4_1_0)]
     protected function _isApplyFor($applyForObject, $applyTo, $pass = 0)
     {
         $hasError = false;
@@ -150,7 +150,7 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
      * @param  string $design
      * @return bool
      */
-    #[Deprecated(since: MagentoVersionInterface::VERSION_1_4_2_0_BETA_1)]
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_4_2_0_BETA_1)]
     protected function _isApplyDesign($design, array $date)
     {
         if (!array_key_exists('from', $date) || !array_key_exists('to', $date)) {
@@ -183,7 +183,7 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
      *
      * @return $this
      */
-    #[Deprecated(since: MagentoVersionInterface::VERSION_1_4_2_0_BETA_1)]
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_4_2_0_BETA_1)]
     protected function _inheritDesign($object, $calledFrom = 0)
     {
         $useParentSettings = false;
@@ -234,7 +234,7 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
      *
      * @return $this
      */
-    #[Deprecated(since: MagentoVersionInterface::VERSION_1_4_1_0)]
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_4_1_0)]
     protected function _applyDesignRecursively($object, $calledFrom = 0, $pass = 0)
     {
         $design  = $object->getCustomDesign();
@@ -271,7 +271,7 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
      * @param  int   $pass
      * @return $this
      */
-    #[Deprecated(since: MagentoVersionInterface::VERSION_1_4_2_0_BETA_1)]
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_4_2_0_BETA_1)]
     protected function _applyDesign($designUpdateData, $calledFrom = 0, $loaded = false, $pass = 0)
     {
         $objects = [];

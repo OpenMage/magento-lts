@@ -175,7 +175,7 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
      * @return string
      * @throws Mage_Core_Model_Store_Exception
      */
-    #[Deprecated(since: MagentoVersionInterface::VERSION_1_7_0_0)]
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_7_0_0)]
     protected function _renderItemLabel($range, $value)
     {
         $store      = Mage::app()->getStore();
@@ -218,7 +218,7 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
      * @return string
      * @throws Mage_Core_Model_Store_Exception
      */
-    #[Deprecated(since: MagentoVersionInterface::VERSION_1_4_0_0)]
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_4_0_0)]
     protected function _getCacheKey()
     {
         $key = $this->getLayer()->getStateKey()
@@ -432,7 +432,7 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
      * @param  int   $index
      * @return $this
      */
-    #[Deprecated(since: MagentoVersionInterface::VERSION_1_7_0_0)]
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_7_0_0)]
     protected function _applyToCollection($range, $index)
     {
         $this->_getResource()->applyFilterToCollection($this, $range, $index);

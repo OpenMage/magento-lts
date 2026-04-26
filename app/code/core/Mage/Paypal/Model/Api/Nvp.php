@@ -1309,7 +1309,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
      *
      * @return array
      */
-    #[Deprecated(message: 'use _importAddresses() instead', since: MagentoVersionInterface::VERSION_1_4_2_0_BETA_1)]
+    #[Deprecated(message: 'use _importAddresses() instead', since: OpenMageVersionInterface::VERSION_1_4_2_0_BETA_1)]
     protected function _importAddress(Varien_Object $address, array $target)
     {
         $this->setAddress($address);

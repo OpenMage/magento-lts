@@ -137,7 +137,7 @@ class Mage_ImportExport_Model_Export extends Mage_ImportExport_Model_Abstract
      * @return string
      * @throws Mage_Core_Exception
      */
-    #[Deprecated(message: 'use $this->exportFile() instead', since: MagentoVersionInterface::VERSION_1_9_2_4)]
+    #[Deprecated(message: 'use $this->exportFile() instead', since: OpenMageVersionInterface::VERSION_1_9_2_4)]
     public function export()
     {
         if (isset($this->_data[self::FILTER_ELEMENT_GROUP])) {

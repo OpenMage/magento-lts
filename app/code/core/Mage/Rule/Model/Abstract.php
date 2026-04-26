@@ -458,7 +458,7 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
      *
      * @return string
      */
-    #[Deprecated(since: MagentoVersionInterface::VERSION_1_7_0_0)]
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_7_0_0)]
     public function asString($format = '')
     {
         return '';
@@ -467,7 +467,7 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
     /**
      * @return string
      */
-    #[Deprecated(since: MagentoVersionInterface::VERSION_1_7_0_0)]
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_7_0_0)]
     public function asHtml()
     {
         return '';
@@ -478,7 +478,7 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
      *
      * @return array<void>
      */
-    #[Deprecated(since: MagentoVersionInterface::VERSION_1_7_0_0)]
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_7_0_0)]
     public function asArray(array $arrAttributes = [])
     {
         return [];
@@ -489,7 +489,7 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
      *
      * @return $this
      */
-    #[Deprecated(since: MagentoVersionInterface::VERSION_1_7_0_0)]
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_7_0_0)]
     protected function _prepareWebsiteIds()
     {
         return $this;

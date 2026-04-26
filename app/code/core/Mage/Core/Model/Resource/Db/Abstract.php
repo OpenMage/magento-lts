@@ -14,7 +14,7 @@
  */
 abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Resource_Abstract
 {
-    #[Deprecated(since: MagentoVersionInterface::VERSION_1_5_0_0)]
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_5_0_0)]
     public const CHECKSUM_KEY_NAME = 'Checksum';
 
     /**

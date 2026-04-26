@@ -63,7 +63,7 @@ class Mage_Tag_Model_Resource_Product_Collection extends Mage_Catalog_Model_Reso
      * @param  string $table
      * @return $this
      */
-    #[Deprecated(since: MagentoVersionInterface::VERSION_1_3_2_3)]
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_3_2_3)]
     public function setJoinFlag($table)
     {
         $this->setFlag($table, true);
@@ -77,7 +77,7 @@ class Mage_Tag_Model_Resource_Product_Collection extends Mage_Catalog_Model_Reso
      * @param  string $table
      * @return $this
      */
-    #[Deprecated(since: MagentoVersionInterface::VERSION_1_3_2_3)]
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_3_2_3)]
     public function unsetJoinFlag($table = null)
     {
         $this->setFlag($table, false);

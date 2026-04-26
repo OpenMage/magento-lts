@@ -35,7 +35,7 @@ class Mage_Cms_Model_Resource_Page_Collection extends Mage_Core_Model_Resource_D
      * @return array
      */
     #[Override]
-    #[Deprecated(message: 'use toOptionIdArray()', since: MagentoVersionInterface::VERSION_1_4_0_1)]
+    #[Deprecated(message: 'use toOptionIdArray()', since: OpenMageVersionInterface::VERSION_1_4_0_1)]
     public function toOptionArray()
     {
         return $this->_toOptionArray('identifier', 'title');

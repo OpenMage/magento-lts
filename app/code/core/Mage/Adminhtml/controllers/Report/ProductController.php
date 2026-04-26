@@ -30,7 +30,7 @@ class Mage_Adminhtml_Report_ProductController extends Mage_Adminhtml_Controller_
     /**
      * Bestsellers
      */
-    #[Deprecated(since: MagentoVersionInterface::VERSION_1_4_0_1)]
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_4_0_1)]
     public function orderedAction()
     {
         return $this->_forward('bestsellers', 'report_sales');
@@ -39,7 +39,7 @@ class Mage_Adminhtml_Report_ProductController extends Mage_Adminhtml_Controller_
     /**
      * Export products bestsellers report to CSV format
      */
-    #[Deprecated(since: MagentoVersionInterface::VERSION_1_4_0_1)]
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_4_0_1)]
     public function exportOrderedCsvAction()
     {
         return $this->_forward('exportBestsellersCsv', 'report_sales');
@@ -48,7 +48,7 @@ class Mage_Adminhtml_Report_ProductController extends Mage_Adminhtml_Controller_
     /**
      * Export products bestsellers report to XML format
      */
-    #[Deprecated(since: MagentoVersionInterface::VERSION_1_4_0_1)]
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_4_0_1)]
     public function exportOrderedExcelAction()
     {
         return $this->_forward('exportBestsellersExcel', 'report_sales');

@@ -565,7 +565,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      *
      * @return $this
      */
-    #[Deprecated(since: MagentoVersionInterface::VERSION_1_7_0_2)]
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_7_0_2)]
     protected function _prepareUrlDataObject()
     {
         $objects = [];
@@ -1139,7 +1139,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      * @return $this
      * @throws Mage_Core_Exception
      */
-    #[Deprecated(message: 'Method is not used anywhere in the code.', since: MagentoVersionInterface::VERSION_1_7_0_2)]
+    #[Deprecated(message: 'Method is not used anywhere in the code.', since: OpenMageVersionInterface::VERSION_1_7_0_2)]
     public function joinUrlRewrite()
     {
         $this->joinTable(
@@ -1239,7 +1239,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      * @return $this
      * @see Mage_Catalog_Model_Resource_Product_Collection::addPriceData
      */
-    #[Deprecated(since: MagentoVersionInterface::VERSION_1_3_2_2)]
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_3_2_2)]
     protected function _addMinimalPrice()
     {
         return $this;
@@ -1471,7 +1471,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
         return $this->_addTaxPercents;
     }
 
-    #[Deprecated(since: MagentoVersionInterface::VERSION_1_3_0_0)]
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_3_0_0)]
     protected function _addTaxPercents()
     {
         $classToRate = [];

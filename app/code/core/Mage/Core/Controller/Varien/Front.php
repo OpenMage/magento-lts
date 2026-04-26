@@ -265,7 +265,7 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
     /**
      * Apply configuration rewrites to current url
      */
-    #[Deprecated(message: 'Refactored and moved to Mage_Core_Controller_Request_Rewrite', since: MagentoVersionInterface::VERSION_1_7_0_2)]
+    #[Deprecated(message: 'Refactored and moved to Mage_Core_Controller_Request_Rewrite', since: OpenMageVersionInterface::VERSION_1_7_0_2)]
     public function rewrite()
     {
         $request = $this->getRequest();
@@ -304,7 +304,7 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
      * @param  string $url
      * @return string
      */
-    #[Deprecated(message: 'Refactored and moved to Mage_Core_Controller_Request_Rewrite', since: MagentoVersionInterface::VERSION_1_7_0_2)]
+    #[Deprecated(message: 'Refactored and moved to Mage_Core_Controller_Request_Rewrite', since: OpenMageVersionInterface::VERSION_1_7_0_2)]
     protected function _processRewriteUrl($url)
     {
         $startPos = strpos($url, '{');

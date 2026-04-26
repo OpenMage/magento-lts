@@ -141,7 +141,7 @@ class Mage_Paypal_Model_Config
      *
      * @var int
      */
-    #[Deprecated(since: MagentoVersionInterface::VERSION_1_6_2_0)]
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_6_2_0)]
     public const AUTHORIZATION_AMOUNT_ZERO = 0;
 
     public const AUTHORIZATION_AMOUNT_ONE = 1;
@@ -1418,7 +1418,7 @@ class Mage_Paypal_Model_Config
      *
      * @return array<void>
      */
-    #[Deprecated(since: MagentoVersionInterface::VERSION_1_6_2_0)]
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_6_2_0)]
     public function getAuthorizationAmounts()
     {
         return [];

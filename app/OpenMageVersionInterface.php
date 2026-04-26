@@ -9,7 +9,7 @@ declare(strict_types=1);
  * @package    Mage_Review
  */
 
-interface MagentoVersionInterface
+interface OpenMageVersionInterface
 {
     # EE only?
     public const VERSION_1_14_2_0           = '1.14.2.0';

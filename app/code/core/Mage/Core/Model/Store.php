@@ -530,7 +530,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      * @param  string $value
      * @return string
      */
-    #[Deprecated(since: MagentoVersionInterface::VERSION_1_4_2_0)]
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_4_2_0)]
     public function processSubst($value)
     {
         if (!is_string($value)) {

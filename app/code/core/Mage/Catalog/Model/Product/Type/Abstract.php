@@ -546,7 +546,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      * @return array
      * @see _prepareOptions()
      */
-    #[Deprecated(since: MagentoVersionInterface::VERSION_1_4_2_0)]
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_4_2_0)]
     protected function _prepareOptionsForCart(Varien_Object $buyRequest, $product = null)
     {
         return $this->_prepareOptions($buyRequest, $product, self::PROCESS_MODE_FULL);

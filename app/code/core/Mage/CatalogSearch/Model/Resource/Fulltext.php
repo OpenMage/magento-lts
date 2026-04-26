@@ -837,7 +837,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
      * @param  bool  $value
      * @return $this
      */
-    #[Deprecated(since: MagentoVersionInterface::VERSION_1_6_1_0)]
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_6_1_0)]
     public function setAllowTableChanges($value = true)
     {
         $this->_allowTableChanges = $value;
@@ -851,7 +851,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
      * @param  array $categoryIds
      * @return $this
      */
-    #[Deprecated(since: MagentoVersionInterface::VERSION_1_6_2_0)]
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_6_2_0)]
     public function updateCategoryIndex($productIds, $categoryIds)
     {
         return $this;

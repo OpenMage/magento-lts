@@ -61,7 +61,7 @@ class Mage_Wishlist_Block_Customer_Sidebar extends Mage_Wishlist_Block_Abstract
      *
      * @return bool
      */
-    #[Deprecated(since: MagentoVersionInterface::VERSION_1_6_2_0)]
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_6_2_0)]
     public function getCanDisplayWishlist()
     {
         return $this->_getCustomerSession()->isLoggedIn();

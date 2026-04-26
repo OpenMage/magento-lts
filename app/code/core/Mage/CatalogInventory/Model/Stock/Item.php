@@ -418,7 +418,7 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
      *
      * @return false|int
      */
-    #[Deprecated(since: MagentoVersionInterface::VERSION_1_7_0_0)]
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_7_0_0)]
     public function getDefaultQtyIncrements()
     {
         return Mage::getStoreConfigFlag(self::XML_PATH_ENABLE_QTY_INCREMENTS)

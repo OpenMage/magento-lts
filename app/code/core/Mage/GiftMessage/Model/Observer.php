@@ -70,7 +70,7 @@ class Mage_GiftMessage_Model_Observer extends Varien_Object
      * @param  int|Mage_Catalog_Model_Product $product
      * @return null|int
      */
-    #[Deprecated(since: MagentoVersionInterface::VERSION_1_5_0_0)]
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_5_0_0)]
     protected function _getAvailable($product)
     {
         if (is_object($product)) {
@@ -141,7 +141,7 @@ class Mage_GiftMessage_Model_Observer extends Varien_Object
      *
      * @return $this
      */
-    #[Deprecated(since: MagentoVersionInterface::VERSION_1_4_2_0_BETA_1)]
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_4_2_0_BETA_1)]
     public function catalogEventProductCollectionAfterLoad(Varien_Event_Observer $observer)
     {
         return $this;

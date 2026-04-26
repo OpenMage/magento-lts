@@ -560,7 +560,7 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
      * @param Varien_Object $payment
      * @param string        $txnId
      */
-    #[Deprecated(since: MagentoVersionInterface::VERSION_1_6_2_0)]
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_6_2_0)]
     protected function _addTransaction($payment, $txnId) {}
 
     /**
@@ -569,7 +569,7 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
      * @param  mixed $amount
      * @return $this
      */
-    #[Deprecated(since: MagentoVersionInterface::VERSION_1_6_2_0)]
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_6_2_0)]
     protected function _initialize(Varien_Object $payment, $amount)
     {
         return $this;
@@ -580,7 +580,7 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
      *
      * @param string $token
      */
-    #[Deprecated(since: MagentoVersionInterface::VERSION_1_6_2_0)]
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_6_2_0)]
     public function prepareOrderReview($token = null) {}
 
     /**
@@ -591,7 +591,7 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
      * @param  string                                $txnId
      * @return $this
      */
-    #[Deprecated(since: MagentoVersionInterface::VERSION_1_6_2_0)]
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_6_2_0)]
     protected function _authorize(Varien_Object $payment, $amount, $transaction, $txnId)
     {
         return $this;
@@ -600,7 +600,7 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
     /**
      * Operate with order or quote using information from silent post
      */
-    #[Deprecated(since: MagentoVersionInterface::VERSION_1_6_2_0)]
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_6_2_0)]
     protected function _process(Varien_Object $document) {}
 
     /**
@@ -610,7 +610,7 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
      * @param  mixed                                 $amount
      * @return $this
      */
-    #[Deprecated(since: MagentoVersionInterface::VERSION_1_6_2_0)]
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_6_2_0)]
     protected function _checkTransaction($transaction, $amount)
     {
         return $this;
@@ -619,7 +619,7 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
     /**
      * Check response from Payflow gateway.
      */
-    #[Deprecated(since: MagentoVersionInterface::VERSION_1_6_2_0)]
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_6_2_0)]
     protected function _getDocumentFromResponse()
     {
         return null;

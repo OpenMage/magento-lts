@@ -39,7 +39,7 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Payflowlink_Info extends Mage_Ad
      * @param  string $routePath
      * @return string
      */
-    #[Deprecated(since: MagentoVersionInterface::VERSION_1_7_0_1)]
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_7_0_1)]
     public function getFrontendUrl($routePath)
     {
         if ($this->getRequest()->getParam('website')) {

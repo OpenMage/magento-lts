@@ -135,7 +135,7 @@
     ],
     "autoload": {
         "classmap": [
-            "app/*VersionInterface.php"
+            "app/OpenMageVersionInterface.php"
         ]
     },
     "autoload-dev": {

@@ -263,7 +263,7 @@ class Mage_Catalog_Model_Product_Flat_Observer
      *
      * @return $this
      */
-    #[Deprecated(since: MagentoVersionInterface::VERSION_1_3_2_2)]
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_3_2_2)]
     public function catalogCategoryChangeProducts(Varien_Event_Observer $observer)
     {
         return $this;

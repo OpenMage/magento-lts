@@ -42,7 +42,7 @@ class Mage_Review_Model_Review extends Mage_Core_Model_Abstract
      */
     protected $_eventPrefix = 'review';
 
-    #[Deprecated(since: MagentoVersionInterface::VERSION_1_3_2_4)]
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_3_2_4)]
     public const ENTITY_PRODUCT = 1;
 
     /**

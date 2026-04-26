@@ -95,7 +95,7 @@ class Mage_Page_Block_Html_Header extends Mage_Core_Block_Template
      * @return mixed
      * @see Mage_Page_Block_Html_Welcome
      */
-    #[Deprecated(since: MagentoVersionInterface::VERSION_1_7_0_2)]
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_7_0_2)]
     public function getWelcome()
     {
         if (empty($this->_data['welcome'])) {

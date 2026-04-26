@@ -447,7 +447,7 @@ class Mage_Checkout_Model_Type_Onepage
      *
      * @return array|true
      */
-    #[Deprecated(since: MagentoVersionInterface::VERSION_1_4_0_1)]
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_4_0_1)]
     protected function _processValidateCustomer(Mage_Sales_Model_Quote_Address $address)
     {
         // set customer date of birth for further usage
@@ -880,7 +880,7 @@ class Mage_Checkout_Model_Type_Onepage
      *
      * @throws Mage_Core_Exception
      */
-    #[Deprecated(message: 'service model doing quote validation', since: MagentoVersionInterface::VERSION_1_4_0_0)]
+    #[Deprecated(message: 'service model doing quote validation', since: OpenMageVersionInterface::VERSION_1_4_0_0)]
     protected function validateOrder()
     {
         if ($this->getQuote()->getIsMultiShipping()) {

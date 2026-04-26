@@ -268,7 +268,7 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
      *
      * @return $this
      */
-    #[Deprecated(since: MagentoVersionInterface::VERSION_1_6_1_0_ALPHA_1)]
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_6_1_0_ALPHA_1)]
     protected function _preparePackageTheme()
     {
         return $this;

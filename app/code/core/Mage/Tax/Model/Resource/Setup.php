@@ -17,7 +17,7 @@ class Mage_Tax_Model_Resource_Setup extends Mage_Sales_Model_Resource_Setup
     /**
      * Convert old Tax data
      */
-    #[Deprecated(since: MagentoVersionInterface::VERSION_1_5_0_0)]
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_5_0_0)]
     public function convertOldTaxData()
     {
         $oldRules = $this->_loadTableData('tax_rule');
@@ -117,7 +117,7 @@ class Mage_Tax_Model_Resource_Setup extends Mage_Sales_Model_Resource_Setup
      * @param  array $oldRateTypes
      * @return array
      */
-    #[Deprecated(since: MagentoVersionInterface::VERSION_1_5_0_0)]
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_5_0_0)]
     protected function _loadOldRates($oldRateTypes)
     {
         $table  = $this->getTable('tax_rate');

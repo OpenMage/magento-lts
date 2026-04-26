@@ -14,10 +14,10 @@
  */
 class Mage_Install_Model_Installer_Filesystem extends Mage_Install_Model_Installer_Abstract
 {
-    #[Deprecated(since: MagentoVersionInterface::VERSION_1_7_1_0)]
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_7_1_0)]
     public const MODE_WRITE = 'write';
 
-    #[Deprecated(since: MagentoVersionInterface::VERSION_1_7_1_0)]
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_7_1_0)]
     public const MODE_READ  = 'read';
 
     /**
@@ -63,7 +63,7 @@ class Mage_Install_Model_Installer_Filesystem extends Mage_Install_Model_Install
      * @param  string $mode
      * @return bool
      */
-    #[Deprecated(since: MagentoVersionInterface::VERSION_1_7_1_0)]
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_7_1_0)]
     protected function _checkPath($path, $recursive, $existence, $mode)
     {
         return $this->_checkFullPath(dirname(Mage::getRoot()) . $path, $recursive, $existence);

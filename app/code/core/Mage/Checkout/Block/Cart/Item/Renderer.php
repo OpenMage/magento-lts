@@ -302,7 +302,7 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
      *
      * @return bool
      */
-    #[Deprecated(since: MagentoVersionInterface::VERSION_1_4_2_0_BETA_1)]
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_4_2_0_BETA_1)]
     public function getIsInStock()
     {
         return $this->getItem()->getProduct()->isSaleable()

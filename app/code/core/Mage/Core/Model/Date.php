@@ -194,7 +194,7 @@ class Mage_Core_Model_Date
      * @param  int  $second
      * @return bool
      */
-    #[Deprecated(since: MagentoVersionInterface::VERSION_1_1_7_0)]
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_1_7_0)]
     public function checkDateTime($year, $month, $day, $hour = 0, $minute = 0, $second = 0)
     {
         if (!checkdate($month, $day, $year)) {
@@ -217,7 +217,7 @@ class Mage_Core_Model_Date
      * @return array
      * @throws Mage_Core_Exception
      */
-    #[Deprecated(since: MagentoVersionInterface::VERSION_1_1_7_0)]
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_1_7_0)]
     public function parseDateTime($dateTimeString, $dateTimeFormat)
     {
         // look for supported format

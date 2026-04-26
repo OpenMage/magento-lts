@@ -273,7 +273,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
      * Revalidate cookie
      * @return $this
      */
-    #[Deprecated(message: 'cookie renew moved to session start method', since: MagentoVersionInterface::VERSION_1_4_0_0)]
+    #[Deprecated(message: 'cookie renew moved to session start method', since: OpenMageVersionInterface::VERSION_1_4_0_0)]
     public function revalidateCookie()
     {
         return $this;

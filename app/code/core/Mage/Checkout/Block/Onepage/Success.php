@@ -27,7 +27,7 @@ class Mage_Checkout_Block_Onepage_Success extends Mage_Core_Block_Template
      *
      * @return bool
      */
-    #[Deprecated(since: MagentoVersionInterface::VERSION_1_4_0_1)]
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_4_0_1)]
     public function canPrint()
     {
         return $this->_getData('can_view_order');

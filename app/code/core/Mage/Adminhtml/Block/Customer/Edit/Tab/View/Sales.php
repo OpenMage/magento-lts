@@ -102,7 +102,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Sales extends Mage_Adminhtml_B
      * @param  float  $price
      * @return string
      */
-    #[Deprecated(since: MagentoVersionInterface::VERSION_1_4_0_0_RC_1)]
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_4_0_0_RC_1)]
     public function getPriceFormatted($price)
     {
         return $this->_currency->format($price);
