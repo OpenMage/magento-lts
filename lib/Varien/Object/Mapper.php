@@ -103,6 +103,12 @@ class Varien_Object_Mapper
             }
         }
 
+        if ($target instanceof Closure) {
+            $reflection = new ReflectionFunction($target);
+            $target = $reflection->getClosureThis();
+            return $target;
+        }
+
         return $target;
     }
 }
