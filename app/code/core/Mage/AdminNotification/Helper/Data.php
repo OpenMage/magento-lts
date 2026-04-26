@@ -65,7 +65,7 @@ class Mage_AdminNotification_Helper_Data extends Mage_Core_Helper_Abstract
      * @param  bool   $withExt
      * @return string
      */
-    #[Deprecated(message: 'v19.4.16')]
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_19_4_16_0)]
     public function getPopupObjectUrl($withExt = false)
     {
         return '';

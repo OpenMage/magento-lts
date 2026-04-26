@@ -83,4 +83,8 @@ interface OpenMageVersionInterface
     public const VERSION_1_8_2_0            = '1.8.2.0';
 
     public const VERSION_1_9_2_4            = '1.9.2.4';
+
+    public const VERSION_19_4_16_0          = '19.4.16.0';
+
+    public const VERSION_19_5_0_0           = '19.5.0.0';
 }

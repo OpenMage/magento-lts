@@ -74,7 +74,7 @@ class Mage_Cms_Helper_Data extends Mage_Core_Helper_Abstract
      *
      * @return true
      */
-    #[Deprecated(message: 'since 19.5.0')]
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_19_5_0_0)]
     public function isSwfDisabled()
     {
         return true;
