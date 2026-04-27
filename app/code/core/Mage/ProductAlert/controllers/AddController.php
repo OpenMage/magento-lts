@@ -33,6 +33,8 @@ class Mage_ProductAlert_AddController extends Mage_Core_Controller_Front_Action
     }
 
     /**
+     * Test observer action
+     *
      * @return void
      */
     public function testObserverAction()
@@ -43,6 +45,8 @@ class Mage_ProductAlert_AddController extends Mage_Core_Controller_Front_Action
     }
 
     /**
+     * Add product price alert subscription
+     *
      * @return void
      */
     public function priceAction()
@@ -52,7 +56,7 @@ class Mage_ProductAlert_AddController extends Mage_Core_Controller_Front_Action
         $productId  = (int) $this->getRequest()->getParam('product_id');
         if (!$backUrl || !$productId) {
             $this->_redirect('/');
-            return ;
+            return;
         }
 
         /** @var Mage_Catalog_Model_Product $product */
@@ -65,7 +69,7 @@ class Mage_ProductAlert_AddController extends Mage_Core_Controller_Front_Action
                 $this->_redirect('/');
             }
 
-            return ;
+            return;
         }
 
         try {
@@ -84,6 +88,8 @@ class Mage_ProductAlert_AddController extends Mage_Core_Controller_Front_Action
     }
 
     /**
+     * Add product stock alert subscription
+     *
      * @return void
      */
     public function stockAction()
@@ -94,7 +100,7 @@ class Mage_ProductAlert_AddController extends Mage_Core_Controller_Front_Action
         $productId  = (int) $this->getRequest()->getParam('product_id');
         if (!$backUrl || !$productId) {
             $this->_redirect('/');
-            return ;
+            return;
         }
 
         /** @var Mage_Catalog_Model_Product $product */
@@ -102,8 +108,13 @@ class Mage_ProductAlert_AddController extends Mage_Core_Controller_Front_Action
 
         if (!$product->getId()) {
             $session->addError($this->__('Not enough parameters.'));
-            $this->_redirectUrl($backUrl);
-            return ;
+            if ($this->_isUrlInternal($backUrl)) {
+                $this->_redirectUrl($backUrl);
+            } else {
+                $this->_redirect('/');
+            }
+
+            return;
         }
 
         try {
