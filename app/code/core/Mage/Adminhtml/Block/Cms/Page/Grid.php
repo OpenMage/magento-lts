@@ -77,8 +77,7 @@ class Mage_Adminhtml_Block_Cms_Page_Grid extends Mage_Adminhtml_Block_Widget_Gri
                 'store_all'     => true,
                 'store_view'    => true,
                 'sortable'      => false,
-                'filter_condition_callback'
-                                => [$this, '_filterStoreCondition'],
+                'filter_condition_callback' => $this->_filterStoreCondition(...),
             ]);
         }
 

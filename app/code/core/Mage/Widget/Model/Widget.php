@@ -135,7 +135,7 @@ class Mage_Widget_Model_Widget extends Varien_Object
             }
         }
 
-        uasort($newParams, [$this, '_sortParameters']);
+        uasort($newParams, $this->_sortParameters(...));
         $object->setData('parameters', $newParams);
 
         return $object;
@@ -195,7 +195,7 @@ class Mage_Widget_Model_Widget extends Varien_Object
                 ];
             }
 
-            usort($result, [$this, '_sortWidgets']);
+            usort($result, $this->_sortWidgets(...));
             $this->setData('widgets_array', $result);
         }
 

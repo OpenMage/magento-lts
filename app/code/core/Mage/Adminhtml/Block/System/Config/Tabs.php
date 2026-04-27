@@ -54,8 +54,8 @@ class Mage_Adminhtml_Block_System_Config_Tabs extends Mage_Adminhtml_Block_Widge
 
         $sections = (array) $sections;
 
-        usort($sections, [$this, '_sort']);
-        usort($tabs, [$this, '_sort']);
+        usort($sections, $this->_sort(...));
+        usort($tabs, $this->_sort(...));
 
         foreach ($tabs as $tab) {
             $helperName = $configFields->getAttributeModule($tab);

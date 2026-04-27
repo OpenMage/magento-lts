@@ -97,7 +97,7 @@ class Mage_Adminhtml_Model_System_Config_Source_Admin_Page
             $sortOrder++;
         }
 
-        uasort($parentArr, [$this, '_sortMenu']);
+        uasort($parentArr, $this->_sortMenu(...));
 
         $last = array_key_last($parentArr);
         if (!is_null($last)) {
