@@ -15,8 +15,8 @@ Checkout.prototype.gotoSection = function (section, reloadProgressBlock) {
         this.reloadProgressBlock(this.currentStep);
     }
     this.currentStep = section;
-    var sectionElement = $('opc-' + section);
-    sectionElement.addClassName('allow');
+    var sectionElement = document.getElementById('opc-' + section);
+    sectionElement.classList.add('allow');
     this.accordion.openSection('opc-' + section);
 
     // Scroll viewport to top of checkout steps for smaller viewports
