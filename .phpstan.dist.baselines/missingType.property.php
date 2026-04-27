@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-// total 844 errors
+// total 843 errors
 
 $ignoreErrors = [];
 $ignoreErrors[] = [
@@ -757,11 +757,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Property Mage_Adminhtml_Model_Sales_Order_Random::$_storeCollection has no type specified.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Model/Sales/Order/Random.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_Adminhtml_Model_System_Config_Source_Abstract::$_options has no type specified.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Model/System/Config/Source/Abstract.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Property Mage_Adminhtml_Model_System_Config_Source_Admin_Page::$_url has no type specified.',
