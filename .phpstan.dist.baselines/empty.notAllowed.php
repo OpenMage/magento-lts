@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-// total 1653 errors
+// total 1781 errors
 
 $ignoreErrors = [];
 $ignoreErrors[] = [
@@ -3252,6 +3252,166 @@ $ignoreErrors[] = [
     'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
     'count' => 2,
     'path' => __DIR__ . '/../lib/Magento/Profiler.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
+    'count' => 4,
+    'path' => __DIR__ . '/../lib/Varien/Cache/Backend/Database.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
+    'count' => 2,
+    'path' => __DIR__ . '/../lib/Varien/Convert/Adapter/Http.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
+    'count' => 1,
+    'path' => __DIR__ . '/../lib/Varien/Convert/Parser/Xml/Excel.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
+    'count' => 2,
+    'path' => __DIR__ . '/../lib/Varien/Data/Collection/Db.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
+    'count' => 1,
+    'path' => __DIR__ . '/../lib/Varien/Data/Collection/Filesystem.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
+    'count' => 4,
+    'path' => __DIR__ . '/../lib/Varien/Data/Form/Element/Abstract.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
+    'count' => 1,
+    'path' => __DIR__ . '/../lib/Varien/Data/Form/Element/Color.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
+    'count' => 4,
+    'path' => __DIR__ . '/../lib/Varien/Data/Form/Element/Date.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
+    'count' => 1,
+    'path' => __DIR__ . '/../lib/Varien/Data/Form/Element/Multiselect.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
+    'count' => 1,
+    'path' => __DIR__ . '/../lib/Varien/Data/Form/Element/Obscure.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
+    'count' => 1,
+    'path' => __DIR__ . '/../lib/Varien/Data/Form/Element/Select.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
+    'count' => 1,
+    'path' => __DIR__ . '/../lib/Varien/Data/Tree/Db.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
+    'count' => 1,
+    'path' => __DIR__ . '/../lib/Varien/Data/Tree/Node/Collection.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
+    'count' => 1,
+    'path' => __DIR__ . '/../lib/Varien/Date.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
+    'count' => 3,
+    'path' => __DIR__ . '/../lib/Varien/Db/Adapter/Mysqli.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
+    'count' => 29,
+    'path' => __DIR__ . '/../lib/Varien/Db/Adapter/Pdo/Mysql.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
+    'count' => 8,
+    'path' => __DIR__ . '/../lib/Varien/Db/Ddl/Table.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
+    'count' => 3,
+    'path' => __DIR__ . '/../lib/Varien/Db/Select.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
+    'count' => 10,
+    'path' => __DIR__ . '/../lib/Varien/Db/Tree.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
+    'count' => 2,
+    'path' => __DIR__ . '/../lib/Varien/Db/Tree/Node.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
+    'count' => 2,
+    'path' => __DIR__ . '/../lib/Varien/File/Transfer/Adapter/Http.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
+    'count' => 4,
+    'path' => __DIR__ . '/../lib/Varien/File/Uploader.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
+    'count' => 2,
+    'path' => __DIR__ . '/../lib/Varien/Http/Adapter/Curl.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
+    'count' => 5,
+    'path' => __DIR__ . '/../lib/Varien/Image/Adapter/Gd2.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
+    'count' => 1,
+    'path' => __DIR__ . '/../lib/Varien/Io/Abstract.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
+    'count' => 2,
+    'path' => __DIR__ . '/../lib/Varien/Io/File.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
+    'count' => 9,
+    'path' => __DIR__ . '/../lib/Varien/Io/Ftp.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
+    'count' => 11,
+    'path' => __DIR__ . '/../lib/Varien/Object.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
+    'count' => 5,
+    'path' => __DIR__ . '/../lib/Varien/Profiler.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
+    'count' => 1,
+    'path' => __DIR__ . '/../lib/Varien/Simplexml/Config.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
+    'count' => 2,
+    'path' => __DIR__ . '/../lib/Varien/Simplexml/Config/Cache/Abstract.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
+    'count' => 4,
+    'path' => __DIR__ . '/../lib/Varien/Simplexml/Element.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
