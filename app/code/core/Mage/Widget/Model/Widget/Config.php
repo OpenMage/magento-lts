@@ -17,57 +17,32 @@ class Mage_Widget_Model_Widget_Config extends Varien_Object
     /**
      * Return config settings for widgets insertion plugin based on editor element config
      *
-     * @param  Varien_Object                 $config
-     * @return array<string, mixed[]|string>
+     * @param  Varien_Object                               $config
+     * @return array<string, array<string, string>|string>
+     * @throws Exception
      */
     public function getPluginSettings($config)
     {
         return [
             'widget_plugin_src'   => Mage::getBaseUrl('js') . 'mage/adminhtml/wysiwyg/tinymce/plugins/openmagewidget.js',
-            'widget_images_url'   => $this->getPlaceholderImagesBaseUrl(),
-            'widget_placeholders' => $this->getAvailablePlaceholderFilenames(),
+            'widget_placeholders' => $this->getPlaceholderImages(),
             'widget_window_url'   => $this->getWidgetWindowUrl($config),
         ];
     }
 
     /**
-     * Return Widget placeholders images URL
-     *
-     * @return string
+     * @return array<string, string>
+     * @throws Exception
      */
-    public function getPlaceholderImagesBaseUrl()
+    public function getPlaceholderImages(): array
     {
-        return Mage::getDesign()->getSkinUrl('images/widget/');
-    }
-
-    /**
-     * Return Widget placeholders images dir
-     *
-     * @return string
-     */
-    public function getPlaceholderImagesBaseDir()
-    {
-        return Mage::getDesign()->getSkinBaseDir() . DS . 'images' . DS . 'widget';
-    }
-
-    /**
-     * Return list of existing widget image placeholders
-     *
-     * @return array
-     */
-    public function getAvailablePlaceholderFilenames()
-    {
+        // i want glob able path
+        $dir = Mage::getBaseDir('skin') . DS . Mage::getDesign()->getArea()
+            . DS . '*' . DS . '*' . DS . 'images' . DS . 'widget' . DS . '*.gif';
+        $files = array_unique(array_map(basename(...), glob($dir)));
         $result = [];
-        $targetDir = $this->getPlaceholderImagesBaseDir();
-        if (is_dir($targetDir) && is_readable($targetDir)) {
-            $collection = new Varien_Data_Collection_Filesystem();
-            $collection->addTargetDir($targetDir)
-                ->setCollectDirs(false)
-                ->setCollectFiles(true)
-                ->setCollectRecursively(false);
-            foreach ($collection as $file) {
-                $result[] = $file->getBasename();
-            }
+        foreach ($files as $file) {
+            $result[$file] = Mage::getDesign()->getSkinUrl('images/widget/' . $file);
         }
 
         return $result;
