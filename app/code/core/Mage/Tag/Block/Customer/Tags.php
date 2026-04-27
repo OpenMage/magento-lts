@@ -36,7 +36,7 @@ class Mage_Tag_Block_Customer_Tags extends Mage_Customer_Block_Account_Dashboard
             return;
         }
 
-        if (isset($tags) && count($tags) == 0) {
+        if (isset($tags) && count($tags) === 0) {
             return;
         }
 

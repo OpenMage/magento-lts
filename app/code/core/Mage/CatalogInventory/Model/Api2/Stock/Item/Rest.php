@@ -121,7 +121,7 @@ abstract class Mage_CatalogInventory_Model_Api2_Stock_Item_Rest extends Mage_Cat
                 ]);
             } catch (Mage_Api2_Exception $mageApi2Exception) {
                 // pre-validation errors are already added
-                if ($mageApi2Exception->getMessage() != self::RESOURCE_DATA_PRE_VALIDATION_ERROR) {
+                if ($mageApi2Exception->getMessage() !== self::RESOURCE_DATA_PRE_VALIDATION_ERROR) {
                     $this->_errorMessage($mageApi2Exception->getMessage(), $mageApi2Exception->getCode(), [
                         'item_id' => $itemData['item_id'] ?? null,
                     ]);

@@ -131,8 +131,6 @@ try {
                 __DIR__ . '/app/code/core/Mage/Api2/Model/Auth/Adapter/Oauth.php',
             ],
             # ... +300 occurrences
-            CodeQuality\Equal\UseIdenticalOverEqualWithSameTypeRector::class,
-            # ... +300 occurrences
             CodeQuality\If_\ExplicitBoolCompareRector::class,
             # ... review autoloading at all
             CodeQuality\Include_\AbsolutizeRequireAndIncludePathRector::class,

@@ -77,7 +77,7 @@ class Mage_Rss_OrderController extends Mage_Rss_Controller_Abstract
     public function preDispatch()
     {
         $action = strtolower($this->getRequest()->getActionName());
-        if ($action == 'new' && $this->isFeedEnable('order/new')) {
+        if ($action === 'new' && $this->isFeedEnable('order/new')) {
             $this->_currentArea = 'adminhtml';
             Mage::helper('rss')->authAdmin('sales/order');
         }

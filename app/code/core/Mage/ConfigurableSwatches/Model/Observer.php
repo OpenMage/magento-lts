@@ -153,8 +153,8 @@ class Mage_ConfigurableSwatches_Model_Observer extends Mage_Core_Model_Abstract
             // Block name for layered navigation differs depending on which Magento edition we're in
             $blockName = 'catalog.leftnav';
             if (Mage::getEdition() == Mage::EDITION_ENTERPRISE) {
-                $blockName = ($front == 'catalogsearch') ? 'enterprisesearch.leftnav' : 'enterprisecatalog.leftnav';
-            } elseif ($front == 'catalogsearch') {
+                $blockName = ($front === 'catalogsearch') ? 'enterprisesearch.leftnav' : 'enterprisecatalog.leftnav';
+            } elseif ($front === 'catalogsearch') {
                 $blockName = 'catalogsearch.leftnav';
             }
 
