@@ -14,7 +14,6 @@ namespace OpenMage\Tests\Unit\Varien\Object_;
 use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Varien\Object_\MapperTrait;
-use Varien_Exception;
 use Varien_Object;
 use Varien_Object_Mapper as Subject;
 

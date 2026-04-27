@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-// total 63 errors
+// total 64 errors
 
 $ignoreErrors = [];
 $ignoreErrors[] = [
@@ -202,6 +202,11 @@ $ignoreErrors[] = [
     'rawMessage' => 'Cannot call method execute() on object|resource.',
     'count' => 1,
     'path' => __DIR__ . '/../lib/Varien/Db/Statement/Pdo/Mysql.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Cannot call method hasData() on array|object.',
+    'count' => 1,
+    'path' => __DIR__ . '/../lib/Varien/Object/Mapper.php',
 ];
 
 return ['parameters' => ['ignoreErrors' => $ignoreErrors]];
