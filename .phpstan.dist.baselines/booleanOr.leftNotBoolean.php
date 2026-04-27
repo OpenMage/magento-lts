@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-// total 71 errors
+// total 82 errors
 
 $ignoreErrors = [];
 $ignoreErrors[] = [
@@ -69,6 +69,11 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/controllers/UrlrewriteController.php',
 ];
 $ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in ||, int|false given on the left side.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Api2/Model/Resource/Validator/Eav.php',
+];
+$ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in ||, string given on the left side.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Block/Product/Compare/List.php',
@@ -119,9 +124,29 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Resource/File/Storage/File.php',
 ];
 $ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in ||, string|false given on the left side.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Resource/Resource.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in ||, int|false given on the left side.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Dataflow/Model/Convert/Adapter/Io.php',
+];
+$ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in ||, (float|int) given on the left side.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Downloadable/controllers/DownloadController.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in ||, int|false given on the left side.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Eav/Model/Entity/Attribute/Backend/Time/Created.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in ||, bool|int given on the left side.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/GiftMessage/Block/Message/Inline.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in ||, (float|int) given on the left side.',
@@ -132,6 +157,11 @@ $ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in ||, mixed given on the left side.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Newsletter/Model/Subscriber.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in ||, string|false given on the left side.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Oauth/Helper/Data.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in ||, mixed given on the left side.',
@@ -152,6 +182,11 @@ $ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in ||, mixed given on the left side.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Config.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in ||, string|false given on the left side.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Payflow/Request.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in ||, string|null given on the left side.',
@@ -284,6 +319,11 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/design/frontend/base/default/template/bundle/sales/order/shipment/items/renderer.phtml',
 ];
 $ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in ||, string|false given on the left side.',
+    'count' => 2,
+    'path' => __DIR__ . '/../app/design/frontend/base/default/template/catalog/product/gallery.phtml',
+];
+$ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in ||, mixed given on the left side.',
     'count' => 1,
     'path' => __DIR__ . '/../app/design/frontend/base/default/template/page/html/top.links.phtml',
@@ -329,6 +369,11 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/design/frontend/rwd/default/template/bundle/sales/order/items/renderer.phtml',
 ];
 $ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in ||, bool|string given on the left side.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/design/frontend/rwd/default/template/catalog/product/view/addto.phtml',
+];
+$ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in ||, mixed given on the left side.',
     'count' => 1,
     'path' => __DIR__ . '/../app/design/frontend/rwd/default/template/persistent/checkout/onepage/login.phtml',
@@ -337,6 +382,11 @@ $ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in ||, mixed given on the left side.',
     'count' => 1,
     'path' => __DIR__ . '/../lib/Varien/Data/Form/Element/Editor.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in ||, int|false given on the left side.',
+    'count' => 1,
+    'path' => __DIR__ . '/../shell/abstract.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in ||, mixed given on the left side.',

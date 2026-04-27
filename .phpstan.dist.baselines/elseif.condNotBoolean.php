@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-// total 155 errors
+// total 432 errors
 
 $ignoreErrors = [];
 $ignoreErrors[] = [
@@ -179,6 +179,16 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Widget/Grid.php',
 ];
 $ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in an elseif condition, int|false given.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Widget/Grid/Column/Renderer/Abstract.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in an elseif condition, array<Mage_Core_Block_Abstract>|Mage_Core_Block_Abstract|false given.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Widget/Tabs.php',
+];
+$ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in an elseif condition, string|null given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Model/Config.php',
@@ -249,6 +259,11 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Block/Product/View.php',
 ];
 $ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in an elseif condition, Mage_Catalog_Model_Resource_Eav_Attribute|false given.',
+    'count' => 3,
+    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Helper/Product.php',
+];
+$ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in an elseif condition, int|null given.',
     'count' => 2,
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Helper/Product/Compare.php',
@@ -279,6 +294,11 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Product/Option/Type/File.php',
 ];
 $ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in an elseif condition, int|false given.',
+    'count' => 3,
+    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Resource/Helper/Mysql4.php',
+];
+$ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in an elseif condition, int given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Resource/Product/Attribute/Backend/Tierprice.php',
@@ -304,6 +324,11 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Resource/Url.php',
 ];
 $ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in an elseif condition, array|int|string|false given.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Resource/Url.php',
+];
+$ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in an elseif condition, int|null given.',
     'count' => 2,
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/controllers/Product/CompareController.php',
@@ -322,6 +347,11 @@ $ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in an elseif condition, string given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Cms/Block/Widget/Page/Link.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in an elseif condition, Mage_Core_Controller_Varien_Router_Abstract|false given.',
+    'count' => 2,
+    'path' => __DIR__ . '/../app/code/core/Mage/Core/Controller/Varien/Front.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in an elseif condition, string given.',
@@ -354,6 +384,11 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Input/Filter.php',
 ];
 $ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in an elseif condition, int|false given.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Resource/Setup.php',
+];
+$ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in an elseif condition, string given.',
     'count' => 2,
     'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Resource/Setup.php',
@@ -384,9 +419,19 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Customer/Model/Address/Abstract.php',
 ];
 $ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in an elseif condition, int|false given.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Downloadable/Helper/Download.php',
+];
+$ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in an elseif condition, string given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Eav/Model/Entity/Attribute/Backend/Abstract.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in an elseif condition, int|false given.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Eav/Model/Entity/Attribute/Backend/Datetime.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in an elseif condition, int given.',
@@ -434,6 +479,11 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Express/Checkout.php',
 ];
 $ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in an elseif condition, array|bool given.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Standard.php',
+];
+$ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in an elseif condition, int|null given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Reports/Model/Resource/Product/Index/Collection/Abstract.php',
@@ -467,6 +517,11 @@ $ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in an elseif condition, mixed given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Sales/Helper/Guest.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in an elseif condition, Mage_Customer_Model_Customer|false given.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Quote/Address.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in an elseif condition, int|string|null given.',
@@ -504,6 +559,21 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl.php',
 ];
 $ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in an elseif condition, bool|string given.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/International.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in an elseif condition, int<0, max>|false given.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Usa/sql/usa_setup/upgrade-1.6.0.0-1.6.0.1.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in an elseif condition, int<0, max>|false given.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Usa/sql/usa_setup/upgrade-1.6.0.1-1.6.0.2.php',
+];
+$ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in an elseif condition, (Varien_Simplexml_Element|null) given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Widget/Model/Widget/Instance.php',
@@ -519,14 +589,119 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Wishlist/Helper/Data.php',
 ];
 $ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in an elseif condition, bool|int given.',
+    'count' => 8,
+    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/bundle/sales/creditmemo/create/items/renderer.phtml',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in an elseif condition, bool|int given.',
+    'count' => 8,
+    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/bundle/sales/creditmemo/view/items/renderer.phtml',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in an elseif condition, bool|int given.',
+    'count' => 8,
+    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/bundle/sales/invoice/create/items/renderer.phtml',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in an elseif condition, bool|int given.',
+    'count' => 8,
+    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/bundle/sales/invoice/view/items/renderer.phtml',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in an elseif condition, bool|int given.',
+    'count' => 8,
+    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/bundle/sales/order/view/items/renderer.phtml',
+];
+$ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in an elseif condition, string given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/dashboard/grid.phtml',
 ];
 $ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in an elseif condition, bool|int given.',
+    'count' => 4,
+    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/downloadable/sales/order/creditmemo/create/items/renderer/downloadable.phtml',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in an elseif condition, bool|int given.',
+    'count' => 4,
+    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/downloadable/sales/order/creditmemo/view/items/renderer/downloadable.phtml',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in an elseif condition, bool|int given.',
+    'count' => 4,
+    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/downloadable/sales/order/invoice/create/items/renderer/downloadable.phtml',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in an elseif condition, bool|int given.',
+    'count' => 4,
+    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/downloadable/sales/order/invoice/view/items/renderer/downloadable.phtml',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in an elseif condition, bool|int given.',
+    'count' => 4,
+    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/downloadable/sales/order/view/items/renderer/downloadable.phtml',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in an elseif condition, bool|int given.',
+    'count' => 4,
+    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/email/order/items.phtml',
+];
+$ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in an elseif condition, string given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/report/grid.phtml',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in an elseif condition, bool|int given.',
+    'count' => 12,
+    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/sales/order/create/items/grid.phtml',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in an elseif condition, bool|int given.',
+    'count' => 8,
+    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/sales/order/creditmemo/create/items/renderer/configurable.phtml',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in an elseif condition, bool|int given.',
+    'count' => 8,
+    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/sales/order/creditmemo/create/items/renderer/default.phtml',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in an elseif condition, bool|int given.',
+    'count' => 8,
+    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/sales/order/creditmemo/view/items/renderer/configurable.phtml',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in an elseif condition, bool|int given.',
+    'count' => 8,
+    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/sales/order/creditmemo/view/items/renderer/default.phtml',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in an elseif condition, bool|int given.',
+    'count' => 8,
+    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/sales/order/invoice/create/items/renderer/configurable.phtml',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in an elseif condition, bool|int given.',
+    'count' => 8,
+    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/sales/order/invoice/create/items/renderer/default.phtml',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in an elseif condition, bool|int given.',
+    'count' => 8,
+    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/sales/order/invoice/view/items/renderer/configurable.phtml',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in an elseif condition, bool|int given.',
+    'count' => 8,
+    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/sales/order/invoice/view/items/renderer/default.phtml',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in an elseif condition, bool|int given.',
+    'count' => 8,
+    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/sales/order/view/items/renderer/default.phtml',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in an elseif condition, mixed given.',
@@ -539,9 +714,134 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/widget/grid.phtml',
 ];
 $ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in an elseif condition, bool|int given.',
+    'count' => 9,
+    'path' => __DIR__ . '/../app/design/frontend/base/default/template/bundle/catalog/product/view/option_tierprices.phtml',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in an elseif condition, bool|int given.',
+    'count' => 4,
+    'path' => __DIR__ . '/../app/design/frontend/base/default/template/bundle/email/order/items/creditmemo/default.phtml',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in an elseif condition, bool|int given.',
+    'count' => 4,
+    'path' => __DIR__ . '/../app/design/frontend/base/default/template/bundle/email/order/items/invoice/default.phtml',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in an elseif condition, bool|int given.',
+    'count' => 4,
+    'path' => __DIR__ . '/../app/design/frontend/base/default/template/bundle/email/order/items/order/default.phtml',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in an elseif condition, bool|int given.',
+    'count' => 9,
+    'path' => __DIR__ . '/../app/design/frontend/base/default/template/catalog/product/view/tierprices.phtml',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in an elseif condition, bool|int given.',
+    'count' => 4,
+    'path' => __DIR__ . '/../app/design/frontend/base/default/template/checkout/cart/sidebar/default.phtml',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in an elseif condition, bool|int given.',
+    'count' => 2,
+    'path' => __DIR__ . '/../app/design/frontend/base/default/template/customer/address/edit.phtml',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in an elseif condition, bool|int given.',
+    'count' => 4,
+    'path' => __DIR__ . '/../app/design/frontend/base/default/template/downloadable/email/order/items/creditmemo/downloadable.phtml',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in an elseif condition, bool|int given.',
+    'count' => 4,
+    'path' => __DIR__ . '/../app/design/frontend/base/default/template/downloadable/email/order/items/invoice/downloadable.phtml',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in an elseif condition, bool|int given.',
+    'count' => 4,
+    'path' => __DIR__ . '/../app/design/frontend/base/default/template/downloadable/email/order/items/order/downloadable.phtml',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in an elseif condition, bool|int given.',
+    'count' => 4,
+    'path' => __DIR__ . '/../app/design/frontend/base/default/template/email/order/items/creditmemo/default.phtml',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in an elseif condition, bool|int given.',
+    'count' => 4,
+    'path' => __DIR__ . '/../app/design/frontend/base/default/template/email/order/items/invoice/default.phtml',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in an elseif condition, bool|int given.',
+    'count' => 4,
+    'path' => __DIR__ . '/../app/design/frontend/base/default/template/email/order/items/order/default.phtml',
+];
+$ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in an elseif condition, mixed given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/design/frontend/base/default/template/page/html/breadcrumbs.phtml',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in an elseif condition, bool|int given.',
+    'count' => 4,
+    'path' => __DIR__ . '/../app/design/frontend/rwd/default/template/bundle/email/order/items/creditmemo/default.phtml',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in an elseif condition, bool|int given.',
+    'count' => 4,
+    'path' => __DIR__ . '/../app/design/frontend/rwd/default/template/bundle/email/order/items/invoice/default.phtml',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in an elseif condition, bool|int given.',
+    'count' => 4,
+    'path' => __DIR__ . '/../app/design/frontend/rwd/default/template/bundle/email/order/items/order/default.phtml',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in an elseif condition, bool|int given.',
+    'count' => 4,
+    'path' => __DIR__ . '/../app/design/frontend/rwd/default/template/checkout/cart/minicart/default.phtml',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in an elseif condition, bool|int given.',
+    'count' => 4,
+    'path' => __DIR__ . '/../app/design/frontend/rwd/default/template/checkout/cart/sidebar/default.phtml',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in an elseif condition, bool|int given.',
+    'count' => 2,
+    'path' => __DIR__ . '/../app/design/frontend/rwd/default/template/customer/address/edit.phtml',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in an elseif condition, bool|int given.',
+    'count' => 4,
+    'path' => __DIR__ . '/../app/design/frontend/rwd/default/template/downloadable/email/order/items/creditmemo/downloadable.phtml',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in an elseif condition, bool|int given.',
+    'count' => 4,
+    'path' => __DIR__ . '/../app/design/frontend/rwd/default/template/downloadable/email/order/items/invoice/downloadable.phtml',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in an elseif condition, bool|int given.',
+    'count' => 4,
+    'path' => __DIR__ . '/../app/design/frontend/rwd/default/template/downloadable/email/order/items/order/downloadable.phtml',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in an elseif condition, bool|int given.',
+    'count' => 4,
+    'path' => __DIR__ . '/../app/design/frontend/rwd/default/template/email/order/items/creditmemo/default.phtml',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in an elseif condition, bool|int given.',
+    'count' => 4,
+    'path' => __DIR__ . '/../app/design/frontend/rwd/default/template/email/order/items/invoice/default.phtml',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in an elseif condition, bool|int given.',
+    'count' => 4,
+    'path' => __DIR__ . '/../app/design/frontend/rwd/default/template/email/order/items/order/default.phtml',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in an elseif condition, Mage_Core_Block_Abstract given.',
@@ -557,6 +857,16 @@ $ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in an elseif condition, string given.',
     'count' => 1,
     'path' => __DIR__ . '/../lib/Varien/Db/Adapter/Mysqli.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in an elseif condition, int|false given.',
+    'count' => 2,
+    'path' => __DIR__ . '/../lib/Varien/Db/Adapter/Pdo/Mysql.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in an elseif condition, int|false given.',
+    'count' => 1,
+    'path' => __DIR__ . '/../lib/Varien/File/Uploader.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in an elseif condition, int<0, 16384> given.',
@@ -587,6 +897,11 @@ $ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in an elseif condition, int<0, 8192> given.',
     'count' => 1,
     'path' => __DIR__ . '/../lib/Varien/Io/File.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in an elseif condition, int|false given.',
+    'count' => 1,
+    'path' => __DIR__ . '/../shell/abstract.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in an elseif condition, string|null given.',

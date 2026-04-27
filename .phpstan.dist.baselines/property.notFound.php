@@ -1,8 +1,88 @@
 <?php declare(strict_types = 1);
 
-// total 16 errors
+// total 61 errors
 
 $ignoreErrors = [];
+$ignoreErrors[] = [
+    'rawMessage' => 'Access to an undefined property object::$can_be_empty.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/System/Config/Form.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Access to an undefined property object::$complexObjectArray.',
+    'count' => 2,
+    'path' => __DIR__ . '/../app/code/core/Mage/Api/Helper/Data.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Access to an undefined property object::$complex_filter.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Api/Helper/Data.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Access to an undefined property object::$filter.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Api/Helper/Data.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Access to an undefined property object::$key.',
+    'count' => 2,
+    'path' => __DIR__ . '/../app/code/core/Mage/Api/Helper/Data.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Access to an undefined property object::$value.',
+    'count' => 3,
+    'path' => __DIR__ . '/../app/code/core/Mage/Api/Helper/Data.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Access to an undefined property object::$required.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Api/Model/Config.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Access to an undefined property object::$acl.',
+    'count' => 2,
+    'path' => __DIR__ . '/../app/code/core/Mage/Api/Model/Server/Handler/Abstract.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Access to an undefined property object::$model.',
+    'count' => 2,
+    'path' => __DIR__ . '/../app/code/core/Mage/Api/Model/Server/Handler/Abstract.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Access to an undefined property object::$public.',
+    'count' => 2,
+    'path' => __DIR__ . '/../app/code/core/Mage/Api/Model/Server/Handler/Abstract.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Access to an undefined property object::$customer_group_id.',
+    'count' => 2,
+    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Product/Attribute/Tierprice/Api/V2.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Access to an undefined property object::$price.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Product/Attribute/Tierprice/Api/V2.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Access to an undefined property object::$qty.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Product/Attribute/Tierprice/Api/V2.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Access to an undefined property object::$website.',
+    'count' => 2,
+    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Product/Attribute/Tierprice/Api/V2.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Access to an undefined property object::$key.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Checkout/Model/Cart/Product/Api/V2.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Access to an undefined property object::$value.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Checkout/Model/Cart/Product/Api/V2.php',
+];
 $ignoreErrors[] = [
     'rawMessage' => 'Access to an undefined property Zend_Session_Namespace::$data.',
     'count' => 2,
@@ -24,6 +104,61 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Customer/Model/Customer.php',
 ];
 $ignoreErrors[] = [
+    'rawMessage' => 'Access to an undefined property object::$key.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/GiftMessage/Model/Api/V2.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Access to an undefined property object::$value.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/GiftMessage/Model/Api/V2.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Access to an undefined property object::$sort_order.',
+    'count' => 2,
+    'path' => __DIR__ . '/../app/code/core/Mage/Payment/Helper/Data.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Access to an undefined property object::$complex_filter.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Order/Creditmemo/Api/V2.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Access to an undefined property object::$filter.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Order/Creditmemo/Api/V2.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Access to an undefined property object::$qty.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Order/Creditmemo/Api/V2.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Access to an undefined property object::$qty.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Order/Invoice/Api/V2.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Access to an undefined property object::$qty.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Order/Shipment/Api/V2.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Access to an undefined property object::$Code.',
+    'count' => 3,
+    'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Access to an undefined property object::$Desc.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Access to an undefined property object::$Fault.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl.php',
+];
+$ignoreErrors[] = [
     'rawMessage' => 'Access to an undefined property Varien_Object::$domestic.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/International.php',
@@ -37,6 +172,31 @@ $ignoreErrors[] = [
     'rawMessage' => 'Access to an undefined property Varien_Object::$region.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/International.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Access to an undefined property object::$HighestSeverity.',
+    'count' => 2,
+    'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Access to an undefined property object::$Notifications.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Access to an undefined property object::$RateReplyDetails.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Access to an undefined property object::$Units.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Access to an undefined property object::$expires_in.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/UpsAuth.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Access to an undefined property Mage_Core_Block_Template::$trackingInfo.',
