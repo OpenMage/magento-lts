@@ -179,8 +179,9 @@
         "phpmd:baseline": "vendor/bin/phpmd app/code/core/Mage html .phpmd.dist.xml --color --cache --cache-file .cache/.phpmd.result-cache.php --baseline-file .phpmd.dist.baseline.xml --report-file build/phpmd/report.html --update-baseline --generate-baseline",
         "phpstan:test": "XDEBUG_MODE=off php vendor/bin/phpstan analyze",
         "phpstan:baseline": [
-            "XDEBUG_MODE=off phpstan --generate-baseline=.phpstan.dist.baselines/_loader.php",
-            "split-phpstan-baseline .phpstan.dist.baselines/_loader.php"
+            "XDEBUG_MODE=off php vendor/bin/phpstan analyze -b .phpstan.dist.baselines/_loader.php",
+            "split-phpstan-baseline .phpstan.dist.baselines/_loader.php",
+            "git add .phpstan.dist.baselines/*"
         ],
         "phpunit:test": "XDEBUG_MODE=off php vendor/bin/phpunit --configuration .phpunit.dist.xml --testsuite Base,Error,Mage,Varien --no-coverage",
         "phpunit:coverage": "XDEBUG_MODE=coverage php vendor/bin/phpunit --configuration .phpunit.dist.xml --testsuite Base,Error,Mage,Varien --testdox",

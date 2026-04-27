@@ -3,7 +3,7 @@ includes:
     - .phpstan.dist.baselines/_loader.php
     - phar://phpstan.phar/conf/bleedingEdge.neon
 parameters:
-    level: 5
+    level: 6
     checkFunctionNameCase: true
     checkInternalClassCaseSensitivity: true
     treatPhpDocTypesAsCertain: false
