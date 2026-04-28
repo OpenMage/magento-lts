@@ -754,16 +754,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/CatalogInventory/Model/Observer.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Abstract::getCheckSql().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/CatalogInventory/Model/Resource/Stock.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Abstract::prepareSqlCondition().',
-    'count' => 6,
-    'path' => __DIR__ . '/../app/code/core/Mage/CatalogInventory/Model/Resource/Stock.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Call to an undefined method object::getRulePrices().',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/CatalogRule/Model/Observer.php',
@@ -1259,11 +1249,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Eav/Model/Entity/Attribute/Source/Table.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Abstract::getCheckSql().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Eav/Model/Entity/Attribute/Source/Table.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Call to an undefined method Mage_Eav_Model_Entity_Attribute_Interface::getAttributeCode().',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Eav/Model/Entity/Collection/Abstract.php',
@@ -1287,16 +1272,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Call to an undefined method Mage_Eav_Model_Entity_Collection_Abstract::getStoreId().',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Eav/Model/Resource/Entity/Attribute/Option.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Abstract::getIfNullSql().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Eav/Model/Resource/Form/Fieldset.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Abstract::getIfNullSql().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Eav/Model/Resource/Form/Fieldset/Collection.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Call to an undefined method Mage_GiftMessage_IndexController::_getMappedType().',
@@ -1472,11 +1447,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Call to an undefined method object::getTypeId().',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Reports/Model/Resource/Product/Collection.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Abstract::getConcatSql().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Reports/Model/Resource/Quote/Collection.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Call to an undefined method object::getAttribute().',
@@ -1662,11 +1632,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Call to an undefined method Mage_Core_Model_App::getOrder().',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Tax/Helper/Data.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Abstract::getCheckSql().',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Weee/Model/Observer.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Call to an undefined method Mage_Eav_Model_Entity_Attribute_Abstract::isScopeGlobal().',
@@ -1902,41 +1867,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Call to an undefined method object::setId().',
     'count' => 1,
     'path' => __DIR__ . '/../lib/Varien/Data/Form/Abstract.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Abstract::deleteFromSelect().',
-    'count' => 1,
-    'path' => __DIR__ . '/../lib/Varien/Db/Select.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Abstract::forUpdate().',
-    'count' => 1,
-    'path' => __DIR__ . '/../lib/Varien/Db/Select.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Abstract::getQuoteIdentifierSymbol().',
-    'count' => 1,
-    'path' => __DIR__ . '/../lib/Varien/Db/Select.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Abstract::insertFromSelect().',
-    'count' => 2,
-    'path' => __DIR__ . '/../lib/Varien/Db/Select.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Abstract::orderRand().',
-    'count' => 1,
-    'path' => __DIR__ . '/../lib/Varien/Db/Select.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Abstract::supportStraightJoin().',
-    'count' => 1,
-    'path' => __DIR__ . '/../lib/Varien/Db/Select.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Abstract::updateFromSelect().',
-    'count' => 1,
-    'path' => __DIR__ . '/../lib/Varien/Db/Select.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Call to an undefined method SimpleXMLElement::setNode().',

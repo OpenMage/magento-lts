@@ -3204,11 +3204,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../lib/Varien/Data/Collection.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Method Varien_Data_Collection_Db::getConnection() should return Varien_Db_Adapter_Interface but returns Varien_Db_Adapter_Interface|Zend_Db_Adapter_Abstract.',
-    'count' => 1,
-    'path' => __DIR__ . '/../lib/Varien/Data/Collection/Db.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Method Varien_Data_Collection_Db::getData() should return array but returns array|null.',
     'count' => 1,
     'path' => __DIR__ . '/../lib/Varien/Data/Collection/Db.php',
