@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-// total 5726 errors
-
 $ignoreErrors = [];
 $ignoreErrors[] = [
     'rawMessage' => 'Method Mage::_setConfigModel() has parameter $options with no value type specified in iterable type array.',

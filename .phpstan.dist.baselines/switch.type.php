@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-// total 9 errors
-
 $ignoreErrors = [];
 $ignoreErrors[] = [
     'rawMessage' => 'Switch condition type (true) does not match case condition $encodedValue === \\false (false).',

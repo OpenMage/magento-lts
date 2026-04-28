@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-// total 14 errors
-
 $ignoreErrors = [];
 $ignoreErrors[] = [
     'rawMessage' => 'If condition is always false.',

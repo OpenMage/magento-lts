@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-// total 8 errors
-
 $ignoreErrors = [];
 $ignoreErrors[] = [
     'rawMessage' => 'Dead catch - Exception is never thrown in the try block.',

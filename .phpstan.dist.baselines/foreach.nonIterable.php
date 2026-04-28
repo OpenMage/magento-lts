@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-// total 219 errors
-
 $ignoreErrors = [];
 $ignoreErrors[] = [
     'rawMessage' => 'Argument of an invalid type list<string>|false supplied for foreach, only iterables are supported.',

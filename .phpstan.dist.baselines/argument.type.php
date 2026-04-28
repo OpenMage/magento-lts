@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-// total 2174 errors
-
 $ignoreErrors = [];
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $filename of function is_dir expects string, string|false given.',

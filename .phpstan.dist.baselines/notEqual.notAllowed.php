@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-// total 916 errors
-
 $ignoreErrors = [];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "!=" between string and string is not allowed.',

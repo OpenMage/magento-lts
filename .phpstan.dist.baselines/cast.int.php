@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-// total 3 errors
-
 $ignoreErrors = [];
 $ignoreErrors[] = [
     'rawMessage' => 'Cannot cast int|Mage_Sales_Model_Order_Payment|string|null to int.',

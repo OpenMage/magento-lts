@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-// total 55 errors
-
 $ignoreErrors = [];
 $ignoreErrors[] = [
     'rawMessage' => 'Variable method call on mixed.',

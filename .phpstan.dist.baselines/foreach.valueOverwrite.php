@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-// total 83 errors
-
 $ignoreErrors = [];
 $ignoreErrors[] = [
     'rawMessage' => 'Foreach overwrites $label with its value variable.',

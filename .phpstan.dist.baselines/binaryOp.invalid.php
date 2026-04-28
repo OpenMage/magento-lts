@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-// total 113 errors
-
 $ignoreErrors = [];
 $ignoreErrors[] = [
     'rawMessage' => 'Binary operation "+" between 0|string|false|null and 1 results in an error.',

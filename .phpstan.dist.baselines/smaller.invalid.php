@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-// total 1 error
-
 $ignoreErrors = [];
 $ignoreErrors[] = [
     'rawMessage' => 'Comparison operation "<" between int<1, max>|null and *NEVER* results in an error.',

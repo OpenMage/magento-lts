@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-// total 5 errors
-
 $ignoreErrors = [];
 $ignoreErrors[] = [
     'rawMessage' => 'Call to method toHtml() on an unknown class Mage_Adminhtml_Block_Api_Tab_Useredit.',

@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-// total 1781 errors
-
 $ignoreErrors = [];
 $ignoreErrors[] = [
     'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',

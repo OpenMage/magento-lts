@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-// total 690 errors
-
 $ignoreErrors = [];
 $ignoreErrors[] = [
     'rawMessage' => 'Method Mage::exception() should return Mage_Core_Exception but returns object.',

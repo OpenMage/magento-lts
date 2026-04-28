@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-// total 97 errors
-
 $ignoreErrors = [];
 $ignoreErrors[] = [
     'rawMessage' => 'Mage_Admin_Model_Session::__construct() does not call parent constructor from Varien_Object.',

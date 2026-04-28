@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-// total 2 errors
-
 $ignoreErrors = [];
 $ignoreErrors[] = [
     'rawMessage' => 'Only numeric types are allowed in post-increment, int|string given.',

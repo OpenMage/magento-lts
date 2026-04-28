@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-// total 125 errors
-
 $ignoreErrors = [];
 $ignoreErrors[] = [
     'rawMessage' => 'Cannot access offset 1 on list<string>|false.',

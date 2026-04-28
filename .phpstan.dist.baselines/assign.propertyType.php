@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-// total 133 errors
-
 $ignoreErrors = [];
 $ignoreErrors[] = [
     'rawMessage' => 'Property Mage_Adminhtml_Block_Notification_Curl::$_curlVersion (array) does not accept array|false.',

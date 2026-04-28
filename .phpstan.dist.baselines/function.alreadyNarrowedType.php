@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-// total 2 errors
-
 $ignoreErrors = [];
 $ignoreErrors[] = [
     'rawMessage' => 'Call to function is_array() with non-empty-array will always evaluate to true.',

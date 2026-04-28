@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-// total 432 errors
-
 $ignoreErrors = [];
 $ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in an elseif condition, mixed given.',

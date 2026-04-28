@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-// total 24 errors
-
 $ignoreErrors = [];
 $ignoreErrors[] = [
     'rawMessage' => 'Access to constant on deprecated class Mage_Adminhtml_Block_Report_Product_Ordered:

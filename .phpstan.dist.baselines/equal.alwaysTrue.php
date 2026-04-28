@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-// total 2 errors
-
 $ignoreErrors = [];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison using == between true and true will always evaluate to true.',

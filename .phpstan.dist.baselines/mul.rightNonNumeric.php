@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-// total 1 error
-
 $ignoreErrors = [];
 $ignoreErrors[] = [
     'rawMessage' => 'Only numeric types are allowed in *, float|null given on the right side.',

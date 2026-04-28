@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-// total 320 errors
-
 $ignoreErrors = [];
 $ignoreErrors[] = [
     'rawMessage' => 'Method Mage::getResourceModel() return type with generic class Mage_Core_Model_Resource_Db_Collection_Abstract does not specify its types: T',

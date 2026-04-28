@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-// total 1 error
-
 $ignoreErrors = [];
 $ignoreErrors[] = [
     'rawMessage' => 'Class Mage_Reports_Model_Resource_Wishlist_Product_Collection extends deprecated class Mage_Wishlist_Model_Resource_Product_Collection:

@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-// total 317 errors
-
 $ignoreErrors = [];
 $ignoreErrors[] = [
     'rawMessage' => 'Return type (object) of method Mage_Admin_Model_Rules::getCollection() should be covariant with return type (Mage_Core_Model_Resource_Db_Collection_Abstract|false) of method Mage_Core_Model_Abstract::getCollection()',

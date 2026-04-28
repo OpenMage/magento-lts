@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-// total 41 errors
-
 $ignoreErrors = [];
 $ignoreErrors[] = [
     'rawMessage' => 'Variable $billingAddress might not be defined.',

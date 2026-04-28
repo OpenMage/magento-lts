@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-// total 1313 errors
-
 $ignoreErrors = [];
 $ignoreErrors[] = [
     'rawMessage' => 'Call to an undefined method object::addError().',

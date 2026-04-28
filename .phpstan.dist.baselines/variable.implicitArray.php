@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-// total 47 errors
-
 $ignoreErrors = [];
 $ignoreErrors[] = [
     'rawMessage' => 'Implicit array creation is not allowed - variable $config does not exist.',

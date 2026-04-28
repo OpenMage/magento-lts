@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-// total 73 errors
-
 $ignoreErrors = [];
 $ignoreErrors[] = [
     'rawMessage' => 'Offset 1 might not exist on array{}|array{non-falsy-string, non-empty-string, string}.',

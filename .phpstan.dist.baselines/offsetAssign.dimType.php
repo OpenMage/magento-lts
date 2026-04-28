@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-// total 5 errors
-
 $ignoreErrors = [];
 $ignoreErrors[] = [
     'rawMessage' => 'Cannot assign new offset to array|string.',

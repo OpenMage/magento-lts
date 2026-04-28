@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-// total 3 errors
-
 $ignoreErrors = [];
 $ignoreErrors[] = [
     'rawMessage' => 'Call to an undefined static method Mage_Catalog_Model_Product_Type_Price|Mage_Core_Model_Abstract::calculatePrice().',

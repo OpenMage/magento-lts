@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-// total 169 errors
-
 $ignoreErrors = [];
 $ignoreErrors[] = [
     'rawMessage' => 'Call to deprecated method checkConfigurableProducts() of class Mage_Eav_Model_Resource_Entity_Attribute_Collection.',

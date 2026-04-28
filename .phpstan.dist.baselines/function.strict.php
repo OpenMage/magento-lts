@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-// total 529 errors
-
 $ignoreErrors = [];
 $ignoreErrors[] = [
     'rawMessage' => 'Call to function in_array() requires parameter #3 to be set.',
