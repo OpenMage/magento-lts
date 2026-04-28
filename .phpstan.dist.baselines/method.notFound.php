@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-// total 1312 errors
+// total 1313 errors
 
 $ignoreErrors = [];
 $ignoreErrors[] = [
@@ -297,6 +297,11 @@ $ignoreErrors[] = [
     'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::changeColumn().',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Api/sql/api_setup/mysql4-upgrade-1.6.0.2-1.6.0.3.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::changeColumn().',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Api/sql/api_setup/upgrade-1.6.0.3-1.6.0.4.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Call to an undefined method Mage_Api2_Model_Config::getMainRoute().',
