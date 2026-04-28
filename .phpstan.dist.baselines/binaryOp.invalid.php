@@ -289,7 +289,7 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Eav/Model/Convert/Adapter/Grid.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Binary operation "+" between string|false|null and 1 results in an error.',
+    'rawMessage' => 'Binary operation "+" between string and 1 results in an error.',
     'count' => 3,
     'path' => __DIR__ . '/../app/code/core/Mage/Eav/Model/Entity/Setup.php',
 ];

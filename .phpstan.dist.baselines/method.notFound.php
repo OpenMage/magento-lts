@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-// total 1312 errors
+// total 1313 errors
 
 $ignoreErrors = [];
 $ignoreErrors[] = [
@@ -17,61 +17,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Call to an undefined method Mage_Admin_Model_Resource_Rules::update().',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Admin/Model/Rules.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::createTable().',
-    'count' => 4,
-    'path' => __DIR__ . '/../app/code/core/Mage/Admin/sql/admin_setup/install-1.6.0.0.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::newTable().',
-    'count' => 4,
-    'path' => __DIR__ . '/../app/code/core/Mage/Admin/sql/admin_setup/install-1.6.0.0.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::addColumn().',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Admin/sql/admin_setup/upgrade-1.6.0.0-1.6.1.0.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::changeColumn().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Admin/sql/admin_setup/upgrade-1.6.1.0-1.6.1.1.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::createTable().',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Admin/sql/admin_setup/upgrade-1.6.1.1-1.6.1.2.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::insertMultiple().',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Admin/sql/admin_setup/upgrade-1.6.1.1-1.6.1.2.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::newTable().',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Admin/sql/admin_setup/upgrade-1.6.1.1-1.6.1.2.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::changeColumn().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Admin/sql/admin_setup/upgrade-1.6.1.2-1.6.1.3.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::addColumn().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Admin/sql/admin_setup/upgrade-1.6.1.4-1.6.1.5.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::createTable().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/AdminNotification/sql/adminnotification_setup/install-1.6.0.0.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::newTable().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/AdminNotification/sql/adminnotification_setup/install-1.6.0.0.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Call to an undefined method object::load().',
@@ -274,31 +219,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Api/Model/Rules.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::createTable().',
-    'count' => 5,
-    'path' => __DIR__ . '/../app/code/core/Mage/Api/sql/api_setup/install-1.6.0.0.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::newTable().',
-    'count' => 5,
-    'path' => __DIR__ . '/../app/code/core/Mage/Api/sql/api_setup/install-1.6.0.0.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::changeColumn().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Api/sql/api_setup/mysql4-upgrade-1.6.0.0-1.6.0.1.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::changeColumn().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Api/sql/api_setup/mysql4-upgrade-1.6.0.1-1.6.0.2.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::changeColumn().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Api/sql/api_setup/mysql4-upgrade-1.6.0.2-1.6.0.3.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Call to an undefined method Mage_Api2_Model_Config::getMainRoute().',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Api2/Model/Multicall.php',
@@ -382,31 +302,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Call to an undefined method object::processRelations().',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Bundle/Model/Resource/Bundle.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::createTable().',
-    'count' => 12,
-    'path' => __DIR__ . '/../app/code/core/Mage/Bundle/sql/bundle_setup/install-1.6.0.0.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::newTable().',
-    'count' => 12,
-    'path' => __DIR__ . '/../app/code/core/Mage/Bundle/sql/bundle_setup/install-1.6.0.0.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::addColumn().',
-    'count' => 5,
-    'path' => __DIR__ . '/../app/code/core/Mage/Bundle/sql/bundle_setup/upgrade-1.6.0.0-1.6.0.0.1.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::createTable().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Captcha/sql/captcha_setup/install-1.7.0.0.0.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::newTable().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Captcha/sql/captcha_setup/install-1.7.0.0.0.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Call to an undefined method object::addExcludeProductFilter().',
@@ -799,96 +694,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Resource/Product/Type/Configurable.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::dropColumn().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/data/catalog_setup/data-install-1.6.0.0.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::insertForce().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/data/catalog_setup/data-install-1.6.0.0.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::insertMultiple().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/data/catalog_setup/data-install-1.6.0.0.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::addColumn().',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/sql/catalog_setup/install-1.6.0.0.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::addForeignKey().',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/sql/catalog_setup/install-1.6.0.0.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::createTable().',
-    'count' => 68,
-    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/sql/catalog_setup/install-1.6.0.0.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::newTable().',
-    'count' => 68,
-    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/sql/catalog_setup/install-1.6.0.0.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::addIndex().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/sql/catalog_setup/upgrade-1.6.0.0.11-1.6.0.0.12.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::addColumn().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/sql/catalog_setup/upgrade-1.6.0.0.19.1.4-1.6.0.0.19.1.5.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::addIndex().',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/sql/catalog_setup/upgrade-1.6.0.0.2-1.6.0.0.3.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::getPrimaryKeyName().',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/sql/catalog_setup/upgrade-1.6.0.0.2-1.6.0.0.3.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::modifyColumn().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/sql/catalog_setup/upgrade-1.6.0.0.4-1.6.0.0.5.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::addColumn().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/sql/catalog_setup/upgrade-1.6.0.0.6-1.6.0.0.7.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::addIndex().',
-    'count' => 8,
-    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/sql/catalog_setup/upgrade-1.6.0.0.7-1.6.0.0.8.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::dropIndex().',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/sql/catalog_setup/upgrade-1.6.0.0.7-1.6.0.0.8.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::addColumn().',
-    'count' => 3,
-    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/sql/catalog_setup/upgrade-1.6.0.0.9-1.6.0.0.10.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::createTable().',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/sql/catalog_setup/upgrade-1.6.0.0.9-1.6.0.0.10.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::newTable().',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/sql/catalog_setup/upgrade-1.6.0.0.9-1.6.0.0.10.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Call to an undefined method Mage_CatalogIndex_Model_Resource_Attribute::checkCount().',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/CatalogIndex/Model/Attribute.php',
@@ -949,36 +754,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/CatalogInventory/Model/Observer.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Abstract::getCheckSql().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/CatalogInventory/Model/Resource/Stock.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Abstract::prepareSqlCondition().',
-    'count' => 6,
-    'path' => __DIR__ . '/../app/code/core/Mage/CatalogInventory/Model/Resource/Stock.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::createTable().',
-    'count' => 5,
-    'path' => __DIR__ . '/../app/code/core/Mage/CatalogInventory/sql/cataloginventory_setup/install-1.6.0.0.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::insertForce().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/CatalogInventory/sql/cataloginventory_setup/install-1.6.0.0.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::newTable().',
-    'count' => 5,
-    'path' => __DIR__ . '/../app/code/core/Mage/CatalogInventory/sql/cataloginventory_setup/install-1.6.0.0.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::addColumn().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/CatalogInventory/sql/cataloginventory_setup/upgrade-1.6.0.0.1-1.6.0.0.2.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Call to an undefined method object::getRulePrices().',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/CatalogRule/Model/Observer.php',
@@ -1007,26 +782,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Call to an undefined method object::setStoreId().',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/CatalogRule/Model/Rule.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::createTable().',
-    'count' => 5,
-    'path' => __DIR__ . '/../app/code/core/Mage/CatalogRule/sql/catalogrule_setup/install-1.6.0.0.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::newTable().',
-    'count' => 5,
-    'path' => __DIR__ . '/../app/code/core/Mage/CatalogRule/sql/catalogrule_setup/install-1.6.0.0.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::addColumn().',
-    'count' => 3,
-    'path' => __DIR__ . '/../app/code/core/Mage/CatalogRule/sql/catalogrule_setup/upgrade-1.6.0.0-1.6.0.1.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::addColumn().',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/CatalogRule/sql/catalogrule_setup/upgrade-1.6.0.2-1.6.0.3.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Call to an undefined method object::isLeyeredNavigationAllowed().',
@@ -1099,21 +854,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/CatalogSearch/Model/Resource/Fulltext.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::createTable().',
-    'count' => 3,
-    'path' => __DIR__ . '/../app/code/core/Mage/CatalogSearch/sql/catalogsearch_setup/install-1.6.0.0.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::newTable().',
-    'count' => 3,
-    'path' => __DIR__ . '/../app/code/core/Mage/CatalogSearch/sql/catalogsearch_setup/install-1.6.0.0.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::addIndex().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/CatalogSearch/sql/catalogsearch_setup/upgrade-1.6.0.0-1.8.2.0.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Call to an undefined method object::getRewriteByProductStore().',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Checkout/Block/Cart.php',
@@ -1122,31 +862,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Call to an undefined method Mage_Sales_Model_Order::createFromQuoteAddress().',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Checkout/Model/Type/Abstract.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::createTable().',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Checkout/sql/checkout_setup/install-1.6.0.0.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::lastInsertId().',
-    'count' => 7,
-    'path' => __DIR__ . '/../app/code/core/Mage/Checkout/sql/checkout_setup/install-1.6.0.0.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::newTable().',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Checkout/sql/checkout_setup/install-1.6.0.0.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::addColumn().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Checkout/sql/checkout_setup/mysql4-upgrade-1.6.0.0-1.6.0.1.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::tableColumnExists().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Checkout/sql/checkout_setup/mysql4-upgrade-1.6.0.0-1.6.0.1.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Call to an undefined method object::getCmsPageTitleById().',
@@ -1162,16 +877,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Call to an undefined method object::getMessages().',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Cms/Helper/Page.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::createTable().',
-    'count' => 4,
-    'path' => __DIR__ . '/../app/code/core/Mage/Cms/sql/cms_setup/install-1.6.0.0.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::newTable().',
-    'count' => 4,
-    'path' => __DIR__ . '/../app/code/core/Mage/Cms/sql/cms_setup/install-1.6.0.0.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Call to an undefined method object::getEscapeMessages().',
@@ -1269,46 +974,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Resource.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::allowDdlCache().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Resource/Setup.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::disallowDdlCache().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Resource/Setup.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::endSetup().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Resource/Setup.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::insertOnDuplicate().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Resource/Setup.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::isTableExists().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Resource/Setup.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::multiQuery().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Resource/Setup.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::showTableStatus().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Resource/Setup.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::startSetup().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Resource/Setup.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Call to an undefined method object::getId().',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Template.php',
@@ -1322,91 +987,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Call to an undefined method object::__toString().',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Validate/Abstract.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::createTable().',
-    'count' => 18,
-    'path' => __DIR__ . '/../app/code/core/Mage/Core/sql/core_setup/install-1.6.0.0.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::insertForce().',
-    'count' => 6,
-    'path' => __DIR__ . '/../app/code/core/Mage/Core/sql/core_setup/install-1.6.0.0.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::newTable().',
-    'count' => 18,
-    'path' => __DIR__ . '/../app/code/core/Mage/Core/sql/core_setup/install-1.6.0.0.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::dropForeignKey().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Core/sql/core_setup/upgrade-1.6.0.1-1.6.0.2.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::addColumn().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Core/sql/core_setup/upgrade-1.6.0.2-1.6.0.3.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::addIndex().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Core/sql/core_setup/upgrade-1.6.0.2-1.6.0.3.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::dropIndex().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Core/sql/core_setup/upgrade-1.6.0.2-1.6.0.3.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::prepareSqlCondition().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Core/sql/core_setup/upgrade-1.6.0.3-1.6.0.4.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::createTable().',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Core/sql/core_setup/upgrade-1.6.0.5-1.6.0.6.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::newTable().',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Core/sql/core_setup/upgrade-1.6.0.5-1.6.0.6.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::prepareSqlCondition().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Core/sql/core_setup/upgrade-1.6.0.6-1.6.0.7.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::prepareSqlCondition().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Core/sql/core_setup/upgrade-1.6.0.7-1.6.0.8.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::addColumn().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Core/sql/core_setup/upgrade-1.6.0.8-1.6.0.9.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::isTableExists().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Core/sql/core_setup/upgrade-1.6.0.9-1.6.0.10.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::modifyColumn().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Core/sql/core_setup/upgrade-1.6.0.9-1.6.0.10.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::createTable().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Cron/sql/cron_setup/install-1.6.0.0.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::newTable().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Cron/sql/cron_setup/install-1.6.0.0.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Call to an undefined method Mage_Wishlist_Model_Resource_Item_Collection::addAttributeToSelect().',
@@ -1554,49 +1134,9 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Customer/Model/Convert/Parser/Customer.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::insertMultiple().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Customer/Model/Resource/Setup.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Call to an undefined method object::checkCustomerId().',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Customer/Model/Session.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::createTable().',
-    'count' => 16,
-    'path' => __DIR__ . '/../app/code/core/Mage/Customer/sql/customer_setup/install-1.6.0.0.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::getSuggestedZeroDate().',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Customer/sql/customer_setup/install-1.6.0.0.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::insertForce().',
-    'count' => 4,
-    'path' => __DIR__ . '/../app/code/core/Mage/Customer/sql/customer_setup/install-1.6.0.0.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::newTable().',
-    'count' => 16,
-    'path' => __DIR__ . '/../app/code/core/Mage/Customer/sql/customer_setup/install-1.6.0.0.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::addColumn().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Customer/sql/customer_setup/upgrade-1.6.2.0-1.6.2.0.1.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::createTable().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Customer/sql/customer_setup/upgrade-1.6.2.0.4-1.6.2.0.5.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::newTable().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Customer/sql/customer_setup/upgrade-1.6.2.0.4-1.6.2.0.5.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Call to an undefined method Mage_Dataflow_Model_Convert_Action::getData().',
@@ -1679,56 +1219,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Dataflow/Model/Profile.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::createTable().',
-    'count' => 7,
-    'path' => __DIR__ . '/../app/code/core/Mage/Dataflow/sql/dataflow_setup/install-1.6.0.0.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::newTable().',
-    'count' => 7,
-    'path' => __DIR__ . '/../app/code/core/Mage/Dataflow/sql/dataflow_setup/install-1.6.0.0.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::insertArray().',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Directory/data/directory_setup/data-install-1.6.0.0.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::lastInsertId().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Directory/data/directory_setup/data-install-1.6.0.0.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::insertArray().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Directory/data/directory_setup/data-upgrade-1.6.0.3-1.6.0.4.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::createTable().',
-    'count' => 5,
-    'path' => __DIR__ . '/../app/code/core/Mage/Directory/sql/directory_setup/install-1.6.0.0.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::newTable().',
-    'count' => 5,
-    'path' => __DIR__ . '/../app/code/core/Mage/Directory/sql/directory_setup/install-1.6.0.0.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::createTable().',
-    'count' => 9,
-    'path' => __DIR__ . '/../app/code/core/Mage/Downloadable/sql/downloadable_setup/install-1.6.0.0.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::newTable().',
-    'count' => 9,
-    'path' => __DIR__ . '/../app/code/core/Mage/Downloadable/sql/downloadable_setup/install-1.6.0.0.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::prepareSqlCondition().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Downloadable/sql/downloadable_setup/upgrade-1.6.0.0.2-1.6.0.0.3.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Call to an undefined method Mage_Eav_Model_Resource_Entity_Attribute::getUsedInForms().',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Eav/Model/Attribute.php',
@@ -1759,11 +1249,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Eav/Model/Entity/Attribute/Source/Table.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Abstract::getCheckSql().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Eav/Model/Entity/Attribute/Source/Table.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Call to an undefined method Mage_Eav_Model_Entity_Attribute_Interface::getAttributeCode().',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Eav/Model/Entity/Collection/Abstract.php',
@@ -1772,31 +1257,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Call to an undefined method object::getBackend().',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Eav/Model/Entity/Collection/Abstract.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::createTable().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Eav/Model/Entity/Setup.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::isTableExists().',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Eav/Model/Entity/Setup.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::lastInsertId().',
-    'count' => 3,
-    'path' => __DIR__ . '/../app/code/core/Mage/Eav/Model/Entity/Setup.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::newTable().',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Eav/Model/Entity/Setup.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::prepareColumnValue().',
-    'count' => 4,
-    'path' => __DIR__ . '/../app/code/core/Mage/Eav/Model/Entity/Setup.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Call to an undefined method object::setEntityTypeFilter().',
@@ -1814,59 +1274,9 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Eav/Model/Resource/Entity/Attribute/Option.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Abstract::getIfNullSql().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Eav/Model/Resource/Form/Fieldset.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Abstract::getIfNullSql().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Eav/Model/Resource/Form/Fieldset/Collection.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::createTable().',
-    'count' => 20,
-    'path' => __DIR__ . '/../app/code/core/Mage/Eav/sql/eav_setup/install-1.6.0.0.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::getSuggestedZeroDate().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Eav/sql/eav_setup/install-1.6.0.0.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::newTable().',
-    'count' => 20,
-    'path' => __DIR__ . '/../app/code/core/Mage/Eav/sql/eav_setup/install-1.6.0.0.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::prepareSqlCondition().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Eav/sql/eav_setup/upgrade-1.6.0.0-1.6.0.1.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::createTable().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Eav/sql/eav_setup/upgrade-1.6.0.1-1.6.0.2.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::newTable().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Eav/sql/eav_setup/upgrade-1.6.0.1-1.6.0.2.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Call to an undefined method Mage_GiftMessage_IndexController::_getMappedType().',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/GiftMessage/controllers/IndexController.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::createTable().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/GiftMessage/sql/giftmessage_setup/install-1.6.0.0.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::newTable().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/GiftMessage/sql/giftmessage_setup/install-1.6.0.0.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Call to an undefined method object::getMainTable().',
@@ -1874,74 +1284,9 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/ImportExport/Model/Import/Entity/Product.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::addForeignKey().',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/ImportExport/sql/importexport_setup/install-1.6.0.0.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::addIndex().',
-    'count' => 4,
-    'path' => __DIR__ . '/../app/code/core/Mage/ImportExport/sql/importexport_setup/install-1.6.0.0.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::createTable().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/ImportExport/sql/importexport_setup/install-1.6.0.0.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::newTable().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/ImportExport/sql/importexport_setup/install-1.6.0.0.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::modifyColumn().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/ImportExport/sql/importexport_setup/mysql4-upgrade-1.6.0.1-1.6.0.2.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::createTable().',
-    'count' => 3,
-    'path' => __DIR__ . '/../app/code/core/Mage/Index/sql/index_setup/install-1.6.0.0.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::newTable().',
-    'count' => 3,
-    'path' => __DIR__ . '/../app/code/core/Mage/Index/sql/index_setup/install-1.6.0.0.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Call to an undefined method Mage_Install_Model_Installer_Db_Abstract::getVersion().',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Install/Model/Installer/Db.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::insertForce().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Log/data/log_setup/data-install-1.6.0.0.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::createTable().',
-    'count' => 9,
-    'path' => __DIR__ . '/../app/code/core/Mage/Log/sql/log_setup/install-1.6.0.0.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::newTable().',
-    'count' => 9,
-    'path' => __DIR__ . '/../app/code/core/Mage/Log/sql/log_setup/install-1.6.0.0.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::addIndex().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Log/sql/log_setup/mysql4-upgrade-1.6.0.0-1.6.1.0.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::dropIndex().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Log/sql/log_setup/mysql4-upgrade-1.6.0.0-1.6.1.0.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::changeColumn().',
-    'count' => 3,
-    'path' => __DIR__ . '/../app/code/core/Mage/Log/sql/log_setup/mysql4-upgrade-1.6.1.0-1.6.1.1.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Call to an undefined method object::destroyResource().',
@@ -1989,16 +1334,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Newsletter/Model/Resource/Queue.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::createTable().',
-    'count' => 6,
-    'path' => __DIR__ . '/../app/code/core/Mage/Newsletter/sql/newsletter_setup/install-1.6.0.0.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::newTable().',
-    'count' => 6,
-    'path' => __DIR__ . '/../app/code/core/Mage/Newsletter/sql/newsletter_setup/install-1.6.0.0.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Call to an undefined method object::getCurPage().',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Page/Block/Html/Pager.php',
@@ -2022,11 +1357,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Call to an undefined method object::getConfigData().',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Payment/Model/Config.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::prepareSqlCondition().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Payment/sql/payment_setup/upgrade-1.6.0.0-1.6.0.1.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Call to an undefined method object::setTemplate().',
@@ -2079,99 +1409,9 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Standard.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::insertArray().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/data/paypal_setup/data-install-1.6.0.5.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::createTable().',
-    'count' => 3,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/sql/paypal_setup/install-1.6.0.0.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::newTable().',
-    'count' => 3,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/sql/paypal_setup/install-1.6.0.0.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::createTable().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/sql/paypal_setup/upgrade-1.6.0.0-1.6.0.1.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::newTable().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/sql/paypal_setup/upgrade-1.6.0.0-1.6.0.1.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::addColumn().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/sql/paypal_setup/upgrade-1.6.0.1-1.6.0.2.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::addColumn().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/sql/paypal_setup/upgrade-1.6.0.3-1.6.0.4.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::addColumn().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Persistent/sql/persistent_setup/install-1.0.0.0.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::createTable().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Persistent/sql/persistent_setup/install-1.0.0.0.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::newTable().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Persistent/sql/persistent_setup/install-1.0.0.0.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::createTable().',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/ProductAlert/sql/productalert_setup/install-1.6.0.0.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::newTable().',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/ProductAlert/sql/productalert_setup/install-1.6.0.0.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Call to an undefined method object::deleteAggregatedRatingsByProductId().',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Rating/Model/Observer.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::insertMultiple().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Rating/data/rating_setup/data-install-1.6.0.0.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::lastInsertId().',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Rating/data/rating_setup/data-install-1.6.0.0.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::addForeignKey().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Rating/sql/rating_setup/install-1.6.0.0.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::createTable().',
-    'count' => 7,
-    'path' => __DIR__ . '/../app/code/core/Mage/Rating/sql/rating_setup/install-1.6.0.0.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::newTable().',
-    'count' => 7,
-    'path' => __DIR__ . '/../app/code/core/Mage/Rating/sql/rating_setup/install-1.6.0.0.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::changeColumn().',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Rating/sql/rating_setup/mysql4-upgrade-1.6.0.0-1.6.0.1.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Call to an undefined method Mage_Adminhtml_Model_Report_Item|Mage_Core_Model_Abstract::addChild().',
@@ -2209,11 +1449,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Reports/Model/Resource/Product/Collection.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Abstract::getConcatSql().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Reports/Model/Resource/Quote/Collection.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Call to an undefined method object::getAttribute().',
     'count' => 6,
     'path' => __DIR__ . '/../app/code/core/Mage/Reports/Model/Resource/Quote/Collection.php',
@@ -2229,41 +1464,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Reports/Model/Resource/Wishlist/Product/Collection.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::insertForce().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Reports/data/reports_setup/data-install-1.6.0.0.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::createTable().',
-    'count' => 4,
-    'path' => __DIR__ . '/../app/code/core/Mage/Reports/sql/reports_setup/install-1.6.0.0.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::newTable().',
-    'count' => 4,
-    'path' => __DIR__ . '/../app/code/core/Mage/Reports/sql/reports_setup/install-1.6.0.0.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::createTable().',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Reports/sql/reports_setup/mysql4-install-1.6.0.0.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::newTable().',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Reports/sql/reports_setup/mysql4-install-1.6.0.0.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::createTable().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Reports/sql/reports_setup/upgrade-1.6.0.0-1.6.0.0.1.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::newTable().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Reports/sql/reports_setup/upgrade-1.6.0.0-1.6.0.0.1.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Call to an undefined method object::getId().',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Review/Block/Form.php',
@@ -2277,21 +1477,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Call to an undefined method object::aggregateEntityByRatingId().',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Review/Model/Resource/Review.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::insertForce().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Review/data/review_setup/data-install-1.6.0.0.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::createTable().',
-    'count' => 6,
-    'path' => __DIR__ . '/../app/code/core/Mage/Review/sql/review_setup/install-1.6.0.0.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::newTable().',
-    'count' => 6,
-    'path' => __DIR__ . '/../app/code/core/Mage/Review/sql/review_setup/install-1.6.0.0.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Call to an undefined method object::getWebsiteIds().',
@@ -2419,129 +1604,14 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Resource/Sale/Collection.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::addColumn().',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Resource/Setup.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::listTables().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Resource/Setup.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Call to an undefined method Mage_Payment_Model_Recurring_Profile::submit().',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Service/Quote.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::insertArray().',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Sales/data/sales_setup/data-install-1.6.0.0.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::createTable().',
-    'count' => 45,
-    'path' => __DIR__ . '/../app/code/core/Mage/Sales/sql/sales_setup/install-1.6.0.0.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::newTable().',
-    'count' => 45,
-    'path' => __DIR__ . '/../app/code/core/Mage/Sales/sql/sales_setup/install-1.6.0.0.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::addColumn().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Sales/sql/sales_setup/upgrade-1.6.0.0-1.6.0.1.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::addColumn().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Sales/sql/sales_setup/upgrade-1.6.0.1-1.6.0.2.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::addIndex().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Sales/sql/sales_setup/upgrade-1.6.0.10-1.6.0.11.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::getIndexList().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Sales/sql/sales_setup/upgrade-1.6.0.10-1.6.0.11.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::addColumn().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Sales/sql/sales_setup/upgrade-1.6.0.2-1.6.0.3.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::createTable().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Sales/sql/sales_setup/upgrade-1.6.0.3-1.6.0.4.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::createTableByDdl().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Sales/sql/sales_setup/upgrade-1.6.0.3-1.6.0.4.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::addColumn().',
-    'count' => 3,
-    'path' => __DIR__ . '/../app/code/core/Mage/Sales/sql/sales_setup/upgrade-1.6.0.4-1.6.0.5.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::addColumn().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Sales/sql/sales_setup/upgrade-1.6.0.6-1.6.0.7.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::addColumn().',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Sales/sql/sales_setup/upgrade-1.6.0.7-1.6.0.8.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::changeColumn().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Sales/sql/sales_setup/upgrade-1.6.0.8-1.6.0.9.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::addColumn().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Sales/sql/sales_setup/upgrade-1.6.0.9-1.6.0.10.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Call to an undefined method Mage_Rule_Model_Action_Collection::validate().',
     'count' => 4,
     'path' => __DIR__ . '/../app/code/core/Mage/SalesRule/Model/Validator.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::createTable().',
-    'count' => 8,
-    'path' => __DIR__ . '/../app/code/core/Mage/SalesRule/sql/salesrule_setup/install-1.6.0.0.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::newTable().',
-    'count' => 8,
-    'path' => __DIR__ . '/../app/code/core/Mage/SalesRule/sql/salesrule_setup/install-1.6.0.0.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::createTable().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/SalesRule/sql/salesrule_setup/upgrade-1.6.0.0-1.6.0.1.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::createTableByDdl().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/SalesRule/sql/salesrule_setup/upgrade-1.6.0.0-1.6.0.1.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::addColumn().',
-    'count' => 7,
-    'path' => __DIR__ . '/../app/code/core/Mage/SalesRule/sql/salesrule_setup/upgrade-1.6.0.1-1.6.0.2.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::addIndex().',
-    'count' => 3,
-    'path' => __DIR__ . '/../app/code/core/Mage/SalesRule/sql/salesrule_setup/upgrade-1.6.0.1-1.6.0.2.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Call to an undefined method Mage_Shipping_Model_Carrier_Abstract::_getQuotes().',
@@ -2559,119 +1629,14 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Shipping/Model/Tracking/Result.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::createTable().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Shipping/sql/shipping_setup/install-1.6.0.0.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::newTable().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Shipping/sql/shipping_setup/install-1.6.0.0.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Abstract::getCheckSql().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Sitemap/Model/Resource/Catalog/Abstract.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::createTable().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Sitemap/sql/sitemap_setup/install-1.6.0.0.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::newTable().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Sitemap/sql/sitemap_setup/install-1.6.0.0.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::createTable().',
-    'count' => 4,
-    'path' => __DIR__ . '/../app/code/core/Mage/Tag/sql/tag_setup/install-1.6.0.0.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::newTable().',
-    'count' => 4,
-    'path' => __DIR__ . '/../app/code/core/Mage/Tag/sql/tag_setup/install-1.6.0.0.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Call to an undefined method Mage_Core_Model_App::getOrder().',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Tax/Helper/Data.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::insertForce().',
-    'count' => 3,
-    'path' => __DIR__ . '/../app/code/core/Mage/Tax/data/tax_setup/data-install-1.6.0.0.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::insertMultiple().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Tax/data/tax_setup/data-install-1.6.0.0.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::createTable().',
-    'count' => 6,
-    'path' => __DIR__ . '/../app/code/core/Mage/Tax/sql/tax_setup/install-1.6.0.0.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::newTable().',
-    'count' => 6,
-    'path' => __DIR__ . '/../app/code/core/Mage/Tax/sql/tax_setup/install-1.6.0.0.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::createTable().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Tax/sql/tax_setup/upgrade-1.6.0.0-1.6.0.1.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::createTableByDdl().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Tax/sql/tax_setup/upgrade-1.6.0.0-1.6.0.1.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::createTable().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Tax/sql/tax_setup/upgrade-1.6.0.1-1.6.0.2.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::newTable().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Tax/sql/tax_setup/upgrade-1.6.0.1-1.6.0.2.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::addColumn().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Tax/sql/tax_setup/upgrade-1.6.0.2-1.6.0.3.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::addColumn().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Tax/sql/tax_setup/upgrade-1.6.0.3-1.6.0.4.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::addForeignKey().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Tax/sql/tax_setup/upgrade-1.6.0.4-1.6.0.5.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Abstract::getCheckSql().',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Weee/Model/Observer.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Call to an undefined method Mage_Eav_Model_Entity_Attribute_Abstract::isScopeGlobal().',
     'count' => 2,
     'path' => __DIR__ . '/../app/code/core/Mage/Weee/Model/Resource/Attribute/Backend/Weee/Tax.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::createTable().',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Weee/sql/weee_setup/install-1.6.0.0.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::newTable().',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Weee/sql/weee_setup/install-1.6.0.0.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Call to an undefined method object::loadPreconfiguredWidget().',
@@ -2684,11 +1649,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Widget/Model/Widget.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::changeColumn().',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Widget/sql/widget_setup/mysql4-upgrade-1.6.0.0-1.6.0.1.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Call to an undefined method object::getSuperProductConfig().',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Wishlist/Block/Abstract.php',
@@ -2697,16 +1657,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Call to an undefined method object::setCustomOptions().',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Wishlist/Block/Render/Item/Price.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::createTable().',
-    'count' => 3,
-    'path' => __DIR__ . '/../app/code/core/Mage/Wishlist/sql/wishlist_setup/install-1.6.0.0.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract::newTable().',
-    'count' => 3,
-    'path' => __DIR__ . '/../app/code/core/Mage/Wishlist/sql/wishlist_setup/install-1.6.0.0.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Call to an undefined method Mage_Core_Block_Abstract::_getUsers().',
@@ -2917,41 +1867,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Call to an undefined method object::setId().',
     'count' => 1,
     'path' => __DIR__ . '/../lib/Varien/Data/Form/Abstract.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Abstract::deleteFromSelect().',
-    'count' => 1,
-    'path' => __DIR__ . '/../lib/Varien/Db/Select.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Abstract::forUpdate().',
-    'count' => 1,
-    'path' => __DIR__ . '/../lib/Varien/Db/Select.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Abstract::getQuoteIdentifierSymbol().',
-    'count' => 1,
-    'path' => __DIR__ . '/../lib/Varien/Db/Select.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Abstract::insertFromSelect().',
-    'count' => 2,
-    'path' => __DIR__ . '/../lib/Varien/Db/Select.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Abstract::orderRand().',
-    'count' => 1,
-    'path' => __DIR__ . '/../lib/Varien/Db/Select.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Abstract::supportStraightJoin().',
-    'count' => 1,
-    'path' => __DIR__ . '/../lib/Varien/Db/Select.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Abstract::updateFromSelect().',
-    'count' => 1,
-    'path' => __DIR__ . '/../lib/Varien/Db/Select.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Call to an undefined method SimpleXMLElement::setNode().',

@@ -2114,16 +2114,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Eav/Model/Entity/Setup.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Eav_Model_Entity_Setup::getDefaultAttributeGroupId() should return string but returns string|false|null.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Eav/Model/Entity/Setup.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Eav_Model_Entity_Setup::getDefaultAttributeSetId() should return string but returns string|false|null.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Eav/Model/Entity/Setup.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Eav_Model_Entity_Setup::getEntityTypeId() should return int but returns float|int|string.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Eav/Model/Entity/Setup.php',
@@ -2924,16 +2914,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Tax/Model/Resource/Sales/Order/Tax/Item.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Tax_Model_Resource_Setup::_loadOldRates() should return array but returns array|null.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Tax/Model/Resource/Setup.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Tax_Model_Resource_Setup::_loadTableData() should return array but returns array|null.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Tax/Model/Resource/Setup.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Tax_Model_Sales_Total_Quote_Nominal_Subtotal::fetch() should return array but returns $this(Mage_Tax_Model_Sales_Total_Quote_Nominal_Subtotal)|array.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Tax/Model/Sales/Total/Quote/Nominal/Subtotal.php',
@@ -3222,11 +3202,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Method Varien_Data_Collection::getPageSize() should return int but returns int|false|null.',
     'count' => 1,
     'path' => __DIR__ . '/../lib/Varien/Data/Collection.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Varien_Data_Collection_Db::getConnection() should return Varien_Db_Adapter_Interface but returns Varien_Db_Adapter_Interface|Zend_Db_Adapter_Abstract.',
-    'count' => 1,
-    'path' => __DIR__ . '/../lib/Varien/Data/Collection/Db.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Method Varien_Data_Collection_Db::getData() should return array but returns array|null.',

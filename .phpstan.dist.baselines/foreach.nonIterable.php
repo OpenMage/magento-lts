@@ -215,11 +215,6 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Argument of an invalid type array|null supplied for foreach, only iterables are supported.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Resource/Setup.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Argument of an invalid type array|null supplied for foreach, only iterables are supported.',
     'count' => 8,
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Resource/Url.php',
 ];
@@ -379,11 +374,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Customer/Model/Resource/Setup.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Argument of an invalid type array|null supplied for foreach, only iterables are supported.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Customer/Model/Resource/Setup.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Argument of an invalid type array|false supplied for foreach, only iterables are supported.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Customer/controllers/AddressController.php',
@@ -425,11 +415,6 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Argument of an invalid type array|int<min, -1>|int<1, max>|string|true supplied for foreach, only iterables are supported.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Eav/Model/Entity/Setup.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Argument of an invalid type array|null supplied for foreach, only iterables are supported.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Eav/Model/Entity/Setup.php',
 ];
@@ -492,11 +477,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Argument of an invalid type array|string supplied for foreach, only iterables are supported.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Payment/Helper/Data.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Argument of an invalid type array|null supplied for foreach, only iterables are supported.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/data/paypal_setup/data-upgrade-1.6.0.5-1.6.0.6.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Argument of an invalid type array<Varien_Simplexml_Element>|false|null supplied for foreach, only iterables are supported.',
@@ -672,21 +652,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Argument of an invalid type array|false supplied for foreach, only iterables are supported.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Ups/Source/Pickup.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Argument of an invalid type array|null supplied for foreach, only iterables are supported.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Usa/sql/usa_setup/upgrade-1.6.0.0-1.6.0.1.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Argument of an invalid type array|null supplied for foreach, only iterables are supported.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Usa/sql/usa_setup/upgrade-1.6.0.1-1.6.0.2.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Argument of an invalid type array|null supplied for foreach, only iterables are supported.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Usa/sql/usa_setup/upgrade-1.6.0.2-1.6.0.3.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Argument of an invalid type Varien_Simplexml_Element|false supplied for foreach, only iterables are supported.',

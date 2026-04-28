@@ -3629,7 +3629,7 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Resource/Setup.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in a negated boolean, Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract given.',
+    'rawMessage' => 'Only booleans are allowed in a negated boolean, Varien_Db_Adapter_Interface&Zend_Db_Adapter_Pdo_Abstract given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Resource/Setup.php',
 ];
@@ -4500,7 +4500,12 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in a negated boolean, mixed given.',
-    'count' => 5,
+    'count' => 4,
+    'path' => __DIR__ . '/../app/code/core/Mage/Eav/Model/Entity/Setup.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in a negated boolean, array given.',
+    'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Eav/Model/Entity/Setup.php',
 ];
 $ignoreErrors[] = [
@@ -4754,7 +4759,7 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Index/Model/Resource/Lock/Resource.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in a negated boolean, Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract given.',
+    'rawMessage' => 'Only booleans are allowed in a negated boolean, Varien_Db_Adapter_Interface&Zend_Db_Adapter_Pdo_Abstract given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Index/Model/Resource/Setup.php',
 ];
