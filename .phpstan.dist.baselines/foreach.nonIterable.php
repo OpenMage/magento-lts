@@ -484,11 +484,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Payment/Helper/Data.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Argument of an invalid type array|null supplied for foreach, only iterables are supported.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/data/paypal_setup/data-upgrade-1.6.0.5-1.6.0.6.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Argument of an invalid type array<Varien_Simplexml_Element>|false|null supplied for foreach, only iterables are supported.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Persistent/Model/Observer.php',

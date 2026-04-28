@@ -4500,7 +4500,12 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in a negated boolean, mixed given.',
-    'count' => 5,
+    'count' => 4,
+    'path' => __DIR__ . '/../app/code/core/Mage/Eav/Model/Entity/Setup.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in a negated boolean, array given.',
+    'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Eav/Model/Entity/Setup.php',
 ];
 $ignoreErrors[] = [
