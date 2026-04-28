@@ -215,11 +215,6 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Argument of an invalid type array|null supplied for foreach, only iterables are supported.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Resource/Setup.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Argument of an invalid type array|null supplied for foreach, only iterables are supported.',
     'count' => 8,
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Resource/Url.php',
 ];
@@ -376,11 +371,6 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
     'rawMessage' => 'Argument of an invalid type array<string, array>|string supplied for foreach, only iterables are supported.',
     'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Customer/Model/Resource/Setup.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Argument of an invalid type array|null supplied for foreach, only iterables are supported.',
-    'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Customer/Model/Resource/Setup.php',
 ];
 $ignoreErrors[] = [
@@ -672,21 +662,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Argument of an invalid type array|false supplied for foreach, only iterables are supported.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Ups/Source/Pickup.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Argument of an invalid type array|null supplied for foreach, only iterables are supported.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Usa/sql/usa_setup/upgrade-1.6.0.0-1.6.0.1.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Argument of an invalid type array|null supplied for foreach, only iterables are supported.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Usa/sql/usa_setup/upgrade-1.6.0.1-1.6.0.2.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Argument of an invalid type array|null supplied for foreach, only iterables are supported.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Usa/sql/usa_setup/upgrade-1.6.0.2-1.6.0.3.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Argument of an invalid type Varien_Simplexml_Element|false supplied for foreach, only iterables are supported.',

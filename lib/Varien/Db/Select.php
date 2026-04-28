@@ -10,12 +10,12 @@
 /**
  * Class for SQL SELECT generation and results.
  *
- * @property Varien_Db_Adapter_Interface|Zend_Db_Adapter_Abstract $_adapter
+ * @property Varien_Db_Adapter_Interface&Zend_Db_Adapter_Abstract $_adapter
  * @method   $this                                                columns($cols = '*', $correlationName = null)
  * @method   $this                                                distinct($flag = true)
  * @method   $this                                                forUpdate($flag = true)
  * @method   $this                                                from($name, $cols = '*', $schema = null)
- * @method   Varien_Db_Adapter_Interface|Zend_Db_Adapter_Abstract getAdapter()
+ * @method   Varien_Db_Adapter_Interface&Zend_Db_Adapter_Abstract getAdapter()
  * @method   $this                                                group($spec)
  * @method   $this                                                join($name, $cond, $cols = '*', $schema = null)
  * @method   $this                                                joinCross($name, $cols = '*', $schema = null)

@@ -3524,7 +3524,7 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/data/catalog_setup/data-upgrade-1.6.0.0.4-1.6.0.0.5.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in an if condition, array|null given.',
+    'rawMessage' => 'Only booleans are allowed in an if condition, array given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/data/catalog_setup/data-upgrade-1.6.0.0.4-1.6.0.0.5.php',
 ];
@@ -4259,7 +4259,7 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Checkout/controllers/OnepageController.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in an if condition, array|null given.',
+    'rawMessage' => 'Only booleans are allowed in an if condition, array given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Checkout/sql/checkout_setup/install-1.6.0.0.php',
 ];
