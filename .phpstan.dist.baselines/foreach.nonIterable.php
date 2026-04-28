@@ -421,11 +421,6 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
     'rawMessage' => 'Argument of an invalid type array|null supplied for foreach, only iterables are supported.',
     'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Eav/Model/Entity/Setup.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Argument of an invalid type array|null supplied for foreach, only iterables are supported.',
-    'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Eav/Model/Resource/Config.php',
 ];
 $ignoreErrors[] = [
