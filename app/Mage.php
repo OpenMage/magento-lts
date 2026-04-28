@@ -228,7 +228,7 @@ final class Mage
     }
 
     /**
-     * Get current Magento edition
+     * Get current edition
      *
      * @static
      * @return string
