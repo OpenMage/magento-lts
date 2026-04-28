@@ -8922,11 +8922,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../lib/Varien/Object.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #2 ...$arrays of function array_intersect_key expects array, array|null given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../lib/Varien/Object.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Parameter #2 $array of function array_key_exists expects array, array|object given.',
     'count' => 1,
     'path' => __DIR__ . '/../lib/Varien/Object/Mapper.php',

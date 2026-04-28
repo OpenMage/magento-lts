@@ -71,6 +71,8 @@ class Mage_Downloadable_Model_Resource_Link extends Mage_Core_Model_Resource_Db_
             );
         }
 
+        $dataToInsert = [];
+
         $select = $writeAdapter->select()
             ->from($linkPriceTable)
             ->where('link_id=:link_id AND website_id=:website_id');
