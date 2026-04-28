@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-// total 53 errors
-
 $ignoreErrors = [];
 $ignoreErrors[] = [
     'rawMessage' => 'PHPDoc tag @var with type Mage_Eav_Model_Entity_Attribute is not subtype of type Mage_Customer_Model_Attribute.',

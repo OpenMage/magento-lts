@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-// total 64 errors
-
 $ignoreErrors = [];
 $ignoreErrors[] = [
     'rawMessage' => 'Cannot access property $global on SimpleXMLElement|false.',

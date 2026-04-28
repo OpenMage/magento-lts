@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-// total 2170 errors
-
 $ignoreErrors = [];
 $ignoreErrors[] = [
     'rawMessage' => 'Cannot call method getHelperClassName() on Mage_Core_Model_Config|null.',

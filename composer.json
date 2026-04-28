@@ -185,7 +185,7 @@
         "phpstan:test": "XDEBUG_MODE=off php vendor/bin/phpstan analyze",
         "phpstan:baseline": [
             "XDEBUG_MODE=off php vendor/bin/phpstan analyze -b .phpstan.dist.baselines/_loader.php",
-            "split-phpstan-baseline .phpstan.dist.baselines/_loader.php",
+            "split-phpstan-baseline .phpstan.dist.baselines/_loader.php --no-error-count",
             "git add .phpstan.dist.baselines/*"
         ],
         "phpunit:test": "XDEBUG_MODE=off php vendor/bin/phpunit --configuration .phpunit.dist.xml --testsuite Base,Error,Mage,Varien --no-coverage",

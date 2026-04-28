@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-// total 20 errors
-
 $ignoreErrors = [];
 $ignoreErrors[] = [
     'rawMessage' => 'Call to function array_filter() requires parameter #2 to be passed to avoid loose comparison semantics.',

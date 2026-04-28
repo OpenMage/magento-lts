@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-// total 450 errors
-
 $ignoreErrors = [];
 $ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in a ternary operator condition, mixed given.',

@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-// total 202 errors
-
 $ignoreErrors = [];
 $ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Eav_Model_Entity_Attribute_Source_Interface::getAllOptions() invoked with 2 parameters, 0 required.',

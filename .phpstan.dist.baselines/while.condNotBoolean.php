@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-// total 66 errors
-
 $ignoreErrors = [];
 $ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in a while condition, int|false given.',

@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-// total 3 errors
-
 $ignoreErrors = [];
 $ignoreErrors[] = [
     'rawMessage' => 'Property $_productCollection references deprecated class Mage_Wishlist_Model_Resource_Product_Collection in its type:

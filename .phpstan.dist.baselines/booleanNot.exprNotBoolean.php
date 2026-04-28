@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-// total 2226 errors
-
 $ignoreErrors = [];
 $ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in a negated boolean, Mage_Core_Model_Config|null given.',
@@ -4484,6 +4482,11 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Eav/Model/Entity/Collection/Abstract.php',
 ];
 $ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in a negated boolean, array given.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Eav/Model/Entity/Setup.php',
+];
+$ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in a negated boolean, array<mixed> given.',
     'count' => 4,
     'path' => __DIR__ . '/../app/code/core/Mage/Eav/Model/Entity/Setup.php',
@@ -4501,11 +4504,6 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in a negated boolean, mixed given.',
     'count' => 4,
-    'path' => __DIR__ . '/../app/code/core/Mage/Eav/Model/Entity/Setup.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in a negated boolean, array given.',
-    'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Eav/Model/Entity/Setup.php',
 ];
 $ignoreErrors[] = [

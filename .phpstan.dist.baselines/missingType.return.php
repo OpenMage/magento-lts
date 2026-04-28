@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-// total 1976 errors
-
 $ignoreErrors = [];
 $ignoreErrors[] = [
     'rawMessage' => 'Method Mage::_setConfigModel() has no return type specified.',

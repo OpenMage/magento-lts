@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-// total 843 errors
-
 $ignoreErrors = [];
 $ignoreErrors[] = [
     'rawMessage' => 'Property Mage_Adminhtml_Block_Cache_Grid::$_invalidatedTypes has no type specified.',

@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-// total 58 errors
-
 $ignoreErrors = [];
 $ignoreErrors[] = [
     'rawMessage' => 'PHPDoc type Mage_Core_Model_Factory of property Mage_Adminhtml_Block_Customer_Edit_Renderer_Region::$_factory is not the same as PHPDoc type Mage_Core_Model_Factory|null of overridden property Mage_Core_Block_Abstract::$_factory.',

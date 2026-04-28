@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-// total 3718 errors
-
 $ignoreErrors = [];
 $ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in an if condition, string|null given.',
@@ -5769,6 +5767,11 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Eav/Model/Entity/Collection/Abstract.php',
 ];
 $ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in an if condition, array given.',
+    'count' => 3,
+    'path' => __DIR__ . '/../app/code/core/Mage/Eav/Model/Entity/Setup.php',
+];
+$ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in an if condition, int given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Eav/Model/Entity/Setup.php',
@@ -5776,11 +5779,6 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in an if condition, mixed given.',
     'count' => 5,
-    'path' => __DIR__ . '/../app/code/core/Mage/Eav/Model/Entity/Setup.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in an if condition, array given.',
-    'count' => 3,
     'path' => __DIR__ . '/../app/code/core/Mage/Eav/Model/Entity/Setup.php',
 ];
 $ignoreErrors[] = [

@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-// total 574 errors
-
 $ignoreErrors = [];
 $ignoreErrors[] = [
     'rawMessage' => 'Method Mage::printException() has parameter $extra with no type specified.',

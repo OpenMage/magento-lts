@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-// total 7 errors
-
 $ignoreErrors = [];
 $ignoreErrors[] = [
     'rawMessage' => 'Binary operation ".=" between array<string|null>|string|null and non-falsy-string results in an error.',

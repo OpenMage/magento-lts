@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-// total 7 errors
-
 $ignoreErrors = [];
 $ignoreErrors[] = [
     'rawMessage' => 'Cannot use array destructuring on array<mixed>|null.',

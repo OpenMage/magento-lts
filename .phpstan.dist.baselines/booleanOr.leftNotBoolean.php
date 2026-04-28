@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-// total 82 errors
-
 $ignoreErrors = [];
 $ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in ||, mixed given on the left side.',

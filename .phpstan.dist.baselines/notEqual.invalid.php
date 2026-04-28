@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-// total 1 error
-
 $ignoreErrors = [];
 $ignoreErrors[] = [
     'rawMessage' => 'Comparison operation "!=" between array|int<min, -1>|int<1, max> and array{0} results in an error.',

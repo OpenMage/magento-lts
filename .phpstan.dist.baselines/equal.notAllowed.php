@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-// total 2779 errors
-
 $ignoreErrors = [];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
@@ -2665,7 +2663,7 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
-    'count' => 9,
+    'count' => 6,
     'path' => __DIR__ . '/../app/code/core/Mage/ConfigurableSwatches/Model/Observer.php',
 ];
 $ignoreErrors[] = [

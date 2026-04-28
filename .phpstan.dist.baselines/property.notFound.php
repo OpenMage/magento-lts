@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-// total 61 errors
-
 $ignoreErrors = [];
 $ignoreErrors[] = [
     'rawMessage' => 'Access to an undefined property object::$can_be_empty.',

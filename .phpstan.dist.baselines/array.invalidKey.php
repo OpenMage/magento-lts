@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-// total 5 errors
-
 $ignoreErrors = [];
 $ignoreErrors[] = [
     'rawMessage' => 'Possibly invalid array key type int|string|null.',

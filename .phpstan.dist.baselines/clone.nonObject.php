@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-// total 2 errors
-
 $ignoreErrors = [];
 $ignoreErrors[] = [
     'rawMessage' => 'Cannot clone Mage_Catalog_Model_Resource_Eav_Attribute|false.',

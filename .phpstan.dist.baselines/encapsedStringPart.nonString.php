@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-// total 7 errors
-
 $ignoreErrors = [];
 $ignoreErrors[] = [
     'rawMessage' => 'Part $this->escapeHtml($this->getRole()->getRoleName()) (array<string|null>|string|null) of encapsed string cannot be cast to string.',

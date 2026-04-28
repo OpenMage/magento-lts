@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-// total 1123 errors
-
 $ignoreErrors = [];
 $ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in &&, object|false given on the right side.',

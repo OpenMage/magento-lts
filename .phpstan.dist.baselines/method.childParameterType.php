@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-// total 536 errors
-
 $ignoreErrors = [];
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $object (Mage_Admin_Model_Roles) of method Mage_Admin_Model_Resource_Roles::_afterDelete() should be contravariant with parameter $object (Mage_Core_Model_Abstract) of method Mage_Core_Model_Resource_Db_Abstract::_afterDelete()',

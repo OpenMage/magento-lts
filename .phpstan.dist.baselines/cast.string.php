@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-// total 6 errors
-
 $ignoreErrors = [];
 $ignoreErrors[] = [
     'rawMessage' => 'Cannot cast array<string>|string to string.',

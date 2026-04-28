@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-// total 2 errors
-
 $ignoreErrors = [];
 $ignoreErrors[] = [
     'rawMessage' => 'Comparison operation "==" between array|null and 1 results in an error.',

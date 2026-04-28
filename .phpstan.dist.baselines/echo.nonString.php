@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-// total 866 errors
-
 $ignoreErrors = [];
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 (array|string) of echo cannot be converted to string.',

@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-// total 22 errors
-
 $ignoreErrors = [];
 $ignoreErrors[] = [
     'rawMessage' => 'Access to deprecated property $_resPrices of class Mage_Catalog_Block_Product_View_Type_Configurable.',

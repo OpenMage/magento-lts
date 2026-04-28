@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-// total 3 errors
-
 $ignoreErrors = [];
 $ignoreErrors[] = [
     'rawMessage' => 'Right side of && is always false.',
