@@ -284,7 +284,7 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Resource/Session.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_Core_Model_Resource_Setup::$_conn (Varien_Db_Adapter_Interface|Zend_Db_Adapter_Pdo_Abstract) does not accept Varien_Db_Adapter_Interface|false.',
+    'rawMessage' => 'Property Mage_Core_Model_Resource_Setup::$_conn (Varien_Db_Adapter_Interface&Zend_Db_Adapter_Pdo_Abstract) does not accept Varien_Db_Adapter_Interface|false.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Resource/Setup.php',
 ];
