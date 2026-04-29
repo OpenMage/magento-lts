@@ -95,9 +95,9 @@ class Mage_SalesRule_Model_Observer
                         $ruleCustomer->setTimesUsed($ruleCustomer->getTimesUsed() + 1);
                     } else {
                         $ruleCustomer
-                        ->setCustomerId($customerId)
-                        ->setRuleId($ruleId)
-                        ->setTimesUsed(1);
+                            ->setCustomerId($customerId)
+                            ->setRuleId($ruleId)
+                            ->setTimesUsed(1);
                     }
 
                     // phpcs:ignore Ecg.Performance.Loop.ModelLSD
