@@ -37,11 +37,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/controllers/Catalog/Product/AttributeController.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'PHPDoc tag @var with type Mage_Adminhtml_Model_Session is not subtype of type Mage_Core_Model_Abstract.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/controllers/Tax/RuleController.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'PHPDoc tag @var with type Mage_Api2_Model_Request_Interpreter_Interface is not subtype of type Mage_Core_Model_Abstract|false.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Api2/Model/Request.php',
