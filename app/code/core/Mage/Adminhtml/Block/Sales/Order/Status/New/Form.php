@@ -25,6 +25,7 @@ class Mage_Adminhtml_Block_Sales_Order_Status_New_Form extends Mage_Adminhtml_Bl
      *
      * @return $this
      */
+    #[Override]
     protected function _prepareForm()
     {
         $model  = Mage::registry('current_status');
@@ -32,7 +33,7 @@ class Mage_Adminhtml_Block_Sales_Order_Status_New_Form extends Mage_Adminhtml_Bl
 
         $form   = new Varien_Data_Form([
             'id'        => 'edit_form',
-            'action'    => $this->getData('action'),
+            'action'    => $this->getDataByKey('action'),
             'method'    => 'post',
         ]);
 

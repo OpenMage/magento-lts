@@ -18,6 +18,7 @@ class Mage_Adminhtml_Block_Review_Grid_Renderer_Type extends Mage_Adminhtml_Bloc
      * @param  Mage_Catalog_Model_Product $row
      * @return string
      */
+    #[Override]
     public function render(Varien_Object $row)
     {
         if (is_null($row->getCustomerId())) {

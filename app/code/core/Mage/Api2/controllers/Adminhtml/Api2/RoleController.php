@@ -21,6 +21,7 @@ class Mage_Api2_Adminhtml_Api2_RoleController extends Mage_Adminhtml_Controller_
      *
      * @return Mage_Adminhtml_Controller_Action
      */
+    #[Override]
     public function preDispatch()
     {
         $this->_setForcedFormKeyActions(['delete', 'save']);
@@ -29,6 +30,7 @@ class Mage_Api2_Adminhtml_Api2_RoleController extends Mage_Adminhtml_Controller_
 
     /**
      * Show grid
+     * @return void
      */
     public function indexAction()
     {
@@ -46,6 +48,7 @@ class Mage_Api2_Adminhtml_Api2_RoleController extends Mage_Adminhtml_Controller_
 
     /**
      * Updating grid by ajax
+     * @return void
      */
     public function gridAction()
     {
@@ -55,6 +58,7 @@ class Mage_Api2_Adminhtml_Api2_RoleController extends Mage_Adminhtml_Controller_
 
     /**
      * Updating users grid by ajax
+     * @return void
      */
     public function usersGridAction()
     {
@@ -70,6 +74,7 @@ class Mage_Api2_Adminhtml_Api2_RoleController extends Mage_Adminhtml_Controller_
 
     /**
      * Create new role
+     * @return void
      */
     public function newAction()
     {
@@ -93,6 +98,7 @@ class Mage_Api2_Adminhtml_Api2_RoleController extends Mage_Adminhtml_Controller_
 
     /**
      * Edit role
+     * @return void
      */
     public function editAction()
     {
@@ -141,6 +147,7 @@ class Mage_Api2_Adminhtml_Api2_RoleController extends Mage_Adminhtml_Controller_
 
     /**
      * Save role
+     * @return void
      */
     public function saveAction()
     {
@@ -152,14 +159,14 @@ class Mage_Api2_Adminhtml_Api2_RoleController extends Mage_Adminhtml_Controller_
 
         if (!$role->getId() && $id) {
             $this->_getSession()->addError(
-                $this->__('Role "%s" no longer exists', $role->getData('role_name')),
+                $this->__('Role "%s" no longer exists', $role->getDataByKey('role_name')),
             );
             $this->_redirect('*/*/');
             return;
         }
 
         //Validate current admin password
-        $currentPassword = $request->getParam('current_password', null);
+        $currentPassword = $request->getParam('current_password');
         $request->setParam('current_password', null);
         $result = $this->_validateCurrentPassword($currentPassword);
 
@@ -177,7 +184,7 @@ class Mage_Api2_Adminhtml_Api2_RoleController extends Mage_Adminhtml_Controller_
             return;
         }
 
-        $roleUsers  = $request->getParam('in_role_users', null);
+        $roleUsers  = $request->getParam('in_role_users');
         parse_str($roleUsers, $roleUsers);
         $roleUsers = array_keys($roleUsers);
 
@@ -249,13 +256,14 @@ class Mage_Api2_Adminhtml_Api2_RoleController extends Mage_Adminhtml_Controller_
 
     /**
      * Delete role
+     * @return void
      */
     public function deleteAction()
     {
         $id = $this->getRequest()->getParam('id', false);
 
         //Validate current admin password
-        $currentPassword = $this->getRequest()->getParam('current_password', null);
+        $currentPassword = $this->getRequest()->getParam('current_password');
         $this->getRequest()->setParam('current_password', null);
         $result = $this->_validateCurrentPassword($currentPassword);
 
@@ -284,6 +292,7 @@ class Mage_Api2_Adminhtml_Api2_RoleController extends Mage_Adminhtml_Controller_
 
     /**
      * Get API2 roles ajax grid action
+     * @return void
      */
     public function rolesGridAction()
     {

@@ -19,6 +19,7 @@ abstract class Mage_Catalog_Block_Product_View_Abstract extends Mage_Catalog_Blo
      *
      * @return Mage_Catalog_Model_Product
      */
+    #[Override]
     public function getProduct()
     {
         $product = parent::getProduct();

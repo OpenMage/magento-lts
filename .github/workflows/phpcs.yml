@@ -36,17 +36,19 @@ jobs:
       - name: Restore result cache
         uses: actions/cache/restore@v5
         with:
-          path: .phpcs.result.cache
+          path: .cache/.phpcs.result.cache
           key: phpcs-result-cache-${{ github.run_id }}
           restore-keys: |
             phpcs-result-cache-
 
       - name: PHPCodeSniffer
-        run: php vendor/bin/phpcs -s -p --cache=.phpcs.result.cache --report=full --standard=.phpcs.dist.xml
+        run: |
+          [ -d .cache ] || mkdir .cache
+          php vendor/bin/phpcs -s -p --cache=.cache/.phpcs.result.cache --report=full --standard=.phpcs.dist.xml
 
       - name: Save result cache
         uses: actions/cache/save@v5
         if: always()
         with:
-          path: .phpcs.result.cache
+          path: .cache/.phpcs.result.cache
           key: phpcs-result-cache-${{ github.run_id }}

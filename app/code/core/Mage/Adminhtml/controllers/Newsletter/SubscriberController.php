@@ -20,6 +20,9 @@ class Mage_Adminhtml_Newsletter_SubscriberController extends Mage_Adminhtml_Cont
      */
     public const ADMIN_RESOURCE = 'newsletter/subscriber';
 
+    /**
+     * @return void
+     */
     public function indexAction()
     {
         $this->_title($this->__('Newsletter'))->_title($this->__('Newsletter Subscribers'));
@@ -43,6 +46,9 @@ class Mage_Adminhtml_Newsletter_SubscriberController extends Mage_Adminhtml_Cont
         $this->renderLayout();
     }
 
+    /**
+     * @return void
+     */
     public function gridAction()
     {
         $this->loadLayout();
@@ -53,6 +59,7 @@ class Mage_Adminhtml_Newsletter_SubscriberController extends Mage_Adminhtml_Cont
 
     /**
      * Export subscribers grid to CSV format
+     * @return void
      */
     public function exportCsvAction()
     {
@@ -65,6 +72,7 @@ class Mage_Adminhtml_Newsletter_SubscriberController extends Mage_Adminhtml_Cont
 
     /**
      * Export subscribers grid to XML format
+     * @return void
      */
     public function exportXmlAction()
     {
@@ -75,6 +83,9 @@ class Mage_Adminhtml_Newsletter_SubscriberController extends Mage_Adminhtml_Cont
         $this->_prepareDownloadResponse($fileName, $content);
     }
 
+    /**
+     * @return void
+     */
     public function massUnsubscribeAction()
     {
         $subscribersIds = $this->getRequest()->getParam('subscriber');
@@ -90,14 +101,17 @@ class Mage_Adminhtml_Newsletter_SubscriberController extends Mage_Adminhtml_Cont
                 Mage::getSingleton('adminhtml/session')->addSuccess(
                     Mage::helper('adminhtml')->__('Total of %d record(s) were updated', count($subscribersIds)),
                 );
-            } catch (Exception $e) {
-                Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
+            } catch (Exception $exception) {
+                Mage::getSingleton('adminhtml/session')->addError($exception->getMessage());
             }
         }
 
         $this->_redirect('*/*/index');
     }
 
+    /**
+     * @return void
+     */
     public function massDeleteAction()
     {
         $subscribersIds = $this->getRequest()->getParam('subscriber');
@@ -113,8 +127,8 @@ class Mage_Adminhtml_Newsletter_SubscriberController extends Mage_Adminhtml_Cont
                 Mage::getSingleton('adminhtml/session')->addSuccess(
                     Mage::helper('adminhtml')->__('Total of %d record(s) were deleted', count($subscribersIds)),
                 );
-            } catch (Exception $e) {
-                Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
+            } catch (Exception $exception) {
+                Mage::getSingleton('adminhtml/session')->addError($exception->getMessage());
             }
         }
 

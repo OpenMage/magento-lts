@@ -23,6 +23,7 @@ class Mage_Adminhtml_Block_Newsletter_Problem extends Mage_Adminhtml_Block_Templ
             ->addQueueInfo();
     }
 
+    #[Override]
     protected function _prepareLayout()
     {
         $this->setChild(

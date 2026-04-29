@@ -17,6 +17,7 @@ class Mage_Checkout_Block_Multishipping_Overview extends Mage_Sales_Block_Items_
     /**
      * Initialize default item renderer for row-level items output
      */
+    #[Override]
     protected function _construct()
     {
         parent::_construct();
@@ -40,6 +41,7 @@ class Mage_Checkout_Block_Multishipping_Overview extends Mage_Sales_Block_Items_
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareLayout()
     {
         if ($headBlock = $this->getLayout()->getBlock('head')) {
@@ -96,7 +98,7 @@ class Mage_Checkout_Block_Multishipping_Overview extends Mage_Sales_Block_Items_
      */
     public function getShippingAddressCount()
     {
-        $count = $this->getData('shipping_address_count');
+        $count = $this->getDataByKey('shipping_address_count');
         if (is_null($count)) {
             $count = count($this->getShippingAddresses());
             $this->setData('shipping_address_count', $count);
@@ -284,7 +286,7 @@ class Mage_Checkout_Block_Multishipping_Overview extends Mage_Sales_Block_Items_
     }
 
     /**
-     * @return mixed
+     * @return Mage_Sales_Model_Quote_Address_Total[]
      */
     public function getBillinAddressTotals()
     {
@@ -293,8 +295,8 @@ class Mage_Checkout_Block_Multishipping_Overview extends Mage_Sales_Block_Items_
     }
 
     /**
-     * @param  Mage_Sales_Model_Order_Total $totals
-     * @param  null|int                     $colspan
+     * @param  Mage_Sales_Model_Quote_Address_Total[] $totals
+     * @param  null|int                               $colspan
      * @return string
      */
     public function renderTotals($totals, $colspan = null)

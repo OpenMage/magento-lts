@@ -23,6 +23,7 @@ class Mage_Paypal_Block_Bml_Form extends Mage_Paypal_Block_Express_Form
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _construct()
     {
         $this->_config = Mage::getModel('paypal/config')->setMethod($this->getMethodCode());

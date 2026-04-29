@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -39,6 +41,7 @@ class Mage_Newsletter_Model_Resource_Template_Collection extends Mage_Core_Model
      *
      * @return array
      */
+    #[Override]
     public function toOptionArray()
     {
         return $this->_toOptionArray('template_id', 'template_code');

@@ -4,6 +4,7 @@
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
  * @license    Open Software License (OSL 3.0)
+ * @package    OpenMage_Tests
  */
 
 declare(strict_types=1);
@@ -28,7 +29,7 @@ trait LinkTrait
         'title' => 'title is set',
     ];
 
-    public function provideGetHrefData(): Generator
+    public static function provideGetHrefData(): Generator
     {
         $emptyData = [
             'href'    => null,
@@ -60,7 +61,7 @@ trait LinkTrait
         ];
     }
 
-    public function provideGetTitleData(): Generator
+    public static function provideGetTitleData(): Generator
     {
         $emptyData = [
             'href'    => null,
@@ -100,7 +101,7 @@ trait LinkTrait
         ];
     }
 
-    public function provideGetAnchorTextData(): Generator
+    public static function provideGetAnchorTextData(): Generator
     {
         $emptyData = [
             'href'    => null,

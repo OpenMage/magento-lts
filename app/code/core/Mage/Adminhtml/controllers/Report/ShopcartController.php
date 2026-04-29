@@ -14,15 +14,21 @@
  */
 class Mage_Adminhtml_Report_ShopcartController extends Mage_Adminhtml_Controller_Action
 {
+    /**
+     * @return $this
+     */
     public function _initAction()
     {
-        $act = $this->getRequest()->getActionName();
+        $this->getRequest()->getActionName();
         $this->loadLayout()
             ->_addBreadcrumb(Mage::helper('reports')->__('Reports'), Mage::helper('reports')->__('Reports'))
             ->_addBreadcrumb(Mage::helper('reports')->__('Shopping Cart'), Mage::helper('reports')->__('Shopping Cart'));
         return $this;
     }
 
+    /**
+     * @return void
+     */
     public function customerAction()
     {
         $this->_title($this->__('Reports'))
@@ -38,6 +44,7 @@ class Mage_Adminhtml_Report_ShopcartController extends Mage_Adminhtml_Controller
 
     /**
      * Export shopcart customer report to CSV format
+     * @return void
      */
     public function exportCustomerCsvAction()
     {
@@ -50,6 +57,7 @@ class Mage_Adminhtml_Report_ShopcartController extends Mage_Adminhtml_Controller
 
     /**
      * Export shopcart customer report to Excel XML format
+     * @return void
      */
     public function exportCustomerExcelAction()
     {
@@ -60,6 +68,9 @@ class Mage_Adminhtml_Report_ShopcartController extends Mage_Adminhtml_Controller
         $this->_prepareDownloadResponse($fileName, $content);
     }
 
+    /**
+     * @return void
+     */
     public function productAction()
     {
         $this->_title($this->__('Reports'))
@@ -75,6 +86,7 @@ class Mage_Adminhtml_Report_ShopcartController extends Mage_Adminhtml_Controller
 
     /**
      * Export products report grid to CSV format
+     * @return void
      */
     public function exportProductCsvAction()
     {
@@ -87,6 +99,7 @@ class Mage_Adminhtml_Report_ShopcartController extends Mage_Adminhtml_Controller
 
     /**
      * Export products report to Excel XML format
+     * @return void
      */
     public function exportProductExcelAction()
     {
@@ -97,6 +110,9 @@ class Mage_Adminhtml_Report_ShopcartController extends Mage_Adminhtml_Controller
         $this->_prepareDownloadResponse($fileName, $content);
     }
 
+    /**
+     * @return void
+     */
     public function abandonedAction()
     {
         $this->_title($this->__('Reports'))
@@ -112,6 +128,7 @@ class Mage_Adminhtml_Report_ShopcartController extends Mage_Adminhtml_Controller
 
     /**
      * Export abandoned carts report grid to CSV format
+     * @return void
      */
     public function exportAbandonedCsvAction()
     {
@@ -124,6 +141,7 @@ class Mage_Adminhtml_Report_ShopcartController extends Mage_Adminhtml_Controller
 
     /**
      * Export abandoned carts report to Excel XML format
+     * @return void
      */
     public function exportAbandonedExcelAction()
     {
@@ -137,6 +155,7 @@ class Mage_Adminhtml_Report_ShopcartController extends Mage_Adminhtml_Controller
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _isAllowed(): bool
     {
         $action = strtolower($this->getRequest()->getActionName());

@@ -6,7 +6,7 @@
  * @license    Open Software License (OSL 3.0)
  * @package    Mage_Xml
  */
-class Mage_Xml_Generator
+class Mage_Xml_Generator implements Stringable
 {
     protected $_dom = null;
 
@@ -89,8 +89,8 @@ class Mage_Xml_Generator
             } elseif (is_array($item) && !isset($item[0])) {
                 $this->_setCurrentDom($node)->arrayToXml($item);
             } elseif (is_array($item) && isset($item[0])) {
-                foreach ($item as $v) {
-                    $this->_setCurrentDom($node)->arrayToXml($v);
+                foreach ($item as $val) {
+                    $this->_setCurrentDom($node)->arrayToXml($val);
                 }
             }
         }
@@ -98,12 +98,9 @@ class Mage_Xml_Generator
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function __toString()
+    public function __toString(): string
     {
-        return $this->getDom()->saveXML();
+        return (string) $this->getDom()->saveXML();
     }
 
     /**

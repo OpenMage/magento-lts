@@ -16,6 +16,7 @@ class Mage_Paypal_Adminhtml_Paypal_ReportsController extends Mage_Adminhtml_Cont
 {
     /**
      * Grid action
+     * @return void
      */
     public function indexAction()
     {
@@ -26,6 +27,7 @@ class Mage_Paypal_Adminhtml_Paypal_ReportsController extends Mage_Adminhtml_Cont
 
     /**
      * Ajax callback for grid actions
+     * @return void
      */
     public function gridAction()
     {
@@ -37,6 +39,7 @@ class Mage_Paypal_Adminhtml_Paypal_ReportsController extends Mage_Adminhtml_Cont
 
     /**
      * View transaction details action
+     * @return void
      */
     public function detailsAction()
     {
@@ -56,6 +59,7 @@ class Mage_Paypal_Adminhtml_Paypal_ReportsController extends Mage_Adminhtml_Cont
 
     /**
      * Forced fetch reports action
+     * @return void
      */
     public function fetchAction()
     {
@@ -107,6 +111,7 @@ class Mage_Paypal_Adminhtml_Paypal_ReportsController extends Mage_Adminhtml_Cont
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _isAllowed(): bool
     {
         $action = strtolower($this->getRequest()->getActionName());

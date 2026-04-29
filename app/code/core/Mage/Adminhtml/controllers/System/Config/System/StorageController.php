@@ -46,6 +46,7 @@ class Mage_Adminhtml_System_Config_System_StorageController extends Mage_Adminht
      * Synchronize action between storages
      *
      * @SuppressWarnings("PHPMD.Superglobals")
+     * @return void
      */
     public function synchronizeAction()
     {
@@ -58,7 +59,7 @@ class Mage_Adminhtml_System_Config_System_StorageController extends Mage_Adminht
         $flag = $this->_getSyncFlag();
         if ($flag && $flag->getState() == Mage_Core_Model_File_Storage_Flag::STATE_RUNNING
             && $flag->getLastUpdate()
-            && Carbon::now()->getTimestamp() <= (Carbon::parse($flag->getLastUpdate())->getTimestamp() + Mage_Core_Model_File_Storage_Flag::FLAG_TTL)
+            && Mage::helper('core/clock')->getTimestamp() <= (Carbon::parse($flag->getLastUpdate())->getTimestamp() + Mage_Core_Model_File_Storage_Flag::FLAG_TTL)
         ) {
             return;
         }
@@ -83,6 +84,7 @@ class Mage_Adminhtml_System_Config_System_StorageController extends Mage_Adminht
 
     /**
      * Retrieve synchronize process state and it's parameters in json format
+     * @return void
      */
     public function statusAction()
     {
@@ -95,17 +97,17 @@ class Mage_Adminhtml_System_Config_System_StorageController extends Mage_Adminht
             switch ($state) {
                 case Mage_Core_Model_File_Storage_Flag::STATE_INACTIVE:
                     $flagData = $flag->getFlagData();
-                    if (is_array($flagData)) {
-                        if (isset($flagData['destination']) && !empty($flagData['destination'])) {
-                            $result['destination'] = $flagData['destination'];
-                        }
+                    if (is_array($flagData)
+                        && (isset($flagData['destination']) && !empty($flagData['destination']))
+                    ) {
+                        $result['destination'] = $flagData['destination'];
                     }
 
                     $state = Mage_Core_Model_File_Storage_Flag::STATE_INACTIVE;
                     break;
                 case Mage_Core_Model_File_Storage_Flag::STATE_RUNNING:
                     if (!$flag->getLastUpdate()
-                        || Carbon::now()->getTimestamp() <= (Carbon::parse($flag->getLastUpdate())->getTimestamp() + Mage_Core_Model_File_Storage_Flag::FLAG_TTL)
+                        || Mage::helper('core/clock')->getTimestamp() <= (Carbon::parse($flag->getLastUpdate())->getTimestamp() + Mage_Core_Model_File_Storage_Flag::FLAG_TTL)
                     ) {
                         $flagData = $flag->getFlagData();
                         if (is_array($flagData)
@@ -150,10 +152,10 @@ class Mage_Adminhtml_System_Config_System_StorageController extends Mage_Adminht
                     $result['html'] = $block->toHtml();
 
                     $flagData = $flag->getFlagData();
-                    if (is_array($flagData)) {
-                        if (isset($flagData['has_errors']) && $flagData['has_errors']) {
-                            $result['has_errors'] = true;
-                        }
+                    if (is_array($flagData)
+                        && (isset($flagData['has_errors']) && $flagData['has_errors'])
+                    ) {
+                        $result['has_errors'] = true;
                     }
 
                     break;

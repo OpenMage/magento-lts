@@ -331,6 +331,7 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
      *
      * @return string
      */
+    #[Override]
     public function getApiEndpoint()
     {
         return sprintf('https://%spayflowpro.paypal.com/transaction', $this->_config->sandboxFlag ? 'pilot-' : '');
@@ -397,8 +398,8 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
      */
     public function getPaypalTransactionId()
     {
-        if ($this->getData('paypal_transaction_id')) {
-            return $this->getData('paypal_transaction_id');
+        if ($this->getDataByKey('paypal_transaction_id')) {
+            return $this->getDataByKey('paypal_transaction_id');
         }
 
         return $this->getTransactionId();
@@ -411,6 +412,7 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
      * @param  array  $request
      * @return array
      */
+    #[Override]
     protected function _addMethodToRequest($methodName, $request)
     {
         $request['TRXTYPE'] = $this->_mapPaypalMethodName($methodName);
@@ -441,25 +443,19 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
      * Map paypal method names
      *
      * @param  string      $methodName
-     * @return string|void
+     * @return null|string
      */
     protected function _mapPaypalMethodName($methodName)
     {
-        switch ($methodName) {
-            case Mage_Paypal_Model_Api_Nvp::DO_EXPRESS_CHECKOUT_PAYMENT:
-            case Mage_Paypal_Model_Api_Nvp::GET_EXPRESS_CHECKOUT_DETAILS:
-            case Mage_Paypal_Model_Api_Nvp::SET_EXPRESS_CHECKOUT:
-            case Mage_Paypal_Model_Api_Nvp::DO_DIRECT_PAYMENT:
-                return ($this->_config->payment_action == Mage_Paypal_Model_Config::PAYMENT_ACTION_AUTH)
-                    ? self::TRXTYPE_AUTH_ONLY
-                    : self::TRXTYPE_SALE;
-            case Mage_Paypal_Model_Api_Nvp::DO_CAPTURE:
-                return self::TRXTYPE_DELAYED_CAPTURE;
-            case Mage_Paypal_Model_Api_Nvp::DO_VOID:
-                return self::TRXTYPE_DELAYED_VOID;
-            case Mage_Paypal_Model_Api_Nvp::REFUND_TRANSACTION:
-                return self::TRXTYPE_CREDIT;
-        }
+        return match ($methodName) {
+            Mage_Paypal_Model_Api_Nvp::DO_EXPRESS_CHECKOUT_PAYMENT, Mage_Paypal_Model_Api_Nvp::GET_EXPRESS_CHECKOUT_DETAILS, Mage_Paypal_Model_Api_Nvp::SET_EXPRESS_CHECKOUT, Mage_Paypal_Model_Api_Nvp::DO_DIRECT_PAYMENT => ($this->_config->payment_action == Mage_Paypal_Model_Config::PAYMENT_ACTION_AUTH)
+                ? self::TRXTYPE_AUTH_ONLY
+                : self::TRXTYPE_SALE,
+            Mage_Paypal_Model_Api_Nvp::DO_CAPTURE => self::TRXTYPE_DELAYED_CAPTURE,
+            Mage_Paypal_Model_Api_Nvp::DO_VOID => self::TRXTYPE_DELAYED_VOID,
+            Mage_Paypal_Model_Api_Nvp::REFUND_TRANSACTION => self::TRXTYPE_CREDIT,
+            default => null,
+        };
     }
 
     /**
@@ -468,6 +464,7 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
      * @param  array $response
      * @return bool  success flag
      */
+    #[Override]
     protected function _isCallSuccessful($response)
     {
         $this->_callWarnings = [];
@@ -488,12 +485,13 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
      *
      * @param array $response
      */
+    #[Override]
     protected function _handleCallErrors($response)
     {
         if ($response['RESULT'] != self::RESPONSE_CODE_APPROVED) {
             $message = $response['RESPMSG'];
-            $e = new Exception(sprintf('PayPal gateway errors: %s.', $message));
-            Mage::logException($e);
+            $exception = new Exception(sprintf('PayPal gateway errors: %s.', $message));
+            Mage::logException($exception);
             Mage::throwException(
                 Mage::helper('paypal')->__('PayPal gateway rejected the request. %s', $message),
             );
@@ -506,11 +504,12 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
      * @param  array  $request
      * @return string
      */
+    #[Override]
     protected function _buildQuery($request)
     {
         $result = '';
-        foreach ($request as $k => $v) {
-            $result .= '&' . $k . '=' . $v;
+        foreach ($request as $key => $value) {
+            $result .= '&' . $key . '=' . $value;
         }
 
         return trim($result, '&');
@@ -529,6 +528,7 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
     /**
      * "GetTransactionDetails" method does not exists in PaypalUK
      */
+    #[Override]
     public function callGetTransactionDetails() {}
 
     /**
@@ -550,6 +550,7 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
      * @param  string $methodName Current method name
      * @return array
      */
+    #[Override]
     protected function _prepareEachCallRequest($methodName)
     {
         return $this->_eachCallRequest;
@@ -562,6 +563,7 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
      * @param  array $requestFields Standard set of values
      * @return array
      */
+    #[Override]
     protected function _prepareExpressCheckoutCallRequest(&$requestFields)
     {
         return $requestFields;
@@ -573,6 +575,7 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
      *
      * @param array $request
      */
+    #[Override]
     protected function _applyCountryWorkarounds(&$request)
     {
         if (isset($request['SHIPTOCOUNTRY']) && $request['SHIPTOCOUNTRY'] == 'PR') {
@@ -587,6 +590,7 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
      * @param  int       $i
      * @return bool|void
      */
+    #[Override]
     protected function _exportLineItems(array &$request, $i = 0)
     {
         $requestBefore = $request;

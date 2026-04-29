@@ -27,6 +27,7 @@ class Mage_Customer_AddressController extends Mage_Core_Controller_Front_Action
     /**
      * @inheritDoc
      */
+    #[Override]
     public function preDispatch()
     {
         parent::preDispatch();
@@ -39,6 +40,7 @@ class Mage_Customer_AddressController extends Mage_Core_Controller_Front_Action
 
     /**
      * Customer addresses list
+     * @return void
      */
     public function indexAction()
     {
@@ -58,11 +60,17 @@ class Mage_Customer_AddressController extends Mage_Core_Controller_Front_Action
         }
     }
 
+    /**
+     * @return void
+     */
     public function editAction()
     {
         $this->_forward('form');
     }
 
+    /**
+     * @return void
+     */
     public function newAction()
     {
         $this->_forward('form');
@@ -70,6 +78,7 @@ class Mage_Customer_AddressController extends Mage_Core_Controller_Front_Action
 
     /**
      * Address book form
+     * @return void
      */
     public function formAction()
     {
@@ -84,7 +93,7 @@ class Mage_Customer_AddressController extends Mage_Core_Controller_Front_Action
     }
 
     /**
-     * @return Mage_Core_Controller_Varien_Action|void
+     * @return $this|void
      */
     public function formPostAction()
     {
@@ -156,7 +165,7 @@ class Mage_Customer_AddressController extends Mage_Core_Controller_Front_Action
     }
 
     /**
-     * @return Mage_Core_Controller_Varien_Action|void
+     * @return $this|void
      */
     public function deleteAction()
     {
@@ -179,8 +188,8 @@ class Mage_Customer_AddressController extends Mage_Core_Controller_Front_Action
             try {
                 $address->delete();
                 $this->_getSession()->addSuccess($this->__('The address has been deleted.'));
-            } catch (Exception $e) {
-                $this->_getSession()->addException($e, $this->__('An error occurred while deleting the address.'));
+            } catch (Exception $exception) {
+                $this->_getSession()->addException($exception, $this->__('An error occurred while deleting the address.'));
             }
         }
 

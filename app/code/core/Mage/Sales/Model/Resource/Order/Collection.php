@@ -59,6 +59,7 @@ class Mage_Sales_Model_Resource_Order_Collection extends Mage_Sales_Model_Resour
      *
      * @return Varien_Db_Select
      */
+    #[Override]
     public function getSelectCountSql()
     {
         $countSelect = parent::getSelectCountSql();
@@ -74,6 +75,7 @@ class Mage_Sales_Model_Resource_Order_Collection extends Mage_Sales_Model_Resour
      * @param  int              $offset
      * @return Varien_Db_Select
      */
+    #[Override]
     protected function _getAllIdsSelect($limit = null, $offset = null)
     {
         $idsSelect = parent::_getAllIdsSelect($limit, $offset);
@@ -83,7 +85,7 @@ class Mage_Sales_Model_Resource_Order_Collection extends Mage_Sales_Model_Resour
 
     /**
      * Join table sales_flat_order_address to select for billing and shipping order addresses.
-     * Create corillation map
+     * Create correlation map
      *
      * @return $this
      */

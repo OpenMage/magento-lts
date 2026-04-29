@@ -22,6 +22,7 @@ class Mage_Adminhtml_Block_Newsletter_Subscriber_Grid_Filter_Website extends Mag
     /**
      * @return array[]
      */
+    #[Override]
     protected function _getOptions()
     {
         $result = $this->getCollection()->toOptionArray();
@@ -49,6 +50,7 @@ class Mage_Adminhtml_Block_Newsletter_Subscriber_Grid_Filter_Website extends Mag
      * @inheritDoc
      * @throws Mage_Core_Exception
      */
+    #[Override]
     public function getCondition()
     {
         $id = $this->getValue();

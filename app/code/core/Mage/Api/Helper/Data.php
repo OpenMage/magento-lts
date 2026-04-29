@@ -193,16 +193,12 @@ class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
                 }
             }
 
-            if ($isDigit) {
-                $mixed = $this->packArrayToObject($mixed);
-            } else {
-                $mixed = (object) $mixed;
-            }
+            $mixed = $isDigit ? $this->packArrayToObject($mixed) : (object) $mixed;
         }
 
         if (is_object($mixed) && isset($mixed->complexObjectArray)) {
-            foreach ($mixed->complexObjectArray as $k => $v) {
-                $mixed->complexObjectArray[$k] = $this->wsiArrayPacker($v);
+            foreach ($mixed->complexObjectArray as $index => $value) {
+                $mixed->complexObjectArray[$index] = $this->wsiArrayPacker($value);
             }
         }
 
@@ -305,7 +301,11 @@ class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
         $parsedFilters = [];
 
         foreach ($complexFilter as $filter) {
-            if (!isset($filter->key) || !isset($filter->value)) {
+            if (!isset($filter->key)) {
+                continue;
+            }
+
+            if (!isset($filter->value)) {
                 continue;
             }
 

@@ -4,6 +4,7 @@
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
  * @license    Open Software License (OSL 3.0)
+ * @package    OpenMage_Tests
  */
 
 declare(strict_types=1);
@@ -16,7 +17,7 @@ use Mage_Index_Model_Process;
 
 trait GridTrait
 {
-    public function provideDecorateStatusData(): Generator
+    public static function provideDecorateStatusData(): Generator
     {
         yield 'pending' => [
             Mage_Adminhtml_Block_Widget_Grid::CSS_SEVERITY_NOTICE,
@@ -34,7 +35,7 @@ trait GridTrait
         ];
     }
 
-    public function provideDecorateUpdateRequiredData(): Generator
+    public static function provideDecorateUpdateRequiredData(): Generator
     {
         yield 'no' => [
             Mage_Adminhtml_Block_Widget_Grid::CSS_SEVERITY_NOTICE,

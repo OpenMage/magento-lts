@@ -4,6 +4,7 @@
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
  * @license    Open Software License (OSL 3.0)
+ * @package    OpenMage_Tests
  */
 
 declare(strict_types=1);
@@ -14,7 +15,7 @@ use Generator;
 
 trait CustomerTrait
 {
-    public function provideValidateCustomerData(): Generator
+    public static function provideValidateCustomerData(): Generator
     {
         $validCustomer = [
             'getFirstname' => 'John',
@@ -22,7 +23,7 @@ trait CustomerTrait
             'getEmail' => 'john.doe@example.com',
             'getPassword' => 'validpassword123',
             'getPasswordConfirmation' => 'validpassword123',
-            'getDob' => '1980-01-01',
+            'getDob' => '1981-01-01 00:00:00',
             'getTaxvat' => '123456789',
             'getGender' => '1',
             'shouldValidateDob' => false,
@@ -125,6 +126,28 @@ trait CustomerTrait
         yield 'missing gender' => [
             ['Gender is required.'],
             $data,
+        ];
+    }
+
+    public static function provideGetDobData(): Generator
+    {
+        $result = '1981-01-01 00:00:00';
+
+        yield 'null' => [
+            null,
+            null,
+        ];
+        yield 'empty' => [
+            '',
+            '',
+        ];
+        yield 'date' => [
+            $result,
+            '1981-01-01',
+        ];
+        yield 'datetime' => [
+            $result,
+            '1981-01-01 23:59:00',
         ];
     }
 }

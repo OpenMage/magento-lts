@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -12,7 +14,6 @@
  *
  * @package    Mage_Checkout
  */
-
 interface Mage_Checkout_Model_Cart_Interface
 {
     /**

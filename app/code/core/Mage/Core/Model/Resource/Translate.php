@@ -79,7 +79,7 @@ class Mage_Core_Model_Resource_Translate extends Mage_Core_Model_Resource_Db_Abs
             return [];
         }
 
-        if (empty($strings)) {
+        if ($strings === []) {
             return [];
         }
 

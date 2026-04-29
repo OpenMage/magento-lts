@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * USA Shipping Layout Updates
+ *
+ * @category    Mage
+ * @package     Mage_Usa
+ */
+-->
+<layout version="0.1.0">
+    <!--
+        Add USPS Address Verification modal to checkout pages
+    -->
+    <checkout_onepage_index>
+        <reference name="before_body_end">
+            <block type="usa/checkout_address_verification" name="usps.address.verification" template="usa/checkout/address/verification.phtml" />
+        </reference>
+    </checkout_onepage_index>
+
+    <!-- Also add to multi-shipping checkout -->
+    <checkout_multishipping_address_select>
+        <reference name="before_body_end">
+            <block type="usa/checkout_address_verification" name="usps.address.verification" template="usa/checkout/address/verification.phtml" />
+        </reference>
+    </checkout_multishipping_address_select>
+
+    <checkout_multishipping_address_newshipping>
+        <reference name="before_body_end">
+            <block type="usa/checkout_address_verification" name="usps.address.verification" template="usa/checkout/address/verification.phtml" />
+        </reference>
+    </checkout_multishipping_address_newshipping>
+
+    <checkout_multishipping_address_newbilling>
+        <reference name="before_body_end">
+            <block type="usa/checkout_address_verification" name="usps.address.verification" template="usa/checkout/address/verification.phtml" />
+        </reference>
+    </checkout_multishipping_address_newbilling>
+
+    <!-- Add to customer address edit -->
+    <customer_address_form>
+        <reference name="before_body_end">
+            <block type="usa/checkout_address_verification" name="usps.address.verification" template="usa/checkout/address/verification.phtml" />
+        </reference>
+    </customer_address_form>
+</layout>

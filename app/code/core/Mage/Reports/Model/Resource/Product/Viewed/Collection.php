@@ -24,30 +24,31 @@ class Mage_Reports_Model_Resource_Product_Viewed_Collection extends Mage_Reports
     /**
      * Join fields
      *
-     * @param  string              $from
-     * @param  string              $to
+     * @param  string              $dateFrom
+     * @param  string              $dateTo
      * @return $this
      * @throws Mage_Core_Exception
      */
-    protected function _joinFields($from = '', $to = '')
+    #[Override]
+    protected function _joinFields($dateFrom = '', $dateTo = '')
     {
         $this->addAttributeToSelect('*')
-            ->addViewsCount($from, $to);
+            ->addViewsCount($dateFrom, $dateTo);
         return $this;
     }
 
     /**
      * Set date range
      *
-     * @param  string              $from
-     * @param  string              $to
+     * @param  null|string         $dateFrom
+     * @param  null|string         $dateTo
      * @return $this
      * @throws Mage_Core_Exception
      */
-    public function setDateRange($from, $to)
+    public function setDateRange($dateFrom, $dateTo)
     {
         $this->_reset()
-            ->_joinFields($from, $to);
+            ->_joinFields($dateFrom, $dateTo);
         return $this;
     }
 
@@ -99,6 +100,7 @@ class Mage_Reports_Model_Resource_Product_Viewed_Collection extends Mage_Reports
      *
      * @return Mage_Catalog_Model_Resource_Product_Collection
      */
+    #[Override]
     protected function _beforeLoad()
     {
         $this->_applyStoreIds();

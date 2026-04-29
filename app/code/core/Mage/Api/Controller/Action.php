@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -17,6 +19,7 @@ class Mage_Api_Controller_Action extends Mage_Core_Controller_Front_Action
     /**
      * @return $this
      */
+    #[Override]
     public function preDispatch()
     {
         $this->getLayout()->setArea('adminhtml');

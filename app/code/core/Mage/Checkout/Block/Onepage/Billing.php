@@ -31,6 +31,7 @@ class Mage_Checkout_Block_Onepage_Billing extends Mage_Checkout_Block_Onepage_Ab
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _construct()
     {
         $this->getCheckout()->setStepData('billing', [
@@ -50,13 +51,7 @@ class Mage_Checkout_Block_Onepage_Billing extends Mage_Checkout_Block_Onepage_Ab
      */
     public function isUseBillingAddressForShipping()
     {
-        if (($this->getQuote()->getIsVirtual())
-            || !$this->getQuote()->getShippingAddress()->getSameAsBilling()
-        ) {
-            return false;
-        }
-
-        return true;
+        return !$this->getQuote()->getIsVirtual() && $this->getQuote()->getShippingAddress()->getSameAsBilling();
     }
 
     /**

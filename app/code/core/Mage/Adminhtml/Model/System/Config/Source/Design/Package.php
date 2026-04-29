@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -12,9 +14,5 @@
  */
 class Mage_Adminhtml_Model_System_Config_Source_Package
 {
-    public function toOptionArray()
-    {
-        $dir = new Varien_Io_File();
-        #$dir->open(array('path'=>Mage::getStore))
-    }
+    public function toOptionArray() {}
 }

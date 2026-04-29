@@ -7,8 +7,6 @@
  * @package    Mage_Oauth
  */
 
-use Carbon\Carbon;
-
 /**
  * oAuth Server
  *
@@ -498,7 +496,7 @@ class Mage_Oauth_Model_Server
     {
         $timestamp = (int) $timestamp;
 
-        if ($timestamp <= 0 || $timestamp > (Carbon::now()->getTimestamp() + self::TIME_DEVIATION)) {
+        if ($timestamp <= 0 || $timestamp > (Mage::helper('core/clock')->getTimestamp() + self::TIME_DEVIATION)) {
             $this->_throwException('', self::ERR_TIMESTAMP_REFUSED);
         }
 
@@ -717,12 +715,12 @@ class Mage_Oauth_Model_Server
      * @return string
      * @throws Zend_Controller_Response_Exception
      */
-    public function reportProblem(Exception $e, ?Zend_Controller_Response_Http $response = null)
+    public function reportProblem(Exception $exception, ?Zend_Controller_Response_Http $response = null)
     {
-        $eMsg = $e->getMessage();
+        $eMsg = $exception->getMessage();
 
-        if ($e instanceof Mage_Oauth_Exception) {
-            $eCode = $e->getCode();
+        if ($exception instanceof Mage_Oauth_Exception) {
+            $eCode = $exception->getCode();
 
             if (isset($this->_errors[$eCode])) {
                 $errorMsg = $this->_errors[$eCode];
@@ -742,7 +740,7 @@ class Mage_Oauth_Model_Server
             $responseCode = self::HTTP_INTERNAL_ERROR;
         }
 
-        if (!$response) {
+        if (!$response instanceof Zend_Controller_Response_Http) {
             $response = $this->_getResponse();
         }
 

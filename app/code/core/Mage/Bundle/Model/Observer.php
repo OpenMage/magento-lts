@@ -200,10 +200,10 @@ class Mage_Bundle_Model_Observer
         $i = 0;
         foreach ($optionCollection as $option) {
             $optionRawData[$i] = [
-                'required' => $option->getData('required'),
-                'position' => $option->getData('position'),
-                'type' => $option->getData('type'),
-                'title' => $option->getData('title') ? $option->getData('title') : $option->getData('default_title'),
+                'required' => $option->getDataByKey('required'),
+                'position' => $option->getDataByKey('position'),
+                'type' => $option->getDataByKey('type'),
+                'title' => $option->getDataByKey('title') ? $option->getDataByKey('title') : $option->getDataByKey('default_title'),
                 'delete' => '',
             ];
             foreach ($option->getSelections() as $selection) {

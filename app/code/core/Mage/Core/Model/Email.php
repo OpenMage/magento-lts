@@ -80,7 +80,7 @@ class Mage_Core_Model_Email extends Varien_Object
      */
     public function getBody()
     {
-        $body = $this->getData('body');
+        $body = $this->getDataByKey('body');
         if (empty($body) && $this->getTemplate()) {
             $this->_block = Mage::getModel('core/layout')->createBlock('core/template', 'email')
                 ->setArea('frontend')
@@ -102,7 +102,7 @@ class Mage_Core_Model_Email extends Varien_Object
      */
     public function getSubject()
     {
-        $subject = $this->getData('subject');
+        $subject = $this->getDataByKey('subject');
         if (empty($subject) && $this->_block) {
             $this->_block->assign('_section', 'subject');
             $subject = $this->_block->toHtml();

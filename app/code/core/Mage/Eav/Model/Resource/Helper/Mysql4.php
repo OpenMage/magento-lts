@@ -107,6 +107,6 @@ class Mage_Eav_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_Hel
      */
     public function getCastToIntExpression($expression)
     {
-        return new Zend_Db_Expr("CAST($expression AS SIGNED)");
+        return new Zend_Db_Expr("CAST({$expression} AS SIGNED)");
     }
 }

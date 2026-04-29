@@ -52,7 +52,7 @@ class Mage_Downloadable_Model_Product_Type extends Mage_Catalog_Model_Product_Ty
     public function hasLinks($product = null)
     {
         if ($this->getProduct($product)->hasData('links_exist')) {
-            return $this->getProduct($product)->getData('links_exist');
+            return $this->getProduct($product)->getDataByKey('links_exist');
         }
 
         return count($this->getLinks($product)) > 0;
@@ -64,11 +64,15 @@ class Mage_Downloadable_Model_Product_Type extends Mage_Catalog_Model_Product_Ty
      * @param  Mage_Catalog_Model_Product $product
      * @return bool
      */
+    #[Override]
     public function hasOptions($product = null)
     {
         //return true;
-        return $this->getProduct($product)->getLinksPurchasedSeparately()
-            || parent::hasOptions($product);
+        if ($this->getProduct($product)->getLinksPurchasedSeparately()) {
+            return true;
+        }
+
+        return parent::hasOptions($product);
     }
 
     /**
@@ -77,13 +81,14 @@ class Mage_Downloadable_Model_Product_Type extends Mage_Catalog_Model_Product_Ty
      * @param  Mage_Catalog_Model_Product $product
      * @return bool
      */
+    #[Override]
     public function hasRequiredOptions($product = null)
     {
-        if (parent::hasRequiredOptions($product) || $this->getProduct($product)->getLinksPurchasedSeparately()) {
+        if (parent::hasRequiredOptions($product)) {
             return true;
         }
 
-        return false;
+        return $this->getProduct($product)->getLinksPurchasedSeparately();
     }
 
     /**
@@ -133,6 +138,7 @@ class Mage_Downloadable_Model_Product_Type extends Mage_Catalog_Model_Product_Ty
      * @param  Mage_Catalog_Model_Product $product
      * @return $this
      */
+    #[Override]
     public function save($product = null)
     {
         parent::save($product);
@@ -283,6 +289,7 @@ class Mage_Downloadable_Model_Product_Type extends Mage_Catalog_Model_Product_Ty
      * @param  string                     $processMode
      * @return array|string
      */
+    #[Override]
     protected function _prepareProduct(Varien_Object $buyRequest, $product, $processMode)
     {
         $result = parent::_prepareProduct($buyRequest, $product, $processMode);
@@ -334,10 +341,11 @@ class Mage_Downloadable_Model_Product_Type extends Mage_Catalog_Model_Product_Ty
     /**
      * Check if product can be bought
      *
-     * @param  Mage_Catalog_Model_Product           $product
-     * @return Mage_Downloadable_Model_Product_Type
+     * @param  Mage_Catalog_Model_Product $product
+     * @return $this
      * @throws Mage_Core_Exception
      */
+    #[Override]
     public function checkProductBuyState($product = null)
     {
         parent::checkProductBuyState($product);
@@ -371,6 +379,7 @@ class Mage_Downloadable_Model_Product_Type extends Mage_Catalog_Model_Product_Ty
      * @param  Mage_Catalog_Model_Product $product
      * @return array
      */
+    #[Override]
     public function getOrderOptions($product = null)
     {
         $options = parent::getOrderOptions($product);
@@ -399,6 +408,7 @@ class Mage_Downloadable_Model_Product_Type extends Mage_Catalog_Model_Product_Ty
      * @param  Mage_Catalog_Model_Product $product
      * @return $this
      */
+    #[Override]
     public function beforeSave($product = null)
     {
         parent::beforeSave($product);
@@ -410,13 +420,11 @@ class Mage_Downloadable_Model_Product_Type extends Mage_Catalog_Model_Product_Ty
 
         // Update links_exist attribute value
         $linksExist = false;
-        if ($data = $product->getDownloadableData()) {
-            if (isset($data['link'])) {
-                foreach ($data['link'] as $linkItem) {
-                    if (!isset($linkItem['is_delete']) || !$linkItem['is_delete']) {
-                        $linksExist = true;
-                        break;
-                    }
+        if (($data = $product->getDownloadableData()) && isset($data['link'])) {
+            foreach ($data['link'] as $linkItem) {
+                if (!isset($linkItem['is_delete']) || !$linkItem['is_delete']) {
+                    $linksExist = true;
+                    break;
                 }
             }
         }
@@ -433,6 +441,7 @@ class Mage_Downloadable_Model_Product_Type extends Mage_Catalog_Model_Product_Ty
      * @param  Mage_Catalog_Model_Product $product
      * @return array
      */
+    #[Override]
     public function getSearchableData($product = null)
     {
         $searchData = parent::getSearchableData($product);
@@ -459,6 +468,7 @@ class Mage_Downloadable_Model_Product_Type extends Mage_Catalog_Model_Product_Ty
      * @param  Mage_Catalog_Model_Product $product
      * @return bool
      */
+    #[Override]
     public function isSalable($product = null)
     {
         return $this->hasLinks($product) && parent::isSalable($product);
@@ -470,11 +480,12 @@ class Mage_Downloadable_Model_Product_Type extends Mage_Catalog_Model_Product_Ty
      * @inheritDoc
      * @return array<string, string[]>
      */
+    #[Override]
     public function processBuyRequest($product, $buyRequest)
     {
         /** @var null|string[] $links */
         $links = $buyRequest->getLinks();
-        $links = (is_array($links)) ? array_filter($links, fn(mixed $o) => (int) $o !== 0) : [];
+        $links = (is_array($links)) ? array_filter($links, fn(mixed $value) => (int) $value !== 0) : [];
 
         return ['links' => $links];
     }
@@ -485,6 +496,7 @@ class Mage_Downloadable_Model_Product_Type extends Mage_Catalog_Model_Product_Ty
      * @param  Mage_Catalog_Model_Product $product
      * @return bool
      */
+    #[Override]
     public function canConfigure($product = null)
     {
         return $this->hasLinks($product) && $this->getProduct($product)->getLinksPurchasedSeparately();

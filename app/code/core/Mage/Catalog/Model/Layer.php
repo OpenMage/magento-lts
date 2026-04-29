@@ -142,7 +142,7 @@ class Mage_Catalog_Model_Layer extends Varien_Object
      */
     public function getCurrentCategory()
     {
-        $category = $this->getData('current_category');
+        $category = $this->getDataByKey('current_category');
         if (is_null($category)) {
             if ($category = Mage::registry('current_category')) {
                 $this->setData('current_category', $category);
@@ -272,7 +272,7 @@ class Mage_Catalog_Model_Layer extends Varien_Object
      */
     public function getState()
     {
-        $state = $this->getData('state');
+        $state = $this->getDataByKey('state');
         if (is_null($state)) {
             Varien_Profiler::start(__METHOD__);
             $state = Mage::getModel('catalog/layer_state');

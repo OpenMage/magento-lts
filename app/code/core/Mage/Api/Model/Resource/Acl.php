@@ -109,8 +109,8 @@ class Mage_Api_Model_Resource_Acl extends Mage_Core_Model_Resource_Db_Abstract
                 } elseif ($rule['api_permission'] == 'deny') {
                     $acl->deny($role, $resource, $privileges, $assert);
                 }
-            } catch (Exception $e) {
-                Mage::logException($e);
+            } catch (Exception $exception) {
+                Mage::logException($exception);
             }
         }
 

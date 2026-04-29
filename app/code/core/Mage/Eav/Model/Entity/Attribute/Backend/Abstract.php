@@ -200,11 +200,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Backend_Abstract implements Mage_
     public function getDefaultValue()
     {
         if ($this->_defaultValue === null) {
-            if ($this->getAttribute()->getDefaultValue()) {
-                $this->_defaultValue = $this->getAttribute()->getDefaultValue();
-            } else {
-                $this->_defaultValue = '';
-            }
+            $this->_defaultValue = $this->getAttribute()->getDefaultValue() ? $this->getAttribute()->getDefaultValue() : '';
         }
 
         return $this->_defaultValue;
@@ -241,14 +237,14 @@ abstract class Mage_Eav_Model_Entity_Attribute_Backend_Abstract implements Mage_
             return true;
         }
 
-        if ($this->getAttribute()->getIsUnique()) {
-            if (!$this->getAttribute()->getEntity()->checkAttributeUniqueValue($this->getAttribute(), $object)) {
-                $label = $this->getAttribute()->getFrontend()->getLabel();
-                throw Mage::exception(
-                    'Mage_Eav',
-                    Mage::helper('eav')->__('The value of attribute "%s" must be unique', $label),
-                );
-            }
+        if ($this->getAttribute()->getIsUnique()
+            && !$this->getAttribute()->getEntity()->checkAttributeUniqueValue($this->getAttribute(), $object)
+        ) {
+            $label = $this->getAttribute()->getFrontend()->getLabel();
+            throw Mage::exception(
+                'Mage_Eav',
+                Mage::helper('eav')->__('The value of attribute "%s" must be unique', $label),
+            );
         }
 
         return true;

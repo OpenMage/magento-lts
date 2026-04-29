@@ -34,7 +34,7 @@ class Mage_Directory_Block_Currency extends Mage_Core_Block_Template
      */
     public function getCurrencies()
     {
-        $currencies = $this->getData('currencies');
+        $currencies = $this->getDataByKey('currencies');
         if (is_null($currencies)) {
             $currencies = [];
             $codes = Mage::app()->getStore()->getAvailableCurrencyCodes(true);

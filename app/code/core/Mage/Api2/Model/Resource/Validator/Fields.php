@@ -93,7 +93,7 @@ class Mage_Api2_Model_Resource_Validator_Fields extends Mage_Api2_Model_Resource
 
                     // instantiation of the validator class
                     if (!isset($validatorConfig['type'])) {
-                        throw new Mage_Core_Exception("Validator type is not set for $validatorName");
+                        throw new Mage_Core_Exception("Validator type is not set for {$validatorName}");
                     }
 
                     $options = $validatorConfig['options'] ?? [];

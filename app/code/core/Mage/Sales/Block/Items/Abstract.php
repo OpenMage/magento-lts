@@ -27,6 +27,7 @@ class Mage_Sales_Block_Items_Abstract extends Mage_Core_Block_Template
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _construct()
     {
         parent::_construct();

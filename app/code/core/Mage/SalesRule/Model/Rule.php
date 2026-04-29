@@ -184,6 +184,7 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
      *
      * @inheritDoc
      */
+    #[Override]
     protected function _afterLoad()
     {
         $this->setCouponCode($this->getPrimaryCoupon()->getCode());
@@ -199,6 +200,7 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
      *
      * @return $this
      */
+    #[Override]
     protected function _afterSave()
     {
         $couponCode = trim((string) $this->getCouponCode());
@@ -226,6 +228,7 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
      *
      * @return $this
      */
+    #[Override]
     public function loadPost(array $data)
     {
         parent::loadPost($data);
@@ -417,16 +420,16 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
         $couponCode = self::getCouponCodeGenerator()->generateCode();
         $coupon->setCode($couponCode);
 
-        $ok = false;
+        $check = false;
         if (!$saveNewlyCreated) {
-            $ok = true;
+            $check = true;
         } elseif ($this->getId()) {
             for ($attemptNum = 0; $attemptNum < $saveAttemptCount; $attemptNum++) {
                 try {
                     $coupon->save();
-                } catch (Exception $e) {
-                    if ($e instanceof Mage_Core_Exception || $coupon->getId()) {
-                        throw $e;
+                } catch (Exception $exception) {
+                    if ($exception instanceof Mage_Core_Exception || $coupon->getId()) {
+                        throw $exception;
                     }
 
                     $coupon->setCode(
@@ -437,12 +440,12 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
                     continue;
                 }
 
-                $ok = true;
+                $check = true;
                 break;
             }
         }
 
-        if (!$ok) {
+        if (!$check) {
             Mage::throwException(Mage::helper('salesrule')->__("Can't acquire coupon."));
         }
 
@@ -521,6 +524,7 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
      * @return string
      * @deprecated after 1.6.2.0
      */
+    #[Override]
     public function toString($format = '')
     {
         return '';
@@ -541,6 +545,7 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
      * @return array
      * @deprecated after 1.6.2.0
      */
+    #[Override]
     public function toArray(array $arrAttributes = [])
     {
         return parent::toArray($arrAttributes);

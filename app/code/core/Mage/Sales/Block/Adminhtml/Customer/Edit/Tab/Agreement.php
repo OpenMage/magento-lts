@@ -70,6 +70,7 @@ class Mage_Sales_Block_Adminhtml_Customer_Edit_Tab_Agreement extends Mage_Sales_
     /**
      * @inheritDoc
      */
+    #[Override]
     public function getGridUrl()
     {
         return $this->getUrl('*/sales_billing_agreement/customerGrid', ['_current' => true]);
@@ -90,6 +91,7 @@ class Mage_Sales_Block_Adminhtml_Customer_Edit_Tab_Agreement extends Mage_Sales_
      *
      * @return $this|Mage_Adminhtml_Block_Widget_Grid
      */
+    #[Override]
     protected function _prepareCollection()
     {
         $collection = Mage::getResourceModel('sales/billing_agreement_collection')
@@ -104,6 +106,7 @@ class Mage_Sales_Block_Adminhtml_Customer_Edit_Tab_Agreement extends Mage_Sales_
      *
      * @return $this
      */
+    #[Override]
     protected function _prepareColumns()
     {
         $result = parent::_prepareColumns();

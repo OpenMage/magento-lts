@@ -26,6 +26,7 @@ class Mage_CurrencySymbol_Block_Adminhtml_System_Currencysymbol extends Mage_Adm
      *
      * @return $this
      */
+    #[Override]
     protected function _prepareLayout()
     {
         return parent::_prepareLayout();

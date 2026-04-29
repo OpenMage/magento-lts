@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -44,6 +46,7 @@ class Mage_Adminhtml_Block_Widget_Form_Element extends Mage_Adminhtml_Block_Temp
         return $this;
     }
 
+    #[Override]
     protected function _beforeToHtml()
     {
         $this->assign('form', $this->_form);

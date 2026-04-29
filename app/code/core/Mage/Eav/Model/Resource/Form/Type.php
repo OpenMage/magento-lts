@@ -34,6 +34,7 @@ class Mage_Eav_Model_Resource_Form_Type extends Mage_Core_Model_Resource_Db_Abst
      * @param Mage_Eav_Model_Form_Type $object
      * @inheritDoc
      */
+    #[Override]
     public function load(Mage_Core_Model_Abstract $object, $value, $field = null)
     {
         if (is_null($field) && !is_numeric($value)) {
@@ -72,6 +73,7 @@ class Mage_Eav_Model_Resource_Form_Type extends Mage_Core_Model_Resource_Db_Abst
      * @see Mage_Core_Model_Resource_Db_Abstract::_afterSave()
      * @inheritDoc
      */
+    #[Override]
     protected function _afterSave(Mage_Core_Model_Abstract $object)
     {
         if ($object->hasEntityTypes()) {
@@ -83,7 +85,7 @@ class Mage_Eav_Model_Resource_Form_Type extends Mage_Core_Model_Resource_Db_Abst
 
             $adapter  = $this->_getWriteAdapter();
 
-            if (!empty($insert)) {
+            if ($insert !== []) {
                 $data = [];
                 foreach ($insert as $entityId) {
                     if (empty($entityId)) {
@@ -101,7 +103,7 @@ class Mage_Eav_Model_Resource_Form_Type extends Mage_Core_Model_Resource_Db_Abst
                 }
             }
 
-            if (!empty($delete)) {
+            if ($delete !== []) {
                 $where = [
                     'entity_type_id IN (?)' => $delete,
                     'type_id = ?'           => $object->getId(),

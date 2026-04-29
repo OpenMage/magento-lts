@@ -73,10 +73,10 @@ class Mage_Newsletter_Model_Problem extends Mage_Core_Model_Abstract
      *
      * @return $this
      */
-    public function addErrorData(Exception $e)
+    public function addErrorData(Exception $exception)
     {
-        $this->setProblemErrorCode($e->getCode());
-        $this->setProblemErrorText($e->getMessage());
+        $this->setProblemErrorCode($exception->getCode());
+        $this->setProblemErrorText($exception->getMessage());
         return $this;
     }
 

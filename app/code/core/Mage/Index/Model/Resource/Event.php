@@ -29,6 +29,7 @@ class Mage_Index_Model_Resource_Event extends Mage_Core_Model_Resource_Db_Abstra
      * @inheritDoc
      * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _beforeSave(Mage_Core_Model_Abstract $object)
     {
         /**
@@ -61,12 +62,13 @@ class Mage_Index_Model_Resource_Event extends Mage_Core_Model_Resource_Db_Abstra
      * @throws Mage_Core_Exception
      * @throws Zend_Db_Exception
      */
+    #[Override]
     protected function _afterSave(Mage_Core_Model_Abstract $object)
     {
         $processIds = $object->getProcessIds();
         if (is_array($processIds)) {
             $processTable = $this->getTable('index/process_event');
-            if (empty($processIds)) {
+            if ($processIds === []) {
                 $this->_getWriteAdapter()->delete($processTable);
             } else {
                 foreach ($processIds as $processId => $processStatus) {

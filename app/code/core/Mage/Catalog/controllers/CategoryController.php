@@ -94,6 +94,7 @@ class Mage_Catalog_CategoryController extends Mage_Core_Controller_Front_Action
 
     /**
      * Category view action
+     * @return void
      * @throws Mage_Core_Exception
      */
     public function viewAction()
@@ -122,11 +123,9 @@ class Mage_Catalog_CategoryController extends Mage_Core_Controller_Front_Action
             $this->loadLayoutUpdates();
 
             // apply custom layout update once layout is loaded
-            if ($layoutUpdates = $settings->getLayoutUpdates()) {
-                if (is_array($layoutUpdates)) {
-                    foreach ($layoutUpdates as $layoutUpdate) {
-                        $update->addUpdate($layoutUpdate);
-                    }
+            if (($layoutUpdates = $settings->getLayoutUpdates()) && is_array($layoutUpdates)) {
+                foreach ($layoutUpdates as $layoutUpdate) {
+                    $update->addUpdate($layoutUpdate);
                 }
             }
 

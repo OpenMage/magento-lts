@@ -56,11 +56,7 @@ class Mage_Sales_Model_Quote_Address_Total_Collector extends Mage_Sales_Model_Co
      */
     public function __construct($options)
     {
-        if (isset($options['store'])) {
-            $this->_store = $options['store'];
-        } else {
-            $this->_store = Mage::app()->getStore();
-        }
+        $this->_store = $options['store'] ?? Mage::app()->getStore();
 
         $this->_initModels()
             ->_initCollectors()
@@ -121,6 +117,7 @@ class Mage_Sales_Model_Quote_Address_Total_Collector extends Mage_Sales_Model_Co
      * @return $this
      * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _initModels()
     {
         $totalsConfig = Mage::getConfig()->getNode($this->_totalsConfigNode);

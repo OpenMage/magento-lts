@@ -30,6 +30,7 @@ class Mage_Api2_Block_Adminhtml_Roles_Tabs extends Mage_Adminhtml_Block_Widget_T
      *
      * @inheritDoc
      */
+    #[Override]
     protected function _beforeToHtml()
     {
         $role = $this->getRole();

@@ -12,7 +12,7 @@
  *
  * @package    Magento_Db
  */
-class Magento_Db_Sql_Trigger
+class Magento_Db_Sql_Trigger implements Stringable
 {
     public const NAME      = 'name';
 
@@ -94,7 +94,7 @@ class Magento_Db_Sql_Trigger
     /**
      * Validate where all trigger parts set?
      *
-     * @return Magento_Db_Sql_Trigger
+     * @return $this
      * @throws Exception
      */
     protected function _validateIsComplete()
@@ -113,7 +113,7 @@ class Magento_Db_Sql_Trigger
      *
      * @param                           $part
      * @param                           $value
-     * @return Magento_Db_Sql_Trigger
+     * @return $this
      * @throws InvalidArgumentException
      */
     protected function _setPart($part, $value)
@@ -148,7 +148,7 @@ class Magento_Db_Sql_Trigger
      *
      * @param                           $part
      * @param                           $value
-     * @return Magento_Db_Sql_Trigger
+     * @return $this
      * @throws InvalidArgumentException
      */
     public function setBodyPart($part, $value)
@@ -193,7 +193,7 @@ class Magento_Db_Sql_Trigger
     /**
      * Set trigger time {BEFORE/AFTER}
      * @param                           $time
-     * @return Magento_Db_Sql_Trigger
+     * @return $this
      * @throws InvalidArgumentException
      */
     public function setTime($time)
@@ -211,7 +211,7 @@ class Magento_Db_Sql_Trigger
      * Set trigger event {INSERT/UPDATE/DELETE}
      *
      * @param                           $event
-     * @return Magento_Db_Sql_Trigger
+     * @return $this
      * @throws InvalidArgumentException
      */
     public function setEvent($event)
@@ -228,8 +228,8 @@ class Magento_Db_Sql_Trigger
     /**
      * Set trigger target, table name
      *
-     * @param                         $target
-     * @return Magento_Db_Sql_Trigger
+     * @param        $target
+     * @return $this
      */
     public function setTarget($target)
     {
@@ -240,8 +240,8 @@ class Magento_Db_Sql_Trigger
     /**
      * Set trigger name
      *
-     * @param                         $name
-     * @return Magento_Db_Sql_Trigger
+     * @param        $name
+     * @return $this
      */
     public function setName($name)
     {
@@ -267,8 +267,8 @@ class Magento_Db_Sql_Trigger
     /**
      * Set trigger body
      *
-     * @param  array|string           $body
-     * @return Magento_Db_Sql_Trigger
+     * @param  array|string $body
+     * @return $this
      */
     public function setBody($body)
     {
@@ -309,10 +309,8 @@ class Magento_Db_Sql_Trigger
 
     /**
      * Implement magic method
-     *
-     * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
         return $this->assemble();
     }
@@ -340,7 +338,7 @@ class Magento_Db_Sql_Trigger
     /**
      * Reset trigger parts
      *
-     * @return Magento_Db_Sql_Trigger
+     * @return $this
      */
     public function reset()
     {

@@ -41,6 +41,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Attributes_Extend ext
      *
      * @return string
      */
+    #[Override]
     public function getElementHtml()
     {
         $elementHtml = parent::getElementHtml();
@@ -120,10 +121,10 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Attributes_Extend ext
      */
     public function getProduct()
     {
-        if (!$this->getData('product')) {
+        if (!$this->getDataByKey('product')) {
             $this->setData('product', Mage::registry('product'));
         }
 
-        return $this->getData('product');
+        return $this->getDataByKey('product');
     }
 }

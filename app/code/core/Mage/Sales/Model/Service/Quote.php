@@ -68,7 +68,7 @@ class Mage_Sales_Model_Service_Quote
     /**
      * Quote converter declaration
      *
-     * @return Mage_Sales_Model_Service_Quote
+     * @return $this
      */
     public function setConvertor(Mage_Sales_Model_Convert_Quote $convertor)
     {
@@ -163,8 +163,8 @@ class Mage_Sales_Model_Service_Quote
         $order->setQuote($quote);
 
         $transaction->addObject($order);
-        $transaction->addCommitCallback([$order, 'place']);
-        $transaction->addCommitCallback([$order, 'save']);
+        $transaction->addCommitCallback($order->place(...));
+        $transaction->addCommitCallback($order->save(...));
 
         Mage::unregister('current_order');
         Mage::register('current_order', $order);

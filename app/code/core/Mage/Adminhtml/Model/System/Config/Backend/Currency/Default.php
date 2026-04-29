@@ -22,6 +22,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Currency_Default extends Mage_A
      *
      * @return $this
      */
+    #[Override]
     protected function _afterSave()
     {
         $allowedCurrencies = $this->_getAllowedCurrencies();

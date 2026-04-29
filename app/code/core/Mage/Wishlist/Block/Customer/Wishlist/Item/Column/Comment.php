@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -19,6 +21,7 @@ class Mage_Wishlist_Block_Customer_Wishlist_Item_Column_Comment extends Mage_Wis
      *
      * @return string
      */
+    #[Override]
     public function getJs()
     {
         /** @var Mage_Wishlist_Helper_Data $helper */

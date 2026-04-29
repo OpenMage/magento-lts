@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -17,6 +19,7 @@ class Mage_ImportExport_Model_Import_Proxy_Product extends Mage_Catalog_Model_Pr
     /**
      * DO NOT Initialize resources.
      */
+    #[Override]
     protected function _construct() {}
 
     /**
@@ -24,6 +27,7 @@ class Mage_ImportExport_Model_Import_Proxy_Product extends Mage_Catalog_Model_Pr
      *
      * @return int
      */
+    #[Override]
     public function getId()
     {
         return $this->_getData('id');

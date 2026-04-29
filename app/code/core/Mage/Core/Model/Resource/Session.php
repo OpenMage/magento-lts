@@ -111,11 +111,7 @@ class Mage_Core_Model_Resource_Session implements SessionHandlerInterface
             return false;
         }
 
-        if (!$this->_read->isTableExists($this->_sessionTable)) {
-            return false;
-        }
-
-        return true;
+        return $this->_read->isTableExists($this->_sessionTable);
     }
 
     /**
@@ -127,12 +123,12 @@ class Mage_Core_Model_Resource_Session implements SessionHandlerInterface
     {
         if ($this->hasConnection()) {
             session_set_save_handler(
-                [$this, 'open'],
-                [$this, 'close'],
-                [$this, 'read'],
-                [$this, 'write'],
-                [$this, 'destroy'],
-                [$this, 'gc'],
+                $this->open(...),
+                $this->close(...),
+                $this->read(...),
+                $this->write(...),
+                $this->destroy(...),
+                $this->gc(...),
             );
         } else {
             session_save_path(Mage::getBaseDir('session'));
@@ -258,13 +254,11 @@ class Mage_Core_Model_Resource_Session implements SessionHandlerInterface
     #[ReturnTypeWillChange]
     public function gc($sessMaxLifeTime)
     {
-        if ($this->_automaticCleaningFactor > 0) {
-            if ($this->_automaticCleaningFactor == 1
-                || random_int(1, $this->_automaticCleaningFactor) == 1
-            ) {
-                $where = ['session_expires < ?' => Varien_Date::toTimestamp(true)];
-                $this->_write->delete($this->_sessionTable, $where);
-            }
+        if ($this->_automaticCleaningFactor > 0
+            && ($this->_automaticCleaningFactor == 1 || random_int(1, $this->_automaticCleaningFactor) == 1)
+        ) {
+            $where = ['session_expires < ?' => Varien_Date::toTimestamp(true)];
+            $this->_write->delete($this->_sessionTable, $where);
         }
 
         return true;

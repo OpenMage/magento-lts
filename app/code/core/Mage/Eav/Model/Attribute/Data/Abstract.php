@@ -69,7 +69,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
     /**
      * Set attribute instance
      *
-     * @return Mage_Eav_Model_Attribute_Data_Abstract
+     * @return $this
      */
     public function setAttribute(Mage_Eav_Model_Entity_Attribute_Abstract $attribute)
     {
@@ -202,12 +202,10 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
         if ($filterCode) {
             $filterClass = 'Varien_Data_Form_Filter_' . ucfirst($filterCode);
             if ($filterCode == 'date') {
-                $filter = new $filterClass($this->_dateFilterFormat(), Mage::app()->getLocale()->getLocale());
-            } else {
-                $filter = new $filterClass();
+                return new $filterClass($this->_dateFilterFormat(), Mage::app()->getLocale()->getLocale());
             }
 
-            return $filter;
+            return new $filterClass();
         }
 
         return false;

@@ -17,6 +17,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Massaction extends Mage_Adm
     /**
      * @inheritDoc
      */
+    #[Override]
     public function getCondition()
     {
         if ($this->getValue()) {

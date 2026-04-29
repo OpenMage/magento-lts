@@ -17,7 +17,7 @@ class Mage_Catalog_Model_Observer
     /**
      * Process catalog ata related with store data changes
      *
-     * @return Mage_Catalog_Model_Observer
+     * @return $this
      */
     public function storeEdit(Varien_Event_Observer $observer)
     {
@@ -40,7 +40,7 @@ class Mage_Catalog_Model_Observer
     /**
      * Process catalog data related with new store
      *
-     * @return Mage_Catalog_Model_Observer
+     * @return $this
      */
     public function storeAdd(Varien_Event_Observer $observer)
     {
@@ -61,7 +61,7 @@ class Mage_Catalog_Model_Observer
     /**
      * Process catalog data related with store group root category
      *
-     * @return Mage_Catalog_Model_Observer
+     * @return $this
      */
     public function storeGroupSave(Varien_Event_Observer $observer)
     {
@@ -101,7 +101,7 @@ class Mage_Catalog_Model_Observer
     /**
      * Process catalog data after category move
      *
-     * @return Mage_Catalog_Model_Observer
+     * @return $this
      */
     public function categoryMove(Varien_Event_Observer $observer)
     {
@@ -120,7 +120,7 @@ class Mage_Catalog_Model_Observer
     /**
      * Process catalog data after products import
      *
-     * @return Mage_Catalog_Model_Observer
+     * @return $this
      */
     public function catalogProductImportAfter(Varien_Event_Observer $observer)
     {
@@ -162,8 +162,8 @@ class Mage_Catalog_Model_Observer
      */
     public function catalogCheckIsUsingStaticUrlsAllowed(Varien_Event_Observer $observer)
     {
-        $storeId = $observer->getEvent()->getData('store_id');
-        $result  = $observer->getEvent()->getData('result');
+        $storeId = $observer->getEvent()->getDataByKey('store_id');
+        $result  = $observer->getEvent()->getDataByKey('result');
         $result->isAllowed = Mage::helper('catalog')->setStoreId($storeId)->isUsingStaticUrlsAllowed();
     }
 

@@ -17,6 +17,7 @@ class Mage_CatalogSearch_Block_Advanced_Form extends Mage_Core_Block_Template
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareLayout()
     {
         // add Home breadcrumb
@@ -91,7 +92,7 @@ class Mage_CatalogSearch_Block_Advanced_Form extends Mage_Core_Block_Template
      */
     public function getAvailableCurrencies()
     {
-        $currencies = $this->getData('_currencies');
+        $currencies = $this->getDataByKey('_currencies');
         if (is_null($currencies)) {
             $currencies = [];
             $codes = Mage::app()->getStore()->getAvailableCurrencyCodes(true);
@@ -230,7 +231,7 @@ class Mage_CatalogSearch_Block_Advanced_Form extends Mage_Core_Block_Template
      */
     protected function _getSelectBlock()
     {
-        $block = $this->getData('_select_block');
+        $block = $this->getDataByKey('_select_block');
         if (is_null($block)) {
             $block = $this->getLayout()->createBlock('core/html_select');
             $this->setData('_select_block', $block);
@@ -244,7 +245,7 @@ class Mage_CatalogSearch_Block_Advanced_Form extends Mage_Core_Block_Template
      */
     protected function _getDateBlock()
     {
-        $block = $this->getData('_date_block');
+        $block = $this->getDataByKey('_date_block');
         if (is_null($block)) {
             $block = $this->getLayout()->createBlock('core/html_date');
             $this->setData('_date_block', $block);

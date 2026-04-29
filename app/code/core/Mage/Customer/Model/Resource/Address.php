@@ -31,6 +31,7 @@ class Mage_Customer_Model_Resource_Address extends Mage_Eav_Model_Entity_Abstrac
      *
      * @return $this
      */
+    #[Override]
     protected function _afterSave(Varien_Object $address)
     {
         if ($address->getIsCustomerSaveTransaction()) {
@@ -64,7 +65,7 @@ class Mage_Customer_Model_Resource_Address extends Mage_Eav_Model_Entity_Abstrac
      */
     public function getCustomerId($object)
     {
-        return $object->getData('customer_id') ? $object->getData('customer_id') : $object->getParentId();
+        return $object->getDataByKey('customer_id') ? $object->getDataByKey('customer_id') : $object->getParentId();
     }
 
     /**

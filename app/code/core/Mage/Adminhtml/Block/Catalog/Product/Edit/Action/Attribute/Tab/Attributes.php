@@ -17,6 +17,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Action_Attribute_Tab_Attributes 
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _construct()
     {
         parent::_construct();
@@ -26,6 +27,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Action_Attribute_Tab_Attributes 
     /**
      * @return $this
      */
+    #[Override]
     protected function _prepareForm()
     {
         $this->setFormExcludedFieldList([
@@ -64,6 +66,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Action_Attribute_Tab_Attributes 
      *
      * @return array<string, string>
      */
+    #[Override]
     protected function _getAdditionalElementTypes()
     {
         return [
@@ -80,6 +83,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Action_Attribute_Tab_Attributes 
      * @param  Varien_Data_Form_Element_Abstract $element
      * @return string
      */
+    #[Override]
     protected function _getAdditionalElementHtml($element)
     {
         // Add name attribute to checkboxes that correspond to multiselect elements

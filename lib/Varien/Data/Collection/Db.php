@@ -21,7 +21,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     /**
      * DB connection
      *
-     * @var Varien_Db_Adapter_Interface|Zend_Db_Adapter_Abstract
+     * @var Varien_Db_Adapter_Interface&Zend_Db_Adapter_Abstract
      */
     protected $_conn;
 
@@ -35,7 +35,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     /**
      * Cache configuration array
      *
-     * @var array
+     * @var null|array
      */
     protected $_cacheConf = null;
 
@@ -152,6 +152,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      *
      * @return mixed
      */
+    #[Override]
     protected function _getItemId(Varien_Object $item)
     {
         if ($field = $this->getIdFieldName()) {
@@ -193,7 +194,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     /**
      * Retrieve connection object
      *
-     * @return Varien_Db_Adapter_Interface
+     * @return Varien_Db_Adapter_Interface&Zend_Db_Adapter_Abstract
      */
     public function getConnection()
     {
@@ -206,6 +207,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      * @return int
      * @throws Zend_Db_Select_Exception
      */
+    #[Override]
     public function getSize()
     {
         if (is_null($this->_totalRecords)) {
@@ -256,7 +258,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
                 });
                 $mainTable = key($mainTable);
                 $mainTable = preg_quote($mainTable, '/');
-                $pattern = "/^$mainTable\\.\\w+/";
+                $pattern = "/^{$mainTable}\\.\\w+/";
                 $whereUsingJoin = array_filter($countSelect->getPart(Zend_Db_Select::WHERE), function ($clause) use ($pattern) {
                     $clauses = preg_split('/(^|\s+)(AND|OR)\s+/', $clause, -1, PREG_SPLIT_NO_EMPTY);
                     return array_filter($clauses, function ($clause) use ($pattern) {
@@ -264,6 +266,8 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
                         return !preg_match($pattern, $clause);
                     });
                 });
+
+                $joinUsingBind = [];
                 if ($this->_bindParams) {
                     $bindParams = array_map(function ($token) {
                         return ltrim($token, ':');
@@ -274,7 +278,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
                     });
                 }
 
-                if (empty($whereUsingJoin) && empty($joinUsingBind)) {
+                if ($whereUsingJoin === [] && $joinUsingBind === []) {
                     $from = array_slice($leftJoins, 0, 1);
                     $countSelect->setPart(Zend_Db_Select::FROM, $from);
                 }
@@ -300,15 +304,12 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     }
 
     /**
-     * Add select order
-     *
-     * @param  string $field
-     * @param  string $direction
-     * @return $this
+     * @inheritDoc
      */
-    public function setOrder($field, $direction = self::SORT_ORDER_DESC)
+    #[Override]
+    public function setOrder($field, $dir = self::SORT_ORDER_DESC)
     {
-        return $this->_setOrder($field, $direction);
+        return $this->_setOrder($field, $dir);
     }
 
     /**
@@ -369,6 +370,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      *
      * @return $this
      */
+    #[Override]
     protected function _renderFilters()
     {
         if ($this->_isFiltersRendered) {
@@ -471,13 +473,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     {
         $mapper = $this->_getMapper();
 
-        if (isset($mapper['fields'][$field])) {
-            $mappedFiled = $mapper['fields'][$field];
-        } else {
-            $mappedFiled = $field;
-        }
-
-        return $mappedFiled;
+        return $mapper['fields'][$field] ?? $field;
     }
 
     /**
@@ -540,6 +536,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      *
      * @return $this
      */
+    #[Override]
     protected function _renderOrders()
     {
         if (!$this->_isOrdersRendered) {
@@ -558,6 +555,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      *
      * @return $this
      */
+    #[Override]
     protected function _renderLimit()
     {
         if ($this->_pageSize) {
@@ -574,6 +572,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      *
      * @return $this
      */
+    #[Override]
     public function distinct($flag)
     {
         $this->_select->distinct($flag);
@@ -599,6 +598,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      * @throws Exception
      * @throws Zend_Cache_Exception
      */
+    #[Override]
     public function load($printQuery = false, $logQuery = false)
     {
         if ($this->isLoaded()) {
@@ -741,6 +741,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      * @return $this
      * @throws Zend_Cache_Exception
      */
+    #[Override]
     public function loadData($printQuery = false, $logQuery = false)
     {
         return $this->load($printQuery, $logQuery);
@@ -758,11 +759,11 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     public function printLogQuery($printQuery = false, $logQuery = false, $sql = null)
     {
         if ($printQuery) {
-            echo is_null($sql) ? $this->getSelect()->__toString() : $sql;
+            echo $sql ?? $this->getSelect()->__toString();
         }
 
         if ($logQuery) {
-            Mage::log(is_null($sql) ? $this->getSelect()->__toString() : $sql);
+            Mage::log($sql ?? $this->getSelect()->__toString());
         }
 
         return $this;
@@ -795,7 +796,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
         if ($this->_canUseCache()) {
             $data = $this->_loadCache($select);
             if ($data) {
-                $data = unserialize($data);
+                $data = unserialize($data, ['allowed_classes' => false]);
             } else {
                 $data = $this->getConnection()->fetchAll($select, $this->_bindParams);
                 $this->_saveCache($data, $select);

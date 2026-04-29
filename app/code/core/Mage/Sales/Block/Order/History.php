@@ -37,6 +37,7 @@ class Mage_Sales_Block_Order_History extends Mage_Core_Block_Template
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareLayout()
     {
         parent::_prepareLayout();

@@ -97,7 +97,7 @@ class Mage_Rating_Model_Rating extends Mage_Core_Model_Abstract
      */
     public function getOptions()
     {
-        if ($options = $this->getData('options')) {
+        if ($options = $this->getDataByKey('options')) {
             return $options;
         }
 

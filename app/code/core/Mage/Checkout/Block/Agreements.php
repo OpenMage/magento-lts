@@ -36,6 +36,6 @@ class Mage_Checkout_Block_Agreements extends Mage_Core_Block_Template
             $this->setAgreements($agreements);
         }
 
-        return $this->getData('agreements');
+        return $this->getDataByKey('agreements');
     }
 }

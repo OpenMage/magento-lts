@@ -180,7 +180,7 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
             $this->setData('first_visit_at', Varien_Date::now());
         }
 
-        return $this->getData('first_visit_at');
+        return $this->getDataByKey('first_visit_at');
     }
 
     /**
@@ -192,7 +192,7 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
             $this->setData('last_visit_at', Varien_Date::now());
         }
 
-        return $this->getData('last_visit_at');
+        return $this->getDataByKey('last_visit_at');
     }
 
     /**
@@ -298,7 +298,7 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
      */
     public function bindCustomerLogout($observer)
     {
-        if ($this->getCustomerId() && $customer = $observer->getEvent()->getCustomer()) {
+        if ($this->getCustomerId() && $observer->getEvent()->getCustomer()) {
             $this->setDoCustomerLogout(true);
         }
 
@@ -313,11 +313,9 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
     {
         /** @var Mage_Sales_Model_Quote $quote */
         $quote = $observer->getEvent()->getQuote();
-        if ($quote) {
-            if ($quote->getIsCheckoutCart()) {
-                $this->setQuoteId($quote->getId());
-                $this->setDoQuoteCreate(true);
-            }
+        if ($quote && $quote->getIsCheckoutCart()) {
+            $this->setQuoteId($quote->getId());
+            $this->setDoQuoteCreate(true);
         }
 
         return $this;

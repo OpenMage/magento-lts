@@ -167,13 +167,19 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
                 }
 
                 $productAttr = $productAttributes[$productData['entity_id']];
-                if (!isset($productAttr[$visibility->getId()])
-                    || !in_array($productAttr[$visibility->getId()], $allowedVisibilityValues)
-                ) {
+                if (!isset($productAttr[$visibility->getId()])) {
                     continue;
                 }
 
-                if (!isset($productAttr[$status->getId()]) || !in_array($productAttr[$status->getId()], $statusVals)) {
+                if (!in_array($productAttr[$visibility->getId()], $allowedVisibilityValues)) {
+                    continue;
+                }
+
+                if (!isset($productAttr[$status->getId()])) {
+                    continue;
+                }
+
+                if (!in_array($productAttr[$status->getId()], $statusVals)) {
                     continue;
                 }
 
@@ -186,9 +192,11 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
                     foreach ($productChildren as $productChildId) {
                         if (isset($productAttributes[$productChildId])) {
                             $productChildAttr = $productAttributes[$productChildId];
-                            if (!isset($productChildAttr[$status->getId()])
-                                || !in_array($productChildAttr[$status->getId()], $statusVals)
-                            ) {
+                            if (!isset($productChildAttr[$status->getId()])) {
+                                continue;
+                            }
+
+                            if (!in_array($productChildAttr[$status->getId()], $statusVals)) {
                                 continue;
                             }
 
@@ -485,14 +493,12 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
         $helper = Mage::getResourceHelper('catalogsearch');
 
         if ($backendType === 'datetime') {
-            $expr = $helper->castField(
+            return $helper->castField(
                 $this->_getReadAdapter()->getDateFormatSql($field, '%Y-%m-%d %H:%i:%s'),
             );
-        } else {
-            $expr = $helper->castField($field);
         }
 
-        return $expr;
+        return $helper->castField($field);
     }
 
     /**

@@ -32,6 +32,7 @@ class Varien_Data_Form_Element_Label extends Varien_Data_Form_Element_Abstract
      *
      * @return string
      */
+    #[Override]
     public function getElementHtml()
     {
         $html = $this->getBold() ? '<strong>' : '';

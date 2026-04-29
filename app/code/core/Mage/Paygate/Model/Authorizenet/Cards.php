@@ -165,7 +165,7 @@ class Mage_Paygate_Model_Authorizenet_Cards
     public function flushCards()
     {
         $this->_cards = [];
-        $this->_payment->setAdditionalInformation(self::CARDS_NAMESPACE, null);
+        $this->_payment->setAdditionalInformation(self::CARDS_NAMESPACE);
         return $this;
     }
 

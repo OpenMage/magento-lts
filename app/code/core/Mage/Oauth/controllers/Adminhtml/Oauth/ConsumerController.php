@@ -36,6 +36,7 @@ class Mage_Oauth_Adminhtml_Oauth_ConsumerController extends Mage_Adminhtml_Contr
      *
      * @return $this
      */
+    #[Override]
     public function preDispatch()
     {
         $this->_setForcedFormKeyActions(['delete']);
@@ -48,6 +49,7 @@ class Mage_Oauth_Adminhtml_Oauth_ConsumerController extends Mage_Adminhtml_Contr
 
     /**
      * Render grid page
+     * @return void
      */
     public function indexAction()
     {
@@ -58,6 +60,7 @@ class Mage_Oauth_Adminhtml_Oauth_ConsumerController extends Mage_Adminhtml_Contr
 
     /**
      * Render grid AJAX request
+     * @return void
      */
     public function gridAction()
     {
@@ -68,6 +71,7 @@ class Mage_Oauth_Adminhtml_Oauth_ConsumerController extends Mage_Adminhtml_Contr
     /**
      * Create page action
      *
+     * @return void
      * @throws Mage_Core_Exception
      */
     public function newAction()
@@ -97,6 +101,7 @@ class Mage_Oauth_Adminhtml_Oauth_ConsumerController extends Mage_Adminhtml_Contr
     /**
      * Edit page action
      *
+     * @return void
      * @throws Mage_Core_Exception
      */
     public function editAction()
@@ -129,6 +134,7 @@ class Mage_Oauth_Adminhtml_Oauth_ConsumerController extends Mage_Adminhtml_Contr
 
     /**
      * Render edit page
+     * @return void
      */
     public function saveAction()
     {
@@ -146,7 +152,7 @@ class Mage_Oauth_Adminhtml_Oauth_ConsumerController extends Mage_Adminhtml_Contr
         $data = $this->_filter($this->getRequest()->getParams());
 
         //Validate current admin password
-        $currentPassword = $this->getRequest()->getParam('current_password', null);
+        $currentPassword = $this->getRequest()->getParam('current_password');
         $this->getRequest()->setParam('current_password', null);
         unset($data['current_password']);
         $result = $this->_validateCurrentPassword($currentPassword);
@@ -231,6 +237,7 @@ class Mage_Oauth_Adminhtml_Oauth_ConsumerController extends Mage_Adminhtml_Contr
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _isAllowed(): bool
     {
         $action = $this->getRequest()->getActionName();
@@ -273,13 +280,14 @@ class Mage_Oauth_Adminhtml_Oauth_ConsumerController extends Mage_Adminhtml_Contr
 
     /**
      * Delete consumer action
+     * @return void
      */
     public function deleteAction()
     {
         $consumerId = (int) $this->getRequest()->getParam('id');
 
         //Validate current admin password
-        $currentPassword = $this->getRequest()->getParam('current_password', null);
+        $currentPassword = $this->getRequest()->getParam('current_password');
         $this->getRequest()->setParam('current_password', null);
         $result = $this->_validateCurrentPassword($currentPassword);
 

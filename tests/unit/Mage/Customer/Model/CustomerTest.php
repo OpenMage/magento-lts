@@ -4,12 +4,14 @@
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
  * @license    Open Software License (OSL 3.0)
+ * @package    OpenMage_Tests
  */
 
 declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Customer\Model;
 
+use Mage;
 use Mage_Core_Exception;
 use Mage_Customer_Model_Customer as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
@@ -19,8 +21,16 @@ final class CustomerTest extends OpenMageTest
 {
     use CustomerTrait;
 
+    private static Subject $subject;
+
+    protected function setUp(): void
+    {
+        self::$subject = Mage::getModel('customer/customer');
+    }
+
     /**
      * @dataProvider provideValidateCustomerData
+     * @group Model
      * @param  array|true          $expectedResult
      * @throws Mage_Core_Exception
      */
@@ -30,5 +40,17 @@ final class CustomerTest extends OpenMageTest
 
         self::assertInstanceOf(Subject::class, $mock);
         self::assertSame($expectedResult, $mock->validate());
+    }
+
+    /**
+     * @dataProvider provideGetDobData
+     * @group Model
+     */
+    public function testGetDob($expectedResult, ?string $dob): void
+    {
+        self::assertNull(self::$subject->getDob());
+
+        self::$subject->setDob($dob);
+        self::assertSame($expectedResult, self::$subject->getDob());
     }
 }

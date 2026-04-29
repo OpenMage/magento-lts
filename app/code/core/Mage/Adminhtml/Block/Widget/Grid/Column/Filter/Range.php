@@ -14,6 +14,7 @@
  */
 class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Range extends Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Abstract
 {
+    #[Override]
     public function getHtml()
     {
         $fromLabel = Mage::helper('adminhtml')->__('From');
@@ -32,7 +33,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Range extends Mage_Adminhtm
             return $this->getData('value', $index);
         }
 
-        $value = $this->getData('value');
+        $value = $this->getDataByKey('value');
         if ((isset($value['from']) && (string) $value['from'] !== '')
             || (isset($value['to']) && (string) $value['to'] !== '')
         ) {
@@ -45,6 +46,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Range extends Mage_Adminhtm
     /**
      * @inheritDoc
      */
+    #[Override]
     public function getCondition()
     {
         $value = $this->getValue();

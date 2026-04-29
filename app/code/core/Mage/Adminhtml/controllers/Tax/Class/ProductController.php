@@ -22,6 +22,7 @@ class Mage_Adminhtml_Tax_Class_ProductController extends Mage_Adminhtml_Controll
 
     /**
      * view grid
+     * @return void
      */
     public function indexAction()
     {
@@ -39,6 +40,7 @@ class Mage_Adminhtml_Tax_Class_ProductController extends Mage_Adminhtml_Controll
 
     /**
      * new class action
+     * @return void
      */
     public function newAction()
     {
@@ -47,6 +49,7 @@ class Mage_Adminhtml_Tax_Class_ProductController extends Mage_Adminhtml_Controll
 
     /**
      * edit class action
+     * @return void
      */
     public function editAction()
     {
@@ -91,6 +94,7 @@ class Mage_Adminhtml_Tax_Class_ProductController extends Mage_Adminhtml_Controll
 
     /**
      * delete class action
+     * @return void
      */
     public function deleteAction()
     {

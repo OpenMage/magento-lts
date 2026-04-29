@@ -215,6 +215,7 @@ abstract class Mage_Catalog_Model_Api2_Product_Website_Rest extends Mage_Catalog
      * @param  Mage_Core_Model_Website $website
      * @return string                  URL
      */
+    #[Override]
     protected function _getLocation($website)
     {
         /** @var Mage_Api2_Model_Route_ApiType $apiTypeRoute */

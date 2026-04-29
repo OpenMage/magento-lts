@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -19,6 +21,7 @@ class Mage_Paypal_Block_Hosted_Pro_Info extends Mage_Paypal_Block_Payment_Info
      *
      * @return false
      */
+    #[Override]
     public function getCcTypeName()
     {
         return false;

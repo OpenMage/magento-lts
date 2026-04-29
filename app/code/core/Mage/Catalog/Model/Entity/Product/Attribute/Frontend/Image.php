@@ -17,7 +17,7 @@ class Mage_Catalog_Model_Entity_Product_Attribute_Frontend_Image extends Mage_Ea
     /**
      * @param  Varien_Object $object
      * @param  string        $size
-     * @return bool|string
+     * @return string
      */
     public function getUrl($object, $size = null)
     {

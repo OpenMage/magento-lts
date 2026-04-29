@@ -29,7 +29,7 @@ class Mage_Oauth_Block_Adminhtml_Oauth_Consumer extends Mage_Adminhtml_Block_Wid
         /** @var Mage_Admin_Model_Session $session */
         $session = Mage::getSingleton('admin/session');
         if (!$session->isAllowed('system/oauth/consumer/edit')) {
-            $this->_removeButton('add');
+            $this->_removeButton(self::BUTTON_TYPE_ADD);
         }
     }
 }

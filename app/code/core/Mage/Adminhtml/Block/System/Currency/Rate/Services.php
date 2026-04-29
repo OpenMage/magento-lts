@@ -17,6 +17,7 @@ class Mage_Adminhtml_Block_System_Currency_Rate_Services extends Mage_Adminhtml_
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _construct()
     {
         parent::_construct();
@@ -28,6 +29,7 @@ class Mage_Adminhtml_Block_System_Currency_Rate_Services extends Mage_Adminhtml_
      *
      * @return $this
      */
+    #[Override]
     protected function _prepareLayout()
     {
         $this->setChild(

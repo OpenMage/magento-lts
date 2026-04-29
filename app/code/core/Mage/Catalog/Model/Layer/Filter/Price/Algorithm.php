@@ -138,7 +138,7 @@ class Mage_Catalog_Model_Layer_Filter_Price_Algorithm
      */
     protected function _binarySearch($value, $limits = null)
     {
-        if (empty($this->_prices)) {
+        if ($this->_prices === []) {
             return -1;
         }
 
@@ -445,10 +445,8 @@ class Mage_Catalog_Model_Layer_Filter_Price_Algorithm
 
         if (!is_null($roundingFactor)) {
             // Can't separate if prices are equal
-            if ($lowerPrice >= $upperPrice) {
-                if ($lowerPrice > $upperPrice || $returnEmpty) {
-                    return false;
-                }
+            if ($lowerPrice >= $upperPrice && ($lowerPrice > $upperPrice || $returnEmpty)) {
+                return false;
             }
 
             // round is used for such examples: (1194.32 / 0.02) or (5 / 100000)
@@ -493,7 +491,7 @@ class Mage_Catalog_Model_Layer_Filter_Price_Algorithm
             $tenPower /= 10;
         }
 
-        return empty($result) ? [1 => []] : $result;
+        return $result === [] ? [1 => []] : $result;
     }
 
     /**
@@ -537,7 +535,7 @@ class Mage_Catalog_Model_Layer_Filter_Price_Algorithm
         $result = [];
         $lastCount = 0;
         $intervalFirstPrice = $this->_minPrice;
-        $lastSeparator = is_null($this->_lowerLimit) ? 0 : $this->_lowerLimit;
+        $lastSeparator = $this->_lowerLimit ?? 0;
 
         for ($i = 1; $i < $this->getIntervalsNumber(); ++$i) {
             $separator = $this->_findPriceSeparator($i);
@@ -603,7 +601,7 @@ class Mage_Catalog_Model_Layer_Filter_Price_Algorithm
             $isEqualPrice = ($intervalFirstPrice == $this->_maxPrice) ? $intervalFirstPrice : false;
             $result[$this->getIntervalsNumber()] = [
                 'from'  => $isEqualPrice ? $isEqualPrice : $lastSeparator,
-                'to'    => $isEqualPrice ? $isEqualPrice : (is_null($this->_upperLimit) ? '' : $this->_upperLimit),
+                'to'    => $isEqualPrice ? $isEqualPrice : ($this->_upperLimit ?? ''),
                 'count' => $this->_count - $lastCount,
             ];
         }

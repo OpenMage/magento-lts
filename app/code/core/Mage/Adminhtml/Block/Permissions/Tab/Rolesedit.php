@@ -72,11 +72,9 @@ class Mage_Adminhtml_Block_Permissions_Tab_Rolesedit extends Mage_Adminhtml_Bloc
         /** @var Mage_Admin_Model_Rules $item */
         foreach ($rules->getItems() as $item) {
             $itemResourceId = $item->getResource_id();
-            if (array_key_exists(strtolower($itemResourceId), $resources)) {
-                if ($item->isAllowed()) {
-                    $resources[$itemResourceId]['checked'] = true;
-                    $selrids[] = $itemResourceId;
-                }
+            if (array_key_exists(strtolower($itemResourceId), $resources) && $item->isAllowed()) {
+                $resources[$itemResourceId]['checked'] = true;
+                $selrids[] = $itemResourceId;
             }
         }
 
@@ -102,9 +100,7 @@ class Mage_Adminhtml_Block_Permissions_Tab_Rolesedit extends Mage_Adminhtml_Bloc
      */
     public function getResTreeJson()
     {
-        $rid = Mage::app()->getRequest()->getParam('rid', false);
         $resources = Mage::getModel('admin/roles')->getResourcesTree();
-
         $rootArray = $this->_getNodeJson($resources->admin, 1);
 
         return Mage::helper('core')->jsonEncode($rootArray['children'] ?? []);
@@ -144,11 +140,7 @@ class Mage_Adminhtml_Block_Permissions_Tab_Rolesedit extends Mage_Adminhtml_Bloc
             }
         }
 
-        if (isset($node->children)) {
-            $children = $node->children->children();
-        } else {
-            $children = $node->children();
-        }
+        $children = isset($node->children) ? $node->children->children() : $node->children();
 
         if (empty($children)) {
             return $item;
@@ -172,7 +164,7 @@ class Mage_Adminhtml_Block_Permissions_Tab_Rolesedit extends Mage_Adminhtml_Bloc
             }
 
             if (!empty($item['children'])) {
-                usort($item['children'], [$this, '_sortTree']);
+                usort($item['children'], $this->_sortTree(...));
             }
         }
 

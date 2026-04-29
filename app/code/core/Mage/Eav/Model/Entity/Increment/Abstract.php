@@ -20,7 +20,7 @@ abstract class Mage_Eav_Model_Entity_Increment_Abstract extends Varien_Object im
      */
     public function getPadLength()
     {
-        $padLength = $this->getData('pad_length');
+        $padLength = $this->getDataByKey('pad_length');
         if (empty($padLength)) {
             return 8;
         }
@@ -33,7 +33,7 @@ abstract class Mage_Eav_Model_Entity_Increment_Abstract extends Varien_Object im
      */
     public function getPadChar()
     {
-        $padChar = $this->getData('pad_char');
+        $padChar = $this->getDataByKey('pad_char');
         if (empty($padChar)) {
             return '0';
         }

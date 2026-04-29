@@ -20,13 +20,14 @@ class Mage_Adminhtml_Block_Widget extends Mage_Adminhtml_Block_Template
     /**
      * @return string
      */
+    #[Override]
     public function getId()
     {
-        if ($this->getData('id') === null) {
+        if ($this->getDataByKey('id') === null) {
             $this->setData('id', Mage::helper('core')->uniqHash('id_'));
         }
 
-        return $this->getData('id');
+        return $this->getDataByKey('id');
     }
 
     /**

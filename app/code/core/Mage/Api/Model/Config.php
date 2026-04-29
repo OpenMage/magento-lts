@@ -36,10 +36,8 @@ class Mage_Api_Model_Config extends Varien_Simplexml_Config
      */
     protected function _construct()
     {
-        if (Mage::app()->useCache('config_api')) {
-            if ($this->loadCache()) {
-                return $this;
-            }
+        if (Mage::app()->useCache('config_api') && $this->loadCache()) {
+            return $this;
         }
 
         $config = Mage::getConfig()->loadModulesConfiguration('api.xml');
@@ -100,12 +98,16 @@ class Mage_Api_Model_Config extends Varien_Simplexml_Config
     {
         $adapters = [];
         foreach ($this->getAdapters() as $adapterName => $adapter) {
-            if (!isset($adapter->active) || $adapter->active == '0') {
+            if (!isset($adapter->active)) {
+                continue;
+            }
+
+            if ($adapter->active == '0') {
                 continue;
             }
 
             if (isset($adapter->required) && isset($adapter->required->extensions)) {
-                foreach ($adapter->required->extensions->children() as $extension => $data) {
+                foreach ($adapter->required->extensions->children() as $extension => $ignored) {
                     if (!extension_loaded($extension)) {
                         continue;
                     }
@@ -162,7 +164,7 @@ class Mage_Api_Model_Config extends Varien_Simplexml_Config
             $resource = $this->getNode('acl/resources');
         } else {
             $resourceName = (is_null($parentName) ? '' : $parentName . '/') . $resource->getName();
-            $acl->add(Mage::getModel('api/acl_resource', $resourceName), $parentName);
+            $acl->addResource(Mage::getModel('api/acl_resource', $resourceName), $parentName);
         }
 
         $children = $resource->children();
@@ -250,27 +252,30 @@ class Mage_Api_Model_Config extends Varien_Simplexml_Config
      *
      * @return Zend_Cache_Core
      */
+    #[Override]
     public function getCache()
     {
         return Mage::app()->getCache();
     }
 
     /**
-     * @param  string     $id
-     * @return bool|mixed
+     * @param  string       $id
+     * @return false|string
      */
+    #[Override]
     protected function _loadCache($id)
     {
         return Mage::app()->loadCache($id);
     }
 
     /**
-     * @param  string                   $data
-     * @param  string                   $id
-     * @param  array                    $tags
-     * @param  bool                     $lifetime
-     * @return bool|Mage_Core_Model_App
+     * @param  string              $data
+     * @param  string              $id
+     * @param  array               $tags
+     * @param  null|false|int      $lifetime
+     * @return Mage_Core_Model_App
      */
+    #[Override]
     protected function _saveCache($data, $id, $tags = [], $lifetime = false)
     {
         return Mage::app()->saveCache($data, $id, $tags, $lifetime);
@@ -280,6 +285,7 @@ class Mage_Api_Model_Config extends Varien_Simplexml_Config
      * @param  string              $id
      * @return Mage_Core_Model_App
      */
+    #[Override]
     protected function _removeCache($id)
     {
         return Mage::app()->removeCache($id);

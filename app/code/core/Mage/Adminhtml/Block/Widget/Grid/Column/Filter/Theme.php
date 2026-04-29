@@ -19,6 +19,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Theme extends Mage_Adminhtm
      *
      * @return string
      */
+    #[Override]
     public function getHtml()
     {
         $options = $this->getOptions();
@@ -67,7 +68,11 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Theme extends Mage_Adminhtm
         $html  = '';
 
         foreach ($options as $option) {
-            if (!isset($option['value']) || !isset($option['label'])) {
+            if (!isset($option['value'])) {
+                continue;
+            }
+
+            if (!isset($option['label'])) {
                 continue;
             }
 
@@ -87,6 +92,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Theme extends Mage_Adminhtm
     /**
      * @inheritDoc
      */
+    #[Override]
     public function getCondition()
     {
         if (is_null($this->getValue())) {

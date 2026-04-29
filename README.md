@@ -3,7 +3,7 @@
 ![https://packagist.org/packages/openmage/magento-lts](https://poser.pugx.org/openmage/magento-lts/d/total.svg)
 ![https://github.com/openmage/magento-lts/actions/workflows/security-php.yml](https://github.com/openmage/magento-lts/actions/workflows/security-php.yml/badge.svg)
 ![https://github.com/OpenMage/magento-lts/actions/workflows/workflow.yml](https://github.com/OpenMage/magento-lts/actions/workflows/workflow.yml/badge.svg)
-![https://www.php-fig.org/per/coding-style/](https://img.shields.io/badge/Code-PER2.0-white.svg)
+![https://www.php-fig.org/per/coding-style/](https://img.shields.io/badge/Code-PER3.0-white.svg)
 
 # Magento - Long Term Support
 
@@ -279,6 +279,8 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
       <td align="center" valign="top" width="14.28%"><a href="https://www.linkedin.com/in/warley-elias-531a4116/"><img src="https://avatars.githubusercontent.com/u/5356619?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Warley Elias</b></sub></a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/vernad"><img src="https://avatars.githubusercontent.com/u/51973447?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>vernad</b></sub></a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/M-arcus"><img src="https://avatars.githubusercontent.com/u/25648755?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Marcus Müller</b></sub></a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/IbrahimS2"><img src="https://avatars.githubusercontent.com/u/19901858?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Ibrahim Saleh</b></sub></a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/B3Hana"><img src="https://avatars.githubusercontent.com/u/180432612?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>B3Hana</b></sub></a></td>
     </tr>
   </tbody>
 </table>

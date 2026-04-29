@@ -20,9 +20,10 @@ class Mage_Adminhtml_Block_Report_Product_Ordered extends Mage_Adminhtml_Block_W
         $this->_controller = 'report_product_ordered';
         $this->_headerText = Mage::helper('reports')->__('Bestsellers');
         parent::__construct();
-        $this->_removeButton('add');
+        $this->_removeButton(self::BUTTON_TYPE_ADD);
     }
 
+    #[Override]
     public function getHeaderCssClass()
     {
         return 'icon-head head-report';

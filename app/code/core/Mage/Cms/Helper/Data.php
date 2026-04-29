@@ -29,23 +29,29 @@ class Mage_Cms_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieve Template processor for Page Content
      *
-     * @return Mage_Core_Model_Abstract|Varien_Filter_Template
+     * @return Varien_Filter_Template
      */
     public function getPageTemplateProcessor()
     {
-        $model = (string) Mage::getConfig()->getNode(self::XML_NODE_PAGE_TEMPLATE_FILTER);
-        return Mage::getModel($model);
+        $node = (string) Mage::getConfig()->getNode(self::XML_NODE_PAGE_TEMPLATE_FILTER);
+
+        /** @var Varien_Filter_Template $model */
+        $model = Mage::getModel($node);
+        return $model;
     }
 
     /**
      * Retrieve Template processor for Block Content
      *
-     * @return Mage_Core_Model_Abstract|Varien_Filter_Template
+     * @return Varien_Filter_Template
      */
     public function getBlockTemplateProcessor()
     {
-        $model = (string) Mage::getConfig()->getNode(self::XML_NODE_BLOCK_TEMPLATE_FILTER);
-        return Mage::getModel($model);
+        $node = (string) Mage::getConfig()->getNode(self::XML_NODE_BLOCK_TEMPLATE_FILTER);
+
+        /** @var Varien_Filter_Template $model */
+        $model = Mage::getModel($node);
+        return $model;
     }
 
     /**

@@ -52,7 +52,7 @@ class Mage_AdminNotification_Model_Feed extends Mage_Core_Model_Abstract
      */
     public function checkUpdate()
     {
-        if (($this->getFrequency() + $this->getLastUpdate()) > Carbon::now()->getTimestamp()) {
+        if (($this->getFrequency() + $this->getLastUpdate()) > $this->getClockHelper()->getTimestamp()) {
             return $this;
         }
 
@@ -119,7 +119,7 @@ class Mage_AdminNotification_Model_Feed extends Mage_Core_Model_Abstract
      */
     public function setLastUpdate()
     {
-        Mage::app()->saveCache(Carbon::now()->getTimestamp(), 'admin_notifications_lastcheck');
+        Mage::app()->saveCache($this->getClockHelper()->getTimestamp(), 'admin_notifications_lastcheck');
         return $this;
     }
 

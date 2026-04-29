@@ -4,6 +4,7 @@
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
  * @license    Open Software License (OSL 3.0)
+ * @package    OpenMage_Tests
  */
 
 declare(strict_types=1);
@@ -16,7 +17,7 @@ trait UploaderTrait
 {
     public static string $default = 'application/octet-stream';
 
-    public function provideGetMimeTypeFromExtensionListData(): Generator
+    public static function provideGetMimeTypeFromExtensionListData(): Generator
     {
         yield 'string exists' => [
             [
@@ -44,7 +45,7 @@ trait UploaderTrait
         ];
     }
 
-    public function provideGetDataMaxSizeData(): Generator
+    public static function provideGetDataMaxSizeData(): Generator
     {
         yield 'larger post max size' => [
             '1M',
@@ -62,7 +63,7 @@ trait UploaderTrait
         ];
     }
 
-    public function provideGetDataMaxSizeInBytesData(): Generator
+    public static function provideGetDataMaxSizeInBytesData(): Generator
     {
         yield 'no unit' => [
             1024,

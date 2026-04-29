@@ -81,6 +81,7 @@ class Mage_Catalog_Model_Product_Type_Grouped extends Mage_Catalog_Model_Product
      *
      * @return Varien_Object Object with information data
      */
+    #[Override]
     public function getRelationInfo()
     {
         $info = new Varien_Object();
@@ -94,6 +95,7 @@ class Mage_Catalog_Model_Product_Type_Grouped extends Mage_Catalog_Model_Product
     /**
      * @inheritDoc
      */
+    #[Override]
     public function getChildrenIds($parentId, $required = true)
     {
         return Mage::getResourceSingleton('catalog/product_link')
@@ -109,6 +111,7 @@ class Mage_Catalog_Model_Product_Type_Grouped extends Mage_Catalog_Model_Product
      * @param  array|int $childId
      * @return array
      */
+    #[Override]
     public function getParentIdsByChild($childId)
     {
         return Mage::getResourceSingleton('catalog/product_link')
@@ -246,6 +249,7 @@ class Mage_Catalog_Model_Product_Type_Grouped extends Mage_Catalog_Model_Product
      * @param  Mage_Catalog_Model_Product $product
      * @return bool
      */
+    #[Override]
     public function isSalable($product = null)
     {
         $salable = parent::isSalable($product);
@@ -267,6 +271,7 @@ class Mage_Catalog_Model_Product_Type_Grouped extends Mage_Catalog_Model_Product
      * @param  Mage_Catalog_Model_Product $product
      * @return $this
      */
+    #[Override]
     public function save($product = null)
     {
         parent::save($product);
@@ -282,6 +287,7 @@ class Mage_Catalog_Model_Product_Type_Grouped extends Mage_Catalog_Model_Product
      * @param  string                     $processMode
      * @return array|string
      */
+    #[Override]
     protected function _prepareProduct(Varien_Object $buyRequest, $product, $processMode)
     {
         $product = $this->getProduct($product);
@@ -352,6 +358,7 @@ class Mage_Catalog_Model_Product_Type_Grouped extends Mage_Catalog_Model_Product
      * @param  Mage_Catalog_Model_Product $product
      * @return array<int, mixed[]>
      */
+    #[Override]
     public function getProductsToPurchaseByReqGroups($product = null)
     {
         $product = $this->getProduct($product);
@@ -364,11 +371,12 @@ class Mage_Catalog_Model_Product_Type_Grouped extends Mage_Catalog_Model_Product
      * @inheritDoc
      * @return array<string, string[]>
      */
+    #[Override]
     public function processBuyRequest($product, $buyRequest)
     {
         /** @var null|string[] $superGroup */
         $superGroup = $buyRequest->getSuperGroup();
-        $superGroup = (is_array($superGroup)) ? array_filter($superGroup, fn(mixed $o) => (int) $o !== 0) : [];
+        $superGroup = (is_array($superGroup)) ? array_filter($superGroup, fn(mixed $value) => (int) $value !== 0) : [];
 
         return ['super_group' => $superGroup];
     }

@@ -38,9 +38,10 @@ abstract class Mage_Eav_Model_Resource_Attribute extends Mage_Eav_Model_Resource
      *
      * @inheritDoc
      */
+    #[Override]
     protected function _beforeSave(Mage_Core_Model_Abstract $object)
     {
-        $validateRules = $object->getData('validate_rules');
+        $validateRules = $object->getDataByKey('validate_rules');
         if (is_array($validateRules)) {
             $object->setData('validate_rules', serialize($validateRules));
         }
@@ -56,6 +57,7 @@ abstract class Mage_Eav_Model_Resource_Attribute extends Mage_Eav_Model_Resource
      * @param  Mage_Core_Model_Abstract|Mage_Eav_Model_Attribute $object
      * @return Varien_Db_Select
      */
+    #[Override]
     protected function _getLoadSelect($field, $value, $object)
     {
         $select     = parent::_getLoadSelect($field, $value, $object);
@@ -90,9 +92,10 @@ abstract class Mage_Eav_Model_Resource_Attribute extends Mage_Eav_Model_Resource
      * @param Mage_Eav_Model_Attribute $object
      * @inheritDoc
      */
+    #[Override]
     protected function _afterSave(Mage_Core_Model_Abstract $object)
     {
-        $forms      = $object->getData('used_in_forms');
+        $forms      = $object->getDataByKey('used_in_forms');
         $adapter    = $this->_getWriteAdapter();
         if (is_array($forms)) {
             $where = ['attribute_id=?' => $object->getId()];

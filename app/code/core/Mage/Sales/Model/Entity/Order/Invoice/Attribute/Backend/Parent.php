@@ -16,6 +16,7 @@ class Mage_Sales_Model_Entity_Order_Invoice_Attribute_Backend_Parent extends Mag
      * @param  Mage_Sales_Model_Order_Invoice|Varien_Object $object
      * @return $this
      */
+    #[Override]
     public function afterSave($object)
     {
         parent::afterSave($object);

@@ -14,6 +14,7 @@
  */
 class Mage_Adminhtml_Block_Sales_Order_View_History extends Mage_Adminhtml_Block_Template
 {
+    #[Override]
     protected function _prepareLayout()
     {
         $onclick = "submitAndReloadArea($('order_history_block').parentNode, '" . $this->getSubmitUrl() . "')";
@@ -72,10 +73,11 @@ class Mage_Adminhtml_Block_Sales_Order_View_History extends Mage_Adminhtml_Block
     /**
      * Replace links in string
      *
-     * @param  string|string[]      $data
-     * @param  null|array           $allowedTags
-     * @return null|string|string[]
+     * @param  null|string|string[]                        $data
+     * @param  null|string[]                               $allowedTags
+     * @return ($data is array ? array<?string> : ?string)
      */
+    #[Override]
     public function escapeHtml($data, $allowedTags = null)
     {
         return Mage::helper('adminhtml/sales')->escapeHtmlWithLinks($data, $allowedTags);

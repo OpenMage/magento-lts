@@ -26,6 +26,7 @@ class Mage_Adminhtml_Block_Sales_Order_Status_Grid extends Mage_Adminhtml_Block_
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareCollection()
     {
         $collection = Mage::getResourceModel('sales/order_status_collection');
@@ -38,6 +39,7 @@ class Mage_Adminhtml_Block_Sales_Order_Status_Grid extends Mage_Adminhtml_Block_
      * @inheritDoc
      * @throws Exception
      */
+    #[Override]
     protected function _prepareColumns()
     {
         $this->addColumn('label', [
@@ -67,7 +69,7 @@ class Mage_Adminhtml_Block_Sales_Order_Status_Grid extends Mage_Adminhtml_Block_
             'type'  => 'text',
             'index' => 'state',
             'width'     => '250px',
-            'frame_callback' => [$this, 'decorateState'],
+            'frame_callback' => $this->decorateState(...),
         ]);
 
         $this->addColumn('unassign', [
@@ -75,7 +77,7 @@ class Mage_Adminhtml_Block_Sales_Order_Status_Grid extends Mage_Adminhtml_Block_
             'index'     => 'unassign',
             'width'     => '100px',
             'type'      => 'text',
-            'frame_callback' => [$this, 'decorateAction'],
+            'frame_callback' => $this->decorateAction(...),
             'sortable'  => false,
             'filter'    => false,
         ]);
@@ -91,12 +93,10 @@ class Mage_Adminhtml_Block_Sales_Order_Status_Grid extends Mage_Adminhtml_Block_
     public function decorateState($value, $row, $column, $isExport)
     {
         if ($value) {
-            $cell = $value . ' [' . Mage::getSingleton('sales/order_config')->getStateLabel($value) . ']';
-        } else {
-            $cell = $value;
+            return $value . ' [' . Mage::getSingleton('sales/order_config')->getStateLabel($value) . ']';
         }
 
-        return $cell;
+        return $value;
     }
 
     public function decorateAction($value, $row, $column, $isExport)
@@ -120,6 +120,7 @@ class Mage_Adminhtml_Block_Sales_Order_Status_Grid extends Mage_Adminhtml_Block_
      *
      * @inheritDoc
      */
+    #[Override]
     protected function _preparePage()
     {
         return $this;
@@ -129,6 +130,7 @@ class Mage_Adminhtml_Block_Sales_Order_Status_Grid extends Mage_Adminhtml_Block_
      * @inheritDoc
      * @param Mage_Sales_Model_Order_Status $row
      */
+    #[Override]
     public function getRowUrl($row)
     {
         return $this->getUrl('*/sales_order_status/edit', ['status' => $row->getStatus()]);

@@ -81,7 +81,7 @@ class Mage_CatalogIndex_Model_Retreiver extends Mage_Core_Model_Abstract
             return $model;
         }
 
-        Mage::throwException("Data retreiver for '$type' is not defined");
+        Mage::throwException("Data retreiver for '{$type}' is not defined");
     }
 
     /**

@@ -34,7 +34,7 @@ class Mage_Centinel_Model_Config
     protected $_cardTypesConfigPath = 'global/payment/cc/types';
 
     /**
-     * Set store to congif model
+     * Set store to config model
      *
      * @param  int|Mage_Core_Model_Store $store
      * @return $this

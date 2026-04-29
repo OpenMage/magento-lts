@@ -32,8 +32,8 @@ class Mage_Wishlist_Model_Observer extends Mage_Core_Model_Abstract
     /**
      * Check move quote item to wishlist request
      *
-     * @param  Varien_Event_Observer        $observer
-     * @return Mage_Wishlist_Model_Observer
+     * @param  Varien_Event_Observer $observer
+     * @return $this
      * @throws Throwable
      */
     public function processCartUpdateBefore($observer)
@@ -51,24 +51,20 @@ class Mage_Wishlist_Model_Observer extends Mage_Core_Model_Abstract
          * Collect product ids marked for move to wishlist
          */
         foreach ($data as $itemId => $itemInfo) {
-            if (!empty($itemInfo['wishlist'])) {
-                if ($item = $cart->getQuote()->getItemById($itemId)) {
-                    $productId  = $item->getProductId();
-                    $buyRequest = $item->getBuyRequest();
-
-                    if (isset($itemInfo['qty']) && is_numeric($itemInfo['qty'])) {
-                        $buyRequest->setQty($itemInfo['qty']);
-                    }
-
-                    $wishlist->addNewItem($productId, $buyRequest);
-
-                    $productIds[] = $productId;
-                    $cart->getQuote()->removeItem($itemId);
+            if (!empty($itemInfo['wishlist']) && $item = $cart->getQuote()->getItemById($itemId)) {
+                $productId  = $item->getProductId();
+                $buyRequest = $item->getBuyRequest();
+                if (isset($itemInfo['qty']) && is_numeric($itemInfo['qty'])) {
+                    $buyRequest->setQty($itemInfo['qty']);
                 }
+
+                $wishlist->addNewItem($productId, $buyRequest);
+                $productIds[] = $productId;
+                $cart->getQuote()->removeItem($itemId);
             }
         }
 
-        if (!empty($productIds)) {
+        if ($productIds !== []) {
             $wishlist->save();
             Mage::helper('wishlist')->calculate();
         }

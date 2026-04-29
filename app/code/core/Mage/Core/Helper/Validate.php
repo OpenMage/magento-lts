@@ -703,7 +703,7 @@ class Mage_Core_Helper_Validate extends Mage_Core_Helper_Abstract
             'NoEmpty'       => [new NotBlank($options)],
             'Regex'         => [new Regex(pattern: $options['pattern'] ?? '')],
             'StringLength'  => [new Length($options)],
-            default         => throw new Mage_Core_Exception("Validator $type does not exist")
+            default         => throw new Mage_Core_Exception("Validator {$type} does not exist")
         };
     }
 

@@ -65,18 +65,14 @@ class Mage_Adminhtml_Block_Report_Filter_Form extends Mage_Adminhtml_Block_Widge
      */
     public function setFieldOption($fieldId, $option, $value = null)
     {
-        if (is_array($option)) {
-            $options = $option;
-        } else {
-            $options = [$option => $value];
-        }
+        $options = is_array($option) ? $option : [$option => $value];
 
         if (!array_key_exists($fieldId, $this->_fieldOptions)) {
             $this->_fieldOptions[$fieldId] = [];
         }
 
-        foreach ($options as $k => $v) {
-            $this->_fieldOptions[$fieldId][$k] = $v;
+        foreach ($options as $key => $val) {
+            $this->_fieldOptions[$fieldId][$key] = $val;
         }
     }
 
@@ -98,6 +94,7 @@ class Mage_Adminhtml_Block_Report_Filter_Form extends Mage_Adminhtml_Block_Widge
      *
      * @return $this
      */
+    #[Override]
     protected function _prepareForm()
     {
         $actionUrl = $this->getUrl('*/*/sales');
@@ -171,6 +168,7 @@ class Mage_Adminhtml_Block_Report_Filter_Form extends Mage_Adminhtml_Block_Widge
      *
      * @return $this
      */
+    #[Override]
     protected function _initFormValues()
     {
         $data = $this->getFilterData()->getData();
@@ -189,6 +187,7 @@ class Mage_Adminhtml_Block_Report_Filter_Form extends Mage_Adminhtml_Block_Widge
      *
      * @return $this
      */
+    #[Override]
     protected function _beforeToHtml()
     {
         $result = parent::_beforeToHtml();
@@ -209,8 +208,8 @@ class Mage_Adminhtml_Block_Report_Filter_Form extends Mage_Adminhtml_Block_Widge
                 $field = $fieldset->getElements()->searchById($fieldId);
                 /** @var Varien_Object $field */
                 if ($field) {
-                    foreach ($fieldOptions as $k => $v) {
-                        $field->setDataUsingMethod($k, $v);
+                    foreach ($fieldOptions as $key => $option) {
+                        $field->setDataUsingMethod($key, $option);
                     }
                 }
             }

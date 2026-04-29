@@ -53,6 +53,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
      * @inheritDoc
      * @throws Exception
      */
+    #[Override]
     protected function _addColumnFilterToCollection($column)
     {
         // Set custom filter for in product flag
@@ -68,11 +69,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
             $existsProducts = $productIds; // Only for "Yes" Filter we will add created products
 
             if (count($createdProducts) > 0) {
-                if (!is_array($existsProducts)) {
-                    $existsProducts = $createdProducts;
-                } else {
-                    $existsProducts = array_merge($createdProducts);
-                }
+                $existsProducts = is_array($existsProducts) ? array_merge($createdProducts) : $createdProducts;
             }
 
             if ($column->getFilter()->getValue()) {
@@ -104,6 +101,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareCollection()
     {
         $allowProductTypes = [];
@@ -167,7 +165,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
     public function isReadonly()
     {
         if ($this->hasData('is_readonly')) {
-            return $this->getData('is_readonly');
+            return $this->getDataByKey('is_readonly');
         }
 
         return $this->_getProduct()->getCompositeReadonly();
@@ -179,6 +177,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
      * @throws Mage_Core_Exception
      * @throws Zend_Cache_Exception
      */
+    #[Override]
     protected function _prepareColumns()
     {
         $product = $this->_getProduct();
@@ -321,6 +320,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
     /**
      * @inheritDoc
      */
+    #[Override]
     public function getGridUrl()
     {
         return $this->getUrl('*/*/superConfig', ['_current' => true]);
@@ -373,6 +373,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
      *
      * @inheritDoc
      */
+    #[Override]
     protected function _afterLoadCollection()
     {
         parent::_afterLoadCollection();

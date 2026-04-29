@@ -19,6 +19,7 @@ class Mage_Payment_Block_Form_Container extends Mage_Core_Block_Template
     /**
      * Prepare children blocks
      */
+    #[Override]
     protected function _prepareLayout()
     {
         /** @var Mage_Payment_Helper_Data $helper */
@@ -73,10 +74,8 @@ class Mage_Payment_Block_Form_Container extends Mage_Core_Block_Template
      */
     public function setMethodFormTemplate($method = '', $template = '')
     {
-        if (!empty($method) && !empty($template)) {
-            if ($block = $this->getChild('payment.method.' . $method)) {
-                $block->setTemplate($template);
-            }
+        if (!empty($method) && !empty($template) && $block = $this->getChild('payment.method.' . $method)) {
+            $block->setTemplate($template);
         }
 
         return $this;
@@ -89,7 +88,7 @@ class Mage_Payment_Block_Form_Container extends Mage_Core_Block_Template
      */
     public function getMethods()
     {
-        $methods = $this->getData('methods');
+        $methods = $this->getDataByKey('methods');
         if ($methods === null) {
             /** @var Mage_Payment_Helper_Data $helper */
             $helper = $this->helper('payment');

@@ -26,12 +26,13 @@ class Mage_Adminhtml_Block_Tag_Edit_Form extends Mage_Adminhtml_Block_Widget_For
      *
      * @return $this
      */
+    #[Override]
     protected function _prepareForm()
     {
         $model = Mage::registry('tag_tag');
 
         $form = new Varien_Data_Form(
-            ['id' => 'edit_form', 'action' => $this->getData('action'), 'method' => 'post'],
+            ['id' => 'edit_form', 'action' => $this->getDataByKey('action'), 'method' => 'post'],
         );
 
         $fieldset = $form->addFieldset(

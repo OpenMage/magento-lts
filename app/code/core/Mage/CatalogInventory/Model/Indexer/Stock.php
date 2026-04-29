@@ -91,6 +91,7 @@ class Mage_CatalogInventory_Model_Indexer_Stock extends Mage_Index_Model_Indexer
      *
      * @return string
      */
+    #[Override]
     public function getDescription()
     {
         return Mage::helper('cataloginventory')->__('Index Product Stock Status');
@@ -102,6 +103,7 @@ class Mage_CatalogInventory_Model_Indexer_Stock extends Mage_Index_Model_Indexer
      *
      * @return bool
      */
+    #[Override]
     public function matchEvent(Mage_Index_Model_Event $event)
     {
         $data = $event->getNewData();
@@ -113,19 +115,11 @@ class Mage_CatalogInventory_Model_Indexer_Stock extends Mage_Index_Model_Indexer
         if ($entity == Mage_Core_Model_Store::ENTITY) {
             /** @var Mage_Core_Model_Store $store */
             $store = $event->getDataObject();
-            if ($store && $store->isObjectNew()) {
-                $result = true;
-            } else {
-                $result = false;
-            }
+            $result = $store && $store->isObjectNew();
         } elseif ($entity == Mage_Core_Model_Store_Group::ENTITY) {
             /** @var Mage_Core_Model_Store_Group $storeGroup */
             $storeGroup = $event->getDataObject();
-            if ($storeGroup && $storeGroup->dataHasChangedFor('website_id')) {
-                $result = true;
-            } else {
-                $result = false;
-            }
+            $result = $storeGroup && $storeGroup->dataHasChangedFor('website_id');
         } elseif ($entity == Mage_Core_Model_Config_Data::ENTITY) {
             $configData = $event->getDataObject();
             if ($configData && in_array($configData->getPath(), $this->_relatedConfigSettings)) {

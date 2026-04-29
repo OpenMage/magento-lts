@@ -84,6 +84,7 @@ class Mage_Catalog_Model_Category_Indexer_Product extends Mage_Index_Model_Index
      *
      * @return string
      */
+    #[Override]
     public function getDescription()
     {
         return Mage::helper('catalog')->__('Indexed category/products association');
@@ -95,6 +96,7 @@ class Mage_Catalog_Model_Category_Indexer_Product extends Mage_Index_Model_Index
      *
      * @return bool
      */
+    #[Override]
     public function matchEvent(Mage_Index_Model_Event $event)
     {
         $data      = $event->getNewData();
@@ -105,20 +107,12 @@ class Mage_Catalog_Model_Category_Indexer_Product extends Mage_Index_Model_Index
         $entity = $event->getEntity();
         if ($entity == Mage_Core_Model_Store::ENTITY) {
             $store = $event->getDataObject();
-            if ($store && ($store->isObjectNew() || $store->dataHasChangedFor('group_id'))) {
-                $result = true;
-            } else {
-                $result = false;
-            }
+            $result = $store && ($store->isObjectNew() || $store->dataHasChangedFor('group_id'));
         } elseif ($entity == Mage_Core_Model_Store_Group::ENTITY) {
             $storeGroup = $event->getDataObject();
             $hasDataChanges = $storeGroup && ($storeGroup->dataHasChangedFor('root_category_id')
                 || $storeGroup->dataHasChangedFor('website_id'));
-            if ($storeGroup && !$storeGroup->isObjectNew() && $hasDataChanges) {
-                $result = true;
-            } else {
-                $result = false;
-            }
+            $result = $storeGroup && !$storeGroup->isObjectNew() && $hasDataChanges;
         } else {
             $result = parent::matchEvent($event);
         }
@@ -132,7 +126,7 @@ class Mage_Catalog_Model_Category_Indexer_Product extends Mage_Index_Model_Index
      * Register data required by process in event object
      * Check if category ids was changed
      *
-     * @return Mage_Catalog_Model_Category_Indexer_Product
+     * @return $this
      */
     protected function _registerEvent(Mage_Index_Model_Event $event)
     {

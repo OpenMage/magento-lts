@@ -25,12 +25,16 @@ class Mage_Adminhtml_Checkout_AgreementController extends Mage_Adminhtml_Control
      *
      * @return Mage_Adminhtml_Controller_Action
      */
+    #[Override]
     public function preDispatch()
     {
         $this->_setForcedFormKeyActions('delete');
         return parent::preDispatch();
     }
 
+    /**
+     * @return $this|void
+     */
     public function indexAction()
     {
         $this->_title($this->__('Sales'))->_title($this->__('Terms and Conditions'));
@@ -41,11 +45,17 @@ class Mage_Adminhtml_Checkout_AgreementController extends Mage_Adminhtml_Control
         return $this;
     }
 
+    /**
+     * @return void
+     */
     public function newAction()
     {
         $this->_forward('edit');
     }
 
+    /**
+     * @return void
+     */
     public function editAction()
     {
         $this->_title($this->__('Sales'))->_title($this->__('Terms and Conditions'));
@@ -79,6 +89,9 @@ class Mage_Adminhtml_Checkout_AgreementController extends Mage_Adminhtml_Control
             ->renderLayout();
     }
 
+    /**
+     * @return void
+     */
     public function saveAction()
     {
         if ($postData = $this->getRequest()->getPost()) {
@@ -103,6 +116,9 @@ class Mage_Adminhtml_Checkout_AgreementController extends Mage_Adminhtml_Control
         }
     }
 
+    /**
+     * @return void
+     */
     public function deleteAction()
     {
         $id = (int) $this->getRequest()->getParam('id');
@@ -133,7 +149,7 @@ class Mage_Adminhtml_Checkout_AgreementController extends Mage_Adminhtml_Control
     /**
      * Initialize action
      *
-     * @return Mage_Adminhtml_Controller_Action
+     * @return $this
      */
     protected function _initAction()
     {

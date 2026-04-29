@@ -35,7 +35,7 @@
                     <?php $_order = $this->getShipment()->getOrder() ?>
                     <?php $_orderItem = $_order->getItemById($item->getOrderItemId()); ?>
                     <?php if ($item->getIsVirtual()
-                              || ($_orderItem->isShipSeparately() && !($_orderItem->getParentItemId() || $_orderItem->getParentItem()))
+                              || ($_orderItem->isShipSeparately() && (!$_orderItem->getParentItemId() && !$_orderItem->getParentItem()))
                               || (!$_orderItem->isShipSeparately() && ($_orderItem->getParentItemId() || $_orderItem->getParentItem()))): ?>
                         <?php continue; ?>
                     <?php endif ?>

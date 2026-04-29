@@ -46,13 +46,7 @@ class Mage_Adminhtml_Helper_Sales extends Mage_Core_Helper_Abstract
      */
     public function displayPrices($dataObject, $basePrice, $price, $strong = false, $separator = '<br/>')
     {
-        $order = false;
-        if ($dataObject instanceof Mage_Sales_Model_Order) {
-            $order = $dataObject;
-        } else {
-            $order = $dataObject->getOrder();
-        }
-
+        $order = $dataObject instanceof Mage_Sales_Model_Order ? $dataObject : $dataObject->getOrder();
         if ($order && $order->isCurrencyDifferent()) {
             $res = '<strong>';
             $res .= $order->formatBasePrice($basePrice);
@@ -105,15 +99,15 @@ class Mage_Adminhtml_Helper_Sales extends Mage_Core_Helper_Abstract
     /**
      * Escape string preserving links
      *
-     * @param  string|string[]      $data
-     * @param  null|array           $allowedTags
-     * @return null|string|string[]
+     * @param  null|string|string[]                        $data
+     * @param  null|string[]                               $allowedTags
+     * @return ($data is array ? array<?string> : ?string)
      */
     public function escapeHtmlWithLinks($data, $allowedTags = null)
     {
         if (!empty($data) && is_array($allowedTags) && in_array('a', $allowedTags)) {
             $links = [];
-            $i = 1;
+            $index = 1;
             $data = str_replace('%', '%%', $data);
             $regexp = "/<a\s[^>]*href\s*?=\s*?([\"\']??)([^\" >]*?)\\1[^>]*>(.*)<\/a>/siU";
             while (preg_match($regexp, $data, $matches)) {
@@ -139,8 +133,8 @@ class Mage_Adminhtml_Helper_Sales extends Mage_Core_Helper_Abstract
                     htmlspecialchars($url, ENT_QUOTES, 'UTF-8', false),
                     parent::escapeHtml($text),
                 );
-                $data = str_replace($matches[0], '%' . $i . '$s', $data);
-                ++$i;
+                $data = str_replace($matches[0], '%' . $index . '$s', $data);
+                ++$index;
             }
 
             $data = parent::escapeHtml($data, $allowedTags);

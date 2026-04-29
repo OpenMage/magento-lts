@@ -45,6 +45,7 @@ class Mage_ImportExport_Adminhtml_ImportController extends Mage_Adminhtml_Contro
 
     /**
      * Index action.
+     * @return void
      */
     public function indexAction()
     {
@@ -61,6 +62,7 @@ class Mage_ImportExport_Adminhtml_ImportController extends Mage_Adminhtml_Contro
 
     /**
      * Start import process action.
+     * @return void
      */
     public function startAction()
     {
@@ -78,8 +80,8 @@ class Mage_ImportExport_Adminhtml_ImportController extends Mage_Adminhtml_Contro
                 $importModel->invalidateIndex();
                 $resultBlock->addAction('show', 'import_validation_container')
                     ->addAction('innerHTML', 'import_validation_container_header', $this->__('Status'));
-            } catch (Exception $e) {
-                $resultBlock->addError($e->getMessage());
+            } catch (Exception $exception) {
+                $resultBlock->addError($exception->getMessage());
                 $this->renderLayout();
                 return;
             }
@@ -96,6 +98,7 @@ class Mage_ImportExport_Adminhtml_ImportController extends Mage_Adminhtml_Contro
      * Validate uploaded files action.
      *
      * @SuppressWarnings("PHPMD.Superglobals")
+     * @return void
      */
     public function validateAction()
     {
@@ -158,9 +161,9 @@ class Mage_ImportExport_Adminhtml_ImportController extends Mage_Adminhtml_Contro
                     $resultBlock->addNotice($import->getNotices());
                     $resultBlock->addNotice($this->__('Checked rows: %d, checked entities: %d, invalid rows: %d, total errors: %d', $import->getProcessedRowsCount(), $import->getProcessedEntitiesCount(), $import->getInvalidRowsCount(), $import->getErrorsCount()));
                 }
-            } catch (Exception $e) {
+            } catch (Exception $exception) {
                 $resultBlock->addNotice($this->__('Please fix errors and re-upload file'))
-                    ->addError($e->getMessage());
+                    ->addError($exception->getMessage());
             }
 
             $this->renderLayout();

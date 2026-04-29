@@ -17,6 +17,7 @@ class Mage_Adminhtml_Rss_CatalogController extends Mage_Adminhtml_Controller_Rss
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _isAllowed(): bool
     {
         $path = '';
@@ -30,6 +31,9 @@ class Mage_Adminhtml_Rss_CatalogController extends Mage_Adminhtml_Controller_Rss
         return Mage::getSingleton('admin/session')->isAllowed($path);
     }
 
+    /**
+     * @return void
+     */
     public function notifystockAction()
     {
         if ($this->checkFeedEnable('admin_catalog/notifystock')) {
@@ -38,6 +42,9 @@ class Mage_Adminhtml_Rss_CatalogController extends Mage_Adminhtml_Controller_Rss
         }
     }
 
+    /**
+     * @return void
+     */
     public function reviewAction()
     {
         if ($this->checkFeedEnable('admin_catalog/review')) {

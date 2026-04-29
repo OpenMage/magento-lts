@@ -91,7 +91,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Option_Collection extends Mage_Co
     }
 
     /**
-     * Add option id(s) frilter to collection
+     * Add option id(s) filter to collection
      *
      * @param  array|int $optionId
      * @return $this
@@ -107,6 +107,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Option_Collection extends Mage_Co
      * @param  string $valueKey
      * @return array
      */
+    #[Override]
     public function toOptionArray($valueKey = 'value')
     {
         return $this->_toOptionArray('option_id', $valueKey);

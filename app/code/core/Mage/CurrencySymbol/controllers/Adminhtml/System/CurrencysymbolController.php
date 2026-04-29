@@ -22,6 +22,7 @@ class Mage_CurrencySymbol_Adminhtml_System_CurrencysymbolController extends Mage
 
     /**
      * Show Currency Symbols Management dialog
+     * @return void
      */
     public function indexAction()
     {
@@ -44,10 +45,11 @@ class Mage_CurrencySymbol_Adminhtml_System_CurrencysymbolController extends Mage
 
     /**
      * Save custom Currency symbol
+     * @return void
      */
     public function saveAction()
     {
-        $symbolsDataArray = $this->getRequest()->getParam('custom_currency_symbol', null);
+        $symbolsDataArray = $this->getRequest()->getParam('custom_currency_symbol');
         if (is_array($symbolsDataArray)) {
             foreach ($symbolsDataArray as &$symbolsData) {
                 $symbolsData = Mage::helper('adminhtml')->stripTags($symbolsData);
@@ -68,6 +70,7 @@ class Mage_CurrencySymbol_Adminhtml_System_CurrencysymbolController extends Mage
 
     /**
      * Resets custom Currency symbol for all store views, websites and default value
+     * @return void
      */
     public function resetAction()
     {

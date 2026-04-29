@@ -25,6 +25,7 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
      *
      * @return Mage_Adminhtml_Model_Session
      */
+    #[Override]
     protected function _getSession()
     {
         return Mage::getSingleton('adminhtml/session');
@@ -63,10 +64,10 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
         /** @var Mage_Widget_Model_Widget_Instance $widgetInstance */
         $widgetInstance = Mage::getModel('widget/widget_instance');
 
-        $instanceId = $this->getRequest()->getParam('instance_id', null);
-        $type       = $this->getRequest()->getParam('type', null);
-        $package    = $this->getRequest()->getParam('package', null);
-        $theme      = $this->getRequest()->getParam('theme', null);
+        $instanceId = $this->getRequest()->getParam('instance_id');
+        $type       = $this->getRequest()->getParam('type');
+        $package    = $this->getRequest()->getParam('package');
+        $theme      = $this->getRequest()->getParam('theme');
 
         if ($instanceId) {
             $widgetInstance->load($instanceId);
@@ -86,6 +87,7 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
 
     /**
      * Widget Instances Grid
+     * @return void
      */
     public function indexAction()
     {
@@ -97,6 +99,7 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
 
     /**
      * New widget instance action (forward to edit action)
+     * @return void
      */
     public function newAction()
     {
@@ -105,6 +108,7 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
 
     /**
      * Edit widget instance action
+     * @return void
      */
     public function editAction()
     {
@@ -133,6 +137,7 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
 
     /**
      * Validate action
+     * @return void
      */
     public function validateAction()
     {
@@ -153,6 +158,7 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
 
     /**
      * Save action
+     * @return void
      */
     public function saveAction()
     {
@@ -194,6 +200,7 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
 
     /**
      * Delete Action
+     * @return void
      * @throws Mage_Core_Exception|Throwable
      */
     public function deleteAction()
@@ -205,8 +212,8 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
                 $this->_getSession()->addSuccess(
                     Mage::helper('widget')->__('The widget instance has been deleted.'),
                 );
-            } catch (Exception $e) {
-                $this->_getSession()->addError($e->getMessage());
+            } catch (Exception $exception) {
+                $this->_getSession()->addError($exception->getMessage());
             }
         }
 
@@ -215,6 +222,7 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
 
     /**
      * Categories chooser Action (Ajax request)
+     * @return void
      */
     public function categoriesAction()
     {
@@ -231,6 +239,7 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
 
     /**
      * Products chooser Action (Ajax request)
+     * @return void
      */
     public function productsAction()
     {
@@ -250,13 +259,14 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
 
     /**
      * Blocks Action (Ajax request)
+     * @return void
      */
     public function blocksAction()
     {
         /** @var Mage_Widget_Model_Widget_Instance $widgetInstance */
         $widgetInstance = $this->_initWidgetInstance();
         $layout = $this->getRequest()->getParam('layout');
-        $selected = $this->getRequest()->getParam('selected', null);
+        $selected = $this->getRequest()->getParam('selected');
         $blocksChooser = $this->getLayout()
             ->createBlock('widget/adminhtml_widget_instance_edit_chooser_block')
             ->setArea($widgetInstance->getArea())
@@ -270,13 +280,14 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
 
     /**
      * Templates Chooser Action (Ajax request)
+     * @return void
      */
     public function templateAction()
     {
         /** @var Mage_Widget_Model_Widget_Instance $widgetInstance */
         $widgetInstance = $this->_initWidgetInstance();
         $block = $this->getRequest()->getParam('block');
-        $selected = $this->getRequest()->getParam('selected', null);
+        $selected = $this->getRequest()->getParam('selected');
         $templateChooser = $this->getLayout()
             ->createBlock('widget/adminhtml_widget_instance_edit_chooser_template')
             ->setSelected($selected)
@@ -289,6 +300,7 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
      *
      * @return Mage_Adminhtml_Controller_Action
      */
+    #[Override]
     public function preDispatch()
     {
         $this->_setForcedFormKeyActions('delete');

@@ -218,7 +218,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      */
     protected function _getFactory()
     {
-        return is_null($this->_factory) ? Mage::getSingleton('core/factory') : $this->_factory;
+        return $this->_factory ?? Mage::getSingleton('core/factory');
     }
 
     /**
@@ -228,7 +228,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      */
     protected function _getApp()
     {
-        return is_null($this->_app) ? Mage::app() : $this->_app;
+        return $this->_app ?? Mage::app();
     }
 
     /**
@@ -763,8 +763,11 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
 
             $index = array_search($name, $this->_sortedChildren);
             $siblingKey = array_search($siblingName, $this->_sortedChildren);
+            if ($index === false) {
+                continue;
+            }
 
-            if ($index === false || $siblingKey === false) {
+            if ($siblingKey === false) {
                 continue;
             }
 
@@ -908,11 +911,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     public function setFrameTags($openTag, $closeTag = null)
     {
         $this->_frameOpenTag = $openTag;
-        if ($closeTag) {
-            $this->_frameCloseTag = $closeTag;
-        } else {
-            $this->_frameCloseTag = '/' . $openTag;
-        }
+        $this->_frameCloseTag = $closeTag ? $closeTag : '/' . $openTag;
 
         return $this;
     }
@@ -936,7 +935,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
             $translate = Mage::getSingleton('core/translate');
             /** @var Mage_Core_Model_Translate $translate */
             if ($this->hasData('translate_inline')) {
-                $translate->setTranslateInline($this->getData('translate_inline'));
+                $translate->setTranslateInline($this->getDataByKey('translate_inline'));
             }
 
             $this->_beforeToHtml();
@@ -1186,7 +1185,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      */
     public function getModuleName()
     {
-        $module = $this->getData('module_name');
+        $module = $this->getDataByKey('module_name');
         if (is_null($module)) {
             $class = static::class;
             $module = substr($class, 0, strpos($class, '_Block'));
@@ -1214,10 +1213,9 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
 
     /**
      * Escape html entities
-     *
-     * @param  string|string[]      $data
-     * @param  null|array           $allowedTags
-     * @return null|string|string[]
+     * @param  null|string|string[]                        $data
+     * @param  null|string[]                               $allowedTags
+     * @return ($data is array ? array<?string> : ?string)
      */
     public function escapeHtml($data, $allowedTags = null)
     {
@@ -1378,7 +1376,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     public function getCacheKey()
     {
         if ($this->hasData('cache_key')) {
-            $cacheKey = $this->getData('cache_key');
+            $cacheKey = $this->getDataByKey('cache_key');
             if (!str_starts_with($cacheKey, self::CACHE_KEY_PREFIX)) {
                 $cacheKey = self::CACHE_KEY_PREFIX . $cacheKey;
                 $this->setData('cache_key', $cacheKey);
@@ -1410,7 +1408,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
             $tags = json_decode($tagsCache);
         }
 
-        if (!isset($tags) || !is_array($tags) || empty($tags)) {
+        if (!isset($tags) || !is_array($tags) || $tags === []) {
             $tags = $this->hasData(self::CACHE_TAGS_DATA_KEY) ? $this->getData(self::CACHE_TAGS_DATA_KEY) : [];
             if (!in_array(self::CACHE_GROUP, $tags)) {
                 $tags[] = self::CACHE_GROUP;
@@ -1462,7 +1460,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
             return null;
         }
 
-        return $this->getData('cache_lifetime');
+        return $this->getDataByKey('cache_lifetime');
     }
 
     /**

@@ -19,6 +19,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Config extends Varien_Dat
      *
      * @return string
      */
+    #[Override]
     public function getElementHtml()
     {
         $value = $this->getValue();

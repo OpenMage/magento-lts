@@ -155,7 +155,7 @@ class Mage_Review_Model_Review extends Mage_Core_Model_Abstract
         ));
 
         $errors = $validator->getErrorMessages($violations);
-        if (!$errors) {
+        if (!$errors instanceof ArrayObject) {
             return true;
         }
 
@@ -167,6 +167,7 @@ class Mage_Review_Model_Review extends Mage_Core_Model_Abstract
      *
      * @return $this
      */
+    #[Override]
     protected function _afterDeleteCommit()
     {
         $this->getResource()->afterDeleteCommit($this);
@@ -210,6 +211,7 @@ class Mage_Review_Model_Review extends Mage_Core_Model_Abstract
      * @return $this
      * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _beforeDelete()
     {
         $this->_protectFromNonAdmin();

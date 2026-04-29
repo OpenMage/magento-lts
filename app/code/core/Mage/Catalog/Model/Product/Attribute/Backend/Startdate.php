@@ -33,6 +33,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Startdate extends Mage_Eav_Mo
      * @param  Varien_Object $object
      * @return $this
      */
+    #[Override]
     public function beforeSave($object)
     {
         $startDate = $this->_getValueForSave($object);
@@ -52,6 +53,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Startdate extends Mage_Eav_Mo
      * @return bool
      * @throws Mage_Eav_Model_Entity_Attribute_Exception
      */
+    #[Override]
     public function validate($object)
     {
         $attr      = $this->getAttribute();

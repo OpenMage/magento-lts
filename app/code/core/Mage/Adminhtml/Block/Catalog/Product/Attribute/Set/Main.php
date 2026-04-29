@@ -17,6 +17,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main extends Mage_Admin
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _construct()
     {
         $this->setTemplate('catalog/product/attribute/set/main.phtml');
@@ -27,6 +28,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main extends Mage_Admin
      *
      * @return $this
      */
+    #[Override]
     protected function _prepareLayout()
     {
         $setId = $this->_getSetId();
@@ -376,7 +378,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main extends Mage_Admin
      */
     public function getIsCurrentSetDefault()
     {
-        $isDefault = $this->getData('is_current_set_default');
+        $isDefault = $this->getDataByKey('is_current_set_default');
         if (is_null($isDefault)) {
             $defaultSetId = Mage::getSingleton('eav/config')
                 ->getEntityType(Mage::registry('entityType'))
@@ -393,6 +395,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main extends Mage_Admin
      *
      * @return string
      */
+    #[Override]
     protected function _toHtml()
     {
         Mage::dispatchEvent('adminhtml_catalog_product_attribute_set_main_html_before', ['block' => $this]);

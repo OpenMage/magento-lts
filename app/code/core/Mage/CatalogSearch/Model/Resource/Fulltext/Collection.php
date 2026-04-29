@@ -73,6 +73,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext_Collection extends Mage_Catalog
      *
      * @return Mage_Catalog_Model_Resource_Product_Collection
      */
+    #[Override]
     protected function _beforeLoad()
     {
         if (!$this->_isSearchFiltersApplied) {
@@ -87,6 +88,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext_Collection extends Mage_Catalog
      *
      * @return int
      */
+    #[Override]
     public function getSize()
     {
         if (!$this->_isSearchFiltersApplied) {
@@ -166,16 +168,14 @@ class Mage_CatalogSearch_Model_Resource_Fulltext_Collection extends Mage_Catalog
     }
 
     /**
-     * Set Order field
-     *
-     * @param  string $attribute
-     * @param  string $dir
-     * @return $this
+     * @inheritDoc
      */
-    public function setOrder($attribute, $dir = 'desc')
+    #[Override]
+    public function setOrder($attribute, $dir = self::SORT_ORDER_DESC)
     {
-        if ($attribute == 'relevance') {
-            $this->_relevanceSortOrder = ($dir == 'asc') ? SORT_ASC : SORT_DESC;
+        if ($attribute === 'relevance') {
+            $normalizedDir = strtoupper((string) $dir);
+            $this->_relevanceSortOrder = ($normalizedDir === self::SORT_ORDER_ASC) ? SORT_ASC : SORT_DESC;
             $this->addOrder(self::RELEVANCE_ORDER_NAME);
         } else {
             parent::setOrder($attribute, $dir);
@@ -224,8 +224,9 @@ class Mage_CatalogSearch_Model_Resource_Fulltext_Collection extends Mage_Catalog
     /**
      * Render sql select orders
      *
-     * @return Varien_Data_Collection_Db
+     * @return $this
      */
+    #[Override]
     protected function _renderOrders()
     {
         if (!$this->_isOrdersRendered) {

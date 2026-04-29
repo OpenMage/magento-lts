@@ -19,6 +19,7 @@ class Mage_Adminhtml_Block_Report_Grid_Column_Renderer_Product extends Mage_Admi
      *
      * @return string
      */
+    #[Override]
     public function render(Varien_Object $row)
     {
         $id   = $row->getId();

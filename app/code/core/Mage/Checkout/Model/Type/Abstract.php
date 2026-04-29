@@ -8,7 +8,7 @@
  */
 
 /**
- * Cehckout type abstract class
+ * Checkout type abstract class
  *
  * @package    Mage_Checkout
  */
@@ -21,7 +21,7 @@ abstract class Mage_Checkout_Model_Type_Abstract extends Varien_Object
      */
     public function getCheckoutSession()
     {
-        $checkout = $this->getData('checkout_session');
+        $checkout = $this->getDataByKey('checkout_session');
         if (is_null($checkout)) {
             $checkout = Mage::getSingleton('checkout/session');
             $this->setData('checkout_session', $checkout);
@@ -51,13 +51,13 @@ abstract class Mage_Checkout_Model_Type_Abstract extends Varien_Object
     }
 
     /**
-     * Retrieve customer session vodel
+     * Retrieve customer session model
      *
      * @return Mage_Customer_Model_Session
      */
     public function getCustomerSession()
     {
-        $customer = $this->getData('customer_session');
+        $customer = $this->getDataByKey('customer_session');
         if (is_null($customer)) {
             $customer = Mage::getSingleton('customer/session');
             $this->setData('customer_session', $customer);
@@ -83,7 +83,7 @@ abstract class Mage_Checkout_Model_Type_Abstract extends Varien_Object
      */
     public function getCustomerDefaultShippingAddress()
     {
-        $address = $this->getData('customer_default_shipping_address');
+        $address = $this->getDataByKey('customer_default_shipping_address');
         if (is_null($address)) {
             $address = $this->getCustomer()->getDefaultShippingAddress();
             if (!$address) {
@@ -107,7 +107,7 @@ abstract class Mage_Checkout_Model_Type_Abstract extends Varien_Object
      */
     public function getCustomerDefaultBillingAddress()
     {
-        $address = $this->getData('customer_default_billing_address');
+        $address = $this->getDataByKey('customer_default_billing_address');
         if (is_null($address)) {
             $address = $this->getCustomer()->getDefaultBillingAddress();
             if (!$address) {
@@ -148,7 +148,7 @@ abstract class Mage_Checkout_Model_Type_Abstract extends Varien_Object
      */
     protected function _emailOrderConfirmation($email, $name, $order)
     {
-        $mailer = Mage::getModel('core/email')
+        Mage::getModel('core/email')
             ->setTemplate('email/order.phtml')
             ->setType('html')
             ->setTemplateVar('order', $order)

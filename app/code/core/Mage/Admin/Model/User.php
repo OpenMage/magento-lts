@@ -131,6 +131,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _beforeSave()
     {
         $data = [
@@ -290,6 +291,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
      *
      * @return Mage_Admin_Model_Resource_User_Collection
      */
+    #[Override]
     public function getCollection()
     {
         return Mage::getResourceModel('admin/user_collection');
@@ -348,6 +350,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
      *
      * @return int
      */
+    #[Override]
     public function getId()
     {
         return $this->getUserId();
@@ -736,11 +739,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
         }
 
         $hoursDifference = floor(($currentTimestamp - $tokenTimestamp) / (60 * 60));
-        if ($hoursDifference >= $tokenExpirationPeriod) {
-            return true;
-        }
-
-        return false;
+        return $hoursDifference >= $tokenExpirationPeriod;
     }
 
     /**
@@ -750,10 +749,10 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
      */
     public function cleanPasswordsValidationData()
     {
-        $this->setData('password', null);
-        $this->setData('current_password', null);
-        $this->setData('new_password', null);
-        $this->setData('password_confirmation', null);
+        $this->setData('password');
+        $this->setData('current_password');
+        $this->setData('new_password');
+        $this->setData('password_confirmation');
         return $this;
     }
 

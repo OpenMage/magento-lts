@@ -26,6 +26,7 @@ class Mage_Catalog_Model_Product_Option_Type_Text extends Mage_Catalog_Model_Pro
      * @return $this
      * @throws Mage_Core_Exception
      */
+    #[Override]
     public function validateUserValue($values)
     {
         parent::validateUserValue($values);
@@ -55,6 +56,7 @@ class Mage_Catalog_Model_Product_Option_Type_Text extends Mage_Catalog_Model_Pro
      *
      * @return null|string Prepared option value
      */
+    #[Override]
     public function prepareForCart()
     {
         if ($this->getIsValid() && $this->getUserValue() !== '') {
@@ -70,6 +72,7 @@ class Mage_Catalog_Model_Product_Option_Type_Text extends Mage_Catalog_Model_Pro
      * @param  string $value Prepared for cart option value
      * @return string
      */
+    #[Override]
     public function getFormattedOptionValue($value)
     {
         return Mage::helper('core')->escapeHtml($value);

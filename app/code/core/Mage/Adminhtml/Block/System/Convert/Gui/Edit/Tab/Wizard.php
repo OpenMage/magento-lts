@@ -41,6 +41,7 @@ class Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tab_Wizard extends Mage_Admin
     /**
      * @return $this
      */
+    #[Override]
     protected function _prepareLayout()
     {
         if ($head = $this->getLayout()->getBlock('head')) {
@@ -85,10 +86,8 @@ class Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tab_Wizard extends Mage_Admin
      */
     public function getValue($key, $default = '', $defaultNew = null)
     {
-        if ($defaultNew !== null) {
-            if ($this->getProfileId() == 0) {
-                $default = $defaultNew;
-            }
+        if ($defaultNew !== null && $this->getProfileId() == 0) {
+            $default = $defaultNew;
         }
 
         $value = $this->getData($key);

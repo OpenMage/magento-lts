@@ -99,6 +99,7 @@ abstract class Mage_Core_Model_Session_Abstract_Zend extends Varien_Object
      * @param  bool   $isChanged
      * @return $this
      */
+    #[Override]
     public function setData($key, $value = '', $isChanged = false)
     {
         if (!$this->_namespace->data) {
@@ -116,6 +117,7 @@ abstract class Mage_Core_Model_Session_Abstract_Zend extends Varien_Object
      * @param  bool   $clear
      * @return mixed
      */
+    #[Override]
     public function getData($var = null, $clear = false)
     {
         if (!$this->_namespace->data) {

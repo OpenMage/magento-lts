@@ -76,11 +76,11 @@ class Mage_Admin_Model_Config extends Varien_Simplexml_Config
             $resourceName = null;
         } else {
             $resourceName = (is_null($parentName) ? '' : $parentName . '/') . $resource->getName();
-            $acl->add(Mage::getModel('admin/acl_resource', $resourceName), $parentName);
+            $acl->addResource(Mage::getModel('admin/acl_resource', $resourceName), $parentName);
         }
 
         if (isset($resource->all)) {
-            $acl->add(Mage::getModel('admin/acl_resource', 'all'), null);
+            $acl->addResource(Mage::getModel('admin/acl_resource', 'all'));
         }
 
         if (isset($resource->admin)) {

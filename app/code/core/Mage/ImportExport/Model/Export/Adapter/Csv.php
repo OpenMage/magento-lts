@@ -58,8 +58,9 @@ class Mage_ImportExport_Model_Export_Adapter_Csv extends Mage_ImportExport_Model
     /**
      * Method called as last step of object instance creation. Can be overridden in child classes.
      *
-     * @return Mage_ImportExport_Model_Export_Adapter_Abstract
+     * @return $this
      */
+    #[Override]
     protected function _init()
     {
         $this->_fileHandler = fopen($this->_destination, 'w');
@@ -71,6 +72,7 @@ class Mage_ImportExport_Model_Export_Adapter_Csv extends Mage_ImportExport_Model
      *
      * @return string
      */
+    #[Override]
     public function getContentType()
     {
         return 'text/csv';
@@ -81,6 +83,7 @@ class Mage_ImportExport_Model_Export_Adapter_Csv extends Mage_ImportExport_Model
      *
      * @return string
      */
+    #[Override]
     public function getFileExtension()
     {
         return 'csv';
@@ -89,7 +92,7 @@ class Mage_ImportExport_Model_Export_Adapter_Csv extends Mage_ImportExport_Model
     /**
      * Write row data to source file.
      *
-     * @return Mage_ImportExport_Model_Export_Adapter_Abstract
+     * @return $this
      * @throws Exception
      */
     public function writeRow(array $rowData)

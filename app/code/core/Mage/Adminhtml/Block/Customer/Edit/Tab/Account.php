@@ -173,11 +173,14 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Account extends Mage_Adminhtml_Bloc
                         $confirmationKey = $customer->getRandomConfirmationKey();
                     }
 
-                    $element = $fieldset->addField('confirmation', 'select', [
+                    $fieldset->addField('confirmation', 'select', [
                         'name'  => 'confirmation',
                         'label' => Mage::helper('customer')->__($confirmationAttribute->getFrontendLabel()),
                     ])->setEntityAttribute($confirmationAttribute)
-                        ->setValues(['' => 'Confirmed', $confirmationKey => 'Not confirmed']);
+                        ->setValues([
+                            '' => Mage::helper('customer')->__('Confirmed'),
+                            $confirmationKey => Mage::helper('customer')->__('Not confirmed'),
+                        ]);
 
                     // Prepare send welcome email checkbox if customer is not confirmed
                     // no need to add it, if website ID is empty
@@ -292,6 +295,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Account extends Mage_Adminhtml_Bloc
      *
      * @return array<string, string>
      */
+    #[Override]
     protected function _getAdditionalElementTypes()
     {
         return [

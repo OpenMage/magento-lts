@@ -24,6 +24,7 @@ class Mage_Adminhtml_Block_System_Store_Tree extends Mage_Adminhtml_Block_Widget
     /**
      * Internal constructor, that is called from real constructor
      */
+    #[Override]
     protected function _construct()
     {
         $this->setTemplate('system/store/tree.phtml');
@@ -35,6 +36,7 @@ class Mage_Adminhtml_Block_System_Store_Tree extends Mage_Adminhtml_Block_Widget
      *
      * @return $this
      */
+    #[Override]
     protected function _prepareLayout()
     {
         $this->_cellTemplate = $this->getLayout()

@@ -271,7 +271,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price extends Mage_Index_Model
             }
         }
 
-        if (!empty($notCompositeIds)) {
+        if ($notCompositeIds !== []) {
             $select = $write->select()
                 ->from(
                     ['l' => $this->getTable('catalog/product_relation')],
@@ -293,7 +293,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price extends Mage_Index_Model
             }
         }
 
-        if (!empty($compositeIds)) {
+        if ($compositeIds !== []) {
             $this->_copyRelationIndexData($compositeIds, $notCompositeIds);
         }
 
@@ -362,6 +362,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price extends Mage_Index_Model
      * @throws Mage_Core_Exception
      * @throws Zend_Db_Exception
      */
+    #[Override]
     public function reindexAll()
     {
         $this->useIdxTable(true);
@@ -622,6 +623,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price extends Mage_Index_Model
      * @param  string $table
      * @return string
      */
+    #[Override]
     public function getIdxTable($table = null)
     {
         if ($this->useIdxTable()) {

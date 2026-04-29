@@ -19,6 +19,7 @@ class Mage_Oauth_Block_Adminhtml_Oauth_Authorize extends Mage_Oauth_Block_Author
      *
      * @return string
      */
+    #[Override]
     public function getFormKey()
     {
         return Mage::getSingleton('core/session')->getFormKey();

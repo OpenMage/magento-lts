@@ -28,6 +28,7 @@ class Mage_Adminhtml_Block_System_Store_Edit_Form extends Mage_Adminhtml_Block_W
      *
      * return Mage_Adminhtml_Block_Widget_Form
      */
+    #[Override]
     protected function _prepareForm()
     {
         $showWebsiteFieldset    = false;
@@ -54,7 +55,7 @@ class Mage_Adminhtml_Block_System_Store_Edit_Form extends Mage_Adminhtml_Block_W
 
         $form = new Varien_Data_Form([
             'id'        => 'edit_form',
-            'action'    => $this->getData('action'),
+            'action'    => $this->getDataByKey('action'),
             'method'    => 'post',
         ]);
 

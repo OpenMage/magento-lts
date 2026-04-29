@@ -40,6 +40,7 @@ class Mage_Sales_Model_Resource_Quote_Payment_Collection extends Mage_Core_Model
      *
      * @return Mage_Core_Model_Resource_Db_Collection_Abstract
      */
+    #[Override]
     protected function _afterLoad()
     {
         foreach ($this->_items as $item) {

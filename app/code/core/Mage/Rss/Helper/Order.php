@@ -23,11 +23,7 @@ class Mage_Rss_Helper_Order extends Mage_Core_Helper_Abstract
      */
     public function isStatusNotificationAllow()
     {
-        if (Mage::getStoreConfig('rss/order/status_notified')) {
-            return true;
-        }
-
-        return false;
+        return Mage::getStoreConfigFlag('rss/order/status_notified');
     }
 
     /**

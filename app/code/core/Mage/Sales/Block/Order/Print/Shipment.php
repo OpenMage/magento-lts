@@ -33,6 +33,7 @@ class Mage_Sales_Block_Order_Print_Shipment extends Mage_Sales_Block_Items_Abstr
      *
      * @inheritDoc
      */
+    #[Override]
     protected function _beforeToHtml()
     {
         $tracksCollection = $this->getOrder()->getTracksCollection();
@@ -43,11 +44,7 @@ class Mage_Sales_Block_Order_Print_Shipment extends Mage_Sales_Block_Items_Abstr
         }
 
         $shipment = Mage::registry('current_shipment');
-        if ($shipment) {
-            $this->_shipmentsCollection = [$shipment];
-        } else {
-            $this->_shipmentsCollection = $this->getOrder()->getShipmentsCollection();
-        }
+        $this->_shipmentsCollection = $shipment ? [$shipment] : $this->getOrder()->getShipmentsCollection();
 
         return parent::_beforeToHtml();
     }
@@ -55,6 +52,7 @@ class Mage_Sales_Block_Order_Print_Shipment extends Mage_Sales_Block_Items_Abstr
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareLayout()
     {
         /** @var Mage_Page_Block_Html_Head $headBlock */
@@ -116,6 +114,7 @@ class Mage_Sales_Block_Order_Print_Shipment extends Mage_Sales_Block_Items_Abstr
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareItem(Mage_Core_Block_Abstract $renderer)
     {
         $renderer->setPrintStatus(true);

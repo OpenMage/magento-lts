@@ -38,7 +38,7 @@ class Mage_Downloadable_Block_Customer_Products_List extends Mage_Core_Block_Tem
             $purchasedIds[] = $item->getId();
         }
 
-        if (empty($purchasedIds)) {
+        if ($purchasedIds === []) {
             $purchasedIds = [null];
         }
 
@@ -60,6 +60,7 @@ class Mage_Downloadable_Block_Customer_Products_List extends Mage_Core_Block_Tem
     /**
      * @return $this
      */
+    #[Override]
     protected function _prepareLayout()
     {
         parent::_prepareLayout();

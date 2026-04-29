@@ -200,8 +200,8 @@ class Mage_Media_Model_File_Image extends Mage_Core_Model_Resource_Abstract
     /**
      * Destroys resource object
      *
-     * @param  GdImage|resource            $resource
-     * @return Mage_Media_Model_File_Image
+     * @param  GdImage|resource $resource
+     * @return $this
      */
     public function destroyResource(&$resource)
     {
@@ -216,10 +216,6 @@ class Mage_Media_Model_File_Image extends Mage_Core_Model_Resource_Abstract
      */
     public function hasSpecialImage(Mage_Media_Model_Image $object)
     {
-        if (file_exists($object->getFilePath(true))) {
-            return true;
-        }
-
-        return false;
+        return file_exists($object->getFilePath(true));
     }
 }

@@ -22,7 +22,6 @@ class Mage_Catalog_Model_Resource_Category_Attribute_Source_Layout extends Mage_
     public function getAllOptions()
     {
         if (!$this->_options) {
-            $layouts = [];
             foreach (Mage::getConfig()->getNode('global/cms/layouts')->children() as $layoutName => $layoutConfig) {
                 $this->_options[] = [
                     'value' => $layoutName,

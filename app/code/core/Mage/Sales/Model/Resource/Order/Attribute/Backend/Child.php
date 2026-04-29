@@ -20,6 +20,7 @@ class Mage_Sales_Model_Resource_Order_Attribute_Backend_Child extends Mage_Eav_M
      * @param  Varien_Object $object
      * @return $this
      */
+    #[Override]
     public function beforeSave($object)
     {
         if ($object->getOrder()) {

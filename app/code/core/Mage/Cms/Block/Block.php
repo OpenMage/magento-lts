@@ -20,6 +20,7 @@ class Mage_Cms_Block_Block extends Mage_Core_Block_Abstract
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _construct()
     {
         parent::_construct();
@@ -38,6 +39,7 @@ class Mage_Cms_Block_Block extends Mage_Core_Block_Abstract
      * @throws Exception
      * @throws Mage_Core_Model_Store_Exception
      */
+    #[Override]
     protected function _toHtml()
     {
         $html = parent::_toHtml();
@@ -62,23 +64,20 @@ class Mage_Cms_Block_Block extends Mage_Core_Block_Abstract
     /**
      * Retrieve values of properties that unambiguously identify unique content
      *
-     * @return array
-     * @throws Mage_Core_Exception
-     * @throws Mage_Core_Model_Store_Exception
+     * @inheritDoc
      */
+    #[Override]
     public function getCacheKeyInfo()
     {
         $blockId = $this->getBlockId();
         if ($blockId) {
-            $result = [
+            return [
                 'CMS_BLOCK',
                 $blockId,
                 Mage::app()->getStore()->getCode(),
             ];
-        } else {
-            $result = parent::getCacheKeyInfo();
         }
 
-        return $result;
+        return parent::getCacheKeyInfo();
     }
 }

@@ -25,6 +25,7 @@ class Mage_Wishlist_Block_Customer_Wishlist extends Mage_Wishlist_Block_Abstract
      * @param  Mage_Wishlist_Model_Resource_Item_Collection $collection
      * @return $this
      */
+    #[Override]
     protected function _prepareCollection($collection)
     {
         $collection->setInStockFilter(true)->setOrder('added_at', 'ASC');
@@ -36,6 +37,7 @@ class Mage_Wishlist_Block_Customer_Wishlist extends Mage_Wishlist_Block_Abstract
      *
      * @return $this
      */
+    #[Override]
     protected function _prepareLayout()
     {
         parent::_prepareLayout();

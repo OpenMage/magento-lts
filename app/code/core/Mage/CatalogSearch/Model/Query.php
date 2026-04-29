@@ -79,7 +79,7 @@ class Mage_CatalogSearch_Model_Query extends Mage_Core_Model_Abstract
      */
     public function getResultCollection()
     {
-        $collection = $this->getData('result_collection');
+        $collection = $this->getDataByKey('result_collection');
         if (is_null($collection)) {
             $collection = $this->getSearchCollection();
 
@@ -105,7 +105,7 @@ class Mage_CatalogSearch_Model_Query extends Mage_Core_Model_Abstract
      */
     public function getSuggestCollection()
     {
-        $collection = $this->getData('suggest_collection');
+        $collection = $this->getDataByKey('suggest_collection');
         if (is_null($collection)) {
             $collection = Mage::getResourceModel('catalogsearch/query_collection')
                 ->setStoreId($this->getStoreId())
@@ -161,7 +161,7 @@ class Mage_CatalogSearch_Model_Query extends Mage_Core_Model_Abstract
      */
     public function getStoreId()
     {
-        if (!$storeId = $this->getData('store_id')) {
+        if (!$storeId = $this->getDataByKey('store_id')) {
             return Mage::app()->getStore()->getId();
         }
 

@@ -74,19 +74,19 @@ class Mage_Adminhtml_Block_System_Config_Form_Field extends Mage_Adminhtml_Block
             $defText = (string) $element->getDefaultValue();
             if ($options) {
                 $defTextArr = [];
-                foreach ($options as $k => $v) {
+                foreach ($options as $key => $value) {
                     if ($isMultiple) {
-                        if (is_array($v['value']) && in_array($k, $v['value'])) {
-                            $defTextArr[] = $v['label'];
+                        if (is_array($value['value']) && in_array($key, $value['value'])) {
+                            $defTextArr[] = $value['label'];
                         }
-                    } elseif (isset($v['value'])) {
-                        if ($v['value'] == $defText) {
-                            $defTextArr[] = $v['label'];
+                    } elseif (isset($value['value'])) {
+                        if ($value['value'] == $defText) {
+                            $defTextArr[] = $value['label'];
                             break;
                         }
-                    } elseif (!is_array($v)) {
-                        if ($k == $defText) {
-                            $defTextArr[] = $v;
+                    } elseif (!is_array($value)) {
+                        if ($key == $defText) {
+                            $defTextArr[] = $value;
                             break;
                         }
                     }

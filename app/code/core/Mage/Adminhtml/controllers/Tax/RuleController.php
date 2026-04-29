@@ -39,6 +39,7 @@ class Mage_Adminhtml_Tax_RuleController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Redirect to edit action
+     * @return void
      */
     public function newAction()
     {
@@ -47,6 +48,7 @@ class Mage_Adminhtml_Tax_RuleController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Edit action
+     * @return void
      */
     public function editAction()
     {
@@ -88,6 +90,7 @@ class Mage_Adminhtml_Tax_RuleController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Save action
+     * @return $this|Mage_Core_Controller_Response_Http|void
      */
     public function saveAction()
     {
@@ -162,6 +165,7 @@ class Mage_Adminhtml_Tax_RuleController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Delete action
+     * @return void
      */
     public function deleteAction()
     {
@@ -195,7 +199,7 @@ class Mage_Adminhtml_Tax_RuleController extends Mage_Adminhtml_Controller_Action
     /**
      * Initialize action
      *
-     * @return Mage_Adminhtml_Controller_Action
+     * @return $this
      */
     protected function _initAction()
     {
@@ -235,6 +239,7 @@ class Mage_Adminhtml_Tax_RuleController extends Mage_Adminhtml_Controller_Action
      *
      * @return Mage_Adminhtml_Controller_Action
      */
+    #[Override]
     public function preDispatch()
     {
         $this->_setForcedFormKeyActions('delete');

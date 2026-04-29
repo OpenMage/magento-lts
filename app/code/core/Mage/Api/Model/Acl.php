@@ -42,7 +42,7 @@ class Mage_Api_Model_Acl extends Zend_Acl
     public const RULE_PERM_DENY = 0;
 
     /**
-     * Permission level to inheric access from parent role
+     * Permission level to inherit access from parent role
      */
     public const RULE_PERM_INHERIT = 1;
 
@@ -61,6 +61,7 @@ class Mage_Api_Model_Acl extends Zend_Acl
      *
      * @return Mage_Api_Model_Acl_Role_Registry
      */
+    #[Override]
     protected function _getRoleRegistry()
     {
         if ($this->_roleRegistry === null) {

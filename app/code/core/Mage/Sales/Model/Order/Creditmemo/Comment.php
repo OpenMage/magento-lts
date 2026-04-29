@@ -44,7 +44,7 @@ class Mage_Sales_Model_Order_Creditmemo_Comment extends Mage_Sales_Model_Abstrac
     /**
      * Declare Creditmemo instance
      *
-     * @return Mage_Sales_Model_Order_Creditmemo_Comment
+     * @return $this
      */
     public function setCreditmemo(Mage_Sales_Model_Order_Creditmemo $creditmemo)
     {
@@ -81,6 +81,7 @@ class Mage_Sales_Model_Order_Creditmemo_Comment extends Mage_Sales_Model_Abstrac
      *
      * @return $this
      */
+    #[Override]
     protected function _beforeSave()
     {
         parent::_beforeSave();

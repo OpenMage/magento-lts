@@ -65,7 +65,7 @@ class Mage_Catalog_Model_Resource_Product_Link extends Mage_Core_Model_Resource_
             }
         }
 
-        if (!empty($deleteIds)) {
+        if ($deleteIds !== []) {
             $adapter->delete($this->getMainTable(), [
                 'link_id IN (?)' => $deleteIds,
             ]);

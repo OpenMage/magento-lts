@@ -113,6 +113,7 @@ class Mage_Paypal_Model_Cert extends Mage_Core_Model_Abstract
      *
      * @return $this
      */
+    #[Override]
     protected function _afterDelete()
     {
         $this->_removeOutdatedCertFile();

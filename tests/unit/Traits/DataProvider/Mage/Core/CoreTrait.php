@@ -4,6 +4,7 @@
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
  * @license    Open Software License (OSL 3.0)
+ * @package    OpenMage_Tests
  */
 
 declare(strict_types=1);
@@ -17,14 +18,14 @@ trait CoreTrait
 {
     use ModulesTrait;
 
-    public function provideIsModuleOutputEnabledData(): Generator
+    public static function provideIsModuleOutputEnabledData(): Generator
     {
         yield 'null' => [
             true,
             null, #Mage_Adminhtml
         ];
 
-        foreach ($this->provideAllActiveModules() as $module) {
+        foreach (static::provideAllActiveModules() as $module) {
             yield $module => [
                 true,
                 $module,
@@ -37,7 +38,7 @@ trait CoreTrait
         ];
     }
 
-    public function provideGetStoreConfig(): Generator
+    public static function provideGetStoreConfigData(): Generator
     {
         yield 'null' => [
             null,
@@ -59,7 +60,7 @@ trait CoreTrait
         ];
     }
 
-    public function provideGetStoreId(): Generator
+    public static function provideGetStoreId(): Generator
     {
         yield 'string' => [
             1,

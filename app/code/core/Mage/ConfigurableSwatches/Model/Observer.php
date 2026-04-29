@@ -124,7 +124,7 @@ class Mage_ConfigurableSwatches_Model_Observer extends Mage_Core_Model_Abstract
             $mediaProductIds[] = $childProduct->getId();
         }
 
-        if (empty($mediaProductIds)) { // no children product IDs found
+        if ($mediaProductIds === []) { // no children product IDs found
             return; // stop execution of method
         }
 
@@ -150,11 +150,8 @@ class Mage_ConfigurableSwatches_Model_Observer extends Mage_Core_Model_Abstract
         if (($front == 'catalog' && $controller == 'category' && $action == 'view')
             || ($front == 'catalogsearch' && $controller == 'result' && $action == 'index')
         ) {
-            // Block name for layered navigation differs depending on which Magento edition we're in
             $blockName = 'catalog.leftnav';
-            if (Mage::getEdition() == Mage::EDITION_ENTERPRISE) {
-                $blockName = ($front == 'catalogsearch') ? 'enterprisesearch.leftnav' : 'enterprisecatalog.leftnav';
-            } elseif ($front == 'catalogsearch') {
+            if ($front === 'catalogsearch') {
                 $blockName = 'catalogsearch.leftnav';
             }
 

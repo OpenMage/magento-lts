@@ -28,21 +28,21 @@ class Mage_Sales_Block_Adminhtml_Billing_Agreement_View extends Mage_Adminhtml_B
         parent::__construct();
 
         if (!$this->_isAllowed('sales/billing_agreement/actions/manage')) {
-            $this->_removeButton('delete');
+            $this->_removeButton(self::BUTTON_TYPE_DELETE);
         }
 
-        $this->_removeButton('reset');
-        $this->_removeButton('save');
+        $this->_removeButton(self::BUTTON_TYPE_RESET);
+        $this->_removeButton(self::BUTTON_TYPE_SAVE);
         $this->setId('billing_agreement_view');
 
-        $this->_addButton('back', [
+        $this->_addButton(self::BUTTON_TYPE_BACK, [
             'label'     => Mage::helper('adminhtml')->__('Back'),
             'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getBackUrl()),
             'class'     => 'back',
         ], -1);
 
         if ($this->_getBillingAgreement()->canCancel() && $this->_isAllowed('sales/billing_agreement/actions/manage')) {
-            $this->_addButton('cancel', [
+            $this->_addButton(self::BUTTON_TYPE_CANCEL, [
                 'label'     => Mage::helper('adminhtml')->__('Cancel'),
                 'onclick'   => Mage::helper('core/js')->getConfirmSetLocationJs($this->_getCancelUrl()),
                 'class'     => 'cancel',
@@ -55,6 +55,7 @@ class Mage_Sales_Block_Adminhtml_Billing_Agreement_View extends Mage_Adminhtml_B
      *
      * @return string
      */
+    #[Override]
     public function getHeaderText()
     {
         return $this->__('Billing Agreement #%s', $this->_getBillingAgreement()->getReferenceId());

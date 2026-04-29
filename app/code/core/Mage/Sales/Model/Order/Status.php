@@ -96,7 +96,6 @@ class Mage_Sales_Model_Order_Status extends Mage_Core_Model_Abstract
     public function getStoreLabel($store = null)
     {
         $store = Mage::app()->getStore($store);
-        $label = false;
         if (!$store->isAdmin()) {
             $labels = $this->getStoreLabels();
             if (isset($labels[$store->getId()])) {
@@ -110,8 +109,8 @@ class Mage_Sales_Model_Order_Status extends Mage_Core_Model_Abstract
     /**
      * Load default status per state
      *
-     * @param  string                        $state
-     * @return Mage_Sales_Model_Order_Status
+     * @param  string $state
+     * @return $this
      */
     public function loadDefaultByState($state)
     {

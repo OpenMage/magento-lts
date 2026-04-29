@@ -28,6 +28,7 @@ class Mage_Adminhtml_Report_StatisticsController extends Mage_Adminhtml_Controll
     protected $_adminSession = null;
 
     /**
+     * @return $this
      * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
      */
@@ -45,6 +46,7 @@ class Mage_Adminhtml_Report_StatisticsController extends Mage_Adminhtml_Controll
     }
 
     /**
+     * @return $this
      * @throws Zend_Locale_Exception
      */
     public function _initReportAction($blocks)
@@ -66,7 +68,7 @@ class Mage_Adminhtml_Report_StatisticsController extends Mage_Adminhtml_Controll
 
         foreach ($blocks as $block) {
             if ($block) {
-                $block->setPeriodType($params->getData('period_type'));
+                $block->setPeriodType($params->getDataByKey('period_type'));
                 $block->setFilterData($params);
             }
         }
@@ -175,6 +177,7 @@ class Mage_Adminhtml_Report_StatisticsController extends Mage_Adminhtml_Controll
     }
 
     /**
+     * @return void
      * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
      */
@@ -193,6 +196,7 @@ class Mage_Adminhtml_Report_StatisticsController extends Mage_Adminhtml_Controll
      *
      * @return Mage_Admin_Model_Session
      */
+    #[Override]
     protected function _getSession()
     {
         if (is_null($this->_adminSession)) {

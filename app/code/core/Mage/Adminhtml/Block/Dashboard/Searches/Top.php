@@ -27,6 +27,7 @@ class Mage_Adminhtml_Block_Dashboard_Searches_Top extends Mage_Adminhtml_Block_D
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareCollection()
     {
         if (!$this->isModuleEnabled('Mage_CatalogSearch')) {
@@ -59,6 +60,7 @@ class Mage_Adminhtml_Block_Dashboard_Searches_Top extends Mage_Adminhtml_Block_D
      * @inheritDoc
      * @throws Exception
      */
+    #[Override]
     protected function _prepareColumns()
     {
         $this->addColumn('search_query', [
@@ -93,6 +95,7 @@ class Mage_Adminhtml_Block_Dashboard_Searches_Top extends Mage_Adminhtml_Block_D
      * @param  Mage_CatalogSearch_Model_Query $row
      * @throws Mage_Core_Exception
      */
+    #[Override]
     public function getRowUrl($row)
     {
         return $this->getUrl('*/catalog_search/edit', ['id' => $row->getId()]);

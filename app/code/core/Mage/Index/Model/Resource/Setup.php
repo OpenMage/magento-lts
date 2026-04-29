@@ -19,6 +19,7 @@ class Mage_Index_Model_Resource_Setup extends Mage_Core_Model_Resource_Setup
      *
      * @return $this
      */
+    #[Override]
     public function applyUpdates()
     {
         parent::applyUpdates();
@@ -41,7 +42,7 @@ class Mage_Index_Model_Resource_Setup extends Mage_Core_Model_Resource_Setup
 
         $indexes = Mage::getConfig()->getNode(Mage_Index_Model_Process::XML_PATH_INDEXER_DATA);
         $indexCodes = [];
-        foreach ($indexes->children() as $code => $index) {
+        foreach ($indexes->children() as $code => $ignored) {
             $indexCodes[] = $code;
         }
 

@@ -28,6 +28,7 @@ class Mage_Checkout_Block_Onepage_Payment_Methods extends Mage_Payment_Block_For
      * @param  null|Mage_Payment_Model_Method_Abstract $method
      * @return bool
      */
+    #[Override]
     protected function _canUseMethod($method)
     {
         return $method && $method->canUseCheckout() && parent::_canUseMethod($method);
@@ -38,6 +39,7 @@ class Mage_Checkout_Block_Onepage_Payment_Methods extends Mage_Payment_Block_For
      *
      * @return false|string
      */
+    #[Override]
     public function getSelectedMethodCode()
     {
         if ($method = $this->getQuote()->getPayment()->getMethod()) {

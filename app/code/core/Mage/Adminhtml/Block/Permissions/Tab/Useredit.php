@@ -12,6 +12,7 @@
  */
 class Mage_Adminhtml_Block_Permissions_Tab_Useredit extends Mage_Adminhtml_Block_Widget_Form
 {
+    #[Override]
     protected function _prepareForm()
     {
         $form = new Varien_Data_Form();

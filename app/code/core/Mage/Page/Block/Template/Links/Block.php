@@ -86,6 +86,7 @@ class Mage_Page_Block_Template_Links_Block extends Mage_Core_Block_Template
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _construct()
     {
         $this->setTemplate('page/template/linksblock.phtml');

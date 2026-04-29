@@ -14,6 +14,26 @@
  */
 class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Template
 {
+    public const BUTTON_TYPE_ADD        = 'add';
+
+    public const BUTTON_TYPE_BACK       = 'back';
+
+    public const BUTTON_TYPE_CANCEL     = 'cancel';
+
+    public const BUTTON_TYPE_CLOSE      = 'close';
+
+    public const BUTTON_TYPE_DELETE     = 'delete';
+
+    public const BUTTON_TYPE_PRINT      = 'print';
+
+    public const BUTTON_TYPE_RESET      = 'reset';
+
+    public const BUTTON_TYPE_SAVE       = 'save';
+
+    public const BUTTON_TYPE_SAVE_EDIT  = 'save-edit';
+
+    public const BUTTON_TYPE_VOID       = 'void';
+
     /**
      * So-called "container controller" to specify group of blocks participating in some action
      *
@@ -24,7 +44,7 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
     /**
      * Array of buttons
      *
-     * @var array
+     * @var array<int, mixed>
      */
     protected $_buttons = [
         -1  => [],
@@ -55,15 +75,18 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
             $this->_buttons[$level] = [];
         }
 
+        $data['test_id'] = $this->getTestIdentifier($id);
+
         $this->_buttons[$level][$id] = $data;
         $this->_buttons[$level][$id]['area'] = $area;
-        if ($sortOrder) {
-            $this->_buttons[$level][$id]['sort_order'] = $sortOrder;
-        } else {
-            $this->_buttons[$level][$id]['sort_order'] = count($this->_buttons[$level]) * 10;
-        }
+        $this->_buttons[$level][$id]['sort_order'] = $sortOrder ? $sortOrder : count($this->_buttons[$level]) * 10;
 
         return $this;
+    }
+
+    private function getTestIdentifier(string $id): string
+    {
+        return 'admin-button-' . str_replace([' ', '_'], '-', $id);
     }
 
     /**
@@ -159,10 +182,11 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareLayout()
     {
         foreach ($this->_buttons as $buttons) {
-            foreach ($buttons as $buttonId => $data) {
+            foreach (array_keys($buttons) as $buttonId) {
                 $childId = $this->_prepareButtonBlockId($buttonId);
                 $this->_addButtonChildBlock($childId);
             }
@@ -293,6 +317,7 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
      *
      * @return string
      */
+    #[Override]
     protected function _toHtml()
     {
         Mage::dispatchEvent('adminhtml_widget_container_html_before', ['block' => $this]);

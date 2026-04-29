@@ -27,6 +27,7 @@ class Mage_Widget_Model_Resource_Widget_Instance extends Mage_Core_Model_Resourc
      *
      * @inheritDoc
      */
+    #[Override]
     protected function _afterLoad(Mage_Core_Model_Abstract $object)
     {
         $adapter = $this->_getReadAdapter();
@@ -45,6 +46,7 @@ class Mage_Widget_Model_Resource_Widget_Instance extends Mage_Core_Model_Resourc
      * @param  Mage_Widget_Model_Widget_Instance $object
      * @throws Zend_Db_Adapter_Exception
      */
+    #[Override]
     protected function _afterSave(Mage_Core_Model_Abstract $object)
     {
         $pageTable         = $this->getTable('widget/widget_instance_page');
@@ -57,7 +59,7 @@ class Mage_Widget_Model_Resource_Widget_Instance extends Mage_Core_Model_Resourc
             ->where('instance_id = ?', (int) $object->getId());
         $pageIds = $readAdapter->fetchCol($select);
 
-        $removePageIds = array_diff($pageIds, $object->getData('page_group_ids'));
+        $removePageIds = array_diff($pageIds, $object->getDataByKey('page_group_ids'));
 
         if (is_array($pageIds) && $pageIds !== []) {
             $inCond = $readAdapter->prepareSqlCondition('page_id', ['in' => $pageIds]);
@@ -73,7 +75,7 @@ class Mage_Widget_Model_Resource_Widget_Instance extends Mage_Core_Model_Resourc
 
         $this->_deleteWidgetInstancePages($removePageIds);
 
-        foreach ($object->getData('page_groups') as $pageGroup) {
+        foreach ($object->getDataByKey('page_groups') as $pageGroup) {
             $pageLayoutUpdateIds = $this->_saveLayoutUpdates($object, $pageGroup);
             $data = [
                 'page_group'      => $pageGroup['group'],
@@ -178,6 +180,7 @@ class Mage_Widget_Model_Resource_Widget_Instance extends Mage_Core_Model_Resourc
      *
      * @return $this
      */
+    #[Override]
     protected function _beforeDelete(Mage_Core_Model_Abstract $object)
     {
         $writeAdapter = $this->_getWriteAdapter();
@@ -200,6 +203,7 @@ class Mage_Widget_Model_Resource_Widget_Instance extends Mage_Core_Model_Resourc
      *
      * @inheritDoc
      */
+    #[Override]
     protected function _afterDelete(Mage_Core_Model_Abstract $object)
     {
         $this->_deleteLayoutUpdates($object->getLayoutUpdateIdsToDelete());

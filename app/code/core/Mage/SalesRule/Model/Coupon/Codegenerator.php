@@ -47,6 +47,6 @@ class Mage_SalesRule_Model_Coupon_Codegenerator extends Varien_Object implements
      */
     public function getDelimiter()
     {
-        return ($this->getData('delimiter') ? $this->getData('delimiter') : '-');
+        return ($this->getDataByKey('delimiter') ? $this->getDataByKey('delimiter') : '-');
     }
 }

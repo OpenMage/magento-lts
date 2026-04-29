@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -20,6 +22,7 @@ class Mage_Customer_Model_Resource_Address_Attribute_Backend_Street extends Mage
      * @param  Mage_Customer_Model_Address_Abstract $object
      * @return $this
      */
+    #[Override]
     public function beforeSave($object)
     {
         $street = $object->getStreet(-1);

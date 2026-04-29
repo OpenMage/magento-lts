@@ -14,6 +14,7 @@
  */
 class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Settings extends Mage_Adminhtml_Block_Widget_Form
 {
+    #[Override]
     protected function _prepareLayout()
     {
         $this->setChild(
@@ -28,6 +29,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Settings extends Mage_Adminh
         return parent::_prepareLayout();
     }
 
+    #[Override]
     protected function _prepareForm()
     {
         $form = new Varien_Data_Form();

@@ -29,9 +29,9 @@ class Varien_Filter_Template_Simple extends Varien_Object implements Zend_Filter
     /**
      * Define start tag and end tag
      *
-     * @param  string                        $start
-     * @param  string                        $end
-     * @return Varien_Filter_Template_Simple
+     * @param  string $start
+     * @param  string $end
+     * @return $this
      */
     public function setTags($start, $end)
     {
@@ -61,7 +61,7 @@ class Varien_Filter_Template_Simple extends Varien_Object implements Zend_Filter
     {
         return preg_replace_callback(
             '#' . $this->_startTag . '(.*?)' . $this->_endTag . '#',
-            [$this, '_filterDataItem'],
+            $this->_filterDataItem(...),
             $value,
         );
     }

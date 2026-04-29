@@ -94,17 +94,13 @@ class Mage_Reports_Model_Resource_Customer_Collection extends Mage_Customer_Mode
     /**
      * Order for each customer
      *
-     * @param  string $from
-     * @param  string $to
+     * @param  string $dateFrom
+     * @param  string $dateTo
      * @return $this
      */
-    public function joinOrders($from = '', $to = '')
+    public function joinOrders($dateFrom = '', $dateTo = '')
     {
-        if ($from != '' && $to != '') {
-            $dateFilter = " AND orders.created_at BETWEEN '{$from}' AND '{$to}'";
-        } else {
-            $dateFilter = '';
-        }
+        $dateFilter = $dateFrom != '' && $dateTo != '' ? " AND orders.created_at BETWEEN '{$dateFrom}' AND '{$dateTo}'" : '';
 
         $this->getSelect()
             ->joinLeft(
@@ -233,6 +229,7 @@ class Mage_Reports_Model_Resource_Customer_Collection extends Mage_Customer_Mode
      *
      * @return $this
      */
+    #[Override]
     protected function _afterLoad()
     {
         $this->_addOrdersStatistics();
@@ -256,6 +253,7 @@ class Mage_Reports_Model_Resource_Customer_Collection extends Mage_Customer_Mode
      *
      * @return Varien_Db_Select
      */
+    #[Override]
     public function getSelectCountSql()
     {
         $countSelect = clone $this->getSelect();

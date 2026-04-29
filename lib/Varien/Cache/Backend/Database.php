@@ -61,10 +61,8 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
     public function __construct($options = [])
     {
         parent::__construct($options);
-        if (empty($this->_options['adapter_callback'])) {
-            if (!($this->_options['adapter'] instanceof Zend_Db_Adapter_Abstract)) {
-                Zend_Cache::throwException('Option "adapter" should be declared and extend Zend_Db_Adapter_Abstract!');
-            }
+        if (empty($this->_options['adapter_callback']) && !($this->_options['adapter'] instanceof Zend_Db_Adapter_Abstract)) {
+            Zend_Cache::throwException('Option "adapter" should be declared and extend Zend_Db_Adapter_Abstract!');
         }
 
         if (empty($this->_options['data_table']) || empty($this->_options['tags_table'])) {
@@ -341,7 +339,7 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
             }
         }
 
-        if (!empty($cacheIdsToRemove)) {
+        if ($cacheIdsToRemove !== []) {
             $result = $result && $this->_deleteCachesFromDataTable($cacheIdsToRemove);
             $result = $result && $this->_deleteCachesFromTagsTable($cacheIdsToRemove);
         }
@@ -539,7 +537,7 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
             $tags = [$tags];
         }
 
-        if (empty($tags)) {
+        if ($tags === []) {
             return true;
         }
 
@@ -553,7 +551,7 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
         $result = true;
         $existingTags = $adapter->fetchCol($select);
         $insertTags = array_diff($tags, $existingTags);
-        if (!empty($insertTags)) {
+        if ($insertTags !== []) {
             $query = 'INSERT IGNORE INTO ' . $tagsTable . ' (tag, cache_id) VALUES ';
             $bind = [];
             $lines = [];
@@ -615,7 +613,7 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
             }
         }
 
-        if (!empty($cacheIdsToRemove)) {
+        if ($cacheIdsToRemove !== []) {
             if ($this->_options['store_data']) {
                 $result = $result && $this->_deleteCachesFromDataTable($cacheIdsToRemove);
             }

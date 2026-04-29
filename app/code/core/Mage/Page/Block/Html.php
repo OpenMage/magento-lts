@@ -42,6 +42,7 @@ class Mage_Page_Block_Html extends Mage_Core_Block_Template
     /**
      * @return string
      */
+    #[Override]
     public function getBaseUrl()
     {
         return $this->_urls['base'];
@@ -91,12 +92,10 @@ class Mage_Page_Block_Html extends Mage_Core_Block_Template
 
         // build url
         if (!empty($logo)) {
-            $logo = Mage::getStoreConfig(Mage_Core_Model_Store::XML_PATH_UNSECURE_BASE_MEDIA_URL) . $logo;
-        } else {
-            $logo = '';
+            return Mage::getStoreConfig(Mage_Core_Model_Store::XML_PATH_UNSECURE_BASE_MEDIA_URL) . $logo;
         }
 
-        return $logo;
+        return '';
     }
 
     /**
@@ -148,7 +147,7 @@ class Mage_Page_Block_Html extends Mage_Core_Block_Template
             $this->setData('lang', substr(Mage::app()->getLocale()->getLocaleCode(), 0, 2));
         }
 
-        return $this->getData('lang');
+        return $this->getDataByKey('lang');
     }
 
     /**
@@ -190,6 +189,7 @@ class Mage_Page_Block_Html extends Mage_Core_Block_Template
      * @param  string $html
      * @return string
      */
+    #[Override]
     protected function _afterToHtml($html)
     {
         return $this->_afterCacheUrl($html);

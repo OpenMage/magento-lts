@@ -34,6 +34,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit extends Mage_Adminhtml_Block_Wid
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareLayout()
     {
         if (!$this->getRequest()->getParam('popup')) {
@@ -218,7 +219,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit extends Mage_Adminhtml_Block_Wid
     {
         $setId = false;
         if (!($setId = $this->getProduct()->getAttributeSetId()) && $this->getRequest()) {
-            return $this->getRequest()->getParam('set', null);
+            return $this->getRequest()->getParam('set');
         }
 
         return $setId;
@@ -294,7 +295,11 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit extends Mage_Adminhtml_Block_Wid
             }
         }
 
-        return !$product->isConfigurable() || $superAttributes !== false;
+        if (!$product->isConfigurable()) {
+            return true;
+        }
+
+        return $superAttributes !== false;
     }
 
     /**

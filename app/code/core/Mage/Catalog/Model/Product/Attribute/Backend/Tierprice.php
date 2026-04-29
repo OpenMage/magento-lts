@@ -29,6 +29,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Tierprice extends Mage_Catalo
      *
      * @inheritDoc
      */
+    #[Override]
     protected function _getAdditionalUniqueFields($objectArray)
     {
         $uniqueFields = parent::_getAdditionalUniqueFields($objectArray);
@@ -52,6 +53,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Tierprice extends Mage_Catalo
      * @param  Mage_Catalog_Model_Product_Type_Price $priceObject
      * @return bool
      */
+    #[Override]
     protected function _isPriceFixed($priceObject)
     {
         return $priceObject->isTierPriceFixed();

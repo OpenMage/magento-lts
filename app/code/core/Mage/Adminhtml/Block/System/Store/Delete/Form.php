@@ -24,11 +24,12 @@ class Mage_Adminhtml_Block_System_Store_Delete_Form extends Mage_Adminhtml_Block
         $this->setTitle(Mage::helper('cms')->__('Block Information'));
     }
 
+    #[Override]
     protected function _prepareForm()
     {
         $dataObject = $this->getDataObject();
 
-        $form = new Varien_Data_Form(['id' => 'edit_form', 'action' => $this->getData('action'), 'method' => 'post']);
+        $form = new Varien_Data_Form(['id' => 'edit_form', 'action' => $this->getDataByKey('action'), 'method' => 'post']);
 
         $form->setHtmlIdPrefix('store_');
 

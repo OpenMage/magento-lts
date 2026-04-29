@@ -37,16 +37,15 @@ class Mage_Adminhtml_Sales_Order_StatusController extends Mage_Adminhtml_Control
     {
         $statusCode = $this->getRequest()->getParam('status');
         if ($statusCode) {
-            $status = Mage::getModel('sales/order_status')->load($statusCode);
-        } else {
-            $status = false;
+            return Mage::getModel('sales/order_status')->load($statusCode);
         }
 
-        return $status;
+        return false;
     }
 
     /**
      * Statuses grid page
+     * @return void
      */
     public function indexAction()
     {
@@ -56,6 +55,7 @@ class Mage_Adminhtml_Sales_Order_StatusController extends Mage_Adminhtml_Control
 
     /**
      * New status form
+     * @return void
      */
     public function newAction()
     {
@@ -74,6 +74,7 @@ class Mage_Adminhtml_Sales_Order_StatusController extends Mage_Adminhtml_Control
 
     /**
      * Editing existing status form
+     * @return void
      */
     public function editAction()
     {
@@ -94,6 +95,7 @@ class Mage_Adminhtml_Sales_Order_StatusController extends Mage_Adminhtml_Control
 
     /**
      * Save status form processing
+     * @return void
      */
     public function saveAction()
     {
@@ -157,6 +159,7 @@ class Mage_Adminhtml_Sales_Order_StatusController extends Mage_Adminhtml_Control
 
     /**
      * Assign status to state form
+     * @return void
      */
     public function assignAction()
     {
@@ -168,6 +171,7 @@ class Mage_Adminhtml_Sales_Order_StatusController extends Mage_Adminhtml_Control
 
     /**
      * Save status assignment to state
+     * @return void
      */
     public function assignPostAction()
     {
@@ -203,6 +207,7 @@ class Mage_Adminhtml_Sales_Order_StatusController extends Mage_Adminhtml_Control
 
     /**
      * Unassign the status from a specific state
+     * @return void
      */
     public function unassignAction()
     {

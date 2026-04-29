@@ -19,6 +19,7 @@ class Mage_Sales_Model_Api2_Order_Rest_Customer_V1 extends Mage_Sales_Model_Api2
      *
      * @return Mage_Sales_Model_Resource_Order_Collection
      */
+    #[Override]
     protected function _getCollectionForRetrieve()
     {
         return parent::_getCollectionForRetrieve()->addAttributeToFilter(
@@ -33,6 +34,7 @@ class Mage_Sales_Model_Api2_Order_Rest_Customer_V1 extends Mage_Sales_Model_Api2
      * @param  int                                        $orderId Order identifier
      * @return Mage_Sales_Model_Resource_Order_Collection
      */
+    #[Override]
     protected function _getCollectionForSingleRetrieve($orderId)
     {
         return parent::_getCollectionForSingleRetrieve($orderId)->addAttributeToFilter(
@@ -47,6 +49,7 @@ class Mage_Sales_Model_Api2_Order_Rest_Customer_V1 extends Mage_Sales_Model_Api2
      * @param  array                                                            $orderIds Orders' identifiers
      * @return Mage_Sales_Model_Resource_Order_Status_History_Collection|Object
      */
+    #[Override]
     protected function _getCommentsCollection(array $orderIds)
     {
         return parent::_getCommentsCollection($orderIds)->addFieldToFilter('is_visible_on_front', 1);

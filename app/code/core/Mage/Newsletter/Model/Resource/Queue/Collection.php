@@ -55,7 +55,7 @@ class Mage_Newsletter_Model_Resource_Queue_Collection extends Mage_Core_Model_Re
     }
 
     /**
-     * Adds subscribers info to selelect
+     * Adds subscribers info to select
      *
      * @return $this
      */
@@ -84,6 +84,7 @@ class Mage_Newsletter_Model_Resource_Queue_Collection extends Mage_Core_Model_Re
      *
      * @inheritDoc
      */
+    #[Override]
     public function load($printQuery = false, $logQuery = false)
     {
         if ($this->_addSubscribersFlag && !$this->isLoaded()) {
@@ -106,10 +107,11 @@ class Mage_Newsletter_Model_Resource_Queue_Collection extends Mage_Core_Model_Re
 
     /**
      * Checks if field is 'subscribers_total', 'subscribers_sent'
-     * to add specific filter or adds reguler filter
+     * to add specific filter or adds regular filter
      *
      * @inheritDoc
      */
+    #[Override]
     public function addFieldToFilter($field, $condition = null)
     {
         if (in_array($field, ['subscribers_total', 'subscribers_sent'])) {
@@ -201,6 +203,7 @@ class Mage_Newsletter_Model_Resource_Queue_Collection extends Mage_Core_Model_Re
      *
      * @return array
      */
+    #[Override]
     public function toOptionArray()
     {
         return $this->_toOptionArray('queue_id', 'template_subject');

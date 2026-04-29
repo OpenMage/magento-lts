@@ -48,6 +48,7 @@ class Mage_Paypal_Model_Resource_Payment_Transaction_Collection extends Mage_Cor
      *
      * @return $this
      */
+    #[Override]
     protected function _beforeLoad()
     {
         parent::_beforeLoad();
@@ -69,6 +70,7 @@ class Mage_Paypal_Model_Resource_Payment_Transaction_Collection extends Mage_Cor
      *
      * @return $this
      */
+    #[Override]
     protected function _afterLoad()
     {
         foreach ($this->_items as $item) {

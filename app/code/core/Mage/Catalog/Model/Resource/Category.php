@@ -108,6 +108,7 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
      * @throws Mage_Eav_Model_Entity_Attribute_Exception
      * @throws Zend_Db_Adapter_Exception
      */
+    #[Override]
     protected function _beforeDelete(Varien_Object $object)
     {
         parent::_beforeDelete($object);
@@ -168,6 +169,7 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
      * @throws Mage_Eav_Model_Entity_Attribute_Exception
      * @throws Zend_Db_Adapter_Exception
      */
+    #[Override]
     protected function _beforeSave(Varien_Object $object)
     {
         parent::_beforeSave($object);
@@ -212,6 +214,7 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
      * @throws Mage_Core_Exception
      * @throws Zend_Db_Adapter_Exception
      */
+    #[Override]
     protected function _afterSave(Varien_Object $object)
     {
         /**
@@ -320,7 +323,7 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
         /**
          * Delete products from category
          */
-        if (!empty($delete)) {
+        if ($delete !== []) {
             $cond = [
                 'product_id IN(?)' => array_keys($delete),
                 'category_id=?' => $categoryId,
@@ -331,7 +334,7 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
         /**
          * Add products to category
          */
-        if (!empty($insert)) {
+        if ($insert !== []) {
             $data = [];
             foreach ($insert as $productId => $position) {
                 $data[] = [
@@ -356,7 +359,7 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
             $adapter->update($this->_categoryProductTable, $bind, $where);
         }
 
-        if (!empty($insert) || !empty($delete)) {
+        if ($insert !== [] || $delete !== []) {
             $productIds = array_unique(array_merge(array_keys($insert), array_keys($delete)));
             Mage::dispatchEvent('catalog_category_change_products', [
                 'category'      => $category,
@@ -364,7 +367,7 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
             ]);
         }
 
-        if (!empty($insert) || !empty($update) || !empty($delete)) {
+        if ($insert !== [] || $update !== [] || $delete !== []) {
             $category->setIsChangedProductList(true);
 
             /**
@@ -436,7 +439,7 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
      */
     public function verifyIds(array $ids)
     {
-        if (empty($ids)) {
+        if ($ids === []) {
             return [];
         }
 
@@ -800,12 +803,7 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
             ->from($this->getTable('core/store_group'), ['group_id'])
             ->where('root_category_id = :root_category_id');
         $result = $this->_getReadAdapter()->fetchOne($select, ['root_category_id' => $categoryId]);
-
-        if ($result) {
-            return true;
-        }
-
-        return false;
+        return (bool) $result;
     }
 
     /**

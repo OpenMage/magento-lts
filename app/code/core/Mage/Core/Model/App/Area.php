@@ -75,8 +75,8 @@ class Mage_Core_Model_App_Area
     /**
      * Load area data
      *
-     * @param  null|string              $part
-     * @return Mage_Core_Model_App_Area
+     * @param  null|string $part
+     * @return $this
      */
     public function load($part = null)
     {
@@ -95,8 +95,8 @@ class Mage_Core_Model_App_Area
     /**
      * Loading part of area
      *
-     * @param  string                   $part
-     * @return Mage_Core_Model_App_Area
+     * @param  string $part
+     * @return $this
      */
     protected function _loadPart($part)
     {
@@ -147,7 +147,7 @@ class Mage_Core_Model_App_Area
     }
 
     /**
-     * @return $this|void
+     * @return null|$this
      * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
      */
@@ -159,7 +159,7 @@ class Mage_Core_Model_App_Area
 
         $designPackage = Mage::getSingleton('core/design_package');
         if ($designPackage->getArea() != self::AREA_FRONTEND) {
-            return;
+            return null;
         }
 
         $currentStore = Mage::app()->getStore()->getStoreId();
@@ -171,5 +171,7 @@ class Mage_Core_Model_App_Area
             $designPackage->setPackageName($designChange->getPackage())
                 ->setTheme($designChange->getTheme());
         }
+
+        return null;
     }
 }

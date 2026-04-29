@@ -8,7 +8,7 @@
  */
 
 /**
- * Billing Agreement abstaract class
+ * Billing Agreement abstract class
  *
  * @package    Mage_Payment
  *
@@ -86,7 +86,7 @@ abstract class Mage_Payment_Model_Billing_AgreementAbstract extends Mage_Core_Mo
             $this->_errors[] = Mage::helper('payment')->__('Reference ID is not set.');
         }
 
-        return empty($this->_errors);
+        return $this->_errors === [];
     }
 
     /**
@@ -95,6 +95,7 @@ abstract class Mage_Payment_Model_Billing_AgreementAbstract extends Mage_Core_Mo
      * @return $this
      * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _beforeSave()
     {
         if ($this->isValid()) {

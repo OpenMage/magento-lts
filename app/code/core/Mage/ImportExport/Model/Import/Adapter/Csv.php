@@ -55,8 +55,9 @@ class Mage_ImportExport_Model_Import_Adapter_Csv extends Mage_ImportExport_Model
     /**
      * Method called as last step of object instance creation. Can be overridden in child classes.
      *
-     * @return Mage_ImportExport_Model_Import_Adapter_Abstract
+     * @return $this
      */
+    #[Override]
     protected function _init()
     {
         $this->_fileHandler = fopen($this->_source, 'r');
@@ -102,6 +103,7 @@ class Mage_ImportExport_Model_Import_Adapter_Csv extends Mage_ImportExport_Model
      * @throws OutOfBoundsException
      */
     #[ReturnTypeWillChange]
+    #[Override]
     public function seek($position)
     {
         if ($position != $this->_currentKey) {

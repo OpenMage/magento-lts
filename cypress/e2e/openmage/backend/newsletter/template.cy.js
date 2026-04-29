@@ -16,7 +16,7 @@ describe(`Checks admin system "${test.index.title}"`, () => {
 
         // TODO: add save and continue functionality
         test.new.__buttons.save.click();
-        validation.hasErrorMessage('You must give a non-empty value for field \'template_code\'', { match: 'have.text' });
+        validation.hasErrorMessage('You must give a non-empty value for field \'template_code\'.', { match: 'have.text' });
     });
 
     it(`tests index route`, () => {
@@ -32,7 +32,8 @@ describe(`Checks admin system "${test.index.title}"`, () => {
         validation.pageElements(test, test.edit);
 
         test.edit.__buttons.reset.click(test.edit.url);
-        test.edit.__buttons.back.click(test.index.url);
+        test.edit.__buttons.save.click(test.index.url);
+        validation.hasSuccessMessage('The template has been saved.');
     });
 
     it(`tests new route`, () => {

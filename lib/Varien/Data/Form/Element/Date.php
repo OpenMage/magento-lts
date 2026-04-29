@@ -94,10 +94,8 @@ class Varien_Data_Form_Element_Date extends Varien_Data_Form_Element_Abstract
         }
 
         // last check, if locale was set
-        if (null === $locale) {
-            if (!$locale = $this->getLocale()) {
-                $locale = null;
-            }
+        if (null === $locale && (!$locale = $this->getLocale())) {
+            $locale = null;
         }
 
         try {
@@ -151,17 +149,19 @@ class Varien_Data_Form_Element_Date extends Varien_Data_Form_Element_Abstract
      *
      * @return string
      */
+    #[Override]
     public function getElementHtml()
     {
         $this->addClass('input-text');
 
         $html = sprintf(
-            '<input name="%s" id="%s" value="%s" %s style="width:110px !important;" />'
+            '<input name="%s" id="%s" value="%s" %s data-test="%s" style="width:110px !important;" />'
             . ' <img src="%s" alt="" class="v-middle" id="%s_trig" title="%s" style="%s" />',
             $this->getName(),
             $this->getHtmlId(),
             $this->_escape($this->getValue()),
             $this->serialize($this->getHtmlAttributes()),
+            $this->getTestId(),
             $this->getImage(),
             $this->getHtmlId(),
             'Select Date',

@@ -36,6 +36,7 @@ class Mage_Adminhtml_Block_Review_Grid extends Mage_Adminhtml_Block_Widget_Grid
      * @inheritDoc
      * @throws Exception
      */
+    #[Override]
     protected function _prepareCollection()
     {
         $model = Mage::getModel('review/review');
@@ -76,6 +77,7 @@ class Mage_Adminhtml_Block_Review_Grid extends Mage_Adminhtml_Block_Widget_Grid
      * @throws Exception
      * @throws Mage_Core_Model_Store_Exception
      */
+    #[Override]
     protected function _prepareColumns()
     {
         $this->addColumn('review_id', [
@@ -209,6 +211,7 @@ class Mage_Adminhtml_Block_Review_Grid extends Mage_Adminhtml_Block_Widget_Grid
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareMassaction()
     {
         $this->setMassactionIdField('review_id');
@@ -251,6 +254,7 @@ class Mage_Adminhtml_Block_Review_Grid extends Mage_Adminhtml_Block_Widget_Grid
      * @inheritDoc
      * @param Mage_Catalog_Model_Product $row
      */
+    #[Override]
     public function getRowUrl($row)
     {
         return $this->getUrl('*/catalog_product_review/edit', [
@@ -264,6 +268,7 @@ class Mage_Adminhtml_Block_Review_Grid extends Mage_Adminhtml_Block_Widget_Grid
     /**
      * @inheritDoc
      */
+    #[Override]
     public function getGridUrl()
     {
         if ($this->getProductId() || $this->getCustomerId()) {

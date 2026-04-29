@@ -12,6 +12,7 @@
  */
 class Mage_Paypal_Block_Standard_Redirect extends Mage_Core_Block_Abstract
 {
+    #[Override]
     protected function _toHtml()
     {
         $standard = Mage::getModel('paypal/standard');

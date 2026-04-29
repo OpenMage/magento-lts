@@ -19,7 +19,7 @@ class Mage_Adminhtml_Block_Sales_Invoice extends Mage_Adminhtml_Block_Widget_Gri
         $this->_controller = 'sales_invoice';
         $this->_headerText = Mage::helper('sales')->__('Invoices');
         parent::__construct();
-        $this->_removeButton('add');
+        $this->_removeButton(self::BUTTON_TYPE_ADD);
     }
 
     public function getPaymentInfoHtml()

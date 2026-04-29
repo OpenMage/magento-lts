@@ -18,9 +18,9 @@
  * @method string          getDir()
  * @method bool            getEditable()
  * @method bool            getEditOnly()
- * @method array           getFilterConditionCallback()
+ * @method array|Closure   getFilterConditionCallback()
  * @method string          getFilterIndex()
- * @method callable        getFrameCallback()
+ * @method array|Closure   getFrameCallback()
  * @method callable|string getGetter()
  * @method string          getHeader()
  * @method string          getHtmlName()
@@ -35,7 +35,9 @@
  * @method $this           setCopyable(bool $value)
  * @method $this           setEditable(bool $value)
  * @method $this           setEditOnly(bool $value)
+ * @method $this           setFilterConditionCallback(array|Closure $value)
  * @method $this           setFormat(string $value)
+ * @method $this           setFrameCallback(array|Closure $value)
  * @method $this           setGetter(callable|string $value)
  * @method $this           setSelected(array $value)
  */
@@ -107,7 +109,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
 
             // Add a custom css class for column
             if ($this->hasData('column_css_class')) {
-                $this->_cssClass .= ' ' . $this->getData('column_css_class');
+                $this->_cssClass .= ' ' . $this->getDataByKey('column_css_class');
             }
 
             if ($this->getEditable()) {
@@ -136,7 +138,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
      */
     public function getHeaderCssClass()
     {
-        $class = $this->getData('header_css_class');
+        $class = $this->getDataByKey('header_css_class');
         if (($this->getSortable() === false) || ($this->getGrid()->getSortable() === false)) {
             $class .= ' no-link';
         }
@@ -185,7 +187,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
          * should return new version of rendered value
          */
         $frameCallback = $this->getFrameCallback();
-        if (is_array($frameCallback)) {
+        if (is_array($frameCallback) || $frameCallback instanceof Closure) {
             $renderedValue = call_user_func($frameCallback, $renderedValue, $row, $this, false);
         }
 
@@ -213,7 +215,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
          * should return new version of rendered value
          */
         $frameCallback = $this->getFrameCallback();
-        if (is_array($frameCallback)) {
+        if (is_array($frameCallback) || $frameCallback instanceof Closure) {
             return call_user_func($frameCallback, $renderedValue, $row, $this, true);
         }
 
@@ -229,13 +231,11 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
      */
     protected function &_applyDecorators($value, $decorators)
     {
-        if (!is_array($decorators)) {
-            if (is_string($decorators)) {
-                $decorators = explode(' ', $decorators);
-            }
+        if (!is_array($decorators) && is_string($decorators)) {
+            $decorators = explode(' ', $decorators);
         }
 
-        if (empty($decorators)) {
+        if ($decorators === []) {
             return $value;
         }
 
@@ -243,7 +243,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
             $value = '<span class="nobr">' . $value . '</span>';
         }
 
-        if (!empty($decorators)) {
+        if ($decorators !== []) {
             return $this->_applyDecorators($value, $decorators);
         }
 
@@ -303,7 +303,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
     public function getRenderer()
     {
         if (!$this->_renderer) {
-            $rendererClass = $this->getData('renderer');
+            $rendererClass = $this->getDataByKey('renderer');
             if (!$rendererClass) {
                 $rendererClass = $this->_getRendererByType();
             }
@@ -358,7 +358,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
     public function getFilter()
     {
         if (!$this->_filter) {
-            $filterClass = $this->getData('filter');
+            $filterClass = $this->getDataByKey('filter');
             if ($filterClass === false) {
                 return false;
             }

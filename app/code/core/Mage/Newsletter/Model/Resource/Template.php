@@ -61,11 +61,7 @@ class Mage_Newsletter_Model_Resource_Template extends Mage_Core_Model_Resource_D
             return $countOfQueue > 0;
         }
 
-        if ($template->getIsSystem()) {
-            return false;
-        }
-
-        return true;
+        return !$template->getIsSystem();
     }
 
     /**
@@ -101,6 +97,7 @@ class Mage_Newsletter_Model_Resource_Template extends Mage_Core_Model_Resource_D
      * @param Mage_Newsletter_Model_Template $object
      * @inheritDoc
      */
+    #[Override]
     protected function _beforeSave(Mage_Core_Model_Abstract $object)
     {
         if ($this->checkCodeUsage($object)) {

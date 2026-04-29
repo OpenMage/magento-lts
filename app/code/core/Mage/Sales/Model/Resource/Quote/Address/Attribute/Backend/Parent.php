@@ -20,6 +20,7 @@ class Mage_Sales_Model_Resource_Quote_Address_Attribute_Backend_Parent extends M
      * @param  Mage_Sales_Model_Quote_Address|Varien_Object $object
      * @return $this
      */
+    #[Override]
     public function afterSave($object)
     {
         parent::afterSave($object);

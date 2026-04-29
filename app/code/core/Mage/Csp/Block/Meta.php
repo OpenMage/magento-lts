@@ -76,9 +76,10 @@ class Mage_Csp_Block_Meta extends Mage_Core_Block_Template
     /**
      * Render CSP meta tag if enabled
      */
+    #[Override]
     protected function _toHtml(): string
     {
-        if (empty($this->directives)) {
+        if ($this->directives === []) {
             return '';
         }
 

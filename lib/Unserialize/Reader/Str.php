@@ -53,11 +53,9 @@ class Unserialize_Reader_Str
             }
         }
 
-        if ($this->_status == self::FINISHED_LENGTH) {
-            if ($char == Unserialize_Parser::SYMBOL_QUOTE) {
-                $this->_status = self::READING_VALUE;
-                return null;
-            }
+        if ($this->_status == self::FINISHED_LENGTH && $char == Unserialize_Parser::SYMBOL_QUOTE) {
+            $this->_status = self::READING_VALUE;
+            return null;
         }
 
         if ($this->_status == self::READING_VALUE) {
@@ -70,10 +68,8 @@ class Unserialize_Reader_Str
                 return null;
             }
 
-            if (strlen($this->_value) == $this->_length) {
-                if ($char == Unserialize_Parser::SYMBOL_SEMICOLON && $prevChar == Unserialize_Parser::SYMBOL_QUOTE) {
-                    return (string) $this->_value;
-                }
+            if (strlen($this->_value) == $this->_length && ($char == Unserialize_Parser::SYMBOL_SEMICOLON && $prevChar == Unserialize_Parser::SYMBOL_QUOTE)) {
+                return (string) $this->_value;
             }
         }
 

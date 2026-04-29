@@ -8,7 +8,7 @@
  */
 
 /**
- * Create Configuranle procuct Settings Tab Block
+ * Create Configurable product Settings Tab Block
  *
  * @package    Mage_Adminhtml
  */
@@ -17,6 +17,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Settings extends Mage_
     /**
      * Prepare block children and data
      */
+    #[Override]
     protected function _prepareLayout()
     {
         $onclick = "setSuperSettings('" . $this->getContinueUrl() . "','attribute-checkbox', 'attributes')";
@@ -56,6 +57,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Settings extends Mage_
      *
      * @return $this
      */
+    #[Override]
     protected function _prepareForm()
     {
         $form = new Varien_Data_Form();

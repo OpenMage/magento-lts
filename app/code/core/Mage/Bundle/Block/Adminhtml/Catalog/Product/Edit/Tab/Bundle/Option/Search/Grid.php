@@ -32,6 +32,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Search_
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _beforeToHtml()
     {
         $this->setId($this->getId() . '_' . $this->getIndex());
@@ -45,6 +46,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Search_
      * @inheritDoc
      * @throws Mage_Core_Model_Store_Exception
      */
+    #[Override]
     protected function _prepareCollection()
     {
         $collection = Mage::getModel('catalog/product')->getCollection()
@@ -81,6 +83,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Search_
      * @throws Mage_Core_Model_Store_Exception
      * @throws Zend_Cache_Exception
      */
+    #[Override]
     protected function _prepareColumns()
     {
         $this->addColumn('id', [
@@ -151,6 +154,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Search_
      * @inheritDoc
      * @throws Exception
      */
+    #[Override]
     public function getGridUrl()
     {
         return $this->getUrl('*/bundle_selection/grid', ['index' => $this->getIndex(), 'productss' => implode(',', $this->_getProducts())]);

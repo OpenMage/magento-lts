@@ -17,6 +17,7 @@ class Mage_Uploader_Block_Multiple extends Mage_Uploader_Block_Abstract
     /**
      * @return $this
      */
+    #[Override]
     protected function _prepareLayout()
     {
         parent::_prepareLayout();

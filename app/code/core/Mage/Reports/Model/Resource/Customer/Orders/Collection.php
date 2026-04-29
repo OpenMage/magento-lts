@@ -17,6 +17,7 @@ class Mage_Reports_Model_Resource_Customer_Orders_Collection extends Mage_Report
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _construct()
     {
         parent::_construct();
@@ -26,30 +27,27 @@ class Mage_Reports_Model_Resource_Customer_Orders_Collection extends Mage_Report
     /**
      * Join fields
      *
-     * @param  string $from
-     * @param  string $to
+     * @param  null|string $dateFrom
+     * @param  null|string $dateTo
      * @return $this
      */
-    protected function _joinFields($from = '', $to = '')
+    protected function _joinFields($dateFrom = '', $dateTo = '')
     {
         $this->joinCustomerName()
             ->groupByCustomer()
             ->addOrdersCount()
-            ->addAttributeToFilter('created_at', ['from' => $from, 'to' => $to, 'datetime' => true]);
+            ->addAttributeToFilter('created_at', ['from' => $dateFrom, 'to' => $dateTo, 'datetime' => true]);
         return $this;
     }
 
     /**
-     * Set date range
-     *
-     * @param  string $from
-     * @param  string $to
-     * @return $this
+     * @inheritDoc
      */
-    public function setDateRange($from, $to)
+    #[Override]
+    public function setDateRange($dateFrom, $dateTo)
     {
         $this->_reset()
-            ->_joinFields($from, $to);
+            ->_joinFields($dateFrom, $dateTo);
         return $this;
     }
 
@@ -59,6 +57,7 @@ class Mage_Reports_Model_Resource_Customer_Orders_Collection extends Mage_Report
      * @param  array $storeIds
      * @return $this
      */
+    #[Override]
     public function setStoreIds($storeIds)
     {
         if ($storeIds) {

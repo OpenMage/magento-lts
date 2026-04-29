@@ -173,6 +173,7 @@ class Varien_Data_Form_Abstract extends Varien_Object
     /**
      * @return array<string, mixed>
      */
+    #[Override]
     public function __toArray(array $arrAttributes = [])
     {
         $res = [];

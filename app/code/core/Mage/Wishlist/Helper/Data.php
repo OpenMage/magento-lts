@@ -334,6 +334,7 @@ class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
      * @param  string                    $helperName
      * @return Mage_Core_Helper_Abstract
      */
+    #[Deprecated(message: 'Use Mage::helper', since: OpenMageVersionInterface::VERSION_20_18_0_0)]
     protected function _getHelperInstance($helperName)
     {
         return Mage::helper($helperName);
@@ -346,6 +347,7 @@ class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
      * @param  array                    $arguments
      * @return Mage_Core_Model_Abstract
      */
+    #[Deprecated(message: 'Use Mage::getSingleton', since: OpenMageVersionInterface::VERSION_20_18_0_0)]
     protected function _getSingletonModel($className, $arguments = [])
     {
         return Mage::getSingleton($className, $arguments);
@@ -396,11 +398,7 @@ class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function isAllow()
     {
-        if ($this->isModuleOutputEnabled() && Mage::getStoreConfig('wishlist/general/active')) {
-            return true;
-        }
-
-        return false;
+        return $this->isModuleOutputEnabled() && Mage::getStoreConfig('wishlist/general/active');
     }
 
     /**
@@ -547,7 +545,7 @@ class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
         if ($productId) {
             $params['product'] = $productId;
             if ($addFormKey) {
-                $params[Mage_Core_Model_Url::FORM_KEY] = $this->_getSingletonModel('core/session')->getFormKey();
+                $params[Mage_Core_Model_Url::FORM_KEY] = Mage::getSingleton('core/session')->getFormKey();
             }
 
             return $this->_getUrlStore($item)->getUrl('wishlist/index/add', $params);
@@ -569,7 +567,7 @@ class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
             'item' => $item->getWishlistItemId(),
         ];
         if ($addFormKey) {
-            $params[Mage_Core_Model_Url::FORM_KEY] = $this->_getSingletonModel('core/session')->getFormKey();
+            $params[Mage_Core_Model_Url::FORM_KEY] = Mage::getSingleton('core/session')->getFormKey();
         }
 
         return $this->_getUrl('wishlist/index/remove', $params);
@@ -584,7 +582,7 @@ class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getAddToCartUrlCustom($item, $addFormKey = true)
     {
-        $continueUrl  = $this->_getHelperInstance('core')->urlEncode(
+        $continueUrl  = $this->urlEncode(
             $this->_getUrl('*/*/*', [
                 '_current'      => true,
                 '_use_rewrite'  => true,
@@ -596,7 +594,7 @@ class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
             Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED => $continueUrl,
         ];
         if ($addFormKey) {
-            $params[Mage_Core_Model_Url::FORM_KEY] = $this->_getSingletonModel('core/session')->getFormKey();
+            $params[Mage_Core_Model_Url::FORM_KEY] = Mage::getSingleton('core/session')->getFormKey();
         }
 
         return $this->_getUrlStore($item)->getUrl('wishlist/index/cart', $params);

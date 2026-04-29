@@ -17,7 +17,7 @@ class Mage_Sales_Model_Order_Config extends Mage_Core_Model_Config_Base
     /**
      * Statuses per state array
      *
-     * @var array
+     * @var array<array-key, array<string, string>>
      */
     protected $_stateStatuses;
 
@@ -114,7 +114,7 @@ class Mage_Sales_Model_Order_Config extends Mage_Core_Model_Config_Base
     /**
      * Retrieve all statuses
      *
-     * @return array
+     * @return array<array-key, string>
      */
     public function getStatuses()
     {
@@ -143,17 +143,13 @@ class Mage_Sales_Model_Order_Config extends Mage_Core_Model_Config_Base
      * Get all possible statuses, or for specified state, or specified states array
      * Add labels by default. Return plain array of statuses, if no labels.
      *
-     * @param  mixed $state
-     * @param  bool  $addLabels
+     * @param  string|string[] $state
+     * @param  bool            $addLabels
      * @return array
      */
     public function getStateStatuses($state, $addLabels = true)
     {
-        if (is_array($state)) {
-            $key = implode('|', $state) . $addLabels;
-        } else {
-            $key = $state . $addLabels;
-        }
+        $key = is_array($state) ? implode('|', $state) . $addLabels : $state . $addLabels;
 
         if (isset($this->_stateStatuses[$key])) {
             return $this->_stateStatuses[$key];

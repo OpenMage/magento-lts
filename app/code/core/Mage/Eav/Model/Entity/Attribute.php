@@ -54,6 +54,7 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
      *
      * @return string
      */
+    #[Override]
     protected function _getDefaultBackendModel()
     {
         return match ($this->getAttributeCode()) {
@@ -70,6 +71,7 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
      *
      * @return string
      */
+    #[Override]
     protected function _getDefaultFrontendModel()
     {
         return parent::_getDefaultFrontendModel();
@@ -80,6 +82,7 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
      *
      * @return string
      */
+    #[Override]
     protected function _getDefaultSourceModel()
     {
         if ($this->getAttributeCode() == 'store_id') {
@@ -126,6 +129,7 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
      * @throws Mage_Core_Exception
      * @throws Mage_Eav_Exception
      */
+    #[Override]
     protected function _beforeSave()
     {
         /*
@@ -181,10 +185,8 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
             }
         }
 
-        if ($this->getBackendType() == 'gallery') {
-            if (!$this->getBackendModel()) {
-                $this->setBackendModel('eav/entity_attribute_backend_media');
-            }
+        if ($this->getBackendType() == 'gallery' && !$this->getBackendModel()) {
+            $this->setBackendModel('eav/entity_attribute_backend_media');
         }
 
         return parent::_beforeSave();
@@ -195,6 +197,7 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
      *
      * @inheritDoc
      */
+    #[Override]
     protected function _afterSave()
     {
         $this->_getResource()->saveInSetIncluding($this);
@@ -280,12 +283,12 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
      */
     public function getStoreLabels()
     {
-        if (!$this->getData('store_labels')) {
+        if (!$this->getDataByKey('store_labels')) {
             $storeLabel = $this->getResource()->getStoreLabelsByAttributeId($this->getId());
             $this->setData('store_labels', $storeLabel);
         }
 
-        return $this->getData('store_labels');
+        return $this->getDataByKey('store_labels');
     }
 
     /**
@@ -298,11 +301,10 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
     public function getStoreLabel($storeId = null)
     {
         if ($this->hasData('store_label')) {
-            return $this->getData('store_label');
+            return $this->getDataByKey('store_label');
         }
 
         $store = Mage::app()->getStore($storeId);
-        $label = false;
         if (!$store->isAdmin()) {
             $labels = $this->getStoreLabels();
             if (isset($labels[$store->getId()])) {

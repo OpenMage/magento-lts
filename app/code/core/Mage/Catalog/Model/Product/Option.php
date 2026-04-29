@@ -328,15 +328,15 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
                 ->setData('product_id', $this->getProduct()->getId())
                 ->setData('store_id', $this->getProduct()->getStoreId());
 
-            if ($this->getData('option_id') == '0') {
+            if ($this->getDataByKey('option_id') == '0') {
                 $this->unsetData('option_id');
             } else {
-                $this->setId($this->getData('option_id'));
+                $this->setId($this->getDataByKey('option_id'));
             }
 
             $isEdit = (bool) $this->getId();
 
-            if ($this->getData('is_delete') == '1') {
+            if ($this->getDataByKey('is_delete') == '1') {
                 if ($isEdit) {
                     $this->getValueInstance()->deleteValue($this->getId());
                     $this->deletePrices($this->getId());
@@ -345,14 +345,14 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
                     $this->delete();
                 }
             } else {
-                if ($this->getData('previous_type') != '') {
-                    $previousType = $this->getData('previous_type');
+                if ($this->getDataByKey('previous_type') != '') {
+                    $previousType = $this->getDataByKey('previous_type');
 
                     /**
                      * if previous option has different group from one is came now
                      * need to remove all data of previous group
                      */
-                    if ($this->getGroupByType($previousType) != $this->getGroupByType($this->getData('type'))) {
+                    if ($this->getGroupByType($previousType) != $this->getGroupByType($this->getDataByKey('type'))) {
                         switch ($this->getGroupByType($previousType)) {
                             case self::OPTION_GROUP_SELECT:
                                 $this->unsetData('values');
@@ -373,7 +373,7 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
                                 break;
                         }
 
-                        if ($this->getGroupByType($this->getData('type')) == self::OPTION_GROUP_SELECT) {
+                        if ($this->getGroupByType($this->getDataByKey('type')) == self::OPTION_GROUP_SELECT) {
                             $this->setData('sku', '');
                             $this->unsetData('price');
                             $this->unsetData('price_type');
@@ -400,11 +400,12 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
      * @throws Exception
      * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _afterSave()
     {
         $this->getValueInstance()->unsetValues();
-        if (is_array($this->getData('values'))) {
-            foreach ($this->getData('values') as $value) {
+        if (is_array($this->getDataByKey('values'))) {
+            foreach ($this->getDataByKey('values') as $value) {
                 $this->getValueInstance()->addValue($value);
             }
 
@@ -565,6 +566,7 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
      *
      * @return $this
      */
+    #[Override]
     protected function _clearData()
     {
         $this->_data = [];
@@ -577,6 +579,7 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
      *
      * @return $this
      */
+    #[Override]
     protected function _clearReferences()
     {
         foreach ($this->_values as $value) {

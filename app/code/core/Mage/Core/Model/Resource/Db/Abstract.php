@@ -69,7 +69,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
     protected $_idFieldName;
 
     /**
-     * Primery key auto increment flag
+     * Primary key auto increment flag
      *
      * @var bool
      */
@@ -83,7 +83,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
     protected $_useIsObjectNew = false;
 
     /**
-     * Fields List for update in forsedSave
+     * Fields List for update in forcedSave
      *
      * @var array
      */
@@ -106,7 +106,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
      *      'title' => 'Field 3 and Field 4 combination should be unique'
      *   )
      * )
-     * or string 'my_field_name' - will be autoconverted to
+     * or string 'my_field_name' - will be auto converted to
      *      array( array( 'field' => 'my_field_name', 'title' => 'my_field_name' ) )
      *
      * @var null|array
@@ -254,20 +254,12 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
         }
 
         if (strpos($entityName, '/')) {
-            if (!is_null($entitySuffix)) {
-                $modelEntity = [$entityName, $entitySuffix];
-            } else {
-                $modelEntity = $entityName;
-            }
+            $modelEntity = is_null($entitySuffix) ? $entityName : [$entityName, $entitySuffix];
 
             $this->_tables[$cacheName] = $this->_resources->getTableName($modelEntity);
         } elseif (!empty($this->_resourceModel)) {
             $entityName = sprintf('%s/%s', $this->_resourceModel, $entityName);
-            if (!is_null($entitySuffix)) {
-                $modelEntity = [$entityName, $entitySuffix];
-            } else {
-                $modelEntity = $entityName;
-            }
+            $modelEntity = is_null($entitySuffix) ? $entityName : [$entityName, $entitySuffix];
 
             $this->_tables[$cacheName] = $this->_resources->getTableName($modelEntity);
         } else {
@@ -407,7 +399,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
         $fields = $this->_getReadAdapter()->describeTable($this->getMainTable());
 
         if (!isset($fields[$field])) {
-            throw new Exception("Column \"$field\" does not exist in table \"{$this->getMainTable()}\"");
+            throw new Exception("Column \"{$field}\" does not exist in table \"{$this->getMainTable()}\"");
         }
 
         $value = $this->_getReadAdapter()->prepareColumnValue($fields[$field], $value);
@@ -560,7 +552,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
     public function unserializeFields(Mage_Core_Model_Abstract $object)
     {
         foreach ($this->_serializableFields as $field => $parameters) {
-            [$serializeDefault, $unserializeDefault] = $parameters;
+            [$ignored, $unserializeDefault] = $parameters;
             $this->_unserializeField($object, $field, $unserializeDefault);
         }
     }
@@ -684,7 +676,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
             }
         }
 
-        if (!empty($existent)) {
+        if ($existent !== []) {
             if (count($existent) == 1) {
                 $error = Mage::helper('core')->__('%s already exists.', $existent[0]);
             } else {
@@ -761,7 +753,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
     protected function _serializeFields(Mage_Core_Model_Abstract $object)
     {
         foreach ($this->_serializableFields as $field => $parameters) {
-            [$serializeDefault, $unserializeDefault] = $parameters;
+            [$serializeDefault, $ignored] = $parameters;
             $this->_serializeField($object, $field, $serializeDefault, isset($parameters[2]));
         }
     }

@@ -11,6 +11,8 @@
  * Emulation model
  *
  * @package    Mage_Core
+ *
+ * @phpstan-import-type ConfigStoreId from Mage
  */
 class Mage_Core_Model_App_Emulation extends Varien_Object
 {
@@ -146,8 +148,8 @@ class Mage_Core_Model_App_Emulation extends Varien_Object
     /**
      * Apply locale of the specified store
      *
-     * @param null|bool|int|Mage_Core_Model_Store|string $storeId
-     * @param string                                     $area
+     * @param ConfigStoreId $storeId
+     * @param string        $area
      *
      * @return string initial locale code
      */
@@ -166,8 +168,8 @@ class Mage_Core_Model_App_Emulation extends Varien_Object
     /**
      * Retrieve config value for store by path
      *
-     * @param  string                                     $path
-     * @param  null|bool|int|Mage_Core_Model_Store|string $store
+     * @param  string        $path
+     * @param  ConfigStoreId $store
      * @return mixed
      */
     protected function _getStoreConfig($path, $store = null)

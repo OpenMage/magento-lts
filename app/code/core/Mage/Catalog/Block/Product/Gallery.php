@@ -17,6 +17,7 @@ class Mage_Catalog_Block_Product_Gallery extends Mage_Core_Block_Template
     /**
      * @return $this
      */
+    #[Override]
     protected function _prepareLayout()
     {
         if ($headBlock = $this->getLayout()->getBlock('head')) {

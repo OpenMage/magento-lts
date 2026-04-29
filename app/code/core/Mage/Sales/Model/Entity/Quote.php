@@ -30,6 +30,7 @@ class Mage_Sales_Model_Entity_Quote extends Mage_Eav_Model_Entity_Abstract
      * @param  int                                  $rowId
      * @return Zend_Db_Select
      */
+    #[Override]
     protected function _getLoadRowSelect($object, $rowId)
     {
         $select = parent::_getLoadRowSelect($object, $rowId);

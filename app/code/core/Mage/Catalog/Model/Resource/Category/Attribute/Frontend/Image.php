@@ -26,6 +26,6 @@ class Mage_Catalog_Model_Resource_Category_Attribute_Frontend_Image extends Mage
             return Mage::getBaseUrl('media') . self::IMAGE_PATH_SEGMENT . $image;
         }
 
-        return null ;
+        return null;
     }
 }

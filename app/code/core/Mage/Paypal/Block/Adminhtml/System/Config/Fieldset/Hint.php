@@ -28,7 +28,7 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Hint extends Mage_Admin
             $this->setHelpLink($elementOriginalData['help_link']);
         }
 
-        $js = '
+        $str = '
             paypalToggleSolution = function(id, url) {
                 var doScroll = false;
                 Fieldset.toggleCollapse(id, url);
@@ -76,6 +76,6 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Hint extends Mage_Admin
 
         /** @var Mage_Adminhtml_Helper_Js $helper */
         $helper = $this->helper('adminhtml/js');
-        return $this->toHtml() . $helper->getScript($js);
+        return $this->toHtml() . $helper->getScript($str);
     }
 }

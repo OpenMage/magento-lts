@@ -158,13 +158,12 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
      *
      * @return $this
      */
+    #[Override]
     protected function _beforeSave()
     {
         $this->_dataSaveAllowed = true;
-        if ($this->getId()) {
-            if ($this->getLastModified() == $this->getReportLastModified()) {
-                $this->_dataSaveAllowed = false;
-            }
+        if ($this->getId() && $this->getLastModified() == $this->getReportLastModified()) {
+            $this->_dataSaveAllowed = false;
         }
 
         $this->setLastModified($this->getReportLastModified());
@@ -252,9 +251,9 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
         $rowMap = $this->_csvColumns[$format]['rowmap'];
 
         $flippedSectionColumns = array_flip($sectionColumns);
-        $fp = fopen($localCsv, 'r');
-        while ($line = fgetcsv($fp, 0, ',', '"', '\\')) {
-            if (empty($line)) { // The line was empty, so skip it.
+        $resource = fopen($localCsv, 'r');
+        while ($line = fgetcsv($resource, 0, ',', '"', '\\')) {
+            if ($line === []) { // The line was empty, so skip it.
                 continue;
             }
 
@@ -381,7 +380,11 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
                 'password'  => $store->getConfig('paypal/fetch_reports/ftp_password'),
                 'sandbox'   => $store->getConfig('paypal/fetch_reports/ftp_sandbox'),
             ];
-            if (empty($cfg['username']) || empty($cfg['password'])) {
+            if (empty($cfg['username'])) {
+                continue;
+            }
+
+            if (empty($cfg['password'])) {
                 continue;
             }
 

@@ -21,6 +21,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Grid extends Mage_Eav_Block
      *
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareCollection()
     {
         $collection = Mage::getResourceModel('catalog/product_attribute_collection')
@@ -36,6 +37,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Grid extends Mage_Eav_Block
      * @return $this
      * @throws Exception
      */
+    #[Override]
     protected function _prepareColumns()
     {
         parent::_prepareColumns();

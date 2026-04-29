@@ -26,6 +26,7 @@ class Mage_Payment_Block_Info extends Mage_Core_Block_Template
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _construct()
     {
         parent::_construct();
@@ -39,7 +40,7 @@ class Mage_Payment_Block_Info extends Mage_Core_Block_Template
      */
     public function getInfo()
     {
-        $info = $this->getData('info');
+        $info = $this->getDataByKey('info');
         if (!($info instanceof Mage_Payment_Model_Info)) {
             Mage::throwException($this->__('Cannot retrieve the payment info model object.'));
         }

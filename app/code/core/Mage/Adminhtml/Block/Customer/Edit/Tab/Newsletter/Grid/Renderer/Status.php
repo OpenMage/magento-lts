@@ -28,6 +28,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Newsletter_Grid_Renderer_Status ext
         parent::__construct();
     }
 
+    #[Override]
     public function render(Varien_Object $row)
     {
         return Mage::helper('customer')->__(self::getStatus($row->getQueueStatus()));

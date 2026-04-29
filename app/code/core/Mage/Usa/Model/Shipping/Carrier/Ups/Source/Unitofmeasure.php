@@ -16,7 +16,7 @@ class Mage_Usa_Model_Shipping_Carrier_Ups_Source_Unitofmeasure
     {
         $unitArr = Mage::getSingleton('usa/shipping_carrier_ups')->getCode('unit_of_measure');
         $returnArr = [];
-        foreach ($unitArr as $key => $val) {
+        foreach (array_keys($unitArr) as $key) {
             $returnArr[] = ['value' => $key,'label' => $key];
         }
 

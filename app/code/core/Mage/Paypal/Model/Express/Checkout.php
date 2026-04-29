@@ -7,8 +7,6 @@
  * @package    Mage_Paypal
  */
 
-use Carbon\Carbon;
-
 /**
  * Wrapper that performs Paypal Express and Checkout communication
  * Use current Paypal Express method instance
@@ -359,14 +357,15 @@ class Mage_Paypal_Model_Express_Checkout
         ;
 
         // add shipping options if needed and line items are available
-        if ($this->_config->lineItemsEnabled && $this->_config->transferShippingOptions && $paypalCart->getItems()) {
-            if (!$this->_quote->getIsVirtual() && !$this->_quote->hasNominalItems()) {
-                if ($options = $this->_prepareShippingOptions($address, true)) {
-                    $this->_api->setShippingOptionsCallbackUrl(
-                        Mage::getUrl('*/*/shippingOptionsCallback', ['quote_id' => $this->_quote->getId()]),
-                    )->setShippingOptions($options);
-                }
-            }
+        if ($this->_config->lineItemsEnabled
+            && $this->_config->transferShippingOptions
+            && $paypalCart->getItems()
+            && (!$this->_quote->getIsVirtual() && !$this->_quote->hasNominalItems())
+            && $options = $this->_prepareShippingOptions($address, true)
+        ) {
+            $this->_api->setShippingOptionsCallbackUrl(
+                Mage::getUrl('*/*/shippingOptionsCallback', ['quote_id' => $this->_quote->getId()]),
+            )->setShippingOptions($options);
         }
 
         // add recurring payment profiles information
@@ -462,11 +461,11 @@ class Mage_Paypal_Model_Express_Checkout
 
                 // import shipping method
                 $code = '';
-                if ($this->_api->getShippingRateCode()) {
-                    if ($code = $this->_matchShippingMethodCode($shippingAddress, $this->_api->getShippingRateCode())) {
-                        // possible bug of double collecting rates :-/
-                        $shippingAddress->setShippingMethod($code)->setCollectShippingRates(true);
-                    }
+                if ($this->_api->getShippingRateCode()
+                    && $code = $this->_matchShippingMethodCode($shippingAddress, $this->_api->getShippingRateCode())
+                ) {
+                    // possible bug of double collecting rates :-/
+                    $shippingAddress->setShippingMethod($code)->setCollectShippingRates(true);
                 }
 
                 $quote->getPayment()->setAdditionalInformation(
@@ -500,7 +499,7 @@ class Mage_Paypal_Model_Express_Checkout
         }
 
         $this->_setExportedAddressData($billingAddress, $exportedBillingAddress);
-        $billingAddress->setCustomerNotes($exportedBillingAddress->getData('note'));
+        $billingAddress->setCustomerNotes($exportedBillingAddress->getDataByKey('note'));
         $quote->setBillingAddress($billingAddress);
 
         // import payment info
@@ -586,12 +585,13 @@ class Mage_Paypal_Model_Express_Checkout
      */
     public function updateShippingMethod($methodCode)
     {
-        if (!$this->_quote->getIsVirtual() && $shippingAddress = $this->_quote->getShippingAddress()) {
-            if ($methodCode != $shippingAddress->getShippingMethod()) {
-                $this->_ignoreAddressValidation();
-                $shippingAddress->setShippingMethod($methodCode)->setCollectShippingRates(true);
-                $this->_quote->collectTotals()->save();
-            }
+        if (!$this->_quote->getIsVirtual()
+            && ($shippingAddress = $this->_quote->getShippingAddress())
+            && $methodCode != $shippingAddress->getShippingMethod()
+        ) {
+            $this->_ignoreAddressValidation();
+            $shippingAddress->setShippingMethod($methodCode)->setCollectShippingRates(true);
+            $this->_quote->collectTotals()->save();
         }
     }
 
@@ -804,8 +804,7 @@ class Mage_Paypal_Model_Express_Checkout
         $isRequested = $this->_isBARequested || $this->_quote->getPayment()
             ->getAdditionalInformation(self::PAYMENT_INFO_TRANSPORT_BILLING_AGREEMENT);
 
-        if (!($this->_config->allow_ba_signup == Mage_Paypal_Model_Config::EC_BA_SIGNUP_AUTO
-            || $isRequested && $this->_config->shouldAskToCreateBillingAgreement())
+        if ($this->_config->allow_ba_signup != Mage_Paypal_Model_Config::EC_BA_SIGNUP_AUTO && !($isRequested && $this->_config->shouldAskToCreateBillingAgreement())
         ) {
             return $this;
         }
@@ -902,7 +901,7 @@ class Mage_Paypal_Model_Express_Checkout
 
         // Magento will transfer only first 10 cheapest shipping options if there are more than 10 available.
         if (count($options) > 10) {
-            usort($options, [static::class,'cmpShippingOptions']);
+            usort($options, static::cmpShippingOptions(...));
             array_splice($options, 10);
             // User selected option will be always included in options list
             if (!is_null($userSelectedOption) && !in_array($userSelectedOption, $options, true)) {
@@ -1016,7 +1015,7 @@ class Mage_Paypal_Model_Express_Checkout
         }
 
         /**
-         * @todo integration with dynamica attributes customer_dob, customer_taxvat, customer_gender
+         * @todo integration with dynamic attributes customer_dob, customer_taxvat, customer_gender
          */
         if ($quote->getCustomerDob() && !$billing->getCustomerDob()) {
             $billing->setCustomerDob($quote->getCustomerDob());
@@ -1039,7 +1038,7 @@ class Mage_Paypal_Model_Express_Checkout
         $customer->setSuffix($quote->getCustomerSuffix());
         $customer->setPassword($customer->decryptPassword($quote->getPasswordHash()));
         $customer->setPasswordHash($customer->hashPassword($customer->getPassword()));
-        $customer->setPasswordCreatedAt(Carbon::now()->getTimestamp());
+        $customer->setPasswordCreatedAt(Mage::helper('core/clock')->getTimestamp());
         $customer->save();
 
         $quote->setCustomer($customer);

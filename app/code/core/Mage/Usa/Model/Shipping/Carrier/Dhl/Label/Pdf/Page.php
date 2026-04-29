@@ -49,6 +49,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_Page extends Zend_Pdf_Page
      *
      * @return string
      */
+    #[Override]
     public function getContents()
     {
         return $this->_contents;
@@ -77,17 +78,10 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_Page extends Zend_Pdf_Page
     }
 
     /**
-     * Draw a line of text at the specified position.
-     *
-     * @param  string                    $text
-     * @param  float                     $x
-     * @param  float                     $y
-     * @param  string                    $charEncoding (optional) Character encoding of source text.
-     *                                                 Defaults to current locale.
-     * @param                            $align
-     * @return Zend_Pdf_Canvas_Interface
-     * @throws Zend_Pdf_Exception
+     * @inheritDoc
+     * @SuppressWarnings("PHPMD.ShortVariable")
      */
+    #[Override]
     public function drawText($text, $x, $y, $charEncoding = 'UTF-8', $align = self::ALIGN_LEFT)
     {
         $left = null;
@@ -118,7 +112,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_Page extends Zend_Pdf_Page
      * @param  int                    $xAxis
      * @param  int                    $yAxis
      * @param  int                    $maxWidth - number of symbols
-     * @param  string                 $align
+     * @param  self::ALIGN_*          $align
      * @return float
      * @throws Zend_Pdf_Exception
      */

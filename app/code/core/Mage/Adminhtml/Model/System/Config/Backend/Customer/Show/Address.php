@@ -19,6 +19,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Customer_Show_Address extends M
      *
      * @return array
      */
+    #[Override]
     protected function _getAttributeObjects()
     {
         $result = parent::_getAttributeObjects();

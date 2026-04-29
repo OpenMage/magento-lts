@@ -33,7 +33,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form_Address extends Mage_Adminhtm
         $countries = explode(',', Mage::getStoreConfig('general/country/allow', Mage::getSingleton('adminhtml/session_quote')->getStoreId()));
 
         foreach ($this->getCustomer()->getAddresses() as $address) {
-            if (in_array($address->getData('country_id'), $countries)) {
+            if (in_array($address->getDataByKey('country_id'), $countries)) {
                 $addresses[$address->getId()] = $address;
             }
         }
@@ -188,6 +188,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form_Address extends Mage_Adminhtm
      *
      * @return $this
      */
+    #[Override]
     protected function _addAdditionalFormElementData(Varien_Data_Form_Element_Abstract $element)
     {
         if ($element->getId() === 'region_id') {
@@ -200,7 +201,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form_Address extends Mage_Adminhtm
     /**
      * Return customer address id
      *
-     * @return false
+     * @return false|int
      */
     public function getAddressId()
     {

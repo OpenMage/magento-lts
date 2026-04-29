@@ -53,6 +53,7 @@ class Mage_Catalog_Block_Product_Widget_New extends Mage_Catalog_Block_Product_N
     /**
      * Initialize block's cache and template settings
      */
+    #[Override]
     protected function _construct()
     {
         parent::_construct();
@@ -64,6 +65,7 @@ class Mage_Catalog_Block_Product_Widget_New extends Mage_Catalog_Block_Product_N
      *
      * @return Mage_Catalog_Model_Resource_Product_Collection|Object|Varien_Data_Collection
      */
+    #[Override]
     protected function _getProductCollection()
     {
         return match ($this->getDisplayType()) {
@@ -94,6 +96,7 @@ class Mage_Catalog_Block_Product_Widget_New extends Mage_Catalog_Block_Product_N
      *
      * @return array
      */
+    #[Override]
     public function getCacheKeyInfo()
     {
         return array_merge(parent::getCacheKeyInfo(), [
@@ -114,7 +117,7 @@ class Mage_Catalog_Block_Product_Widget_New extends Mage_Catalog_Block_Product_N
             $this->setData('display_type', self::DISPLAY_TYPE_ALL_PRODUCTS);
         }
 
-        return $this->getData('display_type');
+        return $this->getDataByKey('display_type');
     }
 
     /**
@@ -122,13 +125,14 @@ class Mage_Catalog_Block_Product_Widget_New extends Mage_Catalog_Block_Product_N
      *
      * @return int
      */
+    #[Override]
     public function getProductsCount()
     {
         if (!$this->hasData('products_count')) {
             return parent::getProductsCount();
         }
 
-        return $this->getData('products_count');
+        return $this->getDataByKey('products_count');
     }
 
     /**
@@ -142,7 +146,7 @@ class Mage_Catalog_Block_Product_Widget_New extends Mage_Catalog_Block_Product_N
             $this->setData('products_per_page', self::DEFAULT_PRODUCTS_PER_PAGE);
         }
 
-        return $this->getData('products_per_page');
+        return $this->getDataByKey('products_per_page');
     }
 
     /**
@@ -156,7 +160,7 @@ class Mage_Catalog_Block_Product_Widget_New extends Mage_Catalog_Block_Product_N
             $this->setData('show_pager', self::DEFAULT_SHOW_PAGER);
         }
 
-        return (bool) $this->getData('show_pager');
+        return (bool) $this->getDataByKey('show_pager');
     }
 
     /**

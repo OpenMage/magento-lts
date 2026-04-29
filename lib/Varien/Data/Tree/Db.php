@@ -179,6 +179,7 @@ class Varien_Data_Tree_Db extends Varien_Data_Tree
      * @return Varien_Data_Tree_Node
      * @throws Zend_Db_Adapter_Exception
      */
+    #[Override]
     public function appendChild($data, $parentNode, $prevNode = null)
     {
         $orderSelect = $this->_conn->select();
@@ -300,6 +301,7 @@ class Varien_Data_Tree_Db extends Varien_Data_Tree
      * @return $this|Varien_Data_Tree
      * @throws Exception
      */
+    #[Override]
     public function removeNode($node)
     {
         // For reorder old node branch

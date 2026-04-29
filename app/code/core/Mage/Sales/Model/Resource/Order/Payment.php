@@ -42,6 +42,7 @@ class Mage_Sales_Model_Resource_Order_Payment extends Mage_Sales_Model_Resource_
      * @param string $field
      * @param mixed  $defaultValue
      */
+    #[Override]
     protected function _unserializeField(Varien_Object $object, $field, $defaultValue = null)
     {
         $value = $object->getData($field);
@@ -52,8 +53,8 @@ class Mage_Sales_Model_Resource_Order_Payment extends Mage_Sales_Model_Resource_
             try {
                 $unserializedValue = Mage::helper('core/unserializeArray')
                 ->unserialize($value);
-            } catch (Exception $e) {
-                Mage::logException($e);
+            } catch (Exception $exception) {
+                Mage::logException($exception);
             }
 
             $object->setData($field, $unserializedValue);

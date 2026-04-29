@@ -45,13 +45,12 @@ class Varien_Simplexml_Element extends SimpleXMLElement
     public function getParent()
     {
         if (!empty($this->_parent)) {
-            $parent = $this->_parent;
-        } else {
-            $arr = $this->xpath('..');
-            $parent = $arr[0];
+            return $this->_parent;
         }
 
-        return $parent;
+        $arr = $this->xpath('..');
+
+        return $arr[0];
     }
 
     /**
@@ -325,7 +324,7 @@ class Varien_Simplexml_Element extends SimpleXMLElement
      * Appends $source to current node
      *
      * @param  Varien_Simplexml_Element $source
-     * @return Varien_Simplexml_Element
+     * @return $this
      */
     public function appendChild($source)
     {
@@ -357,7 +356,7 @@ class Varien_Simplexml_Element extends SimpleXMLElement
      *
      * @param  Varien_Simplexml_Element $source
      * @param  bool                     $overwrite
-     * @return Varien_Simplexml_Element
+     * @return $this
      */
     public function extend($source, $overwrite = false)
     {
@@ -377,7 +376,7 @@ class Varien_Simplexml_Element extends SimpleXMLElement
      *
      * @param  Varien_Simplexml_Element $source
      * @param  bool                     $overwrite
-     * @return Varien_Simplexml_Element
+     * @return $this
      */
     public function extendChild($source, $overwrite = false)
     {

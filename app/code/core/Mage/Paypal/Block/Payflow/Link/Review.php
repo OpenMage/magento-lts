@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -20,6 +22,7 @@ class Mage_Paypal_Block_Payflow_Link_Review extends Mage_Paypal_Block_Express_Re
      *
      * @inheritDoc
      */
+    #[Override]
     protected function _beforeToHtml()
     {
         return parent::_beforeToHtml();

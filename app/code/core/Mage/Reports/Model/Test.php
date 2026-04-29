@@ -93,7 +93,7 @@ class Mage_Reports_Model_Test extends Varien_Object
     public function getNewLinearData()
     {
         $session = Mage::getModel('review/session');
-        $startPoint = $session->getData('startPoint');
+        $startPoint = $session->getDataByKey('startPoint');
         $reset = 12;
         $format = 'Y-m-d H:i';
 

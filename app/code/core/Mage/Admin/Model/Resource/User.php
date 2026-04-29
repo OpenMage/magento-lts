@@ -25,6 +25,7 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
     /**
      * @return $this
      */
+    #[Override]
     protected function _initUniqueFields()
     {
         $this->_uniqueFields = [
@@ -126,6 +127,7 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
      * @param Mage_Admin_Model_User $object
      * @inheritDoc
      */
+    #[Override]
     protected function _beforeSave(Mage_Core_Model_Abstract $object)
     {
         if ($object->isObjectNew()) {
@@ -143,6 +145,7 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
      * @param  Mage_Admin_Model_User $object
      * @return $this
      */
+    #[Override]
     protected function _afterSave(Mage_Core_Model_Abstract $object)
     {
         $this->_unserializeExtraData($object);
@@ -155,6 +158,7 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
      * @param Mage_Admin_Model_User $object
      * @inheritDoc
      */
+    #[Override]
     protected function _afterLoad(Mage_Core_Model_Abstract $object)
     {
         return parent::_afterLoad($this->_unserializeExtraData($object));
@@ -168,6 +172,7 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
      * @throws Exception
      * @throws Throwable
      */
+    #[Override]
     public function delete(Mage_Core_Model_Abstract $object)
     {
         $this->_beforeDelete($object);
@@ -218,11 +223,7 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
             $adapter->delete($this->getTable('admin/role'), $conditions);
             foreach ($rolesIds as $rid) {
                 $rid = (int) $rid;
-                if ($rid > 0) {
-                    $role = Mage::getModel('admin/role')->load($rid);
-                } else {
-                    $role = new Varien_Object(['tree_level' => 0]);
-                }
+                $role = $rid > 0 ? Mage::getModel('admin/role')->load($rid) : new Varien_Object(['tree_level' => 0]);
 
                 $data = new Varien_Object([
                     'parent_id'  => $rid,
@@ -272,10 +273,10 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
                     ->from($table, [])
                     ->joinLeft(
                         ['ar' => $table],
-                        "(ar.role_id = $table.parent_id and ar.role_type = 'G')",
+                        "(ar.role_id = {$table}.parent_id and ar.role_type = 'G')",
                         ['role_id'],
                     )
-                    ->where("$table.user_id = :user_id");
+                    ->where("{$table}.user_id = :user_id");
 
         $binds = [
             'user_id' => (int) $user->getId(),

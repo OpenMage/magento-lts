@@ -104,9 +104,10 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Deprecated extends Mage
      *
      * @return string
      */
+    #[Override]
     public function render(Varien_Data_Form_Element_Abstract $element)
     {
-        $isPaymentEnabled = $this->_isPaymentEnabled($element, [$this, 'isPaymentEnabledAnyScope']);
+        $isPaymentEnabled = $this->_isPaymentEnabled($element, $this->isPaymentEnabledAnyScope(...));
         if ($this->_wasActive($element) && $isPaymentEnabled) {
             return parent::render($element);
         }

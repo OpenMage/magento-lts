@@ -25,30 +25,30 @@ class Mage_SalesRule_Model_Resource_Report_Rule_Createdat extends Mage_Reports_M
     /**
      * Aggregate Coupons data by order created at
      *
-     * @param  mixed $from
-     * @param  mixed $to
+     * @param  null|string $dateFrom
+     * @param  null|string $dateTo
      * @return $this
      */
-    public function aggregate($from = null, $to = null)
+    public function aggregate($dateFrom = null, $dateTo = null)
     {
-        return $this->_aggregateByOrder('created_at', $from, $to);
+        return $this->_aggregateByOrder('created_at', $dateFrom, $dateTo);
     }
 
     /**
      * Aggregate coupons reports by orders
      *
-     * @param  string    $aggregationField
-     * @param  mixed     $from
-     * @param  mixed     $to
+     * @param  string      $aggregationField
+     * @param  null|string $dateFrom
+     * @param  null|string $dateTo
      * @return $this
      * @throws Exception
      */
-    protected function _aggregateByOrder($aggregationField, $from, $to)
+    protected function _aggregateByOrder($aggregationField, $dateFrom, $dateTo)
     {
-        $from = $this->_dateToUtc($from);
-        $to   = $this->_dateToUtc($to);
+        $dateFrom = $this->_dateToUtc($dateFrom);
+        $dateTo   = $this->_dateToUtc($dateTo);
 
-        $this->_checkDates($from, $to);
+        $this->_checkDates($dateFrom, $dateTo);
 
         $table = $this->getMainTable();
         $sourceTable = $this->getTable('sales/order');
@@ -56,17 +56,17 @@ class Mage_SalesRule_Model_Resource_Report_Rule_Createdat extends Mage_Reports_M
         $adapter->beginTransaction();
 
         try {
-            if ($from !== null || $to !== null) {
-                $subSelect = $this->_getTableDateRangeSelect($sourceTable, 'created_at', 'updated_at', $from, $to);
+            if ($dateFrom !== null || $dateTo !== null) {
+                $subSelect = $this->_getTableDateRangeSelect($sourceTable, 'created_at', 'updated_at', $dateFrom, $dateTo);
             } else {
                 $subSelect = null;
             }
 
-            $this->_clearTableByDateRange($table, $from, $to, $subSelect);
+            $this->_clearTableByDateRange($table, $dateFrom, $dateTo, $subSelect);
 
             // convert dates from UTC to current admin timezone
             $periodExpr = $adapter->getDatePartSql(
-                $this->getStoreTZOffsetQuery($sourceTable, $aggregationField, $from, $to),
+                $this->getStoreTZOffsetQuery($sourceTable, $aggregationField, $dateFrom, $dateTo),
             );
 
             $columns = [

@@ -64,12 +64,9 @@ class Mage_Reports_Model_Resource_Product_Downloads_Collection extends Mage_Cata
     }
 
     /**
-     * Add sorting
-     *
-     * @param  string $attribute
-     * @param  string $dir
-     * @return $this
+     * @inheritDoc
      */
+    #[Override]
     public function setOrder($attribute, $dir = self::SORT_ORDER_DESC)
     {
         if (in_array($attribute, ['purchases', 'downloads', 'link_title'])) {
@@ -88,6 +85,7 @@ class Mage_Reports_Model_Resource_Product_Downloads_Collection extends Mage_Cata
      * @param  string $condition
      * @return $this
      */
+    #[Override]
     public function addFieldToFilter($field, $condition = null)
     {
         if ($field == 'link_title') {

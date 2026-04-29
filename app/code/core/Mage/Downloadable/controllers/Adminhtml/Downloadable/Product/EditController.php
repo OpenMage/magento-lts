@@ -19,6 +19,7 @@ class Mage_Downloadable_Adminhtml_Downloadable_Product_EditController extends Ma
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _construct()
     {
         $this->setUsedModuleName('Mage_Downloadable');
@@ -26,6 +27,7 @@ class Mage_Downloadable_Adminhtml_Downloadable_Product_EditController extends Ma
 
     /**
      * Load downloadable tab fieldsets
+     * @return void
      */
     public function formAction()
     {
@@ -80,6 +82,7 @@ class Mage_Downloadable_Adminhtml_Downloadable_Product_EditController extends Ma
      * Download link action
      *
      * @SuppressWarnings("PHPMD.ExitExpression")
+     * @return void
      */
     public function linkAction()
     {

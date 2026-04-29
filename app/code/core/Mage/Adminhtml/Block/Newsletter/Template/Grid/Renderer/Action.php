@@ -20,6 +20,7 @@ class Mage_Adminhtml_Block_Newsletter_Template_Grid_Renderer_Action extends Mage
      * @param  Mage_Newsletter_Model_Template $row
      * @return string
      */
+    #[Override]
     public function render(Varien_Object $row)
     {
         if ($row->isValidForSend()) {

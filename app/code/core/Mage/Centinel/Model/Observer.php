@@ -25,8 +25,8 @@ class Mage_Centinel_Model_Observer extends Varien_Object
         $payment = $observer->getEvent()->getQuote()->getPayment();
 
         if ($payment->getMethodInstance()->getIsCentinelValidationEnabled()) {
-            $to = [$payment, 'setAdditionalInformation'];
-            $payment->getMethodInstance()->getCentinelValidator()->exportCmpiData($to);
+            $target = [$payment, 'setAdditionalInformation'];
+            $payment->getMethodInstance()->getCentinelValidator()->exportCmpiData($target);
         }
 
         return $this;

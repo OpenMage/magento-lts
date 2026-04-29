@@ -51,8 +51,9 @@ abstract class Mage_Rule_Model_Resource_Rule_Collection_Abstract extends Mage_Co
     /**
      * Add website ids to rules data
      *
-     * @return Mage_Rule_Model_Resource_Rule_Collection_Abstract
+     * @return $this
      */
+    #[Override]
     protected function _afterLoad()
     {
         parent::_afterLoad();
@@ -70,11 +71,11 @@ abstract class Mage_Rule_Model_Resource_Rule_Collection_Abstract extends Mage_Co
      *
      * @param null|bool $flag
      *
-     * @return Mage_Rule_Model_Resource_Rule_Collection_Abstract
+     * @return $this
      */
     public function addWebsitesToResult($flag = null)
     {
-        $flag = $flag ?? true;
+        $flag ??= true;
         $this->setFlag('add_websites_to_result', $flag);
         return $this;
     }
@@ -84,7 +85,7 @@ abstract class Mage_Rule_Model_Resource_Rule_Collection_Abstract extends Mage_Co
      *
      * @param array|int|Mage_Core_Model_Website $websiteId
      *
-     * @return Mage_Rule_Model_Resource_Rule_Collection_Abstract
+     * @return $this
      */
     public function addWebsiteFilter($websiteId)
     {
@@ -115,6 +116,7 @@ abstract class Mage_Rule_Model_Resource_Rule_Collection_Abstract extends Mage_Co
      *
      * @return Mage_Rule_Model_Resource_Rule_Collection_Abstract
      */
+    #[Override]
     public function addFieldToFilter($field, $condition = null)
     {
         if ($field == 'website_ids') {
@@ -130,7 +132,7 @@ abstract class Mage_Rule_Model_Resource_Rule_Collection_Abstract extends Mage_Co
      *
      * @param int $isActive
      *
-     * @return Mage_Rule_Model_Resource_Rule_Collection_Abstract
+     * @return $this
      */
     public function addIsActiveFilter($isActive = 1)
     {
@@ -188,7 +190,7 @@ abstract class Mage_Rule_Model_Resource_Rule_Collection_Abstract extends Mage_Co
     /**
      * Set filter for the collection based on the environment
      *
-     * @return Mage_Rule_Model_Resource_Rule_Collection_Abstract
+     * @return $this
      * @deprecated after 1.6.2.0
      */
     public function setActiveFilter()
@@ -199,7 +201,7 @@ abstract class Mage_Rule_Model_Resource_Rule_Collection_Abstract extends Mage_Co
     /**
      * Process the quote with all the rules in collection
      *
-     * @return Mage_Rule_Model_Resource_Rule_Collection_Abstract
+     * @return $this
      * @deprecated after 1.6.2.0
      */
     public function process()

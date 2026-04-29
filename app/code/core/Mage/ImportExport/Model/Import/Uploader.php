@@ -115,14 +115,11 @@ class Mage_ImportExport_Model_Import_Uploader extends Mage_Core_Model_File_Uploa
     /**
      * Validate uploaded file by type and etc.
      */
+    #[Override]
     protected function _validateFile()
     {
         $filePath = $this->_file['tmp_name'];
-        if (is_readable($filePath)) {
-            $this->_fileExists = true;
-        } else {
-            $this->_fileExists = false;
-        }
+        $this->_fileExists = is_readable($filePath);
 
         $fileExtension = pathinfo($filePath, PATHINFO_EXTENSION);
         if (!$this->checkAllowedExtension($fileExtension)) {
@@ -211,6 +208,7 @@ class Mage_ImportExport_Model_Import_Uploader extends Mage_Core_Model_File_Uploa
      * @param  string $destPath
      * @return bool
      */
+    #[Override]
     protected function _moveFile($tmpPath, $destPath)
     {
         $sourceFile = realpath($tmpPath);

@@ -35,6 +35,7 @@ class Mage_Adminhtml_Permissions_VariableController extends Mage_Adminhtml_Contr
 
     /**
      * Index action
+     * @return void
      */
     public function indexAction()
     {
@@ -50,6 +51,7 @@ class Mage_Adminhtml_Permissions_VariableController extends Mage_Adminhtml_Contr
 
     /**
      * New action
+     * @return void
      */
     public function newAction()
     {
@@ -59,6 +61,7 @@ class Mage_Adminhtml_Permissions_VariableController extends Mage_Adminhtml_Contr
     /**
      * Edit action
      *
+     * @return void
      * @throws Mage_Core_Exception
      */
     public function editAction()
@@ -89,11 +92,7 @@ class Mage_Adminhtml_Permissions_VariableController extends Mage_Adminhtml_Contr
 
         Mage::register('permissions_variable', $model);
 
-        if ($id) {
-            $breadcrumb = $this->__('Edit Variable');
-        } else {
-            $breadcrumb = $this->__('New Variable');
-        }
+        $breadcrumb = $id ? $this->__('Edit Variable') : $this->__('New Variable');
 
         $this->_initAction()
             ->_addBreadcrumb($breadcrumb, $breadcrumb);
@@ -107,7 +106,7 @@ class Mage_Adminhtml_Permissions_VariableController extends Mage_Adminhtml_Contr
     /**
      * Save action
      *
-     * @return $this|void
+     * @return null|$this
      * @throws Mage_Core_Exception
      */
     public function saveAction()
@@ -118,7 +117,7 @@ class Mage_Adminhtml_Permissions_VariableController extends Mage_Adminhtml_Contr
             if (!$model->getId() && $id) {
                 Mage::getSingleton('adminhtml/session')->addError($this->__('This variable no longer exists.'));
                 $this->_redirect('*/*/');
-                return;
+                return null;
             }
 
             $model->setData($data);
@@ -145,7 +144,7 @@ class Mage_Adminhtml_Permissions_VariableController extends Mage_Adminhtml_Contr
                 Mage::getSingleton('adminhtml/session')->setFormData(false);
 
                 $this->_redirect('*/*/');
-                return;
+                return null;
             } catch (Exception $exception) {
                 // display error message
                 Mage::getSingleton('adminhtml/session')->addError($exception->getMessage());
@@ -153,15 +152,17 @@ class Mage_Adminhtml_Permissions_VariableController extends Mage_Adminhtml_Contr
                 Mage::getSingleton('adminhtml/session')->setFormData($data);
                 // redirect to edit form
                 $this->_redirect('*/*/edit', ['variable_id' => $id]);
-                return;
+                return null;
             }
         }
 
         $this->_redirect('*/*/');
+        return null;
     }
 
     /**
      * Delete action
+     * @return void
      */
     public function deleteAction()
     {
@@ -187,6 +188,7 @@ class Mage_Adminhtml_Permissions_VariableController extends Mage_Adminhtml_Contr
 
     /**
      * Grid action
+     * @return void
      */
     public function variableGridAction()
     {

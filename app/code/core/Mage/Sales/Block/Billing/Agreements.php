@@ -34,6 +34,7 @@ class Mage_Sales_Block_Billing_Agreements extends Mage_Core_Block_Template
      *
      * @return $this
      */
+    #[Override]
     protected function _prepareLayout()
     {
         parent::_prepareLayout();
@@ -134,6 +135,7 @@ class Mage_Sales_Block_Billing_Agreements extends Mage_Core_Block_Template
      *
      * @return string
      */
+    #[Override]
     protected function _toHtml()
     {
         $this->setCreateUrl($this->getUrl('*/billing_agreement/startWizard', ['_secure' => $this->_isSecure()]));

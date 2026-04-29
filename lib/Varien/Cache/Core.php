@@ -70,6 +70,7 @@ class Varien_Cache_Core extends Zend_Cache_Core
      * @param  string $id Cache id
      * @return string Cache id (with or without prefix)
      */
+    #[Override]
     protected function _id($id)
     {
         if ($id !== null) {
@@ -107,6 +108,7 @@ class Varien_Cache_Core extends Zend_Cache_Core
      * @param  int      $priority         integer between 0 (very low priority) and 10 (maximum priority) used by some particular backends
      * @return bool     True if no problem
      */
+    #[Override]
     public function save($data, $id = null, $tags = [], $specificLifetime = false, $priority = 8)
     {
         $tags = $this->_tags($tags);
@@ -137,6 +139,7 @@ class Varien_Cache_Core extends Zend_Cache_Core
      * @param  bool        $doNotUnserialize       Do not serialize (even if automatic_serialization is true) => for internal use
      * @return false|mixed Cached data
      */
+    #[Override]
     public function load($id, $doNotTestCacheValidity = false, $doNotUnserialize = false)
     {
         $data = parent::load($id, $doNotTestCacheValidity, $doNotUnserialize);
@@ -189,6 +192,7 @@ class Varien_Cache_Core extends Zend_Cache_Core
      * @return bool                 True if ok
      * @throws Zend_Cache_Exception
      */
+    #[Override]
     public function clean($mode = 'all', $tags = [])
     {
         $tags = $this->_tags($tags);
@@ -203,6 +207,7 @@ class Varien_Cache_Core extends Zend_Cache_Core
      * @param  array $tags array of tags
      * @return array array of matching cache ids (string)
      */
+    #[Override]
     public function getIdsMatchingTags($tags = [])
     {
         $tags = $this->_tags($tags);
@@ -217,6 +222,7 @@ class Varien_Cache_Core extends Zend_Cache_Core
      * @param  array $tags array of tags
      * @return array array of not matching cache ids (string)
      */
+    #[Override]
     public function getIdsNotMatchingTags($tags = [])
     {
         $tags = $this->_tags($tags);

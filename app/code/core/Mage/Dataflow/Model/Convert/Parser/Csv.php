@@ -33,7 +33,7 @@ class Mage_Dataflow_Model_Convert_Parser_Csv extends Mage_Dataflow_Model_Convert
             $fDel = "\t";
         }
 
-        $adapterName   = $this->getVar('adapter', null);
+        $adapterName   = $this->getVar('adapter');
         $adapterMethod = $this->getVar('method', 'saveRow');
 
         if (!$adapterName || !$adapterMethod) {
@@ -62,9 +62,9 @@ class Mage_Dataflow_Model_Convert_Parser_Csv extends Mage_Dataflow_Model_Convert
         $batchModel = $this->getBatchModel();
         $batchIoAdapter = $this->getBatchModel()->getIoAdapter();
 
-        if (Mage::app()->getRequest()->getParam('files')) {
-            $file = Mage::app()->getConfig()->getTempVarDir() . '/import/'
-                . str_replace('../', '', urldecode(Mage::app()->getRequest()->getParam('files')));
+        $files = Mage::app()->getRequest()->getParam('files');
+        if ($files) {
+            $file = $this->getCopyFile($files);
             $this->_copy($file);
         }
 
@@ -75,8 +75,8 @@ class Mage_Dataflow_Model_Convert_Parser_Csv extends Mage_Dataflow_Model_Convert
             $fieldNames = $this->getVar('map');
         } else {
             $fieldNames = [];
-            foreach ($batchIoAdapter->read(true, $fDel, $fEnc) as $v) {
-                $fieldNames[$v] = $v;
+            foreach ($batchIoAdapter->read(true, $fDel, $fEnc) as $value) {
+                $fieldNames[$value] = $value;
             }
         }
 
@@ -94,7 +94,7 @@ class Mage_Dataflow_Model_Convert_Parser_Csv extends Mage_Dataflow_Model_Convert
                 $i++;
             }
 
-            $batchImportModel = $this->getBatchImportModel()
+            $this->getBatchImportModel()
                 ->setId(null)
                 ->setBatchId($this->getBatchModel()->getId())
                 ->setBatchData($itemData)
@@ -123,7 +123,7 @@ class Mage_Dataflow_Model_Convert_Parser_Csv extends Mage_Dataflow_Model_Convert
         if ($i == 0) {
             if ($this->getVar('fieldnames')) {
                 $this->_fields = $line;
-                return;
+                return null;
             }
 
             foreach ($line as $j => $f) {
@@ -152,18 +152,18 @@ class Mage_Dataflow_Model_Convert_Parser_Csv extends Mage_Dataflow_Model_Convert
         $fieldList = $this->getBatchModel()->getFieldList();
         $batchExportIds = $batchExport->getIdCollection();
 
-        $io = $this->getBatchModel()->getIoAdapter();
-        $io->open();
+        $ioAdapter = $this->getBatchModel()->getIoAdapter();
+        $ioAdapter->open();
 
         if (!$batchExportIds) {
-            $io->write('');
-            $io->close();
+            $ioAdapter->write('');
+            $ioAdapter->close();
             return $this;
         }
 
         if ($this->getVar('fieldnames')) {
             $csvData = $this->getCsvString($fieldList);
-            $io->write($csvData);
+            $ioAdapter->write($csvData);
         }
 
         foreach ($batchExportIds as $batchExportId) {
@@ -176,10 +176,10 @@ class Mage_Dataflow_Model_Convert_Parser_Csv extends Mage_Dataflow_Model_Convert
             }
 
             $csvData = $this->getCsvString($csvData);
-            $io->write($csvData);
+            $ioAdapter->write($csvData);
         }
 
-        $io->close();
+        $ioAdapter->close();
 
         return $this;
     }
@@ -190,22 +190,20 @@ class Mage_Dataflow_Model_Convert_Parser_Csv extends Mage_Dataflow_Model_Convert
      */
     public function unparseRow($args)
     {
-        $i = $args['i'];
         $row = $args['row'];
 
         $fDel = $this->getVar('delimiter', ',');
         $fEnc = $this->getVar('enclose', '"');
         $fEsc = $this->getVar('escape', '\\');
-        $lDel = "\r\n";
 
         if ($fDel == '\t') {
             $fDel = "\t";
         }
 
         $line = [];
-        foreach ($this->_fields as $f) {
-            $v = isset($row[$f]) ? str_replace(['"', '\\'], [$fEnc . '"', $fEsc . '\\'], $row[$f]) : '';
-            $line[] = $fEnc . $v . $fEnc;
+        foreach ($this->_fields as $field) {
+            $str = isset($row[$field]) ? str_replace(['"', '\\'], [$fEnc . '"', $fEsc . '\\'], $row[$field]) : '';
+            $line[] = $fEnc . $str . $fEnc;
         }
 
         return implode($fDel, $line);

@@ -26,11 +26,7 @@ class Mage_Core_Model_Config_Element extends Varien_Simplexml_Element
 
         if ($value === true) {
             $flag = strtolower((string) $flag);
-            if (!empty($flag) && $flag !== 'false' && $flag !== 'off') {
-                return true;
-            }
-
-            return false;
+            return !empty($flag) && $flag !== 'false' && $flag !== 'off';
         }
 
         return !empty($flag) && (strcasecmp((string) $value, (string) $flag) === 0);

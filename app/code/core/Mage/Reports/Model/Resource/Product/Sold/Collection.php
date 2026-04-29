@@ -17,6 +17,7 @@ class Mage_Reports_Model_Resource_Product_Sold_Collection extends Mage_Reports_M
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _construct()
     {
         parent::_construct();
@@ -28,14 +29,14 @@ class Mage_Reports_Model_Resource_Product_Sold_Collection extends Mage_Reports_M
     /**
      * Set Date range to collection
      *
-     * @param  string $from
-     * @param  string $to
+     * @param  null|string $dateFrom
+     * @param  null|string $dateTo
      * @return $this
      */
-    public function setDateRange($from, $to)
+    public function setDateRange($dateFrom, $dateTo)
     {
         $this->_reset()
-            ->addOrderedQty($from, $to)
+            ->addOrderedQty($dateFrom, $dateTo)
             ->setOrder('ordered_qty', self::SORT_ORDER_DESC);
         return $this;
     }
@@ -60,6 +61,7 @@ class Mage_Reports_Model_Resource_Product_Sold_Collection extends Mage_Reports_M
      *
      * @return $this
      */
+    #[Override]
     protected function _productLimitationJoinWebsite()
     {
         $filters     = $this->_productLimitationFilters;

@@ -69,8 +69,11 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config extends Mage_Ad
      */
     public function isAttributesPricesReadonly()
     {
-        return $this->_getProduct()->getAttributesConfigurationReadonly()
-            || (Mage::helper('catalog')->isPriceGlobal() && $this->isReadonly());
+        if ($this->_getProduct()->getAttributesConfigurationReadonly()) {
+            return true;
+        }
+
+        return Mage::helper('catalog')->isPriceGlobal() && $this->isReadonly();
     }
 
     /**
@@ -78,6 +81,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config extends Mage_Ad
      *
      * @return $this
      */
+    #[Override]
     protected function _prepareLayout()
     {
         $this->setChild(

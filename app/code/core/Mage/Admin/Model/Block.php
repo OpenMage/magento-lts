@@ -68,7 +68,7 @@ class Mage_Admin_Model_Block extends Mage_Core_Model_Abstract
         ));
 
         $errors = $validator->getErrorMessages($violations);
-        if (!$errors) {
+        if (!$errors instanceof ArrayObject) {
             return true;
         }
 

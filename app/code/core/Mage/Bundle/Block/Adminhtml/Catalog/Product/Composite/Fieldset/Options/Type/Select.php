@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -17,6 +19,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Composite_Fieldset_Options_Typ
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _construct()
     {
         $this->setTemplate('bundle/product/composite/fieldset/options/type/select.phtml');
@@ -27,6 +30,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Composite_Fieldset_Options_Typ
      * @param  string $containerId
      * @return string
      */
+    #[Override]
     public function setValidationContainer($elementId, $containerId)
     {
         return '<script type="text/javascript">

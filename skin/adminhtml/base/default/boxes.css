@@ -397,6 +397,8 @@ select.multiselect option       { padding:3px 4px; border-bottom:1px solid #ddd;
 .form-list p.note               { margin:0; padding:0 0 0 13px; background:url(images/note_bg.gif) 1px 6px no-repeat; font-size:11px; }
 .form-list td.value p.note      { width:268px; }
 
+.form-list td.value p.note span.input-counter-error     { color:red; }
+
 .columns .form-list             { width:auto; }
 .columns .form-list td.value    { width:300px; padding-right:5px !important; }
 .columns .form-list td.value .next-toinput { width:75px; display:inline; margin-right:5px; }

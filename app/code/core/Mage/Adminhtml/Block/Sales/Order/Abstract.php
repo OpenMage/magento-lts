@@ -25,7 +25,7 @@ class Mage_Adminhtml_Block_Sales_Order_Abstract extends Mage_Adminhtml_Block_Wid
     public function getOrder()
     {
         if ($this->hasOrder()) {
-            return $this->getData('order');
+            return $this->getDataByKey('order');
         }
 
         if (Mage::registry('current_order')) {
@@ -41,7 +41,7 @@ class Mage_Adminhtml_Block_Sales_Order_Abstract extends Mage_Adminhtml_Block_Wid
 
     public function getPriceDataObject()
     {
-        $obj = $this->getData('price_data_object');
+        $obj = $this->getDataByKey('price_data_object');
         if (is_null($obj)) {
             return $this->getOrder();
         }

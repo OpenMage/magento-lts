@@ -24,7 +24,7 @@ class Mage_Catalog_Model_Product_Option_Api extends Mage_Catalog_Model_Api_Resou
      */
     public function add($productId, $data, $store = null)
     {
-        $product = $this->_getProduct($productId, $store, null);
+        $product = $this->_getProduct($productId, $store);
         if (!(is_array($data['additional_fields']) && count($data['additional_fields']))) {
             $this->_fault('invalid_data');
         }
@@ -57,7 +57,7 @@ class Mage_Catalog_Model_Product_Option_Api extends Mage_Catalog_Model_Api_Resou
             $this->_fault('option_not_exists');
         }
 
-        $product = $this->_getProduct($option->getProductId(), $store, null);
+        $product = $this->_getProduct($option->getProductId(), $store);
         $option = $product->getOptionById($optionId);
         if (isset($data['type']) && !$this->_isTypeAllowed($data['type'])) {
             $this->_fault('invalid_type');
@@ -202,7 +202,7 @@ class Mage_Catalog_Model_Product_Option_Api extends Mage_Catalog_Model_Api_Resou
             $this->_fault('option_not_exists');
         }
 
-        $product = $this->_getProduct($option->getProductId(), $store, null);
+        $product = $this->_getProduct($option->getProductId(), $store);
         $option = $product->getOptionById($optionId);
         $result = [
             'title' => $option->getTitle(),
@@ -259,7 +259,7 @@ class Mage_Catalog_Model_Product_Option_Api extends Mage_Catalog_Model_Api_Resou
     public function items($productId, $store = null)
     {
         $result = [];
-        $product = $this->_getProduct($productId, $store, null);
+        $product = $this->_getProduct($productId, $store);
         /** @var Mage_Catalog_Model_Product_Option $option */
         foreach ($product->getProductOptionsCollection() as $option) {
             $result[] = [
@@ -313,10 +313,6 @@ class Mage_Catalog_Model_Product_Option_Api extends Mage_Catalog_Model_Api_Resou
             $allowedTypes[] = $optionType['value'];
         }
 
-        if (!in_array($type, $allowedTypes)) {
-            return false;
-        }
-
-        return true;
+        return in_array($type, $allowedTypes);
     }
 }

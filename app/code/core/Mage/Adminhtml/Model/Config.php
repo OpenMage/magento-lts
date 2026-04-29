@@ -84,6 +84,7 @@ class Mage_Adminhtml_Model_Config extends Varien_Simplexml_Config
      * @param  null|array                        $tags
      * @return $this|Mage_Adminhtml_Model_Config
      */
+    #[Override]
     public function saveCache($tags = null)
     {
         if ($this->getCacheSaved()) {
@@ -103,6 +104,7 @@ class Mage_Adminhtml_Model_Config extends Varien_Simplexml_Config
     /**
      * @return bool
      */
+    #[Override]
     public function loadCache()
     {
         $xmlString = $this->_loadCache($this->getCacheId());
@@ -160,16 +162,12 @@ class Mage_Adminhtml_Model_Config extends Varien_Simplexml_Config
     {
         $showTab = false;
         if ($storeCode) {
-            if (isset($node->show_in_store)) {
-                if ((int) $node->show_in_store) {
-                    $showTab = true;
-                }
+            if (isset($node->show_in_store) && (int) $node->show_in_store) {
+                $showTab = true;
             }
         } elseif ($websiteCode) {
-            if (isset($node->show_in_website)) {
-                if ((int) $node->show_in_website) {
-                    $showTab = true;
-                }
+            if (isset($node->show_in_website) && (int) $node->show_in_website) {
+                $showTab = true;
             }
         } elseif (isset($node->show_in_default)) {
             if ((int) $node->show_in_default) {

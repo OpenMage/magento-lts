@@ -14,6 +14,7 @@
  */
 class Mage_Adminhtml_Block_System_Config_Form_Field_Notification extends Mage_Adminhtml_Block_System_Config_Form_Field
 {
+    #[Override]
     protected function _getElementHtml(Varien_Data_Form_Element_Abstract $element)
     {
         $element->setValue(Mage::app()->loadCache('admin_notifications_lastcheck'));

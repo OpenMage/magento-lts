@@ -32,6 +32,7 @@ class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
      * @param  array{host?: mixed, username?: mixed, password?: mixed, timeout?: int} $args Connection arguments
      * @throws Exception
      */
+    #[Override]
     public function open(array $args = [])
     {
         if (!isset($args['timeout'])) {
@@ -96,7 +97,7 @@ class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
             $no_errors = true;
             $cwd = $this->_connection->pwd();
             if (!$this->_connection->chdir($dir)) {
-                throw new Exception("chdir(): $dir: Not a directory");
+                throw new Exception("chdir(): {$dir}: Not a directory");
             }
 
             $list = $this->_connection->nlist();

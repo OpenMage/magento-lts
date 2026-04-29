@@ -19,6 +19,7 @@ class Mage_Payment_Block_Info_Container extends Mage_Core_Block_Template
      *
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareLayout()
     {
         if ($info = $this->getPaymentInfo()) {
@@ -64,10 +65,8 @@ class Mage_Payment_Block_Info_Container extends Mage_Core_Block_Template
      */
     public function setInfoTemplate($method = '', $template = '')
     {
-        if ($info = $this->getPaymentInfo()) {
-            if ($info->getMethodInstance()->getCode() == $method) {
-                $this->getChild($this->_getInfoBlockName())->setTemplate($template);
-            }
+        if (($info = $this->getPaymentInfo()) && $info->getMethodInstance()->getCode() == $method) {
+            $this->getChild($this->_getInfoBlockName())->setTemplate($template);
         }
 
         return $this;

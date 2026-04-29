@@ -85,7 +85,6 @@ class Mage_Catalog_Helper_Product_Flat extends Mage_Catalog_Helper_Flat_Abstract
      * Retrieve Catalog Product Flat Flag object
      *
      * @return Mage_Catalog_Model_Product_Flat_Flag
-     * @throws Mage_Core_Exception
      */
     public function getFlag()
     {
@@ -195,11 +194,7 @@ class Mage_Catalog_Helper_Product_Flat extends Mage_Catalog_Helper_Flat_Abstract
      */
     public function resetFlatCollection()
     {
-        if (isset($this->_forceFlatStatusOld)) {
-            $this->_forceFlatStatus = $this->_forceFlatStatusOld;
-        } else {
-            $this->_forceFlatStatus = false;
-        }
+        $this->_forceFlatStatus = $this->_forceFlatStatusOld ?? false;
     }
 
     /**

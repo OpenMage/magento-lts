@@ -124,7 +124,7 @@ class Mage_CatalogIndex_Model_Resource_Data_Abstract extends Mage_Core_Model_Res
         $select->from(['l' => $this->getTable($table)], ["l.{$idField}"])
             ->where("l.{$whereField} {$idsConditionSymbol}", $id);
         foreach ($additionalWheres as $field => $condition) {
-            $select->where("l.$field = ?", $condition);
+            $select->where("l.{$field} = ?", $condition);
         }
 
         // add status filter

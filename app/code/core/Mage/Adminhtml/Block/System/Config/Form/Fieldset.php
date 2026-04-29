@@ -166,8 +166,8 @@ class Mage_Adminhtml_Block_System_Config_Form_Fieldset extends Mage_Adminhtml_Bl
     protected function _getExtraJs($element, $tooltipsExist = false)
     {
         $id = $element->getHtmlId();
-        $js = "Fieldset.applyCollapse('{$id}');";
-        return Mage::helper('adminhtml/js')->getScript($js);
+        $str = "Fieldset.applyCollapse('{$id}');";
+        return Mage::helper('adminhtml/js')->getScript($str);
     }
 
     /**

@@ -32,8 +32,8 @@ abstract class Varien_Simplexml_Config_Cache_Abstract extends Varien_Object
     /**
      * Add configuration component to stats
      *
-     * @param  string                                 $component Filename of the configuration component file
-     * @return Varien_Simplexml_Config_Cache_Abstract
+     * @param  string $component Filename of the configuration component file
+     * @return $this
      */
     public function addComponent($component)
     {

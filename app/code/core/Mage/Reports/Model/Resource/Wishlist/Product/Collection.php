@@ -17,6 +17,7 @@ class Mage_Reports_Model_Resource_Wishlist_Product_Collection extends Mage_Wishl
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _construct()
     {
         $this->_init('wishlist/wishlist');
@@ -71,6 +72,7 @@ class Mage_Reports_Model_Resource_Wishlist_Product_Collection extends Mage_Wishl
      *
      * @return Varien_Db_Select
      */
+    #[Override]
     public function getSelectCountSql()
     {
         $countSelect = clone $this->getSelect();
@@ -85,15 +87,12 @@ class Mage_Reports_Model_Resource_Wishlist_Product_Collection extends Mage_Wishl
     }
 
     /**
-     * Set order to result
-     *
-     * @param  string $attribute
-     * @param  string $dir
-     * @return $this
+     * @inheritDoc
      */
+    #[Override]
     public function setOrder($attribute, $dir = self::SORT_ORDER_DESC)
     {
-        if ($attribute == 'wishlists') {
+        if ($attribute === 'wishlists') {
             $this->getSelect()->order($attribute . ' ' . $dir);
         } else {
             parent::setOrder($attribute, $dir);

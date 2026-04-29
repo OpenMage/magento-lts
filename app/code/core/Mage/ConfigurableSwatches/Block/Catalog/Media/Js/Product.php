@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -33,6 +35,7 @@ class Mage_ConfigurableSwatches_Block_Catalog_Media_Js_Product extends Mage_Conf
      *
      * @return string
      */
+    #[Override]
     public function getImageType()
     {
         $type = parent::getImageType();

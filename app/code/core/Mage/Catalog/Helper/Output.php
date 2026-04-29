@@ -48,9 +48,9 @@ class Mage_Catalog_Helper_Output extends Mage_Core_Helper_Abstract
     /**
      * Adding method handler
      *
-     * @param  string                     $method
-     * @param  object                     $handler
-     * @return Mage_Catalog_Helper_Output
+     * @param  string $method
+     * @param  object $handler
+     * @return $this
      */
     public function addHandler($method, $handler)
     {
@@ -123,10 +123,11 @@ class Mage_Catalog_Helper_Output extends Mage_Core_Helper_Abstract
             }
         }
 
-        if ($attribute->getIsHtmlAllowedOnFront() && $attribute->getIsWysiwygEnabled()) {
-            if (Mage::helper('catalog')->isUrlDirectivesParsingAllowed()) {
-                $attributeHtml = $this->_getTemplateProcessor()->filter($attributeHtml);
-            }
+        if ($attribute->getIsHtmlAllowedOnFront()
+            && $attribute->getIsWysiwygEnabled()
+            && Mage::helper('catalog')->isUrlDirectivesParsingAllowed()
+        ) {
+            $attributeHtml = $this->_getTemplateProcessor()->filter($attributeHtml);
         }
 
         return $this->process('productAttribute', $attributeHtml, [
@@ -154,10 +155,11 @@ class Mage_Catalog_Helper_Output extends Mage_Core_Helper_Abstract
             $attributeHtml = $this->escapeHtml($attributeHtml);
         }
 
-        if ($attribute->getIsHtmlAllowedOnFront() && $attribute->getIsWysiwygEnabled()) {
-            if (Mage::helper('catalog')->isUrlDirectivesParsingAllowed()) {
-                $attributeHtml = $this->_getTemplateProcessor()->filter($attributeHtml);
-            }
+        if ($attribute->getIsHtmlAllowedOnFront()
+            && $attribute->getIsWysiwygEnabled()
+            && Mage::helper('catalog')->isUrlDirectivesParsingAllowed()
+        ) {
+            $attributeHtml = $this->_getTemplateProcessor()->filter($attributeHtml);
         }
 
         return $this->process('categoryAttribute', $attributeHtml, [

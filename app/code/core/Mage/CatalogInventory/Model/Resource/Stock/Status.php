@@ -117,8 +117,6 @@ class Mage_CatalogInventory_Model_Resource_Stock_Status extends Mage_Core_Model_
             $productIds = [$productIds];
         }
 
-        $result = [];
-
         $select = $this->_getReadAdapter()->select()
             ->from($this->getMainTable())
             ->where('product_id IN(?)', $productIds)

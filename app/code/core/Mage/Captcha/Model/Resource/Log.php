@@ -53,12 +53,12 @@ class Mage_Captcha_Model_Resource_Log extends Mage_Core_Model_Resource_Db_Abstra
             );
         }
 
-        $ip = Mage::helper('core/http')->getRemoteAddr();
-        if ($ip != null) {
+        $remoteAddr = Mage::helper('core/http')->getRemoteAddr();
+        if ($remoteAddr != null) {
             $this->_getWriteAdapter()->insertOnDuplicate(
                 $this->getMainTable(),
                 [
-                    'type' => self::TYPE_REMOTE_ADDRESS, 'value' => $ip, 'count' => 1,
+                    'type' => self::TYPE_REMOTE_ADDRESS, 'value' => $remoteAddr, 'count' => 1,
                     'updated_at' => Mage::getSingleton('core/date')->gmtDate(),
                 ],
                 ['count' => new Zend_Db_Expr('count+1'), 'updated_at'],
@@ -83,11 +83,11 @@ class Mage_Captcha_Model_Resource_Log extends Mage_Core_Model_Resource_Db_Abstra
             );
         }
 
-        $ip = Mage::helper('core/http')->getRemoteAddr();
-        if ($ip != null) {
+        $remoteAddr = Mage::helper('core/http')->getRemoteAddr();
+        if ($remoteAddr != null) {
             $this->_getWriteAdapter()->delete(
                 $this->getMainTable(),
-                ['type = ?' => self::TYPE_REMOTE_ADDRESS, 'value = ?' => $ip],
+                ['type = ?' => self::TYPE_REMOTE_ADDRESS, 'value = ?' => $remoteAddr],
             );
         }
 
@@ -101,14 +101,14 @@ class Mage_Captcha_Model_Resource_Log extends Mage_Core_Model_Resource_Db_Abstra
      */
     public function countAttemptsByRemoteAddress()
     {
-        $ip = Mage::helper('core/http')->getRemoteAddr();
-        if (!$ip) {
+        $remoteAddr = Mage::helper('core/http')->getRemoteAddr();
+        if (!$remoteAddr) {
             return 0;
         }
 
         $read = $this->_getReadAdapter();
         $select = $read->select()->from($this->getMainTable(), 'count')->where('type = ?', self::TYPE_REMOTE_ADDRESS)
-            ->where('value = ?', $ip);
+            ->where('value = ?', $remoteAddr);
         return $read->fetchOne($select);
     }
 

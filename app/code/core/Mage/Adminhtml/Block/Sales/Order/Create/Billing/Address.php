@@ -39,6 +39,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Billing_Address extends Mage_Admin
      *
      * @return $this
      */
+    #[Override]
     protected function _prepareForm()
     {
         $this->setJsVariablePrefix('billingAddress');
@@ -54,16 +55,16 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Billing_Address extends Mage_Admin
     /**
      * @inheritDoc
      */
+    #[Override]
     public function getFormValues()
     {
         return $this->getCreateOrderModel()->getBillingAddress()->getData();
     }
 
     /**
-     * Return customer address id
-     *
-     * @return bool|int
+     * @inheritDoc
      */
+    #[Override]
     public function getAddressId()
     {
         return $this->getCreateOrderModel()->getBillingAddress()->getCustomerAddressId();

@@ -50,7 +50,7 @@ class Mage_Adminhtml_Block_Sales_Transactions_Detail extends Mage_Adminhtml_Bloc
         $this->_txn = Mage::registry('current_transaction');
 
         $backUrl = ($this->_txn->getOrderUrl()) ? $this->_txn->getOrderUrl() : $this->getUrl('*/*/');
-        $this->_addButton('back', [
+        $this->_addButton(self::BUTTON_TYPE_BACK, [
             'label'   => Mage::helper('sales')->__('Back'),
             'onclick' => Mage::helper('core/js')->getSetLocationJs($backUrl),
             'class'   => 'back',
@@ -72,6 +72,7 @@ class Mage_Adminhtml_Block_Sales_Transactions_Detail extends Mage_Adminhtml_Bloc
      *
      * @return string
      */
+    #[Override]
     public function getHeaderText()
     {
         return Mage::helper('sales')->__(
@@ -88,6 +89,7 @@ class Mage_Adminhtml_Block_Sales_Transactions_Detail extends Mage_Adminhtml_Bloc
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _toHtml()
     {
         $this->setTxnIdHtml(Mage::helper('adminhtml/sales')->escapeHtmlWithLinks(

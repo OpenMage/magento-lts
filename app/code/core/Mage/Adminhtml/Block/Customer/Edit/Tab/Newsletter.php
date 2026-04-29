@@ -81,6 +81,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Newsletter extends Mage_Adminhtml_B
         return null;
     }
 
+    #[Override]
     protected function _prepareLayout()
     {
         $this->setChild(

@@ -158,7 +158,7 @@ class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
     public function hasPath(string $wantedPath): bool
     {
         /** @var null|bool $data */
-        $data = Mage::registry("config_env_has_path_$wantedPath");
+        $data = Mage::registry("config_env_has_path_{$wantedPath}");
         if ($data !== null) {
             return $data;
         }
@@ -233,7 +233,7 @@ class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
         $hasConfig = array_key_exists($wantedPath, $config);
 
         try {
-            Mage::register("config_env_has_path_$wantedPath", $hasConfig);
+            Mage::register("config_env_has_path_{$wantedPath}", $hasConfig);
         } catch (Mage_Core_Exception $mageCoreException) {
             Mage::logException($mageCoreException);
         }
@@ -251,7 +251,7 @@ class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
         }
 
         /** @var null|array<string, string> $data */
-        $data = Mage::registry("config_env_array_$wantedStore");
+        $data = Mage::registry("config_env_array_{$wantedStore}");
         if ($data !== null) {
             return $data;
         }
@@ -283,7 +283,7 @@ class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
         }
 
         try {
-            Mage::register("config_env_array_$wantedStore", $config);
+            Mage::register("config_env_array_{$wantedStore}", $config);
         } catch (Mage_Core_Exception $mageCoreException) {
             Mage::logException($mageCoreException);
         }
@@ -306,7 +306,7 @@ class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
      */
     public function getEnv(): array
     {
-        if (empty($this->envStore)) {
+        if ($this->envStore === []) {
             // Use $_ENV instead of getenv() because phpdotenv populates $_ENV with both system environment variables
             // and variables from the .env file. This ensures that configuration overrides from .env are respected.
             // getenv() would only return system environment variables, not those loaded from .env.

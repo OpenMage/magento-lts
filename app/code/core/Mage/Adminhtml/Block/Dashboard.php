@@ -28,6 +28,7 @@ class Mage_Adminhtml_Block_Dashboard extends Mage_Adminhtml_Block_Template
         $this->setTemplate('dashboard/index.phtml');
     }
 
+    #[Override]
     protected function _prepareLayout()
     {
         $this->setChild(
@@ -77,7 +78,7 @@ class Mage_Adminhtml_Block_Dashboard extends Mage_Adminhtml_Block_Template
 
     public function getSwitchUrl()
     {
-        if ($url = $this->getData('switch_url')) {
+        if ($url = $this->getDataByKey('switch_url')) {
             return $url;
         }
 

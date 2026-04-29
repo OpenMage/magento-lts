@@ -32,6 +32,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Admin_Custom extends Mage_Core_
      * @return $this
      * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _beforeSave()
     {
         $value = trim($this->getValue());
@@ -100,6 +101,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Admin_Custom extends Mage_Core_
      *
      * @return $this
      */
+    #[Override]
     protected function _afterSave()
     {
         $useCustomUrl = $this->getData('groups/url/fields/use_custom/value');

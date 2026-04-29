@@ -148,6 +148,7 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Run extends Mage_Adminhtml_Blo
      * Generating form key
      * @return string
      */
+    #[Override]
     public function getFormKey()
     {
         return Mage::getSingleton('core/session')->getFormKey();
@@ -175,8 +176,8 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Run extends Mage_Adminhtml_Blo
 
         $exceptions = [];
         $this->getProfile()->run();
-        foreach ($this->getProfile()->getExceptions() as $e) {
-            switch ($e->getLevel()) {
+        foreach ($this->getProfile()->getExceptions() as $exception) {
+            switch ($exception->getLevel()) {
                 case Varien_Convert_Exception::FATAL:
                     $img = 'error_msg_icon.gif';
                     $liStyle = 'background-color:#FBB; ';
@@ -199,8 +200,8 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Run extends Mage_Adminhtml_Blo
             $exceptions[] = [
                 'style'     => $liStyle,
                 'src'       => Mage::getDesign()->getSkinUrl('images/' . $img),
-                'message'   => $e->getMessage(),
-                'position'  => $e->getPosition(),
+                'message'   => $exception->getMessage(),
+                'position'  => $exception->getPosition(),
             ];
         }
 

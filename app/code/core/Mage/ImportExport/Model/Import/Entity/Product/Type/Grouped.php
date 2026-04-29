@@ -49,6 +49,7 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Grouped extends Mage_Im
      *
      * @return Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
      */
+    #[Override]
     public function saveData()
     {
         $groupedLinkId = Mage_Catalog_Model_Product_Link::LINK_TYPE_GROUPED;
@@ -85,9 +86,11 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Grouped extends Mage_Im
                 'relation'         => [],
             ];
             foreach ($bunch as $rowNum => $rowData) {
-                if (!$this->_entityModel->isRowAllowedToImport($rowData, $rowNum)
-                    || empty($rowData['_associated_sku'])
-                ) {
+                if (!$this->_entityModel->isRowAllowedToImport($rowData, $rowNum)) {
+                    continue;
+                }
+
+                if (empty($rowData['_associated_sku'])) {
                     continue;
                 }
 

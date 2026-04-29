@@ -31,17 +31,19 @@ jobs:
       - name: Restore result cache
         uses: actions/cache/restore@v5
         with:
-          path: .phpmd.result-cache.php
+          path: .cache/.phpmd.result-cache.php
           key: phpmd-result-cache-${{ github.run_id }}
           restore-keys: |
             phpmd-result-cache-
 
       - name: PHPMD
-        run: php vendor/bin/phpmd app/code/core/Mage/ github .phpmd.dist.xml --cache --baseline-file .phpmd.dist.baseline.xml
+        run: |
+          [ -d .cache ] || mkdir .cache
+          php vendor/bin/phpmd app/code/core/Mage/ github .phpmd.dist.xml --cache --cache-file .cache/.phpmd.result-cache.php --baseline-file .phpmd.dist.baseline.xml
 
       - name: Save result cache
         uses: actions/cache/save@v5
         if: always()
         with:
-          path: .phpmd.result-cache.php
+          path: .cache/.phpmd.result-cache.php
           key: phpmd-result-cache-${{ github.run_id }}

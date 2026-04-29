@@ -67,8 +67,6 @@ class Mage_Sales_Model_Entity_Sale_Collection extends Varien_Object implements I
     {
         $this->_select = $this->_read->select();
         $entityTable = $this->getEntity()->getEntityTable();
-        $paidTable  = $this->getAttribute('grand_total')->getBackend()->getTable();
-        $idField    = $this->getEntity()->getIdFieldName();
         $this->getSelect()
             ->from(
                 ['sales' => $entityTable],
@@ -96,15 +94,15 @@ class Mage_Sales_Model_Entity_Sale_Collection extends Varien_Object implements I
         }
 
         $stores = Mage::getResourceModel('core/store_collection')->setWithoutDefaultFilter()->load()->toOptionHash();
-        if (!empty($values)) {
-            foreach ($values as $v) {
-                $obj = new Varien_Object($v);
+        if ($values !== []) {
+            foreach ($values as $item) {
+                $obj = new Varien_Object($item);
                 $storeName = $stores[$obj->getStoreId()] ?? null;
 
-                $this->_items[ $v['store_id'] ] = $obj;
-                $this->_items[ $v['store_id'] ]->setStoreName($storeName);
-                $this->_items[ $v['store_id'] ]->setAvgNormalized($obj->getAvgsale() * $obj->getNumOrders());
-                foreach ($this->_totals as $key => $value) {
+                $this->_items[$item['store_id']] = $obj;
+                $this->_items[$item['store_id']]->setStoreName($storeName);
+                $this->_items[$item['store_id']]->setAvgNormalized($obj->getAvgsale() * $obj->getNumOrders());
+                foreach (array_keys($this->_totals) as $key) {
                     $this->_totals[$key] += $obj->getData($key);
                 }
             }
@@ -120,19 +118,19 @@ class Mage_Sales_Model_Entity_Sale_Collection extends Varien_Object implements I
     /**
      * Print and/or log query
      *
-     * @param  bool                                    $printQuery
-     * @param  bool                                    $logQuery
-     * @param  null|string                             $sql
-     * @return Mage_Sales_Model_Entity_Sale_Collection
+     * @param  bool        $printQuery
+     * @param  bool        $logQuery
+     * @param  null|string $sql
+     * @return $this
      */
     public function printLogQuery($printQuery = false, $logQuery = false, $sql = null)
     {
         if ($printQuery) {
-            echo is_null($sql) ? $this->getSelect()->__toString() : $sql;
+            echo $sql ?? $this->getSelect()->__toString();
         }
 
         if ($logQuery) {
-            Mage::log(is_null($sql) ? $this->getSelect()->__toString() : $sql);
+            Mage::log($sql ?? $this->getSelect()->__toString());
         }
 
         return $this;

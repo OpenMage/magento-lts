@@ -4,6 +4,7 @@
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
  * @license    Open Software License (OSL 3.0)
+ * @package    OpenMage_Tests
  */
 
 declare(strict_types=1);
@@ -14,7 +15,7 @@ use Generator;
 
 trait ArrayTrait
 {
-    public function provideMergeRecursiveWithoutOverwriteNumKeysData(): Generator
+    public static function provideMergeRecursiveWithoutOverwriteNumKeysData(): Generator
     {
         yield 'empty' => [
             [],

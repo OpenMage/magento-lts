@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -16,6 +18,7 @@ class Mage_Paypal_BmlController extends Mage_Core_Controller_Front_Action
 {
     /**
      * Action for Bill Me Later checkout button (product view and shopping cart pages)
+     * @return void
      */
     public function startAction()
     {

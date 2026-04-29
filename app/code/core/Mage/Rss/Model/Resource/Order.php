@@ -47,7 +47,7 @@ class Mage_Rss_Model_Resource_Order
             $select = $read->select()
                 ->from(['main' => $mainTable], [
                     'entity_id' => 'order_id',
-                    'entity_type_code' => new Zend_Db_Expr("'$entityTypeCode'"),
+                    'entity_type_code' => new Zend_Db_Expr("'{$entityTypeCode}'"),
                 ])
                 ->join(['slave' => $slaveTable], 'main.entity_id = slave.parent_id', $fields)
                 ->where('main.order_id = ?', $orderId);

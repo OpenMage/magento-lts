@@ -115,7 +115,7 @@ class Mage_Checkout_Helper_Cart extends Mage_Core_Helper_Url
     }
 
     /**
-     * Get shopping cart items summary (inchlude config settings)
+     * Get shopping cart items summary (include config settings)
      *
      * @return float
      */

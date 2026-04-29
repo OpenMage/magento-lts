@@ -12,7 +12,7 @@
  *
  * @package    Mage_Adminhtml
  *
- * @template Menu of array{
+ * @phpstan-type Menu array{
  *     id?: string,
  *     children?: array,
  *     title?: string,
@@ -45,6 +45,7 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _construct()
     {
         parent::_construct();
@@ -56,6 +57,7 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
     /**
      * @inheritDoc
      */
+    #[Override]
     public function getCacheLifetime()
     {
         return 86400;
@@ -66,6 +68,7 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
      *
      * @return array
      */
+    #[Override]
     public function getCacheKeyInfo()
     {
         $cacheKeyInfo = [
@@ -129,7 +132,11 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
             }
 
             $aclResource = 'admin/' . ($child->resource ? (string) $child->resource : $path . $childName);
-            if (!$this->_checkAcl($aclResource) || !$this->_isEnabledModuleOutput($child)) {
+            if (!$this->_checkAcl($aclResource)) {
+                continue;
+            }
+
+            if (!$this->_isEnabledModuleOutput($child)) {
                 continue;
             }
 
@@ -170,7 +177,7 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
             $sortOrder++;
         }
 
-        uasort($parentArr, [$this, '_sortMenu']);
+        uasort($parentArr, $this->_sortMenu(...));
 
         $last = array_key_last($parentArr);
         if (!is_null($last)) {
@@ -242,9 +249,10 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
      * @param  string $html
      * @return string
      */
+    #[Override]
     protected function _afterToHtml($html)
     {
-        return preg_replace_callback('#' . Mage_Adminhtml_Model_Url::SECRET_KEY_PARAM_NAME . '/\$([^\/].*)/([^\$].*)\$#', [$this, '_callbackSecretKey'], $html);
+        return preg_replace_callback('#' . Mage_Adminhtml_Model_Url::SECRET_KEY_PARAM_NAME . '/\$([^\/].*)/([^\$].*)\$#', $this->_callbackSecretKey(...), $html);
     }
 
     /**

@@ -41,6 +41,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Grid extends Mage_Adminhtml_Block_Wid
         return Mage::app()->getStore($storeId);
     }
 
+    #[Override]
     protected function _prepareCollection()
     {
         $store = $this->_getStore();
@@ -121,19 +122,18 @@ class Mage_Adminhtml_Block_Catalog_Product_Grid extends Mage_Adminhtml_Block_Wid
      * @inheritDoc
      * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _addColumnFilterToCollection($column)
     {
-        if ($this->getCollection()) {
-            if ($column->getId() === 'websites') {
-                $this->getCollection()->joinField(
-                    'websites',
-                    'catalog/product_website',
-                    'website_id',
-                    'product_id=entity_id',
-                    null,
-                    'left',
-                );
-            }
+        if ($this->getCollection() && $column->getId() === 'websites') {
+            $this->getCollection()->joinField(
+                'websites',
+                'catalog/product_website',
+                'website_id',
+                'product_id=entity_id',
+                null,
+                'left',
+            );
         }
 
         return parent::_addColumnFilterToCollection($column);
@@ -145,6 +145,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Grid extends Mage_Adminhtml_Block_Wid
      * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
      */
+    #[Override]
     protected function _prepareColumns()
     {
         $this->addColumn(
@@ -300,6 +301,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Grid extends Mage_Adminhtml_Block_Wid
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareMassaction()
     {
         $this->setMassactionIdField('entity_id');
@@ -341,6 +343,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Grid extends Mage_Adminhtml_Block_Wid
     /**
      * @inheritDoc
      */
+    #[Override]
     public function getGridUrl()
     {
         return $this->getUrl('*/*/grid', ['_current' => true]);
@@ -352,6 +355,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Grid extends Mage_Adminhtml_Block_Wid
      * @throws Exception
      * @throws Mage_Core_Exception
      */
+    #[Override]
     public function getRowUrl($row)
     {
         return $this->getUrl('*/*/edit', [

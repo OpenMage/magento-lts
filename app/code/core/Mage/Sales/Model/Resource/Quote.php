@@ -30,6 +30,7 @@ class Mage_Sales_Model_Resource_Quote extends Mage_Sales_Model_Resource_Abstract
      * @param  Mage_Core_Model_Abstract|Mage_Sales_Model_Quote $object
      * @return Varien_Db_Select
      */
+    #[Override]
     protected function _getLoadSelect($field, $value, $object)
     {
         $select   = parent::_getLoadSelect($field, $value, $object);
@@ -147,11 +148,7 @@ class Mage_Sales_Model_Resource_Quote extends Mage_Sales_Model_Resource_Abstract
         $select->from($this->getTable('sales/order'), 'entity_id')
             ->where('increment_id = :increment_id');
         $entityId = $adapter->fetchOne($select, $bind);
-        if ($entityId > 0) {
-            return true;
-        }
-
-        return false;
+        return $entityId > 0;
     }
 
     /**

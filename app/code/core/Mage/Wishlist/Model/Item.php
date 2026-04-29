@@ -166,6 +166,7 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
      *
      * @return bool
      */
+    #[Override]
     protected function _hasModelChanged()
     {
         if (!$this->hasDataChanges()) {
@@ -203,6 +204,7 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
      * Save model plus its options
      * Ensures saving options in case when resource model was not changed
      */
+    #[Override]
     public function save()
     {
         $hasDataChanges = $this->hasDataChanges();
@@ -222,6 +224,7 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
      *
      * @inheritDoc
      */
+    #[Override]
     protected function _afterSave()
     {
         $this->_saveItemOptions();
@@ -252,6 +255,7 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
      *
      * @return $this
      */
+    #[Override]
     protected function _beforeSave()
     {
         parent::_beforeSave();
@@ -357,10 +361,8 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
             return false;
         }
 
-        if (!$product->isVisibleInSiteVisibility()) {
-            if ($product->getStoreId() == $storeId) {
-                return false;
-            }
+        if (!$product->isVisibleInSiteVisibility() && $product->getStoreId() == $storeId) {
+            return false;
         }
 
         if (!$product->isSalable()) {
@@ -490,11 +492,7 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
         }
 
         if (empty($selfOptions) && !empty($buyRequest)) {
-            if (!$product->isComposite()) {
-                return true;
-            }
-
-            return false;
+            return !$product->isComposite();
         }
 
         $requestArray = $buyRequest->getData();
@@ -503,11 +501,7 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
             return false;
         }
 
-        if (!$this->_compareOptions($selfOptions, $requestArray)) {
-            return false;
-        }
-
-        return true;
+        return $this->_compareOptions($selfOptions, $requestArray);
     }
 
     /**
@@ -531,11 +525,7 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
             return false;
         }
 
-        if (!$this->compareOptions($productOptions, $itemOptions)) {
-            return false;
-        }
-
-        return true;
+        return $this->compareOptions($productOptions, $itemOptions);
     }
 
     /**

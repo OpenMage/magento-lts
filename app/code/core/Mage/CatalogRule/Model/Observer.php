@@ -134,11 +134,7 @@ class Mage_CatalogRule_Model_Observer
         $pId        = $product->getId();
         $storeId    = $product->getStoreId();
 
-        if ($observer->hasDate()) {
-            $date = $observer->getEvent()->getDate();
-        } else {
-            $date = Mage::app()->getLocale()->storeTimeStamp($storeId);
-        }
+        $date = $observer->hasDate() ? $observer->getEvent()->getDate() : Mage::app()->getLocale()->storeTimeStamp($storeId);
 
         if ($observer->hasWebsiteId()) {
             $wId = $observer->getEvent()->getWebsiteId();
@@ -162,7 +158,7 @@ class Mage_CatalogRule_Model_Observer
         }
 
         if ($this->_rulePrices[$key] !== false) {
-            $finalPrice = min($product->getData('final_price'), $this->_rulePrices[$key]);
+            $finalPrice = min($product->getDataByKey('final_price'), $this->_rulePrices[$key]);
             $product->setFinalPrice($finalPrice);
         }
 
@@ -205,7 +201,7 @@ class Mage_CatalogRule_Model_Observer
             }
 
             if ($this->_rulePrices[$key] !== false) {
-                $finalPrice = min($product->getData('final_price'), $this->_rulePrices[$key]);
+                $finalPrice = min($product->getDataByKey('final_price'), $this->_rulePrices[$key]);
                 $product->setFinalPrice($finalPrice);
             }
         }
@@ -342,10 +338,10 @@ class Mage_CatalogRule_Model_Observer
                 $this->_removeAttributeFromConditions($condition, $attributeCode);
             }
 
-            if ($condition instanceof Mage_Rule_Model_Condition_Product_Abstract) {
-                if ($condition->getAttribute() == $attributeCode) {
-                    unset($conditions[$conditionId]);
-                }
+            if ($condition instanceof Mage_Rule_Model_Condition_Product_Abstract
+                && $condition->getAttribute() == $attributeCode
+            ) {
+                unset($conditions[$conditionId]);
             }
         }
 

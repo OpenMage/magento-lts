@@ -27,7 +27,7 @@ class Varien_Data_Tree
     }
 
     /**
-     * @return Varien_Data_Tree
+     * @return $this
      */
     public function getTree()
     {
@@ -96,7 +96,7 @@ class Varien_Data_Tree
 
     /**
      * @param  Varien_Data_Tree_Node $node
-     * @return Varien_Data_Tree
+     * @return $this
      */
     public function removeNode($node)
     {
@@ -148,10 +148,8 @@ class Varien_Data_Tree
      */
     public function getPath($node)
     {
-        if (!$node instanceof Varien_Data_Tree_Node && is_numeric($node)) {
-            if ($_node = $this->getNodeById($node)) {
-                return $_node->getPath();
-            }
+        if (!$node instanceof Varien_Data_Tree_Node && is_numeric($node) && ($_node = $this->getNodeById($node))) {
+            return $_node->getPath();
         }
 
         return [];

@@ -24,6 +24,7 @@ class Mage_Oauth_Block_Customer_Token_List extends Mage_Customer_Block_Account_D
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _construct()
     {
         /** @var Mage_Customer_Model_Session $session */
@@ -62,6 +63,7 @@ class Mage_Oauth_Block_Customer_Token_List extends Mage_Customer_Block_Account_D
      *
      * @return $this
      */
+    #[Override]
     protected function _prepareLayout()
     {
         /** @var Mage_Page_Block_Html_Pager $toolbar */

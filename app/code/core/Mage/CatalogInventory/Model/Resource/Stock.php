@@ -57,7 +57,7 @@ class Mage_CatalogInventory_Model_Resource_Stock extends Mage_Core_Model_Resourc
     protected $_configNotifyStockQty;
 
     /**
-     * Ctalog Inventory Stock instance
+     * Catalog Inventory Stock instance
      *
      * @var Mage_CatalogInventory_Model_Stock
      */

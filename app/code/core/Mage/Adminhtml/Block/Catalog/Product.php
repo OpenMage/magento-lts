@@ -27,6 +27,7 @@ class Mage_Adminhtml_Block_Catalog_Product extends Mage_Adminhtml_Block_Widget_C
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareLayout()
     {
         $this->_addButton('add_new', [
@@ -65,10 +66,6 @@ class Mage_Adminhtml_Block_Catalog_Product extends Mage_Adminhtml_Block_Widget_C
      */
     public function isSingleStoreMode()
     {
-        if (!Mage::app()->isSingleStoreMode()) {
-            return false;
-        }
-
-        return true;
+        return Mage::app()->isSingleStoreMode();
     }
 }

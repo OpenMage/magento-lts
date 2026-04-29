@@ -288,11 +288,7 @@ class Mage_Api2_Model_Acl_Global_Rule_Tree extends Mage_Core_Helper_Abstract
             $item['sort_order'] = isset($node->sort_order) ? (string) $node->sort_order : 0;
         }
 
-        if (isset($node->children)) {
-            $children = $node->children->children();
-        } else {
-            $children = $node->children();
-        }
+        $children = isset($node->children) ? $node->children->children() : $node->children();
 
         if (empty($children)) {
             /**
@@ -342,7 +338,7 @@ class Mage_Api2_Model_Acl_Global_Rule_Tree extends Mage_Core_Helper_Abstract
         }
 
         if (!empty($item[self::NAME_CHILDREN])) {
-            usort($item[self::NAME_CHILDREN], [$this, '_sortTree']);
+            usort($item[self::NAME_CHILDREN], $this->_sortTree(...));
         } elseif ($isGroup) {
             //skip empty group
             return null;
@@ -430,11 +426,7 @@ class Mage_Api2_Model_Acl_Global_Rule_Tree extends Mage_Core_Helper_Abstract
             $item[self::NAME_CHILDREN][] = $subItem;
         }
 
-        if (!$cnt) {
-            return false;
-        }
-
-        return true;
+        return (bool) $cnt;
     }
 
     /**

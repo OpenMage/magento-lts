@@ -54,7 +54,7 @@ class Mage_Cron_Model_Schedule extends Mage_Core_Model_Abstract
 
     public function getIsError(): bool
     {
-        return !empty($this->getData('is_error'));
+        return !empty($this->getDataByKey('is_error'));
     }
 
     /**
@@ -64,12 +64,12 @@ class Mage_Cron_Model_Schedule extends Mage_Core_Model_Abstract
      */
     public function setCronExpr($expr)
     {
-        $e = preg_split('#\s+#', $expr, -1, PREG_SPLIT_NO_EMPTY);
-        if (count($e) < 5 || count($e) > 6) {
+        $value = preg_split('#\s+#', $expr, -1, PREG_SPLIT_NO_EMPTY);
+        if (count($value) < 5 || count($value) > 6) {
             throw Mage::exception('Mage_Cron', 'Invalid cron expression: ' . $expr);
         }
 
-        $this->setCronExprArr($e);
+        $this->setCronExprArr($value);
         return $this;
     }
 
@@ -83,8 +83,8 @@ class Mage_Cron_Model_Schedule extends Mage_Core_Model_Abstract
      */
     public function trySchedule($time)
     {
-        $e = $this->getCronExprArr();
-        if (!$e || !$time) {
+        $exprArr = $this->getCronExprArr();
+        if (!$exprArr || !$time) {
             return false;
         }
 
@@ -96,13 +96,13 @@ class Mage_Cron_Model_Schedule extends Mage_Core_Model_Abstract
             $time = null;
         }
 
-        $d = getdate(Mage::getSingleton('core/date')->timestamp($time));
+        $date = getdate(Mage::getSingleton('core/date')->timestamp($time));
 
-        $match = $this->matchCronExpression($e[0], $d['minutes'])
-            && $this->matchCronExpression($e[1], $d['hours'])
-            && $this->matchCronExpression($e[2], $d['mday'])
-            && $this->matchCronExpression($e[3], $d['mon'])
-            && $this->matchCronExpression($e[4], $d['wday']);
+        $match = $this->matchCronExpression($exprArr[0], $date['minutes'])
+            && $this->matchCronExpression($exprArr[1], $date['hours'])
+            && $this->matchCronExpression($exprArr[2], $date['mday'])
+            && $this->matchCronExpression($exprArr[3], $date['mon'])
+            && $this->matchCronExpression($exprArr[4], $date['wday']);
 
         if ($match) {
             $this->setCreatedAt(date(Varien_Db_Adapter_Pdo_Mysql::TIMESTAMP_FORMAT));
@@ -127,8 +127,8 @@ class Mage_Cron_Model_Schedule extends Mage_Core_Model_Abstract
 
         // handle multiple options
         if (str_contains($expr, ',')) {
-            foreach (explode(',', $expr) as $e) {
-                if ($this->matchCronExpression($e, $num)) {
+            foreach (explode(',', $expr) as $value) {
+                if ($this->matchCronExpression($value, $num)) {
                     return true;
                 }
             }
@@ -138,43 +138,43 @@ class Mage_Cron_Model_Schedule extends Mage_Core_Model_Abstract
 
         // handle modulus
         if (str_contains($expr, '/')) {
-            $e = explode('/', $expr);
-            if (count($e) !== 2) {
+            $exprArray = explode('/', $expr);
+            if (count($exprArray) !== 2) {
                 throw Mage::exception('Mage_Cron', "Invalid cron expression, expecting 'match/modulus': " . $expr);
             }
 
-            if (!is_numeric($e[1])) {
+            if (!is_numeric($exprArray[1])) {
                 throw Mage::exception('Mage_Cron', 'Invalid cron expression, expecting numeric modulus: ' . $expr);
             }
 
-            $expr = $e[0];
-            $mod = $e[1];
+            $expr = $exprArray[0];
+            $mod = $exprArray[1];
         } else {
             $mod = 1;
         }
 
         // handle all match by modulus
         if ($expr === '*') {
-            $from = 0;
-            $to = 60;
+            $min = 0;
+            $max = 60;
         } elseif (str_contains($expr, '-')) { // handle range
-            $e = explode('-', $expr);
-            if (count($e) !== 2) {
+            $exprArray = explode('-', $expr);
+            if (count($exprArray) !== 2) {
                 throw Mage::exception('Mage_Cron', "Invalid cron expression, expecting 'from-to' structure: " . $expr);
             }
 
-            $from = $this->getNumeric($e[0]);
-            $to = $this->getNumeric($e[1]);
+            $min = $this->getNumeric($exprArray[0]);
+            $max = $this->getNumeric($exprArray[1]);
         } else { // handle regular token
-            $from = $this->getNumeric($expr);
-            $to = $from;
+            $min = $this->getNumeric($expr);
+            $max = $min;
         }
 
-        if ($from === false || $to === false) {
+        if ($min === false || $max === false) {
             throw Mage::exception('Mage_Cron', 'Invalid cron expression: ' . $expr);
         }
 
-        return ($num >= $from) && ($num <= $to) && ($num % $mod === 0);
+        return ($num >= $min) && ($num <= $max) && ($num % $mod === 0);
     }
 
     /**
@@ -224,9 +224,9 @@ class Mage_Cron_Model_Schedule extends Mage_Core_Model_Abstract
      * Sets a job to STATUS_RUNNING only if it is currently in STATUS_PENDING.
      * Returns true if status was changed and false otherwise.
      *
-     * @param string $oldStatus
-     *                          This is used to implement locking for cron jobs
+     * This is used to implement locking for cron jobs
      *
+     * @param  self::STATUS_* $oldStatus
      * @return bool
      */
     public function tryLockJob($oldStatus = self::STATUS_PENDING)

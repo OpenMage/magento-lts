@@ -99,6 +99,7 @@ class Mage_Paypal_Model_Direct extends Mage_Payment_Model_Method_Cc
      * @param  string $currencyCode
      * @return bool
      */
+    #[Override]
     public function canUseForCurrency($currencyCode)
     {
         return $this->_pro->getConfig()->isCurrencyCodeSupported($currencyCode);
@@ -110,6 +111,7 @@ class Mage_Paypal_Model_Direct extends Mage_Payment_Model_Method_Cc
      * @return string
      * @see Mage_Sales_Model_Payment::place()
      */
+    #[Override]
     public function getConfigPaymentAction()
     {
         return $this->_pro->getConfig()->getPaymentAction();
@@ -139,22 +141,17 @@ class Mage_Paypal_Model_Direct extends Mage_Payment_Model_Method_Cc
      * @param  null|Mage_Sales_Model_Quote $quote
      * @return bool
      */
+    #[Override]
     public function isAvailable($quote = null)
     {
-        if (parent::isAvailable($quote) && $this->_pro->getConfig()->isMethodAvailable()) {
-            return true;
-        }
-
-        return false;
+        return parent::isAvailable($quote) && $this->_pro->getConfig()->isMethodAvailable();
     }
 
     /**
-     * Custom getter for payment configuration
-     *
-     * @param  string $field
-     * @param  int    $storeId
-     * @return mixed
+     * @inheritDoc
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
+    #[Override]
     public function getConfigData($field, $storeId = null)
     {
         return match ($field) {
@@ -169,6 +166,7 @@ class Mage_Paypal_Model_Direct extends Mage_Payment_Model_Method_Cc
      * @param  Mage_Sales_Model_Order_Payment $payment
      * @return $this
      */
+    #[Override]
     public function authorize(Varien_Object $payment, $amount)
     {
         return $this->_placeOrder($payment, $amount);
@@ -180,6 +178,7 @@ class Mage_Paypal_Model_Direct extends Mage_Payment_Model_Method_Cc
      * @param  Mage_Sales_Model_Order_Payment $payment
      * @return $this
      */
+    #[Override]
     public function void(Varien_Object $payment)
     {
         $this->_pro->void($payment);
@@ -192,6 +191,7 @@ class Mage_Paypal_Model_Direct extends Mage_Payment_Model_Method_Cc
      * @param  Mage_Sales_Model_Order_Payment $payment
      * @return $this
      */
+    #[Override]
     public function capture(Varien_Object $payment, $amount)
     {
         if ($this->_pro->capture($payment, $amount) === false) {
@@ -207,6 +207,7 @@ class Mage_Paypal_Model_Direct extends Mage_Payment_Model_Method_Cc
      * @param  Mage_Sales_Model_Order_Payment $payment
      * @return $this
      */
+    #[Override]
     public function refund(Varien_Object $payment, $amount)
     {
         $this->_pro->refund($payment, $amount);
@@ -219,6 +220,7 @@ class Mage_Paypal_Model_Direct extends Mage_Payment_Model_Method_Cc
      * @param  Mage_Sales_Model_Order_Payment $payment
      * @return $this
      */
+    #[Override]
     public function cancel(Varien_Object $payment)
     {
         $this->void($payment);
@@ -232,6 +234,7 @@ class Mage_Paypal_Model_Direct extends Mage_Payment_Model_Method_Cc
      * @param  Mage_Sales_Model_Order_Payment $payment
      * @return bool
      */
+    #[Override]
     public function canReviewPayment(Mage_Payment_Model_Info $payment)
     {
         return parent::canReviewPayment($payment) && $this->_pro->canReviewPayment($payment);
@@ -243,6 +246,7 @@ class Mage_Paypal_Model_Direct extends Mage_Payment_Model_Method_Cc
      * @param  Mage_Sales_Model_Order_Payment $payment
      * @return bool
      */
+    #[Override]
     public function acceptPayment(Mage_Payment_Model_Info $payment)
     {
         parent::acceptPayment($payment);
@@ -255,6 +259,7 @@ class Mage_Paypal_Model_Direct extends Mage_Payment_Model_Method_Cc
      * @param  Mage_Sales_Model_Order_Payment $payment
      * @return bool
      */
+    #[Override]
     public function denyPayment(Mage_Payment_Model_Info $payment)
     {
         parent::denyPayment($payment);
@@ -266,6 +271,7 @@ class Mage_Paypal_Model_Direct extends Mage_Payment_Model_Method_Cc
      *
      * @return Mage_Centinel_Model_Service
      */
+    #[Override]
     public function getCentinelValidator()
     {
         $validator = parent::getCentinelValidator();
@@ -279,6 +285,7 @@ class Mage_Paypal_Model_Direct extends Mage_Payment_Model_Method_Cc
     /**
      * @inheritDoc
      */
+    #[Override]
     public function fetchTransactionInfo(Mage_Payment_Model_Info $payment, $transactionId)
     {
         return $this->_pro->fetchTransactionInfo($payment, $transactionId);
@@ -378,6 +385,7 @@ class Mage_Paypal_Model_Direct extends Mage_Payment_Model_Method_Cc
      *
      * @return bool
      */
+    #[Override]
     public function canVoid(Varien_Object $payment)
     {
         if ($payment instanceof Mage_Sales_Model_Order_Invoice

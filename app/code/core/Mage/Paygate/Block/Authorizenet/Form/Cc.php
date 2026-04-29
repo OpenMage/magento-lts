@@ -15,6 +15,7 @@ class Mage_Paygate_Block_Authorizenet_Form_Cc extends Mage_Payment_Block_Form
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _construct()
     {
         parent::_construct();
@@ -71,6 +72,7 @@ class Mage_Paygate_Block_Authorizenet_Form_Cc extends Mage_Payment_Block_Form
      *
      * @return string
      */
+    #[Override]
     protected function _toHtml()
     {
         $this->setChild('cards', $this->getCardsBlock());

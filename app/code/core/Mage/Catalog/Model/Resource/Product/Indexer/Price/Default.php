@@ -90,6 +90,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Default extends Mage_Cat
      *
      * @return $this
      */
+    #[Override]
     public function reindexAll()
     {
         $this->useIdxTable(true);
@@ -404,13 +405,13 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Default extends Mage_Cat
 
         $tierPriceRound = new Zend_Db_Expr("ROUND(i.base_tier * ({$optPriceValue} / 100), 4)");
         $tierPriceExpr  = $write->getCheckSql("{$optPriceType} = 'fixed'", $optPriceValue, $tierPriceRound);
-        $tierPriceMin   = new Zend_Db_Expr("MIN($tierPriceExpr)");
+        $tierPriceMin   = new Zend_Db_Expr("MIN({$tierPriceExpr})");
         $tierPriceValue = $write->getCheckSql('MIN(o.is_require) > 0', $tierPriceMin, '0');
         $tierPrice      = $write->getCheckSql('MIN(i.base_tier) IS NOT NULL', $tierPriceValue, 'NULL');
 
         $groupPriceRound = new Zend_Db_Expr("ROUND(i.base_group_price * ({$optPriceValue} / 100), 4)");
         $groupPriceExpr  = $write->getCheckSql("{$optPriceType} = 'fixed'", $optPriceValue, $groupPriceRound);
-        $groupPriceMin   = new Zend_Db_Expr("MIN($groupPriceExpr)");
+        $groupPriceMin   = new Zend_Db_Expr("MIN({$groupPriceExpr})");
         $groupPriceValue = $write->getCheckSql('MIN(o.is_require) > 0', $groupPriceMin, '0');
         $groupPrice      = $write->getCheckSql('MIN(i.base_group_price) IS NOT NULL', $groupPriceValue, 'NULL');
 
@@ -418,8 +419,8 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Default extends Mage_Cat
         $maxPriceExpr   = $write->getCheckSql("{$optPriceType} = 'fixed'", $optPriceValue, $maxPriceRound);
         $maxPrice       = $write->getCheckSql(
             "(MIN(o.type)='radio' OR MIN(o.type)='drop_down')",
-            "MAX($maxPriceExpr)",
-            "SUM($maxPriceExpr)",
+            "MAX({$maxPriceExpr})",
+            "SUM({$maxPriceExpr})",
         );
 
         $select->columns([
@@ -600,6 +601,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Default extends Mage_Cat
      * @param  string $table
      * @return string
      */
+    #[Override]
     public function getIdxTable($table = null)
     {
         if ($this->useIdxTable()) {

@@ -17,7 +17,7 @@ class Mage_Rating_Model_Observer
     /**
      * Cleanup product ratings after product delete
      *
-     * @return Mage_Rating_Model_Observer
+     * @return $this
      */
     public function processProductAfterDeleteEvent(Varien_Event_Observer $observer)
     {

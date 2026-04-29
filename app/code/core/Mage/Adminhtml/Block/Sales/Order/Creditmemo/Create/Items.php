@@ -21,6 +21,7 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_Create_Items extends Mage_Admi
      *
      * @return $this
      */
+    #[Override]
     protected function _prepareLayout()
     {
         $onclick = "submitAndReloadArea($('creditmemo_item_container'),'" . $this->getUpdateUrl() . "')";
@@ -72,6 +73,7 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_Create_Items extends Mage_Admi
      *
      * @return Mage_Sales_Model_Order
      */
+    #[Override]
     public function getOrder()
     {
         return $this->getCreditmemo()->getOrder();
@@ -82,6 +84,7 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_Create_Items extends Mage_Admi
      *
      * @return Mage_Sales_Model_Order_Creditmemo
      */
+    #[Override]
     public function getSource()
     {
         return $this->getCreditmemo();
@@ -120,11 +123,16 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_Create_Items extends Mage_Admi
      *
      * @return Mage_Sales_Model_Order_Creditmemo
      */
+    #[Override]
     public function getCreditmemo()
     {
         return Mage::registry('current_creditmemo');
     }
 
+    /**
+     * @inheritDoc
+     */
+    #[Override]
     public function canEditQty()
     {
         if ($this->getCreditmemo()->getOrder()->getPayment()->canRefund()) {
@@ -134,27 +142,33 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_Create_Items extends Mage_Admi
         return true;
     }
 
+    /**
+     * @return string
+     */
     public function getUpdateButtonHtml()
     {
         return $this->getChildHtml('update_button');
     }
 
+    /**
+     * @return string
+     * @throws Exception
+     */
     public function getUpdateUrl()
     {
         return $this->getUrl('*/*/updateQty', [
             'order_id' => $this->getCreditmemo()->getOrderId(),
-            'invoice_id' => $this->getRequest()->getParam('invoice_id', null),
+            'invoice_id' => $this->getRequest()->getParam('invoice_id'),
         ]);
     }
 
+    /**
+     * @inheritDoc
+     */
+    #[Override]
     public function canReturnToStock()
     {
-        $canReturnToStock = Mage::getStoreConfig(Mage_CatalogInventory_Model_Stock_Item::XML_PATH_CAN_SUBTRACT);
-        if (Mage::getStoreConfig(Mage_CatalogInventory_Model_Stock_Item::XML_PATH_CAN_SUBTRACT)) {
-            return true;
-        }
-
-        return false;
+        return Mage::getStoreConfigFlag(Mage_CatalogInventory_Model_Stock_Item::XML_PATH_CAN_SUBTRACT);
     }
 
     /**
@@ -163,25 +177,28 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_Create_Items extends Mage_Admi
      */
     public function canReturnItemsToStock()
     {
-        if (is_null($this->_canReturnToStock)) {
-            if ($this->_canReturnToStock = Mage::getStoreConfig(Mage_CatalogInventory_Model_Stock_Item::XML_PATH_CAN_SUBTRACT)) {
-                $canReturnToStock = false;
-                foreach ($this->getCreditmemo()->getAllItems() as $item) {
-                    $product = Mage::getModel('catalog/product')->load($item->getOrderItem()->getProductId());
-                    if ($product->getId() && $product->getStockItem()->getManageStock()) {
-                        $item->setCanReturnToStock($canReturnToStock = true);
-                    } else {
-                        $item->setCanReturnToStock(false);
-                    }
+        if (is_null($this->_canReturnToStock)
+            && $this->_canReturnToStock = Mage::getStoreConfig(Mage_CatalogInventory_Model_Stock_Item::XML_PATH_CAN_SUBTRACT)
+        ) {
+            $canReturnToStock = false;
+            foreach ($this->getCreditmemo()->getAllItems() as $item) {
+                $product = Mage::getModel('catalog/product')->load($item->getOrderItem()->getProductId());
+                if ($product->getId() && $product->getStockItem()->getManageStock()) {
+                    $item->setCanReturnToStock($canReturnToStock = true);
+                } else {
+                    $item->setCanReturnToStock(false);
                 }
-
-                $this->getCreditmemo()->getOrder()->setCanReturnToStock($this->_canReturnToStock = $canReturnToStock);
             }
+
+            $this->getCreditmemo()->getOrder()->setCanReturnToStock($this->_canReturnToStock = $canReturnToStock);
         }
 
         return $this->_canReturnToStock;
     }
 
+    /**
+     * @return bool
+     */
     public function canSendCreditmemoEmail()
     {
         return Mage::helper('sales')->canSendNewCreditmemoEmail($this->getOrder()->getStore()->getId());

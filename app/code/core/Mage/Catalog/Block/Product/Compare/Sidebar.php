@@ -8,7 +8,7 @@
  */
 
 /**
- * Catalog Comapare Products Sidebar Block
+ * Catalog Compare Products Sidebar Block
  *
  * @package    Mage_Catalog
  */
@@ -24,6 +24,7 @@ class Mage_Catalog_Block_Product_Compare_Sidebar extends Mage_Catalog_Block_Prod
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _construct()
     {
         $this->setId('compare');
@@ -90,6 +91,7 @@ class Mage_Catalog_Block_Product_Compare_Sidebar extends Mage_Catalog_Block_Prod
      *
      * @return array
      */
+    #[Override]
     public function getCacheTags()
     {
         $compareItem = Mage::getModel('catalog/product_compare_item');

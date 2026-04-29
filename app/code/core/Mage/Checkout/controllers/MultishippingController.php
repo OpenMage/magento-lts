@@ -61,6 +61,7 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
      *
      * @return $this
      */
+    #[Override]
     public function preDispatch()
     {
         parent::preDispatch();
@@ -132,6 +133,7 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
 
     /**
      * Index action of Multishipping checkout
+     * @return void
      */
     public function indexAction()
     {
@@ -141,6 +143,7 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
 
     /**
      * Multishipping checkout login page
+     * @return void
      */
     public function loginAction()
     {
@@ -162,6 +165,7 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
 
     /**
      * Multishipping checkout login page
+     * @return void
      */
     public function registerAction()
     {
@@ -185,6 +189,7 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
 
     /**
      * Multishipping checkout select address page
+     * @return void
      */
     public function addressesAction()
     {
@@ -214,6 +219,7 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
 
     /**
      * Multishipping checkout process posted addresses
+     * @return void
      */
     public function addressesPostAction()
     {
@@ -260,6 +266,7 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
 
     /**
      * Multishipping checkout action to go back to addresses page
+     * @return void
      */
     public function backToAddressesAction()
     {
@@ -274,6 +281,7 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
 
     /**
      * Multishipping checkout remove item action
+     * @return void
      */
     public function removeItemAction()
     {
@@ -306,11 +314,12 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
 
     /**
      * Multishipping checkout shipping information page
+     * @return null|$this
      */
     public function shippingAction()
     {
         if (!$this->_validateMinimumAmount()) {
-            return;
+            return null;
         }
 
         if (!$this->_getState()->getCompleteStep(Mage_Checkout_Model_Type_Multishipping_State::STEP_SELECT_ADDRESSES)) {
@@ -325,10 +334,12 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
         $this->_initLayoutMessages('customer/session');
         $this->_initLayoutMessages('checkout/session');
         $this->renderLayout();
+        return null;
     }
 
     /**
      * Multishipping checkout action to go back to shipping
+     * @return void
      */
     public function backToShippingAction()
     {
@@ -343,6 +354,7 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
 
     /**
      * Multishipping checkout after the shipping page
+     * @return void
      */
     public function shippingPostAction()
     {
@@ -373,6 +385,7 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
 
     /**
      * Multishipping checkout billing information page
+     * @return null|$this
      */
     public function billingAction()
     {
@@ -400,11 +413,11 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
         }
 
         if (!$this->_validateBilling()) {
-            return;
+            return null;
         }
 
         if (!$this->_validateMinimumAmount()) {
-            return;
+            return null;
         }
 
         if (!$this->_getState()->getCompleteStep(Mage_Checkout_Model_Type_Multishipping_State::STEP_SHIPPING)) {
@@ -420,6 +433,7 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
         $this->_initLayoutMessages('customer/session');
         $this->_initLayoutMessages('checkout/session');
         $this->renderLayout();
+        return null;
     }
 
     /**
@@ -439,6 +453,7 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
 
     /**
      * Multishipping checkout action to go back to billing
+     * @return void
      */
     public function backToBillingAction()
     {
@@ -453,6 +468,7 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
 
     /**
      * Multishipping checkout place order page
+     * @return null|$this
      */
     public function overviewAction()
     {
@@ -462,7 +478,7 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
 
         if ($this->isFormkeyValidationOnCheckoutEnabled() && !$this->_validateFormKey()) {
             $this->_redirect('*/*/billing');
-            return;
+            return null;
         }
 
         $this->_getState()->setActiveStep(Mage_Checkout_Model_Type_Multishipping_State::STEP_OVERVIEW);
@@ -492,10 +508,13 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
             $this->_getCheckoutSession()->addException($exception, $this->__('Cannot open the overview page'));
             $this->_redirect('*/*/billing');
         }
+
+        return null;
     }
 
     /**
      * Multishipping checkout after the overview page
+     * @return void
      */
     public function overviewPostAction()
     {
@@ -511,7 +530,8 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
         try {
             if ($requiredAgreements = Mage::helper('checkout')->getRequiredAgreementIds()) {
                 $postedAgreements = array_keys($this->getRequest()->getPost('agreement', []));
-                if ($diff = array_diff($requiredAgreements, $postedAgreements)) {
+                $diff = array_diff($requiredAgreements, $postedAgreements);
+                if ($diff !== []) {
                     $this->_getCheckoutSession()->addError($this->__('Please agree to all Terms and Conditions before placing the order.'));
                     $this->_redirect('*/*/billing');
                     return;
@@ -567,6 +587,7 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
 
     /**
      * Multishipping checkout success page
+     * @return null|$this
      */
     public function successAction()
     {
@@ -580,6 +601,7 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
         $ids = $this->_getCheckout()->getOrderIds();
         Mage::dispatchEvent('checkout_multishipping_controller_success_action', ['order_ids' => $ids]);
         $this->renderLayout();
+        return null;
     }
 
     /**

@@ -15,6 +15,7 @@
  * @property string $_url
  * @property array  $_messages
  */
+#[AllowDynamicProperties]
 abstract class Mage_Directory_Model_Currency_Import_Abstract
 {
     /**
@@ -49,8 +50,8 @@ abstract class Mage_Directory_Model_Currency_Import_Abstract
     /**
      * Saving currency rates
      *
-     * @param  array                                         $rates
-     * @return Mage_Directory_Model_Currency_Import_Abstract
+     * @param  array $rates
+     * @return $this
      */
     protected function _saveRates($rates)
     {
@@ -67,7 +68,7 @@ abstract class Mage_Directory_Model_Currency_Import_Abstract
     /**
      * Import rates
      *
-     * @return Mage_Directory_Model_Currency_Import_Abstract
+     * @return $this
      */
     public function importRates()
     {

@@ -18,6 +18,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage_Collection extends Varien_Data_Colle
      * @inheritDoc
      * @return array<string, null|bool|int|string>
      */
+    #[Override]
     protected function _generateRow($filename)
     {
         $filename = preg_replace('~[/\\\]+~', DIRECTORY_SEPARATOR, $filename);

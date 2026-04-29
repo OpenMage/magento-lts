@@ -21,6 +21,7 @@ class Mage_Customer_Model_Customer_Api_V2 extends Mage_Customer_Model_Customer_A
      * @param  stdClass $data
      * @return array
      */
+    #[Override]
     protected function _prepareData($data)
     {
         if (($objectVars = get_object_vars($data)) !== []) {

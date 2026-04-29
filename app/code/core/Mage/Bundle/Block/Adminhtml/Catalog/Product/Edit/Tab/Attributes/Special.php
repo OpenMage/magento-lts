@@ -19,6 +19,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Attributes_Special ex
     /**
      * @return string
      */
+    #[Override]
     public function getElementHtml()
     {
         return '<input id="' . $this->getElement()->getHtmlId() . '" name="' . $this->getElement()->getName()

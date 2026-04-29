@@ -25,14 +25,14 @@ class Mage_Sales_Model_Resource_Report_Order extends Mage_Sales_Model_Resource_R
     /**
      * Aggregate Orders data
      *
-     * @param  mixed $from
-     * @param  mixed $to
+     * @param  null|string $dateFrom
+     * @param  null|string $dateTo
      * @return $this
      */
-    public function aggregate($from = null, $to = null)
+    public function aggregate($dateFrom = null, $dateTo = null)
     {
-        Mage::getResourceModel('sales/report_order_createdat')->aggregate($from, $to);
-        Mage::getResourceModel('sales/report_order_updatedat')->aggregate($from, $to);
+        Mage::getResourceModel('sales/report_order_createdat')->aggregate($dateFrom, $dateTo);
+        Mage::getResourceModel('sales/report_order_updatedat')->aggregate($dateFrom, $dateTo);
         $this->_setFlagData(Mage_Reports_Model_Flag::REPORT_ORDER_FLAG_CODE);
 
         return $this;

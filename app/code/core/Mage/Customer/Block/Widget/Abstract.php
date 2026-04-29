@@ -37,7 +37,7 @@ class Mage_Customer_Block_Widget_Abstract extends Mage_Core_Block_Template
             $this->setData('field_id_format', '%s');
         }
 
-        return $this->getData('field_id_format');
+        return $this->getDataByKey('field_id_format');
     }
 
     /**
@@ -49,7 +49,7 @@ class Mage_Customer_Block_Widget_Abstract extends Mage_Core_Block_Template
             $this->setData('field_name_format', '%s');
         }
 
-        return $this->getData('field_name_format');
+        return $this->getDataByKey('field_name_format');
     }
 
     /**

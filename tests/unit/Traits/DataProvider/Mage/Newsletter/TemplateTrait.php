@@ -4,6 +4,7 @@
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
  * @license    Open Software License (OSL 3.0)
+ * @package    OpenMage_Tests
  */
 
 declare(strict_types=1);
@@ -14,7 +15,7 @@ use Generator;
 
 trait TemplateTrait
 {
-    public function provideValidateData(): Generator
+    public static function provideValidateData(): Generator
     {
         $validData = [
             'setTemplateCode'           => 'Valid Code',
@@ -73,9 +74,9 @@ trait TemplateTrait
         ];
 
         $data = $validData;
-        $data['setTemplateType'] = null;
-        yield 'missing template type' => [
-            "You must give a non-empty value for field 'template_type'",
+        $data['setTemplateType'] = 999;
+        yield 'invalid template type' => [
+            'The value 999 you selected for "template_type" is not a valid choices 1, 2.',
             $data,
         ];
     }
