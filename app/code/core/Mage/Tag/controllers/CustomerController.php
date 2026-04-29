@@ -133,6 +133,7 @@ class Mage_Tag_CustomerController extends Mage_Core_Controller_Front_Action
     }
 
     /**
+     * @return void
      * @deprecated after 1.3.2.3
      * This functionality was removed
      */

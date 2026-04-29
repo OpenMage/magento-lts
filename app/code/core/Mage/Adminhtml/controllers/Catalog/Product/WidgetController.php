@@ -23,6 +23,7 @@ class Mage_Adminhtml_Catalog_Product_WidgetController extends Mage_Adminhtml_Con
     /**
      * Chooser Source action
      *
+     * @return void
      * @throws Mage_Core_Exception
      */
     public function chooserAction()

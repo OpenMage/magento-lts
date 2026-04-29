@@ -32,6 +32,11 @@ class Mage_ProductAlert_AddController extends Mage_Core_Controller_Front_Action
         return $this;
     }
 
+    /**
+     * Test observer action
+     *
+     * @return void
+     */
     public function testObserverAction()
     {
         $object = new Varien_Object();
@@ -39,6 +44,11 @@ class Mage_ProductAlert_AddController extends Mage_Core_Controller_Front_Action
         $observer->process($object);
     }
 
+    /**
+     * Add product price alert subscription
+     *
+     * @return void
+     */
     public function priceAction()
     {
         $session = Mage::getSingleton('catalog/session');
@@ -46,7 +56,7 @@ class Mage_ProductAlert_AddController extends Mage_Core_Controller_Front_Action
         $productId  = (int) $this->getRequest()->getParam('product_id');
         if (!$backUrl || !$productId) {
             $this->_redirect('/');
-            return ;
+            return;
         }
 
         /** @var Mage_Catalog_Model_Product $product */
@@ -59,7 +69,7 @@ class Mage_ProductAlert_AddController extends Mage_Core_Controller_Front_Action
                 $this->_redirect('/');
             }
 
-            return ;
+            return;
         }
 
         try {
@@ -77,6 +87,11 @@ class Mage_ProductAlert_AddController extends Mage_Core_Controller_Front_Action
         $this->_redirectReferer();
     }
 
+    /**
+     * Add product stock alert subscription
+     *
+     * @return void
+     */
     public function stockAction()
     {
         /** @var Mage_Catalog_Model_Session $session */
@@ -85,7 +100,7 @@ class Mage_ProductAlert_AddController extends Mage_Core_Controller_Front_Action
         $productId  = (int) $this->getRequest()->getParam('product_id');
         if (!$backUrl || !$productId) {
             $this->_redirect('/');
-            return ;
+            return;
         }
 
         /** @var Mage_Catalog_Model_Product $product */
@@ -93,8 +108,13 @@ class Mage_ProductAlert_AddController extends Mage_Core_Controller_Front_Action
 
         if (!$product->getId()) {
             $session->addError($this->__('Not enough parameters.'));
-            $this->_redirectUrl($backUrl);
-            return ;
+            if ($this->_isUrlInternal($backUrl)) {
+                $this->_redirectUrl($backUrl);
+            } else {
+                $this->_redirect('/');
+            }
+
+            return;
         }
 
         try {

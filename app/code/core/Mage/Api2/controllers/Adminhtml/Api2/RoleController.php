@@ -30,6 +30,7 @@ class Mage_Api2_Adminhtml_Api2_RoleController extends Mage_Adminhtml_Controller_
 
     /**
      * Show grid
+     * @return void
      */
     public function indexAction()
     {
@@ -47,6 +48,7 @@ class Mage_Api2_Adminhtml_Api2_RoleController extends Mage_Adminhtml_Controller_
 
     /**
      * Updating grid by ajax
+     * @return void
      */
     public function gridAction()
     {
@@ -56,6 +58,7 @@ class Mage_Api2_Adminhtml_Api2_RoleController extends Mage_Adminhtml_Controller_
 
     /**
      * Updating users grid by ajax
+     * @return void
      */
     public function usersGridAction()
     {
@@ -71,6 +74,7 @@ class Mage_Api2_Adminhtml_Api2_RoleController extends Mage_Adminhtml_Controller_
 
     /**
      * Create new role
+     * @return void
      */
     public function newAction()
     {
@@ -94,6 +98,7 @@ class Mage_Api2_Adminhtml_Api2_RoleController extends Mage_Adminhtml_Controller_
 
     /**
      * Edit role
+     * @return void
      */
     public function editAction()
     {
@@ -142,6 +147,7 @@ class Mage_Api2_Adminhtml_Api2_RoleController extends Mage_Adminhtml_Controller_
 
     /**
      * Save role
+     * @return void
      */
     public function saveAction()
     {
@@ -250,6 +256,7 @@ class Mage_Api2_Adminhtml_Api2_RoleController extends Mage_Adminhtml_Controller_
 
     /**
      * Delete role
+     * @return void
      */
     public function deleteAction()
     {
@@ -285,6 +292,7 @@ class Mage_Api2_Adminhtml_Api2_RoleController extends Mage_Adminhtml_Controller_
 
     /**
      * Get API2 roles ajax grid action
+     * @return void
      */
     public function rolesGridAction()
     {

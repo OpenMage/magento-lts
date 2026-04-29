@@ -367,7 +367,7 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
 
         //$this->curlOption(CURLOPT_HEADER, true);
         $this->curlOption(CURLOPT_RETURNTRANSFER, 1);
-        $this->curlOption(CURLOPT_HEADERFUNCTION, [$this,'parseHeaders']);
+        $this->curlOption(CURLOPT_HEADERFUNCTION, $this->parseHeaders(...));
 
         if (count($this->_curlUserOptions)) {
             foreach ($this->_curlUserOptions as $key => $value) {
@@ -456,8 +456,8 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
     /**
      * Set curl option directly
      *
-     * @param int              $name
-     * @param array|int|string $value
+     * @param int                       $name
+     * @param array|callable|int|string $value
      */
     protected function curlOption($name, $value)
     {

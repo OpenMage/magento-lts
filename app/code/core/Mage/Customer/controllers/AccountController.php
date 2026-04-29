@@ -94,6 +94,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
 
     /**
      * Default customer account page
+     * @return void
      */
     public function indexAction()
     {
@@ -110,6 +111,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
 
     /**
      * Customer login form page
+     * @return void
      */
     public function loginAction()
     {
@@ -128,6 +130,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
 
     /**
      * Login post action
+     * @return void
      */
     public function loginPostAction()
     {
@@ -228,6 +231,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
 
     /**
      * Customer logout action
+     * @return void
      */
     public function logoutAction()
     {
@@ -245,6 +249,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
 
     /**
      * Logout success page
+     * @return void
      */
     public function logoutSuccessAction()
     {
@@ -254,6 +259,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
 
     /**
      * Customer register form page
+     * @return void
      */
     public function createAction()
     {
@@ -269,6 +275,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
 
     /**
      * Create customer account action
+     * @return void
      */
     public function createPostAction()
     {
@@ -597,6 +604,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
 
     /**
      * Confirm customer account by id and confirmation key
+     * @return void
      */
     public function confirmAction()
     {
@@ -657,6 +665,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
 
     /**
      * Send confirmation link to specified email
+     * @return void
      */
     public function confirmationAction()
     {
@@ -716,6 +725,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
 
     /**
      * Forgot customer password page
+     * @return void
      */
     public function forgotPasswordAction()
     {
@@ -732,6 +742,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
 
     /**
      * Forgot customer password action
+     * @return void
      * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
      */
@@ -801,6 +812,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
 
     /**
      * Display reset forgotten password form
+     * @return void
      */
     public function changeForgottenAction()
     {
@@ -819,6 +831,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
      * Checks reset forgotten password token
      *
      * User is redirected on this action when he clicks on the corresponding link in password reset confirmation email.
+     * @return void
      */
     public function resetPasswordAction()
     {
@@ -838,6 +851,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
     /**
      * Reset forgotten password
      * Used to handle data received from reset forgotten password form
+     * @return void
      */
     public function resetPasswordPostAction()
     {
@@ -955,6 +969,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
 
     /**
      * Forgot customer account information page
+     * @return void
      */
     public function editAction()
     {
@@ -984,6 +999,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
 
     /**
      * Change customer password action
+     * @return $this|void
      */
     public function editPostAction()
     {

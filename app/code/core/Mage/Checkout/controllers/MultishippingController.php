@@ -133,6 +133,7 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
 
     /**
      * Index action of Multishipping checkout
+     * @return void
      */
     public function indexAction()
     {
@@ -142,6 +143,7 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
 
     /**
      * Multishipping checkout login page
+     * @return void
      */
     public function loginAction()
     {
@@ -163,6 +165,7 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
 
     /**
      * Multishipping checkout login page
+     * @return void
      */
     public function registerAction()
     {
@@ -186,6 +189,7 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
 
     /**
      * Multishipping checkout select address page
+     * @return void
      */
     public function addressesAction()
     {
@@ -215,6 +219,7 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
 
     /**
      * Multishipping checkout process posted addresses
+     * @return void
      */
     public function addressesPostAction()
     {
@@ -261,6 +266,7 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
 
     /**
      * Multishipping checkout action to go back to addresses page
+     * @return void
      */
     public function backToAddressesAction()
     {
@@ -275,6 +281,7 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
 
     /**
      * Multishipping checkout remove item action
+     * @return void
      */
     public function removeItemAction()
     {
@@ -307,6 +314,7 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
 
     /**
      * Multishipping checkout shipping information page
+     * @return null|$this
      */
     public function shippingAction()
     {
@@ -331,6 +339,7 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
 
     /**
      * Multishipping checkout action to go back to shipping
+     * @return void
      */
     public function backToShippingAction()
     {
@@ -345,6 +354,7 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
 
     /**
      * Multishipping checkout after the shipping page
+     * @return void
      */
     public function shippingPostAction()
     {
@@ -375,6 +385,7 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
 
     /**
      * Multishipping checkout billing information page
+     * @return null|$this
      */
     public function billingAction()
     {
@@ -442,6 +453,7 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
 
     /**
      * Multishipping checkout action to go back to billing
+     * @return void
      */
     public function backToBillingAction()
     {
@@ -456,6 +468,7 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
 
     /**
      * Multishipping checkout place order page
+     * @return null|$this
      */
     public function overviewAction()
     {
@@ -501,6 +514,7 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
 
     /**
      * Multishipping checkout after the overview page
+     * @return void
      */
     public function overviewPostAction()
     {
@@ -573,6 +587,7 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
 
     /**
      * Multishipping checkout success page
+     * @return null|$this
      */
     public function successAction()
     {

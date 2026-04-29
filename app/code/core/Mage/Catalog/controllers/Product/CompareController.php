@@ -28,6 +28,9 @@ class Mage_Catalog_Product_CompareController extends Mage_Core_Controller_Front_
      */
     protected $_customerId = null;
 
+    /**
+     * @return void
+     */
     public function indexAction()
     {
         $items = $this->getRequest()->getParam('items');
@@ -51,6 +54,7 @@ class Mage_Catalog_Product_CompareController extends Mage_Core_Controller_Front_
 
     /**
      * Add item to compare list
+     * @return void
      */
     public function addAction()
     {
@@ -83,6 +87,7 @@ class Mage_Catalog_Product_CompareController extends Mage_Core_Controller_Front_
 
     /**
      * Remove item from compare list
+     * @return void
      */
     public function removeAction()
     {
@@ -125,6 +130,7 @@ class Mage_Catalog_Product_CompareController extends Mage_Core_Controller_Front_
 
     /**
      * Remove all items from comparison list
+     * @return void
      */
     public function clearAction()
     {

@@ -22,6 +22,7 @@ class Mage_Downloadable_Adminhtml_Downloadable_FileController extends Mage_Admin
 
     /**
      * Upload file controller action
+     * @return void
      */
     public function uploadAction()
     {
