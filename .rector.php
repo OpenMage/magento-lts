@@ -173,10 +173,13 @@ try {
             # ... needs closer review
             TypeDeclaration\BooleanAnd\BinaryOpNullableToInstanceofRector::class,
         ])
-        # WIP
+        # wait for rector support
         ->withSkip([
-            # https://github.com/OpenMage/magento-lts/pull/5434
-            Php81\Array_\ArrayToFirstClassCallableRector::class,
+            # https://github.com/rectorphp/rector/issues/9743
+            Php81\Array_\ArrayToFirstClassCallableRector::class => [
+                __DIR__ . '/app/code/core/Mage/Paypal/Model/Api/Abstract.php',
+                __DIR__ . '/app/code/core/Mage/Paypal/Model/Info.php',
+            ],
         ])
         ->withSkip([
             # skip: use static methods

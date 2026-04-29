@@ -14,6 +14,9 @@
  */
 class Mage_Adminhtml_Report_TagController extends Mage_Adminhtml_Controller_Action
 {
+    /**
+     * @return $this
+     */
     public function _initAction()
     {
         $act = $this->getRequest()->getActionName();
@@ -27,6 +30,9 @@ class Mage_Adminhtml_Report_TagController extends Mage_Adminhtml_Controller_Acti
         return $this;
     }
 
+    /**
+     * @return void
+     */
     public function customerAction()
     {
         $this->_title($this->__('Reports'))
@@ -42,6 +48,7 @@ class Mage_Adminhtml_Report_TagController extends Mage_Adminhtml_Controller_Acti
 
     /**
      * Export customer's tags report to CSV format
+     * @return void
      */
     public function exportCustomerCsvAction()
     {
@@ -54,6 +61,7 @@ class Mage_Adminhtml_Report_TagController extends Mage_Adminhtml_Controller_Acti
 
     /**
      * Export customer's tags report to Excel XML format
+     * @return void
      */
     public function exportCustomerExcelAction()
     {
@@ -64,6 +72,9 @@ class Mage_Adminhtml_Report_TagController extends Mage_Adminhtml_Controller_Acti
         $this->_prepareDownloadResponse($fileName, $content);
     }
 
+    /**
+     * @return void
+     */
     public function productAction()
     {
         $this->_title($this->__('Reports'))
@@ -79,6 +90,7 @@ class Mage_Adminhtml_Report_TagController extends Mage_Adminhtml_Controller_Acti
 
     /**
      * Export product's tags report to CSV format
+     * @return void
      */
     public function exportProductCsvAction()
     {
@@ -91,6 +103,7 @@ class Mage_Adminhtml_Report_TagController extends Mage_Adminhtml_Controller_Acti
 
     /**
      * Export product's tags report to Excel XML format
+     * @return void
      */
     public function exportProductExcelAction()
     {
@@ -101,6 +114,9 @@ class Mage_Adminhtml_Report_TagController extends Mage_Adminhtml_Controller_Acti
         $this->_prepareDownloadResponse($fileName, $content);
     }
 
+    /**
+     * @return void
+     */
     public function popularAction()
     {
         $this->_title($this->__('Reports'))
@@ -116,6 +132,7 @@ class Mage_Adminhtml_Report_TagController extends Mage_Adminhtml_Controller_Acti
 
     /**
      * Export popular tags report to CSV format
+     * @return void
      */
     public function exportPopularCsvAction()
     {
@@ -128,6 +145,7 @@ class Mage_Adminhtml_Report_TagController extends Mage_Adminhtml_Controller_Acti
 
     /**
      * Export popular tags report to Excel XML format
+     * @return void
      */
     public function exportPopularExcelAction()
     {
@@ -138,6 +156,9 @@ class Mage_Adminhtml_Report_TagController extends Mage_Adminhtml_Controller_Acti
         $this->_prepareDownloadResponse($fileName, $content);
     }
 
+    /**
+     * @return void
+     */
     public function customerDetailAction()
     {
         $detailBlock = $this->getLayout()->createBlock('adminhtml/report_tag_customer_detail');
@@ -157,6 +178,7 @@ class Mage_Adminhtml_Report_TagController extends Mage_Adminhtml_Controller_Acti
 
     /**
      * Export customer's tags detail report to CSV format
+     * @return void
      */
     public function exportCustomerDetailCsvAction()
     {
@@ -169,6 +191,7 @@ class Mage_Adminhtml_Report_TagController extends Mage_Adminhtml_Controller_Acti
 
     /**
      * Export customer's tags detail report to Excel XML format
+     * @return void
      */
     public function exportCustomerDetailExcelAction()
     {
@@ -179,6 +202,9 @@ class Mage_Adminhtml_Report_TagController extends Mage_Adminhtml_Controller_Acti
         $this->_prepareDownloadResponse($fileName, $content);
     }
 
+    /**
+     * @return void
+     */
     public function productDetailAction()
     {
         $detailBlock = $this->getLayout()->createBlock('adminhtml/report_tag_product_detail');
@@ -198,6 +224,7 @@ class Mage_Adminhtml_Report_TagController extends Mage_Adminhtml_Controller_Acti
 
     /**
      * Export product's tags detail report to CSV format
+     * @return void
      */
     public function exportProductDetailCsvAction()
     {
@@ -210,6 +237,7 @@ class Mage_Adminhtml_Report_TagController extends Mage_Adminhtml_Controller_Acti
 
     /**
      * Export product's tags detail report to Excel XML format
+     * @return void
      */
     public function exportProductDetailExcelAction()
     {
@@ -220,6 +248,9 @@ class Mage_Adminhtml_Report_TagController extends Mage_Adminhtml_Controller_Acti
         $this->_prepareDownloadResponse($fileName, $content);
     }
 
+    /**
+     * @return void
+     */
     public function tagDetailAction()
     {
         $detailBlock = $this->getLayout()->createBlock('adminhtml/report_tag_popular_detail');
@@ -239,6 +270,7 @@ class Mage_Adminhtml_Report_TagController extends Mage_Adminhtml_Controller_Acti
 
     /**
      * Export tag detail report to CSV format
+     * @return void
      */
     public function exportTagDetailCsvAction()
     {
@@ -251,6 +283,7 @@ class Mage_Adminhtml_Report_TagController extends Mage_Adminhtml_Controller_Acti
 
     /**
      * Export tag detail report to Excel XML format
+     * @return void
      */
     public function exportTagDetailExcelAction()
     {

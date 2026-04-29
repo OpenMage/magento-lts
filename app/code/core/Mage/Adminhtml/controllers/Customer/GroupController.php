@@ -45,6 +45,7 @@ class Mage_Adminhtml_Customer_GroupController extends Mage_Adminhtml_Controller_
 
     /**
      * Customer groups list.
+     * @return void
      */
     public function indexAction()
     {
@@ -59,6 +60,7 @@ class Mage_Adminhtml_Customer_GroupController extends Mage_Adminhtml_Controller_
 
     /**
      * Edit or create customer group.
+     * @return void
      */
     public function newAction()
     {
@@ -87,6 +89,7 @@ class Mage_Adminhtml_Customer_GroupController extends Mage_Adminhtml_Controller_
 
     /**
      * Edit customer group action. Forward to new action.
+     * @return void
      */
     public function editAction()
     {
@@ -95,6 +98,7 @@ class Mage_Adminhtml_Customer_GroupController extends Mage_Adminhtml_Controller_
 
     /**
      * Create or save customer group.
+     * @return void
      */
     public function saveAction()
     {
@@ -131,6 +135,7 @@ class Mage_Adminhtml_Customer_GroupController extends Mage_Adminhtml_Controller_
 
     /**
      * Delete customer group action
+     * @return void
      */
     public function deleteAction()
     {

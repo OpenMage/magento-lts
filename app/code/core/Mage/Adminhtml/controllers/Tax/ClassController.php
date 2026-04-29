@@ -16,6 +16,7 @@ class Mage_Adminhtml_Tax_ClassController extends Mage_Adminhtml_Controller_Actio
 {
     /**
      * save class action
+     * @return void
      */
     public function saveAction()
     {
