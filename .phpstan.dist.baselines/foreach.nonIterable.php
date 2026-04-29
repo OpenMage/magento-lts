@@ -602,22 +602,22 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/Source/Shipmenttype.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Argument of an invalid type array|bool supplied for foreach, only iterables are supported.',
+    'rawMessage' => 'Argument of an invalid type array|string|false supplied for foreach, only iterables are supported.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex/Source/Dropoff.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Argument of an invalid type array|bool supplied for foreach, only iterables are supported.',
+    'rawMessage' => 'Argument of an invalid type array|string|false supplied for foreach, only iterables are supported.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex/Source/Method.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Argument of an invalid type array|bool supplied for foreach, only iterables are supported.',
+    'rawMessage' => 'Argument of an invalid type array|string|false supplied for foreach, only iterables are supported.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex/Source/Packaging.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Argument of an invalid type array|bool supplied for foreach, only iterables are supported.',
+    'rawMessage' => 'Argument of an invalid type array|string|false supplied for foreach, only iterables are supported.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex/Source/Unitofmeasure.php',
 ];

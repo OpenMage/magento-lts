@@ -187,11 +187,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Implicit array creation is not allowed - variable $resultArray does not exist.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Implicit array creation is not allowed - variable $params might not exist.',
     'count' => 1,
     'path' => __DIR__ . '/../app/design/frontend/base/default/template/tag/customer/view.phtml',

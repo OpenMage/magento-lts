@@ -24742,26 +24742,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/Label/Pdf/PageBuilder.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Usa_Model_Shipping_Carrier_Fedex::_formShipmentRequest() return type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Usa_Model_Shipping_Carrier_Fedex::_getXMLTracking() has parameter $tracking with no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Usa_Model_Shipping_Carrier_Fedex::_parseTrackingResponse() has parameter $trackingValue with no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Usa_Model_Shipping_Carrier_Fedex::_parseXmlTrackingResponse() has parameter $trackingvalue with no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Usa_Model_Shipping_Carrier_Fedex::getAllowedMethods() return type has no value type specified in iterable type array.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php',
