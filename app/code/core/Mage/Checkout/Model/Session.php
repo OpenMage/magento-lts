@@ -212,7 +212,7 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
                 }
             }
 
-            if (!$quote->getCustomerId() && ($customerSession->isLoggedIn() || $this->_customer)) {
+            if ((!$quote->getCustomerId()) && ($customerSession->isLoggedIn() || $this->_customer)) {
                 $customer = ($this->_customer) ? $this->_customer : $customerSession->getCustomer();
                 $quote->setCustomer($customer);
             }
