@@ -1,11 +1,11 @@
 ---
 name: phpstan-magento1
-description: PHPStan in OpenMage — level 6 + strictRules.allRules + bleedingEdge, macopedia/phpstan-magento1 plugin (alias resolution), dynamicCallOnStaticMethod trap, split-per-identifier baselines, regen workflow. Use when fixing PHPStan errors, running composer run phpstan:test, regenerating baselines, or understanding why $this->staticMethod() is flagged.
+description: PHPStan in OpenMage — level 8 + strictRules.allRules + bleedingEdge, macopedia/phpstan-magento1 plugin (alias resolution), dynamicCallOnStaticMethod trap, split-per-identifier baselines, regen workflow. Use when fixing PHPStan errors, running composer run phpstan:test, regenerating baselines, or understanding why $this->staticMethod() is flagged.
 ---
 
 # PHPStan in OpenMage / magento-lts
 
-OpenMage runs PHPStan at **level 6** with `strictRules.allRules` and `bleedingEdge` on, plus the `macopedia/phpstan-magento1` plugin for M1 alias resolution. Errors that aren't fixable yet live in **split-per-identifier baselines** under `.phpstan.dist.baselines/` (~23k entries total).
+OpenMage runs PHPStan at **level 8** with `strictRules.allRules` and `bleedingEdge` on, plus the `macopedia/phpstan-magento1` plugin for M1 alias resolution. Errors that aren't fixable yet live in **split-per-identifier baselines** under `.phpstan.dist.baselines/` (many tens of thousands of entries — regenerate with `composer run phpstan:baseline` to get an exact count).
 
 Cross-refs: `phpunit-openmage-tests` (data-provider statics interact with `dynamicCallOnStaticMethod`).
 
@@ -25,7 +25,7 @@ Always commit the regenerated baselines alongside the change that moved the erro
 
 ## Config posture (`.phpstan.dist.neon`)
 
-- `level: 6`
+- `level: 8`
 - `strictRules.allRules: true` (via `phpstan/phpstan-strict-rules`)
 - `bleedingEdge.neon` included → enables `dynamicCallOnStaticMethod: true` among others
 - `treatPhpDocTypesAsCertain: false` — phpdoc-only types are treated as suspect
@@ -86,7 +86,7 @@ When you flip a helper to `static` so a data provider can call it, update **ever
 
 ## Split-per-identifier baselines
 
-`.phpstan.dist.baselines/_loader.php` `includes` one PHP file per error identifier. Header notes total: **23693 errors**. Highlights:
+`.phpstan.dist.baselines/_loader.php` `includes` one PHP file per error identifier — currently ~110 files. The split-per-identifier scheme keeps diffs scoped when an identifier's count moves; the totals are not stamped into the loader (run `composer run phpstan:baseline` if you need a fresh count). Highlights:
 
 - `argument.type.php` — call-site type doesn't match the param hint
 - `arguments.count.php` — wrong number of args

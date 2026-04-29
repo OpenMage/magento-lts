@@ -5,7 +5,7 @@ description: Magento 1 layout XML, blocks, .phtml templates, design fallback cha
 
 # Magento 1 Layout, Blocks, Templates
 
-Layout XML wires named blocks into handles; blocks are PHP classes (alias-resolved); `.phtml` templates render block data. Variables in templates come from the **block** via magic getters — *not* from globals. PHPStan analyzes `.phtml` files at level 6, so the `@method` discipline on Block classes is load-bearing, not cosmetic.
+Layout XML wires named blocks into handles; blocks are PHP classes (alias-resolved); `.phtml` templates render block data. Variables in templates come from the **block** via magic getters — *not* from globals. PHPStan analyzes `.phtml` files, so the `@method` discipline on Block classes is load-bearing, not cosmetic.
 
 ## Layout handles, references, blocks
 
@@ -157,7 +157,7 @@ When a file (layout XML, template, skin asset) is missing in the requested theme
 
 ```neon
 parameters:
-    level: 6
+    level: 8
     fileExtensions:
       - php
       - phtml

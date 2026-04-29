@@ -27,7 +27,7 @@ composer run php-cs-fixer:test       # check
 composer run php-cs-fixer:fix        # auto-fix
 
 # Static analysis
-composer run phpstan:test            # PHPStan level 6 with macopedia/phpstan-magento1
+composer run phpstan:test            # PHPStan level 8 with macopedia/phpstan-magento1
 composer run phpstan:baseline        # regenerate split baselines under .phpstan.dist.baselines/
 
 # Mess detection
@@ -152,7 +152,7 @@ Models extending `Varien_Object` use `__call` to expose `setX/getX/hasX/unsX` fo
 - Don't trust IDE "Go to definition" hits — many `@method` entries route through `__call` and have no real implementation anywhere.
 - ECS's `PhpdocAlignFixer` aligns these vertically and `PhpdocOrderFixer` enforces tag order — let the formatter run.
 
-### PHPStan gotchas (level 6, strict rules on)
+### PHPStan gotchas (level 8, strict rules on)
 
 `.phpstan.dist.neon` sets `dynamicCallOnStaticMethod: true` (via `bleedingEdge.neon`). Two consequences when writing tests:
 
