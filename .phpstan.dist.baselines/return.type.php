@@ -2982,16 +2982,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Usa_Model_Shipping_Carrier_Fedex::getCode() should return array|bool but returns array<string, array<int|string, array<string, list<string>>|string>>|string|false.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Usa_Model_Shipping_Carrier_Fedex::getDeliveryConfirmationTypes() should return array but returns array|bool.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Usa_Model_Shipping_Carrier_Ups::_formShipmentRestRequest() should return string but returns string|false.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Ups.php',

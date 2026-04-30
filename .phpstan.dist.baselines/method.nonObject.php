@@ -6617,82 +6617,12 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method getAccount() on Varien_Object|null.',
-    'count' => 3,
-    'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Cannot call method getAllRates() on Mage_Shipping_Model_Rate_Result|null.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method getDestCountry() on Varien_Object|null.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method getDestPostal() on Varien_Object|null.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method getDropoffType() on Varien_Object|null.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Cannot call method getFreeMethodWeight() on Varien_Object|null.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method getKey() on Varien_Object|null.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method getMeterNumber() on Varien_Object|null.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method getOrigCountry() on Varien_Object|null.',
-    'count' => 3,
-    'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method getOrigPostal() on Varien_Object|null.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method getPackaging() on Varien_Object|null.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method getPassword() on Varien_Object|null.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method getService() on Varien_Object|null.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method getValue() on Varien_Object|null.',
-    'count' => 4,
-    'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method getWeight() on Varien_Object|null.',
-    'count' => 3,
-    'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method hasService() on Varien_Object|null.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php',
 ];

@@ -1212,16 +1212,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/Label/Pdf/PageBuilder.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in a ternary operator condition, string given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in a ternary operator condition, string|false given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in a ternary operator condition, mixed given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps.php',

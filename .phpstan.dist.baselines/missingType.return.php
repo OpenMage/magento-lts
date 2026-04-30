@@ -7632,21 +7632,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/Source/Shipmenttype.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Usa_Model_Shipping_Carrier_Fedex::_getXMLTracking() has no return type specified.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Usa_Model_Shipping_Carrier_Fedex::_parseTrackingResponse() has no return type specified.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Usa_Model_Shipping_Carrier_Fedex::_parseXmlTrackingResponse() has no return type specified.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Usa_Model_Shipping_Carrier_Fedex::_setFreeMethodRequest() has no return type specified.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php',
