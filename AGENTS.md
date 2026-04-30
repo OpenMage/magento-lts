@@ -4,7 +4,9 @@ This file provides guidance to coding agents (Claude Code, Copilot, Cursor, etc.
 
 ## Project
 
-OpenMage / `openmage/magento-lts`: a community-driven LTS fork of Magento 1.x intended as a drop-in replacement. This repo *is* the upstream for OpenMage — fix bugs in `app/code/core/Mage/...` directly. Don't paper over with `app/code/local` or `app/code/community` overrides.
+OpenMage / `openmage/magento-lts`: a community-driven LTS distribution intended as a drop-in replacement. This repo *is* the upstream for OpenMage — fix bugs in `app/code/core/Mage/...` directly. Don't paper over with `app/code/local` or `app/code/community` overrides.
+
+Claude Code note: OpenMage relies on Magento 1 architecture and conventions: `Mage_*` modules, class aliases, XML configuration, setup scripts, events/observers, and layout XML remain core concepts.
 
 PHP support range: `>=8.1 <8.6` (composer platform pinned to 8.1). PHPStan checks against 8.1–8.5.
 
@@ -72,11 +74,11 @@ DDEV config lives in `.ddev/` (see `dev/openmage/README.md` and the docs site). 
 
 ## Architecture
 
-This is a Magento 1 codebase — module-based, not Symfony/Laravel. Read this section before making structural changes.
+This is an OpenMage codebase — module-based, not Symfony/Laravel. Read this section before making structural changes.
 
-### Magento 1 mental model
+### OpenMage mental model
 
-A short orientation for agents new to M1 — these are the abstractions everything else hangs off:
+A short orientation for agents new to OpenMage — these are the abstractions everything else hangs off:
 
 - **Bootstrap & DI:** `Mage::app()` boots the application. Instances come from `Mage::getModel('catalog/product')`, `Mage::getSingleton(...)`, `Mage::helper(...)`. Cross-request state lives in `Mage::registry($key)`. Config reads via `Mage::getStoreConfig($path)`.
 - **Class aliases:** `catalog/product` → `Mage_Catalog_Model_Product` is wired in each module's `etc/config.xml` under `<global><models>/<helpers>/<blocks>`. Aliases are public surface — don't rename without keeping the old as a passthrough.
@@ -88,7 +90,7 @@ A short orientation for agents new to M1 — these are the abstractions everythi
 
 ### Module layout
 
-- `app/code/core/Mage/<Module>/` — official Magento 1 modules. Treat as the canonical surface; **prefer fixing bugs in place** rather than overriding from `local`/`community`, since this repo *is* the upstream for OpenMage.
+- `app/code/core/Mage/<Module>/` — OpenMage core modules. Treat as the canonical surface; **prefer fixing bugs in place** rather than overriding from `local`/`community`, since this repo *is* the upstream for OpenMage.
 - `app/code/community/<Vendor>/<Module>/` — bundled third-party modules.
 - `app/code/local/<Vendor>/<Module>/` — local overrides (rarely used in this repo itself; consumed by integrators).
 - `lib/Varien/`, `lib/Mage/`, `lib/Magento/` — framework-level libraries (Varien is the legacy DB/collection/IO layer).

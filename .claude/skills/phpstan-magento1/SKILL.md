@@ -5,7 +5,7 @@ description: PHPStan in OpenMage — level 8 + strictRules.allRules + bleedingEd
 
 # PHPStan in OpenMage / magento-lts
 
-OpenMage runs PHPStan at **level 8** with `strictRules.allRules` and `bleedingEdge` on, plus the `macopedia/phpstan-magento1` plugin for M1 alias resolution. Errors that aren't fixable yet live in **split-per-identifier baselines** under `.phpstan.dist.baselines/` (many tens of thousands of entries — regenerate with `composer run phpstan:baseline` to get an exact count).
+OpenMage runs PHPStan at **level 8** with `strictRules.allRules` and `bleedingEdge` on, plus the `macopedia/phpstan-magento1` plugin for OpenMage alias resolution. Errors that aren't fixable yet live in **split-per-identifier baselines** under `.phpstan.dist.baselines/` (many tens of thousands of entries — regenerate with `composer run phpstan:baseline` to get an exact count).
 
 Cross-refs: `phpunit-openmage-tests` (data-provider statics interact with `dynamicCallOnStaticMethod`).
 
@@ -37,7 +37,7 @@ Always commit the regenerated baselines alongside the change that moved the erro
 
 ## macopedia/phpstan-magento1 plugin
 
-The plugin teaches PHPStan about M1 idioms.
+The plugin teaches PHPStan about OpenMage idioms.
 
 - **Alias resolution.** `Mage::getModel('catalog/product')` is inferred as `Mage_Catalog_Model_Product`. Same for `Mage::getSingleton`, `Mage::helper`, and block aliases. The plugin reads each module's `etc/config.xml` `<global><models|helpers|blocks>` mappings.
 - **`_init()` calls.** Inside resource models, `$this->_init('catalog/product', 'entity_id')` is recognized so collection/resource types resolve.
