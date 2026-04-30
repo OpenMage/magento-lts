@@ -217,7 +217,7 @@ class Mage_Adminhtml_Tax_RuleController extends Mage_Adminhtml_Controller_Action
      * @param  array                    $arguments
      * @return Mage_Core_Model_Abstract
      */
-    #[Deprecated(message: 'Use Mage::getSingleton', since: OpenMageVersionInterface::VERSION_20_18_0_0)]
+    #[Deprecated(message: 'Use Mage::getSingleton', since: OpenMageVersionInterface::VERSION_20_18_0)]
     protected function _getSingletonModel($className, $arguments = [])
     {
         return Mage::getSingleton($className, $arguments);
@@ -229,7 +229,7 @@ class Mage_Adminhtml_Tax_RuleController extends Mage_Adminhtml_Controller_Action
      * @param  string                    $className
      * @return Mage_Core_Helper_Abstract
      */
-    #[Deprecated(message: 'Use Mage::helper', since: OpenMageVersionInterface::VERSION_20_18_0_0)]
+    #[Deprecated(message: 'Use Mage::helper', since: OpenMageVersionInterface::VERSION_20_18_0)]
     protected function _getHelperModel($className)
     {
         return Mage::helper($className);
