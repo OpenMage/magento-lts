@@ -20,7 +20,7 @@ Frontend route: `/checkout/onepage/*`, `/checkout/cart/*`, `/checkout/multishipp
 
 ## The `getCheckout()` helper pattern
 
-Every checkout class exposes `getCheckout()` returning the singleton `checkout/session`. Don't `Mage::getSingleton('checkout/session')` repeatedly — call `$this->getCheckout()` from controllers, blocks (`Mage_Checkout_Block_*`), and the onepage model. It's the same instance everywhere. Step state (`getStepData`/`setStepData`) and transient flags (`setRedirectUrl`, `setGotoSection`, `setLastOrderId`, `setLastRealOrderId`) live on it.
+Multishipping blocks (`Block/Multishipping/Abstract.php` + subclasses) and the Onepage model expose `getCheckout()` returning the singleton `checkout/session`; cart blocks call `Mage::getSingleton('checkout/session')` directly. Don't `Mage::getSingleton('checkout/session')` repeatedly — call `$this->getCheckout()` from controllers, blocks (`Mage_Checkout_Block_*`), and the onepage model. It's the same instance everywhere. Step state (`getStepData`/`setStepData`) and transient flags (`setRedirectUrl`, `setGotoSection`, `setLastOrderId`, `setLastRealOrderId`) live on it.
 
 ## Onepage step sequence
 
@@ -54,11 +54,11 @@ Each `save*` method returns:
    - default → `_prepareCustomerQuote()` (logged-in customer; saves new addresses if `save_in_address_book`).
 3. **Hands off to sales**: `Mage::getModel('sales/service_quote', $this->getQuote())->submitAll()`. This is the single conversion entry point — see `mage-module-sales`.
 4. `submitAll` creates the order, dispatches `sales_model_service_quote_submit_before`/`_success`, and inactivates the quote.
-5. Onepage then dispatches `checkout_type_onepage_save_order_after` (legacy event) and `checkout_submit_all_after` (canonical, also dispatched by multishipping).
-6. New customers: `_involveNewCustomer()` either sends confirmation email or `loginById()`.
-7. Stashes `last_order_id`, `last_real_order_id`, `last_quote_id`, `last_success_quote_id`, optional `redirect_url` (third-party gateway) on the checkout session.
+5. New customers: `_involveNewCustomer()` either sends confirmation email or `loginById()`.
+6. Stashes `last_quote_id` and `last_success_quote_id`, then dispatches `checkout_type_onepage_save_order_after` (legacy event).
+7. Stashes `last_order_id`, `redirect_url` (third-party gateway), and `last_real_order_id`, then dispatches `checkout_submit_all_after` (canonical, also dispatched by multishipping).
 
-The success page reads `last_real_order_id`/`last_success_quote_id` and refuses to render if those are missing.
+The success page reads `last_success_quote_id`, `last_quote_id`, and `last_order_id` and redirects to cart if any are missing.
 
 ## `Mage_Checkout_Model_Session`
 
@@ -76,7 +76,7 @@ Don't call `getQuote()` and then mutate without `save()` — totals collection i
 
 ### Quote merging on login
 
-`customer_login` event observer: `checkout/session::loadCustomerQuote`.
+`customer_login` observer: `checkout/observer::loadCustomerQuote` (delegates to `checkout/session::loadCustomerQuote()`).
 
 ```
 guest quote (current session) + customer's persisted quote
@@ -93,7 +93,7 @@ Thin façade over the active quote. Use it from controllers instead of poking th
 
 - `getQuote()` — same as `checkout/session::getQuote()` but caches on the cart instance.
 - `addProduct($productInfo, $requestInfo)` — accepts a product ID, model, or buy-request array; runs through the type instance's `prepareForCart`.
-- `addProductsByIds([...])`, `addOrderItem($orderItem)` (reorder).
+- `addProductsByIds([...])`, `addOrderItem($orderItem, $qtyFlag = null)` (reorder).
 - `updateItems($data)` — `[itemId => ['qty' => N]]`; dispatches `checkout_cart_update_items_before/after`.
 - `updateItem($itemId, $requestInfo, $updatingParams)` — single-item edit (configurable options).
 - `removeItem($itemId)`, `truncate()`.
@@ -105,7 +105,7 @@ Events worth knowing: `checkout_cart_product_add_after`, `checkout_cart_update_i
 
 `Mage_Checkout_Model_Type_Multishipping`. Activated by `quote->setIsMultiShipping(true)` and the `/checkout/multishipping/*` controllers. Onepage's `initCheckout()` explicitly resets the flag — the two flows are mutually exclusive.
 
-- `setShippingItemsInformation([['address' => addrId, 'qty' => N], ...])` splits each quote item across N quote addresses (one per shipping destination). Each address gets its own subset of items.
+- `setShippingItemsInformation([[$quoteItemId => ['qty' => N, 'address' => $addressId]], ...])` splits each quote item across N quote addresses (one per shipping destination). Each address gets its own subset of items.
 - `setShippingMethods([addressId => methodCode, ...])` — one method per address.
 - `setPaymentMethod($payment)` — single payment for all sub-orders.
 
@@ -114,14 +114,14 @@ Events worth knowing: `checkout_cart_product_add_after`, `checkout_cart_update_i
 2. Iterate `getQuote()->getAllShippingAddresses()`; for each, `_prepareOrder($address)` builds a fresh `sales/order` from that address's items via `sales/convert_quote`.
 3. If the quote has virtual items, the billing address joins the loop as another order.
 4. Dispatches `checkout_type_multishipping_create_orders_single` per order.
-5. After all are prepared, loops and `$order->place()->save()` each (saves are intentionally per-order — one bad gateway call rolls only that order). Catches dispatch `checkout_multishipping_refund_all`.
+5. After all are prepared, loops and `$order->place()->save()` each (saves are intentionally per-order — one bad gateway call rolls only that order). On exception during the place loop, the `catch` block dispatches `checkout_multishipping_refund_all` then rethrows.
 6. Inactivates the quote, stashes `orderIds` in `core/session`, dispatches `checkout_submit_all_after` with the **list** of orders (onepage dispatches with a single `order`).
 
 Result: N rows in `sales_flat_order`, one quote, N independent shipments. Promotions/discounts that depend on cart-level totals can behave surprisingly here — each sub-order is rebuilt independently.
 
 ## Agreements (terms & conditions)
 
-`checkout/agreement` entity. `Mage::helper('checkout')->getRequiredAgreementIds()` returns IDs gated by `checkout/options/enable_agreements`. `saveOrderAction` rejects the post if the agreement IDs in `request.agreement[]` don't cover the required set. Layout block `checkout.onepage.agreements` injects them into the review step. Backend grid lives under `Mage_Checkout_Adminhtml_Agreement*`.
+`checkout/agreement` entity. `Mage::helper('checkout')->getRequiredAgreementIds()` returns IDs gated by `checkout/options/enable_agreements`. `saveOrderAction` rejects the post if the agreement IDs in `request.agreement[]` don't cover the required set. Layout block `checkout.onepage.agreements` injects them into the review step. Backend grid lives in `Mage_Adminhtml/Block/Checkout/Agreement` and `Mage_Adminhtml/controllers/Checkout/AgreementController`.
 
 ## Persistent cart hand-off (`Mage_Persistent`)
 

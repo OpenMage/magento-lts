@@ -15,7 +15,7 @@ Patches against composer dependencies live in `patches.json` (declarative) + `pa
 
 ## `patches.json` shape
 
-Real snippet from this repo:
+Excerpt from this repo:
 
 ```json
 {

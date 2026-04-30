@@ -51,7 +51,7 @@ class Mage_Adminhtml_Block_Foo_Bar extends Mage_Adminhtml_Block_Widget_Grid_Cont
 
 ### Grid `_prepareColumns()` skeleton
 
-Column `type` values: `text` (default), `number`, `price`, `currency`, `date`, `datetime`, `options` (with `options` map), `checkbox`, `massaction`, `action`, `country`, `store`, `wrapline`, `concat`, `radio`. Custom rendering via `'renderer' => 'group/class'`.
+Common column `type` values include: `text` (default), `number`, `price`, `currency`, `date`, `datetime`, `options` (with `options` map), `checkbox`, `massaction`, `action`, `country`, `store`, `wrapline`, `concat`, `radio`, `input`, `ip`, `longtext`, `select`, `theme`. Custom rendering via `'renderer' => 'group/class'`.
 
 ```php
 protected function _prepareColumns()
@@ -87,7 +87,6 @@ protected function _prepareColumns()
         ]],
         'filter'   => false,
         'sortable' => false,
-        'index'    => 'stores',
     ]);
     return parent::_prepareColumns();
 }
@@ -161,7 +160,7 @@ public function preDispatch()
 
 ## Form container + form + tabs
 
-`Widget_Form_Container` builds the Save/Save&Continue/Delete/Back buttons from `$_objectId` + `$_controller`. Override `getHeaderText()` to label the page based on `Mage::registry()`. The actual form lives in `*_Edit_Form` (single-form pages) OR in tab blocks under `*_Edit_Tab_*` (multi-section pages) collected by `*_Edit_Tabs`.
+`Widget_Form_Container` builds Back/Reset/Delete (when editing existing)/Save buttons from `$_objectId` + `$_controller`. Save&Continue is added by subclasses via `BUTTON_TYPE_SAVE_EDIT`. Override `getHeaderText()` to label the page based on `Mage::registry()`. The actual form lives in `*_Edit_Form` (single-form pages) OR in tab blocks under `*_Edit_Tab_*` (multi-section pages) collected by `*_Edit_Tabs`.
 
 ### Form `_prepareForm()` skeleton
 
@@ -214,7 +213,9 @@ class Mage_Adminhtml_Block_Foo_Bar_Edit_Tab_Main
 }
 ```
 
-Field types (Varien_Data_Form_Element_*): `text`, `textarea`, `hidden`, `password`, `checkbox`, `checkboxes`, `select`, `multiselect`, `radio`, `radios`, `file`, `image`, `date`, `time`, `editor` (TinyMCE), `note`, `link`, `submit`, `button`, `gallery`, `obscure`. Custom renderers via `$field->setRenderer($block)`.
+The interface itself uses only docblock `@return`; native types here are covariant additions.
+
+Common field types (Varien_Data_Form_Element_*) include: `text`, `textarea`, `hidden`, `password`, `checkbox`, `checkboxes`, `select`, `multiselect`, `radio`, `radios`, `file`, `image`, `date`, `datetime`, `time`, `editor` (TinyMCE), `note`, `link`, `submit`, `button`, `gallery`, `obscure`, `color`, `imagefile`, `info`, `label`, `multiline`, `reset`. Custom renderers via `$field->setRenderer($block)`.
 
 ### Tabs (`Widget_Tabs`)
 
@@ -248,6 +249,8 @@ public function preDispatch()
     return parent::preDispatch();
 }
 ```
+
+`_setForcedFormKeyActions()` is a no-op when "Add Secret Key to URLs" is enabled (default) — the secret key already protects admin URLs.
 
 Manually: `if (!$this->_validateFormKey()) { $this->_redirect('*/*/'); return; }`. Templates emit the field with `<?= $this->getBlockHtml('formkey') ?>` (or `getFormKey()` for the bare value in JS posts).
 

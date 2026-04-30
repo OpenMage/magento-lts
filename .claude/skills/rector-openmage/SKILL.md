@@ -17,7 +17,7 @@ CI workflow: `.github/workflows/rector.yml`. Targets `.php` and `.phtml`.
 
 ## Active config (`.rector.php`)
 
-- PHP set: `php81: true` (PHP 8.0 / 8.1 fixers run; nothing newer).
+- PHP set: `php81: true` — applies all PHP level sets up to and including 8.1 (PHP 5.3 → 8.1); nothing newer.
 - Prepared sets (on):
   - `deadCode` — drops unreachable code, unused privates, redundant casts.
   - `codeQuality` — simplifies expressions, flattens conditions, prefers `??`/`?:` where safe.
@@ -27,10 +27,10 @@ CI workflow: `.github/workflows/rector.yml`. Targets `.php` and `.phtml`.
   - `earlyReturn` — flips conditions to early-return / early-continue.
   - `carbon` — rewrites `date()`/`time()`/`DateTime` toward Carbon.
   - `phpunitCodeQuality` — modernizes test idioms (e.g. `assertSame`, attributes).
-- Prepared sets (off): `typeDeclarations`, `naming`, `strictBooleans`, `doctrineCodeQuality`, `symfonyCodeQuality`, `symfonyConfigs`. Don't enable without a plan — most would generate hundreds of changes.
+- Prepared sets (off): `typeDeclarations`, `naming`, `strictBooleans`, `doctrineCodeQuality`, `symfonyCodeQuality`, `symfonyConfigs`. Don't enable without a plan — most would generate hundreds of changes. The `rectorPreset` is on (Rector's own opinionated preset).
 - Explicit individual rules:
   - `Php83\AddOverrideAttributeToOverriddenMethodsRector` — enforces `#[Override]`. New tests and any overridden method need it.
-  - `Php85\ArrayFirstLastRector` — `reset()`/`end()` → `array_first()`/`array_last()`.
+  - `Php85\ArrayFirstLastRector` — `$array[array_key_first($array)]`, `$array[array_key_last($array)]`, `array_values($array)[0]`, `array_values($array)[count($array) - 1]` → `array_first()`/`array_last()`.
 
 ## Custom Migration rules (`dev/rector/Migration/`)
 
@@ -42,7 +42,7 @@ Two categories:
 
 One file per module, each exposes `::renameMethod()` returning `RenameMethodRector` config. Wired in `.rector.php` via `withConfiguredRule(RenameMethodRector::class, ...)`.
 
-- `Admin.php`, `Adminhtml.php` (largest; also exposes `replaceArgumentDefaultValue()`)
+- `Admin.php`, `Adminhtml.php` (largest by file size; also exposes `replaceArgumentDefaultValue()`. `Catalog.php` has the most rename entries.)
 - `Bundle.php`, `Catalog.php`, `CatalogSearch.php`, `Checkout.php`, `ConfigurableSwatches.php`
 - `Core.php`, `Eav.php`, `Paypal.php`, `Shipping.php`, `Sitemap.php`
 - `Tag.php`, `Tax.php`, `Usa.php`, `Wishlist.php`
@@ -51,8 +51,8 @@ These map deprecated camelCase/legacy names on `Mage_*` classes to the current n
 
 ### Zend → laminas / Carbon — `dev/rector/Migration/Zend/`
 
-- `Log.php` — `Zend_Log` constants → `Laminas\Log` constants (`renameClassConst()`).
-- `Measure.php` — `Zend_Measure_*` constants → `Laminas\Measure` (`renameClassConst()`).
+- `Log.php` — `Zend_Log` constants → `Monolog\Level` cases (`Monolog\Level::Emergency`, `::Alert`, etc.) via `RenameClassAndConstFetch`.
+- `Measure.php` — `Zend_Measure_Length`/`Zend_Measure_Weight` constants → `Mage_Core_Helper_Measure_Length`/`Mage_Core_Helper_Measure_Weight` via `RenameClassAndConstFetch`.
 - `Acl.php` — `Zend_Acl` method renames.
 - `Captcha.php` — `Zend_Captcha` method renames.
 
@@ -62,7 +62,7 @@ Bulk-loaded via `Migration\TypeDeclarationDocblocks::getRules()`. Adds/normalize
 
 ## Skip list — read before "fixing" a finding
 
-`.rector.php` has three `withSkip()` blocks. Categories:
+`.rector.php` has four `withSkip()` blocks (lines 91, 128, 177, 184). Categories:
 
 ### Permanent (BC / signature changes)
 
@@ -95,7 +95,7 @@ Bulk-loaded via `Migration\TypeDeclarationDocblocks::getRules()`. Adds/normalize
 - `IssetOnPropertyObjectToPropertyExistsRector` — breaks site loading.
 - `AbsolutizeRequireAndIncludePathRector` — needs a global autoload review.
 - `RemoveUnusedConstructorParamRector`, `RemoveDeadTryCatchRector`, `ClosureToArrowFunctionRector`, `BinaryOpNullableToInstanceofRector`, `RemoveExtraParametersRector` — need closer review.
-- `Php81\ArrayToFirstClassCallableRector` — WIP, see PR #5434.
+- `Php81\ArrayToFirstClassCallableRector` — skipped on `Mage/Paypal/Model/Api/Abstract.php` and `Mage/Paypal/Model/Info.php` (rectorphp/rector#9743).
 - `PreferPHPUnitThisCallRector` (PHPUnit) — we use static calls; skipped on `shell/translations.php` and one Reports test.
 
 ## When Rector rewrites your code
@@ -112,7 +112,7 @@ Bulk-loaded via `Migration\TypeDeclarationDocblocks::getRules()`. Adds/normalize
 ## Adding a new rename
 
 1. Find or create the appropriate `dev/rector/Migration/Mage/<Module>.php` (or `Zend/<X>.php`).
-2. Add the `MethodCallRename` / `RenameClassConstFetch` value object to the array returned by `renameMethod()` / `renameClassConst()`.
+2. Add the `MethodCallRename` / `RenameClassAndConstFetch` value object to the array returned by `renameMethod()` / `renameClassConst()`.
 3. Wire it in `.rector.php` via `withConfiguredRule(...)` if the file is new.
 4. Run `composer run rector:test` to verify.
 5. After merge, `composer run rector:fix` rewrites all callers in subsequent PRs.

@@ -66,7 +66,7 @@ Notes:
 
 ## Area scoping
 
-The `<events>` block must be nested inside one of these top-level areas. The area determines when the observer is loaded:
+The `<events>` block is typically nested inside one of these top-level areas (also `<install>` for installer-only events). The area determines when the observer is loaded:
 
 | Area          | Fires for                                                                                |
 | ------------- | ---------------------------------------------------------------------------------------- |
@@ -97,7 +97,7 @@ public function addVatRequestParamsOrderComment(Varien_Event_Observer $observer)
 
 Data extraction:
 - `$observer->getEvent()->getFoo()` — args passed to `dispatchEvent('name', ['foo' => $x])` are exposed as magic getters on the event object.
-- `$observer->getFoo()` — `Varien_Event_Observer` mirrors event data onto itself (and merges in any `<args>` from the XML block) for convenience.
+- `$observer->getFoo()` — `Varien_Event_Observer` mirrors event data onto itself for convenience.
 - `$observer->getEvent()->getData()` returns the raw array.
 
 Return value is ignored. To "abort" an event-driven flow, mutate the passed object (e.g. `$transport->setIsValid(false)`, `$product->setIsSalable(false)`) or throw — there is no early-stop signal from a return value.

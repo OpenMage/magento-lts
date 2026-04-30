@@ -49,7 +49,7 @@ Cross-refs: `openmage-module-structure` (where these XML blocks live), `openmage
 | `catalog_category_product` | `catalog/category_indexer_product` | Mage_Catalog |
 | `cataloginventory_stock` | `cataloginventory/indexer_stock` | Mage_CatalogInventory |
 | `catalogsearch_fulltext` | `catalogsearch/indexer_fulltext` | Mage_CatalogSearch |
-| `catalogrule_product` | `catalogrule/indexer_rule` | Mage_CatalogRule |
+<!-- catalogrule_product is NOT registered as an indexer in core; CatalogRule reindexing is observer-driven -->
 | `tag_summary` | `tag/indexer_summary` | Mage_Tag |
 
 ## Indexer class
@@ -71,7 +71,7 @@ abstract class Mage_Index_Model_Indexer_Abstract extends Mage_Core_Model_Abstrac
 }
 ```
 
-Real example (`Mage_Catalog_Model_Indexer_Url`):
+Real example, simplified, from `Mage_Catalog_Model_Indexer_Url` (the actual file declares 6 entities including `Mage_Catalog_Model_Convert_Adapter_Product`):
 
 ```php
 protected $_matchedEntities = [
@@ -93,7 +93,7 @@ Override `matchEvent()` when the default entity/type table isn't enough — Url 
 - `MODE_MANUAL` — log events to `index_event` only; admin/CLI must drain.
 - `MODE_SCHEDULE` — same logging as manual, but periodic cron triggers `reindexAll`.
 
-Process states: `STATUS_PENDING`, `STATUS_RUNNING`, `STATUS_REQUIRE_REINDEX` (events queued and need processing), default = ready.
+Process states: `STATUS_PENDING` (label: 'Ready' — default), `STATUS_RUNNING` ('Processing'), `STATUS_REQUIRE_REINDEX` ('Reindex Required' — events queued).
 
 The admin **System → Index Management** page reads `index_process` rows and lets you change mode, mass-reindex, or reindex per row. It calls `$process->reindexEverything()` (the same path `shell/indexer.php` uses).
 
@@ -101,7 +101,7 @@ The admin **System → Index Management** page reads `index_process` rows and le
 
 `index_setup/install-1.6.0.0.php` creates three tables:
 
-- `index_event` — `event_id`, `entity` (`catalog_product`, …), `type` (`save`/`delete`/`mass_action`), serialized `data_object`, `created_at`.
+- `index_event` — `event_id`, `type` (`save`/`delete`/`mass_action`/`reindex`), `entity` (`catalog_product`, …), `entity_pk`, `created_at`, `old_data` and `new_data` (PHP-serialized payloads).
 - `index_process` — one row per registered indexer code; tracks `status`, `mode`, `ended_at`.
 - `index_process_event` — N:M between processes and events, with per-process `status`.
 
@@ -132,7 +132,7 @@ When `Mage_Index_Model_Indexer::registerEvent()` fires, an `index_event` row is 
 ```
 
 ```xml
-<!-- 3. always — runs every cron tick (no schedule row) — Mage_Core -->
+<!-- 3. every-minute — Mage_Core; the literal `always` keyword is also supported but no core job uses it -->
 <core_email_queue_send_all>
     <schedule><cron_expr>*/1 * * * *</cron_expr></schedule>
     <run><model>core/email_queue::send</model></run>
@@ -145,7 +145,7 @@ When `Mage_Index_Model_Indexer::registerEvent()` fires, an `index_event` row is 
 
 ### Cron expression
 
-Standard 5-field `min hour dom mon dow`. `0 2 * * *` = 02:00 daily, `*/15 * * * *` = every 15 min, `0 0 * * 0` = Sundays at midnight. The literal string `always` is special — handled via the `<always>` event area, not the schedule queue.
+Standard 5-field `min hour dom mon dow`. `0 2 * * *` = 02:00 daily, `*/15 * * * *` = every 15 min, `0 0 * * 0` = Sundays at midnight. The literal string `always` is special — handled via the `always` event (in the `crontab` event area), not the schedule queue.
 
 ## Schedule lifecycle
 
@@ -154,7 +154,7 @@ Standard 5-field `min hour dom mon dow`. `0 2 * * *` = 02:00 daily, `*/15 * * * 
 - `STATUS_PENDING` — generated ahead, not yet due (or due and waiting for a worker).
 - `STATUS_RUNNING` — `tryLockJob()` won the atomic CAS from PENDING.
 - `STATUS_SUCCESS` — callback returned cleanly.
-- `STATUS_MISSED` — still PENDING after `system/cron/schedule_lifetime` minutes elapsed past `scheduled_at` — never picked up.
+- `STATUS_MISSED` — still PENDING after `system/cron/schedule_lifetime` minutes elapsed past `scheduled_at`; worker picked it up too late to run.
 - `STATUS_ERROR` — callback threw. `messages` column holds the exception.
 
 Generation is incremental: `Mage_Cron_Model_Observer::generate()` runs every `system/cron/schedule_generate_every` minutes (cached in `cron_last_schedule_generate_at`), populating the next `system/cron/schedule_ahead_for` minutes of pending rows. Cleanup prunes rows older than `system/cron/history_success_lifetime` / `history_failure_lifetime`.
@@ -174,7 +174,7 @@ Mage::app()->addEventArea('crontab');
 Mage::dispatchEvent($cronMode);
 ```
 
-`cron.sh` re-invokes `cron.php` twice: `-mdefault` (schedule queue) and `-malways` (per-tick jobs). Production sets one cron tab entry hitting `cron.sh` every minute.
+`cron.php`, when invoked without `-m`, re-launches itself via `cron.sh` twice with `-mdefault` (schedule queue) and `-malways` (per-tick jobs). Production sets one cron tab entry hitting `cron.sh` every minute.
 
 ### `shell/indexer.php`
 
@@ -189,15 +189,15 @@ php shell/indexer.php --mode-realtime catalog_product_price   # set "Update on S
 php shell/indexer.php --mode-manual catalog_product_price     # set "Manual Update"
 php shell/indexer.php --reindex catalog_product_flat
 php shell/indexer.php --reindexall                            # all visible indexers
-php shell/indexer.php --reindexallrequired                    # only those in STATUS_PENDING
+php shell/indexer.php --reindexallrequired                    # only those NOT in STATUS_PENDING (i.e. STATUS_REQUIRE_REINDEX or STATUS_RUNNING)
 ```
 
-Reindex calls `$process->reindexEverything()`, which clears the matching `index_event` rows on success and dispatches `<code>_shell_reindex_after`.
+Reindex calls `$process->reindexEverything()`, which clears the matching `index_process_event` rows on success and dispatches `<code>_shell_reindex_after`.
 
 ## Common pitfalls
 
 - After config rule changes, catalog rules need `catalogrule_product` reindex — usually via cron, but manual edits won't take effect on the storefront until the index is rebuilt.
 - Switching an indexer to `MODE_MANUAL` stops admin saves from being slow but means stock/price/URL data goes stale until a reindex.
 - A new indexer that doesn't appear in **Index Management** is almost always `_isVisible = false` or missing the `<global><index><indexer>` registration — check both.
-- `cron.php` requires `Mage::isInstalled()` to return true and exits silently otherwise. Symlinking `cron.php` outside the repo without `chdir(__DIR__)` working correctly is a common silent-failure cause.
-- Cron jobs whose callback alias doesn't match the `^[a-z0-9_]+/[a-z0-9_]+::[a-z0-9_]+$` regex are skipped without error — capitals and dashes in `<run><model>` will not run.
+- `cron.php` requires `Mage::isInstalled()` to return true and exits with a printed message otherwise. Symlinking `cron.php` outside the repo without `chdir(__DIR__)` working correctly is a common silent-failure cause.
+- Cron jobs whose callback alias doesn't match the `^[a-z0-9_]+/[a-z0-9_]+::[a-z0-9_]+$` regex are skipped without error — dashes (or any non-alphanumeric/underscore character) in `<run><model>` will not run.

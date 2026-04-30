@@ -37,7 +37,7 @@ eav_entity_type ─┬─ eav_attribute_set ── eav_attribute_group
    │ <entity>_entity_datetime         ← datetime            │
    └────────────────────────────────────────────────────────┘
    Per value row: (entity_type_id, attribute_id, store_id, entity_id, value)
-   Composite UNIQUE on (entity_type_id, entity_id, attribute_id, store_id).
+   Composite UNIQUE on `(entity_id, attribute_id, store_id)` for catalog/eav value tables; customer value tables narrow it to `(entity_id, attribute_id)` (no store-scoped customer attributes).
 ```
 
 For `catalog_product` the tables are `catalog_product_entity`, `catalog_product_entity_int`, etc. `customer` follows the same pattern: `customer_entity`, `customer_entity_int`, …
@@ -148,6 +148,7 @@ Common built-ins: `eav/entity_attribute_backend_datetime`, `catalog/product_attr
 Frontend models render attribute output for the storefront. Most attributes use `Mage_Eav_Model_Entity_Attribute_Frontend_Default` (a near-empty subclass of `Frontend_Abstract`):
 
 ```php
+// app/code/core/Mage/Eav/Model/Entity/Attribute/Frontend/Default.php
 class Mage_Eav_Model_Entity_Attribute_Frontend_Default
     extends Mage_Eav_Model_Entity_Attribute_Frontend_Abstract {}
 ```
@@ -163,7 +164,7 @@ Value rows are keyed by `(entity_id, attribute_id, store_id)`:
 
 Read flow: load default first, overlay store-specific row if present. This is why in admin you see the "Use Default Value" checkbox next to store-view-scoped attributes.
 
-When the form posts with **Use Default** checked, the controller calls `$product->setData($code, false)` and `Mage_Eav_Model_Entity_Attribute_Backend_Abstract::_isAttributeValueEmpty()` triggers the resource to **delete** the per-store row, so the next read falls back to default. The list of attributes that the admin sent with Use Default is tracked in `_storeValuesFlags` on the model. Don't manually clear store rows — go through the model save so the flags get respected.
+When the form posts with **Use Default** checked, the controller calls `$product->setData($code, false)` and `Mage_Catalog_Model_Resource_Abstract::_isAttributeValueEmpty()` triggers the resource to **delete** the per-store row, so the next read falls back to default. On load, attributes that have a non-default-store value row are flagged via `setExistsStoreValueFlag()` (stored in `_storeValuesFlags`). The Use-Default checkbox handling is separate: `ProductController::_initProductSave()` reads `use_default[]` from the post and calls `$product->setData($code, false)`; the resource `_saveAttribute` path then deletes the per-store row when `_isAttributeValueEmpty()` returns true.
 
 `global` scope on the attribute decides whether it has store-specific rows at all:
 
@@ -201,7 +202,7 @@ Key methods:
 - `addAttributeToSelect($attribute, $joinType = false)` — add one attribute (string) or many (array). Use `'*'` to load all. Each non-static attribute becomes a LEFT JOIN against its value table. **Don't load attributes you won't use** — every extra attribute is another join.
 - `addAttributeToFilter($attribute, $condition = null, $joinType = 'inner')` — `$condition` is either a scalar (equality) or a Varien condition array: `['eq' => 1]`, `['neq' => 0]`, `['in' => [1,2]]`, `['like' => 'foo%']`, `['null' => true]`, `['gt' => 0]`, etc.
 - `joinAttribute($alias, $attribute, $bind, $filter = null, $joinType = 'inner', $storeId = null)` — pull an attribute from a *different* entity into this collection's rowset. `$alias` is the column name in the result; `$attribute` is `entity/attribute_code` (e.g. `'catalog_category/name'`); `$bind` is the join field on the parent (e.g. `'category_id'`). Used heavily in admin grids.
-- `addFieldToFilter($field, $condition)` — operates on the entity table's static columns only; doesn't trigger value-table joins. Use this for `entity_id`, `sku`, `created_at`.
+- `addFieldToFilter` on EAV collections is just an alias for `addAttributeToFilter`. Static attributes (`backend_type='static'`) skip the join in either method; non-static attributes get a value-table join either way.
 
 Always set the store before loading attribute values: `->setStoreId($storeId)` (or `->addStoreFilter()` for products). Without it, you get admin-default values.
 

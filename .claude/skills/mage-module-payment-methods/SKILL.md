@@ -5,7 +5,7 @@ description: OpenMage payment methods — Mage_Payment_Model_Method_Abstract hoo
 
 # OpenMage — Payment Methods
 
-Covers `Mage_Payment`, `Mage_Paygate`, `Mage_Authorizenet`, `Mage_Paypal`, `Mage_PaypalUk`, `Mage_Centinel`. Aliases owned: `payment/*`, `paygate/*`, `authorizenet/*`, `paypal/*`, `paypaluk/*`, `centinel/*`.
+Covers `Mage_Payment`, `Mage_Paygate`, `Mage_Authorizenet`, `Mage_Paypal`, `Mage_PaypalUk`, `Mage_Centinel`. Aliases owned: `payment/*`, `paygate/*`, `authorizenet/*`, `paypal/*`, `paypaluk/*`, `centinel/*`. Note: `Mage_Authorizenet` is a helpers-only support module — the gateway logic lives in `Mage_Paygate_Model_Authorizenet` (`paygate/authorizenet`).
 
 A payment method is a `Mage_Payment_Model_Method_Abstract` subclass referenced by alias from `default/payment/<code>/model` in `etc/config.xml`. Capabilities advertise via `protected $_can*` flags; the matching action methods (`authorize`, `capture`, ...) on the abstract throw "X action is not available" when the flag is false, so an override **must** flip the flag *and* implement the action — half-doing it is the classic bug.
 
@@ -25,12 +25,12 @@ Set on the subclass; checked by the abstract before dispatching.
 | `_canRefundInvoicePartial` | (same `refund`) | Allow partial refunds per invoice. |
 | `_canVoid` | `void(Varien_Object $payment)` | Reverse an unsettled auth. |
 | `_canCancelInvoice` | (no separate hook) | TODO in core; today `cancel()` on order catches this. |
-| `_canReviewPayment` | `acceptPayment` / `denyPayment(Mage_Payment_Model_Info $payment)` | Fraud-review hand-off (PayPal pending-review). Both must return `bool`. |
+| `_canReviewPayment` | `acceptPayment` / `denyPayment(Mage_Payment_Model_Info $payment)` | Fraud-review hand-off (PayPal pending-review). Both must return `bool`; default in `Abstract` returns `false` (no throw). |
 | `_canFetchTransactionInfo` | `fetchTransactionInfo($payment, $transactionId)` | Pull live state from gateway for the admin "Fetch" button. |
 | `_canUseInternal` | — | Available in admin "Create Order". |
 | `_canUseCheckout` | — | Available in frontend onepage. |
 | `_canUseForMultishipping` | — | Multi-address checkout. |
-| `_canCreateBillingAgreement` | `Mage_Payment_Model_Billing_Agreement_MethodInterface` | Implement the interface, don't just flip the flag. |
+| `_canCreateBillingAgreement` | (none — flag drives `canCreateBillingAgreement()` directly) | Flip the flag. The interface `Mage_Payment_Model_Billing_Agreement_MethodInterface` controls `canManageBillingAgreements()` separately. |
 | `_canManageRecurringProfiles` | `Mage_Payment_Model_Recurring_Profile_MethodInterface` | Same — interface, not just flag. |
 | `_isInitializeNeeded` | `initialize($paymentAction, $stateObject)` | Replaces authorize/capture for redirect-style methods (PayPal Standard). Mutates `$stateObject->setState/setStatus/setIsNotified`. |
 
@@ -40,13 +40,13 @@ Set on the subclass; checked by the abstract before dispatching.
 
 ## Concrete examples
 
-- **Gateway, full set:** `app/code/core/Mage/Paygate/Model/Authorizenet.php` — `_isGateway=true`, all of authorize/capture/void/refund. Note `_isGatewayActionsLockedKey` guards re-entrancy.
+- **Gateway, full set:** `app/code/core/Mage/Paygate/Model/Authorizenet.php` — `_isGateway=true`, all of authorize/capture/void/refund. Note `_isGatewayActionsLockedKey` locks additional gateway actions on a payment after certain state transitions.
 - **Redirect, initialize-only:** `app/code/core/Mage/Paypal/Model/Standard.php` — `_isInitializeNeeded=true`, `_canUseInternal=false`, `_canUseForMultishipping=false`. Skips authorize/capture entirely.
 - **Offline:** `Mage_Payment_Model_Method_Checkmo`, `_Free`, `_Banktransfer`, `_Cashondelivery`, `_Purchaseorder` — all under `Mage/Payment/Model/Method/`. Most rely only on `assignData` + an info block.
 
 ## Payment info storage
 
-Payment data lives on three rows: `sales_flat_quote_payment`, `sales_flat_order_payment`, plus per-transaction `sales_payment_transaction`. All three carry:
+Payment data lives on three rows: `sales_flat_quote_payment`, `sales_flat_order_payment`, plus per-transaction `sales_payment_transaction`. The two flat payment tables carry both `additional_data` and `additional_information`; `sales_payment_transaction` carries only `additional_information` (BLOB):
 
 - `additional_data` (TEXT) — serialized form post (deprecated for new code; legacy gateways still use it).
 - `additional_information` (TEXT) — JSON-ish array; the modern store. Use `setAdditionalInformation('key', $value)` / `getAdditionalInformation('key')` / `unsAdditionalInformation('key')` on `Mage_Payment_Model_Info`. Whole-array set with `setAdditionalInformation($array)`.
@@ -97,10 +97,10 @@ protected $_infoBlockType = 'your_module/info_yourmethod';   // admin order view
 
 ## 3D Secure (Centinel) hand-off
 
-`Mage_Centinel_Model_Service` is wired in via observers (`centinel/observer`) on `payment_method_is_active` and friends. A 3DS-aware method:
+`Mage_Centinel_Model_Service` is wired in via observers (`centinel/observer`) on `sales_convert_quote_to_order`, `checkout_submit_all_after`, `payment_form_block_to_html_before`, `payment_info_block_prepare_specific_information`. A 3DS-aware method:
 
-1. Mixes in `Mage_Centinel_Model_MethodInterface` and exposes `getCentinelValidator()`.
-2. After card data is collected, `Service::lookup()` calls the gateway → if `shouldAuthenticate()`, redirects the buyer (iframe) to `centinel/index/authenticate` (front) or `*/centinel_index/authenticate` (admin).
+1. Extends `Mage_Payment_Model_Method_Cc` (which provides `getCentinelValidator()`); enable via `payment/<code>/centinel` config flag and `modules/Mage_Centinel` presence (see `Cc::getIsCentinelValidationEnabled()`).
+2. After card data is collected, `Service::lookup()` calls the gateway → if `shouldAuthenticate()`, redirects the buyer (iframe) to `centinel/index/authenticationStart`/`authenticationComplete` (front) or `*/centinel_index/authenticationStart`/`authenticationComplete` (admin).
 3. Buyer returns; `authenticate()` stores CMPI fields (`CMPI_PARES`, `CMPI_ENROLLED`, `CMPI_CAVV`, `CMPI_ECI`, `CMPI_XID`) into the validation-state model.
 4. On order place, `validate()` checks the state and `exportCmpiData()` injects CMPI fields onto the `Mage_Payment_Model_Info` so authorize/capture can forward them to the gateway.
 
@@ -127,7 +127,7 @@ PayPal IPN is the canonical example. Same shape applies to any async gateway not
 6. `Block/Info/Foo.php` + frontend and `adminhtml` templates under `template/payment/info/foo.phtml`.
 7. Translations in `app/locale/en_US/Mage_YourModule.csv`.
 8. If async: register `<routers>`, write a front controller, verify signatures in the model, write an idempotent processor.
-9. If 3DS: implement `Mage_Centinel_Model_MethodInterface`, wire `getCentinelValidator()`.
+9. If 3DS: extend `Mage_Payment_Model_Method_Cc` (already provides `getCentinelValidator()`).
 
 ## Pitfalls
 

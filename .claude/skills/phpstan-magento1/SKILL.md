@@ -12,13 +12,13 @@ Cross-refs: `phpunit-openmage-tests` (data-provider statics interact with `dynam
 ## Commands
 
 ```bash
-composer run phpstan:test       # XDEBUG_MODE=off vendor/bin/phpstan analyze
+composer run phpstan:test       # XDEBUG_MODE=off php vendor/bin/phpstan analyze
 composer run phpstan:baseline   # regen + split + git add baselines
 ```
 
 `phpstan:baseline` does three things in order:
 1. `phpstan analyze -b .phpstan.dist.baselines/_loader.php` — write a fresh single baseline.
-2. `split-phpstan-baseline` (from `shipmonk/phpstan-baseline-per-identifier`) — split into one file per identifier.
+2. `split-phpstan-baseline .phpstan.dist.baselines/_loader.php --no-error-count` (from `shipmonk/phpstan-baseline-per-identifier`) — split into one file per identifier.
 3. `git add .phpstan.dist.baselines/*` — stage the result.
 
 Always commit the regenerated baselines alongside the change that moved the error count.
@@ -40,7 +40,7 @@ Always commit the regenerated baselines alongside the change that moved the erro
 The plugin teaches PHPStan about OpenMage idioms.
 
 - **Alias resolution.** `Mage::getModel('catalog/product')` is inferred as `Mage_Catalog_Model_Product`. Same for `Mage::getSingleton`, `Mage::helper`, and block aliases. The plugin reads each module's `etc/config.xml` `<global><models|helpers|blocks>` mappings.
-- **`_init()` calls.** Inside resource models, `$this->_init('catalog/product', 'entity_id')` is recognized so collection/resource types resolve.
+- **`_init()` calls.** The plugin registers dynamic return-type extensions for `Mage::getModel/getSingleton/getResourceModel/helper`, `Layout::createBlock/helper/getBlockSingleton`, and `Varien_Object` magic methods. It does NOT inspect `_init()` calls.
 - **What it can't infer.**
   - Aliases built from runtime concatenation (`Mage::getModel($prefix . '/foo')`) — falls back to `Mage_Core_Model_Abstract|false`.
   - Custom factory wrappers that hide the alias string.
@@ -50,7 +50,7 @@ When PHPStan can't see an alias, the fix is usually a `@method` entry on the mod
 
 ## The `dynamicCallOnStaticMethod` trap
 
-`bleedingEdge.neon` flips on `dynamicCallOnStaticMethod: true`. Calling a `static` method via `$this->` is an error (`staticMethod.dynamicCall`).
+`phpstan-strict-rules` with `strictRules.allRules: true` enables `dynamicCallOnStaticMethod`. Calling a `static` method via `$this->` is an error (`staticMethod.dynamicCall`).
 
 ```php
 // WRONG — static method called via $this
@@ -126,9 +126,9 @@ When you flip a helper to `static` so a data provider can call it, update **ever
 - `variable.{dynamicName,implicitArray,undefined}.php`
 - `while.condNotBoolean.php`
 
-Inline `ignoreErrors` in `.phpstan.dist.neon` separately silences a few patterns globally (e.g. `Cannot call method ... on Mage_Core_Model_Store|null`, undefined `$this` in legacy admin `.phtml`, `empty.notAllowed` under `lib/Varien/*`, `method.protected`/`property.protected` under `app/design/*/*/template/*`).
+Inline `ignoreErrors` in `.phpstan.dist.neon` separately silences a few patterns globally (e.g. `Cannot call method ... on Mage_Core_Model_Store|null`, undefined `$this` in legacy admin `.phtml`, `variable.undefined` under `lib/Varien/*` and `errors/*`, `method.protected`/`property.protected` under `app/design/*/*/template/*`).
 
-`method.childParameterType` and `method.childReturnType` are silenced **globally** with `reportUnmatched: false` — same for `cast.string` (a level-8 rule).
+`method.childParameterType`, `method.childReturnType`, and `cast.string` errors are tracked entry-by-entry in their respective baseline files — they are not globally suppressed.
 
 ## Fix vs ignore vs baseline
 
@@ -155,7 +155,7 @@ If `phpstan:baseline` produces churn unrelated to your change, run `phpstan:test
 ## Common gotchas
 
 - Don't suppress `staticMethod.dynamicCall` — fix the call site to `self::` / `static::` / `ClassName::`.
-- `empty()` is banned everywhere except `lib/Varien/*`. Use `=== null`, `=== ''`, `=== []`, or `=== 0` as appropriate.
+- `empty()` is banned everywhere; legacy uses are baselined entry-by-entry. Use `=== null`, `=== ''`, `=== []`, or `=== 0` as appropriate.
 - `==`/`!=` are banned (`equal.notAllowed`, `notEqual.notAllowed`). Use `===` / `!==`.
 - `treatPhpDocTypesAsCertain: false` means a `@var Foo $x` is *not* enough to convince PHPStan when it can also see a wider native type — narrow with `assert()` or `instanceof` instead.
 - `.phtml` templates are analyzed; variables must come from the block class (declared properties or `@method` accessors), not from globals.

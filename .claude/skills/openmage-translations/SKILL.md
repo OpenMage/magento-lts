@@ -130,7 +130,7 @@ The `module="adminhtml"` attribute pins the lookup to `Mage_Adminhtml.csv`. The 
 
 ## Inline translation
 
-`Mage_Core_Model_Translate_Inline` (`app/code/core/Mage/Core/Model/Translate/Inline.php`) wraps each `__()` output in a `{{{original}}{translation}{location}}}` marker when enabled. Toggled per area:
+`Mage_Core_Model_Translate_Inline` (`app/code/core/Mage/Core/Model/Translate/Inline.php`) wraps each `__()` output in a `{{{result}}{{translated}}{{text}}{{module}}}` marker (four fields: result/translated/text/module) when enabled. Toggled per area:
 
 - Frontend: `dev/translate_inline/active`
 - Admin: `dev/translate_inline/active_admin`

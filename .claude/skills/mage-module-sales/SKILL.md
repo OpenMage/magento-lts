@@ -58,7 +58,7 @@ State transition rules (`Mage_Sales_Model_Order::_setState`):
 
 `Mage_Sales_Model_Order_Status::assignState($state, $isDefault)` is how setup scripts attach a custom status to a state.
 
-`_eventPrefix = 'sales_order'` → events fire as `sales_order_save_before`, `sales_order_save_after`, `sales_order_place_before`, `sales_order_place_after`, `sales_order_state_change_before`, etc. Observe these instead of patching the model.
+`_eventPrefix = 'sales_order'` → events fire as `sales_order_save_before`, `sales_order_save_after`, `sales_order_place_before`, `sales_order_place_after`, etc. Observe these instead of patching the model.
 
 ## Invoice / shipment / creditmemo lifecycle
 
@@ -67,14 +67,14 @@ All three extend `Mage_Sales_Model_Abstract`, share an order, and have their own
 | Model | `_eventPrefix` | States | Drives |
 |---|---|---|---|
 | `Mage_Sales_Model_Order_Invoice` | `sales_order_invoice` | `STATE_OPEN=1`, `STATE_PAID=2`, `STATE_CANCELED=3` | `pay()` / `capture()` move order toward `processing`/`complete`. |
-| `Mage_Sales_Model_Order_Shipment` | `sales_order_shipment` | (no STATE_* constants — tracked via qty-shipped on order items) | Generates tracks, deducts `qty_shipped` on order items. |
+| `Mage_Sales_Model_Order_Shipment` | `sales_order_shipment` | (no `STATE_*` constants; only `STATUS_NEW = 1`; per-item qty_shipped tracked on order items) | Generates tracks, deducts `qty_shipped` on order items. |
 | `Mage_Sales_Model_Order_Creditmemo` | `sales_order_creditmemo` | `STATE_OPEN=1`, `STATE_REFUNDED=2`, `STATE_CANCELED=3` | `refund()` returns funds via payment method, may move order to `closed`. |
 
 **Who creates whom.** None of invoice/shipment/creditmemo creates the others automatically. The order creates each one via the `Mage_Sales_Model_Service_Order` service or directly:
 
 - Invoice: `$order->prepareInvoice($qtys)` → `$invoice->register()` → `$invoice->capture()` (if online) or `$invoice->pay()` (if offline). Capturing on a payment that's already authorized triggers settlement.
-- Shipment: `$order->prepareShipment($qtys)` → `$shipment->register()`. A shipment can only ship items that have been invoiced (or where the payment method allows un-invoiced shipping).
-- Creditmemo: requires an existing invoice (online refund) — `$invoice->prepareCreditmemo($data)` → `$creditmemo->register()` → `$creditmemo->refund()`.
+- Shipment: `$order->prepareShipment($qtys)` → `$shipment->register()`. Shipping is independent of invoicing — `getQtyToShip()` only nets `qty_shipped`/`qty_refunded`/`qty_canceled` against `qty_ordered`.
+- Creditmemo: requires an existing invoice (online refund) — `Mage::getModel('sales/service_order', $order)->prepareInvoiceCreditmemo($invoice, $data)` → `$creditmemo->register()` → `$creditmemo->refund()` (or `prepareCreditmemo($data)` for an order-level creditmemo without an invoice).
 
 The order's `complete` / `closed` transition happens inside `Mage_Sales_Model_Order::_checkState()`, called from these registrations:
 
@@ -136,7 +136,7 @@ Editing an order address post-submit: `Mage_Sales_Model_Order::setBillingAddress
 
 Per-order payment is one row in `sales_flat_order_payment`. Per-order shipping info lives on the order itself (`shipping_method`, `shipping_description`).
 
-`additional_information` is a JSON-serialized blob (PHP-serialized via `Mage_Core_Model_Resource_Db_Abstract` serialization) on both `sales_flat_quote_payment.additional_information` and `sales_flat_order_payment.additional_information`. Access via `Mage_Payment_Model_Info`:
+`additional_information` is a PHP-serialized array (via `_serializableFields` in the resource model; serialized in `Mage_Core_Model_Resource_Abstract::_serializeField`) on both `sales_flat_quote_payment.additional_information` and `sales_flat_order_payment.additional_information`. Access via `Mage_Payment_Model_Info`:
 
 ```php
 $payment->setAdditionalInformation('cc_avs_status', 'Y');
@@ -150,7 +150,7 @@ Rules:
 - **No objects** — `setAdditionalInformation` throws if `is_object($value)`.
 - **Never store CVV / full PAN / sensitive auth data** (PCI). Use last-4 + auth ref only.
 - Quote payment `additional_information` is copied by `Convert\Quote::paymentToOrderPayment` — set it during the checkout step you care about; it lands on the order.
-- Transactions (`sales_flat_order_payment_transaction`) have their own `additional_information` for raw gateway responses (`Mage_Sales_Model_Order_Payment_Transaction::RAW_DETAILS`).
+- Transactions (`sales_payment_transaction`) have their own `additional_information` for raw gateway responses (`Mage_Sales_Model_Order_Payment_Transaction::RAW_DETAILS`).
 
 ## Item pipeline
 
@@ -167,8 +167,8 @@ order_item (sales_flat_order_item)
 
 - `quote_item` has `parent_item_id` (composite product children); `Service\Quote::submitOrder` re-resolves this on the order side via `$order->getItemByQuoteItemId(...)`.
 - `order_item` carries the cumulative counters: `qty_ordered`, `qty_invoiced`, `qty_shipped`, `qty_refunded`, `qty_canceled`, `qty_backordered`. The "to" methods (`getQtyToInvoice`, `getQtyToShip`, `getQtyToRefund`, `getQtyToCancel`) drive the admin UI.
-- Invoice/shipment/creditmemo items reference back via `order_item_id`. Their `register()` increments the order_item counters and saves.
-- Composite products: only the parent line is "visible" (`isVisible`); children carry the SKU/qty math. Always iterate `getAllItems()` for math, `getAllVisibleItems()` for display.
+- Invoice/shipment/creditmemo items reference back via `order_item_id`. Their `register()` mutates the order_item counters in memory; the caller saves via `core/resource_transaction`.
+- Composite products: only the parent line is "visible" (`!parent_item_id`; `getAllVisibleItems()` filters by that); children carry the SKU/qty math. Always iterate `getAllItems()` for math, `getAllVisibleItems()` for display.
 
 ## Common pitfalls
 

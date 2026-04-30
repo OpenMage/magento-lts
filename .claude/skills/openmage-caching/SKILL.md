@@ -5,7 +5,7 @@ description: OpenMage caching — built-in cache types (config, layout, block_ht
 
 # openmage-caching
 
-OpenMage cache system: a `Zend_Cache_Core` frontend wrapping a backend (`Cm_Cache_Backend_File` by default at `var/cache/`, Redis via `Cm_Cache_Backend_Redis` in production). Wrapped by `Mage_Core_Model_Cache` and surfaced through `Mage::app()`.
+OpenMage cache system: a `Zend_Cache_Core` frontend wrapping a backend (`Zend_Cache_Backend_File` by default at `var/cache/`, Redis via `Cm_Cache_Backend_Redis` in production). Wrapped by `Mage_Core_Model_Cache` and surfaced through `Mage::app()`.
 
 Cross-refs: `openmage-events-observers`, `openmage-layout-blocks`.
 
@@ -23,7 +23,8 @@ Registered under `<global><cache><types>` in each module's `etc/config.xml`. Eac
 | `eav` | `eav` | Eav |
 | `config_api` | `CONFIG_API` | Api |
 | `config_api2` | `CONFIG_API2` | Api2 |
-| `full_page` | `FPC` | PageCache |
+<!-- full_page (FPC) is EE-only and not registered as a built-in cache type in OpenMage; see Backends section -->
+| ~~`full_page`~~ | ~~`FPC`~~ | ~~PageCache~~ |
 
 Cache types must be **enabled in admin → System → Cache Management** for `useCache($type)` to return true. A flushed type stays empty until the next read populates it; a *disabled* type bypasses caching entirely. Both states make caching look "broken" — check Cache Management first.
 
@@ -53,7 +54,7 @@ The node name (`vendor_module`) becomes the type code passed to `useCache()`, `c
 Surface from `Mage_Core_Model_App` (`app/code/core/Mage/Core/Model/App.php`):
 
 ```php
-Mage::app()->useCache('block_html');           // bool — type enabled?
+Mage::app()->useCache('block_html');           // bool when typeCode given (returns array|false otherwise)
 Mage::app()->loadCache($id);                   // false|string
 Mage::app()->saveCache($data, $id, $tags, $lifeTime);
 Mage::app()->removeCache($id);
@@ -80,7 +81,7 @@ Default lifetime when none is passed: `Mage_Core_Model_Cache::DEFAULT_LIFETIME =
 
 ## Block caching
 
-Defined on `Mage_Core_Block_Abstract` (`app/code/core/Mage/Core/Block/Abstract.php`). The block is cached only when `getCacheLifetime()` returns non-null **and** the `block_html` type is enabled (`useCache(self::CACHE_GROUP)`). Cache keys are prefixed `BLOCK_`.
+Defined on `Mage_Core_Block_Abstract` (`app/code/core/Mage/Core/Block/Abstract.php`). The block is cached only when `getCacheLifetime()` returns non-null **and** the `block_html` type is enabled (`useCache(self::CACHE_GROUP)`). When a block sets an explicit `cache_key`, it's prefixed `BLOCK_`; otherwise the default key is `sha1(implode('|', getCacheKeyInfo()))` with no prefix.
 
 The default `getCacheKey()` hashes `getCacheKeyInfo()` joined by `|`. The base implementation only adds `getNameInLayout()` — *anything else that varies output (store, theme, customer group, current entity) must be added by the subclass*. The framework does **not** add design package/theme/store/customer-group automatically — the convention to do so lives in subclasses like `Mage_Catalog_Block_Navigation` below.
 

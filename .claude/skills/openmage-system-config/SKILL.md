@@ -60,7 +60,7 @@ Key attributes:
 
 ## Default values in config.xml
 
-`system.xml` declares the form; **defaults live in `etc/config.xml` under `<default>`**, mirroring the `section/group/field` path. Example from `app/code/core/Mage/Sales/etc/config.xml`:
+`system.xml` declares the form; **defaults live in `etc/config.xml` under `<default>`**, mirroring the `section/group/field` path. Excerpt from `app/code/core/Mage/Sales/etc/config.xml`:
 
 ```xml
 <default>
@@ -133,7 +133,7 @@ The admin form re-displays `obscure` fields as `****`; preserving the masked val
 
 ## Field dependencies
 
-`<depends><field>value</field></depends>` greys out / hides a field unless the named sibling field equals the value. Both must live in the same group. Example: every Paygate field above is gated on `<active>1</active>` so the form collapses when the payment method is disabled.
+`<depends><field>value</field></depends>` greys out / hides a field unless the named sibling field equals the value. Usually both live in the same group; cross-group is possible by adding `<fieldset>OTHER_GROUP</fieldset>` inside `<depends><field>`. Example: every Paygate field above is gated on `<active>1</active>` so the form collapses when the payment method is disabled.
 
 ## XML_PATH constants and reading config
 
@@ -156,7 +156,7 @@ public function canSendNewOrderConfirmationEmail($store = null)
 ```
 
 - `Mage::getStoreConfig($path, $store)` — string/scalar.
-- `Mage::getStoreConfigFlag($path, $store)` — boolean (`'1'`/`'true'`/`'yes'` → `true`).
+- `Mage::getStoreConfigFlag($path, $store)` — boolean — returns `false` only for empty values and the literal strings `'0'` and `'false'` (case-insensitive); everything else is `true`.
 - `$store` accepts a store id, code, or `Mage_Core_Model_Store` instance. `null` means "current store" — fine in request context, dangerous in cron/API/observers that touch multiple stores. **Always thread `$store` through.**
 
 ## Scope inheritance

@@ -9,7 +9,7 @@ OpenMage ships **two completely separate API stacks**. They share nothing — di
 
 | Stack | Module | Declared in | Entry point | Auth |
 |---|---|---|---|---|
-| SOAP v1 / SOAP v2 / XML-RPC / JSON-RPC | `Mage_Api` | `*/etc/api.xml` (+ `wsdl.xml`, `wsi.xml`) | `api.php` → `/api/{soap,v2_soap,xmlrpc,jsonrpc}` | API user + role (session token) |
+| SOAP v1 / SOAP v2 / XML-RPC / JSON-RPC | `Mage_Api` | `*/etc/api.xml` (+ `wsdl.xml`, `wsi.xml`) | `api.php` → `/api/{soap,soap_v2,soap_wsi,xmlrpc,jsonrpc}` (`v2_soap` is an alias) | API user + role (session token) |
 | REST | `Mage_Api2` | `*/etc/api2.xml` | `api.php` → `/api/rest/...` | OAuth 1.0a (admin/customer) or anonymous (guest) |
 
 Bootstrap: both stacks dispatch through `api.php` (not `index.php`). `Mage_Api/controllers/SoapController.php`, `XmlrpcController.php`, `JsonrpcController.php`, and `V2/SoapController.php` cover `Mage_Api`. REST is routed via `Mage_Api2_Model_Router` from the same front controller.
@@ -39,7 +39,7 @@ One handler class implements all transports. Define the resource and its methods
                     <delete><acl>catalog/product/delete</acl></delete>
                 </methods>
                 <faults module="catalog">
-                    <not_exists><code>101</code><message>Product not exists.</message></not_exists>
+                    <product_not_exists><code>101</code><message>Product not exists.</message></product_not_exists>
                     <data_invalid><code>102</code><message>Invalid data given. Details in error message.</message></data_invalid>
                 </faults>
             </catalog_product>
@@ -66,7 +66,7 @@ Key rules:
 
 - `<model>` is a class alias resolving via the standard models registry (`catalog/product_api` → `Mage_Catalog_Model_Product_Api`). Method names in `<methods>` map 1:1 to PHP methods unless overridden by `<method>`.
 - `<acl>` strings on a resource or method must exist as nodes under `<api><acl><resources>` or the method 403s.
-- `<faults>` is the SOAP fault catalog. Throw via `$this->_fault('not_exists')` from the API model — it picks the matching code/message.
+- `<faults>` is the SOAP fault catalog. Throw via `$this->_fault('product_not_exists')` from the API model — it picks the matching code/message.
 - The same `<resources>` block backs SOAP v1, SOAP v2, XML-RPC, and JSON-RPC. Only the wire format differs.
 
 The companion `wsdl.xml` (one per module) declares the SOAP-v1 type system. Keep it in sync when you add a method or change a return shape:
@@ -83,7 +83,7 @@ The companion `wsdl.xml` (one per module) declares the SOAP-v1 type system. Keep
                     ...
 ```
 
-`wsi.xml` is the WS-I compliant variant for SOAP v2 (toggle: `Services > Web Services > SOAP/XML-RPC > Enable WS-I Compliance Mode`).
+`wsi.xml` is the WS-I compliant variant for SOAP v2 (toggle: `System > Configuration > Services > Magento Core API > General Settings > WS-I Compliance`).
 
 Validation belongs **inside the API model** (`Mage_Catalog_Model_Product_Api::create`, etc.) — not in a request validator. Throw `$this->_fault('data_invalid', $details)` for bad input.
 
@@ -142,7 +142,7 @@ REST is its own world. Resources, attributes, routes, and per-user-type privileg
 
 Required pieces and what they do:
 
-- `<model>` — REST resource handler (`Mage_Catalog_Model_Api2_Product`). Subclasses `Mage_Api2_Model_Resource` and implements `_create/_retrieve/_update/_delete` (entity) or `_retrieveCollection/_multicreate/...` (collection). The version suffix lives in the class (`..._Product_Rest_Admin_V1`).
+- `<model>` — REST resource handler (`Mage_Catalog_Model_Api2_Product`). Subclasses `Mage_Api2_Model_Resource` and implements `_create/_retrieve/_update/_delete` (entity) or `_retrieveCollection/_multiCreate/...` (collection). The version suffix lives in the class (`..._Product_Rest_Admin_V1`).
 - `<working_model>` — the underlying alias the resource hydrates (typically the EAV / AR model alias).
 - `<privileges>` — three fixed user types: **`admin`**, **`customer`**, **`guest`**. Each lists which CRUD operations it may perform. Missing entry = forbidden.
 - `<attributes>` — the **whitelist** of fields the API knows about. Anything not listed is silently dropped from request and response.
@@ -159,7 +159,7 @@ Override only the methods that user type is allowed to call.
 
 Validation lives in two places:
 
-1. **Schema validation** — `Mage_Api2_Model_Resource::_validate()` runs against the EAV attribute config and the `<attributes>` whitelist. Off-list fields are dropped before the model sees them.
+1. **Schema/whitelist filtering** — `Mage_Api2_Model_Resource::getFilter()` returns a `Mage_Api2_Model_Acl_Filter` whose `in()`/`out()` apply the `<attributes>` whitelist before the resource model sees the data. EAV-aware checks live in `Mage_Api2_Model_Resource_Validator_Eav`.
 2. **Business validation** — inside the resource model's `_create`/`_update` methods. Throw `Mage_Api2_Exception` with a status code (`Mage_Api2_Model_Server::HTTP_BAD_REQUEST` etc.).
 
 ## OAuth (Mage_Oauth)
@@ -170,7 +170,7 @@ REST is **OAuth 1.0a-protected for `admin` and `customer`**. `guest` is the one 
 2. `GET /oauth/authorize` (customer) or `/adminhtml/oauth_authorize` (admin) → user logs in and approves the consumer.
 3. `POST /oauth/token` → `Mage_Oauth_TokenController` exchanges the verified request token for an access token.
 
-Subsequent REST requests sign with the access token (HMAC-SHA1 over the request).
+Subsequent REST requests sign with the access token (HMAC-SHA1 or PLAINTEXT over the request).
 
 Key models:
 

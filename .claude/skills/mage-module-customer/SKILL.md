@@ -24,8 +24,8 @@ Two distinct entities, two attribute sets:
 
 | Entity            | Table                    | Default attribute set | EAV setup class                     |
 |-------------------|--------------------------|-----------------------|-------------------------------------|
-| `customer`        | `customer_entity`        | `customer` (id 1)     | `Mage_Customer_Model_Resource_Setup` |
-| `customer_address`| `customer_address_entity`| `customer_address` (id 2) | same, `entity_type='customer_address'` |
+| `customer`        | `customer_entity`        | `customer` (typically id 1, auto-assigned)     | `Mage_Customer_Model_Resource_Setup` |
+| `customer_address`| `customer_address_entity`| `customer_address` (typically id 2, auto-assigned) | same, `entity_type='customer_address'` |
 
 Address rows link back to their customer via `parent_id` (the EAV abstract entity's parent column) — `Mage_Customer_Model_Address::setCustomerId()` writes both `parent_id` and `customer_id` data keys; `getCustomerId()` falls back to `parent_id`. Don't set just one.
 
@@ -33,17 +33,17 @@ Add attributes via setup scripts only — call `$installer->addAttribute('custom
 
 ## Default billing / shipping
 
-Customer carries two FK columns on `customer_entity`: `default_billing` and `default_shipping`, each pointing at a `customer_address_entity.entity_id`. Magic accessors: `getDefaultBilling()`, `setDefaultBilling()`, `unsetDefaultBilling()` (and `*Shipping`). The `is_default_billing` / `is_default_shipping` data keys on the address are pseudo-attributes managed by `Mage_Customer_Model_Resource_Customer::_saveAddresses` — they aren't real EAV attributes. Set them on the address before save and the resource will sync the customer columns.
+`default_billing` and `default_shipping` are EAV int attributes (with `customer_attribute_backend_billing`/`_shipping` backends) holding the `customer_address_entity.entity_id` of the chosen default. Magic accessors: `getDefaultBilling()`, `setDefaultBilling()`, `unsetDefaultBilling()` (and `*Shipping`). The `is_default_billing` / `is_default_shipping` data keys on the address are pseudo-attributes managed by `Mage_Customer_Model_Resource_Customer::_saveAddresses` — they aren't real EAV attributes. Set them on the address before save and the resource will sync the customer columns.
 
-Iteration: `$customer->getAddressesCollection()` (lazy) or `$customer->getAddresses()` (deprecated array form). `getPrimaryBillingAddress()` / `getPrimaryShippingAddress()` resolve the defaults.
+Iteration: `$customer->getAddressesCollection()` (lazy) or `$customer->getAddresses()` (legacy array form). `getPrimaryBillingAddress()` / `getPrimaryShippingAddress()` resolve the defaults.
 
 ## Authentication
 
 `Mage_Customer_Model_Customer::authenticate($login, $password)`:
-1. `loadByEmail($login)` — scope-aware via `customer/config_share` (global website if `account_share/scope = 1`, otherwise per-website with `website_id` filter).
+1. `loadByEmail($login)` — scope-aware via `customer/config_share`: `SHARE_GLOBAL = 0` (default; no website filter) vs `SHARE_WEBSITE = 1` (`loadByEmail` adds `website_id` filter).
 2. Confirmation gate — throws `EXCEPTION_EMAIL_NOT_CONFIRMED` (1) if `getConfirmation()` set and `isConfirmationRequired()`.
 3. `validatePassword($password)` → `Mage::helper('core')->validateHash(...)` against `password_hash` column.
-4. On fail: `EXCEPTION_INVALID_EMAIL_OR_PASSWORD` (2). On success: dispatches `customer_customer_authenticated` (the built-in observer auto-rehashes legacy-format passwords to bcrypt).
+4. On fail: `EXCEPTION_INVALID_EMAIL_OR_PASSWORD` (2). On success: dispatches `customer_customer_authenticated`. The built-in observer (`actionUpgradeCustomerPassword`) rehashes the password using the configured version unless the matched version was SHA256.
 
 Other exception codes on `Mage_Customer_Model_Customer`: `EXCEPTION_EMAIL_EXISTS` (3), `EXCEPTION_INVALID_RESET_PASSWORD_LINK_TOKEN` (4), `EXCEPTION_INVALID_RESET_PASSWORD_LINK_CUSTOMER_ID` (5).
 
@@ -68,7 +68,7 @@ Detection by length is a useful sanity check, not how the code dispatches: md5 =
 
 `validateHash($password, $hash)` tries `LATEST` → `SHA512` → `SHA256` → `MD5` in that order — any match passes. This is the legacy-friendly migration path: old md5/sha256 hashes still authenticate, then `customer_customer_authenticated` rehashes to bcrypt. Don't shortcut this method; the multi-version walk is the whole point.
 
-`getHashPassword($password, $salt = null)` produces a new hash at the configured version. Empty/`null` salt → unsalted hash for `LATEST` (bcrypt has its own salt) or for legacy versions when called that way; non-empty salt → `hash:salt` form with the configured `sha256`/`sha512` algo. Admin path goes through `Mage_Core_Helper_Data::getHashPassword()` which forces a salt via `Mage_Admin_Model_User::HASH_SALT_EMPTY` when none supplied.
+`getHashPassword($password, $salt = null)` produces a new hash at the configured version. Empty/`null` salt → unsalted hash for `LATEST` (bcrypt has its own salt) or for legacy versions when called that way; non-empty salt → `hash:salt` form with the configured `sha256`/`sha512` algo. Admin path goes through `Mage_Core_Helper_Data::getHashPassword()`: if configured version is SHA512 it passes the supplied salt through; for any other version it forces `Mage_Admin_Model_User::HASH_SALT_EMPTY` (`null`), producing an unsalted hash.
 
 `MAXIMUM_PASSWORD_LENGTH = 256` — `validateHash` rejects longer passwords pre-compute (DoS guard).
 
@@ -78,7 +78,7 @@ Two separate models, do not confuse:
 
 `Mage_Customer_Model_Session` (`customer/session`) extends `Mage_Core_Model_Session_Abstract` — PHP session-backed. Public surface:
 
-- `isLoggedIn()` — true iff `getId()` (the customer id stored in session) is set.
+- `isLoggedIn()` — true iff a customer id is in the session **and** `checkCustomerId()` confirms the customer still exists.
 - `login($username, $password)` — calls `Customer::authenticate`, then `setCustomerAsLoggedIn`.
 - `setCustomerAsLoggedIn($customer)` / `loginById($id)` / `logout()`.
 - Redirect bookkeeping: `setBeforeAuthUrl`, `setAfterAuthUrl`, `setNoReferer`. `Mage_Customer_Helper_Data::getLoginUrl()` (route `customer/account/login`) appends `LoginUrlParams` carrying the `referer` query when not on a no-referer page.
@@ -102,7 +102,7 @@ Persistent ≠ logged-in. A persistent visitor is partially identified (cart, na
 3. After successful login: redirect to `BeforeAuthUrl` (if set), else dashboard if `customer/startup/redirect_dashboard = 1`, else home.
 4. Layout `customer.xml` provides handles `customer_account` (logged-in wrapper with left-nav + dashboard tabs) and `customer_logged_in` / `customer_logged_out` for branching.
 
-`getDashboardUrl()` → `customer/account/`, `getRegisterUrl()` → `customer/account/create`, `getAccountUrl()` → `customer/account/index`. Constant `ROUTE_ACCOUNT_LOGIN = 'customer/account/login'`.
+`getDashboardUrl()` and `getAccountUrl()` both resolve to `customer/account` (`_getUrl('customer/account')`); `getRegisterUrl()` → `customer/account/create`. Constant `ROUTE_ACCOUNT_LOGIN = 'customer/account/login'`.
 
 ## Customer groups
 
@@ -116,7 +116,7 @@ Reserved IDs on `Mage_Customer_Model_Group`:
 
 Default for new accounts: config `customer/create_account/default_group` (default `1`, "General"). Helper `Mage::getStoreConfig('customer/create_account/default_group')`.
 
-`customer_group_id` lives on `customer_entity` (column, not EAV attribute). Pricing/tax integrations key off it:
+`group_id` lives on `customer_entity` (column, not EAV attribute). Magic accessor `getGroupId()/setGroupId()`. Pricing/tax integrations key off it:
 
 - **Catalog price rules** — condition `customer_group_ids`; reindex `catalogrule_rule` after rule edits (see `mage-module-promotions`).
 - **Cart price rules** — same condition shape on the cart side.

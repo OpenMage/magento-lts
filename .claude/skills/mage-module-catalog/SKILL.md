@@ -48,14 +48,14 @@ Type constants on `Mage_Catalog_Model_Product_Type`:
 | Virtual | `TYPE_VIRTUAL = 'virtual'` | `catalog/product_type_virtual` | Mage_Catalog |
 | Configurable | `TYPE_CONFIGURABLE = 'configurable'` | `catalog/product_type_configurable` | Mage_Catalog |
 | Grouped | `TYPE_GROUPED = 'grouped'` | `catalog/product_type_grouped` | Mage_Catalog |
-| Bundle | (in module) | `bundle/product_type` | Mage_Bundle |
+| Bundle | `TYPE_BUNDLE = 'bundle'` | `bundle/product_type` | Mage_Bundle |
 | Downloadable | `TYPE_DOWNLOADABLE = 'downloadable'` | `downloadable/product_type` | Mage_Downloadable |
 
 Types are registered under `<global><catalog><product><type>` in each module's `etc/config.xml`. Each entry has `<label>`, `<model>`, `<composite>` (1 = has children/options), `<index_priority>`, optional `<allow_product_types>` for parent linkage. `Mage_Catalog_Model_Product_Type::factory($product)` reads `type_id` and instantiates the matching type model.
 
 Composite types: configurable, grouped, bundle. They wrap child simples; `getChildrenIds()` / `getParentIdsByChild()` on the type model are how relationships are resolved. Configurable's super-attribute mapping lives in `catalog_product_super_*` tables; Bundle uses `catalog_product_bundle_*`; Grouped uses the generic `catalog_product_link` table with link type 3.
 
-ConfigurableSwatches (`Mage_ConfigurableSwatches`) is a separate module that observes catalog product/list events to decorate configurable products with swatch images and a colored option pickers — see `Mage_ConfigurableSwatches/etc/config.xml` events block. Touch points: it overrides product blocks via layout, hooks `catalog_block_product_list_collection`, and adds a `swatch_label` attribute (registered via setup script).
+ConfigurableSwatches (`Mage_ConfigurableSwatches`) is a separate module that observes catalog product/list events to decorate configurable products with swatch images and a colored option pickers — see `Mage_ConfigurableSwatches/etc/config.xml` events block. Touch points: it overrides product blocks via layout and hooks `catalog_block_product_list_collection`. The module ships no setup scripts; it reuses media-gallery via `Mage_ConfigurableSwatches_Helper_Mediafallback`.
 
 ## Category model
 
@@ -79,7 +79,7 @@ Tree mechanics use materialized path on `catalog_category_entity`:
 
 `TREE_ROOT_ID = 1` is the global root; each store's "Root Category" is a level-1 child of it. Don't move categories by hand — use `Mage_Catalog_Model_Category::move()` so `path`, `level`, and `position` stay consistent and `catalog_category_move_before/after` fire.
 
-**Anchor flag** (`is_anchor` int attribute): when set, a category aggregates products from all descendant categories into its layered-nav listing. The category's own `_filter` queries widen via `getResource()->getAnchorsAbove()`. Toggling anchor invalidates layered-nav and category-product indexes.
+**Anchor flag** (`is_anchor` int attribute): when set, a category aggregates products from all descendant categories into its layered-nav listing. Anchor membership is resolved through the `catalog_category_product` indexer into `catalog_category_product_index`. Toggling anchor invalidates layered-nav and category-product indexes.
 
 ## URL rewrites
 
@@ -88,8 +88,8 @@ Table: `core_url_rewrite` (resource `core/url_rewrite`). Columns of interest: `r
 `Mage_Catalog_Model_Url` (`app/code/core/Mage/Catalog/Model/Url.php`) maintains catalog rows. Entry points:
 
 - `refreshRewrites($storeId = null)` — full rebuild for a store (or all stores). Walks the category tree from each store root, then refreshes products. This is what the `catalog_url` indexer calls for a "Reindex Data" action.
-- `refreshCategoryRewrite($categoryId, $storeId, $refreshProducts = true)` — single category branch.
-- `refreshProductRewrite($productId, $storeId)` — single product across visible categories.
+- `refreshCategoryRewrite($categoryId, $storeId = null, $refreshProducts = true)` — single category branch.
+- `refreshProductRewrite($productId, $storeId = null)` — single product across visible categories.
 - `refreshProductRewrites($storeId)` — all products in a store.
 
 When the URL refresh runs:
@@ -118,8 +118,8 @@ Catalog registers six indexers under `<global><index><indexer>` in `etc/config.x
 Plus two more registered by sibling modules that reindex against catalog data:
 
 ```xml
-<cataloginventory_stock>     cataloginventory/stock_indexer   (Mage_CatalogInventory)
-<catalogsearch_fulltext>     catalogsearch/fulltext_engine    (Mage_CatalogSearch)
+<cataloginventory_stock>     cataloginventory/indexer_stock   (Mage_CatalogInventory)
+<catalogsearch_fulltext>     catalogsearch/indexer_fulltext   (Mage_CatalogSearch)
 ```
 
 Dependency-aware order when reindexing all (the order admin runs them, roughly):
@@ -172,7 +172,7 @@ echo Mage::helper('catalog/image')->init($product, 'small_image')->resize(200);
 
 Cache lives under `media/catalog/product/cache/<store_id>/<attr>/<dimensions>/.../<filename>`. Cache key includes every transform parameter so two different `resize(200)` vs `resize(200,200)` calls produce different files. Wiping `media/catalog/product/cache/` is safe; everything regenerates lazily on next request.
 
-The originals live at `media/catalog/product/<f>/<oo>/<filename>` (Magento splits by first two letters of filename).
+The originals live at `media/catalog/product/<f>/<o>/<filename>` (`Varien_File_Uploader::getDispretionPath()` creates one directory per character).
 
 ## Common edits
 
@@ -191,7 +191,7 @@ The originals live at `media/catalog/product/<f>/<oo>/<filename>` (Magento split
 - Saving a product **without** `setStoreId(0)` (admin scope) will write store-specific overrides instead of the default value. Most admin code calls `setStoreId(Mage_Core_Model_App::ADMIN_STORE_ID)` for you; custom shell scripts often don't.
 - `getCategoryIds()` only returns categories the product is directly assigned to. Anchor categories above are computed via the index — query `catalog_category_product_index` for the resolved set.
 - `$product->getPrice()` is the catalog price; final price (catalog rules + tier prices) requires `$product->getFinalPrice()`. Tax/store currency is applied higher up.
-- Flat-table reads ignore `disable_auto_group_change` and other behaviors implemented in EAV backend models. If something works in admin and breaks on frontend, suspect flat coverage of the attribute first.
+- Flat-table reads bypass EAV backend model logic. If something works in admin and breaks on frontend, suspect flat coverage of the attribute first (e.g. attribute not flagged `used_in_product_listing`/`used_for_sort_by`).
 - Bundle and downloadable price calculations differ enough that observers tied to `catalog_product_get_final_price` can't assume a single shape.
 
 ## Cross-references

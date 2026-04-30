@@ -16,7 +16,7 @@ For `https://example.com/catalog/product/view/id/42`:
 3. `view` resolves to `viewAction()` (suffix added by `getActionMethodName($action) => $action . 'Action'`).
 4. `id/42` becomes `$this->getRequest()->getParam('id')`.
 
-Default frontend route (when URL has no path) comes from `<frontend><default><router>...</router></default>` — Catalog sets it to `catalog`, hence `/` lands on the CMS-home-or-catalog dispatcher.
+Default frontend route (when URL has no path) comes from `<frontend><default><router>...</router></default>` — Catalog sets it to `catalog`, hence `/` is matched by the default router → `Mage_Catalog_IndexController` → no-route fallback → `Mage_Cms_IndexController::noRouteAction()` which serves the configured `cms_home_page`.
 
 ## Frontend router config
 
@@ -39,7 +39,7 @@ Default frontend route (when URL has no path) comes from `<frontend><default><ro
 </frontend>
 ```
 
-- `<use>standard</use>` = frontend router (the only other in-tree value is `admin`).
+- `<use>standard</use>` = frontend router (other in-tree values are `admin` and `install`).
 - `<module>` is the **class prefix**, not a `<modules>` alias. Multiple modules can extend an existing frontName by adding a `<modules>` child with `<before>`/`<after>` to inject controllers.
 - `<frontName>` is the URL segment.
 
@@ -203,7 +203,7 @@ Action names in this list are matched case-insensitively against the action port
 
 `Mage_Core_Controller_Varien_Action::dispatch()`:
 
-1. **`preDispatch()`** — install check, store-active check, session start, form-key/secret-URL checks, dispatches three events:
+1. **`preDispatch()`** — install check, store-active check, session start, dispatches three events (Adminhtml's override adds form-key/secret-URL checks and `_isAllowed()`):
    ```php
    Mage::dispatchEvent('controller_action_predispatch', ['controller_action' => $this]);
    Mage::dispatchEvent('controller_action_predispatch_' . $routeName, [...]);
@@ -221,7 +221,7 @@ Action names in this list are matched case-insensitively against the action port
 Event taxonomy (in firing order for predispatch):
 - **Generic:** `controller_action_predispatch` — every controller everywhere.
 - **Route-scoped:** `controller_action_predispatch_<route>` — e.g. `controller_action_predispatch_catalog`.
-- **Action-scoped:** `controller_action_predispatch_<full_action>` — e.g. `controller_action_predispatch_catalog_product_view`. `getFullActionName()` is `<route>_<controller>_<action>`, all lowercase, underscore-joined.
+- **Action-scoped:** `controller_action_predispatch_<full_action>` — e.g. `controller_action_predispatch_catalog_product_view`. `getFullActionName()` is `<route>_<controller>_<action>`, underscore-joined (typically all lowercase since URL segments are lowercase; the method itself does not normalize case).
 
 Postdispatch fires in reverse specificity (action → route → generic).
 
@@ -231,7 +231,7 @@ Postdispatch fires in reverse specificity (action → route → generic).
   - `'*/*/edit'` = same module/route, same controller, action `edit`. Stars are replaced with the **current** route/controller/action.
   - `'adminhtml/cms_page/edit'` = absolute. Hyphens vs underscores in the controller segment matter — `cms_page` matches `Cms/PageController`.
   - `_redirect('*/*/edit', ['id' => $id])` appends `/id/<id>/`.
-- `_forward($action, $controller = null, $module = null, $params = null)` — internal redispatch, **no HTTP redirect, no new request**. Same `$_GET`/`$_POST`. Used heavily for `noRoute` / `denied` fallbacks. The next iteration re-runs `preDispatch()` for the new action.
+- `_forward($action, $controller = null, $module = null, ?array $params = null)` — internal redispatch, **no HTTP redirect, no new request**. Same `$_GET`/`$_POST`. Used heavily for `noRoute` / `denied` fallbacks. The next iteration re-runs `preDispatch()` for the new action.
 
 ## Pitfalls
 

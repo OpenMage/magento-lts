@@ -9,7 +9,7 @@ Module = a directory under `app/code/<pool>/<Vendor>/<Module>/` plus an activati
 
 ## Activation: two files, both required
 
-`app/etc/modules/<Vendor>_<Module>.xml` controls *whether* the module loads and which `codePool` it lives in. The module's own `etc/config.xml` controls *what* it does. Manifests are read first, in filesystem order; only then is each enabled module's `etc/config.xml` merged into the global config tree.
+`app/etc/modules/<Vendor>_<Module>.xml` controls *whether* the module loads and which `codePool` it lives in. The module's own `etc/config.xml` controls *what* it does. Mage_* manifests are read in the order defined by `Mage_Core_Model_Config::MAGE_MODULES`; non-Mage manifests follow in filesystem order; only then is each enabled module's `etc/config.xml` merged into the global config tree.
 
 ```xml
 <?xml version="1.0"?>
@@ -29,7 +29,7 @@ Module = a directory under `app/code/<pool>/<Vendor>/<Module>/` plus an activati
 </config>
 ```
 
-Real example: `app/etc/modules/Mage_Catalog.xml`. `<codePool>` is `core` | `community` | `local`; this dictates which directory the module's PHP/XML are loaded from. There are no modules under `app/code/community/` in this repo — same pattern, just a different pool. `Mage_All.xml` is now empty (see the inline comment in that file); load order is hard-coded in `Mage_Core_Model_Config::MAGE_MODULES`.
+Real example: `app/etc/modules/Mage_Catalog.xml`. `<codePool>` is `core` | `community` | `local`; this dictates which directory the module's PHP/XML are loaded from. Bundled community modules in this repo: `Cm_Cache`, `Cm_RedisSession`, `MM_Ignition` under `app/code/community/` — same pattern, just a different pool. `Mage_All.xml` is now empty (see the inline comment in that file); load order is hard-coded in `Mage_Core_Model_Config::MAGE_MODULES`.
 
 ## Module config.xml: declare aliases, set version
 
@@ -56,10 +56,10 @@ Every module that owns models/blocks/helpers declares them under `<global>`. Rea
             </catalog_resource>
         </models>
         <blocks>
-            <catalog><class>Mage_Catalog_Block</class></blocks>
+            <catalog><class>Mage_Catalog_Block</class></catalog>
         </blocks>
         <helpers>
-            <catalog><class>Mage_Catalog_Helper</class></helpers>
+            <catalog><class>Mage_Catalog_Helper</class></catalog>
         </helpers>
     </global>
 </config>
@@ -69,7 +69,7 @@ The `<version>` here is what drives setup-script execution (see `openmage-db-set
 
 ## Alias resolution: catalog/product → Mage_Catalog_Model_Product
 
-Aliases like `catalog/product`, `sales/order`, `cms/page` are resolved by `Mage_Core_Model_Config::getGroupedClassName` (see `app/code/core/Mage/Core/Model/Config.php`). The split is on `/`: left side is the *group* (matched against `<global>/<models|blocks|helpers>/<group>`), right side is the *suffix*. The group's `<class>` is concatenated with the suffix in `Ucfirst_Words` form.
+Aliases like `catalog/product`, `sales/order`, `cms/page` are resolved by `Mage_Core_Model_Config::getGroupedClassName` (see `app/code/core/Mage/Core/Model/Config.php`). The split is on `/`: left side is the *group* (matched against `<global>/<models|blocks|helpers>/<group>`), right side is the *suffix*. The group's `<class>` is concatenated with the suffix in `uc_words` form.
 
 ```
 Mage::getModel('catalog/product')
@@ -133,7 +133,7 @@ A frontend-only observer goes under `<frontend><events>`, not `<global><events>`
 
 ## Module dependencies
 
-`<depends>` in the manifest controls load order *and* hard-fails activation if a dependency is missing. Use it whenever your `etc/config.xml` references aliases or rewrite targets owned by another module — without `<depends>`, a load-order race can leave your `<rewrite>` overridden by the other module's later merge. Merge order within a dependency tier is alphabetical by module name.
+`<depends>` in the manifest controls load order *and* hard-fails activation if a dependency is missing. Use it whenever your `etc/config.xml` references aliases or rewrite targets owned by another module — without `<depends>`, a load-order race can leave your `<rewrite>` overridden by the other module's later merge. Modules are sorted topologically by `<depends>` only; modules with no dependency relation keep their input order (Mage modules use the `MAGE_MODULES` constant order, custom modules use filesystem glob order).
 
 ## Class autoload: underscore = directory separator
 

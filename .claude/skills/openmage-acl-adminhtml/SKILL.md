@@ -170,15 +170,22 @@ public function isAllowed($resource, $privilege = null)
         }
         try {
             return $acl->isAllowed($user->getAclRole(), $resource, $privilege);
-        } catch (Exception) { /* unknown resource → fall through to false */ }
+        } catch (Exception) {
+            // Nested fallback: missing resource → wildcard isAllowed($role, null, $privilege)
+            try {
+                if (!$acl->has($resource)) {
+                    return $acl->isAllowed($user->getAclRole(), null, $privilege);
+                }
+            } catch (Exception) { /* fall through */ }
+        }
     }
     return false;
 }
 ```
 
-Role rules are stored as rows in `admin_rule` (one per role × resource), with `permission` = `allow` or `deny` (`Mage_Admin_Model_Rules::RULE_PERMISSION_ALLOWED` / `_DENIED`). `Mage_Admin_Model_Acl_Config` builds the Zend_Acl tree from the merged `<acl>` XML at session load; rules apply on top.
+Role rules are stored as rows in `admin_rule` (one per role × resource), with `permission` = `allow` or `deny` (`Mage_Admin_Model_Rules::RULE_PERMISSION_ALLOWED` / `_DENIED`). `Mage_Admin_Model_Config` builds the Zend_Acl tree from the merged `<acl>` XML at session load; rules apply on top.
 
-Consequence: **a missing ACL node returns false from `isAllowed`** — the `catch (Exception)` swallows `Zend_Acl_Resource_Not_Found_Exception` and falls through. New admin pages without an ACL node are effectively unreachable for any role except `all`.
+Consequence: **a missing ACL node falls back to `isAllowed($role, null, $privilege)` (wildcard) — only roles granted `all` resources will pass** — the `catch (Exception)` swallows `Zend_Acl_Resource_Not_Found_Exception` and falls through. New admin pages without an ACL node are effectively unreachable for any role except `all`.
 
 ## Common task: register a new admin page
 

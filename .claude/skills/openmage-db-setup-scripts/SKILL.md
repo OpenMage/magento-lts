@@ -47,7 +47,7 @@ app/code/core/Mage/<Module>/data/<setup_name>/
 </global>
 ```
 
-If `<class>` is omitted, the default `Mage_Core_Model_Resource_Setup` is used. Catalog uses `Mage_Catalog_Model_Resource_Setup` (an EAV setup); Customer uses `Mage_Customer_Model_Entity_Setup`. Pick the right base class — adding an EAV attribute requires an EAV-aware setup.
+If `<class>` is omitted, the default `Mage_Core_Model_Resource_Setup` is used. Catalog uses `Mage_Catalog_Model_Resource_Setup` (an EAV setup); Customer uses `Mage_Customer_Model_Resource_Setup`. Pick the right base class — adding an EAV attribute requires an EAV-aware setup.
 
 The version chain must be unbroken: if you ship `1.6.0.0.10`, you must provide either `install-1.6.0.0.10.php` or a path of `upgrade-X-Y` files reaching it from any prior installed version. Pick the predecessor by reading the highest `<version>` shipped in the previous tag.
 
@@ -184,7 +184,7 @@ Companion EAV ops:
 - `$installer->updateAttribute($entity, $code, $field, $value)` — change one field on an existing attribute (e.g. swap a `backend_model`).
 - `$installer->removeAttribute($entity, $code)` — drop an attribute and its values.
 - `$installer->addAttributeGroup`, `addAttributeSet`, `addAttributeToGroup`, `addAttributeToSet` — attribute set / group composition.
-- `$installer->getAttribute($entity, $code)` — fetch the row to read `attribute_id` / `attribute_table`.
+- `$installer->getAttribute($entity, $code)` — fetch the row to read `attribute_id`; for the value table use `getAttributeTable($entity, $code)`.
 
 See `openmage-eav` for the entity / attribute / set / group model and source/backend/frontend conventions.
 

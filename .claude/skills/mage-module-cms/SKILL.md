@@ -15,11 +15,11 @@ Three storage models, one directive parser, one widget registry. Edits to `Mage_
 | Static block  | `cms/block`            | `Mage_Cms_Model_Block`              | `cms_block`, `cms_block_store`                        | none — referenced      |
 | Widget instance | `widget/widget_instance` | `Mage_Widget_Model_Widget_Instance` | `widget_instance`, `widget_instance_page`, `widget_instance_page_layout` | bound to layout handles |
 
-Pages and blocks are store-scoped via the `*_store` join table (multi-select on save). Widget instances scope via `store_ids` (CSV) and a `page_groups` array of layout handles.
+Pages and blocks are store-scoped via the `*_store` join table (multi-select on save). Widget instances scope via `store_ids` (CSV) and a `page_groups` array of associative entries ({group, layout_handle, block_reference, for, entities, template}).
 
 ## Routing CMS pages
 
-- Default router: `Mage_Cms_Controller_Router` matches a request path to `cms_page.identifier` and dispatches to `cms/index/index`.
+- Default router: `Mage_Cms_Controller_Router` matches a request path to `cms_page.identifier` and dispatches to `cms/page/view` with `page_id` (the home page goes through `cms/index/index`).
 - Special pages live in core config and are resolved by `Mage_Cms_Helper_Page`:
   - `web/default/cms_home_page` → home page (`XML_PATH_HOME_PAGE`)
   - `web/default/cms_no_route` → 404 (`XML_PATH_NO_ROUTE_PAGE`, page id `no-route` constant `Mage_Cms_Model_Page::NOROUTE_PAGE_ID`)
@@ -73,7 +73,7 @@ Skeleton (one `<widgets>` per module, one entry per type):
     <cms_static_block type="cms/widget_block" translate="name description" module="cms">
         <name>CMS Static Block</name>
         <description>Contents of a Static Block</description>
-        <is_email_compatible>1</is_email_compatible>      <!-- usable in {{widget}} -->
+        <!-- cms_static_block in core has no <is_email_compatible> tag (only cms_page_link does) -->
         <parameters>
             <block_id type="complex" translate="label">
                 <visible>1</visible>
@@ -104,7 +104,7 @@ Created in admin → CMS → Widgets. Each row binds:
 - `type` (the `widget.xml` key, e.g. `cms_static_block`)
 - `widget_parameters` (serialized array, the `<parameters>` values)
 - `store_ids` (CSV)
-- `page_groups[]` rows in `widget_instance_page` — one of `pages`, `page_layouts`, `notanchor_categories`, `anchor_categories`, `all_products`, `specific_products`. Each carries a `layout_handle` (e.g. `cms_index_index`, `catalog_product_view`) and `block_reference` (where to inject; e.g. `content`, `sidebar.additional`).
+- `page_groups[]` rows in `widget_instance_page` — one of `pages`, `all_pages`, `anchor_categories`, `notanchor_categories`, or `<type>_products` (e.g. `all_products`, `simple_products`, ...). Each carries a `layout_handle` (e.g. `cms_index_index`, `catalog_product_view`) and `block_reference` (where to inject; e.g. `content`, `sidebar.additional`).
 - Persisted layout updates land in `core_layout_update` joined via `widget_instance_page_layout`.
 
 The inline `{{widget ...}}` directive bypasses the instance table and renders ad-hoc from parameters.
@@ -121,20 +121,20 @@ admin/cms/block/delete
 admin/cms/media_gallery
 ```
 
-A role can grant CMS authoring without granting `system/config` or `catalog`. Adminhtml controllers (`Mage_Adminhtml_Cms_PageController`, `Mage_Adminhtml_Cms_BlockController`) check via `_isAllowed()` using these node paths. Widget instance editing lives under the separate `admin/cms` (Widgets) menu / `admin/system` ACL — see `Mage_Widget`'s `adminhtml.xml`.
+A role can grant CMS authoring without granting `system/config` or `catalog`. Adminhtml controllers (`Mage_Adminhtml_Cms_PageController`, `Mage_Adminhtml_Cms_BlockController`) check via `_isAllowed()` using these node paths. Widget instance editing lives under `admin/cms/widget_instance` ACL (see `Mage_Widget`'s `adminhtml.xml`).
 
 ## Common tasks
 
 - **Add a new widget type:** create `etc/widget.xml` with a `<my_module_thing type="mymodule/widget_thing">` block; create the block class extending `Mage_Core_Block_Template implements Mage_Widget_Block_Interface`; the `<parameters>` show up in the chooser automatically.
-- **Add a directive:** subclass `Mage_Cms_Model_Template_Filter` (or `Mage_Core_Model_Email_Template_Filter` for email-only), add `fooDirective($construction)`, register via `<global><cms><page><filter>` rewrite or just `_addAfterFilterCallback`. Pattern: `{{foo bar="baz"}}` → method receives `$construction[2]` of params.
+- **Add a directive:** subclass `Mage_Cms_Model_Template_Filter` (or `Mage_Core_Model_Email_Template_Filter` for email-only), add `fooDirective($construction)`, register via `<global><cms><page><tempate_filter>` (yes, the typo is in core — see `Mage_Cms_Helper_Data::XML_NODE_PAGE_TEMPLATE_FILTER`); subclass + add `xxxDirective()` methods. Pattern: `{{foo bar="baz"}}` → method receives `$construction[2]` of params.
 - **Programmatic block render:** `Mage::app()->getLayout()->createBlock('cms/block')->setBlockId('footer_links')->toHtml();`
 - **Programmatic page URL:** `Mage::helper('cms/page')->getPageUrl($pageId)`.
-- **Bust cache after content edits:** pages/blocks tag with `cms_page` / `cms_block` (`CACHE_TAG` constants); FPC and `block_html` invalidate via observers in `Mage_Cms_Model_Observer`.
+- **Bust cache after content edits:** pages/blocks tag with `cms_page` / `cms_block` (`CACHE_TAG` constants); FPC and `block_html` invalidate via `_cacheTag = 'cms_page'`/`'cms_block'` on the page/block models (and `Mage_PageCache` observers when EE FPC is present); `Mage_Cms_Model_Observer` only handles `noRoute`/`noCookies`.
 
 ## Gotchas
 
 - Static block content containing `{{block id="X"}}` referencing block X is rejected at save (`_beforeSave`).
-- `Cms_Helper_Page::_renderPage()` calls `addActionLayoutHandles()` *and* `cms_page` — your custom layout XML for `<cms_page>` always applies; per-page handles like `<cms_page_view_id_home>` are added by `Mage_Cms_IndexController`.
+- `Cms_Helper_Page::_renderPage()` calls `addActionLayoutHandles()` *and* `cms_page` — your custom layout XML for `<cms_page>` always applies; per-page customization comes from `cms_page.layout_update_xml` / `custom_layout_update_xml` (no per-page handles are added).
 - Widget parameters with `helper_block` need a backend chooser block under `Block/Adminhtml/.../Widget/Chooser/`. Without it the field renders blank.
 - The directive parser runs *once* on output. Nested directives in DB content work; directives in widget *parameter values* don't get a second pass — pre-render them or use a typed parameter.
 - `is_email_compatible=1` is required for a widget to be usable inside `{{widget}}` in transactional email content (no admin chooser there).

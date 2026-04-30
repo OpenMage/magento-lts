@@ -139,7 +139,7 @@ $mock = $this->getMockWithCalledMethods(Subject::class, [
 
 ## Long-running test detection
 
-`OpenMage\Tests\Unit\LongRunningTestAlert` is registered as a PHPUnit `<extension>` in `.phpunit.dist.xml`. Any test that exceeds `MAX_SECONDS_ALLOWED = 1.0` prints a warning to stderr after the run. Treat the warning as actionable — split, mock, or move heavy fixtures.
+`OpenMage\Tests\Unit\LongRunningTestAlert` is registered as a PHPUnit `<extension>` in `.phpunit.dist.xml`. Any test that exceeds `MAX_SECONDS_ALLOWED = 1.0` prints a warning to stderr after each test. Treat the warning as actionable — split, mock, or move heavy fixtures.
 
 ## Per-suite invocation
 

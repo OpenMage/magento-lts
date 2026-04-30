@@ -44,7 +44,7 @@ Shipping has its own product tax class — `tax/classes/shipping_tax_class` (`Ma
 
 `getRate($request)` (request also carries `product_class_id`) returns the summed/compounded percent. `getAppliedRates($request)` returns the per-rate breakdown used to build `applied_taxes` rows.
 
-`Mage_Tax_Model_Calculation::calcTaxAmount($price, $rate, $priceIncludeTax, $round)` is the primitive:
+`Mage_Tax_Model_Calculation::calcTaxAmount($price, $taxRate, $priceIncludeTax = false, $round = true)` is the primitive:
 
 ```php
 $amount = $priceIncludeTax ? $price * (1 - 1 / (1 + $taxRate)) : $price * $taxRate;
@@ -62,7 +62,7 @@ Use this — don't reinvent. `round()` defers to `Mage::app()->getStore()->round
 | `CALC_ROW_BASE` | `ROW_BASE_CALCULATION` | tax = round((unitPrice × qty) × rate). Rounds once per line. |
 | `CALC_TOTAL_BASE` | `TOTAL_BASE_CALCULATION` (default) | tax = round(Σ(rowTotal) × rate) per rate. Rounds once per address per rate, after summing all matching items. EU-friendly. |
 
-The dispatch is in `Mage_Tax_Model_Sales_Total_Quote_Tax::_processItemTax`:
+The dispatch is in `Mage_Tax_Model_Sales_Total_Quote_Tax::collect()` (around lines 184–196):
 
 ```php
 case CALC_UNIT_BASE:  $this->_unitBaseCalculation(...);
@@ -72,7 +72,7 @@ case CALC_TOTAL_BASE: $this->_totalBaseCalculation(...);
 
 Switching algorithm changes line-level vs cart-level totals by cents — invoices issued under one algorithm aren't safely re-totaled under another. Treat as set-once-per-store.
 
-Rounding deltas: `_deltaRound` accumulates fractional rounding errors per rate per direction (`regular`/`hidden`/`weee`) and folds them into the next round so a 5×$0.999 line doesn't lose a cent.
+Rounding deltas: `_deltaRound` accumulates fractional rounding errors per rate per `$type` (`regular`/`base`/`tax_before_discount`/`tax_before_discount_base`, plus per-direction `incl`/`excl` suffix) and folds them into the next round so a 5×$0.999 line doesn't lose a cent.
 
 ## Totals chain
 
@@ -108,7 +108,7 @@ The `<fieldsets>` block in `Tax/etc/config.xml` is what carries `*_incl_tax` and
 
 ## Catalog prices including tax
 
-`tax/calculation/price_includes_tax` (`Mage_Tax_Model_Config::CONFIG_XML_PATH_PRICE_INCLUDES_TAX`). Read via `Mage_Tax_Helper_Data::priceIncludesTax($store)` which delegates to `Mage_Tax_Model_Config::priceIncludesTax`. There's a separate `_needUsePriceExcludeTax` runtime flag on `Mage_Tax_Model_Config` that the `tax_subtotal` collector flips to read the raw catalog price during sub-total recomputation — never set this from outside the collector.
+`tax/calculation/price_includes_tax` (`Mage_Tax_Model_Config::CONFIG_XML_PATH_PRICE_INCLUDES_TAX`). Read via `Mage_Tax_Helper_Data::priceIncludesTax($store)` which primarily delegates to `Mage_Tax_Model_Config::priceIncludesTax` (with a fallback to `getNeedUseShippingExcludeTax()`). There's a separate `_needUsePriceExcludeTax` runtime flag on `Mage_Tax_Model_Config` that the `tax_subtotal` collector flips to read the raw catalog price during sub-total recomputation — never set this from outside the collector.
 
 When **on**:
 
@@ -165,7 +165,7 @@ US norm: `0_0` (tax then discount, on excl). EU norm: `1_1` (discount then tax, 
 
 ## FPT / Weee
 
-`Mage_Weee` adds **fixed** per-product fees (e.g. battery levy, eco tax) via an EAV attribute of `frontend_input=weee` (see `Mage_Weee_Model_Attribute_Backend_Weee_Tax`). Each weee attribute carries `(country, region, value, website)` rows in `weee_tax`.
+`Mage_Weee` adds **fixed** per-product fees (e.g. battery levy, eco tax) via an EAV attribute of `frontend_input=weee` (see `Mage_Weee_Model_Attribute_Backend_Weee_Tax`). Each weee attribute carries `(country, state, value, website_id)` rows in `weee_tax` (`state` defaults to '*').
 
 Per-store FPT modes (`tax/weee/`):
 
@@ -192,7 +192,7 @@ Discounting interaction is governed by `tax/weee/discount` (`Mage_Weee_Helper_Da
 
 - Adding a new product tax class via raw insert into `tax_class` orphans the rules — register via setup script and update `tax_calculation` mappings, or it never participates in calculation.
 - Calling `Mage::getModel('tax/calculation')->getRate(...)` with `product_class_id = 0` always returns `0` — that's the "None" sentinel.
-- After changing rates/rules, `tax_calculation` and the catalog-price-rule index both need refresh; `Mage_Tax_Model_Observer::reindexCalculation` handles tax but catalog rules need their own reindex.
+- After changing rates/rules, `tax_calculation` and the catalog-price-rule index both need refresh; `tax_calculation` is read at request time (no reindex). Catalog rules do need their own reindex.
 - Multishipping splits the cart across shipping addresses; the tax collector runs **per address** — a custom tax-touching collector that reads `$quote` instead of `$address` will double-count.
 - The `hidden_tax_amount` field is non-zero only when catalog prices include tax and the customer's rate differs from the store default; if you see unexpected hidden-tax rows, check the rate request's `country_id` resolution.
 - `Mage_Weee_Model_Tax::getProductWeeeAttributes` re-reads the rate via `tax/calculation` per call — cache at the caller level for hot paths (collection load).

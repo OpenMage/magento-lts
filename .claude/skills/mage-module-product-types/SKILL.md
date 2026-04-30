@@ -17,7 +17,7 @@ Composite / typed-pricing products in OpenMage. Simple/Virtual covered by `mage-
 | `virtual`      | `Mage_Catalog_Model_Product_Type_Virtual`            | no        | yes             |
 | `configurable` | `Mage_Catalog_Model_Product_Type_Configurable`       | yes       | yes (children)  |
 | `grouped`      | `Mage_Catalog_Model_Product_Type_Grouped`            | yes       | no              |
-| `bundle`       | `Mage_Bundle_Model_Product_Type`                     | yes       | yes (option)    |
+| `bundle`       | `Mage_Bundle_Model_Product_Type`                     | yes       | yes (when all selections virtual) |
 | `downloadable` | `Mage_Downloadable_Model_Product_Type` (ext Virtual) | no        | yes (always)    |
 
 ## Abstract — `Mage_Catalog_Model_Product_Type_Abstract`
@@ -51,7 +51,7 @@ Parent has no own price; price = first/selected child's price. Children are inde
 
 Resource model: `Mage_Catalog_Model_Resource_Product_Type_Configurable`. Attribute resource: `..._Configurable_Attribute`.
 
-**Constraints.** Only `global`-scope, non-required, source-modeled (`int`) attributes can be super-attributes — `canUseAttribute()` enforces. Children must share the parent's attribute set (or compatible attribute set with the super-attributes). Children with `status=disabled` or out-of-stock are filtered by `getUsedProducts()`.
+**Constraints.** Only attributes that are global-scope, visible, configurable, source-modeled, and user-defined can be super-attributes — `canUseAttribute()` enforces. Children must share the parent's attribute set (or compatible attribute set with the super-attributes). Children with `status=disabled` or out-of-stock are filtered by `getUsedProducts()`.
 
 **Price.** `Mage_Catalog_Model_Product_Type_Configurable_Price`. Indexed by `Mage_Catalog_Model_Resource_Product_Indexer_Price_Configurable` from cheapest salable child + super-attribute pricing surcharges.
 
@@ -63,7 +63,7 @@ qty = N
 ```
 `processBuyRequest()` returns `['super_attribute' => [...]]`. `_prepareProduct()` resolves to the child via `getProductByAttributes()` and returns `[$parent, $child]` — both quote items, parent visible, child hidden (`getParentItem()`).
 
-**ConfigurableSwatches.** `Mage_ConfigurableSwatches`. Hooks via `catalog_product_collection_load_after`/`catalog_block_product_list_collection` observers; renders color/text swatches in PLP and PDP. `swatch_image`/`swatch_thumb` media types added to attributes via setup. No new tables — it reads existing super-attribute config and attribute media galleries on child products.
+**ConfigurableSwatches.** `Mage_ConfigurableSwatches`. Hooks via `catalog_product_load_after`/`catalog_block_product_list_collection` observers; renders color/text swatches in PLP and PDP. no new tables or media types; reuses media gallery via `Mage_ConfigurableSwatches_Helper_Mediafallback`. No new tables — it reads existing super-attribute config and attribute media galleries on child products.
 
 ## Grouped — `Mage_Catalog_Model_Product_Type_Grouped`
 
@@ -71,7 +71,7 @@ Parent is a *display group only*. No own price, no own SKU on the order, never a
 
 **Tables.** Reuses `catalog_product_link` with `link_type_id = 3` (`Mage_Catalog_Model_Product_Link::LINK_TYPE_GROUPED`) and `catalog_product_link_attribute*` for `position` / `qty`.
 
-**Behavior.** `getRelationInfo()` returns the link table filtered by `link_type_id=3`. `_prepareProduct()` walks `super_group` and calls `parent::_prepareProduct()` for each child with qty > 0; the parent is *not* added to the cart (children carry `product_type=grouped` custom option referencing the group's id for display only).
+**Behavior.** `getRelationInfo()` returns the link table filtered by `link_type_id=3`. `_prepareProduct()` walks `super_group` and calls `$subProduct->getTypeInstance()->_prepareProduct()` for each child with qty > 0; the parent is *not* added to the cart (children carry `product_type=grouped` custom option referencing the group's id for display only).
 
 **Add-to-cart payload.**
 ```
@@ -151,16 +151,16 @@ links[] = <link_id>
 links[] = <link_id>
 qty = N
 ```
-`processBuyRequest()` doesn't override (uses generic `links` from buy request). `_prepareProduct()` validates required link selection when `getLinksPurchasedSeparately()`, stores `downloadable_link_ids` as a comma-joined custom option on the quote item, and forces `is_virtual=1`. Order placement creates `downloadable_link_purchased` + `_item` rows; `Mage_Downloadable_Model_Observer` flips them to "available" on `sales_order_save_after` once the order reaches a configurable status (default `complete`).
+`processBuyRequest()` returns `['links' => $links]` (overridden in `Mage_Downloadable_Model_Product_Type`). `_prepareProduct()` validates required link selection when `getLinksPurchasedSeparately()`, stores `downloadable_link_ids` as a comma-joined custom option on the quote item; virtuality is inherited from `Mage_Catalog_Model_Product_Type_Virtual::isVirtual()`. Order placement creates `downloadable_link_purchased` + `_item` rows; `Mage_Downloadable_Model_Observer` flips them to "available" on `sales_order_save_commit_after` once the order item reaches a configurable status (default `Mage_Sales_Model_Order_Item::STATUS_INVOICED = 9`).
 
-**Download endpoint.** `Mage_Downloadable_DownloadController::linkAction` streams via `Mage_Downloadable_Helper_Download` and decrements `number_of_downloads_used`.
+**Download endpoint.** `Mage_Downloadable_DownloadController::linkAction` streams via `Mage_Downloadable_Helper_Download` and increments `number_of_downloads_used`.
 
 ## Cross-cutting
 
 - **`info_buyRequest` custom option** is the canonical record of what the customer chose; preserved on quote item, copied to order item, used by re-order. Don't mutate after add-to-cart.
 - **`product_type` custom option** on a child quote item identifies its parent type (`bundle`, `configurable`, `grouped`) — totals collectors and order printouts branch on it.
 - **`getRelationInfo()`** is what lets `Mage_Catalog_Model_Indexer_Url`, the price indexer, and the stock indexer walk parent↔child without hardcoding type checks.
-- **`canConfigure()`** controls "Edit Configuration" in cart. Configurable/Bundle/Downloadable (when `linksPurchasedSeparately`) return true.
+- **`canConfigure()`** controls "Edit Configuration" in cart. Configurable/Bundle/Grouped/Downloadable (when `linksPurchasedSeparately`) return true.
 - **Adding a new type** = new model extending Abstract + `<global><catalog><product><type>` registration + price model + (usually) resource model + admin tab block. Don't subclass `Simple` — start from `Abstract` or `Virtual`.
 
 ## Cross-refs

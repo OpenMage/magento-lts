@@ -42,7 +42,7 @@ Two-spot wiring per carrier — config alias plus default values:
 
 `Mage_Shipping_Model_Carrier_Abstract extends Varien_Object` and `Mage_Shipping_Model_Carrier_Interface` declares:
 
-- `isTrackingAvailable(): bool` — default `false` on the abstract; `Mage_Usa_Model_Shipping_Carrier_Abstract` overrides to `true`.
+- `isTrackingAvailable(): bool` — default `false` on the abstract; `Mage_Usa_Model_Shipping_Carrier_Abstract` overrides to `true`. (Return types shown below are from docblock `@return`; the interface and abstract don't declare native return types for BC.)
 - `getAllowedMethods(): array` — `['method_code' => 'Method Title', ...]`. Used in admin dropdowns and free-shipping method config.
 
 You must implement:
@@ -51,18 +51,17 @@ You must implement:
 - `getAllowedMethods(): array` (from interface).
 - `_doShipmentRequest(Varien_Object $request): Varien_Object` — only on the Usa abstract (`abstract protected`); required when `isShippingLabelsAvailable()` returns true.
 
-Constructor convention: set `protected $_code = 'mycarrier';` so `getConfigData('field')` resolves `carriers/mycarrier/field`.
+Property convention: set `protected $_code = 'mycarrier';` so `getConfigData('field')` resolves `carriers/mycarrier/field`.
 
 ## The rate pipeline
 
 ```
-Mage_Shipping_Model_Shipping::collectRates(Rate_Request)
+Mage_Shipping_Model_Shipping::collectCarrierRates(Rate_Request)
   └── for each carrier:
-        composePackagesForCarrier()  // only if <shipment_requesttype> set
         Carrier_Abstract::checkAvailableShipCountries()   // sallowspecific/specificcountry/showmethod
         Carrier_Abstract::proccessAdditionalValidation()  // override for zip/state checks
-        Carrier::collectRates(Rate_Request) → Rate_Result
-        Carrier::_updateFreeMethodQuote()                 // re-quotes free_method at reduced weight
+        composePackagesForCarrier()                       // only if <shipment_requesttype> truthy
+        Carrier::collectRates(Rate_Request) → Rate_Result // per-package; carrier-internal _updateFreeMethodQuote() re-quotes free_method at reduced weight
 ```
 
 `Mage_Shipping_Model_Rate_Request` is a `Varien_Object` carrying `dest_*`, `orig_*`, `package_weight`, `package_qty`, `all_items` (`Mage_Sales_Model_Quote_Item[]`), `free_shipping`, `free_method_weight`, `limit_carrier`, `limit_method`. See its docblock for the full `@method` list.
@@ -94,9 +93,9 @@ return $error;
 
 ## Package splitting
 
-`Mage_Shipping_Model_Shipping::composePackagesForCarrier($carrier, $request)` splits an order into multiple weight-bounded packages **only if** the carrier sets `<shipment_requesttype>` in config (UPS, FedEx, DHL do; USPS doesn't). It reads `carriers/<code>/max_package_weight` and returns `[weight => packageCount]`. The shipping model then clones the carrier per package, calls `collectRates()`, and sums prices via `Rate_Result::updateRatePrice($packageCount)`. If any single item exceeds `max_package_weight`, `composePackagesForCarrier()` returns `[]` — the carrier won't quote.
+`Mage_Shipping_Model_Shipping::composePackagesForCarrier($carrier, $request)` splits an order into multiple weight-bounded packages **only if** the carrier sets `<shipment_requesttype>` in config (UPS, FedEx, DHL expose it (default `0`); USPS doesn't). It reads `carriers/<code>/max_package_weight` and returns `[weight => packageCount]`. The shipping model then clones the carrier per package, calls `collectRates()`, and sums prices via `Rate_Result::updateRatePrice($packageCount)`. If any single item exceeds `max_package_weight`, `composePackagesForCarrier()` returns `[]` — the carrier won't quote.
 
-For carriers that handle their own splitting, the abstract provides `getTotalNumOfBoxes($weight)` which divides by `max_package_weight` and stashes `$this->_numBoxes` — `getFinalPriceWithHandlingFee()` multiplies by `_numBoxes` when `handling_action` is `PERPACKAGE`.
+For carriers that handle their own splitting, the abstract provides `getTotalNumOfBoxes($weight)` which divides by `max_package_weight` and stashes `$this->_numBoxes` — `getFinalPriceWithHandlingFee()` always multiplies cost by `_numBoxes`; `handling_action=PERPACKAGE` additionally multiplies the handling fee per package, while `PERORDER` adds the fee once.
 
 ## Free-shipping interaction
 
@@ -158,12 +157,12 @@ Every carrier under `<sections><carriers><groups>` must expose this minimum fiel
 
 Carrier-specific quirks:
 
-- **USPS** (`Mage_Usa_Model_Shipping_Carrier_Usps`): two API stacks — legacy XML (`Mage/Usa/.../Usps.php` direct calls) and REST (`Usps/Rest/`). Auth flips on `<mode>` config. Containers (`VARIABLE`, `FLAT RATE BOX`, etc.) are class constants. `OUNCES_POUND = 16` for weight conversion.
-- **UPS**: OAuth (`UpsAuth.php`) for the modern REST API; legacy XML auth still present. Pickup type / container / address (residential vs commercial) selection lives in the rate request via `setUpsPickup`/`setUpsContainer`/`setUpsAddress` (see `Rate_Request` docblock).
+- **USPS** (`Mage_Usa_Model_Shipping_Carrier_Usps`): two API stacks — legacy XML (`Mage/Usa/.../Usps.php` direct calls) and REST (`Usps/Rest/`). Auth and endpoint flip on `<environment>` config (`production` vs `sandbox`). Containers (`VARIABLE`, `FLAT RATE BOX`, etc.) are class constants. `OUNCES_POUND = 16` for weight conversion.
+- **UPS**: OAuth (`UpsAuth.php`) for the modern REST API; legacy XML auth still present. Pickup type / container / address (residential vs commercial) UPS reads pickup/container/dest_type from the rate request via `getUpsPickup`/`getUpsContainer`/`getUpsDestType` (set by callers; not declared in the `Rate_Request` `@method` list).
 - **FedEx**: WSDL-based SOAP (`Usa/etc/wsdl/FedEx/`). Smartpost vs ground vs express are all separate methods, gated on account fields.
 - **DHL**: split into US (`Dhl.php`) and international (`Dhl/International.php` registered as `<dhlint>`). DHL US is largely retired; treat international as primary.
 
-All four set `<shipment_requesttype>` so `composePackagesForCarrier()` runs.
+UPS/FedEx/DHL expose `<shipment_requesttype>` (default `0`, admin-toggleable). USPS doesn't, and so never runs `composePackagesForCarrier()`.
 
 ## Tracking
 
@@ -189,7 +188,7 @@ public function getTrackingInfo($trackingNumber)
 - Forgetting `setCarrier()`/`setMethod()` on a `Rate_Result_Method` — `Rate_Result::getRatesByCarrier()` and the checkout shipping picker both filter on those.
 - Using `getFinalPriceWithHandlingFee()` directly when you want free-shipping awareness — use `getMethodPrice($cost, $methodCode)` instead.
 - Adding a method that won't appear in the SalesRule "free shipping" admin dropdown — ensure it's in `getAllowedMethods()`.
-- Caching rates without including the destination postcode in the cache key — `_getQuotesCacheKey()` on the Usa abstract serializes the raw request; mirror that pattern.
+- Caching rates without including the destination postcode in the cache key — `_getQuotesCacheKey()` on the Usa abstract implodes request params with the carrier code and CRC32-hashes them; mirror that pattern.
 
 ## Cross-refs
 
