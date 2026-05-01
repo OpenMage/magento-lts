@@ -5,7 +5,7 @@ description: PHPStan in OpenMage — level 8 + strictRules.allRules + bleedingEd
 
 # PHPStan in OpenMage / magento-lts
 
-OpenMage runs PHPStan at **level 8** with `strictRules.allRules` and `bleedingEdge` on, plus the `macopedia/phpstan-magento1` plugin for OpenMage alias resolution. Errors that aren't fixable yet live in **split-per-identifier baselines** under `.phpstan.dist.baselines/` (many tens of thousands of entries — regenerate with `composer run phpstan:baseline` to get an exact count).
+OpenMage runs PHPStan at **level 8** with `strictRules.allRules` and `bleedingEdge` on, plus the `macopedia/phpstan-magento1` plugin for OpenMage alias resolution. Errors that aren't fixable yet live in **split-per-identifier baselines** under `.phpstan.dist.baselines/` (tens of thousands of entries — regenerate with `composer run phpstan:baseline` to get an exact count).
 
 Cross-refs: `phpunit-openmage-tests` (data-provider statics interact with `dynamicCallOnStaticMethod`).
 
@@ -26,8 +26,8 @@ Always commit the regenerated baselines alongside the change that moved the erro
 ## Config posture (`.phpstan.dist.neon`)
 
 - `level: 8`
-- `strictRules.allRules: true` (via `phpstan/phpstan-strict-rules`)
-- `bleedingEdge.neon` included → enables `dynamicCallOnStaticMethod: true` among others
+- `strictRules.allRules: true` (via `phpstan/phpstan-strict-rules`) → enables `dynamicCallOnStaticMethod`, `noVariableVariables`, `strictFunctionCalls`, etc.
+- `bleedingEdge.neon` included → opts in to upcoming default-on rules
 - `treatPhpDocTypesAsCertain: false` — phpdoc-only types are treated as suspect
 - `phpVersion.min: 80100`, `max: 80599` — PHP 8.1–8.5 surface
 - `fileExtensions: [php, phtml]` — `.phtml` templates are analyzed

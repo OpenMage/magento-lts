@@ -157,7 +157,7 @@ Other commonly used helpers on the same adapter: `dropTable`, `dropColumn`, `dro
 
 ## EAV: adding an attribute
 
-Customer / catalog attributes go through the EAV setup, never raw DDL. The setup class is wired in `etc/config.xml` (`Mage_Customer_Model_Entity_Setup` for customers, `Mage_Catalog_Model_Resource_Setup` for catalog). Real example from `Mage/Customer/sql/customer_setup/upgrade-1.6.2.0.5-1.6.2.0.6.php`:
+Customer / catalog attributes go through the EAV setup, never raw DDL. The setup class is wired in `etc/config.xml` (`Mage_Customer_Model_Resource_Setup` for customers — `Mage_Customer_Model_Entity_Setup` is an empty BC subclass still referenced from older `@var` docblocks; `Mage_Catalog_Model_Resource_Setup` for catalog). Real example from `Mage/Customer/sql/customer_setup/upgrade-1.6.2.0.5-1.6.2.0.6.php`:
 
 ```php
 <?php

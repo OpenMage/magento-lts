@@ -20,7 +20,7 @@ Frontend route: `/checkout/onepage/*`, `/checkout/cart/*`, `/checkout/multishipp
 
 ## The `getCheckout()` helper pattern
 
-Multishipping blocks (`Block/Multishipping/Abstract.php` + subclasses) and the Onepage model expose `getCheckout()` returning the singleton `checkout/session`; cart blocks call `Mage::getSingleton('checkout/session')` directly. Don't `Mage::getSingleton('checkout/session')` repeatedly — call `$this->getCheckout()` from controllers, blocks (`Mage_Checkout_Block_*`), and the onepage model. It's the same instance everywhere. Step state (`getStepData`/`setStepData`) and transient flags (`setRedirectUrl`, `setGotoSection`, `setLastOrderId`, `setLastRealOrderId`) live on it.
+Cart blocks (`Block/Cart/Abstract.php`), Onepage blocks (`Block/Onepage/Abstract.php`), and the Onepage model all expose `getCheckout()` returning the singleton `checkout/session`. Multishipping blocks (`Block/Multishipping/Abstract.php` + subclasses) define their own `getCheckout()` returning `checkout/type_multishipping` (the multishipping model, not the session) — call `Mage::getSingleton('checkout/session')` if you need the session there. The Onepage controller exposes `getOnepage()` (the model) and reaches the session via `$this->getOnepage()->getCheckout()`. Don't `Mage::getSingleton('checkout/session')` repeatedly when a `getCheckout()` accessor is already available — it's the same instance. Step state (`getStepData`/`setStepData`) and transient flags (`setRedirectUrl`, `setGotoSection`, `setLastOrderId`, `setLastRealOrderId`) live on the session.
 
 ## Onepage step sequence
 

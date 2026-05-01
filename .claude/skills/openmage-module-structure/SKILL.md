@@ -29,7 +29,7 @@ Module = a directory under `app/code/<pool>/<Vendor>/<Module>/` plus an activati
 </config>
 ```
 
-Real example: `app/etc/modules/Mage_Catalog.xml`. `<codePool>` is `core` | `community` | `local`; this dictates which directory the module's PHP/XML are loaded from. Bundled community modules in this repo: `Cm_Cache`, `Cm_RedisSession`, `MM_Ignition` under `app/code/community/` — same pattern, just a different pool. `Mage_All.xml` is now empty (see the inline comment in that file); load order is hard-coded in `Mage_Core_Model_Config::MAGE_MODULES`.
+Real example: `app/etc/modules/Mage_Catalog.xml`. `<codePool>` is `core` | `community` | `local`; this dictates which directory the module's PHP/XML are loaded from. Bundled community modules in this repo: `Cm_RedisSession`, `MM_Ignition` under `app/code/community/` — same pattern, just a different pool. (`Cm/Cache/Backend/Redis.php` also lives under `app/code/community/` but is a Zend cache backend library, not a registered Magento module — no manifest, no `etc/`.) `Mage_All.xml` is now empty (see the inline comment in that file); load order is hard-coded in `Mage_Core_Model_Config::MAGE_MODULES`.
 
 ## Module config.xml: declare aliases, set version
 

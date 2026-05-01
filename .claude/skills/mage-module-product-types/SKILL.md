@@ -63,7 +63,7 @@ qty = N
 ```
 `processBuyRequest()` returns `['super_attribute' => [...]]`. `_prepareProduct()` resolves to the child via `getProductByAttributes()` and returns `[$parent, $child]` — both quote items, parent visible, child hidden (`getParentItem()`).
 
-**ConfigurableSwatches.** `Mage_ConfigurableSwatches`. Hooks via `catalog_product_load_after`/`catalog_block_product_list_collection` observers; renders color/text swatches in PLP and PDP. no new tables or media types; reuses media gallery via `Mage_ConfigurableSwatches_Helper_Mediafallback`. No new tables — it reads existing super-attribute config and attribute media galleries on child products.
+**ConfigurableSwatches.** `Mage_ConfigurableSwatches`. Hooks via `catalog_product_load_after`/`catalog_block_product_list_collection` observers; renders color/text swatches in PLP and PDP. No new tables — reads existing super-attribute config and attribute media galleries on child products via `Mage_ConfigurableSwatches_Helper_Mediafallback`.
 
 ## Grouped — `Mage_Catalog_Model_Product_Type_Grouped`
 

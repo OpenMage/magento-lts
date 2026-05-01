@@ -1,6 +1,6 @@
 ---
 name: openmage-caching
-description: OpenMage caching — built-in cache types (config, layout, block_html, collections, eav, full_page, translate, config_api), tag-based invalidation, block-level caching (getCacheKeyInfo/Tags/Lifetime), Mage::app()->getCache(). Use when adding a cache type, busting cache on save, tagging custom caches, debugging stale block output, or working with Mage_Core_Block_Abstract::_loadCache.
+description: OpenMage caching — built-in cache types (config, layout, block_html, collections, eav, translate, config_api, config_api2), tag-based invalidation, block-level caching (getCacheKeyInfo/Tags/Lifetime), Mage::app()->getCache(). Use when adding a cache type, busting cache on save, tagging custom caches, debugging stale block output, or working with Mage_Core_Block_Abstract::_loadCache.
 ---
 
 # openmage-caching
@@ -194,7 +194,7 @@ Mage::app()->getCacheInstance()->flush();                   // nuke everything
 
 ## Backends
 
-Default is `Cm_Cache_Backend_File` writing to `var/cache/`. Production: `Cm_Cache_Backend_Redis`. Configured in `app/etc/local.xml` under `<global><cache>` — see `app/etc/local.xml.additional` for both shapes (Redis snippet around L73). FPC is a separate backend block under `<global><full_page_cache>`.
+Default is `Zend_Cache_Backend_File` writing to `var/cache/` (`Mage_Core_Model_Cache::$_defaultBackend = 'File'`). Production: `Cm_Cache_Backend_Redis`. Configured in `app/etc/local.xml` under `<global><cache>` — see `app/etc/local.xml.additional` for both shapes (Redis snippet around L73). FPC is a separate backend block under `<global><full_page_cache>`.
 
 ## Common pitfalls
 

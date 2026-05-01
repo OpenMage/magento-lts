@@ -89,7 +89,7 @@ Application (`Mage_SalesRule_Model_Validator`) is invoked by quote address total
 ## Stop-rules-processing and priority
 
 - `sort_order` (lower runs first) determines evaluation order. **It is not a "priority" in the lockout sense** — every matching rule runs unless explicitly stopped.
-- `stop_rules_processing = 1` on a rule that matched halts further rules. Three independent loops in `Validator.php` (`processFreeShipping`, item discount `process`, address-level totals) each check `$rule->getStopRulesProcessing()` and `break` out.
+- `stop_rules_processing = 1` on a rule that matched halts further rules. Three independent loops in `Validator.php` (`processFreeShipping`, item discount `process`, `processShippingAmount`) each check `$rule->getStopRulesProcessing()` and `break` out.
 - Catalog rules have the same flag (`action_stop` column on `catalogrule_product`); `calcProductPriceRule()` `break`s when it sees one.
 - Combined with sort_order: order rules by exclusivity, set stop on the "winning" rule. Two rules with the same sort_order have undefined relative order.
 

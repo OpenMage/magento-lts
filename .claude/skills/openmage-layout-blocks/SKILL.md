@@ -119,9 +119,9 @@ Block accessors return raw data — escape at the template boundary:
 - `$this->escapeHtml($value)` — text inside HTML
 - `$this->escapeHtml($value, $allowedTags)` — limited HTML allowed
 - `$this->escapeUrl($url)` — `href`/`src` values
-- `$this->quoteEscape($url)` — same context, double-encoded for attribute value (newer helper)
+- `$this->quoteEscape($value)` — escape quotes inside HTML attribute values (`htmlspecialchars` with `ENT_QUOTES`, `double_encode=false`); `quoteEscape($value, true)` also `addslashes` for JS-in-attribute (`onClick="..."`)
 - `$this->jsQuoteEscape($value)` — inline JS strings
-- `$this->__('Translate %s', $name)` — localized; performs sprintf-style substitution; arguments are not escaped, and the returned string is not HTML-escaped — wrap in `escapeHtml` if it contains user data, so wrap in `escapeHtml` if it contains user data.
+- `$this->__('Translate %s', $name)` — localized; performs sprintf-style substitution; arguments are not escaped, and the returned string is not HTML-escaped — wrap in `escapeHtml` if it contains user data.
 
 A lot of legacy core templates use bare `<?php echo $foo->getBar() ?>` — not a template to copy. New code escapes; if you're already touching an unsafe line, fix it.
 

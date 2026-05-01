@@ -40,7 +40,7 @@ Iteration: `$customer->getAddressesCollection()` (lazy) or `$customer->getAddres
 ## Authentication
 
 `Mage_Customer_Model_Customer::authenticate($login, $password)`:
-1. `loadByEmail($login)` — scope-aware via `customer/config_share`: `SHARE_GLOBAL = 0` (default; no website filter) vs `SHARE_WEBSITE = 1` (`loadByEmail` adds `website_id` filter).
+1. `loadByEmail($login)` — scope-aware via `customer/config_share`: `SHARE_GLOBAL = 0` (no website filter) vs `SHARE_WEBSITE = 1` (default; `loadByEmail` adds `website_id` filter). Default value lives at `customer/account_share/scope` in config.xml.
 2. Confirmation gate — throws `EXCEPTION_EMAIL_NOT_CONFIRMED` (1) if `getConfirmation()` set and `isConfirmationRequired()`.
 3. `validatePassword($password)` → `Mage::helper('core')->validateHash(...)` against `password_hash` column.
 4. On fail: `EXCEPTION_INVALID_EMAIL_OR_PASSWORD` (2). On success: dispatches `customer_customer_authenticated`. The built-in observer (`actionUpgradeCustomerPassword`) rehashes the password using the configured version unless the matched version was SHA256.
@@ -68,7 +68,7 @@ Detection by length is a useful sanity check, not how the code dispatches: md5 =
 
 `validateHash($password, $hash)` tries `LATEST` → `SHA512` → `SHA256` → `MD5` in that order — any match passes. This is the legacy-friendly migration path: old md5/sha256 hashes still authenticate, then `customer_customer_authenticated` rehashes to bcrypt. Don't shortcut this method; the multi-version walk is the whole point.
 
-`getHashPassword($password, $salt = null)` produces a new hash at the configured version. Empty/`null` salt → unsalted hash for `LATEST` (bcrypt has its own salt) or for legacy versions when called that way; non-empty salt → `hash:salt` form with the configured `sha256`/`sha512` algo. Admin path goes through `Mage_Core_Helper_Data::getHashPassword()`: if configured version is SHA512 it passes the supplied salt through; for any other version it forces `Mage_Admin_Model_User::HASH_SALT_EMPTY` (`null`), producing an unsalted hash.
+`getHashPassword($password, $salt = null)` produces a new hash at the configured version. Empty/`null` salt → unsalted hash for `LATEST` (bcrypt has its own salt) or for legacy versions when called that way; non-empty salt → `hash:salt` form with the configured `sha256`/`sha512` algo. The wrapper `Mage_Core_Helper_Data::getHashPassword()` adds policy on top: if configured version is SHA512 it passes the supplied salt through; for any other version it forces `Mage_Admin_Model_User::HASH_SALT_EMPTY` (`null`), producing an unsalted hash.
 
 `MAXIMUM_PASSWORD_LENGTH = 256` — `validateHash` rejects longer passwords pre-compute (DoS guard).
 
@@ -100,7 +100,7 @@ Persistent ≠ logged-in. A persistent visitor is partially identified (cart, na
 1. Frontend hits a `customer/account/*` action while not logged in → `Mage_Customer_AccountController::_loginPostRedirect()` decides the destination.
 2. `Mage_Customer_Helper_Data::getLoginUrl()` builds the login URL on `customer/account/login`, appending `getLoginUrlParams()` (`referer` of current URL, base64-encoded) unless the session has `getNoReferer()`.
 3. After successful login: redirect to `BeforeAuthUrl` (if set), else dashboard if `customer/startup/redirect_dashboard = 1`, else home.
-4. Layout `customer.xml` provides handles `customer_account` (logged-in wrapper with left-nav + dashboard tabs) and `customer_logged_in` / `customer_logged_out` for branching.
+4. Layout `customer.xml` defines `customer_logged_in` / `customer_logged_out` handles for branching, plus action handles like `customer_account_login`, `customer_account_create`, `customer_account_edit`. Other modules add updates to the `customer_account` handle (logged-in wrapper with left-nav + dashboard tabs) — see `sales.xml`, `wishlist.xml`, etc.
 
 `getDashboardUrl()` and `getAccountUrl()` both resolve to `customer/account` (`_getUrl('customer/account')`); `getRegisterUrl()` → `customer/account/create`. Constant `ROUTE_ACCOUNT_LOGIN = 'customer/account/login'`.
 
