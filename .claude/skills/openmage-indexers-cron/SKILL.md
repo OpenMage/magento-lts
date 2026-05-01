@@ -192,11 +192,11 @@ php shell/indexer.php --reindexall                            # all visible inde
 php shell/indexer.php --reindexallrequired                    # only those NOT in STATUS_PENDING (i.e. STATUS_REQUIRE_REINDEX or STATUS_RUNNING)
 ```
 
-Reindex calls `$process->reindexEverything()`, which clears the matching `index_process_event` rows on success and dispatches `<code>_shell_reindex_after`.
+Reindex calls `$process->reindexEverything()`, which (via `reindexAll()`) clears the matching `index_process_event` rows on success and dispatches `after_reindex_process_<code>`. The shell wrapper additionally fires `<code>_shell_reindex_after` plus `shell_reindex_init_process` / `shell_reindex_finalize_process`.
 
 ## Common pitfalls
 
-- After config rule changes, catalog rules need `catalogrule_product` reindex — usually via cron, but manual edits won't take effect on the storefront until the index is rebuilt.
+- CatalogRule has no entry under `<global><index><indexer>`; rule recalculation runs from `Mage_CatalogRule_Model_Observer` (notably the `catalogrule_apply_all` cron job and post-save observers), so manual rule edits won't take effect on the storefront until that observer/cron fires.
 - Switching an indexer to `MODE_MANUAL` stops admin saves from being slow but means stock/price/URL data goes stale until a reindex.
 - A new indexer that doesn't appear in **Index Management** is almost always `_isVisible = false` or missing the `<global><index><indexer>` registration — check both.
 - `cron.php` requires `Mage::isInstalled()` to return true and exits with a printed message otherwise. Symlinking `cron.php` outside the repo without `chdir(__DIR__)` working correctly is a common silent-failure cause.

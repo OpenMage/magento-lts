@@ -1,6 +1,6 @@
 ---
 name: rector-openmage
-description: Rector in OpenMage — active presets (php81/deadCode/codeQuality/codingStyle/privatization/instanceOf/earlyReturn/carbon/phpunitCodeQuality), custom Migration rules under dev/rector/Migration/ (renames Zend→laminas/Carbon, old Mage method names), skip list, #[Override] enforcement. Use when running composer run rector:*, editing .rector.php, or understanding why Rector wants to rewrite your code.
+description: Rector in OpenMage — active presets (php81/deadCode/codeQuality/codingStyle/privatization/instanceOf/earlyReturn/carbon/phpunitCodeQuality), custom Migration rules under dev/rector/Migration/ (renames Zend→Monolog/Mage_Core_Helper, old Mage method names), skip list, #[Override] enforcement. Use when running composer run rector:*, editing .rector.php, or understanding why Rector wants to rewrite your code.
 ---
 
 # Rector in OpenMage
@@ -49,12 +49,12 @@ One file per module, each exposes `::renameMethod()` returning `RenameMethodRect
 
 These map deprecated camelCase/legacy names on `Mage_*` classes to the current name. Don't add new aliases here — add the rename only when the old name has been removed and we need to migrate callsites.
 
-### Zend → laminas / Carbon — `dev/rector/Migration/Zend/`
+### Zend migrations — `dev/rector/Migration/Zend/`
 
 - `Log.php` — `Zend_Log` constants → `Monolog\Level` cases (`Monolog\Level::Emergency`, `::Alert`, etc.) via `RenameClassAndConstFetch`.
 - `Measure.php` — `Zend_Measure_Length`/`Zend_Measure_Weight` constants → `Mage_Core_Helper_Measure_Length`/`Mage_Core_Helper_Measure_Weight` via `RenameClassAndConstFetch`.
-- `Acl.php` — `Zend_Acl` method renames.
-- `Captcha.php` — `Zend_Captcha` method renames.
+- `Acl.php` — `Zend_Acl` method renames (`add` → `addResource`).
+- `Captcha.php` — `Mage_Captcha_Model_Zend` method renames (drops underscore prefix from `_generateWord`/`_setWord`/`_randomSize`/`_gc`) for laminas/captcha alignment.
 
 ### Docblock typing — `dev/rector/Migration/TypeDeclarationDocblocks.php`
 

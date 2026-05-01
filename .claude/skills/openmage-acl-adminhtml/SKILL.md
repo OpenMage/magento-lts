@@ -185,7 +185,7 @@ public function isAllowed($resource, $privilege = null)
 
 Role rules are stored as rows in `admin_rule` (one per role × resource), with `permission` = `allow` or `deny` (`Mage_Admin_Model_Rules::RULE_PERMISSION_ALLOWED` / `_DENIED`). `Mage_Admin_Model_Config` builds the Zend_Acl tree from the merged `<acl>` XML at session load; rules apply on top.
 
-Consequence: **a missing ACL node falls back to `isAllowed($role, null, $privilege)` (wildcard) — only roles granted `all` resources will pass** — the `catch (Exception)` swallows `Zend_Acl_Resource_Not_Found_Exception` and falls through. New admin pages without an ACL node are effectively unreachable for any role except `all`.
+Consequence: **a missing ACL node falls back to `isAllowed($role, null, $privilege)` (wildcard) — only roles granted `all` resources will pass** — the `catch (Exception)` swallows the `Zend_Acl_Exception` ("Resource '...' not found") and falls through. New admin pages without an ACL node are effectively unreachable for any role except `all`.
 
 ## Common task: register a new admin page
 
@@ -203,7 +203,7 @@ The admin Permissions UI (System → Permissions → Roles → Resources tab) au
 - **Default deny.** Don't ship without the ACL node — it's not "open by default".
 - **`ADMIN_RESOURCE = true`** opens the controller to anyone logged in (the `is_bool` shortcut). `ADMIN_RESOURCE = false` denies everyone. Use sparingly.
 - **System-config sections** need both an `<acl>` node *and* the section's own `<resource>` is **not** declared in `system.xml` itself — the ACL resource string is built from the section id. Section id `foo` → ACL node `admin/system/config/foo`.
-- **`module="catalog"` on `<title>`** controls which translation CSV resolves the label. Match the module that owns the entry.
+- **`translate="title" module="catalog"`** on a menu/ACL node controls which translation CSV resolves the `<title>` label. Match the module that owns the entry.
 - **Cache flush.** ACL/menu changes are cached in `config`; clear the config cache or `var/cache/` after editing `etc/adminhtml.xml`.
 - **Orphaned resources.** System → Permissions → Orphaned Role Resources lists ACL paths granted to a role but no longer present in the merged tree — useful sanity check after renames.
 

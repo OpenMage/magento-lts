@@ -16,7 +16,7 @@ For `https://example.com/catalog/product/view/id/42`:
 3. `view` resolves to `viewAction()` (suffix added by `getActionMethodName($action) => $action . 'Action'`).
 4. `id/42` becomes `$this->getRequest()->getParam('id')`.
 
-Default frontend route (when URL has no path) comes from `<frontend><default><router>...</router></default>` — Catalog sets it to `catalog`, hence `/` is matched by the default router → `Mage_Catalog_IndexController` → no-route fallback → `Mage_Cms_IndexController::noRouteAction()` which serves the configured `cms_home_page`.
+Default frontend route (when URL has no path) comes from store config `web/default/front` (set to `cms` by `Mage_Cms`'s default config), which the standard router uses as the path when `getPathInfo()` is empty. With `front=cms`, `/` resolves to `cms/index/index` → `Mage_Cms_IndexController::indexAction()` which renders the configured `cms_home_page` via `Mage_Cms_Helper_Page::renderPage()`. The `web/default/no_route` config (default `cms/index/noRoute`) is what the no-route fallback forwards to.
 
 ## Frontend router config
 

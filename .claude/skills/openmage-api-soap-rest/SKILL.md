@@ -16,7 +16,7 @@ Bootstrap: both stacks dispatch through `api.php` (not `index.php`). `Mage_Api/c
 
 ## Mage_Api — SOAP v1/v2 + XML-RPC
 
-One handler class implements all transports. Define the resource and its methods in `etc/api.xml`; declare the WSDL types in `etc/wsdl.xml` (and `wsi.xml` for SOAP-v2 WS-I compliant mode).
+One resource model (e.g. `Mage_Catalog_Model_Product_Api`) backs all transports — the per-transport handler classes (`api/server_handler`, `api/server_v2_handler`, `api/server_wsi_handler`) all extend `Mage_Api_Model_Server_Handler_Abstract` and dispatch into it. Define the resource and its methods in `etc/api.xml`; declare the WSDL types in `etc/wsdl.xml` (and `wsi.xml` for SOAP-v2 WS-I compliant mode).
 
 `app/code/core/Mage/Catalog/etc/api.xml` (trimmed):
 

@@ -25,7 +25,7 @@ Set on the subclass; checked by the abstract before dispatching.
 | `_canRefundInvoicePartial` | (same `refund`) | Allow partial refunds per invoice. |
 | `_canVoid` | `void(Varien_Object $payment)` | Reverse an unsettled auth. |
 | `_canCancelInvoice` | (no separate hook) | TODO in core; today `cancel()` on order catches this. |
-| `_canReviewPayment` | `acceptPayment` / `denyPayment(Mage_Payment_Model_Info $payment)` | Fraud-review hand-off (PayPal pending-review). Both must return `bool`; default in `Abstract` returns `false` (no throw). |
+| `_canReviewPayment` | `acceptPayment` / `denyPayment(Mage_Payment_Model_Info $payment)` | Fraud-review hand-off (PayPal pending-review). Both must return `bool`; default in `Abstract` throws "The payment review action is unavailable." when the flag is false, otherwise returns `false`. |
 | `_canFetchTransactionInfo` | `fetchTransactionInfo($payment, $transactionId)` | Pull live state from gateway for the admin "Fetch" button. |
 | `_canUseInternal` | — | Available in admin "Create Order". |
 | `_canUseCheckout` | — | Available in frontend onepage. |

@@ -184,7 +184,7 @@ public function getTrackingInfo($trackingNumber)
 
 ## Common pitfalls
 
-- Returning `null` from `collectRates()` instead of `false` — the shipping model treats `null` as a hard error and aborts the carrier loop on multi-package requests.
+- Returning a value other than `false` or a populated `Rate_Result` from `collectRates()` — `Mage_Shipping_Model_Shipping::collectCarrierRates()` checks `if (!$result)` to skip the carrier (in multi-package mode it bails out of the package loop too), so any falsy non-`Rate_Result` return aborts. Convention is `return false;` to opt out and a `Rate_Result_Error` for a visible error.
 - Forgetting `setCarrier()`/`setMethod()` on a `Rate_Result_Method` — `Rate_Result::getRatesByCarrier()` and the checkout shipping picker both filter on those.
 - Using `getFinalPriceWithHandlingFee()` directly when you want free-shipping awareness — use `getMethodPrice($cost, $methodCode)` instead.
 - Adding a method that won't appear in the SalesRule "free shipping" admin dropdown — ensure it's in `getAllowedMethods()`.

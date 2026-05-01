@@ -27,7 +27,7 @@ Pages and blocks are store-scoped via the `*_store` join table (multi-select on 
 - Direct render from a controller action:
   ```php
   Mage::helper('cms/page')->renderPage($this, $pageId);     // frontend
-  Mage::helper('cms/page')->renderPageExtended($this, $id, $renderLayout = false); // admin / preview
+  Mage::helper('cms/page')->renderPageExtended($this, $id, $renderLayout = true); // admin / preview (pass false to skip renderLayout)
   ```
 - Layout handles added by `_renderPage()`: `default`, `cms_page`, plus the page's `root_template` handle and any `custom_layout_update_xml`. Event: `cms_page_render`.
 

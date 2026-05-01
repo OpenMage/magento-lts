@@ -44,9 +44,10 @@ Shipping has its own product tax class — `tax/classes/shipping_tax_class` (`Ma
 
 `getRate($request)` (request also carries `product_class_id`) returns the summed/compounded percent. `getAppliedRates($request)` returns the per-rate breakdown used to build `applied_taxes` rows.
 
-`Mage_Tax_Model_Calculation::calcTaxAmount($price, $taxRate, $priceIncludeTax = false, $round = true)` is the primitive:
+`Mage_Tax_Model_Calculation::calcTaxAmount($price, $taxRate, $priceIncludeTax = false, $round = true)` is the primitive (`$taxRate` is the percent — divided by 100 internally):
 
 ```php
+$taxRate /= 100;
 $amount = $priceIncludeTax ? $price * (1 - 1 / (1 + $taxRate)) : $price * $taxRate;
 ```
 
