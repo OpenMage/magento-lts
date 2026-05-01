@@ -53,6 +53,7 @@ class Mage_Sales_GuestController extends Mage_Sales_Controller_Abstract
 
     /**
      * Order view form page
+     * @return void
      */
     public function formAction()
     {

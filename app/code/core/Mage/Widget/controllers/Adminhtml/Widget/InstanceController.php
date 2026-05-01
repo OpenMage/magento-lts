@@ -87,6 +87,7 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
 
     /**
      * Widget Instances Grid
+     * @return void
      */
     public function indexAction()
     {
@@ -98,6 +99,7 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
 
     /**
      * New widget instance action (forward to edit action)
+     * @return void
      */
     public function newAction()
     {
@@ -106,6 +108,7 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
 
     /**
      * Edit widget instance action
+     * @return void
      */
     public function editAction()
     {
@@ -134,6 +137,7 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
 
     /**
      * Validate action
+     * @return void
      */
     public function validateAction()
     {
@@ -154,6 +158,7 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
 
     /**
      * Save action
+     * @return void
      */
     public function saveAction()
     {
@@ -195,6 +200,7 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
 
     /**
      * Delete Action
+     * @return void
      * @throws Mage_Core_Exception|Throwable
      */
     public function deleteAction()
@@ -216,6 +222,7 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
 
     /**
      * Categories chooser Action (Ajax request)
+     * @return void
      */
     public function categoriesAction()
     {
@@ -232,6 +239,7 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
 
     /**
      * Products chooser Action (Ajax request)
+     * @return void
      */
     public function productsAction()
     {
@@ -251,6 +259,7 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
 
     /**
      * Blocks Action (Ajax request)
+     * @return void
      */
     public function blocksAction()
     {
@@ -271,6 +280,7 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
 
     /**
      * Templates Chooser Action (Ajax request)
+     * @return void
      */
     public function templateAction()
     {

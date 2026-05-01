@@ -48,6 +48,7 @@
         "phpseclib/mcrypt_compat": "^2.0.3",
         "phpseclib/phpseclib": "^3.0.14",
         "shardj/zf1-future": "^1.24.1",
+        "shipstream/fedex-rest-sdk": "^1.4",
         "symfony/mime": "^6.4",
         "symfony/polyfill-php82": "^1.33",
         "symfony/polyfill-php83": "^1.33",
@@ -77,6 +78,7 @@
         "phpstan/phpstan-strict-rules": "^2.0",
         "phpunit/phpunit": "^9.6",
         "rector/rector": "^2.1.12",
+        "shipmonk/phpstan-baseline-per-identifier": "^2.3",
         "squizlabs/php_codesniffer": "^3.7",
         "symplify/easy-coding-standard": "^13.0",
         "symplify/vendor-patches": "^12.0, !=12.0.5, !=12.0.6"
@@ -132,6 +134,11 @@
             "url": "https://opencollective.com/openmage"
         }
     ],
+    "autoload": {
+        "classmap": [
+            "app/OpenMageVersionInterface.php"
+        ]
+    },
     "autoload-dev": {
         "classmap": [
             "app/code/*/*/*/controllers",
@@ -139,6 +146,7 @@
         ],
         "psr-4": {
             "OpenMage\\Rector\\": "dev/rector",
+            "OpenMage\\Tests\\Functional\\": "tests/functional",
             "OpenMage\\Tests\\Unit\\": "tests/unit"
         }
     },
@@ -177,7 +185,11 @@
         "phpmd:test": "vendor/bin/phpmd app/code/core/Mage html .phpmd.dist.xml --color --cache --cache-file .cache/.phpmd.result-cache.php --baseline-file .phpmd.dist.baseline.xml --report-file build/phpmd/report.html",
         "phpmd:baseline": "vendor/bin/phpmd app/code/core/Mage html .phpmd.dist.xml --color --cache --cache-file .cache/.phpmd.result-cache.php --baseline-file .phpmd.dist.baseline.xml --report-file build/phpmd/report.html --update-baseline --generate-baseline",
         "phpstan:test": "XDEBUG_MODE=off php vendor/bin/phpstan analyze",
-        "phpstan:baseline": "XDEBUG_MODE=off php vendor/bin/phpstan analyze -b .phpstan.dist.baseline.php",
+        "phpstan:baseline": [
+            "XDEBUG_MODE=off php vendor/bin/phpstan analyze -b .phpstan.dist.baselines/_loader.php",
+            "split-phpstan-baseline .phpstan.dist.baselines/_loader.php --no-error-count",
+            "git add .phpstan.dist.baselines/*"
+        ],
         "phpunit:test": "XDEBUG_MODE=off php vendor/bin/phpunit --configuration .phpunit.dist.xml --testsuite Base,Error,Mage,Varien --no-coverage",
         "phpunit:coverage": "XDEBUG_MODE=coverage php vendor/bin/phpunit --configuration .phpunit.dist.xml --testsuite Base,Error,Mage,Varien --testdox",
         "phpunit:coverage-local": "XDEBUG_MODE=coverage php vendor/bin/phpunit --configuration .phpunit.dist.xml --testsuite Base,Error,Mage,Varien --coverage-html build/phpunit/coverage",

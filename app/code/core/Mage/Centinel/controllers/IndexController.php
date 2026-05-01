@@ -16,6 +16,7 @@ class Mage_Centinel_IndexController extends Mage_Core_Controller_Front_Action
 {
     /**
      * Process authentication start action
+     * @return void
      */
     public function authenticationStartAction()
     {
@@ -28,6 +29,7 @@ class Mage_Centinel_IndexController extends Mage_Core_Controller_Front_Action
 
     /**
      * Process authentication complete action
+     * @return void
      */
     public function authenticationCompleteAction()
     {

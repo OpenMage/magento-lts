@@ -115,7 +115,7 @@ abstract class Mage_Sales_Model_Config_Ordered extends Mage_Core_Model_Config_Ba
         reset($configArray);
         $element = current($configArray);
         if (isset($element['sort_order'])) {
-            uasort($configArray, [$this, '_compareSortOrder']);
+            uasort($configArray, $this->_compareSortOrder(...));
         } else {
             foreach ($configArray as $code => $data) {
                 foreach ($data['before'] as $beforeCode) {
@@ -153,7 +153,7 @@ abstract class Mage_Sales_Model_Config_Ordered extends Mage_Core_Model_Config_Ba
                 }
             }
 
-            uasort($configArray, [$this, '_compareTotals']);
+            uasort($configArray, $this->_compareTotals(...));
         }
 
         $sortedCollectors = array_keys($configArray);

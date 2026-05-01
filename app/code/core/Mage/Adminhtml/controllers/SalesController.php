@@ -28,6 +28,9 @@ class Mage_Adminhtml_SalesController extends Mage_Adminhtml_Controller_Action
         $this->setUsedModuleName('Mage_Sales');
     }
 
+    /**
+     * @return void
+     */
     public function indexAction()
     {
         $this->loadLayout();

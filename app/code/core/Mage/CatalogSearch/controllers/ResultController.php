@@ -26,6 +26,7 @@ class Mage_CatalogSearch_ResultController extends Mage_Core_Controller_Front_Act
 
     /**
      * Display search result
+     * @return void
      */
     public function indexAction()
     {

@@ -16,6 +16,7 @@ class Mage_Core_AjaxController extends Mage_Core_Controller_Front_Action
 {
     /**
      * Ajax action for inline translation
+     * @return void
      */
     public function translateAction()
     {

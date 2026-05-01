@@ -45,6 +45,7 @@ class Mage_Persistent_IndexController extends Mage_Core_Controller_Front_Action
 
     /**
      * Unset persistent cookie action
+     * @return void
      */
     public function unsetCookieAction()
     {
@@ -77,6 +78,7 @@ class Mage_Persistent_IndexController extends Mage_Core_Controller_Front_Action
 
     /**
      * Save onepage checkout method to be register
+     * @return void
      */
     public function saveMethodAction()
     {
@@ -99,6 +101,7 @@ class Mage_Persistent_IndexController extends Mage_Core_Controller_Front_Action
     /**
      * Add appropriate session message and redirect to shopping cart
      * used for paypal express checkout
+     * @return void
      */
     public function expressCheckoutAction()
     {

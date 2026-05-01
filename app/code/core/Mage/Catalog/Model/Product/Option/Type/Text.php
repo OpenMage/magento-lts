@@ -34,6 +34,10 @@ class Mage_Catalog_Model_Product_Option_Type_Text extends Mage_Catalog_Model_Pro
         $option = $this->getOption();
         $value = trim($this->getUserValue());
 
+        // Match the JS validator, which counts each line break as a single character.
+        // Browsers post textarea content with CRLF line endings, but readers see LF.
+        $value = str_replace(["\r\n", "\r"], "\n", $value);
+
         // Check requires option to have some value
         if (strlen($value) == 0 && $option->getIsRequire() && !$this->getSkipCheckRequiredOption()) {
             $this->setIsValid(false);

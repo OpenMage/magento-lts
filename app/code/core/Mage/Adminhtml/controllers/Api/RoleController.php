@@ -42,6 +42,9 @@ class Mage_Adminhtml_Api_RoleController extends Mage_Adminhtml_Controller_Action
         return $this;
     }
 
+    /**
+     * @return void
+     */
     public function indexAction()
     {
         $this->_title($this->__('System'))
@@ -55,6 +58,9 @@ class Mage_Adminhtml_Api_RoleController extends Mage_Adminhtml_Controller_Action
         $this->renderLayout();
     }
 
+    /**
+     * @return void
+     */
     public function roleGridAction()
     {
         $this->getResponse()
@@ -63,6 +69,9 @@ class Mage_Adminhtml_Api_RoleController extends Mage_Adminhtml_Controller_Action
             ->toHtml());
     }
 
+    /**
+     * @return void
+     */
     public function editRoleAction()
     {
         $this->_title($this->__('System'))
@@ -101,6 +110,9 @@ class Mage_Adminhtml_Api_RoleController extends Mage_Adminhtml_Controller_Action
         $this->renderLayout();
     }
 
+    /**
+     * @return void
+     */
     public function deleteAction()
     {
         $rid = $this->getRequest()->getParam('role_id', false);
@@ -129,6 +141,9 @@ class Mage_Adminhtml_Api_RoleController extends Mage_Adminhtml_Controller_Action
         $this->_redirect('*/*/');
     }
 
+    /**
+     * @return void
+     */
     public function saveRoleAction()
     {
         $rid        = $this->getRequest()->getParam('role_id', false);
@@ -196,6 +211,9 @@ class Mage_Adminhtml_Api_RoleController extends Mage_Adminhtml_Controller_Action
         $this->_redirect('*/*/editrole', ['rid' => $rid]);
     }
 
+    /**
+     * @return void
+     */
     public function editrolegridAction()
     {
         $this->getResponse()->setBody($this->getLayout()->createBlock('adminhtml/api_role_grid_user')->toHtml());
