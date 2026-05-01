@@ -89,7 +89,7 @@ class Varien_Io_File extends Varien_Io_Abstract
     /**
      * @var string[]
      */
-    public const ALLOWED_IMAGES_EXTENSIONS = ['webp', 'jpg', 'jpeg', 'png', 'gif', 'bmp'];
+    public const ALLOWED_IMAGES_EXTENSIONS = ['webp', 'jpg', 'jpeg', 'png', 'gif', 'bmp', 'avif'];
 
     public function __construct()
     {
