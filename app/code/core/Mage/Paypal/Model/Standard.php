@@ -178,11 +178,8 @@ class Mage_Paypal_Model_Standard extends Mage_Payment_Model_Method_Abstract
     }
 
     /**
-     * Custom getter for payment configuration
-     *
-     * @param  string $field
-     * @param  int    $storeId
-     * @return mixed
+     * @inheritDoc
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     #[Override]
     public function getConfigData($field, $storeId = null)

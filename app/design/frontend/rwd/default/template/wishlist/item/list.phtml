@@ -16,6 +16,7 @@
     <thead>
         <tr>
             <?php
+                /** @var Mage_Wishlist_Block_Customer_Wishlist_Item_Column $column */
                 foreach ($columns as $column):
                     $_blockName = str_replace('.','-',strtolower($column->getNameInLayout()));
             ?>

@@ -27,7 +27,7 @@ class Mage_Adminhtml_Block_Tax_Rule_Edit extends Mage_Adminhtml_Block_Widget_For
     #[Override]
     protected function _prepareLayout()
     {
-        $this->_addButton('save_and_continue', [
+        $this->_addButton(self::BUTTON_TYPE_SAVE_EDIT, [
             'label'     => Mage::helper('tax')->__('Save and Continue Edit'),
             'onclick'   => 'saveAndContinueEdit()',
             'class'     => 'save continue',

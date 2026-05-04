@@ -25,8 +25,8 @@ class Mage_Adminhtml_Block_Tag_Edit extends Mage_Adminhtml_Block_Widget_Form_Con
 
         parent::__construct();
 
-        $this->_updateButton('save', 'label', Mage::helper('tag')->__('Save Tag'));
-        $this->_updateButton('delete', 'label', Mage::helper('tag')->__('Delete Tag'));
+        $this->_updateButton(self::BUTTON_TYPE_SAVE, 'label', Mage::helper('tag')->__('Save Tag'));
+        $this->_updateButton(self::BUTTON_TYPE_DELETE, 'label', Mage::helper('tag')->__('Delete Tag'));
 
         $this->addButton('save_and_edit_button', [
             'label'   => Mage::helper('tag')->__('Save and Continue Edit'),

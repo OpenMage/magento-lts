@@ -357,6 +357,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
      * Get encryption method depending on the presence of the function - password_hash.
      *
      * @return Mage_Core_Model_Encryption::HASH_VERSION_*
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function getVersionHash(Mage_Core_Model_Encryption $encryptionModel)
     {
@@ -377,9 +378,9 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * @param  string       $string
-     * @param  bool         $german
-     * @return false|string
+     * @param  string $string
+     * @param  bool   $german
+     * @return string
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */

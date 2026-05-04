@@ -548,12 +548,12 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
     /**
      * Retrieve session save method
      *
-     * @return false|Mage_Core_Model_Config_Element|string|Varien_Simplexml_Element
+     * @return Mage_Core_Model_Config_Element|string
      */
     #[Override]
     public function getSessionSaveMethod()
     {
-        if (Mage::isInstalled() && $sessionSave = Mage::getConfig()->getNode(self::XML_NODE_SESSION_SAVE)) {
+        if (Mage::isInstalled() && ($sessionSave = Mage::getConfig()->getNode(self::XML_NODE_SESSION_SAVE))) {
             return $sessionSave;
         }
 
@@ -563,7 +563,7 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
     /**
      * Get session save path
      *
-     * @return false|Mage_Core_Model_Config_Element|string|Varien_Simplexml_Element
+     * @return Mage_Core_Model_Config_Element|string
      */
     #[Override]
     public function getSessionSavePath()

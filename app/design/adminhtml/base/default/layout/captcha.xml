@@ -13,8 +13,9 @@
         <reference name="form.additional.info">
             <block type="captcha/captcha" name="captcha">
                 <action method="setFormId"><formId>backend_login</formId></action>
-                <action method="setImgWidth"><width>226</width></action>
-                <action method="setImgHeight"><width>50</width></action>
+                <action method="setImgWidth"><value>226</value></action>
+                <action method="setImgHeight"><value>50</value></action>
+                <action method="setFontSize"><value>40</value></action>
             </block>
         </reference>
     </adminhtml_index_login>
@@ -22,8 +23,9 @@
         <reference name="form.additional.info">
             <block type="captcha/captcha" name="captcha">
                 <action method="setFormId"><formId>backend_forgotpassword</formId></action>
-                <action method="setImgWidth"><width>226</width></action>
-                <action method="setImgHeight"><width>50</width></action>
+                <action method="setImgWidth"><value>226</value></action>
+                <action method="setImgHeight"><value>50</value></action>
+                <action method="setFontSize"><value>40</value></action>
             </block>
         </reference>
     </adminhtml_index_forgotpassword>

@@ -19,7 +19,7 @@ class Mage_Adminhtml_Block_Report_Customer_Accounts extends Mage_Adminhtml_Block
         $this->_controller = 'report_customer_accounts';
         $this->_headerText = Mage::helper('reports')->__('New Accounts');
         parent::__construct();
-        $this->_removeButton('add');
+        $this->_removeButton(self::BUTTON_TYPE_ADD);
     }
 
     #[Override]

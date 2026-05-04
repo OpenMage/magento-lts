@@ -26,7 +26,7 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_View extends Mage_Adminhtml_B
     #[Override]
     protected function _prepareLayout()
     {
-        $this->_addButton('back', [
+        $this->_addButton(self::BUTTON_TYPE_BACK, [
             'label'     => Mage::helper('adminhtml')->__('Back'),
             'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getUrl('*/*/')),
             'class'     => 'back',
@@ -36,7 +36,7 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_View extends Mage_Adminhtml_B
 
         // cancel
         if ($profile->canCancel()) {
-            $this->_addButton('cancel', [
+            $this->_addButton(self::BUTTON_TYPE_CANCEL, [
                 'label'     => Mage::helper('sales')->__('Cancel'),
                 'onclick'   => Mage::helper('core/js')->getConfirmSetLocationJs(
                     $this->getUrl('*/*/updateState', ['profile' => $profile->getId(), 'action' => 'cancel']),

@@ -18,6 +18,7 @@ class Mage_Paypal_IpnController extends Mage_Core_Controller_Front_Action
      * Instantiate IPN model and pass IPN request to it
      *
      * @SuppressWarnings("PHPMD.ExitExpression")
+     * @return void
      */
     public function indexAction()
     {

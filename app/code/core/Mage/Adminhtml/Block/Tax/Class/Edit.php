@@ -21,8 +21,8 @@ class Mage_Adminhtml_Block_Tax_Class_Edit extends Mage_Adminhtml_Block_Widget_Fo
 
         parent::__construct();
 
-        $this->_updateButton('save', 'label', Mage::helper('tax')->__('Save Class'));
-        $this->_updateButton('delete', 'label', Mage::helper('tax')->__('Delete Class'));
+        $this->_updateButton(self::BUTTON_TYPE_SAVE, 'label', Mage::helper('tax')->__('Save Class'));
+        $this->_updateButton(self::BUTTON_TYPE_DELETE, 'label', Mage::helper('tax')->__('Delete Class'));
     }
 
     /**

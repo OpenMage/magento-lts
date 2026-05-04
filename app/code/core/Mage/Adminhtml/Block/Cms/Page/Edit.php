@@ -26,17 +26,17 @@ class Mage_Adminhtml_Block_Cms_Page_Edit extends Mage_Adminhtml_Block_Widget_For
         parent::__construct();
 
         if ($this->_isAllowedAction('save')) {
-            $this->_addButton('saveandcontinue', [
+            $this->_addButton(self::BUTTON_TYPE_SAVE_EDIT, [
                 'label'     => Mage::helper('adminhtml')->__('Save and Continue Edit'),
                 'onclick'   => Mage::helper('core/js')->getSaveAndContinueEditJs($this->_getSaveAndContinueUrl()),
                 'class'     => 'save continue',
             ], -100);
         } else {
-            $this->_removeButton('save');
+            $this->_removeButton(self::BUTTON_TYPE_SAVE);
         }
 
         if (!$this->_isAllowedAction('delete')) {
-            $this->_removeButton('delete');
+            $this->_removeButton(self::BUTTON_TYPE_DELETE);
         }
     }
 

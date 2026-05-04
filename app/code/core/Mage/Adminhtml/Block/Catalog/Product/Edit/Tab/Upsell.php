@@ -192,7 +192,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Upsell extends Mage_Adminhtm
             'index'                     => 'position',
             'editable'                  => !$this->_getProduct()->getUpsellReadonly(),
             'edit_only'                 => !$this->_getProduct()->getId(),
-            'filter_condition_callback' => [$this, '_addLinkModelFilterCallback'],
+            'filter_condition_callback' => $this->_addLinkModelFilterCallback(...),
         ]);
 
         return parent::_prepareColumns();

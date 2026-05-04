@@ -26,9 +26,9 @@ class Mage_Adminhtml_Block_Sales_Order_View extends Mage_Adminhtml_Block_Widget_
 
         parent::__construct();
 
-        $this->_removeButton('delete');
-        $this->_removeButton('reset');
-        $this->_removeButton('save');
+        $this->_removeButton(self::BUTTON_TYPE_DELETE);
+        $this->_removeButton(self::BUTTON_TYPE_RESET);
+        $this->_removeButton(self::BUTTON_TYPE_SAVE);
         $this->setId('sales_order_view');
         $order = $this->getOrder();
         $coreHelper = Mage::helper('core');

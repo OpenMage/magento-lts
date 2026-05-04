@@ -21,6 +21,7 @@ class Mage_Newsletter_SubscriberController extends Mage_Core_Controller_Front_Ac
 
     /**
      * New subscription action
+     * @return void
      */
     public function newAction()
     {
@@ -74,6 +75,7 @@ class Mage_Newsletter_SubscriberController extends Mage_Core_Controller_Front_Ac
 
     /**
      * Subscription confirm action
+     * @return void
      */
     public function confirmAction()
     {
@@ -103,6 +105,7 @@ class Mage_Newsletter_SubscriberController extends Mage_Core_Controller_Front_Ac
 
     /**
      * Unsubscribe newsletter
+     * @return void
      */
     public function unsubscribeAction()
     {

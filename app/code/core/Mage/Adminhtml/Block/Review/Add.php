@@ -21,10 +21,10 @@ class Mage_Adminhtml_Block_Review_Add extends Mage_Adminhtml_Block_Widget_Form_C
         $this->_controller = 'review';
         $this->_mode = 'add';
 
-        $this->_updateButton('save', 'label', Mage::helper('review')->__('Save Review'));
-        $this->_updateButton('save', 'id', 'save_button');
+        $this->_updateButton(self::BUTTON_TYPE_SAVE, 'label', Mage::helper('review')->__('Save Review'));
+        $this->_updateButton(self::BUTTON_TYPE_SAVE, 'id', 'save_button');
 
-        $this->_updateButton('reset', 'id', 'reset_button');
+        $this->_updateButton(self::BUTTON_TYPE_RESET, 'id', 'reset_button');
 
         $this->_formScripts[] = '
             toggleParentVis("add_review_form");

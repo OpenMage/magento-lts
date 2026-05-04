@@ -21,7 +21,7 @@ class Mage_Adminhtml_Block_Cms_Wysiwyg_Images_Content extends Mage_Adminhtml_Blo
     {
         parent::__construct();
         $this->_headerText = $this->helper('cms')->__('Media Storage');
-        $this->_removeButton('back')->_removeButton('edit');
+        $this->_removeButton(self::BUTTON_TYPE_BACK)->_removeButton('edit');
         $this->_addButton('newfolder', [
             'class'   => 'save',
             'label'   => $this->helper('cms')->__('Create Folder...'),

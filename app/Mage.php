@@ -133,25 +133,6 @@ final class Mage
     private static $_isInstalled;
 
     /**
-     * Magento edition constants
-     */
-    public const string EDITION_COMMUNITY    = 'Community';
-
-    public const string EDITION_ENTERPRISE   = 'Enterprise';
-
-    public const string EDITION_PROFESSIONAL = 'Professional';
-
-    public const string EDITION_GO           = 'Go';
-
-    /**
-     * Current Magento edition.
-     *
-     * @var string
-     * @static
-     */
-    private static $_currentEdition = self::EDITION_COMMUNITY;
-
-    /**
      * Gets the current Magento version string
      *
      * @return string
@@ -222,7 +203,7 @@ final class Mage
         if (self::getOpenMageMajorVersion() === 20) {
             return [
                 'major'     => '20',
-                'minor'     => '17',
+                'minor'     => '18',
                 'patch'     => '0',
                 'stability' => '', // beta,alpha,rc
                 'number'    => '', // 1,2,3,0.3.7,x.7.z.92 @see https://semver.org/#spec-item-9
@@ -247,14 +228,14 @@ final class Mage
     }
 
     /**
-     * Get current Magento edition
+     * Get current edition
      *
      * @static
      * @return string
      */
     public static function getEdition()
     {
-        return self::$_currentEdition;
+        return 'Community';
     }
 
     /**
@@ -750,9 +731,6 @@ final class Mage
         try {
             Varien_Profiler::start('mage');
             self::setRoot();
-            if (isset($options['edition'])) {
-                self::$_currentEdition = $options['edition'];
-            }
 
             self::$_app = new Mage_Core_Model_App();
             if (isset($options['request'])) {
@@ -892,7 +870,7 @@ final class Mage
         }
 
         try {
-            $logger = self::getModel('core/logger');
+            $logger = self::getSingleton('core/logger');
             if ($logger instanceof Mage_Core_Model_Logger) {
                 $logger->log($message, $level, $file, $forceLog, $context);
             }

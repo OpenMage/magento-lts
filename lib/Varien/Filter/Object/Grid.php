@@ -10,8 +10,8 @@
 class Varien_Filter_Object_Grid extends Varien_Filter_Object
 {
     /**
-     * @param  array|Varien_Object $grid
-     * @return array
+     * @param  array|Varien_Object                   $grid
+     * @return array<array-key, mixed>|Varien_Object
      * @throws Exception
      */
     #[Override]
@@ -19,8 +19,8 @@ class Varien_Filter_Object_Grid extends Varien_Filter_Object
     {
         $out = [];
         if (is_array($grid)) {
-            foreach ($grid as $i => $array) {
-                $out[$i] = parent::filter($array);
+            foreach ($grid as $index => $array) {
+                $out[$index] = parent::filter($array);
             }
         }
 

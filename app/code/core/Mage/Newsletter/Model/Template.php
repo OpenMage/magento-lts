@@ -156,9 +156,7 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
     }
 
     /**
-     * Getter for template type
-     *
-     * @return int
+     * @inheritDoc
      */
     public function getType()
     {
@@ -214,8 +212,8 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
         $variables = $this->_addEmailVariables($variables, $processor->getStoreId());
 
         $processor
-            ->setTemplateProcessor([$this, 'getTemplateByConfigPath'])
-            ->setIncludeProcessor([$this, 'getInclude'])
+            ->setTemplateProcessor($this->getTemplateByConfigPath(...))
+            ->setIncludeProcessor($this->getInclude(...))
             ->setVariables($variables);
 
         // Filter the template text so that all HTML content will be present

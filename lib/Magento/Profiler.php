@@ -216,7 +216,7 @@ class Magento_Profiler
      * Retrieve statistics on specified timer
      *
      * @param  string           $timerId
-     * @param  string           $key     Information to return
+     * @param  self::FETCH_*    $key     Information to return
      * @return float|int
      * @throws Varien_Exception
      */

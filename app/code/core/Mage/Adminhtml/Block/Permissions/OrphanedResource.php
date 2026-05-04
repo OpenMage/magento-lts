@@ -21,7 +21,7 @@ class Mage_Adminhtml_Block_Permissions_OrphanedResource extends Mage_Adminhtml_B
         $this->_controller = 'permissions_orphanedResource';
         $this->_headerText = Mage::helper('adminhtml')->__('Orphaned Role Resources');
         parent::__construct();
-        $this->_removeButton('add');
+        $this->_removeButton(self::BUTTON_TYPE_ADD);
     }
 
     #[Override]

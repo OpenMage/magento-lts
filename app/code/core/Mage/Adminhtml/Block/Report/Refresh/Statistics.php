@@ -19,7 +19,7 @@ class Mage_Adminhtml_Block_Report_Refresh_Statistics extends Mage_Adminhtml_Bloc
         $this->_controller = 'report_refresh_statistics';
         $this->_headerText = Mage::helper('reports')->__('Refresh Statistics');
         parent::__construct();
-        $this->_removeButton('add');
+        $this->_removeButton(self::BUTTON_TYPE_ADD);
     }
 
     #[Override]

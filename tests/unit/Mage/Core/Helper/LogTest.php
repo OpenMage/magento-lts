@@ -48,7 +48,7 @@ final class LogTest extends OpenMageTest
      * @covers Mage_Core_Helper_Log::getConfigAllowedFileExtensions()
      * @group Helper
      */
-    public function testGetConfigAlowedFileExtensions(): void
+    public function testGetConfigAllowedFileExtensions(): void
     {
         self::assertIsArray(Subject::getConfigAllowedFileExtensions());
     }
