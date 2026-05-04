@@ -29,7 +29,8 @@ abstract class OpenMageTest extends TestCase
     }
 
     /**
-     * @param class-string $class
+     * @param class-string                   $class
+     * @param array<non-empty-string, mixed> $methods
      */
     public function getMockWithCalledMethods(string $class, array $methods, ?bool $expectOnce =  false): MockObject
     {

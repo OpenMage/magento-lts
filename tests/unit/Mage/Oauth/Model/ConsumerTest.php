@@ -35,7 +35,7 @@ final class ConsumerTest extends OpenMageTest
     /**
      * @dataProvider provideValidateData
      * @group Model
-     * @param array<string, string> $methods
+     * @param array<non-empty-string, mixed> $methods
      */
     public function testValidate(bool|string $expected, array $methods): void
     {

@@ -43,6 +43,7 @@ final class PageTest extends OpenMageTest
      * @covers Mage_Cms_Helper_Page::getScopeInfoFromConfigScope()
      * @dataProvider provideGetScopeInfoFromConfigScope
      * @group Helper
+     * @param non-empty-string $expectedResult
      */
     public function testGetScopeInfoFromConfigScope(string $expectedResult, string $scope, string $scopeId): void
     {

@@ -15,6 +15,9 @@ use Generator;
 
 trait TokenTrait
 {
+    /**
+     * @return Generator<string, array{0: bool|string, 1: array<string, string>}>
+     */
     public static function provideValidateData(): Generator
     {
         $validData = [

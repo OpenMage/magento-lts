@@ -41,19 +41,14 @@ final class CustomerTest extends OpenMageTest
         self::assertSame($mock, $result);
     }
 
-    public function loadByCustomerDataProvider(): Generator
+    public static function loadByCustomerDataProvider(): Generator
     {
-        $customerMock = $this->getMockBuilder(Mage_Customer_Model_Customer::class)
-            ->onlyMethods(['getId'])
-            ->getMock();
-        $customerMock->method('getId')->willReturn(456);
-
         yield 'int' => [
             123,
             123,
         ];
         yield 'model' => [
-            $customerMock,
+            456,
             456,
         ];
     }

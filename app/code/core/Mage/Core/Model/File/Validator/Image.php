@@ -93,15 +93,6 @@ class Mage_Core_Model_File_Validator_Image
             //replace tmp image with re-sampled copy to exclude images with malicious data
             $image = imagecreatefromstring(file_get_contents($filePath));
             if ($image !== false) {
-                /**
-                 * PHP 8.2.0: Now returns the actual image dimensions, bits and channels of AVIF images;
-                 * previously, the dimensions were reported as 0x0, and bits and channels were not reported at all.
-                 */
-                if (($imageWidth === 0 || $imageHeight === 0) && PHP_VERSION_ID < 80200) {
-                    $imageWidth = imagesx($image);
-                    $imageHeight = imagesy($image);
-                }
-
                 $img = imagecreatetruecolor($imageWidth, $imageHeight);
                 imagealphablending($img, false);
                 imagecopyresampled($img, $image, 0, 0, 0, 0, $imageWidth, $imageHeight, $imageWidth, $imageHeight);

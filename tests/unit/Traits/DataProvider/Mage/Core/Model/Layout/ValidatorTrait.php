@@ -15,6 +15,9 @@ use Generator;
 
 trait ValidatorTrait
 {
+    /**
+     * @return Generator<string, array{0: bool, 1: string, 2: array<string, string>}>
+     */
     public static function provideIsValidData(): Generator
     {
         yield 'valid string' => [
