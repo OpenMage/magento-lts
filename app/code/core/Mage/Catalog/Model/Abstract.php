@@ -141,6 +141,7 @@ abstract class Mage_Catalog_Model_Abstract extends Mage_Core_Model_Abstract
      *
      * @inheritDoc
      */
+    #[Override]
     public function setData($key, $value = null)
     {
         if ($this->hasLockedAttributes()) {
@@ -169,6 +170,7 @@ abstract class Mage_Catalog_Model_Abstract extends Mage_Core_Model_Abstract
      *
      * @inheritDoc
      */
+    #[Override]
     public function unsetData($key = null)
     {
         if ((!is_null($key) && $this->isLockedAttribute($key))
@@ -185,6 +187,7 @@ abstract class Mage_Catalog_Model_Abstract extends Mage_Core_Model_Abstract
      *
      * @return Mage_Catalog_Model_Resource_Collection_Abstract
      */
+    #[Override]
     public function getResourceCollection()
     {
         return parent::getResourceCollection()
@@ -288,6 +291,7 @@ abstract class Mage_Catalog_Model_Abstract extends Mage_Core_Model_Abstract
      *
      * @inheritDoc
      */
+    #[Override]
     protected function _beforeSave()
     {
         $this->unlockAttributes();

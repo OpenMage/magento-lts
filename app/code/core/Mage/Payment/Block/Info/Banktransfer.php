@@ -26,6 +26,7 @@ class Mage_Payment_Block_Info_Banktransfer extends Mage_Payment_Block_Info
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _construct()
     {
         parent::_construct();

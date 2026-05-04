@@ -41,6 +41,7 @@ class Mage_Sales_Model_Resource_Quote_Item_Option_Collection extends Mage_Core_M
      *
      * @return $this
      */
+    #[Override]
     protected function _afterLoad()
     {
         parent::_afterLoad();

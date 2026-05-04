@@ -25,6 +25,7 @@ class Mage_Adminhtml_Block_Sales_Order_Status_New_Form extends Mage_Adminhtml_Bl
      *
      * @return $this
      */
+    #[Override]
     protected function _prepareForm()
     {
         $model  = Mage::registry('current_status');

@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Wishlist\Block\Customer\Wishlist;
 
 // use Mage_Wishlist_Block_Customer_Wishlist_Items as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Wishlist\Block\Customer\Wishlist\ItemsTrait;
 
@@ -21,6 +22,7 @@ final class ItemsTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

@@ -23,6 +23,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Source_Freemethod extends Mage_Usa_Mo
      *
      * @return array<int, array<string, string>>
      */
+    #[Override]
     public function toOptionArray()
     {
         $arr = parent::toOptionArray();

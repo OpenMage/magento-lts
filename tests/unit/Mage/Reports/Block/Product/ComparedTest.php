@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Reports\Block\Product;
 
 // use Mage_Reports_Block_Product_Compared as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Reports\Block\Product\ComparedTrait;
 
@@ -21,6 +22,7 @@ final class ComparedTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

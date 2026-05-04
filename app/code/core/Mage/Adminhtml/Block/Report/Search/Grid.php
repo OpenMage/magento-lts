@@ -26,6 +26,7 @@ class Mage_Adminhtml_Block_Report_Search_Grid extends Mage_Adminhtml_Block_Widge
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareCollection()
     {
         $collection = Mage::getResourceModel('catalogsearch/query_collection');
@@ -38,6 +39,7 @@ class Mage_Adminhtml_Block_Report_Search_Grid extends Mage_Adminhtml_Block_Widge
      * @inheritDoc
      * @throws Exception
      */
+    #[Override]
     protected function _prepareColumns()
     {
         $this->addColumn('query_id', [
@@ -88,6 +90,7 @@ class Mage_Adminhtml_Block_Report_Search_Grid extends Mage_Adminhtml_Block_Widge
      * @param  Mage_CatalogSearch_Model_Query $row
      * @throws Mage_Core_Exception
      */
+    #[Override]
     public function getRowUrl($row)
     {
         return $this->getUrl('*/catalog_search/edit', ['id' => $row->getId()]);

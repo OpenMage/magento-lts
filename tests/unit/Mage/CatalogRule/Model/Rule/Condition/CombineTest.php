@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\CatalogRule\Model\Rule\Condition;
 
 // use Mage;
 // use Mage_CatalogRule_Model_Rule_Condition_Combine as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\CatalogRule\Model\Rule\Condition\CombineTrait;
 
@@ -22,6 +23,7 @@ final class CombineTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

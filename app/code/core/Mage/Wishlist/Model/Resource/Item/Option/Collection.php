@@ -41,6 +41,7 @@ class Mage_Wishlist_Model_Resource_Item_Option_Collection extends Mage_Core_Mode
      *
      * @return $this
      */
+    #[Override]
     protected function _afterLoad()
     {
         parent::_afterLoad();

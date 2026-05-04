@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Oauth\Block\Adminhtml\Oauth\Admin\Token;
 
 // use Mage_Oauth_Block_Adminhtml_Oauth_Admin_Token_Grid as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Oauth\Block\Adminhtml\Oauth\Admin\Token\GridTrait;
 
@@ -21,6 +22,7 @@ final class GridTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

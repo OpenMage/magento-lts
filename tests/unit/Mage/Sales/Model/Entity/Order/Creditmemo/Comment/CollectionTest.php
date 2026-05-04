@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Sales\Model\Entity\Order\Creditmemo\Comment;
 
 // use Mage;
 // use Mage_Sales_Model_Entity_Order_Creditmemo_Comment_Collection as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sales\Model\Entity\Order\Creditmemo\Comment\CollectionTrait;
 
@@ -22,6 +23,7 @@ final class CollectionTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

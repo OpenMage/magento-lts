@@ -17,7 +17,7 @@ use Mage_Index_Model_Process;
 
 trait GridTrait
 {
-    public function provideDecorateStatusData(): Generator
+    public static function provideDecorateStatusData(): Generator
     {
         yield 'pending' => [
             Mage_Adminhtml_Block_Widget_Grid::CSS_SEVERITY_NOTICE,
@@ -35,7 +35,7 @@ trait GridTrait
         ];
     }
 
-    public function provideDecorateUpdateRequiredData(): Generator
+    public static function provideDecorateUpdateRequiredData(): Generator
     {
         yield 'no' => [
             Mage_Adminhtml_Block_Widget_Grid::CSS_SEVERITY_NOTICE,

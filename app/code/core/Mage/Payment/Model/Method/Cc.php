@@ -24,6 +24,7 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
      * @param  mixed $data
      * @return $this
      */
+    #[Override]
     public function assignData($data)
     {
         if (!($data instanceof Varien_Object)) {
@@ -50,6 +51,7 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
      *
      * @return $this
      */
+    #[Override]
     public function prepareSave()
     {
         $info = $this->getInfoInstance();
@@ -70,6 +72,7 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
      * @throws Mage_Core_Exception
      * @throws Zend_Date_Exception
      */
+    #[Override]
     public function validate()
     {
         /*
@@ -275,6 +278,7 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
      * @param  null|Mage_Sales_Model_Quote $quote
      * @return bool
      */
+    #[Override]
     public function isAvailable($quote = null)
     {
         return $this->getConfigData('cctypes', ($quote ? $quote->getStoreId() : null))

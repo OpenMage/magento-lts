@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Sitemap\Model\Resource\Catalog;
 
 // use Mage;
 // use Mage_Sitemap_Model_Resource_Catalog_Category as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sitemap\Model\Resource\Catalog\CategoryTrait;
 
@@ -22,6 +23,7 @@ final class CategoryTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

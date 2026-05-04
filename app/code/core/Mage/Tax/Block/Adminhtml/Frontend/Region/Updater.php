@@ -15,6 +15,7 @@ class Mage_Tax_Block_Adminhtml_Frontend_Region_Updater extends Mage_Adminhtml_Bl
     /**
      * @return string
      */
+    #[Override]
     protected function _getElementHtml(Varien_Data_Form_Element_Abstract $element)
     {
         $html = parent::_getElementHtml($element);

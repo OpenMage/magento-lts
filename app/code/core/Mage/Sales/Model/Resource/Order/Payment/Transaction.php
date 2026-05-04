@@ -37,6 +37,7 @@ class Mage_Sales_Model_Resource_Order_Payment_Transaction extends Mage_Sales_Mod
      * @param string $field
      * @param mixed  $defaultValue
      */
+    #[Override]
     protected function _unserializeField(Varien_Object $object, $field, $defaultValue = null)
     {
         $value = $object->getData($field);
@@ -138,6 +139,7 @@ class Mage_Sales_Model_Resource_Order_Payment_Transaction extends Mage_Sales_Mod
      * @inheritDoc
      * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _beforeSave(Mage_Core_Model_Abstract $transaction)
     {
         $parentTxnId = $transaction->getDataByKey('parent_txn_id');

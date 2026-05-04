@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Eav\Model\Entity\Attribute\Backend\Time;
 
 // use Mage;
 // use Mage_Eav_Model_Entity_Attribute_Backend_Time_Updated as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Eav\Model\Entity\Attribute\Backend\Time\UpdatedTrait;
 
@@ -22,6 +23,7 @@ final class UpdatedTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

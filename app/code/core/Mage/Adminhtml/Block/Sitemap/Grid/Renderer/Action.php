@@ -14,6 +14,7 @@
  */
 class Mage_Adminhtml_Block_Sitemap_Grid_Renderer_Action extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Action
 {
+    #[Override]
     public function render(Varien_Object $row)
     {
         $this->getColumn()->setActions([[

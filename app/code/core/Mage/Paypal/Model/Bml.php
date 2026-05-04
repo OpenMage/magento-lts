@@ -33,6 +33,7 @@ class Mage_Paypal_Model_Bml extends Mage_Paypal_Model_Express
      *
      * @return string
      */
+    #[Override]
     public function getCheckoutRedirectUrl()
     {
         return Mage::getUrl('paypal/bml/start');

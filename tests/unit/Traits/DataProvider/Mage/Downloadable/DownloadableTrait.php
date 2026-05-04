@@ -15,7 +15,7 @@ use Generator;
 
 trait DownloadableTrait
 {
-    public function provideGetFilePathData(): Generator
+    public static function provideGetFilePathData(): Generator
     {
         yield 'strings path and strings file' => [
             'path' . DS . 'file',

@@ -21,6 +21,7 @@ class Mage_ConfigurableSwatches_Model_Resource_Catalog_Product_Type_Configurable
      * @return array
      * @see Mage_Catalog_Model_Resource_Product_Type_Configurable::getChildrenIds()
      */
+    #[Override]
     public function getChildrenIds($parentId, $required = true)
     {
         if (is_array($parentId)) {

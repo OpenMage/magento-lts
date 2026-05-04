@@ -51,6 +51,7 @@ class Mage_Checkout_Block_Cart_Item_Renderer_Configurable extends Mage_Checkout_
      *
      * @return Mage_Catalog_Helper_Image
      */
+    #[Override]
     public function getProductThumbnail()
     {
         $product = $this->getChildProduct();
@@ -71,6 +72,7 @@ class Mage_Checkout_Block_Cart_Item_Renderer_Configurable extends Mage_Checkout_
      *
      * @return string
      */
+    #[Override]
     public function getProductName()
     {
         return $this->getProduct()->getName();
@@ -93,6 +95,7 @@ class Mage_Checkout_Block_Cart_Item_Renderer_Configurable extends Mage_Checkout_
      *
      * @return array
      */
+    #[Override]
     public function getOptionList()
     {
         /** @var Mage_Catalog_Helper_Product_Configuration $helper */
@@ -105,6 +108,7 @@ class Mage_Checkout_Block_Cart_Item_Renderer_Configurable extends Mage_Checkout_
      *
      * @return array
      */
+    #[Override]
     public function getCacheTags()
     {
         return array_merge(parent::getCacheTags(), $this->getConfigurableProduct()->getCacheIdTags());

@@ -15,7 +15,7 @@ use Generator;
 
 trait SalesTrait
 {
-    public function provideDecodeGridSerializedInput(): Generator
+    public static function provideDecodeGridSerializedInput(): Generator
     {
         yield 'test #1' => [
             '&lt;a href=&quot;https://localhost&quot;&gt;',

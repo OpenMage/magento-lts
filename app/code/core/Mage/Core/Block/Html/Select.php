@@ -66,6 +66,7 @@ class Mage_Core_Block_Html_Select extends Mage_Core_Block_Abstract
      * @param  string $id ID
      * @return $this
      */
+    #[Override]
     public function setId($id)
     {
         $this->setData('id', $id);
@@ -101,6 +102,7 @@ class Mage_Core_Block_Html_Select extends Mage_Core_Block_Abstract
      *
      * @return string
      */
+    #[Override]
     public function getId()
     {
         return $this->getDataByKey('id');
@@ -131,6 +133,7 @@ class Mage_Core_Block_Html_Select extends Mage_Core_Block_Abstract
      *
      * @return string
      */
+    #[Override]
     protected function _toHtml()
     {
         if (!$this->_beforeToHtml()) {

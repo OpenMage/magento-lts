@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Log\Model\Resource\Visitor\Online;
 
 // use Mage;
 // use Mage_Log_Model_Resource_Visitor_Online_Collection as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Log\Model\Resource\Visitor\Online\CollectionTrait;
 
@@ -22,6 +23,7 @@ final class CollectionTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

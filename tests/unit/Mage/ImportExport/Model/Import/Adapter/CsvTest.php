@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\ImportExport\Model\Import\Adapter;
 
 // use Mage;
 // use Mage_ImportExport_Model_Import_Adapter_Csv as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\ImportExport\Model\Import\Adapter\CsvTrait;
 
@@ -22,6 +23,7 @@ final class CsvTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

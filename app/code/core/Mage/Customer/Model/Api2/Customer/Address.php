@@ -19,6 +19,7 @@ class Mage_Customer_Model_Api2_Customer_Address extends Mage_Api2_Model_Resource
      * @throws Exception
      * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _getResourceAttributes()
     {
         return $this->getEavAttributes(Mage_Api2_Model_Auth_User_Admin::USER_TYPE != $this->getUserType());

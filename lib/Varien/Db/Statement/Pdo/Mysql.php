@@ -73,6 +73,7 @@ class Varien_Db_Statement_Pdo_Mysql extends Zend_Db_Statement_Pdo
      * @return bool
      * @throws Zend_Db_Statement_Exception
      */
+    #[Override]
     public function _execute(?array $params = null)
     {
         $specialExecute = false;

@@ -31,6 +31,7 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_View_Items extends Mage_Adminhtm
      *
      * @return Mage_Sales_Model_Order
      */
+    #[Override]
     public function getOrder()
     {
         return $this->getShipment()->getOrder();
@@ -41,6 +42,7 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_View_Items extends Mage_Adminhtm
      *
      * @return Mage_Sales_Model_Order_Shipment
      */
+    #[Override]
     public function getSource()
     {
         return $this->getShipment();

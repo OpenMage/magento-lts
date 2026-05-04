@@ -15,7 +15,7 @@ use Generator;
 
 trait DataTrait
 {
-    public function provideIsLogFileExtensionValid(): Generator
+    public static function provideIsLogFileExtensionValid(): Generator
     {
         yield 'valid' => [
             true,

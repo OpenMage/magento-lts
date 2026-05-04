@@ -49,6 +49,7 @@ class Mage_Directory_Model_Resource_Region_Collection extends Mage_Core_Model_Re
      *
      * @return $this
      */
+    #[Override]
     protected function _initSelect()
     {
         parent::_initSelect();
@@ -160,6 +161,7 @@ class Mage_Directory_Model_Resource_Region_Collection extends Mage_Core_Model_Re
      *
      * @return array
      */
+    #[Override]
     public function toOptionArray()
     {
         $options = $this->_toOptionArray('region_id', 'default_name', ['title' => 'default_name']);

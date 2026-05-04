@@ -213,6 +213,7 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
      *
      * @return $this
      */
+    #[Override]
     protected function _beforeSave()
     {
         parent::_beforeSave();
@@ -561,6 +562,7 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
      *
      * @return array
      */
+    #[Override]
     public function toArray(array $arrAttributes = [])
     {
         $data = parent::toArray($arrAttributes);
@@ -716,6 +718,7 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
      *
      * @return bool
      */
+    #[Override]
     protected function _hasModelChanged()
     {
         if (!$this->hasDataChanges()) {
@@ -753,6 +756,7 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
      * Save model plus its options
      * Ensures saving options in case when resource model was not changed
      */
+    #[Override]
     public function save()
     {
         $hasDataChanges = $this->hasDataChanges();
@@ -772,6 +776,7 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
      *
      * @inheritDoc
      */
+    #[Override]
     protected function _afterSave()
     {
         $this->_saveItemOptions();
@@ -781,6 +786,7 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
     /**
      * Clone quote item
      */
+    #[Override]
     public function __clone()
     {
         parent::__clone();

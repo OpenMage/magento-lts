@@ -22,6 +22,7 @@ class Mage_Catalog_Model_Product_Option_Api_V2 extends Mage_Catalog_Model_Produc
      * @param  null|int|string $store
      * @return bool
      */
+    #[Override]
     public function add($productId, $data, $store = null)
     {
         Mage::helper('api')->toArray($data);
@@ -36,6 +37,7 @@ class Mage_Catalog_Model_Product_Option_Api_V2 extends Mage_Catalog_Model_Produc
      * @param  null|int|string $store
      * @return bool
      */
+    #[Override]
     public function update($optionId, $data, $store = null)
     {
         Mage::helper('api')->toArray($data);
@@ -49,6 +51,7 @@ class Mage_Catalog_Model_Product_Option_Api_V2 extends Mage_Catalog_Model_Produc
      * @param  null|int|string $store
      * @return array
      */
+    #[Override]
     public function items($productId, $store = null)
     {
         $result = parent::items($productId, $store);

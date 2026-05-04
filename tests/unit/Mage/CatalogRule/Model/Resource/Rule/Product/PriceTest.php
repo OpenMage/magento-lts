@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\CatalogRule\Model\Resource\Rule\Product;
 
 // use Mage;
 // use Mage_CatalogRule_Model_Resource_Rule_Product_Price as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\CatalogRule\Model\Resource\Rule\Product\PriceTrait;
 
@@ -22,6 +23,7 @@ final class PriceTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

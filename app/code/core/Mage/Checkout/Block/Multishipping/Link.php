@@ -33,6 +33,7 @@ class Mage_Checkout_Block_Multishipping_Link extends Mage_Core_Block_Template
     /**
      * @return string
      */
+    #[Override]
     protected function _toHtml()
     {
         if (!Mage::helper('checkout')->isMultishippingCheckoutAvailable()) {

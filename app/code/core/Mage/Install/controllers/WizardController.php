@@ -14,6 +14,7 @@
  */
 class Mage_Install_WizardController extends Mage_Install_Controller_Action
 {
+    #[Override]
     public function preDispatch()
     {
         if (Mage::isInstalled()) {
@@ -82,6 +83,7 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
 
     /**
      * Index action
+     * @return void
      */
     public function indexAction()
     {
@@ -90,6 +92,7 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
 
     /**
      * Begin installation action
+     * @return void
      */
     public function beginAction()
     {
@@ -110,6 +113,7 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
 
     /**
      * Process begin step POST data
+     * @return void
      */
     public function beginPostAction()
     {
@@ -125,6 +129,7 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
 
     /**
      * Localization settings
+     * @return void
      */
     public function localeAction()
     {
@@ -143,6 +148,7 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
 
     /**
      * Change current locale
+     * @return void
      */
     public function localeChangeAction()
     {
@@ -162,6 +168,7 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
 
     /**
      * Saving localization settings
+     * @return void
      */
     public function localePostAction()
     {
@@ -177,6 +184,7 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
 
     /**
      * Configuration data installation
+     * @return void
      */
     public function configAction()
     {
@@ -202,7 +210,7 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
     /**
      * Process configuration POST data
      *
-     * @return null|Mage_Core_Controller_Varien_Action
+     * @return null|$this
      */
     public function configPostAction()
     {
@@ -237,6 +245,7 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
 
     /**
      * Install DB
+     * @return void
      */
     public function installDbAction()
     {
@@ -260,6 +269,7 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
 
     /**
      * Install administrator account
+     * @return void
      */
     public function administratorAction()
     {
@@ -324,6 +334,7 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
 
     /**
      * End installation
+     * @return void
      */
     public function endAction()
     {
@@ -349,6 +360,7 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
 
     /**
      * Host validation response
+     * @return void
      */
     public function checkHostAction()
     {
@@ -358,6 +370,7 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
 
     /**
      * Host validation response
+     * @return void
      */
     public function checkSecureHostAction()
     {

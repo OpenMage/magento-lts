@@ -22,6 +22,7 @@ class Mage_Adminhtml_Block_Tag_Tag_Edit_Form extends Mage_Adminhtml_Block_Widget
         $this->setTitle(Mage::helper('tag')->__('Block Information'));
     }
 
+    #[Override]
     protected function _prepareForm()
     {
         $model = Mage::registry('tag_tag');

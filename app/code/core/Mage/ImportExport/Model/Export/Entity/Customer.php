@@ -72,6 +72,7 @@ class Mage_ImportExport_Model_Export_Entity_Customer extends Mage_ImportExport_M
      *
      * @return $this
      */
+    #[Override]
     protected function _initWebsites()
     {
         foreach (Mage::app()->getWebsites(true) as $website) {
@@ -86,6 +87,7 @@ class Mage_ImportExport_Model_Export_Entity_Customer extends Mage_ImportExport_M
      *
      * @return Mage_Eav_Model_Entity_Collection_Abstract
      */
+    #[Override]
     protected function _prepareEntityCollection(Mage_Eav_Model_Entity_Collection_Abstract $collection)
     {
         // forced addition default billing and shipping addresses attributes
@@ -321,6 +323,7 @@ class Mage_ImportExport_Model_Export_Entity_Customer extends Mage_ImportExport_M
      *
      * @return Mage_Eav_Model_Resource_Entity_Attribute_Collection
      */
+    #[Override]
     public function filterAttributeCollection(Mage_Eav_Model_Resource_Entity_Attribute_Collection $collection)
     {
         foreach (parent::filterAttributeCollection($collection) as $attribute) {

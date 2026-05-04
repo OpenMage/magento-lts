@@ -191,6 +191,7 @@ class Mage_Newsletter_Model_Resource_Subscriber_Collection extends Mage_Core_Mod
      *
      * @return Varien_Db_Select
      */
+    #[Override]
     public function getSelectCountSql()
     {
         $select = parent::getSelectCountSql();

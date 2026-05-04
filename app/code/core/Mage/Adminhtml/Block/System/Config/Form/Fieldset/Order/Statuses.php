@@ -18,6 +18,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Fieldset_Order_Statuses extends Ma
 
     protected $_values;
 
+    #[Override]
     public function render(Varien_Data_Form_Element_Abstract $element)
     {
         $html = ''; //$this->_getHeaderHtml($element);

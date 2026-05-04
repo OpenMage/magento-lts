@@ -29,6 +29,7 @@ class Mage_Adminhtml_Block_System_Design_Grid extends Mage_Adminhtml_Block_Widge
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareCollection()
     {
         $collection = Mage::getResourceModel('core/design_collection');
@@ -40,6 +41,7 @@ class Mage_Adminhtml_Block_System_Design_Grid extends Mage_Adminhtml_Block_Widge
      * @inheritDoc
      * @throws Exception
      */
+    #[Override]
     protected function _prepareColumns()
     {
         if (!Mage::app()->isSingleStoreMode()) {
@@ -80,6 +82,7 @@ class Mage_Adminhtml_Block_System_Design_Grid extends Mage_Adminhtml_Block_Widge
      * @param  Mage_Core_Model_Design $row
      * @throws Mage_Core_Exception
      */
+    #[Override]
     public function getRowUrl($row)
     {
         return $this->getUrl('*/*/edit', ['id' => $row->getId()]);
@@ -90,6 +93,7 @@ class Mage_Adminhtml_Block_System_Design_Grid extends Mage_Adminhtml_Block_Widge
      *
      * @return string
      */
+    #[Override]
     public function getGridUrl()
     {
         return $this->getUrl('*/*/grid', ['_current' => true]);

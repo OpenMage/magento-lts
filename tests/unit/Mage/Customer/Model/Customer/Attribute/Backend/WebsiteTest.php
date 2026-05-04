@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Customer\Model\Customer\Attribute\Backend;
 
 // use Mage;
 // use Mage_Customer_Model_Customer_Attribute_Backend_Website as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Customer\Model\Customer\Attribute\Backend\WebsiteTrait;
 
@@ -22,6 +23,7 @@ final class WebsiteTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

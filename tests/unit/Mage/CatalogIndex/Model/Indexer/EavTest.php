@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\CatalogIndex\Model\Indexer;
 
 // use Mage;
 // use Mage_CatalogIndex_Model_Indexer_Eav as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\CatalogIndex\Model\Indexer\EavTrait;
 
@@ -22,6 +23,7 @@ final class EavTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

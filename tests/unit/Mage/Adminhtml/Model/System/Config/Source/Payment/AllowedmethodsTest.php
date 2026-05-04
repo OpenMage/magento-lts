@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Model\System\Config\Source\Payment;
 
 // use Mage;
 // use Mage_Adminhtml_Model_System_Config_Source_Payment_Allowedmethods as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Model\System\Config\Source\Payment\AllowedmethodsTrait;
 
@@ -22,6 +23,7 @@ final class AllowedmethodsTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

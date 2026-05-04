@@ -795,6 +795,7 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
      *
      * @return $this
      */
+    #[Override]
     public function reindexAll()
     {
         $this->useIdxTable(true);
@@ -1185,6 +1186,7 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
      * @param  string $table
      * @return string
      */
+    #[Override]
     public function getIdxTable($table = null)
     {
         if ($this->useIdxTable()) {

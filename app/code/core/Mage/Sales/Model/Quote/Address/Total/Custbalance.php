@@ -17,6 +17,7 @@ class Mage_Sales_Model_Quote_Address_Total_Custbalance extends Mage_Sales_Model_
     /**
      * @return $this
      */
+    #[Override]
     public function collect(Mage_Sales_Model_Quote_Address $address)
     {
         $address->setCustbalanceAmount(0);

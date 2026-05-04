@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Model\System\Config\Source\Cms\Wysi
 
 // use Mage;
 // use Mage_Adminhtml_Model_System_Config_Source_Cms_Wysiwyg_Enabled as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Model\System\Config\Source\Cms\Wysiwyg\EnabledTrait;
 
@@ -22,6 +23,7 @@ final class EnabledTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

@@ -19,6 +19,7 @@ class Mage_Sales_Model_Order_Invoice_Total_Cost extends Mage_Sales_Model_Order_I
      *
      * @return $this
      */
+    #[Override]
     public function collect(Mage_Sales_Model_Order_Invoice $invoice)
     {
         $baseInvoiceTotalCost = 0;

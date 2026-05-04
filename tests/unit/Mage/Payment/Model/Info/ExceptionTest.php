@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Payment\Model\Info;
 
 // use Mage;
 // use Mage_Payment_Model_Info_Exception as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Payment\Model\Info\ExceptionTrait;
 
@@ -22,6 +23,7 @@ final class ExceptionTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

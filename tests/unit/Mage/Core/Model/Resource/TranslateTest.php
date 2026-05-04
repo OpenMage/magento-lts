@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Core\Model\Resource;
 
 // use Mage;
 // use Mage_Core_Model_Resource_Translate as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\Model\Resource\TranslateTrait;
 
@@ -22,6 +23,7 @@ final class TranslateTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

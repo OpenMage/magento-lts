@@ -21,6 +21,7 @@ class Mage_Tax_Model_Sales_Total_Quote_Discount extends Mage_Sales_Model_Quote_A
      *
      * @return $this
      */
+    #[Override]
     public function collect(Mage_Sales_Model_Quote_Address $address)
     {
         return $this;

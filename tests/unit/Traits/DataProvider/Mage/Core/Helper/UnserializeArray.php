@@ -15,7 +15,7 @@ use Generator;
 
 trait UnserializeArray
 {
-    public function provideUnserialize(): Generator
+    public static function provideUnserialize(): Generator
     {
         $errorMessage = 'Error unserializing data.';
 

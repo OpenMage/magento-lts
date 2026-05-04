@@ -33,6 +33,7 @@ class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstrac
      *
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareLayout()
     {
         $this->getLayout()->createBlock('catalog/breadcrumbs');
@@ -78,6 +79,7 @@ class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstrac
      * @return Mage_Catalog_Model_Product
      * @throws Mage_Core_Exception
      */
+    #[Override]
     public function getProduct()
     {
         if (!Mage::registry('product') && $this->getProductId()) {
@@ -107,6 +109,7 @@ class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstrac
      * @return string
      * @throws Exception
      */
+    #[Override]
     public function getAddToCartUrl($product, $additional = [])
     {
         return $this->getAddToCartUrlCustom($product, $additional);
@@ -209,6 +212,7 @@ class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstrac
      * @return array
      * @throws Mage_Core_Exception
      */
+    #[Override]
     public function getCacheTags()
     {
         return array_merge(parent::getCacheTags(), $this->getProduct()->getCacheIdTags());
@@ -223,6 +227,7 @@ class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstrac
      * @return string
      * @throws Exception
      */
+    #[Override]
     public function getAddToCartUrlCustom($product, $additional = [], $addFormKey = true)
     {
         if (!$addFormKey && $this->hasCustomAddToCartPostUrl()) {

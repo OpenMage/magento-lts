@@ -15,7 +15,7 @@ use Generator;
 
 trait LocaleTrait
 {
-    public function provideGetNumberData(): Generator
+    public static function provideGetNumberData(): Generator
     {
         yield 'array' => [
             1.0,

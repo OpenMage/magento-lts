@@ -28,6 +28,7 @@ class Mage_Core_Model_Resource_Config_Data extends Mage_Core_Model_Resource_Db_A
      * @param Mage_Core_Model_Config_Data $object
      * @inheritDoc
      */
+    #[Override]
     protected function _beforeSave(Mage_Core_Model_Abstract $object)
     {
         if (!$object->getId()) {
@@ -48,6 +49,7 @@ class Mage_Core_Model_Resource_Config_Data extends Mage_Core_Model_Resource_Db_A
      * @param Mage_Core_Model_Config_Data $object
      * @inheritDoc
      */
+    #[Override]
     protected function _checkUnique(Mage_Core_Model_Abstract $object)
     {
         $select = $this->_getReadAdapter()->select()

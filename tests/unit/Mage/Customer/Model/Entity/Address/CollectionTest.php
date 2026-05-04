@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Customer\Model\Entity\Address;
 
 // use Mage;
 // use Mage_Customer_Model_Entity_Address_Collection as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Customer\Model\Entity\Address\CollectionTrait;
 
@@ -22,6 +23,7 @@ final class CollectionTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

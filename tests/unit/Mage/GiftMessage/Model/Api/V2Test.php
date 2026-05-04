@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\GiftMessage\Model\Api;
 
 // use Mage;
 // use Mage_GiftMessage_Model_Api_V2 as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\GiftMessage\Model\Api\V2Trait;
 
@@ -22,6 +23,7 @@ final class V2Test extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

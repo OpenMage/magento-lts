@@ -66,6 +66,7 @@ class Mage_CatalogInventory_Block_Adminhtml_Form_Field_Customergroup extends Mag
      *
      * @return string
      */
+    #[Override]
     protected function _toHtml()
     {
         if (!$this->getOptions()) {

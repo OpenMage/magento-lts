@@ -19,6 +19,7 @@ class Mage_Checkout_Block_Multishipping_Payment_Info extends Mage_Payment_Block_
      *
      * @return Mage_Payment_Model_Info
      */
+    #[Override]
     public function getPaymentInfo()
     {
         return Mage::getSingleton('checkout/type_multishipping')->getQuote()->getPayment();
@@ -27,6 +28,7 @@ class Mage_Checkout_Block_Multishipping_Payment_Info extends Mage_Payment_Block_
     /**
      * @return string
      */
+    #[Override]
     protected function _toHtml()
     {
         $html = '';

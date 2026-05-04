@@ -58,6 +58,7 @@ class Mage_Api2_Model_Acl_Global_Role extends Mage_Core_Model_Abstract
      * @return $this
      * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _beforeSave()
     {
         if ($this->isObjectNew() && $this->getCreatedAt() === null) {
@@ -87,6 +88,7 @@ class Mage_Api2_Model_Acl_Global_Role extends Mage_Core_Model_Abstract
      * @return $this
      * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _beforeDelete()
     {
         if (self::isSystemRole($this)) {

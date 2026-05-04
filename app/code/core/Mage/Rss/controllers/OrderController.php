@@ -73,6 +73,7 @@ class Mage_Rss_OrderController extends Mage_Rss_Controller_Abstract
      *
      * @return $this
      */
+    #[Override]
     public function preDispatch()
     {
         $action = strtolower($this->getRequest()->getActionName());

@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Rule\Model\Renderer;
 
 // use Mage;
 // use Mage_Rule_Model_Renderer_Conditions as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Rule\Model\Renderer\ConditionsTrait;
 
@@ -22,6 +23,7 @@ final class ConditionsTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

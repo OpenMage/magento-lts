@@ -44,6 +44,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle extends Mage_A
      *
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareLayout()
     {
         $this->setChild(

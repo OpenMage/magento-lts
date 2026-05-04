@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Bundle\Model\Sales\Order\Pdf\Items;
 
 // use Mage;
 // use Mage_Bundle_Model_Sales_Order_Pdf_Items_Creditmemo as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Bundle\Model\Sales\Order\Pdf\Items\CreditmemoTrait;
 
@@ -22,6 +23,7 @@ final class CreditmemoTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

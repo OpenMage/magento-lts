@@ -21,6 +21,7 @@ class Mage_Adminhtml_Block_Permissions_Buttons extends Mage_Adminhtml_Block_Temp
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareLayout()
     {
         $this->setChild(

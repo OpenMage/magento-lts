@@ -47,6 +47,7 @@ abstract class Mage_Adminhtml_Block_Dashboard_Abstract extends Mage_Adminhtml_Bl
         return $this;
     }
 
+    #[Override]
     protected function _prepareLayout()
     {
         $this->_prepareData();

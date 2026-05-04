@@ -43,6 +43,7 @@ class Mage_Bundle_Model_Product_Attribute_Source_Price_View extends Mage_Eav_Mod
      * @param  int|string   $value
      * @return false|string
      */
+    #[Override]
     public function getOptionText($value)
     {
         $options = $this->getAllOptions();
@@ -58,6 +59,7 @@ class Mage_Bundle_Model_Product_Attribute_Source_Price_View extends Mage_Eav_Mod
     /**
      * @inheritDoc
      */
+    #[Override]
     public function getFlatColums()
     {
         $attributeCode = $this->getAttribute()->getAttributeCode();

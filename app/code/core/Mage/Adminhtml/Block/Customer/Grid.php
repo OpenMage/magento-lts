@@ -35,6 +35,7 @@ class Mage_Adminhtml_Block_Customer_Grid extends Mage_Adminhtml_Block_Widget_Gri
      * @throws Mage_Core_Exception
      * @throws Mage_Eav_Exception
      */
+    #[Override]
     protected function _prepareCollection()
     {
         $collection = Mage::getResourceModel('customer/customer_collection')
@@ -57,6 +58,7 @@ class Mage_Adminhtml_Block_Customer_Grid extends Mage_Adminhtml_Block_Widget_Gri
      * @inheritDoc
      * @throws Exception
      */
+    #[Override]
     protected function _prepareColumns()
     {
         $this->addColumn('entity_id', [
@@ -156,6 +158,7 @@ class Mage_Adminhtml_Block_Customer_Grid extends Mage_Adminhtml_Block_Widget_Gri
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareMassaction()
     {
         $this->setMassactionIdField('entity_id');
@@ -201,6 +204,7 @@ class Mage_Adminhtml_Block_Customer_Grid extends Mage_Adminhtml_Block_Widget_Gri
     /**
      * @return string
      */
+    #[Override]
     public function getGridUrl()
     {
         return $this->getUrl('*/*/grid', ['_current' => true]);
@@ -211,6 +215,7 @@ class Mage_Adminhtml_Block_Customer_Grid extends Mage_Adminhtml_Block_Widget_Gri
      * @param  Mage_Customer_Model_Customer $row
      * @throws Mage_Core_Exception
      */
+    #[Override]
     public function getRowUrl($row)
     {
         return $this->getUrl('*/*/edit', ['id' => $row->getId()]);

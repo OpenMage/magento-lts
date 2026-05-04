@@ -19,6 +19,7 @@ class Mage_Catalog_Model_System_Config_Backend_Catalog_Url_Rewrite_Suffix extend
      *
      * @return $this
      */
+    #[Override]
     protected function _beforeSave()
     {
         Mage::helper('core/url_rewrite')->validateSuffix($this->getValue());

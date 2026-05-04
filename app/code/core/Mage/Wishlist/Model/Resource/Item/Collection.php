@@ -97,6 +97,7 @@ class Mage_Wishlist_Model_Resource_Item_Collection extends Mage_Core_Model_Resou
      *
      * @return $this
      */
+    #[Override]
     protected function _afterLoad()
     {
         parent::_afterLoad();

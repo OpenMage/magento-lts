@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Widget\Model\Resource;
 
 // use Mage;
 // use Mage_Widget_Model_Resource_Widget as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Widget\Model\Resource\WidgetTrait;
 
@@ -22,6 +23,7 @@ final class WidgetTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

@@ -24,6 +24,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Cache extends Mage_Core_Model_C
     /**
      * Clean cache, value was changed
      */
+    #[Override]
     protected function _afterSave()
     {
         if ($this->isValueChanged()) {

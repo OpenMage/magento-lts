@@ -25,6 +25,7 @@ class Mage_Core_Controller_Response_Http extends Zend_Controller_Response_Http
      * @link  http://bugs.php.net/bug.php?id=36705
      * @inheritDoc
      */
+    #[Override]
     public function sendHeaders()
     {
         if (!$this->canSendHeaders()) {
@@ -61,6 +62,7 @@ class Mage_Core_Controller_Response_Http extends Zend_Controller_Response_Http
     /**
      * @inheritDoc
      */
+    #[Override]
     public function sendResponse()
     {
         Mage::dispatchEvent('http_response_send_before', ['response' => $this]);
@@ -72,6 +74,7 @@ class Mage_Core_Controller_Response_Http extends Zend_Controller_Response_Http
      *
      * @inheritDoc
      */
+    #[Override]
     public function setRedirect($url, $code = 302)
     {
         /**

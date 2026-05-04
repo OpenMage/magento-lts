@@ -336,6 +336,7 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
      *
      * @return bool
      */
+    #[Override]
     public function isValid()
     {
         parent::isValid();
@@ -419,6 +420,7 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
      * @param  string      $field
      * @return null|string
      */
+    #[Override]
     public function getFieldLabel($field)
     {
         return match ($field) {
@@ -436,6 +438,7 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
      * @param  string      $field
      * @return null|string
      */
+    #[Override]
     public function getFieldComment($field)
     {
         return match ($field) {
@@ -492,6 +495,7 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
      * @param  string $key
      * @return mixed
      */
+    #[Override]
     public function renderData($key)
     {
         $value = $this->_getData($key);
@@ -538,6 +542,7 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
      *
      * @inheritDoc
      */
+    #[Override]
     protected function _filterValues()
     {
         $result = parent::_filterValues();

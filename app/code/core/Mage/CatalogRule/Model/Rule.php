@@ -221,7 +221,7 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
 
                 Mage::getSingleton('core/resource_iterator')->walk(
                     $productCollection->getSelect(),
-                    [[$this, 'callbackValidateProduct']],
+                    [$this->callbackValidateProduct(...)],
                     [
                         'attributes' => $this->getCollectedAttributes(),
                         'product'    => Mage::getModel('catalog/product'),
@@ -450,6 +450,7 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
      * @return string
      * @deprecated after 1.11.2.0
      */
+    #[Override]
     public function toString($format = '')
     {
         return '';
@@ -470,6 +471,7 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
      * @return array
      * @deprecated after 1.11.2.0
      */
+    #[Override]
     public function toArray(array $arrAttributes = [])
     {
         return parent::toArray($arrAttributes);

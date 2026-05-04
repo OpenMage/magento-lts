@@ -303,6 +303,7 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
      * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
      */
+    #[Override]
     protected function _getItemsData()
     {
         if (Mage::app()->getStore()->getConfig(self::XML_PATH_RANGE_CALCULATION) == self::RANGE_CALCULATION_IMPROVED) {
@@ -376,6 +377,7 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
      * @return $this
      * @throws Mage_Core_Model_Store_Exception
      */
+    #[Override]
     public function apply(Zend_Controller_Request_Abstract $request, $filterBlock)
     {
         /**
@@ -542,6 +544,7 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
      * @return false|string
      * @throws Mage_Core_Model_Store_Exception
      */
+    #[Override]
     public function getClearLinkText()
     {
         if (Mage::app()->getStore()->getConfig(self::XML_PATH_RANGE_CALCULATION) == self::RANGE_CALCULATION_IMPROVED

@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Downloadable\Block\Adminhtml\Catalog\Product\Composite\Fieldset;
 
 // use Mage_Downloadable_Block_Adminhtml_Catalog_Product_Composite_Fieldset_Downloadable as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Downloadable\Block\Adminhtml\Catalog\Product\Composite\Fieldset\DownloadableTrait;
 
@@ -21,6 +22,7 @@ final class DownloadableTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

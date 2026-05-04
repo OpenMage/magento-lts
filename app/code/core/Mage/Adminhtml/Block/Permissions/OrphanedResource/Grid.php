@@ -31,6 +31,7 @@ class Mage_Adminhtml_Block_Permissions_OrphanedResource_Grid extends Mage_Adminh
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareCollection()
     {
         $collection = Mage::getResourceModel('admin/rules_collection')
@@ -55,6 +56,7 @@ class Mage_Adminhtml_Block_Permissions_OrphanedResource_Grid extends Mage_Adminh
      * @inheritDoc
      * @throws Exception
      */
+    #[Override]
     protected function _prepareColumns()
     {
         $this->addColumn('resource_id', [
@@ -68,6 +70,7 @@ class Mage_Adminhtml_Block_Permissions_OrphanedResource_Grid extends Mage_Adminh
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareMassaction()
     {
         $this->setMassactionIdField('resource_id');
@@ -82,6 +85,7 @@ class Mage_Adminhtml_Block_Permissions_OrphanedResource_Grid extends Mage_Adminh
         return parent::_prepareMassaction();
     }
 
+    #[Override]
     public function getRowUrl($row): string
     {
         return '';

@@ -39,6 +39,7 @@ class Mage_Index_Adminhtml_ProcessController extends Mage_Adminhtml_Controller_A
 
     /**
      * Display processes grid action
+     * @return void
      */
     public function listAction()
     {
@@ -51,6 +52,7 @@ class Mage_Index_Adminhtml_ProcessController extends Mage_Adminhtml_Controller_A
 
     /**
      * Process detail and edit action
+     * @return void
      */
     public function editAction()
     {
@@ -77,6 +79,7 @@ class Mage_Index_Adminhtml_ProcessController extends Mage_Adminhtml_Controller_A
 
     /**
      * Save process data
+     * @return void
      */
     public function saveAction()
     {
@@ -113,6 +116,7 @@ class Mage_Index_Adminhtml_ProcessController extends Mage_Adminhtml_Controller_A
 
     /**
      * Reindex all data what process is responsible
+     * @return void
      */
     public function reindexProcessAction()
     {
@@ -146,16 +150,19 @@ class Mage_Index_Adminhtml_ProcessController extends Mage_Adminhtml_Controller_A
 
     /**
      * Reindex pending events for index process
+     * @return void
      */
     public function reindexEventsAction() {}
 
     /**
      * Rebiuld all processes index
+     * @return void
      */
     public function reindexAllAction() {}
 
     /**
      * Mass rebuild selected processes index
+     * @return void
      */
     public function massReindexAction()
     {
@@ -191,6 +198,7 @@ class Mage_Index_Adminhtml_ProcessController extends Mage_Adminhtml_Controller_A
 
     /**
      * Mass change index mode of selected processes index
+     * @return void
      */
     public function massChangeModeAction()
     {

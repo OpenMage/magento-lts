@@ -25,6 +25,7 @@ class Mage_Catalog_Block_Layer_Filter_Decimal extends Mage_Catalog_Block_Layer_F
      *
      * @return $this
      */
+    #[Override]
     protected function _prepareFilter()
     {
         $this->_filter->setAttributeModel($this->getAttributeModel());

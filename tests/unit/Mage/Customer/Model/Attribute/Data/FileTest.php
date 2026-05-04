@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Customer\Model\Attribute\Data;
 
 // use Mage;
 // use Mage_Customer_Model_Attribute_Data_File as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Customer\Model\Attribute\Data\FileTrait;
 
@@ -22,6 +23,7 @@ final class FileTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

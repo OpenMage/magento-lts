@@ -40,6 +40,7 @@ class Mage_Sales_Model_Order_Shipment_Api_V2 extends Mage_Sales_Model_Order_Ship
      * @param  bool        $includeComment
      * @return null|string
      */
+    #[Override]
     public function create(
         $orderIncrementId,
         $itemsQty = [],
@@ -95,6 +96,7 @@ class Mage_Sales_Model_Order_Shipment_Api_V2 extends Mage_Sales_Model_Order_Ship
      * @param  string $orderIncrementId
      * @return array
      */
+    #[Override]
     public function getCarriers($orderIncrementId)
     {
         $order = Mage::getModel('sales/order')->loadByIncrementId($orderIncrementId);

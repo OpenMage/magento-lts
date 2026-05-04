@@ -1124,6 +1124,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
      *
      * @return bool|Mage_Shipping_Model_Carrier_Abstract|Mage_Shipping_Model_Rate_Result_Error
      */
+    #[Override]
     public function proccessAdditionalValidation(Mage_Shipping_Model_Rate_Request $request)
     {
         //Skip by item validation if there is no items in request
@@ -1172,6 +1173,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
      *
      * @return array<string, string>
      */
+    #[Override]
     public function getContainerTypes(?Varien_Object $params = null)
     {
         return [
@@ -1726,6 +1728,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
      * @param  float  $handlingFee
      * @return float
      */
+    #[Override]
     protected function _getPerpackagePrice($cost, $handlingType, $handlingFee)
     {
         if ($handlingType == Mage_Shipping_Model_Carrier_Abstract::HANDLING_TYPE_PERCENT) {
@@ -1740,6 +1743,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
      *
      * @return Varien_Object
      */
+    #[Override]
     public function requestToShipment(Mage_Shipping_Model_Shipment_Request $request)
     {
         $packages = $request->getPackages();

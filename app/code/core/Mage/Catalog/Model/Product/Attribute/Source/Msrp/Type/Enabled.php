@@ -59,6 +59,7 @@ class Mage_Catalog_Model_Product_Attribute_Source_Msrp_Type_Enabled extends Mage
     /**
      * @inheritDoc
      */
+    #[Override]
     public function getFlatColums()
     {
         $attributeCode = $this->getAttribute()->getAttributeCode();

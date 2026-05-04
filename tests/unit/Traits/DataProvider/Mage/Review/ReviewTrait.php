@@ -15,7 +15,7 @@ use Generator;
 
 trait ReviewTrait
 {
-    public function provideValidateReviewData(): Generator
+    public static function provideValidateReviewData(): Generator
     {
         $validReview = [
             'getTitle' => 'Great product',

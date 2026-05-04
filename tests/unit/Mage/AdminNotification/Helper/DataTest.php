@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\AdminNotification\Helper;
 
+use Override;
 use Mage;
 use Mage_AdminNotification_Helper_Data as Subject;
 use Mage_AdminNotification_Model_Inbox;
@@ -20,6 +21,7 @@ final class DataTest extends OpenMageTest
 {
     private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

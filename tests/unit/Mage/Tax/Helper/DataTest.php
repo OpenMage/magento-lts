@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Tax\Helper;
 
+use Override;
 use Mage;
 use Mage_Tax_Helper_Data as Subject;
 use Mage_Tax_Model_Calculation;
@@ -28,6 +29,7 @@ final class DataTest extends OpenMageTest
 
     public const SKIP_WITH_LOCAL_DATA = 'Constant DATA_MAY_CHANGED is defined.';
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

@@ -229,6 +229,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      * @return $this
      * @throws Exception
      */
+    #[Override]
     public function beginTransaction()
     {
         if ($this->_transactionLevel === 0) {
@@ -247,6 +248,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      * @return $this
      * @throws Exception
      */
+    #[Override]
     public function commit()
     {
         if ($this->_transactionLevel === 1) {
@@ -268,6 +270,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      * @return $this
      * @throws Exception
      */
+    #[Override]
     public function rollBack()
     {
         if ($this->_transactionLevel === 1) {
@@ -364,6 +367,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      * @throws Exception
      * @throws Zend_Db_Adapter_Exception
      */
+    #[Override]
     protected function _connect()
     {
         if ($this->_connection) {
@@ -511,6 +515,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      * @throws Exception
      * @throws Zend_Db_Adapter_Exception                                  to re-throw PDOException
      */
+    #[Override]
     public function query($sql, $bind = [])
     {
         $this->_debugTimer();
@@ -1483,6 +1488,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      *
      * @return Varien_Db_Select
      */
+    #[Override]
     public function select()
     {
         return new Varien_Db_Select($this);
@@ -1613,6 +1619,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      * @param  int                                                     $count OPTIONAL count of placeholders to replace
      * @return string                                                  an SQL-safe quoted value placed into the original text
      */
+    #[Override]
     public function quoteInto($text, $value, $type = null, $count = null)
     {
         if ($value === []) {
@@ -1808,16 +1815,14 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      * @return array
      * @throws Zend_Cache_Exception
      */
+    #[Override]
     public function describeTable($tableName, $schemaName = null)
     {
         $cacheKey = $this->_getTableName($tableName, $schemaName);
         $ddl = $this->loadDdlCache($cacheKey, self::DDL_DESCRIBE);
         if ($ddl === false) {
             $ddl = array_map(
-                [
-                    $this,
-                    'decorateTableInfo',
-                ],
+                $this->decorateTableInfo(...),
                 parent::describeTable($tableName, $schemaName),
             );
             /**
@@ -2407,7 +2412,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
         // PRIMARY KEY
         if ($primary !== []) {
             asort($primary, SORT_NUMERIC);
-            $primary      = array_map([$this, 'quoteIdentifier'], array_keys($primary));
+            $primary      = array_map($this->quoteIdentifier(...), array_keys($primary));
             $definition[] = sprintf('  PRIMARY KEY (%s)', implode(', ', $primary));
         }
 
@@ -2495,7 +2500,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
     /**
      * Retrieve table options definition array for create table
      *
-     * @return array
+     * @return array<int, string>
      * @throws Zend_Db_Exception
      */
     protected function _getOptionsDefinition(Varien_Db_Ddl_Table $table)
@@ -3685,7 +3690,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
 
         $query = sprintf('%s INTO %s', $query, $this->quoteIdentifier($table));
         if ($fields) {
-            $columns = array_map([$this, 'quoteIdentifier'], $fields);
+            $columns = array_map($this->quoteIdentifier(...), $fields);
             $query = sprintf('%s (%s)', $query, implode(', ', $columns));
         }
 
@@ -4016,7 +4021,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
     protected function _getInsertSqlQuery($tableName, array $columns, array $values)
     {
         $tableName = $this->quoteIdentifier($tableName, true);
-        $columns   = array_map([$this, 'quoteIdentifier'], $columns);
+        $columns   = array_map($this->quoteIdentifier(...), $columns);
         $columns   = implode(',', $columns);
 
         $values    = implode(', ', $values);

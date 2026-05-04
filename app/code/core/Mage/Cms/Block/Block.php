@@ -20,6 +20,7 @@ class Mage_Cms_Block_Block extends Mage_Core_Block_Abstract
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _construct()
     {
         parent::_construct();
@@ -38,6 +39,7 @@ class Mage_Cms_Block_Block extends Mage_Core_Block_Abstract
      * @throws Exception
      * @throws Mage_Core_Model_Store_Exception
      */
+    #[Override]
     protected function _toHtml()
     {
         $html = parent::_toHtml();
@@ -64,6 +66,7 @@ class Mage_Cms_Block_Block extends Mage_Core_Block_Abstract
      *
      * @inheritDoc
      */
+    #[Override]
     public function getCacheKeyInfo()
     {
         $blockId = $this->getBlockId();

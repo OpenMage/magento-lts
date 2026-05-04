@@ -35,6 +35,7 @@ class Mage_ConfigurableSwatches_Block_Catalog_Media_Js_Product extends Mage_Conf
      *
      * @return string
      */
+    #[Override]
     public function getImageType()
     {
         $type = parent::getImageType();

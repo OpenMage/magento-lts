@@ -17,6 +17,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Attributes extends Mage_Admi
     /**
      * Load Wysiwyg on demand and prepare layout
      */
+    #[Override]
     protected function _prepareLayout()
     {
         parent::_prepareLayout();
@@ -32,6 +33,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Attributes extends Mage_Admi
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareForm()
     {
         $group = $this->getGroup();
@@ -124,6 +126,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Attributes extends Mage_Admi
      *
      * @return array
      */
+    #[Override]
     protected function _getAdditionalElementTypes()
     {
         $result = [

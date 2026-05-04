@@ -24,6 +24,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Template extends 
      *
      * @return string
      */
+    #[Override]
     protected function _toHtml()
     {
         if (!$this->getWidgetTemplates()) {

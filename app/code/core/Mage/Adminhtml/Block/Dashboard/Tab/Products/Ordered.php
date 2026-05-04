@@ -25,6 +25,7 @@ class Mage_Adminhtml_Block_Dashboard_Tab_Products_Ordered extends Mage_Adminhtml
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareCollection()
     {
         if (!$this->isModuleEnabled('Mage_Sales')) {
@@ -57,6 +58,7 @@ class Mage_Adminhtml_Block_Dashboard_Tab_Products_Ordered extends Mage_Adminhtml
      * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
      */
+    #[Override]
     protected function _prepareColumns()
     {
         $this->addColumn('name', [
@@ -96,6 +98,7 @@ class Mage_Adminhtml_Block_Dashboard_Tab_Products_Ordered extends Mage_Adminhtml
      * @param  Mage_Catalog_Model_Product $row
      * @throws Exception
      */
+    #[Override]
     public function getRowUrl($row)
     {
         // getId() would return id of bestseller row, and product id we get by getProductId()

@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Sales\Model\Order\Pdf\Items\Creditmemo;
 
 // use Mage;
 // use Mage_Sales_Model_Order_Pdf_Items_Creditmemo_Grouped as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sales\Model\Order\Pdf\Items\Creditmemo\GroupedTrait;
 
@@ -22,6 +23,7 @@ final class GroupedTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

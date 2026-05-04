@@ -17,6 +17,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Main extends Mage_Adm
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _construct()
     {
         parent::_construct();
@@ -78,6 +79,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Main extends Mage_Adm
      *
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareForm()
     {
         $widgetInstance = $this->getWidgetInstance();
@@ -188,6 +190,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Main extends Mage_Adm
      *
      * @inheritDoc
      */
+    #[Override]
     protected function _initFormValues()
     {
         $this->getForm()->addValues($this->getWidgetInstance()->getData());

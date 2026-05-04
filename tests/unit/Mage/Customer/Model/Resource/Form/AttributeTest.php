@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Customer\Model\Resource\Form;
 
 // use Mage;
 // use Mage_Customer_Model_Resource_Form_Attribute as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Customer\Model\Resource\Form\AttributeTrait;
 
@@ -22,6 +23,7 @@ final class AttributeTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

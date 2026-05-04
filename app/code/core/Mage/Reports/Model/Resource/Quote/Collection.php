@@ -44,6 +44,7 @@ class Mage_Reports_Model_Resource_Quote_Collection extends Mage_Sales_Model_Reso
         return $this;
     }
 
+    #[Override]
     protected function _construct()
     {
         parent::_construct();
@@ -273,6 +274,7 @@ class Mage_Reports_Model_Resource_Quote_Collection extends Mage_Sales_Model_Reso
      *
      * @return Varien_Db_Select
      */
+    #[Override]
     public function getSelectCountSql()
     {
         $countSelect = clone $this->getSelect();

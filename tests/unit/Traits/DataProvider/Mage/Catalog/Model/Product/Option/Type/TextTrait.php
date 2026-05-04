@@ -15,7 +15,7 @@ use Generator;
 
 trait TextTrait
 {
-    public function providePrepareForCart(): Generator
+    public static function providePrepareForCart(): Generator
     {
         yield 'valid' => [
             'test',

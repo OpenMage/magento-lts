@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Model\System\Config\Source\Locale\C
 
 // use Mage;
 // use Mage_Adminhtml_Model_System_Config_Source_Locale_Currency_All as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Model\System\Config\Source\Locale\Currency\AllTrait;
 
@@ -22,6 +23,7 @@ final class AllTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

@@ -128,6 +128,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option extends
     /**
      * @return $this
      */
+    #[Override]
     protected function _prepareLayout()
     {
         $this->setChild(

@@ -28,6 +28,7 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Grid extends Mage_Adminhtml_Block_Wi
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareCollection()
     {
         $collection = Mage::getResourceModel('newsletter/queue_collection')
@@ -41,6 +42,7 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Grid extends Mage_Adminhtml_Block_Wi
      * @inheritDoc
      * @throws Exception
      */
+    #[Override]
     protected function _prepareColumns()
     {
         $this->addColumn('queue_id', [
@@ -111,6 +113,7 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Grid extends Mage_Adminhtml_Block_Wi
      * @param  Mage_Newsletter_Model_Queue $row
      * @throws Mage_Core_Exception
      */
+    #[Override]
     public function getRowUrl($row)
     {
         return $this->getUrl('*/*/edit', ['id' => $row->getId()]);

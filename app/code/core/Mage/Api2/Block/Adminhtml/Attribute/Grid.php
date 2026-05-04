@@ -25,6 +25,7 @@ class Mage_Api2_Block_Adminhtml_Attribute_Grid extends Mage_Adminhtml_Block_Widg
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareCollection()
     {
         $collection = new Varien_Data_Collection();
@@ -44,6 +45,7 @@ class Mage_Api2_Block_Adminhtml_Attribute_Grid extends Mage_Adminhtml_Block_Widg
      * @inheritDoc
      * @throws Exception
      */
+    #[Override]
     protected function _prepareColumns()
     {
         $this->addColumn('user_type_name', [
@@ -59,6 +61,7 @@ class Mage_Api2_Block_Adminhtml_Attribute_Grid extends Mage_Adminhtml_Block_Widg
      *
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareLayout()
     {
         $this->setFilterVisibility(false);
@@ -71,6 +74,7 @@ class Mage_Api2_Block_Adminhtml_Attribute_Grid extends Mage_Adminhtml_Block_Widg
      * @inheritDoc
      * @param Varien_Object $row
      */
+    #[Override]
     public function getRowUrl($row)
     {
         if ($this->isAllowed('system/api/attributes/edit')) {

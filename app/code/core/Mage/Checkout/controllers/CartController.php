@@ -110,6 +110,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
      *
      * @return $this
      */
+    #[Override]
     public function preDispatch()
     {
         parent::preDispatch();
@@ -125,6 +126,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
 
     /**
      * Shopping cart display action
+     * @return void
      */
     public function indexAction()
     {
@@ -190,6 +192,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
     /**
      * Add product to shopping cart action
      *
+     * @return void
      * @throws Mage_Core_Exception
      */
     public function addAction()
@@ -271,6 +274,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
 
     /**
      * Add products in group to shopping cart action
+     * @return void
      */
     public function addgroupAction()
     {
@@ -311,6 +315,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
 
     /**
      * Action to reconfigure cart item
+     * @return void
      */
     public function configureAction()
     {
@@ -345,6 +350,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
 
     /**
      * Update product configuration for a cart item
+     * @return void
      */
     public function updateItemOptionsAction()
     {
@@ -431,6 +437,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
 
     /**
      * Update shopping cart data action
+     * @return void
      */
     public function updatePostAction()
     {
@@ -502,6 +509,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
 
     /**
      * Delete shopping cart item action
+     * @return void
      */
     public function deleteAction()
     {
@@ -525,6 +533,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
 
     /**
      * Initialize shipping information
+     * @return void
      */
     public function estimatePostAction()
     {
@@ -562,6 +571,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
 
     /**
      * Estimate update action
+     * @return void
      */
     public function estimateUpdatePostAction()
     {
@@ -575,6 +585,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
 
     /**
      * Initialize coupon
+     * @return void
      */
     public function couponPostAction()
     {
@@ -634,6 +645,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
 
     /**
      * Minicart delete action
+     * @return void
      */
     public function ajaxDeleteAction()
     {
@@ -667,6 +679,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
 
     /**
      * Minicart ajax update qty action
+     * @return void
      */
     public function ajaxUpdateAction()
     {

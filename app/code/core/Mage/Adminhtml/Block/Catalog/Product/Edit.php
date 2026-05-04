@@ -34,6 +34,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit extends Mage_Adminhtml_Block_Wid
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareLayout()
     {
         if (!$this->getRequest()->getParam('popup')) {

@@ -32,6 +32,7 @@ class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
      * @param  array{host?: mixed, username?: mixed, password?: mixed, timeout?: int} $args Connection arguments
      * @throws Exception
      */
+    #[Override]
     public function open(array $args = [])
     {
         if (!isset($args['timeout'])) {

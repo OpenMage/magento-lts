@@ -29,6 +29,7 @@ class Mage_Adminhtml_Block_System_Variable_Edit_Form extends Mage_Adminhtml_Bloc
      *
      * @return $this
      */
+    #[Override]
     protected function _prepareForm()
     {
         $form = new Varien_Data_Form([

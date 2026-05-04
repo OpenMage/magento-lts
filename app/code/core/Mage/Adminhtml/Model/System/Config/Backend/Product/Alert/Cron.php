@@ -18,6 +18,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Product_Alert_Cron extends Mage
 
     public const CRON_MODEL_PATH   = 'crontab/jobs/catalog_product_alert/run/model';
 
+    #[Override]
     protected function _afterSave()
     {
         $frequency    = $this->getData('groups/productalert_cron/fields/frequency/value');

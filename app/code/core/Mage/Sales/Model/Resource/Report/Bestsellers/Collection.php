@@ -108,6 +108,7 @@ class Mage_Sales_Model_Resource_Report_Bestsellers_Collection extends Mage_Sales
      * @return $this
      * @throws Zend_Db_Select_Exception
      */
+    #[Override]
     protected function _initSelect()
     {
         $select = $this->getSelect();
@@ -165,6 +166,7 @@ class Mage_Sales_Model_Resource_Report_Bestsellers_Collection extends Mage_Sales
      * @throws Zend_Date_Exception
      * @throws Zend_Db_Select_Exception
      */
+    #[Override]
     protected function _beforeLoad()
     {
         parent::_beforeLoad();
@@ -325,7 +327,7 @@ class Mage_Sales_Model_Resource_Report_Bestsellers_Collection extends Mage_Sales
     /**
      * Apply filter to exclude certain product types from the collection
      *
-     * @return Mage_Sales_Model_Resource_Report_Collection_Abstract
+     * @return $this
      */
     protected function _applyProductTypeFilter(Zend_Db_Select $select)
     {

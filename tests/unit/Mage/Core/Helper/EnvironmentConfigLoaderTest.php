@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Core\Helper;
 
+use Override;
 use Mage_Core_Model_Store;
 use Generator;
 use Mage;
@@ -52,6 +53,7 @@ final class EnvironmentConfigLoaderTest extends OpenMageTest
         Mage::unregister(Mage_Core_Helper_EnvironmentConfigLoader::REGISTRY_KEY);
     }
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         Mage::app('admin');

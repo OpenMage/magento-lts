@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Sales\Model\Quote\Address\Total;
 
 // use Mage;
 // use Mage_Sales_Model_Quote_Address_Total_Nominal as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sales\Model\Quote\Address\Total\NominalTrait;
 
@@ -22,6 +23,7 @@ final class NominalTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

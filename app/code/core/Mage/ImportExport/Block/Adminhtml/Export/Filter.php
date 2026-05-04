@@ -328,6 +328,7 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
      * @return $this
      * @throws Exception
      */
+    #[Override]
     protected function _prepareColumns()
     {
         parent::_prepareColumns();
@@ -354,7 +355,7 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
             'header'         => Mage::helper('importexport')->__('Filter'),
             'sortable'       => false,
             'filter'         => false,
-            'frame_callback' => [$this, 'decorateFilter'],
+            'frame_callback' => $this->decorateFilter(...),
         ]);
 
         if ($this->hasOperation()) {
@@ -426,6 +427,7 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
      * @inheritDoc
      * @param Mage_Catalog_Model_Resource_Eav_Attribute $row
      */
+    #[Override]
     public function getRowUrl($row)
     {
         return '';

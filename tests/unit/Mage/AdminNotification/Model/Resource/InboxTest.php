@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\AdminNotification\Model\Resource;
 
 // use Mage;
 // use Mage_AdminNotification_Model_Resource_Inbox as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\AdminNotification\Model\Resource\InboxTrait;
 
@@ -22,6 +23,7 @@ final class InboxTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

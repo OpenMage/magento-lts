@@ -28,6 +28,7 @@ class Varien_Data_Form_Element_Password extends Varien_Data_Form_Element_Abstrac
     /**
      * @return string
      */
+    #[Override]
     public function getHtml()
     {
         $this->addClass('input-text');

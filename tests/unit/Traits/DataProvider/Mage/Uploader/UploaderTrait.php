@@ -17,7 +17,7 @@ trait UploaderTrait
 {
     public static string $default = 'application/octet-stream';
 
-    public function provideGetMimeTypeFromExtensionListData(): Generator
+    public static function provideGetMimeTypeFromExtensionListData(): Generator
     {
         yield 'string exists' => [
             [
@@ -45,7 +45,7 @@ trait UploaderTrait
         ];
     }
 
-    public function provideGetDataMaxSizeData(): Generator
+    public static function provideGetDataMaxSizeData(): Generator
     {
         yield 'larger post max size' => [
             '1M',
@@ -63,7 +63,7 @@ trait UploaderTrait
         ];
     }
 
-    public function provideGetDataMaxSizeInBytesData(): Generator
+    public static function provideGetDataMaxSizeInBytesData(): Generator
     {
         yield 'no unit' => [
             1024,

@@ -255,6 +255,7 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
      * @param  bool  $logQuery
      * @return $this
      */
+    #[Override]
     public function loadData($printQuery = false, $logQuery = false)
     {
         if ($this->isLoaded()) {
@@ -326,7 +327,7 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
 
         // sort (keys are lost!)
         if (!empty($this->_orders)) {
-            usort($this->$attributeName, [$this, '_usort']);
+            usort($this->$attributeName, $this->_usort(...));
         }
     }
 
@@ -354,6 +355,7 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
      *
      * @inheritDoc
      */
+    #[Override]
     public function setOrder($field, $dir = self::SORT_ORDER_DESC)
     {
         $this->_orders = [$field => $dir];
@@ -470,78 +472,78 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
 
         // simply check whether equals
         if (!is_array($cond)) {
-            return $this->addCallbackFilter($field, $cond, $type, [$this, 'filterCallbackEq']);
+            return $this->addCallbackFilter($field, $cond, $type, $this->filterCallbackEq(...));
         }
 
         // versatile filters
         if (isset($cond['from']) || isset($cond['to'])) {
             $this->_addFilterBracket('(', 'and' === $type);
             if (isset($cond['from'])) {
-                $this->addCallbackFilter($field, $cond['from'], 'and', [$this, 'filterCallbackIsLessThan'], $inverted);
+                $this->addCallbackFilter($field, $cond['from'], 'and', $this->filterCallbackIsLessThan(...), $inverted);
             }
 
             if (isset($cond['to'])) {
-                $this->addCallbackFilter($field, $cond['to'], 'and', [$this, 'filterCallbackIsMoreThan'], $inverted);
+                $this->addCallbackFilter($field, $cond['to'], 'and', $this->filterCallbackIsMoreThan(...), $inverted);
             }
 
             return $this->_addFilterBracket(')');
         }
 
         if (isset($cond['eq'])) {
-            return $this->addCallbackFilter($field, $cond['eq'], $type, [$this, 'filterCallbackEq']);
+            return $this->addCallbackFilter($field, $cond['eq'], $type, $this->filterCallbackEq(...));
         }
 
         if (isset($cond['neq'])) {
-            return $this->addCallbackFilter($field, $cond['neq'], $type, [$this, 'filterCallbackEq'], $inverted);
+            return $this->addCallbackFilter($field, $cond['neq'], $type, $this->filterCallbackEq(...), $inverted);
         }
 
         if (isset($cond['like'])) {
-            return $this->addCallbackFilter($field, $cond['like'], $type, [$this, 'filterCallbackLike']);
+            return $this->addCallbackFilter($field, $cond['like'], $type, $this->filterCallbackLike(...));
         }
 
         if (isset($cond['nlike'])) {
-            return $this->addCallbackFilter($field, $cond['nlike'], $type, [$this, 'filterCallbackLike'], $inverted);
+            return $this->addCallbackFilter($field, $cond['nlike'], $type, $this->filterCallbackLike(...), $inverted);
         }
 
         if (isset($cond['in'])) {
-            return $this->addCallbackFilter($field, $cond['in'], $type, [$this, 'filterCallbackInArray']);
+            return $this->addCallbackFilter($field, $cond['in'], $type, $this->filterCallbackInArray(...));
         }
 
         if (isset($cond['nin'])) {
-            return $this->addCallbackFilter($field, $cond['nin'], $type, [$this, 'filterCallbackInArray'], $inverted);
+            return $this->addCallbackFilter($field, $cond['nin'], $type, $this->filterCallbackInArray(...), $inverted);
         }
 
         if (isset($cond['notnull'])) {
-            return $this->addCallbackFilter($field, $cond['notnull'], $type, [$this, 'filterCallbackIsNull'], $inverted);
+            return $this->addCallbackFilter($field, $cond['notnull'], $type, $this->filterCallbackIsNull(...), $inverted);
         }
 
         if (isset($cond['null'])) {
-            return $this->addCallbackFilter($field, $cond['null'], $type, [$this, 'filterCallbackIsNull']);
+            return $this->addCallbackFilter($field, $cond['null'], $type, $this->filterCallbackIsNull(...));
         }
 
         if (isset($cond['moreq'])) {
-            return $this->addCallbackFilter($field, $cond['moreq'], $type, [$this, 'filterCallbackIsLessThan'], $inverted);
+            return $this->addCallbackFilter($field, $cond['moreq'], $type, $this->filterCallbackIsLessThan(...), $inverted);
         }
 
         if (isset($cond['gt'])) {
-            return $this->addCallbackFilter($field, $cond['gt'], $type, [$this, 'filterCallbackIsMoreThan']);
+            return $this->addCallbackFilter($field, $cond['gt'], $type, $this->filterCallbackIsMoreThan(...));
         }
 
         if (isset($cond['lt'])) {
-            return $this->addCallbackFilter($field, $cond['lt'], $type, [$this, 'filterCallbackIsLessThan']);
+            return $this->addCallbackFilter($field, $cond['lt'], $type, $this->filterCallbackIsLessThan(...));
         }
 
         if (isset($cond['gteq'])) {
-            return $this->addCallbackFilter($field, $cond['gteq'], $type, [$this, 'filterCallbackIsLessThan'], $inverted);
+            return $this->addCallbackFilter($field, $cond['gteq'], $type, $this->filterCallbackIsLessThan(...), $inverted);
         }
 
         if (isset($cond['lteq'])) {
-            return $this->addCallbackFilter($field, $cond['lteq'], $type, [$this, 'filterCallbackIsMoreThan'], $inverted);
+            return $this->addCallbackFilter($field, $cond['lteq'], $type, $this->filterCallbackIsMoreThan(...), $inverted);
         }
 
         if (isset($cond['finset'])) {
             $filterValue = ($cond['finset'] ? explode(',', $cond['finset']) : []);
-            return $this->addCallbackFilter($field, $filterValue, $type, [$this, 'filterCallbackInArray']);
+            return $this->addCallbackFilter($field, $filterValue, $type, $this->filterCallbackInArray(...));
         }
 
         // add OR recursively
@@ -605,6 +607,7 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
      * @param  string       $type  and|or|string
      * @return $this
      */
+    #[Override]
     public function addFilter($field, $value, $type = 'and')
     {
         return $this;
@@ -615,6 +618,7 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
      *
      * @return array
      */
+    #[Override]
     public function getAllIds()
     {
         return array_keys($this->_items);

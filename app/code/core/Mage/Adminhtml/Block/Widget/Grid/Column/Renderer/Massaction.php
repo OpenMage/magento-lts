@@ -21,6 +21,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Massaction extends Mage_A
      *
      * @return string
      */
+    #[Override]
     public function renderHeader()
     {
         return '&nbsp;';
@@ -31,6 +32,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Massaction extends Mage_A
      *
      * @return string
      */
+    #[Override]
     public function renderProperty()
     {
         $out = parent::renderProperty();
@@ -43,6 +45,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Massaction extends Mage_A
      *
      * @return string
      */
+    #[Override]
     public function render(Varien_Object $row)
     {
         if ($this->getColumn()->getGrid()->getMassactionIdFieldOnlyIndexValue()) {
@@ -59,6 +62,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Massaction extends Mage_A
      * @param  string $checked
      * @return string
      */
+    #[Override]
     protected function _getCheckboxHtml($value, $checked)
     {
         $html = '<input type="checkbox" name="' . $this->getColumn()->getName() . '" ';

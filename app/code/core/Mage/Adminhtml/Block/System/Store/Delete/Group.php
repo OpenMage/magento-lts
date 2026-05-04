@@ -18,6 +18,7 @@ class Mage_Adminhtml_Block_System_Store_Delete_Group extends Mage_Adminhtml_Bloc
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareLayout()
     {
         $itemId = $this->getRequest()->getParam('group_id');

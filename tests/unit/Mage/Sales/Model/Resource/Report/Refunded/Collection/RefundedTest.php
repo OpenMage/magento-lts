@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Sales\Model\Resource\Report\Refunded\Collecti
 
 // use Mage;
 // use Mage_Sales_Model_Resource_Report_Refunded_Collection_Refunded as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sales\Model\Resource\Report\Refunded\Collection\RefundedTrait;
 
@@ -22,6 +23,7 @@ final class RefundedTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

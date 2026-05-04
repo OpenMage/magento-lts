@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Core\Model\Email\Template;
 
 // use Mage;
 // use Mage_Core_Model_Email_Template_Filter as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\Model\Email\Template\FilterTrait;
 
@@ -22,6 +23,7 @@ final class FilterTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

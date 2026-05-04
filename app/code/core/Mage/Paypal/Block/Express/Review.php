@@ -189,6 +189,7 @@ class Mage_Paypal_Block_Express_Review extends Mage_Core_Block_Template
      *
      * @return $this
      */
+    #[Override]
     protected function _beforeToHtml()
     {
         $methodInstance = $this->_quote->getPayment()->getMethodInstance();

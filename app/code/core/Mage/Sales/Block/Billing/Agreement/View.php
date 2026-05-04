@@ -108,6 +108,7 @@ class Mage_Sales_Block_Billing_Agreement_View extends Mage_Core_Block_Template
      *
      * @return $this
      */
+    #[Override]
     protected function _prepareLayout()
     {
         if (is_null($this->_billingAgreementInstance)) {
@@ -147,6 +148,7 @@ class Mage_Sales_Block_Billing_Agreement_View extends Mage_Core_Block_Template
      *
      * @return string
      */
+    #[Override]
     protected function _toHtml()
     {
         $this->_loadPaymentMethods();

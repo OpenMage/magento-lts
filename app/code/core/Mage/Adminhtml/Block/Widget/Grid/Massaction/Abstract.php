@@ -308,6 +308,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
     /**
      * @return string
      */
+    #[Override]
     public function getHtmlId()
     {
         return $this->getParentBlock()->getHtmlId() . '_massaction';

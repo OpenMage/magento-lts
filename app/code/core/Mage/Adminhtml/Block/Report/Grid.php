@@ -69,6 +69,7 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
     /**
      * @return $this
      */
+    #[Override]
     protected function _prepareLayout()
     {
         $this->setChild(
@@ -95,6 +96,7 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareColumns()
     {
         foreach ($this->_columns as $_column) {
@@ -108,6 +110,7 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
      * @return $this
      * @throws Exception
      */
+    #[Override]
     protected function _prepareCollection()
     {
         $filter = $this->getParam($this->getVarNameFilter());
@@ -202,6 +205,7 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
      * @param  array $data
      * @return $this
      */
+    #[Override]
     protected function _setFilterValues($data)
     {
         foreach (array_keys($data) as $name) {
@@ -370,6 +374,7 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
      * @return $this
      * @throws Exception
      */
+    #[Override]
     public function addExportType($url, $label)
     {
         $this->_exportTypes[] = new Varien_Object(
@@ -453,6 +458,7 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
      * @throws Exception
      * @throws Zend_Date_Exception
      */
+    #[Override]
     public function getCsv()
     {
         $csv = '';
@@ -521,6 +527,7 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
      * @throws Exception
      * @throws Zend_Date_Exception
      */
+    #[Override]
     public function getExcel($filename = '')
     {
         $this->_prepareGrid();
@@ -600,6 +607,7 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
     /**
      * @return string
      */
+    #[Override]
     public function getEmptyText()
     {
         return $this->__('No records found for this period.');
@@ -608,6 +616,7 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
     /**
      * @return bool
      */
+    #[Override]
     public function getCountTotals()
     {
         $totals = $this->getGrandTotals()->getData();

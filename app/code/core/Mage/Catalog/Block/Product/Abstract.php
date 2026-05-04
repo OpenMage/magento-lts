@@ -651,6 +651,7 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
      *
      * @return $this
      */
+    #[Override]
     protected function _prepareLayout()
     {
         parent::_prepareLayout();

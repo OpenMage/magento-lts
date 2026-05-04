@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Log\Model\Resource;
 
 // use Mage;
 // use Mage_Log_Model_Resource_Log as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Log\Model\Resource\LogTrait;
 
@@ -22,6 +23,7 @@ final class LogTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

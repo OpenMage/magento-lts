@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Catalog\Helper\Form;
 
 // use Mage_Adminhtml_Block_Catalog_Helper_Form_Wysiwyg as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\Catalog\Helper\Form\WysiwygTrait;
 
@@ -21,6 +22,7 @@ final class WysiwygTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

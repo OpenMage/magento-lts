@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Authorizenet\Helper;
 
 // use Mage;
 // use Mage_Authorizenet_Helper_Admin as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Authorizenet\Helper\AdminTrait;
 
@@ -22,6 +23,7 @@ final class AdminTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

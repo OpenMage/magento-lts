@@ -48,6 +48,7 @@ class Mage_Sales_Model_Resource_Order_Shipment_Collection extends Mage_Sales_Mod
      *
      * @return $this
      */
+    #[Override]
     protected function _afterLoad()
     {
         $this->walk('afterLoad');

@@ -27,6 +27,7 @@ class Mage_Tax_Model_Resource_Calculation_Rule extends Mage_Core_Model_Resource_
      *
      * @return $this
      */
+    #[Override]
     protected function _initUniqueFields()
     {
         $this->_uniqueFields = [[

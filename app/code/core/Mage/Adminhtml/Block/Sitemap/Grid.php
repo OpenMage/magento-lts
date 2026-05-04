@@ -26,6 +26,7 @@ class Mage_Adminhtml_Block_Sitemap_Grid extends Mage_Adminhtml_Block_Widget_Grid
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareCollection()
     {
         /** @var Mage_Sitemap_Model_Resource_Sitemap_Collection $collection */
@@ -38,6 +39,7 @@ class Mage_Adminhtml_Block_Sitemap_Grid extends Mage_Adminhtml_Block_Widget_Grid
      * @inheritDoc
      * @throws Exception
      */
+    #[Override]
     protected function _prepareColumns()
     {
         $this->addColumn('sitemap_id', [
@@ -88,6 +90,7 @@ class Mage_Adminhtml_Block_Sitemap_Grid extends Mage_Adminhtml_Block_Widget_Grid
      * @param  Mage_Sitemap_Model_Sitemap $row
      * @throws Mage_Core_Exception
      */
+    #[Override]
     public function getRowUrl($row)
     {
         return $this->getUrl('*/*/edit', ['sitemap_id' => $row->getId()]);

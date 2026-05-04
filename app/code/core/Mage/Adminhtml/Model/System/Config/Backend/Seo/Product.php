@@ -19,6 +19,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Seo_Product extends Mage_Core_M
      *
      * @return $this
      */
+    #[Override]
     protected function _afterSave()
     {
         return $this;

@@ -16,6 +16,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Baseurl extends Mage_Core_Model
      * @return $this
      * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _beforeSave()
     {
         $value = str_replace(' ', '', $this->getValue());
@@ -50,6 +51,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Baseurl extends Mage_Core_Model
     /**
      * Clean compiled JS/CSS when updating url configuration settings
      */
+    #[Override]
     protected function _afterSave()
     {
         if ($this->isValueChanged()) {
@@ -62,6 +64,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Baseurl extends Mage_Core_Model
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _afterLoad()
     {
         $value = $this->getValue();

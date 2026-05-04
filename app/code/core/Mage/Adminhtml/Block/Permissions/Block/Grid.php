@@ -28,6 +28,7 @@ class Mage_Adminhtml_Block_Permissions_Block_Grid extends Mage_Adminhtml_Block_W
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareCollection()
     {
         $collection = Mage::getResourceModel('admin/block_collection');
@@ -39,6 +40,7 @@ class Mage_Adminhtml_Block_Permissions_Block_Grid extends Mage_Adminhtml_Block_W
      * @inheritDoc
      * @throws Exception
      */
+    #[Override]
     protected function _prepareColumns()
     {
         $this->addColumn('block_id', [
@@ -68,6 +70,7 @@ class Mage_Adminhtml_Block_Permissions_Block_Grid extends Mage_Adminhtml_Block_W
      * @param  Mage_Admin_Model_Block $row
      * @throws Mage_Core_Exception
      */
+    #[Override]
     public function getRowUrl($row)
     {
         return $this->getUrl('*/*/edit', ['block_id' => $row->getId()]);
@@ -76,6 +79,7 @@ class Mage_Adminhtml_Block_Permissions_Block_Grid extends Mage_Adminhtml_Block_W
     /**
      * @return string
      */
+    #[Override]
     public function getGridUrl()
     {
         return $this->getUrl('*/*/blockGrid', []);

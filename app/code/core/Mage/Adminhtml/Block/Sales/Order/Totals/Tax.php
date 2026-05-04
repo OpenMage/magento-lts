@@ -64,6 +64,7 @@ class Mage_Adminhtml_Block_Sales_Order_Totals_Tax extends Mage_Tax_Block_Sales_O
      *
      * @return Mage_Core_Model_Store
      */
+    #[Override]
     public function getStore()
     {
         return Mage::app()->getStore();

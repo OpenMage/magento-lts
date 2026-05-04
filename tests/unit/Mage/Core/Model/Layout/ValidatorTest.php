@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Core\Model\Layout;
 
+use Override;
 use Generator;
 use Mage;
 use Mage_Core_Model_Layout_Validator as Subject;
@@ -23,6 +24,7 @@ final class ValidatorTest extends OpenMageTest
 
     private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

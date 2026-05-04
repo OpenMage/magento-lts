@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Sales\Model\Entity\Quote\Address\Attribute;
 
 // use Mage;
 // use Mage_Sales_Model_Entity_Quote_Address_Attribute_Frontend as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sales\Model\Entity\Quote\Address\Attribute\FrontendTrait;
 
@@ -22,6 +23,7 @@ final class FrontendTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

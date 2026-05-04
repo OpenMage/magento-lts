@@ -27,6 +27,7 @@ class Varien_Event_Observer_Cron extends Varien_Event_Observer
      *
      * @return bool
      */
+    #[Override]
     public function isValidFor(Varien_Event $event)
     {
         $expressions = preg_split('#\s+#', $this->getCronExpr(), -1, PREG_SPLIT_NO_EMPTY);

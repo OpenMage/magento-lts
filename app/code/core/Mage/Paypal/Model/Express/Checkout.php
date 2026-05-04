@@ -7,8 +7,6 @@
  * @package    Mage_Paypal
  */
 
-use Carbon\Carbon;
-
 /**
  * Wrapper that performs Paypal Express and Checkout communication
  * Use current Paypal Express method instance
@@ -903,7 +901,7 @@ class Mage_Paypal_Model_Express_Checkout
 
         // Magento will transfer only first 10 cheapest shipping options if there are more than 10 available.
         if (count($options) > 10) {
-            usort($options, [static::class,'cmpShippingOptions']);
+            usort($options, static::cmpShippingOptions(...));
             array_splice($options, 10);
             // User selected option will be always included in options list
             if (!is_null($userSelectedOption) && !in_array($userSelectedOption, $options, true)) {
@@ -1040,7 +1038,7 @@ class Mage_Paypal_Model_Express_Checkout
         $customer->setSuffix($quote->getCustomerSuffix());
         $customer->setPassword($customer->decryptPassword($quote->getPasswordHash()));
         $customer->setPasswordHash($customer->hashPassword($customer->getPassword()));
-        $customer->setPasswordCreatedAt(Carbon::now()->getTimestamp());
+        $customer->setPasswordCreatedAt(Mage::helper('core/clock')->getTimestamp());
         $customer->save();
 
         $quote->setCustomer($customer);

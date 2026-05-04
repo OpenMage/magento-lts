@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Rule\Model\Resource\Rule\Condition;
 
 // use Mage;
 // use Mage_Rule_Model_Resource_Rule_Condition_SqlBuilder as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Rule\Model\Resource\Rule\Condition\SqlBuilderTrait;
 
@@ -22,6 +23,7 @@ final class SqlBuilderTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

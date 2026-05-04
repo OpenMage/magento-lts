@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Rss\Model\System\Config\Backend;
 
 // use Mage;
 // use Mage_Rss_Model_System_Config_Backend_Links as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Rss\Model\System\Config\Backend\LinksTrait;
 
@@ -22,6 +23,7 @@ final class LinksTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

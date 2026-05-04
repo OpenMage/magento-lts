@@ -39,6 +39,7 @@ class Mage_Adminhtml_Helper_Media_Js extends Mage_Core_Helper_Js
      *
      * @return string
      */
+    #[Override]
     public function getTranslatorScript()
     {
         $script = "if (typeof(Translator) == 'undefined') {"

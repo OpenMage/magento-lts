@@ -19,6 +19,7 @@ class Mage_Sales_Model_Api2_Order_Address_Rest_Customer_V1 extends Mage_Sales_Mo
      *
      * @return Mage_Sales_Model_Resource_Order_Address_Collection
      */
+    #[Override]
     protected function _getCollectionForRetrieve()
     {
         $collection = parent::_getCollectionForRetrieve();

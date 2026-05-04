@@ -84,6 +84,7 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
      *
      * @inheritDoc
      */
+    #[Override]
     protected function _afterLoad(Mage_Core_Model_Abstract $object)
     {
         $object->setData('customer_group_ids', (array) $this->getCustomerGroupIds($object->getId()));
@@ -98,6 +99,7 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
      *
      * @return $this
      */
+    #[Override]
     protected function _afterSave(Mage_Core_Model_Abstract $object)
     {
         if ($object->hasWebsiteIds()) {
@@ -183,7 +185,7 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
         $toTime = (int) Mage::getModel('core/date')->gmtTimestamp(Carbon::parse((string) $rule->getToDate())->getTimestamp());
         $toTime = $toTime ? ($toTime + self::SECONDS_IN_DAY - 1) : 0;
 
-        $timestamp = Carbon::now()->getTimestamp();
+        $timestamp = Mage::helper('core/clock')->getTimestamp();
         if ($fromTime > $timestamp
             || ($toTime && $toTime < $timestamp)
         ) {

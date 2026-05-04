@@ -23,6 +23,7 @@ class Mage_CatalogRule_Model_Rule_Condition_Combine extends Mage_Rule_Model_Cond
     /**
      * @return array
      */
+    #[Override]
     public function getNewChildSelectOptions()
     {
         $productCondition = Mage::getModel('catalogrule/rule_condition_product');

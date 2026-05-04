@@ -19,7 +19,7 @@ trait CmsTrait
 {
     public static string $testString = '0123456789';
 
-    public function provideGetUsedInStoreConfigPaths(): Generator
+    public static function provideGetUsedInStoreConfigPaths(): Generator
     {
         $default = [
             0 => Mage_Cms_Helper_Page::XML_PATH_NO_ROUTE_PAGE,
@@ -47,7 +47,7 @@ trait CmsTrait
         ];
     }
 
-    public function provideGetConfigLabelFromConfigPath(): Generator
+    public static function provideGetConfigLabelFromConfigPath(): Generator
     {
         yield 'home page' => [
             'Home Page',
@@ -65,7 +65,7 @@ trait CmsTrait
         ];
     }
 
-    public function provideGetScopeInfoFromConfigScope(): Generator
+    public static function provideGetScopeInfoFromConfigScope(): Generator
     {
         yield 'default' => [
             'Default Config',
@@ -86,21 +86,21 @@ trait CmsTrait
         ];
     }
 
-    public function provideGetShortFilename(): Generator
+    public static function provideGetShortFilename(): Generator
     {
         yield 'full length' => [
             '0123456789',
-            $this->getTestString(),
+            static::getTestString(),
             20,
         ];
         yield 'truncated' => [
             '01234...',
-            $this->getTestString(),
+            static::getTestString(),
             5,
         ];
     }
 
-    public function getTestString(): string
+    public static function getTestString(): string
     {
         return static::$testString;
     }

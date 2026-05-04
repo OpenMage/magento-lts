@@ -17,6 +17,7 @@ class Mage_Core_Block_Flush extends Mage_Core_Block_Abstract
     /**
      * @return string
      */
+    #[Override]
     protected function _toHtml()
     {
         if (!$this->_beforeToHtml()) {

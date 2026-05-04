@@ -72,6 +72,7 @@ class Mage_Api_Model_Wsdl_Config_Base extends Varien_Simplexml_Config
      * @param  string $text
      * @return string
      */
+    #[Override]
     public function processFileData($text)
     {
         /** @var Mage_Core_Model_Email_Template_Filter $template */
@@ -101,6 +102,7 @@ class Mage_Api_Model_Wsdl_Config_Base extends Varien_Simplexml_Config
      * @param  string      $file
      * @return $this|false
      */
+    #[Override]
     public function loadFile($file)
     {
         if (in_array($file, $this->_loadedFiles)) {

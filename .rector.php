@@ -62,6 +62,7 @@ try {
         ])
         ->withSkipPath(__DIR__ . '/vendor')
         ->withRules([
+            Php83\ClassMethod\AddOverrideAttributeToOverriddenMethodsRector::class,
             Php85\ArrayDimFetch\ArrayFirstLastRector::class,
         ])
         ->withRules(Migration\TypeDeclarationDocblocks::getRules())
@@ -84,6 +85,7 @@ try {
         ->withConfiguredRule(Renaming\MethodCall\RenameMethodRector::class, Migration\Mage\Usa::renameMethod())
         ->withConfiguredRule(Renaming\MethodCall\RenameMethodRector::class, Migration\Mage\Wishlist::renameMethod())
         ->withConfiguredRule(Renaming\MethodCall\RenameMethodRector::class, Migration\Zend\Acl::renameMethod())
+        ->withConfiguredRule(Renaming\MethodCall\RenameMethodRector::class, Migration\Zend\Captcha::renameMethod())
         ->withConfiguredRule(ReplaceArgumentDefaultValueRector::class, Migration\Mage\Adminhtml::replaceArgumentDefaultValue())
         # skip: do not apply
         ->withSkip([
@@ -171,10 +173,13 @@ try {
             # ... needs closer review
             TypeDeclaration\BooleanAnd\BinaryOpNullableToInstanceofRector::class,
         ])
-        # WIP
+        # wait for rector support
         ->withSkip([
-            # https://github.com/OpenMage/magento-lts/pull/5434
-            Php81\Array_\ArrayToFirstClassCallableRector::class,
+            # https://github.com/rectorphp/rector/issues/9743
+            Php81\Array_\ArrayToFirstClassCallableRector::class => [
+                __DIR__ . '/app/code/core/Mage/Paypal/Model/Api/Abstract.php',
+                __DIR__ . '/app/code/core/Mage/Paypal/Model/Info.php',
+            ],
         ])
         ->withSkip([
             # skip: use static methods

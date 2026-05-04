@@ -32,6 +32,7 @@ class Varien_Data_Form_Element_Image extends Varien_Data_Form_Element_Abstract
      *
      * @return string
      */
+    #[Override]
     public function getElementHtml()
     {
         $html = '';
@@ -105,6 +106,7 @@ class Varien_Data_Form_Element_Image extends Varien_Data_Form_Element_Abstract
      *
      * @return string
      */
+    #[Override]
     public function getName()
     {
         return  $this->getDataByKey('name');

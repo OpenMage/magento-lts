@@ -23,6 +23,7 @@ class Mage_Catalog_Block_Layer_Filter_Attribute extends Mage_Catalog_Block_Layer
     /**
      * @return $this
      */
+    #[Override]
     protected function _prepareFilter()
     {
         $this->_filter->setAttributeModel($this->getAttributeModel());

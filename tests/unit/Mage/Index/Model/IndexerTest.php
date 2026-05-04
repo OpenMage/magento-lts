@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Index\Model;
 
+use Override;
 use Mage;
 use Mage_Index_Model_Event;
 use Mage_Index_Model_Indexer as Subject;
@@ -21,6 +22,7 @@ final class IndexerTest extends OpenMageTest
 {
     private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

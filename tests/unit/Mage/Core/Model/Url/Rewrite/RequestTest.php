@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Core\Model\Url\Rewrite;
 
 // use Mage;
 // use Mage_Core_Model_Url_Rewrite_Request as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\Model\Url\Rewrite\RequestTrait;
 
@@ -22,6 +23,7 @@ final class RequestTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Api2\Block\Adminhtml\Roles\Tab;
 
 // use Mage_Api2_Block_Adminhtml_Roles_Tab_Users as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Api2\Block\Adminhtml\Roles\Tab\UsersTrait;
 
@@ -21,6 +22,7 @@ final class UsersTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

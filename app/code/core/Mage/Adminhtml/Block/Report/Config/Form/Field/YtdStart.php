@@ -14,6 +14,7 @@
  */
 class Mage_Adminhtml_Block_Report_Config_Form_Field_YtdStart extends Mage_Adminhtml_Block_System_Config_Form_Field
 {
+    #[Override]
     protected function _getElementHtml(Varien_Data_Form_Element_Abstract $element)
     {
         $_months = [];

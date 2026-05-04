@@ -29,7 +29,7 @@ trait LinkTrait
         'title' => 'title is set',
     ];
 
-    public function provideGetHrefData(): Generator
+    public static function provideGetHrefData(): Generator
     {
         $emptyData = [
             'href'    => null,
@@ -61,7 +61,7 @@ trait LinkTrait
         ];
     }
 
-    public function provideGetTitleData(): Generator
+    public static function provideGetTitleData(): Generator
     {
         $emptyData = [
             'href'    => null,
@@ -101,7 +101,7 @@ trait LinkTrait
         ];
     }
 
-    public function provideGetAnchorTextData(): Generator
+    public static function provideGetAnchorTextData(): Generator
     {
         $emptyData = [
             'href'    => null,

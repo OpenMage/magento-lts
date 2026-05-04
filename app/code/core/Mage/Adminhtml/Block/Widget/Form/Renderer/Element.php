@@ -21,6 +21,7 @@ class Mage_Adminhtml_Block_Widget_Form_Renderer_Element extends Mage_Adminhtml_B
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _construct()
     {
         $this->setTemplate('widget/form/renderer/element.phtml');

@@ -17,6 +17,7 @@ class Mage_Adminhtml_Block_Page_Head extends Mage_Page_Block_Html_Head
     /**
      * @return string
      */
+    #[Override]
     protected function _getUrlModelClass()
     {
         return 'adminhtml/url';
@@ -27,6 +28,7 @@ class Mage_Adminhtml_Block_Page_Head extends Mage_Page_Block_Html_Head
      *
      * @return string
      */
+    #[Override]
     public function getFormKey()
     {
         return Mage::getSingleton('core/session')->getFormKey();

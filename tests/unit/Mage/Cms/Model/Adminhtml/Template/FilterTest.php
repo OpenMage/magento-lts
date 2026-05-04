@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Cms\Model\Adminhtml\Template;
 
 // use Mage;
 // use Mage_Cms_Model_Adminhtml_Template_Filter as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Cms\Model\Adminhtml\Template\FilterTrait;
 
@@ -22,6 +23,7 @@ final class FilterTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

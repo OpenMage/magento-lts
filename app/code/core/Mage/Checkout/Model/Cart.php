@@ -229,7 +229,7 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
      *
      * @param  int|Mage_Catalog_Model_Product $productInfo
      * @param  mixed                          $requestInfo
-     * @return Mage_Checkout_Model_Cart
+     * @return $this
      * @throws Mage_Core_Exception
      */
     public function addProduct($productInfo, $requestInfo = null)
@@ -295,8 +295,8 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
     /**
      * Adding products to cart by ids
      *
-     * @param  array                    $productIds
-     * @return Mage_Checkout_Model_Cart
+     * @param  array               $productIds
+     * @return $this
      * @throws Mage_Core_Exception
      */
     public function addProductsByIds($productIds)
@@ -387,8 +387,8 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
     /**
      * Update cart items information
      *
-     * @param  array                    $data
-     * @return Mage_Checkout_Model_Cart
+     * @param  array               $data
+     * @return $this
      * @throws Mage_Core_Exception
      */
     public function updateItems($data)
@@ -440,8 +440,8 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
     /**
      * Remove item from cart
      *
-     * @param  int                      $itemId
-     * @return Mage_Checkout_Model_Cart
+     * @param  int                 $itemId
+     * @return $this
      * @throws Mage_Core_Exception
      */
     public function removeItem($itemId)

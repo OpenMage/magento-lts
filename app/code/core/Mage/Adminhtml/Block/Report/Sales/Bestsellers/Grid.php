@@ -25,6 +25,7 @@ class Mage_Adminhtml_Block_Report_Sales_Bestsellers_Grid extends Mage_Adminhtml_
     /**
      * @inheritDoc
      */
+    #[Override]
     public function getResourceCollectionName()
     {
         return 'sales/report_bestsellers_collection';
@@ -33,6 +34,7 @@ class Mage_Adminhtml_Block_Report_Sales_Bestsellers_Grid extends Mage_Adminhtml_
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareColumns()
     {
         $this->addColumn('period', [

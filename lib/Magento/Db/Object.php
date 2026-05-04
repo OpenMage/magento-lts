@@ -83,7 +83,7 @@ abstract class Magento_Db_Object
     /**
      * Drop database object
      *
-     * @return Magento_Db_Object
+     * @return $this
      */
     public function drop()
     {

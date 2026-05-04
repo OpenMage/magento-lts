@@ -136,6 +136,7 @@ class Mage_CatalogIndex_Model_Indexer_Minimalprice extends Mage_CatalogIndex_Mod
     /**
      * @return bool
      */
+    #[Override]
     public function isAttributeIdUsed()
     {
         return false;
@@ -144,6 +145,7 @@ class Mage_CatalogIndex_Model_Indexer_Minimalprice extends Mage_CatalogIndex_Mod
     /**
      * @return bool
      */
+    #[Override]
     protected function _isAttributeIndexable(Mage_Eav_Model_Entity_Attribute_Abstract $attribute)
     {
         return $attribute->getAttributeCode() == 'minimal_price';

@@ -37,6 +37,7 @@ class Varien_Http_Client extends Zend_Http_Client
         return $this;
     }
 
+    #[Override]
     public function request($method = null)
     {
         $this->_trySetCurlAdapter();
@@ -46,8 +47,8 @@ class Varien_Http_Client extends Zend_Http_Client
     /**
      * Change value of internal flag to disable/enable custom prepare functionality
      *
-     * @param  bool               $flag
-     * @return Varien_Http_Client
+     * @param  bool  $flag
+     * @return $this
      */
     public function setUrlEncodeBody($flag)
     {
@@ -61,6 +62,7 @@ class Varien_Http_Client extends Zend_Http_Client
      *
      * @return string
      */
+    #[Override]
     protected function _prepareBody()
     {
         $body = parent::_prepareBody();

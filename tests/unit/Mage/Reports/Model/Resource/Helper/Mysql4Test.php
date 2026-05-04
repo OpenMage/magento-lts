@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Reports\Model\Resource\Helper;
 
 // use Mage;
 // use Mage_Reports_Model_Resource_Helper_Mysql4 as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Reports\Model\Resource\Helper\Mysql4Trait;
 
@@ -22,6 +23,7 @@ final class Mysql4Test extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

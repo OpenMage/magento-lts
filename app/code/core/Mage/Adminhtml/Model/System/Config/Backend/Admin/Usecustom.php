@@ -19,6 +19,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Admin_Usecustom extends Mage_Co
      *
      * @return $this
      */
+    #[Override]
     protected function _beforeSave()
     {
         $value = $this->getValue();
@@ -37,6 +38,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Admin_Usecustom extends Mage_Co
      *
      * @return $this
      */
+    #[Override]
     protected function _afterSave()
     {
         $value = $this->getValue();

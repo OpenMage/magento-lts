@@ -18,21 +18,21 @@ use Mage_Core_Model_Website;
 
 trait AppTrait
 {
-    public function provideGetStoreData(): Generator
+    public static function provideGetStoreData(): Generator
     {
         yield 'Mage_Core_Model_Store' => [
             new Mage_Core_Model_Store(),
         ];
     }
 
-    public function provideGetWebsiteData(): Generator
+    public static function provideGetWebsiteData(): Generator
     {
         yield 'Mage_Core_Model_Website' => [
             new Mage_Core_Model_Website(),
         ];
     }
 
-    public function provideGetGroupData(): Generator
+    public static function provideGetGroupData(): Generator
     {
         yield 'Mage_Core_Model_Store_Group' => [
             new Mage_Core_Model_Store_Group(),

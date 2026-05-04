@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Paypal\Helper;
 
 // use Mage;
 // use Mage_Paypal_Helper_Checkout as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Paypal\Helper\CheckoutTrait;
 
@@ -22,6 +23,7 @@ final class CheckoutTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

@@ -162,6 +162,7 @@ class Varien_Directory_Collection extends Varien_Data_Collection implements IFac
      * @param  IFactory $item - item of collection
      * @return void
      */
+    #[Override]
     public function addItem(IFactory $item)
     {
         $this->_items[] = $item;
@@ -321,6 +322,7 @@ class Varien_Directory_Collection extends Varien_Data_Collection implements IFac
      * @param  array &$arr - this collection array
      * @return void
      */
+    #[Override]
     public function toArray(&$arr)
     {
         if ($this->getRecursionLevel() > 0) {
@@ -351,6 +353,7 @@ class Varien_Directory_Collection extends Varien_Data_Collection implements IFac
      * @param  string $rootName   - root element name
      * @return void
      */
+    #[Override]
     public function toXml(&$xml, $recursionLevel = 0, $addOpenTag = true, $rootName = 'Struct')
     {
         if ($recursionLevel == 0) {
@@ -375,6 +378,7 @@ class Varien_Directory_Collection extends Varien_Data_Collection implements IFac
      * apply filters
      * @return void
      */
+    #[Override]
     protected function _renderFilters()
     {
         $exts = [];
@@ -426,6 +430,7 @@ class Varien_Directory_Collection extends Varien_Data_Collection implements IFac
     /**
      * @inheritDoc
      */
+    #[Override]
     public function addFilter($field, $value, $type = 'and')
     {
         $filter = [];

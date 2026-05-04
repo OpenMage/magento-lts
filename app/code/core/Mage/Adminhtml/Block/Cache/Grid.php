@@ -30,6 +30,7 @@ class Mage_Adminhtml_Block_Cache_Grid extends Mage_Adminhtml_Block_Widget_Grid
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareCollection()
     {
         $collection = new Varien_Data_Collection();
@@ -45,6 +46,7 @@ class Mage_Adminhtml_Block_Cache_Grid extends Mage_Adminhtml_Block_Widget_Grid
      * @inheritDoc
      * @throws Exception
      */
+    #[Override]
     protected function _prepareColumns()
     {
         $this->addColumn('cache_type', [
@@ -77,7 +79,7 @@ class Mage_Adminhtml_Block_Cache_Grid extends Mage_Adminhtml_Block_Widget_Grid
             'index'     => 'status',
             'type'      => 'options',
             'options'   => [0 => $this->__('Disabled'), 1 => $this->__('Enabled')],
-            'frame_callback' => [$this, 'decorateStatus'],
+            'frame_callback' => $this->decorateStatus(...),
             'sortable'  => false,
         ]);
 
@@ -107,6 +109,7 @@ class Mage_Adminhtml_Block_Cache_Grid extends Mage_Adminhtml_Block_Widget_Grid
     /**
      * @inheritDoc
      */
+    #[Override]
     public function getRowUrl($row)
     {
         return '';
@@ -115,6 +118,7 @@ class Mage_Adminhtml_Block_Cache_Grid extends Mage_Adminhtml_Block_Widget_Grid
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareMassaction()
     {
         $this->setMassactionIdField('id');

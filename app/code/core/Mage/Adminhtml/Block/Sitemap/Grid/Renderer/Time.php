@@ -21,6 +21,7 @@ class Mage_Adminhtml_Block_Sitemap_Grid_Renderer_Time extends Mage_Adminhtml_Blo
      *
      * @return string
      */
+    #[Override]
     public function render(Varien_Object $row)
     {
         return Carbon::createFromTimestamp(Carbon::parse($row->getSitemapTime())->getTimestamp() + Mage::getSingleton('core/date')->getGmtOffset())->format(Varien_Date::DATETIME_PHP_FORMAT);

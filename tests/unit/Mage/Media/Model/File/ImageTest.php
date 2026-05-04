@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Media\Model\File;
 
 // use Mage;
 // use Mage_Media_Model_File_Image as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Media\Model\File\ImageTrait;
 
@@ -22,6 +23,7 @@ final class ImageTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

@@ -74,7 +74,7 @@ class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstr
             return $resultImages[$type];
         }
 
-        return (is_null($resultImages['swatch'])) ? $resultImages['standard'] : $resultImages['swatch'];
+        return $resultImages['swatch'] ?? $resultImages['standard'];
     }
 
     /**

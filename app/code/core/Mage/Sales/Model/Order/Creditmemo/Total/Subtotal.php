@@ -17,8 +17,9 @@ class Mage_Sales_Model_Order_Creditmemo_Total_Subtotal extends Mage_Sales_Model_
     /**
      * Collect Creditmemo subtotal
      *
-     * @return Mage_Sales_Model_Order_Creditmemo_Total_Subtotal
+     * @return $this
      */
+    #[Override]
     public function collect(Mage_Sales_Model_Order_Creditmemo $creditmemo)
     {
         $subtotal       = 0;

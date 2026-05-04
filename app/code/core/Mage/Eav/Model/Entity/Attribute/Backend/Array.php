@@ -20,6 +20,7 @@ class Mage_Eav_Model_Entity_Attribute_Backend_Array extends Mage_Eav_Model_Entit
      * @param  Varien_Object $object
      * @return $this
      */
+    #[Override]
     public function beforeSave($object)
     {
         $attributeCode = $this->getAttribute()->getAttributeCode();

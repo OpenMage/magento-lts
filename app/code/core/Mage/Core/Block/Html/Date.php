@@ -37,6 +37,7 @@ class Mage_Core_Block_Html_Date extends Mage_Core_Block_Template
     /**
      * @return string
      */
+    #[Override]
     protected function _toHtml()
     {
         $displayFormat = Varien_Date::convertZendToStrftime($this->getFormat(), true, (bool) $this->getTime());

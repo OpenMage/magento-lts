@@ -96,6 +96,7 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute_Collection
      *
      * @return $this
      */
+    #[Override]
     protected function _afterLoad()
     {
         parent::_afterLoad();

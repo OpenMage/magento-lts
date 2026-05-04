@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Downloadable\Helper;
 
 // use Mage;
 // use Mage_Downloadable_Helper_Download as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Downloadable\Helper\DownloadTrait;
 
@@ -22,6 +23,7 @@ final class DownloadTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

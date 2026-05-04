@@ -38,6 +38,7 @@ class Mage_Catalog_Block_Product_Price extends Mage_Catalog_Block_Product_Abstra
      *
      * @return Mage_Catalog_Model_Product
      */
+    #[Override]
     public function getProduct()
     {
         $product = $this->_getData('product');
@@ -87,6 +88,7 @@ class Mage_Catalog_Block_Product_Price extends Mage_Catalog_Block_Product_Abstra
      * @param  Mage_Catalog_Model_Product $parent
      * @return array
      */
+    #[Override]
     public function getTierPrices($product = null, $parent = null)
     {
         if (is_null($product)) {
@@ -165,6 +167,7 @@ class Mage_Catalog_Block_Product_Price extends Mage_Catalog_Block_Product_Abstra
      * @param  array                      $additional
      * @return string
      */
+    #[Override]
     public function getAddToCartUrl($product, $additional = [])
     {
         return $this->getAddToCartUrlCustom($product, $additional);
@@ -175,6 +178,7 @@ class Mage_Catalog_Block_Product_Price extends Mage_Catalog_Block_Product_Abstra
      *
      * @return string
      */
+    #[Override]
     protected function _toHtml()
     {
         if (!$this->getProduct() || $this->getProduct()->getCanShowPrice() === false) {
@@ -201,6 +205,7 @@ class Mage_Catalog_Block_Product_Price extends Mage_Catalog_Block_Product_Abstra
      *
      * @return array
      */
+    #[Override]
     public function getCacheTags()
     {
         return array_merge(parent::getCacheTags(), $this->getProduct()->getCacheIdTags());
@@ -227,6 +232,7 @@ class Mage_Catalog_Block_Product_Price extends Mage_Catalog_Block_Product_Abstra
      * @param  bool                       $addFormKey
      * @return string
      */
+    #[Override]
     public function getAddToCartUrlCustom($product, $additional = [], $addFormKey = true)
     {
         /** @var Mage_Checkout_Helper_Cart $helper */

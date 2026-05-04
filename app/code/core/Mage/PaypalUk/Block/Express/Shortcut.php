@@ -39,6 +39,7 @@ class Mage_PaypalUk_Block_Express_Shortcut extends Mage_Paypal_Block_Express_Sho
      * @param        $quote
      * @return $this
      */
+    #[Override]
     protected function _getBmlShortcut($quote)
     {
         $bml = Mage::helper('payment')->getMethodInstance(Mage_Paypal_Model_Config::METHOD_WPP_PE_BML);

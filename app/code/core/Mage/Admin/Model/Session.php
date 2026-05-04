@@ -100,6 +100,7 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
      * @return $this
      * @see self::login()
      */
+    #[Override]
     public function init($namespace, $sessionName = null)
     {
         parent::init($namespace, $sessionName);

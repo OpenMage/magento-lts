@@ -60,6 +60,7 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
      * @param  false|string $after
      * @return $this
      */
+    #[Override]
     public function addElement(Varien_Data_Form_Element_Abstract $element, $after = false)
     {
         if ($this->getForm()) {
@@ -74,6 +75,7 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
     /**
      * @return string
      */
+    #[Override]
     public function getId()
     {
         return $this->_id;
@@ -99,6 +101,7 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
      * @param  string $id
      * @return $this
      */
+    #[Override]
     public function setId($id)
     {
         $this->_id = $id;
@@ -151,6 +154,7 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
     /**
      * @inheritDoc
      */
+    #[Override]
     public function removeField($elementId)
     {
         $this->getForm()->removeField($elementId);
@@ -235,13 +239,23 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
         return $this->_renderer;
     }
 
+    final public function getTestId(): string
+    {
+        return 'input-' . str_replace('_', '-', $this->getHtmlId());
+    }
+
     /**
      * @return string
      */
     public function getElementHtml()
     {
-        $html = '<input id="' . $this->getHtmlId() . '" name="' . $this->getName()
-             . '" value="' . $this->getEscapedValue() . '" ' . $this->serialize($this->getHtmlAttributes()) . '/>' . "\n";
+        $html = '<input id="' . $this->getHtmlId() . '"
+            name="' . $this->getName() . '"
+            value="' . $this->getEscapedValue() . '"
+            data-test="' . $this->getTestId() . '"
+            ' . $this->serialize($this->getHtmlAttributes()) . '
+            />'
+            . "\n";
         return $html . $this->getAfterElementHtml();
     }
 
@@ -312,6 +326,7 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
     /**
      * @inheritDoc
      */
+    #[Override]
     public function serialize($attributes = [], $valueSeparator = '=', $fieldSeparator = ' ', $quote = '"')
     {
         if (in_array('disabled', $attributes) && !empty($this->_data['disabled'])) {

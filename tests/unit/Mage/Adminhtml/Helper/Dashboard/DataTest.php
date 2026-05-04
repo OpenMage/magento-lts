@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Adminhtml\Helper\Dashboard;
 
+use Override;
 use Mage;
 use Mage_Adminhtml_Helper_Dashboard_Data as Subject;
 use Mage_Core_Model_Resource_Store_Collection;
@@ -20,6 +21,7 @@ final class DataTest extends OpenMageTest
 {
     private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

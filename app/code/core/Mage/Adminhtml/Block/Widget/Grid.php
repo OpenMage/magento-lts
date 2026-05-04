@@ -256,6 +256,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareLayout()
     {
         $this->setChild(
@@ -586,8 +587,9 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     {
         if ($collection = $this->getCollection()) {
             $field = $column->getFilterIndex() ?: $column->getIndex();
-            if ($column->getFilterConditionCallback() && $column->getFilterConditionCallback()[0] instanceof self) {
-                call_user_func($column->getFilterConditionCallback(), $collection, $column);
+            $filterCallback = $column->getFilterConditionCallback();
+            if ($filterCallback && $this->validateColumnFilterCallback($filterCallback)) {
+                call_user_func($filterCallback, $collection, $column);
             } else {
                 $cond = $column->getFilter()->getCondition();
                 if ($field
@@ -607,6 +609,16 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
         }
 
         return $this;
+    }
+
+    protected function validateColumnFilterCallback(array|Closure $callback): bool
+    {
+        if (is_array($callback)) {
+            return $callback[0] instanceof self && method_exists($callback[0], $callback[1]);
+        }
+
+        $reflection = new ReflectionFunction($callback);
+        return $reflection->getClosureThis() instanceof self;
     }
 
     /**
@@ -827,6 +839,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      * @inheritDoc
      * @throws Exception
      */
+    #[Override]
     protected function _beforeToHtml()
     {
         try {

@@ -21,6 +21,7 @@ class Mage_Customer_Model_Customer_Attribute_Source_Website extends Mage_Eav_Mod
      * @param  bool  $defaultValues Argument has no effect, included for PHP 7.2 method signature compatibility
      * @return array
      */
+    #[Override]
     public function getAllOptions($withEmpty = true, $defaultValues = false)
     {
         if (!$this->_options) {
@@ -33,6 +34,7 @@ class Mage_Customer_Model_Customer_Attribute_Source_Website extends Mage_Eav_Mod
     /**
      * @inheritDoc
      */
+    #[Override]
     public function getOptionText($value)
     {
         if (!$this->_options) {

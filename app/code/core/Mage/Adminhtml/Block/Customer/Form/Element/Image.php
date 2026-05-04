@@ -18,6 +18,7 @@ class Mage_Adminhtml_Block_Customer_Form_Element_Image extends Mage_Adminhtml_Bl
      * Return Delete CheckBox Label
      * @return string
      */
+    #[Override]
     protected function _getDeleteCheckboxLabel()
     {
         return Mage::helper('adminhtml')->__('Delete Image');
@@ -27,6 +28,7 @@ class Mage_Adminhtml_Block_Customer_Form_Element_Image extends Mage_Adminhtml_Bl
      * Return Delete CheckBox SPAN Class name
      * @return string
      */
+    #[Override]
     protected function _getDeleteCheckboxSpanClass()
     {
         return 'delete-image';
@@ -36,6 +38,7 @@ class Mage_Adminhtml_Block_Customer_Form_Element_Image extends Mage_Adminhtml_Bl
      * Return File preview link HTML
      * @return string
      */
+    #[Override]
     protected function _getPreviewHtml()
     {
         $html = '';
@@ -70,6 +73,7 @@ class Mage_Adminhtml_Block_Customer_Form_Element_Image extends Mage_Adminhtml_Bl
      * Return Image URL
      * @return false|string
      */
+    #[Override]
     protected function _getPreviewUrl()
     {
         if (is_array($this->getValue())) {

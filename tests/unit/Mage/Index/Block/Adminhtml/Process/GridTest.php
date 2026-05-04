@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Index\Block\Adminhtml\Process;
 
+use Override;
 use Mage_Adminhtml_Block_Widget_Grid_Column;
 use Mage_Index_Block_Adminhtml_Process_Grid as Subject;
 use Mage_Index_Model_Process;
@@ -23,6 +24,7 @@ final class GridTest extends OpenMageTest
 
     private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

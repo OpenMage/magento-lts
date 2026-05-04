@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Rule\Model\Resource;
 
 // use Mage;
 // use Mage_Rule_Model_Resource_Rule as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Rule\Model\Resource\RuleTrait;
 
@@ -22,6 +23,7 @@ final class RuleTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

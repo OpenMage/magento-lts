@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Catalog\Model\Product\Attribute\Backend\Start
 
 // use Mage;
 // use Mage_Catalog_Model_Product_Attribute_Backend_Startdate_Specialprice as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\Model\Product\Attribute\Backend\Startdate\SpecialpriceTrait;
 
@@ -22,6 +23,7 @@ final class SpecialpriceTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

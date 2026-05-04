@@ -86,6 +86,7 @@ class Mage_Tag_Block_Popular extends Mage_Core_Block_Template
      * @return string
      * @throws Mage_Core_Model_Store_Exception
      */
+    #[Override]
     protected function _toHtml()
     {
         if (count($this->getTags()) > 0) {

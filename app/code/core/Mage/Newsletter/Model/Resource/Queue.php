@@ -157,6 +157,7 @@ class Mage_Newsletter_Model_Resource_Queue extends Mage_Core_Model_Resource_Db_A
      * @param  Mage_Newsletter_Model_Queue $queue
      * @return $this
      */
+    #[Override]
     protected function _afterSave(Mage_Core_Model_Abstract $queue)
     {
         if ($queue->getSaveStoresFlag()) {

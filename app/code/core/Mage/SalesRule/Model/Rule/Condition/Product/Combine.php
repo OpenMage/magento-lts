@@ -142,6 +142,7 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Combine extends Mage_Rule_Mode
      * Generate a conditions data
      * @return array
      */
+    #[Override]
     public function getNewChildSelectOptions()
     {
         $conditions = parent::getNewChildSelectOptions();
@@ -187,6 +188,7 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Combine extends Mage_Rule_Mode
      *
      * @return bool
      */
+    #[Override]
     public function validate(Varien_Object $object)
     {
         /** @var Mage_Catalog_Model_Product $product */

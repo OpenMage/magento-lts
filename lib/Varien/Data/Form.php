@@ -101,10 +101,11 @@ class Varien_Data_Form extends Varien_Data_Form_Abstract
     /**
      * Add form element
      *
-     * @param  false|string     $after
-     * @return Varien_Data_Form
+     * @param  false|string $after
+     * @return $this
      * @throws Exception
      */
+    #[Override]
     public function addElement(Varien_Data_Form_Element_Abstract $element, $after = false)
     {
         $this->checkElementId($element->getId());
@@ -209,8 +210,8 @@ class Varien_Data_Form extends Varien_Data_Form_Abstract
     /**
      * Add suffix to name of all elements
      *
-     * @param  string           $suffix
-     * @return Varien_Data_Form
+     * @param  string $suffix
+     * @return $this
      */
     public function addFieldNameSuffix($suffix)
     {
@@ -251,6 +252,7 @@ class Varien_Data_Form extends Varien_Data_Form_Abstract
      * @param  string                          $elementId
      * @return $this|Varien_Data_Form_Abstract
      */
+    #[Override]
     public function removeField($elementId)
     {
         if ($this->_elementIdExists($elementId)) {

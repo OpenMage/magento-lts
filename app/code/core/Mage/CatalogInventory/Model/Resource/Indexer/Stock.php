@@ -217,6 +217,7 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock extends Mage_Catalog_Mo
      * @return $this
      * @throws Exception
      */
+    #[Override]
     public function reindexAll()
     {
         $this->useIdxTable(true);
@@ -308,6 +309,7 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock extends Mage_Catalog_Mo
      * @param  string $table
      * @return string
      */
+    #[Override]
     public function getIdxTable($table = null)
     {
         if ($this->useIdxTable()) {

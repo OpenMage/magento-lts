@@ -19,6 +19,7 @@ class Mage_Paygate_Model_Authorizenet_Source_Cctype extends Mage_Payment_Model_S
     /**
      * @return array<int, string>
      */
+    #[Override]
     public function getAllowedTypes()
     {
         return ['VI', 'MC', 'AE', 'DI', 'OT'];

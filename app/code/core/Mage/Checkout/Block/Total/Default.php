@@ -26,6 +26,7 @@ class Mage_Checkout_Block_Total_Default extends Mage_Checkout_Block_Cart_Totals
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _construct()
     {
         $this->setTemplate($this->_template);

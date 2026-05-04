@@ -31,6 +31,7 @@ class Mage_Page_Block_Template_Links extends Mage_Core_Block_Template
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _construct()
     {
         $this->setTemplate('page/template/links.phtml');
@@ -168,6 +169,7 @@ class Mage_Page_Block_Template_Links extends Mage_Core_Block_Template
      *
      * @return array
      */
+    #[Override]
     public function getCacheKeyInfo()
     {
         if (is_null($this->_cacheKeyInfo)) {
@@ -216,6 +218,7 @@ class Mage_Page_Block_Template_Links extends Mage_Core_Block_Template
      *
      * @inheritDoc
      */
+    #[Override]
     protected function _beforeToHtml()
     {
         if (!empty($this->_links)) {
@@ -255,6 +258,7 @@ class Mage_Page_Block_Template_Links extends Mage_Core_Block_Template
      *
      * @return array
      */
+    #[Override]
     public function getCacheTags()
     {
         if (Mage::getSingleton('customer/session')->isLoggedIn()) {

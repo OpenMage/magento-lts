@@ -117,6 +117,7 @@ class Mage_Sales_Model_Quote_Address_Total_Collector extends Mage_Sales_Model_Co
      * @return $this
      * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _initModels()
     {
         $totalsConfig = Mage::getConfig()->getNode($this->_totalsConfigNode);

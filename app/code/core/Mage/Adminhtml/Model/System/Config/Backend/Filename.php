@@ -28,6 +28,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Filename extends Mage_Core_Mode
      * @return $this
      * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _beforeSave()
     {
         $value      = $this->getValue();

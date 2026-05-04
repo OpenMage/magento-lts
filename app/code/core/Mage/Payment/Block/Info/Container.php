@@ -19,6 +19,7 @@ class Mage_Payment_Block_Info_Container extends Mage_Core_Block_Template
      *
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareLayout()
     {
         if ($info = $this->getPaymentInfo()) {

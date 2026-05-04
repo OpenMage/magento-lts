@@ -22,6 +22,7 @@ class Mage_Adminhtml_Block_Tag_Grid_Customers extends Mage_Adminhtml_Block_Widge
      * @inheritDoc
      * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _prepareCollection()
     {
         //TODO: add full name logic
@@ -47,6 +48,7 @@ class Mage_Adminhtml_Block_Tag_Grid_Customers extends Mage_Adminhtml_Block_Widge
      * @inheritDoc
      * @throws Exception
      */
+    #[Override]
     protected function _prepareColumns()
     {
         $this->addColumn('entity_id', [
@@ -94,6 +96,7 @@ class Mage_Adminhtml_Block_Tag_Grid_Customers extends Mage_Adminhtml_Block_Widge
      * @inheritDoc
      * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _addColumnFilterToCollection($column)
     {
         if ($this->getCollection() && $column->getFilter()->getValue()) {

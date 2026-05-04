@@ -19,6 +19,7 @@ class Mage_Sales_Model_Order_Invoice_Total_Tax extends Mage_Sales_Model_Order_In
      *
      * @return $this
      */
+    #[Override]
     public function collect(Mage_Sales_Model_Order_Invoice $invoice)
     {
         $totalTax       = 0;

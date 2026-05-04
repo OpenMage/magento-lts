@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Eav\Model\Attribute\Data;
 
 // use Mage;
 // use Mage_Eav_Model_Attribute_Data_Multiline as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Eav\Model\Attribute\Data\MultilineTrait;
 
@@ -22,6 +23,7 @@ final class MultilineTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

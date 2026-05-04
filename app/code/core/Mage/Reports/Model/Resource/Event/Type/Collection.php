@@ -29,6 +29,7 @@ class Mage_Reports_Model_Resource_Event_Type_Collection extends Mage_Core_Model_
      *
      * @return array
      */
+    #[Override]
     public function toOptionArray()
     {
         return parent::_toOptionArray('event_type_id', 'event_name');

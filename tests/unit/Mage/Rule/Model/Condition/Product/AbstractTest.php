@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Rule\Model\Condition\Product;
 
 // use Mage;
 // use Mage_Rule_Model_Condition_Product_Abstract as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Rule\Model\Condition\Product\AbstractTrait;
 
@@ -22,6 +23,7 @@ final class AbstractTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

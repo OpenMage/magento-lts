@@ -18,7 +18,7 @@ use Varien_Object;
 
 trait GiftMessageTrait
 {
-    public function provideIsMessagesAvailable(): Generator
+    public static function provideIsMessagesAvailable(): Generator
     {
         $entity = new Varien_Object();
 

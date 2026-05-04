@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Catalog\Model\Product\Attribute\Backend\Group
 
 // use Mage;
 // use Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\Model\Product\Attribute\Backend\Groupprice\AbstractTrait;
 
@@ -22,6 +23,7 @@ final class AbstractTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

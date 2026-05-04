@@ -15,7 +15,7 @@ use Generator;
 
 trait UrlTrait
 {
-    public function provideUrl(): Generator
+    public static function provideUrl(): Generator
     {
         yield 'invalid empty' => [
             false,

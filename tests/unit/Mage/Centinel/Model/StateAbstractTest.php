@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Centinel\Model;
 
 // use Mage;
 // use Mage_Centinel_Model_StateAbstract as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Centinel\Model\StateAbstractTrait;
 
@@ -22,6 +23,7 @@ final class StateAbstractTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

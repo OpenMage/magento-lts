@@ -60,6 +60,7 @@ class Mage_Sales_Model_Resource_Report_Collection_Abstract extends Mage_Reports_
      *
      * @return $this
      */
+    #[Override]
     protected function _applyCustomFilter()
     {
         return $this->_applyOrderStatusFilter();

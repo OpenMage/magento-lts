@@ -66,6 +66,7 @@ class Mage_Page_Block_Html_Pager extends Mage_Core_Block_Template
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _construct()
     {
         parent::_construct();
@@ -671,6 +672,7 @@ class Mage_Page_Block_Html_Pager extends Mage_Core_Block_Template
      *
      * @return string
      */
+    #[Override]
     protected function _toHtml()
     {
         if ($this->_outputRequired || $this->getTotalNum() > $this->getLimit()) {

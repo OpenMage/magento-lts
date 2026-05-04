@@ -7,8 +7,6 @@
  * @package    Mage_Index
  */
 
-use Carbon\Carbon;
-
 /**
  * @package    Mage_Index
  *
@@ -328,12 +326,13 @@ class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
      *
      * @inheritDoc
      */
+    #[Override]
     protected function _beforeSave()
     {
         $newData = $this->getNewData(false);
         $this->setNewData(serialize($newData));
         if (!$this->hasCreatedAt()) {
-            $this->setCreatedAt($this->_getResource()->formatDate(Carbon::now()->getTimestamp(), true));
+            $this->setCreatedAt($this->_getResource()->formatDate($this->getClockHelper()->getTimestamp(), true));
         }
 
         return parent::_beforeSave();

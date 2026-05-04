@@ -46,6 +46,7 @@ class Mage_Adminhtml_Block_Widget_Form_Element extends Mage_Adminhtml_Block_Temp
         return $this;
     }
 
+    #[Override]
     protected function _beforeToHtml()
     {
         $this->assign('form', $this->_form);

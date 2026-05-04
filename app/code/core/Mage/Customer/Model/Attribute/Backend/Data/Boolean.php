@@ -20,6 +20,7 @@ class Mage_Customer_Model_Attribute_Backend_Data_Boolean extends Mage_Eav_Model_
      * @param  Mage_Customer_Model_Customer $customer
      * @return $this
      */
+    #[Override]
     public function beforeSave($customer)
     {
         $attributeName = $this->getAttribute()->getName();

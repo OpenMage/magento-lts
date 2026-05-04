@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Customer\Model\Entity;
 
 // use Mage;
 // use Mage_Customer_Model_Entity_Setup as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Customer\Model\Entity\SetupTrait;
 
@@ -22,6 +23,7 @@ final class SetupTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

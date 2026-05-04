@@ -20,6 +20,7 @@ class Mage_Checkout_Model_Cart_Customer_Api_V2 extends Mage_Checkout_Model_Cart_
      * @param  object $data
      * @return array
      */
+    #[Override]
     protected function _prepareCustomerData($data)
     {
         if (($_data = get_object_vars($data)) !== []) {
@@ -35,6 +36,7 @@ class Mage_Checkout_Model_Cart_Customer_Api_V2 extends Mage_Checkout_Model_Cart_
      * @param  object     $data
      * @return null|array
      */
+    #[Override]
     protected function _prepareCustomerAddressData($data)
     {
         if (is_array($data)) {

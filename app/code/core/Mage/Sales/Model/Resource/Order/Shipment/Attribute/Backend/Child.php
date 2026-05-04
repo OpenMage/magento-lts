@@ -20,6 +20,7 @@ class Mage_Sales_Model_Resource_Order_Shipment_Attribute_Backend_Child extends M
      * @param  Varien_Object                                    $object
      * @return Mage_Eav_Model_Entity_Attribute_Backend_Abstract
      */
+    #[Override]
     public function beforeSave($object)
     {
         if ($object->getShipment()) {

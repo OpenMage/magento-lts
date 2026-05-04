@@ -101,6 +101,7 @@ class Mage_Eav_Model_Resource_Form_Element_Collection extends Mage_Core_Model_Re
      *
      * @inheritDoc
      */
+    #[Override]
     public function load($printQuery = false, $logQuery = false)
     {
         if (!$this->isLoaded()) {

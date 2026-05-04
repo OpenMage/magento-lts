@@ -66,6 +66,7 @@ class Mage_Directory_Model_Currency_Import_Currencyconverterapi extends Mage_Dir
      *
      * @return array
      */
+    #[Override]
     public function fetchRates()
     {
         $data = [];

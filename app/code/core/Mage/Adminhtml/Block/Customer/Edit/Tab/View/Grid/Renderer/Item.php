@@ -17,6 +17,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Grid_Renderer_Item extends Mag
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _construct()
     {
         parent::_construct();
@@ -98,6 +99,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Grid_Renderer_Item extends Mag
      *
      * @return string
      */
+    #[Override]
     public function render(Varien_Object $item)
     {
         $this->setItem($item);

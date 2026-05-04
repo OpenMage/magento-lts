@@ -15,6 +15,7 @@ class Mage_Directory_Block_Adminhtml_Frontend_Region_Updater extends Mage_Adminh
     /**
      * @return string
      */
+    #[Override]
     protected function _getElementHtml(Varien_Data_Form_Element_Abstract $element)
     {
         $html = parent::_getElementHtml($element);

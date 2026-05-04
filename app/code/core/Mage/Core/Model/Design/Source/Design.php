@@ -84,6 +84,7 @@ class Mage_Core_Model_Design_Source_Design extends Mage_Eav_Model_Entity_Attribu
      * @param  int|string $value
      * @return string
      */
+    #[Override]
     public function getOptionText($value)
     {
         return $value;

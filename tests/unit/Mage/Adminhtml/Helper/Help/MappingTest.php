@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Helper\Help;
 
 // use Mage;
 // use Mage_Adminhtml_Helper_Help_Mapping as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Helper\Help\MappingTrait;
 
@@ -22,6 +23,7 @@ final class MappingTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

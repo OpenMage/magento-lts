@@ -16,6 +16,7 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
 {
     /**
      * Show Main Grid
+     * @return void
      */
     public function indexAction()
     {
@@ -38,6 +39,7 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Show Add Form
+     * @return void
      */
     public function addAction()
     {
@@ -111,6 +113,7 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Show Edit Form
+     * @return void
      */
     public function editAction()
     {
@@ -188,6 +191,7 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Export rates grid to CSV format
+     * @return void
      */
     public function exportCsvAction()
     {
@@ -200,6 +204,7 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Export rates grid to XML format
+     * @return void
      */
     public function exportXmlAction()
     {
@@ -213,7 +218,7 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
     /**
      * Initialize action
      *
-     * @return Mage_Adminhtml_Controller_Action
+     * @return $this
      */
     protected function _initAction()
     {
@@ -226,6 +231,7 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Import and export Page
+     * @return void
      */
     public function importExportAction()
     {
@@ -245,6 +251,7 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
      * import action from import/export tax
      *
      * @SuppressWarnings("PHPMD.Superglobals")
+     * @return void
      */
     public function importPostAction()
     {
@@ -385,6 +392,7 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
 
     /**
      * export action from import/export tax
+     * @return void
      */
     public function exportPostAction()
     {
@@ -453,6 +461,7 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _isAllowed(): bool
     {
         $action = strtolower($this->getRequest()->getActionName());

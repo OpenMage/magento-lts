@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Core\Model\Resource\Entity;
 
 // use Mage;
 // use Mage_Core_Model_Resource_Entity_Table as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\Model\Resource\Entity\TableTrait;
 
@@ -22,6 +23,7 @@ final class TableTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

@@ -19,6 +19,7 @@ class Mage_Adminhtml_Block_Tag_Grid_Products extends Mage_Adminhtml_Block_Widget
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareCollection()
     {
         $collection = Mage::getResourceModel('tag/product_collection')
@@ -42,6 +43,7 @@ class Mage_Adminhtml_Block_Tag_Grid_Products extends Mage_Adminhtml_Block_Widget
      * @inheritDoc
      * @throws Exception
      */
+    #[Override]
     protected function _prepareColumns()
     {
         $this->addColumn('product_id', [

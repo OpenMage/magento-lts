@@ -19,6 +19,7 @@ abstract class Mage_Sales_Model_Resource_Abstract extends Mage_Core_Model_Resour
      *
      * @return array
      */
+    #[Override]
     protected function _prepareDataForSave(Mage_Core_Model_Abstract $object)
     {
         $currentTime = Varien_Date::now();

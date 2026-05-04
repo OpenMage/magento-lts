@@ -45,6 +45,7 @@ class Mage_Adminhtml_Block_Promo_Catalog_Edit extends Mage_Adminhtml_Block_Widge
      *
      * @return string
      */
+    #[Override]
     public function getHeaderText()
     {
         $rule = Mage::registry('current_promo_catalog_rule');

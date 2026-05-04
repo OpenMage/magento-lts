@@ -20,6 +20,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Billing_Method_Form extends Mage_P
      * @param  null|Mage_Payment_Model_Method_Abstract $method
      * @return bool
      */
+    #[Override]
     protected function _canUseMethod($method)
     {
         return $method && $method->canUseInternal() && parent::_canUseMethod($method);
@@ -41,6 +42,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Billing_Method_Form extends Mage_P
      *
      * @return false|string
      */
+    #[Override]
     public function getSelectedMethodCode()
     {
         // One available method. Return this method as selected, because no other variant is possible.

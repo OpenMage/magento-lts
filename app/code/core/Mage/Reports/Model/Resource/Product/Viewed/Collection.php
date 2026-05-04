@@ -29,6 +29,7 @@ class Mage_Reports_Model_Resource_Product_Viewed_Collection extends Mage_Reports
      * @return $this
      * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _joinFields($dateFrom = '', $dateTo = '')
     {
         $this->addAttributeToSelect('*')
@@ -99,6 +100,7 @@ class Mage_Reports_Model_Resource_Product_Viewed_Collection extends Mage_Reports
      *
      * @return Mage_Catalog_Model_Resource_Product_Collection
      */
+    #[Override]
     protected function _beforeLoad()
     {
         $this->_applyStoreIds();

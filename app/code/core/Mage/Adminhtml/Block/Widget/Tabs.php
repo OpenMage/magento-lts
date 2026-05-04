@@ -55,6 +55,7 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _construct()
     {
         $this->setTemplate('widget/tabs.phtml');
@@ -207,6 +208,7 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
      * @inheritDoc
      * @throws Exception
      */
+    #[Override]
     protected function _beforeToHtml()
     {
         Mage::dispatchEvent('adminhtml_block_widget_tabs_html_before', ['block' => $this]);

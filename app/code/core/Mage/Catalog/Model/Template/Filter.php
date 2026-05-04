@@ -32,8 +32,8 @@ class Mage_Catalog_Model_Template_Filter extends Varien_Filter_Template
     /**
      * Set use absolute links flag
      *
-     * @param  bool                               $flag
-     * @return Mage_Catalog_Model_Template_Filter
+     * @param  bool  $flag
+     * @return $this
      */
     public function setUseAbsoluteLinks($flag)
     {
@@ -45,8 +45,8 @@ class Mage_Catalog_Model_Template_Filter extends Varien_Filter_Template
      * Setter whether SID is allowed in store directive
      * Doesn't set anything intentionally, since SID is not allowed in any kind of emails
      *
-     * @param  bool                               $flag
-     * @return Mage_Catalog_Model_Template_Filter
+     * @param  bool  $flag
+     * @return $this
      */
     public function setUseSessionInUrl($flag)
     {

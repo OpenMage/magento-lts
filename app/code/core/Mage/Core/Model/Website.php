@@ -144,6 +144,7 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
     /**
      * @inheritDoc
      */
+    #[Override]
     public function load($id, $field = null)
     {
         if (!is_numeric($id) && is_null($field)) {
@@ -157,8 +158,8 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
     /**
      * Load website configuration
      *
-     * @param  string                  $code
-     * @return Mage_Core_Model_Website
+     * @param  string              $code
+     * @return $this
      * @throws Mage_Core_Exception
      */
     public function loadConfig($code)
@@ -507,6 +508,7 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _beforeDelete()
     {
         $this->_protectFromNonAdmin();
@@ -519,6 +521,7 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
      * @return $this
      * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _afterDelete()
     {
         Mage::app()->clearWebsiteCache($this->getId());

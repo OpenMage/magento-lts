@@ -67,6 +67,7 @@ class Mage_Sales_Model_Resource_Quote_Address_Rate_Collection extends Mage_Core_
      * @inheritDoc
      * @throws Exception
      */
+    #[Override]
     public function addItem(Varien_Object $rate)
     {
         if ($this->_allowFixedOnly && (!$rate->getCarrierInstance() || !$rate->getCarrierInstance()->isFixed())) {

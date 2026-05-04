@@ -113,7 +113,7 @@ class Mage_Customer_Block_Address_Renderer_Default extends Mage_Core_Block_Abstr
         }
 
         $formater->setVariables($data);
-        $format = is_null($format) ? $this->_prepareAddressTemplateData($this->getFormat($address)) : $format;
+        $format ??= $this->_prepareAddressTemplateData($this->getFormat($address));
 
         return $formater->filter($format);
     }

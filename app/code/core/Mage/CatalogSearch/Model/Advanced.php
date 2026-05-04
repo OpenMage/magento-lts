@@ -77,6 +77,7 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
      *
      * @inheritDoc
      */
+    #[Override]
     protected function _getResource()
     {
         $resourceName = $this->_engine->getResourceName();

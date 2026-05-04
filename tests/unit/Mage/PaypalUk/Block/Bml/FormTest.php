@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\PaypalUk\Block\Bml;
 
 // use Mage_PaypalUk_Block_Bml_Form as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\PaypalUk\Block\Bml\FormTrait;
 
@@ -21,6 +22,7 @@ final class FormTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

@@ -331,6 +331,7 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
      *
      * @return string
      */
+    #[Override]
     public function getApiEndpoint()
     {
         return sprintf('https://%spayflowpro.paypal.com/transaction', $this->_config->sandboxFlag ? 'pilot-' : '');
@@ -411,6 +412,7 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
      * @param  array  $request
      * @return array
      */
+    #[Override]
     protected function _addMethodToRequest($methodName, $request)
     {
         $request['TRXTYPE'] = $this->_mapPaypalMethodName($methodName);
@@ -462,6 +464,7 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
      * @param  array $response
      * @return bool  success flag
      */
+    #[Override]
     protected function _isCallSuccessful($response)
     {
         $this->_callWarnings = [];
@@ -482,6 +485,7 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
      *
      * @param array $response
      */
+    #[Override]
     protected function _handleCallErrors($response)
     {
         if ($response['RESULT'] != self::RESPONSE_CODE_APPROVED) {
@@ -500,6 +504,7 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
      * @param  array  $request
      * @return string
      */
+    #[Override]
     protected function _buildQuery($request)
     {
         $result = '';
@@ -523,6 +528,7 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
     /**
      * "GetTransactionDetails" method does not exists in PaypalUK
      */
+    #[Override]
     public function callGetTransactionDetails() {}
 
     /**
@@ -544,6 +550,7 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
      * @param  string $methodName Current method name
      * @return array
      */
+    #[Override]
     protected function _prepareEachCallRequest($methodName)
     {
         return $this->_eachCallRequest;
@@ -556,6 +563,7 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
      * @param  array $requestFields Standard set of values
      * @return array
      */
+    #[Override]
     protected function _prepareExpressCheckoutCallRequest(&$requestFields)
     {
         return $requestFields;
@@ -567,6 +575,7 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
      *
      * @param array $request
      */
+    #[Override]
     protected function _applyCountryWorkarounds(&$request)
     {
         if (isset($request['SHIPTOCOUNTRY']) && $request['SHIPTOCOUNTRY'] == 'PR') {
@@ -581,6 +590,7 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
      * @param  int       $i
      * @return bool|void
      */
+    #[Override]
     protected function _exportLineItems(array &$request, $i = 0)
     {
         $requestBefore = $request;

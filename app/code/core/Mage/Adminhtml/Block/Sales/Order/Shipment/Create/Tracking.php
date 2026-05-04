@@ -19,6 +19,7 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Create_Tracking extends Mage_Adm
      *
      * @return $this
      */
+    #[Override]
     protected function _prepareLayout()
     {
         $this->setChild(

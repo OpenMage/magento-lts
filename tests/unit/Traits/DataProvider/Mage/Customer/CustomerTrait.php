@@ -15,7 +15,7 @@ use Generator;
 
 trait CustomerTrait
 {
-    public function provideValidateCustomerData(): Generator
+    public static function provideValidateCustomerData(): Generator
     {
         $validCustomer = [
             'getFirstname' => 'John',
@@ -129,7 +129,7 @@ trait CustomerTrait
         ];
     }
 
-    public function provideGetDobData(): Generator
+    public static function provideGetDobData(): Generator
     {
         $result = '1981-01-01 00:00:00';
 

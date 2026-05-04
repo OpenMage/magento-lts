@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\SalesRule\Model;
 
 // use Mage;
 // use Mage_SalesRule_Model_Coupon as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\SalesRule\Model\CouponTrait;
 
@@ -22,6 +23,7 @@ final class CouponTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

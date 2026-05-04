@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\AdminNotification\Model;
 
 // use Mage;
 // use Mage_AdminNotification_Model_Observer as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\AdminNotification\Model\ObserverTrait;
 
@@ -22,6 +23,7 @@ final class ObserverTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

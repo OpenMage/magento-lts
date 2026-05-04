@@ -16,7 +16,7 @@ use Mage_AdminNotification_Model_Inbox as Subject;
 
 trait InboxTrait
 {
-    public function provideGetSeverities(): Generator
+    public static function provideGetSeverities(): Generator
     {
         yield 'null' => [
             [

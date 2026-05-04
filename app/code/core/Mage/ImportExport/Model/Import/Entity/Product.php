@@ -705,6 +705,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
      *
      * @return array
      */
+    #[Override]
     protected function _prepareRowForDb(array $rowData)
     {
         $rowData = parent::_prepareRowForDb($rowData);

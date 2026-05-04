@@ -19,6 +19,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Checkboxes_Tree extends Mage_Adminht
     /**
      * @return $this
      */
+    #[Override]
     protected function _prepareLayout()
     {
         $this->setTemplate('catalog/category/checkboxes/tree.phtml');
@@ -45,6 +46,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Checkboxes_Tree extends Mage_Adminht
     /**
      * @return array<string, mixed>
      */
+    #[Override]
     protected function _getNodeJson($node, $level = 1)
     {
         $item = [];
@@ -82,6 +84,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Checkboxes_Tree extends Mage_Adminht
         return $item;
     }
 
+    #[Override]
     public function getRoot($parentNodeCategory = null, $recursionLevel = 3)
     {
         return $this->getRootByIds($this->getCategoryIds());

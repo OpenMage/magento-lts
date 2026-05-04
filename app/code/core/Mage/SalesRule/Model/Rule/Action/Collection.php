@@ -25,6 +25,7 @@ class Mage_SalesRule_Model_Rule_Action_Collection extends Mage_Rule_Model_Action
     /**
      * @return array
      */
+    #[Override]
     public function getNewChildSelectOptions()
     {
         $actions = parent::getNewChildSelectOptions();

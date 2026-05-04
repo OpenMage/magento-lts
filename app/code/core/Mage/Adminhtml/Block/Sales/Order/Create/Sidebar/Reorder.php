@@ -24,6 +24,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Reorder extends Mage_Admin
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _construct()
     {
         parent::_construct();
@@ -65,6 +66,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Reorder extends Mage_Admin
      *
      * @return array|false
      */
+    #[Override]
     public function getItemCollection()
     {
         if ($order = $this->getLastOrder()) {
@@ -84,6 +86,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Reorder extends Mage_Admin
     /**
      * @return false
      */
+    #[Override]
     public function canDisplayItemQty()
     {
         return false;
@@ -92,6 +95,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Reorder extends Mage_Admin
     /**
      * @return false
      */
+    #[Override]
     public function canRemoveItems()
     {
         return false;
@@ -100,6 +104,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Reorder extends Mage_Admin
     /**
      * @return false
      */
+    #[Override]
     public function canDisplayPrice()
     {
         return false;
@@ -111,6 +116,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Reorder extends Mage_Admin
      * @param  Varien_Object $item
      * @return int
      */
+    #[Override]
     public function getIdentifierId($item)
     {
         return $item->getId();

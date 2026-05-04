@@ -24,6 +24,7 @@ class Mage_Bundle_Model_Resource_Selection_Collection extends Mage_Catalog_Model
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _construct()
     {
         parent::_construct();
@@ -36,6 +37,7 @@ class Mage_Bundle_Model_Resource_Selection_Collection extends Mage_Catalog_Model
      *
      * @return $this
      */
+    #[Override]
     protected function _afterLoad()
     {
         parent::_afterLoad();
@@ -51,6 +53,7 @@ class Mage_Bundle_Model_Resource_Selection_Collection extends Mage_Catalog_Model
     /**
      * Initialize collection select
      */
+    #[Override]
     protected function _initSelect()
     {
         parent::_initSelect();

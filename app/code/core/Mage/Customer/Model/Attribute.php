@@ -47,6 +47,7 @@ class Mage_Customer_Model_Attribute extends Mage_Eav_Model_Attribute
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _construct()
     {
         $this->_init('customer/attribute');

@@ -161,6 +161,7 @@ class Mage_Shell_Log extends Mage_Shell_Abstract
     /**
      * Retrieve Usage Help Message
      */
+    #[Override]
     public function usageHelp()
     {
         return <<<USAGE

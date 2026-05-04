@@ -14,6 +14,7 @@
  */
 class Mage_Usa_Model_Shipping_Carrier_Fedex_Source_Freemethod extends Mage_Usa_Model_Shipping_Carrier_Fedex_Source_Method
 {
+    #[Override]
     public function toOptionArray()
     {
         $arr = parent::toOptionArray();

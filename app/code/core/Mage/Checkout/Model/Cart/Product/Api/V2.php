@@ -22,6 +22,7 @@ class Mage_Checkout_Model_Cart_Product_Api_V2 extends Mage_Checkout_Model_Cart_P
      * @param  array|object $data
      * @return array
      */
+    #[Override]
     protected function _prepareProductsData($data)
     {
         if (is_object($data)) {

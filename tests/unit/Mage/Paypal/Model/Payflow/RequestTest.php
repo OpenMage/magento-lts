@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Paypal\Model\Payflow;
 
 // use Mage;
 // use Mage_Paypal_Model_Payflow_Request as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Paypal\Model\Payflow\RequestTrait;
 
@@ -22,6 +23,7 @@ final class RequestTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

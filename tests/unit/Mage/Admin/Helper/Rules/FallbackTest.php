@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Admin\Helper\Rules;
 
 // use Mage;
 // use Mage_Admin_Helper_Rules_Fallback as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Admin\Helper\Rules\FallbackTrait;
 
@@ -22,6 +23,7 @@ final class FallbackTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

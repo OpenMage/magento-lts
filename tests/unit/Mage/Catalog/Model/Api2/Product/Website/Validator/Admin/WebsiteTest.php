@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Catalog\Model\Api2\Product\Website\Validator\
 
 // use Mage;
 // use Mage_Catalog_Model_Api2_Product_Website_Validator_Admin_Website as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\Model\Api2\Product\Website\Validator\Admin\WebsiteTrait;
 
@@ -22,6 +23,7 @@ final class WebsiteTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

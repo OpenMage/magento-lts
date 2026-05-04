@@ -27,6 +27,7 @@ class Mage_Adminhtml_Block_Catalog_Product extends Mage_Adminhtml_Block_Widget_C
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareLayout()
     {
         $this->_addButton('add_new', [

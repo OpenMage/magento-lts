@@ -15,7 +15,7 @@ use Generator;
 
 trait UserTrait
 {
-    public function provideValidateApiUserData(): Generator
+    public static function provideValidateApiUserData(): Generator
     {
         $errorAlphaNumeric = 'Api Key must include both numeric and alphabetic characters.';
         $errorIdentical = 'Api Key confirmation must be same as Api Key.';
