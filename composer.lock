@@ -11050,16 +11050,16 @@
         },
         {
             "name": "symplify/easy-coding-standard",
-            "version": "13.0.4",
+            "version": "13.1.2",
             "source": {
                 "type": "git",
-                "url": "https://github.com/easy-coding-standard/easy-coding-standard.git",
-                "reference": "5c7e7a07e5d6a98b9dd2e6fc0a9155efb7c166c8"
+                "url": "https://github.com/easy-coding-standard/ecs.git",
+                "reference": "6d22473d1f36945884d8cb291777166020a47770"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/easy-coding-standard/easy-coding-standard/zipball/5c7e7a07e5d6a98b9dd2e6fc0a9155efb7c166c8",
-                "reference": "5c7e7a07e5d6a98b9dd2e6fc0a9155efb7c166c8",
+                "url": "https://api.github.com/repos/easy-coding-standard/ecs/zipball/6d22473d1f36945884d8cb291777166020a47770",
+                "reference": "6d22473d1f36945884d8cb291777166020a47770",
                 "shasum": ""
             },
             "require": {
@@ -11094,8 +11094,8 @@
                 "static analysis"
             ],
             "support": {
-                "issues": "https://github.com/easy-coding-standard/easy-coding-standard/issues",
-                "source": "https://github.com/easy-coding-standard/easy-coding-standard/tree/13.0.4"
+                "issues": "https://github.com/easy-coding-standard/ecs/issues",
+                "source": "https://github.com/easy-coding-standard/ecs/tree/13.1.2"
             },
             "funding": [
                 {
@@ -11107,7 +11107,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-01-05T09:10:04+00:00"
+            "time": "2026-05-03T22:05:09+00:00"
         },
         {
             "name": "symplify/vendor-patches",
