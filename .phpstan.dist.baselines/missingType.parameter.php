@@ -1072,21 +1072,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Dataflow/Model/Convert/Parser/Abstract.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Dataflow_Model_Convert_Parser_Csv::parseRow() has parameter $i with no type specified.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Dataflow/Model/Convert/Parser/Csv.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Dataflow_Model_Convert_Parser_Csv::parseRow() has parameter $line with no type specified.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Dataflow/Model/Convert/Parser/Csv.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Dataflow_Model_Convert_Parser_Xml_Excel::_saveParsedRow() has parameter $xmlString with no type specified.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Dataflow/Model/Convert/Parser/Xml/Excel.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Dataflow_Model_Convert_Profile_Abstract::addContainer() has parameter $name with no type specified.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Dataflow/Model/Convert/Profile/Abstract.php',
