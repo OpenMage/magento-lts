@@ -2500,7 +2500,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
     /**
      * Retrieve table options definition array for create table
      *
-     * @return array
+     * @return array<int, string>
      * @throws Zend_Db_Exception
      */
     protected function _getOptionsDefinition(Varien_Db_Ddl_Table $table)

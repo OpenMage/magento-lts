@@ -752,11 +752,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/ConfigurableSwatches/Helper/Mediafallback.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Call to function in_array() requires parameter #3 to be set.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/ConfigurableSwatches/Helper/Mediafallback.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Call to function array_search() requires parameter #3 to be set.',
     'count' => 4,
     'path' => __DIR__ . '/../app/code/core/Mage/ConfigurableSwatches/Helper/Productimg.php',

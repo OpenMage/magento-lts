@@ -3548,7 +3548,7 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in an if condition, mixed given.',
-    'count' => 1,
+    'count' => 2,
     'path' => __DIR__ . '/../app/code/core/Mage/CatalogIndex/Model/Indexer.php',
 ];
 $ignoreErrors[] = [
@@ -6062,11 +6062,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/ImportExport/Model/Import/Entity/Product.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in an if condition, array<array> given.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/ImportExport/Model/Import/Entity/Product.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in an if condition, array<int, array<string, mixed>> given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/ImportExport/Model/Import/Entity/Product.php',
@@ -6078,6 +6073,11 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in an if condition, array<list<array<string, mixed>>> given.',
+    'count' => 2,
+    'path' => __DIR__ . '/../app/code/core/Mage/ImportExport/Model/Import/Entity/Product.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in an if condition, array<mixed> given.',
     'count' => 2,
     'path' => __DIR__ . '/../app/code/core/Mage/ImportExport/Model/Import/Entity/Product.php',
 ];

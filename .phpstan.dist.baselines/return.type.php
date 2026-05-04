@@ -127,11 +127,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Page/Menu.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Adminhtml_Block_Page_Menu::_buildMenuArray() should return array<string, array{id?: string, children?: array, title?: string, label: string, sort_order: int, url: string, click?: \'return false\', active: bool, ...}> but returns array<string, array{id: non-falsy-string, label: string, sort_order: int, url: string, click?: \'return false\', active: bool, level: int, target?: Varien_Simplexml_Element, ...}|array{last: true}>.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Page/Menu.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Adminhtml_Block_Promo_Widget_Chooser_Sku::getStore() should return Mage_Core_Model_Store but returns Mage_Core_Model_Store|null.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Promo/Widget/Chooser/Sku.php',
