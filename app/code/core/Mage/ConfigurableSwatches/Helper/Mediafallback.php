@@ -114,7 +114,7 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
                     $mapping[$optionLabel]['labels'] = $optionLabels[$optionId];
 
                     if ($attribute->getAttributeId() == $listSwatchAttr->getAttributeId()
-                        && !in_array($mapping[$optionLabel]['label'], $listSwatchValues)
+                        && !in_array($mapping[$optionLabel]['label'], $listSwatchValues, true)
                     ) {
                         $listSwatchValues[$optionId]      = $mapping[$optionLabel]['label'];
                         $listSwatchStockValues[$optionId] = $isInStock;
