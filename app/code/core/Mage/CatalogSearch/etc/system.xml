@@ -104,6 +104,14 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </show_autocomplete_results_count>
+                        <max_suggestions translate="label">
+                            <label>Maximum Suggested Results</label>
+                            <validate>validate-digits</validate>
+                            <sort_order>80</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </max_suggestions>
                     </fields>
                 </search>
             </groups>

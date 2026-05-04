@@ -121,6 +121,7 @@
                 <search_separator>OR</search_separator>
                 <use_layered_navigation_count>2000</use_layered_navigation_count>
                 <show_autocomplete_results_count>1</show_autocomplete_results_count>
+                <max_suggestions>1000</max_suggestions>
             </search>
         </catalog>
     </default>

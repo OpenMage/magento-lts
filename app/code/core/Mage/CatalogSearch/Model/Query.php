@@ -54,6 +54,8 @@ class Mage_CatalogSearch_Model_Query extends Mage_Core_Model_Abstract
 
     public const XML_PATH_AJAX_SUGGESTION_COUNT = 'catalog/search/show_autocomplete_results_count';
 
+    public const XML_PATH_MAX_SUGGESTIONS       = 'catalog/search/max_suggestions';
+
     /**
      * @inheritDoc
      */
@@ -109,7 +111,8 @@ class Mage_CatalogSearch_Model_Query extends Mage_Core_Model_Abstract
         if (is_null($collection)) {
             $collection = Mage::getResourceModel('catalogsearch/query_collection')
                 ->setStoreId($this->getStoreId())
-                ->setQueryFilter($this->getQueryText());
+                ->setQueryFilter($this->getQueryText())
+                ->setPageSize($this->getMaxSuggestions());
             $this->setData('suggest_collection', $collection);
         }
 
@@ -192,7 +195,7 @@ class Mage_CatalogSearch_Model_Query extends Mage_Core_Model_Abstract
      */
     public function getMinQueryLength()
     {
-        return Mage::getStoreConfig(self::XML_PATH_MIN_QUERY_LENGTH, $this->getStoreId());
+        return Mage::getStoreConfigAsInt(self::XML_PATH_MIN_QUERY_LENGTH, $this->getStoreId());
     }
 
     /**
@@ -202,7 +205,7 @@ class Mage_CatalogSearch_Model_Query extends Mage_Core_Model_Abstract
      */
     public function getMaxQueryLength()
     {
-        return Mage::getStoreConfig(self::XML_PATH_MAX_QUERY_LENGTH, $this->getStoreId());
+        return Mage::getStoreConfigAsInt(self::XML_PATH_MAX_QUERY_LENGTH, $this->getStoreId());
     }
 
     /**
@@ -212,6 +215,16 @@ class Mage_CatalogSearch_Model_Query extends Mage_Core_Model_Abstract
      */
     public function getMaxQueryWords()
     {
-        return Mage::getStoreConfig(self::XML_PATH_MAX_QUERY_WORDS, $this->getStoreId());
+        return Mage::getStoreConfigAsInt(self::XML_PATH_MAX_QUERY_WORDS, $this->getStoreId());
+    }
+
+    /**
+     * Retrieve maximum suggestions for autocomplete
+     *
+     * @return int
+     */
+    public function getMaxSuggestions(): int
+    {
+        return Mage::getStoreConfigAsInt(self::XML_PATH_MAX_SUGGESTIONS, $this->getStoreId());
     }
 }
