@@ -4847,11 +4847,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Dataflow/Model/Convert/Parser/Abstract.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Dataflow_Model_Convert_Parser_Csv::parseRow() has no return type specified.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Dataflow/Model/Convert/Parser/Csv.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Dataflow_Model_Convert_Parser_Interface::parse() has no return type specified.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Dataflow/Model/Convert/Parser/Interface.php',
@@ -4872,17 +4867,7 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Dataflow/Model/Convert/Parser/Serialize.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Dataflow_Model_Convert_Parser_Xml_Excel::_saveParsedRow() has no return type specified.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Dataflow/Model/Convert/Parser/Xml/Excel.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Dataflow_Model_Convert_Parser_Xml_Excel::parse() has no return type specified.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Dataflow/Model/Convert/Parser/Xml/Excel.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Dataflow_Model_Convert_Parser_Xml_Excel::unparse() has no return type specified.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Dataflow/Model/Convert/Parser/Xml/Excel.php',
 ];

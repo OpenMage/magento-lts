@@ -3382,8 +3382,13 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Dataflow/Model/Convert/Container/Abstract.php',
 ];
 $ignoreErrors[] = [
+    'rawMessage' => 'Loose comparison via "==" between int and int is not allowed.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Dataflow/Model/Convert/Parser/Csv.php',
+];
+$ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and int is not allowed.',
-    'count' => 2,
+    'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Dataflow/Model/Convert/Parser/Csv.php',
 ];
 $ignoreErrors[] = [

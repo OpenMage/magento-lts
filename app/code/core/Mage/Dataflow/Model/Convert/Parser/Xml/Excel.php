@@ -59,7 +59,7 @@ class Mage_Dataflow_Model_Convert_Parser_Xml_Excel extends Mage_Dataflow_Model_C
         $batchIoAdapter = $this->getBatchModel()->getIoAdapter();
 
         $files = Mage::helper('dataflow')->escapeHtml(Mage::app()->getRequest()->getParam('files'));
-        if ($files) {
+        if (is_string($files) && $files !== '') {
             $file = $this->getCopyFile($files);
             $this->_copy($file);
         }
@@ -177,7 +177,7 @@ class Mage_Dataflow_Model_Convert_Parser_Xml_Excel extends Mage_Dataflow_Model_C
     }
 
     /**
-     * @param string $xmlString
+     * @param  string              $xmlString
      * @return $this
      * @throws Mage_Core_Exception
      * @throws Throwable
