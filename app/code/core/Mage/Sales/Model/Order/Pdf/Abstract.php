@@ -537,7 +537,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
     protected function _getTotalsList($source)
     {
         $totals = Mage::getConfig()->getNode('global/pdf/totals')->asArray();
-        usort($totals, [$this, '_sortTotalsList']);
+        usort($totals, $this->_sortTotalsList(...));
         $totalModels = [];
         foreach ($totals as $totalInfo) {
             if (!empty($totalInfo['model'])) {

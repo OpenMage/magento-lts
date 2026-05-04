@@ -170,6 +170,7 @@ class Mage_Oauth_AuthorizeController extends Mage_Core_Controller_Front_Action
 
     /**
      * Index action.
+     * @return void
      */
     public function indexAction()
     {
@@ -180,6 +181,7 @@ class Mage_Oauth_AuthorizeController extends Mage_Core_Controller_Front_Action
 
     /**
      * OAuth authorize or allow decline access simple page
+     * @return void
      */
     public function simpleAction()
     {
@@ -190,6 +192,7 @@ class Mage_Oauth_AuthorizeController extends Mage_Core_Controller_Front_Action
 
     /**
      * Confirm token authorization action
+     * @return void
      */
     public function confirmAction()
     {
@@ -198,6 +201,7 @@ class Mage_Oauth_AuthorizeController extends Mage_Core_Controller_Front_Action
 
     /**
      * Confirm token authorization simple page
+     * @return void
      */
     public function confirmSimpleAction()
     {
@@ -206,6 +210,7 @@ class Mage_Oauth_AuthorizeController extends Mage_Core_Controller_Front_Action
 
     /**
      * Reject token authorization action
+     * @return void
      */
     public function rejectAction()
     {
@@ -214,6 +219,7 @@ class Mage_Oauth_AuthorizeController extends Mage_Core_Controller_Front_Action
 
     /**
      * Reject token authorization simple page
+     * @return void
      */
     public function rejectSimpleAction()
     {

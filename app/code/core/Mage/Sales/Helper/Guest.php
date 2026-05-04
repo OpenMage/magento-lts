@@ -109,7 +109,7 @@ class Mage_Sales_Helper_Guest extends Mage_Core_Helper_Data
             return true;
         }
 
-        if (!Mage::helper('core')->isRateLimitExceeded(true, false)) {
+        if ($errors || Mage::helper('core')->isRateLimitExceeded(true, false)) {
             Mage::getSingleton('core/session')->addError($this->__($errorMessage));
         }
 

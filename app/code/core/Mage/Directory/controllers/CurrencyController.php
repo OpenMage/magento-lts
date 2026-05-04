@@ -14,6 +14,9 @@
  */
 class Mage_Directory_CurrencyController extends Mage_Core_Controller_Front_Action
 {
+    /**
+     * @return void
+     */
     public function switchAction()
     {
         if ($curency = (string) $this->getRequest()->getParam('currency')) {

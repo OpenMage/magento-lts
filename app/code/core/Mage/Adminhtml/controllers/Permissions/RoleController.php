@@ -70,6 +70,7 @@ class Mage_Adminhtml_Permissions_RoleController extends Mage_Adminhtml_Controlle
 
     /**
      * Show grid with roles existing in systems
+     * @return void
      */
     public function indexAction()
     {
@@ -83,6 +84,7 @@ class Mage_Adminhtml_Permissions_RoleController extends Mage_Adminhtml_Controlle
 
     /**
      * Action for ajax request from grid
+     * @return void
      */
     public function roleGridAction()
     {
@@ -92,6 +94,7 @@ class Mage_Adminhtml_Permissions_RoleController extends Mage_Adminhtml_Controlle
 
     /**
      * Edit role action
+     * @return void
      */
     public function editRoleAction()
     {
@@ -126,6 +129,7 @@ class Mage_Adminhtml_Permissions_RoleController extends Mage_Adminhtml_Controlle
 
     /**
      * Remove role action
+     * @return void
      */
     public function deleteAction()
     {
@@ -171,6 +175,7 @@ class Mage_Adminhtml_Permissions_RoleController extends Mage_Adminhtml_Controlle
 
     /**
      * Role form submit action to save or create new role
+     * @return void
      */
     public function saveRoleAction()
     {
@@ -248,6 +253,7 @@ class Mage_Adminhtml_Permissions_RoleController extends Mage_Adminhtml_Controlle
 
     /**
      * Action for ajax request from assigned users grid
+     * @return void
      */
     public function editrolegridAction()
     {
@@ -301,6 +307,7 @@ class Mage_Adminhtml_Permissions_RoleController extends Mage_Adminhtml_Controlle
      * Action to refresh role-rule relations.
      * This method will make sure the rendered ACL resource tree checkboxes match the actual ACL permissions.
      * To be used after adding a new ACL resource via config
+     * @return void
      */
     public function refreshRolesAction()
     {

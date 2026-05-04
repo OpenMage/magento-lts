@@ -67,6 +67,7 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
 
     /**
      * Orders grid
+     * @return void
      */
     public function indexAction()
     {
@@ -78,6 +79,7 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
 
     /**
      * Order grid
+     * @return void
      */
     public function gridAction()
     {
@@ -87,6 +89,7 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
 
     /**
      * View order detale
+     * @return void
      */
     public function viewAction()
     {
@@ -111,6 +114,7 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
 
     /**
      * Notify user
+     * @return void
      */
     public function emailAction()
     {
@@ -140,6 +144,7 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
 
     /**
      * Cancel order
+     * @return void
      */
     public function cancelAction()
     {
@@ -163,6 +168,7 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
 
     /**
      * Hold order
+     * @return void
      */
     public function holdAction()
     {
@@ -185,6 +191,7 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
 
     /**
      * Unhold order
+     * @return void
      */
     public function unholdAction()
     {
@@ -209,6 +216,7 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
      * Manage payment state
      *
      * Either denies or approves a payment that is in "review" state
+     * @return void
      */
     public function reviewPaymentAction()
     {
@@ -250,6 +258,7 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
 
     /**
      * Add order comment action
+     * @return void
      */
     public function addCommentAction()
     {
@@ -292,6 +301,7 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
 
     /**
      * Generate invoices grid for ajax request
+     * @return void
      */
     public function invoicesAction()
     {
@@ -303,6 +313,7 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
 
     /**
      * Generate shipments grid for ajax request
+     * @return void
      */
     public function shipmentsAction()
     {
@@ -314,6 +325,7 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
 
     /**
      * Generate creditmemos grid for ajax request
+     * @return void
      */
     public function creditmemosAction()
     {
@@ -325,6 +337,7 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
 
     /**
      * Generate order history for ajax request
+     * @return void
      */
     public function commentsHistoryAction()
     {
@@ -341,6 +354,7 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
 
     /**
      * Cancel selected orders
+     * @return void
      */
     public function massCancelAction()
     {
@@ -377,6 +391,7 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
 
     /**
      * Hold selected orders
+     * @return void
      */
     public function massHoldAction()
     {
@@ -413,6 +428,7 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
 
     /**
      * Unhold selected orders
+     * @return void
      */
     public function massUnholdAction()
     {
@@ -450,18 +466,20 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
 
     /**
      * Change status for selected orders
+     * @return void
      */
     public function massStatusAction() {}
 
     /**
      * Print documents for selected orders
+     * @return void
      */
     public function massPrintAction() {}
 
     /**
      * Print invoices for selected orders
      *
-     * @return Mage_Adminhtml_Sales_OrderController|void
+     * @return $this|void
      */
     public function pdfinvoicesAction()
     {
@@ -500,7 +518,7 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
     /**
      * Print shipments for selected orders
      *
-     * @return Mage_Adminhtml_Sales_OrderController|void
+     * @return $this|void
      */
     public function pdfshipmentsAction()
     {
@@ -539,7 +557,7 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
     /**
      * Print creditmemos for selected orders
      *
-     * @return Mage_Adminhtml_Sales_OrderController|void
+     * @return $this|void
      */
     public function pdfcreditmemosAction()
     {
@@ -578,7 +596,7 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
     /**
      * Print all documents for selected orders
      *
-     * @return Mage_Adminhtml_Sales_OrderController|void
+     * @return $this|void
      */
     public function pdfdocsAction()
     {
@@ -642,6 +660,7 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
 
     /**
      * Attempt to void the order payment
+     * @return void
      */
     public function voidPaymentAction()
     {
@@ -688,6 +707,7 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
 
     /**
      * Export order grid to CSV format
+     * @return void
      */
     public function exportCsvAction()
     {
@@ -698,6 +718,7 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
 
     /**
      *  Export order grid to Excel XML format
+     * @return void
      */
     public function exportExcelAction()
     {
@@ -708,6 +729,7 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
 
     /**
      * Order transactions grid ajax action
+     * @return void
      */
     public function transactionsAction()
     {
@@ -718,6 +740,7 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
 
     /**
      * Edit order address form
+     * @return void
      */
     public function addressAction()
     {
@@ -743,6 +766,7 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
 
     /**
      * Save order address
+     * @return void
      */
     public function addressSaveAction()
     {

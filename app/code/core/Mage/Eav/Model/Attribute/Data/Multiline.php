@@ -27,7 +27,7 @@ class Mage_Eav_Model_Attribute_Data_Multiline extends Mage_Eav_Model_Attribute_D
             return false;
         }
 
-        return array_map([$this, '_applyInputFilter'], $value);
+        return array_map($this->_applyInputFilter(...), $value);
     }
 
     /**
@@ -123,7 +123,7 @@ class Mage_Eav_Model_Attribute_Data_Multiline extends Mage_Eav_Model_Attribute_D
             $values = explode("\n", (string) $values);
         }
 
-        $values = array_map([$this, '_applyOutputFilter'], $values);
+        $values = array_map($this->_applyOutputFilter(...), $values);
         return match ($format) {
             Mage_Eav_Model_Attribute_Data::OUTPUT_FORMAT_ARRAY => $values,
             Mage_Eav_Model_Attribute_Data::OUTPUT_FORMAT_HTML => implode('<br />', $values),

@@ -22,6 +22,7 @@ class Mage_Adminhtml_Cms_Block_WidgetController extends Mage_Adminhtml_Controlle
 
     /**
      * Chooser Source action
+     * @return void
      */
     public function chooserAction()
     {

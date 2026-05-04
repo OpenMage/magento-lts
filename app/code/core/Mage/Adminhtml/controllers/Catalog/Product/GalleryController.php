@@ -20,6 +20,9 @@ class Mage_Adminhtml_Catalog_Product_GalleryController extends Mage_Adminhtml_Co
      */
     public const ADMIN_RESOURCE = 'catalog/products';
 
+    /**
+     * @return void
+     */
     public function uploadAction()
     {
         try {
