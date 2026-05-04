@@ -1817,11 +1817,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/International.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in &&, bool|null given on the right side.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in &&, string|false given on the right side.',
     'count' => 4,
     'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Ups.php',

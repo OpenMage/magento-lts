@@ -207,7 +207,7 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../lib/Varien/Object/Mapper.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Variable method call on array|object.',
+    'rawMessage' => 'Variable method call on object.',
     'count' => 3,
     'path' => __DIR__ . '/../lib/Varien/Object/Mapper.php',
 ];

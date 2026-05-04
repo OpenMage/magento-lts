@@ -87,11 +87,11 @@ interface OpenMageVersionInterface
 
     public const VERSION_19_5_0_0           = '19.5.0.0';
 
-    public const VERSION_20_15_0_0          = '20.15.0.0';
+    public const VERSION_20_15_0            = '20.15.0';
 
-    public const VERSION_20_16_0_0          = '20.16.0.0';
+    public const VERSION_20_16_0            = '20.16.0';
 
-    public const VERSION_20_17_0_0          = '20.17.0.0';
+    public const VERSION_20_17_0            = '20.17.0';
 
-    public const VERSION_20_18_0_0          = '20.18.0.0';
+    public const VERSION_20_18_0            = '20.18.0';
 }
