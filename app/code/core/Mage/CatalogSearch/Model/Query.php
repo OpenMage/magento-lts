@@ -223,8 +223,6 @@ class Mage_CatalogSearch_Model_Query extends Mage_Core_Model_Abstract
 
     /**
      * Retrieve maximum suggestions for autocomplete
-     *
-     * @return int
      */
     public function getMaxSuggestions(): int
     {
