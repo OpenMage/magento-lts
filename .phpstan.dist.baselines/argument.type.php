@@ -182,11 +182,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Dashboard/Graph.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #2 $array of function implode expects array, array|object given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Dashboard/Graph.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $storeId of method Mage_Core_Model_Template::emulateDesign() expects int|string, int|null given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Newsletter/Queue/Preview.php',
@@ -1773,7 +1768,7 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $optionId of method Mage_Catalog_Model_Product_Option::deletePrices() expects int|string, int|string|null given.',
-    'count' => 2,
+    'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Product/Option.php',
 ];
 $ignoreErrors[] = [
@@ -1783,7 +1778,7 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $optionId of method Mage_Catalog_Model_Product_Option_Value::deleteValue() expects int|string, int|string|null given.',
-    'count' => 2,
+    'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Product/Option.php',
 ];
 $ignoreErrors[] = [
@@ -2208,11 +2203,6 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #2 $value of method Mage_Core_Model_Resource_Setup::setConfigData() expects string, int|string|null given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/data/catalog_setup/data-install-1.6.0.0.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #3 $groupId of method Mage_Eav_Model_Entity_Setup::addAttributeToGroup() expects int|string, int|null given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/data/catalog_setup/data-install-1.6.0.0.php',
 ];
@@ -8885,11 +8875,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Parameter #2 ...$arrays of function array_intersect_key expects array, array|null given.',
     'count' => 1,
     'path' => __DIR__ . '/../lib/Varien/Object.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #2 $array of function array_key_exists expects array, array|object given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../lib/Varien/Object/Mapper.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $data of function simplexml_load_string expects string, true given.',

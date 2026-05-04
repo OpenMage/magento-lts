@@ -2287,11 +2287,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Model/System/Config/Source/Catalog/ListPerPage.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Adminhtml_Model_System_Config_Source_Catalog_Search_Type::toOptionArray() has no return type specified.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Model/System/Config/Source/Catalog/Search/Type.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Adminhtml_Model_System_Config_Source_Category::toOptionArray() has no return type specified.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Model/System/Config/Source/Category.php',

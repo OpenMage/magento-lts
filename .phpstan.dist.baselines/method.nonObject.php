@@ -3502,11 +3502,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Core/Helper/Data.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method setDataUsingMethod() on array|Varien_Object.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Core/Helper/Data.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Cannot call method getNode() on Mage_Core_Model_Config|null.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Core/Helper/Hint.php',
@@ -7205,11 +7200,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Cannot call method execute() on object|resource.',
     'count' => 1,
     'path' => __DIR__ . '/../lib/Varien/Db/Statement/Pdo/Mysql.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method hasData() on array|object.',
-    'count' => 1,
-    'path' => __DIR__ . '/../lib/Varien/Object/Mapper.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Cannot call method asNiceXml() on Varien_Simplexml_Element|false.',
