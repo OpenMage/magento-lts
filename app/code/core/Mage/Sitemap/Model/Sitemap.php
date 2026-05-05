@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -14,19 +16,9 @@
  *
  * @method Mage_Sitemap_Model_Resource_Sitemap            _getResource()
  * @method Mage_Sitemap_Model_Resource_Sitemap_Collection getCollection()
+ * @method int                                            getSitemapId()
  * @method Mage_Sitemap_Model_Resource_Sitemap            getResource()
  * @method Mage_Sitemap_Model_Resource_Sitemap_Collection getResourceCollection()
- * @method string                                         getSitemapFilename()
- * @method int                                            getSitemapId()
- * @method string                                         getSitemapPath()
- * @method string                                         getSitemapTime()
- * @method string                                         getSitemapType()
- * @method int                                            getStoreId()
- * @method $this                                          setSitemapFilename(string $value)
- * @method $this                                          setSitemapPath(string $value)
- * @method $this                                          setSitemapTime(string $value)
- * @method $this                                          setSitemapType(string $value)
- * @method $this                                          setStoreId(int $value)
  */
 class Mage_Sitemap_Model_Sitemap extends Mage_Core_Model_Abstract
 {
@@ -43,6 +35,56 @@ class Mage_Sitemap_Model_Sitemap extends Mage_Core_Model_Abstract
     protected function _construct()
     {
         $this->_init('sitemap/sitemap');
+    }
+
+    public function getSitemapFilename(): string
+    {
+        return (string) $this->_getData('sitemap_filename');
+    }
+
+    public function getSitemapPath(): string
+    {
+        return (string) $this->_getData('sitemap_path');
+    }
+
+    public function getSitemapTime(): string
+    {
+        return (string) $this->_getData('sitemap_time');
+    }
+
+    public function getSitemapType(): string
+    {
+        return (string) $this->_getData('sitemap_type');
+    }
+
+    public function getStoreId(): int
+    {
+        return (int) $this->_getData('store_id');
+    }
+
+    public function setSitemapFilename(string $value): static
+    {
+        return $this->setData('sitemap_filename', $value);
+    }
+
+    public function setSitemapPath(string $value): static
+    {
+        return $this->setData('sitemap_path', $value);
+    }
+
+    public function setSitemapTime(string $value): static
+    {
+        return $this->setData('sitemap_time', $value);
+    }
+
+    public function setSitemapType(string $value): static
+    {
+        return $this->setData('sitemap_type', $value);
+    }
+
+    public function setStoreId(int $value): static
+    {
+        return $this->setData('store_id', $value);
     }
 
     /**

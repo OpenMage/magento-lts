@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -14,16 +16,8 @@
  *
  * @method Mage_GiftMessage_Model_Resource_Message            _getResource()
  * @method Mage_GiftMessage_Model_Resource_Message_Collection getCollection()
- * @method int                                                getCustomerId()
- * @method string                                             getMessage()
- * @method string                                             getRecipient()
  * @method Mage_GiftMessage_Model_Resource_Message            getResource()
  * @method Mage_GiftMessage_Model_Resource_Message_Collection getResourceCollection()
- * @method string                                             getSender()
- * @method $this                                              setCustomerId(int $value)
- * @method $this                                              setMessage(string $value)
- * @method $this                                              setRecipient(string $value)
- * @method $this                                              setSender(string $value)
  */
 class Mage_GiftMessage_Model_Message extends Mage_Core_Model_Abstract
 {
@@ -48,6 +42,46 @@ class Mage_GiftMessage_Model_Message extends Mage_Core_Model_Abstract
     protected function _construct()
     {
         $this->_init('giftmessage/message');
+    }
+
+    public function getCustomerId(): int
+    {
+        return (int) $this->_getData('customer_id');
+    }
+
+    public function getMessage(): string
+    {
+        return (string) $this->_getData('message');
+    }
+
+    public function getRecipient(): string
+    {
+        return (string) $this->_getData('recipient');
+    }
+
+    public function getSender(): string
+    {
+        return (string) $this->_getData('sender');
+    }
+
+    public function setCustomerId(int $value): static
+    {
+        return $this->setData('customer_id', $value);
+    }
+
+    public function setMessage(string $value): static
+    {
+        return $this->setData('message', $value);
+    }
+
+    public function setRecipient(string $value): static
+    {
+        return $this->setData('recipient', $value);
+    }
+
+    public function setSender(string $value): static
+    {
+        return $this->setData('sender', $value);
     }
 
     /**

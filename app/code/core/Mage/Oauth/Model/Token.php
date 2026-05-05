@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -13,30 +15,10 @@
  * @package    Mage_Oauth
  *
  * @method Mage_Oauth_Model_Resource_Token            _getResource()
- * @method int                                        getAdminId()
- * @method int                                        getAuthorized()
- * @method string                                     getCallbackUrl()
  * @method Mage_Oauth_Model_Resource_Token_Collection getCollection()
- * @method int                                        getConsumerId()
- * @method int                                        getCustomerId()
  * @method Mage_Oauth_Model_Resource_Token            getResource()
  * @method Mage_Oauth_Model_Resource_Token_Collection getResourceCollection()
- * @method int                                        getRevoked()
- * @method string                                     getSecret()
- * @method string                                     getToken()
- * @method string                                     getType()
- * @method string                                     getVerifier()
  * @method string                                     getName() Consumer name (joined from consumer table)
- * @method $this                                      setAdminId(int $adminId)
- * @method $this                                      setAuthorized(int $authorized)
- * @method $this                                      setCallbackUrl(string $callbackUrl)
- * @method $this                                      setConsumerId(int $consumerId)
- * @method $this                                      setCustomerId(int $customerId)
- * @method $this                                      setRevoked(int $revoked)
- * @method $this                                      setSecret(string $tokenSecret)
- * @method $this                                      setToken(string $token)
- * @method $this                                      setType(string $type)
- * @method $this                                      setVerifier(string $verifier)
  */
 class Mage_Oauth_Model_Token extends Mage_Core_Model_Abstract
 {
@@ -69,6 +51,109 @@ class Mage_Oauth_Model_Token extends Mage_Core_Model_Abstract
     protected function _construct()
     {
         $this->_init('oauth/token');
+    }
+
+    public function getAdminId(): ?int
+    {
+        $value = $this->_getData('admin_id');
+        return $value !== null ? (int) $value : null;
+    }
+
+    public function getAuthorized(): int
+    {
+        return (int) $this->_getData('authorized');
+    }
+
+    public function getCallbackUrl(): string
+    {
+        return (string) $this->_getData('callback_url');
+    }
+
+    public function getConsumerId(): int
+    {
+        return (int) $this->_getData('consumer_id');
+    }
+
+    public function getCustomerId(): ?int
+    {
+        $value = $this->_getData('customer_id');
+        return $value !== null ? (int) $value : null;
+    }
+
+    public function getRevoked(): int
+    {
+        return (int) $this->_getData('revoked');
+    }
+
+    public function getSecret(): string
+    {
+        return (string) $this->_getData('secret');
+    }
+
+    public function getToken(): string
+    {
+        return (string) $this->_getData('token');
+    }
+
+    public function getType(): string
+    {
+        return (string) $this->_getData('type');
+    }
+
+    public function getVerifier(): ?string
+    {
+        $value = $this->_getData('verifier');
+        return $value !== null ? (string) $value : null;
+    }
+
+    public function setAdminId(?int $adminId): static
+    {
+        return $this->setData('admin_id', $adminId);
+    }
+
+    public function setAuthorized(int $authorized): static
+    {
+        return $this->setData('authorized', $authorized);
+    }
+
+    public function setCallbackUrl(string $callbackUrl): static
+    {
+        return $this->setData('callback_url', $callbackUrl);
+    }
+
+    public function setConsumerId(int $consumerId): static
+    {
+        return $this->setData('consumer_id', $consumerId);
+    }
+
+    public function setCustomerId(?int $customerId): static
+    {
+        return $this->setData('customer_id', $customerId);
+    }
+
+    public function setRevoked(int $revoked): static
+    {
+        return $this->setData('revoked', $revoked);
+    }
+
+    public function setSecret(string $tokenSecret): static
+    {
+        return $this->setData('secret', $tokenSecret);
+    }
+
+    public function setToken(string $token): static
+    {
+        return $this->setData('token', $token);
+    }
+
+    public function setType(string $type): static
+    {
+        return $this->setData('type', $type);
+    }
+
+    public function setVerifier(?string $verifier): static
+    {
+        return $this->setData('verifier', $verifier);
     }
 
     /**
