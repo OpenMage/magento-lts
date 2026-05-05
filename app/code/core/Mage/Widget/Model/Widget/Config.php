@@ -39,7 +39,12 @@ class Mage_Widget_Model_Widget_Config extends Varien_Object
         // i want glob able path
         $dir = Mage::getBaseDir('skin') . DS . Mage::getDesign()->getArea()
             . DS . '*' . DS . '*' . DS . 'images' . DS . 'widget' . DS . '*.gif';
-        $files = array_unique(array_map(basename(...), glob($dir)));
+        $glob = glob($dir);
+        if ($glob === false) {
+            return [];
+        }
+
+        $files = array_unique(array_map(basename(...), $glob));
         $result = [];
         foreach ($files as $file) {
             $result[$file] = Mage::getDesign()->getSkinUrl('images/widget/' . $file);
