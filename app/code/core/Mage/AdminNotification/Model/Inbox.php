@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -14,22 +16,8 @@
  *
  * @method Mage_AdminNotification_Model_Resource_Inbox            _getResource()
  * @method Mage_AdminNotification_Model_Resource_Inbox_Collection getCollection()
- * @method string                                                 getDateAdded()
- * @method string                                                 getDescription()
- * @method int                                                    getIsRead()
- * @method int                                                    getIsRemove()
  * @method Mage_AdminNotification_Model_Resource_Inbox            getResource()
  * @method Mage_AdminNotification_Model_Resource_Inbox_Collection getResourceCollection()
- * @method int                                                    getSeverity()
- * @method string                                                 getTitle()
- * @method string                                                 getUrl()
- * @method $this                                                  setDateAdded(string $value)
- * @method $this                                                  setDescription(string $value)
- * @method $this                                                  setIsRead(int $value)
- * @method $this                                                  setIsRemove(int $value)
- * @method $this                                                  setSeverity(int $value)
- * @method $this                                                  setTitle(string $value)
- * @method $this                                                  setUrl(string $value)
  */
 class Mage_AdminNotification_Model_Inbox extends Mage_Core_Model_Abstract
 {
@@ -48,6 +36,76 @@ class Mage_AdminNotification_Model_Inbox extends Mage_Core_Model_Abstract
     {
         parent::_construct();
         $this->_init('adminnotification/inbox');
+    }
+
+    public function getDateAdded(): string
+    {
+        return (string) $this->_getData('date_added');
+    }
+
+    public function getDescription(): string
+    {
+        return (string) $this->_getData('description');
+    }
+
+    public function getIsRead(): int
+    {
+        return (int) $this->_getData('is_read');
+    }
+
+    public function getIsRemove(): int
+    {
+        return (int) $this->_getData('is_remove');
+    }
+
+    public function getSeverity(): int
+    {
+        return (int) $this->_getData('severity');
+    }
+
+    public function getTitle(): string
+    {
+        return (string) $this->_getData('title');
+    }
+
+    public function getUrl(): string
+    {
+        return (string) $this->_getData('url');
+    }
+
+    public function setDateAdded(string $value): static
+    {
+        return $this->setData('date_added', $value);
+    }
+
+    public function setDescription(string $value): static
+    {
+        return $this->setData('description', $value);
+    }
+
+    public function setIsRead(int $value): static
+    {
+        return $this->setData('is_read', $value);
+    }
+
+    public function setIsRemove(int $value): static
+    {
+        return $this->setData('is_remove', $value);
+    }
+
+    public function setSeverity(int $value): static
+    {
+        return $this->setData('severity', $value);
+    }
+
+    public function setTitle(string $value): static
+    {
+        return $this->setData('title', $value);
+    }
+
+    public function setUrl(string $value): static
+    {
+        return $this->setData('url', $value);
     }
 
     /**

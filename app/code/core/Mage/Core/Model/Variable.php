@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -13,16 +15,12 @@
  * @package    Mage_Core
  *
  * @method Mage_Core_Model_Resource_Variable            _getResource()
- * @method string                                       getCode()
  * @method Mage_Core_Model_Resource_Variable_Collection getCollection()
  * @method string                                       getHtmlValue()
- * @method string                                       getName()
  * @method string                                       getPlainValue()
  * @method Mage_Core_Model_Resource_Variable            getResource()
  * @method Mage_Core_Model_Resource_Variable_Collection getResourceCollection()
  * @method bool                                         getUseDefaultValue()
- * @method $this                                        setCode(string $value)
- * @method $this                                        setName(string $value)
  */
 class Mage_Core_Model_Variable extends Mage_Core_Model_Abstract
 {
@@ -39,6 +37,26 @@ class Mage_Core_Model_Variable extends Mage_Core_Model_Abstract
     {
         parent::_construct();
         $this->_init('core/variable');
+    }
+
+    public function getCode(): string
+    {
+        return (string) $this->_getData('code');
+    }
+
+    public function getName(): string
+    {
+        return (string) $this->_getData('name');
+    }
+
+    public function setCode(string $value): static
+    {
+        return $this->setData('code', $value);
+    }
+
+    public function setName(string $value): static
+    {
+        return $this->setData('name', $value);
     }
 
     /**

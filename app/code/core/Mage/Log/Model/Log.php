@@ -15,17 +15,7 @@ declare(strict_types=1);
  * @package    Mage_Log
  *
  * @method Mage_Log_Model_Resource_Log _getResource()
- * @method string                      getFirstVisitAt()
- * @method int                         getLastUrlId()
- * @method string                      getLastVisitAt()
  * @method Mage_Log_Model_Resource_Log getResource()
- * @method string                      getSessionId()
- * @method int                         getStoreId()
- * @method $this                       setFirstVisitAt(string $value)
- * @method $this                       setLastUrlId(int $value)
- * @method $this                       setLastVisitAt(string $value)
- * @method $this                       setSessionId(string $value)
- * @method $this                       setStoreId(int $value)
  */
 class Mage_Log_Model_Log extends Mage_Core_Model_Abstract
 {
@@ -37,6 +27,56 @@ class Mage_Log_Model_Log extends Mage_Core_Model_Abstract
     protected function _construct()
     {
         $this->_init('log/log');
+    }
+
+    public function getFirstVisitAt(): string
+    {
+        return (string) $this->_getData('first_visit_at');
+    }
+
+    public function getLastUrlId(): int
+    {
+        return (int) $this->_getData('last_url_id');
+    }
+
+    public function getLastVisitAt(): string
+    {
+        return (string) $this->_getData('last_visit_at');
+    }
+
+    public function getSessionId(): ?string
+    {
+        return $this->_getData('session_id') !== null ? (string) $this->_getData('session_id') : null;
+    }
+
+    public function getStoreId(): int
+    {
+        return (int) $this->_getData('store_id');
+    }
+
+    public function setFirstVisitAt(string $value): static
+    {
+        return $this->setData('first_visit_at', $value);
+    }
+
+    public function setLastUrlId(int $value): static
+    {
+        return $this->setData('last_url_id', $value);
+    }
+
+    public function setLastVisitAt(string $value): static
+    {
+        return $this->setData('last_visit_at', $value);
+    }
+
+    public function setSessionId(?string $value): static
+    {
+        return $this->setData('session_id', $value);
+    }
+
+    public function setStoreId(int $value): static
+    {
+        return $this->setData('store_id', $value);
     }
 
     /**

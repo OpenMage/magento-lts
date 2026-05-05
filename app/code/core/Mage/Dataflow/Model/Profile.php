@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -13,25 +15,13 @@
  * @package    Mage_Dataflow
  *
  * @method Mage_Dataflow_Model_Resource_Profile            _getResource()
- * @method string                                          getActionsXml()
  * @method int                                             getAdminUserId()
  * @method Mage_Dataflow_Model_Resource_Profile_Collection getCollection()
- * @method string                                          getDataTransfer()
- * @method string                                          getDirection()
- * @method string                                          getEntityType()
  * @method array|string                                    getGuiData()
- * @method string                                          getName()
  * @method Mage_Dataflow_Model_Resource_Profile            getResource()
  * @method Mage_Dataflow_Model_Resource_Profile_Collection getResourceCollection()
- * @method int                                             getStoreId()
- * @method $this                                           setActionsXml(string $value)
  * @method $this                                           setAdminUserId(int $value)
- * @method $this                                           setDataTransfer(string $value)
- * @method $this                                           setDirection(string $value)
- * @method $this                                           setEntityType(string $value)
  * @method $this                                           setGuiData(array|string $value)
- * @method $this                                           setName(string $value)
- * @method $this                                           setStoreId(int $value)
  */
 class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
 {
@@ -59,6 +49,66 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
     protected function _construct()
     {
         $this->_init('dataflow/profile');
+    }
+
+    public function getActionsXml(): string
+    {
+        return (string) $this->_getData('actions_xml');
+    }
+
+    public function getDataTransfer(): string
+    {
+        return (string) $this->_getData('data_transfer');
+    }
+
+    public function getDirection(): string
+    {
+        return (string) $this->_getData('direction');
+    }
+
+    public function getEntityType(): string
+    {
+        return (string) $this->_getData('entity_type');
+    }
+
+    public function getName(): string
+    {
+        return (string) $this->_getData('name');
+    }
+
+    public function getStoreId(): int
+    {
+        return (int) $this->_getData('store_id');
+    }
+
+    public function setActionsXml(string $value): static
+    {
+        return $this->setData('actions_xml', $value);
+    }
+
+    public function setDataTransfer(string $value): static
+    {
+        return $this->setData('data_transfer', $value);
+    }
+
+    public function setDirection(string $value): static
+    {
+        return $this->setData('direction', $value);
+    }
+
+    public function setEntityType(string $value): static
+    {
+        return $this->setData('entity_type', $value);
+    }
+
+    public function setName(string $value): static
+    {
+        return $this->setData('name', $value);
+    }
+
+    public function setStoreId(int $value): static
+    {
+        return $this->setData('store_id', $value);
     }
 
     #[Override]
