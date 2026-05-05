@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -13,25 +15,13 @@
  * @package    Mage_SalesRule
  *
  * @method Mage_SalesRule_Model_Resource_Coupon            _getResource()
- * @method string                                          getCode()
  * @method Mage_SalesRule_Model_Resource_Coupon_Collection getCollection()
  * @method string|Zend_Date                                getExpirationDate()
- * @method int                                             getIsPrimary()
  * @method Mage_SalesRule_Model_Resource_Coupon            getResource()
  * @method Mage_SalesRule_Model_Resource_Coupon_Collection getResourceCollection()
- * @method int                                             getRuleId()
- * @method int                                             getTimesUsed()
  * @method int                                             getType()
- * @method int                                             getUsageLimit()
- * @method int                                             getUsagePerCustomer()
- * @method $this                                           setCode(string $value)
  * @method $this                                           setExpirationDate(string|Zend_Date $value)
- * @method $this                                           setIsPrimary(int $value)
- * @method $this                                           setRuleId(int $value)
- * @method $this                                           setTimesUsed(int $value)
  * @method $this                                           setType(int $value)
- * @method $this                                           setUsageLimit(int $value)
- * @method $this                                           setUsagePerCustomer(int $value)
  */
 class Mage_SalesRule_Model_Coupon extends Mage_Core_Model_Abstract
 {
@@ -49,6 +39,69 @@ class Mage_SalesRule_Model_Coupon extends Mage_Core_Model_Abstract
     {
         parent::_construct();
         $this->_init('salesrule/coupon');
+    }
+
+    public function getCode(): string
+    {
+        return (string) $this->_getData('code');
+    }
+
+    public function getIsPrimary(): ?int
+    {
+        $v = $this->_getData('is_primary');
+        return $v !== null ? (int) $v : null;
+    }
+
+    public function getRuleId(): int
+    {
+        return (int) $this->_getData('rule_id');
+    }
+
+    public function getTimesUsed(): int
+    {
+        return (int) $this->_getData('times_used');
+    }
+
+    public function getUsageLimit(): ?int
+    {
+        $v = $this->_getData('usage_limit');
+        return $v !== null ? (int) $v : null;
+    }
+
+    public function getUsagePerCustomer(): ?int
+    {
+        $v = $this->_getData('usage_per_customer');
+        return $v !== null ? (int) $v : null;
+    }
+
+    public function setCode(string $value): static
+    {
+        return $this->setData('code', $value);
+    }
+
+    public function setIsPrimary(?int $value): static
+    {
+        return $this->setData('is_primary', $value);
+    }
+
+    public function setRuleId(int $value): static
+    {
+        return $this->setData('rule_id', $value);
+    }
+
+    public function setTimesUsed(int $value): static
+    {
+        return $this->setData('times_used', $value);
+    }
+
+    public function setUsageLimit(?int $value): static
+    {
+        return $this->setData('usage_limit', $value);
+    }
+
+    public function setUsagePerCustomer(?int $value): static
+    {
+        return $this->setData('usage_per_customer', $value);
     }
 
     /**

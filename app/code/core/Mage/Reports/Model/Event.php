@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -14,20 +16,8 @@
  *
  * @method Mage_Reports_Model_Resource_Event            _getResource()
  * @method Mage_Reports_Model_Resource_Event_Collection getCollection()
- * @method int                                          getEventTypeId()
- * @method string                                       getLoggedAt()
- * @method int                                          getObjectId()
  * @method Mage_Reports_Model_Resource_Event            getResource()
  * @method Mage_Reports_Model_Resource_Event_Collection getResourceCollection()
- * @method int                                          getStoreId()
- * @method int                                          getSubjectId()
- * @method int                                          getSubtype()
- * @method $this                                        setEventTypeId(int $value)
- * @method $this                                        setLoggedAt(string $value)
- * @method $this                                        setObjectId(int $value)
- * @method $this                                        setStoreId(int $value)
- * @method $this                                        setSubjectId(int $value)
- * @method $this                                        setSubtype(int $value)
  */
 class Mage_Reports_Model_Event extends Mage_Core_Model_Abstract
 {
@@ -49,6 +39,66 @@ class Mage_Reports_Model_Event extends Mage_Core_Model_Abstract
     protected function _construct()
     {
         $this->_init('reports/event');
+    }
+
+    public function getEventTypeId(): int
+    {
+        return (int) $this->_getData('event_type_id');
+    }
+
+    public function getLoggedAt(): string
+    {
+        return (string) $this->_getData('logged_at');
+    }
+
+    public function getObjectId(): int
+    {
+        return (int) $this->_getData('object_id');
+    }
+
+    public function getStoreId(): int
+    {
+        return (int) $this->_getData('store_id');
+    }
+
+    public function getSubjectId(): int
+    {
+        return (int) $this->_getData('subject_id');
+    }
+
+    public function getSubtype(): int
+    {
+        return (int) $this->_getData('subtype');
+    }
+
+    public function setEventTypeId(int $value): static
+    {
+        return $this->setData('event_type_id', $value);
+    }
+
+    public function setLoggedAt(string $value): static
+    {
+        return $this->setData('logged_at', $value);
+    }
+
+    public function setObjectId(int $value): static
+    {
+        return $this->setData('object_id', $value);
+    }
+
+    public function setStoreId(int $value): static
+    {
+        return $this->setData('store_id', $value);
+    }
+
+    public function setSubjectId(int $value): static
+    {
+        return $this->setData('subject_id', $value);
+    }
+
+    public function setSubtype(int $value): static
+    {
+        return $this->setData('subtype', $value);
     }
 
     /**

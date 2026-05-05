@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -13,17 +15,13 @@
  * @method Mage_Index_Model_Resource_Event            _getResource()
  * @method Mage_Index_Model_Resource_Event_Collection getCollection()
  * @method Varien_Object                              getDataObject()
- * @method int                                        getEntityPk()
  * @method Mage_Index_Model_Resource_Event            getResource()
  * @method Mage_Index_Model_Resource_Event_Collection getResourceCollection()
  * @method bool                                       hasCreatedAt()
  * @method bool                                       hasEntityPk()
  * @method $this                                      setDataObject(Varien_Object $value)
- * @method $this                                      setEntity(string $value)
- * @method $this                                      setEntityPk(int $value)
  * @method $this                                      setNewData(array|string $value)
  * @method $this                                      setOldData(array|string $value)
- * @method $this                                      setType(string $value)
  */
 class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
 {
@@ -62,6 +60,26 @@ class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
     protected function _construct()
     {
         $this->_init('index/event');
+    }
+
+    public function getEntityPk(): int
+    {
+        return (int) $this->_getData('entity_pk');
+    }
+
+    public function setEntity(string $value): static
+    {
+        return $this->setData('entity', $value);
+    }
+
+    public function setEntityPk(int $value): static
+    {
+        return $this->setData('entity_pk', $value);
+    }
+
+    public function setType(string $value): static
+    {
+        return $this->setData('type', $value);
     }
 
     /**
@@ -305,9 +323,9 @@ class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
      *
      * @return string
      */
-    public function getEntity()
+    public function getEntity(): string
     {
-        return $this->_getData('entity');
+        return (string) $this->_getData('entity');
     }
 
     /**
@@ -316,9 +334,9 @@ class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
      *
      * @return string
      */
-    public function getType()
+    public function getType(): string
     {
-        return $this->_getData('type');
+        return (string) $this->_getData('type');
     }
 
     /**

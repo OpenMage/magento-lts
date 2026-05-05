@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -14,26 +16,9 @@
  *
  * @method Mage_CatalogSearch_Model_Resource_Query            _getResource()
  * @method Mage_CatalogSearch_Model_Resource_Query_Collection getCollection()
- * @method int                                                getDisplayInTerms()
- * @method int                                                getIsActive()
- * @method int                                                getIsProcessed()
- * @method string                                             getName()
- * @method int                                                getNumResults()
- * @method int                                                getPopularity()
- * @method string                                             getQueryText()
- * @method string                                             getRedirect()
  * @method Mage_CatalogSearch_Model_Resource_Query            getResource()
  * @method Mage_CatalogSearch_Model_Resource_Query_Collection getResourceCollection()
- * @method string                                             getSynonymFor()
- * @method $this                                              setDisplayInTerms(int $value)
- * @method $this                                              setIsActive(int $value)
- * @method $this                                              setIsProcessed(int $value)
- * @method $this                                              setNumResults(int $value)
- * @method $this                                              setPopularity(int $value)
- * @method $this                                              setQueryText(string $value)
  * @method $this                                              setRatio(float $value)
- * @method $this                                              setRedirect(string $value)
- * @method $this                                              setSynonymFor(string $value)
  */
 class Mage_CatalogSearch_Model_Query extends Mage_Core_Model_Abstract
 {
@@ -60,6 +45,93 @@ class Mage_CatalogSearch_Model_Query extends Mage_Core_Model_Abstract
     protected function _construct()
     {
         $this->_init('catalogsearch/query');
+    }
+
+    public function getDisplayInTerms(): int
+    {
+        return (int) $this->_getData('display_in_terms');
+    }
+
+    public function getIsActive(): int
+    {
+        return (int) $this->_getData('is_active');
+    }
+
+    public function getIsProcessed(): int
+    {
+        return (int) $this->_getData('is_processed');
+    }
+
+    public function getName(): string
+    {
+        return (string) $this->_getData('name');
+    }
+
+    public function getNumResults(): int
+    {
+        return (int) $this->_getData('num_results');
+    }
+
+    public function getPopularity(): int
+    {
+        return (int) $this->_getData('popularity');
+    }
+
+    public function getQueryText(): string
+    {
+        return (string) $this->_getData('query_text');
+    }
+
+    public function getRedirect(): ?string
+    {
+        $v = $this->_getData('redirect');
+        return $v !== null ? (string) $v : null;
+    }
+
+    public function getSynonymFor(): ?string
+    {
+        $v = $this->_getData('synonym_for');
+        return $v !== null ? (string) $v : null;
+    }
+
+    public function setDisplayInTerms(int $value): static
+    {
+        return $this->setData('display_in_terms', $value);
+    }
+
+    public function setIsActive(int $value): static
+    {
+        return $this->setData('is_active', $value);
+    }
+
+    public function setIsProcessed(int $value): static
+    {
+        return $this->setData('is_processed', $value);
+    }
+
+    public function setNumResults(int $value): static
+    {
+        return $this->setData('num_results', $value);
+    }
+
+    public function setPopularity(int $value): static
+    {
+        return $this->setData('popularity', $value);
+    }
+
+    public function setQueryText(string $value): static
+    {
+        return $this->setData('query_text', $value);
+    }
+
+    public function setRedirect(?string $value): static
+    {
+        return $this->setData('redirect', $value);
+    }
+
+    public function setSynonymFor(?string $value): static
+    {
+        return $this->setData('synonym_for', $value);
     }
 
     /**

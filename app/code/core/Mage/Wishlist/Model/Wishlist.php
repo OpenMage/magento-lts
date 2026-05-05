@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -15,11 +17,7 @@
  * @method Mage_Wishlist_Model_Resource_Wishlist            _getResource()
  * @method Mage_Wishlist_Model_Resource_Wishlist_Collection getCollection()
  * @method Mage_Wishlist_Model_Resource_Wishlist            getResource()
- * @method int                                              getShared()
- * @method string                                           getSharingCode()
  * @method string                                           getVisibility()
- * @method $this                                            setShared(int $value)
- * @method $this                                            setSharingCode(string $value)
  */
 class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
 {
@@ -64,6 +62,27 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
     protected function _construct()
     {
         $this->_init('wishlist/wishlist');
+    }
+
+    public function getShared(): int
+    {
+        return (int) $this->_getData('shared');
+    }
+
+    public function getSharingCode(): ?string
+    {
+        $v = $this->_getData('sharing_code');
+        return $v !== null ? (string) $v : null;
+    }
+
+    public function setShared(int $value): static
+    {
+        return $this->setData('shared', $value);
+    }
+
+    public function setSharingCode(?string $value): static
+    {
+        return $this->setData('sharing_code', $value);
     }
 
     /**
@@ -401,7 +420,7 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
      * @return $this
      * @throws Mage_Core_Exception
      */
-    public function setCustomerId($customerId)
+    public function setCustomerId(int $customerId): static
     {
         return $this->setData($this->_getResource()->getCustomerIdFieldName(), $customerId);
     }
@@ -412,9 +431,9 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
      * @return int
      * @throws Mage_Core_Exception
      */
-    public function getCustomerId()
+    public function getCustomerId(): int
     {
-        return $this->getData($this->_getResource()->getCustomerIdFieldName());
+        return (int) $this->getData($this->_getResource()->getCustomerIdFieldName());
     }
 
     /**

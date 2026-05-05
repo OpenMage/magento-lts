@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -13,23 +15,9 @@
  * @package    Mage_ProductAlert
  *
  * @method Mage_ProductAlert_Model_Resource_Stock            _getResource()
- * @method string                                            getAddDate()
  * @method Mage_ProductAlert_Model_Resource_Stock_Collection getCollection()
- * @method int                                               getCustomerId()
- * @method int                                               getProductId()
  * @method Mage_ProductAlert_Model_Resource_Stock            getResource()
  * @method Mage_ProductAlert_Model_Resource_Stock_Collection getResourceCollection()
- * @method int                                               getSendCount()
- * @method string                                            getSendDate()
- * @method int                                               getStatus()
- * @method int                                               getWebsiteId()
- * @method $this                                             setAddDate(string $value)
- * @method $this                                             setCustomerId(int $value)
- * @method $this                                             setProductId(int $value)
- * @method $this                                             setSendCount(int $value)
- * @method $this                                             setSendDate(string $value)
- * @method $this                                             setStatus(int $value)
- * @method $this                                             setWebsiteId(int $value)
  */
 class Mage_ProductAlert_Model_Stock extends Mage_Core_Model_Abstract
 {
@@ -39,6 +27,77 @@ class Mage_ProductAlert_Model_Stock extends Mage_Core_Model_Abstract
     protected function _construct()
     {
         $this->_init('productalert/stock');
+    }
+
+    public function getAddDate(): string
+    {
+        return (string) $this->_getData('add_date');
+    }
+
+    public function getCustomerId(): int
+    {
+        return (int) $this->_getData('customer_id');
+    }
+
+    public function getProductId(): int
+    {
+        return (int) $this->_getData('product_id');
+    }
+
+    public function getSendCount(): int
+    {
+        return (int) $this->_getData('send_count');
+    }
+
+    public function getSendDate(): ?string
+    {
+        $v = $this->_getData('send_date');
+        return $v !== null ? (string) $v : null;
+    }
+
+    public function getStatus(): int
+    {
+        return (int) $this->_getData('status');
+    }
+
+    public function getWebsiteId(): int
+    {
+        return (int) $this->_getData('website_id');
+    }
+
+    public function setAddDate(string $value): static
+    {
+        return $this->setData('add_date', $value);
+    }
+
+    public function setCustomerId(int $value): static
+    {
+        return $this->setData('customer_id', $value);
+    }
+
+    public function setProductId(int $value): static
+    {
+        return $this->setData('product_id', $value);
+    }
+
+    public function setSendCount(int $value): static
+    {
+        return $this->setData('send_count', $value);
+    }
+
+    public function setSendDate(?string $value): static
+    {
+        return $this->setData('send_date', $value);
+    }
+
+    public function setStatus(int $value): static
+    {
+        return $this->setData('status', $value);
+    }
+
+    public function setWebsiteId(int $value): static
+    {
+        return $this->setData('website_id', $value);
     }
 
     /**

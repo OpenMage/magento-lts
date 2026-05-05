@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -13,24 +15,15 @@
  * @package    Mage_Tag
  *
  * @method Mage_Tag_Model_Resource_Tag            _getResource()
- * @method int                                    getBasePopularity()
  * @method Mage_Tag_Model_Resource_Tag_Collection getCollection()
- * @method int                                    getFirstCustomerId()
- * @method int                                    getFirstStoreId()
  * @method Mage_Tag_Model_Resource_Tag            getResource()
  * @method Mage_Tag_Model_Resource_Tag_Collection getResourceCollection()
- * @method int                                    getStatus()
  * @method array                                  getStatusFilter()
  * @method int                                    getStore()
  * @method int                                    getStoreId()
  * @method array                                  getVisibleInStoreIds()
  * @method bool                                   hasBasePopularity()
  * @method bool                                   hasStoreId()
- * @method $this                                  setBasePopularity(int $value)
- * @method $this                                  setFirstCustomerId(int $value)
- * @method $this                                  setFirstStoreId(int $value)
- * @method $this                                  setName(string $value)
- * @method $this                                  setStatus(int $value)
  * @method $this                                  setStore(int $value)
  * @method $this                                  setStoreId(int $value)
  * @method $this                                  setVisibleInStoreIds(array $value)
@@ -78,6 +71,51 @@ class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
     protected function _construct()
     {
         $this->_init('tag/tag');
+    }
+
+    public function getBasePopularity(): int
+    {
+        return (int) $this->_getData('base_popularity');
+    }
+
+    public function getFirstCustomerId(): int
+    {
+        return (int) $this->_getData('first_customer_id');
+    }
+
+    public function getFirstStoreId(): int
+    {
+        return (int) $this->_getData('first_store_id');
+    }
+
+    public function getStatus(): int
+    {
+        return (int) $this->_getData('status');
+    }
+
+    public function setBasePopularity(int $value): static
+    {
+        return $this->setData('base_popularity', $value);
+    }
+
+    public function setFirstCustomerId(int $value): static
+    {
+        return $this->setData('first_customer_id', $value);
+    }
+
+    public function setFirstStoreId(int $value): static
+    {
+        return $this->setData('first_store_id', $value);
+    }
+
+    public function setName(string $value): static
+    {
+        return $this->setData('name', $value);
+    }
+
+    public function setStatus(int $value): static
+    {
+        return $this->setData('status', $value);
     }
 
     /**
@@ -144,9 +182,9 @@ class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
     /**
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
-        return $this->_getData('name');
+        return (string) $this->_getData('name');
     }
 
     /**
