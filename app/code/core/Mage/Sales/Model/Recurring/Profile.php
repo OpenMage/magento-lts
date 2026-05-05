@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -14,71 +16,11 @@
  * @package    Mage_Sales
  *
  * @method Mage_Sales_Model_Resource_Recurring_Profile            _getResource()
- * @method string                                                 getAdditionalInfo()
- * @method int                                                    getBillFailedLater()
- * @method string                                                 getBillingAddressInfo()
- * @method float                                                  getBillingAmount()
  * @method Mage_Sales_Model_Resource_Recurring_Profile_Collection getCollection()
- * @method string                                                 getCurrencyCode()
- * @method int                                                    getCustomerId()
- * @method float                                                  getInitAmount()
- * @method int                                                    getInitMayFail()
- * @method string                                                 getInternalReferenceId()
- * @method string                                                 getMethodCode()
- * @method string                                                 getOrderInfo()
- * @method string                                                 getOrderItemInfo()
- * @method int                                                    getPeriodFrequency()
- * @method int                                                    getPeriodMaxCycles()
- * @method string                                                 getPeriodUnit()
- * @method string                                                 getProfileVendorInfo()
  * @method Mage_Sales_Model_Quote                                 getQuote()
- * @method string                                                 getReferenceId()
  * @method Mage_Sales_Model_Resource_Recurring_Profile            getResource()
  * @method Mage_Sales_Model_Resource_Recurring_Profile_Collection getResourceCollection()
- * @method string                                                 getScheduleDescription()
- * @method string                                                 getShippingAddressInfo()
- * @method float                                                  getShippingAmount()
- * @method string                                                 getStartDatetime()
- * @method string                                                 getState()
- * @method int                                                    getStoreId()
- * @method string                                                 getSubscriberName()
- * @method int                                                    getSuspensionThreshold()
- * @method float                                                  getTaxAmount()
- * @method float                                                  getTrialBillingAmount()
- * @method int                                                    getTrialPeriodFrequency()
- * @method int                                                    getTrialPeriodMaxCycles()
- * @method string                                                 getTrialPeriodUnit()
  * @method $this                                                  setAdditionalInfo(string $value)
- * @method $this                                                  setBillFailedLater(int $value)
- * @method $this                                                  setBillingAddressInfo(string $value)
- * @method $this                                                  setBillingAmount(float $value)
- * @method $this                                                  setCurrencyCode(string $value)
- * @method $this                                                  setCustomerId(int $value)
- * @method $this                                                  setInitAmount(float $value)
- * @method $this                                                  setInitMayFail(int $value)
- * @method $this                                                  setInternalReferenceId(string $value)
- * @method $this                                                  setMethodCode(string $value)
- * @method $this                                                  setNewState(string $value)
- * @method $this                                                  setOrderInfo(string $value)
- * @method $this                                                  setOrderItemInfo(string $value)
- * @method $this                                                  setPeriodFrequency(int $value)
- * @method $this                                                  setPeriodMaxCycles(int $value)
- * @method $this                                                  setPeriodUnit(string $value)
- * @method $this                                                  setProfileVendorInfo(string $value)
- * @method $this                                                  setReferenceId(string $value)
- * @method $this                                                  setScheduleDescription(string $value)
- * @method $this                                                  setShippingAddressInfo(string $value)
- * @method $this                                                  setShippingAmount(float $value)
- * @method $this                                                  setStartDatetime(string $value)
- * @method $this                                                  setState(string $value)
- * @method $this                                                  setStoreId(int $value)
- * @method $this                                                  setSubscriberName(string $value)
- * @method $this                                                  setSuspensionThreshold(int $value)
- * @method $this                                                  setTaxAmount(float $value)
- * @method $this                                                  setTrialBillingAmount(float $value)
- * @method $this                                                  setTrialPeriodFrequency(int $value)
- * @method $this                                                  setTrialPeriodMaxCycles(int $value)
- * @method $this                                                  setTrialPeriodUnit(string $value)
  */
 class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Profile
 {
@@ -773,5 +715,305 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
                 $this->_cleanupArray($array[$key]);
             }
         }
+    }
+
+    public function getAdditionalInfo(): string
+    {
+        return (string) $this->_getData('additional_info');
+    }
+
+    public function getBillFailedLater(): int
+    {
+        return (int) $this->_getData('bill_failed_later');
+    }
+
+    public function getBillingAddressInfo(): string
+    {
+        return (string) $this->_getData('billing_address_info');
+    }
+
+    public function getBillingAmount(): float
+    {
+        return (float) $this->_getData('billing_amount');
+    }
+
+    public function getCurrencyCode(): string
+    {
+        return (string) $this->_getData('currency_code');
+    }
+
+    public function getCustomerId(): int
+    {
+        return (int) $this->_getData('customer_id');
+    }
+
+    public function getInitAmount(): float
+    {
+        return (float) $this->_getData('init_amount');
+    }
+
+    public function getInitMayFail(): int
+    {
+        return (int) $this->_getData('init_may_fail');
+    }
+
+    public function getInternalReferenceId(): string
+    {
+        return (string) $this->_getData('internal_reference_id');
+    }
+
+    public function getMethodCode(): string
+    {
+        return (string) $this->_getData('method_code');
+    }
+
+    public function getOrderInfo(): string
+    {
+        return (string) $this->_getData('order_info');
+    }
+
+    public function getOrderItemInfo(): string
+    {
+        return (string) $this->_getData('order_item_info');
+    }
+
+    public function getPeriodFrequency(): int
+    {
+        return (int) $this->_getData('period_frequency');
+    }
+
+    public function getPeriodMaxCycles(): int
+    {
+        return (int) $this->_getData('period_max_cycles');
+    }
+
+    public function getPeriodUnit(): string
+    {
+        return (string) $this->_getData('period_unit');
+    }
+
+    public function getProfileVendorInfo(): string
+    {
+        return (string) $this->_getData('profile_vendor_info');
+    }
+
+    public function getReferenceId(): string
+    {
+        return (string) $this->_getData('reference_id');
+    }
+
+    public function getScheduleDescription(): string
+    {
+        return (string) $this->_getData('schedule_description');
+    }
+
+    public function getShippingAddressInfo(): string
+    {
+        return (string) $this->_getData('shipping_address_info');
+    }
+
+    public function getShippingAmount(): float
+    {
+        return (float) $this->_getData('shipping_amount');
+    }
+
+    public function getStartDatetime(): string
+    {
+        return (string) $this->_getData('start_datetime');
+    }
+
+    public function getState(): string
+    {
+        return (string) $this->_getData('state');
+    }
+
+    public function getStoreId(): int
+    {
+        return (int) $this->_getData('store_id');
+    }
+
+    public function getSubscriberName(): string
+    {
+        return (string) $this->_getData('subscriber_name');
+    }
+
+    public function getSuspensionThreshold(): int
+    {
+        return (int) $this->_getData('suspension_threshold');
+    }
+
+    public function getTaxAmount(): float
+    {
+        return (float) $this->_getData('tax_amount');
+    }
+
+    public function getTrialBillingAmount(): float
+    {
+        return (float) $this->_getData('trial_billing_amount');
+    }
+
+    public function getTrialPeriodFrequency(): int
+    {
+        return (int) $this->_getData('trial_period_frequency');
+    }
+
+    public function getTrialPeriodMaxCycles(): int
+    {
+        return (int) $this->_getData('trial_period_max_cycles');
+    }
+
+    public function getTrialPeriodUnit(): string
+    {
+        return (string) $this->_getData('trial_period_unit');
+    }
+
+    public function setBillFailedLater(int $value): static
+    {
+        return $this->setData('bill_failed_later', $value);
+    }
+
+    public function setBillingAddressInfo(string $value): static
+    {
+        return $this->setData('billing_address_info', $value);
+    }
+
+    public function setBillingAmount(float $value): static
+    {
+        return $this->setData('billing_amount', $value);
+    }
+
+    public function setCurrencyCode(string $value): static
+    {
+        return $this->setData('currency_code', $value);
+    }
+
+    public function setCustomerId(int $value): static
+    {
+        return $this->setData('customer_id', $value);
+    }
+
+    public function setInitAmount(float $value): static
+    {
+        return $this->setData('init_amount', $value);
+    }
+
+    public function setInitMayFail(int $value): static
+    {
+        return $this->setData('init_may_fail', $value);
+    }
+
+    public function setInternalReferenceId(string $value): static
+    {
+        return $this->setData('internal_reference_id', $value);
+    }
+
+    public function setMethodCode(string $value): static
+    {
+        return $this->setData('method_code', $value);
+    }
+
+    public function setNewState(string $value): static
+    {
+        return $this->setData('new_state', $value);
+    }
+
+    public function setOrderInfo(string $value): static
+    {
+        return $this->setData('order_info', $value);
+    }
+
+    public function setOrderItemInfo(string $value): static
+    {
+        return $this->setData('order_item_info', $value);
+    }
+
+    public function setPeriodFrequency(int $value): static
+    {
+        return $this->setData('period_frequency', $value);
+    }
+
+    public function setPeriodMaxCycles(int $value): static
+    {
+        return $this->setData('period_max_cycles', $value);
+    }
+
+    public function setPeriodUnit(string $value): static
+    {
+        return $this->setData('period_unit', $value);
+    }
+
+    public function setProfileVendorInfo(string $value): static
+    {
+        return $this->setData('profile_vendor_info', $value);
+    }
+
+    public function setReferenceId(string $value): static
+    {
+        return $this->setData('reference_id', $value);
+    }
+
+    public function setScheduleDescription(string $value): static
+    {
+        return $this->setData('schedule_description', $value);
+    }
+
+    public function setShippingAddressInfo(string $value): static
+    {
+        return $this->setData('shipping_address_info', $value);
+    }
+
+    public function setShippingAmount(float $value): static
+    {
+        return $this->setData('shipping_amount', $value);
+    }
+
+    public function setStartDatetime(string $value): static
+    {
+        return $this->setData('start_datetime', $value);
+    }
+
+    public function setState(string $value): static
+    {
+        return $this->setData('state', $value);
+    }
+
+    public function setStoreId(int $value): static
+    {
+        return $this->setData('store_id', $value);
+    }
+
+    public function setSubscriberName(string $value): static
+    {
+        return $this->setData('subscriber_name', $value);
+    }
+
+    public function setSuspensionThreshold(int $value): static
+    {
+        return $this->setData('suspension_threshold', $value);
+    }
+
+    public function setTaxAmount(float $value): static
+    {
+        return $this->setData('tax_amount', $value);
+    }
+
+    public function setTrialBillingAmount(float $value): static
+    {
+        return $this->setData('trial_billing_amount', $value);
+    }
+
+    public function setTrialPeriodFrequency(int $value): static
+    {
+        return $this->setData('trial_period_frequency', $value);
+    }
+
+    public function setTrialPeriodMaxCycles(int $value): static
+    {
+        return $this->setData('trial_period_max_cycles', $value);
+    }
+
+    public function setTrialPeriodUnit(string $value): static
+    {
+        return $this->setData('trial_period_unit', $value);
     }
 }

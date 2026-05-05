@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -13,31 +15,11 @@
  * @package    Mage_Eav
  *
  * @method Mage_Eav_Model_Resource_Entity_Type            _getResource()
- * @method string                                         getAdditionalAttributeTable()
  * @method Mage_Eav_Model_Resource_Entity_Type_Collection getCollection()
- * @method string                                         getDataSharingKey()
- * @method string                                         getEntityModel()
- * @method string                                         getIncrementModel()
- * @method string                                         getIncrementPadChar()
- * @method int                                            getIncrementPadLength()
- * @method int                                            getIncrementPerStore()
- * @method int                                            getIsDataSharing()
  * @method Mage_Eav_Model_Resource_Entity_Type            getResource()
  * @method Mage_Eav_Model_Resource_Entity_Type_Collection getResourceCollection()
- * @method $this                                          setAdditionalAttributeTable(string $value)
  * @method $this                                          setAttributeCodes(array $value)
- * @method $this                                          setAttributeModel(string $value)
- * @method $this                                          setDataSharingKey(string $value)
- * @method $this                                          setDefaultAttributeSetId(int $value)
  * @method $this                                          setEntityAttributeCollection(string $value)
- * @method $this                                          setEntityIdField(string $value)
- * @method $this                                          setEntityModel(string $value)
- * @method $this                                          setEntityTable(string $value)
- * @method $this                                          setEntityTypeCode(string $value)
- * @method $this                                          setIncrementModel(string $value)
- * @method $this                                          setIncrementPadChar(string $value)
- * @method $this                                          setIncrementPadLength(int $value)
- * @method $this                                          setIncrementPerStore(int $value)
  * @method $this                                          setIsDataSharing(int $value)
  * @method $this                                          setValueTablePrefix(string $value)
  */
@@ -355,5 +337,105 @@ class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
         }
 
         return 'eav/entity_attribute_collection';
+    }
+
+    public function getAdditionalAttributeTable(): string
+    {
+        return (string) $this->_getData('additional_attribute_table');
+    }
+
+    public function getDataSharingKey(): string
+    {
+        return (string) $this->_getData('data_sharing_key');
+    }
+
+    public function getEntityModel(): string
+    {
+        return (string) $this->_getData('entity_model');
+    }
+
+    public function getIncrementModel(): string
+    {
+        return (string) $this->_getData('increment_model');
+    }
+
+    public function getIncrementPadChar(): string
+    {
+        return (string) $this->_getData('increment_pad_char');
+    }
+
+    public function getIncrementPadLength(): int
+    {
+        return (int) $this->_getData('increment_pad_length');
+    }
+
+    public function getIncrementPerStore(): int
+    {
+        return (int) $this->_getData('increment_per_store');
+    }
+
+    public function getIsDataSharing(): int
+    {
+        return (int) $this->_getData('is_data_sharing');
+    }
+
+    public function setAdditionalAttributeTable(string $value): static
+    {
+        return $this->setData('additional_attribute_table', $value);
+    }
+
+    public function setAttributeModel(string $value): static
+    {
+        return $this->setData('attribute_model', $value);
+    }
+
+    public function setDataSharingKey(string $value): static
+    {
+        return $this->setData('data_sharing_key', $value);
+    }
+
+    public function setDefaultAttributeSetId(int $value): static
+    {
+        return $this->setData('default_attribute_set_id', $value);
+    }
+
+    public function setEntityIdField(string $value): static
+    {
+        return $this->setData('entity_id_field', $value);
+    }
+
+    public function setEntityModel(string $value): static
+    {
+        return $this->setData('entity_model', $value);
+    }
+
+    public function setEntityTable(string $value): static
+    {
+        return $this->setData('entity_table', $value);
+    }
+
+    public function setEntityTypeCode(string $value): static
+    {
+        return $this->setData('entity_type_code', $value);
+    }
+
+    public function setIncrementModel(string $value): static
+    {
+        return $this->setData('increment_model', $value);
+    }
+
+    public function setIncrementPadChar(string $value): static
+    {
+        return $this->setData('increment_pad_char', $value);
+    }
+
+    public function setIncrementPadLength(int $value): static
+    {
+        return $this->setData('increment_pad_length', $value);
+    }
+
+    public function setIncrementPerStore(int $value): static
+    {
+        return $this->setData('increment_per_store', $value);
     }
 }

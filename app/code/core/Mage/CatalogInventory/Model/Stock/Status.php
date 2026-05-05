@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -13,17 +15,7 @@
  * @package    Mage_CatalogInventory
  *
  * @method Mage_CatalogInventory_Model_Resource_Stock_Status _getResource()
- * @method int                                               getProductId()
- * @method float                                             getQty()
  * @method Mage_CatalogInventory_Model_Resource_Stock_Status getResource()
- * @method int                                               getStockId()
- * @method int                                               getStockStatus()
- * @method int                                               getWebsiteId()
- * @method $this                                             setProductId(int $value)
- * @method $this                                             setQty(float $value)
- * @method $this                                             setStockId(int $value)
- * @method $this                                             setStockStatus(int $value)
- * @method $this                                             setWebsiteId(int $value)
  */
 class Mage_CatalogInventory_Model_Stock_Status extends Mage_Core_Model_Abstract
 {
@@ -513,5 +505,55 @@ class Mage_CatalogInventory_Model_Stock_Status extends Mage_Core_Model_Abstract
     {
         $this->_getResource()->addIsInStockFilterToCollection($collection);
         return $this;
+    }
+
+    public function getProductId(): int
+    {
+        return (int) $this->_getData('product_id');
+    }
+
+    public function getQty(): float
+    {
+        return (float) $this->_getData('qty');
+    }
+
+    public function getStockId(): int
+    {
+        return (int) $this->_getData('stock_id');
+    }
+
+    public function getStockStatus(): int
+    {
+        return (int) $this->_getData('stock_status');
+    }
+
+    public function getWebsiteId(): int
+    {
+        return (int) $this->_getData('website_id');
+    }
+
+    public function setProductId(int $value): static
+    {
+        return $this->setData('product_id', $value);
+    }
+
+    public function setQty(float $value): static
+    {
+        return $this->setData('qty', $value);
+    }
+
+    public function setStockId(int $value): static
+    {
+        return $this->setData('stock_id', $value);
+    }
+
+    public function setStockStatus(int $value): static
+    {
+        return $this->setData('stock_status', $value);
+    }
+
+    public function setWebsiteId(int $value): static
+    {
+        return $this->setData('website_id', $value);
     }
 }

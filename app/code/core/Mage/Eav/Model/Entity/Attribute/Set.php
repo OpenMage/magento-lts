@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -13,22 +15,15 @@
  * @package    Mage_Eav
  *
  * @method Mage_Eav_Model_Resource_Entity_Attribute_Set            _getResource()
- * @method int                                                     getAttributeSetId()
- * @method string                                                  getAttributeSetName()
  * @method Mage_Eav_Model_Resource_Entity_Attribute_Set_Collection getCollection()
- * @method int                                                     getEntityTypeId()
  * @method Mage_Eav_Model_Entity_Attribute_Group[]                 getGroups()
  * @method Mage_Eav_Model_Entity_Attribute[]                       getRemoveAttributes()
  * @method Mage_Eav_Model_Entity_Attribute_Group[]                 getRemoveGroups()
  * @method Mage_Eav_Model_Resource_Entity_Attribute_Set            getResource()
  * @method Mage_Eav_Model_Resource_Entity_Attribute_Set_Collection getResourceCollection()
- * @method int                                                     getSortOrder()
- * @method $this                                                   setAttributeSetName(string $value)
- * @method $this                                                   setEntityTypeId(int $value)
  * @method $this                                                   setGroups(Mage_Eav_Model_Entity_Attribute_Group[] $value)
  * @method $this                                                   setRemoveAttributes(Mage_Eav_Model_Entity_Attribute[] $value)
  * @method $this                                                   setRemoveGroups(Mage_Eav_Model_Entity_Attribute_Group[] $value)
- * @method $this                                                   setSortOrder(int $value)
  */
 class Mage_Eav_Model_Entity_Attribute_Set extends Mage_Core_Model_Abstract
 {
@@ -271,5 +266,40 @@ class Mage_Eav_Model_Entity_Attribute_Set extends Mage_Core_Model_Abstract
         }
 
         return null;
+    }
+
+    public function getAttributeSetId(): int
+    {
+        return (int) $this->_getData('attribute_set_id');
+    }
+
+    public function getAttributeSetName(): string
+    {
+        return (string) $this->_getData('attribute_set_name');
+    }
+
+    public function getEntityTypeId(): int
+    {
+        return (int) $this->_getData('entity_type_id');
+    }
+
+    public function getSortOrder(): int
+    {
+        return (int) $this->_getData('sort_order');
+    }
+
+    public function setAttributeSetName(string $value): static
+    {
+        return $this->setData('attribute_set_name', $value);
+    }
+
+    public function setEntityTypeId(int $value): static
+    {
+        return $this->setData('entity_type_id', $value);
+    }
+
+    public function setSortOrder(int $value): static
+    {
+        return $this->setData('sort_order', $value);
     }
 }

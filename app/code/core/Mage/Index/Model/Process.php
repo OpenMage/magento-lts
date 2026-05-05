@@ -14,17 +14,10 @@ declare(strict_types=1);
  *
  * @method Mage_Index_Model_Resource_Process            _getResource()
  * @method Mage_Index_Model_Resource_Process_Collection getCollection()
- * @method string                                       getDescription()
  * @method bool                                         getForcePartialReindex()
- * @method string                                       getIndexCode()
- * @method string                                       getName()
  * @method Mage_Index_Model_Resource_Process            getResource()
  * @method Mage_Index_Model_Resource_Process_Collection getResourceCollection()
- * @method int                                          getUpdateRequired()
- * @method $this                                        setDescription(string $value)
  * @method $this                                        setForcePartialReindex(bool $value)
- * @method $this                                        setName(string $value)
- * @method $this                                        setUpdateRequired(int $value)
  */
 class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
 {
@@ -694,5 +687,40 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
         $eventsCollection = Mage::getResourceModel('index/event_collection');
         $eventsCollection->addProcessFilter($this, self::EVENT_STATUS_NEW);
         return $eventsCollection;
+    }
+
+    public function getDescription(): string
+    {
+        return (string) $this->_getData('description');
+    }
+
+    public function getIndexCode(): string
+    {
+        return (string) $this->_getData('index_code');
+    }
+
+    public function getName(): string
+    {
+        return (string) $this->_getData('name');
+    }
+
+    public function getUpdateRequired(): int
+    {
+        return (int) $this->_getData('update_required');
+    }
+
+    public function setDescription(string $value): static
+    {
+        return $this->setData('description', $value);
+    }
+
+    public function setName(string $value): static
+    {
+        return $this->setData('name', $value);
+    }
+
+    public function setUpdateRequired(int $value): static
+    {
+        return $this->setData('update_required', $value);
     }
 }
