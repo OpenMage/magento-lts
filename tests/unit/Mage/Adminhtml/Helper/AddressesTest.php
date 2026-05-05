@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Adminhtml\Helper;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Override;
 use Mage;
 use Mage_Adminhtml_Helper_Addresses as Subject;
@@ -33,9 +34,9 @@ final class AddressesTest extends OpenMageTest
 
     /**
      * @covers Mage_Adminhtml_Helper_Addresses::processStreetAttribute()
-     * @dataProvider provideProcessStreetAttribute
      * @group Helper
      */
+    #[DataProvider('provideProcessStreetAttribute')]
     public function testProcessStreetAttribute(int $expectedResult, int $lines): void
     {
         $attribute = new Mage_Customer_Model_Attribute();

@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Newsletter\Model;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Override;
 use Mage;
 use Mage_Core_Exception;
@@ -32,9 +33,9 @@ final class TemplateTest extends OpenMageTest
     }
 
     /**
-     * @dataProvider provideValidateData
      * @group Model
      */
+    #[DataProvider('provideValidateData')]
     public function testValidate(?string $expected, array $methods): void
     {
         self::$subject->setTemplateCode($methods['setTemplateCode']);

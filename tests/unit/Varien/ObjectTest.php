@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Varien;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Varien\ObjectTrait;
@@ -31,14 +32,13 @@ final class ObjectTest extends OpenMageTest
     }
 
     /**
-     * @dataProvider provideGetDataData
      * @param mixed           $expectedResult
      * @param string          $setKey
      * @param mixed           $setValue
      * @param null|int|string $index
-     *
      * @group Varien_Object
      */
+    #[DataProvider('provideGetDataData')]
     public function testGetData($expectedResult, $setKey, $setValue, ?string $key, $index = null): void
     {
         self::$subject->setData($setKey, $setValue);
@@ -46,9 +46,9 @@ final class ObjectTest extends OpenMageTest
     }
 
     /**
-     * @dataProvider provideToStringData
      * @group Varien_Object
      */
+    #[DataProvider('provideToStringData')]
     public function testToString(string $expectedResult, string $format): void
     {
         self::$subject->setString0('0');

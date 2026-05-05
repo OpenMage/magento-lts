@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Core\Helper;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Override;
 use Mage_Core_Model_Store;
 use Generator;
@@ -147,11 +148,10 @@ final class EnvironmentConfigLoaderTest extends OpenMageTest
 
     /**
      * @runInSeparateProcess
-     * @dataProvider envOverridesCorrectConfigKeysDataProvider
      * @group Helper
-     *
      * @param array<string, string> $config
      */
+    #[DataProvider('envOverridesCorrectConfigKeysDataProvider')]
     public function testEnvOverridesForValidConfigKeys(array $config): void
     {
         $xmlDefault = new Varien_Simplexml_Config();
@@ -237,11 +237,10 @@ final class EnvironmentConfigLoaderTest extends OpenMageTest
 
     /**
      * @runInSeparateProcess
-     * @dataProvider provideEnvAsArrayData
      * @group Helper
-     *
      * @param array<string, array|string> $config
      */
+    #[DataProvider('provideEnvAsArrayData')]
     public function testAsArray(array $config): void
     {
         // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
@@ -288,11 +287,10 @@ final class EnvironmentConfigLoaderTest extends OpenMageTest
 
     /**
      * @runInSeparateProcess
-     * @dataProvider envHasPathDataProvider
      * @group Helper
-     *
      * @param array<string, bool|string> $config
      */
+    #[DataProvider('envHasPathDataProvider')]
     public function testHasPath(array $config): void
     {
         // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
@@ -334,11 +332,10 @@ final class EnvironmentConfigLoaderTest extends OpenMageTest
 
     /**
      * @runInSeparateProcess
-     * @dataProvider envDoesNotOverrideOnWrongConfigKeysDataProvider
      * @group Helper
-     *
      * @param array<string, string> $config
      */
+    #[DataProvider('envDoesNotOverrideOnWrongConfigKeysDataProvider')]
     public function testEnvDoesNotOverrideForInvalidConfigKeys(array $config): void
     {
         $xmlStruct = $this->getTestXml();

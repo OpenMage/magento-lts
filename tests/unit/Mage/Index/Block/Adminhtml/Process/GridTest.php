@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Index\Block\Adminhtml\Process;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Override;
 use Mage_Adminhtml_Block_Widget_Grid_Column;
 use Mage_Index_Block_Adminhtml_Process_Grid as Subject;
@@ -33,9 +34,9 @@ final class GridTest extends OpenMageTest
 
     /**
      * @covers Mage_Index_Block_Adminhtml_Process_Grid::decorateStatus()
-     * @dataProvider provideDecorateStatusData
      * @group Model
      */
+    #[DataProvider('provideDecorateStatusData')]
     public function testDecorateStatus(string $expectedResult, string $data): void
     {
         $value      = '1';
@@ -51,9 +52,9 @@ final class GridTest extends OpenMageTest
 
     /**
      * @covers Mage_Index_Block_Adminhtml_Process_Grid::decorateUpdateRequired()
-     * @dataProvider provideDecorateUpdateRequiredData
      * @group Model
      */
+    #[DataProvider('provideDecorateUpdateRequiredData')]
     public function testDecorateUpdateRequired(string $expectedResult, int $data): void
     {
         $value      = '1';

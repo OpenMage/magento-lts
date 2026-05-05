@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Catalog\Model;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Override;
 use Mage;
 use Mage_Catalog_Model_Product as Subject;
@@ -113,9 +114,9 @@ final class ProductTest extends OpenMageTest
     }
 
     /**
-     * @dataProvider provideBool
      * @group Model
      */
+    #[DataProvider('provideBool')]
     public function testGetTypeInstance(bool $singleton): void
     {
         self::assertInstanceOf(Mage_Catalog_Model_Product_Type_Abstract::class, self::$subject->getTypeInstance($singleton));
@@ -146,9 +147,9 @@ final class ProductTest extends OpenMageTest
     }
 
     /**
-     * @dataProvider provideFormatUrlKey
      * @group Model
      */
+    #[DataProvider('provideFormatUrlKey')]
     public function testFormatUrlKey(string $expectedResult, string $locale): void
     {
         self::$subject->setLocale($locale);

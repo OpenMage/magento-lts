@@ -23,7 +23,8 @@ final class AbstractTest extends OpenMageTest
 
     protected function setUp(): void
     {
-        self::$subject = $this->createMock(Subject::class);
+        parent::setUp();
+        self::$subject = new class extends Subject {};
     }
 
     /**

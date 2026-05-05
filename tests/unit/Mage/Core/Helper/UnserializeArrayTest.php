@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Core\Helper;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Override;
 use Exception;
 use Mage;
@@ -32,9 +33,9 @@ final class UnserializeArrayTest extends OpenMageTest
     }
 
     /**
-     * @dataProvider provideUnserialize
      * @group Helper
      */
+    #[DataProvider('provideUnserialize')]
     public function testUnserialize(array|string $expectedTesult, ?string $string): void
     {
         try {

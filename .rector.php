@@ -22,6 +22,7 @@ use Rector\Php82\Rector as Php82;
 use Rector\Php83\Rector as Php83;
 use Rector\Php84\Rector as Php84;
 use Rector\Php85\Rector as Php85;
+use Rector\PHPUnit\AnnotationsToAttributes\Rector\ClassMethod\DataProviderAnnotationToAttributeRector;
 use Rector\PHPUnit\CodeQuality\Rector\Class_\PreferPHPUnitThisCallRector;
 use Rector\Privatization\Rector as Privatization;
 use Rector\Renaming\Rector as Renaming;
@@ -64,6 +65,7 @@ try {
         ->withRules([
             Php83\ClassMethod\AddOverrideAttributeToOverriddenMethodsRector::class,
             Php85\ArrayDimFetch\ArrayFirstLastRector::class,
+            DataProviderAnnotationToAttributeRector::class,
         ])
         ->withRules(Migration\TypeDeclarationDocblocks::getRules())
         ->withConfiguredRule(Renaming\ClassConstFetch\RenameClassConstFetchRector::class, Migration\Zend\Log::renameClassConst())

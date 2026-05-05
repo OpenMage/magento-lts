@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Core\Helper;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Override;
 use Mage;
 use Mage_Core_Helper_Purifier as Subject;
@@ -31,9 +32,9 @@ final class PurifierTest extends OpenMageTest
     }
 
     /**
-     * @dataProvider providePurify
      * @group Helper
      */
+    #[DataProvider('providePurify')]
     public function testPurify(array|string $expectedResult, array|string $content): void
     {
         self::assertSame($expectedResult, self::$subject->purify($content));

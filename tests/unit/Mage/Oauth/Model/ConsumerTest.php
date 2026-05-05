@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Mage\Oauth\Model;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Override;
 use Mage;
 use Mage_Core_Exception;
@@ -33,10 +34,10 @@ final class ConsumerTest extends OpenMageTest
     }
 
     /**
-     * @dataProvider provideValidateData
      * @group Model
      * @param array<non-empty-string, mixed> $methods
      */
+    #[DataProvider('provideValidateData')]
     public function testValidate(bool|string $expected, array $methods): void
     {
         $mock = $this->getMockWithCalledMethods(Subject::class, $methods);

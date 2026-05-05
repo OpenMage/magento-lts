@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Catalog\Model\Product;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Override;
 use Mage;
 use Mage_Catalog_Model_Product_Image as Subject;
@@ -31,9 +32,9 @@ final class ImageTest extends OpenMageTest
     }
 
     /**
-     * @dataProvider provideSetSizeData
      * @group Model
      */
+    #[DataProvider('provideSetSizeData')]
     public function testSetSize(array $expected, string $value): void
     {
         self::assertInstanceOf(Subject::class, self::$subject->setSize($value));

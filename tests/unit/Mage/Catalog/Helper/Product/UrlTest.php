@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Catalog\Helper\Product;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Override;
 use Mage;
 use Mage_Catalog_Helper_Product_Url as Subject;
@@ -62,9 +63,9 @@ final class UrlTest extends OpenMageTest
 
     /**
      * @covers Mage_Catalog_Helper_Product_Url::format()
-     * @dataProvider provideFormat
      * @group Helper
      */
+    #[DataProvider('provideFormat')]
     public function testFormat(string $expectedResult, ?string $string): void
     {
         self::assertSame($expectedResult, self::$subject->format($string));

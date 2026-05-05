@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Tax\Helper;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Override;
 use Mage;
 use Mage_Tax_Helper_Data as Subject;
@@ -93,9 +94,9 @@ final class DataTest extends OpenMageTest
 
     /**
      * @covers Mage_Tax_Helper_Data::getIncExcText()
-     * @dataProvider provideGetIncExcText
      * @group Helper
      */
+    #[DataProvider('provideGetIncExcText')]
     public function testGetIncExcText(string $expectedResult, bool $flag): void
     {
         self::assertStringContainsString($expectedResult, self::$subject->getIncExcText($flag));
@@ -185,9 +186,9 @@ final class DataTest extends OpenMageTest
     }
 
     /**
-     * @dataProvider provideGetIncExcTaxLabel
      * @group Helper
      */
+    #[DataProvider('provideGetIncExcTaxLabel')]
     public function testGetIncExcTaxLabel(string $expectedResult, bool $flag): void
     {
         self::assertStringContainsString($expectedResult, self::$subject->getIncExcTaxLabel($flag));

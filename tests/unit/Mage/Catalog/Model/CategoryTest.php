@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Catalog\Model;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Override;
 use Mage;
 use Mage_Catalog_Model_Category as Subject;
@@ -101,11 +102,10 @@ final class CategoryTest extends OpenMageTest
     //        self::$subject->setLocale($locale);
     //        $this->assertSame($expectedResult, self::$subject->getCategoryIdUrl());
     //    }
-
     /**
-     * @dataProvider provideFormatUrlKey
      * @group Model
      */
+    #[DataProvider('provideFormatUrlKey')]
     public function testFormatUrlKey(string $expectedResult, string $locale): void
     {
         self::$subject->setLocale($locale);

@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Downloadable\Helper;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Override;
 use Mage;
 use Mage_Downloadable_Helper_File as Subject;
@@ -31,10 +32,9 @@ final class FileTest extends OpenMageTest
     }
 
     /**
-     * @dataProvider provideGetFilePathData
-     *
      * @group Helper
      */
+    #[DataProvider('provideGetFilePathData')]
     public function testGetFilePath(string $expectedResult, string $path, ?string $file): void
     {
         $result = self::$subject->getFilePath($path, $file);

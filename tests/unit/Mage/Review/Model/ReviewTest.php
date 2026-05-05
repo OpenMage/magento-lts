@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Review\Model;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Mage_Review_Model_Review as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Review\ReviewTrait;
@@ -20,10 +21,10 @@ final class ReviewTest extends OpenMageTest
     use ReviewTrait;
 
     /**
-     * @dataProvider provideValidateReviewData
      * @param array|true $expectedResult
      * @group Model
      */
+    #[DataProvider('provideValidateReviewData')]
     public function testValidate($expectedResult, array $methods): void
     {
         $mock = $this->getMockWithCalledMethods(Subject::class, $methods);

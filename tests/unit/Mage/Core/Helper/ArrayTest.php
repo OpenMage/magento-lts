@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Core\Helper;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Override;
 use Mage;
 use Mage_Core_Helper_Array as Subject;
@@ -32,9 +33,9 @@ final class ArrayTest extends OpenMageTest
 
     /**
      * @covers Mage_Core_Helper_Data::getMerchantCountryCode()
-     * @dataProvider provideMergeRecursiveWithoutOverwriteNumKeysData
      * @group Helper
      */
+    #[DataProvider('provideMergeRecursiveWithoutOverwriteNumKeysData')]
     public function testMergeRecursiveWithoutOverwriteNumKeys(array $expectedResult, array $baseArray, array $mergeArray): void
     {
         self::assertSame($expectedResult, self::$subject->mergeRecursiveWithoutOverwriteNumKeys($baseArray, $mergeArray));

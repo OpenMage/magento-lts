@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Core\Helper;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Mage_Core_Helper_Abstract as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\Helper\AbstractTrait;
@@ -27,18 +28,18 @@ final class AbstractTest extends OpenMageTest
     }
 
     /**
-     * @dataProvider provideEscapeHtmlData
      * @group Helper
      */
+    #[DataProvider('provideEscapeHtmlData')]
     public function testEscapeHtml($expectedResult, $data, ?array $allowedTags): void
     {
         self::assertSame($expectedResult, self::$subject->escapeHtml($data, $allowedTags));
     }
 
     /**
-     * @dataProvider provideStripTagsData
      * @group Helper
      */
+    #[DataProvider('provideStripTagsData')]
     public function testStripTags($expectedResult, $data, null|array|string $allowedTags, bool $escape): void
     {
         self::assertSame($expectedResult, self::$subject->stripTags($data, $allowedTags, $escape));

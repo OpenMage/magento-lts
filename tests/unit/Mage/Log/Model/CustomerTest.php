@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Log\Model;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Generator;
 use Mage_Log_Model_Customer as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
@@ -21,9 +22,9 @@ final class CustomerTest extends OpenMageTest
     use CustomerTrait;
 
     /**
-     * @dataProvider loadByCustomerDataProvider
      * @group Model
      */
+    #[DataProvider('loadByCustomerDataProvider')]
     public function testLoadByCustomer($input, int $expectedCustomerId): void
     {
         $mock = $this->getMockBuilder(Subject::class)
@@ -53,9 +54,9 @@ final class CustomerTest extends OpenMageTest
     }
 
     /**
-     * @dataProvider provideGetLoginAtTimestampData
      * @group Model
      */
+    #[DataProvider('provideGetLoginAtTimestampData')]
     public function testGetLoginAtTimestamp(bool $expectedResult, array $methods): void
     {
         $mock = $this->getMockWithCalledMethods(Subject::class, $methods);

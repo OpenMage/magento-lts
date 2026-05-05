@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Core\Model\Url;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Override;
 use Mage;
 use Mage_Core_Model_Url_Validator as Subject;
@@ -31,9 +32,9 @@ final class ValidatorTest extends OpenMageTest
     }
 
     /**
-     * @dataProvider provideUrl
      * @group Model
      */
+    #[DataProvider('provideUrl')]
     public function testIsValid(bool $expected, string $url): void
     {
         self::assertSame($expected, self::$subject->isValid($url));

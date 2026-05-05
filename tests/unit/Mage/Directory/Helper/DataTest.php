@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Directory\Helper;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Override;
 use Mage;
 use Mage_Directory_Helper_Data as Subject;
@@ -68,9 +69,9 @@ final class DataTest extends OpenMageTest
 
     /**
      * @covers Mage_Directory_Helper_Data::getCountriesWithOptionalZip()
-     * @dataProvider provideGetCountriesWithOptionalZip
      * @group Helper
      */
+    #[DataProvider('provideGetCountriesWithOptionalZip')]
     public function testGetCountriesWithOptionalZip(array|string $expectedResult, bool $asJson): void
     {
         self::assertSame($expectedResult, self::$subject->getCountriesWithOptionalZip($asJson));
@@ -87,9 +88,9 @@ final class DataTest extends OpenMageTest
 
     /**
      * @covers Mage_Directory_Helper_Data::getCountriesWithStatesRequired()
-     * @dataProvider provideGetCountriesWithStatesRequired
      * @group Helper
      */
+    #[DataProvider('provideGetCountriesWithStatesRequired')]
     public function testGetCountriesWithStatesRequired(array|string $expectedResult, bool $asJson): void
     {
         $result = self::$subject->getCountriesWithStatesRequired($asJson);

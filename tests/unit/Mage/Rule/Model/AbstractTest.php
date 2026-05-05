@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Rule\Model;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Composer\InstalledVersions;
 use Error;
 use Mage_Core_Exception;
@@ -36,7 +37,12 @@ final class AbstractTest extends OpenMageTest
 
     protected function setUp(): void
     {
-        self::$subject = $this->createMock(Subject::class);
+        parent::setUp();
+        self::$subject = new class extends Subject {
+            public function getActionsInstance() {}
+
+            public function getConditionsInstance() {}
+        };
     }
 
     /**
@@ -52,9 +58,9 @@ final class AbstractTest extends OpenMageTest
     }
 
     /**
-     * @dataProvider provideBool
      * @group Model
      */
+    #[DataProvider('provideBool')]
     public function testGetConditions(bool $empty): void
     {
         if (!$empty) {
@@ -69,9 +75,9 @@ final class AbstractTest extends OpenMageTest
     }
 
     /**
-     * @dataProvider provideBool
      * @group Model
      */
+    #[DataProvider('provideBool')]
     public function testGetActions(bool $empty): void
     {
         if (!$empty) {
@@ -103,9 +109,9 @@ final class AbstractTest extends OpenMageTest
 
     /**
      * @covers Mage_Rule_Model_Abstract::validate()
-     * @dataProvider provideValidateData
      * @group Model
      */
+    #[DataProvider('provideValidateData')]
     public function testValidate(array|bool $expectedResul, ?array $data = null): void
     {
         $object = new Varien_Object($data);
@@ -118,9 +124,9 @@ final class AbstractTest extends OpenMageTest
     }
 
     /**
-     * @dataProvider provideValidateData
      * @group Model
      */
+    #[DataProvider('provideValidateData')]
     public function testValidateData(array|bool $expectedResul, ?array $data = null): void
     {
         if (version_compare(InstalledVersions::getPrettyVersion('shardj/zf1-future'), '1.24.2', '<=')) {
@@ -142,9 +148,9 @@ final class AbstractTest extends OpenMageTest
 
     /**
      * @covers Mage_Rule_Model_Abstract::setIsDeleteable()
-     * @dataProvider provideBool
      * @group Model
      */
+    #[DataProvider('provideBool')]
     public function testSetIsDeleteable(bool $value): void
     {
         self::assertInstanceOf(Subject::class, self::$subject->setIsDeleteable($value));
@@ -161,9 +167,9 @@ final class AbstractTest extends OpenMageTest
 
     /**
      * @covers Mage_Rule_Model_Abstract::setIsReadonly()
-     * @dataProvider provideBool
      * @group Model
      */
+    #[DataProvider('provideBool')]
     public function testSetIsReadonly(bool $value): void
     {
         self::assertInstanceOf(Subject::class, self::$subject->setIsReadonly($value));

@@ -12,6 +12,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Core\Helper;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Override;
 use Mage;
 use Mage_Core_Exception;
@@ -35,10 +36,10 @@ final class PsrLoggerTest extends OpenMageTest
 
 
     /**
-     * @dataProvider provideLogData
      * @group Helper
      * @throws Mage_Core_Exception
      */
+    #[DataProvider('provideLogData')]
     public function testLog($level, $message, $context)
     {
         $logger = $this->createMock(Mage_Core_Model_Logger::class);

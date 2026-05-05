@@ -14,6 +14,7 @@ namespace OpenMage\Tests\Unit\Varien\Object_;
 use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Varien\Object_\MapperTrait;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Varien_Object;
 use Varien_Object_Mapper as Subject;
 
@@ -31,9 +32,9 @@ final class MapperTest extends OpenMageTest
     }
 
     /**
-     * @dataProvider provideAccumulateByMapData
      * @group Varien_Object
      */
+    #[DataProvider('provideAccumulateByMapData')]
     public function testAccumulateByMap($expectedResult, $source, $target, array $map, array $defaults = []): void
     {
         $result = self::$subject::accumulateByMap($source, $target, $map, $defaults);

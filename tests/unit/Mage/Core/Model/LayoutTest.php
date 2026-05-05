@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Core\Model;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Override;
 use Error;
 use Mage;
@@ -36,11 +37,10 @@ final class LayoutTest extends OpenMageTest
     }
 
     /**
-     * @dataProvider provideCreateBlock
      * @group Model
-     *
      * @param bool|class-string $expectedResult
      */
+    #[DataProvider('provideCreateBlock')]
     public function testCreateBlock(bool|string $expectedResult, bool $willReturnBlock, string $type, ?string $name, array $attributes): void
     {
         $result = self::$subject->createBlock($type, $name, $attributes);
@@ -54,11 +54,10 @@ final class LayoutTest extends OpenMageTest
 
     /**
      * @covers Mage_Core_Model_Layout::getBlockSingleton()
-     * @dataProvider provideGetBlockSingleton
      * @group Model
-     *
      * @param class-string $expectedResult
      */
+    #[DataProvider('provideGetBlockSingleton')]
     public function testGetBlockSingleton(string $expectedResult, bool $isAbstractBlock, string $type): void
     {
         $result = self::$subject->getBlockSingleton($type);

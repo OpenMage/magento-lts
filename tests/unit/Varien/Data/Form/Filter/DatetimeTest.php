@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Varien\Data\Form\Filter;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Generator;
 use PHPUnit\Framework\TestCase;
 use Throwable;
@@ -26,10 +27,9 @@ final class DatetimeTest extends TestCase
     }
 
     /**
-     * @dataProvider provideFilterDatetimeData
-     *
      * @group Varien_Data
      */
+    #[DataProvider('provideFilterDatetimeData')]
     public function testInputFilter(?string $expectedResult, ?string $value): void
     {
         try {

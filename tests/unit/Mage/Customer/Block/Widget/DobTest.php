@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Customer\Block\Widget;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Override;
 use Mage_Customer_Block_Widget_Dob as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
@@ -31,8 +32,8 @@ final class DobTest extends OpenMageTest
 
     /**
      * @group Block
-     * @dataProvider provideGetYearData
      */
+    #[DataProvider('provideGetYearData')]
     public function testGetYear(string $expectedYear, string $date): void
     {
         self::$subject->setDate($date);

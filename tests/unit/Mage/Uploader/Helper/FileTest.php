@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Uploader\Helper;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Override;
 use Mage;
 use Mage_Core_Model_Config;
@@ -37,12 +38,11 @@ final class FileTest extends OpenMageTest
     }
 
     /**
-     * @dataProvider provideGetMimeTypeFromExtensionListData
      * @param array<int, string>        $expectedResult
      * @param array<int, string>|string $extensionsList
-     *
      * @group Helper
      */
+    #[DataProvider('provideGetMimeTypeFromExtensionListData')]
     public function testGetMimeTypeFromExtensionList(array $expectedResult, $extensionsList): void
     {
         self::assertSame($expectedResult, self::$subject->getMimeTypeFromExtensionList($extensionsList));
@@ -65,9 +65,9 @@ final class FileTest extends OpenMageTest
     }
 
     /**
-     * @dataProvider provideGetDataMaxSizeData
      * @group Helper
      */
+    #[DataProvider('provideGetDataMaxSizeData')]
     public function testGetDataMaxSize(string $expectedResult, array $methods): void
     {
         $mock = $this->getMockWithCalledMethods(Subject::class, $methods, true);
@@ -77,9 +77,9 @@ final class FileTest extends OpenMageTest
     }
 
     /**
-     * @dataProvider provideGetDataMaxSizeInBytesData
      * @group Helper
      */
+    #[DataProvider('provideGetDataMaxSizeInBytesData')]
     public function testGetDataMaxSizeInBytes(int $expectedResult, array $methods): void
     {
         $mock = $this->getMockWithCalledMethods(Subject::class, $methods, true);

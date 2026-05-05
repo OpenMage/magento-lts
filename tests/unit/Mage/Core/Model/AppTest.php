@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Core\Model;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Override;
 use Mage;
 use Mage_Core_Exception;
@@ -31,10 +32,10 @@ final class AppTest extends OpenMageTest
     }
 
     /**
-     * @dataProvider provideGetStoreConfigData
-     * @dataProvider provideGetStoreData
      * @group Model
      */
+    #[DataProvider('provideGetStoreConfigData')]
+    #[DataProvider('provideGetStoreData')]
     public function testGetStore(null|bool|int|Mage_Core_Model_Store|string $id): void
     {
         try {
@@ -46,10 +47,10 @@ final class AppTest extends OpenMageTest
     }
 
     /**
-     * @dataProvider provideGetStoreConfigData
-     * @dataProvider provideGetWebsiteData
      * @group Model
      */
+    #[DataProvider('provideGetStoreConfigData')]
+    #[DataProvider('provideGetWebsiteData')]
     public function testGetWebsite(null|bool|int|Mage_Core_Model_Website|string $id): void
     {
         try {
@@ -61,10 +62,10 @@ final class AppTest extends OpenMageTest
     }
 
     /**
-     * @dataProvider provideGetStoreConfigData
-     * @dataProvider provideGetGroupData
      * @group Model
      */
+    #[DataProvider('provideGetStoreConfigData')]
+    #[DataProvider('provideGetGroupData')]
     public function testGetGroup(null|bool|int|Mage_Core_Model_Store_Group|string $id): void
     {
         try {

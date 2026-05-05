@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Core\Model\Layout;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Override;
 use Mage;
 use Mage_Core_Model_Layout_Validator as Subject;
@@ -31,10 +32,10 @@ final class ValidatorTest extends OpenMageTest
     }
 
     /**
-     * @dataProvider provideIsValidData
      * @group Model
      * @param array<string, string> $expectedErrors
      */
+    #[DataProvider('provideIsValidData')]
     public function testIsValid(bool $expected, string $value, array $expectedErrors): void
     {
         self::assertSame($expected, self::$subject->isValid($value));

@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Core\Helper;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Override;
 use Generator;
 use Mage;
@@ -51,13 +52,12 @@ final class SecurityTest extends OpenMageTest
     }
 
     /**
-     * @dataProvider provideValidateAgainstBlockMethodBlacklistData
      * @doesNotPerformAssertions if data is correct, then NO exception is thrown, so we don't need an assertion
      * @param  string[]            $args
      * @throws Mage_Core_Exception
-     *
      * @group Helper
      */
+    #[DataProvider('provideValidateAgainstBlockMethodBlacklistData')]
     public function testValidateAgainstBlockMethodBlacklist(
         Mage_Core_Block_Abstract $block,
         string $method,
@@ -108,12 +108,11 @@ final class SecurityTest extends OpenMageTest
     }
 
     /**
-     * @dataProvider provideForbiddenBlockMethodsData
      * @param  string[]            $args
      * @throws Mage_Core_Exception
-     *
      * @group Helper
      */
+    #[DataProvider('provideForbiddenBlockMethodsData')]
     public function testValidateAgainstBlockMethodBlacklistThrowsException(
         Mage_Core_Block_Abstract $block,
         string $method,
