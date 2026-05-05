@@ -25,7 +25,7 @@ abstract class FedexTestCase extends FunctionalTest
     /**
      * @var list<string>
      */
-    private const ENCRYPTED_BACKEND_FIELDS = [
+    private const array ENCRYPTED_BACKEND_FIELDS = [
         'account',
         'client_id',
         'client_secret',
