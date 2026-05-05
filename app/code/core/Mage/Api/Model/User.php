@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -13,42 +15,18 @@
  * @package    Mage_Api
  *
  * @method Mage_Api_Model_Resource_User            _getResource()
- * @method string                                  getApiKey()
  * @method string                                  getApiKeyConfirmation()
- * @method string                                  getCreated()
- * @method string                                  getEmail()
- * @method string                                  getFirstname()
- * @method int                                     getIsActive()
- * @method string                                  getLastname()
- * @method string                                  getLogdate()
- * @method int                                     getLognum()
- * @method string                                  getModified()
  * @method string                                  getNewApiKey()
- * @method int                                     getReloadAclFlag()
  * @method Mage_Api_Model_Resource_User            getResource()
  * @method Mage_Api_Model_Resource_User_Collection getResourceCollection()
  * @method int                                     getRoleId()
  * @method array                                   getRoleIds()
- * @method string                                  getSessid()
- * @method string                                  getUserId()
- * @method string                                  getUsername()
  * @method bool                                    hasApiKey()
  * @method bool                                    hasApiKeyConfirmation()
  * @method bool                                    hasNewApiKey()
- * @method $this                                   setApiKey(string $value)
- * @method $this                                   setCreated(string $value)
- * @method $this                                   setEmail(string $value)
- * @method $this                                   setFirstname(string $value)
- * @method $this                                   setIsActive(int $value)
- * @method $this                                   setLastname(string $value)
- * @method $this                                   setLogdate(string $value)
- * @method $this                                   setLognum(int $value)
- * @method $this                                   setModified(string $value)
- * @method $this                                   setReloadAclFlag(int $value)
  * @method $this                                   setRoleIds(array $value)
  * @method $this                                   setRoleUserId(int $value)
  * @method $this                                   setSessid($sessId)
- * @method $this                                   setUsername(string $value)
  */
 class Mage_Api_Model_User extends Mage_Core_Model_Abstract
 {
@@ -63,6 +41,126 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
     protected function _construct()
     {
         $this->_init('api/user');
+    }
+
+    public function getApiKey(): string
+    {
+        return (string) $this->_getData('api_key');
+    }
+
+    public function getCreated(): string
+    {
+        return (string) $this->_getData('created');
+    }
+
+    public function getEmail(): string
+    {
+        return (string) $this->_getData('email');
+    }
+
+    public function getFirstname(): string
+    {
+        return (string) $this->_getData('firstname');
+    }
+
+    public function getIsActive(): int
+    {
+        return (int) $this->_getData('is_active');
+    }
+
+    public function getLastname(): string
+    {
+        return (string) $this->_getData('lastname');
+    }
+
+    public function getLogdate(): string
+    {
+        return (string) $this->_getData('logdate');
+    }
+
+    public function getLognum(): int
+    {
+        return (int) $this->_getData('lognum');
+    }
+
+    public function getModified(): string
+    {
+        return (string) $this->_getData('modified');
+    }
+
+    public function getReloadAclFlag(): int
+    {
+        return (int) $this->_getData('reload_acl_flag');
+    }
+
+    public function getSessid(): string
+    {
+        return (string) $this->_getData('sessid');
+    }
+
+    public function getUserId(): string
+    {
+        return (string) $this->_getData('user_id');
+    }
+
+    public function getUsername(): string
+    {
+        return (string) $this->_getData('username');
+    }
+
+    public function setApiKey(string $value): static
+    {
+        return $this->setData('api_key', $value);
+    }
+
+    public function setCreated(string $value): static
+    {
+        return $this->setData('created', $value);
+    }
+
+    public function setEmail(string $value): static
+    {
+        return $this->setData('email', $value);
+    }
+
+    public function setFirstname(string $value): static
+    {
+        return $this->setData('firstname', $value);
+    }
+
+    public function setIsActive(int $value): static
+    {
+        return $this->setData('is_active', $value);
+    }
+
+    public function setLastname(string $value): static
+    {
+        return $this->setData('lastname', $value);
+    }
+
+    public function setLogdate(string $value): static
+    {
+        return $this->setData('logdate', $value);
+    }
+
+    public function setLognum(int $value): static
+    {
+        return $this->setData('lognum', $value);
+    }
+
+    public function setModified(string $value): static
+    {
+        return $this->setData('modified', $value);
+    }
+
+    public function setReloadAclFlag(int $value): static
+    {
+        return $this->setData('reload_acl_flag', $value);
+    }
+
+    public function setUsername(string $value): static
+    {
+        return $this->setData('username', $value);
     }
 
     /**

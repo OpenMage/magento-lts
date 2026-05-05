@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -13,15 +15,9 @@
  * @package    Mage_Dataflow
  *
  * @method Mage_Dataflow_Model_Resource_Batch            _getResource()
- * @method string                                        getAdapter()
  * @method Mage_Dataflow_Model_Resource_Batch_Collection getCollection()
- * @method int                                           getProfileId()
  * @method Mage_Dataflow_Model_Resource_Batch            getResource()
  * @method Mage_Dataflow_Model_Resource_Batch_Collection getResourceCollection()
- * @method int                                           getStoreId()
- * @method $this                                         setAdapter(string $value)
- * @method $this                                         setProfileId(int $value)
- * @method $this                                         setStoreId(int $value)
  */
 class Mage_Dataflow_Model_Batch extends Mage_Core_Model_Abstract
 {
@@ -64,6 +60,36 @@ class Mage_Dataflow_Model_Batch extends Mage_Core_Model_Abstract
     protected function _construct()
     {
         $this->_init('dataflow/batch');
+    }
+
+    public function getAdapter(): string
+    {
+        return (string) $this->_getData('adapter');
+    }
+
+    public function getProfileId(): int
+    {
+        return (int) $this->_getData('profile_id');
+    }
+
+    public function getStoreId(): int
+    {
+        return (int) $this->_getData('store_id');
+    }
+
+    public function setAdapter(string $value): static
+    {
+        return $this->setData('adapter', $value);
+    }
+
+    public function setProfileId(int $value): static
+    {
+        return $this->setData('profile_id', $value);
+    }
+
+    public function setStoreId(int $value): static
+    {
+        return $this->setData('store_id', $value);
     }
 
     /**

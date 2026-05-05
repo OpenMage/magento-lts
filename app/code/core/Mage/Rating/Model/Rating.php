@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -15,7 +17,6 @@
  * @method Mage_Rating_Model_Resource_Rating            _getResource()
  * @method Mage_Rating_Model_Resource_Rating_Collection getCollection()
  * @method string                                       getEntityPkValue()
- * @method string                                       getRatingCode()
  * @method array                                        getRatingCodes()
  * @method Mage_Rating_Model_Resource_Rating            getResource()
  * @method Mage_Rating_Model_Resource_Rating_Collection getResourceCollection()
@@ -27,11 +28,8 @@
  * @method bool                                         hasStores()
  * @method $this                                        setCount(int $value)
  * @method $this                                        setCustomerId(int $value)
- * @method $this                                        setEntityId(int $value)
  * @method $this                                        setEntityPkValue(string $value)
  * @method $this                                        setId(string $value)
- * @method $this                                        setPosition(string $value)
- * @method $this                                        setRatingCode(string $value)
  * @method $this                                        setRatingCodes(array $value)
  * @method $this                                        setRatingId(int $value)
  * @method $this                                        setReviewId(int $value)
@@ -57,6 +55,26 @@ class Mage_Rating_Model_Rating extends Mage_Core_Model_Abstract
     protected function _construct()
     {
         $this->_init('rating/rating');
+    }
+
+    public function getRatingCode(): string
+    {
+        return (string) $this->_getData('rating_code');
+    }
+
+    public function setEntityId(int $value): static
+    {
+        return $this->setData('entity_id', $value);
+    }
+
+    public function setPosition(int $value): static
+    {
+        return $this->setData('position', $value);
+    }
+
+    public function setRatingCode(string $value): static
+    {
+        return $this->setData('rating_code', $value);
     }
 
     /**
