@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -24,45 +26,15 @@
  * @package    Mage_Adminhtml
  *
  * @method Mage_Core_Model_Resource_Email_Template            _getResource()
- * @method string                                             getAddedAt()
  * @method Mage_Core_Model_Resource_Email_Template_Collection getCollection()
- * @method string                                             getModifiedAt()
- * @method string                                             getOrigTemplateCode()
- * @method string                                             getOrigTemplateVariables()
  * @method Mage_Core_Model_Email_Queue                        getQueue()
  * @method Mage_Core_Model_Resource_Email_Template            getResource()
  * @method Mage_Core_Model_Resource_Email_Template_Collection getResourceCollection()
- * @method string                                             getSenderEmail()
- * @method string                                             getSenderName()
  * @method bool                                               getSentSuccess()
- * @method int                                                getTemplateActual()
- * @method string                                             getTemplateCode()
- * @method int                                                getTemplateId()
- * @method string                                             getTemplateSenderEmail()
- * @method string                                             getTemplateSenderName()
- * @method string                                             getTemplateStyles()
- * @method string                                             getTemplateSubject()
- * @method string                                             getTemplateText()
- * @method int                                                getTemplateType()
  * @method bool                                               getUseAbsoluteLinks()
  * @method int                                                hasQueue()
- * @method $this                                              setAddedAt(string $value)
- * @method $this                                              setInlineCssFile(string $value)
- * @method $this                                              setModifiedAt(string $value)
- * @method $this                                              setOrigTemplateCode(string $value)
- * @method $this                                              setOrigTemplateVariables(string $value)
  * @method $this                                              setQueue(Mage_Core_Model_Abstract $value)
- * @method $this                                              setSenderEmail(string $value)
- * @method $this                                              setSenderName(string $value)
  * @method $this                                              setSentSuccess(bool $value)
- * @method $this                                              setTemplateCode(string $value)
- * @method $this                                              setTemplateId(int $value)
- * @method $this                                              setTemplateSenderEmail(string $value)
- * @method $this                                              setTemplateSenderName(string $value)
- * @method $this                                              setTemplateStyles(string $value)
- * @method $this                                              setTemplateSubject(string $value)
- * @method $this                                              setTemplateText(string $value)
- * @method $this                                              setTemplateType(int $value)
  * @method setUseAbsoluteLinks(bool $value)
  */
 class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abstract
@@ -666,5 +638,155 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
     protected function getBase64EncodedString(string $string): string
     {
         return '=?utf-8?B?' . base64_encode($string) . '?=';
+    }
+
+    public function getAddedAt(): string
+    {
+        return (string) $this->_getData('added_at');
+    }
+
+    public function getModifiedAt(): string
+    {
+        return (string) $this->_getData('modified_at');
+    }
+
+    public function getOrigTemplateCode(): string
+    {
+        return (string) $this->_getData('orig_template_code');
+    }
+
+    public function getOrigTemplateVariables(): string
+    {
+        return (string) $this->_getData('orig_template_variables');
+    }
+
+    public function getSenderEmail(): string
+    {
+        return (string) $this->_getData('sender_email');
+    }
+
+    public function getSenderName(): string
+    {
+        return (string) $this->_getData('sender_name');
+    }
+
+    public function getTemplateActual(): int
+    {
+        return (int) $this->_getData('template_actual');
+    }
+
+    public function getTemplateCode(): string
+    {
+        return (string) $this->_getData('template_code');
+    }
+
+    public function getTemplateId(): int
+    {
+        return (int) $this->_getData('template_id');
+    }
+
+    public function getTemplateSenderEmail(): string
+    {
+        return (string) $this->_getData('template_sender_email');
+    }
+
+    public function getTemplateSenderName(): string
+    {
+        return (string) $this->_getData('template_sender_name');
+    }
+
+    public function getTemplateStyles(): string
+    {
+        return (string) $this->_getData('template_styles');
+    }
+
+    public function getTemplateSubject(): string
+    {
+        return (string) $this->_getData('template_subject');
+    }
+
+    public function getTemplateText(): string
+    {
+        return (string) $this->_getData('template_text');
+    }
+
+    public function getTemplateType(): int
+    {
+        return (int) $this->_getData('template_type');
+    }
+
+    public function setAddedAt(string $value): static
+    {
+        return $this->setData('added_at', $value);
+    }
+
+    public function setInlineCssFile(string $value): static
+    {
+        return $this->setData('inline_css_file', $value);
+    }
+
+    public function setModifiedAt(string $value): static
+    {
+        return $this->setData('modified_at', $value);
+    }
+
+    public function setOrigTemplateCode(string $value): static
+    {
+        return $this->setData('orig_template_code', $value);
+    }
+
+    public function setOrigTemplateVariables(string $value): static
+    {
+        return $this->setData('orig_template_variables', $value);
+    }
+
+    public function setSenderEmail(string $value): static
+    {
+        return $this->setData('sender_email', $value);
+    }
+
+    public function setSenderName(string $value): static
+    {
+        return $this->setData('sender_name', $value);
+    }
+
+    public function setTemplateCode(string $value): static
+    {
+        return $this->setData('template_code', $value);
+    }
+
+    public function setTemplateId(int $value): static
+    {
+        return $this->setData('template_id', $value);
+    }
+
+    public function setTemplateSenderEmail(string $value): static
+    {
+        return $this->setData('template_sender_email', $value);
+    }
+
+    public function setTemplateSenderName(string $value): static
+    {
+        return $this->setData('template_sender_name', $value);
+    }
+
+    public function setTemplateStyles(string $value): static
+    {
+        return $this->setData('template_styles', $value);
+    }
+
+    public function setTemplateSubject(string $value): static
+    {
+        return $this->setData('template_subject', $value);
+    }
+
+    public function setTemplateText(string $value): static
+    {
+        return $this->setData('template_text', $value);
+    }
+
+    public function setTemplateType(int $value): static
+    {
+        return $this->setData('template_type', $value);
     }
 }
