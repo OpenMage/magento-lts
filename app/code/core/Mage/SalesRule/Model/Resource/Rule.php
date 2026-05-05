@@ -239,12 +239,12 @@ class Mage_SalesRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abstra
     public function getActiveAttributes($websiteId, $customerGroupId)
     {
         $read = $this->_getReadAdapter();
+        $distinctAttributeIds = $read->select()
+            ->distinct(true)
+            ->from($this->getTable('salesrule/product_attribute'), 'attribute_id');
         $select = $read->select()
-            ->from(
-                ['a' => $this->getTable('salesrule/product_attribute')],
-                new Zend_Db_Expr('DISTINCT ea.attribute_code'),
-            )
-            ->joinInner(['ea' => $this->getTable('eav/attribute')], 'ea.attribute_id = a.attribute_id', []);
+            ->from(['ea' => $this->getTable('eav/attribute')], ['attribute_code'])
+            ->joinInner(['a' => $distinctAttributeIds], 'ea.attribute_id = a.attribute_id', []);
         return $read->fetchAll($select);
     }
 

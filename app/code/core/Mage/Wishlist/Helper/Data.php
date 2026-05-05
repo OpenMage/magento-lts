@@ -334,7 +334,7 @@ class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
      * @param  string                    $helperName
      * @return Mage_Core_Helper_Abstract
      */
-    #[Deprecated(message: 'Use Mage::helper', since: OpenMageVersionInterface::VERSION_20_18_0_0)]
+    #[Deprecated(message: 'Use Mage::helper', since: OpenMageVersionInterface::VERSION_20_18_0)]
     protected function _getHelperInstance($helperName)
     {
         return Mage::helper($helperName);
@@ -347,7 +347,7 @@ class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
      * @param  array                    $arguments
      * @return Mage_Core_Model_Abstract
      */
-    #[Deprecated(message: 'Use Mage::getSingleton', since: OpenMageVersionInterface::VERSION_20_18_0_0)]
+    #[Deprecated(message: 'Use Mage::getSingleton', since: OpenMageVersionInterface::VERSION_20_18_0)]
     protected function _getSingletonModel($className, $arguments = [])
     {
         return Mage::getSingleton($className, $arguments);

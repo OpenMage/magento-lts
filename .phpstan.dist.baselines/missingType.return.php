@@ -2287,11 +2287,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Model/System/Config/Source/Catalog/ListPerPage.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Adminhtml_Model_System_Config_Source_Catalog_Search_Type::toOptionArray() has no return type specified.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Model/System/Config/Source/Catalog/Search/Type.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Adminhtml_Model_System_Config_Source_Category::toOptionArray() has no return type specified.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Model/System/Config/Source/Category.php',
@@ -4852,11 +4847,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Dataflow/Model/Convert/Parser/Abstract.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Dataflow_Model_Convert_Parser_Csv::parseRow() has no return type specified.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Dataflow/Model/Convert/Parser/Csv.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Dataflow_Model_Convert_Parser_Interface::parse() has no return type specified.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Dataflow/Model/Convert/Parser/Interface.php',
@@ -4877,17 +4867,7 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Dataflow/Model/Convert/Parser/Serialize.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Dataflow_Model_Convert_Parser_Xml_Excel::_saveParsedRow() has no return type specified.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Dataflow/Model/Convert/Parser/Xml/Excel.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Dataflow_Model_Convert_Parser_Xml_Excel::parse() has no return type specified.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Dataflow/Model/Convert/Parser/Xml/Excel.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Dataflow_Model_Convert_Parser_Xml_Excel::unparse() has no return type specified.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Dataflow/Model/Convert/Parser/Xml/Excel.php',
 ];
@@ -7630,21 +7610,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Usa_Model_Shipping_Carrier_Dhl_Source_Shipmenttype::toOptionArray() has no return type specified.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/Source/Shipmenttype.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Usa_Model_Shipping_Carrier_Fedex::_getXMLTracking() has no return type specified.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Usa_Model_Shipping_Carrier_Fedex::_parseTrackingResponse() has no return type specified.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Usa_Model_Shipping_Carrier_Fedex::_parseXmlTrackingResponse() has no return type specified.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Usa_Model_Shipping_Carrier_Fedex::_setFreeMethodRequest() has no return type specified.',

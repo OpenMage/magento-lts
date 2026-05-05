@@ -48,6 +48,7 @@
         "phpseclib/mcrypt_compat": "^2.0.3",
         "phpseclib/phpseclib": "^3.0.14",
         "shardj/zf1-future": "^1.24.1",
+        "shipstream/fedex-rest-sdk": "^1.4",
         "symfony/mime": "^6.4",
         "symfony/polyfill-php82": "^1.33",
         "symfony/polyfill-php83": "^1.33",
@@ -145,6 +146,7 @@
         ],
         "psr-4": {
             "OpenMage\\Rector\\": "dev/rector",
+            "OpenMage\\Tests\\Functional\\": "tests/functional",
             "OpenMage\\Tests\\Unit\\": "tests/unit"
         }
     },

@@ -182,11 +182,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Dashboard/Graph.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #2 $array of function implode expects array, array|object given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Dashboard/Graph.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $storeId of method Mage_Core_Model_Template::emulateDesign() expects int|string, int|null given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Newsletter/Queue/Preview.php',
@@ -790,11 +785,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $num of function abs expects float|int, float|null given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/controllers/System/CurrencyController.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $ruleModel of method Mage_Adminhtml_Tax_RuleController::_isValidRuleRequest() expects Mage_Tax_Model_Calculation_Rule, Mage_Core_Model_Abstract given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/controllers/Tax/RuleController.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $host of method Zend_Uri_Http::setHost() expects string, string|false given.',
@@ -1778,7 +1768,7 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $optionId of method Mage_Catalog_Model_Product_Option::deletePrices() expects int|string, int|string|null given.',
-    'count' => 2,
+    'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Product/Option.php',
 ];
 $ignoreErrors[] = [
@@ -1788,7 +1778,7 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $optionId of method Mage_Catalog_Model_Product_Option_Value::deleteValue() expects int|string, int|string|null given.',
-    'count' => 2,
+    'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Product/Option.php',
 ];
 $ignoreErrors[] = [
@@ -2213,11 +2203,6 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #2 $value of method Mage_Core_Model_Resource_Setup::setConfigData() expects string, int|string|null given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/data/catalog_setup/data-install-1.6.0.0.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #3 $groupId of method Mage_Eav_Model_Entity_Setup::addAttributeToGroup() expects int|string, int|null given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/data/catalog_setup/data-install-1.6.0.0.php',
 ];
@@ -6953,41 +6938,6 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $array of function array_diff_key expects array, array|bool given.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $cost of method Mage_Shipping_Model_Carrier_Abstract::getMethodPrice() expects float, float|null given.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $requestParams of method Mage_Usa_Model_Shipping_Carrier_Abstract::_getCachedQuotes() expects array|string, string|false given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $requestParams of method Mage_Usa_Model_Shipping_Carrier_Abstract::_setCachedQuotes() expects array|string, string|false given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #2 $response of method Mage_Usa_Model_Shipping_Carrier_Abstract::_setCachedQuotes() expects string, bool|string given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #2 $string of function explode expects string, string|false given.',
-    'count' => 4,
-    'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #3 $value of function curl_setopt expects array|string, string|false given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #3 $value of function curl_setopt expects non-empty-string, string given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php',
 ];
@@ -8925,11 +8875,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Parameter #2 ...$arrays of function array_intersect_key expects array, array|null given.',
     'count' => 1,
     'path' => __DIR__ . '/../lib/Varien/Object.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #2 $array of function array_key_exists expects array, array|object given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../lib/Varien/Object/Mapper.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $data of function simplexml_load_string expects string, true given.',

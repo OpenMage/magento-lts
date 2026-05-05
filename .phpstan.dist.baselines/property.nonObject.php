@@ -172,31 +172,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Rule/Model/Condition/Combine.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Cannot access property $Entry on SimpleXMLElement|true.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot access property $Error on SimpleXMLElement|true.',
-    'count' => 6,
-    'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot access property $Package on SimpleXMLElement|true.',
-    'count' => 8,
-    'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot access property $SoftError on SimpleXMLElement|true.',
-    'count' => 6,
-    'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot access property $TrackProfile on SimpleXMLElement|true.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Cannot access property $nodeValue on DOMElement|null.',
     'count' => 1,
     'path' => __DIR__ . '/../lib/Varien/Convert/Parser/Xml/Excel.php',
