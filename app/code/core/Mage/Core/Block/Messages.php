@@ -57,6 +57,28 @@ class Mage_Core_Block_Messages extends Mage_Core_Block_Template
     protected $_usedStorageTypes = ['core/session'];
 
     /**
+     * Message HTML purifier for when the message text escape flag is off.
+     *
+     * Uses {@link Mage_Core_Model_Purifier_Message} by default.
+     *
+     * @see Mage_Core_Model_Purifier_Message
+     */
+    protected Mage_Core_Model_Purifier_Interface $purifier;
+
+    /**
+     * @inheritDoc
+     */
+    #[Override]
+    protected function _construct(): void
+    {
+        parent::_construct();
+
+        /** @var Mage_Core_Model_Purifier_Message $purifier */
+        $purifier = Mage::getSingleton('core/purifier_message');
+        $this->purifier = $purifier;
+    }
+
+    /**
      * @inheritDoc
      */
     #[Override]
@@ -196,8 +218,13 @@ class Mage_Core_Block_Messages extends Mage_Core_Block_Template
     {
         $html = '<' . $this->_messagesFirstLevelTagName . ' id="admin_messages">';
         foreach ($this->getMessages($type) as $message) {
+            /** @var string $messageContent */
+            $messageContent = $this->_escapeMessageFlag
+                ? $this->escapeHtml($message->getText())
+                : $this->purifier->purify($message->getText());
+
             $html .= '<' . $this->_messagesSecondLevelTagName . ' class="' . $message->getType() . '-msg">'
-                . ($this->_escapeMessageFlag) ? $this->escapeHtml($message->getText()) : $message->getText()
+                . $messageContent
                 . '</' . $this->_messagesSecondLevelTagName . '>';
         }
 
@@ -228,9 +255,14 @@ class Mage_Core_Block_Messages extends Mage_Core_Block_Template
                 $html .= '<' . $this->_messagesFirstLevelTagName . '>';
 
                 foreach ($messages as $message) {
+                    /** @var string $messageContent */
+                    $messageContent = $this->_escapeMessageFlag
+                        ? $this->escapeHtml($message->getText())
+                        : $this->purifier->purify($message->getText());
+
                     $html .= '<' . $this->_messagesSecondLevelTagName . '>';
                     $html .= '<' . $this->_messagesContentWrapperTagName . '>';
-                    $html .= ($this->_escapeMessageFlag) ? $this->escapeHtml($message->getText()) : $message->getText();
+                    $html .= $messageContent;
                     $html .= '</' . $this->_messagesContentWrapperTagName . '>';
                     $html .= '</' . $this->_messagesSecondLevelTagName . '>';
                 }
