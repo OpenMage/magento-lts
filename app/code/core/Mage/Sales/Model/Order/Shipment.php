@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -13,31 +15,11 @@
  * @package    Mage_Sales
  *
  * @method Mage_Sales_Model_Resource_Order_Shipment            _getResource()
- * @method int                                                 getBillingAddressId()
  * @method Mage_Sales_Model_Resource_Order_Shipment_Collection getCollection()
- * @method int                                                 getCustomerId()
- * @method int                                                 getEmailSent()
- * @method string                                              getIncrementId()
- * @method int                                                 getOrderId()
  * @method mixed                                               getPackages()
  * @method Mage_Sales_Model_Resource_Order_Shipment            getResource()
  * @method Mage_Sales_Model_Resource_Order_Shipment_Collection getResourceCollection()
- * @method int                                                 getShipmentStatus()
- * @method int                                                 getShippingAddressId()
- * @method int                                                 getStoreId()
- * @method float                                               getTotalQty()
- * @method float                                               getTotalWeight()
- * @method $this                                               setBillingAddressId(int $value)
- * @method $this                                               setCustomerId(int $value)
- * @method $this                                               setEmailSent(int $value)
- * @method $this                                               setIncrementId(string $value)
- * @method $this                                               setOrderId(int $value)
  * @method $this                                               setPackages(string $value)
- * @method $this                                               setShipmentStatus(int $value)
- * @method $this                                               setShippingAddressId(int $value)
- * @method $this                                               setStoreId(int $value)
- * @method $this                                               setTotalQty(float $value)
- * @method $this                                               setTotalWeight(float $value)
  */
 class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
 {
@@ -707,5 +689,105 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
         }
 
         return $label;
+    }
+
+    public function getBillingAddressId(): int
+    {
+        return (int) $this->_getData('billing_address_id');
+    }
+
+    public function getCustomerId(): int
+    {
+        return (int) $this->_getData('customer_id');
+    }
+
+    public function getEmailSent(): int
+    {
+        return (int) $this->_getData('email_sent');
+    }
+
+    public function getIncrementId(): string
+    {
+        return (string) $this->_getData('increment_id');
+    }
+
+    public function getOrderId(): int
+    {
+        return (int) $this->_getData('order_id');
+    }
+
+    public function getShipmentStatus(): int
+    {
+        return (int) $this->_getData('shipment_status');
+    }
+
+    public function getShippingAddressId(): int
+    {
+        return (int) $this->_getData('shipping_address_id');
+    }
+
+    public function getStoreId(): int
+    {
+        return (int) $this->_getData('store_id');
+    }
+
+    public function getTotalQty(): float
+    {
+        return (float) $this->_getData('total_qty');
+    }
+
+    public function getTotalWeight(): float
+    {
+        return (float) $this->_getData('total_weight');
+    }
+
+    public function setBillingAddressId(int $value): static
+    {
+        return $this->setData('billing_address_id', $value);
+    }
+
+    public function setCustomerId(int $value): static
+    {
+        return $this->setData('customer_id', $value);
+    }
+
+    public function setEmailSent(int $value): static
+    {
+        return $this->setData('email_sent', $value);
+    }
+
+    public function setIncrementId(string $value): static
+    {
+        return $this->setData('increment_id', $value);
+    }
+
+    public function setOrderId(int $value): static
+    {
+        return $this->setData('order_id', $value);
+    }
+
+    public function setShipmentStatus(int $value): static
+    {
+        return $this->setData('shipment_status', $value);
+    }
+
+    public function setShippingAddressId(int $value): static
+    {
+        return $this->setData('shipping_address_id', $value);
+    }
+
+    public function setStoreId(int $value): static
+    {
+        return $this->setData('store_id', $value);
+    }
+
+    public function setTotalQty(float $value): static
+    {
+        return $this->setData('total_qty', $value);
+    }
+
+    public function setTotalWeight(float $value): static
+    {
+        return $this->setData('total_weight', $value);
     }
 }

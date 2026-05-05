@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -16,33 +18,10 @@
  * @method bool                                                  getAddRequiredFilter()
  * @method bool                                                  getAddRequiredFilterValue()
  * @method Mage_Catalog_Model_Resource_Product_Option_Collection getCollection()
- * @method string                                                getFileExtension()
- * @method int                                                   getImageSizeX()
- * @method int                                                   getImageSizeY()
- * @method int                                                   getIsRequire()
- * @method int                                                   getMaxCharacters()
- * @method null|int                                              getOptionId()
- * @method string                                                getPriceType()
  * @method null|string                                           getProductId()
  * @method Mage_Catalog_Model_Resource_Product_Option            getResource()
  * @method Mage_Catalog_Model_Resource_Product_Option_Collection getResourceCollection()
- * @method string                                                getSku()
- * @method int                                                   getSortOrder()
- * @method int                                                   getStoreId()
- * @method float                                                 getStorePrice()
- * @method string                                                getStoreTitle()
- * @method string                                                getTitle()
- * @method string                                                getType()
- * @method $this                                                 setFileExtension(string $value)
- * @method $this                                                 setImageSizeX(int $value)
- * @method $this                                                 setImageSizeY(int $value)
- * @method $this                                                 setIsRequire(int $value)
- * @method $this                                                 setMaxCharacters(int $value)
- * @method $this                                                 setOptionId(null|int $value)
  * @method $this                                                 setProductId(null|string $value)
- * @method $this                                                 setSku(string $value)
- * @method $this                                                 setSortOrder(int $value)
- * @method $this                                                 setType(string $value)
  *
  * @property bool $decoratedIsLast
  */
@@ -601,4 +580,6 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
             default => false,
         };
     }
+
+
 }

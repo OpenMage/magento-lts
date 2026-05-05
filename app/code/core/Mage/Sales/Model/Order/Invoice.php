@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -11,97 +13,12 @@
  * @package    Mage_Sales
  *
  * @method Mage_Sales_Model_Resource_Order_Invoice            _getResource()
- * @method float                                              getBaseCost()
- * @method string                                             getBaseCurrencyCode()
- * @method float                                              getBaseDiscountAmount()
- * @method float                                              getBaseGrandTotal()
- * @method float                                              getBaseHiddenTaxAmount()
- * @method float                                              getBaseShippingAmount()
- * @method float                                              getBaseShippingHiddenTaxAmount()
- * @method float                                              getBaseShippingInclTax()
- * @method float                                              getBaseShippingTaxAmount()
- * @method float                                              getBaseSubtotal()
- * @method float                                              getBaseSubtotalInclTax()
- * @method float                                              getBaseTaxAmount()
- * @method float                                              getBaseToGlobalRate()
- * @method float                                              getBaseToOrderRate()
- * @method float                                              getBaseTotalRefunded()
- * @method int                                                getBillingAddressId()
- * @method null|int                                           getCanVoidFlag()
  * @method Mage_Sales_Model_Resource_Order_Invoice_Collection getCollection()
- * @method string                                             getCybersourceToken()
- * @method float                                              getDiscountAmount()
- * @method int                                                getEmailSent()
- * @method string                                             getGlobalCurrencyCode()
- * @method float                                              getGrandTotal()
- * @method float                                              getHiddenTaxAmount()
- * @method string                                             getIncrementId()
  * @method bool                                               getIsPaid()
- * @method int                                                getIsUsedForRefund()
- * @method string                                             getOrderCurrencyCode()
- * @method int                                                getOrderId()
  * @method string                                             getRequestedCaptureCase()
  * @method Mage_Sales_Model_Resource_Order_Invoice            getResource()
  * @method Mage_Sales_Model_Resource_Order_Invoice_Collection getResourceCollection()
- * @method int                                                getShippingAddressId()
- * @method float                                              getShippingAmount()
- * @method float                                              getShippingHiddenTaxAmount()
- * @method float                                              getShippingInclTax()
- * @method float                                              getShippingTaxAmount()
- * @method int                                                getState()
- * @method string                                             getStoreCurrencyCode()
- * @method int                                                getStoreId()
- * @method float                                              getStoreToBaseRate()
- * @method float                                              getStoreToOrderRate()
- * @method float                                              getSubtotal()
- * @method float                                              getSubtotalInclTax()
- * @method float                                              getTaxAmount()
- * @method float                                              getTotalQty()
- * @method string                                             getTransactionId()
- * @method $this                                              setBaseCost(float $value)
- * @method $this                                              setBaseCurrencyCode(string $value)
- * @method $this                                              setBaseDiscountAmount(float $value)
- * @method $this                                              setBaseGrandTotal(float $value)
- * @method $this                                              setBaseHiddenTaxAmount(float $value)
- * @method $this                                              setBaseShippingAmount(float $value)
- * @method $this                                              setBaseShippingHiddenTaxAmount(float $value)
- * @method $this                                              setBaseShippingInclTax(float $value)
- * @method $this                                              setBaseShippingTaxAmount(float $value)
- * @method $this                                              setBaseSubtotal(float $value)
- * @method $this                                              setBaseSubtotalInclTax(float $value)
- * @method $this                                              setBaseTaxAmount(float $value)
- * @method $this                                              setBaseToGlobalRate(float $value)
- * @method $this                                              setBaseToOrderRate(float $value)
- * @method $this                                              setBaseTotalRefunded(float $value)
- * @method $this                                              setBillingAddressId(int $value)
- * @method $this                                              setCanVoidFlag(int $value)
- * @method $this                                              setCustomerId(int $value)
- * @method $this                                              setCybersourceToken(string $value)
- * @method $this                                              setDiscountAmount(float $value)
- * @method $this                                              setEmailSent(int $value)
- * @method $this                                              setGlobalCurrencyCode(string $value)
- * @method $this                                              setGrandTotal(float $value)
- * @method $this                                              setHiddenTaxAmount(float $value)
- * @method $this                                              setIncrementId(string $value)
  * @method $this                                              setIsPaid(bool $value)
- * @method $this                                              setIsUsedForRefund(int $value)
- * @method $this                                              setOrderCurrencyCode(string $value)
- * @method $this                                              setOrderId(int $value)
- * @method $this                                              setShippingAddressId(int $value)
- * @method $this                                              setShippingAmount(float $value)
- * @method $this                                              setShippingHiddenTaxAmount(float $value)
- * @method $this                                              setShippingInclTax(float $value)
- * @method $this                                              setShippingTaxAmount(float $value)
- * @method $this                                              setState(int $value)
- * @method $this                                              setStoreCurrencyCode(string $value)
- * @method $this                                              setStoreId(int $value)
- * @method $this                                              setStoreToBaseRate(float $value)
- * @method $this                                              setStoreToOrderRate(float $value)
- * @method $this                                              setSubtotal(float $value)
- * @method $this                                              setSubtotalInclTax(float $value)
- * @method $this                                              setTaxAmount(float $value)
- * @method $this                                              setTotalQty(float $value)
- * @method $this                                              setTransactionId(string $value)
  */
 class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
 {
@@ -1050,5 +967,431 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
         }
 
         return parent::_afterSave();
+    }
+
+    public function getBaseCost(): float
+    {
+        return (float) $this->_getData('base_cost');
+    }
+
+    public function getBaseCurrencyCode(): string
+    {
+        return (string) $this->_getData('base_currency_code');
+    }
+
+    public function getBaseDiscountAmount(): float
+    {
+        return (float) $this->_getData('base_discount_amount');
+    }
+
+    public function getBaseGrandTotal(): float
+    {
+        return (float) $this->_getData('base_grand_total');
+    }
+
+    public function getBaseHiddenTaxAmount(): float
+    {
+        return (float) $this->_getData('base_hidden_tax_amount');
+    }
+
+    public function getBaseShippingAmount(): float
+    {
+        return (float) $this->_getData('base_shipping_amount');
+    }
+
+    public function getBaseShippingHiddenTaxAmount(): float
+    {
+        return (float) $this->_getData('base_shipping_hidden_tax_amount');
+    }
+
+    public function getBaseShippingInclTax(): float
+    {
+        return (float) $this->_getData('base_shipping_incl_tax');
+    }
+
+    public function getBaseShippingTaxAmount(): float
+    {
+        return (float) $this->_getData('base_shipping_tax_amount');
+    }
+
+    public function getBaseSubtotal(): float
+    {
+        return (float) $this->_getData('base_subtotal');
+    }
+
+    public function getBaseSubtotalInclTax(): float
+    {
+        return (float) $this->_getData('base_subtotal_incl_tax');
+    }
+
+    public function getBaseTaxAmount(): float
+    {
+        return (float) $this->_getData('base_tax_amount');
+    }
+
+    public function getBaseToGlobalRate(): float
+    {
+        return (float) $this->_getData('base_to_global_rate');
+    }
+
+    public function getBaseToOrderRate(): float
+    {
+        return (float) $this->_getData('base_to_order_rate');
+    }
+
+    public function getBaseTotalRefunded(): float
+    {
+        return (float) $this->_getData('base_total_refunded');
+    }
+
+    public function getBillingAddressId(): int
+    {
+        return (int) $this->_getData('billing_address_id');
+    }
+
+    public function getCanVoidFlag(): ?int
+    {
+        $v = $this->_getData('can_void_flag');
+        return $v === null ? null : (int) $v;
+    }
+
+    public function getCybersourceToken(): string
+    {
+        return (string) $this->_getData('cybersource_token');
+    }
+
+    public function getDiscountAmount(): float
+    {
+        return (float) $this->_getData('discount_amount');
+    }
+
+    public function getEmailSent(): int
+    {
+        return (int) $this->_getData('email_sent');
+    }
+
+    public function getGlobalCurrencyCode(): string
+    {
+        return (string) $this->_getData('global_currency_code');
+    }
+
+    public function getGrandTotal(): float
+    {
+        return (float) $this->_getData('grand_total');
+    }
+
+    public function getHiddenTaxAmount(): float
+    {
+        return (float) $this->_getData('hidden_tax_amount');
+    }
+
+    public function getIncrementId(): string
+    {
+        return (string) $this->_getData('increment_id');
+    }
+
+    public function getIsUsedForRefund(): int
+    {
+        return (int) $this->_getData('is_used_for_refund');
+    }
+
+    public function getOrderCurrencyCode(): string
+    {
+        return (string) $this->_getData('order_currency_code');
+    }
+
+    public function getOrderId(): int
+    {
+        return (int) $this->_getData('order_id');
+    }
+
+    public function getShippingAddressId(): int
+    {
+        return (int) $this->_getData('shipping_address_id');
+    }
+
+    public function getShippingAmount(): float
+    {
+        return (float) $this->_getData('shipping_amount');
+    }
+
+    public function getShippingHiddenTaxAmount(): float
+    {
+        return (float) $this->_getData('shipping_hidden_tax_amount');
+    }
+
+    public function getShippingInclTax(): float
+    {
+        return (float) $this->_getData('shipping_incl_tax');
+    }
+
+    public function getShippingTaxAmount(): float
+    {
+        return (float) $this->_getData('shipping_tax_amount');
+    }
+
+    public function getState(): int
+    {
+        return (int) $this->_getData('state');
+    }
+
+    public function getStoreCurrencyCode(): string
+    {
+        return (string) $this->_getData('store_currency_code');
+    }
+
+    public function getStoreId(): int
+    {
+        return (int) $this->_getData('store_id');
+    }
+
+    public function getStoreToBaseRate(): float
+    {
+        return (float) $this->_getData('store_to_base_rate');
+    }
+
+    public function getStoreToOrderRate(): float
+    {
+        return (float) $this->_getData('store_to_order_rate');
+    }
+
+    public function getSubtotal(): float
+    {
+        return (float) $this->_getData('subtotal');
+    }
+
+    public function getSubtotalInclTax(): float
+    {
+        return (float) $this->_getData('subtotal_incl_tax');
+    }
+
+    public function getTaxAmount(): float
+    {
+        return (float) $this->_getData('tax_amount');
+    }
+
+    public function getTotalQty(): float
+    {
+        return (float) $this->_getData('total_qty');
+    }
+
+    public function getTransactionId(): string
+    {
+        return (string) $this->_getData('transaction_id');
+    }
+
+    public function setBaseCost(float $value): static
+    {
+        return $this->setData('base_cost', $value);
+    }
+
+    public function setBaseCurrencyCode(string $value): static
+    {
+        return $this->setData('base_currency_code', $value);
+    }
+
+    public function setBaseDiscountAmount(float $value): static
+    {
+        return $this->setData('base_discount_amount', $value);
+    }
+
+    public function setBaseGrandTotal(float $value): static
+    {
+        return $this->setData('base_grand_total', $value);
+    }
+
+    public function setBaseHiddenTaxAmount(float $value): static
+    {
+        return $this->setData('base_hidden_tax_amount', $value);
+    }
+
+    public function setBaseShippingAmount(float $value): static
+    {
+        return $this->setData('base_shipping_amount', $value);
+    }
+
+    public function setBaseShippingHiddenTaxAmount(float $value): static
+    {
+        return $this->setData('base_shipping_hidden_tax_amount', $value);
+    }
+
+    public function setBaseShippingInclTax(float $value): static
+    {
+        return $this->setData('base_shipping_incl_tax', $value);
+    }
+
+    public function setBaseShippingTaxAmount(float $value): static
+    {
+        return $this->setData('base_shipping_tax_amount', $value);
+    }
+
+    public function setBaseSubtotal(float $value): static
+    {
+        return $this->setData('base_subtotal', $value);
+    }
+
+    public function setBaseSubtotalInclTax(float $value): static
+    {
+        return $this->setData('base_subtotal_incl_tax', $value);
+    }
+
+    public function setBaseTaxAmount(float $value): static
+    {
+        return $this->setData('base_tax_amount', $value);
+    }
+
+    public function setBaseToGlobalRate(float $value): static
+    {
+        return $this->setData('base_to_global_rate', $value);
+    }
+
+    public function setBaseToOrderRate(float $value): static
+    {
+        return $this->setData('base_to_order_rate', $value);
+    }
+
+    public function setBaseTotalRefunded(float $value): static
+    {
+        return $this->setData('base_total_refunded', $value);
+    }
+
+    public function setBillingAddressId(int $value): static
+    {
+        return $this->setData('billing_address_id', $value);
+    }
+
+    public function setCanVoidFlag(int $value): static
+    {
+        return $this->setData('can_void_flag', $value);
+    }
+
+    public function setCustomerId(int $value): static
+    {
+        return $this->setData('customer_id', $value);
+    }
+
+    public function setCybersourceToken(string $value): static
+    {
+        return $this->setData('cybersource_token', $value);
+    }
+
+    public function setDiscountAmount(float $value): static
+    {
+        return $this->setData('discount_amount', $value);
+    }
+
+    public function setEmailSent(int $value): static
+    {
+        return $this->setData('email_sent', $value);
+    }
+
+    public function setGlobalCurrencyCode(string $value): static
+    {
+        return $this->setData('global_currency_code', $value);
+    }
+
+    public function setGrandTotal(float $value): static
+    {
+        return $this->setData('grand_total', $value);
+    }
+
+    public function setHiddenTaxAmount(float $value): static
+    {
+        return $this->setData('hidden_tax_amount', $value);
+    }
+
+    public function setIncrementId(string $value): static
+    {
+        return $this->setData('increment_id', $value);
+    }
+
+    public function setIsUsedForRefund(int $value): static
+    {
+        return $this->setData('is_used_for_refund', $value);
+    }
+
+    public function setOrderCurrencyCode(string $value): static
+    {
+        return $this->setData('order_currency_code', $value);
+    }
+
+    public function setOrderId(int $value): static
+    {
+        return $this->setData('order_id', $value);
+    }
+
+    public function setShippingAddressId(int $value): static
+    {
+        return $this->setData('shipping_address_id', $value);
+    }
+
+    public function setShippingAmount(float $value): static
+    {
+        return $this->setData('shipping_amount', $value);
+    }
+
+    public function setShippingHiddenTaxAmount(float $value): static
+    {
+        return $this->setData('shipping_hidden_tax_amount', $value);
+    }
+
+    public function setShippingInclTax(float $value): static
+    {
+        return $this->setData('shipping_incl_tax', $value);
+    }
+
+    public function setShippingTaxAmount(float $value): static
+    {
+        return $this->setData('shipping_tax_amount', $value);
+    }
+
+    public function setState(int $value): static
+    {
+        return $this->setData('state', $value);
+    }
+
+    public function setStoreCurrencyCode(string $value): static
+    {
+        return $this->setData('store_currency_code', $value);
+    }
+
+    public function setStoreId(int $value): static
+    {
+        return $this->setData('store_id', $value);
+    }
+
+    public function setStoreToBaseRate(float $value): static
+    {
+        return $this->setData('store_to_base_rate', $value);
+    }
+
+    public function setStoreToOrderRate(float $value): static
+    {
+        return $this->setData('store_to_order_rate', $value);
+    }
+
+    public function setSubtotal(float $value): static
+    {
+        return $this->setData('subtotal', $value);
+    }
+
+    public function setSubtotalInclTax(float $value): static
+    {
+        return $this->setData('subtotal_incl_tax', $value);
+    }
+
+    public function setTaxAmount(float $value): static
+    {
+        return $this->setData('tax_amount', $value);
+    }
+
+    public function setTotalQty(float $value): static
+    {
+        return $this->setData('total_qty', $value);
+    }
+
+    public function setTransactionId(string $value): static
+    {
+        return $this->setData('transaction_id', $value);
     }
 }
