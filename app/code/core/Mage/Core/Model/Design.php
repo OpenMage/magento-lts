@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -12,18 +14,10 @@
  *
  * @method Mage_Core_Model_Resource_Design            _getResource()
  * @method Mage_Core_Model_Resource_Design_Collection getCollection()
- * @method string                                     getDateFrom()
- * @method string                                     getDateTo()
- * @method string                                     getDesign()
  * @method string                                     getPackage()
  * @method Mage_Core_Model_Resource_Design            getResource()
  * @method Mage_Core_Model_Resource_Design_Collection getResourceCollection()
- * @method int                                        getStoreId()
  * @method string                                     getTheme()
- * @method $this                                      setDateFrom(string $value)
- * @method $this                                      setDateTo(string $value)
- * @method $this                                      setDesign(string $value)
- * @method $this                                      setStoreId(int $value)
  */
 class Mage_Core_Model_Design extends Mage_Core_Model_Abstract
 {
@@ -65,5 +59,45 @@ class Mage_Core_Model_Design extends Mage_Core_Model_Abstract
         }
 
         return $this;
+    }
+
+    public function getDateFrom(): string
+    {
+        return (string) $this->_getData('date_from');
+    }
+
+    public function setDateFrom(string $value): static
+    {
+        return $this->setData('date_from', $value);
+    }
+
+    public function getDateTo(): string
+    {
+        return (string) $this->_getData('date_to');
+    }
+
+    public function setDateTo(string $value): static
+    {
+        return $this->setData('date_to', $value);
+    }
+
+    public function getDesign(): string
+    {
+        return (string) $this->_getData('design');
+    }
+
+    public function setDesign(string $value): static
+    {
+        return $this->setData('design', $value);
+    }
+
+    public function getStoreId(): int
+    {
+        return (int) $this->_getData('store_id');
+    }
+
+    public function setStoreId(int $value): static
+    {
+        return $this->setData('store_id', $value);
     }
 }

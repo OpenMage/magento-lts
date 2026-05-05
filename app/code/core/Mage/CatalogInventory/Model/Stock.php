@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -14,8 +16,6 @@
  *
  * @method Mage_CatalogInventory_Model_Resource_Stock _getResource()
  * @method Mage_CatalogInventory_Model_Resource_Stock getResource()
- * @method string                                     getStockName()
- * @method $this                                      setStockName(string $value)
  */
 class Mage_CatalogInventory_Model_Stock extends Mage_Core_Model_Abstract
 {
@@ -239,5 +239,15 @@ class Mage_CatalogInventory_Model_Stock extends Mage_Core_Model_Abstract
     {
         $this->getResource()->setInStockFilterToCollection($collection);
         return $this;
+    }
+
+    public function getStockName(): string
+    {
+        return (string) $this->_getData('stock_name');
+    }
+
+    public function setStockName(string $value): static
+    {
+        return $this->setData('stock_name', $value);
     }
 }

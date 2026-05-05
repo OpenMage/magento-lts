@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -21,65 +23,24 @@
  *
  * @method Mage_Sales_Model_Resource_Quote            _getResource()
  * @method array|string                               getAppliedRuleIds()
- * @method string                                     getBaseCurrencyCode()
- * @method float                                      getBaseGrandTotal()
- * @method float                                      getBaseSubtotal()
- * @method float                                      getBaseSubtotalWithDiscount()
- * @method float                                      getBaseToGlobalRate()
- * @method float                                      getBaseToQuoteRate()
  * @method bool                                       getCanApplyMsrp()
  * @method bool                                       getChangedFlag()
  * @method Mage_Sales_Model_Resource_Quote_Collection getCollection()
- * @method string                                     getConvertedAt()
- * @method string                                     getCustomerDob()
- * @method string                                     getCustomerEmail()
- * @method string                                     getCustomerFirstname()
- * @method string                                     getCustomerGender()
- * @method null|int                                   getCustomerId()
- * @method int                                        getCustomerIsGuest()
- * @method string                                     getCustomerLastname()
- * @method string                                     getCustomerMiddlename()
- * @method string                                     getCustomerNote()
- * @method int                                        getCustomerNoteNotify()
- * @method string                                     getCustomerPrefix()
- * @method string                                     getCustomerSuffix()
- * @method string                                     getCustomerTaxvat()
- * @method string                                     getExtShippingInfo()
  * @method string                                     getForcedCurrency()
- * @method int                                        getGiftMessageId()
- * @method string                                     getGlobalCurrencyCode()
- * @method float                                      getGrandTotal()
  * @method bool                                       getHasError()
  * @method bool                                       getIgnoreOldQty()
  * @method bool                                       getInventoryProcessed()
- * @method int                                        getIsActive()
- * @method int                                        getIsChanged()
  * @method bool                                       getIsCheckoutCart()
  * @method bool                                       getIsMultiPayment()
- * @method int                                        getIsMultiShipping()
  * @method bool                                       getIsPersistent()
  * @method bool                                       getIsSuperMode()
- * @method int                                        getItemsCount()
- * @method float                                      getItemsQty()
  * @method string                                     getMethod()
- * @method int                                        getOrigOrderId()
- * @method string                                     getPasswordHash()
- * @method string                                     getQuoteCurrencyCode()
- * @method string                                     getRemoteIp()
- * @method string                                     getReservedOrderId()
  * @method Mage_Sales_Model_Resource_Quote            getResource()
  * @method Mage_Sales_Model_Resource_Quote_Collection getResourceCollection()
- * @method string                                     getStoreCurrencyCode()
- * @method float                                      getStoreToBaseRate()
- * @method float                                      getStoreToQuoteRate()
- * @method float                                      getSubtotal()
- * @method float                                      getSubtotalWithDiscount()
  * @method array                                      getTaxesForItems()
  * @method bool                                       getTotalsCollectedFlag()
- * @method int                                        getTriggerRecollect()
  * @method bool                                       getUseCustomerBalance()
  * @method bool                                       getUseRewardPoints()
- * @method float                                      getVirtualItemsQty()
  * @method Mage_Core_Model_Website                    getWebsite()
  * @method bool                                       hasCanApplyMsrp()
  * @method bool                                       hasChangedFlag()
@@ -87,66 +48,18 @@
  * @method bool                                       hasItemsCollection()
  * @method bool                                       hasStoreId()
  * @method $this                                      setAppliedRuleIds(array|string $value)
- * @method $this                                      setBaseCurrencyCode(string $value)
- * @method $this                                      setBaseGrandTotal(float $value)
- * @method $this                                      setBaseSubtotal(float $value)
- * @method $this                                      setBaseSubtotalWithDiscount(float $value)
- * @method $this                                      setBaseToGlobalRate(float $value)
- * @method $this                                      setBaseToQuoteRate(float $value)
- * @method $this                                      setCheckoutMethod(string $value)
- * @method $this                                      setConvertedAt(string $value)
- * @method $this                                      setCustomerDob(string $value)
- * @method $this                                      setCustomerEmail(string $value)
- * @method $this                                      setCustomerFirstname(string $value)
- * @method $this                                      setCustomerGender(string $value)
- * @method $this                                      setCustomerGroupId(int $value)
- * @method $this                                      setCustomerId(null|int $value)
- * @method $this                                      setCustomerIsGuest(int $value)
- * @method $this                                      setCustomerLastname(string $value)
- * @method $this                                      setCustomerMiddlename(string $value)
- * @method $this                                      setCustomerNote(string $value)
- * @method $this                                      setCustomerNoteNotify(int $value)
- * @method $this                                      setCustomerPrefix(string $value)
- * @method $this                                      setCustomerSuffix(string $value)
- * @method $this                                      setCustomerTaxClassId(int $value)
- * @method $this                                      setCustomerTaxvat(string $value)
- * @method $this                                      setExtShippingInfo(string $value)
  * @method $this                                      setGiftMessage(string $value)
- * @method $this                                      setGiftMessageId(int $value)
- * @method $this                                      setGlobalCurrencyCode(string $value)
- * @method $this                                      setGrandTotal(float $value)
  * @method $this                                      setIgnoreOldQty(bool $value)
  * @method $this                                      setInventoryProcessed(bool $value)
- * @method $this                                      setIsActive(int $value)
- * @method $this                                      setIsChanged(int $value)
  * @method $this                                      setIsCheckoutCart(bool $value)
- * @method $this                                      setIsMultiShipping(int $value)
  * @method $this                                      setIsPersistent(bool $value)
  * @method $this                                      setIsSuperMode(bool $value)
- * @method $this                                      setIsVirtual(int $value)
- * @method $this                                      setItemsCount(int $value)
- * @method $this                                      setItemsQty(float $value)
- * @method $this                                      setOrderId(int $value)
- * @method $this                                      setOrigOrderId(int $value)
- * @method $this                                      setPasswordHash(string $value)
- * @method $this                                      setQuoteCurrencyCode(string $value)
- * @method $this                                      setRemoteIp(string $value)
- * @method $this                                      setReservedOrderId(string $value)
  * @method $this                                      setSharedStoreIds(array $value)
- * @method $this                                      setStoreCurrencyCode(string $value)
- * @method $this                                      setStoreId(int $value)
- * @method $this                                      setStoreToBaseRate(float $value)
- * @method $this                                      setStoreToQuoteRate(float $value)
- * @method $this                                      setSubtotal(float $value)
- * @method $this                                      setSubtotalWithDiscount(float $value)
  * @method $this                                      setTaxesForItems(array $itemTaxGroups)
  * @method $this                                      setTotalsCollectedFlag(bool $value)
- * @method $this                                      setTriggerRecollect(int $value)
  * @method $this                                      setUseCustomerBalance(bool $value)
  * @method $this                                      setUseRewardPoints(bool $value)
- * @method $this                                      setVirtualItemsQty(float $value)
  * @method $this                                      setWebsite(Mage_Core_Model_Website $value)
- * @method $this                                      setXForwardedFor(string $value)
  */
 class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
 {
@@ -2197,5 +2110,451 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     public function setCouponCode(?string $couponCode)
     {
         return $this->setData('coupon_code', $couponCode);
+    }
+
+    public function getBaseCurrencyCode(): string
+    {
+        return (string) $this->_getData('base_currency_code');
+    }
+
+    public function getBaseGrandTotal(): float
+    {
+        return (float) $this->_getData('base_grand_total');
+    }
+
+    public function getBaseSubtotal(): float
+    {
+        return (float) $this->_getData('base_subtotal');
+    }
+
+    public function getBaseSubtotalWithDiscount(): float
+    {
+        return (float) $this->_getData('base_subtotal_with_discount');
+    }
+
+    public function getBaseToGlobalRate(): float
+    {
+        return (float) $this->_getData('base_to_global_rate');
+    }
+
+    public function getBaseToQuoteRate(): float
+    {
+        return (float) $this->_getData('base_to_quote_rate');
+    }
+
+    public function getConvertedAt(): string
+    {
+        return (string) $this->_getData('converted_at');
+    }
+
+    public function getCustomerDob(): string
+    {
+        return (string) $this->_getData('customer_dob');
+    }
+
+    public function getCustomerEmail(): string
+    {
+        return (string) $this->_getData('customer_email');
+    }
+
+    public function getCustomerFirstname(): string
+    {
+        return (string) $this->_getData('customer_firstname');
+    }
+
+    public function getCustomerGender(): string
+    {
+        return (string) $this->_getData('customer_gender');
+    }
+
+    public function getCustomerId(): ?int
+    {
+        $v = $this->_getData('customer_id');
+        return $v === null ? null : (int) $v;
+    }
+
+    public function getCustomerIsGuest(): int
+    {
+        return (int) $this->_getData('customer_is_guest');
+    }
+
+    public function getCustomerLastname(): string
+    {
+        return (string) $this->_getData('customer_lastname');
+    }
+
+    public function getCustomerMiddlename(): string
+    {
+        return (string) $this->_getData('customer_middlename');
+    }
+
+    public function getCustomerNote(): string
+    {
+        return (string) $this->_getData('customer_note');
+    }
+
+    public function getCustomerNoteNotify(): int
+    {
+        return (int) $this->_getData('customer_note_notify');
+    }
+
+    public function getCustomerPrefix(): string
+    {
+        return (string) $this->_getData('customer_prefix');
+    }
+
+    public function getCustomerSuffix(): string
+    {
+        return (string) $this->_getData('customer_suffix');
+    }
+
+    public function getCustomerTaxvat(): string
+    {
+        return (string) $this->_getData('customer_taxvat');
+    }
+
+    public function getExtShippingInfo(): string
+    {
+        return (string) $this->_getData('ext_shipping_info');
+    }
+
+    public function getGiftMessageId(): int
+    {
+        return (int) $this->_getData('gift_message_id');
+    }
+
+    public function getGlobalCurrencyCode(): string
+    {
+        return (string) $this->_getData('global_currency_code');
+    }
+
+    public function getGrandTotal(): float
+    {
+        return (float) $this->_getData('grand_total');
+    }
+
+    public function getIsActive(): int
+    {
+        return (int) $this->_getData('is_active');
+    }
+
+    public function getIsChanged(): int
+    {
+        return (int) $this->_getData('is_changed');
+    }
+
+    public function getIsMultiShipping(): int
+    {
+        return (int) $this->_getData('is_multi_shipping');
+    }
+
+    public function getItemsCount(): int
+    {
+        return (int) $this->_getData('items_count');
+    }
+
+    public function getItemsQty(): float
+    {
+        return (float) $this->_getData('items_qty');
+    }
+
+    public function getOrigOrderId(): int
+    {
+        return (int) $this->_getData('orig_order_id');
+    }
+
+    public function getPasswordHash(): string
+    {
+        return (string) $this->_getData('password_hash');
+    }
+
+    public function getQuoteCurrencyCode(): string
+    {
+        return (string) $this->_getData('quote_currency_code');
+    }
+
+    public function getRemoteIp(): string
+    {
+        return (string) $this->_getData('remote_ip');
+    }
+
+    public function getReservedOrderId(): string
+    {
+        return (string) $this->_getData('reserved_order_id');
+    }
+
+    public function getStoreCurrencyCode(): string
+    {
+        return (string) $this->_getData('store_currency_code');
+    }
+
+    public function getStoreToBaseRate(): float
+    {
+        return (float) $this->_getData('store_to_base_rate');
+    }
+
+    public function getStoreToQuoteRate(): float
+    {
+        return (float) $this->_getData('store_to_quote_rate');
+    }
+
+    public function getSubtotal(): float
+    {
+        return (float) $this->_getData('subtotal');
+    }
+
+    public function getSubtotalWithDiscount(): float
+    {
+        return (float) $this->_getData('subtotal_with_discount');
+    }
+
+    public function getTriggerRecollect(): int
+    {
+        return (int) $this->_getData('trigger_recollect');
+    }
+
+    public function getVirtualItemsQty(): float
+    {
+        return (float) $this->_getData('virtual_items_qty');
+    }
+
+    public function setBaseCurrencyCode(string $value): static
+    {
+        return $this->setData('base_currency_code', $value);
+    }
+
+    public function setBaseGrandTotal(float $value): static
+    {
+        return $this->setData('base_grand_total', $value);
+    }
+
+    public function setBaseSubtotal(float $value): static
+    {
+        return $this->setData('base_subtotal', $value);
+    }
+
+    public function setBaseSubtotalWithDiscount(float $value): static
+    {
+        return $this->setData('base_subtotal_with_discount', $value);
+    }
+
+    public function setBaseToGlobalRate(float $value): static
+    {
+        return $this->setData('base_to_global_rate', $value);
+    }
+
+    public function setBaseToQuoteRate(float $value): static
+    {
+        return $this->setData('base_to_quote_rate', $value);
+    }
+
+    public function setCheckoutMethod(string $value): static
+    {
+        return $this->setData('checkout_method', $value);
+    }
+
+    public function setConvertedAt(string $value): static
+    {
+        return $this->setData('converted_at', $value);
+    }
+
+    public function setCustomerDob(string $value): static
+    {
+        return $this->setData('customer_dob', $value);
+    }
+
+    public function setCustomerEmail(string $value): static
+    {
+        return $this->setData('customer_email', $value);
+    }
+
+    public function setCustomerFirstname(string $value): static
+    {
+        return $this->setData('customer_firstname', $value);
+    }
+
+    public function setCustomerGender(string $value): static
+    {
+        return $this->setData('customer_gender', $value);
+    }
+
+    public function setCustomerGroupId(int $value): static
+    {
+        return $this->setData('customer_group_id', $value);
+    }
+
+    public function setCustomerId(?int $value): static
+    {
+        return $this->setData('customer_id', $value);
+    }
+
+    public function setCustomerIsGuest(int $value): static
+    {
+        return $this->setData('customer_is_guest', $value);
+    }
+
+    public function setCustomerLastname(string $value): static
+    {
+        return $this->setData('customer_lastname', $value);
+    }
+
+    public function setCustomerMiddlename(string $value): static
+    {
+        return $this->setData('customer_middlename', $value);
+    }
+
+    public function setCustomerNote(string $value): static
+    {
+        return $this->setData('customer_note', $value);
+    }
+
+    public function setCustomerNoteNotify(int $value): static
+    {
+        return $this->setData('customer_note_notify', $value);
+    }
+
+    public function setCustomerPrefix(string $value): static
+    {
+        return $this->setData('customer_prefix', $value);
+    }
+
+    public function setCustomerSuffix(string $value): static
+    {
+        return $this->setData('customer_suffix', $value);
+    }
+
+    public function setCustomerTaxClassId(int $value): static
+    {
+        return $this->setData('customer_tax_class_id', $value);
+    }
+
+    public function setCustomerTaxvat(string $value): static
+    {
+        return $this->setData('customer_taxvat', $value);
+    }
+
+    public function setExtShippingInfo(string $value): static
+    {
+        return $this->setData('ext_shipping_info', $value);
+    }
+
+    public function setGiftMessageId(int $value): static
+    {
+        return $this->setData('gift_message_id', $value);
+    }
+
+    public function setGlobalCurrencyCode(string $value): static
+    {
+        return $this->setData('global_currency_code', $value);
+    }
+
+    public function setGrandTotal(float $value): static
+    {
+        return $this->setData('grand_total', $value);
+    }
+
+    public function setIsActive(int $value): static
+    {
+        return $this->setData('is_active', $value);
+    }
+
+    public function setIsChanged(int $value): static
+    {
+        return $this->setData('is_changed', $value);
+    }
+
+    public function setIsMultiShipping(int $value): static
+    {
+        return $this->setData('is_multi_shipping', $value);
+    }
+
+    public function setIsVirtual(int $value): static
+    {
+        return $this->setData('is_virtual', $value);
+    }
+
+    public function setItemsCount(int $value): static
+    {
+        return $this->setData('items_count', $value);
+    }
+
+    public function setItemsQty(float $value): static
+    {
+        return $this->setData('items_qty', $value);
+    }
+
+    public function setOrderId(int $value): static
+    {
+        return $this->setData('order_id', $value);
+    }
+
+    public function setOrigOrderId(int $value): static
+    {
+        return $this->setData('orig_order_id', $value);
+    }
+
+    public function setPasswordHash(string $value): static
+    {
+        return $this->setData('password_hash', $value);
+    }
+
+    public function setQuoteCurrencyCode(string $value): static
+    {
+        return $this->setData('quote_currency_code', $value);
+    }
+
+    public function setRemoteIp(string $value): static
+    {
+        return $this->setData('remote_ip', $value);
+    }
+
+    public function setReservedOrderId(string $value): static
+    {
+        return $this->setData('reserved_order_id', $value);
+    }
+
+    public function setStoreCurrencyCode(string $value): static
+    {
+        return $this->setData('store_currency_code', $value);
+    }
+
+    public function setStoreId(int $value): static
+    {
+        return $this->setData('store_id', $value);
+    }
+
+    public function setStoreToBaseRate(float $value): static
+    {
+        return $this->setData('store_to_base_rate', $value);
+    }
+
+    public function setStoreToQuoteRate(float $value): static
+    {
+        return $this->setData('store_to_quote_rate', $value);
+    }
+
+    public function setSubtotal(float $value): static
+    {
+        return $this->setData('subtotal', $value);
+    }
+
+    public function setSubtotalWithDiscount(float $value): static
+    {
+        return $this->setData('subtotal_with_discount', $value);
+    }
+
+    public function setTriggerRecollect(int $value): static
+    {
+        return $this->setData('trigger_recollect', $value);
+    }
+
+    public function setVirtualItemsQty(float $value): static
+    {
+        return $this->setData('virtual_items_qty', $value);
+    }
+
+    public function setXForwardedFor(string $value): static
+    {
+        return $this->setData('x_forwarded_for', $value);
     }
 }

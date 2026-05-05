@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -20,72 +22,42 @@ use Symfony\Component\Validator\ConstraintViolationListInterface;
  * @method string                                           getCompany()
  * @method bool                                             getConfirmation()
  * @method int                                              getCustomerId()
- * @method null|int                                         getDefaultBilling()
- * @method null|int                                         getDefaultShipping()
- * @method int                                              getDisableAutoGroupChange()
- * @method string                                           getEmail()
- * @method string                                           getFirstname()
  * @method bool                                             getForceConfirmed()
- * @method string                                           getGender()
  * @method bool                                             getImportMode()
- * @method int                                              getIncrementId()
  * @method bool                                             getIsChangeEmail()
  * @method bool                                             getIsChangePassword()
  * @method bool                                             getIsJustConfirmed()
  * @method bool                                             getIsSubscribed()
- * @method string                                           getLastname()
- * @method string                                           getMiddlename()
  * @method string                                           getMode()
  * @method string                                           getOldEmail()
  * @method string                                           getPasswordConfirm()
  * @method string                                           getPasswordConfirmation()
- * @method int                                              getPasswordCreatedAt()
- * @method string                                           getPasswordHash()
- * @method string                                           getPrefix()
  * @method Mage_Customer_Model_Resource_Customer            getResource()
  * @method Mage_Customer_Model_Resource_Customer_Collection getResourceCollection()
- * @method string                                           getRpToken()
- * @method string                                           getRpTokenCreatedAt()
  * @method string                                           getSendemailStoreId()
  * @method string                                           getSkipConfirmationIfEmail()
- * @method int                                              getStoreId()
- * @method string                                           getSuffix()
  * @method int                                              getTagId()
- * @method string                                           getTaxvat()
- * @method int                                              getWebsiteId()
  * @method bool                                             hasIsSubscribed()
  * @method bool                                             hasSkipConfirmationIfEmail()
  * @method bool                                             hasStoreId()
  * @method $this                                            setChangePassword(int $value)
  * @method $this                                            setConfirmation(null|bool $value)
- * @method $this                                            setCustomerId(null|int $value)
- * @method $this                                            setDefaultBilling(null|int $value)
- * @method $this                                            setDefaultShipping(null|int $value)
- * @method $this                                            setEmail(string $value)
- * @method $this                                            setFirstname(string $value)
  * @method $this                                            setForceConfirmed(bool $value)
- * @method $this                                            setGroupId(int $value)
  * @method $this                                            setImportMode(bool $value)
  * @method $this                                            setIsChangeEmail(bool $value)
  * @method $this                                            setIsChangePassword(bool $value)
  * @method $this                                            setIsJustConfirmed(bool $value)
  * @method $this                                            setIsSubscribed(bool $value)
  * @method $this                                            setItems(int $value)
- * @method $this                                            setLastname(string $value)
  * @method $this                                            setMode(bool $value)
  * @method $this                                            setOldEmail(string $value)
  * @method $this                                            setPasswordConfirmation(string $value)
- * @method $this                                            setPasswordHash(string $value)
  * @method $this                                            setRpCustomerId(string $value)
- * @method $this                                            setRpToken(string $value)
- * @method $this                                            setRpTokenCreatedAt(string $value)
  * @method setSendemailStoreId(string $value)
- * @method $this setStoreId(int $value)
- * @method $this setTaxClassId(bool $value)
- * @method $this setTotal(float $value)
- * @method $this setWebsiteId(int $value)
- * @method $this unsetDefaultBilling()
- * @method $this unsetDefaultShipping()
+ * @method $this                                            setTaxClassId(bool $value)
+ * @method $this                                            setTotal(float $value)
+ * @method $this                                            unsetDefaultBilling()
+ * @method $this                                            unsetDefaultShipping()
  */
 class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
 {
@@ -1808,5 +1780,157 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     public function getDob(): ?string
     {
         return $this->getDataByKey('dob');
+    }
+
+    public function getDefaultBilling(): ?int
+    {
+        $v = $this->_getData('default_billing');
+        return $v === null ? null : (int) $v;
+    }
+
+    public function setDefaultBilling(?int $value): static
+    {
+        return $this->setData('default_billing', $value);
+    }
+
+    public function getDefaultShipping(): ?int
+    {
+        $v = $this->_getData('default_shipping');
+        return $v === null ? null : (int) $v;
+    }
+
+    public function setDefaultShipping(?int $value): static
+    {
+        return $this->setData('default_shipping', $value);
+    }
+
+    public function getDisableAutoGroupChange(): int
+    {
+        return (int) $this->_getData('disable_auto_group_change');
+    }
+
+    public function getEmail(): string
+    {
+        return (string) $this->_getData('email');
+    }
+
+    public function setEmail(string $value): static
+    {
+        return $this->setData('email', $value);
+    }
+
+    public function getFirstname(): string
+    {
+        return (string) $this->_getData('firstname');
+    }
+
+    public function setFirstname(string $value): static
+    {
+        return $this->setData('firstname', $value);
+    }
+
+    public function getGender(): string
+    {
+        return (string) $this->_getData('gender');
+    }
+
+    public function getIncrementId(): string
+    {
+        return (string) $this->_getData('increment_id');
+    }
+
+    public function getLastname(): string
+    {
+        return (string) $this->_getData('lastname');
+    }
+
+    public function setLastname(string $value): static
+    {
+        return $this->setData('lastname', $value);
+    }
+
+    public function getMiddlename(): string
+    {
+        return (string) $this->_getData('middlename');
+    }
+
+    public function getPasswordCreatedAt(): int
+    {
+        return (int) $this->_getData('password_created_at');
+    }
+
+    public function getPasswordHash(): string
+    {
+        return (string) $this->_getData('password_hash');
+    }
+
+    public function setPasswordHash(string $value): static
+    {
+        return $this->setData('password_hash', $value);
+    }
+
+    public function getPrefix(): string
+    {
+        return (string) $this->_getData('prefix');
+    }
+
+    public function getRpToken(): string
+    {
+        return (string) $this->_getData('rp_token');
+    }
+
+    public function setRpToken(string $value): static
+    {
+        return $this->setData('rp_token', $value);
+    }
+
+    public function getRpTokenCreatedAt(): string
+    {
+        return (string) $this->_getData('rp_token_created_at');
+    }
+
+    public function setRpTokenCreatedAt(string $value): static
+    {
+        return $this->setData('rp_token_created_at', $value);
+    }
+
+    public function getStoreId(): int
+    {
+        return (int) $this->_getData('store_id');
+    }
+
+    public function setStoreId(int $value): static
+    {
+        return $this->setData('store_id', $value);
+    }
+
+    public function getSuffix(): string
+    {
+        return (string) $this->_getData('suffix');
+    }
+
+    public function getTaxvat(): string
+    {
+        return (string) $this->_getData('taxvat');
+    }
+
+    public function getWebsiteId(): int
+    {
+        return (int) $this->_getData('website_id');
+    }
+
+    public function setWebsiteId(int $value): static
+    {
+        return $this->setData('website_id', $value);
+    }
+
+    public function setCustomerId(?int $value): static
+    {
+        return $this->setData('customer_id', $value);
+    }
+
+    public function setGroupId(int $value): static
+    {
+        return $this->setData('group_id', $value);
     }
 }
