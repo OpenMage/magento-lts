@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -13,31 +15,17 @@
  * @package    Mage_Newsletter
  *
  * @method Mage_Newsletter_Model_Resource_Subscriber            _getResource()
- * @method string                                               getChangeStatusAt()
  * @method string                                               getCheckCode()
  * @method Mage_Newsletter_Model_Resource_Subscriber_Collection getCollection()
- * @method int                                                  getCustomerId()
  * @method bool                                                 getImportMode()
  * @method string                                               getName()
  * @method Mage_Newsletter_Model_Resource_Subscriber            getResource()
  * @method Mage_Newsletter_Model_Resource_Subscriber_Collection getResourceCollection()
- * @method int                                                  getStoreId()
- * @method string                                               getSubscriberConfirmCode()
- * @method string                                               getSubscriberEmail()
- * @method int                                                  getSubscriberId()
- * @method int                                                  getSubscriberStatus()
  * @method bool                                                 hasCheckCode()
  * @method bool                                                 hasCustomerFirstname()
  * @method bool                                                 hasCustomerLastname()
- * @method $this                                                setChangeStatusAt(string $value)
+ * @method                                                      setImportMode(bool $value)
  * @method $this                                                setCheckCode(string $value)
- * @method $this                                                setCustomerId(int $value)
- * @method setImportMode(bool $value)
- * @method $this setStoreId(int $value)
- * @method $this setSubscriberConfirmCode(string $value)
- * @method $this setSubscriberEmail(string $value)
- * @method $this setSubscriberId(int $value)
- * @method $this setSubscriberStatus(int $value)
  */
 class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
 {
@@ -99,6 +87,76 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
     protected function _construct()
     {
         $this->_init('newsletter/subscriber');
+    }
+
+    public function getChangeStatusAt(): string
+    {
+        return (string) $this->_getData('change_status_at');
+    }
+
+    public function getCustomerId(): int
+    {
+        return (int) $this->_getData('customer_id');
+    }
+
+    public function getStoreId(): int
+    {
+        return (int) $this->_getData('store_id');
+    }
+
+    public function getSubscriberConfirmCode(): string
+    {
+        return (string) $this->_getData('subscriber_confirm_code');
+    }
+
+    public function getSubscriberEmail(): string
+    {
+        return (string) $this->_getData('subscriber_email');
+    }
+
+    public function getSubscriberId(): int
+    {
+        return (int) $this->_getData('subscriber_id');
+    }
+
+    public function getSubscriberStatus(): int
+    {
+        return (int) $this->_getData('subscriber_status');
+    }
+
+    public function setChangeStatusAt(string $value): static
+    {
+        return $this->setData('change_status_at', $value);
+    }
+
+    public function setCustomerId(int $value): static
+    {
+        return $this->setData('customer_id', $value);
+    }
+
+    public function setStoreId(int $value): static
+    {
+        return $this->setData('store_id', $value);
+    }
+
+    public function setSubscriberConfirmCode(string $value): static
+    {
+        return $this->setData('subscriber_confirm_code', $value);
+    }
+
+    public function setSubscriberEmail(string $value): static
+    {
+        return $this->setData('subscriber_email', $value);
+    }
+
+    public function setSubscriberId(int $value): static
+    {
+        return $this->setData('subscriber_id', $value);
+    }
+
+    public function setSubscriberStatus(int $value): static
+    {
+        return $this->setData('subscriber_status', $value);
     }
 
     /**

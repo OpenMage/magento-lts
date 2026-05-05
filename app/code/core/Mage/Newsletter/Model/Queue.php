@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -14,28 +16,8 @@
  *
  * @method Mage_Newsletter_Model_Resource_Queue            _getResource()
  * @method Mage_Newsletter_Model_Resource_Queue_Collection getCollection()
- * @method string                                          getNewsletterSenderEmail()
- * @method string                                          getNewsletterSenderName()
- * @method string                                          getNewsletterStyles()
- * @method string                                          getNewsletterSubject()
- * @method string                                          getNewsletterText()
- * @method int                                             getNewsletterType()
- * @method string                                          getQueueFinishAt()
- * @method string                                          getQueueStartAt()
- * @method int                                             getQueueStatus()
  * @method Mage_Newsletter_Model_Resource_Queue            getResource()
  * @method Mage_Newsletter_Model_Resource_Queue_Collection getResourceCollection()
- * @method int                                             getTemplateId()
- * @method $this                                           setNewsletterSenderEmail(string $value)
- * @method $this                                           setNewsletterSenderName(string $value)
- * @method $this                                           setNewsletterStyles(string $value)
- * @method $this                                           setNewsletterSubject(string $value)
- * @method $this                                           setNewsletterText(string $value)
- * @method $this                                           setNewsletterType(int $value)
- * @method $this                                           setQueueFinishAt(string $value)
- * @method $this                                           setQueueStartAt(string $value)
- * @method $this                                           setQueueStatus(int $value)
- * @method $this                                           setTemplateId(int $value)
  */
 class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Template
 {
@@ -90,6 +72,110 @@ class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Template
     protected function _construct()
     {
         $this->_init('newsletter/queue');
+    }
+
+    public function getNewsletterSenderEmail(): string
+    {
+        return (string) $this->_getData('newsletter_sender_email');
+    }
+
+    public function getNewsletterSenderName(): string
+    {
+        return (string) $this->_getData('newsletter_sender_name');
+    }
+
+    public function getNewsletterStyles(): string
+    {
+        return (string) $this->_getData('newsletter_styles');
+    }
+
+    public function getNewsletterSubject(): string
+    {
+        return (string) $this->_getData('newsletter_subject');
+    }
+
+    public function getNewsletterText(): string
+    {
+        return (string) $this->_getData('newsletter_text');
+    }
+
+    public function getNewsletterType(): ?int
+    {
+        $value = $this->_getData('newsletter_type');
+        return $value !== null ? (int) $value : null;
+    }
+
+    public function getQueueFinishAt(): ?string
+    {
+        $value = $this->_getData('queue_finish_at');
+        return $value !== null ? (string) $value : null;
+    }
+
+    public function getQueueStartAt(): ?string
+    {
+        $value = $this->_getData('queue_start_at');
+        return $value !== null ? (string) $value : null;
+    }
+
+    public function getQueueStatus(): ?int
+    {
+        $value = $this->_getData('queue_status');
+        return $value !== null ? (int) $value : null;
+    }
+
+    public function getTemplateId(): int
+    {
+        return (int) $this->_getData('template_id');
+    }
+
+    public function setNewsletterSenderEmail(string $value): static
+    {
+        return $this->setData('newsletter_sender_email', $value);
+    }
+
+    public function setNewsletterSenderName(string $value): static
+    {
+        return $this->setData('newsletter_sender_name', $value);
+    }
+
+    public function setNewsletterStyles(string $value): static
+    {
+        return $this->setData('newsletter_styles', $value);
+    }
+
+    public function setNewsletterSubject(string $value): static
+    {
+        return $this->setData('newsletter_subject', $value);
+    }
+
+    public function setNewsletterText(string $value): static
+    {
+        return $this->setData('newsletter_text', $value);
+    }
+
+    public function setNewsletterType(int $value): static
+    {
+        return $this->setData('newsletter_type', $value);
+    }
+
+    public function setQueueFinishAt(string $value): static
+    {
+        return $this->setData('queue_finish_at', $value);
+    }
+
+    public function setQueueStartAt(?string $value): static
+    {
+        return $this->setData('queue_start_at', $value);
+    }
+
+    public function setQueueStatus(int $value): static
+    {
+        return $this->setData('queue_status', $value);
+    }
+
+    public function setTemplateId(int $value): static
+    {
+        return $this->setData('template_id', $value);
     }
 
     /**

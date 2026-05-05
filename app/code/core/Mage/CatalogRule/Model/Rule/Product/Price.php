@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -14,22 +16,8 @@
  *
  * @method Mage_CatalogRule_Model_Resource_Rule_Product_Price            _getResource()
  * @method Mage_CatalogRule_Model_Resource_Rule_Product_Price_Collection getCollection()
- * @method int                                                           getCustomerGroupId()
- * @method string                                                        getEarliestEndDate()
- * @method string                                                        getLatestStartDate()
- * @method int                                                           getProductId()
  * @method Mage_CatalogRule_Model_Resource_Rule_Product_Price            getResource()
  * @method Mage_CatalogRule_Model_Resource_Rule_Product_Price_Collection getResourceCollection()
- * @method string                                                        getRuleDate()
- * @method float                                                         getRulePrice()
- * @method int                                                           getWebsiteId()
- * @method $this                                                         setCustomerGroupId(int $value)
- * @method $this                                                         setEarliestEndDate(string $value)
- * @method $this                                                         setLatestStartDate(string $value)
- * @method $this                                                         setProductId(int $value)
- * @method $this                                                         setRuleDate(string $value)
- * @method $this                                                         setRulePrice(float $value)
- * @method $this                                                         setWebsiteId(int $value)
  */
 class Mage_CatalogRule_Model_Rule_Product_Price extends Mage_Core_Model_Abstract
 {
@@ -39,6 +27,76 @@ class Mage_CatalogRule_Model_Rule_Product_Price extends Mage_Core_Model_Abstract
     protected function _construct()
     {
         $this->_init('catalogrule/rule_product_price');
+    }
+
+    public function getCustomerGroupId(): int
+    {
+        return (int) $this->_getData('customer_group_id');
+    }
+
+    public function getEarliestEndDate(): string
+    {
+        return (string) $this->_getData('earliest_end_date');
+    }
+
+    public function getLatestStartDate(): string
+    {
+        return (string) $this->_getData('latest_start_date');
+    }
+
+    public function getProductId(): int
+    {
+        return (int) $this->_getData('product_id');
+    }
+
+    public function getRuleDate(): string
+    {
+        return (string) $this->_getData('rule_date');
+    }
+
+    public function getRulePrice(): float
+    {
+        return (float) $this->_getData('rule_price');
+    }
+
+    public function getWebsiteId(): int
+    {
+        return (int) $this->_getData('website_id');
+    }
+
+    public function setCustomerGroupId(int $value): static
+    {
+        return $this->setData('customer_group_id', $value);
+    }
+
+    public function setEarliestEndDate(string $value): static
+    {
+        return $this->setData('earliest_end_date', $value);
+    }
+
+    public function setLatestStartDate(string $value): static
+    {
+        return $this->setData('latest_start_date', $value);
+    }
+
+    public function setProductId(int $value): static
+    {
+        return $this->setData('product_id', $value);
+    }
+
+    public function setRuleDate(string $value): static
+    {
+        return $this->setData('rule_date', $value);
+    }
+
+    public function setRulePrice(float $value): static
+    {
+        return $this->setData('rule_price', $value);
+    }
+
+    public function setWebsiteId(int $value): static
+    {
+        return $this->setData('website_id', $value);
     }
 
     /**
