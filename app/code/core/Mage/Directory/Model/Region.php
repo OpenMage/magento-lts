@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -11,15 +13,11 @@
  * @package    Mage_Directory
  *
  * @method Mage_Directory_Model_Resource_Region            _getResource()
- * @method string                                          getCode()
  * @method Mage_Directory_Model_Resource_Region_Collection getCollection()
- * @method string                                          getCountryId()
  * @method string                                          getDefaultName()
  * @method int                                             getRegionId()
  * @method Mage_Directory_Model_Resource_Region            getResource()
  * @method Mage_Directory_Model_Resource_Region_Collection getResourceCollection()
- * @method $this                                           setCode(string $value)
- * @method $this                                           setCountryId(string $value)
  * @method $this                                           setDefaultName(string $value)
  */
 class Mage_Directory_Model_Region extends Mage_Core_Model_Abstract
@@ -30,6 +28,26 @@ class Mage_Directory_Model_Region extends Mage_Core_Model_Abstract
     protected function _construct()
     {
         $this->_init('directory/region');
+    }
+
+    public function getCode(): string
+    {
+        return (string) $this->_getData('code');
+    }
+
+    public function getCountryId(): string
+    {
+        return (string) $this->_getData('country_id');
+    }
+
+    public function setCode(string $value): static
+    {
+        return $this->setData('code', $value);
+    }
+
+    public function setCountryId(string $value): static
+    {
+        return $this->setData('country_id', $value);
     }
 
     /**

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -15,14 +17,8 @@
  * @method Mage_Directory_Model_Resource_Country            _getResource()
  * @method string                                           getCode()
  * @method Mage_Directory_Model_Resource_Country_Collection getCollection()
- * @method string                                           getCountryId()
- * @method string                                           getIso2Code()
- * @method string                                           getIso3Code()
  * @method Mage_Directory_Model_Resource_Country            getResource()
  * @method Mage_Directory_Model_Resource_Country_Collection getResourceCollection()
- * @method $this                                            setCountryId(string $value)
- * @method $this                                            setIso2Code(string $value)
- * @method $this                                            setIso3Code(string $value)
  */
 class Mage_Directory_Model_Country extends Mage_Core_Model_Abstract
 {
@@ -34,6 +30,38 @@ class Mage_Directory_Model_Country extends Mage_Core_Model_Abstract
     protected function _construct()
     {
         $this->_init('directory/country');
+    }
+
+    public function getCountryId(): string
+    {
+        return (string) $this->_getData('country_id');
+    }
+
+    public function getIso2Code(): ?string
+    {
+        $v = $this->_getData('iso2_code');
+        return $v !== null ? (string) $v : null;
+    }
+
+    public function getIso3Code(): ?string
+    {
+        $v = $this->_getData('iso3_code');
+        return $v !== null ? (string) $v : null;
+    }
+
+    public function setCountryId(string $value): static
+    {
+        return $this->setData('country_id', $value);
+    }
+
+    public function setIso2Code(?string $value): static
+    {
+        return $this->setData('iso2_code', $value);
+    }
+
+    public function setIso3Code(?string $value): static
+    {
+        return $this->setData('iso3_code', $value);
     }
 
     /**

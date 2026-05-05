@@ -17,24 +17,12 @@ declare(strict_types=1);
  * @method Mage_Admin_Model_Resource_Role            _getResource()
  * @method Mage_Admin_Model_Resource_Role_Collection getCollection()
  * @method string                                    getName()
- * @method int                                       getParentId()
  * @method int                                       getPid()
  * @method Mage_Admin_Model_Resource_Role            getResource()
  * @method Mage_Admin_Model_Resource_Role_Collection getResourceCollection()
  * @method int                                       getRoleId()
- * @method string                                    getRoleName()
- * @method string                                    getRoleType()
- * @method int                                       getSortOrder()
- * @method int                                       getTreeLevel()
- * @method int                                       getUserId()
  * @method $this                                     setCreated(string $value)
  * @method $this                                     setModified(string $value)
- * @method $this                                     setParentId(int $value)
- * @method $this                                     setRoleName(string $value)
- * @method $this                                     setRoleType(string $value)
- * @method $this                                     setSortOrder(int $value)
- * @method $this                                     setTreeLevel(int $value)
- * @method $this                                     setUserId(int $value)
  */
 class Mage_Admin_Model_Role extends Mage_Core_Model_Abstract
 {
@@ -45,5 +33,66 @@ class Mage_Admin_Model_Role extends Mage_Core_Model_Abstract
     {
         parent::_construct();
         $this->_init('admin/role');
+    }
+
+    public function getParentId(): int
+    {
+        return (int) $this->_getData('parent_id');
+    }
+
+    public function getRoleName(): ?string
+    {
+        $v = $this->_getData('role_name');
+        return $v !== null ? (string) $v : null;
+    }
+
+    public function getRoleType(): string
+    {
+        return (string) $this->_getData('role_type');
+    }
+
+    public function getSortOrder(): int
+    {
+        return (int) $this->_getData('sort_order');
+    }
+
+    public function getTreeLevel(): int
+    {
+        return (int) $this->_getData('tree_level');
+    }
+
+    public function getUserId(): int
+    {
+        return (int) $this->_getData('user_id');
+    }
+
+    public function setParentId(int $value): static
+    {
+        return $this->setData('parent_id', $value);
+    }
+
+    public function setRoleName(?string $value): static
+    {
+        return $this->setData('role_name', $value);
+    }
+
+    public function setRoleType(string $value): static
+    {
+        return $this->setData('role_type', $value);
+    }
+
+    public function setSortOrder(int $value): static
+    {
+        return $this->setData('sort_order', $value);
+    }
+
+    public function setTreeLevel(int $value): static
+    {
+        return $this->setData('tree_level', $value);
+    }
+
+    public function setUserId(int $value): static
+    {
+        return $this->setData('user_id', $value);
     }
 }

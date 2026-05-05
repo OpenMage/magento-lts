@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -14,49 +16,15 @@
  *
  * @method Mage_Cms_Model_Resource_Page            _getResource()
  * @method Mage_Cms_Model_Resource_Page_Collection getCollection()
- * @method string                                  getContent()
- * @method string                                  getContentHeading()
- * @method string                                  getCreationTime()
- * @method string                                  getCustomLayoutUpdateXml()
- * @method string                                  getCustomRootTemplate()
- * @method string                                  getCustomTheme()
- * @method string                                  getCustomThemeFrom()
- * @method string                                  getCustomThemeTo()
- * @method string                                  getIdentifier()
- * @method int                                     getIsActive()
- * @method string                                  getLayoutUpdateXml()
- * @method string                                  getMetaDescription()
- * @method string                                  getMetaKeywords()
  * @method string                                  getPreviewUrl()
  * @method Mage_Cms_Model_Resource_Page            getResource()
  * @method Mage_Cms_Model_Resource_Page_Collection getResourceCollection()
- * @method string                                  getRootTemplate()
- * @method int                                     getSortOrder()
  * @method string                                  getStoreCode()
  * @method string                                  getStoreId()
  * @method array                                   getStores()
- * @method string                                  getTitle()
- * @method string                                  getUpdateTime()
  * @method bool                                    hasCreationTime()
  * @method bool                                    hasStores()
- * @method $this                                   setContent(string $value)
- * @method $this                                   setContentHeading(string $value)
- * @method $this                                   setCreationTime(string $value)
- * @method $this                                   setCustomLayoutUpdateXml(string $value)
- * @method $this                                   setCustomRootTemplate(string $value)
- * @method $this                                   setCustomTheme(string $value)
- * @method $this                                   setCustomThemeFrom(string $value)
- * @method $this                                   setCustomThemeTo(string $value)
- * @method $this                                   setIdentifier(string $value)
- * @method $this                                   setIsActive(int $value)
- * @method $this                                   setLayoutUpdateXml(string $value)
- * @method $this                                   setMetaDescription(string $value)
- * @method $this                                   setMetaKeywords(string $value)
- * @method $this                                   setRootTemplate(string $value)
- * @method $this                                   setSortOrder(int $value)
  * @method $this                                   setStoreId(int $value)
- * @method $this                                   setTitle(string $value)
- * @method $this                                   setUpdateTime(string $value)
  */
 class Mage_Cms_Model_Page extends Mage_Core_Model_Abstract
 {
@@ -87,6 +55,190 @@ class Mage_Cms_Model_Page extends Mage_Core_Model_Abstract
     {
         parent::_construct();
         $this->_init('cms/page');
+    }
+
+    public function getContent(): string
+    {
+        return (string) $this->_getData('content');
+    }
+
+    public function getContentHeading(): ?string
+    {
+        $v = $this->_getData('content_heading');
+        return $v !== null ? (string) $v : null;
+    }
+
+    public function getCreationTime(): ?string
+    {
+        $v = $this->_getData('creation_time');
+        return $v !== null ? (string) $v : null;
+    }
+
+    public function getCustomLayoutUpdateXml(): ?string
+    {
+        $v = $this->_getData('custom_layout_update_xml');
+        return $v !== null ? (string) $v : null;
+    }
+
+    public function getCustomRootTemplate(): ?string
+    {
+        $v = $this->_getData('custom_root_template');
+        return $v !== null ? (string) $v : null;
+    }
+
+    public function getCustomTheme(): ?string
+    {
+        $v = $this->_getData('custom_theme');
+        return $v !== null ? (string) $v : null;
+    }
+
+    public function getCustomThemeFrom(): ?string
+    {
+        $v = $this->_getData('custom_theme_from');
+        return $v !== null ? (string) $v : null;
+    }
+
+    public function getCustomThemeTo(): ?string
+    {
+        $v = $this->_getData('custom_theme_to');
+        return $v !== null ? (string) $v : null;
+    }
+
+    public function getIdentifier(): ?string
+    {
+        $v = $this->_getData('identifier');
+        return $v !== null ? (string) $v : null;
+    }
+
+    public function getIsActive(): int
+    {
+        return (int) $this->_getData('is_active');
+    }
+
+    public function getLayoutUpdateXml(): ?string
+    {
+        $v = $this->_getData('layout_update_xml');
+        return $v !== null ? (string) $v : null;
+    }
+
+    public function getMetaDescription(): ?string
+    {
+        $v = $this->_getData('meta_description');
+        return $v !== null ? (string) $v : null;
+    }
+
+    public function getMetaKeywords(): ?string
+    {
+        $v = $this->_getData('meta_keywords');
+        return $v !== null ? (string) $v : null;
+    }
+
+    public function getRootTemplate(): ?string
+    {
+        $v = $this->_getData('root_template');
+        return $v !== null ? (string) $v : null;
+    }
+
+    public function getSortOrder(): int
+    {
+        return (int) $this->_getData('sort_order');
+    }
+
+    public function getTitle(): ?string
+    {
+        $v = $this->_getData('title');
+        return $v !== null ? (string) $v : null;
+    }
+
+    public function getUpdateTime(): ?string
+    {
+        $v = $this->_getData('update_time');
+        return $v !== null ? (string) $v : null;
+    }
+
+    public function setContent(string $value): static
+    {
+        return $this->setData('content', $value);
+    }
+
+    public function setContentHeading(?string $value): static
+    {
+        return $this->setData('content_heading', $value);
+    }
+
+    public function setCreationTime(?string $value): static
+    {
+        return $this->setData('creation_time', $value);
+    }
+
+    public function setCustomLayoutUpdateXml(?string $value): static
+    {
+        return $this->setData('custom_layout_update_xml', $value);
+    }
+
+    public function setCustomRootTemplate(?string $value): static
+    {
+        return $this->setData('custom_root_template', $value);
+    }
+
+    public function setCustomTheme(?string $value): static
+    {
+        return $this->setData('custom_theme', $value);
+    }
+
+    public function setCustomThemeFrom(?string $value): static
+    {
+        return $this->setData('custom_theme_from', $value);
+    }
+
+    public function setCustomThemeTo(?string $value): static
+    {
+        return $this->setData('custom_theme_to', $value);
+    }
+
+    public function setIdentifier(?string $value): static
+    {
+        return $this->setData('identifier', $value);
+    }
+
+    public function setIsActive(int $value): static
+    {
+        return $this->setData('is_active', $value);
+    }
+
+    public function setLayoutUpdateXml(?string $value): static
+    {
+        return $this->setData('layout_update_xml', $value);
+    }
+
+    public function setMetaDescription(?string $value): static
+    {
+        return $this->setData('meta_description', $value);
+    }
+
+    public function setMetaKeywords(?string $value): static
+    {
+        return $this->setData('meta_keywords', $value);
+    }
+
+    public function setRootTemplate(?string $value): static
+    {
+        return $this->setData('root_template', $value);
+    }
+
+    public function setSortOrder(int $value): static
+    {
+        return $this->setData('sort_order', $value);
+    }
+
+    public function setTitle(?string $value): static
+    {
+        return $this->setData('title', $value);
+    }
+
+    public function setUpdateTime(?string $value): static
+    {
+        return $this->setData('update_time', $value);
     }
 
     /**
