@@ -133,6 +133,9 @@
             "url": "https://opencollective.com/openmage"
         }
     ],
+    "archive": {
+        "exclude": ["AGENTS.md", "CLAUDE.md", "/.*", "!/.vendor-patches", "!/.htaccess", "/CNAME", "cypress", "dev", "docs", "docs_includes", "mkdocs.yml", "tests"]
+    },
     "autoload": {
         "classmap": [
             "app/OpenMageVersionInterface.php"
