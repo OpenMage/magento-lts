@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -14,23 +16,12 @@
  *
  * @method Mage_Downloadable_Model_Resource_Link            _getResource()
  * @method Mage_Downloadable_Model_Resource_Link_Collection getCollection()
- * @method int                                              getIsShareable()
  * @method bool                                             getIsUnlimited()
- * @method string                                           getLinkFile()
  * @method int                                              getLinkId()
- * @method string                                           getLinkType()
- * @method string                                           getLinkUrl()
- * @method int                                              getNumberOfDownloads()
- * @method float                                            getPrice()
  * @method Mage_Catalog_Model_Product                       getProduct()
- * @method int                                              getProductId()
  * @method array                                            getProductWebsiteIds()
  * @method Mage_Downloadable_Model_Resource_Link            getResource()
  * @method Mage_Downloadable_Model_Resource_Link_Collection getResourceCollection()
- * @method string                                           getSampleFile()
- * @method string                                           getSampleType()
- * @method string                                           getSampleUrl()
- * @method int                                              getSortOrder()
  * @method int                                              getStoreId()
  * @method string                                           getStoreTitle()
  * @method string                                           getTitle()
@@ -38,19 +29,8 @@
  * @method bool                                             getUseDefaultTitle()
  * @method int                                              getWebsiteId()
  * @method float                                            getWebsitePrice()
- * @method $this                                            setIsShareable(int $value)
- * @method $this                                            setLinkFile(string $value)
- * @method $this                                            setLinkType(string $value)
- * @method $this                                            setLinkUrl(string $value)
- * @method $this                                            setNumberOfDownloads(int $value)
- * @method $this                                            setPrice(float $value)
  * @method $this                                            setProduct(Mage_Catalog_Model_Product $value)
- * @method $this                                            setProductId(int $value)
  * @method $this                                            setProductWebsiteIds(array $value)
- * @method $this                                            setSampleFile(string $value)
- * @method $this                                            setSampleType(string $value)
- * @method $this                                            setSampleUrl(string $value)
- * @method $this                                            setSortOrder(int $value)
  * @method $this                                            setStoreId(int $value)
  * @method $this                                            setWebsiteId(int $value)
  */
@@ -77,6 +57,123 @@ class Mage_Downloadable_Model_Link extends Mage_Core_Model_Abstract
     {
         $this->_init('downloadable/link');
         parent::_construct();
+    }
+
+    public function getIsShareable(): int
+    {
+        return (int) $this->_getData('is_shareable');
+    }
+
+    public function getLinkFile(): ?string
+    {
+        $v = $this->_getData('link_file');
+        return $v !== null ? (string) $v : null;
+    }
+
+    public function getLinkType(): ?string
+    {
+        $v = $this->_getData('link_type');
+        return $v !== null ? (string) $v : null;
+    }
+
+    public function getLinkUrl(): ?string
+    {
+        $v = $this->_getData('link_url');
+        return $v !== null ? (string) $v : null;
+    }
+
+    public function getNumberOfDownloads(): ?int
+    {
+        $v = $this->_getData('number_of_downloads');
+        return $v !== null ? (int) $v : null;
+    }
+
+    public function getPrice(): float
+    {
+        return (float) $this->_getData('price');
+    }
+
+    public function getProductId(): int
+    {
+        return (int) $this->_getData('product_id');
+    }
+
+    public function getSampleFile(): ?string
+    {
+        $v = $this->_getData('sample_file');
+        return $v !== null ? (string) $v : null;
+    }
+
+    public function getSampleType(): ?string
+    {
+        $v = $this->_getData('sample_type');
+        return $v !== null ? (string) $v : null;
+    }
+
+    public function getSampleUrl(): ?string
+    {
+        $v = $this->_getData('sample_url');
+        return $v !== null ? (string) $v : null;
+    }
+
+    public function getSortOrder(): int
+    {
+        return (int) $this->_getData('sort_order');
+    }
+
+    public function setIsShareable(int $value): static
+    {
+        return $this->setData('is_shareable', $value);
+    }
+
+    public function setLinkFile(?string $value): static
+    {
+        return $this->setData('link_file', $value);
+    }
+
+    public function setLinkType(?string $value): static
+    {
+        return $this->setData('link_type', $value);
+    }
+
+    public function setLinkUrl(?string $value): static
+    {
+        return $this->setData('link_url', $value);
+    }
+
+    public function setNumberOfDownloads(?int $value): static
+    {
+        return $this->setData('number_of_downloads', $value);
+    }
+
+    public function setPrice(float $value): static
+    {
+        return $this->setData('price', $value);
+    }
+
+    public function setProductId(int $value): static
+    {
+        return $this->setData('product_id', $value);
+    }
+
+    public function setSampleFile(?string $value): static
+    {
+        return $this->setData('sample_file', $value);
+    }
+
+    public function setSampleType(?string $value): static
+    {
+        return $this->setData('sample_type', $value);
+    }
+
+    public function setSampleUrl(?string $value): static
+    {
+        return $this->setData('sample_url', $value);
+    }
+
+    public function setSortOrder(int $value): static
+    {
+        return $this->setData('sort_order', $value);
     }
 
     /**

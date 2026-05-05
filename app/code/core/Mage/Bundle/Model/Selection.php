@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -15,29 +17,11 @@
  * @method Mage_Bundle_Model_Resource_Selection            _getResource()
  * @method Mage_Bundle_Model_Resource_Selection_Collection getCollection()
  * @method string                                          getDefaultPriceScope()
- * @method int                                             getIsDefault()
- * @method int                                             getOptionId()
- * @method int                                             getParentProductId()
- * @method int                                             getPosition()
- * @method int                                             getProductId()
  * @method Mage_Bundle_Model_Resource_Selection            getResource()
  * @method Mage_Bundle_Model_Resource_Selection_Collection getResourceCollection()
- * @method int                                             getSelectionCanChangeQty()
  * @method int                                             getSelectionId()
- * @method int                                             getSelectionPriceType()
- * @method float                                           getSelectionPriceValue()
- * @method float                                           getSelectionQty()
  * @method int                                             getWebsiteId()
  * @method bool                                            isSalable()
- * @method $this                                           setIsDefault(int $value)
- * @method $this                                           setOptionId(int $value)
- * @method $this                                           setParentProductId(int $value)
- * @method $this                                           setPosition(int $value)
- * @method $this                                           setProductId(int $value)
- * @method $this                                           setSelectionCanChangeQty(int $value)
- * @method $this                                           setSelectionPriceType(int $value)
- * @method $this                                           setSelectionPriceValue(float $value)
- * @method $this                                           setSelectionQty(float $value)
  * @method $this                                           setWebsiteId(int $value)
  * @method $this                                           unsSelectionPriceType()
  * @method $this                                           unsSelectionPriceValue()
@@ -51,6 +35,99 @@ class Mage_Bundle_Model_Selection extends Mage_Core_Model_Abstract
     {
         $this->_init('bundle/selection');
         parent::_construct();
+    }
+
+    public function getIsDefault(): int
+    {
+        return (int) $this->_getData('is_default');
+    }
+
+    public function getOptionId(): int
+    {
+        return (int) $this->_getData('option_id');
+    }
+
+    public function getParentProductId(): int
+    {
+        return (int) $this->_getData('parent_product_id');
+    }
+
+    public function getPosition(): int
+    {
+        return (int) $this->_getData('position');
+    }
+
+    public function getProductId(): int
+    {
+        return (int) $this->_getData('product_id');
+    }
+
+    public function getSelectionCanChangeQty(): int
+    {
+        return (int) $this->_getData('selection_can_change_qty');
+    }
+
+    public function getSelectionPriceType(): ?int
+    {
+        $v = $this->_getData('selection_price_type');
+        return $v !== null ? (int) $v : null;
+    }
+
+    public function getSelectionPriceValue(): ?float
+    {
+        $v = $this->_getData('selection_price_value');
+        return $v !== null ? (float) $v : null;
+    }
+
+    public function getSelectionQty(): ?float
+    {
+        $v = $this->_getData('selection_qty');
+        return $v !== null ? (float) $v : null;
+    }
+
+    public function setIsDefault(int $value): static
+    {
+        return $this->setData('is_default', $value);
+    }
+
+    public function setOptionId(int $value): static
+    {
+        return $this->setData('option_id', $value);
+    }
+
+    public function setParentProductId(int $value): static
+    {
+        return $this->setData('parent_product_id', $value);
+    }
+
+    public function setPosition(int $value): static
+    {
+        return $this->setData('position', $value);
+    }
+
+    public function setProductId(int $value): static
+    {
+        return $this->setData('product_id', $value);
+    }
+
+    public function setSelectionCanChangeQty(int $value): static
+    {
+        return $this->setData('selection_can_change_qty', $value);
+    }
+
+    public function setSelectionPriceType(?int $value): static
+    {
+        return $this->setData('selection_price_type', $value);
+    }
+
+    public function setSelectionPriceValue(?float $value): static
+    {
+        return $this->setData('selection_price_value', $value);
+    }
+
+    public function setSelectionQty(?float $value): static
+    {
+        return $this->setData('selection_qty', $value);
     }
 
     /**

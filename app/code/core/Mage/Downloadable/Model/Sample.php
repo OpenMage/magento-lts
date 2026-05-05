@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -14,22 +16,12 @@
  *
  * @method Mage_Downloadable_Model_Resource_Sample            _getResource()
  * @method Mage_Downloadable_Model_Resource_Sample_Collection getCollection()
- * @method int                                                getProductId()
  * @method Mage_Downloadable_Model_Resource_Sample            getResource()
  * @method Mage_Downloadable_Model_Resource_Sample_Collection getResourceCollection()
- * @method null|string                                        getSampleFile()
- * @method string                                             getSampleType()
- * @method string                                             getSampleUrl()
- * @method int                                                getSortOrder()
  * @method int                                                getStoreId()
  * @method string                                             getStoreTitle()
  * @method string                                             getTitle()
  * @method bool                                               getUseDefaultTitle()
- * @method $this                                              setProductId(int $value)
- * @method $this                                              setSampleFile(string $value)
- * @method $this                                              setSampleType(string $value)
- * @method $this                                              setSampleUrl(string $value)
- * @method $this                                              setSortOrder(int $value)
  * @method $this                                              setStoreId(int $value)
  */
 class Mage_Downloadable_Model_Sample extends Mage_Core_Model_Abstract
@@ -43,6 +35,58 @@ class Mage_Downloadable_Model_Sample extends Mage_Core_Model_Abstract
     {
         $this->_init('downloadable/sample');
         parent::_construct();
+    }
+
+    public function getProductId(): int
+    {
+        return (int) $this->_getData('product_id');
+    }
+
+    public function getSampleFile(): ?string
+    {
+        $v = $this->_getData('sample_file');
+        return $v !== null ? (string) $v : null;
+    }
+
+    public function getSampleType(): string
+    {
+        return (string) $this->_getData('sample_type');
+    }
+
+    public function getSampleUrl(): ?string
+    {
+        $v = $this->_getData('sample_url');
+        return $v !== null ? (string) $v : null;
+    }
+
+    public function getSortOrder(): int
+    {
+        return (int) $this->_getData('sort_order');
+    }
+
+    public function setProductId(int $value): static
+    {
+        return $this->setData('product_id', $value);
+    }
+
+    public function setSampleFile(?string $value): static
+    {
+        return $this->setData('sample_file', $value);
+    }
+
+    public function setSampleType(string $value): static
+    {
+        return $this->setData('sample_type', $value);
+    }
+
+    public function setSampleUrl(?string $value): static
+    {
+        return $this->setData('sample_url', $value);
+    }
+
+    public function setSortOrder(int $value): static
+    {
+        return $this->setData('sort_order', $value);
     }
 
     /**

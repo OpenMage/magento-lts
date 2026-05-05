@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -16,21 +18,13 @@
  * @method Mage_Bundle_Model_Resource_Option_Collection getCollection()
  * @method string                                       getDefaultTitle()
  * @method int                                          getOptionId()
- * @method int                                          getParentId()
- * @method int                                          getPosition()
- * @method int                                          getRequired()
  * @method Mage_Bundle_Model_Resource_Option            getResource()
  * @method Mage_Bundle_Model_Resource_Option_Collection getResourceCollection()
  * @method Mage_Catalog_Model_Product[]                 getSelections()
  * @method int                                          getStoreId()
  * @method string                                       getTitle()
- * @method string                                       getType()
- * @method $this                                        setParentId(int $value)
- * @method $this                                        setPosition(int $value)
- * @method $this                                        setRequired(int $value)
  * @method $this                                        setSelections(array $value)
  * @method $this                                        setStoreId(int $value)
- * @method $this                                        setType(string $value)
  */
 class Mage_Bundle_Model_Option extends Mage_Core_Model_Abstract
 {
@@ -48,6 +42,46 @@ class Mage_Bundle_Model_Option extends Mage_Core_Model_Abstract
     {
         $this->_init('bundle/option');
         parent::_construct();
+    }
+
+    public function getParentId(): int
+    {
+        return (int) $this->_getData('parent_id');
+    }
+
+    public function getPosition(): int
+    {
+        return (int) $this->_getData('position');
+    }
+
+    public function getRequired(): int
+    {
+        return (int) $this->_getData('required');
+    }
+
+    public function getType(): string
+    {
+        return (string) $this->_getData('type');
+    }
+
+    public function setParentId(int $value): static
+    {
+        return $this->setData('parent_id', $value);
+    }
+
+    public function setPosition(int $value): static
+    {
+        return $this->setData('position', $value);
+    }
+
+    public function setRequired(int $value): static
+    {
+        return $this->setData('required', $value);
+    }
+
+    public function setType(string $value): static
+    {
+        return $this->setData('type', $value);
     }
 
     /**
