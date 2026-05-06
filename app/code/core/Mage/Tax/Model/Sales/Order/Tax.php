@@ -13,31 +13,9 @@ declare(strict_types=1);
  * @package    Mage_Tax
  *
  * @method Mage_Tax_Model_Resource_Sales_Order_Tax            _getResource()
- * @method float                                              getAmount()
- * @method float                                              getBaseAmount()
- * @method float                                              getBaseRealAmount()
- * @method string                                             getCode()
  * @method Mage_Tax_Model_Resource_Sales_Order_Tax_Collection getCollection()
- * @method int                                                getHidden()
- * @method int                                                getOrderId()
- * @method float                                              getPercent()
- * @method int                                                getPosition()
- * @method int                                                getPriority()
- * @method int                                                getProcess()
  * @method Mage_Tax_Model_Resource_Sales_Order_Tax            getResource()
  * @method Mage_Tax_Model_Resource_Sales_Order_Tax_Collection getResourceCollection()
- * @method string                                             getTitle()
- * @method $this                                              setAmount(float $value)
- * @method $this                                              setBaseAmount(float $value)
- * @method $this                                              setBaseRealAmount(float $value)
- * @method $this                                              setCode(string $value)
- * @method $this                                              setHidden(int $value)
- * @method $this                                              setOrderId(int $value)
- * @method $this                                              setPercent(float $value)
- * @method $this                                              setPosition(int $value)
- * @method $this                                              setPriority(int $value)
- * @method $this                                              setProcess(int $value)
- * @method $this                                              setTitle(string $value)
  */
 class Mage_Tax_Model_Sales_Order_Tax extends Mage_Core_Model_Abstract
 {
@@ -47,5 +25,116 @@ class Mage_Tax_Model_Sales_Order_Tax extends Mage_Core_Model_Abstract
     protected function _construct()
     {
         $this->_init('tax/sales_order_tax');
+    }
+
+    public function getAmount(): float
+    {
+        return (float) $this->_getData('amount');
+    }
+
+    public function setAmount(float $value): static
+    {
+        return $this->setData('amount', $value);
+    }
+
+    public function getBaseAmount(): float
+    {
+        return (float) $this->_getData('base_amount');
+    }
+
+    public function setBaseAmount(float $value): static
+    {
+        return $this->setData('base_amount', $value);
+    }
+
+    public function getBaseRealAmount(): float
+    {
+        return (float) $this->_getData('base_real_amount');
+    }
+
+    public function setBaseRealAmount(float $value): static
+    {
+        return $this->setData('base_real_amount', $value);
+    }
+
+    public function getCode(): string
+    {
+        return (string) $this->_getData('code');
+    }
+
+    public function setCode(string $value): static
+    {
+        return $this->setData('code', $value);
+    }
+
+    public function getHidden(): int
+    {
+        return (int) $this->_getData('hidden');
+    }
+
+    public function setHidden(int $value): static
+    {
+        return $this->setData('hidden', $value);
+    }
+
+    public function getOrderId(): int
+    {
+        return (int) $this->_getData('order_id');
+    }
+
+    public function setOrderId(int $value): static
+    {
+        return $this->setData('order_id', $value);
+    }
+
+    public function getPercent(): ?float
+    {
+        $value = $this->_getData('percent');
+        return $value !== null ? (float) $value : null;
+    }
+
+    public function setPercent(float $value): static
+    {
+        return $this->setData('percent', $value);
+    }
+
+    public function getPosition(): int
+    {
+        return (int) $this->_getData('position');
+    }
+
+    public function setPosition(int $value): static
+    {
+        return $this->setData('position', $value);
+    }
+
+    public function getPriority(): int
+    {
+        return (int) $this->_getData('priority');
+    }
+
+    public function setPriority(int $value): static
+    {
+        return $this->setData('priority', $value);
+    }
+
+    public function getProcess(): int
+    {
+        return (int) $this->_getData('process');
+    }
+
+    public function setProcess(int $value): static
+    {
+        return $this->setData('process', $value);
+    }
+
+    public function getTitle(): string
+    {
+        return (string) $this->_getData('title');
+    }
+
+    public function setTitle(string $value): static
+    {
+        return $this->setData('title', $value);
     }
 }

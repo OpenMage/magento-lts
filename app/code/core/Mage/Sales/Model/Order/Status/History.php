@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -14,18 +16,8 @@
  *
  * @method Mage_Sales_Model_Resource_Order_Status_History            _getResource()
  * @method Mage_Sales_Model_Resource_Order_Status_History_Collection getCollection()
- * @method string                                                    getComment()
- * @method int                                                       getIsCustomerNotified()
- * @method int                                                       getIsVisibleOnFront()
- * @method int                                                       getParentId()
  * @method Mage_Sales_Model_Resource_Order_Status_History            getResource()
  * @method Mage_Sales_Model_Resource_Order_Status_History_Collection getResourceCollection()
- * @method string                                                    getStatus()
- * @method $this                                                     setComment(string $value)
- * @method $this                                                     setEntityName(string $value)
- * @method $this                                                     setIsVisibleOnFront(int $value)
- * @method $this                                                     setParentId(int $value)
- * @method $this                                                     setStatus(string $value)
  */
 class Mage_Sales_Model_Order_Status_History extends Mage_Sales_Model_Abstract
 {
@@ -150,5 +142,55 @@ class Mage_Sales_Model_Order_Status_History extends Mage_Sales_Model_Abstract
         }
 
         return $this;
+    }
+
+    public function getComment(): string
+    {
+        return (string) $this->_getData('comment');
+    }
+
+    public function setComment(string $value): static
+    {
+        return $this->setData('comment', $value);
+    }
+
+    public function getIsCustomerNotified(): int
+    {
+        return (int) $this->_getData('is_customer_notified');
+    }
+
+    public function getIsVisibleOnFront(): int
+    {
+        return (int) $this->_getData('is_visible_on_front');
+    }
+
+    public function setIsVisibleOnFront(int $value): static
+    {
+        return $this->setData('is_visible_on_front', $value);
+    }
+
+    public function getParentId(): int
+    {
+        return (int) $this->_getData('parent_id');
+    }
+
+    public function setParentId(int $value): static
+    {
+        return $this->setData('parent_id', $value);
+    }
+
+    public function getStatus(): string
+    {
+        return (string) $this->_getData('status');
+    }
+
+    public function setStatus(string $value): static
+    {
+        return $this->setData('status', $value);
+    }
+
+    public function setEntityName(string $value): static
+    {
+        return $this->setData('entity_name', $value);
     }
 }
