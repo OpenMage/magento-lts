@@ -19,7 +19,6 @@ declare(strict_types=1);
  * - cost: $8.00
  *
  * @package    Mage_Shipping
- *
  */
 class Mage_Shipping_Model_Rate_Result_Method extends Mage_Shipping_Model_Rate_Result_Abstract
 {

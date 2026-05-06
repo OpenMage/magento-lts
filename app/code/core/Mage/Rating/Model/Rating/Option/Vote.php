@@ -27,7 +27,7 @@ class Mage_Rating_Model_Rating_Option_Vote extends Mage_Core_Model_Abstract
         $this->_init('rating/rating_option_vote');
     }
 
-public function getEntityPkValue(): string
+    public function getEntityPkValue(): string
     {
         return (string) $this->_getData('entity_pk_value');
     }

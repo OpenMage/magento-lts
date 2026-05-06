@@ -16,9 +16,9 @@ declare(strict_types=1);
  *
  * @method Mage_Sitemap_Model_Resource_Sitemap            _getResource()
  * @method Mage_Sitemap_Model_Resource_Sitemap_Collection getCollection()
- * @method int                                            getSitemapId()
  * @method Mage_Sitemap_Model_Resource_Sitemap            getResource()
  * @method Mage_Sitemap_Model_Resource_Sitemap_Collection getResourceCollection()
+ * @method int                                            getSitemapId()
  */
 class Mage_Sitemap_Model_Sitemap extends Mage_Core_Model_Abstract
 {

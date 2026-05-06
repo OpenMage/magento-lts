@@ -15,9 +15,9 @@ declare(strict_types=1);
  * @package    Mage_Admin
  *
  * @method Mage_Admin_Model_Resource_Rules            _getResource()
- * @method array                                      getResources()
  * @method Mage_Admin_Model_Resource_Rules            getResource()
  * @method Mage_Admin_Model_Resource_Rules_Collection getResourceCollection()
+ * @method array                                      getResources()
  * @method $this                                      setResources(array $value)
  */
 class Mage_Admin_Model_Rules extends Mage_Core_Model_Abstract

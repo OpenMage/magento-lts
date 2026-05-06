@@ -54,10 +54,10 @@ use Symfony\Component\Validator\ConstraintViolationListInterface;
  * @method $this                                            setPasswordConfirmation(string $value)
  * @method $this                                            setRpCustomerId(string $value)
  * @method setSendemailStoreId(string $value)
- * @method $this                                            setTaxClassId(bool $value)
- * @method $this                                            setTotal(float $value)
- * @method $this                                            unsetDefaultBilling()
- * @method $this                                            unsetDefaultShipping()
+ * @method $this setTaxClassId(bool $value)
+ * @method $this setTotal(float $value)
+ * @method $this unsetDefaultBilling()
+ * @method $this unsetDefaultShipping()
  */
 class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
 {
