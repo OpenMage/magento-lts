@@ -197,6 +197,8 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute_Collection
      */
     protected function _loadPrices()
     {
+
+
         if ($this->count()) {
             $pricings = [
                 0 => [],
@@ -206,6 +208,7 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute_Collection
                 $websiteId = 0;
             } else {
                 $websiteId = (int) Mage::app()->getStore($this->getStoreId())->getWebsiteId();
+                $pricing = [];
                 $pricing[$websiteId] = [];
             }
 

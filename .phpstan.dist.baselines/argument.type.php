@@ -8872,11 +8872,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../lib/Varien/Object.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #2 ...$arrays of function array_intersect_key expects array, array|null given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../lib/Varien/Object.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $data of function simplexml_load_string expects string, true given.',
     'count' => 1,
     'path' => __DIR__ . '/../lib/Varien/Simplexml/Config.php',

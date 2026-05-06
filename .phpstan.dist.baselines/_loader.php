@@ -107,7 +107,6 @@ return ['includes' => [
     __DIR__ . '/varTag.deprecatedClass.php',
     __DIR__ . '/varTag.type.php',
     __DIR__ . '/variable.dynamicName.php',
-    __DIR__ . '/variable.implicitArray.php',
     __DIR__ . '/variable.undefined.php',
     __DIR__ . '/while.condNotBoolean.php',
 ]];

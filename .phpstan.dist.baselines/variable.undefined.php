@@ -92,11 +92,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Dataflow/Model/Convert/Profile/Abstract.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Variable $fields might not be defined.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Dataflow/Model/Session/Parser/Csv.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Variable $defBind might not be defined.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Eav/Model/Convert/Adapter/Entity.php',
@@ -110,16 +105,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Variable $entity might not be defined.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Eav/Model/Convert/Adapter/Grid.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Variable $result might not be defined.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Shipping/Model/Rate/Result.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Variable $tmp might not be defined.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Shipping/Model/Rate/Result.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Variable $result might not be defined.',

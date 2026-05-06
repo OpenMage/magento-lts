@@ -23742,11 +23742,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Sitemap/Model/Resource/Sitemap/Collection.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Tag_Block_Customer_View::getMyProducts() return type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Tag/Block/Customer/View.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Tag_Helper_Data::cleanTags() has parameter $tagNamesArr with no value type specified in iterable type array.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Tag/Helper/Data.php',
