@@ -197,8 +197,6 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute_Collection
      */
     protected function _loadPrices()
     {
-
-
         if ($this->count()) {
             $pricings = [
                 0 => [],
