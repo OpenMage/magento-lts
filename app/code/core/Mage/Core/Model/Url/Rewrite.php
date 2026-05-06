@@ -426,7 +426,8 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
     {
         return $this->setData('target_path', $value);
     }
-}
+
+    /**
      * Add location header and disable browser page caching
      *
      * @param string $url
