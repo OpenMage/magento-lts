@@ -199,11 +199,6 @@ class Mage_Rating_Model_Rating extends Mage_Core_Model_Abstract
         return $this->setData('customer_id', $value);
     }
 
-    public function setId(string $value): static
-    {
-        return $this->setData('id', $value);
-    }
-
     public function setRatingId(int $value): static
     {
         return $this->setData('rating_id', $value);

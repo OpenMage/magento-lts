@@ -39,14 +39,14 @@ class Mage_Oauth_Model_Nonce extends Mage_Core_Model_Abstract
         return (string) $this->_getData('timestamp');
     }
 
-    public function setNonce(string $nonce): static
+    public function setNonce(string $value): static
     {
-        return $this->setData('nonce', $nonce);
+        return $this->setData('nonce', $value);
     }
 
-    public function setTimestamp(string $timestamp): static
+    public function setTimestamp(string $value): static
     {
-        return $this->setData('timestamp', $timestamp);
+        return $this->setData('timestamp', $value);
     }
 
     /**

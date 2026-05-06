@@ -64,29 +64,29 @@ class Mage_Oauth_Model_Consumer extends Mage_Core_Model_Abstract
         return (string) $this->_getData('secret');
     }
 
-    public function setCallbackUrl(string $url): static
+    public function setCallbackUrl(string $value): static
     {
-        return $this->setData('callback_url', $url);
+        return $this->setData('callback_url', $value);
     }
 
-    public function setKey(string $key): static
+    public function setKey(string $value): static
     {
-        return $this->setData('key', $key);
+        return $this->setData('key', $value);
     }
 
-    public function setName(string $name): static
+    public function setName(string $value): static
     {
-        return $this->setData('name', $name);
+        return $this->setData('name', $value);
     }
 
-    public function setRejectedCallbackUrl(string $rejectedCallbackUrl): static
+    public function setRejectedCallbackUrl(string $value): static
     {
-        return $this->setData('rejected_callback_url', $rejectedCallbackUrl);
+        return $this->setData('rejected_callback_url', $value);
     }
 
-    public function setSecret(string $secret): static
+    public function setSecret(string $value): static
     {
-        return $this->setData('secret', $secret);
+        return $this->setData('secret', $value);
     }
 
     /**

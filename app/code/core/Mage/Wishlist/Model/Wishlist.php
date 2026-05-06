@@ -420,9 +420,9 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
      * @return $this
      * @throws Mage_Core_Exception
      */
-    public function setCustomerId(int $customerId): static
+    public function setCustomerId(int $value): static
     {
-        return $this->setData($this->_getResource()->getCustomerIdFieldName(), $customerId);
+        return $this->setData($this->_getResource()->getCustomerIdFieldName(), $value);
     }
 
     /**

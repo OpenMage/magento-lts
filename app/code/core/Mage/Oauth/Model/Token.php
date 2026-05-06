@@ -106,54 +106,54 @@ class Mage_Oauth_Model_Token extends Mage_Core_Model_Abstract
         return $value !== null ? (string) $value : null;
     }
 
-    public function setAdminId(?int $adminId): static
+    public function setAdminId(?int $value): static
     {
-        return $this->setData('admin_id', $adminId);
+        return $this->setData('admin_id', $value);
     }
 
-    public function setAuthorized(int $authorized): static
+    public function setAuthorized(int $value): static
     {
-        return $this->setData('authorized', $authorized);
+        return $this->setData('authorized', $value);
     }
 
-    public function setCallbackUrl(string $callbackUrl): static
+    public function setCallbackUrl(string $value): static
     {
-        return $this->setData('callback_url', $callbackUrl);
+        return $this->setData('callback_url', $value);
     }
 
-    public function setConsumerId(int $consumerId): static
+    public function setConsumerId(int $value): static
     {
-        return $this->setData('consumer_id', $consumerId);
+        return $this->setData('consumer_id', $value);
     }
 
-    public function setCustomerId(?int $customerId): static
+    public function setCustomerId(?int $value): static
     {
-        return $this->setData('customer_id', $customerId);
+        return $this->setData('customer_id', $value);
     }
 
-    public function setRevoked(int $revoked): static
+    public function setRevoked(int $value): static
     {
-        return $this->setData('revoked', $revoked);
+        return $this->setData('revoked', $value);
     }
 
-    public function setSecret(string $tokenSecret): static
+    public function setSecret(string $value): static
     {
-        return $this->setData('secret', $tokenSecret);
+        return $this->setData('secret', $value);
     }
 
-    public function setToken(string $token): static
+    public function setToken(string $value): static
     {
-        return $this->setData('token', $token);
+        return $this->setData('token', $value);
     }
 
-    public function setType(string $type): static
+    public function setType(string $value): static
     {
-        return $this->setData('type', $type);
+        return $this->setData('type', $value);
     }
 
-    public function setVerifier(?string $verifier): static
+    public function setVerifier(?string $value): static
     {
-        return $this->setData('verifier', $verifier);
+        return $this->setData('verifier', $value);
     }
 
     /**
