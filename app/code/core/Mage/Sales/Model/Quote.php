@@ -2170,7 +2170,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     public function getCustomerId(): ?int
     {
         $value = $this->_getData('customer_id');
-        return $v === null ? null : (int) $v;
+        return $value === null ? null : (int) $value;
     }
 
     public function getCustomerIsGuest(): int

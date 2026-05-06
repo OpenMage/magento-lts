@@ -2348,7 +2348,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     public function getAppliedRuleIds(): ?string
     {
         $value = $this->_getData('applied_rule_ids');
-        return $v === null ? null : (string) $v;
+        return $value === null ? null : (string) $value;
     }
 
     public function getBaseAdjustmentNegative(): float

@@ -822,7 +822,7 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
     public function getAppliedRuleIds(): ?string
     {
         $value = $this->_getData('applied_rule_ids');
-        return $v === null ? null : (string) $v;
+        return $value === null ? null : (string) $value;
     }
 
     public function getBaseCost(): float
@@ -963,7 +963,7 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
     public function getParentItemId(): ?int
     {
         $value = $this->_getData('parent_item_id');
-        return $v === null ? null : (int) $v;
+        return $value === null ? null : (int) $value;
     }
 
     public function getParentProductId(): int

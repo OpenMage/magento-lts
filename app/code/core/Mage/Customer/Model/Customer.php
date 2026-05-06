@@ -1785,7 +1785,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     public function getDefaultBilling(): ?int
     {
         $value = $this->_getData('default_billing');
-        return $v === null ? null : (int) $v;
+        return $value === null ? null : (int) $value;
     }
 
     public function setDefaultBilling(?int $value): static
@@ -1796,7 +1796,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     public function getDefaultShipping(): ?int
     {
         $value = $this->_getData('default_shipping');
-        return $v === null ? null : (int) $v;
+        return $value === null ? null : (int) $value;
     }
 
     public function setDefaultShipping(?int $value): static

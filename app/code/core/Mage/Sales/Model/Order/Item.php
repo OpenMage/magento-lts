@@ -725,7 +725,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
     public function getAppliedRuleIds(): ?string
     {
         $value = $this->_getData('applied_rule_ids');
-        return $v === null ? null : (string) $v;
+        return $value === null ? null : (string) $value;
     }
 
     public function getBaseAmountRefunded(): float
@@ -946,7 +946,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
     public function getParentItemId(): ?int
     {
         $value = $this->_getData('parent_item_id');
-        return $v === null ? null : (int) $v;
+        return $value === null ? null : (int) $value;
     }
 
     public function getPrice(): float
@@ -1007,7 +1007,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
     public function getQuoteParentItemId(): ?int
     {
         $value = $this->_getData('quote_parent_item_id');
-        return $v === null ? null : (int) $v;
+        return $value === null ? null : (int) $value;
     }
 
     public function getRowInvoiced(): float
