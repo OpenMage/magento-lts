@@ -80,7 +80,7 @@
         "rector/rector": "^2.1.12",
         "shipmonk/phpstan-baseline-per-identifier": "^2.3",
         "squizlabs/php_codesniffer": "^3.7",
-        "symplify/easy-coding-standard": "^13.0",
+        "symplify/easy-coding-standard": "*",
         "symplify/vendor-patches": "^12.0, !=12.0.5, !=12.0.6"
     },
     "replace": {
