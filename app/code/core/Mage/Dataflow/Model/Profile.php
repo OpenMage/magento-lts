@@ -15,12 +15,10 @@ declare(strict_types=1);
  * @package    Mage_Dataflow
  *
  * @method Mage_Dataflow_Model_Resource_Profile            _getResource()
- * @method int                                             getAdminUserId()
  * @method Mage_Dataflow_Model_Resource_Profile_Collection getCollection()
  * @method array|string                                    getGuiData()
  * @method Mage_Dataflow_Model_Resource_Profile            getResource()
  * @method Mage_Dataflow_Model_Resource_Profile_Collection getResourceCollection()
- * @method $this                                           setAdminUserId(int $value)
  * @method $this                                           setGuiData(array|string $value)
  */
 class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
@@ -573,5 +571,15 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
         }
 
         Mage::throwException(Mage::helper('Dataflow')->__('Invalid node.'));
+    }
+
+    public function getAdminUserId(): int
+    {
+        return (int) $this->_getData('admin_user_id');
+    }
+
+    public function setAdminUserId(int $value): static
+    {
+        return $this->setData('admin_user_id', $value);
     }
 }

@@ -57,8 +57,8 @@ class Mage_Admin_Model_Rules extends Mage_Core_Model_Abstract
 
     public function getResourceId(): ?string
     {
-        $v = $this->_getData('resource_id');
-        return $v !== null ? (string) $v : null;
+        $value = $this->_getData('resource_id');
+        return $value !== null ? (string) $value : null;
     }
 
     public function getRoleId(): int

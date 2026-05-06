@@ -16,7 +16,6 @@ declare(strict_types=1);
  *
  * @method Mage_Newsletter_Model_Resource_Problem            _getResource()
  * @method Mage_Newsletter_Model_Resource_Problem_Collection getCollection()
- * @method int                                               getCustomerId()
  * @method Mage_Newsletter_Model_Resource_Problem            getResource()
  * @method Mage_Newsletter_Model_Resource_Problem_Collection getResourceCollection()
  * @method $this                                             setCustomerFirstName(string $value)
@@ -78,6 +77,12 @@ class Mage_Newsletter_Model_Problem extends Mage_Core_Model_Abstract
     public function setSubscriberId(?int $value): static
     {
         return $this->setData('subscriber_id', $value);
+    }
+
+    public function getCustomerId(): ?int
+    {
+        $value = $this->_getData('customer_id');
+        return $value !== null ? (int) $value : null;
     }
 
     /**

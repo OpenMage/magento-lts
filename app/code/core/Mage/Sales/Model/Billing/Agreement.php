@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -13,28 +15,13 @@
  * @package    Mage_Sales
  *
  * @method Mage_Sales_Model_Resource_Billing_Agreement            _getResource()
- * @method int                                                    getAgreementId()
- * @method string                                                 getAgreementLabel()
- * @method int                                                    getBillingAgreementId()
  * @method Mage_Sales_Model_Resource_Billing_Agreement_Collection getCollection()
  * @method Mage_Customer_Model_Customer                           getCustomer()
- * @method int                                                    getCustomerId()
- * @method string                                                 getMethodCode()
- * @method string                                                 getRedirectUrl()
- * @method string                                                 getReferenceId()
  * @method Mage_Sales_Model_Resource_Billing_Agreement            getResource()
  * @method Mage_Sales_Model_Resource_Billing_Agreement_Collection getResourceCollection()
- * @method string                                                 getStatus()
- * @method int                                                    getStoreId()
- * @method $this                                                  setAgreementLabel(string $value)
  * @method $this                                                  setCancelUrl(string $value)
  * @method $this                                                  setCustomer(Mage_Customer_Model_Customer $value)
- * @method $this                                                  setCustomerId(int $value)
- * @method $this                                                  setMethodCode(string $value)
- * @method $this                                                  setReferenceId(string $value)
  * @method $this                                                  setReturnUrl(string $value)
- * @method $this                                                  setStatus(string $value)
- * @method $this                                                  setStoreId(int $value)
  * @method $this                                                  setToken(string $value)
  */
 class Mage_Sales_Model_Billing_Agreement extends Mage_Payment_Model_Billing_AgreementAbstract
@@ -292,5 +279,82 @@ class Mage_Sales_Model_Billing_Agreement extends Mage_Payment_Model_Billing_Agre
             $orderId = $order instanceof Mage_Sales_Model_Order ? $order->getId() : (int) $order;
             $this->getResource()->addOrderRelation($this->getId(), $orderId);
         }
+    }
+
+    public function getAgreementId(): int
+    {
+        return (int) $this->_getData('agreement_id');
+    }
+
+    public function getAgreementLabel(): ?string
+    {
+        $value = $this->_getData('agreement_label');
+        return $value !== null ? (string) $value : null;
+    }
+
+    public function setAgreementLabel(string $value): static
+    {
+        return $this->setData('agreement_label', $value);
+    }
+
+    public function getBillingAgreementId(): int
+    {
+        return (int) $this->_getData('billing_agreement_id');
+    }
+
+    public function getCustomerId(): int
+    {
+        return (int) $this->_getData('customer_id');
+    }
+
+    public function setCustomerId(int $value): static
+    {
+        return $this->setData('customer_id', $value);
+    }
+
+    public function getMethodCode(): string
+    {
+        return (string) $this->_getData('method_code');
+    }
+
+    public function setMethodCode(string $value): static
+    {
+        return $this->setData('method_code', $value);
+    }
+
+    public function getRedirectUrl(): ?string
+    {
+        $value = $this->_getData('redirect_url');
+        return $value !== null ? (string) $value : null;
+    }
+
+    public function getReferenceId(): string
+    {
+        return (string) $this->_getData('reference_id');
+    }
+
+    public function setReferenceId(string $value): static
+    {
+        return $this->setData('reference_id', $value);
+    }
+
+    public function getStatus(): string
+    {
+        return (string) $this->_getData('status');
+    }
+
+    public function setStatus(string $value): static
+    {
+        return $this->setData('status', $value);
+    }
+
+    public function getStoreId(): int
+    {
+        return (int) $this->_getData('store_id');
+    }
+
+    public function setStoreId(int $value): static
+    {
+        return $this->setData('store_id', $value);
     }
 }

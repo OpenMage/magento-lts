@@ -16,7 +16,6 @@ declare(strict_types=1);
  * @method Mage_Checkout_Model_Resource_Agreement_Collection getCollection()
  * @method Mage_Checkout_Model_Resource_Agreement            getResource()
  * @method Mage_Checkout_Model_Resource_Agreement_Collection getResourceCollection()
- * @method int                                               getStoreId()
  */
 class Mage_Checkout_Model_Agreement extends Mage_Core_Model_Abstract
 {
@@ -86,5 +85,10 @@ class Mage_Checkout_Model_Agreement extends Mage_Core_Model_Abstract
     public function setName(string $value): static
     {
         return $this->setData('name', $value);
+    }
+
+    public function getStoreId(): int
+    {
+        return (int) $this->_getData('store_id');
     }
 }

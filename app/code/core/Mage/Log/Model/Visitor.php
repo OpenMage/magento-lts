@@ -13,27 +13,12 @@ declare(strict_types=1);
  * @package    Mage_Log
  *
  * @method Mage_Log_Model_Resource_Visitor _getResource()
- * @method int                             getCustomerId()
- * @method int                             getCustomerLogId()
  * @method bool                            getDoCustomerLogin()
  * @method bool                            getDoCustomerLogout()
  * @method bool                            getDoQuoteCreate()
  * @method bool                            getDoQuoteDestroy()
- * @method string                          getHttpAcceptCharset()
- * @method string                          getHttpAcceptLanguage()
- * @method string                          getHttpHost()
- * @method string                          getHttpReferer()
- * @method string                          getHttpSecure()
- * @method string                          getHttpUserAgent()
  * @method bool                            getIsNewVisitor()
- * @method int                             getQuoteId()
- * @method string                          getRemoteAddr()
- * @method string                          getRequestUri()
  * @method Mage_Log_Model_Resource_Visitor getResource()
- * @method string                          getServerAddr()
- * @method int                             getVisitorId()
- * @method $this                           setCustomerId(int $value)
- * @method $this                           setCustomerLogId(int $value)
  * @method $this                           setDoCustomerLogin(bool $value)
  * @method $this                           setDoCustomerLogout(bool $value)
  * @method $this                           setDoQuoteCreate(bool $value)
@@ -115,8 +100,8 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
 
     public function getSessionId(): ?string
     {
-        $v = $this->_getData('session_id');
-        return $v !== null ? (string) $v : null;
+        $value = $this->_getData('session_id');
+        return $value !== null ? (string) $value : null;
     }
 
     public function getStoreId(): int
@@ -435,5 +420,93 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
         }
 
         return false;
+    }
+
+    public function getCustomerId(): ?int
+    {
+        $value = $this->_getData('customer_id');
+        return $value !== null ? (int) $value : null;
+    }
+
+    public function setCustomerId(int $value): static
+    {
+        return $this->setData('customer_id', $value);
+    }
+
+    public function getCustomerLogId(): ?int
+    {
+        $value = $this->_getData('customer_log_id');
+        return $value !== null ? (int) $value : null;
+    }
+
+    public function setCustomerLogId(int $value): static
+    {
+        return $this->setData('customer_log_id', $value);
+    }
+
+    public function getHttpAcceptCharset(): ?string
+    {
+        $value = $this->_getData('http_accept_charset');
+        return $value !== null ? (string) $value : null;
+    }
+
+    public function getHttpAcceptLanguage(): ?string
+    {
+        $value = $this->_getData('http_accept_language');
+        return $value !== null ? (string) $value : null;
+    }
+
+    public function getHttpHost(): ?string
+    {
+        $value = $this->_getData('http_host');
+        return $value !== null ? (string) $value : null;
+    }
+
+    public function getHttpReferer(): ?string
+    {
+        $value = $this->_getData('http_referer');
+        return $value !== null ? (string) $value : null;
+    }
+
+    public function getHttpSecure(): ?string
+    {
+        $value = $this->_getData('http_secure');
+        return $value !== null ? (string) $value : null;
+    }
+
+    public function getHttpUserAgent(): ?string
+    {
+        $value = $this->_getData('http_user_agent');
+        return $value !== null ? (string) $value : null;
+    }
+
+    public function getQuoteId(): ?int
+    {
+        $value = $this->_getData('quote_id');
+        return $value !== null ? (int) $value : null;
+    }
+
+    public function getRemoteAddr(): ?string
+    {
+        $value = $this->_getData('remote_addr');
+        return $value !== null ? (string) $value : null;
+    }
+
+    public function getRequestUri(): ?string
+    {
+        $value = $this->_getData('request_uri');
+        return $value !== null ? (string) $value : null;
+    }
+
+    public function getServerAddr(): ?string
+    {
+        $value = $this->_getData('server_addr');
+        return $value !== null ? (string) $value : null;
+    }
+
+    public function getVisitorId(): ?int
+    {
+        $value = $this->_getData('visitor_id');
+        return $value !== null ? (int) $value : null;
     }
 }

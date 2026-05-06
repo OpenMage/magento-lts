@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -16,19 +18,8 @@
  *
  * @method Mage_Sales_Model_Resource_Order_Payment_Transaction            _getResource()
  * @method Mage_Sales_Model_Resource_Order_Payment_Transaction_Collection getCollection()
- * @method int                                                            getIsClosed()
- * @method int                                                            getParentId()
- * @method string                                                         getParentTxnId()
- * @method int                                                            getPaymentId()
  * @method Mage_Sales_Model_Resource_Order_Payment_Transaction            getResource()
  * @method Mage_Sales_Model_Resource_Order_Payment_Transaction_Collection getResourceCollection()
- * @method string                                                         getTxnId()
- * @method string                                                         getTxnType()
- * @method $this                                                          setIsClosed(int $value)
- * @method $this                                                          setOrderId(int $value)
- * @method $this                                                          setOrderUrl(string $value)
- * @method $this                                                          setParentId(int $value)
- * @method $this                                                          setPaymentId(int $value)
  */
 class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstract
 {
@@ -855,5 +846,45 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
     {
         Mage::dispatchEvent('sales_html_txn_id', ['transaction' => $this, 'payment' => $this->_paymentObject]);
         return $this->_data['html_txn_id'] ?? $this->getTxnId();
+    }
+
+    public function getIsClosed(): int
+    {
+        return (int) $this->_getData('is_closed');
+    }
+
+    public function setIsClosed(int $value): static
+    {
+        return $this->setData('is_closed', $value);
+    }
+
+    public function getParentId(): int
+    {
+        return (int) $this->_getData('parent_id');
+    }
+
+    public function setParentId(int $value): static
+    {
+        return $this->setData('parent_id', $value);
+    }
+
+    public function getPaymentId(): int
+    {
+        return (int) $this->_getData('payment_id');
+    }
+
+    public function setPaymentId(int $value): static
+    {
+        return $this->setData('payment_id', $value);
+    }
+
+    public function setOrderId(int $value): static
+    {
+        return $this->setData('order_id', $value);
+    }
+
+    public function setOrderUrl(string $value): static
+    {
+        return $this->setData('order_url', $value);
     }
 }

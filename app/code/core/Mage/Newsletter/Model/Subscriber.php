@@ -15,7 +15,6 @@ declare(strict_types=1);
  * @package    Mage_Newsletter
  *
  * @method Mage_Newsletter_Model_Resource_Subscriber            _getResource()
- * @method string                                               getCheckCode()
  * @method Mage_Newsletter_Model_Resource_Subscriber_Collection getCollection()
  * @method bool                                                 getImportMode()
  * @method string                                               getName()
@@ -25,7 +24,6 @@ declare(strict_types=1);
  * @method bool                                                 hasCustomerFirstname()
  * @method bool                                                 hasCustomerLastname()
  * @method                                                      setImportMode(bool $value)
- * @method $this                                                setCheckCode(string $value)
  */
 class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
 {
@@ -695,5 +693,15 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
         }
 
         return $name;
+    }
+
+    public function getCheckCode(): string
+    {
+        return (string) $this->_getData('check_code');
+    }
+
+    public function setCheckCode(string $value): static
+    {
+        return $this->setData('check_code', $value);
     }
 }

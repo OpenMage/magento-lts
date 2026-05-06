@@ -16,16 +16,15 @@ declare(strict_types=1);
  *
  * @method Mage_Api_Model_Resource_User            _getResource()
  * @method string                                  getApiKeyConfirmation()
+ * @method Mage_Api_Model_Resource_User_Collection getCollection()
  * @method string                                  getNewApiKey()
  * @method Mage_Api_Model_Resource_User            getResource()
  * @method Mage_Api_Model_Resource_User_Collection getResourceCollection()
- * @method int                                     getRoleId()
  * @method array                                   getRoleIds()
  * @method bool                                    hasApiKey()
  * @method bool                                    hasApiKeyConfirmation()
  * @method bool                                    hasNewApiKey()
  * @method $this                                   setRoleIds(array $value)
- * @method $this                                   setRoleUserId(int $value)
  * @method $this                                   setSessid($sessId)
  */
 class Mage_Api_Model_User extends Mage_Core_Model_Abstract
@@ -554,5 +553,15 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
     protected function _getMinCustomerPasswordLength()
     {
         return Mage::getSingleton('customer/customer')->getMinPasswordLength();
+    }
+
+    public function getRoleId(): int
+    {
+        return (int) $this->_getData('role_id');
+    }
+
+    public function setRoleUserId(int $value): static
+    {
+        return $this->setData('role_user_id', $value);
     }
 }

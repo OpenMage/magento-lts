@@ -20,11 +20,9 @@ declare(strict_types=1);
  * @method Mage_Cms_Model_Resource_Page            getResource()
  * @method Mage_Cms_Model_Resource_Page_Collection getResourceCollection()
  * @method string                                  getStoreCode()
- * @method string                                  getStoreId()
  * @method array                                   getStores()
  * @method bool                                    hasCreationTime()
  * @method bool                                    hasStores()
- * @method $this                                   setStoreId(int $value)
  */
 class Mage_Cms_Model_Page extends Mage_Core_Model_Abstract
 {
@@ -64,50 +62,50 @@ class Mage_Cms_Model_Page extends Mage_Core_Model_Abstract
 
     public function getContentHeading(): ?string
     {
-        $v = $this->_getData('content_heading');
-        return $v !== null ? (string) $v : null;
+        $value = $this->_getData('content_heading');
+        return $value !== null ? (string) $value : null;
     }
 
     public function getCreationTime(): ?string
     {
-        $v = $this->_getData('creation_time');
-        return $v !== null ? (string) $v : null;
+        $value = $this->_getData('creation_time');
+        return $value !== null ? (string) $value : null;
     }
 
     public function getCustomLayoutUpdateXml(): ?string
     {
-        $v = $this->_getData('custom_layout_update_xml');
-        return $v !== null ? (string) $v : null;
+        $value = $this->_getData('custom_layout_update_xml');
+        return $value !== null ? (string) $value : null;
     }
 
     public function getCustomRootTemplate(): ?string
     {
-        $v = $this->_getData('custom_root_template');
-        return $v !== null ? (string) $v : null;
+        $value = $this->_getData('custom_root_template');
+        return $value !== null ? (string) $value : null;
     }
 
     public function getCustomTheme(): ?string
     {
-        $v = $this->_getData('custom_theme');
-        return $v !== null ? (string) $v : null;
+        $value = $this->_getData('custom_theme');
+        return $value !== null ? (string) $value : null;
     }
 
     public function getCustomThemeFrom(): ?string
     {
-        $v = $this->_getData('custom_theme_from');
-        return $v !== null ? (string) $v : null;
+        $value = $this->_getData('custom_theme_from');
+        return $value !== null ? (string) $value : null;
     }
 
     public function getCustomThemeTo(): ?string
     {
-        $v = $this->_getData('custom_theme_to');
-        return $v !== null ? (string) $v : null;
+        $value = $this->_getData('custom_theme_to');
+        return $value !== null ? (string) $value : null;
     }
 
     public function getIdentifier(): ?string
     {
-        $v = $this->_getData('identifier');
-        return $v !== null ? (string) $v : null;
+        $value = $this->_getData('identifier');
+        return $value !== null ? (string) $value : null;
     }
 
     public function getIsActive(): int
@@ -117,26 +115,26 @@ class Mage_Cms_Model_Page extends Mage_Core_Model_Abstract
 
     public function getLayoutUpdateXml(): ?string
     {
-        $v = $this->_getData('layout_update_xml');
-        return $v !== null ? (string) $v : null;
+        $value = $this->_getData('layout_update_xml');
+        return $value !== null ? (string) $value : null;
     }
 
     public function getMetaDescription(): ?string
     {
-        $v = $this->_getData('meta_description');
-        return $v !== null ? (string) $v : null;
+        $value = $this->_getData('meta_description');
+        return $value !== null ? (string) $value : null;
     }
 
     public function getMetaKeywords(): ?string
     {
-        $v = $this->_getData('meta_keywords');
-        return $v !== null ? (string) $v : null;
+        $value = $this->_getData('meta_keywords');
+        return $value !== null ? (string) $value : null;
     }
 
     public function getRootTemplate(): ?string
     {
-        $v = $this->_getData('root_template');
-        return $v !== null ? (string) $v : null;
+        $value = $this->_getData('root_template');
+        return $value !== null ? (string) $value : null;
     }
 
     public function getSortOrder(): int
@@ -146,14 +144,14 @@ class Mage_Cms_Model_Page extends Mage_Core_Model_Abstract
 
     public function getTitle(): ?string
     {
-        $v = $this->_getData('title');
-        return $v !== null ? (string) $v : null;
+        $value = $this->_getData('title');
+        return $value !== null ? (string) $value : null;
     }
 
     public function getUpdateTime(): ?string
     {
-        $v = $this->_getData('update_time');
-        return $v !== null ? (string) $v : null;
+        $value = $this->_getData('update_time');
+        return $value !== null ? (string) $value : null;
     }
 
     public function setContent(string $value): static
@@ -342,5 +340,15 @@ class Mage_Cms_Model_Page extends Mage_Core_Model_Abstract
     public function isUsedInStoreConfig(?array $paths = []): bool
     {
         return $this->_getResource()->isUsedInStoreConfig($this, $paths);
+    }
+
+    public function getStoreId(): int
+    {
+        return (int) $this->_getData('store_id');
+    }
+
+    public function setStoreId(int $value): static
+    {
+        return $this->setData('store_id', $value);
     }
 }

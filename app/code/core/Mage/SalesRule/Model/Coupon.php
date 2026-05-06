@@ -19,9 +19,7 @@ declare(strict_types=1);
  * @method string|Zend_Date                                getExpirationDate()
  * @method Mage_SalesRule_Model_Resource_Coupon            getResource()
  * @method Mage_SalesRule_Model_Resource_Coupon_Collection getResourceCollection()
- * @method int                                             getType()
  * @method $this                                           setExpirationDate(string|Zend_Date $value)
- * @method $this                                           setType(int $value)
  */
 class Mage_SalesRule_Model_Coupon extends Mage_Core_Model_Abstract
 {
@@ -48,8 +46,8 @@ class Mage_SalesRule_Model_Coupon extends Mage_Core_Model_Abstract
 
     public function getIsPrimary(): ?int
     {
-        $v = $this->_getData('is_primary');
-        return $v !== null ? (int) $v : null;
+        $value = $this->_getData('is_primary');
+        return $value !== null ? (int) $value : null;
     }
 
     public function getRuleId(): int
@@ -64,14 +62,14 @@ class Mage_SalesRule_Model_Coupon extends Mage_Core_Model_Abstract
 
     public function getUsageLimit(): ?int
     {
-        $v = $this->_getData('usage_limit');
-        return $v !== null ? (int) $v : null;
+        $value = $this->_getData('usage_limit');
+        return $value !== null ? (int) $value : null;
     }
 
     public function getUsagePerCustomer(): ?int
     {
-        $v = $this->_getData('usage_per_customer');
-        return $v !== null ? (int) $v : null;
+        $value = $this->_getData('usage_per_customer');
+        return $value !== null ? (int) $value : null;
     }
 
     public function setCode(string $value): static
@@ -155,5 +153,15 @@ class Mage_SalesRule_Model_Coupon extends Mage_Core_Model_Abstract
     {
         $this->load($couponCode, 'code');
         return $this;
+    }
+
+    public function getType(): int
+    {
+        return (int) $this->_getData('type');
+    }
+
+    public function setType(int $value): static
+    {
+        return $this->setData('type', $value);
     }
 }

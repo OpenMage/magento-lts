@@ -821,7 +821,7 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
 
     public function getAppliedRuleIds(): ?string
     {
-        $v = $this->_getData('applied_rule_ids');
+        $value = $this->_getData('applied_rule_ids');
         return $v === null ? null : (string) $v;
     }
 
@@ -962,7 +962,7 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
 
     public function getParentItemId(): ?int
     {
-        $v = $this->_getData('parent_item_id');
+        $value = $this->_getData('parent_item_id');
         return $v === null ? null : (int) $v;
     }
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -14,10 +16,8 @@
  *
  * @method Mage_Sales_Model_Resource_Order_Status            _getResource()
  * @method Mage_Sales_Model_Resource_Order_Status_Collection getCollection()
- * @method string                                            getLabel()
  * @method Mage_Sales_Model_Resource_Order_Status            getResource()
  * @method Mage_Sales_Model_Resource_Order_Status_Collection getResourceCollection()
- * @method string                                            getStatus()
  * @method bool                                              hasStoreLabels()
  */
 class Mage_Sales_Model_Order_Status extends Mage_Core_Model_Abstract
@@ -116,5 +116,15 @@ class Mage_Sales_Model_Order_Status extends Mage_Core_Model_Abstract
     {
         $this->load($state, 'default_state');
         return $this;
+    }
+
+    public function getLabel(): string
+    {
+        return (string) $this->_getData('label');
+    }
+
+    public function getStatus(): string
+    {
+        return (string) $this->_getData('status');
     }
 }

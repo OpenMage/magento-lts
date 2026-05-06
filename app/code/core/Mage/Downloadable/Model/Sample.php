@@ -18,11 +18,9 @@ declare(strict_types=1);
  * @method Mage_Downloadable_Model_Resource_Sample_Collection getCollection()
  * @method Mage_Downloadable_Model_Resource_Sample            getResource()
  * @method Mage_Downloadable_Model_Resource_Sample_Collection getResourceCollection()
- * @method int                                                getStoreId()
  * @method string                                             getStoreTitle()
  * @method string                                             getTitle()
  * @method bool                                               getUseDefaultTitle()
- * @method $this                                              setStoreId(int $value)
  */
 class Mage_Downloadable_Model_Sample extends Mage_Core_Model_Abstract
 {
@@ -44,8 +42,8 @@ class Mage_Downloadable_Model_Sample extends Mage_Core_Model_Abstract
 
     public function getSampleFile(): ?string
     {
-        $v = $this->_getData('sample_file');
-        return $v !== null ? (string) $v : null;
+        $value = $this->_getData('sample_file');
+        return $value !== null ? (string) $value : null;
     }
 
     public function getSampleType(): string
@@ -55,8 +53,8 @@ class Mage_Downloadable_Model_Sample extends Mage_Core_Model_Abstract
 
     public function getSampleUrl(): ?string
     {
-        $v = $this->_getData('sample_url');
-        return $v !== null ? (string) $v : null;
+        $value = $this->_getData('sample_url');
+        return $value !== null ? (string) $value : null;
     }
 
     public function getSortOrder(): int
@@ -157,5 +155,15 @@ class Mage_Downloadable_Model_Sample extends Mage_Core_Model_Abstract
     {
         return $this->_getResource()
             ->getSearchableData($productId, $storeId);
+    }
+
+    public function getStoreId(): int
+    {
+        return (int) $this->_getData('store_id');
+    }
+
+    public function setStoreId(int $value): static
+    {
+        return $this->setData('store_id', $value);
     }
 }

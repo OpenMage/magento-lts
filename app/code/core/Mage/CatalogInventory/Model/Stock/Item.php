@@ -30,14 +30,7 @@ declare(strict_types=1);
  * @method $this                                                      hasIsChildItem()
  * @method bool                                                       hasStockQty()
  * @method bool                                                       hasStockStatusChangedAutomaticallyFlag()
- * @method $this                                                      setBackorders(int $value)
- * @method $this                                                      setEnableQtyIncrements(int $value)
  * @method $this                                                      setIsChildItem(bool $value)
- * @method $this                                                      setManageStock(int $value)
- * @method $this                                                      setMaxSaleQty(float $value)
- * @method $this                                                      setMinQty(float $value)
- * @method $this                                                      setMinSaleQty(float $value)
- * @method $this                                                      setNotifyStockQty(float $value)
  * @method $this                                                      setOrderedItems(float $value)
  * @method $this                                                      setParentItem(Mage_Sales_Model_Quote_Item $value)
  * @method $this                                                      setProductChangedWebsites(bool $value)
@@ -1074,5 +1067,40 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
     public function setUseConfigQtyIncrements(int $value): static
     {
         return $this->setData('use_config_qty_increments', $value);
+    }
+
+    public function setBackorders(int $value): static
+    {
+        return $this->setData('backorders', $value);
+    }
+
+    public function setEnableQtyIncrements(int $value): static
+    {
+        return $this->setData('enable_qty_increments', $value);
+    }
+
+    public function setManageStock(int $value): static
+    {
+        return $this->setData('manage_stock', $value);
+    }
+
+    public function setMaxSaleQty(float $value): static
+    {
+        return $this->setData('max_sale_qty', $value);
+    }
+
+    public function setMinQty(float $value): static
+    {
+        return $this->setData('min_qty', $value);
+    }
+
+    public function setMinSaleQty(float $value): static
+    {
+        return $this->setData('min_sale_qty', $value);
+    }
+
+    public function setNotifyStockQty(float $value): static
+    {
+        return $this->setData('notify_stock_qty', $value);
     }
 }

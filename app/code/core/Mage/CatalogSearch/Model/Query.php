@@ -84,14 +84,14 @@ class Mage_CatalogSearch_Model_Query extends Mage_Core_Model_Abstract
 
     public function getRedirect(): ?string
     {
-        $v = $this->_getData('redirect');
-        return $v !== null ? (string) $v : null;
+        $value = $this->_getData('redirect');
+        return $value !== null ? (string) $value : null;
     }
 
     public function getSynonymFor(): ?string
     {
-        $v = $this->_getData('synonym_for');
-        return $v !== null ? (string) $v : null;
+        $value = $this->_getData('synonym_for');
+        return $value !== null ? (string) $value : null;
     }
 
     public function setDisplayInTerms(int $value): static

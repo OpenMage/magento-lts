@@ -18,8 +18,6 @@ declare(strict_types=1);
  * @method Mage_Cms_Model_Resource_Block_Collection getCollection()
  * @method Mage_Cms_Model_Resource_Block            getResource()
  * @method Mage_Cms_Model_Resource_Block_Collection getResourceCollection()
- * @method int                                      getStoreId()
- * @method $this                                    setStoreId(int $storeId)
  */
 class Mage_Cms_Model_Block extends Mage_Core_Model_Abstract
 {
@@ -47,8 +45,8 @@ class Mage_Cms_Model_Block extends Mage_Core_Model_Abstract
 
     public function getCreationTime(): ?string
     {
-        $v = $this->_getData('creation_time');
-        return $v !== null ? (string) $v : null;
+        $value = $this->_getData('creation_time');
+        return $value !== null ? (string) $value : null;
     }
 
     public function getIdentifier(): string
@@ -68,8 +66,8 @@ class Mage_Cms_Model_Block extends Mage_Core_Model_Abstract
 
     public function getUpdateTime(): ?string
     {
-        $v = $this->_getData('update_time');
-        return $v !== null ? (string) $v : null;
+        $value = $this->_getData('update_time');
+        return $value !== null ? (string) $value : null;
     }
 
     public function setContent(string $value): static
@@ -100,6 +98,16 @@ class Mage_Cms_Model_Block extends Mage_Core_Model_Abstract
     public function setUpdateTime(?string $value): static
     {
         return $this->setData('update_time', $value);
+    }
+
+    public function getStoreId(): int
+    {
+        return (int) $this->_getData('store_id');
+    }
+
+    public function setStoreId(int $value): static
+    {
+        return $this->setData('store_id', $value);
     }
 
     /**

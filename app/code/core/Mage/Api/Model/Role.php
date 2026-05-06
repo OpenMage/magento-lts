@@ -18,8 +18,6 @@ declare(strict_types=1);
  * @method Mage_Api_Model_Resource_Role_Collection getCollection()
  * @method Mage_Api_Model_Resource_Role            getResource()
  * @method Mage_Api_Model_Resource_Role_Collection getResourceCollection()
- * @method $this                                   setCreated(string $value)
- * @method $this                                   setModified(string $value)
  */
 class Mage_Api_Model_Role extends Mage_Core_Model_Abstract
 {
@@ -89,5 +87,15 @@ class Mage_Api_Model_Role extends Mage_Core_Model_Abstract
     public function setUserId(int $value): static
     {
         return $this->setData('user_id', $value);
+    }
+
+    public function setCreated(string $value): static
+    {
+        return $this->setData('created', $value);
+    }
+
+    public function setModified(string $value): static
+    {
+        return $this->setData('modified', $value);
     }
 }

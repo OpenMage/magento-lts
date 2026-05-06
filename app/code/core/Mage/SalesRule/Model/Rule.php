@@ -16,26 +16,10 @@ declare(strict_types=1);
  *
  * @method Mage_SalesRule_Model_Resource_Rule            _getResource()
  * @method Mage_SalesRule_Model_Resource_Rule_Collection getCollection()
- * @method string                                        getCouponCode()
- * @method string                                        getDescription()
- * @method float                                         getDiscountQty()
- * @method string                                        getFromDate()
- * @method string                                        getName()
- * @method string                                        getProductIds()
  * @method Mage_SalesRule_Model_Resource_Rule            getResource()
  * @method Mage_SalesRule_Model_Resource_Rule_Collection getResourceCollection()
- * @method string                                        getSimpleAction()
- * @method string                                        getToDate()
  * @method bool                                          hasStoreLabels()
- * @method $this                                         setCouponCode(string $value)
- * @method $this                                         setDescription(string $value)
- * @method $this                                         setDiscountQty(float $value)
- * @method $this                                         setFromDate(string $value)
- * @method $this                                         setName(string $value)
- * @method $this                                         setProductIds(string $value)
- * @method $this                                         setSimpleAction(string $value)
  * @method $this                                         setStoreLabels(array $value)
- * @method $this                                         setToDate(string $value)
  */
 class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
 {
@@ -663,5 +647,91 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
     public function setUsesPerCustomer(int $value): static
     {
         return $this->setData('uses_per_customer', $value);
+    }
+
+    public function getCouponCode(): ?string
+    {
+        $value = $this->_getData('coupon_code');
+        return $value !== null ? (string) $value : null;
+    }
+
+    public function setCouponCode(string $value): static
+    {
+        return $this->setData('coupon_code', $value);
+    }
+
+    public function getDescription(): ?string
+    {
+        $value = $this->_getData('description');
+        return $value !== null ? (string) $value : null;
+    }
+
+    public function setDescription(string $value): static
+    {
+        return $this->setData('description', $value);
+    }
+
+    public function getDiscountQty(): ?float
+    {
+        $value = $this->_getData('discount_qty');
+        return $value !== null ? (float) $value : null;
+    }
+
+    public function setDiscountQty(float $value): static
+    {
+        return $this->setData('discount_qty', $value);
+    }
+
+    public function getFromDate(): ?string
+    {
+        $value = $this->_getData('from_date');
+        return $value !== null ? (string) $value : null;
+    }
+
+    public function setFromDate(string $value): static
+    {
+        return $this->setData('from_date', $value);
+    }
+
+    public function getName(): string
+    {
+        return (string) $this->_getData('name');
+    }
+
+    public function setName(string $value): static
+    {
+        return $this->setData('name', $value);
+    }
+
+    public function getProductIds(): ?string
+    {
+        $value = $this->_getData('product_ids');
+        return $value !== null ? (string) $value : null;
+    }
+
+    public function setProductIds(string $value): static
+    {
+        return $this->setData('product_ids', $value);
+    }
+
+    public function getSimpleAction(): string
+    {
+        return (string) $this->_getData('simple_action');
+    }
+
+    public function setSimpleAction(string $value): static
+    {
+        return $this->setData('simple_action', $value);
+    }
+
+    public function getToDate(): ?string
+    {
+        $value = $this->_getData('to_date');
+        return $value !== null ? (string) $value : null;
+    }
+
+    public function setToDate(string $value): static
+    {
+        return $this->setData('to_date', $value);
     }
 }

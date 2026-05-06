@@ -26,18 +26,13 @@ declare(strict_types=1);
  * @method Mage_Customer_Model_Address                        getCustomerAddress()
  * @method string                                             getCustomerPassword()
  * @method null|array                                         getDiscountDescriptionArray()
- * @method string                                             getDob()
  * @method bool                                               getHasChildren()
  * @method bool                                               getIsShippingInclTax()
  * @method Mage_Sales_Model_Quote_Address                     getParentItem()
  * @method Mage_Catalog_Model_Product                         getProduct()
- * @method float                                              getQty()
  * @method Mage_Sales_Model_Resource_Quote_Address            getResource()
  * @method array                                              getRoundingDeltas()
- * @method int                                                getSaveInAddressBook()
  * @method float                                              getShippingDiscountPercent()
- * @method int                                                getStoreId()
- * @method string                                             getTaxvat()
  * @method float                                              getWeeeDiscount()
  * @method bool                                               hasCouponCode()
  * @method bool                                               hasPaymentMethod()
@@ -1972,5 +1967,32 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
     public function setWeightee(float $value): static
     {
         return $this->setData('weightee', $value);
+    }
+
+    public function getSaveInAddressBook(): int
+    {
+        return (int) $this->_getData('save_in_address_book');
+    }
+
+    public function getStoreId(): int
+    {
+        return (int) $this->_getData('store_id');
+    }
+
+    public function getTaxvat(): ?string
+    {
+        $value = $this->_getData('taxvat');
+        return $value !== null ? (string) $value : null;
+    }
+
+    public function getDob(): ?string
+    {
+        $value = $this->_getData('dob');
+        return $value !== null ? (string) $value : null;
+    }
+
+    public function getQty(): float
+    {
+        return (float) $this->_getData('qty');
     }
 }

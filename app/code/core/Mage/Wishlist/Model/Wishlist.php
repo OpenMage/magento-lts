@@ -71,8 +71,8 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
 
     public function getSharingCode(): ?string
     {
-        $v = $this->_getData('sharing_code');
-        return $v !== null ? (string) $v : null;
+        $value = $this->_getData('sharing_code');
+        return $value !== null ? (string) $value : null;
     }
 
     public function setShared(int $value): static

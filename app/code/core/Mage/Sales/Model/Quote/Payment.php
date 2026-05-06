@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -13,57 +15,9 @@
  * @package    Mage_Sales
  *
  * @method Mage_Sales_Model_Resource_Quote_Payment            _getResource()
- * @method string                                             getAdditionalData()
- * @method string                                             getCcCidEnc()
- * @method int                                                getCcExpMonth()
- * @method int                                                getCcExpYear()
- * @method string                                             getCcLast4()
- * @method string                                             getCcNumberEnc()
- * @method string                                             getCcOwner()
- * @method string                                             getCcSsIssue()
- * @method string                                             getCcSsOwner()
- * @method int                                                getCcSsStartMonth()
- * @method int                                                getCcSsStartYear()
- * @method string                                             getCcType()
  * @method Mage_Sales_Model_Resource_Quote_Payment_Collection getCollection()
- * @method int                                                getCustomerPaymentId()
- * @method string                                             getCybersourceToken()
- * @method string                                             getIdealIssuerId()
- * @method string                                             getIdealIssuerList()
- * @method string                                             getMethod()
- * @method string                                             getPaypalCorrelationId()
- * @method string                                             getPaypalPayerId()
- * @method string                                             getPaypalPayerStatus()
- * @method string                                             getPoNumber()
- * @method int                                                getQuoteId()
  * @method Mage_Sales_Model_Resource_Quote_Payment            getResource()
  * @method Mage_Sales_Model_Resource_Quote_Payment_Collection getResourceCollection()
- * @method int                                                getStoreId()
- * @method $this                                              setAdditionalData(string $value)
- * @method $this                                              setCcCid(string $value)
- * @method $this                                              setCcCidEnc(string $value)
- * @method $this                                              setCcExpMonth(int $value)
- * @method $this                                              setCcExpYear(int $value)
- * @method $this                                              setCcLast4(string $value)
- * @method $this                                              setCcNumber(string $value)
- * @method $this                                              setCcNumberEnc(string $value)
- * @method $this                                              setCcOwner(string $value)
- * @method $this                                              setCcSsIssue(string $value)
- * @method $this                                              setCcSsOwner(string $value)
- * @method $this                                              setCcSsStartMonth(int $value)
- * @method $this                                              setCcSsStartYear(int $value)
- * @method $this                                              setCcType(string $value)
- * @method $this                                              setCustomerPaymentId(int $value)
- * @method $this                                              setCybersourceToken(string $value)
- * @method $this                                              setIdealIssuerId(string $value)
- * @method $this                                              setIdealIssuerList(string $value)
- * @method $this                                              setMethod(string $value)
- * @method $this                                              setPaypalCorrelationId(string $value)
- * @method $this                                              setPaypalPayerId(string $value)
- * @method $this                                              setPaypalPayerStatus(string $value)
- * @method $this                                              setPoNumber(string $value)
- * @method $this                                              setQuoteId(int $value)
- * @method $this                                              setStoreId(int $value)
  */
 class Mage_Sales_Model_Quote_Payment extends Mage_Payment_Model_Info
 {
@@ -210,5 +164,266 @@ class Mage_Sales_Model_Quote_Payment extends Mage_Payment_Model_Info
     {
         $method = parent::getMethodInstance();
         return $method->setStore($this->getQuote()->getStore());
+    }
+
+    public function getAdditionalData(): ?string
+    {
+        $value = $this->_getData('additional_data');
+        return $value !== null ? (string) $value : null;
+    }
+
+    public function setAdditionalData(string $value): static
+    {
+        return $this->setData('additional_data', $value);
+    }
+
+    public function getCcCidEnc(): ?string
+    {
+        $value = $this->_getData('cc_cid_enc');
+        return $value !== null ? (string) $value : null;
+    }
+
+    public function setCcCidEnc(string $value): static
+    {
+        return $this->setData('cc_cid_enc', $value);
+    }
+
+    public function setCcCid(string $value): static
+    {
+        return $this->setData('cc_cid', $value);
+    }
+
+    public function getCcExpMonth(): ?int
+    {
+        $value = $this->_getData('cc_exp_month');
+        return $value !== null ? (int) $value : null;
+    }
+
+    public function setCcExpMonth(int $value): static
+    {
+        return $this->setData('cc_exp_month', $value);
+    }
+
+    public function getCcExpYear(): ?int
+    {
+        $value = $this->_getData('cc_exp_year');
+        return $value !== null ? (int) $value : null;
+    }
+
+    public function setCcExpYear(int $value): static
+    {
+        return $this->setData('cc_exp_year', $value);
+    }
+
+    public function getCcLast4(): ?string
+    {
+        $value = $this->_getData('cc_last4');
+        return $value !== null ? (string) $value : null;
+    }
+
+    public function setCcLast4(string $value): static
+    {
+        return $this->setData('cc_last4', $value);
+    }
+
+    public function getCcNumberEnc(): ?string
+    {
+        $value = $this->_getData('cc_number_enc');
+        return $value !== null ? (string) $value : null;
+    }
+
+    public function setCcNumberEnc(string $value): static
+    {
+        return $this->setData('cc_number_enc', $value);
+    }
+
+    public function setCcNumber(string $value): static
+    {
+        return $this->setData('cc_number', $value);
+    }
+
+    public function getCcOwner(): ?string
+    {
+        $value = $this->_getData('cc_owner');
+        return $value !== null ? (string) $value : null;
+    }
+
+    public function setCcOwner(string $value): static
+    {
+        return $this->setData('cc_owner', $value);
+    }
+
+    public function getCcSsIssue(): ?string
+    {
+        $value = $this->_getData('cc_ss_issue');
+        return $value !== null ? (string) $value : null;
+    }
+
+    public function setCcSsIssue(string $value): static
+    {
+        return $this->setData('cc_ss_issue', $value);
+    }
+
+    public function getCcSsOwner(): ?string
+    {
+        $value = $this->_getData('cc_ss_owner');
+        return $value !== null ? (string) $value : null;
+    }
+
+    public function setCcSsOwner(string $value): static
+    {
+        return $this->setData('cc_ss_owner', $value);
+    }
+
+    public function getCcSsStartMonth(): ?int
+    {
+        $value = $this->_getData('cc_ss_start_month');
+        return $value !== null ? (int) $value : null;
+    }
+
+    public function setCcSsStartMonth(int $value): static
+    {
+        return $this->setData('cc_ss_start_month', $value);
+    }
+
+    public function getCcSsStartYear(): ?int
+    {
+        $value = $this->_getData('cc_ss_start_year');
+        return $value !== null ? (int) $value : null;
+    }
+
+    public function setCcSsStartYear(int $value): static
+    {
+        return $this->setData('cc_ss_start_year', $value);
+    }
+
+    public function getCcType(): ?string
+    {
+        $value = $this->_getData('cc_type');
+        return $value !== null ? (string) $value : null;
+    }
+
+    public function setCcType(string $value): static
+    {
+        return $this->setData('cc_type', $value);
+    }
+
+    public function getCustomerPaymentId(): ?int
+    {
+        $value = $this->_getData('customer_payment_id');
+        return $value !== null ? (int) $value : null;
+    }
+
+    public function setCustomerPaymentId(int $value): static
+    {
+        return $this->setData('customer_payment_id', $value);
+    }
+
+    public function getCybersourceToken(): ?string
+    {
+        $value = $this->_getData('cybersource_token');
+        return $value !== null ? (string) $value : null;
+    }
+
+    public function setCybersourceToken(string $value): static
+    {
+        return $this->setData('cybersource_token', $value);
+    }
+
+    public function getIdealIssuerId(): ?string
+    {
+        $value = $this->_getData('ideal_issuer_id');
+        return $value !== null ? (string) $value : null;
+    }
+
+    public function setIdealIssuerId(string $value): static
+    {
+        return $this->setData('ideal_issuer_id', $value);
+    }
+
+    public function getIdealIssuerList(): ?string
+    {
+        $value = $this->_getData('ideal_issuer_list');
+        return $value !== null ? (string) $value : null;
+    }
+
+    public function setIdealIssuerList(string $value): static
+    {
+        return $this->setData('ideal_issuer_list', $value);
+    }
+
+    public function getMethod(): ?string
+    {
+        $value = $this->_getData('method');
+        return $value !== null ? (string) $value : null;
+    }
+
+    public function setMethod(string $value): static
+    {
+        return $this->setData('method', $value);
+    }
+
+    public function getPaypalCorrelationId(): ?string
+    {
+        $value = $this->_getData('paypal_correlation_id');
+        return $value !== null ? (string) $value : null;
+    }
+
+    public function setPaypalCorrelationId(string $value): static
+    {
+        return $this->setData('paypal_correlation_id', $value);
+    }
+
+    public function getPaypalPayerId(): ?string
+    {
+        $value = $this->_getData('paypal_payer_id');
+        return $value !== null ? (string) $value : null;
+    }
+
+    public function setPaypalPayerId(string $value): static
+    {
+        return $this->setData('paypal_payer_id', $value);
+    }
+
+    public function getPaypalPayerStatus(): ?string
+    {
+        $value = $this->_getData('paypal_payer_status');
+        return $value !== null ? (string) $value : null;
+    }
+
+    public function setPaypalPayerStatus(string $value): static
+    {
+        return $this->setData('paypal_payer_status', $value);
+    }
+
+    public function getPoNumber(): ?string
+    {
+        $value = $this->_getData('po_number');
+        return $value !== null ? (string) $value : null;
+    }
+
+    public function setPoNumber(string $value): static
+    {
+        return $this->setData('po_number', $value);
+    }
+
+    public function getQuoteId(): int
+    {
+        return (int) $this->_getData('quote_id');
+    }
+
+    public function setQuoteId(int $value): static
+    {
+        return $this->setData('quote_id', $value);
+    }
+
+    public function getStoreId(): int
+    {
+        return (int) $this->_getData('store_id');
+    }
+
+    public function setStoreId(int $value): static
+    {
+        return $this->setData('store_id', $value);
     }
 }

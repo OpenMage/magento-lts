@@ -1051,7 +1051,7 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
 
     public function getCanVoidFlag(): ?int
     {
-        $v = $this->_getData('can_void_flag');
+        $value = $this->_getData('can_void_flag');
         return $v === null ? null : (int) $v;
     }
 

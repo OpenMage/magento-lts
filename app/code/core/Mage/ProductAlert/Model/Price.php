@@ -41,8 +41,8 @@ class Mage_ProductAlert_Model_Price extends Mage_Core_Model_Abstract
 
     public function getLastSendDate(): ?string
     {
-        $v = $this->_getData('last_send_date');
-        return $v !== null ? (string) $v : null;
+        $value = $this->_getData('last_send_date');
+        return $value !== null ? (string) $value : null;
     }
 
     public function getPrice(): float

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -14,8 +16,6 @@
  *
  * @method Mage_Customer_Model_Resource_Customer            _getResource()
  * @method Mage_Customer_Model_Resource_Customer_Collection getCollection()
- * @method string                                           getEmail()
- * @method int                                              getPostIndex()
  * @method Mage_Customer_Model_Resource_Customer            getResource()
  * @method Mage_Customer_Model_Resource_Customer_Collection getResourceCollection()
  * @method bool                                             hasEmail()
@@ -172,5 +172,17 @@ class Mage_Customer_Model_Address extends Mage_Customer_Model_Address_Abstract
     {
         $this->setData('region_id', (int) $regionId);
         return $this;
+    }
+
+    public function getEmail(): ?string
+    {
+        $value = $this->_getData('email');
+        return $value !== null ? (string) $value : null;
+    }
+
+    public function getPostIndex(): ?int
+    {
+        $value = $this->_getData('post_index');
+        return $value !== null ? (int) $value : null;
     }
 }

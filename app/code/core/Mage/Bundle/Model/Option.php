@@ -17,14 +17,11 @@ declare(strict_types=1);
  * @method Mage_Bundle_Model_Resource_Option            _getResource()
  * @method Mage_Bundle_Model_Resource_Option_Collection getCollection()
  * @method string                                       getDefaultTitle()
- * @method int                                          getOptionId()
  * @method Mage_Bundle_Model_Resource_Option            getResource()
  * @method Mage_Bundle_Model_Resource_Option_Collection getResourceCollection()
  * @method Mage_Catalog_Model_Product[]                 getSelections()
- * @method int                                          getStoreId()
  * @method string                                       getTitle()
  * @method $this                                        setSelections(array $value)
- * @method $this                                        setStoreId(int $value)
  */
 class Mage_Bundle_Model_Option extends Mage_Core_Model_Abstract
 {
@@ -187,5 +184,20 @@ class Mage_Bundle_Model_Option extends Mage_Core_Model_Abstract
         }
 
         return $i == -1 ? false : $selections[$i];
+    }
+
+    public function getOptionId(): int
+    {
+        return (int) $this->_getData('option_id');
+    }
+
+    public function getStoreId(): int
+    {
+        return (int) $this->_getData('store_id');
+    }
+
+    public function setStoreId(int $value): static
+    {
+        return $this->setData('store_id', $value);
     }
 }

@@ -62,8 +62,8 @@ class Mage_Customer_Model_Group extends Mage_Core_Model_Abstract
 
     public function getCustomerGroupCode(): ?string
     {
-        $v = $this->_getData('customer_group_code');
-        return $v !== null ? (string) $v : null;
+        $value = $this->_getData('customer_group_code');
+        return $value !== null ? (string) $value : null;
     }
 
     public function setCustomerGroupCode(?string $value): static

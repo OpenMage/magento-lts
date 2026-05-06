@@ -2347,7 +2347,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
 
     public function getAppliedRuleIds(): ?string
     {
-        $v = $this->_getData('applied_rule_ids');
+        $value = $this->_getData('applied_rule_ids');
         return $v === null ? null : (string) $v;
     }
 

@@ -51,8 +51,8 @@ class Mage_ProductAlert_Model_Stock extends Mage_Core_Model_Abstract
 
     public function getSendDate(): ?string
     {
-        $v = $this->_getData('send_date');
-        return $v !== null ? (string) $v : null;
+        $value = $this->_getData('send_date');
+        return $value !== null ? (string) $value : null;
     }
 
     public function getStatus(): int

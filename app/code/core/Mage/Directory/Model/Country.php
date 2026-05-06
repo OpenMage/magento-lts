@@ -39,14 +39,14 @@ class Mage_Directory_Model_Country extends Mage_Core_Model_Abstract
 
     public function getIso2Code(): ?string
     {
-        $v = $this->_getData('iso2_code');
-        return $v !== null ? (string) $v : null;
+        $value = $this->_getData('iso2_code');
+        return $value !== null ? (string) $value : null;
     }
 
     public function getIso3Code(): ?string
     {
-        $v = $this->_getData('iso3_code');
-        return $v !== null ? (string) $v : null;
+        $value = $this->_getData('iso3_code');
+        return $value !== null ? (string) $value : null;
     }
 
     public function setCountryId(string $value): static

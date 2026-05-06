@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -14,14 +16,8 @@
  *
  * @method Mage_SalesRule_Model_Resource_Rule_Customer            _getResource()
  * @method Mage_SalesRule_Model_Resource_Rule_Customer_Collection getCollection()
- * @method int                                                    getCustomerId()
  * @method Mage_SalesRule_Model_Resource_Rule_Customer            getResource()
  * @method Mage_SalesRule_Model_Resource_Rule_Customer_Collection getResourceCollection()
- * @method int                                                    getRuleId()
- * @method int                                                    getTimesUsed()
- * @method $this                                                  setCustomerId(int $value)
- * @method $this                                                  setRuleId(int $value)
- * @method $this                                                  setTimesUsed(int $value)
  */
 class Mage_SalesRule_Model_Rule_Customer extends Mage_Core_Model_Abstract
 {
@@ -44,5 +40,35 @@ class Mage_SalesRule_Model_Rule_Customer extends Mage_Core_Model_Abstract
     {
         $this->_getResource()->loadByCustomerRule($this, $customerId, $ruleId);
         return $this;
+    }
+
+    public function getCustomerId(): int
+    {
+        return (int) $this->_getData('customer_id');
+    }
+
+    public function setCustomerId(int $value): static
+    {
+        return $this->setData('customer_id', $value);
+    }
+
+    public function getRuleId(): int
+    {
+        return (int) $this->_getData('rule_id');
+    }
+
+    public function setRuleId(int $value): static
+    {
+        return $this->setData('rule_id', $value);
+    }
+
+    public function getTimesUsed(): int
+    {
+        return (int) $this->_getData('times_used');
+    }
+
+    public function setTimesUsed(int $value): static
+    {
+        return $this->setData('times_used', $value);
     }
 }

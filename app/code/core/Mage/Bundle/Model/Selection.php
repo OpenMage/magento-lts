@@ -69,20 +69,20 @@ class Mage_Bundle_Model_Selection extends Mage_Core_Model_Abstract
 
     public function getSelectionPriceType(): ?int
     {
-        $v = $this->_getData('selection_price_type');
-        return $v !== null ? (int) $v : null;
+        $value = $this->_getData('selection_price_type');
+        return $value !== null ? (int) $value : null;
     }
 
     public function getSelectionPriceValue(): ?float
     {
-        $v = $this->_getData('selection_price_value');
-        return $v !== null ? (float) $v : null;
+        $value = $this->_getData('selection_price_value');
+        return $value !== null ? (float) $value : null;
     }
 
     public function getSelectionQty(): ?float
     {
-        $v = $this->_getData('selection_qty');
-        return $v !== null ? (float) $v : null;
+        $value = $this->_getData('selection_qty');
+        return $value !== null ? (float) $value : null;
     }
 
     public function setIsDefault(int $value): static

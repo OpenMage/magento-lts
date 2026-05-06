@@ -42,8 +42,8 @@ class Mage_Admin_Model_Role extends Mage_Core_Model_Abstract
 
     public function getRoleName(): ?string
     {
-        $v = $this->_getData('role_name');
-        return $v !== null ? (string) $v : null;
+        $value = $this->_getData('role_name');
+        return $value !== null ? (string) $value : null;
     }
 
     public function getRoleType(): string

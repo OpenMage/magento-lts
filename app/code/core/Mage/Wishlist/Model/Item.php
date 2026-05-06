@@ -99,8 +99,8 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
 
     public function getAddedAt(): ?string
     {
-        $v = $this->_getData('added_at');
-        return $v !== null ? (string) $v : null;
+        $value = $this->_getData('added_at');
+        return $value !== null ? (string) $value : null;
     }
 
     public function getDescription(): string

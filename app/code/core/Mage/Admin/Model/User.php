@@ -22,7 +22,6 @@ use Symfony\Component\Validator\ConstraintViolationListInterface;
  * @method string                                    getPasswordConfirmation()
  * @method Mage_Admin_Model_Resource_User            getResource()
  * @method Mage_Admin_Model_Resource_User_Collection getResourceCollection()
- * @method int                                       getRoleId()
  * @method array                                     getRoleIds()
  * @method bool                                      hasNewPassword()
  * @method bool                                      hasPassword()
@@ -153,14 +152,14 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
 
     public function getRpToken(): ?string
     {
-        $v = $this->_getData('rp_token');
-        return $v !== null ? (string) $v : null;
+        $value = $this->_getData('rp_token');
+        return $value !== null ? (string) $value : null;
     }
 
     public function getRpTokenCreatedAt(): ?string
     {
-        $v = $this->_getData('rp_token_created_at');
-        return $v !== null ? (string) $v : null;
+        $value = $this->_getData('rp_token_created_at');
+        return $value !== null ? (string) $value : null;
     }
 
     public function getUserId(): int
@@ -226,6 +225,11 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
     public function setRoleId(int $value): static
     {
         return $this->setData('role_id', $value);
+    }
+
+    public function getRoleId(): int
+    {
+        return (int) $this->_getData('role_id');
     }
 
     public function setRpToken(?string $value): static

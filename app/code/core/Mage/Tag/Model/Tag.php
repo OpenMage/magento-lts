@@ -20,12 +20,10 @@ declare(strict_types=1);
  * @method Mage_Tag_Model_Resource_Tag_Collection getResourceCollection()
  * @method array                                  getStatusFilter()
  * @method int                                    getStore()
- * @method int                                    getStoreId()
  * @method array                                  getVisibleInStoreIds()
  * @method bool                                   hasBasePopularity()
  * @method bool                                   hasStoreId()
  * @method $this                                  setStore(int $value)
- * @method $this                                  setStoreId(int $value)
  * @method $this                                  setVisibleInStoreIds(array $value)
  */
 class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
@@ -516,5 +514,15 @@ class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
         }
 
         return parent::_afterSave();
+    }
+
+    public function getStoreId(): int
+    {
+        return (int) $this->_getData('store_id');
+    }
+
+    public function setStoreId(int $value): static
+    {
+        return $this->setData('store_id', $value);
     }
 }

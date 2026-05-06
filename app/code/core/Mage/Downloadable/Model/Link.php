@@ -17,18 +17,14 @@ declare(strict_types=1);
  * @method Mage_Downloadable_Model_Resource_Link            _getResource()
  * @method Mage_Downloadable_Model_Resource_Link_Collection getCollection()
  * @method bool                                             getIsUnlimited()
- * @method int                                              getLinkId()
  * @method Mage_Catalog_Model_Product                       getProduct()
  * @method array                                            getProductWebsiteIds()
  * @method Mage_Downloadable_Model_Resource_Link            getResource()
  * @method Mage_Downloadable_Model_Resource_Link_Collection getResourceCollection()
- * @method int                                              getStoreId()
  * @method string                                           getStoreTitle()
  * @method string                                           getTitle()
  * @method bool                                             getUseDefaultPrice()
  * @method bool                                             getUseDefaultTitle()
- * @method int                                              getWebsiteId()
- * @method float                                            getWebsitePrice()
  * @method $this                                            setProduct(Mage_Catalog_Model_Product $value)
  * @method $this                                            setProductWebsiteIds(array $value)
  * @method $this                                            setStoreId(int $value)
@@ -66,26 +62,26 @@ class Mage_Downloadable_Model_Link extends Mage_Core_Model_Abstract
 
     public function getLinkFile(): ?string
     {
-        $v = $this->_getData('link_file');
-        return $v !== null ? (string) $v : null;
+        $value = $this->_getData('link_file');
+        return $value !== null ? (string) $value : null;
     }
 
     public function getLinkType(): ?string
     {
-        $v = $this->_getData('link_type');
-        return $v !== null ? (string) $v : null;
+        $value = $this->_getData('link_type');
+        return $value !== null ? (string) $value : null;
     }
 
     public function getLinkUrl(): ?string
     {
-        $v = $this->_getData('link_url');
-        return $v !== null ? (string) $v : null;
+        $value = $this->_getData('link_url');
+        return $value !== null ? (string) $value : null;
     }
 
     public function getNumberOfDownloads(): ?int
     {
-        $v = $this->_getData('number_of_downloads');
-        return $v !== null ? (int) $v : null;
+        $value = $this->_getData('number_of_downloads');
+        return $value !== null ? (int) $value : null;
     }
 
     public function getPrice(): float
@@ -100,20 +96,20 @@ class Mage_Downloadable_Model_Link extends Mage_Core_Model_Abstract
 
     public function getSampleFile(): ?string
     {
-        $v = $this->_getData('sample_file');
-        return $v !== null ? (string) $v : null;
+        $value = $this->_getData('sample_file');
+        return $value !== null ? (string) $value : null;
     }
 
     public function getSampleType(): ?string
     {
-        $v = $this->_getData('sample_type');
-        return $v !== null ? (string) $v : null;
+        $value = $this->_getData('sample_type');
+        return $value !== null ? (string) $value : null;
     }
 
     public function getSampleUrl(): ?string
     {
-        $v = $this->_getData('sample_url');
-        return $v !== null ? (string) $v : null;
+        $value = $this->_getData('sample_url');
+        return $value !== null ? (string) $value : null;
     }
 
     public function getSortOrder(): int
@@ -247,5 +243,25 @@ class Mage_Downloadable_Model_Link extends Mage_Core_Model_Abstract
     {
         return $this->_getResource()
             ->getSearchableData($productId, $storeId);
+    }
+
+    public function getLinkId(): int
+    {
+        return (int) $this->_getData('link_id');
+    }
+
+    public function getStoreId(): int
+    {
+        return (int) $this->_getData('store_id');
+    }
+
+    public function getWebsiteId(): int
+    {
+        return (int) $this->_getData('website_id');
+    }
+
+    public function getWebsitePrice(): float
+    {
+        return (float) $this->_getData('website_price');
     }
 }
