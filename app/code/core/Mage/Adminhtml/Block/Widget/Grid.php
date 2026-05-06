@@ -2038,7 +2038,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      */
     public function getRowUrl($row)
     {
-        $res = parent::getRowUrl($row);
+        $res = $this->getData('row_url');
         return $res ?: '#';
     }
 

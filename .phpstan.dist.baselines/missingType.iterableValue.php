@@ -15442,6 +15442,16 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Dataflow/Model/Convert/Parser/Csv.php',
 ];
 $ignoreErrors[] = [
+    'rawMessage' => 'Method Mage_Dataflow_Model_Convert_Parser_Csv::parseRow() has parameter $line with no value type specified in iterable type array.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Dataflow/Model/Convert/Parser/Csv.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Method Mage_Dataflow_Model_Convert_Parser_Csv::parseRow() return type has no value type specified in iterable type array.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Dataflow/Model/Convert/Parser/Csv.php',
+];
+$ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Dataflow_Model_Convert_Parser_Csv::unparseRow() has parameter $args with no value type specified in iterable type array.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Dataflow/Model/Convert/Parser/Csv.php',
@@ -25218,11 +25228,6 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Widget_Model_Widget_Config::encodeWidgetsToQuery() has parameter $widgets with no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Widget/Model/Widget/Config.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Widget_Model_Widget_Config::getAvailablePlaceholderFilenames() return type has no value type specified in iterable type array.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Widget/Model/Widget/Config.php',
 ];

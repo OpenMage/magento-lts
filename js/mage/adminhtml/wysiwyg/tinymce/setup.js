@@ -313,10 +313,7 @@ tinyMceWysiwygSetup.prototype =
             var attributes = this.parseAttributesString(match[1]);
             if (attributes.type) {
                 var placeholderFilename = attributes.type.replace(/\//g, "__") + ".gif";
-                if (!this.widgetPlaceholderExist(placeholderFilename)) {
-                    placeholderFilename = 'default.gif';
-                }
-                var imageSrc = this.config.widget_images_url + placeholderFilename;
+                var imageSrc = this.config.widget_placeholders[placeholderFilename] ?? this.config.widget_placeholders["default.gif"];
                 var imageHtml = '<img';
                 imageHtml += ' id="' + Base64.idEncode(match[0]) + '"';
                 imageHtml += ' src="' + imageSrc + '"';
@@ -357,10 +354,6 @@ tinyMceWysiwygSetup.prototype =
             result[match[1]] = match[2];
         });
         return result;
-    },
-
-    widgetPlaceholderExist: function (filename) {
-        return this.config.widget_placeholders.indexOf(filename) != -1;
     },
 
     getMediaBrowserCallback: function () {
