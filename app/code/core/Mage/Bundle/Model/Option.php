@@ -16,11 +16,9 @@ declare(strict_types=1);
  *
  * @method Mage_Bundle_Model_Resource_Option            _getResource()
  * @method Mage_Bundle_Model_Resource_Option_Collection getCollection()
- * @method string                                       getDefaultTitle()
  * @method Mage_Bundle_Model_Resource_Option            getResource()
  * @method Mage_Bundle_Model_Resource_Option_Collection getResourceCollection()
  * @method Mage_Catalog_Model_Product[]                 getSelections()
- * @method string                                       getTitle()
  * @method $this                                        setSelections(array $value)
  */
 class Mage_Bundle_Model_Option extends Mage_Core_Model_Abstract
@@ -199,5 +197,15 @@ class Mage_Bundle_Model_Option extends Mage_Core_Model_Abstract
     public function setStoreId(int $value): static
     {
         return $this->setData('store_id', $value);
+    }
+
+    public function getDefaultTitle(): string
+    {
+        return (string) $this->_getData('default_title');
+    }
+
+    public function getTitle(): string
+    {
+        return (string) $this->_getData('title');
     }
 }

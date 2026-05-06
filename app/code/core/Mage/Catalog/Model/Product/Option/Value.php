@@ -16,12 +16,8 @@ declare(strict_types=1);
  *
  * @method Mage_Catalog_Model_Resource_Product_Option_Value            _getResource()
  * @method Mage_Catalog_Model_Resource_Product_Option_Value_Collection getCollection()
- * @method string                                                      getPriceType()
  * @method Mage_Catalog_Model_Resource_Product_Option_Value            getResource()
  * @method Mage_Catalog_Model_Resource_Product_Option_Value_Collection getResourceCollection()
- * @method float                                                       getStorePrice()
- * @method string                                                      getStoreTitle()
- * @method string                                                      getTitle()
  */
 class Mage_Catalog_Model_Product_Option_Value extends Mage_Core_Model_Abstract
 {
@@ -283,5 +279,25 @@ class Mage_Catalog_Model_Product_Option_Value extends Mage_Core_Model_Abstract
     public function setSortOrder(int $value): static
     {
         return $this->setData('sort_order', $value);
+    }
+
+    public function getPriceType(): string
+    {
+        return (string) $this->_getData('price_type');
+    }
+
+    public function getStorePrice(): float
+    {
+        return (float) $this->_getData('store_price');
+    }
+
+    public function getStoreTitle(): string
+    {
+        return (string) $this->_getData('store_title');
+    }
+
+    public function getTitle(): string
+    {
+        return (string) $this->_getData('title');
     }
 }

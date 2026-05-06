@@ -16,13 +16,9 @@ declare(strict_types=1);
  *
  * @method Mage_Bundle_Model_Resource_Selection            _getResource()
  * @method Mage_Bundle_Model_Resource_Selection_Collection getCollection()
- * @method string                                          getDefaultPriceScope()
  * @method Mage_Bundle_Model_Resource_Selection            getResource()
  * @method Mage_Bundle_Model_Resource_Selection_Collection getResourceCollection()
- * @method int                                             getSelectionId()
- * @method int                                             getWebsiteId()
  * @method bool                                            isSalable()
- * @method $this                                           setWebsiteId(int $value)
  * @method $this                                           unsSelectionPriceType()
  * @method $this                                           unsSelectionPriceValue()
  */
@@ -128,6 +124,26 @@ class Mage_Bundle_Model_Selection extends Mage_Core_Model_Abstract
     public function setSelectionQty(?float $value): static
     {
         return $this->setData('selection_qty', $value);
+    }
+
+    public function getDefaultPriceScope(): string
+    {
+        return (string) $this->_getData('default_price_scope');
+    }
+
+    public function getSelectionId(): int
+    {
+        return (int) $this->_getData('selection_id');
+    }
+
+    public function getWebsiteId(): int
+    {
+        return (int) $this->_getData('website_id');
+    }
+
+    public function setWebsiteId(int $value): static
+    {
+        return $this->setData('website_id', $value);
     }
 
     /**

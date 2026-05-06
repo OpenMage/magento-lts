@@ -14,11 +14,8 @@ declare(strict_types=1);
  *
  * @method Mage_Directory_Model_Resource_Region            _getResource()
  * @method Mage_Directory_Model_Resource_Region_Collection getCollection()
- * @method string                                          getDefaultName()
- * @method int                                             getRegionId()
  * @method Mage_Directory_Model_Resource_Region            getResource()
  * @method Mage_Directory_Model_Resource_Region_Collection getResourceCollection()
- * @method $this                                           setDefaultName(string $value)
  */
 class Mage_Directory_Model_Region extends Mage_Core_Model_Abstract
 {
@@ -90,5 +87,20 @@ class Mage_Directory_Model_Region extends Mage_Core_Model_Abstract
     {
         $this->_getResource()->loadByName($this, $name, $countryId);
         return $this;
+    }
+
+    public function getDefaultName(): string
+    {
+        return (string) $this->_getData('default_name');
+    }
+
+    public function getRegionId(): int
+    {
+        return (int) $this->_getData('region_id');
+    }
+
+    public function setDefaultName(string $value): static
+    {
+        return $this->setData('default_name', $value);
     }
 }

@@ -21,8 +21,6 @@ declare(strict_types=1);
  * @method array                                            getProductWebsiteIds()
  * @method Mage_Downloadable_Model_Resource_Link            getResource()
  * @method Mage_Downloadable_Model_Resource_Link_Collection getResourceCollection()
- * @method string                                           getStoreTitle()
- * @method string                                           getTitle()
  * @method bool                                             getUseDefaultPrice()
  * @method bool                                             getUseDefaultTitle()
  * @method $this                                            setProduct(Mage_Catalog_Model_Product $value)
@@ -263,5 +261,15 @@ class Mage_Downloadable_Model_Link extends Mage_Core_Model_Abstract
     public function getWebsitePrice(): float
     {
         return (float) $this->_getData('website_price');
+    }
+
+    public function getStoreTitle(): string
+    {
+        return (string) $this->_getData('store_title');
+    }
+
+    public function getTitle(): string
+    {
+        return (string) $this->_getData('title');
     }
 }

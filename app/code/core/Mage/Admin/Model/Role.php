@@ -16,13 +16,8 @@ declare(strict_types=1);
  *
  * @method Mage_Admin_Model_Resource_Role            _getResource()
  * @method Mage_Admin_Model_Resource_Role_Collection getCollection()
- * @method string                                    getName()
- * @method int                                       getPid()
  * @method Mage_Admin_Model_Resource_Role            getResource()
  * @method Mage_Admin_Model_Resource_Role_Collection getResourceCollection()
- * @method int                                       getRoleId()
- * @method $this                                     setCreated(string $value)
- * @method $this                                     setModified(string $value)
  */
 class Mage_Admin_Model_Role extends Mage_Core_Model_Abstract
 {
@@ -94,5 +89,40 @@ class Mage_Admin_Model_Role extends Mage_Core_Model_Abstract
     public function setUserId(int $value): static
     {
         return $this->setData('user_id', $value);
+    }
+
+    public function getCreated(): string
+    {
+        return (string) $this->_getData('created');
+    }
+
+    public function getModified(): string
+    {
+        return (string) $this->_getData('modified');
+    }
+
+    public function getName(): string
+    {
+        return (string) $this->_getData('name');
+    }
+
+    public function getPid(): int
+    {
+        return (int) $this->_getData('pid');
+    }
+
+    public function getRoleId(): int
+    {
+        return (int) $this->_getData('role_id');
+    }
+
+    public function setCreated(string $value): static
+    {
+        return $this->setData('created', $value);
+    }
+
+    public function setModified(string $value): static
+    {
+        return $this->setData('modified', $value);
     }
 }

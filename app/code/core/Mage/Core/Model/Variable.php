@@ -16,8 +16,6 @@ declare(strict_types=1);
  *
  * @method Mage_Core_Model_Resource_Variable            _getResource()
  * @method Mage_Core_Model_Resource_Variable_Collection getCollection()
- * @method string                                       getHtmlValue()
- * @method string                                       getPlainValue()
  * @method Mage_Core_Model_Resource_Variable            getResource()
  * @method Mage_Core_Model_Resource_Variable_Collection getResourceCollection()
  * @method bool                                         getUseDefaultValue()
@@ -57,6 +55,16 @@ class Mage_Core_Model_Variable extends Mage_Core_Model_Abstract
     public function setName(string $value): static
     {
         return $this->setData('name', $value);
+    }
+
+    public function getHtmlValue(): string
+    {
+        return (string) $this->_getData('html_value');
+    }
+
+    public function getPlainValue(): string
+    {
+        return (string) $this->_getData('plain_value');
     }
 
     /**

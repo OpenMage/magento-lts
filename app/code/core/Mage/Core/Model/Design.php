@@ -14,10 +14,8 @@ declare(strict_types=1);
  *
  * @method Mage_Core_Model_Resource_Design            _getResource()
  * @method Mage_Core_Model_Resource_Design_Collection getCollection()
- * @method string                                     getPackage()
  * @method Mage_Core_Model_Resource_Design            getResource()
  * @method Mage_Core_Model_Resource_Design_Collection getResourceCollection()
- * @method string                                     getTheme()
  */
 class Mage_Core_Model_Design extends Mage_Core_Model_Abstract
 {
@@ -99,5 +97,15 @@ class Mage_Core_Model_Design extends Mage_Core_Model_Abstract
     public function setStoreId(int $value): static
     {
         return $this->setData('store_id', $value);
+    }
+
+    public function getPackage(): string
+    {
+        return (string) $this->_getData('package');
+    }
+
+    public function getTheme(): string
+    {
+        return (string) $this->_getData('theme');
     }
 }

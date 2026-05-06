@@ -18,8 +18,6 @@ declare(strict_types=1);
  * @method Mage_Downloadable_Model_Resource_Sample_Collection getCollection()
  * @method Mage_Downloadable_Model_Resource_Sample            getResource()
  * @method Mage_Downloadable_Model_Resource_Sample_Collection getResourceCollection()
- * @method string                                             getStoreTitle()
- * @method string                                             getTitle()
  * @method bool                                               getUseDefaultTitle()
  */
 class Mage_Downloadable_Model_Sample extends Mage_Core_Model_Abstract
@@ -165,5 +163,15 @@ class Mage_Downloadable_Model_Sample extends Mage_Core_Model_Abstract
     public function setStoreId(int $value): static
     {
         return $this->setData('store_id', $value);
+    }
+
+    public function getStoreTitle(): string
+    {
+        return (string) $this->_getData('store_title');
+    }
+
+    public function getTitle(): string
+    {
+        return (string) $this->_getData('title');
     }
 }

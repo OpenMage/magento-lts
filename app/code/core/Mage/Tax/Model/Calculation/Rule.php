@@ -18,9 +18,9 @@ declare(strict_types=1);
  * @method Mage_Tax_Model_Resource_Calculation_Rule_Collection getCollection()
  * @method Mage_Tax_Model_Resource_Calculation_Rule            getResource()
  * @method Mage_Tax_Model_Resource_Calculation_Rule_Collection getResourceCollection()
- * @method string                                              getTaxCustomerClass()
- * @method string                                              getTaxProductClass()
- * @method float                                               getTaxRate()
+ * @method array                                               getTaxCustomerClass()
+ * @method array                                               getTaxProductClass()
+ * @method array                                               getTaxRate()
  * @method $this                                               setCalculateSubtotal(float $value)
  */
 class Mage_Tax_Model_Calculation_Rule extends Mage_Core_Model_Abstract
