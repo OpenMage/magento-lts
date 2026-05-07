@@ -66,10 +66,23 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
 
     public const CHECK_ZERO_TOTAL            = 128;
 
+    /**
+     * Payment method code
+     *
+     * @var string
+     */
     protected $_code;
 
+    /**
+     * Bank Transfer payment block paths
+     *
+     * @var string
+     */
     protected $_formBlockType = 'payment/form';
 
+    /**
+     * @var string
+     */
     protected $_infoBlockType = 'payment/info';
 
     /**
@@ -80,6 +93,9 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
 
     protected $_canOrder                    = false;
 
+    /**
+     * @var bool
+     */
     protected $_canAuthorize                = false;
 
     protected $_canCapture                  = false;

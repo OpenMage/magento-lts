@@ -15,9 +15,7 @@
 class Mage_Tax_Block_Adminhtml_Notifications extends Mage_Adminhtml_Block_Template
 {
     /**
-     * Factory instance
-     *
-     * @var Mage_Core_Model_Factory
+     * @inerhitDoc
      */
     protected $_factory;
 

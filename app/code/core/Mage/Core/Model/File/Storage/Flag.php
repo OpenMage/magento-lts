@@ -44,7 +44,7 @@ class Mage_Core_Model_File_Storage_Flag extends Mage_Core_Model_Flag
     /**
      * Synchronize flag code
      *
-     * @var string
+     * @inerhitDoc
      */
     protected $_flagCode    = 'synchronize';
 

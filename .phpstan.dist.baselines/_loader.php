@@ -93,7 +93,7 @@ return ['includes' => [
     __DIR__ . '/property.dynamicName.php',
     __DIR__ . '/property.nonObject.php',
     __DIR__ . '/property.notFound.php',
-#    __DIR__ . '/property.phpDocType.php',
+    __DIR__ . '/property.phpDocType.php',
     __DIR__ . '/return.empty.php',
     __DIR__ . '/return.missing.php',
     __DIR__ . '/return.type.php',

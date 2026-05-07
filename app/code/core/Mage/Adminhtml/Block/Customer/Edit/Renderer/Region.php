@@ -25,7 +25,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Renderer_Region extends Mage_Adminhtml_
     }
 
     /**
-     * Output the region element and javasctipt that makes it dependent from country element
+     * Output the region element and JavaScript that makes it dependent from country element
      *
      * @return string
      */
