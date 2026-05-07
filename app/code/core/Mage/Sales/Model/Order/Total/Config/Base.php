@@ -15,7 +15,7 @@
 class Mage_Sales_Model_Order_Total_Config_Base extends Mage_Sales_Model_Config_Ordered
 {
     /**
-     * @inerhitDoc
+     * @inheritDoc
      */
     protected $_collectorsCacheKey = 'sorted_collectors';
 
@@ -27,7 +27,7 @@ class Mage_Sales_Model_Order_Total_Config_Base extends Mage_Sales_Model_Config_O
     protected $_totalModels = [];
 
     /**
-     * @inerhitDoc
+     * @inheritDoc
      */
     protected $_totalsConfigNode = 'totals';
 

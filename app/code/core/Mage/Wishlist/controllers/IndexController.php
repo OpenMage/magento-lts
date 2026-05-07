@@ -18,7 +18,7 @@
 class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
 {
     /**
-     * @inerhitDoc
+     * @inheritDoc
      */
     protected $_cookieCheckActions = ['add'];
 

@@ -22,7 +22,7 @@ class Mage_Reports_Block_Product_Compared extends Mage_Reports_Block_Product_Abs
     /**
      * Compared Product Index model name
      *
-     * @inerhitDoc
+     * @inheritDoc
      */
     protected $_indexName = 'reports/product_index_compared';
 

@@ -57,7 +57,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
     ];
 
     /**
-     * @inerhitDoc
+     * @inheritDoc
      */
     protected $_code = self::CODE;
 

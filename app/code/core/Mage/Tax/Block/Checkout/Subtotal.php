@@ -22,7 +22,7 @@ class Mage_Tax_Block_Checkout_Subtotal extends Mage_Checkout_Block_Total_Default
     protected $_template = 'tax/checkout/subtotal.phtml';
 
     /**
-     * @inerhitDoc
+     * @inheritDoc
      */
     protected $_factory;
 

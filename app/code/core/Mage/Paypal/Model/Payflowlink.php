@@ -61,7 +61,7 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
     ];
 
     /**
-     * @inerhitDoc
+     * @inheritDoc
      */
     protected $_code = Mage_Paypal_Model_Config::METHOD_PAYFLOWLINK;
 

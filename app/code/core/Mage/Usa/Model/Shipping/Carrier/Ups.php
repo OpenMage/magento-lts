@@ -33,7 +33,7 @@ class Mage_Usa_Model_Shipping_Carrier_Ups extends Mage_Usa_Model_Shipping_Carrie
     public const DELIVERY_CONFIRMATION_PACKAGE = 2;
 
     /**
-     * @inerhitDoc
+     * @inheritDoc
      */
     protected $_code = self::CODE;
 

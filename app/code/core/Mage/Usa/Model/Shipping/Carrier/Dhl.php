@@ -24,7 +24,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
     public const CODE = 'dhl';
 
     /**
-     * @inerhitDoc
+     * @inheritDoc
      */
     protected $_code = self::CODE;
 

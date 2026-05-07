@@ -73,12 +73,12 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
     /**
      * Dhl rates result
      *
-     * @inerhitDoc
+     * @inheritDoc
      */
     protected $_rates = [];
 
     /**
-     * @inerhitDoc
+     * @inheritDoc
      */
     protected $_code = self::CODE;
 

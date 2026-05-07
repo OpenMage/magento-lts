@@ -15,7 +15,7 @@
 class Mage_Catalog_Product_CompareController extends Mage_Core_Controller_Front_Action
 {
     /**
-     * @inerhitDoc
+     * @inheritDoc
      */
     protected $_cookieCheckActions = ['add'];
 

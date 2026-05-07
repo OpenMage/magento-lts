@@ -66,12 +66,12 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
     protected $_captureTypeComplete = 'Y';
 
     /**
-     * @inerhitDoc
+     * @inheritDoc
      */
     protected $_captureTypeNotcomplete = 'N';
 
     /**
-     * @inerhitDoc
+     * @inheritDoc
      */
     protected $_globalMap = [
         // each call
@@ -140,7 +140,7 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
     ];
 
     /**
-     * @inerhitDoc
+     * @inheritDoc
      */
     protected $_debugReplacePrivateDataKeys = [
         'ACCT', 'EXPDATE', 'CVV2',
@@ -150,7 +150,7 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
     /**
      * DoDirectPayment request/response map
      *
-     * @inerhitDoc
+     * @inheritDoc
      */
     protected $_doDirectPaymentRequest = [
         'ACCT', 'EXPDATE', 'CVV2', 'CURRENCY', 'EMAIL', 'TENDER', 'NOTIFYURL',
@@ -170,7 +170,7 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
     /**
      * DoCapture request/response map
      *
-     * @inerhitDoc
+     * @inheritDoc
      */
     protected $_doCaptureRequest = ['ORIGID', 'CAPTURECOMPLETE', 'AMT', 'TENDER', 'NOTE', 'INVNUM'];
 
@@ -182,21 +182,21 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
     /**
      * DoVoid request map
      *
-     * @inerhitDoc
+     * @inheritDoc
      */
     protected $_doVoidRequest = ['ORIGID', 'NOTE', 'TENDER'];
 
     /**
      * Request map for each API call
      *
-     * @inerhitDoc
+     * @inheritDoc
      */
     protected $_eachCallRequest = ['PARTNER', 'USER', 'VENDOR', 'PWD', 'BUTTONSOURCE'];
 
     /**
      * RefundTransaction request/response map
      *
-     * @inerhitDoc
+     * @inheritDoc
      */
     protected $_refundTransactionRequest = ['ORIGID', 'TENDER'];
 
@@ -208,7 +208,7 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
     /**
      * SetExpressCheckout request/response map
      *
-     * @inerhitDoc
+     * @inheritDoc
      */
     protected $_setExpressCheckoutRequest = [
         'TENDER', 'AMT', 'CURRENCY', 'RETURNURL', 'CANCELURL', 'INVNUM',
@@ -221,21 +221,21 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
     /**
      * GetExpressCheckoutDetails request/response map
      *
-     * @inerhitDoc
+     * @inheritDoc
      */
     protected $_getExpressCheckoutDetailsRequest = ['TENDER', 'TOKEN'];
 
     /**
      * DoExpressCheckoutPayment request/response map
      *
-     * @inerhitDoc
+     * @inheritDoc
      */
     protected $_doExpressCheckoutPaymentRequest = [
         'TENDER', 'TOKEN', 'PAYERID', 'AMT', 'CURRENCY', 'CUSTIP', 'BUTTONSOURCE', 'NOTIFYURL',
     ];
 
     /**
-     * @inerhitDoc
+     * @inheritDoc
      */
     protected $_doExpressCheckoutPaymentResponse = [
         'PNREF', 'PPREF', 'REPMSG', 'AMT', 'PENDINGREASON',
@@ -243,12 +243,12 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
     ];
 
     /**
-     * @inerhitDoc
+     * @inheritDoc
      */
     protected $_getTransactionDetailsRequest = ['ORIGID', 'TENDER'];
 
     /**
-     * @inerhitDoc
+     * @inheritDoc
      */
     protected $_getTransactionDetailsResponse = [
         'PAYERID', 'FIRSTNAME', 'LASTNAME', 'TRANSACTIONID',
@@ -256,7 +256,7 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
     ];
 
     /**
-     * @inerhitDoc
+     * @inheritDoc
      */
     protected $_shippingAddressMap = [
         'SHIPTOCOUNTRY' => 'country_id',
@@ -269,7 +269,7 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
     ];
 
     /**
-     * @inerhitDoc
+     * @inheritDoc
      */
     protected $_billingAddressMap = [
         'BUSINESS' => 'company',
@@ -293,14 +293,14 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
     /**
      * Map for billing address to do request to PayPalUk
      *
-     * @inerhitDoc
+     * @inheritDoc
      */
     protected $_billingAddressMapRequest = [
         'country_id' => 'COUNTRY',
     ];
 
     /**
-     * @inerhitDoc
+     * @inheritDoc
      */
     protected $_lineItemTotalExportMap = [
         Mage_Paypal_Model_Cart::TOTAL_TAX      => 'TAXAMT',
@@ -308,7 +308,7 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
     ];
 
     /**
-     * @inerhitDoc
+     * @inheritDoc
      */
     protected $_lineItemExportItemsFormat = [
         'name'   => 'L_NAME%d',
@@ -317,7 +317,7 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
     ];
 
     /**
-     * @inerhitDoc
+     * @inheritDoc
      */
     protected $_paymentInformationResponse = [
         'PAYERID', 'CORRELATIONID', 'ADDRESSID', 'ADDRESSSTATUS',
@@ -325,14 +325,14 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
     ];
 
     /**
-     * @inerhitDoc
+     * @inheritDoc
      */
     protected $_requiredResponseParams = [
         self::DO_DIRECT_PAYMENT => ['RESULT', 'PNREF'],
     ];
 
     /**
-     * @inerhitDoc
+     * @inheritDoc
      */
     #[Override]
     public function getApiEndpoint()

@@ -22,7 +22,7 @@ class Mage_Reports_Block_Product_Viewed extends Mage_Reports_Block_Product_Abstr
     /**
      * Viewed Product Index model name
      *
-     * @inerhitDoc
+     * @inheritDoc
      */
     protected $_indexName = 'reports/product_index_viewed';
 

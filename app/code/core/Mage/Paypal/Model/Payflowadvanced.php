@@ -17,21 +17,21 @@ declare(strict_types=1);
 class Mage_Paypal_Model_Payflowadvanced extends Mage_Paypal_Model_Payflowlink
 {
     /**
-     * @inerhitDoc
+     * @inheritDoc
      */
     protected $_code = Mage_Paypal_Model_Config::METHOD_PAYFLOWADVANCED;
 
     /**
      * Type of block that generates method form
      *
-     * @inerhitDoc
+     * @inheritDoc
      */
     protected $_formBlockType = 'paypal/payflow_advanced_form';
 
     /**
      * Type of block that displays method information
      *
-     * @inerhitDoc
+     * @inheritDoc
      */
     protected $_infoBlockType = 'paypal/payflow_advanced_info';
 

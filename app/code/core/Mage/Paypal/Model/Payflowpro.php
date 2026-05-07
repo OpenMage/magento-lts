@@ -63,7 +63,7 @@ class Mage_Paypal_Model_Payflowpro extends Mage_Payment_Model_Method_Cc
     public const RESPONSE_CODE_VOID_ERROR              = 108;
 
     /**
-     * @inerhitDoc
+     * @inheritDoc
      */
     protected $_code = Mage_Paypal_Model_Config::METHOD_PAYFLOWPRO;
 

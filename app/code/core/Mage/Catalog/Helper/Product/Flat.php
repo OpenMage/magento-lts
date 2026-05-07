@@ -38,14 +38,14 @@ class Mage_Catalog_Helper_Product_Flat extends Mage_Catalog_Helper_Flat_Abstract
     /**
      * Catalog Product Flat index process code
      *
-     * @inerhitDoc
+     * @inheritDoc
      */
     protected $_indexerCode = self::CATALOG_FLAT_PROCESS_CODE;
 
     /**
      * Catalog Product Flat index process instance
      *
-     * @inerhitDoc
+     * @inheritDoc
      */
     protected $_process = null;
 

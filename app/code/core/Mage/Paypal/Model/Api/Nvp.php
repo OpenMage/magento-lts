@@ -57,7 +57,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
     protected $_captureTypeNotcomplete = 'NotComplete';
 
     /**
-     * @inerhitDoc
+     * @inheritDoc
      */
     protected $_globalMap = [
         // each call
@@ -189,7 +189,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
     /**
      * Filter callbacks for preparing internal amounts to NVP request
      *
-     * @inerhitDoc
+     * @inheritDoc
      */
     protected $_exportToRequestFilters = [
         'AMT'         => '_filterAmount',
@@ -208,7 +208,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
     ];
 
     /**
-     * @inerhitDoc
+     * @inheritDoc
      */
     protected $_importFromRequestFilters = [
         'REDIRECTREQUIRED'  => '_filterToBool',
@@ -487,7 +487,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
     ];
 
     /**
-     * @inerhitDoc
+     * @inheritDoc
      */
     protected $_lineItemTotalExportMap = [
         Mage_Paypal_Model_Cart::TOTAL_SUBTOTAL => 'ITEMAMT',
@@ -496,7 +496,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
     ];
 
     /**
-     * @inerhitDoc
+     * @inheritDoc
      */
     protected $_lineItemExportItemsFormat = [
         'id'     => 'L_NUMBER%d',
@@ -506,7 +506,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
     ];
 
     /**
-     * @inerhitDoc
+     * @inheritDoc
      */
     protected $_shippingOptionsExportItemsFormat = [
         'is_default' => 'L_SHIPPINGOPTIONISDEFAULT%d',
@@ -585,7 +585,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
     protected $_doReferenceTransactionResponse = ['BILLINGAGREEMENTID', 'TRANSACTIONID'];
 
     /**
-     * @inerhitDoc
+     * @inheritDoc
      */
     protected $_debugReplacePrivateDataKeys = [
 

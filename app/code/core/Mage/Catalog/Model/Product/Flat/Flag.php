@@ -17,7 +17,7 @@ declare(strict_types=1);
 class Mage_Catalog_Model_Product_Flat_Flag extends Mage_Core_Model_Flag
 {
     /**
-     * @inerhitDoc
+     * @inheritDoc
      */
     protected $_flagCode = 'catalog_product_flat';
 

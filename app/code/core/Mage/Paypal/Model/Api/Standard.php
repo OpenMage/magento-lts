@@ -15,7 +15,7 @@
 class Mage_Paypal_Model_Api_Standard extends Mage_Paypal_Model_Api_Abstract
 {
     /**
-     * @inerhitDoc
+     * @inheritDoc
      */
     protected $_globalMap = [
         // commands
@@ -44,7 +44,7 @@ class Mage_Paypal_Model_Api_Standard extends Mage_Paypal_Model_Api_Abstract
     ];
 
     /**
-     * @inerhitDoc
+     * @inheritDoc
      */
     protected $_exportToRequestFilters = [
         'amount'   => '_filterAmount',
@@ -64,12 +64,12 @@ class Mage_Paypal_Model_Api_Standard extends Mage_Paypal_Model_Api_Abstract
     ];
 
     /**
-     * @inerhitDoc
+     * @inheritDoc
      */
     protected $_debugReplacePrivateDataKeys = ['business'];
 
     /**
-     * @inerhitDoc
+     * @inheritDoc
      */
     protected $_lineItemTotalExportMap = [
         Mage_Paypal_Model_Cart::TOTAL_SUBTOTAL => 'amount',
@@ -79,7 +79,7 @@ class Mage_Paypal_Model_Api_Standard extends Mage_Paypal_Model_Api_Abstract
     ];
 
     /**
-     * @inerhitDoc
+     * @inheritDoc
      */
     protected $_lineItemExportItemsFormat = [
         'id'     => 'item_number_%d',
@@ -89,7 +89,7 @@ class Mage_Paypal_Model_Api_Standard extends Mage_Paypal_Model_Api_Abstract
     ];
 
     /**
-     * @inerhitDoc
+     * @inheritDoc
      */
     protected $_lineItemExportItemsFilters = [
         'qty'      => '_filterQty',

@@ -26,7 +26,7 @@ class Mage_Payment_Model_Method_Free extends Mage_Payment_Model_Method_Abstract
     /**
      * Payment Method features
      *
-     * @inerhitDoc
+     * @inheritDoc
      */
     protected $_canAuthorize = true;
 
